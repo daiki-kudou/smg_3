@@ -498,7 +498,7 @@ class Venue extends Model
       $services_total =
         $services_total
         + ($venue_services[$ii]->price)
-        * ($selected_services[$ii]);
+        * ((int)$selected_services[$ii]);
       if ($selected_services[$ii] != 0) {
         $selected_s_item = $venue_services[$ii]->item;
         $selected_s_price = $venue_services[$ii]->price;
