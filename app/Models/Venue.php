@@ -508,6 +508,12 @@ class Venue extends Model
     }
 
     $total_items_price = $equipments_total + $services_total; //備品＆サービス合計金額
-    return [$total_items_price, $equipments_details, $services_details, $equipments_total, $services_total];
+    return [
+      $total_items_price,
+      $equipments_details,
+      $services_details,
+      $equipments_total,
+      $services_total
+    ];
   }
 }

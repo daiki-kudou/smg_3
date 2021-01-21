@@ -123,7 +123,7 @@ $(function () {
     var services_length = $('.services table tbody tr').length;
     for (let services_index = 0; services_index < services_length; services_index++) {
       var s_target = $('.services table tbody tr').eq(services_index).find("input:radio[name='" + 'service' + (services_index + 1) + "']:checked").val();
-      services_array.push(s_target);
+      services_array.push(Number(s_target));
     }
     ajaxGetItemsDetails(venue_id, equipemnts_array, services_array);
 
@@ -526,6 +526,8 @@ $(function () {
       },
     })
       .done(function ($each) {
+        console.log('成功？？', $each);
+
         $('#fullOverlay').css('display', 'none');
         // ※$eachの[0][0]には備品とサービスの合計料金
         // ※$eachの[0][1]には連想配列で選択された備品の個数、単価、備品名
