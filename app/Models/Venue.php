@@ -494,27 +494,27 @@ class Venue extends Model
     $venue_services = $this->services()->get();
     $services_total = 0;
     $services_details = [];
-    // for ($ii = 0; $ii < count($venue_services); $ii++) {
-    //   $services_total =
-    //     $services_total
-    //     + ($venue_services[$ii]->price)
-    //     * ($selected_services[$ii]);
-    //   if ($selected_services[$ii] != 0) {
-    //     $selected_s_item = $venue_services[$ii]->item;
-    //     $selected_s_price = $venue_services[$ii]->price;
-    //     $selected_s_count = $selected_services[$ii];
-    //     $services_details[] = [$selected_s_item, $selected_s_price, $selected_s_count];
-    //   }
-    // }
+    for ($ii = 0; $ii < count($venue_services); $ii++) {
+      $services_total =
+        $services_total
+        + ($venue_services[$ii]->price)
+        * ($selected_services[0]);
+      if ($selected_services[$ii] != 0) {
+        $selected_s_item = $venue_services[$ii]->item;
+        $selected_s_price = $venue_services[$ii]->price;
+        $selected_s_count = $selected_services[$ii];
+        $services_details[] = [$selected_s_item, $selected_s_price, $selected_s_count];
+      }
+    }
 
     $total_items_price = $equipments_total + $services_total; //備品＆サービス合計金額
-    // return [
-    //   $total_items_price,
-    //   $equipments_details,
-    //   $services_details,
-    //   $equipments_total,
-    //   $services_total
-    // ];
-    return $selected_services;
+    return [
+      $total_items_price,
+      $equipments_details,
+      $services_details,
+      $equipments_total,
+      $services_total
+    ];
+    // return $selected_services;
   }
 }

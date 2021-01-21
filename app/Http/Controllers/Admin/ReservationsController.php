@@ -137,12 +137,12 @@ class ReservationsController extends Controller
 
     $result = $venue->calculate_items_price($selected_equipments, $selected_services);
 
-    return [$result];
-    // if (is_null($selected_equipments) && is_null($selected_services)) {
-    //   return fail;
-    // } else {
-    //   return [$result];
-    // }
+    // return [$result];
+    if (is_null($selected_equipments) && is_null($selected_services)) {
+      return fail;
+    } else {
+      return [$result];
+    }
   }
 
   /***********************

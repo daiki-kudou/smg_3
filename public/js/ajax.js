@@ -238,7 +238,6 @@ $(function () {
         }
         ExceptString($(".equipemnts table tbody input[name^='equipemnt']"));
 
-
         $('.services table tbody').html('');
         $.each($items[1], function (index, value) {
           // ココでサービス取得
