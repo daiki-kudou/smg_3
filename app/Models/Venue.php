@@ -497,6 +497,7 @@ class Venue extends Model
     for ($ii = 0; $ii < count($venue_services); $ii++) {
       $services_total = $services_total + ($venue_services[$ii]->price) * ($selected_services[$ii]);
       if ($selected_services[$ii] != 0) {
+        // ※注意　ここでherokuにてエラーがでている
         $selected_s_item = $venue_services[$ii]->item;
         $selected_s_price = $venue_services[$ii]->price;
         $selected_s_count = $selected_services[$ii];
