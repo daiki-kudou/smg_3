@@ -132,12 +132,17 @@ $(function () {
     var layout_clean = $('input:radio[name="layout_clean"]:checked').val();
     ajaxGetLayoutPrice(venue_id, layout_prepare, layout_clean);
 
-
     // 割引入力部分、全部初期化
     $('.venue_discount_percent').val('');
     $('.venue_dicsount_number').val('');
     $('.discount_item').val('');
     $('.layout_discount').val('');
+
+    // 手入力部分初期化
+    $('input[name^="hand_input"]').each(function (index, elem) {
+      $(elem).val('');
+    })
+
 
 
     // 関数処理の順番にばらつきがあるので、１秒後に実行
@@ -283,6 +288,9 @@ $(function () {
         $("#sales_start option").each(function ($result) {
           $('#sales_start option').eq($result).prop('disabled', false);
         });
+        $("#sales_finish option").each(function ($result) {
+          $('#sales_finish option').eq($result).prop('disabled', false);
+        });
 
 
         for (let index = 0; index < $times[0].length; index++) {
@@ -407,7 +415,7 @@ $(function () {
       },
     })
       .done(function ($details) {
-        console.log('$details', $details);
+        $('#fullOverlay').css('display', 'none');
         // 手入力部分は初期化
         $('#handinput_venue').val('');
         $('#handinput_extend').val('');
@@ -422,7 +430,6 @@ $(function () {
         var extend_price = ($details[0][1]);
         var usage = ($details[0][2]);
         var extend_time = ($details[0][3]);
-        $('#fullOverlay').css('display', 'none');
         console.log($details);
         $('.venue_extend').text('');
         $('.extend').text('');
@@ -475,7 +482,6 @@ $(function () {
           .then((value) => {
             swal(`アクセア料金を選択し利用時間が15時間を超過した場合、そのまま進み会場料金を手入力してください`);
           });
-
         $('.venue_extend').text('');
         $('.extend').text('');
         $('.extend').val('');
@@ -730,7 +736,6 @@ $(function () {
           ExceptString($(".luggage table tbody input[name='luggage_count']"));
           ExceptString($(".luggage table tbody input[name='luggage_return']"));
           ExceptString($(".luggage table tbody input[name='luggage_price']"));
-
         } else {
           $('.luggage table tbody').html('');
           $('.luggage table tbody').append("<tr><td class='colspan='2''>該当会場は荷物預かりを受け付けていません</td></tr>");

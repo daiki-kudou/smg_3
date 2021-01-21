@@ -194,7 +194,7 @@ $(function () {
     var base_venue = $('.after_discount_price').eq(0).text();//会場の割引後の料金
     var base_items = $('.items_discount_price').eq(0).text();//サービスr＆備品の料金
     var base_layout = $('.after_duscount_layouts').eq(0).text();//レイアウトの料金
-    var base_handinput = $('#handinput_subtotal').eq(0).text();
+    var base_handinput = $('#handinput_subtotal').val();
     var base_total = Number(base_venue) + Number(base_items) + Number(base_layout) + Number(base_handinput);
     var base_tax = Math.floor(base_total * 0.1);
     var base_total_amout = base_total + base_tax;
@@ -315,7 +315,7 @@ $(function () {
     var base_venue = $('.after_discount_price').eq(0).text();//会場の割引後の料金
     var base_items = $('.items_discount_price').eq(0).text();//サービスr＆備品の料金
     var base_layout = $('.after_duscount_layouts').eq(0).text();//レイアウトの料金
-    var base_handinput = $('#handinput_subtotal').eq(0).text();
+    var base_handinput = $('#handinput_subtotal').val();
     var base_total = Number(base_venue) + Number(base_items) + Number(base_layout) + Number(base_handinput);
 
     var base_tax = Math.floor(base_total * 0.1);
@@ -427,7 +427,7 @@ $(function () {
     var base_venue = $('.after_discount_price').eq(0).text();//会場の割引後の料金
     var base_items = $('.items_discount_price').eq(0).text();//サービスr＆備品の料金
     var base_layout = $('.after_duscount_layouts').eq(0).text();//レイアウトの料金
-    var base_handinput = $('#handinput_subtotal').eq(0).text();
+    var base_handinput = $('#handinput_subtotal').val();
     var base_total = Number(base_venue) + Number(base_items) + Number(base_layout) + Number(base_handinput);
 
     var base_tax = Math.floor(base_total * 0.1);
@@ -602,7 +602,7 @@ $(function () {
     var base_venue = $('.after_discount_price').eq(0).text();//会場の割引後の料金
     var base_items = $('.items_discount_price').eq(0).text();//サービスr＆備品の料金
     var base_layout = $('.after_duscount_layouts').eq(0).text();//レイアウトの料金
-    var base_handinput = $('#handinput_subtotal').eq(0).text();
+    var base_handinput = $('#handinput_subtotal').val();
     var base_total = Number(base_venue) + Number(base_items) + Number(base_layout) + Number(base_handinput);
     var base_tax = Math.floor(base_total * 0.1);
     var base_total_amout = base_total + base_tax;
@@ -660,7 +660,7 @@ $(function () {
 
 
 $(function () {
-  $('.more_btn_lg').on('click', function () {
+  $('.more_btn_lg, #check_submit').on('click', function () {
     if (!confirm('入力内容と反映された請求の一致を確認しましたか？')) {
       return false;
     } else {
@@ -675,21 +675,21 @@ $(function () {
     var handinput_venue = Number($(this).val());
     var handinput_extend = Number($('#handinput_extend').val());
     var handinput_discount = Number($('#handinput_discount').val());
-    $('#handinput_subtotal').text("");
-    $('#handinput_subtotal').text(handinput_venue + handinput_extend + handinput_discount);
+    $('#handinput_subtotal').val('');
+    $('#handinput_subtotal').val(handinput_venue + handinput_extend + handinput_discount);
     var handinput_subtotal = handinput_venue + handinput_extend + handinput_discount;
-    $('#handinput_tax').text('');
-    $('#handinput_tax').text(Number(handinput_subtotal) * 0.1);
-    $('#handinput_total').text('');
+    $('#handinput_tax').val('');
+    $('#handinput_tax').val(Number(handinput_subtotal) * 0.1);
+    $('#handinput_total').val('');
     var handinput_tax = Math.floor(handinput_subtotal * 0.1);
     var handinput_total = handinput_subtotal;
-    $('#handinput_total').text(handinput_total + handinput_tax);
+    $('#handinput_total').val(handinput_total + handinput_tax);
 
     // 総請求額　反映
     var base_venue = $('.after_discount_price').eq(0).text();//会場の割引後の料金
     var base_items = $('.items_discount_price').eq(0).text();//サービスr＆備品の料金
     var base_layout = $('.after_duscount_layouts').eq(0).text();//レイアウトの料金
-    var base_handinput = $('#handinput_subtotal').eq(0).text();
+    var base_handinput = $('#handinput_subtotal').val();
     var base_total = Number(base_venue) + Number(base_items) + Number(base_layout) + Number(base_handinput);
     var base_tax = Math.floor(base_total * 0.1);
     var base_total_amout = base_total + base_tax;
@@ -711,20 +711,20 @@ $(function () {
     var handinput_venue = Number($('#handinput_venue').val());
     var handinput_extend = Number($(this).val());
     var handinput_discount = Number($('#handinput_discount').val());
-    $('#handinput_subtotal').text("");
-    $('#handinput_subtotal').text(handinput_venue + handinput_extend + handinput_discount);
+    $('#handinput_subtotal').val("");
+    $('#handinput_subtotal').val(handinput_venue + handinput_extend + handinput_discount);
     var handinput_subtotal = handinput_venue + handinput_extend + handinput_discount;
-    $('#handinput_tax').text('');
-    $('#handinput_tax').text(Math.floor(Number(handinput_subtotal) * 0.1));
-    $('#handinput_total').text('');
+    $('#handinput_tax').val('');
+    $('#handinput_tax').val(Math.floor(Number(handinput_subtotal) * 0.1));
+    $('#handinput_total').val('');
     var handinput_tax = Math.floor(handinput_subtotal * 0.1);
     var handinput_total = handinput_subtotal;
-    $('#handinput_total').text(handinput_total + handinput_tax);
+    $('#handinput_total').val(handinput_total + handinput_tax);
     // 総請求額　反映
     var base_venue = $('.after_discount_price').eq(0).text();//会場の割引後の料金
     var base_items = $('.items_discount_price').eq(0).text();//サービスr＆備品の料金
     var base_layout = $('.after_duscount_layouts').eq(0).text();//レイアウトの料金
-    var base_handinput = $('#handinput_subtotal').eq(0).text();
+    var base_handinput = $('#handinput_subtotal').val();
     var base_total = Number(base_venue) + Number(base_items) + Number(base_layout) + Number(base_handinput);
     var base_tax = Math.floor(base_total * 0.1);
     var base_total_amout = base_total + base_tax;
@@ -746,20 +746,20 @@ $(function () {
     var handinput_venue = Number($('#handinput_venue').val());
     var handinput_extend = Number($('#handinput_extend').val());
     var handinput_discount = Number($(this).val());
-    $('#handinput_subtotal').text("");
-    $('#handinput_subtotal').text(handinput_venue + handinput_extend + handinput_discount);
+    $('#handinput_subtotal').val("");
+    $('#handinput_subtotal').val(handinput_venue + handinput_extend + handinput_discount);
     var handinput_subtotal = handinput_venue + handinput_extend + handinput_discount;
-    $('#handinput_tax').text('');
-    $('#handinput_tax').text(Math.floor(Number(handinput_subtotal) * 0.1));
-    $('#handinput_total').text('');
+    $('#handinput_tax').val('');
+    $('#handinput_tax').val(Math.floor(Number(handinput_subtotal) * 0.1));
+    $('#handinput_total').val('');
     var handinput_tax = Math.floor(handinput_subtotal * 0.1);
     var handinput_total = handinput_subtotal;
-    $('#handinput_total').text(handinput_total + handinput_tax);
+    $('#handinput_total').val(handinput_total + handinput_tax);
     // 総請求額　反映
     var base_venue = $('.after_discount_price').eq(0).text();//会場の割引後の料金
     var base_items = $('.items_discount_price').eq(0).text();//サービスr＆備品の料金
     var base_layout = $('.after_duscount_layouts').eq(0).text();//レイアウトの料金
-    var base_handinput = $('#handinput_subtotal').eq(0).text();
+    var base_handinput = $('#handinput_subtotal').val();
     var base_total = Number(base_venue) + Number(base_items) + Number(base_layout) + Number(base_handinput);
     var base_tax = Math.floor(base_total * 0.1);
     var base_total_amout = base_total + base_tax;

@@ -589,7 +589,6 @@ $(function () {
     });
   });
   $("input[name^='price']").each(function (index, elem) {
-
     $("input[name='price" + index + "']").rules("add", {
       required: true,
       number: true,
@@ -599,14 +598,14 @@ $(function () {
       }
     });
   });
-  $("input[name='extend").rules("add", {
-    required: true,
-    number: true,
-    messages: {
-      required: "※必須項目です",
-      number: "※半角英数字を入力してください"
-    }
-  });
+  // $("input[name='extend").rules("add", {
+  //   required: true,
+  //   number: true,
+  //   messages: {
+  //     required: "※必須項目です",
+  //     number: "※半角英数字を入力してください"
+  //   }
+  // });
 
 
 });

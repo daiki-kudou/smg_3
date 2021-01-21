@@ -514,28 +514,52 @@
         <tbody>
           <tr>
             <td>会場料</td>
-            <td><input type="text" class="form-control"></td>
-            <td><input type="text" class="form-control"></td>
-            <td><input type="text" class="form-control" id='handinput_venue'></td>
+            <td>
+              {{ Form::text('hand_input_venueprice', '', ['class'=>'form-control']) }}
+            </td>
+            <td>
+              {{ Form::text('hand_input_count', '', ['class'=>'form-control']) }}
+            </td>
+            <td>
+              {{ Form::text('hand_input_subtotal', '', ['class'=>'form-control', 'id'=>'handinput_venue']) }}
+            </td>
           </tr>
           <tr>
             <td>延長料金</td>
-            <td><input type="text" class="form-control"></td>
-            <td><input type="text" class="form-control"></td>
-            <td><input type="text" class="form-control" id="handinput_extend"></td>
+            <td>
+              {{ Form::text('hand_input_extendprice', '', ['class'=>'form-control']) }}
+            </td>
+            <td>
+              {{ Form::text('hand_input_extendcount', '', ['class'=>'form-control']) }}
+            </td>
+            <td>
+              {{ Form::text('hand_input_extendsubtotal', '', ['class'=>'form-control', 'id'=>'handinput_extend']) }}
+            </td>
           </tr>
           <tr>
             <td>割引</td>
-            <td><input type="text" class="form-control"></td>
-            <td><input type="text" class="form-control"></td>
-            <td><input type="text" class="form-control" id="handinput_discount"></td>
+            <td>
+              {{ Form::text('hand_input_discountprice', '', ['class'=>'form-control']) }}
+            </td>
+            <td>
+              {{ Form::text('hand_input_discountcount', '', ['class'=>'form-control']) }}
+            </td>
+            <td>
+              {{ Form::text('hand_input_discountsubtotal', '', ['class'=>'form-control','id'=>'handinput_discount']) }}
+            </td>
           </tr>
         </tbody>
       </table>
       <div class="text-right">
-        <p>小計 <span id="handinput_subtotal"></span></p>
-        <p>消費税<span id="handinput_tax"></span></p>
-        <p>請求総額<span id="handinput_total"></span></p>
+        <p>小計
+          {{ Form::text('handinput_subtotal', '', ['class'=>'form-control text-right', 'id'=>'handinput_subtotal', 'readonly']) }}
+        </p>
+        <p>消費税
+          {{ Form::text('handinput_tax', '', ['class'=>'form-control text-right', 'id'=>'handinput_tax', 'readonly']) }}
+        </p>
+        <p>請求総額
+          {{ Form::text('handinput_total', '', ['class'=>'form-control text-right', 'id'=>'handinput_total', 'readonly']) }}
+        </p>
       </div>
     </div>
   </div>

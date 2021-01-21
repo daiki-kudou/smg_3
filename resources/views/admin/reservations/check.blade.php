@@ -223,10 +223,6 @@
               </tbody>
             </table>
 
-
-
-
-
             <table class="table table-bordered eating-table">
               <tr>
                 <td>
@@ -414,6 +410,77 @@
             </div>
             <!-- 請求書情報 終わり---------------------------- -->
             <!-- 会場料請求内容----------- -->
+
+            @if (!$request->venue_price&&!$request->venue_subtotal&&!$request->venue_total)
+            {{-- ここが手打ち版の表示領域 --}}
+            <div class="hand_input">
+              <h3
+                style="font-weight: bold;font-size: 16px;background: #840A01;color: #fff;margin-bottom: 0;padding: 0.8em;">
+                会場料（手入力）</h3>
+              <div class="hand_input_details">
+                <table class="table table-bordered">
+                  <thead>
+                    <tr>
+                      <td>内容</td>
+                      <td>単価</td>
+                      <td>数量</td>
+                      <td>金額</td>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td>会場料</td>
+                      <td>
+                        {{ Form::text('hand_input_venueprice',$request->hand_input_venueprice,['class'=>'form-control', 'readonly'] )}}
+                      </td>
+                      <td>
+                        {{ Form::text('hand_input_count',$request->hand_input_count,['class'=>'form-control', 'readonly'] )}}
+                      </td>
+                      <td>
+                        {{ Form::text('hand_input_subtotal',$request->hand_input_subtotal,['class'=>'form-control', 'readonly'] )}}
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>延長料金</td>
+                      <td>
+                        {{ Form::text('hand_input_extendprice',$request->hand_input_extendprice,['class'=>'form-control', 'readonly'] )}}
+                      </td>
+                      <td>
+                        {{ Form::text('hand_input_extendcount',$request->hand_input_extendcount,['class'=>'form-control', 'readonly'] )}}
+                      </td>
+                      <td>
+                        {{ Form::text('hand_input_extendsubtotal',$request->hand_input_extendsubtotal,['class'=>'form-control', 'readonly'] )}}
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>割引料金</td>
+                      <td>
+                        {{ Form::text('hand_input_discountprice',$request->hand_input_discountprice,['class'=>'form-control', 'readonly'] )}}
+                      </td>
+                      <td>
+                        {{ Form::text('hand_input_discountcount',$request->hand_input_discountcount,['class'=>'form-control', 'readonly'] )}}
+                      </td>
+                      <td>
+                        {{ Form::text('hand_input_discountsubtotal',$request->hand_input_discountsubtotal,['class'=>'form-control', 'readonly'] )}}
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+                <div class="text-right">
+                  <p>小計
+                    {{ Form::text('venue_total',$request->handinput_subtotal,['class'=>'form-control text-right','id'=>'handinput_subtotal', 'readonly'] )}}
+                  </p>
+                  <p>消費税
+                    {{ Form::text('############',$request->handinput_tax,['class'=>'form-control text-right','id'=>'handinput_tax', 'readonly'] )}}
+                  </p>
+                  <p>請求総額
+                    {{ Form::text('discount_venue_total',$request->handinput_total,['class'=>'form-control text-right','id'=>'handinput_total', 'readonly'] )}}
+                  </p>
+                </div>
+              </div>
+            </div>
+            @else
+            {{-- ここが正規の部分の表示領域 --}}
             <div class="bill-box">
               <h3 class="row">会場料</h3>
               <dl class="row bill-box_wrap">
@@ -430,7 +497,6 @@
                   <dd class="text-right">{{intval($request->venue_price)+intval($request->extend)}}</dd>
                   {{ Form::hidden('venue_total',intval($request->venue_price)+intval($request->extend) )}}
                 </div>
-
                 <div class="col-6">
                   <div class="row">
                     <div class="col-4 bill-box_cell cell-gray">
@@ -446,7 +512,6 @@
                     </div>
                   </div>
                 </div>
-
                 <div class="col-6">
                   <div class="row">
                     <div class="col-4 bill-box_cell cell-gray">
@@ -462,15 +527,12 @@
                     </div>
                   </div>
                 </div>
-
                 <div class="col-12 bill-box_cell text-right">
                   <p class="font-weight-bold">割引後会場料金合計</p>
                   <p class="">{{$request->after_discount_price}}</p>
                   {{ Form::hidden('discount_venue_total',$request->after_discount_price)}}
                 </div>
               </dl>
-
-
               <!-- 料金内訳-------------------------------------------------------------- -->
               <div class="bill-list">
                 <h3 class="row">料金内訳</h3>
@@ -510,10 +572,11 @@
                 </div>
               </div>
               <!-- 料金内訳 終わり---------------------------- -->
-
-
             </div>
             <!-- 請求内容 終わり---------------------------- -->
+            @endif
+
+
 
             <!-- 備品その他　請求内容----------- -->
             <div class="bill-box">

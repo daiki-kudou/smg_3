@@ -243,6 +243,8 @@ class ReservationsController extends Controller
 
   public function check(Request $request)
   {
+    var_dump($request->all());
+
     $reserve_date = $request->reserve_date;
     $venue_id = $request->venue_id;
     $venue = Venue::find($venue_id);
@@ -480,7 +482,8 @@ class ReservationsController extends Controller
         'double_check_status' => 0, //デフォで0
         'category' => 1 //デフォで１。　新規以外だと　2:その他有料備品　3:レイアウト　4:その他
       ]);
-
+      // 会場料金があれば、会場料金。
+      // なければ、手入力された金額が保存
       if ($request->v_breakdowns) {
         foreach ($request->v_breakdowns as $key => $value) {
           $bills->breakdowns()->create([
@@ -491,7 +494,36 @@ class ReservationsController extends Controller
             'unit_type' => $value['unit_type'],
           ]);
         }
+      } else {
+        if ($request->hand_input_venueprice) {
+          $bills->breakdowns()->create([
+            'unit_item' => '会場料金',
+            'unit_cost' => $request->hand_input_venueprice,
+            'unit_count' => $request->hand_input_count,
+            'unit_subtotal' => $request->hand_input_subtotal,
+            'unit_type' => 1
+          ]);
+        };
+        if ($request->hand_input_extendprice) {
+          $bills->breakdowns()->create([
+            'unit_item' => '延長料金',
+            'unit_cost' => $request->hand_input_extendprice,
+            'unit_count' => $request->hand_input_extendcount,
+            'unit_subtotal' => $request->hand_input_extendsubtotal,
+            'unit_type' => 1
+          ]);
+        };
+        if ($request->hand_input_discountprice) {
+          $bills->breakdowns()->create([
+            'unit_item' => '割引料金',
+            'unit_cost' => $request->hand_input_discountprice,
+            'unit_count' => $request->hand_input_discountcount,
+            'unit_subtotal' => $request->hand_input_discountsubtotal,
+            'unit_type' => 1
+          ]);
+        };
       };
+      // 通常の備品サービス
       if ($request->e_breakdowns) {
         foreach ($request->e_breakdowns as $key => $value) {
           $bills->breakdowns()->create([
@@ -503,6 +535,7 @@ class ReservationsController extends Controller
           ]);
         }
       }
+      // 通常のレイアウト
       if ($request->l_breakdowns) {
         foreach ($request->l_breakdowns as $key => $value) {
           $bills->breakdowns()->create([
