@@ -590,6 +590,7 @@ $(function () {
       .fail(function ($each) {
         $('#fullOverlay').css('display', 'none');
         console.log('備品又はサービスの料金取得に失敗しました。ページをリロードし再度試して下さい');
+        console.log('備品エラー', $each);
         $('.items_equipments table tbody').html(''); //テーブル初期化
         $('.selected_equipments_price').text(''); //有料備品料金初期化
         $('.selected_equipments_price').val(''); //有料備品料金初期化
