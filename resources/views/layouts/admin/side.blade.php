@@ -35,7 +35,34 @@
     <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
       <li class="nav-item has-treeview">
         <a href="#" class="nav-link">
-          <i class="nav-icon fas fa-book-open" style="color:red;"></i>
+          <i class="nav-icon fas fa-atom"></i>
+          <p>仮抑え<i class="right fas fa-angle-left"></i></p>
+        </a>
+        <ul class="nav nav-treeview">
+          <li class="nav-item">
+            <a href="{{'#'}}" class="nav-link pre_reservations-index">
+              <i class="far fa-circle nav-icon ml-4"></i>
+              <p>一覧</p>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a href="{{'#'}}" class="nav-link pre_reservations-create">
+              <i class="far fa-circle nav-icon ml-4"></i>
+              <p>新規登録</p>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a href="#" class="nav-link">
+              <i class="far fa-circle nav-icon ml-4"></i>
+              <p>新規登録（仲介会社経由）</p>
+            </a>
+          </li>
+        </ul>
+      </li>
+
+      <li class="nav-item has-treeview">
+        <a href="#" class="nav-link">
+          <i class="nav-icon fas fa-book-open"></i>
           <p>予約<i class="right fas fa-angle-left"></i></p>
         </a>
         <ul class="nav nav-treeview">
@@ -54,7 +81,7 @@
           <li class="nav-item">
             <a href="#" class="nav-link">
               <i class="far fa-circle nav-icon ml-4"></i>
-              <p>一括登録</p>
+              <p>新規登録（仲介会社経由）</p>
             </a>
           </li>
         </ul>
@@ -62,7 +89,7 @@
 
       <li class="nav-item has-treeview">
         <a href="#" class="nav-link">
-          <i class="nav-icon fas fa-calendar-week" style="color:yellow;"></i>
+          <i class="nav-icon fas fa-calendar-week"></i>
           <p>予約状況カレンダー<i class="right fas fa-angle-left"></i></p>
         </a>
         <ul class="nav nav-treeview">
@@ -83,7 +110,7 @@
 
       <li class="nav-item has-treeview">
         <a href="#" class="nav-link ">
-          <i class="nav-icon fas fa-tasks" style="color:green;"></i>
+          <i class="nav-icon fas fa-tasks"></i>
           <p>顧客管理<i class="right fas fa-angle-left"></i></p>
         </a>
         <ul class="nav nav-treeview">
@@ -104,7 +131,7 @@
 
       <li class="nav-item has-treeview">
         <a href="#" class="nav-link venues">
-          <i class="nav-icon fas fa-map-marker-alt" style="color:aqua;"></i>
+          <i class="nav-icon fas fa-map-marker-alt"></i>
           <p>会場管理<i class="right fas fa-angle-left"></i></p>
         </a>
         <ul class="nav nav-treeview">
@@ -149,7 +176,7 @@
 
       <li class="nav-item has-treeview">
         <a href="#" class="nav-link">
-          <i class="nav-icon fas fa-yen-sign" style="color:blue;"></i>
+          <i class="nav-icon fas fa-yen-sign"></i>
           <p>売上請求情報<i class="right fas fa-angle-left"></i></p>
         </a>
         <ul class="nav nav-treeview">
@@ -164,7 +191,7 @@
 
       <li class="nav-item has-treeview">
         <a href="#" class="nav-link">
-          <i class="nav-icon fas fa-building" style="color:magenta;"></i>
+          <i class="nav-icon fas fa-building"></i>
           <p>仲介会社<i class="right fas fa-angle-left"></i></p>
         </a>
         <ul class="nav nav-treeview">
@@ -185,7 +212,7 @@
 
       <li class="nav-item has-treeview">
         <a href="#" class="nav-link">
-          <i class="nav-icon fas fa-mail-bulk" style="color:salmon;"></i>
+          <i class="nav-icon fas fa-mail-bulk"></i>
           <p>メールテンプレート管理<i class="right fas fa-angle-left"></i></p>
         </a>
         <ul class="nav nav-treeview">
@@ -206,7 +233,7 @@
 
       <li class="nav-item has-treeview">
         <a href="#" class="nav-link">
-          <i class="nav-icon fas fa-user-shield" style="color:seagreen;"></i>
+          <i class="nav-icon fas fa-user-shield"></i>
           <p>管理者管理<i class="right fas fa-angle-left"></i></p>
         </a>
         <ul class="nav nav-treeview">

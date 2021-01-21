@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use App\Models\User;
 use App\Models\Venue;
 use App\Models\Reservation;
+use App\Models\Bill;
 
 use Illuminate\Support\Facades\Auth;
 
@@ -67,6 +68,21 @@ class HomeController extends Controller
       return redirect()->route('user.home.index');
     });
   }
+
+  public function updateOtherBillsStatus(Request $request)
+  {
+    return DB::transaction(function () use ($request) {
+
+      $bill = Bill::find($request->bill_id);
+      $bill->update([
+        'reservation_status' => $request->update_status
+      ]);
+
+      $request->session()->regenerate();
+      return redirect()->route('user.home.index');
+    });
+  }
+
 
   public function generate_invoice($id)
   {

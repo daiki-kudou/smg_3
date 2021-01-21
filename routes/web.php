@@ -21,6 +21,7 @@ Route::namespace('User')->prefix('user')->name('user.')->group(function () {
     Route::resource('home', 'HomeController');
     Route::put('home/{home}/update_status', 'HomeController@updateStatus')->name('home.updatestatus');
     Route::get('home/generate_invoice/{home}', 'HomeController@generate_invoice')->name('home.generate_invoice');
+    Route::put('home/{home}/update_other_bills', 'HomeController@updateOtherBillsStatus');
   });
 
   // メール入力フォーム

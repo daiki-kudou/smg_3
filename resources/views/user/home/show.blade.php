@@ -926,7 +926,7 @@
           <!-- 請求内容 終わり---------------------------- -->
         </section>
         <!-- 請求セクション　キャンセル料-　キャンセルをしたときに、表示------------------------------------------------------------------ -->
-        <section class="bill-wrap section-wrap section-bg">
+        {{-- <section class="bill-wrap section-wrap section-bg">
           <div class="bill-bg">
             <!-- 請求書情報-------- -->
             <div class="bill-ttl mb-5">
@@ -1010,10 +1010,29 @@
             </div>
             <!-- 請求内容 終わり---------------------------- -->
           </div>
-        </section>
-      </section>
+        </section> --}}
+        {{-- 承認部分 --}}
+        @if ($other_bill->reservation_status==2)
+        <div class="confirm-box">
+          <p>上記、予約内容で間違いないでしょうか。問題なければ、予約の承認をお願い致します。</p>
+          <p class="text-center mb-5 mt-3">
+            {{ Form::open(['url' => '/user/home/'.$other_bill->id.'/update_other_bills', 'method'=>'PUT', 'id'=>'agents_create_form']) }}
+            @csrf
+            {{ Form::hidden('update_status',3) }}
+            {{ Form::hidden('bill_id',$other_bill->id) }}
+
+            {{ Form::submit('予約を承認する',['class' => 'btn more_btn4_lg']) }}
+            {{ Form::close() }}
+          </p>
+          <p>※ご要望に相違がある場合は、下記連絡先までご連絡ください。<br>
+            TEL：06-1234-5678<br>
+            mail：test@gmail.com</p>
+        </div>
+        @endif
     </div>
     @endforeach
+
+    </section>
     {{-- ■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■ --}}
 
     <!-- 合計請求額------------------------------------------------------------------- -->
