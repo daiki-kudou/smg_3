@@ -5,6 +5,8 @@
 <link href="{{ asset('/css/template.css') }}" rel="stylesheet">
 <script src="{{ asset('/js/template.js') }}"></script>
 <script src="{{ asset('/js/ajax.js') }}"></script>
+<script src="{{ asset('/js/validation.js') }}"></script>
+
 
 {{-- ajax画面変遷時の待機画面 --}}
 <style>
@@ -52,7 +54,7 @@
   <hr>
 </div>
 
-{{Form::open(['url' => 'admin/reservations/create/check', 'method' => 'POST'])}}
+{{Form::open(['url' => 'admin/reservations/create/check', 'method' => 'POST', 'id'=>'reservationCreateForm'])}}
 @csrf
 <div class="container-field bg-white text-dark">
   <div class="row">
@@ -62,16 +64,17 @@
           <td colspan="2">予約情報</td>
         </tr>
         <tr>
-          <td class="table-active">利用日</td>
+          <td class="table-active form_required">利用日</td>
           <td>
             {{ Form::text('reserve_date', isset($request)?$request->reserve_date:'' ,['class'=>'form-control', 'id'=>'datepicker1', 'placeholder'=>'入力してください'] ) }}
+            <p class="is-error-reserve_date" style="color: red"></p>
           </td>
         </tr>
         <tr>
-          <td class="table-active">会場</td>
+          <td class="table-active form_required">会場</td>
           <td>
             <select id="venues_selector" class=" form-control" name='venue_id'>
-              <option value='#'>選択してください</option>
+              <option value='#' disabled selected>選択してください</option>
               @foreach ($venues as $venue)
               <option value="{{$venue->id}}" @if (isset($request->venue_id))
                 @if ($request->venue_id==$venue->id)
@@ -81,6 +84,7 @@
                 >{{$venue->name_area}}{{$venue->name_bldg}}{{$venue->name_venue}}</option>
               @endforeach
             </select>
+            <p class="is-error-venue_id" style="color: red"></p>
             <div class="price_selector">
               <div>
                 <small>※料金体系を選択してください</small>
@@ -99,11 +103,11 @@
           </td>
         </tr>
         <tr>
-          <td class="table-active">入室時間</td>
+          <td class="table-active form_required">入室時間</td>
           <td>
             <div>
               <select name="enter_time" id="sales_start" class="form-control">
-                <option disabled>選択してください</option>
+                <option disabled selected>選択してください</option>
                 @for ($start = 0*2; $start <=23*2; $start++) <option
                   value="{{date("H:i:s", strtotime("00:00 +". $start * 30 ." minute"))}}" @if (isset($request))
                   @if($request->enter_time==(date("H:i:s", strtotime("00:00 +". $start * 30 ." minute"))))
@@ -115,15 +119,16 @@
                   </option>
                   @endfor
               </select>
+              <p class="is-error-enter_time" style="color: red"></p>
             </div>
           </td>
         </tr>
         <tr>
-          <td class="table-active">退室時間</td>
+          <td class="table-active form_required">退室時間</td>
           <td>
             <div>
               <select name="leave_time" id="sales_finish" class="form-control">
-                <option disabled>選択してください</option>
+                <option disabled selected>選択してください</option>
                 @for ($start = 0*2; $start <=23*2; $start++) <option
                   value="{{date("H:i:s", strtotime("00:00 +". $start * 30 ." minute"))}}" @if (isset($request))
                   @if($request->leave_time==(date("H:i:s", strtotime("00:00 +". $start * 30 ." minute"))))
@@ -134,6 +139,7 @@
                   {{date("H時i分", strtotime("00:00 +". $start * 30 ." minute"))}}</option>
                   @endfor
               </select>
+              <p class="is-error-leave_time" style="color: red"></p>
             </div>
           </td>
         </tr>
@@ -278,7 +284,7 @@
             </td>
           </tr>
           <tr>
-            <td class="table-active"><label for="user_id">会社名・団体名</label></td>
+            <td class="table-active"><label for="user_id" class=" form_required">会社名/団体名</label></td>
             <td>
               <select class="form-control" name="user_id" id="user_select">
                 <option disabled selected>選択してください</option>
@@ -290,10 +296,11 @@
                   >{{$user->company}} | {{$user->first_name}}{{$user->last_name}} | {{$user->email}}</option>
                 @endforeach
               </select>
+              <p class="is-error-user_id" style="color: red"></p>
             </td>
           </tr>
           <tr>
-            <td class="table-active"><label for="name">担当者氏名</label></td>
+            <td class="table-active"><label for="name" class=" form_required">担当者氏名<br></label></td>
             <td>
               <p class="selected_person"></p>
             </td>
@@ -308,15 +315,18 @@
             </td>
           </tr>
           <tr>
-            <td class="table-active"><label for="ondayName">氏名</label></td>
+            <td class="table-active"><label for="ondayName" class=" form_required">氏名</label></td>
             <td>
               {{ Form::text('in_charge', old('in_charge'),['class'=>'form-control', 'placeholder'=>'入力してください'] ) }}
+              <p class="is-error-in_charge" style="color: red"></p>
             </td>
           </tr>
           <tr>
-            <td class="table-active"><label for="mobilePhone">携帯番号</label></td>
+            <td class="table-active"><label for="mobilePhone" class=" form_required">携帯番号</label></td>
             <td>
-              {{ Form::text('tel', old('tel'),['class'=>'form-control', 'placeholder'=>'入力してください'] ) }}
+              {{ Form::text('tel', old('tel'),['class'=>'form-control', 'placeholder'=>'入力してください', 'maxlength'=>13] ) }}
+              <p class="is-error-tel" style="color: red"></p>
+
             </td>
           </tr>
         </table>

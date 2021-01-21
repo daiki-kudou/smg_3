@@ -62,11 +62,9 @@ $(function () {
     $target.on('change', function () {
       charactersChange($(this));
     })
-
     charactersChange = function (ele) {
       var val = ele.val();
       var han = val.replace(/[Ａ-Ｚａ-ｚ０-９]/g, function (s) { return String.fromCharCode(s.charCodeAt(0) - 0xFEE0) });
-
       if (val.match(/[Ａ-Ｚａ-ｚ０-９]/g)) {
         $(ele).val(han);
       }
@@ -102,6 +100,10 @@ $(function () {
   ExceptString(mgmt_emer_tel);
   var mgmt_sec_company = $("input[name^='mgmt_sec_company']");
   ExceptString(mgmt_sec_company);
+  var tel = $("input[name^='tel']");
+  ExceptString(tel);
+
+
 });
 
 

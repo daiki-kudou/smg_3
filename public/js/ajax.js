@@ -3,50 +3,50 @@ $(function () {
   ////////////////////
   // ロードトリガー
   ////////////////////
-  var venue_id = $('#venues_selector').val();
+  // var venue_id = $('#venues_selector').val();
 
-  // requestに会場が入っていれば
-  if (venue_id) { //空じゃなければ
-    $('#sales_start').val();
-    $('#sales_finish').val();
-    ajaxGetItems(venue_id);
-    // ajaxGetSalesHours(venue_id, dates);　管理者は24時間予約登録可能。そのため一旦、本機能停止
-    ajaxGetPriceStstem(venue_id);
-    ajaxGetLayout(venue_id); //レイアウトが存在するかしないか、　"0"か"1"でreturn
-    ajaxGetLuggage(venue_id); //会場に荷物預かりが存在するかしないか、　"0"か"1"でreturn
-    ajaxGetOperatinSystem(venue_id); //会場形態の判別 直営 or　提携
-    var hidden_venue = $('input[name="bill_company"]');
-    var target_venue_id = $(this).val();
-    hidden_venue.val(target_venue_id);
-  }
+  // // requestに会場が入っていれば
+  // if (venue_id) { //空じゃなければ
+  //   $('#sales_start').val();
+  //   $('#sales_finish').val();
+  //   ajaxGetItems(venue_id);
+  //   // ajaxGetSalesHours(venue_id, dates);　管理者は24時間予約登録可能。そのため一旦、本機能停止
+  //   ajaxGetPriceStstem(venue_id);
+  //   ajaxGetLayout(venue_id); //レイアウトが存在するかしないか、　"0"か"1"でreturn
+  //   ajaxGetLuggage(venue_id); //会場に荷物預かりが存在するかしないか、　"0"か"1"でreturn
+  //   ajaxGetOperatinSystem(venue_id); //会場形態の判別 直営 or　提携
+  //   var hidden_venue = $('input[name="bill_company"]');
+  //   var target_venue_id = $(this).val();
+  //   hidden_venue.val(target_venue_id);
+  // }
 
-  //requestに顧客情報があれば
-  var client_id = $('#user_select').val();
-  var date = $('#datepicker1').val();
+  // //requestに顧客情報があれば
+  // var client_id = $('#user_select').val();
+  // var date = $('#datepicker1').val();
 
-  if (client_id == 1) {
-    var dt = new Date(date);
-    var three_days_before = dt.setDate(dt.getDate() - 3); //営業日前
-    three_days_before = new Date(three_days_before);
-    var target_name = $('input[name="payment_limit"]');
-    var target_name2 = $('input[name="bill_pay_limit"]');
-    target_name.val(three_days_before.getFullYear() + '-' + (('0' + (three_days_before.getMonth() + 1)).slice(-2)) + '-' + (('0' + three_days_before.getDate()).slice(-2)));
-    target_name2.val(three_days_before.getFullYear() + '-' + (('0' + (three_days_before.getMonth() + 1)).slice(-2)) + '-' + (('0' + three_days_before.getDate()).slice(-2)));
-  } else if (client_id == 2) {
-    var dt = new Date(date);
-    var end_of_month = new Date(dt.getFullYear(), dt.getMonth() + 1, 0);　//当月末日
-    var target_name = $('input[name="payment_limit"]');
-    var target_name2 = $('input[name="bill_pay_limit"]');
-    target_name.val(end_of_month.getFullYear() + '-' + (('0' + (end_of_month.getMonth() + 1)).slice(-2)) + '-' + (('0' + end_of_month.getDate()).slice(-2)));
-    target_name2.val(end_of_month.getFullYear() + '-' + (('0' + (end_of_month.getMonth() + 1)).slice(-2)) + '-' + (('0' + end_of_month.getDate()).slice(-2)));
-  } else if (client_id == 3) {
-    var dt = new Date(date);
-    var end_of_next_month = new Date(dt.getFullYear(), dt.getMonth() + 2, 0);
-    var target_name = $('input[name="payment_limit"]');
-    var target_name2 = $('input[name="bill_pay_limit"]');
-    target_name.val(end_of_next_month.getFullYear() + '-' + (('0' + (end_of_next_month.getMonth() + 1)).slice(-2)) + '-' + (('0' + end_of_next_month.getDate()).slice(-2)));
-    target_name2.val(end_of_next_month.getFullYear() + '-' + (('0' + (end_of_next_month.getMonth() + 1)).slice(-2)) + '-' + (('0' + end_of_next_month.getDate()).slice(-2)));
-  };
+  // if (client_id == 1) {
+  //   var dt = new Date(date);
+  //   var three_days_before = dt.setDate(dt.getDate() - 3); //営業日前
+  //   three_days_before = new Date(three_days_before);
+  //   var target_name = $('input[name="payment_limit"]');
+  //   var target_name2 = $('input[name="bill_pay_limit"]');
+  //   target_name.val(three_days_before.getFullYear() + '-' + (('0' + (three_days_before.getMonth() + 1)).slice(-2)) + '-' + (('0' + three_days_before.getDate()).slice(-2)));
+  //   target_name2.val(three_days_before.getFullYear() + '-' + (('0' + (three_days_before.getMonth() + 1)).slice(-2)) + '-' + (('0' + three_days_before.getDate()).slice(-2)));
+  // } else if (client_id == 2) {
+  //   var dt = new Date(date);
+  //   var end_of_month = new Date(dt.getFullYear(), dt.getMonth() + 1, 0);　//当月末日
+  //   var target_name = $('input[name="payment_limit"]');
+  //   var target_name2 = $('input[name="bill_pay_limit"]');
+  //   target_name.val(end_of_month.getFullYear() + '-' + (('0' + (end_of_month.getMonth() + 1)).slice(-2)) + '-' + (('0' + end_of_month.getDate()).slice(-2)));
+  //   target_name2.val(end_of_month.getFullYear() + '-' + (('0' + (end_of_month.getMonth() + 1)).slice(-2)) + '-' + (('0' + end_of_month.getDate()).slice(-2)));
+  // } else if (client_id == 3) {
+  //   var dt = new Date(date);
+  //   var end_of_next_month = new Date(dt.getFullYear(), dt.getMonth() + 2, 0);
+  //   var target_name = $('input[name="payment_limit"]');
+  //   var target_name2 = $('input[name="bill_pay_limit"]');
+  //   target_name.val(end_of_next_month.getFullYear() + '-' + (('0' + (end_of_next_month.getMonth() + 1)).slice(-2)) + '-' + (('0' + end_of_next_month.getDate()).slice(-2)));
+  //   target_name2.val(end_of_next_month.getFullYear() + '-' + (('0' + (end_of_next_month.getMonth() + 1)).slice(-2)) + '-' + (('0' + end_of_next_month.getDate()).slice(-2)));
+  // };
 
 
 
@@ -75,7 +75,7 @@ $(function () {
     var dates = $('#datepicker1').val();
     var venue_id = $('#venues_selector').val();
     // ajaxGetItems(venue_id);
-    // ajaxGetSalesHours(venue_id, dates);
+    ajaxGetSalesHours(venue_id, dates);
 
     if ($('.select2-hidden-accessible').val() != null) { //顧客が選択されていたら、支払い期日抽出
       var user_id = $('.select2-hidden-accessible').val();
@@ -218,25 +218,39 @@ $(function () {
           $('.equipemnts table tbody').append("<tr><td>" + value['item'] + "</td>" + "<td><input type='text' value='0' min=0 name='equipemnt" + value['id'] + "' class='form-control'></td></tr>");
         });
         // ***********マイナス、全角制御用
-        // $("input[name^='equipemnt']").numeric({ negative: false, });
-        $("input[name^='equipemnt']").on('change', function () {
-          charactersChange($(this));
-        })
-        charactersChange = function (ele) {
-          var val = ele.val();
-          var han = val.replace(/[Ａ-Ｚａ-ｚ０-９]/g, function (s) { return String.fromCharCode(s.charCodeAt(0) - 0xFEE0) });
-          if (val.match(/[Ａ-Ｚａ-ｚ０-９]/g)) {
-            $(ele).val(han);
+        function ExceptString($target) {
+          $target.numeric({ negative: false, });
+          $target.on('change', function () {
+            charactersChange($(this));
+          })
+          charactersChange = function (ele) {
+            var val = ele.val();
+            var han = val.replace(/[Ａ-Ｚａ-ｚ０-９]/g, function (s) { return String.fromCharCode(s.charCodeAt(0) - 0xFEE0) });
+            if (val.match(/[Ａ-Ｚａ-ｚ０-９]/g)) {
+              $(ele).val(han);
+            }
           }
         }
-        // ***********マイナス、全角制御用
+        ExceptString($(".equipemnts table tbody input[name^='equipemnt']"));
+
 
         $('.services table tbody').html('');
         $.each($items[1], function (index, value) {
           // ココでサービス取得
           // 有り・無しに変更するため以下コメントアウト
-          // $('.services table tbody').append("<tr><td>" + value['item'] + "</td>" + "<td><input type='number' value='0' max='1' min='0' name='" + value['id'] + "' class='form-control'></td></tr>");
-          $('.services table tbody').append("<tr><td>" + value['item'] + "</td>" + "<td><input type='radio' value='1' name='service" + value['id'] + "'>有り<input type='radio' value='0' name='service" + value['id'] + "' checked>無し</td></tr>");
+          var data = "<tr><td>"
+            + value['item']
+            + "</td>"
+            + "<td><input type='radio' id='service" + value['id'] + "' value='1' name='service"
+            + value['id']
+            + "'>"
+            + "<label for='" + 'service' + value['id'] + "'>有り</label>"
+            + "<input type='radio' value='0' id='no_service" + value['id'] + "' name='service"
+            + value['id']
+            + "' checked>"
+            + "<label for='" + 'no_service' + value['id'] + "'>無し</label>"
+            + "</td></tr>";
+          $('.services table tbody').append(data);
         });
       })
       .fail(function (data) {
@@ -265,8 +279,12 @@ $(function () {
     })
       .done(function ($times) {
         $('#fullOverlay').css('display', 'none');
-        // console.log('$timeは', $times);
-        // console.log('配列の数は', $times[0].length);
+        // 初期化
+        $("#sales_start option").each(function ($result) {
+          $('#sales_start option').eq($result).prop('disabled', false);
+        });
+
+
         for (let index = 0; index < $times[0].length; index++) {
           $("#sales_start option").each(function ($result) {
             if ($times[0][index] == $('#sales_start option').eq($result).val()) {
@@ -605,7 +623,8 @@ $(function () {
         $('#fullOverlay').css('display', 'none');
         console.log($result);
         $('.layouts table tbody').html(''); //初期化
-        $result == 1 ? $('.layouts table tbody').append("<tr><td>レイアウト準備</td><td><input type='radio' name='layout_prepare' value='1'>有り<input type='radio' name='layout_prepare' value='0' checked >無し</td></tr><tr><td>レイアウト片付</td><td><input type='radio' name='layout_clean' value='1'>有り<input type='radio' name='layout_clean' value='0'checked>無し</td></tr>") : $('.layouts table tbody').append('<tr><td>該当会場はレイアウト変更を受け付けていません</td></tr>');
+        var data =
+          $result == 1 ? $('.layouts table tbody').append("<tr><td>レイアウト準備</td><td><input type='radio' name='layout_prepare' id='layout_prepare' value='1'><label for='layout_prepare'>有り</label><input type='radio' name='layout_prepare' id='no_layout_prepare' value='0' checked >  <label for='no_layout_prepare'>無し</label></td></tr><tr><td>レイアウト片付</td><td><input type='radio' name='layout_clean' id='layout_clean' value='1'><label for='layout_clean'>有り</label><input type='radio' name='layout_clean' id='no_layout_clean' value='0'checked><label for='no_layout_clean'>無し</label></td></tr>") : $('.layouts table tbody').append('<tr><td>該当会場はレイアウト変更を受け付けていません</td></tr>');
       })
       .fail(function ($result) {
         $('#fullOverlay').css('display', 'none');
@@ -695,18 +714,23 @@ $(function () {
           $('.luggage table tbody').html('');
           $('.luggage table tbody').append("<tr> <td>事前に預かる荷物<br>（個数）</td> <td class=''><input type='text' class='form-control luggage_count' placeholder='個数入力' name='luggage_count'></td> </tr> <tr> <td>事前荷物の到着日<br>午前指定のみ</td> <td class=''> <input id='datepicker3' type='text' class='form-control' placeholder='年-月-日' name='luggage_arrive'> </td> </tr> <tr> <td>事後返送する荷物</td> <td class=''><input type='text' class='form-control luggage_return' placeholder='個数入力' name='luggage_return'></td> </tr> <tr><td>荷物預かり/返送　料金</td><td class=''><input type='text' class='form-control luggage_price' placeholder='金額入力' name='luggage_price'></td></tr><script>$('#datepicker3').datepicker({ dateFormat: 'yy-mm-dd', minDate: 0, });</script>");
           // ***********マイナス、全角制御用
-          // $(".luggage_count, .luggage_return").numeric({ negative: false, });
-          $(".luggage_count, .luggage_return, .luggage_price").on('change', function () {
-            charactersChange($(this));
-          })
-          charactersChange = function (ele) {
-            var val = ele.val();
-            var han = val.replace(/[Ａ-Ｚａ-ｚ０-９]/g, function (s) { return String.fromCharCode(s.charCodeAt(0) - 0xFEE0) });
-            if (val.match(/[Ａ-Ｚａ-ｚ０-９]/g)) {
-              $(ele).val(han);
+          function ExceptString($target) {
+            $target.numeric({ negative: false, });
+            $target.on('change', function () {
+              charactersChange($(this));
+            })
+            charactersChange = function (ele) {
+              var val = ele.val();
+              var han = val.replace(/[Ａ-Ｚａ-ｚ０-９]/g, function (s) { return String.fromCharCode(s.charCodeAt(0) - 0xFEE0) });
+              if (val.match(/[Ａ-Ｚａ-ｚ０-９]/g)) {
+                $(ele).val(han);
+              }
             }
           }
-          // ***********マイナス、全角制御用
+          ExceptString($(".luggage table tbody input[name='luggage_count']"));
+          ExceptString($(".luggage table tbody input[name='luggage_return']"));
+          ExceptString($(".luggage table tbody input[name='luggage_price']"));
+
         } else {
           $('.luggage table tbody').html('');
           $('.luggage table tbody').append("<tr><td class='colspan='2''>該当会場は荷物預かりを受け付けていません</td></tr>");
