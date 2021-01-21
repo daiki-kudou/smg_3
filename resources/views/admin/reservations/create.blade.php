@@ -54,12 +54,20 @@
 
 {{Form::open(['url' => 'admin/reservations/create/check', 'method' => 'POST'])}}
 @csrf
+
 <div class="container-field bg-white text-dark">
+<section class="register-wrap section-wrap">
   <div class="row">
     <div class="col">
       <table class="table table-bordered">
+        
         <tr>
-          <td colspan="2">予約情報</td>
+        <td colspan="2">
+                      <p class="title-icon">
+                        <i class="fas fa-info-circle icon-size"></i>
+                        予約情報
+                      </p>
+                    </td>
         </tr>
         <tr>
           <td class="table-active">利用日</td>
@@ -392,6 +400,7 @@
       </table>
     </div>
   </div>
+</section>
 </div>
 
 {{-- 丸岡さんカスタム --}}
