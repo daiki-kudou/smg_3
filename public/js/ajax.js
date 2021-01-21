@@ -125,6 +125,8 @@ $(function () {
       var s_target = $('.services table tbody tr').eq(services_index).find("input:radio[name='" + 'service' + (services_index + 1) + "']:checked").val();
       services_array.push(Number(s_target));
     }
+    console.log('サービスの数', services_array);
+
     ajaxGetItemsDetails(venue_id, equipemnts_array, services_array);
     console.log('これもまたテストテスト％％％', services_array);
 
@@ -243,19 +245,7 @@ $(function () {
         $.each($items[1], function (index, value) {
           // ココでサービス取得
           // 有り・無しに変更するため以下コメントアウト
-          var data = "<tr><td>"
-            + value['item']
-            + "</td>"
-            + "<td><input type='radio' id='service" + value['id'] + "' value='1' name='service"
-            + value['id']
-            + "'>"
-            + "<label for='" + 'service' + value['id'] + "'>有り</label>"
-            + "<input type='radio' value='0' id='no_service" + value['id'] + "' name='service"
-            + value['id']
-            + "' checked>"
-            + "<label for='" + 'no_service' + value['id'] + "'>無し</label>"
-            + "</td></tr>";
-          $('.services table tbody').append(data);
+          $('.services table tbody').append("<tr><td>" + value['item'] + "</td>" + "<td><input type='radio' value='1' name='service" + value['id'] + "'>有り<input type='radio' value='0' name='service" + value['id'] + "' checked>無し</td></tr>");
         });
       })
       .fail(function (data) {

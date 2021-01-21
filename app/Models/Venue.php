@@ -515,6 +515,5 @@ class Venue extends Model
       $equipments_total,
       $services_total
     ];
-    // return $selected_services;
   }
 }
