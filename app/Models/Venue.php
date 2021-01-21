@@ -495,7 +495,10 @@ class Venue extends Model
     $services_total = 0;
     $services_details = [];
     for ($ii = 0; $ii < count($venue_services); $ii++) {
-      $services_total = $services_total + ($venue_services[$ii]->price) * ($selected_services[$ii]);
+      $services_total =
+        $services_total
+        + ($venue_services[$ii]->price)
+        * ((int)$selected_services[$ii]);
       if ($selected_services[$ii] != 0) {
         // ※注意　ここでherokuにてエラーがでている
         $selected_s_item = $venue_services[$ii]->item;
@@ -506,6 +509,12 @@ class Venue extends Model
     }
 
     $total_items_price = $equipments_total + $services_total; //備品＆サービス合計金額
-    return [$total_items_price, $equipments_details, $services_details, $equipments_total, $services_total];
+    return [
+      $total_items_price,
+      $equipments_details,
+      $services_details,
+      $equipments_total,
+      $services_total
+    ];
   }
 }

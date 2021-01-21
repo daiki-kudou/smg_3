@@ -123,9 +123,12 @@ $(function () {
     var services_length = $('.services table tbody tr').length;
     for (let services_index = 0; services_index < services_length; services_index++) {
       var s_target = $('.services table tbody tr').eq(services_index).find("input:radio[name='" + 'service' + (services_index + 1) + "']:checked").val();
-      services_array.push(s_target);
+      services_array.push(Number(s_target));
     }
+    console.log('サービスの数', services_array);
+
     ajaxGetItemsDetails(venue_id, equipemnts_array, services_array);
+    console.log('これもまたテストテスト％％％', services_array);
 
     // レイアウト金額取得
     var layout_prepare = $('input:radio[name="layout_prepare"]:checked').val();
@@ -238,24 +241,11 @@ $(function () {
         }
         ExceptString($(".equipemnts table tbody input[name^='equipemnt']"));
 
-
         $('.services table tbody').html('');
         $.each($items[1], function (index, value) {
           // ココでサービス取得
           // 有り・無しに変更するため以下コメントアウト
-          var data = "<tr><td>"
-            + value['item']
-            + "</td>"
-            + "<td><input type='radio' id='service" + value['id'] + "' value='1' name='service"
-            + value['id']
-            + "'>"
-            + "<label for='" + 'service' + value['id'] + "'>有り</label>"
-            + "<input type='radio' value='0' id='no_service" + value['id'] + "' name='service"
-            + value['id']
-            + "' checked>"
-            + "<label for='" + 'no_service' + value['id'] + "'>無し</label>"
-            + "</td></tr>";
-          $('.services table tbody').append(data);
+          $('.services table tbody').append("<tr><td>" + value['item'] + "</td>" + "<td><input type='radio' value='1' name='service" + value['id'] + "'>有り<input type='radio' value='0' name='service" + value['id'] + "' checked>無し</td></tr>");
         });
       })
       .fail(function (data) {
@@ -526,6 +516,8 @@ $(function () {
       },
     })
       .done(function ($each) {
+        console.log('成功？？', $each);
+
         $('#fullOverlay').css('display', 'none');
         // ※$eachの[0][0]には備品とサービスの合計料金
         // ※$eachの[0][1]には連想配列で選択された備品の個数、単価、備品名
@@ -590,6 +582,7 @@ $(function () {
       .fail(function ($each) {
         $('#fullOverlay').css('display', 'none');
         console.log('備品又はサービスの料金取得に失敗しました。ページをリロードし再度試して下さい');
+        console.log('備品エラー', $each);
         $('.items_equipments table tbody').html(''); //テーブル初期化
         $('.selected_equipments_price').text(''); //有料備品料金初期化
         $('.selected_equipments_price').val(''); //有料備品料金初期化
