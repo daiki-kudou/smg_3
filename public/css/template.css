@@ -1,22 +1,23 @@
+@charset "UTF-8";
 
 /* venues. index */
-.dropdown-menu{
-  width: 400px;
+.dropdown-menu {
+    width: 400px;
 }
 
 .form-inline {
-  display: block;
+    display: block;
 }
 
 /* ソート矢印上下表示 */
 table.dataTable thead .sorting:after,
 table.dataTable thead .sorting_asc:after,
 table.dataTable thead .sorting_desc:after {
-  opacity: 0.2;
-  font-family: 'FontAwesome';
-  content: "\f0ec";
-  display: inline-block;
-  transform: rotate(90deg);
+    opacity: 0.2;
+    font-family: 'FontAwesome';
+    content: "\f0ec";
+    display: inline-block;
+    transform: rotate(90deg);
 }
 
 
@@ -25,9 +26,9 @@ table.dataTable thead .sorting_desc:after {
 .ms-container {
     background: transparent url('/img/switch.png') no-repeat 50% 50%;
     max-width: 1800px;
-  }
+}
 
-  .ms-container:after {
+.ms-container:after {
     content: ".";
     display: block;
     height: 0;
@@ -36,21 +37,21 @@ table.dataTable thead .sorting_desc:after {
     clear: both;
     min-height: 0;
     visibility: hidden;
-  }
+}
 
-  .ms-container .ms-selectable,
-  .ms-container .ms-selection {
+.ms-container .ms-selectable,
+.ms-container .ms-selection {
     background: #fff;
     color: #555555;
     float: left;
     width: 45%;
-  }
+}
 
-  .ms-container .ms-selection {
+.ms-container .ms-selection {
     float: right;
-  }
+}
 
-  .ms-container .ms-list {
+.ms-container .ms-list {
     -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
     -moz-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
     box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
@@ -67,87 +68,87 @@ table.dataTable thead .sorting_desc:after {
     height: 200px;
     padding: 0;
     overflow-y: auto;
-  }
+}
 
-  .ms-container .ms-list.ms-focus {
+.ms-container .ms-list.ms-focus {
     border-color: rgba(82, 168, 236, 0.8);
     -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 8px rgba(82, 168, 236, 0.6);
     -moz-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 8px rgba(82, 168, 236, 0.6);
     box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 8px rgba(82, 168, 236, 0.6);
     outline: 0;
     outline: thin dotted \9;
-  }
+}
 
-  .ms-container ul {
+.ms-container ul {
     margin: 0;
     list-style-type: none;
     padding: 0;
-  }
+}
 
-  .ms-container .ms-optgroup-container {
+.ms-container .ms-optgroup-container {
     width: 100%;
-  }
+}
 
-  .ms-container .ms-optgroup-label {
+.ms-container .ms-optgroup-label {
     margin: 0;
     padding: 5px 0px 0px 5px;
     cursor: pointer;
     color: #999;
-  }
+}
 
-  .ms-container .ms-selectable li.ms-elem-selectable,
-  .ms-container .ms-selection li.ms-elem-selection {
+.ms-container .ms-selectable li.ms-elem-selectable,
+.ms-container .ms-selection li.ms-elem-selection {
     border-bottom: 1px #eee solid;
     padding: 2px 10px;
     color: #555;
     font-size: 14px;
-  }
+}
 
-  .ms-container .ms-selectable li.ms-hover,
-  .ms-container .ms-selection li.ms-hover {
+.ms-container .ms-selectable li.ms-hover,
+.ms-container .ms-selection li.ms-hover {
     cursor: pointer;
     color: #fff;
     text-decoration: none;
     background-color: #08c;
-  }
+}
 
-  .ms-container .ms-selectable li.disabled,
-  .ms-container .ms-selection li.disabled {
+.ms-container .ms-selectable li.disabled,
+.ms-container .ms-selection li.disabled {
     background-color: #eee;
     color: #aaa;
     cursor: text;
-  }
+}
 
 
 
-  /* tableの上ボーター打ち消し用 */
+/* tableの上ボーター打ち消し用 */
 .table th,
 .table td {
-  padding: 0.75rem;
-  vertical-align: middle;
-  border-top: 0px solid;
+    padding: 0.75rem;
+    vertical-align: middle;
+    border-top: 0px solid;
 }
 
 .border-info {
-  border-color:white;
+    border-color: white;
 }
 
-.form_required:after{
-  content: '必須';
-  margin-left: 10px;
-  font-size: 12px;
-  background: #ff6679;
-  color: white;
-  padding: 1px 5px;
-  border-radius: 15%;
+.form_required:after {
+    content: '必須';
+    margin-left: 10px;
+    font-size: 12px;
+    background: #ff6679;
+    color: white;
+    padding: 1px 5px;
+    border-radius: 15%;
 }
 
-.is-error{
-  background: pink;
+.is-error {
+    background: pink;
 }
 
-.hide{
-  display: none;
+.hide {
+    display: none;
 }
 
 
@@ -161,11 +162,10 @@ table.dataTable thead .sorting_desc:after {
 ****************************/
 
 
-
 ul {
     margin-bottom: 0;
-    padding:0;
-    
+    padding: 0;
+
 }
 
 li {
@@ -176,19 +176,27 @@ li {
 a:hover {
     text-decoration: none;
 }
+
 p {
     margin: 0;
 }
 
-dl,dt,dd {
+dl,
+dt,
+dd {
     margin-bottom: 0;
+    font-weight: normal;
 }
 
 label {
     margin-bottom: 0;
 }
 
-h1,h2,h3,h4,h5 {
+h1,
+h2,
+h3,
+h4,
+h5 {
     margin-bottom: 0;
 }
 
@@ -217,14 +225,16 @@ h1,h2,h3,h4,h5 {
     background-color: rgba(255, 255, 255, 0.05);
 }
 
-.table-box th,.table-box td {
+.table-box th,
+.table-box td {
     text-align: center;
 }
 
 
 .btn_wrapper {
-    margin: 10% 0;
+    margin: 50px 0;
 }
+
 .btn-wrapper2 {
     padding: 0 3%;
     margin-bottom: 3%;
@@ -248,15 +258,15 @@ h1,h2,h3,h4,h5 {
 }
 
 .more_btn4 {
-    background: #EF6243;
-    padding: 0.3em 1em;
+    background: #DC3545;
+    padding: 5px 15px;
     border-radius: 5px;
     color: #fff;
     font-weight: bold;
-    /* min-width: 100px; */
+    min-width: 100px;
 }
 
-.more_btn3{
+.more_btn3 {
     padding: 1em 5em;
     color: #333;
     font-weight: bold;
@@ -265,45 +275,45 @@ h1,h2,h3,h4,h5 {
     position: relative;
     min-width: 100px;
 }
-  
-  /* 二本の横棒を作成する */
-  .more_btn3::before,
-  .more_btn3::after {
+
+/* 二本の横棒を作成する */
+.more_btn3::before,
+.more_btn3::after {
     content: '';
     display: block;
     width: 15px;
     height: 3px;
     border-radius: 5px;
-    background:#35a7a7;
+    background: #35a7a7;
     position: absolute;
     right: 1em;
     top: 50%;
     transform: translateY(-50%);
-  }
-  
-  /* 2本の横棒のうち一本は縦棒にする */
-  .more_btn3::after {
+}
+
+/* 2本の横棒のうち一本は縦棒にする */
+.more_btn3::after {
     background: #35a7a7;
     /* 横棒を縦にするために90℃回転させる */
     transform: translateY(-50%) rotate(90deg);
     /* プラスからマイナスへの切り替えをゆっくり行いアニメーションさせる */
     /* transition: 0.5s; */
-  }
+}
 
 
 
 
 .more_btn_lg {
     background: #007BFF;
-    padding: 10px 80px;
+    padding: 15px 80px;
     border-radius: 5px;
     color: #fff;
     font-weight: bold;
 }
 
 .more_btn4_lg {
-    background: #EF6243;
-    padding: 10px 80px;
+    background: #DC3545;
+    padding: 15px 80px;
     border-radius: 5px;
     color: #fff;
     font-weight: bold;
@@ -311,29 +321,30 @@ h1,h2,h3,h4,h5 {
 
 .bg-blue {
     background: #007BFF;
-    }
+}
 
 .section-bg {
-        background: #F4F6F9;
-    }
+    background: #F4F6F9;
+}
 
 .bg-red {
-    background:#EF6243 !important;
-    }
+    background: #EF6243 !important;
+}
 
-    .bg-green {
-    background:#35a7a7 !important;
-    }
+
+.bg-green {
+    background: #35a7a7 !important;
+}
 
 
 .bg-black {
-        background: #707070 !important;
-    }
+    background: #707070 !important;
+}
 
 
 .cell-gray {
-        background: #F3F3F3 !important;
-    }
+    background: #F3F3F3 !important;
+}
 
 .bg-alert {
     background: rgba(255, 0, 24, 0.18);
@@ -351,44 +362,44 @@ h1,h2,h3,h4,h5 {
 
 /* アコーディオン ------------------------------------------*/
 
-  
-  .accordion-ttl .title-icon {
+
+.accordion-ttl .title-icon {
     display: block;
     position: relative;
-  }
-  
-  /* 二本の横棒を作成する */
-  .accordion-ttl .title-icon::before,
-  .accordion-ttl .title-icon::after {
+}
+
+/* 二本の横棒を作成する */
+.accordion-ttl .title-icon::before,
+.accordion-ttl .title-icon::after {
     content: '';
     display: block;
     width: 15px;
     height: 3px;
     border-radius: 5px;
-    background:#35a7a7;
+    background: #35a7a7;
     position: absolute;
     right: 0;
     top: 50%;
     transform: translateY(-50%);
-  }
-  
-  /* 2本の横棒のうち一本は縦棒にする */
-  .accordion-ttl .title-icon::after {
+}
+
+/* 2本の横棒のうち一本は縦棒にする */
+.title-icon::after {
     background: #35a7a7;
     /* 横棒を縦にするために90℃回転させる */
     transform: translateY(-50%) rotate(90deg);
     /* プラスからマイナスへの切り替えをゆっくり行いアニメーションさせる */
     /* transition: 0.5s; */
-  }
-  
-  /*
+}
+
+/*
   プラスがクリックされたら縦棒を横にしてマイナスにする疑似要素
   jQueryで付け外しを行う
   */
-  .accordion-ttl.title-icon.active::after {
+.title-icon.active::after {
     transform: rotate(0);
     /* transition: 0.5s; */
-  }
+}
 
 .plus_icon {
     display: block;
@@ -400,16 +411,16 @@ h1,h2,h3,h4,h5 {
 
 .plus_icon::before,
 .plus_icon::after {
-  content: '';
-  display: block;
-  width: 15px;
-  height: 3px;
-  border-radius: 5px;
-  background:#35a7a7;
-  position: absolute;
-  right: 0;
-  top: 50%;
-  transform: translateY(-50%);
+    content: '';
+    display: block;
+    width: 15px;
+    height: 3px;
+    border-radius: 5px;
+    background: #35a7a7;
+    position: absolute;
+    right: 0;
+    top: 50%;
+    transform: translateY(-50%);
 }
 
 .plus_icon::after {
@@ -418,12 +429,12 @@ h1,h2,h3,h4,h5 {
     transform: translateY(-50%) rotate(90deg);
     /* プラスからマイナスへの切り替えをゆっくり行いアニメーションさせる */
     /* transition: 0.5s; */
-  }
+}
 
-  .plus_icon.active::after {
+.plus_icon.active::after {
     transform: rotate(0);
     /* transition: 0.5s; */
-  }
+}
 
 
 /* 検索--------------------------------------- */
@@ -435,7 +446,7 @@ h1,h2,h3,h4,h5 {
 }
 
 
-.search-wrap tr td:first-child{
+.search-wrap tr td:first-child {
     width: 300px;
 }
 
@@ -452,7 +463,7 @@ h1,h2,h3,h4,h5 {
     border-radius: 0;
 }
 
-.search_item_name{
+.search_item_name {
     width: 200px;
     background: #35a7a7;
     margin-bottom: 0;
@@ -485,10 +496,9 @@ h1,h2,h3,h4,h5 {
     color: #fff;
 }
 
-.search_box .table td{
+.search_box .table td {
     padding: 0.01rem;
     vertical-align: middle;
-
 }
 
 .count-color {
@@ -503,7 +513,7 @@ h1,h2,h3,h4,h5 {
     margin-bottom: 20px;
 }
 
-.reservation_list li{
+.reservation_list li {
     margin-right: 10px;
 }
 
@@ -536,15 +546,24 @@ table td.table_column1 p {
     display: flex;
 }
 
-.statuscheck dt {
-   background: #464646;
-   color: #fff;
-   padding: 0.5em 1em;
+/* 
+table td.table_column .colum1 p {
+    height: 100%;
+    padding: 0;
+    border-bottom: 0;
 }
 
+table td.table_column .colum2 p {
+    height: 50%;
+}
 
+table td.table_column .colum3 p {
+    height: 33%;
+}
 
-
+table td.table_column .colum4 p {
+    height: 25%;
+} */
 
 
 /* 予約新規 -----------------------------------------------------*/
@@ -587,7 +606,7 @@ table td.table_column1 p {
 }
 
 .caution {
-    color: #EF6243;
+    color: #DC3545;
 }
 
 .caution textarea {
@@ -612,7 +631,7 @@ table td.table_column1 p {
 
 .section-ttl {
     font-weight: bold;
-    font-size: 1.2rem;
+    font-size: 16px;
 }
 
 
@@ -652,58 +671,58 @@ table td.table_column1 p {
 }
 
 .bill-box_wrap {
-    border-top:1px solid #ccc;
-    border-left:1px solid #ccc;
+    border-top: 1px solid #ccc;
+    border-left: 1px solid #ccc;
     margin-right: 0;
     margin-left: 0;
-  }
+}
 
-  
-  
-  /* .bill-box_wrap .price-sum {
+
+
+/* .bill-box_wrap .price-sum {
       padding: 20px;
       border: 1px solid #ccc;
     } */
-    
-    .bill-list .col-12 {
-        padding: 0;
-    }
 
-  .bill-list .price-sum p {
-      padding-right: 1em;
-  }
+.bill-list .col-12 {
+    padding: 0;
+}
 
-  .price-sum p:last-child {
+.bill-list .price-sum p {
+    padding-right: 1em;
+}
+
+.price-sum p:last-child {
     font-size: 16px;
     border-top: 1px solid #DBDBDB;
     margin-top: 1em;
     padding-top: 1em;
-  }
+}
 
-  .price-sum span {
-      margin-right: 1em;
-  }
-  
-  .bill-box_cell {
-    border-right:1px solid #ccc;
-    border-bottom:1px solid #ccc;
+.price-sum span {
+    margin-right: 1em;
+}
+
+.bill-box_cell {
+    border-right: 1px solid #ccc;
+    border-bottom: 1px solid #ccc;
     padding-top: 1em;
     padding-bottom: 1em;
-  }
-  
-  .bill-box_cell dt {
+}
+
+.bill-box_cell dt {
     font-weight: bold;
-  }
-  
-  .bill-box_cell dd {
-    margin-bottom:0;
-  }
+}
 
-  .bill-box_wrap .col-4 {
-      background: #fff;
-  }
+.bill-box_cell dd {
+    margin-bottom: 0;
+}
 
-  .bill-list h3 {
+.bill-box_wrap .col-4 {
+    background: #fff;
+}
+
+.bill-list h3 {
     font-weight: bold;
     font-size: 16px;
     background: #F3F3F3;
@@ -712,7 +731,7 @@ table td.table_column1 p {
     padding: 0.8em;
 }
 
-.bill-list-subttl p{
+.bill-list-subttl p {
     font-weight: bold;
 }
 
@@ -721,7 +740,7 @@ table td.table_column1 p {
 } */
 
 .total-sum {
-    padding: 3%;
+    padding: 10% 3%;
 }
 
 .total-sum .col-3 {
@@ -740,8 +759,8 @@ table td.table_column1 p {
     font-size: 18px;
 }
 
-.total-sum  .bill-box_cell {
-    border:1px solid #35A7A7;
+.total-sum .bill-box_cell {
+    border: 1px solid #35A7A7;
 }
 
 
@@ -759,6 +778,7 @@ table td.table_column1 p {
     align-items: center;
     margin-right: 1em;
 }
+
 .section-header dt {
     background: #35a7a7;
     padding: 0.5em;
@@ -787,17 +807,45 @@ table td.table_column1 p {
 
 /* =============予約チェックボックス================================================ */
 
-.confirm-box {
-    margin: 10px auto;
-    width: 60%;
-    font-weight: bold;
-    padding: 2em;
-    border: 1px solid #EF6243;
+.checkbox {
+    border: 1px solid #35a7a7;
 }
 
-.confirm-box p:last-child {
-    font-size: 0.8rem;
-    font-weight: normal;
+.checkbox dt {
+    background: #35a7a7;
+    padding: 0.5em;
+    color: #fff;
+    margin-bottom: 0;
+}
+
+.checkbox dt {
+    margin-bottom: 0;
+    padding-left: 1em;
+}
+
+.confirm-box {
+    background: #F4F6F9;
+    padding: 50px 0;
+}
+
+.confirm-box dl {
+    width: 200px;
+    display: flex;
+    justify-content: space-between;
+    margin: 20px auto 0;
+}
+
+
+
+
+/* =============予約追加請求================================================ */
+
+.extra-bill-table {
+    /* margin-bottom: 100px; */
+}
+
+.extra-bill-table .extrabill-cell {
+    padding: 3em 0;
 }
 
 
@@ -835,25 +883,50 @@ table td.table_column1 p {
 }
 
 .alert-box {
-    color:#EF6243;
-    margin:0 auto;
+    color: #EF6243;
+    margin: 0 auto;
     width: 600px;
     font-weight: bold;
     padding: 2em;
     border: 1px solid #EF6243;
     margin-bottom: 50px;
 }
+
 .alert-icon {
     font-size: 4em;
 }
 
+
+/* =============仮押さえ　一覧================================================ */
+
+.table th,
+.table td {
+    vertical-align: top;
+    text-align: left;
+}
 
 .btn-cell {
     min-width: 85px;
 }
 
 
-/* 登録情報----------------------------------------------------------------- */
+
+/* =============売上請求　一覧================================================ */
+
+.count-sum dt {
+    padding: 0.5em 2em;
+    background: #3E4B5B;
+    color: #fff;
+}
+
+.count-sum dd {
+    padding: 0.5em 5em;
+    border: 1px solid #3E4B5B;
+}
+
+
+
+/* 管理者管理----------------------------------------------------------------- */
 
 .user-profile {
     width: 60%;
@@ -861,130 +934,17 @@ table td.table_column1 p {
     padding: 3%;
 }
 
-.user-profile thead{
+.user-profile thead {
     border-bottom: 1px solid #DBDBDB;
     margin-bottom: 2em;
+
 }
 
 .attention-box {
-    color:#333;
-    margin:0 auto;
+    color: #333;
+    margin: 0 auto;
     width: 600px;
     padding: 2em;
     border: 1px solid #333;
     margin-bottom: 50px;
 }
-
-@charset "utf-8";
-
-h3 {
-  margin-bottom: 0;
-}
-
-.calender-wrap {
-  min-width: 1200px;
-  margin: 0px auto;
-  overflow-y: scroll;
-}
-
-.calender-ttl {
-  font-size: 18px;
-  background: #35A7A7;
-  color: #fff;
-  font-weight: bold;
-  padding: 20px;
-}
-
-.calender-color {
-  margin: 15px 0;
-  display: flex;
-  list-style: none;
-  padding-left: 0;
- }
-
- .calender-color li {
-   position: relative;
-   padding-left: 30px;
-   margin-right: 30px;
- }
-
- .calender-color li::before{
-  content: '';
-  width: 20px;
-  height: 20px;
-  display: block;
-  position: absolute;
-  left: 0;
-  border: 1px solid #ededed;
- }
-
- .calender-color li.li-bg-reserve::before {
-   background-color: #35A7A7;
- }
-
- .calender-color li.li-bg-prereserve::before {
-  background-color: #ffff4d;
-}
-
-.calender-color li.li-bg-empty::before {
-  background-color: #fff;
-}
-
-.calender-color li.li-bg-closed::before {
-  background-color: #F0F0F0;
-}
-
-
-
-/* カレンダー色 */
-.bg-prereserve {
-  background-color: #ffff4d;
-}
-
-.bg-reserve {
-  background-color: #35A7A7;;
-}
-
-.bg-closed {
-  background-color: #F0F0F0;
-}
-
-/* カレンダー */
-.calender-flame {
-  width: 100%;
-  table-layout: fixed;
-  border: 2px solid #c5c5c5
-}
-
-.calender-flame td {
-  border-bottom: 2px solid #c5c5c5;
-}
-
-.calender-head {
-  background-color: #eee;
-}
-
-.calender-head td {
-  text-align: center;
-  font-size: 0.9rem;
-  padding:0.8em 0.3em;
-  /* border-right: 2px solid #c5c5c5; */
-}
-
-
-.calender-head .field-title {
-  width: 10%;
-  background: #fff;
-  text-align: left;
-  padding-left: 1em;
-}
-
-.calender-flame .field-title {
-border-right: 2px solid  #c5c5c5;
-}
-
-.calender-flame .calender-data .calhalf {
-  border-right: 2px dotted #ddd;
-  border-left: 2px solid #c5c5c5
-}
-
