@@ -122,13 +122,13 @@ $(function () {
     var services_array = [];
     var services_length = $('.services table tbody tr').length;
     for (let services_index = 0; services_index < services_length; services_index++) {
+      console.log('サービスの_index', services_index);
       var s_target = $('.services table tbody tr').eq(services_index).find("input:radio[name='" + 'service' + (services_index) + "']:checked").val();
       services_array.push(Number(s_target));
     }
     console.log('サービスの数', services_array);
 
     ajaxGetItemsDetails(venue_id, equipemnts_array, services_array);
-    console.log('これもまたテストテスト％％％', services_array);
 
     // レイアウト金額取得
     var layout_prepare = $('input:radio[name="layout_prepare"]:checked').val();
