@@ -2,7 +2,7 @@
 
 use Illuminate\Database\Seeder;
 
-class AgentsTableSeeder extends Seeder
+class ReservationTableSeeder extends Seeder
 {
   /**
    * Run the database seeds.
@@ -11,6 +11,6 @@ class AgentsTableSeeder extends Seeder
    */
   public function run()
   {
-    factory(\App\Models\Agent::class, 1000)->create();
+    factory(\App\Models\Reservation::class, 20000)->create();
   }
 }

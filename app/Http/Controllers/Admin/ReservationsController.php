@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
+
 use App\Models\Reservation;
 use App\Models\Venue;
 use App\Models\User;
@@ -35,8 +36,7 @@ class ReservationsController extends Controller
       'venue_id',
       'user_id',
       'tel',
-      // 'reservation_status'
-    )->get();
+    )->simplePaginate(15);
     $venue = Venue::select('id', 'name_area', 'name_bldg', 'name_venue')->get();
     $user = User::select('id', 'company', 'first_name', 'last_name', 'mobile', 'tel')->get();
     return view('admin.reservations.index', [

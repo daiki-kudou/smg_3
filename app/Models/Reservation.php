@@ -108,4 +108,13 @@ class Reservation extends Model
       }
     });
   }
+
+  public function addAllBills()
+  {
+    $bills = $this->bills()->get();
+    $result_subtotal = 0;
+    foreach ($$bills as $key => $value) {
+      $result_subtotal += $value->sub_total;
+    }
+  }
 }

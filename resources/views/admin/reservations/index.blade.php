@@ -336,7 +336,9 @@
             <td rowspan="{{count($reservation->bills()->get())}}">{{$user->find($reservation->venue_id)->tel}}</td>
             <td rowspan="{{count($reservation->bills()->get())}}">※修正</td>
             <td>会場予約</td>　{{--重要。固定最初は必ず　会場予約　のカテゴリ--}}
-            <td>{{ReservationHelper::judgeStatus($reservation->bills()->first()->reservation_status)}}</td>
+            <td>
+              {{-- {{ReservationHelper::judgeStatus($reservation->bills()->first()->reservation_status)}} --}}
+            </td>
             <td rowspan="{{count($reservation->bills()->get())}}"><a
                 href="{{ url('admin/reservations', $reservation->id) }}" class="more_btn">詳細</a></td>
             <td rowspan="{{count($reservation->bills()->get())}}"><a

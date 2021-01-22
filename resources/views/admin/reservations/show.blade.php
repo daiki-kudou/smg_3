@@ -7,6 +7,7 @@
 <script src="{{ asset('/js/template.js') }}"></script>
 
 
+
 <div class="content">
   <div class="container-fluid">
     <div class="container-field mt-3">
@@ -618,7 +619,7 @@
         <div class="col-12 venue_price_details">
           <table class="table table-bordered">
             <thead>
-              <tr>
+              <tr style="background: #B2B2B2; color:white;">
                 <td>内容</td>
                 <td>単価</td>
                 <td>数量</td>
@@ -642,15 +643,15 @@
         <div class="row bill-box_wrap price-sum bill-box_cell flex-column">
           <p class="text-right">
             <span class="font-weight-bold">小計</span>
-            {{$reservation->bills()->first()->discount_venue_total}}
+            {{number_format($reservation->bills()->first()->discount_venue_total)}}
           </p>
           <p class="text-right">
             <span>消費税</span>
-            {{($reservation->bills()->first()->discount_venue_total)*0.1}}
+            {{number_format(($reservation->bills()->first()->discount_venue_total)*0.1)}}
           </p>
           <p class="text-right">
             <span class="font-weight-bold">合計金額</span>
-            ※後ほど修正
+            {{number_format(($reservation->bills()->first()->discount_venue_total)+(($reservation->bills()->first()->discount_venue_total)*0.1))}}
           </p>
         </div>
       </div>
@@ -716,9 +717,15 @@
           </table>
         </div>
         <div class="row bill-box_wrap price-sum bill-box_cell flex-column">
-          <p class="text-right"><span class="font-weight-bold">小計</span></p>
-          <p class="text-right"><span>消費税</span>※その他修正　720円</p>
-          <p class="text-right"><span class="font-weight-bold">合計金額</span>※その他修正　7,200円</p>
+          <p class="text-right"><span class="font-weight-bold">小計</span>
+            {{number_format($reservation->bills()->first()->discount_equipment_service_total)}}
+          </p>
+          <p class="text-right"><span>消費税</span>
+            {{number_format(($reservation->bills()->first()->discount_equipment_service_total)*0.1)}}
+          </p>
+          <p class="text-right"><span class="font-weight-bold">合計金額</span>
+            {{number_format(($reservation->bills()->first()->discount_equipment_service_total)+(($reservation->bills()->first()->discount_equipment_service_total)*0.1))}}
+          </p>
         </div>
       </div>
       <!-- 料金内訳 終わり---------------------------- -->
@@ -794,9 +801,15 @@
         </div>
 
         <div class="row bill-box_wrap price-sum bill-box_cell flex-column">
-          <p class="text-right"><span class="font-weight-bold">小計</span>※後ほど修正　7,200円</p>
-          <p class="text-right"><span>消費税</span>※後ほど修正　720円</p>
-          <p class="text-right"><span class="font-weight-bold">合計金額</span>※後ほど修正　7,200円</p>
+          <p class="text-right"><span class="font-weight-bold">小計</span>
+            {{number_format($reservation->bills()->first()->after_duscount_layouts)}}
+          </p>
+          <p class="text-right"><span>消費税</span>
+            {{number_format(($reservation->bills()->first()->after_duscount_layouts)*0.1)}}
+          </p>
+          <p class="text-right"><span class="font-weight-bold">合計金額</span>
+            {{number_format(($reservation->bills()->first()->after_duscount_layouts)+(($reservation->bills()->first()->after_duscount_layouts)*0.1))}}
+          </p>
         </div>
       </div>
       <!-- 料金内訳 終わり---------------------------- -->
