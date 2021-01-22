@@ -535,137 +535,119 @@
 
     <!-- 請求内容 終わり---------------------------- -->
     <!-- 請求内容----------- -->
-    <div class="bill-box">
-      <h3 class="row">備品その他</h3>
-      <dl class="row bill-box_wrap">
-        <div class="col-3 bill-box_cell">
-          <dt>有料備品料金</dt>
-          <dd><span class="selected_equipments_price"></span>円</dd>
-          {{ Form::hidden('selected_equipments_price', '', ['class'=>'selected_equipments_price']) }}
-        </div>
-        <div class="col-3 bill-box_cell">
-          <dt>有料サービス料金</dt>
-          <dd><span class="selected_services_price"></span>円</dd>
-          {{ Form::hidden('selected_services_price', '', ['class'=>'selected_services_price']) }}
-        </div>
-        <div class="col-3 bill-box_cell">
-          <dt>荷物預かり/返送</dt>
-          <dd class="d-flex align-items-center">
-          <dd><span class="selected_luggage_price"></span>円</dd>
-          {{ Form::hidden('selected_luggage_price', '', ['class'=>'selected_luggage_price']) }}
-          </dd>
-        </div>
-        <div class="col-3 bill-box_cell">
-          <dt>有料備品＆有料サービス合計</dt>
-          <dd class="text-right"><span class="selected_items_total"></span>円</dd>
-          {{ Form::hidden('selected_items_total', '', ['class'=>'selected_items_total']) }}
-        </div>
-        <div class="col-6">
-          <div class="row">
-            <div class="col-4 bill-box_cell cell-gray">
-              <p>割引料金</p>
-            </div>
-            <div class="col-5 bill-box_cell">
-              <p class="text-right">
-                <input type="text" name="discount_item" class="form-control discount_item" id="price">
-              </p>
-            </div>
-            <div class="col-3 bill-box_cell text-right">
-              <p>割引率:<span class="item_discount_percent"></span>%</p>
-              {{ Form::hidden('item_discount_percent', '', ['class'=>'item_discount_percent']) }}
-            </div>
-          </div>
-        </div>
-        <div class="col-6 bill-box_cell text-right">
-          <p><span class="font-weight-bold mr-3">割引後 有料備品＆有料サービス合計</span> <span class="items_discount_price"></span> 円
-          </p>
-          {{ Form::hidden('items_discount_price', '', ['class'=>'items_discount_price']) }}
-        </div>
-      </dl>
-      <!-- 料金内訳-------------------------------------------------------------- -->
-      <div class="bill-list">
-        <h3 class="row">料金内訳</h3>
-        <div class="row items_equipments">
-          <table class="table table-bordered">
-            <thead>
-              <tr>
-                <td>内容</td>
-                <td>単価</td>
-                <td>数量</td>
-                <td>金額</td>
-              </tr>
-            </thead>
-            <tbody>
-            </tbody>
-          </table>
-        </div>
-        <div class="row bill-box_wrap price-sum bill-box_cell flex-column">
-          <p class="text-right"><span class="font-weight-bold">小計</span>
-            <span class="items_subtotal"></span>
-            {{ Form::hidden('items_subtotal', '', ['class'=>'items_subtotal']) }}
-            円</p>
-          <p class="text-right"><span>消費税</span> <span class="items_tax"></span>
-            {{ Form::hidden('items_tax', '', ['class'=>'items_tax']) }}
-            円</p>
-          <p class="text-right"><span class="font-weight-bold">請求総額</span>
-            <span class="all_items_total"></span>
-            {{ Form::hidden('all_items_total', '', ['class'=>'all_items_total']) }}
-            円</p>
-        </div>
-      </div>
-      <!-- 料金内訳 終わり---------------------------- -->
-    </div>
-    <!-- 請求内容 終わり---------------------------- -->
-    {{-- レイアウト --}}
-    <div class="layout_price_list" style="margin-bottom: 100px">
-      <h3 style="font-weight: bold;font-size: 16px;background: #35A7A7;color: #fff;margin-bottom: 0;padding: 0.8em;">
-        レイアウト
-      </h3>
-      <div class="border">
-        <div class="d-flex" style="height: 70px">
-          <div style="width: 33%">レイアウト準備料金： <p class="layout_prepare_result"></p>
-            {{ Form::hidden('layout_prepare_result', '', ['class'=>'layout_prepare_result']) }}
-          </div>
-          <div style="width: 33%">レイアウト片付料金： <p class="layout_clean_result"></p>
-            {{ Form::hidden('layout_clean_result', '', ['class'=>'layout_clean_result']) }}
-          </div>
-          <div style="width:34px%">レイアウト変更合計： <p class="layout_total"></p>
-            {{ Form::hidden('layout_total', '', ['class'=>'layout_total']) }}
-          </div>
-        </div>
-        <div class="d-flex" style="height: 70px">
-          <div style="width: 33%">割引料金 <input type="text" class="layout_discount d-block" name="layout_discount"></div>
-          <div style="width: 33%">割引率：<p class="layout_discount_percent"><span>%</span></p>
-            {{ Form::hidden('layout_discount_percent', '', ['class'=>'layout_discount_percent']) }}
-          </div>
-          <div style="width: 34%">割引後レイアウト変更合計：<p class="after_duscount_layouts"></p>
-            {{ Form::hidden('after_duscount_layouts', '', ['class'=>'after_duscount_layouts']) }}
-          </div>
-        </div>
-      </div>
-      <div class="selected_layouts">
-        <table class="table table-bordered">
+    <div class="bill-box" style="border: solid 1px rgba(0,0,0,0.2);">
+      <div class="items_equipments">
+        <table class="table table-bordered" style="table-layout:fixed;">
           <thead>
             <tr>
-              <td>内容</td>
-              <td>単価</td>
-              <td>数量</td>
-              <td>金額</td>
+              <th colspan='4' style="background: #35A7A7; color:white;">備品その他</th>
+            </tr>
+            <tr>
+              <th colspan='1'>
+                有料備品料金
+                {{ Form::text('selected_equipments_price', '', ['class'=>'selected_equipments_price form-control', 'readonly']) }}
+              </th>
+              <th colspan='1'>
+                有料サービス料金
+                {{ Form::text('selected_services_price', '', ['class'=>'selected_services_price form-control', 'readonly']) }}
+              </th>
+              <th colspan='1'>
+                荷物預かり/返送
+                {{ Form::text('selected_luggage_price', '', ['class'=>'selected_luggage_price form-control text-left', 'readonly']) }}
+              </th>
+              <th colspan='1'>
+                有料備品＆有料サービス合計
+                {{ Form::text('selected_items_total', '', ['class'=>'selected_items_total form-control text-left', 'readonly']) }}
+              </th>
+            </tr>
+            <tr>
+              <th colspan="2">
+                割引料金
+                {{ Form::text('discount_item', '', ['class'=>'discount_item form-control', 'id'=>'price' ,'min'=>'0']) }}
+              </th>
+              <th colspan="2">
+                割引率
+                {{ Form::text('item_discount_percent', '', ['class'=>'item_discount_percent form-control', 'readonly']) }}
+              </th>
+            </tr>
+            <tr>
+              <th colspan='4'>割引後　会場料金合計
+                {{ Form::text('items_discount_price', '', ['class'=>'items_discount_price form-control', 'readonly']) }}
+              </th>
+            </tr>
+            <tr>
+              <th colspan=4 style="background: gray; color:white;">料金内訳</th>
             </tr>
           </thead>
-          <tbody></tbody>
+          <tbody class="table table-striped"></tbody>
         </table>
       </div>
-      <div style="margin-top: 50px;" class="text-right">
-        小計：<p class="layout_subtotal"></p>
-        {{ Form::hidden('layout_subtotal', '', ['class'=>'layout_subtotal']) }}
-        消費税：<p class="layout_tax"></p>
-        {{ Form::hidden('layout_tax', '', ['class'=>'layout_tax']) }}
-        合計金額：<p class="layout_total_amount"></p>
-        {{ Form::hidden('layout_total_amount', '', ['class'=>'layout_total_amount']) }}
+      <table style="table-layout:fixed;" class="table table-bordered mb-0">
+        <tr>
+          <td>小計{{ Form::text('items_subtotal', '', ['class'=>'items_subtotal form-control', 'readonly']) }}</td>
+          <td>消費税{{ Form::text('items_tax', '', ['class'=>'items_tax form-control', 'readonly']) }}</td>
+          <td>請求総額{{ Form::text('all_items_total', '', ['class'=>'all_items_total form-control', 'readonly']) }}</td>
+        </tr>
+      </table>
+    </div>
+
+    {{-- レイアウト --}}
+    <div class="bill-box" style="border: solid 1px rgba(0,0,0,0.2);">
+      <div class="selected_layouts">
+        <table class="table table-bordered" style="table-layout:fixed;">
+          <thead>
+            <tr>
+              <th colspan='4' style="background: #35A7A7; color:white;">レイアウト</th>
+            </tr>
+            <tr>
+              <th colspan='1'>
+                レイアウト準備料金
+                {{ Form::text('layout_prepare_result', '', ['class'=>'layout_prepare_result form-control', 'readonly']) }}
+              </th>
+              <th colspan='1'>
+                レイアウト片付料金
+                {{ Form::text('layout_clean_result', '', ['class'=>'layout_clean_result form-control', 'readonly']) }}
+              </th>
+              <th colspan='1'>
+                レイアウト変更合計
+                {{ Form::text('layout_total', '', ['class'=>'layout_total form-control text-left', 'readonly']) }}
+              </th>
+            </tr>
+            <tr>
+              <th colspan="2">
+                割引料金
+                {{ Form::text('layout_discount', '', ['class'=>'layout_discount form-control' ,'min'=>'0']) }}
+              </th>
+              <th colspan="2">
+                割引率
+                {{ Form::text('layout_discount_percent', '', ['class'=>'layout_discount_percent form-control', 'readonly']) }}
+              </th>
+            </tr>
+            <tr>
+              <th colspan='4'>割引後レイアウト変更合計
+                {{ Form::text('after_duscount_layouts', '', ['class'=>'after_duscount_layouts form-control', 'readonly']) }}
+              </th>
+            </tr>
+            <tr>
+              <th colspan=4 style="background: gray; color:white;">料金内訳</th>
+            </tr>
+          </thead>
+          <tbody class="table table-striped"></tbody>
+        </table>
       </div>
+      <table style="table-layout:fixed;" class="table table-bordered mb-0">
+        <tr>
+          <td>小計{{ Form::text('layout_subtotal', '', ['class'=>'layout_subtotal form-control', 'readonly']) }}</td>
+          <td>消費税{{ Form::text('layout_tax', '', ['class'=>'layout_tax form-control', 'readonly']) }}</td>
+          <td>請求総額{{ Form::text('layout_total_amount', '', ['class'=>'layout_total_amount form-control', 'readonly']) }}
+          </td>
+        </tr>
+      </table>
     </div>
     {{-- レイアウト終わり --}}
+
+
+
     <dl class="row bill-box_wrap total-sum">
       <div class="col-3 bill-box_cell">
         <dt>合計請求総額</dt>
@@ -703,14 +685,6 @@
 {{ Form::hidden('bill_person', isset($request)?$request->bill_person:'' ) }}
 {{ Form::hidden('bill_created_at', isset($request)?$request->bill_created_at:date('Y-m-d')) }}
 {{ Form::hidden('bill_pay_limit', isset($request)?$request->bill_pay_limit:'' ) }}
-
-{{-- 小計 --}}
-{{-- {{ Form::hidden('sub_total', isset($request)?$request->sub_total:'', ['id'=>'sub_total']) }} --}}
-{{-- 税金 --}}
-{{-- {{ Form::hidden('tax', isset($request)?$request->tax:'', ['id'=>'tax']) }} --}}
-{{-- 総合計 --}}
-{{-- {{ Form::hidden('total', isset($request)?$request->total:'', ['id'=>'total']) }} --}}
-
 
 {{Form::submit('送信', ['class'=>'btn btn-primary mx-auto', 'id'=>'check_submit'])}}
 
