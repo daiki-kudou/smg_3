@@ -453,6 +453,12 @@
             <tr>
               <th colspan=4 style="background: gray; color:white;">料金内訳</th>
             </tr>
+            <tr style="background: #B2B2B2; color:white;">
+              <th>内容</th>
+              <th>単価</th>
+              <th>数量</th>
+              <th>小計</th>
+            </tr>
           </thead>
           <tbody class="table table-striped"></tbody>
         </table>
@@ -578,6 +584,12 @@
             <tr>
               <th colspan=4 style="background: gray; color:white;">料金内訳</th>
             </tr>
+            <tr style="background: #B2B2B2; color:white;">
+              <th>内容</th>
+              <th>単価</th>
+              <th>数量</th>
+              <th>小計</th>
+            </tr>
           </thead>
           <tbody class="table table-striped"></tbody>
         </table>
@@ -630,6 +642,12 @@
             </tr>
             <tr>
               <th colspan=4 style="background: gray; color:white;">料金内訳</th>
+            </tr>
+            <tr style="background: #B2B2B2; color:white;">
+              <th>内容</th>
+              <th>単価</th>
+              <th>数量</th>
+              <th>小計</th>
             </tr>
           </thead>
           <tbody class="table table-striped"></tbody>

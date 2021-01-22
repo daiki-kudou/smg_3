@@ -716,7 +716,7 @@
           </table>
         </div>
         <div class="row bill-box_wrap price-sum bill-box_cell flex-column">
-          <p class="text-right"><span class="font-weight-bold">小計</span>{{$reservation->bills()->first()->}}</p>
+          <p class="text-right"><span class="font-weight-bold">小計</span></p>
           <p class="text-right"><span>消費税</span>※その他修正　720円</p>
           <p class="text-right"><span class="font-weight-bold">合計金額</span>※その他修正　7,200円</p>
         </div>

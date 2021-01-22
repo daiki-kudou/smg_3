@@ -253,7 +253,6 @@ $(function () {
 // 割引料金
 $(function () {
   $('.venue_dicsount_number').on('change', function () {
-
     // 割引料金が入力されたら割引率を初期化
     $('.venue_discount_percent').val(''); //割引料金
     $('.percent_result').text(''); //割引料金に紐づく割引率
@@ -274,8 +273,8 @@ $(function () {
     var result_percent = (Number(input_number) / Number(calc_target)) * 100;
     if (input_number != 0 || input_number != '') {
       var input_target = "<tr class='discount_input_number'><td>割引料金</td><td style='color:red;'>" + (-input_number) + "</td><td>" + '1' + "</td><td style='color:red;'>" + (-input_number) + "</td></tr>"
-      $('.number_result').text('');
-      $('.number_result').text(Math.floor(result_percent));
+      $('.number_result').val('');
+      $('.number_result').val(Math.floor(result_percent));
       $('.after_discount_price').text('');
       $('.after_discount_price').val('');
       $('.after_discount_price').text(minus_result);
@@ -294,7 +293,7 @@ $(function () {
       $('.venue_total').text(Number(minus_result) + (Math.floor(Number(minus_result) * 0.1)));
       $('.venue_total').val(Number(minus_result) + (Math.floor(Number(minus_result) * 0.1)));
     } else {
-      $('.number_result').text('');
+      $('.number_result').val('');
       $('.after_discount_price').text('');
       $('.after_discount_price').val('');
       $('.after_discount_price').text(calc_target);
