@@ -563,9 +563,10 @@ class ReservationsController extends Controller
   public function show($id)
   {
     $reservation = Reservation::find($id);
-    $venue = $reservation->venue->id;
-    $user = user::find($reservation->user_id);
+    $venue = Venue::find($reservation->venue->id);
+    $user = User::find($reservation->user_id);
     $equipments = $venue->equipments()->get();
+
     $services = $venue->services()->get();
     $breakdowns = $reservation->breakdowns()->get();
 
