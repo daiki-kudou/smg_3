@@ -122,7 +122,7 @@ $(function () {
     var services_array = [];
     var services_length = $('.services table tbody tr').length;
     for (let services_index = 0; services_index < services_length; services_index++) {
-      var s_target = $('.services table tbody tr').eq(services_index).find("input:radio[name='" + 'service' + (services_index + 1) + "']:checked").val();
+      var s_target = $('.services table tbody tr').eq(services_index).find("input:radio[name='" + 'service' + (services_index) + "']:checked").val();
       services_array.push(Number(s_target));
     }
     console.log('サービスの数', services_array);
@@ -223,7 +223,7 @@ $(function () {
         $('.equipemnts table tbody').html(''); //一旦初期会
         $.each($items[0], function (index, value) {
           // ココで備品取得
-          $('.equipemnts table tbody').append("<tr><td>" + value['item'] + "</td>" + "<td><input type='text' value='0' min=0 name='equipemnt" + value['id'] + "' class='form-control'></td></tr>");
+          $('.equipemnts table tbody').append("<tr><td>" + value['item'] + "</td>" + "<td><input type='text' value='0' min=0 name='equipemnt" + index + "' class='form-control'></td></tr>");
         });
         // ***********マイナス、全角制御用
         function ExceptString($target) {
@@ -245,7 +245,7 @@ $(function () {
         $.each($items[1], function (index, value) {
           // ココでサービス取得
           // 有り・無しに変更するため以下コメントアウト
-          $('.services table tbody').append("<tr><td>" + value['item'] + "</td>" + "<td><input type='radio' value='1' name='service" + value['id'] + "'>有り<input type='radio' value='0' name='service" + value['id'] + "' checked>無し</td></tr>");
+          $('.services table tbody').append("<tr><td>" + value['item'] + "</td>" + "<td><input type='radio' value='1' name='service" + index + "'>有り<input type='radio' value='0' name='service" + index + "' checked>無し</td></tr>");
         });
       })
       .fail(function (data) {
