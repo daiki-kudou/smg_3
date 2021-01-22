@@ -300,30 +300,6 @@ $(function () {
         }
 
 
-        // $("#sales_start option").each(function($answer)
-        // {
-        //   // $("#sales_start option").eq($answer).val();
-        //   if ($times[0][$answer].length) {
-        //     if ($("#sales_start option").eq($answer).val()==$times[0][$answer]) {
-        //   $("#sales_start option").eq($answer).prop('disabled',true);
-        // }
-        //   // $("#sales_start option").eq($answer).prop('disabled',true);
-        // }
-        // });
-
-        // $('#sales_start').html('');//初期化
-        // $('#sales_finish').html('');//初期化
-        // $('#event_start').html('');//初期化
-        // $('#event_finish').html(''); //初期化
-
-        // var $time_start = new Date($times[0]);
-        // var $time_finish = new Date($times[1]);
-        // for (let index = $time_start.getHours(); index <= $time_finish.getHours(); index++) {
-        //   $('#sales_start').append("<option value='" + ("0" + index).slice(-2) + ":00:00" + "'>" + ("0" + index).slice(-2) + ":00" + "</option>");
-        //   $('#sales_finish').append("<option value='" + ("0" + index).slice(-2) + ":00:00" + "'>" + ("0" + index).slice(-2) + ":00" + "</option>");
-        //   $('#event_start').append("<option value='" + ("0" + index).slice(-2) + ":00:00" + "'>" + ("0" + index).slice(-2) + ":00" + "</option>");
-        //   $('#event_finish').append("<option value='" + ("0" + index).slice(-2) + ":00:00" + "'>" + ("0" + index).slice(-2) + ":00" + "</option>");
-        // }
       })
       .fail(function ($times) {
         $('#fullOverlay').css('display', 'none');
@@ -421,48 +397,48 @@ $(function () {
         var usage = ($details[0][2]);
         var extend_time = ($details[0][3]);
         console.log($details);
-        $('.venue_extend').text('');
-        $('.extend').text('');
+        // $('.venue_extend').text('');
+        // $('.extend').text('');
         $('.extend').val('');
-        $('.venue_price').text('');
+        // $('.venue_price').text('');
         $('.venue_price').val('');
         $('.after_discount_price').text('');
         $('.after_discount_price').val('');
-        $('.venue_subtotal').text(''); //小計
+        // $('.venue_subtotal').text(''); //小計
         $('.venue_subtotal').val(''); //小計
-        $('.venue_tax').text(''); //消費税
+        // $('.venue_tax').text(''); //消費税
         $('.venue_tax').val(''); //消費税
-        $('.venue_total').text(''); //会場合計料金
+        // $('.venue_total').text(''); //会場合計料金
         $('.venue_total').val(''); //会場合計料金
-        $('.venue_extend').text(venue_extend_price);
-        $('.extend').text(extend_price);
+        $('.venue_extend').val(venue_extend_price);
+        // $('.extend').text(extend_price);
         $('.extend').val(extend_price);
-        $('.venue_price').text(venue_extend_price - extend_price);
+        // $('.venue_price').text(venue_extend_price - extend_price);
         $('.venue_price').val(venue_extend_price - extend_price);
         $('.after_discount_price').text(venue_extend_price);
         $('.after_discount_price').val(venue_extend_price);
         if ((extend_price) == 0) {
           $('.venue_price_details table tbody').html('');
-          $('.venue_price_details table tbody').append("<tr><td>" + '会場料金' + "</td><td>" + venue_extend_price + "</td><td>" + '1' + "</td><td>" + venue_extend_price + "</td></tr>");
+          $('.venue_price_details table tbody').append("<tr><td>" + '会場料金' + "</td><td>" + venue_extend_price + "</td><td>" + '1' + "</td><td>" + venue_extend_price + "</td></tr>").trigger('create');
           $('.after_discount_price').text(venue_extend_price);
           $('.after_discount_price').val(venue_extend_price);
-          $('.venue_subtotal').text(venue_extend_price); //小計
+          // $('.venue_subtotal').text(venue_extend_price); //小計
           $('.venue_subtotal').val(venue_extend_price); //小計
-          $('.venue_tax').text(Math.floor(Number((venue_extend_price)) * 0.1)); //消費税
+          // $('.venue_tax').text(Math.floor(Number((venue_extend_price)) * 0.1)); //消費税
           $('.venue_tax').val(Math.floor(Number((venue_extend_price)) * 0.1)); //消費税
-          $('.venue_total').text(Number((venue_extend_price)) + (Math.floor(Number(venue_extend_price * 0.1)))); //会場合計料金
+          // $('.venue_total').text(Number((venue_extend_price)) + (Math.floor(Number(venue_extend_price * 0.1)))); //会場合計料金
           $('.venue_total').val(Number((venue_extend_price)) + (Math.floor(Number(venue_extend_price * 0.1)))); //会場合計料金
         } else {
           $('.venue_price_details table tbody').html('');
-          $('.venue_price_details table tbody').append("<tr><td>" + '会場料金' + "</td><td>" + ((venue_extend_price) - (extend_price)) + "</td><td>" + '1' + "</td><td>" + ((venue_extend_price) - (extend_price)) + "</td></tr>");
-          $('.venue_price_details table tbody').append("<tr><td>" + '延長料金' + "</td><td>" + extend_price + "</td><td>" + extend_time + "H</td><td>" + extend_price + "</td></tr>");
+          $('.venue_price_details table tbody').append("<tr><td>" + '会場料金' + "</td><td>" + ((venue_extend_price) - (extend_price)) + "</td><td>" + '1' + "</td><td>" + ((venue_extend_price) - (extend_price)) + "</td></tr>").trigger('create');
+          $('.venue_price_details table tbody').append("<tr><td>" + '延長料金' + "</td><td>" + extend_price + "</td><td>" + extend_time + "H</td><td>" + extend_price + "</td></tr>").trigger('create');
           $('.after_discount_price').text(venue_extend_price);
           $('.after_discount_price').val(venue_extend_price);
-          $('.venue_subtotal').text(venue_extend_price); //小計
+          // $('.venue_subtotal').text(venue_extend_price); //小計
           $('.venue_subtotal').val(venue_extend_price); //小計
-          $('.venue_tax').text(Math.floor(Number(venue_extend_price) * 0.1)); //消費税
+          // $('.venue_tax').text(Math.floor(Number(venue_extend_price) * 0.1)); //消費税
           $('.venue_tax').val(Math.floor(Number(venue_extend_price) * 0.1)); //消費税
-          $('.venue_total').text(Number(venue_extend_price) + (Math.floor(Number(venue_extend_price * 0.1)))); //会場合計料金
+          // $('.venue_total').text(Number(venue_extend_price) + (Math.floor(Number(venue_extend_price * 0.1)))); //会場合計料金
           $('.venue_total').val(Number(venue_extend_price) + (Math.floor(Number(venue_extend_price * 0.1)))); //会場合計料金
         }
       })
@@ -472,18 +448,18 @@ $(function () {
           .then((value) => {
             swal(`アクセア料金を選択し利用時間が15時間を超過した場合、そのまま進み会場料金を手入力してください`);
           });
-        $('.venue_extend').text('');
-        $('.extend').text('');
+        // $('.venue_extend').text('');
+        // $('.extend').text('');
         $('.extend').val('');
-        $('.venue_price').text('');
+        // $('.venue_price').text('');
         $('.venue_price').val('');
         $('.after_discount_price').text('');
         $('.after_discount_price').val('');
-        $('.venue_subtotal').text(''); //小計
+        // $('.venue_subtotal').text(''); //小計
         $('.venue_subtotal').val(''); //小計
-        $('.venue_tax').text(''); //消費税
+        // $('.venue_tax').text(''); //消費税
         $('.venue_tax').val(''); //消費税
-        $('.venue_total').text(''); //会場合計料金
+        // $('.venue_total').text(''); //会場合計料金
         $('.venue_total').val(''); //会場合計料金
         $('.venue_price_details table tbody').html('');
         $('.bill-bg').addClass('hide');

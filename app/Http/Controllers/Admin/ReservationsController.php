@@ -570,19 +570,10 @@ class ReservationsController extends Controller
     $services = $venue->services()->get();
     $breakdowns = $reservation->breakdowns()->get();
 
-
-    //   @for ($i = 0; $i < count($reservation->bills()->get())-1; $i++)
-    // @if ($reservation->bills()->skip($i+1)->first()->category==2)
     $other_bills = [];
     for ($i = 0; $i < count($reservation->bills()->get()) - 1; $i++) {
-      // $fake = [];
-      // $fake[] = 
       $other_bills[] = $reservation->bills()->skip($i + 1)->first();
     }
-
-    // echo "<pre>";
-    // var_dump($other_bills);
-    // echo "</pre>";
 
     return view('admin.reservations.show', [
       'reservation' => $reservation,

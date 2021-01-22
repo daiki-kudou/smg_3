@@ -565,9 +565,14 @@
           <h3 class="">請求情報</h3>
         </div>
         <div class="col-6 d-flex justify-content-end">
-          <p class="text-right"><a class="more_btn" href="">※後ほど修正　請求書をみる</a></p>
+          {{-- 予約完了以降表示 --}}
+          @if ($reservation->bills()->first()->reservation_status>=3)
+          <p class="text-right"><a class="more_btn" href="">請求書をみる</a></p>
+          @endif
           <!-- ステータスが入金確認後に表示------ -->
+          @if ($reservation->bills()->first()->paid==1)
           <p class="text-right ml-3"><a class="more_btn" href="">※後ほど修正　領収書をみる</a></p>
+          @endif
         </div>
       </div>
     </div>
@@ -711,7 +716,7 @@
           </table>
         </div>
         <div class="row bill-box_wrap price-sum bill-box_cell flex-column">
-          <p class="text-right"><span class="font-weight-bold">小計</span>※その他修正　7,200円</p>
+          <p class="text-right"><span class="font-weight-bold">小計</span>{{$reservation->bills()->first()->}}</p>
           <p class="text-right"><span>消費税</span>※その他修正　720円</p>
           <p class="text-right"><span class="font-weight-bold">合計金額</span>※その他修正　7,200円</p>
         </div>
