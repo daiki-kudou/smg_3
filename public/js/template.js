@@ -139,7 +139,7 @@ $(function () {
 
 
     var input_percent = ($(this).val() / 100);
-    var calc_target = $('.venue_extend').text();
+    var calc_target = $('.venue_extend').val();
     var minus_result = calc_target * -input_percent;
     var after_discounts = (Number(calc_target) + Number(minus_result));
     if (input_percent != 0 || input_percent != '') {
@@ -269,7 +269,7 @@ $(function () {
     $('.venue_total').val(''); //請求総額初期化
 
     var input_number = $(this).val();
-    var calc_target = $('.venue_extend').text();
+    var calc_target = $('.venue_extend').val();
     var minus_result = Number(calc_target) - Number(input_number);
     var result_percent = (Number(input_number) / Number(calc_target)) * 100;
     if (input_number != 0 || input_number != '') {
@@ -378,7 +378,7 @@ $(function () {
 $(function () {
   $('.discount_item').on('change', function () {
     var input_number = $(this).val();
-    var calc_target = $('.selected_items_total').eq(0).text();
+    var calc_target = $('.selected_items_total').val();
     var minus_result = Number(calc_target) - Number(input_number); //割引後の料金
     var result_percent = (Number(input_number) / Number(calc_target)) * 100;　//割引した割合を算出
     if (input_number != 0 || input_number != '') {

@@ -571,7 +571,7 @@
               </th>
             </tr>
             <tr>
-              <th colspan='4'>割引後　会場料金合計
+              <th colspan='4'>割引後　有料備品＆有料サービス合計
                 {{ Form::text('items_discount_price', '', ['class'=>'items_discount_price form-control', 'readonly']) }}
               </th>
             </tr>
