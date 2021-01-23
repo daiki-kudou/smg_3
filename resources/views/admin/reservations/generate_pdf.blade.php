@@ -32,7 +32,6 @@
     <h1>{{$reservation->event_name1}}</h1>
     <h1>{{$reservation->event_name2}}</h1>
     <h1>主催：{{$reservation->event_owner}}</h1>
-
     <h1>{{$reservation->venue->name_area}}{{$reservation->venue->name_bldg}}{{$reservation->venue->name_venue}}</h1>
 
   </div>
