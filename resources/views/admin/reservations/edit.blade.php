@@ -704,7 +704,7 @@
       </div>
       <div class="d-flex" style="height: 70px">
         <div style="width: 33%">割引料金
-          <input type="text" class="layout_discount d-block" name="layout_discount" value="{{$reservation->bills()->first()->layout_discount}}">
+          <!-- <input type="text" class="layout_discount d-block" name="layout_discount" value="{{$reservation->bills()->first()->layout_discount}}"> -->
         </div>
         <div style="width: 33%">割引率：<p class="layout_discount_percent"><span>%</span></p>
           {{ Form::hidden('layout_discount_percent', '', ['class'=>'layout_discount_percent']) }}
