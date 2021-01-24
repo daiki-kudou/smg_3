@@ -3,6 +3,61 @@ $(function () {
   ////////////////////
   // ロードトリガー
   ////////////////////
+  var param = location.search;
+  if (param) {
+    //パラメーターがある場合
+      function getParam(name, url) {
+        if (!url) url = window.location.href;
+        name = name.replace(/[\[\]]/g, "\\$&");
+        var regex = new RegExp("[?&]" + name + "(=([^&#]*)|&|#|$)"),
+            results = regex.exec(url);
+        if (!results) return null;
+        if (!results[2]) return '';
+        return decodeURIComponent(results[2].replace(/\+/g, " "));
+    }
+    var reserve_date=getParam('reserve_date');
+    var venue_id=getParam('venue_id');
+    var price_system=getParam('price_system');
+    var enter_time=getParam('enter_time');
+    var leave_time=getParam('leave_time');
+    var board_flag=getParam('board_flag');
+    var event_start=getParam('event_start');
+    var event_finish=getParam('event_finish');
+    var event_name1=getParam('event_name1');
+    var event_name2=getParam('event_name2');
+    var event_owner=getParam('event_owner');
+    var user_id=getParam('user_id');
+    var in_charge=getParam('in_charge');
+    var tel=getParam('tel');
+    var email_flag=getParam('email_flag');
+    var cost=getParam('cost');
+    var discount_condition=getParam('discount_condition');
+    var attention=getParam('attention');
+    var user_details=getParam('user_details');
+    var admin_details=getParam('admin_details');
+
+    // 会場挿入
+    ajaxGetItems(venue_id);
+    ajaxGetSalesHours(venue_id, dates);
+    ajaxGetPriceStstem(venue_id);
+    ajaxGetLayout(venue_id); 
+    ajaxGetLuggage(venue_id); 
+    ajaxGetOperatinSystem(venue_id); 
+    // 日付挿入
+    ajaxGetSalesHours(venue_id, reserve_date);
+    // ユーザー挿入
+    ajaxGetClients(user_id);
+    // 会場料金挿入
+    ajaxGetPriceDetails(venue_id, price_system, enter_time, leave_time); //料金計算
+
+    }
+  else{
+    // パラメーターがない場合
+  }
+
+  // console.log(getParam('reserve_date'));
+
+
   // var venue_id = $('#venues_selector').val();
 
   // // requestに会場が入っていれば
@@ -442,7 +497,8 @@ $(function () {
         $('.venue_tax').val(''); //消費税
         $('.venue_total').val(''); //会場合計料金
         $('.venue_price_details table tbody').html('');
-        $('.bill-bg').addClass('hide');
+
+        $('.bill-bg .bill-box:first-child').addClass('hide');
         $('.hand_input').removeClass('hide');
         $('#handinput_venue').val('');
         $('#handinput_extend').val('');
@@ -748,10 +804,6 @@ $(function () {
         swal('顧客情報の取得に失敗しました。');
       });
   };
-
-
-
-
 
 });
 

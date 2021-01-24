@@ -21,6 +21,7 @@ class DatabaseSeeder extends Seeder
       VenuesTableSeeder::class,
       ReservationTableSeeder::class,
       BillsTableSeeder::class,
+      DatesTableSeeder::class,
     ]);
   }
 }

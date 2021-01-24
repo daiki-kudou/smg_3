@@ -5,6 +5,11 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
 
+use App\Models\Venue;
+
+use Carbon\Carbon;
+
+
 class DatesTableSeeder extends Seeder
 {
     /**
@@ -15,15 +20,16 @@ class DatesTableSeeder extends Seeder
     public function run()
     {
         // DB::table('dates')->truncate();
-        for ($id = 1; $id <= 30; $id++) {
-            for ($day = 1; $day <= 7; $day++) {
-                DB::table('dates')->insert([
-                    'venue_id'              => $id,
-                    'week_day'             => $day,
-                    'start'          => '08:00',
-                    'finish'    => '22:00',
+        $venues = Venue::all();
+        foreach ($venues as $venue) {
+            for ($week_days = 1; $week_days <= 7; $week_days++) {
+                $venue->dates()->create([
+                    'venue_id' => $venue->id,
+                    'week_day' => $week_days,
+                    'start' => Carbon::parse('08:00'),
+                    'finish' => Carbon::parse('23:00'),
                 ]);
             };
-        };
+        }
     }
 }
