@@ -698,7 +698,7 @@
         <div style="width: 33%">レイアウト片付料金： <p class="layout_clean_result"></p>
           {{ Form::hidden('layout_clean_result', '', ['class'=>'layout_clean_result']) }}
         </div>
-        <div style="width:34px%">レイアウト変更合計： <p class="layout_total"></p>
+        <div style="width:34%">レイアウト変更合計： <p class="layout_total"></p>
           {{ Form::hidden('layout_total', '', ['class'=>'layout_total']) }}
         </div>
       </div>
