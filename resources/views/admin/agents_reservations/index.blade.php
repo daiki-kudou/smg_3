@@ -266,7 +266,8 @@
       </div>
       <div class="price_details">
       </div>
-      <div id='calculate' class="btn btn-primary disabled ">計算する！！！！</div>
+      {{-- <div id='calculate' class="btn btn-primary disabled">計算する！！！！</div> --}}
+      <a href="#venue_price_details" id="calculate" class="btn btn-primary disabled">計算する</a>
     </div>
     {{-- 右側 --}}
     <div class="col">
@@ -313,61 +314,43 @@
             </td>
           </tr>
           <tr>
-            <td class="table-active"><label for="ondayName" class=" form_required">会社名・団体名</label></td>
+            <td class="table-active"><label for="ondayName">会社名・団体名</label></td>
             <td>
-              {{ Form::text('in_charge', old('in_charge'),['class'=>'form-control', 'placeholder'=>'入力してください'] ) }}
+              {{ Form::text('end_client_company', old('in_charge'),['class'=>'form-control', 'placeholder'=>'入力してください'] ) }}
             </td>
           </tr>
           <tr>
-            <td class="table-active"><label for="mobilePhone" class=" form_required">担当者氏名</label></td>
+            <td class="table-active"><label for="mobilePhone">担当者氏名</label></td>
             <td>
-              {{ Form::text('tel', old('tel'),['class'=>'form-control', 'placeholder'=>'入力してください', 'maxlength'=>13] ) }}
+              {{ Form::text('end_client_person', old('tel'),['class'=>'form-control', 'placeholder'=>'入力してください', 'maxlength'=>13] ) }}
             </td>
           </tr>
           <tr>
-            <td class="table-active"><label for="mobilePhone" class=" form_required">住所</label></td>
+            <td class="table-active"><label for="mobilePhone">住所</label></td>
             <td>
-              {{ Form::text('tel', old('tel'),['class'=>'form-control', 'placeholder'=>'入力してください', 'maxlength'=>13] ) }}
+              {{ Form::text('end_client_address', old('tel'),['class'=>'form-control', 'placeholder'=>'入力してください', 'maxlength'=>13] ) }}
             </td>
           </tr>
           <tr>
-            <td class="table-active"><label for="mobilePhone" class=" form_required">電話番号</label></td>
+            <td class="table-active"><label for="mobilePhone">電話番号</label></td>
             <td>
-              {{ Form::text('tel', old('tel'),['class'=>'form-control', 'placeholder'=>'入力してください', 'maxlength'=>13] ) }}
+              {{ Form::text('end_client_tel', old('tel'),['class'=>'form-control', 'placeholder'=>'入力してください', 'maxlength'=>13] ) }}
             </td>
           </tr>
           <tr>
-            <td class="table-active"><label for="mobilePhone" class=" form_required">メールアドレス</label></td>
+            <td class="table-active"><label for="mobilePhone">メールアドレス</label></td>
             <td>
-              {{ Form::text('tel', old('tel'),['class'=>'form-control', 'placeholder'=>'入力してください', 'maxlength'=>13] ) }}
+              {{ Form::text('end_client_mail', old('tel'),['class'=>'form-control', 'placeholder'=>'入力してください', 'maxlength'=>13] ) }}
             </td>
           </tr>
           <tr>
-            <td class="table-active"><label for="mobilePhone" class=" form_required">利用者属性</label></td>
+            <td class="table-active"><label for="mobilePhone">利用者属性</label></td>
             <td>
-              {{ Form::text('tel', old('tel'),['class'=>'form-control', 'placeholder'=>'入力してください', 'maxlength'=>13] ) }}
+              {{ Form::text('end_client_attr', old('tel'),['class'=>'form-control', 'placeholder'=>'入力してください', 'maxlength'=>13] ) }}
             </td>
           </tr>
         </table>
       </div>
-      {{-- <table class="table table-bordered mail-table">
-        <tr>
-          <td colspan="2">
-            <p class="title-icon">
-              <i class="fas fa-envelope fa-2x fa-fw"></i>利用後の送信メール
-            </p>
-          </td>
-        </tr>
-        <tr>
-          <td class="table-active"><label for="email_flag">送信メール</label></td>
-          <td>
-            <div class="radio-box">
-              <input type="radio" name="email_flag" value="0" checked="checked">無し
-              <input type="radio" name="email_flag" value="1">有り
-            </div>
-          </td>
-        </tr>
-      </table> --}}
       <table class="table table-bordered sale-table">
         <tr>
           <td colspan="2">
@@ -379,13 +362,12 @@
         <tr>
           <td class="table-active"><label for="cost">支払い料</label></td>
           <td class="d-flex align-items-center">
-            {{-- <input class="form-control sales_percentage" name="sale" type="text" id="sale">%</td> --}}
-            {{ Form::number('cost', old('cost'),['class'=>'form-control sales_percentage', 'placeholder'=>'入力してください'] ) }}円
+            {{ Form::number('end_charge', old('cost'),['class'=>'form-control end_charge', 'placeholder'=>'入力してください', 'id'=>'end_charge'] ) }}円
         </tr>
         <tr>
           <td>支払い割合</td>
           <td>
-            {{ Form::text('cost_percent', '',['class'=>'form-control cost_percent', 'readonly'] ) }}
+            {{ Form::text('agent_cost', '',['class'=>'form-control agent_cost', 'id'=>'agent_cost', 'readonly'] ) }}
           </td>
         </tr>
       </table>
@@ -433,7 +415,7 @@
 <section class="bill-wrap section-wrap">
   <div class="bill-bg">
     <div class="bill-box" style="border: solid 1px rgba(0,0,0,0.2);">
-      <div class="venue_price_details">
+      <div class="venue_price_details" id="venue_price_details">
         <table class="table table-bordered" style="table-layout:fixed;">
           <thead>
             <tr>
@@ -487,7 +469,7 @@
           </thead>
           <tbody class="table table-striped">
             <tr>
-              <td>会場利用料</td>
+              <td>会場料金</td>
               <td></td>
               <td>1</td>
               <td></td>
