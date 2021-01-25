@@ -32,6 +32,12 @@
   .hide {
     display: none;
   }
+
+  .select2-results__option--disabled {
+    background: #e9ecef;
+    opacity: 1;
+
+  }
 </style>
 
 <div id="fullOverlay">
@@ -694,29 +700,39 @@
           <td style="background: #B2B2B2; color:white;" colspan="1">
             会場利用料
           </td>
-          <td colspan="2">●●●円</td>
+          <td colspan="2">
+            {{ Form::text('agent_venue_sub_total', '', ['class'=>'agent_venue_sub_total form-control', 'readonly']) }}
+          </td>
         </tr>
         <tr>
           <td style="background: #B2B2B2; color:white;" colspan="1">
             レイアウト変更</td>
-          <td colspan="2">●●●円</td>
+          <td colspan="2">
+            {{ Form::text('agent_layout_sub_total', '', ['class'=>'agent_layout_sub_total form-control', 'readonly']) }}
+          </td>
         </tr>
         <tr>
           <td colspan="1">小計</td>
-          <td colspan="2">●円</td>
+          <td colspan="2">
+            {{ Form::text('agent_sub_total', '', ['class'=>'agent_sub_total form-control', 'readonly']) }}
+          </td>
         </tr>
         <tr>
           <td colspan="1">消費税</td>
-          <td colspan="2">●円</td>
+          <td colspan="2">
+            {{ Form::text('agent_tax', '', ['class'=>'agent_tax form-control', 'readonly']) }}
+          </td>
         </tr>
         <tr>
           <td colspan="1">請求総額</td>
-          <td colspan="2">●円</td>
+          <td colspan="2">
+            {{ Form::text('agent_total', '', ['class'=>'agent_total form-control', 'readonly']) }}
+          </td>
         </tr>
       </tbody>
     </table>
   </div>
-  <dl class="row bill-box_wrap total-sum">
+  {{-- <dl class="row bill-box_wrap total-sum">
     <div class="col-3 bill-box_cell">
       <dt>合計請求総額</dt>
     </div>
@@ -724,21 +740,21 @@
       <dt>合計額</dt>
       <dd> <span class="all-total-without-tax"></span>
         {{ Form::hidden('sub_total', '', ['class'=>'all-total-without-tax']) }}
-        円</dd>
-    </div>
-    <div class="col-3 bill-box_cell">
-      <dt>消費税</dt>
-      <dd> <span class="all-total-tax"></span>
-        {{ Form::hidden('tax', '', ['class'=>'all-total-tax']) }}
-        円</dd>
-    </div>
-    <div class="col-3 bill-box_cell">
-      <dt>税込総請求額</dt>
-      <dd class="text-right"> <span class="all-total-amout"></span>
-        {{ Form::hidden('total', '', ['class'=>'all-total-amout']) }}
-        円</dd>
-    </div>
-  </dl>
+  円</dd>
+  </div>
+  <div class="col-3 bill-box_cell">
+    <dt>消費税</dt>
+    <dd> <span class="all-total-tax"></span>
+      {{ Form::hidden('tax', '', ['class'=>'all-total-tax']) }}
+      円</dd>
+  </div>
+  <div class="col-3 bill-box_cell">
+    <dt>税込総請求額</dt>
+    <dd class="text-right"> <span class="all-total-amout"></span>
+      {{ Form::hidden('total', '', ['class'=>'all-total-amout']) }}
+      円</dd>
+  </div>
+  </dl> --}}
   </div>
 </section>
 

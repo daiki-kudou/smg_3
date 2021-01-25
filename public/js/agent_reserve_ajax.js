@@ -1,6 +1,10 @@
 $(function () {
-  $('#agent_id').select2({
-  });
+  $('#agent_id').select2({ width: '100%' });
+  $('#venues_selector').select2({ width: '100%' });
+  $('#sales_start').select2({ width: '100%' });
+  $('#sales_finish').select2({ width: '100%' });
+  $('#event_start').select2({ width: '100%' });
+  $('#event_finish').select2({ width: '100%' });
 })
 
 $(function () {
@@ -335,14 +339,38 @@ $(function () {
     var layout_clean = Number($('input:radio[name="layout_clean"]:checked').val());
     ajaxGetLayoutPrice(venue_id, layout_prepare, layout_clean);
 
-    // var total_layout = layout_prepare + layout_clean;
-    // if (layout_prepare) {
-    //   $('.layout_prepare_result').val(layout_prepare);
+    var venue_subtotal = $('.venue_subtotal').val();
+    var layout_subtotal = $('.layout_subtotal').val();
+
+
+
+    // function check_vals() {
+    //   setTimeout(function () {
+    //     if (venue_subtotal.length && layout_subtotal.length) {
+    //       console.log(layout_subtotal + layout_subtotal);
+    //       return false;
+    //     } else {
+    //       console.log(layout_subtotal);
+    //       check_vals();
+    //     }
+    //   }, 100);
     // }
-    // if (layout_clean) {
-    //   $('.layout_clean_result').val(layout_clean);
-    // }
-    // $('.layout_total').val(total_layout);
+
+    // check_vals();
+
+
+    // var hoge = setTimeout(function () {
+    //   // 変数 json_data の値がnullではない時
+    //   if (venue_subtotal && layout_subtotal) {
+    //     console.log(venue_subtotal + layout_subtotal); // JSONのデータを取得出来る
+    //   } else { // 変数 json_data の値がnullの時
+    //     // 100ms後に自身(無名関数)を再実行
+    //     console.log('何もしない');
+    //     setTimeout(hoge, 100);
+    //   }
+    // });
+
+
   })
 })
 
@@ -381,10 +409,77 @@ function ajaxGetLayoutPrice($venue_id, $layout_prepare, $layout_clean) {
             $('.selected_layouts tbody').append(data);
           };
         });
-      }
+        $('.layout_subtotal').val($result[1]);
+        $('.layout_tax').val($result[1] * 0.1);
+        $('.layout_total_amount').val(($result[1] * 0.1) + $result[1]);
+      };
     })
     .fail(function ($result) {
       $('#fullOverlay').css('display', 'none');
       swal('レイアウトの金額取得に失敗しました。ページをリロードし再度試して下さい!!!!');
+    });
+};
+
+
+
+$(function () {
+  $('#datepicker1').on('change', function () {
+    var dates = $('#datepicker1').val();
+    var venue_id = $('#venues_selector').val();
+    // ajaxGetItems(venue_id);
+    ajaxGetSalesHours(venue_id, dates);
+
+    if ($('.select2-hidden-accessible').val() != null) { //顧客が選択されていたら、支払い期日抽出
+      var user_id = $('.select2-hidden-accessible').val();
+      ajaxGetClients(user_id);
+    }
+  });
+});
+
+function ajaxGetSalesHours($venue_id, $dates) {
+  $.ajax({
+    headers: {
+      'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+    },
+    url: '/admin/reservations/getsaleshours',
+    type: 'POST',
+    data: { 'venue_id': $venue_id, 'dates': $dates },
+    dataType: 'json',
+    beforeSend: function () {
+      $('#fullOverlay').css('display', 'block');
+    },
+  })
+    .done(function ($times) {
+      $('#fullOverlay').css('display', 'none');
+      // 初期化
+      $("#sales_start option").each(function ($result) {
+        $('#sales_start option').eq($result).prop('disabled', false);
+      });
+      $("#sales_finish option").each(function ($result) {
+        $('#sales_finish option').eq($result).prop('disabled', false);
+      });
+
+
+      for (let index = 0; index < $times[0].length; index++) {
+        $("#sales_start option").each(function ($result) {
+          if ($times[0][index] == $('#sales_start option').eq($result).val()) {
+            $('#sales_start option').eq($result).prop('disabled', true);
+          }
+        });
+      };
+
+      for (let index = 0; index < $times[0].length; index++) {
+        $("#sales_finish option").each(function ($result) {
+          if ($times[0][index] == $('#sales_finish option').eq($result).val()) {
+            $('#sales_finish option').eq($result).prop('disabled', true);
+          }
+        });
+      }
+
+
+    })
+    .fail(function ($times) {
+      $('#fullOverlay').css('display', 'none');
+      console.log('失敗', $times);
     });
 };
