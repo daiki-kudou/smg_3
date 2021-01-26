@@ -18,6 +18,7 @@ class CreateReservationsTable extends Migration
       $table->bigIncrements('id');
       $table->bigInteger('venue_id')->unsigned()->index();
       $table->bigInteger('user_id')->unsigned()->index();
+      $table->bigInteger('agent_id')->unsigned()->index();
       $table->date('reserve_date');
       $table->integer('price_system');
       $table->time('enter_time');

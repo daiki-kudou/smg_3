@@ -422,7 +422,6 @@ class ReservationsController extends Controller
       $reservation->leave_time = $request->leave_time;
       $reservation->board_flag = $request->board_flag;
       $reservation->event_start = $request->event_start;
-      $reservation->event_start = $request->event_start;
       $reservation->event_finish = $request->event_finish;
       $reservation->event_name1 = $request->event_name1;
       $reservation->event_name2 = $request->event_name2;
@@ -445,6 +444,9 @@ class ReservationsController extends Controller
       $reservation->bill_person = $request->bill_person;
       $reservation->bill_created_at = $request->bill_created_at;
       $reservation->bill_pay_limit = $request->bill_pay_limit;
+      $reservation->bill_remark = $request->bill_remark;
+
+      $reservation->agent_id = 0; //通常予約のコントローラーからはデフォで0（agent予約ではない）
 
       $reservation->save();
 
@@ -470,7 +472,6 @@ class ReservationsController extends Controller
         'others_total' => 0,
         'others_discount' => 0,
         'after_duscount_others' => 0,
-
 
         // 該当billの合計額関連
         'sub_total' => $request->sub_total,

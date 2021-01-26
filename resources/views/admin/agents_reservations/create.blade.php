@@ -63,7 +63,7 @@
 <h1>予約　新規登録（仲介会社）</h1>
 
 
-{{Form::open(['url' => 'admin/reservations/create/check', 'method' => 'POST', 'id'=>'AgentReservationCreateForm'])}}
+{{Form::open(['url' => 'admin/agents_reservations/check', 'method' => 'POST', 'id'=>'AgentReservationCreateForm'])}}
 @csrf
 <div class="container-field bg-white text-dark">
   <div class="row">

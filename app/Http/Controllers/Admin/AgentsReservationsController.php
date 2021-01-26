@@ -12,11 +12,11 @@ use App\Models\Agent;
 
 class AgentsReservationsController extends Controller
 {
-  public function index()
+  public function create()
   {
-    $venues = Venue::all();
-    $agents = Agent::all();
-    return view('admin.agents_reservations.index', [
+    $venues = Venue::select('id', 'name_area', 'name_bldg', 'name_venue')->get();
+    $agents = Agent::select('id', 'name', 'person_firstname', 'person_lastname', 'email')->get();
+    return view('admin.agents_reservations.create', [
       'venues' => $venues,
       'agents' => $agents,
     ]);

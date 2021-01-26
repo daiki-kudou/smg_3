@@ -137,7 +137,7 @@ Route::namespace('Admin')->prefix('admin')->name('admin.')->group(function () {
 
     Route::post('bills/other_send_approve', 'BillsController@other_send_approve');
     // 仲介会社経由予約
-    Route::get('agents_reservations', 'AgentsReservationsController@index');
+    Route::get('agents_reservations', 'AgentsReservationsController@create');
     // 仲介会社　料金取得
     Route::post('agents_reservations/get_agent', 'AgentsReservationsController@get_agent');
   });

@@ -14,11 +14,14 @@ class Reservation extends Model
   protected $fillable = [
     'venue_id',
     'user_id',
+    'agent_id',
     'reserve_date',
+    'price_system',
     'enter_time',
     'leave_time',
     'event_start',
     'event_finish',
+    'board_flag',
     'event_name1',
     'event_name2',
     'event_owner',
@@ -35,7 +38,6 @@ class Reservation extends Model
     'user_details',
     'admin_details',
     'payment_limit',
-    'paid',
     'reservation_status',
     'double_check_status',
     'double_check1_name',
@@ -97,6 +99,17 @@ class Reservation extends Model
       'App\Models\Bill',
     );
   }
+
+  /*
+|--------------------------------------------------------------------------
+| 仲介会社との一対多
+|--------------------------------------------------------------------------|
+*/
+  public function agent()
+  {
+    return $this->belongsTo(Agent::class);
+  }
+
 
   // bills 削除用
   protected static function boot()

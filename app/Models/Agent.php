@@ -8,18 +8,14 @@ class Agent extends Model
 {
   /*
 |--------------------------------------------------------------------------
-| 会場と仲介の多対多
+| 会場と予約の一対多
 |--------------------------------------------------------------------------|
 */
-  // public function venues()
-  // {
-  //   return $this->belongsToMany('App\Models\Venue')->withTimestamps();
-  // }
+  public function reservations()
+  {
+    return $this->hasMany(Reservation::class);
+  }
 
-  // public function users()
-  // {
-  //   return $this->belongsToMany('App\Models\User')->withTimestamps();
-  // }
 
   public function searchs($freeword, $id, $name, $person_tel)
   {
