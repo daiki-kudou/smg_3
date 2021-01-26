@@ -134,21 +134,21 @@ $(function () {
   });
 
   // 顧客選択トリガー
-  $('.select2-hidden-accessible').on('change', function () {
-    var user_id = $(this).val();//user_idを取得
-    if ($('#datepicker1').val() == '') {
-      swal('予約の支払期日設定に失敗しました。必ず【利用日】を選択してください');
-      $('.select2-hidden-accessible').val('');
-      $('.select2-selection__rendered').text('');
-      alert(user_id);
-    } else {
-      ajaxGetClients(user_id);
-      var hidden_venue = $('input[name="bill_company"]');
-      var target_venue_id = $(this).val();
-      hidden_venue.val(target_venue_id);
+  // $('.select2-hidden-accessible').on('change', function () {
+  //   var user_id = $(this).val();//user_idを取得
+  //   if ($('#datepicker1').val() == '') {
+  //     swal('予約の支払期日設定に失敗しました。必ず【利用日】を選択してください');
+  //     $('.select2-hidden-accessible').val('');
+  //     $('.select2-selection__rendered').text('');
+  //     alert(user_id);
+  //   } else {
+  //     ajaxGetClients(user_id);
+  //     var hidden_venue = $('input[name="bill_company"]');
+  //     var target_venue_id = $(this).val();
+  //     hidden_venue.val(target_venue_id);
 
-    }
-  })
+  //   }
+  // })
 
   /*--------------------------------------------------
   // 計算するボタン押下トリガー
@@ -759,6 +759,7 @@ $(function () {
     })
       .done(function ($user_results) {
         $('#fullOverlay').css('display', 'none');
+        console.log('ajaxGetClients 成功', $user_results)
         // 1. ３営業日前　2. 当月末　3. 翌月末 のいずれかで返ってくる
         var s_date = $('#datepicker1').val();
         if ($user_results[0] == 1) {
@@ -798,6 +799,7 @@ $(function () {
         };
       })
       .fail(function ($user_results) {
+        console.log('ajaxGetClients 失敗', $user_results)
         $('#fullOverlay').css('display', 'none');
         swal('顧客情報の取得に失敗しました。');
       });
