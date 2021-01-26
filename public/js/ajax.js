@@ -766,8 +766,8 @@ $(function () {
           var dt = new Date(s_date);
           var three_days_before = dt.setDate(dt.getDate() - 3); //営業日前
           three_days_before = new Date(three_days_before);
-          var target_name = $('input[name="payment_limit"]');
-          var target_name2 = $('input[name="bill_pay_limit"]');
+          var target_name = $('input[name="payment_limit"]').val();
+          var target_name2 = $('input[name="bill_pay_limit"]').val();
           target_name.val(three_days_before.getFullYear() + '-' + (('0' + (three_days_before.getMonth() + 1)).slice(-2)) + '-' + (('0' + three_days_before.getDate()).slice(-2)));
           target_name2.val(three_days_before.getFullYear() + '-' + (('0' + (three_days_before.getMonth() + 1)).slice(-2)) + '-' + (('0' + three_days_before.getDate()).slice(-2)));
           $('.selected_person').text('');
