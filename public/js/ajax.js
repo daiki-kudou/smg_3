@@ -3,59 +3,58 @@ $(function () {
   ////////////////////
   // ロードトリガー
   ////////////////////
-  var param = location.search;
-  if (param) {
-    //パラメーターがある場合
-      function getParam(name, url) {
-        if (!url) url = window.location.href;
-        name = name.replace(/[\[\]]/g, "\\$&");
-        var regex = new RegExp("[?&]" + name + "(=([^&#]*)|&|#|$)"),
-            results = regex.exec(url);
-        if (!results) return null;
-        if (!results[2]) return '';
-        return decodeURIComponent(results[2].replace(/\+/g, " "));
-    }
-    var reserve_date=getParam('reserve_date');
-    var venue_id=getParam('venue_id');
-    var price_system=getParam('price_system');
-    var enter_time=getParam('enter_time');
-    var leave_time=getParam('leave_time');
-    var board_flag=getParam('board_flag');
-    var event_start=getParam('event_start');
-    var event_finish=getParam('event_finish');
-    var event_name1=getParam('event_name1');
-    var event_name2=getParam('event_name2');
-    var event_owner=getParam('event_owner');
-    var user_id=getParam('user_id');
-    var in_charge=getParam('in_charge');
-    var tel=getParam('tel');
-    var email_flag=getParam('email_flag');
-    var cost=getParam('cost');
-    var discount_condition=getParam('discount_condition');
-    var attention=getParam('attention');
-    var user_details=getParam('user_details');
-    var admin_details=getParam('admin_details');
+  // var param = location.search;
+  // if (param) {
+  //   //パラメーターがある場合
+  //   function getParam(name, url) {
+  //     if (!url) url = window.location.href;
+  //     name = name.replace(/[\[\]]/g, "\\$&");
+  //     var regex = new RegExp("[?&]" + name + "(=([^&#]*)|&|#|$)"),
+  //       results = regex.exec(url);
+  //     if (!results) return null;
+  //     if (!results[2]) return '';
+  //     return decodeURIComponent(results[2].replace(/\+/g, " "));
+  //   }
+  //   var reserve_date = getParam('reserve_date');
+  //   var venue_id = getParam('venue_id');
+  //   var price_system = getParam('price_system');
+  //   var enter_time = getParam('enter_time');
+  //   var leave_time = getParam('leave_time');
+  //   var board_flag = getParam('board_flag');
+  //   var event_start = getParam('event_start');
+  //   var event_finish = getParam('event_finish');
+  //   var event_name1 = getParam('event_name1');
+  //   var event_name2 = getParam('event_name2');
+  //   var event_owner = getParam('event_owner');
+  //   var user_id = getParam('user_id');
+  //   var in_charge = getParam('in_charge');
+  //   var tel = getParam('tel');
+  //   var email_flag = getParam('email_flag');
+  //   var cost = getParam('cost');
+  //   var discount_condition = getParam('discount_condition');
+  //   var attention = getParam('attention');
+  //   var user_details = getParam('user_details');
+  //   var admin_details = getParam('admin_details');
 
-    // 会場挿入
-    ajaxGetItems(venue_id);
-    ajaxGetSalesHours(venue_id, dates);
-    ajaxGetPriceStstem(venue_id);
-    ajaxGetLayout(venue_id); 
-    ajaxGetLuggage(venue_id); 
-    ajaxGetOperatinSystem(venue_id); 
-    // 日付挿入
-    ajaxGetSalesHours(venue_id, reserve_date);
-    // ユーザー挿入
-    ajaxGetClients(user_id);
-    // 会場料金挿入
-    ajaxGetPriceDetails(venue_id, price_system, enter_time, leave_time); //料金計算
+  //   // 会場挿入
+  //   ajaxGetItems(venue_id);
+  //   ajaxGetSalesHours(venue_id, dates);
+  //   ajaxGetPriceStstem(venue_id);
+  //   ajaxGetLayout(venue_id);
+  //   ajaxGetLuggage(venue_id);
+  //   ajaxGetOperatinSystem(venue_id);
+  //   // 日付挿入
+  //   ajaxGetSalesHours(venue_id, reserve_date);
+  //   // ユーザー挿入
+  //   ajaxGetClients(user_id);
+  //   // 会場料金挿入
+  //   ajaxGetPriceDetails(venue_id, price_system, enter_time, leave_time); //料金計算
 
-    }
-  else{
-    // パラメーターがない場合
-  }
+  // }
+  // else {
+  //   // パラメーターがない場合
+  // }
 
-  // console.log(getParam('reserve_date'));
 
 
   // var venue_id = $('#venues_selector').val();
@@ -132,10 +131,6 @@ $(function () {
     // ajaxGetItems(venue_id);
     ajaxGetSalesHours(venue_id, dates);
 
-    if ($('.select2-hidden-accessible').val() != null) { //顧客が選択されていたら、支払い期日抽出
-      var user_id = $('.select2-hidden-accessible').val();
-      ajaxGetClients(user_id);
-    }
   });
 
   // 顧客選択トリガー
@@ -177,11 +172,11 @@ $(function () {
     var services_array = [];
     var services_length = $('.services table tbody tr').length;
     for (let services_index = 0; services_index < services_length; services_index++) {
-      console.log('サービスの_index', services_index);
+      // console.log('サービスの_index', services_index);
       var s_target = $('.services table tbody tr').eq(services_index).find("input:radio[name='" + 'service' + (services_index) + "']:checked").val();
       services_array.push(Number(s_target));
     }
-    console.log('サービスの数', services_array);
+    // console.log('サービスの数', services_array);
 
     ajaxGetItemsDetails(venue_id, equipemnts_array, services_array);
 
@@ -200,6 +195,10 @@ $(function () {
     $('input[name^="hand_input"]').each(function (index, elem) {
       $(elem).val('');
     })
+
+    var user_id = $('.select2-hidden-accessible').val();
+    ajaxGetClients(user_id);
+
 
 
 
@@ -307,7 +306,7 @@ $(function () {
         $('#fullOverlay').css('display', 'none');
         $('.equipemnts table tbody').html('');
         $('.services table tbody').html('');
-        console.log("item失敗");
+        // console.log("item失敗");
       });
   };
 
@@ -358,7 +357,7 @@ $(function () {
       })
       .fail(function ($times) {
         $('#fullOverlay').css('display', 'none');
-        console.log('失敗', $times);
+        // console.log('失敗', $times);
 
         // $('#sales_start').html('');//初期化
         // $('#sales_finish').html('');//初期化
@@ -409,7 +408,7 @@ $(function () {
       .fail(function ($prices) {
         $('#fullOverlay').css('display', 'none');
         // $('.price_selector').html('');
-        console.log('失敗したよ');
+        // console.log('失敗したよ');
         $('#price_system_radio1').prop('checked', false).prop('disabled', true); //初期化
         $('#price_system_radio2').prop('checked', false).prop('disabled', true); //初期化
 
@@ -451,7 +450,7 @@ $(function () {
         var extend_price = ($details[0][1]);
         var usage = ($details[0][2]);
         var extend_time = ($details[0][3]);
-        console.log($details);
+        // console.log($details);
         $('.extend').val('');
         $('.venue_price').val('');
         $('.after_discount_price').text('');
@@ -528,7 +527,7 @@ $(function () {
       },
     })
       .done(function ($each) {
-        console.log('成功？？', $each);
+        // console.log('成功？？', $each);
 
         $('#fullOverlay').css('display', 'none');
         // ※$eachの[0][0]には備品とサービスの合計料金
@@ -577,8 +576,8 @@ $(function () {
       })
       .fail(function ($each) {
         $('#fullOverlay').css('display', 'none');
-        console.log('備品又はサービスの料金取得に失敗しました。ページをリロードし再度試して下さい');
-        console.log('備品エラー', $each);
+        // console.log('備品又はサービスの料金取得に失敗しました。ページをリロードし再度試して下さい');
+        // console.log('備品エラー', $each);
         $('.items_equipments table tbody').html(''); //テーブル初期化
         $('.selected_equipments_price').val(''); //有料備品料金初期化
         $('.selected_services_price').val(''); //有料サービス料金初期化
@@ -608,7 +607,7 @@ $(function () {
     })
       .done(function ($result) {
         $('#fullOverlay').css('display', 'none');
-        console.log($result);
+        // console.log($result);
         $('.layouts table tbody').html(''); //初期化
         var data =
           $result == 1 ? $('.layouts table tbody').append("<tr><td>レイアウト準備</td><td><input type='radio' name='layout_prepare' id='layout_prepare' value='1'><label for='layout_prepare'>有り</label><input type='radio' name='layout_prepare' id='no_layout_prepare' value='0' checked >  <label for='no_layout_prepare'>無し</label></td></tr><tr><td>レイアウト片付</td><td><input type='radio' name='layout_clean' id='layout_clean' value='1'><label for='layout_clean'>有り</label><input type='radio' name='layout_clean' id='no_layout_clean' value='0'checked><label for='no_layout_clean'>無し</label></td></tr>") : $('.layouts table tbody').append('<tr><td>該当会場はレイアウト変更を受け付けていません</td></tr>');
@@ -639,7 +638,7 @@ $(function () {
     })
       .done(function ($result) {
         $('#fullOverlay').css('display', 'none');
-        console.log($result[0]);
+        // console.log($result[0]);
         $('.selected_layouts table tbody').html('');
         for (let s_layout = 0; s_layout < $result[0].length; s_layout++) {
           if ($result[0][s_layout] != '') {
@@ -785,7 +784,6 @@ $(function () {
           $('.selected_person').text($user_results[1]);
           $('input[name="bill_person"]').val(''); //hiddenのbill_personに挿入
           $('input[name="bill_person"]').val($user_results[1]);//hiddenのbill_personに挿入
-
         } else if ($user_results[0] == 3) {
           var dt = new Date(s_date);
           var end_of_next_month = new Date(dt.getFullYear(), dt.getMonth() + 2, 0);
@@ -804,7 +802,6 @@ $(function () {
         swal('顧客情報の取得に失敗しました。');
       });
   };
-
 });
 
 

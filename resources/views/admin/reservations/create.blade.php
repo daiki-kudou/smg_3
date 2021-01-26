@@ -267,7 +267,9 @@
       </div>
       <div class="price_details">
       </div>
-      <div id='calculate' class="btn btn-primary">計算する！！！！</div>
+      {{-- <div id='calculate' class="btn btn-primary">計算する！！！！</div> --}}
+      <a href="#venue_price_details" id="calculate" class="btn btn-primary ">計算する</a>
+
     </div>
     {{-- 右側 --}}
     <div class="col">
@@ -673,19 +675,19 @@
       <div class="col-3 bill-box_cell">
         <dt>合計額</dt>
         <dd> <span class="all-total-without-tax"></span>
-          {{ Form::hidden('sub_total', '', ['class'=>'all-total-without-tax']) }}
+          {{ Form::text('sub_total', '', ['class'=>'all-total-without-tax']) }}
           円</dd>
       </div>
       <div class="col-3 bill-box_cell">
         <dt>消費税</dt>
         <dd> <span class="all-total-tax"></span>
-          {{ Form::hidden('tax', '', ['class'=>'all-total-tax']) }}
+          {{ Form::text('tax', '', ['class'=>'all-total-tax']) }}
           円</dd>
       </div>
       <div class="col-3 bill-box_cell">
         <dt>税込総請求額</dt>
         <dd class="text-right"> <span class="all-total-amout"></span>
-          {{ Form::hidden('total', '', ['class'=>'all-total-amout']) }}
+          {{ Form::text('total', '', ['class'=>'all-total-amout']) }}
           円</dd>
       </div>
     </dl>
@@ -693,16 +695,16 @@
 </section>
 
 
-{{ Form::hidden('payment_limit',isset($request)?$request->payment_limit:'')}}
-{{ Form::hidden('paid', isset($request)?$request->paid:0 ) }} {{--デフォ0で未入金--}}
-{{ Form::hidden('reservation_status', isset($request)?$request->reservation_status:1 ) }}
+{{ Form::text('payment_limit',isset($request)?$request->payment_limit:'')}}
+{{ Form::text('paid', isset($request)?$request->paid:0 ) }} {{--デフォ0で未入金--}}
+{{ Form::text('reservation_status', isset($request)?$request->reservation_status:1 ) }}
 {{-- ※注意　管理者からの予約は予約ステータスが1。予約確認中 --}}
-{{ Form::hidden('double_check_status', isset($request)?$request->double_check_status:0 ) }}
+{{ Form::text('double_check_status', isset($request)?$request->double_check_status:0 ) }}
 
-{{ Form::hidden('bill_company', isset($request)?$request->bill_company:'' ) }}
-{{ Form::hidden('bill_person', isset($request)?$request->bill_person:'' ) }}
-{{ Form::hidden('bill_created_at', isset($request)?$request->bill_created_at:date('Y-m-d')) }}
-{{ Form::hidden('bill_pay_limit', isset($request)?$request->bill_pay_limit:'' ) }}
+{{ Form::text('bill_company', isset($request)?$request->bill_company:'' ) }}
+{{ Form::text('bill_person', isset($request)?$request->bill_person:'' ) }}
+{{ Form::text('bill_created_at', isset($request)?$request->bill_created_at:date('Y-m-d')) }}
+{{ Form::text('bill_pay_limit', isset($request)?$request->bill_pay_limit:'' ) }}
 
 {{Form::submit('送信', ['class'=>'btn btn-primary mx-auto', 'id'=>'check_submit'])}}
 

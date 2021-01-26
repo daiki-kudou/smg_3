@@ -53,29 +53,6 @@
           $('.table tbody tr').eq(index).find('td').find('input, select').eq(3).attr('name', price);
         }
       });
-
-      // 時間の入力制御
-      // for (let  = 0; index < array.length; index++) {
-      //   const element = array[index];
-        
-      // } 
-      //   $('#start').on('change',function(){
-      //       var start=$('#start').val();
-      //       var finish=$('#finish').val();
-      //       if(start>finish){
-      //           alert('営業開始時間は営業終了時間より前に設定してください');
-      //           $('#start').val('');
-      //       }
-      //   })
-      //   $('#finish').on('change',function(){
-      //       var start=$('#start').val();
-      //       var finish=$('#finish').val();
-      //       if(start>finish){
-      //           alert('営業終了時間は営業開始時間より後に設定してください');
-      //           $('#finish').val('');
-      //       }
-      //   })
-
     });
 </script>
 
