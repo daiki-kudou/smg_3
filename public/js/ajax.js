@@ -198,6 +198,7 @@ $(function () {
 
     var user_id = $('.select2-hidden-accessible').val();
     ajaxGetClients(user_id);
+    alert(user_id);
 
 
 

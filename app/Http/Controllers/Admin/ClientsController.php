@@ -198,7 +198,6 @@ class ClientsController extends Controller
     $user = User::find($user_id);
     $name = $user->first_name . $user->last_name;
     //1. ３営業日前　2. 当月末　3. 翌月末
-    // return [$user->pay_limit,$name];
-    return [$request];
+    return [$user->pay_limit, $name];
   }
 }
