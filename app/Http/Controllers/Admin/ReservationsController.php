@@ -243,8 +243,33 @@ class ReservationsController extends Controller
 
   public function calculate(Request $request)
   {
+    echo "<pre>";
     var_dump($request->all());
-    return view('admin.reservations.calculate');
+    echo "</pre>";
+
+    $venue = Venue::find($request->venue_id);
+    $equipments = $venue->equipments()->get();
+    $services = $venue->services()->get();
+
+    $s_equipment = [];
+    $s_services = [];
+    foreach ($request->all() as $key => $value) {
+      if (preg_match('/equipemnt/', $key)) {
+        $s_equipment[] = $value;
+      }
+      if (preg_match('/service/', $key)) {
+        $s_services[] = $value;
+      }
+    }
+
+
+    return view('admin.reservations.calculate', [
+      'request' => $request,
+      'equipments' => $equipments,
+      'services' => $services,
+      's_equipment' => $s_equipment, //選択された備品
+      's_services' => $s_services, //選択されたサービス
+    ]);
   }
 
 

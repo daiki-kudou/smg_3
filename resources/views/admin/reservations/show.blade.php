@@ -169,9 +169,7 @@
         <td class="table-active"><label for="venue">会場</label></td>
         <td>
           <p>
-            {{ReservationHelper::getVenue($reservation->venue_id)[0]}}
-            {{ReservationHelper::getVenue($reservation->venue_id)[1]}}
-            {{ReservationHelper::getVenue($reservation->venue_id)[2]}}
+            {{ReservationHelper::getVenue($reservation->venue_id)}}
           </p>
           <p>アクセア仕様</p>
         </td>

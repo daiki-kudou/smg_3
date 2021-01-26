@@ -60,7 +60,8 @@ class ReservationHelper
   public static function getVenue($venue_id)
   {
     $venue = Venue::find($venue_id);
-    return [$venue->name_area, $venue->name_bldg, $venue->name_venue];
+    $result = $venue->name_area . $venue->name_bldg . $venue->name_venue;
+    return $result;
   }
 
   public static function getVenueAddreess($venue_id)
