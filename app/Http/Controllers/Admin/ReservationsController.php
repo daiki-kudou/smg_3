@@ -241,6 +241,13 @@ class ReservationsController extends Controller
     }
   }
 
+  public function calculate(Request $request)
+  {
+    var_dump($request->all());
+    return view('admin.reservations.calculate');
+  }
+
+
   public function check(Request $request)
   {
     var_dump($request->all());
