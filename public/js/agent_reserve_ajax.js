@@ -261,8 +261,7 @@ function ajaxGetLayout($venue_id) {
       $('#fullOverlay').css('display', 'none');
       console.log($result);
       $('.layouts table tbody').html(''); //初期化
-      var data =
-        $result == 1 ? $('.layouts table tbody').append("<tr><td>レイアウト準備</td><td><input type='radio' name='layout_prepare' id='layout_prepare' value='1'><label for='layout_prepare'>有り</label><input type='radio' name='layout_prepare' id='no_layout_prepare' value='0' checked >  <label for='no_layout_prepare'>無し</label></td></tr><tr><td>レイアウト片付</td><td><input type='radio' name='layout_clean' id='layout_clean' value='1'><label for='layout_clean'>有り</label><input type='radio' name='layout_clean' id='no_layout_clean' value='0'checked><label for='no_layout_clean'>無し</label></td></tr>") : $('.layouts table tbody').append('<tr><td>該当会場はレイアウト変更を受け付けていません</td></tr>');
+      $result == 1 ? $('.layouts table tbody').append("<tr><td>レイアウト準備</td><td><input type='radio' name='layout_prepare' id='layout_prepare' value='1'><label for='layout_prepare'>有り</label><input type='radio' name='layout_prepare' id='no_layout_prepare' value='0' checked >  <label for='no_layout_prepare'>無し</label></td></tr><tr><td>レイアウト片付</td><td><input type='radio' name='layout_clean' id='layout_clean' value='1'><label for='layout_clean'>有り</label><input type='radio' name='layout_clean' id='no_layout_clean' value='0'checked><label for='no_layout_clean'>無し</label></td></tr>") : $('.layouts table tbody').append('<tr><td>該当会場はレイアウト変更を受け付けていません</td></tr>');
     })
     .fail(function ($result) {
       $('#fullOverlay').css('display', 'none');
@@ -318,7 +317,7 @@ function ajaxGetLuggage($venue_id) {
     });
 };
 
-
+// 計算する
 $(function () {
   $('#calculate').on('click', function () {
     var venue_id = $('#venues_selector').val();
@@ -340,36 +339,23 @@ $(function () {
     var layout_clean = Number($('input:radio[name="layout_clean"]:checked').val());
     ajaxGetLayoutPrice(venue_id, layout_prepare, layout_clean);
 
-    var venue_subtotal = $('.venue_subtotal').val();
-    var layout_subtotal = $('.layout_subtotal').val();
+    var agent_id = $('#agent_id').val();
+    var date = $('#datepicker1').val();
+    ajaxGetAgentPayDetails(agent_id, date);
 
 
-
-    // function check_vals() {
-    //   setTimeout(function () {
-    //     if (venue_subtotal.length && layout_subtotal.length) {
-    //       console.log(layout_subtotal + layout_subtotal);
-    //       return false;
-    //     } else {
-    //       console.log(layout_subtotal);
-    //       check_vals();
-    //     }
-    //   }, 100);
-    // }
-
-    // check_vals();
+    setTimeout(function () {
+      var venue_subtotal = Number($('.venue_subtotal').val());
+      var layout_subtotal = Number($('.layout_subtotal').val());
+      var agent_venue_layout = venue_subtotal + layout_subtotal;
+      $('.agent_venue_sub_total').val(venue_subtotal);
+      $('.agent_layout_sub_total').val(layout_subtotal);
+      $('.agent_sub_total').val(agent_venue_layout);
+      $('.agent_tax').val(agent_venue_layout * 0.1);
+      $('.agent_total').val(agent_venue_layout + (agent_venue_layout * 0.1));
 
 
-    // var hoge = setTimeout(function () {
-    //   // 変数 json_data の値がnullではない時
-    //   if (venue_subtotal && layout_subtotal) {
-    //     console.log(venue_subtotal + layout_subtotal); // JSONのデータを取得出来る
-    //   } else { // 変数 json_data の値がnullの時
-    //     // 100ms後に自身(無名関数)を再実行
-    //     console.log('何もしない');
-    //     setTimeout(hoge, 100);
-    //   }
-    // });
+    }, 1000);
 
 
   })
@@ -431,10 +417,10 @@ $(function () {
     // ajaxGetItems(venue_id);
     ajaxGetSalesHours(venue_id, dates);
 
-    if ($('.select2-hidden-accessible').val() != null) { //顧客が選択されていたら、支払い期日抽出
-      var user_id = $('.select2-hidden-accessible').val();
-      ajaxGetClients(user_id);
-    }
+    // if ($('.select2-hidden-accessible').val() != null) { //顧客が選択されていたら、支払い期日抽出
+    //   var user_id = $('.select2-hidden-accessible').val();
+    //   ajaxGetClients(user_id);
+    // }
   });
 });
 
@@ -486,3 +472,30 @@ function ajaxGetSalesHours($venue_id, $dates) {
     });
 };
 
+
+
+function ajaxGetAgentPayDetails($agent_id, $date) {
+  $.ajax({
+    headers: {
+      'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+    },
+    url: '/admin/agents_reservations/pay_limits',
+    type: 'POST',
+    data: {
+      'agent_id': $agent_id, 'date': $date
+    },
+    dataType: 'text',
+    beforeSend: function () {
+      $('#fullOverlay').css('display', 'block');
+    },
+  })
+    .done(function ($agent_results) {
+      $('#fullOverlay').css('display', 'none');
+      console.log($agent_results);
+      $('input[name="payment_limit"]').val($agent_results);
+    })
+    .fail(function ($agent_results) {
+      console.log('agent_results 失敗', $agent_results)
+      $('#fullOverlay').css('display', 'none');
+    });
+};

@@ -527,7 +527,7 @@
             </tr>
           </tbody>
         </table>
-        <div class="text-right">
+        <div class="text-right hand_input_result">
           <p>小計
             {{ Form::text('handinput_subtotal', '', ['class'=>'form-control text-right', 'id'=>'handinput_subtotal', 'readonly']) }}
           </p>

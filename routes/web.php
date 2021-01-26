@@ -140,5 +140,9 @@ Route::namespace('Admin')->prefix('admin')->name('admin.')->group(function () {
     Route::get('agents_reservations', 'AgentsReservationsController@create');
     // 仲介会社　料金取得
     Route::post('agents_reservations/get_agent', 'AgentsReservationsController@get_agent');
+    // ajax 支払い期日等　取得
+    Route::post('agents_reservations/pay_limits', 'AgentsReservationsController@pay_limits');
+
+    Route::post('agents_reservations/check', 'AgentsReservationsController@check');
   });
 });

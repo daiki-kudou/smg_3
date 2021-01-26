@@ -143,6 +143,25 @@
             <th scope="row">{{ Form::label('cost', '支払割合（原価）') }}</th>
             <td>{{ Form::number('cost', old('cost'), ['class' => 'form-control']) }}</td>
           </tr>
+          <tr>
+            <th scope="row">{{ Form::label('payment_limit', '締日') }}</th>
+            <td>
+              <select name="payment_limit" id="payment_limit">
+                <option value="1">当月末</option>
+                <option value="2">翌月末</option>
+                <option value="3">翌々月末</option>
+              </select>
+            </td>
+          </tr>
+          <tr>
+            <th scope="row">{{ Form::label('payment_day', '支払日') }}</th>
+            <td>{{ Form::number('payment_day', old('payment_day'), ['class' => 'form-control']) }}</td>
+          </tr>
+          <tr>
+            <th scope="row">{{ Form::label('payment_remark', '備考') }}</th>
+            <td>{{ Form::number('payment_remark', old('payment_remark'), ['class' => 'form-control']) }}</td>
+          </tr>
+
         </tbody>
       </table>
     </div>

@@ -17,7 +17,7 @@ class UsersTableSeeder extends Seeder
    */
   public function run()
   {
-    factory(\App\Models\User::class, 1000)->create();
+    factory(\App\Models\User::class, 100)->create();
 
     // DB::table('users')->truncate();
     // $firstname_random = collect(['宮城', '松村', '石原', '後藤', '松村', '安部', '石原', '河原', '山根', '佐伯', '上原', '吉本', '神谷', '小柳', '齋藤', '小山', '伊東', '福田', '菊地', '森本', '西尾', '亀井', '木村', '徳田', '木村', '白川', '鈴木', '平岡', '今井', '緒方', '岡崎', '浅田', '大崎', '川崎', '山根', '吉沢', '大森', '片山', '篠崎', '長沢', '原', '永野', '武田', '神谷', '古賀', '吉村', '白川', '酒井', '三好', '三上']);

@@ -273,7 +273,7 @@
       <div class="price_details">
       </div>
       {{-- <div id='calculate' class="btn btn-primary disabled">計算する！！！！</div> --}}
-      <a href="#venue_price_details" id="calculate" class="btn btn-primary disabled">計算する</a>
+      <a href="#" id="calculate" class="btn btn-primary disabled">計算する</a>
     </div>
     {{-- 右側 --}}
     <div class="col">
@@ -760,15 +760,15 @@
 
 
 {{ Form::hidden('payment_limit',isset($request)?$request->payment_limit:'')}}
-{{ Form::hidden('paid', isset($request)?$request->paid:0 ) }} {{--デフォ0で未入金--}}
-{{ Form::hidden('reservation_status', isset($request)?$request->reservation_status:1 ) }}
+{{-- {{ Form::hidden('paid', isset($request)?$request->paid:0 ) }}
+{{ Form::hidden('reservation_status', isset($request)?$request->reservation_status:1 ) }} --}}
 {{-- ※注意　管理者からの予約は予約ステータスが1。予約確認中 --}}
-{{ Form::hidden('double_check_status', isset($request)?$request->double_check_status:0 ) }}
+{{-- {{ Form::hidden('double_check_status', isset($request)?$request->double_check_status:0 ) }}
 
 {{ Form::hidden('bill_company', isset($request)?$request->bill_company:'' ) }}
 {{ Form::hidden('bill_person', isset($request)?$request->bill_person:'' ) }}
 {{ Form::hidden('bill_created_at', isset($request)?$request->bill_created_at:date('Y-m-d')) }}
-{{ Form::hidden('bill_pay_limit', isset($request)?$request->bill_pay_limit:'' ) }}
+{{ Form::hidden('bill_pay_limit', isset($request)?$request->bill_pay_limit:'' ) }} --}}
 
 {{Form::submit('送信', ['class'=>'btn btn-primary mx-auto', 'id'=>'check_submit'])}}
 

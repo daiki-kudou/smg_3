@@ -233,7 +233,7 @@ $(function () {
         // 内訳に入るtdは固定で4つ（内容、単価、数量、金額）
         for (let counter = 0; counter < 4; counter++) {
           var unit_venue = $('.venue_price_details tbody tr').eq(c_v).find('td').eq(counter).text();
-          $('form').append("<input type='hidden' name='venue_breakdowns" + c_v + "_" + counter + "' value='" + unit_venue + "'>");
+          $('form').append("<input type='text' name='venue_breakdowns" + c_v + "_" + counter + "' value='" + unit_venue + "'>");
         }
       }
       // 以下、備品・サービス詳細内訳
@@ -242,7 +242,7 @@ $(function () {
         // 内訳に入るtdは固定で4つ（内容、単価、数量、金額）
         for (let counter = 0; counter < 4; counter++) {
           var unit_equipment = $('.items_equipments tbody tr').eq(c_e).find('td').eq(counter).text();
-          $('form').append("<input type='hidden' name='equipment_breakdowns" + c_e + "_" + counter + "' value='" + unit_equipment + "'>");
+          $('form').append("<input type='text' name='equipment_breakdowns" + c_e + "_" + counter + "' value='" + unit_equipment + "'>");
         }
       }
       // 以下、レイアウト詳細内訳
@@ -251,7 +251,7 @@ $(function () {
         // 内訳に入るtdは固定で4つ（内容、単価、数量、金額）
         for (let counter = 0; counter < 4; counter++) {
           var unit_layout = $('.selected_layouts tbody tr').eq(c_l).find('td').eq(counter).text();
-          $('form').append("<input type='hidden' name='layout_breakdowns" + c_l + "_" + counter + "' value='" + unit_layout + "'>");
+          $('form').append("<input type='text' name='layout_breakdowns" + c_l + "_" + counter + "' value='" + unit_layout + "'>");
         }
       }
 
@@ -294,12 +294,14 @@ $(function () {
           }
         }
         ExceptString($(".equipemnts table tbody input[name^='equipemnt']"));
+        // ***********マイナス、全角制御用
+
 
         $('.services table tbody').html('');
         $.each($items[1], function (index, value) {
           // ココでサービス取得
           // 有り・無しに変更するため以下コメントアウト
-          $('.services table tbody').append("<tr><td>" + value['item'] + "</td>" + "<td><input type='radio' value='1' name='service" + index + "'>有り<input type='radio' value='0' name='service" + index + "' checked>無し</td></tr>");
+          $('.services table tbody').append("<tr><td>" + value['item'] + "</td>" + "<td><input type='radio' value='1' name='service" + index + "' id='service" + index + "on'><label for='service" + index + "on'>有り</label><input type='radio' value='0' id='service" + index + "off' name='service" + index + "' checked><label for='service" + index + "off'>無し</label></td></tr>");
         });
       })
       .fail(function (data) {
@@ -335,7 +337,6 @@ $(function () {
         $("#sales_finish option").each(function ($result) {
           $('#sales_finish option').eq($result).prop('disabled', false);
         });
-
 
         for (let index = 0; index < $times[0].length; index++) {
           $("#sales_start option").each(function ($result) {
@@ -497,7 +498,7 @@ $(function () {
         $('.venue_total').val(''); //会場合計料金
         $('.venue_price_details table tbody').html('');
 
-        $('.bill-bg .bill-box:first-child').addClass('hide');
+        // $('.bill-bg .bill-box:first-child').addClass('hide');
         $('.hand_input').removeClass('hide');
         $('#handinput_venue').val('');
         $('#handinput_extend').val('');
@@ -546,25 +547,61 @@ $(function () {
         $('.all_items_total').val('');　//請求総額初期化
         $('.selected_luggage_price').val('');　//請求総額初期化
         for (let counter = 0; counter < count_equipments; counter++) {
-          $('.items_equipments table tbody').append("<tr><td>" + $each[0][1][counter][0] + "</td><td>" + $each[0][1][counter][1] + "</td><td>" + $each[0][1][counter][2] + "</td><td>" + (($each[0][1][counter][1]) * ($each[0][1][counter][2])) + "</td></tr>");
+          var data1 = "<tr><td>"
+            + $each[0][1][counter][0]
+            + "</td><td>"
+            + $each[0][1][counter][1]
+            + "</td><td>"
+            + $each[0][1][counter][2]
+            + "</td><td>"
+            + (($each[0][1][counter][1]) * ($each[0][1][counter][2]))
+            + "</td></tr>";
+          $('.items_equipments table tbody').append(data1);
         }
         var count_services = ($each[0][2]).length;
         for (let counter_s = 0; counter_s < count_services; counter_s++) {
-          $('.items_equipments table tbody').append("<tr><td>" + $each[0][2][counter_s][0] + "</td><td>" + $each[0][2][counter_s][1] + "</td><td>" + $each[0][2][counter_s][2] + "</td><td>" + (($each[0][2][counter_s][1]) * ($each[0][2][counter_s][2])) + "</td></tr>");
+          var data2 = "<tr><td>"
+            + $each[0][2][counter_s][0]
+            + "</td><td>"
+            + $each[0][2][counter_s][1]
+            + "</td><td>"
+            + $each[0][2][counter_s][2]
+            + "</td><td>"
+            + (($each[0][2][counter_s][1]) * ($each[0][2][counter_s][2]))
+            + "</td></tr>";
+          $('.items_equipments table tbody').append(data2);
         }
         //荷物の金額が入力したら反映
         var luggage_target = $('.luggage_price').val();
-        luggage_target == 0 || luggage_target == '' ? 0 : luggage_target;
+        // luggage_target == 0 || luggage_target == '' ? 0 : luggage_target;
         if (luggage_target != 0 || luggage_target != '') {
           if ($('.items_equipments table tbody').hasClass('luggage_input_price')) {
             $('.luggage_input_price').remove();
-            $('.items_equipments table tbody').append("<tr class='luggage_input_price'><td>" + '荷物預かり/返送' + "</td><td>" + luggage_target + "</td><td>" + '1' + "</td><td>" + luggage_target + "</td></tr>");
-          } else {
-            $('.items_equipments table tbody').append("<tr class='luggage_input_price'><td>" + '荷物預かり/返送' + "</td><td>" + luggage_target + "</td><td>" + '1' + "</td><td>" + luggage_target + "</td></tr>");
+            var data3 = "<tr class='luggage_input_price'><td>"
+              + '荷物預かり/返送'
+              + "</td><td>"
+              + luggage_target
+              + "</td><td>"
+              + '1' + "</td><td>"
+              + luggage_target
+              + "</td></tr>";
+            $('.items_equipments table tbody').append(data3);
           }
+          // else {
+          //   var data4 = "<tr class='luggage_input_price'><td>"
+          //     + '荷物預かり/返送'
+          //     + "</td><td>"
+          //     + luggage_target
+          //     + "</td><td>"
+          //     + '1' + "</td><td>"
+          //     + luggage_target
+          //     + "</td></tr>";
+          //   $('.items_equipments table tbody').append(data4);
+          // }
         } else {
           $('.luggage_input_price').remove();
         }
+        luggage_target = luggage_target ? Number(luggage_target) : 0;
         $('.selected_equipments_price').val($each[0][3]);
         $('.selected_services_price').val($each[0][4]);
         $('.selected_luggage_price').val(luggage_target);

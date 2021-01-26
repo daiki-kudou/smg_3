@@ -32,4 +32,23 @@ class AgentsReservationsController extends Controller
       $agent->person_lastname,
     ];
   }
+
+  // ajax paymentlimits
+  public function pay_limits(Request $request)
+  {
+    $agent = Agent::find($request->agent_id);
+    $result = $agent->getPayDetails($request->date);
+    return $result;
+  }
+
+  public function check(Request $request)
+  {
+    echo "<pre>";
+    var_dump($request->all());
+    echo "</pre>";
+
+    return view('admin.agents_reservations.check', [
+      'request' => $request
+    ]);
+  }
 }

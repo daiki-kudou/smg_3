@@ -109,6 +109,18 @@
           <th scope="row">{{ Form::label('cost', '支払割合（原価）') }}</th>
           <td>{{ $agent->cost}}%</td>
         </tr>
+        <tr>
+          <th scope="row">{{ Form::label('cost', '締日') }}</th>
+          <td>{{ $agent->payment_limit}}</td>
+        </tr>
+        <tr>
+          <th scope="row">{{ Form::label('cost', '支払日') }}</th>
+          <td>{{ $agent->payment_day}}</td>
+        </tr>
+        <tr>
+          <th scope="row">{{ Form::label('cost', '備考') }}</th>
+          <td>{{ $agent->payment_remark}}</td>
+        </tr>
       </tbody>
     </table>
   </div>

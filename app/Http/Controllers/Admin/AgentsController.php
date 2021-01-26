@@ -93,6 +93,10 @@ class AgentsController extends Controller
     $agent->email = $request->email;
     $agent->cost = $request->cost;
 
+    $agent->payment_limit = $request->payment_limit;
+    $agent->payment_day = $request->payment_day;
+    $agent->payment_remark = $request->payment_remark;
+
     $agent->save();
 
     return redirect('admin/agents');
@@ -154,6 +158,10 @@ class AgentsController extends Controller
     $agent->fax = $request->fax;
     $agent->email = $request->email;
     $agent->cost = $request->cost;
+    $agent->payment_limit = $request->payment_limit;
+    $agent->payment_day = $request->payment_day;
+    $agent->payment_remark = $request->payment_remark;
+
     $agent->save();
     return redirect('admin/agents');
   }
