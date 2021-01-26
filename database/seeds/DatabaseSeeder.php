@@ -18,10 +18,10 @@ class DatabaseSeeder extends Seeder
       // EquipmentTableSeeder::class,
       // ServicesTableSeeder::class,
       AgentsTableSeeder::class,
-      // VenuesTableSeeder::class,
-      // ReservationTableSeeder::class,
-      // BillsTableSeeder::class,
-      // DatesTableSeeder::class,
+      VenuesTableSeeder::class,
+      ReservationTableSeeder::class,
+      BillsTableSeeder::class,
+      DatesTableSeeder::class,
     ]);
   }
 }

@@ -11,6 +11,6 @@ class BillsTableSeeder extends Seeder
    */
   public function run()
   {
-    factory(\App\Models\Bill::class, 20000)->create();
+    factory(\App\Models\Bill::class, 200)->create();
   }
 }
