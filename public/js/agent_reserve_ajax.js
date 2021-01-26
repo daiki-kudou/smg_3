@@ -329,6 +329,7 @@ $(function () {
     var cost_total = cost_result + cost_result_tax
 
     $('.venue_extend').val(cost_result);
+    $('.after_discount_price').val(cost_result);
     $('.venue_price_details tbody tr:first-child td:nth-child(2)').text(cost_result);
     $('.venue_price_details tbody tr:first-child td:nth-child(4)').text(cost_result);
     $('.venue_subtotal').val(cost_result);
@@ -397,6 +398,7 @@ function ajaxGetLayoutPrice($venue_id, $layout_prepare, $layout_clean) {
         $('.layout_prepare_result').val($result[0][0][0]);
         $('.layout_clean_result').val($result[0][1][0]);
         $('.layout_total').val($result[1]);
+        $('.after_duscount_layouts').val($result[1]);
         $('.selected_layouts tbody').html('');
         $.each($result[0], function (index, value) {
           var data = "<tr>"
@@ -483,3 +485,4 @@ function ajaxGetSalesHours($venue_id, $dates) {
       console.log('失敗', $times);
     });
 };
+

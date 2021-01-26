@@ -130,7 +130,6 @@ $(function () {
     $('.after_discount_price').val(''); //割引後 会場料金合計
     $('.discount_input_number').remove(); //料金内訳に追記されたもの
 
-    $('.venue_subtotal').text(''); //小計初期化
     $('.venue_subtotal').val(''); //小計初期化
     $('.venue_tax').text(''); //消費税初期化
     $('.venue_tax').val(''); //消費税初期化
@@ -149,13 +148,10 @@ $(function () {
       if ($('.venue_price_details table tbody tr').hasClass('discount_input')) {
         $('.discount_input').remove(); //初期化
         $('.venue_price_details table tbody').append(input_target);
-        $('.after_discount_price').text('');
         $('.after_discount_price').val('');
-        $('.after_discount_price').text(after_discounts);
         $('.after_discount_price').val(after_discounts);
       } else {
         $('.venue_price_details table tbody').append(input_target);
-        $('.after_discount_price').text(after_discounts);
         $('.after_discount_price').val(after_discounts);
       }
       // 小計、消費税、最終の請求総額に反映
@@ -170,24 +166,17 @@ $(function () {
       $('.percent_result').val('');
       if ($('.venue_price_details table tbody tr').hasClass('discount_input')) {
         $('.discount_input').remove();
-        $('.after_discount_price').text('');
         $('.after_discount_price').val('');
-        $('.after_discount_price').text(after_discounts);
         $('.after_discount_price').val(after_discounts);
       } else {
         $('.venue_price_details table tbody').append(input_target);
-        $('.after_discount_price').text('');
         $('.after_discount_price').val('');
-        $('.after_discount_price').text(after_discounts);
         $('.after_discount_price').val(after_discounts);
       }
       // 小計、消費税、最終の請求総額に反映
-      $('.venue_subtotal').text($('.venue_extend').text());
-      $('.venue_subtotal').val($('.venue_extend').text());
-      $('.venue_tax').text(Math.floor((Number($('.venue_extend').text())) * 0.1));
-      $('.venue_tax').val(Math.floor((Number($('.venue_extend').text())) * 0.1));
-      $('.venue_total').text(Math.floor(Number($('.venue_extend').text()) + (Number($('.venue_extend').text())) * 0.1));
-      $('.venue_total').val(Math.floor(Number($('.venue_extend').text()) + (Number($('.venue_extend').text())) * 0.1));
+      $('.venue_subtotal').val($('.venue_extend').val());
+      $('.venue_tax').val(Math.floor((Number($('.venue_extend').val())) * 0.1));
+      $('.venue_total').val(Math.floor(Number($('.venue_extend').val()) + (Number($('.venue_extend').val())) * 0.1));
     }
 
     // 総請求額　反映
