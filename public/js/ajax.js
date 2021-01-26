@@ -198,7 +198,6 @@ $(function () {
 
     var user_id = $('.select2-hidden-accessible').val();
     ajaxGetClients(user_id);
-    alert(user_id);
 
 
 
@@ -789,8 +788,8 @@ $(function () {
         } else if ($user_results[0] == 3) {
           var dt = new Date(s_date);
           var end_of_next_month = new Date(dt.getFullYear(), dt.getMonth() + 2, 0);
-          var target_name = $('input[name="payment_limit"]').val();
-          var target_name2 = $('input[name="bill_pay_limit"]').val();
+          var target_name = $('input[name="payment_limit"]');
+          var target_name2 = $('input[name="bill_pay_limit"]');
           target_name.val(end_of_next_month.getFullYear() + '-' + (('0' + (end_of_next_month.getMonth() + 1)).slice(-2)) + '-' + (('0' + end_of_next_month.getDate()).slice(-2)));
           target_name2.val(end_of_next_month.getFullYear() + '-' + (('0' + (end_of_next_month.getMonth() + 1)).slice(-2)) + '-' + (('0' + end_of_next_month.getDate()).slice(-2)));
           $('.selected_person').text('');
