@@ -36,6 +36,12 @@ $(function () {
   $('#datepicker5').datepicker({
     dateFormat: 'yy-mm-dd',
   });
+  $('#datepicker6').datepicker({
+    dateFormat: 'yy-mm-dd',
+  });
+  $('#datepicker7').datepicker({
+    dateFormat: 'yy-mm-dd',
+  });
 
 });
 

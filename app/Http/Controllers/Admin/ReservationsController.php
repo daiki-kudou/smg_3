@@ -267,16 +267,10 @@ class ReservationsController extends Controller
 
     // [0]備品＋サービス [1]備品詳細 [2]サービス詳細 [3]備品合計 [4]サービス合計
     $item_details = $venue->calculate_items_price($s_equipment, $s_services);
-
     $layouts_details = $venue->getLayoutPrice($request->layout_prepare, $request->layout_clean);
-
     $masters = $price_details[2] + ($item_details[0] + $request->luggage_price) + $layouts_details[2];
-
     $user = User::find($request->user_id);
     $pay_limit = $user->getUserPayLimit($request->reserve_date);
-    // echo "<pre>";
-    // var_dump($pay_limit);
-    // echo "</pre>";
 
 
     return view('admin.reservations.calculate', [
@@ -290,6 +284,7 @@ class ReservationsController extends Controller
       'layouts_details' => $layouts_details,
       'masters' => $masters,
       'pay_limit' => $pay_limit,
+      'user' => $user,
     ]);
   }
 

@@ -10,6 +10,55 @@
 <script>
   $(function(){
     $("html,body").animate({ scrollTop: $('.bill').offset().top });
+
+    $('.bill_details .head').on('click',function(){
+      $('.bill_details .head .fa-minus').toggleClass('hide');
+      $('.bill_details .head .fa-plus').toggleClass('hide');
+      $('.bill_details .head .fa-plus,.bill_details .head .fa-minus').addClass('fa-spin');
+      setTimeout(function(){
+        $('.bill_details .head .fa-plus,.bill_details .head .fa-minus').removeClass('fa-spin');
+      },300);
+      $('.bill .main').slideToggle();
+    })
+    
+    $('.information .head').on('click',function(){
+      $('.information_details .head .fa-minus').toggleClass('hide');
+      $('.information_details .head .fa-plus').toggleClass('hide');
+      $('.information_details .head .fa-plus,.information_details .head .fa-minus').addClass('fa-spin');
+      setTimeout(function(){
+        $('.information_details .head .fa-plus,.information_details .head .fa-minus').removeClass('fa-spin');
+      },300);
+      $('.information .main').slideToggle();
+    })
+
+
+  $(function() {
+        // プラスボタンクリック
+      $(document).on("click", ".add", function() {
+        $(this).parent().parent().clone(true).insertAfter($(this).parent().parent());
+        var count = $('.others .others_main tr').length;
+        // 追加時内容クリア
+        $(this).parent().parent().next().find('td').find('input, select').eq(0).val('');
+        $(this).parent().parent().next().find('td').find('input, select').eq(1).val('');
+        $(this).parent().parent().next().find('td').find('input, select').eq(2).val('');
+        $(this).parent().parent().next().find('td').find('input, select').eq(3).val('');
+
+        for (let index = 0; index < count; index++) {
+          // console.log(index);
+          $('.others_main tr').eq(index).find('td').eq(0).find('input').attr('name','others_input_item'+index);
+          $('.others_main tr').eq(index).find('td').eq(1).find('input').attr('name','others_input_cost'+index);
+          $('.others_main tr').eq(index).find('td').eq(2).find('input').attr('name','others_input_count'+index);
+          $('.others_main tr').eq(index).find('td').eq(3).find('input').attr('name','others_input_subtotal'+index);
+        }
+
+      });
+    });
+
+
+
+
+
+
   })
 
 </script>
@@ -327,12 +376,22 @@
   }
 
   .venue_discount,
-  .equipment_discount {
+  .equipment_discount,
+  .others_discount {
     border: solid 1px gray !important;
   }
 
   .bill {
     border: solid 1px gray;
+  }
+
+  .information .main {
+    border: solid 1px gray;
+  }
+
+  .paid .head {
+    background: #EB9C32;
+    color: white;
   }
 </style>
 {{-- 丸岡さんカスタム --}}
@@ -362,8 +421,15 @@
     </div>
     <div class="bill_details">
       <div class="head d-flex">
-        <div style="width: 80px;">ぷらす</div>
-        <div>請求内訳</div>
+        <div style="width: 80px; background:gray;" class="d-flex justify-content-center align-items-center">
+          <i class="fas fa-plus fa-3x hide" style="color: white;"></i>
+          <i class="fas fa-minus fa-3x" style="color: white;"></i>
+        </div>
+        <div style="font-size: 30px; width:200px;" class="d-flex justify-content-center align-items-center">
+          <p>
+            請求内訳
+          </p>
+        </div>
       </div>
       <div class="main">
         <div class="venues" style="padding-top: 80px; width:90%; margin:0 auto;">
@@ -563,7 +629,6 @@
         @endif
 
         {{-- 以下、レイアウト --}}
-
         @if ($layouts_details[0]||$layouts_details[1])
         <div class="layout" style="padding-top: 80px; width:90%; margin:0 auto;">
           <table class="table table-borderless">
@@ -643,10 +708,167 @@
         </div>
         @endif
 
+        {{-- 以下、その他 --}}
+        <div class="others" style="padding: 80px 0px 80px 0px; width:90%; margin:0 auto;">
+          <table class="table table-borderless">
+            <tr>
+              <td>
+                <h1>
+                  ■その他
+                </h1>
+              </td>
+            </tr>
+            <tbody class="others_head">
+              <tr>
+                <td>内容</td>
+                <td>単価</td>
+                <td>数量</td>
+                <td>金額</td>
+                <td>追加/削除</td>
+              </tr>
+            </tbody>
+            <tbody class="others_main">
+              <tr>
+                <td>{{ Form::text('others_input_item0', '',['class'=>'form-control'] ) }}</td>
+                <td>{{ Form::text('others_input_cost0', '',['class'=>'form-control'] ) }}</td>
+                <td>{{ Form::text('others_input_count0', '',['class'=>'form-control'] ) }}</td>
+                <td>{{ Form::text('others_input_subtotal0', '',['class'=>'form-control', 'readonly'] ) }}</td>
+                <td>
+                  <input type="button" value="＋" class="add pluralBtn">
+                  <input type="button" value="ー" class="del pluralBtn">
+                </td>
+              </tr>
+            </tbody>
+            <tbody class="others_result">
+              <tr>
+                <td colspan="2"></td>
+                <td colspan="3">合計</td>
+              </tr>
+            </tbody>
+            <tbody class="others_discount">
+              <tr>
+                <td>割引計算欄</td>
+                <td>
+                  <p>
+                    割引金額
+                  </p>
+                  <div class="d-flex">
+                    <p>円</p>
+                  </div>
+                </td>
+                <td>
+                  <p>
+                    割引率
+                  </p>
+                  <div class="d-flex">
+                    <p>%</p>
+                  </div>
+                </td>
+                <td colspan="2">
+                  <input class="btn btn-success others_discount_btn" type="button" value="計算する">
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+
 
       </div>
     </div>
   </div>
+
+  {{-- 以下、請求情報 --}}
+  <div class="information">
+    <div class="information_details">
+      <div class="head d-flex">
+        <div style="width: 80px; background:gray;" class="d-flex justify-content-center align-items-center">
+          <i class="fas fa-plus fa-3x hide" style="color: white;"></i>
+          <i class="fas fa-minus fa-3x" style="color: white;"></i>
+        </div>
+        <div style="font-size: 30px; width:200px;" class="d-flex justify-content-center align-items-center">
+          <p>
+            請求書情報
+          </p>
+        </div>
+      </div>
+      <div class="main">
+        <div class="informations" style="padding-top: 20px; width:90%; margin:0 auto;">
+          <table class="table">
+            <tr>
+              <td>請求日：</td>
+              <td>支払期日 {{ Form::text('pay_limit', $pay_limit,['class'=>'form-control', 'id'=>'datepicker6'] ) }} </td>
+            </tr>
+            <tr>
+              <td>請求書宛名{{ Form::text('pay_company', $user->company,['class'=>'form-control'] ) }}</td>
+              <td>
+                担当者{{ Form::text('bill_person', ReservationHelper::getPersonName($user->id),['class'=>'form-control'] ) }}
+              </td>
+            </tr>
+            <tr>
+              <td colspan="2">請求書備考{{ Form::textarea('bill_remark', '',['class'=>'form-control'] ) }}</td>
+            </tr>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  {{-- 以下、入金情報 --}}
+  <div class="paid">
+    <div class="paid_details">
+      <div class="head d-flex">
+        <div style="width: 80px; background:#ff782d;" class="d-flex justify-content-center align-items-center">
+        </div>
+        <div style="font-size: 30px; width:200px;" class="d-flex justify-content-center align-items-center">
+          <p>
+            入金情報
+          </p>
+        </div>
+      </div>
+      <div class="main">
+        <div class="paids" style="padding-top: 20px; width:90%; margin:0 auto;">
+          <table class="table" style="table-layout: fixed;">
+            <tr>
+              <td>入金状況{{Form::select('paid', ['未入金', '入金済み'],null,['class'=>'form-control'])}}</td>
+              <td>
+                入金日{{ Form::text('pay_day', null,['class'=>'form-control', 'id'=>'datepicker7'] ) }}
+              </td>
+            </tr>
+            <tr>
+              <td>振込人名{{ Form::text('pay_person', null,['class'=>'form-control'] ) }}</td>
+              <td>入金額{{ Form::text('payment', null,['class'=>'form-control'] ) }}</td>
+            </tr>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 </div>
 
 
