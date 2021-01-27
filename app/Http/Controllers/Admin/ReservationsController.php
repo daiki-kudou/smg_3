@@ -247,6 +247,13 @@ class ReservationsController extends Controller
     $equipments = $venue->equipments()->get();
     $services = $venue->services()->get();
 
+    //[0]は合計料金, [1]は延長料金, [2]は合計＋延長、 [3]は利用時間, [4]は延長時間
+    $price_details = $venue->calculate_price(
+      $request->price_system,
+      $request->enter_time,
+      $request->leave_time
+    );
+
     $s_equipment = [];
     $s_services = [];
     foreach ($request->all() as $key => $value) {
@@ -257,23 +264,23 @@ class ReservationsController extends Controller
         $s_services[] = $value;
       }
     }
-    //[0]は合計料金, [1]は延長料金, [2]は合計＋延長、 [3]は利用時間, [4]は延長時間
-    $price_details = $venue->calculate_price(
-      $request->price_system,
-      $request->enter_time,
-      $request->leave_time
-    );
+    echo "<pre>";
+    var_dump($s_equipment);
+    echo "</pre>";
+
     // [0]備品＋サービス [1]備品詳細 [2]サービス詳細 [3]備品合計 [4]サービス合計
-    $item_details = $venue->calculate_items_price(
-      $s_equipment,
-      $s_services
-    );
+    $item_details = $venue->calculate_items_price($s_equipment, $s_services);
+
+
+
 
     $layouts_details = $venue->getLayoutPrice($request->layout_prepare, $request->layout_clean);
-    $masters = $price_details[2] + ($item_details[0] + $request->luggage_price) + $layouts_details[2];
-    echo "<pre>";
-    var_dump($masters);
-    echo "</pre>";
+
+    $masters =
+      $price_details[2]
+      + ($item_details[0]
+        + $request->luggage_price)
+      + $layouts_details[2];
 
 
 

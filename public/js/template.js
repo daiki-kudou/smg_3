@@ -810,3 +810,75 @@ $(function () {
 
 
 // admin reservations calculate
+$(function () {
+  var number = $('input[name="number_discount"]');
+  var percent = $('input[name="percent_discount"]');
+  var venue_price = Number($('input[name="venue_price"]').val());
+  $(number).on('focus', function () {
+    $(percent).val('');
+  });
+  $(percent).on('focus', function () {
+    $(number).val('');
+  });
+
+  $('.venue_discount_btn').on('click', function () {
+    $('.input_discounts').remove();
+    $('input[name="venue_price"]').val(venue_price);
+    if (number.val() != 0 && number.val() != '') {
+      // 割引料金に金額があったら
+      var p_r = Math.floor(Number((number.val() / venue_price) * 100));
+      var data1 = "<tr class='input_discounts'>"
+        + "<td>"
+        + "<input class='form-control' readonly='' name='venue_breakdown_discount_item' type='text' value='"
+        + "割引料金（" + p_r
+        + "%）"
+        + "'>"
+        + "</td>"
+        + "<td>"
+        + "<input class='form-control' readonly='' name='venue_breakdown_discount_cost' type='text' value='"
+        + number.val()
+        + "'>"
+        + "</td>"
+        + "<td>"
+        + "<input class='form-control' readonly='' name='venue_breakdown_discount_count' type='text' value='1'>"
+        + "</td>"
+        + "<td>"
+        + "<input class='form-control' readonly='' name='venue_breakdown_discount_subtotal' type='text' value='"
+        + number.val()
+        + "'>"
+        + "</td>"
+        + "</tr>";
+      $('.venue_main').append(data1);
+      var change = venue_price - Number(number.val());
+      $('input[name="venue_price"]').val(change);
+    }
+    if (percent.val() != 0 && percent.val() != '') {
+      // 割引料金に金額があったら
+      var n_r = (venue_price * (percent.val() / 100));
+      var data2 = "<tr class='input_discounts'>"
+        + "<td>"
+        + "<input class='form-control' readonly='' name='venue_breakdown_discount_item' type='text' value='"
+        + "割引料金（"
+        + percent.val()
+        + "%）"
+        + "'>"
+        + "</td>"
+        + "<td>"
+        + "<input class='form-control' readonly='' name='venue_breakdown_discount_cost' type='text' value='"
+        + n_r
+        + "'>"
+        + "</td>"
+        + "<td><input class='form-control' readonly='' name='venue_breakdown_discount_count' type='text' value='1'></td>"
+        + "<td>"
+        + "<input class='form-control' readonly='' name='venue_breakdown_discount_subtotal' type='text' value='"
+        + n_r
+        + "'>"
+        + "</td>"
+        + "</tr>";
+      $('.venue_main').append(data2);
+      var change = venue_price - Number(n_r);
+      $('input[name="venue_price"]').val(change);
+    }
+  })
+
+})
