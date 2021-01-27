@@ -512,19 +512,13 @@ class Venue extends Model
     }
 
     $total_items_price = $equipments_total + $services_total; //備品＆サービス合計金額
-    if ($total_items_price == 0) {
-      return [
-        0, 0, 0, 0, 0
-      ];
-    } else {
-      return [
-        $total_items_price,
-        $equipments_details,
-        $services_details,
-        $equipments_total,
-        $services_total
-      ];
-    }
+    return [
+      $total_items_price,
+      $equipments_details,
+      $services_details,
+      $equipments_total,
+      $services_total
+    ];
   }
   public function getLayoutPrice($prepare, $clean)
   {

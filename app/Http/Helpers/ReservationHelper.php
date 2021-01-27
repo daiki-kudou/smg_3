@@ -140,4 +140,16 @@ class ReservationHelper
   {
     return sprintf('%05d', $num);
   }
+
+  public static function judgeArrayEmpty($array)
+  {
+    $judge = array_filter($array);
+    if (!empty($judge)) {
+      //配列有り
+      return 1;
+    } else {
+      // 配列無し
+      return 0;
+    }
+  }
 }
