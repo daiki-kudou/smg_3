@@ -322,6 +322,7 @@ class Venue extends Model
           $extend_final_prices[] = $price_arrays[$extend_final]->price;
         } else {
           $extend_final_prices[] = null;
+          $frames[] = null;
         }
       }
       // return $extend_final_prices;
@@ -391,7 +392,9 @@ class Venue extends Model
       // 延長した分の時間取得
       $extend_original = ($price_arrays[0]->extend);
       $extend_diff = $exted_specific_price / $extend_original;
-      return [$min_result, $exted_specific_price, $time_diff, $extend_diff];
+      // min_resultとexted_specific_priceの合計
+      $venue_equipments_subtotal = $min_result + $exted_specific_price;
+      return [$min_result, $exted_specific_price, $venue_equipments_subtotal, $time_diff, $extend_diff];
 
       //＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊
       //＊＊会場のステータスが2のとき（アクセア仕様のとき）
@@ -516,5 +519,17 @@ class Venue extends Model
       $equipments_total,
       $services_total
     ];
+  }
+  public function getLayoutPrice($prepare, $clean)
+  {
+    $prepare_result = NULL;
+    $clean_result = NULL;
+    $total = NULL;
+
+    $prepare == 1 ? $prepare_result = $this->layout_prepare : $prepare_result = 0;
+    $clean == 1 ? $clean_result = $this->layout_clean : $clean_result = 0;
+    $total = $prepare_result + $clean_result;
+
+    return [$prepare_result, $clean_result, $total];
   }
 }

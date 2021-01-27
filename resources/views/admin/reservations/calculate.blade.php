@@ -88,12 +88,14 @@
             </tr>
           </thead>
           <tbody>
+            @if ($s_equipment)
             @foreach ($equipments as $key=>$equipment)
             <tr>
               <td>{{$equipment->item}}</td>
               <td>{{$s_equipment[$key]}}</td>
             </tr>
             @endforeach
+            @endif
           </tbody>
         </table>
       </div>
@@ -111,12 +113,14 @@
             </tr>
           </thead>
           <tbody>
+            @if ($s_services)
             @foreach ($services as $key=>$service)
             <tr>
               <td>{{$service->item}}</td>
               <td>{{$s_services[$key]==1?"有り":"無し"}}</td>
             </tr>
             @endforeach
+            @endif
           </tbody>
         </table>
       </div>
@@ -298,12 +302,15 @@
             <tr>
               <th colspan='1'>
                 会場料金
+                {{ Form::text('venue_price', $price_details[0],['class'=>'form-control', 'readonly'] ) }}
               </th>
               <th colspan='1'>
                 延長料金
+                {{ Form::text('venue_price', $price_details[1],['class'=>'form-control', 'readonly'] ) }}
               </th>
               <th colspan='2'>
                 会場料金合計
+                {{ Form::text('venue_price', $price_details[2],['class'=>'form-control', 'readonly'] ) }}
               </th>
             </tr>
             <tr>
@@ -321,6 +328,7 @@
             </tr>
             <tr>
               <th colspan='4'>割引後　会場料金合計
+                {{ Form::text('venue_price_after_discount', $price_details[2],['class'=>'form-control', 'readonly'] ) }}
               </th>
             </tr>
             <tr>
@@ -333,14 +341,54 @@
               <th>小計</th>
             </tr>
           </thead>
-          <tbody class="table table-striped"></tbody>
+          <tbody class="table table-striped">
+            @if ($price_details[1])
+            <tr>
+              <td>{{ Form::text('venue_breakdown_item0', "会場料金",['class'=>'form-control', 'readonly'] ) }} </td>
+              <td>{{ Form::text('venue_breakdown_cost0', $price_details[0],['class'=>'form-control', 'readonly'] ) }}
+              </td>
+              <td>{{ Form::text('venue_breakdown_count0', $price_details[3],['class'=>'form-control', 'readonly'] ) }}
+              </td>
+              <td>
+                {{ Form::text('venue_breakdown_subtotal0', $price_details[0],['class'=>'form-control', 'readonly'] ) }}
+              </td>
+            </tr>
+            <tr>
+              <td>{{ Form::text('venue_breakdown_item1', "延長料金",['class'=>'form-control', 'readonly'] ) }} </td>
+              <td>{{ Form::text('venue_breakdown_cost1', $price_details[1],['class'=>'form-control', 'readonly'] ) }}
+              </td>
+              <td>{{ Form::text('venue_breakdown_count1', $price_details[4],['class'=>'form-control', 'readonly'] ) }}
+              </td>
+              <td>
+                {{ Form::text('venue_breakdown_subtotal1', $price_details[1],['class'=>'form-control', 'readonly'] ) }}
+              </td>
+            </tr>
+            @else
+            <tr>
+              <td>{{ Form::text('venue_breakdown_item0', "会場料金",['class'=>'form-control', 'readonly'] ) }} </td>
+              <td>{{ Form::text('venue_breakdown_cost0', $price_details[0],['class'=>'form-control', 'readonly'] ) }}
+              </td>
+              <td>{{ Form::text('venue_breakdown_count0', $price_details[3],['class'=>'form-control', 'readonly'] ) }}
+              </td>
+              <td>
+                {{ Form::text('venue_breakdown_subtotal0', $price_details[0],['class'=>'form-control', 'readonly'] ) }}
+              </td>
+            </tr>
+            @endif
+          </tbody>
         </table>
       </div>
       <table style="table-layout:fixed;" class="table table-bordered mb-0">
         <tr>
-          <td>小計</td>
-          <td>消費税</td>
-          <td>請求総額</td>
+          <td>小計
+            {{ Form::text('venue_subtotal', $price_details[2],['class'=>'form-control', 'readonly'] ) }}
+          </td>
+          <td>消費税
+            {{ Form::text('venue_subtotal', ReservationHelper::getTax($price_details[2]),['class'=>'form-control', 'readonly'] ) }}
+          </td>
+          <td>請求総額
+            {{ Form::text('venue_subtotal', ReservationHelper::taxAndPrice($price_details[2]),['class'=>'form-control', 'readonly'] ) }}
+          </td>
         </tr>
       </table>
     </div>
@@ -409,15 +457,19 @@
             <tr>
               <th colspan='1'>
                 有料備品料金
+                {{ Form::text('equipment_price', $item_details[3],['class'=>'form-control', 'readonly'] ) }}
               </th>
               <th colspan='1'>
                 有料サービス料金
+                {{ Form::text('service_price', $item_details[4],['class'=>'form-control', 'readonly'] ) }}
               </th>
               <th colspan='1'>
                 荷物預かり/返送
+                {{ Form::text('luggage_price', $request->luggage_price?$request->luggage_price:0,['class'=>'form-control', 'readonly'] ) }}
               </th>
               <th colspan='1'>
                 有料備品＆有料サービス合計
+                {{ Form::text('items_subtotal', ($item_details[0]+$request->luggage_price),['class'=>'form-control', 'readonly'] ) }}
               </th>
             </tr>
             <tr>
@@ -430,6 +482,7 @@
             </tr>
             <tr>
               <th colspan='4'>割引後　有料備品＆有料サービス合計
+                {{ Form::text('items_subtotal_after_dicsount', ($item_details[0]+$request->luggage_price),['class'=>'form-control', 'readonly'] ) }}
               </th>
             </tr>
             <tr>
@@ -442,14 +495,69 @@
               <th>小計</th>
             </tr>
           </thead>
-          <tbody class="table table-striped"></tbody>
+          <tbody class="table table-striped">
+            @foreach ($item_details[1] as $key=>$item)
+            <tr>
+              <td>
+                {{ Form::text('equipment_breakdown_item'.$key, $item[0],['class'=>'form-control', 'readonly'] ) }}
+              </td>
+              <td>
+                {{ Form::text('equipment_breakdown_cost'.$key, $item[1],['class'=>'form-control', 'readonly'] ) }}
+              </td>
+              <td>
+                {{ Form::text('equipment_breakdown_count'.$key, $item[2],['class'=>'form-control', 'readonly'] ) }}
+              </td>
+              <td>
+                {{ Form::text('equipment_breakdown_subtotal'.$key, $item[1]*$item[2],['class'=>'form-control', 'readonly'] ) }}
+              </td>
+            </tr>
+            @endforeach
+            @foreach ($item_details[2] as $key=>$item)
+            <tr>
+              <td>
+                {{ Form::text('services_breakdown_item'.$key, $item[0],['class'=>'form-control', 'readonly'] ) }}
+              </td>
+              <td>
+                {{ Form::text('services_breakdown_cost'.$key, $item[1],['class'=>'form-control', 'readonly'] ) }}
+              </td>
+              <td>
+                {{ Form::text('services_breakdown_count'.$key, $item[2],['class'=>'form-control', 'readonly'] ) }}
+              </td>
+              <td>
+                {{ Form::text('services_breakdown_subtotal'.$key, $item[1]*$item[2],['class'=>'form-control', 'readonly'] ) }}
+              </td>
+            </tr>
+            @endforeach
+            @if ($request->luggage_price)
+            <tr>
+              <td>
+                {{ Form::text('luggage_item', '荷物預かり/返送',['class'=>'form-control', 'readonly'] ) }}
+              </td>
+              <td>
+                {{ Form::text('luggage_cost', $request->luggage_price,['class'=>'form-control', 'readonly'] ) }}
+              </td>
+              <td>
+                {{ Form::text('luggage_count', 1,['class'=>'form-control', 'readonly'] ) }}
+              </td>
+              <td>
+                {{ Form::text('luggage_subtotal', $request->luggage_price,['class'=>'form-control', 'readonly'] ) }}
+              </td>
+            </tr>
+            @endif
+          </tbody>
         </table>
       </div>
       <table style="table-layout:fixed;" class="table table-bordered mb-0">
         <tr>
-          <td>小計</td>
-          <td>消費税</td>
-          <td>請求総額</td>
+          <td>小計
+            {{ Form::text('all_items_subtotal', ($item_details[0]+$request->luggage_price),['class'=>'form-control', 'readonly'] ) }}
+          </td>
+          <td>消費税
+            {{ Form::text('all_items_tax', ReservationHelper::getTax($item_details[0]+$request->luggage_price),['class'=>'form-control', 'readonly'] ) }}
+          </td>
+          <td>請求総額
+            {{ Form::text('all_items_total', ReservationHelper::taxAndPrice($item_details[0]+$request->luggage_price),['class'=>'form-control', 'readonly'] ) }}
+          </td>
         </tr>
       </table>
     </div>
@@ -464,12 +572,15 @@
             <tr>
               <th colspan='1'>
                 レイアウト準備料金
+                {{ Form::text('layout_prepare_price',$layouts_details[0] ,['class'=>'form-control', 'readonly'] ) }}
               </th>
               <th colspan='1'>
                 レイアウト片付料金
+                {{ Form::text('layout_clean_price',$layouts_details[1] ,['class'=>'form-control', 'readonly'] ) }}
               </th>
               <th colspan='1'>
                 レイアウト変更合計
+                {{ Form::text('layout_clean_total',$layouts_details[2] ,['class'=>'form-control', 'readonly'] ) }}
               </th>
             </tr>
             <tr>
@@ -482,6 +593,7 @@
             </tr>
             <tr>
               <th colspan='4'>割引後レイアウト変更合計
+                {{ Form::text('layout_clean_total_after_discount',$layouts_details[2] ,['class'=>'form-control', 'readonly'] ) }}
               </th>
             </tr>
             <tr>
@@ -494,14 +606,40 @@
               <th>小計</th>
             </tr>
           </thead>
-          <tbody class="table table-striped"></tbody>
+          <tbody class="table table-striped">
+            @if ($layouts_details[0])
+            <tr>
+              <td>{{ Form::text('layout_prepare_item', "レイアウト準備料金",['class'=>'form-control', 'readonly'] ) }}</td>
+              <td>{{ Form::text('layout_prepare_cost', $layouts_details[0],['class'=>'form-control', 'readonly'] )}}
+              </td>
+              <td>{{ Form::text('layout_prepare_count', 1,['class'=>'form-control', 'readonly'] )}}</td>
+              <td>{{ Form::text('layout_prepare_subtotal', $layouts_details[0],['class'=>'form-control', 'readonly'] )}}
+              </td>
+            </tr>
+            @endif
+            @if ($layouts_details[1])
+            <tr>
+              <td>{{ Form::text('layout_clean_item', "レイアウト片付料金",['class'=>'form-control', 'readonly'] ) }}</td>
+              <td>{{ Form::text('layout_clean_cost', $layouts_details[1],['class'=>'form-control', 'readonly'] )}}
+              </td>
+              <td>{{ Form::text('layout_clean_count', 1,['class'=>'form-control', 'readonly'] )}}</td>
+              <td>{{ Form::text('layout_clean_subtotal', $layouts_details[1],['class'=>'form-control', 'readonly'] )}}
+              </td>
+            </tr>
+            @endif
+          </tbody>
         </table>
       </div>
       <table style="table-layout:fixed;" class="table table-bordered mb-0">
         <tr>
-          <td>小計</td>
-          <td>消費税</td>
+          <td>小計
+            {{ Form::text('layout_price',$layouts_details[2] ,['class'=>'form-control', 'readonly'] ) }}
+          </td>
+          <td>消費税
+            {{ Form::text('layout_tax',ReservationHelper::getTax($layouts_details[2]) ,['class'=>'form-control', 'readonly'] ) }}
+          </td>
           <td>請求総額
+            {{ Form::text('layout_total',ReservationHelper::taxAndPrice($layouts_details[2]) ,['class'=>'form-control', 'readonly'] ) }}
           </td>
         </tr>
       </table>
@@ -523,15 +661,37 @@
           <tbody class="table table-striped">
             <tr>
               <td>会場料</td>
-              <td></td>
+              <td>
+                {{ Form::text('venue_subtotal', $price_details[2],['class'=>'form-control', 'readonly'] ) }}
+              </td>
             </tr>
             <tr>
               <td>備品その他</td>
-              <td></td>
+              <td>
+                {{ Form::text('all_items_subtotal', ($item_details[0]+$request->luggage_price),['class'=>'form-control', 'readonly'] ) }}
+              </td>
             </tr>
             <tr>
               <td>レイアウト変更</td>
-              <td></td>
+              <td>
+                {{ Form::text('layout_price',$layouts_details[2] ,['class'=>'form-control', 'readonly'] ) }}
+              </td>
+            </tr>
+            <tr>
+              <td>小計</td>
+              <td> {{ Form::text('master_subtotal',$masters ,['class'=>'form-control', 'readonly'] ) }} </td>
+            </tr>
+            <tr>
+              <td>消費税</td>
+              <td>
+                {{ Form::text('master_tax',ReservationHelper::getTax($masters) ,['class'=>'form-control', 'readonly'] ) }}
+              </td>
+            </tr>
+            <tr>
+              <td>請求総額</td>
+              <td>
+                {{ Form::text('master_tax',ReservationHelper::taxAndPrice($masters) ,['class'=>'form-control', 'readonly'] ) }}
+              </td>
             </tr>
           </tbody>
         </table>

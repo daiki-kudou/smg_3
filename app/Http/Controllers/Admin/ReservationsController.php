@@ -243,10 +243,6 @@ class ReservationsController extends Controller
 
   public function calculate(Request $request)
   {
-    echo "<pre>";
-    var_dump($request->all());
-    echo "</pre>";
-
     $venue = Venue::find($request->venue_id);
     $equipments = $venue->equipments()->get();
     $services = $venue->services()->get();
@@ -261,6 +257,29 @@ class ReservationsController extends Controller
         $s_services[] = $value;
       }
     }
+    //[0]は合計料金, [1]は延長料金, [2]は合計＋延長、 [3]は利用時間, [4]は延長時間
+    $price_details = $venue->calculate_price(
+      $request->price_system,
+      $request->enter_time,
+      $request->leave_time
+    );
+    // [0]備品＋サービス [1]備品詳細 [2]サービス詳細 [3]備品合計 [4]サービス合計
+    $item_details = $venue->calculate_items_price(
+      $s_equipment,
+      $s_services
+    );
+
+    $layouts_details = $venue->getLayoutPrice($request->layout_prepare, $request->layout_clean);
+    $masters = $price_details[2] + ($item_details[0] + $request->luggage_price) + $layouts_details[2];
+    echo "<pre>";
+    var_dump($masters);
+    echo "</pre>";
+
+
+
+
+
+
 
 
     return view('admin.reservations.calculate', [
@@ -269,8 +288,15 @@ class ReservationsController extends Controller
       'services' => $services,
       's_equipment' => $s_equipment, //選択された備品
       's_services' => $s_services, //選択されたサービス
+      'price_details' => $price_details,
+      'item_details' => $item_details,
+      'layouts_details' => $layouts_details,
+      'masters' => $masters,
     ]);
   }
+
+
+
 
 
   public function check(Request $request)

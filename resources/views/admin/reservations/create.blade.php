@@ -107,7 +107,7 @@
           <td>
             <div>
               <select name="enter_time" id="sales_start" class="form-control">
-                <option disabled selected>選択してください</option>
+                <option disabled selected></option>
                 @for ($start = 0*2; $start <=23*2; $start++) <option
                   value="{{date("H:i:s", strtotime("00:00 +". $start * 30 ." minute"))}}" @if (isset($request))
                   @if($request->enter_time==(date("H:i:s", strtotime("00:00 +". $start * 30 ." minute"))))
@@ -128,7 +128,7 @@
           <td>
             <div>
               <select name="leave_time" id="sales_finish" class="form-control">
-                <option disabled selected>選択してください</option>
+                <option disabled selected></option>
                 @for ($start = 0*2; $start <=23*2; $start++) <option
                   value="{{date("H:i:s", strtotime("00:00 +". $start * 30 ." minute"))}}" @if (isset($request))
                   @if($request->leave_time==(date("H:i:s", strtotime("00:00 +". $start * 30 ." minute"))))
@@ -157,7 +157,7 @@
           <td>
             <div>
               <select name="event_start" id="event_start" class="form-control">
-                <option selected disabled>選択してください</option>
+                <option disabled>選択してください</option>
                 @for ($start = 0*2; $start <=23*2; $start++) <option
                   value="{{date("H:i:s", strtotime("00:00 +". $start * 30 ." minute"))}}" @if (isset($request))
                   @if($request->event_start==(date("H:i:s", strtotime("00:00 +". $start * 30 ." minute"))))
@@ -176,7 +176,7 @@
           <td>
             <div>
               <select name="event_finish" id="event_finish" class="form-control">
-                <option selected disabled>選択してください</option>
+                <option disabled>選択してください</option>
                 @for ($start = 0*2; $start <=23*2; $start++) <option
                   value="{{date("H:i:s", strtotime("00:00 +". $start * 30 ." minute"))}}" @if (isset($request))
                   @if($request->event_finish==(date("H:i:s", strtotime("00:00 +". $start * 30 ." minute"))))
@@ -289,7 +289,7 @@
             <td class="table-active"><label for="user_id" class=" form_required">会社名/団体名</label></td>
             <td>
               <select class="form-control" name="user_id" id="user_select">
-                <option disabled selected>選択してください</option>
+                <option disabled>選択してください</option>
                 @foreach ($users as $user)
                 <option value="{{$user->id}}" @if (isset($request)) @if($request->user_id==$user->id)
                   selected
