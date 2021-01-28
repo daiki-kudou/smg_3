@@ -22,14 +22,6 @@
     body {
       font-family: migmix-1p-regular;
     }
-
-    /* common css */
-
-img {
-  max-width: 100%;
-  vertical-align: bottom;
-}
-
 table { border-collapse: collapse; border-spacing: 0; }
 
 caption, th, td {
@@ -58,66 +50,70 @@ caption, th, td {
 
 .board-box .date td{
   font-size: 2rem;
-  display: flex;
-  padding-bottom: 70px;
+  /* padding-bottom: 70px; */
 }
 
 .board-box .event-name td,
 .board-box .event-name2 td {
   font-size: 3.5rem;
-  padding-bottom: 60px;
+  /* padding-bottom: 60px; */
 }
 
 .board-box .event-owner td{
   font-size: 1.5rem;
-  display: flex;
   padding-top: 30px;
-  padding-bottom: 100px;
+  /* padding-bottom: 100px; */
 }
 
 .board-box .venue td {
   font-size: 3rem;
   text-align: right;
-  padding-top: 45px;
+  /* padding-top: 45px; */
   border-top: 2px solid #ddd;
 }
-
-   
-
   </style>
 </head>
 
 <body>
+  
+<!-- 
+<div class="wrapper">
+    <h1>{{$reservation->reserve_date}}</h1>
+    <h1>{{$reservation->event_start}}~{{$reservation->event_finish}}</h1>
+    <h1>{{$reservation->event_name1}}</h1>
+    <h1>{{$reservation->event_name2}}</h1>
+    <h1>主催：{{$reservation->event_owner}}</h1>
+
+    <h1>{{$reservation->venue->name_area}}{{$reservation->venue->name_bldg}}{{$reservation->venue->name_venue}}</h1>
+  </div> -->
 
   <div class="board-box print_pages wrapper">
     <table cellpadding="0" cellspacing="0" class="board-inner">
       <tr class="date">
         <td>
-          <p>2021年1月26日(金)</p>
-          <p>13:30～14:30</p>
+          <h2>2021年1月26日(金)13:30～14:30</h2>
         </td>
       </tr>
       <tr class="event-name">
         <td>
-          <p>イベントの名前は16文字までです</p>
+          <h1>イベントの名前は16文字までです</h1>
         </td>
       </tr>
       <tr class="event-name2">
         <td>
-          <p>イベントの名前は16文字までです</p>
+          <h1>イベントの名前は16文字までです</h1>
         </td>
       </tr>
 
       <tr class="event-owner">
         <td>
-          <p>主催：</p>
-          <p>ここの主催者の名前は、30文字以内です。あままままままままま</p>
+          <h4>主催：ここの主催者の名前は、30文字以内です。あままままままままま</h4>
         </td>
       </tr>
 
       <tr class="venue">
         <td>
-          <p>サンワールドビル2号室</p>
+          <h2>サンワールドビル2号室</h2>
         </td>
       </tr>
 
