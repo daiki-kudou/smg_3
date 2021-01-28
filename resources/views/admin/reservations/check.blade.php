@@ -105,11 +105,11 @@
           </thead>
           <tbody>
             @if ($s_equipment)
-            @foreach ($equipments as $key=>$equipment)
+            @foreach ($s_equipment as $key=>$equipment)
             <tr>
-              <td>{{$equipment->item}}</td>
+              <td>{{$equipment[0]}}</td>
               <td>
-                {{ Form::text('', $s_equipment[$key][2],['class'=>'form-control', 'readonly'] ) }}
+                {{ Form::text('', $equipment[2],['class'=>'form-control', 'readonly'] ) }}
               </td>
             </tr>
             @endforeach
@@ -132,11 +132,11 @@
           </thead>
           <tbody>
             @if ($s_services)
-            @foreach ($services as $key=>$service)
+            @foreach ($s_services as $key=>$service)
             <tr>
-              <td>{{$service->item}}</td>
+              <td>{{$service[0]}}</td>
               <td>
-                {{ Form::text('', $s_services[$key]==1?"有り":"無し",['class'=>'form-control', 'readonly'] ) }}
+                {{ Form::text('', $service[2]==1?"有り":"無し",['class'=>'form-control', 'readonly'] ) }}
               </td>
             </tr>
             @endforeach
@@ -387,6 +387,10 @@
   .paid .head {
     background: #EB9C32;
     color: white;
+  }
+
+  .paid .main {
+    border: solid 1px gray;
   }
 </style>
 {{-- 丸岡さんカスタム --}}
@@ -803,10 +807,26 @@
 
 {{-- {{ Form::hidden('item_details', $request->item_details )}}
 {{ Form::hidden('layouts_details', $request->layouts_details) }} --}}
+<div class="container-field d-flex justify-content-center" style="margin-top: 80px;">
+  {{-- <a href="{{ url('admin/reservations/calculate') }}" class="d-block btn btn-danger btn-lg mr-5">修正する</a> --}}
+  <a href="javascript:$('#test_post').submit()">a要素でPOST送信</a>
 
-{{Form::submit('送信', ['class'=>'btn btn-primary mx-auto', 'id'=>'check_submit'])}}
+  {{Form::submit('予約を登録する', ['class'=>'d-block btn btn-primary btn-lg', 'id'=>'check_submit'])}}
+  {{Form::close()}}
 
+</div>
+
+<style>
+  .test_post {
+    display: none !important;
+  }
+</style>
+
+{{Form::open(['route' => 'admin.clients.index', 'method' => 'post','id'=>'test_post'])}}
+{{Form::submit('予約を登録する', ['class'=>'d-block btn btn-primary btn-lg test_post', 'id'=>'check_submit'])}}
 {{Form::close()}}
+
+
 
 
 
