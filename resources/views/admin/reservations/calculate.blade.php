@@ -42,7 +42,6 @@
         $(this).parent().parent().next().find('td').find('input, select').eq(1).val('');
         $(this).parent().parent().next().find('td').find('input, select').eq(2).val('');
         $(this).parent().parent().next().find('td').find('input, select').eq(3).val('');
-
         for (let index = 0; index < count; index++) {
           // console.log(index);
           $('.others_main tr').eq(index).find('td').eq(0).find('input').attr('name','others_input_item'+index);
@@ -50,15 +49,25 @@
           $('.others_main tr').eq(index).find('td').eq(2).find('input').attr('name','others_input_count'+index);
           $('.others_main tr').eq(index).find('td').eq(3).find('input').attr('name','others_input_subtotal'+index);
         }
-
       });
+        // マイナスボタンクリック
+        $(document).on("click", ".del", function() {
+        var count = $('.others .others_main tr').length;
+      var target = $(this).parent().parent();
+      if (target.parent().children().length > 1) {
+        target.remove();
+      }
+      for (let index = 0; index < count; index++) {
+          // console.log(index);
+          $('.others_main tr').eq(index).find('td').eq(0).find('input').attr('name','others_input_item'+index);
+          $('.others_main tr').eq(index).find('td').eq(1).find('input').attr('name','others_input_cost'+index);
+          $('.others_main tr').eq(index).find('td').eq(2).find('input').attr('name','others_input_count'+index);
+          $('.others_main tr').eq(index).find('td').eq(3).find('input').attr('name','others_input_subtotal'+index);
+      }
     });
 
 
-
-
-
-
+    });
   })
 
 </script>
@@ -377,6 +386,7 @@
 
   .venue_discount,
   .equipment_discount,
+  .layout_discount,
   .others_discount {
     border: solid 1px gray !important;
   }
@@ -753,6 +763,7 @@
                     割引金額
                   </p>
                   <div class="d-flex">
+                    {{ Form::text('others_number_discount', '',['class'=>'form-control'] ) }}
                     <p>円</p>
                   </div>
                 </td>
@@ -761,6 +772,7 @@
                     割引率
                   </p>
                   <div class="d-flex">
+                    {{ Form::text('others_percent_discount', '',['class'=>'form-control'] ) }}
                     <p>%</p>
                   </div>
                 </td>
