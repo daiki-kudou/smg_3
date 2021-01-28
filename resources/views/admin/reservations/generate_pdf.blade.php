@@ -131,9 +131,9 @@ caption, th, td {
   box-shadow: 0 0 10px rgba(0, 0, 0, .15);
   font-size: 15px;
   line-height: 24px;
-  font-family: 'Helvetica Neue', 'Helvetica', Helvetica, Arial, sans-serif;
+  /* font-family: 'Helvetica Neue', 'Helvetica', Helvetica, Arial, sans-serif; */
   /* font-family: 'Yu Mincho Light','YuMincho','Yu Mincho','游明朝体',sans-serif; */
-  font-family: YuGothic,'Yu Gothic',sans-serif;
+  /* font-family: YuGothic,'Yu Gothic',sans-serif; */
   color: #333;
   background: no-repeat center/98% url(../img/board_bg.png);
 
