@@ -821,228 +821,133 @@ function toRed() {
 }
 
 // admin reservations calculate
+
 $(function () {
-  var venue_number = $('input[name="venue_number_discount"]');
-  var venue_percent = $('input[name="venue_percent_discount"]');
-  var venue_price = Number($('input[name="venue_price"]').val());
-  $(venue_number).on('focus', function () {
-    $(venue_percent).val('');
-  });
-  $(venue_percent).on('focus', function () {
-    $(venue_number).val('');
-  });
-
-
-  $('.venue_discount_btn').on('click', function () {
-    $('.venue_input_discounts').remove();
-    $('input[name="venue_price"]').val(venue_price);
-    if (venue_number.val() != 0 && venue_number.val() != '') {
-      // 割引料金に金額があったら
-      var p_r = Math.floor(Number((venue_number.val() / venue_price) * 100));
-      var data1 = "<tr class='venue_input_discounts'>"
-        + "<td>"
-        + "<input class='form-control' readonly='' name='venue_breakdown_discount_item' type='text' value='"
-        + "割引料金（" + p_r
-        + "%）"
-        + "'>"
-        + "</td>"
-        + "<td>"
-        + "<input class='form-control' readonly='' name='venue_breakdown_discount_cost' type='text' value='"
-        + (-venue_number.val())
-        + "'>"
-        + "</td>"
-        + "<td>"
-        + "<input class='form-control' readonly='' name='venue_breakdown_discount_count' type='text' value='1'>"
-        + "</td>"
-        + "<td>"
-        + "<input class='form-control' readonly='' name='venue_breakdown_discount_subtotal' type='text' value='"
-        + (-venue_number.val())
-        + "'>"
-        + "</td>"
-        + "</tr>";
-      $('.venue_main').append(data1);
-      var change = venue_price - Number(venue_number.val());
-      $('input[name="venue_price"]').val(change);
-      toRed();
-    }
-    if (venue_percent.val() != 0 && venue_percent.val() != '') {
-      // 割引料金に金額があったら
-      var n_r = (venue_price * (venue_percent.val() / 100));
-      var data2 = "<tr class='venue_input_discounts'>"
-        + "<td>"
-        + "<input class='form-control' readonly='' name='venue_breakdown_discount_item' type='text' value='"
-        + "割引料金（"
-        + venue_percent.val()
-        + "%）"
-        + "'>"
-        + "</td>"
-        + "<td>"
-        + "<input class='form-control' readonly='' name='venue_breakdown_discount_cost' type='text' value='"
-        + (-n_r)
-        + "'>"
-        + "</td>"
-        + "<td><input class='form-control' readonly='' name='venue_breakdown_discount_count' type='text' value='1'></td>"
-        + "<td>"
-        + "<input class='form-control' readonly='' name='venue_breakdown_discount_subtotal' type='text' value='"
-        + (-n_r)
-        + "'>"
-        + "</td>"
-        + "</tr>";
-      $('.venue_main').append(data2);
-      var change = venue_price - Number(n_r);
-      $('input[name="venue_price"]').val(change);
-      toRed();
-    }
-  })
+  function discounts(
+    venue_number_discount,
+    venue_percent_discount,
+    venue_price,
+    venue_discount_btn,
+    venue_input_discounts,
+    venue_breakdown_discount_item,
+    venue_breakdown_discount_cost,
+    venue_breakdown_discount_count,
+    venue_breakdown_discount_subtotal,
+    venue_main
+  ) {
+    var number = $('input[name="' + venue_number_discount + '"]');
+    var percent = $('input[name="' + venue_percent_discount + '"]');
+    var price = Number($('input[name="' + venue_price + '"]').val());
+    $(number).on('focus', function () {
+      $(percent).val('');
+    });
+    $(percent).on('focus', function () {
+      $(number).val('');
+    });
+    $('.' + venue_discount_btn).on('click', function () {
+      $('.' + venue_input_discounts).remove();
+      $('input[name="' + venue_price + '"]').val(price);
+      if (number.val() != 0 && number.val() != '') {
+        // 割引料金に金額があったら
+        var p_r = Math.floor(Number((number.val() / price) * 100));
+        var data1 = "<tr class='" + venue_input_discounts + "'>"
+          + "<td>"
+          + "<input class='form-control' readonly='' name='" + venue_breakdown_discount_item + "' type='text' value='"
+          + "割引料金（" + p_r
+          + "%）"
+          + "'>"
+          + "</td>"
+          + "<td>"
+          + "<input class='form-control' readonly='' name='" + venue_breakdown_discount_cost + "' type='text' value='"
+          + (-number.val())
+          + "'>"
+          + "</td>"
+          + "<td>"
+          + "<input class='form-control' readonly='' name='" + venue_breakdown_discount_count + "' type='text' value='1'>"
+          + "</td>"
+          + "<td>"
+          + "<input class='form-control' readonly='' name='" + venue_breakdown_discount_subtotal + "' type='text' value='"
+          + (-number.val())
+          + "'>"
+          + "</td>"
+          + "</tr>";
+        $('.' + venue_main).append(data1);
+        var change = price - Number(number.val());
+        $('input[name="' + venue_price + '"]').val(change);
+        toRed();
+      }
+      if (percent.val() != 0 && percent.val() != '') {
+        // 割引料金に金額があったら
+        var n_r = (price * (percent.val() / 100));
+        var data2 = "<tr class='" + venue_input_discounts + "'>"
+          + "<td>"
+          + "<input class='form-control' readonly='' name='" + venue_breakdown_discount_item + "' type='text' value='"
+          + "割引料金（"
+          + percent.val()
+          + "%）"
+          + "'>"
+          + "</td>"
+          + "<td>"
+          + "<input class='form-control' readonly='' name='" + venue_breakdown_discount_cost + "' type='text' value='"
+          + (-n_r)
+          + "'>"
+          + "</td>"
+          + "<td><input class='form-control' readonly='' name='" + venue_breakdown_discount_count + "' type='text' value='1'></td>"
+          + "<td>"
+          + "<input class='form-control' readonly='' name='" + venue_breakdown_discount_subtotal + "' type='text' value='"
+          + (-n_r)
+          + "'>"
+          + "</td>"
+          + "</tr>";
+        $('.' + venue_main).append(data2);
+        var change = price - Number(n_r);
+        $('input[name="' + venue_price + '"]').val(change);
+        toRed();
+      }
+    })
+  }
+  discounts(
+    'venue_number_discount', 'venue_percent_discount', 'venue_price',
+    'venue_discount_btn', 'venue_input_discounts', 'venue_breakdown_discount_item',
+    'venue_breakdown_discount_cost', 'venue_breakdown_discount_count', 'venue_breakdown_discount_subtotal',
+    'venue_main'
+  );
+  discounts(
+    'equipment_number_discount', 'equipment_percent_discount', 'equipment_price',
+    'equipment_discount_btn', 'equipment_input_discounts', 'equipment_breakdown_discount_item',
+    'equipment_breakdown_discount_cost', 'equipment_breakdown_discount_count',
+    'equipment_breakdown_discount_subtotal', 'equipment_main'
+  );
+  discounts(
+    'layout_number_discount', 'layout_percent_discount', 'layout_price',
+    'layout_discount_btn', 'layout_input_discounts', 'layout_breakdown_discount_item',
+    'layout_breakdown_discount_cost', 'layout_breakdown_discount_count', 'layout_breakdown_discount_subtotal',
+    'layout_main'
+  );
+  discounts(
+    'layout_number_discount', 'layout_percent_discount', 'layout_price',
+    'layout_discount_btn', 'layout_input_discounts', 'layout_breakdown_discount_item',
+    'layout_breakdown_discount_cost', 'layout_breakdown_discount_count', 'layout_breakdown_discount_subtotal',
+    'layout_main'
+  );
 })
 
-// 備品割引
+
+
+// その他の計算用
 $(function () {
-  var equipment_number = $('input[name="equipment_number_discount"]');
-  var equipment_percent = $('input[name="equipment_percent_discount"]');
-  var equipment_price = Number($('input[name="equipment_price"]').val());
-  $(equipment_number).on('focus', function () {
-    $(equipment_percent).val('');
-  });
-  $(equipment_percent).on('focus', function () {
-    $(equipment_number).val('');
-  });
-
-  $('.equipment_discount_btn').on('click', function () {
-    $('.equipment_input_discounts').remove();
-    $('input[name="equipment_price"]').val(equipment_price);
-    if (equipment_number.val() != 0 && equipment_number.val() != '') {
-      // 割引料金に金額があったら
-      var p_r = Math.floor(Number((equipment_number.val() / equipment_price) * 100));
-      var data1 = "<tr class='equipment_input_discounts'>"
-        + "<td>"
-        + "<input class='form-control' readonly='' name='equipment_breakdown_discount_item' type='text' value='"
-        + "割引料金（" + p_r
-        + "%）"
-        + "'>"
-        + "</td>"
-        + "<td>"
-        + "<input class='form-control' readonly='' name='equipment_breakdown_discount_cost' type='text' value='"
-        + (-equipment_number.val())
-        + "'>"
-        + "</td>"
-        + "<td>"
-        + "<input class='form-control' readonly='' name='equipment_breakdown_discount_count' type='text' value='1'>"
-        + "</td>"
-        + "<td>"
-        + "<input class='form-control' readonly='' name='equipment_breakdown_discount_subtotal' type='text' value='"
-        + (-equipment_number.val())
-        + "'>"
-        + "</td>"
-        + "</tr>";
-      $('.equipment_main').append(data1);
-      var change = equipment_price - Number(equipment_number.val());
-      $('input[name="equipment_price"]').val(change);
-      toRed();
+  $(document).on('input', 'input[name^="others_input"]', function (e) {
+    var count = $('.others_main tr').length;
+    var total_val = 0;
+    for (let index = 0; index < count; index++) {
+      var num1 = $('input[name="others_input_cost' + index + '"]').val();
+      var num2 = $('input[name="others_input_count' + index + '"]').val();
+      var num3 = $('input[name="others_input_subtotal' + index + '"]');
+      num3.val(num1 * num2);
+      total_val = total_val + Number(num3.val());
+      console.log(total_val);
     }
-    if (equipment_percent.val() != 0 && equipment_percent.val() != '') {
-      // 割引料金に金額があったら
-      var n_r = (equipment_price * (equipment_percent.val() / 100));
-      var data2 = "<tr class='equipment_input_discounts'>"
-        + "<td>"
-        + "<input class='form-control' readonly='' name='equipment_breakdown_discount_item' type='text' value='"
-        + "割引料金（"
-        + equipment_percent.val()
-        + "%）"
-        + "'>"
-        + "</td>"
-        + "<td>"
-        + "<input class='form-control' readonly='' name='equipment_breakdown_discount_cost' type='text' value='"
-        + (-n_r)
-        + "'>"
-        + "</td>"
-        + "<td><input class='form-control' readonly='' name='equipment_breakdown_discount_count' type='text' value='1'></td>"
-        + "<td>"
-        + "<input class='form-control' readonly='' name='equipment_breakdown_discount_subtotal' type='text' value='"
-        + (-n_r)
-        + "'>"
-        + "</td>"
-        + "</tr>";
-      $('.equipment_main').append(data2);
-      var change = equipment_price - Number(n_r);
-      $('input[name="equipment_price"]').val(change);
-      toRed();
-    }
-  })
-})
-
-// レイアウト割引
-$(function () {
-  var layout_number = $('input[name="layout_number_discount"]');
-  var layout_percent = $('input[name="layout_percent_discount"]');
-  var layout_price = Number($('input[name="layout_price"]').val());
-  $(layout_number).on('focus', function () {
-    $(layout_percent).val('');
+    var total_target = $('input[name="others_price"]');
+    total_target.val(total_val);
   });
-  $(layout_percent).on('focus', function () {
-    $(layout_number).val('');
-  });
-
-  $('.layout_discount_btn').on('click', function () {
-    $('.layout_input_discounts').remove();
-    $('input[name="layout_price"]').val(layout_price);
-    if (layout_number.val() != 0 && layout_number.val() != '') {
-      // 割引料金に金額があったら
-      var p_r = Math.floor(Number((layout_number.val() / layout_price) * 100));
-      var data1 = "<tr class='layout_input_discounts'>"
-        + "<td>"
-        + "<input class='form-control' readonly='' name='layout_breakdown_discount_item' type='text' value='"
-        + "割引料金（" + p_r
-        + "%）"
-        + "'>"
-        + "</td>"
-        + "<td>"
-        + "<input class='form-control' readonly='' name='layout_breakdown_discount_cost' type='text' value='"
-        + (-layout_number.val())
-        + "'>"
-        + "</td>"
-        + "<td>"
-        + "<input class='form-control' readonly='' name='layout_breakdown_discount_count' type='text' value='1'>"
-        + "</td>"
-        + "<td>"
-        + "<input class='form-control' readonly='' name='layout_breakdown_discount_subtotal' type='text' value='"
-        + (-layout_number.val())
-        + "'>"
-        + "</td>"
-        + "</tr>";
-      $('.layout_main').append(data1);
-      var change = layout_price - Number(layout_number.val());
-      $('input[name="layout_price"]').val(change);
-      toRed();
-    }
-    if (layout_percent.val() != 0 && layout_percent.val() != '') {
-      // 割引料金に金額があったら
-      var n_r = (layout_price * (layout_percent.val() / 100));
-      var data2 = "<tr class='layout_input_discounts'>"
-        + "<td>"
-        + "<input class='form-control' readonly='' name='layout_breakdown_discount_item' type='text' value='"
-        + "割引料金（"
-        + layout_percent.val()
-        + "%）"
-        + "'>"
-        + "</td>"
-        + "<td>"
-        + "<input class='form-control' readonly='' name='layout_breakdown_discount_cost' type='text' value='"
-        + (-n_r)
-        + "'>"
-        + "</td>"
-        + "<td><input class='form-control' readonly='' name='layout_breakdown_discount_count' type='text' value='1'></td>"
-        + "<td>"
-        + "<input class='form-control' readonly='' name='layout_breakdown_discount_subtotal' type='text' value='"
-        + (-n_r)
-        + "'>"
-        + "</td>"
-        + "</tr>";
-      $('.layout_main').append(data2);
-      var change = layout_price - Number(n_r);
-      $('input[name="layout_price"]').val(change);
-      toRed();
-
-    }
-  })
 })

@@ -67,6 +67,8 @@
     });
 
 
+
+
     });
   })
 
@@ -414,7 +416,7 @@
           <td>
             <div class="bg-white d-flex justify-content-around align-items-center">
               <div>合計金額</div>
-              <div>●●●円</div>
+              <div>{{number_format($masters)}}円</div>
             </div>
           </td>
         </tr>
@@ -752,40 +754,38 @@
             <tbody class="others_result">
               <tr>
                 <td colspan="2"></td>
-                <td colspan="3">合計</td>
-              </tr>
-            </tbody>
-            <tbody class="others_discount">
-              <tr>
-                <td>割引計算欄</td>
-                <td>
-                  <p>
-                    割引金額
-                  </p>
-                  <div class="d-flex">
-                    {{ Form::text('others_number_discount', '',['class'=>'form-control'] ) }}
-                    <p>円</p>
-                  </div>
-                </td>
-                <td>
-                  <p>
-                    割引率
-                  </p>
-                  <div class="d-flex">
-                    {{ Form::text('others_percent_discount', '',['class'=>'form-control'] ) }}
-                    <p>%</p>
-                  </div>
-                </td>
-                <td colspan="2">
-                  <input class="btn btn-success others_discount_btn" type="button" value="計算する">
+                <td colspan="3">合計
+                  {{ Form::text('others_price', '',['class'=>'form-control', 'readonly'] ) }}
                 </td>
               </tr>
             </tbody>
           </table>
         </div>
-
-
-
+        {{-- 以下、総合計 --}}
+        <div class="bill_total d-flex justify-content-end"
+          style="padding: 80px 0px 80px 0px; width:90%; margin:0 auto; background:">
+          <div style="width: 60%;">
+            <table class="table text-right" style="table-layout: fixed; font-size:16px;">
+              <tr>
+                <td>小計：</td>
+                <td>
+                  {{ Form::text('master_subtotal',$masters ,['class'=>'form-control text-right', 'readonly'] ) }} </td>
+              </tr>
+              <tr>
+                <td>消費税：</td>
+                <td>
+                  {{ Form::text('master_tax',ReservationHelper::getTax($masters) ,['class'=>'form-control text-right', 'readonly'] ) }}
+                </td>
+              </tr>
+              <tr>
+                <td class="font-weight-bold">合計金額</td>
+                <td>
+                  {{ Form::text('master_tax',ReservationHelper::taxAndPrice($masters) ,['class'=>'form-control text-right', 'readonly'] ) }}
+                </td>
+              </tr>
+            </table>
+          </div>
+        </div>
       </div>
     </div>
   </div>
