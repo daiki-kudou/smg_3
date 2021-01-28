@@ -22,197 +22,29 @@
     body {
       font-family: migmix-1p-regular;
     }
-
-    
-/* common css */
-html,
-body,
-div,
-span,
-applet,
-object,
-iframe,
-h1,
-h2,
-h3,
-h4,
-h5,
-h6,
-p,
-blockquote,
-pre,
-a,
-abbr,
-acronym,
-address,
-big,
-cite,
-code,
-del,
-dfn,
-em,
-img,
-ins,
-kbd,
-q,
-s,
-samp,
-small,
-strike,
-strong,
-sub,
-sup,
-tt,
-var,
-b,
-u,
-i,
-center,
-dl,
-dt,
-dd,
-ol,
-ul,
-li,
-fieldset,
-form,
-label,
-legend,
-caption,
-article,
-aside,
-canvas,
-details,
-embed,
-figure,
-figcaption,
-footer,
-header,
-hgroup,
-menu,
-nav,
-output,
-ruby,
-section,
-summary,
-time,
-mark,
-audio,
-video {
-  margin: 0;
-  padding: 0;
-  border: 0;
-  font: inherit;
-  font-size: 100%;
-  vertical-align: baseline;
-}
-
-img {
-  max-width: 100%;
-  vertical-align: bottom;
-}
-
-table { border-collapse: collapse; border-spacing: 0; }
-
-caption, th, td {
-  font-weight: normal;
-  vertical-align: middle;
-}
-
-/* board css------------------------------------------------------- */
-
-.board-box {
-  width: 251mm;
-  height: 172mm;
-  /* max-width: 800px; */
-  margin: 50px auto;
-  padding: 30px;
-  border: 1px solid #eee;
-  box-shadow: 0 0 10px rgba(0, 0, 0, .15);
-  font-size: 15px;
-  line-height: 24px;
-  /* font-family: 'Helvetica Neue', 'Helvetica', Helvetica, Arial, sans-serif; */
-  /* font-family: 'Yu Mincho Light','YuMincho','Yu Mincho','游明朝体',sans-serif; */
-  /* font-family: YuGothic,'Yu Gothic',sans-serif; */
-  color: #333;
-  background: no-repeat center/98% url(../img/board_bg.png);
-
-}
-
-.board-box .board-inner {
-  width: 90%;
-  margin: 10% auto 0;
-  line-height: inherit;
-  text-align: left;
-}
-
-.board-box .date td{
-  font-size: 2rem;
-  font-weight: bold;
-  display: flex;
-  padding-bottom: 70px;
-}
-
-.board-box .event-name td,
-.board-box .event-name2 td {
-  font-size: 3.5rem;
-  font-weight: bold;
-  padding-bottom: 60px;
-}
-
-.board-box .event-owner td{
-  font-size: 1.5rem;
-  font-weight: bold;
-  display: flex;
-  padding-top: 30px;
-  padding-bottom: 100px;
-}
-
-.board-box .venue td {
-  font-size: 3rem;
-  font-weight: bold;
-  text-align: right;
-  padding-top: 45px;
-  border-top: 2px solid #ddd;
-}
-
-
-
+   
 
   </style>
 </head>
 
 <body>
-  <!-- <div class="wrapper">
-    <h1>{{$reservation->reserve_date}}</h1>
-    <h1>{{$reservation->event_start}}~{{$reservation->event_finish}}</h1>
-    <h1>{{$reservation->event_name1}}</h1>
-    <h1>{{$reservation->event_name2}}</h1>
-    <h1>主催：{{$reservation->event_owner}}</h1>
 
-    <h1>{{$reservation->venue->name_area}}{{$reservation->venue->name_bldg}}{{$reservation->venue->name_venue}}</h1>
-
-  </div> -->
   <div class="board-box print_pages wrapper">
     <table cellpadding="0" cellspacing="0" class="board-inner">
       <tr class="date">
         <td>
           <p>2021年1月26日(金)</p>
-          <!-- <p>{{$reservation->reserve_date}}</p> -->
           <p>13:30～14:30</p>
-          <!-- <p>{{$reservation->event_start}}~{{$reservation->event_finish}}</p> -->
         </td>
       </tr>
       <tr class="event-name">
         <td>
           <p>イベントの名前は16文字までです</p>
-          <!-- <p>{{$reservation->event_name2}}</p> -->
         </td>
       </tr>
       <tr class="event-name2">
         <td>
           <p>イベントの名前は16文字までです</p>
-          <!-- <p>{{$reservation->event_name2}}</p> -->
         </td>
       </tr>
 
@@ -220,14 +52,12 @@ caption, th, td {
         <td>
           <p>主催：</p>
           <p>ここの主催者の名前は、30文字以内です。あままままままままま</p>
-          <!-- <p>主催：{{$reservation->event_owner}}</p> -->
         </td>
       </tr>
 
       <tr class="venue">
         <td>
           <p>サンワールドビル2号室</p>
-          <!-- <p>{{$reservation->venue->name_bldg}}{{$reservation->venue->name_venue}}</p> -->
         </td>
       </tr>
 
