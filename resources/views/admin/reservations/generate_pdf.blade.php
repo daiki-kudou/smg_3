@@ -31,6 +31,8 @@ caption, th, td {
 /* board css------------------------------------------------------- */
 
 .board-box {
+  width: 297px;
+  height: 210px;
   margin: 50px auto;
   padding: 30px;
   border: 1px solid #eee;
@@ -49,24 +51,24 @@ caption, th, td {
 }
 
 .board-box .date td{
-  font-size: 2rem;
+  font-size: 35px;
   /* padding-bottom: 70px; */
 }
 
 .board-box .event-name td,
 .board-box .event-name2 td {
-  font-size: 3.5rem;
+  font-size: 56px;
   /* padding-bottom: 60px; */
 }
 
 .board-box .event-owner td{
-  font-size: 1.5rem;
+  font-size: 24px;
   padding-top: 30px;
   /* padding-bottom: 100px; */
 }
 
 .board-box .venue td {
-  font-size: 3rem;
+  font-size: 50px;
   text-align: right;
   /* padding-top: 45px; */
   border-top: 2px solid #ddd;
