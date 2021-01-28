@@ -820,6 +820,23 @@ function toRed() {
   });
 }
 
+function change_all_totals() {
+  var venue = Number($('input[name="venue_price"]').val());
+  var equipment = Number($('input[name="equipment_price"]').val());
+  var layout = Number($('input[name="layout_price"]').val());
+  var others = $('input[name="others_price"]').val() == "" ? 0 : Number($('input[name="others_price"]').val());
+  venue ? venue : venue = 0;
+  equipment ? equipment : equipment = 0;
+  layout ? layout : layout = 0;
+  others ? others : others = 0;
+  var result = venue + equipment + layout + others;
+  var result_tax = Math.floor(result * 0.1);
+  $('.total_result').text('').text(result);
+  $('input[name="master_subtotal"]').val(result);
+  $('input[name="master_tax"]').val(result_tax);
+  $('input[name="master_total"]').val(result + result_tax);
+}
+
 // admin reservations calculate
 
 $(function () {
@@ -904,6 +921,7 @@ $(function () {
         $('input[name="' + venue_price + '"]').val(change);
         toRed();
       }
+      change_all_totals();
     })
   }
   discounts(
@@ -945,9 +963,14 @@ $(function () {
       var num3 = $('input[name="others_input_subtotal' + index + '"]');
       num3.val(num1 * num2);
       total_val = total_val + Number(num3.val());
-      console.log(total_val);
     }
     var total_target = $('input[name="others_price"]');
     total_target.val(total_val);
+    toRed();
+    change_all_totals();
   });
 })
+
+
+
+

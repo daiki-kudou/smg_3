@@ -83,7 +83,7 @@ Route::namespace('Admin')->prefix('admin')->name('admin.')->group(function () {
     // 予約　計算
     Route::post('reservations/calculate', 'ReservationsController@calculate')->name('reservations.calculate');
     // 予約　（確認）
-    Route::post('reservations/create/check', 'ReservationsController@check')->name('reservations.check');
+    Route::post('reservations/check', 'ReservationsController@check')->name('reservations.check');
     // ajax アイテム
     Route::post('reservations/geteitems', 'ReservationsController@geteitems');
     // ajax 料金体系
