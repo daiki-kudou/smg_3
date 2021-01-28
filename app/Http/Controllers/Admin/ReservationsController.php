@@ -294,10 +294,6 @@ class ReservationsController extends Controller
 
   public function check(Request $request)
   {
-    echo "<pre>";
-    var_dump((($request->all())));
-    echo "</pre>";
-
     $venue = Venue::find($request->venue_id);
     $equipments = $venue->equipments()->get();
     $services = $venue->services()->get();
@@ -324,8 +320,12 @@ class ReservationsController extends Controller
         $service_details[] = $value;
       }
     }
-
-
+    $others_details = [];
+    foreach ($request->all() as $key => $value) {
+      if (preg_match('/others_input/', $key)) {
+        $others_details[] = $value;
+      }
+    }
     return view('admin.reservations.check', [
       'request' => $request,
       'equipments' => $equipments,
@@ -335,139 +335,8 @@ class ReservationsController extends Controller
       'venue_details' => $venue_details,
       'equipment_details' => $equipment_details,
       'service_details' => $service_details,
+      'others_details' => $others_details,
     ]);
-
-    // $reserve_date = $request->reserve_date;
-    // $venue_id = $request->venue_id;
-    // $venue = Venue::find($venue_id);
-    // $price_system = $request->price_system;
-    // $enter_time = $request->enter_time;
-    // $leave_time = $request->leave_time;
-    // $board_flag = $request->board_flag;
-    // $event_start = $request->event_start;
-    // $event_finish = $request->event_finish;
-    // $event_name1 = $request->event_name1;
-    // $event_name2 = $request->event_name2;
-    // $event_owner = $request->event_owner;
-    // $user_id = $request->user_id;
-    // $user = User::find($user_id);
-    // $in_charge = $request->in_charge;
-    // $tel = $request->tel;
-    // $email_flag = $request->email_flag;
-    // $cost = $request->cost;
-    // $discount_condition = $request->discount_condition;
-    // $attention = $request->attention;
-    // $user_details = $request->user_details;
-    // $admin_details = $request->admin_details;
-    // $payment_limit = $request->payment_limit;
-    // // $paid = $request->paid;
-    // // $reservation_status = $request->reservation_status;
-    // // $double_check_status = $request->double_check_status;
-    // $bill_company = $request->bill_company;
-    // $bill_person = $request->bill_person;
-    // $bill_created_at = $request->bill_created_at;
-    // $bill_pay_limit = $request->bill_pay_limit;
-    // $layout_prepare = $request->layout_prepare;
-    // $layout_clean = $request->layout_clean;
-
-    // $luggage_count = $request->luggage_count;
-    // $luggage_arrive = $request->luggage_arrive;
-    // $luggage_return = $request->luggage_return;
-    // $luggage_price = $request->luggage_price;
-
-    // // $reservation_id = new Reservation;
-    // $sub_total = $request->sub_total;
-    // $tax = $request->tax;
-    // $total = $request->total;
-
-    // // 備品の個別入力input
-    // $simple_v_input = [];
-    // foreach ($request->all() as $key => $value) {
-    //   if (preg_match('/equipemnt/', $key)) {
-    //     $simple_v_input[] = $value;
-    //   }
-    // }
-
-    // // サービスの個別入力input
-    // $simple_s_input = [];
-    // foreach ($request->all() as $key => $value) {
-    //   if (preg_match('/service/', $key)) {
-    //     $simple_s_input[] = $value;
-    //   }
-    // }
-
-    // // 会場の内訳列×４カラム（内容、単価、数量、小計）
-    // $v_d_counts = [];
-    // foreach ($request->all() as $key => $value) {
-    //   if (preg_match('/venue_breakdowns/', $key)) {
-    //     $v_d_counts[] = $value;
-    //   }
-    // }
-    // // 備品の内訳列×４カラム（内容、単価、数量、小計）
-    // $e_d_counts = [];
-    // foreach ($request->all() as $key => $value) {
-    //   if (preg_match('/equipment_breakdowns/', $key)) {
-    //     $e_d_counts[] = $value;
-    //   }
-    // }
-    // // レイアウトの内訳列×４カラム（内容、単価、数量、小計）
-    // $l_d_counts = [];
-    // foreach ($request->all() as $key => $value) {
-    //   if (preg_match('/layout_breakdowns/', $key)) {
-    //     $l_d_counts[] = $value;
-    //   }
-    // }
-
-    // return view('admin.reservations.check', [
-    //   'reserve_date' => $reserve_date,
-    //   'venue_id' => $venue_id,
-    //   'venue' => $venue,
-    //   'price_system' => $price_system,
-    //   'enter_time' => $enter_time,
-    //   'leave_time' => $leave_time,
-    //   'board_flag' => $board_flag,
-    //   'event_start' => $event_start,
-    //   'event_finish' => $event_finish,
-    //   'event_name1' => $event_name1,
-    //   'event_name2' => $event_name2,
-    //   'event_owner' => $event_owner,
-    //   'user_id' => $user_id,
-    //   'user' => $user,
-    //   'in_charge' => $in_charge,
-    //   'tel' => $tel,
-    //   'email_flag' => $email_flag,
-    //   'cost' => $cost,
-    //   'discount_condition' => $discount_condition,
-    //   'attention' => $attention,
-    //   'user_details' => $user_details,
-    //   'admin_details' => $admin_details,
-    //   'payment_limit' => $payment_limit,
-    //   // 'paid' => $paid,
-    //   // 'reservation_status' => $reservation_status,
-    //   // 'double_check_status' => $double_check_status,
-    //   'bill_company' => $bill_company,
-    //   'bill_person' => $bill_person,
-    //   'bill_created_at' => $bill_created_at,
-    //   'bill_pay_limit' => $bill_pay_limit,
-    //   'sub_total' => $sub_total,
-    //   'tax' => $tax,
-    //   'total' => $total,
-    //   'layout_prepare' => $layout_prepare,
-    //   'layout_clean' => $layout_clean,
-    //   'luggage_count' => $luggage_count,
-    //   'luggage_arrive' => $luggage_arrive,
-    //   'luggage_return' => $luggage_return,
-    //   'luggage_price' => $luggage_price,
-
-    //   //↓　↓　  備品のinputされた値
-    //   'simple_v_input' => $simple_v_input,
-    //   'simple_s_input' => $simple_s_input,
-    //   //↓　↓　 内訳に記載された会場や、備品、レイアウト等
-    //   'v_d_counts' => $v_d_counts,
-    //   'e_d_counts' => $e_d_counts,
-    //   'l_d_counts' => $l_d_counts,
-    //   'request' => $request
-    // ]);
   }
 
   /**
