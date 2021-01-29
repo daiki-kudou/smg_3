@@ -14,7 +14,7 @@
   })
 </script>
 <style>
-  .form-inline {
+  /* .form-inline {
     display: block;
   }
 
@@ -25,7 +25,7 @@
     flex-wrap: wrap;
     margin-right: 0px;
     margin-left: 0px;
-  }
+  } */
 
   table.dataTable thead .sorting:after,
   table.dataTable thead .sorting_asc:after,
@@ -35,11 +35,13 @@
   }
 </style>
 
+<script src="http://staging-smg2.herokuapp.com/js/template.js"></script>
+<link href="http://staging-smg2.herokuapp.com/css/template.css" rel="stylesheet">
 
 <div class="container-field">
   <h2>顧客管理　一覧</h2>
   <div class="container-field">
-    <div class="row ">
+    <!-- <div class="row ">
       <div class="col">
         <div>検索</div>
         <div class="col-sm-4" style="padding:20px 0; padding-left:0px;">
@@ -90,9 +92,111 @@
         </div>
       </div>
       <div class="col"></div>
-    </div>
+    </div> -->
+
+
+    <!-- 検索-------------------------------------------------------- -->
+
+    <form class="" action="{{url('/admin/clients')}}">
+    <div class="row search_box">
+    @csrf
+        <div class="col-md-10 offset-md-1">
+          <div class="d-flex col-12 flex-wrap">
+            <dl class="form-group flex-fill">
+              <dt>
+              <label class="search_item_name" for="id">顧客ID</label>
+              </dt>
+              <dd>
+              <input type="text" name="id" class="form-control" id="id">
+              </dd>
+            </dl>
+            <dl class="form-group flex-fill">
+              <dt>
+              <label class="search_item_name" for="status">顧客状況</label>
+              </dt>
+              <dd>
+              <input type="text" name="status" class="form-control" id="status">
+              </dd>
+            </dl>
+            <dl class="form-group flex-fill">
+              <dt>
+              <label class="search_item_name" for="company">会社名　団体名</label>
+              </dt>
+              <dd>
+              <input type="text" name="company" class="form-control" id="company">
+              </dd>
+            </dl>
+            <dl class="form-group flex-fill">
+              <dt>
+              <label class="search_item_name" for="attr">顧客属性</label>
+              </dt>
+              <dd>
+              <input type="text" name="attr" class="form-control" id="attr">
+              </dd>
+            </dl>
+            <dl class="form-group flex-fill">
+              <dt>
+              <label class="search_item_name" for="person_name">担当者</label>
+              </dt>
+              <dd>
+              <input type="text" name="person_name" class="form-control" id="person_name">
+              </dd>
+            </dl>
+            <dl class="form-group flex-fill">
+              <dt>
+              <label class="search_item_name" for="mobile">携帯番号</label>
+              </dt>
+              <dd>
+              <input type="text" name="mobile" class="form-control" id="mobile">
+              </dd>
+            </dl>
+            <dl class="form-group flex-fill">
+              <dt>
+              <label class="search_item_name" for="tel">固定番号</label>
+              </dt>
+              <dd>
+              <input type="text" name="tel" class="form-control" id="tel">
+              </dd>
+            </dl>
+            <dl class="form-group flex-fill">
+              <dt>
+              <label class="search_item_name" for="email">メール</label>
+              </dt>
+              <dd>
+              <input type="text" name="email" class="form-control" id="email">
+              </dd>
+            </dl>
+            <dl class="form-group flex-fill">
+              <dt>
+              <label class="search_item_name" for="attention">注意事項</label>
+              </dt>
+              <dd>
+              <input type="text" name="attention" class="form-control" id="attention">
+              </dd>
+            </dl>
+            <dl class="form-group flex-fill">
+                <dt>
+                  <label class="search_item_name" for="freeword">フリーワード検索</label>
+                </dt>
+                <dd>
+                  <input type="text" name="freeword" class="form-control" id="freeword">
+                </dd>
+              </dl>
+          </div>
+          <p class="text-right">※フリーワード検索は本画面表記の項目のみ対象となります</p>
+        </div>
+
+        <div class="btn_box d-flex justify-content-center">
+          <input type="reset" value="リセット" class="btn reset_btn">
+          <input type="submit" value="検索" class="btn btn-info search_btn">
+        </div>
+      </div>
+    </form>
+      <!-- 検索　終わり------------------------------------------------ -->
+
   </div>
-  <table class="table">
+  
+  <table class="table table-bordered">
     <thead>
       <tr>
         <th>注意事項</th>
@@ -104,7 +208,7 @@
         <td>携帯電話</td>
         <td>固定電話</td>
         <td>担当者メールアドレス</td>
-        <td>詳細</td>
+        <td class="btn-cell">詳細</td>
       </tr>
     </thead>
     <tbody>
@@ -133,11 +237,14 @@
         <td>{{$query->mobile}}</td>
         <td>{{$query->tel}}</td>
         <td>{{$query->email}}</td>
-        <td><a href="{{ url('/admin/clients/'. $query->id) }}">詳細</a></td>
+        <td><a class="more_btn" href="{{ url('/admin/clients/'. $query->id) }}">詳細</a></td>
       </tr>
       @endforeach
     </tbody>
   </table>
+
 </div>
+
+
 {{ $querys->links() }}
 @endsection

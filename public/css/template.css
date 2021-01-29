@@ -161,20 +161,18 @@ table.dataTable thead .sorting_desc:after {
 //////////////////
 ****************************/
 
-
 ul {
     margin-bottom: 0;
     padding: 0;
-
 }
 
 li {
     list-style: none;
 }
 
-
 a:hover {
     text-decoration: none;
+    color: #fff;
 }
 
 p {
@@ -200,10 +198,9 @@ h5 {
     margin-bottom: 0;
 }
 
-.content-wrapper {
+/* .content-wrapper {
     min-width: 1200px;
-}
-
+} */
 
 
 /* 共通--------------------------------------- */
@@ -246,6 +243,11 @@ h5 {
     border-radius: 5px;
     color: #fff;
     font-weight: bold;
+    transition: 0.4s;
+}
+
+.more_btn:hover {
+    background: #004792;
 }
 
 .more_btn2 {
@@ -276,6 +278,10 @@ h5 {
     min-width: 100px;
 }
 
+.more_btn3:hover {
+    color: #333;
+}
+
 /* 二本の横棒を作成する */
 .more_btn3::before,
 .more_btn3::after {
@@ -301,14 +307,17 @@ h5 {
 }
 
 
-
-
 .more_btn_lg {
     background: #007BFF;
     padding: 15px 80px;
     border-radius: 5px;
     color: #fff;
     font-weight: bold;
+    transition: 0.4s;
+}
+
+.more_btn_lg:hover {
+    background: #004792;
 }
 
 .more_btn4_lg {
@@ -358,6 +367,15 @@ h5 {
     padding: 3%;
 }
 
+.table-wrap {
+    width: 100%;
+    overflow-x: scroll;
+}
+
+.table-scroll {
+    /* overflow-x: scroll; */
+    white-space: nowrap;
+}
 
 
 /* アコーディオン ------------------------------------------*/
@@ -404,9 +422,10 @@ h5 {
 .plus_icon {
     display: block;
     position: relative;
-    width: 20px;
+    /* width: 20px; */
+    width: 100%;
     height: 20px;
-    margin-left: 5%;
+    cursor: pointer;
 }
 
 .plus_icon::before,
@@ -453,7 +472,7 @@ h5 {
 .search_box {
     margin-bottom: 50px;
     padding: 30px;
-    border: 1px solid #DBDBDB;
+    /* border: 1px solid #DBDBDB; */
 }
 
 .search_box .form-group {
@@ -529,22 +548,19 @@ table td.table_column p {
     margin: 0;
     box-sizing: border-box;
     display: flex;
-    padding: 5px 0;
+    padding: 5px;
 }
 
 table td.table_column p:last-child {
     border-bottom: none;
-    margin: 0;
-    box-sizing: border-box;
-    display: flex;
-    padding: 5px 0;
+    padding: 5px;
 }
 
-table td.table_column1 p {
+/* table td.table_column1 p {
     margin: 0;
     box-sizing: border-box;
     display: flex;
-}
+} */
 
 /* 
 table td.table_column .colum1 p {
@@ -829,7 +845,7 @@ table td.table_column .colum4 p {
 }
 
 .confirm-box dl {
-    width: 200px;
+    width: 60%;
     display: flex;
     justify-content: space-between;
     margin: 20px auto 0;
@@ -840,9 +856,6 @@ table td.table_column .colum4 p {
 
 /* =============予約追加請求================================================ */
 
-.extra-bill-table {
-    /* margin-bottom: 100px; */
-}
 
 .extra-bill-table .extrabill-cell {
     padding: 3em 0;
@@ -869,8 +882,6 @@ table td.table_column .colum4 p {
 .register-list-header li:nth-of-type(n+2) {
     margin-left: 1em;
 }
-
-
 
 .register-list-item {
     display: flex;
@@ -899,14 +910,38 @@ table td.table_column .colum4 p {
 
 /* =============仮押さえ　一覧================================================ */
 
-.table th,
-.table td {
-    vertical-align: top;
+/* .prereserve-table th,.prereserve-table td {
+    vertical-align: middle;
     text-align: left;
-}
+} */
 
 .btn-cell {
     min-width: 85px;
+}
+
+.prereserve-table .table_column .more_btn {
+    padding: 0 0.7em;
+
+}
+
+
+/* =============予約状況カレンダー　================================================ */
+.calenderframe {
+    margin-top: 40px;
+}
+
+
+.calneder-wrap {
+    padding: 30px;
+    border: 1px solid #dee2e6;
+}
+
+.calender-note {
+    margin-top: 30px;
+}
+
+#sortableArea {
+    cursor: pointer;
 }
 
 
@@ -947,4 +982,118 @@ table td.table_column .colum4 p {
     padding: 2em;
     border: 1px solid #333;
     margin-bottom: 50px;
+}
+
+/* @charset "utf-8"; */
+
+h3 {
+    margin-bottom: 0;
+}
+
+.calender-wrap {
+    min-width: 1200px;
+    margin: 0px auto;
+    overflow-y: scroll;
+}
+
+.calender-ttl {
+    font-size: 18px;
+    background: #35A7A7;
+    color: #fff;
+    font-weight: bold;
+    padding: 20px;
+}
+
+.calender-color {
+    margin: 15px 0;
+    display: flex;
+    list-style: none;
+    padding-left: 0;
+}
+
+.calender-color li {
+    position: relative;
+    padding-left: 30px;
+    margin-right: 30px;
+}
+
+.calender-color li::before {
+    content: '';
+    width: 20px;
+    height: 20px;
+    display: block;
+    position: absolute;
+    left: 0;
+    border: 1px solid #ededed;
+}
+
+.calender-color li.li-bg-reserve::before {
+    background-color: #35A7A7;
+}
+
+.calender-color li.li-bg-prereserve::before {
+    background-color: #ffff4d;
+}
+
+.calender-color li.li-bg-empty::before {
+    background-color: #fff;
+}
+
+.calender-color li.li-bg-closed::before {
+    background-color: #F0F0F0;
+}
+
+
+
+/* カレンダー色 */
+.bg-prereserve {
+    background-color: #ffff4d;
+}
+
+.bg-reserve {
+    background-color: #35A7A7;
+    ;
+}
+
+.bg-closed {
+    background-color: #F0F0F0;
+}
+
+/* カレンダー */
+.calender-flame {
+    width: 100%;
+    table-layout: fixed;
+    border: 2px solid #c5c5c5
+}
+
+.calender-flame td {
+    border-bottom: 2px solid #c5c5c5;
+}
+
+.calender-head {
+    background-color: #eee;
+}
+
+.calender-head td {
+    text-align: center;
+    font-size: 0.9rem;
+    padding: 0.8em 0.3em;
+    /* border-right: 2px solid #c5c5c5; */
+}
+
+
+.calender-head .field-title {
+    width: 10%;
+    background: #fff;
+    text-align: left;
+    padding-left: 1em;
+}
+
+.calender-flame .field-title {
+    border-right: 2px solid #c5c5c5;
+}
+
+.calender-flame .calender-data .calhalf {
+    border-right: 2px dotted #ddd;
+    border-left: 2px solid #c5c5c5
 }
