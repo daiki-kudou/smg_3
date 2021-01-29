@@ -22,7 +22,6 @@ $factory->define(Reservation::class, function (Faker $faker) {
     'bill_company' => 1,
     'bill_person' => 1,
     'bill_created_at' => '2020-01-01',
-    'bill_pay_limit' => '2020-01-01',
-    'agent_id' => 1
+    'agent_id' => 0
   ];
 });

@@ -475,7 +475,7 @@
   </div>
 </div>
 
-{{Form::submit('送信', ['class'=>'btn btn-primary mx-auto', 'id'=>'check_submit'])}}
+{{Form::submit('計算に反映する', ['class'=>'btn btn-primary mx-auto', 'id'=>'check_submit'])}}
 
 {{Form::close()}}
 

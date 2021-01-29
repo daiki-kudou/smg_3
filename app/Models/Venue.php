@@ -528,9 +528,9 @@ class Venue extends Model
   }
   public function getLayoutPrice($prepare, $clean)
   {
-    $prepare_result = NULL;
-    $clean_result = NULL;
-    $total = NULL;
+    $prepare_result = '';
+    $clean_result = '';
+    $total = '';
 
     $prepare == 1 ? $prepare_result = $this->layout_prepare : $prepare_result = 0;
     $clean == 1 ? $clean_result = $this->layout_clean : $clean_result = 0;

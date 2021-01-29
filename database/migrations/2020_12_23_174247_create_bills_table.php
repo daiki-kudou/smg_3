@@ -17,33 +17,17 @@ class CreateBillsTable extends Migration
       $table->bigIncrements('id');
       $table->bigInteger('reservation_id')->unsigned()->index();
 
-      $table->integer('venue_total');
-      $table->integer('venue_discount_percent')->nullable();
-      $table->integer('venue_dicsount_number')->nullable();
-      $table->integer('discount_venue_total');
+      $table->integer('venue_price');
 
-      $table->integer('equipment_total');
-      $table->integer('service_total');
-      $table->integer('luggage_total');
-      $table->integer('equipment_service_total');
-      $table->integer('discount_item')->nullable();
-      $table->integer('discount_equipment_service_total');
+      $table->integer('equipment_price');
 
+      $table->integer('layout_price');
 
-      $table->integer('layout_total');
-      $table->integer('layout_discount')->nullable();
-      $table->integer('after_duscount_layouts');
+      $table->integer('others_price');
 
-
-      $table->integer('others_total');
-      $table->integer('others_discount')->nullable();
-      $table->integer('after_duscount_others');
-
-
-
-      $table->integer('sub_total');
-      $table->integer('tax');
-      $table->integer('total');
+      $table->integer('master_subtotal');
+      $table->integer('master_tax');
+      $table->integer('master_total');
 
       $table->integer('paid'); //支払い状況、未入金か？入金済みか？　デフォルトは0で未入金
       $table->integer('reservation_status'); //予約状況　0:仮抑え　1:予約確認中　2予約承認待ち　3:予約完了　4:キャンセル申請中　5:キャンセル承認待ち　6:キャンセル
@@ -54,6 +38,7 @@ class CreateBillsTable extends Migration
 
       $table->string('category');
 
+      $table->string('admin_judge'); //1なら管理者が予約　2ならユーザーが予約
 
       // ソフトデリート用
       $table->softDeletes();

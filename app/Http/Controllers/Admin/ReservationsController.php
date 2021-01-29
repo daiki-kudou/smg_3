@@ -245,7 +245,6 @@ class ReservationsController extends Controller
 
   public function calculate(Request $request)
   {
-    var_dump($request->all());
     $venue = Venue::find($request->venue_id);
     $equipments = $venue->equipments()->get();
     $services = $venue->services()->get();
@@ -379,140 +378,108 @@ class ReservationsController extends Controller
     // ]);
 
 
+
+
     DB::transaction(function () use ($request) { //トランザクションさせる
-      $reservation = new Reservation;
-      $reservation->reserve_date = $request->reserve_date;
-      $reservation->venue_id = $request->venue_id;
-      $reservation->price_system = $request->price_system;
-      $reservation->enter_time = $request->enter_time;
-      $reservation->leave_time = $request->leave_time;
-      $reservation->board_flag = $request->board_flag;
-      $reservation->event_start = $request->event_start;
-      $reservation->event_finish = $request->event_finish;
-      $reservation->event_name1 = $request->event_name1;
-      $reservation->event_name2 = $request->event_name2;
-      $reservation->event_owner = $request->event_owner;
-
-      $reservation->luggage_count = $request->luggage_count;
-      $reservation->luggage_arrive = $request->luggage_arrive;
-      $reservation->luggage_return = $request->luggage_return;
-
-      $reservation->user_id = $request->user_id;
-      $reservation->in_charge = $request->in_charge;
-      $reservation->tel = $request->tel;
-      $reservation->email_flag = $request->email_flag;
-      $reservation->cost = $request->cost;
-      $reservation->payment_limit = $request->payment_limit;
-      // $reservation->paid = $request->paid;
-      // $reservation->reservation_status = $request->reservation_status;
-      // $reservation->double_check_status = $request->double_check_status;
-      $reservation->bill_company = $request->bill_company;
-      $reservation->bill_person = $request->bill_person;
-      $reservation->bill_created_at = $request->bill_created_at;
-      $reservation->bill_pay_limit = $request->bill_pay_limit;
-      $reservation->bill_remark = $request->bill_remark;
-
-      $reservation->agent_id = 0; //通常予約のコントローラーからはデフォで0（agent予約ではない）
-
-      $reservation->save();
+      $reservation = Reservation::create([
+        'venue_id' => $request->venue_id,
+        'user_id' => $request->user_id,
+        'agent_id' => 0, //デフォで0
+        'reserve_date' => $request->reserve_date,
+        'price_system' => $request->price_system,
+        'enter_time' => $request->enter_time,
+        'leave_time' => $request->leave_time,
+        'board_flag' => $request->board_flag,
+        'event_start' => $request->event_start,
+        'event_finish' => $request->event_finish,
+        'event_name1' => $request->event_name1,
+        'event_name2' => $request->event_name2,
+        'event_owner' => $request->event_owner,
+        'luggage_count' => $request->luggage_count,
+        'luggage_arrive' => $request->luggage_arrive,
+        'luggage_return' => $request->luggage_return,
+        'email_flag' => $request->email_flag,
+        'in_charge' => $request->in_charge,
+        'tel' => $request->tel,
+        'cost' => $request->cost,
+        'discount_condition' => $request->discount_condition,
+        'attention' => $request->attention,
+        'user_details' => $request->user_details,
+        'admin_details' => $request->admin_details,
+        'payment_limit' => $request->payment_limit,
+        'bill_company' => $request->bill_company,
+        'bill_person' => $request->bill_person,
+        'bill_created_at' => Carbon::now(),
+        'bill_remark' => $request->bill_remark,
+      ]);
 
       $bills = $reservation->bills()->create([
         'reservation_id' => $reservation->id,
-        // 会場関連
-        'venue_total' => $request->venue_total,
-        'venue_discount_percent' => $request->venue_discount_percent, //割引率
-        'venue_dicsount_number' => $request->venue_dicsount_number, //割引額
-        'discount_venue_total' => $request->discount_venue_total,
-        // 備品関連
-        'equipment_total' => $request->selected_equipments_price,
-        'service_total' => $request->selected_services_price,
-        'luggage_total' => $request->selected_luggage_price,
-        'equipment_service_total' => $request->selected_items_total,
-        'discount_item' => $request->discount_item, //割引額
-        'discount_equipment_service_total' => $request->discount_equipment_service_total,
-        // レイアウト関連
-        'layout_total' => $request->layout_total,
-        'layout_discount' => $request->layout_discount, //割引額
-        'after_duscount_layouts' => $request->after_duscount_layouts,
-        // その他関連
-        'others_total' => 0,
-        'others_discount' => 0,
-        'after_duscount_others' => 0,
-
+        'venue_price' => $request->venue_price,
+        'equipment_price' => $request->equipment_price ? $request->equipment_price : 0, //備品・サービス・荷物
+        'layout_price' => $request->layout_price ? $request->layout_price : 0,
+        'others_price' => $request->others_price ? $request->others_price : 0,
         // 該当billの合計額関連
-        'sub_total' => $request->sub_total,
-        'tax' => $request->tax,
-        'total' => $request->total,
+        'master_subtotal' => $request->master_subtotal,
+        'master_tax' => $request->master_tax,
+        'master_total' => $request->master_total,
 
-        'paid' => 0, //デフォで0 作成時点では未入金
+        'paid' => $request->paid,
         'reservation_status' => 1, //デフォで1、仮抑えのデフォは0
         'double_check_status' => 0, //デフォで0
-        'category' => 1 //デフォで１。　新規以外だと　2:その他有料備品　3:レイアウト　4:その他
+        'category' => 1, //デフォで１。　新規以外だと　2:その他有料備品　3:レイアウト　4:その他
+        'admin_judge' => 1, //管理者作成なら1 ユーザー作成なら2
       ]);
-      // 会場料金があれば、会場料金。
-      // なければ、手入力された金額が保存
-      if ($request->v_breakdowns) {
-        foreach ($request->v_breakdowns as $key => $value) {
-          $bills->breakdowns()->create([
-            'unit_item' => $value['unit_item'],
-            'unit_cost' => $value['unit_cost'],
-            'unit_count' => $value['unit_count'],
-            'unit_subtotal' => $value['unit_subtotal'],
-            'unit_type' => $value['unit_type'],
-          ]);
+      function toBreakDown($num, $sub, $target, $type)
+      {
+        $s_arrays = [];
+        foreach ($num as $key => $value) {
+          if (preg_match("/" . $sub . "/", $key)) {
+            $s_arrays[] = $value;
+          }
         }
-      } else {
-        if ($request->hand_input_venueprice) {
-          $bills->breakdowns()->create([
-            'unit_item' => '会場料金',
-            'unit_cost' => $request->hand_input_venueprice,
-            'unit_count' => $request->hand_input_count,
-            'unit_subtotal' => $request->hand_input_subtotal,
-            'unit_type' => 1
-          ]);
-        };
-        if ($request->hand_input_extendprice) {
-          $bills->breakdowns()->create([
-            'unit_item' => '延長料金',
-            'unit_cost' => $request->hand_input_extendprice,
-            'unit_count' => $request->hand_input_extendcount,
-            'unit_subtotal' => $request->hand_input_extendsubtotal,
-            'unit_type' => 1
-          ]);
-        };
-        if ($request->hand_input_discountprice) {
-          $bills->breakdowns()->create([
-            'unit_item' => '割引料金',
-            'unit_cost' => $request->hand_input_discountprice,
-            'unit_count' => $request->hand_input_discountcount,
-            'unit_subtotal' => $request->hand_input_discountsubtotal,
-            'unit_type' => 1
-          ]);
-        };
-      };
-      // 通常の備品サービス
-      if ($request->e_breakdowns) {
-        foreach ($request->e_breakdowns as $key => $value) {
-          $bills->breakdowns()->create([
-            'unit_item' => $value['unit_item'],
-            'unit_cost' => $value['unit_cost'],
-            'unit_count' => $value['unit_count'],
-            'unit_subtotal' => $value['unit_subtotal'],
-            'unit_type' => $value['unit_type'],
+        $counts = (count($s_arrays) / 4);
+        for ($i = 0; $i < $counts; $i++) {
+          $target->breakdowns()->create([
+            'unit_item' => $s_arrays[($i * 4)],
+            'unit_cost' => $s_arrays[($i * 4) + 1],
+            'unit_count' => $s_arrays[($i * 4) + 2],
+            'unit_subtotal' => $s_arrays[($i * 4) + 3],
+            'unit_type' => $type,
           ]);
         }
       }
-      // 通常のレイアウト
-      if ($request->l_breakdowns) {
-        foreach ($request->l_breakdowns as $key => $value) {
-          $bills->breakdowns()->create([
-            'unit_item' => $value['unit_item'],
-            'unit_cost' => $value['unit_cost'],
-            'unit_count' => $value['unit_count'],
-            'unit_subtotal' => $value['unit_subtotal'],
-            'unit_type' => $value['unit_type'],
-          ]);
-        }
+      toBreakDown($request->all(), 'venue_breakdown', $bills, 1);
+      toBreakDown($request->all(), 'equipment_breakdown', $bills, 2);
+      toBreakDown($request->all(), 'service_breakdown', $bills, 3);
+      toBreakDown($request->all(), 'others_breakdown', $bills, 5);
+      if ($request->luggage_subtotal) {
+        $bills->breakdowns()->create([
+          'unit_item' => $request->luggage_item,
+          'unit_cost' => $request->luggage_cost,
+          'unit_count' => 1,
+          'unit_subtotal' => $request->luggage_subtotal,
+          'unit_type' => 3,
+        ]);
+      }
+
+      if ($request->layout_prepare_subtotal) {
+        $bills->breakdowns()->create([
+          'unit_item' => $request->layout_prepare_item,
+          'unit_cost' => $request->layout_prepare_cost,
+          'unit_count' => $request->layout_prepare_count,
+          'unit_subtotal' => $request->layout_prepare_subtotal,
+          'unit_type' => 4,
+        ]);
+      }
+      if ($request->layout_clean_subtotal) {
+        $bills->breakdowns()->create([
+          'unit_item' => $request->layout_clean_item,
+          'unit_cost' => $request->layout_clean_cost,
+          'unit_count' => $request->layout_clean_count,
+          'unit_subtotal' => $request->layout_clean_subtotal,
+          'unit_type' => 4,
+        ]);
       }
     });
 
