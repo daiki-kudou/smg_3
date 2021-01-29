@@ -810,7 +810,7 @@
   {{-- <a href="{{ url('admin/reservations/calculate') }}" class="d-block btn btn-danger btn-lg mr-5">修正する</a> --}}
   <a href="javascript:$('#test_post').submit()" class="btn btn-danger btn-lg d-block mr-5">請求内訳を修正する</a>
 
-  {{Form::submit('予約を登録する', ['class'=>'d-block btn btn-primary btn-lg', 'id'=>'check_submit'])}}
+  {{Form::submit('修正する', ['class'=>'d-block btn btn-primary btn-lg', 'id'=>'check_submit'])}}
   {{Form::close()}}
 
 </div>
