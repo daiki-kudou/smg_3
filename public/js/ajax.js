@@ -277,7 +277,7 @@ $(function () {
         $('.equipemnts table tbody').html(''); //一旦初期会
         $.each($items[0], function (index, value) {
           // ココで備品取得
-          $('.equipemnts table tbody').append("<tr><td>" + value['item'] + "</td>" + "<td><input type='text' value='0' min=0 name='equipemnt" + index + "' class='form-control'></td></tr>");
+          $('.equipemnts table tbody').append("<tr><td>" + value['item'] + "</td>" + "<td><input type='text' value='0' min=0 name='equipment_breakdown" + index + "' class='form-control'></td></tr>");
         });
         // ***********マイナス、全角制御用
         function ExceptString($target) {
@@ -301,7 +301,7 @@ $(function () {
         $.each($items[1], function (index, value) {
           // ココでサービス取得
           // 有り・無しに変更するため以下コメントアウト
-          $('.services table tbody').append("<tr><td>" + value['item'] + "</td>" + "<td><input type='radio' value='1' name='service" + index + "' id='service" + index + "on'><label for='service" + index + "on'>有り</label><input type='radio' value='0' id='service" + index + "off' name='service" + index + "' checked><label for='service" + index + "off'>無し</label></td></tr>");
+          $('.services table tbody').append("<tr><td>" + value['item'] + "</td>" + "<td><input type='radio' value='1' name='services_breakdown" + index + "' id='service" + index + "on'><label for='service" + index + "on'>有り</label><input type='radio' value='0' id='service" + index + "off' name='service" + index + "' checked><label for='service" + index + "off'>無し</label></td></tr>");
         });
       })
       .fail(function (data) {

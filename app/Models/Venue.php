@@ -484,30 +484,36 @@ class Venue extends Model
     $venue_equipments = $this->equipments()->get();
     $equipments_total = 0;
     $equipments_details = [];
-    for ($i = 0; $i < count($venue_equipments); $i++) {
-      $equipments_total = $equipments_total + ($venue_equipments[$i]->price) * ($selected_equipments[$i]);
-      if ($selected_equipments[$i] != 0) {
-        $selected_e_item = $venue_equipments[$i]->item;
-        $selected_e_price = $venue_equipments[$i]->price;
-        $selected_e_count = $selected_equipments[$i];
-        $equipments_details[] = [$selected_e_item, $selected_e_price, $selected_e_count];
+    $judge_equipment = array_filter($selected_equipments);
+    if (!empty($judge_equipment)) {
+      for ($i = 0; $i < count($venue_equipments); $i++) {
+        $equipments_total = $equipments_total + ($venue_equipments[$i]->price) * ($selected_equipments[$i]);
+        if ($selected_equipments[$i] != 0) {
+          $selected_e_item = $venue_equipments[$i]->item;
+          $selected_e_price = $venue_equipments[$i]->price;
+          $selected_e_count = $selected_equipments[$i];
+          $equipments_details[] = [$selected_e_item, $selected_e_price, $selected_e_count];
+        }
       }
     }
     // サービス料金×個数
     $venue_services = $this->services()->get();
     $services_total = 0;
     $services_details = [];
-    for ($ii = 0; $ii < count($venue_services); $ii++) {
-      $services_total =
-        $services_total
-        + ($venue_services[$ii]->price)
-        * ((int)$selected_services[$ii]);
-      if ($selected_services[$ii] != 0) {
-        // ※注意　ここでherokuにてエラーがでている
-        $selected_s_item = $venue_services[$ii]->item;
-        $selected_s_price = $venue_services[$ii]->price;
-        $selected_s_count = $selected_services[$ii];
-        $services_details[] = [$selected_s_item, $selected_s_price, $selected_s_count];
+    $judge_service = array_filter($selected_services);
+    if (!empty($judge_service)) {
+      for ($ii = 0; $ii < count($venue_services); $ii++) {
+        $services_total =
+          $services_total
+          + ($venue_services[$ii]->price)
+          * ($selected_services[$ii]);
+        if ($selected_services[$ii] != 0) {
+          // ※注意　ここでherokuにてエラーがでている
+          $selected_s_item = $venue_services[$ii]->item;
+          $selected_s_price = $venue_services[$ii]->price;
+          $selected_s_count = $selected_services[$ii];
+          $services_details[] = [$selected_s_item, $selected_s_price, $selected_s_count];
+        }
       }
     }
 

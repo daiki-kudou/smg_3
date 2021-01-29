@@ -225,24 +225,27 @@ class ReservationsController extends Controller
     $venues = Venue::select('name_area', 'name_bldg', 'name_venue', 'id')->get();
     $users = User::all();
 
-    $target = $request->all();
+    $target = $request->all_requests;
+    $target = json_decode($target);
 
-    if ($target != null) {
-      return view('admin.reservations.create', [
-        'venues' => $venues,
-        'users' => $users,
-        'request' => $request,
-      ]);
-    } else {
-      return view('admin.reservations.create', [
-        'venues' => $venues,
-        'users' => $users,
-      ]);
-    }
+    // if ($target != null) {
+    return view('admin.reservations.create', [
+      'venues' => $venues,
+      'users' => $users,
+      'target' => $target,
+    ]);
+    // } 
+    // else {
+    //   return view('admin.reservations.create', [
+    //     'venues' => $venues,
+    //     'users' => $users,
+    //   ]);
+    // }
   }
 
   public function calculate(Request $request)
   {
+    var_dump($request->all());
     $venue = Venue::find($request->venue_id);
     $equipments = $venue->equipments()->get();
     $services = $venue->services()->get();
@@ -257,10 +260,10 @@ class ReservationsController extends Controller
     $s_equipment = [];
     $s_services = [];
     foreach ($request->all() as $key => $value) {
-      if (preg_match('/equipemnt/', $key)) {
+      if (preg_match('/equipment_breakdown/', $key)) {
         $s_equipment[] = $value;
       }
-      if (preg_match('/service/', $key)) {
+      if (preg_match('/services_breakdown/', $key)) {
         $s_services[] = $value;
       }
     }
@@ -268,7 +271,9 @@ class ReservationsController extends Controller
     // [0]備品＋サービス [1]備品詳細 [2]サービス詳細 [3]備品合計 [4]サービス合計
     $item_details = $venue->calculate_items_price($s_equipment, $s_services);
     $layouts_details = $venue->getLayoutPrice($request->layout_prepare, $request->layout_clean);
-    $masters = $price_details[2] + ($item_details[0] + $request->luggage_price) + $layouts_details[2];
+    $masters = $price_details[2]
+      + ($item_details[0] + $request->luggage_price)
+      + $layouts_details[2];
     $user = User::find($request->user_id);
     $pay_limit = $user->getUserPayLimit($request->reserve_date);
 

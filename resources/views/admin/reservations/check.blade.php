@@ -6,7 +6,6 @@
 
 
 
-
 {{ Form::open(['url' => 'admin/reservations/check', 'method'=>'POST', 'id'=>'agents_calculate_form']) }}
 @csrf
 <div class="container-field bg-white text-dark">
@@ -809,7 +808,7 @@
 {{ Form::hidden('layouts_details', $request->layouts_details) }} --}}
 <div class="container-field d-flex justify-content-center" style="margin-top: 80px;">
   {{-- <a href="{{ url('admin/reservations/calculate') }}" class="d-block btn btn-danger btn-lg mr-5">修正する</a> --}}
-  <a href="javascript:$('#test_post').submit()">a要素でPOST送信</a>
+  <a href="javascript:$('#test_post').submit()" class="btn btn-danger btn-lg d-block mr-5">請求内訳を修正する</a>
 
   {{Form::submit('予約を登録する', ['class'=>'d-block btn btn-primary btn-lg', 'id'=>'check_submit'])}}
   {{Form::close()}}
@@ -822,7 +821,24 @@
   }
 </style>
 
-{{Form::open(['route' => 'admin.clients.index', 'method' => 'post','id'=>'test_post'])}}
+
+{{Form::open(['route' => 'admin.reservations.create', 'method' => 'GET','id'=>'test_post'])}}
+{{ Form::hidden('all_requests', json_encode($request->all()),['class'=>'form-control','readonly'])}}
+{{-- {{ Form::hidden('user_id', $request->user_id,['class'=>'form-control','readonly'])}}
+{{ Form::hidden('price_system', $request->price_system,['class'=>'form-control','readonly'])}}
+{{ Form::hidden('enter_time', $request->enter_time,['class'=>'form-control','readonly'])}}
+{{ Form::hidden('leave_time', $request->leave_time,['class'=>'form-control','readonly'])}}
+{{ Form::hidden('reserve_date', $request->reserve_date,['class'=>'form-control','readonly'])}} --}}
+
+{{-- {{ Form::hidden('venue_details', json_encode($venue_details),['class'=>'form-control','readonly'])}}
+{{ Form::hidden('equipment_details', json_encode($equipment_details),['class'=>'form-control','readonly'])}}
+{{ Form::hidden('service_details', json_encode($service_details),['class'=>'form-control','readonly'])}}
+{{ Form::hidden('others_details', json_encode($others_details),['class'=>'form-control','readonly'])}} --}}
+
+{{ Form::hidden('venue_number_discount', $request->venue_number_discount,['class'=>'form-control','readonly'])}}
+
+
+
 {{Form::submit('予約を登録する', ['class'=>'d-block btn btn-primary btn-lg test_post', 'id'=>'check_submit'])}}
 {{Form::close()}}
 

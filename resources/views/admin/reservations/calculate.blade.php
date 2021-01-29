@@ -215,7 +215,7 @@ echo "<br>";
             </tr>
           </thead>
           <tbody>
-            @if ($s_equipment)
+            @if (!empty(array_filter($s_equipment)))
             @foreach ($equipments as $key=>$equipment)
             <tr>
               <td>{{$equipment->item}}</td>
@@ -610,7 +610,7 @@ echo "<br>";
                     割引金額
                   </p>
                   <div class="d-flex">
-                    {{ Form::text('venue_number_discount', '',['class'=>'form-control'] ) }}
+                    {{ Form::text('venue_number_discount', $request->venue_number_discount?$request->venue_number_discount:'',['class'=>'form-control'] ) }}
                     <p>円</p>
                   </div>
                 </td>
@@ -619,7 +619,7 @@ echo "<br>";
                     割引率
                   </p>
                   <div class="d-flex">
-                    {{ Form::text('venue_percent_discount', '',['class'=>'form-control'] ) }}
+                    {{ Form::text('venue_percent_discount', $request->venue_percent_discount?$request->venue_percent_discount:'',['class'=>'form-control'] ) }}
                     <p>%</p>
                   </div>
                 </td>
@@ -716,7 +716,7 @@ echo "<br>";
                     割引金額
                   </p>
                   <div class="d-flex">
-                    {{ Form::text('equipment_number_discount', '',['class'=>'form-control'] ) }}
+                    {{ Form::text('equipment_number_discount', $request->equipment_number_discount?$request->equipment_number_discount:'',['class'=>'form-control'] ) }}
                     <p>円</p>
                   </div>
                 </td>
@@ -725,7 +725,7 @@ echo "<br>";
                     割引率
                   </p>
                   <div class="d-flex">
-                    {{ Form::text('equipment_percent_discount', '',['class'=>'form-control'] ) }}
+                    {{ Form::text('equipment_percent_discount', $request->equipment_percent_discount?$request->equipment_percent_discount:'',['class'=>'form-control'] ) }}
                     <p>%</p>
                   </div>
                 </td>
@@ -796,7 +796,7 @@ echo "<br>";
                     割引金額
                   </p>
                   <div class="d-flex">
-                    {{ Form::text('layout_number_discount', '',['class'=>'form-control'] ) }}
+                    {{ Form::text('layout_number_discount', $request->layout_number_discount?$request->layout_number_discount:'',['class'=>'form-control'] ) }}
                     <p>円</p>
                   </div>
                 </td>
@@ -805,7 +805,7 @@ echo "<br>";
                     割引率
                   </p>
                   <div class="d-flex">
-                    {{ Form::text('layout_percent_discount', '',['class'=>'form-control'] ) }}
+                    {{ Form::text('layout_percent_discount', $request->layout_percent_discount?$request->layout_percent_discount:'',['class'=>'form-control'] ) }}
                     <p>%</p>
                   </div>
                 </td>
