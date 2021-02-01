@@ -8,6 +8,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Bill;
 
 use App\Models\Reservation;
+use App\Models\User;
 
 use Illuminate\Support\Facades\DB; //トランザクション用
 
@@ -37,8 +38,12 @@ class BillsController extends Controller
   public function create(Request $request)
   {
     $reservation = Reservation::find($request->reservation_id);
+    $user = User::find($reservation->user_id);
+    $pay_limit = $user->getUserPayLimit($reservation->reserve_date);
+
     return view('admin/bills/create', [
-      'reservation' => $reservation
+      'reservation' => $reservation,
+      'pay_limit' => $pay_limit,
     ]);
   }
 
@@ -70,36 +75,31 @@ class BillsController extends Controller
 
   public function check(Request $request)
   {
-    var_dump($request->all());
-    $master_arrays = [];
-
-    if ($request->billcategory == 1) {
-      foreach ($request->all() as $key => $value) {
-        if (preg_match('/equipment_service/', $key)) {
-          $master_arrays[] = $value;
-        }
+    $requests = $request->all();
+    $s_venues = [];
+    $s_equipments = [];
+    $s_layouts = [];
+    $s_others = [];
+    foreach ($request->all() as $key => $value) {
+      if (preg_match('/venue_breakdown/', $key)) {
+        $s_venues[] = $value;
       }
-      $counter = count($master_arrays) / 4; //固定で4つ
-    } elseif ($request->billcategory == 2) {
-      foreach ($request->all() as $key => $value) {
-        if (preg_match('/layout_/', $key)) {
-          $master_arrays[] = $value;
-        }
+      if (preg_match('/equipment_breakdown/', $key)) {
+        $s_equipments[] = $value;
       }
-      $counter = count($master_arrays) / 4; //固定で4つ
-    } elseif ($request->billcategory == 3) {
-      foreach ($request->all() as $key => $value) {
-        if (preg_match('/others_/', $key)) {
-          $master_arrays[] = $value;
-        }
+      if (preg_match('/layout_breakdown/', $key)) {
+        $s_layouts[] = $value;
       }
-      $counter = count($master_arrays) / 4; //固定で4つ
+      if (preg_match('/others_breakdown/', $key)) {
+        $s_others[] = $value;
+      }
     }
-
     return view('admin.bills.check', [
-      'request' => $request,
-      'master_arrays' => $master_arrays,
-      'counter' => $counter
+      'requests' => $requests,
+      's_venues' => $s_venues,
+      's_equipments' => $s_equipments,
+      's_layouts' => $s_layouts,
+      's_others' => $s_others,
     ]);
   }
 

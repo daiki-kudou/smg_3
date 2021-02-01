@@ -88,6 +88,11 @@
 <div class="container-fluid">
   <h3>追加請求書</h3>
 </div>
+{{ Form::open(['url' => 'admin/bills/check/'.$reservation->id, 'method'=>'POST']) }}
+@csrf
+{{ Form::hidden('reservation_id', $reservation->id, ['class' => 'form-control'])}}
+
+
 <div class="container-fluid">
   <div class="bill">
     <div class="bill_details">
@@ -332,17 +337,22 @@
             <tbody>
               <tr>
                 <td>請求日：</td>
-                <td>支払期日 <input class="form-control hasDatepicker" id="datepicker6" name="pay_limit" type="text"
-                    value="2021-02-01"> </td>
-              </tr>
-              <tr>
-                <td>請求書宛名<input class="form-control" name="pay_company" type="text" value="test"></td>
-                <td>
-                  担当者<input class="form-control" name="bill_person" type="text" value="testtest">
+                <td>支払期日
+                  {{ Form::text('pay_limit', $pay_limit, ['class' => 'form-control' ,'id'=>'datepicker6'])}}
                 </td>
               </tr>
               <tr>
-                <td colspan="2">請求書備考<textarea class="form-control" name="bill_remark" cols="50" rows="10"></textarea>
+                <td>請求書宛名
+                  {{ Form::text('pay_company', $reservation->user->company, ['class' => 'form-control'])}}
+                </td>
+                <td>
+                  担当者
+                  {{ Form::text('bill_person', ReservationHelper::getPersonName($reservation->user->id), ['class' => 'form-control' ])}}
+                </td>
+              </tr>
+              <tr>
+                <td colspan="2">請求書備考
+                  {{ Form::textarea('bill_remark', '', ['class' => 'form-control'])}}
                 </td>
               </tr>
             </tbody>
@@ -369,17 +379,14 @@
           <table class="table" style="table-layout: fixed;">
             <tbody>
               <tr>
-                <td>入金状況<select class="form-control" name="paid">
-                    <option value="0">未入金</option>
-                    <option value="1">入金済み</option>
-                  </select></td>
+                <td>入金状況{{Form::select('paid', ['未入金', '入金済み'],null,['class'=>'form-control'])}}</td>
                 <td>
-                  入金日<input class="form-control hasDatepicker" id="datepicker7" name="pay_day" type="text">
+                  入金日{{ Form::text('pay_day', null,['class'=>'form-control', 'id'=>'datepicker7'] ) }}
                 </td>
               </tr>
               <tr>
-                <td>振込人名<input class="form-control" name="pay_person" type="text"></td>
-                <td>入金額<input class="form-control" name="payment" type="text"></td>
+                <td>振込人名{{ Form::text('pay_person', null,['class'=>'form-control'] ) }}</td>
+                <td>入金額{{ Form::text('payment', null,['class'=>'form-control'] ) }}</td>
               </tr>
             </tbody>
           </table>
@@ -387,32 +394,21 @@
       </div>
     </div>
   </div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 </div>
+
+
+{{ Form::submit('確認する', ['class' => 'btn btn-primary btn-block']) }}
+
+{{ Form::close() }}
+
+
+
+
+
+
+
+
+
 {{-- {{ Form::open(['url' => 'admin/bills/check/'.$reservation->id, 'method'=>'POST','id'=>'testid']) }}
 @csrf
 
@@ -630,14 +626,6 @@ function MaterCalc(){
   $('input[name="master_total"]').val(master_sub+master_tax);
 
 }
-
-
-
-
-
-
-
-
 })
 </script>
 
