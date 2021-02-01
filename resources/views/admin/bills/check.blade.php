@@ -49,8 +49,7 @@
               </tr>
             </tbody>
             <tbody class="venue_main ">
-              @for ($i = 0; $i < (count($s_venues)/4); $i++)
-                @if($s_venues[$i*4]&&$s_venues[($i*4)+1]&&$s_venues[($i*4)+2]&&$s_venues[($i*4)+3]) <tr>
+              @for ($i = 0; $i < (count($s_venues)/4); $i++) @if($s_venues[$i*4]&&$s_venues[($i*4)+1]&&$s_venues[($i*4)+2]&&$s_venues[($i*4)+3]) <tr>
                 <td>
                   {{ Form::text('venue_breakdown_item'.$i, $s_venues[$i*4],['class'=>'form-control', 'readonly'] ) }}
                 </td>
@@ -100,8 +99,7 @@
               </tr>
             </tbody>
             <tbody class="equipment_main ">
-              @for ($i = 0; $i < (count($s_equipments)/4); $i++)
-                @if($s_equipments[$i*4]&&$s_equipments[($i*4)+1]&&$s_equipments[($i*4)+2]&&$s_equipments[($i*4)+3]) <tr>
+              @for ($i = 0; $i < (count($s_equipments)/4); $i++) @if($s_equipments[$i*4]&&$s_equipments[($i*4)+1]&&$s_equipments[($i*4)+2]&&$s_equipments[($i*4)+3]) <tr>
                 <td>
                   {{ Form::text('equipment_breakdown_item'.$i, $s_equipments[$i*4],['class'=>'form-control', 'readonly'] ) }}
                 </td>
@@ -151,8 +149,7 @@
               </tr>
             </tbody>
             <tbody class="layout_main ">
-              @for ($i = 0; $i < (count($s_layouts)/4); $i++)
-                @if($s_layouts[$i*4]&&$s_layouts[($i*4)+1]&&$s_layouts[($i*4)+2]&&$s_layouts[($i*4)+3]) <tr>
+              @for ($i = 0; $i < (count($s_layouts)/4); $i++) @if($s_layouts[$i*4]&&$s_layouts[($i*4)+1]&&$s_layouts[($i*4)+2]&&$s_layouts[($i*4)+3]) <tr>
                 <td>
                   {{ Form::text('layout_breakdown_item'.$i, $s_layouts[$i*4],['class'=>'form-control', 'readonly'] ) }}
                 </td>
@@ -203,8 +200,7 @@
               </tr>
             </tbody>
             <tbody class="others_main ">
-              @for ($i = 0; $i < (count($s_others)/4); $i++)
-                @if($s_others[$i*4]&&$s_others[($i*4)+1]&&$s_others[($i*4)+2]&&$s_others[($i*4)+3]) <tr>
+              @for ($i = 0; $i < (count($s_others)/4); $i++) @if($s_others[$i*4]&&$s_others[($i*4)+1]&&$s_others[($i*4)+2]&&$s_others[($i*4)+3]) <tr>
                 <td>
                   {{ Form::text('others_breakdown_item'.$i, $s_others[$i*4],['class'=>'form-control', 'readonly'] ) }}
                 </td>
@@ -219,7 +215,7 @@
                 </td>
                 </tr>
                 @endif
-                @endfo
+                @endfor
             </tbody>
             <tbody class="others_result ">
               <tr>
@@ -234,8 +230,7 @@
         @endif
 
 
-        <div class="bill_total d-flex justify-content-end"
-          style="padding: 80px 0px 80px 0px; width:90%; margin:0 auto; background:">
+        <div class="bill_total d-flex justify-content-end" style="padding: 80px 0px 80px 0px; width:90%; margin:0 auto; background:">
           <div style="width: 60%;">
             <table class="table text-right" style="table-layout: fixed; font-size:16px;">
               <tbody>
