@@ -81,18 +81,31 @@
           <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
         </li>
       </ul>
-      <div>
-        {{-- ログアウト用 --}}
-        <a class="dropdown-item" href="{{ route('admin.logout') }}"
-          onclick="event.preventDefault();document.getElementById('logout-form').submit();">
-          {{ __('Logout') }}
-        </a>
-        <form id="logout-form" action="{{ route('admin.logout') }}" method="POST" style="">
-          @csrf
-        </form>
-        {{-- ログアウト用 --}}
+
+      <div class="dropdown">
+        <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown"
+          aria-haspopup="true" aria-expanded="false">
+          ログイン中：{{Auth::user()->name}}
+        </button>
+        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+          <div>
+            {{-- ログアウト用 --}}
+            <a class="dropdown-item" href="{{ route('admin.logout') }}"
+              onclick="event.preventDefault();document.getElementById('logout-form').submit();">
+              {{ __('Logout') }}
+            </a>
+            <form id="logout-form" action="{{ route('admin.logout') }}" method="POST" style="">
+              @csrf
+            </form>
+            {{-- ログアウト用 --}}
+          </div>
+
+        </div>
       </div>
+
     </nav>
+
+
 
     <!-- Main Sidebar Container -->
     <aside class="main-sidebar sidebar-dark-primary elevation-4">

@@ -26,7 +26,17 @@ class Bill extends Model
     'master_tax',
     'master_total',
 
+    'payment_limit',
+    'bill_company',
+    'bill_person',
+    'bill_created_at',
+    'bill_remark',
+
     'paid',
+    'pay_day',
+    'pay_person',
+    'payment',
+
     'reservation_status',
     'double_check_status',
     'double_check1_name',

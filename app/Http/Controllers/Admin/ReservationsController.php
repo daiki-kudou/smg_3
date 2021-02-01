@@ -406,11 +406,11 @@ class ReservationsController extends Controller
         'attention' => $request->attention,
         'user_details' => $request->user_details,
         'admin_details' => $request->admin_details,
-        'payment_limit' => $request->payment_limit,
-        'bill_company' => $request->bill_company,
-        'bill_person' => $request->bill_person,
-        'bill_created_at' => Carbon::now(),
-        'bill_remark' => $request->bill_remark,
+        // 'payment_limit' => $request->payment_limit,
+        // 'bill_company' => $request->bill_company,
+        // 'bill_person' => $request->bill_person,
+        // 'bill_created_at' => Carbon::now(),
+        // 'bill_remark' => $request->bill_remark,
       ]);
 
       $bills = $reservation->bills()->create([
@@ -424,7 +424,18 @@ class ReservationsController extends Controller
         'master_tax' => $request->master_tax,
         'master_total' => $request->master_total,
 
+        'payment_limit' => $request->payment_limit,
+        'bill_company' => $request->bill_company,
+        'bill_person' => $request->bill_person,
+        'bill_created_at' => Carbon::now(),
+        'bill_remark' => $request->bill_remark,
+
         'paid' => $request->paid,
+
+        'pay_day' => $request->pay_day,
+        'pay_person' => $request->pay_person,
+        'payment' => $request->payment,
+
         'reservation_status' => 1, //デフォで1、仮抑えのデフォは0
         'double_check_status' => 0, //デフォで0
         'category' => 1, //デフォで１。　新規以外だと　2:その他有料備品　3:レイアウト　4:その他
@@ -462,7 +473,6 @@ class ReservationsController extends Controller
           'unit_type' => 3,
         ]);
       }
-
       if ($request->layout_prepare_subtotal) {
         $bills->breakdowns()->create([
           'unit_item' => $request->layout_prepare_item,
@@ -478,6 +488,15 @@ class ReservationsController extends Controller
           'unit_cost' => $request->layout_clean_cost,
           'unit_count' => $request->layout_clean_count,
           'unit_subtotal' => $request->layout_clean_subtotal,
+          'unit_type' => 4,
+        ]);
+      }
+      if ($request->layout_breakdown_discount_item) {
+        $bills->breakdowns()->create([
+          'unit_item' => $request->layout_breakdown_discount_item,
+          'unit_cost' => $request->layout_breakdown_discount_cost,
+          'unit_count' => $request->layout_breakdown_discount_count,
+          'unit_subtotal' => $request->layout_breakdown_discount_subtotal,
           'unit_type' => 4,
         ]);
       }
@@ -500,7 +519,6 @@ class ReservationsController extends Controller
     $venue = Venue::find($reservation->venue->id);
     $user = User::find($reservation->user_id);
     $equipments = $venue->equipments()->get();
-
     $services = $venue->services()->get();
     $breakdowns = $reservation->breakdowns()->get();
 

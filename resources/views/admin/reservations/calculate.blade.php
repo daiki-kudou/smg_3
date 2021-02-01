@@ -9,20 +9,6 @@
 
 
 
-<?php
-
-$test=json_encode($item_details);
-var_dump($test);
-echo "<br>";
-echo "<br>";
-
-$result=json_decode($test);
-var_dump($result);
-echo "<br>";
-echo "<br>";
-
-
-?>
 
 <script>
   $(function () {
@@ -449,56 +435,7 @@ echo "<br>";
   </div>
 </div>
 <style>
-  .bill_head {
-    background: #127059;
-    table-layout: fixed;
-    border: solid 1px gray;
-  }
 
-  .bill_head p {
-    height: 50px;
-  }
-
-  .plus_acordion::before {
-    content: '＋';
-  }
-
-  .minus_acordion::before {
-    content: '-';
-  }
-
-  .head {
-    background: #C1C1C2;
-    table-layout: fixed;
-    border: solid 1px gray;
-    height: 60px;
-  }
-
-  .venue_head,
-  .equipment_head,
-  .layout_head {
-    border-bottom: solid 1px gray !important;
-  }
-
-  .venue_discount,
-  .equipment_discount,
-  .layout_discount,
-  .others_discount {
-    border: solid 1px gray !important;
-  }
-
-  .bill {
-    border: solid 1px gray;
-  }
-
-  .information .main {
-    border: solid 1px gray;
-  }
-
-  .paid .head {
-    background: #EB9C32;
-    color: white;
-  }
 </style>
 {{-- 丸岡さんカスタム --}}
 <div class="container-fluid">

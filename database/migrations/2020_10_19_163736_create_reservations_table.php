@@ -41,12 +41,6 @@ class CreateReservationsTable extends Migration
       $table->text('user_details')->nullable();
       $table->text('admin_details')->nullable();
 
-      $table->date('payment_limit'); //該当予約の支払い期日
-
-      $table->string('bill_company'); //請求書の会社名　デフォルトは顧客名
-      $table->string('bill_person'); //請求書の担当者名　デフォルトは顧客の担当者
-      $table->date('bill_created_at'); //請求書作成日　デフォルトはtimestamp
-      $table->string('bill_remark')->nullable(); //請求書備考　デフォルト空白
 
       // ソフトデリート用
       $table->softDeletes();

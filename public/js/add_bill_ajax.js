@@ -162,3 +162,16 @@ function ajaxAddBillsLayout($reservation_id) {
 
     });
 };
+
+
+
+
+
+
+
+
+
+
+
+
+
