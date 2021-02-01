@@ -9,6 +9,10 @@
 
 <h1>追加請求書　確認画面</h1>
 
+{{ Form::open(['route' => 'admin.bills.store', 'method'=>'POST']) }}
+@csrf
+{{ Form::hidden('reservation_id', $requests['reservation_id'], ['class' => 'form-control'])}}
+
 <div class="container-fluid">
   <div class="bill">
     <div class="bill_details">
@@ -99,16 +103,16 @@
               @for ($i = 0; $i < (count($s_equipments)/4); $i++)
                 @if($s_equipments[$i*4]&&$s_equipments[($i*4)+1]&&$s_equipments[($i*4)+2]&&$s_equipments[($i*4)+3]) <tr>
                 <td>
-                  {{ Form::text('venue_breakdown_item'.$i, $s_equipments[$i*4],['class'=>'form-control', 'readonly'] ) }}
+                  {{ Form::text('equipment_breakdown_item'.$i, $s_equipments[$i*4],['class'=>'form-control', 'readonly'] ) }}
                 </td>
                 <td>
-                  {{ Form::text('venue_breakdown_cost'.$i, $s_equipments[($i*4)+1],['class'=>'form-control', 'readonly'] ) }}
+                  {{ Form::text('equipment_breakdown_cost'.$i, $s_equipments[($i*4)+1],['class'=>'form-control', 'readonly'] ) }}
                 </td>
                 <td>
-                  {{ Form::text('venue_breakdown_count'.$i, $s_equipments[($i*4)+2],['class'=>'form-control', 'readonly'] ) }}
+                  {{ Form::text('equipment_breakdown_count'.$i, $s_equipments[($i*4)+2],['class'=>'form-control', 'readonly'] ) }}
                 </td>
                 <td>
-                  {{ Form::text('venue_breakdown_subtotal'.$i, $s_equipments[($i*4)+3],['class'=>'form-control', 'readonly'] ) }}
+                  {{ Form::text('equipment_breakdown_subtotal'.$i, $s_equipments[($i*4)+3],['class'=>'form-control', 'readonly'] ) }}
                 </td>
                 </tr>
                 @endif
@@ -150,16 +154,16 @@
               @for ($i = 0; $i < (count($s_layouts)/4); $i++)
                 @if($s_layouts[$i*4]&&$s_layouts[($i*4)+1]&&$s_layouts[($i*4)+2]&&$s_layouts[($i*4)+3]) <tr>
                 <td>
-                  {{ Form::text('venue_breakdown_item'.$i, $s_layouts[$i*4],['class'=>'form-control', 'readonly'] ) }}
+                  {{ Form::text('layout_breakdown_item'.$i, $s_layouts[$i*4],['class'=>'form-control', 'readonly'] ) }}
                 </td>
                 <td>
-                  {{ Form::text('venue_breakdown_cost'.$i, $s_layouts[($i*4)+1],['class'=>'form-control', 'readonly'] ) }}
+                  {{ Form::text('layout_breakdown_cost'.$i, $s_layouts[($i*4)+1],['class'=>'form-control', 'readonly'] ) }}
                 </td>
                 <td>
-                  {{ Form::text('venue_breakdown_count'.$i, $s_layouts[($i*4)+2],['class'=>'form-control', 'readonly'] ) }}
+                  {{ Form::text('layout_breakdown_count'.$i, $s_layouts[($i*4)+2],['class'=>'form-control', 'readonly'] ) }}
                 </td>
                 <td>
-                  {{ Form::text('venue_breakdown_subtotal'.$i, $s_layouts[($i*4)+3],['class'=>'form-control', 'readonly'] ) }}
+                  {{ Form::text('layout_breakdown_subtotal'.$i, $s_layouts[($i*4)+3],['class'=>'form-control', 'readonly'] ) }}
                 </td>
                 </tr>
                 @endif
@@ -202,16 +206,16 @@
               @for ($i = 0; $i < (count($s_others)/4); $i++)
                 @if($s_others[$i*4]&&$s_others[($i*4)+1]&&$s_others[($i*4)+2]&&$s_others[($i*4)+3]) <tr>
                 <td>
-                  {{ Form::text('venue_breakdown_item'.$i, $s_others[$i*4],['class'=>'form-control', 'readonly'] ) }}
+                  {{ Form::text('others_breakdown_item'.$i, $s_others[$i*4],['class'=>'form-control', 'readonly'] ) }}
                 </td>
                 <td>
-                  {{ Form::text('venue_breakdown_cost'.$i, $s_others[($i*4)+1],['class'=>'form-control', 'readonly'] ) }}
+                  {{ Form::text('others_breakdown_cost'.$i, $s_others[($i*4)+1],['class'=>'form-control', 'readonly'] ) }}
                 </td>
                 <td>
-                  {{ Form::text('venue_breakdown_count'.$i, $s_others[($i*4)+2],['class'=>'form-control', 'readonly'] ) }}
+                  {{ Form::text('others_breakdown_count'.$i, $s_others[($i*4)+2],['class'=>'form-control', 'readonly'] ) }}
                 </td>
                 <td>
-                  {{ Form::text('venue_breakdown_subtotal'.$i, $s_others[($i*4)+3],['class'=>'form-control', 'readonly'] ) }}
+                  {{ Form::text('others_breakdown_subtotal'.$i, $s_others[($i*4)+3],['class'=>'form-control', 'readonly'] ) }}
                 </td>
                 </tr>
                 @endif
@@ -346,6 +350,11 @@
     </div>
   </div>
 </div>
+
+{{ Form::submit('作成する', ['class' => 'btn btn-primary btn-block']) }}
+
+{{ Form::close() }}
+
 
 {{-- {{ Form::model($request->reservation, ['route' => 'admin.bills.store']) }}
 @csrf
