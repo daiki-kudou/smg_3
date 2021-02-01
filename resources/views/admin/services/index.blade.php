@@ -4,14 +4,17 @@
 <link href="{{ asset('/css/template.css') }}" rel="stylesheet">
 
 <script>
-  $(function(){
+  $(function() {
     $(".table").DataTable({
-    lengthChange: false,// 件数切替機能 無効
-    searching: false,// 検索機能 無効
-    ordering: true,// ソート機能 無効
-    info: false,// 情報表示 無効
-    paging: false,// ページング機能 無効
-    aoColumnDefs: [{"bSortable": false, "aTargets": [5]}],   //特定のカラムソート不可
+      lengthChange: false, // 件数切替機能 無効
+      searching: false, // 検索機能 無効
+      ordering: true, // ソート機能 無効
+      info: false, // 情報表示 無効
+      paging: false, // ページング機能 無効
+      aoColumnDefs: [{
+        "bSortable": false,
+        "aTargets": [5]
+      }], //特定のカラムソート不可
 
     });
   })
@@ -27,8 +30,7 @@
   </div>
   <h1 class="mt-3 mb-5">有料サービス管理</h1>
   <div class="text-right">
-    <a href="/admin/services/create" class="btn btn-outline-info btn-lg d-inline-block" style="width: 140px;">新規登録　<i
-        class="fas fa-plus"></i></a>
+    <a href="/admin/services/create" class="btn btn-outline-info btn-lg d-inline-block" style="width: 140px;">新規登録　<i class="fas fa-plus"></i></a>
   </div>
   <hr>
   <div class="d-flex justify-content-between mt-3 mb-5">
@@ -41,8 +43,7 @@
     </span>
     <div>
       <div class="dropdown">
-        <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown"
-          aria-haspopup="true" aria-expanded="false" data-offset="-320,5">
+        <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" data-offset="-320,5">
           検索
         </button>
         <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">

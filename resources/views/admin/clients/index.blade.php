@@ -3,13 +3,13 @@
 @section('content')
 <script src="https://cdn.datatables.net/t/bs-3.3.6/jqc-1.12.0,dt-1.10.11/datatables.min.js"></script>
 <script>
-  $(function(){
+  $(function() {
     $(".table").DataTable({
-    lengthChange: false,// 件数切替機能 無効
-    searching: false,// 検索機能 無効
-    ordering: true,// ソート機能 無効
-    info: false,// 情報表示 無効
-    paging: false,// ページング機能 無効
+      lengthChange: false, // 件数切替機能 無効
+      searching: false, // 検索機能 無効
+      ordering: true, // ソート機能 無効
+      info: false, // 情報表示 無効
+      paging: false, // ページング機能 無効
     });
   })
 </script>

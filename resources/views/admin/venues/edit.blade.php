@@ -262,7 +262,8 @@
         <div class="row">
           <div class="col-sm-2">{{ Form::label('first_name', '氏名(姓)') }}</div>
           <div class="col-sm-4">
-            {{ Form::text('first_name', $venue->first_name, ['class' => 'form-control']) }}</div>
+            {{ Form::text('first_name', $venue->first_name, ['class' => 'form-control']) }}
+          </div>
           <div class="col-sm-2">{{ Form::label('last_name', '氏名(名)') }}</div>
           <div class="col-sm-4">
             {{ Form::text('last_name', $venue->last_name, ['class' => 'form-control']) }}
@@ -273,24 +274,28 @@
         <div class="row">
           <div class="col-sm-2">{{ Form::label('first_name', '氏名(セイ)') }}</div>
           <div class="col-sm-4">
-            {{ Form::text('first_name_kana', $venue->first_name, ['class' => 'form-control']) }}</div>
+            {{ Form::text('first_name_kana', $venue->first_name, ['class' => 'form-control']) }}
+          </div>
           <div class="col-sm-2">{{ Form::label('last_name', '氏名(メイ)') }}</div>
           <div class="col-sm-4">
-            {{ Form::text('last_name_kana', $venue->last_name, ['class' => 'form-control']) }}</div>
+            {{ Form::text('last_name_kana', $venue->last_name, ['class' => 'form-control']) }}
+          </div>
         </div>
         <hr>
 
         <div class="row">
           <div class="col-sm-4">{{ Form::label('person_tel', '担当者電話番号') }}</div>
           <div class="col-sm-8">
-            {{ Form::text('person_tel', $venue->person_tel, ['class' => 'form-control']) }}</div>
+            {{ Form::text('person_tel', $venue->person_tel, ['class' => 'form-control']) }}
+          </div>
         </div>
         <hr>
 
         <div class="row">
           <div class="col-sm-4">{{ Form::label('person_email', '担当者メール') }}</div>
           <div class="col-sm-8">
-            {{ Form::text('person_email', $venue->person_email, ['class' => 'form-control']) }}</div>
+            {{ Form::text('person_email', $venue->person_email, ['class' => 'form-control']) }}
+          </div>
         </div>
       </div>
 
@@ -300,59 +305,68 @@
         <div class="row">
           <div class="col-sm-4">{{ Form::label('mgmt_company', '会社名') }}</div>
           <div class="col-sm-8">
-            {{ Form::text('mgmt_company', $venue->mgmt_company, ['class' => 'form-control']) }}</div>
+            {{ Form::text('mgmt_company', $venue->mgmt_company, ['class' => 'form-control']) }}
+          </div>
         </div>
         <hr>
 
         <div class="row">
           <div class="col-sm-4">{{ Form::label('mgmt_tel', '電話番号') }}</div>
           <div class="col-sm-8">
-            {{ Form::text('mgmt_tel', $venue->mgmt_tel, ['class' => 'form-control']) }}</div>
+            {{ Form::text('mgmt_tel', $venue->mgmt_tel, ['class' => 'form-control']) }}
+          </div>
         </div>
         <hr>
 
         <div class="row">
           <div class="col-sm-4">{{ Form::label('mgmt_emer_tel', '夜間緊急連絡先') }}</div>
           <div class="col-sm-8">
-            {{ Form::text('mgmt_emer_tel', $venue->mgmt_emer_tel, ['class' => 'form-control']) }}</div>
+            {{ Form::text('mgmt_emer_tel', $venue->mgmt_emer_tel, ['class' => 'form-control']) }}
+          </div>
         </div>
         <hr>
 
         <div class="row">
           <div class="col-sm-2">{{ Form::label('mgmt_first_name', '氏名(姓)') }}</div>
           <div class="col-sm-4">
-            {{ Form::text('mgmt_first_name', $venue->mgmt_first_name, ['class' => 'form-control']) }}</div>
+            {{ Form::text('mgmt_first_name', $venue->mgmt_first_name, ['class' => 'form-control']) }}
+          </div>
           <div class="col-sm-2">{{ Form::label('mgmt_last_name', '氏名(名)') }}</div>
           <div class="col-sm-4">
-            {{ Form::text('mgmt_last_name', $venue->mgmt_last_name, ['class' => 'form-control']) }}</div>
+            {{ Form::text('mgmt_last_name', $venue->mgmt_last_name, ['class' => 'form-control']) }}
+          </div>
         </div>
         <hr>
 
         <div class="row">
           <div class="col-sm-4">{{ Form::label('mgmt_email', '担当者メール') }}</div>
           <div class="col-sm-8">
-            {{ Form::text('mgmt_email', $venue->mgmt_email, ['class' => 'form-control']) }}</div>
+            {{ Form::text('mgmt_email', $venue->mgmt_email, ['class' => 'form-control']) }}
+          </div>
         </div>
         <hr>
 
         <div class="row">
           <div class="col-sm-4">{{ Form::label('mgmt_sec_company', '警備会社名') }}</div>
           <div class="col-sm-8">
-            {{ Form::text('mgmt_sec_company', $venue->mgmt_sec_company, ['class' => 'form-control']) }}</div>
+            {{ Form::text('mgmt_sec_company', $venue->mgmt_sec_company, ['class' => 'form-control']) }}
+          </div>
         </div>
         <hr>
 
         <div class="row">
           <div class="col-sm-4">{{ Form::label('mgmt_sec_tel', '警備会社電話番号') }}</div>
           <div class="col-sm-8">
-            {{ Form::text('mgmt_sec_company', $venue->mgmt_sec_tel, ['class' => 'form-control']) }}</div>
+            {{ Form::text('mgmt_sec_company', $venue->mgmt_sec_tel, ['class' => 'form-control']) }}
+          </div>
         </div>
         <hr>
 
         <div class="row">
           <div class="col-sm-4">{{ Form::label('mgmt_remark', '備考') }}</div>
           <div class="col-sm-8">
-            {{ Form::textarea('mgmt_remark', $venue->mgmt_remark, ['class' => 'form-control']) }}</div>
+            {{ Form::textarea('mgmt_remark', $venue->mgmt_remark, ['class' => 'form-control']) }}
+          </div>
         </div>
         <hr>
       </div>
@@ -384,14 +398,16 @@
           <div class="row">
             <div class="col-sm-4">{{ Form::label('layout_prepare', 'レイアウト準備料金',['class' => '']) }}</div>
             <div class="col-sm-8">
-              {{ Form::text('layout_prepare', $venue->layout_prepare, ['class' => 'form-control']) }}</div>
+              {{ Form::text('layout_prepare', $venue->layout_prepare, ['class' => 'form-control']) }}
+            </div>
           </div>
         </div>
         <div class="p-3 mb-2 bg-white text-dark">
           <div class="row">
             <div class="col-sm-4">{{ Form::label('layout_clean', 'レイアウト変更料金',['class' => '']) }}</div>
             <div class="col-sm-8">
-              {{ Form::text('layout_clean', $venue->layout_clean, ['class' => 'form-control']) }}</div>
+              {{ Form::text('layout_clean', $venue->layout_clean, ['class' => 'form-control']) }}
+            </div>
           </div>
         </div>
       </div>
@@ -406,7 +422,8 @@
         <div class="row">
           <div class="col-sm-4">{{ Form::label('cost', '支払割合（原価）') }}</div>
           <div class="col-sm-8">
-            {{ Form::text('cost', $venue->cost, ['class' => 'form-control']) }}</div>
+            {{ Form::text('cost', $venue->cost, ['class' => 'form-control']) }}
+          </div>
         </div>
       </div>
       <hr>
@@ -423,8 +440,7 @@
     <div><span>※右部リストは現在選択されている備品一覧です</span></div>
     <select id='equipment_id' multiple='multiple' name="equipment_id[]">
       @for ($i = 0; $i < $m_equipments->count(); $i++)
-        <option value={{$m_equipments[$i]->id}} @foreach ($r_emptys as $r_empty)
-          {{$m_equipments[$i]->id==$r_empty->id?"selected":""}} @endforeach>{{$m_equipments[$i]->item}}
+        <option value={{$m_equipments[$i]->id}} @foreach ($r_emptys as $r_empty) {{$m_equipments[$i]->id==$r_empty->id?"selected":""}} @endforeach>{{$m_equipments[$i]->item}}
         </option>
         @endfor
 
@@ -440,8 +456,7 @@
     <div><span>※右部リストは現在選択されているサービス一覧です</span></div>
     <select id='service_id' multiple='multiple' name="service_id[]">
       @for ($s = 0; $s < $m_services->count(); $s++)
-        <option value={{$m_services[$s]->id}} @foreach ($s_emptys as $s_empty)
-          {{$m_services[$s]->id==$s_empty->id?"selected":""}} @endforeach>{{$m_services[$s]->item}}
+        <option value={{$m_services[$s]->id}} @foreach ($s_emptys as $s_empty) {{$m_services[$s]->id==$s_empty->id?"selected":""}} @endforeach>{{$m_services[$s]->item}}
         </option>
         @endfor
     </select>
@@ -474,7 +489,7 @@
 
 
 
-{{-- 
+{{--
 <script src="{{ asset('/js/template.js') }}"></script>
 
 <h1><span class="badge badge-secondary">会場管理 新規登録</span></h1>
@@ -613,8 +628,7 @@
       <select id='equipment_id' multiple='multiple' name="equipment_id[]">
         <!-- 要注意！かなり無理矢理作成した。後ほど別に関数としてまとめる必要あり -->
         @for ($i = 0; $i < $m_equipment->count(); $i++)
-          <option value={{$m_equipment[$i]->id}} @foreach ($r_emptys as $r_empty)
-            {{$m_equipment[$i]->id==$r_empty->id?"selected":""}} @endforeach>{{$m_equipment[$i]->item}}
+          <option value={{$m_equipment[$i]->id}} @foreach ($r_emptys as $r_empty) {{$m_equipment[$i]->id==$r_empty->id?"selected":""}} @endforeach>{{$m_equipment[$i]->item}}
           </option>
           @endfor
       </select>
@@ -622,8 +636,7 @@
       {{ Form::label('service_id', '備品') }}
       <select id='service_id' multiple='multiple' name="service_id[]">
         @for ($s = 0; $s < $m_service->count(); $s++)
-          <option value={{$m_service[$s]->id}} @foreach ($s_emptys as $s_empty)
-            {{$m_service[$s]->id==$s_empty->id?"selected":""}} @endforeach>{{$m_service[$s]->item}}
+          <option value={{$m_service[$s]->id}} @foreach ($s_emptys as $s_empty) {{$m_service[$s]->id==$s_empty->id?"selected":""}} @endforeach>{{$m_service[$s]->item}}
           </option>
           @endfor
       </select>

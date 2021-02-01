@@ -10,50 +10,50 @@
 <!-- フォーム追加 -->
 <script>
   $(function() {
-        // プラスボタンクリック
-      $(document).on("click", ".add", function() {
-        $(this).parent().parent().clone(true).insertAfter($(this).parent().parent());
-        var count = $('.table tbody tr').length;
+    // プラスボタンクリック
+    $(document).on("click", ".add", function() {
+      $(this).parent().parent().clone(true).insertAfter($(this).parent().parent());
+      var count = $('.table tbody tr').length;
 
-        // 追加時内容クリア
-        $(this).parent().parent().next().find('td').find('input, select').eq(0).val('');
-        $(this).parent().parent().next().find('td').find('input, select').eq(1).val('');
-        $(this).parent().parent().next().find('td').find('input, select').eq(2).val('');
+      // 追加時内容クリア
+      $(this).parent().parent().next().find('td').find('input, select').eq(0).val('');
+      $(this).parent().parent().next().find('td').find('input, select').eq(1).val('');
+      $(this).parent().parent().next().find('td').find('input, select').eq(2).val('');
       $(this).parent().parent().next().find('td').find('input, select').eq(3).val('');
 
-  
-        for (let index = 0; index < count; index++) {
-          var frame = "frame" + (index);
-          var start = "start" + (index);
-          var finish = "finish" + (index);
-          var price = "price" + (index);
-          $('.table tbody tr').eq(index).find('td').find('input, select').eq(0).attr('name', frame);
-          $('.table tbody tr').eq(index).find('td').find('input, select').eq(1).attr('name', start);
-          $('.table tbody tr').eq(index).find('td').find('input, select').eq(2).attr('name', finish);
-          $('.table tbody tr').eq(index).find('td').find('input, select').eq(3).attr('name', price);
-        }
-      });
-    //   マイナスボタンクリック
-      $(document).on("click", ".del", function() {
-        var target = $(this).parent().parent();
-  
-        if (target.parent().children().length > 1) {
-          target.remove();
-        }
-        var count = $('.table tbody tr').length;
-  
-        for (let index = 0; index < count; index++) {
-          var frame = "frame" + (index);
-          var start = "start" + (index);
-          var finish = "finish" + (index);
-          var price = "price" + (index);
-          $('.table tbody tr').eq(index).find('td').find('input, select').eq(0).attr('name', frame);
-          $('.table tbody tr').eq(index).find('td').find('input, select').eq(1).attr('name', start);
-          $('.table tbody tr').eq(index).find('td').find('input, select').eq(2).attr('name', finish);
-          $('.table tbody tr').eq(index).find('td').find('input, select').eq(3).attr('name', price);
-        }
-      });
+
+      for (let index = 0; index < count; index++) {
+        var frame = "frame" + (index);
+        var start = "start" + (index);
+        var finish = "finish" + (index);
+        var price = "price" + (index);
+        $('.table tbody tr').eq(index).find('td').find('input, select').eq(0).attr('name', frame);
+        $('.table tbody tr').eq(index).find('td').find('input, select').eq(1).attr('name', start);
+        $('.table tbody tr').eq(index).find('td').find('input, select').eq(2).attr('name', finish);
+        $('.table tbody tr').eq(index).find('td').find('input, select').eq(3).attr('name', price);
+      }
     });
+    //   マイナスボタンクリック
+    $(document).on("click", ".del", function() {
+      var target = $(this).parent().parent();
+
+      if (target.parent().children().length > 1) {
+        target.remove();
+      }
+      var count = $('.table tbody tr').length;
+
+      for (let index = 0; index < count; index++) {
+        var frame = "frame" + (index);
+        var start = "start" + (index);
+        var finish = "finish" + (index);
+        var price = "price" + (index);
+        $('.table tbody tr').eq(index).find('td').find('input, select').eq(0).attr('name', frame);
+        $('.table tbody tr').eq(index).find('td').find('input, select').eq(1).attr('name', start);
+        $('.table tbody tr').eq(index).find('td').find('input, select').eq(2).attr('name', finish);
+        $('.table tbody tr').eq(index).find('td').find('input, select').eq(3).attr('name', price);
+      }
+    });
+  });
 </script>
 
 
@@ -77,8 +77,7 @@
   <hr>
   <div class="w-100 mb-3">
     <span class="d-block mb-2">会場</span>
-    <strong class="border border-light d-block"
-      style="width:100%;">{{$venue->name_area}}{{$venue->name_bldg}}{{$venue->name_venue}}</strong>
+    <strong class="border border-light d-block" style="width:100%;">{{$venue->name_area}}{{$venue->name_bldg}}{{$venue->name_venue}}</strong>
   </div>
   <div class="new_price">
     @if ($errors->any())

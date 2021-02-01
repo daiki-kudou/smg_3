@@ -180,10 +180,12 @@
         <div class="row">
           <div class="col-sm-2">{{ Form::label('first_name', '氏名(姓)') }}</div>
           <div class="col-sm-4">
-            {{ $venue->first_name}}</div>
+            {{ $venue->first_name}}
+          </div>
           <div class="col-sm-2">{{ Form::label('last_name', '氏名(名)') }}</div>
           <div class="col-sm-4">
-            {{ $venue->last_name}}</div>
+            {{ $venue->last_name}}
+          </div>
         </div>
         <hr>
 
@@ -235,10 +237,12 @@
         <div class="row">
           <div class="col-sm-2">{{ Form::label('mgmt_first_name', '氏名(姓)') }}</div>
           <div class="col-sm-4">
-            {{ $venue-> mgmt_first_name}}</div>
+            {{ $venue-> mgmt_first_name}}
+          </div>
           <div class="col-sm-2">{{ Form::label('mgmt_last_name', '氏名(名)') }}</div>
           <div class="col-sm-4">
-            {{ $venue-> mgmt_last_name}}</div>
+            {{ $venue-> mgmt_last_name}}
+          </div>
         </div>
         <hr>
 
@@ -437,7 +441,7 @@
 
 
 
-{{-- 
+{{--
 
 
 {{ Breadcrumbs::render(Route::currentRouteName(),$venue->id) }}

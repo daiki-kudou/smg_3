@@ -5,42 +5,45 @@
 
 <script>
   // テーブルソーと
-  $(function(){
+  $(function() {
     $(".table").DataTable({
-    lengthChange: false,// 件数切替機能 無効
-    searching: false,// 検索機能 無効
-    ordering: true,// ソート機能 無効
-    info: false,// 情報表示 無効
-    paging: false,// ページング機能 無効
-    aoColumnDefs: [{"bSortable": false, "aTargets": [7]}],
+      lengthChange: false, // 件数切替機能 無効
+      searching: false, // 検索機能 無効
+      ordering: true, // ソート機能 無効
+      info: false, // 情報表示 無効
+      paging: false, // ページング機能 無効
+      aoColumnDefs: [{
+        "bSortable": false,
+        "aTargets": [7]
+      }],
     });
 
-    $('#counter').on('change',function(){
-      var counter=$(this).val();
-      var freeword=$('#freeword').val();
-      var s_id=$('#id').val();
-      var s_alliance=$('#alliance_flag').val();
-      var s_area=$('#name_area').val();
-      var s_buil=$('#name_bldg').val();
-      var s_venue=$('#name_venue').val();
-      var s_from=$('#capacity').val();
-      var s_to=$('#capacity2').val();
-      var s_counter=$('#counter').val();
-      window.location.href = "/admin/venues?counter="+counter+"&freeword="+freeword+"&id="+s_id+"&alliance_flag="+s_alliance+"&name_area="+s_area+"&name_bldg="+s_buil+"&name_venue="+s_venue+"&capacity1="+s_from+"&capacity2="+s_to;
+    $('#counter').on('change', function() {
+      var counter = $(this).val();
+      var freeword = $('#freeword').val();
+      var s_id = $('#id').val();
+      var s_alliance = $('#alliance_flag').val();
+      var s_area = $('#name_area').val();
+      var s_buil = $('#name_bldg').val();
+      var s_venue = $('#name_venue').val();
+      var s_from = $('#capacity').val();
+      var s_to = $('#capacity2').val();
+      var s_counter = $('#counter').val();
+      window.location.href = "/admin/venues?counter=" + counter + "&freeword=" + freeword + "&id=" + s_id + "&alliance_flag=" + s_alliance + "&name_area=" + s_area + "&name_bldg=" + s_buil + "&name_venue=" + s_venue + "&capacity1=" + s_from + "&capacity2=" + s_to;
     });
 
-      var freeword=$('#freeword').val();
-      var s_id=$('#id').val();
-      var s_alliance=$('#alliance_flag').val();
-      var s_area=$('#name_area').val();
-      var s_buil=$('#name_bldg').val();
-      var s_venue=$('#name_venue').val();
-      var s_from=$('#capacity').val();
-      var s_to=$('#capacity2').val();
-      var s_counter=$('#counter').val();
+    var freeword = $('#freeword').val();
+    var s_id = $('#id').val();
+    var s_alliance = $('#alliance_flag').val();
+    var s_area = $('#name_area').val();
+    var s_buil = $('#name_bldg').val();
+    var s_venue = $('#name_venue').val();
+    var s_from = $('#capacity').val();
+    var s_to = $('#capacity2').val();
+    var s_counter = $('#counter').val();
 
     for (let index = 0; index < $('.page-item a').length; index++) {
-      $('.page-item a').eq(index).attr('href',$('.page-item a').eq(index).attr('href')+"&counter="+s_counter+"&freeword="+freeword+"&id="+s_id+"&alliance_flag="+s_alliance+"&name_area="+s_area+"&name_bldg="+s_buil+"&name_venue="+s_venue+"&capacity1="+s_from+"&capacity2="+s_to);
+      $('.page-item a').eq(index).attr('href', $('.page-item a').eq(index).attr('href') + "&counter=" + s_counter + "&freeword=" + freeword + "&id=" + s_id + "&alliance_flag=" + s_alliance + "&name_area=" + s_area + "&name_bldg=" + s_buil + "&name_venue=" + s_venue + "&capacity1=" + s_from + "&capacity2=" + s_to);
     }
 
   })
@@ -68,8 +71,7 @@
       </span>
       <div>
         <div class="dropdown">
-          <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown"
-            aria-haspopup="true" aria-expanded="false" data-offset="-320,5">
+          <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" data-offset="-320,5">
             検索
           </button>
           <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
@@ -86,8 +88,7 @@
             <div class="d-flex justify-content-around">
               <div class="form-group">
                 <label for="alliance_flag">直営・提携</label>
-                <input type="text" name="alliance_flag" class="form-control" id="alliance_flag"
-                  value={{$search_alliance_flag}}>
+                <input type="text" name="alliance_flag" class="form-control" id="alliance_flag" value={{$search_alliance_flag}}>
               </div>
               <div class="form-group">
                 <label for="name_area">エリア別</label>

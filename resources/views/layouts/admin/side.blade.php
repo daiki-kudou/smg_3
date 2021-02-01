@@ -1,31 +1,30 @@
 <script>
-  $(function () {
-        // こちらを参考
-        // https://designsupply-web.com/media/knowledgeside/1592/
-        function link_check(link,classes){
-            var path = location.pathname
-            if (path == link){
-            var target=$("."+classes);
-            $(target).addClass('active');
-            $(target).parent().parent().parent().addClass('menu-open');
-            }
-        }
-        link_check('/admin/venues','venues-index');
-        link_check('/admin/venues/create','venues-create');
-        link_check('/admin/equipments','venues-equipments');
-        link_check('/admin/services','venues-services');
-        link_check('/admin/dates','venues-dates');
-        link_check('/admin/frame_prices','venues-price');
-        link_check('/admin/agents','agent-index');
-        link_check('/admin/agents/create','agent-create');
-        link_check('/admin/clients','clients-index');
-        link_check('/admin/clients/create','clients-create');
+  $(function() {
+    // こちらを参考
+    // https://designsupply-web.com/media/knowledgeside/1592/
+    function link_check(link, classes) {
+      var path = location.pathname
+      if (path == link) {
+        var target = $("." + classes);
+        $(target).addClass('active');
+        $(target).parent().parent().parent().addClass('menu-open');
+      }
+    }
+    link_check('/admin/venues', 'venues-index');
+    link_check('/admin/venues/create', 'venues-create');
+    link_check('/admin/equipments', 'venues-equipments');
+    link_check('/admin/services', 'venues-services');
+    link_check('/admin/dates', 'venues-dates');
+    link_check('/admin/frame_prices', 'venues-price');
+    link_check('/admin/agents', 'agent-index');
+    link_check('/admin/agents/create', 'agent-create');
+    link_check('/admin/clients', 'clients-index');
+    link_check('/admin/clients/create', 'clients-create');
 
-        link_check('/admin/reservations','reservations-index');
-        link_check('/admin/reservations/create','reservations-create');
-        link_check('/admin/calendar/venue_calendar','venue_calendar');
-   });
-
+    link_check('/admin/reservations', 'reservations-index');
+    link_check('/admin/reservations/create', 'reservations-create');
+    link_check('/admin/calendar/venue_calendar', 'venue_calendar');
+  });
 </script>
 
 <div class="sidebar">

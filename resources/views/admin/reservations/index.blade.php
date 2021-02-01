@@ -323,7 +323,8 @@
             <td rowspan="{{count($reservation->bills()->get())}}">※後ほど修正</td>
             <td rowspan="{{count($reservation->bills()->get())}}">{{$reservation->id}}</td>
             <td rowspan="{{count($reservation->bills()->get())}}">
-              {{ReservationHelper::formatDate($reservation->reserve_date)}}</td>
+              {{ReservationHelper::formatDate($reservation->reserve_date)}}
+            </td>
             <td rowspan="{{count($reservation->bills()->get())}}">{{$reservation->enter_time}}</td>
             <td rowspan="{{count($reservation->bills()->get())}}">{{$reservation->leave_time}}</td>
             <td rowspan="{{count($reservation->bills()->get())}}">
@@ -331,7 +332,8 @@
             </td>
             <td rowspan="{{count($reservation->bills()->get())}}">{{$user->find($reservation->user_id)->company}}</td>
             <td rowspan="{{count($reservation->bills()->get())}}">
-              {{$user->find($reservation->venue_id)->first_name}}{{$user->find($reservation->venue_id)->last_name}}</td>
+              {{$user->find($reservation->venue_id)->first_name}}{{$user->find($reservation->venue_id)->last_name}}
+            </td>
             <td rowspan="{{count($reservation->bills()->get())}}">{{$user->find($reservation->venue_id)->mobile}}</td>
             <td rowspan="{{count($reservation->bills()->get())}}">{{$user->find($reservation->venue_id)->tel}}</td>
             <td rowspan="{{count($reservation->bills()->get())}}">※修正</td>
@@ -339,10 +341,8 @@
             <td>
               {{-- {{ReservationHelper::judgeStatus($reservation->bills()->first()->reservation_status)}} --}}
             </td>
-            <td rowspan="{{count($reservation->bills()->get())}}"><a
-                href="{{ url('admin/reservations', $reservation->id) }}" class="more_btn">詳細</a></td>
-            <td rowspan="{{count($reservation->bills()->get())}}"><a
-                href="{{ url('admin/reservations/generate_pdf/'.$reservation->id) }}" class="more_btn">詳細</a></td>
+            <td rowspan="{{count($reservation->bills()->get())}}"><a href="{{ url('admin/reservations', $reservation->id) }}" class="more_btn">詳細</a></td>
+            <td rowspan="{{count($reservation->bills()->get())}}"><a href="{{ url('admin/reservations/generate_pdf/'.$reservation->id) }}" class="more_btn">詳細</a></td>
           </tr>
           @for ($i = 0; $i < count($reservation->bills()->get())-1; $i++)
             <tr>
@@ -370,8 +370,7 @@
     <li class="page-item"><a class="page-link" href="">3</a>
     </li>
     <li class="page-item">
-      <a class="page-link" href="http://staging-smg2.herokuapp.com/admin/clients?page=2" rel="next"
-        aria-label="次 &raquo">&rsaquo;</a>
+      <a class="page-link" href="http://staging-smg2.herokuapp.com/admin/clients?page=2" rel="next" aria-label="次 &raquo">&rsaquo;</a>
     </li>
   </ul>
 

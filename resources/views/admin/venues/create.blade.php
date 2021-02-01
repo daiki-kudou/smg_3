@@ -70,16 +70,16 @@
           <div class="col-sm-4">{{ Form::label('name_venue', '会場名',['class' => 'form_required']) }}
           </div>
           <div class="col-sm-8">
-            {{ Form::text('name_venue', old('name_venue'), ['class' => 'form-control', 'placeholder'=>'１号室']) }}<p
-              class="is-error-name_venue" style="color: red"></p>
+            {{ Form::text('name_venue', old('name_venue'), ['class' => 'form-control', 'placeholder'=>'１号室']) }}
+            <p class="is-error-name_venue" style="color: red"></p>
           </div>
         </div>
         <hr>
         <div class="row">
           <div class="col-sm-4">{{ Form::label('size1', '会場広さ（坪）',['class' => 'form_required']) }}</div>
           <div class="col-sm-8">
-            {{ Form::text('size1', old('size1'), ['placeholder' => '半角英数字で入力してください','class' => 'form-control']) }}<p
-              class="is-error-size1" style="color: red"></p>
+            {{ Form::text('size1', old('size1'), ['placeholder' => '半角英数字で入力してください','class' => 'form-control']) }}
+            <p class="is-error-size1" style="color: red"></p>
           </div>
 
         </div>
@@ -87,8 +87,8 @@
         <div class="row">
           <div class="col-sm-4">{{ Form::label('size2', '会場広さ（㎡）',['class' => 'form_required']) }}</div>
           <div class="col-sm-8">
-            {{ Form::text('size2', old('size2'), ['placeholder' => '半角英数字で入力してください','class' => 'form-control']) }}<p
-              class="is-error-size2" style="color: red"></p>
+            {{ Form::text('size2', old('size2'), ['placeholder' => '半角英数字で入力してください','class' => 'form-control']) }}
+            <p class="is-error-size2" style="color: red"></p>
           </div>
         </div>
         <hr>
@@ -229,10 +229,12 @@
         <div class="row">
           <div class="col-sm-2">{{ Form::label('first_name', '氏名(姓)') }}</div>
           <div class="col-sm-4">
-            {{ Form::text('first_name', old('first_name'), ['class' => 'form-control']) }}</div>
+            {{ Form::text('first_name', old('first_name'), ['class' => 'form-control']) }}
+          </div>
           <div class="col-sm-2">{{ Form::label('last_name', '氏名(名)') }}</div>
           <div class="col-sm-4">
-            {{ Form::text('last_name', old('last_name'), ['class' => 'form-control']) }}</div>
+            {{ Form::text('last_name', old('last_name'), ['class' => 'form-control']) }}
+          </div>
         </div>
         <hr>
         <div class="row">
@@ -251,7 +253,8 @@
         <div class="row">
           <div class="col-sm-4">{{ Form::label('person_tel', '担当者電話番号') }}</div>
           <div class="col-sm-8">
-            {{ Form::text('person_tel', old('person_tel'), ['class' => 'form-control', 'maxlength'=>'13']) }}</div>
+            {{ Form::text('person_tel', old('person_tel'), ['class' => 'form-control', 'maxlength'=>'13']) }}
+          </div>
         </div>
         <hr>
         <div class="row">
@@ -267,13 +270,15 @@
         <div class="row">
           <div class="col-sm-4">{{ Form::label('mgmt_company', '会社名') }}</div>
           <div class="col-sm-8">
-            {{ Form::text('mgmt_company', old('mgmt_company'), ['class' => 'form-control']) }}</div>
+            {{ Form::text('mgmt_company', old('mgmt_company'), ['class' => 'form-control']) }}
+          </div>
         </div>
         <hr>
         <div class="row">
           <div class="col-sm-4">{{ Form::label('mgmt_tel', '電話番号') }}</div>
           <div class="col-sm-8">
-            {{ Form::text('mgmt_tel', old('mgmt_tel'), ['class' => 'form-control', 'maxlength'=>'13']) }}</div>
+            {{ Form::text('mgmt_tel', old('mgmt_tel'), ['class' => 'form-control', 'maxlength'=>'13']) }}
+          </div>
         </div>
         <hr>
         <div class="row">
@@ -286,10 +291,12 @@
         <div class="row">
           <div class="col-sm-2">{{ Form::label('mgmt_first_name', '氏名(姓)') }}</div>
           <div class="col-sm-4">
-            {{ Form::text('mgmt_first_name', old('mgmt_first_name'), ['class' => 'form-control']) }}</div>
+            {{ Form::text('mgmt_first_name', old('mgmt_first_name'), ['class' => 'form-control']) }}
+          </div>
           <div class="col-sm-2">{{ Form::label('mgmt_last_name', '氏名(名)') }}</div>
           <div class="col-sm-4">
-            {{ Form::text('mgmt_last_name', old('mgmt_last_name'), ['class' => 'form-control']) }}</div>
+            {{ Form::text('mgmt_last_name', old('mgmt_last_name'), ['class' => 'form-control']) }}
+          </div>
         </div>
         <hr>
         <div class="row">
@@ -303,7 +310,8 @@
         <div class="row">
           <div class="col-sm-4">{{ Form::label('mgmt_sec_company', '警備会社名') }}</div>
           <div class="col-sm-8">
-            {{ Form::text('mgmt_sec_company', old('mgmt_sec_company'), ['class' => 'form-control']) }}</div>
+            {{ Form::text('mgmt_sec_company', old('mgmt_sec_company'), ['class' => 'form-control']) }}
+          </div>
         </div>
         <hr>
         <div class="row">
@@ -316,7 +324,8 @@
         <div class="row">
           <div class="col-sm-4">{{ Form::label('mgmt_remark', '備考') }}</div>
           <div class="col-sm-8">
-            {{ Form::textarea('mgmt_remark', old('mgmt_remark'), ['class' => 'form-control']) }}</div>
+            {{ Form::textarea('mgmt_remark', old('mgmt_remark'), ['class' => 'form-control']) }}
+          </div>
         </div>
         <hr>
       </div>
@@ -347,14 +356,16 @@
           <div class="row">
             <div class="col-sm-4">{{ Form::label('layout_prepare', 'レイアウト準備料金',['class' => '']) }}</div>
             <div class="col-sm-8">
-              {{ Form::text('layout_prepare', old('layout_prepare'), ['class' => 'form-control']) }}</div>
+              {{ Form::text('layout_prepare', old('layout_prepare'), ['class' => 'form-control']) }}
+            </div>
           </div>
         </div>
         <div class="p-3 mb-2 bg-white text-dark">
           <div class="row">
             <div class="col-sm-4">{{ Form::label('layout_clean', 'レイアウト変更料金',['class' => '']) }}</div>
             <div class="col-sm-8">
-              {{ Form::text('layout_clean', old('layout_clean'), ['class' => 'form-control']) }}</div>
+              {{ Form::text('layout_clean', old('layout_clean'), ['class' => 'form-control']) }}
+            </div>
           </div>
         </div>
       </div>
@@ -363,7 +374,8 @@
         <div class="row">
           <div class="col-sm-4">{{ Form::label('cost', '支払割合（原価）') }}</div>
           <div class="col-sm-8">
-            {{ Form::text('cost', old('cost'), ['class' => 'form-control']) }}</div>
+            {{ Form::text('cost', old('cost'), ['class' => 'form-control']) }}
+          </div>
         </div>
         <hr>
       </div>

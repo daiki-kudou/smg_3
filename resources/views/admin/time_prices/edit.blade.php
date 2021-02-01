@@ -9,111 +9,111 @@
 <!-- フォーム追加 -->
 <script>
   $(function() {
-        // プラスボタンクリック
-      $(document).on("click", ".add", function() {
-        $(this).parent().parent().clone(true).insertAfter($(this).parent().parent());
-        var count = $('.table tbody tr').length;
+    // プラスボタンクリック
+    $(document).on("click", ".add", function() {
+      $(this).parent().parent().clone(true).insertAfter($(this).parent().parent());
+      var count = $('.table tbody tr').length;
 
-                // プラス選択時にクローンtrの文字クリア
-          $(this).parent().parent().next().find('td').find('input, select').eq(0).val('');
-          $(this).parent().parent().next().find('td').find('input, select').eq(1).val('');
-          $(this).parent().parent().next().find('td').find('input, select').eq(2).val('');
+      // プラス選択時にクローンtrの文字クリア
+      $(this).parent().parent().next().find('td').find('input, select').eq(0).val('');
+      $(this).parent().parent().next().find('td').find('input, select').eq(1).val('');
+      $(this).parent().parent().next().find('td').find('input, select').eq(2).val('');
 
 
-        for (let index = 0; index < count; index++) {
-          var time = "time" + (index);
-          var price = "price" + (index);
-          var extend = "extend" + (index);
-          $('.table tbody tr').eq(index).find('td').find('input, select').eq(0).attr('name', time);
-          $('.table tbody tr').eq(index).find('td').find('input, select').eq(1).attr('name', price);
-          $('.table tbody tr').eq(index).find('td').find('input, select').eq(2).attr('name', extend);
-        };
+      for (let index = 0; index < count; index++) {
+        var time = "time" + (index);
+        var price = "price" + (index);
+        var extend = "extend" + (index);
+        $('.table tbody tr').eq(index).find('td').find('input, select').eq(0).attr('name', time);
+        $('.table tbody tr').eq(index).find('td').find('input, select').eq(1).attr('name', price);
+        $('.table tbody tr').eq(index).find('td').find('input, select').eq(2).attr('name', extend);
+      };
 
-        $('table tr td p').remove();
-        for (let index = 0; index < count; index++) {
-          var time = "time" + (index);
-          var price = "price" + (index);
-          var extend = "extend" + (index);
-          $('.table tbody tr').eq(index).find('td').eq(0).append("<p class='is-error-"+time+"' style='color: red'></p>");
-          $('.table tbody tr').eq(index).find('td').eq(1).append("<p class='is-error-"+price+"' style='color: red'></p>");
-          $('.table tbody tr').eq(index).find('td').eq(2).append("<p class='is-error-"+extend+"' style='color: red'></p>");
-        };
-        
-
+      $('table tr td p').remove();
+      for (let index = 0; index < count; index++) {
+        var time = "time" + (index);
+        var price = "price" + (index);
+        var extend = "extend" + (index);
+        $('.table tbody tr').eq(index).find('td').eq(0).append("<p class='is-error-" + time + "' style='color: red'></p>");
+        $('.table tbody tr').eq(index).find('td').eq(1).append("<p class='is-error-" + price + "' style='color: red'></p>");
+        $('.table tbody tr').eq(index).find('td').eq(2).append("<p class='is-error-" + extend + "' style='color: red'></p>");
+      };
 
 
 
-        $("#timeEditForm").validate({
-              errorPlacement: function (error, element) {
-                var name = element.attr('name');
-                if (element.attr('name') === 'category[]') {
-                  error.appendTo($('.is-error-category'));
-                } else if (element.attr('name') === name) {
-                  error.appendTo($('.is-error-' + name));
-                }
-              },
-              errorElement: "span",
-              errorClass: "is-error",
-            });
-            $('input').on('blur', function () {
-              $(this).valid();
-              if ($('span').hasClass('is-error')) {
-                $('span').css('background', 'white');
-              }
-            });
-            $("input[name^='time']").each( function( index, elem ) {
-              
-                $("input[name='time"+index+"']").rules( "add", {
-              required: true,
-              messages: {
-                required: "※必須項目です",
-              }
-            });
-            });
-            $("input[name^='price']").each( function( index, elem ) {
-              
-                $("input[name='price"+index+"']").rules( "add", {
-              required: true,
-              number: true,
-              messages: {
-                required: "※必須項目です",
-                number:"※半角英数字を入力してください"
-              }
-            });
-            });
-            $("input[name^='extend']").each( function( index, elem ) {
-              
-                $("input[name='extend"+index+"']").rules( "add", {
-              required: true,
-              number: true,
-              messages: {
-                required: "※必須項目です",
-                number:"※半角英数字を入力してください"
-              }
-            });
-            });
 
+
+      $("#timeEditForm").validate({
+        errorPlacement: function(error, element) {
+          var name = element.attr('name');
+          if (element.attr('name') === 'category[]') {
+            error.appendTo($('.is-error-category'));
+          } else if (element.attr('name') === name) {
+            error.appendTo($('.is-error-' + name));
+          }
+        },
+        errorElement: "span",
+        errorClass: "is-error",
       });
-    //   マイナスボタンクリック
-      $(document).on("click", ".del", function() {
-        var target = $(this).parent().parent();
-  
-        if (target.parent().children().length > 1) {
-          target.remove();
-        }
-        var count = $('.table tbody tr').length;
-        
-  
-        for (let index = 0; index < count; index++) {
-          var time = "time" + (index);
-          var price = "price" + (index);
-          var extend = "extend" + (index);
-          $('.table tbody tr').eq(index).find('td').find('input, select').eq(0).attr('name', time);
-          $('.table tbody tr').eq(index).find('td').find('input, select').eq(1).attr('name', price);
-          $('.table tbody tr').eq(index).find('td').find('input, select').eq(2).attr('name', extend);
+      $('input').on('blur', function() {
+        $(this).valid();
+        if ($('span').hasClass('is-error')) {
+          $('span').css('background', 'white');
         }
       });
+      $("input[name^='time']").each(function(index, elem) {
+
+        $("input[name='time" + index + "']").rules("add", {
+          required: true,
+          messages: {
+            required: "※必須項目です",
+          }
+        });
+      });
+      $("input[name^='price']").each(function(index, elem) {
+
+        $("input[name='price" + index + "']").rules("add", {
+          required: true,
+          number: true,
+          messages: {
+            required: "※必須項目です",
+            number: "※半角英数字を入力してください"
+          }
+        });
+      });
+      $("input[name^='extend']").each(function(index, elem) {
+
+        $("input[name='extend" + index + "']").rules("add", {
+          required: true,
+          number: true,
+          messages: {
+            required: "※必須項目です",
+            number: "※半角英数字を入力してください"
+          }
+        });
+      });
+
     });
+    //   マイナスボタンクリック
+    $(document).on("click", ".del", function() {
+      var target = $(this).parent().parent();
+
+      if (target.parent().children().length > 1) {
+        target.remove();
+      }
+      var count = $('.table tbody tr').length;
+
+
+      for (let index = 0; index < count; index++) {
+        var time = "time" + (index);
+        var price = "price" + (index);
+        var extend = "extend" + (index);
+        $('.table tbody tr').eq(index).find('td').find('input, select').eq(0).attr('name', time);
+        $('.table tbody tr').eq(index).find('td').find('input, select').eq(1).attr('name', price);
+        $('.table tbody tr').eq(index).find('td').find('input, select').eq(2).attr('name', extend);
+      }
+    });
+  });
 </script>
 
 <div class="container-field mt-3">
@@ -150,8 +150,7 @@
   <hr>
   <div class="w-100 mb-3">
     <span class="d-block mb-2">会場</span>
-    <strong class="border border-light d-block"
-      style="width:100%;">{{$venue->name_area}}{{$venue->name_bldg}}{{$venue->name_venue}}</strong>
+    <strong class="border border-light d-block" style="width:100%;">{{$venue->name_area}}{{$venue->name_bldg}}{{$venue->name_venue}}</strong>
   </div>
   <div class="new_price">
     @if ($errors->any())

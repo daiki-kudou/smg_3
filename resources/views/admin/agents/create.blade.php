@@ -4,25 +4,25 @@
 
 <script src="{{ asset('/js/template.js') }}"></script>
 <script>
-  $(function(){
-        $('.search_address1').on('change',function(){
-            // console.log($('.search_address1').parent().next().find('input'));
-            var post_code=$('.search_address1').val();
-            var adr1=$('.search_address2').val();
-            var adr2=$('.search_address3').val();
-            $('.search_address1').parent().next().find('input').val(post_code);
-            $('.search_address2').parent().next().find('input').val(adr1);
-            $('.search_address3').parent().next().find('input').val(adr2);
-        })
-        $('.search_address2').on('change',function(){
-            var adr1=$('.search_address2').val();
-            $('.search_address2').parent().next().find('input').val(adr1);
-        })
-        $('.search_address3').on('change',function(){
-            var adr2=$('.search_address3').val();
-            $('.search_address3').parent().next().find('input').val(adr2);
-        })
+  $(function() {
+    $('.search_address1').on('change', function() {
+      // console.log($('.search_address1').parent().next().find('input'));
+      var post_code = $('.search_address1').val();
+      var adr1 = $('.search_address2').val();
+      var adr2 = $('.search_address3').val();
+      $('.search_address1').parent().next().find('input').val(post_code);
+      $('.search_address2').parent().next().find('input').val(adr1);
+      $('.search_address3').parent().next().find('input').val(adr2);
     })
+    $('.search_address2').on('change', function() {
+      var adr1 = $('.search_address2').val();
+      $('.search_address2').parent().next().find('input').val(adr1);
+    })
+    $('.search_address3').on('change', function() {
+      var adr2 = $('.search_address3').val();
+      $('.search_address3').parent().next().find('input').val(adr2);
+    })
+  })
 </script>
 <style>
   .error {
@@ -57,8 +57,7 @@
           </tr>
           <tr>
             <th scope="row">{{ Form::label('post_code', '郵便番号') }}</th>
-            <td><input class="search_address1 form-control" type="text" name="zip01" maxlength="8"
-                onKeyUp="AjaxZip3.zip2addr(this,'','pref01','addr01');"></td>
+            <td><input class="search_address1 form-control" type="text" name="zip01" maxlength="8" onKeyUp="AjaxZip3.zip2addr(this,'','pref01','addr01');"></td>
             <td class="">{{ Form::hidden('post_code', old('post_code'), ['class' => 'form-control']) }}
             </td>
           </tr>

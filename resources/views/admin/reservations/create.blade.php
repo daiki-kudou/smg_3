@@ -58,7 +58,7 @@
 {{-- reservation checkから戻ってきた場合 --}}
 
 <pre>
-  {{var_dump($target)}}
+{{var_dump($target)}}
 </pre>
 
 {{Form::open(['url' => 'admin/reservations/calculate', 'method' => 'POST', 'id'=>'reservationCreateForm'])}}
@@ -85,7 +85,8 @@
               <option value='#' disabled selected>選択してください</option>
               @foreach ($venues as $venue)
               <option value="{{$venue->id}}" {{$venue->id==$target->venue_id?'selected':''}}>
-                {{ReservationHelper::getVenue($venue->id)}}</option>
+                {{ReservationHelper::getVenue($venue->id)}}
+              </option>
               @endforeach
             </select>
             <p class="is-error-venue_id" style="color: red"></p>
@@ -112,9 +113,7 @@
             <div>
               <select name="enter_time" id="sales_start" class="form-control">
                 <option disabled selected></option>
-                @for ($start = 0*2; $start <=23*2; $start++) <option
-                  value="{{date("H:i:s", strtotime("00:00 +". $start * 30 ." minute"))}}" @if (date("H:i:s",
-                  strtotime("00:00 +". $start * 30 ." minute"))==$target->enter_time)
+                @for ($start = 0*2; $start <=23*2; $start++) <option value="{{date("H:i:s", strtotime("00:00 +". $start * 30 ." minute"))}}" @if (date("H:i:s", strtotime("00:00 +". $start * 30 ." minute"))==$target->enter_time)
                   selected
                   @endif
                   >
@@ -132,9 +131,7 @@
             <div>
               <select name="leave_time" id="sales_finish" class="form-control">
                 <option disabled selected></option>
-                @for ($start = 0*2; $start <=23*2; $start++) <option
-                  value="{{date("H:i:s", strtotime("00:00 +". $start * 30 ." minute"))}}" @if (date("H:i:s",
-                  strtotime("00:00 +". $start * 30 ." minute"))==$target->leave_time)
+                @for ($start = 0*2; $start <=23*2; $start++) <option value="{{date("H:i:s", strtotime("00:00 +". $start * 30 ." minute"))}}" @if (date("H:i:s", strtotime("00:00 +". $start * 30 ." minute"))==$target->leave_time)
                   selected
                   @endif
                   >
@@ -158,9 +155,7 @@
             <div>
               <select name="event_start" id="event_start" class="form-control">
                 <option disabled>選択してください</option>
-                @for ($start = 0*2; $start <=23*2; $start++) <option
-                  value="{{date("H:i:s", strtotime("00:00 +". $start * 30 ." minute"))}}" @if (date("H:i:s",
-                  strtotime("00:00 +". $start * 30 ." minute"))==$target->event_start)
+                @for ($start = 0*2; $start <=23*2; $start++) <option value="{{date("H:i:s", strtotime("00:00 +". $start * 30 ." minute"))}}" @if (date("H:i:s", strtotime("00:00 +". $start * 30 ." minute"))==$target->event_start)
                   selected
                   @endif>
                   {{date("H時i分", strtotime("00:00 +". $start * 30 ." minute"))}}</option>
@@ -175,9 +170,7 @@
             <div>
               <select name="event_finish" id="event_finish" class="form-control">
                 <option disabled>選択してください</option>
-                @for ($start = 0*2; $start <=23*2; $start++) <option
-                  value="{{date("H:i:s", strtotime("00:00 +". $start * 30 ." minute"))}}" @if (date("H:i:s",
-                  strtotime("00:00 +". $start * 30 ." minute"))==$target->event_finish)
+                @for ($start = 0*2; $start <=23*2; $start++) <option value="{{date("H:i:s", strtotime("00:00 +". $start * 30 ." minute"))}}" @if (date("H:i:s", strtotime("00:00 +". $start * 30 ." minute"))==$target->event_finish)
                   selected
                   @endif
                   >
@@ -332,7 +325,10 @@
               </td>
             </tr>
             <script>
-              $('#datepicker3').datepicker({ dateFormat: 'yy-mm-dd', minDate: 0, });
+              $('#datepicker3').datepicker({
+                dateFormat: 'yy-mm-dd',
+                minDate: 0,
+              });
             </script>
           </tbody>
         </table>
@@ -364,7 +360,8 @@
                   selected
                   @endif
                   >
-                  {{$user->company}} ・ {{ReservationHelper::getPersonName($user->id)}} ・ {{$user->email}}</option>
+                  {{$user->company}} ・ {{ReservationHelper::getPersonName($user->id)}} ・ {{$user->email}}
+                </option>
                 @endforeach
               </select>
               <p class="is-error-user_id" style="color: red"></p>
@@ -532,8 +529,7 @@
             <div>
               <select name="enter_time" id="sales_start" class="form-control">
                 <option disabled selected></option>
-                @for ($start = 0*2; $start <=23*2; $start++) <option
-                  value="{{date("H:i:s", strtotime("00:00 +". $start * 30 ." minute"))}}" @if (isset($request)) @endif>
+                @for ($start = 0*2; $start <=23*2; $start++) <option value="{{date("H:i:s", strtotime("00:00 +". $start * 30 ." minute"))}}" @if (isset($request)) @endif>
                   {{date("H時i分", strtotime("00:00 +". $start * 30 ." minute"))}}
                   </option>
                   @endfor
@@ -548,8 +544,7 @@
             <div>
               <select name="leave_time" id="sales_finish" class="form-control">
                 <option disabled selected></option>
-                @for ($start = 0*2; $start <=23*2; $start++) <option
-                  value="{{date("H:i:s", strtotime("00:00 +". $start * 30 ." minute"))}}" @if (isset($request)) @endif>
+                @for ($start = 0*2; $start <=23*2; $start++) <option value="{{date("H:i:s", strtotime("00:00 +". $start * 30 ." minute"))}}" @if (isset($request)) @endif>
                   {{date("H時i分", strtotime("00:00 +". $start * 30 ." minute"))}}</option>
                   @endfor
               </select>
@@ -560,10 +555,8 @@
         <tr>
           <td>案内板</td>
           <td>
-            <input type="radio" name="board_flag" value="0"
-              {{isset($request->board_flag)?$request->board_flag==0?'checked':'':'checked',}}>無し
-            <input type="radio" name="board_flag" value="1"
-              {{isset($request->board_flag)?$request->board_flag==1?'checked':'':'',}}>有り
+            <input type="radio" name="board_flag" value="0" {{isset($request->board_flag)?$request->board_flag==0?'checked':'':'checked',}}>無し
+            <input type="radio" name="board_flag" value="1" {{isset($request->board_flag)?$request->board_flag==1?'checked':'':'',}}>有り
           </td>
         </tr>
         <tr>
@@ -572,8 +565,7 @@
             <div>
               <select name="event_start" id="event_start" class="form-control">
                 <option disabled>選択してください</option>
-                @for ($start = 0*2; $start <=23*2; $start++) <option
-                  value="{{date("H:i:s", strtotime("00:00 +". $start * 30 ." minute"))}}" @if (isset($request)) @endif>
+                @for ($start = 0*2; $start <=23*2; $start++) <option value="{{date("H:i:s", strtotime("00:00 +". $start * 30 ." minute"))}}" @if (isset($request)) @endif>
                   {{date("H時i分", strtotime("00:00 +". $start * 30 ." minute"))}}</option>
                   @endfor
               </select>
@@ -586,8 +578,7 @@
             <div>
               <select name="event_finish" id="event_finish" class="form-control">
                 <option disabled>選択してください</option>
-                @for ($start = 0*2; $start <=23*2; $start++) <option
-                  value="{{date("H:i:s", strtotime("00:00 +". $start * 30 ." minute"))}}" @if (isset($request)) @endif>
+                @for ($start = 0*2; $start <=23*2; $start++) <option value="{{date("H:i:s", strtotime("00:00 +". $start * 30 ." minute"))}}" @if (isset($request)) @endif>
                   {{date("H時i分", strtotime("00:00 +". $start * 30 ." minute"))}}</option>
                   @endfor
               </select>
@@ -694,7 +685,8 @@
                 <option disabled selected>選択してください</option>
                 @foreach ($users as $user)
                 <option value="{{$user->id}}" @if (isset($request)) @endif>{{$user->company}} |
-                  {{$user->first_name}}{{$user->last_name}} | {{$user->email}}</option>
+                  {{$user->first_name}}{{$user->last_name}} | {{$user->email}}
+                </option>
                 @endforeach
               </select>
               <p class="is-error-user_id" style="color: red"></p>

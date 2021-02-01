@@ -111,39 +111,38 @@
   }
 </style>
 <script>
-  $(function(){
+  $(function() {
     var name = $('input[name="start"]');
     for (let nums = 0; nums < name.length; nums++) {
-      
-      var start=$('input[name="start"]').eq(nums).val();
+
+      var start = $('input[name="start"]').eq(nums).val();
       var finish = $('input[name="finish"]').eq(nums).val();
       var s_date = $('input[name="date"]').eq(nums).val();
       var status = $('input[name="status"]').eq(nums).val();
       var company = $('input[name="company"]').eq(nums).val();
 
-      var ds= new Date(start);
+      var ds = new Date(start);
       ds.setMinutes(ds.getMinutes() - (60));
-      var df= new Date(finish);
+      var df = new Date(finish);
       var diffTime = df.getTime() - ds.getTime();
-      var diffTime = Math.floor(diffTime / (1000 * 60  ));
-      var target=diffTime/30;
+      var diffTime = Math.floor(diffTime / (1000 * 60));
+      var target = diffTime / 30;
 
       for (let index = 0; index < target; index++) {
         ds.setMinutes(ds.getMinutes() + (30));
-        var result=String(ds.getHours())+String(ds.getMinutes());
-        if (status==3) {
-          $("."+s_date+"cal"+ result).addClass('bg-reserve');
-          if (!$("."+s_date+"cal"+ result).prev().hasClass('bg-reserve')) {
+        var result = String(ds.getHours()) + String(ds.getMinutes());
+        if (status == 3) {
+          $("." + s_date + "cal" + result).addClass('bg-reserve');
+          if (!$("." + s_date + "cal" + result).prev().hasClass('bg-reserve')) {
             // 始めに灰色
-            $("."+s_date+"cal"+ result).addClass('gray');
+            $("." + s_date + "cal" + result).addClass('gray');
           }
-        }else if(status<3){
-          $("."+s_date+"cal"+ result).addClass('bg-prereserve');
+        } else if (status < 3) {
+          $("." + s_date + "cal" + result).addClass('bg-prereserve');
         }
       }
       // 最後に灰色
       $('.bg-reserve:last').addClass('gray');
     }
-})
-
+  })
 </script>

@@ -36,29 +36,18 @@
     @csrf
     <select name="venue_id" id="venue_id">
       @foreach ($venues as $venue)
-      <option value="{{$venue->id}}" 
-        @if ($venue->id==$selected_venue)
+      <option value="{{$venue->id}}" @if ($venue->id==$selected_venue)
         selected
         @endif
         >{{$venue->name_area}}{{$venue->name_bldg}}{{$venue->name_venue}}</option>
       @endforeach
     </select>
     <select name="selected_year" id="selected_year">
-      @for ($i = 2021; $i < 2031; $i++) 
-      <option value="{{$i}}"
-      @if ($selected_year==$i)
-          selected
-      @endif
-      >{{$i}}</option>
+      @for ($i = 2021; $i < 2031; $i++) <option value="{{$i}}" @if ($selected_year==$i) selected @endif>{{$i}}</option>
         @endfor
     </select>
     <select name="selected_month" id="selected_month">
-      @for ($ii = 1; $ii <= 12; $ii++) 
-      <option value="{{$ii}}"
-      @if ($selected_month==$ii)
-      selected
-      @endif
-      >{{$ii}}月</option>
+      @for ($ii = 1; $ii <= 12; $ii++) <option value="{{$ii}}" @if ($selected_month==$ii) selected @endif>{{$ii}}月</option>
         @endfor
     </select>
     {{Form::submit('確認する')}}
@@ -146,44 +135,43 @@
   }
 </style>
 <script>
-  $(function(){
+  $(function() {
     var name = $('input[name="start"]');
     for (let nums = 0; nums < name.length; nums++) {
-      
-      var start=$('input[name="start"]').eq(nums).val();
+
+      var start = $('input[name="start"]').eq(nums).val();
       var finish = $('input[name="finish"]').eq(nums).val();
       var s_date = $('input[name="date"]').eq(nums).val();
       var status = $('input[name="status"]').eq(nums).val();
       var company = $('input[name="company"]').eq(nums).val();
       var reservation_id = $('input[name="reservation_id"]').eq(nums).val();
 
-      var ds= new Date(start);
+      var ds = new Date(start);
       ds.setMinutes(ds.getMinutes() - (60));
-      var df= new Date(finish);
+      var df = new Date(finish);
       var diffTime = df.getTime() - ds.getTime();
-      var diffTime = Math.floor(diffTime / (1000 * 60  ));
-      var target=diffTime/30;
+      var diffTime = Math.floor(diffTime / (1000 * 60));
+      var target = diffTime / 30;
 
       for (let index = 0; index < target; index++) {
         ds.setMinutes(ds.getMinutes() + (30));
-        var result=String(ds.getHours())+String(ds.getMinutes());
-        if (status==3) {
-          $("."+s_date+"cal"+ result).addClass('bg-reserve');
-          if (!$("."+s_date+"cal"+ result).prev().hasClass('bg-reserve')) {
+        var result = String(ds.getHours()) + String(ds.getMinutes());
+        if (status == 3) {
+          $("." + s_date + "cal" + result).addClass('bg-reserve');
+          if (!$("." + s_date + "cal" + result).prev().hasClass('bg-reserve')) {
             // 始めに灰色
-            $("."+s_date+"cal"+ result).addClass('gray');
+            $("." + s_date + "cal" + result).addClass('gray');
           }
-          if ($("."+s_date+"cal"+ result).prev().hasClass('gray')) {
-            $("."+s_date+"cal"+ result).html("<a href='/admin/reservations/"+reservation_id+"'>"+company+"</a>");
+          if ($("." + s_date + "cal" + result).prev().hasClass('gray')) {
+            $("." + s_date + "cal" + result).html("<a href='/admin/reservations/" + reservation_id + "'>" + company + "</a>");
           }
-        }else if(status<3){
-          $("."+s_date+"cal"+ result).addClass('bg-prereserve');
+        } else if (status < 3) {
+          $("." + s_date + "cal" + result).addClass('bg-prereserve');
         }
       }
       // 最後に灰色
       $('.bg-reserve:last').addClass('gray');
     }
-})
-
+  })
 </script>
 @endsection

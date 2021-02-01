@@ -46,23 +46,23 @@
       }
     });
 
-    $('#start').on('change',function(){
-      var start=$('#start').val();
-      var finish=$('#finish').val();
-      if(start>finish){
+    $('#start').on('change', function() {
+      var start = $('#start').val();
+      var finish = $('#finish').val();
+      if (start > finish) {
         swal('営業開始時間は営業終了時間より前に設定してください');
-          $('#start').val('');
+        $('#start').val('');
       }
     });
 
-    $('#finish').on('change',function(){
-        var start=$('#start').val();
-        var finish=$('#finish').val();
-        if(start>finish){
-          swal('営業終了時間は営業開始時間より後に設定してください');
-            $('#finish').val('');
-        }
-      });
+    $('#finish').on('change', function() {
+      var start = $('#start').val();
+      var finish = $('#finish').val();
+      if (start > finish) {
+        swal('営業終了時間は営業開始時間より後に設定してください');
+        $('#finish').val('');
+      }
+    });
 
   });
 </script>
@@ -87,8 +87,7 @@
   <hr>
   <div class="w-100 mb-3">
     <span class="d-block mb-2">会場</span>
-    <strong class="border border-light d-block"
-      style="width:100%;">{{$venue->name_area}}{{$venue->name_bldg}}{{$venue->name_venue}}</strong>
+    <strong class="border border-light d-block" style="width:100%;">{{$venue->name_area}}{{$venue->name_bldg}}{{$venue->name_venue}}</strong>
   </div>
   <div class="new_price">
     @if ($errors->any())

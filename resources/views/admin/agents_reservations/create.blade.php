@@ -115,9 +115,7 @@
             <div>
               <select name="enter_time" id="sales_start" class="form-control">
                 <option disabled selected>選択してください</option>
-                @for ($start = 0*2; $start <=23*2; $start++) <option
-                  value="{{date("H:i:s", strtotime("00:00 +". $start * 30 ." minute"))}}" @if (isset($request))
-                  @if($request->enter_time==(date("H:i:s", strtotime("00:00 +". $start * 30 ." minute"))))
+                @for ($start = 0*2; $start <=23*2; $start++) <option value="{{date("H:i:s", strtotime("00:00 +". $start * 30 ." minute"))}}" @if (isset($request)) @if($request->enter_time==(date("H:i:s", strtotime("00:00 +". $start * 30 ." minute"))))
                   selected
                   @endif
                   @endif
@@ -135,9 +133,7 @@
             <div>
               <select name="leave_time" id="sales_finish" class="form-control">
                 <option disabled selected>選択してください</option>
-                @for ($start = 0*2; $start <=23*2; $start++) <option
-                  value="{{date("H:i:s", strtotime("00:00 +". $start * 30 ." minute"))}}" @if (isset($request))
-                  @if($request->leave_time==(date("H:i:s", strtotime("00:00 +". $start * 30 ." minute"))))
+                @for ($start = 0*2; $start <=23*2; $start++) <option value="{{date("H:i:s", strtotime("00:00 +". $start * 30 ." minute"))}}" @if (isset($request)) @if($request->leave_time==(date("H:i:s", strtotime("00:00 +". $start * 30 ." minute"))))
                   selected
                   @endif
                   @endif
@@ -151,10 +147,8 @@
         <tr>
           <td>案内板</td>
           <td>
-            <input type="radio" name="board_flag" value="0"
-              {{isset($request->board_flag)?$request->board_flag==0?'checked':'':'checked',}}>無し
-            <input type="radio" name="board_flag" value="1"
-              {{isset($request->board_flag)?$request->board_flag==1?'checked':'':'',}}>有り
+            <input type="radio" name="board_flag" value="0" {{isset($request->board_flag)?$request->board_flag==0?'checked':'':'checked',}}>無し
+            <input type="radio" name="board_flag" value="1" {{isset($request->board_flag)?$request->board_flag==1?'checked':'':'',}}>有り
           </td>
         </tr>
         <tr>
@@ -163,9 +157,7 @@
             <div>
               <select name="event_start" id="event_start" class="form-control">
                 <option selected disabled>選択してください</option>
-                @for ($start = 0*2; $start <=23*2; $start++) <option
-                  value="{{date("H:i:s", strtotime("00:00 +". $start * 30 ." minute"))}}" @if (isset($request))
-                  @if($request->event_start==(date("H:i:s", strtotime("00:00 +". $start * 30 ." minute"))))
+                @for ($start = 0*2; $start <=23*2; $start++) <option value="{{date("H:i:s", strtotime("00:00 +". $start * 30 ." minute"))}}" @if (isset($request)) @if($request->event_start==(date("H:i:s", strtotime("00:00 +". $start * 30 ." minute"))))
                   selected
                   @endif
                   @endif
@@ -182,9 +174,7 @@
             <div>
               <select name="event_finish" id="event_finish" class="form-control">
                 <option selected disabled>選択してください</option>
-                @for ($start = 0*2; $start <=23*2; $start++) <option
-                  value="{{date("H:i:s", strtotime("00:00 +". $start * 30 ." minute"))}}" @if (isset($request))
-                  @if($request->event_finish==(date("H:i:s", strtotime("00:00 +". $start * 30 ." minute"))))
+                @for ($start = 0*2; $start <=23*2; $start++) <option value="{{date("H:i:s", strtotime("00:00 +". $start * 30 ." minute"))}}" @if (isset($request)) @if($request->event_finish==(date("H:i:s", strtotime("00:00 +". $start * 30 ." minute"))))
                   selected
                   @endif
                   @endif
@@ -297,7 +287,8 @@
                 @foreach ($agents as $agent)
                 <option value="{{$agent->id}}">{{$agent->name}} |
                   {{$agent->person_firstname}}{{$agent->person_lastname}} |
-                  {{$agent->email}}</option>
+                  {{$agent->email}}
+                </option>
                 @endforeach
               </select>
             </td>
@@ -746,13 +737,15 @@
     <dt>消費税</dt>
     <dd> <span class="all-total-tax"></span>
       {{ Form::hidden('tax', '', ['class'=>'all-total-tax']) }}
-      円</dd>
+      円
+    </dd>
   </div>
   <div class="col-3 bill-box_cell">
     <dt>税込総請求額</dt>
     <dd class="text-right"> <span class="all-total-amout"></span>
       {{ Form::hidden('total', '', ['class'=>'all-total-amout']) }}
-      円</dd>
+      円
+    </dd>
   </div>
   </dl> --}}
   </div>

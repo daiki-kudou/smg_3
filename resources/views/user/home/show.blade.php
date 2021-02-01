@@ -188,10 +188,10 @@
 
           <!-- 右側の項目-------------------------------------------------- -->
           <script>
-            $(function(){
-              $('thead').on('click',function(){
-              $(this).parent().find('tbody').toggleClass('hide');
-            });
+            $(function() {
+              $('thead').on('click', function() {
+                $(this).parent().find('tbody').toggleClass('hide');
+              });
             })
           </script>
           <div class="col-6">
@@ -519,13 +519,15 @@
                   <dt>有料備品料金</dt>
                   <dd>
                     {{$reservation->bills()->first()->equipment_total}}
-                    円</dd>
+                    円
+                  </dd>
                 </div>
                 <div class="col-3 bill-box_cell">
                   <dt>有料サービス料金</dt>
                   <dd>
                     {{$reservation->bills()->first()->service_total}}
-                    円</dd>
+                    円
+                  </dd>
                 </div>
                 <div class="col-3 bill-box_cell">
                   <dt>荷物預かり/返送</dt>

@@ -11,30 +11,32 @@
 
 
 <script>
-  $(function () {
-    $("html,body").animate({ scrollTop: $('.bill').offset().top });
-    $('.bill_details .head').on('click', function () {
+  $(function() {
+    $("html,body").animate({
+      scrollTop: $('.bill').offset().top
+    });
+    $('.bill_details .head').on('click', function() {
       $('.bill_details .head .fa-minus').toggleClass('hide');
       $('.bill_details .head .fa-plus').toggleClass('hide');
       $('.bill_details .head .fa-plus,.bill_details .head .fa-minus').addClass('fa-spin');
-      setTimeout(function () {
+      setTimeout(function() {
         $('.bill_details .head .fa-plus,.bill_details .head .fa-minus').removeClass('fa-spin');
       }, 300);
       $('.bill .main').slideToggle();
     })
-    $('.information .head').on('click', function () {
+    $('.information .head').on('click', function() {
       $('.information_details .head .fa-minus').toggleClass('hide');
       $('.information_details .head .fa-plus').toggleClass('hide');
       $('.information_details .head .fa-plus,.information_details .head .fa-minus').addClass('fa-spin');
-      setTimeout(function () {
+      setTimeout(function() {
         $('.information_details .head .fa-plus,.information_details .head .fa-minus').removeClass('fa-spin');
       }, 300);
       $('.information .main').slideToggle();
     })
 
-    $(function () {
+    $(function() {
       // プラスボタンクリック
-      $(document).on("click", ".add", function () {
+      $(document).on("click", ".add", function() {
         $(this).parent().parent().clone(true).insertAfter($(this).parent().parent());
         var count = $('.others .others_main tr').length;
         // 追加時内容クリア
@@ -51,7 +53,7 @@
         }
       });
       // マイナスボタンクリック
-      $(document).on("click", ".del", function () {
+      $(document).on("click", ".del", function() {
         var count = $('.others .others_main tr').length;
         var target = $(this).parent().parent();
         if (target.parent().children().length > 1) {
@@ -797,14 +799,14 @@
           </table>
         </div>
         {{-- 以下、総合計 --}}
-        <div class="bill_total d-flex justify-content-end"
-          style="padding: 80px 0px 80px 0px; width:90%; margin:0 auto; background:">
+        <div class="bill_total d-flex justify-content-end" style="padding: 80px 0px 80px 0px; width:90%; margin:0 auto;">
           <div style="width: 60%;">
             <table class="table text-right" style="table-layout: fixed; font-size:16px;">
               <tr>
                 <td>小計：</td>
                 <td>
-                  {{ Form::text('master_subtotal',$masters ,['class'=>'form-control text-right', 'readonly'] ) }} </td>
+                  {{ Form::text('master_subtotal',$masters ,['class'=>'form-control text-right', 'readonly'] ) }}
+                </td>
               </tr>
               <tr>
                 <td>消費税：</td>
