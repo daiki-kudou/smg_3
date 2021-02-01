@@ -289,19 +289,19 @@
                 <tr>
                   <td>小計：</td>
                   <td>
-                    <input class="form-control text-right" readonly="" name="master_subtotal" type="text" value="67975">
+                    {{ Form::text('master_subtotal', '', ['class' => 'form-control' , 'readonly'])}}
                   </td>
                 </tr>
                 <tr>
                   <td>消費税：</td>
                   <td>
-                    <input class="form-control text-right" readonly="" name="master_tax" type="text" value="6797">
+                    {{ Form::text('master_tax', '', ['class' => 'form-control' , 'readonly'])}}
                   </td>
                 </tr>
                 <tr>
                   <td class="font-weight-bold">合計金額</td>
                   <td>
-                    <input class="form-control text-right" readonly="" name="master_total" type="text" value="74772">
+                    {{ Form::text('master_total', '', ['class' => 'form-control' , 'readonly'])}}
                   </td>
                 </tr>
               </tbody>
@@ -552,6 +552,9 @@
     DelCalc('.equipment input', '.equipment_main tr', 'input[name="equipment_price"]');
     DelCalc('.layout input', '.layout_main tr', 'input[name="layout_price"]');
     DelCalc('.others input', '.others_main tr', 'input[name="others_price"]');
+
+    MaterCalc();
+
   })
   function DelTr($target, $targetClass, $targetName) {
     if ($target.hasClass($targetClass)) {
@@ -608,6 +611,25 @@ function calc($targetClass, $targetTr, $targetSum){
     $($targetSum).val(result_add);
   })
 };
+
+// 総合計額抽出
+$('input').on('input',function(){
+  MaterCalc();
+})
+
+function MaterCalc(){
+  var tar1=Number($('input[name="venue_price"]').val());
+  var tar2=Number($('input[name="equipment_price"]').val());
+  var tar3=Number($('input[name="layout_price"]').val());
+  var tar4=Number($('input[name="others_price"]').val());
+  var master_sub=tar1+tar2+tar3+tar4;
+  var master_tax=Math.floor(Number((tar1+tar2+tar3+tar4)*0.1));
+  
+  $('input[name="master_subtotal"]').val(master_sub);
+  $('input[name="master_tax"]').val(master_tax);
+  $('input[name="master_total"]').val(master_sub+master_tax);
+
+}
 
 
 
