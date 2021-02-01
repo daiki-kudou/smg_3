@@ -219,7 +219,7 @@
                 </td>
                 </tr>
                 @endif
-                @endfor
+                @endfo
             </tbody>
             <tbody class="others_result ">
               <tr>
@@ -232,6 +232,7 @@
           </table>
         </div>
         @endif
+
 
         <div class="bill_total d-flex justify-content-end"
           style="padding: 80px 0px 80px 0px; width:90%; margin:0 auto; background:">
