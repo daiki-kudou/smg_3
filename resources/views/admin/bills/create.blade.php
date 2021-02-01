@@ -548,6 +548,10 @@
     DelTr(re_target, 'equipment_main', 'equipment_breakdown');
     DelTr(re_target, 'layout_main', 'layout_breakdown');
     DelTr(re_target, 'others_main', 'others_breakdown');
+    DelCalc('.venues input', '.venue_main tr', 'input[name="venue_price"]');
+    DelCalc('.equipment input', '.equipment_main tr', 'input[name="equipment_price"]');
+    DelCalc('.layout input', '.layout_main tr', 'input[name="layout_price"]');
+    DelCalc('.others input', '.others_main tr', 'input[name="others_price"]');
   })
   function DelTr($target, $targetClass, $targetName) {
     if ($target.hasClass($targetClass)) {
@@ -559,6 +563,19 @@
       }
     }
   }
+  function DelCalc($targetClass, $targetTr, $targetSum){
+    var trTarget=$($targetTr).length;
+    var result_add=0;
+    for (let calc = 0; calc < trTarget; calc++) {
+      var multiple1=Number($($targetTr).eq(calc).find('td').eq(1).find('input').val());
+      var multiple2=Number($($targetTr).eq(calc).find('td').eq(2).find('input').val());
+      var result=$($targetTr).eq(calc).find('td').eq(3).find('input').val(multiple1*multiple2);
+      result_add=result_add+(multiple1*multiple2);
+    }
+    $($targetSum).val(result_add);
+};
+
+  
 
 // チェックボックス開閉
   checkToggle('.venue_chkbox #venue', ['.venue_head', '.venue_main', '.venue_result']);
@@ -573,20 +590,24 @@
   });
 }
 
+// 各input からの計算
 calc('.venues input', '.venue_main tr', 'input[name="venue_price"]');
+calc('.equipment input', '.equipment_main tr', 'input[name="equipment_price"]');
+calc('.layout input', '.layout_main tr', 'input[name="layout_price"]');
+calc('.others input', '.others_main tr', 'input[name="others_price"]');
 function calc($targetClass, $targetTr, $targetSum){
-  $($targetClass).on('input',function(){
-  var trTarget=$($targetTr).length;
-  var result_add=0;
-  for (let calc = 0; calc < trTarget; calc++) {
-    var multiple1=Number($($targetTr).eq(calc).find('td').eq(1).find('input').val());
-    var multiple2=Number($($targetTr).eq(calc).find('td').eq(2).find('input').val());
-    var result=$($targetTr).eq(calc).find('td').eq(3).find('input').val(multiple1*multiple2);
-    result_add=result_add+(multiple1*multiple2);
-  }
-  $($targetSum).val(result_add);
-})
-}
+    $($targetClass).on('input',function(){
+    var trTarget=$($targetTr).length;
+    var result_add=0;
+    for (let calc = 0; calc < trTarget; calc++) {
+      var multiple1=Number($($targetTr).eq(calc).find('td').eq(1).find('input').val());
+      var multiple2=Number($($targetTr).eq(calc).find('td').eq(2).find('input').val());
+      var result=$($targetTr).eq(calc).find('td').eq(3).find('input').val(multiple1*multiple2);
+      result_add=result_add+(multiple1*multiple2);
+    }
+    $($targetSum).val(result_add);
+  })
+};
 
 
 
