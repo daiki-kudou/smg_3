@@ -215,6 +215,9 @@ class Venue extends Model
   public function calculate_price($status_id, $start_time, $finish_time)
   {
     if ($status_id == 1) {
+      if ($start_time < '08:00:00' || $finish_time > '23:00:00') {
+        return 0;
+      }
 
       //料金計算に使う開始時間を計算用に変更
       // 開始時間
@@ -266,6 +269,7 @@ class Venue extends Model
         $between_time_list[] = $temporary;
         $temporary = []; //temporaryに配列挿入後、一旦初期化
       }
+
 
       /*|--------------------------------------------------------------------------
       |↓↓↓ 一旦ここで、網羅できる料金体系を抽出完了↓↓↓

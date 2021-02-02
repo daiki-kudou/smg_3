@@ -860,7 +860,6 @@ function change_all_totals() {
 }
 
 // admin reservations calculate
-
 $(function () {
   function discounts(
     venue_number_discount,
@@ -987,6 +986,21 @@ $(function () {
       total_val = total_val + Number(num3.val());
     }
     var total_target = $('input[name="others_price"]');
+    total_target.val(total_val);
+    toRed();
+    change_all_totals();
+  });
+  $(document).on('input', 'input[name^="venue_input"]', function (e) {
+    var count = $('.venue_main tr').length;
+    var total_val = 0;
+    for (let index = 0; index < count; index++) {
+      var num1 = $('input[name="venue_input_cost' + index + '"]').val();
+      var num2 = $('input[name="venue_input_count' + index + '"]').val();
+      var num3 = $('input[name="venue_input_subtotal' + index + '"]');
+      num3.val(num1 * num2);
+      total_val = total_val + Number(num3.val());
+    }
+    var total_target = $('input[name="venue_price"]');
     total_target.val(total_val);
     toRed();
     change_all_totals();

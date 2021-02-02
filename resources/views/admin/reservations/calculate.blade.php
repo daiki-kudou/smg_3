@@ -9,85 +9,107 @@
 
 
 
-
 <script>
   $(function() {
     $("html,body").animate({
       scrollTop: $('.bill').offset().top
     });
-    // $('.bill_details .head').on('click', function() {
-    //   $('.bill_details .head .fa-minus').toggleClass('hide');
-    //   $('.bill_details .head .fa-plus').toggleClass('hide');
-    //   $('.bill_details .head .fa-plus,.bill_details .head .fa-minus').addClass('fa-spin');
-    //   setTimeout(function() {
-    //     $('.bill_details .head .fa-plus,.bill_details .head .fa-minus').removeClass('fa-spin');
-    //   }, 300);
-    //   $('.bill .main').slideToggle();
-    // })
-    // $('.information .head').on('click', function() {
-    //   $('.information_details .head .fa-minus').toggleClass('hide');
-    //   $('.information_details .head .fa-plus').toggleClass('hide');
-    //   $('.information_details .head .fa-plus,.information_details .head .fa-minus').addClass('fa-spin');
-    //   setTimeout(function() {
-    //     $('.information_details .head .fa-plus,.information_details .head .fa-minus').removeClass('fa-spin');
-    //   }, 300);
-    //   $('.information .main').slideToggle();
-    // })
 
     $(function() {
       // プラスボタンクリック
       $(document).on("click", ".add", function() {
         $(this).parent().parent().clone(true).insertAfter($(this).parent().parent());
-        var count = $('.others .others_main tr').length;
-        // 追加時内容クリア
+        addThisTr('.others .others_main tr', 'others_input_item', 'others_input_cost', 'others_input_count','others_input_subtotal');
+        addThisTr('.venue_main tr', 'venue_input_item', 'venue_input_cost', 'venue_input_count','venue_input_subtotal');
+                // 追加時内容クリア
         $(this).parent().parent().next().find('td').find('input, select').eq(0).val('');
         $(this).parent().parent().next().find('td').find('input, select').eq(1).val('');
         $(this).parent().parent().next().find('td').find('input, select').eq(2).val('');
         $(this).parent().parent().next().find('td').find('input, select').eq(3).val('');
-        for (let index = 0; index < count; index++) {
-          // console.log(index);
-          $('.others_main tr').eq(index).find('td').eq(0).find('input').attr('name', 'others_input_item' + index);
-          $('.others_main tr').eq(index).find('td').eq(1).find('input').attr('name', 'others_input_cost' + index);
-          $('.others_main tr').eq(index).find('td').eq(2).find('input').attr('name', 'others_input_count' + index);
-          $('.others_main tr').eq(index).find('td').eq(3).find('input').attr('name', 'others_input_subtotal' + index);
-        }
       });
+
+      function addThisTr($targetTr, $TItem, $TCost,$TCount, $TSubtotal){
+        var count = $($targetTr).length;
+        for (let index = 0; index < count; index++) {
+          $($targetTr).eq(index).find('td').eq(0).find('input').attr('name', $TItem + index);
+          $($targetTr).eq(index).find('td').eq(1).find('input').attr('name', $TCost + index);
+          $($targetTr).eq(index).find('td').eq(2).find('input').attr('name', $TCount + index);
+          $($targetTr).eq(index).find('td').eq(3).find('input').attr('name', $TSubtotal + index);
+        }
+      }
+
       // マイナスボタンクリック
       $(document).on("click", ".del", function() {
-        var count = $('.others .others_main tr').length;
-        var target = $(this).parent().parent();
-        if (target.parent().children().length > 1) {
-          target.remove();
+        if ($(this).parent().parent().parent().attr('class')=="others_main") {
+          var count = $('.others .others_main tr').length;
+          var target = $(this).parent().parent();
+          if (target.parent().children().length > 1) {
+            target.remove();
+          }
+          for (let index = 0; index < count; index++) {
+            // console.log(index);
+            $('.others_main tr').eq(index).find('td').eq(0).find('input').attr('name', 'others_input_item' + index);
+            $('.others_main tr').eq(index).find('td').eq(1).find('input').attr('name', 'others_input_cost' + index);
+            $('.others_main tr').eq(index).find('td').eq(2).find('input').attr('name', 'others_input_count' + index);
+            $('.others_main tr').eq(index).find('td').eq(3).find('input').attr('name', 'others_input_subtotal' + index);
+          }
+          var re_count = $('.others .others_main tr').length;
+          var total_val = 0;
+          for (let index2 = 0; index2 < re_count; index2++) {
+            var num1 = $('input[name="others_input_cost' + index2 + '"]').val();
+            var num2 = $('input[name="others_input_count' + index2 + '"]').val();
+            var num3 = $('input[name="others_input_subtotal' + index2 + '"]');
+            num3.val(num1 * num2);
+            total_val = total_val + Number(num3.val());
+          }
+          var total_target = $('input[name="others_price"]');
+          total_target.val(total_val);
+  
+          var venue = $('input[name="venue_price"]').val()?Number($('input[name="venue_price"]').val()):0;
+          var equipment = $('input[name="equipment_price"]').val()?Number($('input[name="equipment_price"]').val()):0;
+          var layout = $('input[name="layout_price"]').val()?Number($('input[name="layout_price"]').val()):0;
+          var others = $('input[name="others_price"]').val() == "" ? 0 : Number($('input[name="others_price"]').val());
+          var result = venue + equipment + layout + others;
+          var result_tax = Math.floor(result * 0.1);
+          $('.total_result').text('').text(result);
+          $('input[name="master_subtotal"]').val(result);
+          $('input[name="master_tax"]').val(result_tax);
+          $('input[name="master_total"]').val(result + result_tax);
+        }else if($(this).parent().parent().parent().attr('class')=="venue_main"){
+          var count = $('.venue_main tr').length;
+          var target = $(this).parent().parent();
+          if (target.parent().children().length > 1) {
+            target.remove();
+          }
+          for (let index = 0; index < count; index++) {
+            $('.venue_main tr').eq(index).find('td').eq(0).find('input').attr('name', 'venue_input_item' + index);
+            $('.venue_main tr').eq(index).find('td').eq(1).find('input').attr('name', 'venue_input_cost' + index);
+            $('.venue_main tr').eq(index).find('td').eq(2).find('input').attr('name', 'venue_input_count' + index);
+            $('.venue_main tr').eq(index).find('td').eq(3).find('input').attr('name', 'venue_input_subtotal' + index);
+          }
+          var re_count = $(' .venue_main tr').length;
+          var total_val = 0;
+          for (let index2 = 0; index2 < re_count; index2++) {
+            var num1 = $('input[name="venue_input_cost' + index2 + '"]').val();
+            var num2 = $('input[name="venue_input_count' + index2 + '"]').val();
+            var num3 = $('input[name="venue_input_subtotal' + index2 + '"]');
+            num3.val(num1 * num2);
+            total_val = total_val + Number(num3.val());
+          }
+          var total_target = $('input[name="venue_price"]');
+          total_target.val(total_val);
+  
+          var venue = $('input[name="venue_price"]').val()?Number($('input[name="venue_price"]').val()):0;
+          var equipment = $('input[name="equipment_price"]').val()?Number($('input[name="equipment_price"]').val()):0;
+          var layout = $('input[name="layout_price"]').val()?Number($('input[name="layout_price"]').val()):0;
+          var others = $('input[name="others_price"]').val() == "" ? 0 : Number($('input[name="others_price"]').val());
+          var result = venue + equipment + layout + others;
+          var result_tax = Math.floor(result * 0.1);
+          $('.total_result').text('').text(result);
+          $('input[name="master_subtotal"]').val(result);
+          $('input[name="master_tax"]').val(result_tax);
+          $('input[name="master_total"]').val(result + result_tax);
         }
-        for (let index = 0; index < count; index++) {
-          // console.log(index);
-          $('.others_main tr').eq(index).find('td').eq(0).find('input').attr('name', 'others_input_item' + index);
-          $('.others_main tr').eq(index).find('td').eq(1).find('input').attr('name', 'others_input_cost' + index);
-          $('.others_main tr').eq(index).find('td').eq(2).find('input').attr('name', 'others_input_count' + index);
-          $('.others_main tr').eq(index).find('td').eq(3).find('input').attr('name', 'others_input_subtotal' + index);
-        }
-        var re_count = $('.others .others_main tr').length;
-        var total_val = 0;
-        for (let index2 = 0; index2 < re_count; index2++) {
-          var num1 = $('input[name="others_input_cost' + index2 + '"]').val();
-          var num2 = $('input[name="others_input_count' + index2 + '"]').val();
-          var num3 = $('input[name="others_input_subtotal' + index2 + '"]');
-          num3.val(num1 * num2);
-          total_val = total_val + Number(num3.val());
-        }
-        var total_target = $('input[name="others_price"]');
-        total_target.val(total_val);
-
-        var venue = Number($('input[name="venue_price"]').val());
-        var equipment = Number($('input[name="equipment_price"]').val());
-        var layout = Number($('input[name="layout_price"]').val());
-        var others = $('input[name="others_price"]').val() == "" ? 0 : Number($('input[name="others_price"]').val());
-        var result = venue + equipment + layout + others;
-        var result_tax = Math.floor(result * 0.1);
-        $('.total_result').text('').text(result);
-        $('input[name="master_subtotal"]').val(result);
-        $('input[name="master_tax"]').val(result_tax);
-        $('input[name="master_total"]').val(result + result_tax);
       });
     });
   })
@@ -495,6 +517,7 @@
                 <td>金額</td>
               </tr>
             </tbody>
+            @if ($price_details!=0)
             <tbody class="venue_main">
               @if ($price_details[1])
               <tr>
@@ -564,6 +587,30 @@
                 </td>
               </tr>
             </tbody>
+            @else
+            ない
+            <tbody class="venue_main">
+              <tr>
+                <td><input class="form-control" name="venue_input_item0" type="text" value=""></td>
+                <td><input class="form-control" name="venue_input_cost0" type="text" value=""></td>
+                <td><input class="form-control" name="venue_input_count0" type="text" value=""></td>
+                <td><input class="form-control" readonly="" name="venue_input_subtotal0" type="text" value=""></td>
+                <td>
+                  <input type="button" value="＋" class="add pluralBtn">
+                  <input type="button" value="ー" class="del pluralBtn">
+                </td>
+              </tr>
+            </tbody>
+            <tbody class="venue_result">
+              <tr>
+                <td colspan="2"></td>
+                <td colspan="2">合計
+                  {{ Form::text('venue_price', '',['class'=>'form-control col-xs-3', 'readonly'] ) }}
+                </td>
+              </tr>
+            </tbody>
+
+            @endif
           </table>
         </div>
 
