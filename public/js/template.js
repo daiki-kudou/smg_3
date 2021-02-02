@@ -535,6 +535,28 @@ $(function () {
     $('.services .icon_plus').addClass('hide');
     $('.services .icon_minus').removeClass('hide');
   })
+})
+
+// 請求内容のプラスマイナスボタン　開閉
+$(function () {
+  function OpenClose($target) {
+    $($target).on('click', function () {
+      var minus = $(this).children().find('.fa-minus');
+      var plus = $(this).children().find('.fa-plus');
+      var main = $(this).next();
+      $(minus).toggleClass('hide');
+      $(plus).toggleClass('hide');
+      $(minus).addClass('fa-spin');
+      $(plus).addClass('fa-spin');
+      setTimeout(function () {
+        $(minus).removeClass('fa-spin');
+        $(plus).removeClass('fa-spin');
+      }, 300);
+      $(main).slideToggle();
+    })
+  }
+  OpenClose('.bill_details .head');
+  OpenClose('.information_details .head');
 
 })
 

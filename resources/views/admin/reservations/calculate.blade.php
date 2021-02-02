@@ -15,24 +15,24 @@
     $("html,body").animate({
       scrollTop: $('.bill').offset().top
     });
-    $('.bill_details .head').on('click', function() {
-      $('.bill_details .head .fa-minus').toggleClass('hide');
-      $('.bill_details .head .fa-plus').toggleClass('hide');
-      $('.bill_details .head .fa-plus,.bill_details .head .fa-minus').addClass('fa-spin');
-      setTimeout(function() {
-        $('.bill_details .head .fa-plus,.bill_details .head .fa-minus').removeClass('fa-spin');
-      }, 300);
-      $('.bill .main').slideToggle();
-    })
-    $('.information .head').on('click', function() {
-      $('.information_details .head .fa-minus').toggleClass('hide');
-      $('.information_details .head .fa-plus').toggleClass('hide');
-      $('.information_details .head .fa-plus,.information_details .head .fa-minus').addClass('fa-spin');
-      setTimeout(function() {
-        $('.information_details .head .fa-plus,.information_details .head .fa-minus').removeClass('fa-spin');
-      }, 300);
-      $('.information .main').slideToggle();
-    })
+    // $('.bill_details .head').on('click', function() {
+    //   $('.bill_details .head .fa-minus').toggleClass('hide');
+    //   $('.bill_details .head .fa-plus').toggleClass('hide');
+    //   $('.bill_details .head .fa-plus,.bill_details .head .fa-minus').addClass('fa-spin');
+    //   setTimeout(function() {
+    //     $('.bill_details .head .fa-plus,.bill_details .head .fa-minus').removeClass('fa-spin');
+    //   }, 300);
+    //   $('.bill .main').slideToggle();
+    // })
+    // $('.information .head').on('click', function() {
+    //   $('.information_details .head .fa-minus').toggleClass('hide');
+    //   $('.information_details .head .fa-plus').toggleClass('hide');
+    //   $('.information_details .head .fa-plus,.information_details .head .fa-minus').addClass('fa-spin');
+    //   setTimeout(function() {
+    //     $('.information_details .head .fa-plus,.information_details .head .fa-minus').removeClass('fa-spin');
+    //   }, 300);
+    //   $('.information .main').slideToggle();
+    // })
 
     $(function() {
       // プラスボタンクリック
@@ -436,9 +436,6 @@
     </div>
   </div>
 </div>
-<style>
-
-</style>
 {{-- 丸岡さんカスタム --}}
 <div class="container-fluid">
   <div class="bill">
@@ -799,7 +796,8 @@
           </table>
         </div>
         {{-- 以下、総合計 --}}
-        <div class="bill_total d-flex justify-content-end" style="padding: 80px 0px 80px 0px; width:90%; margin:0 auto;">
+        <div class="bill_total d-flex justify-content-end"
+          style="padding: 80px 0px 80px 0px; width:90%; margin:0 auto;">
           <div style="width: 60%;">
             <table class="table text-right" style="table-layout: fixed; font-size:16px;">
               <tr>

@@ -34,7 +34,7 @@ class CreateBillsTable extends Migration
       $table->string('bill_company'); //請求書の会社名　デフォルトは顧客名
       $table->string('bill_person'); //請求書の担当者名　デフォルトは顧客の担当者
       $table->date('bill_created_at'); //請求書作成日　デフォルトはtimestamp
-      $table->string('bill_remark')->nullable(); //請求書備考　デフォルト空白
+      $table->text('bill_remark')->nullable(); //請求書備考　デフォルト空白
 
       $table->integer('paid'); //支払い状況、未入金か？入金済みか？　デフォルトは0で未入金
       $table->date('pay_day')->nullable();
