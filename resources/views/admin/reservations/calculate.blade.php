@@ -588,7 +588,7 @@
               </tr>
             </tbody>
             @else
-            ない
+            <span class="text-red">※料金体系がないため、手打ちで会場料を入力してください</span>
             <tbody class="venue_main">
               <tr>
                 <td>
