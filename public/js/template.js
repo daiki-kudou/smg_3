@@ -7,16 +7,16 @@ $(function () {
 
 $(function () {
   // 日付選択画面にてボックス内、検索機能
-  $('#venue_id').select2({
-    // placeholder: 'Select an option'
-  });
+  $('#venue_id').select2({ width: '100%' });
+  $('#sales_start').select2({ width: '100%' });
+  $('#sales_finish').select2({ width: '100%' });
+  $('#event_start').select2({ width: '100%' });
+  $('#event_finish').select2({ width: '100%' });
+
 });
 
 $(function () {
   // 日付選択画面にてボックス内、検索機能
-  $('#user_select').select2({
-    // placeholder: 'Select an option'
-  });
 });
 
 // datepicker

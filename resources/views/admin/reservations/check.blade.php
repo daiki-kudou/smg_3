@@ -690,7 +690,8 @@
         </div>
         @endif
         {{-- 以下、総合計 --}}
-        <div class="bill_total d-flex justify-content-end" style="padding: 80px 0px 80px 0px; width:90%; margin:0 auto;">
+        <div class="bill_total d-flex justify-content-end"
+          style="padding: 80px 0px 80px 0px; width:90%; margin:0 auto;">
           <div style="width: 60%;">
             <table class="table text-right" style="table-layout: fixed; font-size:16px;">
               <tr>
@@ -820,12 +821,8 @@
 
 {{Form::open(['route' => 'admin.reservations.create', 'method' => 'GET','id'=>'test_post'])}}
 {{ Form::hidden('all_requests', json_encode($request->all()),['class'=>'form-control','readonly'])}}
-
 {{ Form::hidden('venue_number_discount', $request->venue_number_discount,['class'=>'form-control','readonly'])}}
-
-
-
-{{Form::submit('予約を登録する', ['class'=>'d-block btn btn-primary btn-lg test_post', 'id'=>'check_submit'])}}
+{{Form::submit('', ['class'=>'d-block btn btn-primary btn-lg test_post', 'id'=>'check_submit'])}}
 {{Form::close()}}
 
 

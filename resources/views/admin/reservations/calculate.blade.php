@@ -945,31 +945,6 @@
       </div>
     </div>
   </div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 </div>
 
 
@@ -983,12 +958,21 @@
 
 {{ Form::hidden('item_details', json_encode($item_details) )}}
 {{ Form::hidden('layouts_details', json_encode($layouts_details)) }}
-
-{{Form::submit('送信', ['class'=>'btn btn-primary mx-auto', 'id'=>'check_submit'])}}
-
+<div class="d-flex justify-content-center mt-5">
+  <a href="javascript:$('#test_post').submit()" class=" d-block btn btn-danger btn-lg d-block mr-5">請求内訳を修正する</a>
+{{Form::submit('確認する', ['class'=>'btn btn-primary d-block btn-lg', 'id'=>'check_submit'])}}
+</div>
 {{Form::close()}}
 
+<style>
+  .test_post {display: none !important;}
+</style>
 
+{{Form::open(['route' => 'admin.reservations.create', 'method' => 'GET','id'=>'test_post'])}}
+{{ Form::hidden('all_requests', json_encode($request->all()),['class'=>'form-control','readonly'])}}
+{{ Form::hidden('venue_number_discount', $request->venue_number_discount,['class'=>'form-control','readonly'])}}
+{{Form::submit('', ['class'=>'d-block btn btn-primary btn-lg test_post', 'id'=>'check_submit'])}}
+{{Form::close()}}
 
 
 
