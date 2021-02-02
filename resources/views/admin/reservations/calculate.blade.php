@@ -20,7 +20,7 @@
       $(document).on("click", ".add", function() {
         $(this).parent().parent().clone(true).insertAfter($(this).parent().parent());
         addThisTr('.others .others_main tr', 'others_input_item', 'others_input_cost', 'others_input_count','others_input_subtotal');
-        addThisTr('.venue_main tr', 'venue_input_item', 'venue_input_cost', 'venue_input_count','venue_input_subtotal');
+        addThisTr('.venue_main tr', 'venue_breakdown_item', 'venue_breakdown_cost', 'venue_breakdown_count','venue_breakdown_subtotal');
                 // 追加時内容クリア
         $(this).parent().parent().next().find('td').find('input, select').eq(0).val('');
         $(this).parent().parent().next().find('td').find('input, select').eq(1).val('');
@@ -82,17 +82,17 @@
             target.remove();
           }
           for (let index = 0; index < count; index++) {
-            $('.venue_main tr').eq(index).find('td').eq(0).find('input').attr('name', 'venue_input_item' + index);
-            $('.venue_main tr').eq(index).find('td').eq(1).find('input').attr('name', 'venue_input_cost' + index);
-            $('.venue_main tr').eq(index).find('td').eq(2).find('input').attr('name', 'venue_input_count' + index);
-            $('.venue_main tr').eq(index).find('td').eq(3).find('input').attr('name', 'venue_input_subtotal' + index);
+            $('.venue_main tr').eq(index).find('td').eq(0).find('input').attr('name', 'venue_breakdown_item' + index);
+            $('.venue_main tr').eq(index).find('td').eq(1).find('input').attr('name', 'venue_breakdown_cost' + index);
+            $('.venue_main tr').eq(index).find('td').eq(2).find('input').attr('name', 'venue_breakdown_count' + index);
+            $('.venue_main tr').eq(index).find('td').eq(3).find('input').attr('name', 'venue_breakdown_subtotal' + index);
           }
           var re_count = $(' .venue_main tr').length;
           var total_val = 0;
           for (let index2 = 0; index2 < re_count; index2++) {
-            var num1 = $('input[name="venue_input_cost' + index2 + '"]').val();
-            var num2 = $('input[name="venue_input_count' + index2 + '"]').val();
-            var num3 = $('input[name="venue_input_subtotal' + index2 + '"]');
+            var num1 = $('input[name="venue_breakdown_cost' + index2 + '"]').val();
+            var num2 = $('input[name="venue_breakdown_count' + index2 + '"]').val();
+            var num3 = $('input[name="venue_breakdown_subtotal' + index2 + '"]');
             num3.val(num1 * num2);
             total_val = total_val + Number(num3.val());
           }
@@ -505,7 +505,7 @@
             <tr>
               <td>
                 <h1>
-                  ■会場料会場料
+                  ■会場料
                 </h1>
               </td>
             </tr>
@@ -591,10 +591,18 @@
             ない
             <tbody class="venue_main">
               <tr>
-                <td><input class="form-control" name="venue_input_item0" type="text" value=""></td>
-                <td><input class="form-control" name="venue_input_cost0" type="text" value=""></td>
-                <td><input class="form-control" name="venue_input_count0" type="text" value=""></td>
-                <td><input class="form-control" readonly="" name="venue_input_subtotal0" type="text" value=""></td>
+                <td>
+                  {{ Form::text('venue_breakdown_item0', '',['class'=>'form-control'] ) }}
+                </td>
+                <td>
+                  {{ Form::text('venue_breakdown_cost0', '',['class'=>'form-control'] ) }}
+                </td>
+                <td>
+                  {{ Form::text('venue_breakdown_count0', '',['class'=>'form-control'] ) }}
+                </td>
+                <td>
+                  {{ Form::text('venue_breakdown_subtotal0', '',['class'=>'form-control'] ) }}
+                </td>
                 <td>
                   <input type="button" value="＋" class="add pluralBtn">
                   <input type="button" value="ー" class="del pluralBtn">
@@ -609,7 +617,6 @@
                 </td>
               </tr>
             </tbody>
-
             @endif
           </table>
         </div>
