@@ -12,24 +12,24 @@ use Carbon\Carbon;
 
 class DatesTableSeeder extends Seeder
 {
-    /**
-     * Run the database seeds.
-     *
-     * @return void
-     */
-    public function run()
-    {
-        // DB::table('dates')->truncate();
-        $venues = Venue::all();
-        foreach ($venues as $venue) {
-            for ($week_days = 1; $week_days <= 7; $week_days++) {
-                $venue->dates()->create([
-                    'venue_id' => $venue->id,
-                    'week_day' => $week_days,
-                    'start' => Carbon::parse('08:00'),
-                    'finish' => Carbon::parse('23:00'),
-                ]);
-            };
-        }
+  /**
+   * Run the database seeds.
+   *
+   * @return void
+   */
+  public function run()
+  {
+    // DB::table('dates')->truncate();
+    $venues = Venue::all();
+    foreach ($venues as $venue) {
+      for ($week_days = 1; $week_days <= 7; $week_days++) {
+        $venue->dates()->create([
+          'venue_id' => $venue->id,
+          'week_day' => $week_days,
+          'start' => Carbon::parse('08:00'),
+          'finish' => Carbon::parse('23:00'),
+        ]);
+      };
     }
+  }
 }

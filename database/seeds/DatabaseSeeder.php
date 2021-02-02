@@ -19,9 +19,11 @@ class DatabaseSeeder extends Seeder
       ServicesTableSeeder::class,
       AgentsTableSeeder::class,
       VenuesTableSeeder::class,
+      DatesTableSeeder::class,
+      Frame_priceTableSeeder::class,
+
       // ReservationTableSeeder::class,
       // BillsTableSeeder::class,
-      // DatesTableSeeder::class,
     ]);
   }
 }
