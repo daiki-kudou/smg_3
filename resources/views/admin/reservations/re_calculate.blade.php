@@ -326,8 +326,8 @@
           </thead>
           <tbody>
 
-            {{-- @if (!empty(array_filter($s_services)))
-            @foreach ($services as $key=>$service)
+            @if (!empty(array_filter($s_services)))
+            {{-- @foreach ($services as $key=>$service)
             <tr>
               <td>
                 {{$service->item}}
@@ -341,7 +341,7 @@
               </div>
             </td>
             </tr>
-            @endforeach
+            @endforeach --}}
             @else
             @foreach ($services as $key=>$service)
             <tr>
@@ -359,7 +359,7 @@
             </tr>
             @endforeach
             @endif
-            --}}
+
           </tbody>
         </table>
       </div>
