@@ -964,22 +964,42 @@
               </tr>
             </tbody>
             <tbody class="others_main">
-              <tr>
-                <td>{{ Form::text('others_input_item0', '',['class'=>'form-control'] ) }}</td>
-                <td>{{ Form::text('others_input_cost0', '',['class'=>'form-control'] ) }}</td>
-                <td>{{ Form::text('others_input_count0', '',['class'=>'form-control'] ) }}</td>
-                <td>{{ Form::text('others_input_subtotal0', '',['class'=>'form-control', 'readonly'] ) }}</td>
+              @if ($others_details)
+              @for ($i = 0; $i < count($others_details)/4; $i++) {{$i}} <tr>
+                <td>{{ Form::text('others_input_item'.$i,  $others_details[($i*4)],['class'=>'form-control'] ) }}</td>
+                <td>{{ Form::text('others_input_cost'.$i, $others_details[($i*4)+1],['class'=>'form-control'] ) }}</td>
+                <td>{{ Form::text('others_input_count'.$i, $others_details[($i*4)+2],['class'=>'form-control'] ) }}</td>
+                <td>
+                  {{ Form::text('others_input_subtotal'.$i, $others_details[($i*4)+3],['class'=>'form-control', 'readonly'] ) }}
+                </td>
                 <td>
                   <input type="button" value="＋" class="add pluralBtn">
                   <input type="button" value="ー" class="del pluralBtn">
                 </td>
-              </tr>
+                </tr>
+                @endfor
+                @else
+                <tr>
+                  <td>{{ Form::text('others_input_item0', '',['class'=>'form-control'] ) }}</td>
+                  <td>{{ Form::text('others_input_cost0', '',['class'=>'form-control'] ) }}</td>
+                  <td>{{ Form::text('others_input_count0', '',['class'=>'form-control'] ) }}</td>
+                  <td>{{ Form::text('others_input_subtotal0', '',['class'=>'form-control', 'readonly'] ) }}</td>
+                  <td>
+                    <input type="button" value="＋" class="add pluralBtn">
+                    <input type="button" value="ー" class="del pluralBtn">
+                  </td>
+                </tr>
+                @endif
             </tbody>
             <tbody class="others_result">
               <tr>
                 <td colspan="2"></td>
                 <td colspan="3">合計
+                  @if ($others_details)
+                  {{ Form::text('others_price', $all_requests['others_price'],['class'=>'form-control', 'readonly'] ) }}
+                  @else
                   {{ Form::text('others_price', '',['class'=>'form-control', 'readonly'] ) }}
+                  @endif
                 </td>
               </tr>
             </tbody>

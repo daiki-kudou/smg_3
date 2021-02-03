@@ -818,9 +818,9 @@
   }
 </style>
 
-
 {{Form::open(['route' => 'admin.reservations.recalculate', 'method' => 'POST','id'=>'test_post'])}}
 {{ Form::hidden('all_requests', json_encode($request->all()),['class'=>'form-control','readonly'])}}
+{{ Form::hidden('others_details', json_encode($others_details),['class'=>'form-control','readonly'])}}
 {{Form::submit('', ['class'=>'d-block btn btn-primary btn-lg test_post', 'id'=>'check_submit'])}}
 {{Form::close()}}
 
