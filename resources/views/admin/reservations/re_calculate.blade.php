@@ -327,270 +327,286 @@
           <tbody>
 
             @if (!empty(array_filter($s_services)))
-            {{-- @foreach ($services as $key=>$service)
-            <tr>
-              <td>
-                {{$service->item}}
-            </td>
-            <td>
-              <div class="form-check form-check-inline">
-                {{Form::radio('services_breakdown'.$key, 1, $s_services[$key]==1?true:false , ['id' => 'service'.$key.'on', 'class' => 'form-check-input'])}}
-                <label for="{{'service'.$key.'on'}}" class="form-check-label">有り</label>
-                {{Form::radio('services_breakdown'.$key, 0, $s_services[$key]==0?true:false, ['id' => 'services_breakdown'.$key.'off', 'class' => 'form-check-input'])}}
-                <label for="{{'services_breakdown'.$key.'off'}}" class="form-check-label">無し</label>
-              </div>
-            </td>
-            </tr>
-            @endforeach --}}
-            @else
             @foreach ($services as $key=>$service)
             <tr>
               <td>
                 {{$service->item}}
               </td>
               <td>
+                @if (empty($s_services[$key]))
                 <div class="form-check form-check-inline">
-                  {{Form::radio('services_breakdown'.$key, 1,false , ['id' => 'service'.$key.'on', 'class' => 'form-check-input'])}}
+                  {{Form::radio('services_breakdown'.$key, 1, false , ['id' => 'service'.$key.'on', 'class' => 'form-check-input'])}}
                   <label for="{{'service'.$key.'on'}}" class="form-check-label">有り</label>
-                  {{Form::radio('services_breakdown'.$key, 0, true, ['id' => 'service'.$key.'off', 'class' => 'form-check-input'])}}
-                  <label for="{{'service'.$key.'off'}}" class="form-check-label">無し</label>
+                  {{Form::radio('services_breakdown'.$key, 0, true, ['id' => 'services_breakdown'.$key.'off', 'class' => 'form-check-input'])}}
+                  <label for="{{'services_breakdown'.$key.'off'}}" class="form-check-label">無し</label>
                 </div>
-              </td>
-            </tr>
-            @endforeach
-            @endif
+                @else
+                <div class="form-check form-check-inline">
+                  {{Form::radio('services_breakdown'.$key, 1, $s_services[$key]==1?true:false , ['id' => 'service'.$key.'on', 'class' => 'form-check-input'])}}
+                  <label for="{{'service'.$key.'on'}}" class="form-check-label">有り</label>
+                  {{Form::radio('services_breakdown'.$key, 0, $s_services[$key]==0?true:false, ['id' => 'services_breakdown'.$key.'off', 'class' => 'form-check-input'])}}
+                  <label for="{{'services_breakdown'.$key.'off'}}" class="form-check-label">無し</label>
+                </div>
+                @endif
+                {{-- <div class="form-check form-check-inline">
+                  {{Form::radio('services_breakdown'.$key, 1, $s_services[$key]==1?true:false , ['id' => 'service'.$key.'on', 'class' => 'form-check-input'])}}
+                <label for="{{'service'.$key.'on'}}" class="form-check-label">有り</label>
+                {{Form::radio('services_breakdown'.$key, 0, $s_services[$key]==0?true:false, ['id' => 'services_breakdown'.$key.'off', 'class' => 'form-check-input'])}}
+                <label for="{{'services_breakdown'.$key.'off'}}" class="form-check-label">無し</label>
+      </div> --}}
 
-          </tbody>
-        </table>
-      </div>
-      <div class='layouts'>
-        <table class='table table-bordered' style="table-layout:fixed;">
-          <thead>
-            <tr>
-              <th colspan='2'>レイアウト</th>
-            </tr>
-          </thead>
-          <tbody>
-            @if (!empty($all_requests['layout_prepare_count']))
-            <tr>
-              <td>レイアウト準備</td>
-              <td>
-                <div class="form-check form-check-inline">
-                  {{Form::radio('layout_prepare', 1, true, ['id' => 'layout_prepare', 'class' => 'form-check-input'])}}
-                  <label for='layout_prepare' class="form-check-label">有り</label>
-                  {{Form::radio('layout_prepare', 0, false, ['id' => 'no_layout_prepare', 'class' => 'form-check-input'])}}
-                  <label for='no_layout_prepare' class="form-check-label">無し</label>
-                </div>
-              </td>
-            </tr>
-            @else
-            <tr>
-              <td>レイアウト準備</td>
-              <td>
-                <div class="form-check form-check-inline">
-                  {{Form::radio('layout_prepare', 1, false, ['id' => 'layout_prepare', 'class' => 'form-check-input'])}}
-                  <label for='layout_prepare' class="form-check-label">有り</label>
-                  {{Form::radio('layout_prepare', 0, true, ['id' => 'no_layout_prepare', 'class' => 'form-check-input'])}}
-                  <label for='no_layout_prepare' class="form-check-label">無し</label>
-                </div>
-              </td>
-            </tr>
-            @endif
-            @if (!empty($all_requests['layout_clean_count']))
-            <tr>
-              <td>レイアウト準備</td>
-              <td>
-                <div class="form-check form-check-inline">
-                  {{Form::radio('layout_clean', 1, true, ['id' => 'layout_clean', 'class' => 'form-check-input'])}}
-                  <label for='layout_clean' class="form-check-label">有り</label>
-                  {{Form::radio('layout_clean', 0, false, ['id' => 'no_layout_clean', 'class' => 'form-check-input'])}}
-                  <label for='no_layout_clean' class="form-check-label">無し</label>
-                </div>
-              </td>
-            </tr>
-            @else
-            <tr>
-              <td>レイアウト準備</td>
-              <td>
-                <div class="form-check form-check-inline">
-                  {{Form::radio('layout_clean', 1, false, ['id' => 'layout_clean', 'class' => 'form-check-input'])}}
-                  <label for='layout_clean' class="form-check-label">有り</label>
-                  {{Form::radio('layout_clean', 0, true, ['id' => 'no_layout_clean', 'class' => 'form-check-input'])}}
-                  <label for='no_layout_clean' class="form-check-label">無し</label>
-                </div>
-              </td>
-            </tr>
-            @endif
-          </tbody>
-        </table>
-      </div>
-      <div class='luggage'>
-        <table class='table table-bordered' style="table-layout:fixed;">
-          <thead>
-            <tr>
-              <th colspan='2'>荷物預かり</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td>事前に預かる荷物<br>（個数）</td>
-              <td>
-                {{ Form::text('luggage_count', empty($all_requests['luggage_count'])?"":$all_requests['luggage_count'],['class'=>'form-control'] ) }}
-              </td>
-            </tr>
-            <tr>
-              <td>事前荷物の到着日<br>午前指定のみ</td>
-              <td>
-                {{ Form::text('luggage_arrive', empty($all_requests['luggage_arrive'])?"":$all_requests['luggage_arrive'],['class'=>'form-control'] ) }}
-              </td>
-            </tr>
-            <tr>
-              <td>事後返送する荷物</td>
-              <td>
-                {{ Form::text('luggage_return', empty($all_requests['luggage_return'])?"":$all_requests['luggage_return'],['class'=>'form-control'] ) }}
+      </td>
+      </tr>
+      @endforeach
+      @else
+      @foreach ($services as $key=>$service)
+      <tr>
+        <td>
+          {{$service->item}}
+        </td>
+        <td>
+          <div class="form-check form-check-inline">
+            {{Form::radio('services_breakdown'.$key, 1,false , ['id' => 'service'.$key.'on', 'class' => 'form-check-input'])}}
+            <label for="{{'service'.$key.'on'}}" class="form-check-label">有り</label>
+            {{Form::radio('services_breakdown'.$key, 0, true, ['id' => 'service'.$key.'off', 'class' => 'form-check-input'])}}
+            <label for="{{'service'.$key.'off'}}" class="form-check-label">無し</label>
+          </div>
+        </td>
+      </tr>
+      @endforeach
+      @endif
 
-              </td>
-            </tr>
-            <tr>
-              <td>荷物預かり/返送<br>料金</td>
-              <td>
-                {{ Form::text('luggage_price', empty($all_requests['luggage_price'])?"":$all_requests['luggage_price'],['class'=>'form-control'] ) }}
-              </td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
+      </tbody>
+      </table>
     </div>
-
-    <div class="col">
-      <div class="client_mater">　
-        <table class="table table-bordered name-table" style="table-layout:fixed;">
+    <div class='layouts'>
+      <table class='table table-bordered' style="table-layout:fixed;">
+        <thead>
           <tr>
-            <td colspan="2">
-              <div class="d-flex align-items-center justify-content-between">
-                <p class="title-icon">
-                  <i class="far fa-id-card fa-2x fa-fw"></i>顧客情報
-                </p>
-                <p><a class="more_btn bg-green" href="">顧客詳細</a></p>
+            <th colspan='2'>レイアウト</th>
+          </tr>
+        </thead>
+        <tbody>
+          @if (!empty($all_requests['layout_prepare_count']))
+          <tr>
+            <td>レイアウト準備</td>
+            <td>
+              <div class="form-check form-check-inline">
+                {{Form::radio('layout_prepare', 1, true, ['id' => 'layout_prepare', 'class' => 'form-check-input'])}}
+                <label for='layout_prepare' class="form-check-label">有り</label>
+                {{Form::radio('layout_prepare', 0, false, ['id' => 'no_layout_prepare', 'class' => 'form-check-input'])}}
+                <label for='no_layout_prepare' class="form-check-label">無し</label>
               </div>
             </td>
           </tr>
+          @else
           <tr>
-            <td class="table-active"><label for="user_id" class=" form_required">会社名/団体名</label></td>
+            <td>レイアウト準備</td>
             <td>
-              <select class="form-control" name="user_id" id="user_select">
-                <option disabled selected>選択してください</option>
-                @foreach ($users as $user)
-                <option value="{{$user->id}}" @if ($all_requests['user_id']==$user->id)
-                  selected
-                  @endif
-                  >
-                  {{$user->company}} ・ {{ReservationHelper::getPersonName($user->id)}} ・ {{$user->email}}
-                </option>
-                @endforeach
-              </select>
-              <p class="is-error-user_id" style="color: red"></p>
+              <div class="form-check form-check-inline">
+                {{Form::radio('layout_prepare', 1, false, ['id' => 'layout_prepare', 'class' => 'form-check-input'])}}
+                <label for='layout_prepare' class="form-check-label">有り</label>
+                {{Form::radio('layout_prepare', 0, true, ['id' => 'no_layout_prepare', 'class' => 'form-check-input'])}}
+                <label for='no_layout_prepare' class="form-check-label">無し</label>
+              </div>
+            </td>
+          </tr>
+          @endif
+          @if (!empty($all_requests['layout_clean_count']))
+          <tr>
+            <td>レイアウト準備</td>
+            <td>
+              <div class="form-check form-check-inline">
+                {{Form::radio('layout_clean', 1, true, ['id' => 'layout_clean', 'class' => 'form-check-input'])}}
+                <label for='layout_clean' class="form-check-label">有り</label>
+                {{Form::radio('layout_clean', 0, false, ['id' => 'no_layout_clean', 'class' => 'form-check-input'])}}
+                <label for='no_layout_clean' class="form-check-label">無し</label>
+              </div>
+            </td>
+          </tr>
+          @else
+          <tr>
+            <td>レイアウト準備</td>
+            <td>
+              <div class="form-check form-check-inline">
+                {{Form::radio('layout_clean', 1, false, ['id' => 'layout_clean', 'class' => 'form-check-input'])}}
+                <label for='layout_clean' class="form-check-label">有り</label>
+                {{Form::radio('layout_clean', 0, true, ['id' => 'no_layout_clean', 'class' => 'form-check-input'])}}
+                <label for='no_layout_clean' class="form-check-label">無し</label>
+              </div>
+            </td>
+          </tr>
+          @endif
+        </tbody>
+      </table>
+    </div>
+    <div class='luggage'>
+      <table class='table table-bordered' style="table-layout:fixed;">
+        <thead>
+          <tr>
+            <th colspan='2'>荷物預かり</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>事前に預かる荷物<br>（個数）</td>
+            <td>
+              {{ Form::text('luggage_count', empty($all_requests['luggage_count'])?"":$all_requests['luggage_count'],['class'=>'form-control'] ) }}
             </td>
           </tr>
           <tr>
-            <td class="table-active"><label for="name" class=" form_required">担当者氏名<br></label></td>
+            <td>事前荷物の到着日<br>午前指定のみ</td>
             <td>
-              {{ Form::text('', $all_requests['user_id']?ReservationHelper::getPersonName($all_requests['user_id']):'',['class'=>'form-control'] ) }}
+              {{ Form::text('luggage_arrive', empty($all_requests['luggage_arrive'])?"":$all_requests['luggage_arrive'],['class'=>'form-control'] ) }}
             </td>
           </tr>
-        </table>
-        <table class="table table-bordered oneday-table" style="table-layout:fixed;">
           <tr>
-            <td colspan="2">
+            <td>事後返送する荷物</td>
+            <td>
+              {{ Form::text('luggage_return', empty($all_requests['luggage_return'])?"":$all_requests['luggage_return'],['class'=>'form-control'] ) }}
+
+            </td>
+          </tr>
+          <tr>
+            <td>荷物預かり/返送<br>料金</td>
+            <td>
+              {{ Form::text('luggage_price', empty($all_requests['luggage_price'])?"":$all_requests['luggage_price'],['class'=>'form-control'] ) }}
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <div class="col">
+    <div class="client_mater">　
+      <table class="table table-bordered name-table" style="table-layout:fixed;">
+        <tr>
+          <td colspan="2">
+            <div class="d-flex align-items-center justify-content-between">
               <p class="title-icon">
-                <i class="fas fa-user-check fa-2x fa-fw"></i>当日の連絡できる担当者
+                <i class="far fa-id-card fa-2x fa-fw"></i>顧客情報
               </p>
-            </td>
-          </tr>
-          <tr>
-            <td class="table-active"><label for="ondayName" class=" form_required">氏名</label></td>
-            <td>
-              {{ Form::text('in_charge', $all_requests['in_charge'],['class'=>'form-control'] ) }}
-            </td>
-          </tr>
-          <tr>
-            <td class="table-active"><label for="mobilePhone" class=" form_required">携帯番号</label></td>
-            <td>
-              {{ Form::text('tel', $all_requests['tel'],['class'=>'form-control'] ) }}
-            </td>
-          </tr>
-        </table>
-      </div>
-      <table class="table table-bordered mail-table" style="table-layout:fixed;">
-        <tr>
-          <td colspan="2">
-            <p class="title-icon">
-              <i class="fas fa-envelope fa-2x fa-fw"></i>利用後の送信メール
-            </p>
+              <p><a class="more_btn bg-green" href="">顧客詳細</a></p>
+            </div>
           </td>
         </tr>
         <tr>
-          <td class="table-active"><label for="email_flag">送信メール</label></td>
+          <td class="table-active"><label for="user_id" class=" form_required">会社名/団体名</label></td>
           <td>
-            {{ Form::text('', $all_requests['email_flag']==1?"有り":"無し",['class'=>'form-control'] ) }}
-            {{ Form::hidden('email_flag', $all_requests['email_flag'],['class'=>'form-control'] ) }}
+            <select class="form-control" name="user_id" id="user_select">
+              <option disabled selected>選択してください</option>
+              @foreach ($users as $user)
+              <option value="{{$user->id}}" @if ($all_requests['user_id']==$user->id)
+                selected
+                @endif
+                >
+                {{$user->company}} ・ {{ReservationHelper::getPersonName($user->id)}} ・ {{$user->email}}
+              </option>
+              @endforeach
+            </select>
+            <p class="is-error-user_id" style="color: red"></p>
+          </td>
+        </tr>
+        <tr>
+          <td class="table-active"><label for="name" class=" form_required">担当者氏名<br></label></td>
+          <td>
+            {{ Form::text('', $all_requests['user_id']?ReservationHelper::getPersonName($all_requests['user_id']):'',['class'=>'form-control'] ) }}
           </td>
         </tr>
       </table>
-      <table class="table table-bordered sale-table" style="table-layout:fixed;">
+      <table class="table table-bordered oneday-table" style="table-layout:fixed;">
         <tr>
           <td colspan="2">
             <p class="title-icon">
-              <i class="fas fa-yen-sign fa-2x fa-fw"></i>売上原価（提携会場を選択した場合、提携会場で設定した原価率が適応されます）
+              <i class="fas fa-user-check fa-2x fa-fw"></i>当日の連絡できる担当者
             </p>
           </td>
         </tr>
         <tr>
-          <td class="table-active"><label for="cost">原価率</label></td>
+          <td class="table-active"><label for="ondayName" class=" form_required">氏名</label></td>
           <td>
-            {{ Form::text('', $all_requests['cost']."%",['class'=>'form-control'] ) }}
-            {{ Form::hidden('cost', $all_requests['cost'],['class'=>'form-control'] ) }}
-          </td>
-        </tr>
-      </table>
-      <table class="table table-bordered note-table">
-        <tr>
-          <td colspan="2">
-            <p class="title-icon">
-              <i class="fas fa-envelope fa-2x fa-fw"></i>備考
-            </p>
+            {{ Form::text('in_charge', $all_requests['in_charge'],['class'=>'form-control'] ) }}
           </td>
         </tr>
         <tr>
+          <td class="table-active"><label for="mobilePhone" class=" form_required">携帯番号</label></td>
           <td>
-            <input type="checkbox" id="discount" checked>
-            <label for="discount">割引条件</label>
-            {{ Form::textarea('discount_condition', empty($all_requests['discount_condition'])?'':$all_requests['discount_condition'],['class'=>'form-control'] ) }}
-          </td>
-        </tr>
-        <tr class="caution">
-          <td>
-            <label for="caution">注意事項</label>
-            {{ Form::textarea('attention', empty($all_requests['attention'])?'':$all_requests['attention'],['class'=>'form-control'] ) }}
-
-          </td>
-        </tr>
-        <tr>
-          <td>
-            <label for="userNote">顧客情報の備考</label>
-            {{ Form::textarea('user_details', empty($all_requests['user_details'])?'':$all_requests['user_details'],['class'=>'form-control'] ) }}
-
-          </td>
-        </tr>
-        <tr>
-          <td>
-            <label for="adminNote">管理者備考</label>
-            {{ Form::textarea('admin_details', empty($all_requests['admin_details'])?'':$all_requests['admin_details'],['class'=>'form-control'] ) }}
+            {{ Form::text('tel', $all_requests['tel'],['class'=>'form-control'] ) }}
           </td>
         </tr>
       </table>
     </div>
+    <table class="table table-bordered mail-table" style="table-layout:fixed;">
+      <tr>
+        <td colspan="2">
+          <p class="title-icon">
+            <i class="fas fa-envelope fa-2x fa-fw"></i>利用後の送信メール
+          </p>
+        </td>
+      </tr>
+      <tr>
+        <td class="table-active"><label for="email_flag">送信メール</label></td>
+        <td>
+          {{ Form::text('', $all_requests['email_flag']==1?"有り":"無し",['class'=>'form-control'] ) }}
+          {{ Form::hidden('email_flag', $all_requests['email_flag'],['class'=>'form-control'] ) }}
+        </td>
+      </tr>
+    </table>
+    <table class="table table-bordered sale-table" style="table-layout:fixed;">
+      <tr>
+        <td colspan="2">
+          <p class="title-icon">
+            <i class="fas fa-yen-sign fa-2x fa-fw"></i>売上原価（提携会場を選択した場合、提携会場で設定した原価率が適応されます）
+          </p>
+        </td>
+      </tr>
+      <tr>
+        <td class="table-active"><label for="cost">原価率</label></td>
+        <td>
+          {{ Form::text('', $all_requests['cost']."%",['class'=>'form-control'] ) }}
+          {{ Form::hidden('cost', $all_requests['cost'],['class'=>'form-control'] ) }}
+        </td>
+      </tr>
+    </table>
+    <table class="table table-bordered note-table">
+      <tr>
+        <td colspan="2">
+          <p class="title-icon">
+            <i class="fas fa-envelope fa-2x fa-fw"></i>備考
+          </p>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <input type="checkbox" id="discount" checked>
+          <label for="discount">割引条件</label>
+          {{ Form::textarea('discount_condition', empty($all_requests['discount_condition'])?'':$all_requests['discount_condition'],['class'=>'form-control'] ) }}
+        </td>
+      </tr>
+      <tr class="caution">
+        <td>
+          <label for="caution">注意事項</label>
+          {{ Form::textarea('attention', empty($all_requests['attention'])?'':$all_requests['attention'],['class'=>'form-control'] ) }}
+
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <label for="userNote">顧客情報の備考</label>
+          {{ Form::textarea('user_details', empty($all_requests['user_details'])?'':$all_requests['user_details'],['class'=>'form-control'] ) }}
+
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <label for="adminNote">管理者備考</label>
+          {{ Form::textarea('admin_details', empty($all_requests['admin_details'])?'':$all_requests['admin_details'],['class'=>'form-control'] ) }}
+        </td>
+      </tr>
+    </table>
   </div>
+</div>
 </div>
 
 {{Form::submit('再計算する', ['class'=>'btn btn-danger mx-auto d-block btn-lg mt-5 mb-5', 'id'=>'check_submit'])}}
