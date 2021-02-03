@@ -325,20 +325,21 @@
             </tr>
           </thead>
           <tbody>
-            @if (!empty(array_filter($s_services)))
+
+            {{-- @if (!empty(array_filter($s_services)))
             @foreach ($services as $key=>$service)
             <tr>
               <td>
                 {{$service->item}}
-              </td>
-              <td>
-                <div class="form-check form-check-inline">
-                  {{Form::radio('services_breakdown'.$key, 1, $s_services[$key]==1?true:false , ['id' => 'service'.$key.'on', 'class' => 'form-check-input'])}}
-                  <label for="{{'service'.$key.'on'}}" class="form-check-label">有り</label>
-                  {{Form::radio('services_breakdown'.$key, 0, $s_services[$key]==0?true:false, ['id' => 'services_breakdown'.$key.'off', 'class' => 'form-check-input'])}}
-                  <label for="{{'services_breakdown'.$key.'off'}}" class="form-check-label">無し</label>
-                </div>
-              </td>
+            </td>
+            <td>
+              <div class="form-check form-check-inline">
+                {{Form::radio('services_breakdown'.$key, 1, $s_services[$key]==1?true:false , ['id' => 'service'.$key.'on', 'class' => 'form-check-input'])}}
+                <label for="{{'service'.$key.'on'}}" class="form-check-label">有り</label>
+                {{Form::radio('services_breakdown'.$key, 0, $s_services[$key]==0?true:false, ['id' => 'services_breakdown'.$key.'off', 'class' => 'form-check-input'])}}
+                <label for="{{'services_breakdown'.$key.'off'}}" class="form-check-label">無し</label>
+              </div>
+            </td>
             </tr>
             @endforeach
             @else
@@ -358,7 +359,7 @@
             </tr>
             @endforeach
             @endif
-
+            --}}
           </tbody>
         </table>
       </div>
