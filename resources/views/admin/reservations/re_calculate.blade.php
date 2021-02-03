@@ -348,7 +348,6 @@
                   <label for="{{'services_breakdown'.$key.'off'}}" class="form-check-label">無し</label>
                 </div>
                 @endif
-
               </td>
             </tr>
             @endforeach
