@@ -82,6 +82,10 @@ Route::namespace('Admin')->prefix('admin')->name('admin.')->group(function () {
     Route::resource('reservations', 'ReservationsController');
     // 予約　計算
     Route::post('reservations/calculate', 'ReservationsController@calculate')->name('reservations.calculate');
+// 予約再計算
+Route::post('reservations/recalculate', 'ReservationsController@recalculate')->name('reservations.recalculate');
+
+
     // 予約　（確認）
     Route::post('reservations/check', 'ReservationsController@check')->name('reservations.check');
     // ajax アイテム

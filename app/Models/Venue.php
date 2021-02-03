@@ -491,7 +491,10 @@ class Venue extends Model
     $judge_equipment = array_filter($selected_equipments);
     if (!empty($judge_equipment)) {
       for ($i = 0; $i < count($venue_equipments); $i++) {
-        $equipments_total = $equipments_total + ($venue_equipments[$i]->price) * ($selected_equipments[$i]);
+        $equipments_total = 
+        $equipments_total + 
+        ($venue_equipments[$i]->price) 
+        * ($selected_equipments[$i]);
         if ($selected_equipments[$i] != 0) {
           $selected_e_item = $venue_equipments[$i]->item;
           $selected_e_price = $venue_equipments[$i]->price;

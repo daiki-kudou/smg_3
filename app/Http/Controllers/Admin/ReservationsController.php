@@ -245,17 +245,78 @@ class ReservationsController extends Controller
 
   public function calculate(Request $request)
   {
+    // if ($request->has('all_requests')) {
+    //   $all_requests=json_decode($request->all_requests,true);
+    //   var_dump($all_requests);
+    // $users=User::all();
+    // $venues=Venue::all();
+    // $venue = Venue::find($all_requests['venue_id']);
+    // $equipments = $venue->equipments()->get();
+    // $services = $venue->services()->get();
+    // $price_details = $venue->calculate_price( //[0]は合計料金, [1]は延長料金, [2]は合計＋延長、 [3]は利用時間, [4]は延長時間
+    //   $all_requests['price_system'],
+    //   $all_requests['enter_time'],
+    //   $all_requests['leave_time']
+    // );
+    // echo"<pre>";var_dump($price_details);echo"</pre>";
+    // $s_equipment = [];
+    // $s_services = [];
+    // foreach ($all_requests as $key => $value) {
+    //   if (preg_match('/equipment_breakdown_count/', $key)) {
+    //     $s_equipment[] = $value;
+    //   }
+    //   if (preg_match('/services_breakdown_count/', $key)) {
+    //     $s_services[] = $value;
+    //   }
+    // }
+
+    // // echo"<pre>";var_dump($s_equipment);echo"</pre>";
+    // // echo"<pre>";var_dump($s_services);echo"</pre>";
+    // $item_details = $venue->calculate_items_price($s_equipment, $s_services);    // [0]備品＋サービス [1]備品詳細 [2]サービス詳細 [3]備品合計 [4]サービス合計
+    // $layouts_details = $venue->getLayoutPrice($all_requests['layout_prepare_count'], $all_requests['layout_clean_count']);
+    // if ($price_details == 0) { //枠がなく会場料金を手打ちするパターン
+    //   $masters =
+    //     ($item_details[0] + $request->luggage_price)
+    //     + $layouts_details[2];
+    // } else {
+    //   $masters =
+    //     ($price_details[2] ? $price_details[2] : 0)
+    //     + ($item_details[0] + $request->luggage_price)
+    //     + $layouts_details[2];
+    // }
+    // $user = User::find($all_requests['user_id']);
+    // $pay_limit = $user->getUserPayLimit($request->reserve_date);
+
+    // return view('admin.reservations.calculate', [
+
+    //   'all_requests' => $all_requests,
+    //   'venues' => $venues,
+    //   'users' => $users,
+    //   'request' => $request,
+    //   'equipments' => $equipments,
+    //   'services' => $services,
+    //   's_equipment' => $s_equipment, //選択された備品
+    //   's_services' => $s_services, //選択されたサービス
+    //   'price_details' => $price_details,
+    //   'item_details' => $item_details,
+    //   'layouts_details' => $layouts_details,
+    //   'masters' => $masters,
+    //   'pay_limit' => $pay_limit,
+    //   'user' => $user,
+    // ]);
+    // }
+    // else{
+
+    $users = User::all();
+    $venues = Venue::all();
     $venue = Venue::find($request->venue_id);
     $equipments = $venue->equipments()->get();
     $services = $venue->services()->get();
-
-    //[0]は合計料金, [1]は延長料金, [2]は合計＋延長、 [3]は利用時間, [4]は延長時間
-    $price_details = $venue->calculate_price(
+    $price_details = $venue->calculate_price( //[0]は合計料金, [1]は延長料金, [2]は合計＋延長、 [3]は利用時間, [4]は延長時間
       $request->price_system,
       $request->enter_time,
       $request->leave_time
     );
-
     $s_equipment = [];
     $s_services = [];
     foreach ($request->all() as $key => $value) {
@@ -266,9 +327,7 @@ class ReservationsController extends Controller
         $s_services[] = $value;
       }
     }
-
-    // [0]備品＋サービス [1]備品詳細 [2]サービス詳細 [3]備品合計 [4]サービス合計
-    $item_details = $venue->calculate_items_price($s_equipment, $s_services);
+    $item_details = $venue->calculate_items_price($s_equipment, $s_services);    // [0]備品＋サービス [1]備品詳細 [2]サービス詳細 [3]備品合計 [4]サービス合計
     $layouts_details = $venue->getLayoutPrice($request->layout_prepare, $request->layout_clean);
     if ($price_details == 0) { //枠がなく会場料金を手打ちするパターン
       $masters =
@@ -280,14 +339,11 @@ class ReservationsController extends Controller
         + ($item_details[0] + $request->luggage_price)
         + $layouts_details[2];
     }
-
     $user = User::find($request->user_id);
     $pay_limit = $user->getUserPayLimit($request->reserve_date);
-
-    // var_dump($price_details[2]);
-
-
     return view('admin.reservations.calculate', [
+      'venues' => $venues,
+      'users' => $users,
       'request' => $request,
       'equipments' => $equipments,
       'services' => $services,
@@ -300,10 +356,52 @@ class ReservationsController extends Controller
       'pay_limit' => $pay_limit,
       'user' => $user,
     ]);
+    // }
   }
 
+  public function recalculate(Request $request)
+  {
+    $all_requests = json_decode($request->all_requests, true);
+    $venues = Venue::all();
+    $venue = $venues->find($all_requests['venue_id']);
+    $equipments = $venue->equipments()->get();
+    $services = $venue->services()->get();
+    $users = User::all();
+
+    $s_equipment = [];
+    $s_services = [];
+    foreach ($all_requests as $key => $value) {
+      if (preg_match('/equipment_breakdown_count/', $key)) {
+        $s_equipment[] = $value;
+      }
+      if (preg_match('/services_breakdown_count/', $key)) {
+        $s_services[] = $value;
+      }
+    }
+    $price_details = $venue->calculate_price( //[0]は合計料金, [1]は延長料金, [2]は合計＋延長、 [3]は利用時間, [4]は延長時間
+      $all_requests['price_system'],
+      $all_requests['enter_time'],
+      $all_requests['leave_time']
+    );
+    $item_details = json_decode($all_requests['item_details']);
+
+    $layouts_details = json_decode($all_requests['layouts_details']);
 
 
+    return view('admin.reservations.re_calculate', [
+      'all_requests' => $all_requests,
+      'venues' => $venues,
+      'equipments' => $equipments,
+      'services' => $services,
+      's_equipment' => $s_equipment,
+      's_services' => $s_services,
+      'users' => $users,
+      'price_details' => $price_details,
+      'item_details' => $item_details,
+      'layouts_details' => $layouts_details,
+
+    ]);
+  }
 
 
   public function check(Request $request)
@@ -361,31 +459,7 @@ class ReservationsController extends Controller
    */
   public function store(Request $request)
   {
-    // $this->validate($request, [
-    //   'reserve_date' => ['required', 'max:191'],
-    //   'venue_id' => ['required', 'max:191'],
-    //   'enter_time' => ['required', 'max:191'],
-    //   'leave_time' => ['required', 'max:191'],
-    //   'board_flag' => ['required', 'max:191'],
-    //   'event_start' => ['required', 'max:191'],
-    //   'event_finish' => ['required', 'max:191'],
-    //   'event_name1' => ['required', 'max:191'],
-    //   'event_name2' => ['required', 'max:191'],
-    //   'event_owner' => 'required',
-    //   'user_id' => 'required',
-    //   'in_charge' => 'required',
-    //   'tel' => ['required', 'max:191'],
-    //   'email_flag' => ['required', 'max:191'],
-    //   'cost' => 'required',
-    //   'payment_limit' => 'required',
-    //   'paid' => 'required',
-    //   'reservation_status' => 'required',
-    //   'double_check_status' => ['required', 'max:191'],
-    //   'bill_company' => 'required',
-    //   'bill_person' => 'required',
-    //   'bill_created_at' => 'required',
-    //   'bill_pay_limit' => 'required',
-    // ]);
+
 
 
 

@@ -151,20 +151,20 @@
             </tr>
           </thead>
           <tbody>
-            @if ($request->layout_prepare)
+            @if ($request->layout_prepare_count)
             <tr>
               <td>レイアウト準備</td>
               <td>
-                {{ Form::text('', $request->layout_prepare==1?"有り":"無し",['class'=>'form-control', 'readonly'] ) }}
+                {{ Form::text('', $request->layout_prepare_count==1?"有り":"無し",['class'=>'form-control', 'readonly'] ) }}
                 {{ Form::hidden('layout_prepare', $request->layout_prepare,['class'=>'form-control', 'readonly'] ) }}
               </td>
             </tr>
             @endif
-            @if ($request->layout_clean)
+            @if ($request->layout_clean_count)
             <tr>
               <td>レイアウト準備</td>
               <td>
-                {{ Form::text('', $request->layout_clean==1?"有り":"無し",['class'=>'form-control', 'readonly'] ) }}
+                {{ Form::text('', $request->layout_clean_count==1?"有り":"無し",['class'=>'form-control', 'readonly'] ) }}
                 {{ Form::hidden('layout_clean', $request->layout_clean,['class'=>'form-control', 'readonly'] ) }}
               </td>
             </tr>
@@ -481,7 +481,7 @@
           </table>
         </div>
         {{-- 以下備品 --}}
-        @if ($equipment_details)
+        @if ($equipment_details ||$service_details)
         <div class="equipment" style="padding-top: 80px; width:90%; margin:0 auto;">
           <table class="table table-borderless">
             <tr>
@@ -819,9 +819,8 @@
 </style>
 
 
-{{Form::open(['route' => 'admin.reservations.create', 'method' => 'GET','id'=>'test_post'])}}
+{{Form::open(['route' => 'admin.reservations.recalculate', 'method' => 'POST','id'=>'test_post'])}}
 {{ Form::hidden('all_requests', json_encode($request->all()),['class'=>'form-control','readonly'])}}
-{{ Form::hidden('venue_number_discount', $request->venue_number_discount,['class'=>'form-control','readonly'])}}
 {{Form::submit('', ['class'=>'d-block btn btn-primary btn-lg test_post', 'id'=>'check_submit'])}}
 {{Form::close()}}
 
