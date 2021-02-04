@@ -628,10 +628,26 @@ class ReservationsController extends Controller
     $reservation = Reservation::find($id);
     $venues = Venue::all();
     $users = User::all();
+    $services = $venues->find($reservation->venue_id)->services()->get();
+    $s_services = [];
+    foreach ($services as $key => $value) {
+      if ($reservation->bills()->first()->breakdowns()->where('unit_item', $value->item)->first()) {
+        $s_services[] = 1;
+      } else {
+        $s_services[] = 0;
+      }
+    }
+
+    var_dump($s_services);
+
+
+
     return view('admin.reservations.edit', [
       'reservation' => $reservation,
       'venues' => $venues,
       'users' => $users,
+      'services' => $services,
+      's_services' => $s_services,
     ]);
   }
 

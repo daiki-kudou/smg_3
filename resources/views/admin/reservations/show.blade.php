@@ -1378,7 +1378,7 @@
 
 
   <!-- 請求セクション------------------------------------------------------------------- -->
-  <!-- <section class="bill-wrap section-wrap section-bg">
+<section class="bill-wrap section-wrap section-bg">
     <div class="bill-bg">
       <div class="bill-ttl mb-5">
         <div class="section-ttl-box d-flex align-items-center">
@@ -1646,10 +1646,10 @@
         </dl>
       </div>
     </div>
-  </section>  -->
+  </section>  
 
 
-  <!-- @foreach ($other_bills as $key=>$other_bill)
+ @foreach ($other_bills as $key=>$other_bill)
   <div class="section-wrap">
     <div class="ttl-box d-flex align-items-center">
       <div class="col-9 d-flex justify-content-between">
@@ -1922,7 +1922,7 @@
 
 </section>
 </div>
-@endforeach  -->
+@endforeach  
 
 
 
