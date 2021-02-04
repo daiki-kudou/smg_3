@@ -338,7 +338,7 @@
             <td rowspan="{{count($reservation->bills()->get())}}">※修正</td>
             <td>会場予約</td>　{{--重要。固定最初は必ず　会場予約　のカテゴリ--}}
             <td>
-              {{-- {{ReservationHelper::judgeStatus($reservation->bills()->first()->reservation_status)}} --}}
+              {{ReservationHelper::judgeStatus($reservation->bills()->first()->reservation_status)}}
             </td>
             <td rowspan="{{count($reservation->bills()->get())}}"><a
                 href="{{ url('admin/reservations', $reservation->id) }}" class="more_btn">詳細</a></td>
@@ -347,18 +347,19 @@
           </tr>
           @for ($i = 0; $i < count($reservation->bills()->get())-1; $i++)
             <tr>
-              <td></td>
+              <td>
+                @if ($reservation->bills()->skip($i+1)->first()->category==2)
+                追加請求
+                @endif
+              </td>
               <td>{{ReservationHelper::judgeStatus($reservation->bills()->skip($i+1)->first()->reservation_status)}}
               </td>
             </tr>
             @endfor
         </tbody>
         @endforeach
-
-
       </table>
     </div>
-
   </div>
 
   <ul class="pagination justify-content-center">

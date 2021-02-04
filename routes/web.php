@@ -82,8 +82,8 @@ Route::namespace('Admin')->prefix('admin')->name('admin.')->group(function () {
     Route::resource('reservations', 'ReservationsController');
     // 予約　計算
     Route::post('reservations/calculate', 'ReservationsController@calculate')->name('reservations.calculate');
-// 予約再計算
-Route::post('reservations/recalculate', 'ReservationsController@recalculate')->name('reservations.recalculate');
+    // 予約再計算
+    Route::post('reservations/recalculate', 'ReservationsController@recalculate')->name('reservations.recalculate');
 
 
     // 予約　（確認）
@@ -109,7 +109,7 @@ Route::post('reservations/recalculate', 'ReservationsController@recalculate')->n
     // ajax 会場　直営 or 提携　判別
     Route::post('clients/getclients', 'ClientsController@getclients');
     //予約に対するダブルチェック
-    Route::post('reservations/{reservation}/double_check', 'ReservationsController@doublecheck')->name('reservations.double_check');
+    Route::post('reservations/{reservation}/double_check', 'ReservationsController@double_check')->name('reservations.double_check');
 
     Route::get('reservations/generate_pdf/{reservation}', 'ReservationsController@generate_pdf')->name('reservations.generate_pdf');
     // Bill　予約に紐づく

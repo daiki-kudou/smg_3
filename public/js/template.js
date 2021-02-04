@@ -969,6 +969,15 @@ $(function () {
     'layout_breakdown_discount_cost', 'layout_breakdown_discount_count', 'layout_breakdown_discount_subtotal',
     'layout_main'
   );
+  discounts(
+    'others_number_discount', 'others_percent_discount', 'others_price',
+    'others_discount_btn', 'others_input_discounts',
+    'others_breakdown_discount_item',
+    'others_breakdown_discount_cost',
+    'others_breakdown_discount_count',
+    'others_breakdown_discount_subtotal',
+    'others_main'
+  );
 })
 
 

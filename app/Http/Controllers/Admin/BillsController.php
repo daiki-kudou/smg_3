@@ -178,34 +178,34 @@ class BillsController extends Controller
 
   public function OtherDoubleCheck(Request $request)
   {
-    $bill = Bill::find($request->bills_id);
-
-    if ($request->double_check_status == 0) {
-      $bill->update([
-        'double_check1_name' => $request->double_check1_name,
-        'double_check_status' => 1
-      ]);
-    } else if ($request->double_check_status == 1) {
-      $bill->update([
-        'double_check2_name' => $request->double_check2_name,
-        'double_check_status' => 2
-      ]);
-    }
-    return redirect('admin/reservations/' . $bill->reservation_id);
+    DB::transaction(function () use ($request) {
+      $bill = Bill::find($request->bills_id);
+      if ($request->double_check_status == 0) {
+        $bill->update([
+          'double_check1_name' => $request->double_check1_name,
+          'double_check_status' => 1
+        ]);
+      } else if ($request->double_check_status == 1) {
+        $bill->update([
+          'double_check2_name' => $request->double_check2_name,
+          'double_check_status' => 2
+        ]);
+      }
+      return redirect('admin/reservations/' . $bill->reservation_id);
+    });
   }
 
   public function other_send_approve(Request $request)
   {
     DB::transaction(function () use ($request) { //トランザクションさせる
-
-      $bill = Bill::find($request->id);
+      $bill = Bill::find($request->bill_id);
       $bill->update([
         'reservation_status' => 2, 'approve_send_at' => date('Y-m-d H:i:s')
       ]);
       $email = $bill->reservation->user->email;
       Mail::to($email)->send(new SendUserOtherBillsApprove($bill));
     });
-    // return redirect()->route('admin.reservations.index');
+    return redirect()->route('admin.reservations.index');
   }
 
 

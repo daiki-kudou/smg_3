@@ -349,6 +349,7 @@ class ReservationsController extends Controller
 
   public function check(Request $request)
   {
+    var_dump($request->all());
     $venue = Venue::find($request->venue_id);
     $equipments = $venue->equipments()->get();
     $services = $venue->services()->get();
@@ -554,17 +555,42 @@ class ReservationsController extends Controller
       $other_bills[] = $reservation->bills()->skip($i + 1)->first();
     }
 
+    $venues_master = 0;
+    $items_master = 0;
+    $layouts_master = 0;
+    $others_master = 0;
+
+    foreach ($reservation->bills()->get() as $key => $value) {
+      $venues_master += $value->venue_price;
+      $items_master += $value->equipment_price;
+      $layouts_master += $value->layout_price;
+      $others_master += $value->others_price;
+    }
+
+    $all_master_subtotal = $venues_master + $items_master + $layouts_master + $others_master;
+    $all_master_tax = floor($all_master_subtotal * 0.1);
+    $all_master_total = $all_master_subtotal + $all_master_tax;
+
     return view('admin.reservations.show', [
       'reservation' => $reservation,
       'equipments' => $equipments,
       'services' => $services,
       'breakdowns' => $breakdowns,
       'user' => $user,
-      'other_bills' => $other_bills
+      'other_bills' => $other_bills,
+
+      'venues_master' => $venues_master,
+      'items_master' => $items_master,
+      'layouts_master' => $layouts_master,
+      'others_master' => $others_master,
+      'all_master_subtotal' => $all_master_subtotal,
+      'all_master_tax' => $all_master_tax,
+      'all_master_total' => $all_master_total,
+
     ]);
   }
 
-  public function doublecheck(Request $request, $id)
+  public function double_check(Request $request, $id)
   {
     $reservation_bills = Reservation::find($id)->bills()->first();
 
@@ -638,7 +664,31 @@ class ReservationsController extends Controller
       }
     }
 
-    var_dump($s_services);
+    $s_layouts = [];
+    if ($reservation->bills()->first()->breakdowns()->where('unit_item', 'レイアウト準備料金')->first()) {
+      $s_layouts[] = 1;
+    } else {
+      $s_layouts[] = 0;
+    }
+    if ($reservation->bills()->first()->breakdowns()->where('unit_item', 'レイアウト片付料金')->first()) {
+      $s_layouts[] = 1;
+    } else {
+      $s_layouts[] = 0;
+    }
+
+    $s_luggage = 0;
+    if ($reservation->bills()->first()->breakdowns()->where('unit_item', '荷物預かり/返送')->first()) {
+      $s_luggage = 1;
+    } else {
+      $s_luggage = 0;
+    }
+
+    $venue_prices = $reservation->bills()->first()->breakdowns()->where('unit_type', 1)->get();
+    $equipments_prices = $reservation->bills()->first()->breakdowns()->where('unit_type', 2)->get();
+    $services_prices = $reservation->bills()->first()->breakdowns()->where('unit_type', 3)->get();
+    $layouts_prices = $reservation->bills()->first()->breakdowns()->where('unit_type', 4)->get();
+    $others_prices = $reservation->bills()->first()->breakdowns()->where('unit_type', 5)->get();
+
 
 
 
@@ -648,6 +698,13 @@ class ReservationsController extends Controller
       'users' => $users,
       'services' => $services,
       's_services' => $s_services,
+      's_layouts' => $s_layouts,
+      's_luggage' => $s_luggage,
+      'venue_prices' => $venue_prices,
+      'equipments_prices' => $equipments_prices,
+      'services_prices' => $services_prices,
+      'layouts_prices' => $layouts_prices,
+      'others_prices' => $others_prices,
     ]);
   }
 

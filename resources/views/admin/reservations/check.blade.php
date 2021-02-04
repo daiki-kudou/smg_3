@@ -481,7 +481,7 @@
           </table>
         </div>
         {{-- 以下備品 --}}
-        @if ($equipment_details ||$service_details)
+        @if ($equipment_details ||$service_details ||$request->luggage_price)
         <div class="equipment" style="padding-top: 80px; width:90%; margin:0 auto;">
           <table class="table table-borderless">
             <tr>

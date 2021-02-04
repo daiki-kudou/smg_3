@@ -1138,6 +1138,12 @@
 {{ Form::hidden('email_flag', $request->email_flag )}}
 {{ Form::hidden('cost', $request->cost )}}
 
+{{ Form::hidden('luggage_arrive', $request->luggage_arrive )}}
+{{ Form::hidden('luggage_return', $request->luggage_return )}}
+{{ Form::hidden('luggage_return', $request->luggage_return )}}
+{{ Form::hidden('luggage_price', $request->luggage_price )}}
+
+
 
 {{ Form::hidden('item_details', json_encode($item_details) )}}
 {{ Form::hidden('layouts_details', json_encode($layouts_details)) }}
