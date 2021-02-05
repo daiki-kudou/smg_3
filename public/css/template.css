@@ -614,7 +614,7 @@ table td.table_column .colum4 p {
 
 
 .table-bordered .table-active {
-    border: 1px solid #fff;
+    border: 1px solid #dee2e6;
 }
 
 .note-table textarea {
@@ -623,6 +623,7 @@ table td.table_column .colum4 p {
 
 .caution {
     color: #DC3545;
+    background-color: rgb(255 0 0 / 8%);
 }
 
 .caution textarea {
