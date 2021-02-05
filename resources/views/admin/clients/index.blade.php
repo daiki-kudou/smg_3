@@ -16,9 +16,9 @@
 <style>
   /* .form-inline {
     display: block;
-  }
+  } */
 
-  .row {
+  /* .row {
     display: block;
     display: -ms-flexbox;
     -ms-flex-wrap: wrap;
@@ -35,8 +35,9 @@
   }
 </style>
 
+<link href="{{ asset('/css/template.css') }}" rel="stylesheet">
 <script src="http://staging-smg2.herokuapp.com/js/template.js"></script>
-<link href="http://staging-smg2.herokuapp.com/css/template.css" rel="stylesheet">
+
 
 <div class="container-field">
   <h2>顧客管理　一覧</h2>
@@ -195,7 +196,7 @@
       <!-- 検索　終わり------------------------------------------------ -->
 
   </div>
-  
+
   <table class="table table-bordered">
     <thead>
       <tr>
@@ -243,8 +244,8 @@
     </tbody>
   </table>
 
+
+
 </div>
-
-
 {{ $querys->links() }}
 @endsection
