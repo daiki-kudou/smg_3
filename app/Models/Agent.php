@@ -51,4 +51,12 @@ class Agent extends Model
     $result = new Carbon($limit);
     return date("Y-m-d", strtotime($result));
   }
+
+  public function agentPriceCalculate($enduser_charge)
+  {
+    $percent = $this->cost;
+    $percent = $percent / 100;
+    $result = $enduser_charge - ($enduser_charge * $percent);
+    return $result;
+  }
 }

@@ -331,11 +331,11 @@
             </td>
             <td rowspan="{{count($reservation->bills()->get())}}">{{$user->find($reservation->user_id)->company}}</td>
             <td rowspan="{{count($reservation->bills()->get())}}">
-              {{$user->find($reservation->venue_id)->first_name}}{{$user->find($reservation->venue_id)->last_name}}
+              {{ReservationHelper::getPersonName($reservation->user_id)}}
             </td>
             <td rowspan="{{count($reservation->bills()->get())}}">{{$user->find($reservation->venue_id)->mobile}}</td>
             <td rowspan="{{count($reservation->bills()->get())}}">{{$user->find($reservation->venue_id)->tel}}</td>
-            <td rowspan="{{count($reservation->bills()->get())}}">※修正</td>
+            <td rowspan="{{count($reservation->bills()->get())}}">{{$reservation->agent_id}}</td>
             <td>会場予約</td>　{{--重要。固定最初は必ず　会場予約　のカテゴリ--}}
             <td>
               {{ReservationHelper::judgeStatus($reservation->bills()->first()->reservation_status)}}

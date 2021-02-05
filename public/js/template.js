@@ -12,6 +12,7 @@ $(function () {
   $('#sales_finish').select2({ width: '100%' });
   $('#event_start').select2({ width: '100%' });
   $('#event_finish').select2({ width: '100%' });
+  $('#agent_select').select2({ width: '100%' });
 
 });
 

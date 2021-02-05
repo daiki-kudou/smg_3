@@ -15,31 +15,54 @@ class AgentsReservationsController extends Controller
   public function create()
   {
     $venues = Venue::select('id', 'name_area', 'name_bldg', 'name_venue')->get();
-    $agents = Agent::select('id', 'name', 'person_firstname', 'person_lastname', 'email')->get();
+    // $agents = Agent::select('id', 'name', 'person_firstname', 'person_lastname', 'email')->get();
+
+    $agents = Agent::all();
     return view('admin.agents_reservations.create', [
       'venues' => $venues,
       'agents' => $agents,
     ]);
   }
-  // ajax get agent
-  public function get_agent(Request $request)
+
+  public function calculate(Request $request)
   {
     $agent = Agent::find($request->agent_id);
+    $price = $agent->agentPriceCalculate($request->enduser_charge);
+    $venues = Venue::select('id', 'name_area', 'name_bldg', 'name_venue')->get();
+    $agents = Agent::all();
 
-    return [
-      $agent->cost,
-      $agent->person_firstname,
-      $agent->person_lastname,
-    ];
+    $requests = $request->all();
+
+    return view('admin.agents_reservations.calculate', [
+      'price' => $price,
+      'venues' => $venues,
+      'agents' => $agents,
+      'requests' => $requests,
+    ]);
   }
 
-  // ajax paymentlimits
-  public function pay_limits(Request $request)
-  {
-    $agent = Agent::find($request->agent_id);
-    $result = $agent->getPayDetails($request->date);
-    return $result;
-  }
+
+
+
+  // // ajax get agent
+  // public function get_agent(Request $request)
+  // {
+  //   $agent = Agent::find($request->agent_id);
+
+  //   return [
+  //     $agent->cost,
+  //     $agent->person_firstname,
+  //     $agent->person_lastname,
+  //   ];
+  // }
+
+  // // ajax paymentlimits
+  // public function pay_limits(Request $request)
+  // {
+  //   $agent = Agent::find($request->agent_id);
+  //   $result = $agent->getPayDetails($request->date);
+  //   return $result;
+  // }
 
   public function check(Request $request)
   {

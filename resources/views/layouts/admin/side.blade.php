@@ -24,6 +24,9 @@
     link_check('/admin/reservations', 'reservations-index');
     link_check('/admin/reservations/create', 'reservations-create');
     link_check('/admin/calendar/venue_calendar', 'venue_calendar');
+
+    link_check('/admin/agents_reservations/create', 'agents-reservations-create');
+
   });
 </script>
 
@@ -78,7 +81,7 @@
             </a>
           </li>
           <li class="nav-item">
-            <a href="#" class="nav-link">
+            <a href="{{ url('admin/agents_reservations/create') }}" class="nav-link agents-reservations-create">
               <i class="far fa-circle nav-icon ml-4"></i>
               <p>新規登録（仲介会社経由）</p>
             </a>

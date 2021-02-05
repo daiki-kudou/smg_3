@@ -1,15 +1,12 @@
 @extends('layouts.admin.app')
 @section('content')
 
-<h1>仲介会社　予約作成</h1>
-
-
+<h1>仲介会社　予約 計算</h1>
 
 <link href="{{ asset('/css/template.css') }}" rel="stylesheet">
 <script src="{{ asset('/js/template.js') }}"></script>
 <script src="{{ asset('/js/ajax.js') }}"></script>
-<script src="{{ asset('/js/validation.js') }}"></script>
-
+{{-- <script src="{{ asset('/js/validation.js') }}"></script> --}}
 
 {{-- ajax画面変遷時の待機画面 --}}
 <style>
@@ -45,17 +42,11 @@
   </div>
 </div>
 
-{{-- <div class="container-field mt-3">
-  <div class="float-right">
-    <nav aria-label="breadcrumb">
-      <ol class="breadcrumb">
-        <li class="breadcrumb-item active">{{ Breadcrumbs::render(Route::currentRouteName()) }}</li>
-</ol>
-</nav>
-</div>
-<h1 class="mt-3 mb-5">予約　新規登録</h1>
-<hr>
-</div> --}}
+
+{{-- {{var_dump($requests)}} --}}
+
+{{var_dump(empty($requests['event_start']))}}
+
 
 
 {{Form::open(['url' => 'admin/agents_reservations/calculate', 'method' => 'POST', 'id'=>'agentReservationCreateForm'])}}
@@ -70,7 +61,7 @@
         <tr>
           <td class="table-active form_required">利用日</td>
           <td>
-            {{ Form::text('reserve_date', '' ,['class'=>'form-control', 'id'=>'datepicker1', 'placeholder'=>'入力してください'] ) }}
+            {{ Form::text('reserve_date', $requests['reserve_date'] ,['class'=>'form-control', 'id'=>'datepicker1', 'placeholder'=>'入力してください'] ) }}
             <p class="is-error-reserve_date" style="color: red"></p>
           </td>
         </tr>
@@ -80,9 +71,11 @@
             <select id="venues_selector" class=" form-control" name='venue_id'>
               <option value='#' disabled selected>選択してください</option>
               @foreach ($venues as $venue)
-              <option value="{{$venue->id}}" @if (isset($request->venue_id))
+              <option value="{{$venue->id}}" @if ($requests['venue_id']==$venue->id)
+                selected
                 @endif
-                >{{$venue->name_area}}{{$venue->name_bldg}}{{$venue->name_venue}}</option>
+                >
+                {{$venue->name_area}}{{$venue->name_bldg}}{{$venue->name_venue}}</option>
               @endforeach
             </select>
             <p class="is-error-venue_id" style="color: red"></p>
@@ -92,11 +85,11 @@
               </div>
               <div class='price_radio_selector'>
                 <div class="d-flex justfy-content-start align-items-center">
-                  {{ Form::radio('price_system', 1, isset($request->price_system)?$request->price_system==1?true:false:'', ['class'=>'mr-2', 'id'=>'price_system_radio1']) }}
+                  {{ Form::radio('price_system', 1, $requests['price_system']==1?true:false, ['class'=>'mr-2', 'id'=>'price_system_radio1']) }}
                   {{Form::label('price_system_radio1','通常（枠貸）')}}
                 </div>
                 <div class="d-flex justfy-content-start align-items-center">
-                  {{ Form::radio('price_system', 2, isset($request->price_system)?$request->price_system==2?true:false:'', ['class'=>'mr-2','id'=>'price_system_radio2']) }}
+                  {{ Form::radio('price_system', 2, $requests['price_system']==2?true:false, ['class'=>'mr-2','id'=>'price_system_radio2']) }}
                   {{Form::label('price_system_radio2','アクセア（時間貸）')}}
                 </div>
               </div>
@@ -110,7 +103,9 @@
               <select name="enter_time" id="sales_start" class="form-control">
                 <option disabled selected></option>
                 @for ($start = 0*2; $start <=23*2; $start++) <option
-                  value="{{date("H:i:s", strtotime("00:00 +". $start * 30 ." minute"))}}" @if (isset($request)) @endif>
+                  value="{{date("H:i:s", strtotime("00:00 +". $start * 30 ." minute"))}}"
+                  @if($requests['enter_time']==date("H:i:s", strtotime("00:00 +". $start * 30 ." minute"))) selected
+                  @endif>
                   {{date("H時i分", strtotime("00:00 +". $start * 30 ." minute"))}}
                   </option>
                   @endfor
@@ -126,7 +121,9 @@
               <select name="leave_time" id="sales_finish" class="form-control">
                 <option disabled selected></option>
                 @for ($start = 0*2; $start <=23*2; $start++) <option
-                  value="{{date("H:i:s", strtotime("00:00 +". $start * 30 ." minute"))}}" @if (isset($request)) @endif>
+                  value="{{date("H:i:s", strtotime("00:00 +". $start * 30 ." minute"))}}"
+                  @if($requests['leave_time']==date("H:i:s", strtotime("00:00 +". $start * 30 ." minute"))) selected
+                  @endif>
                   {{date("H時i分", strtotime("00:00 +". $start * 30 ." minute"))}}</option>
                   @endfor
               </select>
@@ -137,10 +134,10 @@
         <tr>
           <td>案内板</td>
           <td>
-            <input type="radio" name="board_flag" value="0"
-              {{isset($request->board_flag)?$request->board_flag==0?'checked':'':'checked',}}>無し
-            <input type="radio" name="board_flag" value="1"
-              {{isset($request->board_flag)?$request->board_flag==1?'checked':'':'',}}>有り
+            {{ Form::radio('board_flag', 0, $requests['board_flag']==0?true:false, ['class'=>'mr-2', 'id'=>'board_flag1']) }}
+            {{Form::label('board_flag1','無し')}}
+            {{ Form::radio('board_flag', 1, $requests['board_flag']==1?true:false, ['class'=>'mr-2', 'id'=>'board_flag2']) }}
+            {{Form::label('board_flag2','有り')}}
           </td>
         </tr>
         <tr>
@@ -150,7 +147,9 @@
               <select name="event_start" id="event_start" class="form-control">
                 <option disabled>選択してください</option>
                 @for ($start = 0*2; $start <=23*2; $start++) <option
-                  value="{{date("H:i:s", strtotime("00:00 +". $start * 30 ." minute"))}}" @if (isset($request)) @endif>
+                  value="{{date("H:i:s", strtotime("00:00 +". $start * 30 ." minute"))}}"
+                  @if(!empty($requests['event_start'])) @if($requests['event_start']==date("H:i:s", strtotime("00:00 +".
+                  $start * 30 ." minute"))) selected @endif @endif>
                   {{date("H時i分", strtotime("00:00 +". $start * 30 ." minute"))}}</option>
                   @endfor
               </select>
@@ -163,10 +162,14 @@
             <div>
               <select name="event_finish" id="event_finish" class="form-control">
                 <option disabled>選択してください</option>
+
                 @for ($start = 0*2; $start <=23*2; $start++) <option
-                  value="{{date("H:i:s", strtotime("00:00 +". $start * 30 ." minute"))}}" @if (isset($request)) @endif>
+                  value="{{date("H:i:s", strtotime("00:00 +". $start * 30 ." minute"))}}"
+                  @if(!empty($requests['event_finish'])) @if($requests['event_finish']==date("H:i:s", strtotime("00:00
+                  +". $start * 30 ." minute"))) selected @endif @endif>
                   {{date("H時i分", strtotime("00:00 +". $start * 30 ." minute"))}}</option>
                   @endfor
+
               </select>
             </div>
           </td>
@@ -174,22 +177,20 @@
         <tr>
           <td class="table-active">イベント名称1</td>
           <td>
-            {{ Form::text('event_name1','',['class'=>'form-control', 'placeholder'=>'入力してください'] ) }}
+            {{ Form::text('event_name1',$requests['event_name1'],['class'=>'form-control', 'placeholder'=>'入力してください'] ) }}
 
           </td>
         </tr>
         <tr>
           <td class="table-active">イベント名称2</td>
           <td>
-            {{ Form::text('event_name2', '',['class'=>'form-control', 'placeholder'=>'入力してください'] ) }}
-
+            {{ Form::text('event_name2',$requests['event_name2'],['class'=>'form-control', 'placeholder'=>'入力してください'] ) }}
           </td>
         </tr>
         <tr>
           <td class="table-active">主催者名</td>
           <td>
-            {{ Form::text('event_owner', '',['class'=>'form-control', 'placeholder'=>'入力してください'] ) }}
-
+            {{ Form::text('event_owner',$requests['event_owner'],['class'=>'form-control', 'placeholder'=>'入力してください'] ) }}
           </td>
         </tr>
       </table>
@@ -206,7 +207,9 @@
               </th>
             </tr>
           </thead>
-          <tbody></tbody>
+          <tbody>
+
+          </tbody>
         </table>
       </div>
       <div class="services">
@@ -392,10 +395,9 @@
   </div>
 </div>
 
-{{Form::submit('計算する', ['class'=>'btn btn-primary mx-auto d-block btn-lg', 'id'=>'check_submit'])}}
+{{Form::submit('再計算する', ['class'=>'btn btn-primary mx-auto d-block btn-lg', 'id'=>'check_submit'])}}
 
 {{Form::close()}}
-
 
 
 

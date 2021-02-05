@@ -143,12 +143,15 @@ Route::namespace('Admin')->prefix('admin')->name('admin.')->group(function () {
 
     Route::post('bills/other_send_approve', 'BillsController@other_send_approve');
     // 仲介会社経由予約
-    Route::get('agents_reservations', 'AgentsReservationsController@create');
-    // 仲介会社　料金取得
-    Route::post('agents_reservations/get_agent', 'AgentsReservationsController@get_agent');
-    // ajax 支払い期日等　取得
-    Route::post('agents_reservations/pay_limits', 'AgentsReservationsController@pay_limits');
+    Route::get('agents_reservations/create', 'AgentsReservationsController@create');
+    // 仲介会社経由　計算
+    Route::post('agents_reservations/calculate', 'AgentsReservationsController@calculate');
 
-    Route::post('agents_reservations/check', 'AgentsReservationsController@check');
+    // // 仲介会社　料金取得
+    // Route::post('agents_reservations/get_agent', 'AgentsReservationsController@get_agent');
+    // // ajax 支払い期日等　取得
+    // Route::post('agents_reservations/pay_limits', 'AgentsReservationsController@pay_limits');
+
+    // Route::post('agents_reservations/check', 'AgentsReservationsController@check');
   });
 });
