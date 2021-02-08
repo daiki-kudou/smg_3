@@ -49,481 +49,503 @@
     {{-- <p class="text-right"><a class="more_btn4_lg" href="">一括キャンセルをする</a></p> --}}
   </div>
   <!-- 予約詳細--------------------------------------------------------　 -->
-  <div class="section-wrap">
+  {{-- <div class="section-wrap">
     <div class="ttl-box d-flex align-items-center">
       <div class="col-9 d-flex justify-content-between">
         <h2>予約概要</h2>
         <p>予約ID: {{$reservation->id}}</p>
-        <p>予約一括ID:</p>
-      </div>
-      {{-- 予約完了前（予約ステータス3以前）なら表示 --}}
-      @if ($reservation->bills()->first()->reservation_status<3) <div class="col-3">
-        <p class="text-right">
-          {{ link_to_route('admin.reservations.edit', '編集', $parameters = $reservation->id, ['class' => 'more_btn']) }}
-        </p>
-    </div>
-    @endif
+  <p>予約一括ID:</p>
+</div>
+@if ($reservation->bills()->first()->reservation_status<3) <div class="col-3">
+  <p class="text-right">
+    {{ link_to_route('admin.reservations.edit', '編集', $parameters = $reservation->id, ['class' => 'more_btn']) }}
+  </p>
   </div>
+  @endif
+  </div> --}}
   <section class="register-wrap">
     <div class="section-header">
-      <div class="row">
+      {{-- <div class="row">
         <div class="d-flex col-10 flex-wrap">
           <dl>
             <dt>予約状況</dt>
             <dd>{{ReservationHelper::judgeStatus($reservation->bills()->first()->reservation_status)}}</dd>
-          </dl>
-          @if ($reservation->bills()->first()->double_check_status==0)
-          <dl>
-            <dt>一人目チェック</dt>
-            <dd class="d-flex">
-              <p>未</p>
-              <p class="ml-2"> <button class="btn more_btn first_double_check">チェックをする</button> </p>
-            </dd>
-          </dl>
-          @elseif ($reservation->bills()->first()->double_check_status==1)
-          <dl>
-            <dt>一人目チェック</dt>
-            <dd class="d-flex">
-              <p>{{$reservation->bills()->first()->double_check1_name}}</p>
-            </dd>
-          </dl>
-          <dl>
-            <dt>二人目チェック</dt>
-            <dd class="d-flex">
-              <p>未</p>
-              <p class="ml-2"> <button class="btn more_btn second_double_check">チェックをする</button> </p>
-            </dd>
-          </dl>
-          @elseif ($reservation->bills()->first()->double_check_status==2)
-          <dl>
-            <dt>一人目チェック</dt>
-            <dd class="d-flex">
-              <p>{{$reservation->bills()->first()->double_check1_name}}</p>
-            </dd>
-          </dl>
-          <dl>
-            <dt>二人目チェック</dt>
-            <dd class="d-flex">
-              <p>{{$reservation->bills()->first()->double_check2_name}}</p>
-            </dd>
-          </dl>
-          @endif
-        </div>
-        <div class="col-2">
-          <p>
-            <dd>申込日：{{ReservationHelper::formatDate($reservation->created_at)}}</dd>
-          </p>
-          <p>
-            ※後ほど修正※　予約確定日：2020/10/15(木)
-          </p>
-        </div>
-      </div>
+      </dl>
+      @if ($reservation->bills()->first()->double_check_status==0)
+      <dl>
+        <dt>一人目チェック</dt>
+        <dd class="d-flex">
+          <p>未</p>
+          <p class="ml-2"> <button class="btn more_btn first_double_check">チェックをする</button> </p>
+        </dd>
+      </dl>
+      @elseif ($reservation->bills()->first()->double_check_status==1)
+      <dl>
+        <dt>一人目チェック</dt>
+        <dd class="d-flex">
+          <p>{{$reservation->bills()->first()->double_check1_name}}</p>
+        </dd>
+      </dl>
+      <dl>
+        <dt>二人目チェック</dt>
+        <dd class="d-flex">
+          <p>未</p>
+          <p class="ml-2"> <button class="btn more_btn second_double_check">チェックをする</button> </p>
+        </dd>
+      </dl>
+      @elseif ($reservation->bills()->first()->double_check_status==2)
+      <dl>
+        <dt>一人目チェック</dt>
+        <dd class="d-flex">
+          <p>{{$reservation->bills()->first()->double_check1_name}}</p>
+        </dd>
+      </dl>
+      <dl>
+        <dt>二人目チェック</dt>
+        <dd class="d-flex">
+          <p>{{$reservation->bills()->first()->double_check2_name}}</p>
+        </dd>
+      </dl>
+      @endif
+    </div>
+    <div class="col-2">
+      <p>
+        <dd>申込日：{{ReservationHelper::formatDate($reservation->created_at)}}</dd>
+      </p>
+      <p>
+        ※後ほど修正※　予約確定日：2020/10/15(木)
+      </p>
+    </div>
+    </div> --}}
 
 
-      <div class="row">
-        <!-- 左側の項目------------------------------------------------------------------------ -->
-        <div class="col-6">
-          <table class="table table-bordered">
+    <div class="row">
+      <!-- 左側の項目------------------------------------------------------------------------ -->
+      <div class="col-6">
+        <table class="table table-bordered">
+          <tr>
+            <td colspan="2">
+              <p class="title-icon">
+                <i class="fas fa-info-circle icon-size"></i>
+                予約情報
+              </p>
+            </td>
+          </tr>
+          <tr>
+            <td class="table-active"><label for="date">利用日</label></td>
+            <td>{{ReservationHelper::formatDate($reservation->reserve_date)}}</td>
+          </tr>
+          <tr>
+            <td class="table-active"><label for="venue">会場</label></td>
+            <td>
+              <p>
+                {{ReservationHelper::getVenue($reservation->venue_id)}}
+              </p>
+              <p>アクセア仕様</p>
+            </td>
+          </tr>
+          <tr>
+            <td class="table-active"><label for="start">入室時間</label></td>
+            <td>
+              {{$reservation->enter_time}}
+            </td>
+          </tr>
+          <tr>
+            <td class="table-active"><label for="finish">退室時間</label></td>
+            <td>
+              {{$reservation->leave_time}}
+            </td>
+          </tr>
+          <tr>
+            <td class="table-active"><label for="direction">案内板</label></td>
+            <td class="d-flex justify-content-between">
+              <p>{{$reservation->board_flag==0?'無し':"要作成"}}</p>
+              <p>
+                <a href="{{ url('/admin/reservations/generate_pdf', $reservation->id) }}" class="more_btn">案内版出力</a>
+
+              </p>
+            </td>
+          </tr>
+          <tr>
+            <td class="table-active"><label for="eventTime">イベント時間記載</label></td>
+            <td>
+              {{isset($reservation->event_start)&&isset($reservation->event_finish)?"有り":"無し"}}
+            </td>
+          </tr>
+          <tr>
+            <td class="table-active"><label for="eventStart">イベント開始時間</label></td>
+            <td>
+              {{$reservation->event_start}}
+            </td>
+          </tr>
+          <tr>
+            <td class="table-active"><label for="eventFinish">イベント終了時間</label></td>
+            <td>
+              {{$reservation->event_finish}}
+            </td>
+          </tr>
+          <tr>
+            <td class="table-active"><label for="eventName1">イベント名称1</label></td>
+            <td>{{$reservation->event_name1}}</td>
+          </tr>
+          <tr>
+            <td class="table-active"><label for="eventName2">イベント名称2</label></td>
+            <td>{{$reservation->event_name2}}</td>
+          </tr>
+          <tr>
+            <td class="table-active"><label for="organizer">主催者名</label></td>
+            <td>{{$reservation->event_owner}}</td>
+          </tr>
+        </table>
+
+        <table class="table table-bordered equipment-table">
+          <thead class="accordion-ttl">
             <tr>
               <td colspan="2">
-                <p class="title-icon">
-                  <i class="fas fa-info-circle icon-size"></i>
-                  予約情報
-                </p>
+                <p class="title-icon active">有料備品</p>
               </td>
             </tr>
+          </thead>
+          <tbody class="accordion-wrap">
+            @foreach ($equipments as $equipment)
+            @foreach ($breakdowns as $breakdown)
+            @if ($equipment->item==$breakdown->unit_item)
             <tr>
-              <td class="table-active"><label for="date">利用日</label></td>
-              <td>{{ReservationHelper::formatDate($reservation->reserve_date)}}</td>
-            </tr>
-            <tr>
-              <td class="table-active"><label for="venue">会場</label></td>
-              <td>
-                <p>
-                  {{ReservationHelper::getVenue($reservation->venue_id)}}
-                </p>
-                <p>アクセア仕様</p>
+              <td class="justify-content-between d-flex">
+                {{$equipment->item}}({{$equipment->price}}円)×{{$breakdown->unit_count}}
               </td>
             </tr>
-            <tr>
-              <td class="table-active"><label for="start">入室時間</label></td>
-              <td>
-                {{$reservation->enter_time}}
-              </td>
-            </tr>
-            <tr>
-              <td class="table-active"><label for="finish">退室時間</label></td>
-              <td>
-                {{$reservation->leave_time}}
-              </td>
-            </tr>
-            <tr>
-              <td class="table-active"><label for="direction">案内板</label></td>
-              <td class="d-flex justify-content-between">
-                <p>{{$reservation->board_flag==0?'無し':"要作成"}}</p>
-                <p>
-                  <a href="{{ url('/admin/reservations/generate_pdf', $reservation->id) }}" class="more_btn">案内版出力</a>
+            @endif
+            @endforeach
+            @endforeach
+          </tbody>
+        </table>
 
-                </p>
+        <table class="table table-bordered service-table">
+          <thead class="accordion-ttl">
+            <tr>
+              <td colspan="2">
+                <p class="title-icon active">有料サービス<span class="open_toggle"></span></p>
               </td>
             </tr>
+          </thead>
+          <tbody class="accordion-wrap">
             <tr>
-              <td class="table-active"><label for="eventTime">イベント時間記載</label></td>
-              <td>
-                {{isset($reservation->event_start)&&isset($reservation->event_finish)?"有り":"無し"}}
-              </td>
-            </tr>
-            <tr>
-              <td class="table-active"><label for="eventStart">イベント開始時間</label></td>
-              <td>
-                {{$reservation->event_start}}
-              </td>
-            </tr>
-            <tr>
-              <td class="table-active"><label for="eventFinish">イベント終了時間</label></td>
-              <td>
-                {{$reservation->event_finish}}
-              </td>
-            </tr>
-            <tr>
-              <td class="table-active"><label for="eventName1">イベント名称1</label></td>
-              <td>{{$reservation->event_name1}}</td>
-            </tr>
-            <tr>
-              <td class="table-active"><label for="eventName2">イベント名称2</label></td>
-              <td>{{$reservation->event_name2}}</td>
-            </tr>
-            <tr>
-              <td class="table-active"><label for="organizer">主催者名</label></td>
-              <td>{{$reservation->event_owner}}</td>
-            </tr>
-          </table>
-
-          <table class="table table-bordered equipment-table">
-            <thead class="accordion-ttl">
-              <tr>
-                <td colspan="2">
-                  <p class="title-icon active">有料備品</p>
-                </td>
-              </tr>
-            </thead>
-            <tbody class="accordion-wrap">
-              @foreach ($equipments as $equipment)
-              @foreach ($breakdowns as $breakdown)
-              @if ($equipment->item==$breakdown->unit_item)
-              <tr>
-                <td class="justify-content-between d-flex">
-                  {{$equipment->item}}({{$equipment->price}}円)×{{$breakdown->unit_count}}
-                </td>
-              </tr>
-              @endif
-              @endforeach
-              @endforeach
-            </tbody>
-          </table>
-
-          <table class="table table-bordered service-table">
-            <thead class="accordion-ttl">
-              <tr>
-                <td colspan="2">
-                  <p class="title-icon active">有料サービス<span class="open_toggle"></span></p>
-                </td>
-              </tr>
-            </thead>
-            <tbody class="accordion-wrap">
-              <tr>
-                <td colspan="2">
-                  <ul class="icheck-primary">
-                    @foreach ($services as $service)
-                    @foreach ($breakdowns as $breakdown)
-                    @if ($service->item==$breakdown->unit_item)
-                    <li>
-                      {{$service->item}}({{$service->price}}円)
-                    </li>
-                    @endif
-                    @endforeach
-                    @endforeach
-                  </ul>
-                </td>
-              </tr>
-              <tr>
-                <td class="table-active"><label for="layout">レイアウト変更</label></td>
-                <td>
+              <td colspan="2">
+                <ul class="icheck-primary">
+                  @foreach ($services as $service)
                   @foreach ($breakdowns as $breakdown)
-                  @if ($breakdown->unit_type==3)
-                  あり
-                  @break
+                  @if ($service->item==$breakdown->unit_item)
+                  <li>
+                    {{$service->item}}({{$service->price}}円)
+                  </li>
                   @endif
                   @endforeach
-                </td>
-              </tr>
-              <tr>
-                <td class="table-active"><label for="prelayout">レイアウト準備</label></td>
-                <td>
-                  @foreach ($breakdowns as $breakdown)
-                  {{$breakdown->unit_item=='レイアウト準備'?'あり':''}}
                   @endforeach
-                </td>
-              </tr>
-              <tr>
-                <td class="table-active"><label for="postlayout">レイアウト片付</label></td>
-                <td>
-                  @foreach ($breakdowns as $breakdown)
-                  {{$breakdown->unit_item=='レイアウト片付'?'あり':''}}
-                  @endforeach
-                </td>
-              </tr>
-              <tr>
-                <td class="table-active"><label for="Delivery">荷物預かり/返送</label></td>
-                <td>
-                  @foreach ($breakdowns as $breakdown)
-                  {{$breakdown->unit_item=='荷物預かり/返送'?'あり':''}}
-                  @endforeach
-                </td>
-              </tr>
-              <tr>
-                <td class="table-active"><label for="preDelivery">事前に預かる荷物</label></td>
-                <td>
-                  <ul class="table-cell-box">
-                    <li>
-                      <p>
-                        {{isset($reservation->luggage_count)?'あり':'なし'}}
-                      </p>
-                    </li>
-                    <li class="d-flex justify-content-between">
-                      <p>荷物個数</p>
-                      <p>
-                        {{isset($reservation->luggage_count)?$reservation->luggage_count:''}}個
-                      </p>
-                    </li>
-
-                    <li class="d-flex justify-content-between">
-                      <p>事前荷物の到着日</p>
-                      <p>
-                        {{isset($reservation->luggage_arrive)?ReservationHelper::formatDate($reservation->luggage_arrive):''}}
-                      </p>
-                    </li>
-                  </ul>
-                </td>
-              </tr>
-              <tr>
-                <td class="table-active"><label for="postDelivery">事後返送する荷物</label></td>
-                <td>
-                  <ul class="table-cell-box">
-                    <li>
-                      <p>
-                        {{isset($reservation->luggage_return)?'あり':''}}
-                      </p>
-                    </li>
-                    <li class="d-flex justify-content-between">
-                      <p>荷物個数</p>
-                      <p>
-                        {{isset($reservation->luggage_return)?$reservation->luggage_return:''}}個
-                      </p>
-                    </li>
-                  </ul>
-                </td>
-              </tr>
-            </tbody>
-          </table>
-          <table class="table table-bordered eating-table">
-            <tr>
-              <td>
-                <p class="title-icon">室内飲食</p>
+                </ul>
               </td>
             </tr>
             <tr>
+              <td class="table-active"><label for="layout">レイアウト変更</label></td>
               <td>
-                ※後ほど修正　なし
+                @foreach ($breakdowns as $breakdown)
+                @if ($breakdown->unit_type==3)
+                あり
+                @break
+                @endif
+                @endforeach
               </td>
             </tr>
-          </table>
-        </div>
-        <!-- 左側の項目 終わり-------------------------------------------------- -->
-        <!-- 右側の項目-------------------------------------------------- -->
-        <div class="col-6">
-          <div class="customer-table">
-            <table class="table table-bordered name-table">
-              <tr>
-                <td colspan="2">
-                  <div class="d-flex align-items-center justify-content-between">
-                    <p class="title-icon">
-                      <i class="far fa-address-card icon-size"></i>
-                      顧客情報
+            <tr>
+              <td class="table-active"><label for="prelayout">レイアウト準備</label></td>
+              <td>
+                @foreach ($breakdowns as $breakdown)
+                {{$breakdown->unit_item=='レイアウト準備'?'あり':''}}
+                @endforeach
+              </td>
+            </tr>
+            <tr>
+              <td class="table-active"><label for="postlayout">レイアウト片付</label></td>
+              <td>
+                @foreach ($breakdowns as $breakdown)
+                {{$breakdown->unit_item=='レイアウト片付'?'あり':''}}
+                @endforeach
+              </td>
+            </tr>
+            <tr>
+              <td class="table-active"><label for="Delivery">荷物預かり/返送</label></td>
+              <td>
+                @foreach ($breakdowns as $breakdown)
+                {{$breakdown->unit_item=='荷物預かり/返送'?'あり':''}}
+                @endforeach
+              </td>
+            </tr>
+            <tr>
+              <td class="table-active"><label for="preDelivery">事前に預かる荷物</label></td>
+              <td>
+                <ul class="table-cell-box">
+                  <li>
+                    <p>
+                      {{isset($reservation->luggage_count)?'あり':'なし'}}
                     </p>
-                    <p><a class="more_btn" href="">顧客詳細</a></p>
-                  </div>
-                </td>
-              </tr>
-              <tr>
-                <td class="table-active"><label for="company">会社名・団体名</label></td>
-                <td>
-                  {{$user->company}}
-                </td>
-              </tr>
-              <tr>
-                <td class="table-active"><label for="name">担当者氏名</label></td>
-                <td>
-                  {{$user->first_name}}{{$user->last_name}}
-                </td>
-              </tr>
-              <tr>
-                <td class="table-active">担当者氏名(フリガナ)</td>
-                <td>
-                  {{$user->first_name_kana}}{{$user->last_name_kana}}
-                </td>
-              </tr>
-              <tr>
-                <td class="table-active">電話番号</td>
-                <td>
-                  <ul class="table-cell-box">
-                    <li>
-                      <p>携帯番号</p>
-                      <p> {{$user->mobile}}
-                      </p>
-                    </li>
-                    <li>
-                      <p>固定番号</p>
-                      <p> {{$user->tel}}
-                      </p>
-                    </li>
-                  </ul>
-                </td>
-              </tr>
-              <tr>
-                <td class="table-active">メールアドレス</td>
-                <td>
-                  {{$user->email}}
-                </td>
-              </tr>
-              <tr>
-                <td class="table-active">顧客属性</td>
-                <td>
-                  {{$user->attr}}
-                </td>
-              </tr>
-              <tr>
-                <td colspan="2">
-                  <p>備考</p>
-                  <p> {{$user->remark}}
-                  </p>
-                </td>
-              </tr>
-              <tr class="caution">
-                <td colspan="2">
-                  <p>注意事項</p>
-                  <p>{{$user->attention}}</p>
-                </td>
-              </tr>
-            </table>
+                  </li>
+                  <li class="d-flex justify-content-between">
+                    <p>荷物個数</p>
+                    <p>
+                      {{isset($reservation->luggage_count)?$reservation->luggage_count:''}}個
+                    </p>
+                  </li>
 
-            <table class="table table-bordered oneday-table">
-              <tr>
-                <td colspan="2">
-                  <p class="title-icon">
-                    <i class="fas fa-user icon-size"></i>
-                    当日の連絡できる担当者
-                  </p>
-                </td>
-              </tr>
-              <tr>
-                <td class="table-active"><label for="ondayName">氏名</label></td>
-                <td>{{$reservation->in_charge}}</td>
-              </tr>
-              <tr>
-                <td class="table-active"><label for="mobilePhone">携帯番号</label></td>
-                <td>{{$reservation->tel}}</td>
-              </tr>
-            </table>
-          </div>
-
-          <table class="table table-bordered mail-table">
-            <tr>
-              <td colspan="2">
-                <p class="title-icon">
-                  <i class="fas fa-envelope icon-size"></i>
-                  利用後の送信メール
-                </p>
+                  <li class="d-flex justify-content-between">
+                    <p>事前荷物の到着日</p>
+                    <p>
+                      {{isset($reservation->luggage_arrive)?ReservationHelper::formatDate($reservation->luggage_arrive):''}}
+                    </p>
+                  </li>
+                </ul>
               </td>
             </tr>
             <tr>
-              <td class="table-active"><label for="sendMail">送信メール</label></td>
-              <td>{{$reservation->email_flag==1?'あり':'なし'}}</td>
-            </tr>
-          </table>
-
-          <table class="table table-bordered sale-table">
-            <tr>
-              <td colspan="2">
-                <p class="title-icon">
-                  <i class="fas fa-yen-sign icon-size"></i>
-                  売上原価
-                </p>
-              </td>
-            </tr>
-            <tr>
-              <td class="table-active"><label for="sale">原価率</label></td>
-              <td>{{$reservation->cost==0?'':$reservation->cost}}</td>
-            </tr>
-          </table>
-
-          <table class="table table-bordered note-table">
-            <tr>
-              <td colspan="2">
-                <p class="title-icon">
-                  <i class="fas fa-file-alt icon-size"></i>
-                  備考
-                </p>
-              </td>
-            </tr>
-            <tr>
+              <td class="table-active"><label for="postDelivery">事後返送する荷物</label></td>
               <td>
+                <ul class="table-cell-box">
+                  <li>
+                    <p>
+                      {{isset($reservation->luggage_return)?'あり':''}}
+                    </p>
+                  </li>
+                  <li class="d-flex justify-content-between">
+                    <p>荷物個数</p>
+                    <p>
+                      {{isset($reservation->luggage_return)?$reservation->luggage_return:''}}個
+                    </p>
+                  </li>
+                </ul>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+        <table class="table table-bordered eating-table">
+          <tr>
+            <td>
+              <p class="title-icon">室内飲食</p>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              ※後ほど修正　なし
+            </td>
+          </tr>
+        </table>
+      </div>
+      <!-- 左側の項目 終わり-------------------------------------------------- -->
+      <!-- 右側の項目-------------------------------------------------- -->
+      <div class="col-6">
+        <div class="customer-table">
+          <table class="table table-bordered name-table">
+            <tr>
+              <td colspan="2">
+                <div class="d-flex align-items-center justify-content-between">
+                  <p class="title-icon">
+                    <i class="far fa-address-card icon-size"></i>
+                    顧客情報
+                  </p>
+                  <p><a class="more_btn" href="">顧客詳細</a></p>
+                </div>
+              </td>
+            </tr>
+            <tr>
+              <td class="table-active"><label for="company">会社名・団体名</label></td>
+              <td>
+                @if ($reservation->user_id>0)
+                {{$user->company}}
+                @endif
+              </td>
+            </tr>
+            <tr>
+              <td class="table-active"><label for="name">担当者氏名</label></td>
+              <td>
+                @if ($reservation->user_id>0)
+                {{ReservationHelper::getPersonName($user->id)}}
+                @endif
+              </td>
+            </tr>
+            <tr>
+              <td class="table-active">担当者氏名(フリガナ)</td>
+              <td>
+                @if ($reservation->user_id>0)
+                {{ReservationHelper::getPersonNameKANA($user->id)}}
+                @endif
+
+              </td>
+            </tr>
+            <tr>
+              <td class="table-active">電話番号</td>
+              <td>
+                <ul class="table-cell-box">
+                  <li>
+                    <p>携帯番号</p>
+                    <p>
+                      @if ($reservation->user_id>0)
+                      {{$user->mobile}}
+                      @endif
+                    </p>
+                  </li>
+                  <li>
+                    <p>固定番号</p>
+                    <p>
+                      @if ($reservation->user_id>0)
+                      {{$user->tel}}
+                      @endif
+                    </p>
+                  </li>
+                </ul>
+              </td>
+            </tr>
+            <tr>
+              <td class="table-active">メールアドレス</td>
+              <td>
+                @if ($reservation->user_id>0)
+                {{$user->email}}
+                @endif
+              </td>
+            </tr>
+            <tr>
+              <td class="table-active">顧客属性</td>
+              <td>
+                @if ($reservation->user_id>0)
+                {{$user->attr}}
+                @endif
+              </td>
+            </tr>
+            <tr>
+              <td colspan="2">
+                <p>備考</p>
                 <p>
-                  割引条件
+                  @if ($reservation->user_id>0)
+                  {{$user->remark}}
+                  @endif
                 </p>
-                <p>{{isset($reservation->discount_condition)?$reservation->discount_condition:'なし'}}</p>
               </td>
             </tr>
             <tr class="caution">
-              <td>
+              <td colspan="2">
                 <p>注意事項</p>
-                <p>{{isset($reservation->attention)?$reservation->attention:'なし'}}</p>
-              </td>
-            </tr>
-            <tr>
-              <td>
-                <p>顧客(予約サイト経由)入力の備考</p>
-                <p>{{isset($reservation->user_details)?$reservation->user_details:'なし'}}</p>
-              </td>
-            </tr>
-            <tr>
-              <td>
-                <p>管理者備考</p>
-                <p>{{isset($reservation->admin_details)?$reservation->admin_details:'なし'}}</p>
+                <p>
+                  @if ($reservation->user_id>0)
+                  {{$user->attention}}
+                  @endif
+                </p>
               </td>
             </tr>
           </table>
-        </div>
-        <!-- 右側の項目 終わり-------------------------------------------------- -->
-        <!-- 予約完了後も編集可能な備考欄-------------------------------------------------- -->
-        <div class="col-12">
-          <table class="table table-bordered note-table">
+          <table class="table table-bordered oneday-table">
             <tr>
-              <td>
+              <td colspan="2">
                 <p class="title-icon">
-                  <i class="fas fa-file-alt icon-size"></i>
-                  <label for="extraNote">予約内容変更履歴</label>
+                  <i class="fas fa-user icon-size"></i>
+                  当日の連絡できる担当者
                 </p>
               </td>
             </tr>
             <tr>
-              <td>
-                なし
-              </td>
+              <td class="table-active"><label for="ondayName">氏名</label></td>
+              <td>{{$reservation->in_charge}}</td>
+            </tr>
+            <tr>
+              <td class="table-active"><label for="mobilePhone">携帯番号</label></td>
+              <td>{{$reservation->tel}}</td>
             </tr>
           </table>
         </div>
+
+        <table class="table table-bordered mail-table">
+          <tr>
+            <td colspan="2">
+              <p class="title-icon">
+                <i class="fas fa-envelope icon-size"></i>
+                利用後の送信メール
+              </p>
+            </td>
+          </tr>
+          <tr>
+            <td class="table-active"><label for="sendMail">送信メール</label></td>
+            <td>{{$reservation->email_flag==1?'あり':'なし'}}</td>
+          </tr>
+        </table>
+
+        <table class="table table-bordered sale-table">
+          <tr>
+            <td colspan="2">
+              <p class="title-icon">
+                <i class="fas fa-yen-sign icon-size"></i>
+                売上原価
+              </p>
+            </td>
+          </tr>
+          <tr>
+            <td class="table-active"><label for="sale">原価率</label></td>
+            <td>{{$reservation->cost==0?'':$reservation->cost}}</td>
+          </tr>
+        </table>
+
+        <table class="table table-bordered note-table">
+          <tr>
+            <td colspan="2">
+              <p class="title-icon">
+                <i class="fas fa-file-alt icon-size"></i>
+                備考
+              </p>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <p>
+                割引条件
+              </p>
+              <p>{{isset($reservation->discount_condition)?$reservation->discount_condition:'なし'}}</p>
+            </td>
+          </tr>
+          <tr class="caution">
+            <td>
+              <p>注意事項</p>
+              <p>{{isset($reservation->attention)?$reservation->attention:'なし'}}</p>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <p>顧客(予約サイト経由)入力の備考</p>
+              <p>{{isset($reservation->user_details)?$reservation->user_details:'なし'}}</p>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <p>管理者備考</p>
+              <p>{{isset($reservation->admin_details)?$reservation->admin_details:'なし'}}</p>
+            </td>
+          </tr>
+        </table>
       </div>
+      <!-- 右側の項目 終わり-------------------------------------------------- -->
+      <!-- 予約完了後も編集可能な備考欄-------------------------------------------------- -->
+      <div class="col-12">
+        <table class="table table-bordered note-table">
+          <tr>
+            <td>
+              <p class="title-icon">
+                <i class="fas fa-file-alt icon-size"></i>
+                <label for="extraNote">予約内容変更履歴</label>
+              </p>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              なし
+            </td>
+          </tr>
+        </table>
+      </div>
+    </div>
   </section>
 
 
@@ -1589,31 +1611,31 @@
     </p>
   </dd>
   </dl>
-</div>
-@elseif($reservation->bills()->first()->double_check_status==1)
-<div class="checkbox section-wrap">
-  <dl class="d-flex col-12 justify-content-end align-items-center">
-    <dt><label for="checkname">二人目チェック者</label></dt>
-    <dd>
-      {{ Form::model($reservation->id, ['route'=> ['admin.reservations.double_check',$reservation->id]]) }}
-      @csrf
-      {{Form::select('double_check2_name', [
+  </div>
+  @elseif($reservation->bills()->first()->double_check_status==1)
+  <div class="checkbox section-wrap">
+    <dl class="d-flex col-12 justify-content-end align-items-center">
+      <dt><label for="checkname">二人目チェック者</label></dt>
+      <dd>
+        {{ Form::model($reservation->id, ['route'=> ['admin.reservations.double_check',$reservation->id]]) }}
+        @csrf
+        {{Form::select('double_check2_name', [
         '名前test1' => '名前test1', 
         '名前test2' => '名前test2',
         '名前test3' => '名前test3',
         '名前test4' => '名前test4',], 
         null, ['placeholder' => '選択してください', 'class'=>'form-control double_check2_name'])}}
-      {{ Form::hidden('double_check_status', $reservation->bills()->first()->double_check_status ) }}
-    </dd>
-    <dd>
-      <p class="text-right">
-        {{Form::submit('チェック完了', ['class'=>'btn more_btn', 'id'=>'double_check2_submit'])}}
-        {{ Form::close() }}
-      </p>
-    </dd>
-  </dl>
-</div>
-@endif --}}
+        {{ Form::hidden('double_check_status', $reservation->bills()->first()->double_check_status ) }}
+      </dd>
+      <dd>
+        <p class="text-right">
+          {{Form::submit('チェック完了', ['class'=>'btn more_btn', 'id'=>'double_check2_submit'])}}
+          {{ Form::close() }}
+        </p>
+      </dd>
+    </dl>
+  </div>
+  @endif --}}
 
 
 
@@ -1626,4 +1648,4 @@
 
 
 
-@endsection
+  @endsection

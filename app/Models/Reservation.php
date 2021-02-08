@@ -130,4 +130,14 @@ class Reservation extends Model
       $result_subtotal += $value->sub_total;
     }
   }
+
+  /*
+|--------------------------------------------------------------------------
+| 仲介会社選択の場合のみ、エンドユーザーとの一対一
+|--------------------------------------------------------------------------|
+*/
+  public function enduser()
+  {
+    return $this->hasOne(Enduser::class);
+  }
 }

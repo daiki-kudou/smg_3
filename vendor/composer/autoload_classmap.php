@@ -59,6 +59,7 @@ return array(
     'App\\Models\\Bill' => $baseDir . '/app/Models/Bill.php',
     'App\\Models\\Breakdown' => $baseDir . '/app/Models/Breakdown.php',
     'App\\Models\\Date' => $baseDir . '/app/Models/Date.php',
+    'App\\Models\\Enduser' => $baseDir . '/app/Models/Enduser.php',
     'App\\Models\\Equipment' => $baseDir . '/app/Models/Equipment.php',
     'App\\Models\\Frame_price' => $baseDir . '/app/Models/Frame_price.php',
     'App\\Models\\Preuser' => $baseDir . '/app/Models/Preuser.php',

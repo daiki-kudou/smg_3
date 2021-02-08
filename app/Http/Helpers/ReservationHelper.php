@@ -4,6 +4,7 @@ namespace App\Http\Helpers;
 
 use App\Models\Venue;
 use App\Models\User;
+use App\Models\Agent;
 
 
 class ReservationHelper
@@ -86,6 +87,17 @@ class ReservationHelper
   {
     $user = User::find($user_id);
     return $user->first_name_kana . $user->last_name_kana;
+  }
+
+  public static function getAgentPerson($agent_id)
+  {
+    $agent = Agent::find($agent_id);
+    return $agent->person_firstname . $agent->person_lastname;
+  }
+  public static function getAgentCompany($agent_id)
+  {
+    $agent = Agent::find($agent_id);
+    return $agent->name;
   }
 
   public static function getAttr($user_id)

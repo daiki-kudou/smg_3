@@ -146,6 +146,12 @@ Route::namespace('Admin')->prefix('admin')->name('admin.')->group(function () {
     Route::get('agents_reservations/create', 'AgentsReservationsController@create');
     // 仲介会社経由　計算
     Route::post('agents_reservations/calculate', 'AgentsReservationsController@calculate');
+    // 仲介会社経由　確認
+    Route::post('agents_reservations/check', 'AgentsReservationsController@check');
+    // 仲介会社経由　保存
+    Route::post('agents_reservations', 'AgentsReservationsController@store');
+    // 仲介会社経由　再計算
+    Route::post('agents_reservations/recalculate', 'AgentsReservationsController@recalculate')->name('agents_reservations.recalculate');
 
     // // 仲介会社　料金取得
     // Route::post('agents_reservations/get_agent', 'AgentsReservationsController@get_agent');

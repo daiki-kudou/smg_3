@@ -327,15 +327,28 @@
             <td rowspan="{{count($reservation->bills()->get())}}">{{$reservation->enter_time}}</td>
             <td rowspan="{{count($reservation->bills()->get())}}">{{$reservation->leave_time}}</td>
             <td rowspan="{{count($reservation->bills()->get())}}">
-              {{$venue->find($reservation->venue_id)->name_area}}{{$venue->find($reservation->venue_id)->name_bldg}}{{$venue->find($reservation->venue_id)->name_venue}}
-            </td>
-            <td rowspan="{{count($reservation->bills()->get())}}">{{$user->find($reservation->user_id)->company}}</td>
+              {{ReservationHelper::getVenue($reservation->venue->id)}}</td>
             <td rowspan="{{count($reservation->bills()->get())}}">
+              @if ($reservation->user_id>0)
+              {{$reservation->user->company}}
+              @elseif($reservation->user_id==0)
+              {{$reservation->enduser->company}}
+              @endif
+            </td>
+            <td rowspan="{{count($reservation->bills()->get())}}">
+              @if ($reservation->user_id>0)
               {{ReservationHelper::getPersonName($reservation->user_id)}}
+              @elseif($reservation->user_id==0)
+              {{$reservation->enduser->person}}
+              @endif
             </td>
             <td rowspan="{{count($reservation->bills()->get())}}">{{$user->find($reservation->venue_id)->mobile}}</td>
             <td rowspan="{{count($reservation->bills()->get())}}">{{$user->find($reservation->venue_id)->tel}}</td>
-            <td rowspan="{{count($reservation->bills()->get())}}">{{$reservation->agent_id}}</td>
+            <td rowspan="{{count($reservation->bills()->get())}}">
+              @if ($reservation->agent_id>0)
+              {{ReservationHelper::getAgentCompany($reservation->agent_id)}}
+              @endif
+            </td>
             <td>会場予約</td>　{{--重要。固定最初は必ず　会場予約　のカテゴリ--}}
             <td>
               {{ReservationHelper::judgeStatus($reservation->bills()->first()->reservation_status)}}

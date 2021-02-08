@@ -28,15 +28,7 @@ class ReservationsController extends Controller
    */
   public function index()
   {
-    $reservations = Reservation::select(
-      'id',
-      'reserve_date',
-      'enter_time',
-      'leave_time',
-      'venue_id',
-      'user_id',
-      'tel',
-    )->simplePaginate(15);
+    $reservations = Reservation::all();
     $venue = Venue::select('id', 'name_area', 'name_bldg', 'name_venue')->get();
     $user = User::select('id', 'company', 'first_name', 'last_name', 'mobile', 'tel')->get();
     return view('admin.reservations.index', [
@@ -255,6 +247,7 @@ class ReservationsController extends Controller
       $request->enter_time,
       $request->leave_time
     );
+    var_dump($price_details);
     $s_equipment = [];
     $s_services = [];
     foreach ($request->all() as $key => $value) {
@@ -403,9 +396,6 @@ class ReservationsController extends Controller
    */
   public function store(Request $request)
   {
-
-
-
 
 
     DB::transaction(function () use ($request) { //トランザクションさせる

@@ -539,6 +539,7 @@ class ComposerStaticInit0fff9c1827af8b0d0cb8bd4273c1c5a4
         'App\\Models\\Bill' => __DIR__ . '/../..' . '/app/Models/Bill.php',
         'App\\Models\\Breakdown' => __DIR__ . '/../..' . '/app/Models/Breakdown.php',
         'App\\Models\\Date' => __DIR__ . '/../..' . '/app/Models/Date.php',
+        'App\\Models\\Enduser' => __DIR__ . '/../..' . '/app/Models/Enduser.php',
         'App\\Models\\Equipment' => __DIR__ . '/../..' . '/app/Models/Equipment.php',
         'App\\Models\\Frame_price' => __DIR__ . '/../..' . '/app/Models/Frame_price.php',
         'App\\Models\\Preuser' => __DIR__ . '/../..' . '/app/Models/Preuser.php',

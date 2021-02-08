@@ -398,7 +398,13 @@ class Venue extends Model
       $extend_diff = $exted_specific_price / $extend_original;
       // min_resultとexted_specific_priceの合計
       $venue_equipments_subtotal = $min_result + $exted_specific_price;
-      return [$min_result, $exted_specific_price, $venue_equipments_subtotal, $time_diff, $extend_diff];
+      return [
+        $min_result,
+        $exted_specific_price,
+        $venue_equipments_subtotal,
+        $time_diff,
+        $extend_diff
+      ];
 
       //＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊
       //＊＊会場のステータスが2のとき（アクセア仕様のとき）
@@ -475,7 +481,14 @@ class Venue extends Model
 
         $specific_extend_time = $specific_extend_timeprice / ($time_price[$witch_array_in_result]->extend); //speficな延長　時間
 
-        return [$time_min_result, $specific_extend_timeprice, $specific_extend_time, $specific_extend_time];
+        //[0]は合計料金, [1]は延長料金, [2]は合計＋延長、 [3]は利用時間, [4]は延長時間
+        return [
+          $time_min_result - $specific_extend_timeprice,
+          $specific_extend_timeprice, //延長料金
+          $time_min_result, //合計
+          $usage_time - $specific_extend_time, //合計＋延長
+          $specific_extend_time
+        ];
       } else {
         return fail;
       }
@@ -491,10 +504,10 @@ class Venue extends Model
     $judge_equipment = array_filter($selected_equipments);
     if (!empty($judge_equipment)) {
       for ($i = 0; $i < count($venue_equipments); $i++) {
-        $equipments_total = 
-        $equipments_total + 
-        ($venue_equipments[$i]->price) 
-        * ($selected_equipments[$i]);
+        $equipments_total =
+          $equipments_total +
+          ($venue_equipments[$i]->price)
+          * ($selected_equipments[$i]);
         if ($selected_equipments[$i] != 0) {
           $selected_e_item = $venue_equipments[$i]->item;
           $selected_e_price = $venue_equipments[$i]->price;

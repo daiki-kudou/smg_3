@@ -107,7 +107,7 @@ $(function () {
 
 
   // 会場選択トリガー
-  $('#venues_selector').on('change', function () {
+  $('#venues_selector').on('input', function () {
     var dates = $('#datepicker1').val();
     var venue_id = $('#venues_selector').val();
     $('#sales_start').val();

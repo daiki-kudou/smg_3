@@ -811,7 +811,7 @@ $(function () {
     $('#event_start option').prop('disabled', false);
     if ($(this).val() > child_target) {
       $('#event_start').val('');
-      swal('イベント開始時間は入室時間より後に設定してください');
+      // swal('イベント開始時間は入室時間より後に設定してください');
     }
   })
   $('#sales_finish').on('change', function () {
@@ -819,7 +819,7 @@ $(function () {
     $('#event_finish option').prop('disabled', false);
     if ($(this).val() < child_target2) {
       $('#event_finish').val('');
-      swal('イベント終了時間は退室時間より前に設定してください');
+      // swal('イベント終了時間は退室時間より前に設定してください');
     }
   })
 })
