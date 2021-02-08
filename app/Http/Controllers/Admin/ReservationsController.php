@@ -568,7 +568,6 @@ class ReservationsController extends Controller
       'breakdowns' => $breakdowns,
       'user' => $user,
       'other_bills' => $other_bills,
-
       'venues_master' => $venues_master,
       'items_master' => $items_master,
       'layouts_master' => $layouts_master,

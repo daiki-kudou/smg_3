@@ -529,10 +529,10 @@
                 @endfor
                 @for ($i = 0; $i < count($s_services)/2; $i++) <tr>
                   <td>
-                    {{ Form::text('equipment_breakdown_item'.$i, $s_services[$i*2] ,['class'=>'form-control','readonly'] ) }}
+                    {{ Form::text('service_breakdown_item'.$i, $s_services[$i*2] ,['class'=>'form-control','readonly'] ) }}
                   </td>
                   <td>
-                    {{ Form::text('equipment_breakdown_count'.$i, $s_services[$i*2+1] ,['class'=>'form-control','readonly'] ) }}
+                    {{ Form::text('service_breakdown_count'.$i, $s_services[$i*2+1] ,['class'=>'form-control','readonly'] ) }}
                   </td>
                   </tr>
                   @endfor
@@ -638,14 +638,13 @@
               <tr>
                 <td>消費税：</td>
                 <td>
-                  {{ Form::text('master_tax',ReservationHelper::getTax($request->master_tax) ,['class'=>'form-control text-right', 'readonly'] ) }}
-
+                  {{ Form::text('master_tax',$request->master_tax ,['class'=>'form-control text-right', 'readonly'] ) }}
                 </td>
               </tr>
               <tr>
                 <td class="font-weight-bold">合計金額</td>
                 <td>
-                  {{ Form::text('master_total',ReservationHelper::taxAndPrice($request->master_total) ,['class'=>'form-control text-right', 'readonly'] ) }}
+                  {{ Form::text('master_total',$request->master_total ,['class'=>'form-control text-right', 'readonly'] ) }}
                 </td>
               </tr>
             </table>

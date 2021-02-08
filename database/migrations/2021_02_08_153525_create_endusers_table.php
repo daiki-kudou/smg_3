@@ -22,6 +22,7 @@ class CreateEndusersTable extends Migration
       $table->string('tel')->nullable();
       $table->string('email')->nullable();
       $table->string('attr')->nullable();
+      $table->string('charge')->nullable();
 
       $table->timestamps();
     });

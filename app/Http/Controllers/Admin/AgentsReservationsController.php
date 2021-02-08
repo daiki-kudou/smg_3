@@ -152,7 +152,6 @@ class AgentsReservationsController extends Controller
   {
     var_dump($request->all());
 
-
     DB::transaction(function () use ($request) { //トランザクションさせる
       $reservation = Reservation::create([
         'venue_id' => $request->venue_id,
@@ -189,6 +188,7 @@ class AgentsReservationsController extends Controller
         'tel' => $request->enduser_tel,
         'email' => $request->enduser_mail,
         'attr' => $request->enduser_attr,
+        'charge' => $request->enduser_charge,
       ]);
 
       $bills = $reservation->bills()->create([
