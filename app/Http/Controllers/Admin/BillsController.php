@@ -178,6 +178,7 @@ class BillsController extends Controller
 
   public function OtherDoubleCheck(Request $request)
   {
+
     DB::transaction(function () use ($request) {
       $bill = Bill::find($request->bills_id);
       if ($request->double_check_status == 0) {
@@ -191,8 +192,9 @@ class BillsController extends Controller
           'double_check_status' => 2
         ]);
       }
-      return redirect('admin/reservations/' . $bill->reservation_id);
     });
+    $bill = Bill::find($request->bills_id);
+    return redirect('admin/reservations/' . $bill->reservation_id);
   }
 
   public function other_send_approve(Request $request)
