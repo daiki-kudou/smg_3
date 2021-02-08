@@ -711,6 +711,7 @@
           </tbody>
         </table>
         <div class="approve_or_confirm">
+          @if ($reservation->user_id>0)
           @if ($reservation->bills()->first()->double_check_status==2)
           <!-- 承認確認ボタン-ダブルチェック後に表示------ -->
           {{-- 予約完了後、非表示 --}}
@@ -738,6 +739,27 @@
             </div>
             @endif
             @endif
+            @else
+            @if ($reservation->bills()->first()->double_check_status==2)
+            <!-- 承認確認ボタン-ダブルチェック後に表示------ -->
+            {{-- 予約完了後、非表示 --}}
+            @if ($reservation->bills()->first()->reservation_status<=2) <div class="row justify-content-end mt-2 mb-2">
+              <div class="d-flex col-2 justify-content-around">
+                <p class="text-right">
+                  {{-- <a class="more_btn4" href="">確定</a> --}}
+                  {{ Form::open(['url' => 'admin/reservations/'.$reservation->id.'/confirm_reservation', 'method'=>'POST', 'class'=>'']) }}
+                  @csrf
+                  {{ Form::hidden('reservation_id', $reservation->id ) }}
+                  {{ Form::hidden('user_id', $reservation->user_id ) }}
+                  {{ Form::submit('確定',['class' => 'btn more_btn4']) }}
+                  <span>※仲介会社経由の予約は確定のみ。メール送信は扶養</span>
+                  {{ Form::close() }}
+                </p>
+              </div>
+              @endif
+              @endif
+
+              @endif
         </div>
       </div>
       <div class="bill_details">
