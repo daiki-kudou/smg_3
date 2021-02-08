@@ -394,7 +394,7 @@
           </td>
         </tr>
       </table>
-      <table class="table table-bordered note-table" style="table-layout: fixed;">
+      <table class="table table-bordered note-table">
         <tr>
           <td colspan="2">
             <p class="title-icon">
@@ -405,22 +405,20 @@
         <tr class="caution">
           <td>
             <label for="caution">注意事項</label>
-            {{-- {{ Form::textarea('attention', $requests['attention'],['class'=>'form-control', 'placeholder'=>'入力してください'] ) }}
-            --}}
+            {{ Form::textarea('attention', $request->attention,['class'=>'form-control', 'placeholder'=>'入力してください'] ) }}
           </td>
         </tr>
         <tr>
           <td>
             <label for="userNote">顧客情報の備考</label>
-            {{-- {{ Form::textarea('user_details', $requests['user_details'],['class'=>'form-control', 'placeholder'=>'入力してください'] ) }}
-            --}}
+            {{ Form::textarea('user_details', $request->user_details,['class'=>'form-control', 'placeholder'=>'入力してください'] ) }}
           </td>
         </tr>
         <tr>
           <td>
             <label for="adminNote">管理者備考</label>
-            {{-- {{ Form::textarea('admin_details', $requests['admin_details'],['class'=>'form-control', 'placeholder'=>'入力してください'] ) }}
-            --}}
+            {{ Form::textarea('admin_details', $request->admin_details,['class'=>'form-control', 'placeholder'=>'入力してください'] ) }}
+
           </td>
         </tr>
       </table>

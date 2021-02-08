@@ -118,7 +118,7 @@ class AgentsReservationsController extends Controller
   public function check(Request $request)
   {
     echo "<pre>";
-    // var_dump($request->all());
+    var_dump($request->all());
     echo "</pre>";
 
     $s_equipments = [];

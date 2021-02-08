@@ -900,8 +900,9 @@
 {{ Form::hidden('enduser_mail', $requests['enduser_mail']) }}
 {{ Form::hidden('enduser_attr', $requests['enduser_attr']) }}
 {{ Form::hidden('enduser_charge', $requests['enduser_charge']) }}
-
-
+{{ Form::hidden('attention', $requests['attention']) }}
+{{ Form::hidden('user_details', $requests['user_details']) }}
+{{ Form::hidden('admin_details', $requests['admin_details']) }}
 
 {{Form::submit('確認する', ['class'=>'btn btn-primary d-block btn-lg mx-auto mt-5 mb-5', 'id'=>'check_submit'])}}
 {{Form::close()}}

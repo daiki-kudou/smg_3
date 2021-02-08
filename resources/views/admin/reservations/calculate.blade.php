@@ -698,12 +698,13 @@
               @if ($price_details[1])
               <tr>
                 <td>{{ Form::text('venue_breakdown_item0', "会場料金",['class'=>'form-control', 'readonly'] ) }} </td>
-                <td>{{ Form::text('venue_breakdown_cost0', $price_details[0],['class'=>'form-control', 'readonly'] ) }}
+                <td>
+                  {{ Form::text('venue_breakdown_cost0', $price_details[0]-$price_details[1],['class'=>'form-control', 'readonly'] ) }}
                 </td>
                 <td>{{ Form::text('venue_breakdown_count0', $price_details[3],['class'=>'form-control', 'readonly'] ) }}
                 </td>
                 <td>
-                  {{ Form::text('venue_breakdown_subtotal0', $price_details[0],['class'=>'form-control', 'readonly'] ) }}
+                  {{ Form::text('venue_breakdown_subtotal0', $price_details[0]-$price_details[1],['class'=>'form-control', 'readonly'] ) }}
                 </td>
               </tr>
               <tr>
@@ -733,7 +734,7 @@
               <tr>
                 <td colspan="2"></td>
                 <td colspan="2">合計
-                  {{ Form::text('venue_price', $price_details[2],['class'=>'form-control col-xs-3', 'readonly'] ) }}
+                  {{ Form::text('venue_price', $price_details[0],['class'=>'form-control col-xs-3', 'readonly'] ) }}
                 </td>
               </tr>
             </tbody>
