@@ -549,17 +549,25 @@ class ReservationsController extends Controller
     $items_master = 0;
     $layouts_master = 0;
     $others_master = 0;
+    $master_subtotals = 0;
+    $master_taxs = 0;
+    $master_totals = 0;
 
     foreach ($reservation->bills()->get() as $key => $value) {
       $venues_master += $value->venue_price;
       $items_master += $value->equipment_price;
       $layouts_master += $value->layout_price;
       $others_master += $value->others_price;
+      $master_subtotals += $value->master_subtotal;
+      $master_taxs += $value->master_tax;
+      $master_totals += $value->master_total;
     }
 
     $all_master_subtotal = $venues_master + $items_master + $layouts_master + $others_master;
     $all_master_tax = floor($all_master_subtotal * 0.1);
     $all_master_total = $all_master_subtotal + $all_master_tax;
+
+
 
     return view('admin.reservations.show', [
       'reservation' => $reservation,
@@ -575,6 +583,9 @@ class ReservationsController extends Controller
       'all_master_subtotal' => $all_master_subtotal,
       'all_master_tax' => $all_master_tax,
       'all_master_total' => $all_master_total,
+      'master_subtotals' => $master_subtotals,
+      'master_taxs' => $master_taxs,
+      'master_totals' => $master_totals,
 
     ]);
   }

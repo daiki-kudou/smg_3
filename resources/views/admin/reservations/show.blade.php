@@ -1702,6 +1702,7 @@
     @endforeach
 
     <!-- 合計請求額------------------------------------------------------------------- -->
+    @if ($reservation->user_id>0)
     <div class="master_totals mt-5 mb-5" style="border: solid 1px gray;">
       <table class="table ">
         <tbody class="master_total_head">
@@ -1776,6 +1777,61 @@
         </div>
       </div>
     </div>
+    @else
+    <div class="master_totals mt-5 mb-5" style="border: solid 1px gray;">
+      <table class="table ">
+        <tbody class="master_total_head">
+          <tr>
+            <td>
+              <h3>
+                合計請求額
+              </h3>
+            </td>
+            <td></td>
+          </tr>
+        </tbody>
+        <tbody class="master_total_bottom">
+          <tr>
+            <td></td>
+            <td>
+              <div class="d-flex">
+                <p>小計：</p>
+                <p>{{number_format($master_subtotals)}}円</p>
+              </div>
+            </td>
+          </tr>
+          <tr>
+            <td></td>
+            <td>
+              <div class="d-flex">
+                <p>消費税：</p>
+                <p>{{number_format($master_taxs)}}円</p>
+              </div>
+            </td>
+          </tr>
+          <tr>
+            <td></td>
+            <td>
+              <div class="d-flex">
+                <p>合計金額：</p>
+                <p>{{number_format($master_totals)}}円</p>
+              </div>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+      <div class="payment_situation d-flex justify-content-around">
+        <div class="d-flex">
+          <p>合計入金額</p>
+          <p>円</p>
+        </div>
+        <div class="d-flex">
+          <p>未入金額</p>
+          <p>円</p>
+        </div>
+      </div>
+    </div>
+    @endif
 
 
 
