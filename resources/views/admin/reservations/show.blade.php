@@ -42,6 +42,7 @@
       @csrf
       {{ Form::hidden('reservation_id', $reservation->id ) }}
       {{ Form::submit('追加の請求書を作成する',['class' => 'btn more_btn3']) }}
+      ※※※※※※※※※ここで、仲介会社の場合の追加請求は別にする必要あり
       {{ Form::close() }}
     </p>
     @endif
