@@ -737,84 +737,91 @@
           </table>
         </div>
 
-        {{--@if ($layouts_details[0]||$layouts_details[1])
-      <div class="layout" style="padding-top: 80px; width:90%; margin:0 auto;">
-        <table class="table table-borderless">
-          <tr>
-            <td>
-              <h1>
-                ■レイアウト
-              </h1>
-            </td>
-          </tr>
-          <tbody class="layout_head">
+        @if ($all_requests['layout_prepare_count']>0||$all_requests['layout_clean_count']>0)
+        <div class="layout" style="padding-top: 80px; width:90%; margin:0 auto;">
+          <table class="table table-borderless">
             <tr>
-              <td>内容</td>
-              <td>単価</td>
-              <td>数量</td>
-              <td>金額</td>
+              <td>
+                <h1>
+                  ■レイアウト
+                </h1>
+              </td>
             </tr>
-          </tbody>
-          <tbody class="layout_main">
-            @if ($layouts_details[0])
-            <tr>
-              <td>{{ Form::text('layout_prepare_item', "レイアウト準備料金",['class'=>'form-control', 'readonly'] ) }}</td>
-        <td>{{ Form::text('layout_prepare_cost', $layouts_details[0],['class'=>'form-control', 'readonly'] )}}
+            <tbody class="layout_head">
+              <tr>
+                <td>内容</td>
+                <td>単価</td>
+                <td>数量</td>
+                <td>金額</td>
+              </tr>
+            </tbody>
+            <tbody class="layout_main">
+              @if (!empty($all_requests['layout_prepare_count']))
+              @if ($all_requests['layout_prepare_count']>0)
+              <tr>
+                <td>{{ Form::text('layout_prepare_item', "レイアウト準備料金",['class'=>'form-control', 'readonly'] ) }}</td>
+                <td>
+                  {{ Form::text('layout_prepare_cost', $all_requests['layout_prepare_cost'],['class'=>'form-control', 'readonly'] )}}
+                </td>
+                <td>{{ Form::text('layout_prepare_count', 1,['class'=>'form-control', 'readonly'] )}}</td>
+                <td>
+                  {{ Form::text('layout_prepare_subtotal', $all_requests['layout_prepare_cost'],['class'=>'form-control', 'readonly'] )}}
+                </td>
+              </tr>
+              @endif
+              @endif
+              @if (!empty($all_requests['layout_clean_count']))
+              @if ($all_requests['layout_clean_count']>0)
+              <tr>
+                <td>{{ Form::text('layout_clean_item', "レイアウト片付料金",['class'=>'form-control', 'readonly'] ) }}</td>
+                <td>
+                  {{ Form::text('layout_clean_cost', $all_requests['layout_clean_cost'],['class'=>'form-control', 'readonly'] )}}
+                </td>
+                <td>{{ Form::text('layout_clean_count', 1,['class'=>'form-control', 'readonly'] )}}</td>
+                <td>
+                  {{ Form::text('layout_clean_subtotal', $all_requests['layout_clean_cost'],['class'=>'form-control', 'readonly'] )}}
+                </td>
+              </tr>
+              @endif
+              @endif
+            </tbody>
+            <tbody class="layout_result">
+              <tr>
+                <td colspan="2"></td>
+                <td colspan="2">合計
+                  {{ Form::text('layout_price',$all_requests['layouts_price'] ,['class'=>'form-control', 'readonly'] ) }}
+                </td>
+              </tr>
+            </tbody>
+            {{-- <tbody class="layout_discount">
+              <tr>
+                <td>割引計算欄</td>
+                <td>
+                  <p>
+                    割引金額
+                  </p>
+                  <div class="d-flex">
+                    {{ Form::text('layout_number_discount', empty($all_requests['layout_number_discount'])?'':$all_requests['layout_number_discount'],['class'=>'form-control'] ) }}
+            <p>円</p>
+        </div>
         </td>
-        <td>{{ Form::text('layout_prepare_count', 1,['class'=>'form-control', 'readonly'] )}}</td>
         <td>
-          {{ Form::text('layout_prepare_subtotal', $layouts_details[0],['class'=>'form-control', 'readonly'] )}}
+          <p>
+            割引率
+          </p>
+          <div class="d-flex">
+            {{ Form::text('layout_percent_discount', empty($all_requests['layout_percent_discount'])?'':$all_requests['layout_percent_discount'],['class'=>'form-control'] ) }}
+            <p>%</p>
+          </div>
+        </td>
+        <td>
+          <input class="btn btn-success layout_discount_btn" type="button" value="計算する">
         </td>
         </tr>
-        @endif
-        @if ($layouts_details[1])
-        <tr>
-          <td>{{ Form::text('layout_clean_item', "レイアウト片付料金",['class'=>'form-control', 'readonly'] ) }}</td>
-          <td>{{ Form::text('layout_clean_cost', $layouts_details[1],['class'=>'form-control', 'readonly'] )}}
-          </td>
-          <td>{{ Form::text('layout_clean_count', 1,['class'=>'form-control', 'readonly'] )}}</td>
-          <td>{{ Form::text('layout_clean_subtotal', $layouts_details[1],['class'=>'form-control', 'readonly'] )}}
-          </td>
-        </tr>
-        @endif
-        </tbody>
-        <tbody class="layout_result">
-          <tr>
-            <td colspan="2"></td>
-            <td colspan="2">合計
-              {{ Form::text('layout_price',$layouts_details[2] ,['class'=>'form-control', 'readonly'] ) }}
-            </td>
-          </tr>
-        </tbody>
-        <tbody class="layout_discount">
-          <tr>
-            <td>割引計算欄</td>
-            <td>
-              <p>
-                割引金額
-              </p>
-              <div class="d-flex">
-                {{ Form::text('layout_number_discount', empty($all_requests['layout_number_discount'])?'':$all_requests['layout_number_discount'],['class'=>'form-control'] ) }}
-                <p>円</p>
-              </div>
-            </td>
-            <td>
-              <p>
-                割引率
-              </p>
-              <div class="d-flex">
-                {{ Form::text('layout_percent_discount', empty($all_requests['layout_percent_discount'])?'':$all_requests['layout_percent_discount'],['class'=>'form-control'] ) }}
-                <p>%</p>
-              </div>
-            </td>
-            <td>
-              <input class="btn btn-success layout_discount_btn" type="button" value="計算する">
-            </td>
-          </tr>
-        </tbody>
+        </tbody> --}}
         </table>
       </div>
-      @endif --}}
+      @endif
 
 
       <div class="others" style="padding: 80px 0px 80px 0px; width:90%; margin:0 auto;">
@@ -976,9 +983,9 @@
   </div>
 </div>
 </div>
-{{-- {{ Form::hidden('venue_id', $all_requests['venue_id'] )}}
+{{ Form::hidden('venue_id', $all_requests['venue_id'] )}}
 {{ Form::hidden('reserve_date', $all_requests['reserve_date'] )}}
-{{ Form::hidden('user_id', $all_requests['user_id'] )}}
+{{-- {{ Form::hidden('user_id', $all_requests['user_id'] )}} --}}
 {{ Form::hidden('price_system', $all_requests['price_system'] )}}
 {{ Form::hidden('enter_time', $all_requests['enter_time'] )}}
 {{ Form::hidden('leave_time', $all_requests['leave_time'] )}}
@@ -988,10 +995,10 @@
 {{ Form::hidden('event_name1', $all_requests['event_name1'] )}}
 {{ Form::hidden('event_name2', $all_requests['event_name2'] )}}
 {{ Form::hidden('event_owner', $all_requests['event_owner'] )}}
-{{ Form::hidden('in_charge', $all_requests['in_charge'] )}}
-{{ Form::hidden('tel', $all_requests['tel'] )}}
-{{ Form::hidden('email_flag', $all_requests['email_flag'] )}}
-{{ Form::hidden('cost', $all_requests['cost'] )}} --}}
+{{-- {{ Form::hidden('in_charge', $all_requests['in_charge'] )}}
+{{ Form::hidden('tel', $all_requests['tel'] )}} --}}
+{{-- {{ Form::hidden('email_flag', $all_requests['email_flag'] )}} --}}
+{{-- {{ Form::hidden('cost', $all_requests['cost'] )}} --}}
 
 
 {{-- {{ Form::hidden('item_details', json_encode($item_details) )}}
