@@ -49,6 +49,21 @@ class AgentsReservationsController extends Controller
     $usage_hours = $carbon1->diffInMinutes($carbon2);
     $usage_hours = $usage_hours / 60;
 
+    $s_equipment = [];
+    $s_services = [];
+    $s_others = [];
+    foreach ($requests as $key => $value) {
+      if (preg_match('/equipment_breakdown/', $key)) {
+        $s_equipment[] = $value;
+      }
+      if (preg_match('/services_breakdown/', $key)) {
+        $s_services[] = $value;
+      }
+      if (preg_match('/others_input/', $key)) {
+        $s_others[] = $value;
+      }
+    }
+
     return view('admin.agents_reservations.calculate', [
       'price' => $price,
       'venues' => $venues,
@@ -58,6 +73,9 @@ class AgentsReservationsController extends Controller
       'requests' => $requests,
       'payment_limit' => $payment_limit,
       'usage_hours' => $usage_hours,
+      's_equipment' => $s_equipment,
+      's_services' => $s_services,
+      's_others' => $s_others,
 
     ]);
   }

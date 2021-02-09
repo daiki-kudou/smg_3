@@ -653,6 +653,7 @@
         </div>
 
         {{-- 以下備品 --}}
+        @if (ReservationHelper::judgeArrayEmpty($s_equipment)!=0||ReservationHelper::judgeArrayEmpty($s_services)!=0)
         <div class="equipment" style="padding-top: 80px; width:90%; margin:0 auto;">
           <table class="table table-borderless">
             <tr>
@@ -702,12 +703,15 @@
                   {{ Form::text('luggage_count', $requests['luggage_price'],['class'=>'form-control', 'readonly'] ) }}
                 </td>
               </tr>
-
               @endif
             </tbody>
           </table>
         </div>
+        @endif
+
+
         {{-- 以下、レイアウト --}}
+        @if ($requests['layout_prepare']>0||$requests['layout_clean']>0)
         <div class="layout" style="padding-top: 80px; width:90%; margin:0 auto;">
           <table class="table table-borderless">
             <tr>
@@ -739,6 +743,7 @@
             </tbody>
           </table>
         </div>
+        @endif
 
         {{-- 以下、その他 --}}
         <div class="others" style="padding: 80px 0px 80px 0px; width:90%; margin:0 auto;">
