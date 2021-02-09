@@ -629,7 +629,7 @@ class ReservationsController extends Controller
       // 管理者側のメール本文等は未定
       Mail::to($email)->send(new SendUserApprove($reservation));
     });
-    return redirect()->route('admin.reservations.index');
+    return redirect()->route('admin.reservations.index')->with('flash_message', 'ユーザーに承認メールを送信しました');
   }
 
   public function confirm_reservation(Request $request)
@@ -688,9 +688,6 @@ class ReservationsController extends Controller
     $services_prices = $reservation->bills()->first()->breakdowns()->where('unit_type', 3)->get();
     $layouts_prices = $reservation->bills()->first()->breakdowns()->where('unit_type', 4)->get();
     $others_prices = $reservation->bills()->first()->breakdowns()->where('unit_type', 5)->get();
-
-
-
 
     return view('admin.reservations.edit', [
       'reservation' => $reservation,

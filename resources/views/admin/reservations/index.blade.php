@@ -6,13 +6,19 @@
 <link href="{{ asset('/css/template.css') }}" rel="stylesheet">
 <script src="{{ asset('/js/template.js') }}"></script>
 
+<script>
+  $(function(){
+    $('.flash_message').fadeOut(3000);
+  })
+</script>
+@if (session('flash_message'))
+<div class="flash_message bg-success text-center py-3 my-0">
+  {{ session('flash_message') }}
+</div>
+@endif
 
 <div class="content">
   <div class="container-fluid">
-
-    <script src="http://staging-smg2.herokuapp.com/js/template.js"></script>
-    <link href="http://staging-smg2.herokuapp.com/css/template.css" rel="stylesheet">
-
 
     <div class="container-field mt-3">
       <div class="float-right">
