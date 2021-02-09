@@ -34,14 +34,14 @@ class AgentsReservationsController extends Controller
     $agent = Agent::find($request->agent_id);
     $payment_limit = $agent->getAgentPayLimit($request->reserve_date);
     $price = $agent->agentPriceCalculate($request->enduser_charge);
-    $venues = Venue::select('id', 'name_area', 'name_bldg', 'name_venue')->get();
+    $venues = Venue::all();
     $agents = Agent::all();
     $equipments = $venues->find($request->venue_id)->equipments()->get();
     $services = $venues->find($request->venue_id)->services()->get();
 
     $requests = $request->all();
 
-    var_dump($request->all());
+    // var_dump($request->all());
 
     $carbon1 = new Carbon($request->enter_time);
     $carbon2 = new Carbon($request->leave_time);
@@ -64,6 +64,21 @@ class AgentsReservationsController extends Controller
       }
     }
 
+    $layout_price = 0;
+    if ($request->layout_prepare > 0) {
+      $layout_price += $venues->find($request->venue_id)->layout_prepare;
+    } else {
+      $layout_price += 0;
+    }
+    if ($request->layout_clean > 0) {
+      $layout_price += $venues->find($request->venue_id)->layout_clean;
+    } else {
+      $layout_price += 0;
+    }
+
+    var_dump($layout_price);
+    $price = $price + $layout_price;
+
     return view('admin.agents_reservations.calculate', [
       'price' => $price,
       'venues' => $venues,
@@ -76,6 +91,8 @@ class AgentsReservationsController extends Controller
       's_equipment' => $s_equipment,
       's_services' => $s_services,
       's_others' => $s_others,
+      'request' => $request,
+      'layout_price' => $layout_price,
 
     ]);
   }
@@ -213,7 +230,7 @@ class AgentsReservationsController extends Controller
         'reservation_id' => $reservation->id,
         'venue_price' => 0, //デフォで0
         'equipment_price' => 0, //デフォで0
-        'layout_price' =>  0, //デフォで0
+        'layout_price' =>  $request->layouts_price ? $request->layouts_price : 0, //デフォで0
         'others_price' => 0, //デフォで0
         // 該当billの合計額関連
         'master_subtotal' => $request->master_subtotal,
@@ -270,21 +287,22 @@ class AgentsReservationsController extends Controller
           'unit_type' => 3,
         ]);
       }
+
       if ($request->layout_prepare_count) {
         $bills->breakdowns()->create([
           'unit_item' => $request->layout_prepare_item,
-          'unit_cost' => 0,
+          'unit_cost' => $request->layout_prepare_cost,
           'unit_count' => 1,
-          'unit_subtotal' => 0,
+          'unit_subtotal' => $request->layout_prepare_cost,
           'unit_type' => 4,
         ]);
       }
       if ($request->layout_clean_count) {
         $bills->breakdowns()->create([
           'unit_item' => $request->layout_clean_item,
-          'unit_cost' => 0,
+          'unit_cost' => $request->layout_clean_cost,
           'unit_count' => 1,
-          'unit_subtotal' => 0,
+          'unit_subtotal' => $request->layout_clean_cost,
           'unit_type' => 4,
         ]);
       }

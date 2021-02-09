@@ -334,7 +334,7 @@
             @endif
             @if ($requests['layout_clean']==1)
             <tr>
-              <td>レイアウト準備</td>
+              <td>レイアウト片付け</td>
               <td>
                 <div class="form-check form-check-inline">
                   {{Form::radio('layout_clean', 1, true, ['id' => 'layout_clean', 'class' => 'form-check-input'])}}
@@ -346,7 +346,7 @@
             </tr>
             @else
             <tr>
-              <td>レイアウト準備</td>
+              <td>レイアウト片付け</td>
               <td>
                 <div class="form-check form-check-inline">
                   {{Form::radio('layout_clean', 1, false, ['id' => 'layout_clean', 'class' => 'form-check-input'])}}
@@ -565,7 +565,7 @@
           <td style="font-size: 16px;">
             <div class="bg-white d-flex justify-content-around align-items-center" style="height: 60px;">
               <div>合計金額</div>
-              <div class="total_result">{{number_format($price)}}円
+              <div class="total_result">{{number_format(floor($price))}}円
               </div>
             </div>
           </td>
@@ -717,7 +717,7 @@
             <tr>
               <td>
                 <h1>
-                  ■レイアウト
+                  ■レイアウト（請求に100％反映）
                 </h1>
               </td>
             </tr>
@@ -725,21 +725,43 @@
               <tr>
                 <td>内容</td>
                 <td>単価</td>
+                <td>単価</td>
+                <td>金額</td>
               </tr>
             </tbody>
             <tbody class="layout_main">
               @if ($requests['layout_prepare']!=0)
               <tr>
                 <td>{{ Form::text('layout_prepare_item', "レイアウト準備料金",['class'=>'form-control', 'readonly'] ) }}</td>
+                <td>
+                  {{ Form::text('layout_prepare_cost', $venues->find($request->venue_id)->layout_prepare,['class'=>'form-control', 'readonly'] ) }}
+                </td>
                 <td>{{ Form::text('layout_prepare_count', 1,['class'=>'form-control', 'readonly'] )}}</td>
+                <td>
+                  {{ Form::text('layout_prepare_subtotal', $venues->find($request->venue_id)->layout_prepare,['class'=>'form-control', 'readonly'] ) }}
+                </td>
               </tr>
               @endif
               @if ($requests['layout_clean']!=0)
               <tr>
                 <td>{{ Form::text('layout_clean_item', "レイアウト片付料金",['class'=>'form-control', 'readonly'] ) }}</td>
+                <td>
+                  {{ Form::text('layout_clean_cost', $venues->find($request->venue_id)->layout_clean,['class'=>'form-control', 'readonly'] ) }}
+                </td>
                 <td>{{ Form::text('layout_clean_count', 1,['class'=>'form-control', 'readonly'] )}}</td>
+                <td>
+                  {{ Form::text('layout_clean_subtotal', $venues->find($request->venue_id)->layout_clean,['class'=>'form-control', 'readonly'] ) }}
+                </td>
               </tr>
               @endif
+            </tbody>
+            <tbody class="layouts_result">
+              <tr>
+                <td colspan="2"></td>
+                <td colspan="3">合計
+                  {{ Form::text('layouts_price', $layout_price,['class'=>'form-control', 'readonly'] ) }}
+                </td>
+              </tr>
             </tbody>
           </table>
         </div>
@@ -782,14 +804,13 @@
               <tr>
                 <td>小計：</td>
                 <td>
-                  {{ Form::text('master_subtotal',$price ,['class'=>'form-control text-right', 'readonly'] ) }}
+                  {{ Form::text('master_subtotal',(floor($price)) ,['class'=>'form-control text-right', 'readonly'] ) }}
                 </td>
               </tr>
               <tr>
                 <td>消費税：</td>
                 <td>
                   {{ Form::text('master_tax',ReservationHelper::getTax($price) ,['class'=>'form-control text-right', 'readonly'] ) }}
-
                 </td>
               </tr>
               <tr>

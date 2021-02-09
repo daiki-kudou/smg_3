@@ -35,6 +35,7 @@
     </div>
     @endif
 
+    @if ($reservation->user_id>0)
     @if ($reservation->bills()->first()->reservation_status==3)
     <!-- 請求書の追加ボタン-ステータス：予約完了で表示----- -->
     <p class="text-right">
@@ -46,6 +47,18 @@
       {{ Form::close() }}
     </p>
     @endif
+    @else
+    <p class="text-right">
+      {{ Form::open(['url' => 'admin/agent_bills/create/'.$reservation->id, 'method'=>'POST', 'class'=>'']) }}
+      @csrf
+      {{ Form::hidden('reservation_id', $reservation->id ) }}
+      {{ Form::submit('追加の請求書を作成する',['class' => 'btn more_btn3']) }}
+      ※※※※※※※※※ここで、仲介会社の場合の追加請求は別にする必要あり
+      {{ Form::close() }}
+    </p>
+    @endif
+
+
   </div>
   <div class="col-12 btn-wrapper2">
   </div>

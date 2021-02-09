@@ -563,7 +563,9 @@
             <tbody class="layout_head">
               <tr>
                 <td>内容</td>
+                <td>単価</td>
                 <td>数量</td>
+                <td>金額</td>
               </tr>
             </tbody>
             <tbody class="layout_main">
@@ -572,9 +574,15 @@
                 <td>
                   {{ Form::text('layout_prepare_item', $request->layout_prepare_item ,['class'=>'form-control','readonly'] ) }}
                 </td>
+                <td>
+                  {{ Form::text('layout_prepare_cost', $request->layout_prepare_cost ,['class'=>'form-control','readonly'] ) }}
+                </td>
                 </td>
                 <td>
                   {{ Form::text('layout_prepare_count', $request->layout_prepare_count ,['class'=>'form-control','readonly'] ) }}
+                </td>
+                <td>
+                  {{ Form::text('layout_prepare_subtotal', $request->layout_prepare_subtotal ,['class'=>'form-control','readonly'] ) }}
                 </td>
               </tr>
               @endif
@@ -584,11 +592,24 @@
                   {{ Form::text('layout_clean_item', $request->layout_clean_item ,['class'=>'form-control','readonly'] ) }}
                 </td>
                 <td>
+                  {{ Form::text('layout_clean_cost', $request->layout_clean_cost ,['class'=>'form-control','readonly'] ) }}
+                </td>
+                <td>
                   {{ Form::text('layout_clean_count', $request->layout_clean_count ,['class'=>'form-control','readonly'] ) }}
+                </td>
+                <td>
+                  {{ Form::text('layout_clean_subtotal', $request->layout_clean_subtotal ,['class'=>'form-control','readonly'] ) }}
                 </td>
               </tr>
               @endif
-
+            </tbody>
+            <tbody class="layouts_result">
+              <tr>
+                <td colspan="2"></td>
+                <td colspan="2">合計
+                  {{ Form::text('layouts_price', $request->layouts_price,['class'=>'form-control', 'readonly'] ) }}
+                </td>
+              </tr>
             </tbody>
           </table>
         </div>
@@ -734,7 +755,7 @@
 
 <div class="container-field d-flex justify-content-center" style="margin-top: 80px;">
   <a href="javascript:$('#test_post').submit()" class="mt-5 mb-5 btn btn-danger btn-lg mr-5">請求内訳を修正する</a>
-  {{Form::submit('確認する', ['class'=>'btn btn-primary d-block btn-lg mt-5 mb-5', 'id'=>'check_submit'])}}
+  {{Form::submit('作成する', ['class'=>'btn btn-primary d-block btn-lg mt-5 mb-5', 'id'=>'check_submit'])}}
   {{Form::close()}}
 </div>
 <style>
