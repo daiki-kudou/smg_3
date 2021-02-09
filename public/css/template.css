@@ -1000,7 +1000,7 @@ h3 {
 
 .venue_head,
 .equipment_head,
-.layout_head {
+.layout_head,.others_head {
     border-bottom: solid 1px gray !important;
 }
 

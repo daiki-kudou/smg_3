@@ -26,7 +26,6 @@
       <h1 class="mt-3 mb-5">予約 詳細</h1>
     </div>
     <div class="btn-wrapper2 col-12 align-items-center d-flex justify-content-between">
-      <!-- 削除ボタン-ステータス：予約が完了する前で表示----- -->
       @if ($reservation->bills()->first()->reservation_status<3) <div class="text-left">
         {{ Form::model($reservation, ['route' => ['admin.reservations.destroy', $reservation->id], 'method' => 'delete']) }}
         @csrf
@@ -37,25 +36,24 @@
 
     @if ($reservation->user_id>0)
     @if ($reservation->bills()->first()->reservation_status==3)
-    <!-- 請求書の追加ボタン-ステータス：予約完了で表示----- -->
     <p class="text-right">
       {{ Form::open(['url' => 'admin/bills/create/'.$reservation->id, 'method'=>'POST', 'class'=>'']) }}
       @csrf
       {{ Form::hidden('reservation_id', $reservation->id ) }}
       {{ Form::submit('追加の請求書を作成する',['class' => 'btn more_btn3']) }}
-      ※※※※※※※※※ここで、仲介会社の場合の追加請求は別にする必要あり
       {{ Form::close() }}
     </p>
     @endif
     @else
+    @if ($reservation->bills()->first()->reservation_status==3)
     <p class="text-right">
-      {{ Form::open(['url' => 'admin/agent_bills/create/'.$reservation->id, 'method'=>'POST', 'class'=>'']) }}
+      {{ Form::open(['url' => 'admin/agents_reservations/add_bills/'.$reservation->id, 'method'=>'POST', 'class'=>'']) }}
       @csrf
       {{ Form::hidden('reservation_id', $reservation->id ) }}
       {{ Form::submit('追加の請求書を作成する',['class' => 'btn more_btn3']) }}
-      ※※※※※※※※※ここで、仲介会社の場合の追加請求は別にする必要あり
       {{ Form::close() }}
     </p>
+    @endif
     @endif
 
 
@@ -1307,7 +1305,7 @@
                 <td>
                   <div class="d-flex">
                     <p class="bg-success p-2">予約状況</p>
-                    <p class="border p-2">{{$other_bill->reservation_status}}</p>
+                    <p class="border p-2">{{ReservationHelper::judgeStatus($other_bill->reservation_status)}}</p>
                   </div>
                 </td>
                 @if ($other_bill->double_check_status==0)
@@ -1357,21 +1355,27 @@
             @if ($other_bill->double_check_status==2)
             @if ($other_bill->reservation_status<=2) <div class="row justify-content-end mt-2 mb-2">
               <div class="d-flex col-2 justify-content-around">
-                <p class="text-right">
+                {{-- <p class="text-right">
                   {{ Form::open(['url' => 'admin/bills/other_send_approve', 'method'=>'POST', 'class'=>'']) }}
+                @csrf
+                {{ Form::hidden('bill_id', $other_bill->id ) }}
+                {{ Form::hidden('user_id', $reservation->user_id ) }}
+                {{ Form::hidden('reservation_id', $reservation->id ) }}
+
+                {{ Form::submit('承認',['class' => 'btn more_btn']) }}
+                {{ Form::close() }}
+                </p> --}}
+                <p class="text-right">
+                  {{-- {{ Form::open(['url' => 'aaaaaaaaaa', 'method'=>'POST', 'class'=>'']) }}
+                  @csrf
+                  {{ Form::hidden('reservation_id', $reservation->id ) }}
+                  {{ Form::hidden('user_id', $reservation->user_id ) }}
+                  {{ Form::submit('確定',['class' => 'btn more_btn4']) }}
+                  {{ Form::close() }} --}}
+
+                  {{ Form::open(['url' => 'admin/agents_reservations/confirm', 'method'=>'POST', 'class'=>'']) }}
                   @csrf
                   {{ Form::hidden('bill_id', $other_bill->id ) }}
-                  {{ Form::hidden('user_id', $reservation->user_id ) }}
-                  {{ Form::hidden('reservation_id', $reservation->id ) }}
-
-                  {{ Form::submit('承認',['class' => 'btn more_btn']) }}
-                  {{ Form::close() }}
-                </p>
-                <p class="text-right">
-                  {{ Form::open(['url' => 'aaaaaaaaaa', 'method'=>'POST', 'class'=>'']) }}
-                  @csrf
-                  {{ Form::hidden('reservation_id', $reservation->id ) }}
-                  {{ Form::hidden('user_id', $reservation->user_id ) }}
                   {{ Form::submit('確定',['class' => 'btn more_btn4']) }}
                   {{ Form::close() }}
                 </p>

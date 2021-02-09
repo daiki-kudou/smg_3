@@ -152,12 +152,13 @@ Route::namespace('Admin')->prefix('admin')->name('admin.')->group(function () {
     Route::post('agents_reservations', 'AgentsReservationsController@store');
     // 仲介会社経由　再計算
     Route::post('agents_reservations/recalculate', 'AgentsReservationsController@recalculate')->name('agents_reservations.recalculate');
-
-    // // 仲介会社　料金取得
-    // Route::post('agents_reservations/get_agent', 'AgentsReservationsController@get_agent');
-    // // ajax 支払い期日等　取得
-    // Route::post('agents_reservations/pay_limits', 'AgentsReservationsController@pay_limits');
-
-    // Route::post('agents_reservations/check', 'AgentsReservationsController@check');
+    // 仲介会社　請求　追加
+    Route::post('agents_reservations/add_bills/{reservation}', 'AgentsReservationsController@add_bills')->name('agents_reservations.add_bills');
+    // 仲介会社　追加請求　確認
+    Route::post('agents_reservations/add_bills/check/{reservation}', 'AgentsReservationsController@add_check')->name('agents_reservations.add_check');
+    // 仲介会社　追加請求　保存
+    Route::post('agents_reservations/add_bills/store/{reservation}', 'AgentsReservationsController@add_store')->name('agents_reservations.add_store');
+    // 仲介会社　メールなしで予約確定ボタン
+    Route::post('agents_reservations/confirm', 'AgentsReservationsController@add_confirm')->name('agents_reservations.add_confirm');
   });
 });
