@@ -380,10 +380,24 @@
   </div>
 </div>
 
-{{Form::submit('計算する', ['class'=>'btn btn-primary mx-auto d-block btn-lg', 'id'=>'check_submit'])}}
+
+<div class="submit_btn">
+  <div class="d-flex justify-content-center">
+    {{Form::submit('計算する', ['class'=>'btn btn-primary btn-lg ', 'id'=>'check_submit'])}}
+  </div>
+</div>
+
+<div class="spin_btn hide">
+  <div class="d-flex justify-content-center">
+    <button class="btn btn-primary btn-lg" type="button" disabled>
+      <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+      Loading...
+    </button>
+  </div>
+</div>
+
 
 {{Form::close()}}
-
 
 
 

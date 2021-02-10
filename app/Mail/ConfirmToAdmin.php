@@ -30,6 +30,6 @@ class ConfirmToAdmin extends Mailable
   {
     return $this->view('admin.mails.confirm_reservation')
       ->subject('予約の承認がされました')
-      ->with(['reservation_id' => $this->reservation]);
+      ->with(['reservation' => $this->reservation]);
   }
 }

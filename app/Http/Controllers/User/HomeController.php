@@ -83,11 +83,12 @@ class HomeController extends Controller
   public function updateOtherBillsStatus(Request $request)
   {
     return DB::transaction(function () use ($request) {
-
       $bill = Bill::find($request->bill_id);
       $bill->update([
         'reservation_status' => $request->update_status
       ]);
+
+
 
       $request->session()->regenerate();
       return redirect()->route('user.home.index');

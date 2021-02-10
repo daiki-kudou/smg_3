@@ -724,6 +724,12 @@ $(function () {
     },
     errorElement: "span",
     errorClass: "is-error",
+    //送信前にLoadingを表示
+    submitHandler: function (form) {
+      $('.spin_btn').removeClass('hide');
+      $('.submit_btn').addClass('hide');
+      form.submit();
+    }
   });
   $('input').on('blur', function () {
     $(this).valid();

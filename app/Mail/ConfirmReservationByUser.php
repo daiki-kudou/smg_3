@@ -28,7 +28,7 @@ class ConfirmReservationByUser extends Mailable
    */
   public function build()
   {
-    return $this->view('user.home.confirm_reservation')
+    return $this->view('user.mails.confirm_reservation')
       ->subject('予約が完了しました')
       ->with(['reservation_id' => $this->reservation_id]);
   }
