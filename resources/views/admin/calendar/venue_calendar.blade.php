@@ -7,23 +7,21 @@
 
 
 
-
-
-
-
-
-
 <link href="{{ asset('/css/template.css') }}" rel="stylesheet">
 
 @foreach ($days as $key=>$day)
-@foreach ($find_venues as $find_venue)
-@if ($find_venue->reserve_date==$day)
-{{Form::hidden('start', date('Y-m-d',strtotime($find_venue->reserve_date)).' '.$find_venue->enter_time,['id'=>date('Y-m-d',strtotime($day)).'start'])}}
-{{Form::hidden('finish', date('Y-m-d',strtotime($find_venue->reserve_date)).' '.$find_venue->leave_time,['id'=>date('Y-m-d',strtotime($day)).'finish'])}}
-{{Form::hidden('date', date('Y-m-d',strtotime($find_venue->reserve_date)))}}
-{{Form::hidden('status', $find_venue->reservation_status)}}
-{{Form::hidden('company', ReservationHelper::getCompany($find_venue->user_id))}}
-{{Form::hidden('reservation_id', $find_venue->id)}}
+@foreach ($reservations as $reservation)
+@if ($reservation->reserve_date==$day)
+{{Form::hidden('start', date('Y-m-d',strtotime($reservation->reserve_date)).' '.$reservation->enter_time,['id'=>date('Y-m-d',strtotime($day)).'start'])}}
+{{Form::hidden('finish', date('Y-m-d',strtotime($reservation->reserve_date)).' '.$reservation->leave_time,['id'=>date('Y-m-d',strtotime($day)).'finish'])}}
+{{Form::hidden('date', date('Y-m-d',strtotime($reservation->reserve_date)))}}
+{{Form::hidden('status', $reservation->bills()->first()->reservation_status)}}
+@if ($reservation->user_id>0)
+{{Form::hidden('company', ReservationHelper::getCompany($reservation->user_id))}}
+@else
+{{Form::hidden('company', ReservationHelper::getAgentCompany($reservation->agent_id))}}
+@endif
+{{Form::hidden('reservation_id', $reservation->id)}}
 @endif
 @endforeach
 @endforeach
@@ -47,7 +45,8 @@
         @endfor
     </select>
     <select name="selected_month" id="selected_month">
-      @for ($ii = 1; $ii <= 12; $ii++) <option value="{{$ii}}" @if ($selected_month==$ii) selected @endif>{{$ii}}月</option>
+      @for ($ii = 1; $ii <= 12; $ii++) <option value="{{$ii}}" @if ($selected_month==$ii) selected @endif>{{$ii}}月
+        </option>
         @endfor
     </select>
     {{Form::submit('確認する')}}
@@ -86,33 +85,33 @@
       @foreach ($days as $key=>$day)
       <tr class="calender-data">
         <td class="field-title">{{ReservationHelper::formatDate($day)}}</td>
-        <td class="{{date('Y-m-d',strtotime($day))}}cal100 calhalf no_wrap"></td>
+        <td class="{{date('Y-m-d',strtotime($day))}}cal1000 calhalf no_wrap"></td>
         <td class="{{date('Y-m-d',strtotime($day))}}cal1030 no_wrap"></td>
-        <td class="{{date('Y-m-d',strtotime($day))}}cal110 calhalf no_wrap"></td>
+        <td class="{{date('Y-m-d',strtotime($day))}}cal1100 calhalf no_wrap"></td>
         <td class="{{date('Y-m-d',strtotime($day))}}cal1130 no_wrap"></td>
-        <td class="{{date('Y-m-d',strtotime($day))}}cal120 calhalf no_wrap"></td>
+        <td class="{{date('Y-m-d',strtotime($day))}}cal1200 calhalf no_wrap"></td>
         <td class="{{date('Y-m-d',strtotime($day))}}cal1230 no_wrap"></td>
-        <td class="{{date('Y-m-d',strtotime($day))}}cal130 calhalf no_wrap"></td>
+        <td class="{{date('Y-m-d',strtotime($day))}}cal1300 calhalf no_wrap"></td>
         <td class="{{date('Y-m-d',strtotime($day))}}cal1330 no_wrap"></td>
-        <td class="{{date('Y-m-d',strtotime($day))}}cal140 calhalf no_wrap"></td>
+        <td class="{{date('Y-m-d',strtotime($day))}}cal1400 calhalf no_wrap"></td>
         <td class="{{date('Y-m-d',strtotime($day))}}cal1430 no_wrap"></td>
-        <td class="{{date('Y-m-d',strtotime($day))}}cal150 calhalf no_wrap"></td>
+        <td class="{{date('Y-m-d',strtotime($day))}}cal1500 calhalf no_wrap"></td>
         <td class="{{date('Y-m-d',strtotime($day))}}cal1530 no_wrap"></td>
-        <td class="{{date('Y-m-d',strtotime($day))}}cal160 calhalf no_wrap"></td>
+        <td class="{{date('Y-m-d',strtotime($day))}}cal1600 calhalf no_wrap"></td>
         <td class="{{date('Y-m-d',strtotime($day))}}cal1630 no_wrap"></td>
-        <td class="{{date('Y-m-d',strtotime($day))}}cal170 calhalf no_wrap"></td>
+        <td class="{{date('Y-m-d',strtotime($day))}}cal1700 calhalf no_wrap"></td>
         <td class="{{date('Y-m-d',strtotime($day))}}cal1730 no_wrap"></td>
-        <td class="{{date('Y-m-d',strtotime($day))}}cal180 calhalf no_wrap"></td>
+        <td class="{{date('Y-m-d',strtotime($day))}}cal1800 calhalf no_wrap"></td>
         <td class="{{date('Y-m-d',strtotime($day))}}cal1830 no_wrap"></td>
-        <td class="{{date('Y-m-d',strtotime($day))}}cal190 calhalf no_wrap"></td>
+        <td class="{{date('Y-m-d',strtotime($day))}}cal1900 calhalf no_wrap"></td>
         <td class="{{date('Y-m-d',strtotime($day))}}cal1930 no_wrap"></td>
-        <td class="{{date('Y-m-d',strtotime($day))}}cal200 calhalf no_wrap"></td>
+        <td class="{{date('Y-m-d',strtotime($day))}}cal2000 calhalf no_wrap"></td>
         <td class="{{date('Y-m-d',strtotime($day))}}cal2030 no_wrap"></td>
-        <td class="{{date('Y-m-d',strtotime($day))}}cal210 calhalf no_wrap"></td>
+        <td class="{{date('Y-m-d',strtotime($day))}}cal2100 calhalf no_wrap"></td>
         <td class="{{date('Y-m-d',strtotime($day))}}cal2130 no_wrap"></td>
-        <td class="{{date('Y-m-d',strtotime($day))}}cal220 calhalf no_wrap"></td>
+        <td class="{{date('Y-m-d',strtotime($day))}}cal2200 calhalf no_wrap"></td>
         <td class="{{date('Y-m-d',strtotime($day))}}cal2230 no_wrap"></td>
-        <td class="{{date('Y-m-d',strtotime($day))}}cal230 calhalf no_wrap"></td>
+        <td class="{{date('Y-m-d',strtotime($day))}}cal2300 calhalf no_wrap"></td>
         <td class="{{date('Y-m-d',strtotime($day))}}cal2330 no_wrap"></td>
       </tr>
       @endforeach
@@ -153,9 +152,21 @@
       var diffTime = Math.floor(diffTime / (1000 * 60));
       var target = diffTime / 30;
 
+      console.log('ds',ds);
+
+
+      function zeroPadding(num){
+        return ('0' + num).slice(-2);
+      }
+
       for (let index = 0; index < target; index++) {
         ds.setMinutes(ds.getMinutes() + (30));
-        var result = String(ds.getHours()) + String(ds.getMinutes());
+        var hours=ds.getHours();
+        hours=zeroPadding(hours);
+        var minutes = ds.getMinutes();
+        minutes = zeroPadding(minutes);
+        // console.log(hours+minutes);
+        var result = hours+minutes;
         if (status == 3) {
           $("." + s_date + "cal" + result).addClass('bg-reserve');
           if (!$("." + s_date + "cal" + result).prev().hasClass('bg-reserve')) {
@@ -167,10 +178,12 @@
           }
         } else if (status < 3) {
           $("." + s_date + "cal" + result).addClass('bg-prereserve');
+
         }
       }
       // 最後に灰色
       $('.bg-reserve:last').addClass('gray');
+      $('.bg-prereserve:last').addClass('gray');
     }
   })
 </script>

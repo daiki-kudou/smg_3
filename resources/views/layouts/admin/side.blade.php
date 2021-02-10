@@ -24,6 +24,7 @@
     link_check('/admin/reservations', 'reservations-index');
     link_check('/admin/reservations/create', 'reservations-create');
     link_check('/admin/calendar/venue_calendar', 'venue_calendar');
+    link_check('/admin/calendar/date_calendar', 'date_calendar');
 
     link_check('/admin/agents_reservations/create', 'agents-reservations-create');
 
@@ -44,11 +45,17 @@
           <li class="nav-item">
             <a href="{{'#'}}" class="nav-link pre_reservations-index">
               <i class="far fa-circle nav-icon ml-4"></i>
-              <p>一覧</p>
+              <p>仮抑え一覧</p>
             </a>
           </li>
           <li class="nav-item">
             <a href="{{'#'}}" class="nav-link pre_reservations-create">
+              <i class="far fa-circle nav-icon ml-4"></i>
+              <p>一括仮抑え一覧</p>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a href="#" class="nav-link">
               <i class="far fa-circle nav-icon ml-4"></i>
               <p>新規登録</p>
             </a>
@@ -96,7 +103,7 @@
         </a>
         <ul class="nav nav-treeview">
           <li class="nav-item">
-            <a href="#" class="nav-link ">
+            <a href="{{url('admin/calendar/date_calendar')}}" class="nav-link date_calendar">
               <i class="far fa-circle nav-icon ml-4"></i>
               <p>利用日時</p>
             </a>

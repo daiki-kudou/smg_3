@@ -43,6 +43,9 @@ $(function () {
   $('#datepicker7').datepicker({
     dateFormat: 'yy-mm-dd',
   });
+  $('#datepicker8').datepicker({
+    dateFormat: 'yy-mm-dd',
+  });
 
 });
 

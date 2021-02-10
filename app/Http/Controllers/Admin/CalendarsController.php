@@ -13,12 +13,10 @@ use Carbon\Carbon;
 
 class CalendarsController extends Controller
 {
-  public function index()
+  public function venue_calendar()
   {
-    $venues = Venue::select('id', 'name_area', 'name_bldg', 'name_venue')->get();
-
+    $venues = Venue::all();
     $selected_venue = 1;
-
     $days = [];
     $start_of_month = Carbon::now()->firstOfMonth();
     $end_of_month = Carbon::now()->endOfMonth();
@@ -27,31 +25,26 @@ class CalendarsController extends Controller
       $dt = Carbon::now()->firstOfMonth();
       $days[] = $dt->addDays($i);
     }
-
-    $reservations = Reservation::select('id', 'reserve_date', 'enter_time', 'leave_time', 'reservation_status', 'venue_id', 'user_id')->get();
-    $find_venues = $reservations->where('venue_id', $selected_venue);
-
+    $reservations = Reservation::where('venue_id', $selected_venue)->get();
+    // $find_venues = $reservations->where('venue_id', $selected_venue);
 
     return view('admin.calendar.venue_calendar', [
       'days' => $days,
       'venues' => $venues,
       'selected_venue' => $selected_venue,
-      'find_venues' => $find_venues,
-      'selected_year'=>Carbon::now()->year,
-      'selected_month'=>Carbon::now()->month,
+      'reservations' => $reservations,
+      'selected_year' => Carbon::now()->year,
+      'selected_month' => Carbon::now()->month,
     ]);
   }
 
-  public function getData(Request $request)
+  public function venue_calendarGetData(Request $request)
   {
     $today = Carbon::now();
     $venues = Venue::select('id', 'name_area', 'name_bldg', 'name_venue')->get();
-
     $request->venue_id ? $selected_venue = $request->venue_id : $selected_venue = 1;
     $request->selected_year ? $selected_year = $request->selected_year : $selected_year = $today->year;
     $request->selected_month ? $selected_month = $request->selected_month : $selected_month = 1;
-
-
     $days = [];
     $start_of_month = Carbon::create($selected_year, $selected_month, 1, 0, 0, 0)->firstOfMonth();
     $end_of_month = Carbon::create($selected_year, $selected_month, 1, 0, 0, 0)->endOfMonth();
@@ -64,8 +57,6 @@ class CalendarsController extends Controller
     $reservations = Reservation::select('id', 'reserve_date', 'enter_time', 'leave_time', 'reservation_status', 'venue_id', 'user_id')->get();
     $find_venues = $reservations->where('venue_id', $selected_venue);
 
-
-
     return view('admin.calendar.venue_calendar', [
       'days' => $days,
       'venues' => $venues,
@@ -73,6 +64,26 @@ class CalendarsController extends Controller
       'find_venues' => $find_venues,
       'selected_year' => $selected_year,
       'selected_month' => $selected_month,
+    ]);
+  }
+
+
+
+  public function date_calendar(Request $request)
+  {
+    var_dump($request->all());
+    if (empty($request->all())) {
+      $today = Carbon::now();
+    } else {
+      $today = Carbon::parse($request->date);
+    }
+
+    $reservations = Reservation::all();
+    $venues = Venue::all();
+    return view('admin.calendar.date_calendar', [
+      'reservations' => $reservations,
+      'venues' => $venues,
+      'today' => $today,
     ]);
   }
 }

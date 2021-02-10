@@ -652,7 +652,11 @@
                   <div class="total_result"> {{number_format($reservation->bills()->first()->master_total)}} 円</div>
                 </div>
               </td>
-              <td><a href="#" class="btn btn-primary btn-lg">編集</a> </td>
+              <td>
+                @if ($reservation->bills()->first()->reservation_status<3) <a href="#" class="btn btn-primary btn-lg">
+                  編集</a>
+                  @endif
+              </td>
             </tr>
             <tr>
               <td></td>

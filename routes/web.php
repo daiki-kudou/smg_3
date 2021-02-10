@@ -122,8 +122,11 @@ Route::namespace('Admin')->prefix('admin')->name('admin.')->group(function () {
     Route::post('reservations/{reservation}/confirm_reservation', 'ReservationsController@confirm_reservation')->name('reservations.confirm_reservation');
 
     // 管理者用カレンダーページ
-    Route::get('calendar/venue_calendar', 'CalendarsController@index');
-    Route::post('calendar/venue_calendar', 'CalendarsController@getData');
+    // 会場別
+    Route::get('calendar/venue_calendar', 'CalendarsController@venue_calendar');
+    Route::post('calendar/venue_calendar', 'CalendarsController@venue_calendargetData');
+    // 日時別
+    Route::get('calendar/date_calendar', 'CalendarsController@date_calendar');
 
     // 請求書追加
     // Route::post('reservations/{reservation}/add_bill', 'ReservationsController@add_bill')->name('reservations.add_bill');
