@@ -13,18 +13,25 @@
   <div class="d-flex align-items-center">
     <div class="row w-100">
       <div class="col text-right">
-        <i class="fas fa-chevron-left fa-2x"></i>
+        <a href="javascript:$('#yesterday').submit()" class="text-white"><i class="fas fa-chevron-left fa-2x"></i></a>
+        {{ Form::open(['url' => 'admin/calendar/date_calendar', 'method' => 'get','id'=>'yesterday']) }}
+        @csrf
+        {{ Form::hidden('date', $yesterday) }}
+        {{ Form::close() }}
       </div>
       <div class="col">
-        {{ Form::open(['url' => 'admin/calendar/date_calendar', 'method' => 'get']) }}
+        {{ Form::open(['url' => 'admin/calendar/date_calendar', 'method' => 'get','id'=>'s_calendar']) }}
+        @csrf
         {{ Form::text('', date('Y-m-d',strtotime($today)) ,['class'=>'form-control', 'id'=>'datepicker8', 'placeholder'=>'入力してください'] ) }}
         {{ Form::hidden('date', $today) }}
-        {{Form::submit('確認する')}}
         {{ Form::close() }}
-
       </div>
       <div class="col">
-        <i class="fas fa-chevron-right fa-2x"></i>
+        <a href="javascript:$('#tomorrow').submit()" class="text-white"><i class="fas fa-chevron-right fa-2x"></i></a>
+        {{ Form::open(['url' => 'admin/calendar/date_calendar', 'method' => 'get','id'=>'tomorrow']) }}
+        @csrf
+        {{ Form::hidden('date', $tomorrow) }}
+        {{ Form::close() }}
       </div>
     </div>
   </div>
@@ -36,23 +43,6 @@
   <li class="li-bg-empty">空室</li>
   <li class="li-bg-closed">休業日</li>
 </ul>
-
-
-
-
-
-
-
-
-@foreach ($reservations->where('reserve_date',$today) as $reservation)
-予約ID　：　{{$reservation->id}}<br>
-会場　：　{{$reservation->venue_id}}<br>
-予約ユーザー　：　{{$reservation->user_id}}<br>
-開始時間　：　{{$reservation->enter_time}}<br>
-終了時間　：　{{$reservation->leave_time}}<br>
-<br><br>
-@endforeach
-
 
 <table class="table table-bordered calender-flame">
   <thead>
@@ -116,6 +106,16 @@
 
 
 
+@foreach ($reservations as $reservation)
+<input type="hidden" name="reservation_id" value="{{$reservation->id}}">
+<input type="hidden" name="venue_id" value="{{$reservation->venue_id}}">
+<input type="hidden" name="venue_name" value="{{ReservationHelper::getVenue($reservation->venue_id)}}">
+<input type="hidden" name="user_id" value="{{$reservation->user_id}}">
+<input type="hidden" name="start" value="{{date('H:i',strtotime($reservation->enter_time))}}">
+<input type="hidden" name="finish" value="{{date('H:i',strtotime($reservation->leave_time)) }}">
+<input type="hidden" name="status" value="{{$reservation->bills()->first()->reservation_status }}">
+
+@endforeach
 
 
 
@@ -123,8 +123,38 @@
   $(function(){
     $('#datepicker8').on('change',function(){
       $('input[name="date"]').val($(this).val());
-      console.log($(this).val());
+      $('#s_calendar').submit();
     })
+  })
+
+
+  $(function(){
+    for (let index = 0; index < $('input[name="start"]').length; index++) {
+    var reservation_id=$('input[name="reservation_id"]').eq(index).val();
+    var venue_id=$('input[name="venue_id"]').eq(index).val();
+    var venue_name=$('input[name="venue_name"]').eq(index).val();
+    var user_id=$('input[name="user_id"]').eq(index).val();
+    var start=$('input[name="start"]').eq(index).val();
+    var finish=$('input[name="finish"]').eq(index).val();
+    var status=$('input[name="status"]').eq(index).val();
+
+    var json_result=JSON.parse('<?php echo $json_result; ?>');
+    var target_length=(json_result[index]).length;
+    for (let index2 = 0; index2 < target_length; index2++) {
+      //最後のみ描写しないためbreak
+      if (index2==target_length-1) {
+        break;
+      }
+      // 以下ステータス別色分け
+      if (status==1) {
+        $("." + venue_name + "cal" + json_result[index][index2]).addClass('bg-prereserve');
+      }else if(status==3){
+        $("." + venue_name + "cal" + json_result[index][index2]).addClass('bg-reserve');
+      }
+    }
+    $('.bg-reserve:last').css('background','gray');
+    }
+
   })
 </script>
 

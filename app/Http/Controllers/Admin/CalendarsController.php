@@ -71,19 +71,42 @@ class CalendarsController extends Controller
 
   public function date_calendar(Request $request)
   {
-    var_dump($request->all());
     if (empty($request->all())) {
-      $today = Carbon::now();
+      $today = Carbon::now()->toDateString();
+      $tomorrow = Carbon::now()->addDay()->toDateString();
+      $yesterday = Carbon::now()->addDays(-1)->toDateString();
     } else {
-      $today = Carbon::parse($request->date);
+      $today = Carbon::parse($request->date)->toDateString();
+      $tomorrow = Carbon::parse($request->date)->addDay()->toDateString();
+      $yesterday = Carbon::parse($request->date)->addDays(-1)->toDateString();
     }
 
-    $reservations = Reservation::all();
+
+    $reservations = Reservation::where('reserve_date', $today)->get();
     $venues = Venue::all();
+
+    $result = [];
+    foreach ($reservations as $key => $reservation) {
+      $pre = [];
+      $start = Carbon::parse($reservation->enter_time);
+      $finish = Carbon::parse($reservation->leave_time);
+      $diff = (($start->diffInMinutes($finish)) / 30);
+      $pre[] = date('Hi', strtotime($start));
+      for ($i = 0; $i < $diff; $i++) {
+        $pre[] = date('Hi', strtotime($start->addMinutes(30)));
+      }
+      $result[] = $pre;
+    }
+
+    $json_result = json_encode($result);
+
     return view('admin.calendar.date_calendar', [
       'reservations' => $reservations,
       'venues' => $venues,
       'today' => $today,
+      'tomorrow' => $tomorrow,
+      'yesterday' => $yesterday,
+      'json_result' => $json_result,
     ]);
   }
 }
