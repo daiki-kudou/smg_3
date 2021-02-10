@@ -73,76 +73,25 @@ class UsersTableSeeder extends Seeder
       'pay_limit' => 1,
       'status' => 1,
       'remember_token'    => Str::random(10),
-
     ]);
 
-    // for ($i = 1; $i < 30; $i++) {
-    //   DB::table('users')->insert(
-    //     [
-    //       'email'             => $i . $email_random->random(),
-    //       'password'          => Hash::make('12345678'),
-    //       'remember_token'    => Str::random(10),
-    //       'company'    => $company_name->random(),
-    //       'post_code'    => $postcode_random->random(),
-    //       'address1'    => $prefecture_random->random(),
-    //       'address2'    => $adr1_random->random(),
-    //       'address3'    => $adr2_random->random(),
-    //       'address_remark'    => '',
-    //       'url'    => 'https://web-trickster.com/',
-    //       'attr'    => $attr_random->random(),
-    //       'condition'    => '',
-    //       'first_name'    => $firstname_random->random(),
-    //       'last_name'    => $lastname_random->random(),
-    //       'first_name_kana'    => $first_kana_random->random(),
-    //       'last_name_kana'    => $last_kana_random->random(),
-    //       'mobile'    => $mobile_random->random(),
-    //       'tel'    => $tel_random->random(),
-    //       'fax'    => $tel_random->random(),
-    //       'pay_method'    => $attr_random->random(),
-    //       'pay_limit'    => $attr_random->random(),
-    //       'pay_post_code'    => $postcode_random->random(),
-    //       'pay_address1'    => $prefecture_random->random(),
-    //       'pay_address2'    => $adr1_random->random(),
-    //       'pay_address3'    => $adr2_random->random(),
-    //       'pay_remark'    => $adr3_random->random(),
-    //       'attention'    => '',
-    //       'remark'    => '',
-    //       'status' => '1'
-    //     ]
-    //   );
-    // }
-    // DB::table('users')->insert(
-    //   [
-    //     'email'             => 'user@example.com',
-    //     'password'          => Hash::make('12345678'),
-    //     'remember_token'    => Str::random(10),
-    //     'company'    => $company_name->random(),
-    //     'post_code'    => $postcode_random->random(),
-    //     'address1'    => $prefecture_random->random(),
-    //     'address2'    => $adr1_random->random(),
-    //     'address3'    => $adr2_random->random(),
-    //     'address_remark'    => '',
-    //     'url'    => 'https://web-trickster.com/',
-    //     'attr'    => $attr_random->random(),
-    //     'condition'    => '',
-    //     'first_name'    => $firstname_random->random(),
-    //     'last_name'    => $lastname_random->random(),
-    //     'first_name_kana'    => $first_kana_random->random(),
-    //     'last_name_kana'    => $last_kana_random->random(),
-    //     'mobile'    => $mobile_random->random(),
-    //     'tel'    => $tel_random->random(),
-    //     'fax'    => $tel_random->random(),
-    //     'pay_method'    => $attr_random->random(),
-    //     'pay_limit'    => $attr_random->random(),
-    //     'pay_post_code'    => $postcode_random->random(),
-    //     'pay_address1'    => $prefecture_random->random(),
-    //     'pay_address2'    => $adr1_random->random(),
-    //     'pay_address3'    => $adr2_random->random(),
-    //     'pay_remark'    => $adr3_random->random(),
-    //     'attention'    => '',
-    //     'remark'    => '',
-    //     'status' => '1'
-    //   ]
-    // );
+    DB::table('users')->insert([
+      'id' => 999,
+      'email' => 'sample@sample.com',
+      'password' => Hash::make('12345678'),
+      'company' => "（未登録ユーザー）",
+      'post_code' => '（未設定）',
+      'address1' => '（未設定）',
+      'address2' => '（未設定）',
+      'address3' => '（未設定）',
+      'first_name' => "（未登録ユーザー）",
+      'last_name' => "（未登録ユーザー）",
+      'first_name_kana' => "（未登録ユーザー）",
+      'last_name_kana' => "（未登録ユーザー）",
+      'pay_method' => 1,
+      'pay_limit' => 1,
+      'status' => 1,
+      'remember_token'    => Str::random(10),
+    ]);
   }
 }

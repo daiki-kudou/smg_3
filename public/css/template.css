@@ -1028,10 +1028,10 @@ h3 {
     border: solid 1px gray !important;
 }
 
-.main-sidebar, .main-sidebar::before{
+/* .main-sidebar, .main-sidebar::before{
   width: 300px;;
-}
-@media (min-width: 768px){
+} */
+/* @media (min-width: 768px){
   body:not(.sidebar-mini-md) .content-wrapper, 
   body:not(.sidebar-mini-md) .main-footer, 
   body:not(.sidebar-mini-md) .main-header {
@@ -1039,3 +1039,9 @@ h3 {
     margin-left: 300px;
 }
 }
+@media (min-width: 992px){
+  .sidebar-mini.sidebar-collapse .main-sidebar, .sidebar-mini.sidebar-collapse .main-sidebar::before {
+    margin-left: 0;
+    width: 4rem;
+}
+} */
