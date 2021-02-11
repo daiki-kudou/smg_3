@@ -115,8 +115,16 @@
       </tr>
     </thead>
     <tbody>
-        <tr>
-        </tr>
+      <tr>
+        <td>{{ Form::text('pre_date0', '',['class'=>'form-control'] ) }}</td>
+        <td>{{ Form::text('pre_venue0', '',['class'=>'form-control'] ) }}</td>
+        <td>{{ Form::text('pre_enter0', '',['class'=>'form-control'] ) }}</td>
+        <td>{{ Form::text('pre_leave0', '',['class'=>'form-control'] ) }}</td>
+        <td>
+          <input type="button" value="＋" class="add pluralBtn">
+          <input type="button" value="ー" class="del pluralBtn">
+        </td>
+      </tr>
     </tbody>
 </table>
 </div>
@@ -180,6 +188,20 @@
           });
       })
     })
+    //プラスマイナスボタン
+    $(function(){
+      $(document).on("click", ".add", function() {
+        $(this).parent().parent().clone(true).insertAfter($(this).parent().parent());
+        // var count = $(this).parent().parent().parent().length;
+        var count = console.log($(this).parent().parent().parent().find('tr').length);
+        console.log(count);
+        // for (let index = 0; index < count; index++) {
+        //   $($targetTr).eq(index).find('td').eq(0).find('input', 'select').attr('name', $TItem + index);
+        //   $($targetTr).eq(index).find('td').eq(1).find('input', 'select').attr('name', $TCost + index);
+        //   $($targetTr).eq(index).find('td').eq(2).find('input', 'select').attr('name', $TCount + index);
+        //   $($targetTr).eq(index).find('td').eq(3).find('input', 'select').attr('name', $TSubtotal + index);
+      })
+      })
 
 </script>
 @endsection
