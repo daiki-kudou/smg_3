@@ -1000,7 +1000,8 @@ h3 {
 
 .venue_head,
 .equipment_head,
-.layout_head,.others_head {
+.layout_head,
+.others_head {
     border-bottom: solid 1px gray !important;
 }
 
@@ -1028,20 +1029,21 @@ h3 {
     border: solid 1px gray !important;
 }
 
-/* .main-sidebar, .main-sidebar::before{
-  width: 300px;;
-} */
-/* @media (min-width: 768px){
-  body:not(.sidebar-mini-md) .content-wrapper, 
-  body:not(.sidebar-mini-md) .main-footer, 
-  body:not(.sidebar-mini-md) .main-header {
-    transition: margin-left .3s ease-in-out;
-    margin-left: 300px;
+#fullOverlay {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(100, 100, 100, 0.5);
+    z-index: 2147483647;
+    display: none;
 }
+
+.frame_spinner {
+    max-width: 100%;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
-@media (min-width: 992px){
-  .sidebar-mini.sidebar-collapse .main-sidebar, .sidebar-mini.sidebar-collapse .main-sidebar::before {
-    margin-left: 0;
-    width: 4rem;
-}
-} */

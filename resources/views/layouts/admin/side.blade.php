@@ -28,6 +28,7 @@
 
     link_check('/admin/agents_reservations/create', 'agents-reservations-create');
     link_check('/admin/pre_reservations', 'pre-reservations-index');
+    link_check('/admin/pre_reservations/create', 'pre-reservations-create');
 
   });
 </script>
@@ -56,7 +57,7 @@
             </a>
           </li>
           <li class="nav-item">
-            <a href="{{url('admin/pre_reservations/create')}}" class="nav-link">
+            <a href="{{url('admin/pre_reservations/create')}}" class="nav-link pre-reservations-create">
               <i class="far fa-circle nav-icon ml-4"></i>
               <p>新規登録</p>
             </a>

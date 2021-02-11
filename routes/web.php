@@ -165,5 +165,7 @@ Route::namespace('Admin')->prefix('admin')->name('admin.')->group(function () {
     Route::post('agents_reservations/confirm', 'AgentsReservationsController@add_confirm')->name('agents_reservations.add_confirm');
     // 仮抑え
     Route::resource('pre_reservations', 'PreReservationsController');
+    // 仮押さえ ajax 顧客情報取得
+    Route::post('pre_reservations/getuser', 'PreReservationsController@getuser');
   });
 });

@@ -5,6 +5,16 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
+use App\Models\Reservation;
+use App\Models\Venue;
+use App\Models\User;
+use App\Models\Bill;
+use App\Models\Breakdown;
+use Carbon\Carbon;
+use Illuminate\Support\Facades\DB; //トランザクション用
+
+
+
 class PreReservationsController extends Controller
 {
   /**
@@ -24,7 +34,16 @@ class PreReservationsController extends Controller
    */
   public function create()
   {
-    return view('admin.pre_reservations.create');
+    $users = User::all();
+    return view('admin.pre_reservations.create', [
+      'users' => $users,
+    ]);
+  }
+
+  public function getuser(Request $request)
+  {
+    $user = User::find($request->user_id);
+    return $user;
   }
 
   /**
