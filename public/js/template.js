@@ -26,31 +26,50 @@ $(function () {
   $('#datepicker1').datepicker({
     dateFormat: 'yy-mm-dd',
     minDate: 0,
+    autoclose: true
+
   });
   $('#datepicker2').datepicker({
     dateFormat: 'yy-mm-dd',
+    autoclose: true
+
   });
   // datepicker3は直接埋め込んだ
   // *** datepicker3は使わないように ****
   $('#datepicker4').datepicker({
     dateFormat: 'yy-mm-dd',
+    autoclose: true
+
   });
   $('#datepicker5').datepicker({
     dateFormat: 'yy-mm-dd',
+    autoclose: true
+
   });
   $('#datepicker6').datepicker({
     dateFormat: 'yy-mm-dd',
+    autoclose: true
+
   });
   $('#datepicker7').datepicker({
     dateFormat: 'yy-mm-dd',
+    autoclose: true
+
   });
   $('#datepicker8').datepicker({
     dateFormat: 'yy-mm-dd',
     numberOfMonths: 3,
     showCurrentAtPos: 1,   // 表示位置は左から2番目 (真ん中)
     stepMonths: 0,         // 月の移動を3ヶ月単位とする
+    autoclose: true
 
   });
+  $('#pre_datepicker').datepicker({
+    dateFormat: 'yy-mm-dd',
+    autoclose: true
+
+  });
+
 
 });
 
