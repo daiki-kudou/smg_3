@@ -42,6 +42,14 @@ class PreReservationsController extends Controller
     ]);
   }
 
+  public function check(Request $request)
+  {
+    $users = User::all();
+    $venues = Venue::all();
+  }
+
+
+
   public function getuser(Request $request)
   {
     $user = User::find($request->user_id);

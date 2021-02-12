@@ -137,8 +137,26 @@
             @endforeach
           </select>
         </td>
-        <td>{{ Form::text('pre_enter0', '',['class'=>'form-control'] ) }}</td>
-        <td>{{ Form::text('pre_leave0', '',['class'=>'form-control'] ) }}</td>
+        <td>
+          <select name="pre_enter0" id="pre_enter0" class="form-control">
+            <option value=""></option>
+            @for ($start = 0*2; $start <=23*2; $start++) <option
+              value="{{date("H:i:s", strtotime("00:00 +". $start * 30 ." minute"))}}">
+              {{date("H時i分", strtotime("00:00 +". $start * 30 ." minute"))}}
+              </option>
+              @endfor
+          </select>
+        </td>
+        <td>
+          <select name="pre_leave0" id="pre_leave0" class="form-control">
+            <option value=""></option>
+            @for ($start = 0*2; $start <=23*2; $start++) <option
+              value="{{date("H:i:s", strtotime("00:00 +". $start * 30 ." minute"))}}">
+              {{date("H時i分", strtotime("00:00 +". $start * 30 ." minute"))}}
+              </option>
+              @endfor
+          </select>
+        </td>
         <td>
           <input type="button" value="＋" class="add pluralBtn">
           <input type="button" value="ー" class="del pluralBtn">
@@ -220,12 +238,15 @@
           //プラスマイナスボタン
       $(document).on("click", ".add", function() {
         // すべてのselect2初期化
-        $('.date_selector select').select2("destroy");
+        for (let destroy = 0; destroy < $('.date_selector tbody tr').length; destroy++) {
+          console.log($('.date_selector tbody tr').eq(destroy).find('td').eq(1).find('select').select2("destroy"));
+        }
+
+
 
         $(this).parent().parent().clone(true).insertAfter($(this).parent().parent());
         var count = $(this).parent().parent().parent().find('tr').length;
         var target =$(this).parent().parent().parent().find('tr');
-        console.log(target);
 
         for (let index = 0; index < count; index++) {
           // name属性
