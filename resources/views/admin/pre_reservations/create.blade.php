@@ -242,15 +242,13 @@
             minDate: 0,
           });
           // select2付与
-          $(target).eq(index).find('td').eq(1).find('select').select2();
+          $(target).eq(index).find('td').eq(1).find('select').select2({width: '100%'});
           
           if (index==count-1) {
             $(target).eq(index).find('td').eq(2).find('input, select').val('');
             $(target).eq(index).find('td').eq(3).find('input, select').val('');
           }
         }
-
-
       })
 
 
