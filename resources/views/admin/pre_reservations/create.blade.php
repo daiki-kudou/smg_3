@@ -233,16 +233,14 @@
         autoclose: true
       });
     })
-
+    // 入退室初期時間選択desabled設定
+  //プラスマイナスボタン
     $(function(){
-          //プラスマイナスボタン
       $(document).on("click", ".add", function() {
         // すべてのselect2初期化
         for (let destroy = 0; destroy < $('.date_selector tbody tr').length; destroy++) {
           console.log($('.date_selector tbody tr').eq(destroy).find('td').eq(1).find('select').select2("destroy"));
         }
-
-
 
         $(this).parent().parent().clone(true).insertAfter($(this).parent().parent());
         var count = $(this).parent().parent().parent().find('tr').length;
@@ -257,6 +255,8 @@
           // id属性
           $(target).eq(index).find('td').eq(0).find('input, select').attr('id', "pre_datepicker" + index);
           $(target).eq(index).find('td').eq(1).find('input, select').attr('id', "pre_venue" + index);
+          $(target).eq(index).find('td').eq(2).find('input, select').attr('id', "pre_enter" + index);
+          $(target).eq(index).find('td').eq(3).find('input, select').attr('id', "pre_leave" + index);
           // dapicker付与
           $('#pre_datepicker'+index).removeClass('hasDatepicker').datepicker({
             dateFormat: 'yy-mm-dd',
@@ -271,14 +271,6 @@
           }
         }
       })
-
-
-
-
-
-
-
-
       // マイナスボタン
       $(document).on("click", ".del", function() {
       var master = $(this).parent().parent().parent().find('tr').length;
@@ -292,18 +284,73 @@
       console.log(count2);
       for (let index = 0; index < count2; index++) {
           $('.date_selector tbody tr').eq(index).find('td').eq(0).find('input, select').attr('name', "pre_date" + index);
-          $('.date_selector tbody tr').eq(index).find('td').eq(0).find('input, select').attr('id', "pre_datepicker" + index);
           $('.date_selector tbody tr').eq(index).find('td').eq(1).find('input, select').attr('name', "pre_venue" + index);
           $('.date_selector tbody tr').eq(index).find('td').eq(2).find('input, select').attr('name', "pre_enter" + index);
           $('.date_selector tbody tr').eq(index).find('td').eq(3).find('input, select').attr('name', "pre_leave" + index);
+          // id属性
+          $('.date_selector tbody tr').eq(index).find('td').eq(0).find('input, select').attr('id', "pre_datepicker" + index);
+          $('.date_selector tbody tr').eq(index).find('td').eq(1).find('input, select').attr('id', "pre_venue" + index);
+          $('.date_selector tbody tr').eq(index).find('td').eq(2).find('input, select').attr('id', "pre_enter" + index);
+          $('.date_selector tbody tr').eq(index).find('td').eq(3).find('input, select').attr('id', "pre_leave" + index);
           $('#pre_datepicker'+index).removeClass('hasDatepicker').datepicker({
             dateFormat: 'yy-mm-dd',
             minDate: 0,
           });
         }
     })
-
     })
+    // 入室時間選択トリガー
+    $(function(){
+      $(document).on("click", "select", function() {
+        // console.log($(this).parent().index());
+        var this_tr=$(this).parent().parent();
+        // console.log(this_tr);
+        var target = $(this).parent().index();
+        if (target==2) {
+          var date= this_tr.find('td').eq(0).find('input').val();
+          var venue= this_tr.find('td').eq(1).find('select').val();
+          if (date.length&&venue.length) {
+            $(this).find('option').prop('disabled',false);
+            var options=$(this).find('option');
+            $.ajax({
+            headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            },
+            url: '/admin/reservations/getsaleshours',
+            type: 'POST',
+            data: { 'venue_id': venue, 'dates': date },
+            dataType: 'json',
+            beforeSend: function () {
+            $('#fullOverlay').css('display', 'block');
+            },
+            }).done(function ($times) {
+            $('#fullOverlay').css('display', 'none');
+            console.log('成功', $times[0]);
+            
+            for (let index = 0; index < $times[0].length; index++) {
+
+            options.each(function ($result) {
+              if ($times[0][index] == options.eq($result).val()) {
+              options.eq($result).prop('disabled', true);
+            }
+            });
+          };
+            }).fail(function ($times) {
+            $('#fullOverlay').css('display', 'none');
+            console.log('失敗', $times);
+            });
+          }else{
+            $(this).find('option').prop('disabled',true);
+          }
+
+
+
+
+
+        }
+      })
+    })
+
 
 </script>
 @endsection
