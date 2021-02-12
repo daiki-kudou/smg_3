@@ -35,8 +35,10 @@ class PreReservationsController extends Controller
   public function create()
   {
     $users = User::all();
+    $venues = Venue::all();
     return view('admin.pre_reservations.create', [
       'users' => $users,
+      'venues' => $venues,
     ]);
   }
 

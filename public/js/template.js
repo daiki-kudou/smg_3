@@ -64,12 +64,6 @@ $(function () {
     autoclose: true
 
   });
-  $('#pre_datepicker').datepicker({
-    dateFormat: 'yy-mm-dd',
-    autoclose: true
-
-  });
-
 
 });
 

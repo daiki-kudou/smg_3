@@ -129,7 +129,14 @@
     <tbody>
       <tr>
         <td>{{ Form::text('pre_date0', '',['class'=>'form-control', 'id'=>"pre_datepicker"] ) }}</td>
-        <td>{{ Form::text('pre_venue0', '',['class'=>'form-control'] ) }}</td>
+        <td>
+          {{-- {{ Form::text('pre_venue0', '',['class'=>'form-control'] ) }} --}}
+          <select name="pre_venue0" id="pre_venue">
+            @foreach ($venues as $venue)
+            <option value="{{$venue->id}}">{{ReservationHelper::getVenue($venue->id)}}</option>
+            @endforeach
+          </select>
+        </td>
         <td>{{ Form::text('pre_enter0', '',['class'=>'form-control'] ) }}</td>
         <td>{{ Form::text('pre_leave0', '',['class'=>'form-control'] ) }}</td>
         <td>
@@ -200,32 +207,58 @@
           });
       })
     })
+    // select2, datepicker 初期表示用
+    $(function(){
+      $('#pre_venue').select2({ width: '100%' });
+      $('#pre_datepicker').datepicker({
+        dateFormat: 'yy-mm-dd',
+        autoclose: true
+      });
+    })
 
     $(function(){
-
-
           //プラスマイナスボタン
       $(document).on("click", ".add", function() {
+        // すべてのselect2初期化
+        $('.date_selector select').select2("destroy");
+
         $(this).parent().parent().clone(true).insertAfter($(this).parent().parent());
         var count = $(this).parent().parent().parent().find('tr').length;
         var target =$(this).parent().parent().parent().find('tr');
         console.log(target);
 
         for (let index = 0; index < count; index++) {
-
-          $(target).eq(index).find('td').eq(0).find('input', 'select').attr('name', "pre_date" + index);
-
-          // $(target).eq(index).find('td').eq(0).find('input', 'select').removeClass('hasDatepicker').datepicker();
-          $(target).eq(index).find('td').eq(0).find('input', 'select').attr('id', "pre_datepicker" + index);
-          $(target).eq(index).find('td').eq(1).find('input', 'select').attr('name', "pre_venue" + index);
-          $(target).eq(index).find('td').eq(2).find('input', 'select').attr('name', "pre_enter" + index);
-          $(target).eq(index).find('td').eq(3).find('input', 'select').attr('name', "pre_leave" + index);
+          // name属性
+          $(target).eq(index).find('td').eq(0).find('input, select').attr('name', "pre_date" + index);
+          $(target).eq(index).find('td').eq(1).find('input, select').attr('name', "pre_venue" + index);
+          $(target).eq(index).find('td').eq(2).find('input, select').attr('name', "pre_enter" + index);
+          $(target).eq(index).find('td').eq(3).find('input, select').attr('name', "pre_leave" + index);
+          // id属性
+          $(target).eq(index).find('td').eq(0).find('input, select').attr('id', "pre_datepicker" + index);
+          $(target).eq(index).find('td').eq(1).find('input, select').attr('id', "pre_venue" + index);
+          // dapicker付与
           $('#pre_datepicker'+index).removeClass('hasDatepicker').datepicker({
             dateFormat: 'yy-mm-dd',
             minDate: 0,
           });
+          // select2付与
+          $(target).eq(index).find('td').eq(1).find('select').select2();
+          
+          if (index==count-1) {
+            $(target).eq(index).find('td').eq(2).find('input, select').val('');
+            $(target).eq(index).find('td').eq(3).find('input, select').val('');
+          }
         }
+
+
       })
+
+
+
+
+
+
+
 
       // マイナスボタン
       $(document).on("click", ".del", function() {
@@ -239,10 +272,15 @@
       var count2 = $('.date_selector tbody tr').length;
       console.log(count2);
       for (let index = 0; index < count2; index++) {
-          $('.date_selector tbody tr').eq(index).find('td').eq(0).find('input', 'select').attr('name', "pre_date" + index);
-          $('.date_selector tbody tr').eq(index).find('td').eq(1).find('input', 'select').attr('name', "pre_venue" + index);
-          $('.date_selector tbody tr').eq(index).find('td').eq(2).find('input', 'select').attr('name', "pre_enter" + index);
-          $('.date_selector tbody tr').eq(index).find('td').eq(3).find('input', 'select').attr('name', "pre_leave" + index);
+          $('.date_selector tbody tr').eq(index).find('td').eq(0).find('input, select').attr('name', "pre_date" + index);
+          $('.date_selector tbody tr').eq(index).find('td').eq(0).find('input, select').attr('id', "pre_datepicker" + index);
+          $('.date_selector tbody tr').eq(index).find('td').eq(1).find('input, select').attr('name', "pre_venue" + index);
+          $('.date_selector tbody tr').eq(index).find('td').eq(2).find('input, select').attr('name', "pre_enter" + index);
+          $('.date_selector tbody tr').eq(index).find('td').eq(3).find('input, select').attr('name', "pre_leave" + index);
+          $('#pre_datepicker'+index).removeClass('hasDatepicker').datepicker({
+            dateFormat: 'yy-mm-dd',
+            minDate: 0,
+          });
         }
     })
 
