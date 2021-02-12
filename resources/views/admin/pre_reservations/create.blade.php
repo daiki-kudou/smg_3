@@ -22,9 +22,12 @@
   <iframe src="{{url('admin/calendar/date_calendar')}}" width="100%" height="500">Your browser isn't compatible</iframe>
 </div>
 
+{{Form::open(['url' => 'admin/pre_reservations/check', 'method' => 'POST', 'id'=>'reservationCreateForm'])}}
+@csrf
+
 <div class="user_selector mt-5">
   <h1>顧客検索</h1>
-  <select name="pre_reservation_selector" id="pre_reservation_selector">
+  <select name="user_id" id="user_id">
     <option value="#">選択してください</option>
     @foreach ($users as $user)
     <option value="{{$user->id}}">
@@ -130,7 +133,6 @@
       <tr>
         <td>{{ Form::text('pre_date0', '',['class'=>'form-control', 'id'=>"pre_datepicker"] ) }}</td>
         <td>
-          {{-- {{ Form::text('pre_venue0', '',['class'=>'form-control'] ) }} --}}
           <select name="pre_venue0" id="pre_venue">
             @foreach ($venues as $venue)
             <option value="{{$venue->id}}">{{ReservationHelper::getVenue($venue->id)}}</option>
@@ -166,6 +168,24 @@
   </table>
 </div>
 
+<div class="submit_btn">
+  <div class="d-flex justify-content-center">
+    {{Form::submit('確認する', ['class'=>'btn btn-primary btn-lg ', 'id'=>'check_submit'])}}
+  </div>
+</div>
+
+<div class="spin_btn hide">
+  <div class="d-flex justify-content-center">
+    <button class="btn btn-primary btn-lg" type="button" disabled>
+      <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+      Loading...
+    </button>
+  </div>
+</div>
+
+
+{{Form::close()}}
+
 
 
 
@@ -185,7 +205,7 @@
 
     // 顧客検索
     $(function(){
-      $('#pre_reservation_selector').on('input',function(){
+      $('#user_id').on('input',function(){
           var user_id = $(this).val();
           // ajax
           $.ajax({

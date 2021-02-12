@@ -89,6 +89,22 @@ class ReservationHelper
     return $user->first_name_kana . $user->last_name_kana;
   }
 
+  public static function getPersonEmail($user_id)
+  {
+    $user = User::find($user_id);
+    return $user->email;
+  }
+  public static function getPersonMobile($user_id)
+  {
+    $user = User::find($user_id);
+    return $user->mobile;
+  }
+  public static function getPersonTel($user_id)
+  {
+    $user = User::find($user_id);
+    return $user->tel;
+  }
+
   public static function getAgentPerson($agent_id)
   {
     $agent = Agent::find($agent_id);

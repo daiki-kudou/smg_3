@@ -454,8 +454,6 @@ class Venue extends Model
       $f_start2 = Carbon::createFromTimeString($start_time, 'Asia/Tokyo');
       $f_finish2 = Carbon::createFromTimeString($finish_time, 'Asia/Tokyo');
 
-
-
       $usage_time = $f_start2->diffInMinutes($f_finish2); //時差
       $usage_time /= 60; //分に変換
 
