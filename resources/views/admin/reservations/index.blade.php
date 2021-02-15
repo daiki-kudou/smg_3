@@ -6,13 +6,19 @@
 <link href="{{ asset('/css/template.css') }}" rel="stylesheet">
 <script src="{{ asset('/js/template.js') }}"></script>
 
+<script>
+  $(function(){
+    $('.flash_message').fadeOut(3000);
+  })
+</script>
+@if (session('flash_message'))
+<div class="flash_message bg-success text-center py-3 my-0">
+  {{ session('flash_message') }}
+</div>
+@endif
 
 <div class="content">
   <div class="container-fluid">
-
-    <script src="http://staging-smg2.herokuapp.com/js/template.js"></script>
-    <link href="http://staging-smg2.herokuapp.com/css/template.css" rel="stylesheet">
-
 
     <div class="container-field mt-3">
       <div class="float-right">
@@ -327,15 +333,28 @@
             <td rowspan="{{count($reservation->bills()->get())}}">{{$reservation->enter_time}}</td>
             <td rowspan="{{count($reservation->bills()->get())}}">{{$reservation->leave_time}}</td>
             <td rowspan="{{count($reservation->bills()->get())}}">
-              {{$venue->find($reservation->venue_id)->name_area}}{{$venue->find($reservation->venue_id)->name_bldg}}{{$venue->find($reservation->venue_id)->name_venue}}
-            </td>
-            <td rowspan="{{count($reservation->bills()->get())}}">{{$user->find($reservation->user_id)->company}}</td>
+              {{ReservationHelper::getVenue($reservation->venue->id)}}</td>
             <td rowspan="{{count($reservation->bills()->get())}}">
-              {{$user->find($reservation->venue_id)->first_name}}{{$user->find($reservation->venue_id)->last_name}}
+              @if ($reservation->user_id>0)
+              {{$reservation->user->company}}
+              @elseif($reservation->user_id==0)
+              {{ReservationHelper::getAgentCompany($reservation->agent_id)}}
+              @endif
+            </td>
+            <td rowspan="{{count($reservation->bills()->get())}}">
+              @if ($reservation->user_id>0)
+              {{ReservationHelper::getPersonName($reservation->user_id)}}
+              @elseif($reservation->user_id==0)
+              {{ReservationHelper::getAgentPerson($reservation->agent_id)}}
+              @endif
             </td>
             <td rowspan="{{count($reservation->bills()->get())}}">{{$user->find($reservation->venue_id)->mobile}}</td>
             <td rowspan="{{count($reservation->bills()->get())}}">{{$user->find($reservation->venue_id)->tel}}</td>
-            <td rowspan="{{count($reservation->bills()->get())}}">※修正</td>
+            <td rowspan="{{count($reservation->bills()->get())}}">
+              @if ($reservation->agent_id>0)
+              {{ReservationHelper::getAgentCompany($reservation->agent_id)}}
+              @endif
+            </td>
             <td>会場予約</td>　{{--重要。固定最初は必ず　会場予約　のカテゴリ--}}
             <td>
               {{ReservationHelper::judgeStatus($reservation->bills()->first()->reservation_status)}}
