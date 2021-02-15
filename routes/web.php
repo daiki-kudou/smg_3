@@ -174,5 +174,6 @@ Route::namespace('Admin')->prefix('admin')->name('admin.')->group(function () {
     Route::post('pre_reservations/calculate', 'PreReservationsController@calculate');
     // 仮抑え　削除
     Route::post('pre_reservations/destroy', 'PreReservationsController@destroy');
+    //
   });
 });
