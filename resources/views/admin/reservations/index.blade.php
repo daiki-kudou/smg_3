@@ -338,7 +338,7 @@
               @if ($reservation->user_id>0)
               {{$reservation->user->company}}
               @elseif($reservation->user_id==0)
-              {{ReservationHelper::getAgentCompany($reservation->agent_id)}}
+              {{-- {{ReservationHelper::getAgentCompany($reservation->agent_id)}} --}}
               @endif
             </td>
             <td rowspan="{{count($reservation->bills()->get())}}">
@@ -352,7 +352,7 @@
             <td rowspan="{{count($reservation->bills()->get())}}">{{$user->find($reservation->venue_id)->tel}}</td>
             <td rowspan="{{count($reservation->bills()->get())}}">
               @if ($reservation->agent_id>0)
-              {{ReservationHelper::getAgentCompany($reservation->agent_id)}}
+              {{-- {{ReservationHelper::getAgentCompany($reservation->agent_id)}} --}}
               @endif
             </td>
             <td>会場予約</td>　{{--重要。固定最初は必ず　会場予約　のカテゴリ--}}
