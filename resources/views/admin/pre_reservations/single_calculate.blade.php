@@ -24,14 +24,12 @@
         <td class="table-active">会社名・団体名</td>
         <td colspan="3">
           <p class="company">{{$request->user_id==999?"":ReservationHelper::getCompany($request->user_id)}}</p>
-
         </td>
       </tr>
       <tr>
         <td class="table-active">担当者指名</td>
         <td>
           <p class="person">{{$request->user_id==999?"":ReservationHelper::getPersonName($request->user_id)}}</p>
-
         </td>
         <td class="table-active">メールアドレス</td>
         <td>
@@ -106,21 +104,29 @@
           <tr>
             <td class="table-active form_required">利用日</td>
             <td>
-              {{ Form::text('reserve_date', $request->reserve_date,['class'=>'form-control', 'readonly'] ) }}
+              {{ Form::text('reserve_date', $request->reserve_date,['class'=>'form-control', 'id'=>'datepicker1'] ) }}
             </td>
           </tr>
           <tr>
             <td class="table-active form_required">会場</td>
             <td>
-              {{ Form::text('', ReservationHelper::getVenue($request->venue_id),['class'=>'form-control', 'readonly'] ) }}
-              {{ Form::hidden('venue_id', $request->venue_id,['class'=>'form-control', 'readonly'] ) }}
+              <select name="venue_id" id="venue_id">
+                <option value=""></option>
+                @foreach ($venues as $venue)
+                <option value="{{$venue->id}}" {{$venue->id==$request->venue_id?'selected':''}}>
+                  {{ReservationHelper::getVenue($venue->id)}}</option>
+                @endforeach
+
+              </select>
               <div class="price_selector">
                 <div>
                   <small>料金体系</small>
                 </div>
-                <div class="price_radio_selector">
-                  {{ Form::text('', $request->price_system==1?"通常（枠貸）":"アクセア（時間貸）",['class'=>'form-control', 'readonly'] ) }}
-                  {{ Form::hidden('price_system', $request->price_system,['class'=>'form-control', 'readonly'] ) }}
+                <div class="form-check form-check-inline">
+                  {{Form::radio('price_system', 1, $request->price_system==1?true:false , ['id' => 'price_system_radio1', 'class' => 'form-check-input'])}}
+                  <label for="{{'price_system_radio1'}}" class="form-check-label">時間貸し</label>
+                  {{Form::radio('price_system', 2, $request->price_system==2?true:false, ['id' => 'price_system_radio2', 'class' => 'form-check-input'])}}
+                  <label for="{{'price_system_radio2'}}" class="form-check-label">アクセア仕様</label>
                 </div>
               </div>
             </td>
@@ -128,19 +134,35 @@
           <tr>
             <td class="table-active form_required">入室時間</td>
             <td>
-              <div>
-                {{ Form::text('', date('H:i',strtotime($request->enter_time)),['class'=>'form-control', 'readonly'] ) }}
-                {{ Form::hidden('enter_time', $request->enter_time,['class'=>'form-control', 'readonly'] ) }}
-              </div>
+              <select name="enter_time" id="enter_time" class="form-control">
+                <option value=""></option>
+                @for ($start = 0*2; $start <=23*2; $start++) <option
+                  value="{{date("H:i:s", strtotime("00:00 +". $start * 30 ." minute"))}}" @if (date("H:i:s",
+                  strtotime("00:00 +". $start * 30 ." minute"))==$request->enter_time)
+                  selected
+                  @endif
+                  >
+                  {{date("H時i分", strtotime("00:00 +". $start * 30 ." minute"))}}
+                  </option>
+                  @endfor
+              </select>
             </td>
           </tr>
           <tr>
             <td class="table-active form_required">退室時間</td>
             <td>
-              <div>
-                {{ Form::text('', date('H:i',strtotime($request->leave_time)),['class'=>'form-control', 'readonly'] ) }}
-                {{ Form::hidden('leave_time', $request->leave_time,['class'=>'form-control', 'readonly'] ) }}
-              </div>
+              <select name="leave_time" id="leave_time" class="form-control">
+                <option value=""></option>
+                @for ($start = 0*2; $start <=23*2; $start++) <option
+                  value="{{date("H:i:s", strtotime("00:00 +". $start * 30 ." minute"))}}" @if (date("H:i:s",
+                  strtotime("00:00 +". $start * 30 ." minute"))==$request->leave_time)
+                  selected
+                  @endif
+                  >
+                  {{date("H時i分", strtotime("00:00 +". $start * 30 ." minute"))}}
+                  </option>
+                  @endfor
+              </select>
             </td>
           </tr>
           <tr>
@@ -251,7 +273,21 @@
             </tr>
           </thead>
           <tbody>
-            {{-- @if ($layouts[0]!=0)
+            @if ($request->layout_prepare==1)
+            <tr>
+              <td class="table-active">
+                レイアウト準備
+              </td>
+              <td>
+                <div class="form-check form-check-inline">
+                  {{Form::radio('layout_prepare', 1, true , ['id' => 'layout_prepare', 'class' => 'form-check-input'])}}
+                  <label for="{{'layout_prepare'}}" class="form-check-label">有り</label>
+                  {{Form::radio('layout_prepare', 0, false, ['id' => 'no_layout_prepare', 'class' => 'form-check-input'])}}
+                  <label for="{{'no_layout_prepare'}}" class="form-check-label">無し</label>
+                </div>
+              </td>
+            </tr>
+            @else
             <tr>
               <td class="table-active">
                 レイアウト準備
@@ -259,172 +295,191 @@
               <td>
                 <div class="form-check form-check-inline">
                   {{Form::radio('layout_prepare', 1, false , ['id' => 'layout_prepare', 'class' => 'form-check-input'])}}
-
-            <label for="{{'layout_prepare'}}" class="form-check-label">有り</label>
-            {{Form::radio('layout_prepare', 0, true, ['id' => 'no_layout_prepare', 'class' => 'form-check-input'])}}
-
-            <label for="{{'no_layout_prepare'}}" class="form-check-label">無し</label>
+                  <label for="{{'layout_prepare'}}" class="form-check-label">有り</label>
+                  {{Form::radio('layout_prepare', 0, true, ['id' => 'no_layout_prepare', 'class' => 'form-check-input'])}}
+                  <label for="{{'no_layout_prepare'}}" class="form-check-label">無し</label>
+                </div>
+              </td>
+            </tr>
+            @endif
+            @if ($request->layout_clean==1)
+            <tr>
+              <td class="table-active">
+                レイアウト片付け
+              </td>
+              <td>
+                <div class="form-check form-check-inline">
+                  {{Form::radio('layout_clean', 1, true, ['id' => 'layout_clean', 'class' => 'form-check-input'])}}
+                  <label for='layout_clean' class="form-check-label">有り</label>
+                  {{Form::radio('layout_clean', 0, false, ['id' => 'no_layout_clean', 'class' => 'form-check-input'])}}
+                  <label for='no_layout_clean' class="form-check-label">無し</label>
+                </div>
+              </td>
+            </tr>
+            @else
+            <tr>
+              <td class="table-active">
+                レイアウト片付け
+              </td>
+              <td>
+                <div class="form-check form-check-inline">
+                  {{Form::radio('layout_clean', 1, false, ['id' => 'layout_clean', 'class' => 'form-check-input'])}}
+                  <label for='layout_clean' class="form-check-label">有り</label>
+                  {{Form::radio('layout_clean', 0, true, ['id' => 'no_layout_clean', 'class' => 'form-check-input'])}}
+                  <label for='no_layout_clean' class="form-check-label">無し</label>
+                </div>
+              </td>
+            </tr>
+            @endif
+          </tbody>
+        </table>
       </div>
-      </td>
-      </tr>
-      @endif
-      @if ($layouts[1]!=0)
-      <tr>
-        <td class="table-active">
-          レイアウト片付け
-        </td>
-        <td>
-          <div class="form-check form-check-inline">
-            {{Form::radio('layout_clean', 1, false, ['id' => 'layout_clean', 'class' => 'form-check-input'])}}
-
-            <label for='layout_clean' class="form-check-label">有り</label>
-            {{Form::radio('layout_clean', 0, true, ['id' => 'no_layout_clean', 'class' => 'form-check-input'])}}
-
-            <label for='no_layout_clean' class="form-check-label">無し</label>
-          </div>
-        </td>
-      </tr>
-      @endif --}}
-      </tbody>
-      </table>
+      <div class="luggage">
+        <table class="table table-bordered">
+          <thead>
+            <tr>
+              <th colspan="2">荷物預かり</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>事前に預かる荷物<br>（個数）</td>
+              <td>
+                {{ Form::text('luggage_count', $request->luggage_count,['class'=>'form-control'] ) }}
+              </td>
+            </tr>
+            <tr>
+              <td>事前荷物の到着日<br>午前指定のみ</td>
+              <td>
+                {{ Form::text('luggage_arrive', $request->luggage_arrive,['class'=>'form-control'] ) }}
+              </td>
+            </tr>
+            <tr>
+              <td>事後返送する荷物</td>
+              <td>
+                {{ Form::text('luggage_return', $request->luggage_return,['class'=>'form-control'] ) }}
+              </td>
+            </tr>
+            <tr>
+              <td>荷物預かり/返送<br>料金</td>
+              <td>
+                {{ Form::text('luggage_price', $request->luggage_price,['class'=>'form-control'] ) }}
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="price_details">
+      </div>
     </div>
-    <div class="luggage">
-      <table class="table table-bordered">
-        <thead>
-          <tr>
-            <th colspan="2">荷物預かり</th>
-          </tr>
-        </thead>
-        <tbody>
-          @if ($venue->luggage_flag==1)
-          <tr>
-            <td>事前に預かる荷物<br>（個数）</td>
-            <td>
-              {{-- {{ Form::text('luggage_count', '',['class'=>'form-control'] ) }} --}}
-            </td>
-          </tr>
-          <tr>
-            <td>事前荷物の到着日<br>午前指定のみ</td>
-            <td>
-              {{-- {{ Form::text('luggage_arrive', '',['class'=>'form-control'] ) }} --}}
-            </td>
-          </tr>
-          <tr>
-            <td>事後返送する荷物</td>
-            <td>
-              {{-- {{ Form::text('luggage_return', '',['class'=>'form-control'] ) }} --}}
-            </td>
-          </tr>
-          <tr>
-            <td>荷物預かり/返送<br>料金</td>
-            <td>
-              {{-- {{ Form::text('luggage_price', '',['class'=>'form-control'] ) }} --}}
-            </td>
-          </tr>
-          @endif
-        </tbody>
-      </table>
-    </div>
-    <div class="price_details">
-    </div>
-  </div>
 
-  <div class="col">
-    <div class="client_mater">　
-      <table class="table table-bordered">
+    <div class="col">
+      <div class="client_mater">　
+        <table class="table table-bordered">
+          <tbody>
+            <tr>
+              <td colspan="2">
+                <p class="title-icon">
+                  <i class="fas fa-user-check fa-2x fa-fw" aria-hidden="true"></i>
+                  当日の連絡できる担当者
+                </p>
+              </td>
+            </tr>
+            <tr>
+              <td class="table-active">
+                <label for="ondayName" class=" form_required">氏名</label>
+              </td>
+              <td>
+                {{ Form::text('in_charge', $request->in_charge,['class'=>'form-control'] ) }}
+                <p class="is-error-in_charge" style="color: red"></p>
+              </td>
+            </tr>
+            <tr>
+              <td class="table-active"><label for="mobilePhone" class=" form_required">携帯番号</label></td>
+              <td>
+                {{ Form::text('tel', $request->tel,['class'=>'form-control'] ) }}
+                <p class="is-error-tel" style="color: red"></p>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <table class="table table-bordered mail-table">
         <tbody>
           <tr>
             <td colspan="2">
               <p class="title-icon">
-                <i class="fas fa-user-check fa-2x fa-fw" aria-hidden="true"></i>
-                当日の連絡できる担当者
+                <i class="fas fa-envelope fa-2x fa-fw" aria-hidden="true"></i>利用後の送信メール
               </p>
             </td>
           </tr>
           <tr>
-            <td class="table-active"><label for="ondayName" class=" form_required">氏名</label></td>
+            <td class="table-active"><label for="email_flag">送信メール</label></td>
             <td>
-              {{-- {{ Form::text('in_charge', '',['class'=>'form-control'] ) }} --}}
-              <p class="is-error-in_charge" style="color: red"></p>
+              <div class="radio-box">
+
+                @if ($request->email_flag!=0)
+                <div class="form-check form-check-inline">
+                  {{Form::radio('email_flag', 1, true , ['id' => 'email_flag', 'class' => 'form-check-input'])}}
+                  <label for="{{'email_flag'}}" class="form-check-label">有り</label>
+                  {{Form::radio('email_flag', 0, false, ['id' => 'no_email_flag', 'class' => 'form-check-input'])}}
+                  <label for="{{'no_email_flag'}}" class="form-check-label">無し</label>
+                </div>
+                @else
+                <div class="form-check form-check-inline">
+                  {{Form::radio('email_flag', 1, false , ['id' => 'email_flag', 'class' => 'form-check-input'])}}
+                  <label for="{{'email_flag'}}" class="form-check-label">有り</label>
+                  {{Form::radio('email_flag', 0, true, ['id' => 'no_email_flag', 'class' => 'form-check-input'])}}
+                  <label for="{{'no_email_flag'}}" class="form-check-label">無し</label>
+                </div>
+                @endif
+
+              </div>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+      <table class="table table-bordered note-table">
+        <tbody>
+          <tr>
+            <td colspan="2">
+              <p class="title-icon">
+                <i class="fas fa-envelope fa-2x fa-fw" aria-hidden="true"></i>備考
+              </p>
             </td>
           </tr>
           <tr>
-            <td class="table-active"><label for="mobilePhone" class=" form_required">携帯番号</label></td>
             <td>
-              {{-- {{ Form::text('tel', '',['class'=>'form-control'] ) }} --}}
-              <p class="is-error-tel" style="color: red"></p>
+              <p>
+                <input type="checkbox" id="discount" checked="">
+                <label for="discount">割引条件</label>
+              </p>
+              {{ Form::textarea('discount_condition', $request->discount_condition,['class'=>'form-control', 'placeholder'=>'入力してください'] ) }}
+
+            </td>
+          </tr>
+          <tr class="caution">
+            <td>
+              <label for="caution">注意事項</label>
+              {{ Form::textarea('attention', $request->attention,['class'=>'form-control', 'placeholder'=>'入力してください'] ) }}
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <label for="userNote">顧客情報の備考</label>
+              {{ Form::textarea('user_details', $request->user_details,['class'=>'form-control', 'placeholder'=>'入力してください'] ) }}
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <label for="adminNote">管理者備考</label>
+              {{ Form::textarea('admin_details', $request->admin_details,['class'=>'form-control', 'placeholder'=>'入力してください'] ) }}
             </td>
           </tr>
         </tbody>
       </table>
     </div>
-    <table class="table table-bordered mail-table">
-      <tbody>
-        <tr>
-          <td colspan="2">
-            <p class="title-icon">
-              <i class="fas fa-envelope fa-2x fa-fw" aria-hidden="true"></i>利用後の送信メール
-            </p>
-          </td>
-        </tr>
-        <tr>
-          <td class="table-active"><label for="email_flag">送信メール</label></td>
-          <td>
-            <div class="radio-box">
-              <div class="form-check form-check-inline">
-                {{-- {{Form::radio('email_flag', 1, false , ['id' => 'email_flag', 'class' => 'form-check-input'])}}
-                --}}
-                <label for="{{'email_flag'}}" class="form-check-label">有り</label>
-                {{-- {{Form::radio('email_flag', 0, true, ['id' => 'no_email_flag', 'class' => 'form-check-input'])}}
-                --}}
-                <label for="{{'no_email_flag'}}" class="form-check-label">無し</label>
-              </div>
-            </div>
-          </td>
-        </tr>
-      </tbody>
-    </table>
-    <table class="table table-bordered note-table">
-      <tbody>
-        <tr>
-          <td colspan="2">
-            <p class="title-icon">
-              <i class="fas fa-envelope fa-2x fa-fw" aria-hidden="true"></i>備考
-            </p>
-          </td>
-        </tr>
-        <tr>
-          <td>
-            <p>
-              <input type="checkbox" id="discount" checked="">
-              <label for="discount">割引条件</label>
-            </p>
-            {{-- {{ Form::textarea('discount_condition', '',['class'=>'form-control', 'placeholder'=>'入力してください'] ) }}
-            --}}
-          </td>
-        </tr>
-        <tr class="caution">
-          <td>
-            <label for="caution">注意事項</label>
-            {{-- {{ Form::textarea('attention', '',['class'=>'form-control', 'placeholder'=>'入力してください'] ) }} --}}
-          </td>
-        </tr>
-        <tr>
-          <td>
-            <label for="userNote">顧客情報の備考</label>
-            {{-- {{ Form::textarea('user_details', '',['class'=>'form-control', 'placeholder'=>'入力してください'] ) }} --}}
-          </td>
-        </tr>
-        <tr>
-          <td>
-            <label for="adminNote">管理者備考</label>
-            {{-- {{ Form::textarea('admin_details', '',['class'=>'form-control', 'placeholder'=>'入力してください'] ) }} --}}
-          </td>
-        </tr>
-      </tbody>
-    </table>
   </div>
-</div>
 </div>
 
 <div class="submit_btn">
@@ -441,6 +496,10 @@
     </button>
   </div>
 </div>
+
+
+
+{{-- 以下、計算結果 --}}
 
 
 

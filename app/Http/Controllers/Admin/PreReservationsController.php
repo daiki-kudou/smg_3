@@ -81,17 +81,17 @@ class PreReservationsController extends Controller
       echo "<pre>";
       var_dump($request->all());
       echo "</pre>";
-
-      $venue = Venue::find($request->venue_id);
+      $venues = Venue::all();
+      $venue = $venues->find($request->venue_id);
       $equipments = $venue->equipments()->get();
       $services = $venue->services()->get();
-
 
       return view('admin.pre_reservations.single_calculate', [
         'request' => $request,
         'equipments' => $equipments,
         'services' => $services,
-        'venue' => $venue,
+        'venues' => $venues,
+        // 'venue' => $venue,
       ]);
     }
   }
