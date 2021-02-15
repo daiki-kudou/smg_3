@@ -180,7 +180,6 @@
           <td class="table-active">イベント名称2</td>
           <td>
             {{ Form::text('event_name2', '',['class'=>'form-control', 'placeholder'=>'入力してください'] ) }}
-
           </td>
         </tr>
         <tr>
@@ -231,9 +230,6 @@
             </tr>
           </thead>
           <tbody>
-            <?php
-            要チェック。ここで会場が持つレイアウトの表示させ、ラジオボタン表示必要
-            
           </tbody>
         </table>
       </div>

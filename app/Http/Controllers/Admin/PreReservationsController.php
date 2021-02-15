@@ -59,7 +59,35 @@ class PreReservationsController extends Controller
       $venue = Venue::find($request->pre_venue0);
       $equipments = $venue->equipments()->get();
       $services = $venue->services()->get();
+      $layouts = [];
+      $layouts[] = $venue->layout_prepare == 0 ? 0 : $venue->layout_prepare;
+      $layouts[] = $venue->layout_clean == 0 ? 0 : $venue->layout_clean;
+
       return view('admin.pre_reservations.single_check', [
+        'request' => $request,
+        'equipments' => $equipments,
+        'services' => $services,
+        'venue' => $venue,
+        'layouts' => $layouts,
+      ]);
+    }
+  }
+
+  public function calculate(Request $request)
+  {
+
+
+    if ($request->judge_count == 1) { //単発仮抑えの計算
+      echo "<pre>";
+      var_dump($request->all());
+      echo "</pre>";
+
+      $venue = Venue::find($request->venue_id);
+      $equipments = $venue->equipments()->get();
+      $services = $venue->services()->get();
+
+
+      return view('admin.pre_reservations.single_calculate', [
         'request' => $request,
         'equipments' => $equipments,
         'services' => $services,
@@ -67,7 +95,6 @@ class PreReservationsController extends Controller
       ]);
     }
   }
-
 
 
   public function getuser(Request $request)

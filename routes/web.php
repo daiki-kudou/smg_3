@@ -169,5 +169,7 @@ Route::namespace('Admin')->prefix('admin')->name('admin.')->group(function () {
     Route::post('pre_reservations/getuser', 'PreReservationsController@getuser');
     // 仮抑え　新規登録　確認
     Route::post('pre_reservations/check', 'PreReservationsController@check');
+    // 仮抑え　新規登録　計算
+    Route::post('pre_reservations/calculate', 'PreReservationsController@calculate');
   });
 });

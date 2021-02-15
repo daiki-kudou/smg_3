@@ -22,7 +22,7 @@
   <iframe src="{{url('admin/calendar/date_calendar')}}" width="100%" height="500">Your browser isn't compatible</iframe>
 </div>
 
-{{Form::open(['url' => 'admin/pre_reservations/check', 'method' => 'POST', 'id'=>'reservationCreateForm'])}}
+{{Form::open(['url' => 'admin/pre_reservations/check', 'method' => 'POST', 'id'=>'pre_reservationCreateForm'])}}
 @csrf
 
 <div class="user_selector mt-5">
