@@ -80,6 +80,16 @@ class User extends Authenticatable
     return $this->hasMany(Reservation::class);
   }
 
+  /*
+|--------------------------------------------------------------------------
+| 会場と仮抑え一対多
+|--------------------------------------------------------------------------|
+*/
+  public function pre_reservations()
+  {
+    return $this->hasMany(PreReservation::class);
+  }
+
 
 
 

@@ -440,6 +440,10 @@
 
 <div class="submit_btn">
   <div class="d-flex justify-content-center">
+    {{-- 単発仮抑えか？一括仮抑えか？ --}}
+    {{ Form::hidden('judge_count', 1 ) }}
+    {{-- ユーザー --}}
+    {{ Form::hidden('user_id', $request->user_id ) }}
     {{Form::submit('計算する', ['class'=>'btn btn-primary btn-lg ', 'id'=>'check_submit'])}}
   </div>
 </div>
@@ -453,10 +457,6 @@
   </div>
 </div>
 
-{{-- 単発仮抑えか？一括仮抑えか？ --}}
-{{ Form::hidden('judge_count', 1 ) }}
-{{-- ユーザー --}}
-{{ Form::hidden('user_id', $request->user_id ) }}
 {{Form::close()}}
 
 

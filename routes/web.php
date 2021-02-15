@@ -163,13 +163,15 @@ Route::namespace('Admin')->prefix('admin')->name('admin.')->group(function () {
     Route::post('agents_reservations/add_bills/store/{reservation}', 'AgentsReservationsController@add_store')->name('agents_reservations.add_store');
     // 仲介会社　メールなしで予約確定ボタン
     Route::post('agents_reservations/confirm', 'AgentsReservationsController@add_confirm')->name('agents_reservations.add_confirm');
-    // 仮抑え
-    Route::resource('pre_reservations', 'PreReservationsController');
+    // 仮抑え（削除は別で作成予定）
+    Route::resource('pre_reservations', 'PreReservationsController')->except(['destroy']);
     // 仮押さえ ajax 顧客情報取得
     Route::post('pre_reservations/getuser', 'PreReservationsController@getuser');
     // 仮抑え　新規登録　確認
     Route::post('pre_reservations/check', 'PreReservationsController@check');
     // 仮抑え　新規登録　計算
     Route::post('pre_reservations/calculate', 'PreReservationsController@calculate');
+    // 仮抑え　削除
+    Route::post('pre_reservations/destroy', 'PreReservationsController@destroy');
   });
 });
