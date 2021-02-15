@@ -320,7 +320,7 @@
             <tr>
               <td>事前荷物の到着日<br>午前指定のみ</td>
               <td>
-                {{ Form::text('luggage_arrive', '',['class'=>'form-control'] ) }}
+                {{ Form::text('luggage_arrive', '',['class'=>'form-control', 'id'=>'datepicker1'] ) }}
               </td>
             </tr>
             <tr>

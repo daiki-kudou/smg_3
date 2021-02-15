@@ -500,6 +500,488 @@
 
 
 {{-- 以下、計算結果 --}}
+<div class="container-fluid">
+  <div class="bill">
+    <div class="bill_head">
+      <table class="table" style="table-layout: fixed">
+        <tr>
+          <td>
+            <h1 class="text-white">
+              請求書No
+            </h1>
+          </td>
+          <td style="font-size: 16px;">
+            <div class="bg-white d-flex justify-content-around align-items-center" style="height: 60px;">
+              <div>合計金額</div>
+              <div class="total_result">{{number_format($masters)}}円</div>
+            </div>
+          </td>
+        </tr>
+        <tr>
+          <td></td>
+          <td style="font-size: 16px;">
+            <div class="bg-white d-flex justify-content-around align-items-center" style="height: 60px;">
+              <div>支払い期日</div>
+              <div>{{ReservationHelper::formatDate($pay_limit)}}</div>
+            </div>
+          </td>
+        </tr>
+      </table>
+    </div>
+    <div class="bill_details">
+      <div class="head d-flex">
+        <div style="width: 80px; background:gray;" class="d-flex justify-content-center align-items-center">
+          <i class="fas fa-plus fa-3x hide" style="color: white;"></i>
+          <i class="fas fa-minus fa-3x" style="color: white;"></i>
+        </div>
+        <div style="font-size: 30px; width:200px;" class="d-flex justify-content-center align-items-center">
+          <p>
+            請求内訳
+          </p>
+        </div>
+      </div>
+      <div class="main">
+        <div class="venues" style="padding-top: 80px; width:90%; margin:0 auto;">
+          <table class="table table-borderless">
+            <tr>
+              <td>
+                <h1>
+                  ■会場料
+                </h1>
+              </td>
+            </tr>
+            <tbody class="venue_head">
+              <tr>
+                <td>内容</td>
+                <td>単価</td>
+                <td>数量</td>
+                <td>金額</td>
+              </tr>
+            </tbody>
+            @if ($price_details!=0)
+            <tbody class="venue_main">
+              @if ($price_details[1])
+              <tr>
+                <td>{{ Form::text('venue_breakdown_item0', "会場料金",['class'=>'form-control', 'readonly'] ) }} </td>
+                <td>
+                  {{ Form::text('venue_breakdown_cost0', $price_details[0]-$price_details[1],['class'=>'form-control', 'readonly'] ) }}
+                </td>
+                <td>{{ Form::text('venue_breakdown_count0', $price_details[3],['class'=>'form-control', 'readonly'] ) }}
+                </td>
+                <td>
+                  {{ Form::text('venue_breakdown_subtotal0', $price_details[0]-$price_details[1],['class'=>'form-control', 'readonly'] ) }}
+                </td>
+              </tr>
+              <tr>
+                <td>{{ Form::text('venue_breakdown_item1', "延長料金",['class'=>'form-control', 'readonly'] ) }} </td>
+                <td>{{ Form::text('venue_breakdown_cost1', $price_details[1],['class'=>'form-control', 'readonly'] ) }}
+                </td>
+                <td>{{ Form::text('venue_breakdown_count1', $price_details[4],['class'=>'form-control', 'readonly'] ) }}
+                </td>
+                <td>
+                  {{ Form::text('venue_breakdown_subtotal1', $price_details[1],['class'=>'form-control', 'readonly'] ) }}
+                </td>
+              </tr>
+              @else
+              <tr>
+                <td>{{ Form::text('venue_breakdown_item0', "会場料金",['class'=>'form-control', 'readonly'] ) }} </td>
+                <td>{{ Form::text('venue_breakdown_cost0', $price_details[0],['class'=>'form-control', 'readonly'] ) }}
+                </td>
+                <td>{{ Form::text('venue_breakdown_count0', $price_details[3],['class'=>'form-control', 'readonly'] ) }}
+                </td>
+                <td>
+                  {{ Form::text('venue_breakdown_subtotal0', $price_details[0],['class'=>'form-control', 'readonly'] ) }}
+                </td>
+              </tr>
+              @endif
+            </tbody>
+            <tbody class="venue_result">
+              <tr>
+                <td colspan="2"></td>
+                <td colspan="2">合計
+                  {{ Form::text('venue_price', $price_details[0],['class'=>'form-control col-xs-3', 'readonly'] ) }}
+                </td>
+              </tr>
+            </tbody>
+            <tbody class="venue_discount">
+              <tr>
+                <td>割引計算欄</td>
+                <td>
+                  <p>
+                    割引金額
+                  </p>
+                  <div class="d-flex">
+                    {{ Form::text('venue_number_discount', $request->venue_number_discount?$request->venue_number_discount:'',['class'=>'form-control'] ) }}
+                    <p>円</p>
+                  </div>
+                </td>
+                <td>
+                  <p>
+                    割引率
+                  </p>
+                  <div class="d-flex">
+                    {{ Form::text('venue_percent_discount', $request->venue_percent_discount?$request->venue_percent_discount:'',['class'=>'form-control'] ) }}
+                    <p>%</p>
+                  </div>
+                </td>
+                <td>
+                  <input class="btn btn-success venue_discount_btn" type="button" value="計算する">
+                </td>
+              </tr>
+            </tbody>
+            @else
+            <span class="text-red">※料金体系がないため、手打ちで会場料を入力してください</span>
+            <tbody class="venue_main">
+              <tr>
+                <td>
+                  {{ Form::text('venue_breakdown_item0', '',['class'=>'form-control'] ) }}
+                </td>
+                <td>
+                  {{ Form::text('venue_breakdown_cost0', '',['class'=>'form-control'] ) }}
+                </td>
+                <td>
+                  {{ Form::text('venue_breakdown_count0', '',['class'=>'form-control'] ) }}
+                </td>
+                <td>
+                  {{ Form::text('venue_breakdown_subtotal0', '',['class'=>'form-control'] ) }}
+                </td>
+                <td>
+                  <input type="button" value="＋" class="add pluralBtn">
+                  <input type="button" value="ー" class="del pluralBtn">
+                </td>
+              </tr>
+            </tbody>
+            <tbody class="venue_result">
+              <tr>
+                <td colspan="2"></td>
+                <td colspan="2">合計
+                  {{ Form::text('venue_price', '',['class'=>'form-control col-xs-3', 'readonly'] ) }}
+                </td>
+              </tr>
+            </tbody>
+            @endif
+          </table>
+        </div>
+
+        @if(ReservationHelper::judgeArrayEmpty($item_details)==1||$request->luggage_price)
+        <div class="equipment" style="padding-top: 80px; width:90%; margin:0 auto;">
+          <table class="table table-borderless">
+            <tr>
+              <td>
+                <h1>
+                  ■有料備品・サービス
+                </h1>
+              </td>
+            </tr>
+            <tbody class="equipment_head">
+              <tr>
+                <td>内容</td>
+                <td>単価</td>
+                <td>数量</td>
+                <td>金額</td>
+              </tr>
+            </tbody>
+            <tbody class="equipment_main">
+              @foreach ($item_details[1] as $key=>$item)
+              <tr>
+                <td>
+                  {{ Form::text('equipment_breakdown_item'.$key, $item[0],['class'=>'form-control', 'readonly'] ) }}
+                </td>
+                <td>
+                  {{ Form::text('equipment_breakdown_cost'.$key, $item[1],['class'=>'form-control', 'readonly'] ) }}
+                </td>
+                <td>
+                  {{ Form::text('equipment_breakdown_count'.$key, $item[2],['class'=>'form-control', 'readonly'] ) }}
+                </td>
+                <td>
+                  {{ Form::text('equipment_breakdown_subtotal'.$key, $item[1]*$item[2],['class'=>'form-control', 'readonly'] ) }}
+                </td>
+              </tr>
+              @endforeach
+              @foreach ($item_details[2] as $key=>$item)
+              <tr>
+                <td>
+                  {{ Form::text('services_breakdown_item'.$key, $item[0],['class'=>'form-control', 'readonly'] ) }}
+                </td>
+                <td>
+                  {{ Form::text('services_breakdown_cost'.$key, $item[1],['class'=>'form-control', 'readonly'] ) }}
+                </td>
+                <td>
+                  {{ Form::text('services_breakdown_count'.$key, $item[2],['class'=>'form-control', 'readonly'] ) }}
+                </td>
+                <td>
+                  {{ Form::text('services_breakdown_subtotal'.$key, $item[1]*$item[2],['class'=>'form-control', 'readonly'] ) }}
+                </td>
+              </tr>
+              @endforeach
+              @if ($request->luggage_price)
+              <tr>
+                <td>
+                  {{ Form::text('luggage_item', '荷物預かり/返送',['class'=>'form-control', 'readonly'] ) }}
+                </td>
+                <td>
+                  {{ Form::text('luggage_cost', $request->luggage_price,['class'=>'form-control', 'readonly'] ) }}
+                </td>
+                <td>
+                  {{ Form::text('luggage_count', 1,['class'=>'form-control', 'readonly'] ) }}
+                </td>
+                <td>
+                  {{ Form::text('luggage_subtotal', $request->luggage_price,['class'=>'form-control', 'readonly'] ) }}
+                </td>
+              </tr>
+              @endif
+            </tbody>
+            <tbody class="equipment_result">
+              <tr>
+                <td colspan="2"></td>
+                <td colspan="2">合計
+                  {{ Form::text('equipment_price', ($item_details[0]+$request->luggage_price),['class'=>'form-control', 'readonly'] ) }}
+                </td>
+              </tr>
+            </tbody>
+            <tbody class="equipment_discount">
+              <tr>
+                <td>割引計算欄</td>
+                <td>
+                  <p>
+                    割引金額
+                  </p>
+                  <div class="d-flex">
+                    {{ Form::text('equipment_number_discount', $request->equipment_number_discount?$request->equipment_number_discount:'',['class'=>'form-control'] ) }}
+                    <p>円</p>
+                  </div>
+                </td>
+                <td>
+                  <p>
+                    割引率
+                  </p>
+                  <div class="d-flex">
+                    {{ Form::text('equipment_percent_discount', $request->equipment_percent_discount?$request->equipment_percent_discount:'',['class'=>'form-control'] ) }}
+                    <p>%</p>
+                  </div>
+                </td>
+                <td>
+                  <input class="btn btn-success equipment_discount_btn" type="button" value="計算する">
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        @endif
+        @if ($layouts_details[0]||$layouts_details[1])
+        <div class="layout" style="padding-top: 80px; width:90%; margin:0 auto;">
+          <table class="table table-borderless">
+            <tr>
+              <td>
+                <h1>
+                  ■レイアウト
+                </h1>
+              </td>
+            </tr>
+            <tbody class="layout_head">
+              <tr>
+                <td>内容</td>
+                <td>単価</td>
+                <td>数量</td>
+                <td>金額</td>
+              </tr>
+            </tbody>
+            <tbody class="layout_main">
+              @if ($layouts_details[0])
+              <tr>
+                <td>{{ Form::text('layout_prepare_item', "レイアウト準備料金",['class'=>'form-control', 'readonly'] ) }}</td>
+                <td>{{ Form::text('layout_prepare_cost', $layouts_details[0],['class'=>'form-control', 'readonly'] )}}
+                </td>
+                <td>{{ Form::text('layout_prepare_count', 1,['class'=>'form-control', 'readonly'] )}}</td>
+                <td>
+                  {{ Form::text('layout_prepare_subtotal', $layouts_details[0],['class'=>'form-control', 'readonly'] )}}
+                </td>
+              </tr>
+              @endif
+              @if ($layouts_details[1])
+              <tr>
+                <td>{{ Form::text('layout_clean_item', "レイアウト片付料金",['class'=>'form-control', 'readonly'] ) }}</td>
+                <td>{{ Form::text('layout_clean_cost', $layouts_details[1],['class'=>'form-control', 'readonly'] )}}
+                </td>
+                <td>{{ Form::text('layout_clean_count', 1,['class'=>'form-control', 'readonly'] )}}</td>
+                <td>{{ Form::text('layout_clean_subtotal', $layouts_details[1],['class'=>'form-control', 'readonly'] )}}
+                </td>
+              </tr>
+              @endif
+            </tbody>
+            <tbody class="layout_result">
+              <tr>
+                <td colspan="2"></td>
+                <td colspan="2">合計
+                  {{ Form::text('layout_price',$layouts_details[2] ,['class'=>'form-control', 'readonly'] ) }}
+                </td>
+              </tr>
+            </tbody>
+            <tbody class="layout_discount">
+              <tr>
+                <td>割引計算欄</td>
+                <td>
+                  <p>
+                    割引金額
+                  </p>
+                  <div class="d-flex">
+                    {{ Form::text('layout_number_discount', $request->layout_number_discount?$request->layout_number_discount:'',['class'=>'form-control'] ) }}
+                    <p>円</p>
+                  </div>
+                </td>
+                <td>
+                  <p>
+                    割引率
+                  </p>
+                  <div class="d-flex">
+                    {{ Form::text('layout_percent_discount', $request->layout_percent_discount?$request->layout_percent_discount:'',['class'=>'form-control'] ) }}
+                    <p>%</p>
+                  </div>
+                </td>
+                <td>
+                  <input class="btn btn-success layout_discount_btn" type="button" value="計算する">
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        @endif
+
+        <div class="others" style="padding: 80px 0px 80px 0px; width:90%; margin:0 auto;">
+          <table class="table table-borderless">
+            <tr>
+              <td>
+                <h1>
+                  ■その他
+                </h1>
+              </td>
+            </tr>
+            <tbody class="others_head">
+              <tr>
+                <td>内容</td>
+                <td>単価</td>
+                <td>数量</td>
+                <td>金額</td>
+                <td>追加/削除</td>
+              </tr>
+            </tbody>
+            <tbody class="others_main">
+              <tr>
+                <td>{{ Form::text('others_input_item0', '',['class'=>'form-control'] ) }}</td>
+                <td>{{ Form::text('others_input_cost0', '',['class'=>'form-control'] ) }}</td>
+                <td>{{ Form::text('others_input_count0', '',['class'=>'form-control'] ) }}</td>
+                <td>{{ Form::text('others_input_subtotal0', '',['class'=>'form-control', 'readonly'] ) }}</td>
+                <td>
+                  <input type="button" value="＋" class="add pluralBtn">
+                  <input type="button" value="ー" class="del pluralBtn">
+                </td>
+              </tr>
+            </tbody>
+            <tbody class="others_result">
+              <tr>
+                <td colspan="2"></td>
+                <td colspan="3">合計
+                  {{ Form::text('others_price', '',['class'=>'form-control', 'readonly'] ) }}
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div class="bill_total d-flex justify-content-end"
+          style="padding: 80px 0px 80px 0px; width:90%; margin:0 auto;">
+          <div style="width: 60%;">
+            <table class="table text-right" style="table-layout: fixed; font-size:16px;">
+              <tr>
+                <td>小計：</td>
+                <td>
+                  {{ Form::text('master_subtotal',$masters ,['class'=>'form-control text-right', 'readonly'] ) }}
+                </td>
+              </tr>
+              <tr>
+                <td>消費税：</td>
+                <td>
+                  {{ Form::text('master_tax',ReservationHelper::getTax($masters) ,['class'=>'form-control text-right', 'readonly'] ) }}
+                </td>
+              </tr>
+              <tr>
+                <td class="font-weight-bold">合計金額</td>
+                <td>
+                  {{ Form::text('master_total',ReservationHelper::taxAndPrice($masters) ,['class'=>'form-control text-right', 'readonly'] ) }}
+                </td>
+              </tr>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="information">
+    <div class="information_details">
+      <div class="head d-flex">
+        <div style="width: 80px; background:gray;" class="d-flex justify-content-center align-items-center">
+          <i class="fas fa-plus fa-3x hide" style="color: white;"></i>
+          <i class="fas fa-minus fa-3x" style="color: white;"></i>
+        </div>
+        <div style="font-size: 30px; width:200px;" class="d-flex justify-content-center align-items-center">
+          <p>
+            請求書情報
+          </p>
+        </div>
+      </div>
+      <div class="main">
+        <div class="informations" style="padding-top: 20px; width:90%; margin:0 auto;">
+          <table class="table">
+            <tr>
+              <td>請求日：</td>
+              <td>支払期日 {{ Form::text('pay_limit', $pay_limit,['class'=>'form-control', 'id'=>'datepicker6'] ) }} </td>
+            </tr>
+            <tr>
+              <td>請求書宛名{{ Form::text('pay_company', $user->company,['class'=>'form-control'] ) }}</td>
+              <td>
+                担当者{{ Form::text('bill_person', $request->user_id?ReservationHelper::getPersonName($request->user_id):'',['class'=>'form-control'] ) }}
+              </td>
+            </tr>
+            <tr>
+              <td colspan="2">請求書備考{{ Form::textarea('bill_remark', '',['class'=>'form-control'] ) }}</td>
+            </tr>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="paid">
+    <div class="paid_details">
+      <div class="head d-flex">
+        <div style="width: 80px; background:#ff782d;" class="d-flex justify-content-center align-items-center">
+        </div>
+        <div style="font-size: 30px; width:200px;" class="d-flex justify-content-center align-items-center">
+          <p>
+            入金情報
+          </p>
+        </div>
+      </div>
+      <div class="main">
+        <div class="paids" style="padding-top: 20px; width:90%; margin:0 auto;">
+          <table class="table" style="table-layout: fixed;">
+            <tr>
+              <td>入金状況{{Form::select('paid', ['未入金', '入金済み'],null,['class'=>'form-control'])}}</td>
+              <td>
+                入金日{{ Form::text('pay_day', null,['class'=>'form-control', 'id'=>'datepicker7'] ) }}
+              </td>
+            </tr>
+            <tr>
+              <td>振込人名{{ Form::text('pay_person', null,['class'=>'form-control'] ) }}</td>
+              <td>入金額{{ Form::text('payment', null,['class'=>'form-control'] ) }}</td>
+            </tr>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
 
 
 
