@@ -3,13 +3,13 @@
 @section('content')
 <script src="https://cdn.datatables.net/t/bs-3.3.6/jqc-1.12.0,dt-1.10.11/datatables.min.js"></script>
 <script>
-  $(function(){
+  $(function() {
     $(".table").DataTable({
-    lengthChange: false,// 件数切替機能 無効
-    searching: false,// 検索機能 無効
-    ordering: true,// ソート機能 無効
-    info: false,// 情報表示 無効
-    paging: false,// ページング機能 無効
+      lengthChange: false, // 件数切替機能 無効
+      searching: false, // 検索機能 無効
+      ordering: true, // ソート機能 無効
+      info: false, // 情報表示 無効
+      paging: false, // ページング機能 無効
     });
   })
 </script>
@@ -40,9 +40,19 @@
 
 
 <div class="container-field">
-  <h2>顧客管理　一覧</h2>
-  <div class="container-field">
-    <!-- <div class="row ">
+
+  <div class="float-right">
+    <nav aria-label="breadcrumb">
+      <ol class="breadcrumb">
+        <li class="breadcrumb-item active"></li>
+      </ol>
+    </nav>
+  </div>
+
+  <h2 class="mt-3 mb-3">顧客管理　一覧</h2>
+  <hr>
+
+  <!-- <div class="row ">
       <div class="col">
         <div>検索</div>
         <div class="col-sm-4" style="padding:20px 0; padding-left:0px;">
@@ -96,120 +106,119 @@
     </div> -->
 
 
-    <!-- 検索-------------------------------------------------------- -->
+  <!-- 検索-------------------------------------------------------- -->
 
-    <form class="" action="{{url('/admin/clients')}}">
+  <form class="" action="{{url('/admin/clients')}}">
     <div class="row search_box">
-    @csrf
-        <div class="col-md-10 offset-md-1">
-          <div class="d-flex col-12 flex-wrap">
-            <dl class="form-group flex-fill">
-              <dt>
+      @csrf
+      <div class="col-md-10 offset-md-1">
+        <div class="d-flex col-12 flex-wrap">
+          <dl class="form-group flex-fill">
+            <dt>
               <label class="search_item_name" for="id">顧客ID</label>
-              </dt>
-              <dd>
+            </dt>
+            <dd>
               <input type="text" name="id" class="form-control" id="id">
-              </dd>
-            </dl>
-            <dl class="form-group flex-fill">
-              <dt>
+            </dd>
+          </dl>
+          <dl class="form-group flex-fill">
+            <dt>
               <label class="search_item_name" for="status">顧客状況</label>
-              </dt>
-              <dd>
+            </dt>
+            <dd>
               <input type="text" name="status" class="form-control" id="status">
-              </dd>
-            </dl>
-            <dl class="form-group flex-fill">
-              <dt>
+            </dd>
+          </dl>
+          <dl class="form-group flex-fill">
+            <dt>
               <label class="search_item_name" for="company">会社名　団体名</label>
-              </dt>
-              <dd>
+            </dt>
+            <dd>
               <input type="text" name="company" class="form-control" id="company">
-              </dd>
-            </dl>
-            <dl class="form-group flex-fill">
-              <dt>
+            </dd>
+          </dl>
+          <dl class="form-group flex-fill">
+            <dt>
               <label class="search_item_name" for="attr">顧客属性</label>
-              </dt>
-              <dd>
+            </dt>
+            <dd>
               <input type="text" name="attr" class="form-control" id="attr">
-              </dd>
-            </dl>
-            <dl class="form-group flex-fill">
-              <dt>
+            </dd>
+          </dl>
+          <dl class="form-group flex-fill">
+            <dt>
               <label class="search_item_name" for="person_name">担当者</label>
-              </dt>
-              <dd>
+            </dt>
+            <dd>
               <input type="text" name="person_name" class="form-control" id="person_name">
-              </dd>
-            </dl>
-            <dl class="form-group flex-fill">
-              <dt>
+            </dd>
+          </dl>
+          <dl class="form-group flex-fill">
+            <dt>
               <label class="search_item_name" for="mobile">携帯番号</label>
-              </dt>
-              <dd>
+            </dt>
+            <dd>
               <input type="text" name="mobile" class="form-control" id="mobile">
-              </dd>
-            </dl>
-            <dl class="form-group flex-fill">
-              <dt>
+            </dd>
+          </dl>
+          <dl class="form-group flex-fill">
+            <dt>
               <label class="search_item_name" for="tel">固定番号</label>
-              </dt>
-              <dd>
+            </dt>
+            <dd>
               <input type="text" name="tel" class="form-control" id="tel">
-              </dd>
-            </dl>
-            <dl class="form-group flex-fill">
-              <dt>
+            </dd>
+          </dl>
+          <dl class="form-group flex-fill">
+            <dt>
               <label class="search_item_name" for="email">メール</label>
-              </dt>
-              <dd>
+            </dt>
+            <dd>
               <input type="text" name="email" class="form-control" id="email">
-              </dd>
-            </dl>
-            <dl class="form-group flex-fill">
-              <dt>
+            </dd>
+          </dl>
+          <dl class="form-group flex-fill">
+            <dt>
               <label class="search_item_name" for="attention">注意事項</label>
-              </dt>
-              <dd>
+            </dt>
+            <dd>
               <input type="text" name="attention" class="form-control" id="attention">
-              </dd>
-            </dl>
-            <dl class="form-group flex-fill">
-                <dt>
-                  <label class="search_item_name" for="freeword">フリーワード検索</label>
-                </dt>
-                <dd>
-                  <input type="text" name="freeword" class="form-control" id="freeword">
-                </dd>
-              </dl>
-          </div>
-          <p class="text-right">※フリーワード検索は本画面表記の項目のみ対象となります</p>
+            </dd>
+          </dl>
+          <dl class="form-group flex-fill">
+            <dt>
+              <label class="search_item_name" for="freeword">フリーワード検索</label>
+            </dt>
+            <dd>
+              <input type="text" name="freeword" class="form-control" id="freeword">
+            </dd>
+          </dl>
         </div>
-
-        <div class="btn_box d-flex justify-content-center">
-          <input type="reset" value="リセット" class="btn reset_btn">
-          <input type="submit" value="検索" class="btn btn-info search_btn">
-        </div>
+        <p class="text-right">※フリーワード検索は本画面表記の項目のみ対象となります</p>
       </div>
-    </form>
-      <!-- 検索　終わり------------------------------------------------ -->
 
-  </div>
+      <div class="btn_box d-flex justify-content-center">
+        <input type="reset" value="リセット" class="btn reset_btn">
+        <input type="submit" value="検索" class="btn btn-info search_btn">
+      </div>
+    </div>
+  </form>
+  <!-- 検索　終わり------------------------------------------------ -->
+
 
   <table class="table table-bordered">
     <thead>
       <tr>
         <th>注意事項</th>
         <th>顧客ID</th>
-        <td>顧客状況</td>
-        <td>会社名・団体名</td>
-        <td>顧客属性</td>
-        <td>担当者</td>
-        <td>携帯電話</td>
-        <td>固定電話</td>
-        <td>担当者メールアドレス</td>
-        <td class="btn-cell">詳細</td>
+        <th>顧客状況</th>
+        <th>会社名・団体名</th>
+        <th>顧客属性</th>
+        <th>担当者</th>
+        <th>携帯電話</th>
+        <th>固定電話</th>
+        <th>担当者メールアドレス</th>
+        <th class="btn-cell">詳細</th>
       </tr>
     </thead>
     <tbody>
