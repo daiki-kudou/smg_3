@@ -345,7 +345,7 @@
               @if ($reservation->user_id>0)
               {{ReservationHelper::getPersonName($reservation->user_id)}}
               @elseif($reservation->user_id==0)
-              {{ReservationHelper::getAgentPerson($reservation->agent_id)}}
+              {{-- {{ReservationHelper::getAgentPerson($reservation->agent_id)}} --}}
               @endif
             </td>
             <td rowspan="{{count($reservation->bills()->get())}}">{{$user->find($reservation->venue_id)->mobile}}</td>
