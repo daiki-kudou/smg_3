@@ -58,6 +58,11 @@ class ReservationHelper
     return date('Y/m/d',  strtotime($num)) . '(' . $weekday . ')';
   }
 
+  public static function formatTime($num)
+  {
+    return date('H:i',  strtotime($num));
+  }
+
   public static function getVenue($venue_id)
   {
     $venue = Venue::find($venue_id);
