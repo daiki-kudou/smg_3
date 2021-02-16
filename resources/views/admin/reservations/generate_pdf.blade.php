@@ -54,7 +54,6 @@
     .board-box .date td {
       font-size: 30px;
       padding-bottom: 2%;
-      display: flex;
     }
 
     .board-box .event-name td,
@@ -95,8 +94,8 @@
     <table cellpadding="0" cellspacing="0" class="board-inner">
       <tr class="date">
         <td>
-          <p>{{$reservation->reserve_date}}</p>
-          <p>{{$reservation->event_start}}<span>~</span>{{$reservation->event_finish}}</p>
+          <span>{{$reservation->reserve_date}}</span>
+          <span>{{$reservation->event_start}}<span>~</span>{{$reservation->event_finish}}</span>
         </td>
       </tr>
       <tr class="event-name">
