@@ -41,6 +41,8 @@ class PreReservation extends Model
     'bill_created_at',
     'bill_pay_limit',
     'bill_remark',
+    'status',
+
   ];
   protected $dates = [
     'reserve_date',
@@ -116,6 +118,9 @@ class PreReservation extends Model
     static::deleting(function ($model) {
       foreach ($model->pre_bills()->get() as $child) {
         $child->delete();
+      }
+      foreach ($model->unknown_user()->get() as $child2) {
+        $child2->delete();
       }
     });
   }

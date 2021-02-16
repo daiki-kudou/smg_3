@@ -203,6 +203,7 @@ class PreReservationsController extends Controller
         'attention' => $request->attention,
         'user_details' => $request->user_details,
         'admin_details' => $request->admin_details,
+        'status' => 0, //デフォで0この時点でユーザーにはメールは送付されない
       ]);
 
       $pre_bills = $pre_reservation->pre_bills()->create([
@@ -241,7 +242,7 @@ class PreReservationsController extends Controller
       }
       toBreakDown($request->all(), 'venue_breakdown', $pre_bills, 1);
       toBreakDown($request->all(), 'equipment_breakdown', $pre_bills, 2);
-      toBreakDown($request->all(), 'service_breakdown', $pre_bills, 3);
+      toBreakDown($request->all(), 'services_breakdown', $pre_bills, 3);
 
       if ($request->others_price) {
         toBreakDown($request->all(), 'others_input', $pre_bills, 5);
@@ -314,7 +315,10 @@ class PreReservationsController extends Controller
    */
   public function show($id)
   {
-    //
+    $pre_reservation = PreReservation::find($id);
+    return view('admin.pre_reservations.show', [
+      'pre_reservation' => $pre_reservation
+    ]);
   }
 
   /**

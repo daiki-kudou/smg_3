@@ -398,7 +398,7 @@
             <td>{{$pre_reservation->agent_id==0?"":$pre_reservation->agent_id}}</td>
             <td>{{$pre_reservation->agent_id==0?"":$pre_reservation->agent_id}}</td>
             <td>{{$pre_reservation->agent_id==0?"":$pre_reservation->agent_id}}</td>
-            <td>編集ボタン</td>
+            <td><a href="{{url('admin/pre_reservations/'.$pre_reservation->id)}}">詳細</a></td>
           </tr>
           @endforeach
         </tbody>

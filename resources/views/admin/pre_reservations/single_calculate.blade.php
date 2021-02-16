@@ -958,6 +958,20 @@
 {{Form::hidden('in_charge', $request->in_charge)}}
 {{Form::hidden('tel', $request->tel)}}
 
+{{Form::hidden('event_start', $request->event_start)}}
+{{Form::hidden('event_finish', $request->event_finish)}}
+{{Form::hidden('event_name1', $request->event_name1)}}
+{{Form::hidden('event_name2', $request->event_name2)}}
+{{Form::hidden('event_owner', $request->event_owner)}}
+{{Form::hidden('luggage_arrive', $request->luggage_arrive)}}
+{{Form::hidden('luggage_return', $request->luggage_return)}}
+{{Form::hidden('discount_condition', $request->discount_condition)}}
+{{Form::hidden('attention', $request->attention)}}
+{{Form::hidden('user_details', $request->user_details)}}
+{{Form::hidden('admin_details', $request->admin_details)}}
+
+
+
 {{Form::hidden('unknown_user_company', $request->unknown_user_company)}}
 {{Form::hidden('unknown_user_name', $request->unknown_user_name)}}
 {{Form::hidden('unknown_user_email', $request->unknown_user_email)}}
