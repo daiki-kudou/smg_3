@@ -946,7 +946,8 @@
 
 </div>
 
-
+{{-- 単発仮抑えか？一括仮抑えか？ --}}
+{{ Form::hidden('judge_count', 1 ) }}
 {{Form::hidden('user_id', $request->user_id)}}
 {{Form::hidden('venue_id', $request->venue_id)}}
 {{Form::hidden('reserve_date', $request->reserve_date)}}
