@@ -34,13 +34,13 @@
       /* /* width: 297px; */
       /* height: 210px; */
       /* margin: 50px auto; */
-      padding: 30px;
+      padding: 10px;
       /* border: 1px solid #eee; */
       /* box-shadow: 0 0 10px rgba(0, 0, 0, .15); */
       font-size: 15px;
       /* line-height: 24px; */
       color: #333;
-      border: 5px solid #B08046;
+      border: 10px solid #B08046;
       /* background: no-repeat center/98% url(data:image/png;base64,); */
     }
 
@@ -54,6 +54,7 @@
     .board-box .date td {
       font-size: 30px;
       padding-bottom: 2%;
+      display: flex;
     }
 
     .board-box .event-name td,
@@ -64,8 +65,8 @@
 
     .board-box .event-owner td {
       font-size: 30px;
-      padding-top: 30px;
-      padding-bottom: 15%;
+      /* padding-top: 30px; */
+      padding-bottom: 2%;
     }
 
     .board-box .venue td {
