@@ -120,7 +120,7 @@
 
       <tr class="venue">
         <td>
-          <p>サンワールドビル2号室</p>
+          <p>四ツ橋サンワールドビル2号室</p>
           <!-- <p>{{$reservation->venue->name_area}}{{$reservation->venue->name_bldg}}{{$reservation->venue->name_venue}}</p> -->
         </td>
       </tr>
