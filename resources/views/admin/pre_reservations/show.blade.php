@@ -6,7 +6,7 @@
 <link href="{{ asset('/css/template.css') }}" rel="stylesheet">
 <script src="{{ asset('/js/template.js') }}"></script>
 
-<h1>詳細</h1>
+<h1>詳細</h1> test
 
 
 
