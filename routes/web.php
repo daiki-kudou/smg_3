@@ -2,7 +2,7 @@
 
 Route::get('/', function () {
   return view('index');
-});
+})->name('login');
 
 // 一般ユーザー用カレンダー
 Route::get('calender/date_calendar', 'CalendarsController@index');
@@ -22,6 +22,7 @@ Route::namespace('User')->prefix('user')->name('user.')->group(function () {
     Route::put('home/{home}/update_status', 'HomeController@updateStatus')->name('home.updatestatus');
     Route::get('home/generate_invoice/{home}', 'HomeController@generate_invoice')->name('home.generate_invoice');
     Route::put('home/{home}/update_other_bills', 'HomeController@updateOtherBillsStatus');
+    Route::get('pre_reservations', 'PreReservationsController@index')->name('per_reservations.index');
   });
 
   // メール入力フォーム
@@ -80,8 +81,14 @@ Route::namespace('Admin')->prefix('admin')->name('admin.')->group(function () {
     Route::resource('clients', 'ClientsController');
     // 予約
     Route::resource('reservations', 'ReservationsController');
+    // 予約　計算
+    Route::post('reservations/calculate', 'ReservationsController@calculate')->name('reservations.calculate');
+    // 予約再計算
+    Route::post('reservations/recalculate', 'ReservationsController@recalculate')->name('reservations.recalculate');
+
+
     // 予約　（確認）
-    Route::post('reservations/create/check', 'ReservationsController@check')->name('reservations.check');
+    Route::post('reservations/check', 'ReservationsController@check')->name('reservations.check');
     // ajax アイテム
     Route::post('reservations/geteitems', 'ReservationsController@geteitems');
     // ajax 料金体系
@@ -103,7 +110,7 @@ Route::namespace('Admin')->prefix('admin')->name('admin.')->group(function () {
     // ajax 会場　直営 or 提携　判別
     Route::post('clients/getclients', 'ClientsController@getclients');
     //予約に対するダブルチェック
-    Route::post('reservations/{reservation}/double_check', 'ReservationsController@doublecheck')->name('reservations.double_check');
+    Route::post('reservations/{reservation}/double_check', 'ReservationsController@double_check')->name('reservations.double_check');
 
     Route::get('reservations/generate_pdf/{reservation}', 'ReservationsController@generate_pdf')->name('reservations.generate_pdf');
     // Bill　予約に紐づく
@@ -116,8 +123,11 @@ Route::namespace('Admin')->prefix('admin')->name('admin.')->group(function () {
     Route::post('reservations/{reservation}/confirm_reservation', 'ReservationsController@confirm_reservation')->name('reservations.confirm_reservation');
 
     // 管理者用カレンダーページ
-    Route::get('calendar/venue_calendar', 'CalendarsController@index');
-    Route::post('calendar/venue_calendar', 'CalendarsController@getData');
+    // 会場別
+    Route::get('calendar/venue_calendar', 'CalendarsController@venue_calendar');
+    Route::post('calendar/venue_calendar', 'CalendarsController@venue_calendargetData');
+    // 日時別
+    Route::get('calendar/date_calendar', 'CalendarsController@date_calendar');
 
     // 請求書追加
     // Route::post('reservations/{reservation}/add_bill', 'ReservationsController@add_bill')->name('reservations.add_bill');
@@ -131,10 +141,40 @@ Route::namespace('Admin')->prefix('admin')->name('admin.')->group(function () {
     // // 管理者請求書作成　確認画面
     Route::post('bills/check/{reservation}', 'BillsController@check');
     // // 管理者請求書作成　保存
-    Route::post('bills/store', 'BillsController@store');
+    // Route::post('bills/store', 'BillsController@store');
 
     Route::post('bills/other_doublecheck', 'BillsController@OtherDoubleCheck');
 
     Route::post('bills/other_send_approve', 'BillsController@other_send_approve');
+    // 仲介会社経由予約
+    Route::get('agents_reservations/create', 'AgentsReservationsController@create');
+    // 仲介会社経由　計算
+    Route::post('agents_reservations/calculate', 'AgentsReservationsController@calculate');
+    // 仲介会社経由　確認
+    Route::post('agents_reservations/check', 'AgentsReservationsController@check');
+    // 仲介会社経由　保存
+    Route::post('agents_reservations', 'AgentsReservationsController@store');
+    // 仲介会社経由　再計算
+    Route::post('agents_reservations/recalculate', 'AgentsReservationsController@recalculate')->name('agents_reservations.recalculate');
+    // 仲介会社　請求　追加
+    Route::post('agents_reservations/add_bills/{reservation}', 'AgentsReservationsController@add_bills')->name('agents_reservations.add_bills');
+    // 仲介会社　追加請求　確認
+    Route::post('agents_reservations/add_bills/check/{reservation}', 'AgentsReservationsController@add_check')->name('agents_reservations.add_check');
+    // 仲介会社　追加請求　保存
+    Route::post('agents_reservations/add_bills/store/{reservation}', 'AgentsReservationsController@add_store')->name('agents_reservations.add_store');
+    // 仲介会社　メールなしで予約確定ボタン
+    Route::post('agents_reservations/confirm', 'AgentsReservationsController@add_confirm')->name('agents_reservations.add_confirm');
+    // 仮抑え（削除は別で作成予定）
+    Route::resource('pre_reservations', 'PreReservationsController')->except(['destroy']);
+    // 仮押さえ ajax 顧客情報取得
+    Route::post('pre_reservations/getuser', 'PreReservationsController@getuser');
+    // 仮抑え　新規登録　確認
+    Route::post('pre_reservations/check', 'PreReservationsController@check');
+    // 仮抑え　新規登録　計算
+    Route::post('pre_reservations/calculate', 'PreReservationsController@calculate');
+    // 仮抑え　削除
+    Route::post('pre_reservations/destroy', 'PreReservationsController@destroy');
+    //
+
   });
 });

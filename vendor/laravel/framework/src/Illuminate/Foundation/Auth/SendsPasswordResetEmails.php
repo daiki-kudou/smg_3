@@ -14,8 +14,7 @@ trait SendsPasswordResetEmails
      */
     public function showLinkRequestForm()
     {
-        // ここ変更
-        return view('user.auth.passwords.email');
+        return view('auth.passwords.email');
     }
 
     /**
@@ -36,8 +35,8 @@ trait SendsPasswordResetEmails
         );
 
         return $response == Password::RESET_LINK_SENT
-            ? $this->sendResetLinkResponse($request, $response)
-            : $this->sendResetLinkFailedResponse($request, $response);
+                    ? $this->sendResetLinkResponse($request, $response)
+                    : $this->sendResetLinkFailedResponse($request, $response);
     }
 
     /**
@@ -84,8 +83,8 @@ trait SendsPasswordResetEmails
     protected function sendResetLinkFailedResponse(Request $request, $response)
     {
         return back()
-            ->withInput($request->only('email'))
-            ->withErrors(['email' => trans($response)]);
+                ->withInput($request->only('email'))
+                ->withErrors(['email' => trans($response)]);
     }
 
     /**

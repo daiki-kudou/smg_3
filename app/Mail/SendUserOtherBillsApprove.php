@@ -28,7 +28,7 @@ class SendUserOtherBillsApprove extends Mailable
    */
   public function build()
   {
-    return $this->view('user.home.other_send_approve')
+    return $this->view('user.mails.other_send_approve')
       ->subject('追加予約の承認をお願い申し上げます')->with(['bill' => $this->bill]);
   }
 }

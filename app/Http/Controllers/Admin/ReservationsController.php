@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
+
 use App\Models\Reservation;
 use App\Models\Venue;
 use App\Models\User;
@@ -27,16 +28,7 @@ class ReservationsController extends Controller
    */
   public function index()
   {
-    $reservations = Reservation::select(
-      'id',
-      'reserve_date',
-      'enter_time',
-      'leave_time',
-      'venue_id',
-      'user_id',
-      'tel',
-      // 'reservation_status'
-    )->get();
+    $reservations = Reservation::all();
     $venue = Venue::select('id', 'name_area', 'name_bldg', 'name_venue')->get();
     $user = User::select('id', 'company', 'first_name', 'last_name', 'mobile', 'tel')->get();
     return view('admin.reservations.index', [
@@ -225,154 +217,174 @@ class ReservationsController extends Controller
     $venues = Venue::select('name_area', 'name_bldg', 'name_venue', 'id')->get();
     $users = User::all();
 
-    $target = $request->all();
+    $target = $request->all_requests;
+    $target = json_decode($target);
 
-    if ($target != null) {
-      return view('admin.reservations.create', [
-        'venues' => $venues,
-        'users' => $users,
-        'request' => $request,
-      ]);
-    } else {
-      return view('admin.reservations.create', [
-        'venues' => $venues,
-        'users' => $users,
-      ]);
-    }
+    // if ($target != null) {
+    return view('admin.reservations.create', [
+      'venues' => $venues,
+      'users' => $users,
+      'target' => $target,
+    ]);
+    // } 
+    // else {
+    //   return view('admin.reservations.create', [
+    //     'venues' => $venues,
+    //     'users' => $users,
+    //   ]);
+    // }
   }
+
+  public function calculate(Request $request)
+  {
+    $users = User::all();
+    $venues = Venue::all();
+    $venue = Venue::find($request->venue_id);
+    $equipments = $venue->equipments()->get();
+    $services = $venue->services()->get();
+    $price_details = $venue->calculate_price( //[0]は合計料金, [1]は延長料金, [2]は合計＋延長、 [3]は利用時間, [4]は延長時間
+      $request->price_system,
+      $request->enter_time,
+      $request->leave_time
+    );
+    var_dump($price_details);
+    $s_equipment = [];
+    $s_services = [];
+    foreach ($request->all() as $key => $value) {
+      if (preg_match('/equipment_breakdown/', $key)) {
+        $s_equipment[] = $value;
+      }
+      if (preg_match('/services_breakdown/', $key)) {
+        $s_services[] = $value;
+      }
+    }
+    $item_details = $venue->calculate_items_price($s_equipment, $s_services);    // [0]備品＋サービス [1]備品詳細 [2]サービス詳細 [3]備品合計 [4]サービス合計
+    $layouts_details = $venue->getLayoutPrice($request->layout_prepare, $request->layout_clean);
+    if ($price_details == 0) { //枠がなく会場料金を手打ちするパターン
+      $masters =
+        ($item_details[0] + $request->luggage_price)
+        + $layouts_details[2];
+    } else {
+      $masters =
+        ($price_details[2] ? $price_details[2] : 0)
+        + ($item_details[0] + $request->luggage_price)
+        + $layouts_details[2];
+    }
+    $user = User::find($request->user_id);
+    $pay_limit = $user->getUserPayLimit($request->reserve_date);
+    return view('admin.reservations.calculate', [
+      'venues' => $venues,
+      'users' => $users,
+      'request' => $request,
+      'equipments' => $equipments,
+      'services' => $services,
+      's_equipment' => $s_equipment, //選択された備品
+      's_services' => $s_services, //選択されたサービス
+      'price_details' => $price_details,
+      'item_details' => $item_details,
+      'layouts_details' => $layouts_details,
+      'masters' => $masters,
+      'pay_limit' => $pay_limit,
+      'user' => $user,
+    ]);
+  }
+
+  public function recalculate(Request $request)
+  {
+    $all_requests = json_decode($request->all_requests, true);
+    $venues = Venue::all();
+    $venue = $venues->find($all_requests['venue_id']);
+    $equipments = $venue->equipments()->get();
+    $services = $venue->services()->get();
+    $users = User::all();
+
+    $s_equipment = [];
+    $s_services = [];
+    $s_others = [];
+    foreach ($all_requests as $key => $value) {
+      if (preg_match('/equipment_breakdown_count/', $key)) {
+        $s_equipment[] = $value;
+      }
+      if (preg_match('/services_breakdown_count/', $key)) {
+        $s_services[] = $value;
+      }
+      if (preg_match('/others_input/', $key)) {
+        $s_others[] = $value;
+      }
+    }
+    $price_details = $venue->calculate_price( //[0]は合計料金, [1]は延長料金, [2]は合計＋延長、 [3]は利用時間, [4]は延長時間
+      $all_requests['price_system'],
+      $all_requests['enter_time'],
+      $all_requests['leave_time']
+    );
+    $item_details = json_decode($all_requests['item_details']);
+
+    $layouts_details = json_decode($all_requests['layouts_details']);
+
+    $others_details = json_decode($request->others_details);
+
+    return view('admin.reservations.re_calculate', [
+      'all_requests' => $all_requests,
+      'venues' => $venues,
+      'equipments' => $equipments,
+      'services' => $services,
+      's_equipment' => $s_equipment,
+      's_services' => $s_services,
+      's_others' => $s_others,
+      'users' => $users,
+      'price_details' => $price_details,
+      'item_details' => $item_details,
+      'layouts_details' => $layouts_details,
+      'others_details' => $others_details,
+    ]);
+  }
+
 
   public function check(Request $request)
   {
-    $reserve_date = $request->reserve_date;
-    $venue_id = $request->venue_id;
-    $venue = Venue::find($venue_id);
-    $price_system = $request->price_system;
-    $enter_time = $request->enter_time;
-    $leave_time = $request->leave_time;
-    $board_flag = $request->board_flag;
-    $event_start = $request->event_start;
-    $event_finish = $request->event_finish;
-    $event_name1 = $request->event_name1;
-    $event_name2 = $request->event_name2;
-    $event_owner = $request->event_owner;
-    $user_id = $request->user_id;
-    $user = User::find($user_id);
-    $in_charge = $request->in_charge;
-    $tel = $request->tel;
-    $email_flag = $request->email_flag;
-    $cost = $request->cost;
-    $discount_condition = $request->discount_condition;
-    $attention = $request->attention;
-    $user_details = $request->user_details;
-    $admin_details = $request->admin_details;
-    $payment_limit = $request->payment_limit;
-    // $paid = $request->paid;
-    // $reservation_status = $request->reservation_status;
-    // $double_check_status = $request->double_check_status;
-    $bill_company = $request->bill_company;
-    $bill_person = $request->bill_person;
-    $bill_created_at = $request->bill_created_at;
-    $bill_pay_limit = $request->bill_pay_limit;
-    $layout_prepare = $request->layout_prepare;
-    $layout_clean = $request->layout_clean;
+    var_dump($request->all());
+    $venue = Venue::find($request->venue_id);
+    $equipments = $venue->equipments()->get();
+    $services = $venue->services()->get();
 
-    $luggage_count = $request->luggage_count;
-    $luggage_arrive = $request->luggage_arrive;
-    $luggage_return = $request->luggage_return;
-    $luggage_price = $request->luggage_price;
+    $items_decode_data = json_decode($request->item_details);
+    $s_equipment = $items_decode_data[1];
+    $s_services = $items_decode_data[2];
 
-    // $reservation_id = new Reservation;
-    $sub_total = $request->sub_total;
-    $tax = $request->tax;
-    $total = $request->total;
-
-    // 備品の個別入力input
-    $simple_v_input = [];
+    $venue_details = [];
     foreach ($request->all() as $key => $value) {
-      if (preg_match('/equipemnt/', $key)) {
-        $simple_v_input[] = $value;
+      if (preg_match('/venue_breakdown/', $key)) {
+        $venue_details[] = $value;
       }
     }
-
-    // サービスの個別入力input
-    $simple_s_input = [];
+    $equipment_details = [];
     foreach ($request->all() as $key => $value) {
-      if (preg_match('/service/', $key)) {
-        $simple_s_input[] = $value;
+      if (preg_match('/equipment_breakdown/', $key)) {
+        $equipment_details[] = $value;
       }
     }
-
-    // 会場の内訳列×４カラム（内容、単価、数量、小計）
-    $v_d_counts = [];
+    $service_details = [];
     foreach ($request->all() as $key => $value) {
-      if (preg_match('/venue_breakdowns/', $key)) {
-        $v_d_counts[] = $value;
+      if (preg_match('/services_breakdown/', $key)) {
+        $service_details[] = $value;
       }
     }
-    // 備品の内訳列×４カラム（内容、単価、数量、小計）
-    $e_d_counts = [];
+    $others_details = [];
     foreach ($request->all() as $key => $value) {
-      if (preg_match('/equipment_breakdowns/', $key)) {
-        $e_d_counts[] = $value;
+      if (preg_match('/others_input/', $key)) {
+        $others_details[] = $value;
       }
     }
-    // レイアウトの内訳列×４カラム（内容、単価、数量、小計）
-    $l_d_counts = [];
-    foreach ($request->all() as $key => $value) {
-      if (preg_match('/layout_breakdowns/', $key)) {
-        $l_d_counts[] = $value;
-      }
-    }
-
     return view('admin.reservations.check', [
-      'reserve_date' => $reserve_date,
-      'venue_id' => $venue_id,
-      'venue' => $venue,
-      'price_system' => $price_system,
-      'enter_time' => $enter_time,
-      'leave_time' => $leave_time,
-      'board_flag' => $board_flag,
-      'event_start' => $event_start,
-      'event_finish' => $event_finish,
-      'event_name1' => $event_name1,
-      'event_name2' => $event_name2,
-      'event_owner' => $event_owner,
-      'user_id' => $user_id,
-      'user' => $user,
-      'in_charge' => $in_charge,
-      'tel' => $tel,
-      'email_flag' => $email_flag,
-      'cost' => $cost,
-      'discount_condition' => $discount_condition,
-      'attention' => $attention,
-      'user_details' => $user_details,
-      'admin_details' => $admin_details,
-      'payment_limit' => $payment_limit,
-      // 'paid' => $paid,
-      // 'reservation_status' => $reservation_status,
-      // 'double_check_status' => $double_check_status,
-      'bill_company' => $bill_company,
-      'bill_person' => $bill_person,
-      'bill_created_at' => $bill_created_at,
-      'bill_pay_limit' => $bill_pay_limit,
-      'sub_total' => $sub_total,
-      'tax' => $tax,
-      'total' => $total,
-      'layout_prepare' => $layout_prepare,
-      'layout_clean' => $layout_clean,
-      'luggage_count' => $luggage_count,
-      'luggage_arrive' => $luggage_arrive,
-      'luggage_return' => $luggage_return,
-      'luggage_price' => $luggage_price,
-
-      //↓　↓　  備品のinputされた値
-      'simple_v_input' => $simple_v_input,
-      'simple_s_input' => $simple_s_input,
-      //↓　↓　 内訳に記載された会場や、備品、レイアウト等
-      'v_d_counts' => $v_d_counts,
-      'e_d_counts' => $e_d_counts,
-      'l_d_counts' => $l_d_counts,
-      'request' => $request
+      'request' => $request,
+      'equipments' => $equipments,
+      'services' => $services,
+      's_equipment' => $s_equipment,
+      's_services' => $s_services,
+      'venue_details' => $venue_details,
+      'equipment_details' => $equipment_details,
+      'service_details' => $service_details,
+      'others_details' => $others_details,
     ]);
   }
 
@@ -384,135 +396,127 @@ class ReservationsController extends Controller
    */
   public function store(Request $request)
   {
-    // $this->validate($request, [
-    //   'reserve_date' => ['required', 'max:191'],
-    //   'venue_id' => ['required', 'max:191'],
-    //   'enter_time' => ['required', 'max:191'],
-    //   'leave_time' => ['required', 'max:191'],
-    //   'board_flag' => ['required', 'max:191'],
-    //   'event_start' => ['required', 'max:191'],
-    //   'event_finish' => ['required', 'max:191'],
-    //   'event_name1' => ['required', 'max:191'],
-    //   'event_name2' => ['required', 'max:191'],
-    //   'event_owner' => 'required',
-    //   'user_id' => 'required',
-    //   'in_charge' => 'required',
-    //   'tel' => ['required', 'max:191'],
-    //   'email_flag' => ['required', 'max:191'],
-    //   'cost' => 'required',
-    //   'payment_limit' => 'required',
-    //   'paid' => 'required',
-    //   'reservation_status' => 'required',
-    //   'double_check_status' => ['required', 'max:191'],
-    //   'bill_company' => 'required',
-    //   'bill_person' => 'required',
-    //   'bill_created_at' => 'required',
-    //   'bill_pay_limit' => 'required',
-    // ]);
 
 
     DB::transaction(function () use ($request) { //トランザクションさせる
-      $reservation = new Reservation;
-      $reservation->reserve_date = $request->reserve_date;
-      $reservation->venue_id = $request->venue_id;
-      $reservation->price_system = $request->price_system;
-      $reservation->enter_time = $request->enter_time;
-      $reservation->leave_time = $request->leave_time;
-      $reservation->board_flag = $request->board_flag;
-      $reservation->event_start = $request->event_start;
-      $reservation->event_start = $request->event_start;
-      $reservation->event_finish = $request->event_finish;
-      $reservation->event_name1 = $request->event_name1;
-      $reservation->event_name2 = $request->event_name2;
-      $reservation->event_owner = $request->event_owner;
-
-      $reservation->luggage_count = $request->luggage_count;
-      $reservation->luggage_arrive = $request->luggage_arrive;
-      $reservation->luggage_return = $request->luggage_return;
-
-      $reservation->user_id = $request->user_id;
-      $reservation->in_charge = $request->in_charge;
-      $reservation->tel = $request->tel;
-      $reservation->email_flag = $request->email_flag;
-      $reservation->cost = $request->cost;
-      $reservation->payment_limit = $request->payment_limit;
-      // $reservation->paid = $request->paid;
-      // $reservation->reservation_status = $request->reservation_status;
-      // $reservation->double_check_status = $request->double_check_status;
-      $reservation->bill_company = $request->bill_company;
-      $reservation->bill_person = $request->bill_person;
-      $reservation->bill_created_at = $request->bill_created_at;
-      $reservation->bill_pay_limit = $request->bill_pay_limit;
-
-      $reservation->save();
+      $reservation = Reservation::create([
+        'venue_id' => $request->venue_id,
+        'user_id' => $request->user_id,
+        'agent_id' => 0, //デフォで0
+        'reserve_date' => $request->reserve_date,
+        'price_system' => $request->price_system,
+        'enter_time' => $request->enter_time,
+        'leave_time' => $request->leave_time,
+        'board_flag' => $request->board_flag,
+        'event_start' => $request->event_start,
+        'event_finish' => $request->event_finish,
+        'event_name1' => $request->event_name1,
+        'event_name2' => $request->event_name2,
+        'event_owner' => $request->event_owner,
+        'luggage_count' => $request->luggage_count,
+        'luggage_arrive' => $request->luggage_arrive,
+        'luggage_return' => $request->luggage_return,
+        'email_flag' => $request->email_flag,
+        'in_charge' => $request->in_charge,
+        'tel' => $request->tel,
+        'cost' => $request->cost,
+        'discount_condition' => $request->discount_condition,
+        'attention' => $request->attention,
+        'user_details' => $request->user_details,
+        'admin_details' => $request->admin_details,
+        // 'payment_limit' => $request->payment_limit,
+        // 'bill_company' => $request->bill_company,
+        // 'bill_person' => $request->bill_person,
+        // 'bill_created_at' => Carbon::now(),
+        // 'bill_remark' => $request->bill_remark,
+      ]);
 
       $bills = $reservation->bills()->create([
         'reservation_id' => $reservation->id,
-        // 会場関連
-        'venue_total' => $request->venue_total,
-        'venue_discount_percent' => $request->venue_discount_percent, //割引率
-        'venue_dicsount_number' => $request->venue_dicsount_number, //割引額
-        'discount_venue_total' => $request->discount_venue_total,
-        // 備品関連
-        'equipment_total' => $request->selected_equipments_price,
-        'service_total' => $request->selected_services_price,
-        'luggage_total' => $request->selected_luggage_price,
-        'equipment_service_total' => $request->selected_items_total,
-        'discount_item' => $request->discount_item, //割引額
-        'discount_equipment_service_total' => $request->discount_equipment_service_total,
-        // レイアウト関連
-        'layout_total' => $request->layout_total,
-        'layout_discount' => $request->layout_discount, //割引額
-        'after_duscount_layouts' => $request->after_duscount_layouts,
-        // その他関連
-        'others_total' => 0,
-        'others_discount' => 0,
-        'after_duscount_others' => 0,
-
-
+        'venue_price' => $request->venue_price,
+        'equipment_price' => $request->equipment_price ? $request->equipment_price : 0, //備品・サービス・荷物
+        'layout_price' => $request->layout_price ? $request->layout_price : 0,
+        'others_price' => $request->others_price ? $request->others_price : 0,
         // 該当billの合計額関連
-        'sub_total' => $request->sub_total,
-        'tax' => $request->tax,
-        'total' => $request->total,
+        'master_subtotal' => $request->master_subtotal,
+        'master_tax' => $request->master_tax,
+        'master_total' => $request->master_total,
 
-        'paid' => 0, //デフォで0 作成時点では未入金
+        'payment_limit' => $request->payment_limit,
+        'bill_company' => $request->bill_company,
+        'bill_person' => $request->bill_person,
+        'bill_created_at' => Carbon::now(),
+        'bill_remark' => $request->bill_remark,
+
+        'paid' => $request->paid,
+
+        'pay_day' => $request->pay_day,
+        'pay_person' => $request->pay_person,
+        'payment' => $request->payment,
+
         'reservation_status' => 1, //デフォで1、仮抑えのデフォは0
         'double_check_status' => 0, //デフォで0
-        'category' => 1 //デフォで１。　新規以外だと　2:その他有料備品　3:レイアウト　4:その他
+        'category' => 1, //デフォで１。　新規以外だと　2:その他有料備品　3:レイアウト　4:その他
+        'admin_judge' => 1, //管理者作成なら1 ユーザー作成なら2
       ]);
-
-      if ($request->v_breakdowns) {
-        foreach ($request->v_breakdowns as $key => $value) {
-          $bills->breakdowns()->create([
-            'unit_item' => $value['unit_item'],
-            'unit_cost' => $value['unit_cost'],
-            'unit_count' => $value['unit_count'],
-            'unit_subtotal' => $value['unit_subtotal'],
-            'unit_type' => $value['unit_type'],
-          ]);
+      function toBreakDown($num, $sub, $target, $type)
+      {
+        $s_arrays = [];
+        foreach ($num as $key => $value) {
+          if (preg_match("/" . $sub . "/", $key)) {
+            $s_arrays[] = $value;
+          }
         }
-      };
-      if ($request->e_breakdowns) {
-        foreach ($request->e_breakdowns as $key => $value) {
-          $bills->breakdowns()->create([
-            'unit_item' => $value['unit_item'],
-            'unit_cost' => $value['unit_cost'],
-            'unit_count' => $value['unit_count'],
-            'unit_subtotal' => $value['unit_subtotal'],
-            'unit_type' => $value['unit_type'],
+        $counts = (count($s_arrays) / 4);
+        for ($i = 0; $i < $counts; $i++) {
+          $target->breakdowns()->create([
+            'unit_item' => $s_arrays[($i * 4)],
+            'unit_cost' => $s_arrays[($i * 4) + 1],
+            'unit_count' => $s_arrays[($i * 4) + 2],
+            'unit_subtotal' => $s_arrays[($i * 4) + 3],
+            'unit_type' => $type,
           ]);
         }
       }
-      if ($request->l_breakdowns) {
-        foreach ($request->l_breakdowns as $key => $value) {
-          $bills->breakdowns()->create([
-            'unit_item' => $value['unit_item'],
-            'unit_cost' => $value['unit_cost'],
-            'unit_count' => $value['unit_count'],
-            'unit_subtotal' => $value['unit_subtotal'],
-            'unit_type' => $value['unit_type'],
-          ]);
-        }
+      toBreakDown($request->all(), 'venue_breakdown', $bills, 1);
+      toBreakDown($request->all(), 'equipment_breakdown', $bills, 2);
+      toBreakDown($request->all(), 'service_breakdown', $bills, 3);
+      toBreakDown($request->all(), 'others_breakdown', $bills, 5);
+      if ($request->luggage_subtotal) {
+        $bills->breakdowns()->create([
+          'unit_item' => $request->luggage_item,
+          'unit_cost' => $request->luggage_cost,
+          'unit_count' => 1,
+          'unit_subtotal' => $request->luggage_subtotal,
+          'unit_type' => 3,
+        ]);
+      }
+      if ($request->layout_prepare_subtotal) {
+        $bills->breakdowns()->create([
+          'unit_item' => $request->layout_prepare_item,
+          'unit_cost' => $request->layout_prepare_cost,
+          'unit_count' => $request->layout_prepare_count,
+          'unit_subtotal' => $request->layout_prepare_subtotal,
+          'unit_type' => 4,
+        ]);
+      }
+      if ($request->layout_clean_subtotal) {
+        $bills->breakdowns()->create([
+          'unit_item' => $request->layout_clean_item,
+          'unit_cost' => $request->layout_clean_cost,
+          'unit_count' => $request->layout_clean_count,
+          'unit_subtotal' => $request->layout_clean_subtotal,
+          'unit_type' => 4,
+        ]);
+      }
+      if ($request->layout_breakdown_discount_item) {
+        $bills->breakdowns()->create([
+          'unit_item' => $request->layout_breakdown_discount_item,
+          'unit_cost' => $request->layout_breakdown_discount_cost,
+          'unit_count' => $request->layout_breakdown_discount_count,
+          'unit_subtotal' => $request->layout_breakdown_discount_subtotal,
+          'unit_type' => 4,
+        ]);
       }
     });
 
@@ -530,25 +534,40 @@ class ReservationsController extends Controller
   public function show($id)
   {
     $reservation = Reservation::find($id);
-    $venue = Venue::find($reservation->venue_id);
-    $user = user::find($reservation->user_id);
+    $venue = Venue::find($reservation->venue->id);
+    $user = User::find($reservation->user_id);
     $equipments = $venue->equipments()->get();
     $services = $venue->services()->get();
     $breakdowns = $reservation->breakdowns()->get();
 
-
-    //   @for ($i = 0; $i < count($reservation->bills()->get())-1; $i++)
-    // @if ($reservation->bills()->skip($i+1)->first()->category==2)
     $other_bills = [];
     for ($i = 0; $i < count($reservation->bills()->get()) - 1; $i++) {
-      // $fake = [];
-      // $fake[] = 
       $other_bills[] = $reservation->bills()->skip($i + 1)->first();
     }
 
-    // echo "<pre>";
-    // var_dump($other_bills);
-    // echo "</pre>";
+    $venues_master = 0;
+    $items_master = 0;
+    $layouts_master = 0;
+    $others_master = 0;
+    $master_subtotals = 0;
+    $master_taxs = 0;
+    $master_totals = 0;
+
+    foreach ($reservation->bills()->get() as $key => $value) {
+      $venues_master += $value->venue_price;
+      $items_master += $value->equipment_price;
+      $layouts_master += $value->layout_price;
+      $others_master += $value->others_price;
+      $master_subtotals += $value->master_subtotal;
+      $master_taxs += $value->master_tax;
+      $master_totals += $value->master_total;
+    }
+
+    $all_master_subtotal = $venues_master + $items_master + $layouts_master + $others_master;
+    $all_master_tax = floor($all_master_subtotal * 0.1);
+    $all_master_total = $all_master_subtotal + $all_master_tax;
+
+
 
     return view('admin.reservations.show', [
       'reservation' => $reservation,
@@ -556,11 +575,22 @@ class ReservationsController extends Controller
       'services' => $services,
       'breakdowns' => $breakdowns,
       'user' => $user,
-      'other_bills' => $other_bills
+      'other_bills' => $other_bills,
+      'venues_master' => $venues_master,
+      'items_master' => $items_master,
+      'layouts_master' => $layouts_master,
+      'others_master' => $others_master,
+      'all_master_subtotal' => $all_master_subtotal,
+      'all_master_tax' => $all_master_tax,
+      'all_master_total' => $all_master_total,
+      'master_subtotals' => $master_subtotals,
+      'master_taxs' => $master_taxs,
+      'master_totals' => $master_totals,
+
     ]);
   }
 
-  public function doublecheck(Request $request, $id)
+  public function double_check(Request $request, $id)
   {
     $reservation_bills = Reservation::find($id)->bills()->first();
 
@@ -597,9 +627,9 @@ class ReservationsController extends Controller
       $user = User::find($request->user_id);
       $email = $user->email;
       // 管理者側のメール本文等は未定
-      Mail::to($email)->send(new SendUserApprove($reservation));
+      Mail::to($email)->send(new \App\Mail\Test);
     });
-    return redirect()->route('admin.reservations.index');
+    return redirect()->route('admin.reservations.index')->with('flash_message', 'ユーザーに承認メールを送信しました');
   }
 
   public function confirm_reservation(Request $request)
@@ -624,10 +654,54 @@ class ReservationsController extends Controller
     $reservation = Reservation::find($id);
     $venues = Venue::all();
     $users = User::all();
+    $services = $venues->find($reservation->venue_id)->services()->get();
+    $s_services = [];
+    foreach ($services as $key => $value) {
+      if ($reservation->bills()->first()->breakdowns()->where('unit_item', $value->item)->first()) {
+        $s_services[] = 1;
+      } else {
+        $s_services[] = 0;
+      }
+    }
+
+    $s_layouts = [];
+    if ($reservation->bills()->first()->breakdowns()->where('unit_item', 'レイアウト準備料金')->first()) {
+      $s_layouts[] = 1;
+    } else {
+      $s_layouts[] = 0;
+    }
+    if ($reservation->bills()->first()->breakdowns()->where('unit_item', 'レイアウト片付料金')->first()) {
+      $s_layouts[] = 1;
+    } else {
+      $s_layouts[] = 0;
+    }
+
+    $s_luggage = 0;
+    if ($reservation->bills()->first()->breakdowns()->where('unit_item', '荷物預かり/返送')->first()) {
+      $s_luggage = 1;
+    } else {
+      $s_luggage = 0;
+    }
+
+    $venue_prices = $reservation->bills()->first()->breakdowns()->where('unit_type', 1)->get();
+    $equipments_prices = $reservation->bills()->first()->breakdowns()->where('unit_type', 2)->get();
+    $services_prices = $reservation->bills()->first()->breakdowns()->where('unit_type', 3)->get();
+    $layouts_prices = $reservation->bills()->first()->breakdowns()->where('unit_type', 4)->get();
+    $others_prices = $reservation->bills()->first()->breakdowns()->where('unit_type', 5)->get();
+
     return view('admin.reservations.edit', [
       'reservation' => $reservation,
       'venues' => $venues,
       'users' => $users,
+      'services' => $services,
+      's_services' => $s_services,
+      's_layouts' => $s_layouts,
+      's_luggage' => $s_luggage,
+      'venue_prices' => $venue_prices,
+      'equipments_prices' => $equipments_prices,
+      'services_prices' => $services_prices,
+      'layouts_prices' => $layouts_prices,
+      'others_prices' => $others_prices,
     ]);
   }
 

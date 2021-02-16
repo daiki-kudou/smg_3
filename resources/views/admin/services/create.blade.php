@@ -23,8 +23,7 @@
 
 <h1 class="mt-3 mb-5">有料サービス管理　新規作成</h1>
 <div class="text-right mb-3">
-  <a href="/admin/equipments/create" class="btn btn-outline-info btn-lg d-inline-block" style="width: 140px;">新規登録　<i
-      class="fas fa-plus"></i></a>
+  <a href="/admin/equipments/create" class="btn btn-outline-info btn-lg d-inline-block" style="width: 140px;">新規登録　<i class="fas fa-plus"></i></a>
 </div>
 
 {{ Form::open(['url' => 'admin/services', 'method'=>'POST', 'id'=>'ServiceCreateForm']) }}

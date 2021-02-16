@@ -196,6 +196,17 @@ class Venue extends Model
   {
     return $this->hasMany(Reservation::class);
   }
+
+  /*
+|--------------------------------------------------------------------------
+| 仮抑えの一対多
+|--------------------------------------------------------------------------|
+*/
+  public function pre_reservations()
+  {
+    return $this->hasMany(PreReservation::class);
+  }
+
   /*
 |--------------------------------------------------------------------------
 | 会場と仲介会社の多対多
@@ -215,6 +226,9 @@ class Venue extends Model
   public function calculate_price($status_id, $start_time, $finish_time)
   {
     if ($status_id == 1) {
+      if ($start_time < '08:00:00' || $finish_time > '23:00:00') {
+        return 0;
+      }
 
       //料金計算に使う開始時間を計算用に変更
       // 開始時間
@@ -266,6 +280,7 @@ class Venue extends Model
         $between_time_list[] = $temporary;
         $temporary = []; //temporaryに配列挿入後、一旦初期化
       }
+
 
       /*|--------------------------------------------------------------------------
       |↓↓↓ 一旦ここで、網羅できる料金体系を抽出完了↓↓↓
@@ -322,6 +337,7 @@ class Venue extends Model
           $extend_final_prices[] = $price_arrays[$extend_final]->price;
         } else {
           $extend_final_prices[] = null;
+          $frames[] = null;
         }
       }
       // return $extend_final_prices;
@@ -391,7 +407,15 @@ class Venue extends Model
       // 延長した分の時間取得
       $extend_original = ($price_arrays[0]->extend);
       $extend_diff = $exted_specific_price / $extend_original;
-      return [$min_result, $exted_specific_price, $time_diff, $extend_diff];
+      // min_resultとexted_specific_priceの合計
+      $venue_equipments_subtotal = $min_result + $exted_specific_price;
+      return [
+        $min_result,
+        $exted_specific_price,
+        $venue_equipments_subtotal,
+        $time_diff,
+        $extend_diff
+      ];
 
       //＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊
       //＊＊会場のステータスが2のとき（アクセア仕様のとき）
@@ -441,8 +465,6 @@ class Venue extends Model
       $f_start2 = Carbon::createFromTimeString($start_time, 'Asia/Tokyo');
       $f_finish2 = Carbon::createFromTimeString($finish_time, 'Asia/Tokyo');
 
-
-
       $usage_time = $f_start2->diffInMinutes($f_finish2); //時差
       $usage_time /= 60; //分に変換
 
@@ -468,7 +490,14 @@ class Venue extends Model
 
         $specific_extend_time = $specific_extend_timeprice / ($time_price[$witch_array_in_result]->extend); //speficな延長　時間
 
-        return [$time_min_result, $specific_extend_timeprice, $specific_extend_time, $specific_extend_time];
+        //[0]は合計料金, [1]は延長料金, [2]は合計＋延長、 [3]は利用時間, [4]は延長時間
+        return [
+          $time_min_result - $specific_extend_timeprice,
+          $specific_extend_timeprice, //延長料金
+          $time_min_result, //合計
+          $usage_time - $specific_extend_time, //合計＋延長
+          $specific_extend_time
+        ];
       } else {
         return fail;
       }
@@ -481,30 +510,61 @@ class Venue extends Model
     $venue_equipments = $this->equipments()->get();
     $equipments_total = 0;
     $equipments_details = [];
-    for ($i = 0; $i < count($venue_equipments); $i++) {
-      $equipments_total = $equipments_total + ($venue_equipments[$i]->price) * ($selected_equipments[$i]);
-      if ($selected_equipments[$i] != 0) {
-        $selected_e_item = $venue_equipments[$i]->item;
-        $selected_e_price = $venue_equipments[$i]->price;
-        $selected_e_count = $selected_equipments[$i];
-        $equipments_details[] = [$selected_e_item, $selected_e_price, $selected_e_count];
+    $judge_equipment = array_filter($selected_equipments);
+    if (!empty($judge_equipment)) {
+      for ($i = 0; $i < count($venue_equipments); $i++) {
+        $equipments_total =
+          $equipments_total +
+          ($venue_equipments[$i]->price)
+          * ($selected_equipments[$i]);
+        if ($selected_equipments[$i] != 0) {
+          $selected_e_item = $venue_equipments[$i]->item;
+          $selected_e_price = $venue_equipments[$i]->price;
+          $selected_e_count = $selected_equipments[$i];
+          $equipments_details[] = [$selected_e_item, $selected_e_price, $selected_e_count];
+        }
       }
     }
     // サービス料金×個数
     $venue_services = $this->services()->get();
     $services_total = 0;
     $services_details = [];
-    for ($ii = 0; $ii < count($venue_services); $ii++) {
-      $services_total = $services_total + ($venue_services[$ii]->price) * ($selected_services[$ii]);
-      if ($selected_services[$ii] != 0) {
-        $selected_s_item = $venue_services[$ii]->item;
-        $selected_s_price = $venue_services[$ii]->price;
-        $selected_s_count = $selected_services[$ii];
-        $services_details[] = [$selected_s_item, $selected_s_price, $selected_s_count];
+    $judge_service = array_filter($selected_services);
+    if (!empty($judge_service)) {
+      for ($ii = 0; $ii < count($venue_services); $ii++) {
+        $services_total =
+          $services_total
+          + ($venue_services[$ii]->price)
+          * ($selected_services[$ii]);
+        if ($selected_services[$ii] != 0) {
+          // ※注意　ここでherokuにてエラーがでている
+          $selected_s_item = $venue_services[$ii]->item;
+          $selected_s_price = $venue_services[$ii]->price;
+          $selected_s_count = $selected_services[$ii];
+          $services_details[] = [$selected_s_item, $selected_s_price, $selected_s_count];
+        }
       }
     }
 
     $total_items_price = $equipments_total + $services_total; //備品＆サービス合計金額
-    return [$total_items_price, $equipments_details, $services_details, $equipments_total, $services_total];
+    return [
+      $total_items_price,
+      $equipments_details,
+      $services_details,
+      $equipments_total,
+      $services_total
+    ];
+  }
+  public function getLayoutPrice($prepare, $clean)
+  {
+    $prepare_result = '';
+    $clean_result = '';
+    $total = '';
+
+    $prepare == 1 ? $prepare_result = $this->layout_prepare : $prepare_result = 0;
+    $clean == 1 ? $clean_result = $this->layout_clean : $clean_result = 0;
+    $total = $prepare_result + $clean_result;
+
+    return [$prepare_result, $clean_result, $total];
   }
 }

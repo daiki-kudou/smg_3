@@ -589,7 +589,6 @@ $(function () {
     });
   });
   $("input[name^='price']").each(function (index, elem) {
-
     $("input[name='price" + index + "']").rules("add", {
       required: true,
       number: true,
@@ -599,14 +598,14 @@ $(function () {
       }
     });
   });
-  $("input[name='extend").rules("add", {
-    required: true,
-    number: true,
-    messages: {
-      required: "※必須項目です",
-      number: "※半角英数字を入力してください"
-    }
-  });
+  // $("input[name='extend").rules("add", {
+  //   required: true,
+  //   number: true,
+  //   messages: {
+  //     required: "※必須項目です",
+  //     number: "※半角英数字を入力してください"
+  //   }
+  // });
 
 
 });
@@ -664,3 +663,78 @@ $(function () {
 
 
 });
+
+
+// 予約新規作成
+$(function () {
+  $("#reservationCreateForm").validate({
+    rules: {
+      reserve_date: {
+        required: true,
+      },
+      venue_id: {
+        required: true,
+      },
+      enter_time: {
+        required: true,
+      },
+      leave_time: {
+        required: true,
+      },
+      user_id: {
+        required: true,
+      },
+      in_charge: {
+        required: true,
+      },
+      tel: {
+        required: true,
+      },
+    },
+    messages: {
+      reserve_date: {
+        required: "※必須項目です",
+      },
+      venue_id: {
+        required: "※必須項目です",
+      },
+      enter_time: {
+        required: "※必須項目です",
+      },
+      leave_time: {
+        required: "※必須項目です",
+      },
+      user_id: {
+        required: "※必須項目です",
+      },
+      in_charge: {
+        required: "※必須項目です",
+      },
+      tel: {
+        required: "※必須項目です",
+      },
+    },
+    errorPlacement: function (error, element) {
+      var name = element.attr('name');
+      if (element.attr('name') === 'category[]') {
+        error.appendTo($('.is-error-category'));
+      } else if (element.attr('name') === name) {
+        error.appendTo($('.is-error-' + name));
+      }
+    },
+    errorElement: "span",
+    errorClass: "is-error",
+    //送信前にLoadingを表示
+    submitHandler: function (form) {
+      $('.spin_btn').removeClass('hide');
+      $('.submit_btn').addClass('hide');
+      form.submit();
+    }
+  });
+  $('input').on('blur', function () {
+    $(this).valid();
+    if ($('span').hasClass('is-error')) {
+      $('span').css('background', 'white');
+    }
+  });
+})

@@ -1,0 +1,368 @@
+<?php
+
+namespace App\Http\Controllers\Admin;
+
+use App\Http\Controllers\Controller;
+use Illuminate\Http\Request;
+
+use App\Models\Reservation;
+use App\Models\Venue;
+use App\Models\User;
+use App\Models\Bill;
+use App\Models\Breakdown;
+use Carbon\Carbon;
+use Illuminate\Support\Facades\DB; //トランザクション用
+
+use App\Models\PreReservation;
+
+
+
+
+class PreReservationsController extends Controller
+{
+  /**
+   * Display a listing of the resource.
+   *
+   * @return \Illuminate\Http\Response
+   */
+  public function index()
+  {
+    $pre_reservations = PreReservation::all();
+    return view('admin.pre_reservations.index', [
+      'pre_reservations' => $pre_reservations,
+    ]);
+  }
+
+  /**
+   * Show the form for creating a new resource.
+   *
+   * @return \Illuminate\Http\Response
+   */
+  public function create()
+  {
+    $users = User::all();
+    $venues = Venue::all();
+    return view('admin.pre_reservations.create', [
+      'users' => $users,
+      'venues' => $venues,
+    ]);
+  }
+
+  public function check(Request $request)
+  {
+
+    $judge_count = [];
+    foreach ($request->all() as $key => $value) {
+      if (preg_match('/pre_date/', $key)) {
+        $judge_count[] = $value;
+      }
+    }
+    echo "<pre>";
+    var_dump($request->all());
+    echo "</pre>";
+
+    if (count($judge_count) == 1) {
+      $venue = Venue::find($request->pre_venue0);
+      $equipments = $venue->equipments()->get();
+      $services = $venue->services()->get();
+      $layouts = [];
+      $layouts[] = $venue->layout_prepare == 0 ? 0 : $venue->layout_prepare;
+      $layouts[] = $venue->layout_clean == 0 ? 0 : $venue->layout_clean;
+
+      return view('admin.pre_reservations.single_check', [
+        'request' => $request,
+        'equipments' => $equipments,
+        'services' => $services,
+        'venue' => $venue,
+        'layouts' => $layouts,
+      ]);
+    }
+  }
+
+  public function calculate(Request $request)
+  {
+
+
+    if ($request->judge_count == 1) { //単発仮抑えの計算
+      echo "<pre>";
+      var_dump($request->all());
+      echo "</pre>";
+      $users = User::all();
+      $venues = Venue::all();
+      $venue = $venues->find($request->venue_id);
+      $equipments = $venue->equipments()->get();
+      $services = $venue->services()->get();
+
+      $price_details = $venue->calculate_price( //[0]は合計料金, [1]は延長料金, [2]は合計＋延長、 [3]は利用時間, [4]は延長時間
+        $request->price_system,
+        $request->enter_time,
+        $request->leave_time
+      );
+
+      echo "<pre>";
+      var_dump($price_details);
+      echo "</pre>";
+
+      $s_equipment = [];
+      $s_services = [];
+      foreach ($request->all() as $key => $value) {
+        if (preg_match('/equipment_breakdown/', $key)) {
+          $s_equipment[] = $value;
+        }
+        if (preg_match('/services_breakdown/', $key)) {
+          $s_services[] = $value;
+        }
+      }
+      $item_details = $venue->calculate_items_price($s_equipment, $s_services);    // [0]備品＋サービス [1]備品詳細 [2]サービス詳細 [3]備品合計 [4]サービス合計
+      $layouts_details = $venue->getLayoutPrice($request->layout_prepare, $request->layout_clean);
+
+      echo "<pre>";
+      var_dump($item_details);
+      echo "</pre>";
+
+      echo "<pre>";
+      var_dump($layouts_details);
+      echo "</pre>";
+
+      if ($price_details == 0) { //枠がなく会場料金を手打ちするパターン
+        $masters =
+          ($item_details[0] + $request->luggage_price)
+          + $layouts_details[2];
+      } else {
+        $masters =
+          ($price_details[2] ? $price_details[2] : 0)
+          + ($item_details[0] + $request->luggage_price)
+          + $layouts_details[2];
+      }
+      $user = User::find($request->user_id);
+      $pay_limit = $user->getUserPayLimit($request->reserve_date);
+
+
+
+
+      return view('admin.pre_reservations.single_calculate', [
+        'venues' => $venues,
+        'users' => $users,
+        'request' => $request,
+        'equipments' => $equipments,
+        'services' => $services,
+        's_equipment' => $s_equipment, //選択された備品
+        's_services' => $s_services, //選択されたサービス
+        'price_details' => $price_details,
+        'item_details' => $item_details,
+        'layouts_details' => $layouts_details,
+        'masters' => $masters,
+        'pay_limit' => $pay_limit,
+        'user' => $user,
+
+      ]);
+    }
+  }
+
+
+  public function getuser(Request $request)
+  {
+    $user = User::find($request->user_id);
+    return $user;
+  }
+
+  /**
+   * Store a newly created resource in storage.
+   *
+   * @param  \Illuminate\Http\Request  $request
+   * @return \Illuminate\Http\Response
+   */
+  public function store(Request $request)
+  {
+    echo "<pre>";
+    // var_dump($request->all());
+    echo "</pre>";
+
+    DB::transaction(function () use ($request) { //トランザクションさせる
+      $pre_reservation = PreReservation::create([
+        'venue_id' => $request->venue_id,
+        'user_id' => $request->user_id,
+        'agent_id' => 0, //デフォで0
+        'reserve_date' => $request->reserve_date,
+        'price_system' => $request->price_system,
+        'enter_time' => $request->enter_time,
+        'leave_time' => $request->leave_time,
+        'board_flag' => $request->board_flag,
+        'event_start' => $request->event_start,
+        'event_finish' => $request->event_finish,
+        'event_name1' => $request->event_name1,
+        'event_name2' => $request->event_name2,
+        'event_owner' => $request->event_owner,
+        'luggage_count' => $request->luggage_count,
+        'luggage_arrive' => $request->luggage_arrive,
+        'luggage_return' => $request->luggage_return,
+        'email_flag' => $request->email_flag,
+        'in_charge' => $request->in_charge,
+        'tel' => $request->tel,
+        'discount_condition' => $request->discount_condition,
+        'attention' => $request->attention,
+        'user_details' => $request->user_details,
+        'admin_details' => $request->admin_details,
+      ]);
+
+      $pre_bills = $pre_reservation->pre_bills()->create([
+        'pre_reservation_id' => $pre_reservation->id,
+        'venue_price' => $request->venue_price,
+        'equipment_price' => $request->equipment_price ? $request->equipment_price : 0, //備品・サービス・荷物
+        'layout_price' => $request->layout_price ? $request->layout_price : 0,
+        'others_price' => $request->others_price ? $request->others_price : 0,
+        // 該当billの合計額関連
+        'master_subtotal' => $request->master_subtotal,
+        'master_tax' => $request->master_tax,
+        'master_total' => $request->master_total,
+
+        'reservation_status' => 0, //デフォで1、仮抑えのデフォは0
+        'category' => 1, //デフォで１。　新規以外だと　2:その他有料備品　3:レイアウト　4:その他
+        'admin_judge' => 1, //管理者作成なら1 ユーザー作成なら2
+      ]);
+      function toBreakDown($num, $sub, $target, $type)
+      {
+        $s_arrays = [];
+        foreach ($num as $key => $value) {
+          if (preg_match("/" . $sub . "/", $key)) {
+            $s_arrays[] = $value;
+          }
+        }
+        $counts = (count($s_arrays) / 4);
+        for ($i = 0; $i < $counts; $i++) {
+          $target->pre_breakdowns()->create([
+            'unit_item' => $s_arrays[($i * 4)],
+            'unit_cost' => $s_arrays[($i * 4) + 1],
+            'unit_count' => $s_arrays[($i * 4) + 2],
+            'unit_subtotal' => $s_arrays[($i * 4) + 3],
+            'unit_type' => $type,
+          ]);
+        }
+      }
+      toBreakDown($request->all(), 'venue_breakdown', $pre_bills, 1);
+      toBreakDown($request->all(), 'equipment_breakdown', $pre_bills, 2);
+      toBreakDown($request->all(), 'service_breakdown', $pre_bills, 3);
+
+      if ($request->others_price) {
+        toBreakDown($request->all(), 'others_input', $pre_bills, 5);
+      }
+
+      if ($request->luggage_subtotal) {
+        $pre_bills->pre_breakdowns()->create([
+          'unit_item' => $request->luggage_item,
+          'unit_cost' => $request->luggage_cost,
+          'unit_count' => 1,
+          'unit_subtotal' => $request->luggage_subtotal,
+          'unit_type' => 3,
+        ]);
+      }
+      if ($request->layout_prepare_subtotal) {
+        $pre_bills->pre_breakdowns()->create([
+          'unit_item' => $request->layout_prepare_item,
+          'unit_cost' => $request->layout_prepare_cost,
+          'unit_count' => $request->layout_prepare_count,
+          'unit_subtotal' => $request->layout_prepare_subtotal,
+          'unit_type' => 4,
+        ]);
+      }
+      if ($request->layout_clean_subtotal) {
+        $pre_bills->pre_breakdowns()->create([
+          'unit_item' => $request->layout_clean_item,
+          'unit_cost' => $request->layout_clean_cost,
+          'unit_count' => $request->layout_clean_count,
+          'unit_subtotal' => $request->layout_clean_subtotal,
+          'unit_type' => 4,
+        ]);
+      }
+      if ($request->layout_breakdown_discount_item) {
+        $pre_bills->pre_breakdowns()->create([
+          'unit_item' => $request->layout_breakdown_discount_item,
+          'unit_cost' => $request->layout_breakdown_discount_cost,
+          'unit_count' => $request->layout_breakdown_discount_count,
+          'unit_subtotal' => $request->layout_breakdown_discount_subtotal,
+          'unit_type' => 4,
+        ]);
+      }
+
+      if (
+        $request->unknown_user_company ||
+        $request->unknown_user_name ||
+        $request->unknown_user_email ||
+        $request->unknown_user_tel ||
+        $request->unknown_user_mobile
+      ) {
+        $unknown = $pre_reservation->unknown_user()->create([
+          'unknown_user_company' => $request->unknown_user_company,
+          'unknown_user_name' => $request->unknown_user_name,
+          'unknown_user_email' => $request->unknown_user_email,
+          'unknown_user_tel' => $request->unknown_user_tel,
+          'unknown_user_mobile' => $request->unknown_user_mobile
+        ]);
+      }
+    });
+
+    // 戻って再度送信してもエラーになるように設定
+    $request->session()->regenerate();
+    return redirect()->route('admin.pre_reservations.index')->with('flash_message', '単発仮抑えの登録が完了しました');;
+  }
+
+  /**
+   * Display the specified resource.
+   *
+   * @param  int  $id
+   * @return \Illuminate\Http\Response
+   */
+  public function show($id)
+  {
+    //
+  }
+
+  /**
+   * Show the form for editing the specified resource.
+   *
+   * @param  int  $id
+   * @return \Illuminate\Http\Response
+   */
+  public function edit($id)
+  {
+    //
+  }
+
+  /**
+   * Update the specified resource in storage.
+   *
+   * @param  \Illuminate\Http\Request  $request
+   * @param  int  $id
+   * @return \Illuminate\Http\Response
+   */
+  public function update(Request $request, $id)
+  {
+    //
+  }
+
+  /**
+   * Remove the specified resource from storage.
+   *
+   * @param  int  $id
+   * @return \Illuminate\Http\Response
+   */
+  public function destroy(Request $request)
+  {
+    var_dump(count($request->all()));
+    if (count($request->all()) == 1) {
+      $request->session()->regenerate();
+      return redirect()->route('admin.pre_reservations.index')->with('flash_message_error', '仮抑えが選択されていません');
+    } else {
+      DB::transaction(function () use ($request) { //トランザクションさせる
+        foreach ($request->all() as $key => $value) {
+          $pre_reservation = PreReservation::find((int)$value);
+          if ($pre_reservation) {
+            $pre_reservation->delete();
+          }
+        }
+      });
+      $request->session()->regenerate();
+      return redirect()->route('admin.pre_reservations.index')->with('flash_message', '単発仮抑えの削除が完了しました');
+    }
+  }
+}

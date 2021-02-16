@@ -6,43 +6,43 @@
 <!-- フォーム追加 -->
 <script>
   $(function() {
-      $(document).on("click", ".add", function() {
-        $(this).parent().parent().clone(true).insertAfter($(this).parent().parent());
-        var count = $('.new_price tbody tr').length;
+    $(document).on("click", ".add", function() {
+      $(this).parent().parent().clone(true).insertAfter($(this).parent().parent());
+      var count = $('.new_price tbody tr').length;
 
-        // プラス選択時にクローンtrの文字クリア
+      // プラス選択時にクローンtrの文字クリア
       $(this).parent().parent().next().find('td').find('input, select').eq(0).val('');
       $(this).parent().parent().next().find('td').find('input, select').eq(1).val('');
       $(this).parent().parent().next().find('td').find('input, select').eq(2).val('');
-        
-        for (let index = 0; index < count; index++) {
-          var time = "time" + (index);
-          var price = "price" + (index);
-          var extend = "extend" + (index);
-          $('.new_price tbody tr').eq(index).find('td').find('input, select').eq(0).attr('name', time);
-          $('.new_price tbody tr').eq(index).find('td').find('input, select').eq(1).attr('name', price);
-          $('.new_price tbody tr').eq(index).find('td').find('input, select').eq(2).attr('name', extend);
-        }
-      });
-      $(document).on("click", ".del", function() {
-        var target = $(this).parent().parent();
-  
-        if (target.parent().children().length > 1) {
-          target.remove();
-        }
-        var count = $('.new_price tbody tr').length;
-        console.log(count);
-  
-        for (let index = 0; index < count; index++) {
-          var time = "time" + (index);
-          var price = "price" + (index);
-          var extend = "extend" + (index);
-          $('.new_price tbody tr').eq(index).find('td').find('input, select').eq(0).attr('name', time);
-          $('.new_price tbody tr').eq(index).find('td').find('input, select').eq(1).attr('name', price);
-          $('.new_price tbody tr').eq(index).find('td').find('input, select').eq(2).attr('name', extend);
-        }
-      });
+
+      for (let index = 0; index < count; index++) {
+        var time = "time" + (index);
+        var price = "price" + (index);
+        var extend = "extend" + (index);
+        $('.new_price tbody tr').eq(index).find('td').find('input, select').eq(0).attr('name', time);
+        $('.new_price tbody tr').eq(index).find('td').find('input, select').eq(1).attr('name', price);
+        $('.new_price tbody tr').eq(index).find('td').find('input, select').eq(2).attr('name', extend);
+      }
     });
+    $(document).on("click", ".del", function() {
+      var target = $(this).parent().parent();
+
+      if (target.parent().children().length > 1) {
+        target.remove();
+      }
+      var count = $('.new_price tbody tr').length;
+      console.log(count);
+
+      for (let index = 0; index < count; index++) {
+        var time = "time" + (index);
+        var price = "price" + (index);
+        var extend = "extend" + (index);
+        $('.new_price tbody tr').eq(index).find('td').find('input, select').eq(0).attr('name', time);
+        $('.new_price tbody tr').eq(index).find('td').find('input, select').eq(1).attr('name', price);
+        $('.new_price tbody tr').eq(index).find('td').find('input, select').eq(2).attr('name', extend);
+      }
+    });
+  });
 </script>
 
 <div class="container-field mt-3">
@@ -69,8 +69,7 @@
   <hr>
   <div class="w-100 mb-3">
     <span class="d-block mb-2">会場</span>
-    <strong class="border border-light d-block"
-      style="width:100%;">{{$venue->name_area}}{{$venue->name_bldg}}{{$venue->name_venue}}</strong>
+    <strong class="border border-light d-block" style="width:100%;">{{$venue->name_area}}{{$venue->name_bldg}}{{$venue->name_venue}}</strong>
   </div>
   <div class="new_price">
     @if ($errors->any())

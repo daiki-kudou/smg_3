@@ -134,8 +134,7 @@
       <li class="page-item"><a class="page-link" href="">3</a>
       </li>
       <li class="page-item">
-        <a class="page-link" href="http://staging-smg2.herokuapp.com/admin/clients?page=2" rel="next"
-          aria-label="次 &raquo">&rsaquo;</a>
+        <a class="page-link" href="http://staging-smg2.herokuapp.com/admin/clients?page=2" rel="next" aria-label="次 &raquo">&rsaquo;</a>
       </li>
     </ul>
 

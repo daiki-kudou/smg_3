@@ -3,24 +3,24 @@
 @section('content')
 <script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/2.1.2/sweetalert.min.js"></script>
 <script>
-  $(function(){
-      $('#start').on('change',function(){
-        var start=$('#start').val();
-        var finish=$('#finish').val();
-        if(start>finish){
-          swal('営業開始時間は営業終了時間より前に設定してください');
-            $('#start').val('');
-        }
+  $(function() {
+    $('#start').on('change', function() {
+      var start = $('#start').val();
+      var finish = $('#finish').val();
+      if (start > finish) {
+        swal('営業開始時間は営業終了時間より前に設定してください');
+        $('#start').val('');
+      }
     })
-    $('#finish').on('change',function(){
-        var start=$('#start').val();
-        var finish=$('#finish').val();
-        if(start>finish){
-          swal('営業終了時間は営業開始時間より後に設定してください');
-            $('#finish').val('');
-        }
-      })
+    $('#finish').on('change', function() {
+      var start = $('#start').val();
+      var finish = $('#finish').val();
+      if (start > finish) {
+        swal('営業終了時間は営業開始時間より後に設定してください');
+        $('#finish').val('');
+      }
     })
+  })
 </script>
 
 <div class="container-field mt-3">
@@ -45,8 +45,7 @@
   </div>
   <div class="w-100">
     <span class="d-block mb-2">会場</span>
-    <strong class="border border-light d-block"
-      style="width:100%;">{{$venue->name_area}}{{$venue->name_bldg}}{{$venue->name_venue}}</strong>
+    <strong class="border border-light d-block" style="width:100%;">{{$venue->name_area}}{{$venue->name_bldg}}{{$venue->name_venue}}</strong>
   </div>
   <div class="mt-5">
     <table class="table">
@@ -81,43 +80,33 @@
           <td>
             <div class="form-inline">
               <select name="start" id="start" class="form-control col-sm-2">
-                @for ($i = 1; $i < 24; $i++)
-                @for ($ii = 1; $ii < 3; $ii++)
-                    @if ($ii%2==0)
-                    <option value="{{sprintf('%02d',$i).":30:00"}}"
-                    @if ($date_venues->where('week_day',$weekday_id)->first()->start==sprintf('%02d',$i).":30:00")
+                @for ($i = 1; $i < 24; $i++) @for ($ii=1; $ii < 3; $ii++) @if ($ii%2==0) <option value="{{sprintf('%02d',$i).":30:00"}}" @if ($date_venues->where('week_day',$weekday_id)->first()->start==sprintf('%02d',$i).":30:00")
+                  selected
+                  @endif
+                  >{{sprintf('%02d',$i).":30"}}</option>
+                  @else
+                  <option value="{{sprintf('%02d',$i).":00:00"}}" @if ($date_venues->where('week_day',$weekday_id)->first()->start==sprintf('%02d',$i).":00:00")
                     selected
-                @endif
-                    >{{sprintf('%02d',$i).":30"}}</option>
-                    @else
-                    <option value="{{sprintf('%02d',$i).":00:00"}}"
-                    @if ($date_venues->where('week_day',$weekday_id)->first()->start==sprintf('%02d',$i).":00:00")
-                    selected
-                @endif
-                    >{{sprintf('%02d',$i).":00"}}</option>
                     @endif
-                @endfor
-            @endfor
+                    >{{sprintf('%02d',$i).":00"}}</option>
+                  @endif
+                  @endfor
+                  @endfor
               </select>
               ~
               <select name="finish" id="finish" class="form-control col-sm-2">
-                @for ($i = 1; $i < 24; $i++)
-                @for ($ii = 1; $ii < 3; $ii++)
-                    @if ($ii%2==0)
-                    <option value="{{sprintf('%02d',$i).":30:00"}}"
-                    @if ($date_venues->where('week_day',$weekday_id)->first()->finish==sprintf('%02d',$i).":30:00")
+                @for ($i = 1; $i < 24; $i++) @for ($ii=1; $ii < 3; $ii++) @if ($ii%2==0) <option value="{{sprintf('%02d',$i).":30:00"}}" @if ($date_venues->where('week_day',$weekday_id)->first()->finish==sprintf('%02d',$i).":30:00")
+                  selected
+                  @endif
+                  >{{sprintf('%02d',$i).":30"}}</option>
+                  @else
+                  <option value="{{sprintf('%02d',$i).":00:00"}}" @if ($date_venues->where('week_day',$weekday_id)->first()->finish==sprintf('%02d',$i).":00:00")
                     selected
-                @endif
-                    >{{sprintf('%02d',$i).":30"}}</option>
-                    @else
-                    <option value="{{sprintf('%02d',$i).":00:00"}}"
-                    @if ($date_venues->where('week_day',$weekday_id)->first()->finish==sprintf('%02d',$i).":00:00")
-                    selected
-                @endif
-                    >{{sprintf('%02d',$i).":00"}}</option>
                     @endif
-                @endfor
-            @endfor
+                    >{{sprintf('%02d',$i).":00"}}</option>
+                  @endif
+                  @endfor
+                  @endfor
               </select>
             </div>
           </td>

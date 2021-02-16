@@ -25,5 +25,8 @@ $factory->define(Agent::class, function (Faker $faker) {
     'fax' => $faker->phoneNumber,
     'email' => $faker->email,
     'cost' => 80,
+    'payment_limit' => 1,
+    'payment_day' => '１０月２日',
+    'payment_remark' => '特になし',
   ];
 });

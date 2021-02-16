@@ -155,23 +155,15 @@
         <tr>
           <td class="table-active form_required">利用日</td>
           <td>
-            {{ Form::text('reserve_date', date('Y-m-d', strtotime($reservation->reserve_date)) ,['class'=>'form-control', 'id'=>'datepicker1', 'placeholder'=>'入力してください'] ) }}
+            {{ Form::text('reserve_date', date('Y-m-d', strtotime($reservation->reserve_date)) ,['class'=>'form-control',  'readonly'] ) }}
             <p class="is-error-reserve_date" style="color: red"></p>
           </td>
         </tr>
         <tr>
           <td class="table-active form_required">会場</td>
           <td>
-            <select id="venues_selector" class=" form-control" name='venue_id'>
-              <option value='#' disabled selected>選択してください</option>
-              @foreach ($venues as $venue)
-              <option value="{{$venue->id}}" @if (($reservation->venue_id==$venue->id))
-                selected
-                @endif
-                >{{$venue->name_area}}{{$venue->name_bldg}}{{$venue->name_venue}}
-              </option>
-              @endforeach
-            </select>
+            {{ Form::text('',  ReservationHelper::getVenue($reservation->venue_id),['class'=>'form-control',  'readonly'] ) }}
+            {{ Form::hidden('venue_id',  $reservation->venue_id,['class'=>'form-control',  'readonly'] ) }}
             <p class="is-error-venue_id" style="color: red"></p>
           </td>
         </tr>

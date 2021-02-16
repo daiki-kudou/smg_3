@@ -19,8 +19,8 @@ trait VerifiesEmails
     public function show(Request $request)
     {
         return $request->user()->hasVerifiedEmail()
-            ? redirect($this->redirectPath())
-            : view('user.auth.verify');
+                        ? redirect($this->redirectPath())
+                        : view('auth.verify');
     }
 
     /**
@@ -33,11 +33,11 @@ trait VerifiesEmails
      */
     public function verify(Request $request)
     {
-        if (!hash_equals((string) $request->route('id'), (string) $request->user()->getKey())) {
+        if (! hash_equals((string) $request->route('id'), (string) $request->user()->getKey())) {
             throw new AuthorizationException;
         }
 
-        if (!hash_equals((string) $request->route('hash'), sha1($request->user()->getEmailForVerification()))) {
+        if (! hash_equals((string) $request->route('hash'), sha1($request->user()->getEmailForVerification()))) {
             throw new AuthorizationException;
         }
 
@@ -49,7 +49,7 @@ trait VerifiesEmails
             event(new Verified($request->user()));
         }
 
-        return redirect($this->redirectPath())->with('user.verified', true);
+        return redirect($this->redirectPath())->with('verified', true);
     }
 
     /**
@@ -66,6 +66,6 @@ trait VerifiesEmails
 
         $request->user()->sendEmailVerificationNotification();
 
-        return back()->with('user.resent', true);
+        return back()->with('resent', true);
     }
 }

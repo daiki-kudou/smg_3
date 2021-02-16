@@ -12,8 +12,7 @@
   </style>
   <nav class="navbar navbar-expand-md navbar-dark bg-dark fixed-top">
     <a class="navbar-brand" href="#">SMG貸し会議室</a>
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExampleDefault"
-      aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="Toggle navigation">
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExampleDefault" aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
   </nav>
@@ -66,13 +65,11 @@
               <div class="row">
                 <div class="col-md-6 mb-3">
                   <label for="first_name_kana">セイ</label>
-                  <input type="text" class="form-control" id="first_name_kana" name="first_name_kana" placeholder="ウラシマ"
-                    value="">
+                  <input type="text" class="form-control" id="first_name_kana" name="first_name_kana" placeholder="ウラシマ" value="">
                 </div>
                 <div class="col-md-6 mb-3">
                   <label for="last_name_kana">カナ</label>
-                  <input type="text" class="form-control" id="last_name_kana" name="last_name_kana" placeholder="タロウ"
-                    value="">
+                  <input type="text" class="form-control" id="last_name_kana" name="last_name_kana" placeholder="タロウ" value="">
                 </div>
               </div>
 
@@ -129,8 +126,7 @@
 
               <div class="mb-3">
                 <label for="password-confirm">パスワード確認</label>
-                <input id="password-confirm" type="password" class="form-control" name="password_confirmation"
-                  autocomplete="new-password">
+                <input id="password-confirm" type="password" class="form-control" name="password_confirmation" autocomplete="new-password">
               </div>
 
               <div>SMGを何で知りましたか</div>
@@ -202,8 +198,7 @@
 
   </main><!-- /.container -->
 
-  <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
-    integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous">
+  <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous">
   </script>
   <script>
     window.jQuery || document.write('<script src="/docs/4.3/assets/js/vendor/jquery-slim.min.js"><\/script>')

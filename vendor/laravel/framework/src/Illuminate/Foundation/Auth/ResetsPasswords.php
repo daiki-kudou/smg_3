@@ -9,9 +9,6 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Password;
 use Illuminate\Support\Str;
 
-use App\Http\Controllers\Controller;
-
-
 trait ResetsPasswords
 {
     use RedirectsUsers;
@@ -27,7 +24,7 @@ trait ResetsPasswords
      */
     public function showResetForm(Request $request, $token = null)
     {
-        return view('user.auth.passwords.reset')->with(
+        return view('auth.passwords.reset')->with(
             ['token' => $token, 'email' => $request->email]
         );
     }
@@ -46,8 +43,7 @@ trait ResetsPasswords
         // will update the password on an actual user model and persist it to the
         // database. Otherwise we will parse the error and return the response.
         $response = $this->broker()->reset(
-            $this->credentials($request),
-            function ($user, $password) {
+            $this->credentials($request), function ($user, $password) {
                 $this->resetPassword($user, $password);
             }
         );
@@ -56,8 +52,8 @@ trait ResetsPasswords
         // the application's home authenticated view. If there is an error we can
         // redirect them back to where they came from with their error message.
         return $response == Password::PASSWORD_RESET
-            ? $this->sendResetResponse($request, $response)
-            : $this->sendResetFailedResponse($request, $response);
+                    ? $this->sendResetResponse($request, $response)
+                    : $this->sendResetFailedResponse($request, $response);
     }
 
     /**
@@ -93,10 +89,7 @@ trait ResetsPasswords
     protected function credentials(Request $request)
     {
         return $request->only(
-            'email',
-            'password',
-            'password_confirmation',
-            'token'
+            'email', 'password', 'password_confirmation', 'token'
         );
     }
 
@@ -142,7 +135,7 @@ trait ResetsPasswords
     protected function sendResetResponse(Request $request, $response)
     {
         return redirect($this->redirectPath())
-            ->with('status', trans($response));
+                            ->with('status', trans($response));
     }
 
     /**
@@ -155,8 +148,8 @@ trait ResetsPasswords
     protected function sendResetFailedResponse(Request $request, $response)
     {
         return redirect()->back()
-            ->withInput($request->only('email'))
-            ->withErrors(['email' => trans($response)]);
+                    ->withInput($request->only('email'))
+                    ->withErrors(['email' => trans($response)]);
     }
 
     /**

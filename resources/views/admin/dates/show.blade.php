@@ -29,8 +29,7 @@
   </div>
   <div class="w-100">
     <span class="d-block mb-2">会場</span>
-    <strong class="border border-light d-block"
-      style="width:100%;">{{$venues->name_area}}{{$venues->name_bldg}}{{$venues->name_venue}}</strong>
+    <strong class="border border-light d-block" style="width:100%;">{{$venues->name_area}}{{$venues->name_bldg}}{{$venues->name_venue}}</strong>
   </div>
 
   <div class="mt-5">
@@ -61,13 +60,15 @@
             @endif
           </td>
           <td>{{Carbon\Carbon::parse($date_venue->start)->format('H:i')}} ~
-            {{Carbon\Carbon::parse($date_venue->finish)->format('H:i')}}</td>
+            {{Carbon\Carbon::parse($date_venue->finish)->format('H:i')}}
+          </td>
           <td>{!! Form::open(['url' => 'admin/dates/create', 'method'=>'get']) !!}
             @csrf
             {{Form::hidden('weekday_id', $date_venue->week_day)}}
             {{Form::hidden('id', $venues->id)}}
             {{Form::submit('編集', ['class'=>'btn btn-primary'])}}
-            {!! Form::close() !!}</td>
+            {!! Form::close() !!}
+          </td>
         </tr>
         @endforeach
       </tbody>

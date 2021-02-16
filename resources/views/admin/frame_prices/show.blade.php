@@ -21,8 +21,7 @@
   <hr>
   <div class="w-100">
     <span class="d-block mb-2">会場</span>
-    <strong class="border border-light d-block"
-      style="width:100%;">{{$venue->name_area}}{{$venue->name_bldg}}{{$venue->name_venue}}</strong>
+    <strong class="border border-light d-block" style="width:100%;">{{$venue->name_area}}{{$venue->name_bldg}}{{$venue->name_venue}}</strong>
     <span class="mt-5 mb-5 d-block">料金データが登録されていません</span>
   </div>
   <div class="d-flex justify-content-around">
@@ -122,7 +121,7 @@
 @endif
 
 
-{{-- 
+{{--
 <h1><span class="badge badge-secondary">料金詳細</span></h1>
 <h3>
   <p>会場名 : {{$venue->name_area}}{{$venue->name_bldg}}{{$venue->name_venue}}</p>

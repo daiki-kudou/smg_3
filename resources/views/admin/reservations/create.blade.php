@@ -180,7 +180,10 @@
           <td class="table-active">イベント名称2</td>
           <td>
             {{ Form::text('event_name2', '',['class'=>'form-control', 'placeholder'=>'入力してください'] ) }}
+<<<<<<< HEAD
 
+=======
+>>>>>>> 5489f5e8458c75d71e55eaf5049e018144cb01a1
           </td>
         </tr>
         <tr>
@@ -380,10 +383,24 @@
   </div>
 </div>
 
-{{Form::submit('計算する', ['class'=>'btn btn-primary mx-auto d-block btn-lg', 'id'=>'check_submit'])}}
+
+<div class="submit_btn">
+  <div class="d-flex justify-content-center">
+    {{Form::submit('計算する', ['class'=>'btn btn-primary btn-lg ', 'id'=>'check_submit'])}}
+  </div>
+</div>
+
+<div class="spin_btn hide">
+  <div class="d-flex justify-content-center">
+    <button class="btn btn-primary btn-lg" type="button" disabled>
+      <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+      Loading...
+    </button>
+  </div>
+</div>
+
 
 {{Form::close()}}
-
 
 
 

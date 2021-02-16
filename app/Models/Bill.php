@@ -14,37 +14,36 @@ class Bill extends Model
   protected $fillable = [
     'reservation_id',
 
-    'venue_total',
-    'venue_discount_percent',
-    'venue_dicsount_number',
-    'discount_venue_total',
+    'venue_price',
 
-    'equipment_total',
-    'service_total',
-    'luggage_total',
-    'equipment_service_total',
-    'discount_item',
-    'discount_equipment_service_total',
+    'equipment_price',
 
-    'layout_total',
-    'layout_discount',
-    'after_duscount_layouts',
+    'layout_price',
 
-    'others_total',
-    'others_discount',
-    'after_duscount_others',
+    'others_price',
 
-    'sub_total',
-    'tax',
-    'total',
+    'master_subtotal',
+    'master_tax',
+    'master_total',
+
+    'payment_limit',
+    'bill_company',
+    'bill_person',
+    'bill_created_at',
+    'bill_remark',
 
     'paid',
+    'pay_day',
+    'pay_person',
+    'payment',
+
     'reservation_status',
     'double_check_status',
     'double_check1_name',
     'double_check2_name',
     'approve_send_at',
-    'category'
+    'category',
+    'admin_judge',
   ];
 
   /*

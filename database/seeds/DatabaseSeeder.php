@@ -15,12 +15,15 @@ class DatabaseSeeder extends Seeder
     $this->call([
       UsersTableSeeder::class,
       AdminsTableSeeder::class,
-      // EquipmentTableSeeder::class,
-      // ServicesTableSeeder::class,
-      // AgentsTableSeeder::class,
-      // VenuesTableSeeder::class,
-      // DatesTableSeeder::class,
+      EquipmentTableSeeder::class,
+      ServicesTableSeeder::class,
+      AgentsTableSeeder::class,
+      VenuesTableSeeder::class,
+      DatesTableSeeder::class,
+      Frame_priceTableSeeder::class,
 
+      // ReservationTableSeeder::class,
+      // BillsTableSeeder::class,
     ]);
   }
 }

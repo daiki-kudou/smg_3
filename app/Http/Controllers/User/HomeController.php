@@ -16,6 +16,10 @@ use PDF;
 
 use Illuminate\Support\Facades\DB; //トランザクション用
 
+use App\Mail\ConfirmReservationByUser;
+use App\Mail\ConfirmToAdmin;
+use Illuminate\Support\Facades\Mail;
+
 
 
 
@@ -64,6 +68,13 @@ class HomeController extends Controller
       $reservation->bills()->first()->update([
         'reservation_status' => $request->update_status
       ]);
+      // ユーザーに予約完了メール送信
+      $email = $reservation->user->email;
+      Mail::to($email)->send(new ConfirmReservationByUser($reservation));
+      // 管理者に予約完了メール送信
+      $admins = ['kudou@web-trickster.com', 'maruoka@web-trickster.com'];
+      Mail::to($admins)->send(new ConfirmToAdmin($reservation));
+
       $request->session()->regenerate();
       return redirect()->route('user.home.index');
     });
@@ -72,11 +83,12 @@ class HomeController extends Controller
   public function updateOtherBillsStatus(Request $request)
   {
     return DB::transaction(function () use ($request) {
-
       $bill = Bill::find($request->bill_id);
       $bill->update([
         'reservation_status' => $request->update_status
       ]);
+
+
 
       $request->session()->regenerate();
       return redirect()->route('user.home.index');

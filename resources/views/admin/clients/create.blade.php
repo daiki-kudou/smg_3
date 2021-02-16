@@ -5,12 +5,12 @@
 <script src="{{ asset('/js/template.js') }}"></script>
 
 <script>
-  $(function(){
-        $('.discount').on('click',function(){
-            $('#condition').toggleClass('hide');
-        })
-
+  $(function() {
+    $('.discount').on('click', function() {
+      $('#condition').toggleClass('hide');
     })
+
+  })
 </script>
 <style>
   .hide {

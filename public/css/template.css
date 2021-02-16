@@ -20,11 +20,9 @@ table.dataTable thead .sorting_desc:after {
     transform: rotate(90deg);
 }
 
-
-
 /* venues create マルチセレクト */
 .ms-container {
-    background: transparent url('/img/switch.png') no-repeat 50% 50%;
+    background: transparent url("/img/switch.png") no-repeat 50% 50%;
     max-width: 1800px;
 }
 
@@ -72,9 +70,12 @@ table.dataTable thead .sorting_desc:after {
 
 .ms-container .ms-list.ms-focus {
     border-color: rgba(82, 168, 236, 0.8);
-    -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 8px rgba(82, 168, 236, 0.6);
-    -moz-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 8px rgba(82, 168, 236, 0.6);
-    box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 8px rgba(82, 168, 236, 0.6);
+    -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075),
+        0 0 8px rgba(82, 168, 236, 0.6);
+    -moz-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075),
+        0 0 8px rgba(82, 168, 236, 0.6);
+    box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075),
+        0 0 8px rgba(82, 168, 236, 0.6);
     outline: 0;
     outline: thin dotted \9;
 }
@@ -119,8 +120,6 @@ table.dataTable thead .sorting_desc:after {
     cursor: text;
 }
 
-
-
 /* tableの上ボーター打ち消し用 */
 .table th,
 .table td {
@@ -134,7 +133,7 @@ table.dataTable thead .sorting_desc:after {
 }
 
 .form_required:after {
-    content: '必須';
+    content: "必須";
     margin-left: 10px;
     font-size: 12px;
     background: #ff6679;
@@ -151,6 +150,22 @@ table.dataTable thead .sorting_desc:after {
     display: none;
 }
 
+/* select2 */
+.select2-selection__rendered {
+    line-height: 31px !important;
+}
+
+.select2-container .select2-selection--single {
+    height: 35px !important;
+}
+
+.select2-selection__arrow {
+    height: 34px !important;
+}
+
+.select2-container--default .select2-selection--single {
+    border: 1px solid #ced4da;
+}
 
 /****************************
 //////////////////
@@ -200,8 +215,7 @@ h5 {
 
 /* .content-wrapper {
     min-width: 1200px;
-} */
-
+}
 
 /* 共通--------------------------------------- */
 
@@ -227,7 +241,6 @@ h5 {
     text-align: center;
 }
 
-
 .btn_wrapper {
     margin: 50px 0;
 }
@@ -238,7 +251,7 @@ h5 {
 }
 
 .more_btn {
-    background: #007BFF;
+    background: #007bff;
     padding: 0.3em 1em;
     border-radius: 5px;
     color: #fff;
@@ -272,7 +285,7 @@ h5 {
     padding: 1em 5em;
     color: #333;
     font-weight: bold;
-    border: 1px solid #DBDBDB;
+    border: 1px solid #dbdbdb;
     /* display: block; */
     position: relative;
     min-width: 100px;
@@ -345,6 +358,9 @@ h5 {
     background: #35a7a7 !important;
 }
 
+.bg-green {
+    background: #35a7a7 !important;
+}
 
 .bg-black {
     background: #707070 !important;
@@ -455,15 +471,12 @@ h5 {
     /* transition: 0.5s; */
 }
 
-
 /* 検索--------------------------------------- */
-
 
 .form-group dd {
     margin-bottom: 0;
     width: 100%;
 }
-
 
 .search-wrap tr td:first-child {
     width: 300px;
@@ -507,11 +520,11 @@ h5 {
 }
 
 .reset_btn {
-    background: #EEEEEE;
+    background: #eeeeee;
 }
 
 .search_btn {
-    background: #007BFF;
+    background: #007bff;
     color: #fff;
 }
 
@@ -524,7 +537,6 @@ h5 {
     color: #35a7a7;
     font-size: 1.5rem;
 }
-
 
 /* 予約一覧------------------------------------------------------------ */
 
@@ -562,25 +574,11 @@ table td.table_column p:last-child {
     display: flex;
 } */
 
-/* 
-table td.table_column .colum1 p {
-    height: 100%;
-    padding: 0;
-    border-bottom: 0;
+.statuscheck dt {
+    background: #464646;
+    color: #fff;
+    padding: 0.5em 1em;
 }
-
-table td.table_column .colum2 p {
-    height: 50%;
-}
-
-table td.table_column .colum3 p {
-    height: 33%;
-}
-
-table td.table_column .colum4 p {
-    height: 25%;
-} */
-
 
 /* 予約新規 -----------------------------------------------------*/
 
@@ -590,7 +588,7 @@ table td.table_column .colum4 p {
 }
 
 .register-wrap {
-    border: 2px solid #35A7A7;
+    border: 2px solid #35a7a7;
     padding: 30px;
 }
 
@@ -612,7 +610,6 @@ table td.table_column .colum4 p {
     margin-top: 10px;
 }
 
-
 .table-bordered .table-active {
     border: 1px solid #dee2e6;
 }
@@ -627,7 +624,7 @@ table td.table_column .colum4 p {
 }
 
 .caution textarea {
-    border: 1px solid #DC3545;
+    border: 1px solid #dc3545;
 }
 
 .ttl-box {
@@ -637,7 +634,6 @@ table td.table_column .colum4 p {
     background: #fff;
     border-bottom: none;
 }
-
 
 .section-ttl-box {
     border: 2px solid #35a7a7;
@@ -651,7 +647,6 @@ table td.table_column .colum4 p {
     font-size: 16px;
 }
 
-
 .content-ttl {
     font-weight: bold;
     font-size: 16px;
@@ -662,7 +657,6 @@ table td.table_column .colum4 p {
     padding: 0.8em;
     background: #fff;
 }
-
 
 /* 請求内容------------------------------------------------------------------ */
 
@@ -675,11 +669,10 @@ table td.table_column .colum4 p {
     background: #fff;
 }
 
-
 .bill-box h3 {
     font-weight: bold;
     font-size: 16px;
-    background: #35A7A7;
+    background: #35a7a7;
     color: #fff;
     margin-bottom: 0;
     margin-right: 0;
@@ -711,7 +704,7 @@ table td.table_column .colum4 p {
 
 .price-sum p:last-child {
     font-size: 16px;
-    border-top: 1px solid #DBDBDB;
+    border-top: 1px solid #dbdbdb;
     margin-top: 1em;
     padding-top: 1em;
 }
@@ -742,7 +735,7 @@ table td.table_column .colum4 p {
 .bill-list h3 {
     font-weight: bold;
     font-size: 16px;
-    background: #F3F3F3;
+    background: #f3f3f3;
     color: #333;
     margin-bottom: 0;
     padding: 0.8em;
@@ -771,7 +764,7 @@ table td.table_column .colum4 p {
 }
 
 .total-sum .col-3:first-child {
-    background: #35A7A7;
+    background: #35a7a7;
     color: #fff;
     font-size: 18px;
 }
@@ -779,7 +772,6 @@ table td.table_column .colum4 p {
 .total-sum .bill-box_cell {
     border: 1px solid #35A7A7;
 }
-
 
 /* =============予約詳細================================================ */
 
@@ -814,7 +806,7 @@ table td.table_column .colum4 p {
 }
 
 .table-cell-box li {
-    border-top: 1px solid #DBDBDB;
+    border-top: 1px solid #dbdbdb;
     padding: 1em 0;
 }
 
@@ -862,12 +854,11 @@ table td.table_column .colum4 p {
     padding: 3em 0;
 }
 
-
 /* =============仮押さえ================================================ */
 
 .calender-wrap {
     margin-bottom: 50px;
-    border: 1px solid #DBDBDB;
+    border: 1px solid #dbdbdb;
 }
 
 .choose-table tr td:last-child {
@@ -880,7 +871,7 @@ table td.table_column .colum4 p {
     align-items: center;
 }
 
-.register-list-header li:nth-of-type(n+2) {
+.register-list-header li:nth-of-type(n + 2) {
     margin-left: 1em;
 }
 
@@ -900,7 +891,7 @@ table td.table_column .colum4 p {
     width: 600px;
     font-weight: bold;
     padding: 2em;
-    border: 1px solid #EF6243;
+    border: 1px solid #ef6243;
     margin-bottom: 50px;
 }
 
@@ -1019,7 +1010,7 @@ h3 {
 }
 
 .calender-color li::before {
-    content: '';
+    content: "";
     width: 20px;
     height: 20px;
     display: block;
@@ -1029,7 +1020,7 @@ h3 {
 }
 
 .calender-color li.li-bg-reserve::before {
-    background-color: #35A7A7;
+    background-color: #35a7a7;
 }
 
 .calender-color li.li-bg-prereserve::before {
@@ -1041,10 +1032,8 @@ h3 {
 }
 
 .calender-color li.li-bg-closed::before {
-    background-color: #F0F0F0;
+    background-color: #f0f0f0;
 }
-
-
 
 /* カレンダー色 */
 .bg-prereserve {
@@ -1052,19 +1041,18 @@ h3 {
 }
 
 .bg-reserve {
-    background-color: #35A7A7;
-    ;
+    background-color: #35a7a7;
 }
 
 .bg-closed {
-    background-color: #F0F0F0;
+    background-color: #f0f0f0;
 }
 
 /* カレンダー */
 .calender-flame {
     width: 100%;
     table-layout: fixed;
-    border: 2px solid #c5c5c5
+    border: 2px solid #c5c5c5;
 }
 
 .calender-flame td {
@@ -1082,7 +1070,6 @@ h3 {
     /* border-right: 2px solid #c5c5c5; */
 }
 
-
 .calender-head .field-title {
     width: 10%;
     background: #fff;
@@ -1096,5 +1083,85 @@ h3 {
 
 .calender-flame .calender-data .calhalf {
     border-right: 2px dotted #ddd;
-    border-left: 2px solid #c5c5c5
+    border-left: 2px solid #c5c5c5;
+}
+
+.bill_head {
+    background: #127059;
+    table-layout: fixed;
+    border: solid 1px gray;
+}
+.bill_head2 {
+    background: #7ebc4f;
+    table-layout: fixed;
+    border: solid 1px gray;
+}
+
+.bill_head p {
+    height: 50px;
+}
+
+.plus_acordion::before {
+    content: "＋";
+}
+
+.minus_acordion::before {
+    content: "-";
+}
+
+.head {
+    background: #c1c1c2;
+    table-layout: fixed;
+    border: solid 1px gray;
+    height: 60px;
+}
+
+.venue_head,
+.equipment_head,
+.layout_head,
+.others_head {
+    border-bottom: solid 1px gray !important;
+}
+
+.venue_discount,
+.equipment_discount,
+.layout_discount,
+.others_discount {
+    border: solid 1px gray !important;
+}
+
+.bill {
+    border: solid 1px gray;
+}
+
+.information .main {
+    border: solid 1px gray;
+}
+
+.paid .head {
+    background: #eb9c32;
+    color: white;
+}
+
+.paid {
+    border: solid 1px gray !important;
+}
+
+#fullOverlay {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(100, 100, 100, 0.5);
+    z-index: 2147483647;
+    display: none;
+}
+
+.frame_spinner {
+    max-width: 100%;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }

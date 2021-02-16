@@ -257,23 +257,17 @@
               <p class="is-error-name_area" style="color: red"></p>
             </div>
           </div>
-          <hr>
-          <div class="row">
-            <div class="col-sm-4">{{ Form::label('name_bldg', 'ビル名',['class' => 'form_required']) }}
-            </div>
-            <div class="col-sm-8">
-              {{ Form::text('name_bldg', old('name_bldg'), ['class' => 'form-control', 'placeholder'=>'サンワールドビル']) }}
-              <p class="is-error-name_bldg" style="color: red"></p>
-            </div>
+          <div class="col-sm-8">
+            {{ Form::text('name_venue', old('name_venue'), ['class' => 'form-control', 'placeholder'=>'１号室']) }}
+            <p class="is-error-name_venue" style="color: red"></p>
           </div>
-          <hr>
-          <div class="row">
-            <div class="col-sm-4">{{ Form::label('name_venue', '会場名',['class' => 'form_required']) }}
-            </div>
-            <div class="col-sm-8">
-              {{ Form::text('name_venue', old('name_venue'), ['class' => 'form-control', 'placeholder'=>'１号室']) }}
-              <p class="is-error-name_venue" style="color: red"></p>
-            </div>
+        </div>
+        <hr>
+        <div class="row">
+          <div class="col-sm-4">{{ Form::label('size1', '会場広さ（坪）',['class' => 'form_required']) }}</div>
+          <div class="col-sm-8">
+            {{ Form::text('size1', old('size1'), ['placeholder' => '半角英数字で入力してください','class' => 'form-control']) }}
+            <p class="is-error-size1" style="color: red"></p>
           </div>
           <hr>
           <div class="row">
@@ -283,6 +277,13 @@
               <p class="is-error-size1" style="color: red"></p>
             </div>
 
+        </div>
+        <hr>
+        <div class="row">
+          <div class="col-sm-4">{{ Form::label('size2', '会場広さ（㎡）',['class' => 'form_required']) }}</div>
+          <div class="col-sm-8">
+            {{ Form::text('size2', old('size2'), ['placeholder' => '半角英数字で入力してください','class' => 'form-control']) }}
+            <p class="is-error-size2" style="color: red"></p>
           </div>
           <hr>
           <div class="row">

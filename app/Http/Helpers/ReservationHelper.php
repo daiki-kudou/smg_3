@@ -4,6 +4,7 @@ namespace App\Http\Helpers;
 
 use App\Models\Venue;
 use App\Models\User;
+use App\Models\Agent;
 
 
 class ReservationHelper
@@ -57,10 +58,16 @@ class ReservationHelper
     return date('Y/m/d',  strtotime($num)) . '(' . $weekday . ')';
   }
 
+  public static function formatTime($num)
+  {
+    return date('H:i',  strtotime($num));
+  }
+
   public static function getVenue($venue_id)
   {
     $venue = Venue::find($venue_id);
-    return [$venue->name_area, $venue->name_bldg, $venue->name_venue];
+    $result = $venue->name_area . $venue->name_bldg . $venue->name_venue;
+    return $result;
   }
 
   public static function getVenueAddreess($venue_id)
@@ -85,6 +92,33 @@ class ReservationHelper
   {
     $user = User::find($user_id);
     return $user->first_name_kana . $user->last_name_kana;
+  }
+
+  public static function getPersonEmail($user_id)
+  {
+    $user = User::find($user_id);
+    return $user->email;
+  }
+  public static function getPersonMobile($user_id)
+  {
+    $user = User::find($user_id);
+    return $user->mobile;
+  }
+  public static function getPersonTel($user_id)
+  {
+    $user = User::find($user_id);
+    return $user->tel;
+  }
+
+  public static function getAgentPerson($agent_id)
+  {
+    $agent = Agent::find($agent_id);
+    return $agent->person_firstname . $agent->person_lastname;
+  }
+  public static function getAgentCompany($agent_id)
+  {
+    $agent = Agent::find($agent_id);
+    return $agent->name;
   }
 
   public static function getAttr($user_id)
@@ -138,5 +172,17 @@ class ReservationHelper
   public static function IdFormat($num)
   {
     return sprintf('%05d', $num);
+  }
+
+  public static function judgeArrayEmpty($array)
+  {
+    $judge = array_filter($array);
+    if (!empty($judge)) {
+      //配列有り
+      return 1;
+    } else {
+      // 配列無し
+      return 0;
+    }
   }
 }

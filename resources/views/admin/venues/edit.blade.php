@@ -845,6 +845,7 @@
     </select>
     </div>
 
+<<<<<<< HEAD
     <!-- 有料サービス ------------------------------------------------------------------------>
     <div>
       <p class="title-icon table-active fw-bolder p-2 mb-2">
@@ -853,6 +854,14 @@
       <div>
         <p>※左部リストよりクリックで選択し右部リストに移動させてください</p>
         <p>※右部リストは現在選択されているサービス一覧です</p>
+=======
+        <div class="row">
+          <div class="col-sm-4">{{ Form::label('cost', '支払割合（原価）') }}</div>
+          <div class="col-sm-8">
+            {{ Form::text('cost', $venue->cost, ['class' => 'form-control']) }}
+          </div>
+        </div>
+>>>>>>> 5489f5e8458c75d71e55eaf5049e018144cb01a1
       </div>
       <select id='service_id' multiple='multiple' name="service_id[]">
       @for ($s = 0; $s < $m_services->count(); $s++)
