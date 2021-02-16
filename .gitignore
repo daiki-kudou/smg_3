@@ -1,1 +1,4 @@
+*
 vendor/qoraiche/laravel-mail-editor
+vendoer/
+.env
