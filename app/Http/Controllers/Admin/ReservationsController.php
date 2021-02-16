@@ -627,7 +627,7 @@ class ReservationsController extends Controller
       $user = User::find($request->user_id);
       $email = $user->email;
       // 管理者側のメール本文等は未定
-      Mail::to($email)->send(new SendUserApprove($reservation));
+      Mail::to($email)->send(new \App\Mail\Test);
     });
     return redirect()->route('admin.reservations.index')->with('flash_message', 'ユーザーに承認メールを送信しました');
   }

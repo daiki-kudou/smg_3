@@ -58,10 +58,8 @@ class VerifyEmail extends Notification
      */
     protected function verificationUrl($notifiable)
     {
-        // ここ一番大事、ここの設定をしないとuser.verification.verifyに飛ばない
-        // 重要
         return URL::temporarySignedRoute(
-            'user.verification.verify',
+            'verification.verify',
             Carbon::now()->addMinutes(Config::get('auth.verification.expire', 60)),
             [
                 'id' => $notifiable->getKey(),

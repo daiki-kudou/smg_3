@@ -2,7 +2,7 @@
 
 Route::get('/', function () {
   return view('index');
-});
+})->name('login');
 
 // 一般ユーザー用カレンダー
 Route::get('calender/date_calendar', 'CalendarsController@index');
@@ -175,5 +175,6 @@ Route::namespace('Admin')->prefix('admin')->name('admin.')->group(function () {
     // 仮抑え　削除
     Route::post('pre_reservations/destroy', 'PreReservationsController@destroy');
     //
+
   });
 });

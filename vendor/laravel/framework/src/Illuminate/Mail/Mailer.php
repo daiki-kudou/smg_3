@@ -273,8 +273,8 @@ class Mailer implements MailerContract, MailQueueContract
     protected function sendMailable(MailableContract $mailable)
     {
         return $mailable instanceof ShouldQueue
-            ? $mailable->queue($this->queue)
-            : $mailable->send($this);
+                        ? $mailable->queue($this->queue)
+                        : $mailable->send($this);
     }
 
     /**
@@ -331,7 +331,7 @@ class Mailer implements MailerContract, MailQueueContract
         if (isset($plain)) {
             $method = isset($view) ? 'addPart' : 'setBody';
 
-            $message->$method($this->renderView($plain, $data), 'text/plain');
+            $message->$method($this->renderView($plain, $data) ?: ' ', 'text/plain');
         }
 
         if (isset($raw)) {
@@ -351,8 +351,8 @@ class Mailer implements MailerContract, MailQueueContract
     protected function renderView($view, $data)
     {
         return $view instanceof Htmlable
-            ? $view->toHtml()
-            : $this->views->make($view, $data)->render();
+                        ? $view->toHtml()
+                        : $this->views->make($view, $data)->render();
     }
 
     /**
@@ -371,7 +371,7 @@ class Mailer implements MailerContract, MailQueueContract
     /**
      * Queue a new e-mail message for sending.
      *
-     * @param  \Illuminate\Contracts\Mail\Mailable  $view
+     * @param  \Illuminate\Contracts\Mail\Mailable|string|array  $view
      * @param  string|null  $queue
      * @return mixed
      *
@@ -379,7 +379,7 @@ class Mailer implements MailerContract, MailQueueContract
      */
     public function queue($view, $queue = null)
     {
-        if (!$view instanceof MailableContract) {
+        if (! $view instanceof MailableContract) {
             throw new InvalidArgumentException('Only mailables may be queued.');
         }
 
@@ -428,7 +428,7 @@ class Mailer implements MailerContract, MailQueueContract
      */
     public function later($delay, $view, $queue = null)
     {
-        if (!$view instanceof MailableContract) {
+        if (! $view instanceof MailableContract) {
             throw new InvalidArgumentException('Only mailables may be queued.');
         }
 
@@ -460,14 +460,14 @@ class Mailer implements MailerContract, MailQueueContract
         // If a global from address has been specified we will set it on every message
         // instance so the developer does not have to repeat themselves every time
         // they create a new message. We'll just go ahead and push this address.
-        if (!empty($this->from['address'])) {
+        if (! empty($this->from['address'])) {
             $message->from($this->from['address'], $this->from['name']);
         }
 
         // When a global reply address was specified we will set this on every message
         // instance so the developer does not have to repeat themselves every time
         // they create a new message. We will just go ahead and push this address.
-        if (!empty($this->replyTo['address'])) {
+        if (! empty($this->replyTo['address'])) {
             $message->replyTo($this->replyTo['address'], $this->replyTo['name']);
         }
 
@@ -482,6 +482,8 @@ class Mailer implements MailerContract, MailQueueContract
      */
     protected function sendSwiftMessage($message)
     {
+        $this->failedRecipients = [];
+
         try {
             return $this->swift->send($message, $this->failedRecipients);
         } finally {
@@ -498,7 +500,7 @@ class Mailer implements MailerContract, MailQueueContract
      */
     protected function shouldSendMessage($message, $data = [])
     {
-        if (!$this->events) {
+        if (! $this->events) {
             return true;
         }
 
@@ -514,7 +516,7 @@ class Mailer implements MailerContract, MailQueueContract
      * @param  array  $data
      * @return void
      */
-    protected function dispatchSentEvent($message, $data = [''])
+    protected function dispatchSentEvent($message, $data = [])
     {
         if ($this->events) {
             $this->events->dispatch(
