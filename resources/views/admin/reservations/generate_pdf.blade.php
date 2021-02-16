@@ -100,28 +100,28 @@
       </tr>
       <tr class="event-name">
         <td>
-          <p>イベントの名前は16文字までです</p>
-          <!-- <p>{{$reservation->event_name1}}</p> -->
+          <!-- <p>イベントの名前は16文字までです</p> -->
+          <p>{{$reservation->event_name1}}</p>
         </td>
       </tr>
       <tr class="event-name2">
         <td>
-          <p>イベントの名前は16文字までです</p>
-          <!-- <p>{{$reservation->event_name2}}</p> -->
+          <!-- <p>イベントの名前は16文字までです</p> -->
+          <p>{{$reservation->event_name2}}</p>
         </td>
       </tr>
 
       <tr class="event-owner">
         <td>
-          <p>主催：ここの主催者の名前は、30文字以内です。あままままままままま</p>
-          <!-- <p><span>主催：</span>{{$reservation->event_owner}}</p> -->
+          <!-- <p>主催：ここの主催者の名前は、30文字以内です。あままままままままま</p> -->
+          <p><span>主催：</span>{{$reservation->event_owner}}</p>
         </td>
       </tr>
 
       <tr class="venue">
         <td>
-          <p>サンワールドビル2号室</p>
-          <!-- <p>{{$reservation->venue->name_area}}{{$reservation->venue->name_bldg}}{{$reservation->venue->name_venue}}</p> -->
+          <!-- <p>サンワールドビル2号室</p> -->
+          <p>{{$reservation->venue->name_area}}{{$reservation->venue->name_bldg}}{{$reservation->venue->name_venue}}</p>
         </td>
       </tr>
     </table>
