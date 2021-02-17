@@ -339,7 +339,63 @@ class PreReservationsController extends Controller
    */
   public function edit($id)
   {
-    return view('admin.pre_reservations.edit');
+    $request = PreReservation::find($id);
+    $users = User::all();
+    $venues = Venue::all();
+    $venue = $venues->find($request->venue_id);
+    $equipments = $venue->equipments()->get();
+    $services = $venue->services()->get();
+
+    $price_details = $venue->calculate_price( //[0]は合計料金, [1]は延長料金, [2]は合計＋延長、 [3]は利用時間, [4]は延長時間
+      $request->price_system,
+      $request->enter_time,
+      $request->leave_time
+    );
+
+    $s_equipment = [];
+    $s_services = [];
+    foreach ($request->all() as $key => $value) {
+      if (preg_match('/equipment_breakdown/', $key)) {
+        $s_equipment[] = $value;
+      }
+      if (preg_match('/services_breakdown/', $key)) {
+        $s_services[] = $value;
+      }
+    }
+    $item_details = $venue->calculate_items_price($s_equipment, $s_services);    // [0]備品＋サービス [1]備品詳細 [2]サービス詳細 [3]備品合計 [4]サービス合計
+    $layouts_details = $venue->getLayoutPrice($request->layout_prepare, $request->layout_clean);
+
+    $s_equipment = $request->pre_breakdowns()->where('unit_type', 2)->get();
+
+
+    if ($price_details == 0) { //枠がなく会場料金を手打ちするパターン
+      $masters =
+        ($item_details[0] + $request->luggage_price)
+        + $layouts_details[2];
+    } else {
+      $masters =
+        ($price_details[2] ? $price_details[2] : 0)
+        + ($item_details[0] + $request->luggage_price)
+        + $layouts_details[2];
+    }
+    $user = User::find($request->user_id);
+    $pay_limit = $user->getUserPayLimit($request->reserve_date);
+
+    return view('admin.pre_reservations.edit', [
+      'venues' => $venues,
+      'users' => $users,
+      'request' => $request,
+      'equipments' => $equipments,
+      'services' => $services,
+      's_equipment' => $s_equipment, //選択された備品
+      's_services' => $s_services, //選択されたサービス
+      'price_details' => $price_details,
+      'item_details' => $item_details,
+      'layouts_details' => $layouts_details,
+      'masters' => $masters,
+      'pay_limit' => $pay_limit,
+      'user' => $user,
+    ]);
   }
 
   /**
