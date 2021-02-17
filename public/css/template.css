@@ -1,5 +1,10 @@
 @charset "UTF-8";
 
+
+body {
+    font-family:-apple-system, 'Helvetica Neue','Hiragino Kaku Gothic ProN', '游ゴシック','メイリオ',meiryo,sans-serif;
+}
+
 /* venues. index */
 .dropdown-menu {
     width: 400px;
@@ -350,7 +355,7 @@ h5 {
 }
 
 .bg-red {
-    background: #EF6243 !important;
+    background: #DC3545 !important;
 }
 
 
@@ -367,7 +372,7 @@ h5 {
 }
 
 
-.cell-gray {
+.cell-#bdc2c7 {
     background: #F3F3F3 !important;
 }
 
@@ -568,12 +573,6 @@ table td.table_column p:last-child {
     padding: 5px;
 }
 
-/* table td.table_column1 p {
-    margin: 0;
-    box-sizing: border-box;
-    display: flex;
-} */
-
 .statuscheck dt {
     background: #464646;
     color: #fff;
@@ -611,7 +610,7 @@ table td.table_column p:last-child {
 }
 
 .table-bordered .table-active {
-    border: 1px solid #dee2e6;
+    border: 1px solid #bdc2c7;
 }
 
 .note-table textarea {
@@ -660,7 +659,7 @@ table td.table_column p:last-child {
 
 /* 請求内容------------------------------------------------------------------ */
 
-.bill-wrap {
+/* .bill-wrap {
     margin-top: 100px;
 }
 
@@ -687,12 +686,6 @@ table td.table_column p:last-child {
     margin-left: 0;
 }
 
-
-
-/* .bill-box_wrap .price-sum {
-      padding: 20px;
-      border: 1px solid #ccc;
-    } */
 
 .bill-list .col-12 {
     padding: 0;
@@ -745,10 +738,6 @@ table td.table_column p:last-child {
     font-weight: bold;
 }
 
-/* .bill-list .bill-box_cell {    
-    border-bottom: 0 solid #ccc;
-} */
-
 .total-sum {
     padding: 10% 3%;
 }
@@ -771,7 +760,7 @@ table td.table_column p:last-child {
 
 .total-sum .bill-box_cell {
     border: 1px solid #35A7A7;
-}
+} */
 
 /* =============予約詳細================================================ */
 
@@ -925,7 +914,7 @@ table td.table_column p:last-child {
 
 .calneder-wrap {
     padding: 30px;
-    border: 1px solid #dee2e6;
+    border: 1px solid #bdc2c7;
 }
 
 .calender-note {
@@ -1086,19 +1075,49 @@ h3 {
     border-left: 2px solid #c5c5c5;
 }
 
+
+
+/* 請求内容CSS ------------------------------------------------------*/
+
 .bill_head {
-    background: #127059;
+    background: #35a7a7;
     table-layout: fixed;
-    border: solid 1px gray;
+    padding: 10px;
+    /* border: solid 1px #bdc2c7; */
 }
+
 .bill_head2 {
     background: #7ebc4f;
     table-layout: fixed;
-    border: solid 1px gray;
+    border: solid 1px #bdc2c7;
 }
 
-.bill_head p {
+.bill_table {
+    table-layout: fixed;
+    margin-bottom: 0;
+}
+
+.ttl_box {
     height: 50px;
+    background: #fff;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.accordion_btn {
+    width: 80px;
+    background: #444;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.billdetails_ttl {
+    padding-left: 15px;
+    font-size: 24px;
+    display: flex;
+    align-items: center;
 }
 
 .plus_acordion::before {
@@ -1110,32 +1129,93 @@ h3 {
 }
 
 .head {
-    background: #c1c1c2;
+    background: #bdc2c7;
     table-layout: fixed;
-    border: solid 1px gray;
+    /* border: solid 1px #bdc2c7; */
     height: 60px;
 }
+
+.billdetails_content {
+    padding-top: 50px;
+    width: 95%;
+    margin: 0 auto;
+}
+
+.billdetails_content_ttl {
+    position: relative;
+    margin-left: 14px;
+    margin-bottom: 10px;
+}
+
+.billdetails_content_ttl::before {
+    content: "";
+    display: block;
+    width: 0.6em;
+    height: 0.6em;
+    background: #35a7a7;
+    position: absolute;
+    top: 45%;
+    left: -25px;
+    transform: translateY(-50%);
+}
+
 
 .venue_head,
 .equipment_head,
 .layout_head,
 .others_head {
-    border-bottom: solid 1px gray !important;
+    border-top: solid 1px #dee2e6 !important;
+    border-bottom: solid 1px #dee2e6 !important;
+}
+
+.venue_head td,
+.equipment_head td,
+.layout_head td,
+.others_head td {
+    font-weight: bold;
 }
 
 .venue_discount,
 .equipment_discount,
 .layout_discount,
 .others_discount {
-    border: solid 1px gray !important;
+    border: solid 1px #555555 !important;
+}
+
+.venue_result td,
+.equipment_result td,
+.layout_result td,
+.others_result td {
+    padding-bottom: 1.8em;
+}
+
+.pluralBtn {
+    border: none;
+}
+
+.bill_total {
+    border-top: 1px solid #3e3e3e;
+    padding-top: 15px;
+    padding-bottom: 30px;
+    width: 95%;
+    margin: 0 auto;
+}
+.bill_total table {
+    width: 45%;
+    margin-left: auto;
 }
 
 .bill {
-    border: solid 1px gray;
+    border: solid 1px #bdc2c7;
 }
 
 .information .main {
-    border: solid 1px gray;
+    border: solid 1px #bdc2c7;
+    border-bottom: 0;
+}
+
+.informations table {
+    margin-bottom: 0;
 }
 
 .paid .head {
@@ -1144,7 +1224,7 @@ h3 {
 }
 
 .paid {
-    border: solid 1px gray !important;
+    border: solid 1px #bdc2c7 !important;
 }
 
 #fullOverlay {
