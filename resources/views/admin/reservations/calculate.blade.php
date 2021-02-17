@@ -643,7 +643,7 @@
 </section>
 
 
-{{Form::submit('再計算する', ['class'=>'btn btn-danger mx-auto d-block btn-lg mt-5 mb-5', 'id'=>'check_submit'])}}
+{{Form::submit('再計算する', ['class'=>'btn more_btn4_lg mx-auto my-5 d-block', 'id'=>'check_submit'])}}
 {{Form::close()}}
 
 {{-- 丸岡さんカスタム --}}
@@ -686,8 +686,8 @@
     <div class="bill_details">
       <div class="head d-flex">
         <div class="accordion_btn">
-          <i class="fas fa-plus fa-3x hide" style="color: white;"></i>
-          <i class="fas fa-minus fa-3x" style="color: white;"></i>
+          <i class="fas fa-plus bill_icon_size hide"></i>
+          <i class="fas fa-minus bill_icon_size"></i>
         </div>
         <div class="billdetails_ttl">
           <h3>
@@ -823,7 +823,7 @@
         <div class="equipment billdetails_content">
           <table class="table table-borderless">
             <tr>
-              <td>
+              <td colspan="4">
                 <h4 class="billdetails_content_ttl">
                   有料備品・サービス
                 </h4>
@@ -1008,7 +1008,7 @@
         <div class="others billdetails_content">
           <table class="table table-borderless">
             <tr>
-              <td>
+              <td colspan="5">
               　<h4 class="billdetails_content_ttl">
                   その他
                 </h4>
@@ -1079,8 +1079,8 @@
     <div class="information_details">
       <div class="head d-flex">
         <div class="accordion_btn">
-          <i class="fas fa-plus fa-3x hide" style="color: white;"></i>
-          <i class="fas fa-minus fa-3x" style="color: white;"></i>
+          <i class="fas fa-plus bill_icon_size hide"></i>
+          <i class="fas fa-minus bill_icon_size"></i>
         </div>
         <div class="billdetails_ttl">
           <h3>
@@ -1115,7 +1115,7 @@
     <div class="paid_details">
       <div class="head d-flex">
         <div class="d-flex align-items-center">
-          <h3 class="pl-2">
+          <h3 class="pl-3">
             入金情報
           </h3>
         </div>
@@ -1165,19 +1165,6 @@
 
 {{ Form::hidden('item_details', json_encode($item_details) )}}
 {{ Form::hidden('layouts_details', json_encode($layouts_details)) }}
-{{Form::submit('確認する', ['class'=>'btn btn-primary d-block btn-lg mx-auto mt-5 mb-5', 'id'=>'check_submit'])}}
+{{Form::submit('確認する', ['class'=>'btn btn more_btn_lg mx-auto my-5', 'id'=>'check_submit'])}}
 {{Form::close()}}
-
-
-
-
-
-
-
-
-
-
-
-
-
 @endsection

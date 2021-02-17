@@ -3,6 +3,7 @@
 
 body {
     font-family:-apple-system, 'Helvetica Neue','Hiragino Kaku Gothic ProN', '游ゴシック','メイリオ',meiryo,sans-serif;
+    font-size: 16px;
 }
 
 /* venues. index */
@@ -336,6 +337,7 @@ h5 {
 
 .more_btn_lg:hover {
     background: #004792;
+    color: #fff;
 }
 
 .more_btn4_lg {
@@ -344,6 +346,11 @@ h5 {
     border-radius: 5px;
     color: #fff;
     font-weight: bold;
+}
+
+.more_btn4_lg:hover {
+    background: #9e2733;
+    color: #fff;
 }
 
 .bg-blue {
@@ -609,9 +616,6 @@ table td.table_column p:last-child {
     margin-top: 10px;
 }
 
-.table-bordered .table-active {
-    border: 1px solid #bdc2c7;
-}
 
 .note-table textarea {
     width: 100%;
@@ -1135,6 +1139,10 @@ h3 {
     height: 60px;
 }
 
+.bill_details,.information_details {
+ margin-bottom: 2px;
+}
+
 .billdetails_content {
     padding-top: 50px;
     width: 95%;
@@ -1189,6 +1197,11 @@ h3 {
     padding-bottom: 1.8em;
 }
 
+.bill_icon_size {
+    font-size: 2em;
+    color: #fff;
+}
+
 .pluralBtn {
     border: none;
 }
@@ -1219,7 +1232,7 @@ h3 {
 }
 
 .paid .head {
-    background: #eb9c32;
+    background: #f7b743;
     color: white;
 }
 
