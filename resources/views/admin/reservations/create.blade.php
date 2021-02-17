@@ -394,7 +394,7 @@
 
     <div class="submit_btn">
       <div class="d-flex justify-content-center">
-        {{Form::submit('計算する', ['class'=>'btn btn-primary btn-lg ', 'id'=>'check_submit'])}}
+        {{Form::submit('計算する', ['class'=>'btn more_btn_lg mt-5', 'id'=>'check_submit'])}}
       </div>
     </div>
 
