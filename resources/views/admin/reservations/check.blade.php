@@ -8,12 +8,17 @@
 
 {{ Form::open(['url' => 'admin/reservations', 'method'=>'POST', 'id'=>'agents_calculate_form']) }}
 @csrf
-<div class="container-field bg-white text-dark">
+
+<section class="section-wrap">
   <div class="row">
     <div class="col">
       <table class="table table-bordered">
         <tr>
-          <td colspan="2">予約情報</td>
+          <td colspan="2">
+            <p class="title-icon">
+              <i class="fas fa-info-circle icon-size"></i>予約情報
+            </p>
+          </td>
         </tr>
         <tr>
           <td class="table-active form_required">利用日</td>
@@ -29,7 +34,7 @@
           </td>
         </tr>
         <tr>
-          <td>料金体系</td>
+          <td class="table-active">料金体系</td>
           <td>
             {{ Form::text('', ReservationHelper::priceSystem($request->price_system),['class'=>'form-control', 'readonly'] ) }}
             {{ Form::hidden('price_system', $request->price_system,['class'=>'form-control', 'readonly'] ) }}
@@ -49,8 +54,20 @@
             {{ Form::hidden('leave_time', $request->leave_time,['class'=>'form-control', 'readonly'] ) }}
           </td>
         </tr>
+      </table>
+
+      <table class="table table-bordered board-table">
         <tr>
-          <td>案内板</td>
+          <td colspan="2">
+            <div class="d-flex align-items-center justify-content-between">
+              <p class="title-icon">
+                <i class="fas fa-clipboard icon-size"></i>案内版
+              </p>
+            </div>
+          </td>
+        </tr>
+        <tr>
+          <td class="table-active">案内板</td>
           <td>
             {{ Form::text('', $request->board_flag==1?"有り":"無し",['class'=>'form-control', 'readonly'] ) }}
             {{ Form::hidden('board_flag', $request->board_flag,['class'=>'form-control', 'readonly'] ) }}
@@ -89,6 +106,7 @@
           </td>
         </tr>
       </table>
+
       <div class="equipemnts">
         <table class="table table-bordered" style="table-layout: fixed;">
           <thead>
@@ -219,59 +237,60 @@
     </div>
     {{-- 右側 --}}
     <div class="col">
-      <div class="client_mater">　
-        <table class="table table-bordered name-table" style="table-layout:fixed;">
-          <tr>
-            <td colspan="2">
-              <div class="d-flex align-items-center justify-content-between">
-                <p class="title-icon">
-                  <i class="far fa-id-card fa-2x fa-fw"></i>顧客情報
-                </p>
-                <p><a class="more_btn bg-green" href="">顧客詳細</a></p>
-              </div>
-            </td>
-          </tr>
-          <tr>
-            <td class="table-active"><label for="user_id" class=" form_required">会社名/団体名</label></td>
-            <td>
-              {{ Form::text('', ReservationHelper::getCompany($request->user_id),['class'=>'form-control', 'readonly'] ) }}
-              {{ Form::hidden('user_id', $request->user_id,['class'=>'form-control', 'readonly'] ) }}
-            </td>
-          </tr>
-          <tr>
-            <td class="table-active"><label for="name" class=" form_required">担当者氏名<br></label></td>
-            <td>
-              {{ Form::text('', ReservationHelper::getPersonName($request->user_id),['class'=>'form-control', 'readonly'] ) }}
-            </td>
-          </tr>
-        </table>
-        <table class="table table-bordered oneday-table" style="table-layout:fixed;">
-          <tr>
-            <td colspan="2">
+      <!-- <div class="client_mater">　 -->
+      <table class="table table-bordered name-table" style="table-layout:fixed;">
+        <tr>
+          <td colspan="2">
+            <div class="d-flex align-items-center justify-content-between">
               <p class="title-icon">
-                <i class="fas fa-user-check fa-2x fa-fw"></i>当日の連絡できる担当者
+                <i class="far fa-id-card icon-size"></i>顧客情報
               </p>
-            </td>
-          </tr>
-          <tr>
-            <td class="table-active"><label for="ondayName" class=" form_required">氏名</label></td>
-            <td>
-              {{ Form::text('in_charge', $request->in_charge,['class'=>'form-control', 'readonly'] ) }}
-            </td>
-          </tr>
-          <tr>
-            <td class="table-active"><label for="mobilePhone" class=" form_required">携帯番号</label></td>
-            <td>
-              {{ Form::text('tel', $request->tel,['class'=>'form-control', 'readonly'] ) }}
-            </td>
-          </tr>
-        </table>
-      </div>
+              <p><a class="more_btn bg-green" href="">顧客詳細</a></p>
+            </div>
+          </td>
+        </tr>
+        <tr>
+          <td class="table-active"><label for="user_id" class=" form_required">会社名/団体名</label></td>
+          <td>
+            {{ Form::text('', ReservationHelper::getCompany($request->user_id),['class'=>'form-control', 'readonly'] ) }}
+            {{ Form::hidden('user_id', $request->user_id,['class'=>'form-control', 'readonly'] ) }}
+          </td>
+        </tr>
+        <tr>
+          <td class="table-active"><label for="name" class=" form_required">担当者氏名<br></label></td>
+          <td>
+            {{ Form::text('', ReservationHelper::getPersonName($request->user_id),['class'=>'form-control', 'readonly'] ) }}
+          </td>
+        </tr>
+      </table>
+      <table class="table table-bordered oneday-table" style="table-layout:fixed;">
+        <tr>
+          <td colspan="2">
+            <p class="title-icon">
+              <i class="fas fa-user-check icon-size"></i>当日の連絡できる担当者
+            </p>
+          </td>
+        </tr>
+        <tr>
+          <td class="table-active"><label for="ondayName" class=" form_required">氏名</label></td>
+          <td>
+            {{ Form::text('in_charge', $request->in_charge,['class'=>'form-control', 'readonly'] ) }}
+          </td>
+        </tr>
+        <tr>
+          <td class="table-active"><label for="mobilePhone" class=" form_required">携帯番号</label></td>
+          <td>
+            {{ Form::text('tel', $request->tel,['class'=>'form-control', 'readonly'] ) }}
+          </td>
+        </tr>
+      </table>
+      <!-- </div> -->
+
       <table class="table table-bordered mail-table" style="table-layout:fixed;">
         <tr>
           <td colspan="2">
             <p class="title-icon">
-              <i class="fas fa-envelope fa-2x fa-fw"></i>利用後の送信メール
+              <i class="fas fa-envelope icon-size"></i>利用後の送信メール
             </p>
           </td>
         </tr>
@@ -287,7 +306,9 @@
         <tr>
           <td colspan="2">
             <p class="title-icon">
-              <i class="fas fa-yen-sign fa-2x fa-fw"></i>売上原価（提携会場を選択した場合、提携会場で設定した原価率が適応されます）
+              <i class="fas fa-yen-sign icon-size"></i>
+              売上原価
+              <span class="annotation">（提携会場を選択した場合、提携会場で設定した原価率が適応されます）</span>
             </p>
           </td>
         </tr>
@@ -303,7 +324,7 @@
         <tr>
           <td colspan="2">
             <p class="title-icon">
-              <i class="fas fa-envelope fa-2x fa-fw"></i>備考
+              <i class="fas fa-envelope icon-size"></i>備考
             </p>
           </td>
         </tr>
@@ -335,114 +356,55 @@
       </table>
     </div>
   </div>
-</div>
-<style>
-  .bill_head {
-    background: #127059;
-    table-layout: fixed;
-    border: solid 1px gray;
-  }
+</section>
 
-  .bill_head p {
-    height: 50px;
-  }
 
-  .plus_acordion::before {
-    content: '＋';
-  }
-
-  .minus_acordion::before {
-    content: '-';
-  }
-
-  .head {
-    background: #C1C1C2;
-    table-layout: fixed;
-    border: solid 1px gray;
-    height: 60px;
-  }
-
-  .venue_head,
-  .equipment_head,
-  .layout_head {
-    border-bottom: solid 1px gray !important;
-  }
-
-  .venue_discount,
-  .equipment_discount,
-  .layout_discount,
-  .others_discount {
-    border: solid 1px gray !important;
-  }
-
-  .bill {
-    border: solid 1px gray;
-  }
-
-  .information .main {
-    border: solid 1px gray;
-  }
-
-  .paid .head {
-    background: #EB9C32;
-    color: white;
-  }
-
-  .paid .main {
-    border: solid 1px gray;
-  }
-</style>
 {{-- 丸岡さんカスタム --}}
-<div class="container-fluid">
+<section class="section-wrap">
   <div class="bill">
     <div class="bill_head">
-      <table class="table" style="table-layout: fixed">
+      <table class="table bill_table">
         <tr>
           <td>
-            <h1 class="text-white">
+            <h2 class="text-white">
               請求書No
-            </h1>
+            </h2>
           </td>
-          <td style="font-size: 16px;">
-            <div class="bg-white d-flex justify-content-around align-items-center" style="height: 60px;">
-              <div>合計金額</div>
-              <div class="total_result">{{number_format($request->master_total)}}円</div>
-            </div>
+          <td>
+            <dl class="ttl_box">
+              <dt>合計金額</dt>
+              <dd class="total_result">{{number_format($request->master_total)}}円</dd>
+            </dl>
           </td>
-        </tr>
-        <tr>
-          <td></td>
-          <td style="font-size: 16px;">
-            <div class="bg-white d-flex justify-content-around align-items-center" style="height: 60px;">
-              <div>支払い期日</div>
-              <div>
-                {{ReservationHelper::formatDate($request->pay_limit)}}
-              </div>
-            </div>
+          <td>
+            <dl class="ttl_box">
+              <dt>支払い期日</dt>
+              <dd class="total_result">{{ReservationHelper::formatDate($request->pay_limit)}}</dd>
+            </dl>
           </td>
         </tr>
       </table>
     </div>
     <div class="bill_details">
       <div class="head d-flex">
-        <div style="width: 80px; background:gray;" class="d-flex justify-content-center align-items-center">
-          <i class="fas fa-plus fa-3x hide" style="color: white;"></i>
-          <i class="fas fa-minus fa-3x" style="color: white;"></i>
+        <div class="accordion_btn">
+          <i class="fas fa-plus bill_icon_size hide"></i>
+          <i class="fas fa-minus bill_icon_size"></i>
         </div>
-        <div style="font-size: 30px; width:200px;" class="d-flex justify-content-center align-items-center">
-          <p>
+        <div class="billdetails_ttl">
+          <h3>
             請求内訳
-          </p>
+          </h3>
         </div>
       </div>
       <div class="main">
-        <div class="venues" style="padding-top: 80px; width:90%; margin:0 auto;">
+        <div class="venues billdetails_content">
           <table class="table table-borderless">
             <tr>
               <td>
-                <h1>
-                  ■会場料金
-                </h1>
+                <h4 class="billdetails_content_ttl">
+                  会場料
+                </h4>
               </td>
             </tr>
             <tbody class="venue_head">
@@ -473,8 +435,11 @@
             <tbody class="venue_result">
               <tr>
                 <td colspan="2"></td>
-                <td colspan="2">合計
-                  {{ Form::text('venue_price', $request->venue_price,['class'=>'form-control col-xs-3', 'readonly'] ) }}
+                <td colspan="2" >
+                  <p class="text-right">
+                    <span>合計：</span>
+                    {{ Form::text('venue_price', $request->venue_price,['class'=>'form-control col-xs-3', 'readonly'] ) }}
+                  </p>
                 </td>
               </tr>
             </tbody>
@@ -482,13 +447,13 @@
         </div>
         {{-- 以下備品 --}}
         @if ($equipment_details ||$service_details ||$request->luggage_price)
-        <div class="equipment" style="padding-top: 80px; width:90%; margin:0 auto;">
+        <div class="equipment billdetails_content">
           <table class="table table-borderless">
             <tr>
-              <td>
-                <h1>
-                  ■有料備品・サービス
-                </h1>
+              <td colspan="4">
+                <h4 class="billdetails_content_ttl">
+                  有料備品・サービス
+                </h4>
               </td>
             </tr>
             <tbody class="equipment_head">
@@ -563,13 +528,13 @@
 
         {{-- 以下、レイアウト --}}
         @if ($request->layout_prepare_subtotal||$request->layout_clean_subtotal)
-        <div class="layout" style="padding-top: 80px; width:90%; margin:0 auto;">
+        <div class="layout billdetails_content">
           <table class="table table-borderless">
             <tr>
               <td>
-                <h1>
-                  ■レイアウト
-                </h1>
+                <h4 class="billdetails_content_ttl">
+                  レイアウト
+                </h4>
               </td>
             </tr>
             <tbody class="layout_head">
@@ -644,13 +609,13 @@
 
         {{-- 以下、その他 --}}
         @if (ReservationHelper::judgeArrayEmpty($others_details))
-        <div class="others" style="padding: 80px 0px 80px 0px; width:90%; margin:0 auto;">
+        <div class="others billdetails_content">
           <table class="table table-borderless">
             <tr>
-              <td>
-                <h1>
-                  ■その他
-                </h1>
+              <td colspan="4">
+                　<h4 class="billdetails_content_ttl">
+                  その他
+                </h4>
               </td>
             </tr>
             <tbody class="others_head">
@@ -690,51 +655,51 @@
         </div>
         @endif
         {{-- 以下、総合計 --}}
-        <div class="bill_total d-flex justify-content-end"
-          style="padding: 80px 0px 80px 0px; width:90%; margin:0 auto;">
-          <div style="width: 60%;">
-            <table class="table text-right" style="table-layout: fixed; font-size:16px;">
-              <tr>
-                <td>小計：</td>
-                <td>
-                  {{ Form::text('master_subtotal', $request->master_subtotal,['class'=>'form-control', 'readonly'] ) }}
-                </td>
-              </tr>
-              <tr>
-                <td>消費税：</td>
-                <td>
-                  {{ Form::text('master_tax', $request->master_tax,['class'=>'form-control', 'readonly'] ) }}
-                </td>
-              </tr>
-              <tr>
-                <td class="font-weight-bold">合計金額</td>
-                <td>
-                  {{ Form::text('master_total', $request->master_total,['class'=>'form-control', 'readonly'] ) }}
-                </td>
-              </tr>
-            </table>
-          </div>
+        <div class="bill_total">
+          <table class="table">
+            <tr>
+              <td>小計：</td>
+              <td>
+                {{ Form::text('master_subtotal', $request->master_subtotal,['class'=>'form-control', 'readonly'] ) }}
+              </td>
+            </tr>
+            <tr>
+              <td>消費税：</td>
+              <td>
+                {{ Form::text('master_tax', $request->master_tax,['class'=>'form-control', 'readonly'] ) }}
+              </td>
+            </tr>
+            <tr>
+              <td class="font-weight-bold">合計金額</td>
+              <td>
+                {{ Form::text('master_total', $request->master_total,['class'=>'form-control', 'readonly'] ) }}
+              </td>
+            </tr>
+          </table>
         </div>
+
       </div>
     </div>
+    <!-- 請求内訳 終わり ------------------------------------------------------>
+
   </div>
 
   {{-- 以下、請求情報 --}}
   <div class="information">
     <div class="information_details">
       <div class="head d-flex">
-        <div style="width: 80px; background:gray;" class="d-flex justify-content-center align-items-center">
-          <i class="fas fa-plus fa-3x hide" style="color: white;"></i>
-          <i class="fas fa-minus fa-3x" style="color: white;"></i>
+        <div class="accordion_btn">
+          <i class="fas fa-plus bill_icon_size hide"></i>
+          <i class="fas fa-minus bill_icon_size"></i>
         </div>
-        <div style="font-size: 30px; width:200px;" class="d-flex justify-content-center align-items-center">
-          <p>
+        <div class="billdetails_ttl">
+          <h3>
             請求書情報
-          </p>
+          </h3>
         </div>
       </div>
       <div class="main">
-        <div class="informations" style="padding-top: 20px; width:90%; margin:0 auto;">
+        <div class="informations billdetails_content">
           <table class="table">
             <tr>
               <td>請求日：</td>
@@ -767,16 +732,14 @@
   <div class="paid">
     <div class="paid_details">
       <div class="head d-flex">
-        <div style="width: 80px; background:#ff782d;" class="d-flex justify-content-center align-items-center">
-        </div>
-        <div style="font-size: 30px; width:200px;" class="d-flex justify-content-center align-items-center">
-          <p>
+        <div class="d-flex align-items-center">
+          <h3 class="pl-3">
             入金情報
-          </p>
+          </h3>
         </div>
       </div>
       <div class="main">
-        <div class="paids" style="padding-top: 20px; width:90%; margin:0 auto;">
+        <div class="paids billdetails_content">
           <table class="table" style="table-layout: fixed;">
             <tr>
               <td>入金状況
@@ -800,14 +763,12 @@
       </div>
     </div>
   </div>
-</div>
+</section>
 
+<div class="container-field d-flex justify-content-center mt-5">
+  <a href="javascript:$('#test_post').submit()" class="btn more_btn4_lg d-block mr-5">請求内訳を修正する</a>
 
-
-<div class="container-field d-flex justify-content-center" style="margin-top: 80px;">
-  <a href="javascript:$('#test_post').submit()" class="btn btn-danger btn-lg d-block mr-5">請求内訳を修正する</a>
-
-  {{Form::submit('予約を作成する', ['class'=>'d-block btn btn-primary btn-lg', 'id'=>'check_submit'])}}
+  {{Form::submit('予約を作成する', ['class'=>'d-block btn more_btn_lg', 'id'=>'check_submit'])}}
   {{Form::close()}}
 
 </div>
@@ -823,9 +784,5 @@
 {{ Form::hidden('others_details', json_encode($others_details),['class'=>'form-control','readonly'])}}
 {{Form::submit('', ['class'=>'d-block btn btn-primary btn-lg test_post', 'id'=>'check_submit'])}}
 {{Form::close()}}
-
-
-
-
 
 @endsection

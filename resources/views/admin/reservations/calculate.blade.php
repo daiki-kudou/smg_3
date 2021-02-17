@@ -512,7 +512,7 @@
     </div>
     {{-- 右側 --}}
     <div class="col">
-      <div class="client_mater">　
+      <!-- <div class="client_mater">　 -->
         <table class="table table-bordered name-table" style="table-layout:fixed;">
           <tr>
             <td colspan="2">
@@ -571,7 +571,7 @@
             </td>
           </tr>
         </table>
-      </div>
+      <!-- </div> -->
       <table class="table table-bordered mail-table" style="table-layout:fixed;">
         <tr>
           <td colspan="2">
@@ -803,8 +803,8 @@
                   {{ Form::text('venue_breakdown_subtotal0', '',['class'=>'form-control'] ) }}
                 </td>
                 <td>
-                  <input type="button" value="＋" class="add pluralBtn">
-                  <input type="button" value="ー" class="del pluralBtn">
+                  <input type="button" value="＋" class="add pluralBtn bg-blue">
+                  <input type="button" value="ー" class="del pluralBtn bg-red">
                 </td>
               </tr>
             </tbody>
@@ -932,7 +932,7 @@
           <table class="table table-borderless">
             <tr>
               <td>
-              <h4 class="billdetails_content_ttl">
+                <h4 class="billdetails_content_ttl">
                   レイアウト
                 </h4>
               </td>
@@ -1011,7 +1011,7 @@
           <table class="table table-borderless">
             <tr>
               <td colspan="5">
-              　<h4 class="billdetails_content_ttl">
+                　<h4 class="billdetails_content_ttl">
                   その他
                 </h4>
               </td>
@@ -1049,26 +1049,26 @@
         </div>
         {{-- 以下、総合計 --}}
         <div class="bill_total">
-            <table class="table">
-              <tr>
-                <td>小計：</td>
-                <td>
-                  {{ Form::text('master_subtotal',$masters ,['class'=>'form-control text-right', 'readonly'] ) }}
-                </td>
-              </tr>
-              <tr>
-                <td>消費税：</td>
-                <td>
-                  {{ Form::text('master_tax',ReservationHelper::getTax($masters) ,['class'=>'form-control text-right', 'readonly'] ) }}
-                </td>
-              </tr>
-              <tr>
-                <td class="font-weight-bold">合計金額</td>
-                <td>
-                  {{ Form::text('master_total',ReservationHelper::taxAndPrice($masters) ,['class'=>'form-control text-right', 'readonly'] ) }}
-                </td>
-              </tr>
-            </table>
+          <table class="table">
+            <tr>
+              <td>小計：</td>
+              <td>
+                {{ Form::text('master_subtotal',$masters ,['class'=>'form-control text-right', 'readonly'] ) }}
+              </td>
+            </tr>
+            <tr>
+              <td>消費税：</td>
+              <td>
+                {{ Form::text('master_tax',ReservationHelper::getTax($masters) ,['class'=>'form-control text-right', 'readonly'] ) }}
+              </td>
+            </tr>
+            <tr>
+              <td class="font-weight-bold">合計金額</td>
+              <td>
+                {{ Form::text('master_total',ReservationHelper::taxAndPrice($masters) ,['class'=>'form-control text-right', 'readonly'] ) }}
+              </td>
+            </tr>
+          </table>
         </div>
 
       </div>
