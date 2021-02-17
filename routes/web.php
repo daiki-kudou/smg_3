@@ -176,11 +176,10 @@ Route::namespace('Admin')->prefix('admin')->name('admin.')->group(function () {
     Route::post('pre_reservations/{pre_reservation}/re_calculate', 'PreReservationsController@re_calculate');
     // 仮抑え　再計算後、中身が変更する場合の保存
     Route::put('pre_reservations/{pre_reservation}/edit_update', 'PreReservationsController@edit_update');
-
-
     // 仮抑え　削除
     Route::post('pre_reservations/destroy', 'PreReservationsController@destroy');
-    //
 
+    // 一括仮抑え index
+    Route::get('multiples', 'MultiplesController@index');
   });
 });

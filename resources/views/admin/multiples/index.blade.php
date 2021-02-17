@@ -8,15 +8,17 @@
 
 
 
-<h1>仮押さえ一覧</h1>
+<h1>一括　仮押さえ一覧</h1>
 
 
-<script>
+
+{{-- <script>
   $(function(){
     $('.flash_message').fadeOut(3000);
   })
-</script>
-@if (session('flash_message'))
+</script> --}}
+
+{{-- @if (session('flash_message'))
 <div class="flash_message bg-success text-center py-3 my-0">
   {{ session('flash_message') }}
 </div>
@@ -25,7 +27,7 @@
 <div class="flash_message bg-danger text-center py-3 my-0">
   {{ session('flash_message_error') }}
 </div>
-@endif
+@endif --}}
 
 
 <style>
@@ -258,10 +260,6 @@
                       <input type="checkbox" id="checkboxPrimary1" checked>
                       <label for="checkboxPrimary1">キャンセル</label>
                     </li>
-                    <!-- <li>
-                    <input type="checkbox" id="checkboxPrimary1" checked>
-                    <label for="checkboxPrimary1">追加請求</label>
-                  </li> -->
                     <li>
                       <input type="checkbox" id="checkboxPrimary1" checked>
                       <label for="checkboxPrimary1">追加請求</label>
@@ -361,101 +359,81 @@
         <thead>
           <tr>
             <th><input type="checkbox" name="all_check" id="all_check" /></th>
-            <th>仮抑えID</th>
+            <th>一括仮抑えID</th>
             <th>作成日</th>
-            <th>利用日</th>
-            <th>入室</th>
-            <th>退室</th>
-            <th>利用会場</th>
+            <th>件数</th>
             <th>会社名・団体名</th>
-            <th>担当者</th>
+            <th>担当者氏名</th>
             <th>携帯</th>
             <th>電話</th>
-            <th>会社名・団体名<br>(顧客未登録)</th>
+            <th>会社名・団体名(顧客未登録)</th>
             <th>仲介会社</th>
             <th>仲介当日利用者</th>
             <th></th>
           </tr>
         </thead>
         <tbody>
-          @foreach ($pre_reservations as $pre_reservation)
-          <tr>
-            <td><input type="checkbox" name="{{'delete_check'.$pre_reservation->id}}" value="{{$pre_reservation->id}}"
-                class="checkbox" />
-            </td>
-            <td>{{$pre_reservation->id}}</td>
-            <td>{{$pre_reservation->created_at}}</td>
-            <td>{{$pre_reservation->reserve_date}}</td>
-            <td>{{$pre_reservation->enter_time}}</td>
-            <td>{{$pre_reservation->leave_time}}</td>
-            <td>{{ReservationHelper::getVenue($pre_reservation->venue_id)}}</td>
-            <td>{{$pre_reservation->user_id==999?"未登録ユーザー":ReservationHelper::getCompany($pre_reservation->user_id)}}
-            <td>{{$pre_reservation->user_id==999?"":ReservationHelper::getPersonName($pre_reservation->user_id)}}
-            <td>{{$pre_reservation->user_id==999?"":ReservationHelper::getPersonMobile($pre_reservation->user_id)}}</td>
-            <td>{{$pre_reservation->user_id==999?"":ReservationHelper::getPersonTel($pre_reservation->user_id)}}</td>
-            <td>{{$pre_reservation->agent_id==0?"":$pre_reservation->agent_id}}</td>
-            <td>{{$pre_reservation->agent_id==0?"":$pre_reservation->agent_id}}</td>
-            <td>{{$pre_reservation->agent_id==0?"":$pre_reservation->agent_id}}</td>
-            <td><a href="{{url('admin/pre_reservations/'.$pre_reservation->id)}}">詳細</a></td>
-          </tr>
-          @endforeach
-        </tbody>
-
-        {{-- @foreach ($reservations as $reservation) --}}
-        {{-- <tbody>
-          <tr>
-            <td rowspan="{{count($reservation->bills()->get())}}">※後ほど修正</td>
-        <td rowspan="{{count($reservation->bills()->get())}}">{{$reservation->id}}</td>
-        <td rowspan="{{count($reservation->bills()->get())}}">
-          {{ReservationHelper::formatDate($reservation->reserve_date)}}
-        </td>
-        <td rowspan="{{count($reservation->bills()->get())}}">{{$reservation->enter_time}}</td>
-        <td rowspan="{{count($reservation->bills()->get())}}">{{$reservation->leave_time}}</td>
-        <td rowspan="{{count($reservation->bills()->get())}}">
-          {{ReservationHelper::getVenue($reservation->venue->id)}}</td>
-        <td rowspan="{{count($reservation->bills()->get())}}">
-          @if ($reservation->user_id>0)
-          {{$reservation->user->company}}
-          @elseif($reservation->user_id==0)
-          {{ReservationHelper::getAgentCompany($reservation->agent_id)}}
-          @endif
-        </td>
-        <td rowspan="{{count($reservation->bills()->get())}}">
-          @if ($reservation->user_id>0)
-          {{ReservationHelper::getPersonName($reservation->user_id)}}
-          @elseif($reservation->user_id==0)
-          {{ReservationHelper::getAgentPerson($reservation->agent_id)}}
-          @endif
-        </td>
-        <td rowspan="{{count($reservation->bills()->get())}}">{{$user->find($reservation->venue_id)->mobile}}</td>
-        <td rowspan="{{count($reservation->bills()->get())}}">{{$user->find($reservation->venue_id)->tel}}</td>
-        <td rowspan="{{count($reservation->bills()->get())}}">
-          @if ($reservation->agent_id>0)
-          {{ReservationHelper::getAgentCompany($reservation->agent_id)}}
-          @endif
-        </td>
-        <td>会場予約</td>
-        <td>
-          {{ReservationHelper::judgeStatus($reservation->bills()->first()->reservation_status)}}
-        </td>
-        <td rowspan="{{count($reservation->bills()->get())}}"><a
-            href="{{ url('admin/reservations', $reservation->id) }}" class="more_btn">詳細</a></td>
-        <td rowspan="{{count($reservation->bills()->get())}}"><a
-            href="{{ url('admin/reservations/generate_pdf/'.$reservation->id) }}" class="more_btn">詳細</a></td>
-        </tr>
-        @for ($i = 0; $i < count($reservation->bills()->get())-1; $i++)
+          @foreach ($multiples as $multiple)
           <tr>
             <td>
-              @if ($reservation->bills()->skip($i+1)->first()->category==2)
-              追加請求
+              <input type="checkbox" name="{{'delete_check'.$multiple->id}}" value="{{$multiple->id}}"
+                class="checkbox" />
+            </td>
+            <td>{{$multiple->id}}</td>
+            <td>{{$multiple->created_at}}</td>
+            <td>{{$multiple->pre_reservations_count}}</td>
+            <td>
+              {{(ReservationHelper::getCompany($multiple->pre_reservations->first()->user_id))}}
+            </td>
+            <td>
+              @if ($multiple->pre_reservations->first()->user_id!=999)
+              {{(ReservationHelper::getPersonName($multiple->pre_reservations->first()->user_id))}}
               @endif
             </td>
-            <td>{{ReservationHelper::judgeStatus($reservation->bills()->skip($i+1)->first()->reservation_status)}}
+            <td>
+              @if ($multiple->pre_reservations->first()->user_id!=999)
+              {{(ReservationHelper::getPersonMobile($multiple->pre_reservations->first()->user_id))}}
+              @endif
             </td>
+            <td>
+              @if ($multiple->pre_reservations->first()->user_id!=999)
+              {{(ReservationHelper::getPersonTel($multiple->pre_reservations->first()->user_id))}}
+              @endif
+            </td>
+            <td>
+              @if ($multiple->pre_reservations->first()->user_id==999)
+              {{$multiple->pre_reservations->first()->unknown_user->unknown_user_company}}
+              @endif
+            </td>
+            <td>
+              ※後ほど着手予定
+            </td>
+            <td>※後ほど着手予定</td>
+            <td><a href="" class="btn btn-primary">詳細</a></td>
           </tr>
-          @endfor
-          </tbody> --}}
-          {{-- @endforeach --}}
+          @endforeach
+          {{-- @foreach ($pre_reservations as $pre_reservation)
+          <tr>
+            <td><input type="checkbox" name="{{'delete_check'.$pre_reservation->id}}" value="{{$pre_reservation->id}}"
+          class="checkbox" />
+          </td>
+          <td>{{$pre_reservation->id}}</td>
+          <td>{{$pre_reservation->created_at}}</td>
+          <td>{{$pre_reservation->reserve_date}}</td>
+          <td>{{$pre_reservation->enter_time}}</td>
+          <td>{{$pre_reservation->leave_time}}</td>
+          <td>{{ReservationHelper::getVenue($pre_reservation->venue_id)}}</td>
+          <td>{{$pre_reservation->user_id==999?"未登録ユーザー":ReservationHelper::getCompany($pre_reservation->user_id)}}
+          <td>{{$pre_reservation->user_id==999?"":ReservationHelper::getPersonName($pre_reservation->user_id)}}
+          <td>{{$pre_reservation->user_id==999?"":ReservationHelper::getPersonMobile($pre_reservation->user_id)}}</td>
+          <td>{{$pre_reservation->user_id==999?"":ReservationHelper::getPersonTel($pre_reservation->user_id)}}</td>
+          <td>{{$pre_reservation->agent_id==0?"":$pre_reservation->agent_id}}</td>
+          <td>{{$pre_reservation->agent_id==0?"":$pre_reservation->agent_id}}</td>
+          <td>{{$pre_reservation->agent_id==0?"":$pre_reservation->agent_id}}</td>
+          <td><a href="{{url('admin/pre_reservations/'.$pre_reservation->id)}}">詳細</a></td>
+          </tr>
+          @endforeach --}}
+        </tbody>
       </table>
     </div>
   </div>
@@ -477,6 +455,11 @@
 
 
 </div>
+
+
+
+
+
 
 
 

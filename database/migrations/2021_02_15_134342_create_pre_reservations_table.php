@@ -20,10 +20,10 @@ class CreatePreReservationsTable extends Migration
       $table->bigInteger('user_id')->unsigned()->index();
       $table->bigInteger('agent_id')->unsigned()->index();
       $table->date('reserve_date');
-      $table->integer('price_system');
+      $table->integer('price_system')->nullable();
       $table->time('enter_time');
       $table->time('leave_time');
-      $table->integer('board_flag');
+      $table->integer('board_flag')->nullable();
       $table->time('event_start')->nullable();
       $table->time('event_finish')->nullable();
       $table->string('event_name1')->nullable();
@@ -32,17 +32,14 @@ class CreatePreReservationsTable extends Migration
       $table->string('luggage_count')->nullable();
       $table->string('luggage_arrive')->nullable();
       $table->string('luggage_return')->nullable();
-      $table->integer('email_flag'); //あるかないかだけ保持
-      $table->string('in_charge');
-      $table->string('tel');
+      $table->integer('email_flag')->nullable();
+      $table->string('in_charge')->nullable();
+      $table->string('tel')->nullable();
       $table->text('discount_condition')->nullable();
       $table->text('attention')->nullable();
       $table->text('user_details')->nullable();
       $table->text('admin_details')->nullable();
       $table->integer('status')->nullable();
-
-
-
 
       $table->timestamps();
     });

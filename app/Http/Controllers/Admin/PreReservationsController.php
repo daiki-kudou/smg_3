@@ -14,6 +14,7 @@ use Carbon\Carbon;
 use Illuminate\Support\Facades\DB; //トランザクション用
 
 use App\Models\PreReservation;
+use App\Models\MultipleReserve;
 
 
 
@@ -50,17 +51,12 @@ class PreReservationsController extends Controller
 
   public function check(Request $request)
   {
-
     $judge_count = [];
     foreach ($request->all() as $key => $value) {
       if (preg_match('/pre_date/', $key)) {
         $judge_count[] = $value;
       }
     }
-    echo "<pre>";
-    var_dump($request->all());
-    echo "</pre>";
-
     if (count($judge_count) == 1) {
       $venue = Venue::find($request->pre_venue0);
       $equipments = $venue->equipments()->get();
@@ -77,7 +73,38 @@ class PreReservationsController extends Controller
         'layouts' => $layouts,
       ]);
     } else {
-      return view('admin.pre_reservations.multiple_check', []);
+      echo "<pre>";
+      var_dump($request->all());
+      echo "</pre>";
+      DB::transaction(function () use ($request) { //トランザクションさせる
+        $multiple = MultipleReserve::create(); //一括IDを作成
+        $counters = [];
+        foreach ($request->all() as $key => $value) {
+          if (preg_match('/pre_date/', $key)) {
+            $counters[] = $value;
+          }
+        }
+        $counters = count($counters);
+        for ($i = 0; $i < $counters; $i++) {
+          $pre_reservations = $multiple->pre_reservations()->create([
+            'venue_id' => $request->{'pre_venue' . $i},
+            'user_id' => $request->user_id,
+            'agent_id' => 0,
+            'reserve_date' => $request->{'pre_date' . $i},
+            'enter_time' => $request->{'pre_enter' . $i},
+            'leave_time' => $request->{'pre_leave' . $i}
+          ]);
+          if ($request->unknown_user_company) {
+            $pre_reservations->unknown_user()->create([
+              'unknown_user_company' => $request->unknown_user_company,
+              'unknown_user_name' => $request->unknown_user_name,
+              'unknown_user_email' => $request->unknown_user_email,
+              'unknown_user_mobile' => $request->unknown_user_mobile,
+              'unknown_user_tel' => $request->unknown_user_tel,
+            ]);
+          }
+        }
+      });
     }
   }
 
