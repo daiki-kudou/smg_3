@@ -247,17 +247,14 @@
                 {{$equipment->item}}
               </td>
               <td>
-
-
                 @foreach ($s_equipment as $s)
                 @if ($s->unit_item==$equipment->item)
                 {{ Form::text('equipment_breakdown'.$key,$s->unit_count,['class'=>'form-control'] ) }}
                 @break
-                @else
-                @continue
+                @elseif ($loop->last)
+                {{ Form::text('equipment_breakdown'.$key,'',['class'=>'form-control'] ) }}
                 @endif
                 @endforeach
-
               </td>
             </tr>
             @endforeach
