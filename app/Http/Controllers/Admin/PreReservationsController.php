@@ -366,6 +366,7 @@ class PreReservationsController extends Controller
     $layouts_details = $venue->getLayoutPrice($request->layout_prepare, $request->layout_clean);
 
     $s_equipment = $request->pre_breakdowns()->where('unit_type', 2)->get();
+    $s_services = $request->pre_breakdowns()->where('unit_type', 3)->get();
 
 
     if ($price_details == 0) { //枠がなく会場料金を手打ちするパターン

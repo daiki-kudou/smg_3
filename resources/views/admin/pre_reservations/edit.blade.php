@@ -247,9 +247,9 @@
                 {{$equipment->item}}
               </td>
               <td>
-                @foreach ($s_equipment as $s)
-                @if ($s->unit_item==$equipment->item)
-                {{ Form::text('equipment_breakdown'.$key,$s->unit_count,['class'=>'form-control'] ) }}
+                @foreach ($s_equipment as $e)
+                @if ($e->unit_item==$equipment->item)
+                {{ Form::text('equipment_breakdown'.$key,$e->unit_count,['class'=>'form-control'] ) }}
                 @break
                 @elseif ($loop->last)
                 {{ Form::text('equipment_breakdown'.$key,'',['class'=>'form-control'] ) }}
@@ -281,15 +281,29 @@
                 {{$service->item}}
               </td>
               <td>
+                @foreach ($s_services as $s)
+                @if ($service->item==$s->unit_item)
                 <div class="form-check form-check-inline">
-                  {{Form::radio('services_breakdown'.$key, 1, $request->{'services_breakdown'.$key}==1?true:false , ['id' => 'service'.$key.'on', 'class' => 'form-check-input'])}}
+                  {{Form::radio('services_breakdown'.$key, 1, true, ['id' => 'service'.$key.'on', 'class' => 'form-check-input'])}}
                   <label for="{{'service'.$key.'on'}}" class="form-check-label">有り</label>
-                  {{Form::radio('services_breakdown'.$key, 0, $request->{'services_breakdown'.$key}==0?true:false, ['id' => 'services_breakdown'.$key.'off', 'class' => 'form-check-input'])}}
+                  {{Form::radio('services_breakdown'.$key, 0, false, ['id' => 'services_breakdown'.$key.'off', 'class' => 'form-check-input'])}}
                   <label for="{{'services_breakdown'.$key.'off'}}" class="form-check-label">無し</label>
                 </div>
+                @break
+                @elseif ($loop->last)
+                <div class="form-check form-check-inline">
+                  {{Form::radio('services_breakdown'.$key, 1, false, ['id' => 'service'.$key.'on', 'class' => 'form-check-input'])}}
+                  <label for="{{'service'.$key.'on'}}" class="form-check-label">有り</label>
+                  {{Form::radio('services_breakdown'.$key, 0, true, ['id' => 'services_breakdown'.$key.'off', 'class' => 'form-check-input'])}}
+                  <label for="{{'services_breakdown'.$key.'off'}}" class="form-check-label">無し</label>
+                </div>
+                @endif
+                @endforeach
               </td>
             </tr>
             @endforeach
+
+
           </tbody>
         </table>
       </div>
