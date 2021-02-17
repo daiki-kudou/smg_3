@@ -65,7 +65,7 @@
     .board-box .event-owner td {
       font-size: 30px;
       /* padding-top: 30px; */
-      padding-bottom: 2%;
+      padding-bottom: 15%;
     }
 
     .board-box .venue td {

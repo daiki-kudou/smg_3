@@ -51,12 +51,12 @@
         </thead>
         <tbody>
           <tr>
-            <th class="table-active">{{ Form::label('service', 'サービス名称') }}</th>
-            <td>{{ $agent->service }}</td>
+            <th class="table-active">{{ Form::label('name', 'サービス名称') }}</th>
+            <td>{{ $agent->name }}</td>
           </tr>
           <tr>
             <th class="table-active">{{ Form::label('company', '運営会社') }}</th>
-            <td>{{ $agent->service }}</td>
+            <td>{{ $agent->company }}</td>
           </tr>
           <tr>
             <th class="table-active">{{ Form::label('post_code', '郵便番号') }}</th>

@@ -67,8 +67,8 @@
           <tbody>
             <!-- 工藤さんに確認　増やした項目 -->
             <tr>
-              <td class="table-active">{{ Form::label('service', 'サービス名称') }}</td>
-              <td colspan="2">{{ Form::text('service', old('service'), ['class' => 'form-control', 'id'=>'service']) }}</td>
+              <td class="table-active">{{ Form::label('name', 'サービス名称') }}</td>
+              <td colspan="2">{{ Form::text('name', old('name'), ['class' => 'form-control', 'id'=>'name']) }}</td>
             </tr>
             <!-- 工藤さんに確認　増やした項目 -->
             <tr>
