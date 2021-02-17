@@ -1,3 +1,11 @@
+@charset "UTF-8";
+
+
+body {
+    font-family:-apple-system, 'Helvetica Neue','Hiragino Kaku Gothic ProN', '游ゴシック','メイリオ',meiryo,sans-serif;
+    font-size: 16px;
+}
+
 /* venues. index */
 .dropdown-menu {
     width: 400px;
@@ -12,7 +20,7 @@ table.dataTable thead .sorting:after,
 table.dataTable thead .sorting_asc:after,
 table.dataTable thead .sorting_desc:after {
     opacity: 0.2;
-    font-family: "FontAwesome";
+    font-family: 'FontAwesome';
     content: "\f0ec";
     display: inline-block;
     transform: rotate(90deg);
@@ -185,7 +193,9 @@ li {
 
 a:hover {
     text-decoration: none;
+    color: #333;
 }
+
 p {
     margin: 0;
 }
@@ -194,6 +204,7 @@ dl,
 dt,
 dd {
     margin-bottom: 0;
+    font-weight: normal;
 }
 
 label {
@@ -208,10 +219,9 @@ h5 {
     margin-bottom: 0;
 }
 
-.content-wrapper {
+/* .content-wrapper {
     min-width: 1200px;
 }
-
 /* 共通--------------------------------------- */
 
 .content-wrapper {
@@ -237,8 +247,9 @@ h5 {
 }
 
 .btn_wrapper {
-    margin: 10% 0;
+    margin: 50px 0;
 }
+
 .btn-wrapper2 {
     padding: 0 3%;
     margin-bottom: 3%;
@@ -250,6 +261,12 @@ h5 {
     border-radius: 5px;
     color: #fff;
     font-weight: bold;
+    transition: 0.4s;
+}
+
+.more_btn:hover {
+    background: #004792;
+    color: #fff;
 }
 
 .more_btn2 {
@@ -262,12 +279,16 @@ h5 {
 }
 
 .more_btn4 {
-    background: #ef6243;
-    padding: 0.3em 1em;
+    background: #DC3545;
+    padding: 5px 15px;
     border-radius: 5px;
     color: #fff;
     font-weight: bold;
-    /* min-width: 100px; */
+    min-width: 100px;
+}
+
+.more_btn4:hover {
+    color: #fff;
 }
 
 .more_btn3 {
@@ -280,10 +301,14 @@ h5 {
     min-width: 100px;
 }
 
+.more_btn3:hover {
+    color: #333;
+}
+
 /* 二本の横棒を作成する */
 .more_btn3::before,
 .more_btn3::after {
-    content: "";
+    content: '';
     display: block;
     width: 15px;
     height: 3px;
@@ -304,32 +329,49 @@ h5 {
     /* transition: 0.5s; */
 }
 
+
 .more_btn_lg {
-    background: #007bff;
-    padding: 10px 80px;
+    background: #007BFF;
+    padding: 15px 80px;
     border-radius: 5px;
     color: #fff;
     font-weight: bold;
+    transition: 0.4s;
+}
+
+.more_btn_lg:hover {
+    background: #004792;
+    color: #fff;
 }
 
 .more_btn4_lg {
-    background: #ef6243;
-    padding: 10px 80px;
+    background: #DC3545;
+    padding: 15px 80px;
     border-radius: 5px;
     color: #fff;
     font-weight: bold;
 }
 
+.more_btn4_lg:hover {
+    background: #9e2733;
+    color: #fff;
+}
+
 .bg-blue {
-    background: #007bff;
+    background: #007BFF;
 }
 
 .section-bg {
-    background: #f4f6f9;
+    background: #F4F6F9;
 }
 
 .bg-red {
-    background: #ef6243 !important;
+    background: #DC3545 !important;
+}
+
+
+.bg-green {
+    background: #35a7a7 !important;
 }
 
 .bg-green {
@@ -340,8 +382,9 @@ h5 {
     background: #707070 !important;
 }
 
-.cell-gray {
-    background: #f3f3f3 !important;
+
+.cell-#ced4da {
+    background: #F3F3F3 !important;
 }
 
 .bg-alert {
@@ -356,7 +399,23 @@ h5 {
     padding: 3%;
 }
 
+.table-wrap {
+    width: 100%;
+    overflow-x: scroll;
+}
+
+.table-scroll {
+    /* overflow-x: scroll; */
+    white-space: nowrap;
+}
+
+.annotation {
+    font-size: 0.7rem;
+}
+
+
 /* アコーディオン ------------------------------------------*/
+
 
 .accordion-ttl .title-icon {
     display: block;
@@ -366,7 +425,7 @@ h5 {
 /* 二本の横棒を作成する */
 .accordion-ttl .title-icon::before,
 .accordion-ttl .title-icon::after {
-    content: "";
+    content: '';
     display: block;
     width: 15px;
     height: 3px;
@@ -379,7 +438,7 @@ h5 {
 }
 
 /* 2本の横棒のうち一本は縦棒にする */
-.accordion-ttl .title-icon::after {
+.title-icon::after {
     background: #35a7a7;
     /* 横棒を縦にするために90℃回転させる */
     transform: translateY(-50%) rotate(90deg);
@@ -391,7 +450,7 @@ h5 {
   プラスがクリックされたら縦棒を横にしてマイナスにする疑似要素
   jQueryで付け外しを行う
   */
-.accordion-ttl.title-icon.active::after {
+.title-icon.active::after {
     transform: rotate(0);
     /* transition: 0.5s; */
 }
@@ -399,14 +458,15 @@ h5 {
 .plus_icon {
     display: block;
     position: relative;
-    width: 20px;
+    /* width: 20px; */
+    width: 100%;
     height: 20px;
-    margin-left: 5%;
+    cursor: pointer;
 }
 
 .plus_icon::before,
 .plus_icon::after {
-    content: "";
+    content: '';
     display: block;
     width: 15px;
     height: 3px;
@@ -445,7 +505,7 @@ h5 {
 .search_box {
     margin-bottom: 50px;
     padding: 30px;
-    border: 1px solid #dbdbdb;
+    /* border: 1px solid #DBDBDB; */
 }
 
 .search_box .form-group {
@@ -520,21 +580,12 @@ table td.table_column p {
     margin: 0;
     box-sizing: border-box;
     display: flex;
-    padding: 5px 0;
+    padding: 5px;
 }
 
 table td.table_column p:last-child {
     border-bottom: none;
-    margin: 0;
-    box-sizing: border-box;
-    display: flex;
-    padding: 5px 0;
-}
-
-table td.table_column1 p {
-    margin: 0;
-    box-sizing: border-box;
-    display: flex;
+    padding: 5px;
 }
 
 .statuscheck dt {
@@ -573,16 +624,14 @@ table td.table_column1 p {
     margin-top: 10px;
 }
 
-.table-bordered .table-active {
-    border: 1px solid #fff;
-}
 
 .note-table textarea {
     width: 100%;
 }
 
 .caution {
-    color: #ef6243;
+    color: #DC3545;
+    background-color: rgb(255 0 0 / 8%);
 }
 
 .caution textarea {
@@ -606,7 +655,7 @@ table td.table_column1 p {
 
 .section-ttl {
     font-weight: bold;
-    font-size: 1.2rem;
+    font-size: 16px;
 }
 
 .content-ttl {
@@ -622,15 +671,13 @@ table td.table_column1 p {
 
 /* 請求内容------------------------------------------------------------------ */
 
-.bill-wrap {
+/* .bill-wrap {
     margin-top: 100px;
 }
-
 .bill-box {
     margin-bottom: 60px;
     background: #fff;
 }
-
 .bill-box h3 {
     font-weight: bold;
     font-size: 16px;
@@ -641,57 +688,42 @@ table td.table_column1 p {
     margin-left: 0;
     padding: 0.8em;
 }
-
 .bill-box_wrap {
     border-top: 1px solid #ccc;
     border-left: 1px solid #ccc;
     margin-right: 0;
     margin-left: 0;
 }
-
-/* .bill-box_wrap .price-sum {
-      padding: 20px;
-      border: 1px solid #ccc;
-    } */
-
 .bill-list .col-12 {
     padding: 0;
 }
-
 .bill-list .price-sum p {
     padding-right: 1em;
 }
-
 .price-sum p:last-child {
     font-size: 16px;
     border-top: 1px solid #dbdbdb;
     margin-top: 1em;
     padding-top: 1em;
 }
-
 .price-sum span {
     margin-right: 1em;
 }
-
 .bill-box_cell {
     border-right: 1px solid #ccc;
     border-bottom: 1px solid #ccc;
     padding-top: 1em;
     padding-bottom: 1em;
 }
-
 .bill-box_cell dt {
     font-weight: bold;
 }
-
 .bill-box_cell dd {
     margin-bottom: 0;
 }
-
 .bill-box_wrap .col-4 {
     background: #fff;
 }
-
 .bill-list h3 {
     font-weight: bold;
     font-size: 16px;
@@ -700,38 +732,28 @@ table td.table_column1 p {
     margin-bottom: 0;
     padding: 0.8em;
 }
-
 .bill-list-subttl p {
     font-weight: bold;
 }
-
-/* .bill-list .bill-box_cell {    
-    border-bottom: 0 solid #ccc;
-} */
-
 .total-sum {
-    padding: 3%;
+    padding: 10% 3%;
 }
-
 .total-sum .col-3 {
     display: flex;
     align-items: center;
     justify-content: space-between;
 }
-
 .total-sum .col-3 dd {
     font-size: 20px;
 }
-
 .total-sum .col-3:first-child {
     background: #35a7a7;
     color: #fff;
     font-size: 18px;
 }
-
 .total-sum .bill-box_cell {
-    border: 1px solid #35a7a7;
-}
+    border: 1px solid #35A7A7;
+} */
 
 /* =============予約詳細================================================ */
 
@@ -747,6 +769,7 @@ table td.table_column1 p {
     align-items: center;
     margin-right: 1em;
 }
+
 .section-header dt {
     background: #35a7a7;
     padding: 0.5em;
@@ -775,17 +798,42 @@ table td.table_column1 p {
 
 /* =============予約チェックボックス================================================ */
 
-.confirm-box {
-    margin: 10px auto;
-    width: 60%;
-    font-weight: bold;
-    padding: 2em;
-    border: 1px solid #ef6243;
+.checkbox {
+    border: 1px solid #35a7a7;
 }
 
-.confirm-box p:last-child {
-    font-size: 0.8rem;
-    font-weight: normal;
+.checkbox dt {
+    background: #35a7a7;
+    padding: 0.5em;
+    color: #fff;
+    margin-bottom: 0;
+}
+
+.checkbox dt {
+    margin-bottom: 0;
+    padding-left: 1em;
+}
+
+.confirm-box {
+    background: #F4F6F9;
+    padding: 50px 0;
+}
+
+.confirm-box dl {
+    width: 60%;
+    display: flex;
+    justify-content: space-between;
+    margin: 20px auto 0;
+}
+
+
+
+
+/* =============予約追加請求================================================ */
+
+
+.extra-bill-table .extrabill-cell {
+    padding: 3em 0;
 }
 
 /* =============仮押さえ================================================ */
@@ -820,7 +868,7 @@ table td.table_column1 p {
 }
 
 .alert-box {
-    color: #ef6243;
+    color: #EF6243;
     margin: 0 auto;
     width: 600px;
     font-weight: bold;
@@ -828,15 +876,66 @@ table td.table_column1 p {
     border: 1px solid #ef6243;
     margin-bottom: 50px;
 }
+
 .alert-icon {
     font-size: 4em;
 }
+
+
+/* =============仮押さえ　一覧================================================ */
+
+/* .prereserve-table th,.prereserve-table td {
+    vertical-align: middle;
+    text-align: left;
+} */
 
 .btn-cell {
     min-width: 85px;
 }
 
-/* 登録情報----------------------------------------------------------------- */
+.prereserve-table .table_column .more_btn {
+    padding: 0 0.7em;
+
+}
+
+
+/* =============予約状況カレンダー　================================================ */
+.calenderframe {
+    margin-top: 40px;
+}
+
+
+.calneder-wrap {
+    padding: 30px;
+    border: 1px solid #ced4da;
+}
+
+.calender-note {
+    margin-top: 30px;
+}
+
+#sortableArea {
+    cursor: pointer;
+}
+
+
+
+/* =============売上請求　一覧================================================ */
+
+.count-sum dt {
+    padding: 0.5em 2em;
+    background: #3E4B5B;
+    color: #fff;
+}
+
+.count-sum dd {
+    padding: 0.5em 5em;
+    border: 1px solid #3E4B5B;
+}
+
+
+
+/* 管理者管理----------------------------------------------------------------- */
 
 .user-profile {
     width: 60%;
@@ -845,8 +944,9 @@ table td.table_column1 p {
 }
 
 .user-profile thead {
-    border-bottom: 1px solid #dbdbdb;
+    border-bottom: 1px solid #DBDBDB;
     margin-bottom: 2em;
+
 }
 
 .attention-box {
@@ -872,7 +972,7 @@ h3 {
 
 .calender-ttl {
     font-size: 18px;
-    background: #35a7a7;
+    background: #35A7A7;
     color: #fff;
     font-weight: bold;
     padding: 20px;
@@ -968,19 +1068,49 @@ h3 {
     border-left: 2px solid #c5c5c5;
 }
 
+
+
+/* 請求内容CSS ------------------------------------------------------*/
+
 .bill_head {
-    background: #127059;
+    background: #35a7a7;
     table-layout: fixed;
-    border: solid 1px gray;
+    padding: 10px;
+    /* border: solid 1px #ced4da; */
 }
+
 .bill_head2 {
     background: #7ebc4f;
     table-layout: fixed;
-    border: solid 1px gray;
+    border: solid 1px #ced4da;
 }
 
-.bill_head p {
+.bill_table {
+    table-layout: fixed;
+    margin-bottom: 0;
+}
+
+.ttl_box {
     height: 50px;
+    background: #fff;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.accordion_btn {
+    width: 80px;
+    background: #444;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.billdetails_ttl {
+    padding-left: 15px;
+    font-size: 24px;
+    display: flex;
+    align-items: center;
 }
 
 .plus_acordion::before {
@@ -992,41 +1122,111 @@ h3 {
 }
 
 .head {
-    background: #c1c1c2;
+    background: #dcdcdc;
     table-layout: fixed;
-    border: solid 1px gray;
-    height: 60px;
+    /* border: solid 1px #ced4da; */
+    height: 50px;
 }
+
+.bill_details,.information_details {
+ margin-bottom: 2px;
+}
+
+.billdetails_content {
+    padding-top: 50px;
+    width: 95%;
+    margin: 0 auto;
+}
+
+.billdetails_content_ttl {
+    position: relative;
+    margin-left: 14px;
+    margin-bottom: 10px;
+}
+
+.billdetails_content_ttl::before {
+    content: "";
+    display: block;
+    width: 0.6em;
+    height: 0.6em;
+    background: #35a7a7;
+    position: absolute;
+    top: 45%;
+    left: -25px;
+    transform: translateY(-50%);
+}
+
 
 .venue_head,
 .equipment_head,
 .layout_head,
 .others_head {
-    border-bottom: solid 1px gray !important;
+    border-top: solid 1px #dee2e6 !important;
+    border-bottom: solid 1px #dee2e6 !important;
+}
+
+.venue_head td,
+.equipment_head td,
+.layout_head td,
+.others_head td {
+    font-weight: bold;
 }
 
 .venue_discount,
 .equipment_discount,
 .layout_discount,
 .others_discount {
-    border: solid 1px gray !important;
+    border: solid 1px #555555 !important;
+}
+
+.venue_result td,
+.equipment_result td,
+.layout_result td,
+.others_result td {
+    padding-bottom: 1.8em;
+}
+
+.bill_icon_size {
+    font-size: 2em;
+    color: #fff;
+}
+
+.pluralBtn {
+    border: none;
+}
+
+.bill_total {
+    border-top: 1px solid #3e3e3e;
+    padding-top: 15px;
+    padding-bottom: 30px;
+    width: 95%;
+    margin: 0 auto;
+}
+.bill_total table {
+    width: 45%;
+    margin-left: auto;
 }
 
 .bill {
-    border: solid 1px gray;
+    border: solid 1px #ced4da;
 }
 
 .information .main {
-    border: solid 1px gray;
+    border: solid 1px #ced4da;
+    border-bottom: 0;
+}
+
+.informations table {
+    margin-bottom: 0;
 }
 
 .paid .head {
-    background: #eb9c32;
+    background: #f7b743;
     color: white;
 }
 
 .paid {
-    border: solid 1px gray !important;
+    border: solid 1px #ced4da !important;
 }
 
 #fullOverlay {
