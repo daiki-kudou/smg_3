@@ -178,8 +178,9 @@ Route::namespace('Admin')->prefix('admin')->name('admin.')->group(function () {
     Route::put('pre_reservations/{pre_reservation}/edit_update', 'PreReservationsController@edit_update');
     // 仮抑え　削除
     Route::post('pre_reservations/destroy', 'PreReservationsController@destroy');
-
     // 一括仮抑え index
     Route::get('multiples', 'MultiplesController@index');
+    // 一括仮抑え show
+    Route::get('multiples/{multiples}', 'MultiplesController@show');
   });
 });

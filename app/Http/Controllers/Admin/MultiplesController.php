@@ -11,12 +11,28 @@ class MultiplesController extends Controller
 {
   public function index()
   {
-    // $multiples = MultipleReserve::all();
     $multiples = MultipleReserve::withCount('pre_reservations')->get();
-
 
     return view('admin.multiples.index', [
       'multiples' => $multiples,
+    ]);
+  }
+
+  public function show($id)
+  {
+    $multiple = MultipleReserve::find($id);
+    $venues = $multiple->pre_reservations()->distinct('')->select('venue_id')->get();
+    $venue_count = $venues->count('venue_id');
+
+
+
+
+
+
+    return view('admin.multiples.show', [
+      'multiple' => $multiple,
+      'venue_count' => $venue_count,
+      'venues' => $venues,
     ]);
   }
 }
