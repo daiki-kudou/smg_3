@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class PreReservation extends Model
 {
   protected $fillable = [
+    'multiple_reserve_id',
     'venue_id',
     'user_id',
     'agent_id',
@@ -93,6 +94,18 @@ class PreReservation extends Model
       'App\Models\PreBill',
     );
   }
+
+
+  /*
+|--------------------------------------------------------------------------
+| 一括IDとの連携
+|--------------------------------------------------------------------------|
+*/
+  public function multiple_reserve()
+  {
+    return $this->belongsTo(MultipleReserve::class);
+  }
+
 
   /*
 |--------------------------------------------------------------------------

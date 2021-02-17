@@ -7,7 +7,6 @@
 <script src="{{ asset('/js/template.js') }}"></script>
 
 <h1>単発　仮抑え　編集　再計算</h1>
-{{--test--}}
 
 {{ Form::open(['url' => 'admin/pre_reservations/'.$request->id.'/re_calculate', 'method'=>'POST', 'id'=>'']) }}
 @csrf

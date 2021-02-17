@@ -76,6 +76,8 @@ class PreReservationsController extends Controller
         'venue' => $venue,
         'layouts' => $layouts,
       ]);
+    } else {
+      return view('admin.pre_reservations.multiple_check', []);
     }
   }
 
@@ -128,7 +130,7 @@ class PreReservationsController extends Controller
           + $layouts_details[2];
       } else {
         $masters =
-          ($price_details[2] ? $price_details[2] : 0)
+          ($price_details[0] ? $price_details[0] : 0)
           + ($item_details[0] + $request->luggage_price)
           + $layouts_details[2];
       }
@@ -246,6 +248,7 @@ class PreReservationsController extends Controller
 
       DB::transaction(function () use ($request) { //トランザクションさせる
         $pre_reservation = PreReservation::create([
+          'multiple_reserve_id' => 0, //単発はデフォで0
           'venue_id' => $request->venue_id,
           'user_id' => $request->user_id,
           'agent_id' => 0, //デフォで0

@@ -15,7 +15,7 @@ class CreatePreReservationsTable extends Migration
   {
     Schema::create('pre_reservations', function (Blueprint $table) {
       $table->bigIncrements('id');
-
+      $table->bigInteger('multiple_reserve_id')->unsigned()->index();
       $table->bigInteger('venue_id')->unsigned()->index();
       $table->bigInteger('user_id')->unsigned()->index();
       $table->bigInteger('agent_id')->unsigned()->index();
@@ -39,6 +39,7 @@ class CreatePreReservationsTable extends Migration
       $table->text('attention')->nullable();
       $table->text('user_details')->nullable();
       $table->text('admin_details')->nullable();
+      $table->integer('status')->nullable();
 
 
 
