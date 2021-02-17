@@ -161,7 +161,9 @@
               <td rowspan="{{$venue_count}}">{{$multiple->id}}</td> {{--一括ID--}}
               <td rowspan="{{$venue_count}}">{{$multiple->created_at}}</td>{{--作成日--}}
               <td>{{ReservationHelper::getVenue($venues[$i]->venue_id)}}</td>{{--利用会場--}}
-              <td rowspan="{{$venue_count}}"></td>{{--総件数--}}
+              <td rowspan="{{$venue_count}}">
+                {{$multiple->pre_reservations()->get()->count()}}
+              </td>{{--総件数--}}
               <td>
                 {{$multiple->pre_reservations()->where('venue_id',$venues[$i]->venue_id)->get()->count()}}
               </td>
