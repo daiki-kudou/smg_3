@@ -608,20 +608,24 @@
                     <tr>
                       <td class="table-active"><label for="eventName1">イベント名称1</label></td>
                       <td>
-                        <input class="form-control" name="eventName1" type="text" id="eventName1">
+                        {{ Form::text('event_name1_copied'.$key,$request->cp_master_event_name1,['class'=>'form-control', 'placeholder'=>'入力してください'] ) }}
                       </td>
                     </tr>
                     <tr>
                       <td class="table-active"><label for="eventName2">イベント名称2</label></td>
-                      <td><input class="form-control" name="eventName2" type="text" id="eventName2"></td>
+                      <td>
+                        {{ Form::text('event_name2_copied'.$key,$request->cp_master_event_name2,['class'=>'form-control', 'placeholder'=>'入力してください'] ) }}
+                      </td>
                     </tr>
                     <tr>
                       <td class="table-active"><label for="organizer">主催者名</label></td>
-                      <td><input class="form-control" name="organizer" type="text" id="organizer"></td>
+                      <td>
+                        {{ Form::text('event_owner'.$key, $request->cp_master_event_owner,['class'=>'form-control', 'placeholder'=>'入力してください'] ) }}
+                      </td>
                     </tr>
                   </tbody>
                 </table>
-                <table class="table table-bordered equipment-table">
+                <table class="table table-bordered equipment-table" style="table-layout: fixed;">
                   <thead class="accordion-ttl">
                     <tr>
                       <td colspan="2">
@@ -630,24 +634,14 @@
                     </tr>
                   </thead>
                   <tbody class="accordion-wrap" style="display: none;">
+                    @foreach ($venue->getEquipments() as $e_key=>$equipment)
                     <tr>
-                      <td class="justify-content-between d-flex">
-                        <label for="equipment">ホワイトボード</label>
-                        <input type="number" id="equipment" name="equipment" min="0" max="100">
+                      <td class="table-active">{{$equipment->item}}</td>
+                      <td>
+                        {{Form::text('equipment_breakdown'.$e_key.'_copied'.$key , $request->{'cp_master_equipment_breakdown'.$e_key}, ['class' => 'form-control'])}}
                       </td>
                     </tr>
-                    <tr>
-                      <td class="justify-content-between d-flex">
-                        <label for="equipment">ホワイトボード</label>
-                        <input type="number" id="equipment" name="equipment" min="0" max="100">
-                      </td>
-                    </tr>
-                    <tr>
-                      <td class="justify-content-between d-flex">
-                        <label for="equipment">ホワイトボード</label>
-                        <input type="number" id="equipment" name="equipment" min="0" max="100">
-                      </td>
-                    </tr>
+                    @endforeach
                   </tbody>
                 </table>
                 <table class="table table-bordered service-table">
