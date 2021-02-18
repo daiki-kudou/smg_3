@@ -653,140 +653,56 @@
                     </tr>
                   </thead>
                   <tbody class="accordion-wrap" style="display: none;">
+                    @foreach ($venue->getServices() as $s_key=>$service)
                     <tr>
-                      <td colspan="2">
-                        <ul class="icheck-primary">
-                          <li>
-                            <input type="checkbox" id="checkboxPrimary1" checked="">
-                            <label for="checkboxPrimary1">プロジェクター設置 2000円</label>
-                          </li>
-                          <li>
-                            <input type="checkbox" id="checkboxPrimary1" checked="">
-                            <label for="checkboxPrimary1">鍵レンタル 500円</label>
-                          </li>
-                          <li>
-                            <input type="checkbox" id="checkboxPrimary1" checked="">
-                            <label for="checkboxPrimary1">領収書発行 500円</label>
-                          </li>
-                          <li>
-                            <input type="checkbox" id="checkboxPrimary1" checked="">
-                            <label for="checkboxPrimary1">DVDプレイヤー設置 2000円</label>
-                          </li>
-                        </ul>
-                      </td>
-                    </tr>
-                    <tr>
-                      <td class="table-active"><label for="layout">レイアウト変更</label></td>
+                      <td class="table-active">{{$service->item}}</td>
                       <td>
-                        <div class="radio-box">
-                          <div class="icheck-primary">
-                            <input type="radio" id="layoutChange" name="layoutChange" checked="">
-                            <label for="layoutChange">あり</label>
-                          </div>
-                          <div class="icheck-primary">
-                            <input type="radio" id="layoutChange" name="layoutChange" checked="">
-                            <label for="layoutChange">なし</label>
-                          </div>
+                        <div class="form-check form-check-inline">
+                          {{Form::radio('services_breakdown'.$s_key.'_copied'.$key, 1, $request->{'cp_master_services_breakdown'.$s_key}==1?true:false , ['id' => 'services_breakdown'.$s_key.'_copied'.$key, 'class' => 'form-check-input'])}}
+                          {{Form::label('services_breakdown'.$s_key.'_copied'.$key,'有り')}}
+                          {{Form::radio('services_breakdown'.$s_key.'_copied'.$key, 0, $request->{'cp_master_services_breakdown'.$s_key}==0?true:false, ['id' => 'services_breakdown_off'.$s_key.'_copied'.$key, 'class' => 'form-check-input'])}}
+                          {{Form::label('services_breakdown_off'.$s_key.'_copied'.$key,'無し')}}
                         </div>
                       </td>
                     </tr>
+                    @endforeach
+                  </tbody>
+                </table>
+
+                <table class="table table-bordered layout-table">
+                  <thead class="accordion-ttl">
                     <tr>
-                      <td class="table-active"><label for="prelayout">レイアウト準備</label></td>
+                      <th colspan="2">
+                        <p class="title-icon active">レイアウト<span class="open_toggle"></span></p>
+                      </th>
+                    </tr>
+                  </thead>
+                  <tbody class="accordion-wrap" style="display: none;">
+                    <tr>
+                      <td class="table-active">レイアウト準備</td>
                       <td>
-                        <div class="radio-box">
-                          <div class="icheck-primary">
-                            <input type="radio" id="prelayout" name="prelayout" checked="">
-                            <label for="prelayout">あり</label>
-                          </div>
-                          <div class="icheck-primary">
-                            <input type="radio" id="prelayout" name="prelayout" checked="">
-                            <label for="prelayout">なし</label>
-                          </div>
+                        <div class="form-check form-check-inline">
+                          {{Form::radio('layout_prepare_copied'.$key, 1, $request->cp_master_layout_prepare==1?true:false, ['id' => 'layout_prepare_copied'.$key, 'class' => 'form-check-input'])}}
+                          {{Form::label('layout_prepare_copied'.$key,'有り')}}
+                          {{Form::radio('layout_prepare_copied'.$key, 0, $request->cp_master_layout_prepare==0?true:false, ['id' => 'no_layout_prepare_copied'.$key, 'class' => 'form-check-input'])}}
+                          {{Form::label('no_layout_prepare_copied'.$key,'無し')}}
                         </div>
                       </td>
                     </tr>
                     <tr>
-                      <td class="table-active"><label for="postlayout">レイアウト片付</label></td>
+                      <td class="table-active">レイアウト片付け</td>
                       <td>
-                        <div class="radio-box">
-                          <div class="icheck-primary">
-                            <input type="radio" id="postlayout" name="postlayout" checked="">
-                            <label for="postlayout">あり</label>
-                          </div>
-                          <div class="icheck-primary">
-                            <input type="radio" id="postlayout" name="postlayout" checked="">
-                            <label for="postlayout">なし</label>
-                          </div>
-                        </div>
-                      </td>
-                    </tr>
-                    <tr>
-                      <td class="table-active"><label for="Delivery">荷物預かり/返送</label></td>
-                      <td>
-                        <div class="radio-box">
-                          <div class="icheck-primary">
-                            <input type="radio" id="Delivery" name="Delivery" checked="">
-                            <label for="Delivery">あり</label>
-                          </div>
-                          <div class="icheck-primary">
-                            <input type="radio" id="Delivery" name="Delivery" checked="">
-                            <label for="Delivery">なし</label>
-                          </div>
-                        </div>
-                      </td>
-                    </tr>
-                    <tr>
-                      <td class="table-active"><label for="preDelivery">事前に預かる荷物</label></td>
-                      <td>
-                        <div class="radio-box">
-                          <div class="icheck-primary">
-                            <input type="radio" id="preDelivery" name="preDelivery" checked="">
-                            <label for="preDelivery">あり</label>
-                          </div>
-                          <div class="icheck-primary">
-                            <input type="radio" id="preDelivery" name="preDelivery" checked="">
-                            <label for="preDelivery">なし</label>
-                          </div>
-                        </div>
-                        <div class="package-box">
-                          <p>
-                            <label for="packageNumber">荷物個数</label>
-                          </p>
-                          <div class="align-items-center d-flex"><input class="form-control" name="packageNumber"
-                              type="text" id="packageNumber">個</div>
-                          <p></p>
-                          <p>
-                            <label for="packageDate">事前荷物の到着日 午前指定のみ</label>
-                            <input class="form-control" name="packageDate" type="date" id="packageDate">
-                          </p>
-                        </div>
-                      </td>
-                    </tr>
-                    <tr>
-                      <td class="table-active"><label for="postDelivery">事後返送する荷物</label></td>
-                      <td>
-                        <div class="radio-box">
-                          <div class="icheck-primary">
-                            <input type="radio" id="postDelivery" name="postDelivery" checked="">
-                            <label for="postDelivery">あり</label>
-                          </div>
-                          <div class="icheck-primary">
-                            <input type="radio" id="postDelivery" name="postDelivery" checked="">
-                            <label for="postDelivery">なし</label>
-                          </div>
-                        </div>
-                        <div class="package-box">
-                          <p>
-                            <label for="packageNumber">荷物個数</label>
-                          </p>
-                          <div class="align-items-center d-flex"><input class="form-control" name="packageNumber"
-                              type="text" id="packageNumber">個</div>
-                          <p></p>
+                        <div class="form-check form-check-inline">
+                          {{Form::radio('layout_clean_copied'.$key, 1, $request->cp_master_layout_clean==1?true:false, ['id' => 'layout_clean_copied'.$key, 'class' => 'form-check-input'])}}
+                          {{Form::label('layout_clean_copied'.$key,'有り')}}
+                          {{Form::radio('layout_clean_copied'.$key, 0, $request->cp_master_layout_clean==0?true:false, ['id' => 'no_layout_clean_copied'.$key, 'class' => 'form-check-input'])}}
+                          {{Form::label('no_layout_clean_copied'.$key,'無し')}}
                         </div>
                       </td>
                     </tr>
                   </tbody>
                 </table>
+
                 <table class="table table-bordered eating-table">
                   <tbody>
                     <tr>
