@@ -625,12 +625,13 @@
                     </tr>
                   </tbody>
                 </table>
+
                 <table class="table table-bordered equipment-table" style="table-layout: fixed;">
                   <thead class="accordion-ttl">
                     <tr>
-                      <td colspan="2">
+                      <th colspan="2">
                         <p class="title-icon active">有料備品</p>
-                      </td>
+                      </th>
                     </tr>
                   </thead>
                   <tbody class="accordion-wrap" style="display: none;">
@@ -644,12 +645,13 @@
                     @endforeach
                   </tbody>
                 </table>
+
                 <table class="table table-bordered service-table">
                   <thead class="accordion-ttl">
                     <tr>
-                      <td colspan="2">
+                      <th colspan="2">
                         <p class="title-icon active">有料サービス<span class="open_toggle"></span></p>
-                      </td>
+                      </th>
                     </tr>
                   </thead>
                   <tbody class="accordion-wrap" style="display: none;">
@@ -703,6 +705,44 @@
                   </tbody>
                 </table>
 
+                <table class="table table-bordered luggage-table" style="table-layout: fixed;">
+                  <thead class="accordion-ttl">
+                    <tr>
+                      <th colspan="2">
+                        <p class="title-icon active">荷物預かり<span class="open_toggle"></span></p>
+                      </th>
+                    </tr>
+                  </thead>
+                  <tbody class="accordion-wrap" style="display: none;">
+                    @if ($venue->getLuggage()===1)
+                    <tr>
+                      <td class="table-active">事前に預かる荷物<br>（個数）</td>
+                      <td>
+                        {{ Form::text('luggage_count_copied'.$key, $request->cp_master_luggage_count,['class'=>'form-control'] ) }}
+                      </td>
+                    </tr>
+                    <tr>
+                      <td class="table-active">事前荷物の到着日<br>午前指定のみ</td>
+                      <td>
+                        {{ Form::text('luggage_arrive_copied'.$key, $request->cp_master_luggage_arrive,['class'=>'form-control'] ) }}
+                      </td>
+                    </tr>
+                    <tr>
+                      <td class="table-active">事後返送する荷物</td>
+                      <td>
+                        {{ Form::text('luggage_return_copied'.$key, $request->cp_master_luggage_return,['class'=>'form-control'] ) }}
+                      </td>
+                    </tr>
+                    <tr>
+                      <td class="table-active">荷物預かり/返送<br>料金</td>
+                      <td>
+                        {{ Form::text('luggage_price_copied'.$key, $request->cp_master_luggage_price,['class'=>'form-control'] ) }}
+                      </td>
+                    </tr>
+                    @endif
+                  </tbody>
+                </table>
+
                 <table class="table table-bordered eating-table">
                   <tbody>
                     <tr>
@@ -751,11 +791,15 @@
                       </tr>
                       <tr>
                         <td class="table-active"><label for="ondayName">氏名</label></td>
-                        <td><input class="form-control" name="ondayName" type="text" id="ondayName"></td>
+                        <td>
+                          {{ Form::text('in_charge_copied'.$key, $request->cp_master_in_charge,['class'=>'form-control'] ) }}
+                        </td>
                       </tr>
                       <tr>
                         <td class="table-active"><label for="mobilePhone">携帯番号</label></td>
-                        <td><input class="form-control" name="mobilePhone" type="text" id="mobilePhone"></td>
+                        <td>
+                          {{ Form::text('tel_copied'.$key, $request->cp_master_tel,['class'=>'form-control'] ) }}
+                        </td>
                       </tr>
                     </tbody>
                   </table>
@@ -773,14 +817,12 @@
                     <tr>
                       <td class="table-active"><label for="sendMail">送信メール</label></td>
                       <td>
-                        <div class="radio-box">
-                          <div class="icheck-primary">
-                            <input type="radio" id="sendMail" name="sendMail" checked="">
-                            <label for="sendMail">あり</label>
-                          </div>
-                          <div class="icheck-primary">
-                            <input type="radio" id="sendMail" name="sendMail" checked="">
-                            <label for="sendMail">なし</label>
+                        <div class="d-flex">
+                          <div class="form-check form-check-inline">
+                            {{Form::radio('email_flag_copied'.$key, 1, false, ['id' => 'email_flag_copied'.$key, 'class' => 'form-check-input'])}}
+                            {{Form::label('email_flag_copied'.$key,'有り',['class'=>'mr-5'])}}
+                            {{Form::radio('email_flag_copied'.$key, 0, true, ['id' => 'no_email_flag_copied'.$key, 'class' => 'form-check-input'])}}
+                            {{Form::label('no_email_flag_copied'.$key,'無し')}}
                           </div>
                         </div>
                       </td>
@@ -799,8 +841,9 @@
                     </tr>
                     <tr>
                       <td class="table-active"><label for="sale">原価率</label></td>
-                      <td class="d-flex align-items-center"><input class="form-control" name="sale" type="text"
-                          id="sale">%</td>
+                      <td class="d-flex align-items-center">
+                        {{ Form::text('cost_copied'.$key, $request->cp_master_cost,['class'=>'form-control'] ) }}%
+                      </td>
                     </tr>
                   </tbody>
                 </table>
@@ -820,19 +863,19 @@
                           <input type="checkbox" id="discount" checked="">
                           <label for="discount">割引条件</label>
                         </p>
-                        <textarea name="discount" rows="5"></textarea>
+                        {{ Form::textarea('discount_condition_copied'.$key, $request->cp_master_discount_condition,['class'=>'form-control'] ) }}
                       </td>
                     </tr>
                     <tr class="caution">
                       <td>
                         <label for="caution">注意事項</label>
-                        <textarea name="caution" rows="10"></textarea>
+                        {{ Form::textarea('attention_copied'.$key, $request->cp_master_attention,['class'=>'form-control'] ) }}
                       </td>
                     </tr>
                     <tr>
                       <td>
                         <label for="adminNote">管理者備考</label>
-                        <textarea name="adminNote" rows="10"></textarea>
+                        {{ Form::textarea('admin_details_copied'.$key, $request->cp_master_admin_details,['class'=>'form-control'] ) }}
                       </td>
                     </tr>
                   </tbody>
