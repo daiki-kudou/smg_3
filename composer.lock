@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "ed8dcefcabca4783f7008d3bad1f02fb",
+    "content-hash": "839400a563f920c16fb96b8e174c08de",
     "packages": [
         {
             "name": "barryvdh/laravel-dompdf",
@@ -2256,6 +2256,57 @@
                 }
             ],
             "time": "2020-09-10T13:19:53+00:00"
+        },
+        {
+            "name": "robclancy/presenter",
+            "version": "2.0.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/robclancy/presenter.git",
+                "reference": "e55b0758e0543a97635df4d51b2333eca180d8fa"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/robclancy/presenter/zipball/e55b0758e0543a97635df4d51b2333eca180d8fa",
+                "reference": "e55b0758e0543a97635df4d51b2333eca180d8fa",
+                "shasum": ""
+            },
+            "require-dev": {
+                "friendsofphp/php-cs-fixer": "^2.12",
+                "illuminate/view": ">=5.8",
+                "mockery/mockery": "~1.3.0",
+                "phpunit/phpunit": "5.7.*"
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "Robbo\\Presenter\\PresenterServiceProvider"
+                    ]
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Robbo\\Presenter\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Robbo",
+                    "email": "robbo.clancy@gmail.com"
+                }
+            ],
+            "description": "Decorate your objects using presenters. Primarily to keep presentation logic out of your models.",
+            "keywords": [
+                "decorator",
+                "laravel",
+                "presenter"
+            ],
+            "time": "2020-07-17T21:15:07+00:00"
         },
         {
             "name": "sabberworm/php-css-parser",

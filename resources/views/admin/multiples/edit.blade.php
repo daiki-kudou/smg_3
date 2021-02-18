@@ -24,9 +24,9 @@
 
 
 
-
-
-
+<pre>
+{{$multiple->test()}}
+</pre>
 
 
 

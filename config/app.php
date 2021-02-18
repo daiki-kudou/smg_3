@@ -167,7 +167,7 @@ return [
     /*
          * Package Service Providers...
          */
-
+    Robbo\Presenter\PresenterServiceProvider::class,
     /*
          * Application Service Providers...
          */
