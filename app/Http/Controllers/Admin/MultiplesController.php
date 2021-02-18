@@ -34,8 +34,6 @@ class MultiplesController extends Controller
 
   public function edit($multiple_id, $venue_id)
   {
-
-    var_dump($multiple_id, $venue_id);
     $multiple = MultipleReserve::find($multiple_id);
     $venue = Venue::find($venue_id);
     return view('admin.multiples.edit', [

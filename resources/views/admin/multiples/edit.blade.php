@@ -31,9 +31,6 @@
 
 
 
-
-
-
 <div class="content">
   <div class="container-fluid">
     <div class="container-field mt-3">
@@ -61,9 +58,6 @@
     <div class="col">
       <p class="font-weight-bold">日程ごとに、詳細を編集できます。</p>
     </div>
-
-
-
     <div class="col">
       <h3 class="bg-green py-2 px-1">仮押さえ一括ID:<span>{{$multiple->id}}</span><span
           class="ml-4">{{ReservationHelper::getVenue($venue->id)}}</span>
@@ -73,14 +67,12 @@
           <div class="mb-2">
             <p>同じ内容をすべての日程に反映することができます。</p>
           </div>
-
           <dl class="card">
             <dt class="card-header accordion-ttl2">
               <ul class="title-icon active d-flex">
                 <li class="col-3">
                   <p>コピー作成用選択欄</p>
                 </li>
-
                 <li class="plus_icon">
                 </li>
               </ul>
@@ -99,18 +91,32 @@
                             予約情報</p>
                         </td>
                       </tr>
-
+                      <tr>
+                        <td class="table-active"><label for="direction">料金体系</label></td>
+                        <td>
+                          <div class="d-flex ">
+                            <div class="icheck-primary mr-5">
+                              {{ Form::radio('price_system', 1, true, ['class'=>'mr-2', 'id'=>'price_system_radio1']) }}
+                              {{Form::label('price_system_radio1','通常（枠貸）')}}
+                            </div>
+                            <div class="icheck-primary">
+                              {{ Form::radio('price_system', 2, false, ['class'=>'mr-2', 'id'=>'price_system_radio2']) }}
+                              {{Form::label('price_system_radio2','アクセア（時間貸）')}}
+                            </div>
+                          </div>
+                        </td>
+                      </tr>
                       <tr>
                         <td class="table-active"><label for="direction">案内板</label></td>
                         <td>
-                          <div class="radio-box">
-                            <div class="icheck-primary">
-                              <input type="radio" id="direction_flag" name="direction_flag" checked="">
-                              <label for="direction_flag">要作成</label>
+                          <div class="d-flex ">
+                            <div class="icheck-primary mr-5">
+                              {{ Form::radio('board_flag', 1, false, ['class'=>'mr-2', 'id'=>'board_flag1']) }}
+                              {{Form::label('board_flag1','あり')}}
                             </div>
                             <div class="icheck-primary">
-                              <input type="radio" id="direction_flag" name="direction_flag" checked="">
-                              <label for="direction_flag">不要</label>
+                              {{ Form::radio('board_flag', 0, true, ['class'=>'mr-2', 'id'=>'board_flag2']) }}
+                              {{Form::label('board_flag2','なし')}}
                             </div>
                           </div>
                         </td>
@@ -118,14 +124,14 @@
                       <tr>
                         <td class="table-active"><label for="eventTime">イベント時間記載</label></td>
                         <td>
-                          <div class="radio-box">
-                            <div class="icheck-primary">
-                              <input type="radio" id="eventTime" name="eventTime" checked="">
-                              <label for="eventTime">あり</label>
+                          <div class="d-flex ">
+                            <div class="icheck-primary mr-5">
+                              {{ Form::radio('event', 1, false, ['class'=>'mr-2', 'id'=>'event1']) }}
+                              {{Form::label('board_flag1','あり')}}
                             </div>
                             <div class="icheck-primary">
-                              <input type="radio" id="eventTime" name="eventTime" checked="">
-                              <label for="eventTime">なし</label>
+                              {{ Form::radio('event', 0, true, ['class'=>'mr-2', 'id'=>'event2']) }}
+                              {{Form::label('event2','なし')}}
                             </div>
                           </div>
                         </td>
@@ -133,308 +139,167 @@
                       <tr>
                         <td class="table-active"><label for="eventStart">イベント開始時間</label></td>
                         <td>
-                          <select class="form-control" id="eventStart" name="eventStart">
-                            <option value="01:00:00">01:00</option>
-                            <option value="01:30:00">01:30</option>
-                            <option value="02:00:00">02:00</option>
-                            <option value="02:30:00">02:30</option>
-                            <option value="03:00:00">03:00</option>
-                            <option value="03:30:00">03:30</option>
-                            <option value="04:00:00">04:00</option>
-                            <option value="04:30:00">04:30</option>
-                            <option value="05:00:00">05:00</option>
-                            <option value="05:30:00">05:30</option>
-                            <option value="06:00:00">06:00</option>
-                            <option value="06:30:00">06:30</option>
-                            <option value="07:00:00">07:00</option>
-                            <option value="07:30:00">07:30</option>
-                            <option value="08:00:00" selected="selected">08:00</option>
-                            <option value="08:30:00">08:30</option>
-                            <option value="09:00:00">09:00</option>
-                            <option value="09:30:00">09:30</option>
-                            <option value="10:00:00">10:00</option>
-                            <option value="10:30:00">10:30</option>
-                            <option value="11:00:00">11:00</option>
-                            <option value="11:30:00">11:30</option>
-                            <option value="12:00:00">12:00</option>
-                            <option value="12:30:00">12:30</option>
-                            <option value="13:00:00">13:00</option>
-                            <option value="13:30:00">13:30</option>
-                            <option value="14:00:00">14:00</option>
-                            <option value="14:30:00">14:30</option>
-                            <option value="15:00:00">15:00</option>
-                            <option value="15:30:00">15:30</option>
-                            <option value="16:00:00">16:00</option>
-                            <option value="16:30:00">16:30</option>
-                            <option value="17:00:00">17:00</option>
-                            <option value="17:30:00">17:30</option>
-                            <option value="18:00:00">18:00</option>
-                            <option value="18:30:00">18:30</option>
-                            <option value="19:00:00">19:00</option>
-                            <option value="19:30:00">19:30</option>
-                            <option value="20:00:00">20:00</option>
-                            <option value="20:30:00">20:30</option>
-                            <option value="21:00:00">21:00</option>
-                            <option value="21:30:00">21:30</option>
-                            <option value="22:00:00">22:00</option>
-                            <option value="22:30:00">22:30</option>
-                            <option value="23:00:00">23:00</option>
-                            <option value="23:30:00">23:30</option>
-                            <option value="24:00:00">24:00</option>
-                            <option value="24:30:00">24:30</option>
+                          <select name="event_start" id="event_start" class="form-control">
+                            {!!ReservationHelper::timeOptions()!!}
                           </select>
                         </td>
                       </tr>
                       <tr>
                         <td class="table-active"><label for="eventFinish">イベント終了時間</label></td>
                         <td>
-                          <select class="form-control" id="eventFinish" name="eventFinish">
-                            <option value="01:00:00">01:00</option>
-                            <option value="01:30:00">01:30</option>
-                            <option value="02:00:00">02:00</option>
-                            <option value="02:30:00">02:30</option>
-                            <option value="03:00:00">03:00</option>
-                            <option value="03:30:00">03:30</option>
-                            <option value="04:00:00">04:00</option>
-                            <option value="04:30:00">04:30</option>
-                            <option value="05:00:00">05:00</option>
-                            <option value="05:30:00">05:30</option>
-                            <option value="06:00:00">06:00</option>
-                            <option value="06:30:00">06:30</option>
-                            <option value="07:00:00">07:00</option>
-                            <option value="07:30:00">07:30</option>
-                            <option value="08:00:00" selected="selected">08:00</option>
-                            <option value="08:30:00">08:30</option>
-                            <option value="09:00:00">09:00</option>
-                            <option value="09:30:00">09:30</option>
-                            <option value="10:00:00">10:00</option>
-                            <option value="10:30:00">10:30</option>
-                            <option value="11:00:00">11:00</option>
-                            <option value="11:30:00">11:30</option>
-                            <option value="12:00:00">12:00</option>
-                            <option value="12:30:00">12:30</option>
-                            <option value="13:00:00">13:00</option>
-                            <option value="13:30:00">13:30</option>
-                            <option value="14:00:00">14:00</option>
-                            <option value="14:30:00">14:30</option>
-                            <option value="15:00:00">15:00</option>
-                            <option value="15:30:00">15:30</option>
-                            <option value="16:00:00">16:00</option>
-                            <option value="16:30:00">16:30</option>
-                            <option value="17:00:00">17:00</option>
-                            <option value="17:30:00">17:30</option>
-                            <option value="18:00:00">18:00</option>
-                            <option value="18:30:00">18:30</option>
-                            <option value="19:00:00">19:00</option>
-                            <option value="19:30:00">19:30</option>
-                            <option value="20:00:00">20:00</option>
-                            <option value="20:30:00">20:30</option>
-                            <option value="21:00:00">21:00</option>
-                            <option value="21:30:00">21:30</option>
-                            <option value="22:00:00">22:00</option>
-                            <option value="22:30:00">22:30</option>
-                            <option value="23:00:00">23:00</option>
-                            <option value="23:30:00">23:30</option>
-                            <option value="24:00:00">24:00</option>
-                            <option value="24:30:00">24:30</option>
+                          <select name="event_finish" id="event_finish" class="form-control">
+                            {!!ReservationHelper::timeOptions()!!}
                           </select>
                         </td>
                       </tr>
                       <tr>
                         <td class="table-active"><label for="eventName1">イベント名称1</label></td>
-                        <td><input class="form-control" name="eventName1" type="text" id="eventName1"></td>
+                        <td>
+                          {{ Form::text('event_name1','',['class'=>'form-control', 'placeholder'=>'入力してください'] ) }}
+                        </td>
                       </tr>
                       <tr>
                         <td class="table-active"><label for="eventName2">イベント名称2</label></td>
-                        <td><input class="form-control" name="eventName2" type="text" id="eventName2"></td>
+                        <td>
+                          {{ Form::text('event_name2', '',['class'=>'form-control', 'placeholder'=>'入力してください'] ) }}
+                        </td>
                       </tr>
                       <tr>
                         <td class="table-active"><label for="organizer">主催者名</label></td>
-                        <td><input class="form-control" name="organizer" type="text" id="organizer"></td>
+                        <td>
+                          {{ Form::text('event_owner', '',['class'=>'form-control', 'placeholder'=>'入力してください'] ) }}
+                        </td>
                       </tr>
                     </tbody>
                   </table>
-
                   <table class="table table-bordered equipment-table">
                     <thead class="accordion-ttl">
                       <tr>
-                        <td colspan="2">
+                        <th colspan="2">
                           <p class="title-icon active">有料備品</p>
-                        </td>
+                        </th>
                       </tr>
                     </thead>
-                    <tbody class="accordion-wrap" style="display: none;">
+                    <tbody class="accordion-wrap" style="display:none;">
+                      @foreach ($venue->getEquipments() as $key=>$equipment)
                       <tr>
-                        <td class="justify-content-between d-flex">
-                          <label for="equipment">ホワイトボード</label>
-                          <input type="number" id="equipment" name="equipment" min="0" max="100">
+                        <td class="table-active">{{$equipment->item}}</td>
+                        <td>
+                          {{Form::text('equipment_breakdown' . $key , '', ['class' => 'form-control'])}}
                         </td>
                       </tr>
-                      <tr>
-                        <td class="justify-content-between d-flex">
-                          <label for="equipment">ホワイトボード</label>
-                          <input type="number" id="equipment" name="equipment" min="0" max="100">
-                        </td>
-                      </tr>
-                      <tr>
-                        <td class="justify-content-between d-flex">
-                          <label for="equipment">ホワイトボード</label>
-                          <input type="number" id="equipment" name="equipment" min="0" max="100">
-                        </td>
-                      </tr>
+                      @endforeach
                     </tbody>
                   </table>
 
                   <table class="table table-bordered service-table">
                     <thead class="accordion-ttl">
                       <tr>
-                        <td colspan="2">
+                        <th colspan="2">
                           <p class="title-icon active">有料サービス<span class="open_toggle"></span></p>
-                        </td>
+                        </th>
                       </tr>
                     </thead>
                     <tbody class="accordion-wrap" style="display: none;">
+                      @foreach ($venue->getServices() as $key=>$service)
                       <tr>
-                        <td colspan="2">
-                          <ul class="icheck-primary">
-                            <li>
-                              <input type="checkbox" id="checkboxPrimary1" checked="">
-                              <label for="checkboxPrimary1">プロジェクター設置 2000円</label>
-                            </li>
-                            <li>
-                              <input type="checkbox" id="checkboxPrimary1" checked="">
-                              <label for="checkboxPrimary1">鍵レンタル 500円</label>
-                            </li>
-                            <li>
-                              <input type="checkbox" id="checkboxPrimary1" checked="">
-                              <label for="checkboxPrimary1">領収書発行 500円</label>
-                            </li>
-                            <li>
-                              <input type="checkbox" id="checkboxPrimary1" checked="">
-                              <label for="checkboxPrimary1">DVDプレイヤー設置 2000円</label>
-                            </li>
-                          </ul>
-                        </td>
-                      </tr>
-                      <tr>
-                        <td class="table-active"><label for="layout">レイアウト変更</label></td>
+                        <td class="table-active">{{$service->item}}</td>
                         <td>
-                          <div class="radio-box">
-                            <div class="icheck-primary">
-                              <input type="radio" id="layoutChange" name="layoutChange" checked="">
-                              <label for="layoutChange">あり</label>
-                            </div>
-                            <div class="icheck-primary">
-                              <input type="radio" id="layoutChange" name="layoutChange" checked="">
-                              <label for="layoutChange">なし</label>
-                            </div>
+                          <div class="form-check form-check-inline">
+                            {{Form::radio('services_breakdown'.$key, 1, false , ['id' => 'service'.$key.'on', 'class' => 'form-check-input'])}}
+                            <label for="{{'service'.$key.'on'}}" class="form-check-label">有り</label>
+                            {{Form::radio('services_breakdown'.$key, 0, true, ['id' => 'services_breakdown'.$key.'off', 'class' => 'form-check-input'])}}
+                            <label for="{{'services_breakdown'.$key.'off'}}" class="form-check-label">無し</label>
                           </div>
                         </td>
                       </tr>
-                      <tr>
-                        <td class="table-active"><label for="prelayout">レイアウト準備</label></td>
-                        <td>
-                          <div class="radio-box">
-                            <div class="icheck-primary">
-                              <input type="radio" id="prelayout" name="prelayout" checked="">
-                              <label for="prelayout">あり</label>
-                            </div>
-                            <div class="icheck-primary">
-                              <input type="radio" id="prelayout" name="prelayout" checked="">
-                              <label for="prelayout">なし</label>
-                            </div>
-                          </div>
-                        </td>
-                      </tr>
-                      <tr>
-                        <td class="table-active"><label for="postlayout">レイアウト片付</label></td>
-                        <td>
-                          <div class="radio-box">
-                            <div class="icheck-primary">
-                              <input type="radio" id="postlayout" name="postlayout" checked="">
-                              <label for="postlayout">あり</label>
-                            </div>
-                            <div class="icheck-primary">
-                              <input type="radio" id="postlayout" name="postlayout" checked="">
-                              <label for="postlayout">なし</label>
-                            </div>
-                          </div>
-                        </td>
-                      </tr>
-                      <tr>
-                        <td class="table-active"><label for="Delivery">荷物預かり/返送</label></td>
-                        <td>
-                          <div class="radio-box">
-                            <div class="icheck-primary">
-                              <input type="radio" id="Delivery" name="Delivery" checked="">
-                              <label for="Delivery">あり</label>
-                            </div>
-                            <div class="icheck-primary">
-                              <input type="radio" id="Delivery" name="Delivery" checked="">
-                              <label for="Delivery">なし</label>
-                            </div>
-                          </div>
-                        </td>
-                      </tr>
-                      <tr>
-                        <td class="table-active"><label for="preDelivery">事前に預かる荷物</label></td>
-                        <td>
-                          <div class="radio-box">
-                            <div class="icheck-primary">
-                              <input type="radio" id="preDelivery" name="preDelivery" checked="">
-                              <label for="preDelivery">あり</label>
-                            </div>
-                            <div class="icheck-primary">
-                              <input type="radio" id="preDelivery" name="preDelivery" checked="">
-                              <label for="preDelivery">なし</label>
-                            </div>
-                          </div>
-                          <div class="package-box">
-                            <p>
-                              <label for="packageNumber">荷物個数</label>
-                            </p>
-                            <div class="align-items-center d-flex"><input class="form-control" name="packageNumber"
-                                type="text" id="packageNumber">個</div>
-                            <p></p>
-                            <p>
-                              <label for="packageDate">事前荷物の到着日 午前指定のみ</label>
-                              <input class="form-control" name="packageDate" type="date" id="packageDate">
-                            </p>
-                          </div>
-                        </td>
-                      </tr>
-                      <tr>
-                        <td class="table-active"><label for="postDelivery">事後返送する荷物</label></td>
-                        <td>
-                          <div class="radio-box">
-                            <div class="icheck-primary">
-                              <input type="radio" id="postDelivery" name="postDelivery" checked="">
-                              <label for="postDelivery">あり</label>
-                            </div>
-                            <div class="icheck-primary">
-                              <input type="radio" id="postDelivery" name="postDelivery" checked="">
-                              <label for="postDelivery">なし</label>
-                            </div>
-                          </div>
-                          <div class="package-box">
-                            <p>
-                              <label for="packageNumber">荷物個数</label>
-                            </p>
-                            <div class="align-items-center d-flex"><input class="form-control" name="packageNumber"
-                                type="text" id="packageNumber">個</div>
-                            <p></p>
-                          </div>
-                        </td>
-                      </tr>
+                      @endforeach
                     </tbody>
                   </table>
+                  <table class="table table-bordered layout-table">
+                    <thead class="accordion-ttl">
+                      <tr>
+                        <th colspan="2">
+                          <p class="title-icon active">レイアウト<span class="open_toggle"></span></p>
+                        </th>
+                      </tr>
+                    </thead>
+                    <tbody class="accordion-wrap" style="display: none;">
+                      @if ($venue->getLayouts()[0])
+                      <tr>
+                        <td class="table-active">レイアウト準備</td>
+                        <td>
+                          <div class="form-check form-check-inline">
+                            {{Form::radio('layout_prepare', 1, false, ['id' => 'layout_prepare', 'class' => 'form-check-input'])}}
+                            {{Form::label('layout_prepare','有り')}}
+                            {{Form::radio('layout_prepare', 0, true, ['id' => 'no_layout_prepare', 'class' => 'form-check-input'])}}
+                            {{Form::label('no_layout_prepare','無し')}}
+                          </div>
+                        </td>
+                      </tr>
+                      @endif
+                      @if ($venue->getLayouts()[1])
+                      <tr>
+                        <td class="table-active">レイアウト片付け</td>
+                        <td>
+                          <div class="form-check form-check-inline">
+                            {{Form::radio('layout_clean', 1, false, ['id' => 'layout_clean', 'class' => 'form-check-input'])}}
+                            {{Form::label('layout_clean','有り')}}
+                            {{Form::radio('layout_clean', 0, true, ['id' => 'no_layout_clean', 'class' => 'form-check-input'])}}
+                            {{Form::label('no_layout_clean','無し')}}
+                          </div>
+                        </td>
+                      </tr>
+                      @endif
+                    </tbody>
+                  </table>
+
+                  <table class="table table-bordered luggage-table" style="table-layout: fixed;">
+                    <thead class="accordion-ttl">
+                      <tr>
+                        <th colspan="2">
+                          <p class="title-icon active">荷物預かり<span class="open_toggle"></span></p>
+                        </th>
+                      </tr>
+                    </thead>
+                    <tbody class="accordion-wrap" style="display: none;">
+                      @if ($venue->getLuggage()===1)
+                      <tr>
+                        <td class="table-active">事前に預かる荷物<br>（個数）</td>
+                        <td>
+                          {{ Form::text('luggage_count', '',['class'=>'form-control'] ) }}
+                        </td>
+                      </tr>
+                      <tr>
+                        <td class="table-active">事前荷物の到着日<br>午前指定のみ</td>
+                        <td>
+                          {{ Form::text('luggage_arrive', '',['class'=>'form-control'] ) }}
+                        </td>
+                      </tr>
+                      <tr>
+                        <td class="table-active">事後返送する荷物</td>
+                        <td>
+                          {{ Form::text('luggage_return', '',['class'=>'form-control'] ) }}
+                        </td>
+                      </tr>
+                      <tr>
+                        <td class="table-active">荷物預かり/返送<br>料金</td>
+                        <td>
+                          {{ Form::text('luggage_price', '',['class'=>'form-control'] ) }}
+                        </td>
+                      </tr>
+                      @endif
+                    </tbody>
+                  </table>
+
+
 
                   <table class="table table-bordered eating-table">
                     <tbody>
                       <tr>
-                        <td>
+                        <th>
                           <p class="title-icon">室内飲食</p>
-                        </td>
+                        </th>
                       </tr>
                       <tr>
                         <td>
@@ -480,11 +345,15 @@
                         </tr>
                         <tr>
                           <td class="table-active"><label for="ondayName">氏名</label></td>
-                          <td><input class="form-control" name="ondayName" type="text" id="ondayName"></td>
+                          <td>
+                            {{ Form::text('in_charge', '',['class'=>'form-control'] ) }}
+                          </td>
                         </tr>
                         <tr>
                           <td class="table-active"><label for="mobilePhone">携帯番号</label></td>
-                          <td><input class="form-control" name="mobilePhone" type="text" id="mobilePhone"></td>
+                          <td>
+                            {{ Form::text('tel', '',['class'=>'form-control'] ) }}
+                          </td>
                         </tr>
                       </tbody>
                     </table>
