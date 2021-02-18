@@ -159,7 +159,7 @@
           <tbody>
             @for ($i = 0; $i < $venue_count; $i++) @if ($i==0) <tr>
               <td rowspan="{{$venue_count}}">{{$multiple->id}}</td> {{--一括ID--}}
-              <td rowspan="{{$venue_count}}">{{$multiple->created_at}}</td>{{--作成日--}}
+              <td rowspan="{{$venue_count}}">{{ReservationHelper::formatDate($multiple->created_at)}}</td>{{--作成日--}}
               <td>{{ReservationHelper::getVenue($venues[$i]->venue_id)}}</td>{{--利用会場--}}
               <td rowspan="{{$venue_count}}">
                 {{$multiple->pre_reservations()->get()->count()}}

@@ -24,15 +24,17 @@ class MultiplesController extends Controller
     $venues = $multiple->pre_reservations()->distinct('')->select('venue_id')->get();
     $venue_count = $venues->count('venue_id');
 
-
-
-
-
-
     return view('admin.multiples.show', [
       'multiple' => $multiple,
       'venue_count' => $venue_count,
       'venues' => $venues,
     ]);
+  }
+
+  public function edit($multiple_id, $venue_id)
+  {
+
+    var_dump($multiple_id, $venue_id);
+    return view('admin.multiples.edit');
   }
 }
