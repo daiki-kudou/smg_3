@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
 use App\Models\MultipleReserve;
+use App\Models\Venue;
 
 class MultiplesController extends Controller
 {
@@ -36,8 +37,10 @@ class MultiplesController extends Controller
 
     var_dump($multiple_id, $venue_id);
     $multiple = MultipleReserve::find($multiple_id);
+    $venue = Venue::find($venue_id);
     return view('admin.multiples.edit', [
       'multiple' => $multiple,
+      'venue' => $venue,
     ]);
   }
 }
