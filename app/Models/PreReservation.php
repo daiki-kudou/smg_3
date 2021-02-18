@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class PreReservation extends Model
 {
   protected $fillable = [
+    'multiple_reserve_id',
     'venue_id',
     'user_id',
     'agent_id',
@@ -41,6 +42,8 @@ class PreReservation extends Model
     'bill_created_at',
     'bill_pay_limit',
     'bill_remark',
+    'status',
+
   ];
   protected $dates = [
     'reserve_date',
@@ -92,6 +95,18 @@ class PreReservation extends Model
     );
   }
 
+
+  /*
+|--------------------------------------------------------------------------
+| 一括IDとの連携
+|--------------------------------------------------------------------------|
+*/
+  public function multiple_reserve()
+  {
+    return $this->belongsTo(MultipleReserve::class);
+  }
+
+
   /*
 |--------------------------------------------------------------------------
 | 仲介会社との一対多
@@ -116,6 +131,9 @@ class PreReservation extends Model
     static::deleting(function ($model) {
       foreach ($model->pre_bills()->get() as $child) {
         $child->delete();
+      }
+      foreach ($model->unknown_user()->get() as $child2) {
+        $child2->delete();
       }
     });
   }

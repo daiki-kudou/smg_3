@@ -1,4 +1,4 @@
-*
-vendor/qoraiche/laravel-mail-editor
-vendoer/
+# vendor/qoraiche/laravel-mail-editor
+/vendor
 .env
+/node_modules

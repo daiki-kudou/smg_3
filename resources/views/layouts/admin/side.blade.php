@@ -1,38 +1,3 @@
-<script>
-  $(function() {
-    // こちらを参考
-    // https://designsupply-web.com/media/knowledgeside/1592/
-    function link_check(link, classes) {
-      var path = location.pathname
-      if (path == link) {
-        var target = $("." + classes);
-        $(target).addClass('active');
-        $(target).parent().parent().parent().addClass('menu-open');
-      }
-    }
-    link_check('/admin/venues', 'venues-index');
-    link_check('/admin/venues/create', 'venues-create');
-    link_check('/admin/equipments', 'venues-equipments');
-    link_check('/admin/services', 'venues-services');
-    link_check('/admin/dates', 'venues-dates');
-    link_check('/admin/frame_prices', 'venues-price');
-    link_check('/admin/agents', 'agent-index');
-    link_check('/admin/agents/create', 'agent-create');
-    link_check('/admin/clients', 'clients-index');
-    link_check('/admin/clients/create', 'clients-create');
-
-    link_check('/admin/reservations', 'reservations-index');
-    link_check('/admin/reservations/create', 'reservations-create');
-    link_check('/admin/calendar/venue_calendar', 'venue_calendar');
-    link_check('/admin/calendar/date_calendar', 'date_calendar');
-
-    link_check('/admin/agents_reservations/create', 'agents-reservations-create');
-    link_check('/admin/pre_reservations', 'pre-reservations-index');
-    link_check('/admin/pre_reservations/create', 'pre-reservations-create');
-
-  });
-</script>
-
 <div class="sidebar">
 
   <!-- Sidebar Menu -->
@@ -51,7 +16,7 @@
             </a>
           </li>
           <li class="nav-item">
-            <a href="{{'#'}}" class="nav-link ">
+            <a href="{{url('admin/multiples')}}" class="nav-link multiples-index">
               <i class="far fa-circle nav-icon ml-4"></i>
               <p>一括仮抑え一覧</p>
             </a>
@@ -274,3 +239,40 @@
   <!-- /.sidebar-menu -->
 </div>
 <!-- /.sidebar -->
+
+<script>
+  $(function() {
+    // こちらを参考
+    // https://designsupply-web.com/media/knowledgeside/1592/
+    function link_check(link, classes) {
+      var path = location.pathname
+      if (path == link) {
+        var target = $("." + classes);
+        $(target).addClass('active');
+        $(target).parent().parent().parent().addClass('menu-open');
+      }
+    }
+    link_check('/admin/venues', 'venues-index');
+    link_check('/admin/venues/create', 'venues-create');
+    link_check('/admin/equipments', 'venues-equipments');
+    link_check('/admin/services', 'venues-services');
+    link_check('/admin/dates', 'venues-dates');
+    link_check('/admin/frame_prices', 'venues-price');
+    link_check('/admin/agents', 'agent-index');
+    link_check('/admin/agents/create', 'agent-create');
+    link_check('/admin/clients', 'clients-index');
+    link_check('/admin/clients/create', 'clients-create');
+
+    link_check('/admin/reservations', 'reservations-index');
+    link_check('/admin/reservations/create', 'reservations-create');
+    link_check('/admin/calendar/venue_calendar', 'venue_calendar');
+    link_check('/admin/calendar/date_calendar', 'date_calendar');
+
+    link_check('/admin/agents_reservations/create', 'agents-reservations-create');
+    link_check('/admin/pre_reservations', 'pre-reservations-index');
+    link_check('/admin/pre_reservations/create', 'pre-reservations-create');
+
+    link_check('/admin/multiples', 'multiples-index');
+
+  });
+</script>

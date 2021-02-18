@@ -6,9 +6,9 @@
 <link href="{{ asset('/css/template.css') }}" rel="stylesheet">
 <script src="{{ asset('/js/template.js') }}"></script>
 
-<h1>単発　仮抑え　詳細入力画面</h1>
+<h1>単発　仮抑え　編集　再計算</h1>
 
-{{ Form::open(['url' => 'admin/pre_reservations/calculate', 'method'=>'POST', 'id'=>'pre_reservationSingleCheckForm']) }}
+{{ Form::open(['url' => 'admin/pre_reservations/'.$request->id.'/re_calculate', 'method'=>'POST', 'id'=>'']) }}
 @csrf
 <div class="selected_user mt-5">
   <table class="table table-bordered" style="table-layout: fixed;">
@@ -505,6 +505,8 @@
     {{ Form::hidden('judge_count', 1 ) }}
     {{-- ユーザー --}}
     {{ Form::hidden('user_id', $request->user_id ) }}
+    {{ Form::hidden('id', $request->id ) }}
+
     {{Form::submit('再計算する', ['class'=>'btn btn-danger btn-lg ', 'id'=>'check_submit'])}}
   </div>
 </div>
@@ -523,7 +525,7 @@
 
 
 
-{{ Form::open(['url' => 'admin/pre_reservations', 'method'=>'POST', 'id'=>'']) }}
+{{ Form::open(['url' => 'admin/pre_reservations/'.$request->id.'/edit_update', 'method'=>'PUT']) }}
 @csrf
 
 {{-- 以下、計算結果 --}}
@@ -980,7 +982,7 @@
 {{Form::hidden('unknown_user_mobile', $request->unknown_user_mobile)}}
 
 
-{{Form::submit('確認する', ['class'=>'btn btn-primary d-block btn-lg mx-auto mt-5 mb-5', 'id'=>'check_submit'])}}
+{{Form::submit('更新する', ['class'=>'btn btn-primary d-block btn-lg mx-auto mt-5 mb-5', 'id'=>'check_submit'])}}
 {{Form::close()}}
 
 

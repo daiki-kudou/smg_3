@@ -222,7 +222,6 @@ h5 {
 /* .content-wrapper {
     min-width: 1200px;
 }
-
 /* 共通--------------------------------------- */
 
 .content-wrapper {
@@ -675,12 +674,10 @@ table td.table_column p:last-child {
 /* .bill-wrap {
     margin-top: 100px;
 }
-
 .bill-box {
     margin-bottom: 60px;
     background: #fff;
 }
-
 .bill-box h3 {
     font-weight: bold;
     font-size: 16px;
@@ -691,7 +688,6 @@ table td.table_column p:last-child {
     margin-left: 0;
     padding: 0.8em;
 }
-
 .bill-box_wrap {
     border-top: 1px solid #ccc;
     border-left: 1px solid #ccc;
@@ -703,41 +699,33 @@ table td.table_column p:last-child {
 .bill-list .col-12 {
     padding: 0;
 }
-
 .bill-list .price-sum p {
     padding-right: 1em;
 }
-
 .price-sum p:last-child {
     font-size: 16px;
     border-top: 1px solid #dbdbdb;
     margin-top: 1em;
     padding-top: 1em;
 }
-
 .price-sum span {
     margin-right: 1em;
 }
-
 .bill-box_cell {
     border-right: 1px solid #ccc;
     border-bottom: 1px solid #ccc;
     padding-top: 1em;
     padding-bottom: 1em;
 }
-
 .bill-box_cell dt {
     font-weight: bold;
 }
-
 .bill-box_cell dd {
     margin-bottom: 0;
 }
-
 .bill-box_wrap .col-4 {
     background: #fff;
 }
-
 .bill-list h3 {
     font-weight: bold;
     font-size: 16px;
@@ -746,31 +734,25 @@ table td.table_column p:last-child {
     margin-bottom: 0;
     padding: 0.8em;
 }
-
 .bill-list-subttl p {
     font-weight: bold;
 }
-
 .total-sum {
     padding: 10% 3%;
 }
-
 .total-sum .col-3 {
     display: flex;
     align-items: center;
     justify-content: space-between;
 }
-
 .total-sum .col-3 dd {
     font-size: 20px;
 }
-
 .total-sum .col-3:first-child {
     background: #35a7a7;
     color: #fff;
     font-size: 18px;
 }
-
 .total-sum .bill-box_cell {
     border: 1px solid #35A7A7;
 } */
@@ -1175,7 +1157,6 @@ h3 {
     left: -25px;
     transform: translateY(-50%);
 }
-
 
 .venue_head,
 .equipment_head,

@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class PreBreakdown extends Model
 {
   protected $fillable = [
+    'pre_bill_id',
     'unit_item',
     'unit_cost',
     'unit_count',
