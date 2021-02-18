@@ -42,10 +42,31 @@ class MultiplesController extends Controller
     ]);
   }
 
-  public function calculate(Request $request)
+  public function calculate(Request $request, $multiple_id, $venue_id)
   {
     echo "<pre>";
     var_dump($request->all());
     echo "</pre>";
+
+    $multiple = MultipleReserve::find($multiple_id);
+    $venue = Venue::find($venue_id);
+
+    $result = $multiple->calculateVenue($venue_id, $request);
+
+
+    // echo "<pre>";
+    // var_dump($result);
+    // echo "</pre>";
+
+
+
+
+
+
+    return view('admin.multiples.calculate', [
+      'multiple' => $multiple,
+      'venue' => $venue,
+      'request' => $request,
+    ]);
   }
 }
