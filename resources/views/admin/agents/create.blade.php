@@ -57,7 +57,8 @@
           </tr>
           <tr>
             <th scope="row">{{ Form::label('post_code', '郵便番号') }}</th>
-            <td><input class="search_address1 form-control" type="text" name="zip01" maxlength="8" onKeyUp="AjaxZip3.zip2addr(this,'','pref01','addr01');"></td>
+            <td><input class="search_address1 form-control" type="text" name="zip01" maxlength="8"
+                onKeyUp="AjaxZip3.zip2addr(this,'','pref01','addr01');"></td>
             <td class="">{{ Form::hidden('post_code', old('post_code'), ['class' => 'form-control']) }}
             </td>
           </tr>
@@ -167,7 +168,7 @@
   </div>
   <div class="container">
     <div class="mx-auto" style="width: 200px;">
-      {!! Form::submit('登録', ['class' => 'btn btn-primary']) !!}
+      {{ Form::submit('登録', ['class' => 'btn btn-primary']) }}
       {{ Form::close() }}
     </div>
   </div>

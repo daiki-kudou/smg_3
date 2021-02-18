@@ -184,5 +184,7 @@ Route::namespace('Admin')->prefix('admin')->name('admin.')->group(function () {
     Route::get('multiples/{multiples}', 'MultiplesController@show');
     // 一括　個別　edit
     Route::get('multiples/{multiples}/edit/{venues}', 'MultiplesController@edit');
+    // 一括　計算
+    Route::post('multiples/{multiples}/edit/{venues}/calculate', 'MultiplesController@calculate');
   });
 });

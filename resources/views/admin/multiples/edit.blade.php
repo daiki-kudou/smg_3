@@ -62,6 +62,11 @@
       <h3 class="bg-green py-2 px-1">仮押さえ一括ID:<span>{{$multiple->id}}</span><span
           class="ml-4">{{ReservationHelper::getVenue($venue->id)}}</span>
       </h3>
+
+
+
+      {{ Form::open(['url' => 'admin/multiples/'.$multiple->id."/edit/".$venue->id.'/calculate', 'method'=>'POST', 'id'=>'']) }}
+      @csrf
       <section class="col mt-4">
         <div class="register-wrap">
           <div class="mb-2">
@@ -77,7 +82,6 @@
                 </li>
               </ul>
             </dt>
-
             <dt class="accordion-wrap p-3" style="display: none;">
               <div class="row">
                 <!-- 左側の項目------------------------------------------------------------------------ -->
@@ -94,14 +98,14 @@
                       <tr>
                         <td class="table-active"><label for="direction">料金体系</label></td>
                         <td>
-                          <div class="d-flex ">
-                            <div class="icheck-primary mr-5">
-                              {{ Form::radio('price_system', 1, true, ['class'=>'mr-2', 'id'=>'price_system_radio1']) }}
-                              {{Form::label('price_system_radio1','通常（枠貸）')}}
+                          <div class="">
+                            <div>
+                              {{ Form::radio('cp_master_price_system', 1, true, ['class'=>'mr-2', 'id'=>'cp_master_price_system_radio1']) }}
+                              {{Form::label('cp_master_price_system_radio1','通常（枠貸）')}}
                             </div>
-                            <div class="icheck-primary">
-                              {{ Form::radio('price_system', 2, false, ['class'=>'mr-2', 'id'=>'price_system_radio2']) }}
-                              {{Form::label('price_system_radio2','アクセア（時間貸）')}}
+                            <div>
+                              {{ Form::radio('cp_master_price_system', 2, false, ['class'=>'mr-2', 'id'=>'cp_master_price_system_radio2']) }}
+                              {{Form::label('cp_master_price_system_radio2','アクセア（時間貸）')}}
                             </div>
                           </div>
                         </td>
@@ -109,14 +113,14 @@
                       <tr>
                         <td class="table-active"><label for="direction">案内板</label></td>
                         <td>
-                          <div class="d-flex ">
-                            <div class="icheck-primary mr-5">
-                              {{ Form::radio('board_flag', 1, false, ['class'=>'mr-2', 'id'=>'board_flag1']) }}
-                              {{Form::label('board_flag1','あり')}}
+                          <div>
+                            <div>
+                              {{ Form::radio('cp_master_board_flag', 1, false, ['class'=>'mr-2', 'id'=>'cp_master_board_flag1']) }}
+                              {{Form::label('cp_master_board_flag1','あり')}}
                             </div>
-                            <div class="icheck-primary">
-                              {{ Form::radio('board_flag', 0, true, ['class'=>'mr-2', 'id'=>'board_flag2']) }}
-                              {{Form::label('board_flag2','なし')}}
+                            <div>
+                              {{ Form::radio('cp_master_board_flag', 0, true, ['class'=>'mr-2', 'id'=>'cp_master_board_flagboard_flag2']) }}
+                              {{Form::label('cp_master_board_flagboard_flag2','なし')}}
                             </div>
                           </div>
                         </td>
@@ -124,14 +128,14 @@
                       <tr>
                         <td class="table-active"><label for="eventTime">イベント時間記載</label></td>
                         <td>
-                          <div class="d-flex ">
-                            <div class="icheck-primary mr-5">
-                              {{ Form::radio('event', 1, false, ['class'=>'mr-2', 'id'=>'event1']) }}
-                              {{Form::label('board_flag1','あり')}}
+                          <div>
+                            <div>
+                              {{ Form::radio('cp_master_event', 1, false, ['class'=>'mr-2', 'id'=>'cp_master_event1']) }}
+                              {{Form::label('cp_master_event1','あり')}}
                             </div>
-                            <div class="icheck-primary">
-                              {{ Form::radio('event', 0, true, ['class'=>'mr-2', 'id'=>'event2']) }}
-                              {{Form::label('event2','なし')}}
+                            <div>
+                              {{ Form::radio('cp_master_event', 0, true, ['class'=>'mr-2', 'id'=>'cp_master_event2']) }}
+                              {{Form::label('cp_master_event2','なし')}}
                             </div>
                           </div>
                         </td>
@@ -139,7 +143,7 @@
                       <tr>
                         <td class="table-active"><label for="eventStart">イベント開始時間</label></td>
                         <td>
-                          <select name="event_start" id="event_start" class="form-control">
+                          <select name="cp_master_event_start" id="cp_master_event_start" class="form-control">
                             {!!ReservationHelper::timeOptions()!!}
                           </select>
                         </td>
@@ -147,7 +151,7 @@
                       <tr>
                         <td class="table-active"><label for="eventFinish">イベント終了時間</label></td>
                         <td>
-                          <select name="event_finish" id="event_finish" class="form-control">
+                          <select name="cp_master_event_finish" id="cp_master_event_finish" class="form-control">
                             {!!ReservationHelper::timeOptions()!!}
                           </select>
                         </td>
@@ -155,19 +159,19 @@
                       <tr>
                         <td class="table-active"><label for="eventName1">イベント名称1</label></td>
                         <td>
-                          {{ Form::text('event_name1','',['class'=>'form-control', 'placeholder'=>'入力してください'] ) }}
+                          {{ Form::text('cp_master_event_name1','',['class'=>'form-control', 'placeholder'=>'入力してください'] ) }}
                         </td>
                       </tr>
                       <tr>
                         <td class="table-active"><label for="eventName2">イベント名称2</label></td>
                         <td>
-                          {{ Form::text('event_name2', '',['class'=>'form-control', 'placeholder'=>'入力してください'] ) }}
+                          {{ Form::text('cp_master_event_name2', '',['class'=>'form-control', 'placeholder'=>'入力してください'] ) }}
                         </td>
                       </tr>
                       <tr>
                         <td class="table-active"><label for="organizer">主催者名</label></td>
                         <td>
-                          {{ Form::text('event_owner', '',['class'=>'form-control', 'placeholder'=>'入力してください'] ) }}
+                          {{ Form::text('cp_master_event_owner', '',['class'=>'form-control', 'placeholder'=>'入力してください'] ) }}
                         </td>
                       </tr>
                     </tbody>
@@ -185,7 +189,7 @@
                       <tr>
                         <td class="table-active">{{$equipment->item}}</td>
                         <td>
-                          {{Form::text('equipment_breakdown' . $key , '', ['class' => 'form-control'])}}
+                          {{Form::text('cp_master_equipment_breakdown' . $key , '', ['class' => 'form-control'])}}
                         </td>
                       </tr>
                       @endforeach
@@ -206,10 +210,10 @@
                         <td class="table-active">{{$service->item}}</td>
                         <td>
                           <div class="form-check form-check-inline">
-                            {{Form::radio('services_breakdown'.$key, 1, false , ['id' => 'service'.$key.'on', 'class' => 'form-check-input'])}}
-                            <label for="{{'service'.$key.'on'}}" class="form-check-label">有り</label>
-                            {{Form::radio('services_breakdown'.$key, 0, true, ['id' => 'services_breakdown'.$key.'off', 'class' => 'form-check-input'])}}
-                            <label for="{{'services_breakdown'.$key.'off'}}" class="form-check-label">無し</label>
+                            {{Form::radio('cp_master_services_breakdown'.$key, 1, false , ['id' => 'cp_master_service'.$key.'on', 'class' => 'form-check-input'])}}
+                            {{Form::label('cp_master_service'.$key.'on','有り')}}
+                            {{Form::radio('cp_master_services_breakdown'.$key, 0, true, ['id' => 'cp_master_service'.$key.'off', 'class' => 'form-check-input'])}}
+                            {{Form::label('cp_master_service'.$key.'on','無し')}}
                           </div>
                         </td>
                       </tr>
@@ -230,10 +234,10 @@
                         <td class="table-active">レイアウト準備</td>
                         <td>
                           <div class="form-check form-check-inline">
-                            {{Form::radio('layout_prepare', 1, false, ['id' => 'layout_prepare', 'class' => 'form-check-input'])}}
-                            {{Form::label('layout_prepare','有り')}}
-                            {{Form::radio('layout_prepare', 0, true, ['id' => 'no_layout_prepare', 'class' => 'form-check-input'])}}
-                            {{Form::label('no_layout_prepare','無し')}}
+                            {{Form::radio('cp_master_layout_prepare', 1, false, ['id' => 'cp_master_layout_prepare', 'class' => 'form-check-input'])}}
+                            {{Form::label('cp_master_layout_prepare','有り')}}
+                            {{Form::radio('cp_master_layout_prepare', 0, true, ['id' => 'cp_master_no_layout_prepare', 'class' => 'form-check-input'])}}
+                            {{Form::label('cp_master_no_layout_prepare','無し')}}
                           </div>
                         </td>
                       </tr>
@@ -243,10 +247,10 @@
                         <td class="table-active">レイアウト片付け</td>
                         <td>
                           <div class="form-check form-check-inline">
-                            {{Form::radio('layout_clean', 1, false, ['id' => 'layout_clean', 'class' => 'form-check-input'])}}
-                            {{Form::label('layout_clean','有り')}}
-                            {{Form::radio('layout_clean', 0, true, ['id' => 'no_layout_clean', 'class' => 'form-check-input'])}}
-                            {{Form::label('no_layout_clean','無し')}}
+                            {{Form::radio('cp_master_layout_clean', 1, false, ['id' => 'cp_master_layout_clean', 'class' => 'form-check-input'])}}
+                            {{Form::label('cp_master_layout_clean','有り')}}
+                            {{Form::radio('cp_master_layout_clean', 0, true, ['id' => 'cp_master_no_layout_clean', 'class' => 'form-check-input'])}}
+                            {{Form::label('cp_master_no_layout_clean','無し')}}
                           </div>
                         </td>
                       </tr>
@@ -267,25 +271,25 @@
                       <tr>
                         <td class="table-active">事前に預かる荷物<br>（個数）</td>
                         <td>
-                          {{ Form::text('luggage_count', '',['class'=>'form-control'] ) }}
+                          {{ Form::text('cp_master_luggage_count', '',['class'=>'form-control'] ) }}
                         </td>
                       </tr>
                       <tr>
                         <td class="table-active">事前荷物の到着日<br>午前指定のみ</td>
                         <td>
-                          {{ Form::text('luggage_arrive', '',['class'=>'form-control'] ) }}
+                          {{ Form::text('cp_master_luggage_arrive', '',['class'=>'form-control'] ) }}
                         </td>
                       </tr>
                       <tr>
                         <td class="table-active">事後返送する荷物</td>
                         <td>
-                          {{ Form::text('luggage_return', '',['class'=>'form-control'] ) }}
+                          {{ Form::text('cp_master_luggage_return', '',['class'=>'form-control'] ) }}
                         </td>
                       </tr>
                       <tr>
                         <td class="table-active">荷物預かり/返送<br>料金</td>
                         <td>
-                          {{ Form::text('luggage_price', '',['class'=>'form-control'] ) }}
+                          {{ Form::text('cp_master_luggage_price', '',['class'=>'form-control'] ) }}
                         </td>
                       </tr>
                       @endif
@@ -346,13 +350,13 @@
                         <tr>
                           <td class="table-active"><label for="ondayName">氏名</label></td>
                           <td>
-                            {{ Form::text('in_charge', '',['class'=>'form-control'] ) }}
+                            {{ Form::text('cp_master_in_charge', '',['class'=>'form-control'] ) }}
                           </td>
                         </tr>
                         <tr>
                           <td class="table-active"><label for="mobilePhone">携帯番号</label></td>
                           <td>
-                            {{ Form::text('tel', '',['class'=>'form-control'] ) }}
+                            {{ Form::text('cp_master_tel', '',['class'=>'form-control'] ) }}
                           </td>
                         </tr>
                       </tbody>
@@ -372,14 +376,12 @@
                       <tr>
                         <td class="table-active"><label for="sendMail">送信メール</label></td>
                         <td>
-                          <div class="radio-box">
-                            <div class="icheck-primary">
-                              <input type="radio" id="sendMail" name="sendMail" checked="">
-                              <label for="sendMail">あり</label>
-                            </div>
-                            <div class="icheck-primary">
-                              <input type="radio" id="sendMail" name="sendMail" checked="">
-                              <label for="sendMail">なし</label>
+                          <div class="d-flex">
+                            <div class="form-check form-check-inline">
+                              {{Form::radio('cp_master_email_flag', 1, false, ['id' => 'cp_master_email_flag', 'class' => 'form-check-input'])}}
+                              {{Form::label('cp_master_email_flag','有り',['class'=>'mr-5'])}}
+                              {{Form::radio('cp_master_email_flag', 0, true, ['id' => 'cp_master_no_email_flag', 'class' => 'form-check-input'])}}
+                              {{Form::label('cp_master_no_email_flag','無し')}}
                             </div>
                           </div>
                         </td>
@@ -399,8 +401,8 @@
                       </tr>
                       <tr>
                         <td class="table-active"><label for="sale">原価率</label></td>
-                        <td class="d-flex align-items-center"><input class="form-control" name="sale" type="text"
-                            id="sale">%
+                        <td class="d-flex align-items-center">
+                          {{ Form::text('cp_master_cost', '',['class'=>'form-control'] ) }}%
                         </td>
                       </tr>
                     </tbody>
@@ -421,19 +423,19 @@
                             <input type="checkbox" id="discount" checked="">
                             <label for="discount">割引条件</label>
                           </p>
-                          <textarea name="discount" rows="5"></textarea>
+                          {{ Form::textarea('cp_master_discount_condition', '',['class'=>'form-control'] ) }}
                         </td>
                       </tr>
                       <tr class="caution">
                         <td>
                           <label for="caution">注意事項</label>
-                          <textarea name="caution" rows="10"></textarea>
+                          {{ Form::textarea('cp_master_attention', '',['class'=>'form-control'] ) }}
                         </td>
                       </tr>
                       <tr>
                         <td>
                           <label for="adminNote">管理者備考</label>
-                          <textarea name="adminNote" rows="10"></textarea>
+                          {{ Form::textarea('cp_master_admin_details', '',['class'=>'form-control'] ) }}
                         </td>
                       </tr>
                     </tbody>
@@ -441,40 +443,15 @@
                 </div>
                 <!-- 右側の項目 終わり-------------------------------------------------- -->
               </div>
-
-              <!-- 請求書内容----------- -->
-              <div class="bill-box">
-                <h3 class="row">請求書内容</h3>
-                <dl class="row bill-box_wrap">
-                  <div class="col-6 bill-box_cell">
-                    <dt><label for="billCompany">請求書の会社名</label></dt>
-                    <dd><input class="form-control" name="billCompany" type="text" id="billCompany"></dd>
-                  </div>
-                  <div class="col-6 bill-box_cell">
-                    <dt><label for="billCustomer">請求書の担当者名</label></dt>
-                    <dd><input class="form-control" name="billCustomer" type="text" id="billCustomer"></dd>
-                  </div>
-                  <div class="col-6 bill-box_cell">
-                    <dt><label for="billDate">請求日</label></dt>
-                    <dd><input class="form-control" name="billDate" type="date" id="billDate"></dd>
-                  </div>
-                  <div class="col-6 bill-box_cell">
-                    <dt><label for="billDue">支払期日</label></dt>
-                    <dd><input class="form-control" name="billDue" type="date" id="billDue"></dd>
-                  </div>
-                  <div class="col-12 bill-box_cell">
-                    <dt><label for="billNote">備考</label></dt>
-                    <dd><input class="form-control" name="billNote" type="text" id="billNote"></dd>
-                  </div>
-                </dl>
-              </div>
-              <!-- 請求書内容 終わり---------------------------- -->
             </dt>
             <!-- /.card-body -->
           </dl>
           <!-- コピー作成用フィールド   終わり--------------------------------------------------　 -->
           <div class="btn_wrapper">
-            <p class="text-center"><a class="more_btn_lg" href="">すべての日程に反映する</a></p>
+            <p class="text-center">
+              {{ Form::submit('登録', ['class' => 'btn btn-primary'])}}
+              {{ Form::close() }}
+            </p>
           </div>
         </div>
       </section>
@@ -490,7 +467,9 @@
         </li>
       </ul>
     </div>
-    <!-- 仮押さえ一括 -->
+
+    {{-- 以下、pre_reservationの数分　ループ --}}
+    @foreach ($multiple->pre_reservations()->where('venue_id',$venue->id)->get() as $key=>$pre_reservation)
     <section class="register-list col">
       <!-- 仮押さえ一括 タブ-->
       <div class="register-list-item">
@@ -504,12 +483,13 @@
           <dt class="card-header accordion-ttl2">
             <ul class="title-icon active d-flex">
               <li class="col-1">
-                0001（これなに？）
+                {{$pre_reservation->id}}
               </li>
               <li class="col-2">
                 <div class="input-group">
                   <label for="date"></label>
-                  <input class="form-control" name="date" type="date" id="date">
+                  {{ Form::text('', ReservationHelper::formatDate($pre_reservation->reserve_date) ,['class'=>'form-control', 'readonly'] ) }}
+                  {{ Form::hidden('reserve_date', $pre_reservation->reserve_date ,['class'=>'form-control', 'readonly'] ) }}
                 </div>
               </li>
               <li class="col-3 d-flex align-items-center">
@@ -517,9 +497,8 @@
                 </p>
                 <div class="input-group">
                   <label for="start"></label>
-                  <select class="form-control" id="start" name="start">
-                    {!!ReservationHelper::timeOptions()!!}
-                  </select>
+                  {{ Form::text('', ReservationHelper::formatTime($pre_reservation->enter_time) ,['class'=>'form-control', 'readonly'] ) }}
+                  {{ Form::hidden('enter_time', $pre_reservation->enter_time ,['class'=>'form-control', 'readonly'] ) }}
                 </div>
                 <p></p>
                 <p class="mx-1">～</p>
@@ -527,9 +506,8 @@
                 </p>
                 <div class="input-group">
                   <label for="finish"></label>
-                  <select class="form-control" id="finish" name="finish">
-                    {!!ReservationHelper::timeOptions()!!}
-                  </select>
+                  {{ Form::text('', ReservationHelper::formatTime($pre_reservation->leave_time) ,['class'=>'form-control', 'readonly'] ) }}
+                  {{ Form::hidden('leave_time', $pre_reservation->leave_time ,['class'=>'form-control', 'readonly'] ) }}
                 </div>
                 <p></p>
               </li>
@@ -1019,216 +997,378 @@
             </div>
             <!-- 請求セクション------------------------------------------------------------------- -->
             <section class="bill-wrap section-wrap">
-              <div class="bill-bg">
-                <!-- 会場料請求内容----------- -->
-                <div class="bill-box">
-                  <h3 class="row">会場料</h3>
-                  <dl class="row bill-box_wrap">
-                    <div class="col-3 bill-box_cell">
-                      <dt>会場料金</dt>
-                      <dd>52,400円</dd>
+              <div class="bill">
+                <div class="bill_head">
+                  <table class="table bill_table">
+                    <tr>
+                      <td>
+                        <h2 class="text-white">
+                          請求書No
+                        </h2>
+                      </td>
+                      <td>
+                        <dl class="ttl_box">
+                          <dt>合計金額</dt>
+                          <dd class="total_result">
+                            {{-- {{number_format($masters)}} --}}
+                            円</dd>
+                        </dl>
+                      </td>
+                      <td>
+                        <dl class="ttl_box">
+                          <dt>支払い期日</dt>
+                          <dd class="total_result">
+                            {{-- {{ReservationHelper::formatDate($pay_limit)}} --}}
+                          </dd>
+                        </dl>
+                      </td>
+                    </tr>
+                  </table>
+                </div>
+                <div class="bill_details">
+                  <div class="head d-flex">
+                    <div class="accordion_btn">
+                      <i class="fas fa-plus bill_icon_size hide"></i>
+                      <i class="fas fa-minus bill_icon_size"></i>
                     </div>
-                    <div class="col-3 bill-box_cell">
-                      <dt>延長料金</dt>
-                      <dd>5,300円</dd>
-                    </div>
-                    <div class="col-6 bill-box_cell">
-                      <dt>会場料金合計</dt>
-                      <dd class="text-right">57,700円</dd>
-                    </div>
-                    <div class="col-6">
-                      <div class="row">
-                        <div class="col-4 bill-box_cell cell-gray">
-                          <p>割引率</p>
-                        </div>
-                        <div class="col-5 bill-box_cell">
-                          <p class="text-right"><input type="text" class=""></p>
-                        </div>
-                        <div class="col-3 bill-box_cell text-right">
-                          <p>割引金額</p>
-                          <p class=""><span>円</span></p>
-                        </div>
-                      </div>
-                    </div>
-                    <div class="col-6">
-                      <div class="row">
-                        <div class="col-4 bill-box_cell cell-gray">
-                          <p>割引料金</p>
-                        </div>
-                        <div class="col-5 bill-box_cell">
-                          <p class="text-right"><input type="text" class=""></p>
-                        </div>
-                        <div class="col-3 bill-box_cell text-right">
-                          <p>割引率</p>
-                          <p class=""><span>%</span></p>
-                        </div>
-                      </div>
-                    </div>
-                    <div class="col-12 bill-box_cell text-right">
-                      <p class="font-weight-bold">割引後会場料金合計</p>
-                      <p class=""></p>
-                    </div>
-                  </dl>
-                  <!-- 料金内訳-------------------------------------------------------------- -->
-                  <div class="bill-list">
-                    <h3 class="row">料金内訳</h3>
-                    <div class="col-12 venue_price_details">
-                      <table class="table table-bordered">
-                        <thead>
-                          <tr>
-                            <td>内容</td>
-                            <td>単価</td>
-                            <td>数量</td>
-                            <td>金額</td>
-                          </tr>
-                        </thead>
-                        <tbody></tbody>
-                      </table>
-                    </div>
-                    <div class="row bill-box_wrap price-sum bill-box_cell flex-column">
-                      <p class="text-right"><span class="font-weight-bold">小計</span>7,200円</p>
-                      <p class="text-right"><span>消費税</span>720円</p>
-                      <p class="text-right"><span class="font-weight-bold">合計金額</span>7,200円</p>
+                    <div class="billdetails_ttl">
+                      <h3>
+                        請求内訳
+                      </h3>
                     </div>
                   </div>
-                  <!-- 料金内訳 終わり---------------------------- -->
-                </div>
-                <!-- 請求内容 終わり---------------------------- -->
-                <!-- 備品その他　請求内容----------- -->
-                <div class="bill-box">
-                  <h3 class="row">備品その他</h3>
-                  <dl class="row bill-box_wrap">
-                    <div class="col-3 bill-box_cell">
-                      <dt>有料備品料金</dt>
-                      <dd>52,400円</dd>
-                    </div>
-                    <div class="col-3 bill-box_cell">
-                      <dt>有料サービス料金</dt>
-                      <dd>5,300円</dd>
-                    </div>
-                    <div class="col-3 bill-box_cell">
-                      <dt>荷物預かり/返送</dt>
-                      <dd class="d-flex align-items-center"><input class="form-control mr-3" name="package"
-                          type="text">円
-                      </dd>
-                    </div>
-                    <div class="col-3 bill-box_cell">
-                      <dt>備品その他合計</dt>
-                      <dd class="text-right">57,700円</dd>
-                    </div>
-                    <div class="col-6">
-                      <div class="row">
-                        <div class="col-4 bill-box_cell cell-gray">
-                          <p>割引料金</p>
-                        </div>
-                        <div class="col-5 bill-box_cell">
-                          <p class="text-right"><input type="text" name="price" class="form-control" id="price">
-                          </p>
-                        </div>
-                        <div class="col-3 bill-box_cell text-right">
-                          <p>割引率</p>
-                          <p class=""><span>%</span></p>
-                        </div>
-                      </div>
-                    </div>
-                    <div class="col-6 bill-box_cell text-right">
-                      <p class="font-weight-bold">割引後備品その他合計</p>
-                      <p class=""></p>
-                    </div>
-                  </dl>
-                  <!-- 料金内訳-------------------------------------------------------------- -->
-                  <div class="bill-list">
-                    <h3 class="row">料金内訳</h3>
-                    <div class="col-12 items_equipments">
-                      <table class="table table-bordered">
-                        <thead>
+                  <div class="main">
+                    <div class="venues billdetails_content">
+                      <table class="table table-borderless">
+                        <tr>
+                          <td>
+                            <h4 class="billdetails_content_ttl">
+                              会場料
+                            </h4>
+                          </td>
+                        </tr>
+                        <tbody class="venue_head">
                           <tr>
                             <td>内容</td>
                             <td>単価</td>
                             <td>数量</td>
                             <td>金額</td>
                           </tr>
-                        </thead>
-                        <tbody>
+                        </tbody>
+                        <tbody class="venue_main">
+                          <tr>
+                            <td>
+                              {{-- {{ Form::text('venue_breakdown_item0', "会場料金",['class'=>'form-control', 'readonly'] ) }}
+                              --}}
+                            </td>
+                            <td>
+                              {{-- {{ Form::text('venue_breakdown_cost0', $price_details[0]-$price_details[1],['class'=>'form-control', 'readonly'] ) }}
+                              --}}
+                            </td>
+                            <td>
+                              {{-- {{ Form::text('venue_breakdown_count0', $price_details[3],['class'=>'form-control', 'readonly'] ) }}
+                              --}}
+                            </td>
+                            <td>
+                              {{-- {{ Form::text('venue_breakdown_subtotal0', $price_details[0]-$price_details[1],['class'=>'form-control', 'readonly'] ) }}
+                              --}}
+                            </td>
+                          </tr>
+                        </tbody>
+                        <tbody class="venue_result">
+                          <tr>
+                            <td colspan="2"></td>
+                            <td colspan="2">合計
+                              {{-- {{ Form::text('venue_price', $price_details[0],['class'=>'form-control col-xs-3', 'readonly'] ) }}
+                              --}}
+                            </td>
+                          </tr>
+                        </tbody>
+                        <tbody class="venue_discount">
+                          <tr>
+                            <td>割引計算欄</td>
+                            <td>
+                              <p>
+                                割引金額
+                              </p>
+                              <div class="d-flex align-items-end">
+                                {{-- {{ Form::text('venue_number_discount', $request->venue_number_discount?$request->venue_number_discount:'',['class'=>'form-control'] ) }}
+                                --}}
+                                <p class="ml-1">円</p>
+                              </div>
+                            </td>
+                            <td>
+                              <p>
+                                割引率
+                              </p>
+                              <div class="d-flex align-items-end">
+                                {{-- {{ Form::text('venue_percent_discount', $request->venue_percent_discount?$request->venue_percent_discount:'',['class'=>'form-control'] ) }}
+                                --}}
+                                <p class="ml-1">%</p>
+                              </div>
+                            </td>
+                            <td>
+                              <input class="btn more_btn venue_discount_btn" type="button" value="計算する">
+                            </td>
+                          </tr>
+                        </tbody>
+                        <span class="text-red">※料金体系がないため、手打ちで会場料を入力してください</span>
+                        <tbody class="venue_main">
+                          <tr>
+                            <td>
+                              {{-- {{ Form::text('venue_breakdown_item0', '',['class'=>'form-control'] ) }} --}}
+                            </td>
+                            <td>
+                              {{-- {{ Form::text('venue_breakdown_cost0', '',['class'=>'form-control'] ) }} --}}
+                            </td>
+                            <td>
+                              {{-- {{ Form::text('venue_breakdown_count0', '',['class'=>'form-control'] ) }} --}}
+                            </td>
+                            <td>
+                              {{-- {{ Form::text('venue_breakdown_subtotal0', '',['class'=>'form-control'] ) }} --}}
+                            </td>
+                            <td>
+                              <input type="button" value="＋" class="add pluralBtn">
+                              <input type="button" value="ー" class="del pluralBtn">
+                            </td>
+                          </tr>
+                        </tbody>
+                        <tbody class="venue_result">
+                          <tr>
+                            <td colspan="2"></td>
+                            <td colspan="2">合計
+                              {{-- {{ Form::text('venue_price', '',['class'=>'form-control col-xs-3', 'readonly'] ) }}
+                              --}}
+                            </td>
+                          </tr>
                         </tbody>
                       </table>
                     </div>
-                    <div class="row bill-box_wrap price-sum bill-box_cell flex-column">
-                      <p class="text-right"><span class="font-weight-bold">小計</span>7,200円</p>
-                      <p class="text-right"><span>消費税</span>720円</p>
-                      <p class="text-right"><span class="font-weight-bold">合計金額</span>7,200円</p>
-                    </div>
-                  </div>
-                  <!-- 料金内訳 終わり---------------------------- -->
-                </div>
-                <!-- 請求内容 終わり---------------------------- -->
-                <!-- レイアウト変更 請求内容----------- -->
-                <div class="bill-box layout_price_list">
-                  <h3 class="row">レイアウト変更</h3>
-                  <dl class="row bill-box_wrap">
-                    <div class="col-4 bill-box_cell">
-                      <dt>レイアウト準備料金</dt>
-                      <dd>
-                        <p class="layout_prepare_result"></p>
-                      </dd>
-                    </div>
-                    <div class="col-4 bill-box_cell">
-                      <dt>レイアウト片付料金</dt>
-                      <dd>
-                        <p class="layout_clean_result"></p>
-                      </dd>
-                    </div>
-                    <div class="col-4 bill-box_cell">
-                      <dt>レイアウト変更合計</dt>
-                      <dd class="text-right">
-                        <p class="layout_total"></p>
-                      </dd>
-                    </div>
-                    <div class="col-6">
-                      <div class="row">
-                        <div class="col-4 bill-box_cell cell-gray">
-                          <p>割引料金</p>
-                        </div>
-                        <div class="col-5 bill-box_cell">
-                          <p class="text-right"><input type="text" class="layout_discount d-block"></p>
-                        </div>
-                        <div class="col-3 bill-box_cell text-right">
-                          <p>割引率</p>
-                          <p class="layout_discount_percent"><span>%</span></p>
-                        </div>
-                      </div>
-                    </div>
-                    <div class="col-6 bill-box_cell text-right">
-                      <p class="font-weight-bold">割引後レイアウト変更合計</p>
-                      <p class="after_duscount_layouts"></p>
-                    </div>
-                  </dl>
-                  <!-- 料金内訳-------------------------------------------------------------- -->
-                  <div class="bill-list">
-                    <h3 class="row">料金内訳</h3>
-                    <div class="col-12 items_equipments">
-                      <table class="table table-bordered">
-                        <thead>
+
+                    {{-- 以下備品 --}}
+                    <div class="equipment billdetails_content">
+                      <table class="table table-borderless">
+                        <tr>
+                          <td colspan="4">
+                            <h4 class="billdetails_content_ttl">
+                              有料備品・サービス
+                            </h4>
+                          </td>
+                        </tr>
+                        <tbody class="equipment_head">
                           <tr>
                             <td>内容</td>
                             <td>単価</td>
                             <td>数量</td>
                             <td>金額</td>
                           </tr>
-                        </thead>
-                        <tbody>
+                        </tbody>
+                        <tbody class="equipment_main">
+                          <tr>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                          </tr>
+
+                        </tbody>
+                        <tbody class="equipment_result">
+                          <tr>
+                            <td colspan="2"></td>
+                            <td colspan="2">合計
+                              {{-- {{ Form::text('equipment_price', ($item_details[0]+$request->luggage_price),['class'=>'form-control', 'readonly'] ) }}
+                              --}}
+                            </td>
+                          </tr>
+                        </tbody>
+                        <tbody class="equipment_discount">
+                          <tr>
+                            <td>割引計算欄</td>
+                            <td>
+                              <p>
+                                割引金額
+                              </p>
+                              <div class="d-flex align-items-end">
+                                {{-- {{ Form::text('equipment_number_discount', $request->equipment_number_discount?$request->equipment_number_discount:'',['class'=>'form-control'] ) }}
+                                --}}
+                                <p class="ml-1">円</p>
+                              </div>
+                            </td>
+                            <td>
+                              <p>
+                                割引率
+                              </p>
+                              <div class="d-flex align-items-end">
+                                {{-- {{ Form::text('equipment_percent_discount', $request->equipment_percent_discount?$request->equipment_percent_discount:'',['class'=>'form-control'] ) }}
+                                --}}
+                                <p class="ml-1">%</p>
+                              </div>
+                            </td>
+                            <td>
+                              <input class="btn more_btn equipment_discount_btn" type="button" value="計算する">
+                            </td>
+                          </tr>
                         </tbody>
                       </table>
                     </div>
-                    <div class="row bill-box_wrap price-sum bill-box_cell flex-column">
-                      <p class="text-right"><span class="font-weight-bold">小計</span>7,200円</p>
-                      <p class="text-right"><span>消費税</span>720円</p>
-                      <p class="text-right"><span class="font-weight-bold">合計金額</span>7,200円</p>
+                    {{-- 以下、レイアウト --}}
+                    <div class="layout billdetails_content">
+                      <table class="table table-borderless">
+                        <tr>
+                          <td>
+                            <h4 class="billdetails_content_ttl">
+                              レイアウト
+                            </h4>
+                          </td>
+                        </tr>
+                        <tbody class="layout_head">
+                          <tr>
+                            <td>内容</td>
+                            <td>単価</td>
+                            <td>数量</td>
+                            <td>金額</td>
+                          </tr>
+                        </tbody>
+                        <tbody class="layout_main">
+                          <tr>
+                            <td>
+                              {{-- {{ Form::text('layout_prepare_item', "レイアウト準備料金",['class'=>'form-control', 'readonly'] ) }}
+                              --}}
+                            </td>
+                            <td>
+                              {{-- {{ Form::text('layout_prepare_cost', $layouts_details[0],['class'=>'form-control', 'readonly'] )}}
+                              --}}
+                            </td>
+                            <td>
+                              {{-- {{ Form::text('layout_prepare_count', 1,['class'=>'form-control', 'readonly'] )}}
+                              --}}
+                            </td>
+                            <td>
+                              {{-- {{ Form::text('layout_prepare_subtotal', $layouts_details[0],['class'=>'form-control', 'readonly'] )}}
+                              --}}
+                            </td>
+                          </tr>
+                        </tbody>
+                        <tbody class="layout_result">
+                          <tr>
+                            <td colspan="2"></td>
+                            <td colspan="2">合計
+                              {{-- {{ Form::text('layout_price',$layouts_details[2] ,['class'=>'form-control', 'readonly'] ) }}
+                              --}}
+                            </td>
+                          </tr>
+                        </tbody>
+                        <tbody class="layout_discount">
+                          <tr>
+                            <td>割引計算欄</td>
+                            <td>
+                              <p>
+                                割引金額
+                              </p>
+                              <div class="d-flex align-items-end">
+                                {{-- {{ Form::text('layout_number_discount', $request->layout_number_discount?$request->layout_number_discount:'',['class'=>'form-control'] ) }}
+                                --}}
+                                <p class="ml-1">円</p>
+                              </div>
+                            </td>
+                            <td>
+                              <p>
+                                割引率
+                              </p>
+                              <div class="d-flex align-items-end">
+                                {{-- {{ Form::text('layout_percent_discount', $request->layout_percent_discount?$request->layout_percent_discount:'',['class'=>'form-control'] ) }}
+                                --}}
+                                <p class="ml-1">%</p>
+                              </div>
+                            </td>
+                            <td>
+                              <input class="btn more_btn layout_discount_btn" type="button" value="計算する">
+                            </td>
+                          </tr>
+                        </tbody>
+                      </table>
                     </div>
+
+                    {{-- 以下、その他 --}}
+                    <div class="others billdetails_content">
+                      <table class="table table-borderless">
+                        <tr>
+                          <td colspan="5">
+                            　<h4 class="billdetails_content_ttl">
+                              その他
+                            </h4>
+                          </td>
+                        </tr>
+                        <tbody class="others_head">
+                          <tr>
+                            <td>内容</td>
+                            <td>単価</td>
+                            <td>数量</td>
+                            <td>金額</td>
+                            <td>追加/削除</td>
+                          </tr>
+                        </tbody>
+                        <tbody class="others_main">
+                          <tr>
+                            <td>
+                              {{-- {{ Form::text('others_input_item0', '',['class'=>'form-control'] ) }} --}}
+                            </td>
+                            <td>
+                              {{-- {{ Form::text('others_input_cost0', '',['class'=>'form-control'] ) }} --}}
+                            </td>
+                            <td>
+                              {{-- {{ Form::text('others_input_count0', '',['class'=>'form-control'] ) }} --}}
+                            </td>
+                            <td>
+                              {{-- {{ Form::text('others_input_subtotal0', '',['class'=>'form-control', 'readonly'] ) }}
+                              --}}
+                            </td>
+                            <td>
+                              <input type="button" value="＋" class="add pluralBtn bg-blue">
+                              <input type="button" value="ー" class="del pluralBtn bg-red">
+                            </td>
+                          </tr>
+                        </tbody>
+                        <tbody class="others_result">
+                          <tr>
+                            <td colspan="2"></td>
+                            <td colspan="3">合計
+                              {{-- {{ Form::text('others_price', '',['class'=>'form-control', 'readonly'] ) }} --}}
+                            </td>
+                          </tr>
+                        </tbody>
+                      </table>
+                    </div>
+                    {{-- 以下、総合計 --}}
+                    <div class="bill_total">
+                      <table class="table">
+                        <tr>
+                          <td>小計：</td>
+                          <td>
+                            {{-- {{ Form::text('master_subtotal',$masters ,['class'=>'form-control text-right', 'readonly'] ) }}
+                            --}}
+                          </td>
+                        </tr>
+                        <tr>
+                          <td>消費税：</td>
+                          <td>
+                            {{-- {{ Form::text('master_tax',ReservationHelper::getTax($masters) ,['class'=>'form-control text-right', 'readonly'] ) }}
+                            --}}
+                          </td>
+                        </tr>
+                        <tr>
+                          <td class="font-weight-bold">合計金額</td>
+                          <td>
+                            {{-- {{ Form::text('master_total',ReservationHelper::taxAndPrice($masters) ,['class'=>'form-control text-right', 'readonly'] ) }}
+                            --}}
+                          </td>
+                        </tr>
+                      </table>
+                    </div>
+
                   </div>
-                  <!-- 料金内訳 終わり---------------------------- -->
+                  <!-- 請求内訳 終わり ------------------------------------------------------>
                 </div>
-                <!-- 請求内容 終わり---------------------------- -->
               </div>
             </section>
             <div class="section-wrap">
@@ -1284,6 +1424,8 @@
       </div>
       <!-- 仮押さえ一括 タブ終わり-->
     </section>
+    @endforeach
+
 
     <!-- コピー作成用フィールド ------------------------------------------------------------->
 

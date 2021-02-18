@@ -41,4 +41,11 @@ class MultiplesController extends Controller
       'venue' => $venue,
     ]);
   }
+
+  public function calculate(Request $request)
+  {
+    echo "<pre>";
+    var_dump($request->all());
+    echo "</pre>";
+  }
 }
