@@ -167,7 +167,7 @@
               <td>
                 {{$multiple->pre_reservations()->where('venue_id',$venues[$i]->venue_id)->get()->count()}}
               </td>
-              <td></td>
+              <td><a href="{{url('admin/multiples/'.$multiple->id.'/edit'.'/'.$venues[$i]->venue_id)}}">編集</a></td>
               <td></td>
               </tr>
               @else
@@ -176,7 +176,7 @@
                 <td>
                   {{$multiple->pre_reservations()->where('venue_id',$venues[$i]->venue_id)->get()->count()}}
                 </td>
-                <td></td>
+                <td><a href="{{url('admin/multiples/'.$multiple->id.'/edit'.'/'.$venues[$i]->venue_id)}}">編集</a></td>
                 <td></td>
               </tr>
               @endif

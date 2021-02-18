@@ -185,4 +185,17 @@ class ReservationHelper
       return 0;
     }
   }
+
+  public static function timeOptions()
+  {
+    $arrays = [];
+    for ($i = 0 * 2; $i <= 23 * 2; $i++) {
+      $html1 = "<option value=" . date('H:i:s', strtotime('00:00 +' . $i * 30 . ' minute')) . " >";
+      $html2 = date('H:i', strtotime('00:00 +' . $i * 30 . ' minute'));
+      $html3 = "</option>";
+      $arrays[] = $html1 . $html2 . $html3;
+    }
+    $result =  implode('', $arrays);
+    return str_replace('"', '', $result);
+  }
 }
