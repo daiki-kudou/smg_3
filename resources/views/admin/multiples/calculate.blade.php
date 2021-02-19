@@ -1101,7 +1101,13 @@
                       </table>
                     </div>
 
+                    0が料金合計　
+                    1が備品breakdown
+                    2がserviceのbreakdown
+                    3が備品料金
+                    4がサービス料金
                     {{-- 以下備品 --}}
+                    @if ($result[1][0])
                     <div class="equipment billdetails_content">
                       <table class="table table-borderless">
                         <tr>
@@ -1119,25 +1125,64 @@
                             <td>金額</td>
                           </tr>
                         </tbody>
-                        <tbody class="equipment_main">
+                        <tbody class="{{'equipment_main'.$key}}">
+                          @foreach ($result[1][1] as $eb_key=>$equipment)
                           <tr>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
+                            <td>
+                              {{ Form::text('equipment_breakdown_item'.$eb_key.'_copied'.$key, $equipment[0],['class'=>'form-control', 'readonly'] ) }}
+                            </td>
+                            <td>
+                              {{ Form::text('equipment_breakdown_cost'.$eb_key.'_copied'.$key, $equipment[1],['class'=>'form-control', 'readonly'] ) }}
+                            </td>
+                            <td>
+                              {{ Form::text('equipment_breakdown_count'.$eb_key.'_copied'.$key, $equipment[2],['class'=>'form-control', 'readonly'] ) }}
+                            </td>
+                            <td>
+                              {{ Form::text('equipment_breakdown_subtotal'.$eb_key.'_copied'.$key, ReservationHelper::numTimesNum($equipment[1],$equipment[2]),['class'=>'form-control', 'readonly'] ) }}
+                            </td>
                           </tr>
-
+                          @endforeach
+                          @foreach ($result[1][2] as $sb_key=>$service)
+                          <tr>
+                            <td>
+                              {{ Form::text('equipment_breakdown_item'.$sb_key.'_copied'.$key, $service[0],['class'=>'form-control', 'readonly'] ) }}
+                            </td>
+                            <td>
+                              {{ Form::text('equipment_breakdown_cost'.$sb_key.'_copied'.$key, $service[1],['class'=>'form-control', 'readonly'] ) }}
+                            </td>
+                            <td>
+                              {{ Form::text('equipment_breakdown_count'.$sb_key.'_copied'.$key, $service[2],['class'=>'form-control', 'readonly'] ) }}
+                            </td>
+                            <td>
+                              {{ Form::text('equipment_breakdown_subtotal'.$sb_key.'_copied'.$key, ReservationHelper::numTimesNum($service[1],$service[2]),['class'=>'form-control', 'readonly'] ) }}
+                            </td>
+                          </tr>
+                          @endforeach
+                          @if ($request->cp_master_luggage_price)
+                          <tr>
+                            <td>
+                              {{ Form::text('luggage_item_copied'.$key, '荷物預かり/返送',['class'=>'form-control', 'readonly'] ) }}
+                            </td>
+                            <td>
+                              {{ Form::text('luggage_cost_copied'.$key, $request->cp_master_luggage_price,['class'=>'form-control', 'readonly'] ) }}
+                            </td>
+                            <td>
+                              {{ Form::text('luggage_count_copied'.$key, 1,['class'=>'form-control', 'readonly'] ) }}
+                            </td>
+                            <td>
+                              {{ Form::text('luggage_subtotal_copied'.$key, $request->cp_master_luggage_price,['class'=>'form-control', 'readonly'] ) }}
+                            </td>
+                          </tr> @endif
                         </tbody>
-                        <tbody class="equipment_result">
+                        <tbody class="{{'equipment_result'.$key}}">
                           <tr>
                             <td colspan="2"></td>
                             <td colspan="2">合計
-                              {{-- {{ Form::text('equipment_price', ($item_details[0]+$request->luggage_price),['class'=>'form-control', 'readonly'] ) }}
-                              --}}
+                              {{ Form::text('equipment_price'.$key, ((int)$result[1][0])+((int)$request->cp_master_luggage_price),['class'=>'form-control', 'readonly'] ) }}
                             </td>
                           </tr>
                         </tbody>
-                        <tbody class="equipment_discount">
+                        <tbody class="{{'equipment_discount'.$key}}">
                           <tr>
                             <td>割引計算欄</td>
                             <td>
@@ -1145,8 +1190,7 @@
                                 割引金額
                               </p>
                               <div class="d-flex align-items-end">
-                                {{-- {{ Form::text('equipment_number_discount', $request->equipment_number_discount?$request->equipment_number_discount:'',['class'=>'form-control'] ) }}
-                                --}}
+                                {{ Form::text('equipment_number_discount'.$key,'',['class'=>'form-control'] ) }}
                                 <p class="ml-1">円</p>
                               </div>
                             </td>
@@ -1155,18 +1199,19 @@
                                 割引率
                               </p>
                               <div class="d-flex align-items-end">
-                                {{-- {{ Form::text('equipment_percent_discount', $request->equipment_percent_discount?$request->equipment_percent_discount:'',['class'=>'form-control'] ) }}
-                                --}}
+                                {{ Form::text('equipment_percent_discount'.$key, '',['class'=>'form-control'] ) }}
                                 <p class="ml-1">%</p>
                               </div>
                             </td>
                             <td>
-                              <input class="btn more_btn equipment_discount_btn" type="button" value="計算する">
+                              <input class="btn more_btn {{'equipment_discount_btn'.$key}}" type="button" value="計算する">
                             </td>
                           </tr>
                         </tbody>
                       </table>
                     </div>
+                    @endif
+
                     {{-- 以下、レイアウト --}}
                     <div class="layout billdetails_content">
                       <table class="table table-borderless">

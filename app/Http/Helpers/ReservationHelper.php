@@ -198,4 +198,9 @@ class ReservationHelper
     $result =  implode('', $arrays);
     return str_replace('"', '', $result);
   }
+
+  public static function numTimesNum($num1, $num2)
+  {
+    return (int)$num1 * (int)$num2;
+  }
 }
