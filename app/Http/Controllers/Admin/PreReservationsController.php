@@ -28,7 +28,7 @@ class PreReservationsController extends Controller
    */
   public function index()
   {
-    $pre_reservations = PreReservation::all();
+    $pre_reservations = PreReservation::where('multiple_reserve_id', 0);
     return view('admin.pre_reservations.index', [
       'pre_reservations' => $pre_reservations,
     ]);

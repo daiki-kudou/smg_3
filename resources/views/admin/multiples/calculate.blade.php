@@ -1324,20 +1324,19 @@
                             <td>追加/削除</td>
                           </tr>
                         </tbody>
-                        <tbody class="others_main">
+                        <tbody class="{{'others_main'.$key}}">
                           <tr>
                             <td>
-                              {{-- {{ Form::text('others_input_item0', '',['class'=>'form-control'] ) }} --}}
+                              {{ Form::text('others_input_item0_copied'.$key, '',['class'=>'form-control'] ) }}
                             </td>
                             <td>
-                              {{-- {{ Form::text('others_input_cost0', '',['class'=>'form-control'] ) }} --}}
+                              {{ Form::text('others_input_cost0_copied'.$key, '',['class'=>'form-control'] ) }}
                             </td>
                             <td>
-                              {{-- {{ Form::text('others_input_count0', '',['class'=>'form-control'] ) }} --}}
+                              {{ Form::text('others_input_count0_copied'.$key, '',['class'=>'form-control'] ) }}
                             </td>
                             <td>
-                              {{-- {{ Form::text('others_input_subtotal0', '',['class'=>'form-control', 'readonly'] ) }}
-                              --}}
+                              {{ Form::text('others_input_subtotal0_copied'.$key, '',['class'=>'form-control', 'readonly'] ) }}
                             </td>
                             <td>
                               <input type="button" value="＋" class="add pluralBtn bg-blue">

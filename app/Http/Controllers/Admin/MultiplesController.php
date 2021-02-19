@@ -44,9 +44,9 @@ class MultiplesController extends Controller
 
   public function calculate(Request $request, $multiple_id, $venue_id)
   {
-    echo "<pre>";
-    var_dump($request->all());
-    echo "</pre>";
+    // echo "<pre>";
+    // var_dump($request->all());
+    // echo "</pre>";
 
     $multiple = MultipleReserve::find($multiple_id);
     $venue = Venue::find($venue_id);
@@ -58,7 +58,7 @@ class MultiplesController extends Controller
     var_dump($result);
     echo "</pre>";
 
-
+    $multiple->preStore($venue_id, $request, $result);
 
 
 
