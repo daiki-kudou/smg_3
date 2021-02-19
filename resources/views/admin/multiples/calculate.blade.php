@@ -5,6 +5,7 @@
 
 <link href="{{ asset('/css/template.css') }}" rel="stylesheet">
 <script src="{{ asset('/js/multiples/script.js') }}"></script>
+<script src="{{ asset('/js/multiples/calculate.js') }}"></script>
 
 
 
@@ -1213,6 +1214,7 @@
                     @endif
 
                     {{-- 以下、レイアウト --}}
+                    @if ($result[2])
                     <div class="layout billdetails_content">
                       <table class="table table-borderless">
                         <tr>
@@ -1230,27 +1232,41 @@
                             <td>金額</td>
                           </tr>
                         </tbody>
-                        <tbody class="layout_main">
+                        <tbody class="{{'layout_main'.$key}}">
+                          @if ($result[2][0])
                           <tr>
                             <td>
-                              {{-- {{ Form::text('layout_prepare_item', "レイアウト準備料金",['class'=>'form-control', 'readonly'] ) }}
-                              --}}
+                              {{ Form::text('layout_prepare_item_copied'.$key, "レイアウト準備料金",['class'=>'form-control', 'readonly'] ) }}
                             </td>
                             <td>
-                              {{-- {{ Form::text('layout_prepare_cost', $layouts_details[0],['class'=>'form-control', 'readonly'] )}}
-                              --}}
+                              {{ Form::text('layout_prepare_cost_copied'.$key, $result[2][0],['class'=>'form-control', 'readonly'] )}}
                             </td>
                             <td>
-                              {{-- {{ Form::text('layout_prepare_count', 1,['class'=>'form-control', 'readonly'] )}}
-                              --}}
+                              {{ Form::text('layout_prepare_count_copied'.$key, 1,['class'=>'form-control', 'readonly'] )}}
                             </td>
                             <td>
-                              {{-- {{ Form::text('layout_prepare_subtotal', $layouts_details[0],['class'=>'form-control', 'readonly'] )}}
-                              --}}
+                              {{ Form::text('layout_prepare_subtotal_copied'.$key, $result[2][0],['class'=>'form-control', 'readonly'] )}}
                             </td>
                           </tr>
+                          @endif
+                          @if ($result[2][1])
+                          <tr>
+                            <td>
+                              {{ Form::text('layout_clean_item_copied'.$key, "レイアウト準備料金",['class'=>'form-control', 'readonly'] ) }}
+                            </td>
+                            <td>
+                              {{ Form::text('layout_clean_cost_copied'.$key, $result[2][1],['class'=>'form-control', 'readonly'] )}}
+                            </td>
+                            <td>
+                              {{ Form::text('layout_clean_count_copied'.$key, 1,['class'=>'form-control', 'readonly'] )}}
+                            </td>
+                            <td>
+                              {{ Form::text('layout_clean_subtotal_copied'.$key, $result[2][1],['class'=>'form-control', 'readonly'] )}}
+                            </td>
+                          </tr>
+                          @endif
                         </tbody>
-                        <tbody class="layout_result">
+                        <tbody class="{{'layout_result'.$key}}">
                           <tr>
                             <td colspan="2"></td>
                             <td colspan="2">合計
@@ -1259,7 +1275,7 @@
                             </td>
                           </tr>
                         </tbody>
-                        <tbody class="layout_discount">
+                        <tbody class="{{'layout_discount'.$key}}">
                           <tr>
                             <td>割引計算欄</td>
                             <td>
@@ -1267,8 +1283,7 @@
                                 割引金額
                               </p>
                               <div class="d-flex align-items-end">
-                                {{-- {{ Form::text('layout_number_discount', $request->layout_number_discount?$request->layout_number_discount:'',['class'=>'form-control'] ) }}
-                                --}}
+                                {{ Form::text('layout_number_discount'.$key, '',['class'=>'form-control'] ) }}
                                 <p class="ml-1">円</p>
                               </div>
                             </td>
@@ -1277,18 +1292,19 @@
                                 割引率
                               </p>
                               <div class="d-flex align-items-end">
-                                {{-- {{ Form::text('layout_percent_discount', $request->layout_percent_discount?$request->layout_percent_discount:'',['class'=>'form-control'] ) }}
-                                --}}
+                                {{ Form::text('layout_percent_discount'.$key, '',['class'=>'form-control'] ) }}
                                 <p class="ml-1">%</p>
                               </div>
                             </td>
                             <td>
-                              <input class="btn more_btn layout_discount_btn" type="button" value="計算する">
+                              <input class="btn more_btn {{'layout_discount_btn'.$key}}" type="button" value="計算する">
                             </td>
                           </tr>
                         </tbody>
                       </table>
                     </div>
+                    @endif
+
 
                     {{-- 以下、その他 --}}
                     <div class="others billdetails_content">
@@ -1483,140 +1499,4 @@
 </div>
 
 
-<script>
-  $(function(){
-    $(document).on("click", ".add", function() {
-      $(this).parent().parent().clone(true).insertAfter($(this).parent().parent());
-      var target1=$(this).parent().parent().find('td').eq(0).find('input').attr('name');
-      var splitKey=target1.split('_copied');
-      var targetTr=$(this).parent().parent().parent().find('tr');
-      for (let index = 0; index < targetTr.length; index++) {
-        targetTr.eq(index).find('td').eq(0).find('input').attr('name','venue_breakdown_item'+index+'_copied'+splitKey[1]);
-        targetTr.eq(index).find('td').eq(1).find('input').attr('name','venue_breakdown_cost'+index+'_copied'+splitKey[1]);
-        targetTr.eq(index).find('td').eq(2).find('input').attr('name','venue_breakdown_count'+index+'_copied'+splitKey[1]);
-        targetTr.eq(index).find('td').eq(3).find('input').attr('name','venue_breakdown_subtotal'+index+'_copied'+splitKey[1]);
-      }
-    })
-
-    $(document).on("click", ".del", function() {
-      var sptarget=$(this).parent().parent().find('td').eq(0).find('input').attr('name');
-      var splitKey=sptarget.split('_copied');
-      var master=$(this).parent().parent().parent();
-      var targetTR=master.find('tr').length;
-      var thisTR=$(this).parent().parent();
-      if (targetTR>1) {
-        thisTR.remove();
-      };
-      var reTargetTR=master.find('tr');
-      for (let index2 = 0; index2 < reTargetTR.length; index2++) {
-        reTargetTR.eq(index2).find('td').eq(0).find('input').attr('name','venue_breakdown_item'+index2+'_copied'+splitKey[1]);
-        reTargetTR.eq(index2).find('td').eq(1).find('input').attr('name','venue_breakdown_cost'+index2+'_copied'+splitKey[1]);
-        reTargetTR.eq(index2).find('td').eq(2).find('input').attr('name','venue_breakdown_count'+index2+'_copied'+splitKey[1]);
-        reTargetTR.eq(index2).find('td').eq(3).find('input').attr('name','venue_breakdown_subtotal'+index2+'_copied'+splitKey[1]);
-      }
-    })
-  })
-
-  $(function(){
-    var targetLength=$('#counts_reserve').val();
-    var number_ar=[];
-    var percent_ar=[];
-    var price_ar=[];
-    for (let index3 = 0; index3 < targetLength; index3++) {
-      var number = "input[name='venue_number_discount"+index3+"']";
-      number_ar.push(number);
-      var percent = "input[name='venue_percent_discount"+index3+"']";
-      percent_ar.push(percent);
-      var price = Number($("input[name='venue_price"+index3+"']").val());
-      price_ar.push(price);
-    }
-
-    var datas_ar=[];
-    for (let index4 = 0; index4 < targetLength; index4++) {
-      $(number_ar[index4]).on('focus', function () {
-      $(percent_ar[index4]).val('');
-    });
-    $(percent_ar[index4]).on('focus', function () {
-      $(number_ar[index4]).val('');
-    });
-
-      $('.venue_discount_btn'+index4).on('click',function(){
-        $('.venue_input_discounts'+index4).remove();
-        $("input[name='venue_price"+index4+"']").val('');
-        $("input[name='venue_price"+index4+"']").val(price_ar[index4]);
-        
-        if ($(number_ar[index4]).val() != 0 && $(number_ar[index4]).val() != '') {
-        // 割引料金に金額があったら
-        var p_r = Math.floor(Number(($(number_ar[index4]).val() / price_ar[index4]) * 100));
-        var datas = "<tr class='venue_input_discounts" + index4 + "'>"
-          + "<td>"
-          + "<input class='form-control' readonly='' name='venue_breakdown_discount_item" + index4 + "' type='text' value='"
-          + "割引料金（" + p_r
-          + "%）"
-          + "'>"
-          + "</td>"
-          + "<td>"
-          + "<input class='form-control' readonly='' name='venue_breakdown_discount_cost" + index4 + "' type='text' value='"
-          + (-$(number_ar[index4]).val())
-          + "'>"
-          + "</td>"
-          + "<td>"
-          + "<input class='form-control' readonly='' name='venue_breakdown_discount_count" + index4 + "' type='text' value='1'>"
-          + "</td>"
-          + "<td>"
-          + "<input class='form-control' readonly='' name='venue_breakdown_discount_subtotal" + index4 + "' type='text' value='"
-          + (-$(number_ar[index4]).val())
-          + "'>"
-          + "</td>"
-          + "</tr>";
-        $('.venue_main' +index4 ).append(datas);
-        var change = Number(price_ar[index4]) - Number($(number_ar[index4]).val());
-        $('input[name="venue_price' + index4 + '"]').val(Number(change));
-      }
-
-
-        if ($(percent_ar[index4]).val() != 0 && $(percent_ar[index4]).val() != '') {
-        // 割引料金に金額があったら
-        var n_r = (price_ar[index4] * ($(percent_ar[index4]).val() / 100));
-        var datas2 = "<tr class='venue_input_discounts" + index4 + "'>"
-          + "<td>"
-          + "<input class='form-control' readonly='' name='venue_breakdown_discount_item" + index4 + "' type='text' value='"
-          + "割引料金（"
-          + $(percent_ar[index4]).val()
-          + "%）"
-          + "'>"
-          + "</td>"
-          + "<td>"
-          + "<input class='form-control' readonly='' name='venue_breakdown_discount_cost" + index4 + "' type='text' value='"
-          + (-n_r)
-          + "'>"
-          + "</td>"
-          + "<td>"
-          + "<input class='form-control' readonly='' name='venue_breakdown_discount_count" + index4 + "' type='text' value='1'>"
-          + "</td>"
-          + "<td>"
-          + "<input class='form-control' readonly='' name='venue_breakdown_discount_subtotal" + index4 + "' type='text' value='"
-          + (-n_r)
-          + "'>"
-          + "</td>"
-          + "</tr>";
-        $('.venue_main' +index4 ).append(datas2);
-        var change = Number(price_ar[index4]) - Number(n_r);
-        $('input[name="venue_price' + index4 + '"]').val(Number(change));
-      }
-      })
-    }
-  })
-</script>
 @endsection
-
-{{-- $("input[name='venue_number_discount"+index3+"']").on('focus', function () {
-  $("input[name='venue_percent_discount"+index3+"']").val('');
-});
-$("input[name='venue_percent_discount"+index3+"']").on('focus', function () {
-  $("input[name='venue_number_discount"+index3+"']").val('');
-});
-
-$('.venue_discount_btn'+index3).on('click',function(){
-  
-}) --}}
