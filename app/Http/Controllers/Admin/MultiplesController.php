@@ -52,11 +52,11 @@ class MultiplesController extends Controller
     $venue = Venue::find($venue_id);
 
     $result = $multiple->calculateVenue($venue_id, $request);
+    //0に会場料金　1にサービス　2にレイアウト
 
-
-    // echo "<pre>";
-    // var_dump($result);
-    // echo "</pre>";
+    echo "<pre>";
+    var_dump($result);
+    echo "</pre>";
 
 
 
@@ -67,6 +67,7 @@ class MultiplesController extends Controller
       'multiple' => $multiple,
       'venue' => $venue,
       'request' => $request,
+      'result' => $result,
     ]);
   }
 }

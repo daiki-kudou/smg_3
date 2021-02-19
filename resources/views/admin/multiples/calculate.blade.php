@@ -468,6 +468,8 @@
       </ul>
     </div>
 
+    {{-- jsで仮抑えの件数判別のためのhidden --}}
+    {{ Form::hidden('', $multiple->pre_reservations()->where('venue_id',$venue->id)->get()->count(),['id'=>'counts_reserve']) }}
     {{-- 以下、pre_reservationの数分　ループ --}}
     @foreach ($multiple->pre_reservations()->where('venue_id',$venue->id)->get() as $key=>$pre_reservation)
     <section class="register-list col">
@@ -819,9 +821,9 @@
                       <td>
                         <div class="d-flex">
                           <div class="form-check form-check-inline">
-                            {{Form::radio('email_flag_copied'.$key, 1, false, ['id' => 'email_flag_copied'.$key, 'class' => 'form-check-input'])}}
+                            {{Form::radio('email_flag_copied'.$key, 1, $request->cp_master_email_flag==1?true:false, ['id' => 'email_flag_copied'.$key, 'class' => 'form-check-input'])}}
                             {{Form::label('email_flag_copied'.$key,'有り',['class'=>'mr-5'])}}
-                            {{Form::radio('email_flag_copied'.$key, 0, true, ['id' => 'no_email_flag_copied'.$key, 'class' => 'form-check-input'])}}
+                            {{Form::radio('email_flag_copied'.$key, 0, $request->cp_master_email_flag==0?true:false, ['id' => 'no_email_flag_copied'.$key, 'class' => 'form-check-input'])}}
                             {{Form::label('no_email_flag_copied'.$key,'無し')}}
                           </div>
                         </div>
@@ -905,14 +907,6 @@
                             円</dd>
                         </dl>
                       </td>
-                      <td>
-                        <dl class="ttl_box">
-                          <dt>支払い期日</dt>
-                          <dd class="total_result">
-                            {{-- {{ReservationHelper::formatDate($pay_limit)}} --}}
-                          </dd>
-                        </dl>
-                      </td>
                     </tr>
                   </table>
                 </div>
@@ -938,6 +932,7 @@
                             </h4>
                           </td>
                         </tr>
+                        @if ($result[0][$key])
                         <tbody class="venue_head">
                           <tr>
                             <td>内容</td>
@@ -946,36 +941,46 @@
                             <td>金額</td>
                           </tr>
                         </tbody>
-                        <tbody class="venue_main">
+                        @if ($result[0][$key][1]){{--延長があるなら--}}
+                        <tbody class="{{'venue_main'.$key}}">
                           <tr>
                             <td>
-                              {{-- {{ Form::text('venue_breakdown_item0', "会場料金",['class'=>'form-control', 'readonly'] ) }}
-                              --}}
+                              {{ Form::text('venue_breakdown_item0_copied'.$key, "会場料金",['class'=>'form-control', 'readonly'] ) }}
                             </td>
                             <td>
-                              {{-- {{ Form::text('venue_breakdown_cost0', $price_details[0]-$price_details[1],['class'=>'form-control', 'readonly'] ) }}
-                              --}}
+                              {{ Form::text('venue_breakdown_cost0_copied'.$key, $result[0][$key][0],['class'=>'form-control', 'readonly'] ) }}
                             </td>
                             <td>
-                              {{-- {{ Form::text('venue_breakdown_count0', $price_details[3],['class'=>'form-control', 'readonly'] ) }}
-                              --}}
+                              {{ Form::text('venue_breakdown_count0_copied'.$key, $result[0][$key][3]-$result[0][$key][4],['class'=>'form-control', 'readonly'] ) }}
                             </td>
                             <td>
-                              {{-- {{ Form::text('venue_breakdown_subtotal0', $price_details[0]-$price_details[1],['class'=>'form-control', 'readonly'] ) }}
-                              --}}
+                              {{ Form::text('venue_breakdown_subtotal0_copied'.$key, $result[0][$key][0],['class'=>'form-control', 'readonly'] ) }}
+                            </td>
+                          </tr>
+                          <tr>
+                            <td>
+                              {{ Form::text('venue_breakdown_item1_copied'.$key, "延長料金",['class'=>'form-control', 'readonly'] ) }}
+                            </td>
+                            <td>
+                              {{ Form::text('venue_breakdown_cost1_copied'.$key, $result[0][$key][1],['class'=>'form-control', 'readonly'] ) }}
+                            </td>
+                            <td>
+                              {{ Form::text('venue_breakdown_count1_copied'.$key, $result[0][$key][4],['class'=>'form-control', 'readonly'] ) }}
+                            </td>
+                            <td>
+                              {{ Form::text('venue_breakdown_subtotal1_copied'.$key, $result[0][$key][1],['class'=>'form-control', 'readonly'] ) }}
                             </td>
                           </tr>
                         </tbody>
-                        <tbody class="venue_result">
+                        <tbody class="{{'venue_result'.$key}}">
                           <tr>
                             <td colspan="2"></td>
                             <td colspan="2">合計
-                              {{-- {{ Form::text('venue_price', $price_details[0],['class'=>'form-control col-xs-3', 'readonly'] ) }}
-                              --}}
+                              {{ Form::text('venue_price'.$key,$result[0][$key][2],['class'=>'form-control col-xs-3', 'readonly'] ) }}
                             </td>
                           </tr>
                         </tbody>
-                        <tbody class="venue_discount">
+                        <tbody class="{{'venue_discount'.$key}}">
                           <tr>
                             <td>割引計算欄</td>
                             <td>
@@ -983,8 +988,7 @@
                                 割引金額
                               </p>
                               <div class="d-flex align-items-end">
-                                {{-- {{ Form::text('venue_number_discount', $request->venue_number_discount?$request->venue_number_discount:'',['class'=>'form-control'] ) }}
-                                --}}
+                                {{ Form::text('venue_number_discount'.$key, '',['class'=>'form-control'] ) }}
                                 <p class="ml-1">円</p>
                               </div>
                             </td>
@@ -993,30 +997,91 @@
                                 割引率
                               </p>
                               <div class="d-flex align-items-end">
-                                {{-- {{ Form::text('venue_percent_discount', $request->venue_percent_discount?$request->venue_percent_discount:'',['class'=>'form-control'] ) }}
-                                --}}
+                                {{ Form::text('venue_percent_discount'.$key, '',['class'=>'form-control'] ) }}
                                 <p class="ml-1">%</p>
                               </div>
                             </td>
                             <td>
-                              <input class="btn more_btn venue_discount_btn" type="button" value="計算する">
+                              <input class="{{'btn more_btn venue_discount_btn'.$key}}" type="button" value="計算する">
                             </td>
                           </tr>
                         </tbody>
-                        <span class="text-red">※料金体系がないため、手打ちで会場料を入力してください</span>
-                        <tbody class="venue_main">
+                        @else{{--延長なし。会場料金のみ--}}
+                        <tbody class="{{'venue_main'.$key}}">
                           <tr>
                             <td>
-                              {{-- {{ Form::text('venue_breakdown_item0', '',['class'=>'form-control'] ) }} --}}
+                              {{ Form::text('venue_breakdown_item0_copied'.$key, "会場料金",['class'=>'form-control', 'readonly'] ) }}
                             </td>
                             <td>
-                              {{-- {{ Form::text('venue_breakdown_cost0', '',['class'=>'form-control'] ) }} --}}
+                              {{ Form::text('venue_breakdown_cost0_copied'.$key, $result[0][$key][0],['class'=>'form-control', 'readonly'] ) }}
                             </td>
                             <td>
-                              {{-- {{ Form::text('venue_breakdown_count0', '',['class'=>'form-control'] ) }} --}}
+                              {{ Form::text('venue_breakdown_count0_copied'.$key, $result[0][$key][3]-$result[0][$key][4],['class'=>'form-control', 'readonly'] ) }}
                             </td>
                             <td>
-                              {{-- {{ Form::text('venue_breakdown_subtotal0', '',['class'=>'form-control'] ) }} --}}
+                              {{ Form::text('venue_breakdown_subtotal0_copied'.$key, $result[0][$key][0],['class'=>'form-control', 'readonly'] ) }}
+                            </td>
+                          </tr>
+                        </tbody>
+                        <tbody class="{{'venue_result'.$key}}">
+                          <tr>
+                            <td colspan="2"></td>
+                            <td colspan="2">合計
+                              {{ Form::text('venue_price'.$key,$result[0][$key][2],['class'=>'form-control col-xs-3', 'readonly'] ) }}
+                            </td>
+                          </tr>
+                        </tbody>
+                        <tbody class="{{'venue_discount'.$key}}">
+                          <tr>
+                            <td>割引計算欄</td>
+                            <td>
+                              <p>
+                                割引金額
+                              </p>
+                              <div class="d-flex align-items-end">
+                                {{ Form::text('venue_number_discount'.$key, '',['class'=>'form-control'] ) }}
+                                <p class="ml-1">円</p>
+                              </div>
+                            </td>
+                            <td>
+                              <p>
+                                割引率
+                              </p>
+                              <div class="d-flex align-items-end">
+                                {{ Form::text('venue_percent_discount'.$key, '',['class'=>'form-control'] ) }}
+                                <p class="ml-1">%</p>
+                              </div>
+                            </td>
+                            <td>
+                              <input class="{{'btn more_btn venue_discount_btn'.$key}}" type="button" value="計算する">
+                            </td>
+                          </tr>
+                        </tbody>
+                        @endif
+                        @else{{--料金体系無し、手打ち--}}
+                        <span>※料金体系がないため、手打ちで会場料を入力してください</span>
+                        <tbody class="venue_head">
+                          <tr>
+                            <td>内容</td>
+                            <td>単価</td>
+                            <td>数量</td>
+                            <td>金額</td>
+                            <td></td>
+                          </tr>
+                        </tbody>
+                        <tbody class="{{'venue_main'.$key}}">
+                          <tr>
+                            <td>
+                              {{ Form::text('venue_breakdown_item0_copied'.$key, '',['class'=>'form-control'] ) }}
+                            </td>
+                            <td>
+                              {{ Form::text('venue_breakdown_cost0_copied'.$key, '',['class'=>'form-control'] ) }}
+                            </td>
+                            <td>
+                              {{ Form::text('venue_breakdown_count0_copied'.$key, '',['class'=>'form-control'] ) }}
+                            </td>
+                            <td>
+                              {{ Form::text('venue_breakdown_subtotal0_copied'.$key, '',['class'=>'form-control'] ) }}
                             </td>
                             <td>
                               <input type="button" value="＋" class="add pluralBtn">
@@ -1024,15 +1089,15 @@
                             </td>
                           </tr>
                         </tbody>
-                        <tbody class="venue_result">
+                        <tbody class="{{'venue_result'.$key}}">
                           <tr>
                             <td colspan="2"></td>
                             <td colspan="2">合計
-                              {{-- {{ Form::text('venue_price', '',['class'=>'form-control col-xs-3', 'readonly'] ) }}
-                              --}}
+                              {{ Form::text('venue_price'.$key,'',['class'=>'form-control col-xs-3', 'readonly'] ) }}
                             </td>
                           </tr>
                         </tbody>
+                        @endif
                       </table>
                     </div>
 
@@ -1315,6 +1380,7 @@
       </div>
       <!-- 仮押さえ一括 タブ終わり-->
     </section>
+
     @endforeach
 
 
@@ -1372,4 +1438,110 @@
 </div>
 
 
+<script>
+  $(function(){
+    $(document).on("click", ".add", function() {
+      $(this).parent().parent().clone(true).insertAfter($(this).parent().parent());
+      var target1=$(this).parent().parent().find('td').eq(0).find('input').attr('name');
+      var splitKey=target1.split('_copied');
+      var targetTr=$(this).parent().parent().parent().find('tr');
+      for (let index = 0; index < targetTr.length; index++) {
+        targetTr.eq(index).find('td').eq(0).find('input').attr('name','venue_breakdown_item'+index+'_copied'+splitKey[1]);
+        targetTr.eq(index).find('td').eq(1).find('input').attr('name','venue_breakdown_cost'+index+'_copied'+splitKey[1]);
+        targetTr.eq(index).find('td').eq(2).find('input').attr('name','venue_breakdown_count'+index+'_copied'+splitKey[1]);
+        targetTr.eq(index).find('td').eq(3).find('input').attr('name','venue_breakdown_subtotal'+index+'_copied'+splitKey[1]);
+      }
+    })
+
+    $(document).on("click", ".del", function() {
+      var sptarget=$(this).parent().parent().find('td').eq(0).find('input').attr('name');
+      var splitKey=sptarget.split('_copied');
+      var master=$(this).parent().parent().parent();
+      var targetTR=master.find('tr').length;
+      var thisTR=$(this).parent().parent();
+      if (targetTR>1) {
+        thisTR.remove();
+      };
+      var reTargetTR=master.find('tr');
+      for (let index2 = 0; index2 < reTargetTR.length; index2++) {
+        reTargetTR.eq(index2).find('td').eq(0).find('input').attr('name','venue_breakdown_item'+index2+'_copied'+splitKey[1]);
+        reTargetTR.eq(index2).find('td').eq(1).find('input').attr('name','venue_breakdown_cost'+index2+'_copied'+splitKey[1]);
+        reTargetTR.eq(index2).find('td').eq(2).find('input').attr('name','venue_breakdown_count'+index2+'_copied'+splitKey[1]);
+        reTargetTR.eq(index2).find('td').eq(3).find('input').attr('name','venue_breakdown_subtotal'+index2+'_copied'+splitKey[1]);
+      }
+    })
+  })
+
+  $(function(){
+    var targetLength=$('#counts_reserve').val();
+    var number_ar=[];
+    var percent_ar=[];
+    var price_ar=[];
+    for (let index3 = 0; index3 < targetLength; index3++) {
+      var number = "input[name='venue_number_discount"+index3+"']";
+      number_ar.push(number);
+      var percent = "input[name='venue_percent_discount"+index3+"']";
+      percent_ar.push(percent);
+      var price = "input[name='venue_price"+index3+"']";
+      price_ar.push(price);
+    }
+
+    console.log(
+      number_ar,percent_ar,price_ar
+    );
+
+    var datas_ar=[];
+    for (let index4 = 0; index4 < targetLength; index4++) {
+      $(number_ar[index4]).on('focus', function () {
+      $(percent_ar[index4]).val('');
+    });
+    $(percent_ar[index4]).on('focus', function () {
+      $(number_ar[index4]).val('');
+    });
+
+      $('.venue_discount_btn'+index4).on('click',function(){
+        $('.venue_input_discounts'+index4).remove();
+        if ($(number_ar[index4]).val() != 0 && $(number_ar[index4]).val() != '') {
+        // 割引料金に金額があったら
+        var p_r = Math.floor(Number(($(number_ar[index4]).val() / price) * 100));
+        var datas = "<tr class='venue_input_discounts" + index4 + "'>"
+          + "<td>"
+          + "<input class='form-control' readonly='' name='venue_breakdown_discount_item" + index4 + "' type='text' value='"
+          + "割引料金（" + p_r
+          + "%）"
+          + "'>"
+          + "</td>"
+          + "<td>"
+          + "<input class='form-control' readonly='' name='venue_breakdown_discount_cost" + index4 + "' type='text' value='"
+          + (-$(number_ar[index4]).val())
+          + "'>"
+          + "</td>"
+          + "<td>"
+          + "<input class='form-control' readonly='' name='venue_breakdown_discount_count" + index4 + "' type='text' value='1'>"
+          + "</td>"
+          + "<td>"
+          + "<input class='form-control' readonly='' name='venue_breakdown_discount_subtotal" + index4 + "' type='text' value='"
+          + (-$(number_ar[index4]).val())
+          + "'>"
+          + "</td>"
+          + "</tr>";
+        $('.venue_main' +index4 ).append(datas);
+        var change = $(price_ar[index4]) - Number($(number_ar[index4]).val());
+        $('input[name="venue_price' + index4 + '"]').val(change);
+      }
+      })
+    }
+  })
+</script>
 @endsection
+
+{{-- $("input[name='venue_number_discount"+index3+"']").on('focus', function () {
+  $("input[name='venue_percent_discount"+index3+"']").val('');
+});
+$("input[name='venue_percent_discount"+index3+"']").on('focus', function () {
+  $("input[name='venue_number_discount"+index3+"']").val('');
+});
+
+$('.venue_discount_btn'+index3).on('click',function(){
+  
+}) --}}
