@@ -1482,13 +1482,9 @@
       number_ar.push(number);
       var percent = "input[name='venue_percent_discount"+index3+"']";
       percent_ar.push(percent);
-      var price = "input[name='venue_price"+index3+"']";
+      var price = Number($("input[name='venue_price"+index3+"']").val());
       price_ar.push(price);
     }
-
-    console.log(
-      number_ar,percent_ar,price_ar
-    );
 
     var datas_ar=[];
     for (let index4 = 0; index4 < targetLength; index4++) {
@@ -1501,9 +1497,12 @@
 
       $('.venue_discount_btn'+index4).on('click',function(){
         $('.venue_input_discounts'+index4).remove();
+        $("input[name='venue_price"+index4+"']").val('');
+        $("input[name='venue_price"+index4+"']").val(price_ar[index4]);
+        
         if ($(number_ar[index4]).val() != 0 && $(number_ar[index4]).val() != '') {
         // 割引料金に金額があったら
-        var p_r = Math.floor(Number(($(number_ar[index4]).val() / price) * 100));
+        var p_r = Math.floor(Number(($(number_ar[index4]).val() / price_ar[index4]) * 100));
         var datas = "<tr class='venue_input_discounts" + index4 + "'>"
           + "<td>"
           + "<input class='form-control' readonly='' name='venue_breakdown_discount_item" + index4 + "' type='text' value='"
@@ -1526,8 +1525,39 @@
           + "</td>"
           + "</tr>";
         $('.venue_main' +index4 ).append(datas);
-        var change = $(price_ar[index4]) - Number($(number_ar[index4]).val());
-        $('input[name="venue_price' + index4 + '"]').val(change);
+        var change = Number(price_ar[index4]) - Number($(number_ar[index4]).val());
+        $('input[name="venue_price' + index4 + '"]').val(Number(change));
+      }
+
+
+        if ($(percent_ar[index4]).val() != 0 && $(percent_ar[index4]).val() != '') {
+        // 割引料金に金額があったら
+        var n_r = (price_ar[index4] * ($(percent_ar[index4]).val() / 100));
+        var datas2 = "<tr class='venue_input_discounts" + index4 + "'>"
+          + "<td>"
+          + "<input class='form-control' readonly='' name='venue_breakdown_discount_item" + index4 + "' type='text' value='"
+          + "割引料金（"
+          + $(percent_ar[index4]).val()
+          + "%）"
+          + "'>"
+          + "</td>"
+          + "<td>"
+          + "<input class='form-control' readonly='' name='venue_breakdown_discount_cost" + index4 + "' type='text' value='"
+          + (-n_r)
+          + "'>"
+          + "</td>"
+          + "<td>"
+          + "<input class='form-control' readonly='' name='venue_breakdown_discount_count" + index4 + "' type='text' value='1'>"
+          + "</td>"
+          + "<td>"
+          + "<input class='form-control' readonly='' name='venue_breakdown_discount_subtotal" + index4 + "' type='text' value='"
+          + (-n_r)
+          + "'>"
+          + "</td>"
+          + "</tr>";
+        $('.venue_main' +index4 ).append(datas2);
+        var change = Number(price_ar[index4]) - Number(n_r);
+        $('input[name="venue_price' + index4 + '"]').val(Number(change));
       }
       })
     }
