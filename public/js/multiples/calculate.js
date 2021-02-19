@@ -146,6 +146,18 @@ $(function () {
     'equipment_breakdown_discount_subtotal',
     'equipment_main'
   )
+  Mdiscounts(
+    'layout_number_discount',
+    'layout_percent_discount',
+    'layout_price',
+    'layout_discount_btn',
+    'layout_input_discounts',
+    'layout_breakdown_discount_item',
+    'layout_breakdown_discount_cost',
+    'layout_breakdown_discount_count',
+    'layout_breakdown_discount_subtotal',
+    'layout_main'
+  )
 })
 
 // $(function () {

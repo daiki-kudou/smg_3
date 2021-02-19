@@ -1270,8 +1270,7 @@
                           <tr>
                             <td colspan="2"></td>
                             <td colspan="2">合計
-                              {{-- {{ Form::text('layout_price',$layouts_details[2] ,['class'=>'form-control', 'readonly'] ) }}
-                              --}}
+                              {{ Form::text('layout_price'.$key, $result[2][2],['class'=>'form-control', 'readonly'] ) }}
                             </td>
                           </tr>
                         </tbody>
