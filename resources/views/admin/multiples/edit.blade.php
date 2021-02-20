@@ -8,29 +8,6 @@
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 <div class="content">
   <div class="container-fluid">
     <div class="container-field mt-3">
@@ -529,6 +506,20 @@
                       </td>
                     </tr>
 
+                    <tr>
+                      <td class="table-active"><label for="direction">料金体系</label></td>
+                      <td>
+                        <div class="">
+                            {{ Form::radio('aaaaaaaa', 1, true, ['class'=>'mr-2', 'id'=>'aaaaaaaaaaa']) }}
+                            {{Form::label('aaaaaaaaaaa','通常（枠貸）')}}
+                          </div>
+                          <div>
+                            {{ Form::radio('aaaaaaaa', 2, false, ['class'=>'mr-2', 'id'=>'bbbbbbbb']) }}
+                            {{Form::label('bbbbbbbb','アクセア（時間貸）')}}
+                          </div>
+                        </div>
+                      </td>
+                    </tr>
                     <tr>
                       <td class="table-active"><label for="direction">案内板</label></td>
                       <td>
