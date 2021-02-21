@@ -18,6 +18,7 @@ $(function () {
       targetTr.eq(index).find('td').eq(2).find('input').attr('name', 'venue_breakdown_count' + index + '_copied' + splitKey[1]);
       targetTr.eq(index).find('td').eq(3).find('input').attr('name', 'venue_breakdown_subtotal' + index + '_copied' + splitKey[1]);
     }
+    change_all_totals();
   })
   // 会場手打ちの場合のプラス　マイナス　ボタン
   $(document).on("click", "[class^='venue_main'] .del", function () {
@@ -40,6 +41,7 @@ $(function () {
       reTargetTR.eq(index2).find('td').eq(2).find('input').attr('name', 'venue_breakdown_count' + index2 + '_copied' + splitKey[1]);
       reTargetTR.eq(index2).find('td').eq(3).find('input').attr('name', 'venue_breakdown_subtotal' + index2 + '_copied' + splitKey[1]);
     }
+    change_all_totals();
   })
 })
 
@@ -129,6 +131,8 @@ $(function () {
           var change = Number(price_ar[loop2]) - Number(n_r);
           $('input[name="' + $m_prc + '' + loop2 + '"]').val(Number(change));
         }
+        change_all_totals();
+
       })
     }
   }
@@ -193,6 +197,7 @@ $(function () {
       master.find('tr').eq(index).find('td').eq(2).find('input').attr('name', 'others_input_count' + index + '_copied' + splitKey);
       master.find('tr').eq(index).find('td').eq(3).find('input').attr('name', 'others_input_subtotal' + index + '_copied' + splitKey);
     }
+    change_all_totals();
   })
 
   $(document).on("click", "[class^='others_main'] .del", function () {
@@ -216,6 +221,7 @@ $(function () {
       reTargetTR.eq(index2).find('td').eq(2).find('input').attr('name', 'others_input_count' + index2 + '_copied' + splitKey[1]);
       reTargetTR.eq(index2).find('td').eq(3).find('input').attr('name', 'others_input_subtotal' + index2 + '_copied' + splitKey[1]);
     }
+    change_all_totals();
   })
 })
 
@@ -238,9 +244,8 @@ $(function () {
     var total_target = $('input[name="others_price' + splitKey + '"]');
     total_target.val(total_val);
 
-    var fix = $('input[name="master_subtotal' + splitKey + 'fixed"]').val();
-    $('input[name="master_subtotal' + splitKey + '"]').val(Number(fix) + Number(total_val));
-
+    // var fix = $('input[name="master_subtotal' + splitKey + 'fixed"]').val();
+    change_all_totals();
   });
 
   $(document).on('input', 'input[name^="venue_breakdown"]', function (e) {
@@ -260,9 +265,28 @@ $(function () {
     var total_target = $('input[name="venue_price' + splitKey + '"]');
     total_target.val(total_val);
 
-    var fix = $('input[name="master_subtotal' + splitKey + 'fixed"]').val();
-    $('input[name="master_subtotal' + splitKey + '"]').val(Number(fix) + Number(total_val));
+    // var fix = $('input[name="master_subtotal' + splitKey + 'fixed"]').val();
+    change_all_totals();
   });
-
-
 })
+
+function change_all_totals() {
+  var count = $('#counts_reserve').val();
+  console.log(count);
+  for (let index = 0; index < count; index++) {
+    var venue = Number($('input[name="venue_price' + index + '"]').val());
+    var equipment = Number($('input[name="equipment_price' + index + '"]').val());
+    var layout = Number($('input[name="layout_price' + index + '"]').val());
+    var others = $('input[name="others_price' + index + '"]').val() == "" ? 0 : Number($('input[name="others_price' + index + '"]').val());
+    venue ? venue : venue = 0;
+    equipment ? equipment : equipment = 0;
+    layout ? layout : layout = 0;
+    others ? others : others = 0;
+    var result = venue + equipment + layout + others;
+    var result_tax = Math.floor(result * 0.1);
+    $('.total_result').text('').text(result);
+    $('input[name="master_subtotal' + index + '"]').val(result);
+    $('input[name="master_tax' + index + '"]').val(result_tax);
+    $('input[name="master_total' + index + '"]').val(result + result_tax);
+  }
+}

@@ -1377,7 +1377,7 @@
                         <tr>
                           <td>消費税：</td>
                           <td>
-                            {{ Form::text('master_subtotal'.$key,ReservationHelper::getTax(
+                            {{ Form::text('master_tax'.$key,ReservationHelper::getTax(
                             (empty($result[0][$key][2])?0:$result[0][$key][2])+
                             (empty($result[1][0])?0:$result[1][0])+
                             ($request->cp_master_luggage_price?$request->cp_master_luggage_price:0)+
@@ -1388,7 +1388,7 @@
                         <tr>
                           <td class="font-weight-bold">合計金額</td>
                           <td>
-                            {{ Form::text('master_subtotal'.$key,ReservationHelper::taxAndPrice(
+                            {{ Form::text('master_total'.$key,ReservationHelper::taxAndPrice(
                               (empty($result[0][$key][2])?0:$result[0][$key][2])+
                               (empty($result[1][0])?0:$result[1][0])+
                               ($request->cp_master_luggage_price?$request->cp_master_luggage_price:0)+
