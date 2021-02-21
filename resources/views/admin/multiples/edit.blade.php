@@ -507,30 +507,31 @@
                     </tr>
 
                     <tr>
-                      <td class="table-active"><label for="direction">料金体系</label></td>
+                      <td class="table-active">
+                        <label for="direction">料金体系</label>
+                      </td>
                       <td>
                         <div class="">
-                            {{ Form::radio('aaaaaaaa', 1, true, ['class'=>'mr-2', 'id'=>'aaaaaaaaaaa']) }}
-                            {{Form::label('aaaaaaaaaaa','通常（枠貸）')}}
-                          </div>
-                          <div>
-                            {{ Form::radio('aaaaaaaa', 2, false, ['class'=>'mr-2', 'id'=>'bbbbbbbb']) }}
-                            {{Form::label('bbbbbbbb','アクセア（時間貸）')}}
-                          </div>
+                          {{ Form::radio('price_system'.$key, 1, $pre_reservation->price_system==1?true:false, ['class'=>'mr-2', 'id'=>'price_system'.$key]) }}
+                          {{Form::label('price_system'.$key,'通常（枠貸）')}}
+                        </div>
+                        <div>
+                          {{ Form::radio('price_system'.$key, 2, $pre_reservation->price_system==2?true:false, ['class'=>'mr-2', 'id'=>'price_system_2'.$key]) }}
+                          {{Form::label('price_system_2'.$key,'アクセア（時間貸）')}}
                         </div>
                       </td>
                     </tr>
                     <tr>
                       <td class="table-active"><label for="direction">案内板</label></td>
                       <td>
-                        <div class="radio-box">
-                          <div class="icheck-primary">
-                            <input type="radio" id="direction_flag" name="direction_flag" checked="">
-                            <label for="direction_flag">要作成</label>
+                        <div>
+                          <div>
+                            {{ Form::radio('board_flag'.$key, 1, $pre_reservation->board_flag==1?true:false, ['class'=>'mr-2', 'id'=>'board_flag1'.$key]) }}
+                            {{Form::label('board_flag1'.$key,'あり')}}
                           </div>
-                          <div class="icheck-primary">
-                            <input type="radio" id="direction_flag" name="direction_flag" checked="">
-                            <label for="direction_flag">不要</label>
+                          <div>
+                            {{ Form::radio('board_flag'.$key, 0, $pre_reservation->board_flag==0?true:false, ['class'=>'mr-2', 'id'=>'board_flagboard_flag2'.$key]) }}
+                            {{Form::label('board_flagboard_flag2'.$key,'なし')}}
                           </div>
                         </div>
                       </td>
@@ -553,124 +554,52 @@
                     <tr>
                       <td class="table-active"><label for="eventStart">イベント開始時間</label></td>
                       <td>
-                        <select class="form-control" id="eventStart" name="eventStart">
-                          <option value="01:00:00">01:00</option>
-                          <option value="01:30:00">01:30</option>
-                          <option value="02:00:00">02:00</option>
-                          <option value="02:30:00">02:30</option>
-                          <option value="03:00:00">03:00</option>
-                          <option value="03:30:00">03:30</option>
-                          <option value="04:00:00">04:00</option>
-                          <option value="04:30:00">04:30</option>
-                          <option value="05:00:00">05:00</option>
-                          <option value="05:30:00">05:30</option>
-                          <option value="06:00:00">06:00</option>
-                          <option value="06:30:00">06:30</option>
-                          <option value="07:00:00">07:00</option>
-                          <option value="07:30:00">07:30</option>
-                          <option value="08:00:00" selected="selected">08:00</option>
-                          <option value="08:30:00">08:30</option>
-                          <option value="09:00:00">09:00</option>
-                          <option value="09:30:00">09:30</option>
-                          <option value="10:00:00">10:00</option>
-                          <option value="10:30:00">10:30</option>
-                          <option value="11:00:00">11:00</option>
-                          <option value="11:30:00">11:30</option>
-                          <option value="12:00:00">12:00</option>
-                          <option value="12:30:00">12:30</option>
-                          <option value="13:00:00">13:00</option>
-                          <option value="13:30:00">13:30</option>
-                          <option value="14:00:00">14:00</option>
-                          <option value="14:30:00">14:30</option>
-                          <option value="15:00:00">15:00</option>
-                          <option value="15:30:00">15:30</option>
-                          <option value="16:00:00">16:00</option>
-                          <option value="16:30:00">16:30</option>
-                          <option value="17:00:00">17:00</option>
-                          <option value="17:30:00">17:30</option>
-                          <option value="18:00:00">18:00</option>
-                          <option value="18:30:00">18:30</option>
-                          <option value="19:00:00">19:00</option>
-                          <option value="19:30:00">19:30</option>
-                          <option value="20:00:00">20:00</option>
-                          <option value="20:30:00">20:30</option>
-                          <option value="21:00:00">21:00</option>
-                          <option value="21:30:00">21:30</option>
-                          <option value="22:00:00">22:00</option>
-                          <option value="22:30:00">22:30</option>
-                          <option value="23:00:00">23:00</option>
-                          <option value="23:30:00">23:30</option>
-                          <option value="24:00:00">24:00</option>
-                          <option value="24:30:00">24:30</option>
+                        <select name="{{'event_start'.$key}}" id="{{'event_start'.$key}}" class="form-control">
+                          <option disabled>選択してください</option>
+                          @for ($start = 0*2; $start <=23*2; $start++) <option
+                            value="{{date("H:i:s", strtotime("00:00 +". $start * 30 ." minute"))}}" @if (date("H:i:s",
+                            strtotime("00:00 +". $start * 30 ." minute"))==$pre_reservation->event_start)
+                            selected
+                            @endif
+                            >
+                            {{date("H時i分", strtotime("00:00 +". $start * 30 ." minute"))}}</option>
+                            @endfor
                         </select>
                       </td>
                     </tr>
                     <tr>
                       <td class="table-active"><label for="eventFinish">イベント終了時間</label></td>
                       <td>
-                        <select class="form-control" id="eventFinish" name="eventFinish">
-                          <option value="01:00:00">01:00</option>
-                          <option value="01:30:00">01:30</option>
-                          <option value="02:00:00">02:00</option>
-                          <option value="02:30:00">02:30</option>
-                          <option value="03:00:00">03:00</option>
-                          <option value="03:30:00">03:30</option>
-                          <option value="04:00:00">04:00</option>
-                          <option value="04:30:00">04:30</option>
-                          <option value="05:00:00">05:00</option>
-                          <option value="05:30:00">05:30</option>
-                          <option value="06:00:00">06:00</option>
-                          <option value="06:30:00">06:30</option>
-                          <option value="07:00:00">07:00</option>
-                          <option value="07:30:00">07:30</option>
-                          <option value="08:00:00" selected="selected">08:00</option>
-                          <option value="08:30:00">08:30</option>
-                          <option value="09:00:00">09:00</option>
-                          <option value="09:30:00">09:30</option>
-                          <option value="10:00:00">10:00</option>
-                          <option value="10:30:00">10:30</option>
-                          <option value="11:00:00">11:00</option>
-                          <option value="11:30:00">11:30</option>
-                          <option value="12:00:00">12:00</option>
-                          <option value="12:30:00">12:30</option>
-                          <option value="13:00:00">13:00</option>
-                          <option value="13:30:00">13:30</option>
-                          <option value="14:00:00">14:00</option>
-                          <option value="14:30:00">14:30</option>
-                          <option value="15:00:00">15:00</option>
-                          <option value="15:30:00">15:30</option>
-                          <option value="16:00:00">16:00</option>
-                          <option value="16:30:00">16:30</option>
-                          <option value="17:00:00">17:00</option>
-                          <option value="17:30:00">17:30</option>
-                          <option value="18:00:00">18:00</option>
-                          <option value="18:30:00">18:30</option>
-                          <option value="19:00:00">19:00</option>
-                          <option value="19:30:00">19:30</option>
-                          <option value="20:00:00">20:00</option>
-                          <option value="20:30:00">20:30</option>
-                          <option value="21:00:00">21:00</option>
-                          <option value="21:30:00">21:30</option>
-                          <option value="22:00:00">22:00</option>
-                          <option value="22:30:00">22:30</option>
-                          <option value="23:00:00">23:00</option>
-                          <option value="23:30:00">23:30</option>
-                          <option value="24:00:00">24:00</option>
-                          <option value="24:30:00">24:30</option>
+                        <select name="{{'event_finish'.$key}}" id="{{'event_finish'.$key}}" class="form-control">
+                          <option disabled>選択してください</option>
+                          @for ($start = 0*2; $start <=23*2; $start++) <option
+                            value="{{date("H:i:s", strtotime("00:00 +". $start * 30 ." minute"))}}" @if (date("H:i:s",
+                            strtotime("00:00 +". $start * 30 ." minute"))==$pre_reservation->event_finish)
+                            selected
+                            @endif
+                            >
+                            {{date("H時i分", strtotime("00:00 +". $start * 30 ." minute"))}}</option>
+                            @endfor
                         </select>
                       </td>
                     </tr>
                     <tr>
                       <td class="table-active"><label for="eventName1">イベント名称1</label></td>
-                      <td><input class="form-control" name="eventName1" type="text" id="eventName1"></td>
+                      <td>
+                        {{ Form::text('event_name1'.$key,$pre_reservation->event_name1,['class'=>'form-control', 'placeholder'=>'入力してください'] ) }}
+                      </td>
                     </tr>
                     <tr>
                       <td class="table-active"><label for="eventName2">イベント名称2</label></td>
-                      <td><input class="form-control" name="eventName2" type="text" id="eventName2"></td>
+                      <td>
+                        {{ Form::text('event_name2'.$key, $pre_reservation->event_name2,['class'=>'form-control', 'placeholder'=>'入力してください'] ) }}
+                      </td>
                     </tr>
                     <tr>
                       <td class="table-active"><label for="organizer">主催者名</label></td>
-                      <td><input class="form-control" name="organizer" type="text" id="organizer"></td>
+                      <td>
+                        {{ Form::text('event_owner'.$key, $pre_reservation->event_owner,['class'=>'form-control', 'placeholder'=>'入力してください'] ) }}
+                      </td>
                     </tr>
                   </tbody>
                 </table>
@@ -683,24 +612,17 @@
                     </tr>
                   </thead>
                   <tbody class="accordion-wrap" style="display: none;">
+                    @foreach ($venue->getEquipments() as $e_key=>$equipment)
                     <tr>
-                      <td class="justify-content-between d-flex">
-                        <label for="equipment">ホワイトボード</label>
-                        <input type="number" id="equipment" name="equipment" min="0" max="100">
+                      <td class="table-active">{{$equipment->item}}</td>
+                      <td>
+                        {{Form::text('equipment_breakdown' . $e_key , '', ['class' => 'form-control'])}}
                       </td>
                     </tr>
-                    <tr>
-                      <td class="justify-content-between d-flex">
-                        <label for="equipment">ホワイトボード</label>
-                        <input type="number" id="equipment" name="equipment" min="0" max="100">
-                      </td>
-                    </tr>
-                    <tr>
-                      <td class="justify-content-between d-flex">
-                        <label for="equipment">ホワイトボード</label>
-                        <input type="number" id="equipment" name="equipment" min="0" max="100">
-                      </td>
-                    </tr>
+                    @endforeach
+
+
+
                   </tbody>
                 </table>
                 <table class="table table-bordered service-table">
@@ -987,7 +909,7 @@
               <p class="text-center"><a class="more_btn_lg" href="">請求に反映する</a></p>
             </div>
             <!-- 請求セクション------------------------------------------------------------------- -->
-            <section class="bill-wrap section-wrap">
+            {{-- <section class="bill-wrap section-wrap">
               <div class="bill">
                 <div class="bill_head">
                   <table class="table bill_table">
@@ -1001,7 +923,6 @@
                         <dl class="ttl_box">
                           <dt>合計金額</dt>
                           <dd class="total_result">
-                            {{-- {{number_format($masters)}} --}}
                             円</dd>
                         </dl>
                       </td>
@@ -1009,7 +930,6 @@
                         <dl class="ttl_box">
                           <dt>支払い期日</dt>
                           <dd class="total_result">
-                            {{-- {{ReservationHelper::formatDate($pay_limit)}} --}}
                           </dd>
                         </dl>
                       </td>
@@ -1049,20 +969,12 @@
                         <tbody class="venue_main">
                           <tr>
                             <td>
-                              {{-- {{ Form::text('venue_breakdown_item0', "会場料金",['class'=>'form-control', 'readonly'] ) }}
-                              --}}
                             </td>
                             <td>
-                              {{-- {{ Form::text('venue_breakdown_cost0', $price_details[0]-$price_details[1],['class'=>'form-control', 'readonly'] ) }}
-                              --}}
                             </td>
                             <td>
-                              {{-- {{ Form::text('venue_breakdown_count0', $price_details[3],['class'=>'form-control', 'readonly'] ) }}
-                              --}}
                             </td>
                             <td>
-                              {{-- {{ Form::text('venue_breakdown_subtotal0', $price_details[0]-$price_details[1],['class'=>'form-control', 'readonly'] ) }}
-                              --}}
                             </td>
                           </tr>
                         </tbody>
@@ -1070,8 +982,6 @@
                           <tr>
                             <td colspan="2"></td>
                             <td colspan="2">合計
-                              {{-- {{ Form::text('venue_price', $price_details[0],['class'=>'form-control col-xs-3', 'readonly'] ) }}
-                              --}}
                             </td>
                           </tr>
                         </tbody>
@@ -1083,8 +993,6 @@
                                 割引金額
                               </p>
                               <div class="d-flex align-items-end">
-                                {{-- {{ Form::text('venue_number_discount', $request->venue_number_discount?$request->venue_number_discount:'',['class'=>'form-control'] ) }}
-                                --}}
                                 <p class="ml-1">円</p>
                               </div>
                             </td>
@@ -1093,8 +1001,6 @@
                                 割引率
                               </p>
                               <div class="d-flex align-items-end">
-                                {{-- {{ Form::text('venue_percent_discount', $request->venue_percent_discount?$request->venue_percent_discount:'',['class'=>'form-control'] ) }}
-                                --}}
                                 <p class="ml-1">%</p>
                               </div>
                             </td>
@@ -1107,16 +1013,12 @@
                         <tbody class="venue_main">
                           <tr>
                             <td>
-                              {{-- {{ Form::text('venue_breakdown_item0', '',['class'=>'form-control'] ) }} --}}
                             </td>
                             <td>
-                              {{-- {{ Form::text('venue_breakdown_cost0', '',['class'=>'form-control'] ) }} --}}
                             </td>
                             <td>
-                              {{-- {{ Form::text('venue_breakdown_count0', '',['class'=>'form-control'] ) }} --}}
                             </td>
                             <td>
-                              {{-- {{ Form::text('venue_breakdown_subtotal0', '',['class'=>'form-control'] ) }} --}}
                             </td>
                             <td>
                               <input type="button" value="＋" class="add pluralBtn">
@@ -1128,15 +1030,12 @@
                           <tr>
                             <td colspan="2"></td>
                             <td colspan="2">合計
-                              {{-- {{ Form::text('venue_price', '',['class'=>'form-control col-xs-3', 'readonly'] ) }}
-                              --}}
                             </td>
                           </tr>
                         </tbody>
                       </table>
                     </div>
 
-                    {{-- 以下備品 --}}
                     <div class="equipment billdetails_content">
                       <table class="table table-borderless">
                         <tr>
@@ -1167,8 +1066,6 @@
                           <tr>
                             <td colspan="2"></td>
                             <td colspan="2">合計
-                              {{-- {{ Form::text('equipment_price', ($item_details[0]+$request->luggage_price),['class'=>'form-control', 'readonly'] ) }}
-                              --}}
                             </td>
                           </tr>
                         </tbody>
@@ -1180,8 +1077,6 @@
                                 割引金額
                               </p>
                               <div class="d-flex align-items-end">
-                                {{-- {{ Form::text('equipment_number_discount', $request->equipment_number_discount?$request->equipment_number_discount:'',['class'=>'form-control'] ) }}
-                                --}}
                                 <p class="ml-1">円</p>
                               </div>
                             </td>
@@ -1190,8 +1085,6 @@
                                 割引率
                               </p>
                               <div class="d-flex align-items-end">
-                                {{-- {{ Form::text('equipment_percent_discount', $request->equipment_percent_discount?$request->equipment_percent_discount:'',['class'=>'form-control'] ) }}
-                                --}}
                                 <p class="ml-1">%</p>
                               </div>
                             </td>
@@ -1202,7 +1095,6 @@
                         </tbody>
                       </table>
                     </div>
-                    {{-- 以下、レイアウト --}}
                     <div class="layout billdetails_content">
                       <table class="table table-borderless">
                         <tr>
@@ -1223,20 +1115,12 @@
                         <tbody class="layout_main">
                           <tr>
                             <td>
-                              {{-- {{ Form::text('layout_prepare_item', "レイアウト準備料金",['class'=>'form-control', 'readonly'] ) }}
-                              --}}
                             </td>
                             <td>
-                              {{-- {{ Form::text('layout_prepare_cost', $layouts_details[0],['class'=>'form-control', 'readonly'] )}}
-                              --}}
                             </td>
                             <td>
-                              {{-- {{ Form::text('layout_prepare_count', 1,['class'=>'form-control', 'readonly'] )}}
-                              --}}
                             </td>
                             <td>
-                              {{-- {{ Form::text('layout_prepare_subtotal', $layouts_details[0],['class'=>'form-control', 'readonly'] )}}
-                              --}}
                             </td>
                           </tr>
                         </tbody>
@@ -1244,8 +1128,6 @@
                           <tr>
                             <td colspan="2"></td>
                             <td colspan="2">合計
-                              {{-- {{ Form::text('layout_price',$layouts_details[2] ,['class'=>'form-control', 'readonly'] ) }}
-                              --}}
                             </td>
                           </tr>
                         </tbody>
@@ -1257,8 +1139,6 @@
                                 割引金額
                               </p>
                               <div class="d-flex align-items-end">
-                                {{-- {{ Form::text('layout_number_discount', $request->layout_number_discount?$request->layout_number_discount:'',['class'=>'form-control'] ) }}
-                                --}}
                                 <p class="ml-1">円</p>
                               </div>
                             </td>
@@ -1267,8 +1147,6 @@
                                 割引率
                               </p>
                               <div class="d-flex align-items-end">
-                                {{-- {{ Form::text('layout_percent_discount', $request->layout_percent_discount?$request->layout_percent_discount:'',['class'=>'form-control'] ) }}
-                                --}}
                                 <p class="ml-1">%</p>
                               </div>
                             </td>
@@ -1280,7 +1158,6 @@
                       </table>
                     </div>
 
-                    {{-- 以下、その他 --}}
                     <div class="others billdetails_content">
                       <table class="table table-borderless">
                         <tr>
@@ -1302,17 +1179,12 @@
                         <tbody class="others_main">
                           <tr>
                             <td>
-                              {{-- {{ Form::text('others_input_item0', '',['class'=>'form-control'] ) }} --}}
                             </td>
                             <td>
-                              {{-- {{ Form::text('others_input_cost0', '',['class'=>'form-control'] ) }} --}}
                             </td>
                             <td>
-                              {{-- {{ Form::text('others_input_count0', '',['class'=>'form-control'] ) }} --}}
                             </td>
                             <td>
-                              {{-- {{ Form::text('others_input_subtotal0', '',['class'=>'form-control', 'readonly'] ) }}
-                              --}}
                             </td>
                             <td>
                               <input type="button" value="＋" class="add pluralBtn bg-blue">
@@ -1324,45 +1196,36 @@
                           <tr>
                             <td colspan="2"></td>
                             <td colspan="3">合計
-                              {{-- {{ Form::text('others_price', '',['class'=>'form-control', 'readonly'] ) }} --}}
                             </td>
                           </tr>
                         </tbody>
                       </table>
                     </div>
-                    {{-- 以下、総合計 --}}
                     <div class="bill_total">
                       <table class="table">
                         <tr>
                           <td>小計：</td>
                           <td>
-                            {{-- {{ Form::text('master_subtotal',$masters ,['class'=>'form-control text-right', 'readonly'] ) }}
-                            --}}
                           </td>
                         </tr>
                         <tr>
                           <td>消費税：</td>
                           <td>
-                            {{-- {{ Form::text('master_tax',ReservationHelper::getTax($masters) ,['class'=>'form-control text-right', 'readonly'] ) }}
-                            --}}
                           </td>
                         </tr>
                         <tr>
                           <td class="font-weight-bold">合計金額</td>
                           <td>
-                            {{-- {{ Form::text('master_total',ReservationHelper::taxAndPrice($masters) ,['class'=>'form-control text-right', 'readonly'] ) }}
-                            --}}
                           </td>
                         </tr>
                       </table>
                     </div>
 
                   </div>
-                  <!-- 請求内訳 終わり ------------------------------------------------------>
                 </div>
               </div>
-            </section>
-            <div class="section-wrap">
+            </section> --}}
+            {{-- <div class="section-wrap">
               <table class="table table-bordered">
                 <thead>
                   <tr class="bg-green">
@@ -1407,7 +1270,7 @@
                   </tr>
                 </tbody>
               </table>
-            </div>
+            </div> --}}
           </dt>
           <!-- /.card-body -->
         </dl>

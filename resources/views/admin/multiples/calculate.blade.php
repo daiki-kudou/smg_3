@@ -1102,11 +1102,11 @@
                       </table>
                     </div>
 
-                    0が料金合計　
+                    {{-- 0が料金合計　
                     1が備品breakdown
                     2がserviceのbreakdown
                     3が備品料金
-                    4がサービス料金
+                    4がサービス料金 --}}
                     {{-- 以下備品 --}}
                     @if ($result[1][0])
                     <div class="equipment billdetails_content">
@@ -1360,22 +1360,35 @@
                         <tr>
                           <td>小計：</td>
                           <td>
-                            {{-- {{ Form::text('master_subtotal',$masters ,['class'=>'form-control text-right', 'readonly'] ) }}
-                            --}}
+                            {{ Form::text('master_subtotal'.$key,
+                            (empty($result[0][$key][2])?0:$result[0][$key][2])+
+                            (empty($result[1][0])?0:$result[1][0])+
+                            ($request->cp_master_luggage_price?$request->cp_master_luggage_price:0)+
+                            (empty($result[2][2])?0:$result[2][2])
+                            ,['class'=>'form-control text-right', 'readonly'] ) }}
                           </td>
                         </tr>
                         <tr>
                           <td>消費税：</td>
                           <td>
-                            {{-- {{ Form::text('master_tax',ReservationHelper::getTax($masters) ,['class'=>'form-control text-right', 'readonly'] ) }}
-                            --}}
+                            {{ Form::text('master_subtotal'.$key,ReservationHelper::getTax(
+                            (empty($result[0][$key][2])?0:$result[0][$key][2])+
+                            (empty($result[1][0])?0:$result[1][0])+
+                            ($request->cp_master_luggage_price?$request->cp_master_luggage_price:0)+
+                            (empty($result[2][2])?0:$result[2][2]))
+                            ,['class'=>'form-control text-right', 'readonly'] ) }}
                           </td>
                         </tr>
                         <tr>
                           <td class="font-weight-bold">合計金額</td>
                           <td>
-                            {{-- {{ Form::text('master_total',ReservationHelper::taxAndPrice($masters) ,['class'=>'form-control text-right', 'readonly'] ) }}
-                            --}}
+                            {{ Form::text('master_subtotal'.$key,ReservationHelper::taxAndPrice(
+                              (empty($result[0][$key][2])?0:$result[0][$key][2])+
+                              (empty($result[1][0])?0:$result[1][0])+
+                              ($request->cp_master_luggage_price?$request->cp_master_luggage_price:0)+
+                              (empty($result[2][2])?0:$result[2][2]))
+                              ,['class'=>'form-control text-right', 'readonly'] ) }}
+
                           </td>
                         </tr>
                       </table>

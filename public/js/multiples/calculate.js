@@ -160,92 +160,68 @@ $(function () {
   )
 })
 
-// $(function () {
-//   var targetLength = $('#counts_reserve').val();
-//   var number_ar = [];
-//   var percent_ar = [];
-//   var price_ar = [];
-//   for (let index3 = 0; index3 < targetLength; index3++) {
-//     var number = "input[name='venue_number_discount" + index3 + "']";
-//     number_ar.push(number);
-//     var percent = "input[name='venue_percent_discount" + index3 + "']";
-//     percent_ar.push(percent);
-//     var price = Number($("input[name='venue_price" + index3 + "']").val());
-//     price_ar.push(price);
-//   }
+$(function () {
+  $(document).on("click", "[class^='others_main'] .add", function () {
+    var target1 = $(this).parent().parent().find('td').eq(0).find('input').attr('name');
+    var splitKey = target1.split('_copied');
+    splitKey = Number(splitKey[1]);
 
-//   for (let index4 = 0; index4 < targetLength; index4++) {
-//     $(number_ar[index4]).on('focus', function () {
-//       $(percent_ar[index4]).val('');
-//     });
-//     $(percent_ar[index4]).on('focus', function () {
-//       $(number_ar[index4]).val('');
-//     });
+    var master = $(this).parent().parent().parent();
+    $(this).parent().parent().clone(true).insertAfter($(this).parent().parent());
+    var next = $(this).parent().parent().next();
+    next.find('td').eq(0).find('input').val('');
+    next.find('td').eq(1).find('input').val('');
+    next.find('td').eq(2).find('input').val('');
+    next.find('td').eq(3).find('input').val('');
 
-//     $('.venue_discount_btn' + index4).on('click', function () {
-//       $('.venue_input_discounts' + index4).remove();
-//       $("input[name='venue_price" + index4 + "']").val('');
-//       $("input[name='venue_price" + index4 + "']").val(price_ar[index4]);
+    var masterTR = master.find('tr').length;
+    for (let index = 0; index < masterTR; index++) {
+      master.find('tr').eq(index).find('td').eq(0).find('input').attr('name', 'others_input_item' + index + '_copied' + splitKey);
+      master.find('tr').eq(index).find('td').eq(1).find('input').attr('name', 'others_input_cost' + index + '_copied' + splitKey);
+      master.find('tr').eq(index).find('td').eq(2).find('input').attr('name', 'others_input_count' + index + '_copied' + splitKey);
+      master.find('tr').eq(index).find('td').eq(3).find('input').attr('name', 'others_input_subtotal' + index + '_copied' + splitKey);
+    }
+  })
 
-//       if ($(number_ar[index4]).val() != 0 && $(number_ar[index4]).val() != '') {
-//         // 割引料金に金額があったら
-//         var p_r = Math.floor(Number(($(number_ar[index4]).val() / price_ar[index4]) * 100));
-//         var datas = "<tr class='venue_input_discounts" + index4 + "'>"
-//           + "<td>"
-//           + "<input class='form-control' readonly='' name='venue_breakdown_discount_item" + index4 + "' type='text' value='"
-//           + "割引料金（" + p_r
-//           + "%）"
-//           + "'>"
-//           + "</td>"
-//           + "<td>"
-//           + "<input class='form-control' readonly='' name='venue_breakdown_discount_cost" + index4 + "' type='text' value='"
-//           + (-$(number_ar[index4]).val())
-//           + "'>"
-//           + "</td>"
-//           + "<td>"
-//           + "<input class='form-control' readonly='' name='venue_breakdown_discount_count" + index4 + "' type='text' value='1'>"
-//           + "</td>"
-//           + "<td>"
-//           + "<input class='form-control' readonly='' name='venue_breakdown_discount_subtotal" + index4 + "' type='text' value='"
-//           + (-$(number_ar[index4]).val())
-//           + "'>"
-//           + "</td>"
-//           + "</tr>";
-//         $('.venue_main' + index4).append(datas);
-//         var change = Number(price_ar[index4]) - Number($(number_ar[index4]).val());
-//         $('input[name="venue_price' + index4 + '"]').val(Number(change));
-//       }
+  $(document).on("click", "[class^='others_main'] .del", function () {
+    var sptarget = $(this).parent().parent().find('td').eq(0).find('input').attr('name');
+    var splitKey = sptarget.split('_copied');
+    var master = $(this).parent().parent().parent();
+    var targetTR = master.find('tr').length;
+    var thisTR = $(this).parent().parent();
+    if (targetTR > 1) {
+      thisTR.remove();
+    };
+    var reTargetTR = master.find('tr');
+    for (let index2 = 0; index2 < reTargetTR.length; index2++) {
+      reTargetTR.eq(index2).find('td').eq(0).find('input').attr('name', 'others_input_item' + index2 + '_copied' + splitKey[1]);
+      reTargetTR.eq(index2).find('td').eq(1).find('input').attr('name', 'others_input_cost' + index2 + '_copied' + splitKey[1]);
+      reTargetTR.eq(index2).find('td').eq(2).find('input').attr('name', 'others_input_count' + index2 + '_copied' + splitKey[1]);
+      reTargetTR.eq(index2).find('td').eq(3).find('input').attr('name', 'others_input_subtotal' + index2 + '_copied' + splitKey[1]);
+    }
+  })
+})
 
 
-//       if ($(percent_ar[index4]).val() != 0 && $(percent_ar[index4]).val() != '') {
-//         // 割引料金に金額があったら
-//         var n_r = (price_ar[index4] * ($(percent_ar[index4]).val() / 100));
-//         var datas2 = "<tr class='venue_input_discounts" + index4 + "'>"
-//           + "<td>"
-//           + "<input class='form-control' readonly='' name='venue_breakdown_discount_item" + index4 + "' type='text' value='"
-//           + "割引料金（"
-//           + $(percent_ar[index4]).val()
-//           + "%）"
-//           + "'>"
-//           + "</td>"
-//           + "<td>"
-//           + "<input class='form-control' readonly='' name='venue_breakdown_discount_cost" + index4 + "' type='text' value='"
-//           + (-n_r)
-//           + "'>"
-//           + "</td>"
-//           + "<td>"
-//           + "<input class='form-control' readonly='' name='venue_breakdown_discount_count" + index4 + "' type='text' value='1'>"
-//           + "</td>"
-//           + "<td>"
-//           + "<input class='form-control' readonly='' name='venue_breakdown_discount_subtotal" + index4 + "' type='text' value='"
-//           + (-n_r)
-//           + "'>"
-//           + "</td>"
-//           + "</tr>";
-//         $('.venue_main' + index4).append(datas2);
-//         var change = Number(price_ar[index4]) - Number(n_r);
-//         $('input[name="venue_price' + index4 + '"]').val(Number(change));
-//       }
-//     })
-//   }
-// })
+$(function () {
+
+  $(document).on('input', 'input[name^="others_input"]', function (e) {
+    var count = $(this).parent().parent().parent().find('tr').length;
+    var sptarget = $(this).attr('name');
+    var splitKey = sptarget.split('_copied');
+    splitKey = Number(splitKey[1]);
+
+    var total_val = 0;
+    for (let index = 0; index < count; index++) {
+      var num1 = $('input[name="others_input_cost' + index + '_copied' + splitKey + '"]').val();
+      var num2 = $('input[name="others_input_count' + index + '_copied' + splitKey + '"]').val();
+      var num3 = $('input[name="others_input_subtotal' + index + '_copied' + splitKey + '"]');
+      num3.val(num1 * num2);
+      total_val = total_val + Number(num3.val());
+    }
+    var total_target = $('input[name="others_price"]');
+    total_target.val(total_val);
+  });
+
+
+})
