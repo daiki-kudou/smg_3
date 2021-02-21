@@ -78,9 +78,9 @@ class PreReservation extends Model
 | PreBillsとの一対多
 |--------------------------------------------------------------------------|
 */
-  public function pre_bills()
+  public function pre_bill()
   {
-    return $this->hasMany(PreBill::class);
+    return $this->hasOne(PreBill::class);
   }
   /*
 |--------------------------------------------------------------------------
@@ -89,7 +89,7 @@ class PreReservation extends Model
 */
   public function pre_breakdowns()
   {
-    return $this->hasManyThrough(
+    return $this->hasOneThrough(
       'App\Models\PreBreakdown',
       'App\Models\PreBill',
     );
