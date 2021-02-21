@@ -472,7 +472,7 @@
     {{-- jsで仮抑えの件数判別のためのhidden --}}
     {{ Form::hidden('', $multiple->pre_reservations()->where('venue_id',$venue->id)->get()->count(),['id'=>'counts_reserve']) }}
     {{-- 以下、pre_reservationの数分　ループ --}}
-    @foreach ($multiple->pre_reservations()->where('venue_id',$venue->id)->get() as $key=>$pre_reservation)
+    @foreach ($multiple->getPreReservations($venue->id) as $key=>$pre_reservation)
     <section class="register-list col">
       <!-- 仮押さえ一括 タブ-->
       <div class="register-list-item">
@@ -933,7 +933,7 @@
                             </h4>
                           </td>
                         </tr>
-                        @if ($result[0][$key])
+                        @if ($pre_reservation->pre_bill->venue_price)
                         <tbody class="venue_head">
                           <tr>
                             <td>内容</td>
@@ -942,42 +942,29 @@
                             <td>金額</td>
                           </tr>
                         </tbody>
-                        @if ($result[0][$key][1]){{--延長があるなら--}}
                         <tbody class="{{'venue_main'.$key}}">
+                          @foreach ($pre_reservation->pre_breakdowns()->where('unit_type',1)->get() as $each_venue)
                           <tr>
                             <td>
-                              {{ Form::text('venue_breakdown_item0_copied'.$key, "会場料金",['class'=>'form-control', 'readonly'] ) }}
+                              {{ Form::text('venue_breakdown_item0_copied'.$key, $each_venue->unit_item,['class'=>'form-control', 'readonly'] ) }}
                             </td>
                             <td>
-                              {{ Form::text('venue_breakdown_cost0_copied'.$key, $result[0][$key][0],['class'=>'form-control', 'readonly'] ) }}
+                              {{ Form::text('venue_breakdown_cost0_copied'.$key, $each_venue->unit_cost,['class'=>'form-control', 'readonly'] ) }}
                             </td>
                             <td>
-                              {{ Form::text('venue_breakdown_count0_copied'.$key, $result[0][$key][3]-$result[0][$key][4],['class'=>'form-control', 'readonly'] ) }}
+                              {{ Form::text('venue_breakdown_count0_copied'.$key, $each_venue->unit_count,['class'=>'form-control', 'readonly'] ) }}
                             </td>
                             <td>
-                              {{ Form::text('venue_breakdown_subtotal0_copied'.$key, $result[0][$key][0],['class'=>'form-control', 'readonly'] ) }}
+                              {{ Form::text('venue_breakdown_subtotal0_copied'.$key, $each_venue->unit_subtotal,['class'=>'form-control', 'readonly'] ) }}
                             </td>
                           </tr>
-                          <tr>
-                            <td>
-                              {{ Form::text('venue_breakdown_item1_copied'.$key, "延長料金",['class'=>'form-control', 'readonly'] ) }}
-                            </td>
-                            <td>
-                              {{ Form::text('venue_breakdown_cost1_copied'.$key, $result[0][$key][1],['class'=>'form-control', 'readonly'] ) }}
-                            </td>
-                            <td>
-                              {{ Form::text('venue_breakdown_count1_copied'.$key, $result[0][$key][4],['class'=>'form-control', 'readonly'] ) }}
-                            </td>
-                            <td>
-                              {{ Form::text('venue_breakdown_subtotal1_copied'.$key, $result[0][$key][1],['class'=>'form-control', 'readonly'] ) }}
-                            </td>
-                          </tr>
+                          @endforeach
                         </tbody>
                         <tbody class="{{'venue_result'.$key}}">
                           <tr>
                             <td colspan="2"></td>
                             <td colspan="2">合計
-                              {{ Form::text('venue_price'.$key,$result[0][$key][2],['class'=>'form-control col-xs-3', 'readonly'] ) }}
+                              {{ Form::text('venue_price'.$key,$pre_reservation->pre_bill->venue_price,['class'=>'form-control col-xs-3', 'readonly'] ) }}
                             </td>
                           </tr>
                         </tbody>
@@ -1007,58 +994,7 @@
                             </td>
                           </tr>
                         </tbody>
-                        @else{{--延長なし。会場料金のみ--}}
-                        <tbody class="{{'venue_main'.$key}}">
-                          <tr>
-                            <td>
-                              {{ Form::text('venue_breakdown_item0_copied'.$key, "会場料金",['class'=>'form-control', 'readonly'] ) }}
-                            </td>
-                            <td>
-                              {{ Form::text('venue_breakdown_cost0_copied'.$key, $result[0][$key][0],['class'=>'form-control', 'readonly'] ) }}
-                            </td>
-                            <td>
-                              {{ Form::text('venue_breakdown_count0_copied'.$key, $result[0][$key][3]-$result[0][$key][4],['class'=>'form-control', 'readonly'] ) }}
-                            </td>
-                            <td>
-                              {{ Form::text('venue_breakdown_subtotal0_copied'.$key, $result[0][$key][0],['class'=>'form-control', 'readonly'] ) }}
-                            </td>
-                          </tr>
-                        </tbody>
-                        <tbody class="{{'venue_result'.$key}}">
-                          <tr>
-                            <td colspan="2"></td>
-                            <td colspan="2">合計
-                              {{ Form::text('venue_price'.$key,$result[0][$key][2],['class'=>'form-control col-xs-3', 'readonly'] ) }}
-                            </td>
-                          </tr>
-                        </tbody>
-                        <tbody class="{{'venue_discount'.$key}}">
-                          <tr>
-                            <td>割引計算欄</td>
-                            <td>
-                              <p>
-                                割引金額
-                              </p>
-                              <div class="d-flex align-items-end">
-                                {{ Form::text('venue_number_discount'.$key, '',['class'=>'form-control'] ) }}
-                                <p class="ml-1">円</p>
-                              </div>
-                            </td>
-                            <td>
-                              <p>
-                                割引率
-                              </p>
-                              <div class="d-flex align-items-end">
-                                {{ Form::text('venue_percent_discount'.$key, '',['class'=>'form-control'] ) }}
-                                <p class="ml-1">%</p>
-                              </div>
-                            </td>
-                            <td>
-                              <input class="{{'btn more_btn venue_discount_btn'.$key}}" type="button" value="計算する">
-                            </td>
-                          </tr>
-                        </tbody>
-                        @endif
+
                         @else{{--料金体系無し、手打ち--}}
                         <span>※料金体系がないため、手打ちで会場料を入力してください</span>
                         <tbody class="venue_head">
@@ -1108,7 +1044,7 @@
                     3が備品料金
                     4がサービス料金 --}}
                     {{-- 以下備品 --}}
-                    @if ($result[1][0])
+                    @if ($pre_reservation->pre_bill->equipment_price)
                     <div class="equipment billdetails_content">
                       <table class="table table-borderless">
                         <tr>
@@ -1127,35 +1063,37 @@
                           </tr>
                         </tbody>
                         <tbody class="{{'equipment_main'.$key}}">
-                          @foreach ($result[1][1] as $eb_key=>$equipment)
+                          @foreach ($pre_reservation->pre_breakdowns()->where('unit_type',2)->get() as
+                          $eb_key=>$each_equ)
                           <tr>
                             <td>
-                              {{ Form::text('equipment_breakdown_item'.$eb_key.'_copied'.$key, $equipment[0],['class'=>'form-control', 'readonly'] ) }}
+                              {{ Form::text('equipment_breakdown_item'.$eb_key.'_copied'.$key, $each_equ->unit_item,['class'=>'form-control', 'readonly'] ) }}
                             </td>
                             <td>
-                              {{ Form::text('equipment_breakdown_cost'.$eb_key.'_copied'.$key, $equipment[1],['class'=>'form-control', 'readonly'] ) }}
+                              {{ Form::text('equipment_breakdown_cost'.$eb_key.'_copied'.$key, $each_equ->unit_cost,['class'=>'form-control', 'readonly'] ) }}
                             </td>
                             <td>
-                              {{ Form::text('equipment_breakdown_count'.$eb_key.'_copied'.$key, $equipment[2],['class'=>'form-control', 'readonly'] ) }}
+                              {{ Form::text('equipment_breakdown_count'.$eb_key.'_copied'.$key, $each_equ->unit_count,['class'=>'form-control', 'readonly'] ) }}
                             </td>
                             <td>
-                              {{ Form::text('equipment_breakdown_subtotal'.$eb_key.'_copied'.$key, ReservationHelper::numTimesNum($equipment[1],$equipment[2]),['class'=>'form-control', 'readonly'] ) }}
+                              {{ Form::text('equipment_breakdown_subtotal'.$eb_key.'_copied'.$key, $each_equ->unit_subtotal,['class'=>'form-control', 'readonly'] ) }}
                             </td>
                           </tr>
                           @endforeach
-                          @foreach ($result[1][2] as $sb_key=>$service)
+                          @foreach ($pre_reservation->pre_breakdowns()->where('unit_type',2)->get() as
+                          $sb_key=>$each_ser)
                           <tr>
                             <td>
-                              {{ Form::text('equipment_breakdown_item'.$sb_key.'_copied'.$key, $service[0],['class'=>'form-control', 'readonly'] ) }}
+                              {{ Form::text('equipment_breakdown_item'.$sb_key.'_copied'.$key, $each_ser->unit_item,['class'=>'form-control', 'readonly'] ) }}
                             </td>
                             <td>
-                              {{ Form::text('equipment_breakdown_cost'.$sb_key.'_copied'.$key, $service[1],['class'=>'form-control', 'readonly'] ) }}
+                              {{ Form::text('equipment_breakdown_cost'.$sb_key.'_copied'.$key, $each_ser->unit_cost,['class'=>'form-control', 'readonly'] ) }}
                             </td>
                             <td>
-                              {{ Form::text('equipment_breakdown_count'.$sb_key.'_copied'.$key, $service[2],['class'=>'form-control', 'readonly'] ) }}
+                              {{ Form::text('equipment_breakdown_count'.$sb_key.'_copied'.$key, $each_ser->unit_count,['class'=>'form-control', 'readonly'] ) }}
                             </td>
                             <td>
-                              {{ Form::text('equipment_breakdown_subtotal'.$sb_key.'_copied'.$key, ReservationHelper::numTimesNum($service[1],$service[2]),['class'=>'form-control', 'readonly'] ) }}
+                              {{ Form::text('equipment_breakdown_subtotal'.$sb_key.'_copied'.$key, $each_ser->unit_subtotal,['class'=>'form-control', 'readonly'] ) }}
                             </td>
                           </tr>
                           @endforeach

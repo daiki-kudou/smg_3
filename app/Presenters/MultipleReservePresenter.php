@@ -10,4 +10,9 @@ class MultipleReservePresenter extends Presenter
   {
     return 'これはtestです' . $this->id;
   }
+
+  public function getPreReservations($venue_id)
+  {
+    return $this->pre_reservations()->where('venue_id', $venue_id)->get();
+  }
 }
