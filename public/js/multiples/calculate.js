@@ -21,6 +21,10 @@ $(function () {
   })
   // 会場手打ちの場合のプラス　マイナス　ボタン
   $(document).on("click", "[class^='venue_main'] .del", function () {
+    $(this).parent().parent().find('td').eq(0).find('input').val('').trigger("input");
+    $(this).parent().parent().find('td').eq(1).find('input').val('').trigger("input");
+    $(this).parent().parent().find('td').eq(2).find('input').val('').trigger("input");
+    $(this).parent().parent().find('td').eq(3).find('input').val('').trigger("input");
     var sptarget = $(this).parent().parent().find('td').eq(0).find('input').attr('name');
     var splitKey = sptarget.split('_copied');
     var master = $(this).parent().parent().parent();
@@ -192,6 +196,11 @@ $(function () {
   })
 
   $(document).on("click", "[class^='others_main'] .del", function () {
+    $(this).parent().parent().find('td').eq(0).find('input').val('').trigger("input");
+    $(this).parent().parent().find('td').eq(1).find('input').val('').trigger("input");
+    $(this).parent().parent().find('td').eq(2).find('input').val('').trigger("input");
+    $(this).parent().parent().find('td').eq(3).find('input').val('').trigger("input");
+
     var sptarget = $(this).parent().parent().find('td').eq(0).find('input').attr('name');
     var splitKey = sptarget.split('_copied');
     var master = $(this).parent().parent().parent();
@@ -228,6 +237,10 @@ $(function () {
     }
     var total_target = $('input[name="others_price' + splitKey + '"]');
     total_target.val(total_val);
+
+    var fix = $('input[name="master_subtotal' + splitKey + 'fixed"]').val();
+    $('input[name="master_subtotal' + splitKey + '"]').val(Number(fix) + Number(total_val));
+
   });
 
   $(document).on('input', 'input[name^="venue_breakdown"]', function (e) {
@@ -246,6 +259,9 @@ $(function () {
     }
     var total_target = $('input[name="venue_price' + splitKey + '"]');
     total_target.val(total_val);
+
+    var fix = $('input[name="master_subtotal' + splitKey + 'fixed"]').val();
+    $('input[name="master_subtotal' + splitKey + '"]').val(Number(fix) + Number(total_val));
   });
 
 
