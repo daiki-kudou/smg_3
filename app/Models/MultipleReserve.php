@@ -68,6 +68,12 @@ class MultipleReserve extends Model implements PresentableInterface //プレゼ�
     return [$venue_price_result, $item_details, $layouts_details];
   }
 
+
+
+
+
+
+
   public function preStore($venue_id, $requests, $result)
   {
     $pre_reservations = $this->pre_reservations()->where('venue_id', $venue_id)->orderBy('id')->get();

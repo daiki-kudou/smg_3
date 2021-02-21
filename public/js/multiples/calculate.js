@@ -1,8 +1,16 @@
 $(function () {
   $(document).on("click", "[class^='venue_main'] .add", function () {
+
+    var master = $(this).parent().parent();
     $(this).parent().parent().clone(true).insertAfter($(this).parent().parent());
     var target1 = $(this).parent().parent().find('td').eq(0).find('input').attr('name');
     var splitKey = target1.split('_copied');
+
+    master.next().find('td').eq(0).find('input').val('');
+    master.next().find('td').eq(1).find('input').val('');
+    master.next().find('td').eq(2).find('input').val('');
+    master.next().find('td').eq(3).find('input').val('');
+
     var targetTr = $(this).parent().parent().parent().find('tr');
     for (let index = 0; index < targetTr.length; index++) {
       targetTr.eq(index).find('td').eq(0).find('input').attr('name', 'venue_breakdown_item' + index + '_copied' + splitKey[1]);
@@ -204,7 +212,6 @@ $(function () {
 
 
 $(function () {
-
   $(document).on('input', 'input[name^="others_input"]', function (e) {
     var count = $(this).parent().parent().parent().find('tr').length;
     var sptarget = $(this).attr('name');
@@ -219,7 +226,25 @@ $(function () {
       num3.val(num1 * num2);
       total_val = total_val + Number(num3.val());
     }
-    var total_target = $('input[name="others_price"]');
+    var total_target = $('input[name="others_price' + splitKey + '"]');
+    total_target.val(total_val);
+  });
+
+  $(document).on('input', 'input[name^="venue_breakdown"]', function (e) {
+    var count = $(this).parent().parent().parent().find('tr').length;
+    var sptarget = $(this).attr('name');
+    var splitKey = sptarget.split('_copied');
+    splitKey = Number(splitKey[1]);
+
+    var total_val = 0;
+    for (let index = 0; index < count; index++) {
+      var num1 = $('input[name="venue_breakdown_cost' + index + '_copied' + splitKey + '"]').val();
+      var num2 = $('input[name="venue_breakdown_count' + index + '_copied' + splitKey + '"]').val();
+      var num3 = $('input[name="venue_breakdown_subtotal' + index + '_copied' + splitKey + '"]');
+      num3.val(num1 * num2);
+      total_val = total_val + Number(num3.val());
+    }
+    var total_target = $('input[name="venue_price' + splitKey + '"]');
     total_target.val(total_val);
   });
 

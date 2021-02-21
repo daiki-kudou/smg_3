@@ -1348,7 +1348,7 @@
                           <tr>
                             <td colspan="2"></td>
                             <td colspan="3">合計
-                              {{-- {{ Form::text('others_price', '',['class'=>'form-control', 'readonly'] ) }} --}}
+                              {{ Form::text('others_price'.$key, '',['class'=>'form-control', 'readonly'] ) }}
                             </td>
                           </tr>
                         </tbody>
@@ -1388,7 +1388,6 @@
                               ($request->cp_master_luggage_price?$request->cp_master_luggage_price:0)+
                               (empty($result[2][2])?0:$result[2][2]))
                               ,['class'=>'form-control text-right', 'readonly'] ) }}
-
                           </td>
                         </tr>
                       </table>
@@ -1399,7 +1398,7 @@
                 </div>
               </div>
             </section>
-            <div class="section-wrap">
+            {{-- <div class="section-wrap">
               <table class="table table-bordered">
                 <thead>
                   <tr class="bg-green">
@@ -1444,7 +1443,7 @@
                   </tr>
                 </tbody>
               </table>
-            </div>
+            </div> --}}
           </dt>
           <!-- /.card-body -->
         </dl>
