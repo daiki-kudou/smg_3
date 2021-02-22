@@ -1080,7 +1080,7 @@
                             </td>
                           </tr>
                           @endforeach
-                          @foreach ($pre_reservation->pre_breakdowns()->where('unit_type',2)->get() as
+                          @foreach ($pre_reservation->pre_breakdowns()->where('unit_type',3)->get() as
                           $sb_key=>$each_ser)
                           <tr>
                             <td>
@@ -1111,13 +1111,14 @@
                             <td>
                               {{ Form::text('luggage_subtotal_copied'.$key, $request->cp_master_luggage_price,['class'=>'form-control', 'readonly'] ) }}
                             </td>
-                          </tr> @endif
+                          </tr>
+                          @endif
                         </tbody>
                         <tbody class="{{'equipment_result'.$key}}">
                           <tr>
                             <td colspan="2"></td>
                             <td colspan="2">合計
-                              {{ Form::text('equipment_price'.$key, ((int)$result[1][0])+((int)$request->cp_master_luggage_price),['class'=>'form-control', 'readonly'] ) }}
+                              {{ Form::text('equipment_price'.$key, $pre_reservation->pre_bill->equipment_price+((int)$request->cp_master_luggage_price),['class'=>'form-control', 'readonly'] ) }}
                             </td>
                           </tr>
                         </tbody>
@@ -1152,7 +1153,7 @@
                     @endif
 
                     {{-- 以下、レイアウト --}}
-                    @if ($result[2])
+                    @if ($pre_reservation->pre_bill->layout_price)
                     <div class="layout billdetails_content">
                       <table class="table table-borderless">
                         <tr>
@@ -1171,44 +1172,49 @@
                           </tr>
                         </tbody>
                         <tbody class="{{'layout_main'.$key}}">
-                          @if ($result[2][0])
+                          @foreach ($pre_reservation->pre_breakdowns()->where('unit_item','レイアウト準備料金')->get() as
+                          $slp_key=>$each_play)
                           <tr>
                             <td>
-                              {{ Form::text('layout_prepare_item_copied'.$key, "レイアウト準備料金",['class'=>'form-control', 'readonly'] ) }}
+                              {{ Form::text('equipment_breakdown_item'.$slp_key.'_copied'.$key, $each_play->unit_item,['class'=>'form-control', 'readonly'] ) }}
                             </td>
                             <td>
-                              {{ Form::text('layout_prepare_cost_copied'.$key, $result[2][0],['class'=>'form-control', 'readonly'] )}}
+                              {{ Form::text('equipment_breakdown_cost'.$slp_key.'_copied'.$key, $each_play->unit_cost,['class'=>'form-control', 'readonly'] ) }}
                             </td>
                             <td>
-                              {{ Form::text('layout_prepare_count_copied'.$key, 1,['class'=>'form-control', 'readonly'] )}}
+                              {{ Form::text('equipment_breakdown_count'.$slp_key.'_copied'.$key, $each_play->unit_count,['class'=>'form-control', 'readonly'] ) }}
                             </td>
                             <td>
-                              {{ Form::text('layout_prepare_subtotal_copied'.$key, $result[2][0],['class'=>'form-control', 'readonly'] )}}
+                              {{ Form::text('equipment_breakdown_subtotal'.$slp_key.'_copied'.$key, $each_play->unit_subtotal,['class'=>'form-control', 'readonly'] ) }}
                             </td>
                           </tr>
-                          @endif
-                          @if ($result[2][1])
+                          @endforeach
+
+                          @foreach ($pre_reservation->pre_breakdowns()->where('unit_item','レイアウト片付料金')->get() as
+                          $slc_key=>$each_clay)
                           <tr>
                             <td>
-                              {{ Form::text('layout_clean_item_copied'.$key, "レイアウト準備料金",['class'=>'form-control', 'readonly'] ) }}
+                              {{ Form::text('equipment_breakdown_item'.$slc_key.'_copied'.$key, $each_clay->unit_item,['class'=>'form-control', 'readonly'] ) }}
                             </td>
                             <td>
-                              {{ Form::text('layout_clean_cost_copied'.$key, $result[2][1],['class'=>'form-control', 'readonly'] )}}
+                              {{ Form::text('equipment_breakdown_cost'.$slc_key.'_copied'.$key, $each_clay->unit_cost,['class'=>'form-control', 'readonly'] ) }}
                             </td>
                             <td>
-                              {{ Form::text('layout_clean_count_copied'.$key, 1,['class'=>'form-control', 'readonly'] )}}
+                              {{ Form::text('equipment_breakdown_count'.$slc_key.'_copied'.$key, $each_clay->unit_count,['class'=>'form-control', 'readonly'] ) }}
                             </td>
                             <td>
-                              {{ Form::text('layout_clean_subtotal_copied'.$key, $result[2][1],['class'=>'form-control', 'readonly'] )}}
+                              {{ Form::text('equipment_breakdown_subtotal'.$slc_key.'_copied'.$key, $each_clay->unit_subtotal,['class'=>'form-control', 'readonly'] ) }}
                             </td>
                           </tr>
-                          @endif
+                          @endforeach
+
+
                         </tbody>
                         <tbody class="{{'layout_result'.$key}}">
                           <tr>
                             <td colspan="2"></td>
                             <td colspan="2">合計
-                              {{ Form::text('layout_price'.$key, $result[2][2],['class'=>'form-control', 'readonly'] ) }}
+                              {{ Form::text('layout_price'.$key, $pre_reservation->pre_bill->layout_price,['class'=>'form-control', 'readonly'] ) }}
                             </td>
                           </tr>
                         </tbody>
@@ -1298,39 +1304,21 @@
                         <tr>
                           <td>小計：</td>
                           <td>
-                            {{ Form::hidden('master_subtotal'.$key.'fixed',
-                            (empty($result[0][$key][2])?0:$result[0][$key][2])+
-                            (empty($result[1][0])?0:$result[1][0])+
-                            ($request->cp_master_luggage_price?$request->cp_master_luggage_price:0)+
-                            (empty($result[2][2])?0:$result[2][2])
-                            ,['class'=>'form-control text-right', 'readonly'] ) }}
-                            {{ Form::text('master_subtotal'.$key,
-                            (empty($result[0][$key][2])?0:$result[0][$key][2])+
-                            (empty($result[1][0])?0:$result[1][0])+
-                            ($request->cp_master_luggage_price?$request->cp_master_luggage_price:0)+
-                            (empty($result[2][2])?0:$result[2][2])
-                            ,['class'=>'form-control text-right', 'readonly'] ) }}
+                            {{ Form::hidden('master_subtotal'.$key.'fixed',$pre_reservation->pre_bill->master_subtotal,['class'=>'form-control text-right', 'readonly'] ) }}
+                            {{ Form::text('master_subtotal'.$key,$pre_reservation->pre_bill->master_subtotal,['class'=>'form-control text-right', 'readonly'] ) }}
                           </td>
                         </tr>
                         <tr>
                           <td>消費税：</td>
                           <td>
-                            {{ Form::text('master_tax'.$key,ReservationHelper::getTax(
-                            (empty($result[0][$key][2])?0:$result[0][$key][2])+
-                            (empty($result[1][0])?0:$result[1][0])+
-                            ($request->cp_master_luggage_price?$request->cp_master_luggage_price:0)+
-                            (empty($result[2][2])?0:$result[2][2]))
+                            {{ Form::text('master_tax'.$key,$pre_reservation->pre_bill->master_tax
                             ,['class'=>'form-control text-right', 'readonly'] ) }}
                           </td>
                         </tr>
                         <tr>
                           <td class="font-weight-bold">合計金額</td>
                           <td>
-                            {{ Form::text('master_total'.$key,ReservationHelper::taxAndPrice(
-                              (empty($result[0][$key][2])?0:$result[0][$key][2])+
-                              (empty($result[1][0])?0:$result[1][0])+
-                              ($request->cp_master_luggage_price?$request->cp_master_luggage_price:0)+
-                              (empty($result[2][2])?0:$result[2][2]))
+                            {{ Form::text('master_total'.$key,$pre_reservation->pre_bill->master_total
                               ,['class'=>'form-control text-right', 'readonly'] ) }}
                           </td>
                         </tr>
@@ -1406,36 +1394,38 @@
     <div class="col-12 mt-5">
       <div class="d-flex bg-green py-2 px-1">
         <h4>合計請求額</h4>
-        <p class="ml-2">(<span>3</span>件分)</p>
+        <p class="ml-2">(<span>{{$multiple->pre_reservations()->get()->count()}}</span>件分)</p>
       </div>
       <table class="table table-bordered">
         <tbody>
           <tr>
             <td class="table-active"><label for="venueFee">会場料</label></td>
             <td class="text-right">
-              5,300円
+              {{$multiple->sumVenues($venue->id)}}
             </td>
           </tr>
           <tr>
             <td class="table-active"><label for="serviceFee">備品その他</label></td>
             <td class="text-right">
-              5,300円
+              {{$multiple->sumEquips($venue->id)}}
             </td>
           </tr>
           <tr>
             <td class="table-active"><label for="layoutFee">レイアウト変更</label></td>
             <td class="text-right">
-              5,300円
+              {{$multiple->sumLayouts($venue->id)}}
             </td>
           </tr>
           <tr>
             <td colspan="2" class="text-right">
-              <p><span class="font-weight-bold">小計</span>7,200円</p>
-              <p><span>消費税</span>720円</p>
+              <p><span class="font-weight-bold">小計</span>{{$multiple->sumMasterSubs($venue->id)}}</p>
+              <p><span>消費税</span>{{$multiple->sumMasterTax($venue->id)}}</p>
             </td>
           </tr>
           <tr>
-            <td colspan="2" class="text-right"><span class="font-weight-bold">請求総額</span>7,200円</td>
+            <td colspan="2" class="text-right"><span class="font-weight-bold">請求総額</span>
+              {{$multiple->sumMasterTotal($venue->id)}}
+            </td>
           </tr>
         </tbody>
       </table>

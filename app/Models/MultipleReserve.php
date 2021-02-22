@@ -106,15 +106,17 @@ class MultipleReserve extends Model implements PresentableInterface //プレゼ�
         $equipment_price = empty($result[1][0]) ? 0 : $result[1][0];
         $layout_price = empty($result[2][2]) ? 0 : $result[2][2];
 
+        $master = $venue_price + $equipment_price + $layout_price;
+
         if (empty($pre_reservation->pre_bill)) {
           $pre_bill = $pre_reservation->pre_bill()->create([
             'venue_price' => $venue_price,
             'equipment_price' => $equipment_price + ((int)$requests->cp_master_luggage_price),
             'layout_price' => $layout_price,
             'others_price' => 0, //othersは後ほど
-            'master_subtotal' => 0, //これも後ほど
-            'master_tax' => 0, //これも後ほど
-            'master_total' => 0, //これも後ほど
+            'master_subtotal' => floor($master),
+            'master_tax' => floor($master * 0.1),
+            'master_total' => floor(($master) + ($master * 0.1)),
             'reservation_status' => 0,
             'category' => 1
           ]);
@@ -126,9 +128,9 @@ class MultipleReserve extends Model implements PresentableInterface //プレゼ�
             'equipment_price' => $equipment_price + ((int)$requests->cp_master_luggage_price),
             'layout_price' => $layout_price,
             'others_price' => 0, //othersは後ほど
-            'master_subtotal' => 0, //これも後ほど
-            'master_tax' => 0, //これも後ほど
-            'master_total' => 0, //これも後ほど
+            'master_subtotal' => floor($master),
+            'master_tax' => floor($master * 0.1),
+            'master_total' => floor(($master) + ($master * 0.1)),
             'reservation_status' => 0,
             'category' => 1
           ]);
@@ -178,7 +180,7 @@ class MultipleReserve extends Model implements PresentableInterface //プレゼ�
             'unit_item' => $equipment[0],
             'unit_cost' => $equipment[1],
             'unit_count' => $equipment[2],
-            'unit_subtotal' => $equipment[1] * $equipment[1],
+            'unit_subtotal' => $equipment[1] * $equipment[2],
             'unit_type' => 2,
           ]);
         }
@@ -189,7 +191,7 @@ class MultipleReserve extends Model implements PresentableInterface //プレゼ�
             'unit_item' => $service[0],
             'unit_cost' => $service[1],
             'unit_count' => $service[2],
-            'unit_subtotal' => $service[1] * $service[1],
+            'unit_subtotal' => $service[1] * $service[2],
             'unit_type' => 3,
           ]);
         }
