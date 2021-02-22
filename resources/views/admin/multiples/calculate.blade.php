@@ -558,7 +558,7 @@
                         <div>
                           <div>
                             {{ Form::radio('board_flag_copied'.$key, 1, $request->cp_master_board_flag==1?true:false, ['class'=>'mr-2', 'id'=>'board_flag_copied'.$key]) }}
-                            {{Form::label('board_flag1','あり')}}
+                            {{Form::label('board_flag1'.$key,'あり')}}
                           </div>
                           <div>
                             {{ Form::radio('board_flag_copied'.$key, 0, $request->cp_master_board_flag==0?true:false, ['class'=>'mr-2', 'id'=>'board_flag_copied_off'.$key]) }}

@@ -450,6 +450,10 @@
     {{ Form::hidden('', $multiple->pre_reservations()->where('venue_id',$venue->id)->get()->count(),['id'=>'counts_reserve']) }}
     {{-- 以下、pre_reservationの数分　ループ --}}
     @foreach ($multiple->pre_reservations()->where('venue_id',$venue->id)->get() as $key=>$pre_reservation)
+    {{ Form::open(['url' => 'admin/multiples/'.$multiple->id."/edit/".$venue->id.'/calculate/'.$pre_reservation->id.'/specific_update', 'method'=>'POST', 'id'=>'']) }}
+    @csrf
+    {{ Form::hidden('split_keys', $key) }}
+
     <section class="register-list col">
       <!-- 仮押さえ一括 タブ-->
       <div class="register-list-item">
@@ -469,7 +473,7 @@
                 <div class="input-group">
                   <label for="date"></label>
                   {{ Form::text('', ReservationHelper::formatDate($pre_reservation->reserve_date) ,['class'=>'form-control', 'readonly'] ) }}
-                  {{ Form::hidden('reserve_date', $pre_reservation->reserve_date ,['class'=>'form-control', 'readonly'] ) }}
+                  {{ Form::hidden('reserve_date'.$key, $pre_reservation->reserve_date ,['class'=>'form-control', 'readonly'] ) }}
                 </div>
               </li>
               <li class="col-3 d-flex align-items-center">
@@ -478,7 +482,7 @@
                 <div class="input-group">
                   <label for="start"></label>
                   {{ Form::text('', ReservationHelper::formatTime($pre_reservation->enter_time) ,['class'=>'form-control', 'readonly'] ) }}
-                  {{ Form::hidden('enter_time', $pre_reservation->enter_time ,['class'=>'form-control', 'readonly'] ) }}
+                  {{ Form::hidden('enter_time'.$key, $pre_reservation->enter_time ,['class'=>'form-control', 'readonly'] ) }}
                 </div>
                 <p></p>
                 <p class="mx-1">～</p>
@@ -487,7 +491,7 @@
                 <div class="input-group">
                   <label for="finish"></label>
                   {{ Form::text('', ReservationHelper::formatTime($pre_reservation->leave_time) ,['class'=>'form-control', 'readonly'] ) }}
-                  {{ Form::hidden('leave_time', $pre_reservation->leave_time ,['class'=>'form-control', 'readonly'] ) }}
+                  {{ Form::hidden('leave_time'.$key, $pre_reservation->leave_time ,['class'=>'form-control', 'readonly'] ) }}
                 </div>
                 <p></p>
               </li>
@@ -514,12 +518,12 @@
                       </td>
                       <td>
                         <div class="">
-                          {{ Form::radio('price_system'.$key, 1, $pre_reservation->price_system==1?true:false, ['class'=>'mr-2', 'id'=>'price_system'.$key]) }}
-                          {{Form::label('price_system'.$key,'通常（枠貸）')}}
+                          {{ Form::radio('price_system_copied'.$key, 1, $pre_reservation->price_system==1?true:false, ['class'=>'mr-2', 'id'=>'price_system_copied'.$key]) }}
+                          {{Form::label('price_system_copied'.$key,'通常（枠貸）')}}
                         </div>
                         <div>
-                          {{ Form::radio('price_system'.$key, 2, $pre_reservation->price_system==2?true:false, ['class'=>'mr-2', 'id'=>'price_system_2'.$key]) }}
-                          {{Form::label('price_system_2'.$key,'アクセア（時間貸）')}}
+                          {{ Form::radio('price_system_copied'.$key, 2, $pre_reservation->price_system==2?true:false, ['class'=>'mr-2', 'id'=>'price_system_copied_off'.$key]) }}
+                          {{Form::label('price_system_copied_off'.$key,'アクセア（時間貸）')}}
                         </div>
                       </td>
                     </tr>
@@ -528,12 +532,12 @@
                       <td>
                         <div>
                           <div>
-                            {{ Form::radio('board_flag'.$key, 1, $pre_reservation->board_flag==1?true:false, ['class'=>'mr-2', 'id'=>'board_flag1'.$key]) }}
-                            {{Form::label('board_flag1'.$key,'あり')}}
+                            {{ Form::radio('board_flag_copied'.$key, 1, $pre_reservation->board_flag==1?true:false, ['class'=>'mr-2', 'id'=>'board_flag_copied'.$key]) }}
+                            {{Form::label('board_flag_copied'.$key,'あり')}}
                           </div>
                           <div>
-                            {{ Form::radio('board_flag'.$key, 0, $pre_reservation->board_flag==0?true:false, ['class'=>'mr-2', 'id'=>'board_flagboard_flag2'.$key]) }}
-                            {{Form::label('board_flagboard_flag2'.$key,'なし')}}
+                            {{ Form::radio('board_flag_copied'.$key, 0, $pre_reservation->board_flag==0?true:false, ['class'=>'mr-2', 'id'=>'board_flag_copied_off'.$key]) }}
+                            {{Form::label('board_flag_copied_off'.$key,'なし')}}
                           </div>
                         </div>
                       </td>
@@ -556,7 +560,7 @@
                     <tr>
                       <td class="table-active"><label for="eventStart">イベント開始時間</label></td>
                       <td>
-                        <select name="{{'event_start'.$key}}" class="form-control">
+                        <select name="{{'event_start_copied'.$key}}" class="form-control">
                           <option disabled>選択してください</option>
                           @for ($start = 0*2; $start <=23*2; $start++) <option
                             value="{{date("H:i:s", strtotime("00:00 +". $start * 30 ." minute"))}}" @if(date("H:i:s",
@@ -572,7 +576,7 @@
                     <tr>
                       <td class="table-active"><label for="eventFinish">イベント終了時間</label></td>
                       <td>
-                        <select name="{{'event_finish'.$key}}" id="{{'event_finish'.$key}}" class="form-control">
+                        <select name="{{'event_finish_copied'.$key}}" id="{{'event_finish_copied'.$key}}" class="form-control">
                           <option disabled>選択してください</option>
                           @for ($start = 0*2; $start <=23*2; $start++) <option
                             value="{{date("H:i:s", strtotime("00:00 +". $start * 30 ." minute"))}}" @if (date("H:i:s",
@@ -588,13 +592,13 @@
                     <tr>
                       <td class="table-active"><label for="eventName1">イベント名称1</label></td>
                       <td>
-                        {{ Form::text('event_name1'.$key,$pre_reservation->event_name1,['class'=>'form-control', 'placeholder'=>'入力してください'] ) }}
+                        {{ Form::text('event_name1_copied'.$key,$pre_reservation->event_name1,['class'=>'form-control', 'placeholder'=>'入力してください'] ) }}
                       </td>
                     </tr>
                     <tr>
                       <td class="table-active"><label for="eventName2">イベント名称2</label></td>
                       <td>
-                        {{ Form::text('event_name2'.$key, $pre_reservation->event_name2,['class'=>'form-control', 'placeholder'=>'入力してください'] ) }}
+                        {{ Form::text('event_name2_copied'.$key, $pre_reservation->event_name2,['class'=>'form-control', 'placeholder'=>'入力してください'] ) }}
                       </td>
                     </tr>
                     <tr>
@@ -653,27 +657,27 @@
                         @foreach ($pre_reservation->pre_breakdowns()->get() as $pre_re)
                         @if ($pre_re->unit_item==$service->item)
                         <div class="form-check form-check-inline">
-                          {{Form::radio('services_breakdown'.$s_key.'_copied'.$key, 1, true , ['id' => 'service'.$s_key.'on', 'class' => 'form-check-input'])}}
-                          {{Form::label('service'.$s_key.'on','有り')}}
-                          {{Form::radio('services_breakdown'.$s_key.'_copied'.$key, 0, false, ['id' => 'service'.$s_key.'off', 'class' => 'form-check-input'])}}
-                          {{Form::label('service'.$s_key.'on','無し')}}
+                          {{Form::radio('services_breakdown'.$s_key.'_copied'.$key, 1, true , ['id' => 'services_breakdown'.$s_key.'_copied'.$key, 'class' => 'form-check-input'])}}
+                          {{Form::label('services_breakdown'.$s_key.'_copied'.$key,'有り')}}
+                          {{Form::radio('services_breakdown'.$s_key.'_copied'.$key, 0, false, ['id' => 'services_breakdown'.$s_key.'_copied'.$key."off", 'class' => 'form-check-input'])}}
+                          {{Form::label('services_breakdown'.$s_key.'_copied'.$key."off",'無し')}}
                         </div>
                         @break
                         @elseif($loop->last)
                         <div class="form-check form-check-inline">
-                          {{Form::radio('services_breakdown'.$s_key.'_copied'.$key, 1, false , ['id' => 'service'.$s_key.'on', 'class' => 'form-check-input'])}}
-                          {{Form::label('service'.$s_key.'on','有り')}}
-                          {{Form::radio('services_breakdown'.$s_key.'_copied'.$key, 0, true, ['id' => 'service'.$s_key.'off', 'class' => 'form-check-input'])}}
-                          {{Form::label('service'.$s_key.'on','無し')}}
+                          {{Form::radio('services_breakdown'.$s_key.'_copied'.$key, 1, false , ['id' => 'services_breakdown'.$s_key.'_copied'.$key, 'class' => 'form-check-input'])}}
+                          {{Form::label('services_breakdown'.$s_key.'_copied'.$key,'有り')}}
+                          {{Form::radio('services_breakdown'.$s_key.'_copied'.$key, 0, true, ['id' => 'services_breakdown'.$s_key.'_copied'.$key."off", 'class' => 'form-check-input'])}}
+                          {{Form::label('services_breakdown'.$s_key.'_copied'.$key."off",'無し')}}
                         </div>
                         @endif
                         @endforeach
                         @else
                         <div class="form-check form-check-inline">
-                          {{Form::radio('services_breakdown'.$s_key.'_copied'.$key, 1, false , ['id' => 'service'.$s_key.'on', 'class' => 'form-check-input'])}}
-                          {{Form::label('service'.$s_key.'on','有り')}}
-                          {{Form::radio('services_breakdown'.$s_key.'_copied'.$key, 0, true, ['id' => 'service'.$s_key.'off', 'class' => 'form-check-input'])}}
-                          {{Form::label('service'.$s_key.'on','無し')}}
+                          {{Form::radio('services_breakdown'.$s_key.'_copied'.$key, 1, false , ['id' => 'services_breakdown'.$s_key.'_copied'.$key, 'class' => 'form-check-input'])}}
+                          {{Form::label('services_breakdown'.$s_key.'_copied'.$key,'有り')}}
+                          {{Form::radio('services_breakdown'.$s_key.'_copied'.$key, 0, true, ['id' => 'services_breakdown'.$s_key.'_copied'.$key."off", 'class' => 'form-check-input'])}}
+                          {{Form::label('services_breakdown'.$s_key.'_copied'.$key."off",'無し')}}
                         </div>
                         @endif
                       </td>
@@ -697,16 +701,16 @@
                         <div class="form-check form-check-inline">
                           @foreach ($pre_reservation->pre_breakdowns()->get() as $layout_prepares)
                           @if ($layout_prepares->unit_item=="レイアウト準備料金")
-                          {{Form::radio('layout_prepare'.$key, 1, true, ['id' => 'layout_prepare'.$key, 'class' => 'form-check-input'])}}
-                          {{Form::label('layout_prepare'.$key,'有り')}}
-                          {{Form::radio('layout_prepare'.$key, 0, false, ['id' => 'no_layout_prepare'.$key, 'class' => 'form-check-input'])}}
-                          {{Form::label('no_layout_prepare'.$key,'無し')}}
+                          {{Form::radio('layout_prepare_copied'.$key, 1, true, ['id' => 'layout_prepare_copied'.$key, 'class' => 'form-check-input'])}}
+                          {{Form::label('layout_prepare_copied'.$key,'有り')}}
+                          {{Form::radio('layout_prepare_copied'.$key, 0, false, ['id' => 'no_layout_prepare_copied'.$key, 'class' => 'form-check-input'])}}
+                          {{Form::label('no_layout_prepare_copied'.$key,'無し')}}
                           @break
                           @elseif($loop->last)
-                          {{Form::radio('layout_prepare'.$key, 1, false, ['id' => 'layout_prepare'.$key, 'class' => 'form-check-input'])}}
-                          {{Form::label('layout_prepare'.$key,'有り')}}
-                          {{Form::radio('layout_prepare'.$key, 0, true, ['id' => 'no_layout_prepare'.$key, 'class' => 'form-check-input'])}}
-                          {{Form::label('no_layout_prepare'.$key,'無し')}}
+                          {{Form::radio('layout_prepare_copied'.$key, 1, false, ['id' => 'layout_prepare_copied'.$key, 'class' => 'form-check-input'])}}
+                          {{Form::label('layout_prepare_copied'.$key,'有り')}}
+                          {{Form::radio('layout_prepare_copied'.$key, 0, true, ['id' => 'no_layout_prepare_copied'.$key, 'class' => 'form-check-input'])}}
+                          {{Form::label('no_layout_prepare_copied'.$key,'無し')}}
                           @endif
                           @endforeach
                         </div>
@@ -718,16 +722,16 @@
                         <div class="form-check form-check-inline">
                           @foreach ($pre_reservation->pre_breakdowns()->get() as $layout_prepares)
                           @if ($layout_prepares->unit_item=="レイアウト片付料金")
-                          {{Form::radio('layout_clean'.$key, 1, true, ['id' => 'layout_clean'.$key, 'class' => 'form-check-input'])}}
-                          {{Form::label('layout_clean'.$key,'有り')}}
-                          {{Form::radio('layout_clean'.$key, 0, false, ['id' => 'no_layout_clean'.$key, 'class' => 'form-check-input'])}}
-                          {{Form::label('no_layout_clean'.$key,'無し')}}
+                          {{Form::radio('layout_clean_copied'.$key, 1, true, ['id' => 'layout_clean_copied'.$key, 'class' => 'form-check-input'])}}
+                          {{Form::label('layout_clean_copied'.$key,'有り')}}
+                          {{Form::radio('layout_clean_copied'.$key, 0, false, ['id' => 'no_layout_clean_copied'.$key, 'class' => 'form-check-input'])}}
+                          {{Form::label('no_layout_clean_copied'.$key,'無し')}}
                           @break
                           @elseif($loop->last)
-                          {{Form::radio('layout_clean'.$key, 1, false, ['id' => 'layout_clean'.$key, 'class' => 'form-check-input'])}}
-                          {{Form::label('layout_clean'.$key,'有り')}}
-                          {{Form::radio('layout_clean'.$key, 0, true, ['id' => 'no_layout_clean'.$key, 'class' => 'form-check-input'])}}
-                          {{Form::label('no_layout_clean'.$key,'無し')}}
+                          {{Form::radio('layout_clean_copied'.$key, 1, false, ['id' => 'layout_clean_copied'.$key, 'class' => 'form-check-input'])}}
+                          {{Form::label('layout_clean_copied'.$key,'有り')}}
+                          {{Form::radio('layout_clean_copied'.$key, 0, true, ['id' => 'no_layout_clean_copied'.$key, 'class' => 'form-check-input'])}}
+                          {{Form::label('no_layout_clean_copied'.$key,'無し')}}
                           @endif
                           @endforeach
                         </div>
@@ -748,19 +752,19 @@
                     <tr>
                       <td class="table-active">事前に預かる荷物<br>（個数）</td>
                       <td>
-                        {{ Form::text('luggage_count'.$key, $pre_reservation->luggage_count,['class'=>'form-control'] ) }}
+                        {{ Form::text('luggage_count_copied'.$key, $pre_reservation->luggage_count,['class'=>'form-control'] ) }}
                       </td>
                     </tr>
                     <tr>
                       <td class="table-active">事前荷物の到着日<br>午前指定のみ</td>
                       <td>
-                        {{ Form::text('luggage_arrive'.$key, $pre_reservation->luggage_arrive,['class'=>'form-control'] ) }}
+                        {{ Form::text('luggage_arrive_copied'.$key, $pre_reservation->luggage_arrive,['class'=>'form-control'] ) }}
                       </td>
                     </tr>
                     <tr>
                       <td class="table-active">事後返送する荷物</td>
                       <td>
-                        {{ Form::text('luggage_return'.$key, $pre_reservation->luggage_return,['class'=>'form-control'] ) }}
+                        {{ Form::text('luggage_return_copied'.$key, $pre_reservation->luggage_return,['class'=>'form-control'] ) }}
                       </td>
                     </tr>
 
@@ -779,8 +783,6 @@
                     </tr>
                   </tbody>
                 </table>
-
-
                 <table class="table table-bordered eating-table">
                   <tbody>
                     <tr>
@@ -830,13 +832,13 @@
                       <tr>
                         <td class="table-active"><label for="ondayName">氏名</label></td>
                         <td>
-                          {{ Form::text('in_charge'.$key, $pre_reservation->in_charge,['class'=>'form-control'] ) }}
+                          {{ Form::text('in_charge_copied'.$key, $pre_reservation->in_charge,['class'=>'form-control'] ) }}
                         </td>
                       </tr>
                       <tr>
                         <td class="table-active"><label for="mobilePhone">携帯番号</label></td>
                         <td>
-                          {{ Form::text('tel'.$key, $pre_reservation->tel,['class'=>'form-control'] ) }}
+                          {{ Form::text('tel_copied'.$key, $pre_reservation->tel,['class'=>'form-control'] ) }}
                         </td>
                       </tr>
                     </tbody>
@@ -857,10 +859,10 @@
                       <td>
                         <div class="d-flex">
                           <div class="form-check form-check-inline">
-                            {{Form::radio('email_flag'.$key, 1, $pre_reservation->email_flag==1?true:false, ['id' => 'email_flag'.$key, 'class' => 'form-check-input'])}}
-                            {{Form::label('email_flag'.$key,'有り',['class'=>'mr-5'])}}
-                            {{Form::radio('email_flag'.$key, 0, $pre_reservation->email_flag==0?true:false, ['id' => 'no_email_flag'.$key, 'class' => 'form-check-input'])}}
-                            {{Form::label('no_email_flag'.$key,'無し')}}
+                            {{Form::radio('email_flag_copied'.$key, 1, $pre_reservation->email_flag==1?true:false, ['id' => 'email_flag_copied'.$key, 'class' => 'form-check-input'])}}
+                            {{Form::label('email_flag_copied'.$key,'有り',['class'=>'mr-5'])}}
+                            {{Form::radio('email_flag_copied'.$key, 0, $pre_reservation->email_flag==0?true:false, ['id' => 'no_email_flag_copied'.$key, 'class' => 'form-check-input'])}}
+                            {{Form::label('no_email_flag_copied'.$key,'無し')}}
                           </div>
                         </div>
                       </td>
@@ -880,7 +882,7 @@
                     <tr>
                       <td class="table-active"><label for="sale">原価率</label></td>
                       <td class="d-flex align-items-center">
-                        {{ Form::text('cost'.$key, $pre_reservation->cost,['class'=>'form-control'] ) }}%
+                        {{ Form::text('cost_copied'.$key, $pre_reservation->cost,['class'=>'form-control'] ) }}%
                       </td>
                     </tr>
                   </tbody>
@@ -901,19 +903,19 @@
                           <input type="checkbox" id="discount" checked="">
                           <label for="discount">割引条件</label>
                         </p>
-                        {{ Form::textarea('discount_condition'.$key, $pre_reservation->cp_master_discount_condition,['class'=>'form-control'] ) }}
+                        {{ Form::textarea('discount_condition_copied'.$key, $pre_reservation->cp_master_discount_condition,['class'=>'form-control'] ) }}
                       </td>
                     </tr>
                     <tr class="caution">
                       <td>
                         <label for="caution">注意事項</label>
-                        {{ Form::textarea('attention'.$key, $pre_reservation->attention,['class'=>'form-control'] ) }}
+                        {{ Form::textarea('attention_copied'.$key, $pre_reservation->attention,['class'=>'form-control'] ) }}
                       </td>
                     </tr>
                     <tr>
                       <td>
                         <label for="adminNote">管理者備考</label>
-                        {{ Form::textarea('admin_details'.$key, $pre_reservation->admin_details,['class'=>'form-control'] ) }}
+                        {{ Form::textarea('admin_details_copied'.$key, $pre_reservation->admin_details,['class'=>'form-control'] ) }}
                       </td>
                     </tr>
                   </tbody>
@@ -921,9 +923,11 @@
               </div>
               <!-- 右側の項目 終わり-------------------------------------------------- -->
             </div>
-            <div class="btn_wrapper">
-              <p class="text-center"><a class="more_btn_lg" href="">請求に反映する</a></p>
-            </div>
+              <div class="btn_wrapper">
+                <p class="text-center">
+                  {{ Form::submit('請求に反映する', ['class' => 'btn btn-primary'])}}</p>
+                {{ Form::close() }}
+              </div>
 
             <section class="bill-wrap section-wrap">
               <div class="bill">
