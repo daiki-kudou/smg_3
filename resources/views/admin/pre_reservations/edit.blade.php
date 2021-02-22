@@ -63,28 +63,28 @@
       <tr>
         <td class="table-active">会社名・団体名</td>
         <td>
-          {{ Form::text('unknown_user_company', ($request->unknown_user->unknown_user_company),['class'=>'form-control', ''] ) }}
+          {{ Form::text('unknown_user_company', empty($request->unknown_user->unknown_user_company)?'':$request->unknown_user->unknown_user_company,['class'=>'form-control', ''] ) }}
         </td>
         <td colspan="2"></td>
       </tr>
       <tr>
         <td class="table-active">担当者指名</td>
         <td>
-          {{ Form::text('unknown_user_name', ($request->unknown_user->unknown_user_name),['class'=>'form-control', ''] ) }}
+          {{ Form::text('unknown_user_name', empty($request->unknown_user->unknown_user_name)?"":$request->unknown_user->unknown_user_name,['class'=>'form-control', ''] ) }}
         </td>
         <td class="table-active">メールアドレス</td>
         <td>
-          {{ Form::text('unknown_user_email', ($request->unknown_user->unknown_user_email),['class'=>'form-control', ''] ) }}
+          {{ Form::text('unknown_user_email', empty($request->unknown_user->unknown_user_email)?"":$request->unknown_user->unknown_user_email,['class'=>'form-control', ''] ) }}
         </td>
       </tr>
       <tr>
         <td class="table-active">携帯番号</td>
         <td>
-          {{ Form::text('unknown_user_mobile', ($request->unknown_user->unknown_user_mobile),['class'=>'form-control', ''] ) }}
+          {{ Form::text('unknown_user_mobile', empty($request->unknown_user->unknown_user_mobile)?"":$request->unknown_user->unknown_user_mobile,['class'=>'form-control', ''] ) }}
         </td>
         <td class="table-active">固定電話</td>
         <td>
-          {{ Form::text('unknown_user_tel', ($request->unknown_user->unknown_user_tel),['class'=>'form-control', ''] ) }}
+          {{ Form::text('unknown_user_tel', empty($request->unknown_user->unknown_user_tel)?"":$request->unknown_user->unknown_user_tel,['class'=>'form-control', ''] ) }}
         </td>
       </tr>
     </tbody>
@@ -392,7 +392,7 @@
             <tr>
               <td>荷物預かり/返送<br>料金</td>
               <td>
-                {{ Form::text('luggage_price', $request->pre_breakdowns()->where('unit_item','荷物預かり/返送')->first()->unit_cost,['class'=>'form-control'] ) }}
+                {{ Form::text('luggage_price', empty($request->pre_breakdowns()->where('unit_item','荷物預かり/返送')->first()->unit_cost)?"":$request->pre_breakdowns()->where('unit_item','荷物預かり/返送')->first()->unit_cost,['class'=>'form-control'] ) }}
               </td>
             </tr>
           </tbody>
@@ -541,7 +541,6 @@
 
 {{ Form::open(['url' => 'admin/pre_reservations/'.$request->id, 'method'=>'PUT']) }}
 @csrf
-
 {{-- 以下、計算結果 --}}
 <div class="container-fluid">
   <div class="bill">
@@ -556,7 +555,7 @@
           <td style="font-size: 16px;">
             <div class="bg-white d-flex justify-content-around align-items-center" style="height: 60px;">
               <div>合計金額</div>
-              <div class="total_result">{{number_format($request->pre_bills->first()->master_total)}}円</div>
+              <div class="total_result">{{number_format($request->pre_bill->first()->master_total)}}円</div>
             </div>
           </td>
         </tr>
@@ -614,7 +613,7 @@
               <tr>
                 <td colspan="2"></td>
                 <td colspan="2">合計
-                  {{ Form::text('venue_price', $request->pre_bills()->first()->venue_price,['class'=>'form-control col-xs-3', 'readonly'] ) }}
+                  {{ Form::text('venue_price', $request->pre_bill()->first()->venue_price,['class'=>'form-control col-xs-3', 'readonly'] ) }}
                 </td>
               </tr>
             </tbody>
@@ -702,7 +701,7 @@
               <tr>
                 <td colspan="2"></td>
                 <td colspan="2">合計
-                  {{ Form::text('equipment_price',$request->pre_bills()->first()->equipment_price  ,['class'=>'form-control', 'readonly'] ) }}
+                  {{ Form::text('equipment_price',$request->pre_bill()->first()->equipment_price  ,['class'=>'form-control', 'readonly'] ) }}
                 </td>
               </tr>
             </tbody>
@@ -773,7 +772,7 @@
               <tr>
                 <td colspan="2"></td>
                 <td colspan="2">合計
-                  {{ Form::text('layout_price',$request->pre_bills()->first()->layout_price ,['class'=>'form-control', 'readonly'] ) }}
+                  {{ Form::text('layout_price',$request->pre_bill()->first()->layout_price ,['class'=>'form-control', 'readonly'] ) }}
                 </td>
               </tr>
             </tbody>
@@ -842,7 +841,7 @@
               <tr>
                 <td colspan="2"></td>
                 <td colspan="3">合計
-                  {{ Form::text('others_price', $request->pre_bills()->first()->others_price,['class'=>'form-control', 'readonly'] ) }}
+                  {{ Form::text('others_price', $request->pre_bill()->first()->others_price,['class'=>'form-control', 'readonly'] ) }}
                 </td>
               </tr>
             </tbody>
@@ -856,19 +855,19 @@
               <tr>
                 <td>小計：</td>
                 <td>
-                  {{ Form::text('master_subtotal',$request->pre_bills()->first()->master_subtotal ,['class'=>'form-control text-right', 'readonly'] ) }}
+                  {{ Form::text('master_subtotal',$request->pre_bill()->first()->master_subtotal ,['class'=>'form-control text-right', 'readonly'] ) }}
                 </td>
               </tr>
               <tr>
                 <td>消費税：</td>
                 <td>
-                  {{ Form::text('master_tax',$request->pre_bills()->first()->master_tax ,['class'=>'form-control text-right', 'readonly'] ) }}
+                  {{ Form::text('master_tax',$request->pre_bill()->first()->master_tax ,['class'=>'form-control text-right', 'readonly'] ) }}
                 </td>
               </tr>
               <tr>
                 <td class="font-weight-bold">合計金額</td>
                 <td>
-                  {{ Form::text('master_total',$request->pre_bills()->first()->master_total ,['class'=>'form-control text-right', 'readonly'] ) }}
+                  {{ Form::text('master_total',$request->pre_bill()->first()->master_total ,['class'=>'form-control text-right', 'readonly'] ) }}
                 </td>
               </tr>
             </table>

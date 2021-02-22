@@ -328,7 +328,7 @@ class PreReservation extends Model
   {
     parent::boot();
     static::deleting(function ($model) {
-      foreach ($model->pre_bills()->get() as $child) {
+      foreach ($model->pre_bill()->get() as $child) {
         $child->delete();
       }
       foreach ($model->unknown_user()->get() as $child2) {

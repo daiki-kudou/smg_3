@@ -523,7 +523,7 @@
               <td colspan="2"></td>
               <td colspan="1">合計：</td>
               <td colspan="1" class="">
-                {{number_format($pre_reservation->pre_bills->first()->venue_price)}}
+                {{number_format($pre_reservation->pre_bill->first()->venue_price)}}
               </td>
             </tr>
           </tbody>
@@ -605,7 +605,7 @@
             <td colspan="2"></td>
             <td colspan="1">合計：</td>
             <td colspan="1" class="">
-              {{number_format($pre_reservation->pre_bills->first()->equipment_price)}}
+              {{number_format($pre_reservation->pre_bill->first()->equipment_price)}}
             </td>
             </td>
           </tr>
@@ -689,7 +689,7 @@
           <td colspan="1"></td>
           <td colspan="1">合計：</td>
           <td colspan="2">合計：
-            {{number_format($pre_reservation->pre_bills->first()->layout_price)}}
+            {{number_format($pre_reservation->pre_bill->first()->layout_price)}}
           </td>
         </tr>
       </tbody>
@@ -764,7 +764,7 @@
           <td colspan="1"></td>
           <td colspan="1"></td>
           <td colspan="2">合計：
-            {{$pre_reservation->pre_bills->first()->others_price}}
+            {{$pre_reservation->pre_bill->first()->others_price}}
         </tr>
       </tbody>
     </table>
@@ -810,19 +810,19 @@
           <tr>
             <td>小計：</td>
             <td>
-              {{number_format($pre_reservation->pre_bills->first()->master_subtotal)}}
+              {{number_format($pre_reservation->pre_bill->first()->master_subtotal)}}
             </td>
           </tr>
           <tr>
             <td>消費税：</td>
             <td>
-              {{number_format($pre_reservation->pre_bills->first()->master_tax)}}
+              {{number_format($pre_reservation->pre_bill->first()->master_tax)}}
             </td>
           </tr>
           <tr>
             <td class="font-weight-bold">合計金額</td>
             <td>
-              {{number_format($pre_reservation->pre_bills->first()->master_total)}}
+              {{number_format($pre_reservation->pre_bill->first()->master_total)}}
             </td>
           </tr>
         </tbody>
