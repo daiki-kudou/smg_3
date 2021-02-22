@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
 use App\Models\MultipleReserve;
+use App\Models\PreReservation;
 use App\Models\Venue;
 
 class MultiplesController extends Controller
@@ -44,18 +45,13 @@ class MultiplesController extends Controller
 
   public function calculate(Request $request, $multiple_id, $venue_id)
   {
-    // echo "<pre>";var_dump($request->all());echo "</pre>";
 
     $multiple = MultipleReserve::find($multiple_id);
     $venue = Venue::find($venue_id);
 
-    $result = $multiple->calculateVenue($venue_id, $request);
-    //0に会場料金　1にサービス　2にレイアウト
+    $result = $multiple->calculateVenue($venue_id, $request); //0に会場料金　1にサービス　2にレイアウト
 
-    // echo "<pre>"; var_dump($result);echo "</pre>";
     $multiple->preStore($venue_id, $request, $result);
-
-
 
     return view('admin.multiples.calculate', [
       'multiple' => $multiple,
@@ -63,5 +59,21 @@ class MultiplesController extends Controller
       'request' => $request,
       'result' => $result,
     ]);
+  }
+
+  public function specificUpdate(Request $request, $multiple_id, $venue_id, $pre_reservation_id)
+  {
+    $pre_reservation = PreReservation::find($pre_reservation_id);
+    // echo "<pre>";
+    // var_dump($request->all());
+    // echo "</pre>";
+
+    $result = $pre_reservation->reCalculateVenue($request, $venue_id);
+
+    $pre_reservation->specificUpdate($request, $result, $venue_id);
+
+
+
+    return redirect('admin/multiples/' . $multiple_id . '/edit/' . $venue_id);
   }
 }

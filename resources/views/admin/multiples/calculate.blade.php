@@ -473,6 +473,11 @@
     {{ Form::hidden('', $multiple->pre_reservations()->where('venue_id',$venue->id)->get()->count(),['id'=>'counts_reserve']) }}
     {{-- 以下、pre_reservationの数分　ループ --}}
     @foreach ($multiple->getPreReservations($venue->id) as $key=>$pre_reservation)
+    {{ Form::open(['url' => 'admin/multiples/'.$multiple->id."/edit/".$venue->id.'/calculate/'.$pre_reservation->id.'/specific_update', 'method'=>'POST', 'id'=>'']) }}
+    {{ Form::hidden('split_keys', $key) }}
+
+    @csrf
+
     <section class="register-list col">
       <!-- 仮押さえ一括 タブ-->
       <div class="register-list-item">
@@ -492,7 +497,7 @@
                 <div class="input-group">
                   <label for="date"></label>
                   {{ Form::text('', ReservationHelper::formatDate($pre_reservation->reserve_date) ,['class'=>'form-control', 'readonly'] ) }}
-                  {{ Form::hidden('reserve_date', $pre_reservation->reserve_date ,['class'=>'form-control', 'readonly'] ) }}
+                  {{ Form::hidden('reserve_date'.$key, $pre_reservation->reserve_date ,['class'=>'form-control', 'readonly'] ) }}
                 </div>
               </li>
               <li class="col-3 d-flex align-items-center">
@@ -501,7 +506,7 @@
                 <div class="input-group">
                   <label for="start"></label>
                   {{ Form::text('', ReservationHelper::formatTime($pre_reservation->enter_time) ,['class'=>'form-control', 'readonly'] ) }}
-                  {{ Form::hidden('enter_time', $pre_reservation->enter_time ,['class'=>'form-control', 'readonly'] ) }}
+                  {{ Form::hidden('enter_time'.$key, $pre_reservation->enter_time ,['class'=>'form-control', 'readonly'] ) }}
                 </div>
                 <p></p>
                 <p class="mx-1">～</p>
@@ -510,7 +515,7 @@
                 <div class="input-group">
                   <label for="finish"></label>
                   {{ Form::text('', ReservationHelper::formatTime($pre_reservation->leave_time) ,['class'=>'form-control', 'readonly'] ) }}
-                  {{ Form::hidden('leave_time', $pre_reservation->leave_time ,['class'=>'form-control', 'readonly'] ) }}
+                  {{ Form::hidden('leave_time'.$key, $pre_reservation->leave_time ,['class'=>'form-control', 'readonly'] ) }}
                 </div>
                 <p></p>
               </li>
@@ -887,7 +892,9 @@
               <!-- 右側の項目 終わり-------------------------------------------------- -->
             </div>
             <div class="btn_wrapper">
-              <p class="text-center"><a class="more_btn_lg" href="">請求に反映する</a></p>
+              <p class="text-center">
+                {{ Form::submit('請求に反映する', ['class' => 'btn btn-primary'])}}</p>
+              {{ Form::close() }}
             </div>
             <!-- 請求セクション------------------------------------------------------------------- -->
             <section class="bill-wrap section-wrap">
@@ -904,7 +911,7 @@
                         <dl class="ttl_box">
                           <dt>合計金額</dt>
                           <dd class="total_result">
-                            {{-- {{number_format($masters)}} --}}
+                            {{number_format($pre_reservation->pre_bill->master_total)}}
                             円</dd>
                         </dl>
                       </td>
