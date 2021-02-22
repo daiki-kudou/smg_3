@@ -73,9 +73,6 @@ class PreReservationsController extends Controller
         'layouts' => $layouts,
       ]);
     } else {
-      echo "<pre>";
-      var_dump($request->all());
-      echo "</pre>";
       DB::transaction(function () use ($request) { //トランザクションさせる
         $multiple = MultipleReserve::create(); //一括IDを作成
         $counters = [];
@@ -105,6 +102,9 @@ class PreReservationsController extends Controller
           }
         }
       });
+
+      $request->session()->regenerate();
+      return redirect('admin/multiples');
     }
   }
 

@@ -86,8 +86,6 @@ class MultiplesController extends Controller
     $multiple = MultipleReserve::find($multiples_id);
     $multiple->UpdateAndReCreateAll($masterData);
 
-    // echo "<pre>";
-    // var_dump($masterData);
-    // echo "</pre>";
+    return redirect('admin/multiples/' . $multiples_id . '/edit/' . $venues_id);
   }
 }

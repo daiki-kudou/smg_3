@@ -763,15 +763,16 @@
                         {{ Form::text('luggage_return'.$key, $pre_reservation->luggage_return,['class'=>'form-control'] ) }}
                       </td>
                     </tr>
+
                     <tr>
                       <td class="table-active">荷物預かり/返送<br>料金</td>
                       <td>
                         @foreach ($pre_reservation->pre_breakdowns()->get() as $lugg)
                         @if ($lugg->unit_item=="荷物預かり/返送")
-                        {{ Form::text('luggage_price'.$key, $lugg->unit_cost,['class'=>'form-control'] ) }}
+                        {{ Form::text('luggage_price_copied'.$key, $lugg->unit_cost,['class'=>'form-control'] ) }}
                         @break
                         @elseif($loop->last)
-                        {{ Form::text('luggage_price'.$key, '',['class'=>'form-control'] ) }}
+                        {{ Form::text('luggage_price_copied'.$key, '',['class'=>'form-control'] ) }}
                         @endif
                         @endforeach
                       </td>
@@ -938,7 +939,7 @@
                         <dl class="ttl_box">
                           <dt>合計金額</dt>
                           <dd class="total_result">
-                            {{-- {{number_format($masters)}} --}}
+                            {{number_format(empty($pre_reservation->pre_bill->master_total)?0:$pre_reservation->pre_bill->master_total)}}
                             円</dd>
                         </dl>
                       </td>
@@ -1117,41 +1118,35 @@
                           $sb_key=>$each_ser)
                           <tr>
                             <td>
-                              {{ Form::text('equipment_breakdown_item'.$sb_key.'_copied'.$key, $each_ser->unit_item,['class'=>'form-control', 'readonly'] ) }}
+                              {{ Form::text('services_breakdown_item'.$sb_key.'_copied'.$key, $each_ser->unit_item,['class'=>'form-control', 'readonly'] ) }}
                             </td>
                             <td>
-                              {{ Form::text('equipment_breakdown_cost'.$sb_key.'_copied'.$key, $each_ser->unit_cost,['class'=>'form-control', 'readonly'] ) }}
+                              {{ Form::text('services_breakdown_cost'.$sb_key.'_copied'.$key, $each_ser->unit_cost,['class'=>'form-control', 'readonly'] ) }}
                             </td>
                             <td>
-                              {{ Form::text('equipment_breakdown_count'.$sb_key.'_copied'.$key, $each_ser->unit_count,['class'=>'form-control', 'readonly'] ) }}
+                              {{ Form::text('services_breakdown_count'.$sb_key.'_copied'.$key, $each_ser->unit_count,['class'=>'form-control', 'readonly'] ) }}
                             </td>
                             <td>
-                              {{ Form::text('equipment_breakdown_subtotal'.$sb_key.'_copied'.$key, $each_ser->unit_subtotal,['class'=>'form-control', 'readonly'] ) }}
+                              {{ Form::text('services_breakdown_subtotal'.$sb_key.'_copied'.$key, $each_ser->unit_subtotal,['class'=>'form-control', 'readonly'] ) }}
                             </td>
                           </tr>
                           @if ($each_ser->unit_item=="荷物預かり/返送")
                           <tr>
                             <td>
-                              {{ Form::text('luggage_item'.$key, '荷物預かり/返送',['class'=>'form-control', 'readonly'] ) }}
+                              {{ Form::text('luggage_item_copied'.$key, '荷物預かり/返送',['class'=>'form-control', 'readonly'] ) }}
                             </td>
                             <td>
-                              {{ Form::text('luggage_cost'.$key, $each_ser->unit_cost,['class'=>'form-control', 'readonly'] ) }}
+                              {{ Form::text('luggage_cost_copied'.$key, $each_ser->unit_cost,['class'=>'form-control', 'readonly'] ) }}
                             </td>
                             <td>
-                              {{ Form::text('luggage_count'.$key, 1,['class'=>'form-control', 'readonly'] ) }}
+                              {{ Form::text('luggage_count_copied'.$key, 1,['class'=>'form-control', 'readonly'] ) }}
                             </td>
                             <td>
-                              {{ Form::text('luggage_subtotal'.$key, $each_ser->unit_cost,['class'=>'form-control', 'readonly'] ) }}
+                              {{ Form::text('luggage_subtotal_copied'.$key, $each_ser->unit_cost,['class'=>'form-control', 'readonly'] ) }}
                             </td>
                           </tr>
                           @endif
-
                           @endforeach
-
-
-
-
-
                         </tbody>
                         <tbody class="{{'equipment_result'.$key}}">
                           <tr>
@@ -1211,43 +1206,23 @@
                           </tr>
                         </tbody>
                         <tbody class="{{'layout_main'.$key}}">
-                          @foreach ($pre_reservation->pre_breakdowns()->where('unit_item','レイアウト準備料金')->get() as
+                          @foreach ($pre_reservation->pre_breakdowns()->where('unit_type',4)->get() as
                           $slp_key=>$each_play)
                           <tr>
                             <td>
-                              {{ Form::text('equipment_breakdown_item'.$slp_key.'_copied'.$key, $each_play->unit_item,['class'=>'form-control', 'readonly'] ) }}
+                              {{ Form::text('layout_breakdown_item'.$slp_key.'_copied'.$key, $each_play->unit_item,['class'=>'form-control', 'readonly'] ) }}
                             </td>
                             <td>
-                              {{ Form::text('equipment_breakdown_cost'.$slp_key.'_copied'.$key, $each_play->unit_cost,['class'=>'form-control', 'readonly'] ) }}
+                              {{ Form::text('layout_breakdown_cost'.$slp_key.'_copied'.$key, $each_play->unit_cost,['class'=>'form-control', 'readonly'] ) }}
                             </td>
                             <td>
-                              {{ Form::text('equipment_breakdown_count'.$slp_key.'_copied'.$key, $each_play->unit_count,['class'=>'form-control', 'readonly'] ) }}
+                              {{ Form::text('layout_breakdown_count'.$slp_key.'_copied'.$key, $each_play->unit_count,['class'=>'form-control', 'readonly'] ) }}
                             </td>
                             <td>
-                              {{ Form::text('equipment_breakdown_subtotal'.$slp_key.'_copied'.$key, $each_play->unit_subtotal,['class'=>'form-control', 'readonly'] ) }}
+                              {{ Form::text('layout_breakdown_subtotal'.$slp_key.'_copied'.$key, $each_play->unit_subtotal,['class'=>'form-control', 'readonly'] ) }}
                             </td>
                           </tr>
                           @endforeach
-
-                          @foreach ($pre_reservation->pre_breakdowns()->where('unit_item','レイアウト片付料金')->get() as
-                          $slc_key=>$each_clay)
-                          <tr>
-                            <td>
-                              {{ Form::text('equipment_breakdown_item'.$slc_key.'_copied'.$key, $each_clay->unit_item,['class'=>'form-control', 'readonly'] ) }}
-                            </td>
-                            <td>
-                              {{ Form::text('equipment_breakdown_cost'.$slc_key.'_copied'.$key, $each_clay->unit_cost,['class'=>'form-control', 'readonly'] ) }}
-                            </td>
-                            <td>
-                              {{ Form::text('equipment_breakdown_count'.$slc_key.'_copied'.$key, $each_clay->unit_count,['class'=>'form-control', 'readonly'] ) }}
-                            </td>
-                            <td>
-                              {{ Form::text('equipment_breakdown_subtotal'.$slc_key.'_copied'.$key, $each_clay->unit_subtotal,['class'=>'form-control', 'readonly'] ) }}
-                            </td>
-                          </tr>
-                          @endforeach
-
-
                         </tbody>
                         <tbody class="{{'layout_result'.$key}}">
                           <tr>
@@ -1366,8 +1341,6 @@
                 </div>
               </div>
             </section>
-
-
           </dt>
           <!-- /.card-body -->
         </dl>
@@ -1427,11 +1400,47 @@
         <p><a class="more_btn_lg" href="">詳細にもどる</a></p>
       </li>
       <li>
-        <p><a class="more_btn_lg" href="">更新する</a></p>
+        <p id="master_submit" class="more_btn_lg">更新する</p>
       </li>
     </ul>
   </div>
 </div>
+
+{{ Form::open(['url' => 'admin/multiples/'.$multiple->id."/all_updates/".$venue->id, 'method'=>'POST', 'id'=>'master_form']) }}
+@csrf
+{{ Form::hidden('master_data', '',['class' => 'btn btn-primary more_btn_lg', 'id'=>'master_data'])}}
+{{ Form::close() }}
+
+
+<script>
+  $(function(){
+    $(document).on("click", "#master_submit", function () {
+      var data={};
+      $('input:radio:checked').each( function( index, elem ) {
+        var key=$(elem).attr('name');
+        var value=$(elem).val();
+        data[key]=value;
+      })
+      $('select option:selected').each( function( index, elem ) {
+        var key=$(elem).parent().attr('name');
+        var value=$(elem).val();
+        data[key]=value;
+      })
+      $('input:text').each( function( index, elem ) {
+        var key=$(elem).attr('name');
+        var value=$(elem).val();
+        data[key]=value;
+      })
+
+      console.log(data);
+      var encodes=JSON.stringify(data);
+      $('#master_data').val(encodes);
+      $('#master_form').submit();
+    })
+
+  })
+</script>
+
 
 
 @endsection

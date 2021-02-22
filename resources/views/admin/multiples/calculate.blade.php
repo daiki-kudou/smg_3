@@ -450,7 +450,7 @@
           <!-- コピー作成用フィールド   終わり--------------------------------------------------　 -->
           <div class="btn_wrapper">
             <p class="text-center">
-              {{ Form::submit('登録', ['class' => 'btn btn-primary'])}}
+              {{ Form::submit('計算する', ['class' => 'btn btn-primary'])}}
               {{ Form::close() }}
             </p>
           </div>
@@ -536,7 +536,9 @@
                       </td>
                     </tr>
                     <tr>
-                      <td class="table-active"><label for="direction">料金体系</label></td>
+                      <td class="table-active">
+                        <label for="direction">料金体系</label>
+                      </td>
                       <td>
                         <div class="">
                           <div>
@@ -1197,23 +1199,6 @@
                           </tr>
                           @endforeach
 
-                          {{-- @foreach ($pre_reservation->pre_breakdowns()->where('unit_item','レイアウト片付料金')->get() as
-                          $slc_key=>$each_clay)
-                          <tr>
-                            <td>
-                              {{ Form::text('layout_breakdown_item'.$slc_key.'_copied'.$key, $each_clay->unit_item,['class'=>'form-control', 'readonly'] ) }}
-                          </td>
-                          <td>
-                            {{ Form::text('layout_breakdown_cost'.$slc_key.'_copied'.$key, $each_clay->unit_cost,['class'=>'form-control', 'readonly'] ) }}
-                          </td>
-                          <td>
-                            {{ Form::text('layout_breakdown_count'.$slc_key.'_copied'.$key, $each_clay->unit_count,['class'=>'form-control', 'readonly'] ) }}
-                          </td>
-                          <td>
-                            {{ Form::text('layout_breakdown_subtotal'.$slc_key.'_copied'.$key, $each_clay->unit_subtotal,['class'=>'form-control', 'readonly'] ) }}
-                          </td>
-                          </tr>
-                          @endforeach --}}
 
 
                         </tbody>
@@ -1398,7 +1383,7 @@
         <p><a class="more_btn_lg" href="">詳細にもどる</a></p>
       </li>
       <li>
-        <p id="test">更新する</p>
+        <p id="master_submit" class="more_btn_lg">更新する</p>
       </li>
     </ul>
   </div>
@@ -1417,7 +1402,7 @@
 
 <script>
   $(function(){
-    $(document).on("click", "#test", function () {
+    $(document).on("click", "#master_submit", function () {
       var data={};
       $('input:radio:checked').each( function( index, elem ) {
         var key=$(elem).attr('name');
@@ -1436,7 +1421,6 @@
       })
 
       console.log(data);
-
       var encodes=JSON.stringify(data);
       $('#master_data').val(encodes);
       $('#master_form').submit();
