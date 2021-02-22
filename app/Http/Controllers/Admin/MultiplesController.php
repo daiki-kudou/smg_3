@@ -72,8 +72,22 @@ class MultiplesController extends Controller
 
     $pre_reservation->specificUpdate($request, $result, $venue_id);
 
-
-
     return redirect('admin/multiples/' . $multiple_id . '/edit/' . $venue_id);
+  }
+
+
+
+  public function allUpdates(Request $request, $multiples_id, $venues_id)
+  {
+
+
+
+    $masterData = json_decode($request->master_data);
+    $multiple = MultipleReserve::find($multiples_id);
+    $multiple->UpdateAndReCreateAll($masterData);
+
+    // echo "<pre>";
+    // var_dump($masterData);
+    // echo "</pre>";
   }
 }

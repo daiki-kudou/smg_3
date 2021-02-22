@@ -5,6 +5,7 @@
 
 <link href="{{ asset('/css/template.css') }}" rel="stylesheet">
 <script src="{{ asset('/js/multiples/script.js') }}"></script>
+<script src="{{ asset('/js/multiples/calculate.js') }}"></script>
 
 
 
@@ -445,6 +446,8 @@
       </ul>
     </div>
 
+    {{-- jsで仮抑えの件数判別のためのhidden --}}
+    {{ Form::hidden('', $multiple->pre_reservations()->where('venue_id',$venue->id)->get()->count(),['id'=>'counts_reserve']) }}
     {{-- 以下、pre_reservationの数分　ループ --}}
     @foreach ($multiple->pre_reservations()->where('venue_id',$venue->id)->get() as $key=>$pre_reservation)
     <section class="register-list col">
@@ -1382,36 +1385,38 @@
     <div class="col-12 mt-5">
       <div class="d-flex bg-green py-2 px-1">
         <h4>合計請求額</h4>
-        <p class="ml-2">(<span>3</span>件分)</p>
+        <p class="ml-2">(<span>{{$multiple->pre_reservations()->get()->count()}}</span>件分)</p>
       </div>
       <table class="table table-bordered">
         <tbody>
           <tr>
             <td class="table-active"><label for="venueFee">会場料</label></td>
             <td class="text-right">
-              5,300円
+              {{$multiple->sumVenues($venue->id)}}
             </td>
           </tr>
           <tr>
             <td class="table-active"><label for="serviceFee">備品その他</label></td>
             <td class="text-right">
-              5,300円
+              {{$multiple->sumEquips($venue->id)}}
             </td>
           </tr>
           <tr>
             <td class="table-active"><label for="layoutFee">レイアウト変更</label></td>
             <td class="text-right">
-              5,300円
+              {{$multiple->sumLayouts($venue->id)}}
             </td>
           </tr>
           <tr>
             <td colspan="2" class="text-right">
-              <p><span class="font-weight-bold">小計</span>7,200円</p>
-              <p><span>消費税</span>720円</p>
+              <p><span class="font-weight-bold">小計</span>{{$multiple->sumMasterSubs($venue->id)}}</p>
+              <p><span>消費税</span>{{$multiple->sumMasterTax($venue->id)}}</p>
             </td>
           </tr>
           <tr>
-            <td colspan="2" class="text-right"><span class="font-weight-bold">請求総額</span>7,200円</td>
+            <td colspan="2" class="text-right"><span class="font-weight-bold">請求総額</span>
+              {{$multiple->sumMasterTotal($venue->id)}}
+            </td>
           </tr>
         </tbody>
       </table>

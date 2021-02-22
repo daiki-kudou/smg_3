@@ -188,5 +188,7 @@ Route::namespace('Admin')->prefix('admin')->name('admin.')->group(function () {
     Route::post('multiples/{multiples}/edit/{venues}/calculate', 'MultiplesController@calculate');
     // 一括　個別　計算
     Route::post('multiples/{multiples}/edit/{venues}/calculate/{pre_reservations}/specific_update', 'MultiplesController@specificUpdate');
+    // 一括　保存
+    Route::post('multiples/{multiples}/all_updates/{venues}', 'MultiplesController@allUpdates');
   });
 });
