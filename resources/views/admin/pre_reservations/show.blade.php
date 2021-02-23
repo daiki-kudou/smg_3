@@ -743,10 +743,12 @@
             </tr>
           </tbody>
           <tbody class="others_main">
-            @foreach ($pre_reservation->pre_breakdowns()->where('unit_type',5)->get() as $other)
+            @foreach ($others as $other)
             <tr>
               <td>{{$other->unit_item}}</td>
+              <td>{{number_format($other->unit_cost)}}</td>
               <td>{{$other->unit_count}}</td>
+              <td>{{number_format($other->unit_subtotal)}}</td>
             </tr>
             @endforeach
           </tbody>
@@ -761,66 +763,64 @@
         </table>
       </div>
       @else
-      {{-- <div class="others" style="padding: 80px 0px 80px 0px; width:90%; margin:0 auto;">
-    <table class="table table-borderless" style="table-layout: fixed;">
-      <tbody>
-        <tr>
-          <td>
-            <h1>
-              ■その他
-            </h1>
-          </td>
-        </tr>
-      </tbody>
-      <tbody class="others_head">
-        <tr>
-          <td>内容</td>
-          <td>数量</td>
-        </tr>
-      </tbody>
-      <tbody class="others_main">
-        @foreach ($reservation->bills()->first()->breakdowns()->get() as $others_breakdown)
-        @if ($others_breakdown->unit_type==5)
-        <tr>
-          <td>{{$others_breakdown->unit_item}}</td>
-      <td>{{$others_breakdown->unit_count}}</td>
-      </tr>
-      @endif
-      @endforeach
-      </tbody>
-      </table>
-    </div> --}}
-    @endif
-
-
-
-    <div class="bill_total d-flex justify-content-end" style="padding: 80px 0px 80px 0px; width:90%; margin:0 auto;">
-      <div style="width: 60%;">
-        <table class="table text-right" style="table-layout: fixed; font-size:16px;">
+      <div class="others" style="padding: 80px 0px 80px 0px; width:90%; margin:0 auto;">
+        <table class="table table-borderless" style="table-layout: fixed;">
           <tbody>
             <tr>
-              <td>小計：</td>
               <td>
-                {{number_format($pre_reservation->pre_bill->first()->master_subtotal)}}
-              </td>
-            </tr>
-            <tr>
-              <td>消費税：</td>
-              <td>
-                {{number_format($pre_reservation->pre_bill->first()->master_tax)}}
-              </td>
-            </tr>
-            <tr>
-              <td class="font-weight-bold">合計金額</td>
-              <td>
-                {{number_format($pre_reservation->pre_bill->first()->master_total)}}
+                <h1>
+                  ■その他
+                </h1>
               </td>
             </tr>
           </tbody>
+          <tbody class="others_head">
+            <tr>
+              <td>内容</td>
+              <td>数量</td>
+            </tr>
+          </tbody>
+          <tbody class="others_main">
+            @foreach ($pre_reservation->pre_breakdowns()->where('unit_type',5)->get() as $others_breakdown)
+            <tr>
+              <td>{{$others_breakdown->unit_item}}</td>
+              <td>{{$others_breakdown->unit_count}}</td>
+            </tr>
+            @endforeach
+          </tbody>
         </table>
       </div>
+      @endif
+
+
+
+      <div class="bill_total d-flex justify-content-end" style="padding: 80px 0px 80px 0px; width:90%; margin:0 auto;">
+        <div style="width: 60%;">
+          <table class="table text-right" style="table-layout: fixed; font-size:16px;">
+            <tbody>
+              <tr>
+                <td>小計：</td>
+                <td>
+                  {{number_format($pre_reservation->pre_bill->first()->master_subtotal)}}
+                </td>
+              </tr>
+              <tr>
+                <td>消費税：</td>
+                <td>
+                  {{number_format($pre_reservation->pre_bill->first()->master_tax)}}
+                </td>
+              </tr>
+              <tr>
+                <td class="font-weight-bold">合計金額</td>
+                <td>
+                  {{number_format($pre_reservation->pre_bill->first()->master_total)}}
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
     </div>
-  </div>
   </div>
   </div>
 
