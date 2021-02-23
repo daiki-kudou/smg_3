@@ -432,7 +432,7 @@
 
 
 
-{{ Form::open(['url' => 'admin/agents_reservations/store', 'method'=>'POST', 'id'=>'agents_calculate_form']) }}
+{{ Form::open(['url' => 'admin/pre_agent_reservations/store', 'method'=>'POST', 'id'=>'']) }}
 @csrf
 {{-- 以下計算結果 --}}
 <div class="container-fluid">
@@ -682,7 +682,34 @@
     </div>
   </div>
 </div>
+{{ Form::hidden('venue_id', $request->venue_id )}}
+{{ Form::hidden('reserve_date', $request )}}
+{{ Form::hidden('agent_id', $request )}}
+{{ Form::hidden('price_system', $request )}}
+{{ Form::hidden('enter_time', $request )}}
+{{ Form::hidden('leave_time', $request )}}
+{{ Form::hidden('board_flag', $request )}}
+{{ Form::hidden('event_start',  )}}
+{{ Form::hidden('event_finish', $request )}}
+{{ Form::hidden('event_name1', $request )}}
+{{ Form::hidden('event_name2', $request )}}
+{{ Form::hidden('event_owner', $request )}}
 
+{{ Form::hidden('luggage_arrive', $request )}}
+{{ Form::hidden('luggage_return', $request )}}
+{{ Form::hidden('luggage_return', $request )}}
+{{ Form::hidden('luggage_price', $request )}}
+
+{{ Form::hidden('enduser_company', $request ) }}
+{{ Form::hidden('enduser_incharge', $request) }}
+{{ Form::hidden('enduser_address', $request) }}
+{{ Form::hidden('enduser_tel', $request) }}
+{{ Form::hidden('enduser_mail', $request) }}
+{{ Form::hidden('enduser_attr', $request) }}
+{{ Form::hidden('enduser_charge', $request) }}
+{{ Form::hidden('attention', $request) }}
+{{ Form::hidden('user_details', $request) }}
+{{ Form::hidden('admin_details', $request) }}
 {{Form::submit('保存する', ['class'=>'btn btn-primary d-block btn-lg mx-auto mt-5 mb-5', 'id'=>'check_submit'])}}
 {{Form::close()}}
 
