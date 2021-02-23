@@ -355,7 +355,7 @@ class MultipleReserve extends Model implements PresentableInterface //プレゼ�
               'unit_cost' => $re_equipment[($i * 4) + 1],
               'unit_count' => $re_equipment[($i * 4) + 2],
               'unit_subtotal' => $re_equipment[($i * 4) + 3],
-              'unit_type' => 1,
+              'unit_type' => 2,
             ]);
           }
         }
@@ -385,7 +385,7 @@ class MultipleReserve extends Model implements PresentableInterface //プレゼ�
               'unit_cost' => $equ_discounts[1],
               'unit_count' => $equ_discounts[2],
               'unit_subtotal' => $equ_discounts[3],
-              'unit_type' => 1,
+              'unit_type' => 2,
             ]);
           }
         }
@@ -424,7 +424,7 @@ class MultipleReserve extends Model implements PresentableInterface //プレゼ�
               'unit_cost' => $re_service[($i * 4) + 1],
               'unit_count' => $re_service[($i * 4) + 2],
               'unit_subtotal' => $re_service[($i * 4) + 3],
-              'unit_type' => 1,
+              'unit_type' => 3,
             ]);
           }
         }
@@ -463,11 +463,10 @@ class MultipleReserve extends Model implements PresentableInterface //プレゼ�
               'unit_cost' => $re_layouts[($i * 4) + 1],
               'unit_count' => $re_layouts[($i * 4) + 2],
               'unit_subtotal' => $re_layouts[($i * 4) + 3],
-              'unit_type' => 1,
+              'unit_type' => 4,
             ]);
           }
         }
-
 
         // 入力されたレイアウトの割引
         $lay_discounts = [];
@@ -492,7 +491,7 @@ class MultipleReserve extends Model implements PresentableInterface //プレゼ�
             'unit_cost' => $lay_discounts[1],
             'unit_count' => $lay_discounts[2],
             'unit_subtotal' => $lay_discounts[3],
-            'unit_type' => 1,
+            'unit_type' => 4,
           ]);
         }
 
@@ -530,7 +529,7 @@ class MultipleReserve extends Model implements PresentableInterface //プレゼ�
               'unit_cost' => $re_others[($i * 4) + 1],
               'unit_count' => $re_others[($i * 4) + 2],
               'unit_subtotal' => $re_others[($i * 4) + 3],
-              'unit_type' => 1,
+              'unit_type' => 5,
             ]);
           }
         }
