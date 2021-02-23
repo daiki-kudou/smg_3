@@ -95,6 +95,16 @@ class PreAgentReservationsController extends Controller
     $agent = Agent::find($request->agent_id);
     $venue = Venue::find($request->venue_id);
     $price = $agent->agentPriceCalculate($request->enduser_charge);
+    if ($request->layout_prepare == 1) {
+      $layout_prepare = $venue->getLayouts()[0];
+    } else {
+      $layout_prepare = 0;
+    }
+    if ($request->layout_clean == 1) {
+      $layout_clean = $venue->getLayouts()[1];
+    } else {
+      $layout_clean = 0;
+    }
 
     echo "<pre>";
     var_dump($request->all());
@@ -105,6 +115,8 @@ class PreAgentReservationsController extends Controller
       'request' => $request,
       'venue' => $venue,
       'price' => $price,
+      'layout_prepare' => $layout_prepare,
+      'layout_clean' => $layout_clean,
     ]);
   }
 

@@ -659,19 +659,19 @@
                 <tr>
                   <td>小計：</td>
                   <td>
-                    {{ Form::text('master_subtotal',(floor($price+$venue->getLayouts()[2])) ,['class'=>'form-control text-right', 'readonly'] ) }}
+                    {{ Form::text('master_subtotal',(floor($price+$layout_prepare+$layout_clean)) ,['class'=>'form-control text-right', 'readonly'] ) }}
                   </td>
                 </tr>
                 <tr>
                   <td>消費税：</td>
                   <td>
-                    {{ Form::text('master_tax',ReservationHelper::getTax(floor($price+$venue->getLayouts()[2])) ,['class'=>'form-control text-right', 'readonly'] ) }}
+                    {{ Form::text('master_tax',ReservationHelper::getTax(floor($price+$layout_prepare+$layout_clean)) ,['class'=>'form-control text-right', 'readonly'] ) }}
                   </td>
                 </tr>
                 <tr>
                   <td class="font-weight-bold">合計金額</td>
                   <td>
-                    {{ Form::text('master_total',ReservationHelper::taxAndPrice(floor($price+$venue->getLayouts()[2])) ,['class'=>'form-control text-right', 'readonly'] ) }}
+                    {{ Form::text('master_total',ReservationHelper::taxAndPrice(floor($price+$layout_prepare+$layout_clean)) ,['class'=>'form-control text-right', 'readonly'] ) }}
                   </td>
                 </tr>
               </tbody>

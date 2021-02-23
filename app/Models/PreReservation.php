@@ -461,13 +461,13 @@ class PreReservation extends Model
         }
       }
 
-      // var_dump($oth_arrays);
-
-      // echo "<pre>";
-      // var_dump($request->all());
-      // echo "</pre>";
-
-
+      $pre_reservation->pre_enduser()->create([
+        "company" => $request->pre_enduser_company,
+        "person" => $request->pre_enduser_name,
+        "email" => $request->pre_enduser_email,
+        "mobile" => $request->pre_enduser_mobile,
+        "tel" => $request->pre_enduser_tel,
+      ]);
     });
   }
 
