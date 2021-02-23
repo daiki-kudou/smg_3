@@ -112,7 +112,6 @@
           <tr>
             <td class="table-active form_required">利用日</td>
             <td>
-
               {{ Form::text('reserve_date', $request->pre_date0,['class'=>'form-control', 'readonly'] ) }}
               <p class="is-error-reserve_date" style="color: red"></p>
             </td>
@@ -413,7 +412,7 @@
     {{-- 単発仮抑えか？一括仮抑えか？ --}}
     {{ Form::hidden('judge_count', 1 ) }}
     {{-- ユーザー --}}
-    {{ Form::hidden('user_id', $request->user_id ) }}
+    {{ Form::hidden('agent_id', $request->agent_id ) }}
     {{Form::submit('計算する', ['class'=>'btn btn-primary btn-lg ', 'id'=>'check_submit'])}}
   </div>
 </div>

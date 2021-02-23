@@ -227,13 +227,13 @@ class MultipleReserve extends Model implements PresentableInterface //プレゼ�
     });
   }
 
-  public function UpdateAndReCreateAll($masterData)
+  public function UpdateAndReCreateAll($masterData, $venues_id)
   {
     // $numPreReservation = $this->pre_reservations()->get()->count();
     // var_dump($numPreReservation);
 
     // var_dump($masterData);
-    $pre_reservations = $this->pre_reservations()->get();
+    $pre_reservations = $this->pre_reservations()->where('venue_id', $venues_id)->get();
 
     DB::transaction(function () use ($pre_reservations, $masterData) {
       foreach ($pre_reservations as $key => $pre_reserve) {

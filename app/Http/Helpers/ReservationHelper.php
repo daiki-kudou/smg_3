@@ -6,6 +6,8 @@ use App\Models\Venue;
 use App\Models\User;
 use App\Models\Agent;
 
+use Carbon\Carbon;
+
 
 class ReservationHelper
 {
@@ -99,11 +101,13 @@ class ReservationHelper
     $user = User::find($user_id);
     return $user->email;
   }
+
   public static function getPersonMobile($user_id)
   {
     $user = User::find($user_id);
     return $user->mobile;
   }
+
   public static function getPersonTel($user_id)
   {
     $user = User::find($user_id);
@@ -115,6 +119,7 @@ class ReservationHelper
     $agent = Agent::find($agent_id);
     return $agent->person_firstname . $agent->person_lastname;
   }
+
   public static function getAgentCompany($agent_id)
   {
     $agent = Agent::find($agent_id);
@@ -132,6 +137,7 @@ class ReservationHelper
     $agent = Agent::find($agent_id);
     return $agent->person_tel;
   }
+
   public static function getAgentMobile($agent_id)
   {
     $agent = Agent::find($agent_id);
@@ -219,5 +225,15 @@ class ReservationHelper
   public static function numTimesNum($num1, $num2)
   {
     return (int)$num1 * (int)$num2;
+  }
+
+  public static function getUsage($enter_time, $leave_time)
+  {
+    $carbon1 = new Carbon($enter_time);
+    $carbon2 = new Carbon($leave_time);
+
+    $usage_hours = $carbon1->diffInMinutes($carbon2);
+    $usage_hours = $usage_hours / 60;
+    return $usage_hours;
   }
 }

@@ -20,7 +20,12 @@ class VenuePresenter extends Presenter
   {
     $layout_prepare = $this->layout_prepare;
     $layout_clean = $this->layout_clean;
-    return [$layout_prepare, $layout_clean];
+    $sum = (int)$layout_prepare + (int)$layout_clean;
+    if ($sum) {
+      return [$layout_prepare, $layout_clean, $sum];
+    } else {
+      return 0;
+    }
   }
   public function getLuggage()
   {

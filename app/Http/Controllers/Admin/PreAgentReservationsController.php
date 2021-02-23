@@ -92,14 +92,20 @@ class PreAgentReservationsController extends Controller
 
   public function calculate(Request $request)
   {
+    $agent = Agent::find($request->agent_id);
+    $venue = Venue::find($request->venue_id);
+    $price = $agent->agentPriceCalculate($request->enduser_charge);
+
+
     echo "<pre>";
     var_dump($request->all());
     echo "</pre>";
-    // $agents = Agent::all();
-    // $venues = Venue::all();
+
     return view('admin.pre_agent_reservations.single_calculate', [
-      // 'agents' => $agents,
-      // 'venues' => $venues,
+      'agent' => $agent,
+      'request' => $request,
+      'venue' => $venue,
+      'price' => $price,
     ]);
   }
 }

@@ -80,11 +80,9 @@ class MultiplesController extends Controller
   public function allUpdates(Request $request, $multiples_id, $venues_id)
   {
 
-
-
     $masterData = json_decode($request->master_data);
     $multiple = MultipleReserve::find($multiples_id);
-    $multiple->UpdateAndReCreateAll($masterData);
+    $multiple->UpdateAndReCreateAll($masterData, $venues_id);
 
     return redirect('admin/multiples/' . $multiples_id . '/edit/' . $venues_id);
   }
