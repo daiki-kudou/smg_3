@@ -232,7 +232,7 @@ class MultipleReserve extends Model implements PresentableInterface //プレゼ�
     // $numPreReservation = $this->pre_reservations()->get()->count();
     // var_dump($numPreReservation);
 
-    var_dump($masterData);
+    // var_dump($masterData);
     $pre_reservations = $this->pre_reservations()->get();
 
     DB::transaction(function () use ($pre_reservations, $masterData) {
@@ -277,6 +277,18 @@ class MultipleReserve extends Model implements PresentableInterface //プレゼ�
             $re_venue[] = $value;
           }
         }
+        $judge_re_venue = array_filter($re_venue);
+        if (!empty($judge_re_venue)) {
+          for ($i = 0; $i < count($re_venue) / 4; $i++) {
+            $pre_bill->pre_breakdowns()->create([
+              'unit_item' => $re_venue[($i * 4)],
+              'unit_cost' => $re_venue[($i * 4) + 1],
+              'unit_count' => $re_venue[($i * 4) + 2],
+              'unit_subtotal' => $re_venue[($i * 4) + 3],
+              'unit_type' => 1,
+            ]);
+          }
+        }
 
         // 入力された会場の割引
 
@@ -296,33 +308,17 @@ class MultipleReserve extends Model implements PresentableInterface //プレゼ�
           }
         }
 
-
-        // echo "<pre>";
-        // var_dump($re_venue[0]);
-        // echo "</pre>";
-
-        // echo "<pre>";
-        // var_dump($venue_discounts);
-        // echo "</pre>";
-
-        for ($i = 0; $i < count($re_venue) / 4; $i++) {
-          $pre_bill->pre_breakdowns()->create([
-            'unit_item' => $re_venue[($i * 4)],
-            'unit_cost' => $re_venue[($i * 4) + 1],
-            'unit_count' => $re_venue[($i * 4) + 2],
-            'unit_subtotal' => $re_venue[($i * 4) + 3],
-            'unit_type' => 1,
-          ]);
-        }
-
-        if ($venue_discounts) {
-          $pre_bill->pre_breakdowns()->create([
-            'unit_item' => $venue_discounts[0],
-            'unit_cost' => $venue_discounts[1],
-            'unit_count' => $venue_discounts[2],
-            'unit_subtotal' => $venue_discounts[3],
-            'unit_type' => 1,
-          ]);
+        $judge_venue_discounts = array_filter($venue_discounts);
+        if (!empty($judge_venue_discounts)) {
+          if ($venue_discounts) {
+            $pre_bill->pre_breakdowns()->create([
+              'unit_item' => $venue_discounts[0],
+              'unit_cost' => $venue_discounts[1],
+              'unit_count' => $venue_discounts[2],
+              'unit_subtotal' => $venue_discounts[3],
+              'unit_type' => 1,
+            ]);
+          }
         }
 
 
@@ -351,6 +347,19 @@ class MultipleReserve extends Model implements PresentableInterface //プレゼ�
           }
         }
 
+        $judge_re_equipment = array_filter($re_equipment);
+        if (!empty($judge_re_equipment)) {
+          for ($i = 0; $i < count($re_equipment) / 4; $i++) {
+            $pre_bill->pre_breakdowns()->create([
+              'unit_item' => $re_equipment[($i * 4)],
+              'unit_cost' => $re_equipment[($i * 4) + 1],
+              'unit_count' => $re_equipment[($i * 4) + 2],
+              'unit_subtotal' => $re_equipment[($i * 4) + 3],
+              'unit_type' => 1,
+            ]);
+          }
+        }
+
         // 入力された備品の割引
         $equ_discounts = [];
         foreach ($masterData as $e_d_key => $value) {
@@ -368,24 +377,17 @@ class MultipleReserve extends Model implements PresentableInterface //プレゼ�
           }
         }
 
-        for ($i = 0; $i < count($re_equipment) / 4; $i++) {
-          $pre_bill->pre_breakdowns()->create([
-            'unit_item' => $re_equipment[($i * 4)],
-            'unit_cost' => $re_equipment[($i * 4) + 1],
-            'unit_count' => $re_equipment[($i * 4) + 2],
-            'unit_subtotal' => $re_equipment[($i * 4) + 3],
-            'unit_type' => 1,
-          ]);
-        }
-
-        if ($equ_discounts) {
-          $pre_bill->pre_breakdowns()->create([
-            'unit_item' => $equ_discounts[0],
-            'unit_cost' => $equ_discounts[1],
-            'unit_count' => $equ_discounts[2],
-            'unit_subtotal' => $equ_discounts[3],
-            'unit_type' => 1,
-          ]);
+        $judge_equ_discounts = array_filter($equ_discounts);
+        if (!empty($judge_equ_discounts)) {
+          if ($equ_discounts) {
+            $pre_bill->pre_breakdowns()->create([
+              'unit_item' => $equ_discounts[0],
+              'unit_cost' => $equ_discounts[1],
+              'unit_count' => $equ_discounts[2],
+              'unit_subtotal' => $equ_discounts[3],
+              'unit_type' => 1,
+            ]);
+          }
         }
 
         //////////////////////////////////////////////////////////////////////////
@@ -413,15 +415,20 @@ class MultipleReserve extends Model implements PresentableInterface //プレゼ�
             $re_service[] = $value;
           }
         }
-        for ($i = 0; $i < count($re_service) / 4; $i++) {
-          $pre_bill->pre_breakdowns()->create([
-            'unit_item' => $re_service[($i * 4)],
-            'unit_cost' => $re_service[($i * 4) + 1],
-            'unit_count' => $re_service[($i * 4) + 2],
-            'unit_subtotal' => $re_service[($i * 4) + 3],
-            'unit_type' => 1,
-          ]);
+
+        $judge_re_service = array_filter($re_service);
+        if (!empty($judge_re_service)) {
+          for ($i = 0; $i < count($re_service) / 4; $i++) {
+            $pre_bill->pre_breakdowns()->create([
+              'unit_item' => $re_service[($i * 4)],
+              'unit_cost' => $re_service[($i * 4) + 1],
+              'unit_count' => $re_service[($i * 4) + 2],
+              'unit_subtotal' => $re_service[($i * 4) + 3],
+              'unit_type' => 1,
+            ]);
+          }
         }
+
 
         //////////////////////////////////////////////////////////////////////////
         // 以下入力されたレイアウト
@@ -448,6 +455,19 @@ class MultipleReserve extends Model implements PresentableInterface //プレゼ�
             $re_layouts[] = $value;
           }
         }
+        $judge_re_layouts = array_filter($re_layouts);
+        if (!empty($judge_re_layouts)) {
+          for ($i = 0; $i < count($re_layouts) / 4; $i++) {
+            $pre_bill->pre_breakdowns()->create([
+              'unit_item' => $re_layouts[($i * 4)],
+              'unit_cost' => $re_layouts[($i * 4) + 1],
+              'unit_count' => $re_layouts[($i * 4) + 2],
+              'unit_subtotal' => $re_layouts[($i * 4) + 3],
+              'unit_type' => 1,
+            ]);
+          }
+        }
+
 
         // 入力されたレイアウトの割引
         $lay_discounts = [];
@@ -465,18 +485,8 @@ class MultipleReserve extends Model implements PresentableInterface //プレゼ�
             $lay_discounts[] = $value;
           }
         }
-
-        for ($i = 0; $i < count($re_layouts) / 4; $i++) {
-          $pre_bill->pre_breakdowns()->create([
-            'unit_item' => $re_layouts[($i * 4)],
-            'unit_cost' => $re_layouts[($i * 4) + 1],
-            'unit_count' => $re_layouts[($i * 4) + 2],
-            'unit_subtotal' => $re_layouts[($i * 4) + 3],
-            'unit_type' => 1,
-          ]);
-        }
-
-        if ($lay_discounts) {
+        $judge_lay_discounts = array_filter($lay_discounts);
+        if (!empty($judge_lay_discounts)) {
           $pre_bill->pre_breakdowns()->create([
             'unit_item' => $lay_discounts[0],
             'unit_cost' => $lay_discounts[1],
@@ -485,8 +495,6 @@ class MultipleReserve extends Model implements PresentableInterface //プレゼ�
             'unit_type' => 1,
           ]);
         }
-
-
 
 
         //////////////////////////////////////////////////////////////////////////
@@ -514,12 +522,8 @@ class MultipleReserve extends Model implements PresentableInterface //プレゼ�
             $re_others[] = $value;
           }
         }
-        echo "<pre>";
-        var_dump($re_others);
-        echo "</pre>";
-
-        $judge_others = array_filter($re_others);
-        if (!empty($judge_others)) {
+        $judge_re_others = array_filter($re_others);
+        if (!empty($judge_re_others)) {
           for ($i = 0; $i < count($re_others) / 4; $i++) {
             $pre_bill->pre_breakdowns()->create([
               'unit_item' => $re_others[($i * 4)],
