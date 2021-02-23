@@ -28,7 +28,7 @@
             </a>
           </li>
           <li class="nav-item">
-            <a href="#" class="nav-link">
+            <a href="{{url('admin/pre_agent_reservations/create')}}" class="nav-link pre-agent-reservations-create">
               <div class="d-flex align-items-center">
                 <i class="far fa-circle nav-icon ml-4"></i>
                 <p>新規登録<br>(仲介会社経由)</p>
@@ -271,6 +271,7 @@
     link_check('/admin/agents_reservations/create', 'agents-reservations-create');
     link_check('/admin/pre_reservations', 'pre-reservations-index');
     link_check('/admin/pre_reservations/create', 'pre-reservations-create');
+    link_check('/admin/pre_agent_reservations/create', 'pre-agent-reservations-create');
 
     link_check('/admin/multiples', 'multiples-index');
 

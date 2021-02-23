@@ -64,6 +64,9 @@ class Frame_priceTableSeeder extends Seeder
       'extend' => 5000,
     ]);
 
+
+
+
     $venue2 = Venue::find(2);
     $venue2->frame_prices()->create([
       'venue_id' => $venue2->id,
@@ -113,6 +116,10 @@ class Frame_priceTableSeeder extends Seeder
       'price' => 50000,
       'extend' => 6000,
     ]);
+
+
+
+
     $venue3 = Venue::find(3);
     $venue3->frame_prices()->create([
       'venue_id' => $venue3->id,

@@ -683,33 +683,32 @@
   </div>
 </div>
 {{ Form::hidden('venue_id', $request->venue_id )}}
-{{ Form::hidden('reserve_date', $request )}}
-{{ Form::hidden('agent_id', $request )}}
-{{ Form::hidden('price_system', $request )}}
-{{ Form::hidden('enter_time', $request )}}
-{{ Form::hidden('leave_time', $request )}}
-{{ Form::hidden('board_flag', $request )}}
-{{ Form::hidden('event_start',  )}}
-{{ Form::hidden('event_finish', $request )}}
-{{ Form::hidden('event_name1', $request )}}
-{{ Form::hidden('event_name2', $request )}}
-{{ Form::hidden('event_owner', $request )}}
+{{ Form::hidden('reserve_date', $request->reserve_date )}}
+{{ Form::hidden('agent_id', $request->agent_id )}}
+{{ Form::hidden('price_system', $request->price_system )}}
+{{ Form::hidden('enter_time', $request->enter_time )}}
+{{ Form::hidden('leave_time', $request->leave_time )}}
+{{ Form::hidden('board_flag', $request->board_flag )}}
+{{ Form::hidden('event_start',$request->event_start  )}}
+{{ Form::hidden('event_finish', $request->event_finish )}}
+{{ Form::hidden('event_name1', $request->event_name1 )}}
+{{ Form::hidden('event_name2', $request->event_name2 )}}
+{{ Form::hidden('event_owner', $request->event_owner )}}
 
-{{ Form::hidden('luggage_arrive', $request )}}
-{{ Form::hidden('luggage_return', $request )}}
-{{ Form::hidden('luggage_return', $request )}}
-{{ Form::hidden('luggage_price', $request )}}
+{{ Form::hidden('luggage_count', $request->luggage_count )}}
+{{ Form::hidden('luggage_arrive', $request->luggage_arrive )}}
+{{ Form::hidden('luggage_return', $request->luggage_return )}}
+{{ Form::hidden('luggage_price', $request->luggage_price )}}
 
-{{ Form::hidden('enduser_company', $request ) }}
-{{ Form::hidden('enduser_incharge', $request) }}
-{{ Form::hidden('enduser_address', $request) }}
-{{ Form::hidden('enduser_tel', $request) }}
-{{ Form::hidden('enduser_mail', $request) }}
-{{ Form::hidden('enduser_attr', $request) }}
-{{ Form::hidden('enduser_charge', $request) }}
-{{ Form::hidden('attention', $request) }}
-{{ Form::hidden('user_details', $request) }}
-{{ Form::hidden('admin_details', $request) }}
+{{ Form::hidden('pre_enduser_company', $request->pre_enduser_company ) }}
+{{ Form::hidden('pre_enduser_name', $request->pre_enduser_name) }}
+{{ Form::hidden('pre_enduser_email', $request->pre_enduser_email) }}
+{{ Form::hidden('pre_enduser_mobile', $request->pre_enduser_mobile) }}
+{{ Form::hidden('pre_enduser_tel', $request->pre_enduser_tel) }}
+{{ Form::hidden('enduser_charge', $request->enduser_charge) }}
+{{ Form::hidden('attention', $request->attention) }}
+{{ Form::hidden('user_details', $request->user_details) }}
+{{ Form::hidden('admin_details', $request->admin_details) }}
 {{Form::submit('保存する', ['class'=>'btn btn-primary d-block btn-lg mx-auto mt-5 mb-5', 'id'=>'check_submit'])}}
 {{Form::close()}}
 

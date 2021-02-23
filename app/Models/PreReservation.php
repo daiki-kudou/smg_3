@@ -167,13 +167,6 @@ class PreReservation extends Model
 
   public function specificUpdate($request, $result, $venue_id)
   {
-    // echo "<pre>";
-    // var_dump($request->all());
-    // echo "</pre>";
-
-    // echo "<pre>";
-    // var_dump($result);
-    // echo "</pre>";
 
     $splitKey = $request->split_keys;
 
@@ -323,6 +316,160 @@ class PreReservation extends Model
   }
 
 
+  public function AgentSingleStore($request, $agent, $venue)
+  {
+
+    DB::transaction(function () use ($request, $agent, $venue) {
+      $pre_reservation = $this->create([
+        'multiple_reserve_id' => 0,
+        'venue_id' => $venue->id,
+        'user_id' => 0,
+        'agent_id' => $agent->id,
+        'reserve_date' => $request->reserve_date,
+        'price_system' => $request->price_system,
+        'enter_time' => $request->enter_time,
+        'leave_time' => $request->leave_time,
+        'board_flag' => $request->board_flag,
+        'event_start' => $request->event_start,
+        'event_finish' => $request->event_finish,
+        'event_name1' => $request->event_name1,
+        'event_name2' => $request->event_name2,
+        'event_owner' => $request->event_owner,
+        'luggage_count' => $request->luggage_count,
+        'luggage_arrive' => $request->luggage_arrive,
+        'luggage_return' => $request->luggage_return,
+        'email_flag' => 0,
+        'in_charge' => '',
+        'tel' => '',
+        'discount_condition' => '',
+        'attention' => $request->attention,
+        'user_details' => $request->user_details,
+        'admin_details' => $request->admin_details,
+        'status' => 0,
+      ]);
+      $pre_bill = $pre_reservation->pre_bill()->create([
+        'venue_price' => 0,
+        'equipment_price' => 0,
+        'layout_price' => $request->layouts_price,
+        'others_price' => 0,
+        'master_subtotal' => $request->master_subtotal,
+        'master_tax' => $request->master_tax,
+        'master_total' => $request->master_total,
+        'reservation_status' => 0,
+        'approve_send_at' => NULL,
+        'category' => 1
+      ]);
+
+
+      $venue_arrays = [];
+      foreach ($request->all() as $v_key => $value) {
+        if (preg_match("/venue_breakdown/", $v_key)) {
+          $venue_arrays[] = $value;
+        }
+      }
+      // var_dump($venue_arrays);
+      $judge_venue_arrays = array_filter($venue_arrays);
+      if (!empty($judge_venue_arrays)) {
+        for ($i = 0; $i < count($venue_arrays) / 2; $i++) {
+          $pre_bill->pre_breakdowns()->create([
+            'unit_item' => $venue_arrays[($i * 2)],
+            'unit_cost' => 0,
+            'unit_count' => $venue_arrays[($i * 2) + 1],
+            'unit_subtotal' => 0,
+            'unit_type' => 1,
+          ]);
+        }
+      }
+
+
+      $equ_arrays = [];
+      foreach ($request->all() as $e_key => $value) {
+        if (preg_match("/equipment_breakdown/", $e_key)) {
+          $equ_arrays[] = $value;
+        }
+      }
+      $judge_equ_arrays = array_filter($equ_arrays);
+      if (!empty($judge_equ_arrays)) {
+        for ($i = 0; $i < count($equ_arrays) / 2; $i++) {
+          $pre_bill->pre_breakdowns()->create([
+            'unit_item' => $equ_arrays[($i * 2)],
+            'unit_cost' => 0,
+            'unit_count' => $equ_arrays[($i * 2) + 1],
+            'unit_subtotal' => 0,
+            'unit_type' => 2,
+          ]);
+        }
+      }
+      // var_dump($equ_arrays);
+
+      $ser_arrays = [];
+      foreach ($request->all() as $s_key => $value) {
+        if (preg_match("/service_breakdown/", $s_key)) {
+          $ser_arrays[] = $value;
+        }
+      }
+      $judge_ser_arrays = array_filter($ser_arrays);
+      if (!empty($judge_ser_arrays)) {
+        for ($i = 0; $i < count($ser_arrays) / 2; $i++) {
+          $pre_bill->pre_breakdowns()->create([
+            'unit_item' => $ser_arrays[($i * 2)],
+            'unit_cost' => 0,
+            'unit_count' => $ser_arrays[($i * 2) + 1],
+            'unit_subtotal' => 0,
+            'unit_type' => 3,
+          ]);
+        }
+      }
+      // var_dump($ser_arrays);
+
+      if ($request->layout_prepare_item) {
+        $pre_bill->pre_breakdowns()->create([
+          'unit_item' => $request->layout_prepare_item,
+          'unit_cost' => $request->layout_prepare_cost,
+          'unit_count' => 1,
+          'unit_subtotal' => $request->layout_prepare_subtotal,
+          'unit_type' => 4,
+        ]);
+      }
+      if ($request->layout_clean_item) {
+        $pre_bill->pre_breakdowns()->create([
+          'unit_item' => $request->layout_clean_item,
+          'unit_cost' => $request->layout_clean_cost,
+          'unit_count' => 1,
+          'unit_subtotal' => $request->layout_clean_subtotal,
+          'unit_type' => 4,
+        ]);
+      }
+
+
+      $oth_arrays = [];
+      foreach ($request->all() as $o_key => $value) {
+        if (preg_match("/others_input/", $o_key)) {
+          $oth_arrays[] = $value;
+        }
+      }
+      $judge_oth_arrays = array_filter($oth_arrays);
+      if (!empty($judge_oth_arrays)) {
+        for ($i = 0; $i < count($oth_arrays) / 2; $i++) {
+          $pre_bill->pre_breakdowns()->create([
+            'unit_item' => $oth_arrays[($i * 2)],
+            'unit_cost' => 0,
+            'unit_count' => $oth_arrays[($i * 2) + 1],
+            'unit_subtotal' => 0,
+            'unit_type' => 3,
+          ]);
+        }
+      }
+
+      // var_dump($oth_arrays);
+
+      // echo "<pre>";
+      // var_dump($request->all());
+      // echo "</pre>";
+
+
+    });
+  }
 
 
 

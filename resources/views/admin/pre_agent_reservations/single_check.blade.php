@@ -127,15 +127,11 @@
                 <div>
                   <small>※料金体系を選択してください</small>
                 </div>
-                <div class="price_radio_selector">
-                  <div class="d-flex justfy-content-start align-items-center">
-                    <input class="mr-2" id="price_system_radio1" name="price_system" type="radio" value="1">
-                    <label for="price_system_radio1">通常（枠貸）</label>
-                  </div>
-                  <div class="d-flex justfy-content-start align-items-center">
-                    <input class="mr-2" id="price_system_radio2" name="price_system" type="radio" value="2">
-                    <label for="price_system_radio2">アクセア（時間貸）</label>
-                  </div>
+                <div class="form-check form-check-inline">
+                  {{Form::radio('price_system', 1, true , ['id' => 'price_system', 'class' => 'form-check-input'])}}
+                  {{Form::label('price_system', "枠貸し")}}
+                  {{Form::radio('price_system', 0, false, ['id' => 'price_system_off', 'class' => 'form-check-input'])}}
+                  {{Form::label('price_system_off', "アクセア（時間貸）")}}
                 </div>
               </div>
             </td>

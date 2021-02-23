@@ -236,4 +236,69 @@ class ReservationHelper
     $usage_hours = $usage_hours / 60;
     return $usage_hours;
   }
+
+  public static function checkAgentOrUserCompany($user_id, $agent_id)
+  {
+    if ($user_id > 0) {
+      if ($user_id == 999) {
+        return "未登録ユーザー";
+      } else {
+        return ReservationHelper::getCompany($user_id);
+      }
+    } else {
+      return ReservationHelper::getAgentCompany($agent_id);
+    }
+  }
+
+  public static function checkAgentOrUserName($user_id, $agent_id)
+  {
+    if ($user_id > 0) {
+      if ($user_id == 999) {
+        return "";
+      } else {
+        return ReservationHelper::getPersonName($user_id);
+      }
+    } else {
+      return ReservationHelper::getAgentPerson($agent_id);
+    }
+  }
+
+  public static function checkAgentOrUserEmail($user_id, $agent_id)
+  {
+    if ($user_id > 0) {
+      if ($user_id == 999) {
+        return "";
+      } else {
+        return ReservationHelper::getPersonEmail($user_id);
+      }
+    } else {
+      return ReservationHelper::getAgentEmail($agent_id);
+    }
+  }
+
+  public static function checkAgentOrUserMobile($user_id, $agent_id)
+  {
+    if ($user_id > 0) {
+      if ($user_id == 999) {
+        return "";
+      } else {
+        return ReservationHelper::getPersonMobile($user_id);
+      }
+    } else {
+      return ReservationHelper::getAgentMobile($agent_id);
+    }
+  }
+
+  public static function checkAgentOrUserTel($user_id, $agent_id)
+  {
+    if ($user_id > 0) {
+      if ($user_id == 999) {
+        return "";
+      } else {
+        return ReservationHelper::getPersonTel($user_id);
+      }
+    } else {
+      return ReservationHelper::getAgentMobile($agent_id);
+    }
+  }
 }

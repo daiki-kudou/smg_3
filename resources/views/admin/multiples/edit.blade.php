@@ -564,7 +564,7 @@
                           <option disabled>選択してください</option>
                           @for ($start = 0*2; $start <=23*2; $start++) <option
                             value="{{date("H:i:s", strtotime("00:00 +". $start * 30 ." minute"))}}" @if(date("H:i:s",
-                            strtotime("00:00 +". $start * 30 ." minute"))==$pre_reservation->event_start)
+                            strtotime("00:00 +". $start * 30 ." minute"))==$pre_reservation->enter_time)
                             selected
                             @endif
                             >
@@ -576,11 +576,12 @@
                     <tr>
                       <td class="table-active"><label for="eventFinish">イベント終了時間</label></td>
                       <td>
-                        <select name="{{'event_finish_copied'.$key}}" id="{{'event_finish_copied'.$key}}" class="form-control">
+                        <select name="{{'event_finish_copied'.$key}}" id="{{'event_finish_copied'.$key}}"
+                          class="form-control">
                           <option disabled>選択してください</option>
                           @for ($start = 0*2; $start <=23*2; $start++) <option
                             value="{{date("H:i:s", strtotime("00:00 +". $start * 30 ." minute"))}}" @if (date("H:i:s",
-                            strtotime("00:00 +". $start * 30 ." minute"))==$pre_reservation->event_finish)
+                            strtotime("00:00 +". $start * 30 ." minute"))==$pre_reservation->leave_time)
                             selected
                             @endif
                             >
@@ -923,11 +924,11 @@
               </div>
               <!-- 右側の項目 終わり-------------------------------------------------- -->
             </div>
-              <div class="btn_wrapper">
-                <p class="text-center">
-                  {{ Form::submit('請求に反映する', ['class' => 'btn btn-primary'])}}</p>
-                {{ Form::close() }}
-              </div>
+            <div class="btn_wrapper">
+              <p class="text-center">
+                {{ Form::submit('請求に反映する', ['class' => 'btn btn-primary'])}}</p>
+              {{ Form::close() }}
+            </div>
 
             <section class="bill-wrap section-wrap">
               <div class="bill">

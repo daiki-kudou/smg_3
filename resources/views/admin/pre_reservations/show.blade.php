@@ -44,29 +44,29 @@
               <th class="table-active" width="25%"><label for="company">会社名・団体名</label>
               </th>
               <td>
-                {{$pre_reservation->user_id==999?"":ReservationHelper::getCompany($pre_reservation->user_id)}}
+                {{ReservationHelper::checkAgentOrUserCompany($pre_reservation->user_id, $pre_reservation->agent_id)}}
               </td>
               <td class="table-active"><label for="name">担当者氏名</label></td>
               <td>
-                {{$pre_reservation->user_id==999?"":ReservationHelper::getPersonName($pre_reservation->user_id)}}
+                {{ReservationHelper::checkAgentOrUserName($pre_reservation->user_id, $pre_reservation->agent_id)}}
               </td>
             </tr>
             <tr>
               <td class="table-active" scope="row"><label for="email">担当者メールアドレス</label>
               </td>
               <td>
-                {{$pre_reservation->user_id==999?"":ReservationHelper::getPersonEmail($pre_reservation->user_id)}}
+                {{ReservationHelper::checkAgentOrUserEmail($pre_reservation->user_id, $pre_reservation->agent_id)}}
               </td>
               <td class="table-active" scope="row"><label for="mobile">携帯番号</label></td>
               <td>
-                {{$pre_reservation->user_id==999?"":ReservationHelper::getPersonMobile($pre_reservation->user_id)}}
+                {{ReservationHelper::checkAgentOrUserMobile($pre_reservation->user_id, $pre_reservation->agent_id)}}
               </td>
             </tr>
 
             <tr>
               <td class="table-active" scope="row"><label for="tel">固定電話</label></td>
               <td>
-                {{$pre_reservation->user_id==999?"":ReservationHelper::getPersonTel($pre_reservation->user_id)}}
+                {{ReservationHelper::checkAgentOrUserTel($pre_reservation->user_id, $pre_reservation->agent_id)}}
               </td>
             </tr>
           </tbody>

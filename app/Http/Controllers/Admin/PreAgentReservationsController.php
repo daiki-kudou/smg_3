@@ -96,7 +96,6 @@ class PreAgentReservationsController extends Controller
     $venue = Venue::find($request->venue_id);
     $price = $agent->agentPriceCalculate($request->enduser_charge);
 
-
     echo "<pre>";
     var_dump($request->all());
     echo "</pre>";
@@ -107,5 +106,25 @@ class PreAgentReservationsController extends Controller
       'venue' => $venue,
       'price' => $price,
     ]);
+  }
+
+  public function store(Request $request)
+  {
+    $agent = Agent::find($request->agent_id);
+    $venue = Venue::find($request->venue_id);
+
+    $pre_reservation = new PreReservation;
+    $pre_reservation->AgentSingleStore($request, $agent, $venue);
+
+    $request->session()->regenerate();
+    return redirect('admin/pre_reservations');
+
+
+    // return view('admin.pre_agent_reservations.single_calculate', [
+    //   'agent' => $agent,
+    //   'request' => $request,
+    //   'venue' => $venue,
+    //   'price' => $price,
+    // ]);
   }
 }

@@ -197,5 +197,7 @@ Route::namespace('Admin')->prefix('admin')->name('admin.')->group(function () {
     Route::post('pre_agent_reservations/check', 'PreAgentReservationsController@check');
     // 仲介会社　仮抑え 計算
     Route::post('pre_agent_reservations/calculate', 'PreAgentReservationsController@calculate');
+    // 仲介会社　仮抑え 単発　保存
+    Route::post('pre_agent_reservations/store', 'PreAgentReservationsController@store');
   });
 });
