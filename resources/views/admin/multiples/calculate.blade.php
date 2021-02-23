@@ -1106,22 +1106,6 @@
                             </td>
                           </tr>
                           @endforeach
-                          @if ($request->cp_master_luggage_price)
-                          <tr>
-                            <td>
-                              {{ Form::text('luggage_item_copied'.$key, '荷物預かり/返送',['class'=>'form-control', 'readonly'] ) }}
-                            </td>
-                            <td>
-                              {{ Form::text('luggage_cost_copied'.$key, $request->cp_master_luggage_price,['class'=>'form-control', 'readonly'] ) }}
-                            </td>
-                            <td>
-                              {{ Form::text('luggage_count_copied'.$key, 1,['class'=>'form-control', 'readonly'] ) }}
-                            </td>
-                            <td>
-                              {{ Form::text('luggage_subtotal_copied'.$key, $request->cp_master_luggage_price,['class'=>'form-control', 'readonly'] ) }}
-                            </td>
-                          </tr>
-                          @endif
                         </tbody>
                         <tbody class="{{'equipment_result'.$key}}">
                           <tr>

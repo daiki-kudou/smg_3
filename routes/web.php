@@ -190,5 +190,12 @@ Route::namespace('Admin')->prefix('admin')->name('admin.')->group(function () {
     Route::post('multiples/{multiples}/edit/{venues}/calculate/{pre_reservations}/specific_update', 'MultiplesController@specificUpdate');
     // 一括　保存
     Route::post('multiples/{multiples}/all_updates/{venues}', 'MultiplesController@allUpdates');
+
+    // 仲介会社　仮抑え 作成
+    Route::get('pre_agent_reservations/create', 'PreAgentReservationsController@create');
+    // 仲介会社　仮抑え 確認
+    Route::post('pre_agent_reservations/check', 'PreAgentReservationsController@check');
+    // 仲介会社　仮抑え 計算
+    Route::post('pre_agent_reservations/calculate', 'PreAgentReservationsController@calculate');
   });
 });

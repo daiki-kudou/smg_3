@@ -121,6 +121,23 @@ class ReservationHelper
     return $agent->name;
   }
 
+  public static function getAgentEmail($agent_id)
+  {
+    $agent = Agent::find($agent_id);
+    return $agent->email;
+  }
+
+  public static function getAgentTel($agent_id)
+  {
+    $agent = Agent::find($agent_id);
+    return $agent->person_tel;
+  }
+  public static function getAgentMobile($agent_id)
+  {
+    $agent = Agent::find($agent_id);
+    return $agent->person_mobile;
+  }
+
   public static function getAttr($user_id)
   {
     $user = User::find($user_id);

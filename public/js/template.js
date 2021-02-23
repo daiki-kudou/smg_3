@@ -14,6 +14,7 @@ $(function () {
   $('#event_finish').select2({ width: '100%' });
   $('#agent_select').select2({ width: '100%' });
   $('#user_id').select2({ width: '100%' });
+  $('#agent_id').select2({ width: '100%' });
 
 });
 

@@ -5,9 +5,22 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 use Carbon\Carbon;
 
+use App\Presenters\AgentPresenter; //個別作成したプレゼンターの追加
+use Robbo\Presenter\PresentableInterface; //プレゼンターの追加
 
-class Agent extends Model
+class Agent extends Model implements PresentableInterface
 {
+  // プレゼンター連携
+  /**
+   * Return a created presenter.
+   *
+   * @return Robbo\Presenter\Presenter
+   */
+  public function getPresenter()
+  {
+    return new AgentPresenter($this);
+  }
+
   /*
 |--------------------------------------------------------------------------
 | 会場と予約の一対多

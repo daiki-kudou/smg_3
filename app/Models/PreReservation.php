@@ -128,6 +128,14 @@ class PreReservation extends Model
     return $this->hasOne(UnknownUser::class);
   }
 
+
+  // 仲介会社を利用した際のエンドユーザー
+  public function pre_enduser()
+  {
+    return $this->hasOne(PreEndUser::class);
+  }
+
+
   public function reCalculateVenue($requests, $venue_id)
   {
     $venue = Venue::find($venue_id);
