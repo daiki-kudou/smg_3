@@ -350,7 +350,7 @@ class PreReservation extends Model
       $pre_bill = $pre_reservation->pre_bill()->create([
         'venue_price' => 0,
         'equipment_price' => 0,
-        'layout_price' => $request->layouts_price,
+        'layout_price' => $request->layouts_price ? $request->layouts_price : 0,
         'others_price' => 0,
         'master_subtotal' => $request->master_subtotal,
         'master_tax' => $request->master_tax,

@@ -530,7 +530,7 @@
         </table>
       </div>
       @else
-      {{-- <div class="venues" style="padding-top: 80px; width:90%; margin:0 auto;">
+      <div class="venues" style="padding-top: 80px; width:90%; margin:0 auto;">
         <table class="table table-borderless" style="table-layout: fixed;">
           <tbody>
             <tr>
@@ -548,229 +548,220 @@
             </tr>
           </tbody>
           <tbody class="venue_main">
-            @foreach ($reservation->bills()->first()->breakdowns()->get() as $venue_breakdown)
-            @if ($venue_breakdown->unit_type==1)
+            @foreach ($pre_reservation->pre_breakdowns()->where('unit_type',1)->get() as $venue_breakdown)
             <tr>
               <td>{{$venue_breakdown->unit_item}}</td>
-      <td>{{$venue_breakdown->unit_count}}</td>
-      </tr>
+              <td>{{$venue_breakdown->unit_count}}</td>
+            </tr>
+            @endforeach
+          </tbody>
+        </table>
+      </div>
       @endif
-      @endforeach
-      </tbody>
-      </table>
-    </div> --}}
-    @endif
 
-    @if ($pre_reservation->user_id>0)
-    <div class="equipment" style="padding-top: 80px; width:90%; margin:0 auto;">
-      <table class="table table-borderless" style="table-layout: fixed;">
-        <tbody>
-          <tr>
-            <td>
-              <h1>
-                ■有料備品・サービス
-              </h1>
-            </td>
-          </tr>
-        </tbody>
-        <tbody class="equipment_head">
-          <tr>
-            <td>内容</td>
-            <td>単価</td>
-            <td>数量</td>
-            <td>金額</td>
-          </tr>
-        </tbody>
-        <tbody class="equipment_main">
-          @foreach ($equipments as $equipment)
-          <tr>
-            <td>{{$equipment->unit_item}}</td>
-            <td>{{number_format($equipment->unit_cost)}}</td>
-            <td>{{$equipment->unit_count}}</td>
-            <td>{{number_format($equipment->unit_subtotal)}}</td>
-          </tr>
-          @endforeach
+      @if ($pre_reservation->user_id>0)
+      <div class="equipment" style="padding-top: 80px; width:90%; margin:0 auto;">
+        <table class="table table-borderless" style="table-layout: fixed;">
+          <tbody>
+            <tr>
+              <td>
+                <h1>
+                  ■有料備品・サービス
+                </h1>
+              </td>
+            </tr>
+          </tbody>
+          <tbody class="equipment_head">
+            <tr>
+              <td>内容</td>
+              <td>単価</td>
+              <td>数量</td>
+              <td>金額</td>
+            </tr>
+          </tbody>
+          <tbody class="equipment_main">
+            @foreach ($equipments as $equipment)
+            <tr>
+              <td>{{$equipment->unit_item}}</td>
+              <td>{{number_format($equipment->unit_cost)}}</td>
+              <td>{{$equipment->unit_count}}</td>
+              <td>{{number_format($equipment->unit_subtotal)}}</td>
+            </tr>
+            @endforeach
 
-          @foreach ($services as $service)
-          <tr>
-            <td>{{$service->unit_item}}</td>
-            <td>{{number_format($service->unit_cost)}}</td>
-            <td>{{$service->unit_count}}</td>
-            <td>{{number_format($service->unit_subtotal)}}</td>
-          </tr>
-          @endforeach
-        </tbody>
-        <tbody class="equipment_result">
-          <tr>
-            <td colspan="2"></td>
-            <td colspan="1">合計：</td>
-            <td colspan="1" class="">
-              {{number_format($pre_reservation->pre_bill->first()->equipment_price)}}
-            </td>
-            </td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
-    @else
-    {{-- <div class="equipment" style="padding-top: 80px; width:90%; margin:0 auto;">
-      <table class="table table-borderless" style="table-layout: fixed;">
-        <tbody>
-          <tr>
-            <td>
-              <h1>
-                ■有料備品・サービス
-              </h1>
-            </td>
-          </tr>
-        </tbody>
-        <tbody class="equipment_head">
-          <tr>
-            <td>内容</td>
-            <td>数量</td>
-          </tr>
-        </tbody>
-        <tbody class="equipment_main">
-          @foreach ($reservation->bills()->first()->breakdowns()->get() as $equipment_breakdown)
-          @if ($equipment_breakdown->unit_type==2)
-          <tr>
-            <td>{{$equipment_breakdown->unit_item}}</td>
-    <td>{{$equipment_breakdown->unit_count}}</td>
-    </tr>
-    @endif
-    @endforeach
-    @foreach ($reservation->bills()->first()->breakdowns()->get() as $service_breakdown)
-    @if ($service_breakdown->unit_type==3)
-    <tr>
-      <td>{{$service_breakdown->unit_item}}</td>
-      <td>{{$service_breakdown->unit_count}}</td>
-    </tr>
-    @endif
-    @endforeach
-    </tbody>
-    </table>
-  </div> --}}
-  @endif
+            @foreach ($services as $service)
+            <tr>
+              <td>{{$service->unit_item}}</td>
+              <td>{{number_format($service->unit_cost)}}</td>
+              <td>{{$service->unit_count}}</td>
+              <td>{{number_format($service->unit_subtotal)}}</td>
+            </tr>
+            @endforeach
+          </tbody>
+          <tbody class="equipment_result">
+            <tr>
+              <td colspan="2"></td>
+              <td colspan="1">合計：</td>
+              <td colspan="1" class="">
+                {{number_format($pre_reservation->pre_bill->first()->equipment_price)}}
+              </td>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      @else
+      <div class="equipment" style="padding-top: 80px; width:90%; margin:0 auto;">
+        <table class="table table-borderless" style="table-layout: fixed;">
+          <tbody>
+            <tr>
+              <td>
+                <h1>
+                  ■有料備品・サービス
+                </h1>
+              </td>
+            </tr>
+          </tbody>
+          <tbody class="equipment_head">
+            <tr>
+              <td>内容</td>
+              <td>数量</td>
+            </tr>
+          </tbody>
+          <tbody class="equipment_main">
+            @foreach ($pre_reservation->pre_breakdowns()->where('unit_type',2)->get() as $equipment_breakdown)
+            <tr>
+              <td>{{$equipment_breakdown->unit_item}}</td>
+              <td>{{$equipment_breakdown->unit_count}}</td>
+            </tr>
+            @endforeach
+
+            @foreach ($pre_reservation->pre_breakdowns()->where('unit_type',3)->get() as $service_breakdown)
+            <tr>
+              <td>{{$service_breakdown->unit_item}}</td>
+              <td>{{$service_breakdown->unit_count}}</td>
+            </tr>
+            @endforeach
+          </tbody>
+        </table>
+      </div>
+      @endif
 
 
 
-  @if ($pre_reservation->user_id>0)
-  <div class="layout" style="padding-top: 80px; width:90%; margin:0 auto;">
-    <table class="table table-borderless" style="table-layout: fixed;">
-      <tbody>
-        <tr>
-          <td colspan="4">
-            <h1>
-              ■レイアウト
-            </h1>
-          </td>
-        </tr>
-      </tbody>
-      <tbody class="layout_head">
-        <tr>
-          <td>内容</td>
-          <td>単価</td>
-          <td>数量</td>
-          <td>金額</td>
-        </tr>
-      </tbody>
-      <tbody class="layout_main">
-        @foreach ($layouts as $layout)
-        <tr>
-          <td>{{$layout->unit_item}}</td>
-          <td>{{number_format($layout->unit_cost)}}</td>
-          <td>{{$layout->unit_count}}</td>
-          <td>{{number_format($layout->unit_subtotal)}}</td>
-        </tr>
-        @endforeach
-      </tbody>
-      <tbody class="layout_result">
-        <tr>
-          <td colspan="1"></td>
-          <td colspan="1">合計：</td>
-          <td colspan="2">合計：
-            {{number_format($pre_reservation->pre_bill->first()->layout_price)}}
-          </td>
-        </tr>
-      </tbody>
-    </table>
-  </div>
-  @else
-  {{-- <div class="layout" style="padding-top: 80px; width:90%; margin:0 auto;">
-    <table class="table table-borderless" style="table-layout: fixed;">
-      <tbody>
-        <tr>
-          <td colspan="2">
-            <h1>
-              ■レイアウト
-            </h1>
-          </td>
-        </tr>
-      </tbody>
-      <tbody class="layout_head">
-        <tr>
-          <td>内容</td>
-          <td>数量</td>
-        </tr>
-      </tbody>
-      <tbody class="layout_main">
-        @foreach ($reservation->bills()->first()->breakdowns()->get() as $layout_breakdown)
-        @if ($layout_breakdown->unit_type==4)
-        <tr>
-          <td>{{$layout_breakdown->unit_item}}</td>
-  <td>{{$layout_breakdown->unit_count}}</td>
-  </tr>
-  @endif
-  @endforeach
-  </tbody>
-  </table>
-  </div> --}}
-  @endif
+      @if ($pre_reservation->user_id>0)
+      <div class="layout" style="padding-top: 80px; width:90%; margin:0 auto;">
+        <table class="table table-borderless" style="table-layout: fixed;">
+          <tbody>
+            <tr>
+              <td colspan="4">
+                <h1>
+                  ■レイアウト
+                </h1>
+              </td>
+            </tr>
+          </tbody>
+          <tbody class="layout_head">
+            <tr>
+              <td>内容</td>
+              <td>単価</td>
+              <td>数量</td>
+              <td>金額</td>
+            </tr>
+          </tbody>
+          <tbody class="layout_main">
+            @foreach ($layouts as $layout)
+            <tr>
+              <td>{{$layout->unit_item}}</td>
+              <td>{{number_format($layout->unit_cost)}}</td>
+              <td>{{$layout->unit_count}}</td>
+              <td>{{number_format($layout->unit_subtotal)}}</td>
+            </tr>
+            @endforeach
+          </tbody>
+          <tbody class="layout_result">
+            <tr>
+              <td colspan="1"></td>
+              <td colspan="1">合計：</td>
+              <td colspan="2">合計：
+                {{number_format($pre_reservation->pre_bill->first()->layout_price)}}
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      @else
+      <div class="layout" style="padding-top: 80px; width:90%; margin:0 auto;">
+        <table class="table table-borderless" style="table-layout: fixed;">
+          <tbody>
+            <tr>
+              <td colspan="2">
+                <h1>
+                  ■レイアウト
+                </h1>
+              </td>
+            </tr>
+          </tbody>
+          <tbody class="layout_head">
+            <tr>
+              <td>内容</td>
+              <td>数量</td>
+            </tr>
+          </tbody>
+          <tbody class="layout_main">
+            @foreach ($pre_reservation->pre_breakdowns()->where('unit_type',4)->get() as $layout_breakdown)
+            <tr>
+              <td>{{$layout_breakdown->unit_item}}</td>
+              <td>{{$layout_breakdown->unit_count}}</td>
+            </tr>
+            @endforeach
+          </tbody>
+        </table>
+      </div>
+      @endif
 
 
 
-  @if ($pre_reservation->user_id>0)
-  <div class="others" style="padding: 80px 0px 80px 0px; width:90%; margin:0 auto;">
-    <table class="table table-borderless" style="table-layout: fixed;">
-      <tbody>
-        <tr>
-          <td>
-            <h1>
-              ■その他
-            </h1>
-          </td>
-        </tr>
-      </tbody>
-      <tbody class="others_head">
-        <tr>
-          <td>内容</td>
-          <td>単価</td>
-          <td>数量</td>
-          <td>金額</td>
-        </tr>
-      </tbody>
-      <tbody class="others_main">
-        @foreach ($others as $other)
-        <tr>
-          <td>{{$other->unit_item}}</td>
-          <td>{{number_format($other->unit_cost)}}</td>
-          <td>{{$other->unit_count}}</td>
-          <td>{{number_format($other->unit_subtotal)}}</td>
-        </tr>
-        @endforeach
-      </tbody>
-      <tbody class="others_result">
-        <tr>
-          <td colspan="1"></td>
-          <td colspan="1"></td>
-          <td colspan="2">合計：
-            {{$pre_reservation->pre_bill->first()->others_price}}
-        </tr>
-      </tbody>
-    </table>
-  </div>
-  @else
-  {{-- <div class="others" style="padding: 80px 0px 80px 0px; width:90%; margin:0 auto;">
+      @if ($pre_reservation->user_id>0)
+      <div class="others" style="padding: 80px 0px 80px 0px; width:90%; margin:0 auto;">
+        <table class="table table-borderless" style="table-layout: fixed;">
+          <tbody>
+            <tr>
+              <td>
+                <h1>
+                  ■その他
+                </h1>
+              </td>
+            </tr>
+          </tbody>
+          <tbody class="others_head">
+            <tr>
+              <td>内容</td>
+              <td>単価</td>
+              <td>数量</td>
+              <td>金額</td>
+            </tr>
+          </tbody>
+          <tbody class="others_main">
+            @foreach ($pre_reservation->pre_breakdowns()->where('unit_type',5)->get() as $other)
+            <tr>
+              <td>{{$other->unit_item}}</td>
+              <td>{{$other->unit_count}}</td>
+            </tr>
+            @endforeach
+          </tbody>
+          <tbody class="others_result">
+            <tr>
+              <td colspan="1"></td>
+              <td colspan="1"></td>
+              <td colspan="2">合計：
+                {{$pre_reservation->pre_bill->first()->others_price}}
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      @else
+      {{-- <div class="others" style="padding: 80px 0px 80px 0px; width:90%; margin:0 auto;">
     <table class="table table-borderless" style="table-layout: fixed;">
       <tbody>
         <tr>
@@ -792,43 +783,43 @@
         @if ($others_breakdown->unit_type==5)
         <tr>
           <td>{{$others_breakdown->unit_item}}</td>
-  <td>{{$others_breakdown->unit_count}}</td>
-  </tr>
-  @endif
-  @endforeach
-  </tbody>
-  </table>
-  </div> --}}
-  @endif
-
-
-
-  <div class="bill_total d-flex justify-content-end" style="padding: 80px 0px 80px 0px; width:90%; margin:0 auto;">
-    <div style="width: 60%;">
-      <table class="table text-right" style="table-layout: fixed; font-size:16px;">
-        <tbody>
-          <tr>
-            <td>小計：</td>
-            <td>
-              {{number_format($pre_reservation->pre_bill->first()->master_subtotal)}}
-            </td>
-          </tr>
-          <tr>
-            <td>消費税：</td>
-            <td>
-              {{number_format($pre_reservation->pre_bill->first()->master_tax)}}
-            </td>
-          </tr>
-          <tr>
-            <td class="font-weight-bold">合計金額</td>
-            <td>
-              {{number_format($pre_reservation->pre_bill->first()->master_total)}}
-            </td>
-          </tr>
-        </tbody>
+      <td>{{$others_breakdown->unit_count}}</td>
+      </tr>
+      @endif
+      @endforeach
+      </tbody>
       </table>
+    </div> --}}
+    @endif
+
+
+
+    <div class="bill_total d-flex justify-content-end" style="padding: 80px 0px 80px 0px; width:90%; margin:0 auto;">
+      <div style="width: 60%;">
+        <table class="table text-right" style="table-layout: fixed; font-size:16px;">
+          <tbody>
+            <tr>
+              <td>小計：</td>
+              <td>
+                {{number_format($pre_reservation->pre_bill->first()->master_subtotal)}}
+              </td>
+            </tr>
+            <tr>
+              <td>消費税：</td>
+              <td>
+                {{number_format($pre_reservation->pre_bill->first()->master_tax)}}
+              </td>
+            </tr>
+            <tr>
+              <td class="font-weight-bold">合計金額</td>
+              <td>
+                {{number_format($pre_reservation->pre_bill->first()->master_total)}}
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
     </div>
-  </div>
   </div>
   </div>
   </div>
