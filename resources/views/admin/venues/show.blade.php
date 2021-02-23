@@ -424,7 +424,7 @@
         @foreach ($time_prices as $time_price)
         <tr>
           <td>{{$time_price->time}}</td>
-          <td>{{$time_price->price}} ~ {{$date_venue->finish}}</td>
+          <td>{{$time_price->price}} </td>
           <td>{{$time_price->extend}}</td>
         </tr>
         @endforeach
