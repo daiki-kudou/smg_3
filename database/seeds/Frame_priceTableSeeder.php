@@ -4,7 +4,6 @@ use Illuminate\Database\Seeder;
 
 use App\Models\Venue;
 
-
 class Frame_priceTableSeeder extends Seeder
 {
   /**
