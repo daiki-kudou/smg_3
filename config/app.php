@@ -230,6 +230,7 @@ return [
     'Validator' => Illuminate\Support\Facades\Validator::class,
     'View' => Illuminate\Support\Facades\View::class,
     'ReservationHelper' => App\Http\Helpers\ReservationHelper::class,
+    'HomeHelper' => App\Http\Helpers\HomeHelper::class,
     'PDF' => Barryvdh\DomPDF\Facade::class,
 
   ],
