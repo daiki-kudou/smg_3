@@ -299,14 +299,14 @@
 
         {{-- <form name="form" id="form" action="https://osaka-conference.com/contact/check.php" next="false" method="post"> --}}
         {{-- <form method="POST" action="{{ route('user.register') }}"> --}}
-        {{ Form::open(['url' => 'user/preusers/register', 'method'=>'POST']) }}
+        {{ Form::open(['route' => 'user.preusers.registercheck', 'method'=>'POST']) }}
         @csrf
         <div class="bgColorGray first">
           <table>
             <tr>
               <th>会社・団体名 <span class="txtRed c-block">＊</span></th>
               <td>
-                {{ Form::text('company', old('company'), ['class' => 'form-control text3', 'id'=>'company', 'placeholder'=>"入力してください"]) }}
+                {{ Form::text('company', $request->company, ['class' => 'form-control text3', 'id'=>'company', 'placeholder'=>"入力してください"]) }}
                 <br class="spOnlyunder">
                 <p><span>法人・団体ではない方は、お名前をご記入ください。</span></p>
                 <a name="a-company02" class="error-r"></a>
@@ -428,8 +428,8 @@
             <tr>
               <th>メールアドレス</th>
               <td>
-                {{$email}}
-                {{ Form::hidden('email', $email, ['id'=>'email']) }}
+                {{$request->email}}
+                {{ Form::hidden('email', $request->email, ['id'=>'email']) }}
               </td>
             </tr>
             <tr>
@@ -465,22 +465,22 @@
                     </div>
                   </li>
                   <li>
-                    <input name="phoneSearch" id="phoneSearch" class="" type="radio" value="1"><label
+                    <input name="research" id="phoneSearch" class="" type="radio" value="1"><label
                       for="phoneSearch">スマホ検索</label>
                   </li>
                   <li>
                     <label style="width: 90px;" for="intro">
-                      <input type="radio" name="phoneSearch" id="intro" value="2">ご紹介</label>
+                      <input type="radio" name="research" id="intro" value="2">ご紹介</label>
                     <input name="intro" type="text" class="" id="intro" placeholder="入力してください"></li>
                   <li>
-                    <input name="phoneSearch" id="mail" class="" type="radio" value="3">
+                    <input name="research" id="mail" class="" type="radio" value="3">
                     <label for="mail">メルマガ</label>
                   </li>
-                  <li><input name="phoneSearch" id="flyer" class="" type="radio" value="4">
+                  <li><input name="research" id="flyer" class="" type="radio" value="4">
                     <label for="flyer">看板・チラシ</label>
                   </li>
                   <li><label style="width: 90px;">
-                      <input type="radio" name="phoneSearch" id="other" value="5">その他
+                      <input type="radio" name="research" id="other" value="5">その他
                     </label>
                     <label for="other"></label>
                     <input name="othertext" type="text" class="" id="" placeholder="入力してください">
@@ -514,6 +514,9 @@
             {{-- {{ Form::submit('確認して進む', ['class' => 'btn btn-primary mb-5 mt-5']) }} --}}
           </p>
         </div>
+        {{ Form::hidden('id', $request->id) }}
+        {{ Form::hidden('token', $request->token) }}
+        {{ Form::hidden('status', $request->status) }}
         {{ Form::close() }}
 
   </div>

@@ -35,24 +35,33 @@ class RegisterController extends Controller
 
   public function showRegistrationForm(Request $request)
   {
-    $email = $request->email;
-    return view('user.auth.register', compact('email'));
+    return view('user.auth.register', compact('request'));
   }
+
+  public function checkRegistrationForm(Request $request)
+  {
+    echo "<pre>";
+    var_dump($request->all());
+    echo "</pre>";
+    return view('user.auth.register_check', compact('request'));
+  }
+
 
   protected function validator(array $data)
   {
     // ※注意
-    // return Validator::make($data, [
-    // 'email'    => ['required', 'string', 'email', 'max:255', 'unique:users'],
-    // 'password' => ['required', 'string', 'min:8', 'confirmed'],
-    // 'first_name'     => ['required', 'string', 'max:255'],
-    // 'last_name'     => ['required', 'string', 'max:255'],
-    // 'company'     => ['required', 'string', 'max:255'],
-    // ]);
+    return Validator::make($data, [
+      // 'email'    => ['required', 'string', 'email', 'max:255', 'unique:users'],
+      // 'password' => ['required', 'string', 'min:8', 'confirmed'],
+      // 'first_name'     => ['required', 'string', 'max:255'],
+      // 'last_name'     => ['required', 'string', 'max:255'],
+      // 'company'     => ['required', 'string', 'max:255'],
+    ]);
   }
 
   protected function create(array $data)
   {
+    var_dump($data['first_name']);
     return User::create([
       'first_name'     => $data['first_name'],
       'last_name'     => $data['last_name'],
