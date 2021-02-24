@@ -15,7 +15,7 @@ class Frame_priceTableSeeder extends Seeder
   {
     $venue = Venue::find(1);
     $venue->frame_prices()->create([
-      'venue_id' => $venue->id,
+      // 'venue_id' => 1,
       'frame' => '午前',
       'start' => '10:00:00',
       'finish' => '12:00:00',
@@ -68,7 +68,7 @@ class Frame_priceTableSeeder extends Seeder
 
     $venue2 = Venue::find(2);
     $venue2->frame_prices()->create([
-      'venue_id' => $venue2->id,
+      // 'venue_id' => 2,
       'frame' => '午前',
       'start' => '10:00:00',
       'finish' => '12:00:00',
@@ -121,7 +121,7 @@ class Frame_priceTableSeeder extends Seeder
 
     $venue3 = Venue::find(3);
     $venue3->frame_prices()->create([
-      'venue_id' => $venue3->id,
+      // 'venue_id' => 3,
       'frame' => '午前',
       'start' => '10:00:00',
       'finish' => '12:00:00',
