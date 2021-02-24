@@ -46,6 +46,7 @@
 
     .board-box .board-inner {
       width: 95%;
+      height: 95%;
       margin: 0 auto;
       /* line-height: inherit; */
       text-align: left;

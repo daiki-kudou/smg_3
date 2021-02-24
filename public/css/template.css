@@ -374,7 +374,7 @@ h5 {
     background: #35a7a7 !important;
 }
 
-.bg-green {
+.bg-status {
     background: #35a7a7 !important;
 }
 
@@ -596,14 +596,15 @@ table td.table_column p:last-child {
 
 /* 予約新規 -----------------------------------------------------*/
 
-.agent_box {
+/* .agent_box {
     font-size: 18px;
     margin: 0 3%;
-}
+} */
 
-.register-wrap {
+.border-wrap {
     border: 2px solid #35a7a7;
     padding: 30px;
+    margin: 50px 0;
 }
 
 .title-icon {
@@ -638,7 +639,8 @@ table td.table_column p:last-child {
     border: 1px solid #dc3545;
 }
 
-.ttl-box {
+
+/* .ttl-box {
     border: 2px solid #35a7a7;
     color: #333;
     padding: 0.8em;
@@ -661,13 +663,16 @@ table td.table_column p:last-child {
 .content-ttl {
     font-weight: bold;
     font-size: 16px;
-    /* background: #35A7A7; */
+    background: #35A7A7;
     border: 1px solid #35a7a7;
     color: #333;
     margin-bottom: 20px;
     padding: 0.8em;
     background: #fff;
-}
+} */
+
+
+
 
 /* 請求内容------------------------------------------------------------------ */
 
@@ -759,32 +764,6 @@ table td.table_column p:last-child {
 
 /* =============予約詳細================================================ */
 
-.section-header {
-    width: 100%;
-    /* display: flex; */
-    padding: 2em 0;
-}
-
-.section-header dl {
-    flex: 1;
-    display: flex;
-    align-items: center;
-    margin-right: 1em;
-}
-
-.section-header dt {
-    background: #35a7a7;
-    padding: 0.5em;
-    color: #fff;
-    min-width: 150px;
-}
-
-.section-header dd {
-    padding: 0.5em 1em;
-    border: 1px solid #ebebeb;
-    min-width: 150px;
-}
-
 .table-cell-box {
     padding: 0;
 }
@@ -801,7 +780,7 @@ table td.table_column p:last-child {
 /* =============予約チェックボックス================================================ */
 
 .checkbox {
-    border: 1px solid #35a7a7;
+    border: 1px solid #6c757d;
 }
 
 .checkbox dt {
@@ -810,11 +789,11 @@ table td.table_column p:last-child {
     color: #fff;
     margin-bottom: 0;
 }
-
+/* 
 .checkbox dt {
     margin-bottom: 0;
     padding-left: 1em;
-}
+} */
 
 .confirm-box {
     background: #F4F6F9;
@@ -828,15 +807,6 @@ table td.table_column p:last-child {
     margin: 20px auto 0;
 }
 
-
-
-
-/* =============予約追加請求================================================ */
-
-
-.extra-bill-table .extrabill-cell {
-    padding: 3em 0;
-}
 
 /* =============仮押さえ================================================ */
 
@@ -960,8 +930,6 @@ table td.table_column p:last-child {
     margin-bottom: 50px;
 }
 
-/* @charset "utf-8"; */
-
 h3 {
     margin-bottom: 0;
 }
@@ -1082,9 +1050,10 @@ h3 {
 }
 
 .bill_head2 {
-    background: #7ebc4f;
+    /* background: #7ebc4f; */
+    background: #144c58;
     table-layout: fixed;
-    border: solid 1px #ced4da;
+    /* border: solid 1px #ced4da; */
 }
 
 .bill_table {
@@ -1229,6 +1198,33 @@ h3 {
 .paid {
     border: solid 1px #ced4da !important;
 }
+
+
+.master_total_head {
+    background: #35a7a7;
+    color: #fff;
+}
+
+.master_total_subttl {
+    border-bottom: 2px solid #35a7a7;
+}
+
+.master_total_body tr td {
+    font-size: 1.1em;
+}
+
+.master_total_body tr td:first-child {
+    font-weight: bold;
+    padding-left: 3em;
+}
+
+.master_total_body tr td:last-child {
+    font-weight: bold;
+}
+
+
+
+
 
 #fullOverlay {
     position: absolute;
