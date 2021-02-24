@@ -1790,43 +1790,34 @@
     </tbody>
     <tbody class="master_total_bottom">
       <tr>
-        <td></td>
-        <td>
-          <div class="d-flex ">
-            <p>小計：</p>
-            <p>{{number_format($all_master_subtotal)}}円</p>
-          </div>
+        <td class="d-flex justify-content-end" colspan="2">
+          <p>小計：</p>
+          <p>{{number_format($all_master_subtotal)}}円</p>
         </td>
       </tr>
       <tr>
-        <td></td>
-        <td>
-          <div class="d-flex">
-            <p>消費税：</p>
-            <p>{{number_format($all_master_tax)}}円</p>
-          </div>
+        <td class="d-flex justify-content-end" colspan="2">
+          <p>消費税：</p>
+          <p>{{number_format($all_master_tax)}}円</p>
         </td>
       </tr>
       <tr>
-        <td></td>
-        <td>
-          <div class="d-flex">
-            <p>合計金額：</p>
-            <p>{{number_format($all_master_total)}}円</p>
-          </div>
+        <td class="d-flex justify-content-end" colspan="2">
+          <p>合計金額：</p>
+          <p>{{number_format($all_master_total)}}円</p>
         </td>
       </tr>
     </tbody>
   </table>
-  <div class="payment_situation d-flex justify-content-around">
-    <div class="d-flex">
-      <p>合計入金額</p>
-      <p>円</p>
-    </div>
-    <div class="d-flex">
-      <p>未入金額</p>
-      <p>円</p>
-    </div>
+  <div class="payment_situation">
+    <dl>
+      <dt>合計入金額</dt>
+      <dd>円</dd>
+    </dl>
+    <dl>
+      <dt>未入金額</dt>
+      <dd>円</dd>
+    </dl>
   </div>
 </section>
 @else
@@ -1864,14 +1855,14 @@
     </tbody>
   </table>
   <div class="payment_situation">
-    <div class="d-flex">
-      <p>合計入金額</p>
-      <p>円</p>
-    </div>
-    <div class="d-flex">
-      <p>未入金額</p>
-      <p>円</p>
-    </div>
+    <dl>
+      <dt>合計入金額</dt>
+      <dd>円</dd>
+    </dl>
+    <dl>
+      <dt>未入金額</dt>
+      <dd>円</dd>
+    </dl>
   </div>
 </div>
 @endif

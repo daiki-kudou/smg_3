@@ -604,7 +604,7 @@ table td.table_column p:last-child {
 .border-wrap {
     border: 2px solid #35a7a7;
     /* padding: 30px; */
-    margin: 50px 0;
+    margin: 50px 3%;
 }
 
 .title-icon {
@@ -1206,7 +1206,7 @@ h3 {
     color: #fff;
 }
 
-.master_total_subttl {
+table .master_total_subttl {
     border-bottom: 2px solid #35a7a7;
 }
 
@@ -1229,8 +1229,27 @@ h3 {
 }
 
 .payment_situation {
-
+    display: flex;
+    justify-content: space-around;
+    padding: 0 0 40px;
 }
+
+.payment_situation dl {
+    display: flex;
+    align-items: center;
+    border: 1px solid #dcdcdc;
+}
+
+.payment_situation dl dt {
+    padding: 0.5em 3em;
+    background: #dcdcdc;
+}
+
+.payment_situation dl dd {
+    padding-left: 3em;
+    padding-right: 1em;
+}
+
 
 /* 請求内容CSS終わり -----------------------------------*/
 
