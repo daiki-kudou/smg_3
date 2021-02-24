@@ -300,8 +300,8 @@
     </div>
 
 
-    <div class="container-field">
-      <table class="table table-striped table-bordered table-box">
+    <div class="table-wrap">
+      <table class="table table-bordered table-scroll">
         <thead>
           <tr>
             <th>予約一括<br>ID</th>

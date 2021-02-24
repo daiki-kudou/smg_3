@@ -71,7 +71,8 @@
     .board-box .venue td {
       font-size: 50px;
       text-align: right;
-      padding-top: 2%;
+      padding-top: 5%;
+      padding-bottom: 2%;
       border-top: 2px solid #ddd;
     }
   </style>
