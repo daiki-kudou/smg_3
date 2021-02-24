@@ -370,7 +370,7 @@
                 <tr>
                   <th>利用日</th>
                   <td>
-                    2020/01/07(木)
+                    {{ReservationHelper::formatDate($request->date)}}
                   </td>
                 </tr>
                 <tr>
@@ -378,36 +378,9 @@
                   <td>
                     <div class="selectWrap long">
                       <select name="room01" id="">
-                        <option value=""></option>
-
-
-                        <option value="四ツ橋・サンワールドビル 1号室(音響HG)">四ツ橋・サンワールドビル 1号室(音響HG)</option>
-                        <option value="四ツ橋・サンワールドビル 1号室">四ツ橋・サンワールドビル 1号室</option>
-                        <option value="四ツ橋・サンワールドビル 2号室(音響HG)">四ツ橋・サンワールドビル 2号室(音響HG)</option>
-                        <option value="四ツ橋・サンワールドビル 2号室">四ツ橋・サンワールドビル 2号室</option>
-
-                        <option value="四ツ橋・近商ビル 10A">四ツ橋・近商ビル 10A</option>
-                        <option value="四ツ橋・近商ビル 10B">四ツ橋・近商ビル 10B</option>
-                        <option value="四ツ橋・近商ビル 7A">四ツ橋・近商ビル 7A</option>
-                        <option value="四ツ橋・近商ビル 7B">四ツ橋・近商ビル 7B</option>
-                        <option value="四ツ橋・近商ビル 6A">四ツ橋・近商ビル 6A</option>
-                        <option value="四ツ橋・近商ビル 6B">四ツ橋・近商ビル 6B</option>
-                        <option value="本町・カーニープレイス 4F(音響HG)">本町・カーニープレイス 4F(音響HG)</option>
-                        <option value="本町・カーニープレイス 4F">本町・カーニープレイス 4F</option>
-
-
-
-
-                        <option value="天六・マロニエホール 7F">天六・マロニエホール 7F</option>
-                        <option value="心斎橋・大成閣 大ホールA">心斎橋・大成閣 大ホールA</option>
-                        <option value="本町・センタービル 1号室">本町・センタービル 1号室</option>
-                        <option value="本町・センタービル 2号室">本町・センタービル 2号室</option>
-                        <option value="新大阪・キューホー江坂ビル 2F">新大阪・キューホー江坂ビル 2F</option>
-
-                        <option value="難波・日興ビル B2F">難波・日興ビル B2F</option>
-                        <option value="難波・日興ビル 6F">難波・日興ビル 6F</option>
-                        <option value="本町・大雅ビル 第1会議室(音響HG)">本町・大雅ビル 第1会議室(音響HG)</option>
-
+                        @foreach ($venues as $venue)
+                        <option value="{{$venue->id}}">{{ReservationHelper::getVenue($venue->id)}}</option>
+                        @endforeach
                       </select>
                     </div>
                     <a name="a-room01" class="error-r"></a>
@@ -421,9 +394,15 @@
                       <select name="" class="timeScale"></select>
                     </div>
                     <a name="a-time01" class="error-r"></a>
-                    <p><span>入室時間より以前に入室はできません。<br>確認の上、チェックボックスをクリックしてください。</span></p>
-                    <p class="checkbox-txt"><span class="txtRed">＊</span><input type="checkbox" name="q1"
-                        value="確認しました"> 確認しました</p>
+                    <p>
+                      <span>入室時間より以前に入室はできません。
+                        <br>
+                        確認の上、チェックボックスをクリックしてください。</span>
+                    </p>
+                    <p class="checkbox-txt">
+                      <span class="txtRed">＊</span>
+                      <input type="checkbox" name="q1" value="確認しました"> 確認しました
+                    </p>
                   </td>
                 </tr>
 
@@ -747,7 +726,11 @@ for (var i=8; i<=23; i++) {
   for(var ii=1; ii<=2; ii++){
     var judge="";
     ii%2==0?judge='30':judge='00';
+    if (i==23&&ii==2) {
+      continue;
+    }
    $('.timeScale').append("<option value='"+i+':'+judge+"'>"+i+':'+judge+"</option>"); 
+   console.log(i,ii);
   }
 }
 })
