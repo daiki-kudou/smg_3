@@ -62,7 +62,7 @@ class PreusersController extends Controller
     $preuser = new Preuser;
     $preuser->email = $request->email;
     $preuser->token = Str::random(250);
-    $preuser->expiration_datetime = now()->addMinutes(60);
+    $preuser->expiration_datetime = now()->addMinutes(2);
 
     $preuser->save();
 
