@@ -66,55 +66,55 @@ class Frame_priceTableSeeder extends Seeder
 
 
 
-    $venue2 = Venue::find(2);
-    $venue2->frame_prices()->create([
-      // 'venue_id' => 2,
-      'frame' => '午前',
-      'start' => '10:00:00',
-      'finish' => '12:00:00',
-      'price' => 17000,
-      'extend' => 6000,
-    ]);
-    $venue2->frame_prices()->create([
-      // 'venue_id' => $venue2->id,
-      'frame' => '午後',
-      'start' => '13:00:00',
-      'finish' => '17:00:00',
-      'price' => 36000,
-      'extend' => 6000,
-    ]);
-    $venue2->frame_prices()->create([
-      // 'venue_id' => $venue2->id,
-      'frame' => '夜間',
-      'start' => '18:00:00',
-      'finish' => '23:00:00',
-      'price' => 17000,
-      'extend' => 6000,
-    ]);
-    $venue2->frame_prices()->create([
-      // 'venue_id' => $venue2->id,
-      'frame' => '午前＆午後',
-      'start' => '10:00:00',
-      'finish' => '17:00:00',
-      'price' => 42000,
-      'extend' => 6000,
-    ]);
-    $venue2->frame_prices()->create([
-      // 'venue_id' => $venue2->id,
-      'frame' => '午後＆夜間',
-      'start' => '13:00:00',
-      'finish' => '21:00:00',
-      'price' => 42000,
-      'extend' => 6000,
-    ]);
-    $venue2->frame_prices()->create([
-      // 'venue_id' => $venue2->id,
-      'frame' => '終日',
-      'start' => '10:00:00',
-      'finish' => '21:00:00',
-      'price' => 50000,
-      'extend' => 6000,
-    ]);
+    // $venue2 = Venue::find(2);
+    // $venue2->frame_prices()->create([
+    //   // 'venue_id' => 2,
+    //   'frame' => '午前',
+    //   'start' => '10:00:00',
+    //   'finish' => '12:00:00',
+    //   'price' => 17000,
+    //   'extend' => 6000,
+    // ]);
+    // $venue2->frame_prices()->create([
+    //   // 'venue_id' => $venue2->id,
+    //   'frame' => '午後',
+    //   'start' => '13:00:00',
+    //   'finish' => '17:00:00',
+    //   'price' => 36000,
+    //   'extend' => 6000,
+    // ]);
+    // $venue2->frame_prices()->create([
+    //   // 'venue_id' => $venue2->id,
+    //   'frame' => '夜間',
+    //   'start' => '18:00:00',
+    //   'finish' => '23:00:00',
+    //   'price' => 17000,
+    //   'extend' => 6000,
+    // ]);
+    // $venue2->frame_prices()->create([
+    //   // 'venue_id' => $venue2->id,
+    //   'frame' => '午前＆午後',
+    //   'start' => '10:00:00',
+    //   'finish' => '17:00:00',
+    //   'price' => 42000,
+    //   'extend' => 6000,
+    // ]);
+    // $venue2->frame_prices()->create([
+    //   // 'venue_id' => $venue2->id,
+    //   'frame' => '午後＆夜間',
+    //   'start' => '13:00:00',
+    //   'finish' => '21:00:00',
+    //   'price' => 42000,
+    //   'extend' => 6000,
+    // ]);
+    // $venue2->frame_prices()->create([
+    //   // 'venue_id' => $venue2->id,
+    //   'frame' => '終日',
+    //   'start' => '10:00:00',
+    //   'finish' => '21:00:00',
+    //   'price' => 50000,
+    //   'extend' => 6000,
+    // ]);
 
 
 
