@@ -364,9 +364,8 @@
 
           {{-- <form name="form" id="form" action="https://osaka-conference.com/contact/check.php" next="false"
             method="post"> --}}
-          {{Form::open(['url' => 'user/reservations/create', 'method' => 'post', 'class'=>'search'])}}
+          {{Form::open(['url' => 'user/reservations/create', 'method' => 'get', 'class'=>'search'])}}
           @csrf
-
           <h2 class="sub-ttl">選択した日程</h2>
           <div class="bgColorGray first">
             <table>
@@ -430,7 +429,6 @@
             <p class="confirm-btn">
               {{-- <a>日時を選択する</a> --}}
               {{ Form::submit('日時を選択する', ['class' => 'btn btn-primary']) }}
-
             </p>
           </div>
           {{Form::close()}}

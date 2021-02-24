@@ -32,8 +32,12 @@ Route::namespace('User')->prefix('user')->name('user.')->group(function () {
     Route::get('pre_reservations', 'PreReservationsController@index')->name('per_reservations.index');
 
     // 以下、ユーザーからの予約経路
-    Route::post('reservations/create', 'ReservationsController@create');
+    // 例外でgetリクエスト
+    Route::get('reservations/create', 'ReservationsController@create');
+    Route::post('reservations/test', 'ReservationsController@test');
+    Route::get('reservations/test2', 'ReservationsController@test2');
   });
+
 
   // メール入力フォーム
   Route::get('preusers', 'PreusersController@index')->name('preusers');
