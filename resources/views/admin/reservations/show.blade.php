@@ -1790,18 +1790,21 @@
     </tbody>
     <tbody class="master_total_bottom">
       <tr>
+        <td></td>
         <td class="d-flex justify-content-end" colspan="2">
           <p>小計：</p>
           <p>{{number_format($all_master_subtotal)}}円</p>
         </td>
       </tr>
       <tr>
+        <td></td>
         <td class="d-flex justify-content-end" colspan="2">
           <p>消費税：</p>
           <p>{{number_format($all_master_tax)}}円</p>
         </td>
       </tr>
       <tr>
+        <td></td>
         <td class="d-flex justify-content-end" colspan="2">
           <p>合計金額：</p>
           <p>{{number_format($all_master_total)}}円</p>
@@ -1835,18 +1838,21 @@
     </tbody>
     <tbody class="master_total_bottom">
       <tr>
+        <td></td>
         <td class="d-flex justify-content-end" colspan="2">
           <p>小計：</p>
           <p>{{number_format($master_subtotals)}}円</p>
         </td>
       </tr>
       <tr>
+        <td></td>
         <td class="d-flex justify-content-end" colspan="2">
           <p>消費税：</p>
           <p>{{number_format($master_taxs)}}円</p>
         </td>
       </tr>
       <tr>
+        <td></td>
         <td class="d-flex justify-content-end" colspan="2">
           <p>合計金額：</p>
           <p>{{number_format($master_totals)}}円</p>
