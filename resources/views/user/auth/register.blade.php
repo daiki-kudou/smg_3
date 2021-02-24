@@ -113,8 +113,8 @@
 
   <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1/jquery-ui.min.js"></script>
   <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1/i18n/jquery.ui.datepicker-ja.min.js"></script>
-  <script src="https://osaka-conference.com/js/jquery.validationEngine-ja.js"></script>
-  <script src="https://osaka-conference.com/js/jquery.validationEngine.js"></script>
+  {{-- <script src="https://osaka-conference.com/js/jquery.validationEngine-ja.js"></script>
+  <script src="https://osaka-conference.com/js/jquery.validationEngine.js"></script> --}}
   <script src="https://osaka-conference.com/js/form.js"></script>
   <script type="text/javascript">
     $(function () {
@@ -297,177 +297,210 @@
       <section class="contents">
         <!-- <h2 class="sub-ttl">会員登録情報</h2> -->
 
-        <form name="form" id="form" action="https://osaka-conference.com/contact/check.php" next="false" method="post">
-          <div class="bgColorGray first">
-            <table>
-              <tr>
-                <th>会社・団体名 <span class="txtRed c-block">＊</span></th>
-                <td>
-                  <input name="company" id="company" class="text3" type="text"><br class="spOnlyunder">
-                  <p><span>法人・団体ではない方は、お名前をご記入ください。</span></p>
-                  <a name="a-company02" class="error-r"></a>
-                </td>
-              </tr>
-              <tr>
-                <th>担当者氏名 <span class="txtRed c-block">＊</span></th>
-                <td>
-                  <ul class="form-cell">
-                    <li>
-                      <p>姓</p>
-                      <input name="nam" id="nam" class="text1" type="text"><br class="spOnlyunder">
-                      <a name="a-nam" class="error-r"></a>
-                    </li>
-                    <li>
-                      <p>名</p>
-                      <input name="nam" id="nam" class="text1" type="text"><br class="spOnlyunder">
-                      <a name="a-nam" class="error-r"></a>
-                    </li>
-                  </ul>
-                </td>
-              </tr>
-              <tr>
-                <th>担当者氏名(ふりがな) <span class="txtRed c-block">＊</span></th>
-                <td>
-                  <ul class="form-cell">
-                    <li>
-                      <p>セイ</p>
-                      <input name="nam" id="nam" class="text1" type="text"><br class="spOnlyunder">
-                      <a name="a-nam" class="error-r"></a>
-                    </li>
-                    <li>
-                      <p>メイ</p>
-                      <input name="nam" id="nam" class="text1" type="text"><br class="spOnlyunder">
-                      <a name="a-nam" class="error-r"></a>
-                    </li>
-                  </ul>
-                </td>
-              </tr>
-              <tr>
-                <th><label for="post_code">郵便番号</label></th>
-                <td>
-                  <p class="postal-p">〒</p><input class=""
-                    onKeyUp="AjaxZip3.zip2addr(this,&#039;&#039;,&#039;address1&#039;,&#039;address2&#039;);"
-                    autocomplete="off" name="post_code" type="text" value="" id="post_code">
-                </td>
-              </tr>
-              <tr>
-                <th><label for="address1">住所1（都道府県）</label></th>
-                <td><input class="text3" name="address1" type="text" value="" id="address1"></td>
-              </tr>
-              <tr>
-                <th><label for="address2">住所2（市町村番地）</label></th>
-                <td><input class="text3" name="address2" type="text" value="" id="address2"></td>
-              </tr>
-              <tr>
-                <th><label for="address3">住所3（建物名）</label></th>
-                <td><input class="text3" name="address3" type="text" value="" id="address3"></td>
-              </tr>
-              <tr class="tr-tel-0">
-                <th>連絡先 <span class="txtRed">＊</span></th>
-                <td>
-                  <span class="txtRed">携帯電話、固定電話のどちらか一方は必須入力です</span>
-                  <a name="a-tel" class="error-r"></a>
-                </td>
-              </tr>
-              <tr class="tr-tel-1">
-                <th>
-                  <!--<span class="txtRed c-block">＊</span>-->
-                </th>
-                <td>
-                  <p class="checkbox-txt">携帯電話</p>
-                  <input name="tel01_1" id="tel01_1" class="text2" type="tel">
-                  <p style="display:inline-block">11文字</p>
-                  <a name="a-tel01" class="error-r"></a>
-                  <p>※半角数字、ハイフンなしで入力してください。</p>
-                </td>
-              </tr>
-              <tr class="tr-tel-2">
-                <th>
-                  <!--<span class="txtRed c-block">＊</span>-->
-                </th>
-                <td>
-                  <p class="checkbox-txt">固定電話</p>
-                  <input name="tel02_1" id="tel1" class="text2" type="tel">
-                  <p style="display:inline-block">10文字</p>
-                  <a name="a-tel02" class="error-r"></a>
-                  <p>※半角数字、ハイフンなしで入力してください。</p>
-                </td>
-              </tr>
-              <tr>
-                <th>FAX</th>
-                <td>
-                  <input name="fax1" id="fax1" class="text2" type="tel">
-                  <p>※半角数字、ハイフンなしで入力してください。</p>
-                </td>
-              </tr>
-              <tr>
-                <th>メールアドレス</th>
-                <td>
-                  {{$email}}
-                </td>
-              </tr>
-              <tr>
-                <th>パスワード<span class="txtRed">＊</span></th>
-                <td>
-                  <input name="password" id="password" class="text2" type="password">
-                  <a name="a-mail01" class="error-r"></a>
-                  <p>※半角英数字6文字以上20文字以内にてご記入お願い致します。</p>
-                </td>
-              </tr>
-              <tr>
-                <th>パスワード確認<span class="txtRed">＊</span></th>
-                <td>
-                  <input name="password" id="password" class="text2" type="password">
-                  <a name="a-mail01" class="error-r"></a>
-                  <p>※確認のため、もう一度パスワードを入力してください。</p>
-                </td>
-              </tr>
-              <tr>
-                <th>SMGを何で知りましたか</th>
-                <td>
-                  <ul class="radio-box">
-                    <li>PC検索：
-                      <div>
-                        <input name="research" id="research" class="" type="radio"><label for="">Google</label>
-                        <input name="research" id="research" class="" type="radio"><label for="">Yahoo</label>
-                        <input name="research" id="research" class="" type="radio"><label for="">その他</label>
-                      </div>
-                    </li>
-                    <li><input name="phoneSearch" id="phoneSearch" class="" type="radio"><label for="">スマホ検索</label>
-                    </li>
-                    <li><label style="width: 90px;">
-                        <input type="radio" name="intro" id="intro" value="">ご紹介
-                      </label>
-                      <label for="other"></label>
-                      <input type="text" class="" id="intro" placeholder="入力してください">
-                      　</li>
-                    <li><input name="mail" id="mail" class="" type="radio"><label for="">メルマガ</label>
-                    </li>
-                    <li><input name="flyer" id="flyer" class="" type="radio"><label for="">看板・チラシ</label>
-                    </li>
-                    <li><label style="width: 90px;">
-                        <input type="radio" name="other" id="other" value="">その他
-                      </label>
-                      <label for="other"></label>
-                      <input type="text" class="" id="" placeholder="入力してください">
-                      　</li>
-                  </ul>
-                </td>
-              </tr>
-            </table>
-          </div>
-          <dl class="attention-txt">
-            <dt>【個人情報の利用目的】</dt>
-            <dd>当フォームにご入力いただく内容は、弊社が責任を持って保管し、その他の目的に使用いたしません。また、許可なく第三者に提供することはございません。個人情報の取り扱いに関しては、<a
-                href="https://osaka-conference.com/privacypolicy/">プライバシーポリシー</a>をご確認下さい。</dd>
-          </dl>
+        {{-- <form name="form" id="form" action="https://osaka-conference.com/contact/check.php" next="false" method="post"> --}}
+        {{-- <form method="POST" action="{{ route('user.register') }}"> --}}
+        {{ Form::open(['url' => 'user/preusers/register', 'method'=>'POST']) }}
+        @csrf
+        <div class="bgColorGray first">
+          <table>
+            <tr>
+              <th>会社・団体名 <span class="txtRed c-block">＊</span></th>
+              <td>
+                {{ Form::text('company', old('company'), ['class' => 'form-control text3', 'id'=>'company', 'placeholder'=>"入力してください"]) }}
+                <br class="spOnlyunder">
+                <p><span>法人・団体ではない方は、お名前をご記入ください。</span></p>
+                <a name="a-company02" class="error-r"></a>
+              </td>
+            </tr>
+            <tr>
+              <th>担当者氏名
+                <span class="txtRed c-block">＊</span></th>
+              <td>
+                <ul class="form-cell">
+                  <li>
+                    <p>姓</p>
+                    {{ Form::text('first_name', old('first_name'), ['class' => 'form-control text1', 'id'=>'nam', 'placeholder'=>"入力してください"]) }}
+                    <br class="spOnlyunder">
+                    <a name="a-nam" class="error-r"></a>
+                  </li>
+                  <li>
+                    <p>名</p>
+                    {{ Form::text('last_name', old('last_name'), ['class' => 'form-control text1', 'id'=>'nam', 'placeholder'=>"入力してください"]) }}
+                    <br class="spOnlyunder">
+                    <a name="a-nam" class="error-r"></a>
+                  </li>
+                </ul>
+              </td>
+            </tr>
+            <tr>
+              <th>担当者氏名(ふりがな) <span class="txtRed c-block">＊</span></th>
+              <td>
+                <ul class="form-cell">
+                  <li>
+                    <p>セイ</p>
+                    {{ Form::text('first_name_kana', old('first_name_kana'), ['class' => 'form-control text1', 'id'=>'nam', 'placeholder'=>"入力してください"]) }}
+                    <br class="spOnlyunder">
+                    <a name="a-nam" class="error-r"></a>
+                  </li>
+                  <li>
+                    <p>メイ</p>
+                    {{ Form::text('last_name_kana', old('last_name_kana'), ['class' => 'form-control text1', 'id'=>'nam', 'placeholder'=>"入力してください"]) }}
+                    <br class="spOnlyunder">
+                    <a name="a-nam" class="error-r"></a>
+                  </li>
+                </ul>
+              </td>
+            </tr>
+            <tr>
+              <th><label for="post_code">郵便番号</label></th>
+              <td>
+                <p class="postal-p">〒</p>
+                <input onKeyUp="AjaxZip3.zip2addr(this,&#039;&#039;,&#039;address1&#039;,&#039;address2&#039;);"
+                  autocomplete="off" name="post_code" type="text" value="" id="post_code">
+              </td>
+            </tr>
+            <tr>
+              <th>
+                <label for="address1">住所1（都道府県）</label>
+              </th>
+              <td>
+                {{-- <input class="text3" name="address1" type="text" value="" id="address1"> --}}
+                {{ Form::text('address1', old('address1'), ['class' => 'form-control ', 'id'=>'address1', 'placeholder'=>"入力してください"]) }}
+              </td>
+            </tr>
+            <tr>
+              <th><label for="address2">住所2（市町村番地）</label></th>
+              <td>
+                {{-- <input class="text3" name="address2" type="text" value="" id="address2"> --}}
+                {{ Form::text('address2', old('address2'), ['class' => 'form-control ', 'id'=>'address2', 'placeholder'=>"入力してください"]) }}
 
-          <dl class="attention-txt">
-            <dt>【利用規約】</dt>
-            <dd>当フォームにご入力いただく内容は、弊社が責任を持って保管し、その他の目的に使用いたしません。また、許可なく第三者に提供することはございません。個人情報の取り扱いに関しては、<a
-                href="https://osaka-conference.com/privacypolicy/">プライバシーポリシー</a>をご確認下さい。</dd>
-          </dl>
-        </form>
+              </td>
+            </tr>
+            <tr>
+              <th><label for="address3">住所3（建物名）</label></th>
+              <td>
+                {{-- <input class="text3" name="address3" type="text" value="" id="address3"> --}}
+                {{ Form::text('address3', old('address3'), ['class' => 'form-control ', 'id'=>'address3', 'placeholder'=>"入力してください"]) }}
+              </td>
+            </tr>
+            <tr class="tr-tel-0">
+              <th>連絡先 <span class="txtRed">＊</span></th>
+              <td>
+                <span class="txtRed">携帯電話、固定電話のどちらか一方は必須入力です</span>
+                <a name="a-tel" class="error-r"></a>
+              </td>
+            </tr>
+            <tr class="tr-tel-1">
+              <th>
+                <!--<span class="txtRed c-block">＊</span>-->
+              </th>
+              <td>
+                <p class="checkbox-txt">携帯電話</p>
+                {{-- <input name="tel01_1" id="tel01_1" class="text2" type="tel"> --}}
+                {{ Form::text('tel', old('tel'), ['class' => 'form-control text2', 'id'=>'tel', 'placeholder'=>"入力してください"]) }}
+                <p style="display:inline-block">11文字</p>
+                <a name="a-tel01" class="error-r"></a>
+                <p>※半角数字、ハイフンなしで入力してください。</p>
+              </td>
+            </tr>
+            <tr class="tr-tel-2">
+              <th>
+                <!--<span class="txtRed c-block">＊</span>-->
+              </th>
+              <td>
+                <p class="checkbox-txt">固定電話</p>
+                {{-- <input name="tel02_1" id="tel1" class="text2" type="tel"> --}}
+                {{ Form::text('mobile', old('mobile'), ['class' => 'form-control text2', 'id'=>'mobile', 'placeholder'=>"入力してください"]) }}
+                <p style="display:inline-block">10文字</p>
+                <a name="a-tel02" class="error-r"></a>
+                <p>※半角数字、ハイフンなしで入力してください。</p>
+              </td>
+            </tr>
+            <tr>
+              <th>FAX</th>
+              <td>
+                {{-- <input name="fax1" id="fax1" class="text2" type="tel"> --}}
+                {{ Form::text('fax', old('fax'), ['class' => 'form-control text2', 'id'=>'fax', 'placeholder'=>"入力してください"]) }}
+
+                <p>※半角数字、ハイフンなしで入力してください。</p>
+              </td>
+            </tr>
+            <tr>
+              <th>メールアドレス</th>
+              <td>
+                {{$email}}
+                {{ Form::hidden('email', $email, ['id'=>'email']) }}
+              </td>
+            </tr>
+            <tr>
+              <th>パスワード<span class="txtRed">＊</span></th>
+              <td>
+                {{-- <input name="password" id="password" class="text2" type="password"> --}}
+                {{Form::password('password', ['class' => 'text2'])}}
+                <a name="a-mail01" class="error-r"></a>
+                <p>※半角英数字6文字以上20文字以内にてご記入お願い致します。</p>
+              </td>
+            </tr>
+            <tr>
+              <th>パスワード確認<span class="txtRed">＊</span></th>
+              <td>
+                {{-- <input name="password" id="password" class="text2" type="password"> --}}
+                {{Form::password('password_chk', ['class' => 'text2'])}}
+                <a name="a-mail01" class="error-r"></a>
+                <p>※確認のため、もう一度パスワードを入力してください。</p>
+              </td>
+            </tr>
+            <tr>
+              <th>SMGを何で知りましたか</th>
+              <td>
+                <ul class="radio-box">
+                  <li>PC検索：
+                    <div>
+                      <input name="research" id="google" class="" type="radio" value="1">
+                      <label for="google">Google</label>
+                      <input name="research" id="yahoo" class="" type="radio" value="2">
+                      <label for="yahoo">Yahoo</label>
+                      <input name="research" id="others" class="" type="radio" value="3">
+                      <label for="others">その他</label>
+                    </div>
+                  </li>
+                  <li>
+                    <input name="phoneSearch" id="phoneSearch" class="" type="radio" value="1"><label
+                      for="phoneSearch">スマホ検索</label>
+                  </li>
+                  <li>
+                    <label style="width: 90px;" for="intro">
+                      <input type="radio" name="phoneSearch" id="intro" value="2">ご紹介</label>
+                    <input name="intro" type="text" class="" id="intro" placeholder="入力してください"></li>
+                  <li>
+                    <input name="phoneSearch" id="mail" class="" type="radio" value="3">
+                    <label for="mail">メルマガ</label>
+                  </li>
+                  <li><input name="phoneSearch" id="flyer" class="" type="radio" value="4">
+                    <label for="flyer">看板・チラシ</label>
+                  </li>
+                  <li><label style="width: 90px;">
+                      <input type="radio" name="phoneSearch" id="other" value="5">その他
+                    </label>
+                    <label for="other"></label>
+                    <input name="othertext" type="text" class="" id="" placeholder="入力してください">
+                    　</li>
+                </ul>
+              </td>
+            </tr>
+          </table>
+        </div>
+        <dl class="attention-txt">
+          <dt>【個人情報の利用目的】</dt>
+          <dd>当フォームにご入力いただく内容は、弊社が責任を持って保管し、その他の目的に使用いたしません。また、許可なく第三者に提供することはございません。個人情報の取り扱いに関しては、<a
+              href="https://osaka-conference.com/privacypolicy/">プライバシーポリシー</a>をご確認下さい。</dd>
+        </dl>
+
+        <dl class="attention-txt">
+          <dt>【利用規約】</dt>
+          <dd>当フォームにご入力いただく内容は、弊社が責任を持って保管し、その他の目的に使用いたしません。また、許可なく第三者に提供することはございません。個人情報の取り扱いに関しては、<a
+              href="https://osaka-conference.com/privacypolicy/">プライバシーポリシー</a>をご確認下さい。</dd>
+        </dl>
 
         <div class="page-text">
           <p class="checkbox-txt "><span class="txtRed">＊</span><input type="checkbox" name="q1" value="">
@@ -476,9 +509,13 @@
         </div>
 
         <div class="btn-wrapper2">
-          <p class="confirm-btn">
-            <button type="submit" id="" name="action" value="send" block="false">確認して進む</button></p>
+          <p>
+            <button type="submit" id="" name="action" block="false">確認して進む</button>
+            {{-- {{ Form::submit('確認して進む', ['class' => 'btn btn-primary mb-5 mt-5']) }} --}}
+          </p>
         </div>
+        {{ Form::close() }}
+
   </div>
 
 
