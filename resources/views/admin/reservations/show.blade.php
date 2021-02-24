@@ -1268,38 +1268,38 @@
     </div>
     @endif
 </div>
-<section>
+</section>
 
 
 
-  {{-- 追加請求 セクション --}}
-  @foreach ($other_bills as $key=>$other_bill)
-  <section class="section-wrap">
-    <div class="bill">
-      <div class="bill_head2">
-        <table class="table bill_table">
-          <tbody>
-            <tr>
-              <td>
-                <h2 class="text-white">
-                  請求書No
-                </h2>
-              </td>
-              <td>
-                <dl class="ttl_box">
-                  <dt>合計金額</dt>
-                  <dd class="total_result">{{number_format($other_bill->master_total)}} 円</dd>
-                </dl>
-              </td>
-              <td>
-                <dl class="ttl_box">
-                  <dt>支払い期日</dt>
-                  <dd class="total_result">{{ReservationHelper::formatDate($other_bill->payment_limit)}}</dd>
-                </dl>
-              </td>
-              <td><a href="#" class="btn btn-primary btn-lg">編集</a> </td>
-            </tr>
-            <!-- <tr>
+{{-- 追加請求 セクション --}}
+@foreach ($other_bills as $key=>$other_bill)
+<section class="section-wrap">
+  <div class="bill">
+    <div class="bill_head2">
+      <table class="table bill_table">
+        <tbody>
+          <tr>
+            <td>
+              <h2 class="text-white">
+                請求書No
+              </h2>
+            </td>
+            <td>
+              <dl class="ttl_box">
+                <dt>合計金額</dt>
+                <dd class="total_result">{{number_format($other_bill->master_total)}} 円</dd>
+              </dl>
+            </td>
+            <td>
+              <dl class="ttl_box">
+                <dt>支払い期日</dt>
+                <dd class="total_result">{{ReservationHelper::formatDate($other_bill->payment_limit)}}</dd>
+              </dl>
+            </td>
+            <td><a href="#" class="btn btn-primary btn-lg">編集</a> </td>
+          </tr>
+          <!-- <tr>
                   <td></td>
                   <td style="font-size: 16px;">
                     <div class="bg-white d-flex justify-content-around align-items-center" style="height: 60px;">
@@ -1308,356 +1308,312 @@
                     </div>
                   </td>
                 </tr> -->
-          </tbody>
-        </table>
-      </div>
-      <div class="bill_status2">
-        <table class="table">
-          <tbody>
-            <tr>
-              <td>
-                <div class="d-flex">
-                  <p class="bg-status p-2">予約状況</p>
-                  <p class="border p-2">{{ReservationHelper::judgeStatus($other_bill->reservation_status)}}</p>
-                </div>
-              </td>
-              @if ($other_bill->double_check_status==0)
-              <td>
-                <div class="d-flex">
-                  <p class="bg-status p-2">一人目チェック</p>
-                  <p class="border p-2">未
-                  </p>
-                </div>
-              </td>
-              @elseif ($other_bill->double_check_status==1)
-              <td>
-                <div class="d-flex">
-                  <p class="bg-status p-2">一人目チェック</p>
-                  <p class="border p-2">{{$other_bill->double_check1_name}}</p>
-                </div>
-              </td>
-              <td>
-                <div class="d-flex">
-                  <p class="bg-status p-2">二人目チェック</p>
-                  <p class="border p-2">未
-                  </p>
-                </div>
-              </td>
-              @elseif ($other_bill->double_check_status==2)
-              <td>
-                <div class="d-flex">
-                  <p class="bg-status p-2">一人目チェック</p>
-                  <p class="border p-2">{{$other_bill->double_check1_name}}</p>
-                </div>
-              </td>
-              <td>
-                <div class="d-flex">
-                  <p class="bg-status p-2">二人目チェック</p>
-                  <p class="border p-2">{{$other_bill->double_check2_name}}</p>
-                </div>
-              </td>
-              @endif
-              <td>
-                <div><span>申込日：</span>{{$other_bill->created_at}}</div>
-                <div><span>予約確定日：</span>{{$other_bill->approve_send_at}}</div>
-              </td>
-            </tr>
-          </tbody>
-        </table>
-        <div class="approve_or_confirm">
-          @if ($other_bill->double_check_status==2)
-          @if ($other_bill->reservation_status<=2) <div class="d-flex justify-content-end my-3">
-            {{-- <p class="text-right">
+        </tbody>
+      </table>
+    </div>
+    <div class="bill_status2">
+      <table class="table">
+        <tbody>
+          <tr>
+            <td>
+              <div class="d-flex">
+                <p class="bg-status p-2">予約状況</p>
+                <p class="border p-2">{{ReservationHelper::judgeStatus($other_bill->reservation_status)}}</p>
+              </div>
+            </td>
+            @if ($other_bill->double_check_status==0)
+            <td>
+              <div class="d-flex">
+                <p class="bg-status p-2">一人目チェック</p>
+                <p class="border p-2">未
+                </p>
+              </div>
+            </td>
+            @elseif ($other_bill->double_check_status==1)
+            <td>
+              <div class="d-flex">
+                <p class="bg-status p-2">一人目チェック</p>
+                <p class="border p-2">{{$other_bill->double_check1_name}}</p>
+              </div>
+            </td>
+            <td>
+              <div class="d-flex">
+                <p class="bg-status p-2">二人目チェック</p>
+                <p class="border p-2">未
+                </p>
+              </div>
+            </td>
+            @elseif ($other_bill->double_check_status==2)
+            <td>
+              <div class="d-flex">
+                <p class="bg-status p-2">一人目チェック</p>
+                <p class="border p-2">{{$other_bill->double_check1_name}}</p>
+              </div>
+            </td>
+            <td>
+              <div class="d-flex">
+                <p class="bg-status p-2">二人目チェック</p>
+                <p class="border p-2">{{$other_bill->double_check2_name}}</p>
+              </div>
+            </td>
+            @endif
+            <td>
+              <div><span>申込日：</span>{{$other_bill->created_at}}</div>
+              <div><span>予約確定日：</span>{{$other_bill->approve_send_at}}</div>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+      <div class="approve_or_confirm">
+        @if ($other_bill->double_check_status==2)
+        @if ($other_bill->reservation_status<=2) <div class="d-flex justify-content-end my-3">
+          {{-- <p class="text-right">
                   {{ Form::open(['url' => 'admin/bills/other_send_approve', 'method'=>'POST', 'class'=>'mr-2']) }}
+          @csrf
+          {{ Form::hidden('bill_id', $other_bill->id ) }}
+          {{ Form::hidden('user_id', $reservation->user_id ) }}
+          {{ Form::hidden('reservation_id', $reservation->id ) }}
+
+          {{ Form::submit('承認',['class' => 'btn more_btn_lg']) }}
+          {{ Form::close() }}
+          </p> --}}
+          <p class="text-right">
+            {{-- {{ Form::open(['url' => 'aaaaaaaaaa', 'method'=>'POST', 'class'=>'mr-2']) }}
+            @csrf
+            {{ Form::hidden('reservation_id', $reservation->id ) }}
+            {{ Form::hidden('user_id', $reservation->user_id ) }}
+            {{ Form::submit('確定',['class' => 'btn more_btn4_lg']) }}
+            {{ Form::close() }} --}}
+
+            {{ Form::open(['url' => 'admin/agents_reservations/confirm', 'method'=>'POST', 'class'=>'']) }}
             @csrf
             {{ Form::hidden('bill_id', $other_bill->id ) }}
-            {{ Form::hidden('user_id', $reservation->user_id ) }}
-            {{ Form::hidden('reservation_id', $reservation->id ) }}
-
-            {{ Form::submit('承認',['class' => 'btn more_btn_lg']) }}
+            {{ Form::submit('確定',['class' => 'btn more_btn4']) }}
             {{ Form::close() }}
-            </p> --}}
-            <p class="text-right">
-              {{-- {{ Form::open(['url' => 'aaaaaaaaaa', 'method'=>'POST', 'class'=>'mr-2']) }}
-              @csrf
-              {{ Form::hidden('reservation_id', $reservation->id ) }}
-              {{ Form::hidden('user_id', $reservation->user_id ) }}
-              {{ Form::submit('確定',['class' => 'btn more_btn4_lg']) }}
-              {{ Form::close() }} --}}
+          </p>
+      </div>
+      @endif
+      @endif
+    </div>
 
-              {{ Form::open(['url' => 'admin/agents_reservations/confirm', 'method'=>'POST', 'class'=>'']) }}
-              @csrf
-              {{ Form::hidden('bill_id', $other_bill->id ) }}
-              {{ Form::submit('確定',['class' => 'btn more_btn4']) }}
-              {{ Form::close() }}
-            </p>
+    <div class="bill_details">
+      <div class="head d-flex">
+        <div class="accordion_btn">
+          <i class="fas fa-plus bill_icon_size hide" aria-hidden="true"></i>
+          <i class="fas fa-minus bill_icon_size" aria-hidden="true"></i>
+        </div>
+        <div class="billdetails_ttl">
+          <h3>
+            請求内訳
+          </h3>
+        </div>
+      </div>
+      <div class="main hide">
+        @if ($other_bill->venue_price!=0||$other_bill->venue_price)
+        <div class="venues billdetails_content">
+          <table class="table table-borderless">
+            <tbody>
+              <tr>
+                <td>
+                  <h4 class="billdetails_content_ttl">
+                    会場料
+                  </h4>
+                </td>
+              </tr>
+            </tbody>
+            <tbody class="venue_head">
+              <tr>
+                <td>内容</td>
+                <td>単価</td>
+                <td>数量</td>
+                <td>金額</td>
+              </tr>
+            </tbody>
+            <tbody class="venue_main">
+              @foreach ($other_bill->breakdowns()->get() as $venue_breakdown)
+              @if ($venue_breakdown->unit_type==1)
+              <tr>
+                <td>{{$venue_breakdown->unit_item}}</td>
+                <td>{{number_format($venue_breakdown->unit_cost)}}</td>
+                <td>{{$venue_breakdown->unit_count}}</td>
+                <td>{{number_format($venue_breakdown->unit_subtotal)}}</td>
+              </tr>
+              @endif
+              @endforeach
+            </tbody>
+            <tbody class="venue_result">
+              <tr>
+                <td colspan="2"></td>
+                <td colspan="1">合計：</td>
+                <td colspan="1" class=""> {{number_format($other_bill->venue_price)}}</td>
+              </tr>
+            </tbody>
+          </table>
         </div>
         @endif
+
+
+        @if ($other_bill->equipment_price!=0||$other_bill->equipment_price)
+        <div class="equipment billdetails_content">
+          <table class="table table-borderless">
+            <tbody>
+              <tr>
+                <td colspan="4">
+                  <h4 class="billdetails_content_ttl">
+                    有料備品・サービス
+                  </h4>
+                </td>
+              </tr>
+            </tbody>
+            <tbody class="equipment_head">
+              <tr>
+                <td>内容</td>
+                <td>単価</td>
+                <td>数量</td>
+                <td>金額</td>
+              </tr>
+            </tbody>
+            <tbody class="equipment_main">
+              @foreach ($other_bill->breakdowns()->get() as $equipment_breakdown)
+              @if ($equipment_breakdown->unit_type==2)
+              <tr>
+                <td>{{$equipment_breakdown->unit_item}}</td>
+                <td>{{number_format($equipment_breakdown->unit_cost)}}</td>
+                <td>{{$equipment_breakdown->unit_count}}</td>
+                <td>{{number_format($equipment_breakdown->unit_subtotal)}}</td>
+              </tr>
+              @endif
+              @endforeach
+              @foreach ($other_bill->breakdowns()->get() as $service_breakdown)
+              @if ($service_breakdown->unit_type==3)
+              <tr>
+                <td>{{$service_breakdown->unit_item}}</td>
+                <td>{{number_format($service_breakdown->unit_cost)}}</td>
+                <td>{{$service_breakdown->unit_count}}</td>
+                <td>{{number_format($service_breakdown->unit_subtotal)}}</td>
+              </tr>
+              @endif
+              @endforeach
+            </tbody>
+            <tbody class="equipment_result">
+              <tr>
+                <td colspan="2"></td>
+                <td colspan="1">合計：</td>
+                <td colspan="1" class=""> {{number_format($other_bill->equipment_price)}}</td>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
         @endif
-      </div>
 
-      <div class="bill_details">
-        <div class="head d-flex">
-          <div class="accordion_btn">
-            <i class="fas fa-plus bill_icon_size hide" aria-hidden="true"></i>
-            <i class="fas fa-minus bill_icon_size" aria-hidden="true"></i>
-          </div>
-          <div class="billdetails_ttl">
-            <h3>
-              請求内訳
-            </h3>
-          </div>
+        @if ($other_bill->layout_price!=0||$other_bill->layout_price)
+        <div class="layout billdetails_content">
+          <table class="table table-borderless">
+            <tbody>
+              <tr>
+                <td>
+                  <h4 class="billdetails_content_ttl">
+                    レイアウト
+                  </h4>
+                </td>
+              </tr>
+            </tbody>
+            <tbody class="layout_head">
+              <tr>
+                <td>内容</td>
+                <td>単価</td>
+                <td>数量</td>
+                <td>金額</td>
+              </tr>
+            </tbody>
+            <tbody class="layout_main">
+              @foreach ($other_bill->breakdowns()->get() as $layout_breakdown)
+              @if ($layout_breakdown->unit_type==4)
+              <tr>
+                <td>{{$layout_breakdown->unit_item}}</td>
+                <td>{{number_format($layout_breakdown->unit_cost)}}</td>
+                <td>{{$layout_breakdown->unit_count}}</td>
+                <td>{{number_format($layout_breakdown->unit_subtotal)}}</td>
+              </tr>
+              @endif
+              @endforeach
+            </tbody>
+            <tbody class="layout_result">
+              <tr>
+                <td colspan="2"></td>
+                <td colspan="1">合計：</td>
+                <td colspan="2">合計：{{number_format($other_bill->layout_price)}}
+                </td>
+              </tr>
+            </tbody>
+          </table>
         </div>
-        <div class="main hide">
-          @if ($other_bill->venue_price!=0||$other_bill->venue_price)
-          <div class="venues billdetails_content">
-            <table class="table table-borderless">
-              <tbody>
-                <tr>
-                  <td>
-                    <h4 class="billdetails_content_ttl">
-                      会場料
-                    </h4>
-                  </td>
-                </tr>
-              </tbody>
-              <tbody class="venue_head">
-                <tr>
-                  <td>内容</td>
-                  <td>単価</td>
-                  <td>数量</td>
-                  <td>金額</td>
-                </tr>
-              </tbody>
-              <tbody class="venue_main">
-                @foreach ($other_bill->breakdowns()->get() as $venue_breakdown)
-                @if ($venue_breakdown->unit_type==1)
-                <tr>
-                  <td>{{$venue_breakdown->unit_item}}</td>
-                  <td>{{number_format($venue_breakdown->unit_cost)}}</td>
-                  <td>{{$venue_breakdown->unit_count}}</td>
-                  <td>{{number_format($venue_breakdown->unit_subtotal)}}</td>
-                </tr>
-                @endif
-                @endforeach
-              </tbody>
-              <tbody class="venue_result">
-                <tr>
-                  <td colspan="2"></td>
-                  <td colspan="1">合計：</td>
-                  <td colspan="1" class=""> {{number_format($other_bill->venue_price)}}</td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
-          @endif
+        @endif
 
 
-          @if ($other_bill->equipment_price!=0||$other_bill->equipment_price)
-          <div class="equipment billdetails_content">
-            <table class="table table-borderless">
-              <tbody>
-                <tr>
-                  <td colspan="4">
-                    <h4 class="billdetails_content_ttl">
-                      有料備品・サービス
-                    </h4>
-                  </td>
-                </tr>
-              </tbody>
-              <tbody class="equipment_head">
-                <tr>
-                  <td>内容</td>
-                  <td>単価</td>
-                  <td>数量</td>
-                  <td>金額</td>
-                </tr>
-              </tbody>
-              <tbody class="equipment_main">
-                @foreach ($other_bill->breakdowns()->get() as $equipment_breakdown)
-                @if ($equipment_breakdown->unit_type==2)
-                <tr>
-                  <td>{{$equipment_breakdown->unit_item}}</td>
-                  <td>{{number_format($equipment_breakdown->unit_cost)}}</td>
-                  <td>{{$equipment_breakdown->unit_count}}</td>
-                  <td>{{number_format($equipment_breakdown->unit_subtotal)}}</td>
-                </tr>
-                @endif
-                @endforeach
-                @foreach ($other_bill->breakdowns()->get() as $service_breakdown)
-                @if ($service_breakdown->unit_type==3)
-                <tr>
-                  <td>{{$service_breakdown->unit_item}}</td>
-                  <td>{{number_format($service_breakdown->unit_cost)}}</td>
-                  <td>{{$service_breakdown->unit_count}}</td>
-                  <td>{{number_format($service_breakdown->unit_subtotal)}}</td>
-                </tr>
-                @endif
-                @endforeach
-              </tbody>
-              <tbody class="equipment_result">
-                <tr>
-                  <td colspan="2"></td>
-                  <td colspan="1">合計：</td>
-                  <td colspan="1" class=""> {{number_format($other_bill->equipment_price)}}</td>
-                  </td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
-          @endif
-
-          @if ($other_bill->layout_price!=0||$other_bill->layout_price)
-          <div class="layout billdetails_content">
-            <table class="table table-borderless">
-              <tbody>
-                <tr>
-                  <td>
-                    <h4 class="billdetails_content_ttl">
-                      レイアウト
-                    </h4>
-                  </td>
-                </tr>
-              </tbody>
-              <tbody class="layout_head">
-                <tr>
-                  <td>内容</td>
-                  <td>単価</td>
-                  <td>数量</td>
-                  <td>金額</td>
-                </tr>
-              </tbody>
-              <tbody class="layout_main">
-                @foreach ($other_bill->breakdowns()->get() as $layout_breakdown)
-                @if ($layout_breakdown->unit_type==4)
-                <tr>
-                  <td>{{$layout_breakdown->unit_item}}</td>
-                  <td>{{number_format($layout_breakdown->unit_cost)}}</td>
-                  <td>{{$layout_breakdown->unit_count}}</td>
-                  <td>{{number_format($layout_breakdown->unit_subtotal)}}</td>
-                </tr>
-                @endif
-                @endforeach
-              </tbody>
-              <tbody class="layout_result">
-                <tr>
-                  <td colspan="2"></td>
-                  <td colspan="1">合計：</td>
-                  <td colspan="2">合計：{{number_format($other_bill->layout_price)}}
-                  </td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
-          @endif
-
-
-          @if ($other_bill->others_price!=0||$other_bill->others_price)
-          <div class="others billdetails_content">
-            <table class="table table-borderless">
-              <tbody>
-                <tr>
-                  <td colspan="5">
-                    　<h4 class="billdetails_content_ttl">
-                      その他
-                    </h4>
-                  </td>
-                </tr>
-              </tbody>
-              <tbody class="others_head">
-                <tr>
-                  <td>内容</td>
-                  <td>単価</td>
-                  <td>数量</td>
-                  <td>金額</td>
-                </tr>
-              </tbody>
-              <tbody class="others_main">
-                @foreach ($other_bill->breakdowns()->get() as $others_breakdown)
-                @if ($others_breakdown->unit_type==5)
-                <tr>
-                  <td>{{$others_breakdown->unit_item}}</td>
-                  <td>{{number_format($others_breakdown->unit_cost)}}</td>
-                  <td>{{$others_breakdown->unit_count}}</td>
-                  <td>{{number_format($others_breakdown->unit_subtotal)}}</td>
-                </tr>
-                @endif
-                @endforeach
-              </tbody>
-              <tbody class="others_result">
-                <tr>
-                  <td colspan="2"></td>
-                  <td colspan="1"></td>
-                  <td colspan="2">合計：{{$other_bill->others_price}}
-                </tr>
-              </tbody>
-            </table>
-          </div>
-          @endif
-          <div class="bill_total">
-            <div>
-              <table class="table text-right">
-                <tbody>
-                  <tr>
-                    <td>小計：</td>
-                    <td>
-                      {{number_format($other_bill->master_subtotal)}}
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>消費税：</td>
-                    <td>
-                      {{number_format($other_bill->master_tax)}}
-                    </td>
-                  </tr>
-                  <tr>
-                    <td class="font-weight-bold">合計金額</td>
-                    <td>
-                      {{number_format($other_bill->master_total)}}
-                    </td>
-                  </tr>
-                </tbody>
-              </table>
-            </div>
-          </div>
+        @if ($other_bill->others_price!=0||$other_bill->others_price)
+        <div class="others billdetails_content">
+          <table class="table table-borderless">
+            <tbody>
+              <tr>
+                <td colspan="5">
+                  　<h4 class="billdetails_content_ttl">
+                    その他
+                  </h4>
+                </td>
+              </tr>
+            </tbody>
+            <tbody class="others_head">
+              <tr>
+                <td>内容</td>
+                <td>単価</td>
+                <td>数量</td>
+                <td>金額</td>
+              </tr>
+            </tbody>
+            <tbody class="others_main">
+              @foreach ($other_bill->breakdowns()->get() as $others_breakdown)
+              @if ($others_breakdown->unit_type==5)
+              <tr>
+                <td>{{$others_breakdown->unit_item}}</td>
+                <td>{{number_format($others_breakdown->unit_cost)}}</td>
+                <td>{{$others_breakdown->unit_count}}</td>
+                <td>{{number_format($others_breakdown->unit_subtotal)}}</td>
+              </tr>
+              @endif
+              @endforeach
+            </tbody>
+            <tbody class="others_result">
+              <tr>
+                <td colspan="2"></td>
+                <td colspan="1"></td>
+                <td colspan="2">合計：{{$other_bill->others_price}}
+              </tr>
+            </tbody>
+          </table>
         </div>
-      </div>
-    </div>
-
-    <div class="information">
-      <div class="information_details">
-        <div class="head d-flex">
-          <div class="accordion_btn">
-            <i class="fas fa-plus bill_icon_size hide" aria-hidden="true"></i>
-            <i class="fas fa-minus bill_icon_size" aria-hidden="true"></i>
-          </div>
-          <div class="billdetails_ttl">
-            <h3>
-              請求書情報
-            </h3>
-          </div>
-        </div>
-        <div class="main hide">
-          <div class="informations billdetails_content">
-            <table class="table">
+        @endif
+        <div class="bill_total">
+          <div>
+            <table class="table text-right">
               <tbody>
                 <tr>
-                  <td>請求日：</td>
-                  <td>支払期日：{{ReservationHelper::formatDate($other_bill->payment_limit)}}
-                  </td>
-                </tr>
-                <tr>
-                  <td>請求書宛名：
-                    {{($other_bill->bill_company)}}
-                  </td>
+                  <td>小計：</td>
                   <td>
-                    担当者：
-                    {{$other_bill->bill_person}}
+                    {{number_format($other_bill->master_subtotal)}}
                   </td>
                 </tr>
                 <tr>
-                  <td colspan="2">請求書備考
-                    {{$other_bill->bill_remark}}
+                  <td>消費税：</td>
+                  <td>
+                    {{number_format($other_bill->master_tax)}}
+                  </td>
+                </tr>
+                <tr>
+                  <td class="font-weight-bold">合計金額</td>
+                  <td>
+                    {{number_format($other_bill->master_total)}}
                   </td>
                 </tr>
               </tbody>
@@ -1666,223 +1622,258 @@
         </div>
       </div>
     </div>
+  </div>
 
-    <div class="paid">
-      <div class="paid_details">
-        <div class="head d-flex">
-          <div class="d-flex align-items-center">
-            <h3 class="pl-3">
-              入金情報
-            </h3>
-          </div>
+  <div class="information">
+    <div class="information_details">
+      <div class="head d-flex">
+        <div class="accordion_btn">
+          <i class="fas fa-plus bill_icon_size hide" aria-hidden="true"></i>
+          <i class="fas fa-minus bill_icon_size" aria-hidden="true"></i>
         </div>
-        <div class="main">
-          <div class="paids billdetails_content">
-            <table class="table">
-              <tbody>
-                <tr>
-                  <td> {{$other_bill->paid==0?"未入金":"入金済"}}
-                  </td>
-                  <td>
-                    入金日
-                    {{$other_bill->pay_day}}
-                  </td>
-                </tr>
-                <tr>
-                  <td>振込人名 {{$other_bill->pay_person}}</td>
-                  <td>入金額 {{$other_bill->pay_person}}</td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
+        <div class="billdetails_ttl">
+          <h3>
+            請求書情報
+          </h3>
+        </div>
+      </div>
+      <div class="main hide">
+        <div class="informations billdetails_content">
+          <table class="table">
+            <tbody>
+              <tr>
+                <td>請求日：</td>
+                <td>支払期日：{{ReservationHelper::formatDate($other_bill->payment_limit)}}
+                </td>
+              </tr>
+              <tr>
+                <td>請求書宛名：
+                  {{($other_bill->bill_company)}}
+                </td>
+                <td>
+                  担当者：
+                  {{$other_bill->bill_person}}
+                </td>
+              </tr>
+              <tr>
+                <td colspan="2">請求書備考
+                  {{$other_bill->bill_remark}}
+                </td>
+              </tr>
+            </tbody>
+          </table>
         </div>
       </div>
     </div>
-    @if ($other_bill->double_check_status==0)
-    <div class="checkbox section-wrap">
-      <dl class="d-flex col-12 justify-content-end align-items-center">
-        <dt><label for="checkname">一人目チェック者</label></dt>
-        <dd>
-          {{ Form::open(['url' => 'admin/bills/other_doublecheck', 'method'=>'POST']) }}
-          @csrf
-          {{Form::select('double_check1_name', [
+  </div>
+
+  <div class="paid">
+    <div class="paid_details">
+      <div class="head d-flex">
+        <div class="d-flex align-items-center">
+          <h3 class="pl-3">
+            入金情報
+          </h3>
+        </div>
+      </div>
+      <div class="main">
+        <div class="paids billdetails_content">
+          <table class="table">
+            <tbody>
+              <tr>
+                <td> {{$other_bill->paid==0?"未入金":"入金済"}}
+                </td>
+                <td>
+                  入金日
+                  {{$other_bill->pay_day}}
+                </td>
+              </tr>
+              <tr>
+                <td>振込人名 {{$other_bill->pay_person}}</td>
+                <td>入金額 {{$other_bill->pay_person}}</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+  @if ($other_bill->double_check_status==0)
+  <div class="checkbox section-wrap">
+    <dl class="d-flex col-12 justify-content-end align-items-center">
+      <dt><label for="checkname">一人目チェック者</label></dt>
+      <dd>
+        {{ Form::open(['url' => 'admin/bills/other_doublecheck', 'method'=>'POST']) }}
+        @csrf
+        {{Form::select('double_check1_name', [
         '名前test1' => '名前test1', 
         '名前test2' => '名前test2',
         '名前test3' => '名前test3',
         '名前test4' => '名前test4',], 
         null, ['placeholder' => '選択してください', 'class'=>'form-control double_check1_name'])}}
-          {{ Form::hidden('double_check_status', $other_bill->double_check_status ) }}
-          {{ Form::hidden('bills_id', $other_bill->id ) }}
-        </dd>
-        <dd class="ml-2">
-          <p class="text-right">
-            {{Form::submit('チェック完了', ['class'=>'btn more_btn', 'id'=>'double_check1_submit'])}}
-            {{ Form::close() }}
-          </p>
-        </dd>
-      </dl>
-    </div>
-    @elseif($other_bill->double_check_status==1)
-    <div class="checkbox section-wrap">
-      <dl class="d-flex col-12 justify-content-end align-items-center">
-        <dt><label for="checkname">二人目チェック者</label></dt>
-        <dd>
-          {{ Form::open(['url' => 'admin/bills/other_doublecheck', 'method'=>'POST']) }}
-          @csrf
-          {{Form::select('double_check2_name', [
+        {{ Form::hidden('double_check_status', $other_bill->double_check_status ) }}
+        {{ Form::hidden('bills_id', $other_bill->id ) }}
+      </dd>
+      <dd class="ml-2">
+        <p class="text-right">
+          {{Form::submit('チェック完了', ['class'=>'btn more_btn', 'id'=>'double_check1_submit'])}}
+          {{ Form::close() }}
+        </p>
+      </dd>
+    </dl>
+  </div>
+  @elseif($other_bill->double_check_status==1)
+  <div class="checkbox section-wrap">
+    <dl class="d-flex col-12 justify-content-end align-items-center">
+      <dt><label for="checkname">二人目チェック者</label></dt>
+      <dd>
+        {{ Form::open(['url' => 'admin/bills/other_doublecheck', 'method'=>'POST']) }}
+        @csrf
+        {{Form::select('double_check2_name', [
         '名前test1' => '名前test1', 
         '名前test2' => '名前test2',
         '名前test3' => '名前test3',
         '名前test4' => '名前test4',], 
         null, ['placeholder' => '選択してください', 'class'=>'form-control double_check2_name'])}}
-          {{ Form::hidden('double_check_status', $other_bill->double_check_status ) }}
-          {{ Form::hidden('bills_id', $other_bill->id ) }}
-        </dd>
-        <dd class="ml-2">
-          <p class="text-right">
-            {{Form::submit('チェック完了', ['class'=>'btn more_btn', 'id'=>'double_check2_submit'])}}
-            {{ Form::close() }}
-          </p>
-        </dd>
-      </dl>
-    </div>
-    @endif
-
-
-  </section>
-  @endforeach
-
-  <!-- 合計請求額------------------------------------------------------------------- -->
-  @if ($reservation->user_id>0)
-  <section class="master_totals border-wrap">
-    <table class="table ">
-      <tbody class="master_total_head">
-        <tr>
-          <td>
-            <h3>
-              合計請求額
-            </h3>
-          </td>
-        </tr>
-      </tbody>
-      <tr>
-        <td class="master_total_subttl">
-        <h4 colspan="2">内訳</h4>
-        </td>
-      </tr>
-      <tbody class="master_total_body">
-        <tr>
-          <td>・会場料</td>
-          <td>{{number_format($venues_master)}}円</td>
-        </tr>
-        <tr>
-          <td>・有料備品　サービス</td>
-          <td>{{number_format($items_master)}}円</td>
-        </tr>
-        <tr>
-          <td>・レイアウト変更料</td>
-          <td>{{number_format($layouts_master)}}円</td>
-        </tr>
-        <tr>
-          <td>・その他</td>
-          <td>{{number_format($others_master)}}円</td>
-        </tr>
-      </tbody>
-      <tbody class="master_total_bottom">
-        <tr>
-          <td></td>
-          <td>
-            <div class="d-flex">
-              <p>小計：</p>
-              <p>{{number_format($all_master_subtotal)}}円</p>
-            </div>
-          </td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>
-            <div class="d-flex">
-              <p>消費税：</p>
-              <p>{{number_format($all_master_tax)}}円</p>
-            </div>
-          </td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>
-            <div class="d-flex">
-              <p>合計金額：</p>
-              <p>{{number_format($all_master_total)}}円</p>
-            </div>
-          </td>
-        </tr>
-      </tbody>
-    </table>
-    <div class="payment_situation d-flex justify-content-around">
-      <div class="d-flex">
-        <p>合計入金額</p>
-        <p>円</p>
-      </div>
-      <div class="d-flex">
-        <p>未入金額</p>
-        <p>円</p>
-      </div>
-    </div>
-  </section>
-  @else
-  <div class="master_totals mt-5 mb-5">
-    <table class="table ">
-      <tbody class="master_total_head">
-        <tr>
-          <td>
-            <h3>
-              合計請求額
-            </h3>
-          </td>
-          <td></td>
-        </tr>
-      </tbody>
-      <tbody class="master_total_bottom">
-        <tr>
-          <td></td>
-          <td>
-            <div class="d-flex">
-              <p>小計：</p>
-              <p>{{number_format($master_subtotals)}}円</p>
-            </div>
-          </td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>
-            <div class="d-flex">
-              <p>消費税：</p>
-              <p>{{number_format($master_taxs)}}円</p>
-            </div>
-          </td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>
-            <div class="d-flex">
-              <p>合計金額：</p>
-              <p>{{number_format($master_totals)}}円</p>
-            </div>
-          </td>
-        </tr>
-      </tbody>
-    </table>
-    <div class="payment_situation d-flex justify-content-around">
-      <div class="d-flex">
-        <p>合計入金額</p>
-        <p>円</p>
-      </div>
-      <div class="d-flex">
-        <p>未入金額</p>
-        <p>円</p>
-      </div>
-    </div>
+        {{ Form::hidden('double_check_status', $other_bill->double_check_status ) }}
+        {{ Form::hidden('bills_id', $other_bill->id ) }}
+      </dd>
+      <dd class="ml-2">
+        <p class="text-right">
+          {{Form::submit('チェック完了', ['class'=>'btn more_btn', 'id'=>'double_check2_submit'])}}
+          {{ Form::close() }}
+        </p>
+      </dd>
+    </dl>
   </div>
   @endif
 
-  @endsection
+
+</section>
+@endforeach
+
+<!-- 合計請求額------------------------------------------------------------------- -->
+@if ($reservation->user_id>0)
+<section class="master_totals border-wrap">
+  <table class="table ">
+    <tbody class="master_total_head">
+      <tr>
+        <td colspan="2">
+          <h3>
+            合計請求額
+          </h3>
+        </td>
+      </tr>
+    </tbody>
+    <tr>
+      <td class="master_total_subttl">
+        <h4 colspan="2">内訳</h4>
+      </td>
+    </tr>
+    <tbody class="master_total_body">
+      <tr>
+        <td>・会場料</td>
+        <td>{{number_format($venues_master)}}円</td>
+      </tr>
+      <tr>
+        <td>・有料備品　サービス</td>
+        <td>{{number_format($items_master)}}円</td>
+      </tr>
+      <tr>
+        <td>・レイアウト変更料</td>
+        <td>{{number_format($layouts_master)}}円</td>
+      </tr>
+      <tr>
+        <td>・その他</td>
+        <td>{{number_format($others_master)}}円</td>
+      </tr>
+    </tbody>
+    <tbody class="master_total_bottom">
+      <tr>
+        <td></td>
+        <td>
+          <div class="d-flex ">
+            <p>小計：</p>
+            <p>{{number_format($all_master_subtotal)}}円</p>
+          </div>
+        </td>
+      </tr>
+      <tr>
+        <td></td>
+        <td>
+          <div class="d-flex">
+            <p>消費税：</p>
+            <p>{{number_format($all_master_tax)}}円</p>
+          </div>
+        </td>
+      </tr>
+      <tr>
+        <td></td>
+        <td>
+          <div class="d-flex">
+            <p>合計金額：</p>
+            <p>{{number_format($all_master_total)}}円</p>
+          </div>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+  <div class="payment_situation d-flex justify-content-around">
+    <div class="d-flex">
+      <p>合計入金額</p>
+      <p>円</p>
+    </div>
+    <div class="d-flex">
+      <p>未入金額</p>
+      <p>円</p>
+    </div>
+  </div>
+</section>
+@else
+<div class="master_totals mt-5 mb-5">
+  <table class="table ">
+    <tbody class="master_total_head">
+      <tr>
+        <td>
+          <h3>
+            合計請求額
+          </h3>
+        </td>
+        <td></td>
+      </tr>
+    </tbody>
+    <tbody class="master_total_bottom">
+      <tr>
+        <td class="d-flex justify-content-end" colspan="2">
+          <p>小計：</p>
+          <p>{{number_format($master_subtotals)}}円</p>
+        </td>
+      </tr>
+      <tr>
+        <td class="d-flex justify-content-end" colspan="2">
+          <p>消費税：</p>
+          <p>{{number_format($master_taxs)}}円</p>
+        </td>
+      </tr>
+      <tr>
+        <td class="d-flex justify-content-end" colspan="2">
+          <p>合計金額：</p>
+          <p>{{number_format($master_totals)}}円</p>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+  <div class="payment_situation">
+    <div class="d-flex">
+      <p>合計入金額</p>
+      <p>円</p>
+    </div>
+    <div class="d-flex">
+      <p>未入金額</p>
+      <p>円</p>
+    </div>
+  </div>
+</div>
+@endif
+
+@endsection
