@@ -18,10 +18,11 @@ class SendPreuser extends Mailable
    *
    * @return void
    */
-  public function __construct($id, $token)
+  public function __construct($id, $token, $email)
   {
     $this->id = $id;
     $this->token = $token;
+    $this->email = $email;
   }
   /**
    * Build the message.
@@ -31,6 +32,11 @@ class SendPreuser extends Mailable
   public function build()
   {
     return $this->view('user.preusers.create')
-      ->subject('メール認証をお願いします')->with(['id' => $this->id, 'token' => $this->token]);
+      ->subject('メール認証をお願いします')
+      ->with([
+        'id' => $this->id,
+        'token' => $this->token,
+        'email' => $this->email,
+      ]);
   }
 }

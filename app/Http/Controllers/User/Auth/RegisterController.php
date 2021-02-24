@@ -14,56 +14,57 @@ use App\Models\User;
 
 class RegisterController extends Controller
 {
-    use RegistersUsers;
+  use RegistersUsers;
 
-    protected $redirectTo = RouteServiceProvider::HOME;
+  protected $redirectTo = RouteServiceProvider::HOME;
 
-    /**
-     * Create a new controller instance.
-     *
-     * @return void
-     */
-    public function __construct()
-    {
-        $this->middleware('guest:user');
-    }
+  /**
+   * Create a new controller instance.
+   *
+   * @return void
+   */
+  public function __construct()
+  {
+    $this->middleware('guest:user');
+  }
 
-    protected function guard()
-    {
-        return Auth::guard('user');
-    }
+  protected function guard()
+  {
+    return Auth::guard('user');
+  }
 
-    public function showRegistrationForm()
-    {
-        return view('user.auth.register');
-    }
+  public function showRegistrationForm(Request $request)
+  {
+    $email = $request->email;
+    return view('user.auth.register', compact('email'));
+  }
 
-    protected function validator(array $data)
-    {
-        return Validator::make($data, [
-            'email'    => ['required', 'string', 'email', 'max:255', 'unique:users'],
-            'password' => ['required', 'string', 'min:8', 'confirmed'],
-            'first_name'     => ['required', 'string', 'max:255'],
-            'last_name'     => ['required', 'string', 'max:255'],
-            'company'     => ['required', 'string', 'max:255'],
-        ]);
-    }
+  protected function validator(array $data)
+  {
+    return Validator::make($data, [
+      'email'    => ['required', 'string', 'email', 'max:255', 'unique:users'],
+      'password' => ['required', 'string', 'min:8', 'confirmed'],
+      'first_name'     => ['required', 'string', 'max:255'],
+      'last_name'     => ['required', 'string', 'max:255'],
+      'company'     => ['required', 'string', 'max:255'],
+    ]);
+  }
 
-    protected function create(array $data)
-    {
-        return User::create([
-            'first_name'     => $data['first_name'],
-            'last_name'     => $data['last_name'],
-            'email'    => $data['email'],
-            'password' => Hash::make($data['password']),
-            'company' =>  $data['company'],
-            'post_code' =>  $data['post_code'],
-            'address1' =>  $data['address1'],
-            'address2' =>  $data['address2'],
-            'address3' =>  $data['address3'],
-            'first_name_kana' =>  $data['first_name_kana'],
-            'last_name_kana' =>  $data['last_name_kana'],
-            'status' => 1,
-        ]);
-    }
+  protected function create(array $data)
+  {
+    return User::create([
+      'first_name'     => $data['first_name'],
+      'last_name'     => $data['last_name'],
+      'email'    => $data['email'],
+      'password' => Hash::make($data['password']),
+      'company' =>  $data['company'],
+      'post_code' =>  $data['post_code'],
+      'address1' =>  $data['address1'],
+      'address2' =>  $data['address2'],
+      'address3' =>  $data['address3'],
+      'first_name_kana' =>  $data['first_name_kana'],
+      'last_name_kana' =>  $data['last_name_kana'],
+      'status' => 1,
+    ]);
+  }
 }

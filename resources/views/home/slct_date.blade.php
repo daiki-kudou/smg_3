@@ -362,70 +362,78 @@
             <iframe src="{{url('').'/admin/calendar/date_calendar'}}" width="100%" height="400px"></iframe>
           </div>
 
-          <form name="form" id="form" action="https://osaka-conference.com/contact/check.php" next="false"
-            method="post">
-            <h2 class="sub-ttl">選択した日程</h2>
-            <div class="bgColorGray first">
-              <table>
-                <tr>
-                  <th>利用日</th>
-                  <td>
-                    {{ReservationHelper::formatDate($request->date)}}
-                  </td>
-                </tr>
-                <tr>
-                  <th>利用会場 <span class="txtRed">＊</span></th>
-                  <td>
-                    <div class="selectWrap long">
-                      <select name="room01" id="">
-                        @foreach ($venues as $venue)
-                        <option value="{{$venue->id}}">{{ReservationHelper::getVenue($venue->id)}}</option>
-                        @endforeach
-                      </select>
-                    </div>
-                    <a name="a-room01" class="error-r"></a>
-                  </td>
-                </tr>
+          {{-- <form name="form" id="form" action="https://osaka-conference.com/contact/check.php" next="false"
+            method="post"> --}}
+          {{Form::open(['url' => 'user/reservations/create', 'method' => 'post', 'class'=>'search'])}}
+          @csrf
 
-                <tr>
-                  <th>入室時間 <span class="txtRed">＊</span></th>
-                  <td>
-                    <div class="selectWrap">
-                      <select name="" class="timeScale"></select>
-                    </div>
-                    <a name="a-time01" class="error-r"></a>
-                    <p>
-                      <span>入室時間より以前に入室はできません。
-                        <br>
-                        確認の上、チェックボックスをクリックしてください。</span>
-                    </p>
-                    <p class="checkbox-txt">
-                      <span class="txtRed">＊</span>
-                      <input type="checkbox" name="q1" value="確認しました"> 確認しました
-                    </p>
-                  </td>
-                </tr>
+          <h2 class="sub-ttl">選択した日程</h2>
+          <div class="bgColorGray first">
+            <table>
+              <tr>
+                <th>利用日</th>
+                <td>
+                  {{ReservationHelper::formatDate($request->date)}}
+                  {{ Form::hidden('date', date('Y-m-d',strtotime($request->date))) }}
+                </td>
+              </tr>
+              <tr>
+                <th>利用会場 <span class="txtRed">＊</span></th>
+                <td>
+                  <div class="selectWrap long">
+                    <select name="venue_id" id="">
+                      @foreach ($venues as $venue)
+                      <option value="{{$venue->id}}">{{ReservationHelper::getVenue($venue->id)}}</option>
+                      @endforeach
+                    </select>
+                  </div>
+                  <a name="a-room01" class="error-r"></a>
+                </td>
+              </tr>
+              <tr>
+                <th>入室時間
+                  <span class="txtRed">＊</span>
+                </th>
+                <td>
+                  <div class="selectWrap">
 
-                <tr>
-                  <th>退室時間 <span class="txtRed">＊</span></th>
-                  <td>
-                    <div class="selectWrap">
-                      <select name="" class="timeScale"></select>
-                    </div>
-                    <a name="a-time03" class="error-r"></a>
-                  </td>
-                </tr>
-              </table>
-            </div>
-          </form>
-
+                    <select name="enter_time" class="timeScale">
+                      {{!!ReservationHelper::timeOptionsWithDefault()!!}}
+                    </select>
+                  </div>
+                  <a name="a-time01" class="error-r"></a>
+                  <p>
+                    <span>入室時間より以前に入室はできません。
+                      <br>
+                      確認の上、チェックボックスをクリックしてください。</span>
+                  </p>
+                  <p class="checkbox-txt">
+                    <span class="txtRed">＊</span>
+                    <input type="checkbox" name="q1" value="確認しました"> 確認しました
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <th>退室時間 <span class="txtRed">＊</span></th>
+                <td>
+                  <div class="selectWrap">
+                    <select name="leave_time" class="timeScale">
+                      {{!!ReservationHelper::timeOptionsWithDefault()!!}}
+                    </select>
+                  </div>
+                  <a name="a-time03" class="error-r"></a>
+                </td>
+              </tr>
+            </table>
+          </div>
           <div class="btn-wrapper2">
             <p class="confirm-btn">
-              <a>日時を選択する</a>
+              {{-- <a>日時を選択する</a> --}}
+              {{ Form::submit('日時を選択する', ['class' => 'btn btn-primary']) }}
+
             </p>
           </div>
-
-
+          {{Form::close()}}
         </div>
       </section>
 
@@ -721,19 +729,18 @@ if (typeof(conv_handler) == 'function') {
 	});
     
     // 時間セレクトループ
-    $(function(){
-for (var i=8; i<=23; i++) {
-  for(var ii=1; ii<=2; ii++){
-    var judge="";
-    ii%2==0?judge='30':judge='00';
-    if (i==23&&ii==2) {
-      continue;
-    }
-   $('.timeScale').append("<option value='"+i+':'+judge+"'>"+i+':'+judge+"</option>"); 
-   console.log(i,ii);
-  }
-}
-})
+  // $(function(){
+  // for (var i=8; i<=23; i++) {
+  // for(var ii=1; ii<=2; ii++){
+  // var judge="";
+  // ii%2==0?judge='30':judge='00';
+  // if (i==23&&ii==2) {
+  // continue;
+  // }
+  // $('.timeScale').append("<option value='"+i+':'+judge+"'>"+i+':'+judge+"</option>"); 
+  // }
+  // }
+  // })
 
   });
   </script>

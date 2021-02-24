@@ -37,7 +37,7 @@ class PreusersController extends Controller
     $id = $request->id;
     $token = $request->token;
     $email = $request->email;
-    Mail::to($email)->send(new SendPreuser($id, $token));
+    Mail::to($email)->send(new SendPreuser($id, $token, $email));
     return redirect(route('user.preusers.complete', ['email' => $email]));
   }
   // 会員登録
@@ -91,7 +91,7 @@ class PreusersController extends Controller
    * @param  int  $id
    * @return \Illuminate\Http\Response
    */
-  public function show($id, $token)
+  public function show($id, $token, $email)
   {
     $preuser_check = Preuser::where('id', $id)->where('token', $token)->exists();
     $time_check = Preuser::find($id)->expiration_datetime;
@@ -100,7 +100,7 @@ class PreusersController extends Controller
       if ($preuser_check) {
         $preuser->status = 1;
         $preuser->save();
-        return redirect(route('user.register', ['id' => $id, 'token' => $token, 'status' => 1,]));
+        return redirect(route('user.register', ['id' => $id, 'token' => $token, 'status' => 1, 'email' => $email]));
       } else {
         // トークンなど合致しなければルートへ
         return redirect('/');
