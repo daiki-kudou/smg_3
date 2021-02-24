@@ -44,8 +44,6 @@ class AgentsReservationsController extends Controller
 
     $requests = $request->all();
 
-    // var_dump($request->all());
-
     $carbon1 = new Carbon($request->enter_time);
     $carbon2 = new Carbon($request->leave_time);
 

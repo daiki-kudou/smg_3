@@ -6,6 +6,8 @@ use App\Models\Venue;
 use App\Models\User;
 use App\Models\Agent;
 
+use Carbon\Carbon;
+
 
 class ReservationHelper
 {
@@ -99,11 +101,13 @@ class ReservationHelper
     $user = User::find($user_id);
     return $user->email;
   }
+
   public static function getPersonMobile($user_id)
   {
     $user = User::find($user_id);
     return $user->mobile;
   }
+
   public static function getPersonTel($user_id)
   {
     $user = User::find($user_id);
@@ -115,10 +119,29 @@ class ReservationHelper
     $agent = Agent::find($agent_id);
     return $agent->person_firstname . $agent->person_lastname;
   }
+
   public static function getAgentCompany($agent_id)
   {
     $agent = Agent::find($agent_id);
     return $agent->name;
+  }
+
+  public static function getAgentEmail($agent_id)
+  {
+    $agent = Agent::find($agent_id);
+    return $agent->email;
+  }
+
+  public static function getAgentTel($agent_id)
+  {
+    $agent = Agent::find($agent_id);
+    return $agent->person_tel;
+  }
+
+  public static function getAgentMobile($agent_id)
+  {
+    $agent = Agent::find($agent_id);
+    return $agent->person_mobile;
   }
 
   public static function getAttr($user_id)
@@ -197,5 +220,85 @@ class ReservationHelper
     }
     $result =  implode('', $arrays);
     return str_replace('"', '', $result);
+  }
+
+  public static function numTimesNum($num1, $num2)
+  {
+    return (int)$num1 * (int)$num2;
+  }
+
+  public static function getUsage($enter_time, $leave_time)
+  {
+    $carbon1 = new Carbon($enter_time);
+    $carbon2 = new Carbon($leave_time);
+
+    $usage_hours = $carbon1->diffInMinutes($carbon2);
+    $usage_hours = $usage_hours / 60;
+    return $usage_hours;
+  }
+
+  public static function checkAgentOrUserCompany($user_id, $agent_id)
+  {
+    if ($user_id > 0) {
+      if ($user_id == 999) {
+        return "未登録ユーザー";
+      } else {
+        return ReservationHelper::getCompany($user_id);
+      }
+    } else {
+      return ReservationHelper::getAgentCompany($agent_id);
+    }
+  }
+
+  public static function checkAgentOrUserName($user_id, $agent_id)
+  {
+    if ($user_id > 0) {
+      if ($user_id == 999) {
+        return "";
+      } else {
+        return ReservationHelper::getPersonName($user_id);
+      }
+    } else {
+      return ReservationHelper::getAgentPerson($agent_id);
+    }
+  }
+
+  public static function checkAgentOrUserEmail($user_id, $agent_id)
+  {
+    if ($user_id > 0) {
+      if ($user_id == 999) {
+        return "";
+      } else {
+        return ReservationHelper::getPersonEmail($user_id);
+      }
+    } else {
+      return ReservationHelper::getAgentEmail($agent_id);
+    }
+  }
+
+  public static function checkAgentOrUserMobile($user_id, $agent_id)
+  {
+    if ($user_id > 0) {
+      if ($user_id == 999) {
+        return "";
+      } else {
+        return ReservationHelper::getPersonMobile($user_id);
+      }
+    } else {
+      return ReservationHelper::getAgentMobile($agent_id);
+    }
+  }
+
+  public static function checkAgentOrUserTel($user_id, $agent_id)
+  {
+    if ($user_id > 0) {
+      if ($user_id == 999) {
+        return "";
+      } else {
+        return ReservationHelper::getPersonTel($user_id);
+      }
+    } else {
+      return ReservationHelper::getAgentMobile($agent_id);
+    }
   }
 }

@@ -64,6 +64,31 @@ class VenuesTableSeeder extends Seeder
         'layout_prepare' => 5000,
         'layout_clean' => 8000
       ],
+      [
+        'alliance_flag' => 0,
+        'name_area' => 'トリックスター',
+        'name_bldg' => 'We Work',
+        'name_venue' => '執務室',
+        'size1' => 18,
+        'size2' => 50,
+        'capacity' => 20,
+        'eat_in_flag' => 1,
+        'post_code' => 'test',
+        'address1' => 'test',
+        'address2' => 'test',
+        'address3' => 'test',
+        'luggage_flag' => 1,
+        'luggage_post_code' => 'test',
+        'luggage_address1' => 'test',
+        'luggage_address2' => 'test',
+        'luggage_address3' => 'test',
+        'luggage_name' => 'test',
+        'luggage_tel' => 'test',
+        'smg_url' => 'https://osaka-conference.com/rental/',
+        'layout' => 1,
+        'layout_prepare' => 5000,
+        'layout_clean' => 8000
+      ],
     ]);
   }
 }

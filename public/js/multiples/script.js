@@ -1,6 +1,5 @@
 $(function () {
   //アコーディオン
-
   $(function () {
     $(".accordion-wrap").hide();
     $(".accordion-ttl").on("click", function () {
@@ -8,7 +7,6 @@ $(function () {
       $(".title-icon").toggleClass("active");
     });
   });
-
 
   $(function () {
     $(".accordion-wrap").hide();
@@ -25,8 +23,6 @@ $(function () {
     });
   });
 
-
-
   // 追加請求　その他ラジオボタン-------------------------
   $(function () {
     $('input[name="billcategory"]:radio').change(function () {
@@ -38,7 +34,6 @@ $(function () {
       }
     });
   });
-
 
   // 追加請求　ラジオボタン-------------------------
   $(function () {
@@ -60,20 +55,11 @@ $(function () {
     });
   });
 
-  // daterange picker--------------------------------------------
-  $(function () {
-    $('input[name="daterange"]').daterangepicker({
-      opens: 'right',
-
-    },
-      function (start, end, label) {
-        console.log("A new date selection was made: " + start.format('YYYY-MM-DD') + ' to ' + end.format('YYYY-MM-DD'));
-      });
-  });
-
-
   //   ドラッグアンドドロップ------------------------------------------
   $(function () {
     $("#sortableArea").sortable();
   });
-})
+});
+
+
+$

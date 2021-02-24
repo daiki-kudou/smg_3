@@ -119,6 +119,8 @@ class BillsController extends Controller
     var_dump($request->all());
     echo "</pre>";
 
+    DB::transaction(function () use ($request) {
+    });
 
     DB::transaction(function () use ($request) { //トランザクションさせる
       $bill = Bill::create([

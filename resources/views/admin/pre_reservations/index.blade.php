@@ -389,10 +389,19 @@
             <td>{{$pre_reservation->enter_time}}</td>
             <td>{{$pre_reservation->leave_time}}</td>
             <td>{{ReservationHelper::getVenue($pre_reservation->venue_id)}}</td>
-            <td>{{$pre_reservation->user_id==999?"未登録ユーザー":ReservationHelper::getCompany($pre_reservation->user_id)}}
+            {{-- <td>{{$pre_reservation->user_id==999?"未登録ユーザー":ReservationHelper::getCompany($pre_reservation->user_id)}}
             <td>{{$pre_reservation->user_id==999?"":ReservationHelper::getPersonName($pre_reservation->user_id)}}
             <td>{{$pre_reservation->user_id==999?"":ReservationHelper::getPersonMobile($pre_reservation->user_id)}}</td>
             <td>{{$pre_reservation->user_id==999?"":ReservationHelper::getPersonTel($pre_reservation->user_id)}}</td>
+            --}}
+            <td>{{ReservationHelper::checkAgentOrUserCompany($pre_reservation->user_id, $pre_reservation->agent_id)}}
+            </td>
+            <td>{{ReservationHelper::checkAgentOrUserName($pre_reservation->user_id, $pre_reservation->agent_id)}}</td>
+            <td>{{ReservationHelper::checkAgentOrUserMobile($pre_reservation->user_id, $pre_reservation->agent_id)}}
+            </td>
+            <td>{{ReservationHelper::checkAgentOrUserTel($pre_reservation->user_id, $pre_reservation->agent_id)}}</td>
+
+
             <td>{{$pre_reservation->agent_id==0?"":$pre_reservation->agent_id}}</td>
             <td>{{$pre_reservation->agent_id==0?"":$pre_reservation->agent_id}}</td>
             <td>{{$pre_reservation->agent_id==0?"":$pre_reservation->agent_id}}</td>

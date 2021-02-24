@@ -617,38 +617,7 @@
                 </td>
               </tr>
             </tbody>
-            {{-- <tbody class="venue_result">
-              <tr>
-                <td colspan="2"></td>
-                <td colspan="2">合計
-                </td>
-              </tr>
-            </tbody> --}}
-            {{-- <tbody class="venue_discount">
-              <tr>
-                <td>割引計算欄</td>
-                <td>
-                  <p>
-                    割引金額
-                  </p>
-                  <div class="d-flex">
 
-                    <p>円</p>
-                  </div>
-                </td>
-                <td>
-                  <p>
-                    割引率
-                  </p>
-                  <div class="d-flex">
-                    <p>%</p>
-                  </div>
-                </td>
-                <td>
-                  <input class="btn btn-success venue_discount_btn" type="button" value="計算する">
-                </td>
-              </tr>
-            </tbody> --}}
           </table>
         </div>
 

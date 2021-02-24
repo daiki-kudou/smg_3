@@ -9,6 +9,29 @@
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 <div class="content">
   <div class="container-fluid">
     <div class="container-field mt-3">
@@ -449,7 +472,7 @@
     {{-- jsで仮抑えの件数判別のためのhidden --}}
     {{ Form::hidden('', $multiple->pre_reservations()->where('venue_id',$venue->id)->get()->count(),['id'=>'counts_reserve']) }}
     {{-- 以下、pre_reservationの数分　ループ --}}
-    @foreach ($multiple->pre_reservations()->where('venue_id',$venue->id)->get() as $key=>$pre_reservation)
+    @foreach ($multiple->getPreReservations($venue->id) as $key=>$pre_reservation)
     {{ Form::open(['url' => 'admin/multiples/'.$multiple->id."/edit/".$venue->id.'/calculate/'.$pre_reservation->id.'/specific_update', 'method'=>'POST', 'id'=>'']) }}
     @csrf
     {{ Form::hidden('split_keys', $key) }}
@@ -518,12 +541,14 @@
                       </td>
                       <td>
                         <div class="">
-                          {{ Form::radio('price_system_copied'.$key, 1, $pre_reservation->price_system==1?true:false, ['class'=>'mr-2', 'id'=>'price_system_copied'.$key]) }}
-                          {{Form::label('price_system_copied'.$key,'通常（枠貸）')}}
-                        </div>
-                        <div>
-                          {{ Form::radio('price_system_copied'.$key, 2, $pre_reservation->price_system==2?true:false, ['class'=>'mr-2', 'id'=>'price_system_copied_off'.$key]) }}
-                          {{Form::label('price_system_copied_off'.$key,'アクセア（時間貸）')}}
+                          <div>
+                            {{ Form::radio('price_system_copied'.$key, 1, $request->cp_master_price_system==1?true:false, ['class'=>'mr-2', 'id'=>'price_system_copied'.$key]) }}
+                            {{Form::label('price_system_copied'.$key,'通常（枠貸）')}}
+                          </div>
+                          <div>
+                            {{ Form::radio('price_system_copied'.$key, 2, $request->cp_master_price_system==2?true:false, ['class'=>'mr-2', 'id'=>'price_system_copied_off'.$key]) }}
+                            {{Form::label('price_system_copied_off'.$key,'アクセア（時間貸）')}}
+                          </div>
                         </div>
                       </td>
                     </tr>
@@ -532,11 +557,11 @@
                       <td>
                         <div>
                           <div>
-                            {{ Form::radio('board_flag_copied'.$key, 1, $pre_reservation->board_flag==1?true:false, ['class'=>'mr-2', 'id'=>'board_flag_copied'.$key]) }}
-                            {{Form::label('board_flag_copied'.$key,'あり')}}
+                            {{ Form::radio('board_flag_copied'.$key, 1, $request->cp_master_board_flag==1?true:false, ['class'=>'mr-2', 'id'=>'board_flag_copied'.$key]) }}
+                            {{Form::label('board_flag1'.$key,'あり')}}
                           </div>
                           <div>
-                            {{ Form::radio('board_flag_copied'.$key, 0, $pre_reservation->board_flag==0?true:false, ['class'=>'mr-2', 'id'=>'board_flag_copied_off'.$key]) }}
+                            {{ Form::radio('board_flag_copied'.$key, 0, $request->cp_master_board_flag==0?true:false, ['class'=>'mr-2', 'id'=>'board_flag_copied_off'.$key]) }}
                             {{Form::label('board_flag_copied_off'.$key,'なし')}}
                           </div>
                         </div>
@@ -545,14 +570,14 @@
                     <tr>
                       <td class="table-active"><label for="eventTime">イベント時間記載</label></td>
                       <td>
-                        <div class="radio-box">
-                          <div class="icheck-primary">
-                            <input type="radio" id="eventTime" name="eventTime" checked="">
-                            <label for="eventTime">あり</label>
+                        <div>
+                          <div>
+                            {{ Form::radio('event_copied'.$key, 1, $request->cp_master_event==1?true:false, ['class'=>'mr-2', 'id'=>'event_copied'.$key]) }}
+                            {{Form::label('event1','あり')}}
                           </div>
-                          <div class="icheck-primary">
-                            <input type="radio" id="eventTime" name="eventTime" checked="">
-                            <label for="eventTime">なし</label>
+                          <div>
+                            {{ Form::radio('event_copied'.$key, 0, $request->cp_master_event==0?true:false, ['class'=>'mr-2', 'id'=>'event_copied_off'.$key]) }}
+                            {{Form::label('event_copied_off'.$key,'なし')}}
                           </div>
                         </div>
                       </td>
@@ -563,8 +588,8 @@
                         <select name="{{'event_start_copied'.$key}}" class="form-control">
                           <option disabled>選択してください</option>
                           @for ($start = 0*2; $start <=23*2; $start++) <option
-                            value="{{date("H:i:s", strtotime("00:00 +". $start * 30 ." minute"))}}" @if(date("H:i:s",
-                            strtotime("00:00 +". $start * 30 ." minute"))==$pre_reservation->enter_time)
+                            value="{{date("H:i:s", strtotime("00:00 +". $start * 30 ." minute"))}}" @if($request->
+                            cp_master_event_start==date("H:i:s", strtotime("00:00 +". $start * 30 ." minute")))
                             selected
                             @endif
                             >
@@ -576,12 +601,11 @@
                     <tr>
                       <td class="table-active"><label for="eventFinish">イベント終了時間</label></td>
                       <td>
-                        <select name="{{'event_finish_copied'.$key}}" id="{{'event_finish_copied'.$key}}"
-                          class="form-control">
+                        <select name="{{'event_finish_copied'.$key}}" class="form-control">
                           <option disabled>選択してください</option>
                           @for ($start = 0*2; $start <=23*2; $start++) <option
-                            value="{{date("H:i:s", strtotime("00:00 +". $start * 30 ." minute"))}}" @if (date("H:i:s",
-                            strtotime("00:00 +". $start * 30 ." minute"))==$pre_reservation->leave_time)
+                            value="{{date("H:i:s", strtotime("00:00 +". $start * 30 ." minute"))}}" @if($request->
+                            cp_master_event_finish==date("H:i:s", strtotime("00:00 +". $start * 30 ." minute")))
                             selected
                             @endif
                             >
@@ -593,24 +617,25 @@
                     <tr>
                       <td class="table-active"><label for="eventName1">イベント名称1</label></td>
                       <td>
-                        {{ Form::text('event_name1_copied'.$key,$pre_reservation->event_name1,['class'=>'form-control', 'placeholder'=>'入力してください'] ) }}
+                        {{ Form::text('event_name1_copied'.$key,$request->cp_master_event_name1,['class'=>'form-control', 'placeholder'=>'入力してください'] ) }}
                       </td>
                     </tr>
                     <tr>
                       <td class="table-active"><label for="eventName2">イベント名称2</label></td>
                       <td>
-                        {{ Form::text('event_name2_copied'.$key, $pre_reservation->event_name2,['class'=>'form-control', 'placeholder'=>'入力してください'] ) }}
+                        {{ Form::text('event_name2_copied'.$key,$request->cp_master_event_name2,['class'=>'form-control', 'placeholder'=>'入力してください'] ) }}
                       </td>
                     </tr>
                     <tr>
                       <td class="table-active"><label for="organizer">主催者名</label></td>
                       <td>
-                        {{ Form::text('event_owner'.$key, $pre_reservation->event_owner,['class'=>'form-control', 'placeholder'=>'入力してください'] ) }}
+                        {{ Form::text('event_owner'.$key, $request->cp_master_event_owner,['class'=>'form-control', 'placeholder'=>'入力してください'] ) }}
                       </td>
                     </tr>
                   </tbody>
                 </table>
-                <table class="table table-bordered equipment-table">
+
+                <table class="table table-bordered equipment-table" style="table-layout: fixed;">
                   <thead class="accordion-ttl">
                     <tr>
                       <th colspan="2">
@@ -619,28 +644,17 @@
                     </tr>
                   </thead>
                   <tbody class="accordion-wrap" style="display: none;">
-
                     @foreach ($venue->getEquipments() as $e_key=>$equipment)
                     <tr>
                       <td class="table-active">{{$equipment->item}}</td>
                       <td>
-                        @if ($pre_reservation->pre_breakdowns)
-                        @foreach ($pre_reservation->pre_breakdowns()->get() as $pre_re)
-                        @if ($pre_re->unit_item==$equipment->item)
-                        {{Form::text('equipment_breakdown' . $e_key.'_copied'.$key , $pre_re->unit_count, ['class' => 'form-control'])}}
-                        @break
-                        @elseif($loop->last)
-                        {{Form::text('equipment_breakdown' . $e_key.'_copied'.$key , '', ['class' => 'form-control'])}}
-                        @endif
-                        @endforeach
-                        @else
-                        {{Form::text('equipment_breakdown' . $e_key.'_copied'.$key , '', ['class' => 'form-control'])}}
-                        @endif
+                        {{Form::text('equipment_breakdown'.$e_key.'_copied'.$key , $request->{'cp_master_equipment_breakdown'.$e_key}, ['class' => 'form-control'])}}
                       </td>
                     </tr>
                     @endforeach
                   </tbody>
                 </table>
+
                 <table class="table table-bordered service-table">
                   <thead class="accordion-ttl">
                     <tr>
@@ -654,33 +668,12 @@
                     <tr>
                       <td class="table-active">{{$service->item}}</td>
                       <td>
-                        @if ($pre_reservation->pre_breakdowns)
-                        @foreach ($pre_reservation->pre_breakdowns()->get() as $pre_re)
-                        @if ($pre_re->unit_item==$service->item)
                         <div class="form-check form-check-inline">
-                          {{Form::radio('services_breakdown'.$s_key.'_copied'.$key, 1, true , ['id' => 'services_breakdown'.$s_key.'_copied'.$key, 'class' => 'form-check-input'])}}
+                          {{Form::radio('services_breakdown'.$s_key.'_copied'.$key, 1, $request->{'cp_master_services_breakdown'.$s_key}==1?true:false , ['id' => 'services_breakdown'.$s_key.'_copied'.$key, 'class' => 'form-check-input'])}}
                           {{Form::label('services_breakdown'.$s_key.'_copied'.$key,'有り')}}
-                          {{Form::radio('services_breakdown'.$s_key.'_copied'.$key, 0, false, ['id' => 'services_breakdown'.$s_key.'_copied'.$key."off", 'class' => 'form-check-input'])}}
-                          {{Form::label('services_breakdown'.$s_key.'_copied'.$key."off",'無し')}}
+                          {{Form::radio('services_breakdown'.$s_key.'_copied'.$key, 0, $request->{'cp_master_services_breakdown'.$s_key}==0?true:false, ['id' => 'services_breakdown_off'.$s_key.'_copied'.$key, 'class' => 'form-check-input'])}}
+                          {{Form::label('services_breakdown_off'.$s_key.'_copied'.$key,'無し')}}
                         </div>
-                        @break
-                        @elseif($loop->last)
-                        <div class="form-check form-check-inline">
-                          {{Form::radio('services_breakdown'.$s_key.'_copied'.$key, 1, false , ['id' => 'services_breakdown'.$s_key.'_copied'.$key, 'class' => 'form-check-input'])}}
-                          {{Form::label('services_breakdown'.$s_key.'_copied'.$key,'有り')}}
-                          {{Form::radio('services_breakdown'.$s_key.'_copied'.$key, 0, true, ['id' => 'services_breakdown'.$s_key.'_copied'.$key."off", 'class' => 'form-check-input'])}}
-                          {{Form::label('services_breakdown'.$s_key.'_copied'.$key."off",'無し')}}
-                        </div>
-                        @endif
-                        @endforeach
-                        @else
-                        <div class="form-check form-check-inline">
-                          {{Form::radio('services_breakdown'.$s_key.'_copied'.$key, 1, false , ['id' => 'services_breakdown'.$s_key.'_copied'.$key, 'class' => 'form-check-input'])}}
-                          {{Form::label('services_breakdown'.$s_key.'_copied'.$key,'有り')}}
-                          {{Form::radio('services_breakdown'.$s_key.'_copied'.$key, 0, true, ['id' => 'services_breakdown'.$s_key.'_copied'.$key."off", 'class' => 'form-check-input'])}}
-                          {{Form::label('services_breakdown'.$s_key.'_copied'.$key."off",'無し')}}
-                        </div>
-                        @endif
                       </td>
                     </tr>
                     @endforeach
@@ -700,20 +693,10 @@
                       <td class="table-active">レイアウト準備</td>
                       <td>
                         <div class="form-check form-check-inline">
-                          @foreach ($pre_reservation->pre_breakdowns()->get() as $layout_prepares)
-                          @if ($layout_prepares->unit_item=="レイアウト準備料金")
-                          {{Form::radio('layout_prepare_copied'.$key, 1, true, ['id' => 'layout_prepare_copied'.$key, 'class' => 'form-check-input'])}}
+                          {{Form::radio('layout_prepare_copied'.$key, 1, $request->cp_master_layout_prepare==1?true:false, ['id' => 'layout_prepare_copied'.$key, 'class' => 'form-check-input'])}}
                           {{Form::label('layout_prepare_copied'.$key,'有り')}}
-                          {{Form::radio('layout_prepare_copied'.$key, 0, false, ['id' => 'no_layout_prepare_copied'.$key, 'class' => 'form-check-input'])}}
+                          {{Form::radio('layout_prepare_copied'.$key, 0, $request->cp_master_layout_prepare==0?true:false, ['id' => 'no_layout_prepare_copied'.$key, 'class' => 'form-check-input'])}}
                           {{Form::label('no_layout_prepare_copied'.$key,'無し')}}
-                          @break
-                          @elseif($loop->last)
-                          {{Form::radio('layout_prepare_copied'.$key, 1, false, ['id' => 'layout_prepare_copied'.$key, 'class' => 'form-check-input'])}}
-                          {{Form::label('layout_prepare_copied'.$key,'有り')}}
-                          {{Form::radio('layout_prepare_copied'.$key, 0, true, ['id' => 'no_layout_prepare_copied'.$key, 'class' => 'form-check-input'])}}
-                          {{Form::label('no_layout_prepare_copied'.$key,'無し')}}
-                          @endif
-                          @endforeach
                         </div>
                       </td>
                     </tr>
@@ -721,20 +704,10 @@
                       <td class="table-active">レイアウト片付け</td>
                       <td>
                         <div class="form-check form-check-inline">
-                          @foreach ($pre_reservation->pre_breakdowns()->get() as $layout_prepares)
-                          @if ($layout_prepares->unit_item=="レイアウト片付料金")
-                          {{Form::radio('layout_clean_copied'.$key, 1, true, ['id' => 'layout_clean_copied'.$key, 'class' => 'form-check-input'])}}
+                          {{Form::radio('layout_clean_copied'.$key, 1, $request->cp_master_layout_clean==1?true:false, ['id' => 'layout_clean_copied'.$key, 'class' => 'form-check-input'])}}
                           {{Form::label('layout_clean_copied'.$key,'有り')}}
-                          {{Form::radio('layout_clean_copied'.$key, 0, false, ['id' => 'no_layout_clean_copied'.$key, 'class' => 'form-check-input'])}}
+                          {{Form::radio('layout_clean_copied'.$key, 0, $request->cp_master_layout_clean==0?true:false, ['id' => 'no_layout_clean_copied'.$key, 'class' => 'form-check-input'])}}
                           {{Form::label('no_layout_clean_copied'.$key,'無し')}}
-                          @break
-                          @elseif($loop->last)
-                          {{Form::radio('layout_clean_copied'.$key, 1, false, ['id' => 'layout_clean_copied'.$key, 'class' => 'form-check-input'])}}
-                          {{Form::label('layout_clean_copied'.$key,'有り')}}
-                          {{Form::radio('layout_clean_copied'.$key, 0, true, ['id' => 'no_layout_clean_copied'.$key, 'class' => 'form-check-input'])}}
-                          {{Form::label('no_layout_clean_copied'.$key,'無し')}}
-                          @endif
-                          @endforeach
                         </div>
                       </td>
                     </tr>
@@ -750,40 +723,35 @@
                     </tr>
                   </thead>
                   <tbody class="accordion-wrap" style="display: none;">
+                    @if ($venue->getLuggage()===1)
                     <tr>
                       <td class="table-active">事前に預かる荷物<br>（個数）</td>
                       <td>
-                        {{ Form::text('luggage_count_copied'.$key, $pre_reservation->luggage_count,['class'=>'form-control'] ) }}
+                        {{ Form::text('luggage_count_copied'.$key, $request->cp_master_luggage_count,['class'=>'form-control'] ) }}
                       </td>
                     </tr>
                     <tr>
                       <td class="table-active">事前荷物の到着日<br>午前指定のみ</td>
                       <td>
-                        {{ Form::text('luggage_arrive_copied'.$key, $pre_reservation->luggage_arrive,['class'=>'form-control'] ) }}
+                        {{ Form::text('luggage_arrive_copied'.$key, $request->cp_master_luggage_arrive,['class'=>'form-control'] ) }}
                       </td>
                     </tr>
                     <tr>
                       <td class="table-active">事後返送する荷物</td>
                       <td>
-                        {{ Form::text('luggage_return_copied'.$key, $pre_reservation->luggage_return,['class'=>'form-control'] ) }}
+                        {{ Form::text('luggage_return_copied'.$key, $request->cp_master_luggage_return,['class'=>'form-control'] ) }}
                       </td>
                     </tr>
-
                     <tr>
                       <td class="table-active">荷物預かり/返送<br>料金</td>
                       <td>
-                        @foreach ($pre_reservation->pre_breakdowns()->get() as $lugg)
-                        @if ($lugg->unit_item=="荷物預かり/返送")
-                        {{ Form::text('luggage_price_copied'.$key, $lugg->unit_cost,['class'=>'form-control'] ) }}
-                        @break
-                        @elseif($loop->last)
-                        {{ Form::text('luggage_price_copied'.$key, '',['class'=>'form-control'] ) }}
-                        @endif
-                        @endforeach
+                        {{ Form::text('luggage_price_copied'.$key, $request->cp_master_luggage_price,['class'=>'form-control'] ) }}
                       </td>
                     </tr>
+                    @endif
                   </tbody>
                 </table>
+
                 <table class="table table-bordered eating-table">
                   <tbody>
                     <tr>
@@ -833,13 +801,13 @@
                       <tr>
                         <td class="table-active"><label for="ondayName">氏名</label></td>
                         <td>
-                          {{ Form::text('in_charge_copied'.$key, $pre_reservation->in_charge,['class'=>'form-control'] ) }}
+                          {{ Form::text('in_charge_copied'.$key, $request->cp_master_in_charge,['class'=>'form-control'] ) }}
                         </td>
                       </tr>
                       <tr>
                         <td class="table-active"><label for="mobilePhone">携帯番号</label></td>
                         <td>
-                          {{ Form::text('tel_copied'.$key, $pre_reservation->tel,['class'=>'form-control'] ) }}
+                          {{ Form::text('tel_copied'.$key, $request->cp_master_tel,['class'=>'form-control'] ) }}
                         </td>
                       </tr>
                     </tbody>
@@ -860,9 +828,9 @@
                       <td>
                         <div class="d-flex">
                           <div class="form-check form-check-inline">
-                            {{Form::radio('email_flag_copied'.$key, 1, $pre_reservation->email_flag==1?true:false, ['id' => 'email_flag_copied'.$key, 'class' => 'form-check-input'])}}
+                            {{Form::radio('email_flag_copied'.$key, 1, $request->cp_master_email_flag==1?true:false, ['id' => 'email_flag_copied'.$key, 'class' => 'form-check-input'])}}
                             {{Form::label('email_flag_copied'.$key,'有り',['class'=>'mr-5'])}}
-                            {{Form::radio('email_flag_copied'.$key, 0, $pre_reservation->email_flag==0?true:false, ['id' => 'no_email_flag_copied'.$key, 'class' => 'form-check-input'])}}
+                            {{Form::radio('email_flag_copied'.$key, 0, $request->cp_master_email_flag==0?true:false, ['id' => 'no_email_flag_copied'.$key, 'class' => 'form-check-input'])}}
                             {{Form::label('no_email_flag_copied'.$key,'無し')}}
                           </div>
                         </div>
@@ -883,7 +851,7 @@
                     <tr>
                       <td class="table-active"><label for="sale">原価率</label></td>
                       <td class="d-flex align-items-center">
-                        {{ Form::text('cost_copied'.$key, $pre_reservation->cost,['class'=>'form-control'] ) }}%
+                        {{ Form::text('cost_copied'.$key, $request->cp_master_cost,['class'=>'form-control'] ) }}%
                       </td>
                     </tr>
                   </tbody>
@@ -904,19 +872,19 @@
                           <input type="checkbox" id="discount" checked="">
                           <label for="discount">割引条件</label>
                         </p>
-                        {{ Form::textarea('discount_condition_copied'.$key, $pre_reservation->cp_master_discount_condition,['class'=>'form-control'] ) }}
+                        {{ Form::textarea('discount_condition_copied'.$key, $request->cp_master_discount_condition,['class'=>'form-control'] ) }}
                       </td>
                     </tr>
                     <tr class="caution">
                       <td>
                         <label for="caution">注意事項</label>
-                        {{ Form::textarea('attention_copied'.$key, $pre_reservation->attention,['class'=>'form-control'] ) }}
+                        {{ Form::textarea('attention_copied'.$key, $request->cp_master_attention,['class'=>'form-control'] ) }}
                       </td>
                     </tr>
                     <tr>
                       <td>
                         <label for="adminNote">管理者備考</label>
-                        {{ Form::textarea('admin_details_copied'.$key, $pre_reservation->admin_details,['class'=>'form-control'] ) }}
+                        {{ Form::textarea('admin_details_copied'.$key, $request->cp_master_admin_details,['class'=>'form-control'] ) }}
                       </td>
                     </tr>
                   </tbody>
@@ -929,7 +897,7 @@
                 {{ Form::submit('請求に反映する', ['class' => 'btn btn-primary'])}}</p>
               {{ Form::close() }}
             </div>
-
+            <!-- 請求セクション------------------------------------------------------------------- -->
             <section class="bill-wrap section-wrap">
               <div class="bill">
                 <div class="bill_head">
@@ -944,7 +912,7 @@
                         <dl class="ttl_box">
                           <dt>合計金額</dt>
                           <dd class="total_result">
-                            {{number_format(empty($pre_reservation->pre_bill->master_total)?0:$pre_reservation->pre_bill->master_total)}}
+                            {{number_format($pre_reservation->pre_bill->master_total)}}
                             円</dd>
                         </dl>
                       </td>
@@ -973,7 +941,7 @@
                             </h4>
                           </td>
                         </tr>
-                        @if (!empty($pre_reservation->pre_bill->venue_price))
+                        @if ($pre_reservation->pre_bill->venue_price)
                         <tbody class="venue_head">
                           <tr>
                             <td>内容</td>
@@ -983,19 +951,20 @@
                           </tr>
                         </tbody>
                         <tbody class="{{'venue_main'.$key}}">
-                          @foreach ($pre_reservation->pre_breakdowns()->where('unit_type',1)->get() as $each_venue)
+                          @foreach ($pre_reservation->pre_breakdowns()->where('unit_type',1)->get() as
+                          $venue_key=>$each_venue)
                           <tr>
                             <td>
-                              {{ Form::text('venue_breakdown_item0_copied'.$key, $each_venue->unit_item,['class'=>'form-control', 'readonly'] ) }}
+                              {{ Form::text('venue_breakdown_item'.$venue_key.'_copied'.$key, $each_venue->unit_item,['class'=>'form-control', 'readonly'] ) }}
                             </td>
                             <td>
-                              {{ Form::text('venue_breakdown_cost0_copied'.$key, $each_venue->unit_cost,['class'=>'form-control', 'readonly'] ) }}
+                              {{ Form::text('venue_breakdown_cost'.$venue_key.'_copied'.$key, $each_venue->unit_cost,['class'=>'form-control', 'readonly'] ) }}
                             </td>
                             <td>
-                              {{ Form::text('venue_breakdown_count0_copied'.$key, $each_venue->unit_count,['class'=>'form-control', 'readonly'] ) }}
+                              {{ Form::text('venue_breakdown_count'.$venue_key.'_copied'.$key, $each_venue->unit_count,['class'=>'form-control', 'readonly'] ) }}
                             </td>
                             <td>
-                              {{ Form::text('venue_breakdown_subtotal0_copied'.$key, $each_venue->unit_subtotal,['class'=>'form-control', 'readonly'] ) }}
+                              {{ Form::text('venue_breakdown_subtotal'.$venue_key.'_copied'.$key, $each_venue->unit_subtotal,['class'=>'form-control', 'readonly'] ) }}
                             </td>
                           </tr>
                           @endforeach
@@ -1034,6 +1003,7 @@
                             </td>
                           </tr>
                         </tbody>
+
                         @else{{--料金体系無し、手打ち--}}
                         <span>※料金体系がないため、手打ちで会場料を入力してください</span>
                         <tbody class="venue_head">
@@ -1083,7 +1053,7 @@
                     3が備品料金
                     4がサービス料金 --}}
                     {{-- 以下備品 --}}
-                    @if (!empty($pre_reservation->pre_bill->equipment_price))
+                    @if ($pre_reservation->pre_bill->equipment_price)
                     <div class="equipment billdetails_content">
                       <table class="table table-borderless">
                         <tr>
@@ -1135,29 +1105,13 @@
                               {{ Form::text('services_breakdown_subtotal'.$sb_key.'_copied'.$key, $each_ser->unit_subtotal,['class'=>'form-control', 'readonly'] ) }}
                             </td>
                           </tr>
-                          @if ($each_ser->unit_item=="荷物預かり/返送")
-                          <tr>
-                            <td>
-                              {{ Form::text('luggage_item_copied'.$key, '荷物預かり/返送',['class'=>'form-control', 'readonly'] ) }}
-                            </td>
-                            <td>
-                              {{ Form::text('luggage_cost_copied'.$key, $each_ser->unit_cost,['class'=>'form-control', 'readonly'] ) }}
-                            </td>
-                            <td>
-                              {{ Form::text('luggage_count_copied'.$key, 1,['class'=>'form-control', 'readonly'] ) }}
-                            </td>
-                            <td>
-                              {{ Form::text('luggage_subtotal_copied'.$key, $each_ser->unit_cost,['class'=>'form-control', 'readonly'] ) }}
-                            </td>
-                          </tr>
-                          @endif
                           @endforeach
                         </tbody>
                         <tbody class="{{'equipment_result'.$key}}">
                           <tr>
                             <td colspan="2"></td>
                             <td colspan="2">合計
-                              {{ Form::text('equipment_price'.$key, $pre_reservation->pre_bill->equipment_price,['class'=>'form-control', 'readonly'] ) }}
+                              {{ Form::text('equipment_price'.$key, $pre_reservation->pre_bill->equipment_price+((int)$request->cp_master_luggage_price),['class'=>'form-control', 'readonly'] ) }}
                             </td>
                           </tr>
                         </tbody>
@@ -1192,7 +1146,7 @@
                     @endif
 
                     {{-- 以下、レイアウト --}}
-                    @if (!empty($pre_reservation->pre_bill->layout_price))
+                    @if ($pre_reservation->pre_bill->layout_price)
                     <div class="layout billdetails_content">
                       <table class="table table-borderless">
                         <tr>
@@ -1228,6 +1182,9 @@
                             </td>
                           </tr>
                           @endforeach
+
+
+
                         </tbody>
                         <tbody class="{{'layout_result'.$key}}">
                           <tr>
@@ -1266,6 +1223,7 @@
                       </table>
                     </div>
                     @endif
+
 
                     {{-- 以下、その他 --}}
                     <div class="others billdetails_content">
@@ -1322,20 +1280,22 @@
                         <tr>
                           <td>小計：</td>
                           <td>
-                            {{ Form::hidden('master_subtotal'.$key.'fixed',empty($pre_reservation->pre_bill->master_subtotal)?0:$pre_reservation->pre_bill->master_subtotal,['class'=>'form-control text-right', 'readonly'] ) }}
-                            {{ Form::text('master_subtotal'.$key,empty($pre_reservation->pre_bill->master_subtotal)?0:$pre_reservation->pre_bill->master_subtotal,['class'=>'form-control text-right', 'readonly'] ) }}
+                            {{ Form::hidden('master_subtotal'.$key.'fixed',$pre_reservation->pre_bill->master_subtotal,['class'=>'form-control text-right', 'readonly'] ) }}
+                            {{ Form::text('master_subtotal'.$key,$pre_reservation->pre_bill->master_subtotal,['class'=>'form-control text-right', 'readonly'] ) }}
                           </td>
                         </tr>
                         <tr>
                           <td>消費税：</td>
                           <td>
-                            {{ Form::text('master_tax'.$key, empty($pre_reservation->pre_bill->master_tax)?0:$pre_reservation->pre_bill->master_tax ,['class'=>'form-control text-right', 'readonly'] ) }}
+                            {{ Form::text('master_tax'.$key,$pre_reservation->pre_bill->master_tax
+                            ,['class'=>'form-control text-right', 'readonly'] ) }}
                           </td>
                         </tr>
                         <tr>
                           <td class="font-weight-bold">合計金額</td>
                           <td>
-                            {{ Form::text('master_total'.$key, empty($pre_reservation->pre_bill->master_total)?0:$pre_reservation->pre_bill->master_total,['class'=>'form-control text-right', 'readonly'] ) }}
+                            {{ Form::text('master_total'.$key,$pre_reservation->pre_bill->master_total
+                              ,['class'=>'form-control text-right', 'readonly'] ) }}
                           </td>
                         </tr>
                       </table>
@@ -1346,6 +1306,7 @@
                 </div>
               </div>
             </section>
+
           </dt>
           <!-- /.card-body -->
         </dl>
@@ -1353,6 +1314,7 @@
       </div>
       <!-- 仮押さえ一括 タブ終わり-->
     </section>
+
     @endforeach
 
 
@@ -1411,10 +1373,15 @@
   </div>
 </div>
 
+
+
+
 {{ Form::open(['url' => 'admin/multiples/'.$multiple->id."/all_updates/".$venue->id, 'method'=>'POST', 'id'=>'master_form']) }}
 @csrf
 {{ Form::hidden('master_data', '',['class' => 'btn btn-primary more_btn_lg', 'id'=>'master_data'])}}
 {{ Form::close() }}
+
+
 
 
 <script>
@@ -1445,7 +1412,4 @@
 
   })
 </script>
-
-
-
 @endsection

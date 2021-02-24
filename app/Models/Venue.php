@@ -6,9 +6,23 @@ use Illuminate\Database\Eloquent\Model;
 
 use Carbon\Carbon; //carbon利用
 
+use App\Presenters\VenuePresenter; //個別作成したプレゼンターの追加
+use Robbo\Presenter\PresentableInterface; //プレゼンターの追加
 
-class Venue extends Model
+
+
+class Venue extends Model implements PresentableInterface
 {
+  /**
+   * Return a created presenter.
+   *
+   * @return Robbo\Presenter\Presenter
+   */
+  public function getPresenter() //実装したプレゼンタを利用
+  {
+    return new VenuePresenter($this);
+  }
+
 
   protected $fillable = [
     'alliance_flag',
