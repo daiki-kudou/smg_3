@@ -1806,8 +1806,8 @@
       </tr>
     </tbody>
     <tr>
-      <td class="master_total_subttl">
-        <h4 colspan="2">内訳</h4>
+      <td colspan="2" class="master_total_subttl">
+        <h4 >内訳</h4>
       </td>
     </tr>
     <tbody class="master_total_body">

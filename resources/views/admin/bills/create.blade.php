@@ -233,8 +233,8 @@
             </tbody>
             <tbody class="others_result hide">
               <tr>
-                <td colspan="2"></td>
-                <td colspan="3">合計
+                <td colspan="3"></td>
+                <td colspan="2">合計
                   {{ Form::text('others_price', '', ['class' => 'form-control' , 'readonly'])}}
                 </td>
               </tr>
@@ -347,7 +347,7 @@
   </div>
   
   
-  {{ Form::submit('確認する', ['class' => 'btn more_btn_lg btn-block']) }}
+  {{ Form::submit('確認する', ['class' => 'btn more_btn_lg btn-block　mt-5']) }}
   
   {{ Form::close() }}
 </section>
