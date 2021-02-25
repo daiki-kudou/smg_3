@@ -228,13 +228,23 @@
                 <td>
                   <ul class="sum-list">
                     <li>
-                      <p>午後13:00～17:00</p>
-                      <p>30,000<span>円</span></p>
+                      <p>
+                        {{ReservationHelper::formatTime($reservation[0]['enter_time'])}}
+                        ～
+                        {{ReservationHelper::formatTime($reservation[0]['leave_time'])}}
+                      </p>
+                      <p>
+                        {{number_format(ReservationHelper::jsonDecode($reservation[0]['price_result'])[0])}}<span>円</span>
+                      </p>
                     </li>
+                    @if (ReservationHelper::jsonDecode($reservation[0]['price_result'])[1]!=0)
                     <li>
-                      <p>延長1h</p>
-                      <p>5,000<span>円</span></p>
+                      <p>延長{{ReservationHelper::jsonDecode($reservation[0]['price_result'])[4]}}h</p>
+                      <p>
+                        {{number_format(ReservationHelper::jsonDecode($reservation[0]['price_result'])[1])}}<span>円</span>
+                      </p>
                     </li>
+                    @endif
                   </ul>
                 </td>
               </tr>
@@ -242,18 +252,20 @@
                 <th class=""><label for="equipment">有料備品</label></th>
                 <td>
                   <ul class="sum-list">
+                    @foreach ((object)ReservationHelper::DBLJsonDecode($reservation[0]['items_results'])[1] as $equ)
                     <li>
+                      <p>{{$equ[0]}}<span>×</span><span>{{$equ[2]}}</span> 個</p>
+                      <p>{{number_format(ReservationHelper::numTimesNum($equ[1],$equ[2]))}}<span>円</span></p>
+                    </li>
+                    @endforeach
+                    {{-- <li>
                       <p>ホワイトボード<span>×</span><span>2</span></p>
                       <p>30,000<span>円</span></p>
-                    </li>
-                    <li>
+                    </li> --}}
+                    {{-- <li>
                       <p>ホワイトボード<span>×</span><span>2</span></p>
                       <p>30,000<span>円</span></p>
-                    </li>
-                    <li>
-                      <p>ホワイトボード<span>×</span><span>2</span></p>
-                      <p>30,000<span>円</span></p>
-                    </li>
+                    </li> --}}
                   </ul>
                 </td>
               </tr>

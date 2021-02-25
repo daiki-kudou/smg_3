@@ -96,9 +96,9 @@ class ReservationsController extends Controller
   public function cart(Request $request)
   {
     $sessions = $request->session()->get('session_reservations');
-    echo "<pre>";
-    var_dump(empty($sessions));
-    echo "</pre>";
+    // echo "<pre>";
+    // var_dump(($sessions));
+    // echo "</pre>";
     return view('user.reservations.cart', compact('sessions'));
   }
 }

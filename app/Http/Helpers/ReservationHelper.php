@@ -337,4 +337,15 @@ class ReservationHelper
     $result = ReservationHelper::judgeArrayEmpty($s_service);
     return $result;
   }
+
+  public static function jsonDecode($arrays)
+  {
+    return json_decode($arrays, true);
+  }
+
+  public static function DBLJsonDecode($arrays)
+  {
+    $first = json_decode($arrays, true);
+    return $first;
+  }
 }
