@@ -223,6 +223,10 @@ h5 {
     margin-bottom: 0;
 }
 
+table {
+    table-layout: fixed;
+}
+
 /* .content-wrapper {
     min-width: 1200px;
 }
@@ -613,6 +617,10 @@ table td.table_column p:last-child {
     margin: 50px 3%;
 }
 
+.border-wrap2 {
+    border: 1px solid #dee2e6;
+}
+
 .title-icon {
     display: flex;
     align-items: center;
@@ -868,7 +876,7 @@ table td.table_column p:last-child {
 } */
 
 .btn-cell {
-    min-width: 85px;
+    min-width: 89px;
 }
 
 .prereserve-table .table_column .more_btn {

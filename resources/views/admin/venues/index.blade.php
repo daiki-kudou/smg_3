@@ -153,7 +153,7 @@
   
   <table class="table table-bordered">
     <thead>
-      <tr>
+      <tr style="white-space: nowrap;">
         <th>id</th>
         <th>登録日</th>
         <th>直営・提携</th>
@@ -161,7 +161,7 @@
         <th>広さ（坪）</th>
         <th>広さ（㎡）</th>
         <th>収容人数</th>
-        <th class="btn-cell">詳細</th>
+        <th style="min-width: 89px;" class="btn-cell">詳細</th>
       </tr>
     </thead>
     <tbody>

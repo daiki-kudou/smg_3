@@ -16,504 +16,506 @@
     </nav>
   </div>
 </div>
-  
-  <h2 class="mt-3 mb-3">会場　詳細情報</h2>
-  <hr>
-  
-  <section class="section-wrap">
-    <div class="text-right mb-2">
-      {{ link_to_route('admin.venues.edit', '編集', $parameters = $venue->id, ['class' => 'btn more_btn_lg'])}}
+
+<h2 class="mt-3 mb-3">会場　詳細情報</h2>
+<hr>
+
+<section class="section-wrap">
+  <div class="text-right mb-2">
+    {{ link_to_route('admin.venues.edit', '編集', $parameters = $venue->id, ['class' => 'btn more_btn_lg'])}}
+  </div>
+
+  <!-- 会場URL ---------------------------------------------------->
+  <div class="row">
+    <div class="col">
+      {{ Form::open(['url' => 'admin/venues', 'method'=>'POST', 'id'=>'VenuesCreateForm']) }}
+      @csrf
+      <table class="table table-bordered">
+        <tbody>
+          <tr>
+            <td class="table-active"> {{ Form::label('smg_url', '会場SMG Url') }}</td>
+            <td>{{$venue->smg_url}}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <div class="row">
+    <!-- 左側の項目 -------------------------------------------------------------------------->
+    <div class="col">
+
+      <!-- 基本情報 ------------------------------------------------------------------------>
+      <table class="table table-bordered">
+        <thead>
+          <tr>
+            <td colspan="2">
+              <p class="title-icon">
+                <i class="fas fa-exclamation-circle icon-size fa-fw"></i>基本情報
+              </p>
+            </td>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <th class="table-active" id="alliance_flag">ビル情報</th>
+            <td class="d-flex">
+              <p>{{$venue->alliance_flag==0?"直営":'提携'}}</p>
+            </td>
+          </tr>
+          <tr>
+            <td class="table-active">{{ Form::label('name_area', 'エリア名') }}</td>
+            <td>{{ $venue->name_area }}</td>
+          </tr>
+          <tr>
+            <td class="table-active">{{ Form::label('name_bldg', 'ビル名') }}</td>
+            <td>
+              {{ $venue->name_bldg }}
+            </td>
+          </tr>
+          <tr>
+            <td class="table-active">{{ Form::label('name_venue', '会場名') }}</td>
+            <td>{{ $venue->name_venue }}
+            </td>
+          </tr>
+          <tr>
+            <td class="table-active">{{ Form::label('size1', '会場広さ（坪）') }}</td>
+            <td>{{ $venue->size1 }}
+            </td>
+          </tr>
+          <tr>
+            <td class="table-active">{{ Form::label('size2', '会場広さ（㎡）') }}</td>
+            <td>{{ $venue->size2 }}</td>
+          </tr>
+          <tr>
+            <td class="table-active">{{ Form::label('capacity', '収容人数') }}</td>
+            <td>{{ $venue->capacity }}
+            </td>
+          </tr>
+          <tr>
+            <td class="table-active">{{ Form::label('post_code', '郵便番号') }}</td>
+            <td>
+              {{ $venue->post_code }}
+            </td>
+          </tr>
+          <tr>
+            <td class="table-active">{{ Form::label('address1', '住所（都道府県）') }}</td>
+            <td>{{ $venue->address1 }}
+            </td>
+          </tr>
+          <tr>
+            <td class="table-active">{{ Form::label('address2', '住所（市町村番地）') }}</td>
+            <td>{{ $venue->address2 }}
+            </td>
+          </tr>
+          <tr>
+            <td class="table-active">{{ Form::label('address3', '住所（建物名）') }}</td>
+            <td>{{ $venue->address3 }}
+            </td>
+          </tr>
+          <tr>
+            <td class="table-active">{{ Form::label('entrance_open_time', '正面入口の開閉時間') }}</td>
+            <td>{{ $venue->entrance_open_time }}
+            </td>
+          </tr>
+          <tr>
+            <td class="table-active">{{ Form::label('backyard_open_time', '通用口の開閉時間') }}</td>
+            <td>{{ $venue->backyard_open_time }}
+            </td>
+          </tr>
+          <tr>
+            <td class="table-active">{{ Form::label('remark', '備考') }}</td>
+            <td>{{ $venue->remark }}
+            </td>
+          </tr>
+
+
+        </tbody>
+      </table>
+
+      <!-- 荷物預かり ------------------------------------------------------------------------->
+      <table class="table table-bordered">
+        <thead>
+          <tr>
+            <td colspan="2">
+              <p class="title-icon">
+                <i class="fas fa-suitcase-rolling icon-size fa-fw"></i>荷物預かり
+              </p>
+            </td>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="table-active">{{ Form::label('luggage_flag', '荷物預かり　有・無') }}</td>
+            <td>{{ $venue->luggage_flag==1?"有り":"無し" }}
+            </td>
+          </tr>
+          <tr>
+            <td class="table-active">{{ Form::label('luggage_post_code', '送付先郵便番号') }}</td>
+            <td>
+              {{ $venue->luggage_post_code }}
+            </td>
+          </tr>
+          <tr>
+            <td class="table-active">{{ Form::label('luggage_address1', '住所（都道府県）') }}</td>
+            <td>{{ $venue->luggage_address1 }}
+            </td>
+          </tr>
+          <tr>
+            <td class="table-active">{{ Form::label('luggage_address2', '住所（市町村番地）') }}</td>
+            <td>{{ $venue->luggage_address2 }}
+            </td>
+          </tr>
+          <tr>
+            <td class="table-active">{{ Form::label('luggage_address3', '住所（建物名）') }}</td>
+            <td>{{ $venue->luggage_address3 }}
+            </td>
+          </tr>
+          <tr>
+            <td class="table-active">{{ Form::label('luggage_name', '送付先名') }}</td>
+            <td>{{ $venue->luggage_name }}
+            </td>
+          </tr>
+          <tr>
+            <td class="table-active">{{ Form::label('luggage_tel', '電話番号') }}</td>
+            <td>{{ $venue->luggage_tel }}
+            </td>
+          </tr>
+        </tbody>
+      </table>
+
+    </div>
+    <!-- 左側の項目　終わり ---------------------------------------------------------------------->
+
+
+    <!-- 右側の項目 -------------------------------------------------------------------------->
+    <div class="col">
+
+      <!-- 担当者情報 ------------------------------------------------------------------------>
+      <table class="table table-bordered">
+        <thead>
+          <tr>
+            <td colspan="3">
+              <p class="title-icon">
+                <i class="fas fa-user-check icon-size fa-fw"></i>担当者情報
+              </p>
+            </td>
+          </tr>
+        </thead>
+        <tbody>
+          <!-- 工藤さんに確認　顧客の新規登録のデータをピックアップ問題ないか -->
+          <tr>
+            <td class="table-active">{{ Form::label('first_name', '担当者氏名') }}</td>
+            <td>{{$venue->last_name}}{{$venue->first_name}}</td>
+          </tr>
+          <tr>
+            <td class="table-active">{{ Form::label('first_name_kana', '担当者氏名（ふりがな）') }}</td>
+            <td>{{$venue->last_name_kana}}{{$venue->first_name_kana}}</td>
+          </tr>
+          <!-- 工藤さんに確認　顧客の新規登録のデータをピックアップ問題ないか -->
+
+          <tr>
+            <td class="table-active">{{ Form::label('person_tel', '担当者電話番号') }}</td>
+            <td colspan="2">
+              {{ $venue->person_tel}}
+            </td>
+          </tr>
+          <tr>
+            <td class="table-active">{{ Form::label('person_email', '担当者メール') }}</td>
+            <td colspan="2">{{ $venue->person_email}}
+            </td>
+          </tr>
+        </tbody>
+      </table>
+
+      <!-- ビル管理会社情報 ------------------------------------------------------------------------>
+      <table class="table table-bordered">
+        <thead>
+          <tr>
+            <td colspan="3">
+              <p class="title-icon">
+                <i class="fas fa-building icon-size fa-fw"></i>ビル管理会社
+              </p>
+            </td>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="table-active">{{ Form::label('mgmt_company', '会社名') }}</td>
+            <td colspan="2">
+              {{ $venue->mgmt_company}}
+            </td>
+          </tr>
+          <tr>
+            <td class="table-active">{{ Form::label('mgmt_tel', '電話番号') }}</td>
+            <td colspan="2">{{ $venue->mgmt_tel}}
+            </td>
+          </tr>
+          <tr>
+            <td class="table-active">{{ Form::label('mgmt_emer_tel', '夜間緊急連絡先') }}</td>
+            <td colspan="2">{{ $venue->mgmt_emer_tel}}
+            </td>
+          </tr>
+
+          <!-- 工藤さんに確認　顧客の新規登録のデータをピックアップ問題ないか -->
+          <tr>
+            <td class="table-active">{{ Form::label('mgmt_first_name', '担当者氏名') }}</td>
+            <td>{{ $venue-> mgmt_last_name}}{{ $venue-> mgmt_first_name}}</td>
+          </tr>
+          <!-- 工藤さんに確認　顧客の新規登録のデータをピックアップ問題ないか -->
+
+          <tr>
+            <td class="table-active">{{ Form::label('mgmt_email', '担当者メール') }}</td>
+            <td colspan="2">{{ $venue->mgmt_email}}
+            </td>
+          </tr>
+          <tr>
+            <td class="table-active">{{ Form::label('mgmt_sec_company', '警備会社名') }}</td>
+            <td colspan="2">{{ $venue->mgmt_sec_company}}
+            </td>
+          </tr>
+          <tr>
+            <td class="table-active">{{ Form::label('mgmt_sec_tel', '警備会社電話番号') }}</td>
+            <td colspan="2">{{ $venue->mgmt_sec_tel}}
+            </td>
+          </tr>
+          <tr>
+            <td class="table-active">{{ Form::label('mgmt_remark', '備考') }}</td>
+            <td colspan="2">{{ $venue->mgmt_remark}}
+            </td>
+          </tr>
+        </tbody>
+      </table>
+
+      <!-- 室内飲食 ------------------------------------------------------------------------>
+      <table class="table table-bordered">
+        <thead>
+          <tr>
+            <td colspan="2">
+              <p class="title-icon">
+                <i class="fas fa-utensils icon-size fa-fw"></i>室内飲食
+              </p>
+            </td>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="table-active">{{ Form::label('eat_in_flag', '室内飲食') }}</td>
+            <td>
+              {{ $venue->eat_in_flag==1?"有り":"無し"}}
+            </td>
+          </tr>
+        </tbody>
+      </table>
+
+      <!-- レイアウト変更 ------------------------------------------------------------------------>
+      <table class="table table-bordered">
+        <thead>
+          <tr>
+            <td colspan="2">
+              <p class="title-icon">
+                <i class="fas fa-th icon-size fa-fw"></i>レイアウト
+              </p>
+            </td>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="table-active">{{ Form::label('layout', 'レイアウト変更') }}</td>
+            <td>
+              {{ $venue->layout==1?"有り":"無し"}}
+            </td>
+          </tr>
+          <tr>
+            <td class="table-active">{{ Form::label('layout', 'レイアウト準備料金') }}</td>
+            <td>
+              {{ $venue->layout_prepare}}
+            </td>
+          </tr>
+          <tr>
+            <td class="table-active">{{ Form::label('layout', 'レイアウト変更料金') }}</td>
+            <td>
+              {{ $venue->layout_clean}}
+            </td>
+          </tr>
+        </tbody>
+      </table>
+
+      <!-- 支払データ ------------------------------------------------------------------------>
+      <table class="table table-bordered">
+        <thead>
+          <tr>
+            <td colspan="2">
+              <p class="title-icon">
+                <i class="fas fa-yen-sign icon-size fa-fw"></i>支払データ
+              </p>
+            </td>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="table-active">{{ Form::label('cost', '支払割合（原価）') }}</td>
+            <td>
+              {{ $venue->cost}}%
+            </td>
+          </tr>
+        </tbody>
+      </table>
+
+    </div>
+    <!-- 右側の項目　終わり ---------------------------------------------------------------------->
+  </div>
+
+</section>
+
+<section class="section-wrap">
+  <!-- 有料備品 ------------------------------------------------------------------------>
+  <div class="mb-5 border-wrap2">
+    <p class="title-icon table-active fw-bolder p-2 mb-2">
+      <i class="fas fa-wrench icon-size fa-fw"></i>有料備品
+    </p>
+    <div>
+      <ul class="p-3">
+        @foreach ($equipments as $equipment)
+        <li>{{$equipment->item}}</li>
+        @endforeach
+      </ul>
+    </div>
+  </div>
+
+  <!-- 有料サービス ------------------------------------------------------------------------>
+  <div class="mb-5 border-wrap2">
+    <p class="title-icon table-active fw-bolder p-2 mb-2">
+      <i class="fas fa-hand-holding-heart icon-size fa-fw"></i>有料サービス
+    </p>
+    <div>
+      <ul class="p-3">
+        @foreach ($services as $service)
+        <li>{{$service->item}}</li>
+        @endforeach
+      </ul>
+    </div>
+  </div>
+</section>
+
+
+
+<section class="section-wrap">
+  <div class="mb-5 border-wrap2">
+    <p class="title-icon table-active fw-bolder p-2">
+      <i class="fas fa-clock icon-size fa-fw"></i>営業時間
+    </p>
+    <div>
+      <table class="table table-bordered">
+        <thead>
+          <tr>
+            <th scope="col">曜日</th>
+            <th colspan="2">営業時間</th>
+          </tr>
+        </thead>
+        <tbody>
+          @foreach ($date_venues as $date_venue)
+          <tr>
+            <td>
+              @if ($date_venue->week_day==1)
+              月曜
+              @elseif($date_venue->week_day==2)
+              火曜
+              @elseif($date_venue->week_day==3)
+              水曜
+              @elseif($date_venue->week_day==4)
+              木曜
+              @elseif($date_venue->week_day==5)
+              金曜
+              @elseif($date_venue->week_day==6)
+              土曜
+              @elseif($date_venue->week_day==7)
+              日曜
+              @endif
+            </td>
+            <td>{{$date_venue->start}}</td>
+            <td>{{$date_venue->finish}}</td>
+          </tr>
+          @endforeach
+        </tbody>
+      </table>
+
+    </div>
+  </div>
+
+
+  <div class="mb-5 border-wrap2">
+    <p class="title-icon table-active fw-bolder p-2">
+      <i class="fas fa-yen-sign icon-size fa-fw"></i>料金管理
+    </p>
+    <div class="p-3">
+      <div>
+        <strong>料金体系</strong>
+        <p>通常料金（枠貸し）</p>
+      </div>
+      <div>
+        <table class="table table-bordered">
+          <thead>
+            <tr>
+              <th scope="col">枠</th>
+              <th>時間</th>
+              <th>料金</th>
+            </tr>
+          </thead>
+          <tbody>
+            @foreach ($frame_prices as $frame_price)
+            <tr>
+              <td>{{$frame_price->frame}}</td>
+              <td>{{$frame_price->start}} ~ {{$date_venue->finish}}</td>
+              <td>{{$frame_price->price}}</td>
+            </tr>
+            @endforeach
+          </tbody>
+        </table>
+      </div>
+
+      <div>
+        <strong>料金体系</strong>
+        <p>アクセア料金（時間貸し）</p>
+      </div>
+      <div>
+        <table class="table table-bordered">
+          <thead>
+            <tr>
+              <th scope="col">時間</th>
+              <th>料金</th>
+              <th>延長料金</th>
+            </tr>
+          </thead>
+          <tbody>
+            @foreach ($time_prices as $time_price)
+            <tr>
+              <td>{{$time_price->time}}</td>
+              <td>{{$time_price->price}} ~ {{$date_venue->finish}}</td>
+              <td>{{$time_price->extend}}</td>
+            </tr>
+            @endforeach
+          </tbody>
+        </table>
+      </div>
     </div>
 
-<!-- 会場URL ---------------------------------------------------->
-<div class="row">
-  <div class="col">
-    {{ Form::open(['url' => 'admin/venues', 'method'=>'POST', 'id'=>'VenuesCreateForm']) }}
-    @csrf
-    <table class="table table-bordered">
-      <tbody>
-        <tr>
-          <td class="table-active"> {{ Form::label('smg_url', '会場SMG Url') }}</td>
-          <td>{{$venue->smg_url}}</td>
-        </tr>
-      </tbody>
-    </table>
-  </div>
-</div>
-
-<div class="row">
-  <!-- 左側の項目 -------------------------------------------------------------------------->
-  <div class="col">
-
-    <!-- 基本情報 ------------------------------------------------------------------------>
-    <table class="table table-bordered">
-      <thead>
-        <tr>
-          <td colspan="2">
-            <p class="title-icon">
-              <i class="fas fa-exclamation-circle icon-size fa-fw"></i>基本情報
-            </p>
-          </td>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <th class="table-active" id="alliance_flag">ビル情報</th>
-          <td class="d-flex">
-            <p>{{$venue->alliance_flag==0?"直営":'提携'}}</p>
-          </td>
-        </tr>
-        <tr>
-          <td class="table-active">{{ Form::label('name_area', 'エリア名') }}</td>
-          <td>{{ $venue->name_area }}</td>
-        </tr>
-        <tr>
-          <td class="table-active">{{ Form::label('name_bldg', 'ビル名') }}</td>
-          <td>
-          {{ $venue->name_bldg }}
-          </td>
-        </tr>
-        <tr>
-          <td class="table-active">{{ Form::label('name_venue', '会場名') }}</td>
-          <td>{{ $venue->name_venue }}
-          </td>
-        </tr>
-        <tr>
-          <td class="table-active">{{ Form::label('size1', '会場広さ（坪）') }}</td>
-          <td>{{ $venue->size1 }}
-          </td>
-        </tr>
-        <tr>
-          <td class="table-active">{{ Form::label('size2', '会場広さ（㎡）') }}</td>
-          <td>{{ $venue->size2 }}</td>
-        </tr>
-        <tr>
-          <td class="table-active">{{ Form::label('capacity', '収容人数') }}</td>
-          <td>{{ $venue->capacity }}
-          </td>
-        </tr>
-        <tr>
-          <td class="table-active">{{ Form::label('post_code', '郵便番号') }}</td>
-          <td>
-          {{ $venue->post_code }}
-          </td>
-        </tr>
-        <tr>
-          <td class="table-active">{{ Form::label('address1', '住所（都道府県）') }}</td>
-          <td>{{ $venue->address1 }}
-          </td>
-        </tr>
-        <tr>
-          <td class="table-active">{{ Form::label('address2', '住所（市町村番地）') }}</td>
-          <td>{{ $venue->address2 }}
-          </td>
-        </tr>
-        <tr>
-          <td class="table-active">{{ Form::label('address3', '住所（建物名）') }}</td>
-          <td>{{ $venue->address3 }}
-          </td>
-        </tr>
-        <tr>
-          <td class="table-active">{{ Form::label('entrance_open_time', '正面入口の開閉時間') }}</td>
-          <td>{{ $venue->entrance_open_time }}
-          </td>
-        </tr>
-        <tr>
-          <td class="table-active">{{ Form::label('backyard_open_time', '通用口の開閉時間') }}</td>
-          <td>{{ $venue->backyard_open_time }}
-          </td>
-        </tr>
-        <tr>
-          <td class="table-active">{{ Form::label('remark', '備考') }}</td>
-          <td>{{ $venue->remark }}
-          </td>
-        </tr>
-
-
-      </tbody>
-    </table>
-
-    <!-- 荷物預かり ------------------------------------------------------------------------->
-    <table class="table table-bordered">
-      <thead>
-        <tr>
-          <td colspan="2">
-            <p class="title-icon">
-              <i class="fas fa-suitcase-rolling icon-size fa-fw"></i>荷物預かり
-            </p>
-          </td>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td class="table-active">{{ Form::label('luggage_flag', '荷物預かり　有・無') }}</td>
-          <td>{{ $venue->luggage_flag==1?"有り":"無し" }}
-          </td>
-        </tr>
-        <tr>
-          <td class="table-active">{{ Form::label('luggage_post_code', '送付先郵便番号') }}</td>
-          <td>
-          {{ $venue->luggage_post_code }}
-          </td>
-        </tr>
-        <tr>
-          <td class="table-active">{{ Form::label('luggage_address1', '住所（都道府県）') }}</td>
-          <td>{{ $venue->luggage_address1 }}
-          </td>
-        </tr>
-        <tr>
-          <td class="table-active">{{ Form::label('luggage_address2', '住所（市町村番地）') }}</td>
-          <td>{{ $venue->luggage_address2 }}
-          </td>
-        </tr>
-        <tr>
-          <td class="table-active">{{ Form::label('luggage_address3', '住所（建物名）') }}</td>
-          <td>{{ $venue->luggage_address3 }}
-          </td>
-        </tr>
-        <tr>
-          <td class="table-active">{{ Form::label('luggage_name', '送付先名') }}</td>
-          <td>{{ $venue->luggage_name }}
-          </td>
-        </tr>
-        <tr>
-          <td class="table-active">{{ Form::label('luggage_tel', '電話番号') }}</td>
-          <td>{{ $venue->luggage_tel }}
-          </td>
-        </tr>
-      </tbody>
-    </table>
 
   </div>
-  <!-- 左側の項目　終わり ---------------------------------------------------------------------->
-
-
-  <!-- 右側の項目 -------------------------------------------------------------------------->
-  <div class="col">
-
-    <!-- 担当者情報 ------------------------------------------------------------------------>
-    <table class="table table-bordered">
-      <thead>
-        <tr>
-          <td colspan="3">
-            <p class="title-icon">
-              <i class="fas fa-user-check icon-size fa-fw"></i>担当者情報
-            </p>
-          </td>
-        </tr>
-      </thead>
-      <tbody>
-        <!-- 工藤さんに確認　顧客の新規登録のデータをピックアップ問題ないか -->
-        <tr>
-          <td class="table-active">{{ Form::label('first_name', '担当者氏名') }}</td>
-          <td>{{$venue->last_name}}{{$venue->first_name}}</td>
-        </tr>
-        <tr>
-          <td class="table-active">{{ Form::label('first_name_kana', '担当者氏名（ふりがな）') }}</td>
-          <td>{{$venue->last_name_kana}}{{$venue->first_name_kana}}</td>
-        </tr>
-        <!-- 工藤さんに確認　顧客の新規登録のデータをピックアップ問題ないか -->
-
-        <tr>
-          <td class="table-active">{{ Form::label('person_tel', '担当者電話番号') }}</td>
-          <td colspan="2">
-          {{ $venue->person_tel}}
-          </td>
-        </tr>
-        <tr>
-          <td class="table-active">{{ Form::label('person_email', '担当者メール') }}</td>
-          <td colspan="2">{{ $venue->person_email}}
-          </td>
-        </tr>
-      </tbody>
-    </table>
-
-    <!-- ビル管理会社情報 ------------------------------------------------------------------------>
-    <table class="table table-bordered">
-      <thead>
-        <tr>
-          <td colspan="3">
-            <p class="title-icon">
-              <i class="fas fa-building icon-size fa-fw"></i>ビル管理会社
-            </p>
-          </td>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td class="table-active">{{ Form::label('mgmt_company', '会社名') }}</td>
-          <td colspan="2">
-          {{ $venue->mgmt_company}}
-          </td>
-        </tr>
-        <tr>
-          <td class="table-active">{{ Form::label('mgmt_tel', '電話番号') }}</td>
-          <td colspan="2">{{ $venue->mgmt_tel}}
-          </td>
-        </tr>
-        <tr>
-          <td class="table-active">{{ Form::label('mgmt_emer_tel', '夜間緊急連絡先') }}</td>
-          <td colspan="2">{{ $venue->mgmt_emer_tel}}
-          </td>
-        </tr>
-
-        <!-- 工藤さんに確認　顧客の新規登録のデータをピックアップ問題ないか -->
-        <tr>
-          <td class="table-active">{{ Form::label('mgmt_first_name', '担当者氏名') }}</td>
-          <td>{{ $venue-> mgmt_last_name}}{{ $venue-> mgmt_first_name}}</td>
-        </tr>
-        <!-- 工藤さんに確認　顧客の新規登録のデータをピックアップ問題ないか -->
-
-        <tr>
-          <td class="table-active">{{ Form::label('mgmt_email', '担当者メール') }}</td>
-          <td colspan="2">{{ $venue->mgmt_email}}
-          </td>
-        </tr>
-        <tr>
-          <td class="table-active">{{ Form::label('mgmt_sec_company', '警備会社名') }}</td>
-          <td colspan="2">{{ $venue->mgmt_sec_company}}
-          </td>
-        </tr>
-        <tr>
-          <td class="table-active">{{ Form::label('mgmt_sec_tel', '警備会社電話番号') }}</td>
-          <td colspan="2">{{ $venue->mgmt_sec_tel}}
-          </td>
-        </tr>
-        <tr>
-          <td class="table-active">{{ Form::label('mgmt_remark', '備考') }}</td>
-          <td colspan="2">{{ $venue->mgmt_remark}}
-          </td>
-        </tr>
-      </tbody>
-    </table>
-
-    <!-- 室内飲食 ------------------------------------------------------------------------>
-    <table class="table table-bordered">
-      <thead>
-        <tr>
-          <td colspan="2">
-            <p class="title-icon">
-              <i class="fas fa-utensils icon-size fa-fw"></i>室内飲食
-            </p>
-          </td>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td class="table-active">{{ Form::label('eat_in_flag', '室内飲食') }}</td>
-          <td>
-          {{ $venue->eat_in_flag==1?"有り":"無し"}}
-          </td>
-        </tr>
-      </tbody>
-    </table>
-
-    <!-- レイアウト変更 ------------------------------------------------------------------------>
-    <table class="table table-bordered">
-      <thead>
-        <tr>
-          <td colspan="2">
-            <p class="title-icon">
-              <i class="fas fa-th icon-size fa-fw"></i>レイアウト
-            </p>
-          </td>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td class="table-active">{{ Form::label('layout', 'レイアウト変更') }}</td>
-          <td>
-          {{ $venue->layout==1?"有り":"無し"}}
-          </td>
-        </tr>
-        <tr>
-          <td class="table-active">{{ Form::label('layout', 'レイアウト準備料金') }}</td>
-          <td>
-          {{ $venue->layout_prepare}}
-          </td>
-        </tr>
-        <tr>
-          <td class="table-active">{{ Form::label('layout', 'レイアウト変更料金') }}</td>
-          <td>
-          {{ $venue->layout_clean}}
-          </td>
-        </tr>
-      </tbody>
-    </table>
-
-    <!-- 支払データ ------------------------------------------------------------------------>
-    <table class="table table-bordered">
-      <thead>
-        <tr>
-          <td colspan="2">
-            <p class="title-icon">
-              <i class="fas fa-yen-sign icon-size fa-fw"></i>支払データ
-            </p>
-          </td>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td class="table-active">{{ Form::label('cost', '支払割合（原価）') }}</td>
-          <td>
-          {{ $venue->cost}}%
-          </td>
-        </tr>
-      </tbody>
-    </table>
-
-  </div>
-  <!-- 右側の項目　終わり ---------------------------------------------------------------------->
-</div>
-
-</section>
-
-<section class="section-wrap">
-<!-- 有料備品 ------------------------------------------------------------------------>
-<div class="mb-5">
-  <p class="title-icon table-active fw-bolder p-2 mb-2">
-    <i class="fas fa-wrench icon-size fa-fw"></i>有料備品
-  </p>
-  <div>
-    <ul>
-      @foreach ($equipments as $equipment)
-      <li>{{$equipment->item}}</li>
-      @endforeach
-    </ul>
-  </div>
-</div>
-
-<!-- 有料サービス ------------------------------------------------------------------------>
-<div>
-  <p class="title-icon table-active fw-bolder p-2 mb-2">
-    <i class="fas fa-hand-holding-heart icon-size fa-fw"></i>有料サービス
-  </p>
-  <div>
-    <ul>
-      @foreach ($services as $service)
-      <li>{{$service->item}}</li>
-      @endforeach
-    </ul>
-  </div>
-</div>
-
-</section>
-
-
-
-<section class="section-wrap">
-
-<div>
-<p class="title-icon table-active fw-bolder p-2">
-    <i class="fas fa-clock icon-size fa-fw"></i>営業時間
-  </p>
-  <div>
-    <table class="table table-bordered">
-      <thead>
-        <tr>
-          <th scope="col">曜日</th>
-          <th colspan="2">営業時間</th>
-        </tr>
-      </thead>
-      <tbody>
-        @foreach ($date_venues as $date_venue)
-        <tr>
-          <td>
-            @if ($date_venue->week_day==1)
-            月曜
-            @elseif($date_venue->week_day==2)
-            火曜
-            @elseif($date_venue->week_day==3)
-            水曜
-            @elseif($date_venue->week_day==4)
-            木曜
-            @elseif($date_venue->week_day==5)
-            金曜
-            @elseif($date_venue->week_day==6)
-            土曜
-            @elseif($date_venue->week_day==7)
-            日曜
-            @endif
-          </td>
-          <td>{{$date_venue->start}}</td>
-          <td>{{$date_venue->finish}}</td>
-        </tr>
-        @endforeach
-      </tbody>
-    </table>
-
-  </div>
-</div>
-
-
-<div>
-<p class="title-icon table-active fw-bolder p-2">
-    <i class="fas fa-yen-sign icon-size fa-fw"></i>料金管理
-  </p>
-  <div>
-    <strong>料金体系</strong>
-    <p>通常料金（枠貸し）</p>
-  </div>
-  <div>
-    <table class="table table-bordered">
-      <thead>
-        <tr>
-          <th scope="col">枠</th>
-          <th>時間</th>
-          <th>料金</th>
-        </tr>
-      </thead>
-      <tbody>
-        @foreach ($frame_prices as $frame_price)
-        <tr>
-          <td>{{$frame_price->frame}}</td>
-          <td>{{$frame_price->start}} ~ {{$date_venue->finish}}</td>
-          <td>{{$frame_price->price}}</td>
-        </tr>
-        @endforeach
-      </tbody>
-    </table>
-  </div>
-
-  <div>
-    <strong>料金体系</strong>
-    <p>アクセア料金（時間貸し）</p>
-  </div>
-  <div>
-    <table class="table table-bordered">
-      <thead>
-        <tr>
-          <th scope="col">時間</th>
-          <th>料金</th>
-          <th>延長料金</th>
-        </tr>
-      </thead>
-      <tbody>
-        @foreach ($time_prices as $time_price)
-        <tr>
-          <td>{{$time_price->time}}</td>
-          <td>{{$time_price->price}} ~ {{$date_venue->finish}}</td>
-          <td>{{$time_price->extend}}</td>
-        </tr>
-        @endforeach
-      </tbody>
-    </table>
-  </div>
-</div>
 
 </section>
 
 <div class="text-center mt-5">
   <p><a class="more_btn_lg" href="">一覧にもどる</a>
   </p>
-  </div>
+</div>
 
 
 
 
 <!-- オリジナル ----------------------------------------------------------->
 
-  <!-- <section class="section-wrap">
+<!-- <section class="section-wrap">
 <div class="container-field">
   <div class="p-3 mb-2 bg-white text-dark">
     {{ Form::label('smg_url', '会場SMG Url') }}
