@@ -224,13 +224,8 @@ class ReservationHelper
   public static function timeOptionsWithDefault()
   {
     $arrays = [];
-    for ($i = 0 * 2; $i <= 23 * 2; $i++) {
-      if ($i == 16) {
-        $html1 = "<option value=" . date('H:i:s', strtotime('00:00 +' . $i * 30 . ' minute')) . " selected>";
-      } else {
-        $html1 = "<option value=" . date('H:i:s', strtotime('00:00 +' . $i * 30 . ' minute')) . " >";
-      }
-
+    for ($i = 8 * 2; $i <= 23 * 2; $i++) {
+      $html1 = "<option value=" . date('H:i:s', strtotime('00:00 +' . $i * 30 . ' minute')) . " >";
       $html2 = date('H:i', strtotime('00:00 +' . $i * 30 . ' minute'));
       $html3 = "</option>";
       $arrays[] = $html1 . $html2 . $html3;
