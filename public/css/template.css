@@ -379,7 +379,9 @@ h5 {
 }
 
 .bg-status {
-    background: #35a7a7 !important;
+    /* background: #35a7a7 !important; */
+    background: #444444 !important;
+    color: #fff;
 }
 
 .bg-black {

@@ -36,7 +36,7 @@
   <div class="d-flex justify-content-between mt-3 mb-5">
     <span>{{$equipments->count()}}件表示</span>
     <div>
-      <div class="dropdown">
+      <!-- <div class="dropdown">
         <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" data-offset="-320,5">
           検索
         </button>
@@ -68,7 +68,8 @@
             </div>
           </form>
         </div>
-      </div>
+      </div> -->
+
     </div>
   </div>
 </div>
@@ -95,10 +96,10 @@
       <td>{{ $query->stock }}</td>
       <td>{{ $query->remark }}</td>
       <td class="d-flex justify-content-around">
-        {{ link_to_route('admin.equipments.edit', '編集', $parameters = $query->id, ['class' => 'btn btn-primary']) }}
+        {{ link_to_route('admin.equipments.edit', '編集', $parameters = $query->id, ['class' => 'btn more_btn']) }}
         {{ Form::model($query, ['route' => ['admin.equipments.destroy', $query->id], 'method' => 'delete']) }}
         @csrf
-        {{ Form::submit('削除', ['class' => 'btn btn-danger']) }}
+        {{ Form::submit('削除', ['class' => 'btn more_btn4']) }}
         {{ Form::close() }}
       </td>
     </tr>
