@@ -6,16 +6,19 @@ use Robbo\Presenter\Presenter;
 
 class VenuePresenter extends Presenter
 {
+
   public function getEquipments()
   {
     $equipments = $this->equipments()->get();
     return $equipments;
   }
+
   public function getServices()
   {
     $services = $this->services()->get();
     return $services;
   }
+
   public function getLayouts()
   {
     $layout_prepare = $this->layout_prepare;
@@ -27,6 +30,7 @@ class VenuePresenter extends Presenter
       return 0;
     }
   }
+
   public function getLuggage()
   {
     return $this->luggage_flag;

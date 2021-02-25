@@ -174,16 +174,16 @@
 
       <div class="contents">
         <div class="pagetop-text">
-          <h1 class="page-title oddcolor"><span>会場予約 入力画面</span></h1>
-          <p>下記フォームに必要事項を入力してください。(＊は必須項目です)</p>
-          <p class="txtRed">複数日程を希望の場合は予約日毎に予約入力してください。</p>
+          <h1 class="page-title oddcolor"><span>会場予約 確認画面</span></h1>
+          {{-- <p>下記フォームに必要事項を入力してください。(＊は必須項目です)</p>
+          <p class="txtRed">複数日程を希望の場合は予約日毎に予約入力してください。</p> --}}
         </div>
       </div>
       <section class="contents">
         <h2>予約1</h2>
 
         {{-- <form name="form" id="form" action="https://osaka-conference.com/contact/check.php" next="false" method="post"> --}}
-        {{ Form::open(['url' => 'user/reservations/check', 'method'=>'POST', 'id'=>'']) }}
+        {{ Form::open(['url' => 'user/reservations/store', 'method'=>'POST', 'id'=>'']) }}
         <div class="bgColorGray first">
           <table>
             <tr>
@@ -206,11 +206,11 @@
                     <p>{{ReservationHelper::formatTime($request->leave_time)}}</p>
                   </li>
                 </ul>
-                <div class="borderAttention">
+                {{-- <div class="borderAttention">
                   <p><span>入室時間より以前に入室はできません。<br>確認の上、チェックボックスをクリックしてください。</span></p>
                   <p class="checkbox-txt"><span class="txtRed">＊</span><input type="checkbox" name="q1" value="確認しました">
                     確認しました</p>
-                </div>
+                </div> --}}
                 <p><a class="link-btn2" href="/">日程を変更する</a></p>
               </td>
             </tr>
@@ -218,12 +218,14 @@
               <th>利用会場</th>
               <td>
                 {{ReservationHelper::getVenue($request->venue_id)}}
+                {{Form::hidden('venue_id',$request->venue_id)}}
               </td>
             </tr>
             <tr>
               <th>当日の担当者 <span class="txtRed c-block">＊</span></th>
               <td>
-                {{ Form::text('in_charge', old('in_charge'),['class'=>'form-control text2', 'placeholder'=>'入力してください'] ) }}
+                {{$request->in_charge}}
+                {{ Form::hidden('in_charge', $request->in_charge) }}
                 <br class="spOnlyunder">
                 <a name="a-nam" class="error-r"></a>
               </td>
@@ -231,7 +233,8 @@
             <tr>
               <th>当日の担当者連絡先 <span class="txtRed c-block">＊</span></th>
               <td>
-                {{ Form::text('tel', old('tel'),['class'=>'form-control text2', 'placeholder'=>'入力してください'] ) }}
+                {{$request->tel}}
+                {{ Form::hidden('tel', $request->tel) }}
                 <br class="spOnlyunder">
                 <a name="a-nam" class="error-r"></a>
               </td>
@@ -241,12 +244,8 @@
               <td class="">
                 <ul>
                   <li>
-                    <div class="selectTime">
-                      {{ Form::radio('price_system', 2, false, ['class'=>'radio-input','id'=>'price_system_radio2']) }}
-                      {{Form::label('price_system_radio2','する')}}
-                      {{ Form::radio('price_system', 1, true, ['class'=>'radio-input', 'id'=>'price_system_radio1']) }}
-                      {{Form::label('price_system_radio1','しない')}}
-                    </div>
+                    {{$request->price_system==1?'しない':'する'}}
+                    {{ Form::hidden('price_system', $request->price_system) }}
                   </li>
                   <li><a href=""><i class="fas fa-question-circle form-icon"></i>音響ハイグレードとは？</a></li>
                 </ul>
@@ -258,29 +257,25 @@
               <td class="">
                 <ul>
                   <li>
-                    <div class="selectTime">
-                      {{ Form::radio('board_flag', 1, false, ['class'=>'radio-input','id'=>'board_flag']) }}
-                      {{Form::label('board_flag','する')}}
-                      {{ Form::radio('board_flag', 0, true, ['class'=>'radio-input', 'id'=>'board_flag_off']) }}
-                      {{Form::label('board_flag_off','しない')}}
-                    </div>
+                    {{$request->board_flag==1?'しない':'する'}}
+                    {{ Form::hidden('board_flag', $request->board_flag) }}
                   </li>
                   <li><a href=""><i class="fas fa-external-link-alt form-icon"></i>案内板サンプルはこちら</a></li>
                   <li class="cell-margin">
                     <div class="m-b10">
                       <p><span class="txtRed c-block">＊</span>イベント名称1行目</p>
-                      {{ Form::text('event_name1','',['class'=>'form-control text2', 'placeholder'=>'入力してください'] ) }}
-                      <p>※16文字以内</p>
+                      {{$request->event_name1}}
+                      {{ Form::hidden('event_name1', $request->event_name1) }}
                     </div>
                     <div class="m-b10">
                       <p>イベント名称2行目</p>
-                      {{ Form::text('event_name2','',['class'=>'form-control text2', 'placeholder'=>'入力してください'] ) }}
-                      <p>※16文字以内</p>
+                      {{$request->event_name2}}
+                      {{ Form::hidden('event_name2', $request->event_name2) }}
                     </div>
                     <div class="m-b10">
                       <p>主催者名</p>
-                      {{ Form::text('event_owner','',['class'=>'form-control text2', 'placeholder'=>'入力してください'] ) }}
-                      <p>※30文字以内</p>
+                      {{$request->event_owner}}
+                      {{ Form::hidden('event_owner', $request->event_owner) }}
                     </div>
                     <div class="m-b10">
                       <p><span class="txtRed c-block">＊</span>イベント時間の記載</p>
@@ -294,39 +289,18 @@
                     <ul class="form-cell">
                       <li>
                         <p>イベント開始時間</p>
-                        <div class="selectWrap">
-                          <select name="event_start" id="event_start" class="form-control timeScale">
-                            <option disabled>選択してください</option>
-                            @for ($start = 0*2; $start <=23*2; $start++) <option
-                              value="{{date("H:i:s", strtotime("00:00 +". $start * 30 ." minute"))}}" @if(($request->
-                              enter_time==date("H:i:s", strtotime("00:00 +". $start * 30 ." minute"))))
-                              selected
-                              @endif>
-                              {{date("H時i分", strtotime("00:00 +". $start * 30 ." minute"))}}</option>
-                              @endfor
-                          </select>
-                        </div>
+                        {{$request->event_start}}
+                        {{ Form::hidden('event_start', $request->event_start) }}
                       </li>
                       <li>
                         <p>イベント終了時間</p>
-                        <div class="selectWrap">
-                          <select name="event_finish" id="event_finish" class="form-control timeScale">
-                            <option disabled>選択してください</option>
-                            @for ($start = 0*2; $start <=23*2; $start++) <option
-                              value="{{date("H:i:s", strtotime("00:00 +". $start * 30 ." minute"))}}" @if(($request->
-                              leave_time==date("H:i:s", strtotime("00:00 +". $start * 30 ." minute"))))
-                              selected
-                              @endif>
-                              {{date("H時i分", strtotime("00:00 +". $start * 30 ." minute"))}}</option>
-                              @endfor
-                          </select>
-                        </div>
+                        {{$request->event_finish}}
+                        {{ Form::hidden('event_finish', $request->event_finish) }}
                       </li>
                     </ul>
-                    <p class="txtRed">※入力した時間より前に会場に入ることはできません。</p>
+                    {{-- <p class="txtRed">※入力した時間より前に会場に入ることはできません。</p> --}}
                   </li>
               </td>
-
               </li>
               </ul>
               <a name="a-selectTime1" class="error-r"></a>
@@ -351,71 +325,68 @@
               </td>
             </tr>
 
+
             <tr>
               <th>有料備品</th>
               <td class="spec-space">
                 <ul>
                   @foreach ($venue->getEquipments() as $e_key=>$eqpt)
+                  @if ($request->{'equipment_breakdown'.$e_key}==0||$request->{'equipment_breakdown'.$e_key}=="")
+                  @continue
+                  @else
                   <li class="form-cell2">
                     <p class="text6">{{$eqpt->item}}</p>
                     <p>
-                      {{ Form::text('equipment_breakdown'.$e_key, '',['class'=>'text4 mL0'] ) }}個
+                      <p class="text4" style="margin-left: 20px;">{{($request->{'equipment_breakdown'.$e_key})}}個</p>
+                      {{ Form::hidden('equipment_breakdown'.$e_key, ($request->{'equipment_breakdown'.$e_key}),['class'=>'text4 mL0'] ) }}
                     </p>
                   </li>
+                  @endif
                   @endforeach
                 </ul>
               </td>
             </tr>
+
             <tr>
               <th>有料サービス</th>
               <td class="spec-space">
                 <ul>
                   @foreach ($venue->getServices() as $s_key=>$serv)
+                  @if ($request->{'services_breakdown'.$s_key}!=0)
                   <li class="form-cell2">
                     <label>
-                      <input type="checkbox" id="" name="{{'services_breakdown'.$s_key}}" value="1"
-                        class="checkbox-input">
-                      <span class="checkbox-parts">{{$serv->item}} {{$serv->price}}円</span>
+                      <span class="">{{$serv->item}} {{$serv->price}}円</span>
+                      {{ Form::hidden('services_breakdown'.$s_key, ($request->{'services_breakdown'.$e_key}) ) }}
                     </label>
                   </li>
+                  @endif
                   @endforeach
                 </ul>
               </td>
             </tr>
 
-            @if ($venue->getLayouts()!=0)
             <tr>
-              @if ($venue->getLayouts()[0])
+              @if ($request->layout_prepare==1)
               <th>レイアウト変更</th>
               <td class="spec-space">
                 <div class="m-b10">
                   <p>レイアウト準備</p>
-                  <div class="selectTime">
-                    {{Form::radio('layout_prepare', 1, false, ['id' => 'layout_prepare', 'class' => 'radio-input'])}}
-                    {{Form::label('layout_prepare','あり')}}
-                    {{Form::radio('layout_prepare', 0, true, ['id' => 'no_layout_prepare', 'class' => 'radio-input'])}}
-                    {{Form::label('no_layout_prepare', 'なし')}}
-                  </div>
+                  {{$request->layout_prepare==1?"あり":"なし"}}
+                  {{ Form::hidden('layout_prepare', $request->layout_prepare ) }}
                   <a name="a-selectTime1" class="error-r"></a>
                 </div>
                 @endif
-                @if ($venue->getLayouts()[1])
+                @if ($request->layout_clean==1)
                 <div class="m-b10">
                   <p>レイアウト片付け</p>
-                  <div class="selectTime">
-                    {{Form::radio('layout_clean', 1, false, ['id' => 'layout_clean', 'class' => 'radio-input'])}}
-                    {{Form::label('layout_clean','あり')}}
-                    {{Form::radio('layout_clean', 0, true, ['id' => 'no_layout_clean', 'class' => 'radio-input'])}}
-                    {{Form::label('no_layout_clean', 'なし')}}
-                  </div>
+                  {{$request->layout_clean==1?"あり":"なし"}}
+                  {{ Form::hidden('layout_clean', $request->layout_clean ) }}
                   <a name="a-selectTime1" class="error-r"></a>
                 </div>
                 @endif
               </td>
             </tr>
-            @endif
 
-            @if ($venue->getLuggage()!=0)
             <tr>
               <th>荷物預かり/返送</th>
               <td class="spec-space">
@@ -423,14 +394,16 @@
                   <p>【事前に預かる荷物】</p>
                   <div class="selectTime">
                     <p class="baggage_bn">目安</p>
-                    {{ Form::text('luggage_count', '',['class'=>'text6 baggage_bn', 'style'=>'width:20%;'] ) }}
+                    <p class="">{{$request->luggage_count}}</p>
+                    {{ Form::hidden('luggage_count', $request->luggage_count ) }}
                     <p class="baggage_bn">個</p>
                   </div>
                 </div>
                 <div class="m-b10">
                   <p>事前荷物の到着日</p>
                   <div class="selectTime">
-                    {{ Form::date('luggage_arrive', '',['class'=>'text6'] ) }}
+                    <p class="">{{$request->luggage_arrive}}</p>
+                    {{ Form::hidden('luggage_arrive', $request->luggage_arrive ) }}
                     <p>午前指定</p>
                   </div>
                 </div>
@@ -447,7 +420,8 @@
                   <p>【事後返送する荷物】</p>
                   <div class="selectTime">
                     <p class="baggage_an">目安</p>
-                    {{ Form::text('luggage_return', '',['class'=>'text6 baggage_an', 'style'=>'width: 20%;'] ) }}
+                    <p class="">{{$request->luggage_return}}</p>
+                    {{ Form::hidden('luggage_return', $request->luggage_return ) }}
                     <p class="baggage_an">個</p>
                   </div>
                 </div>
@@ -463,37 +437,160 @@
                 </div>
               </td>
             </tr>
-            @endif
+
             <tr>
               <th>備考</th>
               <td>
-                {{ Form::textarea('remark', '',['cols'=>'30','rows'=>'10'] ) }}
-                <p>
-                  <span class="txt-indent">
-                    ※入力に際し旧漢字・機種依存文字などはご使用になれません。
-                  </span>
-                </p>
+                <p col='30' rows='10'>{{$request->remark}}</p>
+                {{ Form::hidden('remark', $request->remark ) }}
                 <a name="a-nam" class="error-r"></a>
               </td>
             </tr>
           </table>
         </div>
-        <style>
-          .btn-wrapper {
-            display: flex;
-            justify-content: center;
-            margin-bottom: 80px;
-          }
-        </style>
+
+        <div class="section-wrap">
+          <table class="table-sum">
+            <thead>
+              <tr>
+                <th colspan="2">
+                  料金内訳
+                </th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <th class=""><label for="date">利用日</label></th>
+                <td>
+                  <ul class="sum-list">
+                    <li>
+                      <p>{{ReservationHelper::formatDate($request->date)}}</p>
+                      {{ Form::hidden('date', $request->date ) }}
+                    </li>
+                  </ul>
+                </td>
+              </tr>
+              <tr>
+                <th class=""><label for="venueFee">会場料金</label></th>
+                <td>
+                  <ul class="sum-list">
+                    <li>
+                      <p>
+                        {{ReservationHelper::formatTime($request->enter_time)}}
+                        {{Form::hidden('enter_time',$request->enter_time)}}
+                        ～
+                        {{ReservationHelper::formatTime($request->leave_time)}}
+                        {{Form::hidden('leave_time',$request->leave_time)}}
+                      </p>
+                      <p>{{number_format($price_result[0])}}<span>円</span></p>
+                    </li>
+                    @if ($price_result[1]!=0)
+                    <li>
+                      <p>延長{{$price_result[4]}}h</p>
+                      <p>{{number_format($price_result[1])}}<span>円</span></p>
+                    </li>
+                    @endif
+                  </ul>
+                </td>
+              </tr>
+
+
+
+              @if (ReservationHelper::checkEquipmentBreakdowns($request->all())!=0)
+              <tr>
+                <th class=""><label for="equipment">有料備品</label></th>
+                <td>
+                  <ul class="sum-list">
+                    @foreach ($items_results[1] as $i_key=>$item_result)
+                    <li>
+                      <p>{{$item_result[0]}}<span>×</span><span>{{$item_result[2]}}</span></p>
+                      <p>
+                        {{number_format(ReservationHelper::numTimesNum($item_result[1], $item_result[2]))}}
+                        <span>円</span>
+                      </p>
+                    </li>
+                    @endforeach
+                  </ul>
+                </td>
+              </tr>
+              @endif
+
+
+
+              @if (ReservationHelper::checkServiceBreakdowns($request->all())!=0)
+              <tr>
+                <th class=""><label for="service">有料サービス</label></th>
+                <td>
+                  <ul class="sum-list">
+                    @foreach ($items_results[2] as $s_key=>$service_result)
+                    <li>
+                      <p>{{$service_result[0]}}</p>
+                      <p>{{number_format($service_result[1])}}<span>円</span></p>
+                    </li>
+                    @endforeach
+                    @if ($request->luggage_count||$request->luggage_arrive||$request->luggage_return)
+                    <li>
+                      <p>荷物預かり/返送</p>
+                      <p>500<span>円</span></p>
+                    </li>
+                    @endif
+                  </ul>
+                </td>
+              </tr>
+              @endif
+
+
+              @if ($request->layout_prepare!=0||$request->layout_clean!=0)
+              <tr>
+                <th class=""><label for="service">レイアウト変更</label></th>
+                <td>
+                  <ul class="sum-list">
+                    @if ($request->layout_prepare==1)
+                    <li>
+                      <p>レイアウト準備料金</p>
+                      <p>{{number_format($venue->layout_prepare)}}<span>円</span></p>
+                    </li>
+                    @endif
+                    @if ($request->layout_clean==1)
+                    <li>
+                      <p>レイアウト片付料金</p>
+                      <p>{{number_format($venue->layout_clean)}}<span>円</span></p>
+                    </li>
+                    @endif
+                  </ul>
+                </td>
+              </tr>
+              @endif
+
+              <tr>
+                <td colspan="2" class="text-right">
+                  <p class="checkbox-txt"><span>小計</span>{{number_format($master)}}円</p>
+                  <p class="checkbox-txt"><span>消費税</span>{{number_format(ReservationHelper::getTax($master))}}円</p>
+                </td>
+              </tr>
+              <tr>
+                <td colspan="2" class="text-right checkbox-txt"><span>合計金額</span>
+                  <span class="sumText">{{number_format(ReservationHelper::taxAndPrice($master))}}</span><span>円</span>
+                  <p class="txtRight">※上記合計金額にケータリングは入っておりません。<br>
+                    ※お申込み内容によっては、弊社からご連絡の上で、合計金額が変更となる場合がございます</p>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+
         <ul class="btn-wrapper">
           <li>
-            {{Form::submit('料金を確認する',['class'=>'confirm-btn','style'=>'width:100%;'])}}
+
+            {{Form::submit('修正する',['class'=>'link-btn','style'=>'width:100%;', 'name'=>'back'])}}
+            {{-- <p class="link-btn"><a href="">修正する</a></p> --}}
+          </li>
+          <li>
+            {{-- <p class="confirm-btn"><a href="">予約する</a></p> --}}
+            {{Form::submit('予約する',['class'=>'confirm-btn','style'=>'width:100%;', 'name'=>'store'])}}
           </li>
         </ul>
-        {{Form::hidden('venue_id',$request->venue_id)}}
-        {{Form::hidden('date',$request->date)}}
-        {{Form::hidden('enter_time',$request->enter_time)}}
-        {{Form::hidden('leave_time',$request->leave_time)}}
         {{Form::close()}}
 
       </section>

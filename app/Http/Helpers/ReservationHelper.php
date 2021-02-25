@@ -318,4 +318,28 @@ class ReservationHelper
       return ReservationHelper::getAgentMobile($agent_id);
     }
   }
+
+  public static function checkEquipmentBreakdowns($arrays)
+  {
+    $_equipment = [];
+    foreach ($arrays as $key => $value) {
+      if (preg_match('/equipment_breakdown/', $key)) {
+        $s_equipment[] = $value;
+      }
+    }
+    $result = ReservationHelper::judgeArrayEmpty($s_equipment);
+    return $result;
+  }
+
+  public static function checkServiceBreakdowns($arrays)
+  {
+    $s_service = [];
+    foreach ($arrays as $key => $value) {
+      if (preg_match('/services_breakdown/', $key)) {
+        $s_service[] = $value;
+      }
+    }
+    $result = ReservationHelper::judgeArrayEmpty($s_service);
+    return $result;
+  }
 }
