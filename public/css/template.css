@@ -1172,6 +1172,14 @@ h3 {
     border: none;
 }
 
+.add.pluralBtn {
+    background: #007BFF;
+}
+
+.del.pluralBtn {
+    background: #DC3545;
+}
+
 .bill_total {
     border-top: 1px solid #3e3e3e;
     padding-top: 15px;

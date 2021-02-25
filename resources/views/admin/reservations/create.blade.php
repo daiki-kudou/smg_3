@@ -65,7 +65,7 @@
           <tr>
             <td colspan="2">
               <p class="title-icon">
-                <i class="fas fa-info-circle icon-size fa-fw"></i>予約情報
+                <i class="fas fa-info-circle icon-size"></i>予約情報
               </p>
             </td>
           </tr>

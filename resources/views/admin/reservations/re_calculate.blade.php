@@ -286,7 +286,7 @@
       </table>
 
       <div class="equipemnts">
-        <table class="table table-bordered" style="table-layout: fixed;">
+        <table class="table table-bordered">
           <thead>
             <tr>
               <th colspan="2">
@@ -322,7 +322,7 @@
         </table>
       </div>
       <div class="services">
-        <table class="table table-bordered" style="table-layout: fixed;">
+        <table class="table table-bordered">
           <thead>
             <tr>
               <th colspan="2">
@@ -1101,7 +1101,7 @@
       </div>
       <div class="main">
         <div class="paids billdetails_content">
-          <table class="table" style="table-layout: fixed;">
+          <table class="table">
             <tr>
               <td>入金状況{{Form::select('paid', ['未入金', '入金済み'],null,['class'=>'form-control'])}}</td>
               <td>
