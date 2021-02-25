@@ -43,7 +43,7 @@ class ReservationsController extends Controller
         $s_service[] = $value;
       }
     }
-    var_dump(($s_service));
+    // var_dump(($s_service));
 
     $items_results = $venue->calculate_items_price($s_equipment, $s_service);
 
@@ -85,24 +85,20 @@ class ReservationsController extends Controller
         ->action("User\ReservationsController@create")
         ->withInput($arrays);
     } else {
-      var_dump($request->all());
+      $data = $request->all();
+      $user = auth()->user()->id;
+      $all_data = [$data, $user];
+      $request->session()->push('session_reservations', $all_data);
+      return redirect('user/reservations/cart');
     }
   }
 
-
-  public function test(Request $request)
+  public function cart(Request $request)
   {
-    // $SessionProductId = $request->test;
-    // $SessionData = array();
-    // $SessionData = compact("SessionProductId");
-    // $request->session()->push('session_data', $SessionData);
-    return redirect('user/reservations/test2');
-  }
-
-  public function test2(Request $request)
-  {
-    // $SessionData = $request->session()->get('session_data');
-    // $request->session()->regenerate();
-    return view('user.reservations.test2', compact(""));
+    $sessions = $request->session()->get('session_reservations');
+    echo "<pre>";
+    var_dump(empty($sessions));
+    echo "</pre>";
+    return view('user.reservations.cart', compact('sessions'));
   }
 }
