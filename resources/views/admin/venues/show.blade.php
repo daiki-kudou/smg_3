@@ -206,11 +206,11 @@
           <!-- 工藤さんに確認　顧客の新規登録のデータをピックアップ問題ないか -->
           <tr>
             <td class="table-active">{{ Form::label('first_name', '担当者氏名') }}</td>
-            <td>{{$venue->last_name}}{{$venue->first_name}}</td>
+            <td colspan="2">{{$venue->last_name}}{{$venue->first_name}}</td>
           </tr>
           <tr>
             <td class="table-active">{{ Form::label('first_name_kana', '担当者氏名（ふりがな）') }}</td>
-            <td>{{$venue->last_name_kana}}{{$venue->first_name_kana}}</td>
+            <td colspan="2">{{$venue->last_name_kana}}{{$venue->first_name_kana}}</td>
           </tr>
           <!-- 工藤さんに確認　顧客の新規登録のデータをピックアップ問題ないか -->
 
@@ -260,7 +260,7 @@
           <!-- 工藤さんに確認　顧客の新規登録のデータをピックアップ問題ないか -->
           <tr>
             <td class="table-active">{{ Form::label('mgmt_first_name', '担当者氏名') }}</td>
-            <td>{{ $venue-> mgmt_last_name}}{{ $venue-> mgmt_first_name}}</td>
+            <td colspan="2">{{ $venue-> mgmt_last_name}}{{ $venue-> mgmt_first_name}}</td>
           </tr>
           <!-- 工藤さんに確認　顧客の新規登録のデータをピックアップ問題ないか -->
 
@@ -406,7 +406,7 @@
       <i class="fas fa-clock icon-size fa-fw"></i>営業時間
     </p>
     <div>
-      <table class="table table-bordered">
+      <table class="table table-bordered　mb-0">
         <thead>
           <tr>
             <th scope="col">曜日</th>
@@ -449,7 +449,7 @@
       <i class="fas fa-yen-sign icon-size fa-fw"></i>料金管理
     </p>
     <div class="p-3">
-      <div>
+      <div class="mb-2">
         <strong>料金体系</strong>
         <p>通常料金（枠貸し）</p>
       </div>
@@ -474,7 +474,7 @@
         </table>
       </div>
 
-      <div>
+      <div class="mb-2">
         <strong>料金体系</strong>
         <p>アクセア料金（時間貸し）</p>
       </div>
