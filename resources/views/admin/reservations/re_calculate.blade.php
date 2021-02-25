@@ -582,7 +582,7 @@
             </p>
           </td>
         </tr>
-        <tr>
+        <!-- <tr>
           <td>
             <input type="checkbox" id="discount" checked>
             <label for="discount">割引条件</label>
@@ -595,10 +595,10 @@
             {{ Form::textarea('attention', empty($all_requests['attention'])?'':$all_requests['attention'],['class'=>'form-control'] ) }}
 
           </td>
-        </tr>
+        </tr> -->
         <tr>
           <td>
-            <label for="userNote">顧客情報の備考</label>
+            <label for="userNote">申し込みフォーム備考</label>
             {{ Form::textarea('user_details', empty($all_requests['user_details'])?'':$all_requests['user_details'],['class'=>'form-control'] ) }}
 
           </td>

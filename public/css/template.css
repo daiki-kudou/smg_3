@@ -211,6 +211,10 @@ label {
     margin-bottom: 0;
 }
 
+label:not(.form-check-label):not(.custom-file-label) {
+    font-weight: normal;
+}
+
 h1,
 h2,
 h3,

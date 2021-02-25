@@ -345,12 +345,12 @@
       </div>
     </div>
   </div>
+  
+  
+  {{ Form::submit('確認する', ['class' => 'btn more_btn_lg btn-block']) }}
+  
+  {{ Form::close() }}
 </section>
-
-
-{{ Form::submit('確認する', ['class' => 'btn btn-primary btn-block']) }}
-
-{{ Form::close() }}
 
 
 

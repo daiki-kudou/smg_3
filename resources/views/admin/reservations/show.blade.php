@@ -480,7 +480,7 @@
               </p>
             </td>
           </tr>
-          <tr>
+          <!-- <tr>
             <td>
               <p>
                 割引条件
@@ -494,9 +494,9 @@
               <p>{{isset($reservation->attention)?$reservation->attention:'なし'}}</p>
             </td>
           </tr>
-          <tr>
+          <tr> -->
             <td>
-              <p>顧客(予約サイト経由)入力の備考</p>
+              <p>申し込みフォーム備考</p>
               <p>{{isset($reservation->user_details)?$reservation->user_details:'なし'}}</p>
             </td>
           </tr>
@@ -1086,7 +1086,7 @@
               <table class="table table-borderless">
                 <tbody>
                   <tr>
-                    <td colspan="5">
+                    <td colspan="4">
                       　<h4 class="billdetails_content_ttl">
                         その他
                       </h4>
@@ -1868,7 +1868,7 @@
   <table class="table ">
     <tbody class="master_total_head">
       <tr>
-        <td>
+        <td colspan="2">
           <h3>
             合計請求額
           </h3>
