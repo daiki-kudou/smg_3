@@ -248,6 +248,8 @@
                   </ul>
                 </td>
               </tr>
+
+              @if (!empty(ReservationHelper::DBLJsonDecode($reservation[0]['items_results'])[1]))
               <tr>
                 <th class=""><label for="equipment">有料備品</label></th>
                 <td>
@@ -258,17 +260,14 @@
                       <p>{{number_format(ReservationHelper::numTimesNum($equ[1],$equ[2]))}}<span>円</span></p>
                     </li>
                     @endforeach
-                    {{-- <li>
-                      <p>ホワイトボード<span>×</span><span>2</span></p>
-                      <p>30,000<span>円</span></p>
-                    </li> --}}
-                    {{-- <li>
-                      <p>ホワイトボード<span>×</span><span>2</span></p>
-                      <p>30,000<span>円</span></p>
-                    </li> --}}
                   </ul>
                 </td>
               </tr>
+              @endif
+
+              {{-- {{var_dump(empty(ReservationHelper::DBLJsonDecode($reservation[0]['items_results'])[2]))}} --}}
+
+              @if (!empty(ReservationHelper::DBLJsonDecode($reservation[0]['items_results'])[2]))
               <tr>
                 <th class=""><label for="service">有料サービス</label></th>
                 <td>
@@ -288,6 +287,10 @@
                   </ul>
                 </td>
               </tr>
+              @endif
+
+
+
               <tr>
                 <td colspan="2" class="text-right">
                   <p class="checkbox-txt"><span>小計</span>7,200円</p>
@@ -303,7 +306,11 @@
           </table>
           <ul class="btn-wrapper">
             <li>
-              <p class="confirm-btn"><a href="">予約を取り消す</a></p>
+              {{ Form::open(['url' => 'user/reservations/session_destroy', 'method'=>'POST', 'id'=>'']) }}
+              {{ Form::hidden("session_reservation_id",$key )}}
+              <p class="confirm-btn">{{Form::submit('予約を取り消す')}}</p>
+              {{Form::close()}}
+
             </li>
             <li>
               <p class="link-btn"><a href="">予約内容を変更する</a></p>

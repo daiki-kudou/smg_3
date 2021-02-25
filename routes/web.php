@@ -37,6 +37,7 @@ Route::namespace('User')->prefix('user')->name('user.')->group(function () {
     Route::post('reservations/check', 'ReservationsController@check');
     Route::post('reservations/store_session', 'ReservationsController@storeSession');
     Route::get('reservations/cart', 'ReservationsController@cart');
+    Route::post('reservations/session_destroy', 'ReservationsController@session_destroy');
 
 
     // 以下、テスト

@@ -7,6 +7,8 @@ use Illuminate\Http\Request;
 
 use App\Models\Venue;
 
+use Session;
+
 class ReservationsController extends Controller
 {
   public function create(Request $request)
@@ -78,7 +80,6 @@ class ReservationsController extends Controller
 
   public function storeSession(Request $request)
   {
-    // var_dump($request->all());
     if ($request->back) {
       $arrays = (array)$request->all();
       return redirect()
@@ -97,8 +98,17 @@ class ReservationsController extends Controller
   {
     $sessions = $request->session()->get('session_reservations');
     // echo "<pre>";
-    // var_dump(($sessions));
+    var_dump(($sessions));
     // echo "</pre>";
+    return view('user.reservations.cart', compact('sessions'));
+  }
+
+  public function session_destroy(Request $request)
+  {
+    $session_id = $request->session_reservation_id;
+    Session::forget('session_reservations.' . $session_id);
+
+    $sessions = Session::get('session_reservations');
     return view('user.reservations.cart', compact('sessions'));
   }
 }
