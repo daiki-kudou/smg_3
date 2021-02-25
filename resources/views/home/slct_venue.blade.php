@@ -29,8 +29,7 @@
     href="https://ajax.googleapis.com/ajax/libs/jqueryui/1/themes/redmond/jquery-ui.css?ver=20201225">
 
   <!-- システムcss -->
-  <link rel="stylesheet" href="../css/style.css">
-
+  {{-- <link rel="stylesheet" href="../css/style.css"> --}}
 
   <!--[if lt IE 9]>
   <script src="//cdn.jsdelivr.net/html5shiv/3.7.2/html5shiv.min.js"></script>
@@ -38,6 +37,7 @@
   <![endif]-->
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
 
+  <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1/i18n/jquery.ui.datepicker-ja.min.js"></script>
   <script src="https://osaka-conference.com/js/flexibility.js?ver=20201225"></script>
   <script src="https://osaka-conference.com/js/wideslider.js?ver=20201225"></script>
   <script src="https://osaka-conference.com/js/functions.js?ver=20201225"></script>
@@ -60,7 +60,6 @@
   <script>
     $(window).load(function() {
       $(".box0>li").heightLine();
-      //$(".box01>li").heightLine();
           if(window.matchMedia('(min-width: 751px)').matches) {
               $(".room-data").heightLine();
               $(".conference-roominner>.conference-roomdata").heightLine();
@@ -105,8 +104,6 @@
   </script>
   <script src="https://osaka-conference.com/js/search.js"></script>
   <script src="https://osaka-conference.com/js/searchTpl.js"></script>
-
-
 
 
   <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1/jquery-ui.min.js"></script>
@@ -154,11 +151,12 @@
     @media screen and (max-width:750px) {
       .tabBtn li {
         z-index: 1;
-        /*5;*/
       }
     }
   </style>
+
   <link href="{{ asset('/css/homepage/style.css') }}" rel="stylesheet">
+
 
 </head>
 
@@ -234,7 +232,8 @@
         </ul>
       </div>
 
-    </header>
+    </header> <!-- ここまでhedaer.html -->
+
     <main>
       <!-- <ul class="tagBtn sticky">
     <li><a href ="https://osaka-conference.com/contact/"><span><img src="https://osaka-conference.com/img/link_conact.png" alt="問い合わせ"></span></a></li>
@@ -280,33 +279,184 @@
           </li>
         </ol>
       </nav>
-
-
-      <!-- ログイン、会員登録 -->
+      <!-- 会場予約 -->
       <div class="contents">
         <div class="pagetop-text">
-          <h1 class="page-title oddcolor"><span>会員登録フォーム送信</span></h1>
-          <div class="text-box">
-            <p>{{$email}}へ会員登録フォームメールを送付しました。<br>
-              1時間以内に受信されてこない場合は、メールアドレスのお間違えの可能性がございますので、ご確認ください。</p>
-            <p>会員登録メールに会員登録のためのURLが記載されております。
-              こちらのURLの有効期限は2時間となりますので、ご注意お願い致します。</p>
-            <p>※弊社からの自動返信がお客様のメール利用環境により迷惑フォルダに受信される場合がございます。
-              お手数ですが迷惑フォルダもご確認いただけましたら幸いです。その場合は【@s-mg.co.jp】を
-              受信設定していただきますようお願いいたします。</p>
-          </div>
+          <h1 class="page-title oddcolor"><span>会場予約</span></h1>
+          <p>希望日時に空きがあることをご確認の上、お申込み下さい。</p>
         </div>
       </div>
+      <section class="contents">
+        <div class="borderBox">
+          <article>
+            <ul class="sp tabBtn clearfix">
+              <li>利用日から選ぶ</li>
+              <li class="trigger">会場から選ぶ</li>
+            </ul>
+            <div class="flexBetween">
+              <div class="grayBox spmt20">
+                <p class="txtCenter"><em>利用日から選ぶ</em></p>
+                {{Form::open(['url' => 'slct_date', 'method' => 'post', 'id'=>'form01', 'class'=>'search'])}}
+                @csrf
+                <dl>
+                  <dt><label>利用日</label></dt>
+                  <dd>
+                    <div class="riyoubi">
+                      {{ Form::text('date', HomeHelper::now(),['class'=>'form-control text6', 'readonly', 'id'=>'datepicker'] ) }}
+                    </div>
+                    <span class="txt-indent">※選択不可の日程につきましては、直接お問い合わせ下さい。</span>
+                    <span class="txt-indent">※一部検索対応をしていない会場があります。</span></p>
+                  </dd>
+                </dl>
+                <div class="btnOrange">
+                  <button type="submit" class="smit">会場検索
+                    <img src="https://osaka-conference.com/img/icon_serch.png" alt="検索">
+                  </button>
+                </div>
+                {{Form::close()}}
+              </div>
+              <div class="grayBox btn-row">
+                <p class="txtCenter"><em>会場から選ぶ</em></p>
+                {{Form::open(['url' => 'slct_venue', 'method' => 'post', 'id'=>'form02', 'class'=>'search'])}}
+                @csrf
+                <dl>
+                  <dt><label>会場</label></dt>
+                  <dd>
+                    <div class="selectWrap">
+                      <select name="room04" id="changeSelect">
+                        @foreach ($venues as $venue)
+                        @if ($request->room04==$venue->id)
+                        <option value="{{$venue->id}}" selected>{{ReservationHelper::getVenue($venue->id)}}</option>
+                        @else
+                        <option value="{{$venue->id}}">{{ReservationHelper::getVenue($venue->id)}}</option>
+                        @endif
+                        @endforeach
+                      </select>
+                    </div>
+                    <p><span class="txt-indent">※検索対応をしていない会場や、利用月プルダウン外の日程に関しましては直接お問い合わせ下さい。</span>
+                    </p>
+                  </dd>
+                </dl>
+                <dl>
+                  <dt><label>利用月</label></dt>
+                  <dd class="short">
+                    <div class="selectWrap">
+                      <select name="mon" id="changeSelectpoint">
+                        @foreach (HomeHelper::getMonths() as $month)
+                        @if ($request->mon==$month[0])
+                        <option value="{{$month[0]}}" selected>{{$month[1]}}</option>
+                        @else
+                        <option value="{{$month[0]}}">{{$month[1]}}</option>
+                        @endif
+                        @endforeach
+                      </select>
+                    </div>
+                  </dd>
+                </dl>
+                <dl>
+                  <dt></dt>
+                  <dd>
+                    <p><span class="txt-indent">※選択不可の日程につきましては、直接お問い合わせ下さい。</span></p>
+                  </dd>
+                </dl>
+                <div class="btnOrange"><button type="submit" class="smit">空室状況検索<img
+                      src="https://osaka-conference.com/img/icon_serch.png" alt="検索"></button>
+                  <a href="https://osaka-conference.com/contact/" class="cContactBtn">問い合わせ</a>
+                </div>
+                </form>
+              </div>
+            </div>
+          </article>
+          <div class="calenderframe">
+            <iframe src="{{url('').'/admin/calendar/venue_calendar'}}" width="100%" height="400px"></iframe>
 
+          </div>
+
+          {{Form::close()}}
+
+          <h2 class="sub-ttl">選択した日程</h2>
+          <div class="bgColorGray first">
+            <table>
+              <tr>
+                <th>利用会場</th>
+                <td>
+                  四ツ橋・サンワールドビル2号室
+                </td>
+              </tr>
+              <tr>
+                <th>年月日 <span class="txtRed">＊</span></th>
+                <td>
+                  <div class="riyoubi">
+                    <input type="text" name="date" id="datepicker" readonly>
+                    <img class="ui-datepicker-trigger" src="https://osaka-conference.com/img/icon_calender.png"
+                      alt="..." title="...">
+                  </div>
+                  <a name="a-date" class="error-r"></a>
+                  <p><span class="txt-indent">翌々日以降の利用日から受付可能です。</span></p>
+                  <p><span>直近の日程は選択できません。お電話にて問い合わせ下さい。</span></p>
+                </td>
+              </tr>
+              <tr>
+                <th>入室時間 <span class="txtRed">＊</span></th>
+                <td>
+                  <div class="selectWrap">
+                    <select name="" class="timeScale"></select>
+                  </div>
+                  <a name="a-time01" class="error-r"></a>
+                  <p><span>入室時間より以前に入室はできません。<br>確認の上、チェックボックスをクリックしてください。</span></p>
+                  <p class="checkbox-txt"><span class="txtRed">＊</span><input type="checkbox" name="q1" value="確認しました">
+                    確認しました</p>
+                </td>
+              </tr>
+
+              <tr>
+                <th>退室時間 <span class="txtRed">＊</span></th>
+                <td>
+                  <div class="selectWrap">
+                    <select name="" class="timeScale"></select>
+                  </div>
+                  <a name="a-time03" class="error-r"></a>
+                </td>
+              </tr>
+            </table>
+          </div>
+          </form>
+
+          <div class="btn-wrapper2">
+            <p class="confirm-btn"><a href="">日時を選択する</a></p>
+          </div>
+
+        </div>
+      </section>
+
+      <article class="contents">
+        <div class="page-text">
+          <p class="caution-text">カレンダーにない日程の予約に関してはお電話にてお問合せください。</p>
+        </div>
+        <div class="contactinfo">
+          <div class="info">
+            <p class="title">問い合わせの前に</p>
+            <p>お客様よりいただく<span class="faq"><a href="../faq/">よくある質問</a></span>をご参考下さい。</p>
+          </div>
+          <div class="telInfo">
+            <p class="title">電話での問い合わせ（10時～18時）</p>
+            <div class="telNo pc">06-6556-6462</div>
+            <div class="telNo sp"><a href="tel:06-6556-6462"
+                onclick="gtag('event','tel-tap',{'event_category':'click'});">06-6556-6462</a></div>
+            <p>ご予約、お問い合わせ専用番号となります。<br class="sp">会場アクセスやイベント内容についてのお問い合わせはお控え下さい。</p>
+          </div>
+        </div>
+      </article>
 
 
       <script>
-        $("form[name='calendar02'] select[name='room04']").val($("form[name='calendar02'] select[name='room04'] option").first().val());
-$(function(){
-$("form#form02 select[name='room04'] option").filter(function(){
-    return $(this).attr("disabled");
-}).remove();
-});
+        $("form[name='calendar02'] select[name='room04']").val($(
+                    "form[name='calendar02'] select[name='room04'] option").first().val());
+                $(function () {
+                    $("form#form02 select[name='room04'] option").filter(function () {
+                        return $(this).attr("disabled");
+                    }).remove();
+                });
       </script>
       <div class="top contents"><a href="#top"><img src="https://osaka-conference.com/img/pagetop.png" alt="上に戻る"></a>
       </div>
@@ -526,86 +676,22 @@ gtag('config', 'UA-57423515-1');
 In your html page, add the snippet and call
 goog_report_conversion when someone clicks on the
 phone number link or button. -->
-  <script type="text/javascript">
-    /* <![CDATA[ */
-goog_snippet_vars = function() {
-  var w = window;
-  w.google_conversion_id = 952596168;
-  w.google_conversion_label = "zImsCPDZ-W4QyO2dxgM";
-  w.google_remarketing_only = false;
-}
-// DO NOT CHANGE THE CODE BELOW.
-goog_report_conversion = function(url) {
-  goog_snippet_vars();
-  window.google_conversion_format = "3";
-  var opt = new Object();
-  opt.onload_callback = function() {
-  if (typeof(url) != 'undefined') {
-    window.location = url;
-  }
-}
-var conv_handler = window['google_trackConversion'];
-if (typeof(conv_handler) == 'function') {
-  conv_handler(opt);
-}
-}
-/* ]]> */
-  </script>
+
   <script type="text/javascript" src="//www.googleadservices.com/pagead/conversion_async.js"></script>
+  <script>
+    // 時間セレクトループ
+            $(function(){
+        for (var i=8; i<=23; i++) {
+          for(var ii=1; ii<=2; ii++){
+            var judge="";
+            ii%2==0?judge='30':judge='00';
+           $('.timeScale').append("<option value='"+i+':'+judge+"'>"+i+':'+judge+"</option>"); 
+          }
+        }
+        })
+        
+  </script>
+
 </body>
 
 </html>
-
-{{-- <!doctype html>
-<html lang="ja">
-
-<head>
-  <title>Starter Template for Bootstrap · Bootstrap</title>
-  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
-  <link href="starter-template.css" rel="stylesheet">
-</head>
-
-<body>
-  <style>
-    body {
-      padding-top: 5rem;
-    }
-
-    .starter-template {
-      padding: 3rem 1.5rem;
-      text-align: center;
-    }
-  </style>
-  <a id="skippy" class="sr-only sr-only-focusable" href="#content">
-    <div class="container">
-      <span class="skiplink-text">Skip to main content</span>
-    </div>
-  </a>
-
-  <nav class="navbar navbar-expand-md navbar-dark bg-dark fixed-top">
-    <a class="navbar-brand" href="#">SMG貸し会議室</a>
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExampleDefault"
-      aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
-    </button>
-  </nav>
-  <main role="main" class="container">
-    <div class="starter-template">
-      <h1>会員登録フォーム送信</h1>
-      <div style="margin-top: 50px;width: 900px;" class="form-group mx-auto">
-        <p>{{$email}}　へ会員登録フォームメールを送付しました。<br>
-１時間以内に受信されていない場合はメールアドレスのお間違えの可能性がございますので、ご理解ください。<br><br><br>
-
-会員登録メールに会員登録のためのURLが記載されております。<br>
-こちらのURLの有効期限は１時間となりますので、ご注意お願い致します。<br><br><br>
-
-※弊社からの自動返信がお客様のメール利用環境により迷惑フォルダに受信される場合がございます。<br>
-お手数ですが迷惑フォルダにもご確認いただけましたら幸いです。その場合は<br>
-【&#064;s-mg.co.jo】を受信設定していただきますようお願いします。<br>
-</p>
-</div>
-</div>
-</main>
-</body>
-
-</html> --}}

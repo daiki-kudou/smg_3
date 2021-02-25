@@ -88,8 +88,6 @@ class HomeController extends Controller
         'reservation_status' => $request->update_status
       ]);
 
-
-
       $request->session()->regenerate();
       return redirect()->route('user.home.index');
     });

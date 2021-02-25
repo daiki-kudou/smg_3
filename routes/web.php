@@ -1,11 +1,16 @@
 <?php
 
-Route::get('/', function () {
-  return view('index');
-})->name('login');
+
+Route::get('/', 'Home\HomeController@index')->name('home');
+Route::namespace('Home')->prefix('/')->name('home.')->group(function () {
+  Route::post('slct_date', 'HomeController@slct_date')->name('home.slct_date');
+  Route::post('slct_venue', 'HomeController@slct_venue')->name('home.slct_venue');
+});
+
+
 
 // 一般ユーザー用カレンダー
-Route::get('calender/date_calendar', 'CalendarsController@index');
+// Route::get('calender/date_calendar', 'CalendarsController@date_calendar');
 Route::get('calender/venue_calendar', 'CalendarsController@venue_calendar');
 
 /*
@@ -15,15 +20,24 @@ Route::get('calender/venue_calendar', 'CalendarsController@venue_calendar');
 */
 Route::namespace('User')->prefix('user')->name('user.')->group(function () {
 
-  // ログイン認証後
-  Route::middleware('verified')->group(function () {
-    // TOPページ
+  Auth::routes(['register' => true, 'confirm' => true, 'reset' => true,]);
+
+  // Route::middleware('verified')->group(function () {  
+  //verfified一旦停止
+  Route::middleware('auth')->group(function () {
     Route::resource('home', 'HomeController');
     Route::put('home/{home}/update_status', 'HomeController@updateStatus')->name('home.updatestatus');
     Route::get('home/generate_invoice/{home}', 'HomeController@generate_invoice')->name('home.generate_invoice');
     Route::put('home/{home}/update_other_bills', 'HomeController@updateOtherBillsStatus');
     Route::get('pre_reservations', 'PreReservationsController@index')->name('per_reservations.index');
+
+    // 以下、ユーザーからの予約経路
+    // 例外でgetリクエスト
+    Route::get('reservations/create', 'ReservationsController@create');
+    Route::post('reservations/test', 'ReservationsController@test');
+    Route::get('reservations/test2', 'ReservationsController@test2');
   });
+
 
   // メール入力フォーム
   Route::get('preusers', 'PreusersController@index')->name('preusers');
@@ -32,16 +46,19 @@ Route::namespace('User')->prefix('user')->name('user.')->group(function () {
   // メール送信
   Route::get('preusers/sendmail', 'PreusersController@sendmail')->name('preusers.sendmail');
   // メール認証
-  Route::get('preusers/{id}/{token}', 'PreusersController@show');
+  Route::get('preusers/{id}/{token}/{email}', 'PreusersController@show')->name('preusers.show');
   // メール送信完了画面
   Route::get('preusers/complete', 'PreusersController@complete')->name('preusers.complete');
 
-  Auth::routes(['register' => false, 'confirm'  => true, 'reset'    => true,]);
-  Route::get('preusers/register', 'Auth\RegisterController@showRegistrationForm')->name('register')->middleware('check_status');
-  Route::post('preusers/register', 'Auth\RegisterController@register')->name('preusers.show');
+  Route::get('preusers/register', 'Auth\RegisterController@showRegistrationForm')->name('preusers.register')->middleware('check_status');
+
+  Route::post('preusers/register_check', 'Auth\RegisterController@checkRegistrationForm')->name('preusers.registercheck');
+
+  Route::post('preusers/register', 'Auth\RegisterController@register')->name('preusers.store');
   // Route::get('/home', 'HomeController@index')->name('home');
   // Route::resource('home', 'HomeController');
   // Route::put('home/{home}/update_status', 'HomeController@updateReservationStatus')->name('home.updatestatus');
+
 });
 
 

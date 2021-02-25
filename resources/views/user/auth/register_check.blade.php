@@ -29,7 +29,7 @@
     href="https://ajax.googleapis.com/ajax/libs/jqueryui/1/themes/redmond/jquery-ui.css?ver=20201225">
 
   <!-- システムcss -->
-  <link rel="stylesheet" href="../css/style.css">
+  {{-- <link rel="stylesheet" href="../css/style.css"> --}}
 
 
   <!--[if lt IE 9]>
@@ -46,62 +46,64 @@
 
 
   <script>
-    jQuery(document).ready(function($) {
+    jQuery(document).ready(function ($) {
       $('a[data-rel^=lightcase]').lightcase({
-          maxWidth: 1000,
-          maxHeight: 800,
-          swipe: true,
-          breakBeforeShow: true
+        maxWidth: 1000,
+        maxHeight: 800,
+        swipe: true,
+        breakBeforeShow: true
       });
     });
   </script>
   <script src="https://code.jquery.com/jquery-1.10.2.js"></script>
   <script src="https://osaka-conference.com/js/jquery.heightLine.js?ver=20201225"></script>
   <script>
-    $(window).load(function() {
+    $(window).load(function () {
       $(".box0>li").heightLine();
       //$(".box01>li").heightLine();
-          if(window.matchMedia('(min-width: 751px)').matches) {
-              $(".room-data").heightLine();
-              $(".conference-roominner>.conference-roomdata").heightLine();
-              $(".top-characteristic-index .contents .featurelist .three dl>dt").heightLine();
-          }
-  });
-  $(function() {
-      if(window.matchMedia('(min-width: 751px)').matches) {
-          setTimeout (function() {
-              $('#tablist .r-tabs-tab a.r-tabs-anchor').on('click', function() {
-                  $('.other-servicelist>.item-block').heightLine();
-              });
-          }, 10);
+      if (window.matchMedia('(min-width: 751px)').matches) {
+        $(".room-data").heightLine();
+        $(".conference-roominner>.conference-roomdata").heightLine();
+        $(".top-characteristic-index .contents .featurelist .three dl>dt").heightLine();
       }
-  });
+    });
+    $(function () {
+      if (window.matchMedia('(min-width: 751px)').matches) {
+        setTimeout(function () {
+          $('#tablist .r-tabs-tab a.r-tabs-anchor').on('click', function () {
+            $('.other-servicelist>.item-block').heightLine();
+          });
+        }, 10);
+      }
+    });
   </script>
   <script>
-    if($().Stickyfill){　$('.sticky').Stickyfill(); }
+    if ($().Stickyfill) {
+      $('.sticky').Stickyfill();
+    }
   </script>
   <script src="https://osaka-conference.com/js/jquery.responsiveTabs.js" type="text/javascript"></script>
   <script type="text/javascript">
     $(document).ready(function () {
       var $tabs = $('#horizontalTab');
       $tabs.responsiveTabs({
-          rotate: false,
-          startCollapsed: 'accordion',
-          collapsible: 'accordion',
-          active: 1
-        });
+        rotate: false,
+        startCollapsed: 'accordion',
+        collapsible: 'accordion',
+        active: 1
       });
+    });
   </script>
   <script type="text/javascript">
     $(document).ready(function () {
       var $tabs = $('#horizontalTab02');
       $tabs.responsiveTabs({
-          rotate: false,
-          startCollapsed: 'accordion',
-          collapsible: 'accordion',
-          active: 0
-        });
+        rotate: false,
+        startCollapsed: 'accordion',
+        collapsible: 'accordion',
+        active: 0
       });
+    });
   </script>
   <script src="https://osaka-conference.com/js/search.js"></script>
   <script src="https://osaka-conference.com/js/searchTpl.js"></script>
@@ -115,39 +117,40 @@
   <script src="https://osaka-conference.com/js/jquery.validationEngine.js"></script>
   <script src="https://osaka-conference.com/js/form.js"></script>
   <script type="text/javascript">
-    $(function(){
-       var today = new Date();
-       var dd = today.getDate();
-  　$("#datepicker").datepicker({
-       showOn: "both",
-       buttonImage: "https://osaka-conference.com/img/icon_calender.png",
-       buttonImageOnly: true,
-       minDate: "+3",
-       maxDate: "+3M -" + dd,
-       beforeShow: function(input, inst) { // カレンダーを必ず下側へ表示させるための表示位置計算function
-                  var top  = $(this).offset().top + $(this).outerHeight();
-                  var left = $(this).offset().left;
-                  setTimeout(function() {
-                          inst.dpDiv.css({
-                                  'top' : top,
-                                  'left': left
-                          });
-                  }, 10) // 10msec
-          }       
-   });
-  $("ul.tabBtn li").mouseover(function(){
-                  if( /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) ) {
-                      $(this).click();
-                  }
-              });
-  $(".hasDatepicker, .ui-datepicker, .ui-datepicker-trigger").click(function(event) {
-      event.stopPropagation();
-  });
-  $(".contents").bind("click touchstart, touchmove", function(event) {
-      $('.ui-datepicker').hide();
-      $('.hasDatepicker').blur();
-  });
-  });
+    $(function () {
+      var today = new Date();
+      var dd = today.getDate();
+      $("#datepicker").datepicker({
+        showOn: "both",
+        buttonImage: "https://osaka-conference.com/img/icon_calender.png",
+        buttonImageOnly: true,
+        minDate: "+3",
+        maxDate: "+3M -" + dd,
+        beforeShow: function (input, inst) { // カレンダーを必ず下側へ表示させるための表示位置計算function
+          var top = $(this).offset().top + $(this).outerHeight();
+          var left = $(this).offset().left;
+          setTimeout(function () {
+            inst.dpDiv.css({
+              'top': top,
+              'left': left
+            });
+          }, 10) // 10msec
+        }
+      });
+      $("ul.tabBtn li").mouseover(function () {
+        if (/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator
+            .userAgent)) {
+          $(this).click();
+        }
+      });
+      $(".hasDatepicker, .ui-datepicker, .ui-datepicker-trigger").click(function (event) {
+        event.stopPropagation();
+      });
+      $(".contents").bind("click touchstart, touchmove", function (event) {
+        $('.ui-datepicker').hide();
+        $('.hasDatepicker').blur();
+      });
+    });
   </script>
 
   <style>
@@ -159,13 +162,12 @@
     }
   </style>
   <link href="{{ asset('/css/homepage/style.css') }}" rel="stylesheet">
-
 </head>
 
 <body id="top" class="calender contactpage tentative vacancy">
   <div class="wrapper">
 
-    <!-- ここからheader.html -->
+    <!-- header.html -->
     <header>
       　<span class="head-login sp"><a href="">ログイン</a></span>
       <span class="head-mail sp"><a href="https://osaka-conference.com/contact/">問合せ</a></span>
@@ -236,6 +238,8 @@
 
     </header>
     <main>
+
+      <!-- パンくずなど.html -->
       <!-- <ul class="tagBtn sticky">
     <li><a href ="https://osaka-conference.com/contact/"><span><img src="https://osaka-conference.com/img/link_conact.png" alt="問い合わせ"></span></a></li>
     <li><a href ="https://osaka-conference.com/reservation/"><img src="https://osaka-conference.com/img/link_entry.png" alt="本申込"></a></li>
@@ -285,32 +289,174 @@
       <!-- ログイン、会員登録 -->
       <div class="contents">
         <div class="pagetop-text">
-          <h1 class="page-title oddcolor"><span>会員登録フォーム送信</span></h1>
-          <div class="text-box">
-            <p>{{$email}}へ会員登録フォームメールを送付しました。<br>
-              1時間以内に受信されてこない場合は、メールアドレスのお間違えの可能性がございますので、ご確認ください。</p>
-            <p>会員登録メールに会員登録のためのURLが記載されております。
-              こちらのURLの有効期限は2時間となりますので、ご注意お願い致します。</p>
-            <p>※弊社からの自動返信がお客様のメール利用環境により迷惑フォルダに受信される場合がございます。
-              お手数ですが迷惑フォルダもご確認いただけましたら幸いです。その場合は【@s-mg.co.jp】を
-              受信設定していただきますようお願いいたします。</p>
-          </div>
+          <h1 class="page-title oddcolor"><span>会員登録 確認</span></h1>
+          <p>入力内容をご確認ください。</p>
         </div>
       </div>
+      <section class="contents">
+        <!-- <h2 class="sub-ttl">会員登録情報</h2> -->
+
+        {{-- <form name="form" id="form" action="https://osaka-conference.com/contact/check.php" next="false" method="post"> --}}
+        {{ Form::open(['route' => 'user.preusers.store', 'method'=>'POST']) }}
+        <div class="bgColorGray first">
+          <table class="table-box">
+            <tr>
+              <th>会社・団体名</th>
+              <td>
+                {{$request->company}}
+              </td>
+            </tr>
+            <tr>
+              <th>担当者氏名</th>
+              <td>
+                {{$request->first_name}} {{$request->last_name}}
+              </td>
+            </tr>
+            <tr>
+              <th>担当者氏名(フリガナ)</th>
+              <td>
+                {{$request->first_name_kana}} {{$request->last_name_kana}}
+              </td>
+            </tr>
+            <tr>
+              <th><label for="post_code">郵便番号</label></th>
+              <td>
+                <p class="postal-p">〒</p>
+                {{$request->post_code}}
+              </td>
+            </tr>
+            <tr>
+              <th><label for="address1">住所1（都道府県）</label></th>
+              <td>
+                {{$request->address1}}
+              </td>
+            </tr>
+            <tr>
+              <th><label for="address2">住所2（市町村番地）</label></th>
+              <td>
+                {{$request->address2}}
+              </td>
+            </tr>
+            <tr>
+              <th><label for="address3">住所3（建物名）</label></th>
+              <td>
+                {{$request->address3}}
+              </td>
+            </tr>
+            <tr class="tr-tel-1">
+              <th>
+                連絡先
+              </th>
+              <td>
+                <p class="checkbox-txt">携帯電話</p>
+                <p>
+                  {{$request->tel}}
+                </p>
+              </td>
+            </tr>
+            <tr class="tr-tel-2">
+              <th>
+              </th>
+              <td>
+                <p class="checkbox-txt">固定電話</p>
+                <p>
+                  {{$request->mobile}}
+                </p>
+              </td>
+            </tr>
+            <tr>
+              <th>FAX</th>
+              <td>
+                <p>
+                  {{$request->fax}}
+                </p>
+              </td>
+            </tr>
+            <tr>
+              <th>メールアドレス</th>
+              <td>
+                {{$request->email}}
+              </td>
+            </tr>
+            {{-- <tr>
+                <th>パスワード</th>
+                <td>
+                  ●●●●●●●●●●●●●●
+                </td>
+              </tr> --}}
+            <tr>
+              <th>SMGを何で知りましたか</th>
+              <td>
+                <ul class="radio-box">
+                  <li>
+                    {{$request->research}}
+                  </li>
+
+                </ul>
+              </td>
+            </tr>
+          </table>
+        </div>
+        <div class="borderBox page-text">
+          <p>プライバシーポリシー、利用規約に合意しました。</p>
+        </div>
+
+        <ul class="btn-wrapper">
+          <li>
+            <p class="link-btn">
+              {{-- {{ Form::submit('戻る', ['name'=>'back']) }} --}}
+              <a href="">戻る</a>
+            </p>
+          </li>
+          <li>
+            <p class="confirm-btn">
+              {{ Form::submit('登録する', ['name'=>'register']) }}
+            </p>
+          </li>
+        </ul>
+        {{ Form::hidden('company', $request->company) }}
+        {{ Form::hidden('first_name', $request->first_name) }}
+        {{ Form::hidden('last_name', $request->last_name) }}
+        {{ Form::hidden('first_name_kana', $request->first_name_kana) }}
+        {{ Form::hidden('last_name_kana', $request->last_name_kana) }}
+        {{ Form::hidden('post_code', $request->post_code) }}
+        {{ Form::hidden('address1', $request->address1) }}
+        {{ Form::hidden('address2', $request->address2) }}
+        {{ Form::hidden('address3', $request->address3) }}
+        {{ Form::hidden('tel', $request->tel) }}
+        {{ Form::hidden('mobile', $request->mobile) }}
+        {{ Form::hidden('fax', $request->fax) }}
+        {{ Form::hidden('email', $request->email) }}
+        {{ Form::hidden('research', $request->research) }}
+        {{ Form::hidden('password', $request->password) }}
+
+        {{ Form::hidden('id', $request->id) }}
+        {{ Form::hidden('token', $request->token) }}
+        {{ Form::hidden('email', $request->email) }}
+        {{ Form::hidden('status', $request->status) }}
+        {{ Form::close() }}
+
+
+
+
+      </section>
 
 
 
       <script>
-        $("form[name='calendar02'] select[name='room04']").val($("form[name='calendar02'] select[name='room04'] option").first().val());
-$(function(){
-$("form#form02 select[name='room04'] option").filter(function(){
-    return $(this).attr("disabled");
-}).remove();
-});
+        $("form[name='calendar02'] select[name='room04']").val($(
+          "form[name='calendar02'] select[name='room04'] option").first().val());
+        $(function () {
+          $("form#form02 select[name='room04'] option").filter(function () {
+            return $(this).attr("disabled");
+          }).remove();
+        });
       </script>
       <div class="top contents"><a href="#top"><img src="https://osaka-conference.com/img/pagetop.png" alt="上に戻る"></a>
       </div>
     </main>
+    <!-- 住所検索 -->
+    <script src="https://ajaxzip3.github.io/ajaxzip3.js" charset="UTF-8"></script>
 
     <!-- ここからfooter.html -->
     <div class="banner">
@@ -511,101 +657,9 @@ $("form#form02 select[name='room04'] option").filter(function(){
     </div>
   </div>
 
-  <!-- Global site tag (gtag.js) - Google Analytics -->
-  <script async src="https://www.googletagmanager.com/gtag/js?id=UA-57423515-1"></script>
-  <script>
-    window.dataLayer = window.dataLayer || [];
-function gtag(){dataLayer.push(arguments);}
-gtag('js', new Date());
 
 
-gtag('config', 'UA-57423515-1');
-  </script>
-
-  <!-- Google Code for WEB&#12469;&#12452;&#12488;&#19978;&#12398;&#38651;&#35441;&#30058;&#21495;&#12463;&#12522;&#12483;&#12463;&#25968; Conversion Page
-In your html page, add the snippet and call
-goog_report_conversion when someone clicks on the
-phone number link or button. -->
-  <script type="text/javascript">
-    /* <![CDATA[ */
-goog_snippet_vars = function() {
-  var w = window;
-  w.google_conversion_id = 952596168;
-  w.google_conversion_label = "zImsCPDZ-W4QyO2dxgM";
-  w.google_remarketing_only = false;
-}
-// DO NOT CHANGE THE CODE BELOW.
-goog_report_conversion = function(url) {
-  goog_snippet_vars();
-  window.google_conversion_format = "3";
-  var opt = new Object();
-  opt.onload_callback = function() {
-  if (typeof(url) != 'undefined') {
-    window.location = url;
-  }
-}
-var conv_handler = window['google_trackConversion'];
-if (typeof(conv_handler) == 'function') {
-  conv_handler(opt);
-}
-}
-/* ]]> */
-  </script>
   <script type="text/javascript" src="//www.googleadservices.com/pagead/conversion_async.js"></script>
 </body>
 
 </html>
-
-{{-- <!doctype html>
-<html lang="ja">
-
-<head>
-  <title>Starter Template for Bootstrap · Bootstrap</title>
-  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
-  <link href="starter-template.css" rel="stylesheet">
-</head>
-
-<body>
-  <style>
-    body {
-      padding-top: 5rem;
-    }
-
-    .starter-template {
-      padding: 3rem 1.5rem;
-      text-align: center;
-    }
-  </style>
-  <a id="skippy" class="sr-only sr-only-focusable" href="#content">
-    <div class="container">
-      <span class="skiplink-text">Skip to main content</span>
-    </div>
-  </a>
-
-  <nav class="navbar navbar-expand-md navbar-dark bg-dark fixed-top">
-    <a class="navbar-brand" href="#">SMG貸し会議室</a>
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExampleDefault"
-      aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
-    </button>
-  </nav>
-  <main role="main" class="container">
-    <div class="starter-template">
-      <h1>会員登録フォーム送信</h1>
-      <div style="margin-top: 50px;width: 900px;" class="form-group mx-auto">
-        <p>{{$email}}　へ会員登録フォームメールを送付しました。<br>
-１時間以内に受信されていない場合はメールアドレスのお間違えの可能性がございますので、ご理解ください。<br><br><br>
-
-会員登録メールに会員登録のためのURLが記載されております。<br>
-こちらのURLの有効期限は１時間となりますので、ご注意お願い致します。<br><br><br>
-
-※弊社からの自動返信がお客様のメール利用環境により迷惑フォルダに受信される場合がございます。<br>
-お手数ですが迷惑フォルダにもご確認いただけましたら幸いです。その場合は<br>
-【&#064;s-mg.co.jo】を受信設定していただきますようお願いします。<br>
-</p>
-</div>
-</div>
-</main>
-</body>
-
-</html> --}}

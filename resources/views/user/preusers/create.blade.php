@@ -3,7 +3,7 @@
   <br>
   下記URLより、会員登録へ進んでください。<br>
   <br>
-  <a href="https://staging-smg2.herokuapp.com/user/preusers/{{$id}}/{{$token}}">リンクをクリックして認証</a><br>
+  <a href="https://staging-smg2.herokuapp.com/user/preusers/{{$id}}/{{$token}}/{{$email}}">リンクをクリックして認証</a><br>
   <br>
   会員登録用の上記URLに関しては、有効期限は１時間となるますので、<br>
   ご注意お願い致します。<br>

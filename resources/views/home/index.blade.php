@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html lang="ja">
 
 <head>
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -29,8 +29,7 @@
     href="https://ajax.googleapis.com/ajax/libs/jqueryui/1/themes/redmond/jquery-ui.css?ver=20201225">
 
   <!-- システムcss -->
-  <link rel="stylesheet" href="../css/style.css">
-
+  {{-- <link rel="stylesheet" href="../css/style.css"> --}}
 
   <!--[if lt IE 9]>
   <script src="//cdn.jsdelivr.net/html5shiv/3.7.2/html5shiv.min.js"></script>
@@ -60,7 +59,6 @@
   <script>
     $(window).load(function() {
       $(".box0>li").heightLine();
-      //$(".box01>li").heightLine();
           if(window.matchMedia('(min-width: 751px)').matches) {
               $(".room-data").heightLine();
               $(".conference-roominner>.conference-roomdata").heightLine();
@@ -154,10 +152,10 @@
     @media screen and (max-width:750px) {
       .tabBtn li {
         z-index: 1;
-        /*5;*/
       }
     }
   </style>
+
   <link href="{{ asset('/css/homepage/style.css') }}" rel="stylesheet">
 
 </head>
@@ -236,10 +234,6 @@
 
     </header>
     <main>
-      <!-- <ul class="tagBtn sticky">
-    <li><a href ="https://osaka-conference.com/contact/"><span><img src="https://osaka-conference.com/img/link_conact.png" alt="問い合わせ"></span></a></li>
-    <li><a href ="https://osaka-conference.com/reservation/"><img src="https://osaka-conference.com/img/link_entry.png" alt="本申込"></a></li>
-</ul> -->
 
       <ul class="tagBtn sticky">
         <li><a class="contact_btn" href="https://osaka-conference.com/contact/">問合わせ</a></li>
@@ -280,24 +274,110 @@
           </li>
         </ol>
       </nav>
-
-
-      <!-- ログイン、会員登録 -->
+      <!-- 会場予約 -->
       <div class="contents">
         <div class="pagetop-text">
-          <h1 class="page-title oddcolor"><span>会員登録フォーム送信</span></h1>
-          <div class="text-box">
-            <p>{{$email}}へ会員登録フォームメールを送付しました。<br>
-              1時間以内に受信されてこない場合は、メールアドレスのお間違えの可能性がございますので、ご確認ください。</p>
-            <p>会員登録メールに会員登録のためのURLが記載されております。
-              こちらのURLの有効期限は2時間となりますので、ご注意お願い致します。</p>
-            <p>※弊社からの自動返信がお客様のメール利用環境により迷惑フォルダに受信される場合がございます。
-              お手数ですが迷惑フォルダもご確認いただけましたら幸いです。その場合は【@s-mg.co.jp】を
-              受信設定していただきますようお願いいたします。</p>
-          </div>
+          <h1 class="page-title oddcolor"><span>会場予約</span></h1>
+          <p>希望日時に空きがあることをご確認の上、お申込み下さい。</p>
         </div>
       </div>
+      <section class="contents">
+        <div class="borderBox">
+          <article>
+            <ul class="sp tabBtn clearfix">
+              <li>利用日から選ぶ</li>
+              <li class="trigger">会場から選ぶ</li>
+            </ul>
+            <div class="flexBetween">
+              <div class="grayBox spmt20">
+                <p class="txtCenter"><em>利用日から選ぶ</em></p>
+                {{Form::open(['url' => 'slct_date', 'method' => 'post', 'id'=>'form01', 'class'=>'search'])}}
+                @csrf
+                <dl>
+                  <dt><label>利用日</label></dt>
+                  <dd>
+                    <div class="riyoubi">
+                      {{ Form::text('date', HomeHelper::now(),['class'=>'form-control', 'readonly', 'id'=>'datepicker'] ) }}
+                    </div>
+                    <p class="space5">
+                      <span class="txt-indent">※複数日程検索は出来ません。</span>
+                      <span class="txt-indent">※選択不可の日程につきましては、直接お問い合わせ下さい。</span>
+                      <span class="txt-indent">※一部検索対応をしていない会場があります。</span></p>
+                  </dd>
+                </dl>
+                <div class="btnOrange">
+                  <button type="submit" class="smit">会場検索
+                    <img src="https://osaka-conference.com/img/icon_serch.png" alt="検索">
+                  </button>
+                </div>
+                {{Form::close()}}
+              </div>
+              <div class="grayBox btn-row">
+                <p class="txtCenter"><em>会場から選ぶ</em></p>
+                {{Form::open(['url' => 'slct_venue', 'method' => 'post', 'id'=>'form02', 'class'=>'search'])}}
+                @csrf
+                <dl>
+                  <dt><label>会場</label></dt>
+                  <dd>
+                    <div class="selectWrap">
+                      <select name="room04" id="changeSelect">
+                        @foreach ($venues as $venue)
+                        <option value="{{$venue->id}}">{{ReservationHelper::getVenue($venue->id)}}</option>
+                        @endforeach
+                      </select>
+                    </div>
+                    <p>
+                      <span class="txt-indent">※検索対応をしていない会場や、利用月プルダウン外の日程に関しましては直接お問い合わせ下さい。</span>
+                    </p>
+                  </dd>
+                </dl>
+                <dl>
+                  <dt><label>利用月</label></dt>
+                  <dd class="short">
+                    <div class="selectWrap">
+                      <select name="mon" id="changeSelectpoint">
+                        @foreach (HomeHelper::getMonths() as $month)
+                        <option value="{{$month[0]}}">{{$month[1]}}</option>
+                        @endforeach
+                      </select>
+                    </div>
+                  </dd>
+                </dl>
+                <dl>
+                  <dt></dt>
+                  <dd>
+                    <p><span class="txt-indent">※選択不可の日程につきましては、直接お問い合わせ下さい。</span></p>
+                  </dd>
+                </dl>
+                <div class="btnOrange"><button type="submit" class="smit">空室状況検索<img
+                      src="https://osaka-conference.com/img/icon_serch.png" alt="検索"></button>
+                  <a href="https://osaka-conference.com/contact/" class="cContactBtn">問い合わせ</a></div>
+                {{Form::close()}}
 
+              </div>
+            </div>
+          </article>
+        </div>
+      </section>
+
+      <article class="contents">
+        <div class="page-text">
+          <p class="caution-text">カレンダーにない日程の予約に関してはお電話にてお問合せください。</p>
+        </div>
+        <div class="contactinfo">
+          <div class="info">
+            <p class="title">問い合わせの前に</p>
+            <p>お客様よりいただく<span class="faq"><a href="../faq/">よくある質問</a></span>をご参考下さい。</p>
+          </div>
+          <div class="telInfo">
+            <p class="title">電話での問い合わせ（10時～18時）</p>
+            <div class="telNo pc">06-6556-6462</div>
+            <div class="telNo sp"><a href="tel:06-6556-6462"
+                onclick="gtag('event','tel-tap',{'event_category':'click'});">06-6556-6462</a></div>
+            <p>ご予約、お問い合わせ専用番号となります。<br class="sp">会場アクセスやイベント内容についてのお問い合わせはお控え下さい。</p>
+          </div>
+        </div>
+      </article>
 
 
       <script>
@@ -405,7 +485,6 @@ $("form#form02 select[name='room04'] option").filter(function(){
           <li><a href="https://osaka-conference.com/rental/honmachi/">本町エリア</a></li>
           <li><a href="https://osaka-conference.com/rental/namba/">なんばエリア</a></li>
           <li><a href="https://osaka-conference.com/rental/shinosaka/">新大阪(江坂)エリア</a></li>
-          <!--<li><a href="https://osaka-conference.com/rental/nagahoribashi/">長堀橋エリア</a></li>-->
         </ul>
         <ul class="footerpagelist pc">
           <li><a href="https://osaka-conference.com/price/">料金表</a></li>
@@ -511,101 +590,6 @@ $("form#form02 select[name='room04'] option").filter(function(){
     </div>
   </div>
 
-  <!-- Global site tag (gtag.js) - Google Analytics -->
-  <script async src="https://www.googletagmanager.com/gtag/js?id=UA-57423515-1"></script>
-  <script>
-    window.dataLayer = window.dataLayer || [];
-function gtag(){dataLayer.push(arguments);}
-gtag('js', new Date());
-
-
-gtag('config', 'UA-57423515-1');
-  </script>
-
-  <!-- Google Code for WEB&#12469;&#12452;&#12488;&#19978;&#12398;&#38651;&#35441;&#30058;&#21495;&#12463;&#12522;&#12483;&#12463;&#25968; Conversion Page
-In your html page, add the snippet and call
-goog_report_conversion when someone clicks on the
-phone number link or button. -->
-  <script type="text/javascript">
-    /* <![CDATA[ */
-goog_snippet_vars = function() {
-  var w = window;
-  w.google_conversion_id = 952596168;
-  w.google_conversion_label = "zImsCPDZ-W4QyO2dxgM";
-  w.google_remarketing_only = false;
-}
-// DO NOT CHANGE THE CODE BELOW.
-goog_report_conversion = function(url) {
-  goog_snippet_vars();
-  window.google_conversion_format = "3";
-  var opt = new Object();
-  opt.onload_callback = function() {
-  if (typeof(url) != 'undefined') {
-    window.location = url;
-  }
-}
-var conv_handler = window['google_trackConversion'];
-if (typeof(conv_handler) == 'function') {
-  conv_handler(opt);
-}
-}
-/* ]]> */
-  </script>
-  <script type="text/javascript" src="//www.googleadservices.com/pagead/conversion_async.js"></script>
 </body>
 
 </html>
-
-{{-- <!doctype html>
-<html lang="ja">
-
-<head>
-  <title>Starter Template for Bootstrap · Bootstrap</title>
-  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
-  <link href="starter-template.css" rel="stylesheet">
-</head>
-
-<body>
-  <style>
-    body {
-      padding-top: 5rem;
-    }
-
-    .starter-template {
-      padding: 3rem 1.5rem;
-      text-align: center;
-    }
-  </style>
-  <a id="skippy" class="sr-only sr-only-focusable" href="#content">
-    <div class="container">
-      <span class="skiplink-text">Skip to main content</span>
-    </div>
-  </a>
-
-  <nav class="navbar navbar-expand-md navbar-dark bg-dark fixed-top">
-    <a class="navbar-brand" href="#">SMG貸し会議室</a>
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExampleDefault"
-      aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
-    </button>
-  </nav>
-  <main role="main" class="container">
-    <div class="starter-template">
-      <h1>会員登録フォーム送信</h1>
-      <div style="margin-top: 50px;width: 900px;" class="form-group mx-auto">
-        <p>{{$email}}　へ会員登録フォームメールを送付しました。<br>
-１時間以内に受信されていない場合はメールアドレスのお間違えの可能性がございますので、ご理解ください。<br><br><br>
-
-会員登録メールに会員登録のためのURLが記載されております。<br>
-こちらのURLの有効期限は１時間となりますので、ご注意お願い致します。<br><br><br>
-
-※弊社からの自動返信がお客様のメール利用環境により迷惑フォルダに受信される場合がございます。<br>
-お手数ですが迷惑フォルダにもご確認いただけましたら幸いです。その場合は<br>
-【&#064;s-mg.co.jo】を受信設定していただきますようお願いします。<br>
-</p>
-</div>
-</div>
-</main>
-</body>
-
-</html> --}}

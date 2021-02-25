@@ -1,0 +1,410 @@
+@charset "utf-8";
+
+ul.tagBtn li a {
+    letter-spacing: 0.15em;
+    writing-mode: vertical-lr;
+    -ms-writing-mode: tb-rl;
+    color: #fff;
+    font-weight: bold;
+    display: block;
+    height: 95px;
+    padding: 15px 20px 15px 10px;
+}
+
+.contact_btn {
+    background: #35a7a7;
+    box-shadow: 0px 2px 0 rgb(43 138 138);
+}
+
+.reserve_btn {
+    background: #EF6243;
+    box-shadow: 0px 2px 0 rgb(190 72 60);
+}
+
+.login_btn {
+    background: #3E4B5B;
+    box-shadow: 0px 2px 0 rgb(36 43 51);
+}
+
+
+
+.page-text {
+    text-align: center;
+}
+
+.text-box {
+    text-align: left;
+    width: 80%;
+    margin: 0 auto;
+}
+
+.caution-text {
+    color: #EF6243;
+    font-size: 1.3rem;
+    font-weight: bold;
+}
+
+.calenderframe {
+    margin: 3% 0;
+}
+
+.cell-margin {
+    margin-top: 1em;
+}
+
+.txtRight {
+    text-align: right;
+}
+
+.txtLeft {
+    text-align: left;
+}
+
+.section-wrap {
+    margin-bottom: 80px;
+}
+
+
+.sub-ttl {
+    font-size: 1.6rem;
+    line-height: 1.6;
+    padding-left: 10px;
+    border-left: 8px solid #35A7A7;
+    margin-bottom: 20px;
+    margin-top: 20px;
+    position: relative;
+}
+
+.sub-ttl::before {
+    position: absolute;
+    left: -8px;
+    bottom: 0;
+    content: "";
+    width: 8px;
+    height: 50%;
+    background-color: #CACACA;
+}
+
+.confirm-btn {
+    background: #EF6243;
+    /* padding: .5em; */
+    padding: 0.3em 1.5em;
+    color: #fff;
+    box-shadow: 0 3px 0 #BE483C;
+    text-align: center;
+    border-radius: 2px;
+    font-size: 1.4rem;
+    display: block;
+    cursor: pointer;
+}
+
+.confirm-btn:hover {
+    background-color: #BE483C;
+}
+
+.checkbox-txt {
+    font-size: 1.1rem;
+    font-weight: bold;
+    margin-right: 0.2em;
+}
+
+.form-cell {
+    display: flex;
+}
+
+.form-cell2 {
+    display: flex;
+    margin-bottom: 10px;
+}
+
+.form-cell li {
+    margin-right: 1em;
+}
+
+.link-btn {
+    background: #3E4B5B;
+    /* padding: .5em; */
+    padding: 0.3em 1.5em;
+    color: #fff;
+    box-shadow: 0 3px 0 #282828;
+    text-align: center;
+    border-radius: 2px;
+    font-size: 1.4rem;
+    display: block;
+    cursor: pointer;
+}
+
+.link-btn:hover {
+    background-color: #282828;
+}
+
+.link-btn2 {
+    background: #EF6243;
+    padding: 0.3em 2em;
+    color: #fff;
+    box-shadow: 0 3px 0 #BE483C;
+}
+
+.link-btn2:hover {
+    background: #BE483C;
+}
+
+.link-btn3 {
+    background: #35A7A7;
+    /* padding: .5em; */
+    padding: 0.3em 1.5em;
+    color: #fff;
+    box-shadow: 0 3px 0 #288282;
+    text-align: center;
+    border-radius: 2px;
+    font-size: 1.4rem;
+    display: block;
+    cursor: pointer;
+}
+
+.table-cell {
+    width: 150px;
+    padding-right: 2em;
+}
+
+.postal-p {
+    display: inline-block;
+    margin-right: 5px;
+}
+
+.radio-box li {
+    margin-bottom: 0.5em;
+}
+
+
+.radio-box li:first-child {
+    display: flex;
+}
+
+form table {
+    table-layout: fixed;
+}
+
+
+form table td input {
+    box-shadow: 0 0 0 #CACACA;
+}
+
+form table td textarea {
+    box-shadow: 0 0 0 #CACACA;
+}
+
+.table-box {
+    width: 90%;
+    margin: 0 auto;
+}
+
+.table-box th {
+    width: 45%;
+}
+
+
+.btn-wrapper {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 80px;
+}
+
+.btn-wrapper2 {
+    width: 50%;
+    margin: 30px auto 80px;
+}
+
+.btn-wrapper2 a {
+    color: #fff;
+}
+
+.btn-wrapper a {
+    color: #fff;
+}
+
+.borderAttention {
+    border: 1px solid #EF6243;
+    padding: 1em 2em;
+    margin: 1em 0;
+}
+
+.form-icon {
+    margin-right: 0.2em;
+}
+
+.btn-wrapper li {
+    width: 45%;
+}
+
+
+/* 合計金額 */
+.table-sum {
+    width: 100%;
+    border-collapse: collapse;
+    border: 1px solid #ccc;
+    margin-bottom: 50px;
+
+}
+
+.table-sum th {
+    background-color: #F0F0F0;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+}
+
+.table-sum td {
+    text-align: right;
+    border-bottom: 1px solid #ccc;
+}
+
+.table-sum th,
+.table-sum td {
+    padding: 0.5em 1em;
+}
+
+.table-sum thead tr th {
+    background-color: #3E4B5B;
+    color: #fff;
+}
+
+.sum-list li {
+    display: flex;
+    justify-content: space-between;
+}
+
+.sumText {
+    font-size: 3rem;
+    font-weight: bold;
+    color: #EF6243;
+    margin-right: 0.1em;
+}
+
+.table-sum .totalsum-ttl {
+    background-color: #35A7A7;
+    font-size: 1.2rem;
+}
+
+
+
+/* 確認画面 */
+.from-list li {
+    margin-bottom: 0.5em;
+}
+
+.from-list li p:first-child {
+    font-weight: bold;
+}
+
+.option-list li p:first-child {
+    /* width: 60%; */
+    margin-right: 10px;
+}
+
+.option-list li {
+    margin-bottom: 10px;
+}
+
+.detail-list {
+    display: flex;
+}
+
+.detail-list dt {
+    font-weight: bold;
+}
+
+/* カート一覧------------------------------------------------ */
+.cart-box {
+    display: flex;
+    justify-content: flex-end;
+    margin-bottom: 2em;
+}
+
+.cart-box li:last-child {
+    margin-left: 1em;
+}
+
+.cart-box a {
+    color: #fff;
+}
+
+
+
+@media screen and (max-width: 750px) {
+
+    .page-text {
+        text-align: left;
+    }
+
+    .table-box {
+        width: 100%;
+        margin: 0 auto;
+    }
+
+    .table-box th {
+        width: 100%;
+    }
+
+
+    .form-cell {
+        display: block;
+    }
+
+    form table td .text4 {
+        width: 60%;
+    }
+
+    .selectTime select {
+        width: 70px;
+    }
+
+    .selectTime {
+        margin-left: -20px;
+    }
+
+    .sp {
+        display: block;
+    }
+
+    .page-text {
+        text-align: left;
+    }
+
+    .table-box {
+        width: 100%;
+        margin: 0 auto;
+    }
+
+    .table-box th {
+        width: 100%;
+    }
+
+    .btn-wrapper {
+        display: block;
+        justify-content: space-between;
+    }
+
+    .btn-wrapper li {
+        margin-bottom: 2em;
+        width: 100%;
+    }
+
+    .head-login {
+        position: absolute;
+        right: 140px;
+        top: 18px;
+        z-index: 550;
+        text-align: center;
+        border: 1px solid #3E4B5B;
+        border-radius: 30px;
+        padding: 2px 15px;
+        font-size: 11px;
+        font-weight: bold;
+    }
+
+    .head-login a {
+        color: #3E4B5B;
+    }
+
+
+}

@@ -46,7 +46,8 @@
       "database/factories"
     ],
     "files": [
-      "app/Http/Helpers/ReservationHelper.php"
+      "app/Http/Helpers/ReservationHelper.php",
+      "app/Http/Helpers/HomeHelper.php"
     ]
   },
   "autoload-dev": {
