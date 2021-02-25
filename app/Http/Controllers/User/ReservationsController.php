@@ -97,9 +97,7 @@ class ReservationsController extends Controller
   public function cart(Request $request)
   {
     $sessions = $request->session()->get('session_reservations');
-    // echo "<pre>";
     var_dump(($sessions));
-    // echo "</pre>";
     return view('user.reservations.cart', compact('sessions'));
   }
 
@@ -109,6 +107,15 @@ class ReservationsController extends Controller
     Session::forget('session_reservations.' . $session_id);
 
     $sessions = Session::get('session_reservations');
-    return view('user.reservations.cart', compact('sessions'));
+    return redirect('user/reservations/cart');
+  }
+
+  public function re_create(Request $request)
+  {
+    $sessions = $request->session()->get('session_reservations');
+    $slctSession = $sessions[$request->session_reservation_id];
+    $fix = (object)$slctSession[0];
+    $venue = Venue::find($fix->venue_id);
+    return view('user.reservations.re_create', compact('fix', 'venue'));
   }
 }
