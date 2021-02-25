@@ -97,6 +97,20 @@
               {{$reservation->leave_time}}
             </td>
           </tr>
+
+
+        </table>
+
+        <table class="table table-bordered board-table">
+          <tr>
+            <td colspan="2">
+              <div class="d-flex align-items-center justify-content-between">
+                <p class="title-icon">
+                  <i class="fas fa-clipboard icon-size"></i>案内版
+                </p>
+              </div>
+            </td>
+          </tr>
           <tr>
             <td class="table-active"><label for="direction">案内板</label></td>
             <td class="d-flex justify-content-between">
@@ -186,34 +200,78 @@
                 </ul>
               </td>
             </tr>
+
+
             <tr>
-              <td class="table-active"><label for="layout">レイアウト変更</label></td>
+              <td class="table-active"><label for="postDelivery">事後返送する荷物</label></td>
               <td>
-                @foreach ($breakdowns as $breakdown)
-                @if ($breakdown->unit_type==3)
-                あり
-                @break
-                @endif
-                @endforeach
+                <ul class="table-cell-box">
+                  <li>
+                    <p>
+                      {{isset($reservation->luggage_return)?'あり':''}}
+                    </p>
+                  </li>
+                  <li class="d-flex justify-content-between">
+                    <p>荷物個数</p>
+                    <p>
+                      {{isset($reservation->luggage_return)?$reservation->luggage_return:''}}個
+                    </p>
+                  </li>
+                </ul>
               </td>
             </tr>
+          </tbody>
+        </table>
+
+        <div class='layouts'>
+          <table class='table table-bordered' style="table-layout:fixed;">
+            <thead>
+              <tr>
+                <th colspan='2'>レイアウト</th>
+              </tr>
+            </thead>
+
+            <tbody>
+              <tr>
+                <td class="table-active"><label for="layout">レイアウト変更</label></td>
+                <td>
+                  @foreach ($breakdowns as $breakdown)
+                  @if ($breakdown->unit_type==3)
+                  あり
+                  @break
+                  @endif
+                  @endforeach
+                </td>
+              </tr>
+              <tr>
+                <td class="table-active"><label for="prelayout">レイアウト準備</label></td>
+                <td>
+                  @foreach ($breakdowns as $breakdown)
+                  {{$breakdown->unit_item=='レイアウト準備'?'あり':''}}
+                  @endforeach
+                </td>
+              </tr>
+              <tr>
+                <td class="table-active"><label for="postlayout">レイアウト片付</label></td>
+                <td>
+                  @foreach ($breakdowns as $breakdown)
+                  {{$breakdown->unit_item=='レイアウト片付'?'あり':''}}
+                  @endforeach
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div class='luggage'>
+        <table class='table table-bordered' style="table-layout:fixed;">
+          <thead>
             <tr>
-              <td class="table-active"><label for="prelayout">レイアウト準備</label></td>
-              <td>
-                @foreach ($breakdowns as $breakdown)
-                {{$breakdown->unit_item=='レイアウト準備'?'あり':''}}
-                @endforeach
-              </td>
+              <th colspan='2'>荷物預かり</th>
             </tr>
-            <tr>
-              <td class="table-active"><label for="postlayout">レイアウト片付</label></td>
-              <td>
-                @foreach ($breakdowns as $breakdown)
-                {{$breakdown->unit_item=='レイアウト片付'?'あり':''}}
-                @endforeach
-              </td>
-            </tr>
-            <tr>
+          </thead>
+          <tbody>
+          <tr>
               <td class="table-active"><label for="Delivery">荷物預かり/返送</label></td>
               <td>
                 @foreach ($breakdowns as $breakdown)
@@ -246,26 +304,10 @@
                 </ul>
               </td>
             </tr>
-            <tr>
-              <td class="table-active"><label for="postDelivery">事後返送する荷物</label></td>
-              <td>
-                <ul class="table-cell-box">
-                  <li>
-                    <p>
-                      {{isset($reservation->luggage_return)?'あり':''}}
-                    </p>
-                  </li>
-                  <li class="d-flex justify-content-between">
-                    <p>荷物個数</p>
-                    <p>
-                      {{isset($reservation->luggage_return)?$reservation->luggage_return:''}}個
-                    </p>
-                  </li>
-                </ul>
-              </td>
-            </tr>
           </tbody>
         </table>
+      </div>
+
         <table class="table table-bordered eating-table">
           <tr>
             <td>
@@ -1755,7 +1797,7 @@
 <!-- 合計請求額------------------------------------------------------------------- -->
 @if ($reservation->user_id>0)
 <section class="master_totals border-wrap">
-  <table class="table ">
+  <table class="table">
     <tbody class="master_total_head">
       <tr>
         <td colspan="2">
@@ -1824,7 +1866,7 @@
   </div>
 </section>
 @else
-<div class="master_totals mt-5 mb-5">
+<section class="master_totals border-wrap">
   <table class="table ">
     <tbody class="master_total_head">
       <tr>
@@ -1870,7 +1912,7 @@
       <dd>円</dd>
     </dl>
   </div>
-</div>
+</section>
 @endif
 
 @endsection
