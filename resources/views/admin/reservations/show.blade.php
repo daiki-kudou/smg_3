@@ -200,26 +200,6 @@
                 </ul>
               </td>
             </tr>
-
-
-            <tr>
-              <td class="table-active"><label for="postDelivery">事後返送する荷物</label></td>
-              <td>
-                <ul class="table-cell-box">
-                  <li>
-                    <p>
-                      {{isset($reservation->luggage_return)?'あり':''}}
-                    </p>
-                  </li>
-                  <li class="d-flex justify-content-between">
-                    <p>荷物個数</p>
-                    <p>
-                      {{isset($reservation->luggage_return)?$reservation->luggage_return:''}}個
-                    </p>
-                  </li>
-                </ul>
-              </td>
-            </tr>
           </tbody>
         </table>
 
@@ -264,49 +244,67 @@
         </div>
 
         <div class='luggage'>
-        <table class='table table-bordered' style="table-layout:fixed;">
-          <thead>
-            <tr>
-              <th colspan='2'>荷物預かり</th>
-            </tr>
-          </thead>
-          <tbody>
-          <tr>
-              <td class="table-active"><label for="Delivery">荷物預かり/返送</label></td>
-              <td>
-                @foreach ($breakdowns as $breakdown)
-                {{$breakdown->unit_item=='荷物預かり/返送'?'あり':''}}
-                @endforeach
-              </td>
-            </tr>
-            <tr>
-              <td class="table-active"><label for="preDelivery">事前に預かる荷物</label></td>
-              <td>
-                <ul class="table-cell-box">
-                  <li>
-                    <p>
-                      {{isset($reservation->luggage_count)?'あり':'なし'}}
-                    </p>
-                  </li>
-                  <li class="d-flex justify-content-between">
-                    <p>荷物個数</p>
-                    <p>
-                      {{isset($reservation->luggage_count)?$reservation->luggage_count:''}}個
-                    </p>
-                  </li>
+          <table class='table table-bordered' style="table-layout:fixed;">
+            <thead>
+              <tr>
+                <th colspan='2'>荷物預かり</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td class="table-active"><label for="Delivery">荷物預かり/返送</label></td>
+                <td>
+                  @foreach ($breakdowns as $breakdown)
+                  {{$breakdown->unit_item=='荷物預かり/返送'?'あり':''}}
+                  @endforeach
+                </td>
+              </tr>
+              <tr>
+                <td class="table-active"><label for="preDelivery">事前に預かる荷物</label></td>
+                <td>
+                  <ul class="table-cell-box">
+                    <li>
+                      <p>
+                        {{isset($reservation->luggage_count)?'あり':'なし'}}
+                      </p>
+                    </li>
+                    <li class="d-flex justify-content-between">
+                      <p>荷物個数</p>
+                      <p>
+                        {{isset($reservation->luggage_count)?$reservation->luggage_count:''}}個
+                      </p>
+                    </li>
 
-                  <li class="d-flex justify-content-between">
-                    <p>事前荷物の到着日</p>
-                    <p>
-                      {{isset($reservation->luggage_arrive)?ReservationHelper::formatDate($reservation->luggage_arrive):''}}
-                    </p>
-                  </li>
-                </ul>
-              </td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
+                    <li class="d-flex justify-content-between">
+                      <p>事前荷物の到着日</p>
+                      <p>
+                        {{isset($reservation->luggage_arrive)?ReservationHelper::formatDate($reservation->luggage_arrive):''}}
+                      </p>
+                    </li>
+                  </ul>
+                </td>
+              </tr>
+              <tr>
+                <td class="table-active"><label for="postDelivery">事後返送する荷物</label></td>
+                <td>
+                  <ul class="table-cell-box">
+                    <li>
+                      <p>
+                        {{isset($reservation->luggage_return)?'あり':''}}
+                      </p>
+                    </li>
+                    <li class="d-flex justify-content-between">
+                      <p>荷物個数</p>
+                      <p>
+                        {{isset($reservation->luggage_return)?$reservation->luggage_return:''}}個
+                      </p>
+                    </li>
+                  </ul>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
 
         <table class="table table-bordered eating-table">
           <tr>
@@ -699,7 +697,7 @@
                 </dl>
               </td>
               <td>
-                @if ($reservation->bills()->first()->reservation_status<3) <a href="#" class="btn more_btn_lg">
+                @if ($reservation->bills()->first()->reservation_status<3) <a href="#" class="btn more_btn">
                   編集</a>
                   @endif
               </td>
@@ -807,12 +805,12 @@
         {{-- 予約完了後、非表示 --}}
         @if ($reservation->bills()->first()->reservation_status<=2) <div class="d-flex justify-content-end my-3">
           <p class="text-right">
-            {{-- <a class="more_btn4" href="">確定</a> --}}
+            {{-- <a class="more_btn4_lg" href="">確定</a> --}}
             {{ Form::open(['url' => 'admin/reservations/'.$reservation->id.'/confirm_reservation', 'method'=>'POST', 'class'=>'']) }}
             @csrf
             {{ Form::hidden('reservation_id', $reservation->id ) }}
             {{ Form::hidden('user_id', $reservation->user_id ) }}
-            {{ Form::submit('確定',['class' => 'btn more_btn4']) }}
+            {{ Form::submit('確定',['class' => 'btn more_btn4_lg']) }}
             <span>※仲介会社経由の予約は確定のみ。メール送信は扶養</span>
             {{ Form::close() }}
           </p>
@@ -1339,7 +1337,7 @@
                 <dd class="total_result">{{ReservationHelper::formatDate($other_bill->payment_limit)}}</dd>
               </dl>
             </td>
-            <td><a href="#" class="btn btn-primary btn-lg">編集</a> </td>
+            <td><a href="#" class="btn more_btn">編集</a> </td>
           </tr>
           <!-- <tr>
                   <td></td>
@@ -1430,7 +1428,7 @@
             {{ Form::open(['url' => 'admin/agents_reservations/confirm', 'method'=>'POST', 'class'=>'']) }}
             @csrf
             {{ Form::hidden('bill_id', $other_bill->id ) }}
-            {{ Form::submit('確定',['class' => 'btn more_btn4']) }}
+            {{ Form::submit('確定',['class' => 'btn more_btn4_lg']) }}
             {{ Form::close() }}
           </p>
       </div>

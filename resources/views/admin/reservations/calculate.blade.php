@@ -473,6 +473,7 @@
           </tbody>
         </table>
       </div>
+      
       <div class='luggage'>
         <table class='table table-bordered' style="table-layout:fixed;">
           <thead>
