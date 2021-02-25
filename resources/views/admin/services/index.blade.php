@@ -28,12 +28,15 @@
       </ol>
     </nav>
   </div>
-  <h1 class="mt-3 mb-5">有料サービス管理</h1>
+
+  <h2 class="mt-3 mb-3">有料サービス管理</h2>
+  <hr>
+
   <div class="text-right">
-    <a href="/admin/services/create" class="btn btn-outline-info btn-lg d-inline-block" style="width: 140px;">新規登録　<i class="fas fa-plus"></i></a>
+    <a href="/admin/services/create" class="btn more_btn3">新規登録</a>
   </div>
   <hr>
-  <div class="d-flex justify-content-between mt-3 mb-5">
+  <div class="d-flex justify-content-between my-3">
     <span>
       <select name="page_counter" id="page_counter">
         <option value="ten">10</option>
