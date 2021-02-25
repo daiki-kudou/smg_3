@@ -174,7 +174,7 @@
 
       <div class="contents">
         <div class="pagetop-text">
-          <h1 class="page-title oddcolor"><span>会場予約 確認画面</span></h1>
+          <h1 class="page-title oddcolor"><span>会場予約 料金確認画面</span></h1>
           {{-- <p>下記フォームに必要事項を入力してください。(＊は必須項目です)</p>
           <p class="txtRed">複数日程を希望の場合は予約日毎に予約入力してください。</p> --}}
         </div>
@@ -183,7 +183,7 @@
         <h2>予約1</h2>
 
         {{-- <form name="form" id="form" action="https://osaka-conference.com/contact/check.php" next="false" method="post"> --}}
-        {{ Form::open(['url' => 'user/reservations/store', 'method'=>'POST', 'id'=>'']) }}
+        {{ Form::open(['url' => 'user/reservations/store_session', 'method'=>'POST', 'id'=>'']) }}
         <div class="bgColorGray first">
           <table>
             <tr>
@@ -579,15 +579,15 @@
           </table>
         </div>
 
-
         <ul class="btn-wrapper">
           <li>
 
             {{Form::submit('修正する',['class'=>'link-btn','style'=>'width:100%;', 'name'=>'back'])}}
-            {{-- <p class="link-btn"><a href="">修正する</a></p> --}}
           </li>
           <li>
-            {{-- <p class="confirm-btn"><a href="">予約する</a></p> --}}
+            {{Form::hidden('price_result',$request->price_result)}}
+            {{Form::hidden('items_results',$request->items_results)}}
+            {{Form::hidden('master',$request->master)}}
             {{Form::submit('予約する',['class'=>'confirm-btn','style'=>'width:100%;', 'name'=>'store'])}}
           </li>
         </ul>

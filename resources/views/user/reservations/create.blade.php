@@ -373,6 +373,7 @@
                   @foreach ($venue->getServices() as $s_key=>$serv)
                   <li class="form-cell2">
                     <label>
+                      {{ Form::hidden('services_breakdown'.$s_key, 0 ) }}
                       <input type="checkbox" id="" name="{{'services_breakdown'.$s_key}}" value="1"
                         class="checkbox-input">
                       <span class="checkbox-parts">{{$serv->item}} {{$serv->price}}円</span>

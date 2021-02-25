@@ -35,7 +35,7 @@ Route::namespace('User')->prefix('user')->name('user.')->group(function () {
     // 例外でgetリクエスト
     Route::get('reservations/create', 'ReservationsController@create');
     Route::post('reservations/check', 'ReservationsController@check');
-    Route::post('reservations/store', 'ReservationsController@store');
+    Route::post('reservations/store_session', 'ReservationsController@storeSession');
 
     // 以下、テスト
     Route::post('reservations/test', 'ReservationsController@test');

@@ -520,6 +520,8 @@ class Venue extends Model implements PresentableInterface
 
   public function calculate_items_price($selected_equipments, $selected_services)
   {
+    // return var_dump($selected_services);
+
     // 備品料金×個数
     $venue_equipments = $this->equipments()->get();
     $equipments_total = 0;
@@ -543,8 +545,8 @@ class Venue extends Model implements PresentableInterface
     $venue_services = $this->services()->get();
     $services_total = 0;
     $services_details = [];
-    $judge_service = array_filter($selected_services);
-    if (!empty($judge_service)) {
+    // $judge_service = array_filter($selected_services);
+    if (!empty($selected_services)) {
       for ($ii = 0; $ii < count($venue_services); $ii++) {
         $services_total =
           $services_total
@@ -569,6 +571,7 @@ class Venue extends Model implements PresentableInterface
       $services_total
     ];
   }
+
   public function getLayoutPrice($prepare, $clean)
   {
     $prepare_result = '';

@@ -43,6 +43,7 @@ class ReservationsController extends Controller
         $s_service[] = $value;
       }
     }
+    var_dump(($s_service));
 
     $items_results = $venue->calculate_items_price($s_equipment, $s_service);
 
@@ -63,8 +64,6 @@ class ReservationsController extends Controller
 
     $master = $price_result[2] + $items_results[0] + $layout_price + $luggage_price;
 
-
-
     return view(
       'user.reservations.check',
       compact(
@@ -77,15 +76,16 @@ class ReservationsController extends Controller
     );
   }
 
-  public function store(Request $request)
+  public function storeSession(Request $request)
   {
     // var_dump($request->all());
     if ($request->back) {
       $arrays = (array)$request->all();
-
       return redirect()
         ->action("User\ReservationsController@create")
         ->withInput($arrays);
+    } else {
+      var_dump($request->all());
     }
   }
 
