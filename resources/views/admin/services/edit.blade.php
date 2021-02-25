@@ -31,7 +31,7 @@
 
 
 {{ Form::model($service, ['route' => ['admin.services.update', $service->id], 'method' => 'put', 'id'=>'ServiceUpdateForm']) }}
-<table class="table table-striped table-bordered">
+<table class="table table-striped table-bordered mt-5">
   <thead>
     <tr>
       <th>id</th>

@@ -21,14 +21,16 @@
   </nav>
 </div>
 
-<h1 class="mt-3 mb-5">有料サービス管理　新規作成</h1>
+<h2 class="mt-3 mb-3">有料サービス管理　新規作成</h2>
+  <hr>
+
 <!-- <div class="text-right mb-3">
   <a href="/admin/equipments/create" class="btn btn-outline-info btn-lg d-inline-block" style="width: 140px;">新規登録　<i class="fas fa-plus"></i></a>
 </div> -->
 
 {{ Form::open(['url' => 'admin/services', 'method'=>'POST', 'id'=>'ServiceCreateForm']) }}
 @csrf
-<table class="table table-striped table-bordered">
+<table class="table table-striped table-bordered mt-5">
   <thead>
     <tr>
       <th>id</th>
@@ -56,7 +58,7 @@
       <td>
         {{ Form::textarea('remark', old('remark'), ['class' => 'form-control','rows'=>"2"]) }}
       </td>
-      <td>{{ Form::submit('登録', ['class' => 'btn btn-primary']) }}</td>
+      <td>{{ Form::submit('登録', ['class' => 'btn more_btn']) }}</td>
       {{ Form::close() }}
     </tr>
   </tbody>
