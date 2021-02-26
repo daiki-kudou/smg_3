@@ -23,9 +23,6 @@
   <hr>
 </div>
 
-
-
-
 <section class="section-wrap">
   <div class="row">
     <div class="col-12">
