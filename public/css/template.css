@@ -224,7 +224,7 @@ h5 {
 }
 
 table {
-    table-layout: fixed;
+    /* table-layout: fixed; */
 }
 
 /* .content-wrapper {
