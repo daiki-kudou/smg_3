@@ -396,8 +396,6 @@ class ReservationsController extends Controller
    */
   public function store(Request $request)
   {
-
-
     DB::transaction(function () use ($request) { //トランザクションさせる
       $reservation = Reservation::create([
         'venue_id' => $request->venue_id,

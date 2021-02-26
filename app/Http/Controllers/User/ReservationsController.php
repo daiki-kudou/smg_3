@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
 use App\Models\Venue;
+use App\Models\Reservation;
 
 use Session;
 
@@ -105,8 +106,6 @@ class ReservationsController extends Controller
     return view('user.reservations.cart', compact('sessions'));
   }
 
-
-
   public function destroy_check(Request $request)
   {
     $sessions = $request->session()->get('session_reservations');
@@ -118,7 +117,6 @@ class ReservationsController extends Controller
     return view('user.reservations.destroy_check', compact('slctSession', 'venue', 'session_id'));
   }
 
-
   public function session_destroy(Request $request)
   {
     $session_reservation_id = $request->session_reservation_id;
@@ -128,8 +126,6 @@ class ReservationsController extends Controller
     return redirect('user/reservations/cart');
   }
 
-
-
   public function re_create(Request $request)
   {
     $sessions = $request->session()->get('session_reservations');
@@ -138,5 +134,30 @@ class ReservationsController extends Controller
     $fix = (object)$slctSession[0];
     $venue = Venue::find($fix->venue_id);
     return view('user.reservations.re_create', compact('fix', 'venue', 'select_id'));
+  }
+
+  public function storeReservation(Request $request)
+  {
+    $sessions = $request->session()->get('session_reservations');
+    foreach ($sessions as $key => $value) {
+      echo "<pre>";
+      $test = (object)$value[0];
+      // var_dump(json_decode(($test)->items_results)[2]);
+      var_dump(json_decode($test->price_result));
+      echo "区切り";
+      echo "</pre>";
+
+      $reservation = new Reservation;
+      $reservation->ReserveFromUser(((object)$value[0]), $value[1]);
+    }
+
+    $request->session()->forget('session_reservations');
+    $request->session()->regenerate();
+    return redirect('user/reservations/complete');
+  }
+
+  public function complete()
+  {
+    return view('user.reservations.complete');
   }
 }

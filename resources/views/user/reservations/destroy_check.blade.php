@@ -182,7 +182,7 @@
         </div>
       </div>
       <section class="contents">
-        {{var_dump($slctSession)}}
+        {{-- {{var_dump($slctSession)}} --}}
         <!-- 予約内容 -------------------------------------------->
         <h2>予約1</h2>
         <form name="form" id="form" action="https://osaka-conference.com/contact/check.php" next="false" method="post">
@@ -271,27 +271,8 @@
                 </td>
               </tr>
 
-              {{-- <tr>
-                <th>有料備品</th>
-                <td class="spec-space">
-                  <ul class="option-list">
-                    <li class="form-cell2">
-                      <p>有線マイク</p>
-                      <p>2<span>個<span></p>
-                    </li>
-                    <li class="form-cell2">
-                      <p>プロジェクター（VGAケーブル・HDMIケーブル付）</p>
-                      <p>2<span>個<span></p>
-                    </li>
-                    <li class="form-cell2">
-                      <p>赤外線温度計（非接触型体温計）＋スプレーボトル
-                      </p>
-                      <p>2<span>個<span></p>
-                    </li>
-                  </ul>
-                </td>
-              </tr> --}}
-              @if (ReservationHelper::checkEquipmentBreakdowns($slctSession[0])!=0)
+              {{-- {{var_dump(json_decode($slctSession[0]["items_results"])[0])}} --}}
+              @if (json_decode($slctSession[0]["items_results"])[0]!=0)
               <tr>
                 <th>有料備品</th>
                 <td class="spec-space">
@@ -310,7 +291,7 @@
               </tr>
               @endif
 
-              {{var_dump(json_decode($slctSession[0]['items_results'])[2])}}
+              {{-- {{var_dump(json_decode($slctSession[0]['items_results'])[2])}} --}}
               {{-- @if (ReservationHelper::checkServiceBreakdowns($slctSession[0])!=0) --}}
               <tr>
                 <th>有料サービス</th>

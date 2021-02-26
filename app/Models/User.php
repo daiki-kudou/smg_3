@@ -90,9 +90,6 @@ class User extends Authenticatable
     return $this->hasMany(PreReservation::class);
   }
 
-
-
-
   public function searchs(
     $freeword,
     $id,
@@ -158,5 +155,15 @@ class User extends Authenticatable
     }
     $result = new Carbon($limit);
     return date("Y-m-d", strtotime($result));
+  }
+
+  public function getCompany()
+  {
+    return $this->company;
+  }
+
+  public function getPerson()
+  {
+    return $this->first_name . $this->last_name;
   }
 }
