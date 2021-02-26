@@ -200,7 +200,7 @@
         </div>
         @else
         @foreach ($sessions as $key=>$reservation)
-        <h2>予約{{(int)$key+1}}</h2>
+        <h2>予約{{(int)$loop->index+1}}</h2>
         <div class="section-wrap">
           <table class="table-sum">
             <thead>
