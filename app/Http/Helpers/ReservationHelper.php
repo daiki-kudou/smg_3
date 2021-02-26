@@ -60,6 +60,27 @@ class ReservationHelper
     return date('Y/m/d',  strtotime($num)) . '(' . $weekday . ')';
   }
 
+  public static function formatDateJA($num)
+  {
+    $weekday = date('w',  strtotime($num));
+    if ($weekday == 0) {
+      $weekday = "日";
+    } elseif ($weekday == 1) {
+      $weekday = "月";
+    } elseif ($weekday == 2) {
+      $weekday = "火";
+    } elseif ($weekday == 3) {
+      $weekday = "水";
+    } elseif ($weekday == 4) {
+      $weekday = "木";
+    } elseif ($weekday == 5) {
+      $weekday = "金";
+    } elseif ($weekday == 6) {
+      $weekday = "土";
+    }
+    return date('Y年n月j日',  strtotime($num)) . '(' . $weekday . ')';
+  }
+
   public static function formatTime($num)
   {
     return date('H:i',  strtotime($num));
@@ -192,6 +213,7 @@ class ReservationHelper
     return $result;
   }
 
+
   public static function IdFormat($num)
   {
     return sprintf('%05d', $num);
@@ -224,13 +246,8 @@ class ReservationHelper
   public static function timeOptionsWithDefault()
   {
     $arrays = [];
-    for ($i = 0 * 2; $i <= 23 * 2; $i++) {
-      if ($i == 16) {
-        $html1 = "<option value=" . date('H:i:s', strtotime('00:00 +' . $i * 30 . ' minute')) . " selected>";
-      } else {
-        $html1 = "<option value=" . date('H:i:s', strtotime('00:00 +' . $i * 30 . ' minute')) . " >";
-      }
-
+    for ($i = 8 * 2; $i <= 23 * 2; $i++) {
+      $html1 = "<option value=" . date('H:i:s', strtotime('00:00 +' . $i * 30 . ' minute')) . " >";
       $html2 = date('H:i', strtotime('00:00 +' . $i * 30 . ' minute'));
       $html3 = "</option>";
       $arrays[] = $html1 . $html2 . $html3;
@@ -242,6 +259,16 @@ class ReservationHelper
   public static function numTimesNum($num1, $num2)
   {
     return (int)$num1 * (int)$num2;
+  }
+
+  public static function numTimesNumArrays($requests, $text)
+  {
+    $target = 0;
+    foreach ($requests as $key => $value) {
+      $target += $value[0][$text];
+    }
+
+    return $target;
   }
 
   public static function getUsage($enter_time, $leave_time)
@@ -317,5 +344,50 @@ class ReservationHelper
     } else {
       return ReservationHelper::getAgentMobile($agent_id);
     }
+  }
+
+  public static function checkEquipmentBreakdowns($arrays)
+  {
+    $_equipment = [];
+    foreach ($arrays as $key => $value) {
+      if (preg_match('/equipment_breakdown/', $key)) {
+        $s_equipment[] = $value;
+      }
+    }
+    $result = ReservationHelper::judgeArrayEmpty($s_equipment);
+    return $result;
+  }
+
+  public static function checkServiceBreakdowns($arrays)
+  {
+    $s_service = [];
+    foreach ($arrays as $key => $value) {
+      if (preg_match('/services_breakdown/', $key)) {
+        $s_service[] = $value;
+      }
+    }
+    $result = ReservationHelper::judgeArrayEmpty($s_service);
+    return $result;
+  }
+
+  public static function jsonDecode($arrays)
+  {
+    return json_decode($arrays, true);
+  }
+
+  public static function DBLJsonDecode($arrays)
+  {
+    $first = json_decode($arrays, true);
+    return $first;
+  }
+
+
+  public static function getLayoutPrice($venue_id)
+  {
+    $venue = Venue::find($venue_id);
+    $prepare = $venue->layout_prepare;
+    $clean = $venue->layout_clean;
+
+    return [$prepare, $clean];
   }
 }

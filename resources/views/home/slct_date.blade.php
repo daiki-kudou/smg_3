@@ -396,7 +396,8 @@
                 <td>
                   <div class="selectWrap">
 
-                    <select name="enter_time" class="timeScale">
+                    <select name="enter_time" class="timeScale" id="enter_time">
+                      <option value=""></option>
                       {{!!ReservationHelper::timeOptionsWithDefault()!!}}
                     </select>
                   </div>
@@ -416,7 +417,8 @@
                 <th>退室時間 <span class="txtRed">＊</span></th>
                 <td>
                   <div class="selectWrap">
-                    <select name="leave_time" class="timeScale">
+                    <select name="leave_time" class="timeScale" id="leave_time">
+                      <option value=""></option>
                       {{!!ReservationHelper::timeOptionsWithDefault()!!}}
                     </select>
                   </div>
@@ -727,18 +729,55 @@ if (typeof(conv_handler) == 'function') {
 	});
     
     // 時間セレクトループ
-  // $(function(){
-  // for (var i=8; i<=23; i++) {
-  // for(var ii=1; ii<=2; ii++){
-  // var judge="";
-  // ii%2==0?judge='30':judge='00';
-  // if (i==23&&ii==2) {
-  // continue;
-  // }
-  // $('.timeScale').append("<option value='"+i+':'+judge+"'>"+i+':'+judge+"</option>"); 
-  // }
-  // }
-  // })
+  $(function(){
+    $(document).on("change", "#enter_time", function() {
+    var enter_time=$('[name=enter_time] option:selected').val();
+    $('[name=leave_time] option').each(function(index, element){
+    var target_val=$(element).val();
+    if (enter_time=="08:00:00") {
+      switch (target_val) {
+        case "08:00:00":
+          $(element).prop("disabled","true");
+          break;
+        case "08:30:00":
+          $(element).prop("disabled","true");
+          break;
+        case "09:00:00":
+          $(element).prop("disabled","true");
+          break;
+        case "09:30:00":
+          $(element).prop("disabled","true");
+          break;
+        case "10:00:00":
+          $(element).prop("disabled","true");
+          break;
+        default:
+          break;
+      }
+    }else if(enter_time=="08:30:00"){
+      switch (target_val) {
+        case "08:00:00":
+          $(element).prop("disabled","true");
+          break;
+        case "08:30:00":
+          $(element).prop("disabled","true");
+          break;
+        case "09:00:00":
+          $(element).prop("disabled","true");
+          break;
+        case "09:30:00":
+          $(element).prop("disabled","true");
+          break;
+        case "10:00:00":
+          $(element).prop("disabled","true");
+          break;
+        default:
+          break;
+      }
+    }
+    })
+    });
+  })
 
   });
   </script>

@@ -174,7 +174,7 @@
 
       <div class="contents">
         <div class="pagetop-text">
-          <h1 class="page-title oddcolor"><span>会場予約 入力画面</span></h1>
+          <h1 class="page-title oddcolor"><span>会場予約 変更画面</span></h1>
           <p>下記フォームに必要事項を入力してください。(＊は必須項目です)</p>
           <p class="txtRed">複数日程を希望の場合は予約日毎に予約入力してください。</p>
         </div>
@@ -182,14 +182,13 @@
       <section class="contents">
         <h2>予約1</h2>
 
-        {{-- <form name="form" id="form" action="https://osaka-conference.com/contact/check.php" next="false" method="post"> --}}
         {{ Form::open(['url' => 'user/reservations/check', 'method'=>'POST', 'id'=>'']) }}
         <div class="bgColorGray first">
           <table>
             <tr>
               <th>利用日</th>
               <td>
-                {{ReservationHelper::formatDate($request->date)}}
+                {{ReservationHelper::formatDate($fix->date)}}
               </td>
             </tr>
             <tr>
@@ -198,12 +197,12 @@
                 <ul class="form-cell">
                   <li class="form-cell">
                     <p>入室</p>
-                    <p>{{ReservationHelper::formatTime($request->enter_time)}}</p>
+                    <p>{{ReservationHelper::formatTime($fix->enter_time)}}</p>
                   </li>
                   <li>～</li>
                   <li class="form-cell">
                     <p>退室</p>
-                    <p>{{ReservationHelper::formatTime($request->leave_time)}}</p>
+                    <p>{{ReservationHelper::formatTime($fix->leave_time)}}</p>
                   </li>
                 </ul>
                 <div class="borderAttention">
@@ -217,13 +216,13 @@
             <tr>
               <th>利用会場</th>
               <td>
-                {{ReservationHelper::getVenue($request->venue_id)}}
+                {{ReservationHelper::getVenue($fix->venue_id)}}
               </td>
             </tr>
             <tr>
               <th>当日の担当者 <span class="txtRed c-block">＊</span></th>
               <td>
-                {{ Form::text('in_charge', old('in_charge'),['class'=>'form-control text2', 'placeholder'=>'入力してください'] ) }}
+                {{ Form::text('in_charge', $fix->in_charge,['class'=>'form-control text2', 'placeholder'=>'入力してください'] ) }}
                 <br class="spOnlyunder">
                 <a name="a-nam" class="error-r"></a>
               </td>
@@ -231,7 +230,7 @@
             <tr>
               <th>当日の担当者連絡先 <span class="txtRed c-block">＊</span></th>
               <td>
-                {{ Form::text('tel', old('tel'),['class'=>'form-control text2', 'placeholder'=>'入力してください'] ) }}
+                {{ Form::text('tel', $fix->tel,['class'=>'form-control text2', 'placeholder'=>'入力してください'] ) }}
                 <br class="spOnlyunder">
                 <a name="a-nam" class="error-r"></a>
               </td>
@@ -242,9 +241,9 @@
                 <ul>
                   <li>
                     <div class="selectTime">
-                      {{ Form::radio('price_system', 2, false, ['class'=>'radio-input','id'=>'price_system_radio2']) }}
+                      {{ Form::radio('price_system', 2, $fix->price_system==2?true:false, ['class'=>'radio-input','id'=>'price_system_radio2']) }}
                       {{Form::label('price_system_radio2','する')}}
-                      {{ Form::radio('price_system', 1, true, ['class'=>'radio-input', 'id'=>'price_system_radio1']) }}
+                      {{ Form::radio('price_system', 1, $fix->price_system==1?true:false, ['class'=>'radio-input', 'id'=>'price_system_radio1']) }}
                       {{Form::label('price_system_radio1','しない')}}
                     </div>
                   </li>
@@ -259,9 +258,9 @@
                 <ul>
                   <li>
                     <div class="selectTime">
-                      {{ Form::radio('board_flag', 1, false, ['class'=>'radio-input','id'=>'board_flag']) }}
+                      {{ Form::radio('board_flag', 1, $fix->board_flag==1?true:false, ['class'=>'radio-input','id'=>'board_flag']) }}
                       {{Form::label('board_flag','する')}}
-                      {{ Form::radio('board_flag', 0, true, ['class'=>'radio-input', 'id'=>'board_flag_off']) }}
+                      {{ Form::radio('board_flag', 0, $fix->board_flag==0?true:false, ['class'=>'radio-input', 'id'=>'board_flag_off']) }}
                       {{Form::label('board_flag_off','しない')}}
                     </div>
                   </li>
@@ -269,17 +268,17 @@
                   <li class="cell-margin">
                     <div class="m-b10">
                       <p><span class="txtRed c-block">＊</span>イベント名称1行目</p>
-                      {{ Form::text('event_name1','',['class'=>'form-control text2', 'placeholder'=>'入力してください'] ) }}
+                      {{ Form::text('event_name1',$fix->event_name1,['class'=>'form-control text2', 'placeholder'=>'入力してください'] ) }}
                       <p>※16文字以内</p>
                     </div>
                     <div class="m-b10">
                       <p>イベント名称2行目</p>
-                      {{ Form::text('event_name2','',['class'=>'form-control text2', 'placeholder'=>'入力してください'] ) }}
+                      {{ Form::text('event_name2',$fix->event_name2,['class'=>'form-control text2', 'placeholder'=>'入力してください'] ) }}
                       <p>※16文字以内</p>
                     </div>
                     <div class="m-b10">
                       <p>主催者名</p>
-                      {{ Form::text('event_owner','',['class'=>'form-control text2', 'placeholder'=>'入力してください'] ) }}
+                      {{ Form::text('event_owner',$fix->event_owner,['class'=>'form-control text2', 'placeholder'=>'入力してください'] ) }}
                       <p>※30文字以内</p>
                     </div>
                     <div class="m-b10">
@@ -298,7 +297,7 @@
                           <select name="event_start" id="event_start" class="form-control timeScale">
                             <option disabled>選択してください</option>
                             @for ($start = 0*2; $start <=23*2; $start++) <option
-                              value="{{date("H:i:s", strtotime("00:00 +". $start * 30 ." minute"))}}" @if(($request->
+                              value="{{date("H:i:s", strtotime("00:00 +". $start * 30 ." minute"))}}" @if(($fix->
                               enter_time==date("H:i:s", strtotime("00:00 +". $start * 30 ." minute"))))
                               selected
                               @endif>
@@ -313,7 +312,7 @@
                           <select name="event_finish" id="event_finish" class="form-control timeScale">
                             <option disabled>選択してください</option>
                             @for ($start = 0*2; $start <=23*2; $start++) <option
-                              value="{{date("H:i:s", strtotime("00:00 +". $start * 30 ." minute"))}}" @if(($request->
+                              value="{{date("H:i:s", strtotime("00:00 +". $start * 30 ." minute"))}}" @if(($fix->
                               leave_time==date("H:i:s", strtotime("00:00 +". $start * 30 ." minute"))))
                               selected
                               @endif>
@@ -350,6 +349,7 @@
                 <p><span class="txt-indent">※ケータリングは弊社にてご予算に合ったものをご提供可能です。 お気軽に問い合わせ下さい。</span></p>
               </td>
             </tr>
+            <pre>{{var_dump(empty(json_decode($fix->items_results)[1]))}}</pre>
 
             <tr>
               <th>有料備品</th>
@@ -358,56 +358,102 @@
                   @foreach ($venue->getEquipments() as $e_key=>$eqpt)
                   <li class="form-cell2">
                     <p class="text6">{{$eqpt->item}}</p>
-                    <p>
-                      {{ Form::text('equipment_breakdown'.$e_key, '',['class'=>'text4 mL0'] ) }}個
-                    </p>
-                  </li>
-                  @endforeach
-                </ul>
-              </td>
-            </tr>
-            <tr>
-              <th>有料サービス</th>
-              <td class="spec-space">
-                <ul>
-                  @foreach ($venue->getServices() as $s_key=>$serv)
-                  <li class="form-cell2">
-                    <label>
-                      {{ Form::hidden('services_breakdown'.$s_key, 0 ) }}
-                      <input type="checkbox" id="" name="{{'services_breakdown'.$s_key}}" value="1"
-                        class="checkbox-input">
-                      <span class="checkbox-parts">{{$serv->item}} {{$serv->price}}円</span>
-                    </label>
+                    @if (empty(json_decode($fix->items_results)[1]))
+                    <p>{{ Form::text('equipment_breakdown'.$e_key, "",['class'=>'text4 mL0'] ) }}個</p>
+                    @else
+                    @foreach (json_decode($fix->items_results)[1] as $b_equ)
+                    @if ($b_equ[0]==$eqpt->item)
+                    <p>{{ Form::text('equipment_breakdown'.$e_key, $b_equ[2],['class'=>'text4 mL0'] ) }}個</p>
+                    @break
+                    @elseif($loop->last)
+                    <p>{{ Form::text('equipment_breakdown'.$e_key, "",['class'=>'text4 mL0'] ) }}個</p>
+                    @endif
+                    @endforeach
+                    @endif
                   </li>
                   @endforeach
                 </ul>
               </td>
             </tr>
 
+            <tr>
+              <th>有料サービス</th>
+              <td class="spec-space">
+                <ul>
+                  @foreach ($venue->getServices() as $s_key=>$serv)
+                  <li class="form-cell2">
+                    @if (empty(json_decode($fix->items_results)[2]))
+                    <label>
+                      {{ Form::hidden('services_breakdown'.$s_key, 0 ) }}
+                      <input type="checkbox" id="" name="{{'services_breakdown'.$s_key}}" value="1"
+                        class="checkbox-input">
+                      <span class="checkbox-parts">{{$serv->item}} {{$serv->price}}円</span>
+                    </label>
+                    @else
+                    @foreach (json_decode($fix->items_results)[2] as $b_ser)
+                    @if ($serv->item==$b_ser[0])
+                    <label>
+                      {{ Form::hidden('services_breakdown'.$s_key, 0 ) }}
+                      <input type="checkbox" id="" name="{{'services_breakdown'.$s_key}}" value="1"
+                        class="checkbox-input" checked>
+                      <span class="checkbox-parts">{{$serv->item}} {{$serv->price}}円</span>
+                    </label>
+                    @break
+                    @elseif($loop->last)
+                    <label>
+                      {{ Form::hidden('services_breakdown'.$s_key, 0 ) }}
+                      <input type="checkbox" id="" name="{{'services_breakdown'.$s_key}}" value="1"
+                        class="checkbox-input">
+                      <span class="checkbox-parts">{{$serv->item}} {{$serv->price}}円</span>
+                    </label>
+                    @endif
+                    @endforeach
+                    @endif
+                  </li>
+                  @endforeach
+                </ul>
+              </td>
+            </tr>
+
+            {{-- <pre>{{var_dump($fix)}}
+            </pre> --}}
             @if ($venue->getLayouts()!=0)
             <tr>
-              @if ($venue->getLayouts()[0])
               <th>レイアウト変更</th>
               <td class="spec-space">
                 <div class="m-b10">
                   <p>レイアウト準備</p>
                   <div class="selectTime">
-                    {{Form::radio('layout_prepare', 1, false, ['id' => 'layout_prepare', 'class' => 'radio-input'])}}
+                    @if (!empty($fix->layout_prepare))
+                    {{Form::radio('layout_prepare', 1,true, ['id' => 'layout_prepare', 'class' => 'radio-input'])}}
+                    {{Form::label('layout_prepare','あり')}}
+                    {{Form::radio('layout_prepare', 0, false, ['id' => 'no_layout_prepare', 'class' => 'radio-input'])}}
+                    {{Form::label('no_layout_prepare', 'なし')}}
+                    @else
+                    {{Form::radio('layout_prepare', 1,false, ['id' => 'layout_prepare', 'class' => 'radio-input'])}}
                     {{Form::label('layout_prepare','あり')}}
                     {{Form::radio('layout_prepare', 0, true, ['id' => 'no_layout_prepare', 'class' => 'radio-input'])}}
                     {{Form::label('no_layout_prepare', 'なし')}}
+                    @endif
+
                   </div>
                   <a name="a-selectTime1" class="error-r"></a>
                 </div>
-                @endif
                 @if ($venue->getLayouts()[1])
                 <div class="m-b10">
                   <p>レイアウト片付け</p>
                   <div class="selectTime">
+                    @if (!empty($fix->layout_clean))
+                    {{Form::radio('layout_clean', 1, true, ['id' => 'layout_clean', 'class' => 'radio-input'])}}
+                    {{Form::label('layout_clean','あり')}}
+                    {{Form::radio('layout_clean', 0, false, ['id' => 'no_layout_clean', 'class' => 'radio-input'])}}
+                    {{Form::label('no_layout_clean', 'なし')}}
+                    @else
                     {{Form::radio('layout_clean', 1, false, ['id' => 'layout_clean', 'class' => 'radio-input'])}}
                     {{Form::label('layout_clean','あり')}}
                     {{Form::radio('layout_clean', 0, true, ['id' => 'no_layout_clean', 'class' => 'radio-input'])}}
                     {{Form::label('no_layout_clean', 'なし')}}
+                    @endif
                   </div>
                   <a name="a-selectTime1" class="error-r"></a>
                 </div>
@@ -424,14 +470,14 @@
                   <p>【事前に預かる荷物】</p>
                   <div class="selectTime">
                     <p class="baggage_bn">目安</p>
-                    {{ Form::text('luggage_count', '',['class'=>'text6 baggage_bn', 'style'=>'width:20%;'] ) }}
+                    {{ Form::text('luggage_count', $fix->luggage_count,['class'=>'text6 baggage_bn', 'style'=>'width:20%;'] ) }}
                     <p class="baggage_bn">個</p>
                   </div>
                 </div>
                 <div class="m-b10">
                   <p>事前荷物の到着日</p>
                   <div class="selectTime">
-                    {{ Form::date('luggage_arrive', '',['class'=>'text6'] ) }}
+                    {{ Form::date('luggage_arrive', $fix->luggage_arrive,['class'=>'text6'] ) }}
                     <p>午前指定</p>
                   </div>
                 </div>
@@ -448,7 +494,7 @@
                   <p>【事後返送する荷物】</p>
                   <div class="selectTime">
                     <p class="baggage_an">目安</p>
-                    {{ Form::text('luggage_return', '',['class'=>'text6 baggage_an', 'style'=>'width: 20%;'] ) }}
+                    {{ Form::text('luggage_return', $fix->luggage_return,['class'=>'text6 baggage_an', 'style'=>'width: 20%;'] ) }}
                     <p class="baggage_an">個</p>
                   </div>
                 </div>
@@ -468,7 +514,7 @@
             <tr>
               <th>備考</th>
               <td>
-                {{ Form::textarea('remark', '',['cols'=>'30','rows'=>'10'] ) }}
+                {{ Form::textarea('remark', $fix->remark,['cols'=>'30','rows'=>'10'] ) }}
                 <p>
                   <span class="txt-indent">
                     ※入力に際し旧漢字・機種依存文字などはご使用になれません。
@@ -491,10 +537,11 @@
             {{Form::submit('料金を確認する',['class'=>'confirm-btn','style'=>'width:100%;'])}}
           </li>
         </ul>
-        {{Form::hidden('venue_id',$request->venue_id)}}
-        {{Form::hidden('date',$request->date)}}
-        {{Form::hidden('enter_time',$request->enter_time)}}
-        {{Form::hidden('leave_time',$request->leave_time)}}
+        {{Form::hidden('venue_id',$fix->venue_id)}}
+        {{Form::hidden('date',$fix->date)}}
+        {{Form::hidden('enter_time',$fix->enter_time)}}
+        {{Form::hidden('leave_time',$fix->leave_time)}}
+        {{Form::hidden('select_id',$select_id)}}
         {{Form::close()}}
 
       </section>
@@ -762,18 +809,6 @@ if (typeof(conv_handler) == 'function') {
 
         });
       });
-
-      // 時間セレクトループ
-      // $(function () {
-      //   for (var i = 8; i <= 23; i++) {
-      //     for (var ii = 1; ii <= 2; ii++) {
-      //       var judge = "";
-      //       ii % 2 == 0 ? judge = '30' : judge = '00';
-      //       $('.timeScale').append("<option value='" + i + ':' + judge + "'>" + i + ':' + judge +
-      //         "</option>");
-      //     }
-      //   }
-      // });
 
       $(function () {
         $("tr.jizennimotsu").hide();
