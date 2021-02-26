@@ -15,9 +15,10 @@
 </div>
 
 
+<h2 class="mt-3 mb-3">仲介会社　仮押さえ 新規作成</h2>
+  <hr>
 
-<h1>仲介会社　仮押さえ 新規作成</h1>
-
+<section class="section-wrap">
 <div class="calendar">
   <iframe src="{{url('admin/calendar/date_calendar')}}" width="100%" height="500">Your browser isn't compatible</iframe>
 </div>
@@ -26,7 +27,7 @@
 @csrf
 
 <div class="user_selector mt-5">
-  <h1>仲介会社情報</h1>
+<h3 class="mb-2">仲介会社情報</h3>
   <select name="agent_id" id="agent_id">
     <option value="">選択してください</option>
     @foreach ($agents as $agent)
@@ -53,41 +54,46 @@
         <td>
           {{ Form::text('pre_enduser_company', '',['class'=>'form-control'] ) }}
         </td>
-        <td colspan="2"></td>
-      </tr>
-      <tr>
-        <td class="table-active">担当者指名</td>
+        <td class="table-active">担当者氏名</td>
         <td>
           {{ Form::text('pre_enduser_name', '',['class'=>'form-control'] ) }}
         </td>
-        <td class="table-active">メールアドレス</td>
+      </tr>
+      <tr>
+        <td class="table-active">住所</td>
+        <td>
+          <!-- {{ Form::text('pre_enduser_name', '',['class'=>'form-control'] ) }} -->
+        </td>
+        <td class="table-active">電話番号</td>
+        <td>
+          {{ Form::text('pre_enduser_tel', '',['class'=>'form-control'] ) }}
+        </td>
+
+      </tr>
+      <tr>
+      <td class="table-active">メールアドレス</td>
         <td>
           {{ Form::text('pre_enduser_email', '',['class'=>'form-control'] ) }}
         </td>
-      </tr>
-      <tr>
         <td class="table-active">携帯番号</td>
         <td>
           {{ Form::text('pre_enduser_mobile', '',['class'=>'form-control'] ) }}
-        </td>
-        <td class="table-active">固定電話</td>
-        <td>
-          {{ Form::text('pre_enduser_tel', '',['class'=>'form-control'] ) }}
         </td>
       </tr>
     </tbody>
   </table>
 </div>
 
-<div class="date_selector">
-  <h1>日程選択</h1>
-  <table class="table table-bordered" style="table-layout: fixed;">
+<hr>
+<div class="date_selector mt-5">
+<h3 class="mb-2 pt-3">日程選択</h3>
+  <table class="table table-bordered">
     <thead>
       <tr>
         <td>日付</td>
         <td>会場名</td>
         <td>入室時間</td>
-        <td>体質時間</td>
+        <td>退室時間</td>
         <td>追加・削除</td>
       </tr>
     </thead>
@@ -124,7 +130,7 @@
 
 <div class="submit_btn">
   <div class="d-flex justify-content-center">
-    {{Form::submit('確認する', ['class'=>'btn btn-primary btn-lg ', 'id'=>'check_submit'])}}
+    {{Form::submit('確認する', ['class'=>'btn more_btn_lg mx-auto d-block', 'id'=>'check_submit'])}}
   </div>
 </div>
 
@@ -136,7 +142,7 @@
     </button>
   </div>
 </div>
-
+</section>
 
 {{Form::close()}}
 

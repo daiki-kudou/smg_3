@@ -520,7 +520,7 @@
       {{ Form::hidden('judge_count', 1 ) }}
       {{-- ユーザー --}}
       {{ Form::hidden('user_id', $request->user_id ) }}
-      {{Form::submit('再計算する', ['class'=>'btn btn-danger btn-lg ', 'id'=>'check_submit'])}}
+      {{Form::submit('再計算する', ['class'=>'btn d-block more_btn4_lg mx-auto my-5', 'id'=>'check_submit'])}}
     </div>
   </div>
 
