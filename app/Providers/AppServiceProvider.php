@@ -27,7 +27,7 @@ class AppServiceProvider extends ServiceProvider
     \Schema::defaultStringLength(191);
     // herokuにあげるときはhtppsにし、ローカルの場合はhttpにしないといけない。
     // 現時点で毎回切り替えないといけない
-    \URL::forceScheme('https');
+    // \URL::forceScheme('https');
     if (request()->isSecure()) {
       \URL::forceScheme('https');
     }
