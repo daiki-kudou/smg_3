@@ -21,24 +21,23 @@ class UsersTableSeeder extends Seeder
 
     DB::table('users')->truncate();
 
-    DB::table('users')->insert([
-      'email' => 'maruoka@web-trickster.com',
-      'password' => Hash::make('12345678'),
-      'company' => "トリックスター",
-      'post_code' => 'test',
-      'address1' => 'test',
-      'address2' => 'test',
-      'address3' => 'test',
-      'first_name' => "丸岡",
-      'last_name' => "麻衣",
-      'first_name_kana' => "マルオカ",
-      'last_name_kana' => "マイ",
-      'pay_method' => 1,
-      'pay_limit' => 1,
-      'status' => 1,
-      'remember_token'    => Str::random(10),
-
-    ]);
+    // DB::table('users')->insert([
+    //   'email' => 'maruoka@web-trickster.com',
+    //   'password' => Hash::make('12345678'),
+    //   'company' => "トリックスター",
+    //   'post_code' => 'test',
+    //   'address1' => 'test',
+    //   'address2' => 'test',
+    //   'address3' => 'test',
+    //   'first_name' => "丸岡",
+    //   'last_name' => "麻衣",
+    //   'first_name_kana' => "マルオカ",
+    //   'last_name_kana' => "マイ",
+    //   'pay_method' => 1,
+    //   'pay_limit' => 1,
+    //   'status' => 1,
+    //   'remember_token'    => Str::random(10),
+    // ]);
     DB::table('users')->insert([
       'email' => 'ooyama@web-trickster.com',
       'password' => Hash::make('12345678'),
