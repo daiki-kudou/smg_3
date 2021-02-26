@@ -223,6 +223,59 @@ class Reservation extends Model
       //     ]);
       //   }
       // }
+
+      // 備品
+      foreach (json_decode($value->items_results)[1] as $e_key => $equ) {
+        $bills->breakdowns()->create([
+          'unit_item' => $equ[0],
+          'unit_cost' => $equ[1],
+          'unit_count' => $equ[2],
+          'unit_subtotal' => $equ[1] * $equ[2],
+          'unit_type' => 2,
+        ]);
+      }
+      // サービス
+      foreach (json_decode($value->items_results)[2] as $s_key => $ser) {
+        $bills->breakdowns()->create([
+          'unit_item' => $ser[0],
+          'unit_cost' => $ser[1],
+          'unit_count' => 1,
+          'unit_subtotal' => $ser[1],
+          'unit_type' => 3,
+        ]);
+      }
+      // 荷物
+      if (!empty($value->luggage_count) || !empty($value->luggage_arrive) || !empty($value->luggage_return)) {
+        $bills->breakdowns()->create([
+          'unit_item' => "荷物預かり/返送",
+          'unit_cost' => 500,
+          'unit_count' => 3,
+          'unit_subtotal' => 500,
+          'unit_type' => 3,
+        ]);
+      }
+      // レイアウト準備
+      if (!empty($value->layout_prepare)) {
+        $bills->breakdowns()->create([
+          'unit_item' => "レイアウト準備料金",
+          'unit_cost' => $layout_prepare,
+          'unit_count' => 1,
+          'unit_subtotal' => $layout_prepare,
+          'unit_type' => 4,
+        ]);
+      }
+      // レイアウト片付け
+      if (!empty($value->layout_clean)) {
+        $bills->breakdowns()->create([
+          'unit_item' => "レイアウト片付料金",
+          'unit_cost' => $layout_clean,
+          'unit_count' => 1,
+          'unit_subtotal' => $layout_clean,
+          'unit_type' => 4,
+        ]);
+      }
+
+
       // toBreakDown($request->all(), 'venue_breakdown', $bills, 1);
       // toBreakDown($request->all(), 'equipment_breakdown', $bills, 2);
       // toBreakDown($request->all(), 'service_breakdown', $bills, 3);

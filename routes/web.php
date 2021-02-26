@@ -40,7 +40,8 @@ Route::namespace('User')->prefix('user')->name('user.')->group(function () {
     Route::post('reservations/destroy_check', 'ReservationsController@destroy_check');
     Route::post('reservations/session_destroy', 'ReservationsController@session_destroy');
     Route::post('reservations/re_create', 'ReservationsController@re_create');
-    Route::post('reservations/complete', 'ReservationsController@complete');
+    Route::post('reservations/store', 'ReservationsController@storeReservation');
+    Route::get('reservations/complete', 'ReservationsController@complete');
 
 
     // 以下、テスト

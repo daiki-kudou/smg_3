@@ -136,20 +136,28 @@ class ReservationsController extends Controller
     return view('user.reservations.re_create', compact('fix', 'venue', 'select_id'));
   }
 
-  public function complete(Request $request)
+  public function storeReservation(Request $request)
   {
     $sessions = $request->session()->get('session_reservations');
     foreach ($sessions as $key => $value) {
       echo "<pre>";
-      // var_dump(((object)json_decode($value[0]['items_results'])[0]));
-      // var_dump(((object)$value[0])->items_results[0]);
       $test = (object)$value[0];
-      var_dump(json_decode(($test)->items_results)[0]);
-
+      // var_dump(json_decode(($test)->items_results)[2]);
+      var_dump($test);
+      echo "区切り";
       echo "</pre>";
 
       $reservation = new Reservation;
       $reservation->ReserveFromUser(((object)$value[0]), $value[1]);
     }
+
+    $request->session()->forget('session_reservations');
+    $request->session()->regenerate();
+    return redirect('user/reservations/complete');
+  }
+
+  public function complete()
+  {
+    return view('user.reservations.complete');
   }
 }

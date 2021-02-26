@@ -411,7 +411,7 @@
               <p class="link-btn3"><a href="/">他の日程を予約する</a></p>
             </li>
             <li>
-              {{ Form::open(['url' => 'user/reservations/complete', 'method'=>'POST', 'id'=>'']) }}
+              {{ Form::open(['url' => 'user/reservations/store', 'method'=>'POST', 'id'=>'']) }}
               <p class="confirm-btn">{{Form::submit('予約を確定する')}}</p>
               {{Form::close()}}
             </li>
