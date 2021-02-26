@@ -86,6 +86,10 @@ class ReservationsController extends Controller
         ->action("User\ReservationsController@create")
         ->withInput($arrays);
     } else {
+      if ($request->select_id) {
+        Session::forget('session_reservations.' . $request->select_id);
+        $sessions = Session::get('session_reservations');
+      }
       $data = $request->all();
       $user = auth()->user()->id;
       $all_data = [$data, $user];
@@ -113,9 +117,10 @@ class ReservationsController extends Controller
   public function re_create(Request $request)
   {
     $sessions = $request->session()->get('session_reservations');
-    $slctSession = $sessions[$request->session_reservation_id];
+    $select_id = $request->session_reservation_id;
+    $slctSession = $sessions[$select_id];
     $fix = (object)$slctSession[0];
     $venue = Venue::find($fix->venue_id);
-    return view('user.reservations.re_create', compact('fix', 'venue'));
+    return view('user.reservations.re_create', compact('fix', 'venue', 'select_id'));
   }
 }

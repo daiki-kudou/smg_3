@@ -541,6 +541,7 @@
         {{Form::hidden('date',$fix->date)}}
         {{Form::hidden('enter_time',$fix->enter_time)}}
         {{Form::hidden('leave_time',$fix->leave_time)}}
+        {{Form::hidden('select_id',$select_id)}}
         {{Form::close()}}
 
       </section>
