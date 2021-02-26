@@ -1,6 +1,14 @@
-{{-- @extends('layouts.user.app')
+@extends('layouts.user.app')
 
-@section('content') --}}
+@section('content')
+
+
+
+
+{{-- ↑のextends と section をコメントアウトしたら　いい --}}
+
+
+
 <div class="container">
   <div class="row justify-content-center">
     <div class="col-md-8">
@@ -45,4 +53,9 @@
     </div>
   </div>
 </div>
-{{-- @endsection --}}
+
+
+
+{{-- ↓のendsection をコメントアウトしたら　いい --}}
+
+@endsection
