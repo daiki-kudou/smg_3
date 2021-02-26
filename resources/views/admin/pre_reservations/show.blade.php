@@ -53,7 +53,7 @@
                 </dl>
               </td>
               <td>
-                <a href="{{url('admin/pre_reservations/'.$pre_reservation->id.'/edit')}}" class="btn btn-primary">編集</a>
+                <a href="{{url('admin/pre_reservations/'.$pre_reservation->id.'/edit')}}" class="btn more_btn_lg">編集</a>
               </td>
           </tbody>
         </table>
