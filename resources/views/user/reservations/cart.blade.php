@@ -358,42 +358,47 @@
             <thead>
               <tr>
                 <th colspan="3">
-                  <p>総合計(<span>2</span><span>件</span>)</p>
+                  <p>総合計(<span>{{count($sessions)}}</span><span>件</span>)</p>
                 </th>
               </tr>
             </thead>
             <tbody>
+              @foreach ($sessions as $t_key=>$t_reservation)
               <tr>
-                <th class=""><label for="date">四ツ橋・サンワールドビル1号室</label></th>
+                <th class="">
+                  <label for="date">{{ReservationHelper::getVenue($t_reservation[0]["venue_id"])}}</label>
+                </th>
                 <td>
                   <ul class="sum-list">
                     <li>
-                      <p>2021年1月14日(月)会場ご利用料</p>
-                      <p>30,000<span>円</span></p>
+                      <p>{{ReservationHelper::formatDateJA($t_reservation[0]["date"])}}会場ご利用料</p>
+                      <p>{{number_format($t_reservation[0]['master'])}}<span>円</span></p>
                     </li>
                   </ul>
                 </td>
               </tr>
-              <tr>
-                <th class=""><label for="date">四ツ橋・サンワールドビル1号室</label></th>
-                <td>
-                  <ul class="sum-list">
-                    <li>
-                      <p>2021年1月14日(月)会場ご利用料</p>
-                      <p>30,000<span>円</span></p>
-                    </li>
-                  </ul>
-                </td>
-              </tr>
+              @endforeach
+              {{-- <pre>{{var_dump((object)$sessions)}}</pre> --}}
+              {{var_dump(ReservationHelper::numTimesNumArrays($sessions, "master"))}}
               <tr>
                 <td colspan="2" class="text-right">
-                  <p class="checkbox-txt"><span>小計</span>7,200円</p>
-                  <p class="checkbox-txt"><span>消費税</span>720円</p>
+                  <p class="checkbox-txt">
+                    <span>小計</span>
+                    {{number_format(ReservationHelper::numTimesNumArrays($sessions, "master"))}}円
+                  </p>
+                  <p class="checkbox-txt">
+                    <span>消費税</span>
+                    {{number_format(ReservationHelper::getTax(ReservationHelper::numTimesNumArrays($sessions, "master")))}}円
+                  </p>
                 </td>
               </tr>
               <tr>
-                <td colspan="2" class="text-right checkbox-txt"><span>合計総額</span>
-                  <span class="sumText">92,400</span><span>円</span>
+                <td colspan="2" class="text-right checkbox-txt">
+                  <span>合計総額</span>
+                  <span class="sumText">
+                    {{number_format(ReservationHelper::taxAndPrice(ReservationHelper::numTimesNumArrays($sessions, "master")))}}
+                  </span>
+                  <span>円</span>
                   <p class="txtRight">※上記合計金額にケータリングは入っておりません。<br>
                     ※お申込み内容によっては、弊社からご連絡の上で、合計金額が変更となる場合がございます</p>
                 </td>
@@ -418,7 +423,6 @@
 
 
 
-        <!-- 総合計金額 --------------------------------------------------------->
 
       </section>
       <div class="top contents"><a href="#top"><img src="https://osaka-conference.com/img/pagetop.png" alt="上に戻る"></a>

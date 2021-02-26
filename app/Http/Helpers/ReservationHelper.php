@@ -60,6 +60,27 @@ class ReservationHelper
     return date('Y/m/d',  strtotime($num)) . '(' . $weekday . ')';
   }
 
+  public static function formatDateJA($num)
+  {
+    $weekday = date('w',  strtotime($num));
+    if ($weekday == 0) {
+      $weekday = "日";
+    } elseif ($weekday == 1) {
+      $weekday = "月";
+    } elseif ($weekday == 2) {
+      $weekday = "火";
+    } elseif ($weekday == 3) {
+      $weekday = "水";
+    } elseif ($weekday == 4) {
+      $weekday = "木";
+    } elseif ($weekday == 5) {
+      $weekday = "金";
+    } elseif ($weekday == 6) {
+      $weekday = "土";
+    }
+    return date('Y年n月j日',  strtotime($num)) . '(' . $weekday . ')';
+  }
+
   public static function formatTime($num)
   {
     return date('H:i',  strtotime($num));
@@ -192,6 +213,7 @@ class ReservationHelper
     return $result;
   }
 
+
   public static function IdFormat($num)
   {
     return sprintf('%05d', $num);
@@ -237,6 +259,16 @@ class ReservationHelper
   public static function numTimesNum($num1, $num2)
   {
     return (int)$num1 * (int)$num2;
+  }
+
+  public static function numTimesNumArrays($requests, $text)
+  {
+    $target = 0;
+    foreach ($requests as $key => $value) {
+      $target += $value[0][$text];
+    }
+
+    return $target;
   }
 
   public static function getUsage($enter_time, $leave_time)
