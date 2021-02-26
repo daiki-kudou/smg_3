@@ -143,7 +143,7 @@ class ReservationsController extends Controller
       echo "<pre>";
       $test = (object)$value[0];
       // var_dump(json_decode(($test)->items_results)[2]);
-      var_dump($test);
+      var_dump(json_decode($test->price_result));
       echo "区切り";
       echo "</pre>";
 

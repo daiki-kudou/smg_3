@@ -203,26 +203,31 @@ class Reservation extends Model
       ]);
 
 
-
-      // function toBreakDown($num, $sub, $target, $type)
-      // {
-      //   $s_arrays = [];
-      //   foreach ($num as $key => $value) {
-      //     if (preg_match("/" . $sub . "/", $key)) {
-      //       $s_arrays[] = $value;
-      //     }
-      //   }
-      //   $counts = (count($s_arrays) / 4);
-      //   for ($i = 0; $i < $counts; $i++) {
-      //     $target->breakdowns()->create([
-      //       'unit_item' => $s_arrays[($i * 4)],
-      //       'unit_cost' => $s_arrays[($i * 4) + 1],
-      //       'unit_count' => $s_arrays[($i * 4) + 2],
-      //       'unit_subtotal' => $s_arrays[($i * 4) + 3],
-      //       'unit_type' => $type,
-      //     ]);
-      //   }
-      // }
+      // 料金内訳
+      if (json_decode($value->price_result)[1] == 0) {
+        $bills->breakdowns()->create([
+          'unit_item' => "会場料金",
+          'unit_cost' => json_decode($value->price_result)[0],
+          'unit_count' => json_decode($value->price_result)[3] - json_decode($value->price_result)[4],
+          'unit_subtotal' => json_decode($value->price_result)[0],
+          'unit_type' => 1,
+        ]);
+      } else {
+        $bills->breakdowns()->create([
+          'unit_item' => "会場料金",
+          'unit_cost' => json_decode($value->price_result)[0],
+          'unit_count' => json_decode($value->price_result)[3] - json_decode($value->price_result)[4],
+          'unit_subtotal' => json_decode($value->price_result)[0],
+          'unit_type' => 1,
+        ]);
+        $bills->breakdowns()->create([
+          'unit_item' => "延長料金",
+          'unit_cost' => json_decode($value->price_result)[1],
+          'unit_count' => json_decode($value->price_result)[4],
+          'unit_subtotal' => json_decode($value->price_result)[1],
+          'unit_type' => 1,
+        ]);
+      }
 
       // 備品
       foreach (json_decode($value->items_results)[1] as $e_key => $equ) {
