@@ -13,8 +13,9 @@
       </ol>
     </nav>
   </div>
-  <h1 class="mt-3 mb-5">営業時間管理　詳細</h1>
-  <hr>
+
+<h2 class="mt-3 mb-3">営業時間管理　詳細</h2>
+<hr>
   <div class="d-flex justify-content-between mt-3 mb-5">
   </div>
 </div>
@@ -67,7 +68,7 @@
             @csrf
             {{Form::hidden('weekday_id', $date_venue->week_day)}}
             {{Form::hidden('id', $venues->id)}}
-            {{Form::submit('編集', ['class'=>'btn btn-primary'])}}
+            {{Form::submit('編集', ['class'=>'btn more_btn'])}}
             {{ Form::close() }}
           </td>
         </tr>

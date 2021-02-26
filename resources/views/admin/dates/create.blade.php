@@ -31,11 +31,11 @@
       </ol>
     </nav>
   </div>
-  <h1 class="mt-3 mb-5">営業時間管理　編集</h1>
-  <hr>
-  <div class="d-flex justify-content-between mt-3 mb-5">
-  </div>
+
+<h2 class="mt-3 mb-3">営業時間管理　編集</h2>
+<hr>
 </div>
+
 <div class="p-3 mb-2 bg-white text-dark">
   <div class="d-flex align-items-center border border-light" style="height:60px;">
     <span class="ml-1">営業時間管理</span>
@@ -113,7 +113,7 @@
           <td>
             {{Form::hidden('weekday_id', $weekday_id)}}
             {{Form::hidden('venue_id', $venue_id)}}
-            {{Form::submit('修正する', ['class'=>'submit btn btn-primary'])}}
+            {{Form::submit('修正する', ['class'=>'submit btn more_btn'])}}
           </td>
         </tr>
         {{ Form::close() }}

@@ -13,10 +13,13 @@
       </ol>
     </nav>
   </div>
-  <h1 class="mt-3 mb-5">営業時間管理</h1>
-  <hr>
-  <div class="d-flex justify-content-between mt-3 mb-5">
-  </div>
+
+<h2 class="mt-3 mb-3">営業時間管理</h2>
+<hr>
+
+
+  <!-- <div class="d-flex justify-content-between mt-3 mb-5">
+  </div> -->
 </div>
 
 <div class="p-3 mb-2 bg-white text-dark">

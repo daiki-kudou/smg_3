@@ -846,7 +846,7 @@
   </div> -->
 
   <div class="mx-auto">
-    {{ Form::submit('登録', ['class' => 'btn more_btn_lg my-5 d-block mx-auto']) }}
+    {{ Form::submit('登録', ['class' => 'mx-auto btn more_btn_lg d-block']) }}
   </div>
   {{ Form::close() }}
   　

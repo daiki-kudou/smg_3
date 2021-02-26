@@ -28,9 +28,13 @@
       </ol>
     </nav>
   </div>
-  <h1 class="mt-3 mb-5">有料備品管理</h1>
+
+  
+  <h2 class="mt-3 mb-3">有料備品管理</h2>
+  <hr>
+
   <div class="text-right">
-    <a href="/admin/equipments/create" class="btn btn-outline-info btn-lg d-inline-block" style="width: 140px;">新規登録　<i class="fas fa-plus"></i></a>
+  <a href="/admin/equipments/create" class="btn more_btn3">新規登録</a>
   </div>
   <hr>
   <div class="d-flex justify-content-between mt-3 mb-5">
@@ -76,7 +80,7 @@
 
 <table class="table table-striped table-bordered">
   <thead>
-    <tr>
+    <tr class="table_row">
       <th>id</th>
       <th>登録日</th>
       <th>有料備品名</th>

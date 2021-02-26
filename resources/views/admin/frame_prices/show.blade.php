@@ -9,10 +9,9 @@
       </ol>
     </nav>
   </div>
-  <h1 class="mt-3 mb-5">料金管理　詳細</h1>
-  <hr>
-  <div class="d-flex justify-content-between mt-3 mb-5">
-  </div>
+
+<h2 class="mt-3 mb-3">料金管理　詳細</h2>
+<hr>
 </div>
 
 @if (count($frame_prices)==0 && count($time_prices)==0)
@@ -44,7 +43,7 @@
     {{ $venue->name_area}}{{ $venue->name_bldg}}{{ $venue->name_venue}}
   </div>
   <div>
-    <div class="d-flex justify-content-between mb-5">
+    <div class="d-flex justify-content-between mb-3">
       <h4>料金体系：通常(枠貸し料金)</h4>
       @if (!count($frame_prices)==0)
       {{ link_to_route('admin.frame_prices.edit', '枠貸し編集', $parameters=$venue->id,['class' => 'btn btn-warning']) }}
@@ -86,7 +85,7 @@
     {{ $venue->name_area}}{{ $venue->name_bldg}}{{ $venue->name_venue}}
   </div>
   <div>
-    <div class="d-flex justify-content-between mb-5">
+    <div class="d-flex justify-content-between mb-3">
       <h4>料金体系：アクセア仕様(時間貸し料金)</h4>
       @if (!count($time_prices)==0)
       {{ link_to_route('admin.time_prices.edit', '時間貸し編集', $parameters=$venue->id,['class' => 'btn btn-warning']) }}

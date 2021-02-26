@@ -60,8 +60,8 @@
   <h2 class="mt-3 mb-3">会場一覧</h2>
   <hr>
 
-  <form class="" action="{{url('/admin/venues')}}">
     <!-- 検索-------------------------------------------------------- -->
+  <!-- <form class="" action="{{url('/admin/venues')}}">
     <div class="row search_box">
       @csrf
       <div class="col-12">
@@ -139,7 +139,6 @@
         <input type="submit" value="検索" class="btn btn-info search_btn">
       </div>
     </div>
-    <!-- 検索　終わり------------------------------------------------ -->
 
     <div class="col-12 mb-3">
       <select name="counter" id="counter">
@@ -149,9 +148,10 @@
       </select>
       件表示
     </div>
-  </form>
+  </form> -->
+    <!-- 検索　終わり------------------------------------------------ -->
   
-  <table class="table table-bordered">
+  <table class="table table-bordered mt-5">
     <thead>
       <tr style="white-space: nowrap;">
         <th>id</th>
