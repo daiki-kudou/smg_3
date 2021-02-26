@@ -349,7 +349,8 @@
                 <p><span class="txt-indent">※ケータリングは弊社にてご予算に合ったものをご提供可能です。 お気軽に問い合わせ下さい。</span></p>
               </td>
             </tr>
-            {{var_dump((object)json_decode($fix->items_results))}}
+            <pre>{{var_dump(empty(json_decode($fix->items_results)[1]))}}</pre>
+
             <tr>
               <th>有料備品</th>
               <td class="spec-space">
@@ -357,56 +358,102 @@
                   @foreach ($venue->getEquipments() as $e_key=>$eqpt)
                   <li class="form-cell2">
                     <p class="text6">{{$eqpt->item}}</p>
-                    <p>
-                      {{ Form::text('equipment_breakdown'.$e_key, '',['class'=>'text4 mL0'] ) }}個
-                    </p>
-                  </li>
-                  @endforeach
-                </ul>
-              </td>
-            </tr>
-            <tr>
-              <th>有料サービス</th>
-              <td class="spec-space">
-                <ul>
-                  @foreach ($venue->getServices() as $s_key=>$serv)
-                  <li class="form-cell2">
-                    <label>
-                      {{ Form::hidden('services_breakdown'.$s_key, 0 ) }}
-                      <input type="checkbox" id="" name="{{'services_breakdown'.$s_key}}" value="1"
-                        class="checkbox-input">
-                      <span class="checkbox-parts">{{$serv->item}} {{$serv->price}}円</span>
-                    </label>
+                    @if (empty(json_decode($fix->items_results)[1]))
+                    <p>{{ Form::text('equipment_breakdown'.$e_key, "",['class'=>'text4 mL0'] ) }}個</p>
+                    @else
+                    @foreach (json_decode($fix->items_results)[1] as $b_equ)
+                    @if ($b_equ[0]==$eqpt->item)
+                    <p>{{ Form::text('equipment_breakdown'.$e_key, $b_equ[2],['class'=>'text4 mL0'] ) }}個</p>
+                    @break
+                    @elseif($loop->last)
+                    <p>{{ Form::text('equipment_breakdown'.$e_key, "",['class'=>'text4 mL0'] ) }}個</p>
+                    @endif
+                    @endforeach
+                    @endif
                   </li>
                   @endforeach
                 </ul>
               </td>
             </tr>
 
+            <tr>
+              <th>有料サービス</th>
+              <td class="spec-space">
+                <ul>
+                  @foreach ($venue->getServices() as $s_key=>$serv)
+                  <li class="form-cell2">
+                    @if (empty(json_decode($fix->items_results)[2]))
+                    <label>
+                      {{ Form::hidden('services_breakdown'.$s_key, 0 ) }}
+                      <input type="checkbox" id="" name="{{'services_breakdown'.$s_key}}" value="1"
+                        class="checkbox-input">
+                      <span class="checkbox-parts">{{$serv->item}} {{$serv->price}}円</span>
+                    </label>
+                    @else
+                    @foreach (json_decode($fix->items_results)[2] as $b_ser)
+                    @if ($serv->item==$b_ser[0])
+                    <label>
+                      {{ Form::hidden('services_breakdown'.$s_key, 0 ) }}
+                      <input type="checkbox" id="" name="{{'services_breakdown'.$s_key}}" value="1"
+                        class="checkbox-input" checked>
+                      <span class="checkbox-parts">{{$serv->item}} {{$serv->price}}円</span>
+                    </label>
+                    @break
+                    @elseif($loop->last)
+                    <label>
+                      {{ Form::hidden('services_breakdown'.$s_key, 0 ) }}
+                      <input type="checkbox" id="" name="{{'services_breakdown'.$s_key}}" value="1"
+                        class="checkbox-input">
+                      <span class="checkbox-parts">{{$serv->item}} {{$serv->price}}円</span>
+                    </label>
+                    @endif
+                    @endforeach
+                    @endif
+                  </li>
+                  @endforeach
+                </ul>
+              </td>
+            </tr>
+
+            {{-- <pre>{{var_dump($fix)}}
+            </pre> --}}
             @if ($venue->getLayouts()!=0)
             <tr>
-              @if ($venue->getLayouts()[0])
               <th>レイアウト変更</th>
               <td class="spec-space">
                 <div class="m-b10">
                   <p>レイアウト準備</p>
                   <div class="selectTime">
-                    {{Form::radio('layout_prepare', 1, false, ['id' => 'layout_prepare', 'class' => 'radio-input'])}}
+                    @if (!empty($fix->layout_prepare))
+                    {{Form::radio('layout_prepare', 1,true, ['id' => 'layout_prepare', 'class' => 'radio-input'])}}
+                    {{Form::label('layout_prepare','あり')}}
+                    {{Form::radio('layout_prepare', 0, false, ['id' => 'no_layout_prepare', 'class' => 'radio-input'])}}
+                    {{Form::label('no_layout_prepare', 'なし')}}
+                    @else
+                    {{Form::radio('layout_prepare', 1,false, ['id' => 'layout_prepare', 'class' => 'radio-input'])}}
                     {{Form::label('layout_prepare','あり')}}
                     {{Form::radio('layout_prepare', 0, true, ['id' => 'no_layout_prepare', 'class' => 'radio-input'])}}
                     {{Form::label('no_layout_prepare', 'なし')}}
+                    @endif
+
                   </div>
                   <a name="a-selectTime1" class="error-r"></a>
                 </div>
-                @endif
                 @if ($venue->getLayouts()[1])
                 <div class="m-b10">
                   <p>レイアウト片付け</p>
                   <div class="selectTime">
+                    @if (!empty($fix->layout_clean))
+                    {{Form::radio('layout_clean', 1, true, ['id' => 'layout_clean', 'class' => 'radio-input'])}}
+                    {{Form::label('layout_clean','あり')}}
+                    {{Form::radio('layout_clean', 0, false, ['id' => 'no_layout_clean', 'class' => 'radio-input'])}}
+                    {{Form::label('no_layout_clean', 'なし')}}
+                    @else
                     {{Form::radio('layout_clean', 1, false, ['id' => 'layout_clean', 'class' => 'radio-input'])}}
                     {{Form::label('layout_clean','あり')}}
                     {{Form::radio('layout_clean', 0, true, ['id' => 'no_layout_clean', 'class' => 'radio-input'])}}
                     {{Form::label('no_layout_clean', 'なし')}}
+                    @endif
                   </div>
                   <a name="a-selectTime1" class="error-r"></a>
                 </div>
@@ -423,14 +470,14 @@
                   <p>【事前に預かる荷物】</p>
                   <div class="selectTime">
                     <p class="baggage_bn">目安</p>
-                    {{ Form::text('luggage_count', '',['class'=>'text6 baggage_bn', 'style'=>'width:20%;'] ) }}
+                    {{ Form::text('luggage_count', $fix->luggage_count,['class'=>'text6 baggage_bn', 'style'=>'width:20%;'] ) }}
                     <p class="baggage_bn">個</p>
                   </div>
                 </div>
                 <div class="m-b10">
                   <p>事前荷物の到着日</p>
                   <div class="selectTime">
-                    {{ Form::date('luggage_arrive', '',['class'=>'text6'] ) }}
+                    {{ Form::date('luggage_arrive', $fix->luggage_arrive,['class'=>'text6'] ) }}
                     <p>午前指定</p>
                   </div>
                 </div>
@@ -447,7 +494,7 @@
                   <p>【事後返送する荷物】</p>
                   <div class="selectTime">
                     <p class="baggage_an">目安</p>
-                    {{ Form::text('luggage_return', '',['class'=>'text6 baggage_an', 'style'=>'width: 20%;'] ) }}
+                    {{ Form::text('luggage_return', $fix->luggage_return,['class'=>'text6 baggage_an', 'style'=>'width: 20%;'] ) }}
                     <p class="baggage_an">個</p>
                   </div>
                 </div>
@@ -467,7 +514,7 @@
             <tr>
               <th>備考</th>
               <td>
-                {{ Form::textarea('remark', '',['cols'=>'30','rows'=>'10'] ) }}
+                {{ Form::textarea('remark', $fix->remark,['cols'=>'30','rows'=>'10'] ) }}
                 <p>
                   <span class="txt-indent">
                     ※入力に際し旧漢字・機種依存文字などはご使用になれません。

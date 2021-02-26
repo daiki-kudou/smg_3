@@ -588,7 +588,7 @@
             {{Form::hidden('price_result',json_encode($price_result))}}
             {{Form::hidden('items_results',json_encode($items_results))}}
             {{Form::hidden('master',$master)}}
-            {{Form::submit('予約する',['class'=>'confirm-btn','style'=>'width:100%;', 'name'=>'store'])}}
+            {{Form::submit('カートに追加する',['class'=>'confirm-btn','style'=>'width:100%;', 'name'=>'store'])}}
           </li>
         </ul>
         {{Form::close()}}
