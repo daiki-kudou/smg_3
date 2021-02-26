@@ -46,7 +46,7 @@
 
   <!-- Font Awesome Icons -->
   <script src="https://kit.fontawesome.com/a98e58f6de.js" crossorigin="anonymous"></script>
-  <link href="{{ secure_asset('/css/homepage/style.css') }}" rel="stylesheet">
+  <link href="{{ asset('/css/homepage/style.css') }}" rel="stylesheet">
 
 </head>
 
