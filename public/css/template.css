@@ -260,7 +260,7 @@ table {
 
 .btn-wrapper2 {
     padding: 0 3%;
-    margin-bottom: 3%;
+    /* margin-bottom: 3%; */
 }
 
 .more_btn {
@@ -384,7 +384,7 @@ table {
 
 .bg-status {
     /* background: #35a7a7 !important; */
-    background: #444444 !important;
+    background: #dcdcdc!important;
     color: #fff;
 }
 
@@ -421,6 +421,10 @@ table {
 
 .annotation {
     font-size: 0.7rem;
+}
+
+.table_row {
+    white-space: nowrap;
 }
 
 
@@ -606,11 +610,6 @@ table td.table_column p:last-child {
 
 /* 予約新規 -----------------------------------------------------*/
 
-/* .agent_box {
-    font-size: 18px;
-    margin: 0 3%;
-} */
-
 .border-wrap {
     border: 2px solid #35a7a7;
     /* padding: 30px; */
@@ -652,129 +651,6 @@ table td.table_column p:last-child {
 .caution textarea {
     border: 1px solid #dc3545;
 }
-
-
-/* .ttl-box {
-    border: 2px solid #35a7a7;
-    color: #333;
-    padding: 0.8em;
-    background: #fff;
-    border-bottom: none;
-}
-
-.section-ttl-box {
-    border: 2px solid #35a7a7;
-    color: #333;
-    padding: 0.8em;
-    background: #fff;
-}
-
-.section-ttl {
-    font-weight: bold;
-    font-size: 16px;
-}
-
-.content-ttl {
-    font-weight: bold;
-    font-size: 16px;
-    background: #35A7A7;
-    border: 1px solid #35a7a7;
-    color: #333;
-    margin-bottom: 20px;
-    padding: 0.8em;
-    background: #fff;
-} */
-
-
-
-
-/* 請求内容------------------------------------------------------------------ */
-
-/* .bill-wrap {
-    margin-top: 100px;
-}
-.bill-box {
-    margin-bottom: 60px;
-    background: #fff;
-}
-.bill-box h3 {
-    font-weight: bold;
-    font-size: 16px;
-    background: #35a7a7;
-    color: #fff;
-    margin-bottom: 0;
-    margin-right: 0;
-    margin-left: 0;
-    padding: 0.8em;
-}
-.bill-box_wrap {
-    border-top: 1px solid #ccc;
-    border-left: 1px solid #ccc;
-    margin-right: 0;
-    margin-left: 0;
-}
-
-
-.bill-list .col-12 {
-    padding: 0;
-}
-.bill-list .price-sum p {
-    padding-right: 1em;
-}
-.price-sum p:last-child {
-    font-size: 16px;
-    border-top: 1px solid #dbdbdb;
-    margin-top: 1em;
-    padding-top: 1em;
-}
-.price-sum span {
-    margin-right: 1em;
-}
-.bill-box_cell {
-    border-right: 1px solid #ccc;
-    border-bottom: 1px solid #ccc;
-    padding-top: 1em;
-    padding-bottom: 1em;
-}
-.bill-box_cell dt {
-    font-weight: bold;
-}
-.bill-box_cell dd {
-    margin-bottom: 0;
-}
-.bill-box_wrap .col-4 {
-    background: #fff;
-}
-.bill-list h3 {
-    font-weight: bold;
-    font-size: 16px;
-    background: #f3f3f3;
-    color: #333;
-    margin-bottom: 0;
-    padding: 0.8em;
-}
-.bill-list-subttl p {
-    font-weight: bold;
-}
-.total-sum {
-    padding: 10% 3%;
-}
-.total-sum .col-3 {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-}
-.total-sum .col-3 dd {
-    font-size: 20px;
-}
-.total-sum .col-3:first-child {
-    background: #35a7a7;
-    color: #fff;
-    font-size: 18px;
-}
-.total-sum .bill-box_cell {
-    border: 1px solid #35A7A7;
-} */
 
 /* =============予約詳細================================================ */
 
@@ -824,10 +700,15 @@ table td.table_column p:last-child {
 
 /* =============仮押さえ================================================ */
 
+.calendar {
+    padding: 3%;
+}
+
+/* 
 .calender-wrap {
     margin-bottom: 50px;
     border: 1px solid #dbdbdb;
-}
+} */
 
 .choose-table tr td:last-child {
     width: 200px;
@@ -1182,10 +1063,12 @@ h3 {
 
 .add.pluralBtn {
     background: #007BFF;
+    color: #fff;
 }
 
 .del.pluralBtn {
     background: #DC3545;
+    color: #fff;
 }
 
 .bill_total {
@@ -1272,6 +1155,10 @@ table .master_total_subttl {
     padding-right: 1em;
 }
 
+.approve_or_confirm {
+    padding: 0 10px;
+}
+
 
 /* 追加請求のチェックボックス -------------------*/
   .venue_chkbox label,
@@ -1317,10 +1204,6 @@ table .master_total_subttl {
     color: #fff;
     background-color: #007BFF;
   }
-
-
-
-
 
 
 /* 請求内容CSS終わり -----------------------------------*/

@@ -6,10 +6,8 @@
 <link href="{{ asset('/css/template.css') }}" rel="stylesheet">
 <script src="{{ asset('/js/template.js') }}"></script>
 
-
-
-<h1>仮押さえ一覧</h1>
-
+<h2 class="mt-3 mb-3">仮押さえ一覧</h2>
+<hr>
 
 <script>
   $(function(){

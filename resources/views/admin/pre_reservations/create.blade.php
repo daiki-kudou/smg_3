@@ -14,10 +14,10 @@
   </div>
 </div>
 
+<h2 class="mt-3 mb-3">仮押さえ 新規作成</h2>
+  <hr>
 
-
-<h1>仮押さえ 新規作成</h1>
-
+<section class="section-wrap">
 <div class="calendar">
   <iframe src="{{url('admin/calendar/date_calendar')}}" width="100%" height="500">Your browser isn't compatible</iframe>
 </div>
@@ -26,7 +26,7 @@
 @csrf
 
 <div class="user_selector mt-5">
-  <h1>顧客検索</h1>
+  <h3 class="mb-2">顧客検索</h3>
   <select name="user_id" id="user_id">
     <option value="#">選択してください</option>
     @foreach ($users as $user)
@@ -118,14 +118,14 @@
 </div>
 
 <div class="date_selector">
-  <h1>日程選択</h1>
+  <h3 class="mb-2">日程選択</h3>
   <table class="table table-bordered" style="table-layout: fixed;">
     <thead>
       <tr>
         <td>日付</td>
         <td>会場名</td>
         <td>入室時間</td>
-        <td>体質時間</td>
+        <td>退室時間</td>
         <td>追加・削除</td>
       </tr>
     </thead>
@@ -168,10 +168,8 @@
   </table>
 </div>
 
-<div class="submit_btn">
-  <div class="d-flex justify-content-center">
-    {{Form::submit('確認する', ['class'=>'btn btn-primary btn-lg ', 'id'=>'check_submit'])}}
-  </div>
+<div class="submit_btn mt-5">
+    {{Form::submit('確認する', ['class'=>'btn more_btn_lg mx-auto d-block', 'id'=>'check_submit'])}}
 </div>
 
 <div class="spin_btn hide">
@@ -182,6 +180,7 @@
     </button>
   </div>
 </div>
+</section>
 
 
 {{Form::close()}}

@@ -208,9 +208,10 @@
   <!-- 検索　終わり------------------------------------------------ -->
 
 
-  <table class="table table-bordered">
+<div class="table-wrap">
+  <table class="table table-bordered table-scroll">
     <thead>
-      <tr>
+      <tr class="table_row">
         <th>注意事項</th>
         <th>顧客ID</th>
         <th>顧客状況</th>
@@ -254,8 +255,7 @@
       @endforeach
     </tbody>
   </table>
-
-
+  </div>
 
 </div>
 {{ $querys->links() }}

@@ -30,7 +30,8 @@
           </ol>
         </nav>
       </div>
-      <h1 class="mt-3 mb-5">予約一覧</h1>
+
+      <h2 class="mt-3 mb-3">予約一覧</h2>
       <hr>
     </div>
 
@@ -303,21 +304,21 @@
     <div class="table-wrap">
       <table class="table table-bordered table-scroll">
         <thead>
-          <tr>
-            <th>予約一括<br>ID</th>
+          <tr class="table_row">
+            <th>予約一括ID</th>
             <th>ID</th>
             <th>利用日</th>
             <th>入室</th>
             <th>退室</th>
             <th>利用会場</th>
-            <th>会社名<br>団体名</th>
+            <th>会社名団体名</th>
             <th>担当者氏名</th>
             <th>携帯電話</th>
             <th>固定電話</th>
             <th>仲介会社</th>
             <th width="120">カテゴリー</th>
             <th width="120">予約状況</th>
-            <th class="btn-cell">予約<br>詳細</th>
+            <th class="btn-cell">予約詳細</th>
             <th class="btn-cell">案内板</th>
           </tr>
         </thead>
@@ -381,7 +382,7 @@
     </div>
   </div>
 
-  <ul class="pagination justify-content-center">
+  <ul class="pagination justify-content-center mt-5">
     <li class="page-item disabled" aria-disabled="true" aria-label="&laquo; 前">
       <span class="page-link" aria-hidden="true">&lsaquo;</span>
     </li>
