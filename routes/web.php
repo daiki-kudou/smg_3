@@ -18,6 +18,7 @@ Route::get('calender/venue_calendar', 'CalendarsController@venue_calendar');
 | ユーザー用ルート
 |--------------------------------------------------------------------------|
 */
+
 Route::namespace('User')->prefix('user')->name('user.')->group(function () {
 
   Auth::routes(['register' => true, 'confirm' => true, 'reset' => true,]);
@@ -43,6 +44,7 @@ Route::namespace('User')->prefix('user')->name('user.')->group(function () {
     Route::post('reservations/store', 'ReservationsController@storeReservation');
     Route::get('reservations/complete', 'ReservationsController@complete');
 
+    // パスワード
 
     // 以下、テスト
     Route::post('reservations/test', 'ReservationsController@test');
