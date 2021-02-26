@@ -700,6 +700,14 @@ table td.table_column p:last-child {
 
 /* =============仮押さえ================================================ */
 
+.ttl_head {
+    background: #35a7a7;
+    table-layout: fixed;
+    padding: 10px;
+    /* border: solid 1px #ced4da; */
+}
+
+
 .calendar {
     padding: 3%;
     border: 1px solid #dee2e6;

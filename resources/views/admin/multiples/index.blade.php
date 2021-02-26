@@ -24,7 +24,20 @@
 <div class="content">
   <div class="container-fluid">
 
-    <div class="section-wrap">
+  <div class="container-field mt-3">
+      <div class="float-right">
+        <nav aria-label="breadcrumb">
+          <ol class="breadcrumb">
+            <li class="breadcrumb-item active">
+            ダミーテキスト
+            </li>
+          </ol>
+        </nav>
+      </div>
+
+      <h2 class="mt-3 mb-3">一括仮押さえ 一覧</h2>
+      <hr>
+    </div>
 
       <!-- 検索--------------------------------------- -->
       <div class="search_box">
@@ -108,7 +121,7 @@
       </div>
 
       <div class="table-wrap">
-        <table class="table table-striped table-bordered table-box">
+        <table class="table table-bordered table-scroll">
           <thead>
             <tr>
               <th><input type="checkbox" name="all_check" id="all_check" /></th>
@@ -162,13 +175,12 @@
                 ※後ほど着手予定
               </td>
               <td>※後ほど着手予定</td>
-              <td><a href="{{url('admin/multiples/'.$multiple->id)}}" class="btn btn-primary">詳細</a></td>
+              <td><a href="{{url('admin/multiples/'.$multiple->id)}}" class="btn more_btn">詳細</a></td>
             </tr>
             @endforeach
           </tbody>
         </table>
       </div>
-    </div>
 
 
     <script>
@@ -205,7 +217,7 @@
     </div>
   </div>
 
-  <ul class="pagination justify-content-center">
+  <ul class="pagination justify-content-center mt-5">
     <li class="page-item disabled" aria-disabled="true" aria-label="&laquo; 前">
       <span class="page-link" aria-hidden="true">&lsaquo;</span>
     </li>

@@ -430,7 +430,7 @@
 
 
   {{ Form::hidden('agent_id', ($request->agent_id) ) }}
-  {{Form::submit('再計算する', ['class'=>'btn more_btn4_lg mx-auto d-block', 'id'=>'check_submit'])}}
+  {{Form::submit('再計算する', ['class'=>'btn more_btn4_lg mx-auto d-block my-5', 'id'=>'check_submit'])}}
   {{Form::close()}}
 
 

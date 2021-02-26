@@ -25,6 +25,7 @@
       </div>
 
       <h2 class="mt-3 mb-3">予約 詳細</h2>
+      <hr>
     </div>
 
     <div class="btn-wrapper2 col-12 align-items-center d-flex justify-content-between">

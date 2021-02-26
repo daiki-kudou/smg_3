@@ -6,11 +6,10 @@
 <link href="{{ asset('/css/template.css') }}" rel="stylesheet">
 <script src="{{ asset('/js/template.js') }}"></script>
 
-<h2 class="mt-3 mb-3">仮押さえ一覧</h2>
-<hr>
+
 
 <script>
-  $(function(){
+  $(function() {
     $('.flash_message').fadeOut(3000);
   })
 </script>
@@ -50,7 +49,7 @@
           </ol>
         </nav>
       </div>
-      <h1 class="mt-3 mb-5">予約一覧</h1>
+      <h2 class="mt-3 mb-3">仮押さえ一覧</h2>
       <hr>
     </div>
 
@@ -326,38 +325,38 @@
 
 
     <script>
-      $(function(){
+      $(function() {
         // 全選択アクション
-        $('#all_check').on('change',function(){
+        $('#all_check').on('change', function() {
           $('.checkbox').prop('checked', $(this).is(':checked'));
         })
 
         // 削除確認コンファーム
-        $('#confirm_destroy').on('click',function(){
-          if(!confirm('削除してもよろしいですか？')){
-              return false;
+        $('#confirm_destroy').on('click', function() {
+          if (!confirm('削除してもよろしいですか？')) {
+            return false;
           }
         })
       })
 
-      $(function(){
+      $(function() {
         $("input[type='checkbox']").on('change', function() {
-          checked = $('[class="checkbox"]:checked').map(function(){
-              return $(this).val();
-            }).get();
-            console.log(checked.length);
-            for (let index = 0; index < checked.length; index++) {
-              var ap_data="<input type='hidden' name='destroy"+checked[index]+"' value='"+checked[index]+"'>"
-              $('#for_destroy').append(ap_data);
-            }
+          checked = $('[class="checkbox"]:checked').map(function() {
+            return $(this).val();
+          }).get();
+          console.log(checked.length);
+          for (let index = 0; index < checked.length; index++) {
+            var ap_data = "<input type='hidden' name='destroy" + checked[index] + "' value='" + checked[index] + "'>"
+            $('#for_destroy').append(ap_data);
+          }
         })
       })
     </script>
 
-    <div class="container-field">
-      <table class="table table-striped table-bordered table-box">
+    <div class="table-wrap">
+      <table class="table table-bordered table-scroll">
         <thead>
-          <tr>
+          <tr class="table_row">
             <th><input type="checkbox" name="all_check" id="all_check" /></th>
             <th>仮抑えID</th>
             <th>作成日</th>
@@ -372,14 +371,13 @@
             <th>会社名・団体名<br>(顧客未登録)</th>
             <th>仲介会社</th>
             <th>仲介当日利用者</th>
-            <th></th>
+            <th>詳細</th>
           </tr>
         </thead>
         <tbody>
           @foreach ($pre_reservations as $pre_reservation)
           <tr>
-            <td><input type="checkbox" name="{{'delete_check'.$pre_reservation->id}}" value="{{$pre_reservation->id}}"
-                class="checkbox" />
+            <td><input type="checkbox" name="{{'delete_check'.$pre_reservation->id}}" value="{{$pre_reservation->id}}" class="checkbox" />
             </td>
             <td>{{$pre_reservation->id}}</td>
             <td>{{$pre_reservation->created_at}}</td>
@@ -403,7 +401,7 @@
             <td>{{$pre_reservation->agent_id==0?"":$pre_reservation->agent_id}}</td>
             <td>{{$pre_reservation->agent_id==0?"":$pre_reservation->agent_id}}</td>
             <td>{{$pre_reservation->agent_id==0?"":$pre_reservation->agent_id}}</td>
-            <td><a href="{{url('admin/pre_reservations/'.$pre_reservation->id)}}">詳細</a></td>
+            <td><a class="more_btn" href="{{url('admin/pre_reservations/'.$pre_reservation->id)}}">詳細</a></td>
           </tr>
           @endforeach
         </tbody>
@@ -419,7 +417,8 @@
         <td rowspan="{{count($reservation->bills()->get())}}">{{$reservation->enter_time}}</td>
         <td rowspan="{{count($reservation->bills()->get())}}">{{$reservation->leave_time}}</td>
         <td rowspan="{{count($reservation->bills()->get())}}">
-          {{ReservationHelper::getVenue($reservation->venue->id)}}</td>
+          {{ReservationHelper::getVenue($reservation->venue->id)}}
+        </td>
         <td rowspan="{{count($reservation->bills()->get())}}">
           @if ($reservation->user_id>0)
           {{$reservation->user->company}}
@@ -445,10 +444,8 @@
         <td>
           {{ReservationHelper::judgeStatus($reservation->bills()->first()->reservation_status)}}
         </td>
-        <td rowspan="{{count($reservation->bills()->get())}}"><a
-            href="{{ url('admin/reservations', $reservation->id) }}" class="more_btn">詳細</a></td>
-        <td rowspan="{{count($reservation->bills()->get())}}"><a
-            href="{{ url('admin/reservations/generate_pdf/'.$reservation->id) }}" class="more_btn">詳細</a></td>
+        <td rowspan="{{count($reservation->bills()->get())}}"><a href="{{ url('admin/reservations', $reservation->id) }}" class="more_btn">詳細</a></td>
+        <td rowspan="{{count($reservation->bills()->get())}}"><a href="{{ url('admin/reservations/generate_pdf/'.$reservation->id) }}" class="more_btn">詳細</a></td>
         </tr>
         @for ($i = 0; $i < count($reservation->bills()->get())-1; $i++)
           <tr>
@@ -467,7 +464,7 @@
     </div>
   </div>
 
-  <ul class="pagination justify-content-center">
+  <ul class="pagination justify-content-center mt-5">
     <li class="page-item disabled" aria-disabled="true" aria-label="&laquo; 前">
       <span class="page-link" aria-hidden="true">&lsaquo;</span>
     </li>
@@ -477,8 +474,7 @@
     <li class="page-item"><a class="page-link" href="">3</a>
     </li>
     <li class="page-item">
-      <a class="page-link" href="http://staging-smg2.herokuapp.com/admin/clients?page=2" rel="next"
-        aria-label="次 &raquo">&rsaquo;</a>
+      <a class="page-link" href="http://staging-smg2.herokuapp.com/admin/clients?page=2" rel="next" aria-label="次 &raquo">&rsaquo;</a>
     </li>
   </ul>
 

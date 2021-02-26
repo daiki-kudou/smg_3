@@ -6,22 +6,57 @@
 <link href="{{ asset('/css/template.css') }}" rel="stylesheet">
 <script src="{{ asset('/js/template.js') }}"></script>
 
-<h1>詳細</h1>
+<div class="container-field mt-3">
+  <div class="float-right">
+    <nav aria-label="breadcrumb">
+      <ol class="breadcrumb">
+        <li class="breadcrumb-item active">
+          <a href="http://staging-smg2.herokuapp.com/admin/home">ホーム</a>
+          予約 詳細
+        </li>
+      </ol>
+    </nav>
+  </div>
+
+
+  <h2 class="mt-3 mb-3">仮押さえ　詳細</h2>
+  <hr>
+</div>
+
 
 
 
 <section class="section-wrap">
   <div class="row">
     <div class="col-12">
-
-      <div class="ttl-box d-flex align-items-center justify-content-between">
+      <!-- <div class="ttl-box d-flex align-items-center justify-content-between">
         <div class="col-12 d-flex align-items-center">
           <h3 class="section-ttl">仮押さえ概要</h3>
           <p class="ml-2">仮押さえID:{{$pre_reservation->id}}</p>
-          <div style="margin-right: 0; margin-left:auto;"><a
-              href="{{url('admin/pre_reservations/'.$pre_reservation->id.'/edit')}}" class="btn btn-primary">編集</a>
+          <div style="margin-right: 0; margin-left:auto;">
           </div>
         </div>
+      </div> -->
+      <div class="ttl_head">
+        <table class="table bill_table">
+          <tbody>
+            <tr>
+              <td>
+                <h2 class="text-white">
+                  仮押さえ概要
+                </h2>
+              </td>
+              <td>
+                <dl class="ttl_box">
+                  <dt>仮押さえID:</dt>
+                  <dd class="total_result">{{$pre_reservation->id}}</dd>
+                </dl>
+              </td>
+              <td>
+                <a href="{{url('admin/pre_reservations/'.$pre_reservation->id.'/edit')}}" class="btn btn-primary">編集</a>
+              </td>
+          </tbody>
+        </table>
       </div>
     </div>
 
@@ -152,57 +187,70 @@
                     {{ReservationHelper::formatTime($pre_reservation->leave_time)}}
                   </td>
                 </tr>
-                <tr>
-                  <td class="table-active"><label for="direction">案内板</label></td>
-                  <td class="d-flex justify-content-between">
-                    <p>
-                      {{$pre_reservation->board_flag==0?"なし":"要作成"}}
-                    </p>
-                    <p><a class="more_btn" href="">案内板出力(PDF)</a></p>
-                  </td>
-                </tr>
-                <tr>
-                  <td class="table-active"><label for="eventTime">イベント時間記載</label>
-                  </td>
-                  <td>
-                    あり
-                  </td>
-                </tr>
-                <tr>
-                  <td class="table-active"><label for="eventStart">イベント開始時間</label>
-                  </td>
-                  <td>
-                    {{ReservationHelper::formatTime($pre_reservation->event_start)}}
-                  </td>
-                </tr>
-                <tr>
-                  <td class="table-active"><label for="eventFinish">イベント終了時間</label>
-                  </td>
-                  <td>
-                    {{ReservationHelper::formatTime($pre_reservation->event_finish)}}
-                  </td>
-                </tr>
-                <tr>
-                  <td class="table-active"><label for="eventName1">イベント名称1</label>
-                  </td>
-                  <td>
-                    {{$pre_reservation->event_name1}}
-                  </td>
-                </tr>
-                <tr>
-                  <td class="table-active"><label for="eventName2">イベント名称2</label>
-                  </td>
-                  <td>
-                    {{$pre_reservation->event_name2}}
-                  </td>
-                </tr>
-                <tr>
-                  <td class="table-active"><label for="organizer">主催者名</label></td>
-                  <td>
-                    {{$pre_reservation->event_owner}}
-                  </td>
-                </tr>
+
               </tbody>
+            </table>
+
+            <table class="table table-bordered board-table">
+              <tr>
+                <td colspan="2">
+                  <div class="d-flex align-items-center justify-content-between">
+                    <p class="title-icon">
+                      <i class="fas fa-clipboard icon-size"></i>案内版
+                    </p>
+                  </div>
+                </td>
+              </tr>
+              <tr>
+                <td class="table-active"><label for="direction">案内板</label></td>
+                <td class="d-flex justify-content-between">
+                  <p>
+                    {{$pre_reservation->board_flag==0?"なし":"要作成"}}
+                  </p>
+                  <p><a class="more_btn" href="">案内板出力(PDF)</a></p>
+                </td>
+              </tr>
+              <tr>
+                <td class="table-active"><label for="eventTime">イベント時間記載</label>
+                </td>
+                <td>
+                  あり
+                </td>
+              </tr>
+              <tr>
+                <td class="table-active"><label for="eventStart">イベント開始時間</label>
+                </td>
+                <td>
+                  {{ReservationHelper::formatTime($pre_reservation->event_start)}}
+                </td>
+              </tr>
+              <tr>
+                <td class="table-active"><label for="eventFinish">イベント終了時間</label>
+                </td>
+                <td>
+                  {{ReservationHelper::formatTime($pre_reservation->event_finish)}}
+                </td>
+              </tr>
+              <tr>
+                <td class="table-active"><label for="eventName1">イベント名称1</label>
+                </td>
+                <td>
+                  {{$pre_reservation->event_name1}}
+                </td>
+              </tr>
+              <tr>
+                <td class="table-active"><label for="eventName2">イベント名称2</label>
+                </td>
+                <td>
+                  {{$pre_reservation->event_name2}}
+                </td>
+              </tr>
+              <tr>
+                <td class="table-active"><label for="organizer">主催者名</label></td>
+                <td>
+                  {{$pre_reservation->event_owner}}
+                </td>
+              </tr>
             </table>
 
             <table class="table table-bordered equipment-table">
@@ -421,7 +469,7 @@
                     </p>
                   </td>
                 </tr>
-                <tr>
+                <!-- <tr>
                   <td>
                     <p>
                       割引条件
@@ -438,10 +486,10 @@
                       {{$pre_reservation->attention}}
                     </p>
                   </td>
-                </tr>
+                </tr> -->
                 <tr>
                   <td>
-                    <p>顧客(予約サイト経由)入力の備考</p>
+                    <p>申し込みフォーム備考</p>
                     <p>
                       {{$pre_reservation->user_details}}
                     </p>
@@ -469,34 +517,47 @@
 {{-- 以下請求情報 --}}
 <section class="section-wrap">
 
-  <div class="register-wrap mt-5">
+  <!-- <div class="register-wrap mt-5">
     <h3>請求情報</h3>
+  </div> -->
+  <div class="bill">
+    <div class="bill_head">
+      <table class="table bill_table">
+        <tbody>
+          <tr>
+            <td>
+              <h2 class="text-white">
+                請求情報
+              </h2>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
   </div>
-
-
   <div class="bill_details mt-5 ">
     <div class="head d-flex">
-      <div style="width: 80px; background:gray;" class="d-flex justify-content-center align-items-center">
-        <i class="fas fa-plus fa-3x hide" style="color: white;" aria-hidden="true"></i>
-        <i class="fas fa-minus fa-3x" style="color: white;" aria-hidden="true"></i>
+      <div class="accordion_btn">
+        <i class="fas fa-plus bill_icon_size hide" aria-hidden="true"></i>
+        <i class="fas fa-minus bill_icon_size" aria-hidden="true"></i>
       </div>
-      <div style="font-size: 30px; width:200px;" class="d-flex justify-content-center align-items-center">
-        <p>
+      <div class="billdetails_ttl">
+        <h3>
           請求内訳
-        </p>
+        </h3>
       </div>
     </div>
     <div class="main hide border">
 
       @if ($pre_reservation->user_id>0)
-      <div class="venues" style="padding-top: 80px; width:90%; margin:0 auto;">
-        <table class="table table-borderless" style="table-layout: fixed;">
+      <div class="venues billdetails_content">
+        <table class="table table-borderless">
           <tbody>
             <tr>
               <td>
-                <h1>
-                  ■会場料
-                </h1>
+                <h4 class="billdetails_content_ttl">
+                  会場料
+                </h4>
               </td>
             </tr>
           </tbody>
@@ -530,14 +591,14 @@
         </table>
       </div>
       @else
-      <div class="venues" style="padding-top: 80px; width:90%; margin:0 auto;">
-        <table class="table table-borderless" style="table-layout: fixed;">
+      <div class="venues billdetails_content">
+        <table class="table table-borderless">
           <tbody>
             <tr>
               <td>
-                <h1>
-                  ■会場料
-                </h1>
+                <h4 class="billdetails_content_ttl">
+                  会場料
+                </h4>
               </td>
             </tr>
           </tbody>
@@ -560,14 +621,14 @@
       @endif
 
       @if ($pre_reservation->user_id>0)
-      <div class="equipment" style="padding-top: 80px; width:90%; margin:0 auto;">
-        <table class="table table-borderless" style="table-layout: fixed;">
+      <div class="equipment billdetails_content">
+        <table class="table table-borderless">
           <tbody>
             <tr>
-              <td>
-                <h1>
-                  ■有料備品・サービス
-                </h1>
+              <td colspan="4">
+                <h4 class="billdetails_content_ttl">
+                  有料備品・サービス
+                </h4>
               </td>
             </tr>
           </tbody>
@@ -611,14 +672,14 @@
         </table>
       </div>
       @else
-      <div class="equipment" style="padding-top: 80px; width:90%; margin:0 auto;">
-        <table class="table table-borderless" style="table-layout: fixed;">
+      <div class="equipment billdetails_content">
+        <table class="table table-borderless">
           <tbody>
             <tr>
               <td>
-                <h1>
-                  ■有料備品・サービス
-                </h1>
+                <h4 class="billdetails_content_ttl">
+                  有料備品・サービス
+                </h4>
               </td>
             </tr>
           </tbody>
@@ -650,14 +711,14 @@
 
 
       @if ($pre_reservation->user_id>0)
-      <div class="layout" style="padding-top: 80px; width:90%; margin:0 auto;">
-        <table class="table table-borderless" style="table-layout: fixed;">
+      <div class="layout billdetails_content">
+        <table class="table table-borderless">
           <tbody>
             <tr>
-              <td colspan="4">
-                <h1>
-                  ■レイアウト
-                </h1>
+              <td>
+                <h4 class="billdetails_content_ttl">
+                  レイアウト
+                </h4>
               </td>
             </tr>
           </tbody>
@@ -691,14 +752,14 @@
         </table>
       </div>
       @else
-      <div class="layout" style="padding-top: 80px; width:90%; margin:0 auto;">
-        <table class="table table-borderless" style="table-layout: fixed;">
+      <div class="layout billdetails_content">
+        <table class="table table-borderless">
           <tbody>
             <tr>
-              <td colspan="2">
-                <h1>
-                  ■レイアウト
-                </h1>
+              <td>
+                <h4 class="billdetails_content_ttl">
+                  レイアウト
+                </h4>
               </td>
             </tr>
           </tbody>
@@ -723,14 +784,14 @@
 
 
       @if ($pre_reservation->user_id>0)
-      <div class="others" style="padding: 80px 0px 80px 0px; width:90%; margin:0 auto;">
-        <table class="table table-borderless" style="table-layout: fixed;">
+      <div class="others billdetails_content">
+        <table class="table table-borderless">
           <tbody>
             <tr>
-              <td>
-                <h1>
-                  ■その他
-                </h1>
+              <td colspan="4">
+                　<h4 class="billdetails_content_ttl">
+                  その他
+                </h4>
               </td>
             </tr>
           </tbody>
@@ -763,14 +824,14 @@
         </table>
       </div>
       @else
-      <div class="others" style="padding: 80px 0px 80px 0px; width:90%; margin:0 auto;">
-        <table class="table table-borderless" style="table-layout: fixed;">
+      <div class="others billdetails_content">
+        <table class="table table-borderless">
           <tbody>
             <tr>
               <td>
-                <h1>
-                  ■その他
-                </h1>
+                　<h4 class="billdetails_content_ttl">
+                  その他
+                </h4>
               </td>
             </tr>
           </tbody>
@@ -792,82 +853,35 @@
       </div>
       @endif
 
-
-
-      <div class="bill_total d-flex justify-content-end" style="padding: 80px 0px 80px 0px; width:90%; margin:0 auto;">
-        <div style="width: 60%;">
-          <table class="table text-right" style="table-layout: fixed; font-size:16px;">
-            <tbody>
-              <tr>
-                <td>小計：</td>
-                <td>
-                  {{number_format($pre_reservation->pre_bill->first()->master_subtotal)}}
-                </td>
-              </tr>
-              <tr>
-                <td>消費税：</td>
-                <td>
-                  {{number_format($pre_reservation->pre_bill->first()->master_tax)}}
-                </td>
-              </tr>
-              <tr>
-                <td class="font-weight-bold">合計金額</td>
-                <td>
-                  {{number_format($pre_reservation->pre_bill->first()->master_total)}}
-                </td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
+      <div class="bill_total">
+        <table class="table text-right">
+          <tbody>
+            <tr>
+              <td>小計：</td>
+              <td>
+                {{number_format($pre_reservation->pre_bill->first()->master_subtotal)}}
+              </td>
+            </tr>
+            <tr>
+              <td>消費税：</td>
+              <td>
+                {{number_format($pre_reservation->pre_bill->first()->master_tax)}}
+              </td>
+            </tr>
+            <tr>
+              <td class="font-weight-bold">合計金額</td>
+              <td>
+                {{number_format($pre_reservation->pre_bill->first()->master_total)}}
+              </td>
+            </tr>
+          </tbody>
+        </table>
       </div>
     </div>
   </div>
   </div>
 
-
-
-
-
   </div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 </section>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 @endsection
