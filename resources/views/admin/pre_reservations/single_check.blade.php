@@ -6,10 +6,12 @@
 <link href="{{ asset('/css/template.css') }}" rel="stylesheet">
 <script src="{{ asset('/js/template.js') }}"></script>
 
-<h1>単発　仮抑え　詳細入力画面</h1>
+<h2 class="mt-3 mb-3">単発　仮抑え　詳細入力画面</h2>
+<hr>
 
 {{ Form::open(['url' => 'admin/pre_reservations/calculate', 'method'=>'POST', 'id'=>'pre_reservationSingleCheckForm']) }}
 @csrf
+<section class="section-wrap">
 <div class="selected_user mt-5">
   <table class="table table-bordered" style="table-layout: fixed;">
     <thead>
@@ -96,8 +98,12 @@
     <div class="col">
       <table class="table table-bordered">
         <tbody>
-          <tr>
-            <td colspan="2">仮抑え情報</td>
+        <tr>
+            <td colspan="2">
+              <p class="title-icon">
+                <i class="fas fa-info-circle icon-size"></i>仮押さえ情報
+              </p>
+            </td>
           </tr>
           <tr>
             <td class="table-active form_required">利用日</td>
@@ -142,6 +148,20 @@
               <div>
                 {{ Form::text('', date('H:i',strtotime($request->pre_leave0)),['class'=>'form-control', 'readonly'] ) }}
                 {{ Form::hidden('leave_time', $request->pre_leave0,['class'=>'form-control', 'readonly'] ) }}
+              </div>
+            </td>
+          </tr>
+         
+        </tbody>
+      </table>
+
+      <table class="table table-bordered board-table">
+          <tr>
+            <td colspan="2">
+              <div class="d-flex align-items-center justify-content-between">
+                <p class="title-icon">
+                  <i class="fas fa-clipboard icon-size"></i>案内版
+                </p>
               </div>
             </td>
           </tr>
@@ -200,8 +220,10 @@
               {{ Form::text('event_owner', '',['class'=>'form-control', 'placeholder'=>'入力してください'] ) }}
             </td>
           </tr>
-        </tbody>
-      </table>
+        </table>
+
+
+
       <div class="equipemnts">
         <table class="table table-bordered" style="table-layout: fixed;">
           <thead>
@@ -405,7 +427,7 @@
               </p>
             </td>
           </tr>
-          <tr>
+          <!-- <tr>
             <td>
               <p>
                 <input type="checkbox" id="discount" checked="">
@@ -419,10 +441,10 @@
               <label for="caution">注意事項</label>
               {{ Form::textarea('attention', '',['class'=>'form-control', 'placeholder'=>'入力してください'] ) }}
             </td>
-          </tr>
+          </tr> -->
           <tr>
             <td>
-              <label for="userNote">顧客情報の備考</label>
+              <label for="userNote">申し込みフォーム備考</label>
               {{ Form::textarea('user_details', '',['class'=>'form-control', 'placeholder'=>'入力してください'] ) }}
             </td>
           </tr>
@@ -437,6 +459,8 @@
     </div>
   </div>
 </div>
+</section>
+
 
 <div class="submit_btn">
   <div class="d-flex justify-content-center">
@@ -444,7 +468,7 @@
     {{ Form::hidden('judge_count', 1 ) }}
     {{-- ユーザー --}}
     {{ Form::hidden('user_id', $request->user_id ) }}
-    {{Form::submit('計算する', ['class'=>'btn btn-primary btn-lg ', 'id'=>'check_submit'])}}
+    {{Form::submit('計算する', ['class'=>'btn more_btn_lg mt-5', 'id'=>'check_submit'])}}
   </div>
 </div>
 

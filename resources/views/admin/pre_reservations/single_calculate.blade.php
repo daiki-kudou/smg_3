@@ -6,7 +6,8 @@
 <link href="{{ asset('/css/template.css') }}" rel="stylesheet">
 <script src="{{ asset('/js/template.js') }}"></script>
 
-<h1>単発　仮抑え　詳細入力画面</h1>
+<h2 class="mt-3 mb-3">単発　仮抑え　詳細入力画面</h2>
+<hr>
 
 {{ Form::open(['url' => 'admin/pre_reservations/calculate', 'method'=>'POST', 'id'=>'pre_reservationSingleCheckForm']) }}
 @csrf
