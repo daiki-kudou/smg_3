@@ -46,8 +46,8 @@
 
   <!-- Font Awesome Icons -->
   <script src="https://kit.fontawesome.com/a98e58f6de.js" crossorigin="anonymous"></script>
-  <link href="{{ asset('/css/homepage/style.css') }}" rel="stylesheet">
 
+  <link href="{{ asset('/css/homepage/style.css') }}" rel="stylesheet">
 </head>
 
 <body id="top" class="calender contactpage tentative vacancy">
@@ -170,43 +170,215 @@
           </li>
         </ol>
       </nav>
-      <!-- カート一覧 -->
+
+
+      <!-- ログイン、会員登録 -->
       <div class="contents">
-        <p class="txtRight">ようこそ<span>まるまる</span>さん</p>
-        <div class="cart-box">
-          <p class="link-btn3"><a href="">
-              <i class="fas fa-user form-icon"></i>
-              マイページ</a></p>
-        </div>
-
-
         <div class="pagetop-text">
-          <h1 class="page-title oddcolor"><span>予約一覧</span></h1>
-        </div>
-      </div>
-
-      <section class="contents">
-
-        <div class="cart-box">
-          <p class="confirm-btn"><a href="">予約確認画面へ</a></p>
+          <h1 class="page-title oddcolor"><span>予約の取り消し</span></h1>
+          <p>
+            下記の予約を取り消してもよろしいでしょうか。
           </p>
         </div>
-
-
+      </div>
+      <section class="contents">
+        {{var_dump($slctSession)}}
         <!-- 予約内容 -------------------------------------------->
-        @if (empty($sessions))
-        <div style="margin-top:100px;margin-bottom:200px;">
-          <h2>選択されている予約はありません</h2>
-        </div>
-        @else
-        @foreach ($sessions as $key=>$reservation)
-        <h2>予約{{(int)$loop->index+1}}</h2>
+        <h2>予約1</h2>
+        <form name="form" id="form" action="https://osaka-conference.com/contact/check.php" next="false" method="post">
+          <div class="bgColorGray">
+            <table class="table-box">
+              <tr>
+                <th>利用日</th>
+                <td>
+                  {{$slctSession[0]['date']}}
+                </td>
+              </tr>
+              <tr>
+                <th>利用時間</th>
+                <td>
+                  <ul class="form-cell">
+                    <li class="form-cell">
+                      <p>入室</p>
+                      <p> {{$slctSession[0]['enter_time']}} </p>
+                    </li>
+                    <li>～</li>
+                    <li class="form-cell">
+                      <p>退室</p>
+                      <p> {{$slctSession[0]['leave_time']}} </p>
+                    </li>
+                  </ul>
+                </td>
+              </tr>
+              <tr>
+                <th>利用会場</th>
+                <td>
+                  {{$slctSession[0]['venue_id']}}
+                </td>
+              </tr>
+              <tr>
+                <th>当日の担当者</th>
+                <td>
+                  {{$slctSession[0]['in_charge']}}
+                </td>
+              </tr>
+              <tr>
+                <th>当日の担当者連絡先</th>
+                <td>
+                  {{$slctSession[0]['tel']}}
+                </td>
+              </tr>
+              <tr>
+                <th>音響ハイグレード</th>
+                <td class="">
+                  {{$slctSession[0]['price_system']}}
+                </td>
+              </tr>
+              <tr>
+                <th>案内板</th>
+                <td>
+                  <ul class="from-list">
+                    <li>
+                      {{$slctSession[0]['board_flag']}}
+                    </li>
+                    <li>
+                      <p>イベント名称1行目</p>
+                      <p>{{$slctSession[0]['event_name1']}}</p>
+                    </li>
+                    <li>
+                      <p>イベント名称2行目</p>
+                      <p>{{$slctSession[0]['event_name2']}}</p>
+                    </li>
+                    <li>
+                      <p>主催者名</p>
+                      <p>{{$slctSession[0]['event_owner']}}</p>
+                    </li>
+                    <li>
+                      <p>イベント開始時間</p>
+                      <p>{{$slctSession[0]['event_start']}}</p>
+                    </li>
+                    <li>
+                      <p>イベント終了時間</p>
+                      <p>{{$slctSession[0]['event_finish']}}</p>
+                    </li>
+                </td>
+              </tr>
+
+              <tr>
+                <th>室内飲食</th>
+                <td>
+                  あり
+                </td>
+              </tr>
+
+              {{-- <tr>
+                <th>有料備品</th>
+                <td class="spec-space">
+                  <ul class="option-list">
+                    <li class="form-cell2">
+                      <p>有線マイク</p>
+                      <p>2<span>個<span></p>
+                    </li>
+                    <li class="form-cell2">
+                      <p>プロジェクター（VGAケーブル・HDMIケーブル付）</p>
+                      <p>2<span>個<span></p>
+                    </li>
+                    <li class="form-cell2">
+                      <p>赤外線温度計（非接触型体温計）＋スプレーボトル
+                      </p>
+                      <p>2<span>個<span></p>
+                    </li>
+                  </ul>
+                </td>
+              </tr> --}}
+              @if (ReservationHelper::checkEquipmentBreakdowns($slctSession[0])!=0)
+              <tr>
+                <th>有料備品</th>
+                <td class="spec-space">
+                  <ul class="option-list">
+                    @foreach (json_decode($slctSession[0]['items_results'])[1] as $equ)
+                    <li class="form-cell2">
+                      <p>{{$equ[0]}}<span>×</span><span>{{$equ[2]}}</span></p>
+                      <p>
+                        {{number_format(ReservationHelper::numTimesNum($equ[1], $equ[2]))}}
+                        <span>円</span>
+                      </p>
+                    </li>
+                    @endforeach
+                  </ul>
+                </td>
+              </tr>
+              @endif
+
+              {{var_dump(json_decode($slctSession[0]['items_results'])[2])}}
+              {{-- @if (ReservationHelper::checkServiceBreakdowns($slctSession[0])!=0) --}}
+              <tr>
+                <th>有料サービス</th>
+                <td class="spec-space">
+                  <ul class="option-list">
+                    @foreach (json_decode($slctSession[0]['items_results'])[2] as $ser)
+                    <li>
+                      {{$ser[0]}} {{$ser[1]}}円
+                    </li>
+                    @endforeach
+
+                    <li>
+                      <p>
+                        荷物預かり/返送
+                      </p>
+
+                      <dl class="form-cell2">
+                        <dt>荷物個数：</dt>
+                        <dd>
+                          {{$slctSession[0]['luggage_count']}}<span>個</span>
+                        </dd>
+                      </dl>
+                      <dl class="form-cell2">
+                        <dt>事前荷物の到着日：</dt>
+                        <dd>
+                          {{$slctSession[0]['luggage_arrive']}}
+                        </dd>
+                      </dl>
+                      <dl class="form-cell2">
+                        <dt>事後返送する荷物：</dt>
+                      </dl>
+                    </li>
+                    <li>
+                      <p>
+                        レイアウト変更
+                      </p>
+                      <dl class="form-cell2">
+                        <dt>レイアウト準備：</dt>
+                        <dd>
+                          {{!empty($slctSession[0]['layout_prepare'])?"あり":"なし"}}
+                        </dd>
+                      </dl>
+                      <dl class="form-cell2">
+                        <dt>レイアウト片付け：</dt>
+                        <dd>
+                          {{!empty($slctSession[0]['layout_clean'])?"あり":"なし"}}
+                        </dd>
+                      </dl>
+                    </li>
+                  </ul>
+                </td>
+              </tr>
+              <tr>
+                <th>備考</th>
+                <td>
+                  {{$slctSession[0]['remark']}}
+                </td>
+              </tr>
+            </table>
+          </div>
+        </form>
+
         <div class="section-wrap">
           <table class="table-sum">
             <thead>
               <tr>
                 <th colspan="2">
-                  {{ReservationHelper::getVenue($reservation[0]['venue_id'])}}
+                  料金内訳
                 </th>
               </tr>
             </thead>
@@ -216,9 +388,9 @@
                 <td>
                   <ul class="sum-list">
                     <li>
-                      <p>
-                        {{ReservationHelper::formatDateJA($reservation[0]['date'])}}
+                      <p> {{$slctSession[0]['luggage_arrive']}}
                       </p>
+                      <p>{{ReservationHelper::getVenue($slctSession[0]['venue_id'])}}</p>
                     </li>
                   </ul>
                 </td>
@@ -227,203 +399,115 @@
                 <th class=""><label for="venueFee">会場料金</label></th>
                 <td>
                   <ul class="sum-list">
+                    @if ($slctSession[0]['enter_time'][1]==0)
                     <li>
-                      <p>
-                        {{ReservationHelper::formatTime($reservation[0]['enter_time'])}}
+                      <p>{{ReservationHelper::formatTime($slctSession[0]['enter_time'])}}
                         ～
-                        {{ReservationHelper::formatTime($reservation[0]['leave_time'])}}
-                      </p>
-                      <p>
-                        {{number_format(ReservationHelper::jsonDecode($reservation[0]['price_result'])[0])}}<span>円</span>
-                      </p>
+                        {{ReservationHelper::formatTime($slctSession[0]['leave_time'])}}</p>
+                      <p>{{number_format(json_decode($slctSession[0]["price_result"])[0])}}<span>円</span></p>
                     </li>
-                    @if (ReservationHelper::jsonDecode($reservation[0]['price_result'])[1]!=0)
+                    @else
                     <li>
-                      <p>延長{{ReservationHelper::jsonDecode($reservation[0]['price_result'])[4]}}h</p>
-                      <p>
-                        {{number_format(ReservationHelper::jsonDecode($reservation[0]['price_result'])[1])}}<span>円</span>
-                      </p>
+                      <p>{{ReservationHelper::formatTime($slctSession[0]['enter_time'])}}
+                        ～
+                        {{ReservationHelper::formatTime($slctSession[0]['leave_time'])}}</p>
+                      <p>{{json_decode($slctSession[0]["price_result"])[0]}}<span>円</span></p>
+                    </li>
+                    <li>
+                      <p>延長{{json_decode($slctSession[0]["price_result"])[4]}}h</p>
+                      <p>{{number_format(json_decode($slctSession[0]["price_result"])[1])}}<span>円</span></p>
                     </li>
                     @endif
+
                   </ul>
                 </td>
               </tr>
-
-              @if (!empty(ReservationHelper::DBLJsonDecode($reservation[0]['items_results'])[1]))
+              {{-- {{var_dump(json_decode($slctSession[0]["items_results"])[1])}} --}}
               <tr>
                 <th class=""><label for="equipment">有料備品</label></th>
                 <td>
                   <ul class="sum-list">
-                    @foreach ((object)ReservationHelper::DBLJsonDecode($reservation[0]['items_results'])[1] as $equ)
+                    @foreach (json_decode($slctSession[0]["items_results"])[1] as $b_equ)
                     <li>
-                      <p>{{$equ[0]}}<span>×</span><span>{{$equ[2]}}</span> 個</p>
-                      <p>{{number_format(ReservationHelper::numTimesNum($equ[1],$equ[2]))}}<span>円</span></p>
+                      <p>{{$b_equ[0]}}<span>×</span><span>{{$b_equ[2]}}</span></p>
+                      <p>{{number_format(ReservationHelper::numTimesNum($b_equ[1],$b_equ[2]))}}<span>円</span></p>
                     </li>
                     @endforeach
                   </ul>
                 </td>
               </tr>
-              @endif
-
-              @if (!empty(ReservationHelper::DBLJsonDecode($reservation[0]['items_results'])[2]))
+              {{-- {{var_dump(json_decode($slctSession[0]["items_results"])[2])}} --}}
               <tr>
                 <th class=""><label for="service">有料サービス</label></th>
                 <td>
                   <ul class="sum-list">
-                    @foreach ((object)ReservationHelper::DBLJsonDecode($reservation[0]['items_results'])[2] as $ser)
+                    @foreach (json_decode($slctSession[0]["items_results"])[2] as $b_ser)
                     <li>
-                      <p>{{$ser[0]}}</p>
-                      <p>{{$ser[1]}}<span>円</span></p>
+                      <p>{{$b_ser[0]}}</p>
+                      <p>{{$b_ser[1]}}<span>円</span></p>
                     </li>
                     @endforeach
-                    @if($reservation[0]['luggage_count']||$reservation[0]['luggage_arrive']||$reservation[0]['luggage_return'])
-                    <li>
-                      <p>荷持預かり/返送</p>
-                      <p>500<span>円</span></p>
-                    </li>
-                    @endif
                   </ul>
                 </td>
               </tr>
-              @endif
 
-
-              @if (!empty($reservation[0]['layout_prepare'])||!empty($reservation[0]['layout_clean']))
               <tr>
                 <th class=""><label for="service">レイアウト</label></th>
                 <td>
                   <ul class="sum-list">
-                    @if (!empty($reservation[0]['layout_prepare']))
+                    @if (!empty($slctSession[0]['layout_prepare']))
                     <li>
                       <p>レイアウト準備料金</p>
-                      <p>
-                        {{number_format(ReservationHelper::getLayoutPrice($reservation[0]['venue_id'])[0])}}<span>円</span>
-                      </p>
+                      <p>{{$venue->getLayouts()[0]}}<span>円</span></p>
                     </li>
                     @endif
-                    @if (!empty($reservation[0]['layout_clean']))
+                    @if (!empty($slctSession[0]['layout_clean']))
                     <li>
                       <p>レイアウト片付料金</p>
-                      <p>
-                        {{number_format(ReservationHelper::getLayoutPrice($reservation[0]['venue_id'])[1])}}<span>円</span>
-                      </p>
+                      <p>{{$venue->getLayouts()[1]}}<span>円</span></p>
                     </li>
                     @endif
                   </ul>
                 </td>
               </tr>
-              @endif
-
 
               <tr>
                 <td colspan="2" class="text-right">
-                  <p class="checkbox-txt"><span>小計</span>{{number_format($reservation[0]['master'])}}円</p>
-                  <p class="checkbox-txt">
-                    <span>消費税</span>{{number_format(ReservationHelper::getTax($reservation[0]['master']))}}円
-                  </p>
+                  <p class="checkbox-txt"><span>小計</span>{{number_format($slctSession[0]['master'])}}円</p>
+                  <p class="checkbox-txt"><span>消費税</span>
+                    {{number_format(ReservationHelper::getTax($slctSession[0]['master']))}}円</p>
                 </td>
               </tr>
               <tr>
                 <td colspan="2" class="text-right checkbox-txt"><span>合計金額</span>
-                  <span
-                    class="sumText">{{number_format(ReservationHelper::taxAndPrice($reservation[0]['master']))}}</span><span>円</span>
-                </td>
-              </tr>
-            </tbody>
-          </table>
-          <ul class="btn-wrapper">
-            <li>
-              {{ Form::open(['url' => 'user/reservations/destroy_check', 'method'=>'POST', 'id'=>'']) }}
-              {{ Form::hidden("session_reservation_id",$key )}}
-              <p class="confirm-btn">{{Form::submit('予約を取り消す')}}</p>
-              {{Form::close()}}
-
-            </li>
-            <li>
-              {{ Form::open(['url' => 'user/reservations/re_create', 'method'=>'POST', 'id'=>'']) }}
-              {{ Form::hidden("session_reservation_id",$key )}}
-              <p class="link-btn">{{Form::submit('予約内容を変更する')}}</p>
-              {{Form::close()}}
-
-              {{-- <p class="link-btn"><a href="">予約内容を変更する</a></p> --}}
-            </li>
-          </ul>
-        </div>
-        @endforeach
-        @endif
-
-        @if (!empty($sessions))
-        <div class="section-wrap">
-          <table class="table-sum">
-            <thead>
-              <tr>
-                <th colspan="3">
-                  <p>総合計(<span>{{count($sessions)}}</span><span>件</span>)</p>
-                </th>
-              </tr>
-            </thead>
-            <tbody>
-              @foreach ($sessions as $t_key=>$t_reservation)
-              <tr>
-                <th class="">
-                  <label for="date">{{ReservationHelper::getVenue($t_reservation[0]["venue_id"])}}</label>
-                </th>
-                <td>
-                  <ul class="sum-list">
-                    <li>
-                      <p>{{ReservationHelper::formatDateJA($t_reservation[0]["date"])}}会場ご利用料</p>
-                      <p>{{number_format($t_reservation[0]['master'])}}<span>円</span></p>
-                    </li>
-                  </ul>
-                </td>
-              </tr>
-              @endforeach
-              {{-- <pre>{{var_dump((object)$sessions)}}</pre> --}}
-              {{var_dump(ReservationHelper::numTimesNumArrays($sessions, "master"))}}
-              <tr>
-                <td colspan="2" class="text-right">
-                  <p class="checkbox-txt">
-                    <span>小計</span>
-                    {{number_format(ReservationHelper::numTimesNumArrays($sessions, "master"))}}円
-                  </p>
-                  <p class="checkbox-txt">
-                    <span>消費税</span>
-                    {{number_format(ReservationHelper::getTax(ReservationHelper::numTimesNumArrays($sessions, "master")))}}円
-                  </p>
-                </td>
-              </tr>
-              <tr>
-                <td colspan="2" class="text-right checkbox-txt">
-                  <span>合計総額</span>
                   <span class="sumText">
-                    {{number_format(ReservationHelper::taxAndPrice(ReservationHelper::numTimesNumArrays($sessions, "master")))}}
-                  </span>
-                  <span>円</span>
+                    {{number_format(ReservationHelper::taxAndPrice($slctSession[0]['master']))}}
+                  </span><span>円</span>
                   <p class="txtRight">※上記合計金額にケータリングは入っておりません。<br>
                     ※お申込み内容によっては、弊社からご連絡の上で、合計金額が変更となる場合がございます</p>
                 </td>
               </tr>
             </tbody>
           </table>
+        </div>
+        <!-- 予約内容 終わり------------------------------------------->
 
+
+        <!-- 総合計金額 --------------------------------------------------------->
+        <div class="section-wrap">
           <ul class="btn-wrapper">
             <li>
-              <p class="link-btn3"><a href="/">他の日程を予約する</a></p>
+              <p class="link-btn"><a href="{{url('user/reservations/cart')}}">予約一覧にもどる</a></p>
             </li>
             <li>
-              <p class="confirm-btn"><a href="">予約を確定する</a></p>
+              {{ Form::open(['url' => 'user/reservations/session_destroy', 'method'=>'POST', 'id'=>'']) }}
+              {{ Form::hidden("session_reservation_id",$session_id )}}
+              <p class="confirm-btn">{{Form::submit('予約を取り消す')}}</p>
+              {{Form::close()}}
             </li>
           </ul>
+
         </div>
-        @endif
-
-
-
-
-
-
-
-
       </section>
       <div class="top contents"><a href="#top"><img src="https://osaka-conference.com/img/pagetop.png" alt="上に戻る"></a>
       </div>
@@ -669,7 +753,6 @@ if (typeof(conv_handler) == 'function') {
 /* ]]> */
   </script>
   <script type="text/javascript" src="//www.googleadservices.com/pagead/conversion_async.js"></script>
-
 </body>
 
 </html>

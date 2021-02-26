@@ -105,14 +105,30 @@ class ReservationsController extends Controller
     return view('user.reservations.cart', compact('sessions'));
   }
 
+
+
+  public function destroy_check(Request $request)
+  {
+    $sessions = $request->session()->get('session_reservations');
+    $session_id = $request->session_reservation_id;
+    $slctSession = $sessions[$session_id];
+
+    $venue = Venue::find($slctSession[0]['venue_id']);
+
+    return view('user.reservations.destroy_check', compact('slctSession', 'venue', 'session_id'));
+  }
+
+
   public function session_destroy(Request $request)
   {
-    $session_id = $request->session_reservation_id;
-    Session::forget('session_reservations.' . $session_id);
+    $session_reservation_id = $request->session_reservation_id;
+    Session::forget('session_reservations.' . $session_reservation_id);
 
     $sessions = Session::get('session_reservations');
     return redirect('user/reservations/cart');
   }
+
+
 
   public function re_create(Request $request)
   {
