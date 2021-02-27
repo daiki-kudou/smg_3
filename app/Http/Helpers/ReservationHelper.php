@@ -41,7 +41,7 @@ class ReservationHelper
 
   public static function formatDate($num)
   {
-    $weekday = date('w',  strtotime($num));
+    $weekday = date('w', strtotime($num));
     if ($weekday == 0) {
       $weekday = "日";
     } elseif ($weekday == 1) {
@@ -57,12 +57,12 @@ class ReservationHelper
     } elseif ($weekday == 6) {
       $weekday = "土";
     }
-    return date('Y/m/d',  strtotime($num)) . '(' . $weekday . ')';
+    return date('Y/m/d', strtotime($num)) . '(' . $weekday . ')';
   }
 
   public static function formatDateJA($num)
   {
-    $weekday = date('w',  strtotime($num));
+    $weekday = date('w', strtotime($num));
     if ($weekday == 0) {
       $weekday = "日";
     } elseif ($weekday == 1) {
@@ -78,19 +78,18 @@ class ReservationHelper
     } elseif ($weekday == 6) {
       $weekday = "土";
     }
-    return date('Y年n月j日',  strtotime($num)) . '(' . $weekday . ')';
+    return date('Y年n月j日', strtotime($num)) . '(' . $weekday . ')';
   }
 
   public static function formatTime($num)
   {
-    return date('H:i',  strtotime($num));
+    return date('H:i', strtotime($num));
   }
 
   public static function getVenue($venue_id)
   {
     $venue = Venue::find($venue_id);
-    $result = $venue->name_area . $venue->name_bldg . $venue->name_venue;
-    return $result;
+    return $venue->name_area . $venue->name_bldg . $venue->name_venue;
   }
 
   public static function getVenueAddreess($venue_id)
@@ -101,8 +100,7 @@ class ReservationHelper
 
   public static function getCompany($user_id)
   {
-    $user = User::find($user_id);
-    return $user->company;
+    return User::find($user_id);
   }
 
   public static function getPersonName($user_id)
@@ -348,7 +346,7 @@ class ReservationHelper
 
   public static function checkEquipmentBreakdowns($arrays)
   {
-    $_equipment = [];
+    $s_equipment = [];
     foreach ($arrays as $key => $value) {
       if (preg_match('/equipment_breakdown/', $key)) {
         $s_equipment[] = $value;

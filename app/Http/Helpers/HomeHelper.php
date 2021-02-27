@@ -34,8 +34,7 @@ class HomeHelper
   {
     $now = Carbon::now();
     $now = $now->addDays(3);
-    $now = date('Y/m/d', strtotime($now));
 
-    return $now;
+    return date('Y/m/d', strtotime($now));
   }
 }

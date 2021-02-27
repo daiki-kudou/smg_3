@@ -167,9 +167,9 @@ class ReservationsController extends Controller
 
     if ($layout_prepare == 1 && $layout_clean == 1) {
       $total = $venue->layout_prepare + $venue->layout_clean;
-    } else if ($layout_prepare == 1 && $layout_clean == 0) {
+    } elseif ($layout_prepare == 1 && $layout_clean == 0) {
       $total = $venue->layout_prepare;
-    } else if ($layout_prepare == 0 && $layout_clean == 1) {
+    } elseif ($layout_prepare == 0 && $layout_clean == 1) {
       $total = $venue->layout_clean;
     } else {
       $total = 0;
@@ -597,7 +597,7 @@ class ReservationsController extends Controller
         'double_check1_name' => $request->double_check1_name,
         'double_check_status' => 1
       ]);
-    } else if ($request->double_check_status == 1) {
+    } elseif ($request->double_check_status == 1) {
       $reservation_bills->update([
         'double_check2_name' => $request->double_check2_name,
         'double_check_status' => 2

@@ -256,8 +256,7 @@ class PreReservationsController extends Controller
 
   public function getuser(Request $request)
   {
-    $user = User::find($request->user_id);
-    return $user;
+    return User::find($request->user_id);
   }
 
   /**
@@ -388,7 +387,7 @@ class PreReservationsController extends Controller
           $request->unknown_user_tel ||
           $request->unknown_user_mobile
         ) {
-          $unknown = $pre_reservation->unknown_user()->create([
+          $pre_reservation->unknown_user()->create([
             'unknown_user_company' => $request->unknown_user_company,
             'unknown_user_name' => $request->unknown_user_name,
             'unknown_user_email' => $request->unknown_user_email,
@@ -750,7 +749,7 @@ class PreReservationsController extends Controller
         $request->unknown_user_tel ||
         $request->unknown_user_mobile
       ) {
-        $unknown = $pre_reservation->unknown_user()->create([
+        $pre_reservation->unknown_user()->create([
           'unknown_user_company' => $request->unknown_user_company,
           'unknown_user_name' => $request->unknown_user_name,
           'unknown_user_email' => $request->unknown_user_email,

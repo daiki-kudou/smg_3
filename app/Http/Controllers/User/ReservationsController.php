@@ -89,7 +89,7 @@ class ReservationsController extends Controller
     } else {
       if ($request->select_id) {
         Session::forget('session_reservations.' . $request->select_id);
-        $sessions = Session::get('session_reservations');
+        Session::get('session_reservations');
       }
       $data = $request->all();
       $user = auth()->user()->id;
@@ -122,7 +122,7 @@ class ReservationsController extends Controller
     $session_reservation_id = $request->session_reservation_id;
     Session::forget('session_reservations.' . $session_reservation_id);
 
-    $sessions = Session::get('session_reservations');
+    Session::get('session_reservations');
     return redirect('user/reservations/cart');
   }
 

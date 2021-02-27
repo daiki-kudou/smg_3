@@ -136,6 +136,7 @@ class Reservation extends Model
     foreach ($$bills as $key => $value) {
       $result_subtotal += $value->sub_total;
     }
+    return $result_subtotal;
   }
 
   /*

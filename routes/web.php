@@ -91,6 +91,7 @@ Route::namespace('Admin')->prefix('admin')->name('admin.')->group(function () {
     'confirm'  => false,
     'reset'    => false
   ]);
+
   // ログイン認証後
   Route::middleware('auth:admin')->group(function () {
     // TOPページ

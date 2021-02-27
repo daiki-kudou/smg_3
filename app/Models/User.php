@@ -113,26 +113,26 @@ class User extends Authenticatable
         ->orWhere('tel', 'LIKE', "%$freeword%")
         ->orWhere('email', 'LIKE', "%$freeword%")
         ->orWhere('attention', 'LIKE', "%$freeword%")->paginate(10);
-    } else if (isset($id)) {
+    } elseif (isset($id)) {
       return $this->where('id', 'LIKE', "%$id%")->paginate(10);
-    } else if (isset($status)) {
+    } elseif (isset($status)) {
       return $this->where('status', 'LIKE', "%$status%")->paginate(10);
-    } else if (isset($company)) {
+    } elseif (isset($company)) {
       return $this->where('company', 'LIKE', "%$company%")->paginate(10);
-    } else if (isset($attr)) {
+    } elseif (isset($attr)) {
       return $this->where('attr', 'LIKE', "%$attr%")->paginate(10);
-    } else if (isset($person_name)) {
+    } elseif (isset($person_name)) {
       return $this->where('first_name', 'LIKE', "%$person_name%")
         ->orWhere('last_name', 'LIKE', "%$person_name%")->paginate(10);
-    } else if (isset($mobile)) {
+    } elseif (isset($mobile)) {
       return $this->where('mobile', 'LIKE', "%$mobile%")->paginate(10);
-    } else if (isset($company)) {
+    } elseif (isset($company)) {
       return $this->where('company', 'LIKE', "%$company%")->paginate(10);
-    } else if (isset($tel)) {
+    } elseif (isset($tel)) {
       return $this->where('tel', 'LIKE', "%$tel%")->paginate(10);
-    } else if (isset($email)) {
+    } elseif (isset($email)) {
       return $this->where('email', 'LIKE', "%$email%")->paginate(10);
-    } else if (isset($attention)) {
+    } elseif (isset($attention)) {
       return $this->where('attention', 'LIKE', "%$attention%")->paginate(10);
     } else {
       return $this->query()->paginate(10);

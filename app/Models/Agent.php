@@ -38,11 +38,11 @@ class Agent extends Model implements PresentableInterface
       return $this->where('id', 'LIKE', "%$freeword%")
         ->orWhere('name', 'LIKE', "%$freeword%")
         ->orWhere('person_tel', 'LIKE', "%$freeword%")->paginate(10);
-    } else if (isset($id)) {
+    } elseif (isset($id)) {
       return $this->where('id', 'LIKE', "%$id%")->paginate(10);
-    } else if (isset($name)) {
+    } elseif (isset($name)) {
       return $this->where('name', 'LIKE', "%$name%")->paginate(10);
-    } else if (isset($person_tel)) {
+    } elseif (isset($person_tel)) {
       return $this->where('person_tel', 'LIKE', "%$person_tel%")->paginate(10);
     } else {
       return $this->query()->paginate(10);

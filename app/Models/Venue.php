@@ -84,21 +84,21 @@ class Venue extends Model implements PresentableInterface
         ->orWhere('name_venue', 'LIKE', "%$freeword%")
         ->orWhere('capacity', 'LIKE', "%$freeword%")
         ->orWhere('capacity', 'LIKE', "%$freeword%")->paginate($counter);
-    } else if (isset($id)) {
+    } elseif (isset($id)) {
       return $this->where('id', 'LIKE', "%$id%")->paginate($counter);
-    } else if (isset($alliance_flag)) {
+    } elseif (isset($alliance_flag)) {
       return $this->where('alliance_flag', 'LIKE', "%$alliance_flag%")->paginate($counter);
-    } else if (isset($name_area)) {
+    } elseif (isset($name_area)) {
       return $this->where('name_area', 'LIKE', "%$name_area%")->paginate($counter);
-    } else if (isset($name_bldg)) {
+    } elseif (isset($name_bldg)) {
       return $this->where('name_bldg', 'LIKE', "%$name_bldg%")->paginate($counter);
-    } else if (isset($name_venue)) {
+    } elseif (isset($name_venue)) {
       return $this->where('name_venue', 'LIKE', "%$name_venue%")->paginate($counter);
-    } else if (isset($capacity1) && isset($capacity2)) {
+    } elseif (isset($capacity1) && isset($capacity2)) {
       return $this->whereBetween('capacity', $capacity1, $capacity2)->paginate($counter);;
-    } else if (isset($capacity1)) {
+    } elseif (isset($capacity1)) {
       return $this->where('capacity', '>=', $capacity1)->paginate($counter);;
-    } else if (isset($capacity2)) {
+    } elseif (isset($capacity2)) {
       return $this->where('capacity', '<=', $capacity2)->paginate($counter);;
     } else {
       return $this->query()->paginate($counter);
@@ -248,7 +248,7 @@ class Venue extends Model implements PresentableInterface
       // 開始時間
       if ($start_time >= '10:00:00' && $start_time <= '19:00:00') {
         $generate_start_time = $start_time;
-      } else if ($start_time == '08:00:00' || $start_time == '08:30:00' || $start_time == '09:00:00' || $start_time == '09:30:00') {
+      } elseif ($start_time == '08:00:00' || $start_time == '08:30:00' || $start_time == '09:00:00' || $start_time == '09:30:00') {
         $generate_start_time = '10:00:00';
       }
 
@@ -256,7 +256,7 @@ class Venue extends Model implements PresentableInterface
       // 開始時間
       if ($start_time == '17:00:00' || $start_time == '17:30:00') {
         $generate_start_time = '18:00:00';
-      } else if ($start_time == '12:00:00' || $start_time == '12:30:00') {
+      } elseif ($start_time == '12:00:00' || $start_time == '12:30:00') {
         $generate_start_time = '13:00:00';
       }
 
@@ -264,7 +264,7 @@ class Venue extends Model implements PresentableInterface
       // 終了時間
       if ($finish_time <= '22:00:00') {
         $generate_finish_time = $finish_time;
-      } else if ($finish_time == '22:30:00' || $finish_time == '23:00:00') {
+      } elseif ($finish_time == '22:30:00' || $finish_time == '23:00:00') {
         $generate_finish_time = '22:00:00';
       }
 
@@ -333,7 +333,7 @@ class Venue extends Model implements PresentableInterface
       foreach ($extend_lists as $extend_list_index => $extend_list_price) {
         if ($extend_list_price == 1) {
           $extend_prices[] = $price_arrays[0]->extend;
-        } else if ($extend_list_price == 0.5) {
+        } elseif ($extend_list_price == 0.5) {
           $extend_prices[] = ($price_arrays[0]->extend) / 2;
         } else {
           $extend_prices[] = "false";
@@ -347,7 +347,7 @@ class Venue extends Model implements PresentableInterface
       for ($extend_final = 0; $extend_final < count($price_arrays); $extend_final++) {
         if ($extend_prices[$extend_final] != 'false') {
           $extend_final_prices[] = ($price_arrays[$extend_final]->price) + ($extend_prices[$extend_final]);
-        } else if ($cover_price_result[$extend_final] != 'false') {
+        } elseif ($cover_price_result[$extend_final] != 'false') {
           $extend_final_prices[] = $price_arrays[$extend_final]->price;
         } else {
           $extend_final_prices[] = null;
@@ -371,7 +371,7 @@ class Venue extends Model implements PresentableInterface
       $exted_specific_price = $extend_prices[array_search($min_result, $extend_final_prices)];
       if ($exted_specific_price != 'false') {
         $exted_specific_price;
-      } else if ($exted_specific_price == 'false') {
+      } elseif ($exted_specific_price == 'false') {
         $exted_specific_price = 0;
       }
       // 延長料金抽出
@@ -380,13 +380,13 @@ class Venue extends Model implements PresentableInterface
       if ($start_time == '08:00:00') {
         $min_result = $min_result + ($price_arrays[0]->extend) * 2;
         $exted_specific_price = $exted_specific_price + ($price_arrays[0]->extend) * 2;
-      } else if ($start_time == '08:30:00') {
+      } elseif ($start_time == '08:30:00') {
         $min_result = $min_result + ($price_arrays[0]->extend) * 1.5;
         $exted_specific_price = $exted_specific_price + ($price_arrays[0]->extend) * 1.5;
-      } else if ($start_time == '09:00:00') {
+      } elseif ($start_time == '09:00:00') {
         $min_result = $min_result + ($price_arrays[0]->extend) * 1.0;
         $exted_specific_price = $exted_specific_price + ($price_arrays[0]->extend) * 1.0;
-      } else if ($start_time == '09:30:00') {
+      } elseif ($start_time == '09:30:00') {
         $min_result = $min_result + ($price_arrays[0]->extend) * 0.5;
         $exted_specific_price = $exted_specific_price + ($price_arrays[0]->extend) * 0.5;
       }
@@ -404,7 +404,7 @@ class Venue extends Model implements PresentableInterface
       if ($start_time == '12:00:00') {
         $min_result = $min_result + ($price_arrays[0]->extend) * 1;
         $exted_specific_price = $exted_specific_price + ($price_arrays[0]->extend) * 1;
-      } else if ($start_time == '12:30:00') {
+      } elseif ($start_time == '12:30:00') {
         $min_result = $min_result + ($price_arrays[0]->extend) * 0.5;
         $exted_specific_price = $exted_specific_price + ($price_arrays[0]->extend) * 0.5;
       }

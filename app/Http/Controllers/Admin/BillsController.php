@@ -187,7 +187,7 @@ class BillsController extends Controller
           'double_check1_name' => $request->double_check1_name,
           'double_check_status' => 1
         ]);
-      } else if ($request->double_check_status == 1) {
+      } elseif ($request->double_check_status == 1) {
         $bill->update([
           'double_check2_name' => $request->double_check2_name,
           'double_check_status' => 2
@@ -221,10 +221,10 @@ class BillsController extends Controller
    * @param  int  $id
    * @return \Illuminate\Http\Response
    */
-  public function show($id)
-  {
-    //
-  }
+  // public function show($id)
+  // {
+  //   //
+  // }
 
   /**
    * Show the form for editing the specified resource.
@@ -232,10 +232,10 @@ class BillsController extends Controller
    * @param  int  $id
    * @return \Illuminate\Http\Response
    */
-  public function edit($id)
-  {
-    //
-  }
+  // public function edit($id)
+  // {
+  //   //
+  // }
 
   /**
    * Update the specified resource in storage.
@@ -244,10 +244,10 @@ class BillsController extends Controller
    * @param  int  $id
    * @return \Illuminate\Http\Response
    */
-  public function update(Request $request, $id)
-  {
-    //
-  }
+  // public function update(Request $request, $id)
+  // {
+  //   //
+  // }
 
   /**
    * Remove the specified resource from storage.
@@ -255,8 +255,8 @@ class BillsController extends Controller
    * @param  int  $id
    * @return \Illuminate\Http\Response
    */
-  public function destroy($id)
-  {
-    //
-  }
+  // public function destroy($id)
+  // {
+  //   //
+  // }
 }

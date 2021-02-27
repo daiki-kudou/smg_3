@@ -25,11 +25,11 @@ class Equipment extends Model
         ->orWhere('price', 'LIKE', "%$freeword%")
         ->orWhere('created_at', 'LIKE', "%$freeword%")
         ->orWhere('remark', 'LIKE', "%$freeword%")->paginate(10);
-    } else if (isset($id)) {
+    } elseif (isset($id)) {
       return $this->where('id', 'LIKE', "%$id%")->paginate(10);
-    } else if (isset($item)) {
+    } elseif (isset($item)) {
       return $this->where('item', 'LIKE', "%$item%")->paginate(10);
-    } else if (isset($createdat)) {
+    } elseif (isset($createdat)) {
       return $this->where('created_at', 'LIKE', "%$createdat%")->paginate(10);
     } else {
       return $this->query()->paginate(10);
