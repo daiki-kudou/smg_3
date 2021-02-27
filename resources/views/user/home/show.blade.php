@@ -575,12 +575,7 @@
                     </tbody>
                   </table>
                 </div>
-                @endif
 
-
-
-
-                @endif
                 <div class="bill_total">
                   <div>
                     <table class="table text-right">
@@ -588,19 +583,19 @@
                         <tr>
                           <td>小計：</td>
                           <td>
-                            {{number_format($other_bill->master_subtotal)}}
+                          ダミーダミーダミーダミーダミー
                           </td>
                         </tr>
                         <tr>
                           <td>消費税：</td>
                           <td>
-                            {{number_format($other_bill->master_tax)}}
+                          ダミーダミーダミーダミーダミー
                           </td>
                         </tr>
                         <tr>
                           <td class="font-weight-bold">合計金額</td>
                           <td>
-                            {{number_format($other_bill->master_total)}}
+                          ダミーダミーダミーダミーダミー
                           </td>
                         </tr>
                       </tbody>
