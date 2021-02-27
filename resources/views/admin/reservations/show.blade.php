@@ -25,7 +25,8 @@
     </div>
 
     <div class="btn-wrapper2 col-12 align-items-center d-flex justify-content-between">
-      @if ($reservation->bills()->first()->reservation_status<3)<div class="text-left">
+      @if ($reservation->bills()->first()->reservation_status<3)
+      <div class="text-left">
         {{ Form::model($reservation, ['route' => ['admin.reservations.destroy', $reservation->id], 'method' => 'delete']) }}
         @csrf
         {{ Form::submit('削除', ['class' => 'btn more_btn4']) }}
