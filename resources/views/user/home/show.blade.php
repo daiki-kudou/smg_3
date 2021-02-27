@@ -555,16 +555,20 @@
                     <tbody class="venue_main">
                       <!-- @foreach ($other_bill->breakdowns()->get() as $venue_breakdown)
                       @if ($venue_breakdown->unit_type==1) -->
-                      @foreach ($reservation->bills()->first()->breakdowns as $breakdowns)
-                      @if ($breakdowns->unit_item=="会場料金")
+                      <!-- @foreach ($reservation->bills()->first()->breakdowns as $breakdowns)
+                      @if ($breakdowns->unit_item=="会場料金") -->
                       <tr>
-                        <td>{{$breakdown->unit_item}}</td>
+                        <!-- <td>{{$breakdown->unit_item}}</td>
                         <td>{{$breakdown->unit_cost}}</td>
                         <td>{{$breakdown->unit_count}}</td>
-                        <td>{{$breakdown->unit_subtotal}}</td>
+                        <td>{{$breakdown->unit_subtotal}}</td> -->
+                        <td>ダミーダミーダミーダミー</td>
+                        <td>ダミーダミーダミーダミー</td>
+                        <td>ダミーダミーダミーダミー</td>
+                        <td>ダミーダミーダミーダミー</td>
                       </tr>
-                      @endif
-                      @endforeach
+                      <!-- @endif
+                      @endforeach -->
                     </tbody>
                     <tbody class="venue_result">
                       <tr>
