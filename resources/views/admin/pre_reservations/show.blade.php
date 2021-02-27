@@ -1,5 +1,4 @@
 @extends('layouts.admin.app')
-
 @section('content')
 
 
@@ -34,8 +33,7 @@
           </div>
         </div>
       </div> -->
-      <div class="ttl_head">
-        <table class="table bill_table">
+        <table class="table ttl_head">
           <tbody>
             <tr>
               <td>
@@ -49,12 +47,11 @@
                   <dd class="total_result">{{$pre_reservation->id}}</dd>
                 </dl>
               </td>
-              <td>
+              <td class="text-right">
                 <a href="{{url('admin/pre_reservations/'.$pre_reservation->id.'/edit')}}" class="btn more_btn_lg">編集</a>
               </td>
           </tbody>
         </table>
-      </div>
     </div>
 
     <div class="col-12">
@@ -532,7 +529,7 @@
       </table>
     </div>
   </div>
-  <div class="bill_details mt-5 ">
+  <div class="bill_details">
     <div class="head d-flex">
       <div class="accordion_btn">
         <i class="fas fa-plus bill_icon_size hide" aria-hidden="true"></i>

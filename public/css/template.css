@@ -3,7 +3,7 @@
 
 body {
     font-family:-apple-system, 'Helvetica Neue','Hiragino Kaku Gothic ProN', '游ゴシック','メイリオ',meiryo,sans-serif;
-    font-size: 16px;
+    font-size: 12px;
 }
 
 /* venues. index */
@@ -129,7 +129,8 @@ table.dataTable thead .sorting_desc:after {
 /* tableの上ボーター打ち消し用 */
 .table th,
 .table td {
-    padding: 0.75rem;
+    /* padding: 0.75rem; */
+    padding: 0.5rem;
     vertical-align: middle;
     border-top: 0px solid;
 }
@@ -700,13 +701,14 @@ table td.table_column p:last-child {
 
 /* =============仮押さえ================================================ */
 
+
 .ttl_head {
     background: #35a7a7;
     table-layout: fixed;
+    color: #fff;
     /* padding: 10px; */
     /* border: solid 1px #ced4da; */
 }
-
 
 .calendar {
     padding: 3%;

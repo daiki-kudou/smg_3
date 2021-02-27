@@ -1,5 +1,4 @@
 @extends('layouts.admin.app')
-
 @section('content')
 
 <link href="{{ asset('/css/template.css') }}" rel="stylesheet">
@@ -17,27 +16,49 @@
           </ol>
         </nav>
       </div>
-      <h1 class="mt-3 mb-5">一括仮押さえ　詳細</h1>
+      <h2 class="mt-3 mb-3">一括仮押さえ　詳細</h2>
+      <hr>
     </div>
 
-    <!-- 仮押さえ登録--------------------------------------------------------　 -->
     <section class="section-wrap">
       <div class="row">
         <div class="col-12">
-          <div class="ttl-box d-flex align-items-center justify-content-between">
+
+         <!--<div class="ttl-box d-flex align-items-center justify-content-between">
             <div class="col-5 d-flex align-items-center">
               <h3 class="section-ttl">仮押さえ概要</h3>
               <p class="ml-2">仮押さえ一括ID:{{$multiple->id}}</p>
               <p class="ml-2"><a class="more_btn" href="">予約確認中に進む</a></p>
             </div>
-            <!-- <div class="col-2">
+             <div class="col-2">
               <p>仮押さえ一括ID:0001</p>
-            </div> -->
+            </div>
             <div class="col-3text-right d-flex">
               <p class="mr-2"><a class="more_btn4" href="">削除</a></p>
               <p><a class="more_btn" href="">編集</a></p>
             </div>
-          </div>
+          </div> -->
+
+            <table class="table ttl_head">
+              <tbody>
+                <tr>
+                  <td>
+                    <h2 class="text-white">
+                      仮押さえ概要
+                    </h2>
+                  </td>
+                  <td>
+                    <dl class="ttl_box">
+                      <dt>仮押さえ一括ID::</dt>
+                      <dd class="total_result">{{$multiple->id}}</dd>
+                    </dl>
+                  </td>
+                  <td class="text-right">
+                  <p class="mr-2"><a class="more_btn4" href="">削除</a></p>
+                  <p><a class="more_btn" href="">編集</a></p>
+                  </td>
+              </tbody>
+            </table>
         </div>
 
         <div class="col-12">
@@ -136,11 +157,23 @@
       </div>
     </section>
     <!-- 詳細選択画面--終わり------------------------------------------------　 -->
+
     <!-- 仮押さえ一括 -->
     <section class="preregister-wrap section-wrap">
       <div class="ttl-box d-flex align-items-center bg-green">
         <h3>仮押さえ内容</h3>
       </div>
+
+      <table class="table ttl_head">
+          <tbody>
+            <tr>
+              <td>
+                <h2 class="text-white">
+                  仮押さえ内容
+                </h2>
+              </td>
+          </tbody>
+        </table>
       <section class="register-wrap">
         <p class="mb-2">詳細を入力する場合は、会場ごとに編集をしてください。</p>
         <p class="text-right mb-4"><a href="" class="more_btn3">新しい会場で日程を追加する</a></p>
@@ -167,8 +200,8 @@
               <td>
                 {{$multiple->pre_reservations()->where('venue_id',$venues[$i]->venue_id)->get()->count()}}
               </td>
-              <td><a href="{{url('admin/multiples/'.$multiple->id.'/edit'.'/'.$venues[$i]->venue_id)}}">編集</a></td>
-              <td></td>
+              <td><a class="more_btn" href="{{url('admin/multiples/'.$multiple->id.'/edit'.'/'.$venues[$i]->venue_id)}}">編集</a></td>
+              <td><a class="more_btn" href="">日程の追加をする</a></td>
               </tr>
               @else
               <tr>
@@ -176,8 +209,8 @@
                 <td>
                   {{$multiple->pre_reservations()->where('venue_id',$venues[$i]->venue_id)->get()->count()}}
                 </td>
-                <td><a href="{{url('admin/multiples/'.$multiple->id.'/edit'.'/'.$venues[$i]->venue_id)}}">編集</a></td>
-                <td></td>
+                <td><a class="more_btn" href="{{url('admin/multiples/'.$multiple->id.'/edit'.'/'.$venues[$i]->venue_id)}}">編集</a></td>
+                <td><a class="more_btn" href="">日程の追加をする</a></td>
               </tr>
               @endif
               @endfor
