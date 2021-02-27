@@ -519,173 +519,263 @@
               </table>
               @endif
             </div>
+
+            <div class="bill_details">
+              <div class="head d-flex">
+                <div class="accordion_btn">
+                  <i class="fas fa-plus bill_icon_size hide" aria-hidden="true"></i>
+                  <i class="fas fa-minus bill_icon_size" aria-hidden="true"></i>
+                </div>
+                <div class="billdetails_ttl">
+                  <h3>
+                    請求内訳
+                  </h3>
+                </div>
+              </div>
+              <div class="main hide">
+                <div class="venues billdetails_content">
+                  <table class="table table-borderless">
+                    <tbody>
+                      <tr>
+                        <td>
+                          <h4 class="billdetails_content_ttl">
+                            会場料
+                          </h4>
+                        </td>
+                      </tr>
+                    </tbody>
+                    <tbody class="venue_head">
+                      <tr>
+                        <td>内容</td>
+                        <td>単価</td>
+                        <td>数量</td>
+                        <td>金額</td>
+                      </tr>
+                    </tbody>
+                    <tbody class="venue_main">
+                      <!-- @foreach ($other_bill->breakdowns()->get() as $venue_breakdown)
+                      @if ($venue_breakdown->unit_type==1) -->
+                      @foreach ($reservation->bills()->first()->breakdowns as $breakdowns)
+                      @if ($breakdowns->unit_item=="会場料金")
+                      <tr>
+                        <td>{{$breakdown->unit_item}}</td>
+                        <td>{{$breakdown->unit_cost}}</td>
+                        <td>{{$breakdown->unit_count}}</td>
+                        <td>{{$breakdown->unit_subtotal}}</td>
+                      </tr>
+                      @endif
+                      @endforeach
+                    </tbody>
+                    <tbody class="venue_result">
+                      <tr>
+                        <td colspan="2"></td>
+                        <td colspan="1">合計：</td>
+                        <td colspan="1" class="">{{$reservation->bills()->first()->venue_total}}</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+                @endif
+
+
+
+
+                @endif
+                <div class="bill_total">
+                  <div>
+                    <table class="table text-right">
+                      <tbody>
+                        <tr>
+                          <td>小計：</td>
+                          <td>
+                            {{number_format($other_bill->master_subtotal)}}
+                          </td>
+                        </tr>
+                        <tr>
+                          <td>消費税：</td>
+                          <td>
+                            {{number_format($other_bill->master_tax)}}
+                          </td>
+                        </tr>
+                        <tr>
+                          <td class="font-weight-bold">合計金額</td>
+                          <td>
+                            {{number_format($other_bill->master_total)}}
+                          </td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
 
-                      <!-- 会場料請求内容----------- -->
-                      <div class="bill-box">
-              <h3 class="row">会場料</h3>
-              <dl class="row bill-box_wrap">
-                <div class="col-3 bill-box_cell">
-                  <dt>会場料金</dt>
-                  <dd>
-                    @foreach ($reservation->bills()->first()->breakdowns as $breakdowns)
-                    @if ($breakdowns->unit_item=="会場料金")
-                    {{$breakdowns->unit_cost}}
+          <!-- 会場料請求内容----------- -->
+          <div class="bill-box">
+            <h3 class="row">会場料</h3>
+            <dl class="row bill-box_wrap">
+              <div class="col-3 bill-box_cell">
+                <dt>会場料金</dt>
+                <dd>
+                  @foreach ($reservation->bills()->first()->breakdowns as $breakdowns)
+                  @if ($breakdowns->unit_item=="会場料金")
+                  {{$breakdowns->unit_cost}}
+                  @endif
+                  @endforeach
+                </dd>
+              </div>
+              <div class="col-3 bill-box_cell">
+                <dt>延長料金</dt>
+                <dd>
+                  @foreach ($reservation->bills()->first()->breakdowns as $breakdowns)
+                  @if ($breakdowns->unit_item=="延長料金")
+                  {{$breakdowns->unit_cost}}
+                  @endif
+                  @endforeach
+                </dd>
+              </div>
+              <div class="col-6 bill-box_cell">
+                <dt>会場料金合計</dt>
+                <dd class="text-right">
+                  {{$reservation->bills()->first()->venue_total}}
+                </dd>
+              </div>
+
+            </dl>
+
+
+            <!-- 料金内訳-------------------------------------------------------------- -->
+            <div class="bill-list">
+              <h3 class="row">料金内訳</h3>
+              <div class="col-12 venue_price_details">
+                <table class="table table-bordered">
+                  <thead>
+                    <tr>
+                      <td>内容</td>
+                      <td>単価</td>
+                      <td>数量</td>
+                      <td>金額</td>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    @foreach ($reservation->bills()->first()->breakdowns as $breakdown)
+                    @if ($breakdown->unit_type==1)
+                    <tr>
+                      <td>{{$breakdown->unit_item}}</td>
+                      <td>{{$breakdown->unit_cost}}</td>
+                      <td>{{$breakdown->unit_count}}</td>
+                      <td>{{$breakdown->unit_subtotal}}</td>
+                    </tr>
                     @endif
                     @endforeach
-                  </dd>
-                </div>
-                <div class="col-3 bill-box_cell">
-                  <dt>延長料金</dt>
-                  <dd>
-                    @foreach ($reservation->bills()->first()->breakdowns as $breakdowns)
-                    @if ($breakdowns->unit_item=="延長料金")
-                    {{$breakdowns->unit_cost}}
+                  </tbody>
+                </table>
+              </div>
+
+              <div class="row bill-box_wrap price-sum bill-box_cell flex-column">
+                <p class="text-right">
+                  <span class="font-weight-bold">小計</span>
+                  {{$reservation->bills()->first()->discount_venue_total}}
+                </p>
+                <p class="text-right">
+                  <span>消費税</span>
+                  {{ReservationHelper::getTax($reservation->bills()->first()->discount_venue_total)}}
+                </p>
+                <p class="text-right">
+                  <span class="font-weight-bold">合計金額</span>
+                  {{ReservationHelper::taxAndPrice($reservation->bills()->first()->discount_venue_total)}}
+                </p>
+              </div>
+            </div>
+            <!-- 料金内訳 終わり---------------------------- -->
+
+
+          </div>
+          <!-- 請求内容 終わり---------------------------- -->
+
+          <!-- 備品その他　請求内容----------- -->
+          <div class="bill-box">
+            <h3 class="row">備品その他</h3>
+            <dl class="row bill-box_wrap">
+              <div class="col-3 bill-box_cell">
+                <dt>有料備品料金</dt>
+                <dd>
+                  {{$reservation->bills()->first()->equipment_total}}
+                  円
+                </dd>
+              </div>
+              <div class="col-3 bill-box_cell">
+                <dt>有料サービス料金</dt>
+                <dd>
+                  {{$reservation->bills()->first()->service_total}}
+                  円
+                </dd>
+              </div>
+              <div class="col-3 bill-box_cell">
+                <dt>荷物預かり/返送</dt>
+                <dd class="d-flex align-items-center">
+                  {{$reservation->bills()->first()->luggage_total}}
+                  円
+                </dd>
+              </div>
+              <div class="col-3 bill-box_cell">
+                <dt>備品その他合計</dt>
+                <dd class="text-right">
+                  {{$reservation->bills()->first()->equipment_service_total}}
+                </dd>
+              </div>
+            </dl>
+
+
+            <!-- 料金内訳-------------------------------------------------------------- -->
+            <div class="bill-list">
+              <h3 class="row">料金内訳</h3>
+              <div class="col-12 items_equipments">
+                <table class="table table-bordered">
+                  <thead>
+                    <tr>
+                      <td>内容</td>
+                      <td>単価</td>
+                      <td>数量</td>
+                      <td>金額</td>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    @foreach ($reservation->bills()->first()->breakdowns as $breakdown)
+                    @if ($breakdown->unit_type==2)
+                    <tr>
+                      <td>{{$breakdown->unit_item}}</td>
+                      <td>{{$breakdown->unit_cost}}</td>
+                      <td>{{$breakdown->unit_count}}</td>
+                      <td>{{$breakdown->unit_subtotal}}</td>
+                    </tr>
                     @endif
                     @endforeach
-                  </dd>
-                </div>
-                <div class="col-6 bill-box_cell">
-                  <dt>会場料金合計</dt>
-                  <dd class="text-right">
-                    {{$reservation->bills()->first()->venue_total}}
-                  </dd>
-                </div>
-
-              </dl>
-
-
-              <!-- 料金内訳-------------------------------------------------------------- -->
-              <div class="bill-list">
-                <h3 class="row">料金内訳</h3>
-                <div class="col-12 venue_price_details">
-                  <table class="table table-bordered">
-                    <thead>
-                      <tr>
-                        <td>内容</td>
-                        <td>単価</td>
-                        <td>数量</td>
-                        <td>金額</td>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      @foreach ($reservation->bills()->first()->breakdowns as $breakdown)
-                      @if ($breakdown->unit_type==1)
-                      <tr>
-                        <td>{{$breakdown->unit_item}}</td>
-                        <td>{{$breakdown->unit_cost}}</td>
-                        <td>{{$breakdown->unit_count}}</td>
-                        <td>{{$breakdown->unit_subtotal}}</td>
-                      </tr>
-                      @endif
-                      @endforeach
-                    </tbody>
-                  </table>
-                </div>
-
-                <div class="row bill-box_wrap price-sum bill-box_cell flex-column">
-                  <p class="text-right">
-                    <span class="font-weight-bold">小計</span>
-                    {{$reservation->bills()->first()->discount_venue_total}}
-                  </p>
-                  <p class="text-right">
-                    <span>消費税</span>
-                    {{ReservationHelper::getTax($reservation->bills()->first()->discount_venue_total)}}
-                  </p>
-                  <p class="text-right">
-                    <span class="font-weight-bold">合計金額</span>
-                    {{ReservationHelper::taxAndPrice($reservation->bills()->first()->discount_venue_total)}}
-                  </p>
-                </div>
+                  </tbody>
+                </table>
               </div>
-              <!-- 料金内訳 終わり---------------------------- -->
 
-
-            </div>
-            <!-- 請求内容 終わり---------------------------- -->
-
-            <!-- 備品その他　請求内容----------- -->
-            <div class="bill-box">
-              <h3 class="row">備品その他</h3>
-              <dl class="row bill-box_wrap">
-                <div class="col-3 bill-box_cell">
-                  <dt>有料備品料金</dt>
-                  <dd>
-                    {{$reservation->bills()->first()->equipment_total}}
-                    円
-                  </dd>
-                </div>
-                <div class="col-3 bill-box_cell">
-                  <dt>有料サービス料金</dt>
-                  <dd>
-                    {{$reservation->bills()->first()->service_total}}
-                    円
-                  </dd>
-                </div>
-                <div class="col-3 bill-box_cell">
-                  <dt>荷物預かり/返送</dt>
-                  <dd class="d-flex align-items-center">
-                    {{$reservation->bills()->first()->luggage_total}}
-                    円
-                  </dd>
-                </div>
-                <div class="col-3 bill-box_cell">
-                  <dt>備品その他合計</dt>
-                  <dd class="text-right">
-                    {{$reservation->bills()->first()->equipment_service_total}}
-                  </dd>
-                </div>
-              </dl>
-
-
-              <!-- 料金内訳-------------------------------------------------------------- -->
-              <div class="bill-list">
-                <h3 class="row">料金内訳</h3>
-                <div class="col-12 items_equipments">
-                  <table class="table table-bordered">
-                    <thead>
-                      <tr>
-                        <td>内容</td>
-                        <td>単価</td>
-                        <td>数量</td>
-                        <td>金額</td>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      @foreach ($reservation->bills()->first()->breakdowns as $breakdown)
-                      @if ($breakdown->unit_type==2)
-                      <tr>
-                        <td>{{$breakdown->unit_item}}</td>
-                        <td>{{$breakdown->unit_cost}}</td>
-                        <td>{{$breakdown->unit_count}}</td>
-                        <td>{{$breakdown->unit_subtotal}}</td>
-                      </tr>
-                      @endif
-                      @endforeach
-                    </tbody>
-                  </table>
-                </div>
-
-                <div class="row bill-box_wrap price-sum bill-box_cell flex-column">
-                  <p class="text-right">
-                    <span class="font-weight-bold">小計</span>
-                    {{$reservation->bills()->first()->discount_equipment_service_total}}
-                  </p>
-                  <p class="text-right">
-                    <span>消費税</span>
-                    {{ReservationHelper::getTax($reservation->bills()->first()->discount_equipment_service_total)}}
-                  </p>
-                  <p class="text-right">
-                    <span class="font-weight-bold">合計金額</span>
-                    {{ReservationHelper::taxAndPrice($reservation->bills()->first()->discount_equipment_service_total)}}
-                  </p>
-                </div>
+              <div class="row bill-box_wrap price-sum bill-box_cell flex-column">
+                <p class="text-right">
+                  <span class="font-weight-bold">小計</span>
+                  {{$reservation->bills()->first()->discount_equipment_service_total}}
+                </p>
+                <p class="text-right">
+                  <span>消費税</span>
+                  {{ReservationHelper::getTax($reservation->bills()->first()->discount_equipment_service_total)}}
+                </p>
+                <p class="text-right">
+                  <span class="font-weight-bold">合計金額</span>
+                  {{ReservationHelper::taxAndPrice($reservation->bills()->first()->discount_equipment_service_total)}}
+                </p>
               </div>
-              <!-- 料金内訳 終わり---------------------------- -->
-
-
             </div>
-            <!-- 請求内容 終わり---------------------------- -->
+            <!-- 料金内訳 終わり---------------------------- -->
+
+
+          </div>
+          <!-- 請求内容 終わり---------------------------- -->
 
 
 
