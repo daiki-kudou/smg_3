@@ -108,4 +108,11 @@ class HomeController extends Controller
       return redirect('user/login');
     }
   }
+
+  public function user_info()
+  {
+    $user_id = auth()->user()->id;
+    $user = User::find($user_id);
+    return view('user.home.user_info', compact('user'));
+  }
 }

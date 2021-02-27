@@ -157,7 +157,7 @@
     </nav>
 
     <aside class="main-sidebar sidebar-dark-primary elevation-4">
-      <a href="/admin/home" class="brand-link">
+      <a href="/user/home" class="brand-link">
         <span class="brand-text font-weight-light">SMGアクセア貸会議室</span>
       </a>
 
