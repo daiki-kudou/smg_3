@@ -17,7 +17,8 @@
           </ol>
         </nav>
       </div>
-      <h1 class="mt-3 mb-5">予約一覧</h1>
+
+      <h2 class="mt-3 mb-3">予約一覧</h2>
       <hr>
     </div>
 
@@ -57,8 +58,8 @@
         <div class="container-field">
           <table class="table table-striped table-bordered table-box">
             <thead>
-              <tr>
-                <th>予約<br>ID</th>
+              <tr class="table_row">
+                <th>予約ID</th>
                 <th>利用日</th>
                 <th>入室</th>
                 <th>退室</th>
@@ -106,25 +107,15 @@
                 @endfor
             </tbody>
             @endforeach
-
-
-
-
-
           </table>
         </div>
       </div>
     </div>
 
 
-
-
-
-
-
     <!-- 一覧　　終わり------------------------------------------------ -->
 
-    <ul class="pagination justify-content-center">
+    <ul class="pagination justify-content-center mt-5">
       <li class="page-item disabled" aria-disabled="true" aria-label="&laquo; 前">
         <span class="page-link" aria-hidden="true">&lsaquo;</span>
       </li>
