@@ -35,7 +35,8 @@
     </div>
 
     <!-- 検索--------------------------------------- -->
-
+    {{ Form::open(['url' => 'admin/reservations', 'method'=>'get'])}}
+    @csrf
     <div class="container-field">
       <div class="row search_box">
         <div class="col-md-10 offset-md-1">
@@ -45,7 +46,7 @@
                 <label class="search_item_name" for="bulkid">予約一括ID</label>
               </dt>
               <dd>
-                <input type="text" name="bulkid" class="form-control" id="bulkid">
+                {{ Form::text('multiple_id', '', ['class' => 'form-control', 'id'=>'multiple_id']) }}
               </dd>
             </dl>
             <dl class="form-group flex-fill">
@@ -53,7 +54,7 @@
                 <label class="search_item_name" for="id">予約ID</label>
               </dt>
               <dd>
-                <input type="text" name="id" class="form-control" id="id">
+                {{ Form::text('id', '', ['class' => 'form-control', 'id'=>'']) }}
               </dd>
             </dl>
           </div>
@@ -66,7 +67,7 @@
                 </dt>
                 <dd>
                   <div class="input-group">
-                    <input type="text" class="form-control float-right" id="reservation">
+                    {{ Form::text('reserve_date', '', ['class' => 'form-control', 'id'=>'datepicker1']) }}
                     <div class="input-group-prepend">
                       <span class="input-group-text">
                         <i class="far fa-calendar-alt"></i>
@@ -83,7 +84,7 @@
                 </dt>
                 <dd class="d-flex align-items-center">
                   <div class="flex-fill">
-                    <select class="form-control" id="eventStart" name="eventStart">
+                    <select class="form-control" id="eventStart" name="enter_time">
                       <option value="01:00:00">01:00</option>
                       <option value="01:30:00">01:30</option>
                       <option value="02:00:00">02:00</option>
@@ -136,7 +137,7 @@
                   </div>
                   <p style="margin: 0 20px;">～</p>
                   <div class="flex-fill">
-                    <select class="form-control" id="eventFinish" name="eventFinish">
+                    <select class="form-control" id="eventFinish" name="leave_time">
                       <option value="01:00:00">01:00</option>
                       <option value="01:30:00">01:30</option>
                       <option value="02:00:00">02:00</option>
@@ -195,10 +196,12 @@
                   <label class="search_item_name" for="venue">利用会場</label>
                 </dt>
                 <dd>
-                  <select class="form-control select2" style="width: 100%;" name="venue">
-                    <option>テスト会場A</option>
-                    <option>テスト会場B</option>
-                    <option>テスト会場C</option>
+                  <select class="form-control select2" style="width: 100%;" name="venue_id">
+                    @foreach ($venue as $venues)
+                    <option value="{{$venues->id}}">
+                      {{ReservationHelper::getVenue($venues->id)}}
+                    </option>
+                    @endforeach
                   </select>
                 </dd>
               </dl>
@@ -207,10 +210,10 @@
                   <label class="search_item_name" for="company">会社名・団体名</label>
                 </dt>
                 <dd>
-                  <select class="form-control select2" style="width: 100%;" name="company">
-                    <option>テスト会場A</option>
-                    <option>テスト会場B</option>
-                    <option>テスト会場C</option>
+                  <select class="form-control select2" style="width: 100%;" name="user_id">
+                    @foreach ($user as $users)
+                    <option value="{{$users->id}}">{{ReservationHelper::getCompany($users->id)}}</option>
+                    @endforeach
                   </select>
                 </dd>
               </dl>
@@ -219,7 +222,11 @@
                   <label class="search_item_name" for="name">担当者氏名</label>
                 </dt>
                 <dd>
-                  <input type="text" name="name" class="form-control" id="name">
+                  <select class="form-control select2" style="width: 100%;" name="user_id">
+                    @foreach ($user as $users)
+                    <option value="{{$users->id}}">{{ReservationHelper::getPersonName($users->id)}}</option>
+                    @endforeach
+                  </select>
                 </dd>
               </dl>
               <dl class="form-group">
@@ -229,20 +236,16 @@
                 <dd>
                   <ul class="form-control icheck-primary d-flex d-flex justify-content-around">
                     <li>
-                      <input type="checkbox" id="checkboxPrimary1" checked>
+                      <input type="checkbox" id="checkboxPrimary1" checked name="category1" value="1">
                       <label for="checkboxPrimary1">会場</label>
                     </li>
                     <li>
-                      <input type="checkbox" id="checkboxPrimary1" checked>
-                      <label for="checkboxPrimary1">キャンセル</label>
+                      <input type="checkbox" id="checkboxPrimary2" checked name="category2" value="1">
+                      <label for="checkboxPrimary2">キャンセル</label>
                     </li>
-                    <!-- <li>
-                    <input type="checkbox" id="checkboxPrimary1" checked>
-                    <label for="checkboxPrimary1">追加請求</label>
-                  </li> -->
                     <li>
-                      <input type="checkbox" id="checkboxPrimary1" checked>
-                      <label for="checkboxPrimary1">追加請求</label>
+                      <input type="checkbox" id="checkboxPrimary3" checked name="category3" value="1">
+                      <label for="checkboxPrimary3">追加請求</label>
                     </li>
                   </ul>
                 </dd>
@@ -253,9 +256,9 @@
                 </dt>
                 <dd>
                   <select class="form-control select2" style="width: 100%;" name="status">
-                    <option>予約確認中</option>
-                    <option>予約承認待ち</option>
-                    <option>予約完了</option>
+                    <option value="1">予約確認中</option>
+                    <option value="2">予約承認待ち</option>
+                    <option value="3">予約完了</option>
                   </select>
                 </dd>
               </dl>
@@ -264,25 +267,25 @@
                   <label class="search_item_name" for="freeword">フリーワード検索</label>
                 </dt>
                 <dd>
-                  <input type="text" name="freeword" class="form-control" id="freeword">
+                  {{ Form::text('freeword', '', ['class' => 'form-control', 'id'=>'']) }}
                 </dd>
               </dl>
 
             </div>
           </div>
           <p class="text-right">※フリーワード検索は本画面表記の項目のみ対象となります</p>
-
-
         </div>
 
 
         <div class="btn_box d-flex justify-content-center">
           <input type="reset" value="リセット" class="btn reset_btn">
-          <input type="submit" value="検索" class="btn search_btn">
+          {{-- <input type="submit" value="検索" class="btn search_btn"> --}}
+          {{ Form::submit('検索', ['class' => 'btn btn-primary']) }}
         </div>
       </div>
-
     </div>
+    {{ Form::close() }}
+
 
     <!-- 検索　終わり------------------------------------------------ -->
 

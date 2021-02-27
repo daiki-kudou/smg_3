@@ -12,9 +12,12 @@ use App\Models\User;
 
 use Carbon\Carbon;
 
+use App\Traits\Search;
+
 
 class Reservation extends Model
 {
+  use Search;
 
   use SoftDeletes; //reservation大事なのでソフトデリートする
 
@@ -325,9 +328,6 @@ class Reservation extends Model
     });
   }
 
-
-
-
   /*
 |--------------------------------------------------------------------------
 | 仲介会社選択の場合のみ、エンドユーザーとの一対一
@@ -336,5 +336,20 @@ class Reservation extends Model
   public function enduser()
   {
     return $this->hasOne(Enduser::class);
+  }
+
+  public function search_item($request)
+  {
+    $query = $this->query();
+    if (!empty($request->id)) {
+      $query->where('id', $request->id)->get();
+    }
+
+    if (!empty($request->reserve_date)) {
+      $query->where('reserve_date', $request->reserve_date)->get();
+    }
+
+    // return ($query);
+    return $query->paginate(10);
   }
 }

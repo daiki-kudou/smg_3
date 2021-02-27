@@ -100,7 +100,8 @@ class ReservationHelper
 
   public static function getCompany($user_id)
   {
-    return User::find($user_id);
+    $user = User::find($user_id);
+    return $user->company;
   }
 
   public static function getPersonName($user_id)

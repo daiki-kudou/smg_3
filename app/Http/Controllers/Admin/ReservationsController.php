@@ -26,9 +26,18 @@ class ReservationsController extends Controller
    *
    * @return \Illuminate\Http\Response
    */
-  public function index()
+  public function index(Request $request)
   {
-    $reservations = Reservation::all();
+
+    if (!empty($request->all())) {
+      $newInstance = new Reservation;
+      $reservations = $newInstance->search_item((object)$request->all());
+      echo "<pre>";
+      // var_dump($reservations);
+      echo "</pre>";
+    } else {
+      $reservations = Reservation::all();
+    }
     $venue = Venue::select('id', 'name_area', 'name_bldg', 'name_venue')->get();
     $user = User::select('id', 'company', 'first_name', 'last_name', 'mobile', 'tel')->get();
     return view('admin.reservations.index', [
@@ -624,7 +633,7 @@ class ReservationsController extends Controller
       $reservation->bills()->first()->update(['reservation_status' => 2, 'approve_send_at' => date('Y-m-d H:i:s')]);
       $user = User::find($request->user_id);
       $email = $user->email;
-      // 管理者側のメール本文等は未定
+      // 管理者側のメール本文等は未定　ここメール文章再作成必要
       Mail::to($email)->send(new \App\Mail\Test);
     });
     return redirect()->route('admin.reservations.index')->with('flash_message', 'ユーザーに承認メールを送信しました');
