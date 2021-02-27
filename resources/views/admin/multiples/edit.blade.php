@@ -41,12 +41,12 @@
       <table class="table ttl_head">
         <tbody>
           <tr>
-            <td>
-              <h3 class="text-white">
+            <td class="text-white d-flex align-items-center">
+              <h3 >
                 仮押さえ一括ID:<span class="mr-1">{{$multiple->id}}</span>
               </h3>
+              <h4 class="ml-2">{{ReservationHelper::getVenue($venue->id)}}</h4>
             </td>
-            <td>{{ReservationHelper::getVenue($venue->id)}}</td>
         </tbody>
       </table>
 
@@ -443,11 +443,9 @@
       </section>
       <ul class="register-list-header">
         <li class="from-group">
-          <div class="form-check">
             <!-- <input class="form-check-input" type="checkbox"> -->
-            <input type="checkbox" name="all_check" id="all_check" />
+            <input class="mr-1" type="checkbox" name="all_check" id="all_check" />
             <label class="form-check-label">すべてチェックする</label>
-          </div>
         </li>
         <li>
           <p><a class="more_btn4" href="">削除</a></p>
@@ -467,11 +465,9 @@
       <!-- 仮押さえ一括 タブ-->
       <div class="register-list-item">
         <div class="from-group">
-          <div class="form-check">
             <input type="checkbox" name="{{'delete_check'.$pre_reservation->id}}" value="{{$pre_reservation->id}}" class="checkbox" />
             <!-- <input class="form-check-input" type="checkbox"> -->
             <label class="form-check-label"></label>
-          </div>
         </div>
         <dl class="card">
           <dt class="card-header accordion-ttl2">
