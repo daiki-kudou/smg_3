@@ -2,12 +2,9 @@
 
 @section('content')
 
-
 <link href="{{ asset('/css/template.css') }}" rel="stylesheet">
 <script src="{{ asset('/js/multiples/script.js') }}"></script>
 <script src="{{ asset('/js/multiples/calculate.js') }}"></script>
-
-
 
 <div class="content">
   <div class="container-fluid">
@@ -21,9 +18,9 @@
           </ol>
         </nav>
       </div>
-      <h1 class="mt-3 mb-5">一括仮押さえ　編集</h1>
+      <h2 class="mt-3 mb-3">一括仮押さえ　編集</h2>
+      <hr>
     </div>
-    <!-- 仮押さえ登録--------------------------------------------------------　 -->
     <div class="alert-box d-flex align-items-center">
       <span class="mr-3"><i class="fas alert-icon fa-exclamation-triangle" aria-hidden="true"></i></span>
       <p>
@@ -37,15 +34,25 @@
       <p class="font-weight-bold">日程ごとに、詳細を編集できます。</p>
     </div>
     <div class="col">
-      <h3 class="bg-green py-2 px-1">仮押さえ一括ID:<span>{{$multiple->id}}</span><span
+      <!-- <h3 class="bg-green py-2 px-1">仮押さえ一括ID:<span>{{$multiple->id}}</span><span
           class="ml-4">{{ReservationHelper::getVenue($venue->id)}}</span>
-      </h3>
+      </h3> -->
 
-
+      <table class="table ttl_head">
+        <tbody>
+          <tr>
+            <td>
+              <h3 class="text-white">
+                仮押さえ一括ID:<span class="mr-1">{{$multiple->id}}</span>
+              </h3>
+            </td>
+            <td>{{ReservationHelper::getVenue($venue->id)}}</td>
+        </tbody>
+      </table>
 
       {{ Form::open(['url' => 'admin/multiples/'.$multiple->id."/edit/".$venue->id.'/calculate', 'method'=>'POST', 'id'=>'']) }}
       @csrf
-      <section class="col mt-4">
+      <section class="mt-4">
         <div class="register-wrap">
           <div class="mb-2">
             <p>同じ内容をすべての日程に反映することができます。</p>
@@ -70,7 +77,8 @@
                         <td colspan="2">
                           <p class="title-icon">
                             <i class="fas fa-info-circle icon-size" aria-hidden="true"></i>
-                            予約情報</p>
+                            予約情報
+                          </p>
                         </td>
                       </tr>
                       <tr>
@@ -395,7 +403,7 @@
                           </p>
                         </td>
                       </tr>
-                      <tr>
+                      <!-- <tr>
                         <td>
                           <p>
                             <input type="checkbox" id="discount" checked="">
@@ -409,7 +417,7 @@
                           <label for="caution">注意事項</label>
                           {{ Form::textarea('cp_master_attention', '',['class'=>'form-control'] ) }}
                         </td>
-                      </tr>
+                      </tr> -->
                       <tr>
                         <td>
                           <label for="adminNote">管理者備考</label>
@@ -427,7 +435,7 @@
           <!-- コピー作成用フィールド   終わり--------------------------------------------------　 -->
           <div class="btn_wrapper">
             <p class="text-center">
-              {{ Form::submit('計算する', ['class' => 'btn btn-primary'])}}
+              {{ Form::submit('計算する', ['class' => 'btn more_btn_lg'])}}
               {{ Form::close() }}
             </p>
           </div>
@@ -436,7 +444,8 @@
       <ul class="register-list-header">
         <li class="from-group">
           <div class="form-check">
-            <input class="form-check-input" type="checkbox">
+            <!-- <input class="form-check-input" type="checkbox"> -->
+            <input type="checkbox" name="all_check" id="all_check" />
             <label class="form-check-label">すべてチェックする</label>
           </div>
         </li>
@@ -459,7 +468,8 @@
       <div class="register-list-item">
         <div class="from-group">
           <div class="form-check">
-            <input class="form-check-input" type="checkbox">
+            <input type="checkbox" name="{{'delete_check'.$pre_reservation->id}}" value="{{$pre_reservation->id}}" class="checkbox" />
+            <!-- <input class="form-check-input" type="checkbox"> -->
             <label class="form-check-label"></label>
           </div>
         </div>
@@ -509,7 +519,8 @@
                       <td colspan="2">
                         <p class="title-icon">
                           <i class="fas fa-info-circle icon-size" aria-hidden="true"></i>
-                          予約情報</p>
+                          予約情報
+                        </p>
                       </td>
                     </tr>
                     <tr>
@@ -562,9 +573,7 @@
                       <td>
                         <select name="{{'event_start_copied'.$key}}" class="form-control">
                           <option disabled>選択してください</option>
-                          @for ($start = 0*2; $start <=23*2; $start++) <option
-                            value="{{date("H:i:s", strtotime("00:00 +". $start * 30 ." minute"))}}" @if(date("H:i:s",
-                            strtotime("00:00 +". $start * 30 ." minute"))==$pre_reservation->enter_time)
+                          @for ($start = 0*2; $start <=23*2; $start++) <option value="{{date("H:i:s", strtotime("00:00 +". $start * 30 ." minute"))}}" @if(date("H:i:s", strtotime("00:00 +". $start * 30 ." minute"))==$pre_reservation->enter_time)
                             selected
                             @endif
                             >
@@ -576,12 +585,9 @@
                     <tr>
                       <td class="table-active"><label for="eventFinish">イベント終了時間</label></td>
                       <td>
-                        <select name="{{'event_finish_copied'.$key}}" id="{{'event_finish_copied'.$key}}"
-                          class="form-control">
+                        <select name="{{'event_finish_copied'.$key}}" id="{{'event_finish_copied'.$key}}" class="form-control">
                           <option disabled>選択してください</option>
-                          @for ($start = 0*2; $start <=23*2; $start++) <option
-                            value="{{date("H:i:s", strtotime("00:00 +". $start * 30 ." minute"))}}" @if (date("H:i:s",
-                            strtotime("00:00 +". $start * 30 ." minute"))==$pre_reservation->leave_time)
+                          @for ($start = 0*2; $start <=23*2; $start++) <option value="{{date("H:i:s", strtotime("00:00 +". $start * 30 ." minute"))}}" @if (date("H:i:s", strtotime("00:00 +". $start * 30 ." minute"))==$pre_reservation->leave_time)
                             selected
                             @endif
                             >
@@ -898,7 +904,7 @@
                         </p>
                       </td>
                     </tr>
-                    <tr>
+                    <!-- <tr>
                       <td>
                         <p>
                           <input type="checkbox" id="discount" checked="">
@@ -912,7 +918,7 @@
                         <label for="caution">注意事項</label>
                         {{ Form::textarea('attention_copied'.$key, $pre_reservation->attention,['class'=>'form-control'] ) }}
                       </td>
-                    </tr>
+                    </tr> -->
                     <tr>
                       <td>
                         <label for="adminNote">管理者備考</label>
@@ -926,7 +932,8 @@
             </div>
             <div class="btn_wrapper">
               <p class="text-center">
-                {{ Form::submit('請求に反映する', ['class' => 'btn btn-primary'])}}</p>
+                {{ Form::submit('請求に反映する', ['class' => 'btn more_btn_lg'])}}
+              </p>
               {{ Form::close() }}
             </div>
 
@@ -945,7 +952,8 @@
                           <dt>合計金額</dt>
                           <dd class="total_result">
                             {{number_format(empty($pre_reservation->pre_bill->master_total)?0:$pre_reservation->pre_bill->master_total)}}
-                            円</dd>
+                            円
+                          </dd>
                         </dl>
                       </td>
                     </tr>
@@ -1360,7 +1368,7 @@
 
     <!-- 詳細選択画面--終わり------------------------------------------------　 -->
 
-    <div class="col-12 mt-5">
+    <!-- <div class="col-12 mt-5">
       <div class="d-flex bg-green py-2 px-1">
         <h4>合計請求額</h4>
         <p class="ml-2">(<span>{{$multiple->pre_reservations()->get()->count()}}</span>件分)</p>
@@ -1398,9 +1406,70 @@
           </tr>
         </tbody>
       </table>
-    </div>
+    </div> -->
 
-    <ul class="d-flex col-12 justify-content-around mt-5">
+  <section class="master_totals border-wrap">
+  <table class="table">
+    <tbody class="master_total_head">
+      <tr>
+        <td colspan="2">
+          <h3>
+            合計請求額
+            <span>({{$multiple->pre_reservations()->get()->count()}}件分)</span>
+          </h3>
+        </td>
+      </tr>
+    </tbody>
+    <tr>
+      <td colspan="2" class="master_total_subttl">
+        <h4 >内訳</h4>
+      </td>
+    </tr>
+    <tbody class="master_total_body">
+      <tr>
+        <td>・会場料</td>
+        <td>{{$multiple->sumVenues($venue->id)}}円</td>
+      </tr>
+      <tr>
+        <td>・有料備品　サービス</td>
+        <td>{{$multiple->sumEquips($venue->id)}}円</td>
+      </tr>
+      <tr>
+        <td>・レイアウト変更料</td>
+        <td>{{$multiple->sumLayouts($venue->id)}}円</td>
+      </tr>
+      <tr>
+        <td>・その他</td>
+        <td>ダミー円</td>
+      </tr>
+    </tbody>
+    <tbody class="master_total_bottom">
+      <tr>
+        <td></td>
+        <td class="d-flex justify-content-end" colspan="2">
+          <p>小計：</p>
+          <p>{{$multiple->sumMasterSubs($venue->id)}}円</p>
+        </td>
+      </tr>
+      <tr>
+        <td></td>
+        <td class="d-flex justify-content-end" colspan="2">
+          <p>消費税：</p>
+          <p>{{$multiple->sumMasterTax($venue->id)}}円</p>
+        </td>
+      </tr>
+      <tr>
+        <td></td>
+        <td class="d-flex justify-content-end" colspan="2">
+          <p>合計金額：</p>
+          <p>{{$multiple->sumMasterTotal($venue->id)}}円</p>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</section>
+
+    <ul class="d-flex col-12 justify-content-around mt-5 align-items-center">
       <li>
         <p><a class="more_btn_lg" href="">詳細にもどる</a></p>
       </li>
@@ -1418,27 +1487,27 @@
 
 
 <script>
-  $(function(){
-    $(document).on("click", "#master_submit", function () {
-      var data={};
-      $('input:radio:checked').each( function( index, elem ) {
-        var key=$(elem).attr('name');
-        var value=$(elem).val();
-        data[key]=value;
+  $(function() {
+    $(document).on("click", "#master_submit", function() {
+      var data = {};
+      $('input:radio:checked').each(function(index, elem) {
+        var key = $(elem).attr('name');
+        var value = $(elem).val();
+        data[key] = value;
       })
-      $('select option:selected').each( function( index, elem ) {
-        var key=$(elem).parent().attr('name');
-        var value=$(elem).val();
-        data[key]=value;
+      $('select option:selected').each(function(index, elem) {
+        var key = $(elem).parent().attr('name');
+        var value = $(elem).val();
+        data[key] = value;
       })
-      $('input:text').each( function( index, elem ) {
-        var key=$(elem).attr('name');
-        var value=$(elem).val();
-        data[key]=value;
+      $('input:text').each(function(index, elem) {
+        var key = $(elem).attr('name');
+        var value = $(elem).val();
+        data[key] = value;
       })
 
       console.log(data);
-      var encodes=JSON.stringify(data);
+      var encodes = JSON.stringify(data);
       $('#master_data').val(encodes);
       $('#master_form').submit();
     })

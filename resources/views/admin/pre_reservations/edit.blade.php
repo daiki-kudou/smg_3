@@ -431,13 +431,12 @@
       </div>
 
       <div class="col">
-        <div class="client_mater">　
           <table class="table table-bordered">
             <tbody>
               <tr>
                 <td colspan="2">
                   <p class="title-icon">
-                    <i class="fas fa-user-check icon_size" aria-hidden="true"></i>
+                    <i class="fas fa-user-check icon-size" aria-hidden="true"></i>
                     当日の連絡できる担当者
                   </p>
                 </td>
@@ -460,13 +459,12 @@
               </tr>
             </tbody>
           </table>
-        </div>
         <table class="table table-bordered mail-table">
           <tbody>
             <tr>
               <td colspan="2">
                 <p class="title-icon">
-                  <i class="fas fa-envelope icon_size" aria-hidden="true"></i>利用後の送信メール
+                  <i class="fas fa-envelope icon-size" aria-hidden="true"></i>利用後の送信メール
                 </p>
               </td>
             </tr>
@@ -501,7 +499,7 @@
             <tr>
               <td colspan="2">
                 <p class="title-icon">
-                  <i class="fas fa-envelope icon_size" aria-hidden="true"></i>備考
+                  <i class="fas fa-envelope icon-size" aria-hidden="true"></i>備考
                 </p>
               </td>
             </tr>
@@ -594,8 +592,8 @@
     <div class="bill_details">
       <div class="head d-flex">
         <div class="accordion_btn">
-          <i class="fas fa-plus bill_icon_size hide"></i>
-          <i class="fas fa-minus bill_icon_size"></i>
+          <i class="fas fa-plus bill_icon-size hide"></i>
+          <i class="fas fa-minus bill_icon-size"></i>
         </div>
         <div class="billdetails_ttl">
           <h3>

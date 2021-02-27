@@ -54,8 +54,8 @@
                     </dl>
                   </td>
                   <td class="text-right">
-                  <p class="mr-2"><a class="more_btn4" href="">削除</a></p>
-                  <p><a class="more_btn" href="">編集</a></p>
+                  <a class="more_btn4" href="">削除</a>
+                  <a class="more_btn" href="">編集</a>
                   </td>
               </tbody>
             </table>
@@ -160,10 +160,6 @@
 
     <!-- 仮押さえ一括 -->
     <section class="preregister-wrap section-wrap">
-      <div class="ttl-box d-flex align-items-center bg-green">
-        <h3>仮押さえ内容</h3>
-      </div>
-
       <table class="table ttl_head">
           <tbody>
             <tr>

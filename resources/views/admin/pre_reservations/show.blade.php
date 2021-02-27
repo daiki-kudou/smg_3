@@ -37,9 +37,9 @@
           <tbody>
             <tr>
               <td>
-                <h2 class="text-white">
+                <h3 class="text-white">
                   仮押さえ概要
-                </h2>
+                </h3>
               </td>
               <td>
                 <dl class="ttl_box">
@@ -520,9 +520,9 @@
         <tbody>
           <tr>
             <td>
-              <h2 class="text-white">
+              <h3 class="text-white">
                 請求情報
-              </h2>
+              </h3>
             </td>
           </tr>
         </tbody>
