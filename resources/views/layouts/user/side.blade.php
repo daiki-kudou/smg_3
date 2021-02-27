@@ -35,7 +35,7 @@
       </li>
 
       <li class="nav-item has-treeview">
-        <a href="#" class="nav-link ">
+        <a href="{{route('user.home.user_info')}}" class="nav-link ">
           <i class="nav-icon fas fa-user-shield" style=""></i>
           <p>登録情報</p>
         </a>

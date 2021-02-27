@@ -365,6 +365,7 @@
                 <label class="form-check-label" for="remember">
                   ログイン状態を保持する
                 </label>
+                <p><a href="{{url('user/password/reset')}}" target="_blank">パスワードをお忘れの方はこちら</a></p>
               </div>
             </div>
           </div>

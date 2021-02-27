@@ -18,6 +18,7 @@ Route::get('calender/venue_calendar', 'CalendarsController@venue_calendar');
 | ユーザー用ルート
 |--------------------------------------------------------------------------|
 */
+
 Route::namespace('User')->prefix('user')->name('user.')->group(function () {
 
   Auth::routes(['register' => true, 'confirm' => true, 'reset' => true,]);
@@ -25,11 +26,16 @@ Route::namespace('User')->prefix('user')->name('user.')->group(function () {
   // Route::middleware('verified')->group(function () {  
   //verfified一旦停止
   Route::middleware('auth')->group(function () {
+    Route::get('home/user_info', 'HomeController@user_info')->name('home.user_info');
+
     Route::resource('home', 'HomeController');
     Route::put('home/{home}/update_status', 'HomeController@updateStatus')->name('home.updatestatus');
     Route::get('home/generate_invoice/{home}', 'HomeController@generate_invoice')->name('home.generate_invoice');
     Route::put('home/{home}/update_other_bills', 'HomeController@updateOtherBillsStatus');
+
     Route::get('pre_reservations', 'PreReservationsController@index')->name('per_reservations.index');
+
+
 
     // 以下、ユーザーからの予約経路
     // 例外でgetリクエスト
