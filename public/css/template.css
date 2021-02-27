@@ -711,6 +711,11 @@ table td.table_column p:last-child {
     /* border: solid 1px #ced4da; */
 }
 
+.register-wrap {
+    border: 2px solid #35a7a7;
+    padding: 3%;
+}
+
 .calendar {
     padding: 3%;
     border: 1px solid #dee2e6;

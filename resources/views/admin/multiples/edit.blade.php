@@ -42,7 +42,7 @@
         <tbody>
           <tr>
             <td class="text-white d-flex align-items-center">
-              <h3 >
+              <h3>
                 仮押さえ一括ID:<span class="mr-1">{{$multiple->id}}</span>
               </h3>
               <h4 class="ml-2">{{ReservationHelper::getVenue($venue->id)}}</h4>
@@ -52,358 +52,357 @@
 
       {{ Form::open(['url' => 'admin/multiples/'.$multiple->id."/edit/".$venue->id.'/calculate', 'method'=>'POST', 'id'=>'']) }}
       @csrf
-      <section class="mt-4">
-        <div class="register-wrap">
-          <div class="mb-2">
-            <p>同じ内容をすべての日程に反映することができます。</p>
-          </div>
-          <dl class="card">
-            <dt class="card-header accordion-ttl2">
-              <ul class="title-icon active d-flex">
-                <li class="col-3">
-                  <p>コピー作成用選択欄</p>
-                </li>
-                <li class="plus_icon">
-                </li>
-              </ul>
-            </dt>
-            <dt class="accordion-wrap p-3" style="display: none;">
-              <div class="row">
-                <!-- 左側の項目------------------------------------------------------------------------ -->
-                <div class="col">
-                  <table class="table table-bordered">
+      <section class="mt-4 border-inwrap">
+        <div class="mb-2">
+          <p>同じ内容をすべての日程に反映することができます。</p>
+        </div>
+        <dl class="card">
+          <dt class="card-header accordion-ttl2">
+            <ul class="title-icon active d-flex">
+              <li class="col-3">
+                <p>コピー作成用選択欄</p>
+              </li>
+              <li class="plus_icon">
+              </li>
+            </ul>
+          </dt>
+          <dt class="accordion-wrap p-3" style="display: none;">
+            <div class="row">
+              <!-- 左側の項目------------------------------------------------------------------------ -->
+              <div class="col">
+                <table class="table table-bordered">
+                  <tbody>
+                    <tr>
+                      <td colspan="2">
+                        <p class="title-icon">
+                          <i class="fas fa-info-circle icon-size" aria-hidden="true"></i>
+                          予約情報
+                        </p>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td class="table-active"><label for="direction">料金体系</label></td>
+                      <td>
+                        <div class="">
+                          <div>
+                            {{ Form::radio('cp_master_price_system', 1, true, ['class'=>'mr-2', 'id'=>'cp_master_price_system_radio1']) }}
+                            {{Form::label('cp_master_price_system_radio1','通常（枠貸）')}}
+                          </div>
+                          <div>
+                            {{ Form::radio('cp_master_price_system', 2, false, ['class'=>'mr-2', 'id'=>'cp_master_price_system_radio2']) }}
+                            {{Form::label('cp_master_price_system_radio2','アクセア（時間貸）')}}
+                          </div>
+                        </div>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td class="table-active"><label for="direction">案内板</label></td>
+                      <td>
+                        <div>
+                          <div>
+                            {{ Form::radio('cp_master_board_flag', 1, false, ['class'=>'mr-2', 'id'=>'cp_master_board_flag1']) }}
+                            {{Form::label('cp_master_board_flag1','あり')}}
+                          </div>
+                          <div>
+                            {{ Form::radio('cp_master_board_flag', 0, true, ['class'=>'mr-2', 'id'=>'cp_master_board_flagboard_flag2']) }}
+                            {{Form::label('cp_master_board_flagboard_flag2','なし')}}
+                          </div>
+                        </div>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td class="table-active"><label for="eventTime">イベント時間記載</label></td>
+                      <td>
+                        <div>
+                          <div>
+                            {{ Form::radio('cp_master_event', 1, false, ['class'=>'mr-2', 'id'=>'cp_master_event1']) }}
+                            {{Form::label('cp_master_event1','あり')}}
+                          </div>
+                          <div>
+                            {{ Form::radio('cp_master_event', 0, true, ['class'=>'mr-2', 'id'=>'cp_master_event2']) }}
+                            {{Form::label('cp_master_event2','なし')}}
+                          </div>
+                        </div>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td class="table-active"><label for="eventStart">イベント開始時間</label></td>
+                      <td>
+                        <select name="cp_master_event_start" id="cp_master_event_start" class="form-control">
+                          {!!ReservationHelper::timeOptions()!!}
+                        </select>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td class="table-active"><label for="eventFinish">イベント終了時間</label></td>
+                      <td>
+                        <select name="cp_master_event_finish" id="cp_master_event_finish" class="form-control">
+                          {!!ReservationHelper::timeOptions()!!}
+                        </select>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td class="table-active"><label for="eventName1">イベント名称1</label></td>
+                      <td>
+                        {{ Form::text('cp_master_event_name1','',['class'=>'form-control', 'placeholder'=>'入力してください'] ) }}
+                      </td>
+                    </tr>
+                    <tr>
+                      <td class="table-active"><label for="eventName2">イベント名称2</label></td>
+                      <td>
+                        {{ Form::text('cp_master_event_name2', '',['class'=>'form-control', 'placeholder'=>'入力してください'] ) }}
+                      </td>
+                    </tr>
+                    <tr>
+                      <td class="table-active"><label for="organizer">主催者名</label></td>
+                      <td>
+                        {{ Form::text('cp_master_event_owner', '',['class'=>'form-control', 'placeholder'=>'入力してください'] ) }}
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+                <table class="table table-bordered equipment-table">
+                  <thead class="accordion-ttl">
+                    <tr>
+                      <th colspan="2">
+                        <p class="title-icon active">有料備品</p>
+                      </th>
+                    </tr>
+                  </thead>
+                  <tbody class="accordion-wrap" style="display:none;">
+                    @foreach ($venue->getEquipments() as $key=>$equipment)
+                    <tr>
+                      <td class="table-active">{{$equipment->item}}</td>
+                      <td>
+                        {{Form::text('cp_master_equipment_breakdown' . $key , '', ['class' => 'form-control'])}}
+                      </td>
+                    </tr>
+                    @endforeach
+                  </tbody>
+                </table>
+
+                <table class="table table-bordered service-table">
+                  <thead class="accordion-ttl">
+                    <tr>
+                      <th colspan="2">
+                        <p class="title-icon active">有料サービス<span class="open_toggle"></span></p>
+                      </th>
+                    </tr>
+                  </thead>
+                  <tbody class="accordion-wrap" style="display: none;">
+                    @foreach ($venue->getServices() as $key=>$service)
+                    <tr>
+                      <td class="table-active">{{$service->item}}</td>
+                      <td>
+                        <div class="form-check form-check-inline">
+                          {{Form::radio('cp_master_services_breakdown'.$key, 1, false , ['id' => 'cp_master_service'.$key.'on', 'class' => 'form-check-input'])}}
+                          {{Form::label('cp_master_service'.$key.'on','有り')}}
+                          {{Form::radio('cp_master_services_breakdown'.$key, 0, true, ['id' => 'cp_master_service'.$key.'off', 'class' => 'form-check-input'])}}
+                          {{Form::label('cp_master_service'.$key.'on','無し')}}
+                        </div>
+                      </td>
+                    </tr>
+                    @endforeach
+                  </tbody>
+                </table>
+                <table class="table table-bordered layout-table">
+                  <thead class="accordion-ttl">
+                    <tr>
+                      <th colspan="2">
+                        <p class="title-icon active">レイアウト<span class="open_toggle"></span></p>
+                      </th>
+                    </tr>
+                  </thead>
+                  <tbody class="accordion-wrap" style="display: none;">
+                    @if ($venue->getLayouts()[0])
+                    <tr>
+                      <td class="table-active">レイアウト準備</td>
+                      <td>
+                        <div class="form-check form-check-inline">
+                          {{Form::radio('cp_master_layout_prepare', 1, false, ['id' => 'cp_master_layout_prepare', 'class' => 'form-check-input'])}}
+                          {{Form::label('cp_master_layout_prepare','有り')}}
+                          {{Form::radio('cp_master_layout_prepare', 0, true, ['id' => 'cp_master_no_layout_prepare', 'class' => 'form-check-input'])}}
+                          {{Form::label('cp_master_no_layout_prepare','無し')}}
+                        </div>
+                      </td>
+                    </tr>
+                    @endif
+                    @if ($venue->getLayouts()[1])
+                    <tr>
+                      <td class="table-active">レイアウト片付け</td>
+                      <td>
+                        <div class="form-check form-check-inline">
+                          {{Form::radio('cp_master_layout_clean', 1, false, ['id' => 'cp_master_layout_clean', 'class' => 'form-check-input'])}}
+                          {{Form::label('cp_master_layout_clean','有り')}}
+                          {{Form::radio('cp_master_layout_clean', 0, true, ['id' => 'cp_master_no_layout_clean', 'class' => 'form-check-input'])}}
+                          {{Form::label('cp_master_no_layout_clean','無し')}}
+                        </div>
+                      </td>
+                    </tr>
+                    @endif
+                  </tbody>
+                </table>
+
+                <table class="table table-bordered luggage-table" style="table-layout: fixed;">
+                  <thead class="accordion-ttl">
+                    <tr>
+                      <th colspan="2">
+                        <p class="title-icon active">荷物預かり<span class="open_toggle"></span></p>
+                      </th>
+                    </tr>
+                  </thead>
+                  <tbody class="accordion-wrap" style="display: none;">
+                    @if ($venue->getLuggage()===1)
+                    <tr>
+                      <td class="table-active">事前に預かる荷物<br>（個数）</td>
+                      <td>
+                        {{ Form::text('cp_master_luggage_count', '',['class'=>'form-control'] ) }}
+                      </td>
+                    </tr>
+                    <tr>
+                      <td class="table-active">事前荷物の到着日<br>午前指定のみ</td>
+                      <td>
+                        {{ Form::text('cp_master_luggage_arrive', '',['class'=>'form-control'] ) }}
+                      </td>
+                    </tr>
+                    <tr>
+                      <td class="table-active">事後返送する荷物</td>
+                      <td>
+                        {{ Form::text('cp_master_luggage_return', '',['class'=>'form-control'] ) }}
+                      </td>
+                    </tr>
+                    <tr>
+                      <td class="table-active">荷物預かり/返送<br>料金</td>
+                      <td>
+                        {{ Form::text('cp_master_luggage_price', '',['class'=>'form-control'] ) }}
+                      </td>
+                    </tr>
+                    @endif
+                  </tbody>
+                </table>
+
+
+
+                <table class="table table-bordered eating-table">
+                  <tbody>
+                    <tr>
+                      <th>
+                        <p class="title-icon">室内飲食</p>
+                      </th>
+                    </tr>
+                    <tr>
+                      <td>
+                        <div class="radio-box">
+                          <div class="icheck-primary">
+                            <input type="radio" id="eatin" name="eatin" checked="">
+                            <label for="eatin">あり</label>
+                          </div>
+                          <div class="icheck-primary">
+                            <input type="radio" id="eatin" name="eatin" checked="">
+                            <label for="eatin">手配済</label>
+                          </div>
+                          <div class="icheck-primary">
+                            <input type="radio" id="eatin" name="eatin" checked="">
+                            <label for="eatin">検討中</label>
+                          </div>
+                          <div class="icheck-primary">
+                            <input type="radio" id="eatin" name="eatin" checked="">
+                            <label for="eatin">なし</label>
+                          </div>
+                        </div>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+              <!-- 左側の項目 終わり-------------------------------------------------- -->
+
+
+              <!-- 右側の項目-------------------------------------------------- -->
+              <div class="col">
+
+                <div class="customer-table">
+                  <table class="table table-bordered oneday-table">
                     <tbody>
                       <tr>
                         <td colspan="2">
                           <p class="title-icon">
-                            <i class="fas fa-info-circle icon-size" aria-hidden="true"></i>
-                            予約情報
+                            <i class="fas fa-user icon-size" aria-hidden="true"></i>
+                            当日の連絡できる担当者
                           </p>
                         </td>
                       </tr>
                       <tr>
-                        <td class="table-active"><label for="direction">料金体系</label></td>
+                        <td class="table-active"><label for="ondayName">氏名</label></td>
                         <td>
-                          <div class="">
-                            <div>
-                              {{ Form::radio('cp_master_price_system', 1, true, ['class'=>'mr-2', 'id'=>'cp_master_price_system_radio1']) }}
-                              {{Form::label('cp_master_price_system_radio1','通常（枠貸）')}}
-                            </div>
-                            <div>
-                              {{ Form::radio('cp_master_price_system', 2, false, ['class'=>'mr-2', 'id'=>'cp_master_price_system_radio2']) }}
-                              {{Form::label('cp_master_price_system_radio2','アクセア（時間貸）')}}
-                            </div>
-                          </div>
+                          {{ Form::text('cp_master_in_charge', '',['class'=>'form-control'] ) }}
                         </td>
                       </tr>
                       <tr>
-                        <td class="table-active"><label for="direction">案内板</label></td>
+                        <td class="table-active"><label for="mobilePhone">携帯番号</label></td>
                         <td>
-                          <div>
-                            <div>
-                              {{ Form::radio('cp_master_board_flag', 1, false, ['class'=>'mr-2', 'id'=>'cp_master_board_flag1']) }}
-                              {{Form::label('cp_master_board_flag1','あり')}}
-                            </div>
-                            <div>
-                              {{ Form::radio('cp_master_board_flag', 0, true, ['class'=>'mr-2', 'id'=>'cp_master_board_flagboard_flag2']) }}
-                              {{Form::label('cp_master_board_flagboard_flag2','なし')}}
-                            </div>
-                          </div>
-                        </td>
-                      </tr>
-                      <tr>
-                        <td class="table-active"><label for="eventTime">イベント時間記載</label></td>
-                        <td>
-                          <div>
-                            <div>
-                              {{ Form::radio('cp_master_event', 1, false, ['class'=>'mr-2', 'id'=>'cp_master_event1']) }}
-                              {{Form::label('cp_master_event1','あり')}}
-                            </div>
-                            <div>
-                              {{ Form::radio('cp_master_event', 0, true, ['class'=>'mr-2', 'id'=>'cp_master_event2']) }}
-                              {{Form::label('cp_master_event2','なし')}}
-                            </div>
-                          </div>
-                        </td>
-                      </tr>
-                      <tr>
-                        <td class="table-active"><label for="eventStart">イベント開始時間</label></td>
-                        <td>
-                          <select name="cp_master_event_start" id="cp_master_event_start" class="form-control">
-                            {!!ReservationHelper::timeOptions()!!}
-                          </select>
-                        </td>
-                      </tr>
-                      <tr>
-                        <td class="table-active"><label for="eventFinish">イベント終了時間</label></td>
-                        <td>
-                          <select name="cp_master_event_finish" id="cp_master_event_finish" class="form-control">
-                            {!!ReservationHelper::timeOptions()!!}
-                          </select>
-                        </td>
-                      </tr>
-                      <tr>
-                        <td class="table-active"><label for="eventName1">イベント名称1</label></td>
-                        <td>
-                          {{ Form::text('cp_master_event_name1','',['class'=>'form-control', 'placeholder'=>'入力してください'] ) }}
-                        </td>
-                      </tr>
-                      <tr>
-                        <td class="table-active"><label for="eventName2">イベント名称2</label></td>
-                        <td>
-                          {{ Form::text('cp_master_event_name2', '',['class'=>'form-control', 'placeholder'=>'入力してください'] ) }}
-                        </td>
-                      </tr>
-                      <tr>
-                        <td class="table-active"><label for="organizer">主催者名</label></td>
-                        <td>
-                          {{ Form::text('cp_master_event_owner', '',['class'=>'form-control', 'placeholder'=>'入力してください'] ) }}
-                        </td>
-                      </tr>
-                    </tbody>
-                  </table>
-                  <table class="table table-bordered equipment-table">
-                    <thead class="accordion-ttl">
-                      <tr>
-                        <th colspan="2">
-                          <p class="title-icon active">有料備品</p>
-                        </th>
-                      </tr>
-                    </thead>
-                    <tbody class="accordion-wrap" style="display:none;">
-                      @foreach ($venue->getEquipments() as $key=>$equipment)
-                      <tr>
-                        <td class="table-active">{{$equipment->item}}</td>
-                        <td>
-                          {{Form::text('cp_master_equipment_breakdown' . $key , '', ['class' => 'form-control'])}}
-                        </td>
-                      </tr>
-                      @endforeach
-                    </tbody>
-                  </table>
-
-                  <table class="table table-bordered service-table">
-                    <thead class="accordion-ttl">
-                      <tr>
-                        <th colspan="2">
-                          <p class="title-icon active">有料サービス<span class="open_toggle"></span></p>
-                        </th>
-                      </tr>
-                    </thead>
-                    <tbody class="accordion-wrap" style="display: none;">
-                      @foreach ($venue->getServices() as $key=>$service)
-                      <tr>
-                        <td class="table-active">{{$service->item}}</td>
-                        <td>
-                          <div class="form-check form-check-inline">
-                            {{Form::radio('cp_master_services_breakdown'.$key, 1, false , ['id' => 'cp_master_service'.$key.'on', 'class' => 'form-check-input'])}}
-                            {{Form::label('cp_master_service'.$key.'on','有り')}}
-                            {{Form::radio('cp_master_services_breakdown'.$key, 0, true, ['id' => 'cp_master_service'.$key.'off', 'class' => 'form-check-input'])}}
-                            {{Form::label('cp_master_service'.$key.'on','無し')}}
-                          </div>
-                        </td>
-                      </tr>
-                      @endforeach
-                    </tbody>
-                  </table>
-                  <table class="table table-bordered layout-table">
-                    <thead class="accordion-ttl">
-                      <tr>
-                        <th colspan="2">
-                          <p class="title-icon active">レイアウト<span class="open_toggle"></span></p>
-                        </th>
-                      </tr>
-                    </thead>
-                    <tbody class="accordion-wrap" style="display: none;">
-                      @if ($venue->getLayouts()[0])
-                      <tr>
-                        <td class="table-active">レイアウト準備</td>
-                        <td>
-                          <div class="form-check form-check-inline">
-                            {{Form::radio('cp_master_layout_prepare', 1, false, ['id' => 'cp_master_layout_prepare', 'class' => 'form-check-input'])}}
-                            {{Form::label('cp_master_layout_prepare','有り')}}
-                            {{Form::radio('cp_master_layout_prepare', 0, true, ['id' => 'cp_master_no_layout_prepare', 'class' => 'form-check-input'])}}
-                            {{Form::label('cp_master_no_layout_prepare','無し')}}
-                          </div>
-                        </td>
-                      </tr>
-                      @endif
-                      @if ($venue->getLayouts()[1])
-                      <tr>
-                        <td class="table-active">レイアウト片付け</td>
-                        <td>
-                          <div class="form-check form-check-inline">
-                            {{Form::radio('cp_master_layout_clean', 1, false, ['id' => 'cp_master_layout_clean', 'class' => 'form-check-input'])}}
-                            {{Form::label('cp_master_layout_clean','有り')}}
-                            {{Form::radio('cp_master_layout_clean', 0, true, ['id' => 'cp_master_no_layout_clean', 'class' => 'form-check-input'])}}
-                            {{Form::label('cp_master_no_layout_clean','無し')}}
-                          </div>
-                        </td>
-                      </tr>
-                      @endif
-                    </tbody>
-                  </table>
-
-                  <table class="table table-bordered luggage-table" style="table-layout: fixed;">
-                    <thead class="accordion-ttl">
-                      <tr>
-                        <th colspan="2">
-                          <p class="title-icon active">荷物預かり<span class="open_toggle"></span></p>
-                        </th>
-                      </tr>
-                    </thead>
-                    <tbody class="accordion-wrap" style="display: none;">
-                      @if ($venue->getLuggage()===1)
-                      <tr>
-                        <td class="table-active">事前に預かる荷物<br>（個数）</td>
-                        <td>
-                          {{ Form::text('cp_master_luggage_count', '',['class'=>'form-control'] ) }}
-                        </td>
-                      </tr>
-                      <tr>
-                        <td class="table-active">事前荷物の到着日<br>午前指定のみ</td>
-                        <td>
-                          {{ Form::text('cp_master_luggage_arrive', '',['class'=>'form-control'] ) }}
-                        </td>
-                      </tr>
-                      <tr>
-                        <td class="table-active">事後返送する荷物</td>
-                        <td>
-                          {{ Form::text('cp_master_luggage_return', '',['class'=>'form-control'] ) }}
-                        </td>
-                      </tr>
-                      <tr>
-                        <td class="table-active">荷物預かり/返送<br>料金</td>
-                        <td>
-                          {{ Form::text('cp_master_luggage_price', '',['class'=>'form-control'] ) }}
-                        </td>
-                      </tr>
-                      @endif
-                    </tbody>
-                  </table>
-
-
-
-                  <table class="table table-bordered eating-table">
-                    <tbody>
-                      <tr>
-                        <th>
-                          <p class="title-icon">室内飲食</p>
-                        </th>
-                      </tr>
-                      <tr>
-                        <td>
-                          <div class="radio-box">
-                            <div class="icheck-primary">
-                              <input type="radio" id="eatin" name="eatin" checked="">
-                              <label for="eatin">あり</label>
-                            </div>
-                            <div class="icheck-primary">
-                              <input type="radio" id="eatin" name="eatin" checked="">
-                              <label for="eatin">手配済</label>
-                            </div>
-                            <div class="icheck-primary">
-                              <input type="radio" id="eatin" name="eatin" checked="">
-                              <label for="eatin">検討中</label>
-                            </div>
-                            <div class="icheck-primary">
-                              <input type="radio" id="eatin" name="eatin" checked="">
-                              <label for="eatin">なし</label>
-                            </div>
-                          </div>
+                          {{ Form::text('cp_master_tel', '',['class'=>'form-control'] ) }}
                         </td>
                       </tr>
                     </tbody>
                   </table>
                 </div>
-                <!-- 左側の項目 終わり-------------------------------------------------- -->
 
-
-                <!-- 右側の項目-------------------------------------------------- -->
-                <div class="col">
-
-                  <div class="customer-table">
-                    <table class="table table-bordered oneday-table">
-                      <tbody>
-                        <tr>
-                          <td colspan="2">
-                            <p class="title-icon">
-                              <i class="fas fa-user icon-size" aria-hidden="true"></i>
-                              当日の連絡できる担当者
-                            </p>
-                          </td>
-                        </tr>
-                        <tr>
-                          <td class="table-active"><label for="ondayName">氏名</label></td>
-                          <td>
-                            {{ Form::text('cp_master_in_charge', '',['class'=>'form-control'] ) }}
-                          </td>
-                        </tr>
-                        <tr>
-                          <td class="table-active"><label for="mobilePhone">携帯番号</label></td>
-                          <td>
-                            {{ Form::text('cp_master_tel', '',['class'=>'form-control'] ) }}
-                          </td>
-                        </tr>
-                      </tbody>
-                    </table>
-                  </div>
-
-                  <table class="table table-bordered mail-table">
-                    <tbody>
-                      <tr>
-                        <td colspan="2">
-                          <p class="title-icon">
-                            <i class="fas fa-envelope icon-size" aria-hidden="true"></i>
-                            利用後の送信メール
-                          </p>
-                        </td>
-                      </tr>
-                      <tr>
-                        <td class="table-active"><label for="sendMail">送信メール</label></td>
-                        <td>
-                          <div class="d-flex">
-                            <div class="form-check form-check-inline">
-                              {{Form::radio('cp_master_email_flag', 1, false, ['id' => 'cp_master_email_flag', 'class' => 'form-check-input'])}}
-                              {{Form::label('cp_master_email_flag','有り',['class'=>'mr-5'])}}
-                              {{Form::radio('cp_master_email_flag', 0, true, ['id' => 'cp_master_no_email_flag', 'class' => 'form-check-input'])}}
-                              {{Form::label('cp_master_no_email_flag','無し')}}
-                            </div>
+                <table class="table table-bordered mail-table">
+                  <tbody>
+                    <tr>
+                      <td colspan="2">
+                        <p class="title-icon">
+                          <i class="fas fa-envelope icon-size" aria-hidden="true"></i>
+                          利用後の送信メール
+                        </p>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td class="table-active"><label for="sendMail">送信メール</label></td>
+                      <td>
+                        <div class="d-flex">
+                          <div class="form-check form-check-inline">
+                            {{Form::radio('cp_master_email_flag', 1, false, ['id' => 'cp_master_email_flag', 'class' => 'form-check-input'])}}
+                            {{Form::label('cp_master_email_flag','有り',['class'=>'mr-5'])}}
+                            {{Form::radio('cp_master_email_flag', 0, true, ['id' => 'cp_master_no_email_flag', 'class' => 'form-check-input'])}}
+                            {{Form::label('cp_master_no_email_flag','無し')}}
                           </div>
-                        </td>
-                      </tr>
-                    </tbody>
-                  </table>
+                        </div>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
 
-                  <table class="table table-bordered sale-table">
-                    <tbody>
-                      <tr>
-                        <td colspan="2">
-                          <p class="title-icon">
-                            <i class="fas fa-yen-sign icon-size" aria-hidden="true"></i>
-                            売上原価
-                          </p>
-                        </td>
-                      </tr>
-                      <tr>
-                        <td class="table-active"><label for="sale">原価率</label></td>
-                        <td class="d-flex align-items-center">
-                          {{ Form::text('cp_master_cost', '',['class'=>'form-control'] ) }}%
-                        </td>
-                      </tr>
-                    </tbody>
-                  </table>
-                  <table class="table table-bordered note-table">
-                    <tbody>
-                      <tr>
-                        <td colspan="2">
-                          <p class="title-icon">
-                            <i class="fas fa-file-alt icon-size" aria-hidden="true"></i>
-                            備考
-                          </p>
-                        </td>
-                      </tr>
-                      <!-- <tr>
+                <table class="table table-bordered sale-table">
+                  <tbody>
+                    <tr>
+                      <td colspan="2">
+                        <p class="title-icon">
+                          <i class="fas fa-yen-sign icon-size" aria-hidden="true"></i>
+                          売上原価
+                        </p>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td class="table-active"><label for="sale">原価率</label></td>
+                      <td class="d-flex align-items-center">
+                        {{ Form::text('cp_master_cost', '',['class'=>'form-control'] ) }}%
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+                <table class="table table-bordered note-table">
+                  <tbody>
+                    <tr>
+                      <td colspan="2">
+                        <p class="title-icon">
+                          <i class="fas fa-file-alt icon-size" aria-hidden="true"></i>
+                          備考
+                        </p>
+                      </td>
+                    </tr>
+                    <!-- <tr>
                         <td>
                           <p>
                             <input type="checkbox" id="discount" checked="">
@@ -418,34 +417,33 @@
                           {{ Form::textarea('cp_master_attention', '',['class'=>'form-control'] ) }}
                         </td>
                       </tr> -->
-                      <tr>
-                        <td>
-                          <label for="adminNote">管理者備考</label>
-                          {{ Form::textarea('cp_master_admin_details', '',['class'=>'form-control'] ) }}
-                        </td>
-                      </tr>
-                    </tbody>
-                  </table>
-                </div>
-                <!-- 右側の項目 終わり-------------------------------------------------- -->
+                    <tr>
+                      <td>
+                        <label for="adminNote">管理者備考</label>
+                        {{ Form::textarea('cp_master_admin_details', '',['class'=>'form-control'] ) }}
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
               </div>
-            </dt>
-            <!-- /.card-body -->
-          </dl>
-          <!-- コピー作成用フィールド   終わり--------------------------------------------------　 -->
-          <div class="btn_wrapper">
-            <p class="text-center">
-              {{ Form::submit('計算する', ['class' => 'btn more_btn_lg'])}}
-              {{ Form::close() }}
-            </p>
-          </div>
+              <!-- 右側の項目 終わり-------------------------------------------------- -->
+            </div>
+          </dt>
+          <!-- /.card-body -->
+        </dl>
+        <!-- コピー作成用フィールド   終わり--------------------------------------------------　 -->
+        <div class="btn_wrapper">
+          <p class="text-center">
+            {{ Form::submit('計算する', ['class' => 'btn more_btn_lg'])}}
+            {{ Form::close() }}
+          </p>
         </div>
       </section>
-      <ul class="register-list-header">
+      <ul class="register-list-header mt-4">
         <li class="from-group">
-            <!-- <input class="form-check-input" type="checkbox"> -->
-            <input class="mr-1" type="checkbox" name="all_check" id="all_check" />
-            <label class="form-check-label">すべてチェックする</label>
+          <!-- <input class="form-check-input" type="checkbox"> -->
+          <input class="mr-1" type="checkbox" name="all_check" id="all_check" />
+          <label class="form-check-label">すべてチェックする</label>
         </li>
         <li>
           <p><a class="more_btn4" href="">削除</a></p>
@@ -465,9 +463,9 @@
       <!-- 仮押さえ一括 タブ-->
       <div class="register-list-item">
         <div class="from-group">
-            <input type="checkbox" name="{{'delete_check'.$pre_reservation->id}}" value="{{$pre_reservation->id}}" class="checkbox" />
-            <!-- <input class="form-check-input" type="checkbox"> -->
-            <label class="form-check-label"></label>
+          <input type="checkbox" name="{{'delete_check'.$pre_reservation->id}}" value="{{$pre_reservation->id}}" class="checkbox mr-1" />
+          <!-- <input class="form-check-input" type="checkbox"> -->
+          <label class="form-check-label"></label>
         </div>
         <dl class="card">
           <dt class="card-header accordion-ttl2">
@@ -1404,66 +1402,66 @@
       </table>
     </div> -->
 
-  <section class="master_totals border-wrap">
-  <table class="table">
-    <tbody class="master_total_head">
-      <tr>
-        <td colspan="2">
-          <h3>
-            合計請求額
-            <span>({{$multiple->pre_reservations()->get()->count()}}件分)</span>
-          </h3>
-        </td>
-      </tr>
-    </tbody>
-    <tr>
-      <td colspan="2" class="master_total_subttl">
-        <h4 >内訳</h4>
-      </td>
-    </tr>
-    <tbody class="master_total_body">
-      <tr>
-        <td>・会場料</td>
-        <td>{{$multiple->sumVenues($venue->id)}}円</td>
-      </tr>
-      <tr>
-        <td>・有料備品　サービス</td>
-        <td>{{$multiple->sumEquips($venue->id)}}円</td>
-      </tr>
-      <tr>
-        <td>・レイアウト変更料</td>
-        <td>{{$multiple->sumLayouts($venue->id)}}円</td>
-      </tr>
-      <tr>
-        <td>・その他</td>
-        <td>ダミー円</td>
-      </tr>
-    </tbody>
-    <tbody class="master_total_bottom">
-      <tr>
-        <td></td>
-        <td class="d-flex justify-content-end" colspan="2">
-          <p>小計：</p>
-          <p>{{$multiple->sumMasterSubs($venue->id)}}円</p>
-        </td>
-      </tr>
-      <tr>
-        <td></td>
-        <td class="d-flex justify-content-end" colspan="2">
-          <p>消費税：</p>
-          <p>{{$multiple->sumMasterTax($venue->id)}}円</p>
-        </td>
-      </tr>
-      <tr>
-        <td></td>
-        <td class="d-flex justify-content-end" colspan="2">
-          <p>合計金額：</p>
-          <p>{{$multiple->sumMasterTotal($venue->id)}}円</p>
-        </td>
-      </tr>
-    </tbody>
-  </table>
-</section>
+    <section class="master_totals border-wrap">
+      <table class="table">
+        <tbody class="master_total_head">
+          <tr>
+            <td colspan="2">
+              <h3>
+                合計請求額
+                <span>({{$multiple->pre_reservations()->get()->count()}}件分)</span>
+              </h3>
+            </td>
+          </tr>
+        </tbody>
+        <tr>
+          <td colspan="2" class="master_total_subttl">
+            <h4>内訳</h4>
+          </td>
+        </tr>
+        <tbody class="master_total_body">
+          <tr>
+            <td>・会場料</td>
+            <td>{{$multiple->sumVenues($venue->id)}}円</td>
+          </tr>
+          <tr>
+            <td>・有料備品　サービス</td>
+            <td>{{$multiple->sumEquips($venue->id)}}円</td>
+          </tr>
+          <tr>
+            <td>・レイアウト変更料</td>
+            <td>{{$multiple->sumLayouts($venue->id)}}円</td>
+          </tr>
+          <tr>
+            <td>・その他</td>
+            <td>ダミー円</td>
+          </tr>
+        </tbody>
+        <tbody class="master_total_bottom">
+          <tr>
+            <td></td>
+            <td class="d-flex justify-content-end" colspan="2">
+              <p>小計：</p>
+              <p>{{$multiple->sumMasterSubs($venue->id)}}円</p>
+            </td>
+          </tr>
+          <tr>
+            <td></td>
+            <td class="d-flex justify-content-end" colspan="2">
+              <p>消費税：</p>
+              <p>{{$multiple->sumMasterTax($venue->id)}}円</p>
+            </td>
+          </tr>
+          <tr>
+            <td></td>
+            <td class="d-flex justify-content-end" colspan="2">
+              <p>合計金額：</p>
+              <p>{{$multiple->sumMasterTotal($venue->id)}}円</p>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
 
     <ul class="d-flex col-12 justify-content-around mt-5 align-items-center">
       <li>
