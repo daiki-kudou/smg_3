@@ -351,5 +351,7 @@ class Reservation extends Model
 
     // return ($query);
     return $query->paginate(10);
+
+    検索の雛形はこれでOK
   }
 }
