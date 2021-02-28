@@ -36,7 +36,7 @@
           <tr>
             <td>
               <h3 class="text-white">
-                仮押さえ概要
+                予約概要
               </h3>
             </td>
             <td>
@@ -53,8 +53,7 @@
             </td>
         </tbody>
       </table>
-
-      <section>
+      <section class="register-wrap">
         <div class="bill_status">
           <table class="table">
             <tbody>
@@ -117,66 +116,52 @@
                     {{$reservation->leave_time}}
                   </td>
                 </tr>
-
-              </tbody>
-            </table>
-
-            <table class="table table-bordered board-table">
-              <tr>
-                <td colspan="2">
-                  <div class="d-flex align-items-center justify-content-between">
-                    <p class="title-icon">
-                      <i class="fas fa-clipboard icon-size"></i>案内版
+                <tr>
+                  <td class="table-active"><label for="direction">案内板</label></td>
+                  <td class="d-flex justify-content-between">
+                    <p>
+                      {{$reservation->board_flag}}
                     </p>
-                  </div>
-                </td>
-              </tr>
-              <tr>
-                <td class="table-active"><label for="direction">案内板</label></td>
-                <td class="d-flex justify-content-between">
-                  <p>
-                    {{$reservation->board_flag}}
-                  </p>
-                  <p><a class="more_btn" href="">案内板出力(PDF)</a></p>
-                </td>
-              </tr>
-              <tr>
-                <td class="table-active"><label for="eventTime">イベント時間記載</label></td>
-                <td>
-                  {{isset($reservation->event_start)?'有り':"無し"}}
-                </td>
-              </tr>
-              <tr>
-                <td class="table-active"><label for="eventStart">イベント開始時間</label></td>
-                <td>
-                  {{isset($reservation->event_start)?$reservation->event_start:"無し"}}
-                </td>
-              </tr>
-              <tr>
-                <td class="table-active"><label for="eventFinish">イベント終了時間</label></td>
-                <td>
-                  {{isset($reservation->event_finish)?$reservation->event_finish:"無し"}}
-                </td>
-              </tr>
-              <tr>
-                <td class="table-active"><label for="eventName1">イベント名称1</label></td>
-                <td>
-                  {{$reservation->event_name1}}
-                </td>
-              </tr>
-              <tr>
-                <td class="table-active"><label for="eventName2">イベント名称2</label></td>
-                <td>
-                  {{$reservation->event_name2}}
-                </td>
-              </tr>
-              <tr>
-                <td class="table-active"><label for="organizer">主催者名</label></td>
-                <td>
-                  {{$reservation->event_owner}}
-                </td>
-              </tr>
-
+                    <p><a class="more_btn" href="">案内板出力(PDF)</a></p>
+                  </td>
+                </tr>
+                <tr>
+                  <td class="table-active"><label for="eventTime">イベント時間記載</label></td>
+                  <td>
+                    {{isset($reservation->event_start)?'有り':"無し"}}
+                  </td>
+                </tr>
+                <tr>
+                  <td class="table-active"><label for="eventStart">イベント開始時間</label></td>
+                  <td>
+                    {{isset($reservation->event_start)?$reservation->event_start:"無し"}}
+                  </td>
+                </tr>
+                <tr>
+                  <td class="table-active"><label for="eventFinish">イベント終了時間</label></td>
+                  <td>
+                    {{isset($reservation->event_finish)?$reservation->event_finish:"無し"}}
+                  </td>
+                </tr>
+                <tr>
+                  <td class="table-active"><label for="eventName1">イベント名称1</label></td>
+                  <td>
+                    {{$reservation->event_name1}}
+                  </td>
+                </tr>
+                <tr>
+                  <td class="table-active"><label for="eventName2">イベント名称2</label></td>
+                  <td>
+                    {{$reservation->event_name2}}
+                  </td>
+                </tr>
+                <tr>
+                  <td class="table-active"><label for="organizer">主催者名</label></td>
+                  <td>
+                    {{$reservation->event_owner}}
+                  </td>
+                </tr>
+              </tbody>
             </table>
 
             <div class="customer-table">
@@ -207,7 +192,6 @@
             </div>
           </div>
           <!-- 左側の項目 終わり-------------------------------------------------- -->
-
 
           <!-- 右側の項目-------------------------------------------------- -->
           <script>
@@ -261,113 +245,84 @@
                 @endif
                 @endforeach
                 @endforeach
+                <tr>
+                  <td class="table-active"><label for="layout">レイアウト変更</label></td>
+                  <td>
+                    @foreach ($reservation->bills()->first()->get() as $layout)
+                    {{$layout->layout_total?'有り':'無し'}}
+                    @endforeach
+                  </td>
+                </tr>
+                <tr>
+                  <td class="table-active"><label for="prelayout">レイアウト準備</label></td>
+                  <td>
+                    @foreach ($reservation->bills()->first()->breakdowns()->get() as $item)
+                    @if ($item->unit_item=="レイアウト準備")
+                    有り
+                    @endif
+                    @endforeach
+                  </td>
+                </tr>
+                <tr>
+                  <td class="table-active"><label for="postlayout">レイアウト片付</label></td>
+                  <td>
+                    @foreach ($reservation->bills()->first()->breakdowns()->get() as $item)
+                    @if ($item->unit_item=="レイアウト片付")
+                    有り
+                    @endif
+                    @endforeach
+                  </td>
+                </tr>
+                <tr>
+                  <td class="table-active"><label for="Delivery">荷物預かり/返送</label></td>
+                  <td>
+                    @foreach ($reservation->bills()->first()->breakdowns()->get() as $item)
+                    @if ($item->unit_item=="荷物預かり/返送")
+                    有り
+                    @endif
+                    @endforeach
+                  </td>
+                </tr>
+                <tr>
+                  <td class="table-active"><label for="preDelivery">事前に預かる荷物</label></td>
+                  <td>
+                    <ul class="table-cell-box">
+                      <li>
+                        <p>
+                          {{$reservation->luggage_count?'有り':'無し'}}
+                        </p>
+                      </li>
+                      <li class="d-flex justify-content-between">
+                        <p>荷物個数</p>
+                        <p>
+                          {{$reservation->luggage_count}}個
+                        </p>
+                      </li>
+                      <li class="d-flex justify-content-between">
+                        <p>事前荷物の到着日</p>
+                        <p>{{$reservation->luggage_arrive}}</p>
+                      </li>
+                    </ul>
+                  </td>
+                </tr>
+                <tr>
+                  <td class="table-active"><label for="postDelivery">事後返送する荷物</label></td>
+                  <td>
+                    <ul class="table-cell-box">
+                      <li>
+                        <p>
+                          {{$reservation->luggage_return?'有り':'無し'}}
+                        </p>
+                      </li>
+                      <li class="d-flex justify-content-between">
+                        <p>荷物個数</p>
+                        <p>{{$reservation->luggage_return}}個</p>
+                      </li>
+                    </ul>
+                  </td>
+                </tr>
               </tbody>
             </table>
-
-            <div class='layouts'>
-              <table class='table table-bordered' style="table-layout:fixed;">
-                <thead>
-                  <tr>
-                    <th colspan='2'>レイアウト</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr>
-                    <td class="table-active"><label for="layout">レイアウト変更</label></td>
-                    <td>
-                      @foreach ($reservation->bills()->first()->get() as $layout)
-                      {{$layout->layout_total?'有り':'無し'}}
-                      @endforeach
-                    </td>
-                  </tr>
-                  <tr>
-                    <td class="table-active"><label for="prelayout">レイアウト準備</label></td>
-                    <td>
-                      @foreach ($reservation->bills()->first()->breakdowns()->get() as $item)
-                      @if ($item->unit_item=="レイアウト準備")
-                      有り
-                      @endif
-                      @endforeach
-                    </td>
-                  </tr>
-                  <tr>
-                    <td class="table-active"><label for="postlayout">レイアウト片付</label></td>
-                    <td>
-                      @foreach ($reservation->bills()->first()->breakdowns()->get() as $item)
-                      @if ($item->unit_item=="レイアウト片付")
-                      有り
-                      @endif
-                      @endforeach
-                    </td>
-                  </tr>
-                </tbody>
-              </table>
-            </div>
-
-            <div class='luggage'>
-              <table class='table table-bordered' style="table-layout:fixed;">
-                <thead>
-                  <tr>
-                    <th colspan='2'>荷物預かり</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr>
-                    <td class="table-active"><label for="Delivery">荷物預かり/返送</label></td>
-                    <td>
-                      @foreach ($reservation->bills()->first()->breakdowns()->get() as $item)
-                      @if ($item->unit_item=="荷物預かり/返送")
-                      有り
-                      @endif
-                      @endforeach
-                    </td>
-                  </tr>
-                  <tr>
-                    <td class="table-active"><label for="preDelivery">事前に預かる荷物</label></td>
-                    <td>
-                      <ul class="table-cell-box">
-                        <li>
-                          <p>
-                            {{$reservation->luggage_count?'有り':'無し'}}
-                          </p>
-                        </li>
-                        <li class="d-flex justify-content-between">
-                          <p>荷物個数</p>
-                          <p>
-                            {{$reservation->luggage_count}}個
-                          </p>
-                        </li>
-
-                        <li class="d-flex justify-content-between">
-                          <p>事前荷物の到着日</p>
-                          <p>
-                            {{$reservation->luggage_arrive}}
-                          </p>
-                        </li>
-                      </ul>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td class="table-active"><label for="postDelivery">事後返送する荷物</label></td>
-                    <td>
-                      <ul class="table-cell-box">
-                        <li>
-                          <p>
-                            {{$reservation->luggage_return?'有り':'無し'}}
-                          </p>
-                        </li>
-                        <li class="d-flex justify-content-between">
-                          <p>荷物個数</p>
-                          <p>
-                            {{$reservation->luggage_return}}個
-                          </p>
-                        </li>
-                      </ul>
-                    </td>
-                  </tr>
-                </tbody>
-              </table>
-            </div>
 
             <table class="table table-bordered eating-table">
               <tbody>
@@ -399,8 +354,11 @@
           </div>
           <!-- 右側の項目 終わり-------------------------------------------------- -->
         </div>
-      </section>
 
+
+
+      </section>
+    <!-- 予約詳細   終わり--------------------------------------------------　 -->
 
       <!-- 請求セクション------------------------------------------------------------------- -->
       <section class="mt-5">
@@ -441,7 +399,7 @@
             @endif
           </div>
 
-          {{-- 静的ページ --工藤さんPHPの実装をお願いします--}}
+          <!-- 静的ページ --工藤さんPHPの実装をお願いします -->
           <div class="bill_details">
             <div class="head d-flex">
               <div class="accordion_btn">
@@ -640,6 +598,7 @@
         </div>
       </section>
     </div>
+
     <!-- 合計請求額------------------------------------------------------------------- -->
     <section class="master_totals border-wrap">
       <table class="table">
@@ -702,6 +661,7 @@
     </section>
 
     <!-- ステータスが予約承認まちのときに表示 -->
+
     @if ($reservation->bills()->first()->reservation_status==2)
     <div class="confirm-box">
       <p>上記、予約内容で間違いないでしょうか。問題なければ、予約の承認をお願い致します。</p>
@@ -720,24 +680,6 @@
     </div>
     @endif
 
-    {{-- 承認部分 --}}
-    @if ($other_bill->reservation_status==2)
-    <div class="confirm-box">
-      <p>上記、予約内容で間違いないでしょうか。問題なければ、予約の承認をお願い致します。</p>
-      <p class="text-center mb-5 mt-3">
-        {{ Form::open(['url' => '/user/home/'.$other_bill->id.'/update_other_bills', 'method'=>'PUT', 'id'=>'agents_create_form']) }}
-        @csrf
-        {{ Form::hidden('update_status',3) }}
-        {{ Form::hidden('bill_id',$other_bill->id) }}
-
-        {{ Form::submit('予約を承認する',['class' => 'btn more_btn4_lg']) }}
-        {{ Form::close() }}
-      </p>
-      <p>※ご要望に相違がある場合は、下記連絡先までご連絡ください。<br>
-        TEL：06-1234-5678<br>
-        mail：test@gmail.com</p>
-    </div>
-    @endif
 
     <!-- ステータスが予約完了のときに表示 -->
     @if ($reservation->bills()->first()->reservation_status>2)
@@ -755,162 +697,381 @@
     </div>
     @endif
 
-
-
     <div class="btn_wrapper">
       <p class="text-center"><a class="more_btn_lg" href="">予約一覧へもどる</a></p>
     </div>
+
   </div>
 </div>
-
 @endsection
 
-<!-- <div class="bill-box">
-  <h3 class="row">会場料</h3>
-  <dl class="row bill-box_wrap">
-    <div class="col-3 bill-box_cell">
-      <dt>会場料金</dt>
-      <dd>
-        @foreach ($reservation->bills()->first()->breakdowns as $breakdowns)
-        @if ($breakdowns->unit_item=="会場料金")
-        {{$breakdowns->unit_cost}}
-        @endif
-        @endforeach
-      </dd>
-    </div>
-    <div class="col-3 bill-box_cell">
-      <dt>延長料金</dt>
-      <dd>
-        @foreach ($reservation->bills()->first()->breakdowns as $breakdowns)
-        @if ($breakdowns->unit_item=="延長料金")
-        {{$breakdowns->unit_cost}}
-        @endif
-        @endforeach
-      </dd>
-    </div>
-    <div class="col-6 bill-box_cell">
-      <dt>会場料金合計</dt>
-      <dd class="text-right">
-        {{$reservation->bills()->first()->venue_total}}
-      </dd>
-    </div>
-  </dl>
 
-  <div class="bill-list">
-    <h3 class="row">料金内訳</h3>
-    <div class="col-12 venue_price_details">
-      <table class="table table-bordered">
-        <thead>
-          <tr>
-            <td>内容</td>
-            <td>単価</td>
-            <td>数量</td>
-            <td>金額</td>
-          </tr>
-        </thead>
-        <tbody>
-          @foreach ($reservation->bills()->first()->breakdowns as $breakdown)
-          @if ($breakdown->unit_type==1)
-          <tr>
-            <td>{{$breakdown->unit_item}}</td>
-            <td>{{$breakdown->unit_cost}}</td>
-            <td>{{$breakdown->unit_count}}</td>
-            <td>{{$breakdown->unit_subtotal}}</td>
-          </tr>
+<!-- 請求セクション元データ-------------------------------------------------------------------
+<section class="bill-wrap section-wrap section-bg">
+  <div class="bill-bg">
+
+    {{-- ステータス３は予約完了 --}}
+    @if ($reservation->bills()->first()->reservation_status>=3)
+    <div class="bill-ttl mb-5">
+      <div class="section-ttl-box d-flex align-items-center">
+        <div class="col-6">
+          <h3 class="">請求情報</h3>
+        </div>
+        <div class="col-6 d-flex justify-content-end">
+          <p class="text-right">
+            {{-- <a class="more_btn" href="{{url('user.home.generate_invoice')}}">請求書をみる</a> --}}
+            <a href="{{ url('user/home/generate_invoice/'.$reservation->id) }}" class="more_btn">請求書を見る</a>
+
+          </p>
+          @if ($reservation->bills()->first()->paid==1)
+          <p class="text-right ml-3"><a class="more_btn" href="">領収書をみる</a></p>
           @endif
-          @endforeach
-        </tbody>
-      </table>
+        </div>
+      </div>
+      <dl class="row bill-box_wrap">
+        <div class="col-4 bill-box_cell">
+          <dt><label for="billCompany">請求No</label></dt>
+          <dd>2020092225</dd>
+        </div>
+        <div class="col-4 bill-box_cell">
+          <dt><label for="billCustomer">請求日</label></dt>
+          <dd>2020/09/02</dd>
+        </div>
+        <div class="col-4 bill-box_cell">
+          <dt><label for="billDate">支払期日</label></dt>
+          <dd>2020/12/10(木)</dd>
+        </div>
+      </dl>
     </div>
+    @endif
+    <div class="bill-box">
+      <h3 class="row">会場料</h3>
+      <dl class="row bill-box_wrap">
+        <div class="col-3 bill-box_cell">
+          <dt>会場料金</dt>
+          <dd>
+            @foreach ($reservation->bills()->first()->breakdowns as $breakdowns)
+            @if ($breakdowns->unit_item=="会場料金")
+            {{$breakdowns->unit_cost}}
+            @endif
+            @endforeach
+          </dd>
+        </div>
+        <div class="col-3 bill-box_cell">
+          <dt>延長料金</dt>
+          <dd>
+            @foreach ($reservation->bills()->first()->breakdowns as $breakdowns)
+            @if ($breakdowns->unit_item=="延長料金")
+            {{$breakdowns->unit_cost}}
+            @endif
+            @endforeach
+          </dd>
+        </div>
+        <div class="col-6 bill-box_cell">
+          <dt>会場料金合計</dt>
+          <dd class="text-right">
+            {{$reservation->bills()->first()->venue_total}}
+          </dd>
+        </div>
+      </dl>
+      <div class="bill-list">
+        <h3 class="row">料金内訳</h3>
+        <div class="col-12 venue_price_details">
+          <table class="table table-bordered">
+            <thead>
+              <tr>
+                <td>内容</td>
+                <td>単価</td>
+                <td>数量</td>
+                <td>金額</td>
+              </tr>
+            </thead>
+            <tbody>
+              @foreach ($reservation->bills()->first()->breakdowns as $breakdown)
+              @if ($breakdown->unit_type==1)
+              <tr>
+                <td>{{$breakdown->unit_item}}</td>
+                <td>{{$breakdown->unit_cost}}</td>
+                <td>{{$breakdown->unit_count}}</td>
+                <td>{{$breakdown->unit_subtotal}}</td>
+              </tr>
+              @endif
+              @endforeach
+            </tbody>
+          </table>
+        </div>
 
-    <div class="row bill-box_wrap price-sum bill-box_cell flex-column">
-      <p class="text-right">
-        <span class="font-weight-bold">小計</span>
-        {{$reservation->bills()->first()->discount_venue_total}}
-      </p>
-      <p class="text-right">
-        <span>消費税</span>
-        {{ReservationHelper::getTax($reservation->bills()->first()->discount_venue_total)}}
-      </p>
-      <p class="text-right">
-        <span class="font-weight-bold">合計金額</span>
-        {{ReservationHelper::taxAndPrice($reservation->bills()->first()->discount_venue_total)}}
-      </p>
+        <div class="row bill-box_wrap price-sum bill-box_cell flex-column">
+          <p class="text-right">
+            <span class="font-weight-bold">小計</span>
+            {{$reservation->bills()->first()->discount_venue_total}}
+          </p>
+          <p class="text-right">
+            <span>消費税</span>
+            {{ReservationHelper::getTax($reservation->bills()->first()->discount_venue_total)}}
+          </p>
+          <p class="text-right">
+            <span class="font-weight-bold">合計金額</span>
+            {{ReservationHelper::taxAndPrice($reservation->bills()->first()->discount_venue_total)}}
+          </p>
+        </div>
+      </div>
+    </div>
+    <div class="bill-box">
+      <h3 class="row">備品その他</h3>
+      <dl class="row bill-box_wrap">
+        <div class="col-3 bill-box_cell">
+          <dt>有料備品料金</dt>
+          <dd>
+            {{$reservation->bills()->first()->equipment_total}}
+            円
+          </dd>
+        </div>
+        <div class="col-3 bill-box_cell">
+          <dt>有料サービス料金</dt>
+          <dd>
+            {{$reservation->bills()->first()->service_total}}
+            円
+          </dd>
+        </div>
+        <div class="col-3 bill-box_cell">
+          <dt>荷物預かり/返送</dt>
+          <dd class="d-flex align-items-center">
+            {{$reservation->bills()->first()->luggage_total}}
+            円
+          </dd>
+        </div>
+        <div class="col-3 bill-box_cell">
+          <dt>備品その他合計</dt>
+          <dd class="text-right">
+            {{$reservation->bills()->first()->equipment_service_total}}
+          </dd>
+        </div>
+      </dl>
+      <div class="bill-list">
+        <h3 class="row">料金内訳</h3>
+        <div class="col-12 items_equipments">
+          <table class="table table-bordered">
+            <thead>
+              <tr>
+                <td>内容</td>
+                <td>単価</td>
+                <td>数量</td>
+                <td>金額</td>
+              </tr>
+            </thead>
+            <tbody>
+              @foreach ($reservation->bills()->first()->breakdowns as $breakdown)
+              @if ($breakdown->unit_type==2)
+              <tr>
+                <td>{{$breakdown->unit_item}}</td>
+                <td>{{$breakdown->unit_cost}}</td>
+                <td>{{$breakdown->unit_count}}</td>
+                <td>{{$breakdown->unit_subtotal}}</td>
+              </tr>
+              @endif
+              @endforeach
+            </tbody>
+          </table>
+        </div>
+
+        <div class="row bill-box_wrap price-sum bill-box_cell flex-column">
+          <p class="text-right">
+            <span class="font-weight-bold">小計</span>
+            {{$reservation->bills()->first()->discount_equipment_service_total}}
+          </p>
+          <p class="text-right">
+            <span>消費税</span>
+            {{ReservationHelper::getTax($reservation->bills()->first()->discount_equipment_service_total)}}
+          </p>
+          <p class="text-right">
+            <span class="font-weight-bold">合計金額</span>
+            {{ReservationHelper::taxAndPrice($reservation->bills()->first()->discount_equipment_service_total)}}
+          </p>
+        </div>
+      </div>
+
+    </div>
+    <div class="bill-box layout_price_list">
+      <h3 class="row">レイアウト変更</h3>
+      <dl class="row bill-box_wrap">
+        <div class="col-4 bill-box_cell">
+          <dt>レイアウト準備料金</dt>
+          <dd>
+            <p class="layout_prepare_result">
+
+            </p>
+          </dd>
+        </div>
+        <div class="col-4 bill-box_cell">
+          <dt>レイアウト片付料金</dt>
+          <dd>
+            <p class="layout_clean_result"></p>
+          </dd>
+        </div>
+        <div class="col-4 bill-box_cell">
+          <dt>レイアウト変更合計</dt>
+          <dd class="text-right">
+            <p class="layout_total"></p>
+          </dd>
+        </div>
+      </dl>
+      <div class="bill-list">
+        <h3 class="row">料金内訳</h3>
+        <div class="col-12 items_equipments">
+          <table class="table table-bordered">
+            <thead>
+              <tr>
+                <td>内容</td>
+                <td>単価</td>
+                <td>数量</td>
+                <td>金額</td>
+              </tr>
+            </thead>
+            <tbody>
+            </tbody>
+          </table>
+        </div>
+
+        <div class="row bill-box_wrap price-sum bill-box_cell flex-column">
+          <p class="text-right"><span class="font-weight-bold">小計</span>7,200円</p>
+          <p class="text-right"><span>消費税</span>720円</p>
+          <p class="text-right"><span class="font-weight-bold">合計金額</span>7,200円</p>
+        </div>
+      </div>
     </div>
   </div>
-</div>
+</section> -->
 
-<div class="bill-box">
-  <h3 class="row">備品その他</h3>
-  <dl class="row bill-box_wrap">
-    <div class="col-3 bill-box_cell">
-      <dt>有料備品料金</dt>
-      <dd>
-        {{$reservation->bills()->first()->equipment_total}}
-        円
-      </dd>
-    </div>
-    <div class="col-3 bill-box_cell">
-      <dt>有料サービス料金</dt>
-      <dd>
-        {{$reservation->bills()->first()->service_total}}
-        円
-      </dd>
-    </div>
-    <div class="col-3 bill-box_cell">
-      <dt>荷物預かり/返送</dt>
-      <dd class="d-flex align-items-center">
-        {{$reservation->bills()->first()->luggage_total}}
-        円
-      </dd>
-    </div>
-    <div class="col-3 bill-box_cell">
-      <dt>備品その他合計</dt>
-      <dd class="text-right">
-        {{$reservation->bills()->first()->equipment_service_total}}
-      </dd>
-    </div>
-  </dl>
-  <div class="bill-list">
-    <h3 class="row">料金内訳</h3>
-    <div class="col-12 items_equipments">
-      <table class="table table-bordered">
-        <thead>
-          <tr>
-            <td>内容</td>
-            <td>単価</td>
-            <td>数量</td>
-            <td>金額</td>
-          </tr>
-        </thead>
-        <tbody>
-          @foreach ($reservation->bills()->first()->breakdowns as $breakdown)
-          @if ($breakdown->unit_type==2)
-          <tr>
-            <td>{{$breakdown->unit_item}}</td>
-            <td>{{$breakdown->unit_cost}}</td>
-            <td>{{$breakdown->unit_count}}</td>
-            <td>{{$breakdown->unit_subtotal}}</td>
-          </tr>
-          @endif
-          @endforeach
-        </tbody>
-      </table>
-    </div>
 
-    <div class="row bill-box_wrap price-sum bill-box_cell flex-column">
-      <p class="text-right">
-        <span class="font-weight-bold">小計</span>
-        {{$reservation->bills()->first()->discount_equipment_service_total}}
-      </p>
-      <p class="text-right">
-        <span>消費税</span>
-        {{ReservationHelper::getTax($reservation->bills()->first()->discount_equipment_service_total)}}
-      </p>
-      <p class="text-right">
-        <span class="font-weight-bold">合計金額</span>
-        {{ReservationHelper::taxAndPrice($reservation->bills()->first()->discount_equipment_service_total)}}
-      </p>
+<!-- 追加請求元データ
+@foreach ($other_bills as $key=>$other_bill)
+    <div class="section-wrap">
+      <div class="ttl-box d-flex align-items-center">
+        <div class="col-9 d-flex justify-content-between">
+          <h2>
+            @if ($other_bill->category==2)
+            その他の有料備品、サービス
+            @elseif($other_bill->category==3)
+            レイアウト
+            @elseif($other_bill->category==4)
+            その他
+            @endif
+          </h2>
+        </div>
+      </div>
+      <section class="register-wrap">
+        <div class="section-header">
+          <div class="row">
+            <div class="d-flex col-10 flex-wrap">
+              <dl>
+                <dt>予約状況</dt>
+                <dd>{{ReservationHelper::judgeStatus($other_bill->reservation_status)}}</dd>
+              </dl>
+            </div>
+            <div class="col-2">
+              <p>
+                申込日：2020/10/15(木)
+              </p>
+              <p>
+                予約確定日：2020/10/15(木)
+              </p>
+            </div>
+          </div>
+        </div>
+        <section class="section-wrap section-bg">
+          <div class="bill-ttl mb-5">
+            <div class="section-ttl-box d-flex align-items-center">
+              <div class="col-6">
+                <h3 class="">請求情報</h3>
+              </div>
+              <div class="col-6 d-flex justify-content-end">
+                <p class="text-right"><a class="more_btn" href="">請求書をみる</a></p>
+                <p class="text-right ml-3"><a class="more_btn" href="">領収書をみる</a></p>
+              </div>
+            </div>
+            <dl class="row bill-box_wrap">
+              <div class="col-4 bill-box_cell">
+                <dt><label for="billCompany">請求No</label></dt>
+                <dd>2020092225</dd>
+              </div>
+              <div class="col-4 bill-box_cell">
+                <dt><label for="billCustomer">請求日</label></dt>
+                <dd>2020/09/02</dd>
+              </div>
+              <div class="col-4 bill-box_cell">
+                <dt><label for="billDate">支払期日</label></dt>
+                <dd>2020/12/10(木)</dd>
+              </div>
+            </dl>
+          </div>
+          <div class="bill-box">
+            <h3 class="row">その他の有料備品、サービス</h3>
+            <dl class="row bill-box_wrap">
+              <div class="col-12 bill-box_cell">
+                <dt>その他の有料備品、サービス合計</dt>
+                <dd class="text-right">57,700円</dd>
+              </div>
+              <div class="col-6">
+                <div class="row">
+                  <div class="col-4 bill-box_cell cell-gray">
+                    <p>割引率</p>
+                  </div>
+                  <div class="col-5 bill-box_cell">
+                    <p class="text-right"></p>
+                  </div>
+                  <div class="col-3 bill-box_cell text-right">
+                    <p>割引金額</p>
+                    <p class=""><span>円</span></p>
+                  </div>
+                </div>
+              </div>
+              <div class="col-6 bill-box_cell text-right">
+                <p class="font-weight-bold">割引後その他の有料備品、サービス合計</p>
+                <p class=""></p>
+              </div>
+            </dl>
+            <div class="bill-list">
+              <h3 class="row">料金内訳</h3>
+              <div class="col-12 venue_price_details">
+                <table class="table table-bordered">
+                  <thead>
+                    <tr>
+                      <td>内容</td>
+                      <td>単価</td>
+                      <td>数量</td>
+                      <td>金額</td>
+                    </tr>
+                  </thead>
+                  <tbody></tbody>
+                </table>
+              </div>
+              <div class="row bill-box_wrap price-sum bill-box_cell flex-column">
+                <p class="text-right"><span class="font-weight-bold">小計</span>7,200円</p>
+                <p class="text-right"><span>消費税</span>720円</p>
+                <p class="text-right"><span class="font-weight-bold">合計金額</span>7,200円</p>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {{-- 承認部分 --}}
+        @if ($other_bill->reservation_status==2)
+        <div class="confirm-box">
+          <p>上記、予約内容で間違いないでしょうか。問題なければ、予約の承認をお願い致します。</p>
+          <p class="text-center mb-5 mt-3">
+            {{ Form::open(['url' => '/user/home/'.$other_bill->id.'/update_other_bills', 'method'=>'PUT', 'id'=>'agents_create_form']) }}
+            @csrf
+            {{ Form::hidden('update_status',3) }}
+            {{ Form::hidden('bill_id',$other_bill->id) }}
+
+            {{ Form::submit('予約を承認する',['class' => 'btn more_btn4_lg']) }}
+            {{ Form::close() }}
+          </p>
+          <p>※ご要望に相違がある場合は、下記連絡先までご連絡ください。<br>
+            TEL：06-1234-5678<br>
+            mail：test@gmail.com</p>
+        </div>
+        @endif
     </div>
-  </div>
-</div> -->
+    @endforeach -->
