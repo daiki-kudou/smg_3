@@ -480,6 +480,8 @@
       <!-- 請求セクション　静的ページ --工藤さんPHPの実装をお願いします---------------------------------------------------------------- -->
       <section class="mt-5">
         <div class="bill">
+          {{-- ステータス３は予約完了 --}}
+          @if ($reservation->bills()->first()->reservation_status>=3)
           <div class="bill_head">
             <table class="table bill_table">
               <tbody>
