@@ -184,7 +184,14 @@
 </div>
 
 <!-- ドラッグアンドドロップ移動 -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
 <script type="text/javascript" src="https://code.jquery.com/ui/1.12.0/jquery-ui.min.js"></script>
+
+<script type="text/javascript">
+$(function() {
+  $("#sortableArea").sortable();
+});
+</script>
 
 <script>
   $(function() {
