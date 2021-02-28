@@ -228,9 +228,6 @@ table {
     /* table-layout: fixed; */
 }
 
-/* .content-wrapper {
-    min-width: 1200px;
-}
 /* 共通--------------------------------------- */
 
 .content-wrapper {
@@ -426,6 +423,16 @@ table {
 
 .table_row {
     white-space: nowrap;
+}
+
+
+.nav-tabs .nav-link.active, .nav-tabs .nav-item.show .nav-link {
+    color: #495057;
+    background-color: #ddd;
+}
+
+.nav-tabs .nav-item a {
+    color: #333;
 }
 
 
