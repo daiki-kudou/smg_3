@@ -17,7 +17,7 @@
           </ol>
         </nav>
       </div>
-      <h1 class="mt-3 mb-5">仮抑え一覧</h1>
+      <h2 class="mt-3 mb-3">仮押さえ 一覧</h2>
       <hr>
     </div>
 

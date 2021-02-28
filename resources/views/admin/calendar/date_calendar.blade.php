@@ -6,10 +6,27 @@
 <script src="{{ asset('/js/template.js') }}"></script>
 
 
-<div class="date_calender_wrapper" id="date_calender_wrapper">
+<div class="container-field mt-3">
+  <div class="float-right">
+    <nav aria-label="breadcrumb">
+      <ol class="breadcrumb">
+        <li class="breadcrumb-item active">
+          <a href="http://staging-smg2.herokuapp.com/admin/home">ホーム</a>
+          ダミーダミーダミー
+        </li>
+      </ol>
+    </nav>
+  </div>
+
+  <h2 class="mt-3 mb-3">予約状況カレンダーカレンダー</h2>
+  <hr>
+</div>
+
+
+<div class="date_calender_wrapper section-wrap" id="date_calender_wrapper">
   <div class="calender-ttl">
     <h3>予約状況</h3>
-  
+
     <div class="d-flex align-items-center">
       <div class="row w-100">
         <div class="col text-right">
@@ -35,7 +52,7 @@
         </div>
       </div>
     </div>
-  
+
   </div>
   <ul class="calender-color">
     <li class="li-bg-reserve">予約済み</li>
@@ -43,7 +60,7 @@
     <li class="li-bg-empty">空室</li>
     <li class="li-bg-closed">休業日</li>
   </ul>
-  
+
   <table class="table table-bordered calender-flame">
     <thead>
       <tr class="calender-head">
@@ -102,11 +119,6 @@
   </table>
 </div>
 
-
-
-
-
-
 @foreach ($reservations as $reservation)
 <input type="hidden" name="reservation_id" value="{{$reservation->id}}">
 <input type="hidden" name="venue_id" value="{{$reservation->venue_id}}">
@@ -119,41 +131,95 @@
 @endforeach
 
 
+<div class="calender-note section-wrap">
+  <table class="table table-bordered">
+    <thead>
+      <tr>
+        <th>時間</th>
+        <th>会場</th>
+        <th>会社名</th>
+        <th>対応内容</th>
+        <th class="btn-cell">編集</th>
+      </tr>
+    </thead>
+    <tbody id="sortableArea">
+      <tr>
+        <td>8:00までに</td>
+        <td>カーニープレイス</td>
+        <td>トゥルーノース</td>
+        <td>マーカー、イレイザーの回収をお願いします。</td>
+        <td>
+          <a class="more_btn" href="">編集</a>
+        </td>
+      </tr>
+      <tr>
+        <td>8:00までに</td>
+        <td>カーニープレイス</td>
+        <td>トゥルーノース</td>
+        <td>マーカー、イレイザーの回収をお願いします。</td>
+        <td>
+          <a class="more_btn" href="">編集</a>
+        </td>
+      </tr>
+      <tr>
+        <td>8:00までに</td>
+        <td>カーニープレイス</td>
+        <td>トゥルーノース</td>
+        <td>マーカー、イレイザーの回収をお願いします。</td>
+        <td>
+          <a class="more_btn" href="">編集</a>
+        </td>
+      </tr>
+      <tr>
+        <td>8:00までに</td>
+        <td>カーニープレイス</td>
+        <td>トゥルーノース</td>
+        <td>マーカー、イレイザーの回収をお願いします。</td>
+        <td>
+          <a class="more_btn" href="">編集</a>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<!-- ドラッグアンドドロップ移動 -->
+<script type="text/javascript" src="https://code.jquery.com/ui/1.12.0/jquery-ui.min.js"></script>
 
 <script>
-  $(function(){
-    $('#datepicker8').on('change',function(){
+  $(function() {
+    $('#datepicker8').on('change', function() {
       $('input[name="date"]').val($(this).val());
       $('#s_calendar').submit();
     })
   })
 
 
-  $(function(){
+  $(function() {
     for (let index = 0; index < $('input[name="start"]').length; index++) {
-    var reservation_id=$('input[name="reservation_id"]').eq(index).val();
-    var venue_id=$('input[name="venue_id"]').eq(index).val();
-    var venue_name=$('input[name="venue_name"]').eq(index).val();
-    var user_id=$('input[name="user_id"]').eq(index).val();
-    var start=$('input[name="start"]').eq(index).val();
-    var finish=$('input[name="finish"]').eq(index).val();
-    var status=$('input[name="status"]').eq(index).val();
+      var reservation_id = $('input[name="reservation_id"]').eq(index).val();
+      var venue_id = $('input[name="venue_id"]').eq(index).val();
+      var venue_name = $('input[name="venue_name"]').eq(index).val();
+      var user_id = $('input[name="user_id"]').eq(index).val();
+      var start = $('input[name="start"]').eq(index).val();
+      var finish = $('input[name="finish"]').eq(index).val();
+      var status = $('input[name="status"]').eq(index).val();
 
-    var json_result=JSON.parse('<?php echo $json_result; ?>');
-    var target_length=(json_result[index]).length;
-    for (let index2 = 0; index2 < target_length; index2++) {
-      //最後のみ描写しないためbreak
-      if (index2==target_length-1) {
-        break;
+      var json_result = JSON.parse('<?php echo $json_result; ?>');
+      var target_length = (json_result[index]).length;
+      for (let index2 = 0; index2 < target_length; index2++) {
+        //最後のみ描写しないためbreak
+        if (index2 == target_length - 1) {
+          break;
+        }
+        // 以下ステータス別色分け
+        if (status == 1) {
+          $("." + venue_name + "cal" + json_result[index][index2]).addClass('bg-prereserve');
+        } else if (status == 3) {
+          $("." + venue_name + "cal" + json_result[index][index2]).addClass('bg-reserve');
+        }
       }
-      // 以下ステータス別色分け
-      if (status==1) {
-        $("." + venue_name + "cal" + json_result[index][index2]).addClass('bg-prereserve');
-      }else if(status==3){
-        $("." + venue_name + "cal" + json_result[index][index2]).addClass('bg-reserve');
-      }
-    }
-    $('.bg-reserve:last').css('background','gray');
+      $('.bg-reserve:last').css('background', 'gray');
     }
 
   })

@@ -1,12 +1,6 @@
 @extends('layouts.admin.app')
 
 @section('content')
-
-
-
-
-
-
 <link href="{{ asset('/css/template.css') }}" rel="stylesheet">
 
 @foreach ($days as $key=>$day)
@@ -26,9 +20,23 @@
 @endforeach
 @endforeach
 
+<div class="container-field mt-3">
+  <div class="float-right">
+    <nav aria-label="breadcrumb">
+      <ol class="breadcrumb">
+        <li class="breadcrumb-item active">
+          <a href="http://staging-smg2.herokuapp.com/admin/home">ホーム</a>
+          ダミーダミーダミー
+        </li>
+      </ol>
+    </nav>
+  </div>
 
-<div class="calender-wrap">
+  <h2 class="mt-3 mb-3">予約状況カレンダーカレンダー</h2>
+  <hr>
+</div>
 
+<div class="calender-wrap section-wrap">
   <div class="calender-ttl">
     {{ Form::open(['url' => '/admin/calendar/venue_calendar', 'method' => 'post']) }}
     @csrf

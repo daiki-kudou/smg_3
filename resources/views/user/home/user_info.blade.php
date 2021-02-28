@@ -4,16 +4,8 @@
 {{-- <script src="{{ asset('/js/template.js') }}"></script>
 <script src="{{ asset('/js/ajax.js') }}"></script> --}}
 
-
-
-
-
-
 <div class="content">
   <div class="container-fluid">
-
-
-
 
     <div class="container-field mt-3">
       <div class="float-right">
@@ -25,7 +17,7 @@
           </ol>
         </nav>
       </div>
-      <h1 class="mt-3 mb-5">登録者情報</h1>
+      <h2 class="mt-3 mb-3">登録者情報</h2>
       <hr>
     </div>
 
