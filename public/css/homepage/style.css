@@ -26,7 +26,9 @@ ul.tagBtn li a {
     box-shadow: 0px 2px 0 rgb(36 43 51);
 }
 
-
+.is-error {
+  background: pink;
+}
 
 .page-text {
     text-align: center;
