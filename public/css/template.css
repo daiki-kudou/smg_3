@@ -649,6 +649,10 @@ table td.table_column p:last-child {
     background-color: rgb(255 0 0 / 8%);
 }
 
+.caution_color {
+    color: #DC3545;
+}
+
 .caution textarea {
     border: 1px solid #dc3545;
 }

@@ -31,7 +31,7 @@
 
     <!-- 予約詳細--------------------------------------------------------　 -->
     <div class="section-wrap">
-      <table class="table ttl_head">
+      <table class="table ttl_head mb-0">
         <tbody>
           <tr>
             <td>
@@ -53,7 +53,7 @@
             </td>
         </tbody>
       </table>
-      <section class="register-wrap">
+      <section class="border-wrap2 p-4">
         <div class="bill_status">
           <table class="table">
             <tbody>
@@ -503,11 +503,11 @@
                       <dd class="total_result">ダミー</dd>
                     </dl>
                   </td>
-                  <td>
-                    <a href="{{ url('user/home/generate_invoice/'.$reservation->id) }}" class="more_btn">請求書を見る</a>
+                  <td class="text-right">
+                    <a class="mr-1 more_btn" href="{{ url('user/home/generate_invoice/'.$reservation->id) }}">請求書を見る</a>
                     @if ($reservation->bills()->first()->paid==1)
                     <!-- ステータスが入金確認後に表示------ -->
-                    <p class="text-right ml-3"><a class="more_btn" href="">領収書をみる</a></p>
+                    <a class="more_btn" href="">領収書をみる</a>
                     @endif
                   </td>
                 </tr>
@@ -598,35 +598,265 @@
                       <td>1</td>
                       <td>1,000</td>
                     </tr>
+                  </tbody>
+                  <tbody class="equipment_result">
                     <tr>
-                      <td>【追加】次亜塩素酸水専用・超音波加湿器</td>
-                      <td>500</td>
+                      <td colspan="2"></td>
+                      <td colspan="1">合計：</td>
+                      <td colspan="1" class=""> 8,500</td>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+
+              <div class="layout billdetails_content">
+                <table class="table table-borderless">
+                  <tbody>
+                    <tr>
+                      <td>
+                        <h4 class="billdetails_content_ttl">
+                          レイアウト
+                        </h4>
+                      </td>
+                    </tr>
+                  </tbody>
+                  <tbody class="layout_head">
+                    <tr>
+                      <td>内容</td>
+                      <td>単価</td>
+                      <td>数量</td>
+                      <td>金額</td>
+                    </tr>
+                  </tbody>
+                  <tbody class="layout_main">
+                    <tr>
+                      <td>レイアウト準備料金</td>
+                      <td>5,000</td>
                       <td>1</td>
-                      <td>500</td>
+                      <td>5,000</td>
                     </tr>
                     <tr>
-                      <td>ホワイトボード（幅120㎝）</td>
-                      <td>2,500</td>
+                      <td>レイアウト片付料金</td>
+                      <td>8,000</td>
                       <td>1</td>
-                      <td>2,500</td>
+                      <td>8,000</td>
+                    </tr>
+                  </tbody>
+                  <tbody class="layout_result">
+                    <tr>
+                      <td colspan="1"></td>
+                      <td colspan="1">合計：</td>
+                      <td colspan="2">合計：13,000
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+
+              <div class="others billdetails_content">
+                <table class="table table-borderless">
+                  <tbody>
+                    <tr>
+                      <td colspan="4">
+                        　<h4 class="billdetails_content_ttl">
+                          その他
+                        </h4>
+                      </td>
+                    </tr>
+                  </tbody>
+                  <tbody class="others_head">
+                    <tr>
+                      <td>内容</td>
+                      <td>単価</td>
+                      <td>数量</td>
+                      <td>金額</td>
+                    </tr>
+                  </tbody>
+                  <tbody class="others_main">
+                    <tr>
+                      <td>ダミーダミーダミー</td>
+                      <td>ダミーダミーダミー</td>
+                      <td>ダミーダミーダミー</td>
+                      <td>ダミーダミーダミー</td>
+                    </tr>
+                  </tbody>
+                  <tbody class="others_result">
+                    <tr>
+                      <td colspan="2"></td>
+                      <td colspan="1"></td>
+                      <td colspan="2">合計：ダミー
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+              <div class="bill_total">
+                <div>
+                  <table class="table text-right">
+                    <tbody>
+                      <tr>
+                        <td>小計：</td>
+                        <td>
+                          57,500
+                        </td>
+                      </tr>
+                      <tr>
+                        <td>消費税：</td>
+                        <td>
+                          5,750
+                        </td>
+                      </tr>
+                      <tr>
+                        <td class="font-weight-bold">合計金額</td>
+                        <td>
+                          63,250
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- 追加請求セクション------------------------------------------------------------------- -->
+      <section class="mt-5">
+        <div class="bill">
+          <div class="bill_head2">
+            <table class="table bill_table">
+              <tbody>
+                <tr>
+                  <td>
+                    <h2 class="text-white">
+                      請求書No
+                    </h2>
+                  </td>
+                  <td>
+                    <dl class="ttl_box">
+                      <dt>合計金額</dt>
+                      <dd class="total_result">ダミー円</dd>
+                    </dl>
+                  </td>
+                  <td>
+                    <dl class="ttl_box">
+                      <dt>支払い期日</dt>
+                      <dd class="total_result">ダミー</dd>
+                    </dl>
+                  </td>
+                  <td class="text-right">
+                    <a class="mr-1 more_btn" href="{{ url('user/home/generate_invoice/'.$reservation->id) }}">請求書を見る</a>
+                    @if ($reservation->bills()->first()->paid==1)
+                    <!-- ステータスが入金確認後に表示------ -->
+                    <a class="more_btn" href="">領収書をみる</a>
+                    @endif
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <div class="bill_status">
+            <table class="table">
+              <tbody>
+                <tr>
+                  <td>
+                    <div class="d-flex">
+                      <p class="bg-status p-2">予約状況</p>
+                      <p class="border p-2">
+                        {{ReservationHelper::judgeStatus($reservation->bills()->first()->reservation_status)}}
+                      </p>
+                    </div>
+                  </td>
+                  <td class="text-right">
+                    <div><span>申込日：</span>{{ReservationHelper::formatDate($reservation->created_at)}}</div>
+                    <div><span>予約確定日：</span>※2020/10/15(木)</div>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <div class="bill_details">
+            <div class="head d-flex">
+              <div class="accordion_btn">
+                <i class="fas fa-plus bill_icon_size hide" aria-hidden="true"></i>
+                <i class="fas fa-minus bill_icon_size" aria-hidden="true"></i>
+              </div>
+              <div class="billdetails_ttl">
+                <h3>
+                  請求内訳
+                </h3>
+              </div>
+            </div>
+            <div class="main hide">
+              <div class="venues billdetails_content">
+                <table class="table table-borderless">
+                  <tbody>
+                    <tr>
+                      <td>
+                        <h4 class="billdetails_content_ttl">
+                          会場料
+                        </h4>
+                      </td>
+                    </tr>
+                  </tbody>
+                  <tbody class="venue_head">
+                    <tr>
+                      <td>内容</td>
+                      <td>単価</td>
+                      <td>数量</td>
+                      <td>金額</td>
+                    </tr>
+                  </tbody>
+                  <tbody class="venue_main">
+                    <tr>
+                      <td>会場料金</td>
+                      <td>36,000</td>
+                      <td>4</td>
+                      <td>36,000</td>
+                    </tr>
+                  </tbody>
+                  <tbody class="venue_result">
+                    <tr>
+                      <td colspan="2"></td>
+                      <td colspan="1">合計：</td>
+                      <td colspan="1" class=""> 36,000</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+
+              <div class="equipment billdetails_content">
+                <table class="table table-borderless">
+                  <tbody>
+                    <tr>
+                      <td colspan="4">
+                        <h4 class="billdetails_content_ttl">
+                          有料備品・サービス
+                        </h4>
+                      </td>
+                    </tr>
+                  </tbody>
+                  <tbody class="equipment_head">
+                    <tr>
+                      <td>内容</td>
+                      <td>単価</td>
+                      <td>数量</td>
+                      <td>金額</td>
+                    </tr>
+                  </tbody>
+                  <tbody class="equipment_main">
+                    <tr>
+                      <td>無線マイク</td>
+                      <td>3,000</td>
+                      <td>1</td>
+                      <td>3,000</td>
                     </tr>
                     <tr>
-                      <td>領収書発行</td>
-                      <td>200</td>
+                      <td>次亜塩素酸水専用・超音波加湿器＋スプレーボトル</td>
+                      <td>1,000</td>
                       <td>1</td>
-                      <td>200</td>
-                    </tr>
-                    <tr>
-                      <td>鍵レンタル</td>
-                      <td>500</td>
-                      <td>1</td>
-                      <td>500</td>
-                    </tr>
-                    <tr>
-                      <td>荷物預かり/返送</td>
-                      <td>800</td>
-                      <td>1</td>
-                      <td>800</td>
+                      <td>1,000</td>
                     </tr>
                   </tbody>
                   <tbody class="equipment_result">
@@ -683,6 +913,43 @@
                   </tbody>
                 </table>
               </div>
+
+              <div class="others billdetails_content">
+                <table class="table table-borderless">
+                  <tbody>
+                    <tr>
+                      <td colspan="4">
+                        　<h4 class="billdetails_content_ttl">
+                          その他
+                        </h4>
+                      </td>
+                    </tr>
+                  </tbody>
+                  <tbody class="others_head">
+                    <tr>
+                      <td>内容</td>
+                      <td>単価</td>
+                      <td>数量</td>
+                      <td>金額</td>
+                    </tr>
+                  </tbody>
+                  <tbody class="others_main">
+                    <tr>
+                      <td>ダミーダミーダミー</td>
+                      <td>ダミーダミーダミー</td>
+                      <td>ダミーダミーダミー</td>
+                      <td>ダミーダミーダミー</td>
+                    </tr>
+                  </tbody>
+                  <tbody class="others_result">
+                    <tr>
+                      <td colspan="2"></td>
+                      <td colspan="1"></td>
+                      <td colspan="2">合計：ダミー
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
               <div class="bill_total">
                 <div>
                   <table class="table text-right">
@@ -703,177 +970,6 @@
                         <td class="font-weight-bold">合計金額</td>
                         <td>
                           63,250
-                        </td>
-                      </tr>
-                    </tbody>
-                  </table>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <!-- 追加請求セクション------------------------------------------------------------------- -->
-      <section class="section-wrap">
-        <div class="bill">
-          <div class="bill_head2">
-            <table class="table bill_table">
-              <tbody>
-                <tr>
-                  <td>
-                    <h2 class="text-white">
-                      請求書No
-                    </h2>
-                  </td>
-                  <td>
-                    <dl class="ttl_box">
-                      <dt>合計金額</dt>
-                      <dd class="total_result">ダミー円</dd>
-                    </dl>
-                  </td>
-                  <td>
-                    <dl class="ttl_box">
-                      <dt>支払い期日</dt>
-                      <dd class="total_result">ダミー</dd>
-                    </dl>
-                  </td>
-                  <td>
-                    <a href="{{ url('user/home/generate_invoice/'.$reservation->id) }}" class="more_btn">請求書を見る</a>
-                    <!-- ステータスが入金確認後に表示------ -->
-                    <p class="text-right ml-3"><a class="more_btn" href="">領収書をみる</a></p>
-                  </td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
-          <div class="bill_status">
-            <table class="table">
-              <tbody>
-                <tr>
-                  <td>
-                    <div class="d-flex">
-                      <p class="bg-status p-2">予約状況</p>
-                      <p class="border p-2">
-                        {{ReservationHelper::judgeStatus($reservation->bills()->first()->reservation_status)}}
-                      </p>
-                    </div>
-                  </td>
-                  <td class="text-right">
-                    <div><span>申込日：</span>{{ReservationHelper::formatDate($reservation->created_at)}}</div>
-                    <div><span>予約確定日：</span>※2020/10/15(木)</div>
-                  </td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
-          <div class="bill_details">
-            <div class="head d-flex">
-              <div class="accordion_btn">
-                <i class="fas fa-plus bill_icon_size hide" aria-hidden="true"></i>
-                <i class="fas fa-minus bill_icon_size" aria-hidden="true"></i>
-              </div>
-              <div class="billdetails_ttl">
-                <h3>
-                  請求内訳
-                </h3>
-              </div>
-            </div>
-            <div class="main hide">
-              <div class="equipment billdetails_content">
-                <table class="table table-borderless">
-                  <tbody>
-                    <tr>
-                      <td colspan="4">
-                        <h4 class="billdetails_content_ttl">
-                          有料備品・サービス
-                        </h4>
-                      </td>
-                    </tr>
-                  </tbody>
-                  <tbody class="equipment_head">
-                    <tr>
-                      <td>内容</td>
-                      <td>単価</td>
-                      <td>数量</td>
-                      <td>金額</td>
-                    </tr>
-                  </tbody>
-                  <tbody class="equipment_main">
-                    <tr>
-                      <td>ピンマイク</td>
-                      <td>1,500</td>
-                      <td>1</td>
-                      <td>1,500</td>
-                    </tr>
-                  </tbody>
-                  <tbody class="equipment_result">
-                    <tr>
-                      <td colspan="2"></td>
-                      <td colspan="1">合計：</td>
-                      <td colspan="1" class=""> 1,500</td>
-                      </td>
-                    </tr>
-                  </tbody>
-                </table>
-              </div>
-
-              <div class="others billdetails_content">
-                <table class="table table-borderless">
-                  <tbody>
-                    <tr>
-                      <td colspan="5">
-                        　<h4 class="billdetails_content_ttl">
-                          その他
-                        </h4>
-                      </td>
-                    </tr>
-                  </tbody>
-                  <tbody class="others_head">
-                    <tr>
-                      <td>内容</td>
-                      <td>単価</td>
-                      <td>数量</td>
-                      <td>金額</td>
-                    </tr>
-                  </tbody>
-                  <tbody class="others_main">
-                    <tr>
-                      <td>前回予約相殺料</td>
-                      <td>15,000</td>
-                      <td>1</td>
-                      <td>15,000</td>
-                    </tr>
-                  </tbody>
-                  <tbody class="others_result">
-                    <tr>
-                      <td colspan="2"></td>
-                      <td colspan="1"></td>
-                      <td colspan="2">合計：15000
-                    </tr>
-                  </tbody>
-                </table>
-              </div>
-              <div class="bill_total">
-                <div>
-                  <table class="table text-right">
-                    <tbody>
-                      <tr>
-                        <td>小計：</td>
-                        <td>
-                          16,500
-                        </td>
-                      </tr>
-                      <tr>
-                        <td>消費税：</td>
-                        <td>
-                          1,650
-                        </td>
-                      </tr>
-                      <tr>
-                        <td class="font-weight-bold">合計金額</td>
-                        <td>
-                          18,150
                         </td>
                       </tr>
                     </tbody>
@@ -971,14 +1067,14 @@
     <!-- ステータスが予約完了のときに表示 -->
     @if ($reservation->bills()->first()->reservation_status>2)
     <div class="confirm-box">
-      <h3 class="caution mb-2 font-weight-bold">振込先案内</h3>
-      <p>
+      <h3 class="caution_color mb-2 font-weight-bold">振込先案内</h3>
+      <p class="p-3 border-wrap2">
         みずほ銀行　四ツ橋支店　普通　1113739　ｶ)ｴｽｴﾑｼﾞｰ</p>
       <p>
         ※該当日が土日祝の場合は直前の平日にお振込み下さい。<br>
         ※振込み手数料はお客様負担となります。<br>
         ※請求書・領収書は原則として発行しておりません。各金融機関発行の振込明細票が領収書扱いとなります。<br>
-        <span class="caution">※申込時の「申込者」欄記載の名義でお振込み下さい。別名義でのお振込みの場合は必ず事前にSMGまでご連絡下さい。</span><br>
+        <span class="caution_color">※申込時の「申込者」欄記載の名義でお振込み下さい。別名義でのお振込みの場合は必ず事前にSMGまでご連絡下さい。</span><br>
         ※お振込み後に追加料金が発生した場合は、追加でお振込み願います。
       </p>
     </div>
