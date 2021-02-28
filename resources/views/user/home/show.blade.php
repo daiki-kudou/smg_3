@@ -480,8 +480,6 @@
       <!-- 請求セクション　静的ページ --工藤さんPHPの実装をお願いします---------------------------------------------------------------- -->
       <section class="mt-5">
         <div class="bill">
-          {{-- ステータス３は予約完了 --}}
-          @if ($reservation->bills()->first()->reservation_status>=3)
           <div class="bill_head">
             <table class="table bill_table">
               <tbody>
@@ -1046,10 +1044,9 @@
     <!-- ステータスが予約承認まちのときに表示 -->
 
     @if ($reservation->bills()->first()->reservation_status==2)
-    <div class="confirm-box">
+    <div class="confirm-box text-center">
       <p>上記、予約内容で間違いないでしょうか。問題なければ、予約の承認をお願い致します。</p>
-      <p class="text-center mb-5 mt-3">
-        {{-- <a href="" class="more_btn4_lg">予約を承認する</a> --}}
+      <p class="text-center mt-3">
         {{ Form::model($reservation, ['method'=>'PUT', 'route'=> ['user.home.updatestatus',$reservation->id],'class'=>"text-center"])}}
         @csrf
         {{ Form::hidden('update_status',3,) }}

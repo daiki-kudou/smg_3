@@ -154,10 +154,10 @@
   <table class="table table-bordered mt-5">
     <thead>
       <tr style="white-space: nowrap;">
-        <th>id</th>
+        <th>ID</th>
         <th>登録日</th>
-        <th>直営・提携</th>
         <th>会場</th>
+        <th>直/携</th>
         <th>広さ（坪）</th>
         <th>広さ（㎡）</th>
         <th>収容人数</th>
@@ -168,8 +168,8 @@
       @foreach ($querys as $query)
       <tr>
         <td>{{ ReservationHelper::IdFormat($query->id) }}</td>
-        <td>{{ ReservationHelper::formatDate($query->created_at) }}</td>
         <td>{{ $query->alliance_flag==0?'直営':'提携' }}</td>
+        <td>{{ ReservationHelper::formatDate($query->created_at) }}</td>
         <td>{{ $query->name_area }}{{ $query->name_bldg }}{{ $query->name_venue }}</td>
         <td>{{ $query->size1 }}</td>
         <td>{{ $query->size2 }}</td>
