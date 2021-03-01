@@ -147,13 +147,13 @@
           <tr>
             <td class="table-active">案内板</td>
             <td class="d-flex align-items-center">
-              <p>
-              <input type="radio" name="board_flag" value="0" {{isset($request->board_flag)?$request->board_flag==0?'checked':'':'checked',}}
-              <span>無し</span>
+              <p class="mr-3">
+              <input type="radio" name="board_flag" value="0" {{isset($request->board_flag)?$request->board_flag==0?'checked':'':'checked',}}>
+              <span class="ml-2">無し</span>
               </p>
               <p>
-              <input type="radio" name="board_flag" value="1" {{isset($request->board_flag)?$request->board_flag==1?'checked':'':'',}}
-              <span>有り</span>
+              <input type="radio" name="board_flag" value="1" {{isset($request->board_flag)?$request->board_flag==1?'checked':'':'',}}>
+              <span class="ml-2">有り</span>
               </p>
             </td>
           </tr>
@@ -353,6 +353,14 @@
           </tr>
           <tr>
             <td class="table-active">
+              <label for="enduser_mobile" class="">当日連絡先</label>
+            </td>
+            <td>
+              {{ Form::text('enduser_mobile', old('enduser_mobile'),['class'=>'form-control', 'placeholder'=>'入力してください', 'maxlength'=>13, 'id'=>'enduser_mobile'] ) }}
+            </td>
+          </tr>
+          <tr>
+            <td class="table-active">
               <label for="enduser_mail" class=" ">メールアドレス</label>
             </td>
             <td>
@@ -364,7 +372,9 @@
               <label for="enduser_attr" class="">利用者属性</label>
             </td>
             <td>
-              {{ Form::text('enduser_attr', old('enduser_attr'),['class'=>'form-control', 'placeholder'=>'入力してください', 'maxlength'=>13, 'id'=>'enduser_attr'] ) }}
+            <td>
+              {{Form::select('enduser_attr', [1=>'一般企業', 2=>'上場企業',3=>'近隣利用', 4=>'講師・セミナー', 5=>'ネットワーク', 6=>'その他'])}}</td>
+              <!-- {{ Form::text('enduser_attr', old('enduser_attr'),['class'=>'form-control', 'placeholder'=>'入力してください', 'maxlength'=>13, 'id'=>'enduser_attr'] ) }} -->
             </td>
           </tr>
         </table>
@@ -400,12 +410,12 @@
             {{ Form::hidden('attention', old('attention'),['class'=>'form-control', 'placeholder'=>'入力してください'] ) }}
           <!-- </td> -->
         <!-- </tr> -->
-        <tr>
+        <!-- <tr>
           <td>
             <label for="userNote">顧客情報の備考</label>
             {{ Form::textarea('user_details', old('user_details'),['class'=>'form-control', 'placeholder'=>'入力してください'] ) }}
           </td>
-        </tr>
+        </tr> -->
         <tr>
           <td>
             <label for="adminNote">管理者備考</label>
