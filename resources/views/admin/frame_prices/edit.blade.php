@@ -5,8 +5,6 @@
 <script src="{{ asset('/js/validation.js') }}"></script>
 <link href="{{ asset('/css/template.css') }}" rel="stylesheet">
 
-
-
 <!-- フォーム追加 -->
 <script>
   $(function() {
@@ -56,25 +54,21 @@
   });
 </script>
 
-
 <div class="container-field mt-3">
   <div class="float-right">
     <nav aria-label="breadcrumb">
       <ol class="breadcrumb">
-        <li class="breadcrumb-item active">{{ Breadcrumbs::render(Route::currentRouteName(),$venue->id) }}</li>
+      <li class="breadcrumb-item active">{{ Breadcrumbs::render(Route::currentRouteName(),$venue->id) }}</li>
       </ol>
     </nav>
   </div>
-  <h1 class="mt-3 mb-5">料金管理　新規作成（枠貸し）</h1>
-  <hr>
-  <div class="d-flex justify-content-between mt-3 mb-5">
-  </div>
 </div>
 
+<h2 class="mt-3 mb-3">料金管理　新規作成（枠貸し）</h2>
+<hr>
 
-<div class="p-3 mb-2 bg-white text-dark">
-  <div>料金管理　新規作成</div>
-  <hr>
+
+<div class="section-wrap">
   <div class="w-100 mb-3">
     <span class="d-block mb-2">会場</span>
     <strong class="border border-light d-block" style="width:100%;">{{$venue->name_area}}{{$venue->name_bldg}}{{$venue->name_venue}}</strong>
@@ -101,7 +95,7 @@
       @endif
       {{ Form::model($venue, ['route' => ['admin.frame_prices.update', $venue->id], 'method' => 'put', 'id'=>'dateCreateForm']) }}
       @csrf
-      <table class="table">
+      <table class="table table-bordered">
         <thead>
           <tr>
             <th>枠</th>
@@ -241,7 +235,7 @@
         <p class="{{'is-error-extend'}}" style="color: red"></p>
       </div>
       {{Form::hidden('venue_id', $venue->id)}}
-      {{ Form::submit('更新', ['class' => 'btn btn-primary']) }}
+      {{ Form::submit('更新', ['class' => 'btn more_btn_lg d-block btn-lg mx-auto my-5']) }}
       {{ Form::close() }}
     </div>
   </div>

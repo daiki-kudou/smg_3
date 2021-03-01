@@ -265,6 +265,7 @@ h5 {
     color: #fff;
     font-weight: bold;
     transition: 0.4s;
+    font-size: 12px;
 }
 
 .more_btn:hover {
@@ -287,6 +288,7 @@ h5 {
     border-radius: 5px;
     color: #fff;
     font-weight: bold;
+    font-size: 12px;
     /* min-width: 100px; */
 }
 
@@ -340,6 +342,7 @@ h5 {
     color: #fff;
     font-weight: bold;
     transition: 0.4s;
+    font-size: 12px;
 }
 
 .more_btn_lg:hover {
@@ -353,6 +356,7 @@ h5 {
     border-radius: 5px;
     color: #fff;
     font-weight: bold;
+    font-size: 12px;
 }
 
 .more_btn4_lg:hover {
