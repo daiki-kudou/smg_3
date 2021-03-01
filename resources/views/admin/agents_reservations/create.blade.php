@@ -149,14 +149,18 @@
         <tr>
           <td>案内板</td>
           <td>
-            <div class="d-flex align-items-center">
+          <div class="radio-box">
+                <input type="radio" name="board_flag" value="0" {{isset($request->board_flag)?$request->board_flag==0?'checked':'':'checked',}}>無し
+                <input type="radio" name="board_flag" value="1" {{isset($request->board_flag)?$request->board_flag==1?'checked':'':'',}}>有り
+              </div>
+            <!-- <div class="d-flex align-items-center">
               <p class="mr-3">
                 <input type="radio" name="board_flag" value="0" {{isset($request->board_flag)?$request->board_flag==0?'checked':'':'checked',}}><span class="ml-2">無し</span>
               </p>
               <p>
                 <input type="radio" name="board_flag" value="1" {{isset($request->board_flag)?$request->board_flag==1?'checked':'':'',}}><span class="ml-2">有り</span>
               </p>
-            </div>
+            </div> -->
           </td>
         </tr>
         <tr>
@@ -282,7 +286,7 @@
           <td colspan="2">
             <div class="d-flex align-items-center justify-content-between">
               <p class="title-icon">
-                <i class="far fa-id-card fa-2x fa-fw"></i>仲介会社情報
+                <i class="far fa-id-card icon-size"></i>仲介会社情報
               </p>
               <p><a class="more_btn bg-green" href="">仲介会社詳細</a></p>
             </div>
@@ -315,7 +319,7 @@
         <tr>
           <td colspan="2">
             <p class="title-icon">
-              <i class="fas fa-user-check fa-2x fa-fw"></i>エンドユーザー
+              <i class="fas fa-user-check icon-size"></i>エンドユーザー
             </p>
           </td>
         </tr>
@@ -356,7 +360,8 @@
             <label for="enduser_mobile" class="">当日連絡先</label>
           </td>
           <td>
-            {{ Form::text('enduser_mobile', old('enduser_mobile'),['class'=>'form-control', 'placeholder'=>'入力してください', 'maxlength'=>13, 'id'=>'enduser_mobile'] ) }}
+            <!-- {{ Form::text('enduser_mobile', old('enduser_mobile'),['class'=>'form-control', 'placeholder'=>'入力してください', 'maxlength'=>13, 'id'=>'enduser_mobile'] ) }} -->
+            ダミーダミーダミーダミー
           </td>
         </tr>
         <tr>
@@ -372,9 +377,7 @@
             <label for="enduser_attr" class="">利用者属性</label>
           </td>
           <td>
-          <td>
             {{Form::select('enduser_attr', [1=>'一般企業', 2=>'上場企業',3=>'近隣利用', 4=>'講師・セミナー', 5=>'ネットワーク', 6=>'その他'])}}
-          </td>
           </td>
         </tr>
       </table>
@@ -383,7 +386,7 @@
         <tr>
           <td colspan="2">
             <p class="title-icon">
-              <i class="fas fa-yen-sign fa-2x fa-fw"></i>仲介会社の顧客からの入金額
+              <i class="fas fa-yen-sign icon-size"></i>仲介会社の顧客からの入金額
             </p>
           </td>
         </tr>
@@ -400,7 +403,7 @@
         <tr>
           <td colspan="2">
             <p class="title-icon">
-              <i class="fas fa-envelope fa-2x fa-fw"></i>備考
+              <i class="fas fa-envelope icon-size"></i>備考
             </p>
           </td>
         </tr>
