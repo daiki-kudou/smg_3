@@ -19,7 +19,6 @@
   })
 </script>
 
-
 <div class="container-field mt-3">
   <div class="float-right">
     <nav aria-label="breadcrumb">

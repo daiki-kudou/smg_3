@@ -60,7 +60,7 @@
   <h2 class="mt-3 mb-3">会場一覧</h2>
   <hr>
 
-    <!-- 検索-------------------------------------------------------- -->
+  <!-- 検索-------------------------------------------------------- -->
   <!-- <form class="" action="{{url('/admin/venues')}}">
     <div class="row search_box">
       @csrf
@@ -149,8 +149,18 @@
       件表示
     </div>b
   </form> -->
-    <!-- 検索　終わり------------------------------------------------ -->
-  
+  <!-- 検索　終わり------------------------------------------------ -->
+
+  <div class="d-flex justify-content-between my-3">
+    <span>
+      <select name="page_counter" id="page_counter">
+        <option value="ten">10</option>
+        <option value="thirty">30</option>
+        <option value="fifty">50</option>
+      </select>件表示
+    </span>
+  </div>
+
   <table class="table table-bordered mt-5">
     <thead>
       <tr style="white-space: nowrap;">

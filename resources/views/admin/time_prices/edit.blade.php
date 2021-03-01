@@ -39,10 +39,6 @@
         $('.table tbody tr').eq(index).find('td').eq(2).append("<p class='is-error-" + extend + "' style='color: red'></p>");
       };
 
-
-
-
-
       $("#timeEditForm").validate({
         errorPlacement: function(error, element) {
           var name = element.attr('name');
@@ -156,7 +152,7 @@
       @endif
       {{ Form::model($venue, ['route' => ['admin.time_prices.update', $venue->id], 'method' => 'put', 'id'=>'timeEditForm']) }}
       @csrf
-      <table class="table">
+      <table class="table table-bordered">
         <thead>
           <tr>
             <th>時間</th>
@@ -197,7 +193,4 @@
     </div>
   </div>
 </div>
-
-
-
 @endsection

@@ -1,5 +1,4 @@
 @extends('layouts.admin.app')
-
 @section('content')
 
 <script src="https://cdn.datatables.net/t/bs-3.3.6/jqc-1.12.0,dt-1.10.11/datatables.min.js"></script>
@@ -49,7 +48,6 @@
 
   <h2 class="mt-3 mb-3">仲介会社　一覧</h2>
   <hr>
-
 
   {{-- 検索 --}}
   <!-- <div class="container">
