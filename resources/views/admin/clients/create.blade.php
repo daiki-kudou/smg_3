@@ -40,7 +40,7 @@
             <tr>
               <td colspan="2">
                 <p class="title-icon">
-                  <i class="fas fa-info-circle icon-size fa-fw"></i>基本情報
+                  <i class="fas fa-info-circle icon-size"></i>基本情報
                 </p>
               </td>
             </tr>
@@ -83,7 +83,7 @@
             </tr>
             <tr>
               <td class="table-active">{{ Form::label('attr', '顧客属性') }}</td>
-              <td>{{Form::select('attr', [1=>'一般企業', 2=>'上場企業',3=>'近隣利用', 4=>'講師・セミナー', 5=>'その他'])}}</td>
+              <td>{{Form::select('attr', [1=>'一般企業', 2=>'上場企業',3=>'近隣利用', 4=>'講師・セミナー', 5=>'ネットワーク', 6=>'その他'])}}</td>
             </tr>
             <tr>
               <td class="table-active"><input type="checkbox" class="discount">{{ Form::label('condition', '割引条件') }}
@@ -106,7 +106,7 @@
           <thead>
             <tr>
               <p class="title-icon">
-                <td colspan="3"><i class="fas fa-user fa-fw icon-size"></i>担当者情報
+                <td colspan="3"><i class="fas fa-user icon-size"></i>担当者情報
               </p>
               </td>
             </tr>
@@ -118,20 +118,20 @@
               <td>名：{{ Form::text('last_name', old('last_name'), ['class' => 'form-control']) }}</td>
             </tr>
             <tr>
-              <td class="table-active">{{ Form::label('first_name_kana', '担当者氏名（ふりがな）') }}</td>
+              <td class="table-active">{{ Form::label('first_name_kana', '担当者氏名（フリガナ）') }}</td>
               <td>セイ：{{ Form::text('first_name_kana', old('first_name_kana'), ['class' => 'form-control'])}}
               </td>
               <td>メイ：{{ Form::text('last_name_kana', old('last_name_kana'), ['class' => 'form-control']) }}
               </td>
             </tr>
             <tr>
-              <td class="table-active">{{ Form::label('tel', '電話番号') }}</td>
-              <td colspan="2">{{ Form::text('tel', old('tel'), ['class' => 'form-control']) }}
+              <td class="table-active">{{ Form::label('mobile', '携帯電話') }}</td>
+              <td colspan="2">{{ Form::text('mobile', old('mobile'), ['class' => 'form-control']) }}
               </td>
             </tr>
             <tr>
-              <td class="table-active">{{ Form::label('mobile', '携帯番号') }}</td>
-              <td colspan="2">{{ Form::text('mobile', old('mobile'), ['class' => 'form-control']) }}
+              <td class="table-active">{{ Form::label('tel', '固定電話') }}</td>
+              <td colspan="2">{{ Form::text('tel', old('tel'), ['class' => 'form-control']) }}
               </td>
             </tr>
             <tr>
@@ -163,7 +163,7 @@
             </tr>
             <tr>
               <td class="table-active">{{ Form::label('pay_limit', '支払期日') }}</td>
-              <td>{{Form::select('pay_limit', [1=>'3営業日前', 2=>'当月末',3=>'翌月末'])}}</td>
+              <td>{{Form::select('pay_limit', [1=>'当月末〆当月末CASH', 2=>'当月末〆翌月末CASH',3=>'当月末〆翌々月末CACH',4=>'当月末〆3カ月末CASH'])}}</td>
             </tr>
             <tr>
               <td class="table-active">{{ Form::label('pay_post_code', '請求書送付先郵便番号') }}</td>
@@ -185,7 +185,7 @@
               </td>
             </tr>
             <tr>
-              <td class="table-active">{{ Form::label('pay_address3', '建物名') }}</td>
+              <td class="table-active">{{ Form::label('pay_address3', '請求書送付先 (建物名)') }}</td>
               <td>{{ Form::text('pay_address3', old('pay_address3'), ['class' => 'form-control']) }}
               </td>
             </tr>
@@ -234,7 +234,7 @@
   </section>
 
 
-  {{ Form::submit('新規作成', ['class' => 'btn btn-primary btn-block more_btn']) }}
+  {{ Form::submit('登録する', ['class' => 'btn more_btn_lg d-block btn-lg mx-auto my-5']) }}
   {{ Form::close() }}
 
 </div>

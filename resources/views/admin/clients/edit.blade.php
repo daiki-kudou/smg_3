@@ -3,7 +3,20 @@
 @section('content')
 <link href="{{ asset('/css/template.css') }}" rel="stylesheet">
 
-<h2 class="mt-3 mb-5">顧客管理　編集</h2>
+<div class="container-field">
+  <div class="float-right">
+    <nav aria-label="breadcrumb">
+      <ol class="breadcrumb">
+        <li class="breadcrumb-item active">
+        ダミーダミーダミーダミー
+        </li>
+      </ol>
+    </nav>
+  </div>
+  <h2 class="mt-3 mb-3">顧客管理 編集</h2>
+  <hr>
+</div>
+
 <section class="section-wrap">
   <div class="row">
     <!-- 左側の項目 ---------------------------------------------------------->
@@ -56,7 +69,7 @@
           </tr>
           <tr>
             <th class="table-active">{{ Form::label('attr', '顧客属性') }}</th>
-            <td>{{Form::select('attr', [1=>'一般企業', 2=>'上場企業',3=>'近隣利用', 4=>'講師・セミナー', 5=>'その他'],$user->attr)}}
+            <td>{{Form::select('attr', [1=>'一般企業', 2=>'上場企業',3=>'近隣利用', 4=>'講師・セミナー', 5=>'ネットワーク', 6=>'その他'],$user->attr)}}
             </td>
           </tr>
           <tr>
@@ -88,7 +101,7 @@
             </td>
           </tr>
           <tr>
-            <th class="table-active">{{ Form::label('first_name_kana', '担当者氏名（ふりがな）') }}</th>
+            <th class="table-active">{{ Form::label('first_name_kana', '担当者氏名（フリガナ）') }}</th>
             <td>セイ：{{ Form::text('first_name_kana', $user->first_name_kana, ['class' => 'form-control'])}}
             </td>
             <td>メイ：{{ Form::text('last_name_kana', $user->last_name_kana, ['class' => 'form-control']) }}
@@ -134,7 +147,7 @@
           </tr>
           <tr>
             <th class="table-active">{{ Form::label('pay_limit', '支払期日') }}</th>
-            <td>{{Form::select('pay_limit', [1=>'3営業日前', 2=>'当月末',3=>'翌月末'],$user->pay_limit)}}</td>
+            <td>{{Form::select('pay_limit', [1=>'当月末〆当月末CASH', 2=>'当月末〆翌月末CASH',3=>'当月末〆翌々月末CACH',4=>'当月末〆3カ月末CASH'],$user->pay_limit)}}</td>
           </tr>
           <tr>
             <th class="table-active">{{ Form::label('pay_post_code', '請求書送付先郵便番号') }}</th>
@@ -156,7 +169,7 @@
             </td>
           </tr>
           <tr>
-            <th class="table-active">{{ Form::label('pay_address3', '建物名') }}</th>
+            <th class="table-active">{{ Form::label('pay_address3', '請求書送付先 (建物名)') }}</th>
             <td>{{ Form::text('pay_address3',$user->pay_address3, ['class' => 'form-control']) }}
             </td>
           </tr>
@@ -203,7 +216,7 @@
   </div>
 
   <div class="mt-5">
-  {{ Form::submit('更新', ['class' => 'btn more_btn_lg btn-block']) }}
+  {{ Form::submit('更新', ['class' => 'btn more_btn_lg d-block btn-lg mx-auto my-5']) }}
   {{ Form::close() }}
   </div>
   

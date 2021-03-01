@@ -40,17 +40,17 @@
 <link href="{{ asset('/css/template.css') }}" rel="stylesheet">
 <script src="http://staging-smg2.herokuapp.com/js/template.js"></script>
 
-
 <div class="container-field">
 
   <div class="float-right">
     <nav aria-label="breadcrumb">
       <ol class="breadcrumb">
-        <li class="breadcrumb-item active"></li>
+        <li class="breadcrumb-item active">
+          {{ Breadcrumbs::render(Route::currentRouteName()) }}
+        </li>
       </ol>
     </nav>
   </div>
-
   <h2 class="mt-3 mb-3">顧客管理　一覧</h2>
   <hr>
 
@@ -106,7 +106,6 @@
       </div>
       <div class="col"></div>
     </div> -->
-
 
   <!-- 検索-------------------------------------------------------- -->
 
@@ -173,7 +172,7 @@
           </dl>
           <dl class="form-group flex-fill">
             <dt>
-              <label class="search_item_name" for="email">メール</label>
+              <label class="search_item_name" for="email">担当者メールアドレス</label>
             </dt>
             <dd>
               <input type="text" name="email" class="form-control" id="email">

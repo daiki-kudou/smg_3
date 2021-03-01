@@ -3,17 +3,30 @@
 @section('content')
 <link href="{{ asset('/css/template.css') }}" rel="stylesheet">
 
+<div class="container-field">
+  <div class="float-right">
+    <nav aria-label="breadcrumb">
+      <ol class="breadcrumb">
+        <li class="breadcrumb-item active">
+        ダミーダミーダミーダミー
+        </li>
+      </ol>
+    </nav>
+  </div>
+  <h2 class="mt-3 mb-3">顧客管理 詳細</h2>
+  <hr>
+</div>
+
 <section class="section-wrap">
-  <h2 class="mt-3 mb-5">顧客管理　詳細</h2>
-  <div class="col-12 align-items-center d-flex justify-content-between mb-5">
-    <div>
-      {{ link_to_route('admin.clients.edit', '編集する', $parameters = $user->id, ['class' => 'btn more_btn']) }}
-    </div>
-    <div>
+  <div class="align-items-center d-flex justify-content-between mb-3">
+  <div>
       {{ Form::model($user, ['route' => ['admin.clients.destroy', $user->id], 'method' => 'delete']) }}
       @csrf
-      {{ Form::submit('削除', ['class' => 'btn more_btn4']) }}
+      {{ Form::submit('削除', ['class' => 'btn more_btn4_lg']) }}
       {{ Form::close() }}
+    </div>
+    <div>
+      {{ link_to_route('admin.clients.edit', '編集する', $parameters = $user->id, ['class' => 'btn more_btn_lg']) }}
     </div>
   </div>
 
@@ -76,6 +89,8 @@
               @elseif($user->attr==4)
               講師・セミナー
               @elseif($user->attr==5)
+              ネットワーク
+              @elseif($user->attr==6)
               その他
               @endif
             </td>
@@ -108,11 +123,15 @@
             <td>{{$user->first_name}}　{{$user->last_name}}</td>
           </tr>
           <tr>
-            <th class="table-active">{{ Form::label('first_name_kana', '担当者氏名（ふりがな）') }}</th>
+            <th class="table-active">{{ Form::label('first_name_kana', '担当者氏名（フリガナ）') }}</th>
             <td>{{$user->first_name_kana}}{{$user->last_name_kana}}</td>
           </tr>
           <tr>
-            <th class="table-active">{{ Form::label('tel', '電話番号') }}</th>
+            <th class="table-active">{{ Form::label('mobile', '携帯電話') }}</th>
+            <td>{{$user->mobile}}</td>
+          </tr>
+          <tr>
+            <th class="table-active">{{ Form::label('tel', '固定電話') }}</th>
             <td>{{$user->tel}}</td>
           </tr>
           <tr>
@@ -156,11 +175,13 @@
             <th class="table-active">{{ Form::label('pay_limit', '支払期日') }}</th>
             <td>
               @if ($user->pay_limit==1)
-              3営業日前
+              当月末〆当月末CASH
               @elseif($user->pay_limit==2)
-              当月末
+              当月末〆翌月末CASH
               @elseif($user->pay_limit==3)
-              翌月末
+              当月末〆翌々月末CACH
+              @elseif($user->pay_limit==4)
+              当月末〆3カ月末CASH
               @endif
             </td>
           </tr>
@@ -177,7 +198,7 @@
             <td>{{$user->pay_address2}}</td>
           </tr>
           <tr>
-            <th class="table-active">{{ Form::label('pay_address3', '建物名') }}</th>
+            <th class="table-active">{{ Form::label('pay_address3', '請求書送付先 (建物名)') }}</th>
             <td>{{$user->pay_address3}}</td>
           </tr>
           <tr>
