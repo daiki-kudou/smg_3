@@ -493,14 +493,14 @@
             {{ Form::text('enduser_tel', $requests['enduser_tel'],['class'=>'form-control', 'placeholder'=>'入力してください', 'maxlength'=>13, 'id'=>'enduser_tel'] ) }}
           </td>
         </tr>
-        <tr>
+        <!-- <tr>
           <td class="table-active">
             <label for="enduser_mobile" class="">当日連絡先</label>
           </td>
           <td>
             {{ Form::text('enduser_mobile', $requests('enduser_mobile'),['class'=>'form-control', 'placeholder'=>'入力してください', 'maxlength'=>13, 'id'=>'enduser_mobile'] ) }}
           </td>
-        </tr>
+        </tr> -->
         <tr>
           <td class="table-active">
             <label for="enduser_mail" class=" ">メールアドレス</label>
