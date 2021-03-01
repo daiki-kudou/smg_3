@@ -1,6 +1,7 @@
 @extends('layouts.admin.app')
 
 @section('content')
+<link href="{{ asset('/css/template.css') }}" rel="stylesheet">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/2.1.2/sweetalert.min.js"></script>
 <script>
   $(function() {
@@ -31,15 +32,16 @@
       </ol>
     </nav>
   </div>
+</div>
 
 <h2 class="mt-3 mb-3">営業時間管理　編集</h2>
 <hr>
-</div>
+
 
 <div class="p-3 mb-2 bg-white text-dark">
-  <div class="d-flex align-items-center border border-light" style="height:60px;">
+  <!-- <div class="d-flex align-items-center border border-light" style="height:60px;">
     <span class="ml-1">営業時間管理</span>
-  </div>
+  </div> -->
   <div class="mt-4 mb-4">
     <span>この情報はカレンダーからのドラッグ登録や会場予約フォームの時間指定の開始・終了時間に紐づく情報です</span>
   </div>
@@ -113,7 +115,7 @@
           <td>
             {{Form::hidden('weekday_id', $weekday_id)}}
             {{Form::hidden('venue_id', $venue_id)}}
-            {{Form::submit('修正する', ['class'=>'submit btn more_btn'])}}
+            {{Form::submit('更新', ['class'=>'submit btn more_btn'])}}
           </td>
         </tr>
         {{ Form::close() }}

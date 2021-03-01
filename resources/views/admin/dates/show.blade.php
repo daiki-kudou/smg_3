@@ -1,6 +1,7 @@
 @extends('layouts.admin.app')
 
 @section('content')
+<link href="{{ asset('/css/template.css') }}" rel="stylesheet">
 <script src="{{ asset('/js/template.js') }}"></script>
 
 <!-- <div class="container-field mt-3">
@@ -33,9 +34,9 @@
 
 
 <div class="p-3 mb-2 bg-white text-dark">
-  <div class="d-flex align-items-center border border-light" style="height:60px;">
+  <!-- <div class="d-flex align-items-center border border-light" style="height:60px;">
     <span class="ml-1">営業時間管理</span>
-  </div>
+  </div> -->
   <div class="mt-4 mb-4">
     <span>この情報はカレンダーからのドラッグ登録や会場予約フォームの時間指定の開始・終了時間に紐づく情報です</span>
   </div>
