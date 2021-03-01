@@ -149,8 +149,14 @@
         <tr>
           <td>案内板</td>
           <td>
-            <input type="radio" name="board_flag" value="0" {{isset($request->board_flag)?$request->board_flag==0?'checked':'':'checked',}}>無し
-            <input type="radio" name="board_flag" value="1" {{isset($request->board_flag)?$request->board_flag==1?'checked':'':'',}}>有り
+            <div class="d-flex align-items-center">
+              <p class="mr-3">
+                <input type="radio" name="board_flag" value="0" {{isset($request->board_flag)?$request->board_flag==0?'checked':'':'checked',}}><span class="ml-2">無し</span>
+              </p>
+              <p>
+                <input type="radio" name="board_flag" value="1" {{isset($request->board_flag)?$request->board_flag==1?'checked':'':'',}}><span class="ml-2">有り</span>
+              </p>
+            </div>
           </td>
         </tr>
         <tr>
@@ -205,7 +211,9 @@
             <tr>
               <th colspan="2">
                 <div class="d-flex justify-content-between align-items-center">
-                  有料備品
+                  <p class="title-icon fw-bolder py-1">
+                    <i class="fas fa-wrench icon-size fa-fw"></i>有料備品
+                  </p>
                   <i class="fas fa-plus icon_plus hide"></i>
                   <i class="fas fa-minus icon_minus"></i>
                 </div>
@@ -221,7 +229,9 @@
             <tr>
               <th colspan="2">
                 <div class="d-flex justify-content-between align-items-center">
-                  有料サービス
+                  <p class="title-icon fw-bolder py-1">
+                    <i class="fas fa-hand-holding-heart icon-size fa-fw"></i>有料サービス
+                  </p>
                   <i class="fas fa-plus icon_plus hide"></i>
                   <i class="fas fa-minus icon_minus"></i>
                 </div>
@@ -235,7 +245,11 @@
         <table class='table table-bordered'>
           <thead>
             <tr>
-              <th colspan='2'>レイアウト</th>
+              <th colspan='2'>
+                <p class="title-icon">
+                  <i class="fas fa-th icon-size fa-fw"></i>レイアウト
+                </p>
+              </th>
             </tr>
           </thead>
           <tbody>
@@ -246,7 +260,11 @@
         <table class='table table-bordered'>
           <thead>
             <tr>
-              <th colspan='2'>荷物預かり</th>
+              <th colspan='2'>
+                <p class="title-icon">
+                  <i class="fas fa-suitcase-rolling icon-size fa-fw"></i>荷物預かり
+                </p>
+              </th>
             </tr>
           </thead>
           <tbody>
@@ -259,103 +277,113 @@
     {{-- 右側 --}}
     <div class="col">
       <!-- <div class="client_mater">　 -->
-        <table class="table table-bordered name-table">
-          <tr>
-            <td colspan="2">
-              <div class="d-flex align-items-center justify-content-between">
-                <p class="title-icon">
-                  <i class="far fa-id-card fa-2x fa-fw"></i>仲介会社情報
-                </p>
-                <p><a class="more_btn bg-green" href="">仲介会社詳細</a></p>
-              </div>
-            </td>
-          </tr>
-          <tr>
-            <td class="table-active">
-              <label for="agent_id" class=" form_required">サービス名称</label>
-            </td>
-            <td>
-              <select class="form-control" name="agent_id" id="agent_select">
-                <option disabled selected>選択してください</option>
-                @foreach ($agents as $agent)
-                <option value="{{$agent->id}}">{{$agent->name}} |
-                  {{$agent->person_firstname}}{{$agent->person_lastname}} | {{$agent->email}}
-                </option>
-                @endforeach
-              </select>
-              <p class="is-error-user_id" style="color: red"></p>
-            </td>
-          </tr>
-          <tr>
-            <td class="table-active"><label for="name" class=" form_required">担当者氏名<br></label></td>
-            <td>
-              <p class="selected_person"></p>
-            </td>
-          </tr>
-        </table>
-        <table class="table table-bordered oneday-table">
-          <tr>
-            <td colspan="2">
+      <table class="table table-bordered name-table">
+        <tr>
+          <td colspan="2">
+            <div class="d-flex align-items-center justify-content-between">
               <p class="title-icon">
-                <i class="fas fa-user-check fa-2x fa-fw"></i>仲介会社の顧客
+                <i class="far fa-id-card fa-2x fa-fw"></i>仲介会社情報
               </p>
-            </td>
-          </tr>
-          <tr>
-            <td class="table-active">
-              <label for="enduser_company" class="">会社名・団体名</label>
-            </td>
-            <td>
-              {{ Form::text('enduser_company', old('enduser_company'),['class'=>'form-control', 'placeholder'=>'入力してください','id'=>'enduser_company'] ) }}
-            </td>
-          </tr>
-          <tr>
-            <td class="table-active">
-              <label for="enduser_incharge" class="">担当者氏名</label>
-            </td>
-            <td>
-              {{ Form::text('enduser_incharge', old('enduser_incharge'),['class'=>'form-control', 'placeholder'=>'入力してください', 'maxlength'=>13, 'id'=>'enduser_incharge'] ) }}
-            </td>
-          </tr>
-          <tr>
-            <td class="table-active">
-              <label for="enduser_address" class=" ">住所</label>
-            </td>
-            <td>
-              {{ Form::text('enduser_address', old('enduser_address'),['class'=>'form-control', 'placeholder'=>'入力してください', 'maxlength'=>13,'id'=>'enduser_address'] ) }}
-            </td>
-          </tr>
-          <tr>
-            <td class="table-active">
-              <label for="enduser_tel" class="">電話番号</label>
-            </td>
-            <td>
-              {{ Form::text('enduser_tel', old('enduser_tel'),['class'=>'form-control', 'placeholder'=>'入力してください', 'maxlength'=>13, 'id'=>'enduser_tel'] ) }}
-            </td>
-          </tr>
-          <tr>
-            <td class="table-active">
-              <label for="enduser_mail" class=" ">メールアドレス</label>
-            </td>
-            <td>
-              {{ Form::text('enduser_mail', old('enduser_mail'),['class'=>'form-control', 'placeholder'=>'入力してください', 'maxlength'=>13,'id'=>'enduser_mail'] ) }}
-            </td>
-          </tr>
-          <tr>
-            <td class="table-active">
-              <label for="enduser_attr" class="">利用者属性</label>
-            </td>
-            <td>
-              {{ Form::text('enduser_attr', old('enduser_attr'),['class'=>'form-control', 'placeholder'=>'入力してください', 'maxlength'=>13, 'id'=>'enduser_attr'] ) }}
-            </td>
-          </tr>
-        </table>
+              <p><a class="more_btn bg-green" href="">仲介会社詳細</a></p>
+            </div>
+          </td>
+        </tr>
+        <tr>
+          <td class="table-active">
+            <label for="agent_id" class=" form_required">サービス名称</label>
+          </td>
+          <td>
+            <select class="form-control" name="agent_id" id="agent_select">
+              <option disabled selected>選択してください</option>
+              @foreach ($agents as $agent)
+              <option value="{{$agent->id}}">{{$agent->name}} |
+                {{$agent->person_firstname}}{{$agent->person_lastname}} | {{$agent->email}}
+              </option>
+              @endforeach
+            </select>
+            <p class="is-error-user_id" style="color: red"></p>
+          </td>
+        </tr>
+        <tr>
+          <td class="table-active"><label for="name" class=" form_required">担当者氏名<br></label></td>
+          <td>
+            <p class="selected_person"></p>
+          </td>
+        </tr>
+      </table>
+      <table class="table table-bordered oneday-table">
+        <tr>
+          <td colspan="2">
+            <p class="title-icon">
+              <i class="fas fa-user-check fa-2x fa-fw"></i>エンドユーザー
+            </p>
+          </td>
+        </tr>
+        <tr>
+          <td class="table-active">
+            <label for="enduser_company" class="">会社名・団体名</label>
+          </td>
+          <td>
+            {{ Form::text('enduser_company', old('enduser_company'),['class'=>'form-control', 'placeholder'=>'入力してください','id'=>'enduser_company'] ) }}
+          </td>
+        </tr>
+        <tr>
+          <td class="table-active">
+            <label for="enduser_incharge" class="">当日担当者</label>
+          </td>
+          <td>
+            {{ Form::text('enduser_incharge', old('enduser_incharge'),['class'=>'form-control', 'placeholder'=>'入力してください', 'maxlength'=>13, 'id'=>'enduser_incharge'] ) }}
+          </td>
+        </tr>
+        <tr>
+          <td class="table-active">
+            <label for="enduser_address" class=" ">住所</label>
+          </td>
+          <td>
+            {{ Form::text('enduser_address', old('enduser_address'),['class'=>'form-control', 'placeholder'=>'入力してください', 'maxlength'=>13,'id'=>'enduser_address'] ) }}
+          </td>
+        </tr>
+        <tr>
+          <td class="table-active">
+            <label for="enduser_tel" class="">電話番号</label>
+          </td>
+          <td>
+            {{ Form::text('enduser_tel', old('enduser_tel'),['class'=>'form-control', 'placeholder'=>'入力してください', 'maxlength'=>13, 'id'=>'enduser_tel'] ) }}
+          </td>
+        </tr>
+        <tr>
+          <td class="table-active">
+            <label for="enduser_mobile" class="">当日連絡先</label>
+          </td>
+          <td>
+            {{ Form::text('enduser_mobile', old('enduser_mobile'),['class'=>'form-control', 'placeholder'=>'入力してください', 'maxlength'=>13, 'id'=>'enduser_mobile'] ) }}
+          </td>
+        </tr>
+        <tr>
+          <td class="table-active">
+            <label for="enduser_mail" class=" ">メールアドレス</label>
+          </td>
+          <td>
+            {{ Form::text('enduser_mail', old('enduser_mail'),['class'=>'form-control', 'placeholder'=>'入力してください', 'maxlength'=>13,'id'=>'enduser_mail'] ) }}
+          </td>
+        </tr>
+        <tr>
+          <td class="table-active">
+            <label for="enduser_attr" class="">利用者属性</label>
+          </td>
+          <td>
+          <td>
+            {{Form::select('enduser_attr', [1=>'一般企業', 2=>'上場企業',3=>'近隣利用', 4=>'講師・セミナー', 5=>'ネットワーク', 6=>'その他'])}}
+          </td>
+          </td>
+        </tr>
+      </table>
       <!-- </div> -->
       <table class="table table-bordered sale-table">
         <tr>
           <td colspan="2">
             <p class="title-icon">
-              <i class="fas fa-yen-sign fa-2x fa-fw"></i>仲介会社の顧客への支払い料
+              <i class="fas fa-yen-sign fa-2x fa-fw"></i>仲介会社の顧客からの入金額
             </p>
           </td>
         </tr>

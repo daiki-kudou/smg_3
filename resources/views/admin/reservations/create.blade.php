@@ -150,9 +150,7 @@
             <td class="table-active">案内板</td>
             <td>
               <div class="radio-box">
-                <p>
-                  <input type="radio" name="board_flag" value="0" {{isset($request->board_flag)?$request->board_flag==0?'checked':'':'checked',}}>無し
-                </p>
+                <input type="radio" name="board_flag" value="0" {{isset($request->board_flag)?$request->board_flag==0?'checked':'':'checked',}}>無し
                 <input type="radio" name="board_flag" value="1" {{isset($request->board_flag)?$request->board_flag==1?'checked':'':'',}}>有り
               </div>
             </td>
