@@ -50,7 +50,7 @@
     <strong class="border border-light d-block" style="width:100%;">{{$venue->name_area}}{{$venue->name_bldg}}{{$venue->name_venue}}</strong>
   </div>
   <div class="mt-5">
-    <table class="table">
+    <table class="table table-bordered">
       <tbody>
         <tr>
           <td>曜日</td>

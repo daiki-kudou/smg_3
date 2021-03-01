@@ -1,23 +1,24 @@
 @extends('layouts.admin.app')
-
 @section('content')
+<link href="{{ asset('/css/template.css') }}" rel="stylesheet">
+
 <div class="container-field mt-3">
   <div class="float-right">
     <nav aria-label="breadcrumb">
       <ol class="breadcrumb">
-        <li class="breadcrumb-item active">{{ Breadcrumbs::render(Route::currentRouteName(),$venue->id) }}</li>
+      <li class="breadcrumb-item active">{{ Breadcrumbs::render(Route::currentRouteName(),$venue->id) }}</li>
       </ol>
     </nav>
   </div>
+</div>
 
 <h2 class="mt-3 mb-3">料金管理　詳細</h2>
 <hr>
-</div>
 
 @if (count($frame_prices)==0 && count($time_prices)==0)
-<div class="p-3 mb-2 bg-white text-dark">
-  <div>料金管理　詳細</div>
-  <hr>
+<div class="section-wrap">
+  <!-- <div>料金管理　詳細</div>
+  <hr> -->
   <div class="w-100">
     <span class="d-block mb-2">会場</span>
     <strong class="border border-light d-block" style="width:100%;">{{$venue->name_area}}{{$venue->name_bldg}}{{$venue->name_venue}}</strong>
@@ -25,19 +26,19 @@
   </div>
   <div class="d-flex justify-content-around">
     <div>
-      {{ link_to_route('admin.frame_prices.create', '通常の料金体系で登録（枠貸し料金）', $parameters=$venue->id,['class' => 'btn btn-primary']) }}
+      {{ link_to_route('admin.frame_prices.create', '通常の料金体系で登録（枠貸し料金）', $parameters=$venue->id,['class' => 'btn more_btn']) }}
     </div>
     <div>
-      {{ link_to_route('admin.time_prices.create', 'アクセア料金体系で登録（時間貸し料金）', $parameters=$venue->id,['class' => 'btn btn-primary']) }}
+      {{ link_to_route('admin.time_prices.create', 'アクセア料金体系で登録（時間貸し料金）', $parameters=$venue->id,['class' => 'btn more_btn']) }}
     </div>
   </div>
 </div>
 
 @else
 
-<div class="p-3 mb-2 bg-white text-dark">
-  <div>料金管理</div>
-  <hr>
+<div class="section-wrap">
+  <!-- <div>料金管理</div>
+  <hr> -->
   <span>会場</span>
   <div class="form-group">
     {{ $venue->name_area}}{{ $venue->name_bldg}}{{ $venue->name_venue}}
@@ -46,9 +47,9 @@
     <div class="d-flex justify-content-between mb-3">
       <h4>料金体系：通常(枠貸し料金)</h4>
       @if (!count($frame_prices)==0)
-      {{ link_to_route('admin.frame_prices.edit', '枠貸し編集', $parameters=$venue->id,['class' => 'btn btn-warning']) }}
+      {{ link_to_route('admin.frame_prices.edit', '枠貸し編集', $parameters=$venue->id,['class' => 'btn more_btn']) }}
       @else
-      {{ link_to_route('admin.frame_prices.create', '枠貸し新規作成', $parameters=$venue->id,['class' => 'btn btn-primary']) }}
+      {{ link_to_route('admin.frame_prices.create', '枠貸し新規作成', $parameters=$venue->id,['class' => 'btn more_btn']) }}
       @endif
     </div>
     <table class="table table-bordered">
@@ -76,9 +77,9 @@
 
 
 
-<div class="p-3 mb-2 bg-white text-dark">
-  <div>料金管理</div>
-  <hr>
+<div class="section-wrap">
+  <!-- <div>料金管理</div>
+  <hr> -->
   <span>会場</span>
   <!-- 選択事後、自動で該当IDに変遷。ライブラリhtml2を利用 -->
   <div class="form-group">
@@ -88,9 +89,9 @@
     <div class="d-flex justify-content-between mb-3">
       <h4>料金体系：アクセア仕様(時間貸し料金)</h4>
       @if (!count($time_prices)==0)
-      {{ link_to_route('admin.time_prices.edit', '時間貸し編集', $parameters=$venue->id,['class' => 'btn btn-warning']) }}
+      {{ link_to_route('admin.time_prices.edit', '時間貸し編集', $parameters=$venue->id,['class' => 'btn more_btn']) }}
       @else
-      {{ link_to_route('admin.time_prices.create', '時間貸し新規作成', $parameters=$venue->id,['class' => 'btn btn-primary']) }}
+      {{ link_to_route('admin.time_prices.create', '時間貸し新規作成', $parameters=$venue->id,['class' => 'btn more_btn']) }}
       @endif
     </div>
     <table class="table table-bordered">
@@ -126,19 +127,19 @@
   <p>会場名 : {{$venue->name_area}}{{$venue->name_bldg}}{{$venue->name_venue}}</p>
 </h3>
 @if (!count($frame_prices)==0)
-{{ link_to_route('admin.frame_prices.edit', '枠貸し編集', $parameters=$venue->id,['class' => 'btn btn-warning']) }}
+{{ link_to_route('admin.frame_prices.edit', '枠貸し編集', $parameters=$venue->id,['class' => 'btn more_btn']) }}
 @else
-{{ link_to_route('admin.frame_prices.create', '枠貸し新規作成', $parameters=$venue->id,['class' => 'btn btn-primary']) }}
+{{ link_to_route('admin.frame_prices.create', '枠貸し新規作成', $parameters=$venue->id,['class' => 'btn more_btn']) }}
 @endif
 @if (!count($time_prices)==0)
-{{ link_to_route('admin.time_prices.edit', '時間貸し編集', $parameters=$venue->id,['class' => 'btn btn-warning']) }}
+{{ link_to_route('admin.time_prices.edit', '時間貸し編集', $parameters=$venue->id,['class' => 'btn more_btn']) }}
 @else
-{{ link_to_route('admin.time_prices.create', '時間貸し新規作成', $parameters=$venue->id,['class' => 'btn btn-primary']) }}
+{{ link_to_route('admin.time_prices.create', '時間貸し新規作成', $parameters=$venue->id,['class' => 'btn more_btn']) }}
 @endif
 <div>
   <h4>料金体系：枠貸し</h4>
   <p></p>
-  <table class="table">
+  <table class="table table-bordered">
     <thead>
       <tr>
         <th scope="col">枠</th>
@@ -164,7 +165,7 @@
 <div>
   <h4>料金体系：時間貸</h4>
   <p></p>
-  <table class="table">
+  <table class="table table-bordered">
     <thead>
       <tr>
         <th scope="col">時間</th>
