@@ -77,34 +77,6 @@
             </td>
           </tr>
           <tr>
-            <td class="table-active form_required">入室時間</td>
-            <td>
-              <div>
-                <select name="enter_time" id="sales_start" class="form-control">
-                  <option disabled selected></option>
-                  @for ($start = 0*2; $start <=23*2; $start++) <option value="{{date("H:i:s", strtotime("00:00 +". $start * 30 ." minute"))}}" @if (isset($request)) @endif>
-                    {{date("H時i分", strtotime("00:00 +". $start * 30 ." minute"))}}
-                    </option>
-                    @endfor
-                </select>
-                <p class="is-error-enter_time" style="color: red"></p>
-              </div>
-            </td>
-          </tr>
-          <tr>
-            <td class="table-active form_required">退室時間</td>
-            <td>
-              <div>
-                <select name="leave_time" id="sales_finish" class="form-control">
-                  <option disabled selected></option>
-                  @for ($start = 0*2; $start <=23*2; $start++) <option value="{{date("H:i:s", strtotime("00:00 +". $start * 30 ." minute"))}}" @if (isset($request)) @endif>
-                    {{date("H時i分", strtotime("00:00 +". $start * 30 ." minute"))}}</option>
-                    @endfor
-                </select>
-                <p class="is-error-leave_time" style="color: red"></p>
-              </div>
-            </td>
-          </tr>
           <tr>
             <td class="table-active form_required">会場</td>
             <td>
@@ -131,6 +103,34 @@
                     {{Form::label('price_system_radio2','アクセア（時間貸）')}}
                   </div>
                 </div>
+              </div>
+            </td>
+          </tr>
+            <td class="table-active form_required">入室時間</td>
+            <td>
+              <div>
+                <select name="enter_time" id="sales_start" class="form-control">
+                  <option disabled selected></option>
+                  @for ($start = 0*2; $start <=23*2; $start++) <option value="{{date("H:i:s", strtotime("00:00 +". $start * 30 ." minute"))}}" @if (isset($request)) @endif>
+                    {{date("H時i分", strtotime("00:00 +". $start * 30 ." minute"))}}
+                    </option>
+                    @endfor
+                </select>
+                <p class="is-error-enter_time" style="color: red"></p>
+              </div>
+            </td>
+          </tr>
+          <tr>
+            <td class="table-active form_required">退室時間</td>
+            <td>
+              <div>
+                <select name="leave_time" id="sales_finish" class="form-control">
+                  <option disabled selected></option>
+                  @for ($start = 0*2; $start <=23*2; $start++) <option value="{{date("H:i:s", strtotime("00:00 +". $start * 30 ." minute"))}}" @if (isset($request)) @endif>
+                    {{date("H時i分", strtotime("00:00 +". $start * 30 ." minute"))}}</option>
+                    @endfor
+                </select>
+                <p class="is-error-leave_time" style="color: red"></p>
               </div>
             </td>
           </tr>

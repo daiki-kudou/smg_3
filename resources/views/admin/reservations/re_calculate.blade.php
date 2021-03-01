@@ -291,7 +291,9 @@
             <tr>
               <th colspan="2">
                 <div class="d-flex justify-content-between align-items-center">
-                  有料備品
+                  <p class="title-icon fw-bolder py-1">
+                    <i class="fas fa-wrench icon-size fa-fw"></i>有料備品
+                  </p>
                   <i class="fas fa-plus icon_plus hide"></i>
                   <i class="fas fa-minus icon_minus"></i>
                 </div>
@@ -327,7 +329,9 @@
             <tr>
               <th colspan="2">
                 <div class="d-flex justify-content-between align-items-center">
-                  有料サービス
+                  <p class="title-icon fw-bolder py-1">
+                    <i class="fas fa-hand-holding-heart icon-size fa-fw"></i>有料サービス
+                  </p>
                   <i class="fas fa-plus icon_plus hide"></i>
                   <i class="fas fa-minus icon_minus"></i>
                 </div>
@@ -386,7 +390,11 @@
         <table class='table table-bordered' style="table-layout:fixed;">
           <thead>
             <tr>
-              <th colspan='2'>レイアウト</th>
+              <th colspan='2'>
+                <p class="title-icon">
+                  <i class="fas fa-th icon-size fa-fw"></i>レイアウト
+                </p>
+              </th>
             </tr>
           </thead>
           <tbody>
@@ -447,7 +455,11 @@
         <table class='table table-bordered' style="table-layout:fixed;">
           <thead>
             <tr>
-              <th colspan='2'>荷物預かり</th>
+              <th colspan='2'>
+                <p class="title-icon">
+                  <i class="fas fa-suitcase-rolling icon-size fa-fw"></i>荷物預かり
+                </p>
+              </th>
             </tr>
           </thead>
           <tbody>
@@ -483,62 +495,62 @@
 
     <div class="col">
       <!-- <div class="client_mater">　 -->
-        <table class="table table-bordered name-table" style="table-layout:fixed;">
-          <tr>
-            <td colspan="2">
-              <div class="d-flex align-items-center justify-content-between">
-                <p class="title-icon">
-                  <i class="far fa-id-card icon-size"></i>顧客情報
-                </p>
-                <p><a class="more_btn bg-green" href="">顧客詳細</a></p>
-              </div>
-            </td>
-          </tr>
-          <tr>
-            <td class="table-active"><label for="user_id" class=" form_required">会社名/団体名</label></td>
-            <td>
-              <select class="form-control" name="user_id" id="user_select">
-                <option disabled selected>選択してください</option>
-                @foreach ($users as $user)
-                <option value="{{$user->id}}" @if ($all_requests['user_id']==$user->id)
-                  selected
-                  @endif
-                  >
-                  {{$user->company}} ・ {{ReservationHelper::getPersonName($user->id)}} ・ {{$user->email}}
-                </option>
-                @endforeach
-              </select>
-              <p class="is-error-user_id" style="color: red"></p>
-            </td>
-          </tr>
-          <tr>
-            <td class="table-active"><label for="name" class=" form_required">担当者氏名<br></label></td>
-            <td>
-              {{ Form::text('', $all_requests['user_id']?ReservationHelper::getPersonName($all_requests['user_id']):'',['class'=>'form-control'] ) }}
-            </td>
-          </tr>
-        </table>
-        <table class="table table-bordered oneday-table" style="table-layout:fixed;">
-          <tr>
-            <td colspan="2">
+      <table class="table table-bordered name-table" style="table-layout:fixed;">
+        <tr>
+          <td colspan="2">
+            <div class="d-flex align-items-center justify-content-between">
               <p class="title-icon">
-                <i class="fas fa-user-check icon-size"></i>当日の連絡できる担当者
+                <i class="far fa-id-card icon-size"></i>顧客情報
               </p>
-            </td>
-          </tr>
-          <tr>
-            <td class="table-active"><label for="ondayName" class=" form_required">氏名</label></td>
-            <td>
-              {{ Form::text('in_charge', $all_requests['in_charge'],['class'=>'form-control'] ) }}
-            </td>
-          </tr>
-          <tr>
-            <td class="table-active"><label for="mobilePhone" class=" form_required">携帯番号</label></td>
-            <td>
-              {{ Form::text('tel', $all_requests['tel'],['class'=>'form-control'] ) }}
-            </td>
-          </tr>
-        </table>
+              <p><a class="more_btn bg-green" href="">顧客詳細</a></p>
+            </div>
+          </td>
+        </tr>
+        <tr>
+          <td class="table-active"><label for="user_id" class=" form_required">会社名/団体名</label></td>
+          <td>
+            <select class="form-control" name="user_id" id="user_select">
+              <option disabled selected>選択してください</option>
+              @foreach ($users as $user)
+              <option value="{{$user->id}}" @if ($all_requests['user_id']==$user->id)
+                selected
+                @endif
+                >
+                {{$user->company}} ・ {{ReservationHelper::getPersonName($user->id)}} ・ {{$user->email}}
+              </option>
+              @endforeach
+            </select>
+            <p class="is-error-user_id" style="color: red"></p>
+          </td>
+        </tr>
+        <tr>
+          <td class="table-active"><label for="name" class=" form_required">担当者氏名<br></label></td>
+          <td>
+            {{ Form::text('', $all_requests['user_id']?ReservationHelper::getPersonName($all_requests['user_id']):'',['class'=>'form-control'] ) }}
+          </td>
+        </tr>
+      </table>
+      <table class="table table-bordered oneday-table" style="table-layout:fixed;">
+        <tr>
+          <td colspan="2">
+            <p class="title-icon">
+              <i class="fas fa-user-check icon-size"></i>当日の連絡できる担当者
+            </p>
+          </td>
+        </tr>
+        <tr>
+          <td class="table-active"><label for="ondayName" class=" form_required">氏名</label></td>
+          <td>
+            {{ Form::text('in_charge', $all_requests['in_charge'],['class'=>'form-control'] ) }}
+          </td>
+        </tr>
+        <tr>
+          <td class="table-active"><label for="mobilePhone" class=" form_required">携帯番号</label></td>
+          <td>
+            {{ Form::text('tel', $all_requests['tel'],['class'=>'form-control'] ) }}
+          </td>
+        </tr>
+      </table>
       <!-- </div> -->
       <table class="table table-bordered mail-table" style="table-layout:fixed;">
         <tr>

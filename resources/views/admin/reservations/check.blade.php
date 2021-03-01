@@ -113,7 +113,9 @@
             <tr>
               <th colspan="2">
                 <div class="d-flex justify-content-between align-items-center">
-                  有料備品
+                  <p class="title-icon fw-bolder py-1">
+                    <i class="fas fa-wrench icon-size fa-fw"></i>有料備品
+                  </p>
                   <i class="fas fa-plus icon_plus hide"></i>
                   <i class="fas fa-minus icon_minus"></i>
                 </div>
@@ -140,7 +142,9 @@
             <tr>
               <th colspan="2">
                 <div class="d-flex justify-content-between align-items-center">
-                  有料サービス
+                  <p class="title-icon fw-bolder py-1">
+                    <i class="fas fa-hand-holding-heart icon-size fa-fw"></i>有料サービス
+                  </p>
                   <i class="fas fa-plus icon_plus hide"></i>
                   <i class="fas fa-minus icon_minus"></i>
                 </div>
@@ -165,7 +169,11 @@
         <table class='table table-bordered' style="table-layout:fixed;">
           <thead>
             <tr>
-              <th colspan='2'>レイアウト</th>
+              <th colspan='2'>
+                <p class="title-icon">
+                  <i class="fas fa-th icon-size fa-fw"></i>レイアウト
+                </p>
+              </th>
             </tr>
           </thead>
           <tbody>
@@ -194,7 +202,11 @@
         <table class='table table-bordered' style="table-layout:fixed;">
           <thead>
             <tr>
-              <th colspan='2'>荷物預かり</th>
+              <th colspan='2'>
+                <p class="title-icon">
+                  <i class="fas fa-suitcase-rolling icon-size fa-fw"></i>荷物預かり
+                </p>
+              </th>
             </tr>
           </thead>
           <tbody>
@@ -435,7 +447,7 @@
             <tbody class="venue_result">
               <tr>
                 <td colspan="2"></td>
-                <td colspan="2" >
+                <td colspan="2">
                   <p class="text-right">
                     <span>合計：</span>
                     {{ Form::text('venue_price', $request->venue_price,['class'=>'form-control col-xs-3', 'readonly'] ) }}
