@@ -28,12 +28,20 @@
   .error {
     color: red;
   }
+
   .table th {
     width: 30%;
   }
-
 </style>
 <div class="container-field">
+  <div class="float-right">
+    <nav aria-label="breadcrumb">
+      <ol class="breadcrumb">
+        <li class="breadcrumb-item active">{{ Breadcrumbs::render(Route::currentRouteName()) }}</li>
+      </ol>
+    </nav>
+  </div>
+
   <h2 class="mt-3 mb-3">仲介会社　新規登録</h2>
   <hr>
 
@@ -72,7 +80,7 @@
             </tr>
             <!-- 工藤さんに確認　増やした項目 -->
             <tr>
-              <td class="table-active">{{ Form::label('company', '運営会社') }}</td>
+              <td class="table-active">{{ Form::label('company', '運営会社名') }}</td>
               <td colspan="2">{{ Form::text('company', old('company'), ['class' => 'form-control', 'id'=>'company']) }}</td>
             </tr>
             <!-- 工藤さんに確認　顧客情報の郵便番号の箇所を引っ張ってきた -->
@@ -113,7 +121,7 @@
               <td>名：{{ Form::text('person_lastname', old('person_lastname'), ['class' => 'form-control']) }}</td>
             </tr>
             <tr>
-              <td class="table-active">{{ Form::label('firstname_kana', '担当者氏名（ふりがな）') }}</td>
+              <td class="table-active">{{ Form::label('firstname_kana', '担当者氏名（フリガナ）') }}</td>
               <td>セイ：{{ Form::text('firstname_kana', old('firstname_kana'), ['class' => 'form-control'])}}
               </td>
               <td>メイ：{{ Form::text('lastname_kana', old('lastname_kana'), ['class' => 'form-control']) }}
@@ -196,7 +204,7 @@
           <tbody>
             <tr>
               <th class="table-active">{{ Form::label('cost', '仲介手数料') }}</th>
-              <td>{{ Form::number('cost', old('cost'), ['class' => 'form-control']) }}<span class="ml-1">%</span></td>
+              <td class="d-flex align-items-center">{{ Form::number('cost', old('cost'), ['class' => 'form-control']) }}<span class="ml-1">%</span></td>
             </tr>
             <tr>
               <th class="table-active">{{ Form::label('deal_details', '取引詳細') }}</th>
@@ -204,9 +212,9 @@
             </tr>
             <tr>
               <td class="table-active">{{ Form::label('cancel', 'キャンセルポリシー') }}</td>
-              <td>
-                <p>{{ Form::checkbox('cancel', old('cancel'), ['class' => 'form-control']) }}{{ Form::label('cancel', 'SMGルール') }}</p>
-                <p>{{ Form::checkbox('cancel', old('cancel'), ['class' => 'form-control']) }}{{ Form::label('cancel', '仲介会社ルール') }}</p>
+              <td class="align-items-center d-flex">
+                <p>{{ Form::radio('cancel', old('cancel'), ['class' => 'form-control']) }}{{ Form::label('cancel', 'SMGルール'), ['class' => 'ml-1']) }}</p>
+                <p>{{ Form::radio('cancel', old('cancel'), ['class' => 'form-control']) }}{{ Form::label('cancel', '仲介会社ルール'), ['class' => 'ml-1']) }}</p>
                 <p class="mt-2">{{ Form::label('cancel', 'キャンセルポリシーURL') }}{{ Form::text('cancel', old('cancel'), ['class' => 'form-control']) }}</p>
               </td>
             </tr>
@@ -251,7 +259,7 @@
 
     </div>
 
-    {{ Form::submit('新規作成', ['class' => 'btn btn-block more_btn mt-3']) }}
+    {{ Form::submit('新規作成', ['class' => 'btn more_btn_lg d-block btn-lg mx-auto my-5']) }}
     {{ Form::close() }}
 
   </section>

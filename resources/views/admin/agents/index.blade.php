@@ -41,7 +41,7 @@
   <div class="float-right">
     <nav aria-label="breadcrumb">
       <ol class="breadcrumb">
-        <li class="breadcrumb-item active"></li>
+        <li class="breadcrumb-item active">{{ Breadcrumbs::render(Route::currentRouteName()) }}</li>
       </ol>
     </nav>
   </div>
@@ -93,13 +93,14 @@
   </div>
   @endif
 
-
   <table class="table table-bordered mt-5">
     <thead>
       <tr>
         <th scope="col">ID</th>
-        <th scope="col">会社名・団体名</th>
-        <th scope="col">電話番号</th>
+        <th scope="col">サービス名称</th>
+        <th scope="col">運営会社名</th>
+        <th scope="col">担当者氏名</th>
+        <th scope="col">担当者TEL</th>
         <th class="btn-cell" scope="col">詳細</th>
       </tr>
     </thead>
@@ -108,6 +109,8 @@
       <tr>
         <th>{{$query->id}}</th>
         <td>{{$query->name}}</td>
+        <td>{{$query->company}}</td>
+        <td>{{$query->person_firstname}}</td>
         <td>{{$query->person_tel}}</td>
         <td><a class="more_btn" href="{{ url('admin/agents', $query->id) }}">詳細</a></td>
       </tr>

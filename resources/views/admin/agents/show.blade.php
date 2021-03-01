@@ -1,5 +1,4 @@
 @extends('layouts.admin.app')
-
 @section('content')
 <link href="{{ asset('/css/template.css') }}" rel="stylesheet">
 
@@ -7,23 +6,32 @@
   .table th {
     width: 35%;
   }
-
 </style>
 
-
-<h2 class="mt-3 mb-3">仲介会社　詳細</h2>
-<hr>
+<div class="container-field">
+  <div class="float-right">
+    <nav aria-label="breadcrumb">
+      <ol class="breadcrumb">
+        <li class="breadcrumb-item active">
+          {{ Breadcrumbs::render(Route::currentRouteName(),$agents->id) }}
+        </li>
+      </ol>
+    </nav>
+  </div>
+  <h2 class="mt-3 mb-3">仲介会社　詳細</h2>
+  <hr>
+</div>
 
 <section class="section-wrap">
   <div class="col-12 align-items-center d-flex justify-content-between mt-5 mb-2">
     <div>
       {{ Form::model($agent, ['route' => ['admin.agents.destroy', $agent->id], 'method' => 'delete']) }}
       @csrf
-      {{ Form::submit('削除', ['class' => 'btn more_btn4']) }}
+      {{ Form::submit('削除', ['class' => 'btn more_btn4_lg']) }}
       {{ Form::close() }}
     </div>
     <div>
-      {{ link_to_route('admin.agents.edit', '編集する', $parameters = $agent->id, ['class' => 'btn more_btn']) }}
+      {{ link_to_route('admin.agents.edit', '編集する', $parameters = $agent->id, ['class' => 'btn more_btn_lg']) }}
     </div>
   </div>
 
