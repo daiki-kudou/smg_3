@@ -147,7 +147,7 @@
         <option value="50" {{$counter==50?'selected':''}}>50</option>
       </select>
       件表示
-    </div>
+    </div>b
   </form> -->
     <!-- 検索　終わり------------------------------------------------ -->
   
@@ -168,9 +168,9 @@
       @foreach ($querys as $query)
       <tr>
         <td>{{ ReservationHelper::IdFormat($query->id) }}</td>
-        <td>{{ $query->alliance_flag==0?'直営':'提携' }}</td>
         <td>{{ ReservationHelper::formatDate($query->created_at) }}</td>
         <td>{{ $query->name_area }}{{ $query->name_bldg }}{{ $query->name_venue }}</td>
+        <td>{{ $query->alliance_flag==0?'直営':'提携' }}</td>
         <td>{{ $query->size1 }}</td>
         <td>{{ $query->size2 }}</td>
         <td>{{ $query->capacity }}</td>

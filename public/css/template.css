@@ -785,9 +785,6 @@ table td.table_column p:last-child {
 }
 
 
-/* =============仮押さえ　=============================================== */
-
-
 .btn-cell {
     min-width: 89px;
 }
@@ -823,6 +820,13 @@ table td.table_column p:last-child {
 
 #sortableArea {
     cursor: pointer;
+}
+
+
+/* 会場 ===================================================================== */
+
+.venue_table td{
+    width: 33%;
 }
 
 

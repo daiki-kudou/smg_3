@@ -33,7 +33,7 @@
       <table class="table table-bordered">
         <tbody>
           <tr>
-            <td class="table-active"> {{ Form::label('smg_url', '会場SMG Url') }}</td>
+            <td class="table-active"> {{ Form::label('smg_url', '会場SMG URL') }}</td>
             <td>{{$venue->smg_url}}</td>
           </tr>
         </tbody>
@@ -221,7 +221,7 @@
             </td>
           </tr>
           <tr>
-            <td class="table-active">{{ Form::label('person_email', '担当者メール') }}</td>
+            <td class="table-active">{{ Form::label('person_email', '担当者メールアドレス') }}</td>
             <td colspan="2">{{ $venue->person_email}}
             </td>
           </tr>
@@ -333,7 +333,7 @@
             </td>
           </tr>
           <tr>
-            <td class="table-active">{{ Form::label('layout', 'レイアウト変更料金') }}</td>
+            <td class="table-active">{{ Form::label('layout', 'レイアウト片付料金') }}</td>
             <td>
               {{ $venue->layout_clean}}
             </td>
@@ -396,11 +396,8 @@
       </ul>
     </div>
   </div>
-</section>
 
-
-
-<section class="section-wrap">
+  <!-- 営業時間 ------------------------------------------------------------------------>
   <div class="mb-5 border-wrap2">
     <p class="title-icon table-active fw-bolder p-2">
       <i class="fas fa-clock icon-size fa-fw"></i>営業時間
@@ -439,10 +436,8 @@
           @endforeach
         </tbody>
       </table>
-
     </div>
   </div>
-
 
   <div class="mb-5 border-wrap2">
     <p class="title-icon table-active fw-bolder p-2">

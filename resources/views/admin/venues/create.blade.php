@@ -13,7 +13,7 @@
     </nav>
   </div>
 
-  <h2 class="mt-3 mb-3">会場　新規登録</h2>
+  <h2 class="mt-3 mb-3">会場 新規登録</h2>
   <hr>
 
   <div class="errors">
@@ -59,7 +59,7 @@
       <div class="col">
 
         <!-- 基本情報 ------------------------------------------------------------------------>
-        <table class="table table-bordered">
+        <table class="table table-bordered venue_table">
           <thead>
             <tr>
               <td colspan="2">
@@ -146,7 +146,7 @@
             </tr>
             <tr>
               <td class="table-active">{{ Form::label('address3', '住所（建物名）',['class' => 'form_required']) }}</td>
-              <td>{{ Form::text('address3', old('address3'), ['placeholder' => 'プレサンスビル703号室','class' => 'form-control']) }}
+              <td>{{ Form::text('address3', old('address3'), ['placeholder' => 'サンワールドビル1号室','class' => 'form-control']) }}
                 <p class="is-error-address3" style="color: red"></p>
               </td>
             </tr>
@@ -217,7 +217,7 @@
             </tr>
             <tr>
               <td class="table-active">{{ Form::label('luggage_address3', '住所（建物名）',['class' => 'form_required']) }}</td>
-              <td> {{ Form::text('luggage_address3', old('luggage_address3'), ['class' => 'form-control','placeholder' => 'プレサンスビル703号室']) }}
+              <td> {{ Form::text('luggage_address3', old('luggage_address3'), ['class' => 'form-control','placeholder' => 'サンワールドビル1号室']) }}
                 <p class="is-error-luggage_address3" style="color: red"></p>
               </td>
             </tr>
@@ -436,7 +436,7 @@
       <div class="col">
 
         <!-- 担当者情報 ------------------------------------------------------------------------>
-        <table class="table table-bordered">
+        <table class="table table-bordered table_fixed">
           <thead>
             <tr>
               <td colspan="3">
@@ -470,7 +470,7 @@
               </td>
             </tr>
             <tr>
-              <td class="table-active">{{ Form::label('person_email', '担当者メール') }}</td>
+              <td class="table-active">{{ Form::label('person_email', '担当者メールアドレス') }}</td>
               <td colspan="2">{{ Form::text('person_email', old('person_email'), ['class' => 'form-control']) }}
                 <p class="is-error-person_email" style="color: red"></p>
               </td>
@@ -479,7 +479,7 @@
         </table>
 
         <!-- ビル管理会社情報 ------------------------------------------------------------------------>
-        <table class="table table-bordered">
+        <table class="table table-bordered table_fixed">
           <thead>
             <tr>
               <td colspan="3">
@@ -588,7 +588,7 @@
               </td>
             </tr>
             <tr>
-              <td class="table-active">{{ Form::label('layout_clean', 'レイアウト変更料金',['class' => '']) }}</td>
+              <td class="table-active">{{ Form::label('layout_clean', 'レイアウト片付料金',['class' => '']) }}</td>
               <td>
                 {{ Form::text('layout_clean', old('layout_clean'), ['class' => 'form-control']) }}
                 <p class="is-error-layout" style="color: red"></p>

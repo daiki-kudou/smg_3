@@ -48,7 +48,7 @@
         <table class="table table-bordered">
           <tbody>
             <tr>
-              <td class="table-active">{{ Form::label('smg_url', '会場SMG Url',['class' => 'form_required']) }}</td>
+              <td class="table-active">{{ Form::label('smg_url', '会場SMG URL',['class' => 'form_required']) }}</td>
               <td>{{ Form::text('smg_url', $venue->smg_url, ['class' => 'form-control']) }}
                 <p class="is-error-smg_url" style="color: red"></p>
               </td>
@@ -70,7 +70,7 @@
       <div class="col">
 
         <!-- 基本情報 ------------------------------------------------------------------------>
-        <table class="table table-bordered">
+        <table class="table table-bordered venue_table">
           <thead>
             <tr>
               <td colspan="2">
@@ -466,7 +466,7 @@
       <div class="col">
 
         <!-- 担当者情報 ------------------------------------------------------------------------>
-        <table class="table table-bordered">
+        <table class="table table-bordered table_fixed">
           <thead>
             <tr>
               <td colspan="3">
@@ -500,7 +500,7 @@
               </td>
             </tr>
             <tr>
-              <td class="table-active">{{ Form::label('person_email', '担当者メール') }}</td>
+              <td class="table-active">{{ Form::label('person_email', '担当者メールアドレス') }}</td>
               <td colspan="2">{{ Form::text('person_email', $venue->person_email, ['class' => 'form-control']) }}
                 <p class="is-error-person_email" style="color: red"></p>
               </td>
@@ -509,7 +509,7 @@
         </table>
 
         <!-- ビル管理会社情報 ------------------------------------------------------------------------>
-        <table class="table table-bordered">
+        <table class="table table-bordered table_fixed">
           <thead>
             <tr>
               <td colspan="3">
@@ -620,7 +620,7 @@
               </td>
             </tr>
             <tr>
-              <td class="table-active">{{ Form::label('layout_clean', 'レイアウト変更料金',['class' => '']) }}</td>
+              <td class="table-active">{{ Form::label('layout_clean', 'レイアウト片付料金',['class' => '']) }}</td>
               <td>
               {{ Form::text('layout_clean', $venue->layout_clean, ['class' => 'form-control']) }}
               </td>
