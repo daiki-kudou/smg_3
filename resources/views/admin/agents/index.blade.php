@@ -110,7 +110,7 @@
         <th>{{$query->id}}</th>
         <td>{{$query->name}}</td>
         <td>{{$query->company}}</td>
-        <td>{{$query->person_firstname}}</td>
+        <td>{{$query->person_firstname}}{{$query->person_lastname}}</td>
         <td>{{$query->person_tel}}</td>
         <td><a class="more_btn" href="{{ url('admin/agents', $query->id) }}">詳細</a></td>
       </tr>

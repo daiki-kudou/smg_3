@@ -212,7 +212,7 @@
             </tr>
             <tr>
               <td class="table-active">{{ Form::label('cancel', 'キャンセルポリシー') }}</td>
-              <td class="align-items-center d-flex">
+              <td>
                 <p>{{ Form::radio('cancel', old('cancel'), ['class' => 'form-control, mr-1']) }}{{ Form::label('cancel', 'SMGルール') }}</p>
                 <p>{{ Form::radio('cancel', old('cancel'), ['class' => 'form-control, mr-1']) }}{{ Form::label('cancel', '仲介会社ルール') }}</p>
                 <p class="mt-2">{{ Form::label('cancel', 'キャンセルポリシーURL') }}{{ Form::text('cancel', old('cancel'), ['class' => 'form-control']) }}</p>
@@ -259,7 +259,7 @@
 
     </div>
 
-    {{ Form::submit('新規作成', ['class' => 'btn more_btn_lg d-block btn-lg mx-auto my-5']) }}
+    {{ Form::submit('登録する', ['class' => 'btn more_btn_lg d-block btn-lg mx-auto my-5']) }}
     {{ Form::close() }}
 
   </section>

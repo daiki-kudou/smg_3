@@ -190,7 +190,7 @@
           <tbody>
             <tr>
               <th class="table-active">{{ Form::label('cost', '仲介手数料') }}</th>
-              <td>{{ Form::number('cost', old('cost'), ['class' => 'form-control']) }}<span class="ml-1">%</span></td>
+              <td class="d-flex align-items-center">{{ Form::number('cost', old('cost'), ['class' => 'form-control']) }}<span class="ml-1">%</span></td>
             </tr>
             <tr>
               <th class="table-active">{{ Form::label('deal_details', '取引詳細') }}</th>
@@ -198,7 +198,7 @@
             </tr>
             <tr>
               <td class="table-active">{{ Form::label('cancel', 'キャンセルポリシー') }}</td>
-              <td class="align-items-center d-flex">
+              <td>
                 <p>{{ Form::radio('cancel', old('cancel'), ['class' => 'form-control, mr-1']) }}{{ Form::label('cancel', 'SMGルール') }}</p>
                 <p>{{ Form::radio('cancel', old('cancel'), ['class' => 'form-control, mr-1']) }}{{ Form::label('cancel', '仲介会社ルール') }}</p>
                 <p class="mt-2">{{ Form::label('cancel', 'キャンセルポリシーURL') }}{{ Form::text('cancel', old('cancel'), ['class' => 'form-control']) }}</p>
@@ -354,7 +354,7 @@
   </div>
 
   <div class="mt-5">
-    {{ Form::submit('更新', ['class' => 'btn more_btn_lg btn-block']) }}
+    {{ Form::submit('更新する', ['class' => 'btn more_btn_lg d-block btn-lg mx-auto my-5']) }}
     {{ Form::close() }}
   </div>
 
