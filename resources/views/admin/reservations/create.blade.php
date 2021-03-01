@@ -54,7 +54,6 @@
   <h2 class="mt-3 mb-3">予約　新規登録</h2>
   <hr>
 
-
   {{-- 新規作成の場合 --}}
   {{Form::open(['url' => 'admin/reservations/calculate', 'method' => 'POST', 'id'=>'reservationCreateForm'])}}
   @csrf
