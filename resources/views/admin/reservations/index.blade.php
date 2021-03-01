@@ -7,7 +7,7 @@
 <script src="{{ asset('/js/template.js') }}"></script>
 
 <script>
-  $(function(){
+  $(function() {
     $('.flash_message').fadeOut(3000);
   })
 </script>
@@ -24,8 +24,8 @@
       <div class="float-right">
         <nav aria-label="breadcrumb">
           <ol class="breadcrumb">
-            <li class="breadcrumb-item active"><a href="http://staging-smg2.herokuapp.com/admin/home">ホーム</a> >
-              予約一覧
+            <li class="breadcrumb-item active">
+              ダミーダミーダミーダミー
             </li>
           </ol>
         </nav>
@@ -36,11 +36,10 @@
     </div>
 
     <!-- 検索--------------------------------------- -->
-
     <div class="container-field">
       <div class="row search_box">
         <div class="col-md-10 offset-md-1">
-          <div class="d-flex col-12 pd0">
+          <div class="d-flex col-12 flex-wrap">
             <dl class="form-group flex-fill">
               <dt>
                 <label class="search_item_name" for="bulkid">予約一括ID</label>
@@ -57,28 +56,24 @@
                 <input type="text" name="id" class="form-control" id="id">
               </dd>
             </dl>
-          </div>
-          <div class="row">
-            <div class="col-12">
-              <!-- Date range -->
-              <dl class="form-group">
-                <dt>
-                  <label class="search_item_name">利用日</label>
-                </dt>
-                <dd>
-                  <div class="input-group">
-                    <input type="text" class="form-control float-right" id="reservation">
-                    <div class="input-group-prepend">
-                      <span class="input-group-text">
-                        <i class="far fa-calendar-alt"></i>
-                      </span>
-                    </div>
+            <!-- Date range -->
+            <dl class="form-group flex-fill">
+              <dt>
+                <label class="search_item_name">利用日</label>
+              </dt>
+              <dd>
+                <div class="input-group">
+                  <input type="text" class="form-control float-right" id="reservation">
+                  <div class="input-group-prepend">
+                    <span class="input-group-text">
+                      <i class="far fa-calendar-alt"></i>
+                    </span>
                   </div>
-                </dd>
-                <!-- /.input group -->
-              </dl>
-              <!-- /.form group -->
-              <dl class="form-group">
+                </div>
+              </dd>
+            </dl>
+            <!-- /.form group -->
+            <!-- <dl class="form-group flex-fill">
                 <dt>
                   <label class="search_item_name">入室・退室</label>
                 </dt>
@@ -189,91 +184,104 @@
                     </select>
                   </div>
                 </dd>
-              </dl>
+              </dl> -->
 
-              <dl class="form-group">
-                <dt>
-                  <label class="search_item_name" for="venue">利用会場</label>
-                </dt>
-                <dd>
-                  <select class="form-control select2" style="width: 100%;" name="venue">
-                    <option>テスト会場A</option>
-                    <option>テスト会場B</option>
-                    <option>テスト会場C</option>
-                  </select>
-                </dd>
-              </dl>
-              <dl class="form-group">
-                <dt>
-                  <label class="search_item_name" for="company">会社名・団体名</label>
-                </dt>
-                <dd>
-                  <select class="form-control select2" style="width: 100%;" name="company">
-                    <option>テスト会場A</option>
-                    <option>テスト会場B</option>
-                    <option>テスト会場C</option>
-                  </select>
-                </dd>
-              </dl>
-              <dl class="form-group">
-                <dt>
-                  <label class="search_item_name" for="name">担当者氏名</label>
-                </dt>
-                <dd>
-                  <input type="text" name="name" class="form-control" id="name">
-                </dd>
-              </dl>
-              <dl class="form-group">
-                <dt>
-                  <label class="search_item_name" for="category">カテゴリー</label>
-                </dt>
-                <dd>
-                  <ul class="form-control icheck-primary d-flex d-flex justify-content-around">
-                    <li>
-                      <input type="checkbox" id="checkboxPrimary1" checked>
-                      <label for="checkboxPrimary1">会場</label>
-                    </li>
-                    <li>
-                      <input type="checkbox" id="checkboxPrimary1" checked>
-                      <label for="checkboxPrimary1">キャンセル</label>
-                    </li>
-                    <!-- <li>
+            <dl class="form-group flex-fill">
+              <dt>
+                <label class="search_item_name" for="venue">利用会場</label>
+              </dt>
+              <dd>
+                <select class="form-control select2" style="width: 100%;" name="venue">
+                  <option>テスト会場A</option>
+                  <option>テスト会場B</option>
+                  <option>テスト会場C</option>
+                </select>
+              </dd>
+            </dl>
+            <dl class="form-group flex-fill">
+              <dt>
+                <label class="search_item_name" for="company">会社名・団体名</label>
+              </dt>
+              <dd>
+                <select class="form-control select2" style="width: 100%;" name="company">
+                  <option>テスト会場A</option>
+                  <option>テスト会場B</option>
+                  <option>テスト会場C</option>
+                </select>
+              </dd>
+            </dl>
+            <dl class="form-group flex-fill">
+              <dt>
+                <label class="search_item_name" for="name">担当者氏名</label>
+              </dt>
+              <dd>
+                <input type="text" name="name" class="form-control" id="name">
+              </dd>
+            </dl>
+            <dl class="form-group flex-fill">
+              <dt>
+                <label class="search_item_name" for="name">携帯電話</label>
+              </dt>
+              <dd>
+                <input type="text" name="name" class="form-control" id="mobile">
+              </dd>
+            </dl>
+            <dl class="form-group flex-fill">
+              <dt>
+                <label class="search_item_name" for="name">固定電話</label>
+              </dt>
+              <dd>
+                <input type="text" name="name" class="form-control" id="tel">
+              </dd>
+            </dl>
+            <dl class="form-group flex-fill">
+              <dt>
+                <label class="search_item_name" for="category">売上区分</label>
+              </dt>
+              <dd>
+                <ul class="form-control icheck-primary d-flex d-flex justify-content-around">
+                  <li>
+                    <input type="checkbox" id="checkboxPrimary1">
+                    <label for="checkboxPrimary1">会場</label>
+                  </li>
+                  <li>
+                    <input type="checkbox" id="checkboxPrimary1">
+                    <label for="checkboxPrimary1">追加請求</label>
+                  </li>
+                  <!-- <li>
                     <input type="checkbox" id="checkboxPrimary1" checked>
                     <label for="checkboxPrimary1">追加請求</label>
                   </li> -->
-                    <li>
-                      <input type="checkbox" id="checkboxPrimary1" checked>
-                      <label for="checkboxPrimary1">追加請求</label>
-                    </li>
-                  </ul>
-                </dd>
-              </dl>
-              <dl class="form-group">
-                <dt>
-                  <label class="search_item_name" for="status">予約状況</label>
-                </dt>
-                <dd>
-                  <select class="form-control select2" style="width: 100%;" name="status">
-                    <option>予約確認中</option>
-                    <option>予約承認待ち</option>
-                    <option>予約完了</option>
-                  </select>
-                </dd>
-              </dl>
-              <dl class="form-group">
-                <dt>
-                  <label class="search_item_name" for="freeword">フリーワード検索</label>
-                </dt>
-                <dd>
-                  <input type="text" name="freeword" class="form-control" id="freeword">
-                </dd>
-              </dl>
-
-            </div>
+                  <li>
+                    <input type="checkbox" id="checkboxPrimary1">
+                    <label for="checkboxPrimary1">キャンセル</label>
+                  </li>
+                </ul>
+              </dd>
+            </dl>
+            <dl class="form-group flex-fill">
+              <dt>
+                <label class="search_item_name" for="status">予約状況</label>
+              </dt>
+              <dd>
+                <select class="form-control select2" style="width: 100%;" name="status">
+                  <option>予約確認中</option>
+                  <option>予約承認待ち</option>
+                  <option>予約完了</option>
+                </select>
+              </dd>
+            </dl>
+            <dl class="form-group flex-fill">
+              <dt>
+                <label class="search_item_name" for="freeword">フリーワード検索</label>
+              </dt>
+              <dd>
+                <input type="text" name="freeword" class="form-control" id="freeword">
+              </dd>
+            </dl>
           </div>
+
           <p class="text-right">※フリーワード検索は本画面表記の項目のみ対象となります</p>
-
-
         </div>
 
 
@@ -306,7 +314,7 @@
         <thead>
           <tr class="table_row">
             <th>予約一括ID</th>
-            <th>ID</th>
+            <th>予約ID</th>
             <th>利用日</th>
             <th>入室</th>
             <th>退室</th>
@@ -316,7 +324,8 @@
             <th>携帯電話</th>
             <th>固定電話</th>
             <th>仲介会社</th>
-            <th width="120">カテゴリー</th>
+            <th>仲介会社当日利用者</th>
+            <th width="120">売上区分</th>
             <th width="120">予約状況</th>
             <th class="btn-cell">予約詳細</th>
             <th class="btn-cell">案内板</th>
@@ -334,7 +343,8 @@
             <td rowspan="{{count($reservation->bills()->get())}}">{{$reservation->enter_time}}</td>
             <td rowspan="{{count($reservation->bills()->get())}}">{{$reservation->leave_time}}</td>
             <td rowspan="{{count($reservation->bills()->get())}}">
-              {{ReservationHelper::getVenue($reservation->venue->id)}}</td>
+              {{ReservationHelper::getVenue($reservation->venue->id)}}
+            </td>
             <td rowspan="{{count($reservation->bills()->get())}}">
               @if ($reservation->user_id>0)
               {{$reservation->user->company}}
@@ -356,14 +366,13 @@
               {{ReservationHelper::getAgentCompany($reservation->agent_id)}}
               @endif
             </td>
+            <td>ダミーダミーダミー</td>
             <td>会場予約</td>　{{--重要。固定最初は必ず　会場予約　のカテゴリ--}}
             <td>
               {{ReservationHelper::judgeStatus($reservation->bills()->first()->reservation_status)}}
             </td>
-            <td rowspan="{{count($reservation->bills()->get())}}"><a
-                href="{{ url('admin/reservations', $reservation->id) }}" class="more_btn">詳細</a></td>
-            <td rowspan="{{count($reservation->bills()->get())}}"><a
-                href="{{ url('admin/reservations/generate_pdf/'.$reservation->id) }}" class="more_btn">詳細</a></td>
+            <td rowspan="{{count($reservation->bills()->get())}}"><a href="{{ url('admin/reservations', $reservation->id) }}" class="more_btn">詳細</a></td>
+            <td rowspan="{{count($reservation->bills()->get())}}"><a href="{{ url('admin/reservations/generate_pdf/'.$reservation->id) }}" class="more_btn">表示</a></td>
           </tr>
           @for ($i = 0; $i < count($reservation->bills()->get())-1; $i++)
             <tr>
@@ -392,8 +401,7 @@
     <li class="page-item"><a class="page-link" href="">3</a>
     </li>
     <li class="page-item">
-      <a class="page-link" href="http://staging-smg2.herokuapp.com/admin/clients?page=2" rel="next"
-        aria-label="次 &raquo">&rsaquo;</a>
+      <a class="page-link" href="http://staging-smg2.herokuapp.com/admin/clients?page=2" rel="next" aria-label="次 &raquo">&rsaquo;</a>
     </li>
   </ul>
 
