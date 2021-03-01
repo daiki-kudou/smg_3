@@ -50,10 +50,9 @@
       </ol>
     </nav>
   </div>
-  <h2 class="mt-3 mb-3">仲介会社経由の予約　新規登録</h2>
+  <h2 class="mt-3 mb-3">仲介会社経由の予約 新規登録</h2>
   <hr>
 </div>
-
 
 {{Form::open(['url' => 'admin/agents_reservations/calculate', 'method' => 'POST', 'id'=>'agentReservationCreateForm'])}}
 @csrf
@@ -133,65 +132,74 @@
             </div>
           </td>
         </tr>
-
       </table>
 
       <table class="table table-bordered board-table">
-        <tr>
-          <td>案内板</td>
-          <td>
-            <input type="radio" name="board_flag" value="0" {{isset($request->board_flag)?$request->board_flag==0?'checked':'':'checked',}}>無し
-            <input type="radio" name="board_flag" value="1" {{isset($request->board_flag)?$request->board_flag==1?'checked':'':'',}}>有り
-          </td>
-        </tr>
-        <tr>
-          <td class="table-active">イベント開始時間</td>
-          <td>
-            <div>
-              <select name="event_start" id="event_start" class="form-control">
-                <option disabled>選択してください</option>
-                @for ($start = 0*2; $start <=23*2; $start++) <option value="{{date("H:i:s", strtotime("00:00 +". $start * 30 ." minute"))}}" @if (isset($request)) @endif>
-                  {{date("H時i分", strtotime("00:00 +". $start * 30 ." minute"))}}</option>
-                  @endfor
-              </select>
-            </div>
-          </td>
-        </tr>
-        <tr>
-          <td class="table-active">イベント終了時間</td>
-          <td>
-            <div>
-              <select name="event_finish" id="event_finish" class="form-control">
-                <option disabled>選択してください</option>
-                @for ($start = 0*2; $start <=23*2; $start++) <option value="{{date("H:i:s", strtotime("00:00 +". $start * 30 ." minute"))}}" @if (isset($request)) @endif>
-                  {{date("H時i分", strtotime("00:00 +". $start * 30 ." minute"))}}</option>
-                  @endfor
-              </select>
-            </div>
-          </td>
-        </tr>
-        <tr>
-          <td class="table-active">イベント名称1</td>
-          <td>
-            {{ Form::text('event_name1','',['class'=>'form-control', 'placeholder'=>'入力してください'] ) }}
+          <tr>
+            <td colspan="2">
+              <div class="d-flex align-items-center justify-content-between">
+                <p class="title-icon">
+                  <i class="fas fa-clipboard icon-size"></i>案内版
+                </p>
+              </div>
+            </td>
+          </tr>
+          <tr>
+            <td class="table-active">案内板</td>
+            <td>
+              <div class="radio-box">
+                <input type="radio" name="board_flag" value="0" {{isset($request->board_flag)?$request->board_flag==0?'checked':'':'checked',}}>無し
+                <input type="radio" name="board_flag" value="1" {{isset($request->board_flag)?$request->board_flag==1?'checked':'':'',}}>有り
+              </div>
+            </td>
+          </tr>
+          <tr>
+            <td class="table-active">イベント開始時間</td>
+            <td>
+              <div>
+                <select name="event_start" id="event_start" class="form-control">
+                  <option disabled>選択してください</option>
+                  @for ($start = 0*2; $start <=23*2; $start++) <option value="{{date("H:i:s", strtotime("00:00 +". $start * 30 ." minute"))}}" @if (isset($request)) @endif>
+                    {{date("H時i分", strtotime("00:00 +". $start * 30 ." minute"))}}</option>
+                    @endfor
+                </select>
+              </div>
+            </td>
+          </tr>
+          <tr>
+            <td class="table-active">イベント終了時間</td>
+            <td>
+              <div>
+                <select name="event_finish" id="event_finish" class="form-control">
+                  <option disabled>選択してください</option>
+                  @for ($start = 0*2; $start <=23*2; $start++) <option value="{{date("H:i:s", strtotime("00:00 +". $start * 30 ." minute"))}}" @if (isset($request)) @endif>
+                    {{date("H時i分", strtotime("00:00 +". $start * 30 ." minute"))}}</option>
+                    @endfor
+                </select>
+              </div>
+            </td>
+          </tr>
+          <tr>
+            <td class="table-active">イベント名称1</td>
+            <td>
+              {{ Form::text('event_name1','',['class'=>'form-control', 'placeholder'=>'入力してください'] ) }}
 
-          </td>
-        </tr>
-        <tr>
-          <td class="table-active">イベント名称2</td>
-          <td>
-            {{ Form::text('event_name2', '',['class'=>'form-control', 'placeholder'=>'入力してください'] ) }}
+            </td>
+          </tr>
+          <tr>
+            <td class="table-active">イベント名称2</td>
+            <td>
+              {{ Form::text('event_name2', '',['class'=>'form-control', 'placeholder'=>'入力してください'] ) }}
+            </td>
+          </tr>
+          <tr>
+            <td class="table-active">主催者名</td>
+            <td>
+              {{ Form::text('event_owner', '',['class'=>'form-control', 'placeholder'=>'入力してください'] ) }}
 
-          </td>
-        </tr>
-        <tr>
-          <td class="table-active">主催者名</td>
-          <td>
-            {{ Form::text('event_owner', '',['class'=>'form-control', 'placeholder'=>'入力してください'] ) }}
-
-          </td>
-        </tr>
-      </table>
+            </td>
+          </tr>
+        </table>
 
       <div class="equipemnts">
         <table class="table table-bordered">
@@ -264,7 +272,7 @@
     </div>
     {{-- 右側 --}}
     <div class="col">
-      <div class="client_mater">　
+      <!-- <div class="client_mater">　 -->
         <table class="table table-bordered name-table">
           <tr>
             <td colspan="2">
@@ -356,7 +364,7 @@
             </td>
           </tr>
         </table>
-      </div>
+      <!-- </div> -->
       <table class="table table-bordered sale-table">
         <tr>
           <td colspan="2">
@@ -382,7 +390,7 @@
             </p>
           </td>
         </tr>
-        <!-- <tr class="caution">
+        <tr class="caution">
           <td>
             <label for="caution">注意事項</label>
             {{ Form::textarea('attention', old('attention'),['class'=>'form-control', 'placeholder'=>'入力してください'] ) }}
@@ -393,7 +401,7 @@
             <label for="userNote">顧客情報の備考</label>
             {{ Form::textarea('user_details', old('user_details'),['class'=>'form-control', 'placeholder'=>'入力してください'] ) }}
           </td>
-        </tr> -->
+        </tr>
         <tr>
           <td>
             <label for="adminNote">管理者備考</label>
