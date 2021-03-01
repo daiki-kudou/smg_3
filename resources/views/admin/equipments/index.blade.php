@@ -37,7 +37,7 @@
   <a href="/admin/equipments/create" class="btn more_btn3">新規登録</a>
   </div>
   <hr>
-  <div class="d-flex justify-content-between mt-3 mb-5">
+  <div class="d-flex justify-content-between mt-3 mb-3">
   <span>
       <select name="page_counter" id="page_counter">
         <option value="ten">10</option>
