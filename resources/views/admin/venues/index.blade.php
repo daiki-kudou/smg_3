@@ -4,6 +4,104 @@
 <script src="{{ asset('/js/admin/venue.js') }}"></script>
 <link href="{{ asset('/css/template.css') }}" rel="stylesheet">
 
+<div class="container-field mt-3">
+  <div class="float-right">
+    <nav aria-label="breadcrumb">
+      <ol class="breadcrumb">
+        <li class="breadcrumb-item active"><a href="https://staging-smg2.herokuapp.com/admin/home">ホーム</a> &gt;
+          会場　一覧
+        </li>
+      </ol>
+    </nav>
+  </div>
+
+  <h2 class="mt-3 mb-3">会場一覧</h2>
+  <hr>
+  <div class="d-flex justify-content-between my-3">
+    <span>
+      <select name="page_counter" id="page_counter">
+        <option value="ten">10</option>
+        <option value="thirty">30</option>
+        <option value="fifty">50</option>
+      </select>件表示
+    </span>
+  </div>
+
+  <div id="DataTables_Table_0_wrapper" class="dataTables_wrapper form-inline dt-bootstrap no-footer">
+    <div class="row">
+      <div class="col-sm-6"></div>
+      <div class="col-sm-6"></div>
+    </div>
+    <div class="row">
+      <div class="col-sm-12">
+        <table class="table table-bordered mt-5 dataTable no-footer" id="DataTables_Table_0" role="grid">
+          <thead>
+            <tr style="white-space: nowrap;" role="row">
+              <th class="sorting_asc" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1"
+                aria-sort="ascending" aria-label="ID: activate to sort column descending" style="width: 73px;">ID</th>
+              <th class="sorting" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1"
+                aria-label="登録日: activate to sort column ascending" style="width: 155px;">登録日</th>
+              <th class="sorting" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1"
+                aria-label="会場: activate to sort column ascending" style="width: 390px;">会場</th>
+              <th class="sorting" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1"
+                aria-label="直/携: activate to sort column ascending" style="width: 86px;">直/携</th>
+              <th class="sorting" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1"
+                aria-label="広さ（坪）: activate to sort column ascending" style="width: 141px;">広さ（坪）</th>
+              <th class="sorting" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1"
+                aria-label="広さ（㎡）: activate to sort column ascending" style="width: 142px;">広さ（㎡）</th>
+              <th class="sorting" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1"
+                aria-label="収容人数: activate to sort column ascending" style="width: 120px;">収容人数</th>
+              <th style="min-width: 89px; width: 143px;" class="btn-cell sorting_disabled" rowspan="1" colspan="1"
+                aria-label="詳細">詳細</th>
+              <th>レイアウト</th>
+              <th>荷物</th>
+              <th>食事</th>
+            </tr>
+          </thead>
+          <tbody>
+            @foreach ($querys as $key=>$query)
+            @if ($key%2==0)
+            <tr role="row" class="even">
+              <td class="sorting_1">{{ ReservationHelper::IdFormat($query->id)}}</td>
+              <td>{{ ReservationHelper::formatDate($query->created_at)}}</td>
+              <td>{{ $query->name_area }}{{ $query->name_bldg }}{{ $query->name_venue }}</td>
+              <td>{{$query->alliance_flag==0?'直営':'提携'}}</td>
+              <td>{{ $query->size1}}</td>
+              <td>{{ $query->size2 }}</td>
+              <td>{{ $query->capacity }}</td>
+              <td><a class="more_btn" href="{{ url('/admin/venues', $query->id) }}">詳細</a></td>
+              <td>{{$query->layout==1?"有":"無"}}</td>
+              <td>{{$query->luggage_flag==1?"有":"無"}}</td>
+              <td>{{$query->eat_in_flag==1?"有":"無"}}</td>
+            </tr>
+            @else
+            <tr role="row" class="odd">
+              <td class="sorting_1">{{ ReservationHelper::IdFormat($query->id)}}</td>
+              <td>{{ ReservationHelper::formatDate($query->created_at)}}</td>
+              <td>{{ $query->name_area }}{{ $query->name_bldg }}{{ $query->name_venue }}</td>
+              <td>{{$query->alliance_flag==0?'直営':'提携'}}</td>
+              <td>{{ $query->size1}}</td>
+              <td>{{ $query->size2 }}</td>
+              <td>{{ $query->capacity }}</td>
+              <td><a class="more_btn" href="{{ url('/admin/venues', $query->id) }}">詳細</a></td>
+              <td>{{$query->layout==1?"有":"無"}}</td>
+              <td>{{$query->luggage_flag==1?"有":"無"}}</td>
+              <td>{{$query->eat_in_flag==1?"有":"無"}}</td>
+            </tr>
+            @endif
+            @endforeach
+          </tbody>
+        </table>
+        {{ $querys->links() }}
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-sm-5"></div>
+      <div class="col-sm-7"></div>
+    </div>
+  </div>
+</div>
+
 <script>
   // テーブルソーと
   $(function() {
@@ -18,148 +116,7 @@
         "aTargets": [7]
       }],
     });
-
-    $('#counter').on('change', function() {
-      var counter = $(this).val();
-      var freeword = $('#freeword').val();
-      var s_id = $('#id').val();
-      var s_alliance = $('#alliance_flag').val();
-      var s_area = $('#name_area').val();
-      var s_buil = $('#name_bldg').val();
-      var s_venue = $('#name_venue').val();
-      var s_from = $('#capacity').val();
-      var s_to = $('#capacity2').val();
-      var s_counter = $('#counter').val();
-      window.location.href = "/admin/venues?counter=" + counter + "&freeword=" + freeword + "&id=" + s_id + "&alliance_flag=" + s_alliance + "&name_area=" + s_area + "&name_bldg=" + s_buil + "&name_venue=" + s_venue + "&capacity1=" + s_from + "&capacity2=" + s_to;
-    });
-
-    var freeword = $('#freeword').val();
-    var s_id = $('#id').val();
-    var s_alliance = $('#alliance_flag').val();
-    var s_area = $('#name_area').val();
-    var s_buil = $('#name_bldg').val();
-    var s_venue = $('#name_venue').val();
-    var s_from = $('#capacity').val();
-    var s_to = $('#capacity2').val();
-    var s_counter = $('#counter').val();
-
-    for (let index = 0; index < $('.page-item a').length; index++) {
-      $('.page-item a').eq(index).attr('href', $('.page-item a').eq(index).attr('href') + "&counter=" + s_counter + "&freeword=" + freeword + "&id=" + s_id + "&alliance_flag=" + s_alliance + "&name_area=" + s_area + "&name_bldg=" + s_buil + "&name_venue=" + s_venue + "&capacity1=" + s_from + "&capacity2=" + s_to);
-    }
-
   })
 </script>
-<div class="container-field mt-3">
-  <div class="float-right">
-    <nav aria-label="breadcrumb">
-      <ol class="breadcrumb">
-        <li class="breadcrumb-item active">{{ Breadcrumbs::render(Route::currentRouteName()) }}</li>
-      </ol>
-    </nav>
-  </div>
-  <h1 class="mt-3 mb-5">会場一覧</h1>
-  <hr>
-  <form class="" action="{{url('/admin/venues')}}">
-    @csrf
-    <div class="d-flex justify-content-between mt-3 mb-5">
-      <span>
-        <select name="counter" id="counter">
-          <option value="10" {{$counter==10?'selected':''}}>10</option>
-          <option value="30" {{$counter==30?'selected':''}}>30</option>
-          <option value="50" {{$counter==50?'selected':''}}>50</option>
-        </select>
-        件表示
-      </span>
-      <div>
-        <div class="dropdown">
-          <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown"
-            aria-haspopup="true" aria-expanded="false" data-offset="-320,5">
-            検索
-          </button>
-          <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-            <div class="d-flex justify-content-around">
-              <div class="form-group">
-                <label for="freeword">フリーワード検索</label>
-                <input type="text" name="freeword" class="form-control" id="freeword" value={{$search_freeword}}>
-              </div>
-              <div class="form-group">
-                <label for="id">ID</label>
-                <input type="text" name="id" class="form-control" id="id" value={{$search_id}}>
-              </div>
-            </div>
-            <div class="d-flex justify-content-around">
-              <div class="form-group">
-                <label for="alliance_flag">直営・提携</label>
-                <input type="text" name="alliance_flag" class="form-control" id="alliance_flag"
-                  value={{$search_alliance_flag}}>
-              </div>
-              <div class="form-group">
-                <label for="name_area">エリア別</label>
-                <input type="text" name="name_area" class="form-control" id="name_area" value={{$search_name_area}}>
-              </div>
-            </div>
-            <div class="d-flex justify-content-around">
-              <div class="form-group">
-                <label for="name_bldg">ビル名</label>
-                <input type="text" name="name_bldg" class="form-control" id="name_bldg" value={{$search_name_bldg}}>
-              </div>
-              <div class="form-group">
-                <label for="name_venue">会場名</label>
-                <input type="text" name="name_venue" class="form-control" id="name_venue" value={{$search_name_venue}}>
-              </div>
-            </div>
-            <div class="d-flex justify-content-around col-md-12">
-              <div class="form-group">
-                <label for="name_bldg">収容人数（~名以上）</label>
-                <input type="number" name="capacity1" class="form-control" id="capacity" value={{$search_capacity1}}>
-              </div>
-              <div class="form-group">
-                <label for="name_venue">収容人数（~名以下）</label>
-                <input type="number" name="capacity2" class="form-control" id="capacity2" value={{$search_capacity2}}>
-              </div>
-            </div>
-            <div class="mx-auto" style="width: 50px;">
-              <input type="submit" value="検索" class="btn btn-info">
-            </div>
-  </form>
-</div>
-</div>
-</div>
-</div>
-</div>
-<table class="table table-striped table-bordered" id="venue_index_table">
-  <thead>
-    <tr>
-      <th>ID</th>
-      <th>登録日</th>
-      <th>直営・提携</th>
-      <th>会場</th>
-      <th>広さ（坪）</th>
-      <th>広さ（㎡）</th>
-      <th>収容人数</th>
-      <th>詳細</th>
-      <th>レイアウト変更</th>
-      <th>荷物</th>
-      <th>飲食</th>
-    </tr>
-  </thead>
-  <tbody>
-    @foreach ($querys as $query)
-    <tr>
-      <td>{{ ReservationHelper::IdFormat($query->id) }}</td>
-      <td>{{ ReservationHelper::formatDate($query->created_at) }}</td>
-      <td>{{ $query->alliance_flag==0?'直営':'提携' }}</td>
-      <td>{{ $query->name_area }}{{ $query->name_bldg }}{{ $query->name_venue }}</td>
-      <td>{{ $query->size1 }}</td>
-      <td>{{ $query->size2 }}</td>
-      <td>{{ $query->capacity }}</td>
-      <td><a href="{{ url('/admin/venues', $query->id) }}">詳細</a></td>
-      <td>{{$query->layout==1?"有":"無"}}</td>
-      <td>{{$query->luggage_flag==1?"有":"無"}}</td>
-      <td>{{$query->eat_in_flag==1?"有":"無"}}</td>
-    </tr>
-    @endforeach
-  </tbody>
-</table>
-{{ $querys->links() }}
+
 @endsection
