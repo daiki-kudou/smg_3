@@ -406,13 +406,13 @@
         <!-- <tr class="caution"> -->
         <!-- <td> -->
         <!-- <label for="caution">注意事項</label> -->
-        {{ Form::hidden('attention', old('attention'),['class'=>'form-control', 'placeholder'=>'入力してください'] ) }}
+        <!-- {{ Form::hidden('attention', old('attention'),['class'=>'form-control', 'placeholder'=>'入力してください'] ) }} -->
         <!-- </td> -->
         <!-- </tr> -->
         <!-- <tr> -->
           <!-- <td> -->
             <!-- <label for="userNote">顧客情報の備考</label> -->
-            {{ Form::hidden('user_details', old('user_details'),['class'=>'form-control', 'placeholder'=>'入力してください'] ) }}
+            <!-- {{ Form::hidden('user_details', old('user_details'),['class'=>'form-control', 'placeholder'=>'入力してください'] ) }} -->
           <!-- </td> -->
         <!-- </tr> -->
         <tr>
