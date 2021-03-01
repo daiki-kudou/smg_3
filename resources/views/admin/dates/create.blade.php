@@ -55,7 +55,7 @@
         <tr>
           <td>曜日</td>
           <td>営業時間</td>
-          <td>編集</td>
+          <td>更新</td>
         </tr>
         @foreach ($date_venues as $date_venue)
         @if ($date_venue->week_day==$weekday_id)
