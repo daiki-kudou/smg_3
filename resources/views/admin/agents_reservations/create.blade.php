@@ -149,11 +149,11 @@
           <td class="d-flex align-items-center">
             <p class="mr-3">
               <input type="radio" name="board_flag" value="0" {{isset($request->board_flag)?$request->board_flag==0?'checked':'':'checked',}}>
-              <span class="ml-2">無し</span>
+              <span>無し</span>
             </p>
             <p>
               <input type="radio" name="board_flag" value="1" {{isset($request->board_flag)?$request->board_flag==1?'checked':'':'',}}>
-              <span class="ml-2">有り</span>
+              <span>有り</span>
             </p>
           </td>
         </tr>

@@ -323,7 +323,6 @@
         </tr>
       </table>
 
-
       <div class="equipemnts">
         <table class="table table-bordered">
           <thead>
@@ -484,6 +483,7 @@
       <div class='luggage'>
         <table class='table table-bordered' style="table-layout:fixed;">
           <thead>
+            <tr>
             <th colspan='2'>
               <p class="title-icon">
                 <i class="fas fa-suitcase-rolling icon-size fa-fw"></i>荷物預かり

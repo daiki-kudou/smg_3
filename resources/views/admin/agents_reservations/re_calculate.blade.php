@@ -290,7 +290,9 @@
             <tr>
               <th colspan="2">
                 <div class="d-flex justify-content-between align-items-center">
-                  有料備品
+                  <p class="title-icon fw-bolder py-1">
+                    <i class="fas fa-wrench icon-size fa-fw"></i>有料備品
+                  </p>
                   <i class="fas fa-plus icon_plus hide"></i>
                   <i class="fas fa-minus icon_minus"></i>
                 </div>
@@ -338,7 +340,9 @@
             <tr>
               <th colspan="2">
                 <div class="d-flex justify-content-between align-items-center">
-                  有料サービス
+                  <p class="title-icon fw-bolder py-1">
+                    <i class="fas fa-hand-holding-heart icon-size fa-fw"></i>有料サービス
+                  </p>
                   <i class="fas fa-plus icon_plus hide"></i>
                   <i class="fas fa-minus icon_minus"></i>
                 </div>
@@ -397,7 +401,11 @@
         <table class='table table-bordered' style="table-layout:fixed;">
           <thead>
             <tr>
-              <th colspan='2'>レイアウト</th>
+              <th colspan='2'>
+                <p class="title-icon">
+                  <i class="fas fa-th icon-size fa-fw"></i>レイアウト
+                </p>
+              </th>
             </tr>
           </thead>
           <tbody>
@@ -458,7 +466,11 @@
         <table class='table table-bordered' style="table-layout:fixed;">
           <thead>
             <tr>
-              <th colspan='2'>荷物預かり</th>
+              <th colspan='2'>
+                <p class="title-icon">
+                  <i class="fas fa-suitcase-rolling icon-size fa-fw"></i>荷物預かり
+                </p>
+              </th>
             </tr>
           </thead>
           <tbody>
@@ -534,7 +546,7 @@
         <tr>
           <td colspan="2">
             <p class="title-icon">
-              <i class="fas fa-user-check fa-2x fa-fw"></i>仲介会社の顧客
+              <i class="fas fa-user-check fa-2x fa-fw"></i>エンドユーザー
             </p>
           </td>
         </tr>
@@ -574,6 +586,14 @@
         </tr>
         <tr>
           <td class="table-active">
+            <label for="enduser_mobile" class="">当日連絡先</label>
+          </td>
+          <td>
+            {{ Form::text('enduser_mobile', $all_requests('enduser_mobile'),['class'=>'form-control', 'placeholder'=>'入力してください', 'maxlength'=>13, 'id'=>'enduser_mobile'] ) }}
+          </td>
+        </tr>
+        <tr>
+          <td class="table-active">
             <label for="enduser_mail" class=" ">メールアドレス</label>
           </td>
           <td>
@@ -594,7 +614,7 @@
         <tr>
           <td colspan="2">
             <p class="title-icon">
-              <i class="fas fa-yen-sign fa-2x fa-fw"></i>仲介会社の顧客への支払い料
+              <i class="fas fa-yen-sign fa-2x fa-fw"></i>仲介会社の顧客からの入金額
             </p>
           </td>
         </tr>
@@ -639,7 +659,7 @@
   </div>
 </section>
 
-{{Form::submit('再計算する', ['class'=>'btn more_btn4_lg mx-auto d-block my-5', 'id'=>'check_submit'])}}
+{{Form::submit('再計算する', ['class'=>'btn more_btn4_lg d-block btn-lg mx-auto my-5', 'id'=>'check_submit'])}}
 {{Form::close()}}
 
 {{ Form::open(['url' => 'admin/reservations/check', 'method'=>'POST', 'id'=>'agents_calculate_form']) }}
@@ -1020,20 +1040,9 @@
 {{Form::submit('確認する', ['class'=>'btn d-block more_btn_lg mx-auto my-5', 'id'=>'check_submit'])}}
 {{Form::close()}}
 
-
-
-
 <script>
   $(function() {
     $('.venue_discount_btn,.equipment_discount_btn, .layout_discount_btn').click();
   })
 </script>
-
-
-
-
-
-
-
-
 @endsection

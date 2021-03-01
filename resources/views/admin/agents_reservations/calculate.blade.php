@@ -1,8 +1,5 @@
 @extends('layouts.admin.app')
 @section('content')
-
-<h1>仲介会社　予約 計算</h1>
-
 <link href="{{ asset('/css/template.css') }}" rel="stylesheet">
 {{-- <script src="{{ asset('/js/template.js') }}"></script> --}}
 <script src="{{ asset('/js/ajax.js') }}"></script>
@@ -44,13 +41,13 @@
       // プラスボタンクリック
       $(document).on("click", ".add", function() {
         $(this).parent().parent().clone(true).insertAfter($(this).parent().parent());
-        addThisTr('.others .others_main tr', 'others_input_item', 'others_input_cost', 'others_input_count','others_input_subtotal');
-                // 追加時内容クリア
+        addThisTr('.others .others_main tr', 'others_input_item', 'others_input_cost', 'others_input_count', 'others_input_subtotal');
+        // 追加時内容クリア
         $(this).parent().parent().next().find('td').find('input, select').eq(0).val('');
         $(this).parent().parent().next().find('td').find('input, select').eq(1).val('');
       });
 
-      function addThisTr($targetTr, $TItem, $TCost,$TCount, $TSubtotal){
+      function addThisTr($targetTr, $TItem, $TCost, $TCount, $TSubtotal) {
         var count = $($targetTr).length;
         for (let index = 0; index < count; index++) {
           $($targetTr).eq(index).find('td').eq(0).find('input').attr('name', $TItem + index);
@@ -62,7 +59,7 @@
 
       // マイナスボタンクリック
       $(document).on("click", ".del", function() {
-        if ($(this).parent().parent().parent().attr('class')=="others_main") {
+        if ($(this).parent().parent().parent().attr('class') == "others_main") {
           var count = $('.others .others_main tr').length;
           var target = $(this).parent().parent();
           if (target.parent().children().length > 1) {
@@ -87,14 +84,30 @@
   </div>
 </div>
 
+<!-- <div class="container-field mt-3">
+  <div class="float-right">
+    <nav aria-label="breadcrumb">
+      <ol class="breadcrumb">
+        <li class="breadcrumb-item active">ダミーテキスト</li>
+      </ol>
+    </nav>
+  </div>
+  <h2 class="mt-3 mb-3">仲介会社経由の予約 新規登録</h2>
+  <hr>
+</div> -->
+
 {{Form::open(['url' => 'admin/agents_reservations/calculate', 'method' => 'POST', 'id'=>'agentReservationCreateForm'])}}
 @csrf
-<div class="container-field bg-white text-dark">
+<section class="section-wrap">
   <div class="row">
     <div class="col">
       <table class="table table-bordered">
         <tr>
-          <td colspan="2">予約情報</td>
+          <td colspan="2">
+            <p class="title-icon">
+              <i class="fas fa-info-circle icon-size"></i>予約情報
+            </p>
+          </td>
         </tr>
         <tr>
           <td class="table-active form_required">利用日</td>
@@ -113,7 +126,8 @@
                 selected
                 @endif
                 >
-                {{$venue->name_area}}{{$venue->name_bldg}}{{$venue->name_venue}}</option>
+                {{$venue->name_area}}{{$venue->name_bldg}}{{$venue->name_venue}}
+              </option>
               @endforeach
             </select>
             <p class="is-error-venue_id" style="color: red"></p>
@@ -140,10 +154,7 @@
             <div>
               <select name="enter_time" id="sales_start" class="form-control">
                 <option disabled selected></option>
-                @for ($start = 0*2; $start <=23*2; $start++) <option
-                  value="{{date("H:i:s", strtotime("00:00 +". $start * 30 ." minute"))}}"
-                  @if(!empty($requests['enter_time'])) @if($requests['enter_time']==date("H:i:s", strtotime("00:00
-                  +".$start * 30 ." minute"))) selected @endif @endif>
+                @for ($start = 0*2; $start <=23*2; $start++) <option value="{{date("H:i:s", strtotime("00:00 +". $start * 30 ." minute"))}}" @if(!empty($requests['enter_time'])) @if($requests['enter_time']==date("H:i:s", strtotime("00:00 +".$start * 30 ." minute"))) selected @endif @endif>
                   {{date("H時i分", strtotime("00:00 +". $start * 30 ." minute"))}}
                   </option>
                   @endfor
@@ -158,10 +169,7 @@
             <div>
               <select name="leave_time" id="sales_finish" class="form-control">
                 <option disabled selected></option>
-                @for ($start = 0*2; $start <=23*2; $start++) <option
-                  value="{{date("H:i:s", strtotime("00:00 +". $start * 30 ." minute"))}}"
-                  @if(!empty($requests['leave_time'])) @if($requests['leave_time']==date("H:i:s", strtotime("00:00
-                  +".$start * 30 ." minute"))) selected @endif @endif>
+                @for ($start = 0*2; $start <=23*2; $start++) <option value="{{date("H:i:s", strtotime("00:00 +". $start * 30 ." minute"))}}" @if(!empty($requests['leave_time'])) @if($requests['leave_time']==date("H:i:s", strtotime("00:00 +".$start * 30 ." minute"))) selected @endif @endif>
                   {{date("H時i分", strtotime("00:00 +". $start * 30 ." minute"))}}</option>
                   @endfor
               </select>
@@ -169,6 +177,9 @@
             </div>
           </td>
         </tr>
+      </table>
+
+      <table class="table table-bordered board-table">
         <tr>
           <td>案内板</td>
           <td>
@@ -184,10 +195,7 @@
             <div>
               <select name="event_start" id="event_start" class="form-control">
                 <option disabled>選択してください</option>
-                @for ($start = 0*2; $start <=23*2; $start++) <option
-                  value="{{date("H:i:s", strtotime("00:00 +". $start * 30 ." minute"))}}"
-                  @if(!empty($requests['event_start'])) @if($requests['event_start']==date("H:i:s", strtotime("00:00 +".
-                  $start * 30 ." minute"))) selected @endif @endif>
+                @for ($start = 0*2; $start <=23*2; $start++) <option value="{{date("H:i:s", strtotime("00:00 +". $start * 30 ." minute"))}}" @if(!empty($requests['event_start'])) @if($requests['event_start']==date("H:i:s", strtotime("00:00 +". $start * 30 ." minute"))) selected @endif @endif>
                   {{date("H時i分", strtotime("00:00 +". $start * 30 ." minute"))}}</option>
                   @endfor
               </select>
@@ -200,10 +208,7 @@
             <div>
               <select name="event_finish" id="event_finish" class="form-control">
                 <option disabled>選択してください</option>
-                @for ($start = 0*2; $start <=23*2; $start++) <option
-                  value="{{date("H:i:s", strtotime("00:00 +". $start * 30 ." minute"))}}"
-                  @if(!empty($requests['event_finish'])) @if($requests['event_finish']==date("H:i:s", strtotime("00:00
-                  +". $start * 30 ." minute"))) selected @endif @endif>
+                @for ($start = 0*2; $start <=23*2; $start++) <option value="{{date("H:i:s", strtotime("00:00 +". $start * 30 ." minute"))}}" @if(!empty($requests['event_finish'])) @if($requests['event_finish']==date("H:i:s", strtotime("00:00 +". $start * 30 ." minute"))) selected @endif @endif>
                   {{date("H時i分", strtotime("00:00 +". $start * 30 ." minute"))}}</option>
                   @endfor
               </select>
@@ -214,7 +219,6 @@
           <td class="table-active">イベント名称1</td>
           <td>
             {{ Form::text('event_name1',$requests['event_name1'],['class'=>'form-control', 'placeholder'=>'入力してください'] ) }}
-
           </td>
         </tr>
         <tr>
@@ -230,13 +234,16 @@
           </td>
         </tr>
       </table>
+
       <div class="equipemnts">
-        <table class="table table-bordered" style="table-layout: fixed;">
+        <table class="table table-bordered">
           <thead>
             <tr>
               <th colspan="2">
                 <div class="d-flex justify-content-between align-items-center">
-                  有料備品
+                  <p class="title-icon fw-bolder py-1">
+                    <i class="fas fa-wrench icon-size fa-fw"></i>有料備品
+                  </p>
                   <i class="fas fa-plus icon_plus hide"></i>
                   <i class="fas fa-minus icon_minus"></i>
                 </div>
@@ -265,7 +272,9 @@
             <tr>
               <th colspan="2">
                 <div class="d-flex justify-content-between align-items-center">
-                  有料サービス
+                  <p class="title-icon fw-bolder py-1">
+                    <i class="fas fa-hand-holding-heart icon-size fa-fw"></i>有料サービス
+                  </p>
                   <i class="fas fa-plus icon_plus hide"></i>
                   <i class="fas fa-minus icon_minus"></i>
                 </div>
@@ -302,7 +311,11 @@
         <table class='table table-bordered'>
           <thead>
             <tr>
-              <th colspan='2'>レイアウト</th>
+              <th colspan='2'>
+                <p class="title-icon">
+                  <i class="fas fa-th icon-size fa-fw"></i>レイアウト
+                </p>
+              </th>
             </tr>
           </thead>
           <tbody>
@@ -364,7 +377,11 @@
         <table class='table table-bordered'>
           <thead>
             <tr>
-              <th colspan='2'>荷物預かり</th>
+              <th colspan='2'>
+                <p class="title-icon">
+                  <i class="fas fa-suitcase-rolling icon-size fa-fw"></i>荷物預かり
+                </p>
+              </th>
             </tr>
           </thead>
           <tbody>
@@ -396,111 +413,116 @@
           </tbody>
         </table>
       </div>
-      <div class="price_details">
-      </div>
     </div>
     {{-- 右側 --}}
     <div class="col">
-      <div class="client_mater">　
-        <table class="table table-bordered name-table">
-          <tr>
-            <td colspan="2">
-              <div class="d-flex align-items-center justify-content-between">
-                <p class="title-icon">
-                  <i class="far fa-id-card fa-2x fa-fw"></i>仲介会社情報
-                </p>
-                <p><a class="more_btn bg-green" href="">仲介会社詳細</a></p>
-              </div>
-            </td>
-          </tr>
-          <tr>
-            <td class="table-active">
-              <label for="agent_id" class=" form_required">サービス名称</label></td>
-            <td>
-              <select class="form-control" name="agent_id" id="agent_select">
-                <option disabled selected>選択してください</option>
-                @foreach ($agents as $agent)
-                <option value="{{$agent->id}}" @if ($agent->id==$requests['agent_id'])
-                  selected
-                  @endif
-                  >{{$agent->name}} |{{$agent->person_firstname}}{{$agent->person_lastname}}
-                  | {{$agent->email}}
-                </option>
-                @endforeach
-              </select>
-              <p class="is-error-user_id" style="color: red"></p>
-            </td>
-          </tr>
-          <tr>
-            <td class="table-active"><label for="name" class=" form_required">担当者氏名<br></label></td>
-            <td>
-              <p class="selected_person">{{ReservationHelper::getAgentPerson($requests['agent_id'])}}</p>
-            </td>
-          </tr>
-        </table>
-        <table class="table table-bordered oneday-table">
-          <tr>
-            <td colspan="2">
+      <table class="table table-bordered name-table">
+        <tr>
+          <td colspan="2">
+            <div class="d-flex align-items-center justify-content-between">
               <p class="title-icon">
-                <i class="fas fa-user-check fa-2x fa-fw"></i>仲介会社の顧客
+                <i class="far fa-id-card icon-size"></i>仲介会社情報
               </p>
-            </td>
-          </tr>
-          <tr>
-            <td class="table-active">
-              <label for="enduser_company" class="">会社名・団体名</label>
-            </td>
-            <td>
-              {{ Form::text('enduser_company', $requests['enduser_company'],['class'=>'form-control', 'placeholder'=>'入力してください','id'=>'enduser_company'] ) }}
-            </td>
-          </tr>
-          <tr>
-            <td class="table-active">
-              <label for="enduser_incharge" class="">担当者氏名</label>
-            </td>
-            <td>
-              {{ Form::text('enduser_incharge', $requests['enduser_incharge'],['class'=>'form-control', 'placeholder'=>'入力してください', 'id'=>'enduser_incharge'] ) }}
-            </td>
-          </tr>
-          <tr>
-            <td class="table-active">
-              <label for="enduser_address" class=" ">住所</label>
-            </td>
-            <td>
-              {{ Form::text('enduser_address', $requests['enduser_address'],['class'=>'form-control', 'placeholder'=>'入力してください', 'id'=>'enduser_address'] ) }}
-            </td>
-          </tr>
-          <tr>
-            <td class="table-active">
-              <label for="enduser_tel" class="">電話番号</label>
-            </td>
-            <td>
-              {{ Form::text('enduser_tel', $requests['enduser_tel'],['class'=>'form-control', 'placeholder'=>'入力してください', 'maxlength'=>13, 'id'=>'enduser_tel'] ) }}
-            </td>
-          </tr>
-          <tr>
-            <td class="table-active">
-              <label for="enduser_mail" class=" ">メールアドレス</label>
-            </td>
-            <td>
-              {{ Form::text('enduser_mail', $requests['enduser_mail'],['class'=>'form-control', 'placeholder'=>'入力してください', 'maxlength'=>13,'id'=>'enduser_mail'] ) }}
-            </td>
-          </tr>
-          <tr>
-            <td class="table-active">
-              <label for="enduser_attr" class="">利用者属性</label>
-            </td>
-            <td>
-              {{ Form::text('enduser_attr', $requests['enduser_attr'],['class'=>'form-control', 'placeholder'=>'入力してください', 'maxlength'=>13, 'id'=>'enduser_attr'] ) }}
-            </td>
-          </tr>
-        </table>
-      </div>
+              <p><a class="more_btn bg-green" href="">仲介会社詳細</a></p>
+            </div>
+          </td>
+        </tr>
+        <tr>
+          <td class="table-active">
+            <label for="agent_id" class=" form_required">サービス名称</label>
+          </td>
+          <td>
+            <select class="form-control" name="agent_id" id="agent_select">
+              <option disabled selected>選択してください</option>
+              @foreach ($agents as $agent)
+              <option value="{{$agent->id}}" @if ($agent->id==$requests['agent_id'])
+                selected
+                @endif
+                >{{$agent->name}} |{{$agent->person_firstname}}{{$agent->person_lastname}}
+                | {{$agent->email}}
+              </option>
+              @endforeach
+            </select>
+            <p class="is-error-user_id" style="color: red"></p>
+          </td>
+        </tr>
+        <tr>
+          <td class="table-active"><label for="name" class=" form_required">担当者氏名<br></label></td>
+          <td>
+            <p class="selected_person">{{ReservationHelper::getAgentPerson($requests['agent_id'])}}</p>
+          </td>
+        </tr>
+      </table>
+      <table class="table table-bordered oneday-table">
+        <tr>
+          <td colspan="2">
+            <p class="title-icon">
+              <i class="fas fa-user-check icon-size"></i>エンドユーザー
+            </p>
+          </td>
+        </tr>
+        <tr>
+          <td class="table-active">
+            <label for="enduser_company" class="">会社名・団体名</label>
+          </td>
+          <td>
+            {{ Form::text('enduser_company', $requests['enduser_company'],['class'=>'form-control', 'placeholder'=>'入力してください','id'=>'enduser_company'] ) }}
+          </td>
+        </tr>
+        <tr>
+          <td class="table-active">
+            <label for="enduser_incharge" class="">担当者氏名</label>
+          </td>
+          <td>
+            {{ Form::text('enduser_incharge', $requests['enduser_incharge'],['class'=>'form-control', 'placeholder'=>'入力してください', 'id'=>'enduser_incharge'] ) }}
+          </td>
+        </tr>
+        <tr>
+          <td class="table-active">
+            <label for="enduser_address" class=" ">住所</label>
+          </td>
+          <td>
+            {{ Form::text('enduser_address', $requests['enduser_address'],['class'=>'form-control', 'placeholder'=>'入力してください', 'id'=>'enduser_address'] ) }}
+          </td>
+        </tr>
+        <tr>
+          <td class="table-active">
+            <label for="enduser_tel" class="">電話番号</label>
+          </td>
+          <td>
+            {{ Form::text('enduser_tel', $requests['enduser_tel'],['class'=>'form-control', 'placeholder'=>'入力してください', 'maxlength'=>13, 'id'=>'enduser_tel'] ) }}
+          </td>
+        </tr>
+        <tr>
+          <td class="table-active">
+            <label for="enduser_mobile" class="">当日連絡先</label>
+          </td>
+          <td>
+            {{ Form::text('enduser_mobile', $requests('enduser_mobile'),['class'=>'form-control', 'placeholder'=>'入力してください', 'maxlength'=>13, 'id'=>'enduser_mobile'] ) }}
+          </td>
+        </tr>
+        <tr>
+          <td class="table-active">
+            <label for="enduser_mail" class=" ">メールアドレス</label>
+          </td>
+          <td>
+            {{ Form::text('enduser_mail', $requests['enduser_mail'],['class'=>'form-control', 'placeholder'=>'入力してください', 'maxlength'=>13,'id'=>'enduser_mail'] ) }}
+          </td>
+        </tr>
+        <tr>
+          <td class="table-active">
+            <label for="enduser_attr" class="">利用者属性</label>
+          </td>
+          <td>
+            {{ Form::text('enduser_attr', $requests['enduser_attr'],['class'=>'form-control', 'placeholder'=>'入力してください', 'maxlength'=>13, 'id'=>'enduser_attr'] ) }}
+          </td>
+        </tr>
+      </table>
       <table class="table table-bordered sale-table">
         <tr>
           <td colspan="2">
             <p class="title-icon">
-              <i class="fas fa-yen-sign fa-2x fa-fw"></i>仲介会社の顧客への支払い料
+              <i class="fas fa-yen-sign icon-size"></i>仲介会社の顧客からの入金額
             </p>
           </td>
         </tr>
@@ -517,11 +539,11 @@
         <tr>
           <td colspan="2">
             <p class="title-icon">
-              <i class="fas fa-envelope fa-2x fa-fw"></i>備考
+              <i class="fas fa-envelope icon-size"></i>備考
             </p>
           </td>
         </tr>
-        <tr class="caution">
+        <!-- <tr class="caution">
           <td>
             <label for="caution">注意事項</label>
             {{ Form::textarea('attention', $requests['attention'],['class'=>'form-control', 'placeholder'=>'入力してください'] ) }}
@@ -532,7 +554,7 @@
             <label for="userNote">顧客情報の備考</label>
             {{ Form::textarea('user_details', $requests['user_details'],['class'=>'form-control', 'placeholder'=>'入力してください'] ) }}
           </td>
-        </tr>
+        </tr> -->
         <tr>
           <td>
             <label for="adminNote">管理者備考</label>
@@ -542,9 +564,9 @@
       </table>
     </div>
   </div>
-</div>
+</section>
 
-{{Form::submit('再計算する', ['class'=>'btn btn-danger mx-auto d-block btn-lg', 'id'=>'check_submit'])}}
+{{Form::submit('再計算する', ['class'=>'btn more_btn4_lg d-block btn-lg mx-auto my-5', 'id'=>'check_submit'])}}
 
 {{Form::close()}}
 
@@ -552,56 +574,61 @@
 {{-- 以下、詳細内訳 --}}
 {{ Form::open(['url' => 'admin/agents_reservations/check', 'method'=>'POST', 'id'=>'agents_calculate_form']) }}
 @csrf
-<div class="container-fluid">
+<section class="section-wrap">
   <div class="bill">
     <div class="bill_head">
-      <table class="table" style="table-layout: fixed">
+      <table class="table bill_table">
         <tr>
           <td>
-            <h1 class="text-white">
+            <h2 class="text-white">
               請求書No
-            </h1>
+            </h2>
           </td>
-          <td style="font-size: 16px;">
-            <div class="bg-white d-flex justify-content-around align-items-center" style="height: 60px;">
-              <div>合計金額</div>
-              <div class="total_result">{{number_format(floor($price))}}円
-              </div>
-            </div>
+          <td>
+            <dl class="ttl_box">
+              <dt>合計金額</dt>
+              <dd class="total_result">{{number_format(floor($price))}}円</dd>
+            </dl>
+          </td>
+          <td>
+            <dl class="ttl_box">
+              <dt>支払い期日</dt>
+              <dd class="total_result">{{ReservationHelper::formatDate($payment_limit)}}</dd>
+            </dl>
           </td>
         </tr>
-        <tr>
+        <!-- <tr>
           <td></td>
-          <td style="font-size: 16px;">
+          <td>
             <div class="bg-white d-flex justify-content-around align-items-center" style="height: 60px;">
               <div>支払い期日</div>
               <div>{{ReservationHelper::formatDate($payment_limit)}}
               </div>
             </div>
           </td>
-        </tr>
+        </tr> -->
       </table>
     </div>
     <div class="bill_details">
       <div class="head d-flex">
-        <div style="width: 80px; background:gray;" class="d-flex justify-content-center align-items-center">
-          <i class="fas fa-plus fa-3x hide" style="color: white;"></i>
-          <i class="fas fa-minus fa-3x" style="color: white;"></i>
+        <div class="accordion_btn">
+          <i class="fas fa-plus bill_icon_size hide"></i>
+          <i class="fas fa-minus bill_icon_size"></i>
         </div>
-        <div style="font-size: 30px; width:200px;" class="d-flex justify-content-center align-items-center">
-          <p>
+        <div class="billdetails_ttl">
+          <h3>
             請求内訳
-          </p>
+          </h3>
         </div>
       </div>
       <div class="main">
-        <div class="venues" style="padding-top: 80px; width:90%; margin:0 auto;">
+        <div class="venues billdetails_content">
           <table class="table table-borderless">
             <tr>
               <td>
-                <h1>
-                  ■会場料
-                </h1>
+                <h4 class="billdetails_content_ttl">
+                  会場料
+                </h4>
               </td>
             </tr>
             <tbody class="venue_head">
@@ -623,13 +650,13 @@
 
         {{-- 以下備品 --}}
         @if (ReservationHelper::judgeArrayEmpty($s_equipment)!=0||ReservationHelper::judgeArrayEmpty($s_services)!=0)
-        <div class="equipment" style="padding-top: 80px; width:90%; margin:0 auto;">
+        <div class="equipment billdetails_content">
           <table class="table table-borderless">
             <tr>
-              <td>
-                <h1>
-                  ■有料備品・サービス
-                </h1>
+              <td colspan="2">
+                <h4 class="billdetails_content_ttl">
+                  有料備品・サービス
+                </h4>
               </td>
             </tr>
             <tbody class="equipment_head">
@@ -681,13 +708,13 @@
 
         {{-- 以下、レイアウト --}}
         @if ($requests['layout_prepare']>0||$requests['layout_clean']>0)
-        <div class="layout" style="padding-top: 80px; width:90%; margin:0 auto;">
+        <div class="layout billdetails_content">
           <table class="table table-borderless">
             <tr>
               <td>
-                <h1>
-                  ■レイアウト（請求に100％反映）
-                </h1>
+                <h4 class="billdetails_content_ttl">
+                  レイアウト
+                </h4>
               </td>
             </tr>
             <tbody class="layout_head">
@@ -737,13 +764,13 @@
         @endif
 
         {{-- 以下、その他 --}}
-        <div class="others" style="padding: 80px 0px 80px 0px; width:90%; margin:0 auto;">
+        <div class="others billdetails_content">
           <table class="table table-borderless">
             <tr>
-              <td>
-                <h1>
-                  ■その他
-                </h1>
+              <td colspan="3">
+                　<h4 class="billdetails_content_ttl">
+                  その他
+                </h4>
               </td>
             </tr>
             <tbody class="others_head">
@@ -766,31 +793,27 @@
           </table>
         </div>
         {{-- 以下、総合計 --}}
-        <div class="bill_total d-flex justify-content-end"
-          style="padding: 80px 0px 80px 0px; width:90%; margin:0 auto;">
-          <div style="width: 60%;">
-            <table class="table text-right" style="table-layout: fixed; font-size:16px;">
-              <tr>
-                <td>小計：</td>
-                <td>
-                  {{ Form::text('master_subtotal',(floor($price)) ,['class'=>'form-control text-right', 'readonly'] ) }}
-                </td>
-              </tr>
-              <tr>
-                <td>消費税：</td>
-                <td>
-                  {{ Form::text('master_tax',ReservationHelper::getTax($price) ,['class'=>'form-control text-right', 'readonly'] ) }}
-                </td>
-              </tr>
-              <tr>
-                <td class="font-weight-bold">合計金額</td>
-                <td>
-                  {{ Form::text('master_total',ReservationHelper::taxAndPrice($price) ,['class'=>'form-control text-right', 'readonly'] ) }}
-
-                </td>
-              </tr>
-            </table>
-          </div>
+        <div class="bill_total">
+          <table class="table text-right">
+            <tr>
+              <td>小計：</td>
+              <td>
+                {{ Form::text('master_subtotal',(floor($price)) ,['class'=>'form-control text-right', 'readonly'] ) }}
+              </td>
+            </tr>
+            <tr>
+              <td>消費税：</td>
+              <td>
+                {{ Form::text('master_tax',ReservationHelper::getTax($price) ,['class'=>'form-control text-right', 'readonly'] ) }}
+              </td>
+            </tr>
+            <tr>
+              <td class="font-weight-bold">合計金額</td>
+              <td>
+                {{ Form::text('master_total',ReservationHelper::taxAndPrice($price) ,['class'=>'form-control text-right', 'readonly'] ) }}
+              </td>
+            </tr>
+          </table>
         </div>
       </div>
     </div>
@@ -800,18 +823,18 @@
   <div class="information">
     <div class="information_details">
       <div class="head d-flex">
-        <div style="width: 80px; background:gray;" class="d-flex justify-content-center align-items-center">
-          <i class="fas fa-plus fa-3x hide" style="color: white;"></i>
-          <i class="fas fa-minus fa-3x" style="color: white;"></i>
+        <div class="accordion_btn">
+          <i class="fas fa-plus bill_icon_size hide"></i>
+          <i class="fas fa-minus bill_icon_size"></i>
         </div>
-        <div style="font-size: 30px; width:200px;" class="d-flex justify-content-center align-items-center">
+        <div class="billdetails_ttl">
           <p>
             請求書情報
           </p>
         </div>
       </div>
       <div class="main">
-        <div class="informations" style="padding-top: 20px; width:90%; margin:0 auto;">
+        <div class="informations billdetails_content">
           <table class="table">
             <tr>
               <td>請求日：</td>
@@ -839,17 +862,15 @@
   <div class="paid">
     <div class="paid_details">
       <div class="head d-flex">
-        <div style="width: 80px; background:#ff782d;" class="d-flex justify-content-center align-items-center">
-        </div>
-        <div style="font-size: 30px; width:200px;" class="d-flex justify-content-center align-items-center">
-          <p>
+        <div class="d-flex align-items-center">
+          <h3 class="pl-3">
             入金情報
-          </p>
+          </h3>
         </div>
       </div>
       <div class="main">
-        <div class="paids" style="padding-top: 20px; width:90%; margin:0 auto;">
-          <table class="table" style="table-layout: fixed;">
+        <div class="paids billdetails_content">
+          <table class="table">
             <tr>
               <td>入金状況{{Form::select('paid', ['未入金', '入金済み'],null,['class'=>'form-control'])}}</td>
               <td>
@@ -865,7 +886,7 @@
       </div>
     </div>
   </div>
-</div>
+</section>
 {{ Form::hidden('venue_id', $requests['venue_id'] )}}
 {{ Form::hidden('reserve_date', $requests['reserve_date'] )}}
 {{ Form::hidden('agent_id', $requests['agent_id'] )}}
@@ -899,7 +920,7 @@
 {{ Form::hidden('user_details', $requests['user_details']) }}
 {{ Form::hidden('admin_details', $requests['admin_details']) }}
 
-{{Form::submit('確認する', ['class'=>'btn btn-primary d-block btn-lg mx-auto mt-5 mb-5', 'id'=>'check_submit'])}}
+{{Form::submit('確認する', ['class'=>'btn d-block more_btn_lg mx-auto my-5', 'id'=>'check_submit'])}}
 {{Form::close()}}
 
 

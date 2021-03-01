@@ -203,7 +203,9 @@
             <tr>
               <th colspan="2">
                 <div class="d-flex justify-content-between align-items-center">
-                  有料備品
+                  <p class="title-icon fw-bolder py-1">
+                    <i class="fas fa-wrench icon-size fa-fw"></i>有料備品
+                  </p>
                   <i class="fas fa-plus icon_plus hide"></i>
                   <i class="fas fa-minus icon_minus"></i>
                 </div>
@@ -227,7 +229,9 @@
             <tr>
               <th colspan="2">
                 <div class="d-flex justify-content-between align-items-center">
-                  有料サービス
+                  <p class="title-icon fw-bolder py-1">
+                    <i class="fas fa-hand-holding-heart icon-size fa-fw"></i>有料サービス
+                  </p>
                   <i class="fas fa-plus icon_plus hide"></i>
                   <i class="fas fa-minus icon_minus"></i>
                 </div>
@@ -249,7 +253,11 @@
         <table class='table table-bordered'>
           <thead>
             <tr>
-              <th colspan='2'>レイアウト</th>
+              <th colspan='2'>
+                <p class="title-icon">
+                  <i class="fas fa-th icon-size fa-fw"></i>レイアウト
+                </p>
+              </th>
             </tr>
           </thead>
           <tbody>
@@ -272,7 +280,11 @@
         <table class='table table-bordered'>
           <thead>
             <tr>
-              <th colspan='2'>荷物預かり</th>
+              <th colspan='2'>
+                <p class="title-icon">
+                  <i class="fas fa-suitcase-rolling icon-size fa-fw"></i>荷物預かり
+                </p>
+              </th>
             </tr>
           </thead>
           <tbody>
@@ -304,8 +316,6 @@
           </tbody>
         </table>
       </div>
-      <div class="price_details">
-      </div>
     </div>
     {{-- 右側 --}}
     <div class="col">
@@ -315,7 +325,7 @@
           <td colspan="2">
             <div class="d-flex align-items-center justify-content-between">
               <p class="title-icon">
-                <i class="far fa-id-card fa-2x fa-fw"></i>仲介会社情報
+                <i class="far fa-id-card icon-size"></i>仲介会社情報
               </p>
               <p><a class="more_btn bg-green" href="">仲介会社詳細</a></p>
             </div>
@@ -342,7 +352,7 @@
         <tr>
           <td colspan="2">
             <p class="title-icon">
-              <i class="fas fa-user-check fa-2x fa-fw"></i>仲介会社の顧客
+              <i class="fas fa-user-check icon-size"></i>仲介会社の顧客
             </p>
           </td>
         </tr>
@@ -380,6 +390,14 @@
         </tr>
         <tr>
           <td class="table-active">
+            <label for="enduser_mobile" class="">当日連絡先</label>
+          </td>
+          <td>
+            {{ Form::text('enduser_mobile', $requests('enduser_mobile'),['class'=>'form-control', 'placeholder'=>'入力してください', 'maxlength'=>13, 'id'=>'enduser_mobile'] ) }}
+          </td>
+        </tr>
+        <tr>
+          <td class="table-active">
             <label for="enduser_mail" class=" ">メールアドレス</label>
           </td>
           <td>
@@ -400,7 +418,7 @@
         <tr>
           <td colspan="2">
             <p class="title-icon">
-              <i class="fas fa-yen-sign fa-2x fa-fw"></i>仲介会社の顧客への支払い料
+              <i class="fas fa-yen-sign icon-size"></i>仲介会社の顧客からの入金額
             </p>
           </td>
         </tr>
@@ -418,7 +436,7 @@
         <tr>
           <td colspan="2">
             <p class="title-icon">
-              <i class="fas fa-envelope fa-2x fa-fw"></i>備考
+              <i class="fas fa-envelope icon-size"></i>備考
             </p>
           </td>
         </tr>
