@@ -38,9 +38,16 @@
   </div>
   <hr>
   <div class="d-flex justify-content-between mt-3 mb-5">
-    <span>{{$equipments->count()}}件表示</span>
-    <div>
-      <!-- <div class="dropdown">
+  <span>
+      <select name="page_counter" id="page_counter">
+        <option value="ten">10</option>
+        <option value="thirty">30</option>
+        <option value="fifty">50</option>
+      </select>件表示
+    </span>
+    <!-- <span>{{$equipments->count()}}件表示</span> -->
+    <!--<div>
+       <div class="dropdown">
         <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" data-offset="-320,5">
           検索
         </button>
@@ -72,16 +79,15 @@
             </div>
           </form>
         </div>
-      </div> -->
-
-    </div>
+      </div> 
+    </div>-->
   </div>
 </div>
 
 <table class="table table-striped table-bordered">
   <thead>
     <tr class="table_row">
-      <th>id</th>
+      <th>ID</th>
       <th>登録日</th>
       <th>有料備品名</th>
       <th>料金</th>

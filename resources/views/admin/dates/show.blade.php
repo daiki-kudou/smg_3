@@ -3,9 +3,7 @@
 @section('content')
 <script src="{{ asset('/js/template.js') }}"></script>
 
-
-
-<div class="container-field mt-3">
+<!-- <div class="container-field mt-3">
   <div class="float-right">
     <nav aria-label="breadcrumb">
       <ol class="breadcrumb">
@@ -18,7 +16,20 @@
 <hr>
   <div class="d-flex justify-content-between mt-3 mb-5">
   </div>
+</div> -->
+
+<div class="container-field mt-3">
+  <div class="float-right">
+    <nav aria-label="breadcrumb">
+      <ol class="breadcrumb">
+        <li class="breadcrumb-item active">{{ Breadcrumbs::render(Route::currentRouteName(),$venues->id) }}</li>
+      </ol>
+    </nav>
+  </div>
 </div>
+
+<h2 class="mt-3 mb-3">営業時間管理　詳細</h2>
+<hr>
 
 
 <div class="p-3 mb-2 bg-white text-dark">

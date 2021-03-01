@@ -44,8 +44,8 @@
         <option value="fifty">50</option>
       </select>件表示
     </span>
-    <div>
-      <!-- <div class="dropdown">
+    <!--<div>
+       <div class="dropdown">
         <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" data-offset="-320,5">
           検索
         </button>
@@ -77,16 +77,16 @@
             </div>
           </form>
         </div>
-      </div> -->
-    </div>
+      </div> 
+    </div>-->
   </div>
 </div>
 <table class="table table-striped table-bordered">
   <thead>
     <tr>
-      <th>id</th>
+      <th>ID</th>
       <th>登録日</th>
-      <th>サービス名</th>
+      <th>有料サービス名</th>
       <th>料金</th>
       <th>備考</th>
       <th>詳細(編集)・削除</th>

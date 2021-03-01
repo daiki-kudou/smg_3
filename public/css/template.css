@@ -1,9 +1,12 @@
 @charset "UTF-8";
 
+html {
+    font-size: 12px;
+}
 
 body {
     font-family:-apple-system, 'Helvetica Neue','Hiragino Kaku Gothic ProN', '游ゴシック','メイリオ',meiryo,sans-serif;
-    font-size: 12px;
+    /* font-size: 12px; */
 }
 
 /* venues. index */
@@ -224,9 +227,6 @@ h5 {
     margin-bottom: 0;
 }
 
-table {
-    /* table-layout: fixed; */
-}
 
 /* 共通--------------------------------------- */
 
@@ -434,6 +434,11 @@ table {
 .nav-tabs .nav-item a {
     color: #333;
 }
+
+.table_fixed {
+    table-layout: fixed;
+}
+
 
 
 /* アコーディオン ------------------------------------------*/
@@ -825,7 +830,7 @@ table td.table_column p:last-child {
 
 /* 会場 ===================================================================== */
 
-.venue_table td{
+.venue_table th {
     width: 33%;
 }
 
