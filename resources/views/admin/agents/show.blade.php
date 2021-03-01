@@ -93,11 +93,11 @@
           </tr>
           <tr>
             <td class="table-active">{{ Form::label('person_firstname', '担当者氏名') }}</td>
-            <td>{{ $agent->person_firstname}}{{ $agent->person_lastname}}</td>
+            <td>{{ $agent->person_lastname}}{{ $agent->person_firstname}}</td>
           </tr>
           <tr>
             <td class="table-active">{{ Form::label('firstname_kana', '担当者氏名（ふりがな）') }}</td>
-            <td>{{ $agent->firstname_kana}}{{ $agent->lastname_kana}}</td>
+            <td>{{ $agent->lastname_kana}}{{ $agent->firstname_kana}}</td>
           </tr>
           <tr>
             <td class="table-active">{{ Form::label('person_tel', '担当者TEL') }}</td>

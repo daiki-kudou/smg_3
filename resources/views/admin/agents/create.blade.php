@@ -117,14 +117,16 @@
             </tr>
             <tr>
               <td class="table-active">{{ Form::label('person_firstname', '担当者氏名') }}</td>
-              <td>姓：{{ Form::text('person_firstname', old('person_firstname'), ['class' => 'form-control']) }}</td>
-              <td>名：{{ Form::text('person_lastname', old('person_lastname'), ['class' => 'form-control']) }}</td>
+              <td>姓：{{ Form::text('person_lastname', old('person_lastname'), ['class' => 'form-control']) }}</td>
+              <td>名：{{ Form::text('person_firstname', old('person_firstname'), ['class' => 'form-control']) }}</td>
             </tr>
             <tr>
               <td class="table-active">{{ Form::label('firstname_kana', '担当者氏名（フリガナ）') }}</td>
-              <td>セイ：{{ Form::text('firstname_kana', old('firstname_kana'), ['class' => 'form-control'])}}
+              <td>
+              セイ：{{ Form::text('lastname_kana', old('lastname_kana'), ['class' => 'form-control']) }}
               </td>
-              <td>メイ：{{ Form::text('lastname_kana', old('lastname_kana'), ['class' => 'form-control']) }}
+              <td>
+              メイ：{{ Form::text('firstname_kana', old('firstname_kana'), ['class' => 'form-control'])}}
               </td>
             </tr>
             <tr>
