@@ -48,7 +48,7 @@
       <!-- 左側の項目 ---------------------------------------------------------->
       <div class="col">
         {{ Form::open(['route' => 'admin.clients.store']) }}
-        <table class="table table-bordered">
+        <table class="table table-bordered table_fixed">
           <thead>
             <tr>
               <td colspan="3">
@@ -132,7 +132,7 @@
 
       <!-- 右側の項目 ---------------------------------------------------------->
       <div class="col">
-        <table class="table table-bordered">
+        <table class="table table-bordered table_fixed">
           <thead>
             <tr>
               <p class="title-icon">
