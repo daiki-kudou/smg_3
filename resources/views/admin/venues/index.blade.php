@@ -151,7 +151,7 @@
   </form> -->
   <!-- 検索　終わり------------------------------------------------ -->
 
-  <div class="d-flex justify-content-between my-3">
+  <div class="d-flex justify-content-between mt-5 mb-3">
     <span>
       <select name="page_counter" id="page_counter">
         <option value="ten">10</option>
@@ -161,7 +161,7 @@
     </span>
   </div>
 
-  <table class="table table-bordered mt-5">
+  <table class="table table-bordered">
     <thead>
       <tr style="white-space: nowrap;">
         <th>ID</th>
