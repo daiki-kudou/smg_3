@@ -541,6 +541,7 @@ h5 {
     margin-bottom: 1px;
     align-items: center;
     border-radius: 0;
+    width: 50%;
 }
 
 .search_item_name {

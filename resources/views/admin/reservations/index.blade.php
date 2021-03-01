@@ -220,18 +220,26 @@
             </dl>
             <dl class="form-group flex-fill">
               <dt>
-                <label class="search_item_name" for="name">携帯電話</label>
+                <label class="search_item_name" for="mobile">携帯電話</label>
               </dt>
               <dd>
-                <input type="text" name="name" class="form-control" id="mobile">
+                <input type="text" name="mobile" class="form-control" id="mobile">
               </dd>
             </dl>
             <dl class="form-group flex-fill">
               <dt>
-                <label class="search_item_name" for="name">固定電話</label>
+                <label class="search_item_name" for="tel">固定電話</label>
               </dt>
               <dd>
-                <input type="text" name="name" class="form-control" id="tel">
+                <input type="text" name="tel" class="form-control" id="tel">
+              </dd>
+            </dl>
+            <dl class="form-group flex-fill">
+              <dt>
+                <label class="search_item_name" for="enduser">仲介会社当日利用者</label>
+              </dt>
+              <dd>
+                <input type="text" name="enduser" class="form-control" id="enduser">
               </dd>
             </dl>
             <dl class="form-group flex-fill">

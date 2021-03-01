@@ -77,35 +77,6 @@
             </td>
           </tr>
           <tr>
-            <td class="table-active form_required">会場</td>
-            <td>
-              <select id="venues_selector" class=" form-control" name='venue_id'>
-                <option value='#' disabled selected>選択してください</option>
-                @foreach ($venues as $venue)
-                <option value="{{$venue->id}}" @if (isset($request->venue_id))
-                  @endif
-                  >{{$venue->name_area}}{{$venue->name_bldg}}{{$venue->name_venue}}</option>
-                @endforeach
-              </select>
-              <p class="is-error-venue_id" style="color: red"></p>
-              <div class="price_selector">
-                <div>
-                  <small>※料金体系を選択してください</small>
-                </div>
-                <div class='price_radio_selector'>
-                  <div class="d-flex justfy-content-start align-items-center">
-                    {{ Form::radio('price_system', 1, isset($request->price_system)?$request->price_system==1?true:false:'', ['class'=>'mr-2', 'id'=>'price_system_radio1']) }}
-                    {{Form::label('price_system_radio1','通常（枠貸）')}}
-                  </div>
-                  <div class="d-flex justfy-content-start align-items-center">
-                    {{ Form::radio('price_system', 2, isset($request->price_system)?$request->price_system==2?true:false:'', ['class'=>'mr-2','id'=>'price_system_radio2']) }}
-                    {{Form::label('price_system_radio2','アクセア（時間貸）')}}
-                  </div>
-                </div>
-              </div>
-            </td>
-          </tr>
-          <tr>
             <td class="table-active form_required">入室時間</td>
             <td>
               <div>
@@ -134,7 +105,35 @@
               </div>
             </td>
           </tr>
-
+          <tr>
+            <td class="table-active form_required">会場</td>
+            <td>
+              <select id="venues_selector" class=" form-control" name='venue_id'>
+                <option value='#' disabled selected>選択してください</option>
+                @foreach ($venues as $venue)
+                <option value="{{$venue->id}}" @if (isset($request->venue_id))
+                  @endif
+                  >{{$venue->name_area}}{{$venue->name_bldg}}{{$venue->name_venue}}</option>
+                @endforeach
+              </select>
+              <p class="is-error-venue_id" style="color: red"></p>
+              <div class="price_selector">
+                <div>
+                  <small>※料金体系を選択してください</small>
+                </div>
+                <div class='price_radio_selector'>
+                  <div class="d-flex justfy-content-start align-items-center">
+                    {{ Form::radio('price_system', 1, isset($request->price_system)?$request->price_system==1?true:false:'', ['class'=>'mr-2', 'id'=>'price_system_radio1']) }}
+                    {{Form::label('price_system_radio1','通常（枠貸）')}}
+                  </div>
+                  <div class="d-flex justfy-content-start align-items-center">
+                    {{ Form::radio('price_system', 2, isset($request->price_system)?$request->price_system==2?true:false:'', ['class'=>'mr-2','id'=>'price_system_radio2']) }}
+                    {{Form::label('price_system_radio2','アクセア（時間貸）')}}
+                  </div>
+                </div>
+              </div>
+            </td>
+          </tr>
         </table>
 
         <table class="table table-bordered board-table">
@@ -150,8 +149,12 @@
           <tr>
             <td class="table-active">案内板</td>
             <td>
-              <input type="radio" name="board_flag" value="0" {{isset($request->board_flag)?$request->board_flag==0?'checked':'':'checked',}}>無し
-              <input type="radio" name="board_flag" value="1" {{isset($request->board_flag)?$request->board_flag==1?'checked':'':'',}}>有り
+              <div class="radio-box">
+                <p>
+                  <input type="radio" name="board_flag" value="0" {{isset($request->board_flag)?$request->board_flag==0?'checked':'':'checked',}}>無し
+                </p>
+                <input type="radio" name="board_flag" value="1" {{isset($request->board_flag)?$request->board_flag==1?'checked':'':'',}}>有り
+              </div>
             </td>
           </tr>
           <tr>
@@ -208,7 +211,9 @@
               <tr>
                 <th colspan="2">
                   <div class="d-flex justify-content-between align-items-center">
-                    有料備品
+                    <p class="title-icon fw-bolder py-1">
+                      <i class="fas fa-wrench icon-size fa-fw"></i>有料備品
+                    </p>
                     <i class="fas fa-plus icon_plus hide"></i>
                     <i class="fas fa-minus icon_minus"></i>
                   </div>
@@ -224,7 +229,9 @@
               <tr>
                 <th colspan="2">
                   <div class="d-flex justify-content-between align-items-center">
-                    有料サービス
+                    <p class="title-icon fw-bolder py-1">
+                      <i class="fas fa-hand-holding-heart icon-size fa-fw"></i>有料サービス
+                    </p>
                     <i class="fas fa-plus icon_plus hide"></i>
                     <i class="fas fa-minus icon_minus"></i>
                   </div>
@@ -238,7 +245,11 @@
           <table class='table table-bordered'>
             <thead>
               <tr>
-                <th colspan='2'>レイアウト</th>
+                <th colspan='2'>
+                  <p class="title-icon">
+                    <i class="fas fa-th icon-size fa-fw"></i>レイアウト
+                  </p>
+                </th>
               </tr>
             </thead>
             <tbody>
@@ -249,7 +260,11 @@
           <table class='table table-bordered'>
             <thead>
               <tr>
-                <th colspan='2'>荷物預かり</th>
+                <th colspan='2'>
+                  <p class="title-icon">
+                    <i class="fas fa-suitcase-rolling icon-size fa-fw"></i>荷物預かり
+                  </p>
+                </th>
               </tr>
             </thead>
             <tbody>
@@ -262,62 +277,62 @@
       {{-- 右側 --}}
       <div class="col">
         <!-- <div class="client_mater">　 -->
-          <table class="table table-bordered name-table">
-            <tr>
-              <td colspan="2">
-                <div class="d-flex align-items-center justify-content-between">
-                  <p class="title-icon">
-                    <i class="far fa-id-card icon-size"></i>顧客情報
-                  </p>
-                  <p><a class="more_btn bg-green" href="">顧客詳細</a></p>
-                </div>
-              </td>
-            </tr>
-            <tr>
-              <td class="table-active"><label for="user_id" class=" form_required">会社名/団体名</label></td>
-              <td>
-                <select class="form-control" name="user_id" id="user_select">
-                  <option disabled selected>選択してください</option>
-                  @foreach ($users as $user)
-                  <option value="{{$user->id}}" @if (isset($request)) @endif>{{$user->company}} |
-                    {{$user->first_name}}{{$user->last_name}} | {{$user->email}}
-                  </option>
-                  @endforeach
-                </select>
-                <p class="is-error-user_id" style="color: red"></p>
-              </td>
-            </tr>
-            <tr>
-              <td class="table-active"><label for="name" class=" form_required">担当者氏名<br></label></td>
-              <td>
-                <p class="selected_person"></p>
-              </td>
-            </tr>
-          </table>
-          <table class="table table-bordered oneday-table">
-            <tr>
-              <td colspan="2">
+        <table class="table table-bordered name-table">
+          <tr>
+            <td colspan="2">
+              <div class="d-flex align-items-center justify-content-between">
                 <p class="title-icon">
-                  <i class="fas fa-user-check icon-size"></i>当日の連絡できる担当者
+                  <i class="far fa-id-card icon-size"></i>顧客情報
                 </p>
-              </td>
-            </tr>
-            <tr>
-              <td class="table-active"><label for="ondayName" class=" form_required">氏名</label></td>
-              <td>
-                {{ Form::text('in_charge', old('in_charge'),['class'=>'form-control', 'placeholder'=>'入力してください'] ) }}
-                <p class="is-error-in_charge" style="color: red"></p>
-              </td>
-            </tr>
-            <tr>
-              <td class="table-active"><label for="mobilePhone" class=" form_required">携帯番号</label></td>
-              <td>
-                {{ Form::text('tel', old('tel'),['class'=>'form-control', 'placeholder'=>'入力してください', 'maxlength'=>13] ) }}
-                <p class="is-error-tel" style="color: red"></p>
+                <p><a class="more_btn bg-green" href="">顧客詳細</a></p>
+              </div>
+            </td>
+          </tr>
+          <tr>
+            <td class="table-active" width="33%"><label for="user_id" class=" form_required">会社名/団体名</label></td>
+            <td>
+              <select class="form-control" name="user_id" id="user_select">
+                <option disabled selected>選択してください</option>
+                @foreach ($users as $user)
+                <option value="{{$user->id}}" @if (isset($request)) @endif>{{$user->company}} |
+                  {{$user->first_name}}{{$user->last_name}} | {{$user->email}}
+                </option>
+                @endforeach
+              </select>
+              <p class="is-error-user_id" style="color: red"></p>
+            </td>
+          </tr>
+          <tr>
+            <td class="table-active"><label for="name" class=" form_required">担当者氏名<br></label></td>
+            <td>
+              <p class="selected_person"></p>
+            </td>
+          </tr>
+        </table>
+        <table class="table table-bordered oneday-table">
+          <tr>
+            <td colspan="2">
+              <p class="title-icon">
+                <i class="fas fa-user-check icon-size"></i>当日の連絡できる担当者
+              </p>
+            </td>
+          </tr>
+          <tr>
+            <td class="table-active"><label for="ondayName" class=" form_required">氏名</label></td>
+            <td>
+              {{ Form::text('in_charge', old('in_charge'),['class'=>'form-control', 'placeholder'=>'入力してください'] ) }}
+              <p class="is-error-in_charge" style="color: red"></p>
+            </td>
+          </tr>
+          <tr>
+            <td class="table-active"><label for="mobilePhone" class=" form_required">携帯番号</label></td>
+            <td>
+              {{ Form::text('tel', old('tel'),['class'=>'form-control', 'placeholder'=>'入力してください', 'maxlength'=>13] ) }}
+              <p class="is-error-tel" style="color: red"></p>
 
-              </td>
-            </tr>
-          </table>
+            </td>
+          </tr>
+        </table>
         <!-- </div> -->
 
         <table class="table table-bordered mail-table">
