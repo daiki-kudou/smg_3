@@ -6,7 +6,7 @@
 <link href="{{ asset('/css/template.css') }}" rel="stylesheet">
 <script src="{{ asset('/js/template.js') }}"></script>
 
-<h1>単発　仮抑え　詳細入力画面</h1>
+<h1>単発　仮押さえ　詳細入力画面</h1>
 
 {{ Form::open(['url' => 'admin/pre_reservations/calculate', 'method'=>'POST', 'id'=>'pre_reservationSingleCheckForm']) }}
 @csrf
@@ -97,7 +97,7 @@
       <table class="table table-bordered">
         <tbody>
           <tr>
-            <td colspan="2">仮抑え情報</td>
+            <td colspan="2">仮押さえ情報</td>
           </tr>
           <tr>
             <td class="table-active form_required">利用日</td>
@@ -440,7 +440,7 @@
 
 <div class="submit_btn">
   <div class="d-flex justify-content-center">
-    {{-- 単発仮抑えか？一括仮抑えか？ --}}
+    {{-- 単発仮押さえか？一括仮押さえか？ --}}
     {{ Form::hidden('judge_count', 1 ) }}
     {{-- ユーザー --}}
     {{ Form::hidden('user_id', $request->user_id ) }}

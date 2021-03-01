@@ -3,7 +3,7 @@
 @section('content')
 <h1><span class="badge badge-secondary">備品詳細</span></h1>
 <div class="form-group">
-  {{ Form::label('item', 'サービス名') }}
+  {{ Form::label('item', '有料サービス名') }}
   <div>{{$service->item}}</div>
 </div>
 <div class="form-group">

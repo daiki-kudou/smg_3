@@ -182,6 +182,191 @@ table.dataTable thead .sorting_desc:after {
 //////////////////
 ****************************/
 
+
+
+
+body {
+    font-family:-apple-system, 'Helvetica Neue','Hiragino Kaku Gothic ProN', '游ゴシック','メイリオ',meiryo,sans-serif;
+    font-size: 12px;
+}
+
+/* venues. index */
+.dropdown-menu {
+    width: 400px;
+}
+
+.form-inline {
+    display: block;
+}
+
+/* ソート矢印上下表示 */
+table.dataTable thead .sorting:after,
+table.dataTable thead .sorting_asc:after,
+table.dataTable thead .sorting_desc:after {
+    opacity: 0.2;
+    font-family: 'FontAwesome';
+    content: "\f0ec";
+    display: inline-block;
+    transform: rotate(90deg);
+}
+
+/* venues create マルチセレクト */
+.ms-container {
+    background: transparent url("/img/switch.png") no-repeat 50% 50%;
+    max-width: 1800px;
+}
+
+.ms-container:after {
+    content: ".";
+    display: block;
+    height: 0;
+    line-height: 0;
+    font-size: 0;
+    clear: both;
+    min-height: 0;
+    visibility: hidden;
+}
+
+.ms-container .ms-selectable,
+.ms-container .ms-selection {
+    background: #fff;
+    color: #555555;
+    float: left;
+    width: 45%;
+}
+
+.ms-container .ms-selection {
+    float: right;
+}
+
+.ms-container .ms-list {
+    -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
+    -moz-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
+    box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
+    -webkit-transition: border linear 0.2s, box-shadow linear 0.2s;
+    -moz-transition: border linear 0.2s, box-shadow linear 0.2s;
+    -ms-transition: border linear 0.2s, box-shadow linear 0.2s;
+    -o-transition: border linear 0.2s, box-shadow linear 0.2s;
+    transition: border linear 0.2s, box-shadow linear 0.2s;
+    border: 1px solid #ccc;
+    -webkit-border-radius: 3px;
+    -moz-border-radius: 3px;
+    border-radius: 3px;
+    position: relative;
+    height: 200px;
+    padding: 0;
+    overflow-y: auto;
+}
+
+.ms-container .ms-list.ms-focus {
+    border-color: rgba(82, 168, 236, 0.8);
+    -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075),
+        0 0 8px rgba(82, 168, 236, 0.6);
+    -moz-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075),
+        0 0 8px rgba(82, 168, 236, 0.6);
+    box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075),
+        0 0 8px rgba(82, 168, 236, 0.6);
+    outline: 0;
+    outline: thin dotted \9;
+}
+
+.ms-container ul {
+    margin: 0;
+    list-style-type: none;
+    padding: 0;
+}
+
+.ms-container .ms-optgroup-container {
+    width: 100%;
+}
+
+.ms-container .ms-optgroup-label {
+    margin: 0;
+    padding: 5px 0px 0px 5px;
+    cursor: pointer;
+    color: #999;
+}
+
+.ms-container .ms-selectable li.ms-elem-selectable,
+.ms-container .ms-selection li.ms-elem-selection {
+    border-bottom: 1px #eee solid;
+    padding: 2px 10px;
+    color: #555;
+    font-size: 14px;
+}
+
+.ms-container .ms-selectable li.ms-hover,
+.ms-container .ms-selection li.ms-hover {
+    cursor: pointer;
+    color: #fff;
+    text-decoration: none;
+    background-color: #08c;
+}
+
+.ms-container .ms-selectable li.disabled,
+.ms-container .ms-selection li.disabled {
+    background-color: #eee;
+    color: #aaa;
+    cursor: text;
+}
+
+/* tableの上ボーター打ち消し用 */
+.table th,
+.table td {
+    /* padding: 0.75rem; */
+    padding: 0.5rem;
+    vertical-align: middle;
+    border-top: 0px solid;
+}
+
+.border-info {
+    border-color: white;
+}
+
+.form_required:after {
+    content: "必須";
+    margin-left: 10px;
+    font-size: 12px;
+    background: #ff6679;
+    color: white;
+    padding: 1px 5px;
+    border-radius: 15%;
+}
+
+.is-error {
+    background: pink;
+}
+
+.hide {
+    display: none;
+}
+
+/* select2 */
+.select2-selection__rendered {
+    line-height: 31px !important;
+}
+
+.select2-container .select2-selection--single {
+    height: 35px !important;
+}
+
+.select2-selection__arrow {
+    height: 34px !important;
+}
+
+.select2-container--default .select2-selection--single {
+    border: 1px solid #ced4da;
+}
+
+/****************************
+//////////////////
+//////////////////
+↓↓↓以下　丸岡　さん↓↓↓
+/public_html/demo.web-walker.jp/smg_test/admin/css/style.css
+//////////////////
+//////////////////
+****************************/
+
 ul {
     margin-bottom: 0;
     padding: 0;
@@ -211,6 +396,10 @@ label {
     margin-bottom: 0;
 }
 
+label:not(.form-check-label):not(.custom-file-label) {
+    font-weight: normal;
+}
+
 h1,
 h2,
 h3,
@@ -219,9 +408,7 @@ h5 {
     margin-bottom: 0;
 }
 
-/* .content-wrapper {
-    min-width: 1200px;
-}
+
 /* 共通--------------------------------------- */
 
 .content-wrapper {
@@ -252,7 +439,7 @@ h5 {
 
 .btn-wrapper2 {
     padding: 0 3%;
-    margin-bottom: 3%;
+    /* margin-bottom: 3%; */
 }
 
 .more_btn {
@@ -262,6 +449,7 @@ h5 {
     color: #fff;
     font-weight: bold;
     transition: 0.4s;
+    font-size: 12px;
 }
 
 .more_btn:hover {
@@ -271,20 +459,21 @@ h5 {
 
 .more_btn2 {
     background: #35a7a7;
-    padding: 5px 15px;
+    padding: 0.3em 1em;
     border-radius: 5px;
     color: #fff;
     font-weight: bold;
-    min-width: 100px;
+    /* min-width: 100px; */
 }
 
 .more_btn4 {
     background: #DC3545;
-    padding: 5px 15px;
+    padding: 0.3em 1em;
     border-radius: 5px;
     color: #fff;
     font-weight: bold;
-    min-width: 100px;
+    font-size: 12px;
+    /* min-width: 100px; */
 }
 
 .more_btn4:hover {
@@ -337,6 +526,7 @@ h5 {
     color: #fff;
     font-weight: bold;
     transition: 0.4s;
+    font-size: 12px;
 }
 
 .more_btn_lg:hover {
@@ -350,6 +540,7 @@ h5 {
     border-radius: 5px;
     color: #fff;
     font-weight: bold;
+    font-size: 12px;
 }
 
 .more_btn4_lg:hover {
@@ -374,8 +565,10 @@ h5 {
     background: #35a7a7 !important;
 }
 
-.bg-green {
-    background: #35a7a7 !important;
+.bg-status {
+    /* background: #35a7a7 !important; */
+    background: #dcdcdc!important;
+    /* color: #fff; */
 }
 
 .bg-black {
@@ -412,6 +605,25 @@ h5 {
 .annotation {
     font-size: 0.7rem;
 }
+
+.table_row {
+    white-space: nowrap;
+}
+
+
+.nav-tabs .nav-link.active, .nav-tabs .nav-item.show .nav-link {
+    color: #495057;
+    background-color: #ddd;
+}
+
+.nav-tabs .nav-item a {
+    color: #333;
+}
+
+.table_fixed {
+    table-layout: fixed;
+}
+
 
 
 /* アコーディオン ------------------------------------------*/
@@ -516,12 +728,12 @@ h5 {
 }
 
 .search_item_name {
-    width: 200px;
+    width: 170px;
     background: #35a7a7;
     margin-bottom: 0;
     color: #fff;
-    text-align: center;
-    padding: 7px 0;
+    /* text-align: center; */
+    padding: 0.8em 0.5em;
 }
 
 .search_box ul li {
@@ -596,14 +808,14 @@ table td.table_column p:last-child {
 
 /* 予約新規 -----------------------------------------------------*/
 
-.agent_box {
-    font-size: 18px;
-    margin: 0 3%;
+.border-wrap {
+    border: 2px solid #35a7a7;
+    /* padding: 30px; */
+    margin: 50px 3%;
 }
 
-.register-wrap {
-    border: 2px solid #35a7a7;
-    padding: 30px;
+.border-wrap2 {
+    border: 1px solid #dee2e6;
 }
 
 .title-icon {
@@ -634,154 +846,15 @@ table td.table_column p:last-child {
     background-color: rgb(255 0 0 / 8%);
 }
 
+.caution_color {
+    color: #DC3545;
+}
+
 .caution textarea {
     border: 1px solid #dc3545;
 }
 
-.ttl-box {
-    border: 2px solid #35a7a7;
-    color: #333;
-    padding: 0.8em;
-    background: #fff;
-    border-bottom: none;
-}
-
-.section-ttl-box {
-    border: 2px solid #35a7a7;
-    color: #333;
-    padding: 0.8em;
-    background: #fff;
-}
-
-.section-ttl {
-    font-weight: bold;
-    font-size: 16px;
-}
-
-.content-ttl {
-    font-weight: bold;
-    font-size: 16px;
-    /* background: #35A7A7; */
-    border: 1px solid #35a7a7;
-    color: #333;
-    margin-bottom: 20px;
-    padding: 0.8em;
-    background: #fff;
-}
-
-/* 請求内容------------------------------------------------------------------ */
-
-/* .bill-wrap {
-    margin-top: 100px;
-}
-.bill-box {
-    margin-bottom: 60px;
-    background: #fff;
-}
-.bill-box h3 {
-    font-weight: bold;
-    font-size: 16px;
-    background: #35a7a7;
-    color: #fff;
-    margin-bottom: 0;
-    margin-right: 0;
-    margin-left: 0;
-    padding: 0.8em;
-}
-.bill-box_wrap {
-    border-top: 1px solid #ccc;
-    border-left: 1px solid #ccc;
-    margin-right: 0;
-    margin-left: 0;
-}
-.bill-list .col-12 {
-    padding: 0;
-}
-.bill-list .price-sum p {
-    padding-right: 1em;
-}
-.price-sum p:last-child {
-    font-size: 16px;
-    border-top: 1px solid #dbdbdb;
-    margin-top: 1em;
-    padding-top: 1em;
-}
-.price-sum span {
-    margin-right: 1em;
-}
-.bill-box_cell {
-    border-right: 1px solid #ccc;
-    border-bottom: 1px solid #ccc;
-    padding-top: 1em;
-    padding-bottom: 1em;
-}
-.bill-box_cell dt {
-    font-weight: bold;
-}
-.bill-box_cell dd {
-    margin-bottom: 0;
-}
-.bill-box_wrap .col-4 {
-    background: #fff;
-}
-.bill-list h3 {
-    font-weight: bold;
-    font-size: 16px;
-    background: #f3f3f3;
-    color: #333;
-    margin-bottom: 0;
-    padding: 0.8em;
-}
-.bill-list-subttl p {
-    font-weight: bold;
-}
-.total-sum {
-    padding: 10% 3%;
-}
-.total-sum .col-3 {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-}
-.total-sum .col-3 dd {
-    font-size: 20px;
-}
-.total-sum .col-3:first-child {
-    background: #35a7a7;
-    color: #fff;
-    font-size: 18px;
-}
-.total-sum .bill-box_cell {
-    border: 1px solid #35A7A7;
-} */
-
 /* =============予約詳細================================================ */
-
-.section-header {
-    width: 100%;
-    /* display: flex; */
-    padding: 2em 0;
-}
-
-.section-header dl {
-    flex: 1;
-    display: flex;
-    align-items: center;
-    margin-right: 1em;
-}
-
-.section-header dt {
-    background: #35a7a7;
-    padding: 0.5em;
-    color: #fff;
-    min-width: 150px;
-}
-
-.section-header dd {
-    padding: 0.5em 1em;
-    border: 1px solid #ebebeb;
-    min-width: 150px;
-}
 
 .table-cell-box {
     padding: 0;
@@ -798,25 +871,32 @@ table td.table_column p:last-child {
 
 /* =============予約チェックボックス================================================ */
 
-.checkbox {
-    border: 1px solid #35a7a7;
+.duble_checkbox {
+    border: 1px solid #6c757d;
 }
 
-.checkbox dt {
+.duble_checkbox dt {
     background: #35a7a7;
     padding: 0.5em;
     color: #fff;
     margin-bottom: 0;
 }
-
+/* 
 .checkbox dt {
     margin-bottom: 0;
     padding-left: 1em;
-}
+} */
 
 .confirm-box {
-    background: #F4F6F9;
-    padding: 50px 0;
+    background: #ffe7e1;
+    margin: 0 3%;
+    padding: 3%;
+}
+
+.notion {
+    width: 40%;
+    margin: 2em auto;
+    text-align: left;
 }
 
 .confirm-box dl {
@@ -827,21 +907,33 @@ table td.table_column p:last-child {
 }
 
 
-
-
-/* =============予約追加請求================================================ */
-
-
-.extra-bill-table .extrabill-cell {
-    padding: 3em 0;
-}
-
 /* =============仮押さえ================================================ */
 
+
+.ttl_head {
+    /* background: #35a7a7; */
+    background: rgb(53 167 167 / 80%);
+    table-layout: fixed;
+    color: #fff;
+    /* padding: 10px; */
+    /* border: solid 1px #ced4da; */
+}
+
+.border-inwrap {
+    border: 2px solid #35a7a7;
+    padding: 3%;
+}
+
+.calendar {
+    padding: 3%;
+    border: 1px solid #dee2e6;
+}
+
+/* 
 .calender-wrap {
     margin-bottom: 50px;
     border: 1px solid #dbdbdb;
-}
+} */
 
 .choose-table tr td:last-child {
     width: 200px;
@@ -859,7 +951,7 @@ table td.table_column p:last-child {
 
 .register-list-item {
     display: flex;
-    /* align-items: center; */
+    align-items: center;
     margin-bottom: 0;
 }
 
@@ -874,7 +966,8 @@ table td.table_column p:last-child {
     font-weight: bold;
     padding: 2em;
     border: 1px solid #ef6243;
-    margin-bottom: 50px;
+    /* margin-bottom: 50px; */
+    margin-bottom: 2em;
 }
 
 .alert-icon {
@@ -882,20 +975,21 @@ table td.table_column p:last-child {
 }
 
 
-/* =============仮押さえ　一覧================================================ */
-
-/* .prereserve-table th,.prereserve-table td {
-    vertical-align: middle;
-    text-align: left;
-} */
-
 .btn-cell {
-    min-width: 85px;
+    min-width: 89px;
 }
 
 .prereserve-table .table_column .more_btn {
     padding: 0 0.7em;
 
+}
+
+.checkbox, #all_check {
+    width: 14px;
+    height: 14px;
+    -moz-transform: scale(1.4);
+    -webkit-transform: scale(1.4);
+    transform: scale(1.4);
 }
 
 
@@ -916,6 +1010,13 @@ table td.table_column p:last-child {
 
 #sortableArea {
     cursor: pointer;
+}
+
+
+/* 会場 ===================================================================== */
+
+.venue_table th {
+    width: 33%;
 }
 
 
@@ -957,8 +1058,6 @@ table td.table_column p:last-child {
     border: 1px solid #333;
     margin-bottom: 50px;
 }
-
-/* @charset "utf-8"; */
 
 h3 {
     margin-bottom: 0;
@@ -1080,9 +1179,10 @@ h3 {
 }
 
 .bill_head2 {
-    background: #7ebc4f;
+    /* background: #7ebc4f; */
+    background: #144c58;
     table-layout: fixed;
-    border: solid 1px #ced4da;
+    /* border: solid 1px #ced4da; */
 }
 
 .bill_table {
@@ -1133,7 +1233,8 @@ h3 {
 }
 
 .billdetails_content {
-    padding-top: 50px;
+    /* padding-top: 50px; */
+    padding-top: 20px;
     width: 95%;
     margin: 0 auto;
 }
@@ -1155,7 +1256,6 @@ h3 {
     left: -25px;
     transform: translateY(-50%);
 }
-
 
 .venue_head,
 .equipment_head,
@@ -1195,6 +1295,16 @@ h3 {
     border: none;
 }
 
+.add.pluralBtn {
+    background: #007BFF;
+    color: #fff;
+}
+
+.del.pluralBtn {
+    background: #DC3545;
+    color: #fff;
+}
+
 .bill_total {
     border-top: 1px solid #3e3e3e;
     padding-top: 15px;
@@ -1228,6 +1338,110 @@ h3 {
 .paid {
     border: solid 1px #ced4da !important;
 }
+
+
+.master_total_head {
+    background: #35a7a7;
+    color: #fff;
+}
+
+table .master_total_subttl {
+    border-bottom: 2px solid #35a7a7;
+}
+
+.master_total_body tr td {
+    font-size: 1.1em;
+}
+
+.master_total_body tr td:first-child {
+    font-weight: bold;
+    padding-left: 3em;
+}
+
+.master_total_body tr td:last-child {
+    text-align: right;
+    padding-right: 3em;
+}
+
+.master_total_bottom td {
+    padding-right: 3em; 
+}
+
+.payment_situation {
+    display: flex;
+    justify-content: space-around;
+    padding: 0 0 40px;
+}
+
+.payment_situation dl {
+    display: flex;
+    align-items: center;
+    border: 1px solid #dcdcdc;
+}
+
+.payment_situation dl dt {
+    padding: 0.5em 3em;
+    background: #dcdcdc;
+}
+
+.payment_situation dl dd {
+    padding-left: 3em;
+    padding-right: 1em;
+}
+
+.approve_or_confirm {
+    padding: 0 10px;
+}
+
+
+/* 追加請求のチェックボックス -------------------*/
+  .venue_chkbox label,
+  .equipment_chkbox label,
+  .layout_chkbox label,
+  .others_chkbox label {
+    padding-left: 40px;
+    font-size: 1.5rem;
+    line-height: 32px;
+    display: inline-block;
+    cursor: pointer;
+    position: relative;
+  }
+
+  .venue_chkbox label:before,
+  .equipment_chkbox label:before,
+  .layout_chkbox label:before,
+  .others_chkbox label:before {
+    content: '';
+    width: 32px;
+    height: 32px;
+    display: inline-block;
+    position: absolute;
+    left: 0;
+    background-color: #fff;
+    box-shadow: inset 1px 2px 3px 0px #000;
+    border-radius: 6px 6px 6px 6px;
+  }
+
+  .venue_chkbox input[type=checkbox],
+  .equipment_chkbox input[type=checkbox],
+  .layout_chkbox input[type=checkbox],
+  .others_chkbox input[type=checkbox] {
+    display: none;
+  }
+
+  .venue_chkbox input[type=checkbox]:checked+label:before,
+  .equipment_chkbox input[type=checkbox]:checked+label:before,
+  .layout_chkbox input[type=checkbox]:checked+label:before,
+  .others_chkbox input[type=checkbox]:checked+label:before {
+    content: '\2713';
+    font-size: 34px;
+    color: #fff;
+    background-color: #007BFF;
+  }
+
+
+/* 請求内容CSS終わり -----------------------------------*/
+
 
 #fullOverlay {
     position: absolute;

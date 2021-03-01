@@ -110,7 +110,7 @@ class PreReservationsController extends Controller
 
   public function calculate(Request $request)
   {
-    if ($request->judge_count == 1) { //単発仮抑えの計算
+    if ($request->judge_count == 1) { //単発仮押さえの計算
       echo "<pre>";
       var_dump($request->all());
       echo "</pre>";
@@ -187,7 +187,7 @@ class PreReservationsController extends Controller
 
   public function re_calculate(Request $request)
   {
-    if ($request->judge_count == 1) { //単発仮抑えの計算
+    if ($request->judge_count == 1) { //単発仮押さえの計算
       // echo "<pre>";
       // var_dump($request->all());
       // echo "</pre>";
@@ -267,7 +267,7 @@ class PreReservationsController extends Controller
    */
   public function store(Request $request)
   {
-    if ($request->judge_count == 1) { //単発仮抑えの保存
+    if ($request->judge_count == 1) { //単発仮押さえの保存
       echo "<pre>";
       // var_dump($request->all());
       echo "</pre>";
@@ -312,7 +312,7 @@ class PreReservationsController extends Controller
           'master_tax' => $request->master_tax,
           'master_total' => $request->master_total,
 
-          'reservation_status' => 0, //デフォで1、仮抑えのデフォは0
+          'reservation_status' => 0, //デフォで1、仮押さえのデフォは0
           'category' => 1, //デフォで１。　新規以外だと　2:その他有料備品　3:レイアウト　4:その他
           'admin_judge' => 1, //管理者作成なら1 ユーザー作成なら2
         ]);
@@ -399,9 +399,9 @@ class PreReservationsController extends Controller
 
       // 戻って再度送信してもエラーになるように設定
       $request->session()->regenerate();
-      return redirect()->route('admin.pre_reservations.index')->with('flash_message', '単発仮抑えの登録が完了しました');
+      return redirect()->route('admin.pre_reservations.index')->with('flash_message', '単発仮押さえの登録が完了しました');
     } else {
-      //複数仮抑えの保存
+      //複数仮押さえの保存
     }
   }
 
@@ -674,7 +674,7 @@ class PreReservationsController extends Controller
         'master_tax' => $request->master_tax,
         'master_total' => $request->master_total,
 
-        'reservation_status' => 0, //デフォで1、仮抑えのデフォは0
+        'reservation_status' => 0, //デフォで1、仮押さえのデフォは0
         'category' => 1, //デフォで１。　新規以外だと　2:その他有料備品　3:レイアウト　4:その他
         'admin_judge' => 1, //管理者作成なら1 ユーザー作成なら2
       ]);
@@ -774,7 +774,7 @@ class PreReservationsController extends Controller
     var_dump(count($request->all()));
     if (count($request->all()) == 1) {
       $request->session()->regenerate();
-      return redirect()->route('admin.pre_reservations.index')->with('flash_message_error', '仮抑えが選択されていません');
+      return redirect()->route('admin.pre_reservations.index')->with('flash_message_error', '仮押さえが選択されていません');
     } else {
       DB::transaction(function () use ($request) { //トランザクションさせる
         foreach ($request->all() as $key => $value) {
@@ -785,7 +785,7 @@ class PreReservationsController extends Controller
         }
       });
       $request->session()->regenerate();
-      return redirect()->route('admin.pre_reservations.index')->with('flash_message', '単発仮抑えの削除が完了しました');
+      return redirect()->route('admin.pre_reservations.index')->with('flash_message', '単発仮押さえの削除が完了しました');
     }
   }
 }

@@ -361,7 +361,7 @@
         <thead>
           <tr>
             <th><input type="checkbox" name="all_check" id="all_check" /></th>
-            <th>仮抑えID</th>
+            <th>仮押さえID</th>
             <th>作成日</th>
             <th>利用日</th>
             <th>入室</th>

@@ -16,7 +16,7 @@ class ReservationHelper
   {
     switch ($num) {
       case 0:
-        return "仮抑え";
+        return "仮押さえ";
         break;
       case 1:
         return "予約確認中";

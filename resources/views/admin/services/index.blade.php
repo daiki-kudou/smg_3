@@ -30,7 +30,8 @@
   </div>
   <h1 class="mt-3 mb-5">有料サービス管理</h1>
   <div class="text-right">
-    <a href="/admin/services/create" class="btn btn-outline-info btn-lg d-inline-block" style="width: 140px;">新規登録　<i class="fas fa-plus"></i></a>
+    <a href="/admin/services/create" class="btn btn-outline-info btn-lg d-inline-block" style="width: 140px;">新規登録　<i
+        class="fas fa-plus"></i></a>
   </div>
   <hr>
   <div class="d-flex justify-content-between mt-3 mb-5">
@@ -43,7 +44,8 @@
     </span>
     <div>
       <div class="dropdown">
-        <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" data-offset="-320,5">
+        <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown"
+          aria-haspopup="true" aria-expanded="false" data-offset="-320,5">
           検索
         </button>
         <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
@@ -83,7 +85,7 @@
     <tr>
       <th>id</th>
       <th>登録日</th>
-      <th>サービス名</th>
+      <th>有料サービス名</th>
       <th>料金</th>
       <th>備考</th>
       <th>詳細(編集)・削除</th>

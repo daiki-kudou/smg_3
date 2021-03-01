@@ -199,23 +199,23 @@ Route::namespace('Admin')->prefix('admin')->name('admin.')->group(function () {
     Route::post('agents_reservations/add_bills/store/{reservation}', 'AgentsReservationsController@add_store')->name('agents_reservations.add_store');
     // 仲介会社　メールなしで予約確定ボタン
     Route::post('agents_reservations/confirm', 'AgentsReservationsController@add_confirm')->name('agents_reservations.add_confirm');
-    // 仮抑え（削除は別で作成予定）
+    // 仮押さえ（削除は別で作成予定）
     Route::resource('pre_reservations', 'PreReservationsController')->except(['destroy']);
     // 仮押さえ ajax 顧客情報取得
     Route::post('pre_reservations/getuser', 'PreReservationsController@getuser');
-    // 仮抑え　新規登録　確認
+    // 仮押さえ　新規登録　確認
     Route::post('pre_reservations/check', 'PreReservationsController@check');
-    // 仮抑え　新規登録　計算
+    // 仮押さえ　新規登録　計算
     Route::post('pre_reservations/calculate', 'PreReservationsController@calculate');
-    // 仮抑え　新規登録　再計算
+    // 仮押さえ　新規登録　再計算
     Route::post('pre_reservations/{pre_reservation}/re_calculate', 'PreReservationsController@re_calculate');
-    // 仮抑え　再計算後、中身が変更する場合の保存
+    // 仮押さえ　再計算後、中身が変更する場合の保存
     Route::put('pre_reservations/{pre_reservation}/edit_update', 'PreReservationsController@edit_update');
-    // 仮抑え　削除
+    // 仮押さえ　削除
     Route::post('pre_reservations/destroy', 'PreReservationsController@destroy');
-    // 一括仮抑え index
+    // 一括仮押さえ index
     Route::get('multiples', 'MultiplesController@index');
-    // 一括仮抑え show
+    // 一括仮押さえ show
     Route::get('multiples/{multiples}', 'MultiplesController@show');
     // 一括　個別　edit
     Route::get('multiples/{multiples}/edit/{venues}', 'MultiplesController@edit');
@@ -226,13 +226,13 @@ Route::namespace('Admin')->prefix('admin')->name('admin.')->group(function () {
     // 一括　保存
     Route::post('multiples/{multiples}/all_updates/{venues}', 'MultiplesController@allUpdates');
 
-    // 仲介会社　仮抑え 作成
+    // 仲介会社　仮押さえ 作成
     Route::get('pre_agent_reservations/create', 'PreAgentReservationsController@create');
-    // 仲介会社　仮抑え 確認
+    // 仲介会社　仮押さえ 確認
     Route::post('pre_agent_reservations/check', 'PreAgentReservationsController@check');
-    // 仲介会社　仮抑え 計算
+    // 仲介会社　仮押さえ 計算
     Route::post('pre_agent_reservations/calculate', 'PreAgentReservationsController@calculate');
-    // 仲介会社　仮抑え 単発　保存
+    // 仲介会社　仮押さえ 単発　保存
     Route::post('pre_agent_reservations/store', 'PreAgentReservationsController@store');
   });
 });

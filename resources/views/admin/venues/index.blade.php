@@ -1,6 +1,7 @@
 @extends('layouts.admin.app')
 @section('content')
 <script src="https://cdn.datatables.net/t/bs-3.3.6/jqc-1.12.0,dt-1.10.11/datatables.min.js"></script>
+<script src="{{ asset('/js/admin/venue.js') }}"></script>
 <link href="{{ asset('/css/template.css') }}" rel="stylesheet">
 
 <script>
@@ -71,7 +72,8 @@
       </span>
       <div>
         <div class="dropdown">
-          <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" data-offset="-320,5">
+          <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown"
+            aria-haspopup="true" aria-expanded="false" data-offset="-320,5">
             検索
           </button>
           <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
@@ -88,7 +90,8 @@
             <div class="d-flex justify-content-around">
               <div class="form-group">
                 <label for="alliance_flag">直営・提携</label>
-                <input type="text" name="alliance_flag" class="form-control" id="alliance_flag" value={{$search_alliance_flag}}>
+                <input type="text" name="alliance_flag" class="form-control" id="alliance_flag"
+                  value={{$search_alliance_flag}}>
               </div>
               <div class="form-group">
                 <label for="name_area">エリア別</label>
@@ -124,10 +127,10 @@
 </div>
 </div>
 </div>
-<table class="table table-striped table-bordered">
+<table class="table table-striped table-bordered" id="venue_index_table">
   <thead>
     <tr>
-      <th>id</th>
+      <th>ID</th>
       <th>登録日</th>
       <th>直営・提携</th>
       <th>会場</th>
@@ -135,6 +138,9 @@
       <th>広さ（㎡）</th>
       <th>収容人数</th>
       <th>詳細</th>
+      <th>レイアウト変更</th>
+      <th>荷物</th>
+      <th>飲食</th>
     </tr>
   </thead>
   <tbody>
@@ -148,6 +154,9 @@
       <td>{{ $query->size2 }}</td>
       <td>{{ $query->capacity }}</td>
       <td><a href="{{ url('/admin/venues', $query->id) }}">詳細</a></td>
+      <td>{{$query->layout==1?"有":"無"}}</td>
+      <td>{{$query->luggage_flag==1?"有":"無"}}</td>
+      <td>{{$query->eat_in_flag==1?"有":"無"}}</td>
     </tr>
     @endforeach
   </tbody>

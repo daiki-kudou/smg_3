@@ -469,7 +469,7 @@
       </ul>
     </div>
 
-    {{-- jsで仮抑えの件数判別のためのhidden --}}
+    {{-- jsで仮押さえの件数判別のためのhidden --}}
     {{ Form::hidden('', $multiple->pre_reservations()->where('venue_id',$venue->id)->get()->count(),['id'=>'counts_reserve']) }}
     {{-- 以下、pre_reservationの数分　ループ --}}
     @foreach ($multiple->getPreReservations($venue->id) as $key=>$pre_reservation)

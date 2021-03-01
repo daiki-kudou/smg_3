@@ -24,7 +24,7 @@
 
 <div class="container-field">
   <div class="p-3 mb-2 bg-white text-dark">
-    {{ Form::label('smg_url', '会場SMG Url') }}
+    {{ Form::label('smg_url', '会場SMG URL') }}
     <div>{{$venue->smg_url}}</div>
   </div>
 
@@ -247,7 +247,7 @@
         <hr>
 
         <div class="row">
-          <div class="col-sm-4">{{ Form::label('mgmt_email', '担当者メール') }}</div>
+          <div class="col-sm-4">{{ Form::label('mgmt_email', '担当者メールアドレス') }}</div>
           <div class="col-sm-8">{{ $venue->mgmt_email}}</div>
         </div>
         <hr>
@@ -369,8 +369,8 @@
             日曜
             @endif
           </td>
-          <td>{{$date_venue->start}}</td>
-          <td>{{$date_venue->finish}}</td>
+          <td>{{ReservationHelper::formatTime($date_venue->start)}}</td>
+          <td>{{ReservationHelper::formatTime($date_venue->finish)}}</td>
         </tr>
         @endforeach
       </tbody>
@@ -399,8 +399,10 @@
         @foreach ($frame_prices as $frame_price)
         <tr>
           <td>{{$frame_price->frame}}</td>
-          <td>{{$frame_price->start}} ~ {{$date_venue->finish}}</td>
-          <td>{{$frame_price->price}}</td>
+          <td>{{ReservationHelper::formatTime($frame_price->start)}}
+            ~
+            {{ReservationHelper::formatTime($date_venue->finish)}}</td>
+          <td>{{number_format($frame_price->price)}}</td>
         </tr>
         @endforeach
       </tbody>
@@ -424,8 +426,8 @@
         @foreach ($time_prices as $time_price)
         <tr>
           <td>{{$time_price->time}}</td>
-          <td>{{$time_price->price}} </td>
-          <td>{{$time_price->extend}}</td>
+          <td>{{number_format($time_price->price)}} </td>
+          <td>{{number_format($time_price->extend)}}</td>
         </tr>
         @endforeach
       </tbody>

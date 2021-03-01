@@ -112,7 +112,7 @@
           <thead>
             <tr>
               <th><input type="checkbox" name="all_check" id="all_check" /></th>
-              <th>一括仮抑えID</th>
+              <th>一括仮押さえID</th>
               <th>作成日</th>
               <th>件数</th>
               <th>会社名・団体名</th>

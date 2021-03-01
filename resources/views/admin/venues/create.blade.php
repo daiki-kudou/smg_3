@@ -258,7 +258,7 @@
         </div>
         <hr>
         <div class="row">
-          <div class="col-sm-4">{{ Form::label('person_email', '担当者メール') }}</div>
+          <div class="col-sm-4">{{ Form::label('person_email', '担当者メールアドレス') }}</div>
           <div class="col-sm-8">
             {{ Form::text('person_email', old('person_email'), ['class' => 'form-control']) }}
             <p class="is-error-person_email" style="color: red"></p>
@@ -362,7 +362,7 @@
         </div>
         <div class="p-3 mb-2 bg-white text-dark">
           <div class="row">
-            <div class="col-sm-4">{{ Form::label('layout_clean', 'レイアウト変更料金',['class' => '']) }}</div>
+            <div class="col-sm-4">{{ Form::label('layout_clean', 'レイアウト片付料金',['class' => '']) }}</div>
             <div class="col-sm-8">
               {{ Form::text('layout_clean', old('layout_clean'), ['class' => 'form-control']) }}
             </div>

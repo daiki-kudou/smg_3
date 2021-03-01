@@ -6,7 +6,7 @@
 <link href="{{ asset('/css/template.css') }}" rel="stylesheet">
 <script src="{{ asset('/js/template.js') }}"></script>
 
-<h1>単発　仮抑え　仲介会社　詳細入力画面</h1>
+<h1>単発　仮押さえ　仲介会社　詳細入力画面</h1>
 
 {{ Form::open(['url' => 'admin/pre_agent_reservations/calculate', 'method'=>'POST', 'id'=>'']) }}
 @csrf
@@ -405,7 +405,7 @@
 
 <div class="submit_btn">
   <div class="d-flex justify-content-center">
-    {{-- 単発仮抑えか？一括仮抑えか？ --}}
+    {{-- 単発仮押さえか？一括仮押さえか？ --}}
     {{ Form::hidden('judge_count', 1 ) }}
     {{-- ユーザー --}}
     {{ Form::hidden('agent_id', $request->agent_id ) }}

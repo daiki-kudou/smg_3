@@ -6,19 +6,19 @@
       <li class="nav-item has-treeview">
         <a href="#" class="nav-link">
           <i class="nav-icon fas fa-atom"></i>
-          <p>仮抑え<i class="right fas fa-angle-left"></i></p>
+          <p>仮押さえ<i class="right fas fa-angle-left"></i></p>
         </a>
         <ul class="nav nav-treeview">
           <li class="nav-item">
             <a href="{{url('admin/pre_reservations')}}" class="nav-link pre-reservations-index">
               <i class="far fa-circle nav-icon ml-4"></i>
-              <p>仮抑え一覧</p>
+              <p>仮押さえ一覧</p>
             </a>
           </li>
           <li class="nav-item">
             <a href="{{url('admin/multiples')}}" class="nav-link multiples-index">
               <i class="far fa-circle nav-icon ml-4"></i>
-              <p>一括仮抑え一覧</p>
+              <p>一括仮押さえ一覧</p>
             </a>
           </li>
           <li class="nav-item">

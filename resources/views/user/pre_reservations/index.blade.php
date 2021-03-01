@@ -12,12 +12,12 @@
         <nav aria-label="breadcrumb">
           <ol class="breadcrumb">
             <li class="breadcrumb-item active"><a href="http://staging-smg2.herokuapp.com/admin/home">ホーム</a> >
-              仮抑え一覧
+              仮押さえ一覧
             </li>
           </ol>
         </nav>
       </div>
-      <h1 class="mt-3 mb-5">仮抑え一覧</h1>
+      <h1 class="mt-3 mb-5">仮押さえ一覧</h1>
       <hr>
     </div>
 
@@ -43,7 +43,7 @@
     <!-- 一覧　　------------------------------------------------ -->
     <ul class="nav nav-tabs">
       <li class="nav-item">
-        <a href="#reserve-list" class="nav-link active" data-toggle="tab">仮抑え一覧</a>
+        <a href="#reserve-list" class="nav-link active" data-toggle="tab">仮押さえ一覧</a>
       </li>
       <li class="nav-item">
         <a href="#used-list" class="nav-link" data-toggle="tab">過去履歴</a>
@@ -56,7 +56,7 @@
           <table class="table table-striped table-bordered table-box">
             <thead>
               <tr>
-                <th>仮抑えID</th>
+                <th>仮押さえID</th>
                 <th>利用日</th>
                 <th>入室</th>
                 <th>退室</th>

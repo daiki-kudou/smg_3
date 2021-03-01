@@ -45,7 +45,8 @@
   </div>
   <div class="w-100">
     <span class="d-block mb-2">会場</span>
-    <strong class="border border-light d-block" style="width:100%;">{{$venue->name_area}}{{$venue->name_bldg}}{{$venue->name_venue}}</strong>
+    <strong class="border border-light d-block"
+      style="width:100%;">{{$venue->name_area}}{{$venue->name_bldg}}{{$venue->name_venue}}</strong>
   </div>
   <div class="mt-5">
     <table class="table">
@@ -80,12 +81,15 @@
           <td>
             <div class="form-inline">
               <select name="start" id="start" class="form-control col-sm-2">
-                @for ($i = 1; $i < 24; $i++) @for ($ii=1; $ii < 3; $ii++) @if ($ii%2==0) <option value="{{sprintf('%02d',$i).":30:00"}}" @if ($date_venues->where('week_day',$weekday_id)->first()->start==sprintf('%02d',$i).":30:00")
+                @for ($i = 1; $i < 24; $i++) @for ($ii=1; $ii < 3; $ii++) @if ($ii%2==0) <option
+                  value="{{sprintf('%02d',$i).":30:00"}}" @if ($date_venues->
+                  where('week_day',$weekday_id)->first()->start==sprintf('%02d',$i).":30:00")
                   selected
                   @endif
                   >{{sprintf('%02d',$i).":30"}}</option>
                   @else
-                  <option value="{{sprintf('%02d',$i).":00:00"}}" @if ($date_venues->where('week_day',$weekday_id)->first()->start==sprintf('%02d',$i).":00:00")
+                  <option value="{{sprintf('%02d',$i).":00:00"}}" @if ($date_venues->
+                    where('week_day',$weekday_id)->first()->start==sprintf('%02d',$i).":00:00")
                     selected
                     @endif
                     >{{sprintf('%02d',$i).":00"}}</option>
@@ -95,12 +99,15 @@
               </select>
               ~
               <select name="finish" id="finish" class="form-control col-sm-2">
-                @for ($i = 1; $i < 24; $i++) @for ($ii=1; $ii < 3; $ii++) @if ($ii%2==0) <option value="{{sprintf('%02d',$i).":30:00"}}" @if ($date_venues->where('week_day',$weekday_id)->first()->finish==sprintf('%02d',$i).":30:00")
+                @for ($i = 1; $i < 24; $i++) @for ($ii=1; $ii < 3; $ii++) @if ($ii%2==0) <option
+                  value="{{sprintf('%02d',$i).":30:00"}}" @if ($date_venues->
+                  where('week_day',$weekday_id)->first()->finish==sprintf('%02d',$i).":30:00")
                   selected
                   @endif
                   >{{sprintf('%02d',$i).":30"}}</option>
                   @else
-                  <option value="{{sprintf('%02d',$i).":00:00"}}" @if ($date_venues->where('week_day',$weekday_id)->first()->finish==sprintf('%02d',$i).":00:00")
+                  <option value="{{sprintf('%02d',$i).":00:00"}}" @if ($date_venues->
+                    where('week_day',$weekday_id)->first()->finish==sprintf('%02d',$i).":00:00")
                     selected
                     @endif
                     >{{sprintf('%02d',$i).":00"}}</option>
@@ -113,7 +120,7 @@
           <td>
             {{Form::hidden('weekday_id', $weekday_id)}}
             {{Form::hidden('venue_id', $venue_id)}}
-            {{Form::submit('修正する', ['class'=>'submit btn btn-primary'])}}
+            {{Form::submit('更新', ['class'=>'submit btn btn-primary'])}}
           </td>
         </tr>
         {{ Form::close() }}

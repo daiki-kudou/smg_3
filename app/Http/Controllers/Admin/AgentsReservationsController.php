@@ -247,7 +247,7 @@ class AgentsReservationsController extends Controller
         'pay_person' => $request->pay_person,
         'payment' => $request->payment,
 
-        'reservation_status' => 1, //デフォで1、仮抑えのデフォは0
+        'reservation_status' => 1, //デフォで1、仮押さえのデフォは0
         'double_check_status' => 0, //デフォで0
         'category' => 1, //デフォで１。　新規以外だと　2:その他有料備品　3:レイアウト　4:その他
         'admin_judge' => 1, //管理者作成なら1 ユーザー作成なら2

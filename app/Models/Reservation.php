@@ -200,7 +200,7 @@ class Reservation extends Model
         'bill_created_at' => Carbon::now(),
         'bill_remark' => "",
         'paid' => 0,
-        'reservation_status' => 1, //デフォで1、仮抑えのデフォは0
+        'reservation_status' => 1, //デフォで1、仮押さえのデフォは0
         'double_check_status' => 0, //デフォで0
         'category' => 1, //デフォで１。　新規以外だと　2:その他有料備品　3:レイアウト　4:その他
         'admin_judge' => 2, //管理者作成なら1 ユーザー作成なら2
@@ -352,6 +352,8 @@ class Reservation extends Model
     // return ($query);
     return $query->paginate(10);
 
+    // ■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■
     // 検索の雛形はこれでOK
+    // ■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■
   }
 }
