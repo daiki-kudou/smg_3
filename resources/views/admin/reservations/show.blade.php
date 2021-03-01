@@ -22,7 +22,7 @@
       <hr>
     </div>
     <section class="section-wrap">
-      <div class="align-items-center d-flex justify-content-between">
+      <div class="mb-3 align-items-center d-flex justify-content-between">
         @if ($reservation->bills()->first()->reservation_status<3) <div class="text-left">
           {{ Form::model($reservation, ['route' => ['admin.reservations.destroy', $reservation->id], 'method' => 'delete']) }}
           @csrf
@@ -178,7 +178,7 @@
           <tr>
             <td colspan="2">
               <p class="title-icon fw-bolder py-1">
-                <i class="fas fa-wrench icon-size fa-fw"></i>有料備品
+                <i class="fas fa-hand-holding-heart icon-size fa-fw"></i>有料サービス
               </p>
               <!-- <p class="title-icon active">有料サービス<span class="open_toggle"></span></p> -->
             </td>
