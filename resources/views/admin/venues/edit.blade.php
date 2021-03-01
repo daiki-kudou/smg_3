@@ -24,22 +24,6 @@
   @endif
 </div>
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 {{ Form::model($venue, ['route' => ['admin.venues.update', $venue->id], 'method' => 'put','id'=>'VenuesEditForm']) }}
 @csrf
 <div class="content">
