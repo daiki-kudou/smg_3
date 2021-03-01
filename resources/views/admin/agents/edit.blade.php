@@ -30,7 +30,7 @@
     <nav aria-label="breadcrumb">
       <ol class="breadcrumb">
         <li class="breadcrumb-item active">
-          {{ Breadcrumbs::render(Route::currentRouteName(),$venue->id) }}
+        ダミーダミーダミーダミー
         </li>
       </ol>
     </nav>
@@ -44,9 +44,6 @@
   <div class="container mb-5">
     {{ Form::model($agent, ['route' => ['admin.agents.update', $agent->id], 'method' => 'put']) }}
     @csrf
-
-
-
     <div class="row">
       <!-- 左側の項目 ---------------------------------------------------------->
       <div class="col">
