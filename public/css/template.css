@@ -1007,6 +1007,14 @@ h3 {
     margin-bottom: 0;
 }
 
+.bill_table h2 {
+    font-size: 1.4rem;
+}
+
+.billdetails_ttl h3 {
+    font-size: 1.2rem;
+}
+
 .ttl_box {
     height: 50px;
     background: #fff;
