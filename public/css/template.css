@@ -242,6 +242,9 @@ h5 {
 .breadcrumb-item.active {
     color: #35a7a7;
 }
+table {
+    font-size: 1rem;
+}
 
 .table-striped tbody tr:nth-of-type(odd) {
     background-color: rgba(255, 255, 255, 0.05);

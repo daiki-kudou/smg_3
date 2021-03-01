@@ -828,9 +828,9 @@
           <i class="fas fa-minus bill_icon_size"></i>
         </div>
         <div class="billdetails_ttl">
-          <p>
+          <h3>
             請求書情報
-          </p>
+          </h3>
         </div>
       </div>
       <div class="main">

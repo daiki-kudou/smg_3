@@ -393,7 +393,7 @@
             <label for="enduser_mobile" class="">当日連絡先</label>
           </td>
           <td>
-            {{ Form::text('enduser_mobile', $requests('enduser_mobile'),['class'=>'form-control', 'placeholder'=>'入力してください', 'maxlength'=>13, 'id'=>'enduser_mobile'] ) }}
+            {{ Form::text('enduser_mobile', $request->enduser_mobile,['class'=>'form-control', 'placeholder'=>'入力してください', 'maxlength'=>13, 'id'=>'enduser_mobile'] ) }}
           </td>
         </tr>
         <tr>
@@ -418,7 +418,7 @@
         <tr>
           <td colspan="2">
             <p class="title-icon">
-              <i class="fas fa-yen-sign icon-size"></i>仲介会社の顧客からの入金額
+              <i class="fas fa-yen-sign icon-size"></i>仲介会社の顧客への支払い料
             </p>
           </td>
         </tr>
