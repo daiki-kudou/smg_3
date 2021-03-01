@@ -63,6 +63,7 @@
             <p class="title-icon">
               <i class="fas fa-info-circle icon-size"></i>
               予約情報
+              <span class="ml-2">予約ID：ダミーダミーダミー</span>
             </p>
           </td>
         </tr>
@@ -317,7 +318,9 @@
       <table class="table table-bordered eating-table">
         <tr>
           <td>
-            <p class="title-icon">室内飲食</p>
+            <p class="title-icon">
+              <i class="fas fa-utensils icon-size fa-fw"></i>室内飲食
+            </p>
           </td>
         </tr>
         <tr>
@@ -704,8 +707,8 @@
                   <dd class="total_result">{{ReservationHelper::formatDate($reservation->bills()->first()->payment_limit)}}</dd>
                 </dl>
               </td>
-              <td>
-                @if ($reservation->bills()->first()->reservation_status<3) <a href="#" class="btn more_btn">
+              <td class="text-right">
+                @if ($reservation->bills()->first()->reservation_status<3) <a href="#" class="btn more_btn mr-2">
                   編集</a>
                   @endif
               </td>
@@ -1318,8 +1321,6 @@
 </div>
 </section>
 
-
-
 {{-- 追加請求 セクション --}}
 @foreach ($other_bills as $key=>$other_bill)
 <section class="section-wrap">
@@ -1345,7 +1346,7 @@
                 <dd class="total_result">{{ReservationHelper::formatDate($other_bill->payment_limit)}}</dd>
               </dl>
             </td>
-            <td><a href="#" class="btn more_btn">編集</a> </td>
+            <td class="text-right"><a href="#" class="btn more_btn mr-2">編集</a> </td>
           </tr>
           <!-- <tr>
                   <td></td>

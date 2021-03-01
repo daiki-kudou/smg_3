@@ -1002,6 +1002,7 @@ h3 {
     /* background: #7ebc4f; */
     background: #144c58;
     table-layout: fixed;
+    padding: 10px;
     /* border: solid 1px #ced4da; */
 }
 
@@ -1010,13 +1011,6 @@ h3 {
     margin-bottom: 0;
 }
 
-.bill_table h2 {
-    font-size: 1.4rem;
-}
-
-.billdetails_ttl h3 {
-    font-size: 1.1rem;
-}
 
 .ttl_box {
     height: 50px;
