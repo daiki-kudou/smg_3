@@ -1,110 +1,5 @@
 // reservation create　会場選択からの備品取得// 以下参考// https://niwacan.com/1619-laravel-ajax/
 $(function () {
-  ////////////////////
-  // ロードトリガー
-  ////////////////////
-  // var param = location.search;
-  // if (param) {
-  //   //パラメーターがある場合
-  //   function getParam(name, url) {
-  //     if (!url) url = window.location.href;
-  //     name = name.replace(/[\[\]]/g, "\\$&");
-  //     var regex = new RegExp("[?&]" + name + "(=([^&#]*)|&|#|$)"),
-  //       results = regex.exec(url);
-  //     if (!results) return null;
-  //     if (!results[2]) return '';
-  //     return decodeURIComponent(results[2].replace(/\+/g, " "));
-  //   }
-  //   var reserve_date = getParam('reserve_date');
-  //   var venue_id = getParam('venue_id');
-  //   var price_system = getParam('price_system');
-  //   var enter_time = getParam('enter_time');
-  //   var leave_time = getParam('leave_time');
-  //   var board_flag = getParam('board_flag');
-  //   var event_start = getParam('event_start');
-  //   var event_finish = getParam('event_finish');
-  //   var event_name1 = getParam('event_name1');
-  //   var event_name2 = getParam('event_name2');
-  //   var event_owner = getParam('event_owner');
-  //   var user_id = getParam('user_id');
-  //   var in_charge = getParam('in_charge');
-  //   var tel = getParam('tel');
-  //   var email_flag = getParam('email_flag');
-  //   var cost = getParam('cost');
-  //   var discount_condition = getParam('discount_condition');
-  //   var attention = getParam('attention');
-  //   var user_details = getParam('user_details');
-  //   var admin_details = getParam('admin_details');
-
-  //   // 会場挿入
-  //   ajaxGetItems(venue_id);
-  //   ajaxGetSalesHours(venue_id, dates);
-  //   ajaxGetPriceStstem(venue_id);
-  //   ajaxGetLayout(venue_id);
-  //   ajaxGetLuggage(venue_id);
-  //   ajaxGetOperatinSystem(venue_id);
-  //   // 日付挿入
-  //   ajaxGetSalesHours(venue_id, reserve_date);
-  //   // ユーザー挿入
-  //   ajaxGetClients(user_id);
-  //   // 会場料金挿入
-  //   ajaxGetPriceDetails(venue_id, price_system, enter_time, leave_time); //料金計算
-
-  // }
-  // else {
-  //   // パラメーターがない場合
-  // }
-
-
-
-  // var venue_id = $('#venues_selector').val();
-
-  // // requestに会場が入っていれば
-  // if (venue_id) { //空じゃなければ
-  //   $('#sales_start').val();
-  //   $('#sales_finish').val();
-  //   ajaxGetItems(venue_id);
-  //   // ajaxGetSalesHours(venue_id, dates);　管理者は24時間予約登録可能。そのため一旦、本機能停止
-  //   ajaxGetPriceStstem(venue_id);
-  //   ajaxGetLayout(venue_id); //レイアウトが存在するかしないか、　"0"か"1"でreturn
-  //   ajaxGetLuggage(venue_id); //会場に荷物預かりが存在するかしないか、　"0"か"1"でreturn
-  //   ajaxGetOperatinSystem(venue_id); //会場形態の判別 直営 or　提携
-  //   var hidden_venue = $('input[name="bill_company"]');
-  //   var target_venue_id = $(this).val();
-  //   hidden_venue.val(target_venue_id);
-  // }
-
-  // //requestに顧客情報があれば
-  // var client_id = $('#user_select').val();
-  // var date = $('#datepicker1').val();
-
-  // if (client_id == 1) {
-  //   var dt = new Date(date);
-  //   var three_days_before = dt.setDate(dt.getDate() - 3); //営業日前
-  //   three_days_before = new Date(three_days_before);
-  //   var target_name = $('input[name="payment_limit"]');
-  //   var target_name2 = $('input[name="bill_pay_limit"]');
-  //   target_name.val(three_days_before.getFullYear() + '-' + (('0' + (three_days_before.getMonth() + 1)).slice(-2)) + '-' + (('0' + three_days_before.getDate()).slice(-2)));
-  //   target_name2.val(three_days_before.getFullYear() + '-' + (('0' + (three_days_before.getMonth() + 1)).slice(-2)) + '-' + (('0' + three_days_before.getDate()).slice(-2)));
-  // } else if (client_id == 2) {
-  //   var dt = new Date(date);
-  //   var end_of_month = new Date(dt.getFullYear(), dt.getMonth() + 1, 0);　//当月末日
-  //   var target_name = $('input[name="payment_limit"]');
-  //   var target_name2 = $('input[name="bill_pay_limit"]');
-  //   target_name.val(end_of_month.getFullYear() + '-' + (('0' + (end_of_month.getMonth() + 1)).slice(-2)) + '-' + (('0' + end_of_month.getDate()).slice(-2)));
-  //   target_name2.val(end_of_month.getFullYear() + '-' + (('0' + (end_of_month.getMonth() + 1)).slice(-2)) + '-' + (('0' + end_of_month.getDate()).slice(-2)));
-  // } else if (client_id == 3) {
-  //   var dt = new Date(date);
-  //   var end_of_next_month = new Date(dt.getFullYear(), dt.getMonth() + 2, 0);
-  //   var target_name = $('input[name="payment_limit"]');
-  //   var target_name2 = $('input[name="bill_pay_limit"]');
-  //   target_name.val(end_of_next_month.getFullYear() + '-' + (('0' + (end_of_next_month.getMonth() + 1)).slice(-2)) + '-' + (('0' + end_of_next_month.getDate()).slice(-2)));
-  //   target_name2.val(end_of_next_month.getFullYear() + '-' + (('0' + (end_of_next_month.getMonth() + 1)).slice(-2)) + '-' + (('0' + end_of_next_month.getDate()).slice(-2)));
-  // };
-
-
-
-
 
   // 会場選択トリガー
   $('#venues_selector').on('input', function () {
@@ -132,23 +27,6 @@ $(function () {
     ajaxGetSalesHours(venue_id, dates);
 
   });
-
-  // 顧客選択トリガー
-  // $('.select2-hidden-accessible').on('change', function () {
-  //   var user_id = $(this).val();//user_idを取得
-  //   if ($('#datepicker1').val() == '') {
-  //     swal('予約の支払期日設定に失敗しました。必ず【利用日】を選択してください');
-  //     $('.select2-hidden-accessible').val('');
-  //     $('.select2-selection__rendered').text('');
-  //     alert(user_id);
-  //   } else {
-  //     ajaxGetClients(user_id);
-  //     var hidden_venue = $('input[name="bill_company"]');
-  //     var target_venue_id = $(this).val();
-  //     hidden_venue.val(target_venue_id);
-
-  //   }
-  // })
 
   /*--------------------------------------------------
   // 計算するボタン押下トリガー
@@ -198,8 +76,6 @@ $(function () {
 
     var user_id = $('.select2-hidden-accessible').val();
     ajaxGetClients(user_id);
-
-
 
 
     // 関数処理の順番にばらつきがあるので、１秒後に実行

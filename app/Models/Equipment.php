@@ -35,4 +35,30 @@ class Equipment extends Model
       return $this->query()->paginate(10);
     }
   }
+
+  public static function getArrays($request)
+  {
+    $s_equipment = [];
+    foreach ($request->all() as $key => $value) {
+      if (preg_match('/equipment_breakdown/', $key)) {
+        $s_equipment[] = $value;
+      }
+    }
+    return $s_equipment;
+  }
+
+  public static function getBreakdowns($request)
+  {
+    $equipment_details = [];
+    foreach ($request->all() as $key => $value) {
+      if (preg_match('/equipment_breakdown_item/', $key)) {
+        $equipment_details[] = $value;
+      }
+    }
+    if (!empty($equipment_details)) {
+      return count($equipment_details);
+    } else {
+      return "";
+    }
+  }
 }

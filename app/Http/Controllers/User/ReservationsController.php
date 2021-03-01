@@ -30,9 +30,6 @@ class ReservationsController extends Controller
   {
     $venue = Venue::find($request->venue_id);
     $price_result = $venue->calculate_price($request->price_system, $request->enter_time, $request->leave_time);
-    // var_dump($price_result);
-    // var_dump($request->all());
-
     $s_equipment = [];
     foreach ($request->all() as $key => $value) {
       if (preg_match('/equipment_breakdown/', $key)) {
@@ -111,9 +108,7 @@ class ReservationsController extends Controller
     $sessions = $request->session()->get('session_reservations');
     $session_id = $request->session_reservation_id;
     $slctSession = $sessions[$session_id];
-
     $venue = Venue::find($slctSession[0]['venue_id']);
-
     return view('user.reservations.destroy_check', compact('slctSession', 'venue', 'session_id'));
   }
 
@@ -121,7 +116,6 @@ class ReservationsController extends Controller
   {
     $session_reservation_id = $request->session_reservation_id;
     Session::forget('session_reservations.' . $session_reservation_id);
-
     Session::get('session_reservations');
     return redirect('user/reservations/cart');
   }
@@ -140,13 +134,8 @@ class ReservationsController extends Controller
   {
     $sessions = $request->session()->get('session_reservations');
     foreach ($sessions as $key => $value) {
-      echo "<pre>";
       $test = (object)$value[0];
-      // var_dump(json_decode(($test)->items_results)[2]);
       var_dump(json_decode($test->price_result));
-      echo "区切り";
-      echo "</pre>";
-
       $reservation = new Reservation;
       $reservation->ReserveFromUser(((object)$value[0]), $value[1]);
     }

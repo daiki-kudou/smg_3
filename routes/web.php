@@ -1,6 +1,7 @@
 <?php
 
 
+
 Route::get('/', 'Home\HomeController@index')->name('home');
 Route::namespace('Home')->prefix('/')->name('home.')->group(function () {
   Route::post('slct_date', 'HomeController@slct_date')->name('home.slct_date');
@@ -48,11 +49,6 @@ Route::namespace('User')->prefix('user')->name('user.')->group(function () {
     Route::post('reservations/re_create', 'ReservationsController@re_create');
     Route::post('reservations/store', 'ReservationsController@storeReservation');
     Route::get('reservations/complete', 'ReservationsController@complete');
-
-
-    // 以下、テスト
-    Route::post('reservations/test', 'ReservationsController@test');
-    Route::get('reservations/test2', 'ReservationsController@test2');
   });
 
 
@@ -94,6 +90,7 @@ Route::namespace('Admin')->prefix('admin')->name('admin.')->group(function () {
 
   // ログイン認証後
   Route::middleware('auth:admin')->group(function () {
+
     // TOPページ
     Route::resource('home', 'HomeController', ['only' => 'index']);
     // 会場登録
@@ -114,16 +111,16 @@ Route::namespace('Admin')->prefix('admin')->name('admin.')->group(function () {
     Route::resource('agents', 'AgentsController');
     // 管理者側からUser登録
     Route::resource('clients', 'ClientsController');
-    // 予約
-    Route::resource('reservations', 'ReservationsController');
     // 予約　計算
     Route::post('reservations/calculate', 'ReservationsController@calculate')->name('reservations.calculate');
+    // 予約
+    Route::resource('reservations', 'ReservationsController', ['except' => ['show']]);
     // 予約再計算
-    Route::post('reservations/recalculate', 'ReservationsController@recalculate')->name('reservations.recalculate');
-
-
+    // Route::post('reservations/recalculate', 'ReservationsController@recalculate')->name('reservations.recalculate');
     // 予約　（確認）
     Route::post('reservations/check', 'ReservationsController@check')->name('reservations.check');
+    // 予約　編集
+    Route::post('reservations/{reservation}/edit_calculate', 'ReservationsController@edit_calculate')->name('reservations.edit_calculate');
     // ajax アイテム
     Route::post('reservations/geteitems', 'ReservationsController@geteitems');
     // ajax 料金体系
@@ -148,6 +145,7 @@ Route::namespace('Admin')->prefix('admin')->name('admin.')->group(function () {
     Route::post('reservations/{reservation}/double_check', 'ReservationsController@double_check')->name('reservations.double_check');
 
     Route::get('reservations/generate_pdf/{reservation}', 'ReservationsController@generate_pdf')->name('reservations.generate_pdf');
+
     // Bill　予約に紐づく
     Route::resource('bills', 'BillsController');
     // Breakdown　Billに紐づく

@@ -196,9 +196,9 @@ $(function () {
   });
   $('input').on('blur', function () {
     $(this).valid();
-    if ($('span').hasClass('is-error')) {
-      $('span').css('background', 'white');
-    }
+    // if ($('span').hasClass('is-error')) {
+    //   $('span').css('background', 'white');
+    // }
   });
 });
 
@@ -365,9 +365,9 @@ $(function () {
   });
   $('input').on('blur', function () {
     $(this).valid();
-    if ($('span').hasClass('is-error')) {
-      $('span').css('background', 'white');
-    }
+    // if ($('span').hasClass('is-error')) {
+    //   $('span').css('background', 'white');
+    // }
   });
 });
 
@@ -412,9 +412,9 @@ $(function () {
   });
   $('input').on('blur', function () {
     $(this).valid();
-    if ($('span').hasClass('is-error')) {
-      $('span').css('background', 'white');
-    }
+    // if ($('span').hasClass('is-error')) {
+    //   $('span').css('background', 'white');
+    // }
   });
 })
 // サービスアップデート
@@ -459,9 +459,9 @@ $(function () {
   });
   $('input').on('blur', function () {
     $(this).valid();
-    if ($('span').hasClass('is-error')) {
-      $('span').css('background', 'white');
-    }
+    // if ($('span').hasClass('is-error')) {
+    //   $('span').css('background', 'white');
+    // }
   });
 })
 // 備品作成
@@ -505,9 +505,9 @@ $(function () {
   });
   $('input').on('blur', function () {
     $(this).valid();
-    if ($('span').hasClass('is-error')) {
-      $('span').css('background', 'white');
-    }
+    // if ($('span').hasClass('is-error')) {
+    //   $('span').css('background', 'white');
+    // }
   });
 });
 // 備品アップデート
@@ -552,9 +552,9 @@ $(function () {
   });
   $('input').on('blur', function () {
     $(this).valid();
-    if ($('span').hasClass('is-error')) {
-      $('span').css('background', 'white');
-    }
+    // if ($('span').hasClass('is-error')) {
+    //   $('span').css('background', 'white');
+    // }
   });
 });
 
@@ -575,9 +575,9 @@ $(function () {
   });
   $('input').on('blur', function () {
     $(this).valid();
-    if ($('span').hasClass('is-error')) {
-      $('span').css('background', 'white');
-    }
+    // if ($('span').hasClass('is-error')) {
+    //   $('span').css('background', 'white');
+    // }
   });
   $("input[name^='frame']").each(function (index, elem) {
 
@@ -628,9 +628,9 @@ $(function () {
   });
   $('input').on('blur', function () {
     $(this).valid();
-    if ($('span').hasClass('is-error')) {
-      $('span').css('background', 'white');
-    }
+    // if ($('span').hasClass('is-error')) {
+    //   $('span').css('background', 'white');
+    // }
   });
   $("input[name^='time']").each(function (index, elem) {
     $("input[name='time" + index + "']").rules("add", {
@@ -675,6 +675,9 @@ $(function () {
       venue_id: {
         required: true,
       },
+      price_system: {
+        required: true,
+      },
       enter_time: {
         required: true,
       },
@@ -697,6 +700,9 @@ $(function () {
       },
       venue_id: {
         required: "※必須項目です",
+      },
+      price_system: {
+        required: '※必須項目です',
       },
       enter_time: {
         required: "※必須項目です",
@@ -733,8 +739,8 @@ $(function () {
   });
   $('input').on('blur', function () {
     $(this).valid();
-    if ($('span').hasClass('is-error')) {
-      $('span').css('background', 'white');
-    }
+    // if ($('span').hasClass('is-error')) {
+    //   $('span').css('background', 'white');
+    // }
   });
 })

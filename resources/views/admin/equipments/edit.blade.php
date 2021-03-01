@@ -16,8 +16,6 @@
 
 <div class="content">
   <div class="container-fluid">
-
-
     <div class="float-right">
       <nav aria-label="breadcrumb">
         <ol class="breadcrumb">

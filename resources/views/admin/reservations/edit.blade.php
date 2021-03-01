@@ -142,8 +142,7 @@
 </script>
 
 
-
-{{Form::open(['url' => '#######', 'method' => 'POST', 'id'=>'reservationCreateForm'])}}
+{{Form::open(['url' => 'admin/reservations/'.$reservation->id.'/edit_calculate', 'method' => 'POST', 'id'=>''])}}
 @csrf
 <div class="container-field bg-white text-dark">
   <div class="row">
@@ -220,7 +219,6 @@
               {{isset($reservation->board_flag)?$reservation->board_flag==0?'checked':'':'checked',}}>無し
             <input type="radio" name="board_flag" value="1"
               {{isset($reservation->board_flag)?$reservation->board_flag==1?'checked':'':'',}}>有り
-
           </td>
         </tr>
         <tr>
@@ -582,7 +580,7 @@
     </div>
   </div>
 </div>
-{{Form::submit('情報をリセットし再計算する', ['class'=>'btn btn-danger mx-auto d-block btn-lg mt-5 mb-5', 'id'=>'check_submit'])}}
+{{Form::submit('再計算する', ['class'=>'btn btn-danger mx-auto d-block btn-lg mt-5 mb-5', 'id'=>'check_submit'])}}
 {{Form::close()}}
 
 {{-- 丸岡さんカスタム --}}
@@ -1043,13 +1041,6 @@
 </div>
 {{Form::submit('確認する', ['class'=>'btn btn-primary d-block btn-lg mx-auto mt-5 mb-5', 'id'=>'check_submit'])}}
 {{Form::close()}}
-
-
-
-
-
-
-
 
 
 

@@ -10,7 +10,6 @@ use App\Presenters\VenuePresenter; //個別作成したプレゼンターの追�
 use Robbo\Presenter\PresentableInterface; //プレゼンターの追加
 
 
-
 class Venue extends Model implements PresentableInterface
 {
   /**
@@ -22,7 +21,6 @@ class Venue extends Model implements PresentableInterface
   {
     return new VenuePresenter($this);
   }
-
 
   protected $fillable = [
     'alliance_flag',
@@ -520,8 +518,7 @@ class Venue extends Model implements PresentableInterface
 
   public function calculate_items_price($selected_equipments, $selected_services)
   {
-    // return var_dump($selected_services);
-
+    // var_dump($selected_services);
     // 備品料金×個数
     $venue_equipments = $this->equipments()->get();
     $equipments_total = 0;
@@ -545,7 +542,6 @@ class Venue extends Model implements PresentableInterface
     $venue_services = $this->services()->get();
     $services_total = 0;
     $services_details = [];
-    // $judge_service = array_filter($selected_services);
     if (!empty($selected_services)) {
       for ($ii = 0; $ii < count($venue_services); $ii++) {
         $services_total =
@@ -577,11 +573,21 @@ class Venue extends Model implements PresentableInterface
     $prepare_result = '';
     $clean_result = '';
     $total = '';
-
     $prepare == 1 ? $prepare_result = $this->layout_prepare : $prepare_result = 0;
     $clean == 1 ? $clean_result = $this->layout_clean : $clean_result = 0;
     $total = $prepare_result + $clean_result;
 
     return [$prepare_result, $clean_result, $total];
+  }
+
+  public static function getBreakdowns($request)
+  {
+    $venue_details = [];
+    foreach ($request->all() as $key => $value) {
+      if (preg_match('/venue_breakdown_item/', $key)) {
+        $venue_details[] = $value;
+      }
+    }
+    return count($venue_details);
   }
 }

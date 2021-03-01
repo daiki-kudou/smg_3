@@ -653,8 +653,9 @@
                 </div>
               </td>
               <td>
-                @if ($reservation->bills()->first()->reservation_status<3) <a href="#" class="btn btn-primary btn-lg">
-                  編集</a>
+                @if ($reservation->bills()->first()->reservation_status<3) <a
+                  href="{{url('admin/reservations/'.$reservation->bills()->first()->id.'/edit')}}"
+                  class="btn btn-primary btn-lg">編集</a>
                   @endif
               </td>
             </tr>
@@ -1270,6 +1271,9 @@
       @endif
     </div>
     {{-- 追加請求 セクション --}}
+
+
+
     @foreach ($other_bills as $key=>$other_bill)
     <div class="container-fluid mt-5 p-0">
       <div class="bill">
