@@ -248,6 +248,11 @@
     </div>
   </div>
   <!-- 　備考終わり ----------------------------------------->
+  
+  <div class="text-center mt-5">
+  <p><a class="more_btn_lg" href="">一覧にもどる</a>
+  </p>
+  </div>
 
 </section>
 @endsection
