@@ -6,13 +6,24 @@
 <link href="{{ asset('/css/template.css') }}" rel="stylesheet">
 <script src="{{ asset('/js/template.js') }}"></script>
 
-<h2 class="mt-3 mb-3">単発　仮抑え　詳細入力画面</h2>
-<hr>
+<div class="container-field">
+  <div class="float-right">
+    <nav aria-label="breadcrumb">
+      <ol class="breadcrumb">
+        <li class="breadcrumb-item active">
+          {{ Breadcrumbs::render(Route::currentRouteName(),$venue->id) }}
+        </li>
+      </ol>
+    </nav>
+  </div>
+  <h2 class="mt-3 mb-3">仮抑え　詳細入力画面</h2>
+  <hr>
+</div>
 
 {{ Form::open(['url' => 'admin/pre_reservations/calculate', 'method'=>'POST', 'id'=>'pre_reservationSingleCheckForm']) }}
 @csrf
 <section class="section-wrap">
-  <div class="selected_user mt-5">
+  <div class="selected_user">
     <table class="table table-bordered" style="table-layout: fixed;">
       <thead>
         <tr>
@@ -227,7 +238,9 @@
               <tr>
                 <th colspan="2">
                   <div class="d-flex justify-content-between align-items-center">
-                    有料備品
+                    <p class="title-icon fw-bolder py-1">
+                      <i class="fas fa-wrench icon-size fa-fw"></i>有料備品
+                    </p>
                     <i class="fas fa-plus icon_plus hide" aria-hidden="true"></i>
                     <i class="fas fa-minus icon_minus" aria-hidden="true"></i>
                   </div>
@@ -254,7 +267,9 @@
               <tr>
                 <th colspan="2">
                   <div class="d-flex justify-content-between align-items-center">
-                    有料サービス
+                  <p class="title-icon fw-bolder py-1">
+                      <i class="fas fa-hand-holding-heart icon-size fa-fw"></i>有料サービス
+                    </p>
                     <i class="fas fa-plus icon_plus hide" aria-hidden="true"></i>
                     <i class="fas fa-minus icon_minus" aria-hidden="true"></i>
                   </div>
@@ -284,14 +299,18 @@
           <table class="table table-bordered">
             <thead>
               <tr>
-                <th colspan="2">レイアウト</th>
+              <th colspan='2'>
+                  <p class="title-icon">
+                    <i class="fas fa-th icon-size fa-fw"></i>レイアウト
+                  </p>
+                </th>
               </tr>
             </thead>
             <tbody>
               @if ($request->layout_prepare==1)
               <tr>
                 <td class="table-active">
-                  レイアウト準備
+                  準備
                 </td>
                 <td>
                   <div class="form-check form-check-inline">
@@ -305,7 +324,7 @@
               @else
               <tr>
                 <td class="table-active">
-                  レイアウト準備
+                  準備
                 </td>
                 <td>
                   <div class="form-check form-check-inline">
@@ -320,7 +339,7 @@
               @if ($request->layout_clean==1)
               <tr>
                 <td class="table-active">
-                  レイアウト片付け
+                  片付け
                 </td>
                 <td>
                   <div class="form-check form-check-inline">
@@ -334,7 +353,7 @@
               @else
               <tr>
                 <td class="table-active">
-                  レイアウト片付け
+                  片付け
                 </td>
                 <td>
                   <div class="form-check form-check-inline">
@@ -353,7 +372,11 @@
           <table class="table table-bordered">
             <thead>
               <tr>
-                <th colspan="2">荷物預かり</th>
+              <th colspan='2'>
+                  <p class="title-icon">
+                    <i class="fas fa-suitcase-rolling icon-size fa-fw"></i>荷物預かり
+                  </p>
+                </th>
               </tr>
             </thead>
             <tbody>
@@ -395,7 +418,7 @@
               <tr>
                 <td colspan="2">
                   <p class="title-icon">
-                    <i class="fas fa-user-check fa-2x fa-fw" aria-hidden="true"></i>
+                    <i class="fas fa-user-check" aria-hidden="true"></i>
                     当日の連絡できる担当者
                   </p>
                 </td>
@@ -424,7 +447,7 @@
             <tr>
               <td colspan="2">
                 <p class="title-icon">
-                  <i class="fas fa-envelope fa-2x fa-fw" aria-hidden="true"></i>利用後の送信メール
+                  <i class="fas fa-envelope" aria-hidden="true"></i>利用後の送信メール
                 </p>
               </td>
             </tr>
@@ -459,7 +482,7 @@
             <tr>
               <td colspan="2">
                 <p class="title-icon">
-                  <i class="fas fa-envelope fa-2x fa-fw" aria-hidden="true"></i>備考
+                  <i class="fas fa-file-alt icon-size"></i>備考
                 </p>
               </td>
             </tr>
@@ -553,17 +576,17 @@
               </h2>
             </td>
             <td>
-            <dl class="ttl_box">
-              <dt>合計金額</dt>
-              <dd class="total_result">{{number_format($masters)}}円</dd>
-            </dl>
-          </td>
-          <td>
-            <dl class="ttl_box">
-              <dt>支払い期日</dt>
-              <dd class="total_result">{{ReservationHelper::formatDate($pay_limit)}}</dd>
-            </dl>
-          </td>
+              <dl class="ttl_box">
+                <dt>合計金額</dt>
+                <dd class="total_result">{{number_format($masters)}}円</dd>
+              </dl>
+            </td>
+            <td>
+              <dl class="ttl_box">
+                <dt>支払い期日</dt>
+                <dd class="total_result">{{ReservationHelper::formatDate($pay_limit)}}</dd>
+              </dl>
+            </td>
           </tr>
           <!-- <tr>
             <td></td>
@@ -583,20 +606,20 @@
             <i class="fas fa-minus bill_icon_size"></i>
           </div>
           <div class="billdetails_ttl">
-          <h3>
-            請求内訳
-          </h3>
-        </div>
+            <h3>
+              請求内訳
+            </h3>
+          </div>
         </div>
         <div class="main">
           <div class="venues billdetails_content">
             <table class="table table-borderless">
               <tr>
-              <td>
-                <h4 class="billdetails_content_ttl">
-                  会場料
-                </h4>
-              </td>
+                <td>
+                  <h4 class="billdetails_content_ttl">
+                    会場料
+                  </h4>
+                </td>
               </tr>
               <tbody class="venue_head">
                 <tr>
@@ -715,11 +738,11 @@
           <div class="equipment billdetails_content">
             <table class="table table-borderless">
               <tr>
-              <td colspan="4">
-                <h4 class="billdetails_content_ttl">
-                  有料備品・サービス
-                </h4>
-              </td>
+                <td colspan="4">
+                  <h4 class="billdetails_content_ttl">
+                    有料備品・サービス
+                  </h4>
+                </td>
               </tr>
               <tbody class="equipment_head">
                 <tr>
@@ -820,11 +843,11 @@
           <div class="layout billdetails_content">
             <table class="table table-borderless">
               <tr>
-              <td>
-                <h4 class="billdetails_content_ttl">
-                  レイアウト
-                </h4>
-              </td>
+                <td>
+                  <h4 class="billdetails_content_ttl">
+                    レイアウト
+                  </h4>
+                </td>
               </tr>
               <tbody class="layout_head">
                 <tr>
@@ -898,11 +921,11 @@
           <div class="others billdetails_content">
             <table class="table table-borderless">
               <tr>
-              <td colspan="5">
-                　<h4 class="billdetails_content_ttl">
-                  その他
-                </h4>
-              </td>
+                <td colspan="5">
+                  　<h4 class="billdetails_content_ttl">
+                    その他
+                  </h4>
+                </td>
               </tr>
               <tbody class="others_head">
                 <tr>
@@ -937,26 +960,26 @@
           </div>
 
           <div class="bill_total">
-              <table class="table text-right">
-                <tr>
-                  <td>小計：</td>
-                  <td>
-                    {{ Form::text('master_subtotal',$masters ,['class'=>'form-control text-right', 'readonly'] ) }}
-                  </td>
-                </tr>
-                <tr>
-                  <td>消費税：</td>
-                  <td>
-                    {{ Form::text('master_tax',ReservationHelper::getTax($masters) ,['class'=>'form-control text-right', 'readonly'] ) }}
-                  </td>
-                </tr>
-                <tr>
-                  <td class="font-weight-bold">合計金額</td>
-                  <td>
-                    {{ Form::text('master_total',ReservationHelper::taxAndPrice($masters) ,['class'=>'form-control text-right', 'readonly'] ) }}
-                  </td>
-                </tr>
-              </table>
+            <table class="table text-right">
+              <tr>
+                <td>小計：</td>
+                <td>
+                  {{ Form::text('master_subtotal',$masters ,['class'=>'form-control text-right', 'readonly'] ) }}
+                </td>
+              </tr>
+              <tr>
+                <td>消費税：</td>
+                <td>
+                  {{ Form::text('master_tax',ReservationHelper::getTax($masters) ,['class'=>'form-control text-right', 'readonly'] ) }}
+                </td>
+              </tr>
+              <tr>
+                <td class="font-weight-bold">合計金額</td>
+                <td>
+                  {{ Form::text('master_total',ReservationHelper::taxAndPrice($masters) ,['class'=>'form-control text-right', 'readonly'] ) }}
+                </td>
+              </tr>
+            </table>
           </div>
         </div>
       </div>

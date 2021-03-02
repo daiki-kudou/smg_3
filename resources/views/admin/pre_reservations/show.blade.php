@@ -33,25 +33,25 @@
           </div>
         </div>
       </div> -->
-        <table class="table ttl_head">
-          <tbody>
-            <tr>
-              <td>
-                <h3 class="text-white">
-                  仮押さえ概要
-                </h3>
-              </td>
-              <td>
-                <dl class="ttl_box">
-                  <dt>仮押さえID:</dt>
-                  <dd class="total_result">{{$pre_reservation->id}}</dd>
-                </dl>
-              </td>
-              <td class="text-right">
-                <a href="{{url('admin/pre_reservations/'.$pre_reservation->id.'/edit')}}" class="btn more_btn_lg">編集</a>
-              </td>
-          </tbody>
-        </table>
+      <table class="table ttl_head">
+        <tbody>
+          <tr>
+            <td>
+              <h3 class="text-white">
+                仮押さえ概要
+              </h3>
+            </td>
+            <td>
+              <dl class="ttl_box">
+                <dt>仮押さえID:</dt>
+                <dd class="total_result">{{$pre_reservation->id}}</dd>
+              </dl>
+            </td>
+            <td class="text-right">
+              <a href="{{url('admin/pre_reservations/'.$pre_reservation->id.'/edit')}}" class="btn more_btn_lg">編集</a>
+            </td>
+        </tbody>
+      </table>
     </div>
 
     <div class="col-12">
@@ -251,7 +251,9 @@
               <thead class="accordion-ttl">
                 <tr>
                   <td colspan="2">
-                    <p class="title-icon active">有料備品</p>
+                    <p class="title-icon fw-bolder py-1">
+                      <i class="fas fa-wrench icon-size fa-fw"></i>有料備品
+                    </p>
                   </td>
                 </tr>
               </thead>
@@ -269,9 +271,9 @@
             <table class="table table-bordered service-table">
               <thead class="accordion-ttl">
                 <tr>
-                  <td colspan="2">
-                    <p class="title-icon active">有料サービス<span class="open_toggle"></span></p>
-                  </td>
+                  <p class="title-icon fw-bolder py-1">
+                    <i class="fas fa-hand-holding-heart icon-size fa-fw"></i>有料サービス
+                  </p>
                 </tr>
               </thead>
               <tbody class="accordion-wrap">
@@ -286,87 +288,119 @@
                     </ul>
                   </td>
                 </tr>
-                <tr>
-                  <td class="table-active"><label for="layout">レイアウト変更</label>
-                  </td>
-                  <td>
-                    {{$layouts?"あり":"なし"}}
-                  </td>
-                </tr>
-                <tr>
-                  <td class="table-active"><label for="prelayout">レイアウト準備</label>
-                  </td>
-                  <td>
-                    @if ($layouts)
-                    @foreach ($layouts as $layout)
-                    @if ($layout->unit_item=="レイアウト準備料金")
-                    あり
-                    @endif
-                    @endforeach
-                    @endif
-                  </td>
-                </tr>
-                <tr>
-                  <td class="table-active"><label for="postlayout">レイアウト片付</label>
-                  </td>
-                  <td>
-                    @if ($layouts)
-                    @foreach ($layouts as $layout)
-                    @if ($layout->unit_item=="レイアウト片付料金")
-                    あり
-                    @endif
-                    @endforeach
-                    @endif
-                  </td>
-                </tr>
-                <tr>
-                  <td class="table-active"><label for="Delivery">荷物預かり/返送</label>
-                  </td>
-                  <td>
-                    {{$pre_reservation->luggage_count?"あり":"なし"}}
-                  </td>
-                </tr>
-                <tr>
-                  <td class="table-active"><label for="preDelivery">事前に預かる荷物</label></td>
-                  <td>
-                    <ul class="table-cell-box">
-                      <li>
-                        <p>
-                          {{$pre_reservation->luggage_arrive?"あり":"なし"}}
-                        </p>
-                      </li>
-                      <li class="d-flex justify-content-between">
-                        <p>荷物個数</p>
-                        <p> {{$pre_reservation->luggage_count?$pre_reservation->luggage_count:0}}個</p>
-                      </li>
-
-                      <li class="d-flex justify-content-between">
-                        <p>事前荷物の到着日</p>
-                        <p>
-                          {{$pre_reservation->luggage_arrive?ReservationHelper::formatDate($pre_reservation->luggage_arrive):""}}
-                        </p>
-                      </li>
-                    </ul>
-                  </td>
-                </tr>
-                <tr>
-                  <td class="table-active"><label for="postDelivery">事後返送する荷物</label></td>
-                  <td>
-                    <ul class="table-cell-box">
-                      <li>
-                        <p>
-                          {{$pre_reservation->luggage_return?"あり":"なし"}}
-                        </p>
-                      </li>
-                      <li class="d-flex justify-content-between">
-                        <p>荷物個数</p>
-                        <p>{{$pre_reservation->luggage_return?$pre_reservation->luggage_return:0}}個</p>
-                      </li>
-                    </ul>
-                  </td>
-                </tr>
               </tbody>
             </table>
+
+            <div class='layouts'>
+              <table class='table table-bordered' style="table-layout:fixed;">
+                <thead>
+                  <tr>
+                    <th colspan='2'>
+                      <p class="title-icon">
+                        <i class="fas fa-th icon-size fa-fw"></i>レイアウト
+                      </p>
+                    </th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td class="table-active"><label for="layout">レイアウト変更</label>
+                    </td>
+                    <td>
+                      {{$layouts?"あり":"なし"}}
+                    </td>
+                  </tr>
+                  <tr>
+                    <td class="table-active"><label for="prelayout">準備</label>
+                    </td>
+                    <td>
+                      @if ($layouts)
+                      @foreach ($layouts as $layout)
+                      @if ($layout->unit_item=="レイアウト準備料金")
+                      あり
+                      @endif
+                      @endforeach
+                      @endif
+                    </td>
+                  </tr>
+                  <tr>
+                    <td class="table-active"><label for="postlayout">片付</label>
+                    </td>
+                    <td>
+                      @if ($layouts)
+                      @foreach ($layouts as $layout)
+                      @if ($layout->unit_item=="レイアウト片付料金")
+                      あり
+                      @endif
+                      @endforeach
+                      @endif
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+
+            <div class='luggage'>
+              <table class='table table-bordered' style="table-layout:fixed;">
+                <thead>
+                  <tr>
+                    <th colspan='2'>
+                      <p class="title-icon">
+                        <i class="fas fa-suitcase-rolling icon-size fa-fw"></i>荷物預かり
+                      </p>
+                    </th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td class="table-active"><label for="Delivery">荷物預かり/返送</label>
+                    </td>
+                    <td>
+                      {{$pre_reservation->luggage_count?"あり":"なし"}}
+                    </td>
+                  </tr>
+                  <tr>
+                    <td class="table-active"><label for="preDelivery">事前に預かる荷物</label></td>
+                    <td>
+                      <ul class="table-cell-box">
+                        <li>
+                          <p>
+                            {{$pre_reservation->luggage_arrive?"あり":"なし"}}
+                          </p>
+                        </li>
+                        <li class="d-flex justify-content-between">
+                          <p>荷物個数</p>
+                          <p> {{$pre_reservation->luggage_count?$pre_reservation->luggage_count:0}}個</p>
+                        </li>
+
+                        <li class="d-flex justify-content-between">
+                          <p>事前荷物の到着日</p>
+                          <p>
+                            {{$pre_reservation->luggage_arrive?ReservationHelper::formatDate($pre_reservation->luggage_arrive):""}}
+                          </p>
+                        </li>
+                      </ul>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td class="table-active"><label for="postDelivery">事後返送する荷物</label></td>
+                    <td>
+                      <ul class="table-cell-box">
+                        <li>
+                          <p>
+                            {{$pre_reservation->luggage_return?"あり":"なし"}}
+                          </p>
+                        </li>
+                        <li class="d-flex justify-content-between">
+                          <p>荷物個数</p>
+                          <p>{{$pre_reservation->luggage_return?$pre_reservation->luggage_return:0}}個</p>
+                        </li>
+                      </ul>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
 
             <table class="table table-bordered eating-table">
               <tbody>
@@ -874,7 +908,6 @@
     </div>
   </div>
   </div>
-
   </div>
 </section>
 

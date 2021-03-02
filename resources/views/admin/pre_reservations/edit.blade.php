@@ -5,20 +5,16 @@
 
 <link href="{{ asset('/css/template.css') }}" rel="stylesheet">
 <script src="{{ asset('/js/template.js') }}"></script>
-
-<div class="container-field mt-3">
+<div class="container-field">
   <div class="float-right">
     <nav aria-label="breadcrumb">
       <ol class="breadcrumb">
         <li class="breadcrumb-item active">
-          <a href="http://staging-smg2.herokuapp.com/admin/home">ホーム</a>
           ダミーテキスト
         </li>
       </ol>
     </nav>
   </div>
-
-
   <h2 class="mt-3 mb-3">仮押さえ　編集</h2>
   <hr>
 </div>
@@ -27,7 +23,7 @@
 @csrf
 
 <section class="section-wrap">
-  <div class="selected_user mt-5">
+  <div class="selected_user">
     <table class="table table-bordered" style="table-layout: fixed;">
       <thead>
         <tr>
@@ -196,11 +192,15 @@
             <td>
               {{-- {{ Form::text('', $request->board_flag==1?"有り":"無し",['class'=>'form-control', 'readonly'] ) }}
               {{ Form::hidden('board_flag', $request->board_flag,['class'=>'form-control', 'readonly'] ) }} --}}
-              <div class="form-check form-check-inline">
+              <div class="form-check form-check-inline radio-box">
+                <p>
                 {{Form::radio('board_flag', 1, $request->board_flag==1?true:false , ['id' => 'board_flag'.'on', 'class' => 'form-check-input'])}}
                 <label for="{{'board_flag'.'on'}}" class="form-check-label">有り</label>
+                </p>
+                <p>
                 {{Form::radio('board_flag', 0, $request->board_flag==0?true:false, ['id' => 'board_flag'.'off', 'class' => 'form-check-input'])}}
                 <label for="{{'board_flag'.'off'}}" class="form-check-label">無し</label>
+                </p>
               </div>
             </td>
           </tr>
@@ -260,7 +260,9 @@
               <tr>
                 <th colspan="2">
                   <div class="d-flex justify-content-between align-items-center">
-                    有料備品
+                    <p class="title-icon fw-bolder py-1">
+                      <i class="fas fa-wrench icon-size fa-fw"></i>有料備品
+                    </p>
                     <i class="fas fa-plus icon_plus hide" aria-hidden="true"></i>
                     <i class="fas fa-minus icon_minus" aria-hidden="true"></i>
                   </div>
@@ -294,7 +296,9 @@
               <tr>
                 <th colspan="2">
                   <div class="d-flex justify-content-between align-items-center">
-                    有料サービス
+                    <p class="title-icon fw-bolder py-1">
+                      <i class="fas fa-hand-holding-heart icon-size fa-fw"></i>有料サービス
+                    </p>
                     <i class="fas fa-plus icon_plus hide" aria-hidden="true"></i>
                     <i class="fas fa-minus icon_minus" aria-hidden="true"></i>
                   </div>
@@ -337,12 +341,16 @@
           <table class="table table-bordered">
             <thead>
               <tr>
-                <th colspan="2">レイアウト</th>
+                <th colspan='2'>
+                  <p class="title-icon">
+                    <i class="fas fa-th icon-size fa-fw"></i>レイアウト
+                  </p>
+                </th>
               </tr>
             </thead>
             <tbody>
               <tr>
-                <td>レイアウト準備</td>
+                <td>準備</td>
                 <td>
                   @foreach ($s_layouts as $l)
                   @if ($l->unit_item=="レイアウト準備料金")
@@ -365,7 +373,7 @@
                 </td>
               </tr>
               <tr>
-                <td>レイアウト片付</td>
+                <td>片付</td>
                 <td>
                   @foreach ($s_layouts as $l)
                   @if ($l->unit_item=="レイアウト片付料金")
@@ -395,7 +403,11 @@
           <table class="table table-bordered">
             <thead>
               <tr>
-                <th colspan="2">荷物預かり</th>
+                <th colspan='2'>
+                  <p class="title-icon">
+                    <i class="fas fa-suitcase-rolling icon-size fa-fw"></i>荷物預かり
+                  </p>
+                </th>
               </tr>
             </thead>
             <tbody>
@@ -431,34 +443,34 @@
       </div>
 
       <div class="col">
-          <table class="table table-bordered">
-            <tbody>
-              <tr>
-                <td colspan="2">
-                  <p class="title-icon">
-                    <i class="fas fa-user-check icon-size" aria-hidden="true"></i>
-                    当日の連絡できる担当者
-                  </p>
-                </td>
-              </tr>
-              <tr>
-                <td class="table-active">
-                  <label for="ondayName" class=" form_required">氏名</label>
-                </td>
-                <td>
-                  {{ Form::text('in_charge', $request->in_charge,['class'=>'form-control'] ) }}
-                  <p class="is-error-in_charge" style="color: red"></p>
-                </td>
-              </tr>
-              <tr>
-                <td class="table-active"><label for="mobilePhone" class=" form_required">携帯番号</label></td>
-                <td>
-                  {{ Form::text('tel', $request->tel,['class'=>'form-control'] ) }}
-                  <p class="is-error-tel" style="color: red"></p>
-                </td>
-              </tr>
-            </tbody>
-          </table>
+        <table class="table table-bordered">
+          <tbody>
+            <tr>
+              <td colspan="2">
+                <p class="title-icon">
+                  <i class="fas fa-user-check icon-size" aria-hidden="true"></i>
+                  当日の連絡できる担当者
+                </p>
+              </td>
+            </tr>
+            <tr>
+              <td class="table-active">
+                <label for="ondayName" class=" form_required">氏名</label>
+              </td>
+              <td>
+                {{ Form::text('in_charge', $request->in_charge,['class'=>'form-control'] ) }}
+                <p class="is-error-in_charge" style="color: red"></p>
+              </td>
+            </tr>
+            <tr>
+              <td class="table-active"><label for="mobilePhone" class=" form_required">携帯番号</label></td>
+              <td>
+                {{ Form::text('tel', $request->tel,['class'=>'form-control'] ) }}
+                <p class="is-error-tel" style="color: red"></p>
+              </td>
+            </tr>
+          </tbody>
+        </table>
         <table class="table table-bordered mail-table">
           <tbody>
             <tr>
@@ -472,7 +484,6 @@
               <td class="table-active"><label for="email_flag">送信メール</label></td>
               <td>
                 <div class="radio-box">
-
                   @if ($request->email_flag!=0)
                   <div class="form-check form-check-inline">
                     {{Form::radio('email_flag', 1, true , ['id' => 'email_flag', 'class' => 'form-check-input'])}}
@@ -488,7 +499,6 @@
                     <label for="{{'no_email_flag'}}" class="form-check-label">無し</label>
                   </div>
                   @endif
-
                 </div>
               </td>
             </tr>
@@ -499,7 +509,7 @@
             <tr>
               <td colspan="2">
                 <p class="title-icon">
-                  <i class="fas fa-envelope icon-size" aria-hidden="true"></i>備考
+                  <i class="fas fa-file-alt icon-size" aria-hidden="true"></i>備考
                 </p>
               </td>
             </tr>
@@ -592,8 +602,8 @@
     <div class="bill_details">
       <div class="head d-flex">
         <div class="accordion_btn">
-          <i class="fas fa-plus bill_icon-size hide"></i>
-          <i class="fas fa-minus bill_icon-size"></i>
+          <i class="fas fa-plus bill_icon_size hide"></i>
+          <i class="fas fa-minus bill_icon_size"></i>
         </div>
         <div class="billdetails_ttl">
           <h3>
