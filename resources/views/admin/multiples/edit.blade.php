@@ -34,7 +34,7 @@
       <p class="font-weight-bold">日程ごとに、詳細を編集できます。</p>
     </div>
 
-    <section class="border-wrap2">
+    <section class="border-wrap2 pb-5">
       <table class="table ttl_head">
         <tbody>
           <tr>
@@ -441,7 +441,7 @@
         </dl>
         <!-- コピー作成用フィールド   終わり--------------------------------------------------　 -->
         <p class="text-center">
-          {{ Form::submit('計算する', ['class' => 'btn more_btn_lg'])}}
+          {{ Form::submit('計算する', ['class' => 'btn more_btn_lg mt-3'])}}
           {{ Form::close() }}
         </p>
       </section>
@@ -509,7 +509,7 @@
               </ul>
             </dt>
             <dt class="accordion-wrap" style="display: none;">
-              <div class="row section-wrap">
+              <div class="row p-3">
                 <!-- 左側の項目------------------------------------------------------------------------ -->
                 <div class="col">
                   <table class="table table-bordered">

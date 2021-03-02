@@ -642,7 +642,7 @@ table td.table_column p:last-child {
 .border-wrap {
     border: 2px solid #35a7a7;
     /* padding: 30px; */
-    margin: 50px 3%;
+    margin: 50px 0;
 }
 
 .border-wrap2 {
@@ -808,6 +808,7 @@ table td.table_column p:last-child {
 
 .register-list-item dl {
     width: 100%;
+    margin-bottom: 15px;
 }
 
 .alert-box {
