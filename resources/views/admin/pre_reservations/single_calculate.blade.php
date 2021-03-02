@@ -11,7 +11,7 @@
     <nav aria-label="breadcrumb">
       <ol class="breadcrumb">
         <li class="breadcrumb-item active">
-          {{ Breadcrumbs::render(Route::currentRouteName(),$venue->id) }}
+        ダミーダミーダミーダミーダミー
         </li>
       </ol>
     </nav>
@@ -178,7 +178,6 @@
                 </select>
               </td>
             </tr>
-
           </tbody>
         </table>
 
