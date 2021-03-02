@@ -10,8 +10,7 @@
       <div class="float-right">
         <nav aria-label="breadcrumb">
           <ol class="breadcrumb">
-            <li class="breadcrumb-item active"><a href="http://staging-smg2.herokuapp.com/admin/home">ホーム</a> &gt;
-              一括仮押さえ 詳細
+            <li class="breadcrumb-item active">ダミーダミーダミー
             </li>
           </ol>
         </nav>
@@ -49,7 +48,7 @@
                 </td>
                 <td>
                   <dl class="ttl_box">
-                    <dt>仮押さえ一括ID::</dt>
+                    <dt>仮押さえ一括ID:</dt>
                     <dd class="total_result">{{$multiple->id}}</dd>
                   </dl>
                 </td>

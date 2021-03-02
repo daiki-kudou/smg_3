@@ -789,9 +789,17 @@ table td.table_column p:last-child {
 }
 
 .register-list-item {
-    display: flex;
-    align-items: center;
+    /* display: flex; */
+    /* align-items: center; */
+    padding-left: 22px;
+    position: relative;
     margin-bottom: 0;
+}
+
+.list_checkbox {
+    position: absolute;
+    top: 17px;
+    left: -5px;
 }
 
 .register-list-item dl {

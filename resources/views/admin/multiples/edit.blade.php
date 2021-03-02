@@ -12,8 +12,8 @@
       <div class="float-right">
         <nav aria-label="breadcrumb">
           <ol class="breadcrumb">
-            <li class="breadcrumb-item active"><a href="http://staging-smg2.herokuapp.com/admin/home">ホーム</a> &gt;
-              一括仮押さえ 編集
+            <li class="breadcrumb-item active">
+              ダミーダミーダミー
             </li>
           </ol>
         </nav>
@@ -33,7 +33,9 @@
     <div class="col">
       <p class="font-weight-bold">日程ごとに、詳細を編集できます。</p>
     </div>
-    <div class="col">
+
+
+    <section class="border-wrap2">
       <!-- <h3 class="bg-green py-2 px-1">仮押さえ一括ID:<span>{{$multiple->id}}</span><span
           class="ml-4">{{ReservationHelper::getVenue($venue->id)}}</span>
       </h3> -->
@@ -52,7 +54,7 @@
 
       {{ Form::open(['url' => 'admin/multiples/'.$multiple->id."/edit/".$venue->id.'/calculate', 'method'=>'POST', 'id'=>'']) }}
       @csrf
-      <section class="mt-4 border-inwrap">
+      <section class="mt-4 mx-5 border-inwrap">
         <div class="mb-2">
           <p>同じ内容をすべての日程に反映することができます。</p>
         </div>
@@ -165,7 +167,9 @@
                   <thead class="accordion-ttl">
                     <tr>
                       <th colspan="2">
-                        <p class="title-icon active">有料備品</p>
+                        <p class="title-icon active　fw-bolder py-1">
+                      <i class="fas fa-wrench icon-size fa-fw"></i>有料備品
+                    </p>
                       </th>
                     </tr>
                   </thead>
@@ -185,7 +189,9 @@
                   <thead class="accordion-ttl">
                     <tr>
                       <th colspan="2">
-                        <p class="title-icon active">有料サービス<span class="open_toggle"></span></p>
+                        <p class="title-icon active">
+                        <i class="fas fa-hand-holding-heart icon-size fa-fw"></i>
+                          有料サービス<span class="open_toggle"></span></p>
                       </th>
                     </tr>
                   </thead>
@@ -209,14 +215,16 @@
                   <thead class="accordion-ttl">
                     <tr>
                       <th colspan="2">
-                        <p class="title-icon active">レイアウト<span class="open_toggle"></span></p>
+                        <p class="title-icon active">レイアウト
+                        <i class="fas fa-th icon-size fa-fw"></i>
+                          <span class="open_toggle"></span></p>
                       </th>
                     </tr>
                   </thead>
                   <tbody class="accordion-wrap" style="display: none;">
                     @if ($venue->getLayouts()[0])
                     <tr>
-                      <td class="table-active">レイアウト準備</td>
+                      <td class="table-active">準備</td>
                       <td>
                         <div class="form-check form-check-inline">
                           {{Form::radio('cp_master_layout_prepare', 1, false, ['id' => 'cp_master_layout_prepare', 'class' => 'form-check-input'])}}
@@ -229,7 +237,7 @@
                     @endif
                     @if ($venue->getLayouts()[1])
                     <tr>
-                      <td class="table-active">レイアウト片付け</td>
+                      <td class="table-active">片付け</td>
                       <td>
                         <div class="form-check form-check-inline">
                           {{Form::radio('cp_master_layout_clean', 1, false, ['id' => 'cp_master_layout_clean', 'class' => 'form-check-input'])}}
@@ -247,7 +255,9 @@
                   <thead class="accordion-ttl">
                     <tr>
                       <th colspan="2">
-                        <p class="title-icon active">荷物預かり<span class="open_toggle"></span></p>
+                        <p class="title-icon active">荷物預かり
+                        <i class="fas fa-suitcase-rolling icon-size fa-fw"></i>
+                          <span class="open_toggle"></span></p>
                       </th>
                     </tr>
                   </thead>
@@ -287,7 +297,7 @@
                   <tbody>
                     <tr>
                       <th>
-                        <p class="title-icon">室内飲食</p>
+                        <p class="title-icon"><i class="fas fa-utensils icon-size fa-fw"></i>室内飲食</p>
                       </th>
                     </tr>
                     <tr>
@@ -432,12 +442,10 @@
           <!-- /.card-body -->
         </dl>
         <!-- コピー作成用フィールド   終わり--------------------------------------------------　 -->
-        <div class="btn_wrapper">
-          <p class="text-center">
-            {{ Form::submit('計算する', ['class' => 'btn more_btn_lg'])}}
-            {{ Form::close() }}
-          </p>
-        </div>
+        <p class="text-center">
+          {{ Form::submit('計算する', ['class' => 'btn more_btn_lg'])}}
+          {{ Form::close() }}
+        </p>
       </section>
       <ul class="register-list-header mt-4">
         <li class="from-group">
@@ -449,7 +457,6 @@
           <p><a class="more_btn4" href="">削除</a></p>
         </li>
       </ul>
-    </div>
 
     {{-- jsで仮抑えの件数判別のためのhidden --}}
     {{ Form::hidden('', $multiple->pre_reservations()->where('venue_id',$venue->id)->get()->count(),['id'=>'counts_reserve']) }}
@@ -462,7 +469,7 @@
     <section class="register-list col">
       <!-- 仮押さえ一括 タブ-->
       <div class="register-list-item">
-        <div class="from-group">
+        <div class="from-group list_checkbox">
           <input type="checkbox" name="{{'delete_check'.$pre_reservation->id}}" value="{{$pre_reservation->id}}" class="checkbox mr-1" />
           <!-- <input class="form-check-input" type="checkbox"> -->
           <label class="form-check-label"></label>
@@ -504,7 +511,7 @@
             </ul>
           </dt>
           <dt class="accordion-wrap" style="display: none;">
-            <div class="row">
+            <div class="row section-wrap">
               <!-- 左側の項目------------------------------------------------------------------------ -->
               <div class="col">
                 <table class="table table-bordered">
@@ -614,7 +621,7 @@
                   <thead class="accordion-ttl">
                     <tr>
                       <th colspan="2">
-                        <p class="title-icon active">有料備品</p>
+                        <p class="title-icon active py-1"><i class="fas fa-wrench icon-size fa-fw"></i>有料備品</p>
                       </th>
                     </tr>
                   </thead>
@@ -645,7 +652,7 @@
                   <thead class="accordion-ttl">
                     <tr>
                       <th colspan="2">
-                        <p class="title-icon active">有料サービス<span class="open_toggle"></span></p>
+                        <p class="title-icon active py-1"><i class="fas fa-hand-holding-heart icon-size fa-fw"></i>有料サービス<span class="open_toggle"></span></p>
                       </th>
                     </tr>
                   </thead>
@@ -691,13 +698,13 @@
                   <thead class="accordion-ttl">
                     <tr>
                       <th colspan="2">
-                        <p class="title-icon active">レイアウト<span class="open_toggle"></span></p>
+                        <p class="title-icon active py-1"><i class="fas fa-th icon-size fa-fw"></i>レイアウト<span class="open_toggle"></span></p>
                       </th>
                     </tr>
                   </thead>
                   <tbody class="accordion-wrap" style="display: none;">
                     <tr>
-                      <td class="table-active">レイアウト準備</td>
+                      <td class="table-active">準備</td>
                       <td>
                         <div class="form-check form-check-inline">
                           @foreach ($pre_reservation->pre_breakdowns()->get() as $layout_prepares)
@@ -718,7 +725,7 @@
                       </td>
                     </tr>
                     <tr>
-                      <td class="table-active">レイアウト片付け</td>
+                      <td class="table-active">片付け</td>
                       <td>
                         <div class="form-check form-check-inline">
                           @foreach ($pre_reservation->pre_breakdowns()->get() as $layout_prepares)
@@ -745,7 +752,7 @@
                   <thead class="accordion-ttl">
                     <tr>
                       <th colspan="2">
-                        <p class="title-icon active">荷物預かり<span class="open_toggle"></span></p>
+                        <p class="title-icon active py-1">荷物預かり<i class="fas fa-suitcase-rolling icon-size fa-fw"></i><span class="open_toggle"></span></p>
                       </th>
                     </tr>
                   </thead>
@@ -788,7 +795,7 @@
                   <tbody>
                     <tr>
                       <td>
-                        <p class="title-icon">室内飲食</p>
+                        <p class="title-icon"><i class="fas fa-utensils icon-size fa-fw"></i>室内飲食</p>
                       </td>
                     </tr>
                     <tr>
@@ -931,7 +938,7 @@
               {{ Form::close() }}
             </div>
 
-            <section class="bill-wrap section-wrap">
+            <section class="section-wrap">
               <div class="bill">
                 <div class="bill_head">
                   <table class="table bill_table">
@@ -1356,51 +1363,8 @@
       <!-- 仮押さえ一括 タブ終わり-->
     </section>
     @endforeach
-
-
+    </section>
     <!-- コピー作成用フィールド ------------------------------------------------------------->
-
-    <!-- 詳細選択画面--終わり------------------------------------------------　 -->
-
-    <!-- <div class="col-12 mt-5">
-      <div class="d-flex bg-green py-2 px-1">
-        <h4>合計請求額</h4>
-        <p class="ml-2">(<span>{{$multiple->pre_reservations()->get()->count()}}</span>件分)</p>
-      </div>
-      <table class="table table-bordered">
-        <tbody>
-          <tr>
-            <td class="table-active"><label for="venueFee">会場料</label></td>
-            <td class="text-right">
-              {{$multiple->sumVenues($venue->id)}}
-            </td>
-          </tr>
-          <tr>
-            <td class="table-active"><label for="serviceFee">備品その他</label></td>
-            <td class="text-right">
-              {{$multiple->sumEquips($venue->id)}}
-            </td>
-          </tr>
-          <tr>
-            <td class="table-active"><label for="layoutFee">レイアウト変更</label></td>
-            <td class="text-right">
-              {{$multiple->sumLayouts($venue->id)}}
-            </td>
-          </tr>
-          <tr>
-            <td colspan="2" class="text-right">
-              <p><span class="font-weight-bold">小計</span>{{$multiple->sumMasterSubs($venue->id)}}</p>
-              <p><span>消費税</span>{{$multiple->sumMasterTax($venue->id)}}</p>
-            </td>
-          </tr>
-          <tr>
-            <td colspan="2" class="text-right"><span class="font-weight-bold">請求総額</span>
-              {{$multiple->sumMasterTotal($venue->id)}}
-            </td>
-          </tr>
-        </tbody>
-      </table>
-    </div> -->
 
     <section class="master_totals border-wrap">
       <table class="table">

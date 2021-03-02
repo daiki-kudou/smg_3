@@ -8,38 +8,14 @@
 <script src="{{ asset('/js/multiples/calculate.js') }}"></script>
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 <div class="content">
   <div class="container-fluid">
     <div class="container-field mt-3">
       <div class="float-right">
         <nav aria-label="breadcrumb">
           <ol class="breadcrumb">
-            <li class="breadcrumb-item active"><a href="http://staging-smg2.herokuapp.com/admin/home">ホーム</a> &gt;
-              一括仮押さえ 編集
+            <li class="breadcrumb-item active">
+            ダミーダミーダミー
             </li>
           </ol>
         </nav>
