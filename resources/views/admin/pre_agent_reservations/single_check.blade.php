@@ -84,7 +84,8 @@
         <tr>
           <td class="table-active">住所</td>
           <td>
-            {{ Form::text('pre_enduser_address', ($request->pre_enduser_address),['class'=>'form-control', 'readonly'] ) }}
+          ダミーダミーダミーダミー
+            <!-- {{ Form::text('pre_enduser_address', ($request->pre_enduser_address),['class'=>'form-control', 'readonly'] ) }} -->
           </td>
           <td class="table-active">電話番号</td>
           <td>
@@ -106,7 +107,8 @@
             <label for="pre_enduser_attr" class="">利用者属性</label>
           </td>
           <td>
-            {{ Form::text('pre_enduser_attr', $requests['pre_enduser_attr'],['class'=>'form-control', 'placeholder'=>'入力してください', 'maxlength'=>13, 'id'=>'pre_enduser_attr'] ) }}
+          ダミーダミーダミー
+            <!-- {{ Form::text('pre_enduser_attr', $requests['pre_enduser_attr'],['class'=>'form-control', 'placeholder'=>'入力してください', 'maxlength'=>13, 'id'=>'pre_enduser_attr'] ) }} -->
           </td>
         </tr>
       </tbody>

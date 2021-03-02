@@ -6,7 +6,7 @@
 <link href="{{ asset('/css/template.css') }}" rel="stylesheet">
 {{-- <script src="{{ asset('/js/template.js') }}"></script> --}}
 
-<h2 class="mt-3 mb-3">仲介会社 仮長瀬　計算</h2>
+<h2 class="mt-3 mb-3">仲介会社 仮押さえ　計算</h2>
 <hr>
 
 {{Form::open(['url' => 'admin/pre_agent_reservations/calculate', 'method' => 'POST', 'id'=>''])}}
@@ -84,9 +84,9 @@
         <tr>
           <td class="table-active">住所</td>
           <td>
-            {{ Form::text('pre_enduser_address', ($request->pre_enduser_address),['class'=>'form-control', 'readonly'] ) }}
+          ダミーダミーダミーダミー
+            <!-- {{ Form::text('pre_enduser_address', ($request->pre_enduser_address),['class'=>'form-control', 'readonly'] ) }} -->
           </td>
-
           <td class="table-active">電話番号</td>
           <td>
             {{ Form::text('pre_enduser_tel', ($request->pre_enduser_tel),['class'=>'form-control', 'readonly'] ) }}
@@ -105,7 +105,8 @@
         <tr>
           <td class="table-active">利用者属性</td>
           <td>
-            {{ Form::text('pre_enduser_attr', ($request->pre_enduser_attr),['class'=>'form-control', 'readonly'] ) }}
+          ダミーダミーダミーダミー
+            <!-- {{ Form::text('pre_enduser_attr', ($request->pre_enduser_attr),['class'=>'form-control', 'readonly'] ) }} -->
           </td>
         </tr>
       </tbody>

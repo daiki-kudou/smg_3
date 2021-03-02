@@ -250,7 +250,7 @@
             <tbody>
               @foreach ($equipments as $key=>$equipment)
               <tr>
-                <td class="table-active">
+                <td>
                   {{$equipment->item}}
                 </td>
                 <td>
@@ -279,7 +279,7 @@
             <tbody>
               @foreach ($services as $key=>$service)
               <tr>
-                <td class="table-active">
+                <td>
                   {{$service->item}}
                 </td>
                 <td>
@@ -309,7 +309,7 @@
             <tbody>
               @if ($request->layout_prepare==1)
               <tr>
-                <td class="table-active">
+                <td>
                   準備
                 </td>
                 <td>
@@ -323,7 +323,7 @@
               </tr>
               @else
               <tr>
-                <td class="table-active">
+                <td>
                   準備
                 </td>
                 <td>
@@ -338,7 +338,7 @@
               @endif
               @if ($request->layout_clean==1)
               <tr>
-                <td class="table-active">
+                <td>
                   片付け
                 </td>
                 <td>
@@ -352,7 +352,7 @@
               </tr>
               @else
               <tr>
-                <td class="table-active">
+                <td>
                   片付け
                 </td>
                 <td>
