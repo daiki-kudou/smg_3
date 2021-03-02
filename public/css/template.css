@@ -563,6 +563,14 @@ table {
     width: 100%;
 }
 
+.search_category {
+    display: flex;
+}
+
+.search_category li {
+    margin-right: 0.8em;
+}
+
 .btn_box {
     width: 500px;
     margin: 30px auto;
