@@ -521,7 +521,6 @@
     </div>
     @else
     <div class="col">
-      <div class="client_mater">　
         <table class="table table-bordered name-table">
           <tr>
             <td colspan="2">
@@ -607,7 +606,6 @@
             </td>
           </tr>
         </table>
-      </div>
       <table class="table table-bordered sale-table">
         <tr>
           <td colspan="2">
