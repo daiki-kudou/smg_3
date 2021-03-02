@@ -671,6 +671,7 @@
         </div>
         @endif
 
+
         @if ($others_details!="")
         <div class="others" style="padding: 80px 0px 80px 0px; width:90%; margin:0 auto;">
           <table class="table table-borderless">
@@ -692,16 +693,16 @@
             <tbody class="others_main">
               @for ($other = 0; $other < $others_details; $other++) <tr>
                 <td>
-                  {{ Form::text('others_breakdown_item'.$i, $request->{'others_input_item'.$other},['class'=>'form-control', 'readonly'] ) }}
+                  {{ Form::text('others_breakdown_item'.$other, $request->{'others_input_item'.$other},['class'=>'form-control', 'readonly'] ) }}
                 </td>
                 <td>
-                  {{ Form::text('others_breakdown_cost'.$i, $request->{'others_input_cost'.$other},['class'=>'form-control', 'readonly'] ) }}
+                  {{ Form::text('others_breakdown_cost'.$other, $request->{'others_input_cost'.$other},['class'=>'form-control', 'readonly'] ) }}
                 </td>
                 <td>
-                  {{ Form::text('others_breakdown_count'.$i, $request->{'others_input_count'.$other},['class'=>'form-control', 'readonly'] ) }}
+                  {{ Form::text('others_breakdown_count'.$other, $request->{'others_input_count'.$other},['class'=>'form-control', 'readonly'] ) }}
                 </td>
                 <td>
-                  {{ Form::text('others_breakdown_subtotal'.$i, $request->{'others_input_subtotal'.$other},['class'=>'form-control', 'readonly'] ) }}
+                  {{ Form::text('others_breakdown_subtotal'.$other, $request->{'others_input_subtotal'.$other},['class'=>'form-control', 'readonly'] ) }}
                 </td>
                 </tr>
                 @endfor

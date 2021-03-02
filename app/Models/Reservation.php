@@ -141,6 +141,79 @@ class Reservation extends Model
     }
     return $result_subtotal;
   }
+  /*
+|--------------------------------------------------------------------------
+| 管理者　予約　保存
+|--------------------------------------------------------------------------|
+*/
+  public function ReserveStore($request)
+  {
+    DB::transaction(function () use ($request) { //トランザクションさせる
+      $reservation = $this->create([
+        'venue_id' => $request->venue_id,
+        'user_id' => $request->user_id,
+        'agent_id' => 0, //デフォで0
+        'reserve_date' => $request->reserve_date,
+        'price_system' => $request->price_system,
+        'enter_time' => $request->enter_time,
+        'leave_time' => $request->leave_time,
+        'board_flag' => $request->board_flag,
+        'event_start' => $request->event_start,
+        'event_finish' => $request->event_finish,
+        'event_name1' => $request->event_name1,
+        'event_name2' => $request->event_name2,
+        'event_owner' => $request->event_owner,
+        'luggage_count' => $request->luggage_count,
+        'luggage_arrive' => $request->luggage_arrive,
+        'luggage_return' => $request->luggage_return,
+        'email_flag' => $request->email_flag,
+        'in_charge' => $request->in_charge,
+        'tel' => $request->tel,
+        'cost' => $request->cost,
+        'discount_condition' => $request->discount_condition,
+        'attention' => $request->attention,
+        'user_details' => $request->user_details,
+        'admin_details' => $request->admin_details,
+      ]);
+      $reservation->ReserveStoreBill($request);
+    });
+  }
+
+  public function ReserveStoreBill($request)
+  {
+    DB::transaction(function () use ($request) {
+      $bill = $this->bills()->create([
+        'reservation_id' => $this->id,
+        'venue_price' => $request->venue_price,
+        'equipment_price' => $request->equipment_price ? $request->equipment_price : 0, //備品・サービス・荷物
+        'layout_price' => $request->layout_price ? $request->layout_price : 0,
+        'others_price' => $request->others_price ? $request->others_price : 0,
+        'master_subtotal' => $request->master_subtotal,
+        'master_tax' => $request->master_tax,
+        'master_total' => $request->master_total,
+        'payment_limit' => $request->payment_limit,
+        'bill_company' => $request->bill_company,
+        'bill_person' => $request->bill_person,
+        'bill_created_at' => Carbon::now(),
+        'bill_remark' => $request->bill_remark,
+        'paid' => $request->paid,
+        'pay_day' => $request->pay_day,
+        'pay_person' => $request->pay_person,
+        'payment' => $request->payment,
+        'reservation_status' => 1, //デフォで1、仮押さえのデフォは0
+        'double_check_status' => 0, //デフォで0
+        'category' => 1, //デフォで１。　新規以外だと　2:その他有料備品　3:レイアウト　4:その他
+        'admin_judge' => 1, //管理者作成なら1 ユーザー作成なら2
+      ]);
+      $bill->ReserveStoreBreakdown($request);
+    });
+  }
+
+
+
+
+
+
 
   /*
 |--------------------------------------------------------------------------
