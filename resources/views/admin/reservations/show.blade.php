@@ -631,7 +631,7 @@
             </p>
           </td>
         </tr>
-        <tr class="caution">
+        <!-- <tr class="caution">
           <td>
             <label for="caution">注意事項</label>
             <div>{{$reservation->attention}}</div>
@@ -642,7 +642,7 @@
             <label for="userNote">顧客情報の備考</label>
             <div>{{$reservation->user_details}}</div>
           </td>
-        </tr>
+        </tr> -->
         <tr>
           <td>
             <label for="adminNote">管理者備考</label>
@@ -788,7 +788,7 @@
           @if ($reservation->bills()->first()->reservation_status<=2) <div class="d-flex justify-content-end my-3">
             <p class="text-right">
               {{-- 予約ステータスを2にして、ユーザーにメール送付 --}}
-              {{-- <a class="more_btn_lg" href="">承認</a> --}}
+              {{-- <a class="more_btn_lg　mr-2" href="">承認</a> --}}
               {{ Form::open(['url' => 'admin/reservations/'.$reservation->id.'/send_email_and_approve', 'method'=>'POST', 'class'=>'']) }}
               @csrf
               {{ Form::hidden('reservation_id', $reservation->id ) }}
