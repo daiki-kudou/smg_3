@@ -14,9 +14,19 @@
   </div>
 </div>
 
-
-<h2 class="mt-3 mb-3">仲介会社　仮押さえ 新規作成</h2>
+<div class="container-field">
+  <div class="float-right">
+    <nav aria-label="breadcrumb">
+      <ol class="breadcrumb">
+        <li class="breadcrumb-item active">
+        ダミーダミーダミー
+        </li>
+      </ol>
+    </nav>
+  </div>
+  <h2 class="mt-3 mb-3">仲介会社　仮押さえ 新規作成</h2>
   <hr>
+</div>
 
 <section class="section-wrap">
 <div class="calendar">
@@ -45,7 +55,7 @@
   <table class="table table-bordered" style="table-layout: fixed;">
     <thead>
       <tr>
-        <th colspan="4">仲介会社の顧客情報</th>
+        <th colspan="4">エンドユーザー情報</th>
       </tr>
     </thead>
     <tbody>
@@ -62,23 +72,27 @@
       <tr>
         <td class="table-active">住所</td>
         <td>
+        ダミーダミーダミーダミー
           <!-- {{ Form::text('pre_enduser_name', '',['class'=>'form-control'] ) }} -->
         </td>
         <td class="table-active">電話番号</td>
         <td>
           {{ Form::text('pre_enduser_tel', '',['class'=>'form-control'] ) }}
         </td>
-
       </tr>
       <tr>
+      <td class="table-active">当日連絡先</td>
+        <td>
+          {{ Form::text('pre_enduser_mobile', '',['class'=>'form-control'] ) }}
+        </td>
       <td class="table-active">メールアドレス</td>
         <td>
           {{ Form::text('pre_enduser_email', '',['class'=>'form-control'] ) }}
         </td>
-        <td class="table-active">携帯番号</td>
-        <td>
-          {{ Form::text('pre_enduser_mobile', '',['class'=>'form-control'] ) }}
-        </td>
+      </tr>
+      <tr>
+      <td class="table-active">利用者属性</td>
+        <td>ダミーダミーダミー</td>
       </tr>
     </tbody>
   </table>
@@ -130,7 +144,7 @@
 
 <div class="submit_btn">
   <div class="d-flex justify-content-center">
-    {{Form::submit('確認する', ['class'=>'btn more_btn_lg mx-auto d-block', 'id'=>'check_submit'])}}
+    {{Form::submit('確認する', ['class'=>'btn more_btn_lg mx-auto d-block mt-5', 'id'=>'check_submit'])}}
   </div>
 </div>
 
