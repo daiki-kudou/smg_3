@@ -188,7 +188,7 @@ Route::namespace('Admin')->prefix('admin')->name('admin.')->group(function () {
     // 仲介会社経由　保存
     Route::post('agents_reservations', 'AgentsReservationsController@store');
     // 仲介会社経由　再計算
-    Route::post('agents_reservations/recalculate', 'AgentsReservationsController@recalculate')->name('agents_reservations.recalculate');
+    // Route::post('agents_reservations/recalculate', 'AgentsReservationsController@recalculate')->name('agents_reservations.recalculate');
     // 仲介会社　請求　追加
     Route::post('agents_reservations/add_bills/{reservation}', 'AgentsReservationsController@add_bills')->name('agents_reservations.add_bills');
     // 仲介会社　追加請求　確認

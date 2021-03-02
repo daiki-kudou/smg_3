@@ -76,55 +76,6 @@ class AgentsReservationsController extends Controller
     );
   }
 
-  public function recalculate(Request $request)
-  {
-
-    $all_requests = json_decode($request->all_requests, true);
-
-    echo "<pre>";
-    var_dump($all_requests);
-    echo "</pre>";
-
-    $venues = Venue::all();
-    $venue = $venues->find($all_requests['venue_id']);
-    $equipments = $venue->equipments()->get();
-    $services = $venue->services()->get();
-    $agents = Agent::all();
-
-    $s_equipment = [];
-    $s_services = [];
-    $s_others = [];
-    foreach ($all_requests as $key => $value) {
-      if (preg_match('/equipment_breakdown_count/', $key)) {
-        $s_equipment[] = $value;
-      }
-      if (preg_match('/services_breakdown/', $key)) {
-        $s_services[] = $value;
-      }
-      if (preg_match('/others_input/', $key)) {
-        $s_others[] = $value;
-      }
-    }
-    // $item_details = json_decode($all_requests['item_details']);
-
-    // $layouts_details = json_decode($all_requests['layouts_details']);
-
-    // $others_details = json_decode($request->others_details);
-
-    return view('admin.agents_reservations.re_calculate', [
-      'all_requests' => $all_requests,
-      'venues' => $venues,
-      'equipments' => $equipments,
-      'services' => $services,
-      's_equipment' => $s_equipment,
-      's_services' => $s_services,
-      's_others' => $s_others,
-      'agents' => $agents,
-      // 'item_details' => $item_details,
-      // 'layouts_details' => $layouts_details,
-      // 'others_details' => $others_details,
-    ]);
-  }
 
 
   public function check(Request $request)
@@ -147,7 +98,7 @@ class AgentsReservationsController extends Controller
 
   public function store(Request $request)
   {
-    var_dump($request->all());
+
 
     DB::transaction(function () use ($request) { //トランザクションさせる
       $reservation = Reservation::create([
@@ -224,7 +175,7 @@ class AgentsReservationsController extends Controller
             $s_arrays[] = $value;
           }
         }
-        var_dump($s_arrays);
+
         $counts = (count($s_arrays) / 2);
         for ($i = 0; $i < $counts; $i++) {
           $target->breakdowns()->create([
@@ -277,7 +228,7 @@ class AgentsReservationsController extends Controller
 
   public function add_bills(Request $request)
   {
-    var_dump($request->all());
+
     $reservation = Reservation::find($request->reservation_id);
     $percent = $reservation->agent->cost;
     $pay_limit = $reservation->agent->getAgentPayLimit($reservation->reserve_date);
@@ -310,9 +261,6 @@ class AgentsReservationsController extends Controller
       }
     }
 
-    echo "<pre>";
-    var_dump($s_venues);
-    echo "</pre>";
 
 
     return view('admin.agents_reservations.add_check', [
@@ -325,9 +273,6 @@ class AgentsReservationsController extends Controller
   }
   public function add_store(Request $request)
   {
-    echo "<pre>";
-    var_dump($request->all());
-    echo "</pre>";
 
     DB::transaction(function () use ($request) { //トランザクションさせる
       $bill = Bill::create([
