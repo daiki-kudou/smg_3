@@ -380,13 +380,11 @@ class ReservationHelper
     return $first;
   }
 
-
   public static function getLayoutPrice($venue_id)
   {
     $venue = Venue::find($venue_id);
     $prepare = $venue->layout_prepare;
     $clean = $venue->layout_clean;
-
     return [$prepare, $clean];
   }
 }

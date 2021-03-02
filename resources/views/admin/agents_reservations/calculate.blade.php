@@ -54,9 +54,9 @@ function addThisTr($targetTr, $TItem, $TCost, $TCount, $TSubtotal) {
 var count = $($targetTr).length;
 for (let index = 0; index < count; index++) {
   $($targetTr).eq(index).find('td').eq(0).find('input').attr('name', $TItem + index);
-  $($targetTr).eq(index).find('td').eq(1).find('input').attr('name', $TCost + index);
-  $($targetTr).eq(index).find('td').eq(2).find('input').attr('name', $TCount + index);
-  $($targetTr).eq(index).find('td').eq(3).find('input').attr('name', $TSubtotal + index);
+  $($targetTr).eq(index).find('td').eq(1).find('input').attr('name', $TCount + index);
+  // $($targetTr).eq(index).find('td').eq(2).find('input').attr('name', $TCount + index);
+  // $($targetTr).eq(index).find('td').eq(3).find('input').attr('name', $TSubtotal + index);
 }
 }
 
@@ -71,7 +71,7 @@ if ($(this).parent().parent().parent().attr('class') == "others_main") {
   for (let index = 0; index < count; index++) {
     // console.log(index);
     $('.others_main tr').eq(index).find('td').eq(0).find('input').attr('name', 'others_input_item' + index);
-    $('.others_main tr').eq(index).find('td').eq(1).find('input').attr('name', 'others_input_cost' + index);
+    $('.others_main tr').eq(index).find('td').eq(1).find('input').attr('name', 'others_input_count' + index);
   }
 }
 });
@@ -247,7 +247,6 @@ if ($(this).parent().parent().parent().attr('class') == "others_main") {
             </tr>
           </tbody>
         </table>
-
         <div class="equipemnts">
           <table class="table table-bordered">
             <thead>
@@ -634,6 +633,7 @@ if ($(this).parent().parent().parent().attr('class') == "others_main") {
                 </tr>
               </tbody>
               <tbody class="equipment_main">
+
                 @foreach ($SPvenue->getEquipments() as $key=>$equipment)
                 @if ($request->{'equipment_breakdown'.$key}>0)
                 <tr>
@@ -646,6 +646,7 @@ if ($(this).parent().parent().parent().attr('class') == "others_main") {
                 </tr>
                 @endif
                 @endforeach
+
                 @foreach ($SPvenue->getServices() as $key=>$service)
                 @if ($request->{'services_breakdown'.$key}>0)
                 <tr>
@@ -658,6 +659,7 @@ if ($(this).parent().parent().parent().attr('class') == "others_main") {
                 </tr>
                 @endif
                 @endforeach
+
                 @if (!empty($request->luggage_price))
                 <tr>
                   <td>

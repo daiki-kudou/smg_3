@@ -761,7 +761,6 @@
     </div>
   </section>
 
-
   <div class="container-field d-flex justify-content-center mt-5">
     <a href="javascript:$('#back').submit()" class="btn more_btn4_lg d-block mr-5">請求内訳を修正する</a>
     {{Form::submit('作成する', ['class'=>'d-block btn more_btn_lg', 'id'=>'check_submit'])}}

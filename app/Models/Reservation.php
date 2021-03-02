@@ -212,9 +212,6 @@ class Reservation extends Model
 
 
 
-
-
-
   /*
 |--------------------------------------------------------------------------
 | ユーザーからの予約
@@ -278,7 +275,6 @@ class Reservation extends Model
         'category' => 1, //デフォで１。　新規以外だと　2:その他有料備品　3:レイアウト　4:その他
         'admin_judge' => 2, //管理者作成なら1 ユーザー作成なら2
       ]);
-
 
       // 料金内訳
       if (json_decode($value->price_result)[1] == 0) {
@@ -356,50 +352,109 @@ class Reservation extends Model
           'unit_type' => 4,
         ]);
       }
-
-
-      // toBreakDown($request->all(), 'venue_breakdown', $bills, 1);
-      // toBreakDown($request->all(), 'equipment_breakdown', $bills, 2);
-      // toBreakDown($request->all(), 'service_breakdown', $bills, 3);
-      // toBreakDown($request->all(), 'others_breakdown', $bills, 5);
-      // if ($request->luggage_subtotal) {
-      //   $bills->breakdowns()->create([
-      //     'unit_item' => $request->luggage_item,
-      //     'unit_cost' => $request->luggage_cost,
-      //     'unit_count' => 1,
-      //     'unit_subtotal' => $request->luggage_subtotal,
-      //     'unit_type' => 3,
-      //   ]);
-      // }
-      // if ($request->layout_prepare_subtotal) {
-      //   $bills->breakdowns()->create([
-      //     'unit_item' => $request->layout_prepare_item,
-      //     'unit_cost' => $request->layout_prepare_cost,
-      //     'unit_count' => $request->layout_prepare_count,
-      //     'unit_subtotal' => $request->layout_prepare_subtotal,
-      //     'unit_type' => 4,
-      //   ]);
-      // }
-      // if ($request->layout_clean_subtotal) {
-      //   $bills->breakdowns()->create([
-      //     'unit_item' => $request->layout_clean_item,
-      //     'unit_cost' => $request->layout_clean_cost,
-      //     'unit_count' => $request->layout_clean_count,
-      //     'unit_subtotal' => $request->layout_clean_subtotal,
-      //     'unit_type' => 4,
-      //   ]);
-      // }
-      // if ($request->layout_breakdown_discount_item) {
-      //   $bills->breakdowns()->create([
-      //     'unit_item' => $request->layout_breakdown_discount_item,
-      //     'unit_cost' => $request->layout_breakdown_discount_cost,
-      //     'unit_count' => $request->layout_breakdown_discount_count,
-      //     'unit_subtotal' => $request->layout_breakdown_discount_subtotal,
-      //     'unit_type' => 4,
-      //   ]);
-      // }
     });
   }
+
+  // 仲介会社からの予約
+  public function ReserveFromAgent($request)
+  {
+    DB::transaction(function () use ($request) {
+      $reservation = $this->create([
+        'venue_id' => $request->venue_id,
+        'user_id' => 0, //デフォで0
+        'agent_id' => $request->agent_id,
+        'reserve_date' => $request->reserve_date,
+        'price_system' => $request->price_system,
+        'enter_time' => $request->enter_time,
+        'leave_time' => $request->leave_time,
+        'board_flag' => $request->board_flag,
+        'event_start' => $request->event_start,
+        'event_finish' => $request->event_finish,
+        'event_name1' => $request->event_name1,
+        'event_name2' => $request->event_name2,
+        'event_owner' => $request->event_owner,
+        'luggage_count' => $request->luggage_count,
+        'luggage_arrive' => $request->luggage_arrive,
+        'luggage_return' => $request->luggage_return,
+        'email_flag' => 0,
+        'in_charge' => '',
+        'tel' => '',
+        'cost' => 0,
+        'admin_details' => $request->admin_details,
+      ]);
+      $reservation->CreateEndUser($request);
+      $reservation->ReserveFromAgentBill($request);
+    });
+  }
+
+  public function CreateEndUser($request)
+  {
+    if (
+      !empty($request->enduser_company) ||
+      !empty($request->enduser_incharge) ||
+      !empty($request->enduser_address) ||
+      !empty($request->enduser_tel) ||
+      !empty($request->enduser_mail) ||
+      !empty($request->enduser_attr) ||
+      !empty($request->enduser_charge)
+    ) {
+      DB::transaction(function () use ($request) {
+        $this->enduser()->create([
+          'reservation_id' => $this->id,
+          'company' => $request->enduser_company,
+          'person' => $request->enduser_incharge,
+          'address' => $request->enduser_address,
+          'tel' => $request->enduser_tel,
+          'email' => $request->enduser_mail,
+          'attr' => $request->enduser_attr,
+          'charge' => $request->enduser_charge,
+        ]);
+      });
+    }
+  }
+
+  public function ReserveFromAgentBill($request)
+  {
+    DB::transaction(function () use ($request) {
+      $bill = $this->bills()->create([
+        'reservation_id' => $this->id,
+        'venue_price' => 0, //デフォで0
+        'equipment_price' => 0, //デフォで0
+        'layout_price' =>  $request->layouts_price ? $request->layouts_price : 0, //デフォで0
+        'others_price' => 0, //デフォで0
+        'master_subtotal' => $request->master_subtotal,
+        'master_tax' => $request->master_tax,
+        'master_total' => $request->master_total,
+        'payment_limit' => $request->pay_limit,
+        'bill_company' => $request->pay_company,
+        'bill_person' => $request->bill_person,
+        'bill_created_at' => Carbon::now(),
+        'bill_remark' => $request->bill_remark,
+        'paid' => $request->paid,
+        'pay_day' => $request->pay_day,
+        'pay_person' => $request->pay_person,
+        'payment' => $request->payment,
+        'reservation_status' => 1, //デフォで1、仮押さえのデフォは0
+        'double_check_status' => 0, //デフォで0
+        'category' => 1, //デフォで１。　新規以外だと　2:その他有料備品　3:レイアウト　4:その他
+        'admin_judge' => 1, //管理者作成なら1 ユーザー作成なら2
+      ]);
+      $bill->ReserveFromAgentBreakdown($request);
+    });
+  }
+
+
+
+
+
+
+
+
+
+
+
+
+
 
   /*
 |--------------------------------------------------------------------------
