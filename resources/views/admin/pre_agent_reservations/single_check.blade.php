@@ -312,7 +312,7 @@
             <tbody>
               @if ($venue->getLayouts()[0])
               <tr>
-                <td class="table-active">
+                <td>
                   準備
                 </td>
                 <td>
@@ -327,7 +327,7 @@
               @endif
               @if ($venue->getLayouts()[1])
               <tr>
-                <td class="table-active">
+                <td>
                   片付け
                 </td>
                 <td>
