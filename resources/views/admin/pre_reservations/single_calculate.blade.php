@@ -11,7 +11,7 @@
     <nav aria-label="breadcrumb">
       <ol class="breadcrumb">
         <li class="breadcrumb-item active">
-        ダミーダミーダミーダミーダミー
+        ダミーダミーダミー
         </li>
       </ol>
     </nav>
@@ -178,6 +178,7 @@
                 </select>
               </td>
             </tr>
+
           </tbody>
         </table>
 
@@ -411,13 +412,12 @@
       </div>
 
       <div class="col">
-        <div class="client_mater">　
           <table class="table table-bordered">
             <tbody>
               <tr>
                 <td colspan="2">
                   <p class="title-icon">
-                    <i class="fas fa-user-check" aria-hidden="true"></i>
+                    <i class="fas fa-user-check icon-size" aria-hidden="true"></i>
                     当日の連絡できる担当者
                   </p>
                 </td>
@@ -440,13 +440,12 @@
               </tr>
             </tbody>
           </table>
-        </div>
         <table class="table table-bordered mail-table">
           <tbody>
             <tr>
               <td colspan="2">
                 <p class="title-icon">
-                  <i class="fas fa-envelope" aria-hidden="true"></i>利用後の送信メール
+                  <i class="fas fa-envelope icon-size" aria-hidden="true"></i>利用後の送信メール
                 </p>
               </td>
             </tr>
