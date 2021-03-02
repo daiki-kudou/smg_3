@@ -166,7 +166,7 @@
             </td>
           </tr>
           <tr>
-            <td>案内板</td>
+            <td class="table-active">案内板</td>
             <td class="radio-box">
               <p><input type="radio" name="board_flag" value="0" checked=""><span>無し</span></p>
               <p><input type="radio" name="board_flag" value="1"><span>有り</span></p>
@@ -235,7 +235,7 @@
             <tbody>
               @foreach ($equipments as $key=>$equipment)
               <tr>
-                <td class="table-active">
+                <td>
                   {{$equipment->item}}
                 </td>
                 <td>
@@ -264,7 +264,7 @@
             <tbody>
               @foreach ($services as $key=>$service)
               <tr>
-                <td class="table-active">
+                <td>
                   {{$service->item}}
                 </td>
                 <td>
@@ -294,7 +294,7 @@
             <tbody>
               @if ($layouts[0]!=0)
               <tr>
-                <td class="table-active">
+                <td>
                   準備
                 </td>
                 <td>
@@ -309,7 +309,7 @@
               @endif
               @if ($layouts[1]!=0)
               <tr>
-                <td class="table-active">
+                <td>
                   片付け
                 </td>
                 <td>

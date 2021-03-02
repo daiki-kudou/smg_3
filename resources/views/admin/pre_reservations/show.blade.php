@@ -271,9 +271,11 @@
             <table class="table table-bordered service-table">
               <thead class="accordion-ttl">
                 <tr>
-                  <p class="title-icon fw-bolder py-1">
-                    <i class="fas fa-hand-holding-heart icon-size fa-fw"></i>有料サービス
-                  </p>
+                  <td colspan="2">
+                    <p class="title-icon fw-bolder py-1">
+                      <i class="fas fa-hand-holding-heart icon-size fa-fw"></i>有料サービス
+                    </p>
+                  </td>
                 </tr>
               </thead>
               <tbody class="accordion-wrap">

@@ -315,7 +315,7 @@
         <tr>
           <td colspan="2">
             <p class="title-icon">
-              <i class="fas fa-user-check icon-size"></i>エンドユーザー
+              <i class="fas fa-user-check icon-size"></i>エンドユーザー情報
             </p>
           </td>
         </tr>

@@ -6,7 +6,7 @@
 <link href="{{ asset('/css/template.css') }}" rel="stylesheet">
 {{-- <script src="{{ asset('/js/template.js') }}"></script> --}}
 
-<h2 class="mt-3 mb-3">仲介会社　仮押さえ 単発　計算</h2>
+<h2 class="mt-3 mb-3">仲介会社 仮長瀬　計算</h2>
 <hr>
 
 {{Form::open(['url' => 'admin/pre_agent_reservations/calculate', 'method' => 'POST', 'id'=>''])}}
@@ -67,7 +67,7 @@
     <table class="table table-bordered" style="table-layout: fixed;">
       <thead>
         <tr>
-          <th colspan="4">仲介会社の顧客情報 </th>
+          <th colspan="4">エンドユーザー情報 </th>
         </tr>
       </thead>
       <tbody>
@@ -76,12 +76,26 @@
           <td>
             {{ Form::text('pre_enduser_company', ($request->pre_enduser_company),['class'=>'form-control', 'readonly'] ) }}
           </td>
-          <td colspan="2"></td>
-        </tr>
-        <tr>
-          <td class="table-active">担当者指名</td>
+          <td class="table-active">担当者氏名</td>
           <td>
             {{ Form::text('pre_enduser_name', ($request->pre_enduser_name),['class'=>'form-control', 'readonly'] ) }}
+          </td>
+        </tr>
+        <tr>
+          <td class="table-active">住所</td>
+          <td>
+            {{ Form::text('pre_enduser_address', ($request->pre_enduser_address),['class'=>'form-control', 'readonly'] ) }}
+          </td>
+
+          <td class="table-active">電話番号</td>
+          <td>
+            {{ Form::text('pre_enduser_tel', ($request->pre_enduser_tel),['class'=>'form-control', 'readonly'] ) }}
+          </td>
+        </tr>
+        <tr>
+          <td class="table-active">当日連絡先</td>
+          <td>
+            {{ Form::text('pre_enduser_mobile', ($request->pre_enduser_mobile),['class'=>'form-control', 'readonly'] ) }}
           </td>
           <td class="table-active">メールアドレス</td>
           <td>
@@ -89,13 +103,9 @@
           </td>
         </tr>
         <tr>
-          <td class="table-active">携帯番号</td>
+          <td class="table-active">利用者属性</td>
           <td>
-            {{ Form::text('pre_enduser_mobile', ($request->pre_enduser_mobile),['class'=>'form-control', 'readonly'] ) }}
-          </td>
-          <td class="table-active">固定電話</td>
-          <td>
-            {{ Form::text('pre_enduser_tel', ($request->pre_enduser_tel),['class'=>'form-control', 'readonly'] ) }}
+            {{ Form::text('pre_enduser_attr', ($request->pre_enduser_attr),['class'=>'form-control', 'readonly'] ) }}
           </td>
         </tr>
       </tbody>
@@ -110,7 +120,7 @@
             <tr>
               <td colspan="2">
                 <p class="title-icon">
-                  <i class="fas fa-info-circle icon-size"></i>予約情報
+                  <i class="fas fa-info-circle icon-size"></i>仮押さえ情報
                 </p>
               </td>
             </tr>
@@ -240,7 +250,9 @@
               <tr>
                 <th colspan="2">
                   <div class="d-flex justify-content-between align-items-center">
-                    有料備品
+                    <p class="title-icon fw-bolder py-1">
+                      <i class="fas fa-wrench icon-size fa-fw"></i>有料備品
+                    </p>
                     <i class="fas fa-plus icon_plus hide" aria-hidden="true"></i>
                     <i class="fas fa-minus icon_minus" aria-hidden="true"></i>
                   </div>
@@ -250,7 +262,7 @@
             <tbody>
               @foreach ($venue->getEquipments() as $e_key=>$equipment)
               <tr>
-                <td class="table-active">
+                <td>
                   {{$equipment->item}}
                 </td>
                 <td>
@@ -267,7 +279,9 @@
               <tr>
                 <th colspan="2">
                   <div class="d-flex justify-content-between align-items-center">
-                    有料サービス
+                    <p class="title-icon fw-bolder py-1">
+                      <i class="fas fa-hand-holding-heart icon-size fa-fw"></i>有料サービス
+                    </p>
                     <i class="fas fa-plus icon_plus hide" aria-hidden="true"></i>
                     <i class="fas fa-minus icon_minus" aria-hidden="true"></i>
                   </div>
@@ -277,7 +291,7 @@
             <tbody>
               @foreach ($venue->getServices() as $s_key=>$service)
               <tr>
-                <td class="table-active">
+                <td>
                   {{$service->item}}
                 </td>
                 <td>
@@ -297,14 +311,18 @@
           <table class="table table-bordered">
             <thead>
               <tr>
-                <th colspan="2">レイアウト</th>
+                <th colspan='2'>
+                  <p class="title-icon">
+                    <i class="fas fa-th icon-size fa-fw"></i>レイアウト
+                  </p>
+                </th>
               </tr>
             </thead>
             <tbody>
               @if ($venue->getLayouts()[0])
               <tr>
-                <td class="table-active">
-                  レイアウト準備
+                <td>
+                  準備
                 </td>
                 <td>
                   <div class="form-check form-check-inline">
@@ -318,8 +336,8 @@
               @endif
               @if ($venue->getLayouts()[1])
               <tr>
-                <td class="table-active">
-                  レイアウト片付け
+                <td>
+                  片付け
                 </td>
                 <td>
                   <div class="form-check form-check-inline">
@@ -338,7 +356,11 @@
           <table class="table table-bordered">
             <thead>
               <tr>
-                <th colspan="2">荷物預かり</th>
+                <th colspan='2'>
+                  <p class="title-icon">
+                    <i class="fas fa-suitcase-rolling icon-size fa-fw"></i>荷物預かり
+                  </p>
+                </th>
               </tr>
             </thead>
             <tbody>
@@ -371,8 +393,6 @@
             </tbody>
           </table>
         </div>
-        <div class="price_details">
-        </div>
       </div>
 
       <div class="col">
@@ -381,7 +401,7 @@
             <tr>
               <td colspan="2">
                 <p class="title-icon">
-                  <i class="fas fa-yen-sign icon_size" aria-hidden="true"></i>仲介会社の顧客への支払い料
+                  <i class="fas fa-yen-sign icon-size" aria-hidden="true"></i>仲介会社の顧客からの入金額
                 </p>
               </td>
             </tr>
@@ -400,16 +420,16 @@
             <tr>
               <td colspan="2">
                 <p class="title-icon">
-                  <i class="fas fa-envelope icon_size" aria-hidden="true"></i>備考
+                  <i class="fas fa-envelope icon-size" aria-hidden="true"></i>備考
                 </p>
               </td>
             </tr>
-            <tr class="caution">
+            <!-- <tr class="caution">
               <td>
                 <label for="caution">注意事項</label>
                 {{ Form::textarea('attention', $request->attention,['class'=>'form-control', 'placeholder'=>'入力してください'] ) }}
               </td>
-            </tr>
+            </tr> -->
             <tr>
               <td>
                 <label for="userNote">申し込みフォーム備考</label>

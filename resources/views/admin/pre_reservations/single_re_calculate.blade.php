@@ -23,6 +23,8 @@
 
 {{ Form::open(['url' => 'admin/pre_reservations/'.$request->id.'/re_calculate', 'method'=>'POST', 'id'=>'']) }}
 @csrf
+
+<section class="section-wrap">
 <div class="selected_user">
   <table class="table table-bordered;">
     <thead>
@@ -556,6 +558,7 @@
     </button>
   </div>
 </div>
+</section>
 
 {{Form::close()}}
 
