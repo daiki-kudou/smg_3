@@ -8,13 +8,14 @@ use App\Http\Controllers\Controller;
 use App\Models\Reservation;
 use App\Models\Venue;
 use App\Models\Agent;
+use App\Models\Equipment;
+use App\Models\Service;
 
 use Carbon\Carbon;
 
 use Illuminate\Support\Facades\DB; //トランザクション用
 
 use App\Models\Bill;
-
 
 
 
@@ -33,36 +34,19 @@ class AgentsReservationsController extends Controller
 
   public function calculate(Request $request)
   {
-    $agent = Agent::find($request->agent_id);
-    $payment_limit = $agent->getAgentPayLimit($request->reserve_date);
-    $price = $agent->agentPriceCalculate($request->enduser_charge);
     $venues = Venue::all();
+    $SPvenue = $venues->find($request->venue_id);
     $agents = Agent::all();
+    $agent = $agents->find($request->agent_id);
+    $price = $agent->agentPriceCalculate($request->enduser_charge);
+    $payment_limit = $agent->getAgentPayLimit($request->reserve_date);
     $equipments = $venues->find($request->venue_id)->equipments()->get();
     $services = $venues->find($request->venue_id)->services()->get();
-
     $requests = $request->all();
-
     $carbon1 = new Carbon($request->enter_time);
     $carbon2 = new Carbon($request->leave_time);
-
     $usage_hours = $carbon1->diffInMinutes($carbon2);
     $usage_hours = $usage_hours / 60;
-
-    $s_equipment = [];
-    $s_services = [];
-    $s_others = [];
-    foreach ($requests as $key => $value) {
-      if (preg_match('/equipment_breakdown/', $key)) {
-        $s_equipment[] = $value;
-      }
-      if (preg_match('/services_breakdown/', $key)) {
-        $s_services[] = $value;
-      }
-      if (preg_match('/others_input/', $key)) {
-        $s_others[] = $value;
-      }
-    }
 
     $layout_price = 0;
     if ($request->layout_prepare > 0) {
@@ -75,26 +59,21 @@ class AgentsReservationsController extends Controller
     } else {
       $layout_price += 0;
     }
-
-    var_dump($layout_price);
     $price = $price + $layout_price;
-
-    return view('admin.agents_reservations.calculate', [
-      'price' => $price,
-      'venues' => $venues,
-      'equipments' => $equipments,
-      'services' => $services,
-      'agents' => $agents,
-      'requests' => $requests,
-      'payment_limit' => $payment_limit,
-      'usage_hours' => $usage_hours,
-      's_equipment' => $s_equipment,
-      's_services' => $s_services,
-      's_others' => $s_others,
-      'request' => $request,
-      'layout_price' => $layout_price,
-
-    ]);
+    return view(
+      'admin.agents_reservations.calculate',
+      compact(
+        'SPvenue',
+        'agents',
+        'agent',
+        'payment_limit',
+        'price',
+        'venues',
+        'request',
+        'usage_hours',
+        'layout_price'
+      )
+    );
   }
 
   public function recalculate(Request $request)
@@ -150,35 +129,20 @@ class AgentsReservationsController extends Controller
 
   public function check(Request $request)
   {
-    echo "<pre>";
-    var_dump($request->all());
-    echo "</pre>";
-
-    $s_equipments = [];
-    $s_services = [];
-    $s_others = [];
+    $venue = Venue::find($request->venue_id);
+    $others_details = [];
     foreach ($request->all() as $key => $value) {
-      if (preg_match('/equipment_breakdown/', $key)) {
-        $s_equipments[] = $value;
-      }
-      if (preg_match('/service_breakdown/', $key)) {
-        $s_services[] = $value;
-      }
-      if (preg_match('/others_input/', $key)) {
-        $s_others[] = $value;
+      if (preg_match('/others_input_item/', $key)) {
+        if (!empty($value)) {
+          $others_details[] = $value;
+        }
       }
     }
-
-    // var_dump($s_others);
-    $judge = array_filter($s_others);
-
-    return view('admin.agents_reservations.check', [
-      'request' => $request,
-      's_equipments' => $s_equipments,
-      's_services' => $s_services,
-      's_others' => $s_others,
-      'judge' => $judge,
-    ]);
+    $others_details = !empty($others_details) ? count($others_details) : "";
+    return view(
+      'admin.agents_reservations.check',
+      compact('request', 'venue', 'others_details')
+    );
   }
 
   public function store(Request $request)

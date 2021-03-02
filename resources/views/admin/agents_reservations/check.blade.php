@@ -192,13 +192,14 @@
             </tr>
           </thead>
           <tbody>
-            @for ($i = 0; $i < count($s_equipments)/2; $i++) <tr>
-              <td>{{$s_equipments[$i*2]}}</td>
+            @foreach ($venue->getEquipments() as $key=>$equ)
+            <tr>
+              <td>{{$equ->item}}</td>
               <td>
-                {{ Form::text('', $s_equipments[$i*2+1] ,['class'=>'form-control','readonly'] ) }}
+                {{ Form::text('equipment_breakdown'.$key, $request->{'equipment_breakdown_count'.$key} ,['class'=>'form-control','readonly'] ) }}
               </td>
-              </tr>
-              @endfor
+            </tr>
+            @endforeach
           </tbody>
         </table>
       </div>
@@ -216,13 +217,14 @@
             </tr>
           </thead>
           <tbody>
-            @for ($i = 0; $i < count($s_services)/2; $i++) <tr>
-              <td>{{$s_services[$i*2]}}</td>
+            @foreach ($venue->getServices() as $key=>$ser)
+            <tr>
+              <td>{{$ser->item}}</td>
               <td>
-                {{ Form::text('', $s_services[$i*2+1] ,['class'=>'form-control','readonly'] ) }}
+                {{ Form::text('services_breakdown'.$key, $request->{'service_breakdown_count'.$key} ,['class'=>'form-control','readonly'] ) }}
               </td>
-              </tr>
-              @endfor
+            </tr>
+            @endforeach
           </tbody>
         </table>
       </div>
@@ -237,13 +239,13 @@
             <tr>
               <td>レイアウト準備</td>
               <td>
-                {{ Form::text('', $request->layout_prepare_count ,['class'=>'form-control','readonly'] ) }}
+                {{ Form::text('layout_prepare_count', $request->layout_prepare_count ,['class'=>'form-control','readonly'] ) }}
               </td>
             </tr>
             <tr>
               <td>レイアウト片付</td>
               <td>
-                {{ Form::text('', $request->layout_clean_count ,['class'=>'form-control','readonly'] ) }}
+                {{ Form::text('layout_clean_count', $request->layout_clean_count ,['class'=>'form-control','readonly'] ) }}
               </td>
             </tr>
           </tbody>
@@ -390,7 +392,6 @@
           </td>
           <td class="d-flex align-items-center">
             {{ Form::text('enduser_charge', $request->enduser_charge,['class'=>'form-control', 'readonly'] ) }}
-
           </td>
         </tr>
       </table>
@@ -418,7 +419,6 @@
           <td>
             <label for="adminNote">管理者備考</label>
             {{ Form::textarea('admin_details', $request->admin_details,['class'=>'form-control', 'placeholder'=>'入力してください'] ) }}
-
           </td>
         </tr>
       </table>
@@ -518,35 +518,41 @@
               </tr>
             </tbody>
             <tbody class="equipment_main">
-              @for ($i = 0; $i < count($s_equipments)/2; $i++) <tr>
+              @foreach ($venue->getEquipments() as $key=>$equ)
+              @if (!empty($request->{'equipment_breakdown_item'.$key}))
+              <tr>
                 <td>
-                  {{ Form::text('equipment_breakdown_item'.$i, $s_equipments[$i*2] ,['class'=>'form-control','readonly'] ) }}
+                  {{ Form::text('equipment_breakdown_item'.$key, $request->{'equipment_breakdown_item'.$key} ,['class'=>'form-control','readonly'] ) }}
                 </td>
                 <td>
-                  {{ Form::text('equipment_breakdown_count'.$i, $s_equipments[$i*2+1] ,['class'=>'form-control','readonly'] ) }}
+                  {{ Form::text('equipment_breakdown_count'.$key, $request->{'equipment_breakdown_count'.$key} ,['class'=>'form-control','readonly'] ) }}
                 </td>
-                </tr>
-                @endfor
-                @for ($i = 0; $i < count($s_services)/2; $i++) <tr>
-                  <td>
-                    {{ Form::text('service_breakdown_item'.$i, $s_services[$i*2] ,['class'=>'form-control','readonly'] ) }}
-                  </td>
-                  <td>
-                    {{ Form::text('service_breakdown_count'.$i, $s_services[$i*2+1] ,['class'=>'form-control','readonly'] ) }}
-                  </td>
-                  </tr>
-                  @endfor
+              </tr>
+              @endif
+              @endforeach
 
-                  @if ($request->luggage_count)
-                  <tr>
-                    <td>
-                      {{ Form::text('luggage_item', $request->luggage_item ,['class'=>'form-control','readonly'] ) }}
-                    </td>
-                    <td>
-                      {{ Form::text('luggage_count', $request->luggage_count ,['class'=>'form-control','readonly'] ) }}
-                    </td>
-                  </tr>
-                  @endif
+              @foreach ($venue->getServices() as $key=>$ser)
+              @if (!empty($request->{'service_breakdown_item'.$key}))
+              <tr>
+                <td>
+                  {{ Form::text('service_breakdown_item'.$key, $request->{'service_breakdown_item'.$key} ,['class'=>'form-control','readonly'] ) }}
+                </td>
+                <td>
+                  {{ Form::text('service_breakdown_count'.$key, $request->{'service_breakdown_count'.$key} ,['class'=>'form-control','readonly'] ) }}
+                </td>
+              </tr>
+              @endif
+              @endforeach
+              @if ($request->luggage_count)
+              <tr>
+                <td>
+                  {{ Form::text('luggage_item', $request->luggage_item ,['class'=>'form-control','readonly'] ) }}
+                </td>
+                <td>
+                  {{ Form::text('luggage_count', $request->luggage_count ,['class'=>'form-control','readonly'] ) }}
+                </td>
+              </tr>
+              @endif
             </tbody>
           </table>
         </div>
@@ -615,6 +621,7 @@
         </div>
 
         {{-- 以下、その他 --}}
+        @if ($others_details!="")
         <div class="others" style="padding: 80px 0px 80px 0px; width:90%; margin:0 auto;">
           <table class="table table-borderless" style="table-layout: fixed;">
             <tr>
@@ -631,20 +638,19 @@
               </tr>
             </tbody>
             <tbody class="others_main">
-              @if (!empty($judge))
-              @for ($i = 0; $i < count($s_others)/2; $i++) <tr>
+              @for ($i = 0; $i < $others_details; $i++) <tr>
                 <td>
-                  {{ Form::text('others_breakdown_item'.$i, $s_others[$i*2] ,['class'=>'form-control','readonly'] ) }}
+                  {{ Form::text('others_breakdown_item'.$i, $request->{'others_input_item'.$i} ,['class'=>'form-control','readonly'] ) }}
                 </td>
                 <td>
-                  {{ Form::text('others_breakdown_count'.$i, $s_others[$i*2+1] ,['class'=>'form-control','readonly'] ) }}
+                  {{ Form::text('others_breakdown_count'.$i, $request->{'others_input_count'.$i} ,['class'=>'form-control','readonly'] ) }}
                 </td>
                 </tr>
                 @endfor
-                @endif
             </tbody>
           </table>
         </div>
+        @endif
         {{-- 以下、総合計 --}}
         <div class="bill_total d-flex justify-content-end"
           style="padding: 80px 0px 80px 0px; width:90%; margin:0 auto;">
@@ -704,7 +710,6 @@
               </td>
               <td>
                 担当者{{ Form::text('bill_person', ReservationHelper::getAgentPerson($request->agent_id),['class'=>'form-control', 'readonly'] ) }}
-
               </td>
             </tr>
             <tr>
@@ -754,19 +759,96 @@
 </div>
 
 <div class="container-field d-flex justify-content-center" style="margin-top: 80px;">
-  <a href="javascript:$('#test_post').submit()" class="mt-5 mb-5 btn btn-danger btn-lg mr-5">請求内訳を修正する</a>
+  <a href="javascript:$('#back').submit()" class="mt-5 mb-5 btn btn-danger btn-lg mr-5">請求内訳を修正する</a>
   {{Form::submit('作成する', ['class'=>'btn btn-primary d-block btn-lg mt-5 mb-5', 'id'=>'check_submit'])}}
   {{Form::close()}}
 </div>
-<style>
-  .test_post {
-    display: none !important;
-  }
-</style>
-{{Form::open(['route' => 'admin.agents_reservations.recalculate', 'method' => 'POST','id'=>'test_post'])}}
-{{ Form::hidden('all_requests', json_encode($request->all()),['class'=>'form-control','readonly'])}}
-{{-- {{ Form::hidden('others_details', json_encode($others_details),['class'=>'form-control','readonly'])}} --}}
-{{Form::submit('', ['class'=>'d-block btn btn-primary btn-lg test_post', 'id'=>'check_submit'])}}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+{{Form::open(['url' => 'admin/agents_reservations/calculate', 'method' => 'POST', 'id'=>'back'])}}
+{{ Form::hidden('reserve_date', $request->reserve_date) }}
+{{ Form::hidden('venue_id', $request->venue_id)}}
+{{ Form::hidden('price_system', $request->price_system)}}
+{{ Form::hidden('enter_time', $request->enter_time)}}
+{{ Form::hidden('leave_time', $request->leave_time)}}
+{{ Form::hidden('board_flag', $request->board_flag)}}
+{{ Form::hidden('event_start', $request->event_start)}}
+{{ Form::hidden('event_finish', $request->event_start)}}
+{{ Form::hidden('event_name1', $request->event_name1)}}
+{{ Form::hidden('event_name2', $request->event_name2)}}
+{{ Form::hidden('event_owner', $request->event_owner)}}
+@foreach ($venue->getEquipments() as $key=>$equ)
+{{ Form::hidden('equipment_breakdown'.$key, $request->{'equipment_breakdown_count'.$key})}}
+@endforeach
+@foreach ($venue->getServices() as $key=>$ser)
+{{ Form::hidden('services_breakdown'.$key, $request->{'service_breakdown_count'.$key})}}
+@endforeach
+{{ Form::hidden('layout_prepare_count', $request->layout_prepare_count)}}
+{{ Form::hidden('layout_clean_count', $request->layout_clean_count)}}
+{{ Form::hidden('luggage_count', $request->luggage_count)}}
+{{ Form::hidden('luggage_arrive', $request->luggage_arrive)}}
+{{ Form::hidden('luggage_return', $request->luggage_return)}}
+{{ Form::hidden('luggage_price', $request->luggage_price)}}
+{{ Form::hidden('agent_id', $request->agent_id,['class'=>'form-control'])}}
+{{ Form::hidden('enduser_company', $request->enduser_company)}}
+{{ Form::hidden('enduser_incharge', $request->enduser_incharge)}}
+{{ Form::hidden('enduser_address', $request->enduser_address)}}
+{{ Form::hidden('enduser_tel', $request->enduser_tel)}}
+{{ Form::hidden('enduser_mail', $request->enduser_mail)}}
+{{ Form::hidden('enduser_attr', $request->enduser_attr)}}
+{{ Form::hidden('enduser_charge', $request->enduser_charge)}}
+{{ Form::hidden('attention', $request->attention)}}
+{{ Form::hidden('user_details', $request->user_details)}}
+{{ Form::hidden('admin_details', $request->admin_details)}}
+
 {{Form::close()}}
 
 

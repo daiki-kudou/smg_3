@@ -2,6 +2,8 @@
 $(function () {
   // 日付選択画面にてボックス内、検索機能
   $('#user_select').select2({ width: '100%' });
+  $('#venues_selector').select2({ width: '100%' });
+  $('#agent_select').select2({ width: '100%' });
   // $('#venues_selector').select2({ width: '100%' });
 });
 // datepicker
@@ -32,6 +34,8 @@ $(document).on('click', 'input', function (e) {
   ExceptString(tel);
   var equ = $("input[name^='equipment_breakdown']");
   ExceptString(equ);
+  var end = $("input[name^='enduser_charge']");
+  ExceptString(end);
 });
 
 

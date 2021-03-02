@@ -6,12 +6,13 @@
 
 
 <link href="{{ asset('/css/template.css') }}" rel="stylesheet">
-<script src="{{ asset('/js/template.js') }}"></script>
+<script src="{{ asset('/js/admin/reservation.js') }}"></script>
 <script src="{{ asset('/js/ajax.js') }}"></script>
-<script src="{{ asset('/js/validation.js') }}"></script>
+<script src="{{ asset('/js/admin/validation.js') }}"></script>
 
 
-{{-- ajax画面変遷時の待機画面 --}}
+
+
 <style>
   #fullOverlay {
     position: absolute;
@@ -45,17 +46,6 @@
   </div>
 </div>
 
-{{-- <div class="container-field mt-3">
-  <div class="float-right">
-    <nav aria-label="breadcrumb">
-      <ol class="breadcrumb">
-        <li class="breadcrumb-item active">{{ Breadcrumbs::render(Route::currentRouteName()) }}</li>
-</ol>
-</nav>
-</div>
-<h1 class="mt-3 mb-5">予約　新規登録</h1>
-<hr>
-</div> --}}
 
 
 {{Form::open(['url' => 'admin/agents_reservations/calculate', 'method' => 'POST', 'id'=>'agentReservationCreateForm'])}}
@@ -70,7 +60,7 @@
         <tr>
           <td class="table-active form_required">利用日</td>
           <td>
-            {{ Form::text('reserve_date', '' ,['class'=>'form-control', 'id'=>'datepicker1', 'placeholder'=>'入力してください'] ) }}
+            {{ Form::text('reserve_date', '' ,['class'=>'form-control', 'id'=>'datepicker', 'placeholder'=>'入力してください'] ) }}
             <p class="is-error-reserve_date" style="color: red"></p>
           </td>
         </tr>
@@ -100,6 +90,7 @@
                   {{Form::label('price_system_radio2','アクセア（時間貸）')}}
                 </div>
               </div>
+              <p class="is-error-price_system" style="color: red"></p>
             </div>
           </td>
         </tr>
@@ -276,7 +267,7 @@
                 </option>
                 @endforeach
               </select>
-              <p class="is-error-user_id" style="color: red"></p>
+              <p class="is-error-agent_id" style="color: red"></p>
             </td>
           </tr>
           <tr>
@@ -356,10 +347,13 @@
           <td class="table-active form_required">
             <label for="enduser_charge ">支払い料</label>
           </td>
-          <td class="d-flex align-items-center">
-            {{ Form::number('enduser_charge', old('enduser_charge'),['class'=>'form-control sales_percentage', 'placeholder'=>'入力してください'] ) }}円
+          <td class="d-flex align-items-center flex-wrap">
+            {{ Form::text('enduser_charge', old('enduser_charge'),['class'=>'form-control sales_percentage', 'placeholder'=>'入力してください'] ) }}
+            <p class="is-error-enduser_charge" style="color: red"></p>
           </td>
         </tr>
+
+
       </table>
       <table class="table table-bordered note-table">
         <tr>

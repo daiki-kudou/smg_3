@@ -86,3 +86,82 @@ $(function () {
     // }
   });
 })
+
+
+// 仲介会社新規作成
+$(function () {
+  $("#agentReservationCreateForm").validate({
+    rules: {
+      reserve_date: {
+        required: true,
+      },
+      venue_id: {
+        required: true,
+      },
+      price_system: {
+        required: true,
+      },
+      enter_time: {
+        required: true,
+      },
+      leave_time: {
+        required: true,
+      },
+      agent_id: {
+        required: true,
+      },
+      enduser_charge: {
+        required: true,
+        min: 1
+      },
+    },
+    messages: {
+      reserve_date: {
+        required: "※必須項目です",
+      },
+      venue_id: {
+        required: "※必須項目です",
+      },
+      price_system: {
+        required: '※必須項目です',
+      },
+      enter_time: {
+        required: "※必須項目です",
+      },
+      leave_time: {
+        required: "※必須項目です",
+      },
+      agent_id: {
+        required: "※必須項目です",
+      },
+      enduser_charge: {
+        required: "※必須項目です",
+        min: "※最低でも1以上を入力してください"
+
+      },
+
+    },
+    errorPlacement: function (error, element) {
+      var name = element.attr('name');
+      if (element.attr('name') === 'category[]') {
+        error.appendTo($('.is-error-category'));
+      } else if (element.attr('name') === name) {
+        error.appendTo($('.is-error-' + name));
+      }
+    },
+    errorElement: "span",
+    errorClass: "is-error",
+    //送信前にLoadingを表示
+    submitHandler: function (form) {
+      $('.spin_btn').removeClass('hide');
+      $('.submit_btn').addClass('hide');
+      form.submit();
+    }
+  });
+  $('input').on('blur', function () {
+    $(this).valid();
+    // if ($('span').hasClass('is-error')) {
+    //   $('span').css('background', 'white');
+    // }
+  });
+})
