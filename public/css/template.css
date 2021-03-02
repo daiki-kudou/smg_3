@@ -667,10 +667,14 @@ table td.table_column p:last-child {
     /* width: 60%; */
     /* margin-top: 10px; */
 }
-.radio-box p {
-    margin-right: 0.5em;
+
+.radio-box span {
+    margin-left: 0.3em;
 }
 
+.radio-box p {
+    margin-right: 0.8em;
+}
 
 .note-table textarea {
     width: 100%;

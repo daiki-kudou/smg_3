@@ -9,24 +9,10 @@
 <h2 class="mt-3 mb-3">単発　仮抑え　詳細入力画面</h2>
 <hr>
 
-<div class="container-field">
-  <div class="float-right">
-    <nav aria-label="breadcrumb">
-      <ol class="breadcrumb">
-        <li class="breadcrumb-item active">
-          ダミーダミーダミーダミー
-        </li>
-      </ol>
-    </nav>
-  </div>
-  <h2 class="mt-3 mb-3">仮抑え　詳細入力画面</h2>
-  <hr>
-</div>
-
 {{ Form::open(['url' => 'admin/pre_reservations/calculate', 'method'=>'POST', 'id'=>'pre_reservationSingleCheckForm']) }}
 @csrf
 <section class="section-wrap">
-  <div class="selected_user">
+  <div class="selected_user mt-5">
     <table class="table table-bordered" style="table-layout: fixed;">
       <thead>
         <tr>
@@ -181,9 +167,9 @@
           </tr>
           <tr>
             <td>案内板</td>
-            <td class="radio-box">
-              <p><input type="radio" name="board_flag" value="0" checked=""><span>無し</span></p>
-              <p><input type="radio" name="board_flag" value="1"><span>有り</span></p>
+            <td>
+              <input type="radio" name="board_flag" value="0" checked="">無し
+              <input type="radio" name="board_flag" value="1">有り
             </td>
           </tr>
           <tr>
@@ -237,9 +223,7 @@
               <tr>
                 <th colspan="2">
                   <div class="d-flex justify-content-between align-items-center">
-                    <p class="title-icon fw-bolder py-1">
-                      <i class="fas fa-wrench icon-size fa-fw"></i>有料備品
-                    </p>
+                    有料備品
                     <i class="fas fa-plus icon_plus hide" aria-hidden="true"></i>
                     <i class="fas fa-minus icon_minus" aria-hidden="true"></i>
                   </div>
@@ -266,9 +250,7 @@
               <tr>
                 <th colspan="2">
                   <div class="d-flex justify-content-between align-items-center">
-                    <p class="title-icon fw-bolder py-1">
-                      <i class="fas fa-hand-holding-heart icon-size fa-fw"></i>有料サービス
-                    </p>
+                    有料サービス
                     <i class="fas fa-plus icon_plus hide" aria-hidden="true"></i>
                     <i class="fas fa-minus icon_minus" aria-hidden="true"></i>
                   </div>
@@ -298,18 +280,14 @@
           <table class="table table-bordered">
             <thead>
               <tr>
-                <th colspan='2'>
-                  <p class="title-icon">
-                    <i class="fas fa-th icon-size fa-fw"></i>レイアウト
-                  </p>
-                </th>
+                <th colspan="2">レイアウト</th>
               </tr>
             </thead>
             <tbody>
               @if ($layouts[0]!=0)
               <tr>
                 <td class="table-active">
-                  準備
+                  レイアウト準備
                 </td>
                 <td>
                   <div class="form-check form-check-inline">
@@ -324,7 +302,7 @@
               @if ($layouts[1]!=0)
               <tr>
                 <td class="table-active">
-                  片付け
+                  レイアウト片付け
                 </td>
                 <td>
                   <div class="form-check form-check-inline">
@@ -343,9 +321,7 @@
           <table class="table table-bordered">
             <thead>
               <tr>
-                <p class="title-icon">
-                  <i class="fas fa-suitcase-rolling icon-size fa-fw"></i>荷物預かり
-                </p>
+                <th colspan="2">荷物預かり</th>
               </tr>
             </thead>
             <tbody>
@@ -384,54 +360,52 @@
 
       <div class="col">
         <!-- <div class="client_mater">　 -->
-        <table class="table table-bordered">
-          <tbody>
-            <tr>
-              <td colspan="2">
-                <p class="title-icon">
-                  <i class="fas fa-user-check icon-size" aria-hidden="true"></i>
-                  当日の連絡できる担当者
-                </p>
-              </td>
-            </tr>
-            <tr>
-              <td class="table-active"><label for="ondayName" class=" form_required">氏名</label></td>
-              <td>
-                {{ Form::text('in_charge', '',['class'=>'form-control'] ) }}
-                <p class="is-error-in_charge" style="color: red"></p>
-              </td>
-            </tr>
-            <tr>
-              <td class="table-active"><label for="mobilePhone" class=" form_required">携帯番号</label></td>
-              <td>
-                {{ Form::text('tel', '',['class'=>'form-control'] ) }}
-                <p class="is-error-tel" style="color: red"></p>
-              </td>
-            </tr>
-          </tbody>
-        </table>
+          <table class="table table-bordered">
+            <tbody>
+              <tr>
+                <td colspan="2">
+                  <p class="title-icon">
+                    <i class="fas fa-user-check icon_size" aria-hidden="true"></i>
+                    当日の連絡できる担当者
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td class="table-active"><label for="ondayName" class=" form_required">氏名</label></td>
+                <td>
+                  {{ Form::text('in_charge', '',['class'=>'form-control'] ) }}
+                  <p class="is-error-in_charge" style="color: red"></p>
+                </td>
+              </tr>
+              <tr>
+                <td class="table-active"><label for="mobilePhone" class=" form_required">携帯番号</label></td>
+                <td>
+                  {{ Form::text('tel', '',['class'=>'form-control'] ) }}
+                  <p class="is-error-tel" style="color: red"></p>
+                </td>
+              </tr>
+            </tbody>
+          </table>
         <!-- </div> -->
         <table class="table table-bordered mail-table">
           <tbody>
             <tr>
               <td colspan="2">
                 <p class="title-icon">
-                  <i class="fas fa-envelope icon-size" aria-hidden="true"></i>利用後の送信メール
+                  <i class="fas fa-envelope icon_size" aria-hidden="true"></i>利用後の送信メール
                 </p>
               </td>
             </tr>
             <tr>
               <td class="table-active"><label for="email_flag">送信メール</label></td>
               <td>
-                <div class="form-check form-check-inline radio-box">
-                  <p>
-                  {{Form::radio('email_flag', 1, false , ['id' => 'email_flag', 'class' => 'form-check-input'])}}
-                  <label for="{{'email_flag'}}" class="form-check-label">有り</label>
-                  </p>
-                  <p>
-                  {{Form::radio('email_flag', 0, true, ['id' => 'no_email_flag', 'class' => 'form-check-input'])}}
-                  <label for="{{'no_email_flag'}}" class="form-check-label">無し</label>
-                  </p>
+                <div class="radio-box">
+                  <div class="form-check form-check-inline">
+                    {{Form::radio('email_flag', 1, false , ['id' => 'email_flag', 'class' => 'form-check-input'])}}
+                    <label for="{{'email_flag'}}" class="form-check-label">有り</label>
+                    {{Form::radio('email_flag', 0, true, ['id' => 'no_email_flag', 'class' => 'form-check-input'])}}
+                    <label for="{{'no_email_flag'}}" class="form-check-label">無し</label>
+                  </div>
                 </div>
               </td>
             </tr>
@@ -442,7 +416,7 @@
             <tr>
               <td colspan="2">
                 <p class="title-icon">
-                  <i class="fas fa-file-alt icon-size" aria-hidden="true"></i>備考
+                  <i class="fas fa-envelope icon_size" aria-hidden="true"></i>備考
                 </p>
               </td>
             </tr>
