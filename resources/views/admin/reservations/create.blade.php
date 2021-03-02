@@ -201,7 +201,6 @@
               <td class="table-active">イベント名称1</td>
               <td>
                 {{ Form::text('event_name1','',['class'=>'form-control', 'placeholder'=>'入力してください'] ) }}
-
               </td>
             </tr>
             <tr>
@@ -349,7 +348,6 @@
             </tr>
           </tbody>
         </table>
-        <!-- </div> -->
 
         <table class="table table-bordered mail-table">
           <tbody>
@@ -395,7 +393,7 @@
             <tr>
               <td colspan="2">
                 <p class="title-icon">
-                  <i class="fas fa-envelope icon-size" aria-hidden="true"></i>備考
+                  <i class="fas fa-file-alt icon-size" aria-hidden="true"></i>備考
                 </p>
               </td>
             </tr>
