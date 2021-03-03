@@ -7,9 +7,6 @@
 <script src="{{ asset('/js/template.js') }}"></script>
 
 
-
-
-
 <div class="content">
   <div class="container-fluid">
     <div class="container-field mt-3">
@@ -55,7 +52,6 @@
     </p>
     @endif
     @endif
-
 
   </div>
   <div class="col-12 btn-wrapper2">
@@ -152,8 +148,8 @@
               </tr>
             </thead>
             <tbody class="accordion-wrap">
-              @foreach ($equipments as $equipment)
-              @foreach ($breakdowns as $breakdown)
+              @foreach ($venue->getEquipments() as $equipment)
+              @foreach ($reservation->breakdowns()->get() as $breakdown)
               @if ($equipment->item==$breakdown->unit_item)
               <tr>
                 <td class="justify-content-between d-flex">
@@ -178,8 +174,8 @@
               <tr>
                 <td colspan="2">
                   <ul class="icheck-primary">
-                    @foreach ($services as $service)
-                    @foreach ($breakdowns as $breakdown)
+                    @foreach ($venue->getServices() as $service)
+                    @foreach ($reservation->breakdowns()->get() as $breakdown)
                     @if ($service->item==$breakdown->unit_item)
                     <li>
                       {{$service->item}}({{$service->price}}円)
@@ -193,7 +189,7 @@
               <tr>
                 <td class="table-active"><label for="layout">レイアウト変更</label></td>
                 <td>
-                  @foreach ($breakdowns as $breakdown)
+                  @foreach ($reservation->breakdowns()->get() as $breakdown)
                   @if ($breakdown->unit_type==3)
                   あり
                   @break
@@ -204,7 +200,7 @@
               <tr>
                 <td class="table-active"><label for="prelayout">レイアウト準備</label></td>
                 <td>
-                  @foreach ($breakdowns as $breakdown)
+                  @foreach ($reservation->breakdowns()->get() as $breakdown)
                   {{$breakdown->unit_item=='レイアウト準備'?'あり':''}}
                   @endforeach
                 </td>
@@ -212,7 +208,7 @@
               <tr>
                 <td class="table-active"><label for="postlayout">レイアウト片付</label></td>
                 <td>
-                  @foreach ($breakdowns as $breakdown)
+                  @foreach ($reservation->breakdowns()->get() as $breakdown)
                   {{$breakdown->unit_item=='レイアウト片付'?'あり':''}}
                   @endforeach
                 </td>
@@ -220,7 +216,7 @@
               <tr>
                 <td class="table-active"><label for="Delivery">荷物預かり/返送</label></td>
                 <td>
-                  @foreach ($breakdowns as $breakdown)
+                  @foreach ($reservation->breakdowns()->get() as $breakdown)
                   {{$breakdown->unit_item=='荷物預かり/返送'?'あり':''}}
                   @endforeach
                 </td>
@@ -303,26 +299,19 @@
               <tr>
                 <td class="table-active"><label for="company">会社名・団体名</label></td>
                 <td>
-                  @if ($reservation->user_id>0)
                   {{$user->company}}
-                  @endif
                 </td>
               </tr>
               <tr>
                 <td class="table-active"><label for="name">担当者氏名</label></td>
                 <td>
-                  @if ($reservation->user_id>0)
                   {{ReservationHelper::getPersonName($user->id)}}
-                  @endif
                 </td>
               </tr>
               <tr>
                 <td class="table-active">担当者氏名(フリガナ)</td>
                 <td>
-                  @if ($reservation->user_id>0)
                   {{ReservationHelper::getPersonNameKANA($user->id)}}
-                  @endif
-
                 </td>
               </tr>
               <tr>
@@ -332,17 +321,13 @@
                     <li>
                       <p>携帯番号</p>
                       <p>
-                        @if ($reservation->user_id>0)
                         {{$user->mobile}}
-                        @endif
                       </p>
                     </li>
                     <li>
                       <p>固定番号</p>
                       <p>
-                        @if ($reservation->user_id>0)
                         {{$user->tel}}
-                        @endif
                       </p>
                     </li>
                   </ul>
@@ -351,17 +336,13 @@
               <tr>
                 <td class="table-active">メールアドレス</td>
                 <td>
-                  @if ($reservation->user_id>0)
                   {{$user->email}}
-                  @endif
                 </td>
               </tr>
               <tr>
                 <td class="table-active">顧客属性</td>
                 <td>
-                  @if ($reservation->user_id>0)
                   {{$user->attr}}
-                  @endif
                 </td>
               </tr>
               <tr>
@@ -378,9 +359,7 @@
                 <td colspan="2">
                   <p>注意事項</p>
                   <p>
-                    @if ($reservation->user_id>0)
                     {{$user->attention}}
-                    @endif
                   </p>
                 </td>
               </tr>
@@ -687,7 +666,6 @@
                 <div class="d-flex">
                   <p class="bg-success p-2">一人目チェック</p>
                   <p class="border p-2">未
-                    {{-- <button class="btn more_btn first_double_check">チェックをする</button> --}}
                   </p>
                 </div>
               </td>
@@ -775,7 +753,6 @@
               </div>
               @endif
               @endif
-
               @endif
         </div>
       </div>
@@ -1270,10 +1247,10 @@
       </div>
       @endif
     </div>
+
+
+
     {{-- 追加請求 セクション --}}
-
-
-
     @foreach ($other_bills as $key=>$other_bill)
     <div class="container-fluid mt-5 p-0">
       <div class="bill">
@@ -1769,19 +1746,19 @@
         <tbody class="master_total_body">
           <tr>
             <td>・会場料</td>
-            <td>{{number_format($venues_master)}}円</td>
+            <td>{{number_format($master_prices[0])}}円</td>
           </tr>
           <tr>
             <td>・有料備品　サービス</td>
-            <td>{{number_format($items_master)}}円</td>
+            <td>{{number_format($master_prices[1])}}円</td>
           </tr>
           <tr>
             <td>・レイアウト変更料</td>
-            <td>{{number_format($layouts_master)}}円</td>
+            <td>{{number_format($master_prices[2])}}円</td>
           </tr>
           <tr>
             <td>・その他</td>
-            <td>{{number_format($others_master)}}円</td>
+            <td>{{number_format($master_prices[3])}}円</td>
           </tr>
         </tbody>
         <tbody class="master_total_bottom">
@@ -1790,7 +1767,7 @@
             <td>
               <div class="d-flex">
                 <p>小計：</p>
-                <p>{{number_format($all_master_subtotal)}}円</p>
+                <p>{{number_format($master_prices[4])}}円</p>
               </div>
             </td>
           </tr>
@@ -1799,7 +1776,7 @@
             <td>
               <div class="d-flex">
                 <p>消費税：</p>
-                <p>{{number_format($all_master_tax)}}円</p>
+                <p>{{number_format(ReservationHelper::getTax($master_prices[4]))}}円</p>
               </div>
             </td>
           </tr>
@@ -1808,7 +1785,7 @@
             <td>
               <div class="d-flex">
                 <p>合計金額：</p>
-                <p>{{number_format($all_master_total)}}円</p>
+                <p>{{number_format(ReservationHelper::taxAndPrice($master_prices[4]))}}円</p>
               </div>
             </td>
           </tr>
@@ -1844,7 +1821,9 @@
             <td>
               <div class="d-flex">
                 <p>小計：</p>
-                <p>{{number_format($master_subtotals)}}円</p>
+                <p>
+                  {{number_format($master_prices[4])}}
+                  円</p>
               </div>
             </td>
           </tr>
@@ -1853,7 +1832,7 @@
             <td>
               <div class="d-flex">
                 <p>消費税：</p>
-                <p>{{number_format($master_taxs)}}円</p>
+                <p>{{number_format(ReservationHelper::getTax($master_prices[4]))}}円</p>
               </div>
             </td>
           </tr>
@@ -1862,7 +1841,7 @@
             <td>
               <div class="d-flex">
                 <p>合計金額：</p>
-                <p>{{number_format($master_totals)}}円</p>
+                <p>{{number_format(ReservationHelper::taxAndPrice($master_prices[4]))}}円</p>
               </div>
             </td>
           </tr>

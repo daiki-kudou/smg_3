@@ -115,6 +115,9 @@ Route::namespace('Admin')->prefix('admin')->name('admin.')->group(function () {
     Route::post('reservations/calculate', 'ReservationsController@calculate')->name('reservations.calculate');
     // 予約
     Route::resource('reservations', 'ReservationsController', ['except' => ['show']]);
+
+    Route::get('reservations/{reservation}', 'ReservationsController@show')->name('reservations.show');
+
     // 予約再計算
     // Route::post('reservations/recalculate', 'ReservationsController@recalculate')->name('reservations.recalculate');
     // 予約　（確認）

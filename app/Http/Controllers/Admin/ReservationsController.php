@@ -313,58 +313,12 @@ class ReservationsController extends Controller
     $reservation = Reservation::find($id);
     $venue = Venue::find($reservation->venue->id);
     $user = User::find($reservation->user_id);
-    $equipments = $venue->equipments()->get();
-    $services = $venue->services()->get();
-    $breakdowns = $reservation->breakdowns()->get();
-
+    $master_prices = $reservation->TotalAmount();
     $other_bills = [];
     for ($i = 0; $i < count($reservation->bills()->get()) - 1; $i++) {
       $other_bills[] = $reservation->bills()->skip($i + 1)->first();
     }
-
-    $venues_master = 0;
-    $items_master = 0;
-    $layouts_master = 0;
-    $others_master = 0;
-    $master_subtotals = 0;
-    $master_taxs = 0;
-    $master_totals = 0;
-
-    foreach ($reservation->bills()->get() as $key => $value) {
-      $venues_master += $value->venue_price;
-      $items_master += $value->equipment_price;
-      $layouts_master += $value->layout_price;
-      $others_master += $value->others_price;
-      $master_subtotals += $value->master_subtotal;
-      $master_taxs += $value->master_tax;
-      $master_totals += $value->master_total;
-    }
-
-    $all_master_subtotal = $venues_master + $items_master + $layouts_master + $others_master;
-    $all_master_tax = floor($all_master_subtotal * 0.1);
-    $all_master_total = $all_master_subtotal + $all_master_tax;
-
-
-
-    return view('admin.reservations.show', [
-      'reservation' => $reservation,
-      'equipments' => $equipments,
-      'services' => $services,
-      'breakdowns' => $breakdowns,
-      'user' => $user,
-      'other_bills' => $other_bills,
-      'venues_master' => $venues_master,
-      'items_master' => $items_master,
-      'layouts_master' => $layouts_master,
-      'others_master' => $others_master,
-      'all_master_subtotal' => $all_master_subtotal,
-      'all_master_tax' => $all_master_tax,
-      'all_master_total' => $all_master_total,
-      'master_subtotals' => $master_subtotals,
-      'master_taxs' => $master_taxs,
-      'master_totals' => $master_totals,
-
-    ]);
+    return view('admin.reservations.show', compact('venue', 'reservation', 'master_prices', 'user', 'other_bills'));
   }
 
   public function double_check(Request $request, $id)

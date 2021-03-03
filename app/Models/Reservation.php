@@ -444,28 +444,17 @@ class Reservation extends Model
   }
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-  /*
-|--------------------------------------------------------------------------
-| 仲介会社選択の場合のみ、エンドユーザーとの一対一
-|--------------------------------------------------------------------------|
-*/
+  //--//--//--//--//--//--//--//--//--//--//--//--//--//--//--//--//--//--//
+  // 仲介会社選択の場合のみ、エンドユーザーとの一対一
+  //--//--//--//--//--//--//--//--//--//--//--//--//--//--//--//--//--//--//
   public function enduser()
   {
     return $this->hasOne(Enduser::class);
   }
 
+  //--//--//--//--//--//--//--//--//--//--//--//--//--//--//--//--//--//--//
+  // 検索マスタ
+  //--//--//--//--//--//--//--//--//--//--//--//--//--//--//--//--//--//--//
   public function search_item($request)
   {
     $query = $this->query();
@@ -483,5 +472,35 @@ class Reservation extends Model
     // ■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■
     // 検索の雛形はこれでOK
     // ■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■
+  }
+  //--//--//--//--//--//--//--//--//--//--//--//--//--//--//--//--//--//--//
+  // reservations show 各請求書合計額
+  //--//--//--//--//--//--//--//--//--//--//--//--//--//--//--//--//--//--//
+  public function TotalAmount()
+  {
+    $venues_master = 0;
+    $items_master = 0;
+    $layouts_master = 0;
+    $others_master = 0;
+    $master_subtotals = 0;
+    $master_taxs = 0;
+    $master_totals = 0;
+    foreach ($this->bills()->get() as $key => $value) {
+      $venues_master += $value->venue_price;
+      $items_master += $value->equipment_price;
+      $layouts_master += $value->layout_price;
+      $others_master += $value->others_price;
+      $master_subtotals += $value->master_subtotal;
+      $master_taxs += $value->master_tax;
+      $master_totals += $value->master_total;
+    }
+    $all_master_subtotal = $venues_master + $items_master + $layouts_master + $others_master;
+    return [
+      $venues_master,
+      $items_master,
+      $layouts_master,
+      $others_master,
+      $all_master_subtotal
+    ];
   }
 }
