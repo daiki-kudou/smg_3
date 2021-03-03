@@ -132,20 +132,22 @@
       <li><a class="more_btn bg-green" href="">キャンセル申請中</a></li>
       <li><a class="more_btn bg-black" href="">予約完了</a></li>
     </ul> --}}
-    
-    <div class="d-flex mt-3 justify-content-between">
-      <p>
-    {{-- 削除ボタン --}}
+
+    <ul class="d-flex reservation_list mb-2 justify-content-between">
+        <li>
+        {{-- 削除ボタン --}}
     {{Form::open(['url' => 'admin/pre_reservations/destroy', 'method' => 'POST', 'id'=>'for_destroy'])}}
     @csrf
     {{ Form::submit('削除', ['class' => 'btn more_btn4','id'=>'confirm_destroy']) }}
     {{ Form::close() }}
-    </p>
-    <div class="d-flex">
-    <p><a class="more_btn4" href="">仮押さえ期間超過</a></p>
-    <p class="font-weight-bold ml-3"><span>10</span>件</p>
-    </div>
-    </div>
+        </li>
+        <li>
+        <div class="d-flex">
+          <a class="more_btn bg-red" href="">仮押さえ期間超過</a>
+          <p class="ml-3 font-weight-bold"><span class="count-color">ダミーダミー</span>件</p>
+        </div>
+      </li>
+      </ul>
 
 
     <script>
@@ -194,7 +196,7 @@
             <th>電話</th>
             <th>会社名・団体名<br>(顧客未登録)</th>
             <th>仲介会社</th>
-            <th>仲介当日利用者</th>
+            <th>エンドユーザー</th>
             <th>詳細</th>
           </tr>
         </thead>

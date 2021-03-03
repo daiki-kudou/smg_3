@@ -89,7 +89,7 @@
     </div>
     <!-- 検索　終わり------------------------------------------------ -->
 
-      <ul class="d-flex reservation_list justify-content-between">
+      <ul class="d-flex reservation_list mb-2 justify-content-between">
         <li>
           {{-- 削除ボタン --}}
           {{Form::open(['url' => 'admin/pre_reservations/destroy', 'method' => 'POST', 'id'=>'for_destroy'])}}
@@ -97,11 +97,13 @@
           {{ Form::submit('削除', ['class' => 'btn btn-danger','id'=>'confirm_destroy']) }}
           {{ Form::close() }}
         </li>
-        <li><a class="more_btn bg-red" href="">仮押さえ期間超過</a></li>
+        <li>
+        <div class="d-flex">
+          <a class="more_btn bg-red" href="">仮押さえ期間超過</a>
+          <p class="ml-3 font-weight-bold"><span class="count-color">ダミー</span>件</p>
+        </div>
+      </li>
       </ul>
-      <div class="col-12">
-        <p class="text-right font-weight-bold"><span class="count-color">10</span>件</p>
-      </div>
 
       <div class="table-wrap">
         <table class="table table-bordered table-scroll">
@@ -117,7 +119,7 @@
               <th>電話</th>
               <th>会社名・団体名(顧客未登録)</th>
               <th>仲介会社</th>
-              <th>エンドユーザー：担当者</th>
+              <th>エンドユーザー</th>
               <th></th>
             </tr>
           </thead>

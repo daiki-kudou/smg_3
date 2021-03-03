@@ -85,9 +85,8 @@
               <input type="text" name="tel" class="form-control" id="tel">
             </td>
           </tr>
-
           <tr>
-            <th class="search_item_name"><label for="enduser_person">エンドユーザー：担当者</label></th>
+            <th class="search_item_name"><label for="enduser_person">エンドユーザー</label></th>
             <td class="text-right">
               <input type="text" name="enduser_person" class="form-control" id="enduser_person">
             </td>
@@ -109,10 +108,9 @@
               </ul>
             </td>
           </tr>
-
           <tr>
             <th class="search_item_name"><label for="Status">予約状況</label></th>
-            <td>
+            <td colspan="3">
               <ul class="search_category">
                 <li>
                   <input type="checkbox">
@@ -136,8 +134,10 @@
                 </li>
               </ul>
             </td>
+          </tr>
+          <tr>
             <th class="search_item_name"><label for="freeword">フリーワード検索</label></th>
-            <td>
+            <td colspan="3">
               <input type="text" name="freeword" class="form-control" id="freeword">
             </td>
           </tr>
@@ -182,7 +182,7 @@
             <th>携帯電話</th>
             <th>固定電話</th>
             <th>仲介会社</th>
-            <th>エンドユーザー：担当者</th>
+            <th>エンドユーザー</th>
             <th width="120">売上区分</th>
             <th width="120">予約状況</th>
             <th class="btn-cell">予約詳細</th>
@@ -262,16 +262,6 @@
       <a class="page-link" href="http://staging-smg2.herokuapp.com/admin/clients?page=2" rel="next" aria-label="次 &raquo">&rsaquo;</a>
     </li>
   </ul>
-
-
 </div>
-
-
-
-
-
-
-
-
 
 @endsection
