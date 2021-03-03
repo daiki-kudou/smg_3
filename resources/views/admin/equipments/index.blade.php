@@ -45,7 +45,7 @@
           <table class="table table-striped table-bordered dataTable no-footer" id="DataTables_Table_0" role="grid">
             <thead>
               <tr class="table_row" role="row">
-                <th>id</th>
+                <th>ID</th>
                 <th>登録日</th>
                 <th>有料備品名</th>
                 <th>料金</th>
@@ -64,10 +64,10 @@
                 <td>{{ $query->stock }}</td>
                 <td>{{ $query->remark }}</td>
                 <td class="d-flex justify-content-around">
-                  {{ link_to_route('admin.equipments.edit', '編集', $parameters = $query->id, ['class' => 'btn btn-primary']) }}
+                  {{ link_to_route('admin.equipments.edit', '編集', $parameters = $query->id, ['class' => 'btn more_btn']) }}
                   {{ Form::model($query, ['route' => ['admin.equipments.destroy', $query->id], 'method' => 'delete']) }}
                   @csrf
-                  {{ Form::submit('削除', ['class' => 'btn btn-danger']) }}
+                  {{ Form::submit('削除', ['class' => 'btn more_btn4']) }}
                   {{ Form::close() }}
                 </td>
               </tr>

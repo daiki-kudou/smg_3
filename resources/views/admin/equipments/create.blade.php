@@ -65,7 +65,7 @@
             <p class="is-error-stock" style="color: red"></p>
           </td>
           <td>{{ Form::textarea('remark', old('remark'), ['class' => 'form-control','rows'=>"2"]) }}</td>
-          <td>{{ Form::submit('登録', ['class' => 'btn btn-primary']) }}</td>
+          <td>{{ Form::submit('登録', ['class' => 'btn more_btn]) }}</td>
         </tr>
       </tbody>
     </table>

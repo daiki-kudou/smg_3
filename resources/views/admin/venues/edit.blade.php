@@ -521,7 +521,7 @@
       </div>
     </section>
     <div class="mx-auto">
-      {{ Form::submit('登録', ['class' => 'mx-auto btn more_btn_lg d-block']) }}
+      {{ Form::submit('保存する', ['class' => 'mx-auto btn more_btn_lg d-block']) }}
     </div>
   </div>
 </div>

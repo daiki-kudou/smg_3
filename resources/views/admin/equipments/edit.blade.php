@@ -35,7 +35,7 @@
     <table class="table table-striped table-bordered mt-5">
       <thead>
         <tr>
-          <th>id</th>
+          <th>ID</th>
           <th>登録日</th>
           <th class="form_required">有料備品名</th>
           <th class="form_required">料金</th>
@@ -67,7 +67,7 @@
           </td>
           <td>{{ Form::text('remark', $eqipment->remark, ['class' => 'form-control']) }}</td>
           <td>
-            {{ Form::submit('更新', ['class' => 'btn btn-primary']) }}
+            {{ Form::submit('更新', ['class' => 'btn more_btn']) }}
           </td>
         </tr>
       </tbody>
