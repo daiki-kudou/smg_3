@@ -172,8 +172,6 @@
         <tr>
           <td class="table-active form_required">会場</td>
           <td>
-            {{-- {{ Form::text('', ReservationHelper::getVenue($request->venue_id),['class'=>'form-control'] ) }}
-            {{ Form::hidden('venue_id', $request->venue_id,['class'=>'form-control'] ) }} --}}
             <select id="venues_selector" class=" form-control" name='venue_id'>
               <option value='#' disabled selected>選択してください</option>
               @foreach ($venues as $venue)
