@@ -38,7 +38,7 @@
           <thead>
             <tr style="white-space: nowrap;" role="row">
               <th class="sorting_asc" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1"
-                aria-sort="ascending" aria-label="ID: activate to sort column descending" style="width: 73px;">ID</th>
+                aria-sort="ascending" aria-label="ID: activate to sort column descending" style="width: 73px;">テストテスト</th>
               <th class="sorting" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1"
                 aria-label="登録日: activate to sort column ascending" style="width: 155px;">登録日</th>
               <th class="sorting" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1"
