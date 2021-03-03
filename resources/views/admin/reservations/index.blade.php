@@ -301,6 +301,139 @@
 
     </div>
 
+    <div class="section-wrap">
+      <table class="table table-bordered">
+        <tbody>
+          <tr>
+            <th class="search_item_name"><label for="bulkid">予約一括ID</label>
+            <td class="text-right">
+              <input type="text" name="bulkid" class="form-control" id="bulkid">
+            </td>
+            <th class="search_item_name"><label for="id">予約ID</label>
+            <td class="text-right">
+              <input type="text" name="id" class="form-control" id="id">
+            </td>
+          </tr>
+          <tr>
+            <th class="search_item_name"><label for="date">利用日</label></th>
+            <td class="text-right form-group">
+              <div class="input-group">
+                <div class="input-group-prepend">
+                  <span class="input-group-text">
+                    <i class="far fa-calendar-alt"></i>
+                  </span>
+                </div>
+                <input type="text" class="form-control float-right" id="reservation">
+              </div>
+            </td>
+            <th class="search_item_name"><label for="venue">会場</label></th>
+            <td class="text-right">
+              <dd>
+                <select class="form-control select2" name="venue">
+                  <option>テスト会場A</option>
+                  <option>テスト会場B</option>
+                  <option>テスト会場C</option>
+                </select>
+            </td>
+          </tr>
+
+          <tr>
+            <th class="search_item_name"><label for="company">会社名・団体名</label></th>
+            <td class="text-right">
+              <input type="text" name="company" class="form-control" id="company">
+            </td>
+
+            <th class="search_item_name"><label for="person">担当者氏名</label></th>
+            <td class="text-right">
+              <dd>
+                <input type="text" name="person" class="form-control" id="person">
+            </td>
+          </tr>
+
+          <tr>
+          <th class="search_item_name"><label for="id">予約ID</label></th>
+            <td>
+              <input type="text" name="id" class="form-control" id="id">
+            </td>
+            <th class="search_item_name"><label for="id">フリーワード検索</label></th>
+            <td>
+              <input type="text" name="id" class="form-control" id="id">
+            </td>
+          </tr>
+          
+          <tr>
+            <th class="search_item_name"><label for="payStatus">支払状態</label></th>
+            <td class="text-right">
+              <select class="form-control select2" name="payStatus">
+                <option>入金済</option>
+                <option>未入金</option>
+              </select>
+            </td>
+          </tr>
+
+          <tr>
+
+          <th class="search_item_name"><label for="billStatus">請求項目</label></th>
+            <td>
+              <ul class="search_category">
+                <li>
+                  <input type="checkbox">
+                  <label for="checkboxPrimary1">会場</label>
+                </li>
+                <li>
+                  <input type="checkbox">
+                  <label for="checkboxPrimary1">キャンセル</label>
+                </li>
+                <li>
+                  <input type="checkbox">
+                  <label for="checkboxPrimary1">追加請求</label>
+                </li>
+              </ul>
+            </td>
+
+
+            <th class="search_item_name"><label for="category">営業</label></th>
+            <td class="text-left">
+              <ul class="">
+                <li>
+                  <input type="checkbox" id="">
+                  <label for="">直営業</label>
+                </li>
+                <li>
+                  <div class="radio d-flex">
+                    <label class="mr-2">
+                      <input type="checkbox">仲介会社経由
+                    </label>
+                    <input type="text" class="form-control" placeholder="入力してください" style="width: 60%">
+                  </div>
+                </li>
+              </ul>
+            </td>
+          </tr>
+
+
+          <tr>
+
+          </tr>
+
+          <tr>
+            <th class="search_item_name"><label for="customer">顧客ID</label></th>
+            <td>
+              <input type="text" name="customer" class="form-control">
+            </td>
+          </tr>
+
+        </tbody>
+      </table>
+      <p class="text-right">※フリーワード検索は本画面表記の項目のみ対象となります</p>
+
+      <div class="btn_box d-flex justify-content-center">
+        <input type="reset" value="リセット" class="btn reset_btn">
+        <input type="submit" value="検索" class="btn search_btn">
+      </div>
+
+    </div>
+
     <!-- 検索　終わり------------------------------------------------ -->
 
     <ul class="d-flex reservation_list">

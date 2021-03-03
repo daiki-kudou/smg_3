@@ -301,22 +301,22 @@
                     <tr>
                       <td>
                         <div class="radio-box">
-                          <div class="icheck-primary">
+                          <p class="icheck-primary">
                             <input type="radio" id="eatin" name="eatin" checked="">
                             <label for="eatin">あり</label>
-                          </div>
-                          <div class="icheck-primary">
+                          </p>
+                          <p class="icheck-primary">
                             <input type="radio" id="eatin" name="eatin" checked="">
                             <label for="eatin">手配済</label>
-                          </div>
-                          <div class="icheck-primary">
+                          </p>
+                          <p class="icheck-primary">
                             <input type="radio" id="eatin" name="eatin" checked="">
                             <label for="eatin">検討中</label>
-                          </div>
-                          <div class="icheck-primary">
+                          </p>
+                          <p class="icheck-primary">
                             <input type="radio" id="eatin" name="eatin" checked="">
                             <label for="eatin">なし</label>
-                          </div>
+                          </p>
                         </div>
                       </td>
                     </tr>
@@ -799,22 +799,22 @@
                       <tr>
                         <td>
                           <div class="radio-box">
-                            <div class="icheck-primary">
+                            <p class="icheck-primary">
                               <input type="radio" id="eatin" name="eatin" checked="">
                               <label for="eatin">あり</label>
-                            </div>
-                            <div class="icheck-primary">
+                            </p>
+                            <p class="icheck-primary">
                               <input type="radio" id="eatin" name="eatin" checked="">
                               <label for="eatin">手配済</label>
-                            </div>
-                            <div class="icheck-primary">
+                            </p>
+                            <p class="icheck-primary">
                               <input type="radio" id="eatin" name="eatin" checked="">
                               <label for="eatin">検討中</label>
-                            </div>
-                            <div class="icheck-primary">
+                            </p>
+                            <p class="icheck-primary">
                               <input type="radio" id="eatin" name="eatin" checked="">
                               <label for="eatin">なし</label>
-                            </div>
+                            </p>
                           </div>
                         </td>
                       </tr>

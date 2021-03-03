@@ -432,6 +432,10 @@ table {
     white-space: nowrap;
 }
 
+.table_row th {
+    vertical-align: middle;
+}
+
 
 .nav-tabs .nav-link.active, .nav-tabs .nav-item.show .nav-link {
     color: #495057;
