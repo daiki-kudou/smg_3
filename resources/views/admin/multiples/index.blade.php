@@ -94,7 +94,7 @@
           {{-- 削除ボタン --}}
           {{Form::open(['url' => 'admin/pre_reservations/destroy', 'method' => 'POST', 'id'=>'for_destroy'])}}
           @csrf
-          {{ Form::submit('削除', ['class' => 'btn btn-danger','id'=>'confirm_destroy']) }}
+          {{ Form::submit('削除', ['class' => 'btn more_btn4','id'=>'confirm_destroy']) }}
           {{ Form::close() }}
         </li>
         <li>

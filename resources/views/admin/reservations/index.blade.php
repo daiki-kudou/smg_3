@@ -163,7 +163,7 @@
         <li><a class="more_btn bg-green" href="">キャンセル申請中</a></li>
         <li><a class="more_btn bg-black" href="">予約完了</a></li>
       </ul>
-      <p class="font-weight-bold"><span>10</span>件</p>
+      <p class="font-weight-bold"><span class="count-color">ダミーダミー</span>件</p>
     </div>
 
 
