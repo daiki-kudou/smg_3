@@ -358,7 +358,7 @@ class ReservationsController extends Controller
       $user = User::find($request->user_id);
       $email = $user->email;
       // 管理者側のメール本文等は未定　ここメール文章再作成必要
-      Mail::to($email)->send(new \App\Mail\Test);
+      Mail::to($email)->send(new SendUserApprove($reservation));
     });
     return redirect()->route('admin.reservations.index')->with('flash_message', 'ユーザーに承認メールを送信しました');
   }
@@ -494,6 +494,33 @@ class ReservationsController extends Controller
       'id' => $id,
       'venue' => $venue,
     ]);
+  }
+
+  public function edit_check(Request $request)
+  {
+    echo "<pre>";
+    var_dump($request->all());
+    echo "</pre>";
+
+    $venue = Venue::find($request->venue_id);
+    $venue_details = Venue::getBreakdowns($request);
+    $equipment_details = Equipment::getBreakdowns($request);
+    $service_details = Service::getBreakdowns($request);
+    $others_details = [];
+    foreach ($request->all() as $key => $value) {
+      if (preg_match('/others_input_item/', $key)) {
+        var_dump(empty($value));
+        if (!empty($value)) {
+          $others_details[] = $value;
+        }
+      }
+    }
+    $others_details = !empty($others_details) ? count($others_details) : "";
+
+    return view(
+      'admin.reservations.edit_check',
+      compact('request', 'venue', 'venue_details', 'equipment_details', 'service_details', 'others_details')
+    );
   }
 
 

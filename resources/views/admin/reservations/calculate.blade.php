@@ -655,7 +655,7 @@ $(document).on("click", ".del", function() {
                       {{ Form::text('venue_breakdown_cost0', $price_details[0]-$price_details[1],['class'=>'form-control', 'readonly'] ) }}
                     </td>
                     <td>
-                      {{ Form::text('venue_breakdown_count0', $price_details[3],['class'=>'form-control', 'readonly'] ) }}
+                      {{ Form::text('venue_breakdown_count0', $price_details[3]-$price_details[4],['class'=>'form-control', 'readonly'] ) }}
                     </td>
                     <td>
                       {{ Form::text('venue_breakdown_subtotal0', $price_details[0]-$price_details[1],['class'=>'form-control', 'readonly'] ) }}

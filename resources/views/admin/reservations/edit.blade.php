@@ -144,6 +144,8 @@
 
 {{Form::open(['url' => 'admin/reservations/'.$reservation->id.'/edit_calculate', 'method' => 'POST', 'id'=>''])}}
 @csrf
+{{ Form::hidden('reservation_id',  $reservation->id) }}
+
 <div class="container-field bg-white text-dark">
   <div class="row">
     <div class="col">

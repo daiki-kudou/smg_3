@@ -148,8 +148,8 @@
 
 
 {{Form::open(['url' => 'admin/reservations/'.$id.'/edit_calculate', 'method' => 'POST', 'id'=>''])}}
-
 @csrf
+
 
 <section class="section-wrap">
   <div class="row">
@@ -643,8 +643,8 @@
 {{Form::submit('再計算する', ['class'=>'btn more_btn4_lg mx-auto my-5 d-block', 'id'=>'check_submit'])}}
 {{Form::close()}}
 
-{{-- 丸岡さんカスタム --}}
-{{ Form::open(['url' => 'admin/reservations/check', 'method'=>'POST', 'id'=>'agents_calculate_form']) }}
+
+{{ Form::open(['url' => 'admin/reservations/'.$id.'/edit_check', 'method'=>'POST', 'id'=>'']) }}
 @csrf
 <section class="section-wrap">
   <div class="bill">
@@ -710,6 +710,7 @@
                 <td>金額</td>
               </tr>
             </tbody>
+            {{var_dump($price_details)}}
             @if ($price_details!=0)
             <tbody class="venue_main">
               @if ($price_details[1])
@@ -718,7 +719,8 @@
                 <td>
                   {{ Form::text('venue_breakdown_cost0', $price_details[0]-$price_details[1],['class'=>'form-control', 'readonly'] ) }}
                 </td>
-                <td>{{ Form::text('venue_breakdown_count0', $price_details[3],['class'=>'form-control', 'readonly'] ) }}
+                <td>
+                  {{ Form::text('venue_breakdown_count0', $price_details[3]-$price_details[4],['class'=>'form-control', 'readonly'] ) }}
                 </td>
                 <td>
                   {{ Form::text('venue_breakdown_subtotal0', $price_details[0]-$price_details[1],['class'=>'form-control', 'readonly'] ) }}
