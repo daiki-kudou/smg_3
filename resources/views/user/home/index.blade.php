@@ -56,16 +56,16 @@
     <div class="tab-content">
       <div id="reserve-list" class="tab-pane active">
         <div class="container-field">
-          <table class="table table-striped table-bordered table-box">
+          <table class="table table-bordered">
             <thead>
               <tr class="table_row">
                 <th>予約ID</th>
                 <th>利用日</th>
-                <th>入室</th>
-                <th>退室</th>
+                <th>入室時間</th>
+                <th>退室時間</th>
                 <th>会場</th>
-                <th width="120">予約状況</th>
-                <th width="120">カテゴリー</th>
+                <th>予約状況</th>
+                <th>カテゴリー</th>
                 <th>利用料金（税込）</th>
                 <th>支払期日</th>
                 <th>支払状況</th>

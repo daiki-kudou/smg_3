@@ -458,6 +458,7 @@ table {
 .accordion-ttl .title-icon {
     display: block;
     position: relative;
+    cursor: pointer;
 }
 
 /* 二本の横棒を作成する */
@@ -472,11 +473,11 @@ table {
     position: absolute;
     right: 0;
     top: 50%;
-    transform: translateY(-50%);
+    transform: translateY(-50%) rotate(0);
 }
 
 /* 2本の横棒のうち一本は縦棒にする */
-.title-icon::after {
+.accordion-ttl .title-icon::after {
     background: #35a7a7;
     /* 横棒を縦にするために90℃回転させる */
     transform: translateY(-50%) rotate(90deg);
@@ -1318,4 +1319,12 @@ table .master_total_subttl {
     display: flex;
     justify-content: center;
     align-items: center;
+}
+
+
+
+/* マイページ =============================================================*/
+
+.nav-tabs .nav-item {
+    border: 1px solid #ddd;
 }

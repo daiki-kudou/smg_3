@@ -11,8 +11,8 @@
       <div class="float-right">
         <nav aria-label="breadcrumb">
           <ol class="breadcrumb">
-            <li class="breadcrumb-item active"><a href="http://staging-smg2.herokuapp.com/admin/home">ホーム</a> &gt;
-              予約一覧
+            <li class="breadcrumb-item active">
+              ダミーダミーダミー
             </li>
           </ol>
         </nav>
@@ -89,7 +89,7 @@
                   </td>
                 </tr>
                 <tr>
-                  <td class="table-active"><label for="date">利用日</label></td>
+                  <td class="table-active"><label for="date">ご利用日</label></td>
                   <td>
                     {{ReservationHelper::formatDate($reservation->reserve_date)}}
                   </td>
@@ -118,6 +118,32 @@
                 </tr>
               </tbody>
             </table>
+            <div class="customer-table">
+              <table class="table table-bordered oneday-table">
+                <tbody>
+                  <tr>
+                    <td colspan="2">
+                      <p class="title-icon">
+                        <i class="fas fa-user icon-size" aria-hidden="true"></i>
+                        当日連絡のできるご担当者様
+                      </p>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td class="table-active"><label for="ondayName">氏名</label></td>
+                    <td>
+                      {{$reservation->in_charge}}
+                    </td>
+                  </tr>
+                  <tr>
+                    <td class="table-active"><label for="mobilePhone">携帯番号</label></td>
+                    <td>
+                      {{$reservation->tel}}
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
 
             <table class="table table-bordered board-table">
               <tr>
@@ -135,7 +161,6 @@
                   <p>
                     {{$reservation->board_flag}}
                   </p>
-                  <p><a class="more_btn" href="">案内板出力(PDF)</a></p>
                 </td>
               </tr>
               <tr>
@@ -175,33 +200,6 @@
                 </td>
               </tr>
             </table>
-
-            <div class="customer-table">
-              <table class="table table-bordered oneday-table">
-                <tbody>
-                  <tr>
-                    <td colspan="2">
-                      <p class="title-icon">
-                        <i class="fas fa-user icon-size" aria-hidden="true"></i>
-                        当日の連絡できる担当者
-                      </p>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td class="table-active"><label for="ondayName">氏名</label></td>
-                    <td>
-                      {{$reservation->in_charge}}
-                    </td>
-                  </tr>
-                  <tr>
-                    <td class="table-active"><label for="mobilePhone">携帯番号</label></td>
-                    <td>
-                      {{$reservation->tel}}
-                    </td>
-                  </tr>
-                </tbody>
-              </table>
-            </div>
           </div>
           <!-- 左側の項目 終わり-------------------------------------------------- -->
 
@@ -218,7 +216,9 @@
               <thead class="accordion-ttl">
                 <tr>
                   <td colspan="2">
-                    <p class="title-icon">有料備品</p>
+                    <p class="title-icon fw-bolder py-1">
+                      <i class="fas fa-wrench icon-size fa-fw"></i>有料備品
+                    </p>
                   </td>
                 </tr>
               </thead>
@@ -241,7 +241,10 @@
               <thead class="accordion-ttl">
                 <tr>
                   <td colspan="2">
-                    <p class="title-icon">有料サービス<span class="open_toggle"></span></p>
+                    <p class="title-icon fw-bolder py-1">
+                      <i class="fas fa-hand-holding-heart icon-size fa-fw"></i>有料サービス
+                    </p>
+                    <!-- <p class="title-icon"><i class="fas fa-hand-holding-heart icon-size fa-fw"></i>有料サービス<span class="open_toggle"></span></p> -->
                   </td>
                 </tr>
               </thead>
@@ -340,20 +343,24 @@
               <table class='table table-bordered' style="table-layout:fixed;">
                 <thead>
                   <tr>
-                    <th colspan='2'>レイアウト</th>
+                    <th colspan='2'>
+                      <p class="title-icon py-1">
+                        <i class="fas fa-th icon-size fa-fw"></i>レイアウト
+                      </p>
+                    </th>
                   </tr>
                 </thead>
                 <tbody>
-                  <tr>
+                  <!-- <tr>
                     <td class="table-active"><label for="layout">レイアウト変更</label></td>
                     <td>
                       @foreach ($reservation->bills()->first()->get() as $layout)
                       {{$layout->layout_total?'有り':'無し'}}
                       @endforeach
                     </td>
-                  </tr>
+                  </tr> -->
                   <tr>
-                    <td class="table-active"><label for="prelayout">レイアウト準備</label></td>
+                    <td class="table-active"><label for="prelayout">準備</label></td>
                     <td>
                       @foreach ($reservation->bills()->first()->breakdowns()->get() as $item)
                       @if ($item->unit_item=="レイアウト準備")
@@ -363,7 +370,7 @@
                     </td>
                   </tr>
                   <tr>
-                    <td class="table-active"><label for="postlayout">レイアウト片付</label></td>
+                    <td class="table-active"><label for="postlayout">片付</label></td>
                     <td>
                       @foreach ($reservation->bills()->first()->breakdowns()->get() as $item)
                       @if ($item->unit_item=="レイアウト片付")
@@ -380,12 +387,16 @@
               <table class='table table-bordered' style="table-layout:fixed;">
                 <thead>
                   <tr>
-                    <th colspan='2'>荷物預かり</th>
+                    <th colspan='2'>
+                      <p class="title-icon py-1">
+                        <i class="fas fa-suitcase-rolling icon-size fa-fw"></i>お荷物預かり
+                      </p>
+                    </th>
                   </tr>
                 </thead>
                 <tbody>
                   <tr>
-                    <td class="table-active"><label for="Delivery">荷物預かり/返送</label></td>
+                    <td class="table-active"><label for="Delivery"> お荷物預り/返送</label></td>
                     <td>
                       @foreach ($reservation->bills()->first()->breakdowns()->get() as $item)
                       @if ($item->unit_item=="荷物預かり/返送")
@@ -395,7 +406,7 @@
                     </td>
                   </tr>
                   <tr>
-                    <td class="table-active"><label for="preDelivery">事前に預かる荷物</label></td>
+                    <td class="table-active"><label for="preDelivery">事前にお預かりする荷物</label></td>
                     <td>
                       <ul class="table-cell-box">
                         <li>
@@ -420,7 +431,7 @@
                     </td>
                   </tr>
                   <tr>
-                    <td class="table-active"><label for="postDelivery">事後返送する荷物</label></td>
+                    <td class="table-active"><label for="postDelivery">事後返送するお荷物</label></td>
                     <td>
                       <ul class="table-cell-box">
                         <li>
@@ -481,7 +492,7 @@
       <section class="mt-5">
         <div class="bill">
           {{-- ステータス３は予約完了 --}}
-          @if ($reservation->bills()->first()->reservation_status>=3)
+          <!-- @if ($reservation->bills()->first()->reservation_status>=3) -->
           <div class="bill_head">
             <table class="table bill_table">
               <tbody>
@@ -505,15 +516,15 @@
                   </td>
                   <td class="text-right">
                     <a class="mr-1 more_btn" href="{{ url('user/home/generate_invoice/'.$reservation->id) }}">請求書を見る</a>
-                    @if ($reservation->bills()->first()->paid==1)
+                    <!-- @if ($reservation->bills()->first()->paid==1) -->
                     <!-- ステータスが入金確認後に表示------ -->
                     <a class="more_btn" href="">領収書をみる</a>
-                    @endif
+                    <!-- @endif -->
                   </td>
                 </tr>
               </tbody>
             </table>
-            @endif
+            <!-- @endif -->
           </div>
 
           <div class="bill_details">
@@ -983,8 +994,8 @@
     </div>
 
     <!-- 合計請求額------------------------------------------------------------------- -->
-    <section class="master_totals border-wrap">
-      <table class="table">
+    <section class="master_totals section-wrap ">
+      <table class="table border-wrap">
         <tbody class="master_total_head">
           <tr>
             <td colspan="2">
