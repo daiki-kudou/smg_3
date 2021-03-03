@@ -17,7 +17,7 @@ class DatabaseSeeder extends Seeder
       AdminsTableSeeder::class,
       EquipmentTableSeeder::class,
       ServicesTableSeeder::class,
-      AgentsTableSeeder::class,
+      // AgentsTableSeeder::class,
       VenuesTableSeeder::class,
       DatesTableSeeder::class,
       Frame_priceTableSeeder::class,
