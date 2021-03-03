@@ -217,8 +217,8 @@
                 $(this).parent().find('tbody').toggleClass('hide');
               });
 
-              $('.accordion-ttl').on('click', function() {
-                $('.accordion-ttl .title-icon').toggleClass('active');
+              $('.accordion-ttl .title-icon').on('click', function() {
+                $(this).toggleClass('active');
               });
             })
           </script>

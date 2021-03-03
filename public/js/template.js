@@ -1042,6 +1042,21 @@ $(function () {
 
 
 
+  // アコーディオン----------------------------------------
+  $(function() {
+    $('.accordion-wrap').hide();
+
+    $('.accordion-ttl').on('click', function() {
+      $(this).parent().find('.accordion-wrap').slideToggle('fast');
+    });
+
+    $('.accordion-ttl .title-icon').on('click', function() {
+      $(this).toggleClass('active');
+    });
+  })
+</script>
+
+
 
 
 
