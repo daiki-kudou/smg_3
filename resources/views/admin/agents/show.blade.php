@@ -5,42 +5,6 @@
 <link href="{{ asset('/css/template.css') }}" rel="stylesheet">
 <script src="{{ asset('/js/template.js') }}"></script>
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 <div class="container-fluid">
   <style>
     .table th {
@@ -63,16 +27,16 @@
   </div>
 
   <section class="section-wrap">
-    <div class="col-12 align-items-center d-flex justify-content-between mt-5 mb-2">
+    <div class="align-items-center d-flex justify-content-between mb-2">
       <div>
         {{ Form::model($agent, ['route' => ['admin.agents.destroy', $agent->id], 'method' => 'delete']) }}
         @csrf
-        {{ Form::submit('削除', ['class' => 'btn more_btn4_lg']) }}
+        {{ Form::submit('削除する', ['class' => 'btn more_btn4']) }}
         {{ Form::close() }}
 
       </div>
       <div>
-        {{ link_to_route('admin.agents.edit', '編集', $parameters = $agent->id, ['class' => 'btn more_btn_lg']) }}
+        {{ link_to_route('admin.agents.edit', '編集する', $parameters = $agent->id, ['class' => 'btn more_btn']) }}
       </div>
     </div>
 

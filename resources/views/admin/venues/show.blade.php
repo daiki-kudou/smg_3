@@ -34,7 +34,7 @@
 
   <section class="section-wrap">
     <div class="text-right mb-2">
-      {{ link_to_route('admin.venues.edit', '編集', $parameters = $venue->id, ['class' => 'btn more_btn_lg'])}}
+      {{ link_to_route('admin.venues.edit', '編集', $parameters = $venue->id, ['class' => 'btn more_btn'])}}
     </div>
 
     <!-- 会場URL ---------------------------------------------------->

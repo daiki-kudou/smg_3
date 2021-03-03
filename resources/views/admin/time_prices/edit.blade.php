@@ -6,18 +6,6 @@
 <script src="{{ asset('/js/validation.js') }}"></script>
 <link href="{{ asset('/css/template.css') }}" rel="stylesheet">
 
-
-
-
-
-
-
-
-
-
-
-
-
 <div class="container-fluid">
 
 
@@ -198,7 +186,7 @@
           </tbody>
         </table>
         {{Form::hidden('venue_id', $venue->id)}}
-        {{ Form::submit('更新', ['class' => 'btn btn-primary', 'id'=>'submit']) }}
+        {{ Form::submit('保存する', ['class' => 'btn more_btn_lg d-block btn-lg mx-auto my-5', 'id'=>'submit']) }}
         {{ Form::close() }}
       </div>
     </div>

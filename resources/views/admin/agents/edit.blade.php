@@ -334,7 +334,7 @@
       </div>
     </div>
     <div class="mt-5">
-      {{Form::submit('更新', ['class' => 'btn more_btn_lg d-block btn-lg mx-auto my-5']) }}
+      {{Form::submit('保存する', ['class' => 'btn more_btn_lg d-block btn-lg mx-auto my-5']) }}
       {{ Form::close() }}
     </div>
   </section>

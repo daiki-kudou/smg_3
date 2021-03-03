@@ -2,6 +2,7 @@
 
 @section('content')
 {{-- @include('layouts.admin.side') --}}
+<link href="{{ asset('/css/template.css') }}" rel="stylesheet">
 
 <!-- フォーム追加 -->
 <script>
@@ -53,20 +54,12 @@
       </ol>
     </nav>
   </div>
-  <h1 class="mt-3 mb-5">料金管理　新規作成（時間貸し）</h1>
+
+  <h2 class="mt-3 mb-3">料金管理　新規作成（時間貸し）</h2>
   <hr>
-  <div class="d-flex justify-content-between mt-3 mb-5">
-  </div>
 </div>
 
-
-
-
-
-
 <div class="p-3 mb-2 bg-white text-dark">
-  <div>料金管理　新規作成</div>
-  <hr>
   <div class="w-100 mb-3">
     <span class="d-block mb-2">会場</span>
     <strong class="border border-light d-block" style="width:100%;">{{$venue->name_area}}{{$venue->name_bldg}}{{$venue->name_venue}}</strong>
@@ -84,7 +77,7 @@
     <div>
       {{ Form::model($time_price, ['route' => 'admin.time_prices.store']) }}
       @csrf
-      <table class="table">
+      <table class="table table-bordered">
         <thead>
           <tr>
             <th>時間</th>
@@ -104,7 +97,7 @@
         </tr>
       </table>
       {{Form::hidden('venue_id', $venue->id)}}
-      <div>{{ Form::submit('登録', ['class' => 'btn btn-primary']) }}</div>
+      <div>{{ Form::submit('登録する', ['class' => 'btn more_btn_lg d-block btn-lg mx-auto mt-5']) }}</div>
       {{ Form::close() }}
     </div>
   </div>

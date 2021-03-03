@@ -61,7 +61,7 @@ aoColumnDefs: [{
         <table class="table table-striped table-bordered">
           <thead>
             <tr>
-              <th>id</th>
+              <th>ID</th>
               <th>登録日</th>
               <th>有料サービス名</th>
               <th>料金</th>

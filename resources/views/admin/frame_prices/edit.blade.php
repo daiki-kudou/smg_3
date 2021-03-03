@@ -225,14 +225,14 @@ $('.table tbody tr').eq(index).find('td').find('input, select').eq(3).attr('name
           </tbody>
         </table>
         <div>
-          延長料金
+          延長料金(1H)
         </div>
         <div>
           {{ Form::text('extend', $frame_price->extend,['class'=>'form-control w-25 mb-2'])}}
           <p class="{{'is-error-extend'}}" style="color: red"></p>
         </div>
         {{Form::hidden('venue_id', $venue->id)}}
-        {{ Form::submit('更新', ['class' => 'btn btn-primary']) }}
+        {{ Form::submit('保存する', ['class' => 'btn more_btn_lg mx-auto d-block my-5']) }}
         {{ Form::close() }}
       </div>
     </div>
