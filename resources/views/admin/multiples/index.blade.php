@@ -35,72 +35,59 @@
       <hr>
     </div>
 
-      <!-- 検索--------------------------------------- -->
-      <div class="search_box">
-        <table class="table table-bordered">
-          <tbody>
-            <tr>
-              <td class="search_item_name"><label class="search_item_name" for="id">一括仮押さえID</label></td>
-              <td class="text-right">
-                <div class="input-group">
-                  <input type="text" name="id" class="form-control" id="id">
-                </div>
-              </td>
-              <td class="search_item_name"><label class="search_item_name">作成日</label></td>
-              <td class="text-right">
-                <div class="input-group">
-                  <div class="input-group-prepend">
-                    <span class="input-group-text">
-                      <i class="far fa-calendar-alt" aria-hidden="true"></i>
-                    </span>
-                  </div>
-                  <input type="text" name="daterange" value="" class="form-control">
-                </div>
-              </td>
-            </tr>
+        <!-- 検索--------------------------------------- -->
+        <div class="section-wrap">
+      <table class="table table-bordered">
+        <tbody>
+          <tr>
+            <th class="search_item_name"><label for="id">一括仮押さえID</label>
+            <td class="text-right">
+              <input type="text" name="id" class="form-control" id="id">
+            </td>
+            <th class="search_item_name"><label for="">作成日</label></th>
+            <td class="text-right form-group">
+              <input type="date" name="" class="form-control float-right" id="">
+            </td>
+          </tr>
+          <tr>
+            <th class="search_item_name"><label for="company">会社名・団体名</label></th>
+            <td class="text-right">
+              <input type="text" name="company" class="form-control" id="company">
+            </td>
+            <th class="search_item_name"><label for="person_name">担当者氏名</label></th>
+            <td class="text-right">
+              <dd>
+                <input type="text" name="person_name" class="form-control" id="person_name">
+            </td>
+          </tr>
+          <tr>
+            <th class="search_item_name"><label for="mobile">携帯電話</label></th>
+            <td>
+              <input type="text" name="mobile" class="form-control" id="mobile">
+            </td>
+            <th class="search_item_name"><label for="tel">固定電話</label></th>
+            <td>
+              <input type="text" name="tel" class="form-control" id="tel">
+            </td>
+          </tr>
 
-            <tr>
-              <td class="search_item_name"><label class="search_item_name" for="company">会社名・団体名</label></td>
-              <td class="text-right">
-                <select class="form-control select2" style="width: 100%;" name="company">
-                  <option>テスト会場A</option>
-                  <option>テスト会場B</option>
-                  <option>テスト会場C</option>
-                </select>
-              </td>
-              <td class="search_item_name"><label class="search_item_name" for="name">担当者氏名</label></td>
-              <td>
-                <input type="text" name="name" class="form-control" id="name">
-              </td>
-            </tr>
-            <tr>
-              <td class="search_item_name"><label class="search_item_name" for="phone1">携帯番号</label></td>
-              <td class="text-right">
-                <input type="text" name="phone1" class="form-control" id="phone1">
-              </td>
-              <td class="search_item_name"><label class="search_item_name" for="phone2">電話番号</label></td>
-              <td class="text-left">
-                <input type="text" name="phone2" class="form-control" id="phone2">
-              </td>
-            </tr>
+          <tr>
+            <th class="search_item_name"><label for="freeword">フリーワード検索</label></th>
+            <td>
+              <input type="text" name="freeword" class="form-control" id="freeword">
+            </td>
+          </tr>
+        </tbody>
+      </table>
+      <p class="text-right">※フリーワード検索は本画面表記の項目のみ対象となります</p>
 
-            <tr>
-              <td class="search_item_name"><label class="search_item_name" for="freeword">フリーワード検索</label></td>
-              <td class="text-left">
-                <input type="text" name="freeword" class="form-control" id="freeword">
-              </td>
-            </tr>
-          </tbody>
-        </table>
-        <p class="text-left">※フリーワード検索は本画面表記の項目のみ対象となります</p>
-
-
-        <div class="btn_box d-flex justify-content-center">
-          <input type="reset" value="リセット" class="btn reset_btn">
-          <input type="submit" value="検索" class="btn search_btn">
-        </div>
+      <div class="btn_box d-flex justify-content-center">
+        <input type="reset" value="リセット" class="btn reset_btn">
+        <input type="submit" value="検索" class="btn search_btn">
       </div>
-      <!-- 検索　終わり------------------------------------------------ -->
+
+    </div>
+    <!-- 検索　終わり------------------------------------------------ -->
 
       <ul class="d-flex reservation_list justify-content-between">
         <li>
@@ -130,7 +117,7 @@
               <th>電話</th>
               <th>会社名・団体名(顧客未登録)</th>
               <th>仲介会社</th>
-              <th>仲介当日利用者</th>
+              <th>エンドユーザー：担当者</th>
               <th></th>
             </tr>
           </thead>

@@ -36,271 +36,6 @@
     </div>
 
     <!-- 検索--------------------------------------- -->
-    <div class="container-field">
-      <div class="row search_box">
-        <div class="col-md-10 offset-md-1">
-          <div class="d-flex col-12 flex-wrap">
-            <dl class="form-group flex-fill">
-              <dt>
-                <label class="search_item_name" for="bulkid">予約一括ID</label>
-              </dt>
-              <dd>
-                <input type="text" name="bulkid" class="form-control" id="bulkid">
-              </dd>
-            </dl>
-            <dl class="form-group flex-fill">
-              <dt>
-                <label class="search_item_name" for="id">予約ID</label>
-              </dt>
-              <dd>
-                <input type="text" name="id" class="form-control" id="id">
-              </dd>
-            </dl>
-            <!-- Date range -->
-            <dl class="form-group flex-fill">
-              <dt>
-                <label class="search_item_name">利用日</label>
-              </dt>
-              <dd>
-                <div class="input-group">
-                  <input type="text" class="form-control float-right" id="reservation">
-                  <div class="input-group-prepend">
-                    <span class="input-group-text">
-                      <i class="far fa-calendar-alt"></i>
-                    </span>
-                  </div>
-                </div>
-              </dd>
-            </dl>
-            <!-- /.form group -->
-            <!-- <dl class="form-group flex-fill">
-                <dt>
-                  <label class="search_item_name">入室・退室</label>
-                </dt>
-                <dd class="d-flex align-items-center">
-                  <div class="flex-fill">
-                    <select class="form-control" id="eventStart" name="eventStart">
-                      <option value="01:00:00">01:00</option>
-                      <option value="01:30:00">01:30</option>
-                      <option value="02:00:00">02:00</option>
-                      <option value="02:30:00">02:30</option>
-                      <option value="03:00:00">03:00</option>
-                      <option value="03:30:00">03:30</option>
-                      <option value="04:00:00">04:00</option>
-                      <option value="04:30:00">04:30</option>
-                      <option value="05:00:00">05:00</option>
-                      <option value="05:30:00">05:30</option>
-                      <option value="06:00:00">06:00</option>
-                      <option value="06:30:00">06:30</option>
-                      <option value="07:00:00">07:00</option>
-                      <option value="07:30:00">07:30</option>
-                      <option value="08:00:00" selected="selected">08:00</option>
-                      <option value="08:30:00">08:30</option>
-                      <option value="09:00:00">09:00</option>
-                      <option value="09:30:00">09:30</option>
-                      <option value="10:00:00">10:00</option>
-                      <option value="10:30:00">10:30</option>
-                      <option value="11:00:00">11:00</option>
-                      <option value="11:30:00">11:30</option>
-                      <option value="12:00:00">12:00</option>
-                      <option value="12:30:00">12:30</option>
-                      <option value="13:00:00">13:00</option>
-                      <option value="13:30:00">13:30</option>
-                      <option value="14:00:00">14:00</option>
-                      <option value="14:30:00">14:30</option>
-                      <option value="15:00:00">15:00</option>
-                      <option value="15:30:00">15:30</option>
-                      <option value="16:00:00">16:00</option>
-                      <option value="16:30:00">16:30</option>
-                      <option value="17:00:00">17:00</option>
-                      <option value="17:30:00">17:30</option>
-                      <option value="18:00:00">18:00</option>
-                      <option value="18:30:00">18:30</option>
-                      <option value="19:00:00">19:00</option>
-                      <option value="19:30:00">19:30</option>
-                      <option value="20:00:00">20:00</option>
-                      <option value="20:30:00">20:30</option>
-                      <option value="21:00:00">21:00</option>
-                      <option value="21:30:00">21:30</option>
-                      <option value="22:00:00">22:00</option>
-                      <option value="22:30:00">22:30</option>
-                      <option value="23:00:00">23:00</option>
-                      <option value="23:30:00">23:30</option>
-                      <option value="24:00:00">24:00</option>
-                      <option value="24:30:00">24:30</option>
-                    </select>
-                  </div>
-                  <p style="margin: 0 20px;">～</p>
-                  <div class="flex-fill">
-                    <select class="form-control" id="eventFinish" name="eventFinish">
-                      <option value="01:00:00">01:00</option>
-                      <option value="01:30:00">01:30</option>
-                      <option value="02:00:00">02:00</option>
-                      <option value="02:30:00">02:30</option>
-                      <option value="03:00:00">03:00</option>
-                      <option value="03:30:00">03:30</option>
-                      <option value="04:00:00">04:00</option>
-                      <option value="04:30:00">04:30</option>
-                      <option value="05:00:00">05:00</option>
-                      <option value="05:30:00">05:30</option>
-                      <option value="06:00:00">06:00</option>
-                      <option value="06:30:00">06:30</option>
-                      <option value="07:00:00">07:00</option>
-                      <option value="07:30:00">07:30</option>
-                      <option value="08:00:00" selected="selected">08:00</option>
-                      <option value="08:30:00">08:30</option>
-                      <option value="09:00:00">09:00</option>
-                      <option value="09:30:00">09:30</option>
-                      <option value="10:00:00">10:00</option>
-                      <option value="10:30:00">10:30</option>
-                      <option value="11:00:00">11:00</option>
-                      <option value="11:30:00">11:30</option>
-                      <option value="12:00:00">12:00</option>
-                      <option value="12:30:00">12:30</option>
-                      <option value="13:00:00">13:00</option>
-                      <option value="13:30:00">13:30</option>
-                      <option value="14:00:00">14:00</option>
-                      <option value="14:30:00">14:30</option>
-                      <option value="15:00:00">15:00</option>
-                      <option value="15:30:00">15:30</option>
-                      <option value="16:00:00">16:00</option>
-                      <option value="16:30:00">16:30</option>
-                      <option value="17:00:00">17:00</option>
-                      <option value="17:30:00">17:30</option>
-                      <option value="18:00:00">18:00</option>
-                      <option value="18:30:00">18:30</option>
-                      <option value="19:00:00">19:00</option>
-                      <option value="19:30:00">19:30</option>
-                      <option value="20:00:00">20:00</option>
-                      <option value="20:30:00">20:30</option>
-                      <option value="21:00:00">21:00</option>
-                      <option value="21:30:00">21:30</option>
-                      <option value="22:00:00">22:00</option>
-                      <option value="22:30:00">22:30</option>
-                      <option value="23:00:00">23:00</option>
-                      <option value="23:30:00">23:30</option>
-                      <option value="24:00:00">24:00</option>
-                      <option value="24:30:00">24:30</option>
-                    </select>
-                  </div>
-                </dd>
-              </dl> -->
-
-            <dl class="form-group flex-fill">
-              <dt>
-                <label class="search_item_name" for="venue">利用会場</label>
-              </dt>
-              <dd>
-                <select class="form-control select2" style="width: 100%;" name="venue">
-                  <option>テスト会場A</option>
-                  <option>テスト会場B</option>
-                  <option>テスト会場C</option>
-                </select>
-              </dd>
-            </dl>
-            <dl class="form-group flex-fill">
-              <dt>
-                <label class="search_item_name" for="company">会社名・団体名</label>
-              </dt>
-              <dd>
-                <select class="form-control select2" style="width: 100%;" name="company">
-                  <option>テスト会場A</option>
-                  <option>テスト会場B</option>
-                  <option>テスト会場C</option>
-                </select>
-              </dd>
-            </dl>
-            <dl class="form-group flex-fill">
-              <dt>
-                <label class="search_item_name" for="name">担当者氏名</label>
-              </dt>
-              <dd>
-                <input type="text" name="name" class="form-control" id="name">
-              </dd>
-            </dl>
-            <dl class="form-group flex-fill">
-              <dt>
-                <label class="search_item_name" for="mobile">携帯電話</label>
-              </dt>
-              <dd>
-                <input type="text" name="mobile" class="form-control" id="mobile">
-              </dd>
-            </dl>
-            <dl class="form-group flex-fill">
-              <dt>
-                <label class="search_item_name" for="tel">固定電話</label>
-              </dt>
-              <dd>
-                <input type="text" name="tel" class="form-control" id="tel">
-              </dd>
-            </dl>
-            <dl class="form-group flex-fill">
-              <dt>
-                <label class="search_item_name" for="enduser">仲介会社当日利用者</label>
-              </dt>
-              <dd>
-                <input type="text" name="enduser" class="form-control" id="enduser">
-              </dd>
-            </dl>
-            <dl class="form-group flex-fill">
-              <dt>
-                <label class="search_item_name" for="category">売上区分</label>
-              </dt>
-              <dd>
-                <ul class="form-control icheck-primary d-flex d-flex justify-content-around">
-                  <li>
-                    <input type="checkbox" id="checkboxPrimary1">
-                    <label for="checkboxPrimary1">会場</label>
-                  </li>
-                  <li>
-                    <input type="checkbox" id="checkboxPrimary1">
-                    <label for="checkboxPrimary1">追加請求</label>
-                  </li>
-                  <!-- <li>
-                    <input type="checkbox" id="checkboxPrimary1" checked>
-                    <label for="checkboxPrimary1">追加請求</label>
-                  </li> -->
-                  <li>
-                    <input type="checkbox" id="checkboxPrimary1">
-                    <label for="checkboxPrimary1">キャンセル</label>
-                  </li>
-                </ul>
-              </dd>
-            </dl>
-            <dl class="form-group flex-fill">
-              <dt>
-                <label class="search_item_name" for="status">予約状況</label>
-              </dt>
-              <dd>
-                <select class="form-control select2" style="width: 100%;" name="status">
-                  <option>予約確認中</option>
-                  <option>予約承認待ち</option>
-                  <option>予約完了</option>
-                </select>
-              </dd>
-            </dl>
-            <dl class="form-group flex-fill">
-              <dt>
-                <label class="search_item_name" for="freeword">フリーワード検索</label>
-              </dt>
-              <dd>
-                <input type="text" name="freeword" class="form-control" id="freeword">
-              </dd>
-            </dl>
-          </div>
-
-          <p class="text-right">※フリーワード検索は本画面表記の項目のみ対象となります</p>
-        </div>
-
-
-        <div class="btn_box d-flex justify-content-center">
-          <input type="reset" value="リセット" class="btn reset_btn">
-          <input type="submit" value="検索" class="btn search_btn">
-        </div>
-      </div>
-
-    </div>
-
     <div class="section-wrap">
       <table class="table table-bordered">
         <tbody>
@@ -309,120 +44,103 @@
             <td class="text-right">
               <input type="text" name="bulkid" class="form-control" id="bulkid">
             </td>
-            <th class="search_item_name"><label for="id">予約ID</label>
-            <td class="text-right">
+            <th class="search_item_name"><label for="id">予約ID</label></th>
+            <td>
               <input type="text" name="id" class="form-control" id="id">
             </td>
           </tr>
           <tr>
             <th class="search_item_name"><label for="date">利用日</label></th>
             <td class="text-right form-group">
-              <div class="input-group">
-                <div class="input-group-prepend">
-                  <span class="input-group-text">
-                    <i class="far fa-calendar-alt"></i>
-                  </span>
-                </div>
-                <input type="text" class="form-control float-right" id="reservation">
-              </div>
+              <input type="date" class="form-control float-right" id="reservation">
             </td>
-            <th class="search_item_name"><label for="venue">会場</label></th>
+            <th class="search_item_name"><label for="venue">利用会場</label></th>
             <td class="text-right">
               <dd>
-                <select class="form-control select2" name="venue">
+                <select class="form-control" name="venue">
                   <option>テスト会場A</option>
                   <option>テスト会場B</option>
                   <option>テスト会場C</option>
                 </select>
             </td>
           </tr>
-
           <tr>
             <th class="search_item_name"><label for="company">会社名・団体名</label></th>
             <td class="text-right">
               <input type="text" name="company" class="form-control" id="company">
             </td>
-
-            <th class="search_item_name"><label for="person">担当者氏名</label></th>
+            <th class="search_item_name"><label for="person_name">担当者氏名</label></th>
             <td class="text-right">
               <dd>
-                <input type="text" name="person" class="form-control" id="person">
+                <input type="text" name="person_name" class="form-control" id="person_name">
+            </td>
+          </tr>
+          <tr>
+            <th class="search_item_name"><label for="mobile">携帯電話</label></th>
+            <td>
+              <input type="text" name="mobile" class="form-control" id="mobile">
+            </td>
+            <th class="search_item_name"><label for="tel">固定電話</label></th>
+            <td>
+              <input type="text" name="tel" class="form-control" id="tel">
             </td>
           </tr>
 
           <tr>
-          <th class="search_item_name"><label for="id">予約ID</label></th>
-            <td>
-              <input type="text" name="id" class="form-control" id="id">
-            </td>
-            <th class="search_item_name"><label for="id">フリーワード検索</label></th>
-            <td>
-              <input type="text" name="id" class="form-control" id="id">
-            </td>
-          </tr>
-          
-          <tr>
-            <th class="search_item_name"><label for="payStatus">支払状態</label></th>
+            <th class="search_item_name"><label for="enduser_person">エンドユーザー：担当者</label></th>
             <td class="text-right">
-              <select class="form-control select2" name="payStatus">
-                <option>入金済</option>
-                <option>未入金</option>
-              </select>
+              <input type="text" name="enduser_person" class="form-control" id="enduser_person">
+            </td>
+            <th class="search_item_name"><label for="category">売上区分</label></th>
+            <td class="text-right">
+              <ul class="search_category">
+                <li>
+                  <input type="checkbox">
+                  <label for="category">会場</label>
+                </li>
+                <li>
+                  <input type="checkbox">
+                  <label for="category">追加</label>
+                </li>
+                <li>
+                  <input type="checkbox">
+                  <label for="category">キャンセル</label>
+                </li>
+              </ul>
             </td>
           </tr>
 
           <tr>
-
-          <th class="search_item_name"><label for="billStatus">請求項目</label></th>
+            <th class="search_item_name"><label for="Status">予約状況</label></th>
             <td>
               <ul class="search_category">
                 <li>
                   <input type="checkbox">
-                  <label for="checkboxPrimary1">会場</label>
+                  <label for="Status">予約確認中</label>
                 </li>
                 <li>
                   <input type="checkbox">
-                  <label for="checkboxPrimary1">キャンセル</label>
+                  <label for="Status">予約完了</label>
                 </li>
                 <li>
                   <input type="checkbox">
-                  <label for="checkboxPrimary1">追加請求</label>
+                  <label for="Status">キャンセル申請中</label>
+                </li>
+                <li>
+                  <input type="checkbox">
+                  <label for="Status">キャンセル承認待ち</label>
+                </li>
+                <li>
+                  <input type="checkbox">
+                  <label for="Status">キャンセル</label>
                 </li>
               </ul>
             </td>
-
-
-            <th class="search_item_name"><label for="category">営業</label></th>
-            <td class="text-left">
-              <ul class="">
-                <li>
-                  <input type="checkbox" id="">
-                  <label for="">直営業</label>
-                </li>
-                <li>
-                  <div class="radio d-flex">
-                    <label class="mr-2">
-                      <input type="checkbox">仲介会社経由
-                    </label>
-                    <input type="text" class="form-control" placeholder="入力してください" style="width: 60%">
-                  </div>
-                </li>
-              </ul>
-            </td>
-          </tr>
-
-
-          <tr>
-
-          </tr>
-
-          <tr>
-            <th class="search_item_name"><label for="customer">顧客ID</label></th>
+            <th class="search_item_name"><label for="freeword">フリーワード検索</label></th>
             <td>
-              <input type="text" name="customer" class="form-control">
+              <input type="text" name="freeword" class="form-control" id="freeword">
             </td>
           </tr>
-
         </tbody>
       </table>
       <p class="text-right">※フリーワード検索は本画面表記の項目のみ対象となります</p>
@@ -433,20 +151,19 @@
       </div>
 
     </div>
-
     <!-- 検索　終わり------------------------------------------------ -->
 
-    <ul class="d-flex reservation_list">
-      <li><a class="more_btn" href="">前日予約</a></li>
-      <li><a class="more_btn" href="">当日予約</a></li>
-      <li><a class="more_btn" href="">翌日予約</a></li>
-      <li><a class="more_btn bg-red" href="">予約確認中</a></li>
-      <li><a class="more_btn bg-red" href="">予約承認待ち</a></li>
-      <li><a class="more_btn bg-green" href="">キャンセル申請中</a></li>
-      <li><a class="more_btn bg-black" href="">予約完了</a></li>
-    </ul>
-    <div class="col-12">
-      <p class="text-right font-weight-bold"><span>10</span>件</p>
+    <div class="d-flex justify-content-between">
+      <ul class="d-flex reservation_list">
+        <li><a class="more_btn" href="">前日予約</a></li>
+        <li><a class="more_btn" href="">当日予約</a></li>
+        <li><a class="more_btn" href="">翌日予約</a></li>
+        <li><a class="more_btn bg-red" href="">予約確認中</a></li>
+        <li><a class="more_btn bg-red" href="">予約承認待ち</a></li>
+        <li><a class="more_btn bg-green" href="">キャンセル申請中</a></li>
+        <li><a class="more_btn bg-black" href="">予約完了</a></li>
+      </ul>
+      <p class="font-weight-bold"><span>10</span>件</p>
     </div>
 
 
@@ -465,7 +182,7 @@
             <th>携帯電話</th>
             <th>固定電話</th>
             <th>仲介会社</th>
-            <th>仲介会社当日利用者</th>
+            <th>エンドユーザー：担当者</th>
             <th width="120">売上区分</th>
             <th width="120">予約状況</th>
             <th class="btn-cell">予約詳細</th>

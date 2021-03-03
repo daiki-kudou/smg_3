@@ -55,104 +55,6 @@
   <hr>
 
   <!-- 検索-------------------------------------------------------- -->
-
-  <!-- <form class="" action="{{url('/admin/clients')}}">
-    <div class="row search_box">
-      @csrf
-      <div class="col-md-10 offset-md-1">
-        <div class="d-flex col-12 flex-wrap">
-          <dl class="form-group flex-fill">
-            <dt>
-              <label class="search_item_name" for="id">顧客ID</label>
-            </dt>
-            <dd>
-              <input type="text" name="id" class="form-control" id="id">
-            </dd>
-          </dl>
-          <dl class="form-group flex-fill">
-            <dt>
-              <label class="search_item_name" for="status">顧客状況</label>
-            </dt>
-            <dd>
-              <input type="text" name="status" class="form-control" id="status">
-            </dd>
-          </dl>
-          <dl class="form-group flex-fill">
-            <dt>
-              <label class="search_item_name" for="company">会社名　団体名</label>
-            </dt>
-            <dd>
-              <input type="text" name="company" class="form-control" id="company">
-            </dd>
-          </dl>
-          <dl class="form-group flex-fill">
-            <dt>
-              <label class="search_item_name" for="attr">顧客属性</label>
-            </dt>
-            <dd>
-              <input type="text" name="attr" class="form-control" id="attr">
-            </dd>
-          </dl>
-          <dl class="form-group flex-fill">
-            <dt>
-              <label class="search_item_name" for="person_name">担当者</label>
-            </dt>
-            <dd>
-              <input type="text" name="person_name" class="form-control" id="person_name">
-            </dd>
-          </dl>
-          <dl class="form-group flex-fill">
-            <dt>
-              <label class="search_item_name" for="mobile">携帯番号</label>
-            </dt>
-            <dd>
-              <input type="text" name="mobile" class="form-control" id="mobile">
-            </dd>
-          </dl>
-          <dl class="form-group flex-fill">
-            <dt>
-              <label class="search_item_name" for="tel">固定番号</label>
-            </dt>
-            <dd>
-              <input type="text" name="tel" class="form-control" id="tel">
-            </dd>
-          </dl>
-          <dl class="form-group flex-fill">
-            <dt>
-              <label class="search_item_name" for="email">担当者メールアドレス</label>
-            </dt>
-            <dd>
-              <input type="text" name="email" class="form-control" id="email">
-            </dd>
-          </dl>
-          <dl class="form-group flex-fill">
-            <dt>
-              <label class="search_item_name" for="attention">注意事項</label>
-            </dt>
-            <dd>
-              <input type="text" name="attention" class="form-control" id="attention">
-            </dd>
-          </dl>
-          <dl class="form-group flex-fill">
-            <dt>
-              <label class="search_item_name" for="freeword">フリーワード検索</label>
-            </dt>
-            <dd>
-              <input type="text" name="freeword" class="form-control" id="freeword">
-            </dd>
-          </dl>
-        </div>
-        <p class="text-right">※フリーワード検索は本画面表記の項目のみ対象となります</p>
-      </div>
-
-      <div class="btn_box d-flex justify-content-center">
-        <input type="reset" value="リセット" class="btn reset_btn">
-        <input type="submit" value="検索" class="btn btn-info search_btn">
-      </div>
-    </div>
-  </form> -->
-
-
   <form class="" action="{{url('/admin/clients')}}">
     <div class="section-wrap">
       @csrf
@@ -163,48 +65,15 @@
             <td class="text-right form-group">
               <input type="text" class="form-control float-right" id="id">
             </td>
-            <th class="search_item_name"><label for="status">顧客状況</label></th>
+            <!-- <th class="search_item_name"><label for="status">顧客状況</label></th>
             <td class="text-right">
               <input type="text" name="status" class="form-control" id="status">
-            </td>
-          </tr>
-          <tr>
+            </td> -->
             <th class="search_item_name"><label for="company">会社名　団体名</label></th>
             <td class="text-right form-group">
               <input type="text" name="company" class="form-control float-right" id="company">
             </td>
-
-            <th class="search_item_name"><label for="personStatus">顧客属性</label></th>
-            <td width="510px">
-              <ul class="search_category">
-                <li>
-                  <input type="checkbox" checked>
-                  <label for="personStatus">一般企業</label>
-                </li>
-                <li>
-                  <input type="checkbox" checked>
-                  <label for="personStatus">上場企業</label>
-                </li>
-                <li>
-                  <input type="checkbox" checked>
-                  <label for="personStatus">近隣利用</label>
-                </li>
-                <li>
-                  <input type="checkbox" checked>
-                  <label for="personStatus">講師・セミナー</label>
-                </li>
-                <li>
-                  <input type="checkbox" checked>
-                  <label for="personStatus">ネットワーク</label>
-                </li>
-                <li>
-                  <input type="checkbox" checked>
-                  <label for="personStatus">その他</label>
-                </li>
-              </ul>
-            </td>
           </tr>
-
           <tr>
             <th class="search_item_name"><label for="person_name">担当者</label></th>
             <td class="text-right">
@@ -234,11 +103,11 @@
             <td class="text-left">
               <ul class="search_category">
                 <li>
-                  <input type="checkbox" id="">
+                  <input type="checkbox" id="attention" name="attention">
                   <label for="">あり</label>
                 </li>
                 <li>
-                  <input type="checkbox" id="">
+                  <input type="checkbox" id="attention" name="attention">
                   <label for="">なし</label>
                 </li>
               </ul>
@@ -246,6 +115,37 @@
             <th class="search_item_name"><label for="id">フリーワード検索</label></th>
             <td>
               <input type="text" name="id" class="form-control" id="id">
+            </td>
+          </tr>
+          <tr>
+            <th class="search_item_name"><label for="personStatus">顧客属性</label></th>
+            <td colspan="3">
+              <ul class="search_category">
+                <li>
+                  <input type="checkbox" checked>
+                  <label for="personStatus">一般企業</label>
+                </li>
+                <li>
+                  <input type="checkbox" checked>
+                  <label for="personStatus">上場企業</label>
+                </li>
+                <li>
+                  <input type="checkbox" checked>
+                  <label for="personStatus">近隣利用</label>
+                </li>
+                <li>
+                  <input type="checkbox" checked>
+                  <label for="personStatus">講師・セミナー</label>
+                </li>
+                <li>
+                  <input type="checkbox" checked>
+                  <label for="personStatus">ネットワーク</label>
+                </li>
+                <li>
+                  <input type="checkbox" checked>
+                  <label for="personStatus">その他</label>
+                </li>
+              </ul>
             </td>
           </tr>
         </tbody>
@@ -260,14 +160,13 @@
   </form>
   <!-- 検索　終わり------------------------------------------------ -->
 
-
   <div class="table-wrap">
     <table class="table table-bordered table-scroll">
       <thead>
         <tr class="table_row">
           <th>注意事項</th>
           <th>顧客ID</th>
-          <th>顧客状況</th>
+          <!-- <th>顧客状況</th> -->
           <th>会社名・団体名</th>
           <th>顧客属性</th>
           <th>担当者</th>
@@ -282,7 +181,7 @@
         <tr>
           <td>{{$query->attention!=null?'●':''}}</td>
           <td>{{$query->id}}</td>
-          <td>{{$query->status==1?'会員':'退会'}}</td>
+          <!-- <td>{{$query->status==1?'会員':'退会'}}</td> -->
           <td>{{$query->company}}</td>
           <td>
             @if ($query->attr==1)

@@ -608,7 +608,7 @@ table {
 /* 予約一覧------------------------------------------------------------ */
 
 .reservation_list {
-    margin-bottom: 20px;
+    /* margin-bottom: 20px; */
 }
 
 .reservation_list li {
