@@ -46,7 +46,6 @@ class CreateAgentsTable extends Migration
       $table->text('cxl_remark')->nullable();
       $table->text('last_remark')->nullable();
 
-
       $table->timestamps();
     });
   }

@@ -680,7 +680,6 @@
                 <div class="d-flex">
                   <p class="bg-success p-2">二人目チェック</p>
                   <p class="border p-2">未
-                    {{-- <button class="btn more_btn second_double_check">チェックをする</button> --}}
                   </p>
                 </div>
               </td>
@@ -723,7 +722,6 @@
                 {{ Form::close() }}
               </p>
               <p class="text-right">
-                {{-- <a class="more_btn4" href="">確定</a> --}}
                 {{ Form::open(['url' => 'admin/reservations/'.$reservation->id.'/confirm_reservation', 'method'=>'POST', 'class'=>'']) }}
                 @csrf
                 {{ Form::hidden('reservation_id', $reservation->id ) }}
