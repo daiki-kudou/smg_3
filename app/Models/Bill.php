@@ -191,6 +191,10 @@ class Bill extends Model
 
   public function ReserveFromAgentBreakdown($request)
   {
+    echo "<pre>";
+    var_dump($request->all());
+    echo "</pre>";
+
     DB::transaction(function () use ($request) {
       $countVenue = $this->RequestBreakdowns($request, 'venue_breakdown_item');
       if ($countVenue != "") {
@@ -205,75 +209,74 @@ class Bill extends Model
         }
       }
 
-      $countEqu = $this->AgentRequestBreakdowns($request, 'equipment_breakdown_item', 'equipment_breakdown_count');
-      echo "<pre>";
-      var_dump($countEqu);
-      echo "</pre>";
-      // if (!empty($countEqu)) {
-      //   foreach ($countEqu as $key => $value) {
-      //     $this->breakdowns()->create([
-      //       'unit_item' => $request->{'service_breakdown_item' . $ser},
-      //       'unit_cost' => 0,
-      //       'unit_count' => $request->{'service_breakdown_count' . $ser},
-      //       'unit_subtotal' => 0,
-      //       'unit_type' => 3,
-      //     ]);
-      //   }
-      // }
+      $countEqu = $this->RequestBreakdowns($request, 'equipment_breakdown');
+      if ($countEqu != "") {
+        for ($equ = 0; $equ < $countEqu; $equ++) {
+          if (!empty($request->{'equipment_breakdown_item' . $equ})) {
+            $this->breakdowns()->create([
+              'unit_item' => $request->{'equipment_breakdown_item' . $equ},
+              'unit_cost' => 0,
+              'unit_count' => $request->{'equipment_breakdown_count' . $equ},
+              'unit_subtotal' => 0,
+              'unit_type' => 2,
+            ]);
+          }
+        }
+      }
 
-
-
-      // $countSer = $this->RequestBreakdowns($request, 'service_breakdown_item');
-      // if ($countSer != "") {
-      //   for ($ser = 0; $ser < $countSer; $ser++) {
-      //     $this->breakdowns()->create([
-      //       'unit_item' => $request->{'service_breakdown_item' . $ser},
-      //       'unit_cost' => 0,
-      //       'unit_count' => $request->{'service_breakdown_count' . $ser},
-      //       'unit_subtotal' => 0,
-      //       'unit_type' => 3,
-      //     ]);
-      //   }
-      // }
-      // if ($request->luggage_item) {
-      //   $this->breakdowns()->create([
-      //     'unit_item' => $request->luggage_item,
-      //     'unit_cost' => $request->layouts_price,
-      //     'unit_count' => 1,
-      //     'unit_subtotal' => 0,
-      //     'unit_type' => 3,
-      //   ]);
-      // }
-      // if ($request->layout_prepare_item) {
-      //   $this->breakdowns()->create([
-      //     'unit_item' => $request->layout_prepare_item,
-      //     'unit_cost' => $request->layout_prepare_cost,
-      //     'unit_count' => 1,
-      //     'unit_subtotal' => $request->layout_prepare_subtotal,
-      //     'unit_type' => 4,
-      //   ]);
-      // }
-      // if ($request->layout_clean_item) {
-      //   $this->breakdowns()->create([
-      //     'unit_item' => $request->layout_clean_item,
-      //     'unit_cost' => $request->layout_clean_cost,
-      //     'unit_count' => 1,
-      //     'unit_subtotal' => $request->layout_clean_subtotal,
-      //     'unit_type' => 4,
-      //   ]);
-      // }
-      // $countOth = $this->RequestBreakdowns($request, 'others_breakdown_item');
-      // if ($countOth != "") {
-      //   for ($oth = 0; $oth < $countOth; $oth++) {
-      //     $this->breakdowns()->create([
-      //       'unit_item' => $request->{'others_breakdown_item' . $oth},
-      //       'unit_cost' => 0,
-      //       'unit_count' => $request->{'others_breakdown_count' . $oth},
-      //       'unit_subtotal' => 0,
-      //       'unit_type' => 5,
-      //     ]);
-      //   }
-      // }
+      $countSer = $this->RequestBreakdowns($request, 'services_breakdown');
+      if ($countSer != "") {
+        for ($ser = 0; $ser < $countSer; $ser++) {
+          if (!empty($request->{'service_breakdown_item' . $ser})) {
+            $this->breakdowns()->create([
+              'unit_item' => $request->{'service_breakdown_item' . $ser},
+              'unit_cost' => 0,
+              'unit_count' => $request->{'service_breakdown_count' . $ser},
+              'unit_subtotal' => 0,
+              'unit_type' => 3,
+            ]);
+          }
+        }
+      }
+      if ($request->luggage_item) {
+        $this->breakdowns()->create([
+          'unit_item' => $request->luggage_item,
+          'unit_cost' => 0,
+          'unit_count' => 1,
+          'unit_subtotal' => 0,
+          'unit_type' => 3,
+        ]);
+      }
+      if ($request->layout_prepare_item) {
+        $this->breakdowns()->create([
+          'unit_item' => $request->layout_prepare_item,
+          'unit_cost' => $request->layout_prepare_cost,
+          'unit_count' => 1,
+          'unit_subtotal' => $request->layout_prepare_subtotal,
+          'unit_type' => 4,
+        ]);
+      }
+      if ($request->layout_clean_item) {
+        $this->breakdowns()->create([
+          'unit_item' => $request->layout_clean_item,
+          'unit_cost' => $request->layout_clean_cost,
+          'unit_count' => 1,
+          'unit_subtotal' => $request->layout_clean_subtotal,
+          'unit_type' => 4,
+        ]);
+      }
+      $countOth = $this->RequestBreakdowns($request, 'others_breakdown_item');
+      if ($countOth != "") {
+        for ($oth = 0; $oth < $countOth; $oth++) {
+          $this->breakdowns()->create([
+            'unit_item' => $request->{'others_breakdown_item' . $oth},
+            'unit_cost' => 0,
+            'unit_count' => $request->{'others_breakdown_count' . $oth},
+            'unit_subtotal' => 0,
+            'unit_type' => 5,
+          ]);
+        }
+      }
     });
   }
 
@@ -284,27 +287,6 @@ class Bill extends Model
       if (preg_match('/' . $targetItem . '/', $key)) {
         $array_details[] = $value;
       }
-    }
-    if (!empty($array_details)) {
-      return count($array_details);
-    } else {
-      return "";
-    }
-  }
-
-  public function AgentRequestBreakdowns($request, $targetItem1, $targetItem2)
-  {
-    $array_details = [];
-    foreach ($request->all() as $key => $value) {
-      if (preg_match('/' . $targetItem1 . '/', $key)) {
-        $first = $value;
-        var_dump($first);
-      }
-      if (preg_match('/' . $targetItem2 . '/', $key)) {
-        $second = $value;
-        var_dump($second);
-      }
-      $array_details[] = [$first, $second];
     }
     if (!empty($array_details)) {
       return count($array_details);

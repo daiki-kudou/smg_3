@@ -4,18 +4,6 @@
 <script src="{{ asset('/js/validation.js') }}"></script>
 <link href="{{ asset('/css/template.css') }}" rel="stylesheet">
 
-<div class="container-field mt-3">
-  <div class="float-right">
-    <nav aria-label="breadcrumb">
-      <ol class="breadcrumb">
-        <li class="breadcrumb-item active">{{ Breadcrumbs::render(Route::currentRouteName()) }}</li>
-      </ol>
-    </nav>
-  </div>
-  <h1 class="mt-3 mb-5">会場　新規登録</h1>
-  <hr>
-</div>
-
 <div class="errors">
   @if ($errors->any())
   <div class="alert alert-danger">
