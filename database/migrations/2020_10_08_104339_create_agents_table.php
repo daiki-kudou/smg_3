@@ -16,14 +16,11 @@ class CreateAgentsTable extends Migration
     Schema::create('agents', function (Blueprint $table) {
       $table->bigIncrements('id');
       $table->string('name');
+      $table->string('company')->nullable();
       $table->string('post_code');
       $table->string('address1');
       $table->string('address2');
       $table->string('address3');
-      $table->text('address_remark');
-      $table->string('url');
-      $table->string('attr');
-      $table->text('remark');
       $table->string('person_firstname');
       $table->string('person_lastname');
       $table->string('firstname_kana');
@@ -36,6 +33,21 @@ class CreateAgentsTable extends Migration
       $table->integer('payment_limit');
       $table->text('payment_day');
       $table->text('payment_remark');
+
+      $table->string('site');
+      $table->string('site_url');
+      $table->string('login');
+      $table->string('site_id');
+      $table->string('site_pass');
+      $table->text('agent_remark');
+      $table->text('site_remark');
+      $table->text('deal_remark');
+
+      $table->integer('cxl');
+      $table->string('cxl_url');
+      $table->text('cxl_remark');
+      $table->text('last_remark');
+
 
       $table->timestamps();
     });

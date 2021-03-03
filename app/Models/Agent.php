@@ -8,8 +8,49 @@ use Carbon\Carbon;
 use App\Presenters\AgentPresenter; //個別作成したプレゼンターの追加
 use Robbo\Presenter\PresentableInterface; //プレゼンターの追加
 
+use Illuminate\Support\Facades\DB;
+
+
 class Agent extends Model implements PresentableInterface
 {
+  protected $fillable = [
+    "name",
+    "company",
+    "post_code",
+    "address1",
+    "address2",
+    "address3",
+    "address_remark",
+    "url",
+    "attr",
+    "remark",
+    "person_firstname",
+    "person_lastname",
+    "firstname_kana",
+    "lastname_kana",
+    "person_mobile",
+    "person_tel",
+    "fax",
+    "email",
+    "cost",
+    "payment_limit",
+    "payment_day",
+    "payment_remark",
+    "site",
+    "site_url",
+    "login",
+    "site_id",
+    "site_pass",
+    "agent_remark",
+    "site_remark",
+    "deal_remark",
+    "cxl",
+    "cxl_url",
+    "cxl_remark",
+    "last_remark",
+  ];
+
+
   // プレゼンター連携
   /**
    * Return a created presenter.
@@ -20,6 +61,84 @@ class Agent extends Model implements PresentableInterface
   {
     return new AgentPresenter($this);
   }
+
+  public function StoreAgent($request)
+  {
+    DB::transaction(function () use ($request) {
+      $this->create([
+        "name" => $request->name,
+        "company" => $request->company,
+        "post_code" => $request->post_code,
+        "address1" => $request->address1,
+        "address2" => $request->address2,
+        "address3" => $request->address3,
+        "person_firstname" => $request->person_firstname,
+        "person_lastname" => $request->person_lastname,
+        "firstname_kana" => $request->firstname_kana,
+        "lastname_kana" => $request->lastname_kana,
+        "person_mobile" => $request->person_mobile,
+        "person_tel" => $request->person_tel,
+        "fax" => $request->fax,
+        "email" => $request->email,
+        "cost" => $request->cost,
+        "payment_limit" => $request->payment_limit,
+        "payment_day" => $request->payment_day,
+        "payment_remark" => $request->payment_remark,
+        "site" => $request->site,
+        "site_url" => $request->site_url,
+        "login" => $request->login,
+        "site_id" => $request->site_id,
+        "site_pass" => $request->site_pass,
+        "agent_remark" => $request->agent_remark,
+        "site_remark" => $request->site_remark,
+        "deal_remark" => $request->deal_remark,
+        "cxl" => $request->cxl,
+        "cxl_url" => $request->cxl_url,
+        "cxl_remark" => $request->cxl_remark,
+        "last_remark" => $request->last_remark,
+      ]);
+    });
+  }
+
+  public function updateAgent($request)
+  {
+    DB::transaction(function () use ($request) {
+      $this->update([
+        "name" => $request->name,
+        "company" => $request->company,
+        "post_code" => $request->post_code,
+        "address1" => $request->address1,
+        "address2" => $request->address2,
+        "address3" => $request->address3,
+        "person_firstname" => $request->person_firstname,
+        "person_lastname" => $request->person_lastname,
+        "firstname_kana" => $request->firstname_kana,
+        "lastname_kana" => $request->lastname_kana,
+        "person_mobile" => $request->person_mobile,
+        "person_tel" => $request->person_tel,
+        "fax" => $request->fax,
+        "email" => $request->email,
+        "cost" => $request->cost,
+        "payment_limit" => $request->payment_limit,
+        "payment_day" => $request->payment_day,
+        "payment_remark" => $request->payment_remark,
+        "site" => $request->site,
+        "site_url" => $request->site_url,
+        "login" => $request->login,
+        "site_id" => $request->site_id,
+        "site_pass" => $request->site_pass,
+        "agent_remark" => $request->agent_remark,
+        "site_remark" => $request->site_remark,
+        "deal_remark" => $request->deal_remark,
+        "cxl" => $request->cxl,
+        "cxl_url" => $request->cxl_url,
+        "cxl_remark" => $request->cxl_remark,
+        "last_remark" => $request->last_remark,
+      ]);
+    });
+  }
+
+
 
   /*
 |--------------------------------------------------------------------------

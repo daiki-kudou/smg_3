@@ -53,53 +53,59 @@ class AgentsController extends Controller
    */
   public function store(Request $request)
   {
-    $request->validate([
-      'name' => 'required|max:255',
-      'post_code' => 'required',
-      'address1' => 'required',
-      'address2' => 'required',
-      'address3' => 'required',
-      'address_remark' => 'required',
-      'url' => 'required',
-      'attr' => 'required',
-      'remark' => 'required',
-      'person_firstname' => 'required',
-      'firstname_kana' => 'required',
-      'lastname_kana' => 'required',
-      'person_mobile' => 'required',
-      'person_tel' => 'required',
-      'fax' => 'required',
-      'email' => 'required|email:rfc,dns',
-      'cost' => 'required',
-    ]);
+    echo "<pre>";
+    var_dump($request->all());
+    echo "</pre>";
 
     $agent = new Agent;
-    $agent->name = $request->name;
-    $agent->post_code = $request->post_code;
-    $agent->address1 = $request->address1;
-    $agent->address2 = $request->address2;
-    $agent->address3 = $request->address3;
-    $agent->address_remark = $request->address_remark;
-    $agent->url = $request->url;
-    $agent->attr = $request->attr;
-    $agent->remark = $request->remark;
-    $agent->person_firstname = $request->person_firstname;
-    $agent->person_lastname = $request->person_lastname;
-    $agent->firstname_kana = $request->firstname_kana;
-    $agent->lastname_kana = $request->lastname_kana;
-    $agent->person_mobile = $request->person_mobile;
-    $agent->person_tel = $request->person_tel;
-    $agent->fax = $request->fax;
-    $agent->email = $request->email;
-    $agent->cost = $request->cost;
+    $agent->StoreAgent($request);
+    // $request->validate([
+    //   'name' => 'required|max:255',
+    //   'post_code' => 'required',
+    //   'address1' => 'required',
+    //   'address2' => 'required',
+    //   'address3' => 'required',
+    //   'address_remark' => 'required',
+    //   'url' => 'required',
+    //   'attr' => 'required',
+    //   'remark' => 'required',
+    //   'person_firstname' => 'required',
+    //   'firstname_kana' => 'required',
+    //   'lastname_kana' => 'required',
+    //   'person_mobile' => 'required',
+    //   'person_tel' => 'required',
+    //   'fax' => 'required',
+    //   'email' => 'required|email:rfc,dns',
+    //   'cost' => 'required',
+    // ]);
 
-    $agent->payment_limit = $request->payment_limit;
-    $agent->payment_day = $request->payment_day;
-    $agent->payment_remark = $request->payment_remark;
+    // $agent = new Agent;
+    // $agent->name = $request->name;
+    // $agent->post_code = $request->post_code;
+    // $agent->address1 = $request->address1;
+    // $agent->address2 = $request->address2;
+    // $agent->address3 = $request->address3;
+    // $agent->address_remark = $request->address_remark;
+    // $agent->url = $request->url;
+    // $agent->attr = $request->attr;
+    // $agent->remark = $request->remark;
+    // $agent->person_firstname = $request->person_firstname;
+    // $agent->person_lastname = $request->person_lastname;
+    // $agent->firstname_kana = $request->firstname_kana;
+    // $agent->lastname_kana = $request->lastname_kana;
+    // $agent->person_mobile = $request->person_mobile;
+    // $agent->person_tel = $request->person_tel;
+    // $agent->fax = $request->fax;
+    // $agent->email = $request->email;
+    // $agent->cost = $request->cost;
 
-    $agent->save();
+    // $agent->payment_limit = $request->payment_limit;
+    // $agent->payment_day = $request->payment_day;
+    // $agent->payment_remark = $request->payment_remark;
 
-    return redirect('admin/agents');
+    // $agent->save();
+
+    // return redirect('admin/agents');
   }
 
   /**
@@ -140,29 +146,8 @@ class AgentsController extends Controller
   public function update(Request $request, $id)
   {
     $agent = Agent::find($id);
-    $agent->name = $request->name;
-    $agent->post_code = $request->post_code;
-    $agent->address1 = $request->address1;
-    $agent->address2 = $request->address2;
-    $agent->address3 = $request->address3;
-    $agent->address_remark = $request->address_remark;
-    $agent->url = $request->url;
-    $agent->attr = $request->attr;
-    $agent->remark = $request->remark;
-    $agent->person_firstname = $request->person_firstname;
-    $agent->person_lastname = $request->person_lastname;
-    $agent->firstname_kana = $request->firstname_kana;
-    $agent->lastname_kana = $request->lastname_kana;
-    $agent->person_mobile = $request->person_mobile;
-    $agent->person_tel = $request->person_tel;
-    $agent->fax = $request->fax;
-    $agent->email = $request->email;
-    $agent->cost = $request->cost;
-    $agent->payment_limit = $request->payment_limit;
-    $agent->payment_day = $request->payment_day;
-    $agent->payment_remark = $request->payment_remark;
+    $agent->updateAgent($request);
 
-    $agent->save();
     return redirect('admin/agents');
   }
 

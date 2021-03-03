@@ -139,6 +139,11 @@ class ReservationHelper
     $agent = Agent::find($agent_id);
     return $agent->person_firstname . $agent->person_lastname;
   }
+  public static function getAgentPersonKANA($agent_id)
+  {
+    $agent = Agent::find($agent_id);
+    return $agent->firstname_kana . $agent->lastname_kana;
+  }
 
   public static function getAgentCompany($agent_id)
   {

@@ -2,127 +2,257 @@
 
 @section('content')
 
-<h1><span class="badge badge-secondary">仲介会社　詳細</span></h1>
-<div class="d-flex">
-  {{ link_to_route('admin.agents.edit', '編集', $parameters = $agent->id, ['class' => 'btn btn-primary']) }}
-  {{ Form::model($agent, ['route' => ['admin.agents.destroy', $agent->id], 'method' => 'delete']) }}
-  @csrf
-  {{ Form::submit('削除', ['class' => 'btn btn-danger']) }}
-  {{ Form::close() }}
-</div>
-<div class="row">
-  <div class="col-sm">
-    <table class="table">
-      <thead>
-        <tr>
-          <th scope="col"><i class="fas fa-exclamation-circle fa-fw"></i></i>基本情報</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <th scope="row">{{ Form::label('name', '会社・団体名') }}</th>
-          <td>{{ $agent->name }}</td>
-        </tr>
-        <tr>
-          <th scope="row">{{ Form::label('post_code', '郵便番号') }}</th>
-          <td>{{ $agent->post_code }}</td>
-        </tr>
-        <tr>
-          <th scope="row">{{ Form::label('address1', '住所1（都道府県）') }}</th>
-          <td>{{ $agent->address1 }}</td>
-        </tr>
-        <tr>
-          <th scope="row">{{ Form::label('address2', '住所2（市町村番地）') }}</th>
-          <td>{{ $agent->address2 }}</td>
-        </tr>
-        <tr>
-          <th scope="row">{{ Form::label('address3', '住所3（建物名）') }}</th>
-          <td>{{ $agent->address3 }}</td>
-        </tr>
-        <tr>
-          <th scope="row">{{ Form::label('address_remark', '住所備考') }}</th>
-          <td>{{ $agent->address_remark }}</td>
-          </td>
-        </tr>
-        <tr>
-          <th scope="row">{{ Form::label('url', '会社・団体名URL') }}</th>
-          <td><a href="{{ $agent->url }}">{{ $agent->url }}</a></td>
-        </tr>
-        <tr>
-          <th scope="row">{{ Form::label('attr', '顧客属性') }}</th>
-          <td>{{ $agent->attr}}</td>
+<link href="{{ asset('/css/template.css') }}" rel="stylesheet">
+<script src="{{ asset('/js/template.js') }}"></script>
 
-        </tr>
-        <tr>
-          <th scope="row">{{ Form::label('remark', '備考') }}</th>
-          <td>{{ $agent->remark}}</td>
-        </tr>
-      </tbody>
-    </table>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="container-fluid">
+  <style>
+    .table th {
+      width: 35%;
+    }
+  </style>
+
+  <div class="container-field">
+    <div class="float-right">
+      <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+          <li class="breadcrumb-item active">
+            ダミーダミーダミーダミーダミー
+          </li>
+        </ol>
+      </nav>
+    </div>
+    <h2 class="mt-3 mb-3">仲介会社　詳細</h2>
+    <hr>
   </div>
-  <div class="col-sm">
-    <table class="table">
-      <thead>
-        <tr>
-          <th scope="col"><i class="fas fa-user fa-fw"></i>担当者情報</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <th scope="row">{{ Form::label('person_firstname', '担当者氏名') }}</th>
-          <td>
-            <div>姓</div>{{ $agent->person_firstname}}
-          </td>
-          <td>
-            <div>名</div>{{ $agent->person_lastname}}
-          </td>
-        </tr>
-        <tr>
-          <th scope="row">{{ Form::label('firstname_kana', '担当者氏名（ふりがな）') }}</th>
-          <td>
-            <div>セイ</div>{{ $agent->firstname_kana}}
-          </td>
-          <td>
-            <div>メイ</div>{{ $agent->lastname_kana}}
-          </td>
-        </tr>
-        <tr>
-          <th scope="row">{{ Form::label('firstname_kana', '携帯電話') }}</th>
-          <td>{{ $agent->person_mobile}}</td>
-        </tr>
-        <tr>
-          <th scope="row">{{ Form::label('person_tel', '固定電話') }}</th>
-          <td>{{ $agent->person_tel}}</td>
-        </tr>
-        <tr>
-          <th scope="row">{{ Form::label('fax', 'FAX') }}</th>
-          <td>{{ $agent->fax}}</td>
-        </tr>
-        <tr>
-          <th scope="row">{{ Form::label('email', '担当者メールアドレス') }}</th>
-          <td>{{ $agent->email}}</td>
-        </tr>
-        <tr>
-          <th scope="row"><i class="fas fa-user fa-fw"></i>支払いデータ</th>
-        </tr>
-        <tr>
-          <th scope="row">{{ Form::label('cost', '支払割合（原価）') }}</th>
-          <td>{{ $agent->cost}}%</td>
-        </tr>
-        <tr>
-          <th scope="row">{{ Form::label('cost', '締日') }}</th>
-          <td>{{ $agent->payment_limit}}</td>
-        </tr>
-        <tr>
-          <th scope="row">{{ Form::label('cost', '支払日') }}</th>
-          <td>{{ $agent->payment_day}}</td>
-        </tr>
-        <tr>
-          <th scope="row">{{ Form::label('cost', '備考') }}</th>
-          <td>{{ $agent->payment_remark}}</td>
-        </tr>
-      </tbody>
-    </table>
-  </div>
+
+  <section class="section-wrap">
+    <div class="col-12 align-items-center d-flex justify-content-between mt-5 mb-2">
+      <div>
+        {{ Form::model($agent, ['route' => ['admin.agents.destroy', $agent->id], 'method' => 'delete']) }}
+        @csrf
+        {{ Form::submit('削除', ['class' => 'btn more_btn4_lg']) }}
+        {{ Form::close() }}
+
+      </div>
+      <div>
+        {{ link_to_route('admin.agents.edit', '編集', $parameters = $agent->id, ['class' => 'btn more_btn_lg']) }}
+      </div>
+    </div>
+
+    <div class="row">
+      <!-- 左側の項目 ---------------------------------------------------->
+      <div class="col">
+        <table class="table table-bordered">
+          <thead>
+            <tr>
+              <td colspan="2">
+                <p class="title-icon">
+                  <i class="fas fa-exclamation-circle icon-size fa-fw" aria-hidden="true"></i>基本情報
+                </p>
+              </td>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <th class="table-active"><label for="name">サービス名称</label></th>
+              <td>{{ $agent->name }}</td>
+            </tr>
+            <tr>
+              <th class="table-active"><label for="company">運営会社</label></th>
+              <td>{{ $agent->company }}</td>
+            </tr>
+            <tr>
+              <th class="table-active"><label for="post_code">郵便番号</label></th>
+              <td>{{ $agent->post_code }}</td>
+            </tr>
+            <tr>
+              <th class="table-active"><label for="address1">住所1（都道府県）</label></th>
+              <td>{{ $agent->address1 }}</td>
+            </tr>
+            <tr>
+              <th class="table-active"><label for="address2">住所2（市町村番地）</label></th>
+              <td>{{ $agent->address2 }}</td>
+            </tr>
+            <tr>
+              <th class="table-active"><label for="address3">住所3（建物名）</label></th>
+              <td>{{ $agent->address3 }}</td>
+            </tr>
+            <tr>
+              <td class="table-active"><label for="tel">電話番号</label></td>
+              <td>{{ $agent->person_tel }}</td>
+            </tr>
+            <tr>
+              <td class="table-active"><label for="fax">FAX</label></td>
+              <td>{{ $agent->fax}}</td>
+            </tr>
+            <tr>
+              <td class="table-active"><label for="person_firstname">担当者氏名</label></td>
+              <td>{{ $agent->id }}</td>
+            </tr>
+            <tr>
+              <td class="table-active"><label for="firstname_kana">担当者氏名（ふりがな）</label></td>
+              <td>{{ $agent->id }}</td>
+            </tr>
+            <tr>
+              <td class="table-active"><label for="person_tel">担当者TEL</label></td>
+              <td>{{ $agent->person_mobile }}</td>
+            </tr>
+            <tr>
+              <td class="table-active"><label for="email">担当者メールアドレス</label></td>
+              <td>{{ $agent->email }}</td>
+            </tr>
+            <tr>
+              <td class="table-active"><label for="remark">備考</label></td>
+              <td>{{ $agent->payment_remark }}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <!-- 左側の項目 終わり---------------------------------------------------->
+
+
+      <!-- 右側の項目 ---------------------------------------------------->
+      <div class="col">
+        <!-- 担当者情報 ------------------------------------------------------>
+        <p class="title-icon">
+        </p>
+        <table class="table table-bordered">
+          <thead>
+            <tr>
+              <td colspan="3"><i class="fas fa-window-restore fa-fw icon-size" aria-hidden="true"></i>サイト情報
+                <p></p>
+              </td>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <th class="table-active"><label for="service_name">サービス名称</label></th>
+              <td>{{ $agent->site }}</td>
+            </tr>
+            <tr>
+              <th class="table-active"><label for="service_url">サービスURL</label></th>
+              <td>{{ $agent->site_url }}</td>
+            </tr>
+            <tr>
+              <th class="table-active"><label for="login_url">ログインURL</label></th>
+              <td>{{ $agent->login }}</td>
+            </tr>
+            <tr>
+              <th class="table-active"><label for="login_id">ID</label></th>
+              <td>{{ $agent->site_id }}</td>
+            </tr>
+            <tr>
+              <th class="table-active"><label for="password">パスワード</label></th>
+              <td>{{ $agent->site_pass }}</td>
+            </tr>
+            <tr>
+              <th class="table-active"><label for="alliance_remark">提携会場備考</label></th>
+              <td>{{ $agent->agent_remark }}</td>
+            </tr>
+            <tr>
+              <th class="table-active"><label for="site_remark">備考</label></th>
+              <td>{{ $agent->site_remark }}</td>
+            </tr>
+          </tbody>
+        </table>
+        <table class="table table-bordered">
+          <thead>
+            <tr>
+              <td colspan="3">
+                <p class="title-icon">
+                  <i class="fas fa-yen-sign icon-size" aria-hidden="true"></i>取引条件
+                </p>
+              </td>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <th class="table-active"><label for="cost">仲介手数料</label></th>
+              <td>{{ $agent->cost }}</td>
+            </tr>
+            <tr>
+              <th class="table-active"><label for="deal_details">取引詳細</label></th>
+              <td>{{ $agent->deal_remark }}</td>
+            </tr>
+            <tr>
+              <th class="table-active"><label for="cancel">キャンセルポリシー</label></th>
+              <td>{{ $agent->cxl }}</td>
+            </tr>
+            <tr>
+              <th class="table-active"><label for="deal_remark">備考</label></th>
+              <td>{{ $agent->cxl_remark }}</td>
+            </tr>
+          </tbody>
+        </table>
+        <table class="table table-bordered">
+          <thead>
+            <tr>
+              <td colspan="3">
+                <p class="title-icon">
+                  <i class="fas fa-yen-sign icon-size" aria-hidden="true"></i>決済条件
+                </p>
+              </td>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <th class="table-active"><label for="close_date">〆日</label></th>
+              <td>{{ $agent->payment_limit }}</td>
+            </tr>
+            <tr>
+              <th class="table-active"><label for="cost">支払日</label></th>
+              <td>{{ $agent->payment_day }}</td>
+            </tr>
+            <tr>
+              <th class="table-active"><label for="pay_remark">備考</label></th>
+              <td>{{ $agent->last_remark }}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <!-- 右側の項目　終わり -------------------------------------------------->
+    </div>
+    <div class="text-center mt-5">
+      <p><a class="more_btn_lg" href="">一覧にもどる</a>
+      </p>
+    </div>
+  </section>
 </div>
 @endsection

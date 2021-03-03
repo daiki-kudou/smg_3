@@ -2,161 +2,345 @@
 
 @section('content')
 
-<h1><span class="badge badge-secondary">仲介会社　編集</span></h1>
+<link href="{{ asset('/css/template.css') }}" rel="stylesheet">
 <script src="{{ asset('/js/template.js') }}"></script>
-<script>
-  $(function() {
-    $('.search_address1').on('change', function() {
-      // console.log($('.search_address1').parent().next().find('input'));
-      var post_code = $('.search_address1').val();
-      var adr1 = $('.search_address2').val();
-      var adr2 = $('.search_address3').val();
-      $('.search_address1').parent().next().find('input').val(post_code);
-      $('.search_address2').parent().next().find('input').val(adr1);
-      $('.search_address3').parent().next().find('input').val(adr2);
-    })
-    $('.search_address2').on('change', function() {
-      var adr1 = $('.search_address2').val();
-      $('.search_address2').parent().next().find('input').val(adr1);
-    })
-    $('.search_address3').on('change', function() {
-      var adr2 = $('.search_address3').val();
-      $('.search_address3').parent().next().find('input').val(adr2);
-    })
-  })
-</script>
-<div class="container mb-5">
-  {{ Form::model($agent, ['route' => ['admin.agents.update', $agent->id], 'method' => 'put']) }}
-  @csrf
-  <div class="row">
-    <div class="col-sm">
-      <table class="table">
-        <thead>
-          <tr>
-            <th scope="col"><i class="fas fa-exclamation-circle fa-fw"></i></i>基本情報</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <th scope="row">{{ Form::label('name', '会社・団体名') }}</th>
-            <td>{{ Form::text('name', old('name'), ['class' => 'form-control']) }}</td>
-          </tr>
-          <tr>
-            <th scope="row">{{ Form::label('post_code', '郵便番号') }}</th>
-            <td><input class="search_address1 form-control" type="text" name="zip01" maxlength="8" onKeyUp="AjaxZip3.zip2addr(this,'','pref01','addr01');" value="{{$agent->post_code}}">
-            </td>
-            <td>{{ Form::hidden('post_code', old('post_code'), ['class' => 'form-control']) }}
-            </td>
-          </tr>
-          <tr>
-            <th scope="row">{{ Form::label('address1', '住所1（都道府県）') }}</th>
-            <td><input class="search_address2 form-control" type="text" name="pref01" value="{{$agent->address1}}"></td>
-            <td>{{ Form::hidden('address1', old('address1'), ['class' => 'form-control']) }}</td>
-          </tr>
-          <tr>
-            <th scope="row">{{ Form::label('address2', '住所2（市町村番地）') }}</th>
-            <td><input class="search_address3 form-control" type="text" name="addr01" value="{{$agent->address2}}"></td>
-            <td>{{ Form::hidden('address2', old('address2'), ['class' => 'form-control']) }}</td>
-          </tr>
-          <tr>
-            <th scope="row">{{ Form::label('address3', '住所3（建物名）') }}</th>
-            <td>{{ Form::text('address3', old('address3'), ['class' => 'form-control']) }}</td>
-          </tr>
-          <tr>
-            <th scope="row">{{ Form::label('address_remark', '住所備考') }}</th>
-            <td>{{ Form::textarea('address_remark', old('address_remark'), ['class' => 'form-control'])}}
-            </td>
-          </tr>
-          <tr>
-            <th scope="row">{{ Form::label('url', '会社・団体名URL') }}</th>
-            <td>{{ Form::text('url', old('url'), ['class' => 'form-control']) }}</td>
-          </tr>
-          <tr>
-            <th scope="row">{{ Form::label('attr', '顧客属性') }}</th>
-            <td>{{Form::select('attr', ['ネットワーク'=>'ネットワーカー', '個人事業主'=>'個人事業主','宗教団体'=>'宗教団体'])}}</td>
 
-          </tr>
-          <tr>
-            <th scope="row">{{ Form::label('remark', '備考') }}</th>
-            <td>{{ Form::textarea('remark', old('remark'), ['class' => 'form-control']) }}</td>
-          </tr>
-        </tbody>
-      </table>
+<div class="container-fluid">
+
+
+  <div class="container-field">
+    <div class="float-right">
+      <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+          <li class="breadcrumb-item active">
+            ダミーダミーダミーダミー
+          </li>
+        </ol>
+      </nav>
     </div>
-    <div class="col-sm">
-      <table class="table">
-        <thead>
-          <tr>
-            <th scope="col"><i class="fas fa-user fa-fw"></i>担当者情報</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <th scope="row">{{ Form::label('person_firstname', '担当者氏名') }}</th>
-            <td>
-              姓{{ Form::text('person_firstname', old('person_firstname'), ['class' => 'form-control']) }}
-            </td>
-            <td>
-              名{{ Form::text('person_lastname', old('person_lastname'), ['class' => 'form-control']) }}
-            </td>
-          </tr>
-          <tr>
-            <th scope="row">{{ Form::label('firstname_kana', '担当者氏名（ふりがな）') }}</th>
-            <td>セイ{{ Form::text('firstname_kana', old('firstname_kana'), ['class' => 'form-control']) }}
-            </td>
-            <td>メイ{{ Form::text('lastname_kana', old('lastname_kana'), ['class' => 'form-control']) }}</td>
-          </tr>
-          <tr>
-            <th scope="row">{{ Form::label('firstname_kana', '携帯電話') }}</th>
-            <td>{{ Form::text('person_mobile', old('person_mobile'), ['class' => 'form-control']) }}</td>
-          </tr>
-          <tr>
-            <th scope="row">{{ Form::label('person_tel', '固定電話') }}</th>
-            <td>{{ Form::text('person_tel', old('person_tel'), ['class' => 'form-control']) }}</td>
-          </tr>
-          <tr>
-            <th scope="row">{{ Form::label('fax', 'FAX') }}</th>
-            <td>{{ Form::text('fax', old('fax'), ['class' => 'form-control']) }}</td>
-          </tr>
-          <tr>
-            <th scope="row">{{ Form::label('email', '担当者メールアドレス') }}</th>
-            <td>{{ Form::text('email', old('email'), ['class' => 'form-control']) }}</td>
-          </tr>
-          <tr>
-            <th scope="row"><i class="fas fa-user fa-fw"></i>支払いデータ</th>
-          </tr>
-          <tr>
-            <th scope="row">{{ Form::label('cost', '支払割合（原価）') }}</th>
-            <td>{{ Form::number('cost', old('cost'), ['class' => 'form-control']) }}</td>
-          </tr>
-          <tr>
-            <th scope="row">{{ Form::label('payment_limit', '締日') }}</th>
-            <td>
-              <select name="payment_limit" id="payment_limit">
-                <option value="1">当月末</option>
-                <option value="2">翌月末</option>
-                <option value="3">翌々月末</option>
-              </select>
-            </td>
-          </tr>
-          <tr>
-            <th scope="row">{{ Form::label('payment_day', '支払日') }}</th>
-            <td>{{ Form::number('payment_day', old('payment_day'), ['class' => 'form-control']) }}</td>
-          </tr>
-          <tr>
-            <th scope="row">{{ Form::label('payment_remark', '備考') }}</th>
-            <td>{{ Form::number('payment_remark', old('payment_remark'), ['class' => 'form-control']) }}</td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
+    <h2 class="mt-3 mb-3">仲介会社 編集</h2>
+    <hr>
   </div>
-  <div class="container">
-    <div class="mx-auto" style="width: 200px;">
-      {{Form::submit('更新', ['class' => 'btn btn-primary']) }}
+
+  <section class="section-wrap">
+    {{ Form::model($agent, ['route' => ['admin.agents.update', $agent->id], 'method' => 'put']) }}
+    @csrf
+    <div class="container mb-5">
+      <div class="row">
+        <!-- 左側の項目 ---------------------------------------------------------->
+        <div class="col">
+          <table class="table table-bordered table_fixed">
+            <thead>
+              <tr>
+                <td colspan="3">
+                  <p class="title-icon">
+                    <i class="fas fa-exclamation-circle icon-size fa-fw" aria-hidden="true">
+                    </i>基本情報
+                  </p>
+                </td>
+              </tr>
+            </thead>
+            <tbody>
+              <!-- 工藤さんに確認　増やした項目 -->
+              <tr>
+                <td class="table-active">
+                  <label for="name">サービス名称</label>
+                </td>
+                <td colspan="2">
+                  {{ Form::text('name', $agent->name, ['class' => 'form-control']) }}
+                </td>
+              </tr>
+              <tr>
+                <td class="table-active">
+                  <label for="company">運営会社名</label>
+                </td>
+                <td colspan="2">
+                  {{ Form::text('company', $agent->company, ['class' => 'form-control', 'id'=>'company']) }}
+                </td>
+              </tr>
+              <tr>
+                <td class="table-active">
+                  <label for="post_code">郵便番号</label>
+                </td>
+                <td colspan="2">
+                  <input class="form-control" onkeyup="AjaxZip3.zip2addr(this,'','address1','address2');"
+                    autocomplete="off" name="post_code" type="text" value="{{$agent->post_code}}" id="post_code">
+                </td>
+              </tr>
+              <tr>
+                <td class="table-active">
+                  <label for="address1">住所1（都道府県）</label>
+                </td>
+                <td colspan="2">
+                  {{ Form::text('address1', $agent->address1, ['class' => 'form-control', 'id'=>'company']) }}
+                </td>
+              </tr>
+              <tr>
+                <td class="table-active">
+                  <label for="address2">住所2（市町村番地）</label>
+                </td>
+                <td colspan="2">
+                  {{ Form::text('address2', $agent->address2, ['class' => 'form-control', 'id'=>'company']) }}
+                </td>
+              </tr>
+              <tr>
+                <td class="table-active">
+                  <label for="address3">住所3（建物名）</label>
+                </td>
+                <td colspan="2">
+                  {{ Form::text('address3', $agent->address3, ['class' => 'form-control', 'id'=>'company']) }}
+                </td>
+              </tr>
+              <tr>
+                <td class="table-active">
+                  <label for="tel">電話番号</label>
+                </td>
+                <td colspan="2">
+                  {{ Form::text('person_tel', $agent->person_tel, ['class' => 'form-control', 'id'=>'company']) }}
+                </td>
+              </tr>
+              <tr>
+                <td class="table-active">
+                  <label for="fax">FAX</label>
+                </td>
+                <td colspan="2">
+                  {{ Form::text('fax', $agent->fax, ['class' => 'form-control', 'id'=>'company']) }}
+                </td>
+              </tr>
+              <tr>
+                <td class="table-active">
+                  <label for="person_firstname">担当者氏名</label>
+                </td>
+                <td>姓：
+                  {{ Form::text('person_firstname', $agent->person_firstname, ['class' => 'form-control', 'id'=>'company']) }}
+                </td>
+                <td>名：
+                  {{ Form::text('person_lastname', $agent->person_lastname, ['class' => 'form-control', 'id'=>'company']) }}
+                </td>
+              </tr>
+              <tr>
+                <td class="table-active">
+                  <label for="firstname_kana">担当者氏名（フリガナ）</label>
+                </td>
+                <td>セイ：
+                  {{ Form::text('firstname_kana', $agent->firstname_kana, ['class' => 'form-control', 'id'=>'company']) }}
+                </td>
+                <td>メイ：
+                  {{ Form::text('lastname_kana', $agent->lastname_kana, ['class' => 'form-control', 'id'=>'company']) }}
+                </td>
+              </tr>
+              <tr>
+                <th class="table-active">
+                  <label for="person_tel">担当者TEL</label>
+                </th>
+                <td colspan="2">
+                  {{ Form::text('person_mobile', $agent->person_mobile, ['class' => 'form-control', 'id'=>'company']) }}
+                </td>
+              </tr>
+              <tr>
+                <th class="table-active">
+                  <label for="email">担当者メールアドレス</label>
+                </th>
+                <td colspan="2">
+                  {{ Form::text('email', $agent->email, ['class' => 'form-control', 'id'=>'company']) }}
+                </td>
+              </tr>
+              <tr>
+                <th class="table-active">
+                  <label for="remark">備考</label>
+                </th>
+                <td colspan="2">
+                  {{ Form::text('last_remark', $agent->last_remark, ['class' => 'form-control', 'id'=>'company']) }}
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="col">
+          <p class="title-icon">
+          </p>
+          <table class="table table-bordered table_fixed">
+            <thead>
+              <tr>
+                <td colspan="3">
+                  <i class="fas fa-window-restore fa-fw icon-size" aria-hidden="true">
+                  </i>サイト情報
+                  <p>
+                  </p>
+                </td>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td class="table-active">
+                  <label for="service_name">サイト名</label>
+                </td>
+                <td colspan="2">
+                  {{ Form::text('site', $agent->site, ['class' => 'form-control', 'id'=>'company']) }}
+                </td>
+              </tr>
+              <tr>
+                <td class="table-active">
+                  <label for="url">サイトURL</label>
+                </td>
+                <td colspan="2">
+                  {{ Form::text('site_url', $agent->site_url, ['class' => 'form-control', 'id'=>'company']) }}
+                </td>
+              </tr>
+              <tr>
+                <td class="table-active">
+                  <label for="login_url">ログインURL</label>
+                </td>
+                <td colspan="2">
+                  {{ Form::text('login', $agent->login, ['class' => 'form-control', 'id'=>'company']) }}
+                </td>
+              </tr>
+              <tr>
+                <td class="table-active">
+                  <label for="login_id">ID</label>
+                </td>
+                <td colspan="2">
+                  {{ Form::text('site_id', $agent->site_id, ['class' => 'form-control', 'id'=>'company']) }}
+                </td>
+              </tr>
+              <tr>
+                <td class="table-active">
+                  <label for="password">パスワード</label>
+                </td>
+                <td colspan="2">
+                  {{ Form::text('site_pass', $agent->site_pass, ['class' => 'form-control', 'id'=>'company']) }}
+                </td>
+              </tr>
+              <tr>
+                <th class="table-active">
+                  <label for="alliance_remark">提携会場備考</label>
+                </th>
+                <td colspan="2">
+                  {{ Form::text('agent_remark', $agent->agent_remark, ['class' => 'form-control', 'id'=>'company']) }}
+                </td>
+              </tr>
+              <tr>
+                <th class="table-active">
+                  <label for="site_remark">備考</label>
+                </th>
+                <td colspan="2">
+                  {{ Form::text('site_remark', $agent->site_remark, ['class' => 'form-control', 'id'=>'company']) }}
+                </td>
+              </tr>
+            </tbody>
+          </table>
+
+          <table class="table table-bordered">
+            <thead>
+              <tr>
+                <td colspan="3">
+                  <p class="title-icon">
+                    <i class="fas fa-yen-sign icon-size" aria-hidden="true"></i>取引条件
+                  </p>
+                </td>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <th class="table-active">
+                  <label for="cost">仲介手数料</label>
+                </th>
+                <td class="d-flex align-items-center">
+                  {{ Form::text('cost', $agent->cost, ['class' => 'form-control', 'id'=>'company']) }}
+                  <span class="ml-1">%</span>
+                </td>
+              </tr>
+              <tr>
+                <th class="table-active">
+                  <label for="deal_details">取引詳細</label>
+                </th>
+                <td>
+                  {{ Form::text('deal_remark', $agent->deal_remark, ['class' => 'form-control', 'id'=>'company']) }}
+                </td>
+              </tr>
+              <tr>
+                <td class="table-active">
+                  <label for="cancel">キャンセルポリシー</label>
+                </td>
+                <td>
+                  <p>
+                    {{ Form::radio('cxl', 1, $agent->cxl==1?true:false, ['class' => '']) }}
+                    {{ Form::label('cxl', 'SMGルール') }}
+                  </p>
+                  <p>
+                    {{ Form::radio('cxl', 2, $agent->cxl==2?true:false, ['class' => '']) }}
+                    {{ Form::label('cxl', '仲介会社ルール') }}
+                  </p>
+                  <p class="mt-2">
+                    <label for="cancel">キャンセルポリシーURL</label>
+                    {{ Form::text('cxl_url', $agent->cxl_url, ['class' => 'form-control']) }}
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <th class="table-active">
+                  <label for="deal_remark">備考</label>
+                </th>
+                <td>
+                  {{ Form::text('cxl_remark', $agent->cxl_remark, ['class' => 'form-control']) }}
+                </td>
+              </tr>
+            </tbody>
+          </table>
+
+          <table class="table table-bordered">
+            <thead>
+              <tr>
+                <td colspan="2">
+                  <p class="title-icon">
+                    <i class="fas fa-yen-sign icon-size" aria-hidden="true">
+                    </i>決済条件
+                  </p>
+                </td>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <th class="table-active">
+                  <label for="close_date">〆日</label>
+                </th>
+                <td>
+                  <select name="payment_limit" id="payment_limit">
+                    <option value="1" {{$agent->payment_limit==1?'selected':""}}>当月末</option>
+                    <option value="2" {{$agent->payment_limit==2?'selected':""}}>翌月末</option>
+                    <option value="3" {{$agent->payment_limit==3?'selected':""}}>翌々月末</option>
+                  </select>
+                </td>
+              </tr>
+              <tr>
+                <th class="table-active">
+                  <label for="payment_day">支払日</label>
+                </th>
+                <td>
+                  {{ Form::text('payment_day', $agent->payment_day, ['class' => 'form-control']) }}
+                </td>
+              </tr>
+              <tr>
+                <th class="table-active">
+                  <label for="pay_remark">備考</label>
+                </th>
+                <td>
+                  {{ Form::text('payment_remark', $agent->payment_remark, ['class' => 'form-control']) }}
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+    <div class="mt-5">
+      {{Form::submit('更新', ['class' => 'btn more_btn_lg d-block btn-lg mx-auto my-5']) }}
       {{ Form::close() }}
     </div>
-  </div>
+  </section>
 </div>
+
+
+
 
 @endsection
