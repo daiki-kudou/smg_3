@@ -88,9 +88,9 @@
                 <td>{{number_format($reservation->bills()->first()->total)}}円</td>
                 <td>{{$reservation->payment_limit}}</td>
                 <td rowspan="{{count($reservation->bills()->get())}}">{{$reservation->bills()->first()->paid}}</td>
-                <td><a href="{{ url('user/home/'.$reservation->id) }}" class="more_btn">詳細</a></td>
-                <td></td>
-                <td></td>
+                <td class="text-center"><a href="{{ url('user/home/'.$reservation->id) }}" class="more_btn">詳細</a></td>
+                <td class="text-center"></td>
+                <td class="text-center"></td>
               </tr>
               @for ($i = 0; $i < count($reservation->bills()->get())-1; $i++)
                 <tr>

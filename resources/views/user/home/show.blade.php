@@ -205,9 +205,20 @@
 
           <!-- 右側の項目-------------------------------------------------- -->
           <script>
+            // $(function() {
+            //   $('.accordion-ttl').on('click', function() {
+            //     $(this).parent().find('tbody').toggleClass('hide');
+            //     $('.title-icon').toggleClass('active');
+            //   });
+            // })
+            // アコーディオン----------------------------------------
             $(function() {
-              $('thead').on('click', function() {
+              $('.accordion-ttl').on('click', function() {
                 $(this).parent().find('tbody').toggleClass('hide');
+              });
+
+              $('.accordion-ttl').on('click', function() {
+                $('.accordion-ttl .title-icon').toggleClass('active');
               });
             })
           </script>

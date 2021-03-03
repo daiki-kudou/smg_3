@@ -21,25 +21,6 @@
       <hr>
     </div>
 
-    <div class="col12">
-      <dl class="d-flex col-12 justify-content-end align-items-center statuscheck">
-        <dt><label for="">支払状況</label></dt>
-        <dd class="mr-1">
-          <select class="form-control select2" name="">
-            <option>未入金</option>
-            <option>入金済</option>
-          </select>
-        </dd>
-        <dd>
-          <p class="text-right"><a class="more_btn" href="">検索</a></p>
-        </dd>
-      </dl>
-
-    </div>
-    <div class="col-12">
-      <p class="text-right font-weight-bold"><span class="count-color">10</span>件</p>
-    </div>
-
     <!-- 一覧　　------------------------------------------------ -->
     <ul class="nav nav-tabs">
       <li class="nav-item">
@@ -53,7 +34,7 @@
     <div class="tab-content">
       <div id="reserve-list" class="tab-pane active">
         <div class="container-field">
-          <table class="table table-striped table-bordered table-box">
+          <table class="table table-bordered">
             <thead>
               <tr>
                 <th>仮抑えID</th>
@@ -61,7 +42,6 @@
                 <th>入室</th>
                 <th>退室</th>
                 <th>利用会場</th>
-                <th>仲介会社</th>
                 <th></th>
               </tr>
             </thead>
@@ -73,14 +53,11 @@
                 <td>{{ReservationHelper::formatTime($pre_reservation->enter_time)}}</td>
                 <td>{{ReservationHelper::formatTime($pre_reservation->leave_time)}}</td>
                 <td>{{ReservationHelper::getVenue($pre_reservation->venue_id)}}</td>
-                <td></td>
-                <td>本予約するボタン</td>
-              </tr>
+                <td class="text-center">
+                  <p><a class="more_btn" href="">本予約をする</a></p></td>
+                </tr>
               @endforeach
             </tbody>
-
-
-
           </table>
         </div>
       </div>
@@ -89,7 +66,7 @@
 
     <!-- 一覧　　終わり------------------------------------------------ -->
 
-    <ul class="pagination justify-content-center">
+    <ul class="pagination justify-content-center mt5">
       <li class="page-item disabled" aria-disabled="true" aria-label="&laquo; 前">
         <span class="page-link" aria-hidden="true">&lsaquo;</span>
       </li>

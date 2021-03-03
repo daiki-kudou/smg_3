@@ -267,7 +267,7 @@ table {
 .more_btn {
     background: #007bff;
     padding: 0.3em 1em;
-    border-radius: 5px;
+    border-radius: 3px;
     color: #fff;
     font-weight: bold;
     transition: 0.4s;
@@ -282,7 +282,7 @@ table {
 .more_btn2 {
     background: #35a7a7;
     padding: 0.3em 1em;
-    border-radius: 5px;
+    border-radius: 3px;
     color: #fff;
     font-weight: bold;
     /* min-width: 100px; */
@@ -291,7 +291,7 @@ table {
 .more_btn4 {
     background: #DC3545;
     padding: 0.3em 1em;
-    border-radius: 5px;
+    border-radius: 3px;
     color: #fff;
     font-weight: bold;
     font-size: 12px;
@@ -482,7 +482,7 @@ table {
     /* 横棒を縦にするために90℃回転させる */
     transform: translateY(-50%) rotate(90deg);
     /* プラスからマイナスへの切り替えをゆっくり行いアニメーションさせる */
-    /* transition: 0.5s; */
+    transition: 0.5s;
 }
 
 /*
@@ -491,7 +491,7 @@ table {
   */
 .title-icon.active::after {
     transform: rotate(0);
-    /* transition: 0.5s; */
+    transition: 0.5s;
 }
 
 .plus_icon {
