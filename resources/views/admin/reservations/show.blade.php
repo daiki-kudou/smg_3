@@ -1198,7 +1198,7 @@
         </div>
       </div>
       @if ($reservation->bills()->first()->double_check_status==0)
-      <div class="checkbox section-wrap" style="border: solid 1px gray">
+      <div class="double_checkbox section-wrap" style="border: solid 1px gray">
         <dl class="d-flex col-12 justify-content-end align-items-center">
           <dt><label for="checkname">一人目チェック者</label></dt>
           <dd>
@@ -1221,7 +1221,7 @@
         </dl>
       </div>
       @elseif($reservation->bills()->first()->double_check_status==1)
-      <div class="checkbox section-wrap" style="border: solid 1px gray">
+      <div class="double_checkbox section-wrap" style="border: solid 1px gray">
         <dl class="d-flex col-12 justify-content-end align-items-center">
           <dt><label for="checkname">二人目チェック者</label></dt>
           <dd>
