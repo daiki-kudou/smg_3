@@ -50,7 +50,7 @@
                 </td>
                 <td colspan="2">
                   {{ Form::text('name', $agent->name, ['class' => 'form-control']) }}
-                <p class="is-error-name" style="color: red"></p>
+                  <p class="is-error-name" style="color: red"></p>
                 </td>
               </tr>
               <tr>
@@ -199,7 +199,7 @@
                 <td colspan="2">
                   {{ Form::text('login', $agent->login, ['class' => 'form-control', 'id'=>'company']) }}
                   <p class="is-error-login" style="color: red"></p>
-                
+
                 </td>
               </tr>
               <tr>
@@ -254,8 +254,8 @@
                 </th>
                 <td colspan="2">
                   <div class="d-flex align-items-center">
-                  {{ Form::text('cost', $agent->cost, ['class' => 'form-control', 'id'=>'company']) }}
-                  <span class="ml-1">%</span>
+                    {{ Form::text('cost', $agent->cost, ['class' => 'form-control', 'id'=>'company']) }}
+                    <span class="ml-1">%</span>
                   </div>
                   <p class="is-error-cost" style="color: red"></p>
                 </td>
@@ -321,14 +321,6 @@
                     <option value="2" {{$agent->payment_limit==2?'selected':""}}>当月末〆翌月末CASH</option>
                     <option value="3" {{$agent->payment_limit==3?'selected':""}}>当月末〆翌々月末CASH</option>
                   </select>
-                </td>
-              </tr>
-              <tr>
-                <th class="table-active">
-                  <label for="payment_day">支払日</label>
-                </th>
-                <td>
-                  {{ Form::text('payment_day', $agent->payment_day, ['class' => 'form-control']) }}
                 </td>
               </tr>
               <tr>

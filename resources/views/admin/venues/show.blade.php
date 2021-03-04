@@ -5,28 +5,17 @@
 <link href="{{ asset('/css/template.css') }}" rel="stylesheet">
 
 
-<div class="float-right">
-  <nav aria-label="breadcrumb">
-    <ol class="breadcrumb">
-      <li class="breadcrumb-item active">
-        {{ Breadcrumbs::render(Route::currentRouteName(),$venue->id) }}
-      </li>
-    </ol>
-  </nav>
-</div>
+
 
 <div class="container-fluid">
-  <div class="container-field mt-3">
-    <div class="float-right">
-      <nav aria-label="breadcrumb">
-        <ol class="breadcrumb">
-          <li class="breadcrumb-item active">
-            <a href="https://staging-smg2.herokuapp.com/admin/home">ホーム</a> &gt;
-            会場　詳細
-          </li>
-        </ol>
-      </nav>
-    </div>
+  <div class="float-right">
+    <nav aria-label="breadcrumb">
+      <ol class="breadcrumb">
+        <li class="breadcrumb-item active">
+          {{ Breadcrumbs::render(Route::currentRouteName(),$venue->id) }}
+        </li>
+      </ol>
+    </nav>
   </div>
 
   <h2 class="mt-3 mb-3">会場　詳細情報</h2>
