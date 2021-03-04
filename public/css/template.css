@@ -1437,6 +1437,37 @@ table .master_total_subttl {
     background-color: #007BFF;
   }
 
+  /* キャンセル -----------------------------------------------------*/
+  .bill_head_cancel {
+    background: #ee6243;
+    table-layout: fixed;
+  }
+
+  .cancel_content {
+    margin: 5%;
+  }
+
+  .cancel_border {
+    padding: 3%;
+    border: solid 1px #dee2e6;
+  }
+
+  .cancel_ttl {
+    margin: 0.5em 0 1.3em;
+  }
+
+  .head_cancel {
+    border-top: solid 1px #dee2e6 !important;
+    border-bottom: solid 1px #dee2e6 !important;
+  }
+
+  .multiple {
+    font-size: 1.8em;
+  }
+
+  .venue_head_cancel td:last-child {
+    width: 30%;
+  }
 
 /* 請求内容CSS終わり -----------------------------------*/
 

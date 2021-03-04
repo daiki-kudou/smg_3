@@ -1,4 +1,8 @@
 # vendor/qoraiche/laravel-mail-editor
+
 /vendor
-.env
+# .envファイルの除外
+*.env
 /node_modules
+
+
