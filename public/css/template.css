@@ -1,7 +1,11 @@
 @charset "UTF-8";
+html {
+    font-size: 12px;
+}
+
 body {
     font-family:-apple-system, 'Helvetica Neue','Hiragino Kaku Gothic ProN', '游ゴシック','メイリオ',meiryo,sans-serif;
-    font-size: 16px;
+    font-size: 12px;
 }
 
 /* venues. index */
@@ -134,16 +138,6 @@ table.dataTable thead .sorting_desc:after {
 
 .border-info {
     border-color: white;
-}
-
-.form_required:after {
-    content: "必須";
-    margin-left: 10px;
-    font-size: 12px;
-    background: #ff6679;
-    color: white;
-    padding: 1px 5px;
-    border-radius: 15%;
 }
 
 .is-error {
@@ -590,6 +584,7 @@ h5 {
     padding: 3%;
 }
 
+
 .table-wrap {
     width: 100%;
     overflow-x: scroll;
@@ -703,6 +698,11 @@ h5 {
 
 /* 検索--------------------------------------- */
 
+.search-wrap {
+    padding: 3% 10%;
+}
+
+
 .form-group dd {
     margin-bottom: 0;
     width: 100%;
@@ -712,30 +712,40 @@ h5 {
     width: 300px;
 }
 
-.search_box {
+/* .search_box {
     margin-bottom: 50px;
     padding: 30px;
-    /* border: 1px solid #DBDBDB; */
-}
+    border: 1px solid #DBDBDB;
+} */
 
 .search_box .form-group {
     display: flex;
     margin-bottom: 1px;
     align-items: center;
     border-radius: 0;
+    width: 50%;
 }
 
 .search_item_name {
-    width: 170px;
+    width: 140px;
     background: #35a7a7;
     margin-bottom: 0;
     color: #fff;
     /* text-align: center; */
-    padding: 0.8em 0.5em;
+    padding: 0.5em;
 }
 
 .search_box ul li {
     width: 100%;
+}
+
+.search_category {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.search_category li {
+    margin-right: 0.8em;
 }
 
 .btn_box {
@@ -1490,3 +1500,9 @@ table .master_total_subttl {
     justify-content: center;
     align-items: center;
 }
+
+
+/* マイページ =============================================================*/	
+.nav-tabs .nav-item {	
+    border: 1px solid #ddd;	
+    }
