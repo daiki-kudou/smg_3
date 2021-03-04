@@ -1,7 +1,8 @@
 @extends('layouts.admin.app')
 @section('content')
 <script src="{{ asset('/js/template.js') }}"></script>
-<script src="{{ asset('/js/validation.js') }}"></script>
+<script src="{{ asset('/js/admin/validation.js') }}"></script>
+<script src="{{ asset('/js/admin/reservation.js') }}"></script>
 <link href="{{ asset('/css/template.css') }}" rel="stylesheet">
 
 <div class="errors">
@@ -161,7 +162,7 @@
             <tr>
               <td class="table-active"><label for="address3" class="form_required">住所（建物名）</label></td>
               <td>
-                {{ Form::text('address3', old('address3'), ['placeholder' => 'プレサンスビル703号室','class' => 'form-control']) }}
+                {{ Form::text('address3', old('address3'), ['placeholder' => '四ツ橋サンワールドビル','class' => 'form-control']) }}
                 <p class="is-error-address3" style="color: red"></p>
               </td>
             </tr>
@@ -237,7 +238,7 @@
             <tr>
               <td class="table-active"><label for="luggage_address3" class="form_required">住所（建物名）</label></td>
               <td>
-                {{ Form::text('luggage_address3', old('luggage_address3'), ['class' => 'form-control','placeholder' => 'プレサンスビル703号室']) }}
+                {{ Form::text('luggage_address3', old('luggage_address3'), ['class' => 'form-control','placeholder' => '四ツ橋サンワールドビル']) }}
                 <p class="is-error-luggage_address3" style="color: red"></p>
               </td>
             </tr>

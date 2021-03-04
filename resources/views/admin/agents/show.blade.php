@@ -200,10 +200,10 @@
               <th class="table-active"><label for="close_date">〆日</label></th>
               <td>{{ $agent->payment_limit }}</td>
             </tr>
-            <tr>
+            <!-- <tr>
               <th class="table-active"><label for="cost">支払日</label></th>
               <td>{{ $agent->payment_day }}</td>
-            </tr>
+            </tr> -->
             <tr>
               <th class="table-active"><label for="pay_remark">備考</label></th>
               <td>{{ $agent->last_remark }}</td>

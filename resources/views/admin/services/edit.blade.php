@@ -35,7 +35,7 @@
   <table class="table table-striped table-bordered mt-5">
     <thead>
       <tr>
-        <th>id</th>
+        <th>ID</th>
         <th>登録日</th>
         <th class="form_required">サービス名</th>
         <th class="form_required">料金</th>

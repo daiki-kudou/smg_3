@@ -36,6 +36,21 @@ $(document).on('click', 'input', function (e) {
   ExceptString(equ);
   var end = $("input[name^='enduser_charge']");
   ExceptString(end);
+  var post_code = $("input[name^='post_code']");
+  ExceptString(post_code);
+  var luggage_post_code = $("input[name^='luggage_post_code']");
+  ExceptString(luggage_post_code);
+  var luggage_tel = $("input[name^='luggage_tel']");
+  ExceptString(luggage_tel);
+  var person_tel = $("input[name^='person_tel']");
+  ExceptString(person_tel);
+  var fax = $("input[name^='fax']");
+  ExceptString(fax);
+  var person_mobile = $("input[name^='person_mobile']");
+  ExceptString(person_mobile);
+  var fax = $("input[name^='fax']");
+  ExceptString(fax);
+
 });
 
 //////////////////////////////////////////////////////////////////
