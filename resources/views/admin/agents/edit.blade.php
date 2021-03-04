@@ -325,14 +325,6 @@
               </tr>
               <tr>
                 <th class="table-active">
-                  <label for="payment_day">支払日</label>
-                </th>
-                <td>
-                  {{ Form::text('payment_day', $agent->payment_day, ['class' => 'form-control']) }}
-                </td>
-              </tr>
-              <tr>
-                <th class="table-active">
                   <label for="pay_remark">備考</label>
                 </th>
                 <td>
