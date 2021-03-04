@@ -146,6 +146,7 @@
                 </th>
                 <td colspan="2">
                   {{ Form::text('email', $agent->email, ['class' => 'form-control', 'id'=>'company']) }}
+                  <p class="is-error-email" style="color: red"></p>
                 </td>
               </tr>
               <tr>
@@ -188,6 +189,7 @@
                 </td>
                 <td colspan="2">
                   {{ Form::text('site_url', $agent->site_url, ['class' => 'form-control', 'id'=>'company']) }}
+                  <p class="is-error-site_url" style="color: red"></p>
                 </td>
               </tr>
               <tr>
@@ -196,6 +198,8 @@
                 </td>
                 <td colspan="2">
                   {{ Form::text('login', $agent->login, ['class' => 'form-control', 'id'=>'company']) }}
+                  <p class="is-error-login" style="color: red"></p>
+                
                 </td>
               </tr>
               <tr>
@@ -233,7 +237,7 @@
             </tbody>
           </table>
 
-          <table class="table table-bordered">
+          <table class="table table-bordered table_fixed">
             <thead>
               <tr>
                 <td colspan="3">
@@ -248,7 +252,7 @@
                 <th class="table-active form_required">
                   <label for="cost">仲介手数料</label>
                 </th>
-                <td>
+                <td colspan="2">
                   <div class="d-flex align-items-center">
                   {{ Form::text('cost', $agent->cost, ['class' => 'form-control', 'id'=>'company']) }}
                   <span class="ml-1">%</span>
@@ -260,7 +264,7 @@
                 <th class="table-active">
                   <label for="deal_details">取引詳細</label>
                 </th>
-                <td>
+                <td colspan="2">
                   {{ Form::text('deal_remark', $agent->deal_remark, ['class' => 'form-control', 'id'=>'company']) }}
                 </td>
               </tr>
@@ -268,7 +272,7 @@
                 <td class="table-active">
                   <label for="cancel">キャンセルポリシー</label>
                 </td>
-                <td>
+                <td colspan="2">
                   <p>
                     {{ Form::radio('cxl', 1, $agent->cxl==1?true:false, ['class' => '']) }}
                     {{ Form::label('cxl', 'SMGルール') }}
@@ -280,6 +284,7 @@
                   <p class="mt-2">
                     <label for="cancel">キャンセルポリシーURL</label>
                     {{ Form::text('cxl_url', $agent->cxl_url, ['class' => 'form-control']) }}
+                    <p class="is-error-cxl_url" style="color: red"></p>
                   </p>
                 </td>
               </tr>
@@ -287,7 +292,7 @@
                 <th class="table-active">
                   <label for="deal_remark">備考</label>
                 </th>
-                <td>
+                <td colspan="2">
                   {{ Form::text('cxl_remark', $agent->cxl_remark, ['class' => 'form-control']) }}
                 </td>
               </tr>

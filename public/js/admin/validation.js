@@ -101,12 +101,12 @@ $(function () {
         minlength: 10
       },
       email: {
-        email: true,
+        email: true
       },
-      url: {
+      site_url: {
         url: true
       },
-      login_url: {
+      login: {
         url: true
       },
       cost: {
@@ -128,10 +128,13 @@ $(function () {
         required: "※必須項目です",
         maxlength: '７桁で入力してください'
       },
-      url: {
+      email: {
+        email: '※Emailの形式で入力してください',
+      },
+      site_url: {
         url: '正しいURLを記入してください(例:https://osaka-conference.com/)'
       },
-      login_url: {
+      login: {
         url: '正しいURLを記入してください(例:https://osaka-conference.com/)'
       },
       cxl_url: {
@@ -186,12 +189,12 @@ $(function () {
         minlength: 10
       },
       email: {
-        email: true,
+        email: true
       },
-      url: {
+      site_url: {
         url: true
       },
-      login_url: {
+      login: {
         url: true
       },
       cost: {
@@ -213,10 +216,13 @@ $(function () {
         required: "※必須項目です",
         maxlength: '７桁で入力してください'
       },
-      url: {
+      email: {
+        email: '※Emailの形式で入力してください',
+      },
+      site_url: {
         url: '正しいURLを記入してください(例:https://osaka-conference.com/)'
       },
-      login_url: {
+      login: {
         url: '正しいURLを記入してください(例:https://osaka-conference.com/)'
       },
       cxl_url: {

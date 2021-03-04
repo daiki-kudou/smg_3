@@ -132,10 +132,6 @@ $(function () {
   var tel = $("input[name^='tel']");
   ExceptString(tel);
 
-  var cxl_url = $("input[name^='cxl_url']");
-  ExceptString(cxl_url);
-
-
 });
 
 
