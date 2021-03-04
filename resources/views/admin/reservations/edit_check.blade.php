@@ -11,7 +11,7 @@
 <div class="container-fluid">
 
 
-  {{ Form::open(['url' => 'admin/reservations', 'method'=>'POST', 'id'=>'agents_calculate_form']) }}
+  {{ Form::open(['url' => 'admin/reservations/'.$id, 'method'=>'PUT', 'id'=>'agents_calculate_form']) }}
   @csrf
   <section class="section-wrap">
     <div class="row">

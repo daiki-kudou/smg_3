@@ -1268,7 +1268,8 @@
                     <div class="total_result"> {{number_format($other_bill->master_total)}} 円</div>
                   </div>
                 </td>
-                <td><a href="#" class="btn btn-primary btn-lg">編集</a> </td>
+                <td><a href="{{url('admin/bills/'.$other_bill->id.'/edit')}}" class="btn btn-primary btn-lg">編集</a>
+                </td>
               </tr>
               <tr>
                 <td></td>

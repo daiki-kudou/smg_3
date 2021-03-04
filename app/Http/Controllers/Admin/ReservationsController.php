@@ -548,7 +548,15 @@ class ReservationsController extends Controller
    */
   public function update(Request $request, $id)
   {
-    //
+    // echo "<pre>";
+    // var_dump("test");
+    // echo "</pre>";
+    // echo "<pre>";
+    // var_dump($request->all());
+    // echo "</pre>";
+
+    $reservation = Reservation::find($id);
+    $reservation->UpdateReservation($request);
   }
 
   /**

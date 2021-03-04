@@ -7,6 +7,9 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 
 use Illuminate\Support\Facades\DB;
 
+use Carbon\Carbon;
+
+
 class Bill extends Model
 {
 
@@ -292,5 +295,33 @@ class Bill extends Model
     } else {
       return "";
     }
+  }
+
+  public function UpdateBill($request)
+  {
+    echo "<pre>";
+    var_dump($request->all());
+    echo "</pre>";
+    DB::transaction(function () use ($request) {
+      $this->update([
+        'venue_price' => $request->venue_price,
+        'equipment_price' => $request->equipment_price ? $request->equipment_price : 0, //備品・サービス・荷物
+        'layout_price' => $request->layout_price ? $request->layout_price : 0,
+        'others_price' => $request->others_price ? $request->others_price : 0,
+        'master_subtotal' => $request->master_subtotal,
+        'master_tax' => $request->master_tax,
+        'master_total' => $request->master_total,
+        'payment_limit' => $request->payment_limit,
+        'bill_company' => $request->bill_company,
+        'bill_person' => $request->bill_person,
+        'bill_created_at' => Carbon::now(),
+        'bill_remark' => $request->bill_remark,
+        'paid' => $request->paid,
+        'pay_day' => $request->pay_day,
+        'pay_person' => $request->pay_person,
+        'payment' => $request->payment,
+      ]);
+      $this->breakdowns()->delete();
+    });
   }
 }
