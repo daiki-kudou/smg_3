@@ -66,7 +66,35 @@ Breadcrumbs::for('admin.frame_prices.index', function ($trail) {
   $trail->parent('admin.home.index');
   $trail->push('会場管理 料金管理', route('admin.frame_prices.index'));
 });
-
+Breadcrumbs::for('admin.frame_prices.show', function ($trail, $id) {
+  $trail->parent('admin.frame_prices.index');
+  $trail->push('料金管理 詳細', route('admin.frame_prices.show', $id));
+});
+Breadcrumbs::for('admin.frame_prices.edit', function ($trail, $id) {
+  $trail->parent('admin.frame_prices.show', $id);
+  $trail->push('料金管理 新規作成(枠貸し)', route('admin.frame_prices.edit', $id));
+});
+Breadcrumbs::for('admin.time_prices.create', function ($trail, $id) {
+  $trail->parent('admin.frame_prices.show', $id);
+  $trail->push('料金管理 新規作成(時間貸し)', route('admin.time_prices.create', $id));
+});
+// 仲介会社
+Breadcrumbs::for('admin.agents.index', function ($trail) {
+  $trail->parent('admin.home.index');
+  $trail->push('仲介会社 一覧', route('admin.agents.index'));
+});
+Breadcrumbs::for('admin.agents.show', function ($trail, $id) {
+  $trail->parent('admin.agents.index', $id);
+  $trail->push('仲介会社 詳細', route('admin.agents.show', $id));
+});
+Breadcrumbs::for('admin.agents.edit', function ($trail, $id) {
+  $trail->parent('admin.agents.show', $id);
+  $trail->push('仲介会社 編集', route('admin.agents.edit', $id));
+});
+Breadcrumbs::for('admin.agents.create', function ($trail) {
+  $trail->parent('admin.home.index');
+  $trail->push('仲介会社 新規登録', route('admin.agents.create'));
+});
 
 
 

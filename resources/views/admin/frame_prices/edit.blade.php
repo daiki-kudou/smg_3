@@ -8,66 +8,14 @@
 
 <div class="container-fluid">
 
-
-  <script>
-    $(function() {
-// プラスボタンクリック
-$(document).on("click", ".add", function() {
-$(this).parent().parent().clone(true).insertAfter($(this).parent().parent());
-var count = $('.table tbody tr').length;
-
-// 追加時内容クリア
-$(this).parent().parent().next().find('td').find('input, select').eq(0).val('');
-$(this).parent().parent().next().find('td').find('input, select').eq(1).val('');
-$(this).parent().parent().next().find('td').find('input, select').eq(2).val('');
-$(this).parent().parent().next().find('td').find('input, select').eq(3).val('');
-
-
-for (let index = 0; index < count; index++) {
-var frame = "frame" + (index);
-var start = "start" + (index);
-var finish = "finish" + (index);
-var price = "price" + (index);
-$('.table tbody tr').eq(index).find('td').find('input, select').eq(0).attr('name', frame);
-$('.table tbody tr').eq(index).find('td').find('input, select').eq(1).attr('name', start);
-$('.table tbody tr').eq(index).find('td').find('input, select').eq(2).attr('name', finish);
-$('.table tbody tr').eq(index).find('td').find('input, select').eq(3).attr('name', price);
-}
-});
-//   マイナスボタンクリック
-$(document).on("click", ".del", function() {
-var target = $(this).parent().parent();
-
-if (target.parent().children().length > 1) {
-target.remove();
-}
-var count = $('.table tbody tr').length;
-
-for (let index = 0; index < count; index++) {
-var frame = "frame" + (index);
-var start = "start" + (index);
-var finish = "finish" + (index);
-var price = "price" + (index);
-$('.table tbody tr').eq(index).find('td').find('input, select').eq(0).attr('name', frame);
-$('.table tbody tr').eq(index).find('td').find('input, select').eq(1).attr('name', start);
-$('.table tbody tr').eq(index).find('td').find('input, select').eq(2).attr('name', finish);
-$('.table tbody tr').eq(index).find('td').find('input, select').eq(3).attr('name', price);
-}
-});
-});
-  </script>
-
-  <div class="container-field mt-3">
-    <div class="float-right">
-      <nav aria-label="breadcrumb">
-        <ol class="breadcrumb">
-          <li class="breadcrumb-item active"><a href="https://staging-smg2.herokuapp.com/admin/home">ホーム</a> &gt;
-            <a href="https://staging-smg2.herokuapp.com/admin/frame_prices">料金管理</a> &gt;
-            料金管理　編集（枠貸し）
-          </li>
-        </ol>
-      </nav>
-    </div>
+  <div class="float-right">
+    <nav aria-label="breadcrumb">
+      <ol class="breadcrumb">
+        <li class="breadcrumb-item active">
+          {{ Breadcrumbs::render(Route::currentRouteName(),$venue->id) }}
+        </li>
+      </ol>
+    </nav>
   </div>
 
   <h2 class="mt-3 mb-3">料金管理　新規作成（枠貸し）</h2>
@@ -238,5 +186,51 @@ $('.table tbody tr').eq(index).find('td').find('input, select').eq(3).attr('name
     </div>
   </div>
 </div>
+<script>
+  $(function() {
+// プラスボタンクリック
+$(document).on("click", ".add", function() {
+$(this).parent().parent().clone(true).insertAfter($(this).parent().parent());
+var count = $('.table tbody tr').length;
 
+// 追加時内容クリア
+$(this).parent().parent().next().find('td').find('input, select').eq(0).val('');
+$(this).parent().parent().next().find('td').find('input, select').eq(1).val('');
+$(this).parent().parent().next().find('td').find('input, select').eq(2).val('');
+$(this).parent().parent().next().find('td').find('input, select').eq(3).val('');
+
+
+for (let index = 0; index < count; index++) {
+var frame = "frame" + (index);
+var start = "start" + (index);
+var finish = "finish" + (index);
+var price = "price" + (index);
+$('.table tbody tr').eq(index).find('td').find('input, select').eq(0).attr('name', frame);
+$('.table tbody tr').eq(index).find('td').find('input, select').eq(1).attr('name', start);
+$('.table tbody tr').eq(index).find('td').find('input, select').eq(2).attr('name', finish);
+$('.table tbody tr').eq(index).find('td').find('input, select').eq(3).attr('name', price);
+}
+});
+//   マイナスボタンクリック
+$(document).on("click", ".del", function() {
+var target = $(this).parent().parent();
+
+if (target.parent().children().length > 1) {
+target.remove();
+}
+var count = $('.table tbody tr').length;
+
+for (let index = 0; index < count; index++) {
+var frame = "frame" + (index);
+var start = "start" + (index);
+var finish = "finish" + (index);
+var price = "price" + (index);
+$('.table tbody tr').eq(index).find('td').find('input, select').eq(0).attr('name', frame);
+$('.table tbody tr').eq(index).find('td').find('input, select').eq(1).attr('name', start);
+$('.table tbody tr').eq(index).find('td').find('input, select').eq(2).attr('name', finish);
+$('.table tbody tr').eq(index).find('td').find('input, select').eq(3).attr('name', price);
+}
+});
+});
+</script>
 @endsection

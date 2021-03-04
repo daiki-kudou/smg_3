@@ -6,27 +6,6 @@
 <script src="{{ asset('/js/admin/reservation.js') }}"></script>
 <script src="{{ asset('/js/admin/validation.js') }}"></script>
 
-
-<script>
-  $(function() {
-    $('.search_address1').on('change', function() {
-      var post_code = $('.search_address1').val();
-      var adr1 = $('.search_address2').val();
-      var adr2 = $('.search_address3').val();
-      $('.search_address1').parent().next().find('input').val(post_code);
-      $('.search_address2').parent().next().find('input').val(adr1);
-      $('.search_address3').parent().next().find('input').val(adr2);
-    })
-    $('.search_address2').on('change', function() {
-      var adr1 = $('.search_address2').val();
-      $('.search_address2').parent().next().find('input').val(adr1);
-    })
-    $('.search_address3').on('change', function() {
-      var adr2 = $('.search_address3').val();
-      $('.search_address3').parent().next().find('input').val(adr2);
-    })
-  })
-</script>
 <style>
   .error {
     color: red;
@@ -37,14 +16,15 @@
   }
 </style>
 
-
 <div class="container-fluid">
 
   <div class="container-field">
     <div class="float-right">
       <nav aria-label="breadcrumb">
         <ol class="breadcrumb">
-          <li class="breadcrumb-item active">ダミーダミーダミー</li>
+          <li class="breadcrumb-item active">
+            {{ Breadcrumbs::render(Route::currentRouteName()) }}
+          </li>
         </ol>
       </nav>
     </div>
@@ -327,4 +307,24 @@
     {{ Form::close() }}
   </div>
 </div>
+<script>
+  $(function() {
+    $('.search_address1').on('change', function() {
+      var post_code = $('.search_address1').val();
+      var adr1 = $('.search_address2').val();
+      var adr2 = $('.search_address3').val();
+      $('.search_address1').parent().next().find('input').val(post_code);
+      $('.search_address2').parent().next().find('input').val(adr1);
+      $('.search_address3').parent().next().find('input').val(adr2);
+    })
+    $('.search_address2').on('change', function() {
+      var adr1 = $('.search_address2').val();
+      $('.search_address2').parent().next().find('input').val(adr1);
+    })
+    $('.search_address3').on('change', function() {
+      var adr2 = $('.search_address3').val();
+      $('.search_address3').parent().next().find('input').val(adr2);
+    })
+  })
+</script>
 @endsection

@@ -5,25 +5,13 @@
 
 <script src="https://cdn.datatables.net/t/bs-3.3.6/jqc-1.12.0,dt-1.10.11/datatables.min.js"></script>
 
-
-<script>
-  $(function() {
-    $(".table").DataTable({
-      lengthChange: false, // 件数切替機能 無効
-      searching: false, // 検索機能 無効
-      ordering: true, // ソート機能 無効
-      info: false, // 情報表示 無効
-      paging: false, // ページング機能 無効
-    });
-  })
-</script>
-
-
 <div class="container-field">
   <div class="float-right">
     <nav aria-label="breadcrumb">
       <ol class="breadcrumb">
-        <li class="breadcrumb-item active">ダミーダミーダミーダミーダミー</li>
+        <li class="breadcrumb-item active">
+          {{ Breadcrumbs::render(Route::currentRouteName()) }}
+        </li>
       </ol>
     </nav>
   </div>
@@ -65,4 +53,16 @@
     {{ $querys->links() }}
   </div>
 </div>
+
+<script>
+  $(function() {
+    $(".table").DataTable({
+      lengthChange: false, // 件数切替機能 無効
+      searching: false, // 検索機能 無効
+      ordering: true, // ソート機能 無効
+      info: false, // 情報表示 無効
+      paging: false, // ページング機能 無効
+    });
+  })
+</script>
 @endsection
