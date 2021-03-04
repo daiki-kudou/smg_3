@@ -146,17 +146,35 @@ function calcIndex($array) {
 function insertResult(_this, $result) {
   $(_this).parent().parent().find('td').eq(3).find('input').val($result);
 }
-function sumAllPrices(_this) {
-  var MasterVal = $(_this).parent().parent().parent().next().find('tr').find('td').eq(1).find('input').val();
-  console.log(MasterVal);
-
+// 各項目の合計金額抽出
+function sumSectionPrices(_this) {
+  var MasterVal = $(_this).parent().parent().parent().next().find('tr').find('td').eq(1).find('input');
   var thisTbody = $(_this).parent().parent().parent();
-  var countTR = thisTbody.find('tr').length();
+  var thisTR = thisTbody.find('tr');
+  var countTR = thisTR.length;
+  var total = 0;
   for (let index = 0; index < countTR; index++) {
-    console.log(index);
+    var eachNum = Number(thisTR.eq(index).find('td').eq(3).find('input').val());
+    total += eachNum;
   }
+  MasterVal.val(total)
+}
+
+function sumAllPrices() {
+  var $venue = Number($("input[name='venue_price']").val());
+  var $equipment = Number($("input[name='equipment_price']").val());
+  var $layout = Number($("input[name='layout_price']").val());
+  var $others = Number($("input[name='others_price']").val());
+  var result = $venue + $equipment + $layout + $others;
+  $("input[name='master_subtotal']").val(result);
+
+  var tax = 0.1;
+  $("input[name='master_tax']").val(Math.floor(result * tax));
+
+  $("input[name='master_total']").val(Math.floor(result + (result * tax)));
 
 }
+
 // input 各　計算
 $(document).on("input", "input", function () {
   var $judge = getThisIndex(this);
@@ -167,7 +185,10 @@ $(document).on("input", "input", function () {
     var $result = 0;
   }
   insertResult(this, $result);
-  sumAllPrices(this);
+  sumSectionPrices(this);
+  sumAllPrices();
 })
 // 単価と数量　計算
 /////////////////////////////////////////////////////////////////
+
+
