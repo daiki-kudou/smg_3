@@ -1675,7 +1675,7 @@
         </div>
       </div>
       @if ($other_bill->double_check_status==0)
-      <div class="checkbox section-wrap" style="border: solid 1px gray">
+      <div class="double_checkbox section-wrap" style="border: solid 1px gray">
         <dl class="d-flex col-12 justify-content-end align-items-center">
           <dt><label for="checkname">一人目チェック者</label></dt>
           <dd>
@@ -1699,7 +1699,7 @@
         </dl>
       </div>
       @elseif($other_bill->double_check_status==1)
-      <div class="checkbox section-wrap">
+      <div class="double_checkbox section-wrap">
         <dl class="d-flex col-12 justify-content-end align-items-center">
           <dt><label for="checkname">二人目チェック者</label></dt>
           <dd>
