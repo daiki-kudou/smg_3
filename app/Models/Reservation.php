@@ -503,4 +503,42 @@ class Reservation extends Model
       $all_master_subtotal
     ];
   }
+  //--//--//--//--//--//--//--//--//--//--//--//--//--//--//--//--//--//--//
+  // reservations update
+  //--//--//--//--//--//--//--//--//--//--//--//--//--//--//--//--//--//--//
+  public function UpdateReservation($request)
+  {
+    DB::transaction(function () use ($request) { //トランザクションさせる
+      $this->update([
+        'venue_id' => $request->venue_id,
+        'user_id' => $request->user_id,
+        'agent_id' => 0, //デフォで0
+        'reserve_date' => $request->reserve_date,
+        'price_system' => $request->price_system,
+        'enter_time' => $request->enter_time,
+        'leave_time' => $request->leave_time,
+        'board_flag' => $request->board_flag,
+        'event_start' => $request->event_start,
+        'event_finish' => $request->event_finish,
+        'event_name1' => $request->event_name1,
+        'event_name2' => $request->event_name2,
+        'event_owner' => $request->event_owner,
+        'luggage_count' => $request->luggage_count,
+        'luggage_arrive' => $request->luggage_arrive,
+        'luggage_return' => $request->luggage_return,
+        'email_flag' => $request->email_flag,
+        'in_charge' => $request->in_charge,
+        'tel' => $request->tel,
+        'cost' => $request->cost,
+        'discount_condition' => $request->discount_condition,
+        'attention' => $request->attention,
+        'user_details' => $request->user_details,
+        'admin_details' => $request->admin_details,
+      ]);
+      $this->bills()->first()->UpdateBill($request);
+      $this->bills()->first()->ReserveStoreBreakdown($request);
+      $request->session()->regenerate();
+      return redirect()->route('admin.reservations.index');
+    });
+  }
 }

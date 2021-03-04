@@ -286,7 +286,8 @@
           </table>
         </div>
 
-        <div class="bill_total d-flex justify-content-end" style="padding: 80px 0px 80px 0px; width:90%; margin:0 auto;">
+        <div class="bill_total d-flex justify-content-end"
+          style="padding: 80px 0px 80px 0px; width:90%; margin:0 auto;">
           <div style="width: 60%;">
             <table class="table text-right" style="table-layout: fixed; font-size:16px;">
               <tbody>
@@ -407,101 +408,6 @@
 
 
 
-
-{{-- {{ Form::open(['url' => 'admin/bills/check/'.$reservation->id, 'method'=>'POST','id'=>'testid']) }}
-@csrf
-
-{{ Form::hidden('reservation', $reservation->id, ['class' => 'form-control', 'id'=>'reservation']) }}
-
-
-<div class="content">
-  <div class="container-fluid">
-    <div class="container-field mt-3">
-      <div class="float-right">
-        <nav aria-label="breadcrumb">
-          <ol class="breadcrumb">
-            <li class="breadcrumb-item active"><a href="http://staging-smg2.herokuapp.com/admin/home">ホーム</a> &gt;
-              追加請求書作成
-            </li>
-          </ol>
-        </nav>
-      </div>
-      <h1 class="mt-3 mb-5">追加請求書作成</h1>
-    </div>
-
-    <div class="categorybox d-flex justify-content-around">
-      <p class="radio">
-        <label>
-          <input type="radio" name="billcategory" id="optionsRadios" value="1">その他の有料備品、サービス
-        </label>
-      </p>
-      <p class="radio">
-        <label>
-          <input type="radio" name="billcategory" id="optionsRadios" value="2">レイアウト変更
-        </label>
-      </p>
-      <p class="radio d-flex">
-        <label style="width: 90px;">
-          <input type="radio" name="billcategory" id="optionsRadios" value="3">その他
-        </label>
-        <label for="other"></label>
-      </p>
-    </div>
-
-    <table class="table table-bordered extra-bill-table">
-      <thead>
-        <tr>
-          <td class="table-active"><label for="billcontent">内容</label></td>
-          <td class="table-active"><label for="billfee">単価</label></td>
-          <td class="table-active"><label for="billquantity">個数</label></td>
-        </tr>
-      </thead>
-      <tbody>
-      </tbody>
-    </table>
-
-    <div class="btn_wrapper">
-      <p class=" btn text-center more_btn_lg add_bill_calculate">計算する</p>
-    </div>
-
-    <table class="result_table table table-bordered">
-      <thead>
-        <tr>
-          <td colspan="4" style="background: gray">結果</td>
-        </tr>
-        <tr>
-          <td>割引料金<input type="text" class="discount_input" name="discount_input"></td>
-          <td>割引率　<input class="percentage" type="text" readonly disabled name="percentage">%</td>
-          <td colspan="2"> </td>
-        </tr>
-        <tr>
-          <td>内容</td>
-          <td>単価</td>
-          <td>個数</td>
-          <td>合計</td>
-        </tr>
-      </thead>
-      <tbody>
-      </tbody>
-    </table>
-    <div>
-      <p>小計</p>
-      <input type="text" class="sub_total" readonly name="sub_total">
-      <p>割引後　備品その他合計</p>
-      <input class="after_dicsount" type="text" readonly name="after_dicsount">
-      <p>消費税</p>
-      <input class="tax" type="text" readonly name="tax">
-      <p>請求総額</p>
-      <input class="total" type="text" readonly name="total">
-    </div>
-
-
-  </div>
-</div>
-</div>
-
-<input type="submit" value="確認する">
-{{ Form::close() }} --}}
 
 
 

@@ -235,6 +235,8 @@ class BillsController extends Controller
   public function edit($id)
   {
     var_dump($id);
+    $bill = Bill::find($id);
+    return view('admin.bills.edit', compact('bill'));
   }
 
   /**
@@ -244,10 +246,13 @@ class BillsController extends Controller
    * @param  int  $id
    * @return \Illuminate\Http\Response
    */
-  // public function update(Request $request, $id)
-  // {
-  //   //
-  // }
+  public function update(Request $request, $id)
+  {
+    $bill = Bill::find($id);
+    $bill->UpdateBill($request);
+    $bill->ReserveStoreBreakdown($request);
+    $bill->LayoutBreakdowns($request);
+  }
 
   /**
    * Remove the specified resource from storage.

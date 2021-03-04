@@ -496,10 +496,13 @@ class ReservationsController extends Controller
     ]);
   }
 
-  public function edit_check(Request $request)
+  public function edit_check(Request $request, $id)
   {
     echo "<pre>";
     var_dump($request->all());
+    echo "</pre>";
+    echo "<pre>";
+    var_dump($id);
     echo "</pre>";
 
     $venue = Venue::find($request->venue_id);
@@ -517,9 +520,21 @@ class ReservationsController extends Controller
     }
     $others_details = !empty($others_details) ? count($others_details) : "";
 
+    $equ_breakdowns = Equipment::getBreakdowns($request);
+    $ser_breakdowns = Service::getBreakdowns($request);
     return view(
       'admin.reservations.edit_check',
-      compact('request', 'venue', 'venue_details', 'equipment_details', 'service_details', 'others_details')
+      compact(
+        'request',
+        'venue',
+        'venue_details',
+        'equipment_details',
+        'service_details',
+        'others_details',
+        'equ_breakdowns',
+        'ser_breakdowns',
+        'id'
+      )
     );
   }
 
@@ -533,7 +548,9 @@ class ReservationsController extends Controller
    */
   public function update(Request $request, $id)
   {
-    //
+
+    $reservation = Reservation::find($id);
+    $reservation->UpdateReservation($request);
   }
 
   /**

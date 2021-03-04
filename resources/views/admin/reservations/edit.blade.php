@@ -401,9 +401,9 @@
               <td>レイアウト片付</td>
               <td>
                 <div class="form-check form-check-inline">
-                  {{Form::radio('layout_prepare', 1, false, ['id' => 'layout_prepare', 'class' => 'form-check-input'])}}
-                  <label for='layout_prepare' class="form-check-label">有り</label>
-                  {{Form::radio('layout_prepare', 0, true, ['id' => 'no_layout_clean', 'class' => 'form-check-input'])}}
+                  {{Form::radio('layout_clean', 1, false, ['id' => 'layout_clean', 'class' => 'form-check-input'])}}
+                  <label for='layout_clean' class="form-check-label">有り</label>
+                  {{Form::radio('no_layout_clean', 0, true, ['id' => 'no_layout_clean', 'class' => 'form-check-input'])}}
                   <label for='no_layout_clean' class="form-check-label">無し</label>
                 </div>
               </td>

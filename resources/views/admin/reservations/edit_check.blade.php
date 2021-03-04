@@ -11,7 +11,7 @@
 <div class="container-fluid">
 
 
-  {{ Form::open(['url' => 'admin/reservations', 'method'=>'POST', 'id'=>'agents_calculate_form']) }}
+  {{ Form::open(['url' => 'admin/reservations/'.$id, 'method'=>'PUT', 'id'=>'agents_calculate_form']) }}
   @csrf
   <section class="section-wrap">
     <div class="row">
@@ -134,7 +134,14 @@
               <tr>
                 <td>{{$equipment->item}}</td>
                 <td>
-                  {{ Form::text('equipment_breakdown'.$key, $request->{'equipment_breakdown'.$key},['class'=>'form-control', 'readonly'] ) }}
+                  @for ($i = 0; $i < $equ_breakdowns; $i++) @if ($equipment->
+                    item==$request->{"equipment_breakdown_item".$i})
+                    {{ Form::text('equipment_breakdown'.$key, $request->{'equipment_breakdown_count'.$i},['class'=>'form-control', 'readonly'] ) }}
+                    @break
+                    @elseif($i==$equ_breakdowns-1)
+                    {{ Form::text('equipment_breakdown'.$key, "0",['class'=>'form-control', 'readonly'] ) }}
+                    @endif
+                    @endfor
                 </td>
               </tr>
               @endforeach
@@ -157,11 +164,19 @@
               </tr>
             </thead>
             <tbody>
+
               @foreach ($venue->getServices() as $key=>$service)
               <tr>
                 <td>{{$service->item}}</td>
                 <td>
-                  {{ Form::text('services_breakdown'.$key, $request->{'services_breakdown'.$key}==1?"有り":"無し",['class'=>'form-control', 'readonly'] ) }}
+                  @for ($i = 0; $i < $ser_breakdowns; $i++) @if ($service->
+                    item==$request->{"services_breakdown_item".$i})
+                    {{ Form::text('services_breakdown'.$key, $request->{'services_breakdown_count'.$i},['class'=>'form-control', 'readonly'] ) }}
+                    @break
+                    @elseif($i==$ser_breakdowns-1)
+                    {{ Form::text('services_breakdown'.$key, 0,['class'=>'form-control', 'readonly'] ) }}
+                    @endif
+                    @endfor
                 </td>
               </tr>
               @endforeach
@@ -821,48 +836,69 @@
     }
   </style>
 
-  {{ Form::open(['url' => 'admin/reservations/calculate', 'method'=>'POST', 'id'=>'back']) }}
+  {{ Form::open(['url' => 'admin/reservations/'.$id.'/edit_calculate', 'method'=>'POST', 'id'=>'back']) }}
   @csrf
   {{ Form::hidden('reserve_date', $request->reserve_date,['class'=>'form-control','readonly'] ) }}
-  {{ Form::hidden('venue_id', $request->venue_id,['class'=>'form-control', 'readonly'] ) }}
-  {{ Form::hidden('price_system', $request->price_system,['class'=>'form-control', 'readonly'] ) }}
-  {{ Form::hidden('enter_time', $request->enter_time,['class'=>'form-control', 'readonly'] ) }}
-  {{ Form::hidden('leave_time', $request->leave_time,['class'=>'form-control', 'readonly'] ) }}
-  {{ Form::hidden('board_flag', $request->board_flag,['class'=>'form-control', 'readonly'] ) }}
-  {{ Form::hidden('event_start', $request->event_start,['class'=>'form-control', 'readonly'] ) }}
-  {{ Form::hidden('event_finish', $request->event_finish,['class'=>'form-control', 'readonly'] ) }}
-  {{ Form::hidden('event_name1', $request->event_name1,['class'=>'form-control', 'readonly'] ) }}
-  {{ Form::hidden('event_name2', $request->event_name2,['class'=>'form-control', 'readonly'] ) }}
-  {{ Form::hidden('event_owner', $request->event_owner,['class'=>'form-control', 'readonly'] ) }}
+  {{ Form::hidden('venue_id', $request->venue_id ) }}
+  {{ Form::hidden('price_system', $request->price_system ) }}
+  {{ Form::hidden('enter_time', $request->enter_time ) }}
+  {{ Form::hidden('leave_time', $request->leave_time ) }}
+  {{ Form::hidden('board_flag', $request->board_flag ) }}
+  {{ Form::hidden('event_start', $request->event_start ) }}
+  {{ Form::hidden('event_finish', $request->event_finish ) }}
+  {{ Form::hidden('event_name1', $request->event_name1 ) }}
+  {{ Form::hidden('event_name2', $request->event_name2 ) }}
+  {{ Form::hidden('event_owner', $request->event_owner ) }}
+
   @foreach ($venue->getEquipments() as $key=>$equipment)
-  {{ Form::hidden('equipment_breakdown'.$key, $request->{'equipment_breakdown'.$key},['class'=>'form-control', 'readonly'] ) }}
-  @endforeach
-  @foreach ($venue->getServices() as $key=>$service)
-  {{ Form::hidden('services_breakdown'.$key, $request->{'services_breakdown'.$key},['class'=>'form-control', 'readonly'] ) }}
-  @endforeach
-  {{ Form::hidden('layout_prepare', $request->layout_prepare,['class'=>'form-control', 'readonly'] ) }}
-  {{ Form::hidden('layout_clean', $request->layout_clean,['class'=>'form-control', 'readonly'] ) }}
-  @if ($request->luggage_count)
-  {{ Form::hidden('luggage_count', $request->luggage_count,['class'=>'form-control', 'readonly'] ) }}
-  @endif
-  @if ($request->luggage_arrive)
-  {{ Form::hidden('luggage_arrive', $request->luggage_arrive,['class'=>'form-control', 'readonly'] ) }}
-  @endif
-  @if ($request->luggage_return)
-  {{ Form::hidden('luggage_return', $request->luggage_return,['class'=>'form-control', 'readonly'] ) }}
-  @endif
-  @if ($request->luggage_price)
-  {{ Form::hidden('luggage_price', $request->luggage_price,['class'=>'form-control', 'readonly'] ) }}
-  @endif
-  {{ Form::hidden('user_id', $request->user_id,['class'=>'form-control', 'readonly'] ) }}
-  {{ Form::hidden('in_charge', $request->in_charge,['class'=>'form-control', 'readonly'] ) }}
-  {{ Form::hidden('tel', $request->tel,['class'=>'form-control', 'readonly'] ) }}
-  {{ Form::hidden('email_flag', $request->email_flag,['class'=>'form-control', 'readonly'] ) }}
-  {{ Form::hidden('cost', $request->cost,['class'=>'form-control', 'readonly'] ) }}
-  {{ Form::hidden('discount_condition', $request->discount_condition,['class'=>'form-control', 'readonly'] ) }}
-  {{ Form::hidden('attention', $request->attention,['class'=>'form-control', 'readonly'] ) }}
-  {{ Form::hidden('user_details', $request->user_details,['class'=>'form-control', 'readonly'] ) }}
-  {{ Form::hidden('admin_details', $request->admin_details,['class'=>'form-control', 'readonly'] ) }}
-  {{Form::close()}}
+  @for ($i = 0; $i < $equ_breakdowns; $i++) @if ($equipment->
+    item==$request->{"equipment_breakdown_item".$i})
+    {{ Form::hidden('equipment_breakdown'.$key, $request->{'equipment_breakdown_count'.$i} ) }}
+    @break
+    @elseif($i==$equ_breakdowns-1)
+    {{ Form::hidden('equipment_breakdown'.$key, "0" ) }}
+    @endif
+    @endfor
+    @endforeach
+
+
+
+    @foreach ($venue->getServices() as $key=>$service)
+    @for ($i = 0; $i < $ser_breakdowns; $i++) @if ($service->item==$request->{"services_breakdown_item".$i})
+      {{ Form::hidden('services_breakdown'.$key, $request->{'services_breakdown_count'.$i} ) }}
+      @break
+      @elseif($i==$ser_breakdowns-1)
+      {{ Form::hidden('services_breakdown'.$key, 0 ) }}
+      @endif
+      @endfor
+      @endforeach
+
+
+
+
+      {{ Form::hidden('layout_prepare', $request->layout_prepare ) }}
+      {{ Form::hidden('layout_clean', $request->layout_clean ) }}
+      @if ($request->luggage_count)
+      {{ Form::hidden('luggage_count', $request->luggage_count ) }}
+      @endif
+      @if ($request->luggage_arrive)
+      {{ Form::hidden('luggage_arrive', $request->luggage_arrive ) }}
+      @endif
+      @if ($request->luggage_return)
+      {{ Form::hidden('luggage_return', $request->luggage_return ) }}
+      @endif
+      @if ($request->luggage_price)
+      {{ Form::hidden('luggage_price', $request->luggage_price ) }}
+      @endif
+      {{ Form::hidden('user_id', $request->user_id ) }}
+      {{ Form::hidden('in_charge', $request->in_charge ) }}
+      {{ Form::hidden('tel', $request->tel ) }}
+      {{ Form::hidden('email_flag', $request->email_flag ) }}
+      {{ Form::hidden('cost', $request->cost ) }}
+      {{ Form::hidden('discount_condition', $request->discount_condition ) }}
+      {{ Form::hidden('attention', $request->attention ) }}
+      {{ Form::hidden('user_details', $request->user_details ) }}
+      {{ Form::hidden('admin_details', $request->admin_details ) }}
+      {{Form::close()}}
 </div>
 @endsection

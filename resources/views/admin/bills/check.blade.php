@@ -49,7 +49,8 @@
               </tr>
             </tbody>
             <tbody class="venue_main ">
-              @for ($i = 0; $i < (count($s_venues)/4); $i++) @if($s_venues[$i*4]&&$s_venues[($i*4)+1]&&$s_venues[($i*4)+2]&&$s_venues[($i*4)+3]) <tr>
+              @for ($i = 0; $i < (count($s_venues)/4); $i++)
+                @if($s_venues[$i*4]&&$s_venues[($i*4)+1]&&$s_venues[($i*4)+2]&&$s_venues[($i*4)+3]) <tr>
                 <td>
                   {{ Form::text('venue_breakdown_item'.$i, $s_venues[$i*4],['class'=>'form-control', 'readonly'] ) }}
                 </td>
@@ -99,7 +100,8 @@
               </tr>
             </tbody>
             <tbody class="equipment_main ">
-              @for ($i = 0; $i < (count($s_equipments)/4); $i++) @if($s_equipments[$i*4]&&$s_equipments[($i*4)+1]&&$s_equipments[($i*4)+2]&&$s_equipments[($i*4)+3]) <tr>
+              @for ($i = 0; $i < (count($s_equipments)/4); $i++)
+                @if($s_equipments[$i*4]&&$s_equipments[($i*4)+1]&&$s_equipments[($i*4)+2]&&$s_equipments[($i*4)+3]) <tr>
                 <td>
                   {{ Form::text('equipment_breakdown_item'.$i, $s_equipments[$i*4],['class'=>'form-control', 'readonly'] ) }}
                 </td>
@@ -149,22 +151,30 @@
               </tr>
             </tbody>
             <tbody class="layout_main ">
-              @for ($i = 0; $i < (count($s_layouts)/4); $i++) @if($s_layouts[$i*4]&&$s_layouts[($i*4)+1]&&$s_layouts[($i*4)+2]&&$s_layouts[($i*4)+3]) <tr>
-                <td>
-                  {{ Form::text('layout_breakdown_item'.$i, $s_layouts[$i*4],['class'=>'form-control', 'readonly'] ) }}
+              @if ($requests->layout_prepare_cost)
+              <tr>
+                <td>{{ Form::text('layout_prepare_item', 'レイアウト準備料金', ['class' => 'form-control','readonly'])}}</td>
+                <td>{{ Form::text('layout_prepare_cost', $requests->layout_prepare_cost, ['class' => 'form-control'])}}
                 </td>
                 <td>
-                  {{ Form::text('layout_breakdown_cost'.$i, $s_layouts[($i*4)+1],['class'=>'form-control', 'readonly'] ) }}
+                  {{ Form::text('layout_prepare_count', $requests->layout_prepare_count, ['class' => 'form-control'])}}
                 </td>
                 <td>
-                  {{ Form::text('layout_breakdown_count'.$i, $s_layouts[($i*4)+2],['class'=>'form-control', 'readonly'] ) }}
+                  {{ Form::text('layout_prepare_subtotal', $requests->layout_prepare_subtotal, ['class' => 'form-control', 'readonly'])}}
+                </td>
+              </tr>
+              @endif
+              @if ($requests->layout_clean_cost)
+              <tr>
+                <td>{{ Form::text('layout_clean_item', 'レイアウト片付料金', ['class' => 'form-control','readonly'])}}</td>
+                <td>{{ Form::text('layout_clean_cost', $requests->layout_clean_cost, ['class' => 'form-control'])}}</td>
+                <td>{{ Form::text('layout_clean_count', $requests->layout_clean_count, ['class' => 'form-control'])}}
                 </td>
                 <td>
-                  {{ Form::text('layout_breakdown_subtotal'.$i, $s_layouts[($i*4)+3],['class'=>'form-control', 'readonly'] ) }}
+                  {{ Form::text('layout_clean_subtotal', $requests->layout_clean_subtotal, ['class' => 'form-control', 'readonly'])}}
                 </td>
-                </tr>
-                @endif
-                @endfor
+              </tr>
+              @endif
             </tbody>
             <tbody class="layout_result ">
               <tr>
@@ -200,7 +210,8 @@
               </tr>
             </tbody>
             <tbody class="others_main ">
-              @for ($i = 0; $i < (count($s_others)/4); $i++) @if($s_others[$i*4]&&$s_others[($i*4)+1]&&$s_others[($i*4)+2]&&$s_others[($i*4)+3]) <tr>
+              @for ($i = 0; $i < (count($s_others)/4); $i++)
+                @if($s_others[$i*4]&&$s_others[($i*4)+1]&&$s_others[($i*4)+2]&&$s_others[($i*4)+3]) <tr>
                 <td>
                   {{ Form::text('others_breakdown_item'.$i, $s_others[$i*4],['class'=>'form-control', 'readonly'] ) }}
                 </td>
@@ -230,7 +241,8 @@
         @endif
 
 
-        <div class="bill_total d-flex justify-content-end" style="padding: 80px 0px 80px 0px; width:90%; margin:0 auto;">
+        <div class="bill_total d-flex justify-content-end"
+          style="padding: 80px 0px 80px 0px; width:90%; margin:0 auto;">
           <div style="width: 60%;">
             <table class="table text-right" style="table-layout: fixed; font-size:16px;">
               <tbody>

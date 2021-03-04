@@ -188,8 +188,6 @@
         <tr>
           <td class="table-active">料金体系</td>
           <td>
-            {{-- {{ Form::text('', ReservationHelper::priceSystem($request->price_system),['class'=>'form-control'] ) }}
-            {{ Form::hidden('price_system', $request->price_system,['class'=>'form-control'] ) }} --}}
             <div class='price_radio_selector'>
               <div class="d-flex justfy-content-start align-items-center">
                 {{ Form::radio('price_system', 1, isset($request->price_system)?$request->price_system==1?true:false:'', ['class'=>'mr-2', 'id'=>'price_system_radio1']) }}
@@ -204,8 +202,6 @@
         <tr>
           <td class="table-active form_required">入室時間</td>
           <td>
-            {{-- {{ Form::text('', date('H:i',strtotime($request->enter_time)),['class'=>'form-control'] ) }}
-            {{ Form::hidden('enter_time', $request->enter_time,['class'=>'form-control'] ) }} --}}
             <select name="enter_time" id="sales_start" class="form-control">
               <option disabled selected></option>
               @for ($start = 0*2; $start <=23*2; $start++) <option
@@ -222,8 +218,6 @@
         <tr>
           <td class="table-active form_required">退室時間</td>
           <td>
-            {{-- {{ Form::text('', date('H:i',strtotime($request->leave_time)),['class'=>'form-control'] ) }}
-            {{ Form::hidden('leave_time', $request->leave_time,['class'=>'form-control'] ) }} --}}
             <select name="leave_time" id="sales_finish" class="form-control">
               <option disabled selected></option>
               @for ($start = 0*2; $start <=23*2; $start++) <option
@@ -253,20 +247,15 @@
         <tr>
           <td class="table-active">案内板</td>
           <td>
-            {{-- {{ Form::text('', $request->board_flag==1?"有り":"無し",['class'=>'form-control'] ) }}
-            {{ Form::hidden('board_flag', $request->board_flag,['class'=>'form-control'] ) }} --}}
             <input type="radio" name="board_flag" value="0"
               {{isset($request->board_flag)?$request->board_flag==0?'checked':'':'checked',}}>無し
             <input type="radio" name="board_flag" value="1"
               {{isset($request->board_flag)?$request->board_flag==1?'checked':'':'',}}>有り
-
           </td>
         </tr>
         <tr>
           <td class="table-active">イベント開始時間</td>
           <td>
-            {{-- {{ Form::text('', date('H:i',strtotime($request->event_start)),['class'=>'form-control'] ) }}
-            {{ Form::hidden('event_start', $request->event_start,['class'=>'form-control'] ) }} --}}
             <select name="event_start" id="event_start" class="form-control">
               <option disabled>選択してください</option>
               @for ($start = 0*2; $start <=23*2; $start++) <option
@@ -283,8 +272,6 @@
         <tr>
           <td class="table-active">イベント終了時間</td>
           <td>
-            {{-- {{ Form::text('', date('H:i',strtotime($request->event_finish)),['class'=>'form-control'] ) }}
-            {{ Form::hidden('event_finish', $request->event_finish,['class'=>'form-control'] ) }} --}}
             <select name="event_finish" id="event_finish" class="form-control">
               <option disabled>選択してください</option>
               @for ($start = 0*2; $start <=23*2; $start++) <option
@@ -296,7 +283,6 @@
                 {{date("H時i分", strtotime("00:00 +". $start * 30 ." minute"))}}</option>
                 @endfor
             </select>
-
           </td>
         </tr>
         <tr>
@@ -318,7 +304,6 @@
           </td>
         </tr>
       </table>
-
 
       <div class="equipemnts">
         <table class="table table-bordered" style="table-layout: fixed;">
@@ -522,8 +507,6 @@
           <tr>
             <td class="table-active"><label for="user_id" class=" form_required">会社名/団体名</label></td>
             <td>
-              {{-- {{ Form::text('', ReservationHelper::getCompany($request->user_id),['class'=>'form-control'] ) }}
-              {{ Form::hidden('user_id', $request->user_id,['class'=>'form-control'] ) }} --}}
               <select class="form-control" name="user_id" id="user_select">
                 <option disabled selected>選択してください</option>
                 @foreach ($users as $user)
@@ -1159,6 +1142,9 @@
 {{ Form::hidden('luggage_return', $request->luggage_return )}}
 {{ Form::hidden('luggage_return', $request->luggage_return )}}
 {{ Form::hidden('luggage_price', $request->luggage_price )}}
+
+{{ Form::hidden('layout_prepare', $request->layout_prepare )}}
+{{ Form::hidden('layout_clean', $request->layout_clean )}}
 
 
 
