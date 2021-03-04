@@ -1220,6 +1220,7 @@
           </dd>
         </dl>
       </div>
+      {{-- test --}}
       @elseif($reservation->bills()->first()->double_check_status==1)
       <div class="double_checkbox section-wrap" style="border: solid 1px gray">
         <dl class="d-flex col-12 justify-content-end align-items-center">
