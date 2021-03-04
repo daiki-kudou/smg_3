@@ -128,7 +128,6 @@ $(function () {
   var tel = $("input[name^='tel']");
   ExceptString(tel);
 
-
 });
 
 

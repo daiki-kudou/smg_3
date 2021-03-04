@@ -4,6 +4,8 @@
 
 <link href="{{ asset('/css/template.css') }}" rel="stylesheet">
 <script src="{{ asset('/js/template.js') }}"></script>
+<script src="{{ asset('/js/admin/reservation.js') }}"></script>
+<script src="{{ asset('/js/admin/validation.js') }}"></script>
 
 <div class="container-fluid">
 
@@ -23,7 +25,7 @@
   </div>
 
   <section class="section-wrap">
-    {{ Form::model($agent, ['route' => ['admin.agents.update', $agent->id], 'method' => 'put']) }}
+    {{ Form::model($agent, ['route' => ['admin.agents.update', $agent->id], 'method' => 'put', 'id'=>'agentReservationEditForm']) }}
     @csrf
     <div class="container mb-5">
       <div class="row">
@@ -43,11 +45,12 @@
             <tbody>
               <!-- 工藤さんに確認　増やした項目 -->
               <tr>
-                <td class="table-active">
+                <td class="table-active form_required">
                   <label for="name">サービス名称</label>
                 </td>
                 <td colspan="2">
                   {{ Form::text('name', $agent->name, ['class' => 'form-control']) }}
+                <p class="is-error-name" style="color: red"></p>
                 </td>
               </tr>
               <tr>
@@ -143,6 +146,7 @@
                 </th>
                 <td colspan="2">
                   {{ Form::text('email', $agent->email, ['class' => 'form-control', 'id'=>'company']) }}
+                  <p class="is-error-email" style="color: red"></p>
                 </td>
               </tr>
               <tr>
@@ -185,6 +189,7 @@
                 </td>
                 <td colspan="2">
                   {{ Form::text('site_url', $agent->site_url, ['class' => 'form-control', 'id'=>'company']) }}
+                  <p class="is-error-site_url" style="color: red"></p>
                 </td>
               </tr>
               <tr>
@@ -193,6 +198,8 @@
                 </td>
                 <td colspan="2">
                   {{ Form::text('login', $agent->login, ['class' => 'form-control', 'id'=>'company']) }}
+                  <p class="is-error-login" style="color: red"></p>
+                
                 </td>
               </tr>
               <tr>
@@ -230,7 +237,7 @@
             </tbody>
           </table>
 
-          <table class="table table-bordered">
+          <table class="table table-bordered table_fixed">
             <thead>
               <tr>
                 <td colspan="3">
@@ -242,19 +249,22 @@
             </thead>
             <tbody>
               <tr>
-                <th class="table-active">
+                <th class="table-active form_required">
                   <label for="cost">仲介手数料</label>
                 </th>
-                <td class="d-flex align-items-center">
+                <td colspan="2">
+                  <div class="d-flex align-items-center">
                   {{ Form::text('cost', $agent->cost, ['class' => 'form-control', 'id'=>'company']) }}
                   <span class="ml-1">%</span>
+                  </div>
+                  <p class="is-error-cost" style="color: red"></p>
                 </td>
               </tr>
               <tr>
                 <th class="table-active">
                   <label for="deal_details">取引詳細</label>
                 </th>
-                <td>
+                <td colspan="2">
                   {{ Form::text('deal_remark', $agent->deal_remark, ['class' => 'form-control', 'id'=>'company']) }}
                 </td>
               </tr>
@@ -262,7 +272,7 @@
                 <td class="table-active">
                   <label for="cancel">キャンセルポリシー</label>
                 </td>
-                <td>
+                <td colspan="2">
                   <p>
                     {{ Form::radio('cxl', 1, $agent->cxl==1?true:false, ['class' => '']) }}
                     {{ Form::label('cxl', 'SMGルール') }}
@@ -274,6 +284,7 @@
                   <p class="mt-2">
                     <label for="cancel">キャンセルポリシーURL</label>
                     {{ Form::text('cxl_url', $agent->cxl_url, ['class' => 'form-control']) }}
+                    <p class="is-error-cxl_url" style="color: red"></p>
                   </p>
                 </td>
               </tr>
@@ -281,7 +292,7 @@
                 <th class="table-active">
                   <label for="deal_remark">備考</label>
                 </th>
-                <td>
+                <td colspan="2">
                   {{ Form::text('cxl_remark', $agent->cxl_remark, ['class' => 'form-control']) }}
                 </td>
               </tr>
@@ -301,14 +312,14 @@
             </thead>
             <tbody>
               <tr>
-                <th class="table-active">
-                  <label for="close_date">〆日</label>
+                <th class="table-active form_required">
+                  <label for="close_date">決済条件</label>
                 </th>
                 <td>
                   <select name="payment_limit" id="payment_limit">
-                    <option value="1" {{$agent->payment_limit==1?'selected':""}}>当月末</option>
-                    <option value="2" {{$agent->payment_limit==2?'selected':""}}>翌月末</option>
-                    <option value="3" {{$agent->payment_limit==3?'selected':""}}>翌々月末</option>
+                    <option value="1" {{$agent->payment_limit==1?'selected':""}}>当月末〆当月末CASH</option>
+                    <option value="2" {{$agent->payment_limit==2?'selected':""}}>当月末〆翌月末CASH</option>
+                    <option value="3" {{$agent->payment_limit==3?'selected':""}}>当月末〆翌々月末CASH</option>
                   </select>
                 </td>
               </tr>

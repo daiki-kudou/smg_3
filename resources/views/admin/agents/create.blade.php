@@ -2,7 +2,11 @@
 
 @section('content')
 <link href="{{ asset('/css/template.css') }}" rel="stylesheet">
-<script src="{{ asset('/js/template.js') }}"></script>
+<!-- <script src="{{ asset('/js/template.js') }}"></script> -->
+<script src="{{ asset('/js/admin/reservation.js') }}"></script>
+<script src="{{ asset('/js/admin/validation.js') }}"></script>
+
+
 <script>
   $(function() {
     $('.search_address1').on('change', function() {
@@ -48,7 +52,7 @@
     <h2 class="mt-3 mb-3">仲介会社　新規登録</h2>
     <hr>
 
-    {{ Form::open(['url' => 'admin/agents', 'method'=>'POST', 'id'=>'']) }}
+    {{ Form::open(['url' => 'admin/agents', 'method'=>'POST', 'id'=>'agentReservationCreateForm']) }}
     @csrf
     <section class="section-wrap">
       <div class="row">
@@ -66,11 +70,12 @@
             </thead>
             <tbody>
               <tr>
-                <td class="table-active">
+                <td class="table-active form_required">
                   <label for="name">サービス名称</label>
                 </td>
                 <td colspan="2">
                   {{ Form::text('name', old('name'), ['class' => 'form-control', 'id'=>'name']) }}
+                  <p class="is-error-name" style="color: red"></p>
                 </td>
               </tr>
               <tr>
@@ -145,6 +150,7 @@
                 <th class="table-active"><label for="email">担当者メールアドレス</label></th>
                 <td colspan="2">
                   {{ Form::text('email', old('email'), ['class' => 'form-control']) }}
+                  <p class="is-error-email" style="color: red"></p>
                 </td>
               </tr>
               <tr>
@@ -182,6 +188,7 @@
                 <td class="table-active"><label for="url">サイトURL</label></td>
                 <td colspan="2">
                   {{ Form::text('site_url', old('site_url'), ['class' => 'form-control']) }}
+                  <p class="is-error-site_url" style="color: red"></p>
                 </td>
               </tr>
               <tr>
@@ -190,6 +197,7 @@
                 </td>
                 <td colspan="2">
                   {{ Form::text('login', old('login'), ['class' => 'form-control']) }}
+                  <p class="is-error-login" style="color: red"></p>
                 </td>
               </tr>
               <tr>
@@ -222,7 +230,7 @@
           </table>
 
           <!-- 取引条件 ------------------------------------------------------------>
-          <table class="table table-bordered">
+          <table class="table table-bordered table_fixed">
             <thead>
               <tr>
                 <td colspan="3">
@@ -234,21 +242,24 @@
             </thead>
             <tbody>
               <tr>
-                <th class="table-active"><label for="cost">仲介手数料</label></th>
-                <td class="d-flex align-items-center">
+                <th class="table-active form_required"><label for="cost">仲介手数料</label></th>
+                <td colspan="2">
+                  <div class="d-flex align-items-center">
                   {{ Form::number('cost', old('cost'), ['class' => 'form-control']) }}
                   <span class="ml-1">%</span>
+                  </div>
+                  <p class="is-error-cost" style="color: red"></p>
                 </td>
               </tr>
               <tr>
                 <th class="table-active"><label for="deal_details">取引詳細</label></th>
-                <td>
+                <td colspan="2">
                   {{ Form::text('deal_remark', old('deal_remark'), ['class' => 'form-control']) }}
                 </td>
               </tr>
               <tr>
                 <td class="table-active"><label for="cancel">キャンセルポリシー</label></td>
-                <td>
+                <td colspan="2">
                   <p>
                     {{ Form::radio('cxl', 1,true, ['class' => '']) }}
                     {{ Form::label('cxl', 'SMGルール') }}
@@ -260,12 +271,13 @@
                   <p class="mt-2">
                     <label for="cancel">キャンセルポリシーURL</label>
                     {{ Form::text('cxl_url', old('cxl_url'), ['class' => 'form-control']) }}
+                    <p class="is-error-cxl_url" style="color: red"></p>
                   </p>
                 </td>
               </tr>
               <tr>
                 <th class="table-active"><label for="deal_remark">備考</label></th>
-                <td>
+                <td colspan="2">
                   {{ Form::text('cxl_remark', old('cxl_remark'), ['class' => 'form-control']) }}
                 </td>
               </tr>
@@ -285,21 +297,21 @@
             </thead>
             <tbody>
               <tr>
-                <th class="table-active"><label for="close_date">〆日</label></th>
+                <th class="table-active form_required"><label for="close_date">決済条件</label></th>
                 <td>
                   <select name="payment_limit" id="payment_limit">
-                    <option value="1">当月末</option>
-                    <option value="2">翌月末</option>
-                    <option value="3">翌々月末</option>
+                    <option value="1">当月末〆当月末CASH</option>
+                    <option value="2">当月末〆翌月末CASH</option>
+                    <option value="3">当月末〆翌々月末CASH</option>
                   </select>
                 </td>
               </tr>
-              <tr>
+              <!-- <tr>
                 <th class="table-active"><label for="payment_day">支払日</label></th>
                 <td>
                   {{ Form::text('payment_day', old('payment_day'), ['class' => 'form-control']) }}
                 </td>
-              </tr>
+              </tr> -->
               <tr>
                 <th class="table-active"><label for="pay_remark">備考</label></th>
                 <td>

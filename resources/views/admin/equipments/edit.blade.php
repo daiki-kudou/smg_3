@@ -1,7 +1,7 @@
 @extends('layouts.admin.app')
 @section('content')
 <script src="{{ asset('/js/template.js') }}"></script>
-<script src="{{ asset('/js/validation.js') }}"></script>
+<script src="{{ asset('/js/admin/validation.js') }}"></script>
 <link href="{{ asset('/css/template.css') }}" rel="stylesheet">
 @if ($errors->any())
 <div class="alert alert-danger">
@@ -12,7 +12,6 @@
   </ul>
 </div>
 @endif
-
 
 <div class="content">
   <div class="container-fluid">
@@ -56,12 +55,10 @@
             <p class="is-error-item" style="color: red"></p>
           </td>
           <td>
-            <p class="is-error-price" style="color: white"></p>
             {{ Form::text('price', $eqipment->price, ['class' => 'form-control']) }}
             <p class="is-error-price" style="color: red"></p>
           </td>
           <td>
-            <p class="is-error-stock" style="color: white"></p>
             {{ Form::text('stock', $eqipment->stock, ['class' => 'form-control']) }}
             <p class="is-error-stock" style="color: red"></p>
           </td>
