@@ -4,6 +4,8 @@
 
 <link href="{{ asset('/css/template.css') }}" rel="stylesheet">
 <script src="{{ asset('/js/template.js') }}"></script>
+<script src="{{ asset('/js/admin/reservation.js') }}"></script>
+<script src="{{ asset('/js/admin/validation.js') }}"></script>
 
 <div class="container-fluid">
 
@@ -23,7 +25,7 @@
   </div>
 
   <section class="section-wrap">
-    {{ Form::model($agent, ['route' => ['admin.agents.update', $agent->id], 'method' => 'put']) }}
+    {{ Form::model($agent, ['route' => ['admin.agents.update', $agent->id], 'method' => 'put', 'id'=>'agentReservationEditForm']) }}
     @csrf
     <div class="container mb-5">
       <div class="row">
@@ -48,6 +50,7 @@
                 </td>
                 <td colspan="2">
                   {{ Form::text('name', $agent->name, ['class' => 'form-control']) }}
+                <p class="is-error-name" style="color: red"></p>
                 </td>
               </tr>
               <tr>
@@ -245,9 +248,12 @@
                 <th class="table-active form_required">
                   <label for="cost">仲介手数料</label>
                 </th>
-                <td class="d-flex align-items-center">
+                <td>
+                  <div class="d-flex align-items-center">
                   {{ Form::text('cost', $agent->cost, ['class' => 'form-control', 'id'=>'company']) }}
                   <span class="ml-1">%</span>
+                  </div>
+                  <p class="is-error-cost" style="color: red"></p>
                 </td>
               </tr>
               <tr>

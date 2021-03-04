@@ -2,7 +2,11 @@
 
 @section('content')
 <link href="{{ asset('/css/template.css') }}" rel="stylesheet">
-<script src="{{ asset('/js/template.js') }}"></script>
+<!-- <script src="{{ asset('/js/template.js') }}"></script> -->
+<script src="{{ asset('/js/admin/reservation.js') }}"></script>
+<script src="{{ asset('/js/admin/validation.js') }}"></script>
+
+
 <script>
   $(function() {
     $('.search_address1').on('change', function() {
@@ -48,7 +52,7 @@
     <h2 class="mt-3 mb-3">仲介会社　新規登録</h2>
     <hr>
 
-    {{ Form::open(['url' => 'admin/agents', 'method'=>'POST', 'id'=>'']) }}
+    {{ Form::open(['url' => 'admin/agents', 'method'=>'POST', 'id'=>'agentReservationCreateForm']) }}
     @csrf
     <section class="section-wrap">
       <div class="row">
@@ -71,6 +75,7 @@
                 </td>
                 <td colspan="2">
                   {{ Form::text('name', old('name'), ['class' => 'form-control', 'id'=>'name']) }}
+                  <p class="is-error-name" style="color: red"></p>
                 </td>
               </tr>
               <tr>
@@ -235,9 +240,12 @@
             <tbody>
               <tr>
                 <th class="table-active form_required"><label for="cost">仲介手数料</label></th>
-                <td class="d-flex align-items-center">
+                <td>
+                  <div class="d-flex align-items-center">
                   {{ Form::number('cost', old('cost'), ['class' => 'form-control']) }}
                   <span class="ml-1">%</span>
+                  </div>
+                  <p class="is-error-cost" style="color: red"></p>
                 </td>
               </tr>
               <tr>

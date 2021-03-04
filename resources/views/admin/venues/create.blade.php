@@ -1,7 +1,8 @@
 @extends('layouts.admin.app')
 @section('content')
 <script src="{{ asset('/js/template.js') }}"></script>
-<script src="{{ asset('/js/validation.js') }}"></script>
+<script src="{{ asset('/js/admin/validation.js') }}"></script>
+<script src="{{ asset('/js/admin/reservation.js') }}"></script>
 <link href="{{ asset('/css/template.css') }}" rel="stylesheet">
 
 <div class="errors">
