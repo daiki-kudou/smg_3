@@ -66,7 +66,7 @@
             </thead>
             <tbody>
               <tr>
-                <td class="table-active">
+                <td class="table-active form_required">
                   <label for="name">サービス名称</label>
                 </td>
                 <td colspan="2">
@@ -234,7 +234,7 @@
             </thead>
             <tbody>
               <tr>
-                <th class="table-active"><label for="cost">仲介手数料</label></th>
+                <th class="table-active form_required"><label for="cost">仲介手数料</label></th>
                 <td class="d-flex align-items-center">
                   {{ Form::number('cost', old('cost'), ['class' => 'form-control']) }}
                   <span class="ml-1">%</span>
@@ -285,7 +285,7 @@
             </thead>
             <tbody>
               <tr>
-                <th class="table-active"><label for="close_date">〆日</label></th>
+                <th class="table-active form_required"><label for="close_date">〆日</label></th>
                 <td>
                   <select name="payment_limit" id="payment_limit">
                     <option value="1">当月末</option>

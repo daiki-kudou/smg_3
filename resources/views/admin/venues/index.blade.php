@@ -38,7 +38,7 @@
           <thead>
             <tr style="white-space: nowrap;" role="row">
               <th class="sorting_asc" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1"
-                aria-sort="ascending" aria-label="ID: activate to sort column descending" style="width: 73px;">テストテスト</th>
+                aria-sort="ascending" aria-label="ID: activate to sort column descending" style="width: 73px;">ID</th>
               <th class="sorting" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1"
                 aria-label="登録日: activate to sort column ascending" style="width: 155px;">登録日</th>
               <th class="sorting" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1"
@@ -55,7 +55,7 @@
                 aria-label="詳細">詳細</th>
               <th>レイアウト</th>
               <th>荷物</th>
-              <th>食事</th>
+              <th>飲食</th>
             </tr>
           </thead>
           <tbody>

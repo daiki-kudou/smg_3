@@ -43,7 +43,7 @@
             <tbody>
               <!-- 工藤さんに確認　増やした項目 -->
               <tr>
-                <td class="table-active">
+                <td class="table-active form_required">
                   <label for="name">サービス名称</label>
                 </td>
                 <td colspan="2">
@@ -242,7 +242,7 @@
             </thead>
             <tbody>
               <tr>
-                <th class="table-active">
+                <th class="table-active form_required">
                   <label for="cost">仲介手数料</label>
                 </th>
                 <td class="d-flex align-items-center">
@@ -301,7 +301,7 @@
             </thead>
             <tbody>
               <tr>
-                <th class="table-active">
+                <th class="table-active form_required">
                   <label for="close_date">〆日</label>
                 </th>
                 <td>

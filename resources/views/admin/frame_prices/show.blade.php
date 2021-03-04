@@ -72,7 +72,7 @@
 
 
 
-<div class="p-3 mb-2 bg-white text-dark">
+<div class="section-wrap">
   <span>会場</span>
   <div class="form-group">
     {{ $venue->name_area}}{{ $venue->name_bldg}}{{ $venue->name_venue}}
