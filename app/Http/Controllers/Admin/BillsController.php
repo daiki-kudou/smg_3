@@ -246,10 +246,13 @@ class BillsController extends Controller
    * @param  int  $id
    * @return \Illuminate\Http\Response
    */
-  // public function update(Request $request, $id)
-  // {
-  //   //
-  // }
+  public function update(Request $request, $id)
+  {
+    $bill = Bill::find($id);
+    $bill->UpdateBill($request);
+    $bill->ReserveStoreBreakdown($request);
+    $bill->LayoutBreakdowns($request);
+  }
 
   /**
    * Remove the specified resource from storage.

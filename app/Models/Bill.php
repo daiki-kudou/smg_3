@@ -191,6 +191,24 @@ class Bill extends Model
     });
   }
 
+  public function LayoutBreakdowns($request) //追加請求書の編集の際のみ利用。　レイアウトの追加を複数可能
+  {
+    DB::transaction(function () use ($request) {
+      $countVenue = $this->RequestBreakdowns($request, 'layout_breakdown_item');
+      if ($countVenue != "") {
+        for ($i = 0; $i < $countVenue; $i++) {
+          $this->breakdowns()->create([
+            'unit_item' => $request->{'layout_breakdown_item' . $i},
+            'unit_cost' => $request->{'layout_breakdown_cost' . $i},
+            'unit_count' => $request->{'layout_breakdown_count' . $i},
+            'unit_subtotal' => $request->{'layout_breakdown_subtotal' . $i},
+            'unit_type' => 1,
+          ]);
+        }
+      }
+    });
+  }
+
   public function ReserveFromAgentBreakdown($request)
   {
     echo "<pre>";
