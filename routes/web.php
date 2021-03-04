@@ -2,10 +2,13 @@
 
 
 
-Route::get('/', 'Home\HomeController@index')->name('home');
+
 Route::namespace('Home')->prefix('/')->name('home.')->group(function () {
-  Route::post('slct_date', 'HomeController@slct_date')->name('home.slct_date');
-  Route::post('slct_venue', 'HomeController@slct_venue')->name('home.slct_venue');
+  Route::middleware('basic_auth')->group(function () {
+    Route::get('/', 'HomeController@index')->name('home');
+    Route::post('slct_date', 'HomeController@slct_date')->name('home.slct_date');
+    Route::post('slct_venue', 'HomeController@slct_venue')->name('home.slct_venue');
+  });
 });
 
 
@@ -19,7 +22,6 @@ Route::get('calender/venue_calendar', 'CalendarsController@venue_calendar');
 | ユーザー用ルート
 |--------------------------------------------------------------------------|
 */
-
 Route::namespace('User')->prefix('user')->name('user.')->group(function () {
 
   Auth::routes(['register' => true, 'confirm' => true, 'reset' => true,]);
