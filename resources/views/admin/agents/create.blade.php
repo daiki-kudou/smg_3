@@ -297,21 +297,21 @@
             </thead>
             <tbody>
               <tr>
-                <th class="table-active form_required"><label for="close_date">〆日</label></th>
+                <th class="table-active form_required"><label for="close_date">決済条件</label></th>
                 <td>
                   <select name="payment_limit" id="payment_limit">
-                    <option value="1">当月末</option>
-                    <option value="2">翌月末</option>
-                    <option value="3">翌々月末</option>
+                    <option value="1">当月末〆当月末CASH</option>
+                    <option value="2">当月末〆翌月末CASH</option>
+                    <option value="3">当月末〆翌々月末CASH</option>
                   </select>
                 </td>
               </tr>
-              <tr>
+              <!-- <tr>
                 <th class="table-active"><label for="payment_day">支払日</label></th>
                 <td>
                   {{ Form::text('payment_day', old('payment_day'), ['class' => 'form-control']) }}
                 </td>
-              </tr>
+              </tr> -->
               <tr>
                 <th class="table-active"><label for="pay_remark">備考</label></th>
                 <td>

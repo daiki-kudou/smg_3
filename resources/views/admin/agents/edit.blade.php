@@ -313,13 +313,13 @@
             <tbody>
               <tr>
                 <th class="table-active form_required">
-                  <label for="close_date">〆日</label>
+                  <label for="close_date">決済条件</label>
                 </th>
                 <td>
                   <select name="payment_limit" id="payment_limit">
-                    <option value="1" {{$agent->payment_limit==1?'selected':""}}>当月末</option>
-                    <option value="2" {{$agent->payment_limit==2?'selected':""}}>翌月末</option>
-                    <option value="3" {{$agent->payment_limit==3?'selected':""}}>翌々月末</option>
+                    <option value="1" {{$agent->payment_limit==1?'selected':""}}>当月末〆当月末CASH</option>
+                    <option value="2" {{$agent->payment_limit==2?'selected':""}}>当月末〆翌月末CASH</option>
+                    <option value="3" {{$agent->payment_limit==3?'selected':""}}>当月末〆翌々月末CASH</option>
                   </select>
                 </td>
               </tr>
