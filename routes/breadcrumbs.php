@@ -1,33 +1,71 @@
 <?php
-
-
+///////////////////////////////////////////////////////////////////////////
+// 会場管理
 ///////////////////////////////////////////////////////////////////////////
 // 会場
-///////////////////////////////////////////////////////////////////////////
 Breadcrumbs::for('admin.home.index', function ($trail) {
   $trail->push('ホーム', route('admin.home.index'));
 });
-
 Breadcrumbs::for('admin.venues.index', function ($trail) {
   $trail->parent('admin.home.index');
   $trail->push('会場一覧', route('admin.venues.index'));
 });
-
 Breadcrumbs::for('admin.venues.create', function ($trail) {
   $trail->parent('admin.home.index');
   $trail->push('会場管理 新規登録', route('admin.venues.create'));
 });
-
 Breadcrumbs::for('admin.venues.show', function ($trail, $venue) {
   $trail->parent('admin.venues.index');
   $trail->push('会場管理 詳細', route('admin.venues.show', $venue));
 });
-
 Breadcrumbs::for('admin.venues.edit', function ($trail, $venue) {
-  $trail->parent('admin.venues.show');
+  $trail->parent('admin.venues.show', $venue);
   $trail->push('会場管理 編集', route('admin.venues.edit', $venue));
 });
-
+// 備品
+Breadcrumbs::for('admin.equipments.index', function ($trail) {
+  $trail->parent('admin.home.index');
+  $trail->push('会場管理 有料備品管理', route('admin.equipments.index'));
+});
+Breadcrumbs::for('admin.equipments.create', function ($trail) {
+  $trail->parent('admin.equipments.index');
+  $trail->push('有料備品新規登録', route('admin.equipments.create'));
+});
+Breadcrumbs::for('admin.equipments.edit', function ($trail, $id) {
+  $trail->parent('admin.equipments.index');
+  $trail->push('有料備品管理 編集', route('admin.equipments.edit', $id));
+});
+// サービス
+Breadcrumbs::for('admin.services.index', function ($trail) {
+  $trail->parent('admin.home.index');
+  $trail->push('会場管理 有料サービス管理', route('admin.services.index'));
+});
+Breadcrumbs::for('admin.services.create', function ($trail) {
+  $trail->parent('admin.services.index');
+  $trail->push('有料サービス管理 新規作成', route('admin.services.create'));
+});
+Breadcrumbs::for('admin.services.edit', function ($trail, $id) {
+  $trail->parent('admin.services.index');
+  $trail->push('有料サービス管理　編集', route('admin.services.edit', $id));
+});
+// 営業時間管理
+Breadcrumbs::for('admin.dates.index', function ($trail) {
+  $trail->parent('admin.home.index');
+  $trail->push('会場管理 営業時間管理', route('admin.dates.index'));
+});
+Breadcrumbs::for('admin.dates.show', function ($trail, $id) {
+  $trail->parent('admin.dates.index');
+  $trail->push('営業時間管理 詳細', route('admin.dates.show', $id));
+});
+Breadcrumbs::for('admin.dates.create', function ($trail, $id) {
+  $trail->parent('admin.dates.show', $id);
+  $trail->push('営業時間管理 編集', route('admin.dates.create', $id));
+});
+// 料金管理
+Breadcrumbs::for('admin.frame_prices.index', function ($trail) {
+  $trail->parent('admin.home.index');
+  $trail->push('会場管理 料金管理', route('admin.frame_prices.index'));
+});
 
 
 

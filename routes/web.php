@@ -98,7 +98,7 @@ Route::namespace('Admin')->prefix('admin')->name('admin.')->group(function () {
     // 備品登録
     Route::resource('equipments', 'EquipmentsController');
     // サービス登録
-    Route::resource('services', 'ServicesController');
+    Route::resource('services', 'ServicesController')->except(['show']);
     // 営業日登録
     Route::resource('dates', 'DatesController');
     // 枠貸し料金登録

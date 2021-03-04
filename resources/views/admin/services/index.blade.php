@@ -5,29 +5,14 @@
 <div class="container-fluid">
 
 
-  <script>
-    $(function() {
-$(".table").DataTable({
-lengthChange: false, // 件数切替機能 無効
-searching: false, // 検索機能 無効
-ordering: true, // ソート機能 無効
-info: false, // 情報表示 無効
-paging: false, // ページング機能 無効
-aoColumnDefs: [{
-"bSortable": false,
-"aTargets": [5]
-}], //特定のカラムソート不可
 
-});
-})
-  </script>
 
   <div class="container-field mt-3">
     <div class="float-right">
       <nav aria-label="breadcrumb">
         <ol class="breadcrumb">
-          <li class="breadcrumb-item active"><a href="https://staging-smg2.herokuapp.com/admin/home">ホーム</a> &gt;
-            有料サービス管理
+          <li class="breadcrumb-item active">
+            {{ Breadcrumbs::render(Route::currentRouteName()) }}
           </li>
         </ol>
       </nav>
@@ -93,4 +78,20 @@ aoColumnDefs: [{
     {{ $querys->links() }}
   </div>
 </div>
+<script>
+  $(function() {
+$(".table").DataTable({
+lengthChange: false, // 件数切替機能 無効
+searching: false, // 検索機能 無効
+ordering: true, // ソート機能 無効
+info: false, // 情報表示 無効
+paging: false, // ページング機能 無効
+aoColumnDefs: [{
+"bSortable": false,
+"aTargets": [5]
+}], //特定のカラムソート不可
+
+});
+})
+</script>
 @endsection

@@ -245,8 +245,8 @@
                 <th class="table-active form_required"><label for="cost">仲介手数料</label></th>
                 <td colspan="2">
                   <div class="d-flex align-items-center">
-                  {{ Form::number('cost', old('cost'), ['class' => 'form-control']) }}
-                  <span class="ml-1">%</span>
+                    {{ Form::number('cost', old('cost'), ['class' => 'form-control']) }}
+                    <span class="ml-1">%</span>
                   </div>
                   <p class="is-error-cost" style="color: red"></p>
                 </td>

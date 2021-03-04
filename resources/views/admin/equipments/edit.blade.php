@@ -18,9 +18,8 @@
     <div class="float-right">
       <nav aria-label="breadcrumb">
         <ol class="breadcrumb">
-          <li class="breadcrumb-item active"><a href="https://staging-smg2.herokuapp.com/admin/home">ホーム</a> &gt;
-            <a href="https://staging-smg2.herokuapp.com/admin/equipments">有料備品管理</a> &gt;
-            有料備品　編集
+          <li class="breadcrumb-item active">
+            {{ Breadcrumbs::render(Route::currentRouteName(),$eqipment->id) }}
           </li>
         </ol>
       </nav>
@@ -72,5 +71,6 @@
     {{ Form::close() }}
   </div>
 </div>
+
 
 @endsection
