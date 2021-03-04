@@ -202,7 +202,7 @@ class Bill extends Model
             'unit_cost' => $request->{'layout_breakdown_cost' . $i},
             'unit_count' => $request->{'layout_breakdown_count' . $i},
             'unit_subtotal' => $request->{'layout_breakdown_subtotal' . $i},
-            'unit_type' => 1,
+            'unit_type' => 4,
           ]);
         }
       }
