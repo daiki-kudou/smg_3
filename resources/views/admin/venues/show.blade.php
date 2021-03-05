@@ -224,7 +224,7 @@
               </td>
             </tr>
             <tr>
-              <td class="table-active"><label for="first_name_kana">担当者氏名（ふりがな）</label></td>
+              <td class="table-active"><label for="first_name_kana">担当者氏名（フリガナ）</label></td>
               <td colspan="2">
                 {{ $venue->first_name_kana}}
                 {{ $venue->last_name_kana}}
