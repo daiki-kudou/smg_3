@@ -29,66 +29,66 @@
         <a href="/admin/equipments/create" class="btn more_btn3">新規登録</a>
       </div>
       <hr>
-      <div class="d-flex justify-content-between mt-3 mb-3">
+      {{-- <div class="d-flex justify-content-between mt-3 mb-3">
         <span>
           <select name="page_counter" id="page_counter">
             <option value="10" {{$request->page_counter==10?'selected':""}}>10</option>
-            <option value="30" {{$request->page_counter==30?'selected':""}}>30</option>
-            <option value="50" {{$request->page_counter==50?'selected':""}}>50</option>
-          </select>件表示
-        </span>
-      </div>
+      <option value="30" {{$request->page_counter==30?'selected':""}}>30</option>
+      <option value="50" {{$request->page_counter==50?'selected':""}}>50</option>
+      </select>件表示
+      </span>
+    </div> --}}
+  </div>
+
+  {{ Form::open(['url' => 'admin/equipments', 'method'=>'get', 'id'=>'page_counter_form']) }}
+  @csrf
+  {{Form::text('page_counter','',(['id'=>'page_counter_input','class'=>'hide']))}}
+  {{ Form::close() }}
+
+
+  <div id="DataTables_Table_0_wrapper" class="dataTables_wrapper form-inline dt-bootstrap no-footer">
+    <div class="row">
+      <div class="col-sm-6"></div>
+      <div class="col-sm-6"></div>
     </div>
-
-    {{ Form::open(['url' => 'admin/equipments', 'method'=>'get', 'id'=>'page_counter_form']) }}
-    @csrf
-    {{Form::text('page_counter','',(['id'=>'page_counter_input','class'=>'hide']))}}
-    {{ Form::close() }}
-
-
-    <div id="DataTables_Table_0_wrapper" class="dataTables_wrapper form-inline dt-bootstrap no-footer">
-      <div class="row">
-        <div class="col-sm-6"></div>
-        <div class="col-sm-6"></div>
-      </div>
-      <div class="row">
-        <div class="col-sm-12">
-          <table class="table table-striped table-bordered dataTable no-footer" id="DataTables_Table_0" role="grid">
-            <thead>
-              <tr class="table_row" role="row">
-                <th>ID</th>
-                <th>登録日</th>
-                <th>有料備品名</th>
-                <th>料金</th>
-                <th>数量</th>
-                <th>備考</th>
-                <th>詳細(編集)・削除</th>
-              </tr>
-            </thead>
-            <tbody>
-              @foreach ($equipments as $query)
-              <tr>
-                <td>{{ ReservationHelper::IdFormat($query->id) }}</td>
-                <td>{{ ReservationHelper::formatDate($query->created_at) }}</td>
-                <td>{{ $query->item }}</td>
-                <td>{{ number_format($query->price )}}</td>
-                <td>{{ $query->stock }}</td>
-                <td>{{ $query->remark }}</td>
-                <td class="d-flex justify-content-around">
-                  {{ link_to_route('admin.equipments.edit', '編集', $parameters = $query->id, ['class' => 'btn more_btn']) }}
-                  {{ Form::model($query, ['route' => ['admin.equipments.destroy', $query->id], 'method' => 'delete']) }}
-                  @csrf
-                  {{ Form::submit('削除', ['class' => 'btn more_btn4']) }}
-                  {{ Form::close() }}
-                </td>
-              </tr>
-              @endforeach
-            </tbody>
-          </table>
-        </div>
+    <div class="row">
+      <div class="col-sm-12">
+        <table class="table table-striped table-bordered dataTable no-footer" id="DataTables_Table_0" role="grid">
+          <thead>
+            <tr class="table_row" role="row">
+              <th>ID</th>
+              <th>登録日</th>
+              <th>有料備品名</th>
+              <th>料金</th>
+              <th>数量</th>
+              <th>備考</th>
+              <th>詳細(編集)・削除</th>
+            </tr>
+          </thead>
+          <tbody>
+            @foreach ($equipments as $query)
+            <tr>
+              <td>{{ ReservationHelper::IdFormat($query->id) }}</td>
+              <td>{{ ReservationHelper::formatDate($query->created_at) }}</td>
+              <td>{{ $query->item }}</td>
+              <td>{{ number_format($query->price )}}</td>
+              <td>{{ $query->stock }}</td>
+              <td>{{ $query->remark }}</td>
+              <td class="d-flex justify-content-around">
+                {{ link_to_route('admin.equipments.edit', '編集', $parameters = $query->id, ['class' => 'btn more_btn']) }}
+                {{ Form::model($query, ['route' => ['admin.equipments.destroy', $query->id], 'method' => 'delete']) }}
+                @csrf
+                {{ Form::submit('削除', ['class' => 'btn more_btn4']) }}
+                {{ Form::close() }}
+              </td>
+            </tr>
+            @endforeach
+          </tbody>
+        </table>
       </div>
     </div>
   </div>
+</div>
 </div>
 {{ $equipments->links() }}
 

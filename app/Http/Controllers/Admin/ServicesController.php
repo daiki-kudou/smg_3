@@ -17,26 +17,28 @@ class ServicesController extends Controller
    *
    * @return \Illuminate\Http\Response
    */
-  public function index(Request $request)
+  public function index()
   {
-    $search_freeword = $request->freeword;
-    $search_id = $request->id;
-    $search_item = $request->item;
-    $page_counter = $request->page_counter;
-    $service = new Service;
-    $querys = $service->searchs(
-      $search_freeword,
-      $search_id,
-      $search_item,
-      $page_counter
-    );
-    if (empty($request->all())) {
-      $querys = Service::paginate(10);
-    }
+    // $search_freeword = $request->freeword;
+    // $search_id = $request->id;
+    // $search_item = $request->item;
+    // $page_counter = $request->page_counter;
+    // $service = new Service;
+    // $querys = $service->searchs(
+    //   $search_freeword,
+    //   $search_id,
+    //   $search_item,
+    //   $page_counter
+    // );
+    // if (empty($request->all())) {
+    //   $querys = Service::paginate(10);
+    // }
+
+    $querys = Service::paginate(30);
 
     return view('admin.services.index', [
       'querys' => $querys,
-      'request' => $request,
+      // 'request' => $request,
 
     ]);
   }

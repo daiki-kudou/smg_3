@@ -97,6 +97,8 @@ Route::namespace('Admin')->prefix('admin')->name('admin.')->group(function () {
     Route::resource('home', 'HomeController', ['only' => 'index']);
     // 会場登録
     Route::resource('venues', 'VenuesController');
+    Route::post('venues/{venue}/restore', 'VenuesController@restore')->name('venues.restore');
+
     // 備品登録
     Route::resource('equipments', 'EquipmentsController');
     // サービス登録

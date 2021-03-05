@@ -9,9 +9,15 @@ use Carbon\Carbon; //carbon利用
 use App\Presenters\VenuePresenter; //個別作成したプレゼンターの追加
 use Robbo\Presenter\PresentableInterface; //プレゼンターの追加
 
+use Illuminate\Database\Eloquent\SoftDeletes;
+
+
 
 class Venue extends Model implements PresentableInterface
 {
+
+  use SoftDeletes;
+
   /**
    * Return a created presenter.
    *
@@ -134,6 +140,9 @@ class Venue extends Model implements PresentableInterface
     $this->equipments()->detach();
     return true;
   }
+
+
+
 
   /*
 |--------------------------------------------------------------------------
