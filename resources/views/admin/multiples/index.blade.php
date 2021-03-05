@@ -6,10 +6,6 @@
 <link href="{{ asset('/css/template.css') }}" rel="stylesheet">
 <script src="{{ asset('/js/template.js') }}"></script>
 
-
-
-<h1>一括　仮押さえ一覧</h1>
-
 <style>
   .checkbox,
   #all_check {
@@ -23,92 +19,93 @@
 
 <div class="content">
   <div class="container-fluid">
+    <div class="container-field mt-3">
+      <div class="float-right">
+        <nav aria-label="breadcrumb">
+          <ol class="breadcrumb">
+            <li class="breadcrumb-item active">
+              ダミーテキスト
+            </li>
+          </ol>
+        </nav>
+      </div>
+
+      <h2 class="mt-3 mb-3">一括仮押さえ 一覧</h2>
+      <hr>
+    </div>
 
     <div class="section-wrap">
+              <!-- 検索--------------------------------------- -->
+              <div class="section-wrap">
+      <table class="table table-bordered mb-0">
+        <tbody>
+          <tr>
+            <th class="search_item_name"><label for="id">一括仮押さえID</label>
+            <td class="text-right">
+              <input type="text" name="id" class="form-control" id="id">
+            </td>
+            <th class="search_item_name"><label for="">作成日</label></th>
+            <td class="text-right form-group">
+              <input type="date" name="" class="form-control float-right" id="">
+            </td>
+          </tr>
+          <tr>
+            <th class="search_item_name"><label for="company">会社名・団体名</label></th>
+            <td class="text-right">
+              <input type="text" name="company" class="form-control" id="company">
+            </td>
+            <th class="search_item_name"><label for="person_name">担当者氏名</label></th>
+            <td class="text-right">
+              <dd>
+                <input type="text" name="person_name" class="form-control" id="person_name">
+            </td>
+          </tr>
+          <tr>
+            <th class="search_item_name"><label for="mobile">携帯電話</label></th>
+            <td>
+              <input type="text" name="mobile" class="form-control" id="mobile">
+            </td>
+            <th class="search_item_name"><label for="tel">固定電話</label></th>
+            <td>
+              <input type="text" name="tel" class="form-control" id="tel">
+            </td>
+          </tr>
 
-      <!-- 検索--------------------------------------- -->
-      <div class="search_box">
-        <table class="table table-bordered">
-          <tbody>
-            <tr>
-              <td class="search_item_name"><label class="search_item_name" for="id">一括仮押さえID</label></td>
-              <td class="text-right">
-                <div class="input-group">
-                  <input type="text" name="id" class="form-control" id="id">
-                </div>
-              </td>
-              <td class="search_item_name"><label class="search_item_name">作成日</label></td>
-              <td class="text-right">
-                <div class="input-group">
-                  <div class="input-group-prepend">
-                    <span class="input-group-text">
-                      <i class="far fa-calendar-alt" aria-hidden="true"></i>
-                    </span>
-                  </div>
-                  <input type="text" name="daterange" value="" class="form-control">
-                </div>
-              </td>
-            </tr>
+          <tr>
+            <th class="search_item_name"><label for="freeword">フリーワード検索</label></th>
+            <td>
+              <input type="text" name="freeword" class="form-control" id="freeword">
+            </td>
+          </tr>
+        </tbody>
+      </table>
+      <p class="text-right">※フリーワード検索は本画面表記の項目のみ対象となります</p>
 
-            <tr>
-              <td class="search_item_name"><label class="search_item_name" for="company">会社名・団体名</label></td>
-              <td class="text-right">
-                <select class="form-control select2" style="width: 100%;" name="company">
-                  <option>テスト会場A</option>
-                  <option>テスト会場B</option>
-                  <option>テスト会場C</option>
-                </select>
-              </td>
-              <td class="search_item_name"><label class="search_item_name" for="name">担当者氏名</label></td>
-              <td>
-                <input type="text" name="name" class="form-control" id="name">
-              </td>
-            </tr>
-            <tr>
-              <td class="search_item_name"><label class="search_item_name" for="phone1">携帯番号</label></td>
-              <td class="text-right">
-                <input type="text" name="phone1" class="form-control" id="phone1">
-              </td>
-              <td class="search_item_name"><label class="search_item_name" for="phone2">電話番号</label></td>
-              <td class="text-left">
-                <input type="text" name="phone2" class="form-control" id="phone2">
-              </td>
-            </tr>
-
-            <tr>
-              <td class="search_item_name"><label class="search_item_name" for="freeword">フリーワード検索</label></td>
-              <td class="text-left">
-                <input type="text" name="freeword" class="form-control" id="freeword">
-              </td>
-            </tr>
-          </tbody>
-        </table>
-        <p class="text-left">※フリーワード検索は本画面表記の項目のみ対象となります</p>
-
-
-        <div class="btn_box d-flex justify-content-center">
-          <input type="reset" value="リセット" class="btn reset_btn">
-          <input type="submit" value="検索" class="btn search_btn">
-        </div>
+      <div class="btn_box d-flex justify-content-center">
+        <input type="reset" value="リセット" class="btn reset_btn">
+        <input type="submit" value="検索" class="btn search_btn">
       </div>
-      <!-- 検索　終わり------------------------------------------------ -->
 
-      <ul class="d-flex reservation_list justify-content-between">
+    </div>
+    <!-- 検索　終わり------------------------------------------------ -->
+      <ul class="d-flex reservation_list mb-2 justify-content-between">
         <li>
-          {{-- 削除ボタン --}}
+        {{-- 削除ボタン --}}
           {{Form::open(['url' => 'admin/pre_reservations/destroy', 'method' => 'POST', 'id'=>'for_destroy'])}}
           @csrf
-          {{ Form::submit('削除', ['class' => 'btn btn-danger','id'=>'confirm_destroy']) }}
+          {{ Form::submit('削除', ['class' => 'btn more_btn4','id'=>'confirm_destroy']) }}
           {{ Form::close() }}
         </li>
-        <li><a class="more_btn bg-red" href="">仮押さえ期間超過</a></li>
+        <li>
+        <div class="d-flex">
+          <a class="more_btn bg-red" href="">仮押さえ期間超過</a>
+          <p class="ml-3 font-weight-bold"><span class="count-color">ダミー</span>件</p>
+        </div>
+      </li>
       </ul>
-      <div class="col-12">
-        <p class="text-right font-weight-bold"><span class="count-color">10</span>件</p>
-      </div>
 
       <div class="table-wrap">
-        <table class="table table-striped table-bordered table-box">
+        <table class="table table-bordered table-scroll">
           <thead>
             <tr>
               <th><input type="checkbox" name="all_check" id="all_check" /></th>
@@ -121,7 +118,7 @@
               <th>電話</th>
               <th>会社名・団体名(顧客未登録)</th>
               <th>仲介会社</th>
-              <th>仲介当日利用者</th>
+              <th>エンドユーザー</th>
               <th></th>
             </tr>
           </thead>
@@ -129,8 +126,7 @@
             @foreach ($multiples as $multiple)
             <tr>
               <td>
-                <input type="checkbox" name="{{'delete_check'.$multiple->id}}" value="{{$multiple->id}}"
-                  class="checkbox" />
+                <input type="checkbox" name="{{'delete_check'.$multiple->id}}" value="{{$multiple->id}}" class="checkbox" />
               </td>
               <td>{{$multiple->id}}</td>
               <td>{{$multiple->created_at}}</td>
@@ -162,7 +158,7 @@
                 ※後ほど着手予定
               </td>
               <td>※後ほど着手予定</td>
-              <td><a href="{{url('admin/multiples/'.$multiple->id)}}" class="btn btn-primary">詳細</a></td>
+              <td><a href="{{url('admin/multiples/'.$multiple->id)}}" class="btn more_btn">詳細</a></td>
             </tr>
             @endforeach
           </tbody>
@@ -172,30 +168,30 @@
 
 
     <script>
-      $(function(){
+      $(function() {
         // 全選択アクション
-        $('#all_check').on('change',function(){
+        $('#all_check').on('change', function() {
           $('.checkbox').prop('checked', $(this).is(':checked'));
         })
 
         // 削除確認コンファーム
-        $('#confirm_destroy').on('click',function(){
-          if(!confirm('削除してもよろしいですか？')){
-              return false;
+        $('#confirm_destroy').on('click', function() {
+          if (!confirm('削除してもよろしいですか？')) {
+            return false;
           }
         })
       })
 
-      $(function(){
+      $(function() {
         $("input[type='checkbox']").on('change', function() {
-          checked = $('[class="checkbox"]:checked').map(function(){
-              return $(this).val();
-            }).get();
-            console.log(checked.length);
-            for (let index = 0; index < checked.length; index++) {
-              var ap_data="<input type='hidden' name='destroy"+checked[index]+"' value='"+checked[index]+"'>"
-              $('#for_destroy').append(ap_data);
-            }
+          checked = $('[class="checkbox"]:checked').map(function() {
+            return $(this).val();
+          }).get();
+          console.log(checked.length);
+          for (let index = 0; index < checked.length; index++) {
+            var ap_data = "<input type='hidden' name='destroy" + checked[index] + "' value='" + checked[index] + "'>"
+            $('#for_destroy').append(ap_data);
+          }
         })
       })
     </script>
@@ -205,7 +201,7 @@
     </div>
   </div>
 
-  <ul class="pagination justify-content-center">
+  <ul class="pagination justify-content-center mt-5">
     <li class="page-item disabled" aria-disabled="true" aria-label="&laquo; 前">
       <span class="page-link" aria-hidden="true">&lsaquo;</span>
     </li>
@@ -215,8 +211,7 @@
     <li class="page-item"><a class="page-link" href="">3</a>
     </li>
     <li class="page-item">
-      <a class="page-link" href="http://staging-smg2.herokuapp.com/admin/clients?page=2" rel="next"
-        aria-label="次 &raquo">&rsaquo;</a>
+      <a class="page-link" href="http://staging-smg2.herokuapp.com/admin/clients?page=2" rel="next" aria-label="次 &raquo">&rsaquo;</a>
     </li>
   </ul>
 
