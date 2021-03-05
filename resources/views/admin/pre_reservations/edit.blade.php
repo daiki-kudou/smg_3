@@ -19,7 +19,6 @@
   <hr>
 </div>
 
-
 {{ Form::open(['url' => 'admin/pre_reservations/'.$request->id.'/re_calculate', 'method'=>'POST', 'id'=>'']) }}
 @csrf
 <section class="section-wrap">
@@ -75,13 +74,12 @@
       <tbody>
         <tr>
           <td class="table-active">会社名・団体名</td>
-          <td>
+          <td colspan="3">
             {{ Form::text('unknown_user_company', empty($request->unknown_user->unknown_user_company)?'':$request->unknown_user->unknown_user_company,['class'=>'form-control', ''] ) }}
           </td>
-          <td colspan="2"></td>
         </tr>
         <tr>
-          <td class="table-active">担当者指名</td>
+          <td class="table-active">担当者氏名</td>
           <td>
             {{ Form::text('unknown_user_name', empty($request->unknown_user->unknown_user_name)?"":$request->unknown_user->unknown_user_name,['class'=>'form-control', ''] ) }}
           </td>
