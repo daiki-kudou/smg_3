@@ -4,6 +4,11 @@
 <link href="{{ asset('/css/template.css') }}" rel="stylesheet">
 <div class="container-fluid">
 
+  <style>
+    .hide {
+      display: none !important;
+    }
+  </style>
 
 
 
@@ -28,11 +33,17 @@
     <div class="d-flex justify-content-between my-3">
       <span>
         <select name="page_counter" id="page_counter">
-          <option value="ten">10</option>
-          <option value="thirty">30</option>
-          <option value="fifty">50</option>
+          <option value="10" {{$request->page_counter==10?'selected':""}}>10</option>
+          <option value="30" {{$request->page_counter==30?'selected':""}}>30</option>
+          <option value="50" {{$request->page_counter==50?'selected':""}}>50</option>
         </select>件表示
       </span>
+
+      {{ Form::open(['url' => 'admin/services', 'method'=>'get', 'id'=>'page_counter_form']) }}
+      @csrf
+      {{Form::text('page_counter','',(['id'=>'page_counter_input','class'=>'hide']))}}
+      {{ Form::close() }}
+
 
     </div>
   </div>
@@ -92,6 +103,14 @@ aoColumnDefs: [{
 }], //特定のカラムソート不可
 
 });
+
+$(function(){
+  $('#page_counter').on('change',function(){
+    $('#page_counter_input').val($(this).val());
+    $("#page_counter_form").submit();
+  });
+})
+
 })
 </script>
 @endsection

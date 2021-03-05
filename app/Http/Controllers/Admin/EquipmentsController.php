@@ -19,18 +19,24 @@ class EquipmentsController extends Controller
    */
   public function index(Request $request)
   {
-
     // 検索処理はモデルに移行
     $search_freeword = $request->freeword;
     $search_id = $request->id;
     $search_item = $request->item;
     $search_createdat = $request->createdat;
+    $page_counter = $request->page_counter;
 
     $equipment = new Equipment;
-    $equipments = $equipment->searchs($search_freeword, $search_id, $search_item, $search_createdat);
+    $equipments = $equipment->searchs($search_freeword, $search_id, $search_item, $search_createdat, $page_counter);
+
+
+    if (empty($request->all())) {
+      $equipments = Equipment::paginate(10);
+    }
 
     return view('admin.equipments.index', [
       'equipments' => $equipments,
+      'request' => $request,
     ]);
   }
 
