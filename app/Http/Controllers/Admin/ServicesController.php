@@ -23,8 +23,6 @@ class ServicesController extends Controller
     $search_id = $request->id;
     $search_item = $request->item;
     $page_counter = $request->page_counter;
-
-
     $service = new Service;
     $querys = $service->searchs(
       $search_freeword,
@@ -32,7 +30,9 @@ class ServicesController extends Controller
       $search_item,
       $page_counter
     );
-
+    if (empty($request->all())) {
+      $querys = Service::paginate(10);
+    }
 
     return view('admin.services.index', [
       'querys' => $querys,

@@ -29,10 +29,14 @@ class EquipmentsController extends Controller
     $equipment = new Equipment;
     $equipments = $equipment->searchs($search_freeword, $search_id, $search_item, $search_createdat, $page_counter);
 
+
+    if (empty($request->all())) {
+      $equipments = Equipment::paginate(10);
+    }
+
     return view('admin.equipments.index', [
       'equipments' => $equipments,
       'request' => $request,
-
     ]);
   }
 
