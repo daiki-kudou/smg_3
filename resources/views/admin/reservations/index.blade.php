@@ -166,7 +166,6 @@
     {{ Form::close() }}
 
 
-
     <div class="d-flex justify-content-between">
       <ul class="d-flex reservation_list">
         <li><a class="more_btn" href="">前日予約</a></li>
