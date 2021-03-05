@@ -345,9 +345,9 @@ $(function () {
       mgmt_email: {
         email: true,
       },
-      mgmt_sec_company: {
-        minlength: 10
-      },
+      // mgmt_sec_company: {
+      //   minlength: 10
+      // },
       cost: {
         range: [1, 100]
       },
@@ -549,9 +549,9 @@ $(function () {
       mgmt_email: {
         email: true,
       },
-      mgmt_sec_company: {
-        minlength: 10
-      },
+      // mgmt_sec_company: {
+      //   minlength: 10
+      // },
       cost: {
         range: [1, 100]
       },

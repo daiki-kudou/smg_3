@@ -122,7 +122,7 @@ $(function () {
   ExceptString(extend);
   var mgmt_emer_tel = $("input[name^='mgmt_emer_tel']");
   ExceptString(mgmt_emer_tel);
-  var mgmt_sec_company = $("input[name^='mgmt_sec_company']");
+  // var mgmt_sec_company = $("input[name^='mgmt_sec_company']");
   ExceptString(mgmt_sec_company);
   var tel = $("input[name^='tel']");
   ExceptString(tel);
