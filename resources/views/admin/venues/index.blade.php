@@ -30,15 +30,15 @@
             <tr>
               <th>ID</th>
               <th>登録日</th>
-              <th>会場</th>
               <th>直/携</th>
+              <th>会場</th>
               <th>広さ（坪）</th>
               <th>広さ（㎡）</th>
               <th>収容人数</th>
-              <th>詳細</th>
               <th>レイアウト</th>
               <th>荷物</th>
               <th>飲食</th>
+              <th>詳細</th>
             </tr>
           </thead>
           <tbody>
@@ -47,29 +47,29 @@
             <tr role="row" class="even" style="background: #E3E3E3;">
               <td class="sorting_1">{{ ReservationHelper::IdFormat($venue->id)}}</td>
               <td>{{ ReservationHelper::formatDate($venue->created_at)}}</td>
-              <td>{{ $venue->name_area }}{{ $venue->name_bldg }}{{ $venue->name_venue }}</td>
               <td>{{$venue->alliance_flag==0?'直営':'提携'}}</td>
+              <td>{{ $venue->name_area }}{{ $venue->name_bldg }}{{ $venue->name_venue }}</td>
               <td>{{ $venue->size1}}</td>
               <td>{{ $venue->size2 }}</td>
               <td>{{ $venue->capacity }}</td>
-              <td><a class="more_btn" href="{{ url('/admin/venues', $venue->id) }}">詳細</a></td>
               <td>{{$venue->layout==1?"有":"無"}}</td>
               <td>{{$venue->luggage_flag==1?"有":"無"}}</td>
               <td>{{$venue->eat_in_flag==1?"有":"無"}}</td>
+              <td><a class="more_btn" href="{{ url('/admin/venues', $venue->id) }}">詳細</a></td>
             </tr>
             @else
             <tr role="row" class="even">
               <td class="sorting_1">{{ ReservationHelper::IdFormat($venue->id)}}</td>
               <td>{{ ReservationHelper::formatDate($venue->created_at)}}</td>
-              <td>{{ $venue->name_area }}{{ $venue->name_bldg }}{{ $venue->name_venue }}</td>
               <td>{{$venue->alliance_flag==0?'直営':'提携'}}</td>
+              <td>{{ $venue->name_area }}{{ $venue->name_bldg }}{{ $venue->name_venue }}</td>
               <td>{{ $venue->size1}}</td>
               <td>{{ $venue->size2 }}</td>
               <td>{{ $venue->capacity }}</td>
-              <td><a class="more_btn" href="{{ url('/admin/venues', $venue->id) }}">詳細</a></td>
               <td>{{$venue->layout==1?"有":"無"}}</td>
               <td>{{$venue->luggage_flag==1?"有":"無"}}</td>
               <td>{{$venue->eat_in_flag==1?"有":"無"}}</td>
+              <td><a class="more_btn" href="{{ url('/admin/venues', $venue->id) }}">詳細</a></td>
             </tr>
             @endif
             @endforeach
@@ -99,6 +99,17 @@
         "aTargets": [7]
       }],
     });
+  })
+</script>
+
+<script>
+  $(function(){
+    $('td').each(function(index, element){
+      console.log($(element).text());
+      if ($(element).text()=="提携") {
+        $(element).css('color','red');
+      }
+  })
   })
 </script>
 
