@@ -13,14 +13,16 @@
   </ul>
 </div>
 @endif
+
 <div class="float-right">
   <nav aria-label="breadcrumb">
     <ol class="breadcrumb">
-      <li class="breadcrumb-item active">{{ Breadcrumbs::render(Route::currentRouteName()) }}</li>
+      <li class="breadcrumb-item active">
+        {{ Breadcrumbs::render(Route::currentRouteName()) }}
+      </li>
     </ol>
   </nav>
 </div>
-
 <h2 class="mt-3 mb-3">有料サービス管理　新規作成</h2>
 <hr>
 

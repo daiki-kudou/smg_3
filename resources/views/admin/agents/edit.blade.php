@@ -15,7 +15,7 @@
       <nav aria-label="breadcrumb">
         <ol class="breadcrumb">
           <li class="breadcrumb-item active">
-            ダミーダミーダミーダミー
+            {{ Breadcrumbs::render(Route::currentRouteName(),$agent->id) }}
           </li>
         </ol>
       </nav>
@@ -50,7 +50,7 @@
                 </td>
                 <td colspan="2">
                   {{ Form::text('name', $agent->name, ['class' => 'form-control']) }}
-                <p class="is-error-name" style="color: red"></p>
+                  <p class="is-error-name" style="color: red"></p>
                 </td>
               </tr>
               <tr>
@@ -199,7 +199,7 @@
                 <td colspan="2">
                   {{ Form::text('login', $agent->login, ['class' => 'form-control', 'id'=>'company']) }}
                   <p class="is-error-login" style="color: red"></p>
-                
+
                 </td>
               </tr>
               <tr>
@@ -254,8 +254,8 @@
                 </th>
                 <td colspan="2">
                   <div class="d-flex align-items-center">
-                  {{ Form::text('cost', $agent->cost, ['class' => 'form-control', 'id'=>'company']) }}
-                  <span class="ml-1">%</span>
+                    {{ Form::text('cost', $agent->cost, ['class' => 'form-control', 'id'=>'company']) }}
+                    <span class="ml-1">%</span>
                   </div>
                   <p class="is-error-cost" style="color: red"></p>
                 </td>

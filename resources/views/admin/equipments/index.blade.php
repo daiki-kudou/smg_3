@@ -10,8 +10,8 @@
       <div class="float-right">
         <nav aria-label="breadcrumb">
           <ol class="breadcrumb">
-            <li class="breadcrumb-item active"><a href="https://staging-smg2.herokuapp.com/admin/home">ホーム</a> &gt;
-              有料備品管理
+            <li class="breadcrumb-item active">
+              {{ Breadcrumbs::render(Route::currentRouteName()) }}
             </li>
           </ol>
         </nav>

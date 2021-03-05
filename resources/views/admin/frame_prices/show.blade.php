@@ -5,11 +5,13 @@
   <div class="float-right">
     <nav aria-label="breadcrumb">
       <ol class="breadcrumb">
-        <li class="breadcrumb-item active">{{ Breadcrumbs::render(Route::currentRouteName(),$venue->id) }}</li>
+        <li class="breadcrumb-item active">
+          {{ Breadcrumbs::render(Route::currentRouteName(),$venue->id) }}
+        </li>
       </ol>
     </nav>
   </div>
-  
+
   <h2 class="mt-3 mb-3">料金管理　詳細</h2>
   <hr>
 </div>

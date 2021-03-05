@@ -30,8 +30,7 @@
         <nav aria-label="breadcrumb">
           <ol class="breadcrumb">
             <li class="breadcrumb-item active">
-              <a href="https://staging-smg2.herokuapp.com/admin/home">ホーム</a> &gt;
-              <a href="https://staging-smg2.herokuapp.com/admin/venues">会場　一覧</a> &gt;会場　編集
+              {{ Breadcrumbs::render(Route::currentRouteName(),$venue->id) }}
             </li>
           </ol>
         </nav>

@@ -29,17 +29,14 @@ $('#finish').val('');
 })
   </script>
 
-  <div class="container-field mt-3">
-    <div class="float-right">
-      <nav aria-label="breadcrumb">
-        <ol class="breadcrumb">
-          <li class="breadcrumb-item active"><a href="https://staging-smg2.herokuapp.com/admin/home">ホーム</a> &gt;
-            <a href="https://staging-smg2.herokuapp.com/admin/dates">営業時間管理</a> &gt;
-            営業時間管理　編集
-          </li>
-        </ol>
-      </nav>
-    </div>
+  <div class="float-right">
+    <nav aria-label="breadcrumb">
+      <ol class="breadcrumb">
+        <li class="breadcrumb-item active">
+          {{ Breadcrumbs::render(Route::currentRouteName(),$venue->id) }}
+        </li>
+      </ol>
+    </nav>
   </div>
 
   <h2 class="mt-3 mb-3">営業時間管理　編集</h2>
@@ -52,7 +49,9 @@ $('#finish').val('');
     </div>
     <div class="w-100">
       <span class="d-block mb-2">会場</span>
-      <strong class="border border-light d-block" style="width:100%;">四ツ橋サンワールドビル1号室</strong>
+      <strong class="border border-light d-block" style="width:100%;">
+        {{ReservationHelper::getVenue($venue->id)}}
+      </strong>
     </div>
     <div class="mt-5">
       <table class="table table-bordered">
