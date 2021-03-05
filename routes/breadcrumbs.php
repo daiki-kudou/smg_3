@@ -66,6 +66,10 @@ Breadcrumbs::for('admin.frame_prices.index', function ($trail) {
   $trail->parent('admin.home.index');
   $trail->push('会場管理 料金管理', route('admin.frame_prices.index'));
 });
+Breadcrumbs::for('admin.frame_prices.create', function ($trail, $id) {
+  $trail->parent('admin.frame_prices.show', $id);
+  $trail->push('会場管理 新規作成(枠貸し)', route('admin.frame_prices.create', $id));
+});
 Breadcrumbs::for('admin.frame_prices.show', function ($trail, $id) {
   $trail->parent('admin.frame_prices.index');
   $trail->push('料金管理 詳細', route('admin.frame_prices.show', $id));

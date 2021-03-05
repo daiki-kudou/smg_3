@@ -144,9 +144,6 @@ table.dataTable thead .sorting_desc:after {
     background: pink;
 }
 
-.hide {
-    display: none;
-}
 
 /* select2 */
 .select2-selection__rendered {
@@ -330,7 +327,7 @@ table.dataTable thead .sorting_desc:after {
 }
 
 .hide {
-    display: none;
+    display: none!important;
 }
 
 /* select2 */

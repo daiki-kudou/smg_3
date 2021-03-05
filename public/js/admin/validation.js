@@ -161,16 +161,13 @@ $(function () {
     errorClass: "is-error",
     //送信前にLoadingを表示
     submitHandler: function (form) {
-      $('.spin_btn').removeClass('hide');
-      $('.submit_btn').addClass('hide');
+      $('.approval').addClass('hide');
+      $('.loading').removeClass('hide');
       form.submit();
     }
   });
   $('input').on('blur', function () {
     $(this).valid();
-    // if ($('span').hasClass('is-error')) {
-    //   $('span').css('background', 'white');
-    // }
   });
 })
 
@@ -249,16 +246,13 @@ $(function () {
     errorClass: "is-error",
     //送信前にLoadingを表示
     submitHandler: function (form) {
-      $('.spin_btn').removeClass('hide');
-      $('.submit_btn').addClass('hide');
+      $('.approval').addClass('hide');
+      $('.loading').removeClass('hide');
       form.submit();
     }
   });
   $('input').on('blur', function () {
     $(this).valid();
-    // if ($('span').hasClass('is-error')) {
-    //   $('span').css('background', 'white');
-    // }
   });
 })
 
@@ -266,7 +260,6 @@ $(function () {
 // 会場管理　新規登録validation
 $(function () {
   $("#VenuesCreateForm").validate({
-    // errorClass: "validate_danger", //エラー表示classをbootstrapのアラートに変える
     rules: {
       smg_url: {
         required: true,
@@ -458,6 +451,12 @@ $(function () {
     },
     errorElement: "span",
     errorClass: "is-error",
+    //送信前にLoadingを表示
+    submitHandler: function (form) {
+      $('.approval').addClass('hide');
+      $('.loading').removeClass('hide');
+      form.submit();
+    }
   });
   $('input').on('blur', function () {
     $(this).valid();
@@ -642,6 +641,12 @@ $(function () {
     },
     errorElement: "span",
     errorClass: "is-error",
+    //送信前にLoadingを表示
+    submitHandler: function (form) {
+      $('.approval').addClass('hide');
+      $('.loading').removeClass('hide');
+      form.submit();
+    }
   });
   $('input').on('blur', function () {
     $(this).valid();
@@ -690,6 +695,12 @@ $(function () {
     },
     errorElement: "span",
     errorClass: "is-error",
+    //送信前にLoadingを表示
+    submitHandler: function (form) {
+      $('.approval').addClass('hide');
+      $('.loading').removeClass('hide');
+      form.submit();
+    }
   });
   $('input').on('blur', function () {
     $(this).valid();

@@ -8,26 +8,7 @@
 
 <div class="container-fluid">
 
-  <script>
-    $(function() {
-$('#start').on('change', function() {
-var start = $('#start').val();
-var finish = $('#finish').val();
-if (start > finish) {
-swal('営業開始時間は営業終了時間より前に設定してください');
-$('#start').val('');
-}
-})
-$('#finish').on('change', function() {
-var start = $('#start').val();
-var finish = $('#finish').val();
-if (start > finish) {
-swal('営業終了時間は営業開始時間より後に設定してください');
-$('#finish').val('');
-}
-})
-})
-  </script>
+
 
   <div class="float-right">
     <nav aria-label="breadcrumb">
@@ -129,6 +110,7 @@ $('#finish').val('');
               {{Form::hidden('weekday_id', $weekday_id)}}
               {{Form::hidden('venue_id', $venue_id)}}
               {{Form::submit('更新', ['class'=>'submit btn more_btn'])}}
+
             </td>
           </tr>
           {{ Form::close() }}
@@ -165,5 +147,24 @@ $('#finish').val('');
     </div>
   </div>
 </div>
-
+<script>
+  $(function() {
+$('#start').on('change', function() {
+var start = $('#start').val();
+var finish = $('#finish').val();
+if (start > finish) {
+swal('営業開始時間は営業終了時間より前に設定してください');
+$('#start').val('');
+}
+})
+$('#finish').on('change', function() {
+var start = $('#start').val();
+var finish = $('#finish').val();
+if (start > finish) {
+swal('営業終了時間は営業開始時間より後に設定してください');
+$('#finish').val('');
+}
+})
+})
+</script>
 @endsection

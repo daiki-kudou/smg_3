@@ -409,6 +409,12 @@ $(function () {
     },
     errorElement: "span",
     errorClass: "is-error",
+    //送信前にLoadingを表示
+    submitHandler: function (form) {
+      $('.approval').addClass('hide');
+      $('.loading').removeClass('hide');
+      form.submit();
+    }
   });
   $('input').on('blur', function () {
     $(this).valid();
@@ -456,12 +462,15 @@ $(function () {
     },
     errorElement: "span",
     errorClass: "is-error",
+    //送信前にLoadingを表示
+    submitHandler: function (form) {
+      $('.approval').addClass('hide');
+      $('.loading').removeClass('hide');
+      form.submit();
+    }
   });
   $('input').on('blur', function () {
     $(this).valid();
-    // if ($('span').hasClass('is-error')) {
-    //   $('span').css('background', 'white');
-    // }
   });
 })
 // 備品作成
@@ -502,6 +511,12 @@ $(function () {
     },
     errorElement: "span",
     errorClass: "is-error",
+    //送信前にLoadingを表示
+    submitHandler: function (form) {
+      $('.approval').addClass('hide');
+      $('.loading').removeClass('hide');
+      form.submit();
+    }
   });
   $('input').on('blur', function () {
     $(this).valid();
