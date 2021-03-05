@@ -1,10 +1,8 @@
 @extends('layouts.admin.app')
-
 @section('content')
-
-
-<link href="{{ asset('/css/template.css') }}" rel="stylesheet">
 <script src="{{ asset('/js/template.js') }}"></script>
+<link href="{{ asset('/css/template.css') }}" rel="stylesheet">
+
 
 <div id="fullOverlay">
   <div class="frame_spinner">
@@ -14,19 +12,30 @@
   </div>
 </div>
 
-
-
-<h1>仮押さえ 新規作成</h1>
-
-<div class="calendar">
-  <iframe src="{{url('admin/calendar/date_calendar')}}" width="100%" height="500">Your browser isn't compatible</iframe>
+<div class="container-field">
+  <div class="float-right">
+    <nav aria-label="breadcrumb">
+      <ol class="breadcrumb">
+        <li class="breadcrumb-item active">
+          ダミーダミーダミー
+        </li>
+      </ol>
+    </nav>
+  </div>
+  <h2 class="mt-3 mb-3">仮押さえ 新規作成</h2>
+  <hr>
 </div>
+
+<section class="section-wrap">
+  <div class="calendar">
+    <iframe src="{{url('admin/calendar/date_calendar')}}" width="100%" height="500">Your browser isn't compatible</iframe>
+  </div>
 
 {{Form::open(['url' => 'admin/pre_reservations/check', 'method' => 'POST', 'id'=>'pre_reservationCreateForm'])}}
 @csrf
 
 <div class="user_selector mt-5">
-  <h1>顧客検索</h1>
+  <h3 class="mb-2">顧客検索</h3>
   <select name="user_id" id="user_id">
     <option value="#">選択してください</option>
     @foreach ($users as $user)
@@ -117,15 +126,16 @@
   </table>
 </div>
 
-<div class="date_selector">
-  <h1>日程選択</h1>
+<hr>
+<div class="date_selector mt-5">
+  <h3 class="mb-2 pt-3">日程選択</h3>
   <table class="table table-bordered" style="table-layout: fixed;">
     <thead>
       <tr>
         <td>日付</td>
         <td>会場名</td>
         <td>入室時間</td>
-        <td>体質時間</td>
+        <td>退室時間</td>
         <td>追加・削除</td>
       </tr>
     </thead>
@@ -142,8 +152,7 @@
         <td>
           <select name="pre_enter0" id="pre_enter0" class="form-control">
             <option value=""></option>
-            @for ($start = 0*2; $start <=23*2; $start++) <option
-              value="{{date("H:i:s", strtotime("00:00 +". $start * 30 ." minute"))}}">
+            @for ($start = 0*2; $start <=23*2; $start++) <option value="{{date("H:i:s", strtotime("00:00 +". $start * 30 ." minute"))}}">
               {{date("H時i分", strtotime("00:00 +". $start * 30 ." minute"))}}
               </option>
               @endfor
@@ -152,8 +161,7 @@
         <td>
           <select name="pre_leave0" id="pre_leave0" class="form-control">
             <option value=""></option>
-            @for ($start = 0*2; $start <=23*2; $start++) <option
-              value="{{date("H:i:s", strtotime("00:00 +". $start * 30 ." minute"))}}">
+            @for ($start = 0*2; $start <=23*2; $start++) <option value="{{date("H:i:s", strtotime("00:00 +". $start * 30 ." minute"))}}">
               {{date("H時i分", strtotime("00:00 +". $start * 30 ." minute"))}}
               </option>
               @endfor
@@ -168,10 +176,8 @@
   </table>
 </div>
 
-<div class="submit_btn">
-  <div class="d-flex justify-content-center">
-    {{Form::submit('確認する', ['class'=>'btn btn-primary btn-lg ', 'id'=>'check_submit'])}}
-  </div>
+<div class="submit_btn mt-5">
+    {{Form::submit('日程をおさえる', ['class'=>'btn more_btn_lg mx-auto d-block', 'id'=>'check_submit'])}}
 </div>
 
 <div class="spin_btn hide">
@@ -182,33 +188,31 @@
     </button>
   </div>
 </div>
-
+</section>
 
 {{Form::close()}}
 
 
-
-
 <script defer="defer">
   // 初期カレンダーのside var 非表示
-    $(function(){
-        $("iframe").on("load",function(){
-        $("iframe").contents().find('.main-sidebar').css("display","none");
-        $("iframe").contents().find('.content-wrapper').css("margin-left","0px");
-        $("iframe").contents().find('.main-header').css("margin-top","-48px");
-        });
-    })
+  $(function() {
+    $("iframe").on("load", function() {
+      $("iframe").contents().find('.main-sidebar').css("display", "none");
+      $("iframe").contents().find('.content-wrapper').css("margin-left", "0px");
+      $("iframe").contents().find('.main-header').css("margin-top", "-48px");
+    });
+  })
 
-    $(function(){
-      $('.unknown_user input').attr('readonly',true);
-    })
+  $(function() {
+    $('.unknown_user input').attr('readonly', true);
+  })
 
-    // 顧客検索
-    $(function(){
-      $('#user_id').on('input',function(){
-          var user_id = $(this).val();
-          // ajax
-          $.ajax({
+  // 顧客検索
+  $(function() {
+    $('#user_id').on('input', function() {
+      var user_id = $(this).val();
+      // ajax
+      $.ajax({
           headers: {
             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
           },
@@ -218,81 +222,85 @@
             'user_id': user_id
           },
           dataType: 'json',
-          beforeSend: function () {
+          beforeSend: function() {
             $('#fullOverlay').css('display', 'block');
           },
         })
-          .done(function ($user) {
-            $('#fullOverlay').css('display', 'none');
-            if ($user['id']!=999) {
+        .done(function($user) {
+          $('#fullOverlay').css('display', 'none');
+          if ($user['id'] != 999) {
             $('.user_id').text($user['id']);
             $('.company').text($user['company'])
-            $('.person').text($user['first_name']+$user['last_name'])
+            $('.person').text($user['first_name'] + $user['last_name'])
             $('.email').text($user['email']);
             $('.mobile').text($user['mobile']);
             $('.tel').text($user['tel']);
-            $('.unknown_user input').attr('readonly',true);
-            }else{
-              $('p').text('');
-              $('.unknown_user input').attr('readonly',false);
-            }
-          })
-          .fail(function ($user) {
-            $('#fullOverlay').css('display', 'none');
-            console.log("失敗");
+            $('.unknown_user input').attr('readonly', true);
+          } else {
             $('p').text('');
-            swal('顧客情報取得に失敗しました。リロードして再度取得してください');
-          });
-      })
-    })
-    // select2, datepicker 初期表示用
-    $(function(){
-      $('#pre_venue').select2({ width: '100%' });
-      $('#pre_datepicker').datepicker({
-        dateFormat: 'yy-mm-dd',
-        autoclose: true
-      });
-    })
-    // 入退室初期時間選択desabled設定
-  //プラスマイナスボタン
-    $(function(){
-      $(document).on("click", ".add", function() {
-        // すべてのselect2初期化
-        for (let destroy = 0; destroy < $('.date_selector tbody tr').length; destroy++) {
-          console.log($('.date_selector tbody tr').eq(destroy).find('td').eq(1).find('select').select2("destroy"));
-        }
-
-        $(this).parent().parent().clone(true).insertAfter($(this).parent().parent());
-        var count = $(this).parent().parent().parent().find('tr').length;
-        var target =$(this).parent().parent().parent().find('tr');
-
-        for (let index = 0; index < count; index++) {
-          // name属性
-          $(target).eq(index).find('td').eq(0).find('input, select').attr('name', "pre_date" + index);
-          $(target).eq(index).find('td').eq(1).find('input, select').attr('name', "pre_venue" + index);
-          $(target).eq(index).find('td').eq(2).find('input, select').attr('name', "pre_enter" + index);
-          $(target).eq(index).find('td').eq(3).find('input, select').attr('name', "pre_leave" + index);
-          // id属性
-          $(target).eq(index).find('td').eq(0).find('input, select').attr('id', "pre_datepicker" + index);
-          $(target).eq(index).find('td').eq(1).find('input, select').attr('id', "pre_venue" + index);
-          $(target).eq(index).find('td').eq(2).find('input, select').attr('id', "pre_enter" + index);
-          $(target).eq(index).find('td').eq(3).find('input, select').attr('id', "pre_leave" + index);
-          // dapicker付与
-          $('#pre_datepicker'+index).removeClass('hasDatepicker').datepicker({
-            dateFormat: 'yy-mm-dd',
-            minDate: 0,
-          });
-          // select2付与
-          $(target).eq(index).find('td').eq(1).find('select').select2({width: '100%'});
-          
-          if (index==count-1) {
-            $(target).eq(index).find('td').eq(2).find('input, select').val('');
-            $(target).eq(index).find('td').eq(3).find('input, select').val('');
+            $('.unknown_user input').attr('readonly', false);
           }
+        })
+        .fail(function($user) {
+          $('#fullOverlay').css('display', 'none');
+          console.log("失敗");
+          $('p').text('');
+          swal('顧客情報取得に失敗しました。リロードして再度取得してください');
+        });
+    })
+  })
+  // select2, datepicker 初期表示用
+  $(function() {
+    $('#pre_venue').select2({
+      width: '100%'
+    });
+    $('#pre_datepicker').datepicker({
+      dateFormat: 'yy-mm-dd',
+      autoclose: true
+    });
+  })
+  // 入退室初期時間選択desabled設定
+  //プラスマイナスボタン
+  $(function() {
+    $(document).on("click", ".add", function() {
+      // すべてのselect2初期化
+      for (let destroy = 0; destroy < $('.date_selector tbody tr').length; destroy++) {
+        console.log($('.date_selector tbody tr').eq(destroy).find('td').eq(1).find('select').select2("destroy"));
+      }
+
+      $(this).parent().parent().clone(true).insertAfter($(this).parent().parent());
+      var count = $(this).parent().parent().parent().find('tr').length;
+      var target = $(this).parent().parent().parent().find('tr');
+
+      for (let index = 0; index < count; index++) {
+        // name属性
+        $(target).eq(index).find('td').eq(0).find('input, select').attr('name', "pre_date" + index);
+        $(target).eq(index).find('td').eq(1).find('input, select').attr('name', "pre_venue" + index);
+        $(target).eq(index).find('td').eq(2).find('input, select').attr('name', "pre_enter" + index);
+        $(target).eq(index).find('td').eq(3).find('input, select').attr('name', "pre_leave" + index);
+        // id属性
+        $(target).eq(index).find('td').eq(0).find('input, select').attr('id', "pre_datepicker" + index);
+        $(target).eq(index).find('td').eq(1).find('input, select').attr('id', "pre_venue" + index);
+        $(target).eq(index).find('td').eq(2).find('input, select').attr('id', "pre_enter" + index);
+        $(target).eq(index).find('td').eq(3).find('input, select').attr('id', "pre_leave" + index);
+        // dapicker付与
+        $('#pre_datepicker' + index).removeClass('hasDatepicker').datepicker({
+          dateFormat: 'yy-mm-dd',
+          minDate: 0,
+        });
+        // select2付与
+        $(target).eq(index).find('td').eq(1).find('select').select2({
+          width: '100%'
+        });
+
+        if (index == count - 1) {
+          $(target).eq(index).find('td').eq(2).find('input, select').val('');
+          $(target).eq(index).find('td').eq(3).find('input, select').val('');
         }
-      })
-      // マイナスボタン
-      $(document).on("click", ".del", function() {
+      }
+    })
+    // マイナスボタン
+    $(document).on("click", ".del", function() {
       var master = $(this).parent().parent().parent().find('tr').length;
       var target = $(this).parent().parent();
       var re_target = target.parent();
@@ -303,25 +311,25 @@
       var count2 = $('.date_selector tbody tr').length;
       console.log(count2);
       for (let index = 0; index < count2; index++) {
-          $('.date_selector tbody tr').eq(index).find('td').eq(0).find('input, select').attr('name', "pre_date" + index);
-          $('.date_selector tbody tr').eq(index).find('td').eq(1).find('input, select').attr('name', "pre_venue" + index);
-          $('.date_selector tbody tr').eq(index).find('td').eq(2).find('input, select').attr('name', "pre_enter" + index);
-          $('.date_selector tbody tr').eq(index).find('td').eq(3).find('input, select').attr('name', "pre_leave" + index);
-          // id属性
-          $('.date_selector tbody tr').eq(index).find('td').eq(0).find('input, select').attr('id', "pre_datepicker" + index);
-          $('.date_selector tbody tr').eq(index).find('td').eq(1).find('input, select').attr('id', "pre_venue" + index);
-          $('.date_selector tbody tr').eq(index).find('td').eq(2).find('input, select').attr('id', "pre_enter" + index);
-          $('.date_selector tbody tr').eq(index).find('td').eq(3).find('input, select').attr('id', "pre_leave" + index);
-          $('#pre_datepicker'+index).removeClass('hasDatepicker').datepicker({
-            dateFormat: 'yy-mm-dd',
-            minDate: 0,
-          });
-        }
+        $('.date_selector tbody tr').eq(index).find('td').eq(0).find('input, select').attr('name', "pre_date" + index);
+        $('.date_selector tbody tr').eq(index).find('td').eq(1).find('input, select').attr('name', "pre_venue" + index);
+        $('.date_selector tbody tr').eq(index).find('td').eq(2).find('input, select').attr('name', "pre_enter" + index);
+        $('.date_selector tbody tr').eq(index).find('td').eq(3).find('input, select').attr('name', "pre_leave" + index);
+        // id属性
+        $('.date_selector tbody tr').eq(index).find('td').eq(0).find('input, select').attr('id', "pre_datepicker" + index);
+        $('.date_selector tbody tr').eq(index).find('td').eq(1).find('input, select').attr('id', "pre_venue" + index);
+        $('.date_selector tbody tr').eq(index).find('td').eq(2).find('input, select').attr('id', "pre_enter" + index);
+        $('.date_selector tbody tr').eq(index).find('td').eq(3).find('input, select').attr('id', "pre_leave" + index);
+        $('#pre_datepicker' + index).removeClass('hasDatepicker').datepicker({
+          dateFormat: 'yy-mm-dd',
+          minDate: 0,
+        });
+      }
     })
-    })
-    // 入室時間選択トリガー
-  $(function () {
-    $(document).on("click", "select", function () {
+  })
+  // 入室時間選択トリガー
+  $(function() {
+    $(document).on("click", "select", function() {
       // console.log($(this).parent().index());
       var this_tr = $(this).parent().parent();
       // console.log(this_tr);
@@ -338,27 +346,30 @@
             },
             url: '/admin/reservations/getsaleshours',
             type: 'POST',
-            data: { 'venue_id': venue, 'dates': date },
+            data: {
+              'venue_id': venue,
+              'dates': date
+            },
             dataType: 'json',
-            beforeSend: function () {
+            beforeSend: function() {
               $('#fullOverlay').css('display', 'block');
             },
-          }).done(function ($times) {
+          }).done(function($times) {
             $('#fullOverlay').css('display', 'none');
             for (let index = 0; index < $times[0].length; index++) {
-              options.each(function ($result) {
+              options.each(function($result) {
                 if ($times[0][index] == options.eq($result).val()) {
                   options.eq($result).prop('disabled', true);
                 }
               });
             };
-          }).fail(function ($times) {
+          }).fail(function($times) {
             $('#fullOverlay').css('display', 'none');
           });
         } else {
           $(this).find('option').prop('disabled', true);
         }
-      }else if(target == 3){
+      } else if (target == 3) {
         var date = this_tr.find('td').eq(0).find('input').val();
         var venue = this_tr.find('td').eq(1).find('select').val();
         if (date.length && venue.length) {
@@ -370,21 +381,24 @@
             },
             url: '/admin/reservations/getsaleshours',
             type: 'POST',
-            data: { 'venue_id': venue, 'dates': date },
+            data: {
+              'venue_id': venue,
+              'dates': date
+            },
             dataType: 'json',
-            beforeSend: function () {
+            beforeSend: function() {
               $('#fullOverlay').css('display', 'block');
             },
-          }).done(function ($times) {
+          }).done(function($times) {
             $('#fullOverlay').css('display', 'none');
             for (let index = 0; index < $times[0].length; index++) {
-              options.each(function ($result) {
+              options.each(function($result) {
                 if ($times[0][index] == options.eq($result).val()) {
                   options.eq($result).prop('disabled', true);
                 }
               });
             };
-          }).fail(function ($times) {
+          }).fail(function($times) {
             $('#fullOverlay').css('display', 'none');
           });
         } else {
@@ -393,7 +407,5 @@
       }
     })
   })
-
-
 </script>
 @endsection
