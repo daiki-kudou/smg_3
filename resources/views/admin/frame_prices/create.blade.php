@@ -1,6 +1,7 @@
 @extends('layouts.admin.app')
-
 @section('content')
+<link href="{{ asset('/css/template.css') }}" rel="stylesheet">
+
 
 <!-- フォーム追加 -->
 
@@ -17,8 +18,7 @@
       </ol>
     </nav>
   </div>
-
-  <h1 class="mt-3 mb-5">料金管理　新規作成（枠貸し）</h1>
+  <h2 class="mt-3 mb-3">料金管理　新規作成（枠貸し）</h2>
   <hr>
   <div class="d-flex justify-content-between mt-3 mb-5">
   </div>
@@ -44,7 +44,7 @@
     <div>
       {{ Form:: open( ['route' => 'admin.frame_prices.store']) }}
       @csrf
-      <table class="table">
+      <table class="table table-bordered">
         <thead>
           <tr>
             <td>枠</td>
@@ -175,7 +175,7 @@
       </div>
       {{ Form::number('extend', old('extend'),['class'=>'form-control w-25']) }}
       {{Form::hidden('venue_id', $venue->id)}}
-      <div class="mt-5 mx-auto" style="width: 50px;">{{ Form::submit('登録', ['class' => 'btn btn-primary']) }}</div>
+      <div class="mt-5 mx-auto" style="width: 50px;">{{ Form::submit('登録する', ['class' => 'btn more_btn_lg d-block btn-lg mx-auto my-5']) }}</div>
       {{ Form::close() }}
     </div>
   </div>
