@@ -633,14 +633,14 @@
       @endif
 
       @if ($pre_reservation->user_id>0)
-      <div class="equipment">
+      <div class="equipment billdetails_content">
         <table class="table table-borderless" style="table-layout: fixed;">
           <tbody>
             <tr>
-              <td>
-                <h1>
-                  ■有料備品・サービス
-                </h1>
+              <td colspan="4">
+                <h4 class="billdetails_content_ttl">
+                  有料備品・サービス
+                </h4>
               </td>
             </tr>
           </tbody>
@@ -684,14 +684,14 @@
         </table>
       </div>
       @else
-      <div class="equipment">
+      <div class="equipment billdetails_content">
         <table class="table table-borderless" style="table-layout: fixed;">
           <tbody>
             <tr>
               <td>
-                <h1>
-                  ■有料備品・サービス
-                </h1>
+                <h4 class="billdetails_content_ttl">
+                  有料備品・サービス
+                </h4>
               </td>
             </tr>
           </tbody>
@@ -723,14 +723,14 @@
 
 
       @if ($pre_reservation->user_id>0)
-      <div class="layout">
+      <div class="layout billdetails_content">
         <table class="table table-borderless" style="table-layout: fixed;">
           <tbody>
             <tr>
-              <td colspan="4">
-                <h1>
-                  ■レイアウト
-                </h1>
+              <td>
+                <h4 class="billdetails_content_ttl">
+                  レイアウト
+                </h4>
               </td>
             </tr>
           </tbody>
@@ -764,14 +764,14 @@
         </table>
       </div>
       @else
-      <div class="layout">
+      <div class="layout billdetails_content">
         <table class="table table-borderless" style="table-layout: fixed;">
           <tbody>
             <tr>
-              <td colspan="2">
-                <h1>
-                  ■レイアウト
-                </h1>
+              <td>
+                <h4 class="billdetails_content_ttl">
+                  レイアウト
+                </h4>
               </td>
             </tr>
           </tbody>
@@ -796,14 +796,14 @@
 
 
       @if ($pre_reservation->user_id>0)
-      <div class="others" style="padding: 80px 0px 80px 0px; width:90%; margin:0 auto;">
+      <div class="others billdetails_content">
         <table class="table table-borderless" style="table-layout: fixed;">
           <tbody>
             <tr>
-              <td>
-                <h1>
-                  ■その他
-                </h1>
+              <td colspan="4">
+                　<h4 class="billdetails_content_ttl">
+                  その他
+                </h4>
               </td>
             </tr>
           </tbody>
@@ -836,14 +836,14 @@
         </table>
       </div>
       @else
-      <div class="others" style="padding: 80px 0px 80px 0px; width:90%; margin:0 auto;">
+      <div class="others billdetails_content">
         <table class="table table-borderless" style="table-layout: fixed;">
           <tbody>
             <tr>
               <td>
-                <h1>
-                  ■その他
-                </h1>
+                　<h4 class="billdetails_content_ttl">
+                  その他
+                </h4>
               </td>
             </tr>
           </tbody>
@@ -867,9 +867,8 @@
 
 
 
-      <div class="bill_total d-flex justify-content-end" style="padding: 80px 0px 80px 0px; width:90%; margin:0 auto;">
-        <div style="width: 60%;">
-          <table class="table text-right" style="table-layout: fixed; font-size:16px;">
+      <div class="bill_total">
+          <table class="table text-right">
             <tbody>
               <tr>
                 <td>小計：</td>
@@ -891,37 +890,11 @@
               </tr>
             </tbody>
           </table>
-        </div>
       </div>
     </div>
   </div>
   </div>
-
-
-
-
-
   </div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 </section>
 @endsection

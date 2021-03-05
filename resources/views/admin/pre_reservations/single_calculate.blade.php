@@ -1010,7 +1010,7 @@
 {{Form::hidden('unknown_user_mobile', $request->unknown_user_mobile)}}
 
 
-{{Form::submit('確認する', ['class'=>'btn more_btn_lg d-block btn-lg mx-auto my-5', 'id'=>'check_submit'])}}
+{{Form::submit('登録する', ['class'=>'btn more_btn_lg d-block btn-lg mx-auto my-5', 'id'=>'check_submit'])}}
 {{Form::close()}}
 
 
