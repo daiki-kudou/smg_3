@@ -519,6 +519,12 @@ $(function () {
       luggage_flag: {
         required: true,
       },
+      first_name_kana: {
+        katakana: true,
+      },
+      last_name_kana: {
+        katakana: true,
+      },
       // luggage_post_code: {
       //   required: true,
       // },

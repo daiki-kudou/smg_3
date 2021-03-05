@@ -273,7 +273,6 @@
             </tr>
           </thead>
           <tbody>
-            <!-- 工藤さんに確認　顧客の新規登録のデータをピックアップ問題ないか -->
             <tr>
               <td class="table-active"><label for="first_name">担当者氏名</label></td>
               <td>姓：
@@ -284,15 +283,16 @@
               </td>
             </tr>
             <tr>
-              <td class="table-active"><label for="first_name_kana">担当者氏名（ふりがな）</label></td>
+              <td class="table-active"><label for="first_name_kana">担当者氏名（フリガナ）</label></td>
               <td>セイ：
                 {{ Form::text('first_name_kana', old('first_name_kana'), ['class' => 'form-control']) }}
+                <!-- <p class="is-error-first_name_kana" style="color: red"></p> -->
               </td>
               <td>メイ：
                 {{ Form::text('last_name_kana', old('last_name_kana'), ['class' => 'form-control']) }}
+                <!-- <p class="is-error-last_name_kana" style="color: red"></p> -->
               </td>
             </tr>
-            <!-- 工藤さんに確認　顧客の新規登録のデータをピックアップ問題ないか -->
             <tr>
               <td class="table-active"><label for="person_tel">担当者電話番号</label></td>
               <td colspan="2">

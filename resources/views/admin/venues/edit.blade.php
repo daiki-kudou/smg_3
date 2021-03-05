@@ -289,7 +289,6 @@
                 </tr>
               </thead>
               <tbody>
-                <!-- 工藤さんに確認　顧客の新規登録のデータをピックアップ問題ないか -->
                 <tr>
                   <td class="table-active"><label for="first_name">担当者氏名</label></td>
                   <td>姓：
@@ -300,7 +299,7 @@
                   </td>
                 </tr>
                 <tr>
-                  <td class="table-active"><label for="first_name_kana">担当者氏名（ふりがな）</label></td>
+                  <td class="table-active"><label for="first_name_kana">担当者氏名（フリガナ）</label></td>
                   <td>セイ：
                     {{ Form::text('first_name_kana', $venue->first_name, ['class' => 'form-control']) }}
                   </td>
@@ -356,7 +355,6 @@
                   </td>
                 </tr>
 
-                <!-- 工藤さんに確認　顧客の新規登録のデータをピックアップ問題ないか -->
                 <tr>
                   <td class="table-active"><label for="mgmt_first_name">担当者氏名</label></td>
                   <td>姓：
@@ -366,7 +364,6 @@
                     {{ Form::text('mgmt_last_name', $venue->mgmt_last_name, ['class' => 'form-control']) }}
                   </td>
                 </tr>
-                <!-- 工藤さんに確認　顧客の新規登録のデータをピックアップ問題ないか -->
 
                 <tr>
                   <td class="table-active"><label for="mgmt_email">担当者メール</label></td>
