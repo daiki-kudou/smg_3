@@ -309,8 +309,8 @@ $(function () {
         required: true,
       },
       luggage_post_code: {
-        required: true,
-        // maxlength: 7
+        // required: true,
+        maxlength: 7
       },
       // luggage_address1: {
       //   required: true,
@@ -401,8 +401,8 @@ $(function () {
         required: "※必須項目です",
       },
       luggage_post_code: {
-        required: "※必須項目です",
-        // maxlength: '７桁で入力してください'
+        // required: "※必須項目です",
+        maxlength: '７桁で入力してください'
       },
       // luggage_address1: {
       //   required: "※必須項目です",
@@ -518,6 +518,12 @@ $(function () {
       },
       luggage_flag: {
         required: true,
+      },
+      first_name_kana: {
+        katakana: true,
+      },
+      last_name_kana: {
+        katakana: true,
       },
       // luggage_post_code: {
       //   required: true,
