@@ -78,29 +78,29 @@ class VenuesController extends Controller
    */
   public function store(Request $request)
   {
-    $this->validate($request, [
-      'alliance_flag' => ['required', 'max:191'],
-      'name_area' => ['required', 'max:191'],
-      'name_bldg' => ['required', 'max:191'],
-      'name_venue' => ['required', 'max:191'],
-      'size1' => ['required', 'max:191', 'numeric'],
-      'size2' => ['required', 'max:191', 'numeric'],
-      'capacity' => ['required', 'max:191', 'numeric'],
-      'eat_in_flag' => ['required', 'max:191', 'numeric'],
-      'post_code' => ['required', 'max:191'],
-      'address1' => 'required',
-      'address2' => 'required',
-      'address3' => 'required',
-      'luggage_flag' => ['required', 'max:191', 'numeric'],
-      'luggage_post_code' => ['required', 'max:191'],
-      'luggage_address1' => 'required',
-      'luggage_address2' => 'required',
-      'luggage_address3' => 'required',
-      'luggage_name' => 'required',
-      'luggage_tel' => ['required', 'max:191'],
-      'smg_url' => 'required',
-      'layout' => 'required',
-    ]);
+    // $this->validate($request, [
+    //   'alliance_flag' => ['required', 'max:191'],
+    //   'name_area' => ['required', 'max:191'],
+    //   'name_bldg' => ['required', 'max:191'],
+    //   'name_venue' => ['required', 'max:191'],
+    //   'size1' => ['required', 'max:191', 'numeric'],
+    //   'size2' => ['required', 'max:191', 'numeric'],
+    //   'capacity' => ['required', 'max:191', 'numeric'],
+    //   'eat_in_flag' => ['required', 'max:191', 'numeric'],
+    //   'post_code' => ['required', 'max:191'],
+    //   'address1' => 'required',
+    //   'address2' => 'required',
+    //   'address3' => 'required',
+    //   'luggage_flag' => ['required', 'max:191', 'numeric'],
+    //   'luggage_post_code' => ['required', 'max:191'],
+    //   'luggage_address1' => 'required',
+    //   'luggage_address2' => 'required',
+    //   'luggage_address3' => 'required',
+    //   'luggage_name' => 'required',
+    //   'luggage_tel' => ['required', 'max:191'],
+    //   'smg_url' => 'required',
+    //   'layout' => 'required',
+    // ]);
 
     $venues = new Venue;
     $venues->alliance_flag = $request->alliance_flag;
@@ -251,29 +251,29 @@ class VenuesController extends Controller
    */
   public function update(Request $request, $id)
   {
-    $this->validate($request, [
-      'alliance_flag' => ['required', 'max:191'],
-      'name_area' => ['required', 'max:191'],
-      'name_bldg' => ['required', 'max:191'],
-      'name_venue' => ['required', 'max:191'],
-      'size1' => ['required', 'max:191', 'numeric'],
-      'size2' => ['required', 'max:191', 'numeric'],
-      'capacity' => ['required', 'max:191', 'numeric'],
-      'eat_in_flag' => ['required', 'max:191', 'numeric'],
-      'post_code' => ['required', 'max:191'],
-      'address1' => 'required',
-      'address2' => 'required',
-      'address3' => 'required',
-      'luggage_flag' => ['required', 'max:191', 'numeric'],
-      'luggage_post_code' => ['required', 'max:191'],
-      'luggage_address1' => 'required',
-      'luggage_address2' => 'required',
-      'luggage_address3' => 'required',
-      'luggage_name' => 'required',
-      'luggage_tel' => ['required', 'max:191'],
-      'smg_url' => 'required',
-      'layout' => 'required',
-    ]);
+    // $this->validate($request, [
+    //   'alliance_flag' => ['required', 'max:191'],
+    //   'name_area' => ['required', 'max:191'],
+    //   'name_bldg' => ['required', 'max:191'],
+    //   'name_venue' => ['required', 'max:191'],
+    //   'size1' => ['required', 'max:191', 'numeric'],
+    //   'size2' => ['required', 'max:191', 'numeric'],
+    //   'capacity' => ['required', 'max:191', 'numeric'],
+    //   'eat_in_flag' => ['required', 'max:191', 'numeric'],
+    //   'post_code' => ['required', 'max:191'],
+    //   'address1' => 'required',
+    //   'address2' => 'required',
+    //   'address3' => 'required',
+    //   'luggage_flag' => ['required', 'max:191', 'numeric'],
+    //   'luggage_post_code' => ['required', 'max:191'],
+    //   'luggage_address1' => 'required',
+    //   'luggage_address2' => 'required',
+    //   'luggage_address3' => 'required',
+    //   'luggage_name' => 'required',
+    //   'luggage_tel' => ['required', 'max:191'],
+    //   'smg_url' => 'required',
+    //   'layout' => 'required',
+    // ]);
 
 
     DB::transaction(function () use ($request, $id) { //トランザクションさせる
