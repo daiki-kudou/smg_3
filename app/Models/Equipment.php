@@ -17,7 +17,7 @@ class Equipment extends Model
     return $this->belongsToMany('App\Models\Venue');
   }
 
-  public function searchs($freeword, $id, $item, $createdat, $page_counter)
+  public function searchs($freeword, $id, $item, $createdat, $page_counter = 10)
   {
     if (isset($freeword)) {
       return $this->where('id', 'LIKE', "%$freeword%")
