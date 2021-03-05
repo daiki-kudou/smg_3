@@ -239,11 +239,6 @@
     </header>
     <main>
 
-      <!-- パンくずなど.html -->
-      <!-- <ul class="tagBtn sticky">
-    <li><a href ="https://osaka-conference.com/contact/"><span><img src="https://osaka-conference.com/img/link_conact.png" alt="問い合わせ"></span></a></li>
-    <li><a href ="https://osaka-conference.com/reservation/"><img src="https://osaka-conference.com/img/link_entry.png" alt="本申込"></a></li>
-</ul> -->
 
       <ul class="tagBtn sticky">
         <li><a class="contact_btn" href="https://osaka-conference.com/contact/">問合わせ</a></li>
@@ -294,9 +289,6 @@
         </div>
       </div>
       <section class="contents">
-        <!-- <h2 class="sub-ttl">会員登録情報</h2> -->
-
-        {{-- <form name="form" id="form" action="https://osaka-conference.com/contact/check.php" next="false" method="post"> --}}
         {{ Form::open(['route' => 'user.preusers.store', 'method'=>'POST']) }}
         <div class="bgColorGray first">
           <table class="table-box">

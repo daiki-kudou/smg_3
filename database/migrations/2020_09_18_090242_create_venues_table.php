@@ -35,12 +35,12 @@ class CreateVenuesTable extends Migration
       $table->string('person_tel')->nullable();
       $table->string('person_email')->nullable();
       $table->integer('luggage_flag');
-      $table->string('luggage_post_code');
-      $table->string('luggage_address1');
-      $table->string('luggage_address2');
-      $table->string('luggage_address3');
-      $table->string('luggage_name');
-      $table->string('luggage_tel');
+      $table->string('luggage_post_code')->nullable();
+      $table->string('luggage_address1')->nullable();
+      $table->string('luggage_address2')->nullable();
+      $table->string('luggage_address3')->nullable();
+      $table->string('luggage_name')->nullable();
+      $table->string('luggage_tel')->nullable();
       $table->integer('cost')->nullable();
       // 以下、追加
       $table->string('mgmt_company')->nullable();

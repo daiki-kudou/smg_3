@@ -6,14 +6,12 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
 // メール送信用
-use App\Mail\SendPreuser;
+use App\Mail\AdminReqLeg;
+use App\Mail\UserReqLeg;
 use App\Models\Preuser;
 use Illuminate\Support\Facades\Mail;
-// メール送信用
-
 // 日付
 use Illuminate\Database\Eloquent\Model;
-
 // Str
 use Illuminate\Support\Str;
 
@@ -34,14 +32,18 @@ class PreusersController extends Controller
   // メール送信
   public function sendmail(Request $request)
   {
+    // 管理者
     $id = $request->id;
     $token = $request->token;
     $email = $request->email;
-    Mail::to($email)->send(new SendPreuser($id, $token, $email));
+    $link = "https://staging-smg2.herokuapp.com/user/preusers/" . $id . "/" . $token . "/" . $email;
+    $admin = config('app.admin_email');
+    Mail::to($admin)->send(new AdminReqLeg($id, $token, $email, $link));
+    Mail::to($email)->send(new UserReqLeg($id, $token, $email, $link));
+
     return redirect(route('user.preusers.complete', ['email' => $email]));
   }
-  // 会員登録
-  // メール送信後、送信完了画面
+
   public function complete(Request $request)
   {
     $email = $request->email;

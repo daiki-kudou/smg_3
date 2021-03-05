@@ -18,11 +18,12 @@ class SendPreuser extends Mailable
    *
    * @return void
    */
-  public function __construct($id, $token, $email)
+  public function __construct($id, $token, $email, $link)
   {
     $this->id = $id;
     $this->token = $token;
     $this->email = $email;
+    $this->link = $link;
   }
   /**
    * Build the message.
@@ -37,6 +38,7 @@ class SendPreuser extends Mailable
         'id' => $this->id,
         'token' => $this->token,
         'email' => $this->email,
+        'link' => $this->email,
       ]);
   }
 }
