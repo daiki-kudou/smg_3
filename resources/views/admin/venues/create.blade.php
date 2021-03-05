@@ -5,6 +5,11 @@
 <script src="{{ asset('/js/template.js') }}"></script>
 <script src="{{ asset('/js/admin/reservation.js') }}"></script>
 
+<style>
+  .hide {
+    display: none !important;
+  }
+</style>
 <div class="errors">
   @if ($errors->any())
   <div class="alert alert-danger">
@@ -435,7 +440,7 @@
         </table>
 
         <!-- 支払データ ------------------------------------------------------------------------>
-        <table class="table table-bordered">
+        <table class="table table-bordered cost_data hide">
           <thead>
             <tr>
               <td colspan="2">

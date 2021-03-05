@@ -194,3 +194,14 @@ $(document).on("input", "input", function () {
 /////////////////////////////////////////////////////////////////
 
 
+$(function () {
+  $(document).on("click", "input[name='alliance_flag']", function () {
+    var value = $('input[name="alliance_flag"]:checked').val();
+    console.log(value);
+    if (value == 1) {
+      $(".cost_data").removeClass("hide");
+    } else {
+      $(".cost_data").addClass("hide");
+    }
+  })
+})
