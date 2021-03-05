@@ -264,7 +264,7 @@
                   <td class="table-active"><label for="luggage_tel" class="form_required">電話番号</label></td>
                   <td>
                     {{ Form::text('luggage_tel', $venue->luggage_tel, ['class' => 'form-control']) }}
-                    <p class="is-error-capacity" style="color: red"></p>
+                    <p class="is-error-luggage_tel" style="color: red"></p>
                   </td>
                 </tr>
               </tbody>
@@ -308,8 +308,6 @@
                     {{ Form::text('last_name_kana', $venue->last_name, ['class' => 'form-control']) }}
                   </td>
                 </tr>
-                <!-- 工藤さんに確認　顧客の新規登録のデータをピックアップ問題ないか -->
-
                 <tr>
                   <td class="table-active"><label for="person_tel">担当者電話番号</label></td>
                   <td colspan="2">
@@ -468,12 +466,12 @@
                 <tr>
                   <td class="table-active"><label for="cost">支払割合（原価）</label></td>
                   <td>
-                  <div class="d-flex align-items-center">
-                  {{ Form::text('cost', $venue->cost, ['class' => 'form-control']) }}
-                  <span class="ml-1">%</span>
-                  </div>
-                  <p class="is-error-cost" style="color: red"></p>
-                </td>
+                    <div class="d-flex align-items-center">
+                      {{ Form::text('cost', $venue->cost, ['class' => 'form-control']) }}
+                      <span class="ml-1">%</span>
+                    </div>
+                    <p class="is-error-cost" style="color: red"></p>
+                  </td>
                 </tr>
               </tbody>
             </table>
@@ -521,7 +519,8 @@
       </div>
     </section>
     <div class="mx-auto">
-      {{ Form::submit('保存する', ['class' => 'mx-auto btn more_btn_lg d-block']) }}
+      {{ Form::submit('保存する', ['class' => 'mx-auto btn more_btn_lg d-block approval']) }}
+      @include('layouts.admin.loading')
     </div>
   </div>
 </div>

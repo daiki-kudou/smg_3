@@ -47,7 +47,6 @@
           <td>{{ ReservationHelper::IdFormat($eqipment->id) }}</td>
           <td>{{ ReservationHelper::formatDate($eqipment->created_at) }}</td>
           <td>
-            <p class="is-error-item" style="color: white"></p>
             <div class="d-flex align-items-center">
               {{ Form::text('item', $eqipment->item, ['class' => 'form-control']) }}
             </div>
@@ -63,7 +62,13 @@
           </td>
           <td>{{ Form::text('remark', $eqipment->remark, ['class' => 'form-control']) }}</td>
           <td>
-            {{ Form::submit('更新', ['class' => 'btn more_btn']) }}
+            {{ Form::submit('更新', ['class' => 'btn more_btn approval']) }}
+            <div class="loading hide">
+              <button class="btn more_btn" type="button" disabled>
+                <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+                確認中...
+              </button>
+            </div>
           </td>
         </tr>
       </tbody>

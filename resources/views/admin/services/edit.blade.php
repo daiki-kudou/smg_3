@@ -60,7 +60,12 @@
           {{ Form::text('remark', $service->remark, ['class' => 'form-control']) }}
         </td>
         <td>
-          {{ Form::submit('更新', ['class' => 'btn more_btn']) }}
+          {{ Form::submit('更新', ['class' => 'btn more_btn approval']) }}
+          <div class="loading hide">
+            <button class="btn more_btn" type="button" disabled>
+              <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+            </button>
+          </div>
         </td>
       </tr>
     </tbody>

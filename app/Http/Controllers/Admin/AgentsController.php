@@ -60,6 +60,7 @@ class AgentsController extends Controller
     $agent = new Agent;
     $agent->StoreAgent($request);
 
+    $request->session()->regenerate();
     return redirect('admin/agents');
   }
 

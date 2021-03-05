@@ -1,9 +1,9 @@
 @extends('layouts.admin.app')
 @section('content')
-<script src="{{ asset('/js/template.js') }}"></script>
 <script src="{{ asset('/js/admin/validation.js') }}"></script>
-<script src="{{ asset('/js/admin/reservation.js') }}"></script>
 <link href="{{ asset('/css/template.css') }}" rel="stylesheet">
+<script src="{{ asset('/js/template.js') }}"></script>
+<script src="{{ asset('/js/admin/reservation.js') }}"></script>
 
 <div class="errors">
   @if ($errors->any())
@@ -44,19 +44,17 @@
     <!-- 会場URL ---------------------------------------------------->
     <div class="row">
       <div class="col">
-        <form method="POST" action="https://staging-smg2.herokuapp.com/admin/venues" accept-charset="UTF-8" id="VenuesCreateForm" novalidate="novalidate"><input name="_token" type="hidden" value="TgpxZg4iuaaiQAp1kxxaMlSp3rLShaVt6y0I4pwv">
-          <input type="hidden" name="_token" value="TgpxZg4iuaaiQAp1kxxaMlSp3rLShaVt6y0I4pwv">
-          <table class="table table-bordered">
-            <tbody>
-              <tr>
-                <td class="table-active"><label for="smg_url" class="form_required">会場SMG URL</label></td>
-                <td>
-                  {{ Form::text('smg_url', old('smg_url'), ['class' => 'form-control', 'placeholder'=>"https://osaka-conference.com/rental/t6-maronie/hall/"]) }}
-                  <p class="is-error-smg_url" style="color: red"></p>
-                </td>
-              </tr>
-            </tbody>
-          </table>
+        <table class="table table-bordered">
+          <tbody>
+            <tr>
+              <td class="table-active"><label for="smg_url" class="form_required">会場SMG URL</label></td>
+              <td>
+                {{ Form::text('smg_url', old('smg_url'), ['class' => 'form-control', 'placeholder'=>"https://osaka-conference.com/rental/t6-maronie/hall/"]) }}
+                <p class="is-error-smg_url" style="color: red"></p>
+              </td>
+            </tr>
+          </tbody>
+        </table>
         </form>
       </div>
     </div>
@@ -499,7 +497,8 @@
     </div>
   </section>
   <div class="mx-auto">
-    {{ Form::submit('登録する', ['class' => 'mx-auto btn more_btn_lg d-block']) }}
+    {{ Form::submit('登録する', ['class' => 'mx-auto btn more_btn_lg d-block approval']) }}
+    @include('layouts.admin.loading')
   </div>
 </div>
 {{ Form::close() }}

@@ -79,6 +79,8 @@
     </div>
   </div>
 </div>
+{{ $equipments->links() }}
+
 
 <script>
   $(function() {
