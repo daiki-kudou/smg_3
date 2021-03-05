@@ -3,6 +3,11 @@
 <script src="https://cdn.datatables.net/t/bs-3.3.6/jqc-1.12.0,dt-1.10.11/datatables.min.js"></script>
 <link href="{{ asset('/css/template.css') }}" rel="stylesheet">
 
+<style>
+  .hide {
+    display: none !important;
+  }
+</style>
 
 <div class="content">
   <div class="container-fluid">
@@ -27,13 +32,19 @@
       <div class="d-flex justify-content-between mt-3 mb-3">
         <span>
           <select name="page_counter" id="page_counter">
-            <option value="ten">10</option>
-            <option value="thirty">30</option>
-            <option value="fifty">50</option>
+            <option value="10" {{$request->page_counter==10?'selected':""}}>10</option>
+            <option value="30" {{$request->page_counter==30?'selected':""}}>30</option>
+            <option value="50" {{$request->page_counter==50?'selected':""}}>50</option>
           </select>件表示
         </span>
       </div>
     </div>
+
+    {{ Form::open(['url' => 'admin/equipments', 'method'=>'get', 'id'=>'page_counter_form']) }}
+    @csrf
+    {{Form::text('page_counter','',(['id'=>'page_counter_input','class'=>'hide']))}}
+    {{ Form::close() }}
+
 
     <div id="DataTables_Table_0_wrapper" class="dataTables_wrapper form-inline dt-bootstrap no-footer">
       <div class="row">
@@ -95,6 +106,13 @@ aoColumnDefs: [{
 "aTargets": [6]
 }], //特定のカラムソート不可
 });
+})
+
+$(function(){
+  $('#page_counter').on('change',function(){
+    $('#page_counter_input').val($(this).val());
+    $("#page_counter_form").submit();
+  });
 })
 </script>
 
