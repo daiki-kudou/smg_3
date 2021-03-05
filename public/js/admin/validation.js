@@ -310,23 +310,23 @@ $(function () {
       },
       luggage_post_code: {
         required: true,
-        maxlength: 7
+        // maxlength: 7
       },
-      luggage_address1: {
-        required: true,
-      },
-      luggage_address2: {
-        required: true,
-      },
-      luggage_address3: {
-        required: true,
-      },
-      luggage_name: {
-        required: true,
-      },
-      luggage_tel: {
-        required: true,
-      },
+      // luggage_address1: {
+      //   required: true,
+      // },
+      // luggage_address2: {
+      //   required: true,
+      // },
+      // luggage_address3: {
+      //   required: true,
+      // },
+      // luggage_name: {
+      //   required: true,
+      // },
+      // luggage_tel: {
+      //   required: true,
+      // },
       eat_in_flag: {
         required: true,
       },
@@ -402,23 +402,23 @@ $(function () {
       },
       luggage_post_code: {
         required: "※必須項目です",
-        maxlength: '７桁で入力してください'
+        // maxlength: '７桁で入力してください'
       },
-      luggage_address1: {
-        required: "※必須項目です",
-      },
-      luggage_address2: {
-        required: "※必須項目です",
-      },
-      luggage_address3: {
-        required: "※必須項目です",
-      },
-      luggage_name: {
-        required: "※必須項目です",
-      },
-      luggage_tel: {
-        required: "※必須項目です",
-      },
+      // luggage_address1: {
+      //   required: "※必須項目です",
+      // },
+      // luggage_address2: {
+      //   required: "※必須項目です",
+      // },
+      // luggage_address3: {
+      //   required: "※必須項目です",
+      // },
+      // luggage_name: {
+      //   required: "※必須項目です",
+      // },
+      // luggage_tel: {
+      //   required: "※必須項目です",
+      // },
       eat_in_flag: {
         required: "※必須項目です",
       },
@@ -519,24 +519,24 @@ $(function () {
       luggage_flag: {
         required: true,
       },
-      luggage_post_code: {
-        required: true,
-      },
-      luggage_address1: {
-        required: true,
-      },
-      luggage_address2: {
-        required: true,
-      },
-      luggage_address3: {
-        required: true,
-      },
-      luggage_name: {
-        required: true,
-      },
-      luggage_tel: {
-        required: true,
-      },
+      // luggage_post_code: {
+      //   required: true,
+      // },
+      // luggage_address1: {
+      //   required: true,
+      // },
+      // luggage_address2: {
+      //   required: true,
+      // },
+      // luggage_address3: {
+      //   required: true,
+      // },
+      // luggage_name: {
+      //   required: true,
+      // },
+      // luggage_tel: {
+      //   required: true,
+      // },
       eat_in_flag: {
         required: true,
       },
@@ -603,24 +603,24 @@ $(function () {
       luggage_flag: {
         required: "※必須項目です",
       },
-      luggage_post_code: {
-        required: "※必須項目です",
-      },
-      luggage_address1: {
-        required: "※必須項目です",
-      },
-      luggage_address2: {
-        required: "※必須項目です",
-      },
-      luggage_address3: {
-        required: "※必須項目です",
-      },
-      luggage_name: {
-        required: "※必須項目です",
-      },
-      luggage_tel: {
-        required: "※必須項目です",
-      },
+      // luggage_post_code: {
+      //   required: "※必須項目です",
+      // },
+      // luggage_address1: {
+      //   required: "※必須項目です",
+      // },
+      // luggage_address2: {
+      //   required: "※必須項目です",
+      // },
+      // luggage_address3: {
+      //   required: "※必須項目です",
+      // },
+      // luggage_name: {
+      //   required: "※必須項目です",
+      // },
+      // luggage_tel: {
+      //   required: "※必須項目です",
+      // },
       eat_in_flag: {
         required: "※必須項目です",
       },
