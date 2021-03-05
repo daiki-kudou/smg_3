@@ -1116,6 +1116,29 @@ h3 {
     border: solid 1px #555555 !important;
 }
 
+.venue_discount td:first-child,
+.equipment_discount td:first-child,
+.layout_discount td:first-child,
+.others_discount td:first-child {
+    padding: 3em 0 3em 3em;
+}
+
+.venue_discount .form-control,
+.equipment_discount .form-control,
+.layout_discount .form-control,
+.others_discount .form-control {
+    margin-right: 0.1em;
+}
+
+.venue_discount div,
+.equipment_discount div,
+.layout_discount div,
+.others_discount div {
+    align-items: flex-end;
+}
+
+
+
 .venue_result td,
 .equipment_result td,
 .layout_result td,
