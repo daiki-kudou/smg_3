@@ -275,7 +275,6 @@ class VenuesController extends Controller
     //   'layout' => 'required',
     // ]);
 
-
     DB::transaction(function () use ($request, $id) { //トランザクションさせる
 
       $venue = Venue::find($id);

@@ -6,7 +6,11 @@
 <link href="{{ asset('/css/template.css') }}" rel="stylesheet">
 
 
-
+<style>
+  .hide {
+    display: none !important;
+  }
+</style>
 
 
 {{ Form::model($venue, ['route' => ['admin.venues.update', $venue->id], 'method' => 'put','id'=>'VenuesEditForm']) }}
