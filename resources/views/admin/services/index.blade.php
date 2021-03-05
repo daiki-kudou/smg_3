@@ -31,13 +31,13 @@
     </div>
     <hr>
     <div class="d-flex justify-content-between my-3">
-      <span>
+      {{-- <span>
         <select name="page_counter" id="page_counter">
           <option value="10" {{$request->page_counter==10?'selected':""}}>10</option>
-          <option value="30" {{$request->page_counter==30?'selected':""}}>30</option>
-          <option value="50" {{$request->page_counter==50?'selected':""}}>50</option>
-        </select>件表示
-      </span>
+      <option value="30" {{$request->page_counter==30?'selected':""}}>30</option>
+      <option value="50" {{$request->page_counter==50?'selected':""}}>50</option>
+      </select>件表示
+      </span> --}}
 
       {{ Form::open(['url' => 'admin/services', 'method'=>'get', 'id'=>'page_counter_form']) }}
       @csrf

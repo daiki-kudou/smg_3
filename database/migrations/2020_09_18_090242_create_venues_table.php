@@ -61,6 +61,8 @@ class CreateVenuesTable extends Migration
       // 12/15追加
       $table->integer('layout_prepare')->nullable();
       $table->integer('layout_clean')->nullable();
+      $table->softDeletes();
+
       $table->timestamps();
     });
   }

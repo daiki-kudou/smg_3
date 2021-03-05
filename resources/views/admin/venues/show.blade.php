@@ -24,13 +24,28 @@
   <section class="section-wrap">
     <div class="text-right mb-2">
       {{ link_to_route('admin.venues.edit', '編集', $parameters = $venue->id, ['class' => 'btn more_btn'])}}
+
+      {{-- 大山さんが確認後実装予定 3/5 --}}
+      {{-- 会場の表示・非表示　（soft delete）機能 --}}
+      {{-- <select name="delete_venue" id="delete_venue" class="">
+        <option value="0" {{!empty($venue->deleted_at)?"":"selected"}}>表示</option>
+      <option value="1" {{empty($venue->deleted_at)?"":"selected"}}>非表示</option>
+      </select> --}}
+      {{-- {{ Form::open(['url' => 'admin/venues/'.$venue->id, 'method'=>'delete', 'id'=>'venueDeleteForm']) }}
+      @csrf
+      {{Form::close()}}
+      {{ Form::open(['url' => 'admin/venues/'.$venue->id.'/restore', 'method'=>'post', 'id'=>'venueRestoreForm']) }}
+      @csrf
+      {{Form::close()}} --}}
+
     </div>
 
     <!-- 会場URL ---------------------------------------------------->
     <div class="row">
       <div class="col">
         <form method="POST" action="https://staging-smg2.herokuapp.com/admin/venues" accept-charset="UTF-8"
-          id="VenuesCreateForm"><input name="_token" type="hidden" value="7YnZpH69frvKkgAQxFwljXRjXXjvobnDxuSeERdf">
+          id="VenuesCreateForm">
+          <input name="_token" type="hidden" value="7YnZpH69frvKkgAQxFwljXRjXXjvobnDxuSeERdf">
           <input type="hidden" name="_token" value="7YnZpH69frvKkgAQxFwljXRjXXjvobnDxuSeERdf">
           <table class="table table-bordered">
             <tbody>
@@ -212,7 +227,7 @@
               </td>
             </tr>
             <tr>
-              <td class="table-active"><label for="first_name_kana">担当者氏名（ふりがな）</label></td>
+              <td class="table-active"><label for="first_name_kana">担当者氏名（フリガナ）</label></td>
               <td colspan="2">
                 {{ $venue->first_name_kana}}
                 {{ $venue->last_name_kana}}
@@ -525,8 +540,28 @@
 
 
 
-
-
+{{-- 大山さんが確認後実装予定 3/5 --}}
+{{-- 会場の表示・非表示　（soft delete）機能 --}}
+{{-- <script>
+  $(function(){
+  $('#delete_venue').on('change',function(){
+    var result = $('#delete_venue').val($(this).val());
+    if (result.val()==1) {
+      if(!confirm('会場を非表示にしますか？')){
+        return false;
+      }else{
+        $('#venueDeleteForm').submit();
+      }
+    }else{
+      if(!confirm('会場を再度表示にしますか？')){
+        return false;
+      }else{
+        $('#venueRestoreForm').submit();
+      }
+    }
+  });
+  });
+</script> --}}
 
 
 

@@ -14,50 +14,23 @@ use Carbon\Carbon;
 use Illuminate\Support\Facades\DB;
 
 
+
+
 class VenuesController extends Controller
 {
+
   /**
    * Display a listing of the resource.
    *
    * @return \Illuminate\Http\Response
    */
-  public function index(Request $request)
+  public function index()
   {
-    $search_freeword = $request->freeword;
-    $search_id = $request->id;
-    $search_alliance_flag = $request->alliance_flag;
-    $search_name_area = $request->name_area;
-    $search_name_bldg = $request->name_bldg;
-    $search_name_venue = $request->name_venue;
-    $search_capacity1 = $request->capacity1;
-    $search_capacity2 = $request->capacity2;
-    $counter = $request->counter;
-    $counter != '' ? $counter : $counter = 10; //デフォルト30
 
-    $venue = new Venue;
-    $querys = $venue->searchs(
-      $search_freeword,
-      $search_id,
-      $search_alliance_flag,
-      $search_name_area,
-      $search_name_bldg,
-      $search_name_venue,
-      $search_capacity1,
-      $search_capacity2,
-      $counter
-    );
+    $venues = Venue::paginate(30);
 
     return view('admin.venues.index', [
-      'querys' => $querys,
-      'counter' => $counter,
-      'search_freeword' => $search_freeword,
-      'search_id' => $search_id,
-      'search_alliance_flag' => $search_alliance_flag,
-      'search_name_area' => $search_name_area,
-      'search_name_bldg' => $search_name_bldg,
-      'search_name_venue' => $search_name_venue,
-      'search_capacity1' => $search_capacity1,
-      'search_capacity2' => $search_capacity2,
+      'venues' => $venues,
     ]);
   }
 
@@ -105,29 +78,29 @@ class VenuesController extends Controller
    */
   public function store(Request $request)
   {
-    $this->validate($request, [
-      'alliance_flag' => ['required', 'max:191'],
-      'name_area' => ['required', 'max:191'],
-      'name_bldg' => ['required', 'max:191'],
-      'name_venue' => ['required', 'max:191'],
-      'size1' => ['required', 'max:191', 'numeric'],
-      'size2' => ['required', 'max:191', 'numeric'],
-      'capacity' => ['required', 'max:191', 'numeric'],
-      'eat_in_flag' => ['required', 'max:191', 'numeric'],
-      'post_code' => ['required', 'max:191'],
-      'address1' => 'required',
-      'address2' => 'required',
-      'address3' => 'required',
-      'luggage_flag' => ['required', 'max:191', 'numeric'],
-      'luggage_post_code' => ['required', 'max:191'],
-      'luggage_address1' => 'required',
-      'luggage_address2' => 'required',
-      'luggage_address3' => 'required',
-      'luggage_name' => 'required',
-      'luggage_tel' => ['required', 'max:191'],
-      'smg_url' => 'required',
-      'layout' => 'required',
-    ]);
+    // $this->validate($request, [
+    //   'alliance_flag' => ['required', 'max:191'],
+    //   'name_area' => ['required', 'max:191'],
+    //   'name_bldg' => ['required', 'max:191'],
+    //   'name_venue' => ['required', 'max:191'],
+    //   'size1' => ['required', 'max:191', 'numeric'],
+    //   'size2' => ['required', 'max:191', 'numeric'],
+    //   'capacity' => ['required', 'max:191', 'numeric'],
+    //   'eat_in_flag' => ['required', 'max:191', 'numeric'],
+    //   'post_code' => ['required', 'max:191'],
+    //   'address1' => 'required',
+    //   'address2' => 'required',
+    //   'address3' => 'required',
+    //   'luggage_flag' => ['required', 'max:191', 'numeric'],
+    //   'luggage_post_code' => ['required', 'max:191'],
+    //   'luggage_address1' => 'required',
+    //   'luggage_address2' => 'required',
+    //   'luggage_address3' => 'required',
+    //   'luggage_name' => 'required',
+    //   'luggage_tel' => ['required', 'max:191'],
+    //   'smg_url' => 'required',
+    //   'layout' => 'required',
+    // ]);
 
     $venues = new Venue;
     $venues->alliance_flag = $request->alliance_flag;
@@ -216,22 +189,12 @@ class VenuesController extends Controller
     $venue = Venue::find($id);
     // 【備品連携】
     $equipments = $venue->equipments()->get();
-    // $r_emptys = [];
-    // foreach ($equipments as $equipment) {
-    //   $r_emptys[] = $equipment;
-    // }
     // サービス連携
     $services = $venue->services()->get();
-    // $s_emptys = [];
-    // foreach ($services as $service) {
-    //   $s_emptys[] = $service;
-    // }
     // 営業時間
     $date_venues = $venue->dates()->get();
-
     // 料金体系：枠
     $frame_prices = $venue->frame_prices()->get();
-
     // 料金体系：時間
     $time_prices = $venue->time_prices()->get();
 
@@ -288,30 +251,29 @@ class VenuesController extends Controller
    */
   public function update(Request $request, $id)
   {
-    $this->validate($request, [
-      'alliance_flag' => ['required', 'max:191'],
-      'name_area' => ['required', 'max:191'],
-      'name_bldg' => ['required', 'max:191'],
-      'name_venue' => ['required', 'max:191'],
-      'size1' => ['required', 'max:191', 'numeric'],
-      'size2' => ['required', 'max:191', 'numeric'],
-      'capacity' => ['required', 'max:191', 'numeric'],
-      'eat_in_flag' => ['required', 'max:191', 'numeric'],
-      'post_code' => ['required', 'max:191'],
-      'address1' => 'required',
-      'address2' => 'required',
-      'address3' => 'required',
-      'luggage_flag' => ['required', 'max:191', 'numeric'],
-      'luggage_post_code' => ['required', 'max:191'],
-      'luggage_address1' => 'required',
-      'luggage_address2' => 'required',
-      'luggage_address3' => 'required',
-      'luggage_name' => 'required',
-      'luggage_tel' => ['required', 'max:191'],
-      'smg_url' => 'required',
-      'layout' => 'required',
-    ]);
-
+    // $this->validate($request, [
+    //   'alliance_flag' => ['required', 'max:191'],
+    //   'name_area' => ['required', 'max:191'],
+    //   'name_bldg' => ['required', 'max:191'],
+    //   'name_venue' => ['required', 'max:191'],
+    //   'size1' => ['required', 'max:191', 'numeric'],
+    //   'size2' => ['required', 'max:191', 'numeric'],
+    //   'capacity' => ['required', 'max:191', 'numeric'],
+    //   'eat_in_flag' => ['required', 'max:191', 'numeric'],
+    //   'post_code' => ['required', 'max:191'],
+    //   'address1' => 'required',
+    //   'address2' => 'required',
+    //   'address3' => 'required',
+    //   'luggage_flag' => ['required', 'max:191', 'numeric'],
+    //   'luggage_post_code' => ['required', 'max:191'],
+    //   'luggage_address1' => 'required',
+    //   'luggage_address2' => 'required',
+    //   'luggage_address3' => 'required',
+    //   'luggage_name' => 'required',
+    //   'luggage_tel' => ['required', 'max:191'],
+    //   'smg_url' => 'required',
+    //   'layout' => 'required',
+    // ]);
 
     DB::transaction(function () use ($request, $id) { //トランザクションさせる
 
@@ -399,6 +361,14 @@ class VenuesController extends Controller
     //
     $venue = Venue::find($id);
     $venue->delete();
+
+    return redirect('admin/venues');
+  }
+
+  public function restore($id)
+  {
+    $venue = Venue::withTrashed()->find($id);
+    $venue->restore();
 
     return redirect('admin/venues');
   }

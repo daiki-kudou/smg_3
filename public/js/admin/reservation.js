@@ -193,7 +193,7 @@ $(document).on("input", "input", function () {
 // 単価と数量　計算
 /////////////////////////////////////////////////////////////////
 
-
+// 会場新規作成にて直営or提携の表示非表示
 $(function () {
   $(document).on("click", "input[name='alliance_flag']", function () {
     var value = $('input[name="alliance_flag"]:checked').val();

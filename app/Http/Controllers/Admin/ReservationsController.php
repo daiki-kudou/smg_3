@@ -31,17 +31,13 @@ class ReservationsController extends Controller
    */
   public function index(Request $request)
   {
-
     if (!empty($request->all())) {
       $newInstance = new Reservation;
       $reservations = $newInstance->search_item((object)$request->all());
-      echo "<pre>";
-      // var_dump($reservations);
-      echo "</pre>";
     } else {
       $reservations = Reservation::all();
     }
-    $venue = Venue::select('id', 'name_area', 'name_bldg', 'name_venue')->get();
+    $venue = Venue::all();
     $user = User::select('id', 'company', 'first_name', 'last_name', 'mobile', 'tel')->get();
     return view('admin.reservations.index', [
       'reservations' => $reservations,

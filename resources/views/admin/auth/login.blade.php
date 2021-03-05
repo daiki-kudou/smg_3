@@ -1,12 +1,26 @@
 @extends('layouts.admin.auth')
 
 @section('content')
+<style>
+  h3 {
+    font-size: 24px;
+    font-weight: bold;
+    color: #555;
+    margin-bottom: 0px;
+    line-height: 48px;
+    margin-left: 25px;
+  }
+</style>
 <div class="container" style="margin-top: 10%;">
   <div class="row justify-content-center">
     <div class="col-md-8">
       <div class="card">
         <div class="card-header">
-          <h3>管理者管理画面</h3>ログイン
+          {{-- <h3>管理者管理画面</h3>ログイン --}}
+          <div class="d-flex justify-content-center">
+            <img src="https://osaka-conference.com/img/logo.jpg" alt="" width="40" height="40">
+            <h3>SMGアクセア貸し会議室 </h3>
+          </div>
         </div>
 
         <div class="card-body">
