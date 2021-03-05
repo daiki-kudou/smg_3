@@ -468,8 +468,12 @@
                 <tr>
                   <td class="table-active"><label for="cost">支払割合（原価）</label></td>
                   <td>
-                    {{ Form::text('cost', $venue->cost, ['class' => 'form-control']) }}
-                  </td>
+                  <div class="d-flex align-items-center">
+                  {{ Form::text('cost', $venue->cost, ['class' => 'form-control']) }}
+                  <span class="ml-1">%</span>
+                  </div>
+                  <p class="is-error-cost" style="color: red"></p>
+                </td>
                 </tr>
               </tbody>
             </table>

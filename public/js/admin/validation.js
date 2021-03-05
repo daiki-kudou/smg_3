@@ -111,7 +111,7 @@ $(function () {
       },
       cost: {
         required: true,
-        min: 1
+        range: [1, 100]
       },
       cxl_url: {
         url: true
@@ -145,7 +145,7 @@ $(function () {
       },
       cost: {
         required: "※必須項目です",
-        min: "※最低でも1以上を入力してください"
+        range: "※1から100までの数値を入力してください"
       },
 
     },
@@ -199,7 +199,7 @@ $(function () {
       },
       cost: {
         required: true,
-        min: 1
+        range: [1, 100]
       },
       cxl_url: {
         url: true
@@ -233,7 +233,7 @@ $(function () {
       },
       cost: {
         required: "※必須項目です",
-        min: "※最低でも1以上を入力してください"
+        range: "※1から100までの数値を入力してください"
       },
 
     },
@@ -355,6 +355,9 @@ $(function () {
       mgmt_sec_company: {
         minlength: 10
       },
+      cost: {
+        range: [1, 100]
+      },
     },
     messages: {
       smg_url: {
@@ -441,7 +444,9 @@ $(function () {
       mgmt_email: {
         email: '※Emailの形式で入力してください',
       },
-
+      cost: {
+        range: "※1から100までの数値を入力してください"
+      },
     },
     errorPlacement: function (error, element) {
       var name = element.attr('name');
@@ -548,6 +553,9 @@ $(function () {
       mgmt_sec_company: {
         minlength: 10
       },
+      cost: {
+        range: [1, 100]
+      },
     },
     messages: {
       smg_url: {
@@ -619,6 +627,9 @@ $(function () {
       },
       layout: {
         required: "※必須項目です",
+      },
+      cost: {
+        range: "※1から100までの数値を入力してください"
       },
     },
     errorPlacement: function (error, element) {

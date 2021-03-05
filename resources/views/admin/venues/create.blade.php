@@ -44,9 +44,7 @@
     <!-- 会場URL ---------------------------------------------------->
     <div class="row">
       <div class="col">
-        <form method="POST" action="https://staging-smg2.herokuapp.com/admin/venues" accept-charset="UTF-8"
-          id="VenuesCreateForm" novalidate="novalidate"><input name="_token" type="hidden"
-            value="TgpxZg4iuaaiQAp1kxxaMlSp3rLShaVt6y0I4pwv">
+        <form method="POST" action="https://staging-smg2.herokuapp.com/admin/venues" accept-charset="UTF-8" id="VenuesCreateForm" novalidate="novalidate"><input name="_token" type="hidden" value="TgpxZg4iuaaiQAp1kxxaMlSp3rLShaVt6y0I4pwv">
           <input type="hidden" name="_token" value="TgpxZg4iuaaiQAp1kxxaMlSp3rLShaVt6y0I4pwv">
           <table class="table table-bordered">
             <tbody>
@@ -453,7 +451,11 @@
             <tr>
               <td class="table-active"><label for="cost">支払割合（原価）</label></td>
               <td>
-                {{ Form::text('cost', old('cost'), ['class' => 'form-control']) }}
+                <div class="d-flex align-items-center">
+                  {{ Form::text('cost', old('cost'), ['class' => 'form-control']) }}
+                  <span class="ml-1">%</span>
+                </div>
+                <p class="is-error-cost" style="color: red"></p>
               </td>
             </tr>
           </tbody>
@@ -501,11 +503,4 @@
   </div>
 </div>
 {{ Form::close() }}
-
-
-
-
-
-
-
 @endsection

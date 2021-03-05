@@ -225,8 +225,8 @@
                 <th class="table-active form_required"><label for="cost">仲介手数料</label></th>
                 <td colspan="2">
                   <div class="d-flex align-items-center">
-                    {{ Form::number('cost', old('cost'), ['class' => 'form-control']) }}
-                    <span class="ml-1">%</span>
+                  {{ Form::text('cost', old('cost'), ['class' => 'form-control']) }}
+                  <span class="ml-1">%</span>
                   </div>
                   <p class="is-error-cost" style="color: red"></p>
                 </td>
@@ -286,12 +286,6 @@
                   </select>
                 </td>
               </tr>
-              <!-- <tr>
-                <th class="table-active"><label for="payment_day">支払日</label></th>
-                <td>
-                  {{ Form::text('payment_day', old('payment_day'), ['class' => 'form-control']) }}
-                </td>
-              </tr> -->
               <tr>
                 <th class="table-active"><label for="pay_remark">備考</label></th>
                 <td>
