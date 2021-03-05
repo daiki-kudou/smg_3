@@ -222,7 +222,7 @@
                   </td>
                 </tr>
                 <tr>
-                  <td class="table-active"><label for="luggage_post_code" class="form_required">送付先郵便番号</label></td>
+                  <td class="table-active"><label for="luggage_post_code">送付先郵便番号</label></td>
                   <td>
                     {{ Form::text('luggage_post_code', $venue->luggage_post_code, [
                       'class' => 'form-control',
@@ -233,35 +233,35 @@
                   </td>
                 </tr>
                 <tr>
-                  <td class="table-active"><label for="luggage_address1" class="form_required">住所（都道府県）</label></td>
+                  <td class="table-active"><label for="luggage_address1">住所（都道府県）</label></td>
                   <td>
                     {{ Form::text('luggage_address1', $venue->luggage_address1, ['class' => 'form-control']) }}
                     <p class="is-error-luggage_address2" style="color: red"></p>
                   </td>
                 </tr>
                 <tr>
-                  <td class="table-active"><label for="luggage_address2" class="form_required">住所（市町村番地）</label></td>
+                  <td class="table-active"><label for="luggage_address2">住所（市町村番地）</label></td>
                   <td>
                     {{ Form::text('luggage_address2', $venue->luggage_address2, ['class' => 'form-control']) }}
                     <p class="is-error-luggage_address2" style="color: red"></p>
                   </td>
                 </tr>
                 <tr>
-                  <td class="table-active"><label for="luggage_address3" class="form_required">住所（建物名）</label></td>
+                  <td class="table-active"><label for="luggage_address3">住所（建物名）</label></td>
                   <td>
                     {{ Form::text('luggage_address3', $venue->luggage_address3, ['class' => 'form-control']) }}
                     <p class="is-error-luggage_address3" style="color: red"></p>
                   </td>
                 </tr>
                 <tr>
-                  <td class="table-active"><label for="luggage_name" class="form_required">送付先名</label></td>
+                  <td class="table-active"><label for="luggage_name">送付先名</label></td>
                   <td>
                     {{ Form::text('luggage_name', $venue->luggage_name, ['class' => 'form-control']) }}
                     <p class="is-error-luggage_name" style="color: red"></p>
                   </td>
                 </tr>
                 <tr>
-                  <td class="table-active"><label for="luggage_tel" class="form_required">電話番号</label></td>
+                  <td class="table-active"><label for="luggage_tel">電話番号</label></td>
                   <td>
                     {{ Form::text('luggage_tel', $venue->luggage_tel, ['class' => 'form-control']) }}
                     <p class="is-error-luggage_tel" style="color: red"></p>
