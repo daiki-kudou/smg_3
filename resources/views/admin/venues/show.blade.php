@@ -24,16 +24,19 @@
   <section class="section-wrap">
     <div class="text-right mb-2">
       {{ link_to_route('admin.venues.edit', '編集', $parameters = $venue->id, ['class' => 'btn more_btn'])}}
-      <select name="delete_venue" id="delete_venue" class="">
+
+      {{-- 大山さんが確認後実装予定 3/5 --}}
+      {{-- 会場の表示・非表示　（soft delete）機能 --}}
+      {{-- <select name="delete_venue" id="delete_venue" class="">
         <option value="0" {{!empty($venue->deleted_at)?"":"selected"}}>表示</option>
-        <option value="1" {{empty($venue->deleted_at)?"":"selected"}}>非表示</option>
-      </select>
-      {{ Form::open(['url' => 'admin/venues/'.$venue->id, 'method'=>'delete', 'id'=>'venueDeleteForm']) }}
+      <option value="1" {{empty($venue->deleted_at)?"":"selected"}}>非表示</option>
+      </select> --}}
+      {{-- {{ Form::open(['url' => 'admin/venues/'.$venue->id, 'method'=>'delete', 'id'=>'venueDeleteForm']) }}
       @csrf
       {{Form::close()}}
       {{ Form::open(['url' => 'admin/venues/'.$venue->id.'/restore', 'method'=>'post', 'id'=>'venueRestoreForm']) }}
       @csrf
-      {{Form::close()}}
+      {{Form::close()}} --}}
 
     </div>
 
@@ -537,8 +540,9 @@
 
 
 
-
-<script>
+{{-- 大山さんが確認後実装予定 3/5 --}}
+{{-- 会場の表示・非表示　（soft delete）機能 --}}
+{{-- <script>
   $(function(){
   $('#delete_venue').on('change',function(){
     var result = $('#delete_venue').val($(this).val());
@@ -557,7 +561,7 @@
     }
   });
   });
-</script>
+</script> --}}
 
 
 

@@ -27,7 +27,7 @@ class VenuesController extends Controller
   public function index()
   {
 
-    $venues = Venue::withTrashed()->paginate(30);
+    $venues = Venue::paginate(30);
 
     return view('admin.venues.index', [
       'venues' => $venues,
@@ -186,7 +186,7 @@ class VenuesController extends Controller
    */
   public function show($id)
   {
-    $venue = Venue::withTrashed()->find($id);
+    $venue = Venue::find($id);
     // 【備品連携】
     $equipments = $venue->equipments()->get();
     // サービス連携

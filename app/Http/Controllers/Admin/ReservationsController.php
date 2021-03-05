@@ -37,7 +37,7 @@ class ReservationsController extends Controller
     } else {
       $reservations = Reservation::all();
     }
-    $venue = Venue::withTrashed()->get();
+    $venue = Venue::all();
     $user = User::select('id', 'company', 'first_name', 'last_name', 'mobile', 'tel')->get();
     return view('admin.reservations.index', [
       'reservations' => $reservations,

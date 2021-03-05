@@ -14,7 +14,7 @@ class CalendarsController extends Controller
 {
   public function venue_calendar(Request $request)
   {
-    $venues = Venue::withTrashed()->select('id', 'name_area', 'name_bldg', 'name_venue')->get();
+    $venues = Venue::select('id', 'name_area', 'name_bldg', 'name_venue')->get();
     if ($request->venue_id) {
       $selected_venue = $request->venue_id;
     } else {
