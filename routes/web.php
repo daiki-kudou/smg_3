@@ -94,7 +94,7 @@ Route::namespace('Admin')->prefix('admin')->name('admin.')->group(function () {
   Route::middleware('auth:admin')->group(function () {
 
     // TOPページ
-    Route::resource('home', 'HomeController', ['only' => 'index']);
+    Route::resource('home', 'ReservationsController', ['only' => 'index']);
     // 会場登録
     Route::resource('venues', 'VenuesController');
     Route::post('venues/{venue}/restore', 'VenuesController@restore')->name('venues.restore');
