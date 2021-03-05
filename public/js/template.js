@@ -212,7 +212,7 @@ $(function () {
 })
 
 $(function () {
-  $('.more_btn_lg' + '.check_alert').on('click', function () {
+  $('.check_alert').on('click', function () {
     if (!confirm('入力内容と反映された請求の一致を確認しましたか？')) {
       return false;
     } else {

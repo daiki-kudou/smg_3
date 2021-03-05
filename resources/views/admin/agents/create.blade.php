@@ -2,7 +2,7 @@
 
 @section('content')
 <link href="{{ asset('/css/template.css') }}" rel="stylesheet">
-<!-- <script src="{{ asset('/js/template.js') }}"></script> -->
+{{-- <!-- <script src="{{ asset('/js/template.js') }}"></script> --> --}}
 <script src="{{ asset('/js/admin/reservation.js') }}"></script>
 <script src="{{ asset('/js/admin/validation.js') }}"></script>
 
@@ -225,8 +225,8 @@
                 <th class="table-active form_required"><label for="cost">仲介手数料</label></th>
                 <td colspan="2">
                   <div class="d-flex align-items-center">
-                  {{ Form::text('cost', old('cost'), ['class' => 'form-control']) }}
-                  <span class="ml-1">%</span>
+                    {{ Form::text('cost', old('cost'), ['class' => 'form-control']) }}
+                    <span class="ml-1">%</span>
                   </div>
                   <p class="is-error-cost" style="color: red"></p>
                 </td>
@@ -296,7 +296,8 @@
           </table>
         </div>
       </div>
-      {{ Form::submit('登録する', ['class' => 'btn more_btn_lg d-block btn-lg mx-auto my-5']) }}
+      {{ Form::submit('登録する', ['class' => 'btn more_btn_lg d-block btn-lg mx-auto my-5 approval']) }}
+      @include('layouts.admin.loading')
     </section>
     {{ Form::close() }}
   </div>

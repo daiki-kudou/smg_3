@@ -50,6 +50,8 @@ $(document).on('click', 'input', function (e) {
   ExceptString(person_mobile);
   var fax = $("input[name^='fax']");
   ExceptString(fax);
+  var cost = $("input[name^='cost']");
+  ExceptString(cost);
 
 });
 

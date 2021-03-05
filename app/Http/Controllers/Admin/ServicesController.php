@@ -7,6 +7,8 @@ use Illuminate\Http\Request;
 
 use App\Models\Service;
 
+use Illuminate\Support\Facades\DB; //トランザクション用
+
 
 class ServicesController extends Controller
 {
@@ -55,12 +57,14 @@ class ServicesController extends Controller
       'price' => ['required', 'max:191'],
     ]);
 
-    $services = new Service;
-    $services->item = $request->item;
-    $services->price = $request->price;
-    $services->remark = $request->remark;
-    $services->save();
-
+    DB::transaction(function () use ($request) { //トランザクションさせる
+      $services = new Service;
+      $services->item = $request->item;
+      $services->price = $request->price;
+      $services->remark = $request->remark;
+      $services->save();
+    });
+    $request->session()->regenerate();
     return redirect('admin/services');
   }
 
@@ -106,12 +110,14 @@ class ServicesController extends Controller
       'price' => ['required', 'max:191'],
     ]);
 
-    $service = Service::find($id);
-
-    $service->item = $request->item;
-    $service->price = $request->price;
-    $service->remark = $request->remark;
-    $service->save();
+    DB::transaction(function () use ($request, $id) { //トランザクションさせる
+      $service = Service::find($id);
+      $service->item = $request->item;
+      $service->price = $request->price;
+      $service->remark = $request->remark;
+      $service->save();
+    });
+    $request->session()->regenerate();
 
     return redirect('admin/services');
   }

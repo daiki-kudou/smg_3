@@ -7,6 +7,9 @@ use Illuminate\Http\Request;
 
 use App\Models\Equipment;
 
+use Illuminate\Support\Facades\DB;
+
+
 class EquipmentsController extends Controller
 {
   /**
@@ -111,14 +114,16 @@ class EquipmentsController extends Controller
       'stock' => ['required', 'max:191'],
     ]);
 
-    $eqipment = Equipment::find($id);
+    DB::transaction(function () use ($request, $id) {
+      $eqipment = Equipment::find($id);
+      $eqipment->item = $request->item;
+      $eqipment->price = $request->price;
+      $eqipment->stock = $request->stock;
+      $eqipment->remark = $request->remark;
+      $eqipment->save();
+    });
 
-    $eqipment->item = $request->item;
-    $eqipment->price = $request->price;
-    $eqipment->stock = $request->stock;
-    $eqipment->remark = $request->remark;
-    $eqipment->save();
-
+    $request->session()->regenerate();
     return redirect('admin/equipments');
   }
 
