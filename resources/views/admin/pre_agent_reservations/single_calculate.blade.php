@@ -196,13 +196,13 @@
           <tr>
             <td class="table-active">案内板</td>
             <td>
-            <div class="radio-box">
-                  <p>
-                      <input type="radio" name="board_flag" value="0" checked=""><span>無し</span>
-                  </p>
-                  <p>
-                      <input type="radio" name="board_flag" value="1"><span>有り</span>
-                  </p>
+              <div class="radio-box">
+                <p>
+                  <input type="radio" name="board_flag" value="0" checked=""><span>無し</span>
+                </p>
+                <p>
+                  <input type="radio" name="board_flag" value="1"><span>有り</span>
+                </p>
               </div>
             </td>
           </tr>
@@ -256,20 +256,16 @@
 
         <div class="equipemnts">
           <table class="table table-bordered">
-            <thead>
+            <thead class="accordion-ttl">
               <tr>
                 <th colspan="2">
-                  <div class="d-flex justify-content-between align-items-center">
-                    <p class="title-icon fw-bolder py-1">
-                      <i class="fas fa-wrench icon-size fa-fw"></i>有料備品
-                    </p>
-                    <i class="fas fa-plus icon_plus hide" aria-hidden="true"></i>
-                    <i class="fas fa-minus icon_minus" aria-hidden="true"></i>
-                  </div>
+                  <p class="title-icon fw-bolder py-1">
+                    <i class="fas fa-wrench icon-size fa-fw"></i>有料備品
+                  </p>
                 </th>
               </tr>
             </thead>
-            <tbody>
+            <tbody class="accordion-wrap">
               @foreach ($venue->getEquipments() as $e_key=>$equipment)
               <tr>
                 <td class="table-active">
@@ -285,20 +281,16 @@
         </div>
         <div class="services">
           <table class="table table-bordered">
-            <thead>
+            <thead class="accordion-ttl">
               <tr>
                 <th colspan="2">
-                  <div class="d-flex justify-content-between align-items-center">
-                    <p class="title-icon fw-bolder py-1">
-                      <i class="fas fa-hand-holding-heart icon-size fa-fw"></i>有料サービス
-                    </p>
-                    <i class="fas fa-plus icon_plus hide"></i>
-                    <i class="fas fa-minus icon_minus"></i>
-                  </div>
+                  <p class="title-icon fw-bolder py-1">
+                    <i class="fas fa-hand-holding-heart icon-size fa-fw"></i>有料サービス
+                  </p>
                 </th>
               </tr>
             </thead>
-            <tbody>
+            <tbody class="accordion-wrap">
               @foreach ($venue->getServices() as $s_key=>$service)
               <tr>
                 <td class="table-active">
@@ -685,28 +677,28 @@
           </div>
 
           <div class="bill_total">
-              <table class="table text-right" style="table-layout: fixed;">
-                <tbody>
-                  <tr>
-                    <td>小計：</td>
-                    <td>
-                      {{ Form::text('master_subtotal',(floor($price+$layout_prepare+$layout_clean)) ,['class'=>'form-control text-right', 'readonly'] ) }}
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>消費税：</td>
-                    <td>
-                      {{ Form::text('master_tax',ReservationHelper::getTax(floor($price+$layout_prepare+$layout_clean)) ,['class'=>'form-control text-right', 'readonly'] ) }}
-                    </td>
-                  </tr>
-                  <tr>
-                    <td class="font-weight-bold">合計金額</td>
-                    <td>
-                      {{ Form::text('master_total',ReservationHelper::taxAndPrice(floor($price+$layout_prepare+$layout_clean)) ,['class'=>'form-control text-right', 'readonly'] ) }}
-                    </td>
-                  </tr>
-                </tbody>
-              </table>
+            <table class="table text-right" style="table-layout: fixed;">
+              <tbody>
+                <tr>
+                  <td>小計：</td>
+                  <td>
+                    {{ Form::text('master_subtotal',(floor($price+$layout_prepare+$layout_clean)) ,['class'=>'form-control text-right', 'readonly'] ) }}
+                  </td>
+                </tr>
+                <tr>
+                  <td>消費税：</td>
+                  <td>
+                    {{ Form::text('master_tax',ReservationHelper::getTax(floor($price+$layout_prepare+$layout_clean)) ,['class'=>'form-control text-right', 'readonly'] ) }}
+                  </td>
+                </tr>
+                <tr>
+                  <td class="font-weight-bold">合計金額</td>
+                  <td>
+                    {{ Form::text('master_total',ReservationHelper::taxAndPrice(floor($price+$layout_prepare+$layout_clean)) ,['class'=>'form-control text-right', 'readonly'] ) }}
+                  </td>
+                </tr>
+              </tbody>
+            </table>
           </div>
         </div>
       </div>
