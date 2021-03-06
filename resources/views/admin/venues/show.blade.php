@@ -22,7 +22,9 @@
   <hr>
 
   <section class="section-wrap">
-    <div class="text-right mb-2">
+    <div class="d-flex mb-2 justify-content-between align-items-end">
+      <p class="text-left">※金額は税抜表記になります。</p>
+
       {{ link_to_route('admin.venues.edit', '編集', $parameters = $venue->id, ['class' => 'btn more_btn'])}}
 
       {{-- 大山さんが確認後実装予定 3/5 --}}

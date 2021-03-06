@@ -77,6 +77,7 @@
     <div>
       {{ Form::model($time_price, ['route' => 'admin.time_prices.store']) }}
       @csrf
+    <p class="text-right">※金額は税抜で入力してください。</p>
       <table class="table table-bordered">
         <thead>
           <tr>

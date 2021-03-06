@@ -150,6 +150,7 @@
       <div>
         {{ Form::model($venue, ['route' => ['admin.time_prices.update', $venue->id], 'method' => 'put', 'id'=>'timeEditForm']) }}
         @csrf
+    <p class="text-right">※金額は税抜で入力してください。</p>
         <table class="table table-bordered">
           <thead>
             <tr>
