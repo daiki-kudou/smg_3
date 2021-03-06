@@ -138,9 +138,8 @@
         </div>
       </div>
 
-    <!-- 仮押さえ一括 -->
-    <section>
-      <table class="table ttl_head">
+      <!-- 仮押さえ一括 -->
+      <table class="table ttl_head mt-4 mb-5">
         <tbody>
           <tr>
             <td>
@@ -151,48 +150,47 @@
         </tbody>
       </table>
 
-      <section class="mt-5">
-        <p class="mb-2">詳細を入力する場合は、会場ごとに編集をしてください。</p>
-        <p class="text-right mb-5"><a href="" class="more_btn3">新しい会場で日程を追加する</a></p>
-        <table class="table table-bordered prereserve-table table-scroll text-center">
-          <thead>
-            <tr class="table_row">
-              <th>一括仮押さえID</th>
-              <th>作成日</th>
-              <th>利用会場</th>
-              <th>総件数</th>
-              <th>件数</th>
-              <th>編集</th>
-              <th>日程の追加</th>
+      <p class="text-right"><a href="" class="more_btn3">新しい会場で日程を追加する</a></p>
+      <p class="mb-2">詳細を入力する場合は、会場ごとに編集をしてください。</p>
+      <table class="table table-bordered table-scroll">
+        <thead>
+          <tr class="table_row">
+            <th>一括仮押さえID</th>
+            <th>作成日</th>
+            <th>利用会場</th>
+            <th>総件数</th>
+            <th>件数</th>
+            <th>編集</th>
+            <th>日程の追加</th>
+          </tr>
+        </thead>
+        <tbody>
+          @for ($i = 0; $i < $venue_count; $i++) @if ($i==0) <tr>
+            <td rowspan="{{$venue_count}}">{{$multiple->id}}</td> {{--一括ID--}}
+            <td rowspan="{{$venue_count}}">{{ReservationHelper::formatDate($multiple->created_at)}}</td>{{--作成日--}}
+            <td>{{ReservationHelper::getVenue($venues[$i]->venue_id)}}</td>{{--利用会場--}}
+            <td rowspan="{{$venue_count}}">
+              {{$multiple->pre_reservations()->get()->count()}}
+            </td>{{--総件数--}}
+            <td>
+              {{$multiple->pre_reservations()->where('venue_id',$venues[$i]->venue_id)->get()->count()}}
+            </td>
+            <td><a class="more_btn" href="{{url('admin/multiples/'.$multiple->id.'/edit'.'/'.$venues[$i]->venue_id)}}">編集</a></td>
+            <td><a class="more_btn" href="">日程の追加をする</a></td>
             </tr>
-          </thead>
-          <tbody>
-            @for ($i = 0; $i < $venue_count; $i++) @if ($i==0) <tr>
-              <td rowspan="{{$venue_count}}">{{$multiple->id}}</td> {{--一括ID--}}
-              <td rowspan="{{$venue_count}}">{{ReservationHelper::formatDate($multiple->created_at)}}</td>{{--作成日--}}
-              <td>{{ReservationHelper::getVenue($venues[$i]->venue_id)}}</td>{{--利用会場--}}
-              <td rowspan="{{$venue_count}}">
-                {{$multiple->pre_reservations()->get()->count()}}
-              </td>{{--総件数--}}
+            @else
+            <tr>
+              <td>{{ReservationHelper::getVenue($venues[$i]->venue_id)}}</td>
               <td>
                 {{$multiple->pre_reservations()->where('venue_id',$venues[$i]->venue_id)->get()->count()}}
               </td>
               <td><a class="more_btn" href="{{url('admin/multiples/'.$multiple->id.'/edit'.'/'.$venues[$i]->venue_id)}}">編集</a></td>
               <td><a class="more_btn" href="">日程の追加をする</a></td>
-              </tr>
-              @else
-              <tr>
-                <td>{{ReservationHelper::getVenue($venues[$i]->venue_id)}}</td>
-                <td>
-                  {{$multiple->pre_reservations()->where('venue_id',$venues[$i]->venue_id)->get()->count()}}
-                </td>
-                <td><a class="more_btn" href="{{url('admin/multiples/'.$multiple->id.'/edit'.'/'.$venues[$i]->venue_id)}}">編集</a></td>
-                <td><a class="more_btn" href="">日程の追加をする</a></td>
-              </tr>
-              @endif
-              @endfor
-          </tbody>
-          {{-- <tbody>
+            </tr>
+            @endif
+            @endfor
+        </tbody>
+        {{-- <tbody>
             <tr>
               <td>00001</td>
               <td>2020/12/28(月)</td>
@@ -215,12 +213,11 @@
               </td>
             </tr>
           </tbody> --}}
-        </table>
-      </section>
+      </table>
     </section>
   </div>
   <div class="btn_wrapper">
-    <p class="text-center"><a class="more_btn_lg" href="">一覧にもどる</a></p>
+    <p class="text-center"><a class="more_btn_lg" href="{{url('admin/multiples')}}">一覧にもどる</a></p>
   </div>
 </div>
 

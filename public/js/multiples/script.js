@@ -4,24 +4,19 @@ $(function () {
     $(".accordion-wrap").hide();
     $(".accordion-ttl").on("click", function () {
       $(this).next().slideToggle("fast");
-      $(".title-icon").toggleClass("active");
+      $(this).find(".title-icon").toggleClass("active");
     });
   });
 
-  $(function () {
-    $(".accordion-wrap").hide();
-    $(".plus_icon").on("click", function () {
-      $(this).parent().parent().next().slideToggle("fast");
-      $(".plus_icon").toggleClass("active");
-    });
-  });
+  // $(function () {
+  //   $(".accordion-wrap").hide();
+  //   $(".plus_icon").on("click", function () {
+  //     $(this).parent().parent().next().slideToggle("fast");
+  //     $(this).find(".plus_icon").toggleClass("active");
+  //   });
+  // });
 
 
-  $(function () {
-    $('.accodion-ttl').click(function () {
-      $('.accodion-ttl.title-icon').toggleClass('active');
-    });
-  });
 
   // 追加請求　その他ラジオボタン-------------------------
   $(function () {
@@ -60,6 +55,3 @@ $(function () {
     $("#sortableArea").sortable();
   });
 });
-
-
-$
