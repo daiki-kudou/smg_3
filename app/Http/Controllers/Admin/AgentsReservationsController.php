@@ -44,6 +44,10 @@ class AgentsReservationsController extends Controller
     $carbon2 = new Carbon($request->leave_time);
     $usage_hours = $carbon1->diffInMinutes($carbon2);
     $usage_hours = $usage_hours / 60;
+    $_equipment = Equipment::sumArrays($request);
+    $_service = Service::sumArrays($request);
+
+    // var_dump($equipment, $service);
 
     $layout_price = 0;
     if ($request->layout_prepare > 0) {
@@ -58,7 +62,6 @@ class AgentsReservationsController extends Controller
     }
     $price = $price + $layout_price;
 
-
     return view(
       'admin.agents_reservations.calculate',
       compact(
@@ -71,6 +74,8 @@ class AgentsReservationsController extends Controller
         'request',
         'usage_hours',
         'layout_price',
+        '_equipment',
+        '_service',
       )
     );
   }
