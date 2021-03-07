@@ -11,7 +11,7 @@
 
 {{ Form::open(['route' => 'admin.bills.store', 'method'=>'POST']) }}
 @csrf
-{{ Form::hidden('reservation_id', $requests['reservation_id'], ['class' => 'form-control'])}}
+{{ Form::hidden('reservation_id', $request->reservation_id, ['class' => 'form-control'])}}
 
 <div class="container-fluid">
   <div class="bill">
@@ -28,7 +28,6 @@
         </div>
       </div>
       <div class="main">
-        @if ($requests['venue_price'])
         <div class="venues" style="padding-top: 80px; width:90%; margin:0 auto;">
           <table class="table table-borderless">
             <tbody>
@@ -49,37 +48,33 @@
               </tr>
             </tbody>
             <tbody class="venue_main ">
-              @for ($i = 0; $i < (count($s_venues)/4); $i++)
-                @if($s_venues[$i*4]&&$s_venues[($i*4)+1]&&$s_venues[($i*4)+2]&&$s_venues[($i*4)+3]) <tr>
+              @for ($i = 0; $i < $venues; $i++) <tr>
                 <td>
-                  {{ Form::text('venue_breakdown_item'.$i, $s_venues[$i*4],['class'=>'form-control', 'readonly'] ) }}
+                  {{ Form::text('venue_breakdown_item'.$i, $request->{'venue_breakdown_item'.$i},['class'=>'form-control', 'readonly'] ) }}
                 </td>
                 <td>
-                  {{ Form::text('venue_breakdown_cost'.$i, $s_venues[($i*4)+1],['class'=>'form-control', 'readonly'] ) }}
+                  {{ Form::text('venue_breakdown_cost'.$i, $request->{'venue_breakdown_cost'.$i},['class'=>'form-control', 'readonly'] ) }}
                 </td>
                 <td>
-                  {{ Form::text('venue_breakdown_count'.$i, $s_venues[($i*4)+2],['class'=>'form-control', 'readonly'] ) }}
+                  {{ Form::text('venue_breakdown_count'.$i, $request->{'venue_breakdown_count'.$i},['class'=>'form-control', 'readonly'] ) }}
                 </td>
                 <td>
-                  {{ Form::text('venue_breakdown_subtotal'.$i, $s_venues[($i*4)+3],['class'=>'form-control', 'readonly'] ) }}
+                  {{ Form::text('venue_breakdown_subtotal'.$i, $request->{'venue_breakdown_subtotal'.$i},['class'=>'form-control', 'readonly'] ) }}
                 </td>
                 </tr>
-                @endif
                 @endfor
             </tbody>
             <tbody class="venue_result ">
               <tr>
                 <td colspan="2"></td>
                 <td colspan="2">合計
-                  {{ Form::text('venue_price',$requests['venue_price'],['class'=>'form-control', 'readonly'] ) }}
+                  {{ Form::text('venue_price',$request->venue_price,['class'=>'form-control', 'readonly'] ) }}
                 </td>
               </tr>
             </tbody>
           </table>
         </div>
-        @endif
 
-        @if ($requests['equipment_price'])
         <div class="equipment" style="padding-top: 80px; width:90%; margin:0 auto;">
           <table class="table table-borderless">
             <tbody>
@@ -100,37 +95,33 @@
               </tr>
             </tbody>
             <tbody class="equipment_main ">
-              @for ($i = 0; $i < (count($s_equipments)/4); $i++)
-                @if($s_equipments[$i*4]&&$s_equipments[($i*4)+1]&&$s_equipments[($i*4)+2]&&$s_equipments[($i*4)+3]) <tr>
+              @for ($i = 0; $i < $equipments; $i++) <tr>
                 <td>
-                  {{ Form::text('equipment_breakdown_item'.$i, $s_equipments[$i*4],['class'=>'form-control', 'readonly'] ) }}
+                  {{ Form::text('equipment_breakdown_item'.$i,$request->{'equipment_breakdown_item'.$i} ,['class'=>'form-control', 'readonly'] ) }}
                 </td>
                 <td>
-                  {{ Form::text('equipment_breakdown_cost'.$i, $s_equipments[($i*4)+1],['class'=>'form-control', 'readonly'] ) }}
+                  {{ Form::text('equipment_breakdown_cost'.$i,$request->{'equipment_breakdown_cost'.$i} ,['class'=>'form-control', 'readonly'] ) }}
                 </td>
                 <td>
-                  {{ Form::text('equipment_breakdown_count'.$i, $s_equipments[($i*4)+2],['class'=>'form-control', 'readonly'] ) }}
+                  {{ Form::text('equipment_breakdown_count'.$i,$request->{'equipment_breakdown_count'.$i} ,['class'=>'form-control', 'readonly'] ) }}
                 </td>
                 <td>
-                  {{ Form::text('equipment_breakdown_subtotal'.$i, $s_equipments[($i*4)+3],['class'=>'form-control', 'readonly'] ) }}
+                  {{ Form::text('equipment_breakdown_subtotal'.$i,$request->{'equipment_breakdown_subtotal'.$i} ,['class'=>'form-control', 'readonly'] ) }}
                 </td>
                 </tr>
-                @endif
                 @endfor
             </tbody>
             <tbody class="equipment_result ">
               <tr>
                 <td colspan="2"></td>
                 <td colspan="2">合計
-                  {{ Form::text('equipment_price',$requests['equipment_price'],['class'=>'form-control', 'readonly'] ) }}
+                  {{ Form::text('equipment_price',$request->equipment_price,['class'=>'form-control', 'readonly'] ) }}
                 </td>
               </tr>
             </tbody>
           </table>
         </div>
-        @endif
 
-        @if ($requests['layout_price'])
         <div class="layout" style="padding-top: 80px; width:90%; margin:0 auto;">
           <table class="table table-borderless">
             <tbody>
@@ -151,45 +142,34 @@
               </tr>
             </tbody>
             <tbody class="layout_main ">
-              @if ($requests->layout_prepare_cost)
-              <tr>
-                <td>{{ Form::text('layout_prepare_item', 'レイアウト準備料金', ['class' => 'form-control','readonly'])}}</td>
-                <td>{{ Form::text('layout_prepare_cost', $requests->layout_prepare_cost, ['class' => 'form-control'])}}
+              @for ($i = 0; $i < $layouts; $i++) <tr>
+                <td>
+                  {{ Form::text('layout_breakdown_item'.$i,$request->{'layout_breakdown_item'.$i} ,['class'=>'form-control', 'readonly'] ) }}
                 </td>
                 <td>
-                  {{ Form::text('layout_prepare_count', $requests->layout_prepare_count, ['class' => 'form-control'])}}
+                  {{ Form::text('layout_breakdown_cost'.$i,$request->{'layout_breakdown_cost'.$i} ,['class'=>'form-control', 'readonly'] ) }}
                 </td>
                 <td>
-                  {{ Form::text('layout_prepare_subtotal', $requests->layout_prepare_subtotal, ['class' => 'form-control', 'readonly'])}}
-                </td>
-              </tr>
-              @endif
-              @if ($requests->layout_clean_cost)
-              <tr>
-                <td>{{ Form::text('layout_clean_item', 'レイアウト片付料金', ['class' => 'form-control','readonly'])}}</td>
-                <td>{{ Form::text('layout_clean_cost', $requests->layout_clean_cost, ['class' => 'form-control'])}}</td>
-                <td>{{ Form::text('layout_clean_count', $requests->layout_clean_count, ['class' => 'form-control'])}}
+                  {{ Form::text('layout_breakdown_count'.$i,$request->{'layout_breakdown_count'.$i} ,['class'=>'form-control', 'readonly'] ) }}
                 </td>
                 <td>
-                  {{ Form::text('layout_clean_subtotal', $requests->layout_clean_subtotal, ['class' => 'form-control', 'readonly'])}}
+                  {{ Form::text('layout_breakdown_subtotal'.$i,$request->{'layout_breakdown_subtotal'.$i} ,['class'=>'form-control', 'readonly'] ) }}
                 </td>
-              </tr>
-              @endif
+                </tr>
+                @endfor
             </tbody>
             <tbody class="layout_result ">
               <tr>
                 <td colspan="2"></td>
                 <td colspan="2">合計
-                  {{ Form::text('layout_price',$requests['layout_price'],['class'=>'form-control', 'readonly'] ) }}
+                  {{ Form::text('layout_price',$request->layout_price,['class'=>'form-control', 'readonly'] ) }}
                 </td>
               </tr>
             </tbody>
           </table>
         </div>
-        @endif
 
 
-        @if ($requests['others_price'])
         <div class="others" style="padding: 80px 0px 80px 0px; width:90%; margin:0 auto;">
           <table class="table table-borderless">
             <tbody>
@@ -210,35 +190,32 @@
               </tr>
             </tbody>
             <tbody class="others_main ">
-              @for ($i = 0; $i < (count($s_others)/4); $i++)
-                @if($s_others[$i*4]&&$s_others[($i*4)+1]&&$s_others[($i*4)+2]&&$s_others[($i*4)+3]) <tr>
+              @for ($i = 0; $i < $others; $i++) <tr>
                 <td>
-                  {{ Form::text('others_breakdown_item'.$i, $s_others[$i*4],['class'=>'form-control', 'readonly'] ) }}
+                  {{ Form::text('others_breakdown_item'.$i,$request->{'others_breakdown_item'.$i} ,['class'=>'form-control', 'readonly'] ) }}
                 </td>
                 <td>
-                  {{ Form::text('others_breakdown_cost'.$i, $s_others[($i*4)+1],['class'=>'form-control', 'readonly'] ) }}
+                  {{ Form::text('others_breakdown_cost'.$i,$request->{'others_breakdown_cost'.$i} ,['class'=>'form-control', 'readonly'] ) }}
                 </td>
                 <td>
-                  {{ Form::text('others_breakdown_count'.$i, $s_others[($i*4)+2],['class'=>'form-control', 'readonly'] ) }}
+                  {{ Form::text('others_breakdown_count'.$i,$request->{'others_breakdown_count'.$i} ,['class'=>'form-control', 'readonly'] ) }}
                 </td>
                 <td>
-                  {{ Form::text('others_breakdown_subtotal'.$i, $s_others[($i*4)+3],['class'=>'form-control', 'readonly'] ) }}
+                  {{ Form::text('others_breakdown_subtotal'.$i,$request->{'others_breakdown_subtotal'.$i} ,['class'=>'form-control', 'readonly'] ) }}
                 </td>
                 </tr>
-                @endif
                 @endfor
             </tbody>
             <tbody class="others_result ">
               <tr>
                 <td colspan="2"></td>
                 <td colspan="3">合計
-                  {{ Form::text('others_price',$requests['others_price'],['class'=>'form-control', 'readonly'] ) }}
+                  {{ Form::text('others_price',$request->others_price,['class'=>'form-control', 'readonly'] ) }}
                 </td>
               </tr>
             </tbody>
           </table>
         </div>
-        @endif
 
 
         <div class="bill_total d-flex justify-content-end"
@@ -249,19 +226,19 @@
                 <tr>
                   <td>小計：</td>
                   <td>
-                    {{ Form::text('master_subtotal',$requests['master_subtotal'],['class'=>'form-control', 'readonly'] ) }}
+                    {{ Form::text('master_subtotal',$request->master_subtotal,['class'=>'form-control', 'readonly'] ) }}
                   </td>
                 </tr>
                 <tr>
                   <td>消費税：</td>
                   <td>
-                    {{ Form::text('master_tax',$requests['master_tax'],['class'=>'form-control', 'readonly'] ) }}
+                    {{ Form::text('master_tax',$request->master_tax,['class'=>'form-control', 'readonly'] ) }}
                   </td>
                 </tr>
                 <tr>
                   <td class="font-weight-bold">合計金額</td>
                   <td>
-                    {{ Form::text('master_total',$requests['master_total'],['class'=>'form-control', 'readonly'] ) }}
+                    {{ Form::text('master_total',$request->master_total,['class'=>'form-control', 'readonly'] ) }}
                   </td>
                 </tr>
               </tbody>
@@ -293,21 +270,21 @@
               <tr>
                 <td>請求日：</td>
                 <td>支払期日：
-                  {{ Form::text('pay_limit',$requests['pay_limit'],['class'=>'form-control', 'readonly'] ) }}
+                  {{ Form::text('pay_limit',$request->pay_limit,['class'=>'form-control', 'readonly'] ) }}
                 </td>
               </tr>
               <tr>
                 <td>請求書宛名
-                  {{ Form::text('pay_company',$requests['pay_company'],['class'=>'form-control', 'readonly'] ) }}
+                  {{ Form::text('pay_company',$request->pay_company,['class'=>'form-control', 'readonly'] ) }}
                 </td>
                 <td>
                   担当者
-                  {{ Form::text('bill_person',$requests['bill_person'],['class'=>'form-control', 'readonly'] ) }}
+                  {{ Form::text('bill_person',$request->bill_person,['class'=>'form-control', 'readonly'] ) }}
                 </td>
               </tr>
               <tr>
                 <td colspan="2">請求書備考
-                  {{ Form::textarea('bill_remark',$requests['bill_remark'],['class'=>'form-control', 'readonly'] ) }}
+                  {{ Form::textarea('bill_remark',$request->bill_remark,['class'=>'form-control', 'readonly'] ) }}
                 </td>
               </tr>
             </tbody>
@@ -335,20 +312,20 @@
             <tbody>
               <tr>
                 <td>入金状況
-                  {{ Form::text('',$requests['paid']==0?"未入金":"支払済",['class'=>'form-control', 'readonly'] ) }}
-                  {{ Form::hidden('paid',$requests['paid'],['class'=>'form-control', 'readonly'] ) }}
+                  {{ Form::text('',$request->paid==0?"未入金":"支払済",['class'=>'form-control', 'readonly'] ) }}
+                  {{ Form::hidden('paid',$request->paid,['class'=>'form-control', 'readonly'] ) }}
                 </td>
                 <td>
                   入金日
-                  {{ Form::text('pay_day',$requests['pay_day'],['class'=>'form-control', 'readonly'] ) }}
+                  {{ Form::text('pay_day',$request->pay_day,['class'=>'form-control', 'readonly'] ) }}
                 </td>
               </tr>
               <tr>
                 <td>振込人名
-                  {{ Form::text('pay_person',$requests['pay_person'],['class'=>'form-control', 'readonly'] ) }}
+                  {{ Form::text('pay_person',$request->pay_person,['class'=>'form-control', 'readonly'] ) }}
                 </td>
                 <td>入金額
-                  {{ Form::text('payment',$requests['payment'],['class'=>'form-control', 'readonly'] ) }}
+                  {{ Form::text('payment',$request->payment,['class'=>'form-control', 'readonly'] ) }}
                 </td>
               </tr>
             </tbody>

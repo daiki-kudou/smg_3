@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
 use App\Models\Bill;
+use App\Models\Venue;
 
 use App\Models\Reservation;
 use App\Models\User;
@@ -78,32 +79,33 @@ class BillsController extends Controller
 
   public function check(Request $request)
   {
-    $requests = $request->all();
-    $s_venues = [];
-    $s_equipments = [];
-    $s_layouts = [];
-    $s_others = [];
+    // $requests = $request->all();
+    $venues = Venue::getBreakdowns($request);
+    $equipments = Venue::getBreakdowns($request);
+    $services = Venue::getBreakdowns($request);
+    $layouts = [];
     foreach ($request->all() as $key => $value) {
-      if (preg_match('/venue_breakdown/', $key)) {
-        $s_venues[] = $value;
-      }
-      if (preg_match('/equipment_breakdown/', $key)) {
-        $s_equipments[] = $value;
-      }
-      if (preg_match('/layout_breakdown/', $key)) {
-        $s_layouts[] = $value;
-      }
-      if (preg_match('/others_breakdown/', $key)) {
-        $s_others[] = $value;
+      if (preg_match('/layout_breakdown_item/', $key)) {
+        $layouts[] = $value;
       }
     }
-    return view('admin.bills.check', [
-      'requests' => $requests,
-      's_venues' => $s_venues,
-      's_equipments' => $s_equipments,
-      's_layouts' => $s_layouts,
-      's_others' => $s_others,
-    ]);
+    $layouts = count($layouts);
+    $others = [];
+    foreach ($request->all() as $key => $value) {
+      if (preg_match('/others_breakdown_item/', $key)) {
+        $others[] = $value;
+      }
+    }
+    $others = count($others);
+
+    return view('admin.bills.check', compact(
+      'request',
+      'venues',
+      'equipments',
+      'services',
+      'layouts',
+      'others'
+    ));
   }
 
 
