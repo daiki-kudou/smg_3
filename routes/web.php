@@ -242,5 +242,6 @@ Route::namespace('Admin')->prefix('admin')->name('admin.')->group(function () {
     Route::resource('cxl', 'CxlController', ['except' => ['create']]);
     Route::post('cxl/create', 'CxlController@create')->name('cxl.create');
     Route::post('cxl/calculate', 'CxlController@calculate')->name('cxl.calculate');
+    Route::post('cxl/check', 'CxlController@check')->name('cxl.check');
   });
 });

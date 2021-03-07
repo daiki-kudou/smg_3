@@ -80,6 +80,17 @@ class Bill extends Model
     });
   }
 
+  /*
+|--------------------------------------------------------------------------
+| cxlとの１対１
+|--------------------------------------------------------------------------|
+*/
+  public function cxl()
+  {
+    return $this->hasOne(Cxl::class);
+  }
+
+
 
   public function ReserveStoreBreakdown($request)
   {
@@ -405,7 +416,7 @@ class Bill extends Model
 
     $subtotal = (int)$venueCxl + (int)$equipmentCxl + (int)$layoutCxl + (int)$otherCxl;
     return [$venueCxl, $equipmentCxl, $layoutCxl, $otherCxl, $subtotal];
-    // 0会場　1備品　2レイアウト　3その他
+    // 0会場　1備品　2レイアウト　3その他 4合計額
   }
 
   public function checkCxlInput($request, $targetName, $price)

@@ -7,7 +7,7 @@
 <script src="{{ asset('/js/template.js') }}"></script>
 
 <div class="container-fluid">
-  <h2 class="mt-3 mb-3">キャンセル請求書 作成</h2>
+  <h2 class="mt-3 mb-3">キャンセル請求書 作成　確認</h2>
   <hr>
 </div>
 
@@ -98,7 +98,7 @@
 
         </div>
 
-        {{ Form::open(['url' => 'admin/cxl/check', 'method'=>'POST', 'class'=>'']) }}
+        {{ Form::open(['url' => 'admin/cxl', 'method'=>'POST', 'class'=>'']) }}
         @csrf
         <div class="cancel_content">
           <table class="table table-borderless">
@@ -277,10 +277,10 @@
   @if ($bill->others_price>0)
   {{Form::hidden('cxl_other_PC',$request->cxl_other_PC,['class'=>'form-control'])}}
   @endif
-  {{Form::hidden('bills_id',$bill->id)}}
+  {{Form::hidden('bill_id',$bill->id)}}
   {{Form::hidden('reservation_id',$request->reservation_id)}}
 
-  {{ Form::submit('確認する', ['class' => 'btn more_btn_lg mx-auto d-block my-5']) }}
+  {{ Form::submit('キャンセルを確定する', ['class' => 'btn more_btn_lg mx-auto d-block my-5']) }}
   {{ Form::close() }}
 </section>
 
@@ -306,6 +306,7 @@
   })
 </script>
 </section>
+</form>
 
 
 

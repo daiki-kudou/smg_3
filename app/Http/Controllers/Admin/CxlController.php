@@ -2,12 +2,17 @@
 
 namespace App\Http\Controllers\Admin;
 
+use Illuminate\Database\Eloquent\Model;
 use App\Models\Cxl;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use Carbon\Carbon;
 
 use App\Models\Bill;
 use App\Models\User;
+
+use Illuminate\Support\Facades\DB;
+
 
 
 class CxlController extends Controller
@@ -29,9 +34,7 @@ class CxlController extends Controller
    */
   public function create(Request $request)
   {
-    var_dump($request->all());
     $bill = Bill::find($request->bills_id);
-
     return view('admin.cxl.create', compact('bill', 'request'));
   }
 
@@ -47,6 +50,21 @@ class CxlController extends Controller
     );
   }
 
+  public function check(Request $request)
+  {
+    echo "<pre>";
+    echo "</pre>";
+    $bill = Bill::find($request->bills_id);
+    $result = $bill->getCxlPrice($request);
+    $user = User::find($bill->reservation->user_id);
+    $payment_limit = $user->getUserPayLimit($bill->reservation->reserve_date);
+
+    return view(
+      'admin.cxl.check',
+      compact('bill', 'request', 'result', 'payment_limit', 'user')
+    );
+  }
+
   /**
    * Store a newly created resource in storage.
    *
@@ -55,7 +73,11 @@ class CxlController extends Controller
    */
   public function store(Request $request)
   {
-    //
+    var_dump($request->all());
+    DB::transaction(function () use ($request) { //トランザクションさせる
+      $cxl = new Cxl;
+      $cxl->storeCxl($request);
+    });
   }
 
   /**
