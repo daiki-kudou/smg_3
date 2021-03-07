@@ -7,6 +7,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
 use App\Models\Bill;
+use App\Models\User;
 
 
 class CxlController extends Controller
@@ -38,7 +39,12 @@ class CxlController extends Controller
   {
     $bill = Bill::find($request->bills_id);
     $result = $bill->getCxlPrice($request);
-    return view('admin.cxl.calculate', compact('bill', 'request', 'result'));
+    $user = User::find($bill->reservation->user_id);
+    $payment_limit = $user->getUserPayLimit($bill->reservation->reserve_date);
+    return view(
+      'admin.cxl.calculate',
+      compact('bill', 'request', 'result', 'user', 'payment_limit')
+    );
   }
 
   /**
