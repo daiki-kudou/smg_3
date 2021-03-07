@@ -64,10 +64,15 @@
               alt="株式会社SMG"><span class="sp head_smgaccea">SMGアクセア貸し会議室</span></a>
         </p>
         <div class="headerInfo">
-          <p class="txt"><span
-              class="head_smgaccea">SMGアクセア貸し会議室</span><br>大阪市内主要駅(新大阪・梅田)から好アクセス・駅近。～100名の中小会場が格安で基本備品無料！</p>
+          <p class="txt">
+            <span class="head_smgaccea">SMGアクセア貸し会議室</span>
+            <br>
+            大阪市内主要駅(新大阪・梅田)から好アクセス・駅近。～100名の中小会場が格安で基本備品無料！
+          </p>
           <div class="head_dl_btn">
-            <div><a href="https://osaka-conference.com/application/">用紙ダウンロード</a></div>
+            <div>
+              <a href="https://osaka-conference.com/application/">用紙ダウンロード</a>
+            </div>
           </div>
           <div class="tel">
             <p><em>06-6556-6462</em><br>
@@ -378,8 +383,6 @@
                 </td>
               </tr>
               @endforeach
-              {{-- <pre>{{var_dump((object)$sessions)}}</pre> --}}
-              {{var_dump(ReservationHelper::numTimesNumArrays($sessions, "master"))}}
               <tr>
                 <td colspan="2" class="text-right">
                   <p class="checkbox-txt">

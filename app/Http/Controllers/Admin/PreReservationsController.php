@@ -111,9 +111,9 @@ class PreReservationsController extends Controller
   public function calculate(Request $request)
   {
     if ($request->judge_count == 1) { //単発仮押さえの計算
-      echo "<pre>";
-      var_dump($request->all());
-      echo "</pre>";
+
+
+
       $users = User::all();
       $venues = Venue::all();
       $venue = $venues->find($request->venue_id);
@@ -126,9 +126,9 @@ class PreReservationsController extends Controller
         $request->leave_time
       );
 
-      echo "<pre>";
-      var_dump($price_details);
-      echo "</pre>";
+
+
+
 
       $s_equipment = [];
       $s_services = [];
@@ -143,13 +143,13 @@ class PreReservationsController extends Controller
       $item_details = $venue->calculate_items_price($s_equipment, $s_services);    // [0]備品＋サービス [1]備品詳細 [2]サービス詳細 [3]備品合計 [4]サービス合計
       $layouts_details = $venue->getLayoutPrice($request->layout_prepare, $request->layout_clean);
 
-      echo "<pre>";
-      var_dump($item_details);
-      echo "</pre>";
 
-      echo "<pre>";
-      var_dump($layouts_details);
-      echo "</pre>";
+
+
+
+
+
+
 
       if ($price_details == 0) { //枠がなく会場料金を手打ちするパターン
         $masters =
@@ -188,9 +188,9 @@ class PreReservationsController extends Controller
   public function re_calculate(Request $request)
   {
     if ($request->judge_count == 1) { //単発仮押さえの計算
-      // echo "<pre>";
-      // var_dump($request->all());
-      // echo "</pre>";
+
+      // 
+
       $users = User::all();
       $venues = Venue::all();
       $venue = $venues->find($request->venue_id);
@@ -217,9 +217,9 @@ class PreReservationsController extends Controller
       $item_details = $venue->calculate_items_price($s_equipment, $s_services);    // [0]備品＋サービス [1]備品詳細 [2]サービス詳細 [3]備品合計 [4]サービス合計
       $layouts_details = $venue->getLayoutPrice($request->layout_prepare, $request->layout_clean);
 
-      echo "<pre>";
-      var_dump($price_details);
-      echo "</pre>";
+
+
+
 
       if ($price_details == 0) { //枠がなく会場料金を手打ちするパターン
         $masters =
@@ -268,9 +268,9 @@ class PreReservationsController extends Controller
   public function store(Request $request)
   {
     if ($request->judge_count == 1) { //単発仮押さえの保存
-      echo "<pre>";
-      // var_dump($request->all());
-      echo "</pre>";
+
+      // 
+
 
       DB::transaction(function () use ($request) { //トランザクションさせる
         $pre_reservation = PreReservation::create([
@@ -513,9 +513,9 @@ class PreReservationsController extends Controller
    */
   public function update(Request $request, $id)
   {
-    echo "<pre>";
-    var_dump($request->all());
-    echo "</pre>";
+
+
+
 
     DB::transaction(function () use ($request, $id) { //トランザクションさせる
       $pre_reservation = PreReservation::find($id);
@@ -625,9 +625,9 @@ class PreReservationsController extends Controller
 
   public function edit_update(Request $request, $id)
   {
-    echo "<pre>";
-    var_dump($request->all());
-    echo "</pre>";
+
+
+
 
     DB::transaction(function () use ($request, $id) { //トランザクションさせる
       $pre_reservation = PreReservation::find($id);
@@ -771,7 +771,7 @@ class PreReservationsController extends Controller
    */
   public function destroy(Request $request)
   {
-    var_dump(count($request->all()));
+
     if (count($request->all()) == 1) {
       $request->session()->regenerate();
       return redirect()->route('admin.pre_reservations.index')->with('flash_message_error', '仮押さえが選択されていません');

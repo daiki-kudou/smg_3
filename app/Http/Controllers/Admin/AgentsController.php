@@ -53,9 +53,6 @@ class AgentsController extends Controller
    */
   public function store(Request $request)
   {
-    echo "<pre>";
-    var_dump($request->all());
-    echo "</pre>";
 
     $agent = new Agent;
     $agent->StoreAgent($request);

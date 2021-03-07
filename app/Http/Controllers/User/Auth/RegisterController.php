@@ -41,7 +41,7 @@ class RegisterController extends Controller
   public function checkRegistrationForm(Request $request)
   {
     echo "<pre>";
-    var_dump($request->all());
+
     echo "</pre>";
     return view('user.auth.register_check', compact('request'));
   }
@@ -61,7 +61,7 @@ class RegisterController extends Controller
 
   protected function create(array $data)
   {
-    var_dump($data['first_name']);
+
     return User::create([
       'first_name'     => $data['first_name'],
       'last_name'     => $data['last_name'],

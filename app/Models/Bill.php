@@ -212,7 +212,7 @@ class Bill extends Model
   public function ReserveFromAgentBreakdown($request)
   {
     echo "<pre>";
-    var_dump($request->all());
+
     echo "</pre>";
 
     DB::transaction(function () use ($request) {
@@ -318,7 +318,7 @@ class Bill extends Model
   public function UpdateBill($request)
   {
     echo "<pre>";
-    var_dump($request->all());
+
     echo "</pre>";
     DB::transaction(function () use ($request) {
       $this->update([

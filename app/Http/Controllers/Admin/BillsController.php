@@ -115,9 +115,6 @@ class BillsController extends Controller
    */
   public function store(Request $request)
   {
-    echo "<pre>";
-    var_dump($request->all());
-    echo "</pre>";
 
     DB::transaction(function () use ($request) {
     });
@@ -234,7 +231,6 @@ class BillsController extends Controller
    */
   public function edit($id)
   {
-    var_dump($id);
     $bill = Bill::find($id);
     return view('admin.bills.edit', compact('bill'));
   }

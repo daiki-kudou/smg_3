@@ -195,13 +195,13 @@ class PreReservation extends Model
       ]);
 
       $venue_price = empty($result[0][2]) ? 0 : $result[0][2];
-      var_dump($venue_price);
+
       echo "<br>";
       $equipment_price = empty($result[1][0]) ? 0 : $result[1][0];
-      var_dump($equipment_price);
+
       echo "<br>";
       $layout_price = empty($result[2][2]) ? 0 : $result[2][2];
-      var_dump($layout_price);
+
       echo "<br>";
 
 
@@ -367,7 +367,7 @@ class PreReservation extends Model
           $venue_arrays[] = $value;
         }
       }
-      // var_dump($venue_arrays);
+      // 
       $judge_venue_arrays = array_filter($venue_arrays);
       if (!empty($judge_venue_arrays)) {
         for ($i = 0; $i < count($venue_arrays) / 2; $i++) {
@@ -400,7 +400,7 @@ class PreReservation extends Model
           ]);
         }
       }
-      // var_dump($equ_arrays);
+      // 
 
       $ser_arrays = [];
       foreach ($request->all() as $s_key => $value) {
@@ -420,7 +420,7 @@ class PreReservation extends Model
           ]);
         }
       }
-      // var_dump($ser_arrays);
+      // 
 
       if ($request->layout_prepare_item) {
         $pre_bill->pre_breakdowns()->create([

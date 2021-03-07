@@ -270,7 +270,7 @@ class ReservationsController extends Controller
     $others_details = [];
     foreach ($request->all() as $key => $value) {
       if (preg_match('/others_input_item/', $key)) {
-        var_dump(empty($value));
+
         if (!empty($value)) {
           $others_details[] = $value;
         }
@@ -435,7 +435,7 @@ class ReservationsController extends Controller
   public function edit_calculate(Request $request, $id)
   {
     echo "<pre>";
-    var_dump($request->all());
+
     echo "</pre>";
 
     $users = User::all();
@@ -448,7 +448,7 @@ class ReservationsController extends Controller
       $request->enter_time,
       $request->leave_time
     );
-    var_dump($price_details);
+
     $s_equipment = [];
     $s_services = [];
     foreach ($request->all() as $key => $value) {
@@ -495,10 +495,10 @@ class ReservationsController extends Controller
   public function edit_check(Request $request, $id)
   {
     echo "<pre>";
-    var_dump($request->all());
+
     echo "</pre>";
     echo "<pre>";
-    var_dump($id);
+
     echo "</pre>";
 
     $venue = Venue::find($request->venue_id);
@@ -508,7 +508,7 @@ class ReservationsController extends Controller
     $others_details = [];
     foreach ($request->all() as $key => $value) {
       if (preg_match('/others_input_item/', $key)) {
-        var_dump(empty($value));
+
         if (!empty($value)) {
           $others_details[] = $value;
         }
