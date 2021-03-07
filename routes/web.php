@@ -238,5 +238,9 @@ Route::namespace('Admin')->prefix('admin')->name('admin.')->group(function () {
     Route::post('pre_agent_reservations/calculate', 'PreAgentReservationsController@calculate');
     // 仲介会社　仮押さえ 単発　保存
     Route::post('pre_agent_reservations/store', 'PreAgentReservationsController@store');
+
+    Route::resource('cxl', 'CxlController', ['except' => ['create']]);
+    Route::post('cxl/create', 'CxlController@create')->name('cxl.create');
+    Route::post('cxl/calculate', 'CxlController@calculate')->name('cxl.calculate');
   });
 });

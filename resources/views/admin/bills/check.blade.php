@@ -270,12 +270,12 @@
               <tr>
                 <td>請求日：</td>
                 <td>支払期日：
-                  {{ Form::text('pay_limit',$request->pay_limit,['class'=>'form-control', 'readonly'] ) }}
+                  {{ Form::text('payment_limit',$request->pay_limit,['class'=>'form-control', 'readonly'] ) }}
                 </td>
               </tr>
               <tr>
                 <td>請求書宛名
-                  {{ Form::text('pay_company',$request->pay_company,['class'=>'form-control', 'readonly'] ) }}
+                  {{ Form::text('bill_company',$request->pay_company,['class'=>'form-control', 'readonly'] ) }}
                 </td>
                 <td>
                   担当者

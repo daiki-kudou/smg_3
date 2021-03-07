@@ -79,7 +79,6 @@ class BillsController extends Controller
 
   public function check(Request $request)
   {
-    // $requests = $request->all();
     $venues = Venue::getBreakdowns($request);
     $equipments = Venue::getBreakdowns($request);
     $services = Venue::getBreakdowns($request);
@@ -108,7 +107,6 @@ class BillsController extends Controller
     ));
   }
 
-
   /**
    * Store a newly created resource in storage.
    *
@@ -117,61 +115,8 @@ class BillsController extends Controller
    */
   public function store(Request $request)
   {
-
-    DB::transaction(function () use ($request) {
-    });
-
-    DB::transaction(function () use ($request) { //トランザクションさせる
-      $bill = Bill::create([
-        'reservation_id' => $request->reservation_id,
-        'venue_price' => $request->venue_price ? $request->venue_price : 0,
-        'equipment_price' => $request->equipment_price ? $request->equipment_price : 0,
-        'layout_price' => $request->layout_price ? $request->layout_price : 0,
-        'others_price' => $request->others_price ? $request->others_price : 0,
-        'master_subtotal' => $request->master_subtotal,
-        'master_tax' => $request->master_tax,
-        'master_total' => $request->master_total,
-        'payment_limit' => $request->pay_limit,
-        'bill_company' => $request->pay_company,
-        'bill_person' => $request->bill_person,
-        'bill_created_at' => Carbon::now(),
-        'bill_remark' => $request->bill_remark,
-        'paid' => $request->paid,
-        'pay_day' => $request->pay_day,
-        'pay_person' => $request->pay_person,
-        'payment' => $request->payment,
-
-        'reservation_status' => 1, //固定で1
-        'double_check_status' => 0, //固定で1
-        'category' => 2, //1が会場　２が追加請求
-        'admin_judge' => 1, //１が管理者　２がユーザー
-      ]);
-
-
-      function toBreakDown($num, $sub, $target, $type)
-      {
-        $s_arrays = [];
-        foreach ($num as $key => $value) {
-          if (preg_match("/" . $sub . "/", $key)) {
-            $s_arrays[] = $value;
-          }
-        }
-        $counts = (count($s_arrays) / 4);
-        for ($i = 0; $i < $counts; $i++) {
-          $target->breakdowns()->create([
-            'unit_item' => $s_arrays[($i * 4)],
-            'unit_cost' => $s_arrays[($i * 4) + 1],
-            'unit_count' => $s_arrays[($i * 4) + 2],
-            'unit_subtotal' => $s_arrays[($i * 4) + 3],
-            'unit_type' => $type,
-          ]);
-        }
-      }
-      toBreakDown($request->all(), 'venue_breakdown', $bill, 1);
-      toBreakDown($request->all(), 'equipment_breakdown', $bill, 2);
-      toBreakDown($request->all(), 'layout_breakdown_', $bill, 4);
-      toBreakDown($request->all(), 'others_breakdown', $bill, 5);
-    });
+    $reservation = Reservation::find($request->reservation_id);
+    $reservation->ReserveStoreBill($request);
 
     $request->session()->regenerate();
     return redirect()->route('admin.reservations.show', $request->reservation_id);
