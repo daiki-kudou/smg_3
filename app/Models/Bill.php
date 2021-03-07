@@ -342,4 +342,38 @@ class Bill extends Model
       $this->breakdowns()->delete();
     });
   }
+
+  public function checkBreakdowns()
+  {
+    $vnu = $this->breakdowns()->where("unit_type", 1)->get();
+    $s_vnu = [];
+    foreach ($vnu as $key => $value) {
+      $s_vnu[] = $value;
+    }
+    $equ = $this->breakdowns()->where("unit_type", 2)->get();
+    $s_equ = [];
+    foreach ($equ as $key => $value) {
+      $s_equ[] = $value;
+    }
+    $ser = $this->breakdowns()->where("unit_type", 3)->get();
+    $s_ser = [];
+    foreach ($ser as $key => $value) {
+      $s_ser[] = $value;
+    }
+    $lay = $this->breakdowns()->where("unit_type", 4)->get();
+    $s_lay = [];
+    foreach ($lay as $key => $value) {
+      $s_lay[] = $value;
+    }
+    $other = $this->breakdowns()->where("unit_type", 4)->get();
+    $s_other = [];
+    foreach ($other as $key => $value) {
+      $s_other[] = $value;
+    }
+
+    return [
+      [count($s_equ), count($s_ser), count($s_lay), count($s_other)],
+      [$s_vnu, $s_equ, $s_ser, $s_lay, $s_other],
+    ];
+  }
 }
