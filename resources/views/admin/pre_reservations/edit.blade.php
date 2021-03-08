@@ -27,7 +27,10 @@
       <thead>
         <tr>
           <th>顧客情報</th>
-          <th colspan="3">顧客ID：<p class="user_id d-inline">{{$PreReservation->user_id}}</p>
+          <th colspan="3">顧客ID：
+            <p class="user_id d-inline">
+              {{$PreReservation->user_id}}
+            </p>
           </th>
         </tr>
       </thead>
@@ -49,7 +52,6 @@
           <td>
             <p class="email">
               {{$PreReservation->user_id==999?"":ReservationHelper::getPersonEmail($PreReservation->user_id)}}</p>
-
           </td>
         </tr>
         <tr>
@@ -553,7 +555,6 @@
       </button>
     </div>
   </div>
-
   {{Form::close()}}
 
   {{ Form::open(['url' => 'admin/pre_reservations/'.$PreReservation->id, 'method'=>'PUT']) }}

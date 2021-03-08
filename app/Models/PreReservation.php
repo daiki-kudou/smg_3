@@ -167,9 +167,7 @@ class PreReservation extends Model
 
   public function specificUpdate($request, $result, $venue_id)
   {
-
     $splitKey = $request->split_keys;
-
     DB::transaction(function () use ($request, $result, $venue_id, $splitKey) {
       $this->pre_breakdowns()->delete();
       $this->pre_bill()->delete();
@@ -196,14 +194,9 @@ class PreReservation extends Model
 
       $venue_price = empty($result[0][2]) ? 0 : $result[0][2];
 
-      echo "<br>";
       $equipment_price = empty($result[1][0]) ? 0 : $result[1][0];
 
-      echo "<br>";
       $layout_price = empty($result[2][2]) ? 0 : $result[2][2];
-
-      echo "<br>";
-
 
       $master = $venue_price + $equipment_price + $layout_price;
 
@@ -229,7 +222,6 @@ class PreReservation extends Model
         $venue_prices = ['会場料金', $result[0][0], $result[0][3] - $result[0][4], $result[0][0]];
         $extend_prices = [];
       }
-
 
       if ($venue_price != 0) {
         if ($extend_prices) {
@@ -257,7 +249,6 @@ class PreReservation extends Model
           ]);
         }
       }
-
 
       $equipments = $result[1][1];
       foreach ($equipments as $key => $equipment) {
@@ -359,7 +350,6 @@ class PreReservation extends Model
         'approve_send_at' => NULL,
         'category' => 1
       ]);
-
 
       $venue_arrays = [];
       foreach ($request->all() as $v_key => $value) {
@@ -467,6 +457,41 @@ class PreReservation extends Model
         "email" => $request->pre_enduser_email,
         "mobile" => $request->pre_enduser_mobile,
         "tel" => $request->pre_enduser_tel,
+      ]);
+    });
+  }
+
+  public function Updates($request)
+  {
+    DB::transaction(function () use ($request) { //トランザクションさせる
+      // breakdowns削除
+      foreach ($this->pre_breakdowns()->get() as $key => $value) {
+        $value->delete();
+      }
+      // pre bill削除
+      $this->pre_bill()->delete();
+      // 再作成
+      $this->update([
+        'price_system' => $request->price_system,
+        'enter_time' => $request->enter_time,
+        'leave_time' => $request->leave_time,
+        'board_flag' => $request->board_flag,
+        'event_start' => $request->event_start,
+        'event_finish' => $request->event_finish,
+        'event_name1' => $request->event_name1,
+        'event_name2' => $request->event_name2,
+        'event_owner' => $request->event_owner,
+        'luggage_count' => $request->luggage_count,
+        'luggage_arrive' => $request->luggage_arrive,
+        'luggage_return' => $request->luggage_return,
+        'email_flag' => $request->email_flag,
+        'in_charge' => $request->in_charge,
+        'tel' => $request->tel,
+        'discount_condition' => $request->discount_condition,
+        'attention' => $request->attention,
+        'user_details' => $request->user_details,
+        'admin_details' => $request->admin_details,
+        'status' => 0,
       ]);
     });
   }
