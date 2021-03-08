@@ -5,6 +5,36 @@
 <link href="{{ asset('/css/template.css') }}" rel="stylesheet">
 <script src="{{ asset('/js/template.js') }}"></script>
 
+<style>
+  #fullOverlay {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(100, 100, 100, .5);
+    z-index: 2147483647;
+    display: none;
+  }
+
+  .frame_spinner {
+    max-width: 100%;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+</style>
+
+<div id="fullOverlay">
+  <div class="frame_spinner">
+    <div class="spinner-border text-primary " role="status">
+      <span class="sr-only hide">Loading...</span>
+    </div>
+  </div>
+</div>
+
+
 <div class="container-field">
   <div class="float-right">
     <nav aria-label="breadcrumb">
@@ -28,13 +58,19 @@
         <tr>
           <th>顧客情報</th>
           <th colspan="3">顧客ID：
-            <p class="user_id d-inline">
-              {{$PreReservation->user_id}}
-            </p>
+            {{$PreReservation->user_id}}
+            <select name="user_id" id="user_id">
+              @foreach ($users as $user)
+              <option value="{{$user->id}}" @if ($PreReservation->user_id==$user->id)
+                selected
+                @endif
+                >{{ReservationHelper::getCompany($user->id)}} ・ {{ReservationHelper::getPersonName($user->id)}}</option>
+              @endforeach
+            </select>
           </th>
         </tr>
       </thead>
-      <tbody>
+      <tbody class="user_info">
         <tr>
           <td class="table-active">会社名・団体名</td>
           <td colspan="3">
@@ -557,6 +593,7 @@
   </div>
   {{Form::close()}}
 
+
   {{ Form::open(['url' => 'admin/pre_reservations/'.$PreReservation->id, 'method'=>'PUT']) }}
   @csrf
   {{-- 以下、計算結果 --}}
@@ -1038,6 +1075,52 @@
       });
     });
   })
+
+  $(function () {
+  $(document).on("change", "#user_id", function() {
+    var user_id = Number($('#user_id').val());
+    ajaxGetuser(user_id);
+  });
+
+  function ajaxGetuser($user_id) {
+    $.ajax({
+      headers: {
+        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+      },
+      url: '/admin/pre_reservations/get_user',
+      type: 'POST',
+      data: {
+        'user_id': $user_id,
+      },
+      dataType: 'json',
+      beforeSend: function () {
+        $('#fullOverlay').css('display', 'block');
+      },
+    })
+      .done(function ($user) {
+        $('#fullOverlay').css('display', 'none');
+        console.log($user);
+        $(".user_info").find('tr').eq(0).find('td').eq(1).text("");
+        $(".user_info").find('tr').eq(0).find('td').eq(1).text($user[0]);
+        $(".user_info").find('tr').eq(1).find('td').eq(1).text("");
+        $(".user_info").find('tr').eq(1).find('td').eq(1).text($user[1]+$user[2]);
+        $(".user_info").find('tr').eq(1).find('td').eq(3).text("");
+        $(".user_info").find('tr').eq(1).find('td').eq(3).text($user[3]);
+        $(".user_info").find('tr').eq(2).find('td').eq(1).text("");
+        $(".user_info").find('tr').eq(2).find('td').eq(1).text($user[4]);
+        $(".user_info").find('tr').eq(2).find('td').eq(3).text("");
+        $(".user_info").find('tr').eq(2).find('td').eq(3).text($user[5]);
+        $('input[name="user_id"]').val($user[6]);
+      })
+      .fail(function ($user) {
+        $('#fullOverlay').css('display', 'none');
+        console.log("エラーです");
+      });
+  };
+});
+
+
+
 </script>
 
 @endsection

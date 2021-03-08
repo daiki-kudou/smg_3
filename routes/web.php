@@ -219,6 +219,10 @@ Route::namespace('Admin')->prefix('admin')->name('admin.')->group(function () {
     Route::post('pre_reservations/destroy', 'PreReservationsController@destroy');
     // 仮押さえ　ステータス変更。管理者は編集不可に。ユーザーからの編集受付開始
     Route::post('pre_reservations/switch_status', 'PreReservationsController@switchStatus')->name('pre_reservations.switch_status');
+    //時間制御
+    Route::post('pre_reservations/reject_same_time', 'PreReservationsController@rejectSameTime')->name('pre_reservations.rejectSameTime');
+    // 仮押さえ編集時にユーザー変更
+    Route::post('pre_reservations/get_user', 'PreReservationsController@get_user');
     // 一括仮押さえ index
     Route::get('multiples', 'MultiplesController@index');
     // 一括仮押さえ show

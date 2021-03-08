@@ -272,7 +272,6 @@
       }
 
       var base_venue=$(this).parent().parent().find('td').eq(1).find('select').val();
-      console.log(base_venue);
       $(this).parent().parent().clone(true).insertAfter($(this).parent().parent());
       $(this).parent().parent().next().find("td").eq(1).find("select option[value="+base_venue+"]").prop('selected',true);
       var count = $(this).parent().parent().parent().find('tr').length;
@@ -316,7 +315,6 @@
       }
 
       var count2 = $('.date_selector tbody tr').length;
-      console.log(count2);
       for (let index = 0; index < count2; index++) {
         $('.date_selector tbody tr').eq(index).find('td').eq(0).find('input, select').attr('name', "pre_date" + index);
         $('.date_selector tbody tr').eq(index).find('td').eq(1).find('input, select').attr('name', "pre_venue" + index);
@@ -337,9 +335,7 @@
   // 入室時間選択トリガー
   $(function() {
     $(document).on("click", "select", function() {
-      // console.log($(this).parent().index());
       var this_tr = $(this).parent().parent();
-      // console.log(this_tr);
       var target = $(this).parent().index();
       if (target == 2) {
         var date = this_tr.find('td').eq(0).find('input').val();
@@ -376,6 +372,54 @@
         } else {
           $(this).find('option').prop('disabled', true);
         }
+
+        var masterTr=$('.date_selector tbody tr').length;
+        for (let trs = 0; trs < masterTr; trs++) {
+          var targetDate=$('.date_selector tbody tr').eq(trs).find('td').eq(0).find('input').val();
+          var targetVenue=$('.date_selector tbody tr').eq(trs).find('td').eq(1).find('select').val();
+          var targetEnter=$('.date_selector tbody tr').eq(trs).find('td').eq(2).find('select').val();
+          var targetLeave=$('.date_selector tbody tr').eq(trs).find('td').eq(3).find('select').val();
+          // console.log(['日付だよ',targetDate], ['会場だよ',targetVenue], ['入室だよ',targetEnter],['退室だよ',targetLeave]);
+          var cmpTargetDate=$(this).parent().parent().find('td').eq(0).find('input').val();
+          var cmpTargetVenue=$(this).parent().parent().find('td').eq(1).find('select').val();
+          // console.log(['target日付',cmpTargetDate], ['cmpTarget会場',cmpTargetVenue]);
+          if (cmpTargetDate==targetDate&&cmpTargetVenue==targetVenue) {
+            var thisoption = $(this).find('option');
+            $.ajax({
+            headers: {
+              'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            },
+            url: '/admin/pre_reservations/reject_same_time',
+            type: 'POST',
+            data: {
+              'targetEnter': targetEnter,
+              'targetLeave': targetLeave
+            },
+            dataType: 'json',
+            beforeSend: function() {
+              $('#fullOverlay').css('display', 'block');
+            },
+          }).done(function($targettimes) {
+            $('#fullOverlay').css('display', 'none');
+            console.log(targetEnter);
+              // thisoption.each(function($index, $results) {
+              //   console.log(thisoption.eq($index).val());
+              //   if (thisoption.eq($index).val()==targetEnter) {
+              //     thisoption.eq($index).prop('disabled', true);
+              //   }
+              // });
+          }).fail(function($targettimes) {
+            $('#fullOverlay').css('display', 'none');
+            console.log($targettimes);
+
+          });
+          }
+          
+        }
+
+
+
+
       } else if (target == 3) {
         var date = this_tr.find('td').eq(0).find('input').val();
         var venue = this_tr.find('td').eq(1).find('select').val();

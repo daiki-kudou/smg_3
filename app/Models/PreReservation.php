@@ -472,6 +472,7 @@ class PreReservation extends Model
       $this->pre_bill()->delete();
       // 再作成
       $this->update([
+        'user_id' => $request->user_id,
         'price_system' => $request->price_system,
         'enter_time' => $request->enter_time,
         'leave_time' => $request->leave_time,
