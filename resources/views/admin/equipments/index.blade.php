@@ -47,7 +47,7 @@
 
 
   <div id="DataTables_Table_0_wrapper" class="dataTables_wrapper form-inline dt-bootstrap no-footer">
-  <p class="text-right mb-2">※金額は税抜表記になります。</p>
+    <p class="text-right mb-2">※金額は税抜表記になります。</p>
     <div class="row">
       <div class="col-sm-12">
         <table class="table table-bordered dataTable no-footer" id="DataTables_Table_0" role="grid">
@@ -71,7 +71,9 @@
               <td>{{ $query->item }}</td>
               <td>{{ number_format($query->price )}}</td>
               <td>{{ $query->stock }}</td>
-              <td>{{ $query->remark }}</td>
+              <td>
+                {{ $query->remark }}
+              </td>
               <td>
                 {{ link_to_route('admin.equipments.edit', '編集', $parameters = $query->id, ['class' => 'btn more_btn']) }}
                 {{ Form::model($query, ['route' => ['admin.equipments.destroy', $query->id], 'method' => 'delete']) }}
