@@ -51,7 +51,7 @@
     <p class="text-right">※金額は税抜表記になります。</p>
     <div class="row">
       <div class="col-sm-12">
-        <table class="table table-striped table-bordered">
+        <table class="table table-bordered">
           <thead>
             <tr>
               <th>ID</th>
@@ -59,7 +59,8 @@
               <th>有料サービス名</th>
               <th>料金</th>
               <th>備考</th>
-              <th>詳細(編集)・削除</th>
+              <th class="btn-cell">編集</th>
+              <th class="btn-cell">削除</th>
             </tr>
           </thead>
           <tbody>
@@ -70,10 +71,12 @@
               <td>{{ $query->item }}</td>
               <td>{{ number_format($query->price) }}</td>
               <td>{{ $query->remark }}</td>
-              <td class="d-flex justify-content-around">
+              <td>
                 {{ link_to_route('admin.services.edit', '編集', $parameters = $query->id, ['class' => 'btn more_btn']) }}
                 {{ Form::model($query, ['route' => ['admin.services.destroy', $query->id], 'method' => 'delete']) }}
                 @csrf
+              </td>
+              <td>
                 {{ Form::submit('削除', ['class' => 'btn more_btn4']) }}
                 {{ Form::close() }}
               </td>
