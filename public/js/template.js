@@ -58,8 +58,8 @@ $(function () {
     showCurrentAtPos: 1,   // 表示位置は左から2番目 (真ん中)
     stepMonths: 0,         // 月の移動を3ヶ月単位とする
     autoclose: true
-
   });
+
 
 });
 
@@ -444,14 +444,14 @@ $(function () {
   });
 })
 
-  //アコーディオン
-  $(function () {
-    $(".accordion-wrap").hide();
-    $(".accordion-ttl").on("click", function () {
-      $(this).next().slideToggle("fast");
-      $(this).find(".title-icon").toggleClass("active");
-    });
+//アコーディオン
+$(function () {
+  $(".accordion-wrap").hide();
+  $(".accordion-ttl").on("click", function () {
+    $(this).next().slideToggle("fast");
+    $(this).find(".title-icon").toggleClass("active");
   });
+});
 
 
 
