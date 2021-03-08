@@ -604,6 +604,13 @@ class PreReservationsController extends Controller
     // メール送信必要
   }
 
+  public function rejectSameTime(Request $request)
+  {
+    $first = new Carbon($request->targetEnter);
+    $second = new Carbon($request->targetLeave);
+    return [($first->diffInMinutes($second) / 30), $request->targetEnter, $request->targetLeave];
+  }
+
 
   /**
    * Remove the specified resource from storage.
