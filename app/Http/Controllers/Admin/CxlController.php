@@ -11,7 +11,6 @@ use Carbon\Carbon;
 use App\Models\Bill;
 use App\Models\User;
 
-use Illuminate\Support\Facades\DB;
 
 
 
@@ -74,10 +73,8 @@ class CxlController extends Controller
   public function store(Request $request)
   {
     var_dump($request->all());
-    DB::transaction(function () use ($request) { //トランザクションさせる
-      $cxl = new Cxl;
-      $cxl->storeCxl($request);
-    });
+    $cxl = new Cxl;
+    $cxl->storeCxl($request);
   }
 
   /**
