@@ -235,6 +235,11 @@ Route::namespace('Admin')->prefix('admin')->name('admin.')->group(function () {
     Route::post('multiples/{multiples}/edit/{venues}/calculate/{pre_reservations}/specific_update', 'MultiplesController@specificUpdate');
     // 一括　保存
     Route::post('multiples/{multiples}/all_updates/{venues}', 'MultiplesController@allUpdates');
+    // 一括ユーザー切り替え
+    Route::get('multiples/switch/{multiple}', 'MultiplesController@switch');
+    // 一括ユーザー切り替え確定
+    Route::post('multiples/switch_cfm/{multiple}', 'MultiplesController@switch_cfm');
+
 
     // 仲介会社　仮押さえ 作成
     Route::get('pre_agent_reservations/create', 'PreAgentReservationsController@create');

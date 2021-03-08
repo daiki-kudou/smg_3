@@ -5,6 +5,19 @@
 <link href="{{ asset('/css/template.css') }}" rel="stylesheet">
 <script src="{{ asset('/js/template.js') }}"></script>
 
+
+<div id="fullOverlay">
+  <div class="frame_spinner">
+    <div class="spinner-border text-primary " role="status">
+      <span class="sr-only hide">Loading...</span>
+    </div>
+  </div>
+</div>
+
+
+{{ Form::open(['url' => 'admin/multiples/switch_cfm/'.$multiple->id, 'method'=>'POST', 'id'=>'']) }}
+@csrf
+
 <div class="content">
   <div class="container-fluid">
     <div class="container-field mt-3">
@@ -38,17 +51,33 @@
                     <dd class="total_result">{{$multiple->id}}</dd>
                   </dl>
                 </td>
-                <td class="text-right">
+                {{-- <td class="text-right">
                   <a class="more_btn4" href="">削除</a>
                   <a class="more_btn" href="">編集</a>
-                </td>
+                </td> --}}
             </tbody>
           </table>
         </div>
 
+
+
         <div class="col-12">
+          <div class="user_selector mt-5">
+            <h3 class="mb-2">顧客検索</h3>
+            <select name="user_id" id="user_id">
+              @foreach ($users as $user)
+              <option value="{{$user->id}}" @if ($user->id==$multiple->pre_reservations()->first()->user_id)
+                selected
+                @endif
+                >
+                {{$user->company}}・{{ReservationHelper::getPersonName($user->id)}}・{{ReservationHelper::getPersonEmail($user->id)}}
+              </option>
+              @endforeach
+            </select>
+          </div>
+
           <table class="table table-bordered customer-table mb-5" style="table-layout: fixed;">
-            <tbody>
+            <thead>
               <tr>
                 <td colspan="4">
                   <div class="d-flex align-items-center justify-content-between">
@@ -56,12 +85,11 @@
                       <i class="far fa-address-card icon-size" aria-hidden="true"></i>
                       顧客情報
                     </p>
-                    <div>
-                      <a href="{{url('admin/multiples/switch/'.$multiple->id)}}" class="more_btn">ユーザーを切り替える</a>
-                    </div>
                   </div>
                 </td>
               </tr>
+            </thead>
+            <tbody class="user_info">
               <tr>
                 <th class="table-active" width="25%"><label for="company">会社名・団体名</label></th>
                 <td>
@@ -140,91 +168,66 @@
           </table>
         </div>
       </div>
-
-      <!-- 仮押さえ一括 -->
-      <table class="table ttl_head mt-4 mb-5">
-        <tbody>
-          <tr>
-            <td>
-              <h2 class="text-white">
-                仮押さえ内容
-              </h2>
-            </td>
-        </tbody>
-      </table>
-
-      <p class="text-right"><a href="" class="more_btn3">新しい会場で日程を追加する</a></p>
-      <p class="mb-2">詳細を入力する場合は、会場ごとに編集をしてください。</p>
-      <table class="table table-bordered table-scroll">
-        <thead>
-          <tr class="table_row">
-            <th>一括仮押さえID</th>
-            <th>作成日</th>
-            <th>利用会場</th>
-            <th>総件数</th>
-            <th>件数</th>
-            <th>編集</th>
-            <th>日程の追加</th>
-          </tr>
-        </thead>
-        <tbody>
-          @for ($i = 0; $i < $venue_count; $i++) @if ($i==0) <tr>
-            <td rowspan="{{$venue_count}}">{{$multiple->id}}</td> {{--一括ID--}}
-            <td rowspan="{{$venue_count}}">{{ReservationHelper::formatDate($multiple->created_at)}}</td>{{--作成日--}}
-            <td>{{ReservationHelper::getVenue($venues[$i]->venue_id)}}</td>{{--利用会場--}}
-            <td rowspan="{{$venue_count}}">
-              {{$multiple->pre_reservations()->get()->count()}}
-            </td>{{--総件数--}}
-            <td>
-              {{$multiple->pre_reservations()->where('venue_id',$venues[$i]->venue_id)->get()->count()}}
-            </td>
-            <td><a class="more_btn"
-                href="{{url('admin/multiples/'.$multiple->id.'/edit'.'/'.$venues[$i]->venue_id)}}">編集</a></td>
-            <td><a class="more_btn" href="">日程の追加をする</a></td>
-            </tr>
-            @else
-            <tr>
-              <td>{{ReservationHelper::getVenue($venues[$i]->venue_id)}}</td>
-              <td>
-                {{$multiple->pre_reservations()->where('venue_id',$venues[$i]->venue_id)->get()->count()}}
-              </td>
-              <td><a class="more_btn"
-                  href="{{url('admin/multiples/'.$multiple->id.'/edit'.'/'.$venues[$i]->venue_id)}}">編集</a></td>
-              <td><a class="more_btn" href="">日程の追加をする</a></td>
-            </tr>
-            @endif
-            @endfor
-        </tbody>
-        {{-- <tbody>
-            <tr>
-              <td>00001</td>
-              <td>2020/12/28(月)</td>
-              <td class="table_column">
-                <p>サンワールドビルビル</p>
-                <p>サンワールドビルビル</p>
-              </td>
-              <td>8</td>
-              <td class="table_column">
-                <p>3</p>
-                <p>5</p>
-              </td>
-              <td class="table_column">
-                <p><a href="" class="more_btn">編集</a></p>
-                <p><a href="" class="more_btn">編集</a></p>
-              </td>
-              <td class="table_column">
-                <p><a href="" class="more_btn">日程を追加する</a></p>
-                <p><a href="" class="more_btn">日程を追加する</a></p>
-              </td>
-            </tr>
-          </tbody> --}}
-      </table>
     </section>
   </div>
   <div class="btn_wrapper">
-    <p class="text-center"><a class="more_btn_lg" href="{{url('admin/multiples')}}">一覧にもどる</a></p>
+    <p class="text-center">
+      {{ Form::submit('変更する', ['class' => 'btn more_btn_lg']) }}
+    </p>
   </div>
 </div>
+{{ Form::close() }}
+
+
+
+
+
+
+<script>
+  $(function () {
+  $(document).on("change", "#user_id", function() {
+    var user_id = Number($('#user_id').val());
+    ajaxGetuser(user_id);
+  });
+
+  function ajaxGetuser($user_id) {
+    $.ajax({
+      headers: {
+        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+      },
+      url: '/admin/pre_reservations/get_user',
+      type: 'POST',
+      data: {
+        'user_id': $user_id,
+      },
+      dataType: 'json',
+      beforeSend: function () {
+        $('#fullOverlay').css('display', 'block');
+      },
+    })
+      .done(function ($user) {
+        $('#fullOverlay').css('display', 'none');
+        console.log($user);
+        $(".user_info").find('tr').eq(0).find('td').eq(1).text("");
+        $(".user_info").find('tr').eq(0).find('td').eq(1).text($user[0]);
+        $(".user_info").find('tr').eq(1).find('td').eq(1).text("");
+        $(".user_info").find('tr').eq(1).find('td').eq(1).text($user[1]+$user[2]);
+        $(".user_info").find('tr').eq(1).find('td').eq(3).text("");
+        $(".user_info").find('tr').eq(1).find('td').eq(3).text($user[3]);
+        $(".user_info").find('tr').eq(2).find('td').eq(1).text("");
+        $(".user_info").find('tr').eq(2).find('td').eq(1).text($user[4]);
+        $(".user_info").find('tr').eq(2).find('td').eq(3).text("");
+        $(".user_info").find('tr').eq(2).find('td').eq(3).text($user[5]);
+        $('input[name="user_id"]').val($user[6]);
+      })
+      .fail(function ($user) {
+        $('#fullOverlay').css('display', 'none');
+        console.log("エラーです");
+      });
+  };
+})
+
+</script>
 
 
 
