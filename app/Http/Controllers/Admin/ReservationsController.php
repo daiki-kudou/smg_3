@@ -270,7 +270,7 @@ class ReservationsController extends Controller
     $others_details = [];
     foreach ($request->all() as $key => $value) {
       if (preg_match('/others_input_item/', $key)) {
-        var_dump(empty($value));
+
         if (!empty($value)) {
           $others_details[] = $value;
         }
@@ -378,64 +378,74 @@ class ReservationsController extends Controller
    */
   public function edit($id)
   {
-    $reservation = Reservation::find($id);
+    $bill = Bill::find($id);
+    $reservation = $bill->reservation;
     $venues = Venue::all();
+    $venue = $venues->find($reservation->venue_id);
     $users = User::all();
-    $services = $venues->find($reservation->venue_id)->services()->get();
-    $s_services = [];
-    foreach ($services as $key => $value) {
-      if ($reservation->bills()->first()->breakdowns()->where('unit_item', $value->item)->first()) {
-        $s_services[] = 1;
-      } else {
-        $s_services[] = 0;
-      }
-    }
 
-    $s_layouts = [];
-    if ($reservation->bills()->first()->breakdowns()->where('unit_item', 'レイアウト準備料金')->first()) {
-      $s_layouts[] = 1;
-    } else {
-      $s_layouts[] = 0;
-    }
-    if ($reservation->bills()->first()->breakdowns()->where('unit_item', 'レイアウト片付料金')->first()) {
-      $s_layouts[] = 1;
-    } else {
-      $s_layouts[] = 0;
-    }
+    $checkItem = $bill->checkBreakdowns();
+    // [0] 0備品個数　1サービス個数　2レイアウト個数　3その他個数
+    // [1] 0会場詳細　1備品詳細　2サービス詳細　3レイアウト詳細　4その他詳細
 
-    $s_luggage = 0;
-    if ($reservation->bills()->first()->breakdowns()->where('unit_item', '荷物預かり/返送')->first()) {
-      $s_luggage = 1;
-    } else {
-      $s_luggage = 0;
-    }
+    // $services = $venues->find($reservation->venue_id)->services()->get();
+    // $s_services = [];
+    // foreach ($services as $key => $value) {
+    //   if ($reservation->bills()->first()->breakdowns()->where('unit_item', $value->item)->first()) {
+    //     $s_services[] = 1;
+    //   } else {
+    //     $s_services[] = 0;
+    //   }
+    // }
 
-    $venue_prices = $reservation->bills()->first()->breakdowns()->where('unit_type', 1)->get();
-    $equipments_prices = $reservation->bills()->first()->breakdowns()->where('unit_type', 2)->get();
-    $services_prices = $reservation->bills()->first()->breakdowns()->where('unit_type', 3)->get();
-    $layouts_prices = $reservation->bills()->first()->breakdowns()->where('unit_type', 4)->get();
-    $others_prices = $reservation->bills()->first()->breakdowns()->where('unit_type', 5)->get();
+    // $s_layouts = [];
+    // if ($reservation->bills()->first()->breakdowns()->where('unit_item', 'レイアウト準備料金')->first()) {
+    //   $s_layouts[] = 1;
+    // } else {
+    //   $s_layouts[] = 0;
+    // }
+    // if ($reservation->bills()->first()->breakdowns()->where('unit_item', 'レイアウト片付料金')->first()) {
+    //   $s_layouts[] = 1;
+    // } else {
+    //   $s_layouts[] = 0;
+    // }
+
+    // $s_luggage = 0;
+    // if ($reservation->bills()->first()->breakdowns()->where('unit_item', '荷物預かり/返送')->first()) {
+    //   $s_luggage = 1;
+    // } else {
+    //   $s_luggage = 0;
+    // }
+
+    // $venue_prices = $reservation->bills()->first()->breakdowns()->where('unit_type', 1)->get();
+    // $equipments_prices = $reservation->bills()->first()->breakdowns()->where('unit_type', 2)->get();
+    // $services_prices = $reservation->bills()->first()->breakdowns()->where('unit_type', 3)->get();
+    // $layouts_prices = $reservation->bills()->first()->breakdowns()->where('unit_type', 4)->get();
+    // $others_prices = $reservation->bills()->first()->breakdowns()->where('unit_type', 5)->get();
 
     return view('admin.reservations.edit', [
       'reservation' => $reservation,
       'venues' => $venues,
+      'venue' => $venue,
       'users' => $users,
-      'services' => $services,
-      's_services' => $s_services,
-      's_layouts' => $s_layouts,
-      's_luggage' => $s_luggage,
-      'venue_prices' => $venue_prices,
-      'equipments_prices' => $equipments_prices,
-      'services_prices' => $services_prices,
-      'layouts_prices' => $layouts_prices,
-      'others_prices' => $others_prices,
+      'bill' => $bill,
+      'checkItem' => $checkItem,
+      // 'services' => $services,
+      // 's_services' => $s_services,
+      // 's_layouts' => $s_layouts,
+      // 's_luggage' => $s_luggage,
+      // 'venue_prices' => $venue_prices,
+      // 'equipments_prices' => $equipments_prices,
+      // 'services_prices' => $services_prices,
+      // 'layouts_prices' => $layouts_prices,
+      // 'others_prices' => $others_prices,
     ]);
   }
 
   public function edit_calculate(Request $request, $id)
   {
     echo "<pre>";
-    var_dump($request->all());
+
     echo "</pre>";
 
     $users = User::all();
@@ -448,7 +458,7 @@ class ReservationsController extends Controller
       $request->enter_time,
       $request->leave_time
     );
-    var_dump($price_details);
+
     $s_equipment = [];
     $s_services = [];
     foreach ($request->all() as $key => $value) {
@@ -495,10 +505,10 @@ class ReservationsController extends Controller
   public function edit_check(Request $request, $id)
   {
     echo "<pre>";
-    var_dump($request->all());
+
     echo "</pre>";
     echo "<pre>";
-    var_dump($id);
+
     echo "</pre>";
 
     $venue = Venue::find($request->venue_id);
@@ -508,7 +518,7 @@ class ReservationsController extends Controller
     $others_details = [];
     foreach ($request->all() as $key => $value) {
       if (preg_match('/others_input_item/', $key)) {
-        var_dump(empty($value));
+
         if (!empty($value)) {
           $others_details[] = $value;
         }

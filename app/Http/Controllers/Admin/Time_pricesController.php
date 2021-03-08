@@ -119,7 +119,6 @@ class Time_pricesController extends Controller
   public function update(Request $request, $id)
   {
     $count_request = ((count($request->all())) - 3) / 3;
-    // var_dump($count_request);
     if ($count_request == 1) {
       $request->validate([
         'time0' => 'required',

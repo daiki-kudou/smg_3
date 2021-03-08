@@ -710,7 +710,7 @@
                   </td>
                   <td>
                     担当者
-                    {{ Form::text('bill_person', ReservationHelper::getAgentPerson($request->agent_id),['class'=>'form-control', 'readonly'] ) }}
+                    {{ Form::text('bill_person', $request->bill_person,['class'=>'form-control', 'readonly'] ) }}
                   </td>
                 </tr>
                 <tr>

@@ -35,9 +35,6 @@ class PreAgentReservationsController extends Controller
         $judge_count[] = $value;
       }
     }
-    echo "<pre>";
-    var_dump(($request->all()));
-    echo "</pre>";
 
     if (count($judge_count) == 1) {
       $venue = Venue::find($request->pre_venue0);
@@ -106,9 +103,6 @@ class PreAgentReservationsController extends Controller
       $layout_clean = 0;
     }
 
-    echo "<pre>";
-    var_dump($request->all());
-    echo "</pre>";
 
     return view('admin.pre_agent_reservations.single_calculate', [
       'agent' => $agent,

@@ -39,107 +39,7 @@
   </div>
 </div>
 
-<script>
-  $(function() {
-    $("html,body").animate({
-      scrollTop: $('.bill').offset().top
-    });
 
-    $(function() {
-      $(document).on("click", ".add", function() {
-        $(this).parent().parent().clone(true).insertAfter($(this).parent().parent());
-        addThisTr('.others .others_main tr', 'others_input_item', 'others_input_cost', 'others_input_count','others_input_subtotal');
-        addThisTr('.venue_main tr', 'venue_breakdown_item', 'venue_breakdown_cost', 'venue_breakdown_count','venue_breakdown_subtotal');
-        $(this).parent().parent().next().find('td').find('input, select').eq(0).val('');
-        $(this).parent().parent().next().find('td').find('input, select').eq(1).val('');
-        $(this).parent().parent().next().find('td').find('input, select').eq(2).val('');
-        $(this).parent().parent().next().find('td').find('input, select').eq(3).val('');
-      });
-
-      function addThisTr($targetTr, $TItem, $TCost,$TCount, $TSubtotal){
-        var count = $($targetTr).length;
-        for (let index = 0; index < count; index++) {
-          $($targetTr).eq(index).find('td').eq(0).find('input').attr('name', $TItem + index);
-          $($targetTr).eq(index).find('td').eq(1).find('input').attr('name', $TCost + index);
-          $($targetTr).eq(index).find('td').eq(2).find('input').attr('name', $TCount + index);
-          $($targetTr).eq(index).find('td').eq(3).find('input').attr('name', $TSubtotal + index);
-        }
-      }
-
-      $(document).on("click", ".del", function() {
-        if ($(this).parent().parent().parent().attr('class')=="others_main") {
-          var count = $('.others .others_main tr').length;
-          var target = $(this).parent().parent();
-          if (target.parent().children().length > 1) {
-            target.remove();
-          }
-          for (let index = 0; index < count; index++) {
-            $('.others_main tr').eq(index).find('td').eq(0).find('input').attr('name', 'others_input_item' + index);
-            $('.others_main tr').eq(index).find('td').eq(1).find('input').attr('name', 'others_input_cost' + index);
-            $('.others_main tr').eq(index).find('td').eq(2).find('input').attr('name', 'others_input_count' + index);
-            $('.others_main tr').eq(index).find('td').eq(3).find('input').attr('name', 'others_input_subtotal' + index);
-          }
-          var re_count = $('.others .others_main tr').length;
-          var total_val = 0;
-          for (let index2 = 0; index2 < re_count; index2++) {
-            var num1 = $('input[name="others_input_cost' + index2 + '"]').val();
-            var num2 = $('input[name="others_input_count' + index2 + '"]').val();
-            var num3 = $('input[name="others_input_subtotal' + index2 + '"]');
-            num3.val(num1 * num2);
-            total_val = total_val + Number(num3.val());
-          }
-          var total_target = $('input[name="others_price"]');
-          total_target.val(total_val);
-  
-          var venue = $('input[name="venue_price"]').val()?Number($('input[name="venue_price"]').val()):0;
-          var equipment = $('input[name="equipment_price"]').val()?Number($('input[name="equipment_price"]').val()):0;
-          var layout = $('input[name="layout_price"]').val()?Number($('input[name="layout_price"]').val()):0;
-          var others = $('input[name="others_price"]').val() == "" ? 0 : Number($('input[name="others_price"]').val());
-          var result = venue + equipment + layout + others;
-          var result_tax = Math.floor(result * 0.1);
-          $('.total_result').text('').text(result);
-          $('input[name="master_subtotal"]').val(result);
-          $('input[name="master_tax"]').val(result_tax);
-          $('input[name="master_total"]').val(result + result_tax);
-        }else if($(this).parent().parent().parent().attr('class')=="venue_main"){
-          var count = $('.venue_main tr').length;
-          var target = $(this).parent().parent();
-          if (target.parent().children().length > 1) {
-            target.remove();
-          }
-          for (let index = 0; index < count; index++) {
-            $('.venue_main tr').eq(index).find('td').eq(0).find('input').attr('name', 'venue_breakdown_item' + index);
-            $('.venue_main tr').eq(index).find('td').eq(1).find('input').attr('name', 'venue_breakdown_cost' + index);
-            $('.venue_main tr').eq(index).find('td').eq(2).find('input').attr('name', 'venue_breakdown_count' + index);
-            $('.venue_main tr').eq(index).find('td').eq(3).find('input').attr('name', 'venue_breakdown_subtotal' + index);
-          }
-          var re_count = $(' .venue_main tr').length;
-          var total_val = 0;
-          for (let index2 = 0; index2 < re_count; index2++) {
-            var num1 = $('input[name="venue_breakdown_cost' + index2 + '"]').val();
-            var num2 = $('input[name="venue_breakdown_count' + index2 + '"]').val();
-            var num3 = $('input[name="venue_breakdown_subtotal' + index2 + '"]');
-            num3.val(num1 * num2);
-            total_val = total_val + Number(num3.val());
-          }
-          var total_target = $('input[name="venue_price"]');
-          total_target.val(total_val);
-  
-          var venue = $('input[name="venue_price"]').val()?Number($('input[name="venue_price"]').val()):0;
-          var equipment = $('input[name="equipment_price"]').val()?Number($('input[name="equipment_price"]').val()):0;
-          var layout = $('input[name="layout_price"]').val()?Number($('input[name="layout_price"]').val()):0;
-          var others = $('input[name="others_price"]').val() == "" ? 0 : Number($('input[name="others_price"]').val());
-          var result = venue + equipment + layout + others;
-          var result_tax = Math.floor(result * 0.1);
-          $('.total_result').text('').text(result);
-          $('input[name="master_subtotal"]').val(result);
-          $('input[name="master_tax"]').val(result_tax);
-          $('input[name="master_total"]').val(result + result_tax);
-        }
-      });
-    });
-  })
-</script>
 
 
 {{Form::open(['url' => 'admin/reservations/'.$reservation->id.'/edit_calculate', 'method' => 'POST', 'id'=>''])}}
@@ -254,7 +154,6 @@
                 {{date("H時i分", strtotime("00:00 +". $start * 30 ." minute"))}}</option>
                 @endfor
             </select>
-
           </td>
         </tr>
         <tr>
@@ -290,16 +189,16 @@
             </tr>
           </thead>
           <tbody>
-            @foreach ($venues->find($reservation->venue_id)->equipments()->get() as $key=>$equipment)
+            @foreach ($venue->getEquipments() as $key=>$equ)
             <tr>
               <td>
-                {{$equipment->item}}
+                {{$equ->item}}
               </td>
               <td>
                 <input type="text" class="form-control" name="{{'equipment_breakdown'.$key}}"
-                  @foreach($reservation->bills()->first()->breakdowns()->where('unit_type',[2])->get() as $item)
-                @if ($item->unit_item==$equipment->item)
-                value="{{$item->unit_count}}"
+                  @foreach($bill->breakdowns()->where('unit_type',2)->get() as $e_break)
+                @if ($e_break->unit_item==$equ->item)
+                value="{{$e_break->unit_count}}"
                 @endif
                 @endforeach
                 >
@@ -323,30 +222,45 @@
             </tr>
           </thead>
           <tbody>
-
-            @foreach ($services as $key=>$service)
+            @if ($checkItem[0][1]>0)
+            @foreach ($venue->getServices() as $key=>$ser)
             <tr>
-              <td>{{$service->item}}</td>
+              <td>{{$ser->item}}</td>
               <td>
-                @if ($s_services[$key]==1)
                 <div class="form-check form-check-inline">
+                  @foreach ($bill->breakdowns()->where('unit_type',3)->get() as $s_break)
+                  @if ($s_break->unit_item==$ser->item)
                   {{Form::radio('services_breakdown'.$key, 1, true , ['id' => 'service'.$key.'on', 'class' => 'form-check-input'])}}
-                  <label for="{{'service'.$key.'on'}}" class="form-check-label">有り</label>
+                  {{Form::label('service'.$key.'on',"有り")}}
                   {{Form::radio('services_breakdown'.$key, 0, false, ['id' => 'service'.$key.'off', 'class' => 'form-check-input'])}}
-                  <label for="{{'service'.$key.'off'}}" class="form-check-label">無し</label>
-                </div>
-                @else
-                <div class="form-check form-check-inline">
+                  {{Form::label('service'.$key.'off',"無し")}}
+                  @break
+                  @elseif($loop->last)
                   {{Form::radio('services_breakdown'.$key, 1, false , ['id' => 'service'.$key.'on', 'class' => 'form-check-input'])}}
-                  <label for="{{'service'.$key.'on'}}" class="form-check-label">有り</label>
+                  {{Form::label('service'.$key.'on',"有り")}}
                   {{Form::radio('services_breakdown'.$key, 0, true, ['id' => 'service'.$key.'off', 'class' => 'form-check-input'])}}
-                  <label for="{{'service'.$key.'off'}}" class="form-check-label">無し</label>
+                  {{Form::label('service'.$key.'off',"無し")}}
+                  @endif
+                  @endforeach
                 </div>
-                @endif
               </td>
             </tr>
             @endforeach
-
+            @else
+            @foreach ($venue->getServices() as $key=>$ser)
+            <tr>
+              <td>{{$ser->item}}</td>
+              <td>
+                <div class="form-check form-check-inline">
+                  {{Form::radio('services_breakdown'.$key, 1, false , ['id' => 'service'.$key.'on', 'class' => 'form-check-input'])}}
+                  {{Form::label('service'.$key.'on',"有り")}}
+                  {{Form::radio('services_breakdown'.$key, 0, true, ['id' => 'service'.$key.'off', 'class' => 'form-check-input'])}}
+                  {{Form::label('service'.$key.'off',"無し")}}
+                </div>
+              </td>
+            </tr>
+            @endforeach
+            @endif
           </tbody>
         </table>
       </div>
@@ -358,15 +272,25 @@
             </tr>
           </thead>
           <tbody>
-            @if ($s_layouts[0]==1)
+            @if ($checkItem[0][2]>0)
             <tr>
               <td>レイアウト準備</td>
               <td>
                 <div class="form-check form-check-inline">
+                  @foreach ($bill->breakdowns()->where('unit_type',4)->get() as $l_break)
+                  @if ($l_break->unit_item=="レイアウト準備料金")
                   {{Form::radio('layout_prepare', 1, true, ['id' => 'layout_prepare', 'class' => 'form-check-input'])}}
-                  <label for='layout_prepare' class="form-check-label">有り</label>
+                  {{Form::label('layout_prepare',"有り")}}
                   {{Form::radio('layout_prepare', 0, false, ['id' => 'no_layout_prepare', 'class' => 'form-check-input'])}}
-                  <label for='no_layout_prepare' class="form-check-label">無し</label>
+                  {{Form::label('no_layout_prepare',"無し")}}
+                  @break
+                  @elseif($loop->last)
+                  {{Form::radio('layout_prepare', 1, false, ['id' => 'layout_prepare', 'class' => 'form-check-input'])}}
+                  {{Form::label('layout_prepare',"有り")}}
+                  {{Form::radio('layout_prepare', 0, true, ['id' => 'no_layout_prepare', 'class' => 'form-check-input'])}}
+                  {{Form::label('no_layout_prepare',"無し")}}
+                  @endif
+                  @endforeach
                 </div>
               </td>
             </tr>
@@ -376,23 +300,33 @@
               <td>
                 <div class="form-check form-check-inline">
                   {{Form::radio('layout_prepare', 1, false, ['id' => 'layout_prepare', 'class' => 'form-check-input'])}}
-                  <label for='layout_prepare' class="form-check-label">有り</label>
+                  {{Form::label('layout_prepare',"有り")}}
                   {{Form::radio('layout_prepare', 0, true, ['id' => 'no_layout_prepare', 'class' => 'form-check-input'])}}
-                  <label for='no_layout_prepare' class="form-check-label">無し</label>
+                  {{Form::label('no_layout_prepare',"無し")}}
                 </div>
               </td>
             </tr>
             @endif
 
-            @if ($s_layouts[1]==1)
+            @if ($checkItem[0][2]>0)
             <tr>
               <td>レイアウト片付</td>
               <td>
                 <div class="form-check form-check-inline">
+                  @foreach ($bill->breakdowns()->where('unit_type',4)->get() as $l_break)
+                  @if ($l_break->unit_item=="レイアウト片付料金")
                   {{Form::radio('layout_clean', 1, true, ['id' => 'layout_clean', 'class' => 'form-check-input'])}}
-                  <label for='layout_clean' class="form-check-label">有り</label>
+                  {{Form::label('layout_clean',"有り")}}
                   {{Form::radio('layout_clean', 0, false, ['id' => 'no_layout_clean', 'class' => 'form-check-input'])}}
-                  <label for='no_layout_clean' class="form-check-label">無し</label>
+                  {{Form::label('no_layout_clean',"無し")}}
+                  @break
+                  @elseif($loop->last)
+                  {{Form::radio('layout_clean', 1, false, ['id' => 'layout_clean', 'class' => 'form-check-input'])}}
+                  {{Form::label('layout_clean',"有り")}}
+                  {{Form::radio('layout_clean', 0, true, ['id' => 'no_layout_clean', 'class' => 'form-check-input'])}}
+                  {{Form::label('no_layout_clean',"無し")}}
+                  @endif
+                  @endforeach
                 </div>
               </td>
             </tr>
@@ -402,9 +336,9 @@
               <td>
                 <div class="form-check form-check-inline">
                   {{Form::radio('layout_clean', 1, false, ['id' => 'layout_clean', 'class' => 'form-check-input'])}}
-                  <label for='layout_clean' class="form-check-label">有り</label>
-                  {{Form::radio('no_layout_clean', 0, true, ['id' => 'no_layout_clean', 'class' => 'form-check-input'])}}
-                  <label for='no_layout_clean' class="form-check-label">無し</label>
+                  {{Form::label('layout_clean',"有り")}}
+                  {{Form::radio('layout_clean', 0, true, ['id' => 'no_layout_clean', 'class' => 'form-check-input'])}}
+                  {{Form::label('no_layout_clean',"無し")}}
                 </div>
               </td>
             </tr>
@@ -442,11 +376,14 @@
             <tr>
               <td>荷物預かり/返送<br>料金</td>
               <td>
-                @if ($s_luggage==1)
-                {{ Form::text('luggage_price', $reservation->bills()->first()->breakdowns()->where('unit_item', '荷物預かり/返送')->first()->unit_cost,['class'=>'form-control'] ) }}
-                @else
-                {{ Form::text('luggage_price', '',['class'=>'form-control'] ) }}
+                @foreach ($bill->breakdowns()->get() as $l_prices)
+                @if ($l_prices->unit_item=="荷物預かり/返送")
+                {{ Form::text('luggage_price', $l_prices->unit_cost,['class'=>'form-control'] ) }}
+                @break
+                @elseif($loop->last)
+                {{ Form::text('luggage_price', "",['class'=>'form-control'] ) }}
                 @endif
+                @endforeach
               </td>
             </tr>
           </tbody>
@@ -601,7 +538,7 @@
           <td style="font-size: 16px;">
             <div class="bg-white d-flex justify-content-around align-items-center" style="height: 60px;">
               <div>合計金額</div>
-              <div class="total_result">{{number_format($reservation->bills()->first()->master_total)}}円
+              <div class="total_result">{{number_format($bill->master_total)}}円
               </div>
             </div>
           </td>
@@ -611,7 +548,7 @@
           <td style="font-size: 16px;">
             <div class="bg-white d-flex justify-content-around align-items-center" style="height: 60px;">
               <div>支払い期日</div>
-              <div>{{ReservationHelper::formatDate($reservation->bills()->first()->payment_limit)}}
+              <div>{{ReservationHelper::formatDate($bill->payment_limit)}}
               </div>
             </div>
           </td>
@@ -649,7 +586,7 @@
               </tr>
             </tbody>
             <tbody class="venue_main">
-              @foreach ($venue_prices as $key=>$venue_price)
+              @foreach ($checkItem[1][0] as $key=>$venue_price)
               <tr>
                 <td>
                   {{ Form::text('venue_breakdown_item'.$key, $venue_price->unit_item,['class'=>'form-control', 'readonly'] ) }}
@@ -670,7 +607,7 @@
               <tr>
                 <td colspan="2"></td>
                 <td colspan="2">合計
-                  {{ Form::text('venue_price', $reservation->bills()->first()->venue_price,['class'=>'form-control col-xs-3', 'readonly'] ) }}
+                  {{ Form::text('venue_price', $bill->venue_price,['class'=>'form-control col-xs-3', 'readonly'] ) }}
                 </td>
               </tr>
             </tbody>
@@ -721,7 +658,7 @@
               </tr>
             </tbody>
             <tbody class="equipment_main">
-              @foreach ($equipments_prices as $key=>$equipment_price)
+              @foreach ($checkItem[1][1] as $key=>$equipment_price)
               <tr>
                 <td>
                   {{ Form::text('equipment_breakdown_item'.$key, $equipment_price->unit_item,['class'=>'form-control', 'readonly'] ) }}
@@ -737,7 +674,7 @@
                 </td>
               </tr>
               @endforeach
-              @foreach ($services_prices as $key=>$service_price)
+              @foreach ($checkItem[1][2] as $key=>$service_price)
               <tr>
                 <td>
                   {{ Form::text('equipment_breakdown_item'.$key, $service_price->unit_item,['class'=>'form-control', 'readonly'] ) }}
@@ -758,7 +695,7 @@
               <tr>
                 <td colspan="2"></td>
                 <td colspan="2">合計
-                  {{ Form::text('equipment_price', $reservation->bills()->first()->equipment_price,['class'=>'form-control', 'readonly'] ) }}
+                  {{ Form::text('equipment_price', $bill->equipment_price,['class'=>'form-control', 'readonly'] ) }}
                 </td>
               </tr>
             </tbody>
@@ -809,7 +746,7 @@
               </tr>
             </tbody>
             <tbody class="layout_main">
-              @foreach ($layouts_prices as $key=>$layouts_price)
+              @foreach ($checkItem[1][3] as $key=>$layouts_price)
               <tr>
                 <td>
                   {{ Form::text('layout_breakdown_item'.$key, $layouts_price->unit_item,['class'=>'form-control', 'readonly'] ) }}
@@ -823,7 +760,6 @@
                 <td>
                   {{ Form::text('layout_breakdown_subtotal'.$key, $layouts_price->unit_subtotal,['class'=>'form-control', 'readonly'] ) }}
                 </td>
-
               </tr>
               @endforeach
             </tbody>
@@ -831,7 +767,7 @@
               <tr>
                 <td colspan="2"></td>
                 <td colspan="2">合計
-                  {{ Form::text('layout_price',$reservation->bills()->first()->layout_price ,['class'=>'form-control', 'readonly'] ) }}
+                  {{ Form::text('layout_price',$bill->layout_price ,['class'=>'form-control', 'readonly'] ) }}
                 </td>
               </tr>
             </tbody>
@@ -882,7 +818,7 @@
               </tr>
             </tbody>
             <tbody class="others_main">
-              @foreach ($others_prices as $key=>$others_price)
+              @foreach ($checkItem[1][4] as $key=>$others_price)
               <tr>
                 <td>
                   {{ Form::text('others_input_item'.$key, $others_price->unit_item,['class'=>'form-control', 'readonly'] ) }}
@@ -903,7 +839,7 @@
               <tr>
                 <td colspan="2"></td>
                 <td colspan="3">合計
-                  {{ Form::text('others_price', $reservation->bills()->first()->others_price,['class'=>'form-control', 'readonly'] ) }}
+                  {{ Form::text('others_price', $bill->others_price,['class'=>'form-control', 'readonly'] ) }}
                 </td>
               </tr>
             </tbody>
@@ -942,19 +878,19 @@
               <tr>
                 <td>小計：</td>
                 <td>
-                  {{ Form::text('master_subtotal', $reservation->bills()->first()->master_subtotal,['class'=>'form-control', 'readonly'] ) }}
+                  {{ Form::text('master_subtotal', $bill->master_subtotal,['class'=>'form-control', 'readonly'] ) }}
                 </td>
               </tr>
               <tr>
                 <td>消費税：</td>
                 <td>
-                  {{ Form::text('master_tax', $reservation->bills()->first()->master_tax,['class'=>'form-control', 'readonly'] ) }}
+                  {{ Form::text('master_tax', $bill->master_tax,['class'=>'form-control', 'readonly'] ) }}
                 </td>
               </tr>
               <tr>
                 <td class="font-weight-bold">合計金額</td>
                 <td>
-                  {{ Form::text('master_total', $reservation->bills()->first()->master_total,['class'=>'form-control', 'readonly'] ) }}
+                  {{ Form::text('master_total', $bill->master_total,['class'=>'form-control', 'readonly'] ) }}
 
                 </td>
               </tr>
@@ -984,13 +920,14 @@
             <tr>
               <td>請求日：</td>
               <td>支払期日
-                {{ Form::text('pay_limit', $reservation->bills()->first()->pay_limit,['class'=>'form-control', 'id'=>'datepicker6'] ) }}
+                {{ Form::text('pay_limit', $bill->pay_limit,['class'=>'form-control', 'id'=>'datepicker6'] ) }}
               </td>
             </tr>
             <tr>
               <td>請求書宛名{{ Form::text('pay_company', $user->company,['class'=>'form-control'] ) }}</td>
               <td>
-                担当者{{ Form::text('bill_person', ReservationHelper::getPersonName($reservation->user_id),['class'=>'form-control'] ) }}
+                担当者{{ Form::text('bill_person', $bill->pay_person,['class'=>'form-control'] ) }}
+
               </td>
             </tr>
             <tr>
@@ -1020,19 +957,19 @@
               <td>入金状況
                 <select name="paid" class="form-control">
                   <option value="#" disabled>選択してください</option>
-                  <option value="0" {{$reservation->bills()->first()->paid==0?'selected':''}}>未入金</option>
-                  <option value="1" {{$reservation->bills()->first()->paid==1?'selected':''}}>入金済み</option>
+                  <option value="0" {{$bill->paid==0?'selected':''}}>未入金</option>
+                  <option value="1" {{$bill->paid==1?'selected':''}}>入金済み</option>
                 </select>
               </td>
               <td>
-                入金日{{ Form::text('pay_day', $reservation->bills()->first()->pay_day,['class'=>'form-control', 'id'=>'datepicker7'] ) }}
+                入金日{{ Form::text('pay_day', $bill->pay_day,['class'=>'form-control', 'id'=>'datepicker7'] ) }}
               </td>
             </tr>
             <tr>
               <td>
-                振込人名{{ Form::text('pay_person', $reservation->bills()->first()->pay_person,['class'=>'form-control'] ) }}
+                振込人名{{ Form::text('pay_person', $bill->pay_person,['class'=>'form-control'] ) }}
               </td>
-              <td>入金額{{ Form::text('payment', $reservation->bills()->first()->payment,['class'=>'form-control'] ) }}
+              <td>入金額{{ Form::text('payment', $bill->payment,['class'=>'form-control'] ) }}
               </td>
             </tr>
           </table>
@@ -1048,5 +985,105 @@
 
 
 
+<script>
+  $(function() {
+    $("html,body").animate({
+      scrollTop: $('.bill').offset().top
+    });
 
+    $(function() {
+      $(document).on("click", ".add", function() {
+        $(this).parent().parent().clone(true).insertAfter($(this).parent().parent());
+        addThisTr('.others .others_main tr', 'others_input_item', 'others_input_cost', 'others_input_count','others_input_subtotal');
+        addThisTr('.venue_main tr', 'venue_breakdown_item', 'venue_breakdown_cost', 'venue_breakdown_count','venue_breakdown_subtotal');
+        $(this).parent().parent().next().find('td').find('input, select').eq(0).val('');
+        $(this).parent().parent().next().find('td').find('input, select').eq(1).val('');
+        $(this).parent().parent().next().find('td').find('input, select').eq(2).val('');
+        $(this).parent().parent().next().find('td').find('input, select').eq(3).val('');
+      });
+
+      function addThisTr($targetTr, $TItem, $TCost,$TCount, $TSubtotal){
+        var count = $($targetTr).length;
+        for (let index = 0; index < count; index++) {
+          $($targetTr).eq(index).find('td').eq(0).find('input').attr('name', $TItem + index);
+          $($targetTr).eq(index).find('td').eq(1).find('input').attr('name', $TCost + index);
+          $($targetTr).eq(index).find('td').eq(2).find('input').attr('name', $TCount + index);
+          $($targetTr).eq(index).find('td').eq(3).find('input').attr('name', $TSubtotal + index);
+        }
+      }
+
+      $(document).on("click", ".del", function() {
+        if ($(this).parent().parent().parent().attr('class')=="others_main") {
+          var count = $('.others .others_main tr').length;
+          var target = $(this).parent().parent();
+          if (target.parent().children().length > 1) {
+            target.remove();
+          }
+          for (let index = 0; index < count; index++) {
+            $('.others_main tr').eq(index).find('td').eq(0).find('input').attr('name', 'others_input_item' + index);
+            $('.others_main tr').eq(index).find('td').eq(1).find('input').attr('name', 'others_input_cost' + index);
+            $('.others_main tr').eq(index).find('td').eq(2).find('input').attr('name', 'others_input_count' + index);
+            $('.others_main tr').eq(index).find('td').eq(3).find('input').attr('name', 'others_input_subtotal' + index);
+          }
+          var re_count = $('.others .others_main tr').length;
+          var total_val = 0;
+          for (let index2 = 0; index2 < re_count; index2++) {
+            var num1 = $('input[name="others_input_cost' + index2 + '"]').val();
+            var num2 = $('input[name="others_input_count' + index2 + '"]').val();
+            var num3 = $('input[name="others_input_subtotal' + index2 + '"]');
+            num3.val(num1 * num2);
+            total_val = total_val + Number(num3.val());
+          }
+          var total_target = $('input[name="others_price"]');
+          total_target.val(total_val);
+  
+          var venue = $('input[name="venue_price"]').val()?Number($('input[name="venue_price"]').val()):0;
+          var equipment = $('input[name="equipment_price"]').val()?Number($('input[name="equipment_price"]').val()):0;
+          var layout = $('input[name="layout_price"]').val()?Number($('input[name="layout_price"]').val()):0;
+          var others = $('input[name="others_price"]').val() == "" ? 0 : Number($('input[name="others_price"]').val());
+          var result = venue + equipment + layout + others;
+          var result_tax = Math.floor(result * 0.1);
+          $('.total_result').text('').text(result);
+          $('input[name="master_subtotal"]').val(result);
+          $('input[name="master_tax"]').val(result_tax);
+          $('input[name="master_total"]').val(result + result_tax);
+        }else if($(this).parent().parent().parent().attr('class')=="venue_main"){
+          var count = $('.venue_main tr').length;
+          var target = $(this).parent().parent();
+          if (target.parent().children().length > 1) {
+            target.remove();
+          }
+          for (let index = 0; index < count; index++) {
+            $('.venue_main tr').eq(index).find('td').eq(0).find('input').attr('name', 'venue_breakdown_item' + index);
+            $('.venue_main tr').eq(index).find('td').eq(1).find('input').attr('name', 'venue_breakdown_cost' + index);
+            $('.venue_main tr').eq(index).find('td').eq(2).find('input').attr('name', 'venue_breakdown_count' + index);
+            $('.venue_main tr').eq(index).find('td').eq(3).find('input').attr('name', 'venue_breakdown_subtotal' + index);
+          }
+          var re_count = $(' .venue_main tr').length;
+          var total_val = 0;
+          for (let index2 = 0; index2 < re_count; index2++) {
+            var num1 = $('input[name="venue_breakdown_cost' + index2 + '"]').val();
+            var num2 = $('input[name="venue_breakdown_count' + index2 + '"]').val();
+            var num3 = $('input[name="venue_breakdown_subtotal' + index2 + '"]');
+            num3.val(num1 * num2);
+            total_val = total_val + Number(num3.val());
+          }
+          var total_target = $('input[name="venue_price"]');
+          total_target.val(total_val);
+  
+          var venue = $('input[name="venue_price"]').val()?Number($('input[name="venue_price"]').val()):0;
+          var equipment = $('input[name="equipment_price"]').val()?Number($('input[name="equipment_price"]').val()):0;
+          var layout = $('input[name="layout_price"]').val()?Number($('input[name="layout_price"]').val()):0;
+          var others = $('input[name="others_price"]').val() == "" ? 0 : Number($('input[name="others_price"]').val());
+          var result = venue + equipment + layout + others;
+          var result_tax = Math.floor(result * 0.1);
+          $('.total_result').text('').text(result);
+          $('input[name="master_subtotal"]').val(result);
+          $('input[name="master_tax"]').val(result_tax);
+          $('input[name="master_total"]').val(result + result_tax);
+        }
+      });
+    });
+  })
+</script>
 @endsection

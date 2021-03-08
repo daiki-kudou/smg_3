@@ -40,6 +40,17 @@ class Service extends Model
     return $s_services;
   }
 
+  public static function sumArrays($request)
+  {
+    $arrays = self::getArrays($request);
+    $counter = 0;
+    foreach ($arrays as $key => $value) {
+      $counter += $value;
+    }
+    return $counter;
+  }
+
+
   public static function getBreakdowns($request)
   {
     $service_details = [];

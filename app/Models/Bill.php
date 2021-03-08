@@ -80,6 +80,17 @@ class Bill extends Model
     });
   }
 
+  /*
+|--------------------------------------------------------------------------
+| cxlとの１対１
+|--------------------------------------------------------------------------|
+*/
+  public function cxl()
+  {
+    return $this->hasOne(Cxl::class);
+  }
+
+
 
   public function ReserveStoreBreakdown($request)
   {
@@ -149,6 +160,7 @@ class Bill extends Model
           'unit_type' => 3,
         ]);
       }
+      // レイアウト
       if ($request->layout_prepare_item) {
         $this->breakdowns()->create([
           'unit_item' => $request->layout_prepare_item,
@@ -167,6 +179,23 @@ class Bill extends Model
           'unit_type' => 4,
         ]);
       }
+
+      // 請求書追加でレイアウトが発生する場合
+      if (empty($request->layout_prepare_item) && empty($request->layout_clean_item)) {
+        $countLay = $this->RequestBreakdowns($request, 'layout_breakdown_item');
+        if ($countLay != "") {
+          for ($lay = 0; $lay < $countLay; $lay++) {
+            $this->breakdowns()->create([
+              'unit_item' => $request->{'layout_breakdown_item' . $lay},
+              'unit_cost' => $request->{'layout_breakdown_cost' . $lay},
+              'unit_count' => $request->{'layout_breakdown_count' . $lay},
+              'unit_subtotal' => $request->{'layout_breakdown_subtotal' . $lay},
+              'unit_type' => 4,
+            ]);
+          }
+        }
+      }
+
       if ($request->layout_breakdown_discount_item) {
         $this->breakdowns()->create([
           'unit_item' => $request->layout_breakdown_discount_item,
@@ -176,6 +205,7 @@ class Bill extends Model
           'unit_type' => 4,
         ]);
       }
+
       $countOth = $this->RequestBreakdowns($request, 'others_breakdown_item');
       if ($countOth != "") {
         for ($oth = 0; $oth < $countOth; $oth++) {
@@ -212,7 +242,7 @@ class Bill extends Model
   public function ReserveFromAgentBreakdown($request)
   {
     echo "<pre>";
-    var_dump($request->all());
+
     echo "</pre>";
 
     DB::transaction(function () use ($request) {
@@ -318,7 +348,7 @@ class Bill extends Model
   public function UpdateBill($request)
   {
     echo "<pre>";
-    var_dump($request->all());
+
     echo "</pre>";
     DB::transaction(function () use ($request) {
       $this->update([
@@ -341,5 +371,63 @@ class Bill extends Model
       ]);
       $this->breakdowns()->delete();
     });
+  }
+
+  public function checkBreakdowns()
+  {
+    $vnu = $this->breakdowns()->where("unit_type", 1)->get();
+    $s_vnu = [];
+    foreach ($vnu as $key => $value) {
+      $s_vnu[] = $value;
+    }
+    $equ = $this->breakdowns()->where("unit_type", 2)->get();
+    $s_equ = [];
+    foreach ($equ as $key => $value) {
+      $s_equ[] = $value;
+    }
+    $ser = $this->breakdowns()->where("unit_type", 3)->get();
+    $s_ser = [];
+    foreach ($ser as $key => $value) {
+      $s_ser[] = $value;
+    }
+    $lay = $this->breakdowns()->where("unit_type", 4)->get();
+    $s_lay = [];
+    foreach ($lay as $key => $value) {
+      $s_lay[] = $value;
+    }
+    $other = $this->breakdowns()->where("unit_type", 4)->get();
+    $s_other = [];
+    foreach ($other as $key => $value) {
+      $s_other[] = $value;
+    }
+
+    return [
+      [count($s_equ), count($s_ser), count($s_lay), count($s_other)],
+      [$s_vnu, $s_equ, $s_ser, $s_lay, $s_other],
+    ];
+  }
+
+  public function getCxlPrice($request)
+  {
+    $venueCxl = $this->checkCxlInput($request, 'cxl_venue_PC', $this->venue_price);
+    $equipmentCxl = $this->checkCxlInput($request, 'cxl_equipment_PC', $this->equipment_price);
+    $layoutCxl = $this->checkCxlInput($request, 'cxl_layout_PC', $this->layout_price);
+    $otherCxl = $this->checkCxlInput($request, 'cxl_other_PC', $this->others_price);
+
+    $subtotal = (int)$venueCxl + (int)$equipmentCxl + (int)$layoutCxl + (int)$otherCxl;
+    return [$venueCxl, $equipmentCxl, $layoutCxl, $otherCxl, $subtotal];
+    // 0会場　1備品　2レイアウト　3その他 4合計額
+  }
+
+  public function checkCxlInput($request, $targetName, $price)
+  {
+    if (!empty($request->{$targetName})) {
+      $target = $price;
+      $percent = $request->{$targetName};
+      $cxl = $target * ($percent * 0.01);
+      return floor($cxl);
+    } else {
+      return "";
+    }
   }
 }

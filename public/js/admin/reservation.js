@@ -169,12 +169,11 @@ function sumAllPrices() {
   var $others = Number($("input[name='others_price']").val());
   var result = $venue + $equipment + $layout + $others;
   $("input[name='master_subtotal']").val(result);
+  console.log($venue, $equipment, $layout, $others);
 
   var tax = 0.1;
   $("input[name='master_tax']").val(Math.floor(result * tax));
-
   $("input[name='master_total']").val(Math.floor(result + (result * tax)));
-
 }
 
 // input 各　計算

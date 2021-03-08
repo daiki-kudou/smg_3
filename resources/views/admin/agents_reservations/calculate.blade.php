@@ -3,7 +3,7 @@
 
 
 <link href="{{ asset('/css/template.css') }}" rel="stylesheet">
-<script src="{{ asset('/js/admin/reservation.js') }}"></script>
+{{-- <script src="{{ asset('/js/admin/reservation.js') }}"></script> --}}
 <script src="{{ asset('/js/ajax.js') }}"></script>
 <script src="{{ asset('/js/admin/validation.js') }}"></script>
 
@@ -457,7 +457,6 @@ if ($(this).parent().parent().parent().attr('class') == "others_main") {
               </td>
               <td>
                 {{ Form::text('enduser_address', $request->enduser_address,['class'=>'form-control', 'placeholder'=>'入力してください', 'id'=>'enduser_address'] ) }}
-                {{ Form::text('enduser_address', $request->enduser_address,['class'=>'form-control', 'placeholder'=>'入力してください', 'id'=>'enduser_address'] ) }}
               </td>
             </tr>
             <tr>
@@ -614,6 +613,7 @@ if ($(this).parent().parent().parent().attr('class') == "others_main") {
             </table>
           </div>
 
+          @if ($_equipment>0||$_service>0||$request->luggage_price>0)
 
           <div class="equipment billdetails_content">
             <table class="table table-borderless">
@@ -633,7 +633,6 @@ if ($(this).parent().parent().parent().attr('class') == "others_main") {
                 </tr>
               </tbody>
               <tbody class="equipment_main">
-
                 @foreach ($SPvenue->getEquipments() as $key=>$equipment)
                 @if ($request->{'equipment_breakdown'.$key}>0)
                 <tr>
@@ -646,7 +645,6 @@ if ($(this).parent().parent().parent().attr('class') == "others_main") {
                 </tr>
                 @endif
                 @endforeach
-
                 @foreach ($SPvenue->getServices() as $key=>$service)
                 @if ($request->{'services_breakdown'.$key}>0)
                 <tr>
@@ -659,7 +657,6 @@ if ($(this).parent().parent().parent().attr('class') == "others_main") {
                 </tr>
                 @endif
                 @endforeach
-
                 @if (!empty($request->luggage_price))
                 <tr>
                   <td>
@@ -673,9 +670,9 @@ if ($(this).parent().parent().parent().attr('class') == "others_main") {
               </tbody>
             </table>
           </div>
+          @endif
 
-
-
+          @if ($request->layout_prepare!=0&&$request->layout_clean!=0)
           <div class="layout billdetails_content">
             <table class="table table-borderless">
               <tbody>
@@ -731,6 +728,7 @@ if ($(this).parent().parent().parent().attr('class') == "others_main") {
               </tbody>
             </table>
           </div>
+          @endif
 
 
           <div class="others billdetails_content">

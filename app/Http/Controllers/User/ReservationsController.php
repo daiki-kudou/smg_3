@@ -16,7 +16,7 @@ class ReservationsController extends Controller
   {
     $oldSession = $request->session()->get('_old_input');
     if ($oldSession) {
-      var_dump($oldSession);
+
       $request = (object)$oldSession;
       $venue = Venue::find($oldSession['venue_id']);
       return view('user.reservations.create', compact('request', 'venue'));
@@ -43,7 +43,7 @@ class ReservationsController extends Controller
         $s_service[] = $value;
       }
     }
-    // var_dump(($s_service));
+    // 
 
     $items_results = $venue->calculate_items_price($s_equipment, $s_service);
 
@@ -99,7 +99,7 @@ class ReservationsController extends Controller
   public function cart(Request $request)
   {
     $sessions = $request->session()->get('session_reservations');
-    var_dump(($sessions));
+
     return view('user.reservations.cart', compact('sessions'));
   }
 
@@ -135,7 +135,7 @@ class ReservationsController extends Controller
     $sessions = $request->session()->get('session_reservations');
     foreach ($sessions as $key => $value) {
       $test = (object)$value[0];
-      var_dump(json_decode($test->price_result));
+
       $reservation = new Reservation;
       $reservation->ReserveFromUser(((object)$value[0]), $value[1]);
     }

@@ -225,7 +225,6 @@
           <p><span class="txt-indent">※ケータリングは弊社にてご予算に合ったものをご提供可能です。 お気軽に問い合わせ下さい。</span></p>
         </td>
       </tr>
-      <pre>{{var_dump(empty(json_decode($fix->items_results)[1]))}}</pre>
 
       <tr>
         <th>有料備品</th>
@@ -289,8 +288,7 @@
         </td>
       </tr>
 
-      {{-- <pre>{{var_dump($fix)}}
-      </pre> --}}
+
       @if ($venue->getLayouts()!=0)
       <tr>
         <th>レイアウト変更</th>

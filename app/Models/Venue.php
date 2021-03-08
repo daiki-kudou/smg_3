@@ -527,7 +527,7 @@ class Venue extends Model implements PresentableInterface
 
   public function calculate_items_price($selected_equipments, $selected_services)
   {
-    // var_dump($selected_services);
+    // 
     // 備品料金×個数
     $venue_equipments = $this->equipments()->get();
     $equipments_total = 0;

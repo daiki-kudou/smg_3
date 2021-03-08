@@ -191,7 +191,7 @@ class MultipleReserve extends Model implements PresentableInterface //プレゼ�
           ]);
         }
 
-        var_dump($requests->cp_master_luggage_price);
+
         if ($requests->cp_master_luggage_price) {
           $pre_bill->pre_breakdowns()->create([
             'unit_item' => '荷物預かり/返送',
@@ -230,9 +230,9 @@ class MultipleReserve extends Model implements PresentableInterface //プレゼ�
   public function UpdateAndReCreateAll($masterData, $venues_id)
   {
     // $numPreReservation = $this->pre_reservations()->get()->count();
-    // var_dump($numPreReservation);
+    // 
 
-    // var_dump($masterData);
+    // 
     $pre_reservations = $this->pre_reservations()->where('venue_id', $venues_id)->get();
 
     DB::transaction(function () use ($pre_reservations, $masterData) {

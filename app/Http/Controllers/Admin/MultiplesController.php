@@ -64,9 +64,6 @@ class MultiplesController extends Controller
   public function specificUpdate(Request $request, $multiple_id, $venue_id, $pre_reservation_id)
   {
     $pre_reservation = PreReservation::find($pre_reservation_id);
-    // echo "<pre>";
-    // var_dump($request->all());
-    // echo "</pre>";
 
     $result = $pre_reservation->reCalculateVenue($request, $venue_id);
 

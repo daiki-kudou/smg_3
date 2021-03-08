@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use phpDocumentor\Reflection\Types\Self_;
 
 class Equipment extends Model
 {
@@ -45,6 +46,16 @@ class Equipment extends Model
       }
     }
     return $s_equipment;
+  }
+
+  public static function sumArrays($request)
+  {
+    $arrays = self::getArrays($request);
+    $counter = 0;
+    foreach ($arrays as $key => $value) {
+      $counter += $value;
+    }
+    return $counter;
   }
 
   public static function getBreakdowns($request)

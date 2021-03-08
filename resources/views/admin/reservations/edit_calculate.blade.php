@@ -693,7 +693,6 @@
                 <td>金額</td>
               </tr>
             </tbody>
-            {{var_dump($price_details)}}
             @if ($price_details!=0)
             <tbody class="venue_main">
               @if ($price_details[1])
