@@ -496,14 +496,14 @@
                     </p>
                   </td>
                 </tr>
-                <tr>
+                <!-- <tr>
                   <td>
                     <p>申し込みフォーム備考</p>
                     <p>
                       {{$pre_reservation->user_details}}
                     </p>
                   </td>
-                </tr>
+                </tr> -->
                 <tr>
                   <td>
                     <p>管理者備考</p>
