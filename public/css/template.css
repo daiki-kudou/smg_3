@@ -230,7 +230,7 @@ table {
 /* 共通--------------------------------------- */
 
 .wrapper {
-    min-width: 1200px !important; 
+    min-width: 1000px !important; 
     margin: 0 auto !important;
 }
 

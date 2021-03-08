@@ -38,7 +38,7 @@
               <th>レイアウト</th>
               <th>荷物</th>
               <th>飲食</th>
-              <th>詳細</th>
+              <th class="btn-cell">詳細</th>
             </tr>
           </thead>
           <tbody>

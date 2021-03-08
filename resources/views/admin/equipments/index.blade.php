@@ -50,7 +50,7 @@
   <p class="text-right mb-2">※金額は税抜表記になります。</p>
     <div class="row">
       <div class="col-sm-12">
-        <table class="table table-striped table-bordered dataTable no-footer" id="DataTables_Table_0" role="grid">
+        <table class="table table-bordered dataTable no-footer" id="DataTables_Table_0" role="grid">
           <thead>
             <tr class="table_row" role="row">
               <th>ID</th>
@@ -59,7 +59,8 @@
               <th>料金</th>
               <th>数量</th>
               <th>備考</th>
-              <th>詳細(編集)・削除</th>
+              <th class="btn-cell">編集</th>
+              <th class="btn-cell">削除</th>
             </tr>
           </thead>
           <tbody>
@@ -71,10 +72,12 @@
               <td>{{ number_format($query->price )}}</td>
               <td>{{ $query->stock }}</td>
               <td>{{ $query->remark }}</td>
-              <td class="d-flex justify-content-around">
+              <td>
                 {{ link_to_route('admin.equipments.edit', '編集', $parameters = $query->id, ['class' => 'btn more_btn']) }}
                 {{ Form::model($query, ['route' => ['admin.equipments.destroy', $query->id], 'method' => 'delete']) }}
                 @csrf
+              </td>
+              <td>
                 {{ Form::submit('削除', ['class' => 'btn more_btn4']) }}
                 {{ Form::close() }}
               </td>
