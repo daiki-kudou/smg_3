@@ -234,11 +234,15 @@
           <tr>
             <td class="table-active">案内板</td>
             <td>
-              <div class="form-check form-check-inline">
-                {{Form::radio('board_flag', 1, $PreReservation->board_flag==1?true:false , ['id' => 'board_flag_on', 'class' => 'form-check-input'])}}
+              <div class="radio-box">
+                <p>
+                {{Form::radio('board_flag', 1, $PreReservation->board_flag==1?true:false , ['id' => 'board_flag_on'])}}
                 {{Form::label('board_flag_on','あり')}}
-                {{Form::radio('board_flag', 0, $PreReservation->board_flag==0?true:false, ['id' => 'board_flag_off', 'class' => 'form-check-input'])}}
+                </p>
+                <p>
+                {{Form::radio('board_flag', 0, $PreReservation->board_flag==0?true:false, ['id' => 'board_flag_off'])}}
                 {{Form::label('board_flag_off','なし')}}
+                </p>
               </div>
             </td>
           </tr>
@@ -518,11 +522,11 @@
                 @if ($PreReservation->email_flag!=0)
                 <div class="radio-box">
                   <p>
-                    {{Form::radio('email_flag', 1, true , ['id' => 'email_flag', 'class' => 'form-check-input'])}}
+                    {{Form::radio('email_flag', 1, true , ['id' => 'email_flag'])}}
                     <label for="{{'email_flag'}}" class="form-check-label"><span>有り</span></label>
                   </p>
                   <p>
-                    {{Form::radio('email_flag', 0, false, ['id' => 'no_email_flag', 'class' => 'form-check-input'])}}
+                    {{Form::radio('email_flag', 0, false, ['id' => 'no_email_flag'])}}
                     <label for="{{'no_email_flag'}}" class="form-check-label"><span>無し</span></label>
                   </p>
                 </div>
@@ -551,12 +555,12 @@
                 </p>
               </td>
             </tr>
-            <tr>
+            <!-- <tr>
               <td>
                 <label for="userNote">申し込みフォーム備考</label>
                 {{ Form::textarea('user_details', $PreReservation->user_details,['class'=>'form-control', 'placeholder'=>'入力してください'] ) }}
               </td>
-            </tr>
+            </tr> -->
             <tr>
               <td>
                 <label for="adminNote">管理者備考</label>
@@ -599,9 +603,9 @@
         <table class="table" style="table-layout: fixed">
           <tr>
             <td>
-              <h1 class="text-white">
+              <h2 class="text-white">
                 請求書No
-              </h1>
+              </h2>
             </td>
             <td>
               <dl class="ttl_box">

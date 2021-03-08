@@ -38,18 +38,17 @@
               </dl>
             </td>
 
+            <td>
+              <div class="d-flex justify-content-end align-items-center">
             @if ($pre_reservation->status==0)
-            <td class="text-right">
-              <a href="{{url('admin/pre_reservations/'.$pre_reservation->id.'/edit')}}" class="btn more_btn_lg">編集</a>
-            </td>
+              <a href="{{url('admin/pre_reservations/'.$pre_reservation->id.'/edit')}}" class="btn more_btn mr-2">編集</a>
             @endif
-
-            <td class="text-right">
               {{ Form::open(['url' => 'admin/pre_reservations/switch_status', 'method'=>'POST']) }}
               @csrf
               {{ Form::hidden('pre_reservation_id', $pre_reservation->id)}}
-              {{ Form::submit('承認（丸岡さんここのデザイン修正お願いします）', ['class' => 'btn more_btn_lg']) }}
+              {{ Form::submit('仮押さえ内容を確定する', ['class' => 'btn more_btn4']) }}
               {{ Form::close() }}
+              </div>
             </td>
         </tbody>
       </table>
@@ -507,14 +506,14 @@
                     </p>
                   </td>
                 </tr>
-                <tr>
+                <!-- <tr>
                   <td>
                     <p>申し込みフォーム備考</p>
                     <p>
                       {{$pre_reservation->user_details}}
                     </p>
                   </td>
-                </tr>
+                </tr> -->
                 <tr>
                   <td>
                     <p>管理者備考</p>
