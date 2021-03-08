@@ -227,6 +227,9 @@ table {
 }
 
 
+
+
+
 /* 共通--------------------------------------- */
 
 .wrapper {
@@ -447,6 +450,15 @@ table {
 .table_fixed {
     table-layout: fixed;
 }
+
+/* 備考の長さ制限 -----------------------------*/
+.remark_limit {
+    height: 100%;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    width: 150px;
+  }
 
 
 

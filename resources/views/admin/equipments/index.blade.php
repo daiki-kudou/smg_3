@@ -71,7 +71,9 @@
               <td>{{ $query->item }}</td>
               <td>{{ number_format($query->price )}}</td>
               <td>{{ $query->stock }}</td>
-              <td>{{ $query->remark }}</td>
+              <td>
+                <p class="remark_limit">{{ $query->remark }}</p>
+                </td>
               <td>
                 {{ link_to_route('admin.equipments.edit', '編集', $parameters = $query->id, ['class' => 'btn more_btn']) }}
                 {{ Form::model($query, ['route' => ['admin.equipments.destroy', $query->id], 'method' => 'delete']) }}
