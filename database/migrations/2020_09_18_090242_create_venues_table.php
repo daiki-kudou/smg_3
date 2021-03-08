@@ -19,8 +19,8 @@ class CreateVenuesTable extends Migration
       $table->string('name_area');
       $table->string('name_bldg');
       $table->string('name_venue');
-      $table->double('size1', 3, 1); //上限3桁、小数点1
-      $table->double('size2', 3, 1); //上限3桁、小数点1
+      $table->integer('size1');
+      $table->integer('size2');
       $table->integer('capacity');
       $table->integer('eat_in_flag');
       $table->string('post_code');

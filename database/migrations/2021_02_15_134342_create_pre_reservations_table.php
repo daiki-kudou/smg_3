@@ -39,7 +39,7 @@ class CreatePreReservationsTable extends Migration
       $table->text('attention')->nullable();
       $table->text('user_details')->nullable();
       $table->text('admin_details')->nullable();
-      $table->integer('status')->nullable();
+      $table->integer('status');
 
       $table->timestamps();
     });
