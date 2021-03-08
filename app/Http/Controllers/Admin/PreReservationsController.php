@@ -416,7 +416,6 @@ class PreReservationsController extends Controller
     $venues = Venue::all();
     $SPVenue = $venues->find($PreReservation->venue_id);
 
-
     return view(
       'admin.pre_reservations.edit',
       compact('PreReservation', 'users', 'venues', 'SPVenue')
@@ -432,124 +431,29 @@ class PreReservationsController extends Controller
    */
   public function update(Request $request, $id)
   {
-    // echo "<pre>";
-    // var_dump($request->all());
-    // echo "</pre>";
     $pre_reservation = PreReservation::find($id);
     $pre_reservation->Updates($request);
     $pre_bill = new PreBill;
     $pre_bill->PreBillCreate($request, $pre_reservation);
     $pre_breakdowns = new PreBreakdown;
     $pre_breakdowns->PreBreakdownCreate($request, $pre_reservation);
-
-
-
-
-
-    // DB::transaction(function () use ($request, $id) { //トランザクションさせる
-    //   $pre_reservation = PreReservation::find($id);
-    //   $pre_reservation->update([
-    //     'price_system' => $request->price_system,
-    //     'enter_time' => $request->enter_time,
-    //     'leave_time' => $request->leave_time,
-    //     'board_flag' => $request->board_flag,
-    //     'event_start' => $request->event_start,
-    //     'event_finish' => $request->event_finish,
-    //     'event_name1' => $request->event_name1,
-    //     'event_name2' => $request->event_name2,
-    //     'event_owner' => $request->event_owner,
-    //     'luggage_count' => $request->luggage_count,
-    //     'luggage_arrive' => $request->luggage_arrive,
-    //     'luggage_return' => $request->luggage_return,
-    //     'email_flag' => $request->email_flag,
-    //     'in_charge' => $request->in_charge,
-    //     'tel' => $request->tel,
-    //     'discount_condition' => $request->discount_condition,
-    //     'attention' => $request->attention,
-    //     'user_details' => $request->user_details,
-    //     'admin_details' => $request->admin_details,
-    //   ]);
-
-    //   $pre_reservation->pre_bill()->update([
-    //     'venue_price' => $request->venue_price,
-    //     'equipment_price' => $request->equipment_price ? $request->equipment_price : 0, //備品・サービス・荷物
-    //     'layout_price' => $request->layout_price ? $request->layout_price : 0,
-    //     'others_price' => $request->others_price ? $request->others_price : 0,
-    //     // 該当billの合計額関連
-    //     'master_subtotal' => $request->master_subtotal,
-    //     'master_tax' => $request->master_tax,
-    //     'master_total' => $request->master_total,
-    //   ]);
-
-    //   function toBreakDown($num, $sub, $target, $type)
-    //   {
-    //     $s_arrays = [];
-    //     foreach ($num as $key => $value) {
-    //       if (preg_match("/" . $sub . "/", $key)) {
-    //         $s_arrays[] = $value;
-    //       }
-    //     }
-    //     $counts = (count($s_arrays) / 4);
-    //     for ($i = 0; $i < $counts; $i++) {
-    //       $target->pre_breakdowns()->updateOrCreate([
-    //         'pre_bill_id' => $target->pre_bills->first()->id,
-    //         'unit_item' => $s_arrays[($i * 4)],
-    //         'unit_cost' => $s_arrays[($i * 4) + 1],
-    //         'unit_count' => $s_arrays[($i * 4) + 2],
-    //         'unit_subtotal' => $s_arrays[($i * 4) + 3],
-    //         'unit_type' => $type,
-    //       ]);
-    //     }
-    //   }
-    //   toBreakDown($request->all(), 'venue_breakdown', $pre_reservation, 1);
-    //   toBreakDown($request->all(), 'equipment_breakdown', $pre_reservation, 2);
-    //   toBreakDown($request->all(), 'services_breakdown', $pre_reservation, 3);
-    //   if ($request->others_price) {
-    //     toBreakDown($request->all(), 'others_input', $pre_reservation, 5);
-    //   }
-
-    //   if ($request->luggage_subtotal) {
-    //     $pre_reservation->pre_breakdowns()->updateOrCreate([
-    //       'pre_bill_id' => $pre_reservation->pre_bills->first()->id,
-    //       'unit_item' => $request->luggage_item,
-    //       'unit_cost' => $request->luggage_cost,
-    //       'unit_count' => 1,
-    //       'unit_subtotal' => $request->luggage_subtotal,
-    //       'unit_type' => 3,
-    //     ]);
-    //   }
-    //   if ($request->layout_price) {
-    //     toBreakDown($request->all(), 'layout_breakdown', $pre_reservation, 4);
-    //   }
-    //   if ($request->layout_breakdown_discount_item) {
-    //     $pre_reservation->pre_breakdowns()->updateOrCreate([
-    //       'unit_item' => $request->layout_breakdown_discount_item,
-    //       'unit_cost' => $request->layout_breakdown_discount_cost,
-    //       'unit_count' => $request->layout_breakdown_discount_count,
-    //       'unit_subtotal' => $request->layout_breakdown_discount_subtotal,
-    //       'unit_type' => 4,
-    //     ]);
-    //   }
-
-    //   if (
-    //     $request->unknown_user_company ||
-    //     $request->unknown_user_name ||
-    //     $request->unknown_user_email ||
-    //     $request->unknown_user_tel ||
-    //     $request->unknown_user_mobile
-    //   ) {
-    //     $pre_reservation->unknown_user()->updateOrCreate([
-    //       'pre_reservation_id' => $id,
-    //       'unknown_user_company' => $request->unknown_user_company,
-    //       'unknown_user_name' => $request->unknown_user_name,
-    //       'unknown_user_email' => $request->unknown_user_email,
-    //       'unknown_user_tel' => $request->unknown_user_tel,
-    //       'unknown_user_mobile' => $request->unknown_user_mobile
-    //     ]);
-    //   }
-    // });
+    $request->session()->regenerate();
+    return redirect()->route('admin.pre_reservations.index');
   }
 
+  public function get_user(Request $request)
+  {
+    $user = User::find($request->user_id);
+    return [
+      $user->company,
+      $user->first_name,
+      $user->last_name,
+      $user->email,
+      $user->mobile,
+      $user->tel,
+      $user->id
+    ];
+  }
 
   public function edit_update(Request $request, $id)
   {
