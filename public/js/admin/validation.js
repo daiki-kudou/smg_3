@@ -280,17 +280,20 @@ $(function () {
       size1: {
         required: true,
         number: true,
-        min: 0
+        min: 0,
+        max: 999,
       },
       size2: {
         required: true,
         number: true,
-        min: 0
+        min: 0,
+        max: 999,
+
       },
       capacity: {
         required: true,
         number: true,
-        min: 0
+        min: 0,
       },
       post_code: {
         required: true,
@@ -372,12 +375,14 @@ $(function () {
       size1: {
         required: "※必須項目です",
         number: "数字を入力してください",
-        min: "0以上を入力してください"
+        min: "0以上を入力してください",
+        max: '999以上は入力できません',
       },
       size2: {
         required: "※必須項目です",
         number: "数字を入力してください",
-        min: "0以上を入力してください"
+        min: "0以上を入力してください",
+        max: '999以上は入力できません',
       },
       capacity: {
         required: "※必須項目です",

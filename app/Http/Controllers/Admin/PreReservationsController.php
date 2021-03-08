@@ -17,8 +17,6 @@ use App\Models\PreReservation;
 use App\Models\MultipleReserve;
 
 
-
-
 class PreReservationsController extends Controller
 {
   /**
@@ -89,7 +87,8 @@ class PreReservationsController extends Controller
             'agent_id' => 0,
             'reserve_date' => $request->{'pre_date' . $i},
             'enter_time' => $request->{'pre_enter' . $i},
-            'leave_time' => $request->{'pre_leave' . $i}
+            'leave_time' => $request->{'pre_leave' . $i},
+            'status' => 0
           ]);
           if ($request->unknown_user_company) {
             $pre_reservations->unknown_user()->create([
@@ -111,9 +110,6 @@ class PreReservationsController extends Controller
   public function calculate(Request $request)
   {
     if ($request->judge_count == 1) { //単発仮押さえの計算
-
-
-
       $users = User::all();
       $venues = Venue::all();
       $venue = $venues->find($request->venue_id);
@@ -125,10 +121,6 @@ class PreReservationsController extends Controller
         $request->enter_time,
         $request->leave_time
       );
-
-
-
-
 
       $s_equipment = [];
       $s_services = [];
@@ -142,14 +134,6 @@ class PreReservationsController extends Controller
       }
       $item_details = $venue->calculate_items_price($s_equipment, $s_services);    // [0]備品＋サービス [1]備品詳細 [2]サービス詳細 [3]備品合計 [4]サービス合計
       $layouts_details = $venue->getLayoutPrice($request->layout_prepare, $request->layout_clean);
-
-
-
-
-
-
-
-
 
       if ($price_details == 0) { //枠がなく会場料金を手打ちするパターン
         $masters =
@@ -188,9 +172,7 @@ class PreReservationsController extends Controller
   public function re_calculate(Request $request)
   {
     if ($request->judge_count == 1) { //単発仮押さえの計算
-
       // 
-
       $users = User::all();
       $venues = Venue::all();
       $venue = $venues->find($request->venue_id);
@@ -202,7 +184,6 @@ class PreReservationsController extends Controller
         $request->enter_time,
         $request->leave_time
       );
-
 
       $s_equipment = [];
       $s_services = [];
@@ -216,10 +197,6 @@ class PreReservationsController extends Controller
       }
       $item_details = $venue->calculate_items_price($s_equipment, $s_services);    // [0]備品＋サービス [1]備品詳細 [2]サービス詳細 [3]備品合計 [4]サービス合計
       $layouts_details = $venue->getLayoutPrice($request->layout_prepare, $request->layout_clean);
-
-
-
-
 
       if ($price_details == 0) { //枠がなく会場料金を手打ちするパターン
         $masters =
@@ -268,10 +245,7 @@ class PreReservationsController extends Controller
   public function store(Request $request)
   {
     if ($request->judge_count == 1) { //単発仮押さえの保存
-
       // 
-
-
       DB::transaction(function () use ($request) { //トランザクションさせる
         $pre_reservation = PreReservation::create([
           'multiple_reserve_id' => 0, //単発はデフォで0
@@ -437,71 +411,16 @@ class PreReservationsController extends Controller
    */
   public function edit($id)
   {
-    $request = PreReservation::find($id);
+    $PreReservation = PreReservation::find($id);
     $users = User::all();
     $venues = Venue::all();
-    $venue = $venues->find($request->venue_id);
-    $equipments = $venue->equipments()->get();
-    $services = $venue->services()->get();
+    $SPVenue = $venues->find($PreReservation->venue_id);
 
-    $price_details = $venue->calculate_price( //[0]は合計料金, [1]は延長料金, [2]は合計＋延長、 [3]は利用時間, [4]は延長時間
-      $request->price_system,
-      $request->enter_time,
-      $request->leave_time
+
+    return view(
+      'admin.pre_reservations.edit',
+      compact('PreReservation', 'users', 'venues', 'SPVenue')
     );
-
-    $s_equipment = [];
-    $s_services = [];
-    foreach ($request->all() as $key => $value) {
-      if (preg_match('/equipment_breakdown/', $key)) {
-        $s_equipment[] = $value;
-      }
-      if (preg_match('/services_breakdown/', $key)) {
-        $s_services[] = $value;
-      }
-    }
-    $item_details = $venue->calculate_items_price($s_equipment, $s_services);    // [0]備品＋サービス [1]備品詳細 [2]サービス詳細 [3]備品合計 [4]サービス合計
-    $layouts_details = $venue->getLayoutPrice($request->layout_prepare, $request->layout_clean);
-
-    $s_venues = $request->pre_breakdowns()->where('unit_type', 1)->get();
-    $s_equipment = $request->pre_breakdowns()->where('unit_type', 2)->get();
-    $s_services = $request->pre_breakdowns()->where('unit_type', 3)->get();
-    $s_layouts = $request->pre_breakdowns()->where('unit_type', 4)->get();
-    $s_others = $request->pre_breakdowns()->where('unit_type', 5)->get();
-
-
-
-    if ($price_details == 0) { //枠がなく会場料金を手打ちするパターン
-      $masters =
-        ($item_details[0] + $request->luggage_price)
-        + $layouts_details[2];
-    } else {
-      $masters =
-        ($price_details[2] ? $price_details[2] : 0)
-        + ($item_details[0] + $request->luggage_price)
-        + $layouts_details[2];
-    }
-    $user = User::find($request->user_id);
-    $pay_limit = $user->getUserPayLimit($request->reserve_date);
-
-    return view('admin.pre_reservations.edit', [
-      'venues' => $venues,
-      'users' => $users,
-      'request' => $request,
-      'equipments' => $equipments,
-      'services' => $services,
-      's_equipment' => $s_equipment, //選択された備品
-      's_services' => $s_services, //選択されたサービス
-      's_layouts' => $s_layouts,
-      's_venues' => $s_venues,
-      's_others' => $s_others,
-      'price_details' => $price_details,
-      'item_details' => $item_details,
-      'layouts_details' => $layouts_details,
-      'masters' => $masters,
-      'pay_limit' => $pay_limit,
-      'user' => $user,
-    ]);
   }
 
   /**
@@ -513,10 +432,6 @@ class PreReservationsController extends Controller
    */
   public function update(Request $request, $id)
   {
-
-
-
-
     DB::transaction(function () use ($request, $id) { //トランザクションさせる
       $pre_reservation = PreReservation::find($id);
       $pre_reservation->update([
@@ -551,7 +466,6 @@ class PreReservationsController extends Controller
         'master_tax' => $request->master_tax,
         'master_total' => $request->master_total,
       ]);
-
 
       function toBreakDown($num, $sub, $target, $type)
       {
@@ -625,10 +539,6 @@ class PreReservationsController extends Controller
 
   public function edit_update(Request $request, $id)
   {
-
-
-
-
     DB::transaction(function () use ($request, $id) { //トランザクションさせる
       $pre_reservation = PreReservation::find($id);
       $pre_reservation->update([
@@ -658,9 +568,12 @@ class PreReservationsController extends Controller
         $bre->delete();
       }
       // 請求書削除
-      $pre_reservation->pre_bills->first()->delete();
+      $bill_del = $pre_reservation->pre_bill()->first()->delete();
       // 未登録ユーザー削除
-      $pre_reservation->unknown_user->first()->delete();
+      if (!empty($pre_reservation->unknown_user)) {
+        $pre_reservation->unknown_user->delete();
+      }
+
 
       // 再作成
       $pre_bills = $pre_reservation->pre_bill()->create([
@@ -760,6 +673,17 @@ class PreReservationsController extends Controller
     });
     $request->session()->regenerate();
     return redirect()->route('admin.pre_reservations.index');
+  }
+
+  public function switchStatus(Request $request)
+  {
+    DB::transaction(function () use ($request) {
+      $PreReservation = PreReservation::find($request->pre_reservation_id);
+      $PreReservation->update(['status' => 2]);
+    });
+    $request->session()->regenerate();
+    return redirect()->route('admin.pre_reservations.show', $request->pre_reservation_id);
+    // メール送信必要
   }
 
 

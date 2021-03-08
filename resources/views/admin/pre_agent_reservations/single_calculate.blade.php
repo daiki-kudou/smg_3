@@ -385,12 +385,12 @@
                   {{ Form::text('luggage_return', $request->luggage_return,['class'=>'form-control'] ) }}
                 </td>
               </tr>
-              <tr>
+              <!-- <tr>
                 <td class="table-active">荷物預かり/返送<br>料金</td>
                 <td>
                   {{ Form::text('luggage_price', $request->luggage_price,['class'=>'form-control'] ) }}
                 </td>
-              </tr>
+              </tr> -->
               @endif
             </tbody>
           </table>
@@ -432,12 +432,12 @@
                 {{ Form::textarea('attention', $request->attention,['class'=>'form-control', 'placeholder'=>'入力してください'] ) }}
               </td>
             </tr>
-            <tr>
+            <!-- <tr>
               <td>
                 <label for="userNote">申し込みフォーム備考</label>
                 {{ Form::textarea('user_details', $request->user_details,['class'=>'form-control', 'placeholder'=>'入力してください'] ) }}
               </td>
-            </tr>
+            </tr> -->
             <tr>
               <td>
                 <label for="adminNote">管理者備考</label>

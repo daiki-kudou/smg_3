@@ -49,13 +49,13 @@
       @csrf
       <section class="m-5 border-inwrap">
         <div class="mb-2">
-          <p>同じ内容をすべての日程に反映することができます。</p>
+          <!-- <p>同じ内容をすべての日程に反映することができます。</p> -->
         </div>
         <dl class="card">
           <dt class="card-header accordion-ttl">
             <ul class="title-icon d-flex">
-              <li class="col-3">
-                <p>コピー作成用選択欄</p>
+              <li>
+                <p>すべての日程に反映したい場合はこちらから選択ください</p>
               </li>
             </ul>
           </dt>
@@ -434,7 +434,7 @@
         <!-- コピー作成用フィールド   終わり--------------------------------------------------　 -->
         <div class="btn_wrapper">
           <p class="text-center">
-            {{ Form::submit('計算する', ['class' => 'btn more_btn_lg mt-3'])}}
+            {{ Form::submit('すべての日程に反映する', ['class' => 'btn more_btn_lg mt-3'])}}
             {{ Form::close() }}
           </p>
         </div>
@@ -709,7 +709,7 @@
                         </th>
                       </tr>
                     </thead>
-                    <tbody class="accordion-wrap">
+                    <tbody>
                       @if ($venue->getLuggage()===1)
                       <tr>
                         <td class="table-active">事前に預かる荷物<br>（個数）</td>
@@ -1310,7 +1310,6 @@
     </section>
 
 
-    <!-- コピー作成用フィールド ------------------------------------------------------------->
 
     <!-- 詳細選択画面--終わり------------------------------------------------　 -->
 
