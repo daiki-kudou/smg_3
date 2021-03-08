@@ -28,166 +28,169 @@
 
 <section class="section-wrap">
   <div class="calendar">
-    <iframe src="{{url('admin/calendar/date_calendar')}}" width="100%" height="500">Your browser isn't compatible</iframe>
+    <iframe src="{{url('admin/calendar/date_calendar')}}" width="100%" height="500">Your browser isn't
+      compatible</iframe>
   </div>
 
-{{Form::open(['url' => 'admin/pre_reservations/check', 'method' => 'POST', 'id'=>'pre_reservationCreateForm'])}}
-@csrf
+  {{Form::open(['url' => 'admin/pre_reservations/check', 'method' => 'POST', 'id'=>'pre_reservationCreateForm'])}}
+  @csrf
 
-<div class="user_selector mt-5">
-  <h3 class="mb-2">顧客検索</h3>
-  <select name="user_id" id="user_id">
-    <option value="#">選択してください</option>
-    @foreach ($users as $user)
-    <option value="{{$user->id}}">
-      {{$user->id}} | {{ReservationHelper::getCompany($user->id)}} | {{ReservationHelper::getPersonName($user->id)}} |
-      {{$user->email}} | {{$user->tel}} | {{$user->mobile}}
-    </option>
-    @endforeach
-  </select>
-</div>
+  <div class="user_selector mt-5">
+    <h3 class="mb-2">顧客検索</h3>
+    <select name="user_id" id="user_id">
+      <option value="#">選択してください</option>
+      @foreach ($users as $user)
+      <option value="{{$user->id}}">
+        {{$user->id}} | {{ReservationHelper::getCompany($user->id)}} | {{ReservationHelper::getPersonName($user->id)}} |
+        {{$user->email}} | {{$user->tel}} | {{$user->mobile}}
+      </option>
+      @endforeach
+    </select>
+  </div>
 
-<div class="selected_user mt-5">
-  <table class="table table-bordered" style="table-layout: fixed;">
-    <thead>
-      <tr>
-        <th>顧客情報</th>
-        <th colspan="3">顧客ID：<p class="user_id d-inline"></p>
-        </th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td class="table-active">会社名・団体名</td>
-        <td colspan="3">
-          <p class="company"></p>
-        </td>
-      </tr>
-      <tr>
-        <td class="table-active">担当者指名</td>
-        <td>
-          <p class="person"></p>
-        </td>
-        <td class="table-active">メールアドレス</td>
-        <td>
-          <p class="email"></p>
-        </td>
-      </tr>
-      <tr>
-        <td class="table-active">携帯番号</td>
-        <td>
-          <p class="mobile"></p>
-        </td>
-        <td class="table-active">固定電話</td>
-        <td>
-          <p class="tel"></p>
-        </td>
-      </tr>
-    </tbody>
-  </table>
-</div>
+  <div class="selected_user mt-5">
+    <table class="table table-bordered" style="table-layout: fixed;">
+      <thead>
+        <tr>
+          <th>顧客情報</th>
+          <th colspan="3">顧客ID：<p class="user_id d-inline"></p>
+          </th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td class="table-active">会社名・団体名</td>
+          <td colspan="3">
+            <p class="company"></p>
+          </td>
+        </tr>
+        <tr>
+          <td class="table-active">担当者指名</td>
+          <td>
+            <p class="person"></p>
+          </td>
+          <td class="table-active">メールアドレス</td>
+          <td>
+            <p class="email"></p>
+          </td>
+        </tr>
+        <tr>
+          <td class="table-active">携帯番号</td>
+          <td>
+            <p class="mobile"></p>
+          </td>
+          <td class="table-active">固定電話</td>
+          <td>
+            <p class="tel"></p>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
 
-<div class="unknown_user mt-5">
-  <table class="table table-bordered" style="table-layout: fixed;">
-    <thead>
-      <tr>
-        <th colspan="4">顧客情報（顧客登録がされていない場合）</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td class="table-active">会社名・団体名</td>
-        <td>
-          {{ Form::text('unknown_user_company', '',['class'=>'form-control'] ) }}
-        </td>
-        <td colspan="2"></td>
-      </tr>
-      <tr>
-        <td class="table-active">担当者指名</td>
-        <td>
-          {{ Form::text('unknown_user_name', '',['class'=>'form-control'] ) }}
-        </td>
-        <td class="table-active">メールアドレス</td>
-        <td>
-          {{ Form::text('unknown_user_email', '',['class'=>'form-control'] ) }}
-        </td>
-      </tr>
-      <tr>
-        <td class="table-active">携帯番号</td>
-        <td>
-          {{ Form::text('unknown_user_mobile', '',['class'=>'form-control'] ) }}
-        </td>
-        <td class="table-active">固定電話</td>
-        <td>
-          {{ Form::text('unknown_user_tel', '',['class'=>'form-control'] ) }}
-        </td>
-      </tr>
-    </tbody>
-  </table>
-</div>
+  <div class="unknown_user mt-5">
+    <table class="table table-bordered" style="table-layout: fixed;">
+      <thead>
+        <tr>
+          <th colspan="4">顧客情報（顧客登録がされていない場合）</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td class="table-active">会社名・団体名</td>
+          <td>
+            {{ Form::text('unknown_user_company', '',['class'=>'form-control'] ) }}
+          </td>
+          <td colspan="2"></td>
+        </tr>
+        <tr>
+          <td class="table-active">担当者指名</td>
+          <td>
+            {{ Form::text('unknown_user_name', '',['class'=>'form-control'] ) }}
+          </td>
+          <td class="table-active">メールアドレス</td>
+          <td>
+            {{ Form::text('unknown_user_email', '',['class'=>'form-control'] ) }}
+          </td>
+        </tr>
+        <tr>
+          <td class="table-active">携帯番号</td>
+          <td>
+            {{ Form::text('unknown_user_mobile', '',['class'=>'form-control'] ) }}
+          </td>
+          <td class="table-active">固定電話</td>
+          <td>
+            {{ Form::text('unknown_user_tel', '',['class'=>'form-control'] ) }}
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
 
-<hr>
-<div class="date_selector mt-5">
-  <h3 class="mb-2 pt-3">日程選択</h3>
-  <table class="table table-bordered" style="table-layout: fixed;">
-    <thead>
-      <tr>
-        <td>日付</td>
-        <td>会場名</td>
-        <td>入室時間</td>
-        <td>退室時間</td>
-        <td>追加・削除</td>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td>{{ Form::text('pre_date0', '',['class'=>'form-control', 'id'=>"pre_datepicker"] ) }}</td>
-        <td>
-          <select name="pre_venue0" id="pre_venue">
-            @foreach ($venues as $venue)
-            <option value="{{$venue->id}}">{{ReservationHelper::getVenue($venue->id)}}</option>
-            @endforeach
-          </select>
-        </td>
-        <td>
-          <select name="pre_enter0" id="pre_enter0" class="form-control">
-            <option value=""></option>
-            @for ($start = 0*2; $start <=23*2; $start++) <option value="{{date("H:i:s", strtotime("00:00 +". $start * 30 ." minute"))}}">
-              {{date("H時i分", strtotime("00:00 +". $start * 30 ." minute"))}}
-              </option>
-              @endfor
-          </select>
-        </td>
-        <td>
-          <select name="pre_leave0" id="pre_leave0" class="form-control">
-            <option value=""></option>
-            @for ($start = 0*2; $start <=23*2; $start++) <option value="{{date("H:i:s", strtotime("00:00 +". $start * 30 ." minute"))}}">
-              {{date("H時i分", strtotime("00:00 +". $start * 30 ." minute"))}}
-              </option>
-              @endfor
-          </select>
-        </td>
-        <td>
-          <input type="button" value="＋" class="add pluralBtn">
-          <input type="button" value="ー" class="del pluralBtn">
-        </td>
-      </tr>
-    </tbody>
-  </table>
-</div>
+  <hr>
+  <div class="date_selector mt-5">
+    <h3 class="mb-2 pt-3">日程選択</h3>
+    <table class="table table-bordered" style="table-layout: fixed;">
+      <thead>
+        <tr>
+          <td>日付</td>
+          <td>会場名</td>
+          <td>入室時間</td>
+          <td>退室時間</td>
+          <td>追加・削除</td>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>{{ Form::text('pre_date0', '',['class'=>'form-control', 'id'=>"pre_datepicker"] ) }}</td>
+          <td>
+            <select name="pre_venue0" id="pre_venue">
+              @foreach ($venues as $venue)
+              <option value="{{$venue->id}}">{{ReservationHelper::getVenue($venue->id)}}</option>
+              @endforeach
+            </select>
+          </td>
+          <td>
+            <select name="pre_enter0" id="pre_enter0" class="form-control">
+              <option value=""></option>
+              @for ($start = 0*2; $start <=23*2; $start++) <option
+                value="{{date("H:i:s", strtotime("00:00 +". $start * 30 ." minute"))}}">
+                {{date("H時i分", strtotime("00:00 +". $start * 30 ." minute"))}}
+                </option>
+                @endfor
+            </select>
+          </td>
+          <td>
+            <select name="pre_leave0" id="pre_leave0" class="form-control">
+              <option value=""></option>
+              @for ($start = 0*2; $start <=23*2; $start++) <option
+                value="{{date("H:i:s", strtotime("00:00 +". $start * 30 ." minute"))}}">
+                {{date("H時i分", strtotime("00:00 +". $start * 30 ." minute"))}}
+                </option>
+                @endfor
+            </select>
+          </td>
+          <td>
+            <input type="button" value="＋" class="add pluralBtn">
+            <input type="button" value="ー" class="del pluralBtn">
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
 
-<div class="submit_btn mt-5">
+  <div class="submit_btn mt-5">
     {{Form::submit('日程をおさえる', ['class'=>'btn more_btn_lg mx-auto d-block', 'id'=>'check_submit'])}}
-</div>
-
-<div class="spin_btn hide">
-  <div class="d-flex justify-content-center">
-    <button class="btn btn-primary btn-lg" type="button" disabled>
-      <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
-      Loading...
-    </button>
   </div>
-</div>
+
+  <div class="spin_btn hide">
+    <div class="d-flex justify-content-center">
+      <button class="btn btn-primary btn-lg" type="button" disabled>
+        <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+        Loading...
+      </button>
+    </div>
+  </div>
 </section>
 
 {{Form::close()}}
@@ -268,7 +271,10 @@
         console.log($('.date_selector tbody tr').eq(destroy).find('td').eq(1).find('select').select2("destroy"));
       }
 
+      var base_venue=$(this).parent().parent().find('td').eq(1).find('select').val();
+      console.log(base_venue);
       $(this).parent().parent().clone(true).insertAfter($(this).parent().parent());
+      $(this).parent().parent().next().find("td").eq(1).find("select option[value="+base_venue+"]").prop('selected',true);
       var count = $(this).parent().parent().parent().find('tr').length;
       var target = $(this).parent().parent().parent().find('tr');
 
@@ -297,6 +303,7 @@
           $(target).eq(index).find('td').eq(2).find('input, select').val('');
           $(target).eq(index).find('td').eq(3).find('input, select').val('');
         }
+
       }
     })
     // マイナスボタン
