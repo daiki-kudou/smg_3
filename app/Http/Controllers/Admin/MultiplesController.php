@@ -8,6 +8,10 @@ use Illuminate\Http\Request;
 use App\Models\MultipleReserve;
 use App\Models\PreReservation;
 use App\Models\Venue;
+use App\Models\User;
+
+use Illuminate\Support\Facades\DB; //トランザクション用
+
 
 class MultiplesController extends Controller
 {
@@ -30,8 +34,43 @@ class MultiplesController extends Controller
       'multiple' => $multiple,
       'venue_count' => $venue_count,
       'venues' => $venues,
+
     ]);
   }
+
+  public function switch($id)
+  {
+    $multiple = MultipleReserve::find($id);
+    $venues = $multiple->pre_reservations()->distinct('')->select('venue_id')->get();
+    $venue_count = $venues->count('venue_id');
+    $users = User::all();
+
+    return view('admin.multiples.switch', [
+      'multiple' => $multiple,
+      'venue_count' => $venue_count,
+      'venues' => $venues,
+      'users' => $users,
+    ]);
+  }
+
+  public function switch_cfm(Request $request, $id)
+  {
+    DB::transaction(function () use ($request, $id) { //トランザクションさせる
+      $multiple = MultipleReserve::find($id);
+      foreach ($multiple->pre_reservations()->get() as $key => $pre_reservation) {
+        $pre_reservation->update([
+          'user_id' => $request->user_id
+        ]);
+      }
+    });
+    $request->session()->regenerate();
+    return redirect('admin/multiples/' . $id);
+  }
+
+
+
+
+
 
   public function edit($multiple_id, $venue_id)
   {
