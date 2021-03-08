@@ -70,7 +70,9 @@
               <td>{{ ReservationHelper::formatDate($query->created_at) }}</td>
               <td>{{ $query->item }}</td>
               <td>{{ number_format($query->price) }}</td>
-              <td>{{ $query->remark }}</td>
+              <td>
+                <p class="remark_limit">{{ $query->remark }}</p>
+              </td>
               <td>
                 {{ link_to_route('admin.services.edit', '編集', $parameters = $query->id, ['class' => 'btn more_btn']) }}
                 {{ Form::model($query, ['route' => ['admin.services.destroy', $query->id], 'method' => 'delete']) }}
