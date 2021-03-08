@@ -41,6 +41,10 @@ class CreatePreReservationsTable extends Migration
       $table->text('admin_details')->nullable();
       $table->integer('status');
 
+      $table->integer('eat_in')->nullable();
+      $table->integer('eat_in_prepare')->nullable();
+
+
       $table->timestamps();
     });
   }

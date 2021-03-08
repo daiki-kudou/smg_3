@@ -47,6 +47,8 @@ class PreReservation extends Model
     'bill_pay_limit',
     'bill_remark',
     'status',
+    'eat_in',
+    'eat_in_prepare',
 
   ];
   protected $dates = [

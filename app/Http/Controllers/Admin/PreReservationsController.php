@@ -112,13 +112,14 @@ class PreReservationsController extends Controller
   public function calculate(Request $request)
   {
     if ($request->judge_count == 1) { //単発仮押さえの計算
+      var_dump($request->all());
       $users = User::all();
       $venues = Venue::all();
-      $venue = $venues->find($request->venue_id);
-      $equipments = $venue->equipments()->get();
-      $services = $venue->services()->get();
+      $SpVenue = $venues->find($request->venue_id);
+      $equipments = $SpVenue->equipments()->get();
+      $services = $SpVenue->services()->get();
 
-      $price_details = $venue->calculate_price( //[0]は合計料金, [1]は延長料金, [2]は合計＋延長、 [3]は利用時間, [4]は延長時間
+      $price_details = $SpVenue->calculate_price( //[0]は合計料金, [1]は延長料金, [2]は合計＋延長、 [3]は利用時間, [4]は延長時間
         $request->price_system,
         $request->enter_time,
         $request->leave_time
@@ -134,8 +135,8 @@ class PreReservationsController extends Controller
           $s_services[] = $value;
         }
       }
-      $item_details = $venue->calculate_items_price($s_equipment, $s_services);    // [0]備品＋サービス [1]備品詳細 [2]サービス詳細 [3]備品合計 [4]サービス合計
-      $layouts_details = $venue->getLayoutPrice($request->layout_prepare, $request->layout_clean);
+      $item_details = $SpVenue->calculate_items_price($s_equipment, $s_services);    // [0]備品＋サービス [1]備品詳細 [2]サービス詳細 [3]備品合計 [4]サービス合計
+      $layouts_details = $SpVenue->getLayoutPrice($request->layout_prepare, $request->layout_clean);
 
       if ($price_details == 0) { //枠がなく会場料金を手打ちするパターン
         $masters =
@@ -152,6 +153,7 @@ class PreReservationsController extends Controller
 
       return view('admin.pre_reservations.single_calculate', [
         'venues' => $venues,
+        'SpVenue' => $SpVenue,
         'users' => $users,
         'request' => $request,
         'equipments' => $equipments,
@@ -245,7 +247,6 @@ class PreReservationsController extends Controller
   public function store(Request $request)
   {
     if ($request->judge_count == 1) { //単発仮押さえの保存
-      // 
       DB::transaction(function () use ($request) { //トランザクションさせる
         $pre_reservation = PreReservation::create([
           'multiple_reserve_id' => 0, //単発はデフォで0
@@ -273,6 +274,8 @@ class PreReservationsController extends Controller
           'user_details' => $request->user_details,
           'admin_details' => $request->admin_details,
           'status' => 0, //デフォで0この時点でユーザーにはメールは送付されない
+          'eat_in' => $request->eat_in,
+          'eat_in_prepare' => $request->eat_in_prepare,
         ]);
 
         $pre_bills = $pre_reservation->pre_bill()->create([
