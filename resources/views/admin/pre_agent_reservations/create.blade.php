@@ -1,7 +1,5 @@
 @extends('layouts.admin.app')
-
 @section('content')
-
 
 <link href="{{ asset('/css/template.css') }}" rel="stylesheet">
 <script src="{{ asset('/js/template.js') }}"></script>
@@ -13,11 +11,22 @@
     </div>
   </div>
 </div>
+<div class="container-field">
+  <div class="float-right">
+    <nav aria-label="breadcrumb">
+      <ol class="breadcrumb">
+        <li class="breadcrumb-item active">
+        ダミーダミーダミー
+        </li>
+      </ol>
+    </nav>
+  </div>
+  <h2 class="mt-3 mb-3">仲介会社　仮押さえ 新規作成</h2>
+  <hr>
+</div>
 
 
-
-<h1>仲介会社　仮押さえ 新規作成</h1>
-
+<section class="section-wrap">
 <div class="calendar">
   <iframe src="{{url('admin/calendar/date_calendar')}}" width="100%" height="500">Your browser isn't compatible</iframe>
 </div>
@@ -26,7 +35,7 @@
 @csrf
 
 <div class="user_selector mt-5">
-  <h1>仲介会社情報</h1>
+<h3 class="mb-2">仲介会社情報</h3>
   <select name="agent_id" id="agent_id">
     <option value="">選択してください</option>
     @foreach ($agents as $agent)
@@ -44,50 +53,67 @@
   <table class="table table-bordered" style="table-layout: fixed;">
     <thead>
       <tr>
-        <th colspan="4">仲介会社の顧客情報</th>
+      <th colspan="4">エンドユーザー情報</th>
       </tr>
     </thead>
     <tbody>
-      <tr>
+    <tr>
         <td class="table-active">会社名・団体名</td>
         <td>
           {{ Form::text('pre_enduser_company', '',['class'=>'form-control'] ) }}
         </td>
-        <td colspan="2"></td>
-      </tr>
-      <tr>
-        <td class="table-active">担当者指名</td>
+        <td class="table-active">担当者氏名</td>
         <td>
           {{ Form::text('pre_enduser_name', '',['class'=>'form-control'] ) }}
         </td>
-        <td class="table-active">メールアドレス</td>
+      </tr>
+      <tr>
+        <td class="table-active">住所</td>
+        <td>
+        ダミーダミーダミーダミー
+          <!-- {{ Form::text('pre_enduser_name', '',['class'=>'form-control'] ) }} -->
+        </td>
+        <td class="table-active">電話番号</td>
+        <td>
+          {{ Form::text('pre_enduser_tel', '',['class'=>'form-control'] ) }}
+        </td>
+      </tr>
+      <tr>
+      <td class="table-active">当日連絡先</td>
+        <td>
+          {{ Form::text('pre_enduser_mobile', '',['class'=>'form-control'] ) }}
+        </td>
+      <td class="table-active">メールアドレス</td>
         <td>
           {{ Form::text('pre_enduser_email', '',['class'=>'form-control'] ) }}
         </td>
       </tr>
       <tr>
-        <td class="table-active">携帯番号</td>
+      <td class="table-active">利用者属性</td>
         <td>
-          {{ Form::text('pre_enduser_mobile', '',['class'=>'form-control'] ) }}
-        </td>
-        <td class="table-active">固定電話</td>
-        <td>
-          {{ Form::text('pre_enduser_tel', '',['class'=>'form-control'] ) }}
+          <select name="" id="">
+            <option value="">一般企業</option>
+            <option value="">上場企業</option>
+            <option value="">近隣利用</option>
+            <option value="">講師・セミナー</option>
+            <option value="">ネットワーク</option>
+            <option value="">その他</option>
+          </select>
         </td>
       </tr>
     </tbody>
   </table>
 </div>
 
-<div class="date_selector">
-  <h1>日程選択</h1>
+<div class="date_selector mt-5">
+<h3 class="mb-2 pt-3">日程選択</h3>
   <table class="table table-bordered" style="table-layout: fixed;">
     <thead>
       <tr>
         <td>日付</td>
         <td>会場名</td>
         <td>入室時間</td>
-        <td>体質時間</td>
+        <td>退室時間</td>
         <td>追加・削除</td>
       </tr>
     </thead>
@@ -124,7 +150,7 @@
 
 <div class="submit_btn">
   <div class="d-flex justify-content-center">
-    {{Form::submit('確認する', ['class'=>'btn btn-primary btn-lg ', 'id'=>'check_submit'])}}
+    {{Form::submit('日程をおさえる', ['class'=>'btn more_btn_lg d-block btn-lg mx-auto my-5', 'id'=>'check_submit'])}}
   </div>
 </div>
 
@@ -137,11 +163,8 @@
   </div>
 </div>
 
-
+</section>
 {{Form::close()}}
-
-
-
 
 <script defer="defer">
   // 初期カレンダーのside var 非表示

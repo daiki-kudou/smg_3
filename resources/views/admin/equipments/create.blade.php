@@ -31,7 +31,8 @@
 
     {{ Form::open(['url' => 'admin/equipments', 'method'=>'POST', 'id'=>'EquipmentsCreateForm']) }}
     @csrf
-    <table class="table table-striped table-bordered mt-5">
+    <p class="text-right mt-5">※金額は税抜で入力してください。</p>
+    <table class="table table-striped table-bordered">
       <thead>
         <tr>
           <th>id</th>

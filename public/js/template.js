@@ -444,6 +444,15 @@ $(function () {
   });
 })
 
+  //アコーディオン
+  $(function () {
+    $(".accordion-wrap").hide();
+    $(".accordion-ttl").on("click", function () {
+      $(this).next().slideToggle("fast");
+      $(this).find(".title-icon").toggleClass("active");
+    });
+  });
+
 
 
 

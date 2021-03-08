@@ -47,6 +47,7 @@
   <section class="section-wrap">
 
     <!-- 会場URL ---------------------------------------------------->
+    <p class="text-right">※金額は税抜で入力してください。</p>
     <div class="row">
       <div class="col">
         <table class="table table-bordered">

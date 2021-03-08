@@ -239,20 +239,16 @@
 
             <div class="equipemnts">
               <table class="table table-bordered equipment-table">
-                <thead>
+                <thead class="accordion-ttl">
                   <tr>
                     <th colspan="2">
-                      <div class="d-flex justify-content-between align-items-center">
-                        <p class="title-icon fw-bolder py-1">
-                          <i class="fas fa-wrench icon-size fa-fw"></i>有料備品
-                        </p>
-                        <i class="fas fa-plus icon_plus hide" aria-hidden="true"></i>
-                        <i class="fas fa-minus icon_minus" aria-hidden="true"></i>
-                      </div>
+                      <p class="title-icon fw-bolder py-1">
+                        <i class="fas fa-wrench icon-size fa-fw"></i>有料備品
+                      </p>
                     </th>
                   </tr>
                 </thead>
-                <tbody>
+                <tbody class="accordion-wrap">
                   @foreach ($equipments as $equipment)
                   <tr>
                     <td class="justify-content-between d-flex">
@@ -266,20 +262,16 @@
 
             <div class="services">
               <table class="table table-bordered service-table">
-                <thead>
+                <thead class="accordion-ttl">
                   <tr>
                     <th colspan="2">
-                      <div class="d-flex justify-content-between align-items-center">
-                        <p class="title-icon fw-bolder py-1">
-                          <i class="fas fa-hand-holding-heart icon-size fa-fw"></i>有料サービス
-                        </p>
-                        <i class="fas fa-plus icon_plus hide"></i>
-                        <i class="fas fa-minus icon_minus"></i>
-                      </div>
+                      <p class="title-icon fw-bolder py-1">
+                        <i class="fas fa-hand-holding-heart icon-size fa-fw"></i>有料サービス
+                      </p>
                     </th>
                   </tr>
                 </thead>
-                <tbody>
+                <tbody class="accordion-wrap">
                   <tr>
                     <td colspan="2">
                       <ul class="icheck-primary">
@@ -316,7 +308,7 @@
                     </td>
                   </tr>
                   <tr>
-                    <td class="table-active"><label for="prelayout">レイアウト準備</label>
+                    <td class="table-active"><label for="prelayout">準備</label>
                     </td>
                     <td>
                       @if ($layouts)
@@ -329,7 +321,7 @@
                     </td>
                   </tr>
                   <tr>
-                    <td class="table-active"><label for="postlayout">レイアウト片付</label>
+                    <td class="table-active"><label for="postlayout">片付</label>
                     </td>
                     <td>
                       @if ($layouts)
@@ -504,14 +496,14 @@
                     </p>
                   </td>
                 </tr>
-                <!-- <tr>
+                <tr>
                   <td>
                     <p>申し込みフォーム備考</p>
                     <p>
                       {{$pre_reservation->user_details}}
                     </p>
                   </td>
-                </tr> -->
+                </tr>
                 <tr>
                   <td>
                     <p>管理者備考</p>
@@ -868,28 +860,28 @@
 
 
       <div class="bill_total">
-          <table class="table text-right">
-            <tbody>
-              <tr>
-                <td>小計：</td>
-                <td>
-                  {{number_format($pre_reservation->pre_bill->first()->master_subtotal)}}
-                </td>
-              </tr>
-              <tr>
-                <td>消費税：</td>
-                <td>
-                  {{number_format($pre_reservation->pre_bill->first()->master_tax)}}
-                </td>
-              </tr>
-              <tr>
-                <td class="font-weight-bold">合計金額</td>
-                <td>
-                  {{number_format($pre_reservation->pre_bill->first()->master_total)}}
-                </td>
-              </tr>
-            </tbody>
-          </table>
+        <table class="table text-right">
+          <tbody>
+            <tr>
+              <td>小計：</td>
+              <td>
+                {{number_format($pre_reservation->pre_bill->first()->master_subtotal)}}
+              </td>
+            </tr>
+            <tr>
+              <td>消費税：</td>
+              <td>
+                {{number_format($pre_reservation->pre_bill->first()->master_tax)}}
+              </td>
+            </tr>
+            <tr>
+              <td class="font-weight-bold">合計金額</td>
+              <td>
+                {{number_format($pre_reservation->pre_bill->first()->master_total)}}
+              </td>
+            </tr>
+          </tbody>
+        </table>
       </div>
     </div>
   </div>

@@ -47,10 +47,7 @@
 
 
   <div id="DataTables_Table_0_wrapper" class="dataTables_wrapper form-inline dt-bootstrap no-footer">
-    <div class="row">
-      <div class="col-sm-6"></div>
-      <div class="col-sm-6"></div>
-    </div>
+  <p class="text-right mb-2">※金額は税抜表記になります。</p>
     <div class="row">
       <div class="col-sm-12">
         <table class="table table-striped table-bordered dataTable no-footer" id="DataTables_Table_0" role="grid">

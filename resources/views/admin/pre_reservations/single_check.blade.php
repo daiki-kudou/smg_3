@@ -168,12 +168,12 @@
             <td class="table-active">案内板</td>
             <td>
               <div class="radio-box">
-              <p>
-                <input type="radio" name="board_flag" value="0" checked=""><span>無し</span>
-              </p>
-              <p>
-                <input type="radio" name="board_flag" value="1"><span>有り</span>
-              </p>
+                <p>
+                  <input type="radio" name="board_flag" value="0" checked=""><span>無し</span>
+                </p>
+                <p>
+                  <input type="radio" name="board_flag" value="1"><span>有り</span>
+                </p>
               </div>
             </td>
           </tr>
@@ -225,20 +225,16 @@
 
         <div class="equipemnts">
           <table class="table table-bordered" style="table-layout: fixed;">
-            <thead>
+            <thead class="accordion-ttl">
               <tr>
                 <th colspan="2">
-                  <div class="d-flex justify-content-between align-items-center">
-                    <p class="title-icon fw-bolder py-1">
-                      <i class="fas fa-wrench icon-size fa-fw"></i>有料備品
-                    </p>
-                    <i class="fas fa-plus icon_plus hide" aria-hidden="true"></i>
-                    <i class="fas fa-minus icon_minus" aria-hidden="true"></i>
-                  </div>
+                  <p class="title-icon fw-bolder py-1">
+                    <i class="fas fa-wrench icon-size fa-fw"></i>有料備品
+                  </p>
                 </th>
               </tr>
             </thead>
-            <tbody>
+            <tbody class="accordion-wrap">
               @foreach ($equipments as $key=>$equipment)
               <tr>
                 <td class="table-active">
@@ -254,18 +250,16 @@
         </div>
         <div class="services">
           <table class="table table-bordered">
-            <thead>
+            <thead class="accordion-ttl">
               <tr>
                 <th colspan="2">
-                  <div class="d-flex justify-content-between align-items-center">
-                    有料サービス
-                    <i class="fas fa-plus icon_plus hide" aria-hidden="true"></i>
-                    <i class="fas fa-minus icon_minus" aria-hidden="true"></i>
-                  </div>
+                  <p class="title-icon fw-bolder py-1">
+                    <i class="fas fa-hand-holding-heart icon-size fa-fw"></i>有料サービス
+                  </p>
                 </th>
               </tr>
             </thead>
-            <tbody>
+            <tbody class="accordion-wrap">
               @foreach ($services as $key=>$service)
               <tr>
                 <td class="table-active">
@@ -412,14 +406,14 @@
               <td class="table-active"><label for="email_flag">送信メール</label></td>
               <td>
                 <div class="radio-box">
-                <p>
-                  {{Form::radio('email_flag', 1, false , ['id' => 'email_flag', 'class' => 'form-check-input'])}}
-                  <label for="{{'email_flag'}}" class="form-check-label"><span>有り</span></label>
-                </p>
-                <p>
-                  {{Form::radio('email_flag', 0, true, ['id' => 'no_email_flag', 'class' => 'form-check-input'])}}
-                  <label for="{{'no_email_flag'}}" class="form-check-label"><span>無し</span></label>
-                  </div>
+                  <p>
+                    {{Form::radio('email_flag', 1, false , ['id' => 'email_flag', 'class' => 'form-check-input'])}}
+                    <label for="{{'email_flag'}}" class="form-check-label"><span>有り</span></label>
+                  </p>
+                  <p>
+                    {{Form::radio('email_flag', 0, true, ['id' => 'no_email_flag', 'class' => 'form-check-input'])}}
+                    <label for="{{'no_email_flag'}}" class="form-check-label"><span>無し</span></label>
+                </div>
                 </p>
               </td>
             </tr>

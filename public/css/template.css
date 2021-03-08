@@ -447,13 +447,12 @@ table {
 
 /* アコーディオン ------------------------------------------*/
 
-
 .accordion-ttl .title-icon {
     display: block;
     position: relative;
+    cursor: pointer;
 }
 
-/* 二本の横棒を作成する */
 .accordion-ttl .title-icon::before,
 .accordion-ttl .title-icon::after {
     content: '';
@@ -465,31 +464,24 @@ table {
     position: absolute;
     right: 0;
     top: 50%;
-    transform: translateY(-50%);
+    transform: translateY(-50%) rotate(0deg);
 }
 
-/* 2本の横棒のうち一本は縦棒にする */
-.title-icon::after {
+.accordion-ttl .title-icon::after {
     background: #35a7a7;
-    /* 横棒を縦にするために90℃回転させる */
     transform: translateY(-50%) rotate(90deg);
-    /* プラスからマイナスへの切り替えをゆっくり行いアニメーションさせる */
-    /* transition: 0.5s; */
+    transition: 0.5s;
 }
 
-/*
-  プラスがクリックされたら縦棒を横にしてマイナスにする疑似要素
-  jQueryで付け外しを行う
-  */
-.title-icon.active::after {
-    transform: rotate(0);
-    /* transition: 0.5s; */
+.accordion-ttl .title-icon.active::after {
+    transform: translateY(-50%) rotate(0deg);
+    transition: 0.5s;
 }
 
-.plus_icon {
+/* .plus_icon {
     display: block;
     position: relative;
-    /* width: 20px; */
+    width: 20px;
     width: 100%;
     height: 20px;
     cursor: pointer;
@@ -511,16 +503,14 @@ table {
 
 .plus_icon::after {
     background: #35a7a7;
-    /* 横棒を縦にするために90℃回転させる */
     transform: translateY(-50%) rotate(90deg);
-    /* プラスからマイナスへの切り替えをゆっくり行いアニメーションさせる */
-    /* transition: 0.5s; */
+    transition: 0.5s;
 }
 
 .plus_icon.active::after {
     transform: rotate(0);
-    /* transition: 0.5s; */
-}
+    transition: 0.5s;
+} */
 
 /* 検索--------------------------------------- */
 
@@ -645,7 +635,7 @@ table td.table_column p:last-child {
 .border-wrap {
     border: 2px solid #35a7a7;
     /* padding: 30px; */
-    margin: 50px 3%;
+    margin: 50px 0;
 }
 
 .border-wrap2 {
@@ -664,9 +654,13 @@ table td.table_column p:last-child {
 }
 
 .radio-box {
-    display: flex;
-    justify-content: space-around;
-    width: 60%;
+    /* display: flex; */
+    display: inline-flex;
+    /* justify-content: space-around; */
+}
+
+.radio-box p {
+    margin-right: 1em;
 }
 
 .radio-box span {
@@ -757,7 +751,7 @@ table td.table_column p:last-child {
 }
 
 .border-inwrap {
-    border: 2px solid #35a7a7;
+    border: 1px solid #35a7a7;
     padding: 3%;
 }
 
@@ -778,8 +772,12 @@ table td.table_column p:last-child {
 
 .register-list-header {
     display: flex;
-    padding: 20px 0;
+    padding: 20px;
     align-items: center;
+}
+
+.register-list {
+    padding: 0 25px;
 }
 
 .register-list-header li:nth-of-type(n + 2) {
@@ -787,24 +785,31 @@ table td.table_column p:last-child {
 }
 
 .register-list-item {
-    display: flex;
-    align-items: center;
+    /* display: flex; */
+    /* align-items: center; */
+    padding-left: 40px;
+    position: relative;
     margin-bottom: 0;
+}
+
+.list_checkbox {
+    position: absolute;
+    top: 17px;
+    left: -5px;
 }
 
 .register-list-item dl {
     width: 100%;
+    margin-bottom: 15px;
 }
 
 .alert-box {
     color: #EF6243;
-    margin: 0 auto;
+    margin: 2em auto;
     width: 600px;
     font-weight: bold;
     padding: 2em;
     border: 1px solid #ef6243;
-    /* margin-bottom: 50px; */
-    margin-bottom: 2em;
 }
 
 .alert-icon {
@@ -1115,6 +1120,29 @@ h3 {
 .others_discount {
     border: solid 1px #555555 !important;
 }
+
+.venue_discount td:first-child,
+.equipment_discount td:first-child,
+.layout_discount td:first-child,
+.others_discount td:first-child {
+    padding: 3em 0 3em 3em;
+}
+
+.venue_discount .form-control,
+.equipment_discount .form-control,
+.layout_discount .form-control,
+.others_discount .form-control {
+    margin-right: 0.1em;
+}
+
+.venue_discount div,
+.equipment_discount div,
+.layout_discount div,
+.others_discount div {
+    align-items: flex-end;
+}
+
+
 
 .venue_result td,
 .equipment_result td,

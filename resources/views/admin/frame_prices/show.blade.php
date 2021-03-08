@@ -16,8 +16,9 @@
   <hr>
 </div>
 
+<section class="section-wrap">
+<p class="text-right">※金額は税抜表記になります。</p>
 @if (count($frame_prices)==0 && count($time_prices)==0)
-<div class="section-wrap">
   <div class="w-100">
     <span class="d-block mb-2">会場</span>
     <strong class="border border-light d-block"
@@ -32,10 +33,9 @@
       {{ link_to_route('admin.time_prices.create', 'アクセア料金体系で登録（時間貸し料金）', $parameters=$venue->id,['class' => 'btn more_btn']) }}
     </div>
   </div>
-</div>
 @else
 
-<div class="section-wrap">
+<div class="mt-5">
   <span>会場</span>
   <div class="form-group">
     {{ $venue->name_area}}{{ $venue->name_bldg}}{{ $venue->name_venue}}
@@ -74,7 +74,7 @@
 
 
 
-<div class="section-wrap">
+<div class="mt-5">
   <span>会場</span>
   <div class="form-group">
     {{ $venue->name_area}}{{ $venue->name_bldg}}{{ $venue->name_venue}}
@@ -111,4 +111,5 @@
   </div>
 </div>
 @endif
+</section>
 @endsection

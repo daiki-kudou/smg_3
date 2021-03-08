@@ -30,7 +30,8 @@
     {{ Form::model($eqipment, ['route' => ['admin.equipments.update', $eqipment->id], 'method' => 'put', 'id'=>'EquipmentsUpdateForm']) }}
     @csrf
 
-    <table class="table table-striped table-bordered mt-5">
+    <p class="text-right  mt-5">※金額は税抜で入力してください。</p>
+    <table class="table table-striped table-bordered">
       <thead>
         <tr>
           <th>ID</th>
