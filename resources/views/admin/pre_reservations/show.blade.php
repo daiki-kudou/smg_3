@@ -37,8 +37,19 @@
                 <dd class="total_result">{{$pre_reservation->id}}</dd>
               </dl>
             </td>
+
+            @if ($pre_reservation->status==0)
             <td class="text-right">
               <a href="{{url('admin/pre_reservations/'.$pre_reservation->id.'/edit')}}" class="btn more_btn_lg">編集</a>
+            </td>
+            @endif
+
+            <td class="text-right">
+              {{ Form::open(['url' => 'admin/pre_reservations/switch_status', 'method'=>'POST']) }}
+              @csrf
+              {{ Form::hidden('pre_reservation_id', $pre_reservation->id)}}
+              {{ Form::submit('承認（丸岡さんここのデザイン修正お願いします）', ['class' => 'btn more_btn_lg']) }}
+              {{ Form::close() }}
             </td>
         </tbody>
       </table>

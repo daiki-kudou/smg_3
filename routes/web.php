@@ -217,6 +217,8 @@ Route::namespace('Admin')->prefix('admin')->name('admin.')->group(function () {
     Route::put('pre_reservations/{pre_reservation}/edit_update', 'PreReservationsController@edit_update');
     // 仮押さえ　削除
     Route::post('pre_reservations/destroy', 'PreReservationsController@destroy');
+    // 仮押さえ　ステータス変更。管理者は編集不可に。ユーザーからの編集受付開始
+    Route::post('pre_reservations/switch_status', 'PreReservationsController@switchStatus')->name('pre_reservations.switch_status');
     // 一括仮押さえ index
     Route::get('multiples', 'MultiplesController@index');
     // 一括仮押さえ show
