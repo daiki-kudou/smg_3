@@ -227,6 +227,10 @@ table {
     font-size: 1rem;
 }
 
+select:disabled {
+    color: red;
+}
+
 
 
 
@@ -654,7 +658,7 @@ table td.table_column p:last-child {
 .border-wrap {
     border: 2px solid #35a7a7;
     /* padding: 30px; */
-    margin: 50px 0;
+    margin: 3% 0;
 }
 
 .border-wrap2 {
@@ -774,6 +778,8 @@ table td.table_column p:last-child {
     /* padding: 10px; */
     /* border: solid 1px #ced4da; */
 }
+
+
 
 .border-inwrap {
     border: 1px solid rgb(53 167 167 / 40%);
@@ -1040,9 +1046,10 @@ h3 {
 /* 請求内容CSS ------------------------------------------------------*/
 
 .bill_head {
-    background: #35a7a7;
+    /* background: #35a7a7; */
+    background: rgb(53 167 167 / 80%);
     table-layout: fixed;
-    padding: 10px;
+    /* padding: 10px; */
     /* border: solid 1px #ced4da; */
 }
 
@@ -1404,4 +1411,18 @@ table .master_total_subttl {
 
 .accordion-list li {
     margin-right: 1.5em;
+}
+
+.ttl_box2 {
+    width: 60%;
+    height: 50px;
+    background: #fff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    /* font-size: 1.3rem; */
+}
+
+.ttl_box2 dt {
+    margin-right: 1em;
 }
