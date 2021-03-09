@@ -61,7 +61,7 @@
         <dl class="card">
           <dt class="card-header accordion-ttl">
             <ul class="title-icon d-flex">
-              <li class="col-3">
+              <li>
                 <p>すべての日程に反映したい場合はこちらから選択ください</p>
               </li>
               <!-- <li class="plus_icon">

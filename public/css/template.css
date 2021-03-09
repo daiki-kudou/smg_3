@@ -5,7 +5,7 @@ html {
 }
 
 body {
-    font-family:-apple-system, 'Helvetica Neue','Hiragino Kaku Gothic ProN', '游ゴシック','メイリオ',meiryo,sans-serif;
+    font-family: -apple-system, 'Helvetica Neue', 'Hiragino Kaku Gothic ProN', '游ゴシック', 'メイリオ', meiryo, sans-serif;
     font-size: 12px;
 }
 
@@ -176,6 +176,7 @@ table.dataTable thead .sorting_desc:after {
 .select2-container--default .select2-selection--single {
     border: 1px solid #ced4da;
 }
+
 /****************************
 
 ↓↓↓以下　丸岡　CSS↓↓↓
@@ -233,7 +234,7 @@ table {
 /* 共通--------------------------------------- */
 
 .wrapper {
-    min-width: 1000px !important; 
+    min-width: 1000px !important;
     margin: 0 auto !important;
 }
 
@@ -393,7 +394,7 @@ table {
 
 .bg-status {
     /* background: #35a7a7 !important; */
-    background: #dcdcdc!important;
+    background: #dcdcdc !important;
     /* color: #fff; */
 }
 
@@ -438,7 +439,8 @@ table {
 }
 
 
-.nav-tabs .nav-link.active, .nav-tabs .nav-item.show .nav-link {
+.nav-tabs .nav-link.active,
+.nav-tabs .nav-item.show .nav-link {
     color: #495057;
     background-color: #ddd;
 }
@@ -458,7 +460,7 @@ table {
     white-space: nowrap;
     text-overflow: ellipsis;
     width: 150px;
-  }
+}
 
 
 
@@ -729,6 +731,7 @@ table td.table_column p:last-child {
     color: #fff;
     margin-bottom: 0;
 }
+
 /* 
 .checkbox dt {
     margin-bottom: 0;
@@ -737,8 +740,13 @@ table td.table_column p:last-child {
 
 .confirm-box {
     background: #ffe7e1;
-    margin: 0 3%;
+    /* margin: 0 3%; */
     padding: 3%;
+}
+
+.confirm_inner {
+    width: 60%;
+    margin: 0 auto;
 }
 
 .notion {
@@ -768,7 +776,7 @@ table td.table_column p:last-child {
 }
 
 .border-inwrap {
-    border: 1px solid #35a7a7;
+    border: 1px solid rgb(53 167 167 / 40%);
     padding: 3%;
 }
 
@@ -843,7 +851,8 @@ table td.table_column p:last-child {
 
 }
 
-.checkbox, #all_check {
+.checkbox,
+#all_check {
     width: 14px;
     height: 14px;
     -moz-transform: scale(1.4);
@@ -1087,8 +1096,9 @@ h3 {
     height: 50px;
 }
 
-.bill_details,.information_details {
- margin-bottom: 2px;
+.bill_details,
+.information_details {
+    margin-bottom: 2px;
 }
 
 .billdetails_content {
@@ -1194,6 +1204,7 @@ h3 {
     width: 95%;
     margin: 0 auto;
 }
+
 .bill_total table {
     width: 45%;
     margin-left: auto;
@@ -1246,7 +1257,7 @@ table .master_total_subttl {
 }
 
 .master_total_bottom td {
-    padding-right: 3em; 
+    padding-right: 3em;
 }
 
 .payment_situation {
@@ -1277,22 +1288,22 @@ table .master_total_subttl {
 
 
 /* 追加請求のチェックボックス -------------------*/
-  .venue_chkbox label,
-  .equipment_chkbox label,
-  .layout_chkbox label,
-  .others_chkbox label {
+.venue_chkbox label,
+.equipment_chkbox label,
+.layout_chkbox label,
+.others_chkbox label {
     padding-left: 40px;
     font-size: 1.5rem;
     line-height: 32px;
     display: inline-block;
     cursor: pointer;
     position: relative;
-  }
+}
 
-  .venue_chkbox label:before,
-  .equipment_chkbox label:before,
-  .layout_chkbox label:before,
-  .others_chkbox label:before {
+.venue_chkbox label:before,
+.equipment_chkbox label:before,
+.layout_chkbox label:before,
+.others_chkbox label:before {
     content: '';
     width: 32px;
     height: 32px;
@@ -1302,56 +1313,56 @@ table .master_total_subttl {
     background-color: #fff;
     box-shadow: inset 1px 2px 3px 0px #000;
     border-radius: 6px 6px 6px 6px;
-  }
+}
 
-  .venue_chkbox input[type=checkbox],
-  .equipment_chkbox input[type=checkbox],
-  .layout_chkbox input[type=checkbox],
-  .others_chkbox input[type=checkbox] {
+.venue_chkbox input[type=checkbox],
+.equipment_chkbox input[type=checkbox],
+.layout_chkbox input[type=checkbox],
+.others_chkbox input[type=checkbox] {
     display: none;
-  }
+}
 
-  .venue_chkbox input[type=checkbox]:checked+label:before,
-  .equipment_chkbox input[type=checkbox]:checked+label:before,
-  .layout_chkbox input[type=checkbox]:checked+label:before,
-  .others_chkbox input[type=checkbox]:checked+label:before {
+.venue_chkbox input[type=checkbox]:checked+label:before,
+.equipment_chkbox input[type=checkbox]:checked+label:before,
+.layout_chkbox input[type=checkbox]:checked+label:before,
+.others_chkbox input[type=checkbox]:checked+label:before {
     content: '\2713';
     font-size: 34px;
     color: #fff;
     background-color: #007BFF;
-  }
+}
 
-  /* キャンセル -----------------------------------------------------*/
-  .bill_head_cancel {
+/* キャンセル -----------------------------------------------------*/
+.bill_head_cancel {
     background: #ee6243;
     table-layout: fixed;
-  }
+}
 
-  .cancel_content {
+.cancel_content {
     margin: 5%;
-  }
+}
 
-  .cancel_border {
+.cancel_border {
     padding: 3%;
     border: solid 1px #dee2e6;
-  }
+}
 
-  .cancel_ttl {
+.cancel_ttl {
     margin: 0.5em 0 1.3em;
-  }
+}
 
-  .head_cancel {
+.head_cancel {
     border-top: solid 1px #dee2e6 !important;
     border-bottom: solid 1px #dee2e6 !important;
-  }
+}
 
-  .multiple {
+.multiple {
     font-size: 1.8em;
-  }
+}
 
-  .venue_head_cancel td:last-child {
+.venue_head_cancel td:last-child {
     width: 30%;
-  }
+}
 
 /* 請求内容CSS終わり -----------------------------------*/
 
@@ -1376,7 +1387,21 @@ table .master_total_subttl {
 }
 
 
-/* マイページ =============================================================*/	
-.nav-tabs .nav-item {	
-    border: 1px solid #ddd;	
-    }
+/* マイページ =============================================================*/
+.nav-tabs .nav-item {
+    border: 1px solid #ddd;
+}
+
+.notion_wrap {
+    padding: 3%;
+    border: 1px solid #ddd;
+}
+
+.notion_inner {
+    width: 50%;
+    margin: 2em auto;
+}
+
+.accordion-list li {
+    margin-right: 1.5em;
+}
