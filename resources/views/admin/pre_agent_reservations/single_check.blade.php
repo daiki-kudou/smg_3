@@ -17,7 +17,7 @@
       <thead>
         <tr>
           <th>仲介会社情報</th>
-          <th colspan="3">顧客ID：<p class="user_id d-inline">{{$request->user_id}}</p>
+          <th colspan="3">顧客ID：<p class="user_id d-inline">{{$request->agent_id}}</p>
           </th>
         </tr>
       </thead>
@@ -83,7 +83,7 @@
         <tr>
           <td class="table-active">住所</td>
           <td>
-            ダミーダミーダミーダミー
+            {{ Form::text('pre_enduser_address', ($request->pre_enduser_address),['class'=>'form-control', 'readonly'] ) }}
           </td>
           <td class="table-active">電話番号</td>
           <td>
@@ -103,7 +103,8 @@
         <tr>
           <td class="table-active">利用者属性</td>
           <td>
-            ダミーダミーダミー
+            {{ Form::text('', ReservationHelper::getEndUser($request->pre_enduser_attr),['class'=>'form-control', 'readonly'] ) }}
+            {{ Form::hidden('pre_enduser_attr', ($request->pre_enduser_attr),['class'=>'form-control', 'readonly'] ) }}
           </td>
         </tr>
       </tbody>
@@ -203,8 +204,21 @@
             <td>
               <div>
                 <select name="event_start" id="event_start" class="form-control">
-                  {!!ReservationHelper::timeOptions()!!}
+                  <option disabled>選択してください</option>
+                  @for ($start = 0*2; $start <=23*2; $start++) <option
+                    value="{{date("H:i:s", strtotime("00:00 +". $start * 30 ." minute"))}}" @if (date("H:i:s",
+                    strtotime("00:00 +". $start * 30 ." minute"))<$request->pre_enter0)
+                    disabled
+                    @elseif(date("H:i:s", strtotime("00:00 +". $start * 30 ." minute"))>$request->pre_leave0)
+                    disabled
+                    @endif
+                    >
+                    {{date("H時i分", strtotime("00:00 +". $start * 30 ." minute"))}}</option>
+                    @endfor
                 </select>
+                {{-- <select name="event_start" id="event_start" class="form-control">
+                  {!!ReservationHelper::timeOptions()!!}
+                </select> --}}
               </div>
             </td>
           </tr>
@@ -213,8 +227,21 @@
             <td>
               <div>
                 <select name="event_finish" id="event_finish" class="form-control">
-                  {!!ReservationHelper::timeOptions()!!}
+                  <option disabled>選択してください</option>
+                  @for ($start = 0*2; $start <=23*2; $start++) <option
+                    value="{{date("H:i:s", strtotime("00:00 +". $start * 30 ." minute"))}}" @if (date("H:i:s",
+                    strtotime("00:00 +". $start * 30 ." minute"))>$request->pre_leave0)
+                    disabled
+                    @elseif(date("H:i:s",strtotime("00:00 +". $start * 30 ." minute"))<$request->pre_enter0)
+                      disabled
+                      @endif
+                      >
+                      {{date("H時i分", strtotime("00:00 +". $start * 30 ." minute"))}}</option>
+                      @endfor
                 </select>
+                {{-- <select name="event_finish" id="event_finish" class="form-control">
+                  {!!ReservationHelper::timeOptions()!!}
+                </select> --}}
               </div>
             </td>
           </tr>
@@ -361,7 +388,7 @@
               <tr>
                 <td class="table-active">事前荷物の到着日<br>午前指定のみ</td>
                 <td>
-                  {{ Form::text('luggage_arrive', '',['class'=>'form-control', 'id'=>'datepicker1'] ) }}
+                  {{ Form::text('luggage_arrive', '',['class'=>'form-control', 'id'=>'datepicker9'] ) }}
                 </td>
               </tr>
               <tr>
@@ -466,5 +493,16 @@
 {{Form::close()}}
 
 
+<script>
+  $(function(){
+    var maxTarget=$('input[name="reserve_date"]').val();
+    $('#datepicker9').datepicker({
+      dateFormat: 'yy-mm-dd',
+      minDate: 0,
+      maxDate:maxTarget,
+      autoclose: true,
+    });
+  })
 
+</script>
 @endsection

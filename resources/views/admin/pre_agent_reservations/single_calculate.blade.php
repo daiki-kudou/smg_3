@@ -88,7 +88,7 @@
         <tr>
           <td class="table-active">住所</td>
           <td>
-            ダミーダミーダミー
+            {{ Form::text('pre_enduser_address', ($request->pre_enduser_address),['class'=>'form-control', 'readonly'] ) }}
           </td>
           <td class="table-active">電話番号</td>
           <td>
@@ -108,7 +108,8 @@
         <tr>
           <td class="table-active">利用者属性</td>
           <td>
-            ダミーダミーダミーダミー
+            {{ Form::text('', ReservationHelper::getEndUser($request->pre_enduser_attr),['class'=>'form-control', 'readonly'] ) }}
+            {{ Form::hidden('pre_enduser_attr', ($request->pre_enduser_attr),['class'=>'form-control', 'readonly'] ) }}
           </td>
         </tr>
       </tbody>
@@ -148,12 +149,12 @@
                   </div>
                   <div class="price_radio_selector">
                     <div class="d-flex justfy-content-start align-items-center">
-                      <input class="mr-2" id="price_system_radio1" name="price_system" type="radio" value="1">
-                      <label for="price_system_radio1">通常（枠貸）</label>
+                      {{Form::radio('price_system',1,true,['class'=>'mr-2','id'=>'price_system_radio1'])}}
+                      {{Form::label('price_system_radio1','通常（枠貸）')}}
                     </div>
                     <div class="d-flex justfy-content-start align-items-center">
-                      <input class="mr-2" id="price_system_radio2" name="price_system" type="radio" value="2">
-                      <label for="price_system_radio2">アクセア（時間貸）</label>
+                      {{Form::radio('price_system',2,false,['class'=>'mr-2','id'=>'price_system_radio2'])}}
+                      {{Form::label('price_system_radio2','アクセア（時間貸）')}}
                     </div>
                   </div>
                 </div>
@@ -211,7 +212,9 @@
             <td>
               <select name="event_start" id="event_start" class="form-control">
                 <option disabled></option>
-                @for ($start = 0*2; $start <=23*2; $start++) <option value="{{date("H:i:s", strtotime("00:00 +". $start * 30 ." minute"))}}" @if(date("H:i:s",strtotime("00:00 +". $start * 30 ." minute"))==$request->enter_time)
+                @for ($start = 0*2; $start <=23*2; $start++) <option
+                  value="{{date("H:i:s", strtotime("00:00 +". $start * 30 ." minute"))}}"
+                  @if(date("H:i:s",strtotime("00:00 +". $start * 30 ." minute"))==$request->enter_time)
                   selected
                   @endif>
                   {{date("H時i分", strtotime("00:00 +". $start * 30 ." minute"))}}
@@ -225,7 +228,9 @@
             <td>
               <select name="event_finish" id="event_finish" class="form-control">
                 <option disabled></option>
-                @for ($start = 0*2; $start <=23*2; $start++) <option value="{{date("H:i:s", strtotime("00:00 +". $start * 30 ." minute"))}}" @if(date("H:i:s",strtotime("00:00 +". $start * 30 ." minute"))==$request->event_finish)
+                @for ($start = 0*2; $start <=23*2; $start++) <option
+                  value="{{date("H:i:s", strtotime("00:00 +". $start * 30 ." minute"))}}"
+                  @if(date("H:i:s",strtotime("00:00 +". $start * 30 ." minute"))==$request->event_finish)
                   selected
                   @endif>
                   {{date("H時i分", strtotime("00:00 +". $start * 30 ." minute"))}}
@@ -474,7 +479,8 @@
               <td>
                 <dl class="ttl_box">
                   <dt>合計金額</dt>
-                  <dd class="total_result">{{number_format(ReservationHelper::taxAndPrice(floor($price+$venue->getLayouts()[2])))}}</dd>
+                  <dd class="total_result">
+                    {{number_format(ReservationHelper::taxAndPrice(floor($price+$venue->getLayouts()[2])))}}</dd>
                 </dl>
               </td>
               <!-- <td style="font-size: 16px;">
@@ -734,6 +740,11 @@
 {{ Form::hidden('attention', $request->attention) }}
 {{ Form::hidden('user_details', $request->user_details) }}
 {{ Form::hidden('admin_details', $request->admin_details) }}
+
+{{ Form::hidden('pre_enduser_attr', ($request->pre_enduser_attr),['class'=>'form-control', 'readonly'] ) }}
+{{ Form::hidden('pre_enduser_address', ($request->pre_enduser_address),['class'=>'form-control', 'readonly'] ) }}
+
+
 {{Form::submit('保存する', ['class'=>'btn more_btn_lg d-block btn-lg mx-auto my-5', 'id'=>'check_submit'])}}
 {{Form::close()}}
 

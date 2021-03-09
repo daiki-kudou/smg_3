@@ -392,4 +392,28 @@ class ReservationHelper
     $clean = $venue->layout_clean;
     return [$prepare, $clean];
   }
+
+  public static function getEndUser($enduser)
+  {
+    switch ($enduser) {
+      case 0:
+        return "一般企業";
+        break;
+      case 1:
+        return "上場企業";
+        break;
+      case 2:
+        return "近隣利用";
+        break;
+      case 3:
+        return "講師・セミナー";
+        break;
+      case 4:
+        return "ネットワーク";
+        break;
+      case 5:
+        return "その他";
+        break;
+    }
+  }
 }
