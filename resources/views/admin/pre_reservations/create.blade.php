@@ -452,7 +452,6 @@
         } else {
           $(this).find('option').prop('disabled', true);
         }
-
         var masterTr = $('.date_selector tbody tr').length;
         for (let trs = 0; trs < masterTr; trs++) {
           var targetDate = $('.date_selector tbody tr').eq(trs).find('td').eq(0).find('input').val();
@@ -481,16 +480,17 @@
               },
             }).done(function($targettimes) {
               $('#fullOverlay').css('display', 'none');
-              var arrays = [];
+              var arrays2 = [];
+              console.log(arrays2);
               thisoption.each(function($index, $value) {
                 if ($($value).val() == $targettimes[1]) {
                   $($value).prop('disabled', true);
                   for (let counts = $index; counts < $index + ($targettimes[0] + 1); counts++) {
-                    arrays.push(counts);
+                    arrays2.push(counts);
                   }
                 }
               });
-              $.each(arrays, function($i, $v) {
+              $.each(arrays2, function($i, $v) {
                 thisoption.eq($v).prop('disabled', true);
               });
             }).fail(function($targettimes) {
