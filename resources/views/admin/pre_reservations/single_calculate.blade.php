@@ -539,11 +539,11 @@
                 @else
                 <div class="radio-box">
                   <p>
-                    {{Form::radio('email_flag', 1, false , ['id' => 'email_flag', 'class' => 'form-check-input'])}}
+                    {{Form::radio('email_flag', 1, false , ['id' => 'email_flag'])}}
                     <label for="{{'email_flag'}}" class="form-check-label">有り</label>
                   </p>
                   <p>
-                    {{Form::radio('email_flag', 0, true, ['id' => 'no_email_flag', 'class' => 'form-check-input'])}}
+                    {{Form::radio('email_flag', 0, true, ['id' => 'no_email_flag'])}}
                     <label for="{{'no_email_flag'}}" class="form-check-label">無し</label>
                   </p>
                 </div>
@@ -756,7 +756,7 @@
                   </td>
                 </tr>
               </tbody>
-              <tbody class="venue_discount">
+              <!-- <tbody class="venue_discount">
                 <tr>
                   <td>割引計算欄</td>
                   <td>
@@ -781,7 +781,7 @@
                     <input class="btn more_btn venue_discount_btn" type="button" value="計算する">
                   </td>
                 </tr>
-              </tbody>
+              </tbody> -->
               @else
               <span class="text-red">※料金体系がないため、手打ちで会場料を入力してください</span>
               <tbody class="venue_main">
@@ -892,7 +892,7 @@
                   </td>
                 </tr>
               </tbody>
-              <tbody class="equipment_discount">
+              <!-- <tbody class="equipment_discount">
                 <tr>
                   <td>割引計算欄</td>
                   <td>
@@ -917,7 +917,7 @@
                     <input class="btn more_btn equipment_discount_btn" type="button" value="計算する">
                   </td>
                 </tr>
-              </tbody>
+              </tbody> -->
             </table>
           </div>
           @endif
@@ -971,7 +971,7 @@
                   </td>
                 </tr>
               </tbody>
-              <tbody class="layout_discount">
+              <!-- <tbody class="layout_discount">
                 <tr>
                   <td>割引計算欄</td>
                   <td>
@@ -996,12 +996,12 @@
                     <input class="btn more_btn layout_discount_btn" type="button" value="計算する">
                   </td>
                 </tr>
-              </tbody>
+              </tbody> -->
             </table>
           </div>
           @endif
 
-          <div class="others billdetails_content">
+          <!-- <div class="others billdetails_content">
             <table class="table table-borderless">
               <tr>
                 <td colspan="5">
@@ -1040,7 +1040,7 @@
                 </tr>
               </tbody>
             </table>
-          </div>
+          </div> -->
 
           <div class="bill_total">
             <table class="table text-right" style="table-layout: fixed; font-size:16px;">

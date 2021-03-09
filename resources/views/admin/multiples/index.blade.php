@@ -36,7 +36,6 @@
 
     <div class="section-wrap">
               <!-- 検索--------------------------------------- -->
-              <div class="section-wrap">
       <table class="table table-bordered mb-0">
         <tbody>
           <tr>
@@ -70,10 +69,20 @@
               <input type="text" name="tel" class="form-control" id="tel">
             </td>
           </tr>
+          <tr>
+            <th class="search_item_name"><label for="temp_company">会社名・団体名(仮)</label></th>
+            <td>
+              <input type="text" name="temp_company" class="form-control" id="temp_company">
+            </td>
+            <th class="search_item_name"><label for="agent">仲介会社</label></th>
+            <td>
+              <input type="text" name="agent" class="form-control" id="agent">
+            </td>
+          </tr>
 
           <tr>
             <th class="search_item_name"><label for="freeword">フリーワード検索</label></th>
-            <td>
+            <td colspan="3">
               <input type="text" name="freeword" class="form-control" id="freeword">
             </td>
           </tr>
@@ -86,7 +95,6 @@
         <input type="submit" value="検索" class="btn search_btn">
       </div>
 
-    </div>
     <!-- 検索　終わり------------------------------------------------ -->
       <ul class="d-flex reservation_list mb-2 justify-content-between">
         <li>
