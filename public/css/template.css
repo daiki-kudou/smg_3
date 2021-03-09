@@ -740,7 +740,7 @@ table td.table_column p:last-child {
 
 .confirm-box {
     background: #ffe7e1;
-    margin: 0 3%;
+    /* margin: 0 3%; */
     padding: 3%;
 }
 
@@ -776,7 +776,7 @@ table td.table_column p:last-child {
 }
 
 .border-inwrap {
-    border: 1px solid #35a7a7;
+    border: 1px solid rgb(53 167 167 / 40%);
     padding: 3%;
 }
 
@@ -1395,10 +1395,13 @@ table .master_total_subttl {
 .notion_wrap {
     padding: 3%;
     border: 1px solid #ddd;
-
 }
 
 .notion_inner {
     width: 50%;
     margin: 2em auto;
+}
+
+.accordion-list li {
+    margin-right: 1.5em;
 }
