@@ -311,7 +311,6 @@ class PreReservation extends Model
 
   public function AgentSingleStore($request, $agent, $venue)
   {
-
     DB::transaction(function () use ($request, $agent, $venue) {
       $pre_reservation = $this->create([
         'multiple_reserve_id' => 0,
@@ -373,7 +372,6 @@ class PreReservation extends Model
         }
       }
 
-
       $equ_arrays = [];
       foreach ($request->all() as $e_key => $value) {
         if (preg_match("/equipment_breakdown/", $e_key)) {
@@ -433,7 +431,6 @@ class PreReservation extends Model
         ]);
       }
 
-
       $oth_arrays = [];
       foreach ($request->all() as $o_key => $value) {
         if (preg_match("/others_input/", $o_key)) {
@@ -452,13 +449,15 @@ class PreReservation extends Model
           ]);
         }
       }
-
       $pre_reservation->pre_enduser()->create([
+        "pre_reservation_id" => $pre_reservation->id,
         "company" => $request->pre_enduser_company,
         "person" => $request->pre_enduser_name,
         "email" => $request->pre_enduser_email,
         "mobile" => $request->pre_enduser_mobile,
         "tel" => $request->pre_enduser_tel,
+        "address" => $request->pre_enduser_address,
+        "attr" => $request->pre_enduser_attr,
       ]);
     });
   }

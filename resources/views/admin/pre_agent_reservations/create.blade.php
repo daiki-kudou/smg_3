@@ -16,7 +16,7 @@
     <nav aria-label="breadcrumb">
       <ol class="breadcrumb">
         <li class="breadcrumb-item active">
-        ダミーダミーダミー
+          ダミーダミーダミー
         </li>
       </ol>
     </nav>
@@ -27,141 +27,134 @@
 
 
 <section class="section-wrap">
-<div class="calendar">
-  <iframe src="{{url('admin/calendar/date_calendar')}}" width="100%" height="500">Your browser isn't compatible</iframe>
-</div>
-
-{{Form::open(['url' => 'admin/pre_agent_reservations/check', 'method' => 'POST', 'id'=>''])}}
-@csrf
-
-<div class="user_selector mt-5">
-<h3 class="mb-2">仲介会社情報</h3>
-  <select name="agent_id" id="agent_id">
-    <option value="">選択してください</option>
-    @foreach ($agents as $agent)
-    <option value="{{$agent->id}}">
-      {{$agent->id}} | {{$agent->name}} | {{$agent->getName()}}
-      |
-      {{$agent->email}} | {{$agent->person_tel}} | {{$agent->person_mobile}}
-    </option>
-    @endforeach
-  </select>
-</div>
-
-
-<div class="unknown_user mt-5">
-  <table class="table table-bordered" style="table-layout: fixed;">
-    <thead>
-      <tr>
-      <th colspan="4">エンドユーザー情報</th>
-      </tr>
-    </thead>
-    <tbody>
-    <tr>
-        <td class="table-active">会社名・団体名</td>
-        <td>
-          {{ Form::text('pre_enduser_company', '',['class'=>'form-control'] ) }}
-        </td>
-        <td class="table-active">担当者氏名</td>
-        <td>
-          {{ Form::text('pre_enduser_name', '',['class'=>'form-control'] ) }}
-        </td>
-      </tr>
-      <tr>
-        <td class="table-active">住所</td>
-        <td>
-        ダミーダミーダミーダミー
-          <!-- {{ Form::text('pre_enduser_name', '',['class'=>'form-control'] ) }} -->
-        </td>
-        <td class="table-active">電話番号</td>
-        <td>
-          {{ Form::text('pre_enduser_tel', '',['class'=>'form-control'] ) }}
-        </td>
-      </tr>
-      <tr>
-      <td class="table-active">当日連絡先</td>
-        <td>
-          {{ Form::text('pre_enduser_mobile', '',['class'=>'form-control'] ) }}
-        </td>
-      <td class="table-active">メールアドレス</td>
-        <td>
-          {{ Form::text('pre_enduser_email', '',['class'=>'form-control'] ) }}
-        </td>
-      </tr>
-      <tr>
-      <td class="table-active">利用者属性</td>
-        <td>
-          <select name="" id="">
-            <option value="">一般企業</option>
-            <option value="">上場企業</option>
-            <option value="">近隣利用</option>
-            <option value="">講師・セミナー</option>
-            <option value="">ネットワーク</option>
-            <option value="">その他</option>
-          </select>
-        </td>
-      </tr>
-    </tbody>
-  </table>
-</div>
-
-<div class="date_selector mt-5">
-<h3 class="mb-2 pt-3">日程選択</h3>
-  <table class="table table-bordered" style="table-layout: fixed;">
-    <thead>
-      <tr>
-        <td>日付</td>
-        <td>会場名</td>
-        <td>入室時間</td>
-        <td>退室時間</td>
-        <td>追加・削除</td>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td>{{ Form::text('pre_date0', '',['class'=>'form-control', 'id'=>"pre_datepicker"] ) }}</td>
-        <td>
-          <select name="pre_venue0" id="pre_venue">
-            @foreach ($venues as $venue)
-            <option value="{{$venue->id}}">{{ReservationHelper::getVenue($venue->id)}}</option>
-            @endforeach
-          </select>
-        </td>
-        <td>
-          <select name="pre_enter0" id="pre_enter0" class="form-control">
-            <option value=""></option>
-            {!!ReservationHelper::timeOptions()!!}
-          </select>
-        </td>
-        <td>
-          <select name="pre_leave0" id="pre_leave0" class="form-control">
-            <option value=""></option>
-            {!!ReservationHelper::timeOptions()!!}
-          </select>
-        </td>
-        <td>
-          <input type="button" value="＋" class="add pluralBtn">
-          <input type="button" value="ー" class="del pluralBtn">
-        </td>
-      </tr>
-    </tbody>
-  </table>
-</div>
-
-<div class="submit_btn">
-  <div class="d-flex justify-content-center">
-    {{Form::submit('日程をおさえる', ['class'=>'btn more_btn_lg d-block btn-lg mx-auto my-5', 'id'=>'check_submit'])}}
+  <div class="calendar">
+    <iframe src="{{url('admin/calendar/date_calendar')}}" width="100%" height="500">Your browser isn't
+      compatible</iframe>
   </div>
-</div>
 
-<div class="spin_btn hide">
-  <div class="d-flex justify-content-center">
-    <button class="btn btn-primary btn-lg" type="button" disabled>
-      <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
-      Loading...
-    </button>
+  {{Form::open(['url' => 'admin/pre_agent_reservations/check', 'method' => 'POST', 'id'=>''])}}
+  @csrf
+
+  <div class="user_selector mt-5">
+    <h3 class="mb-2">仲介会社情報</h3>
+    <select name="agent_id" id="agent_id">
+      <option value="">選択してください</option>
+      @foreach ($agents as $agent)
+      <option value="{{$agent->id}}">
+        {{$agent->id}} | {{$agent->name}} | {{$agent->getName()}}
+        |
+        {{$agent->email}} | {{$agent->person_tel}} | {{$agent->person_mobile}}
+      </option>
+      @endforeach
+    </select>
   </div>
-</div>
+
+
+  <div class="unknown_user mt-5">
+    <table class="table table-bordered" style="table-layout: fixed;">
+      <thead>
+        <tr>
+          <th colspan="4">エンドユーザー情報</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td class="table-active">会社名・団体名</td>
+          <td>
+            {{ Form::text('pre_enduser_company', '',['class'=>'form-control'] ) }}
+          </td>
+          <td class="table-active">担当者氏名</td>
+          <td>
+            {{ Form::text('pre_enduser_name', '',['class'=>'form-control'] ) }}
+          </td>
+        </tr>
+        <tr>
+          <td class="table-active">住所</td>
+          <td>
+            {{ Form::text('pre_enduser_address', '',['class'=>'form-control'] ) }}
+          </td>
+          <td class="table-active">電話番号</td>
+          <td>
+            {{ Form::text('pre_enduser_tel', '',['class'=>'form-control'] ) }}
+          </td>
+        </tr>
+        <tr>
+          <td class="table-active">当日連絡先</td>
+          <td>
+            {{ Form::text('pre_enduser_mobile', '',['class'=>'form-control'] ) }}
+          </td>
+          <td class="table-active">メールアドレス</td>
+          <td>
+            {{ Form::text('pre_enduser_email', '',['class'=>'form-control'] ) }}
+          </td>
+        </tr>
+        <tr>
+          <td class="table-active">利用者属性</td>
+          <td>
+            {{ Form::select('pre_enduser_attr', ['一般企業','上場企業','近隣利用','講師・セミナー','ネットワーク','その他'],0,['class'=>'form-control'] ) }}
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="date_selector mt-5">
+    <h3 class="mb-2 pt-3">日程選択</h3>
+    <table class="table table-bordered" style="table-layout: fixed;">
+      <thead>
+        <tr>
+          <td>日付</td>
+          <td>会場名</td>
+          <td>入室時間</td>
+          <td>退室時間</td>
+          <td>追加・削除</td>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>{{ Form::text('pre_date0', '',['class'=>'form-control', 'id'=>"pre_datepicker"] ) }}</td>
+          <td>
+            <select name="pre_venue0" id="pre_venue">
+              @foreach ($venues as $venue)
+              <option value="{{$venue->id}}">{{ReservationHelper::getVenue($venue->id)}}</option>
+              @endforeach
+            </select>
+          </td>
+          <td>
+            <select name="pre_enter0" id="pre_enter0" class="form-control">
+              <option value=""></option>
+              {!!ReservationHelper::timeOptions()!!}
+            </select>
+          </td>
+          <td>
+            <select name="pre_leave0" id="pre_leave0" class="form-control">
+              <option value=""></option>
+              {!!ReservationHelper::timeOptions()!!}
+            </select>
+          </td>
+          <td>
+            <input type="button" value="＋" class="add pluralBtn">
+            <input type="button" value="ー" class="del pluralBtn">
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="submit_btn">
+    <div class="d-flex justify-content-center">
+      {{Form::submit('日程をおさえる', ['class'=>'btn more_btn_lg d-block btn-lg mx-auto my-5', 'id'=>'check_submit'])}}
+    </div>
+  </div>
+
+  <div class="spin_btn hide">
+    <div class="d-flex justify-content-center">
+      <button class="btn btn-primary btn-lg" type="button" disabled>
+        <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+        Loading...
+      </button>
+    </div>
+  </div>
 
 </section>
 {{Form::close()}}

@@ -15,12 +15,14 @@ class CreatePreEndusersTable extends Migration
   {
     Schema::create('pre_endusers', function (Blueprint $table) {
       $table->bigIncrements('id');
-      $table->integer('pre_reservations_id')->unsigned()->index();
+      $table->integer('pre_reservation_id')->unsigned()->index();
       $table->string('company')->nullable();
       $table->string('person')->nullable();
       $table->string('email')->nullable();
       $table->string('mobile')->nullable();
       $table->string('tel')->nullable();
+      $table->string('address')->nullable();
+      $table->integer('attr')->nullable();
 
       $table->timestamps();
     });

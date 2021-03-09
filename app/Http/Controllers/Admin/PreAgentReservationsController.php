@@ -38,52 +38,11 @@ class PreAgentReservationsController extends Controller
 
     if (count($judge_count) == 1) {
       $venue = Venue::find($request->pre_venue0);
-      //   $equipments = $venue->equipments()->get();
-      //   $services = $venue->services()->get();
-      //   $layouts = [];
-      //   $layouts[] = $venue->layout_prepare == 0 ? 0 : $venue->layout_prepare;
-      //   $layouts[] = $venue->layout_clean == 0 ? 0 : $venue->layout_clean;
-
       return view('admin.pre_agent_reservations.single_check', [
         'request' => $request,
-        // 'equipments' => $equipments,
-        // 'services' => $services,
         'venue' => $venue,
-        // 'layouts' => $layouts,
       ]);
     } else {
-      //   DB::transaction(function () use ($request) { //トランザクションさせる
-      //     $multiple = MultipleReserve::create(); //一括IDを作成
-      //     $counters = [];
-      //     foreach ($request->all() as $key => $value) {
-      //       if (preg_match('/pre_date/', $key)) {
-      //         $counters[] = $value;
-      //       }
-      //     }
-      //     $counters = count($counters);
-      //     for ($i = 0; $i < $counters; $i++) {
-      //       $pre_reservations = $multiple->pre_reservations()->create([
-      //         'venue_id' => $request->{'pre_venue' . $i},
-      //         'user_id' => $request->user_id,
-      //         'agent_id' => 0,
-      //         'reserve_date' => $request->{'pre_date' . $i},
-      //         'enter_time' => $request->{'pre_enter' . $i},
-      //         'leave_time' => $request->{'pre_leave' . $i}
-      //       ]);
-      //       if ($request->unknown_user_company) {
-      //         $pre_reservations->unknown_user()->create([
-      //           'unknown_user_company' => $request->unknown_user_company,
-      //           'unknown_user_name' => $request->unknown_user_name,
-      //           'unknown_user_email' => $request->unknown_user_email,
-      //           'unknown_user_mobile' => $request->unknown_user_mobile,
-      //           'unknown_user_tel' => $request->unknown_user_tel,
-      //         ]);
-      //       }
-      //     }
-      //   });
-
-      //   $request->session()->regenerate();
-      //   return redirect('admin/multiples');
     }
   }
 
@@ -102,7 +61,6 @@ class PreAgentReservationsController extends Controller
     } else {
       $layout_clean = 0;
     }
-
 
     return view('admin.pre_agent_reservations.single_calculate', [
       'agent' => $agent,
@@ -124,13 +82,5 @@ class PreAgentReservationsController extends Controller
 
     $request->session()->regenerate();
     return redirect('admin/pre_reservations');
-
-
-    // return view('admin.pre_agent_reservations.single_calculate', [
-    //   'agent' => $agent,
-    //   'request' => $request,
-    //   'venue' => $venue,
-    //   'price' => $price,
-    // ]);
   }
 }

@@ -17,7 +17,7 @@
       <thead>
         <tr>
           <th>仲介会社情報</th>
-          <th colspan="3">顧客ID：<p class="user_id d-inline">{{$request->user_id}}</p>
+          <th colspan="3">顧客ID：<p class="user_id d-inline">{{$request->agent_id}}</p>
           </th>
         </tr>
       </thead>
@@ -83,7 +83,7 @@
         <tr>
           <td class="table-active">住所</td>
           <td>
-            ダミーダミーダミーダミー
+            {{ Form::text('pre_enduser_address', ($request->pre_enduser_address),['class'=>'form-control', 'readonly'] ) }}
           </td>
           <td class="table-active">電話番号</td>
           <td>
@@ -103,7 +103,8 @@
         <tr>
           <td class="table-active">利用者属性</td>
           <td>
-            ダミーダミーダミー
+            {{ Form::text('', ReservationHelper::getEndUser($request->pre_enduser_attr),['class'=>'form-control', 'readonly'] ) }}
+            {{ Form::hidden('pre_enduser_attr', ($request->pre_enduser_attr),['class'=>'form-control', 'readonly'] ) }}
           </td>
         </tr>
       </tbody>
