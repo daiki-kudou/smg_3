@@ -401,12 +401,18 @@
             },
           }).done(function($targettimes) {
             $('#fullOverlay').css('display', 'none');
-            console.log(targetEnter);
+            console.log($targettimes);
+
               thisoption.each(function($index, $results) {
                 if (thisoption.eq($index).val()==targetEnter) {
-                  thisoption.eq($index).prop('disabled', true);
+                  for (let test = 0; test < $targettimes; test++) {
+                    thisoption.eq($index+test).prop('disabled', true);
+                  }
+
                 }
               });
+
+
           }).fail(function($targettimes) {
             $('#fullOverlay').css('display', 'none');
             console.log($targettimes);
