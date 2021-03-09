@@ -80,7 +80,7 @@
             </td>
           </tr>
           <tr>
-            <th class="search_item_name"><label for="company">会社名・団体名</label></th>
+            <th class="search_item_name"><label for="company">会社・団体名</label></th>
             <td class="text-right">
               <input type="text" name="company" class="form-control" id="company">
             </td>
@@ -101,7 +101,7 @@
             </td>
           </tr>
           <tr>
-            <th class="search_item_name"><label for="temp_company">会社名・団体名(仮)</label></th>
+            <th class="search_item_name"><label for="temp_company">会社・団体名(仮)</label></th>
             <td>
               <input type="text" name="temp_company" class="form-control" id="temp_company">
             </td>
@@ -185,14 +185,14 @@
             <th>入室</th>
             <th>退室</th>
             <th>利用会場</th>
-            <th>会社名・団体名</th>
+            <th>会社・団体名</th>
             <th>担当者</th>
             <th>携帯</th>
             <th>電話</th>
-            <th>会社名・団体名<br>(顧客未登録)</th>
+            <th>会社・団体名(仮)</th>
             <th>仲介会社</th>
             <th>エンドユーザー</th>
-            <th>詳細</th>
+            <th>仮押さえ詳細</th>
           </tr>
         </thead>
         <tbody>

@@ -23,7 +23,8 @@
   <div class="row">
     <!-- 左側の項目 ---------------------------------------------------------->
     <div class="col">
-      {{Form::model($user, ['route' => ['admin.clients.update', $user->id], 'method' => 'put'])}}
+      {{Form::model($user, ['route' => ['admin.clients.update', $user->id], 'method' => 'put','id'=>'ClientsEditForm'])}}
+      @csrf
       <table class="table table-bordered">
         <thead>
           <tr>
@@ -36,8 +37,10 @@
         </thead>
         <tbody>
           <tr>
-            <th class="table-active">{{ Form::label('company', '会社・団体名') }}</th>
-            <td>{{ Form::text('company', $user->company, ['class' => 'form-control']) }}</td>
+            <th class="table-active form_required">{{ Form::label('company', '会社・団体名') }}</th>
+            <td>{{ Form::text('company', $user->company, ['class' => 'form-control']) }}
+              <p class="is-error-company" style="color: red"></p>
+            </td>
           </tr>
           <tr>
             <th class="table-active">{{ Form::label('post_code', '郵便番号') }}</th>
@@ -67,7 +70,9 @@
           </tr>
           <tr>
             <th class="table-active">{{ Form::label('url', '会社・団体名URL') }}</th>
-            <td>{{ Form::text('url', $user->url, ['class' => 'form-control']) }}</td>
+            <td>{{ Form::text('url', $user->url, ['class' => 'form-control']) }}
+              <p class="is-error-url" style="color: red"></p>
+            </td>
           </tr>
           <tr>
             <th class="table-active">{{ Form::label('attr', '顧客属性') }}</th>
@@ -96,32 +101,39 @@
         </thead>
         <tbody>
           <tr>
-            <th class="table-active">{{ Form::label('first_name', '担当者氏名') }}</th>
+            <th class="table-active form_required">{{ Form::label('first_name', '担当者氏名') }}</th>
             <td>姓：{{ Form::text('first_name', $user->first_name, ['class' => 'form-control']) }}
-            </td>
+            <p class="is-error-first_name" style="color: red"></p>
+          </td>
             <td>名：{{ Form::text('last_name', $user->last_name, ['class' => 'form-control']) }}
-            </td>
+            <p class="is-error-last_name" style="color: red"></p>
+          </td>
           </tr>
           <tr>
-            <th class="table-active">{{ Form::label('first_name_kana', '担当者氏名（フリガナ）') }}</th>
+            <th class="table-active form_required">{{ Form::label('first_name_kana', '担当者氏名（フリガナ）') }}</th>
             <td>セイ：{{ Form::text('first_name_kana', $user->first_name_kana, ['class' => 'form-control'])}}
-            </td>
+            <p class="is-error-first_name_kana" style="color: red"></p>
+          </td>
             <td>メイ：{{ Form::text('last_name_kana', $user->last_name_kana, ['class' => 'form-control']) }}
-            </td>
+            <p class="is-error-last_name_kana" style="color: red"></p>
+          </td>
           </tr>
           <tr>
-            <th class="table-active">{{ Form::label('tel', '電話番号') }}</th>
+            <th class="table-active form_required">{{ Form::label('mobile', '携帯番号') }}</th>
+            <td colspan="2">{{ Form::text('mobile', $user->mobile, ['class' => 'form-control']) }}
+            <p class="is-error-mobile" style="color: red"></p>
+          </td>
+          </tr>
+          <tr>
+            <th class="table-active">{{ Form::label('tel', '固定電話') }}</th>
             <td colspan="2">{{ Form::text('tel', $user->tel, ['class' => 'form-control']) }}
             </td>
           </tr>
           <tr>
-            <th class="table-active">{{ Form::label('mobile', '携帯番号') }}</th>
-            <td colspan="2">{{ Form::text('mobile', $user->mobile, ['class' => 'form-control']) }}
+            <th class="table-active form_required">{{ Form::label('email', '担当者メールアドレス') }}</th>
+            <td colspan="2">{{ Form::text('email', $user->email, ['class' => 'form-control']) }}
+            <p class="is-error-email" style="color: red"></p>
             </td>
-          </tr>
-          <tr>
-            <th class="table-active">{{ Form::label('email', '担当者メールアドレス') }}</th>
-            <td colspan="2">{{ Form::text('email', $user->email, ['class' => 'form-control']) }}</td>
           </tr>
           <tr>
             <th class="table-active">{{ Form::label('fax', 'FAX') }}</th>
@@ -143,13 +155,16 @@
         </thead>
         <tbody>
           <tr>
-            <th class="table-active">{{ Form::label('pay_method', '支払方法') }}</th>
+            <th class="table-active form_required">{{ Form::label('pay_method', '支払方法') }}</th>
             <td>{{Form::select('pay_method', [1=>'銀行振込', 2=>'現金',3=>'クレジットカード', 4=>'スマホ決済'],$user->pay_method)}}
-            </td>
+            <p class="is-error-pay_metdod" style="color: red"></p>
+          </td>
           </tr>
           <tr>
-            <th class="table-active">{{ Form::label('pay_limit', '支払期日') }}</th>
-            <td>{{Form::select('pay_limit', [1=>'当月末〆当月末CASH', 2=>'当月末〆翌月末CASH',3=>'当月末〆翌々月末CACH',4=>'当月末〆3カ月末CASH'],$user->pay_limit)}}</td>
+            <th class="table-active form_required">{{ Form::label('pay_limit', '支払期日') }}</th>
+            <td>{{Form::select('pay_limit', [1=>'当月末〆当月末CASH', 2=>'当月末〆翌月末CASH',3=>'当月末〆翌々月末CACH',4=>'当月末〆3カ月末CASH'],$user->pay_limit)}}
+            <p class="is-error-pay_limit" style="color: red"></p>
+            </td>
           </tr>
           <tr>
             <th class="table-active">{{ Form::label('pay_post_code', '請求書送付先郵便番号') }}</th>

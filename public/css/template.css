@@ -144,7 +144,7 @@ table.dataTable thead .sorting_desc:after {
 
 .form_required:after {
     content: "必須";
-    margin-left: 10px;
+    margin-left: 0.5em;
     font-size: 12px;
     background: #ff6679;
     color: white;
