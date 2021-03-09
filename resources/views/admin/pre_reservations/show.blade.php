@@ -46,9 +46,12 @@
                 @endif
                 {{ Form::open(['url' => 'admin/pre_reservations/switch_status', 'method'=>'POST']) }}
                 @csrf
+                @if ($pre_reservation->status==0)
                 {{ Form::hidden('pre_reservation_id', $pre_reservation->id)}}
                 {{ Form::submit('仮押さえ内容を確定する', ['class' => 'btn more_btn4']) }}
                 {{ Form::close() }}
+                @endif
+
               </div>
             </td>
         </tbody>

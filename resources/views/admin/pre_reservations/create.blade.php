@@ -379,10 +379,10 @@
           var targetVenue=$('.date_selector tbody tr').eq(trs).find('td').eq(1).find('select').val();
           var targetEnter=$('.date_selector tbody tr').eq(trs).find('td').eq(2).find('select').val();
           var targetLeave=$('.date_selector tbody tr').eq(trs).find('td').eq(3).find('select').val();
-          // console.log(['日付だよ',targetDate], ['会場だよ',targetVenue], ['入室だよ',targetEnter],['退室だよ',targetLeave]);
+          console.log(['日付だよ',targetDate], ['会場だよ',targetVenue], ['入室だよ',targetEnter],['退室だよ',targetLeave]);
           var cmpTargetDate=$(this).parent().parent().find('td').eq(0).find('input').val();
           var cmpTargetVenue=$(this).parent().parent().find('td').eq(1).find('select').val();
-          // console.log(['target日付',cmpTargetDate], ['cmpTarget会場',cmpTargetVenue]);
+          console.log(['target日付',cmpTargetDate], ['cmpTarget会場',cmpTargetVenue]);
           if (cmpTargetDate==targetDate&&cmpTargetVenue==targetVenue) {
             var thisoption = $(this).find('option');
             $.ajax({
@@ -402,19 +402,16 @@
           }).done(function($targettimes) {
             $('#fullOverlay').css('display', 'none');
             console.log(targetEnter);
-              // thisoption.each(function($index, $results) {
-              //   console.log(thisoption.eq($index).val());
-              //   if (thisoption.eq($index).val()==targetEnter) {
-              //     thisoption.eq($index).prop('disabled', true);
-              //   }
-              // });
+              thisoption.each(function($index, $results) {
+                if (thisoption.eq($index).val()==targetEnter) {
+                  thisoption.eq($index).prop('disabled', true);
+                }
+              });
           }).fail(function($targettimes) {
             $('#fullOverlay').css('display', 'none');
             console.log($targettimes);
-
           });
           }
-          
         }
 
 

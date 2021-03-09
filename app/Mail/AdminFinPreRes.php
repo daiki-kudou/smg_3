@@ -9,25 +9,44 @@ use Illuminate\Queue\SerializesModels;
 
 class AdminFinPreRes extends Mailable
 {
-    use Queueable, SerializesModels;
+  use Queueable, SerializesModels;
 
-    /**
-     * Create a new message instance.
-     *
-     * @return void
-     */
-    public function __construct()
-    {
-        //
-    }
-
-    /**
-     * Build the message.
-     *
-     * @return $this
-     */
-    public function build()
-    {
-        return $this->view('view.name');
-    }
+  /**
+   * Create a new message instance.
+   *
+   * @return void
+   */
+  public function __construct($user, $id, $date, $enter_time, $leave_time, $venue, $post_code, $address, $url)
+  {
+    $this->user = $user;
+    $this->id = $id;
+    $this->date = $date;
+    $this->enter_time = $enter_time;
+    $this->leave_time = $leave_time;
+    $this->venue = $venue;
+    $this->post_code = $post_code;
+    $this->address = $address;
+    $this->url = $url;
+  }
+  /**
+   * Build the message.
+   *
+   * @return $this
+   */
+  public function build()
+  {
+    return $this->view('maileclipse::templates.adminFinPreRes')
+      ->subject('管理者通知　SMGアクセア貸し会議室 仮押さえについて')
+      ->with([
+        'user' => $this->user,
+        'id' => $this->id,
+        'date' => $this->date,
+        'enter_time' => $this->enter_time,
+        'leave_time' => $this->leave_time,
+        'venue' => $this->venue,
+        'post_code' => $this->post_code,
+        'address' => $this->address,
+        'url' => $this->url,
+      ]);
+  }
 }

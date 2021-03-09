@@ -18,6 +18,10 @@ use App\Models\PreBill;
 use App\Models\PreBreakdown;
 use App\Models\MultipleReserve;
 
+use Illuminate\Support\Facades\Mail;
+use App\Mail\AdminFinPreRes;
+use App\Mail\UserFinPreRes;
+
 
 class PreReservationsController extends Controller
 {
@@ -598,13 +602,40 @@ class PreReservationsController extends Controller
 
   public function switchStatus(Request $request)
   {
-    DB::transaction(function () use ($request) {
-      $PreReservation = PreReservation::find($request->pre_reservation_id);
-      $PreReservation->update(['status' => 2]);
+    $PreReservation = PreReservation::find($request->pre_reservation_id);
+    DB::transaction(function () use ($request, $PreReservation) {
+      $PreReservation->update(['status' => 1]);
     });
+    $admin = config('app.admin_email');
+    Mail::to($admin) //管理者
+      ->send(new AdminFinPreRes(
+        $PreReservation->user->company,
+        $PreReservation->id,
+        $PreReservation->reserve_date,
+        $PreReservation->enter_time,
+        $PreReservation->leave_time,
+        $PreReservation->venue->name_area . $PreReservation->venue->name_bldg . $PreReservation->venue->name_venue,
+        $PreReservation->venue->post_code,
+        $PreReservation->venue->address1 . $PreReservation->venue->address2 . $PreReservation->venue->address3,
+        url('/') . '/user/pre_reservations'
+
+      ));
+    Mail::to($PreReservation->user->email) //ユーザー
+      ->send(new UserFinPreRes(
+        $PreReservation->user->company,
+        $PreReservation->id,
+        $PreReservation->reserve_date,
+        $PreReservation->enter_time,
+        $PreReservation->leave_time,
+        $PreReservation->venue->name_area . $PreReservation->venue->name_bldg . $PreReservation->venue->name_venue,
+        $PreReservation->venue->post_code,
+        $PreReservation->venue->address1 . $PreReservation->venue->address2 . $PreReservation->venue->address3,
+        url('/') . '/user/pre_reservations'
+      ));
+
+
     $request->session()->regenerate();
     return redirect()->route('admin.pre_reservations.show', $request->pre_reservation_id);
-    // メール送信必要
   }
 
   public function rejectSameTime(Request $request)
