@@ -642,7 +642,15 @@ class PreReservationsController extends Controller
   {
     $first = new Carbon($request->targetEnter);
     $second = new Carbon($request->targetLeave);
-    return [($first->diffInMinutes($second) / 30), $request->targetEnter, $request->targetLeave];
+    $diff = ($first->diffInMinutes($second)) / 30;
+    $target = "";
+    $arrays = [];
+    for ($i = 0; $i < $diff; $i++) {
+      $target =
+        $arrays[] = $target;
+    }
+
+    return [$diff, $request->targetEnter, $request->targetLeave];
   }
 
 
