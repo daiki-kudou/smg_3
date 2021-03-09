@@ -379,10 +379,10 @@
           var targetVenue=$('.date_selector tbody tr').eq(trs).find('td').eq(1).find('select').val();
           var targetEnter=$('.date_selector tbody tr').eq(trs).find('td').eq(2).find('select').val();
           var targetLeave=$('.date_selector tbody tr').eq(trs).find('td').eq(3).find('select').val();
-          console.log(['日付だよ',targetDate], ['会場だよ',targetVenue], ['入室だよ',targetEnter],['退室だよ',targetLeave]);
+          // console.log(['日付だよ',targetDate], ['会場だよ',targetVenue], ['入室だよ',targetEnter],['退室だよ',targetLeave]);
           var cmpTargetDate=$(this).parent().parent().find('td').eq(0).find('input').val();
           var cmpTargetVenue=$(this).parent().parent().find('td').eq(1).find('select').val();
-          console.log(['target日付',cmpTargetDate], ['cmpTarget会場',cmpTargetVenue]);
+          // console.log(['target日付',cmpTargetDate], ['cmpTarget会場',cmpTargetVenue]);
           if (cmpTargetDate==targetDate&&cmpTargetVenue==targetVenue) {
             var thisoption = $(this).find('option');
             $.ajax({
@@ -401,63 +401,58 @@
             },
           }).done(function($targettimes) {
             $('#fullOverlay').css('display', 'none');
-            console.log($targettimes);
-
-              thisoption.each(function($index, $results) {
-                if (thisoption.eq($index).val()==targetEnter) {
-                  for (let test = 0; test < $targettimes; test++) {
-                    thisoption.eq($index+test).prop('disabled', true);
-                  }
-
+            var arrays=[];
+            thisoption.each(function($index, $value) {
+              if ($($value).val()==$targettimes[1]) {
+                $($value).prop('disabled',true);
+                for (let counts = $index; counts < $index+($targettimes[0]+1); counts++) {
+                  arrays.push(counts);
                 }
+              }
+            });
+            $.each(arrays,function($i,$v){
+              thisoption.eq($v).prop('disabled',true);
               });
-
-
           }).fail(function($targettimes) {
             $('#fullOverlay').css('display', 'none');
             console.log($targettimes);
           });
           }
         }
-
-
-
-
-      } else if (target == 3) {
-        var date = this_tr.find('td').eq(0).find('input').val();
-        var venue = this_tr.find('td').eq(1).find('select').val();
-        if (date.length && venue.length) {
-          $(this).find('option').prop('disabled', false);
-          var options = $(this).find('option');
+      } else if (cmpTargetDate==targetDate&&cmpTargetVenue==targetVenue) {
+            var thisoption = $(this).find('option');
           $.ajax({
             headers: {
               'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
             },
-            url: '/admin/reservations/getsaleshours',
+            url: '/admin/pre_reservations/reject_same_time',
             type: 'POST',
             data: {
-              'venue_id': venue,
-              'dates': date
+              'targetEnter': targetEnter,
+              'targetLeave': targetLeave
             },
             dataType: 'json',
             beforeSend: function() {
               $('#fullOverlay').css('display', 'block');
             },
-          }).done(function($times) {
+          }).done(function($targettimes) {
             $('#fullOverlay').css('display', 'none');
-            for (let index = 0; index < $times[0].length; index++) {
-              options.each(function($result) {
-                if ($times[0][index] == options.eq($result).val()) {
-                  options.eq($result).prop('disabled', true);
+            var arrays=[];
+            thisoption.each(function($index, $value) {
+              if ($($value).val()==$targettimes[1]) {
+                $($value).prop('disabled',true);
+                for (let counts = $index; counts < $index+($targettimes[0]+1); counts++) {
+                  arrays.push(counts);
                 }
+              }
+            });
+            $.each(arrays,function($i,$v){
+              thisoption.eq($v).prop('disabled',true);
               });
-            };
-          }).fail(function($times) {
+          }).fail(function($targettimes) {
             $('#fullOverlay').css('display', 'none');
+            console.log($targettimes);
           });
-        } else {
-          $(this).find('option').prop('disabled', true);
-        }
       }
     })
   })

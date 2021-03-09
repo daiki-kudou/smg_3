@@ -31,9 +31,14 @@ class PreReservationsController extends Controller
 
   public function show($id)
   {
+    $user_id = auth()->user()->id;
     $pre_reservation = PreReservation::find($id);
-    $authCheck = auth()->user()->CheckAuthRoute($pre_reservation);
-    // var_dump($authCheck);
+    if ($pre_reservation->user_id != $user_id) { //別ユーザーのページ制限
+      return redirect(route('user.pre_reservations.index'));
+    }
+    if ($pre_reservation->status != 1) { //ステータスが管理者編集権限の場合の制限
+      return redirect(route('user.pre_reservations.index'));
+    }
     $venue = $pre_reservation->venue;
     return view('user.pre_reservations.show', compact('pre_reservation', 'venue'));
   }

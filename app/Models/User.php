@@ -166,13 +166,4 @@ class User extends Authenticatable
   {
     return $this->first_name . $this->last_name;
   }
-
-  public function CheckAuthRoute($target)
-  {
-    if ($this->id !== $target->user_id) {
-      Route::get('dashboard', function () {
-        return redirect('home/dashboard');
-      });
-    }
-  }
 }
