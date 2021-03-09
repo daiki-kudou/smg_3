@@ -204,8 +204,21 @@
             <td>
               <div>
                 <select name="event_start" id="event_start" class="form-control">
-                  {!!ReservationHelper::timeOptions()!!}
+                  <option disabled>選択してください</option>
+                  @for ($start = 0*2; $start <=23*2; $start++) <option
+                    value="{{date("H:i:s", strtotime("00:00 +". $start * 30 ." minute"))}}" @if (date("H:i:s",
+                    strtotime("00:00 +". $start * 30 ." minute"))<$request->pre_enter0)
+                    disabled
+                    @elseif(date("H:i:s", strtotime("00:00 +". $start * 30 ." minute"))>$request->pre_leave0)
+                    disabled
+                    @endif
+                    >
+                    {{date("H時i分", strtotime("00:00 +". $start * 30 ." minute"))}}</option>
+                    @endfor
                 </select>
+                {{-- <select name="event_start" id="event_start" class="form-control">
+                  {!!ReservationHelper::timeOptions()!!}
+                </select> --}}
               </div>
             </td>
           </tr>
@@ -214,8 +227,21 @@
             <td>
               <div>
                 <select name="event_finish" id="event_finish" class="form-control">
-                  {!!ReservationHelper::timeOptions()!!}
+                  <option disabled>選択してください</option>
+                  @for ($start = 0*2; $start <=23*2; $start++) <option
+                    value="{{date("H:i:s", strtotime("00:00 +". $start * 30 ." minute"))}}" @if (date("H:i:s",
+                    strtotime("00:00 +". $start * 30 ." minute"))>$request->pre_leave0)
+                    disabled
+                    @elseif(date("H:i:s",strtotime("00:00 +". $start * 30 ." minute"))<$request->pre_enter0)
+                      disabled
+                      @endif
+                      >
+                      {{date("H時i分", strtotime("00:00 +". $start * 30 ." minute"))}}</option>
+                      @endfor
                 </select>
+                {{-- <select name="event_finish" id="event_finish" class="form-control">
+                  {!!ReservationHelper::timeOptions()!!}
+                </select> --}}
               </div>
             </td>
           </tr>
@@ -362,7 +388,7 @@
               <tr>
                 <td class="table-active">事前荷物の到着日<br>午前指定のみ</td>
                 <td>
-                  {{ Form::text('luggage_arrive', '',['class'=>'form-control', 'id'=>'datepicker1'] ) }}
+                  {{ Form::text('luggage_arrive', '',['class'=>'form-control', 'id'=>'datepicker9'] ) }}
                 </td>
               </tr>
               <tr>
@@ -467,5 +493,16 @@
 {{Form::close()}}
 
 
+<script>
+  $(function(){
+    var maxTarget=$('input[name="reserve_date"]').val();
+    $('#datepicker9').datepicker({
+      dateFormat: 'yy-mm-dd',
+      minDate: 0,
+      maxDate:maxTarget,
+      autoclose: true,
+    });
+  })
 
+</script>
 @endsection
