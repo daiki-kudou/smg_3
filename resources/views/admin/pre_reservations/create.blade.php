@@ -419,10 +419,6 @@
           });
           }
         }
-
-
-
-
       } else if (target == 3) {
         var date = this_tr.find('td').eq(0).find('input').val();
         var venue = this_tr.find('td').eq(1).find('select').val();

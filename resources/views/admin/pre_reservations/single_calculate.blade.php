@@ -199,10 +199,12 @@
             <td>
               <div class="radio-box">
                 <p>
-                  {{ Form::text('', $request->board_flag==1?"有り":"無し",['class'=>'form-control', 'readonly'] ) }}
+                  {{Form::radio('board_flag',1,$request->board_flag==1?true:false,['id'=>'board_flag'])}}
+                  {{Form::label('board_flag',"有り")}}
                 </p>
                 <p>
-                  {{ Form::hidden('board_flag', $request->board_flag,['class'=>'form-control', 'readonly'] ) }}
+                  {{Form::radio('board_flag',0,$request->board_flag==0?true:false,['id'=>'no_board_flag'])}}
+                  {{Form::label('no_board_flag',"無し")}}
                 </p>
               </div>
             </td>
@@ -210,33 +212,58 @@
           <tr>
             <td class="table-active">イベント開始時間</td>
             <td>
-              {{ Form::text('', date('H:i',strtotime($request->event_start)),['class'=>'form-control', 'readonly'] ) }}
-              {{ Form::hidden('event_start', $request->event_start,['class'=>'form-control', 'readonly'] ) }}
+              <select name="event_start" id="event_start" class="form-control">
+                <option disabled>選択してください</option>
+                @for ($start = 0*2; $start <=23*2; $start++) <option
+                  value="{{date("H:i:s", strtotime("00:00 +". $start * 30 ." minute"))}}"
+                  @if(date("H:i:s",strtotime("00:00 +". $start * 30 ." minute"))<$request->enter_time)
+                  disabled
+                  @elseif(date("H:i:s", strtotime("00:00 +". $start * 30 ." minute"))>$request->leave_time)
+                  disabled
+                  @elseif(date("H:i:s",strtotime("00:00 +". $start * 30 ." minute"))==$request->event_start)
+                  selected
+                  @endif
+                  >
+                  {{date("H時i分", strtotime("00:00 +". $start * 30 ." minute"))}}</option>
+                  @endfor
+              </select>
             </td>
           </tr>
           <tr>
             <td class="table-active">イベント終了時間</td>
             <td>
-              {{ Form::text('', date('H:i',strtotime($request->event_finish)),['class'=>'form-control', 'readonly'] ) }}
-              {{ Form::hidden('event_finish', $request->event_finish,['class'=>'form-control', 'readonly'] ) }}
-            </td>
+              <select name="event_finish" id="event_finish" class="form-control">
+                <option disabled>選択してください</option>
+                @for ($start = 0*2; $start <=23*2; $start++) <option
+                  value="{{date("H:i:s", strtotime("00:00 +". $start * 30 ." minute"))}}"
+                  @if(date("H:i:s",strtotime("00:00 +". $start * 30 ." minute"))<$request->enter_time)
+                  disabled
+                  @elseif(date("H:i:s", strtotime("00:00 +". $start * 30 ." minute"))>$request->leave_time)
+                  disabled
+                  @elseif(date("H:i:s",strtotime("00:00 +". $start * 30 ." minute"))==$request->event_finish)
+                  selected
+                  @endif
+                  >
+                  {{date("H時i分", strtotime("00:00 +". $start * 30 ." minute"))}}</option>
+                  @endfor
+              </select> </td>
           </tr>
           <tr>
             <td class="table-active">イベント名称1</td>
             <td>
-              {{ Form::text('event_name1', $request->event_name1,['class'=>'form-control', 'readonly'] ) }}
+              {{ Form::text('event_name1', $request->event_name1,['class'=>'form-control'] ) }}
             </td>
           </tr>
           <tr>
             <td class="table-active">イベント名称2</td>
             <td>
-              {{ Form::text('event_name2', $request->event_name2,['class'=>'form-control', 'readonly'] ) }}
+              {{ Form::text('event_name2', $request->event_name2,['class'=>'form-control'] ) }}
             </td>
           </tr>
           <tr>
             <td class="table-active">主催者名</td>
             <td>
-              {{ Form::text('event_owner', $request->event_owner,['class'=>'form-control', 'readonly'] ) }}
+              {{ Form::text('event_owner', $request->event_owner,['class'=>'form-control'] ) }}
             </td>
           </tr>
         </table>
@@ -391,7 +418,7 @@
               <tr>
                 <td class="table-active">事前荷物の到着日<br>午前指定のみ</td>
                 <td>
-                  {{ Form::text('luggage_arrive', $request->luggage_arrive,['class'=>'form-control'] ) }}
+                  {{ Form::text('luggage_arrive', $request->luggage_arrive,['class'=>'form-control','id'=>'datepicker9'] ) }}
                 </td>
               </tr>
               <tr>
@@ -1198,6 +1225,17 @@
         $('input:radio[name="eat_in_prepare"]').val("");
       }
     })
+  })
+
+
+  $(function(){
+    var maxTarget=$('input[name="reserve_date"]').val();
+    $('#datepicker9').datepicker({
+      dateFormat: 'yy-mm-dd',
+      minDate: 0,
+      maxDate:maxTarget,
+      autoclose: true,
+    });
   })
 
 </script>
