@@ -61,7 +61,7 @@
       <tbody>
         <tr>
           <td class="table-active">会社名・団体名</td>
-          <td  colspan="3">
+          <td colspan="3">
             {{ Form::text('unknown_user_company', ($request->unknown_user_company),['class'=>'form-control', 'readonly'] ) }}
           </td>
         </tr>
@@ -120,12 +120,12 @@
                   </div>
                   <div class="price_radio_selector">
                     <div class="d-flex justfy-content-start align-items-center">
-                      <input class="mr-2" id="price_system_radio1" name="price_system" type="radio" value="1">
-                      <label for="price_system_radio1">通常（枠貸）</label>
+                      {{ Form::radio('price_system', 1, true, ['class'=>'mr-2', 'id'=>'price_system_radio1']) }}
+                      {{Form::label('price_system_radio1','通常（枠貸）')}}
                     </div>
                     <div class="d-flex justfy-content-start align-items-center">
-                      <input class="mr-2" id="price_system_radio2" name="price_system" type="radio" value="2">
-                      <label for="price_system_radio2">アクセア（時間貸）</label>
+                      {{ Form::radio('price_system', 2, false, ['class'=>'mr-2', 'id'=>'price_system_radio2']) }}
+                      {{Form::label('price_system_radio2','アクセア（時間貸）')}}
                     </div>
                   </div>
                 </div>
@@ -182,7 +182,14 @@
               <div>
                 <select name="event_start" id="event_start" class="form-control">
                   <option disabled>選択してください</option>
-                  @for ($start = 0*2; $start <=23*2; $start++) <option value="{{date("H:i:s", strtotime("00:00 +". $start * 30 ." minute"))}}" @if (isset($request)) @endif>
+                  @for ($start = 0*2; $start <=23*2; $start++) <option
+                    value="{{date("H:i:s", strtotime("00:00 +". $start * 30 ." minute"))}}" @if (date("H:i:s",
+                    strtotime("00:00 +". $start * 30 ." minute"))<$request->pre_enter0)
+                    disabled
+                    @elseif(date("H:i:s", strtotime("00:00 +". $start * 30 ." minute"))>$request->pre_leave0)
+                    disabled
+                    @endif
+                    >
                     {{date("H時i分", strtotime("00:00 +". $start * 30 ." minute"))}}</option>
                     @endfor
                 </select>
@@ -195,9 +202,16 @@
               <div>
                 <select name="event_finish" id="event_finish" class="form-control">
                   <option disabled>選択してください</option>
-                  @for ($start = 0*2; $start <=23*2; $start++) <option value="{{date("H:i:s", strtotime("00:00 +". $start * 30 ." minute"))}}" @if (isset($request)) @endif>
-                    {{date("H時i分", strtotime("00:00 +". $start * 30 ." minute"))}}</option>
-                    @endfor
+                  @for ($start = 0*2; $start <=23*2; $start++) <option
+                    value="{{date("H:i:s", strtotime("00:00 +". $start * 30 ." minute"))}}" @if (date("H:i:s",
+                    strtotime("00:00 +". $start * 30 ." minute"))>$request->pre_leave0)
+                    disabled
+                    @elseif(date("H:i:s",strtotime("00:00 +". $start * 30 ." minute"))<$request->pre_enter0)
+                      disabled
+                      @endif
+                      >
+                      {{date("H時i分", strtotime("00:00 +". $start * 30 ." minute"))}}</option>
+                      @endfor
                 </select>
               </div>
             </td>
@@ -344,7 +358,7 @@
               <tr>
                 <td class="table-active">事前荷物の到着日<br>午前指定のみ</td>
                 <td>
-                  {{ Form::text('luggage_arrive', '',['class'=>'form-control', 'id'=>'datepicker1'] ) }}
+                  {{ Form::text('luggage_arrive', '',['class'=>'form-control', 'id'=>'datepicker9'] ) }}
                 </td>
               </tr>
               <tr>
@@ -363,6 +377,48 @@
             </tbody>
           </table>
         </div>
+
+
+
+        @if ($venue->eat_in_flag==1)
+        <div class="eat_in">
+          <table class="table table-bordered">
+            <thead>
+              <tr>
+                <th colspan='2'>
+                  <p class="title-icon">
+                    <i class="fas fa-suitcase-rolling icon-size fa-fw"></i>室内飲食
+                  </p>
+                </th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>
+                  {{Form::radio('eat_in', 1, false , ['id' => 'eat_in'])}}
+                  {{Form::label('eat_in',"あり")}}
+                </td>
+                <td>
+                  {{Form::radio('eat_in_prepare', 1, false , ['id' => 'eat_in_prepare', 'disabled'])}}
+                  {{Form::label('eat_in_prepare',"手配済み")}}
+                  {{Form::radio('eat_in_prepare', 2, false , ['id' => 'eat_in_consider','disabled'])}}
+                  {{Form::label('eat_in_consider',"検討中")}}
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  {{Form::radio('eat_in', 0, true , ['id' => 'no_eat_in'])}}
+                  {{Form::label('no_eat_in',"なし")}}
+                </td>
+                <td></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        @endif
+
+
+
       </div>
 
       <div class="col">
@@ -418,6 +474,27 @@
             </tr>
           </tbody>
         </table>
+
+        @if ($venue->alliance_flag==1)
+        <table class="table table-bordered cost-table">
+          <tbody>
+            <tr>
+              <td colspan="2">
+                <p class="title-icon">
+                  <i class="fas fa-yen-sign icon-size" aria-hidden="true"></i>売上原価
+                </p>
+              </td>
+            </tr>
+            <tr>
+              <td class="table-active"><label for="">原価率</label></td>
+              <td>
+                {{ Form::text('cost', $venue->cost,['class'=>'form-control', 'placeholder'=>'入力してください'] ) }}%
+              </td>
+            </tr>
+          </tbody>
+        </table>
+        @endif
+
         <table class="table table-bordered note-table">
           <tbody>
             <tr>
@@ -466,4 +543,31 @@
 </div>
 
 {{Form::close()}}
+
+
+
+<script>
+  $(function(){
+    var maxTarget=$('input[name="reserve_date"]').val();
+    $('#datepicker9').datepicker({
+      dateFormat: 'yy-mm-dd',
+      minDate: 0,
+      maxDate:maxTarget,
+      autoclose: true,
+    });
+  })
+
+  $(function(){
+    $(document).on("click", "input:radio[name='eat_in']", function() {
+      var radioTarget=$('input:radio[name="eat_in"]:checked').val();
+      if (radioTarget==1) {
+        $('input:radio[name="eat_in_prepare"]').prop('disabled',false);
+      }else{
+        $('input:radio[name="eat_in_prepare"]').prop('disabled',true);
+        $('input:radio[name="eat_in_prepare"]').val("");
+      }
+    })
+  })
+
+</script>
 @endsection

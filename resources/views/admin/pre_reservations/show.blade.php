@@ -40,14 +40,15 @@
 
             <td>
               <div class="d-flex justify-content-end align-items-center">
-            @if ($pre_reservation->status==0)
-              <a href="{{url('admin/pre_reservations/'.$pre_reservation->id.'/edit')}}" class="btn more_btn mr-2">編集</a>
-            @endif
-              {{ Form::open(['url' => 'admin/pre_reservations/switch_status', 'method'=>'POST']) }}
-              @csrf
-              {{ Form::hidden('pre_reservation_id', $pre_reservation->id)}}
-              {{ Form::submit('仮押さえ内容を確定する', ['class' => 'btn more_btn4']) }}
-              {{ Form::close() }}
+                @if ($pre_reservation->status==0)
+                <a href="{{url('admin/pre_reservations/'.$pre_reservation->id.'/edit')}}"
+                  class="btn more_btn mr-2">編集</a>
+                @endif
+                {{ Form::open(['url' => 'admin/pre_reservations/switch_status', 'method'=>'POST']) }}
+                @csrf
+                {{ Form::hidden('pre_reservation_id', $pre_reservation->id)}}
+                {{ Form::submit('仮押さえ内容を確定する', ['class' => 'btn more_btn4']) }}
+                {{ Form::close() }}
               </div>
             </td>
         </tbody>
@@ -420,7 +421,12 @@
                 </tr>
                 <tr>
                   <td>
-                    なし
+                    {{$pre_reservation->eat_in==1?"あり":"なし"}}
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    {{$pre_reservation->eat_in_prepare==1?"手配済み":"検討中"}}
                   </td>
                 </tr>
               </tbody>

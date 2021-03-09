@@ -151,7 +151,9 @@
               <td>
                 <select name="enter_time" id="enter_time" class="form-control">
                   <option value=""></option>
-                  @for ($start = 0*2; $start <=23*2; $start++) <option value="{{date("H:i:s", strtotime("00:00 +". $start * 30 ." minute"))}}" @if (date("H:i:s", strtotime("00:00 +". $start * 30 ." minute"))==$request->enter_time)
+                  @for ($start = 0*2; $start <=23*2; $start++) <option
+                    value="{{date("H:i:s", strtotime("00:00 +". $start * 30 ." minute"))}}" @if (date("H:i:s",
+                    strtotime("00:00 +". $start * 30 ." minute"))==$request->enter_time)
                     selected
                     @endif
                     >
@@ -166,7 +168,9 @@
               <td>
                 <select name="leave_time" id="leave_time" class="form-control">
                   <option value=""></option>
-                  @for ($start = 0*2; $start <=23*2; $start++) <option value="{{date("H:i:s", strtotime("00:00 +". $start * 30 ." minute"))}}" @if (date("H:i:s", strtotime("00:00 +". $start * 30 ." minute"))==$request->leave_time)
+                  @for ($start = 0*2; $start <=23*2; $start++) <option
+                    value="{{date("H:i:s", strtotime("00:00 +". $start * 30 ." minute"))}}" @if (date("H:i:s",
+                    strtotime("00:00 +". $start * 30 ." minute"))==$request->leave_time)
                     selected
                     @endif
                     >
@@ -405,6 +409,52 @@
             </tbody>
           </table>
         </div>
+
+        @if ($SpVenue->eat_in_flag==1)
+        <div class="eat_in">
+          <table class="table table-bordered">
+            <thead>
+              <tr>
+                <th colspan='2'>
+                  <p class="title-icon">
+                    <i class="fas fa-suitcase-rolling icon-size fa-fw"></i>室内飲食
+                  </p>
+                </th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>
+                  {{Form::radio('eat_in', 1, $request->eat_in==1?true:false , ['id' => 'eat_in'])}}
+                  {{Form::label('eat_in',"あり")}}
+                </td>
+                <td>
+                  @if (empty($request->eat_in_prepare))
+                  {{Form::radio('eat_in_prepare', 1, false , ['id' => 'eat_in_prepare', 'disabled'])}}
+                  {{Form::label('eat_in_prepare',"手配済み")}}
+                  {{Form::radio('eat_in_prepare', 2, false , ['id' => 'eat_in_consider','disabled'])}}
+                  {{Form::label('eat_in_consider',"検討中")}}
+                  @else
+                  {{Form::radio('eat_in_prepare', 1, $request->eat_in_prepare==1?true:false , ['id' => 'eat_in_prepare' ])}}
+                  {{Form::label('eat_in_prepare',"手配済み")}}
+                  {{Form::radio('eat_in_prepare', 2, $request->eat_in_prepare==2?true:false , ['id' => 'eat_in_consider'])}}
+                  {{Form::label('eat_in_consider',"検討中")}}
+                  @endif
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  {{Form::radio('eat_in', 0, $request->eat_in==0?true:false , ['id' => 'no_eat_in'])}}
+                  {{Form::label('no_eat_in',"なし")}}
+                </td>
+                <td></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        @endif
+
+
       </div>
 
       <div class="col">
@@ -475,6 +525,27 @@
             </tr>
           </tbody>
         </table>
+
+        @if ($SpVenue->alliance_flag==1)
+        <table class="table table-bordered cost-table">
+          <tbody>
+            <tr>
+              <td colspan="2">
+                <p class="title-icon">
+                  <i class="fas fa-yen-sign icon-size" aria-hidden="true"></i>売上原価
+                </p>
+              </td>
+            </tr>
+            <tr>
+              <td class="table-active"><label for="">原価率</label></td>
+              <td>
+                {{ Form::text('cost', $request->cost,['class'=>'form-control', 'placeholder'=>'入力してください'] ) }}%
+              </td>
+            </tr>
+          </tbody>
+        </table>
+        @endif
+
         <table class="table table-bordered note-table">
           <tbody>
             <tr>
@@ -616,7 +687,8 @@
                   <td>
                     {{ Form::text('venue_breakdown_cost0', $price_details[0]-$price_details[1],['class'=>'form-control', 'readonly'] ) }}
                   </td>
-                  <td>{{ Form::text('venue_breakdown_count0', $price_details[3],['class'=>'form-control', 'readonly'] ) }}
+                  <td>
+                    {{ Form::text('venue_breakdown_count0', $price_details[3],['class'=>'form-control', 'readonly'] ) }}
                   </td>
                   <td>
                     {{ Form::text('venue_breakdown_subtotal0', $price_details[0]-$price_details[1],['class'=>'form-control', 'readonly'] ) }}
@@ -624,9 +696,11 @@
                 </tr>
                 <tr>
                   <td>{{ Form::text('venue_breakdown_item1', "延長料金",['class'=>'form-control', 'readonly'] ) }} </td>
-                  <td>{{ Form::text('venue_breakdown_cost1', $price_details[1],['class'=>'form-control', 'readonly'] ) }}
+                  <td>
+                    {{ Form::text('venue_breakdown_cost1', $price_details[1],['class'=>'form-control', 'readonly'] ) }}
                   </td>
-                  <td>{{ Form::text('venue_breakdown_count1', $price_details[4],['class'=>'form-control', 'readonly'] ) }}
+                  <td>
+                    {{ Form::text('venue_breakdown_count1', $price_details[4],['class'=>'form-control', 'readonly'] ) }}
                   </td>
                   <td>
                     {{ Form::text('venue_breakdown_subtotal1', $price_details[1],['class'=>'form-control', 'readonly'] ) }}
@@ -635,9 +709,11 @@
                 @else
                 <tr>
                   <td>{{ Form::text('venue_breakdown_item0', "会場料金",['class'=>'form-control', 'readonly'] ) }} </td>
-                  <td>{{ Form::text('venue_breakdown_cost0', $price_details[0],['class'=>'form-control', 'readonly'] ) }}
+                  <td>
+                    {{ Form::text('venue_breakdown_cost0', $price_details[0],['class'=>'form-control', 'readonly'] ) }}
                   </td>
-                  <td>{{ Form::text('venue_breakdown_count0', $price_details[3],['class'=>'form-control', 'readonly'] ) }}
+                  <td>
+                    {{ Form::text('venue_breakdown_count0', $price_details[3],['class'=>'form-control', 'readonly'] ) }}
                   </td>
                   <td>
                     {{ Form::text('venue_breakdown_subtotal0', $price_details[0],['class'=>'form-control', 'readonly'] ) }}
@@ -854,7 +930,8 @@
                   <td>{{ Form::text('layout_clean_cost', $layouts_details[1],['class'=>'form-control', 'readonly'] )}}
                   </td>
                   <td>{{ Form::text('layout_clean_count', 1,['class'=>'form-control', 'readonly'] )}}</td>
-                  <td>{{ Form::text('layout_clean_subtotal', $layouts_details[1],['class'=>'form-control', 'readonly'] )}}
+                  <td>
+                    {{ Form::text('layout_clean_subtotal', $layouts_details[1],['class'=>'form-control', 'readonly'] )}}
                   </td>
                 </tr>
                 @endif
@@ -992,7 +1069,8 @@
 {{Form::hidden('user_details', $request->user_details)}}
 {{Form::hidden('admin_details', $request->admin_details)}}
 
-
+{{Form::hidden('eat_in', $request->eat_in)}}
+{{Form::hidden('eat_in_prepare', $request->eat_in_prepare)}}
 
 {{Form::hidden('unknown_user_company', $request->unknown_user_company)}}
 {{Form::hidden('unknown_user_name', $request->unknown_user_name)}}
@@ -1109,6 +1187,19 @@
       });
     });
   })
+
+  $(function(){
+    $(document).on("click", "input:radio[name='eat_in']", function() {
+      var radioTarget=$('input:radio[name="eat_in"]:checked').val();
+      if (radioTarget==1) {
+        $('input:radio[name="eat_in_prepare"]').prop('disabled',false);
+      }else{
+        $('input:radio[name="eat_in_prepare"]').prop('disabled',true);
+        $('input:radio[name="eat_in_prepare"]').val("");
+      }
+    })
+  })
+
 </script>
 
 @endsection
