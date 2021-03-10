@@ -10,6 +10,7 @@ use App\Models\Venue;
 use App\Models\User;
 use App\Models\Bill;
 use App\Models\Breakdown;
+use App\Models\Agent;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\DB; //トランザクション用
 
@@ -57,9 +58,10 @@ class PreReservationsController extends Controller
     // $pre_reservations = PreReservation::where('multiple_reserve_id', '=', 0)->paginate(30);
     $venues = Venue::all();
     $users = User::all();
+    $agents = Agent::all();
     return view(
       'admin.pre_reservations.index',
-      compact('pre_reservations', 'venues', 'users')
+      compact('pre_reservations', 'venues', 'users', 'agents')
     );
   }
 

@@ -87,18 +87,12 @@
           <tr>
             <th class="search_item_name"><label for="company">会社・団体名</label></th>
             <td class="text-right">
-              <select name="search_user" id="search_user" class="form-control">
-                <option value=""></option>
-                @foreach ($users as $s_u)
-                <option value="{{$s_u->id}}">{{ReservationHelper::getCompany($s_u->id)}}</option>
-                @endforeach
-              </select>
+              {{Form::text('search_user','',['class'=>'form-control'])}}
             </td>
             <th class="search_item_name"><label for="person_name">担当者氏名</label></th>
             <td class="text-right">
               <dd>
                 {{Form::text('search_person','',['class'=>'form-control'])}}
-
             </td>
           </tr>
           <tr>
@@ -118,7 +112,12 @@
             </td>
             <th class="search_item_name"><label for="agent">仲介会社</label></th>
             <td>
-              {{Form::text("search_agent",'', ['class'=>'form-control','id'=>''])}}
+              <select name="search_agent" id="search_agent" class="form-control">
+                <option value=""></option>
+                @foreach ($agents as $s_a)
+                <option value="{{$s_a->id}}">{{ReservationHelper::getAgentCompany($s_a->id)}}</option>
+                @endforeach
+              </select>
             </td>
           </tr>
           <tr>
