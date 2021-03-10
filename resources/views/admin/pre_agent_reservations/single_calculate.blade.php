@@ -1,10 +1,9 @@
 @extends('layouts.admin.app')
 
 @section('content')
-
-
-<link href="{{ asset('/css/template.css') }}" rel="stylesheet">
 <script src="{{ asset('/js/template.js') }}"></script>
+<script src="{{ asset('/js/admin/validation.js') }}"></script>
+<link href="{{ asset('/css/template.css') }}" rel="stylesheet">
 
 <h2 class="mt-3 mb-3">仲介会社　仮押え 計算</h2>
 
@@ -61,11 +60,6 @@
       </tbody>
     </table>
   </div>
-
-
-
-
-
 
   <div class="unknown_user mt-5">
     <table class="table table-bordered" style="table-layout: fixed;">
@@ -459,8 +453,12 @@
               <td class="table-active form_required">
                 <label for="enduser_charge ">支払い料</label>
               </td>
-              <td class="d-flex align-items-center">
-                {{ Form::text('enduser_charge', $request->enduser_charge,['class'=>'form-control'] ) }}円
+              <td>
+                <div class="d-flex align-items-center">
+                {{ Form::text('enduser_charge', $request->enduser_charge,['class'=>'form-control'] ) }}
+                <span class="ml-2">円</span>
+                </div>
+                <p class="is-error-enduser_charge" style="color: red"></p>
               </td>
             </tr>
           </tbody>

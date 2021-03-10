@@ -1,9 +1,8 @@
 @extends('layouts.admin.app')
 @section('content')
-
-
-<link href="{{ asset('/css/template.css') }}" rel="stylesheet">
 <script src="{{ asset('/js/template.js') }}"></script>
+<script src="{{ asset('/js/admin/validation.js') }}"></script>
+<link href="{{ asset('/css/template.css') }}" rel="stylesheet">
 
 <style>
   #fullOverlay {
@@ -49,7 +48,7 @@
   <hr>
 </div>
 
-{{ Form::open(['url' => 'admin/pre_reservations/'.$PreReservation->id.'/re_calculate', 'method'=>'POST', 'id'=>'']) }}
+{{ Form::open(['url' => 'admin/pre_reservations/'.$PreReservation->id.'/re_calculate', 'method'=>'POST', 'id'=>'pre_reservationSingleEditForm']) }}
 @csrf
 <section class="section-wrap">
   <div class="selected_user">
@@ -161,13 +160,13 @@
               </td>
             </tr>
             <tr>
-              <td class="table-active form_required">利用日</td>
+              <td class="table-active">利用日</td>
               <td>
                 {{ Form::text('reserve_date', date('Y-m-d',strtotime($PreReservation->reserve_date)),['class'=>'form-control', 'readonly'] ) }}
               </td>
             </tr>
             <tr>
-              <td class="table-active form_required">会場</td>
+              <td class="table-active">会場</td>
               <td>
                 {{ Form::text('', ReservationHelper::getVenue($PreReservation->venue_id),['class'=>'form-control', 'readonly'] ) }}
                 {{ Form::hidden('venue_id', $PreReservation->venue_id,['class'=>'form-control'] ) }}
@@ -185,7 +184,7 @@
               </td>
             </tr>
             <tr>
-              <td class="table-active form_required">入室時間</td>
+              <td class="table-active">入室時間</td>
               <td>
                 <select name="enter_time" id="enter_time" class="form-control">
                   <option value=""></option>
@@ -202,7 +201,7 @@
               </td>
             </tr>
             <tr>
-              <td class="table-active form_required">退室時間</td>
+              <td class="table-active">退室時間</td>
               <td>
                 <select name="leave_time" id="leave_time" class="form-control">
                   <option value=""></option>
@@ -599,7 +598,7 @@
   {{-- 以下、計算結果 --}}
   <div class="container-fluid">
     <div class="bill">
-      <div class="bill_head">
+      <div class="bill_head py-0">
         <table class="table" style="table-layout: fixed">
           <tr>
             <td>

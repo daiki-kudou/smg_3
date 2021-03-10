@@ -1,7 +1,8 @@
 @extends('layouts.admin.app')
 @section('content')
-<link href="{{ asset('/css/template.css') }}" rel="stylesheet">
 <script src="{{ asset('/js/template.js') }}"></script>
+<script src="{{ asset('/js/admin/validation.js') }}"></script>
+<link href="{{ asset('/css/template.css') }}" rel="stylesheet">
 
 <div class="container-field">
   <div class="float-right">
@@ -116,13 +117,13 @@
               </td>
             </tr>
             <tr>
-              <td class="table-active form_required">利用日</td>
+              <td class="table-active">利用日</td>
               <td>
                 {{ Form::text('reserve_date', $request->reserve_date,['class'=>'form-control', 'id'=>'datepicker1'] ) }}
               </td>
             </tr>
             <tr>
-              <td class="table-active form_required">会場</td>
+              <td class="table-active">会場</td>
               <td>
                 <select name="venue_id" id="venue_id">
                   <option value=""></option>
@@ -147,7 +148,7 @@
               </td>
             </tr>
             <tr>
-              <td class="table-active form_required">入室時間</td>
+              <td class="table-active">入室時間</td>
               <td>
                 <select name="enter_time" id="enter_time" class="form-control">
                   <option value=""></option>
@@ -164,7 +165,7 @@
               </td>
             </tr>
             <tr>
-              <td class="table-active form_required">退室時間</td>
+              <td class="table-active">退室時間</td>
               <td>
                 <select name="leave_time" id="leave_time" class="form-control">
                   <option value=""></option>
@@ -658,12 +659,12 @@
                 <dd class="total_result">{{number_format($masters)}}円</dd>
               </dl>
             </td>
-            <td>
+            <!-- <td>
               <dl class="ttl_box">
                 <dt>支払い期日</dt>
                 <dd class="total_result">{{ReservationHelper::formatDate($pay_limit)}}</dd>
               </dl>
-            </td>
+            </td> -->
           </tr>
           <!-- <tr>
             <td></td>

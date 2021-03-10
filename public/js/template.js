@@ -146,6 +146,12 @@ $(function () {
   ExceptString(luggage_price);
   var equipment_breakdown = $("input[name^='equipment_breakdown']");
   ExceptString(equipment_breakdown);
+  var pre_enduser_tel = $("input[name^='pre_enduser_tel']");
+  ExceptString(pre_enduser_tel);
+  var pre_enduser_mobile = $("input[name^='pre_enduser_mobile']");
+  ExceptString(pre_enduser_mobile);
+  var enduser_charge = $("input[name^='enduser_charge']");
+  ExceptString(enduser_charge);
 });
 
 
