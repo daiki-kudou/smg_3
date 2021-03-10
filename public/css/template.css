@@ -144,7 +144,7 @@ table.dataTable thead .sorting_desc:after {
 
 .form_required:after {
     content: "必須";
-    margin-left: 10px;
+    margin-left: 0.5em;
     font-size: 12px;
     background: #ff6679;
     color: white;
@@ -276,7 +276,7 @@ select:disabled {
 .more_btn {
     background: #007bff;
     padding: 0.3em 1em;
-    border-radius: 5px;
+    border-radius: 2px;
     color: #fff;
     font-weight: bold;
     transition: 0.4s;
@@ -291,7 +291,7 @@ select:disabled {
 .more_btn2 {
     background: #35a7a7;
     padding: 0.3em 1em;
-    border-radius: 5px;
+    border-radius: 2px;
     color: #fff;
     font-weight: bold;
     /* min-width: 100px; */
@@ -300,7 +300,7 @@ select:disabled {
 .more_btn4 {
     background: #DC3545;
     padding: 0.3em 1em;
-    border-radius: 5px;
+    border-radius: 2px;
     color: #fff;
     font-weight: bold;
     font-size: 12px;
@@ -353,7 +353,7 @@ select:disabled {
 .more_btn_lg {
     background: #007BFF;
     padding: 15px 80px;
-    border-radius: 5px;
+    border-radius: 2px;
     color: #fff;
     font-weight: bold;
     transition: 0.4s;
@@ -368,7 +368,7 @@ select:disabled {
 .more_btn4_lg {
     background: #DC3545;
     padding: 15px 80px;
-    border-radius: 5px;
+    border-radius: 2px;
     color: #fff;
     font-weight: bold;
     font-size: 12px;
@@ -551,21 +551,23 @@ select:disabled {
     width: 300px;
 }
 
-/* .search_box {
-    margin-bottom: 50px;
-    padding: 30px;
-    border: 1px solid #DBDBDB;
-} */
-
-.search_box .form-group {
+/* .search_box .form-group {
     display: flex;
     margin-bottom: 1px;
     align-items: center;
     border-radius: 0;
     width: 50%;
+} */
+
+/* .search_box.table td {
+    padding: 0.02em;
+} */
+
+.search_box .form-control {
+    padding: 0;
 }
 
-.search_item_name {
+.table th.search_item_name {
     width: 140px;
     background: #35a7a7;
     margin-bottom: 0;
@@ -1049,7 +1051,7 @@ h3 {
     /* background: #35a7a7; */
     background: rgb(53 167 167 / 80%);
     table-layout: fixed;
-    /* padding: 10px; */
+    padding: 10px;
     /* border: solid 1px #ced4da; */
 }
 

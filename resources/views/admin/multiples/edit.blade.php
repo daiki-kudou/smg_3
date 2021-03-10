@@ -1030,7 +1030,7 @@
                               </td>
                             </tr>
                           </tbody>
-                          <tbody class="{{'venue_discount'.$key}}">
+                          <!-- <tbody class="{{'venue_discount'.$key}}">
                             <tr>
                               <td>割引計算欄</td>
                               <td>
@@ -1055,7 +1055,7 @@
                                 <input class="{{'btn more_btn venue_discount_btn'.$key}}" type="button" value="計算する">
                               </td>
                             </tr>
-                          </tbody>
+                          </tbody> -->
                           @else{{--料金体系無し、手打ち--}}
                           <span>※料金体系がないため、手打ちで会場料を入力してください</span>
                           <tbody class="venue_head">
@@ -1183,7 +1183,7 @@
                               </td>
                             </tr>
                           </tbody>
-                          <tbody class="{{'equipment_discount'.$key}}">
+                          <!-- <tbody class="{{'equipment_discount'.$key}}">
                             <tr>
                               <td>割引計算欄</td>
                               <td>
@@ -1208,7 +1208,7 @@
                                 <input class="btn more_btn {{'equipment_discount_btn'.$key}}" type="button" value="計算する">
                               </td>
                             </tr>
-                          </tbody>
+                          </tbody> -->
                         </table>
                       </div>
                       @endif
@@ -1260,7 +1260,7 @@
                             </tr>
                           </tbody>
                           <tbody class="{{'layout_discount'.$key}}">
-                            <tr>
+                            <!-- <tr>
                               <td>割引計算欄</td>
                               <td>
                                 <p>
@@ -1284,13 +1284,13 @@
                                 <input class="btn more_btn {{'layout_discount_btn'.$key}}" type="button" value="計算する">
                               </td>
                             </tr>
-                          </tbody>
+                          </tbody> -->
                         </table>
                       </div>
                       @endif
 
                       {{-- 以下、その他 --}}
-                      <div class="others billdetails_content">
+                      <!-- <div class="others billdetails_content">
                         <table class="table table-borderless">
                           <tr>
                             <td colspan="5">
@@ -1337,7 +1337,7 @@
                             </tr>
                           </tbody>
                         </table>
-                      </div>
+                      </div> -->
                       {{-- 以下、総合計 --}}
                       <div class="bill_total">
                         <table class="table">
@@ -1410,10 +1410,10 @@
             <td>・レイアウト変更料</td>
             <td>{{$multiple->sumLayouts($venue->id)}}円</td>
           </tr>
-          <tr>
+          <!-- <tr>
             <td>・その他</td>
             <td>ダミー円</td>
-          </tr>
+          </tr> -->
         </tbody>
         <tbody class="master_total_bottom">
           <tr>

@@ -65,7 +65,7 @@
           </td>
         </tr>
         <tr>
-          <td class="table-active">担当者指名</td>
+          <td class="table-active">担当者氏名</td>
           <td>
             <p class="person"></p>
           </td>
@@ -98,13 +98,12 @@
       <tbody>
         <tr>
           <td class="table-active">会社名・団体名</td>
-          <td>
+          <td colspan="3">
             {{ Form::text('unknown_user_company', '',['class'=>'form-control'] ) }}
           </td>
-          <td colspan="2"></td>
         </tr>
         <tr>
-          <td class="table-active">担当者指名</td>
+          <td class="table-active">担当者氏名</td>
           <td>
             {{ Form::text('unknown_user_name', '',['class'=>'form-control'] ) }}
           </td>
@@ -420,7 +419,7 @@
             });
           }
         }
-      } else if (target == 3) {
+      // } else if (target == 3) {
         // var date = this_tr.find('td').eq(0).find('input').val();
         // var venue = this_tr.find('td').eq(1).find('select').val();
         // if (date.length && venue.length) {
