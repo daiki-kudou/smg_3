@@ -10,6 +10,7 @@ use App\Models\Venue;
 use App\Models\User;
 use App\Models\Bill;
 use App\Models\Breakdown;
+use App\Models\Agent;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\DB; //トランザクション用
 
@@ -37,18 +38,14 @@ class PreReservationsController extends Controller
   public function index(Request $request)
   {
 
-    // $test = $this->SplitDate($request->search_date);
-    // var_dump($test);
+    // $pre_reservations = $this->BasicSearch(new PreReservation, $request);
 
-    // var_dump($this->BasicSearch(new PreReservation, $request));
-    $pre_reservations = $this->BasicSearch(new PreReservation, $request);
-
-    // if (count($request->all()) != 0) {
-    //   $class = new PreReservation;
-    //   $pre_reservations = $this->BasicSearch($class, $request);
-    // } else {
-    //   $pre_reservations = PreReservation::where('multiple_reserve_id', '=', 0)->paginate(30);
-    // }
+    if (count($request->all()) != 0) {
+      $class = new PreReservation;
+      $pre_reservations = $this->BasicSearch($class, $request);
+    } else {
+      $pre_reservations = PreReservation::where('multiple_reserve_id', '=', 0)->paginate(30);
+    }
 
 
 
@@ -56,9 +53,11 @@ class PreReservationsController extends Controller
 
     // $pre_reservations = PreReservation::where('multiple_reserve_id', '=', 0)->paginate(30);
     $venues = Venue::all();
+    $users = User::all();
+    $agents = Agent::all();
     return view(
       'admin.pre_reservations.index',
-      compact('pre_reservations', 'venues')
+      compact('pre_reservations', 'venues', 'users', 'agents')
     );
   }
 
