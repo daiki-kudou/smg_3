@@ -329,7 +329,7 @@
               @if ($venue->getLayouts()[0])
               <tr>
                 <td class="table-active">
-                  準備
+                  レイアウト準備
                 </td>
                 <td>
                   <div class="form-check form-check-inline">
@@ -344,7 +344,7 @@
               @if ($venue->getLayouts()[1])
               <tr>
                 <td class="table-active">
-                  片付
+                  レイアウト片付
                 </td>
                 <td>
                   <div class="form-check form-check-inline">
@@ -381,7 +381,7 @@
               <tr>
                 <td class="table-active">事前荷物の到着日<br>午前指定のみ</td>
                 <td>
-                  {{ Form::text('luggage_arrive', $request->luggage_arrive,['class'=>'form-control', 'id'=>'datepicker1'] ) }}
+                  {{ Form::text('luggage_arrive', $request->luggage_arrive,['class'=>'form-control', 'id'=>'datepicker9'] ) }}
                 </td>
               </tr>
               <tr>
@@ -400,6 +400,49 @@
             </tbody>
           </table>
         </div>
+
+        @if ($venue->eat_in_flag==1)
+        <div class="eat_in">
+          <table class="table table-bordered">
+            <thead>
+              <tr>
+                <th colspan='2'>
+                  <p class="title-icon">
+                    <i class="fas fa-suitcase-rolling icon-size fa-fw"></i>室内飲食
+                  </p>
+                </th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>
+                  {{Form::radio('eat_in', 1, $request->eat_in==1?true:false , ['id' => 'eat_in'])}}
+                  {{Form::label('eat_in',"あり")}}
+                </td>
+                <td>
+                  {{Form::radio('eat_in_prepare', 1, $request->eat_in_prepare==1?true:false , ['id' => 'eat_in_prepare', ''])}}
+                  {{Form::label('eat_in_prepare',"手配済み")}}
+                  {{Form::radio('eat_in_prepare', 2, $request->eat_in_prepare==2?true:false , ['id' => 'eat_in_consider',''])}}
+                  {{Form::label('eat_in_consider',"検討中")}}
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  {{Form::radio('eat_in', 0, $request->eat_in==0?true:false , ['id' => 'no_eat_in'])}}
+                  {{Form::label('no_eat_in',"なし")}}
+                </td>
+                <td></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        @endif
+
+
+
+
+
+
       </div>
 
       <div class="col">
@@ -422,6 +465,26 @@
             </tr>
           </tbody>
         </table>
+        @if ($venue->alliance_flag==1)
+        <table class="table table-bordered cost-table">
+          <tbody>
+            <tr>
+              <td colspan="2">
+                <p class="title-icon">
+                  <i class="fas fa-yen-sign icon-size" aria-hidden="true"></i>売上原価
+                </p>
+              </td>
+            </tr>
+            <tr>
+              <td class="table-active"><label for="">原価率</label></td>
+              <td>
+                {{ Form::text('cost', $request->cost,['class'=>'form-control', 'placeholder'=>'入力してください'] ) }}%
+              </td>
+            </tr>
+          </tbody>
+        </table>
+        @endif
+
         <table class="table table-bordered note-table">
           <tbody>
             <tr>
@@ -480,7 +543,7 @@
                 <dl class="ttl_box">
                   <dt>合計金額</dt>
                   <dd class="total_result">
-                    {{number_format(ReservationHelper::taxAndPrice(floor($price+$venue->getLayouts()[2])))}}</dd>
+                    {{number_format(ReservationHelper::taxAndPrice(floor($price+$layout_prepare+$layout_clean)))}}</dd>
                 </dl>
               </td>
               <!-- <td style="font-size: 16px;">
@@ -647,7 +710,6 @@
                 </tr>
               </tbody>
               @endif
-
             </table>
           </div>
 
@@ -744,6 +806,11 @@
 {{ Form::hidden('pre_enduser_attr', ($request->pre_enduser_attr),['class'=>'form-control', 'readonly'] ) }}
 {{ Form::hidden('pre_enduser_address', ($request->pre_enduser_address),['class'=>'form-control', 'readonly'] ) }}
 
+{{Form::hidden('eat_in_prepare', $request->eat_in_prepare)}}
+{{Form::hidden('eat_in', $request->eat_in)}}
+{{Form::hidden('cost', $request->cost)}}
+
+
 
 {{Form::submit('保存する', ['class'=>'btn more_btn_lg d-block btn-lg mx-auto my-5', 'id'=>'check_submit'])}}
 {{Form::close()}}
@@ -794,6 +861,30 @@
       });
     });
   })
+
+  $(function(){
+    var maxTarget=$('input[name="reserve_date"]').val();
+    $('#datepicker9').datepicker({
+      dateFormat: 'yy-mm-dd',
+      minDate: 0,
+      maxDate:maxTarget,
+      autoclose: true,
+    });
+  })
+
+
+  $(function(){
+    $(document).on("click", "input:radio[name='eat_in']", function() {
+      var radioTarget=$('input:radio[name="eat_in"]:checked').val();
+      if (radioTarget==1) {
+        $('input:radio[name="eat_in_prepare"]').prop('disabled',false);
+      }else{
+        $('input:radio[name="eat_in_prepare"]').prop('disabled',true);
+        $('input:radio[name="eat_in_prepare"]').prop('checked', false);
+      }
+    })
+  })
+
 </script>
 
 

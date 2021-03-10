@@ -591,7 +591,7 @@
             </tr>
           </tbody>
           <tbody class="venue_main">
-            @foreach ($venues as $venue)
+            @foreach ($pre_reservation->pre_breakdowns()->where('unit_type',1)->get() as $venue)
             <tr>
               <td>{{$venue->unit_item}}</td>
               <td>{{number_format($venue->unit_cost)}}</td>
@@ -605,7 +605,7 @@
               <td colspan="2"></td>
               <td colspan="1">合計：</td>
               <td colspan="1" class="">
-                {{number_format($pre_reservation->pre_bill->first()->venue_price)}}
+                {{number_format($pre_reservation->pre_bill->venue_price)}}
               </td>
             </tr>
           </tbody>
@@ -662,7 +662,7 @@
             </tr>
           </tbody>
           <tbody class="equipment_main">
-            @foreach ($equipments as $equipment)
+            @foreach ($pre_reservation->pre_breakdowns()->where('unit_type',2)->get() as $equipment)
             <tr>
               <td>{{$equipment->unit_item}}</td>
               <td>{{number_format($equipment->unit_cost)}}</td>
@@ -671,7 +671,7 @@
             </tr>
             @endforeach
 
-            @foreach ($services as $service)
+            @foreach ($pre_reservation->pre_breakdowns()->where('unit_type',3)->get() as $service)
             <tr>
               <td>{{$service->unit_item}}</td>
               <td>{{number_format($service->unit_cost)}}</td>
@@ -685,7 +685,7 @@
               <td colspan="2"></td>
               <td colspan="1">合計：</td>
               <td colspan="1" class="">
-                {{number_format($pre_reservation->pre_bill->first()->equipment_price)}}
+                {{number_format($pre_reservation->pre_bill->equipment_price)}}
               </td>
               </td>
             </tr>
@@ -752,7 +752,7 @@
             </tr>
           </tbody>
           <tbody class="layout_main">
-            @foreach ($layouts as $layout)
+            @foreach ($pre_reservation->pre_breakdowns()->where('unit_type',4)->get() as $layout)
             <tr>
               <td>{{$layout->unit_item}}</td>
               <td>{{number_format($layout->unit_cost)}}</td>
@@ -766,7 +766,7 @@
               <td colspan="1"></td>
               <td colspan="1">合計：</td>
               <td colspan="2">合計：
-                {{number_format($pre_reservation->pre_bill->first()->layout_price)}}
+                {{number_format($pre_reservation->pre_bill->layout_price)}}
               </td>
             </tr>
           </tbody>
@@ -825,7 +825,7 @@
             </tr>
           </tbody>
           <tbody class="others_main">
-            @foreach ($others as $other)
+            @foreach ($pre_reservation->pre_breakdowns()->where('unit_type',5)->get() as $other)
             <tr>
               <td>{{$other->unit_item}}</td>
               <td>{{number_format($other->unit_cost)}}</td>
@@ -839,7 +839,7 @@
               <td colspan="1"></td>
               <td colspan="1"></td>
               <td colspan="2">合計：
-                {{$pre_reservation->pre_bill->first()->others_price}}
+                {{$pre_reservation->pre_bill->others_price}}
             </tr>
           </tbody>
         </table>
@@ -875,26 +875,25 @@
       @endif
 
 
-
       <div class="bill_total">
         <table class="table text-right">
           <tbody>
             <tr>
               <td>小計：</td>
               <td>
-                {{number_format($pre_reservation->pre_bill->first()->master_subtotal)}}
+                {{number_format($pre_reservation->pre_bill->master_subtotal)}}
               </td>
             </tr>
             <tr>
               <td>消費税：</td>
               <td>
-                {{number_format($pre_reservation->pre_bill->first()->master_tax)}}
+                {{number_format($pre_reservation->pre_bill->master_tax)}}
               </td>
             </tr>
             <tr>
               <td class="font-weight-bold">合計金額</td>
               <td>
-                {{number_format($pre_reservation->pre_bill->first()->master_total)}}
+                {{number_format($pre_reservation->pre_bill->master_total)}}
               </td>
             </tr>
           </tbody>
