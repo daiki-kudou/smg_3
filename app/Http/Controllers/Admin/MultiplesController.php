@@ -124,9 +124,7 @@ class MultiplesController extends Controller
     $multiple = MultipleReserve::find($request->multiple_id);
     $multiple->MultipleStore($request);
 
-
-    echo "<pre>";
-    var_dump($request->all());
-    echo "</pre>";
+    $request->session()->regenerate();
+    return redirect('admin/multiples/' . $request->multiple_id);
   }
 }
