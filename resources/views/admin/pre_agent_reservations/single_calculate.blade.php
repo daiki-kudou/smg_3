@@ -6,7 +6,7 @@
 <link href="{{ asset('/css/template.css') }}" rel="stylesheet">
 <script src="{{ asset('/js/template.js') }}"></script>
 
-<h2 class="mt-3 mb-3">仲介会社　仮押さえ 計算</h2>
+<h2 class="mt-3 mb-3">仲介会社　仮押え 計算</h2>
 
 {{Form::open(['url' => 'admin/pre_agent_reservations/calculate', 'method' => 'POST', 'id'=>''])}}
 @csrf
@@ -124,7 +124,7 @@
             <tr>
               <td colspan="2">
                 <p class="title-icon">
-                  <i class="fas fa-info-circle icon-size"></i>仮押さえ情報
+                  <i class="fas fa-info-circle icon-size"></i>仮押え情報
                 </p>
               </td>
             </tr>

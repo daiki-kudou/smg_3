@@ -23,7 +23,7 @@
           </ol>
         </nav>
       </div>
-      <h2 class="mt-3 mb-3">一括仮押さえ　編集</h2>
+      <h2 class="mt-3 mb-3">一括仮押え　編集</h2>
       <hr>
     </div>
 
@@ -43,7 +43,7 @@
           <tr>
             <td class="text-white d-flex align-items-center">
               <h3>
-                仮押さえ一括ID:<span class="mr-1">{{$multiple->id}}</span>
+                仮押え一括ID:<span class="mr-1">{{$multiple->id}}</span>
               </h3>
               <h4 class="ml-2">{{ReservationHelper::getVenue($venue->id)}}</h4>
             </td>
@@ -78,7 +78,7 @@
                       <td colspan="2">
                         <p class="title-icon">
                           <i class="fas fa-info-circle icon-size" aria-hidden="true"></i>
-                          仮押さえ情報
+                          仮押え情報
                         </p>
                       </td>
                     </tr>
@@ -461,7 +461,7 @@
         </li>
       </ul>
 
-      {{-- jsで仮押さえの件数判別のためのhidden --}}
+      {{-- jsで仮押えの件数判別のためのhidden --}}
       {{ Form::hidden('', $multiple->pre_reservations()->where('venue_id',$venue->id)->get()->count(),['id'=>'counts_reserve']) }}
       {{-- 以下、pre_reservationの数分　ループ --}}
       @foreach ($multiple->pre_reservations()->where('venue_id',$venue->id)->get() as $key=>$pre_reservation)
@@ -470,7 +470,7 @@
       {{ Form::hidden('split_keys', $key) }}
 
       <section class="register-list col">
-        <!-- 仮押さえ一括 タブ-->
+        <!-- 仮押え一括 タブ-->
         <div class="register-list-item">
           <div class="from-group list_checkbox">
             <div class="form-check">
@@ -523,7 +523,7 @@
                         <td colspan="2">
                           <p class="title-icon">
                             <i class="fas fa-info-circle icon-size" aria-hidden="true"></i>
-                            仮押さえ情報
+                            仮押え情報
                           </p>
                         </td>
                       </tr>
@@ -1373,7 +1373,7 @@
           </dl>
           <!-- /.card -->
         </div>
-        <!-- 仮押さえ一括 タブ終わり-->
+        <!-- 仮押え一括 タブ終わり-->
       </section>
       @endforeach
 

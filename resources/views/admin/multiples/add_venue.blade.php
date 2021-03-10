@@ -15,7 +15,7 @@
                     </ol>
                   </nav>
                 </div>
-                <h2 class="mt-3 mb-3">一括仮押さえ　新しい会場の追加</h2>
+                <h2 class="mt-3 mb-3">一括仮押え　新しい会場の追加</h2>
                 <hr>
               </div>
 
@@ -26,12 +26,12 @@
                       <tr>
                         <td>
                           <h2 class="text-white">
-                            仮押さえ概要
+                            仮押え概要
                           </h2>
                         </td>
                         <td>
                           <dl class="ttl_box">
-                            <dt>仮押さえ一括ID:</dt>
+                            <dt>仮押え一括ID:</dt>
                             <dd class="total_result">2</dd>
                           </dl>
                         </td>
@@ -115,7 +115,7 @@
                       <table class="table table-bordered mt-5">
                         <thead>
                           <tr class="table_row">
-                            <th>一括仮押さえID</th>
+                            <th>一括仮押えID</th>
                             <th>作成日</th>
                             <th>利用会場</th>
                             <th>総件数</th>

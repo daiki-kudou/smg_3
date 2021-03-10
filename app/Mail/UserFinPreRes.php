@@ -37,7 +37,7 @@ class UserFinPreRes extends Mailable
   public function build()
   {
     return $this->view('maileclipse::templates.userFinPreRes')
-      ->subject('SMGアクセア貸し会議室 仮押さえについて')
+      ->subject('SMGアクセア貸し会議室 仮押えについて')
       ->with([
         'user' => $this->user,
         'id' => $this->id,

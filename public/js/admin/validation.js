@@ -4,7 +4,7 @@ jQuery.validator.addMethod("katakana", function (value, element) {
 }, "<br/>全角カタカナを入力してください"
 );
 
-// 仮押さえ新規作成
+// 仮押え新規作成
 $(function () {
   $("#pre_reservationCreateForm").validate({
     rules: {
@@ -55,7 +55,7 @@ $(function () {
 })
 
 
-// 仮押さえ詳細入力
+// 仮押え詳細入力
 $(function () {
   $("#pre_reservationSingleCheckForm").validate({
     rules: {

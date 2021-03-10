@@ -23,7 +23,7 @@
       </ol>
     </nav>
   </div>
-  <h2 class="mt-3 mb-3">仮押さえ 新規作成</h2>
+  <h2 class="mt-3 mb-3">仮押え 新規作成</h2>
   <hr>
 </div>
 

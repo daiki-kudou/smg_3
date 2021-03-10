@@ -16,7 +16,7 @@
         </nav>
       </div>
 
-      <h2 class="mt-3 mb-3">仮押さえ 一覧</h2>
+      <h2 class="mt-3 mb-3">仮押え 一覧</h2>
       <hr>
     </div>
 
@@ -27,7 +27,7 @@
       <table class="table table-striped table-bordered table-box">
         <thead>
           <tr>
-            <th>仮押さえID</th>
+            <th>仮押えID</th>
             <th>利用日</th>
             <th>入室時間</th>
             <th>退室時間</th>

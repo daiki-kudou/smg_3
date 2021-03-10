@@ -204,29 +204,29 @@ Route::namespace('Admin')->prefix('admin')->name('admin.')->group(function () {
     Route::post('agents_reservations/add_bills/store/{reservation}', 'AgentsReservationsController@add_store')->name('agents_reservations.add_store');
     // 仲介会社　メールなしで予約確定ボタン
     Route::post('agents_reservations/confirm', 'AgentsReservationsController@add_confirm')->name('agents_reservations.add_confirm');
-    // 仮押さえ（削除は別で作成予定）
+    // 仮押え（削除は別で作成予定）
     Route::resource('pre_reservations', 'PreReservationsController')->except(['destroy']);
-    // 仮押さえ ajax 顧客情報取得
+    // 仮押え ajax 顧客情報取得
     Route::post('pre_reservations/getuser', 'PreReservationsController@getuser');
-    // 仮押さえ　新規登録　確認
+    // 仮押え　新規登録　確認
     Route::post('pre_reservations/check', 'PreReservationsController@check');
-    // 仮押さえ　新規登録　計算
+    // 仮押え　新規登録　計算
     Route::post('pre_reservations/calculate', 'PreReservationsController@calculate');
-    // 仮押さえ　新規登録　再計算
+    // 仮押え　新規登録　再計算
     Route::post('pre_reservations/{pre_reservation}/re_calculate', 'PreReservationsController@re_calculate');
-    // 仮押さえ　再計算後、中身が変更する場合の保存
+    // 仮押え　再計算後、中身が変更する場合の保存
     Route::put('pre_reservations/{pre_reservation}/edit_update', 'PreReservationsController@edit_update');
-    // 仮押さえ　削除
+    // 仮押え　削除
     Route::post('pre_reservations/destroy', 'PreReservationsController@destroy');
-    // 仮押さえ　ステータス変更。管理者は編集不可に。ユーザーからの編集受付開始
+    // 仮押え　ステータス変更。管理者は編集不可に。ユーザーからの編集受付開始
     Route::post('pre_reservations/switch_status', 'PreReservationsController@switchStatus')->name('pre_reservations.switch_status');
     //時間制御
     Route::post('pre_reservations/reject_same_time', 'PreReservationsController@rejectSameTime')->name('pre_reservations.rejectSameTime');
-    // 仮押さえ編集時にユーザー変更
+    // 仮押え編集時にユーザー変更
     Route::post('pre_reservations/get_user', 'PreReservationsController@get_user');
-    // 一括仮押さえ index
+    // 一括仮押え index
     Route::get('multiples', 'MultiplesController@index');
-    // 一括仮押さえ show
+    // 一括仮押え show
     Route::get('multiples/{multiples}', 'MultiplesController@show');
     // 一括　個別　edit
     Route::get('multiples/{multiples}/edit/{venues}', 'MultiplesController@edit');
@@ -242,13 +242,13 @@ Route::namespace('Admin')->prefix('admin')->name('admin.')->group(function () {
     Route::post('multiples/switch_cfm/{multiple}', 'MultiplesController@switch_cfm');
 
 
-    // 仲介会社　仮押さえ 作成
+    // 仲介会社　仮押え 作成
     Route::get('pre_agent_reservations/create', 'PreAgentReservationsController@create');
-    // 仲介会社　仮押さえ 確認
+    // 仲介会社　仮押え 確認
     Route::post('pre_agent_reservations/check', 'PreAgentReservationsController@check');
-    // 仲介会社　仮押さえ 計算
+    // 仲介会社　仮押え 計算
     Route::post('pre_agent_reservations/calculate', 'PreAgentReservationsController@calculate');
-    // 仲介会社　仮押さえ 単発　保存
+    // 仲介会社　仮押え 単発　保存
     Route::post('pre_agent_reservations/store', 'PreAgentReservationsController@store');
 
     Route::resource('cxl', 'CxlController', ['except' => ['create']]);

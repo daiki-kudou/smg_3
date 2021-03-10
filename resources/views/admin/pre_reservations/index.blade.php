@@ -47,7 +47,7 @@
           </ol>
         </nav>
       </div>
-      <h2 class="mt-3 mb-3">仮押さえ一覧</h2>
+      <h2 class="mt-3 mb-3">仮押え一覧</h2>
       <hr>
     </div>
 
@@ -58,7 +58,7 @@
       <table class="table table-bordered">
         <tbody>
           <tr>
-            <th class="search_item_name"><label for="id">仮押さえID</label>
+            <th class="search_item_name"><label for="id">仮押えID</label>
             <td class="text-right">
               {{Form::text("search_id",'', ['class'=>'form-control'])}}
             </td>
@@ -154,7 +154,7 @@
       </li>
       <li>
         <div class="d-flex">
-          <a class="more_btn bg-red" href="">仮押さえ期間超過</a>
+          <a class="more_btn bg-red" href="">仮押え期間超過</a>
           <p class="ml-3 font-weight-bold"><span class="count-color">ダミーダミー</span>件</p>
         </div>
       </li>
@@ -195,7 +195,7 @@
         <thead>
           <tr class="table_row">
             <th><input type="checkbox" name="all_check" id="all_check" /></th>
-            <th>仮押さえID</th>
+            <th>仮押えID</th>
             <th>作成日</th>
             <th>利用日</th>
             <th>入室</th>
@@ -208,7 +208,7 @@
             <th>会社・団体名(仮)</th>
             <th>仲介会社</th>
             <th>エンドユーザー</th>
-            <th>仮押さえ詳細</th>
+            <th>仮押え詳細</th>
           </tr>
         </thead>
         <tbody>

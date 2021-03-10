@@ -4,7 +4,7 @@
 <script src="{{ asset('/js/admin/validation.js') }}"></script>
 <link href="{{ asset('/css/template.css') }}" rel="stylesheet">
 
-<h2 class="mt-3 mb-3">仮押さえ　詳細入力画面</h2>
+<h2 class="mt-3 mb-3">仮押え　詳細入力画面</h2>
 <hr>
 
 {{ Form::open(['url' => 'admin/pre_reservations/calculate', 'method'=>'POST', 'id'=>'pre_reservationSingleCheckForm']) }}
@@ -99,7 +99,7 @@
             <tr>
               <td colspan="2">
                 <p class="title-icon">
-                  <i class="fas fa-info-circle icon-size"></i>仮押さえ情報
+                  <i class="fas fa-info-circle icon-size"></i>仮押え情報
                 </p>
               </td>
             </tr>
@@ -527,7 +527,7 @@
 
 <div class="submit_btn">
   <div class="d-flex justify-content-center">
-    {{-- 単発仮押さえか？一括仮押さえか？ --}}
+    {{-- 単発仮押えか？一括仮押えか？ --}}
     {{ Form::hidden('judge_count', 1 ) }}
     {{-- ユーザー --}}
     {{ Form::hidden('user_id', $request->user_id ) }}
