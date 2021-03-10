@@ -461,6 +461,15 @@ select:disabled {
     table-layout: fixed;
 }
 
+option:disabled  {
+    color: #eee;
+    background-color: #ccc;
+}
+
+.form-control:disabled, .form-control[readonly] {
+    background-color: #ccc;
+}
+
 /* 備考の長さ制限 -----------------------------*/
 .remark_limit {
     height: 100%;
