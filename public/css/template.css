@@ -276,7 +276,7 @@ select:disabled {
 .more_btn {
     background: #007bff;
     padding: 0.3em 1em;
-    border-radius: 5px;
+    border-radius: 2px;
     color: #fff;
     font-weight: bold;
     transition: 0.4s;
@@ -291,7 +291,7 @@ select:disabled {
 .more_btn2 {
     background: #35a7a7;
     padding: 0.3em 1em;
-    border-radius: 5px;
+    border-radius: 2px;
     color: #fff;
     font-weight: bold;
     /* min-width: 100px; */
@@ -300,7 +300,7 @@ select:disabled {
 .more_btn4 {
     background: #DC3545;
     padding: 0.3em 1em;
-    border-radius: 5px;
+    border-radius: 2px;
     color: #fff;
     font-weight: bold;
     font-size: 12px;
@@ -353,7 +353,7 @@ select:disabled {
 .more_btn_lg {
     background: #007BFF;
     padding: 15px 80px;
-    border-radius: 5px;
+    border-radius: 2px;
     color: #fff;
     font-weight: bold;
     transition: 0.4s;
@@ -368,7 +368,7 @@ select:disabled {
 .more_btn4_lg {
     background: #DC3545;
     padding: 15px 80px;
-    border-radius: 5px;
+    border-radius: 2px;
     color: #fff;
     font-weight: bold;
     font-size: 12px;
