@@ -416,4 +416,13 @@ class ReservationHelper
         break;
     }
   }
+
+  public static function JudgeEmpty($item)
+  {
+    if (empty($item)) {
+      return "";
+    } else {
+      return $item;
+    }
+  }
 }

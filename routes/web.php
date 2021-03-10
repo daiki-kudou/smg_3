@@ -242,6 +242,8 @@ Route::namespace('Admin')->prefix('admin')->name('admin.')->group(function () {
     Route::post('multiples/switch_cfm/{multiple}', 'MultiplesController@switch_cfm');
     // 一括仮押さえ、日付の追加
     Route::get('multiples/{multiples}/add_date/{venues}/', 'MultiplesController@add_date');
+    // 一括仮押さえ、日付の追加保存
+    Route::post('multiples/{multiples}/add_date_store/{venues}/', 'MultiplesController@add_date_store');
 
 
     // 仲介会社　仮押さえ 作成

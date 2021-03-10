@@ -47,10 +47,6 @@ class PreReservationsController extends Controller
       $pre_reservations = PreReservation::where('multiple_reserve_id', '=', 0)->paginate(30);
     }
 
-
-
-
-
     // $pre_reservations = PreReservation::where('multiple_reserve_id', '=', 0)->paginate(30);
     $venues = Venue::all();
     $users = User::all();
@@ -91,7 +87,6 @@ class PreReservationsController extends Controller
       $layouts = [];
       $layouts[] = $venue->layout_prepare == 0 ? 0 : $venue->layout_prepare;
       $layouts[] = $venue->layout_clean == 0 ? 0 : $venue->layout_clean;
-
       return view('admin.pre_reservations.single_check', [
         'request' => $request,
         'equipments' => $equipments,
@@ -100,37 +95,8 @@ class PreReservationsController extends Controller
         'layouts' => $layouts,
       ]);
     } else {
-      DB::transaction(function () use ($request) { //トランザクションさせる
-        $multiple = MultipleReserve::create(); //一括IDを作成
-        $counters = [];
-        foreach ($request->all() as $key => $value) {
-          if (preg_match('/pre_date/', $key)) {
-            $counters[] = $value;
-          }
-        }
-        $counters = count($counters);
-        for ($i = 0; $i < $counters; $i++) {
-          $pre_reservations = $multiple->pre_reservations()->create([
-            'venue_id' => $request->{'pre_venue' . $i},
-            'user_id' => $request->user_id,
-            'agent_id' => 0,
-            'reserve_date' => $request->{'pre_date' . $i},
-            'enter_time' => $request->{'pre_enter' . $i},
-            'leave_time' => $request->{'pre_leave' . $i},
-            'status' => 0
-          ]);
-          if ($request->unknown_user_company) {
-            $pre_reservations->unknown_user()->create([
-              'unknown_user_company' => $request->unknown_user_company,
-              'unknown_user_name' => $request->unknown_user_name,
-              'unknown_user_email' => $request->unknown_user_email,
-              'unknown_user_mobile' => $request->unknown_user_mobile,
-              'unknown_user_tel' => $request->unknown_user_tel,
-            ]);
-          }
-        }
-      });
-
+      $multiple = MultipleReserve::create(); //一括IDを作成
+      $multiple->MultipleStore($request);
       $request->session()->regenerate();
       return redirect('admin/multiples');
     }

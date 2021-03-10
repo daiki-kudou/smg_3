@@ -191,7 +191,6 @@ class MultipleReserve extends Model implements PresentableInterface //プレゼ�
           ]);
         }
 
-
         if ($requests->cp_master_luggage_price) {
           $pre_bill->pre_breakdowns()->create([
             'unit_item' => '荷物預かり/返送',
@@ -229,10 +228,6 @@ class MultipleReserve extends Model implements PresentableInterface //プレゼ�
 
   public function UpdateAndReCreateAll($masterData, $venues_id)
   {
-    // $numPreReservation = $this->pre_reservations()->get()->count();
-    // 
-
-    // 
     $pre_reservations = $this->pre_reservations()->where('venue_id', $venues_id)->get();
 
     DB::transaction(function () use ($pre_reservations, $masterData) {
@@ -291,7 +286,6 @@ class MultipleReserve extends Model implements PresentableInterface //プレゼ�
         }
 
         // 入力された会場の割引
-
         $venue_discounts = [];
         foreach ($masterData as $v_d_key => $value) {
           if (preg_match('/venue_breakdown_discount_item' . $key . '/', $v_d_key)) {
@@ -320,7 +314,6 @@ class MultipleReserve extends Model implements PresentableInterface //プレゼ�
             ]);
           }
         }
-
 
         //////////////////////////////////////////////////////////////////////////
         // 以下入力された備品
@@ -429,10 +422,8 @@ class MultipleReserve extends Model implements PresentableInterface //プレゼ�
           }
         }
 
-
         //////////////////////////////////////////////////////////////////////////
         // 以下入力されたレイアウト
-
         $s_layouts = [];
         foreach ($masterData as $s_l_key => $value) {
           if (preg_match('/layout_breakdown_item/', $s_l_key)) {
@@ -495,10 +486,8 @@ class MultipleReserve extends Model implements PresentableInterface //プレゼ�
           ]);
         }
 
-
         //////////////////////////////////////////////////////////////////////////
         // 以下入力されたothers
-
         $s_others = [];
         foreach ($masterData as $s_o_key => $value) {
           if (preg_match('/others_input_item/', $s_o_key)) {
@@ -514,7 +503,6 @@ class MultipleReserve extends Model implements PresentableInterface //プレゼ�
             $s_others[$s_o_key] = $value;
           }
         }
-
         $re_others = [];
         foreach ($s_others as $re_o_key => $value) {
           if (preg_match('/_copied' . $key . '/', $re_o_key)) {
@@ -533,6 +521,30 @@ class MultipleReserve extends Model implements PresentableInterface //プレゼ�
             ]);
           }
         }
+      }
+    });
+  }
+
+  public function MultipleStore($request)
+  {
+    DB::transaction(function () use ($request) { //トランザクションさせる
+      $counters = [];
+      foreach ($request->all() as $key => $value) {
+        if (preg_match('/pre_date/', $key)) {
+          $counters[] = $value;
+        }
+      }
+      $counters = count($counters);
+      for ($i = 0; $i < $counters; $i++) {
+        $pre_reservations = $this->pre_reservations()->create([
+          'venue_id' => $request->{'pre_venue' . $i},
+          'user_id' => $request->user_id,
+          'agent_id' => 0,
+          'reserve_date' => $request->{'pre_date' . $i},
+          'enter_time' => $request->{'pre_enter' . $i},
+          'leave_time' => $request->{'pre_leave' . $i},
+          'status' => 0
+        ]);
       }
     });
   }

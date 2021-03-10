@@ -20,7 +20,6 @@
       <hr>
     </div>
 
-    <!-- 工藤さん！！！！ここから追加分コーディングデータです。 ----------------------------------->
     <section class="section-wrap">
       <table class="table ttl_head mb-0">
         <tbody>
@@ -93,28 +92,42 @@
             <tr>
               <td class="table-active" width="25%"><label for="onedayCompany">会社名・団体名</label></td>
               <td>
-                {{ReservationHelper::getPersonTel($multiple->pre_reservations()->first()->unknown_user()->unknown_user_company)}}
+                @if (!empty($multiple->pre_reservations()->first()->unknown_user->unknown_user_company))
+                {{$multiple->pre_reservations()->first()->unknown_user->unknown_user_company}}
+                @endif
               </td>
               <td class="table-active"><label for="onedayName">担当者氏名</label></td>
               <td>
+                @if (!empty($multiple->pre_reservations()->first()->unknown_user->unknown_user_name))
+                {{$multiple->pre_reservations()->first()->unknown_user->unknown_user_name}}
+                @endif
               </td>
             </tr>
             <tr>
               <td class="table-active" scope="row"><label for="onedayEmail">担当者メールアドレス</label></td>
               <td>
+                @if (!empty($multiple->pre_reservations()->first()->unknown_user->unknown_user_email))
+                {{$multiple->pre_reservations()->first()->unknown_user->unknown_user_email}}
+                @endif
               </td>
               <td class="table-active" scope="row"><label for="onedayMobile">携帯番号</label></td>
               <td>
+                @if (!empty($multiple->pre_reservations()->first()->unknown_user->unknown_user_mobile))
+                {{$multiple->pre_reservations()->first()->unknown_user->unknown_user_mobile}}
+                @endif
               </td>
             </tr>
             <tr>
               <td class="table-active" scope="row"><label for="onedayTel">固定電話</label></td>
               <td>
+                @if (!empty($multiple->pre_reservations()->first()->unknown_user->unknown_user_tel))
+                {{$multiple->pre_reservations()->first()->unknown_user->unknown_user_tel}}
+                @endif
               </td>
             </tr>
           </tbody>
         </table>
-        <table class="table table-bordered mt-5">
+        <table class="table table-bordered table-scroll">
           <thead>
             <tr class="table_row">
               <th>一括仮押さえID</th>
@@ -125,29 +138,37 @@
             </tr>
           </thead>
           <tbody>
-            <tr>
-              <td rowspan="1">1</td>
-              <td rowspan="1">2021/03/05(金)</td>
-              <td>四ツ橋サンワールドビル1号室</td>
-              <td rowspan="1">
-                2
+            @for ($i = 0; $i < $venue_count; $i++) @if ($i==0) <tr>
+              <td rowspan="{{$venue_count}}">{{$multiple->id}}</td>
+              <td rowspan="{{$venue_count}}">{{ReservationHelper::formatDate($multiple->created_at)}}</td>
+              <td>{{ReservationHelper::getVenue($venues[$i]->venue_id)}}</td>
+              <td rowspan="{{$venue_count}}">
+                {{$multiple->pre_reservations()->get()->count()}}
               </td>
               <td>
-                2
+                {{$multiple->pre_reservations()->where('venue_id',$venues[$i]->venue_id)->get()->count()}}
               </td>
-            </tr>
+              </tr>
+              @else
+              <tr>
+                <td>{{ReservationHelper::getVenue($venues[$i]->venue_id)}}</td>
+                <td>
+                  {{$multiple->pre_reservations()->where('venue_id',$venues[$i]->venue_id)->get()->count()}}
+                </td>
+              </tr>
+              @endif
+              @endfor
           </tbody>
-
         </table>
-
       </div>
-
-
 
       <div class="calendar mt-5">
         <iframe src="{{url('admin/calendar/date_calendar')}}" width="100%" height="500">Your browser isn't
           compatible</iframe>
       </div>
+      {{Form::open(['url' => 'admin/multiples/'.$multiple->id.'/add_date_store/'.$venue_id, 'method' => 'POST', 'id'=>''])}}
+
+      @csrf
       <div class="date_selector mt-5">
         <h3 class="mb-2 pt-3">日程選択</h3>
         <table class="table table-bordered" style="table-layout: fixed;">
@@ -162,26 +183,31 @@
           </thead>
           <tbody>
             <tr>
-              <td><input class="form-control" id="pre_datepicker" name="pre_date0" type="text" value=""></td>
               <td>
-                選択された会場
+                {{Form::text('pre_date0', "",['class'=>'form-control','id'=>'datepicker1'])}}
+              </td>
+              <td>
+                {{Form::text('', ReservationHelper::getVenue($venue_id),['class'=>'form-control','readonly'])}}
+                {{Form::hidden('pre_venue0', $venue_id,['class'=>'form-control','readonly'])}}
               </td>
               <td>
                 <select name="pre_enter0" id="pre_enter0" class="form-control">
-                  <option value="">08:00</option>
-                  <!-- @for ($start = 0*2; $start <=23*2; $start++) <option value="{{date("H:i:s", strtotime("00:00 +". $start * 30 ." minute"))}}">
-                            {{date("H時i分", strtotime("00:00 +". $start * 30 ." minute"))}} -->
-                  </option>
-                  <!-- @endfor -->
+                  <option value=""></option>
+                  @for ($start = 0*2; $start <=23*2; $start++) <option
+                    value="{{date("H:i:s", strtotime("00:00 +". $start * 30 ." minute"))}}">
+                    {{date("H時i分", strtotime("00:00 +". $start * 30 ." minute"))}}
+                    </option>
+                    @endfor
                 </select>
               </td>
               <td>
                 <select name="pre_leave0" id="pre_leave0" class="form-control">
-                  <option value="">08:00</option>
-                  <!-- @for ($start = 0*2; $start <=23*2; $start++) <option value="{{date("H:i:s", strtotime("00:00 +". $start * 30 ." minute"))}}">
-                            {{date("H時i分", strtotime("00:00 +". $start * 30 ." minute"))}} -->
-                  </option>
-                  <!-- @endfor -->
+                  <option value=""></option>
+                  @for ($start = 0*2; $start <=23*2; $start++) <option
+                    value="{{date("H:i:s", strtotime("00:00 +". $start * 30 ." minute"))}}">
+                    {{date("H時i分", strtotime("00:00 +". $start * 30 ." minute"))}}
+                    </option>
+                    @endfor
                 </select>
               </td>
               <td>
@@ -192,24 +218,87 @@
           </tbody>
         </table>
       </div>
-
       <div class="submit_btn mt-5">
-        <input class="btn more_btn_lg mx-auto d-block" id="check_submit" type="submit" value="日程を追加する">
+        {{Form::hidden('multiple_id',$multiple->id)}}
+        {{Form::hidden('user_id',$multiple->pre_reservations()->first()->user_id)}}
+        {{ Form::submit('登録する', ['class' => 'btn more_btn_lg mx-auto d-block']) }}
       </div>
+      {{ Form::close() }}
 
-      <div class="spin_btn hide">
-        <div class="d-flex justify-content-center">
-          <button class="btn btn-primary btn-lg" type="button" disabled>
-            <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
-            Loading...
-          </button>
-        </div>
-      </div>
     </section>
   </div>
 </div>
 
 
 
+<script>
+  $(function() {
+    $(document).on("click", ".add", function() {
+      // すべてのselect2初期化
+      for (let destroy = 0; destroy < $('.date_selector tbody tr').length; destroy++) {
+        console.log($('.date_selector tbody tr').eq(destroy).find('td').eq(1).find('select').select2("destroy"));
+      }
 
+      var base_venue = $(this).parent().parent().find('td').eq(1).find('select').val();
+      $(this).parent().parent().clone(true).insertAfter($(this).parent().parent());
+      $(this).parent().parent().next().find("td").eq(1).find("select option[value=" + base_venue + "]").prop('selected', true);
+      var count = $(this).parent().parent().parent().find('tr').length;
+      var target = $(this).parent().parent().parent().find('tr');
+
+      for (let index = 0; index < count; index++) {
+        // name属性
+        $(target).eq(index).find('td').eq(0).find('input, select').attr('name', "pre_date" + index);
+        $(target).eq(index).find('td').eq(1).find('input, select').attr('name', "pre_venue" + index);
+        $(target).eq(index).find('td').eq(2).find('input, select').attr('name', "pre_enter" + index);
+        $(target).eq(index).find('td').eq(3).find('input, select').attr('name', "pre_leave" + index);
+        // id属性
+        $(target).eq(index).find('td').eq(0).find('input, select').attr('id', "pre_datepicker" + index);
+        $(target).eq(index).find('td').eq(1).find('input, select').attr('id', "pre_venue" + index);
+        $(target).eq(index).find('td').eq(2).find('input, select').attr('id', "pre_enter" + index);
+        $(target).eq(index).find('td').eq(3).find('input, select').attr('id', "pre_leave" + index);
+        // dapicker付与
+        $('#pre_datepicker' + index).removeClass('hasDatepicker').datepicker({
+          dateFormat: 'yy-mm-dd',
+          minDate: 0,
+        });
+        // select2付与
+        $(target).eq(index).find('td').eq(1).find('select').select2({
+          width: '100%'
+        });
+
+        if (index == count - 1) {
+          $(target).eq(index).find('td').eq(2).find('input, select').val('');
+          $(target).eq(index).find('td').eq(3).find('input, select').val('');
+        }
+
+      }
+    })
+    // マイナスボタン
+    $(document).on("click", ".del", function() {
+      var master = $(this).parent().parent().parent().find('tr').length;
+      var target = $(this).parent().parent();
+      var re_target = target.parent();
+      if (master > 1) {
+        target.remove();
+      }
+
+      var count2 = $('.date_selector tbody tr').length;
+      for (let index = 0; index < count2; index++) {
+        $('.date_selector tbody tr').eq(index).find('td').eq(0).find('input, select').attr('name', "pre_date" + index);
+        $('.date_selector tbody tr').eq(index).find('td').eq(1).find('input, select').attr('name', "pre_venue" + index);
+        $('.date_selector tbody tr').eq(index).find('td').eq(2).find('input, select').attr('name', "pre_enter" + index);
+        $('.date_selector tbody tr').eq(index).find('td').eq(3).find('input, select').attr('name', "pre_leave" + index);
+        // id属性
+        $('.date_selector tbody tr').eq(index).find('td').eq(0).find('input, select').attr('id', "pre_datepicker" + index);
+        $('.date_selector tbody tr').eq(index).find('td').eq(1).find('input, select').attr('id', "pre_venue" + index);
+        $('.date_selector tbody tr').eq(index).find('td').eq(2).find('input, select').attr('id', "pre_enter" + index);
+        $('.date_selector tbody tr').eq(index).find('td').eq(3).find('input, select').attr('id', "pre_leave" + index);
+        $('#pre_datepicker' + index).removeClass('hasDatepicker').datepicker({
+          dateFormat: 'yy-mm-dd',
+          minDate: 0,
+        });
+      }
+    })
+  })
+</script>
 @endsection
