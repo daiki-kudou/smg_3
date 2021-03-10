@@ -56,9 +56,10 @@ class PreReservationsController extends Controller
 
     // $pre_reservations = PreReservation::where('multiple_reserve_id', '=', 0)->paginate(30);
     $venues = Venue::all();
+    $users = User::all();
     return view(
       'admin.pre_reservations.index',
-      compact('pre_reservations', 'venues')
+      compact('pre_reservations', 'venues', 'users')
     );
   }
 

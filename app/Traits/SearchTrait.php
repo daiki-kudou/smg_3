@@ -5,6 +5,12 @@ namespace App\Traits;
 use Illuminate\Http\Request;
 use Carbon\Carbon;
 
+use App\Models\User;
+
+use Illuminate\Support\Collection;
+use Illuminate\Support\Facades\DB; //トランザクション用
+
+
 
 trait SearchTrait
 {
@@ -27,6 +33,20 @@ trait SearchTrait
     // 会社名団体名
     if (!empty($request->search_user)) {
       $andSearch->where('user_id', $request->search_user);
+    }
+    // 担当者指名
+    if (!empty($request->search_person)) {
+      $andSearch->whereHas('user', function ($query) use ($request) {
+        $query->where('first_name', 'LIKE', "%$request->search_person%");
+        $query->orWhere('last_name', 'LIKE', "%$request->search_person%");
+        $query->orWhere(DB::raw('CONCAT(first_name, last_name)'), 'like', '%' . $request->search_person . '%');
+      });
+    }
+    // 電話番号
+    if (!empty($request->search_mobile)) {
+      $andSearch->whereHas('user', function ($query) use ($request) {
+        $query->where('mobile', 'LIKE', "%$request->search_mobile%");
+      });
     }
     // 最終return
     return $andSearch->paginate(30);

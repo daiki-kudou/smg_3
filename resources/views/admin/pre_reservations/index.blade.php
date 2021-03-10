@@ -87,12 +87,18 @@
           <tr>
             <th class="search_item_name"><label for="company">会社・団体名</label></th>
             <td class="text-right">
-              {{Form::text("search_user",'', ['class'=>'form-control','id'=>''])}}
+              <select name="search_user" id="search_user" class="form-control">
+                <option value=""></option>
+                @foreach ($users as $s_u)
+                <option value="{{$s_u->id}}">{{ReservationHelper::getCompany($s_u->id)}}</option>
+                @endforeach
+              </select>
             </td>
             <th class="search_item_name"><label for="person_name">担当者氏名</label></th>
             <td class="text-right">
               <dd>
-                {{Form::text("search_person",'', ['class'=>'form-control','id'=>''])}}
+                {{Form::text('search_person','',['class'=>'form-control'])}}
+
             </td>
           </tr>
           <tr>
