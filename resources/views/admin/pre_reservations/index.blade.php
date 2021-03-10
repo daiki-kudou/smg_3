@@ -1,8 +1,10 @@
 @extends('layouts.admin.app')
-
 @section('content')
+
+
 <link href="{{ asset('/css/template.css') }}" rel="stylesheet">
 <script src="{{ asset('/js/template.js') }}"></script>
+
 
 <script>
   $(function(){
@@ -35,12 +37,12 @@
 <div class="content">
   <div class="container-fluid">
 
-  <div class="container-field mt-3">
+    <div class="container-field mt-3">
       <div class="float-right">
         <nav aria-label="breadcrumb">
           <ol class="breadcrumb">
             <li class="breadcrumb-item active"><a href="http://staging-smg2.herokuapp.com/admin/home">ホーム</a> >
-            ダミーダミーダミー
+              ダミーダミーダミー
             </li>
           </ol>
         </nav>
@@ -50,71 +52,77 @@
     </div>
 
     <!-- 検索--------------------------------------- -->
+    {{Form::open(['url' => 'admin/pre_reservations', 'method' => 'GET', 'id'=>''])}}
+    @csrf
     <div class="search-wrap">
       <table class="table table-bordered">
         <tbody>
           <tr>
             <th class="search_item_name"><label for="id">仮押さえID</label>
             <td class="text-right">
-              <input type="text" name="id" class="form-control" id="id">
+              {{Form::text("search_id",'', ['class'=>'form-control'])}}
             </td>
             <th class="search_item_name"><label for="">作成日</label></th>
             <td class="text-right form-group">
-              <input type="date" name="" class="form-control float-right" id="">
+              {{Form::text("search_created_at",'', ['class'=>'form-control','id'=>'datepicker1'])}}
             </td>
           </tr>
           <tr>
-          <th class="search_item_name"><label for="date">利用日</label></th>
+            <th class="search_item_name"><label for="date">利用日</label></th>
             <td class="text-right form-group">
-              <input type="date" name="date" class="form-control float-right" id="date">
+              {{Form::text("search_date",'', ['class'=>'form-control','id'=>'datepicker2'])}}
             </td>
 
             <th class="search_item_name"><label for="venue">利用会場</label></th>
             <td class="text-right">
               <dd>
-                <select class="form-control" name="venue">
-                  <option>テスト会場A</option>
-                  <option>テスト会場B</option>
-                  <option>テスト会場C</option>
+                <select name="search_venue" id="search_venue" class="form-control">
+                  <option value=""></option>
+                  @foreach ($venues as $s_v)
+                  <option value="{{$s_v->id}}">{{ReservationHelper::getVenue($s_v->id)}}</option>
+                  @endforeach
                 </select>
             </td>
           </tr>
           <tr>
             <th class="search_item_name"><label for="company">会社・団体名</label></th>
             <td class="text-right">
-              <input type="text" name="company" class="form-control" id="company">
+              {{Form::text("search_user",'', ['class'=>'form-control','id'=>''])}}
             </td>
             <th class="search_item_name"><label for="person_name">担当者氏名</label></th>
             <td class="text-right">
               <dd>
-                <input type="text" name="person_name" class="form-control" id="person_name">
+                {{Form::text("search_person",'', ['class'=>'form-control','id'=>''])}}
             </td>
           </tr>
           <tr>
             <th class="search_item_name"><label for="mobile">携帯電話</label></th>
             <td>
-              <input type="text" name="mobile" class="form-control" id="mobile">
+              {{Form::text("search_mobile",'', ['class'=>'form-control','id'=>''])}}
             </td>
             <th class="search_item_name"><label for="tel">固定電話</label></th>
             <td>
-              <input type="text" name="tel" class="form-control" id="tel">
+              {{Form::text("search_tel",'', ['class'=>'form-control','id'=>''])}}
             </td>
           </tr>
           <tr>
             <th class="search_item_name"><label for="temp_company">会社・団体名(仮)</label></th>
             <td>
-              <input type="text" name="temp_company" class="form-control" id="temp_company">
+              {{Form::text("search_unkown_user",'', ['class'=>'form-control','id'=>''])}}
             </td>
             <th class="search_item_name"><label for="agent">仲介会社</label></th>
             <td>
-              <input type="text" name="agent" class="form-control" id="agent">
+              {{Form::text("search_agent",'', ['class'=>'form-control','id'=>''])}}
             </td>
           </tr>
-
           <tr>
+            <th class="search_item_name"><label for="temp_company">エンドユーザー(仲介会社経由)</label></th>
+            <td>
+              {{Form::text("search_end_user",'', ['class'=>'form-control','id'=>''])}}
+            </td>
             <th class="search_item_name"><label for="freeword">フリーワード検索</label></th>
             <td colspan="3">
-              <input type="text" name="freeword" class="form-control" id="freeword">
+              {{Form::text("search_free",'', ['class'=>'form-control','id'=>''])}}
             </td>
           </tr>
         </tbody>
@@ -122,27 +130,30 @@
       <p class="text-right">※フリーワード検索は本画面表記の項目のみ対象となります</p>
 
       <div class="btn_box d-flex justify-content-center">
-        <input type="reset" value="リセット" class="btn reset_btn">
-        <input type="submit" value="検索" class="btn search_btn">
+        <a href="{{url('admin/pre_reservations')}}" class="btn reset_btn">リセット</a>
+        {{Form::submit('検索', ['class'=>'btn search_btn', 'id'=>''])}}
       </div>
-
     </div>
+    {{Form::close()}}
+
+
+
     <!-- 検索　終わり------------------------------------------------ -->
     <ul class="d-flex reservation_list mb-2 justify-content-between">
-        <li>
+      <li>
         {{-- 削除ボタン --}}
-    {{Form::open(['url' => 'admin/pre_reservations/destroy', 'method' => 'POST', 'id'=>'for_destroy'])}}
-    @csrf
-    {{ Form::submit('削除', ['class' => 'btn more_btn4','id'=>'confirm_destroy']) }}
-    {{ Form::close() }}
-        </li>
-        <li>
+        {{Form::open(['url' => 'admin/pre_reservations/destroy', 'method' => 'POST', 'id'=>'for_destroy'])}}
+        @csrf
+        {{ Form::submit('削除', ['class' => 'btn more_btn4','id'=>'confirm_destroy']) }}
+        {{ Form::close() }}
+      </li>
+      <li>
         <div class="d-flex">
           <a class="more_btn bg-red" href="">仮押さえ期間超過</a>
           <p class="ml-3 font-weight-bold"><span class="count-color">ダミーダミー</span>件</p>
         </div>
       </li>
-      </ul>
+    </ul>
 
 
     <script>
@@ -198,7 +209,8 @@
         <tbody>
           @foreach ($pre_reservations as $pre_reservation)
           <tr>
-            <td><input type="checkbox" name="{{'delete_check'.$pre_reservation->id}}" value="{{$pre_reservation->id}}"
+            <td>
+              <input type="checkbox" name="{{'delete_check'.$pre_reservation->id}}" value="{{$pre_reservation->id}}"
                 class="checkbox" />
             </td>
             <td>{{$pre_reservation->id}}</td>
@@ -207,11 +219,6 @@
             <td>{{$pre_reservation->enter_time}}</td>
             <td>{{$pre_reservation->leave_time}}</td>
             <td>{{ReservationHelper::getVenue($pre_reservation->venue_id)}}</td>
-            {{-- <td>{{$pre_reservation->user_id==999?"未登録ユーザー":ReservationHelper::getCompany($pre_reservation->user_id)}}
-            <td>{{$pre_reservation->user_id==999?"":ReservationHelper::getPersonName($pre_reservation->user_id)}}
-            <td>{{$pre_reservation->user_id==999?"":ReservationHelper::getPersonMobile($pre_reservation->user_id)}}</td>
-            <td>{{$pre_reservation->user_id==999?"":ReservationHelper::getPersonTel($pre_reservation->user_id)}}</td>
-            --}}
             <td>{{ReservationHelper::checkAgentOrUserCompany($pre_reservation->user_id, $pre_reservation->agent_id)}}
             </td>
             <td>{{ReservationHelper::checkAgentOrUserName($pre_reservation->user_id, $pre_reservation->agent_id)}}</td>
@@ -223,95 +230,61 @@
             <td>{{$pre_reservation->agent_id==0?"":$pre_reservation->agent_id}}</td>
             <td>{{$pre_reservation->agent_id==0?"":$pre_reservation->agent_id}}</td>
             <td>{{$pre_reservation->agent_id==0?"":$pre_reservation->agent_id}}</td>
-            <td class="text-center"><a class="more_btn" href="{{url('admin/pre_reservations/'.$pre_reservation->id)}}">詳細</a></td>
+            <td class="text-center"><a class="more_btn"
+                href="{{url('admin/pre_reservations/'.$pre_reservation->id)}}">詳細</a></td>
           </tr>
           @endforeach
         </tbody>
-
-        {{-- @foreach ($reservations as $reservation) --}}
-        {{-- <tbody>
-          <tr>
-            <td rowspan="{{count($reservation->bills()->get())}}">※後ほど修正</td>
-        <td rowspan="{{count($reservation->bills()->get())}}">{{$reservation->id}}</td>
-        <td rowspan="{{count($reservation->bills()->get())}}">
-          {{ReservationHelper::formatDate($reservation->reserve_date)}}
-        </td>
-        <td rowspan="{{count($reservation->bills()->get())}}">{{$reservation->enter_time}}</td>
-        <td rowspan="{{count($reservation->bills()->get())}}">{{$reservation->leave_time}}</td>
-        <td rowspan="{{count($reservation->bills()->get())}}">
-          {{ReservationHelper::getVenue($reservation->venue->id)}}</td>
-        <td rowspan="{{count($reservation->bills()->get())}}">
-          @if ($reservation->user_id>0)
-          {{$reservation->user->company}}
-          @elseif($reservation->user_id==0)
-          {{ReservationHelper::getAgentCompany($reservation->agent_id)}}
-          @endif
-        </td>
-        <td rowspan="{{count($reservation->bills()->get())}}">
-          @if ($reservation->user_id>0)
-          {{ReservationHelper::getPersonName($reservation->user_id)}}
-          @elseif($reservation->user_id==0)
-          {{ReservationHelper::getAgentPerson($reservation->agent_id)}}
-          @endif
-        </td>
-        <td rowspan="{{count($reservation->bills()->get())}}">{{$user->find($reservation->venue_id)->mobile}}</td>
-        <td rowspan="{{count($reservation->bills()->get())}}">{{$user->find($reservation->venue_id)->tel}}</td>
-        <td rowspan="{{count($reservation->bills()->get())}}">
-          @if ($reservation->agent_id>0)
-          {{ReservationHelper::getAgentCompany($reservation->agent_id)}}
-          @endif
-        </td>
-        <td>会場予約</td>
-        <td>
-          {{ReservationHelper::judgeStatus($reservation->bills()->first()->reservation_status)}}
-        </td>
-        <td rowspan="{{count($reservation->bills()->get())}}"><a
-            href="{{ url('admin/reservations', $reservation->id) }}" class="more_btn">詳細</a></td>
-        <td rowspan="{{count($reservation->bills()->get())}}"><a
-            href="{{ url('admin/reservations/generate_pdf/'.$reservation->id) }}" class="more_btn">詳細</a></td>
-        </tr>
-        @for ($i = 0; $i < count($reservation->bills()->get())-1; $i++)
-          <tr>
-            <td>
-              @if ($reservation->bills()->skip($i+1)->first()->category==2)
-              追加請求
-              @endif
-            </td>
-            <td>{{ReservationHelper::judgeStatus($reservation->bills()->skip($i+1)->first()->reservation_status)}}
-            </td>
-          </tr>
-          @endfor
-          </tbody> --}}
-          {{-- @endforeach --}}
       </table>
     </div>
   </div>
 
-  <ul class="pagination justify-content-center mt-5">
-    <li class="page-item disabled" aria-disabled="true" aria-label="&laquo; 前">
-      <span class="page-link" aria-hidden="true">&lsaquo;</span>
-    </li>
-    <li class="page-item active" aria-current="page"><span class="page-link">1</span></li>
-    <li class="page-item"><a class="page-link" href="">2</a>
-    </li>
-    <li class="page-item"><a class="page-link" href="">3</a>
-    </li>
-    <li class="page-item">
-      <a class="page-link" href="http://staging-smg2.herokuapp.com/admin/clients?page=2" rel="next"
-        aria-label="次 &raquo">&rsaquo;</a>
-    </li>
-  </ul>
+  {{ $pre_reservations->links() }}
+
 
 
 </div>
 
 
 
+<script>
+  $(function(){
+
+    function ActiveDateRangePicker($target){
+            $("input[name='"+$target+"']").daterangepicker({
+            "locale": {
+            "format": "YYYY/MM/DD",
+            "separator": " ~ ",
+            "applyLabel": "反映",
+            "cancelLabel": "初期化",
+            "weekLabel": "W",
+            "daysOfWeek": ["Su","Mo","Tu","We","Th","Fr","Sa"],
+            "monthNames": ["1月","2月","3月","4月","5月","6月","7月","8月","9月","10月","11月","12月"],
+            "firstDay": 1,
+            },
+            autoUpdateInput: false
+            });
+
+            $("input[name='"+$target+"']").on('apply.daterangepicker', function(ev, picker) {
+            $(this).val(picker.startDate.format('YYYY/MM/DD') + ' - ' + picker.endDate.format('YYYY/MM/DD'));
+            });
+
+            $("input[name='"+$target+"']").on('cancel.daterangepicker', function(ev, picker) {
+            $(this).val('');
+            });
+    }
+
+    ActiveDateRangePicker('search_created_at');
+    ActiveDateRangePicker('search_date');
+  })
+</script>
 
 
 
 
-
+<script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
+<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
 
 
 

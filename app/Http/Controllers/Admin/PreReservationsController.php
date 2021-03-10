@@ -22,20 +22,44 @@ use Illuminate\Support\Facades\Mail;
 use App\Mail\AdminFinPreRes;
 use App\Mail\UserFinPreRes;
 
+use App\Traits\SearchTrait;
+
 
 class PreReservationsController extends Controller
 {
+  use SearchTrait; //検索用トレイト
+
   /**
    * Display a listing of the resource.
    *
    * @return \Illuminate\Http\Response
    */
-  public function index()
+  public function index(Request $request)
   {
-    $pre_reservations = PreReservation::where('multiple_reserve_id', '=', 0)->get();
-    return view('admin.pre_reservations.index', [
-      'pre_reservations' => $pre_reservations,
-    ]);
+
+    // $test = $this->SplitDate($request->search_date);
+    // var_dump($test);
+
+    // var_dump($this->BasicSearch(new PreReservation, $request));
+    $pre_reservations = $this->BasicSearch(new PreReservation, $request);
+
+    // if (count($request->all()) != 0) {
+    //   $class = new PreReservation;
+    //   $pre_reservations = $this->BasicSearch($class, $request);
+    // } else {
+    //   $pre_reservations = PreReservation::where('multiple_reserve_id', '=', 0)->paginate(30);
+    // }
+
+
+
+
+
+    // $pre_reservations = PreReservation::where('multiple_reserve_id', '=', 0)->paginate(30);
+    $venues = Venue::all();
+    return view(
+      'admin.pre_reservations.index',
+      compact('pre_reservations', 'venues')
+    );
   }
 
   /**

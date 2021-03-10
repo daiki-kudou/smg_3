@@ -60,6 +60,14 @@ $(function () {
     autoclose: true
   });
 
+  $('#datepicker99').datepicker({
+    dateFormat: 'yy-mm-dd',
+    numberOfMonths: 3,
+    showCurrentAtPos: 1,   // 表示位置は左から2番目 (真ん中)
+    stepMonths: 0,         // 月の移動を3ヶ月単位とする
+    autoclose: true
+  });
+
 
 });
 

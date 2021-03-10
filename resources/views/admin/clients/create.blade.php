@@ -35,7 +35,6 @@
     <section class="section-wrap">
       <div class="row">
         <div class="col">
-          <!-- {{ Form::open(['route' => 'admin.clients.store', 'id'=>'ClientsCreateForm']) }} -->
           {{ Form::open(['url' => 'admin/clients', 'method'=>'POST', 'id'=>'ClientsCreateForm']) }}
           @csrf
           <table class="table table-bordered">
@@ -176,7 +175,8 @@
               </tr>
               <tr>
                 <td class="table-active form_required">{{ Form::label('pay_limit', '支払期日') }}</td>
-                <td>{{Form::select('pay_limit', [1=>'当月末〆当月末CASH', 2=>'当月末〆翌月末CASH',3=>'当月末〆翌々月末CACH',4=>'当月末〆3カ月末CASH'])}}
+                <td>
+                  {{Form::select('pay_limit', [1=>'当月末〆当月末CASH', 2=>'当月末〆翌月末CASH',3=>'当月末〆翌々月末CACH',4=>'当月末〆3カ月末CASH'])}}
                   <p class="is-error-pay_limit" style="color: red"></p>
                 </td>
               </tr>
@@ -224,7 +224,8 @@
             </thead>
             <tbody>
               <tr>
-                <td class="caution">{{ Form::textarea('attention', old('attention'), ['class' => 'form-control']) }}</td>
+                <td class="caution">{{ Form::textarea('attention', old('attention'), ['class' => 'form-control']) }}
+                </td>
               </tr>
             </tbody>
           </table>

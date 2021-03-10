@@ -20,8 +20,6 @@ use App\Mail\SendUserApprove;
 use Illuminate\Support\Facades\Mail;
 
 
-
-
 class ReservationsController extends Controller
 {
   /**

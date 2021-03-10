@@ -255,5 +255,8 @@ Route::namespace('Admin')->prefix('admin')->name('admin.')->group(function () {
     Route::post('cxl/create', 'CxlController@create')->name('cxl.create');
     Route::post('cxl/calculate', 'CxlController@calculate')->name('cxl.calculate');
     Route::post('cxl/check', 'CxlController@check')->name('cxl.check');
+
+    // メールてんぷれ
+    Route::get('mail_templates', 'MailTemplatesController@index');
   });
 });
