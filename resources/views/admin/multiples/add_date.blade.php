@@ -21,7 +21,6 @@
     </div>
 
     <!-- 工藤さん！！！！ここから追加分コーディングデータです。 ----------------------------------->
-
     <section class="section-wrap">
       <table class="table ttl_head mb-0">
         <tbody>
@@ -34,7 +33,7 @@
             <td>
               <dl class="ttl_box">
                 <dt>仮押さえ一括ID:</dt>
-                <dd class="total_result">2</dd>
+                <dd class="total_result">{{$multiple->id}}</dd>
               </dl>
             </td>
         </tbody>
@@ -55,28 +54,28 @@
             <tr>
               <th class="table-active" width="25%"><label for="company">会社名・団体名</label></th>
               <td>
-                トリックスター
+                {{ReservationHelper::getCompany($multiple->pre_reservations()->first()->user_id)}}
               </td>
               <td class="table-active"><label for="name">担当者氏名</label></td>
               <td>
-                大山紘一郎
+                {{ReservationHelper::getPersonName($multiple->pre_reservations()->first()->user_id)}}
               </td>
             </tr>
             <tr>
               <td class="table-active" scope="row"><label for="email">担当者メールアドレス</label></td>
               <td>
-                ooyama@web-trickster.com
+                {{ReservationHelper::getPersonEmail($multiple->pre_reservations()->first()->user_id)}}
               </td>
               <td class="table-active" scope="row"><label for="mobile">携帯番号</label></td>
               <td>
-
+                {{ReservationHelper::getPersonMobile($multiple->pre_reservations()->first()->user_id)}}
               </td>
             </tr>
             <tr>
               <td class="table-active" scope="row"><label for="tel">固定電話</label>
               </td>
               <td>
-
+                {{ReservationHelper::getPersonTel($multiple->pre_reservations()->first()->user_id)}}
               </td>
             </tr>
           </tbody>
@@ -94,6 +93,7 @@
             <tr>
               <td class="table-active" width="25%"><label for="onedayCompany">会社名・団体名</label></td>
               <td>
+                {{ReservationHelper::getPersonTel($multiple->pre_reservations()->first()->unknown_user()->unknown_user_company)}}
               </td>
               <td class="table-active"><label for="onedayName">担当者氏名</label></td>
               <td>

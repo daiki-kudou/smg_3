@@ -111,8 +111,11 @@ class MultiplesController extends Controller
     return redirect('admin/multiples/' . $multiples_id . '/edit/' . $venues_id);
   }
 
-  public function add_date($id, $venue_id)
+  public function add_date($multiple_id, $venue_id)
   {
-    return view('admin.multiples.add_date');
+    $multiple = MultipleReserve::find($multiple_id);
+    $venue = Venue::find($venue_id);
+
+    return view('admin.multiples.add_date', compact('multiple', 'venue'));
   }
 }
