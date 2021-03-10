@@ -67,11 +67,6 @@ class MultiplesController extends Controller
     return redirect('admin/multiples/' . $id);
   }
 
-
-
-
-
-
   public function edit($multiple_id, $venue_id)
   {
     $multiple = MultipleReserve::find($multiple_id);
@@ -103,23 +98,24 @@ class MultiplesController extends Controller
   public function specificUpdate(Request $request, $multiple_id, $venue_id, $pre_reservation_id)
   {
     $pre_reservation = PreReservation::find($pre_reservation_id);
-
     $result = $pre_reservation->reCalculateVenue($request, $venue_id);
-
     $pre_reservation->specificUpdate($request, $result, $venue_id);
-
     return redirect('admin/multiples/' . $multiple_id . '/edit/' . $venue_id);
   }
 
-
-
   public function allUpdates(Request $request, $multiples_id, $venues_id)
   {
-
     $masterData = json_decode($request->master_data);
     $multiple = MultipleReserve::find($multiples_id);
     $multiple->UpdateAndReCreateAll($masterData, $venues_id);
-
     return redirect('admin/multiples/' . $multiples_id . '/edit/' . $venues_id);
+  }
+
+  public function add_date($multiple_id, $venue_id)
+  {
+    $multiple = MultipleReserve::find($multiple_id);
+    $venue = Venue::find($venue_id);
+
+    return view('admin.multiples.add_date', compact('multiple', 'venue'));
   }
 }

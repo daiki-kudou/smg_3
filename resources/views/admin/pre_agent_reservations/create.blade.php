@@ -245,77 +245,77 @@
     })
     })
     // 入室時間選択トリガー
-  $(function () {
-    $(document).on("click", "select", function () {
-      var this_tr = $(this).parent().parent();
-      var target = $(this).parent().index();
-      if (target == 2) {
-        var date = this_tr.find('td').eq(0).find('input').val();
-        var venue = this_tr.find('td').eq(1).find('select').val();
-        if (date.length && venue.length) {
-          $(this).find('option').prop('disabled', false);
-          var options = $(this).find('option');
-          $.ajax({
-            headers: {
-              'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-            },
-            url: '/admin/reservations/getsaleshours',
-            type: 'POST',
-            data: { 'venue_id': venue, 'dates': date },
-            dataType: 'json',
-            beforeSend: function () {
-              $('#fullOverlay').css('display', 'block');
-            },
-          }).done(function ($times) {
-            $('#fullOverlay').css('display', 'none');
-            for (let index = 0; index < $times[0].length; index++) {
-              options.each(function ($result) {
-                if ($times[0][index] == options.eq($result).val()) {
-                  options.eq($result).prop('disabled', true);
-                }
-              });
-            };
-          }).fail(function ($times) {
-            $('#fullOverlay').css('display', 'none');
-          });
-        } else {
-          $(this).find('option').prop('disabled', true);
-        }
-      }else if(target == 3){
-        var date = this_tr.find('td').eq(0).find('input').val();
-        var venue = this_tr.find('td').eq(1).find('select').val();
-        if (date.length && venue.length) {
-          $(this).find('option').prop('disabled', false);
-          var options = $(this).find('option');
-          $.ajax({
-            headers: {
-              'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-            },
-            url: '/admin/reservations/getsaleshours',
-            type: 'POST',
-            data: { 'venue_id': venue, 'dates': date },
-            dataType: 'json',
-            beforeSend: function () {
-              $('#fullOverlay').css('display', 'block');
-            },
-          }).done(function ($times) {
-            $('#fullOverlay').css('display', 'none');
-            for (let index = 0; index < $times[0].length; index++) {
-              options.each(function ($result) {
-                if ($times[0][index] == options.eq($result).val()) {
-                  options.eq($result).prop('disabled', true);
-                }
-              });
-            };
-          }).fail(function ($times) {
-            $('#fullOverlay').css('display', 'none');
-          });
-        } else {
-          $(this).find('option').prop('disabled', true);
-        }
-      }
-    })
-  })
+  // $(function () {
+  //   $(document).on("click", "select", function () {
+  //     var this_tr = $(this).parent().parent();
+  //     var target = $(this).parent().index();
+  //     if (target == 2) {
+  //       var date = this_tr.find('td').eq(0).find('input').val();
+  //       var venue = this_tr.find('td').eq(1).find('select').val();
+  //       if (date.length && venue.length) {
+  //         $(this).find('option').prop('disabled', false);
+  //         var options = $(this).find('option');
+  //         $.ajax({
+  //           headers: {
+  //             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+  //           },
+  //           url: '/admin/reservations/getsaleshours',
+  //           type: 'POST',
+  //           data: { 'venue_id': venue, 'dates': date },
+  //           dataType: 'json',
+  //           beforeSend: function () {
+  //             $('#fullOverlay').css('display', 'block');
+  //           },
+  //         }).done(function ($times) {
+  //           $('#fullOverlay').css('display', 'none');
+  //           for (let index = 0; index < $times[0].length; index++) {
+  //             options.each(function ($result) {
+  //               if ($times[0][index] == options.eq($result).val()) {
+  //                 options.eq($result).prop('disabled', true);
+  //               }
+  //             });
+  //           };
+  //         }).fail(function ($times) {
+  //           $('#fullOverlay').css('display', 'none');
+  //         });
+  //       } else {
+  //         $(this).find('option').prop('disabled', true);
+  //       }
+  //     }else if(target == 3){
+  //       var date = this_tr.find('td').eq(0).find('input').val();
+  //       var venue = this_tr.find('td').eq(1).find('select').val();
+  //       if (date.length && venue.length) {
+  //         $(this).find('option').prop('disabled', false);
+  //         var options = $(this).find('option');
+  //         $.ajax({
+  //           headers: {
+  //             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+  //           },
+  //           url: '/admin/reservations/getsaleshours',
+  //           type: 'POST',
+  //           data: { 'venue_id': venue, 'dates': date },
+  //           dataType: 'json',
+  //           beforeSend: function () {
+  //             $('#fullOverlay').css('display', 'block');
+  //           },
+  //         }).done(function ($times) {
+  //           $('#fullOverlay').css('display', 'none');
+  //           for (let index = 0; index < $times[0].length; index++) {
+  //             options.each(function ($result) {
+  //               if ($times[0][index] == options.eq($result).val()) {
+  //                 options.eq($result).prop('disabled', true);
+  //               }
+  //             });
+  //           };
+  //         }).fail(function ($times) {
+  //           $('#fullOverlay').css('display', 'none');
+  //         });
+  //       } else {
+  //         $(this).find('option').prop('disabled', true);
+  //       }
+  //     }
+  //   })
+  // })
 
 
 </script>

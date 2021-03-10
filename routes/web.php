@@ -240,6 +240,8 @@ Route::namespace('Admin')->prefix('admin')->name('admin.')->group(function () {
     Route::get('multiples/switch/{multiple}', 'MultiplesController@switch');
     // 一括ユーザー切り替え確定
     Route::post('multiples/switch_cfm/{multiple}', 'MultiplesController@switch_cfm');
+    // 一括仮押さえ、日付の追加
+    Route::get('multiples/{multiples}/add_date/{venues}/', 'MultiplesController@add_date');
 
 
     // 仲介会社　仮押え 作成

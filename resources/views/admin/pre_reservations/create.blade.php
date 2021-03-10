@@ -336,177 +336,178 @@
     })
   })
   // 入室時間選択トリガー
-  $(function() {
-    $(document).on("click", "select", function() {
-      var this_tr = $(this).parent().parent();
-      var target = $(this).parent().index();
-      if (target == 2) {
-        var date = this_tr.find('td').eq(0).find('input').val();
-        var venue = this_tr.find('td').eq(1).find('select').val();
-        if (date.length && venue.length) {
-          $(this).find('option').prop('disabled', false);
-          var options = $(this).find('option');
-          $.ajax({
-            headers: {
-              'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-            },
-            url: '/admin/reservations/getsaleshours',
-            type: 'POST',
-            data: {
-              'venue_id': venue,
-              'dates': date
-            },
-            dataType: 'json',
-            beforeSend: function() {
-              $('#fullOverlay').css('display', 'block');
-            },
-          }).done(function($times) {
-            $('#fullOverlay').css('display', 'none');
-            for (let index = 0; index < $times[0].length; index++) {
-              options.each(function($result) {
-                if ($times[0][index] == options.eq($result).val()) {
-                  options.eq($result).prop('disabled', true);
-                }
-              });
-            };
-          }).fail(function($times) {
-            $('#fullOverlay').css('display', 'none');
-          });
-        } else {
-          $(this).find('option').prop('disabled', true);
-        }
+  // $(function() {
+  //   $(document).on("click", "select", function() {
+  //     var this_tr = $(this).parent().parent();
+  //     var target = $(this).parent().index();
+  //     if (target == 2) {
+  //       var date = this_tr.find('td').eq(0).find('input').val();
+  //       var venue = this_tr.find('td').eq(1).find('select').val();
+  //       if (date.length && venue.length) {
+  //         $(this).find('option').prop('disabled', false);
+  //         var options = $(this).find('option');
+  //         $.ajax({
+  //           headers: {
+  //             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+  //           },
+  //           url: '/admin/reservations/getsaleshours',
+  //           type: 'POST',
+  //           data: {
+  //             'venue_id': venue,
+  //             'dates': date
+  //           },
+  //           dataType: 'json',
+  //           beforeSend: function() {
+  //             $('#fullOverlay').css('display', 'block');
+  //           },
+  //         }).done(function($times) {
+  //           $('#fullOverlay').css('display', 'none');
+  //           for (let index = 0; index < $times[0].length; index++) {
+  //             options.each(function($result) {
+  //               if ($times[0][index] == options.eq($result).val()) {
+  //                 options.eq($result).prop('disabled', true);
+  //               }
+  //             });
+  //           };
+  //         }).fail(function($times) {
+  //           $('#fullOverlay').css('display', 'none');
+  //         });
+  //       } else {
+  //         $(this).find('option').prop('disabled', true);
+  //       }
 
-        var masterTr = $('.date_selector tbody tr').length;
-        for (let trs = 0; trs < masterTr; trs++) {
-          var targetDate = $('.date_selector tbody tr').eq(trs).find('td').eq(0).find('input').val();
-          var targetVenue = $('.date_selector tbody tr').eq(trs).find('td').eq(1).find('select').val();
-          var targetEnter = $('.date_selector tbody tr').eq(trs).find('td').eq(2).find('select').val();
-          var targetLeave = $('.date_selector tbody tr').eq(trs).find('td').eq(3).find('select').val();
-          // console.log(['日付だよ',targetDate], ['会場だよ',targetVenue], ['入室だよ',targetEnter],['退室だよ',targetLeave]);
-          var cmpTargetDate = $(this).parent().parent().find('td').eq(0).find('input').val();
-          var cmpTargetVenue = $(this).parent().parent().find('td').eq(1).find('select').val();
-          // console.log(['target日付',cmpTargetDate], ['cmpTarget会場',cmpTargetVenue]);
-          if (cmpTargetDate == targetDate && cmpTargetVenue == targetVenue) {
-            var thisoption = $(this).find('option');
-            $.ajax({
-              headers: {
-                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-              },
-              url: '/admin/pre_reservations/reject_same_time',
-              type: 'POST',
-              data: {
-                'targetEnter': targetEnter,
-                'targetLeave': targetLeave
-              },
-              dataType: 'json',
-              beforeSend: function() {
-                $('#fullOverlay').css('display', 'block');
-              },
-            }).done(function($targettimes) {
-              $('#fullOverlay').css('display', 'none');
-              var arrays = [];
-              thisoption.each(function($index, $value) {
-                if ($($value).val() == $targettimes[1]) {
-                  $($value).prop('disabled', true);
-                  for (let counts = $index; counts < $index + ($targettimes[0] + 1); counts++) {
-                    arrays.push(counts);
+  //       var masterTr = $('.date_selector tbody tr').length;
+  //       for (let trs = 0; trs < masterTr; trs++) {
+  //         var targetDate = $('.date_selector tbody tr').eq(trs).find('td').eq(0).find('input').val();
+  //         var targetVenue = $('.date_selector tbody tr').eq(trs).find('td').eq(1).find('select').val();
+  //         var targetEnter = $('.date_selector tbody tr').eq(trs).find('td').eq(2).find('select').val();
+  //         var targetLeave = $('.date_selector tbody tr').eq(trs).find('td').eq(3).find('select').val();
+  //         // console.log(['日付だよ',targetDate], ['会場だよ',targetVenue], ['入室だよ',targetEnter],['退室だよ',targetLeave]);
+  //         var cmpTargetDate = $(this).parent().parent().find('td').eq(0).find('input').val();
+  //         var cmpTargetVenue = $(this).parent().parent().find('td').eq(1).find('select').val();
+  //         // console.log(['target日付',cmpTargetDate], ['cmpTarget会場',cmpTargetVenue]);
+  //         if (cmpTargetDate == targetDate && cmpTargetVenue == targetVenue) {
+  //           var thisoption = $(this).find('option');
+  //           $.ajax({
+  //             headers: {
+  //               'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+  //             },
+  //             url: '/admin/pre_reservations/reject_same_time',
+  //             type: 'POST',
+  //             data: {
+  //               'targetEnter': targetEnter,
+  //               'targetLeave': targetLeave
+  //             },
+  //             dataType: 'json',
+  //             beforeSend: function() {
+  //               $('#fullOverlay').css('display', 'block');
+  //             },
+  //           }).done(function($targettimes) {
+  //             $('#fullOverlay').css('display', 'none');
+  //             var arrays = [];
+  //             thisoption.each(function($index, $value) {
+  //               if ($($value).val() == $targettimes[1]) {
+  //                 $($value).prop('disabled', true);
+  //                 for (let counts = $index; counts < $index + ($targettimes[0] + 1); counts++) {
+  //                   arrays.push(counts);
                     
-                  }
-                }
-              });
-              $.each(arrays, function($i, $v) {
-                thisoption.eq($v).prop('disabled', true);
-              });
-            }).fail(function($targettimes) {
-              $('#fullOverlay').css('display', 'none');
-              console.log($targettimes);
-            });
-          }
-        }
-      } else if (target == 3) {
-        var date = this_tr.find('td').eq(0).find('input').val();
-        var venue = this_tr.find('td').eq(1).find('select').val();
-        if (date.length && venue.length) {
-          $(this).find('option').prop('disabled', false);
-          var options = $(this).find('option');
-          $.ajax({
-            headers: {
-              'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-            },
-            url: '/admin/reservations/getsaleshours',
-            type: 'POST',
-            data: {
-              'venue_id': venue,
-              'dates': date
-            },
-            dataType: 'json',
-            beforeSend: function() {
-              $('#fullOverlay').css('display', 'block');
-            },
-          }).done(function($times) {
-            $('#fullOverlay').css('display', 'none');
-            for (let index = 0; index < $times[0].length; index++) {
-              options.each(function($result) {
-                if ($times[0][index] == options.eq($result).val()) {
-                  options.eq($result).prop('disabled', true);
-                }
-              });
-            };
-          }).fail(function($times) {
-            $('#fullOverlay').css('display', 'none');
-          });
-        } else {
-          $(this).find('option').prop('disabled', true);
-        }
+  //                 }
+  //               }
+  //             });
+  //             $.each(arrays, function($i, $v) {
+  //               thisoption.eq($v).prop('disabled', true);
+  //             });
+  //           }).fail(function($targettimes) {
+  //             $('#fullOverlay').css('display', 'none');
+  //             console.log($targettimes);
+  //           });
+  //         }
+  //       }
+  //     } 
+  //     else if (target == 3) {
+  //       var date = this_tr.find('td').eq(0).find('input').val();
+  //       var venue = this_tr.find('td').eq(1).find('select').val();
+  //       if (date.length && venue.length) {
+  //         $(this).find('option').prop('disabled', false);
+  //         var options = $(this).find('option');
+  //         $.ajax({
+  //           headers: {
+  //             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+  //           },
+  //           url: '/admin/reservations/getsaleshours',
+  //           type: 'POST',
+  //           data: {
+  //             'venue_id': venue,
+  //             'dates': date
+  //           },
+  //           dataType: 'json',
+  //           beforeSend: function() {
+  //             $('#fullOverlay').css('display', 'block');
+  //           },
+  //         }).done(function($times) {
+  //           $('#fullOverlay').css('display', 'none');
+  //           for (let index = 0; index < $times[0].length; index++) {
+  //             options.each(function($result) {
+  //               if ($times[0][index] == options.eq($result).val()) {
+  //                 options.eq($result).prop('disabled', true);
+  //               }
+  //             });
+  //           };
+  //         }).fail(function($times) {
+  //           $('#fullOverlay').css('display', 'none');
+  //         });
+  //       } else {
+  //         $(this).find('option').prop('disabled', true);
+  //       }
 
-        var masterTr = $('.date_selector tbody tr').length;
-        for (let trs = 0; trs < masterTr; trs++) {
-          var targetDate = $('.date_selector tbody tr').eq(trs).find('td').eq(0).find('input').val();
-          var targetVenue = $('.date_selector tbody tr').eq(trs).find('td').eq(1).find('select').val();
-          var targetEnter = $('.date_selector tbody tr').eq(trs).find('td').eq(2).find('select').val();
-          var targetLeave = $('.date_selector tbody tr').eq(trs).find('td').eq(3).find('select').val();
-          // console.log(['日付だよ',targetDate], ['会場だよ',targetVenue], ['入室だよ',targetEnter],['退室だよ',targetLeave]);
-          var cmpTargetDate = $(this).parent().parent().find('td').eq(0).find('input').val();
-          var cmpTargetVenue = $(this).parent().parent().find('td').eq(1).find('select').val();
-          // console.log(['target日付',cmpTargetDate], ['cmpTarget会場',cmpTargetVenue]);
-          if (cmpTargetDate == targetDate && cmpTargetVenue == targetVenue) {
-            var thisoption = $(this).find('option');
-            $.ajax({
-              headers: {
-                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-              },
-              url: '/admin/pre_reservations/reject_same_time',
-              type: 'POST',
-              data: {
-                'targetEnter': targetEnter,
-                'targetLeave': targetLeave
-              },
-              dataType: 'json',
-              beforeSend: function() {
-                $('#fullOverlay').css('display', 'block');
-              },
-            }).done(function($targettimes) {
-              $('#fullOverlay').css('display', 'none');
-              var arrays = [];
-              thisoption.each(function($index, $value) {
-                if ($($value).val() == $targettimes[1]) {
-                  $($value).prop('disabled', true);
-                  for (let counts = $index; counts < $index + ($targettimes[0] + 1); counts++) {
-                    arrays.push(counts);
-                  }
-                }
-              });
-              $.each(arrays, function($i, $v) {
-                thisoption.eq($v).prop('disabled', true);
-              });
-            }).fail(function($targettimes) {
-              $('#fullOverlay').css('display', 'none');
-              console.log($targettimes);
-            });
-          }
-        }
-      }
-    })
-  })
+  //       var masterTr = $('.date_selector tbody tr').length;
+  //       for (let trs = 0; trs < masterTr; trs++) {
+  //         var targetDate = $('.date_selector tbody tr').eq(trs).find('td').eq(0).find('input').val();
+  //         var targetVenue = $('.date_selector tbody tr').eq(trs).find('td').eq(1).find('select').val();
+  //         var targetEnter = $('.date_selector tbody tr').eq(trs).find('td').eq(2).find('select').val();
+  //         var targetLeave = $('.date_selector tbody tr').eq(trs).find('td').eq(3).find('select').val();
+  //         // console.log(['日付だよ',targetDate], ['会場だよ',targetVenue], ['入室だよ',targetEnter],['退室だよ',targetLeave]);
+  //         var cmpTargetDate = $(this).parent().parent().find('td').eq(0).find('input').val();
+  //         var cmpTargetVenue = $(this).parent().parent().find('td').eq(1).find('select').val();
+  //         // console.log(['target日付',cmpTargetDate], ['cmpTarget会場',cmpTargetVenue]);
+  //         if (cmpTargetDate == targetDate && cmpTargetVenue == targetVenue) {
+  //           var thisoption = $(this).find('option');
+  //           $.ajax({
+  //             headers: {
+  //               'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+  //             },
+  //             url: '/admin/pre_reservations/reject_same_time',
+  //             type: 'POST',
+  //             data: {
+  //               'targetEnter': targetEnter,
+  //               'targetLeave': targetLeave
+  //             },
+  //             dataType: 'json',
+  //             beforeSend: function() {
+  //               $('#fullOverlay').css('display', 'block');
+  //             },
+  //           }).done(function($targettimes) {
+  //             $('#fullOverlay').css('display', 'none');
+  //             var arrays = [];
+  //             thisoption.each(function($index, $value) {
+  //               if ($($value).val() == $targettimes[1]) {
+  //                 $($value).prop('disabled', true);
+  //                 for (let counts = $index; counts < $index + ($targettimes[0] + 1); counts++) {
+  //                   arrays.push(counts);
+  //                 }
+  //               }
+  //             });
+  //             $.each(arrays, function($i, $v) {
+  //               thisoption.eq($v).prop('disabled', true);
+  //             });
+  //           }).fail(function($targettimes) {
+  //             $('#fullOverlay').css('display', 'none');
+  //             console.log($targettimes);
+  //           });
+  //         }
+  //       }
+  //     }
+  //   })
+  // })
 </script>
 @endsection
