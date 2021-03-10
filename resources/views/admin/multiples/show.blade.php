@@ -20,33 +20,28 @@
       <hr>
     </div>
 
-    <!-- 仮押さえ登録--------------------------------------------------------　 -->
     <section class="section-wrap">
-      <div class="row">
-        <div class="col-12">
-          <table class="table ttl_head">
-            <tbody>
-              <tr>
-                <td>
-                  <h2 class="text-white">
-                    仮押さえ概要
-                  </h2>
-                </td>
-                <td>
+        <table class="table ttl_head mb-0">
+          <tbody>
+            <tr>
+              <td>
+                <h3 class="text-white py-2">
+                  仮押さえ一括ID：{{$multiple->id}}
+                </h3>
+              </td>
+              <!-- <td>
                   <dl class="ttl_box">
                     <dt>仮押さえ一括ID:</dt>
-                    <dd class="total_result">{{$multiple->id}}</dd>
+                    <dd class="total_result"></dd>
                   </dl>
-                </td>
-                <td class="text-right">
-                  <a class="more_btn4" href="">削除</a>
-                  <a class="more_btn" href="">編集</a>
-                </td>
-            </tbody>
-          </table>
-        </div>
+                </td> -->
+              <td class="text-right">
+                <a class="more_btn4" href="">削除</a>
+              </td>
+          </tbody>
+        </table>
 
-        <div class="col-12">
+      <div class="border-wrap2 p-4">
           <table class="table table-bordered customer-table mb-5" style="table-layout: fixed;">
             <tbody>
               <tr>
@@ -57,7 +52,7 @@
                       顧客情報
                     </p>
                     <div>
-                      <a href="{{url('admin/multiples/switch/'.$multiple->id)}}" class="more_btn">ユーザーを切り替える</a>
+                      <a href="{{url('admin/multiples/switch/'.$multiple->id)}}" class="more_btn">顧客情報を変更する</a>
                     </div>
                   </div>
                 </td>
@@ -138,64 +133,62 @@
               </tr>
             </tbody>
           </table>
-        </div>
-      </div>
 
-      <!-- 仮押さえ一括 -->
-      <table class="table ttl_head mt-4 mb-5">
-        <tbody>
-          <tr>
-            <td>
-              <h2 class="text-white">
-                仮押さえ内容
-              </h2>
-            </td>
-        </tbody>
-      </table>
-
-      <p class="text-right"><a href="" class="more_btn3">新しい会場で日程を追加する</a></p>
-      <p class="mb-2">詳細を入力する場合は、会場ごとに編集をしてください。</p>
-      <table class="table table-bordered table-scroll">
-        <thead>
-          <tr class="table_row">
-            <th>一括仮押さえID</th>
-            <th>作成日</th>
-            <th>利用会場</th>
-            <th>総件数</th>
-            <th>件数</th>
-            <th>編集</th>
-            <th>日程の追加</th>
-          </tr>
-        </thead>
-        <tbody>
-          @for ($i = 0; $i < $venue_count; $i++) @if ($i==0) <tr>
-            <td rowspan="{{$venue_count}}">{{$multiple->id}}</td> {{--一括ID--}}
-            <td rowspan="{{$venue_count}}">{{ReservationHelper::formatDate($multiple->created_at)}}</td>{{--作成日--}}
-            <td>{{ReservationHelper::getVenue($venues[$i]->venue_id)}}</td>{{--利用会場--}}
-            <td rowspan="{{$venue_count}}">
-              {{$multiple->pre_reservations()->get()->count()}}
-            </td>{{--総件数--}}
-            <td>
-              {{$multiple->pre_reservations()->where('venue_id',$venues[$i]->venue_id)->get()->count()}}
-            </td>
-            <td><a class="more_btn"
-                href="{{url('admin/multiples/'.$multiple->id.'/edit'.'/'.$venues[$i]->venue_id)}}">編集</a></td>
-            <td><a class="more_btn" href="">日程の追加をする</a></td>
-            </tr>
-            @else
+        <!-- <table class="table ttl_head mt-4 mb-5">
+          <tbody>
             <tr>
-              <td>{{ReservationHelper::getVenue($venues[$i]->venue_id)}}</td>
+              <td>
+                <h2 class="text-white">
+                  仮押さえ内容
+                </h2>
+              </td>
+          </tbody>
+        </table> -->
+
+        <hr class="my-5 border_color">
+        <div class="mt-5">
+        <p class="text-right"><a href="" class="more_btn3">新しい会場で日程を追加する</a></p>
+        <p class="mb-2">詳細を入力する場合は、会場ごとに編集をしてください。</p>
+        </div>
+        <table class="table table-bordered table-scroll">
+          <thead>
+            <tr class="table_row">
+              <th>一括仮押さえID</th>
+              <th>作成日</th>
+              <th>利用会場</th>
+              <th>総件数</th>
+              <th>件数</th>
+              <th>編集</th>
+              <th>日程の追加</th>
+            </tr>
+          </thead>
+          <tbody>
+            @for ($i = 0; $i < $venue_count; $i++) @if ($i==0) <tr>
+              <td rowspan="{{$venue_count}}">{{$multiple->id}}</td> {{--一括ID--}}
+              <td rowspan="{{$venue_count}}">{{ReservationHelper::formatDate($multiple->created_at)}}</td>{{--作成日--}}
+              <td>{{ReservationHelper::getVenue($venues[$i]->venue_id)}}</td>{{--利用会場--}}
+              <td rowspan="{{$venue_count}}">
+                {{$multiple->pre_reservations()->get()->count()}}
+              </td>{{--総件数--}}
               <td>
                 {{$multiple->pre_reservations()->where('venue_id',$venues[$i]->venue_id)->get()->count()}}
               </td>
-              <td><a class="more_btn"
-                  href="{{url('admin/multiples/'.$multiple->id.'/edit'.'/'.$venues[$i]->venue_id)}}">編集</a></td>
-              <td><a class="more_btn" href="">日程の追加をする</a></td>
-            </tr>
-            @endif
-            @endfor
-        </tbody>
-        {{-- <tbody>
+              <td class="text-center"><a class="more_btn" href="{{url('admin/multiples/'.$multiple->id.'/edit'.'/'.$venues[$i]->venue_id)}}">編集</a></td>
+              <td class="text-center"><a class="more_btn" href="">日程の追加をする</a></td>
+              </tr>
+              @else
+              <tr>
+                <td>{{ReservationHelper::getVenue($venues[$i]->venue_id)}}</td>
+                <td>
+                  {{$multiple->pre_reservations()->where('venue_id',$venues[$i]->venue_id)->get()->count()}}
+                </td>
+                <td class="text-center"><a class="more_btn" href="{{url('admin/multiples/'.$multiple->id.'/edit'.'/'.$venues[$i]->venue_id)}}">編集</a></td>
+                <td class="text-center"><a class="more_btn" href="">日程の追加をする</a></td>
+              </tr>
+              @endif
+              @endfor
+          </tbody>
+          {{-- <tbody>
             <tr>
               <td>00001</td>
               <td>2020/12/28(月)</td>
@@ -218,7 +211,9 @@
               </td>
             </tr>
           </tbody> --}}
-      </table>
+        </table>
+      </div>
+
     </section>
   </div>
   <div class="btn_wrapper">

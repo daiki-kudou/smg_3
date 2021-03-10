@@ -34,8 +34,8 @@
       <hr>
     </div>
 
-    <div class="section-wrap">
-              <!-- 検索--------------------------------------- -->
+      <!-- 検索--------------------------------------- -->
+      <div class="search-wrap">
       <table class="table table-bordered mb-0">
         <tbody>
           <tr>
@@ -94,28 +94,31 @@
         <input type="reset" value="リセット" class="btn reset_btn">
         <input type="submit" value="検索" class="btn search_btn">
       </div>
+      </div>
 
-    <!-- 検索　終わり------------------------------------------------ -->
+      <!-- 検索　終わり------------------------------------------------ -->
+    <div class="section-wrap">
+
       <ul class="d-flex reservation_list mb-2 justify-content-between">
         <li>
-        {{-- 削除ボタン --}}
+          {{-- 削除ボタン --}}
           {{Form::open(['url' => 'admin/pre_reservations/destroy', 'method' => 'POST', 'id'=>'for_destroy'])}}
           @csrf
           {{ Form::submit('削除', ['class' => 'btn more_btn4','id'=>'confirm_destroy']) }}
           {{ Form::close() }}
         </li>
         <li>
-        <div class="d-flex">
-          <a class="more_btn bg-red" href="">仮押さえ期間超過</a>
-          <p class="ml-3 font-weight-bold"><span class="count-color">ダミー</span>件</p>
-        </div>
-      </li>
+          <div class="d-flex">
+            <a class="more_btn bg-red" href="">仮押さえ期間超過</a>
+            <p class="ml-3 font-weight-bold"><span class="count-color">ダミー</span>件</p>
+          </div>
+        </li>
       </ul>
 
       <div class="table-wrap">
         <table class="table table-bordered table-scroll">
           <thead>
-            <tr>
+            <tr class="table_row">
               <th><input type="checkbox" name="all_check" id="all_check" /></th>
               <th>一括仮押さえID</th>
               <th>作成日</th>
@@ -166,7 +169,7 @@
                 ※後ほど着手予定
               </td>
               <td>※後ほど着手予定</td>
-              <td><a href="{{url('admin/multiples/'.$multiple->id)}}" class="btn more_btn">詳細</a></td>
+              <td class="text-center"><a href="{{url('admin/multiples/'.$multiple->id)}}" class="btn more_btn">詳細</a></td>
             </tr>
             @endforeach
           </tbody>
