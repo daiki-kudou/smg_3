@@ -338,6 +338,8 @@ class PreReservation extends Model
         'user_details' => $request->user_details,
         'admin_details' => $request->admin_details,
         'status' => 0,
+        'eat_in' => $request->eat_in,
+        'eat_in_prepare' => $request->eat_in_prepare,
       ]);
       $pre_bill = $pre_reservation->pre_bill()->create([
         'venue_price' => 0,
