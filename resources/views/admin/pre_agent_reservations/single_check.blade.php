@@ -469,6 +469,26 @@
             </tr>
           </tbody>
         </table>
+        @if ($venue->alliance_flag==1)
+        <table class="table table-bordered cost-table">
+          <tbody>
+            <tr>
+              <td colspan="2">
+                <p class="title-icon">
+                  <i class="fas fa-yen-sign icon-size" aria-hidden="true"></i>売上原価
+                </p>
+              </td>
+            </tr>
+            <tr>
+              <td class="table-active"><label for="">原価率</label></td>
+              <td>
+                {{ Form::text('cost', $venue->cost,['class'=>'form-control', 'placeholder'=>'入力してください'] ) }}%
+              </td>
+            </tr>
+          </tbody>
+        </table>
+        @endif
+
         <table class="table table-bordered note-table">
           <tbody>
             <tr>

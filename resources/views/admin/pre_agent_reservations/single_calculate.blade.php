@@ -465,6 +465,26 @@
             </tr>
           </tbody>
         </table>
+        @if ($venue->alliance_flag==1)
+        <table class="table table-bordered cost-table">
+          <tbody>
+            <tr>
+              <td colspan="2">
+                <p class="title-icon">
+                  <i class="fas fa-yen-sign icon-size" aria-hidden="true"></i>売上原価
+                </p>
+              </td>
+            </tr>
+            <tr>
+              <td class="table-active"><label for="">原価率</label></td>
+              <td>
+                {{ Form::text('cost', $request->cost,['class'=>'form-control', 'placeholder'=>'入力してください'] ) }}%
+              </td>
+            </tr>
+          </tbody>
+        </table>
+        @endif
+
         <table class="table table-bordered note-table">
           <tbody>
             <tr>
@@ -788,6 +808,8 @@
 
 {{Form::hidden('eat_in_prepare', $request->eat_in_prepare)}}
 {{Form::hidden('eat_in', $request->eat_in)}}
+{{Form::hidden('cost', $request->cost)}}
+
 
 
 {{Form::submit('保存する', ['class'=>'btn more_btn_lg d-block btn-lg mx-auto my-5', 'id'=>'check_submit'])}}

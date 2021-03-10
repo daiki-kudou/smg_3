@@ -49,6 +49,7 @@ class PreReservation extends Model
     'status',
     'eat_in',
     'eat_in_prepare',
+    'cost'
 
   ];
   protected $dates = [
@@ -340,6 +341,7 @@ class PreReservation extends Model
         'status' => 0,
         'eat_in' => $request->eat_in,
         'eat_in_prepare' => $request->eat_in_prepare,
+        'cost' => $request->cost,
       ]);
       $pre_bill = $pre_reservation->pre_bill()->create([
         'venue_price' => 0,
