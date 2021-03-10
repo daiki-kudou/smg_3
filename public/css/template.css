@@ -442,6 +442,10 @@ select:disabled {
     white-space: nowrap;
 }
 
+.table_row th {
+    text-align: center;
+}
+
 
 .nav-tabs .nav-link.active,
 .nav-tabs .nav-item.show .nav-link {
@@ -541,6 +545,10 @@ select:disabled {
     padding: 3% 10%;
 }
 
+.search-wrap .table td {
+    padding: 0.2em;
+}
+
 
 .form-group dd {
     margin-bottom: 0;
@@ -607,11 +615,6 @@ select:disabled {
 .search_btn {
     background: #007bff;
     color: #fff;
-}
-
-.search_box .table td {
-    padding: 0.01rem;
-    vertical-align: middle;
 }
 
 .count-color {
@@ -781,6 +784,10 @@ table td.table_column p:last-child {
     /* border: solid 1px #ced4da; */
 }
 
+.border_color {
+    border: 1px solid rgb(53 167 167 / 30%);
+}
+
 
 
 .border-inwrap {
@@ -852,6 +859,7 @@ table td.table_column p:last-child {
 
 .btn-cell {
     min-width: 89px;
+    text-align: center;
 }
 
 .prereserve-table .table_column .more_btn {

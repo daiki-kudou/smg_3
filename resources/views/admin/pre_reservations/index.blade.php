@@ -50,8 +50,8 @@
     </div>
 
     <!-- 検索--------------------------------------- -->
-    <div class="section-wrap">
-      <table class="table table-bordered search_box">
+    <div class="search-wrap">
+      <table class="table table-bordered">
         <tbody>
           <tr>
             <th class="search_item_name"><label for="id">仮押さえID</label>
@@ -223,7 +223,7 @@
             <td>{{$pre_reservation->agent_id==0?"":$pre_reservation->agent_id}}</td>
             <td>{{$pre_reservation->agent_id==0?"":$pre_reservation->agent_id}}</td>
             <td>{{$pre_reservation->agent_id==0?"":$pre_reservation->agent_id}}</td>
-            <td><a class="more_btn" href="{{url('admin/pre_reservations/'.$pre_reservation->id)}}">詳細</a></td>
+            <td class="text-center"><a class="more_btn" href="{{url('admin/pre_reservations/'.$pre_reservation->id)}}">詳細</a></td>
           </tr>
           @endforeach
         </tbody>

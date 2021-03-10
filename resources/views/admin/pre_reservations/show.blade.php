@@ -23,20 +23,21 @@
 <section class="section-wrap">
   <div class="row">
     <div class="col-12">
-      <table class="table ttl_head">
+      <table class="table ttl_head mb-0">
         <tbody>
           <tr>
             <td>
-              <h3 class="text-white">
-                仮押さえ概要
+              <h3 class="text-white py-2">
+                <!-- 仮押さえ概要 -->
+              仮押さえID：{{$pre_reservation->id}}
               </h3>
             </td>
-            <td>
+            <!-- <td>
               <dl class="ttl_box">
                 <dt>仮押さえID:</dt>
-                <dd class="total_result">{{$pre_reservation->id}}</dd>
+                <dd class="total_result"></dd>
               </dl>
-            </td>
+            </td> -->
 
             <td>
               <div class="d-flex justify-content-end align-items-center">
@@ -59,7 +60,7 @@
     </div>
 
     <div class="col-12">
-      <div class="register-wrap">
+      <div class="border-wrap2 p-4">
 
         <table class="table table-bordered customer-table mb-5 table_fixed">
           <tbody>
@@ -205,7 +206,6 @@
                   <p>
                     {{$pre_reservation->board_flag==0?"なし":"要作成"}}
                   </p>
-                  <p><a class="more_btn" href="">案内板出力(PDF)</a></p>
                 </td>
               </tr>
               <tr>
@@ -540,10 +540,8 @@
   </div>
 </section>
 
-
-
 {{-- 以下請求情報 --}}
-<section class="section-wrap">
+<section class="section-wrap pt-0">
   <div class="bill">
     <div class="bill_head">
       <table class="table bill_table">
