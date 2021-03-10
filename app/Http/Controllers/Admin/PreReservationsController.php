@@ -34,15 +34,27 @@ class PreReservationsController extends Controller
    *
    * @return \Illuminate\Http\Response
    */
-  public function index()
+  public function index(Request $request)
   {
-    $PreReservation = new PreReservation;
-    $test = $this->BasicSearch($PreReservation);
-    var_dump($test);
+
+    // $test = $this->SplitDate($request->search_date);
+    // var_dump($test);
+
+    // var_dump($this->BasicSearch(new PreReservation, $request));
+    $pre_reservations = $this->BasicSearch(new PreReservation, $request);
+
+    // if (count($request->all()) != 0) {
+    //   $class = new PreReservation;
+    //   $pre_reservations = $this->BasicSearch($class, $request);
+    // } else {
+    //   $pre_reservations = PreReservation::where('multiple_reserve_id', '=', 0)->paginate(30);
+    // }
 
 
 
-    $pre_reservations = PreReservation::where('multiple_reserve_id', '=', 0)->paginate(30);
+
+
+    // $pre_reservations = PreReservation::where('multiple_reserve_id', '=', 0)->paginate(30);
     $venues = Venue::all();
     return view(
       'admin.pre_reservations.index',

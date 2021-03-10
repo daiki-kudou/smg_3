@@ -52,6 +52,8 @@
     </div>
 
     <!-- 検索--------------------------------------- -->
+    {{Form::open(['url' => 'admin/pre_reservations', 'method' => 'GET', 'id'=>''])}}
+    @csrf
     <div class="search-wrap">
       <table class="table table-bordered">
         <tbody>
@@ -75,6 +77,7 @@
             <td class="text-right">
               <dd>
                 <select name="search_venue" id="search_venue" class="form-control">
+                  <option value=""></option>
                   @foreach ($venues as $s_v)
                   <option value="{{$s_v->id}}">{{ReservationHelper::getVenue($s_v->id)}}</option>
                   @endforeach
@@ -105,7 +108,7 @@
           <tr>
             <th class="search_item_name"><label for="temp_company">会社・団体名(仮)</label></th>
             <td>
-              {{Form::text("search_end_user",'', ['class'=>'form-control','id'=>''])}}
+              {{Form::text("search_unkown_user",'', ['class'=>'form-control','id'=>''])}}
             </td>
             <th class="search_item_name"><label for="agent">仲介会社</label></th>
             <td>
@@ -113,6 +116,10 @@
             </td>
           </tr>
           <tr>
+            <th class="search_item_name"><label for="temp_company">エンドユーザー(仲介会社経由)</label></th>
+            <td>
+              {{Form::text("search_end_user",'', ['class'=>'form-control','id'=>''])}}
+            </td>
             <th class="search_item_name"><label for="freeword">フリーワード検索</label></th>
             <td colspan="3">
               {{Form::text("search_free",'', ['class'=>'form-control','id'=>''])}}
@@ -123,11 +130,14 @@
       <p class="text-right">※フリーワード検索は本画面表記の項目のみ対象となります</p>
 
       <div class="btn_box d-flex justify-content-center">
-        <input type="reset" value="リセット" class="btn reset_btn">
-        <input type="submit" value="検索" class="btn search_btn">
+        <a href="{{url('admin/pre_reservations')}}" class="btn reset_btn">リセット</a>
+        {{Form::submit('検索', ['class'=>'btn search_btn', 'id'=>''])}}
       </div>
-
     </div>
+    {{Form::close()}}
+
+
+
     <!-- 検索　終わり------------------------------------------------ -->
     <ul class="d-flex reservation_list mb-2 justify-content-between">
       <li>
