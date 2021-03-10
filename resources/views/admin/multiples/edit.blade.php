@@ -962,7 +962,7 @@
                           </h2>
                         </td>
                         <td>
-                          <dl class="ttl_box">
+                          <dl class="ttl_box mb-0">
                             <dt>合計金額</dt>
                             <dd class="total_result">
                               {{number_format(empty($pre_reservation->pre_bill->master_total)?0:$pre_reservation->pre_bill->master_total)}}
