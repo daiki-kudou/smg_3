@@ -112,7 +112,7 @@
                         </div>
                       </td>
                     </tr>
-                    <tr>
+                    <!-- <tr>
                       <td class="table-active"><label for="eventTime">イベント時間記載</label></td>
                       <td>
                         <div class="radio-box">
@@ -126,7 +126,7 @@
                           </p>
                         </div>
                       </td>
-                    </tr>
+                    </tr> -->
                     <tr>
                       <td class="table-active"><label for="eventStart">イベント開始時間</label></td>
                       <td>
@@ -557,7 +557,7 @@
                           </div>
                         </td>
                       </tr>
-                      <tr>
+                      <!-- <tr>
                         <td class="table-active"><label for="eventTime">イベント時間記載</label></td>
                         <td>
                           <div class="radio-box">
@@ -571,7 +571,7 @@
                             </p>
                           </div>
                         </td>
-                      </tr>
+                      </tr> -->
                       <tr>
                         <td class="table-active"><label for="eventStart">イベント開始時間</label></td>
                         <td>

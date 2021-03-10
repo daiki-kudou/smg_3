@@ -1,8 +1,8 @@
 @extends('layouts.admin.app')
 @section('content')
-<script src="{{ asset('/js/template.js') }}"></script>
-<script src="{{ asset('/js/admin/validation.js') }}"></script>
-<script src="{{ asset('/js/admin/reservation.js') }}"></script>
+<!-- <script src="{{ asset('/js/template.js') }}"></script> -->
+<!-- <script src="{{ asset('/js/admin/validation.js') }}"></script> -->
+<!-- <script src="{{ asset('/js/admin/reservation.js') }}"></script> -->
 <link href="{{ asset('/css/template.css') }}" rel="stylesheet">
 
 <script>
@@ -117,17 +117,17 @@
               <tr>
                 <td width="38%" class="table-active form_required">{{ Form::label('first_name', '担当者氏名') }}</td>
                 <td>姓：{{ Form::text('first_name', old('first_name'), ['class' => 'form-control']) }}
-                <p class="is-error-first_name" style="color: red"></p>
+                  <p class="is-error-first_name" style="color: red"></p>
                 </td>
                 <td>名：{{ Form::text('last_name', old('last_name'), ['class' => 'form-control']) }}
-                <p class="is-error-last_name" style="color: red"></p>
+                  <p class="is-error-last_name" style="color: red"></p>
                 </td>
               </tr>
               <tr>
                 <td class="table-active form_required">{{ Form::label('first_name_kana', '担当者氏名（フリガナ）') }}</td>
                 <td>セイ：{{ Form::text('first_name_kana', old('first_name_kana'), ['class' => 'form-control'])}}
-                <p class="is-error-first_name_kana" style="color: red"></p>
-              </td>
+                  <p class="is-error-first_name_kana" style="color: red"></p>
+                </td>
                 <td>メイ：{{ Form::text('last_name_kana', old('last_name_kana'), ['class' => 'form-control']) }}
                   <p class="is-error-last_name_kana" style="color: red"></p>
                 </td>
@@ -135,8 +135,8 @@
               <tr>
                 <td class="table-active form_required">{{ Form::label('mobile', '携帯番号') }}</td>
                 <td colspan="2">{{ Form::text('mobile', old('mobile'), ['class' => 'form-control']) }}
-                <p class="is-error-mobile" style="color: red"></p>
-              </td>
+                  <p class="is-error-mobile" style="color: red"></p>
+                </td>
               </tr>
               <tr>
                 <td class="table-active">{{ Form::label('tel', '固定電話') }}</td>
@@ -146,7 +146,7 @@
               <tr>
                 <td class="table-active form_required">{{ Form::label('email', '担当者メールアドレス') }}</td>
                 <td colspan="2">{{ Form::text('email', old('email'), ['class' => 'form-control']) }}
-                <p class="is-error-email" style="color: red"></p>
+                  <p class="is-error-email" style="color: red"></p>
                 </td>
               </tr>
               <tr>
@@ -171,13 +171,13 @@
               <tr>
                 <td class="table-active form_required">{{ Form::label('pay_metdod', '支払方法') }}</td>
                 <td>{{Form::select('pay_metdod', [1=>'銀行振込', 2=>'現金',3=>'クレジットカード', 4=>'スマホ決済'])}}
-                <p class="is-error-pay_metdod" style="color: red"></p>
+                  <p class="is-error-pay_metdod" style="color: red"></p>
                 </td>
               </tr>
               <tr>
                 <td class="table-active form_required">{{ Form::label('pay_limit', '支払期日') }}</td>
                 <td>{{Form::select('pay_limit', [1=>'当月末〆当月末CASH', 2=>'当月末〆翌月末CASH',3=>'当月末〆翌々月末CACH',4=>'当月末〆3カ月末CASH'])}}
-                <p class="is-error-pay_limit" style="color: red"></p>
+                  <p class="is-error-pay_limit" style="color: red"></p>
                 </td>
               </tr>
               <tr>
@@ -251,4 +251,158 @@
     {{ Form::submit('登録する', ['class' => 'btn more_btn_lg d-block btn-lg mx-auto my-5']) }}
     {{ Form::close() }}
   </div>
+  <script>
+    // カタカナ
+    jQuery.validator.addMethod("katakana", function(value, element) {
+      return this.optional(element) || /^([ァ-ヶー]+)$/.test(value);
+    }, "<br/>全角カタカナを入力してください");
+
+    // 顧客新規作成 バリデーション
+    $(function() {
+      $("#ClientsCreateForm").validate({
+        rules: {
+          company: {
+            required: true,
+          },
+          post_code: {
+            maxlength: 7
+          },
+          url: {
+            url: true
+          },
+          first_name: {
+            required: true,
+          },
+          last_name: {
+            required: true,
+          },
+          first_name_kana: {
+            required: true,
+            katakana: true
+          },
+          last_name_kana: {
+            required: true,
+            katakana: true
+          },
+          mobile: {
+            required: true,
+            minlength: 11
+          },
+          tel: {
+            minlength: 10
+          },
+          email: {
+            required: true,
+            email: true
+          },
+          pay_metdod: {
+            required: true,
+          },
+          pay_limit: {
+            required: true,
+          },
+          pay_post_code: {
+            maxlength: 7
+          },
+        },
+        messages: {
+          company: {
+            required: "※必須項目です",
+          },
+          post_code: {
+            required: "※必須項目です",
+            maxlength: '７桁で入力してください'
+          },
+          url: {
+            url: '正しいURLを記入してください(例:https://osaka-conference.com/)'
+          },
+          first_name: {
+            required: "※必須項目です",
+          },
+          last_name: {
+            required: "※必須項目です",
+          },
+          first_name_kana: {
+            required: "※必須項目です",
+            katakana: "※カタカナで入力してください",
+          },
+          last_name_kana: {
+            required: "※必須項目です",
+            katakana: "※カタカナで入力してください",
+          },
+          mobile: {
+            required: "※必須項目です",
+            minlength: '※最低桁数は11です',
+          },
+          tel: {
+            minlength: '※最低桁数は10です',
+          },
+          email: {
+            required: "※必須項目です",
+            email: '※Emailの形式で入力してください',
+          },
+          pay_metdod: {
+            required: "※必須項目です",
+          },
+          pay_limit: {
+            required: "※必須項目です",
+          },
+          pay_post_code: {
+            maxlength: 7
+          },
+        },
+        errorPlacement: function(error, element) {
+          var name = element.attr('name');
+          if (element.attr('name') === 'category[]') {
+            error.appendTo($('.is-error-category'));
+          } else if (element.attr('name') === name) {
+            error.appendTo($('.is-error-' + name));
+          }
+        },
+        errorElement: "span",
+        errorClass: "is-error",
+        //送信前にLoadingを表示
+        submitHandler: function(form) {
+          $('.approval').addClass('hide');
+          $('.loading').removeClass('hide');
+          form.submit();
+        }
+      });
+      $('input').on('blur', function() {
+        $(this).valid();
+      });
+    })
+
+
+    $(function() {
+      function ExceptString($target) {
+        $target.numeric({
+          negative: false,
+        });
+        $target.on('change', function() {
+          charactersChange($(this));
+        })
+        charactersChange = function(ele) {
+          var val = ele.val();
+          var han = val.replace(/[Ａ-Ｚａ-ｚ０-９]/g, function(s) {
+            return String.fromCharCode(s.charCodeAt(0) - 0xFEE0)
+          });
+          if (val.match(/[Ａ-Ｚａ-ｚ０-９]/g)) {
+            $(ele).val(han);
+          }
+        }
+      }
+      var post_code = $("input[name^='post_code']");
+      ExceptString(post_code);
+      var luggage_post_code = $("input[name^='luggage_post_code']");
+      var pay_post_code = $("input[name^='pay_post_code']");
+      ExceptString(pay_post_code);
+      var fax = $("input[name^='fax']");
+      ExceptString(fax);
+      var mobile = $("input[name^='mobile']");
+      ExceptString(mobile);
+      var tel = $("input[name^='tel']");
+      ExceptString(tel);
+    });
+  </script>
   @endsection

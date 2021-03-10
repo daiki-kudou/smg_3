@@ -160,7 +160,7 @@
   <div class="table-wrap">
     <table class="table table-bordered table-scroll">
       <thead>
-        <tr>
+        <tr class="table_row">
           <th>注意事項</th>
           <th>顧客ID</th>
           <!-- <td>顧客状況</td> -->
@@ -199,7 +199,7 @@
           <td>{{$query->mobile}}</td>
           <td>{{$query->tel}}</td>
           <td>{{$query->email}}</td>
-          <td><a class="more_btn" href="{{ url('/admin/clients/'. $query->id) }}">詳細</a></td>
+          <td class="text-center"><a class="more_btn" href="{{ url('/admin/clients/'. $query->id) }}">詳細</a></td>
         </tr>
         @endforeach
       </tbody>

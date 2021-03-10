@@ -120,7 +120,7 @@
         <tbody>
           <tr>
             <th class="table-active">{{ Form::label('first_name', '担当者氏名') }}</th>
-            <td>{{$user->first_name}}　{{$user->last_name}}</td>
+            <td>{{$user->first_name}}{{$user->last_name}}</td>
           </tr>
           <tr>
             <th class="table-active">{{ Form::label('first_name_kana', '担当者氏名（フリガナ）') }}</th>

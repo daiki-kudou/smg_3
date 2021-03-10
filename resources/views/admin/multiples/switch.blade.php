@@ -36,33 +36,25 @@
     <!-- 仮押さえ登録--------------------------------------------------------　 -->
     <section class="section-wrap">
       <div class="row">
-        <div class="col-12">
-          <table class="table ttl_head">
-            <tbody>
-              <tr>
-                <td>
-                  <h2 class="text-white">
-                    仮押さえ概要
-                  </h2>
-                </td>
-                <td>
+        <table class="table ttl_head mb-0">
+          <tbody>
+            <tr>
+              <td>
+                <h3 class="text-white py-2">
+                  仮押さえ一括ID：{{$multiple->id}}
+                </h3>
+              </td>
+              <!-- <td>
                   <dl class="ttl_box">
                     <dt>仮押さえ一括ID:</dt>
                     <dd class="total_result">{{$multiple->id}}</dd>
                   </dl>
-                </td>
-                {{-- <td class="text-right">
-                  <a class="more_btn4" href="">削除</a>
-                  <a class="more_btn" href="">編集</a>
-                </td> --}}
-            </tbody>
-          </table>
-        </div>
+                </td> -->
+          </tbody>
+        </table>
 
-
-
-        <div class="col-12">
-          <div class="user_selector mt-5">
+        <div class="border-wrap2 p-4">
+          <div class="user_selector">
             <h3 class="mb-2">顧客検索</h3>
             <select name="user_id" id="user_id">
               @foreach ($users as $user)
@@ -184,49 +176,48 @@
 
 
 <script>
-  $(function () {
-  $(document).on("change", "#user_id", function() {
-    var user_id = Number($('#user_id').val());
-    ajaxGetuser(user_id);
-  });
+  $(function() {
+    $(document).on("change", "#user_id", function() {
+      var user_id = Number($('#user_id').val());
+      ajaxGetuser(user_id);
+    });
 
-  function ajaxGetuser($user_id) {
-    $.ajax({
-      headers: {
-        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-      },
-      url: '/admin/pre_reservations/get_user',
-      type: 'POST',
-      data: {
-        'user_id': $user_id,
-      },
-      dataType: 'json',
-      beforeSend: function () {
-        $('#fullOverlay').css('display', 'block');
-      },
-    })
-      .done(function ($user) {
-        $('#fullOverlay').css('display', 'none');
-        console.log($user);
-        $(".user_info").find('tr').eq(0).find('td').eq(1).text("");
-        $(".user_info").find('tr').eq(0).find('td').eq(1).text($user[0]);
-        $(".user_info").find('tr').eq(1).find('td').eq(1).text("");
-        $(".user_info").find('tr').eq(1).find('td').eq(1).text($user[1]+$user[2]);
-        $(".user_info").find('tr').eq(1).find('td').eq(3).text("");
-        $(".user_info").find('tr').eq(1).find('td').eq(3).text($user[3]);
-        $(".user_info").find('tr').eq(2).find('td').eq(1).text("");
-        $(".user_info").find('tr').eq(2).find('td').eq(1).text($user[4]);
-        $(".user_info").find('tr').eq(2).find('td').eq(3).text("");
-        $(".user_info").find('tr').eq(2).find('td').eq(3).text($user[5]);
-        $('input[name="user_id"]').val($user[6]);
-      })
-      .fail(function ($user) {
-        $('#fullOverlay').css('display', 'none');
-        console.log("エラーです");
-      });
-  };
-})
-
+    function ajaxGetuser($user_id) {
+      $.ajax({
+          headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+          },
+          url: '/admin/pre_reservations/get_user',
+          type: 'POST',
+          data: {
+            'user_id': $user_id,
+          },
+          dataType: 'json',
+          beforeSend: function() {
+            $('#fullOverlay').css('display', 'block');
+          },
+        })
+        .done(function($user) {
+          $('#fullOverlay').css('display', 'none');
+          console.log($user);
+          $(".user_info").find('tr').eq(0).find('td').eq(1).text("");
+          $(".user_info").find('tr').eq(0).find('td').eq(1).text($user[0]);
+          $(".user_info").find('tr').eq(1).find('td').eq(1).text("");
+          $(".user_info").find('tr').eq(1).find('td').eq(1).text($user[1] + $user[2]);
+          $(".user_info").find('tr').eq(1).find('td').eq(3).text("");
+          $(".user_info").find('tr').eq(1).find('td').eq(3).text($user[3]);
+          $(".user_info").find('tr').eq(2).find('td').eq(1).text("");
+          $(".user_info").find('tr').eq(2).find('td').eq(1).text($user[4]);
+          $(".user_info").find('tr').eq(2).find('td').eq(3).text("");
+          $(".user_info").find('tr').eq(2).find('td').eq(3).text($user[5]);
+          $('input[name="user_id"]').val($user[6]);
+        })
+        .fail(function($user) {
+          $('#fullOverlay').css('display', 'none');
+          console.log("エラーです");
+        });
+    };
+  })
 </script>
 
 
