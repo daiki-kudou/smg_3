@@ -543,7 +543,7 @@
                 <dl class="ttl_box">
                   <dt>合計金額</dt>
                   <dd class="total_result">
-                    {{number_format(ReservationHelper::taxAndPrice(floor($price+$venue->getLayouts()[2])))}}</dd>
+                    {{number_format(ReservationHelper::taxAndPrice(floor($price+$layout_prepare+$layout_clean)))}}</dd>
                 </dl>
               </td>
               <!-- <td style="font-size: 16px;">
