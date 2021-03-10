@@ -1,8 +1,8 @@
 @extends('layouts.admin.app')
 @section('content')
-
-<link href="{{ asset('/css/template.css') }}" rel="stylesheet">
 <script src="{{ asset('/js/template.js') }}"></script>
+<script src="{{ asset('/js/admin/validation.js') }}"></script>
+<link href="{{ asset('/css/template.css') }}" rel="stylesheet">
 
 <h2 class="mt-3 mb-3">仮押さえ　詳細入力画面</h2>
 <hr>
@@ -104,13 +104,13 @@
               </td>
             </tr>
             <tr>
-              <td class="table-active form_required">利用日</td>
+              <td class="table-active">利用日</td>
               <td>
                 {{ Form::text('reserve_date', $request->pre_date0,['class'=>'form-control', 'readonly'] ) }}
               </td>
             </tr>
             <tr>
-              <td class="table-active form_required">会場</td>
+              <td class="table-active">会場</td>
               <td>
                 {{ Form::text('', ReservationHelper::getVenue($request->pre_venue0),['class'=>'form-control', 'readonly'] ) }}
                 {{ Form::hidden('venue_id', $request->pre_venue0,['class'=>'form-control', 'readonly'] ) }}
@@ -132,7 +132,7 @@
               </td>
             </tr>
             <tr>
-              <td class="table-active form_required">入室時間</td>
+              <td class="table-active">入室時間</td>
               <td>
                 <div>
                   {{ Form::text('', date('H:i',strtotime($request->pre_enter0)),['class'=>'form-control', 'readonly'] ) }}
@@ -141,7 +141,7 @@
               </td>
             </tr>
             <tr>
-              <td class="table-active form_required">退室時間</td>
+              <td class="table-active">退室時間</td>
               <td>
                 <div>
                   {{ Form::text('', date('H:i',strtotime($request->pre_leave0)),['class'=>'form-control', 'readonly'] ) }}

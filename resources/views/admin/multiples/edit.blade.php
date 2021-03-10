@@ -112,7 +112,7 @@
                         </div>
                       </td>
                     </tr>
-                    <tr>
+                    <!-- <tr>
                       <td class="table-active"><label for="eventTime">イベント時間記載</label></td>
                       <td>
                         <div class="radio-box">
@@ -126,7 +126,7 @@
                           </p>
                         </div>
                       </td>
-                    </tr>
+                    </tr> -->
                     <tr>
                       <td class="table-active"><label for="eventStart">イベント開始時間</label></td>
                       <td>
@@ -557,7 +557,7 @@
                           </div>
                         </td>
                       </tr>
-                      <tr>
+                      <!-- <tr>
                         <td class="table-active"><label for="eventTime">イベント時間記載</label></td>
                         <td>
                           <div class="radio-box">
@@ -571,7 +571,7 @@
                             </p>
                           </div>
                         </td>
-                      </tr>
+                      </tr> -->
                       <tr>
                         <td class="table-active"><label for="eventStart">イベント開始時間</label></td>
                         <td>
@@ -962,7 +962,7 @@
                           </h2>
                         </td>
                         <td>
-                          <dl class="ttl_box">
+                          <dl class="ttl_box mb-0">
                             <dt>合計金額</dt>
                             <dd class="total_result">
                               {{number_format(empty($pre_reservation->pre_bill->master_total)?0:$pre_reservation->pre_bill->master_total)}}

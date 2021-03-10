@@ -272,7 +272,7 @@
               <tr>
                 <th colspan="2">
                   <p class="title-icon fw-bolder py-1">
-                    <i class="fas fa-wrench icon-size fa-fw"></i>有料備品
+                    <i class="fas fa-wrench icon-size"></i>有料備品
                   </p>
                 </th>
               </tr>
@@ -297,7 +297,7 @@
               <tr>
                 <th colspan="2">
                   <p class="title-icon fw-bolder py-1">
-                    <i class="fas fa-hand-holding-heart icon-size fa-fw"></i>有料サービス
+                    <i class="fas fa-hand-holding-heart icon-size"></i>有料サービス
                   </p>
                 </th>
               </tr>
@@ -327,7 +327,7 @@
               <tr>
                 <th colspan='2'>
                   <p class="title-icon py-1">
-                    <i class="fas fa-th icon-size fa-fw"></i>レイアウト
+                    <i class="fas fa-th icon-size"></i>レイアウト
                   </p>
                 </th>
               </tr>
@@ -372,7 +372,7 @@
               <tr>
                 <th colspan='2'>
                   <p class="title-icon">
-                    <i class="fas fa-suitcase-rolling icon-size fa-fw"></i>荷物預かり
+                    <i class="fas fa-suitcase-rolling icon-size"></i>荷物預かり
                   </p>
                 </th>
               </tr>
@@ -417,7 +417,7 @@
               <tr>
                 <th colspan='2'>
                   <p class="title-icon">
-                    <i class="fas fa-suitcase-rolling icon-size fa-fw"></i>室内飲食
+                    <i class="fas fa-utensils icon-size"></i>室内飲食
                   </p>
                 </th>
               </tr>
@@ -464,7 +464,8 @@
                 <label for="enduser_charge ">支払い料</label>
               </td>
               <td class="d-flex align-items-center">
-                {{ Form::text('enduser_charge', '',['class'=>'form-control'] ) }}円
+                {{ Form::text('enduser_charge', '',['class'=>'form-control'] ) }}
+                <span class="ml-2">円</span>
               </td>
             </tr>
           </tbody>
@@ -481,8 +482,9 @@
             </tr>
             <tr>
               <td class="table-active"><label for="">原価率</label></td>
-              <td>
-                {{ Form::text('cost', $venue->cost,['class'=>'form-control', 'placeholder'=>'入力してください'] ) }}%
+              <td class="d-flex align-items-center">
+                {{ Form::text('cost', $venue->cost,['class'=>'form-control', 'placeholder'=>'入力してください'] ) }}
+                <span class="ml-2">%</span>
               </td>
             </tr>
           </tbody>

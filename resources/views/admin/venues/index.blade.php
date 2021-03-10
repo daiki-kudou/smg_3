@@ -27,7 +27,7 @@
       <div class="col-sm-12">
         <table class="table table-bordered mt-5 dataTable no-footer" id="DataTables_Table_0" role="grid">
           <thead>
-            <tr>
+            <tr class="table_row">
               <th>ID</th>
               <th>登録日</th>
               <th>直/携</th>
@@ -55,7 +55,7 @@
               <td>{{$venue->layout==1?"有":"無"}}</td>
               <td>{{$venue->luggage_flag==1?"有":"無"}}</td>
               <td>{{$venue->eat_in_flag==1?"有":"無"}}</td>
-              <td><a class="more_btn" href="{{ url('/admin/venues', $venue->id) }}">詳細</a></td>
+              <td class="text-center"><a class="more_btn" href="{{ url('/admin/venues', $venue->id) }}">詳細</a></td>
             </tr>
             @else
             <tr role="row" class="even">

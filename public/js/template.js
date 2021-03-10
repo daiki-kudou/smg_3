@@ -134,7 +134,18 @@ $(function () {
   // ExceptString(mgmt_sec_company);
   var tel = $("input[name^='tel']");
   ExceptString(tel);
-
+  var unknown_user_mobile = $("input[name^='unknown_user_mobile']");
+  ExceptString(unknown_user_mobile);
+  var unknown_user_tel = $("input[name^='unknown_user_tel']");
+  ExceptString(unknown_user_tel);
+  var luggage_count = $("input[name^='luggage_count']");
+  ExceptString(luggage_count);
+  var luggage_return = $("input[name^='luggage_return']");
+  ExceptString(luggage_return);
+  var luggage_price = $("input[name^='luggage_price']");
+  ExceptString(luggage_price);
+  var equipment_breakdown = $("input[name^='equipment_breakdown']");
+  ExceptString(equipment_breakdown);
 });
 
 
