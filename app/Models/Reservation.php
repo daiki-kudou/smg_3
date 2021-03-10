@@ -12,12 +12,10 @@ use App\Models\User;
 
 use Carbon\Carbon;
 
-use App\Traits\Search;
 
 
 class Reservation extends Model
 {
-  use Search;
 
   use SoftDeletes; //reservation大事なのでソフトデリートする
 

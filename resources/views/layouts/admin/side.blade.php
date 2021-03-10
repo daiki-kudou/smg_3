@@ -191,23 +191,23 @@
       </li>
 
       <li class="nav-item has-treeview">
-        <a href="#" class="nav-link">
+        <a href="" class="nav-link">
           <i class="nav-icon fas fa-mail-bulk"></i>
           <p>メールテンプレート管理<i class="right fas fa-angle-left"></i></p>
         </a>
         <ul class="nav nav-treeview">
           <li class="nav-item">
-            <a href="#" class="nav-link">
+            <a href="{{ url('admin/mail_templates') }}" class="nav-link mail_templates">
               <i class="far fa-circle nav-icon ml-4"></i>
               <p>一覧</p>
             </a>
           </li>
-          <li class="nav-item">
+          {{-- <li class="nav-item">
             <a href="#" class="nav-link">
               <i class="far fa-circle nav-icon ml-4"></i>
               <p>新規登録</p>
             </a>
-          </li>
+          </li> --}}
         </ul>
       </li>
 
@@ -274,6 +274,7 @@
     link_check('/admin/pre_agent_reservations/create', 'pre-agent-reservations-create');
 
     link_check('/admin/multiples', 'multiples-index');
+    link_check('/admin/mail_templates', 'mail_templates');
 
   });
 </script>

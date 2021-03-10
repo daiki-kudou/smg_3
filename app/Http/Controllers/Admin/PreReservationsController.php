@@ -22,9 +22,13 @@ use Illuminate\Support\Facades\Mail;
 use App\Mail\AdminFinPreRes;
 use App\Mail\UserFinPreRes;
 
+use App\Traits\SearchTrait;
+
 
 class PreReservationsController extends Controller
 {
+  use SearchTrait; //検索用トレイト
+
   /**
    * Display a listing of the resource.
    *
@@ -32,10 +36,18 @@ class PreReservationsController extends Controller
    */
   public function index()
   {
-    $pre_reservations = PreReservation::where('multiple_reserve_id', '=', 0)->get();
-    return view('admin.pre_reservations.index', [
-      'pre_reservations' => $pre_reservations,
-    ]);
+    $PreReservation = new PreReservation;
+    $test = $this->BasicSearch($PreReservation);
+    var_dump($test);
+
+
+
+    $pre_reservations = PreReservation::where('multiple_reserve_id', '=', 0)->paginate(30);
+    $venues = Venue::all();
+    return view(
+      'admin.pre_reservations.index',
+      compact('pre_reservations', 'venues')
+    );
   }
 
   /**
