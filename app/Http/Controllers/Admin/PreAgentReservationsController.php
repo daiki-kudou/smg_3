@@ -52,12 +52,12 @@ class PreAgentReservationsController extends Controller
     $venue = Venue::find($request->venue_id);
     $price = $agent->agentPriceCalculate($request->enduser_charge);
     if ($request->layout_prepare == 1) {
-      $layout_prepare = $venue->getLayouts()[0];
+      $layout_prepare = $venue->getLayoutPrice($request->layout_prepare, $request->layout_clean)[0];
     } else {
       $layout_prepare = 0;
     }
     if ($request->layout_clean == 1) {
-      $layout_clean = $venue->getLayouts()[1];
+      $layout_clean = $venue->getLayoutPrice($request->layout_prepare, $request->layout_clean)[1];
     } else {
       $layout_clean = 0;
     }

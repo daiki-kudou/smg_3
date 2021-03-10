@@ -329,7 +329,7 @@
               @if ($venue->getLayouts()[0])
               <tr>
                 <td class="table-active">
-                  準備
+                  レイアウト準備
                 </td>
                 <td>
                   <div class="form-check form-check-inline">
@@ -344,7 +344,7 @@
               @if ($venue->getLayouts()[1])
               <tr>
                 <td class="table-active">
-                  片付
+                  レイアウト片付
                 </td>
                 <td>
                   <div class="form-check form-check-inline">
