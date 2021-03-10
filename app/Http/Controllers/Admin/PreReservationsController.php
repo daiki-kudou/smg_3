@@ -38,18 +38,14 @@ class PreReservationsController extends Controller
   public function index(Request $request)
   {
 
-    // $test = $this->SplitDate($request->search_date);
-    // var_dump($test);
+    // $pre_reservations = $this->BasicSearch(new PreReservation, $request);
 
-    // var_dump($this->BasicSearch(new PreReservation, $request));
-    $pre_reservations = $this->BasicSearch(new PreReservation, $request);
-
-    // if (count($request->all()) != 0) {
-    //   $class = new PreReservation;
-    //   $pre_reservations = $this->BasicSearch($class, $request);
-    // } else {
-    //   $pre_reservations = PreReservation::where('multiple_reserve_id', '=', 0)->paginate(30);
-    // }
+    if (count($request->all()) != 0) {
+      $class = new PreReservation;
+      $pre_reservations = $this->BasicSearch($class, $request);
+    } else {
+      $pre_reservations = PreReservation::where('multiple_reserve_id', '=', 0)->paginate(30);
+    }
 
 
 

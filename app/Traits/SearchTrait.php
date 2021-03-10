@@ -18,6 +18,10 @@ trait SearchTrait
   {
     // マスタのクエリ
     $andSearch = $class->where('multiple_reserve_id', '=', 0);
+    // id検索
+    if (!empty($request->search_id)) {
+      $andSearch->where('id', 'LIKE', "%" . $request->search_id . "%");
+    }
     // 利用日の検索
     if (!empty($request->search_date)) {
       $this->WhereInSearch($andSearch, 'reserve_date', $request, "search_date");
@@ -103,9 +107,6 @@ trait SearchTrait
         $query->where('company', 'LIKE', "%$request->search_free%");
       });
     }
-
-
-
     // 最終return
     return $andSearch->paginate(30);
   }
