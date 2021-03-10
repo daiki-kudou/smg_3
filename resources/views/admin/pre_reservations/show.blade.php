@@ -42,8 +42,15 @@
             <td>
               <div class="d-flex justify-content-end align-items-center">
                 @if ($pre_reservation->status==0)
-                <a href="{{url('admin/pre_reservations/'.$pre_reservation->id.'/edit')}}"
-                  class="btn more_btn mr-2">編集</a>
+                @if ($pre_reservation->user_id>0)
+                <a href="{{url('admin/pre_reservations/'.$pre_reservation->id.'/edit')}}" class="btn more_btn mr-2">
+                  編集
+                </a>
+                @else
+                <a href="{{url('admin/pre_reservations/'.$pre_reservation->id.'/edit')}}" class="btn more_btn mr-2">
+                  仲介会社用編集
+                </a>
+                @endif
                 @endif
                 {{ Form::open(['url' => 'admin/pre_reservations/switch_status', 'method'=>'POST']) }}
                 @csrf

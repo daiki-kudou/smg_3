@@ -118,27 +118,27 @@
         <tr>
           <td class="table-active">会社名・団体名</td>
           <td colspan="3">
-            {{ Form::text('unknown_user_company', empty($PreReservation->unknown_user->unknown_user_company)?'':$PreReservation->unknown_user->unknown_user_company,['class'=>'form-control', ''] ) }}
+            {{ Form::text('unknown_user_company', empty($PreReservation->unknown_user->unknown_user_company)?'':$PreReservation->unknown_user->unknown_user_company,['class'=>'form-control', $PreReservation->user_id!=999?"readonly":""] ) }}
           </td>
         </tr>
         <tr>
           <td class="table-active">担当者氏名</td>
           <td>
-            {{ Form::text('unknown_user_name', empty($PreReservation->unknown_user->unknown_user_name)?"":$PreReservation->unknown_user->unknown_user_name,['class'=>'form-control', ''] ) }}
+            {{ Form::text('unknown_user_name', empty($PreReservation->unknown_user->unknown_user_name)?"":$PreReservation->unknown_user->unknown_user_name,['class'=>'form-control', $PreReservation->user_id!=999?"readonly":""] ) }}
           </td>
           <td class="table-active">メールアドレス</td>
           <td>
-            {{ Form::text('unknown_user_email', empty($PreReservation->unknown_user->unknown_user_email)?"":$PreReservation->unknown_user->unknown_user_email,['class'=>'form-control', ''] ) }}
+            {{ Form::text('unknown_user_email', empty($PreReservation->unknown_user->unknown_user_email)?"":$PreReservation->unknown_user->unknown_user_email,['class'=>'form-control', $PreReservation->user_id!=999?"readonly":""] ) }}
           </td>
         </tr>
         <tr>
           <td class="table-active">携帯番号</td>
           <td>
-            {{ Form::text('unknown_user_mobile', empty($PreReservation->unknown_user->unknown_user_mobile)?"":$PreReservation->unknown_user->unknown_user_mobile,['class'=>'form-control', ''] ) }}
+            {{ Form::text('unknown_user_mobile', empty($PreReservation->unknown_user->unknown_user_mobile)?"":$PreReservation->unknown_user->unknown_user_mobile,['class'=>'form-control', $PreReservation->user_id!=999?"readonly":""] ) }}
           </td>
           <td class="table-active">固定電話</td>
           <td>
-            {{ Form::text('unknown_user_tel', empty($PreReservation->unknown_user->unknown_user_tel)?"":$PreReservation->unknown_user->unknown_user_tel,['class'=>'form-control', ''] ) }}
+            {{ Form::text('unknown_user_tel', empty($PreReservation->unknown_user->unknown_user_tel)?"":$PreReservation->unknown_user->unknown_user_tel,['class'=>'form-control', $PreReservation->user_id!=999?"readonly":""] ) }}
           </td>
         </tr>
       </tbody>
@@ -236,12 +236,12 @@
             <td>
               <div class="radio-box">
                 <p>
-                {{Form::radio('board_flag', 1, $PreReservation->board_flag==1?true:false , ['id' => 'board_flag_on'])}}
-                {{Form::label('board_flag_on','あり')}}
+                  {{Form::radio('board_flag', 1, $PreReservation->board_flag==1?true:false , ['id' => 'board_flag_on'])}}
+                  {{Form::label('board_flag_on','あり')}}
                 </p>
                 <p>
-                {{Form::radio('board_flag', 0, $PreReservation->board_flag==0?true:false, ['id' => 'board_flag_off'])}}
-                {{Form::label('board_flag_off','なし')}}
+                  {{Form::radio('board_flag', 0, $PreReservation->board_flag==0?true:false, ['id' => 'board_flag_off'])}}
+                  {{Form::label('board_flag_off','なし')}}
                 </p>
               </div>
             </td>
@@ -1079,7 +1079,31 @@
   $(function () {
   $(document).on("change", "#user_id", function() {
     var user_id = Number($('#user_id').val());
+    if (user_id==999) {
+      $('input[name=unknown_user_company]').prop('readonly',false);
+      $('input[name=unknown_user_name]').prop('readonly',false);
+      $('input[name=unknown_user_email]').prop('readonly',false);
+      $('input[name=unknown_user_mobile]').prop('readonly',false);
+      $('input[name=unknown_user_tel]').prop('readonly',false);
+      $('.company').text('');
+      $('.person').text('');
+      $('.email').text('');
+      $('.mobile').text('');
+      $('.tel').text('');
+    }else{
     ajaxGetuser(user_id);
+    $('input[name=unknown_user_company]').prop('readonly',true);
+      $('input[name=unknown_user_name]').prop('readonly',true);
+      $('input[name=unknown_user_email]').prop('readonly',true);
+      $('input[name=unknown_user_mobile]').prop('readonly',true);
+      $('input[name=unknown_user_tel]').prop('readonly',true);
+    $('input[name=unknown_user_company]').val("");
+      $('input[name=unknown_user_name]').val("");
+      $('input[name=unknown_user_email]').val("");
+      $('input[name=unknown_user_mobile]').val("");
+      $('input[name=unknown_user_tel]').val("");
+
+    }
   });
 
   function ajaxGetuser($user_id) {
