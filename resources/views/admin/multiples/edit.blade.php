@@ -36,12 +36,13 @@
       <table class="table ttl_head">
         <tbody>
           <tr>
-            <td class="text-white d-flex align-items-center">
+            <td class="text-white d-flex align-items-center p-3">
               <h3>
-                仮押え一括ID:<span class="mr-1">{{$multiple->id}}</span>
+                仮押え一括ID:<span class="mr-3">{{$multiple->id}}</span>
               </h3>
               <h4 class="ml-2">{{ReservationHelper::getVenue($venue->id)}}</h4>
             </td>
+          </tr>
         </tbody>
       </table>
 

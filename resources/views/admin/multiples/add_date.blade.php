@@ -23,18 +23,12 @@
     <section class="section-wrap">
       <table class="table ttl_head mb-0">
         <tbody>
-          <tr>
-            <td>
-              <h2 class="text-white">
-                仮押さえ概要
-              </h2>
+            <td class="text-white d-flex align-items-center p-3">
+              <h3>
+                仮押え一括ID:<span class="mr-3">{{$multiple->id}}</span>
+              </h3>
             </td>
-            <td>
-              <dl class="ttl_box">
-                <dt>仮押さえ一括ID:</dt>
-                <dd class="total_result">{{$multiple->id}}</dd>
-              </dl>
-            </td>
+          </tr>
         </tbody>
       </table>
       <div class="border-inwrap">
