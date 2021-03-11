@@ -294,37 +294,35 @@
 
 
                 <table class="table table-bordered eating-table">
-                  <tbody>
+                  <thead>
                     <tr>
-                      <th colspan="2">
+                      <th colspan='2'>
                         <p class="title-icon">
-                          <i class="fas fa-utensils icon-size fa-fw"></i>室内飲食
+                          <i class="fas fa-suitcase-rolling icon-size fa-fw"></i>室内飲食
                         </p>
                       </th>
                     </tr>
+                  </thead>
+                  <tbody>
                     <tr>
                       <td>
-                        <div class="radio-box">
-                          <p>
-                            <input type="radio" id="eatin" name="eatin" checked="">
-                            <label for="eatin">あり</label>
-                          </p>
-                          <p>
-                            <input type="radio" id="eatin" name="eatin" checked="">
-                            <label for="eatin">手配済</label>
-                          </p>
-                          <p>
-                            <input type="radio" id="eatin" name="eatin" checked="">
-                            <label for="eatin">検討中</label>
-                          </p>
-                          <p>
-                            <input type="radio" id="eatin" name="eatin" checked="">
-                            <label for="eatin">なし</label>
-                          </p>
-                        </div>
+                        {{Form::radio('cp_master_eat_in', 1, false , ['id' => 'eat_in'])}}
+                        {{Form::label('eat_in',"あり")}}
+                      </td>
+                      <td>
+                        {{Form::radio('cp_master_eat_in_prepare', 1, "" , ['id' => 'eat_in_prepare' ])}}
+                        {{Form::label('eat_in_prepare',"手配済み")}}
+                        {{Form::radio('cp_master_eat_in_prepare', 2, "" , ['id' => 'eat_in_consider'])}}
+                        {{Form::label('eat_in_consider',"検討中")}}
                       </td>
                     </tr>
-                  </tbody>
+                    <tr>
+                      <td>
+                        {{Form::radio('cp_master_eat_in', 0, true , ['id' => 'no_eat_in'])}}
+                        {{Form::label('no_eat_in',"なし")}}
+                      </td>
+                      <td></td>
+                    </tr>
                 </table>
               </div>
               <!-- 左側の項目 終わり-------------------------------------------------- -->
@@ -474,7 +472,8 @@
         <div class="register-list-item">
           <div class="from-group list_checkbox">
             <div class="form-check">
-              <input type="checkbox" name="{{'delete_check'.$pre_reservation->id}}" value="{{$pre_reservation->id}}" class="checkbox mr-1" />
+              <input type="checkbox" name="{{'delete_check'.$pre_reservation->id}}" value="{{$pre_reservation->id}}"
+                class="checkbox mr-1" />
               <!-- <input class="form-check-input" type="checkbox"> -->
               <label class="form-check-label"></label>
             </div>
@@ -577,7 +576,9 @@
                         <td>
                           <select name="{{'event_start_copied'.$key}}" class="form-control">
                             <option disabled>選択してください</option>
-                            @for ($start = 0*2; $start <=23*2; $start++) <option value="{{date("H:i:s", strtotime("00:00 +". $start * 30 ." minute"))}}" @if(date("H:i:s", strtotime("00:00 +". $start * 30 ." minute"))==$pre_reservation->enter_time)
+                            @for ($start = 0*2; $start <=23*2; $start++) <option
+                              value="{{date("H:i:s", strtotime("00:00 +". $start * 30 ." minute"))}}" @if(date("H:i:s",
+                              strtotime("00:00 +". $start * 30 ." minute"))==$pre_reservation->enter_time)
                               selected
                               @endif
                               >
@@ -589,9 +590,12 @@
                       <tr>
                         <td class="table-active"><label for="eventFinish">イベント終了時間</label></td>
                         <td>
-                          <select name="{{'event_finish_copied'.$key}}" id="{{'event_finish_copied'.$key}}" class="form-control">
+                          <select name="{{'event_finish_copied'.$key}}" id="{{'event_finish_copied'.$key}}"
+                            class="form-control">
                             <option disabled>選択してください</option>
-                            @for ($start = 0*2; $start <=23*2; $start++) <option value="{{date("H:i:s", strtotime("00:00 +". $start * 30 ." minute"))}}" @if (date("H:i:s", strtotime("00:00 +". $start * 30 ." minute"))==$pre_reservation->leave_time)
+                            @for ($start = 0*2; $start <=23*2; $start++) <option
+                              value="{{date("H:i:s", strtotime("00:00 +". $start * 30 ." minute"))}}" @if (date("H:i:s",
+                              strtotime("00:00 +". $start * 30 ." minute"))==$pre_reservation->leave_time)
                               selected
                               @endif
                               >
@@ -803,37 +807,35 @@
                     </tbody>
                   </table>
                   <table class="table table-bordered eating-table">
+                    <thead>
+                      <tr>
+                        <th colspan='2'>
+                          <p class="title-icon">
+                            <i class="fas fa-suitcase-rolling icon-size fa-fw"></i>室内飲食
+                          </p>
+                        </th>
+                      </tr>
+                    </thead>
                     <tbody>
                       <tr>
                         <td>
-                          <p class="title-icon">
-                            <i class="fas fa-utensils icon-size fa-fw"></i>室内飲食
-                          </p>
+                          {{Form::radio('cp_master_eat_in', 1, false , ['id' => 'eat_in'])}}
+                          {{Form::label('eat_in',"あり")}}
+                        </td>
+                        <td>
+                          {{Form::radio('cp_master_eat_in_prepare', 1, "" , ['id' => 'eat_in_prepare' ])}}
+                          {{Form::label('eat_in_prepare',"手配済み")}}
+                          {{Form::radio('cp_master_eat_in_prepare', 2, "" , ['id' => 'eat_in_consider'])}}
+                          {{Form::label('eat_in_consider',"検討中")}}
                         </td>
                       </tr>
                       <tr>
                         <td>
-                          <div class="radio-box">
-                            <p>
-                              <input type="radio" id="eatin" name="eatin" checked="">
-                              <label for="eatin">あり</label>
-                            </p>
-                            <p>
-                              <input type="radio" id="eatin" name="eatin" checked="">
-                              <label for="eatin">手配済</label>
-                            </p>
-                            <p>
-                              <input type="radio" id="eatin" name="eatin" checked="">
-                              <label for="eatin">検討中</label>
-                            </p>
-                            <p>
-                              <input type="radio" id="eatin" name="eatin" checked="">
-                              <label for="eatin">なし</label>
-                            </p>
-                          </div>
+                          {{Form::radio('cp_master_eat_in', 0, true , ['id' => 'no_eat_in'])}}
+                          {{Form::label('no_eat_in',"なし")}}
                         </td>
+                        <td></td>
                       </tr>
-                    </tbody>
                   </table>
                 </div>
                 <!-- 左側の項目 終わり-------------------------------------------------- -->
