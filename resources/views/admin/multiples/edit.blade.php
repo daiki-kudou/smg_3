@@ -1,14 +1,9 @@
 @extends('layouts.admin.app')
-
 @section('content')
-
-
 <link href="{{ asset('/css/template.css') }}" rel="stylesheet">
 <script src="{{ asset('/js/template.js') }}"></script>
-<!-- <script src="{{ asset('/js/multiples/script.js') }}"></script> -->
 <script src="{{ asset('/js/multiples/calculate.js') }}"></script>
-
-
+<script src="{{ asset('/js/admin/validation.js') }}"></script>
 
 <div class="content">
   <div class="container-fluid">
@@ -52,7 +47,7 @@
 
 
 
-      {{ Form::open(['url' => 'admin/multiples/'.$multiple->id."/edit/".$venue->id.'/calculate', 'method'=>'POST', 'id'=>'']) }}
+      {{ Form::open(['url' => 'admin/multiples/'.$multiple->id."/edit/".$venue->id.'/calculate', 'method'=>'POST', 'id'=>'multipleEditForm']) }}
       @csrf
       <section class="m-5 border-inwrap">
         <div class="mb-2">
@@ -397,8 +392,12 @@
                     </tr>
                     <tr>
                       <td class="table-active"><label for="sale">原価率</label></td>
-                      <td class="d-flex align-items-center">
-                        {{ Form::text('cp_master_cost', '',['class'=>'form-control'] ) }}%
+                      <td>
+                        <div class="d-flex align-items-center">
+                          {{ Form::text('cp_master_cost', '',['class'=>'form-control'] ) }}
+                          <span class="ml-2">%</span>
+                        </div>
+                        <p class="is-error-cp_master_cost" style="color: red"></p>
                       </td>
                     </tr>
                   </tbody>
@@ -465,7 +464,7 @@
       {{ Form::hidden('', $multiple->pre_reservations()->where('venue_id',$venue->id)->get()->count(),['id'=>'counts_reserve']) }}
       {{-- 以下、pre_reservationの数分　ループ --}}
       @foreach ($multiple->pre_reservations()->where('venue_id',$venue->id)->get() as $key=>$pre_reservation)
-      {{ Form::open(['url' => 'admin/multiples/'.$multiple->id."/edit/".$venue->id.'/calculate/'.$pre_reservation->id.'/specific_update', 'method'=>'POST', 'id'=>'']) }}
+      {{ Form::open(['url' => 'admin/multiples/'.$multiple->id."/edit/".$venue->id.'/calculate/'.$pre_reservation->id.'/specific_update', 'method'=>'POST', 'id'=>'multipleSpecificupdateForm']) }}
       @csrf
       {{ Form::hidden('split_keys', $key) }}
 
@@ -902,8 +901,12 @@
                       </tr>
                       <tr>
                         <td class="table-active"><label for="sale">原価率</label></td>
-                        <td class="d-flex align-items-center">
-                          {{ Form::text('cost_copied'.$key, $pre_reservation->cost,['class'=>'form-control'] ) }}%
+                        <td>
+                          <div class="d-flex align-items-center">
+                          {{ Form::text('cost_copied'.$key, $pre_reservation->cost,['class'=>'form-control'] ) }}
+                          <span class="ml-2">%</span>
+                          </div>
+                          <p class="is-error-cost_copied" style="color: red"></p>
                         </td>
                       </tr>
                     </tbody>

@@ -152,6 +152,29 @@ $(function () {
   ExceptString(pre_enduser_mobile);
   var enduser_charge = $("input[name^='enduser_charge']");
   ExceptString(enduser_charge);
+  var cp_master_tel = $("input[name^='cp_master_tel']");
+  ExceptString(cp_master_tel);
+  var cp_master_equipment_breakdown = $("input[name^='cp_master_equipment_breakdown']");
+  ExceptString(cp_master_equipment_breakdown);
+  var cp_master_luggage_count = $("input[name^='cp_master_luggage_count']");
+  ExceptString(cp_master_luggage_count);
+  var cp_master_luggage_return = $("input[name^='cp_master_luggage_return']");
+  ExceptString(cp_master_luggage_return);
+  var cp_master_luggage_price = $("input[name^='cp_master_luggage_price']");
+  ExceptString(cp_master_luggage_price);
+  var cp_master_cost = $("input[name^='cp_master_cost']");
+  ExceptString(cp_master_cost);
+  var tel_copied = $("input[name^='tel_copied']");
+  ExceptString(tel_copied);
+  var cost_copied = $("input[name^='cost_copied']");
+  ExceptString(cost_copied);
+  var luggage_count_copied = $("input[name^='luggage_count_copied']");
+  ExceptString(luggage_count_copied);
+  var luggage_return_copied = $("input[name^='luggage_return_copied']");
+  ExceptString(luggage_return_copied);
+  var luggage_price_copied = $("input[name^='luggage_price_copied']");
+  ExceptString(luggage_price_copied);
+
 });
 
 

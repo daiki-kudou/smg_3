@@ -351,17 +351,23 @@ $(function () {
   });
 })
 
-// 仮押え 仲介会社 計算
+// 一括仮押さえ　編集画面　
 $(function () {
-  $("#pre_agent_reservationsSingleCalculateForm").validate({
+  $("#multipleEditForm").validate({
     rules: {
       enduser_charge: {
         required: true,
+      },
+      cp_master_cost: {
+        range: [1, 100]
       },
     },
     messages: {
       enduser_charge: {
         required: '※必須項目です',
+      },
+      cp_master_cost: {
+        range: '※1から100までの数値を入力してください',
       },
     },
     errorPlacement: function (error, element) {
@@ -389,9 +395,49 @@ $(function () {
   });
 })
 
-
-
-
+// 一括仮押さえ　編集の計算
+$(function () {
+  $("#multipleCalculateForm").validate({
+    rules: {
+      enduser_charge: {
+        required: true,
+      },
+      cp_master_cost: {
+        range: [1, 100]
+      },
+    },
+    messages: {
+      enduser_charge: {
+        required: '※必須項目です',
+      },
+      cp_master_cost: {
+        range: '※1から100までの数値を入力してください',
+      },
+    },
+    errorPlacement: function (error, element) {
+      var name = element.attr('name');
+      if (element.attr('name') === 'category[]') {
+        error.appendTo($('.is-error-category'));
+      } else if (element.attr('name') === name) {
+        error.appendTo($('.is-error-' + name));
+      }
+    },
+    errorElement: "span",
+    errorClass: "is-error",
+    //送信前にLoadingを表示
+    submitHandler: function (form) {
+      $('.spin_btn').removeClass('hide');
+      $('.submit_btn').addClass('hide');
+      form.submit();
+    }
+  });
+  $('input').on('blur', function () {
+    $(this).valid();
+    // if ($('span').hasClass('is-error')) {
+    //   $('span').css('background', 'white');
+    // }
+  });
+})
 
 
 // 予約新規作成
