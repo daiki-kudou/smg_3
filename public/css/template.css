@@ -589,7 +589,8 @@ option:disabled  {
 
 .table th.search_item_name {
     width: 140px;
-    background: #35a7a7;
+    /* background: #35a7a7; */
+    background:rgb(53 167 167 / 80%);;
     margin-bottom: 0;
     color: #fff;
     /* text-align: center; */

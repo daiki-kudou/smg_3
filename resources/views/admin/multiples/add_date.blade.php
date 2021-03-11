@@ -80,7 +80,7 @@
               <td colspan="4">
                 <p class="title-icon">
                   <i class="fas fa-user icon-size" aria-hidden="true"></i>
-                  顧客情報(顧客登録がされていない場合)
+                  仮で入力する顧客情報
                 </p>
               </td>
             </tr>
