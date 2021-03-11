@@ -340,7 +340,7 @@ class Reservation extends Model
           'unit_type' => 4,
         ]);
       }
-      // レイアウト片付け
+      // 片付
       if (!empty($value->layout_clean)) {
         $bills->breakdowns()->create([
           'unit_item' => "レイアウト片付料金",

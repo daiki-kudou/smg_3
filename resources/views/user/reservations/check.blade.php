@@ -378,7 +378,7 @@
                 @endif
                 @if ($request->layout_clean==1)
                 <div class="m-b10">
-                  <p>レイアウト片付け</p>
+                  <p>片付</p>
                   {{$request->layout_clean==1?"あり":"なし"}}
                   {{ Form::hidden('layout_clean', $request->layout_clean ) }}
                   <a name="a-selectTime1" class="error-r"></a>

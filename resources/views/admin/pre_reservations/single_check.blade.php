@@ -323,7 +323,7 @@
               @if ($layouts[1]!=0)
               <tr>
                 <td class="table-active">
-                  レイアウト片付け
+                  片付
                 </td>
                 <td>
                   <div class="form-check form-check-inline">

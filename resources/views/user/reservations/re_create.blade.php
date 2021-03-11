@@ -313,7 +313,7 @@
           </div>
           @if ($venue->getLayouts()[1])
           <div class="m-b10">
-            <p>レイアウト片付け</p>
+            <p>片付</p>
             <div class="selectTime">
               @if (!empty($fix->layout_clean))
               {{Form::radio('layout_clean', 1, true, ['id' => 'layout_clean', 'class' => 'radio-input'])}}

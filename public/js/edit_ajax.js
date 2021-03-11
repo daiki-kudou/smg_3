@@ -498,8 +498,8 @@ function ajaxGetLayoutPrice($venue_id, $layout_prepare, $layout_clean) {
       $('.layout_total_amount').val('');
       $('.layout_prepare_result').text($result[0][0][0]); //レイアウト準備
       $('.layout_prepare_result').val($result[0][0][0]); //レイアウト準備
-      $('.layout_clean_result').text($result[0][1][0]); //レイアウト片付け
-      $('.layout_clean_result').val($result[0][1][0]); //レイアウト片付け
+      $('.layout_clean_result').text($result[0][1][0]); //片付
+      $('.layout_clean_result').val($result[0][1][0]); //片付
       $('.layout_total').text($result[1]);
       $('.layout_total').val($result[1]);
       $('.layout_subtotal').text($result[1]);

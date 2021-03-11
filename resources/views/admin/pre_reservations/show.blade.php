@@ -215,13 +215,13 @@
                   </p>
                 </td>
               </tr>
-              <tr>
+              <!-- <tr>
                 <td class="table-active"><label for="eventTime">イベント時間記載</label>
                 </td>
                 <td>
                   あり
                 </td>
-              </tr>
+              </tr> -->
               <tr>
                 <td class="table-active"><label for="eventStart">イベント開始時間</label>
                 </td>
