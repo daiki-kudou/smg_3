@@ -46,6 +46,8 @@
         </tbody>
       </table>
 
+
+
       {{ Form::open(['url' => 'admin/multiples/'.$multiple->id."/edit/".$venue->id.'/calculate', 'method'=>'POST', 'id'=>'multipleEditForm']) }}
       @csrf
       <section class="m-5 border-inwrap">
@@ -284,6 +286,9 @@
                     @endif
                   </tbody>
                 </table>
+
+
+
                 <table class="table table-bordered eating-table">
                   <thead>
                     <tr>
@@ -317,6 +322,8 @@
                 </table>
               </div>
               <!-- 左側の項目 終わり-------------------------------------------------- -->
+
+
               <!-- 右側の項目-------------------------------------------------- -->
               <div class="col">
                 <div class="customer-table">

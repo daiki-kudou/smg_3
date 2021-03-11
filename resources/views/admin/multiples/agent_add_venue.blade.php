@@ -16,7 +16,7 @@
         </nav>
       </div>
       <!-- <h2 class="mt-3 mb-3">一括仮押さえ　新しい会場の追加</h2> -->
-      <h2 class="mt-3 mb-3">一括仮押さえ　日程の追加</h2>
+      <h2 class="mt-3 mb-3">仲介会社　一括仮押さえ　日程の追加</h2>
       <hr>
     </div>
 
@@ -40,7 +40,7 @@
                 <div class="d-flex align-items-center justify-content-between">
                   <p class="title-icon">
                     <i class="far fa-address-card icon-size" aria-hidden="true"></i>
-                    顧客情報
+                    仲介会社
                   </p>
                 </div>
               </td>
@@ -48,28 +48,28 @@
             <tr>
               <th class="table-active" width="25%"><label for="company">会社名・団体名</label></th>
               <td>
-                {{ReservationHelper::getCompany($multiple->pre_reservations()->first()->user_id)}}
+                {{ReservationHelper::getAgentCompany($multiple->pre_reservations()->first()->agent_id)}}
               </td>
               <td class="table-active"><label for="name">担当者氏名</label></td>
               <td>
-                {{ReservationHelper::getPersonName($multiple->pre_reservations()->first()->user_id)}}
+                {{ReservationHelper::getAgentPerson($multiple->pre_reservations()->first()->agent_id)}}
               </td>
             </tr>
             <tr>
               <td class="table-active" scope="row"><label for="email">担当者メールアドレス</label></td>
               <td>
-                {{ReservationHelper::getPersonEmail($multiple->pre_reservations()->first()->user_id)}}
+                {{ReservationHelper::getAgentEmail($multiple->pre_reservations()->first()->agent_id)}}
               </td>
               <td class="table-active" scope="row"><label for="mobile">携帯番号</label></td>
               <td>
-                {{ReservationHelper::getPersonMobile($multiple->pre_reservations()->first()->user_id)}}
+                {{ReservationHelper::getAgentMobile($multiple->pre_reservations()->first()->agent_id)}}
               </td>
             </tr>
             <tr>
               <td class="table-active" scope="row"><label for="tel">固定電話</label>
               </td>
               <td>
-                {{ReservationHelper::getPersonTel($multiple->pre_reservations()->first()->user_id)}}
+                {{ReservationHelper::getAgentTel($multiple->pre_reservations()->first()->agent_id)}}
               </td>
             </tr>
           </tbody>
@@ -80,43 +80,43 @@
               <td colspan="4">
                 <p class="title-icon">
                   <i class="fas fa-user icon-size" aria-hidden="true"></i>
-                  仮で入力する顧客情報
+                  エンドユーザー
                 </p>
               </td>
             </tr>
             <tr>
-              <td class="table-active" width="25%"><label for="onedayCompany">会社・団体名(仮)</label></td>
+              <td class="table-active" width="25%"><label for="onedayCompany">会社名・団体名</label></td>
               <td>
-                @if (!empty($multiple->pre_reservations()->first()->unknown_user->unknown_user_company))
-                {{$multiple->pre_reservations()->first()->unknown_user->unknown_user_company}}
+                @if (!empty($multiple->pre_reservations()->first()->pre_enduser->company))
+                {{$multiple->pre_reservations()->first()->pre_enduser->company}}
                 @endif
               </td>
-              <td class="table-active"><label for="onedayName">担当者名(仮)</label></td>
+              <td class="table-active"><label for="onedayName">担当者氏名</label></td>
               <td>
-                @if (!empty($multiple->pre_reservations()->first()->unknown_user->unknown_user_name))
-                {{$multiple->pre_reservations()->first()->unknown_user->unknown_user_name}}
+                @if (!empty($multiple->pre_reservations()->first()->pre_enduser->person))
+                {{$multiple->pre_reservations()->first()->pre_enduser->person}}
                 @endif
               </td>
             </tr>
             <tr>
-            <td class="table-active" scope="row"><label for="onedayTel">固定電話</label></td>
+              <td class="table-active" scope="row"><label for="onedayEmail">担当者メールアドレス</label></td>
               <td>
-                @if (!empty($multiple->pre_reservations()->first()->unknown_user->unknown_user_tel))
-                {{$multiple->pre_reservations()->first()->unknown_user->unknown_user_tel}}
+                @if (!empty($multiple->pre_reservations()->first()->pre_enduser->email))
+                {{$multiple->pre_reservations()->first()->pre_enduser->email}}
                 @endif
               </td>
               <td class="table-active" scope="row"><label for="onedayMobile">携帯番号</label></td>
               <td>
-                @if (!empty($multiple->pre_reservations()->first()->unknown_user->unknown_user_mobile))
-                {{$multiple->pre_reservations()->first()->unknown_user->unknown_user_mobile}}
+                @if (!empty($multiple->pre_reservations()->first()->pre_enduser->mobile))
+                {{$multiple->pre_reservations()->first()->pre_enduser->mobile}}
                 @endif
               </td>
             </tr>
             <tr>
-            <td class="table-active" scope="row"><label for="onedayEmail">メールアドレス</label></td>
+              <td class="table-active" scope="row"><label for="onedayTel">固定電話</label></td>
               <td>
-                @if (!empty($multiple->pre_reservations()->first()->unknown_user->unknown_user_email))
-                {{$multiple->pre_reservations()->first()->unknown_user->unknown_user_email}}
+                @if (!empty($multiple->pre_reservations()->first()->pre_enduser->tel))
+                {{$multiple->pre_reservations()->first()->pre_enduser->tel}}
                 @endif
               </td>
             </tr>
@@ -157,12 +157,11 @@
         </table>
       </div>
 
-
       <div class="calendar mt-5">
         <iframe src="{{url('admin/calendar/date_calendar')}}" width="100%" height="500">Your browser isn't
           compatible</iframe>
       </div>
-      {{Form::open(['url' => 'admin/multiples/'.$multiple->id.'/add_venue_store', 'method' => 'POST', 'id'=>''])}}
+      {{Form::open(['url' => 'admin/multiples/agent/'.$multiple->id.'/add_venue_store', 'method' => 'POST', 'id'=>''])}}
       @csrf
       <div class="date_selector mt-5">
         <h3 class="mb-2 pt-3">日程選択</h3>
@@ -219,7 +218,7 @@
 
       <div class="submit_btn mt-5">
         {{Form::hidden('multiple_id',$multiple->id)}}
-        {{Form::hidden('user_id',$multiple->pre_reservations()->first()->user_id)}}
+        {{Form::hidden('agent_id',$multiple->pre_reservations()->first()->agent_id)}}
         {{ Form::submit('登録する', ['class' => 'btn more_btn_lg mx-auto d-block']) }}
       </div>
       {{ Form::close() }}

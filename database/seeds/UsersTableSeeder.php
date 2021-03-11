@@ -37,8 +37,8 @@ class UsersTableSeeder extends Seeder
       'pay_limit' => 1,
       'status' => 1,
       'remember_token'    => Str::random(10),
-
     ]);
+
     DB::table('users')->insert([
       'email' => 'kudou@web-trickster.com',
       'password' => Hash::make('12345678'),
@@ -75,5 +75,7 @@ class UsersTableSeeder extends Seeder
       'status' => 1,
       'remember_token'    => Str::random(10),
     ]);
+
+    factory(\App\Models\User::class, 50)->create();
   }
 }

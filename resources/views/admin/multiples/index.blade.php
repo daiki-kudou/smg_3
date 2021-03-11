@@ -143,7 +143,6 @@
               <td>{{$multiple->id}}</td>
               <td>{{$multiple->created_at}}</td>
               <td>{{$multiple->pre_reservations_count}}</td>
-              {{-- <pre>{{var_dump($multiple->pre_reservations()->first())}}</pre> --}}
               @if ($multiple->pre_reservations()->first()->user_id==0)
               <td>{{(ReservationHelper::getAgentCompany($multiple->pre_reservations()->first()->agent_id))}}</td>
 

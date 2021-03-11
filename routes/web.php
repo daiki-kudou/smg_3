@@ -256,6 +256,10 @@ Route::namespace('Admin')->prefix('admin')->name('admin.')->group(function () {
     Route::post('multiples/agent/{multiples}/edit/{venues}/calculate', 'MultiplesController@agent_calculate');
     // 仲介会社　一括　個別　計算
     Route::post('multiples/agent/{multiples}/edit/{venues}/calculate/{pre_reservations}/specific_update', 'MultiplesController@agent_specificUpdate');
+    // 仲介会社　一括仮押さえ、会場の追加
+    Route::get('multiples/agent/{multiples}/add_venue', 'MultiplesController@agent_add_venue');
+    // 仲介会社　一括仮押さえ、会場の追加
+    Route::post('multiples/agent/{multiples}/add_venue_store', 'MultiplesController@agent_add_venue_store');
 
 
 

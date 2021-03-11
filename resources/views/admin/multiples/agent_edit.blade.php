@@ -787,15 +787,9 @@
                         <tr>
                           <td class="table-active"><label for="ondayName">支払い料</label></td>
                           <td>
-                            {{ Form::text('in_charge_copied'.$key, $pre_reservation->pre_enduser->charge,['class'=>'form-control'] ) }}
+                            {{ Form::text('enduser_charge_copied'.$key, empty($pre_reservation->pre_enduser->charge)?0:$pre_reservation->pre_enduser->charge,['class'=>'form-control'] ) }}
                           </td>
                         </tr>
-                        {{-- <tr>
-                    <td class="table-active"><label for="mobilePhone">携帯番号</label></td>
-                    <td>
-                      {{ Form::text('tel_copied'.$key, $pre_reservation->tel,['class'=>'form-control'] ) }}
-                        </td>
-                        </tr> --}}
                       </tbody>
                     </table>
                   </div>
@@ -844,6 +838,7 @@
               </div>
               <div class="btn_wrapper">
                 <p class="text-center">
+                  {{Form::hidden('agent_id',$pre_reservation->agent_id)}}
                   {{ Form::submit('請求に反映する', ['class' => 'btn more_btn_lg'])}}
                 </p>
                 {{ Form::close() }}
@@ -1041,7 +1036,7 @@
                             <tr>
                               <td colspan="2"></td>
                               <td colspan="2">合計
-                                {{ Form::text('layout_price'.$key, $pre_reservation->pre_bill->layout_price,['class'=>'form-control', 'readonly'] ) }}
+                                {{ Form::text('layout_price'.$key, empty($pre_reservation->pre_bill->layout_price)?0:$pre_reservation->pre_bill->layout_price,['class'=>'form-control', 'readonly'] ) }}
                               </td>
                             </tr>
                           </tbody>
@@ -1152,7 +1147,8 @@
         <p><a class="btn more_btn_lg" href="">詳細にもどる</a></p>
       </li>
       <li>
-        <p id="master_submit" class="btn more_btn_lg">保存する</p>
+        {{-- <p id="master_submit" class="btn more_btn_lg">保存する</p> --}}
+        <a href="{{url('admin/multiples')}}" class="btn more_btn_lg">保存する</a>
       </li>
     </ul>
   </div>
