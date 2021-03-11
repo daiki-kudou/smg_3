@@ -14,14 +14,41 @@ use Illuminate\Support\Facades\DB; //トランザクション用
 
 trait SearchTrait
 {
+
+  public function SimpleWhere($request, $item, $masterQuery, $targetColumn)
+  {
+    if (!empty($request->{$item})) {
+      $masterQuery->where($targetColumn, $request->{$item});
+    }
+  }
+
+  public function SimpleWhereLike($request, $item, $masterQuery, $targetColumn)
+  {
+    if (!empty($request->{$item})) {
+      $masterQuery->where($targetColumn, 'LIKE', "%" . $request->{$item} . "%");
+    }
+  }
+
+  public function SimpleWhereHas($item)
+  {
+    // if (!empty($request->search_user)) {
+    //   $andSearch->whereHas('user', function ($query) use ($request) {
+    //     $query->where('company', 'LIKE', "%$request->search_user%");
+    //   });
+    // }
+    if (!empty($item)) {
+      $andSearch->whereHas('user', function ($query) use ($item) {
+        $query->where('company', 'LIKE', "%{$item}%");
+      });
+    }
+  }
+
   public function BasicSearch($class, $request)
   {
     // マスタのクエリ
     $andSearch = $class->where('multiple_reserve_id', '=', 0);
     // id検索
-    if (!empty($request->search_id)) {
-      $andSearch->where('id', 'LIKE', "%" . $request->search_id . "%");
-    }
+    $this->SimpleWhereLike($request, "search_id", $andSearch, "id");
     // 利用日の検索
     if (!empty($request->search_date)) {
       $this->WhereInSearch($andSearch, 'reserve_date', $request, "search_date");
@@ -31,9 +58,8 @@ trait SearchTrait
       $this->WhereInSearch($andSearch, 'created_at', $request, "search_created_at", 1);
     }
     // 利用会場の検索
-    if (!empty($request->search_venue)) {
-      $andSearch->where('venue_id', $request->search_venue);
-    }
+    $this->SimpleWhere($request, "search_venue", $andSearch, "venue_id");
+
     // 会社名団体名
     if (!empty($request->search_user)) {
       $andSearch->whereHas('user', function ($query) use ($request) {
@@ -69,9 +95,8 @@ trait SearchTrait
       });
     }
     // 仲介会社
-    if (!empty($request->search_agent)) {
-      $andSearch->where('agent_id', $request->search_agent);
-    }
+    $this->SimpleWhere($request, "search_agent", $andSearch, "agent_id");
+
     // エンドユーザー
     if (!empty($request->search_end_user)) {
       $andSearch->whereHas('pre_enduser', function ($query) use ($request) {
