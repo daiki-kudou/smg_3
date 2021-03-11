@@ -272,7 +272,7 @@
                     <tr>
                       <td class="table-active">事前荷物の到着日<br>午前指定のみ</td>
                       <td>
-                        {{ Form::text('cp_master_luggage_arrive', '',['class'=>'form-control'] ) }}
+                        {{ Form::text('cp_master_luggage_arrive', '',['class'=>'form-control datepicker9','id'=>''] ) }}
                       </td>
                     </tr>
                     <tr>
@@ -781,7 +781,7 @@
                       <tr>
                         <td class="table-active">事前荷物の到着日<br>午前指定のみ</td>
                         <td>
-                          {{ Form::text('luggage_arrive_copied'.$key, $pre_reservation->luggage_arrive,['class'=>'form-control'] ) }}
+                          {{ Form::text('luggage_arrive_copied'.$key, date('Y-m-d',strtotime($pre_reservation->luggage_arrive)),['class'=>'form-control datepicker9','id'=>''] ) }}
                         </td>
                       </tr>
                       <tr>
@@ -819,20 +819,20 @@
                     <tbody>
                       <tr>
                         <td>
-                          {{Form::radio('cp_master_eat_in', 1, false , ['id' => 'eat_in'])}}
-                          {{Form::label('eat_in',"あり")}}
+                          {{Form::radio('eat_in_copied'.$key, 1, false , ['id' => 'eat_in_copied'.$key])}}
+                          {{Form::label('eat_in_copied'.$key,"あり")}}
                         </td>
                         <td>
-                          {{Form::radio('cp_master_eat_in_prepare', 1, "" , ['id' => 'eat_in_prepare' ])}}
-                          {{Form::label('eat_in_prepare',"手配済み")}}
-                          {{Form::radio('cp_master_eat_in_prepare', 2, "" , ['id' => 'eat_in_consider'])}}
-                          {{Form::label('eat_in_consider',"検討中")}}
+                          {{Form::radio('eat_in_prepare_copied'.$key, 1, "" , ['id' => 'eat_in_prepare_copied'.$key])}}
+                          {{Form::label('eat_in_prepare_copied'.$key,"手配済み")}}
+                          {{Form::radio('eat_in_prepare_copied'.$key, 2, "" , ['id' => 'eat_in_concider_copied'.$key])}}
+                          {{Form::label('eat_in_concider_copied'.$key,"検討中")}}
                         </td>
                       </tr>
                       <tr>
                         <td>
-                          {{Form::radio('cp_master_eat_in', 0, true , ['id' => 'no_eat_in'])}}
-                          {{Form::label('no_eat_in',"なし")}}
+                          {{Form::radio('eat_in_copied'.$key, 0, true , ['id' => 'no_eat_in'.$key])}}
+                          {{Form::label('no_eat_in'.$key,"なし")}}
                         </td>
                         <td></td>
                       </tr>
@@ -1485,8 +1485,18 @@
       $('#master_data').val(encodes);
       $('#master_form').submit();
     })
-
   })
+
+  $(function(){
+    var maxTarget=$('input[name="reserve_date"]').val();
+    $('.datepicker9').datepicker({
+      dateFormat: 'yy-mm-dd',
+      minDate: 0,
+      maxDate:maxTarget,
+      autoclose: true,
+    });
+  })
+
 </script>
 
 
