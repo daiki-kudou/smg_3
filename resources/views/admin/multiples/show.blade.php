@@ -46,9 +46,9 @@
                     <i class="far fa-address-card icon-size" aria-hidden="true"></i>
                     顧客情報
                   </p>
-                  <div>
+                  <p>
                     <a href="{{url('admin/multiples/switch/'.$multiple->id)}}" class="more_btn">顧客情報を変更する</a>
-                  </div>
+                  </p>
                 </div>
               </td>
             </tr>

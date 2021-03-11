@@ -29,7 +29,6 @@
                 仮押さえ一括ID：{{$multiple->id}}
               </h3>
             </td>
-
             <td class="text-right">
               <a class="more_btn4" href="">削除</a>
             </td>
@@ -46,9 +45,10 @@
                     <i class="far fa-address-card icon-size" aria-hidden="true"></i>
                     仲介会社情報
                   </p>
-                  <div>
+                  <p>
+                    <a class="more_btn" href="">仲介会社情報を変更する</a>
                     {{-- <a href="{{url('admin/multiples/switch/'.$multiple->id)}}" class="more_btn">顧客情報を変更する</a> --}}
-                  </div>
+                  </p>
                 </div>
               </td>
             </tr>
@@ -144,8 +144,7 @@
         </table>
         <hr class="my-5 border_color">
         <div class="mt-5">
-          <p class="text-right"><a href="{{url('admin/multiples/agent/'.$multiple->id."/add_venue")}}"
-              　class="more_btn3">日程を追加する</a></p>
+          <p class="text-right"><a href="{{url('admin/multiples/agent/'.$multiple->id."/add_venue")}}" class="more_btn3">日程を追加する</a></p>
           <p class="mb-2">詳細を入力する場合は、会場ごとに編集をしてください。</p>
         </div>
         <table class="table table-bordered table-scroll">
