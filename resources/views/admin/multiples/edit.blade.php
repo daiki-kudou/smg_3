@@ -1159,22 +1159,22 @@
                                 {{ Form::text('services_breakdown_subtotal'.$sb_key.'_copied'.$key, $each_ser->unit_subtotal,['class'=>'form-control', 'readonly'] ) }}
                               </td>
                             </tr>
-                            @if ($each_ser->unit_item=="荷物預かり/返送")
+                            {{-- @if ($each_ser->unit_item=="荷物預かり/返送")
                             <tr>
                               <td>
                                 {{ Form::text('luggage_item_copied'.$key, '荷物預かり/返送',['class'=>'form-control', 'readonly'] ) }}
-                              </td>
-                              <td>
-                                {{ Form::text('luggage_cost_copied'.$key, $each_ser->unit_cost,['class'=>'form-control', 'readonly'] ) }}
-                              </td>
-                              <td>
-                                {{ Form::text('luggage_count_copied'.$key, 1,['class'=>'form-control', 'readonly'] ) }}
-                              </td>
-                              <td>
-                                {{ Form::text('luggage_subtotal_copied'.$key, $each_ser->unit_cost,['class'=>'form-control', 'readonly'] ) }}
-                              </td>
+                            </td>
+                            <td>
+                              {{ Form::text('luggage_cost_copied'.$key, $each_ser->unit_cost,['class'=>'form-control', 'readonly'] ) }}
+                            </td>
+                            <td>
+                              {{ Form::text('luggage_count_copied'.$key, 1,['class'=>'form-control', 'readonly'] ) }}
+                            </td>
+                            <td>
+                              {{ Form::text('luggage_subtotal_copied'.$key, $each_ser->unit_cost,['class'=>'form-control', 'readonly'] ) }}
+                            </td>
                             </tr>
-                            @endif
+                            @endif --}}
                             @endforeach
                           </tbody>
                           <tbody class="{{'equipment_result'.$key}}">

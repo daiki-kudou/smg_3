@@ -102,8 +102,9 @@ class MultipleReserve extends Model implements PresentableInterface //プレゼ�
         $venue_price = empty($result[0][$key][2]) ? 0 : $result[0][$key][2];
         $equipment_price = empty($result[1][0]) ? 0 : $result[1][0];
         $layout_price = empty($result[2][2]) ? 0 : $result[2][2];
+        $luggage_price = $requests->cp_master_luggage_price ? $requests->cp_master_luggage_price : 0;
 
-        $master = $venue_price + $equipment_price + $layout_price;
+        $master = $venue_price + $equipment_price + $layout_price + $luggage_price;
 
         if (empty($pre_reservation->pre_bill)) {
           $pre_bill = $pre_reservation->pre_bill()->create([
@@ -239,7 +240,8 @@ class MultipleReserve extends Model implements PresentableInterface //プレゼ�
 
         $pre_bill = $pre_reserve->pre_bill()->create([
           'venue_price' => empty($masterData->{'venue_price' . $key}) ? 0 : $masterData->{'venue_price' . $key},
-          'equipment_price' => ((int)$masterData->{'equipment_price' . $key}) + ((int)$masterData->{'luggage_price_copied' . $key}),
+          // 'equipment_price' => ((int)$masterData->{'equipment_price' . $key}) + ((int)$masterData->{'luggage_price_copied' . $key}),
+          'equipment_price' => ((int)$masterData->{'equipment_price' . $key}),
           'layout_price' => empty($masterData->{'layout_price' . $key}) ? 0 : $masterData->{'layout_price' . $key},
           'others_price' => empty($masterData->{'others_price' . $key}) ? 0 : $masterData->{'others_price' . $key},
           'master_subtotal' => empty($masterData->{'master_subtotal' . $key}) ? 0 : $masterData->{'master_subtotal' . $key},
@@ -248,10 +250,8 @@ class MultipleReserve extends Model implements PresentableInterface //プレゼ�
           'reservation_status' => 0,
           'category' => 1
         ]);
-
         //////////////////////////////////////////////////////////////////////////
         // 以下入力された会場
-
         $s_venue = [];
         foreach ($masterData as $s_v_key => $value) {
           if (preg_match('/venue_breakdown_item/', $s_v_key)) {

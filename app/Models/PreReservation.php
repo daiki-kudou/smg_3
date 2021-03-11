@@ -175,7 +175,7 @@ class PreReservation extends Model
       $this->pre_breakdowns()->delete();
       $this->pre_bill()->delete();
       $this->update([
-        'price_system' => $request->{'price_system_copied0' . $splitKey},
+        'price_system' => $request->{'price_system_copied' . $splitKey},
         'enter_time' => $request->{'enter_time' . $splitKey},
         'leave_time' => $request->{'leave_time' . $splitKey},
         'board_flag' => $request->{'board_flag_copied' . $splitKey},
@@ -201,7 +201,9 @@ class PreReservation extends Model
 
       $layout_price = empty($result[2][2]) ? 0 : $result[2][2];
 
-      $master = $venue_price + $equipment_price + $layout_price;
+      $luggage_price = $request->{'luggage_price_copied' . $splitKey};
+
+      $master = $venue_price + $equipment_price + $layout_price + $luggage_price;
 
       $pre_bill = $this->pre_bill()->create([
         'venue_price' => $venue_price,
