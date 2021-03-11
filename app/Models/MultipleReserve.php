@@ -550,4 +550,28 @@ class MultipleReserve extends Model implements PresentableInterface //プレゼ�
       }
     });
   }
+
+  public function MultipleStoreForAgent($request)
+  {
+    DB::transaction(function () use ($request) { //トランザクションさせる
+      $counters = [];
+      foreach ($request->all() as $key => $value) {
+        if (preg_match('/pre_date/', $key)) {
+          $counters[] = $value;
+        }
+      }
+      $counters = count($counters);
+      for ($i = 0; $i < $counters; $i++) {
+        $pre_reservations = $this->pre_reservations()->create([
+          'venue_id' => $request->{'pre_venue' . $i},
+          'user_id' => 0,
+          'agent_id' => $request->agent_id,
+          'reserve_date' => $request->{'pre_date' . $i},
+          'enter_time' => $request->{'pre_enter' . $i},
+          'leave_time' => $request->{'pre_leave' . $i},
+          'status' => 0
+        ]);
+      }
+    });
+  }
 }

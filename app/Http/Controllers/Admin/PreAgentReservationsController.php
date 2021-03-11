@@ -35,7 +35,6 @@ class PreAgentReservationsController extends Controller
         $judge_count[] = $value;
       }
     }
-
     if (count($judge_count) == 1) {
       $venue = Venue::find($request->pre_venue0);
       return view('admin.pre_agent_reservations.single_check', [
@@ -43,6 +42,13 @@ class PreAgentReservationsController extends Controller
         'venue' => $venue,
       ]);
     } else {
+      echo "<pre>";
+      var_dump($request->all());
+      echo "</pre>";
+      $multiple = MultipleReserve::create(); //一括IDを作成
+      $multiple->MultipleStoreForAgent($request);
+      $request->session()->regenerate();
+      return redirect('admin/multiples');
     }
   }
 
