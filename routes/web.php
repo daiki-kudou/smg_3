@@ -254,6 +254,8 @@ Route::namespace('Admin')->prefix('admin')->name('admin.')->group(function () {
     Route::get('multiples/agent/{multiples}/edit/{venues}', 'MultiplesController@agent_edit');
     // 仲介会社　一括　計算
     Route::post('multiples/agent/{multiples}/edit/{venues}/calculate', 'MultiplesController@agent_calculate');
+    // 仲介会社　一括　個別　計算
+    Route::post('multiples/agent/{multiples}/edit/{venues}/calculate/{pre_reservations}/specific_update', 'MultiplesController@agent_specificUpdate');
 
 
 
