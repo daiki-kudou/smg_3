@@ -183,10 +183,10 @@ class ReservationHelper
         return "近隣利用";
         break;
       case 4:
-        return "講師・セミナー";
+        return "個人講師";
         break;
       case 5:
-        return "ネットワーク";
+        return "MLM";
         break;
       case 6:
         return "その他";
@@ -406,10 +406,10 @@ class ReservationHelper
         return "近隣利用";
         break;
       case 3:
-        return "講師・セミナー";
+        return "個人講師";
         break;
       case 4:
-        return "ネットワーク";
+        return "MLM";
         break;
       case 5:
         return "その他";

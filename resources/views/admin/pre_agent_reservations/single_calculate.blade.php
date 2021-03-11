@@ -445,7 +445,7 @@
             <tr>
               <td colspan="2">
                 <p class="title-icon">
-                  <i class="fas fa-yen-sign icon-size" aria-hidden="true"></i>仲介会社の顧客からの入金額
+                  <i class="fas fa-yen-sign icon-size" aria-hidden="true"></i>エンドユーザーからの入金額
                 </p>
               </td>
             </tr>

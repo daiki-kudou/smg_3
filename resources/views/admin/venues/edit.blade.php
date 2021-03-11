@@ -90,7 +90,7 @@
                       <label for="alliance_flag">直営</label>
                       {{Form::radio('alliance_flag', '0')}}
                     </p>
-                    <p>
+                    <p class="alliance_color">
                       <label for="alliance_flag">提携</label>
                       {{Form::radio('alliance_flag', '1')}}
                     </p>

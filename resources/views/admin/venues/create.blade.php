@@ -85,7 +85,7 @@
                   {{ Form::label('alliance_flag', '直営') }}
                   {{Form::radio('alliance_flag', '0',true)}}
                 </p>
-                <p>
+                <p class="alliance_color">
                   {{ Form::label('alliance_flag', '提携')}}
                   {{Form::radio('alliance_flag', '1')}}
                 </p>

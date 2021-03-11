@@ -165,7 +165,7 @@
                   <td colspan="2">
                     <p class="title-icon">
                       <i class="fas fa-info-circle icon-size" aria-hidden="true"></i>
-                      予約情報
+                      仮押え情報
                     </p>
                   </td>
                 </tr>

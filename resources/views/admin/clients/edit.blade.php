@@ -5,6 +5,20 @@
 <!-- <script src="{{ asset('/js/admin/reservation.js') }}"></script> -->
 <link href="{{ asset('/css/template.css') }}" rel="stylesheet">
 
+<script>
+  $(function() {
+    $('.discount').on('click', function() {
+      $('#condition').toggleClass('checkon');
+    })
+
+  })
+</script>
+<style>
+  .checkon {
+    display: none;
+  }
+</style>
+
 <div class="container-field">
   <div class="float-right">
     <nav aria-label="breadcrumb">
@@ -63,11 +77,11 @@
             <th class="table-active">{{ Form::label('address3', '住所3（建物名）') }}</th>
             <td>{{ Form::text('address3', $user->address3, ['class' => 'form-control']) }}</td>
           </tr>
-          <tr>
+          <!-- <tr>
             <th class="table-active">{{ Form::label('address_remark', '住所備考') }}</th>
             <td>{{ Form::textarea('address_remark', $user->address_remark, ['class' => 'form-control']) }}
             </td>
-          </tr>
+          </tr> -->
           <tr>
             <th class="table-active">{{ Form::label('url', '会社・団体名URL') }}</th>
             <td>{{ Form::text('url', $user->url, ['class' => 'form-control']) }}
@@ -75,13 +89,19 @@
             </td>
           </tr>
           <tr>
-            <th class="table-active">{{ Form::label('attr', '顧客属性') }}</th>
-            <td>{{Form::select('attr', [1=>'一般企業', 2=>'上場企業',3=>'近隣利用', 4=>'講師・セミナー', 5=>'ネットワーク', 6=>'その他'],$user->attr)}}
+            <td class="table-active">
+              <div class="d-flex align-items-center">
+                <input type="checkbox" class="discount mr-1">
+                {{ Form::label('condition', '割引条件') }}
+              </div>
+            </td>
+            <td>{{ Form::textarea('condition', old('condition'), ['class' => 'form-control checkon']) }}
             </td>
           </tr>
           <tr>
-            <th class="table-active">{{ Form::label('condition', '割引条件') }}</th>
-            <td>{{ Form::text('condition', old('condition'), ['class' => 'form-control']) }}</td>
+            <th class="table-active">{{ Form::label('attr', '顧客属性') }}</th>
+            <td>{{Form::select('attr', [1=>'一般企業', 2=>'上場企業',3=>'近隣利用', 4=>'個人講師', 5=>'MLM', 6=>'その他'],$user->attr)}}
+            </td>
           </tr>
         </tbody>
       </table>

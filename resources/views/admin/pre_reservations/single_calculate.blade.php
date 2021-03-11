@@ -1044,7 +1044,7 @@
           </div> -->
 
           <div class="bill_total">
-            <table class="table text-right" style="table-layout: fixed; font-size:16px;">
+            <table class="table text-right">
               <tr>
                 <td>小計：</td>
                 <td>

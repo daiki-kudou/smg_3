@@ -524,7 +524,7 @@
           <tr>
             <td colspan="2">
               <p class="title-icon">
-                <i class="fas fa-user-check fa-2x fa-fw"></i>仲介会社の顧客
+                <i class="fas fa-user-check fa-2x fa-fw"></i>エンドユーザー
               </p>
             </td>
           </tr>
@@ -584,7 +584,7 @@
         <tr>
           <td colspan="2">
             <p class="title-icon">
-              <i class="fas fa-yen-sign fa-2x fa-fw"></i>仲介会社の顧客への支払い料
+              <i class="fas fa-yen-sign fa-2x fa-fw"></i>エンドユーザーへの支払い料
             </p>
           </td>
         </tr>
