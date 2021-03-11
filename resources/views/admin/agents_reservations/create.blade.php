@@ -391,8 +391,8 @@
                   <option value="1">一般企業</option>
                   <option value="2">上場企業</option>
                   <option value="3">近隣利用</option>
-                  <option value="4">講師・セミナー</option>
-                  <option value="5">ネットワーク</option>
+                  <option value="4">個人講師</option>
+                  <option value="5">MLM</option>
                   <option value="6">その他</option>
                 </select>
               </td>
@@ -405,7 +405,7 @@
             <tr>
               <td colspan="2">
                 <p class="title-icon">
-                  <i class="fas fa-yen-sign icon-size" aria-hidden="true"></i>仲介会社の顧客からの入金額
+                  <i class="fas fa-yen-sign icon-size" aria-hidden="true"></i>エンドユーザーからの入金額
                 </p>
               </td>
             </tr>

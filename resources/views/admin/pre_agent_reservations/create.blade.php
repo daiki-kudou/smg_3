@@ -94,7 +94,7 @@
         <tr>
           <td class="table-active">利用者属性</td>
           <td>
-            {{ Form::select('pre_enduser_attr', ['一般企業','上場企業','近隣利用','講師・セミナー','ネットワーク','その他'],0,['class'=>'form-control'] ) }}
+            {{ Form::select('pre_enduser_attr', ['一般企業','上場企業','近隣利用','個人講師','MLM','その他'],0,['class'=>'form-control'] ) }}
           </td>
         </tr>
       </tbody>

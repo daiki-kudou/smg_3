@@ -380,8 +380,6 @@
           </table>
         </div>
 
-
-
         @if ($venue->eat_in_flag==1)
         <div class="eat_in">
           <table class="table table-bordered">
@@ -389,7 +387,7 @@
               <tr>
                 <th colspan='2'>
                   <p class="title-icon">
-                    <i class="fas fa-suitcase-rolling icon-size fa-fw"></i>室内飲食
+                    <i class="fas fa-utensils icon-size fa-fw"></i>室内飲食
                   </p>
                 </th>
               </tr>

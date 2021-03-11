@@ -8,13 +8,13 @@
 <script>
   $(function() {
     $('.discount').on('click', function() {
-      $('#condition').toggleClass('hide');
+      $('#condition').toggleClass('checkon');
     })
 
   })
 </script>
 <style>
-  .hide {
+  .checkon {
     display: none;
   }
 </style>
@@ -75,11 +75,11 @@
                 <td class="table-active">{{ Form::label('address3', '住所3（建物名）') }}</td>
                 <td>{{ Form::text('address3', old('address3'), ['class' => 'form-control']) }}</td>
               </tr>
-              <tr>
+              <!-- <tr>
                 <td class="table-active">{{ Form::label('address_remark', '住所備考') }}</td>
                 <td>{{ Form::textarea('address_remark', old('address_remark'), ['class' => 'form-control']) }}
                 </td>
-              </tr>
+              </tr> -->
               <tr>
                 <td class="table-active">{{ Form::label('url', '会社・団体名URL') }}</td>
                 <td>{{ Form::text('url', old('url'), ['class' => 'form-control']) }}
@@ -87,16 +87,18 @@
                 </td>
               </tr>
               <tr>
-                <td class="table-active">{{ Form::label('attr', '顧客属性') }}</td>
-                <td>{{Form::select('attr', [1=>'一般企業', 2=>'上場企業',3=>'近隣利用', 4=>'講師・セミナー', 5=>'ネットワーク', 6=>'その他'])}}</td>
+                <td class="table-active">
+                  <div class="d-flex align-items-center">
+                    <input type="checkbox" class="discount mr-1">
+                    {{ Form::label('condition', '割引条件') }}
+                  </div>
+                </td>
+                <td>{{ Form::textarea('condition', '平日% 土日% 3週間前%', ['class' => 'form-control checkon']) }}
+                </td>
               </tr>
               <tr>
-                <td class="table-active"><input type="checkbox" class="discount">{{ Form::label('condition', '割引条件') }}
-                </td>
-                <td>{{ Form::textarea('condition', '平日%
-土日%
-3週間前%', ['class' => 'form-control hide']) }}
-                </td>
+                <td class="table-active">{{ Form::label('attr', '顧客属性') }}</td>
+                <td>{{Form::select('attr', [1=>'一般企業', 2=>'上場企業',3=>'近隣利用', 4=>'個人講師', 5=>'MLM', 6=>'その他'])}}</td>
               </tr>
             </tbody>
           </table>
@@ -200,7 +202,7 @@
                 </td>
               </tr>
               <tr>
-                <td class="table-active">{{ Form::label('pay_address3', '建物名') }}</td>
+                <td class="table-active">{{ Form::label('pay_address3', '請求書送付先（建物名）') }}</td>
                 <td>{{ Form::text('pay_address3', old('pay_address3'), ['class' => 'form-control']) }}
                 </td>
               </tr>
@@ -234,7 +236,7 @@
           <table class="table table-bordered">
             <thead>
               <tr>
-                <td class="table-active">{{ Form::label('remark', '備考') }}</td>
+                <td class="table-active">{{ Form::label('remark', '顧客情報詳細') }}</td>
               </tr>
             </thead>
             <tbody>

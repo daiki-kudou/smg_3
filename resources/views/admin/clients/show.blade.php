@@ -69,10 +69,10 @@
             <td>{{$user->address3}}</td>
             </td>
           </tr>
-          <tr>
+          <!-- <tr>
             <th class="table-active">{{ Form::label('address_remark', '住所備考') }}</th>
             <td>{{$user->address_remark}}</td>
-          </tr>
+          </tr> -->
           <tr>
             <th class="table-active">{{ Form::label('url', '会社・団体名URL') }}</th>
             <td>{{$user->url}}</td>
@@ -87,9 +87,9 @@
               @elseif($user->attr==3)
               近隣利用
               @elseif($user->attr==4)
-              講師・セミナー
+              個人講師
               @elseif($user->attr==5)
-              ネットワーク
+              MLM
               @elseif($user->attr==6)
               その他
               @endif

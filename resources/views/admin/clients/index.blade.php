@@ -132,11 +132,11 @@
                 </li>
                 <li>
                   <input type="checkbox" checked>
-                  <label for="personStatus">講師・セミナー</label>
+                  <label for="personStatus">個人講師</label>
                 </li>
                 <li>
                   <input type="checkbox" checked>
-                  <label for="personStatus">ネットワーク</label>
+                  <label for="personStatus">MLM</label>
                 </li>
                 <li>
                   <input type="checkbox" checked>
@@ -188,9 +188,9 @@
             @elseif($query->attr==3)
             近隣利用
             @elseif($query->attr==4)
-            講師・セミナー
+            個人講師
             @elseif($query->attr==5)
-            ネットワーク
+            MLM
             @elseif($query->attr==6)
             その他
             @endif

@@ -26,7 +26,7 @@
           <tr>
             <td>
               <h3 class="text-white py-2">
-                仮押さえ一括ID：{{$multiple->id}}
+                一括仮押えID：{{$multiple->id}}
               </h3>
             </td>
 

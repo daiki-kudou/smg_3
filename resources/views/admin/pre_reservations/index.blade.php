@@ -121,7 +121,7 @@
             </td>
           </tr>
           <tr>
-            <th class="search_item_name"><label for="temp_company">エンドユーザー(仲介会社経由)</label></th>
+            <th class="search_item_name"><label for="temp_company">エンドユーザー</label></th>
             <td>
               {{Form::text("search_end_user",'', ['class'=>'form-control','id'=>''])}}
             </td>

@@ -138,10 +138,7 @@ table.dataTable thead .sorting_desc:after {
     border-top: 0px solid;
 }
 
-.table th {
-    /* background: #e8ecf1; */
-    background: rgba(0, 0, 0, 0.075);
-}
+
 
 .border-info {
     border-color: white;
@@ -449,6 +446,7 @@ select:disabled {
 
 .table_row th {
     text-align: center;
+    background: rgba(0, 0, 0, 0.075);
 }
 
 
@@ -712,6 +710,10 @@ table td.table_column p:last-child {
 
 .note-table textarea {
     width: 100%;
+}
+
+.table .caution {
+    background-color: rgb(255 0 0 / 8%);
 }
 
 .caution {
