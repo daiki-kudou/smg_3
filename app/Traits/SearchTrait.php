@@ -56,8 +56,21 @@ trait SearchTrait
     $this->SimpleWhereHas($request->search_end_user, $andSearch, "pre_enduser", "company");
 
     // フリーワード検索
+    // 以下参照
+    // https://qiita.com/Hwoa/items/542456b63e51895f9a55
     if (!empty($request->search_free)) {
-      $andSearch->where('venue_id', "LIKE", "%$request->search_free%");
+      $andSearch->where(function ($query) use ($request) {
+        $query->orWhere('id', 'LIKE', "%$request->search_free%")
+          ->orWhere('created_at', 'LIKE', "%$request->search_free%")
+          ->orWhere('enter_time', 'LIKE', "%$request->search_free%")
+          ->orWhere('leave_time', 'LIKE', "%$request->search_free%")
+          ->whereHas("user", function ($query2) use ($request) {
+            $query2->orWhere("first_name","LIKE","%$request->search_free%")
+          });
+      });
+
+      // $andSearch->where('id', "LIKE", "%$request->search_free%");
+      // $andSearch->orWhere('created_at', "LIKE", "%$request->search_free%");
       // // $andSearch->orWhere('created_at', $request->search_free);
       // // $andSearch->orWhere('reserve_date', $request->search_free);
       // $andSearch->orWhere('enter_time', $request->search_free);
