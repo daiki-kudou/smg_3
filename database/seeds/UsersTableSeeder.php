@@ -37,6 +37,7 @@ class UsersTableSeeder extends Seeder
       'pay_method' => 1,
       'pay_limit' => 1,
       'status' => 1,
+      'admin_or_user' => 1,
       'remember_token'    => Str::random(10),
     ]);
 
@@ -56,6 +57,7 @@ class UsersTableSeeder extends Seeder
       'pay_method' => 1,
       'pay_limit' => 1,
       'status' => 1,
+      'admin_or_user' => 1,
       'remember_token'    => Str::random(10),
     ]);
 
@@ -76,6 +78,7 @@ class UsersTableSeeder extends Seeder
       'pay_method' => 1,
       'pay_limit' => 1,
       'status' => 1,
+      'admin_or_user' => 1,
       'remember_token'    => Str::random(10),
     ]);
 

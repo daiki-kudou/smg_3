@@ -69,6 +69,7 @@ class ClientsController extends Controller
    */
   public function store(Request $request)
   {
+    var_dump($request->all());
     $user = new User;
     $user->company = $request->company;
     $user->post_code = $request->post_code;
@@ -100,6 +101,7 @@ class ClientsController extends Controller
     $user->password = Hash::make('00000000');
     // 会員登録時デフォルトではでは会員ステータスを1とする
     $user->status = 1;
+    $user->admin_or_user = 1; //1なら管理者　2ならユーザー
     $user->save();
 
     return redirect('admin/clients');
