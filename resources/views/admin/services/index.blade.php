@@ -69,7 +69,7 @@
               <td>{{ ReservationHelper::IdFormat($query->id) }}</td>
               <td>{{ ReservationHelper::formatDate($query->created_at) }}</td>
               <td>{{ $query->item }}</td>
-              <td>{{ number_format($query->price) }}</td>
+              <td class="text-right">{{ number_format($query->price) }}</td>
               <td>
                 <p class="remark_limit">{{ $query->remark }}</p>
               </td>
