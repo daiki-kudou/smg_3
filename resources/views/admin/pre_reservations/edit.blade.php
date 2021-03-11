@@ -371,6 +371,8 @@
             </tbody>
           </table>
         </div>
+        @if ($SPVenue->layout==1)
+
         <div class="layouts">
           <table class="table table-bordered">
             <thead>
@@ -428,6 +430,8 @@
             </tbody>
           </table>
         </div>
+        @endif
+        @if ($SPVenue->luggage_flag==1)
         <div class="luggage">
           <table class="table table-bordered">
             <thead>
@@ -449,7 +453,7 @@
               <tr>
                 <td class="table-active">事前荷物の到着日<br>午前指定のみ</td>
                 <td>
-                  {{ Form::text('luggage_arrive', date('Y-m-d',strtotime($PreReservation->luggage_arrive)),['class'=>'form-control'] ) }}
+                  {{ Form::text('luggage_arrive', date('Y-m-d',strtotime($PreReservation->luggage_arrive)),['class'=>'form-control',"id"=>'datepicker9'] ) }}
                 </td>
               </tr>
               <tr>
@@ -474,6 +478,50 @@
             </tbody>
           </table>
         </div>
+        @endif
+        @if ($SPVenue->eat_in_flag==1)
+        <div class="eat_in">
+          <table class="table table-bordered">
+            <thead>
+              <tr>
+                <th colspan='2'>
+                  <p class="title-icon">
+                    <i class="fas fa-suitcase-rolling icon-size fa-fw"></i>室内飲食
+                  </p>
+                </th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>
+                  {{Form::radio('eat_in', 1, $PreReservation->eat_in==1?true:false , ['id' => 'eat_in'])}}
+                  {{Form::label('eat_in',"あり")}}
+                </td>
+                <td>
+                  @if (empty($PreReservation->eat_in_prepare))
+                  {{Form::radio('eat_in_prepare', 1, false , ['id' => 'eat_in_prepare', 'disabled'])}}
+                  {{Form::label('eat_in_prepare',"手配済み")}}
+                  {{Form::radio('eat_in_prepare', 2, false , ['id' => 'eat_in_consider','disabled'])}}
+                  {{Form::label('eat_in_consider',"検討中")}}
+                  @else
+                  {{Form::radio('eat_in_prepare', 1, $PreReservation->eat_in_prepare==1?true:false , ['id' => 'eat_in_prepare' ])}}
+                  {{Form::label('eat_in_prepare',"手配済み")}}
+                  {{Form::radio('eat_in_prepare', 2, $PreReservation->eat_in_prepare==2?true:false , ['id' => 'eat_in_consider'])}}
+                  {{Form::label('eat_in_consider',"検討中")}}
+                  @endif
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  {{Form::radio('eat_in', 0, $PreReservation->eat_in==0?true:false , ['id' => 'no_eat_in'])}}
+                  {{Form::label('no_eat_in',"なし")}}
+                </td>
+                <td></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        @endif
       </div>
 
       <div class="col">
@@ -1141,6 +1189,16 @@
       });
   };
 });
+
+$(function(){
+    var maxTarget=$('input[name="reserve_date"]').val();
+    $('#datepicker9').datepicker({
+      dateFormat: 'yy-mm-dd',
+      minDate: 0,
+      maxDate:maxTarget,
+      autoclose: true,
+    });
+  })
 
 
 

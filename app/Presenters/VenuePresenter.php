@@ -7,6 +7,16 @@ use Robbo\Presenter\Presenter;
 class VenuePresenter extends Presenter
 {
 
+  public function getPriceSystems(){
+    $frame=$this->frame_prices()->get();
+    $time=$this->time_prices()->get();
+    if (count($frame)==0&&count($time)==0) {
+      return 0;
+    }else{
+      return 1;
+    }
+  }
+
   public function getEquipments()
   {
     $equipments = $this->equipments()->get();

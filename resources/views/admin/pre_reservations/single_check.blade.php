@@ -506,12 +506,6 @@
                 </p>
               </td>
             </tr>
-            <!-- <tr>
-              <td>
-                <label for="userNote">申し込みフォーム備考</label>
-                {{ Form::textarea('user_details', '',['class'=>'form-control', 'placeholder'=>'入力してください'] ) }}
-              </td>
-            </tr> -->
             <tr>
               <td>
                 <label for="adminNote">管理者備考</label>
@@ -524,14 +518,20 @@
     </div>
   </div>
 </section>
-
 <div class="submit_btn">
   <div class="d-flex justify-content-center">
     {{-- 単発仮押えか？一括仮押えか？ --}}
     {{ Form::hidden('judge_count', 1 ) }}
-    {{-- ユーザー --}}
     {{ Form::hidden('user_id', $request->user_id ) }}
+    {{-- 枠料金、時間料金どちらもない場合 --}}
+    @if ($venue->getPriceSystems()==0)
+    <div class="">
+      <p class="d-block">選択された会場は料金が設定されていません。会場管理/料金管理に戻り設定してください</p>
+      <a href="{{url('admin/frame_prices')}}" class="btn more_btn_lg mt-5 d-flex justify-content-center">料金管理画面へ</a>
+    </div>
+    @else
     {{Form::submit('計算する', ['class'=>'btn more_btn_lg mt-5', 'id'=>'check_submit'])}}
+    @endif
   </div>
 </div>
 
