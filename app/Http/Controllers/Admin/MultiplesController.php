@@ -13,16 +13,24 @@ use App\Models\Agent;
 
 use Illuminate\Support\Facades\DB; //トランザクション用
 
+use App\Traits\SearchTrait;
+
+
 
 class MultiplesController extends Controller
 {
-  public function index()
-  {
-    $multiples = MultipleReserve::withCount('pre_reservations')->get();
+  use SearchTrait; //検索用トレイト
 
-    return view('admin.multiples.index', [
-      'multiples' => $multiples,
-    ]);
+  public function index(Request $request)
+  {
+    if (count($request->all()) != 0) {
+      $class = new MultipleReserve;
+      $multiples = $this->BasicSearch($class, $request);
+    } else {
+      $multiples = MultipleReserve::withCount('pre_reservations')->paginate(30);
+    }
+
+    return view('admin.multiples.index', compact('multiples'));
   }
 
   public function show($id)
@@ -123,19 +131,6 @@ class MultiplesController extends Controller
 
   public function agent_specificUpdate(Request $request, $multiple_id, $venue_id, $pre_reservation_id)
   {
-    echo "<pre>";
-    var_dump($request->all());
-    echo "</pre>";
-    echo "<pre>";
-    var_dump($multiple_id);
-    echo "</pre>";
-    echo "<pre>";
-    var_dump($venue_id);
-    echo "</pre>";
-    echo "<pre>";
-    var_dump($pre_reservation_id);
-    echo "</pre>";
-
     $pre_reservation = PreReservation::find($pre_reservation_id);
     $agent = Agent::find($request->agent_id);
     $enduser_charge = [];
@@ -171,7 +166,6 @@ class MultiplesController extends Controller
   {
     $multiple = MultipleReserve::find($request->multiple_id);
     $multiple->MultipleStore($request);
-
     $request->session()->regenerate();
     return redirect('admin/multiples/' . $request->multiple_id);
   }
@@ -189,7 +183,6 @@ class MultiplesController extends Controller
   {
     $multiple = MultipleReserve::find($request->multiple_id);
     $multiple->MultipleStore($request);
-
     $request->session()->regenerate();
     return redirect('admin/multiples/' . $request->multiple_id);
   }
@@ -207,7 +200,6 @@ class MultiplesController extends Controller
   {
     $multiple = MultipleReserve::find($request->multiple_id);
     $multiple->MultipleStoreForAgent($request);
-
     $request->session()->regenerate();
     return redirect('admin/multiples/agent/' . $request->multiple_id);
   }

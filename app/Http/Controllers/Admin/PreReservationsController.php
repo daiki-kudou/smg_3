@@ -37,9 +37,6 @@ class PreReservationsController extends Controller
    */
   public function index(Request $request)
   {
-
-    // $pre_reservations = $this->BasicSearch(new PreReservation, $request);
-
     if (count($request->all()) != 0) {
       $class = new PreReservation;
       $pre_reservations = $this->BasicSearch($class, $request);
@@ -47,7 +44,6 @@ class PreReservationsController extends Controller
       $pre_reservations = PreReservation::where('multiple_reserve_id', '=', 0)->paginate(30);
     }
 
-    // $pre_reservations = PreReservation::where('multiple_reserve_id', '=', 0)->paginate(30);
     $venues = Venue::all();
     $users = User::all();
     $agents = Agent::all();
