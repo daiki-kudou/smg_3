@@ -29,12 +29,7 @@
                 仮押さえ一括ID：{{$multiple->id}}
               </h3>
             </td>
-            <!-- <td>
-                  <dl class="ttl_box">
-                    <dt>仮押さえ一括ID:</dt>
-                    <dd class="total_result"></dd>
-                  </dl>
-                </td> -->
+
             <td class="text-right">
               <a class="more_btn4" href="">削除</a>
             </td>
@@ -135,7 +130,8 @@
         </table>
         <hr class="my-5 border_color">
         <div class="mt-5">
-          <p class="text-right"><a href="" class="more_btn3">新しい会場で日程を追加する</a></p>
+          <p class="text-right"><a href="{{url('admin/multiples/'.$multiple->id."/add_venue")}}"
+              class="more_btn3">新しい会場で日程を追加する</a></p>
           <p class="mb-2">詳細を入力する場合は、会場ごとに編集をしてください。</p>
         </div>
         <table class="table table-bordered table-scroll">

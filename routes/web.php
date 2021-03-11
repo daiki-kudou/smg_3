@@ -244,6 +244,10 @@ Route::namespace('Admin')->prefix('admin')->name('admin.')->group(function () {
     Route::get('multiples/{multiples}/add_date/{venues}/', 'MultiplesController@add_date');
     // 一括仮押さえ、日付の追加保存
     Route::post('multiples/{multiples}/add_date_store/{venues}/', 'MultiplesController@add_date_store');
+    // 一括仮押さえ、会場の追加
+    Route::get('multiples/{multiples}/add_venue', 'MultiplesController@add_venue');
+    // 一括仮押さえ、会場の追加保存
+    Route::post('multiples/{multiples}/add_venue_store', 'MultiplesController@add_venue_store');
 
 
     // 仲介会社　仮押さえ 作成
