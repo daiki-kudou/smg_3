@@ -114,8 +114,35 @@ class MultiplesController extends Controller
   public function add_date($multiple_id, $venue_id)
   {
     $multiple = MultipleReserve::find($multiple_id);
-    $venue = Venue::find($venue_id);
+    $venues = $multiple->pre_reservations()->distinct('')->select('venue_id')->get();
+    $venue_count = $venues->count('venue_id');
+    return view('admin.multiples.add_date', compact('multiple', 'venues', 'venue_count', 'venue_id'));
+  }
 
-    return view('admin.multiples.add_date', compact('multiple', 'venue'));
+  public function add_date_store(Request $request)
+  {
+    $multiple = MultipleReserve::find($request->multiple_id);
+    $multiple->MultipleStore($request);
+
+    $request->session()->regenerate();
+    return redirect('admin/multiples/' . $request->multiple_id);
+  }
+
+  public function add_venue($multiple_id)
+  {
+    $multiple = MultipleReserve::find($multiple_id);
+    $venues = $multiple->pre_reservations()->distinct('')->select('venue_id')->get();
+    $venue_count = $venues->count('venue_id');
+    $_venues = Venue::all();
+    return view('admin.multiples.add_venue', compact('multiple', 'venues', 'venue_count', '_venues'));
+  }
+
+  public function add_venue_store(Request $request)
+  {
+    $multiple = MultipleReserve::find($request->multiple_id);
+    $multiple->MultipleStore($request);
+
+    $request->session()->regenerate();
+    return redirect('admin/multiples/' . $request->multiple_id);
   }
 }

@@ -21,20 +21,15 @@
     </div>
 
     <section class="section-wrap">
-        <table class="table ttl_head mb-0">
-          <tbody>
-            <tr>
-              <td>
-                <h3 class="text-white py-2">
-                  仮押え一括ID：{{$multiple->id}}
-                </h3>
-              </td>
-              <!-- <td>
-                  <dl class="ttl_box">
-                    <dt>仮押え一括ID:</dt>
-                    <dd class="total_result"></dd>
-                  </dl>
-                </td> -->
+      <table class="table ttl_head mb-0">
+        <tbody>
+          <tr>
+            <td>
+              <h3 class="text-white py-2">
+                仮押さえ一括ID：{{$multiple->id}}
+              </h3>
+            </td>
+
             <td class="text-right">
               <a class="more_btn4" href="">削除</a>
             </td>
@@ -133,21 +128,10 @@
             </tr>
           </tbody>
         </table>
-
-        <!-- <table class="table ttl_head mt-4 mb-5">
-          <tbody>
-            <tr>
-              <td>
-                <h2 class="text-white">
-                  仮押え内容
-                </h2>
-              </td>
-          </tbody>
-        </table> -->
-
         <hr class="my-5 border_color">
         <div class="mt-5">
-          <p class="text-right"><a href="" class="more_btn3">新しい会場で日程を追加する</a></p>
+          <p class="text-right"><a href="{{url('admin/multiples/'.$multiple->id."/add_venue")}}"
+              class="more_btn3">新しい会場で日程を追加する</a></p>
           <p class="mb-2">詳細を入力する場合は、会場ごとに編集をしてください。</p>
         </div>
         <table class="table table-bordered table-scroll">
@@ -198,29 +182,6 @@
               @endif
               @endfor
           </tbody>
-          {{-- <tbody>
-            <tr>
-              <td>00001</td>
-              <td>2020/12/28(月)</td>
-              <td class="table_column">
-                <p>サンワールドビルビル</p>
-                <p>サンワールドビルビル</p>
-              </td>
-              <td>8</td>
-              <td class="table_column">
-                <p>3</p>
-                <p>5</p>
-              </td>
-              <td class="table_column">
-                <p><a href="" class="more_btn">編集</a></p>
-                <p><a href="" class="more_btn">編集</a></p>
-              </td>
-              <td class="table_column">
-                <p><a href="" class="more_btn">日程を追加する</a></p>
-                <p><a href="" class="more_btn">日程を追加する</a></p>
-              </td>
-            </tr>
-          </tbody> --}}
         </table>
       </div>
 
