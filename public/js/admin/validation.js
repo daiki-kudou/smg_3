@@ -210,6 +210,59 @@ $(function () {
   });
 })
 
+// 仮押え編集からの再計算
+$(function () {
+  $("#pre_reservationSingleRecalculateForm").validate({
+    rules: {
+      in_charge: {
+        required: true,
+      },
+      tel: {
+        required: true,
+        minlength: 11
+      },
+      unknown_user_tel: {
+        minlength: 10
+      },
+    },
+    messages: {
+      in_charge: {
+        required: '※必須項目です',
+      },
+      tel: {
+        required: '※必須項目です',
+        minlength: '※最低桁数は11です',
+      },
+      unknown_user_tel: {
+        minlength: '※最低桁数は10です',
+      },
+    },
+    errorPlacement: function (error, element) {
+      var name = element.attr('name');
+      if (element.attr('name') === 'category[]') {
+        error.appendTo($('.is-error-category'));
+      } else if (element.attr('name') === name) {
+        error.appendTo($('.is-error-' + name));
+      }
+    },
+    errorElement: "span",
+    errorClass: "is-error",
+    //送信前にLoadingを表示
+    submitHandler: function (form) {
+      $('.spin_btn').removeClass('hide');
+      $('.submit_btn').addClass('hide');
+      form.submit();
+    }
+  });
+  $('input').on('blur', function () {
+    $(this).valid();
+    // if ($('span').hasClass('is-error')) {
+    //   $('span').css('background', 'white');
+    // }
+  });
+})
+
+
 // 仲介会社 仮押え新規作成
 $(function () {
   $("#pre_agent_reservationsCreateForm").validate({
@@ -263,6 +316,44 @@ $(function () {
 // 仮押え 仲介会社 詳細入力画面
 $(function () {
   $("#pre_agent_reservationsSingleCheckForm").validate({
+    rules: {
+      enduser_charge: {
+        required: true,
+      },
+    },
+    messages: {
+      enduser_charge: {
+        required: '※必須項目です',
+      },
+    },
+    errorPlacement: function (error, element) {
+      var name = element.attr('name');
+      if (element.attr('name') === 'category[]') {
+        error.appendTo($('.is-error-category'));
+      } else if (element.attr('name') === name) {
+        error.appendTo($('.is-error-' + name));
+      }
+    },
+    errorElement: "span",
+    errorClass: "is-error",
+    //送信前にLoadingを表示
+    submitHandler: function (form) {
+      $('.spin_btn').removeClass('hide');
+      $('.submit_btn').addClass('hide');
+      form.submit();
+    }
+  });
+  $('input').on('blur', function () {
+    $(this).valid();
+    // if ($('span').hasClass('is-error')) {
+    //   $('span').css('background', 'white');
+    // }
+  });
+})
+
+// 仮押え 仲介会社 計算
+$(function () {
+  $("#pre_agent_reservationsSingleCalculateForm").validate({
     rules: {
       enduser_charge: {
         required: true,

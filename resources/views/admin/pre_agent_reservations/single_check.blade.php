@@ -206,9 +206,7 @@
               <div>
                 <select name="event_start" id="event_start" class="form-control">
                   <option disabled>選択してください</option>
-                  @for ($start = 0*2; $start <=23*2; $start++) <option
-                    value="{{date("H:i:s", strtotime("00:00 +". $start * 30 ." minute"))}}" @if (date("H:i:s",
-                    strtotime("00:00 +". $start * 30 ." minute"))<$request->pre_enter0)
+                  @for ($start = 0*2; $start <=23*2; $start++) <option value="{{date("H:i:s", strtotime("00:00 +". $start * 30 ." minute"))}}" @if (date("H:i:s", strtotime("00:00 +". $start * 30 ." minute"))<$request->pre_enter0)
                     disabled
                     @elseif(date("H:i:s", strtotime("00:00 +". $start * 30 ." minute"))>$request->pre_leave0)
                     disabled
@@ -229,9 +227,7 @@
               <div>
                 <select name="event_finish" id="event_finish" class="form-control">
                   <option disabled>選択してください</option>
-                  @for ($start = 0*2; $start <=23*2; $start++) <option
-                    value="{{date("H:i:s", strtotime("00:00 +". $start * 30 ." minute"))}}" @if (date("H:i:s",
-                    strtotime("00:00 +". $start * 30 ." minute"))>$request->pre_leave0)
+                  @for ($start = 0*2; $start <=23*2; $start++) <option value="{{date("H:i:s", strtotime("00:00 +". $start * 30 ." minute"))}}" @if (date("H:i:s", strtotime("00:00 +". $start * 30 ." minute"))>$request->pre_leave0)
                     disabled
                     @elseif(date("H:i:s",strtotime("00:00 +". $start * 30 ." minute"))<$request->pre_enter0)
                       disabled
@@ -464,9 +460,12 @@
               <td class="table-active form_required">
                 <label for="enduser_charge ">支払い料</label>
               </td>
-              <td class="d-flex align-items-center">
-                {{ Form::text('enduser_charge', '',['class'=>'form-control'] ) }}
-                <span class="ml-2">円</span>
+              <td>
+                <div class="d-flex align-items-center">
+                  {{ Form::text('enduser_charge', '',['class'=>'form-control'] ) }}
+                  <span class="ml-2">円</span>
+                </div>
+                <p class="is-error-enduser_charge" style="color: red"></p>
               </td>
             </tr>
           </tbody>
@@ -554,28 +553,26 @@
 
 
 <script>
-  $(function(){
-    var maxTarget=$('input[name="reserve_date"]').val();
+  $(function() {
+    var maxTarget = $('input[name="reserve_date"]').val();
     $('#datepicker9').datepicker({
       dateFormat: 'yy-mm-dd',
       minDate: 0,
-      maxDate:maxTarget,
+      maxDate: maxTarget,
       autoclose: true,
     });
   })
 
-  $(function(){
+  $(function() {
     $(document).on("click", "input:radio[name='eat_in']", function() {
-      var radioTarget=$('input:radio[name="eat_in"]:checked').val();
-      if (radioTarget==1) {
-        $('input:radio[name="eat_in_prepare"]').prop('disabled',false);
-      }else{
-        $('input:radio[name="eat_in_prepare"]').prop('disabled',true);
+      var radioTarget = $('input:radio[name="eat_in"]:checked').val();
+      if (radioTarget == 1) {
+        $('input:radio[name="eat_in_prepare"]').prop('disabled', false);
+      } else {
+        $('input:radio[name="eat_in_prepare"]').prop('disabled', true);
         $('input:radio[name="eat_in_prepare"]').prop('checked', false);
       }
     })
   })
-
-
 </script>
 @endsection

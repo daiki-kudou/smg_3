@@ -7,7 +7,7 @@
 
 <h2 class="mt-3 mb-3">仲介会社　仮押え 計算</h2>
 
-{{Form::open(['url' => 'admin/pre_agent_reservations/calculate', 'method' => 'POST', 'id'=>''])}}
+{{Form::open(['url' => 'admin/pre_agent_reservations/calculate', 'method' => 'POST', 'id'=>'pre_agent_reservationsSingleCalculateForm'])}}
 @csrf
 
 <section class="section-wrap">
@@ -30,7 +30,7 @@
           </td>
         </tr>
         <tr>
-          <td class="table-active">担当者指名</td>
+          <td class="table-active">担当者氏名</td>
           <td>
             <p class="person">
               {{ReservationHelper::getAgentPerson($agent->id)}}
@@ -668,7 +668,7 @@
                 <tr>
                   <td>内容</td>
                   <td>単価</td>
-                  <td>単価</td>
+                  <td>数量</td>
                   <td>金額</td>
                 </tr>
               </tbody>
@@ -711,7 +711,7 @@
             </table>
           </div>
 
-          <div class="others billdetails_content">
+          <!-- <div class="others billdetails_content">
             <table class="table table-borderless">
               <tbody>
                 <tr>
@@ -740,7 +740,7 @@
                 </tr>
               </tbody>
             </table>
-          </div>
+          </div> -->
 
           <div class="bill_total">
             <table class="table text-right" style="table-layout: fixed;">

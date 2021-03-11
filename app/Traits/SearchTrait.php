@@ -40,7 +40,7 @@ trait SearchTrait
         $query->where('company', 'LIKE', "%$request->search_user%");
       });
     }
-    // 担当者指名
+    // 担当者氏名
     if (!empty($request->search_person)) {
       $andSearch->whereHas('user', function ($query) use ($request) {
         $query->where('first_name', 'LIKE', "%$request->search_person%");

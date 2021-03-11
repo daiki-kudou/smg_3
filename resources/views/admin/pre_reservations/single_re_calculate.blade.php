@@ -1,10 +1,8 @@
 @extends('layouts.admin.app')
-
 @section('content')
-
-
-<link href="{{ asset('/css/template.css') }}" rel="stylesheet">
 <script src="{{ asset('/js/template.js') }}"></script>
+<script src="{{ asset('/js/admin/validation.js') }}"></script>
+<link href="{{ asset('/css/template.css') }}" rel="stylesheet">
 
 <div class="container-field">
   <div class="float-right">
@@ -20,7 +18,7 @@
   <hr>
 </div>
 
-{{ Form::open(['url' => 'admin/pre_reservations/'.$request->id.'/re_calculate', 'method'=>'POST', 'id'=>'']) }}
+{{ Form::open(['url' => 'admin/pre_reservations/'.$request->id.'/re_calculate', 'method'=>'POST', 'id'=>'pre_reservationSingleRecalculateForm']) }}
 @csrf
 <section class="section-wrap">
   <div class="selected_user">
@@ -453,22 +451,22 @@
                   @if ($request->email_flag!=0)
                   <div class="radio-box">
                   <p>
-                    {{Form::radio('email_flag', 1, true , ['id' => 'email_flag', 'class' => 'form-check-input'])}}
+                    {{Form::radio('email_flag', 1, true , ['id' => 'email_flag'])}}
                     <label for="{{'email_flag'}}" class="form-check-label">有り</label>
                     </p>
                     <p>
-                    {{Form::radio('email_flag', 0, false, ['id' => 'no_email_flag', 'class' => 'form-check-input'])}}
+                    {{Form::radio('email_flag', 0, false, ['id' => 'no_email_flag'])}}
                     <label for="{{'no_email_flag'}}" class="form-check-label">無し</label>
                     </p>
                   </div>
                   @else
                   <div class="radio-box">
                   <p>
-                    {{Form::radio('email_flag', 1, false , ['id' => 'email_flag', 'class' => 'form-check-input'])}}
+                    {{Form::radio('email_flag', 1, false , ['id' => 'email_flag'])}}
                     <label for="{{'email_flag'}}" class="form-check-label">有り</label>
                     </p>
                     <p>
-                    {{Form::radio('email_flag', 0, true, ['id' => 'no_email_flag', 'class' => 'form-check-input'])}}
+                    {{Form::radio('email_flag', 0, true, ['id' => 'no_email_flag'])}}
                     <label for="{{'no_email_flag'}}" class="form-check-label">無し</label>
                     </p>
                   </div>

@@ -79,7 +79,7 @@
           </td>
         </tr>
         <tr>
-          <td class="table-active">担当者指名</td>
+          <td class="table-active">担当者氏名</td>
           <td>
             {{ Form::text('unknown_user_name', ($request->unknown_user_name),['class'=>'form-control', 'readonly'] ) }}
           </td>

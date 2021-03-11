@@ -91,7 +91,7 @@
               <td>{{ $agent->id }}</td>
             </tr>
             <tr>
-              <td class="table-active"><label for="firstname_kana">担当者氏名（ふりがな）</label></td>
+              <td class="table-active"><label for="firstname_kana">担当者氏名（フリガナ）</label></td>
               <td>{{ $agent->id }}</td>
             </tr>
             <tr>
@@ -127,11 +127,11 @@
           </thead>
           <tbody>
             <tr>
-              <th class="table-active"><label for="service_name">サービス名称</label></th>
+              <th class="table-active"><label for="service_name">サイト名称</label></th>
               <td>{{ $agent->site }}</td>
             </tr>
             <tr>
-              <th class="table-active"><label for="service_url">サービスURL</label></th>
+              <th class="table-active"><label for="service_url">サイトURL</label></th>
               <td>{{ $agent->site_url }}</td>
             </tr>
             <tr>

@@ -49,7 +49,7 @@
             <td>{{ReservationHelper::getPersonName($user->id)}}</td>
           </tr>
           <tr>
-            <td><label for="first_name_kana">担当者氏名（ふりがな）</label></td>
+            <td><label for="first_name_kana">担当者氏名（フリガナ）</label></td>
             <td>{{ReservationHelper::getPersonNameKANA($user->id)}}</td>
           </tr>
           <tr>
