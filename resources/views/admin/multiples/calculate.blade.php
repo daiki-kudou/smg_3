@@ -1113,7 +1113,9 @@
                             <tr>
                               <td colspan="2"></td>
                               <td colspan="2">合計
-                                {{ Form::text('equipment_price'.$key, $pre_reservation->pre_bill->equipment_price+((int)$request->cp_master_luggage_price),['class'=>'form-control', 'readonly'] ) }}
+                                {{-- {{ Form::text('equipment_price'.$key, $pre_reservation->pre_bill->equipment_price+((int)$request->cp_master_luggage_price),['class'=>'form-control', 'readonly'] ) }}
+                                --}}
+                                {{ Form::text('equipment_price'.$key, $pre_reservation->pre_bill->equipment_price,['class'=>'form-control', 'readonly'] ) }}
                               </td>
                             </tr>
                           </tbody>
