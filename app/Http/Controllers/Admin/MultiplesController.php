@@ -112,15 +112,8 @@ class MultiplesController extends Controller
     $agent = Agent::find($request->agent_id);
     $result = $agent->agentPriceCalculate($request->cp_master_enduser_charge);
     $multiple->AgentPreStore($venue_id, $request, $result);
-    // $multiple->AgentPreStore($venue_id, $request);
-    // $result = $multiple->calculateVenue($venue_id, $request); //0に会場料金　1にサービス　2にレイアウト
-    // $multiple->preStore($venue_id, $request, $result);
-    // return view('admin.multiples.calculate', [
-    //   'multiple' => $multiple,
-    //   'venue' => $venue,
-    //   'request' => $request,
-    //   'result' => $result,
-    // ]);
+
+    return redirect(url('admin/multiples/agent/' . $multiple_id . '/edit/' . $venue_id));
   }
 
   public function specificUpdate(Request $request, $multiple_id, $venue_id, $pre_reservation_id)

@@ -410,7 +410,7 @@
       {{ Form::hidden('', $multiple->pre_reservations()->where('venue_id',$venue->id)->get()->count(),['id'=>'counts_reserve']) }}
       {{-- 以下、pre_reservationの数分　ループ --}}
       @foreach ($multiple->pre_reservations()->where('venue_id',$venue->id)->get() as $key=>$pre_reservation)
-      {{ Form::open(['url' => 'admin/multiples/'.$multiple->id."/edit/".$venue->id.'/calculate/'.$pre_reservation->id.'/specific_update', 'method'=>'POST', 'id'=>'']) }}
+      {{ Form::open(['url' => 'admin/multiples/agent/'.$multiple->id."/edit/".$venue->id.'/calculate/'.$pre_reservation->id.'/specific_update', 'method'=>'POST', 'id'=>'']) }}
       @csrf
       {{ Form::hidden('split_keys', $key) }}
 
@@ -503,21 +503,6 @@
                           </div>
                         </td>
                       </tr>
-                      <!-- <tr>
-                        <td class="table-active"><label for="eventTime">イベント時間記載</label></td>
-                        <td>
-                          <div class="radio-box">
-                            <p>
-                              <input type="radio" id="eventTime" name="eventTime" checked="">
-                              <label for="eventTime">あり</label>
-                            </p>
-                            <p>
-                              <input type="radio" id="eventTime" name="eventTime" checked="">
-                              <label for="eventTime">なし</label>
-                            </p>
-                          </div>
-                        </td>
-                      </tr> -->
                       <tr>
                         <td class="table-active"><label for="eventStart">イベント開始時間</label></td>
                         <td>
