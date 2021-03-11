@@ -15,34 +15,6 @@ use Illuminate\Support\Facades\DB; //トランザクション用
 trait SearchTrait
 {
 
-  public function SimpleWhere($request, $item, $masterQuery, $targetColumn)
-  {
-    if (!empty($request->{$item})) {
-      $masterQuery->where($targetColumn, $request->{$item});
-    }
-  }
-
-  public function SimpleWhereLike($request, $item, $masterQuery, $targetColumn)
-  {
-    if (!empty($request->{$item})) {
-      $masterQuery->where($targetColumn, 'LIKE', "%" . $request->{$item} . "%");
-    }
-  }
-
-  public function SimpleWhereHas($item)
-  {
-    // if (!empty($request->search_user)) {
-    //   $andSearch->whereHas('user', function ($query) use ($request) {
-    //     $query->where('company', 'LIKE', "%$request->search_user%");
-    //   });
-    // }
-    if (!empty($item)) {
-      $andSearch->whereHas('user', function ($query) use ($item) {
-        $query->where('company', 'LIKE', "%{$item}%");
-      });
-    }
-  }
-
   public function BasicSearch($class, $request)
   {
     // マスタのクエリ
@@ -61,11 +33,7 @@ trait SearchTrait
     $this->SimpleWhere($request, "search_venue", $andSearch, "venue_id");
 
     // 会社名団体名
-    if (!empty($request->search_user)) {
-      $andSearch->whereHas('user', function ($query) use ($request) {
-        $query->where('company', 'LIKE', "%$request->search_user%");
-      });
-    }
+    $this->SimpleWhereHas($request->search_user, $andSearch, "user", "company");
     // 担当者氏名
     if (!empty($request->search_person)) {
       $andSearch->whereHas('user', function ($query) use ($request) {
@@ -77,63 +45,70 @@ trait SearchTrait
       });
     }
     // 携帯
-    if (!empty($request->search_mobile)) {
-      $andSearch->whereHas('user', function ($query) use ($request) {
-        $query->where('mobile', 'LIKE', "%$request->search_mobile%");
-      });
-    }
+    $this->SimpleWhereHas($request->search_mobile, $andSearch, "user", "mobile");
     // 電話
-    if (!empty($request->search_tel)) {
-      $andSearch->whereHas('user', function ($query) use ($request) {
-        $query->where('tel', 'LIKE', "%$request->search_tel%");
-      });
-    }
+    $this->SimpleWhereHas($request->search_tel, $andSearch, "user", "tel");
     // 会社名・団体名（仮）unknown_user
-    if (!empty($request->search_unkown_user)) {
-      $andSearch->whereHas('unknown_user', function ($query) use ($request) {
-        $query->where('unknown_user_company', 'LIKE', "%$request->search_unkown_user%");
-      });
-    }
+    $this->SimpleWhereHas($request->search_unkown_user, $andSearch, "unknown_user", "unknown_user_company");
     // 仲介会社
     $this->SimpleWhere($request, "search_agent", $andSearch, "agent_id");
-
     // エンドユーザー
-    if (!empty($request->search_end_user)) {
-      $andSearch->whereHas('pre_enduser', function ($query) use ($request) {
-        $query->where('company', 'LIKE', "%$request->search_end_user%");
-      });
-    }
+    $this->SimpleWhereHas($request->search_end_user, $andSearch, "pre_enduser", "company");
+
     // フリーワード検索
     if (!empty($request->search_free)) {
-      $andSearch->orWhere('venue_id', $request->search_free);
-      // $andSearch->orWhere('created_at', $request->search_free);
-      // $andSearch->orWhere('reserve_date', $request->search_free);
-      $andSearch->orWhere('enter_time', $request->search_free);
-      $andSearch->orWhere('leave_time', $request->search_free);
-      $andSearch->whereHas('venue', function ($query) use ($request) {
-        $query->where('name_area', 'LIKE', "%$request->search_free%");
-        $query->orWhere('name_bldg', 'LIKE', "%$request->search_free%");
-        $query->orWhere('name_venue', 'LIKE', "%$request->search_free%");
-        $query->orWhere(DB::raw('CONCAT(name_area, name_bldg,name_venue)'), 'like', '%' . $request->search_free . '%');
-      });
-      $andSearch->whereHas('user', function ($query) use ($request) {
-        $query->where('company', 'LIKE', "%$request->search_free%");
-        $query->orWhere('first_name', 'LIKE', "%$request->search_free%");
-        $query->orWhere('last_name', 'LIKE', "%$request->search_free%");
-        $query->orWhere('mobile', 'LIKE', "%$request->search_free%");
-        $query->orWhere('tel', 'LIKE', "%$request->search_free%");
-        $query->orWhere(DB::raw('CONCAT(first_name, last_name)'), 'like', '%' . $request->search_free . '%');
-      });
-      $andSearch->whereHas('unknown_user', function ($query) use ($request) {
-        $query->where('unknown_user_company', 'LIKE', "%$request->search_free%");
-      });
-      $andSearch->orWhere('agent_id', $request->search_free);
-      $andSearch->whereHas('pre_enduser', function ($query) use ($request) {
-        $query->where('company', 'LIKE', "%$request->search_free%");
-      });
+      $andSearch->where('venue_id', "LIKE", "%$request->search_free%");
+      // // $andSearch->orWhere('created_at', $request->search_free);
+      // // $andSearch->orWhere('reserve_date', $request->search_free);
+      // $andSearch->orWhere('enter_time', $request->search_free);
+      // $andSearch->orWhere('leave_time', $request->search_free);
+      // $andSearch->whereHas('venue', function ($query) use ($request) {
+      //   $query->where('name_area', 'LIKE', "%$request->search_free%");
+      //   $query->orWhere('name_bldg', 'LIKE', "%$request->search_free%");
+      //   $query->orWhere('name_venue', 'LIKE', "%$request->search_free%");
+      //   $query->orWhere(DB::raw('CONCAT(name_area, name_bldg,name_venue)'), 'like', '%' . $request->search_free . '%');
+      // });
+      // $andSearch->whereHas('user', function ($query) use ($request) {
+      //   $query->where('company', 'LIKE', "%$request->search_free%");
+      //   $query->orWhere('first_name', 'LIKE', "%$request->search_free%");
+      //   $query->orWhere('last_name', 'LIKE', "%$request->search_free%");
+      //   $query->orWhere('mobile', 'LIKE', "%$request->search_free%");
+      //   $query->orWhere('tel', 'LIKE', "%$request->search_free%");
+      //   $query->orWhere(DB::raw('CONCAT(first_name, last_name)'), 'like', '%' . $request->search_free . '%');
+      // });
+      // $andSearch->whereHas('unknown_user', function ($query) use ($request) {
+      //   $query->where('unknown_user_company', 'LIKE', "%$request->search_free%");
+      // });
+      // $andSearch->orWhere('agent_id', $request->search_free);
+      // $andSearch->whereHas('pre_enduser', function ($query) use ($request) {
+      //   $query->where('company', 'LIKE', "%$request->search_free%");
+      // });
     }
     // 最終return
     return $andSearch->paginate(30);
+  }
+
+  public function SimpleWhere($request, $item, $masterQuery, $targetColumn)
+  {
+    if (!empty($request->{$item})) {
+      $masterQuery->where($targetColumn, $request->{$item});
+    }
+  }
+
+  public function SimpleWhereLike($request, $item, $masterQuery, $targetColumn)
+  {
+    if (!empty($request->{$item})) {
+      $masterQuery->where($targetColumn, 'LIKE', "%" . $request->{$item} . "%");
+    }
+  }
+
+  public function SimpleWhereHas($item, $masterQuery, $targetRelation, $targetColumn)
+  {
+    if (!empty($item)) {
+      $masterQuery->whereHas($targetRelation, function ($query) use ($item, $targetColumn) {
+        $query->where($targetColumn, 'LIKE', "%{$item}%");
+      });
+    }
   }
 
   public function SplitDate($date)
