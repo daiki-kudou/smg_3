@@ -330,7 +330,7 @@ if ($(this).parent().parent().parent().attr('class') == "others_main") {
                 </td>
               </tr>
               <tr>
-                <td>レイアウト片付け</td>
+                <td>片付</td>
                 <td>
                   <div class="form-check form-check-inline">
                     {{Form::radio('layout_clean', 1, $request->layout_clean==1?true:false, ['id' => 'layout_clean', 'class' => 'form-check-input'])}}

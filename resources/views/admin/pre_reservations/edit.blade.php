@@ -1,9 +1,8 @@
 @extends('layouts.admin.app')
 @section('content')
-
-
-<link href="{{ asset('/css/template.css') }}" rel="stylesheet">
 <script src="{{ asset('/js/template.js') }}"></script>
+<script src="{{ asset('/js/admin/validation.js') }}"></script>
+<link href="{{ asset('/css/template.css') }}" rel="stylesheet">
 
 <style>
   #fullOverlay {
@@ -45,11 +44,11 @@
       </ol>
     </nav>
   </div>
-  <h2 class="mt-3 mb-3">仮押さえ　編集</h2>
+  <h2 class="mt-3 mb-3">仮押え　編集</h2>
   <hr>
 </div>
 
-{{ Form::open(['url' => 'admin/pre_reservations/'.$PreReservation->id.'/re_calculate', 'method'=>'POST', 'id'=>'']) }}
+{{ Form::open(['url' => 'admin/pre_reservations/'.$PreReservation->id.'/re_calculate', 'method'=>'POST', 'id'=>'pre_reservationSingleEditForm']) }}
 @csrf
 <section class="section-wrap">
   <div class="selected_user">
@@ -156,18 +155,18 @@
               <td colspan="2">
                 <p class="title-icon">
                   <i class="fas fa-info-circle icon-size" aria-hidden="true"></i>
-                  仮押さえ情報
+                  仮押え情報
                 </p>
               </td>
             </tr>
             <tr>
-              <td class="table-active form_required">利用日</td>
+              <td class="table-active">利用日</td>
               <td>
                 {{ Form::text('reserve_date', date('Y-m-d',strtotime($PreReservation->reserve_date)),['class'=>'form-control', 'readonly'] ) }}
               </td>
             </tr>
             <tr>
-              <td class="table-active form_required">会場</td>
+              <td class="table-active">会場</td>
               <td>
                 {{ Form::text('', ReservationHelper::getVenue($PreReservation->venue_id),['class'=>'form-control', 'readonly'] ) }}
                 {{ Form::hidden('venue_id', $PreReservation->venue_id,['class'=>'form-control'] ) }}
@@ -185,7 +184,7 @@
               </td>
             </tr>
             <tr>
-              <td class="table-active form_required">入室時間</td>
+              <td class="table-active">入室時間</td>
               <td>
                 <select name="enter_time" id="enter_time" class="form-control">
                   <option value=""></option>
@@ -202,7 +201,7 @@
               </td>
             </tr>
             <tr>
-              <td class="table-active form_required">退室時間</td>
+              <td class="table-active">退室時間</td>
               <td>
                 <select name="leave_time" id="leave_time" class="form-control">
                   <option value=""></option>
@@ -622,7 +621,7 @@
   </div>
   <div class="submit_btn">
     <div class="d-flex justify-content-center">
-      {{-- 単発仮押さえか？一括仮押さえか？ --}}
+      {{-- 単発仮押えか？一括仮押えか？ --}}
       {{ Form::hidden('judge_count', 1 ) }}
       {{-- ユーザー --}}
       {{ Form::hidden('user_id', $PreReservation->user_id ) }}
@@ -647,7 +646,7 @@
   {{-- 以下、計算結果 --}}
   <div class="container-fluid">
     <div class="bill">
-      <div class="bill_head">
+      <div class="bill_head py-0">
         <table class="table" style="table-layout: fixed">
           <tr>
             <td>
@@ -982,7 +981,7 @@
 
   </div>
 
-  {{-- 単発仮押さえか？一括仮押さえか？ --}}
+  {{-- 単発仮押えか？一括仮押えか？ --}}
   {{ Form::hidden('judge_count', 1 ) }}
   {{Form::hidden('user_id', $PreReservation->user_id)}}
   {{Form::hidden('venue_id', $PreReservation->venue_id)}}

@@ -30,7 +30,7 @@
         </nav>
       </div>
 
-      <h2 class="mt-3 mb-3">一括仮押さえ 一覧</h2>
+      <h2 class="mt-3 mb-3">一括仮押え 一覧</h2>
       <hr>
     </div>
 
@@ -39,7 +39,7 @@
       <table class="table table-bordered mb-0">
         <tbody>
           <tr>
-            <th class="search_item_name"><label for="id">一括仮押さえID</label>
+            <th class="search_item_name"><label for="id">一括仮押えID</label>
             <td class="text-right">
               <input type="text" name="id" class="form-control" id="id">
             </td>
@@ -109,7 +109,7 @@
         </li>
         <li>
           <div class="d-flex">
-            <a class="more_btn bg-red" href="">仮押さえ期間超過</a>
+            <a class="more_btn bg-red" href="">仮押え期間超過</a>
             <p class="ml-3 font-weight-bold"><span class="count-color">ダミー</span>件</p>
           </div>
         </li>
@@ -120,7 +120,7 @@
           <thead>
             <tr class="table_row">
               <th><input type="checkbox" name="all_check" id="all_check" /></th>
-              <th>一括仮押さえID</th>
+              <th>一括仮押えID</th>
               <th>作成日</th>
               <th>件数</th>
               <th>会社・団体名</th>
@@ -130,7 +130,7 @@
               <th>会社・団体名(仮)</th>
               <th>仲介会社</th>
               <th>エンドユーザー</th>
-              <th>仮押さえ詳細</th>
+              <th>仮押え詳細</th>
             </tr>
           </thead>
           <tbody>

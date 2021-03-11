@@ -16,7 +16,7 @@
   </div>
 
 
-  <h2 class="mt-3 mb-3">仮押さえ　詳細</h2>
+  <h2 class="mt-3 mb-3">仮押え　詳細</h2>
   <hr>
 </div>
 
@@ -28,13 +28,13 @@
           <tr>
             <td>
               <h3 class="text-white py-2">
-                <!-- 仮押さえ概要 -->
-              仮押さえID：{{$pre_reservation->id}}
+                <!-- 仮押え概要 -->
+              仮押えID：{{$pre_reservation->id}}
               </h3>
             </td>
             <!-- <td>
               <dl class="ttl_box">
-                <dt>仮押さえID:</dt>
+                <dt>仮押えID:</dt>
                 <dd class="total_result"></dd>
               </dl>
             </td> -->
@@ -56,7 +56,7 @@
                 @csrf
                 @if ($pre_reservation->status==0)
                 {{ Form::hidden('pre_reservation_id', $pre_reservation->id)}}
-                {{ Form::submit('仮押さえ内容を確定する', ['class' => 'btn more_btn4']) }}
+                {{ Form::submit('仮押え内容を確定する', ['class' => 'btn more_btn4']) }}
                 {{ Form::close() }}
                 @endif
 
@@ -215,13 +215,13 @@
                   </p>
                 </td>
               </tr>
-              <tr>
+              <!-- <tr>
                 <td class="table-active"><label for="eventTime">イベント時間記載</label>
                 </td>
                 <td>
                   あり
                 </td>
-              </tr>
+              </tr> -->
               <tr>
                 <td class="table-active"><label for="eventStart">イベント開始時間</label>
                 </td>

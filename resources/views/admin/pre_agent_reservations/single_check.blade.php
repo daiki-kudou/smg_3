@@ -1,14 +1,15 @@
 @extends('layouts.admin.app')
 
 @section('content')
-<link href="{{ asset('/css/template.css') }}" rel="stylesheet">
 <script src="{{ asset('/js/template.js') }}"></script>
+<script src="{{ asset('/js/admin/validation.js') }}"></script>
+<link href="{{ asset('/css/template.css') }}" rel="stylesheet">
 
-<h2 class="mt-3 mb-3">仮押さえ 仲介会社 詳細入力画面</h2>
+<h2 class="mt-3 mb-3">仮押え 仲介会社 詳細入力画面</h2>
 <hr>
 
 
-{{ Form::open(['url' => 'admin/pre_agent_reservations/calculate', 'method'=>'POST', 'id'=>'']) }}
+{{ Form::open(['url' => 'admin/pre_agent_reservations/calculate', 'method'=>'POST', 'id'=>'pre_agent_reservationsSingleCheckForm']) }}
 @csrf
 
 <section class="section-wrap">
@@ -17,7 +18,7 @@
       <thead>
         <tr>
           <th>仲介会社情報</th>
-          <th colspan="3">顧客ID：<p class="user_id d-inline">{{$request->agent_id}}</p>
+          <th colspan="3">仲介会社ID：<p class="user_id d-inline">{{$request->agent_id}}</p>
           </th>
         </tr>
       </thead>
@@ -121,19 +122,19 @@
             <tr>
               <td colspan="2">
                 <p class="title-icon">
-                  <i class="fas fa-info-circle icon-size"></i>仮押さえ情報
+                  <i class="fas fa-info-circle icon-size"></i>仮押え情報
                 </p>
               </td>
             </tr>
             <tr>
-              <td class="table-active form_required">利用日</td>
+              <td class="table-active">利用日</td>
               <td>
                 {{ Form::text('reserve_date', $request->pre_date0,['class'=>'form-control', 'readonly'] ) }}
                 <p class="is-error-reserve_date" style="color: red"></p>
               </td>
             </tr>
             <tr>
-              <td class="table-active form_required">会場</td>
+              <td class="table-active">会場</td>
               <td>
                 {{ Form::text('', ReservationHelper::getVenue($request->pre_venue0),['class'=>'form-control', 'readonly'] ) }}
                 {{ Form::hidden('venue_id', $request->pre_venue0,['class'=>'form-control', 'readonly'] ) }}
@@ -153,7 +154,7 @@
               </td>
             </tr>
             <tr>
-              <td class="table-active form_required">入室時間</td>
+              <td class="table-active">入室時間</td>
               <td>
                 <div>
                   {{ Form::text('', date('H:i',strtotime($request->pre_enter0)),['class'=>'form-control', 'readonly'] ) }}
@@ -163,7 +164,7 @@
               </td>
             </tr>
             <tr>
-              <td class="table-active form_required">退室時間</td>
+              <td class="table-active">退室時間</td>
               <td>
                 <div>
                   {{ Form::text('', date('H:i',strtotime($request->pre_leave0)),['class'=>'form-control', 'readonly'] ) }}
@@ -205,9 +206,7 @@
               <div>
                 <select name="event_start" id="event_start" class="form-control">
                   <option disabled>選択してください</option>
-                  @for ($start = 0*2; $start <=23*2; $start++) <option
-                    value="{{date("H:i:s", strtotime("00:00 +". $start * 30 ." minute"))}}" @if (date("H:i:s",
-                    strtotime("00:00 +". $start * 30 ." minute"))<$request->pre_enter0)
+                  @for ($start = 0*2; $start <=23*2; $start++) <option value="{{date("H:i:s", strtotime("00:00 +". $start * 30 ." minute"))}}" @if (date("H:i:s", strtotime("00:00 +". $start * 30 ." minute"))<$request->pre_enter0)
                     disabled
                     @elseif(date("H:i:s", strtotime("00:00 +". $start * 30 ." minute"))>$request->pre_leave0)
                     disabled
@@ -228,9 +227,7 @@
               <div>
                 <select name="event_finish" id="event_finish" class="form-control">
                   <option disabled>選択してください</option>
-                  @for ($start = 0*2; $start <=23*2; $start++) <option
-                    value="{{date("H:i:s", strtotime("00:00 +". $start * 30 ." minute"))}}" @if (date("H:i:s",
-                    strtotime("00:00 +". $start * 30 ." minute"))>$request->pre_leave0)
+                  @for ($start = 0*2; $start <=23*2; $start++) <option value="{{date("H:i:s", strtotime("00:00 +". $start * 30 ." minute"))}}" @if (date("H:i:s", strtotime("00:00 +". $start * 30 ." minute"))>$request->pre_leave0)
                     disabled
                     @elseif(date("H:i:s",strtotime("00:00 +". $start * 30 ." minute"))<$request->pre_enter0)
                       disabled
@@ -463,9 +460,12 @@
               <td class="table-active form_required">
                 <label for="enduser_charge ">支払い料</label>
               </td>
-              <td class="d-flex align-items-center">
-                {{ Form::text('enduser_charge', '',['class'=>'form-control'] ) }}
-                <span class="ml-2">円</span>
+              <td>
+                <div class="d-flex align-items-center">
+                  {{ Form::text('enduser_charge', '',['class'=>'form-control'] ) }}
+                  <span class="ml-2">円</span>
+                </div>
+                <p class="is-error-enduser_charge" style="color: red"></p>
               </td>
             </tr>
           </tbody>
@@ -527,7 +527,7 @@
 
 <div class="submit_btn">
   <div class="d-flex justify-content-center">
-    {{-- 単発仮押さえか？一括仮押さえか？ --}}
+    {{-- 単発仮押えか？一括仮押えか？ --}}
     {{ Form::hidden('judge_count', 1 ) }}
     {{-- ユーザー --}}
     {{ Form::hidden('agent_id', $request->agent_id ) }}
@@ -553,28 +553,26 @@
 
 
 <script>
-  $(function(){
-    var maxTarget=$('input[name="reserve_date"]').val();
+  $(function() {
+    var maxTarget = $('input[name="reserve_date"]').val();
     $('#datepicker9').datepicker({
       dateFormat: 'yy-mm-dd',
       minDate: 0,
-      maxDate:maxTarget,
+      maxDate: maxTarget,
       autoclose: true,
     });
   })
 
-  $(function(){
+  $(function() {
     $(document).on("click", "input:radio[name='eat_in']", function() {
-      var radioTarget=$('input:radio[name="eat_in"]:checked').val();
-      if (radioTarget==1) {
-        $('input:radio[name="eat_in_prepare"]').prop('disabled',false);
-      }else{
-        $('input:radio[name="eat_in_prepare"]').prop('disabled',true);
+      var radioTarget = $('input:radio[name="eat_in"]:checked').val();
+      if (radioTarget == 1) {
+        $('input:radio[name="eat_in_prepare"]').prop('disabled', false);
+      } else {
+        $('input:radio[name="eat_in_prepare"]').prop('disabled', true);
         $('input:radio[name="eat_in_prepare"]').prop('checked', false);
       }
     })
   })
-
-
 </script>
 @endsection

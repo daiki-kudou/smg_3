@@ -1,14 +1,9 @@
 @extends('layouts.admin.app')
-
 @section('content')
-
-
 <link href="{{ asset('/css/template.css') }}" rel="stylesheet">
 <script src="{{ asset('/js/template.js') }}"></script>
-<!-- <script src="{{ asset('/js/multiples/script.js') }}"></script> -->
 <script src="{{ asset('/js/multiples/calculate.js') }}"></script>
-
-
+<script src="{{ asset('/js/admin/validation.js') }}"></script>
 
 <div class="content">
   <div class="container-fluid">
@@ -23,7 +18,7 @@
           </ol>
         </nav>
       </div>
-      <h2 class="mt-3 mb-3">一括仮押さえ　編集</h2>
+      <h2 class="mt-3 mb-3">一括仮押え　編集</h2>
       <hr>
     </div>
 
@@ -41,18 +36,19 @@
       <table class="table ttl_head">
         <tbody>
           <tr>
-            <td class="text-white d-flex align-items-center">
+            <td class="text-white d-flex align-items-center p-3">
               <h3>
-                仮押さえ一括ID:<span class="mr-1">{{$multiple->id}}</span>
+                仮押え一括ID:<span class="mr-3">{{$multiple->id}}</span>
               </h3>
               <h4 class="ml-2">{{ReservationHelper::getVenue($venue->id)}}</h4>
             </td>
+          </tr>
         </tbody>
       </table>
 
 
 
-      {{ Form::open(['url' => 'admin/multiples/'.$multiple->id."/edit/".$venue->id.'/calculate', 'method'=>'POST', 'id'=>'']) }}
+      {{ Form::open(['url' => 'admin/multiples/'.$multiple->id."/edit/".$venue->id.'/calculate', 'method'=>'POST', 'id'=>'multipleEditForm']) }}
       @csrf
       <section class="m-5 border-inwrap">
         <div class="mb-2">
@@ -78,7 +74,7 @@
                       <td colspan="2">
                         <p class="title-icon">
                           <i class="fas fa-info-circle icon-size" aria-hidden="true"></i>
-                          仮押さえ情報
+                          仮押え情報
                         </p>
                       </td>
                     </tr>
@@ -298,7 +294,7 @@
                     <tr>
                       <th colspan='2'>
                         <p class="title-icon">
-                          <i class="fas fa-suitcase-rolling icon-size fa-fw"></i>室内飲食
+                          <i class="fas fa-utensils icon-size fa-fw"></i>室内飲食
                         </p>
                       </th>
                     </tr>
@@ -395,8 +391,12 @@
                     </tr>
                     <tr>
                       <td class="table-active"><label for="sale">原価率</label></td>
-                      <td class="d-flex align-items-center">
-                        {{ Form::text('cp_master_cost', '',['class'=>'form-control'] ) }}%
+                      <td>
+                        <div class="d-flex align-items-center">
+                          {{ Form::text('cp_master_cost', '',['class'=>'form-control'] ) }}
+                          <span class="ml-2">%</span>
+                        </div>
+                        <p class="is-error-cp_master_cost" style="color: red"></p>
                       </td>
                     </tr>
                   </tbody>
@@ -459,7 +459,7 @@
         </li>
       </ul>
 
-      {{-- jsで仮押さえの件数判別のためのhidden --}}
+      {{-- jsで仮押えの件数判別のためのhidden --}}
       {{ Form::hidden('', $multiple->pre_reservations()->where('venue_id',$venue->id)->get()->count(),['id'=>'counts_reserve']) }}
       {{-- 以下、pre_reservationの数分　ループ --}}
       @foreach ($multiple->pre_reservations()->where('venue_id',$venue->id)->get() as $key=>$pre_reservation)
@@ -468,7 +468,7 @@
       {{ Form::hidden('split_keys', $key) }}
 
       <section class="register-list col">
-        <!-- 仮押さえ一括 タブ-->
+        <!-- 仮押え一括 タブ-->
         <div class="register-list-item">
           <div class="from-group list_checkbox">
             <div class="form-check">
@@ -522,7 +522,7 @@
                         <td colspan="2">
                           <p class="title-icon">
                             <i class="fas fa-info-circle icon-size" aria-hidden="true"></i>
-                            仮押さえ情報
+                            仮押え情報
                           </p>
                         </td>
                       </tr>
@@ -904,8 +904,12 @@
                       </tr>
                       <tr>
                         <td class="table-active"><label for="sale">原価率</label></td>
-                        <td class="d-flex align-items-center">
-                          {{ Form::text('cost_copied'.$key, $pre_reservation->cost,['class'=>'form-control'] ) }}%
+                        <td>
+                          <div class="d-flex align-items-center">
+                          {{ Form::text('cost_copied'.$key, $pre_reservation->cost,['class'=>'form-control'] ) }}
+                          <span class="ml-2">%</span>
+                          </div>
+                          <p class="is-error-cost_copied" style="color: red"></p>
                         </td>
                       </tr>
                     </tbody>
@@ -1375,7 +1379,7 @@
           </dl>
           <!-- /.card -->
         </div>
-        <!-- 仮押さえ一括 タブ終わり-->
+        <!-- 仮押え一括 タブ終わり-->
       </section>
       @endforeach
 

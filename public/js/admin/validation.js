@@ -4,7 +4,7 @@ jQuery.validator.addMethod("katakana", function (value, element) {
 }, "<br/>全角カタカナを入力してください"
 );
 
-// 仮押さえ新規作成
+// 仮押え新規作成
 $(function () {
   $("#pre_reservationCreateForm").validate({
     rules: {
@@ -54,8 +54,7 @@ $(function () {
   });
 })
 
-
-// 仮押さえ詳細入力
+// 仮押え詳細入力
 $(function () {
   $("#pre_reservationSingleCheckForm").validate({
     rules: {
@@ -107,10 +106,338 @@ $(function () {
   });
 })
 
+// 仮押え再計算
+$(function () {
+  $("#pre_reservationSingleCheckForm").validate({
+    rules: {
+      in_charge: {
+        required: true,
+      },
+      tel: {
+        required: true,
+        minlength: 11
+      },
+      unknown_user_tel: {
+        minlength: 10
+      },
+    },
+    messages: {
+      in_charge: {
+        required: '※必須項目です',
+      },
+      tel: {
+        required: '※必須項目です',
+        minlength: '※最低桁数は11です',
+      },
+      unknown_user_tel: {
+        minlength: '※最低桁数は10です',
+      },
+    },
+    errorPlacement: function (error, element) {
+      var name = element.attr('name');
+      if (element.attr('name') === 'category[]') {
+        error.appendTo($('.is-error-category'));
+      } else if (element.attr('name') === name) {
+        error.appendTo($('.is-error-' + name));
+      }
+    },
+    errorElement: "span",
+    errorClass: "is-error",
+    //送信前にLoadingを表示
+    submitHandler: function (form) {
+      $('.spin_btn').removeClass('hide');
+      $('.submit_btn').addClass('hide');
+      form.submit();
+    }
+  });
+  $('input').on('blur', function () {
+    $(this).valid();
+    // if ($('span').hasClass('is-error')) {
+    //   $('span').css('background', 'white');
+    // }
+  });
+})
+
+// 仮押え編集
+$(function () {
+  $("#pre_reservationSingleEditForm").validate({
+    rules: {
+      in_charge: {
+        required: true,
+      },
+      tel: {
+        required: true,
+        minlength: 11
+      },
+      unknown_user_tel: {
+        minlength: 10
+      },
+    },
+    messages: {
+      in_charge: {
+        required: '※必須項目です',
+      },
+      tel: {
+        required: '※必須項目です',
+        minlength: '※最低桁数は11です',
+      },
+      unknown_user_tel: {
+        minlength: '※最低桁数は10です',
+      },
+    },
+    errorPlacement: function (error, element) {
+      var name = element.attr('name');
+      if (element.attr('name') === 'category[]') {
+        error.appendTo($('.is-error-category'));
+      } else if (element.attr('name') === name) {
+        error.appendTo($('.is-error-' + name));
+      }
+    },
+    errorElement: "span",
+    errorClass: "is-error",
+    //送信前にLoadingを表示
+    submitHandler: function (form) {
+      $('.spin_btn').removeClass('hide');
+      $('.submit_btn').addClass('hide');
+      form.submit();
+    }
+  });
+  $('input').on('blur', function () {
+    $(this).valid();
+    // if ($('span').hasClass('is-error')) {
+    //   $('span').css('background', 'white');
+    // }
+  });
+})
+
+// 仮押え編集からの再計算
+$(function () {
+  $("#pre_reservationSingleRecalculateForm").validate({
+    rules: {
+      in_charge: {
+        required: true,
+      },
+      tel: {
+        required: true,
+        minlength: 11
+      },
+      unknown_user_tel: {
+        minlength: 10
+      },
+    },
+    messages: {
+      in_charge: {
+        required: '※必須項目です',
+      },
+      tel: {
+        required: '※必須項目です',
+        minlength: '※最低桁数は11です',
+      },
+      unknown_user_tel: {
+        minlength: '※最低桁数は10です',
+      },
+    },
+    errorPlacement: function (error, element) {
+      var name = element.attr('name');
+      if (element.attr('name') === 'category[]') {
+        error.appendTo($('.is-error-category'));
+      } else if (element.attr('name') === name) {
+        error.appendTo($('.is-error-' + name));
+      }
+    },
+    errorElement: "span",
+    errorClass: "is-error",
+    //送信前にLoadingを表示
+    submitHandler: function (form) {
+      $('.spin_btn').removeClass('hide');
+      $('.submit_btn').addClass('hide');
+      form.submit();
+    }
+  });
+  $('input').on('blur', function () {
+    $(this).valid();
+    // if ($('span').hasClass('is-error')) {
+    //   $('span').css('background', 'white');
+    // }
+  });
+})
 
 
+// 仲介会社 仮押え新規作成
+$(function () {
+  $("#pre_agent_reservationsCreateForm").validate({
+    rules: {
+      pre_enduser_tel: {
+        minlength: 10
+      },
+      pre_enduser_mobile: {
+        minlength: 11
+      },
+      pre_enduser_email: {
+        email: true,
+      },
+    },
+    messages: {
+      pre_enduser_tel: {
+        minlength: '※最低桁数は10です',
+      },
+      pre_enduser_mobile: {
+        minlength: '※最低桁数は11です',
+      },
+      pre_enduser_email: {
+        email: '※Emailの形式で入力してください',
+      },
+    },
+    errorPlacement: function (error, element) {
+      var name = element.attr('name');
+      if (element.attr('name') === 'category[]') {
+        error.appendTo($('.is-error-category'));
+      } else if (element.attr('name') === name) {
+        error.appendTo($('.is-error-' + name));
+      }
+    },
+    errorElement: "span",
+    errorClass: "is-error",
+    //送信前にLoadingを表示
+    submitHandler: function (form) {
+      $('.spin_btn').removeClass('hide');
+      $('.submit_btn').addClass('hide');
+      form.submit();
+    }
+  });
+  $('input').on('blur', function () {
+    $(this).valid();
+    // if ($('span').hasClass('is-error')) {
+    //   $('span').css('background', 'white');
+    // }
+  });
+})
 
+// 仮押え 仲介会社 詳細入力画面
+$(function () {
+  $("#pre_agent_reservationsSingleCheckForm").validate({
+    rules: {
+      enduser_charge: {
+        required: true,
+      },
+    },
+    messages: {
+      enduser_charge: {
+        required: '※必須項目です',
+      },
+    },
+    errorPlacement: function (error, element) {
+      var name = element.attr('name');
+      if (element.attr('name') === 'category[]') {
+        error.appendTo($('.is-error-category'));
+      } else if (element.attr('name') === name) {
+        error.appendTo($('.is-error-' + name));
+      }
+    },
+    errorElement: "span",
+    errorClass: "is-error",
+    //送信前にLoadingを表示
+    submitHandler: function (form) {
+      $('.spin_btn').removeClass('hide');
+      $('.submit_btn').addClass('hide');
+      form.submit();
+    }
+  });
+  $('input').on('blur', function () {
+    $(this).valid();
+    // if ($('span').hasClass('is-error')) {
+    //   $('span').css('background', 'white');
+    // }
+  });
+})
 
+// 一括仮押さえ　編集画面　
+$(function () {
+  $("#multipleEditForm").validate({
+    rules: {
+      enduser_charge: {
+        required: true,
+      },
+      cp_master_cost: {
+        range: [1, 100]
+      },
+    },
+    messages: {
+      enduser_charge: {
+        required: '※必須項目です',
+      },
+      cp_master_cost: {
+        range: '※1から100までの数値を入力してください',
+      },
+    },
+    errorPlacement: function (error, element) {
+      var name = element.attr('name');
+      if (element.attr('name') === 'category[]') {
+        error.appendTo($('.is-error-category'));
+      } else if (element.attr('name') === name) {
+        error.appendTo($('.is-error-' + name));
+      }
+    },
+    errorElement: "span",
+    errorClass: "is-error",
+    //送信前にLoadingを表示
+    submitHandler: function (form) {
+      $('.spin_btn').removeClass('hide');
+      $('.submit_btn').addClass('hide');
+      form.submit();
+    }
+  });
+  $('input').on('blur', function () {
+    $(this).valid();
+    // if ($('span').hasClass('is-error')) {
+    //   $('span').css('background', 'white');
+    // }
+  });
+})
+
+// 一括仮押さえ　編集の計算
+$(function () {
+  $("#multipleCalculateForm").validate({
+    rules: {
+      enduser_charge: {
+        required: true,
+      },
+      cp_master_cost: {
+        range: [1, 100]
+      },
+    },
+    messages: {
+      enduser_charge: {
+        required: '※必須項目です',
+      },
+      cp_master_cost: {
+        range: '※1から100までの数値を入力してください',
+      },
+    },
+    errorPlacement: function (error, element) {
+      var name = element.attr('name');
+      if (element.attr('name') === 'category[]') {
+        error.appendTo($('.is-error-category'));
+      } else if (element.attr('name') === name) {
+        error.appendTo($('.is-error-' + name));
+      }
+    },
+    errorElement: "span",
+    errorClass: "is-error",
+    //送信前にLoadingを表示
+    submitHandler: function (form) {
+      $('.spin_btn').removeClass('hide');
+      $('.submit_btn').addClass('hide');
+      form.submit();
+    }
+  });
+  $('input').on('blur', function () {
+    $(this).valid();
+    // if ($('span').hasClass('is-error')) {
+    //   $('span').css('background', 'white');
+    // }
+  });
+})
 
 
 // 予約新規作成

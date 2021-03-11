@@ -335,7 +335,7 @@
                         </dd>
                       </dl>
                       <dl class="form-cell2">
-                        <dt>レイアウト片付け：</dt>
+                        <dt>片付：</dt>
                         <dd>
                           {{!empty($slctSession[0]['layout_clean'])?"あり":"なし"}}
                         </dd>

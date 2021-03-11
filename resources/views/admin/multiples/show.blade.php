@@ -16,7 +16,7 @@
           </ol>
         </nav>
       </div>
-      <h2 class="mt-3 mb-3">一括仮押さえ　詳細</h2>
+      <h2 class="mt-3 mb-3">一括仮押え　詳細</h2>
       <hr>
     </div>
 
@@ -131,19 +131,19 @@
         <hr class="my-5 border_color">
         <div class="mt-5">
           <p class="text-right"><a href="{{url('admin/multiples/'.$multiple->id."/add_venue")}}"
-              class="more_btn3">新しい会場で日程を追加する</a></p>
+              class="more_btn3">日程を追加する</a></p>
           <p class="mb-2">詳細を入力する場合は、会場ごとに編集をしてください。</p>
         </div>
         <table class="table table-bordered table-scroll">
           <thead>
             <tr class="table_row">
-              <th>一括仮押さえID</th>
+              <th>一括仮押えID</th>
               <th>作成日</th>
               <th>利用会場</th>
               <th>総件数</th>
               <th>件数</th>
               <th>編集</th>
-              <th>日程の追加</th>
+              <!-- <th>日程の追加</th> -->
             </tr>
           </thead>
           <tbody>
@@ -159,10 +159,10 @@
               </td>
               <td class="text-center"><a class="more_btn"
                   href="{{url('admin/multiples/'.$multiple->id.'/edit'.'/'.$venues[$i]->venue_id)}}">編集</a></td>
-              <td class="text-center">
+              <!-- <td class="text-center">
                 <a class="more_btn"
                   href="{{url('admin/multiples/'.$multiple->id.'/add_date'.'/'.$venues[$i]->venue_id)}}">日程の追加をする</a>
-              </td>
+              </td> -->
               </tr>
               @else
               <tr>
@@ -174,10 +174,10 @@
                   <a class="more_btn"
                     href="{{url('admin/multiples/'.$multiple->id.'/edit'.'/'.$venues[$i]->venue_id)}}">編集</a>
                 </td>
-                <td class="text-center">
+                <!-- <td class="text-center">
                   <a class="more_btn"
                     href="{{url('admin/multiples/'.$multiple->id.'/add_date'.'/'.$venues[$i]->venue_id)}}">日程の追加をする</a>
-                </td>
+                </td> -->
               </tr>
               @endif
               @endfor

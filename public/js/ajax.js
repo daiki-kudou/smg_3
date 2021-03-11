@@ -565,7 +565,7 @@ $(function () {
         $('.layout_tax').val('');
         $('.layout_total_amount').val('');
         $('.layout_prepare_result').val($result[0][0][0]); //レイアウト準備
-        $('.layout_clean_result').val($result[0][1][0]); //レイアウト片付け
+        $('.layout_clean_result').val($result[0][1][0]); //片付
         $('.layout_total').val($result[1]);
         $('.layout_subtotal').val($result[1]);
         $('.layout_tax').val(Math.floor(Number($result[1]) * 0.1));

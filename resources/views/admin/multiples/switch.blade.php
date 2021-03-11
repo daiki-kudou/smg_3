@@ -29,11 +29,11 @@
           </ol>
         </nav>
       </div>
-      <h2 class="mt-3 mb-3">一括仮押さえ　詳細</h2>
+      <h2 class="mt-3 mb-3">一括仮押え　詳細</h2>
       <hr>
     </div>
 
-    <!-- 仮押さえ登録--------------------------------------------------------　 -->
+    <!-- 仮押え登録--------------------------------------------------------　 -->
     <section class="section-wrap">
       <div class="row">
         <table class="table ttl_head mb-0">
@@ -41,12 +41,12 @@
             <tr>
               <td>
                 <h3 class="text-white py-2">
-                  仮押さえ一括ID：{{$multiple->id}}
+                  仮押え一括ID：{{$multiple->id}}
                 </h3>
               </td>
               <!-- <td>
                   <dl class="ttl_box">
-                    <dt>仮押さえ一括ID:</dt>
+                    <dt>仮押え一括ID:</dt>
                     <dd class="total_result">{{$multiple->id}}</dd>
                   </dl>
                 </td> -->

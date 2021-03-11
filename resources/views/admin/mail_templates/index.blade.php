@@ -59,14 +59,14 @@
 
       <tbody>
         <tr>
-          <td rowspan="2">管理者仮押さえ完了及びユーザーへ編集権限譲渡</td>
-          <td>【管理者通知】SMGアクセア貸し会議室　仮押さえについて</td>
+          <td rowspan="2">管理者仮押え完了及びユーザーへ編集権限譲渡</td>
+          <td>【管理者通知】SMGアクセア貸し会議室　仮押えについて</td>
           <td>管理者</td>
           <td><a href="http://127.0.0.1:8000/admin/maileclipse/templates/edit/adminFinPreRes" class="more_btn">編集</a>
           </td>
         </tr>
         <tr>
-          <td>SMGアクセア貸し会議室　仮押さえについて</td>
+          <td>SMGアクセア貸し会議室　仮押えについて</td>
           <td>ユーザー</td>
           <td><a href="http://127.0.0.1:8000/admin/maileclipse/templates/edit/userFinPreRes" class="more_btn">編集</a>
           </td>
@@ -76,7 +76,7 @@
 
       <tbody>
         <tr>
-          <td rowspan="2">管理者主導仮押さえから本予約切り替え</td>
+          <td rowspan="2">管理者主導仮押えから本予約切り替え</td>
           <td>【管理者通知】SMGアクセア貸し会議室　予約完了のお知らせ</td>
           <td>管理者</td>
           <td><a href="http://127.0.0.1:8000/admin/maileclipse/templates/edit/adminPreResToRes" class="more_btn">編集</a>

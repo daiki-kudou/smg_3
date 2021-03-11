@@ -333,7 +333,7 @@
               </td>
             </tr>
             <tr>
-              <th>担当者氏名(ふりがな) <span class="txtRed c-block">＊</span></th>
+              <th>担当者氏名(フリガナ) <span class="txtRed c-block">＊</span></th>
               <td>
                 <ul class="form-cell">
                   <li>

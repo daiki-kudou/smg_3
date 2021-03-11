@@ -1,8 +1,8 @@
 @extends('layouts.admin.app')
 @section('content')
-
-<link href="{{ asset('/css/template.css') }}" rel="stylesheet">
 <script src="{{ asset('/js/template.js') }}"></script>
+<script src="{{ asset('/js/admin/validation.js') }}"></script>
+<link href="{{ asset('/css/template.css') }}" rel="stylesheet">
 
 <div id="fullOverlay">
   <div class="frame_spinner">
@@ -21,7 +21,7 @@
       </ol>
     </nav>
   </div>
-  <h2 class="mt-3 mb-3">仲介会社　仮押さえ 新規作成</h2>
+  <h2 class="mt-3 mb-3">仲介会社　仮押え 新規作成</h2>
   <hr>
 </div>
 
@@ -32,7 +32,7 @@
       compatible</iframe>
   </div>
 
-  {{Form::open(['url' => 'admin/pre_agent_reservations/check', 'method' => 'POST', 'id'=>''])}}
+  {{Form::open(['url' => 'admin/pre_agent_reservations/check', 'method' => 'POST', 'id'=>'pre_agent_reservationsCreateForm'])}}
   @csrf
 
   <div class="user_selector mt-5">
@@ -76,16 +76,19 @@
           <td class="table-active">電話番号</td>
           <td>
             {{ Form::text('pre_enduser_tel', '',['class'=>'form-control'] ) }}
+            <p class="is-error-pre_enduser_tel" style="color: red"></p>
           </td>
         </tr>
         <tr>
           <td class="table-active">当日連絡先</td>
           <td>
             {{ Form::text('pre_enduser_mobile', '',['class'=>'form-control'] ) }}
+            <p class="is-error-pre_enduser_mobile" style="color: red"></p>
           </td>
           <td class="table-active">メールアドレス</td>
           <td>
             {{ Form::text('pre_enduser_email', '',['class'=>'form-control'] ) }}
+            <p class="is-error-pre_enduser_email" style="color: red"></p>
           </td>
         </tr>
         <tr>
@@ -245,77 +248,77 @@
     })
     })
     // 入室時間選択トリガー
-  $(function () {
-    $(document).on("click", "select", function () {
-      var this_tr = $(this).parent().parent();
-      var target = $(this).parent().index();
-      if (target == 2) {
-        var date = this_tr.find('td').eq(0).find('input').val();
-        var venue = this_tr.find('td').eq(1).find('select').val();
-        if (date.length && venue.length) {
-          $(this).find('option').prop('disabled', false);
-          var options = $(this).find('option');
-          $.ajax({
-            headers: {
-              'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-            },
-            url: '/admin/reservations/getsaleshours',
-            type: 'POST',
-            data: { 'venue_id': venue, 'dates': date },
-            dataType: 'json',
-            beforeSend: function () {
-              $('#fullOverlay').css('display', 'block');
-            },
-          }).done(function ($times) {
-            $('#fullOverlay').css('display', 'none');
-            for (let index = 0; index < $times[0].length; index++) {
-              options.each(function ($result) {
-                if ($times[0][index] == options.eq($result).val()) {
-                  options.eq($result).prop('disabled', true);
-                }
-              });
-            };
-          }).fail(function ($times) {
-            $('#fullOverlay').css('display', 'none');
-          });
-        } else {
-          $(this).find('option').prop('disabled', true);
-        }
-      }else if(target == 3){
-        var date = this_tr.find('td').eq(0).find('input').val();
-        var venue = this_tr.find('td').eq(1).find('select').val();
-        if (date.length && venue.length) {
-          $(this).find('option').prop('disabled', false);
-          var options = $(this).find('option');
-          $.ajax({
-            headers: {
-              'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-            },
-            url: '/admin/reservations/getsaleshours',
-            type: 'POST',
-            data: { 'venue_id': venue, 'dates': date },
-            dataType: 'json',
-            beforeSend: function () {
-              $('#fullOverlay').css('display', 'block');
-            },
-          }).done(function ($times) {
-            $('#fullOverlay').css('display', 'none');
-            for (let index = 0; index < $times[0].length; index++) {
-              options.each(function ($result) {
-                if ($times[0][index] == options.eq($result).val()) {
-                  options.eq($result).prop('disabled', true);
-                }
-              });
-            };
-          }).fail(function ($times) {
-            $('#fullOverlay').css('display', 'none');
-          });
-        } else {
-          $(this).find('option').prop('disabled', true);
-        }
-      }
-    })
-  })
+  // $(function () {
+  //   $(document).on("click", "select", function () {
+  //     var this_tr = $(this).parent().parent();
+  //     var target = $(this).parent().index();
+  //     if (target == 2) {
+  //       var date = this_tr.find('td').eq(0).find('input').val();
+  //       var venue = this_tr.find('td').eq(1).find('select').val();
+  //       if (date.length && venue.length) {
+  //         $(this).find('option').prop('disabled', false);
+  //         var options = $(this).find('option');
+  //         $.ajax({
+  //           headers: {
+  //             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+  //           },
+  //           url: '/admin/reservations/getsaleshours',
+  //           type: 'POST',
+  //           data: { 'venue_id': venue, 'dates': date },
+  //           dataType: 'json',
+  //           beforeSend: function () {
+  //             $('#fullOverlay').css('display', 'block');
+  //           },
+  //         }).done(function ($times) {
+  //           $('#fullOverlay').css('display', 'none');
+  //           for (let index = 0; index < $times[0].length; index++) {
+  //             options.each(function ($result) {
+  //               if ($times[0][index] == options.eq($result).val()) {
+  //                 options.eq($result).prop('disabled', true);
+  //               }
+  //             });
+  //           };
+  //         }).fail(function ($times) {
+  //           $('#fullOverlay').css('display', 'none');
+  //         });
+  //       } else {
+  //         $(this).find('option').prop('disabled', true);
+  //       }
+  //     }else if(target == 3){
+  //       var date = this_tr.find('td').eq(0).find('input').val();
+  //       var venue = this_tr.find('td').eq(1).find('select').val();
+  //       if (date.length && venue.length) {
+  //         $(this).find('option').prop('disabled', false);
+  //         var options = $(this).find('option');
+  //         $.ajax({
+  //           headers: {
+  //             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+  //           },
+  //           url: '/admin/reservations/getsaleshours',
+  //           type: 'POST',
+  //           data: { 'venue_id': venue, 'dates': date },
+  //           dataType: 'json',
+  //           beforeSend: function () {
+  //             $('#fullOverlay').css('display', 'block');
+  //           },
+  //         }).done(function ($times) {
+  //           $('#fullOverlay').css('display', 'none');
+  //           for (let index = 0; index < $times[0].length; index++) {
+  //             options.each(function ($result) {
+  //               if ($times[0][index] == options.eq($result).val()) {
+  //                 options.eq($result).prop('disabled', true);
+  //               }
+  //             });
+  //           };
+  //         }).fail(function ($times) {
+  //           $('#fullOverlay').css('display', 'none');
+  //         });
+  //       } else {
+  //         $(this).find('option').prop('disabled', true);
+  //       }
+  //     }
+  //   })
+  // })
 
 
 </script>

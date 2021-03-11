@@ -198,7 +198,7 @@ class Reservation extends Model
         'pay_day' => $request->pay_day,
         'pay_person' => $request->pay_person,
         'payment' => $request->payment,
-        'reservation_status' => 1, //デフォで1、仮押さえのデフォは0
+        'reservation_status' => 1, //デフォで1、仮押えのデフォは0
         'double_check_status' => 0, //デフォで0
         'category' => 1, //デフォで１。　新規以外だと　2:その他有料備品　3:レイアウト　4:その他
         'admin_judge' => 1, //管理者作成なら1 ユーザー作成なら2
@@ -268,7 +268,7 @@ class Reservation extends Model
         'bill_created_at' => Carbon::now(),
         'bill_remark' => "",
         'paid' => 0,
-        'reservation_status' => 1, //デフォで1、仮押さえのデフォは0
+        'reservation_status' => 1, //デフォで1、仮押えのデフォは0
         'double_check_status' => 0, //デフォで0
         'category' => 1, //デフォで１。　新規以外だと　2:その他有料備品　3:レイアウト　4:その他
         'admin_judge' => 2, //管理者作成なら1 ユーザー作成なら2
@@ -340,7 +340,7 @@ class Reservation extends Model
           'unit_type' => 4,
         ]);
       }
-      // レイアウト片付け
+      // 片付
       if (!empty($value->layout_clean)) {
         $bills->breakdowns()->create([
           'unit_item' => "レイアウト片付料金",
@@ -432,7 +432,7 @@ class Reservation extends Model
         'pay_day' => $request->pay_day,
         'pay_person' => $request->pay_person,
         'payment' => $request->payment,
-        'reservation_status' => 1, //デフォで1、仮押さえのデフォは0
+        'reservation_status' => 1, //デフォで1、仮押えのデフォは0
         'double_check_status' => 0, //デフォで0
         'category' => 1, //デフォで１。　新規以外だと　2:その他有料備品　3:レイアウト　4:その他
         'admin_judge' => 1, //管理者作成なら1 ユーザー作成なら2

@@ -30,7 +30,7 @@
       <li class="nav-item has-treeview">
         <a href="{{url('user/pre_reservations')}}" class="nav-link user_pre_reservations">
           <i class="nav-icon fas fa-book-open" style=""></i>
-          <p>仮押さえ一覧</p>
+          <p>仮押え一覧</p>
         </a>
       </li>
 

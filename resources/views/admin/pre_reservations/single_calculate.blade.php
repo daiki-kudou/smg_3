@@ -1,7 +1,8 @@
 @extends('layouts.admin.app')
 @section('content')
-<link href="{{ asset('/css/template.css') }}" rel="stylesheet">
 <script src="{{ asset('/js/template.js') }}"></script>
+<script src="{{ asset('/js/admin/validation.js') }}"></script>
+<link href="{{ asset('/css/template.css') }}" rel="stylesheet">
 
 <div class="container-field">
   <div class="float-right">
@@ -13,7 +14,7 @@
       </ol>
     </nav>
   </div>
-  <h2 class="mt-3 mb-3">仮押さえ　詳細入力画面</h2>
+  <h2 class="mt-3 mb-3">仮押え　詳細入力画面</h2>
   <hr>
 </div>
 
@@ -78,7 +79,7 @@
           </td>
         </tr>
         <tr>
-          <td class="table-active">担当者指名</td>
+          <td class="table-active">担当者氏名</td>
           <td>
             {{ Form::text('unknown_user_name', ($request->unknown_user_name),['class'=>'form-control', 'readonly'] ) }}
           </td>
@@ -111,18 +112,18 @@
             <tr>
               <td colspan="2">
                 <p class="title-icon">
-                  <i class="fas fa-info-circle icon-size"></i>仮押さえ情報
+                  <i class="fas fa-info-circle icon-size"></i>仮押え情報
                 </p>
               </td>
             </tr>
             <tr>
-              <td class="table-active form_required">利用日</td>
+              <td class="table-active">利用日</td>
               <td>
                 {{ Form::text('reserve_date', $request->reserve_date,['class'=>'form-control', 'id'=>'datepicker1'] ) }}
               </td>
             </tr>
             <tr>
-              <td class="table-active form_required">会場</td>
+              <td class="table-active">会場</td>
               <td>
                 <select name="venue_id" id="venue_id">
                   <option value=""></option>
@@ -147,7 +148,7 @@
               </td>
             </tr>
             <tr>
-              <td class="table-active form_required">入室時間</td>
+              <td class="table-active">入室時間</td>
               <td>
                 <select name="enter_time" id="enter_time" class="form-control">
                   <option value=""></option>
@@ -164,7 +165,7 @@
               </td>
             </tr>
             <tr>
-              <td class="table-active form_required">退室時間</td>
+              <td class="table-active">退室時間</td>
               <td>
                 <select name="leave_time" id="leave_time" class="form-control">
                   <option value=""></option>
@@ -618,7 +619,7 @@
 
   <div class="submit_btn">
     <div class="d-flex justify-content-center">
-      {{-- 単発仮押さえか？一括仮押さえか？ --}}
+      {{-- 単発仮押えか？一括仮押えか？ --}}
       {{ Form::hidden('judge_count', 1 ) }}
       {{-- ユーザー --}}
       {{ Form::hidden('user_id', $request->user_id ) }}
@@ -658,12 +659,12 @@
                 <dd class="total_result">{{number_format($masters)}}円</dd>
               </dl>
             </td>
-            <td>
+            <!-- <td>
               <dl class="ttl_box">
                 <dt>支払い期日</dt>
                 <dd class="total_result">{{ReservationHelper::formatDate($pay_limit)}}</dd>
               </dl>
-            </td>
+            </td> -->
           </tr>
           <!-- <tr>
             <td></td>
@@ -1071,7 +1072,7 @@
   </div>
 </section>
 
-{{-- 単発仮押さえか？一括仮押さえか？ --}}
+{{-- 単発仮押えか？一括仮押えか？ --}}
 {{ Form::hidden('judge_count', 1 ) }}
 {{Form::hidden('user_id', $request->user_id)}}
 {{Form::hidden('venue_id', $request->venue_id)}}

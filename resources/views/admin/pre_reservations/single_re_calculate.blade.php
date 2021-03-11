@@ -1,10 +1,8 @@
 @extends('layouts.admin.app')
-
 @section('content')
-
-
-<link href="{{ asset('/css/template.css') }}" rel="stylesheet">
 <script src="{{ asset('/js/template.js') }}"></script>
+<script src="{{ asset('/js/admin/validation.js') }}"></script>
+<link href="{{ asset('/css/template.css') }}" rel="stylesheet">
 
 <div class="container-field">
   <div class="float-right">
@@ -16,11 +14,11 @@
       </ol>
     </nav>
   </div>
-  <h2 class="mt-3 mb-3">仮押さえ　編集　再計算</h2>
+  <h2 class="mt-3 mb-3">仮押え　編集　再計算</h2>
   <hr>
 </div>
 
-{{ Form::open(['url' => 'admin/pre_reservations/'.$request->id.'/re_calculate', 'method'=>'POST', 'id'=>'']) }}
+{{ Form::open(['url' => 'admin/pre_reservations/'.$request->id.'/re_calculate', 'method'=>'POST', 'id'=>'pre_reservationSingleRecalculateForm']) }}
 @csrf
 <section class="section-wrap">
   <div class="selected_user">
@@ -114,7 +112,7 @@
               <td colspan="2">
                 <p class="title-icon">
                   <i class="fas fa-info-circle icon-size" aria-hidden="true"></i>
-                  仮押さえ情報
+                  仮押え情報
                 </p>
               </td>
             </tr>
@@ -453,22 +451,22 @@
                   @if ($request->email_flag!=0)
                   <div class="radio-box">
                   <p>
-                    {{Form::radio('email_flag', 1, true , ['id' => 'email_flag', 'class' => 'form-check-input'])}}
+                    {{Form::radio('email_flag', 1, true , ['id' => 'email_flag'])}}
                     <label for="{{'email_flag'}}" class="form-check-label">有り</label>
                     </p>
                     <p>
-                    {{Form::radio('email_flag', 0, false, ['id' => 'no_email_flag', 'class' => 'form-check-input'])}}
+                    {{Form::radio('email_flag', 0, false, ['id' => 'no_email_flag'])}}
                     <label for="{{'no_email_flag'}}" class="form-check-label">無し</label>
                     </p>
                   </div>
                   @else
                   <div class="radio-box">
                   <p>
-                    {{Form::radio('email_flag', 1, false , ['id' => 'email_flag', 'class' => 'form-check-input'])}}
+                    {{Form::radio('email_flag', 1, false , ['id' => 'email_flag'])}}
                     <label for="{{'email_flag'}}" class="form-check-label">有り</label>
                     </p>
                     <p>
-                    {{Form::radio('email_flag', 0, true, ['id' => 'no_email_flag', 'class' => 'form-check-input'])}}
+                    {{Form::radio('email_flag', 0, true, ['id' => 'no_email_flag'])}}
                     <label for="{{'no_email_flag'}}" class="form-check-label">無し</label>
                     </p>
                   </div>
@@ -517,7 +515,7 @@
 
   <div class="submit_btn">
     <div class="d-flex justify-content-center">
-      {{-- 単発仮押さえか？一括仮押さえか？ --}}
+      {{-- 単発仮押えか？一括仮押えか？ --}}
       {{ Form::hidden('judge_count', 1 ) }}
       {{-- ユーザー --}}
       {{ Form::hidden('user_id', $request->user_id ) }}
@@ -953,7 +951,7 @@
 
 </div>
 
-{{-- 単発仮押さえか？一括仮押さえか？ --}}
+{{-- 単発仮押えか？一括仮押えか？ --}}
 {{ Form::hidden('judge_count', 1 ) }}
 {{Form::hidden('user_id', $request->user_id)}}
 {{Form::hidden('venue_id', $request->venue_id)}}
