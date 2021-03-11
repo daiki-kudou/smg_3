@@ -1036,7 +1036,7 @@
                             <tr>
                               <td colspan="2"></td>
                               <td colspan="2">合計
-                                {{ Form::text('layout_price'.$key, empty($pre_reservation->pre_bill->layout_price),['class'=>'form-control', 'readonly'] ) }}
+                                {{ Form::text('layout_price'.$key, empty($pre_reservation->pre_bill->layout_price)?0:$pre_reservation->pre_bill->layout_price,['class'=>'form-control', 'readonly'] ) }}
                               </td>
                             </tr>
                           </tbody>
