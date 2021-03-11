@@ -171,8 +171,14 @@
             <tbody>
               <tr>
                 <td class="table-active form_required">{{ Form::label('pay_metdod', '支払方法') }}</td>
-                <td>{{Form::select('pay_metdod', [1=>'銀行振込', 2=>'現金',3=>'クレジットカード', 4=>'スマホ決済'])}}
-                  <p class="is-error-pay_metdod" style="color: red"></p>
+                <td>
+                  <select name="pay_method" id="pay_method">
+                    <option value="1">銀行振込</option>
+                    <option value="2">現金</option>
+                    <option value="3">クレジットカード</option>
+                    <option value="4">スマホ決済</option>
+                  </select>
+                  <p class="is-error-pay_method" style="color: red"></p>
                 </td>
               </tr>
               <tr>
