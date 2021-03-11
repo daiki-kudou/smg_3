@@ -61,6 +61,11 @@ class CreateVenuesTable extends Migration
       // 12/15追加
       $table->integer('layout_prepare')->nullable();
       $table->integer('layout_clean')->nullable();
+      // 3月11日追加
+      $table->string('reserver_company')->nullable();
+      $table->string('reserver_tel')->nullable();
+      $table->string('reserver_fax')->nullable();
+      $table->string('reserver_remark')->nullable();
       $table->softDeletes();
 
       $table->timestamps();
