@@ -44,6 +44,8 @@ class CreateUsersTable extends Migration
       $table->string('attention')->nullable()->comment('注意事項');
       $table->string('remark')->nullable()->comment('備考');
       $table->integer('status')->comment('会員なのか、退会したのか？');
+      $table->integer('admin_or_user'); //1なら管理者 2ならユーザー
+
       $table->rememberToken();
       $table->timestamps();
     });
