@@ -194,6 +194,25 @@ class MultiplesController extends Controller
     return redirect('admin/multiples/' . $request->multiple_id);
   }
 
+  public function agent_add_venue($multiple_id)
+  {
+    $multiple = MultipleReserve::find($multiple_id);
+    $venues = $multiple->pre_reservations()->distinct('')->select('venue_id')->get();
+    $venue_count = $venues->count('venue_id');
+    $_venues = Venue::all();
+    return view('admin.multiples.agent_add_venue', compact('multiple', 'venues', 'venue_count', '_venues'));
+  }
+
+  public function agent_add_venue_store(Request $request)
+  {
+    $multiple = MultipleReserve::find($request->multiple_id);
+    $multiple->MultipleStoreForAgent($request);
+
+    $request->session()->regenerate();
+    return redirect('admin/multiples/agent/' . $request->multiple_id);
+  }
+
+
   public function agent_show($multiple_id)
   {
     $multiple = MultipleReserve::find($multiple_id);

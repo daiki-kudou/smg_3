@@ -144,8 +144,8 @@
         </table>
         <hr class="my-5 border_color">
         <div class="mt-5">
-          <p class="text-right"><a href="{{url('admin/multiples/'.$multiple->id."/add_venue")}}"
-              class="more_btn3">日程を追加する</a></p>
+          <p class="text-right"><a href="{{url('admin/multiples/agent/'.$multiple->id."/add_venue")}}"
+              　class="more_btn3">日程を追加する</a></p>
           <p class="mb-2">詳細を入力する場合は、会場ごとに編集をしてください。</p>
         </div>
         <table class="table table-bordered table-scroll">

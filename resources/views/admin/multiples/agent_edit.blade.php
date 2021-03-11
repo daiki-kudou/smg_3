@@ -1147,7 +1147,8 @@
         <p><a class="btn more_btn_lg" href="">詳細にもどる</a></p>
       </li>
       <li>
-        <p id="master_submit" class="btn more_btn_lg">保存する</p>
+        {{-- <p id="master_submit" class="btn more_btn_lg">保存する</p> --}}
+        <a href="{{url('admin/multiples')}}" class="btn more_btn_lg">保存する</a>
       </li>
     </ul>
   </div>
