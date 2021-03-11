@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 use App\Models\Venue;
 use Illuminate\Support\Facades\DB; //トランザクション用
 
+use Carbon\Carbon;
 
 class PreReservation extends Model
 {
@@ -311,10 +312,11 @@ class PreReservation extends Model
     });
   }
 
-  public function AgentSpecificUpdate($request, $result, $venue_id)
+
+  public function AgentSpecificUpdate($request, $result, $venue_id, $pre_reservation_id)
   {
     $splitKey = $request->split_keys;
-    DB::transaction(function () use ($request, $result, $venue_id, $splitKey) {
+    DB::transaction(function () use ($request, $result, $venue_id, $splitKey, $pre_reservation_id) {
       $this->pre_breakdowns()->delete();
       $this->pre_bill()->delete();
       $this->update([
@@ -338,19 +340,20 @@ class PreReservation extends Model
         'admin_details' => $request->{'admin_details_copied' . $splitKey},
       ]);
 
-      $venue_price = empty($result[0][2]) ? 0 : $result[0][2];
+      $venue_price = 0;
 
-      $equipment_price = empty($result[1][0]) ? 0 : $result[1][0];
+      $equipment_price = 0;
 
-      $layout_price = empty($result[2][2]) ? 0 : $result[2][2];
+      $layout_calc = Venue::find($venue_id);
+      $layout_price = $layout_calc->getLayoutPrice($request->{'layout_prepare_copied' . $splitKey}, $request->{'layout_clean_copied' . $splitKey})[2];
 
-      $luggage_price = $request->{'luggage_price_copied' . $splitKey};
+      $luggage_price = 0;
 
-      $master = $venue_price + $equipment_price + $layout_price + $luggage_price;
+      $master = $result + $layout_price;
 
       $pre_bill = $this->pre_bill()->create([
-        'venue_price' => $venue_price,
-        'equipment_price' => $equipment_price + ((int)$request->{'luggage_price_copied' . $splitKey}),
+        'venue_price' => 0,
+        'equipment_price' => 0,
         'layout_price' => $layout_price,
         'others_price' => 0, //othersは後ほど
         'master_subtotal' => floor($master),
@@ -360,64 +363,46 @@ class PreReservation extends Model
         'category' => 1
       ]);
 
-      if (!empty($result[0][1])) {
-        $venue_prices = ['会場料金', $result[0][0], $result[0][3] - $result[0][4], $result[0][0]];
-        $extend_prices = ['延長料金', $result[0][1], $result[0][4], $result[0][1]];
-      } elseif (empty($result[0][0])) {
-        $venue_prices = [];
-        $extend_prices = [];
-      } else {
-        $venue_prices = ['会場料金', $result[0][0], $result[0][3] - $result[0][4], $result[0][0]];
-        $extend_prices = [];
-      }
 
-      if ($venue_price != 0) {
-        if ($extend_prices) {
+
+      $carbon1 = new Carbon($this->enter_time);
+      $carbon2 = new Carbon($this->leave_time);
+      $usage_hours = $carbon1->diffInMinutes($carbon2);
+      $usage_hours = $usage_hours / 60;
+
+      $pre_bill->pre_breakdowns()->create([
+        'unit_item' => "会場料金",
+        'unit_cost' => 0,
+        'unit_count' => $usage_hours,
+        'unit_subtotal' => 0,
+        'unit_type' => 1,
+      ]);
+
+
+      $equipments = Venue::find($venue_id);
+      foreach ($equipments->equipments()->get() as $key => $equ) {
+        if ($request->{'equipment_breakdown' . $key . '_copied' . $splitKey}) {
           $pre_bill->pre_breakdowns()->create([
-            'unit_item' => $venue_prices[0],
-            'unit_cost' => $venue_prices[1],
-            'unit_count' => $venue_prices[2],
-            'unit_subtotal' => $venue_prices[3],
-            'unit_type' => 1,
-          ]);
-          $pre_bill->pre_breakdowns()->create([
-            'unit_item' => $extend_prices[0],
-            'unit_cost' => $extend_prices[1],
-            'unit_count' => $extend_prices[2],
-            'unit_subtotal' => $extend_prices[3],
-            'unit_type' => 1,
-          ]);
-        } else {
-          $pre_bill->pre_breakdowns()->create([
-            'unit_item' => $venue_prices[0],
-            'unit_cost' => $venue_prices[1],
-            'unit_count' => $venue_prices[2],
-            'unit_subtotal' => $venue_prices[3],
-            'unit_type' => 1,
+            'unit_item' => $equ->item,
+            'unit_cost' => 0,
+            'unit_count' => $request->{'equipment_breakdown' . $key . '_copied' . $splitKey},
+            'unit_subtotal' => 0,
+            'unit_type' => 2,
           ]);
         }
       }
 
-      $equipments = $result[1][1];
-      foreach ($equipments as $key => $equipment) {
-        $pre_bill->pre_breakdowns()->create([
-          'unit_item' => $equipment[0],
-          'unit_cost' => $equipment[1],
-          'unit_count' => $equipment[2],
-          'unit_subtotal' => $equipment[1] * $equipment[2],
-          'unit_type' => 2,
-        ]);
-      }
-
-      $services = ($result[1][2]);
-      foreach ($services as $key => $service) {
-        $pre_bill->pre_breakdowns()->create([
-          'unit_item' => $service[0],
-          'unit_cost' => $service[1],
-          'unit_count' => $service[2],
-          'unit_subtotal' => $service[1] * $service[2],
-          'unit_type' => 3,
-        ]);
+      $services = Venue::find($venue_id);
+      foreach ($services->services()->get() as $key => $ser) {
+        if ($request->{'services_breakdown' . $key . '_copied' . $splitKey} != 0) {
+          $pre_bill->pre_breakdowns()->create([
+            'unit_item' => $ser->item,
+            'unit_cost' => 0,
+            'unit_count' => $request->{'services_breakdown' . $key . '_copied' . $splitKey},
+            'unit_subtotal' => 0,
+            'unit_type' => 3,
+          ]);
+        }
       }
 
       if ($request->{'luggage_price_copied' . $splitKey}) {

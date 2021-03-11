@@ -787,15 +787,9 @@
                         <tr>
                           <td class="table-active"><label for="ondayName">支払い料</label></td>
                           <td>
-                            {{ Form::text('in_charge_copied'.$key, empty($pre_reservation->pre_enduser->charge)?0:$pre_reservation->pre_enduser->charge,['class'=>'form-control'] ) }}
+                            {{ Form::text('enduser_charge_copied'.$key, empty($pre_reservation->pre_enduser->charge)?0:$pre_reservation->pre_enduser->charge,['class'=>'form-control'] ) }}
                           </td>
                         </tr>
-                        {{-- <tr>
-                    <td class="table-active"><label for="mobilePhone">携帯番号</label></td>
-                    <td>
-                      {{ Form::text('tel_copied'.$key, $pre_reservation->tel,['class'=>'form-control'] ) }}
-                        </td>
-                        </tr> --}}
                       </tbody>
                     </table>
                   </div>
