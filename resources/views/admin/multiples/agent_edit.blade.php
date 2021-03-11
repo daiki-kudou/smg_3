@@ -787,7 +787,7 @@
                         <tr>
                           <td class="table-active"><label for="ondayName">支払い料</label></td>
                           <td>
-                            {{ Form::text('in_charge_copied'.$key, $pre_reservation->pre_enduser->charge,['class'=>'form-control'] ) }}
+                            {{ Form::text('in_charge_copied'.$key, empty($pre_reservation->pre_enduser->charge)?0:$pre_reservation->pre_enduser->charge,['class'=>'form-control'] ) }}
                           </td>
                         </tr>
                         {{-- <tr>
@@ -844,6 +844,7 @@
               </div>
               <div class="btn_wrapper">
                 <p class="text-center">
+                  {{Form::hidden('agent_id',$pre_reservation->agent_id)}}
                   {{ Form::submit('請求に反映する', ['class' => 'btn more_btn_lg'])}}
                 </p>
                 {{ Form::close() }}
@@ -1041,7 +1042,7 @@
                             <tr>
                               <td colspan="2"></td>
                               <td colspan="2">合計
-                                {{ Form::text('layout_price'.$key, $pre_reservation->pre_bill->layout_price,['class'=>'form-control', 'readonly'] ) }}
+                                {{ Form::text('layout_price'.$key, empty($pre_reservation->pre_bill->layout_price),['class'=>'form-control', 'readonly'] ) }}
                               </td>
                             </tr>
                           </tbody>

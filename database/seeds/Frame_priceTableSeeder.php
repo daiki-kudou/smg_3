@@ -77,7 +77,7 @@ class Frame_priceTableSeeder extends Seeder
 
 
     Frame_price::create([
-      'venue_id' => 2,
+      'venue_id' => 11,
       'frame' => '午前',
       'start' => '10:00:00',
       'finish' => '12:00:00',
@@ -86,7 +86,7 @@ class Frame_priceTableSeeder extends Seeder
     ]);
 
     Frame_price::create([
-      'venue_id' => 2,
+      'venue_id' => 11,
       'frame' => '午後',
       'start' => '13:00:00',
       'finish' => '17:00:00',
@@ -95,7 +95,7 @@ class Frame_priceTableSeeder extends Seeder
     ]);
 
     Frame_price::create([
-      'venue_id' => 2,
+      'venue_id' => 11,
       'frame' => '夜間',
       'start' => '18:00:00',
       'finish' => '23:00:00',
@@ -104,7 +104,7 @@ class Frame_priceTableSeeder extends Seeder
     ]);
 
     Frame_price::create([
-      'venue_id' => 2,
+      'venue_id' => 11,
       'frame' => '午前＆午後',
       'start' => '10:00:00',
       'finish' => '17:00:00',
@@ -113,7 +113,7 @@ class Frame_priceTableSeeder extends Seeder
     ]);
 
     Frame_price::create([
-      'venue_id' => 2,
+      'venue_id' => 11,
       'frame' => '午後＆夜間',
       'start' => '13:00:00',
       'finish' => '21:00:00',
@@ -122,7 +122,7 @@ class Frame_priceTableSeeder extends Seeder
     ]);
 
     Frame_price::create([
-      'venue_id' => 2,
+      'venue_id' => 11,
       'frame' => '終日',
       'start' => '10:00:00',
       'finish' => '21:00:00',
@@ -138,7 +138,7 @@ class Frame_priceTableSeeder extends Seeder
 
 
     Frame_price::create([
-      'venue_id' => 3,
+      'venue_id' => 21,
       'frame' => '午前',
       'start' => '10:00:00',
       'finish' => '12:00:00',
@@ -147,7 +147,7 @@ class Frame_priceTableSeeder extends Seeder
     ]);
 
     Frame_price::create([
-      'venue_id' => 3,
+      'venue_id' => 21,
       'frame' => '午後',
       'start' => '13:00:00',
       'finish' => '17:00:00',
@@ -156,7 +156,7 @@ class Frame_priceTableSeeder extends Seeder
     ]);
 
     Frame_price::create([
-      'venue_id' => 3,
+      'venue_id' => 21,
       'frame' => '夜間',
       'start' => '18:00:00',
       'finish' => '23:00:00',
@@ -165,7 +165,7 @@ class Frame_priceTableSeeder extends Seeder
     ]);
 
     Frame_price::create([
-      'venue_id' => 3,
+      'venue_id' => 21,
       'frame' => '午前＆午後',
       'start' => '10:00:00',
       'finish' => '17:00:00',
@@ -174,7 +174,7 @@ class Frame_priceTableSeeder extends Seeder
     ]);
 
     Frame_price::create([
-      'venue_id' => 3,
+      'venue_id' => 21,
       'frame' => '午後＆夜間',
       'start' => '13:00:00',
       'finish' => '21:00:00',
@@ -183,7 +183,7 @@ class Frame_priceTableSeeder extends Seeder
     ]);
 
     Frame_price::create([
-      'venue_id' => 3,
+      'venue_id' => 21,
       'frame' => '終日',
       'start' => '10:00:00',
       'finish' => '21:00:00',

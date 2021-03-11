@@ -104,9 +104,6 @@ class MultiplesController extends Controller
 
   public function agent_calculate(Request $request, $multiple_id, $venue_id)
   {
-    echo "<pre>";
-    var_dump($request->all());
-    echo "</pre>";
     $multiple = MultipleReserve::find($multiple_id);
     // $venue = Venue::find($venue_id);
     $agent = Agent::find($request->agent_id);
@@ -118,11 +115,32 @@ class MultiplesController extends Controller
 
   public function specificUpdate(Request $request, $multiple_id, $venue_id, $pre_reservation_id)
   {
-    var_dump($request->all());
     $pre_reservation = PreReservation::find($pre_reservation_id);
     $result = $pre_reservation->reCalculateVenue($request, $venue_id);
     $pre_reservation->specificUpdate($request, $result, $venue_id);
     return redirect('admin/multiples/' . $multiple_id . '/edit/' . $venue_id);
+  }
+
+  public function agent_specificUpdate(Request $request, $multiple_id, $venue_id, $pre_reservation_id)
+  {
+    echo "<pre>";
+    var_dump($request->all());
+    echo "</pre>";
+    echo "<pre>";
+    var_dump($multiple_id);
+    echo "</pre>";
+    echo "<pre>";
+    var_dump($venue_id);
+    echo "</pre>";
+    echo "<pre>";
+    var_dump($pre_reservation_id);
+    echo "</pre>";
+
+    $pre_reservation = PreReservation::find($pre_reservation_id);
+    $agent = Agent::find($request->agent_id);
+    $result = $agent->agentPriceCalculate($request->cp_master_enduser_charge);
+
+    $pre_reservation->specificUpdate($request, $result, $venue_id);
   }
 
   public function allUpdates(Request $request, $multiples_id, $venues_id)

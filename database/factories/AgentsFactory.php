@@ -7,15 +7,16 @@ use Faker\Generator as Faker;
 
 $factory->define(Agent::class, function (Faker $faker) {
   return [
-    'name' => $faker->company,
+    'name' => $faker->userName,
+    'company' => $faker->company,
     'post_code' => $faker->postcode,
     'address1' => $faker->city,
     'address2' => $faker->streetName,
     'address3' => $faker->streetAddress,
-    'address_remark' => $faker->sentence,
-    'url' => $faker->url,
-    'attr' => 1,
-    'remark' => $faker->text,
+    // 'address_remark' => $faker->sentence,
+    // 'url' => $faker->url,
+    // 'attr' => 1,
+    // 'remark' => $faker->text,
     'person_firstname'  => $faker->firstName,
     'person_lastname'  => $faker->lastName,
     'firstname_kana'   => $faker->firstName,
