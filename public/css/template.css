@@ -138,6 +138,11 @@ table.dataTable thead .sorting_desc:after {
     border-top: 0px solid;
 }
 
+.table th {
+    /* background: #e8ecf1; */
+    background: rgba(0, 0, 0, 0.075);
+}
+
 .border-info {
     border-color: white;
 }
@@ -912,6 +917,10 @@ table td.table_column p:last-child {
     width: 33%;
 }
 
+.alliance_color {
+    color: red;
+}
+
 
 
 /* =============売上請求　一覧================================================ */
@@ -926,6 +935,12 @@ table td.table_column p:last-child {
     padding: 0.5em 5em;
     border: 1px solid #3E4B5B;
 }
+
+/* =============メールテンプレート　一覧================================================ */
+.mail_template tbody tr td:last-child {
+    text-align: center;
+}
+
 
 
 

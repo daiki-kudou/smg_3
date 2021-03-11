@@ -17,13 +17,13 @@
     <hr>
   </div>
   <div class="container-field">
-    <table class="table table-bordered mt-5">
+    <table class="table table-bordered mt-5 mail_template">
       <thead>
-        <tr>
-          <th>配信タイミング</th>
+        <tr class="table_row">
+          <th width="30%">配信タイミング</th>
           <th>件名</th>
           <th>送付先</th>
-          <th width="10%" class="btn-cell">詳細</th>
+          <th class="btn-cell">詳細</th>
         </tr>
       </thead>
 
