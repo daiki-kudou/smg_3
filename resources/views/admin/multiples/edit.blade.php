@@ -1389,7 +1389,7 @@
             <td colspan="2">
               <h3>
                 合計請求額
-                <span>({{$multiple->pre_reservations()->get()->count()}}件分)</span>
+                <span>({{$multiple->pre_reservations()->where('venue_id',$venue->id)->get()->count()}}件分)</span>
               </h3>
             </td>
           </tr>
