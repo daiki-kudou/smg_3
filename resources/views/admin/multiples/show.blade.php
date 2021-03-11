@@ -159,10 +159,6 @@
               </td>
               <td class="text-center"><a class="more_btn"
                   href="{{url('admin/multiples/'.$multiple->id.'/edit'.'/'.$venues[$i]->venue_id)}}">編集</a></td>
-              <!-- <td class="text-center">
-                <a class="more_btn"
-                  href="{{url('admin/multiples/'.$multiple->id.'/add_date'.'/'.$venues[$i]->venue_id)}}">日程の追加をする</a>
-              </td> -->
               </tr>
               @else
               <tr>
@@ -174,10 +170,6 @@
                   <a class="more_btn"
                     href="{{url('admin/multiples/'.$multiple->id.'/edit'.'/'.$venues[$i]->venue_id)}}">編集</a>
                 </td>
-                <!-- <td class="text-center">
-                  <a class="more_btn"
-                    href="{{url('admin/multiples/'.$multiple->id.'/add_date'.'/'.$venues[$i]->venue_id)}}">日程の追加をする</a>
-                </td> -->
               </tr>
               @endif
               @endfor

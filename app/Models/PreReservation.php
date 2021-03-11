@@ -340,11 +340,9 @@ class PreReservation extends Model
         'admin_details' => $request->{'admin_details_copied' . $splitKey},
       ]);
 
-      $this->pre_enduser()->update(
-        [
-          'charge' => $request->{'enduser_charge_copied' . $splitKey},
-        ]
-      );
+      $this->pre_enduser()->update([
+        'charge' => $request->{'enduser_charge_copied' . $splitKey},
+      ]);
 
       $venue_price = 0;
       $equipment_price = 0;
