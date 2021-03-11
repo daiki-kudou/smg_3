@@ -103,7 +103,7 @@
                         </div>
                       </td>
                     </tr>
-                    <tr>
+                    <!-- <tr>
                       <td class="table-active"><label for="eventTime">イベント時間記載</label></td>
                       <td>
                         <div class="radio-box">
@@ -117,7 +117,7 @@
                           </p>
                         </div>
                       </td>
-                    </tr>
+                    </tr> -->
                     <tr>
                       <td class="table-active"><label for="eventStart">イベント開始時間</label></td>
                       <td>
@@ -287,7 +287,7 @@
                     <tr>
                       <th colspan='2'>
                         <p class="title-icon">
-                          <i class="fas fa-suitcase-rolling icon-size fa-fw"></i>室内飲食
+                          <i class="fas fa-utensils icon-size fa-fw"></i>室内飲食
                         </p>
                       </th>
                     </tr>
@@ -548,7 +548,7 @@
                           </div>
                         </td>
                       </tr>
-                      <tr>
+                      <!-- <tr>
                         <td class="table-active"><label for="eventTime">イベント時間記載</label></td>
                         <td>
                           <div class="radio-box">
@@ -562,7 +562,7 @@
                             </p>
                           </div>
                         </td>
-                      </tr>
+                      </tr> -->
                       <tr>
                         <td class="table-active"><label for="eventStart">イベント開始時間</label></td>
                         <td>
@@ -746,7 +746,7 @@
                       <tr>
                         <th colspan='2'>
                           <p class="title-icon">
-                            <i class="fas fa-suitcase-rolling icon-size fa-fw"></i>室内飲食
+                            <i class="fas fa-utensils icon-size fa-fw"></i>室内飲食
                           </p>
                         </th>
                       </tr>
