@@ -41,5 +41,6 @@ $factory->define(User::class, function (Faker $faker) {
     'pay_address2' => "ダミーデータ",
     'pay_address3' => "ダミーデータ",
     'pay_remark' => "ダミーデータ" . $faker->realText(20),
+    'admin_or_user' => 1,
   ];
 });
