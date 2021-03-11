@@ -17,6 +17,7 @@ class PreEndUser extends Model
     'tel',
     'address',
     'attr',
+    'charge',
   ];
 
   public function pre_reservation()

@@ -141,44 +141,46 @@
                   class="checkbox" />
               </td>
               <td>{{$multiple->id}}</td>
-              <td>{{$multiple->created_at}}</td> {{--作成日--}}
-              <td>{{$multiple->pre_reservations_count}}</td>{{--件数--}}
+              <td>{{$multiple->created_at}}</td>
+              <td>{{$multiple->pre_reservations_count}}</td>
+              {{-- <pre>{{var_dump($multiple->pre_reservations()->first())}}</pre> --}}
               @if ($multiple->pre_reservations()->first()->user_id==0)
               <td>{{(ReservationHelper::getAgentCompany($multiple->pre_reservations()->first()->agent_id))}}</td>
-              {{--会社名--}}
+
               <td>{{(ReservationHelper::getAgentPerson($multiple->pre_reservations()->first()->agent_id))}}</td>
-              {{-- 担当者指名 --}}
+
               <td>{{(ReservationHelper::getAgentMobile($multiple->pre_reservations()->first()->agent_id))}}</td>
-              {{-- 携帯 --}}
+
               <td>{{(ReservationHelper::getAgentTel($multiple->pre_reservations()->first()->agent_id))}}</td>
-              {{-- 固定 --}}
+
               <td></td>
-              {{-- 会社名仮 --}}
+
               <td>{{(ReservationHelper::getAgentCompany($multiple->pre_reservations()->first()->agent_id))}}</td>
-              {{-- 仲介会社 --}}
+
               <td>
                 {{empty($multiple->pre_reservations()->first()->pre_enduser()->company)?"":$multiple->pre_reservations()->first()->pre_enduser()->company}}
               </td>
-              {{-- エンドユーザー --}}
-              <td class="text-center"><a href="{{url('admin/multiples/agent/'.$multiple->id)}}"
-                  class="btn more_btn">詳細</a></td>
+
+              <td class="text-center">
+                <a href="{{url('admin/multiples/agent/'.$multiple->id)}}" class="btn more_btn">詳細</a>
+              </td>
               @else
               <td>{{(ReservationHelper::getCompany($multiple->pre_reservations()->first()->user_id))}}</td>
-              {{--会社名--}}
+
               <td>{{(ReservationHelper::getPersonName($multiple->pre_reservations()->first()->user_id))}}</td>
-              {{-- 担当者 --}}
+
               <td>{{(ReservationHelper::getPersonMobile($multiple->pre_reservations()->first()->user_id))}}</td>
-              {{-- 携帯 --}}
+
               <td>{{(ReservationHelper::getPersonTel($multiple->pre_reservations()->first()->user_id))}}</td>
-              {{-- 固定 --}}
+
               <td>
                 {{empty($multiple->pre_reservations->first()->unknown_user()->unknown_user_company)?"":$multiple->pre_reservations->first()->unknown_user()->unknown_user_company}}
               </td>
-              {{-- 会社名仮 --}}
+
               <td></td>
-              {{-- 仲介会社 --}}
+
               <td></td>
-              {{-- エンドユーザー --}}
+
               <td class="text-center"><a href="{{url('admin/multiples/'.$multiple->id)}}" class="btn more_btn">詳細</a>
               </td>
               @endif

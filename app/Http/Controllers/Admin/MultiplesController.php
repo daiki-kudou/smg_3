@@ -9,6 +9,7 @@ use App\Models\MultipleReserve;
 use App\Models\PreReservation;
 use App\Models\Venue;
 use App\Models\User;
+use App\Models\Agent;
 
 use Illuminate\Support\Facades\DB; //トランザクション用
 
@@ -77,22 +78,49 @@ class MultiplesController extends Controller
     ]);
   }
 
-  public function calculate(Request $request, $multiple_id, $venue_id)
+  public function agent_edit($multiple_id, $venue_id)
   {
-
     $multiple = MultipleReserve::find($multiple_id);
     $venue = Venue::find($venue_id);
+    return view('admin.multiples.agent_edit', [
+      'multiple' => $multiple,
+      'venue' => $venue,
+    ]);
+  }
 
+  public function calculate(Request $request, $multiple_id, $venue_id)
+  {
+    $multiple = MultipleReserve::find($multiple_id);
+    $venue = Venue::find($venue_id);
     $result = $multiple->calculateVenue($venue_id, $request); //0に会場料金　1にサービス　2にレイアウト
-
     $multiple->preStore($venue_id, $request, $result);
-
     return view('admin.multiples.calculate', [
       'multiple' => $multiple,
       'venue' => $venue,
       'request' => $request,
       'result' => $result,
     ]);
+  }
+
+  public function agent_calculate(Request $request, $multiple_id, $venue_id)
+  {
+    echo "<pre>";
+    var_dump($request->all());
+    echo "</pre>";
+    $multiple = MultipleReserve::find($multiple_id);
+    // $venue = Venue::find($venue_id);
+    $agent = Agent::find($request->agent_id);
+    $result = $agent->agentPriceCalculate($request->cp_master_enduser_charge);
+    $multiple->AgentPreStore($venue_id, $request, $result);
+    // $multiple->AgentPreStore($venue_id, $request);
+    // $result = $multiple->calculateVenue($venue_id, $request); //0に会場料金　1にサービス　2にレイアウト
+    // $multiple->preStore($venue_id, $request, $result);
+    // return view('admin.multiples.calculate', [
+    //   'multiple' => $multiple,
+    //   'venue' => $venue,
+    //   'request' => $request,
+    //   'result' => $result,
+    // ]);
   }
 
   public function specificUpdate(Request $request, $multiple_id, $venue_id, $pre_reservation_id)
@@ -145,5 +173,14 @@ class MultiplesController extends Controller
 
     $request->session()->regenerate();
     return redirect('admin/multiples/' . $request->multiple_id);
+  }
+
+  public function agent_show($multiple_id)
+  {
+    $multiple = MultipleReserve::find($multiple_id);
+    $venues = $multiple->pre_reservations()->distinct('')->select('venue_id')->get();
+    $venue_count = $venues->count('venue_id');
+    $_venues = Venue::all();
+    return view('admin.multiples.agent_show', compact('multiple', 'venues', 'venue_count', '_venues'));
   }
 }
