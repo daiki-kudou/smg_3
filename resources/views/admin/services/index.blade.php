@@ -53,7 +53,7 @@
       <div class="col-sm-12">
         <table class="table table-bordered">
           <thead>
-            <tr>
+            <tr class="table_row">
               <th>ID</th>
               <th>登録日</th>
               <th>有料サービス名</th>
@@ -73,12 +73,12 @@
               <td>
                 <p class="remark_limit">{{ $query->remark }}</p>
               </td>
-              <td>
+              <td class="text-center">
                 {{ link_to_route('admin.services.edit', '編集', $parameters = $query->id, ['class' => 'btn more_btn']) }}
                 {{ Form::model($query, ['route' => ['admin.services.destroy', $query->id], 'method' => 'delete']) }}
                 @csrf
               </td>
-              <td>
+              <td class="text-center">
                 {{ Form::submit('削除', ['class' => 'btn more_btn4']) }}
                 {{ Form::close() }}
               </td>

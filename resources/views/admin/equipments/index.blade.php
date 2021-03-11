@@ -74,12 +74,12 @@
               <td>
                 <p class="remark_limit">{{ $query->remark }}</p>
                 </td>
-              <td>
+              <td class="text-center">
                 {{ link_to_route('admin.equipments.edit', '編集', $parameters = $query->id, ['class' => 'btn more_btn']) }}
                 {{ Form::model($query, ['route' => ['admin.equipments.destroy', $query->id], 'method' => 'delete']) }}
                 @csrf
               </td>
-              <td>
+              <td class="text-center">
                 {{ Form::submit('削除', ['class' => 'btn more_btn4']) }}
                 {{ Form::close() }}
               </td>

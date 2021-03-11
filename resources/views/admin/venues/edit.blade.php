@@ -77,14 +77,14 @@
                 <tr>
                   <td colspan="2">
                     <p class="title-icon">
-                      <i class="fas fa-exclamation-circle icon-size fa-fw" aria-hidden="true"></i>基本情報
+                      <i class="fas fa-exclamation-circle icon-size fa-fw" aria-hidden="true"></i>ビル情報
                     </p>
                   </td>
                 </tr>
               </thead>
               <tbody>
                 <tr>
-                  <th class="table-active form_required" id="alliance_flag">ビル情報</th>
+                  <th class="table-active form_required" id="alliance_flag">直/提</th>
                   <td class="d-flex">
                     <p class="mr-3">
                       <label for="alliance_flag">直営</label>
