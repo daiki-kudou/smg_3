@@ -248,6 +248,13 @@ Route::namespace('Admin')->prefix('admin')->name('admin.')->group(function () {
     Route::get('multiples/{multiples}/add_venue', 'MultiplesController@add_venue');
     // 一括仮押さえ、会場の追加保存
     Route::post('multiples/{multiples}/add_venue_store', 'MultiplesController@add_venue_store');
+    // 一括仮押さえ、詳細。仲介会社用
+    Route::get('multiples/agent/{multiples}', 'MultiplesController@agent_show');
+    // 仲介会社一括編集
+    Route::get('multiples/agent/{multiples}/edit/{venues}', 'MultiplesController@agent_edit');
+    // 仲介会社　一括　計算
+    Route::post('multiples/agent/{multiples}/edit/{venues}/calculate', 'MultiplesController@agent_calculate');
+
 
 
     // 仲介会社　仮押え 作成

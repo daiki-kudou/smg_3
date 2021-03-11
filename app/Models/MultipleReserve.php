@@ -12,7 +12,7 @@ use App\Models\PreBill;
 use App\Models\PreBreakdown;
 use Illuminate\Support\Facades\DB; //トランザクション用
 
-
+use Carbon\Carbon;
 
 class MultipleReserve extends Model implements PresentableInterface //プレゼンタをインプリメント
 {
@@ -547,6 +547,200 @@ class MultipleReserve extends Model implements PresentableInterface //プレゼ�
           'leave_time' => $request->{'pre_leave' . $i},
           'status' => 0
         ]);
+      }
+    });
+  }
+
+  public function MultipleStoreForAgent($request)
+  {
+    DB::transaction(function () use ($request) { //トランザクションさせる
+      $counters = [];
+      foreach ($request->all() as $key => $value) {
+        if (preg_match('/pre_date/', $key)) {
+          $counters[] = $value;
+        }
+      }
+      $counters = count($counters);
+      for ($i = 0; $i < $counters; $i++) {
+        $pre_reservations = $this->pre_reservations()->create([
+          'venue_id' => $request->{'pre_venue' . $i},
+          'user_id' => 0,
+          'agent_id' => $request->agent_id,
+          'reserve_date' => $request->{'pre_date' . $i},
+          'enter_time' => $request->{'pre_enter' . $i},
+          'leave_time' => $request->{'pre_leave' . $i},
+          'status' => 0
+        ]);
+
+        if ($request->pre_enduser_company || $request->pre_enduser_name || $request->pre_enduser_address || $request->pre_enduser_tel || $request->pre_enduser_mobile || $request->pre_enduser_email || $request->pre_enduser_attr) {
+          $pre_reservations->pre_enduser()->create([
+            "company" => $request->pre_enduser_company,
+            "person" => $request->pre_enduser_name,
+            "email" => $request->pre_enduser_email,
+            "mobile" => $request->pre_enduser_mobile,
+            "tel" => $request->pre_enduser_tel,
+            "address" => $request->pre_enduser_address,
+            "attr" => $request->pre_enduser_attr,
+            "charge" => 0,
+          ]);
+        }
+      }
+    });
+  }
+
+
+  public function AgentPreStore($venue_id, $requests, $result)
+  {
+    $pre_reservations = $this->pre_reservations()->where('venue_id', $venue_id)->orderBy('id')->get();
+
+    DB::transaction(function () use ($venue_id, $requests, $result, $pre_reservations) {
+      foreach ($pre_reservations as $key => $pre_reservation) {
+        $pre_reservation->update([
+          'price_system' => $requests->cp_master_price_system,
+          'board_flag' => $requests->cp_master_board_flag,
+          'event_start' => $requests->cp_master_event_start,
+          'event_finish' => $requests->cp_master_event_finish,
+          'event_name1' => $requests->cp_master_event_name1,
+          'event_name2' => $requests->cp_master_event_name2,
+          'event_owner' => $requests->cp_master_event_owner,
+          'luggage_count' => $requests->cp_master_luggage_count,
+          'luggage_arrive' => $requests->cp_master_luggage_arrive,
+          'luggage_return' => $requests->cp_master_luggage_return,
+          'email_flag' => $requests->cp_master_email_flag,
+          // 'in_charge' => $requests->cp_master_in_charge,
+          // 'tel' => $requests->cp_master_tel,
+          'discount_condition' => $requests->cp_master_discount_condition,
+          'attention' => $requests->cp_master_attention,
+          'admin_details' => $requests->cp_master_admin_details,
+          'status' => 0,
+          'eat_in' => $requests->cp_master_eat_in,
+          'eat_in_prepare' => $requests->cp_master_eat_in_prepare,
+        ]);
+
+        $pre_reservation->pre_enduser()->update([
+          "charge" => $requests->cp_master_enduser_charge
+        ]);
+
+        $venue_price = 0;
+        $equipment_price = 0;
+        $layout_calc = new Venue;
+        $layout_price = $layout_calc->getLayoutPrice($requests->cp_master_layout_prepare, $requests->cp_master_layout_clean)[2];
+        $luggage_price = 0;
+
+        $master = $result + $layout_price;
+
+        if (empty($pre_reservation->pre_bill)) {
+          $pre_bill = $pre_reservation->pre_bill()->create([
+            'venue_price' => 0,
+            'equipment_price' => 0,
+            'layout_price' => $layout_price,
+            'others_price' => 0, //othersは後ほど
+            'master_subtotal' => floor($master),
+            'master_tax' => floor($master * 0.1),
+            'master_total' => floor(($master) + ($master * 0.1)),
+            'reservation_status' => 0,
+            'category' => 1
+          ]);
+        } else {
+          $pre_reservation->pre_breakdowns()->delete();
+          $pre_reservation->pre_bill()->delete();
+          $pre_bill = $pre_reservation->pre_bill()->create([
+            'venue_price' => 0,
+            'equipment_price' => 0,
+            'layout_price' => $layout_price,
+            'others_price' => 0, //othersは後ほど
+            'master_subtotal' => floor($master),
+            'master_tax' => floor($master * 0.1),
+            'master_total' => floor(($master) + ($master * 0.1)),
+            'reservation_status' => 0,
+            'category' => 1
+          ]);
+        }
+
+        // if (!empty($result[0][$key][1])) {
+        //   $venue_prices = ['会場料金', $result[0][$key][0], $result[0][$key][3] - $result[0][$key][4], $result[0][$key][0]];
+        //   $extend_prices = ['延長料金', $result[0][$key][1], $result[0][$key][4], $result[0][$key][1]];
+        // } elseif (empty($result[0][$key][0])) {
+        //   $venue_prices = [];
+        //   $extend_prices = [];
+        // } else {
+        //   $venue_prices = ['会場料金', $result[0][$key][0], $result[0][$key][3] - $result[0][$key][4], $result[0][$key][0]];
+        //   $extend_prices = [];
+        // }
+
+        $carbon1 = new Carbon($pre_reservation->enter_time);
+        $carbon2 = new Carbon($pre_reservation->leave_time);
+        $usage_hours = $carbon1->diffInMinutes($carbon2);
+        $usage_hours = $usage_hours / 60;
+
+        $pre_bill->pre_breakdowns()->create([
+          'unit_item' => "会場料金",
+          'unit_cost' => 0,
+          'unit_count' => $usage_hours,
+          'unit_subtotal' => 0,
+          'unit_type' => 1,
+        ]);
+
+
+        $equipments = Venue::find($venue_id);
+        foreach ($equipments->equipments()->get() as $key => $equ) {
+          if ($requests->{'cp_master_equipment_breakdown' . $key}) {
+            $pre_bill->pre_breakdowns()->create([
+              'unit_item' => $equ->item,
+              'unit_cost' => 0,
+              'unit_count' => $requests->{'cp_master_equipment_breakdown' . $key},
+              'unit_subtotal' => 0,
+              'unit_type' => 2,
+            ]);
+          }
+        }
+
+        $services = Venue::find($venue_id);
+        foreach ($services->services()->get() as $key => $ser) {
+          if ($requests->{'cp_master_services_breakdown' . $key} != 0) {
+            $pre_bill->pre_breakdowns()->create([
+              'unit_item' => $ser->item,
+              'unit_cost' => 0,
+              'unit_count' => $requests->{'cp_master_services_breakdown' . $key},
+              'unit_subtotal' => 0,
+              'unit_type' => 3,
+            ]);
+          }
+        }
+
+        if ($requests->cp_master_luggage_price) {
+          $pre_bill->pre_breakdowns()->create([
+            'unit_item' => '荷物預かり/返送',
+            // 'unit_cost' => $requests->cp_master_luggage_price,
+            'unit_cost' => 0,
+            'unit_count' => 1,
+            // 'unit_subtotal' => $requests->cp_master_luggage_price,
+            'unit_subtotal' => 0,
+            'unit_type' => 3,
+          ]);
+        }
+
+        $prepare = Venue::find($venue_id)->layout_prepare;
+        if ($requests->cp_master_layout_prepare == 1) {
+          $pre_bill->pre_breakdowns()->create([
+            'unit_item' => 'レイアウト準備料金',
+            'unit_cost' => $prepare,
+            'unit_count' => 1,
+            'unit_subtotal' => $prepare,
+            'unit_type' => 4,
+          ]);
+        }
+
+        $clean = Venue::find($venue_id)->layout_clean;
+        if ($requests->cp_master_layout_clean == 1) {
+          $pre_bill->pre_breakdowns()->create([
+            'unit_item' => 'レイアウト片付料金',
+            'unit_cost' => $clean,
+            'unit_count' => 1,
+            'unit_subtotal' => $clean,
+            'unit_type' => 4,
+          ]);
+        }
       }
     });
   }
