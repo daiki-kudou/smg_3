@@ -190,6 +190,8 @@
                     @endforeach
                   </tbody>
                 </table>
+
+                @if ($venue->layout==1)
                 <table class="table table-bordered layout-table">
                   <thead>
                     <tr>
@@ -229,7 +231,9 @@
                     @endif
                   </tbody>
                 </table>
+                @endif
 
+                @if ($venue->luggage_flag==1)
                 <table class="table table-bordered luggage-table" style="table-layout: fixed;">
                   <thead>
                     <tr>
@@ -260,15 +264,16 @@
                         {{ Form::text('cp_master_luggage_return', '',['class'=>'form-control'] ) }}
                       </td>
                     </tr>
-                    <tr>
-                      <td class="table-active">荷物預かり/返送<br>料金</td>
-                      <td>
-                        {{ Form::text('cp_master_luggage_price', '',['class'=>'form-control'] ) }}
-                      </td>
-                    </tr>
+                    {{-- <tr>
+                  <td class="table-active">荷物預かり/返送<br>料金</td>
+                  <td>
+                    {{ Form::text('cp_master_luggage_price', '',['class'=>'form-control'] ) }}
+                    </td>
+                    </tr> --}}
                     @endif
                   </tbody>
                 </table>
+                @endif
 
 
                 @if ($venue->eat_in_flag==1)
@@ -629,6 +634,7 @@
                     </tbody>
                   </table>
 
+                  @if ($venue->layout==1)
                   <table class="table table-bordered layout-table">
                     <thead>
                       <tr>
@@ -684,7 +690,9 @@
                       </tr>
                     </tbody>
                   </table>
+                  @endif
 
+                  @if ($venue->luggage_flag==1)
                   <table class="table table-bordered luggage-table" style="table-layout: fixed;">
                     <thead>
                       <tr>
@@ -715,21 +723,25 @@
                         </td>
                       </tr>
 
-                      <tr>
-                        <td class="table-active">荷物預かり/返送<br>料金</td>
-                        <td>
-                          @foreach ($pre_reservation->pre_breakdowns()->get() as $lugg)
-                          @if ($lugg->unit_item=="荷物預かり/返送")
-                          {{ Form::text('luggage_price_copied'.$key, $lugg->unit_cost,['class'=>'form-control'] ) }}
-                          @break
-                          @elseif($loop->last)
-                          {{ Form::text('luggage_price_copied'.$key, '',['class'=>'form-control'] ) }}
-                          @endif
-                          @endforeach
-                        </td>
-                      </tr>
+                      {{-- <tr>
+                    <td class="table-active">荷物預かり/返送<br>料金</td>
+                    <td>
+                      @foreach ($pre_reservation->pre_breakdowns()->get() as $lugg)
+                      @if ($lugg->unit_item=="荷物預かり/返送")
+                      {{ Form::text('luggage_price_copied'.$key, $lugg->unit_cost,['class'=>'form-control'] ) }}
+                      @break
+                      @elseif($loop->last)
+                      {{ Form::text('luggage_price_copied'.$key, '',['class'=>'form-control'] ) }}
+                      @endif
+                      @endforeach
+                      </td>
+                      </tr> --}}
                     </tbody>
                   </table>
+                  @endif
+
+
+
                   <table class="table table-bordered eating-table">
                     <thead>
                       <tr>
@@ -743,11 +755,11 @@
                     <tbody>
                       <tr>
                         <td>
-                          {{Form::radio('eat_in_copied'.$key, 1, false , ['id' => 'eat_in_copied'.$key])}}
+                          {{Form::radio('eat_in_copied'.$key, 1, $pre_reservation->eat_in==1?true:false , ['id' => 'eat_in_copied'.$key])}}
                           {{Form::label('eat_in_copied'.$key,"あり")}}
                         </td>
                         <td>
-                          {{Form::radio('eat_in_prepare_copied'.$key, 1, "" , ['id' => 'eat_in_prepare_copied'.$key])}}
+                          {{Form::radio('eat_in_prepare_copied'.$key, 1, $pre_reservation->eat_in_prepare==1?true:false, ['id' => 'eat_in_prepare_copied'.$key])}}
                           {{Form::label('eat_in_prepare_copied'.$key,"手配済み")}}
                           {{Form::radio('eat_in_prepare_copied'.$key, 2, "" , ['id' => 'eat_in_consider_copied'.$key])}}
                           {{Form::label('eat_in_consider_copied'.$key,"検討中")}}
@@ -755,7 +767,7 @@
                       </tr>
                       <tr>
                         <td>
-                          {{Form::radio('eat_in_copied'.$key, 0, true , ['id' => 'no_eat_in'.$key])}}
+                          {{Form::radio('eat_in_copied'.$key, 0, $pre_reservation->eat_in==0?true:false , ['id' => 'no_eat_in'.$key])}}
                           {{Form::label('no_eat_in'.$key,"なし")}}
                         </td>
                         <td></td>
@@ -787,6 +799,8 @@
                       </tbody>
                     </table>
                   </div>
+
+                  @if ($venue->alliance_flag==1)
                   <table class="table table-bordered sale-table">
                     <tbody>
                       <tr>
@@ -809,6 +823,8 @@
                       </tr>
                     </tbody>
                   </table>
+                  @endif
+
                   <table class="table table-bordered note-table">
                     <tbody>
                       <tr>
@@ -1099,12 +1115,14 @@
         <tbody class="master_total_body">
           <tr>
             <td>・会場利用料</td>
-            <td>{{$multiple->sumVenues($venue->id)}}円</td>
+            <td>
+              {{$multiple->sumMasterSubs($venue->id)}}
+              円</td>
           </tr>
-          <!-- <tr>
+          {{-- <!-- <tr>
             <td>・有料備品　サービス</td>
             <td>{{$multiple->sumEquips($venue->id)}}円</td>
-          </tr> -->
+          </tr> --> --}}
           <tr>
             <td>・レイアウト変更料</td>
             <td>{{$multiple->sumLayouts($venue->id)}}円</td>

@@ -60,17 +60,17 @@ trait SearchTrait
     // https://qiita.com/Hwoa/items/542456b63e51895f9a55
 
 
-    $andSearch->where(function ($query) use ($request) {
-      $query->orWhere('id', 'LIKE', "%$request->search_free%")
-        ->orWhere('created_at', 'LIKE', "%$request->search_free%")
-        ->orWhere('enter_time', 'LIKE', "%$request->search_free%")
-        ->orWhere('leave_time', 'LIKE', "%$request->search_free%")
-        ->orWhere('in_charge', 'LIKE', "%$request->search_free%");
-    })->orWhereHas('user', function ($query) use ($request) {
-      $query->orWhere('first_name', 'LIKE', "%$request->search_person%");
-      $query->orWhere('last_name', 'LIKE', "%$request->search_person%");
-      $query->orWhere(DB::raw('CONCAT(first_name, last_name)'), 'like', '%' . $request->search_person . '%');
-    });
+    // $andSearch->where(function ($query) use ($request) {
+    //   $query->orWhere('id', 'LIKE', "%$request->search_free%")
+    //     ->orWhere('created_at', 'LIKE', "%$request->search_free%")
+    //     ->orWhere('enter_time', 'LIKE', "%$request->search_free%")
+    //     ->orWhere('leave_time', 'LIKE', "%$request->search_free%")
+    //     ->orWhere('in_charge', 'LIKE', "%$request->search_free%");
+    // })->orWhereHas('user', function ($query) use ($request) {
+    //   $query->orWhere('first_name', 'LIKE', "%$request->search_person%");
+    //   $query->orWhere('last_name', 'LIKE', "%$request->search_person%");
+    //   $query->orWhere(DB::raw('CONCAT(first_name, last_name)'), 'like', '%' . $request->search_person . '%');
+    // });
 
     // ||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
     // 検索実装途中
@@ -155,7 +155,7 @@ trait SearchTrait
       }
     } else {
       foreach ($this->SplitDate($request->$inputName) as $key => $value) {
-        $value = current($value);
+        // $value = current($value);
         $returnQuery->where($targetColumn, 'LIKE', "%$value%");
       }
     }

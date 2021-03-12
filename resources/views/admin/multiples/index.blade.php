@@ -83,7 +83,7 @@
           <tr>
             <th class="search_item_name"><label for="search_end_user">エンドユーザー</label></th>
             <td>
-            <input type="text" name="search_end_user" class="form-control">
+              <input type="text" name="search_end_user" class="form-control">
             </td>
             <th class="search_item_name"><label for="freeword">フリーワード検索</label></th>
             <td>
@@ -141,23 +141,24 @@
             @foreach ($multiples as $multiple)
             <tr>
               <td>
-                <input type="checkbox" name="{{'delete_check'.$multiple->id}}" value="{{$multiple->id}}" class="checkbox" />
+                <input type="checkbox" name="{{'delete_check'.$multiple->id}}" value="{{$multiple->id}}"
+                  class="checkbox" />
               </td>
               <td>{{$multiple->id}}</td>
               <td>{{$multiple->created_at}}</td>
               <td>{{$multiple->pre_reservations_count}}</td>
               @if ($multiple->pre_reservations()->first()->user_id==0)
-              <td>{{(ReservationHelper::getAgentCompany($multiple->pre_reservations()->first()->agent_id))}}</td>
+              <td>{{(($multiple->pre_reservations()->first()->agent_id))}}</td>
 
-              <td>{{(ReservationHelper::getAgentPerson($multiple->pre_reservations()->first()->agent_id))}}</td>
+              <td>{{(($multiple->pre_reservations()->first()->agent_id))}}</td>
 
-              <td>{{(ReservationHelper::getAgentMobile($multiple->pre_reservations()->first()->agent_id))}}</td>
+              <td>{{(($multiple->pre_reservations()->first()->agent_id))}}</td>
 
-              <td>{{(ReservationHelper::getAgentTel($multiple->pre_reservations()->first()->agent_id))}}</td>
+              <td>{{(($multiple->pre_reservations()->first()->agent_id))}}</td>
 
               <td></td>
 
-              <td>{{(ReservationHelper::getAgentCompany($multiple->pre_reservations()->first()->agent_id))}}</td>
+              <td>{{(($multiple->pre_reservations()->first()->agent_id))}}</td>
 
               <td>
                 {{empty($multiple->pre_reservations()->first()->pre_enduser()->company)?"":$multiple->pre_reservations()->first()->pre_enduser()->company}}
@@ -167,13 +168,13 @@
                 <a href="{{url('admin/multiples/agent/'.$multiple->id)}}" class="btn more_btn">詳細</a>
               </td>
               @else
-              <td>{{(ReservationHelper::getCompany($multiple->pre_reservations()->first()->user_id))}}</td>
+              <td>{{(($multiple->pre_reservations()->first()->user_id))}}</td>
 
-              <td>{{(ReservationHelper::getPersonName($multiple->pre_reservations()->first()->user_id))}}</td>
+              <td>{{(($multiple->pre_reservations()->first()->user_id))}}</td>
 
-              <td>{{(ReservationHelper::getPersonMobile($multiple->pre_reservations()->first()->user_id))}}</td>
+              <td>{{(($multiple->pre_reservations()->first()->user_id))}}</td>
 
-              <td>{{(ReservationHelper::getPersonTel($multiple->pre_reservations()->first()->user_id))}}</td>
+              <td>{{(($multiple->pre_reservations()->first()->user_id))}}</td>
 
               <td>
                 {{empty($multiple->pre_reservations->first()->unknown_user()->unknown_user_company)?"":$multiple->pre_reservations->first()->unknown_user()->unknown_user_company}}
