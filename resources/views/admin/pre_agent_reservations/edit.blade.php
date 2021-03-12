@@ -48,7 +48,7 @@
   <hr>
 </div>
 
-{{ Form::open(['url' => 'admin/pre_reservations/'.$PreReservation->id.'/re_calculate', 'method'=>'POST', 'id'=>'pre_reservationSingleEditForm']) }}
+{{ Form::open(['url' => 'admin/pre_agent_reservations/'.$PreReservation->id.'/edit_calculate', 'method'=>'POST', 'id'=>'pre_reservationSingleEditForm']) }}
 @csrf
 <section class="section-wrap">
   <div class="selected_user">
@@ -118,29 +118,39 @@
       </thead>
       <tbody>
         <tr>
-          <td class="table-active">会社・団体名</td>
+          <td class="table-active">エンドユーザー </td>
           <td>
             {{Form::text('pre_endusers_company',$PreReservation->pre_enduser->company,['class'=>'form-control'])}}
           </td>
-          <td class="table-active">担当者名</td>
+          <td class="table-active">住所</td>
           <td>
-            {{Form::text('pre_endusers_person',$PreReservation->pre_enduser->person,['class'=>'form-control'])}}
+            {{Form::text('pre_endusers_address',$PreReservation->pre_enduser->address,['class'=>'form-control'])}}
           </td>
         </tr>
         <tr>
-          <td class="table-active">携帯番号</td>
-          <td>
-            {{Form::text('pre_endusers_mobile',$PreReservation->pre_enduser->mobile,['class'=>'form-control'])}}
-          </td>
-          <td class="table-active">固定電話</td>
+          <td class="table-active">連絡先 </td>
           <td>
             {{Form::text('pre_endusers_tel',$PreReservation->pre_enduser->tel,['class'=>'form-control'])}}
           </td>
-        </tr>
-        <tr>
-          <td class="table-active">メールアドレス</td>
+          <td class="table-active">メールアドレス </td>
           <td>
             {{Form::text('pre_endusers_email',$PreReservation->pre_enduser->email,['class'=>'form-control'])}}
+          </td>
+        </tr>
+        <tr>
+          <td class="table-active">当日担当者 </td>
+          <td>
+            {{Form::text('pre_endusers_person',$PreReservation->pre_enduser->person,['class'=>'form-control'])}}
+          </td>
+          <td class="table-active">当日連絡先 </td>
+          <td>
+            {{Form::text('pre_endusers_mobile',$PreReservation->pre_enduser->mobile,['class'=>'form-control'])}}
+          </td>
+        </tr>
+        <tr>
+          <td class="table-active">利用者属性</td>
+          <td>
+            {{Form::text('pre_endusers_attr',$PreReservation->pre_enduser->attr,['class'=>'form-control'])}}
           </td>
         </tr>
       </tbody>
@@ -189,7 +199,7 @@
             <tr>
               <td class="table-active">入室時間</td>
               <td>
-                <select name="enter_time" id="enter_time" class="form-control">
+                <select name="enter_time" id="enter_time" class="form-control" readonly>
                   <option value=""></option>
                   @for ($start = 0*2; $start <=23*2; $start++) <option
                     value="{{date("H:i:s", strtotime("00:00 +". $start * 30 ." minute"))}}" @if (date("H:i:s",
@@ -206,7 +216,7 @@
             <tr>
               <td class="table-active">退室時間</td>
               <td>
-                <select name="leave_time" id="leave_time" class="form-control">
+                <select name="leave_time" id="leave_time" class="form-control" readonly>
                   <option value=""></option>
                   @for ($start = 0*2; $start <=23*2; $start++) <option
                     value="{{date("H:i:s", strtotime("00:00 +". $start * 30 ." minute"))}}" @if (date("H:i:s",
@@ -534,67 +544,24 @@
               <td colspan="2">
                 <p class="title-icon">
                   <i class="fas fa-user-check icon-size" aria-hidden="true"></i>
-                  当日の連絡できる担当者
+                  エンドユーザーからの入金額
                 </p>
               </td>
             </tr>
             <tr>
               <td class="table-active">
-                <label for="ondayName" class=" form_required">氏名</label>
+                <label for="ondayName" class=" form_required">支払い料</label>
               </td>
               <td>
-                {{ Form::text('in_charge', $PreReservation->in_charge,['class'=>'form-control'] ) }}
+                {{ Form::text('enduser_charge', $PreReservation->pre_enduser->charge,['class'=>'form-control'] ) }}
                 <p class="is-error-in_charge" style="color: red"></p>
               </td>
             </tr>
-            <tr>
-              <td class="table-active"><label for="mobilePhone" class=" form_required">携帯番号</label></td>
-              <td>
-                {{ Form::text('tel', $PreReservation->tel,['class'=>'form-control'] ) }}
-                <p class="is-error-tel" style="color: red"></p>
-              </td>
-            </tr>
+
           </tbody>
         </table>
 
         <table class="table table-bordered mail-table">
-          <tbody>
-            <tr>
-              <td colspan="2">
-                <p class="title-icon">
-                  <i class="fas fa-envelope icon-size" aria-hidden="true"></i>利用後の送信メール
-                </p>
-              </td>
-            </tr>
-            <tr>
-              <td class="table-active"><label for="email_flag">送信メール</label></td>
-              <td>
-                @if ($PreReservation->email_flag!=0)
-                <div class="radio-box">
-                  <p>
-                    {{Form::radio('email_flag', 1, true , ['id' => 'email_flag'])}}
-                    <label for="{{'email_flag'}}" class="form-check-label"><span>有り</span></label>
-                  </p>
-                  <p>
-                    {{Form::radio('email_flag', 0, false, ['id' => 'no_email_flag'])}}
-                    <label for="{{'no_email_flag'}}" class="form-check-label"><span>無し</span></label>
-                  </p>
-                </div>
-                @else
-                <div class="radio-box">
-                  <p>
-                    {{Form::radio('email_flag', 1, false , ['id' => 'email_flag'])}}
-                    <label for="{{'email_flag'}}" class="form-check-label"><span>有り</span></label>
-                  </p>
-                  <p>
-                    {{Form::radio('email_flag', 0, true, ['id' => 'no_email_flag'])}}
-                    <label for="{{'no_email_flag'}}" class="form-check-label"><span>無し</span></label>
-                  </p>
-                </div>
-                @endif
-              </td>
-            </tr>
-          </tbody>
         </table>
         <table class="table table-bordered note-table">
           <tbody>
@@ -605,12 +572,12 @@
                 </p>
               </td>
             </tr>
-            <!-- <tr>
+            <tr class="caution">
               <td>
-                <label for="userNote">申し込みフォーム備考</label>
-                {{ Form::textarea('user_details', $PreReservation->user_details,['class'=>'form-control', 'placeholder'=>'入力してください'] ) }}
+                <label for="caution">注意事項</label>
+                {{ Form::textarea('attention', $PreReservation->attention,['class'=>'form-control', 'placeholder'=>'入力してください'] ) }}
               </td>
-            </tr> -->
+            </tr>
             <tr>
               <td>
                 <label for="adminNote">管理者備考</label>
@@ -644,7 +611,7 @@
   {{Form::close()}}
 
 
-  {{ Form::open(['url' => 'admin/pre_reservations/'.$PreReservation->id, 'method'=>'PUT']) }}
+  {{ Form::open(['url' => 'admin/pre_agent_reservations/'.$PreReservation->id.'/update', 'method'=>'PUT']) }}
   @csrf
   {{-- 以下、計算結果 --}}
   <div class="container-fluid">
@@ -722,32 +689,6 @@
                   </td>
                 </tr>
               </tbody>
-              <!-- <tbody class="venue_discount">
-                <tr>
-                  <td>割引計算欄</td>
-                  <td>
-                    <p>
-                      割引金額
-                    </p>
-                    <div class="d-flex">
-                      {{ Form::text('venue_number_discount', $PreReservation->venue_number_discount?$PreReservation->venue_number_discount:'',['class'=>'form-control'] ) }}
-                      <p>円</p>
-                    </div>
-                  </td>
-                  <td>
-                    <p>
-                      割引率
-                    </p>
-                    <div class="d-flex">
-                      {{ Form::text('venue_percent_discount', $PreReservation->venue_percent_discount?$PreReservation->venue_percent_discount:'',['class'=>'form-control'] ) }}
-                      <p>%</p>
-                    </div>
-                  </td>
-                  <td>
-                    <input class="btn more_btn venue_discount_btn" type="button" value="計算する">
-                  </td>
-                </tr>
-              </tbody> -->
             </table>
           </div>
 
@@ -810,32 +751,7 @@
                   </td>
                 </tr>
               </tbody>
-              <!-- <tbody class="equipment_discount">
-                <tr>
-                  <td>割引計算欄</td>
-                  <td>
-                    <p>
-                      割引金額
-                    </p>
-                    <div class="d-flex">
-                      {{ Form::text('equipment_number_discount', $PreReservation->equipment_number_discount?$PreReservation->equipment_number_discount:'',['class'=>'form-control'] ) }}
-                      <p>円</p>
-                    </div>
-                  </td>
-                  <td>
-                    <p>
-                      割引率
-                    </p>
-                    <div class="d-flex">
-                      {{ Form::text('equipment_percent_discount', $PreReservation->equipment_percent_discount?$PreReservation->equipment_percent_discount:'',['class'=>'form-control'] ) }}
-                      <p>%</p>
-                    </div>
-                  </td>
-                  <td>
-                    <input class="btn more_btn equipment_discount_btn" type="button" value="計算する">
-                  </td>
-                </tr>
-              </tbody> -->
+
             </table>
           </div>
           <div class="layout billdetails_content">
@@ -881,80 +797,8 @@
                   </td>
                 </tr>
               </tbody>
-              <!-- <tbody class="layout_discount">
-                <tr>
-                  <td>割引計算欄</td>
-                  <td>
-                    <p>
-                      割引金額
-                    </p>
-                    <div class="d-flex">
-                      {{ Form::text('layout_number_discount', $PreReservation->layout_number_discount?$PreReservation->layout_number_discount:'',['class'=>'form-control'] ) }}
-                      <p>円</p>
-                    </div>
-                  </td>
-                  <td>
-                    <p>
-                      割引率
-                    </p>
-                    <div class="d-flex">
-                      {{ Form::text('layout_percent_discount', $PreReservation->layout_percent_discount?$PreReservation->layout_percent_discount:'',['class'=>'form-control'] ) }}
-                      <p>%</p>
-                    </div>
-                  </td>
-                  <td>
-                    <input class="btn more_btn layout_discount_btn" type="button" value="計算する">
-                  </td>
-                </tr>
-              </tbody> -->
             </table>
           </div>
-
-          <!-- <div class="others billdetails_content">
-            <table class="table table-borderless">
-              <tr>
-                <td colspan="4">
-                  　<h4 class="billdetails_content_ttl">
-                    その他
-                  </h4>
-                </td>
-              </tr>
-              <tbody class="others_head">
-                <tr>
-                  <td>内容</td>
-                  <td>単価</td>
-                  <td>数量</td>
-                  <td>金額</td>
-                </tr>
-              </tbody>
-              <tbody class="others_main">
-                @foreach ($PreReservation->pre_breakdowns()->where('unit_type',5)->get() as $key=>$o_break)
-                <tr>
-                  <td>
-                    {{ Form::text('others_input_item'.$key, $o_break->unit_item,['class'=>'form-control col-xs-3', 'readonly'] ) }}
-                  </td>
-                  <td>
-                    {{ Form::text('others_input_cost'.$key, $o_break->unit_cost,['class'=>'form-control col-xs-3', 'readonly'] ) }}
-                  </td>
-                  <td>
-                    {{ Form::text('others_input_count'.$key, $o_break->unit_count,['class'=>'form-control col-xs-3', 'readonly'] ) }}
-                  </td>
-                  <td>
-                    {{ Form::text('others_input_subtotal'.$key, $o_break->unit_subtotal,['class'=>'form-control col-xs-3', 'readonly'] ) }}
-                  </td>
-                </tr>
-                @endforeach
-              </tbody>
-              <tbody class="others_result">
-                <tr>
-                  <td colspan="2"></td>
-                  <td colspan="3">合計
-                    {{ Form::text('others_price', $PreReservation->pre_bill()->first()->others_price,['class'=>'form-control', 'readonly'] ) }}
-                  </td>
-                </tr>
-              </tbody>
-            </table>
-          </div> -->
 
           <div class="bill_total">
             <table class="table text-right">
@@ -986,7 +830,7 @@
 
   {{-- 単発仮押えか？一括仮押えか？ --}}
   {{ Form::hidden('judge_count', 1 ) }}
-  {{Form::hidden('user_id', $PreReservation->user_id)}}
+  {{Form::hidden('agent_id', $PreReservation->agent_id)}}
   {{Form::hidden('venue_id', $PreReservation->venue_id)}}
   {{Form::hidden('reserve_date', $PreReservation->reserve_date)}}
   {{Form::hidden('price_system', $PreReservation->price_system)}}
@@ -1015,8 +859,17 @@
   {{Form::hidden('unknown_user_tel', $PreReservation->unknown_user_tel)}}
   {{Form::hidden('unknown_user_mobile', $PreReservation->unknown_user_mobile)}}
 
+  {{Form::hidden('enduser_charge', $PreReservation->pre_enduser->charge)}}
 
-  {{Form::submit('保存する', ['class'=>'btn more_btn_lg mx-auto d-block my-5', 'id'=>'check_submit'])}}
+  {{Form::hidden('pre_endusers_company',$PreReservation->pre_enduser->company)}}
+  {{Form::hidden('pre_endusers_person',$PreReservation->pre_enduser->person)}}
+  {{Form::hidden('pre_endusers_mobile',$PreReservation->pre_enduser->mobile)}}
+  {{Form::hidden('pre_endusers_tel',$PreReservation->pre_enduser->tel)}}
+  {{Form::hidden('pre_endusers_email',$PreReservation->pre_enduser->email)}}
+
+
+
+  {{-- {{Form::submit('保存する', ['class'=>'btn more_btn_lg mx-auto d-block my-5', 'id'=>'check_submit'])}} --}}
 
 </section>
 {{Form::close()}}
@@ -1129,16 +982,7 @@
   $(function () {
   $(document).on("change", "#agent_id", function() {
     var agent_id = Number($('#agent_id').val());
-    // $('input[name=unknown_user_company]').prop('readonly',true);
-    //   $('input[name=unknown_user_name]').prop('readonly',true);
-    //   $('input[name=unknown_user_email]').prop('readonly',true);
-    //   $('input[name=unknown_user_mobile]').prop('readonly',true);
-    //   $('input[name=unknown_user_tel]').prop('readonly',true);
-    // $('input[name=unknown_user_company]').val("");
-    //   $('input[name=unknown_user_name]').val("");
-    //   $('input[name=unknown_user_email]').val("");
-    //   $('input[name=unknown_user_mobile]').val("");
-    //   $('input[name=unknown_user_tel]').val("");
+    $("input[name=agent_id]").val(agent_id);
     $.ajax({
     headers: {
       'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
