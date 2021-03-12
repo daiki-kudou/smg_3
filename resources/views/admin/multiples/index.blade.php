@@ -148,73 +148,73 @@
           </thead>
           <tbody>
             {{-- {{var_dump($multiples)}} --}}
-            {{-- @foreach ($multiples as $multiple)
+            @foreach ($multiples as $multiple)
             <tr>
               <td>
                 <input type="checkbox" name="{{'delete_check'.$multiple->id}}" value="{{$multiple->id}}"
-            class="checkbox" />
-            </td>
-            <td>{{$multiple->id}}</td>
-            <td>{{$multiple->created_at}}</td>
-            <td>{{$multiple->pre_reservations_count}}</td>
-            @if ($multiple->pre_reservations()->first()->user_id!=0)
-            <td>{{ReservationHelper::getCompany($multiple->pre_reservations()->first()->user_id)}}</td>
-            @else
-            <td></td>
-            @endif
+                  class="checkbox" />
+              </td>
+              <td>{{$multiple->id}}</td>
+              <td>{{$multiple->created_at}}</td>
+              <td>{{$multiple->pre_reservations_count}}</td>
+              @if ($multiple->pre_reservations()->first()->user_id!=0)
+              <td>{{ReservationHelper::getCompany($multiple->pre_reservations()->first()->user_id)}}</td>
+              @else
+              <td></td>
+              @endif
 
-            @if ($multiple->pre_reservations()->first()->user_id!=0)
-            <td>{{ReservationHelper::getPersonName($multiple->pre_reservations()->first()->user_id)}}</td>
-            @else
-            <td>{{ReservationHelper::getAgentPerson($multiple->pre_reservations()->first()->agent_id)}}</td>
-            @endif
+              @if ($multiple->pre_reservations()->first()->user_id!=0)
+              <td>{{ReservationHelper::getPersonName($multiple->pre_reservations()->first()->user_id)}}</td>
+              @else
+              <td>{{ReservationHelper::getAgentPerson($multiple->pre_reservations()->first()->agent_id)}}</td>
+              @endif
 
-            @if ($multiple->pre_reservations()->first()->user_id!=0)
-            <td>{{ReservationHelper::getPersonMobile($multiple->pre_reservations()->first()->user_id)}}</td>
-            @else
-            <td>{{ReservationHelper::getAgentMobile($multiple->pre_reservations()->first()->agent_id)}}</td>
-            @endif
+              @if ($multiple->pre_reservations()->first()->user_id!=0)
+              <td>{{ReservationHelper::getPersonMobile($multiple->pre_reservations()->first()->user_id)}}</td>
+              @else
+              <td>{{ReservationHelper::getAgentMobile($multiple->pre_reservations()->first()->agent_id)}}</td>
+              @endif
 
-            @if ($multiple->pre_reservations()->first()->user_id!=0)
-            <td>{{ReservationHelper::getPersonTel($multiple->pre_reservations()->first()->user_id)}}</td>
-            @else
-            <td>{{ReservationHelper::getAgentTel($multiple->pre_reservations()->first()->agent_id)}}</td>
-            @endif
+              @if ($multiple->pre_reservations()->first()->user_id!=0)
+              <td>{{ReservationHelper::getPersonTel($multiple->pre_reservations()->first()->user_id)}}</td>
+              @else
+              <td>{{ReservationHelper::getAgentTel($multiple->pre_reservations()->first()->agent_id)}}</td>
+              @endif
 
-            @if ($multiple->pre_reservations()->first()->user_id!=0)
-            <td>
-              {{!empty($multiple->pre_reservations()->first()->unknown_user->unknown_user_company)?$multiple->pre_reservations()->first()->unknown_user->unknown_user_company:""}}
-            </td>
-            @else
-            <td></td>
-            @endif
+              @if ($multiple->pre_reservations()->first()->user_id!=0)
+              <td>
+                {{!empty($multiple->pre_reservations()->first()->unknown_user->unknown_user_company)?$multiple->pre_reservations()->first()->unknown_user->unknown_user_company:""}}
+              </td>
+              @else
+              <td></td>
+              @endif
 
-            @if ($multiple->pre_reservations()->first()->user_id!=0)
-            <td> </td>
-            @else
-            <td>{{ReservationHelper::getAgentCompanyName($multiple->pre_reservations()->first()->agent_id)}}</td>
-            @endif
+              @if ($multiple->pre_reservations()->first()->user_id!=0)
+              <td> </td>
+              @else
+              <td>{{ReservationHelper::getAgentCompanyName($multiple->pre_reservations()->first()->agent_id)}}</td>
+              @endif
 
-            @if ($multiple->pre_reservations()->first()->user_id!=0)
-            <td> </td>
-            @else
-            <td>
-              {{!empty($multiple->pre_reservations()->first()->pre_enduser->company)?$multiple->pre_reservations()->first()->pre_enduser->company:""}}
-            </td>
-            @endif
+              @if ($multiple->pre_reservations()->first()->user_id!=0)
+              <td> </td>
+              @else
+              <td>
+                {{!empty($multiple->pre_reservations()->first()->pre_enduser->company)?$multiple->pre_reservations()->first()->pre_enduser->company:""}}
+              </td>
+              @endif
 
-            @if ($multiple->pre_reservations()->first()->user_id!=0)
-            <td><a href="{{url('admin/multiples/'.$multiple->id)}}" class="btn more_btn">詳細</a></td>
-            @else
-            <td> <a href="{{url('admin/multiples/agent/'.$multiple->id)}}" class="btn more_btn">詳細</a>
-            </td>
-            @endif
+              @if ($multiple->pre_reservations()->first()->user_id!=0)
+              <td><a href="{{url('admin/multiples/'.$multiple->id)}}" class="btn more_btn">詳細</a></td>
+              @else
+              <td> <a href="{{url('admin/multiples/agent/'.$multiple->id)}}" class="btn more_btn">詳細</a>
+              </td>
+              @endif
 
 
 
 
             </tr>
-            @endforeach--}}
+            @endforeach
           </tbody>
         </table>
       </div>
