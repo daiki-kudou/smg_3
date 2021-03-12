@@ -46,8 +46,6 @@
         </tbody>
       </table>
 
-
-
       {{ Form::open(['url' => 'admin/multiples/agent/'.$multiple->id."/edit/".$venue->id.'/calculate', 'method'=>'POST', 'id'=>'multiplesAgentEdit']) }}
       @csrf
       <section class="m-5 border-inwrap">
@@ -320,17 +318,17 @@
                         <td colspan="2">
                           <p class="title-icon">
                             <i class="fas fa-user icon-size" aria-hidden="true"></i>
-                            仲介会社の顧客からの入金額
+                            エンドユーザーからの入金額
                           </p>
                         </td>
                       </tr>
                       <tr>
-                        <td class="table-active"><label for="ondayName">支払い料 </label></td>
+                        <td class="table-active form_required"><label for="ondayName">支払い料 </label></td>
                         <td>
                           {{ Form::text('cp_master_enduser_charge', '',['class'=>'form-control'] ) }}
+                          <p class="is-error-cp_master_enduser_charge" style="color: red"></p>
                         </td>
                       </tr>
-
                     </tbody>
                   </table>
                 </div>
@@ -410,7 +408,7 @@
       {{ Form::hidden('', $multiple->pre_reservations()->where('venue_id',$venue->id)->get()->count(),['id'=>'counts_reserve']) }}
       {{-- 以下、pre_reservationの数分　ループ --}}
       @foreach ($multiple->pre_reservations()->where('venue_id',$venue->id)->get() as $key=>$pre_reservation)
-      {{ Form::open(['url' => 'admin/multiples/agent/'.$multiple->id."/edit/".$venue->id.'/calculate/'.$pre_reservation->id.'/specific_update', 'method'=>'POST', 'id'=>'']) }}
+      {{ Form::open(['url' => 'admin/multiples/agent/'.$multiple->id."/edit/".$venue->id.'/calculate/'.$pre_reservation->id.'/specific_update', 'method'=>'POST', 'id'=>'multiplesAgentSpecificupdate']) }}
       @csrf
       {{ Form::hidden('split_keys', $key) }}
 
@@ -419,8 +417,7 @@
         <div class="register-list-item">
           <div class="from-group list_checkbox">
             <div class="form-check">
-              <input type="checkbox" name="{{'delete_check'.$pre_reservation->id}}" value="{{$pre_reservation->id}}"
-                class="checkbox mr-1" />
+              <input type="checkbox" name="{{'delete_check'.$pre_reservation->id}}" value="{{$pre_reservation->id}}" class="checkbox mr-1" />
               <!-- <input class="form-check-input" type="checkbox"> -->
               <label class="form-check-label"></label>
             </div>
@@ -508,9 +505,7 @@
                         <td>
                           <select name="{{'event_start_copied'.$key}}" class="form-control">
                             <option disabled>選択してください</option>
-                            @for ($start = 0*2; $start <=23*2; $start++) <option
-                              value="{{date("H:i:s", strtotime("00:00 +". $start * 30 ." minute"))}}" @if(date("H:i:s",
-                              strtotime("00:00 +". $start * 30 ." minute"))==$pre_reservation->enter_time)
+                            @for ($start = 0*2; $start <=23*2; $start++) <option value="{{date("H:i:s", strtotime("00:00 +". $start * 30 ." minute"))}}" @if(date("H:i:s", strtotime("00:00 +". $start * 30 ." minute"))==$pre_reservation->enter_time)
                               selected
                               @endif
                               >
@@ -522,12 +517,9 @@
                       <tr>
                         <td class="table-active"><label for="eventFinish">イベント終了時間</label></td>
                         <td>
-                          <select name="{{'event_finish_copied'.$key}}" id="{{'event_finish_copied'.$key}}"
-                            class="form-control">
+                          <select name="{{'event_finish_copied'.$key}}" id="{{'event_finish_copied'.$key}}" class="form-control">
                             <option disabled>選択してください</option>
-                            @for ($start = 0*2; $start <=23*2; $start++) <option
-                              value="{{date("H:i:s", strtotime("00:00 +". $start * 30 ." minute"))}}" @if (date("H:i:s",
-                              strtotime("00:00 +". $start * 30 ." minute"))==$pre_reservation->leave_time)
+                            @for ($start = 0*2; $start <=23*2; $start++) <option value="{{date("H:i:s", strtotime("00:00 +". $start * 30 ." minute"))}}" @if (date("H:i:s", strtotime("00:00 +". $start * 30 ." minute"))==$pre_reservation->leave_time)
                               selected
                               @endif
                               >
@@ -780,14 +772,15 @@
                           <td colspan="2">
                             <p class="title-icon">
                               <i class="fas fa-user icon-size" aria-hidden="true"></i>
-                              仲介会社の顧客からの入金額
+                              エンドユーザーからの入金額
                             </p>
                           </td>
                         </tr>
                         <tr>
-                          <td class="table-active"><label for="ondayName">支払い料</label></td>
+                          <td class="table-active form_required"><label for="ondayName">支払い料</label></td>
                           <td>
                             {{ Form::text('enduser_charge_copied'.$key, empty($pre_reservation->pre_enduser->charge)?0:$pre_reservation->pre_enduser->charge,['class'=>'form-control'] ) }}
+                          <p class="is-error-enduser_charge_copied" style="color: red"></p>
                           </td>
                         </tr>
                       </tbody>

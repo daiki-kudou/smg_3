@@ -17,6 +17,10 @@
   .checkon {
     display: none;
   }
+
+  .hide {
+    display: none !important;
+  }
 </style>
 
 <div class="container-field">

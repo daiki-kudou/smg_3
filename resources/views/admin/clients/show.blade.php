@@ -41,7 +41,7 @@
               <p class="title-icon">
                 <i class="fas fa-exclamation-circle icon-size fa-fw"></i>基本情報
               </p>
-              <p>管理者登録</p>
+              <p>管理者登録の場合、管理者登録と表示</p>
               </div>
             </td>
           </tr>
