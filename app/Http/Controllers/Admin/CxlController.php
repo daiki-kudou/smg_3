@@ -72,7 +72,6 @@ class CxlController extends Controller
    */
   public function store(Request $request)
   {
-    var_dump($request->all());
     $cxl = new Cxl;
     $cxl->storeCxl($request);
   }

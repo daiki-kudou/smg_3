@@ -64,6 +64,7 @@
     <div class="col-12">
       <div class="border-wrap2 p-4">
 
+        @if ($pre_reservation->user_id>0)
         <table class="table table-bordered customer-table mb-5 table_fixed">
           <tbody>
             <tr>
@@ -107,7 +108,61 @@
             </tr>
           </tbody>
         </table>
+        @else
+        <div class="selected_agent">
+          <table class="table table-bordered" style="table-layout: fixed;">
+            <thead>
+              <tr>
+                <th>仲介会社情報</th>
+                <th colspan="3">仲介会社ID：<p class="user_id d-inline">
+                    {{($pre_reservation->agent_id)}}
+                  </p>
+                </th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td class="table-active">会社名・団体名</td>
+                <td colspan="3">
+                  <p class="company">
+                    {{ReservationHelper::getAgentCompany($pre_reservation->agent_id)}}
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td class="table-active">担当者氏名</td>
+                <td>
+                  <p class="person">
+                    {{ReservationHelper::getAgentPerson($pre_reservation->agent_id)}}
+                  </p>
+                </td>
+                <td class="table-active">メールアドレス</td>
+                <td>
+                  <p class="email">
+                    {{ReservationHelper::getAgentEmail($pre_reservation->agent_id)}}
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td class="table-active">携帯番号</td>
+                <td>
+                  <p class="mobile">
+                    {{ReservationHelper::getAgentMobile($pre_reservation->agent_id)}}
+                  </p>
+                </td>
+                <td class="table-active">固定電話</td>
+                <td>
+                  <p class="tel">
+                    {{ReservationHelper::getAgentTel($pre_reservation->agent_id)}}
+                  </p>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        @endif
 
+        @if ($pre_reservation->user_id>0)
         <table class="table table-bordered oneday-customer-table mb-5 table_fixed">
           <tbody>
             <tr>
@@ -118,7 +173,6 @@
                 </p>
               </td>
             </tr>
-
             <tr>
               <td class="table-active" width="25%"><label for="onedayCompany">会社・団体名(仮)</label></td>
               <td>
@@ -149,6 +203,53 @@
             </tr>
           </tbody>
         </table>
+        @else
+        <table class="table table-bordered" style="table-layout: fixed;">
+          <thead>
+            <tr>
+              <th colspan="4">エンドユーザー情報 </th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="table-active">エンドユーザー</td>
+              <td>
+                {{!empty($pre_reservation->pre_enduser->company)?$pre_reservation->pre_enduser->company:""}}
+              </td>
+              <td class="table-active">住所</td>
+              <td>
+                {{!empty($pre_reservation->pre_enduser->address)?$pre_reservation->pre_enduser->address:""}}
+              </td>
+            </tr>
+            <tr>
+              <td class="table-active">連絡先</td>
+              <td>
+                {{!empty($pre_reservation->pre_enduser->tel)?$pre_reservation->pre_enduser->tel:""}}
+              </td>
+              <td class="table-active">メールアドレス</td>
+              <td>
+                {{!empty($pre_reservation->pre_enduser->email)?$pre_reservation->pre_enduser->email:""}}
+              </td>
+            </tr>
+            <tr>
+              <td class="table-active">当日担当者</td>
+              <td>
+                {{!empty($pre_reservation->pre_enduser->person)?$pre_reservation->pre_enduser->person:""}}
+              </td>
+              <td class="table-active">当日連絡先</td>
+              <td>
+                {{!empty($pre_reservation->pre_enduser->mobile)?$pre_reservation->pre_enduser->mobile:""}}
+              </td>
+            </tr>
+            <tr>
+              <td class="table-active">利用者属性</td>
+              <td>
+                {{!empty($pre_reservation->pre_enduser->attr)?$pre_reservation->pre_enduser->attr:""}}
+              </td>
+            </tr>
+          </tbody>
+        </table>
+        @endif
 
 
         <div class="row">
@@ -210,13 +311,6 @@
                   </p>
                 </td>
               </tr>
-              <!-- <tr>
-                <td class="table-active"><label for="eventTime">イベント時間記載</label>
-                </td>
-                <td>
-                  あり
-                </td>
-              </tr> -->
               <tr>
                 <td class="table-active"><label for="eventStart">イベント開始時間</label>
                 </td>
@@ -265,12 +359,16 @@
                   </tr>
                 </thead>
                 <tbody class="accordion-wrap">
-                  @foreach ($equipments as $equipment)
+                  @foreach ($SPVenue->getEquipments() as $equipment)
+                  @foreach ($pre_reservation->pre_breakdowns()->where('unit_type',2)->get() as $equ)
+                  @if ($equipment->item==$equ->unit_item)
                   <tr>
                     <td class="justify-content-between d-flex">
-                      {{$equipment->unit_item}}({{number_format($equipment->unit_cost)}}円)×{{$equipment->unit_count}}
+                      {{$equ->unit_item}}({{number_format($equ->unit_cost)}}円)×{{$equ->unit_count}}
                     </td>
                   </tr>
+                  @endif
+                  @endforeach
                   @endforeach
                 </tbody>
               </table>
@@ -291,10 +389,14 @@
                   <tr>
                     <td colspan="2">
                       <ul class="icheck-primary">
-                        @foreach ($services as $service)
+                        @foreach ($SPVenue->getServices() as $service)
+                        @foreach ($pre_reservation->pre_breakdowns()->where('unit_type',3)->get() as $ser)
+                        @if ($service->item==$ser->unit_item)
                         <li>
-                          {{$service->unit_item}} {{number_format($service->unit_cost)}}円
+                          {{$ser->unit_item}} {{number_format($ser->unit_cost)}}円
                         </li>
+                        @endif
+                        @endforeach
                         @endforeach
                       </ul>
                     </td>
@@ -304,6 +406,7 @@
               </table>
             </div>
 
+            @if ($pre_reservation->venue->layout==1)
             <div class='layouts'>
               <table class='table table-bordered' style="table-layout:fixed;">
                 <thead>
@@ -352,7 +455,9 @@
                 </tbody>
               </table>
             </div>
+            @endif
 
+            @if ($pre_reservation->venue->layout==1)
             <div class='luggage'>
               <table class='table table-bordered' style="table-layout:fixed;">
                 <thead>
@@ -414,7 +519,9 @@
                 </tbody>
               </table>
             </div>
+            @endif
 
+            @if ($pre_reservation->venue->eat_in_flag==1)
             <table class="table table-bordered eating-table">
               <tbody>
                 <tr>
@@ -436,11 +543,14 @@
                 </tr>
               </tbody>
             </table>
+            @endif
+
+
           </div>
           <!-- 左側の項目 終わり-------------------------------------------------- -->
           <!-- 右側の項目-------------------------------------------------- -->
           <div class="col-6">
-
+            @if ($pre_reservation->user_id>0)
             <div class="customer-table">
               <table class="table table-bordered oneday-table">
                 <tbody>
@@ -468,7 +578,32 @@
                 </tbody>
               </table>
             </div>
+            @else
+            <table class="table table-bordered sale-table">
+              <tbody>
+                <tr>
+                  <td colspan="2">
+                    <p class="title-icon">
+                      <i class="fas fa-yen-sign icon-size" aria-hidden="true"></i>エンドユーザーからの入金額
+                    </p>
+                  </td>
+                </tr>
+                <tr>
+                  <td class="table-active ">
+                    <label for="enduser_charge ">支払い料</label>
+                  </td>
+                  <td>
+                    <div class="d-flex align-items-center">
+                      {{number_format($pre_reservation->pre_enduser->charge)}}
+                      <span class="ml-2">円</span>
+                    </div>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+            @endif
 
+            @if ($pre_reservation->user_id>0)
             <table class="table table-bordered mail-table">
               <tbody>
                 <tr>
@@ -488,6 +623,10 @@
               </tbody>
             </table>
 
+            @endif
+
+
+            @if ($pre_reservation->venue->alliance_flag==1)
             <table class="table table-bordered sale-table">
               <tbody>
                 <tr>
@@ -506,6 +645,8 @@
                 </tr>
               </tbody>
             </table>
+            @endif
+
 
             <table class="table table-bordered note-table">
               <tbody>
@@ -734,6 +875,7 @@
 
 
       @if ($pre_reservation->user_id>0)
+      @if ($pre_reservation->venue->layout==1)
       <div class="layout billdetails_content">
         <table class="table table-borderless" style="table-layout: fixed;">
           <tbody>
@@ -774,7 +916,10 @@
           </tbody>
         </table>
       </div>
+      @endif
+
       @else
+      @if ($pre_reservation->venue->layout==1)
       <div class="layout billdetails_content">
         <table class="table table-borderless" style="table-layout: fixed;">
           <tbody>
@@ -802,6 +947,7 @@
           </tbody>
         </table>
       </div>
+      @endif
       @endif
 
 

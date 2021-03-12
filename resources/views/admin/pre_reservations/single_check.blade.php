@@ -293,6 +293,8 @@
             </tbody>
           </table>
         </div>
+
+        @if ($venue->layout==1)
         <div class="layouts">
           <table class="table table-bordered">
             <thead>
@@ -338,6 +340,9 @@
             </tbody>
           </table>
         </div>
+        @endif
+
+        @if ($venue->luggage_flag==1)
         <div class="luggage">
           <table class="table table-bordered">
             <thead>
@@ -379,6 +384,7 @@
             </tbody>
           </table>
         </div>
+        @endif
 
         @if ($venue->eat_in_flag==1)
         <div class="eat_in">

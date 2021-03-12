@@ -47,7 +47,6 @@ class AgentsReservationsController extends Controller
     $_equipment = Equipment::sumArrays($request);
     $_service = Service::sumArrays($request);
 
-    // var_dump($equipment, $service);
 
     $layout_price = 0;
     if ($request->layout_prepare > 0) {

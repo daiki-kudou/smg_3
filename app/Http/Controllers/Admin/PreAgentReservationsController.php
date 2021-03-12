@@ -45,7 +45,6 @@ class PreAgentReservationsController extends Controller
       ]);
     } else {
       echo "<pre>";
-      var_dump($request->all());
       echo "</pre>";
       $multiple = MultipleReserve::create(); //一括IDを作成
       $multiple->MultipleStoreForAgent($request);
@@ -137,9 +136,6 @@ class PreAgentReservationsController extends Controller
 
   public function update(Request $request, $id)
   {
-    echo "<pre>";
-    var_dump($request->all());
-    echo "</pre>";
     DB::transaction(function () use ($request, $id) {
       $pre_reservation = PreReservation::find($id);
       foreach ($pre_reservation->pre_breakdowns()->get() as $key => $value) {
