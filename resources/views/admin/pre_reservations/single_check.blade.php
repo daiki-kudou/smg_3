@@ -55,24 +55,18 @@
     <table class="table table-bordered" style="table-layout: fixed;">
       <thead>
         <tr>
-          <th colspan="4">顧客情報（顧客登録がされていない場合）</th>
+          <th colspan="4">仮で入力する顧客情報</th>
         </tr>
       </thead>
       <tbody>
         <tr>
-          <td class="table-active">会社名・団体名</td>
-          <td colspan="3">
+          <td class="table-active">会社・団体名(仮)</td>
+          <td>
             {{ Form::text('unknown_user_company', ($request->unknown_user_company),['class'=>'form-control', 'readonly'] ) }}
           </td>
-        </tr>
-        <tr>
-          <td class="table-active">担当者氏名</td>
+          <td class="table-active">担当者名(仮)</td>
           <td>
             {{ Form::text('unknown_user_name', ($request->unknown_user_name),['class'=>'form-control', 'readonly'] ) }}
-          </td>
-          <td class="table-active">メールアドレス</td>
-          <td>
-            {{ Form::text('unknown_user_email', ($request->unknown_user_email),['class'=>'form-control', 'readonly'] ) }}
           </td>
         </tr>
         <tr>
@@ -83,6 +77,12 @@
           <td class="table-active">固定電話</td>
           <td>
             {{ Form::text('unknown_user_tel', ($request->unknown_user_tel),['class'=>'form-control', 'readonly'] ) }}
+          </td>
+        </tr>
+        <tr>
+          <td class="table-active">メールアドレス</td>
+          <td>
+            {{ Form::text('unknown_user_email', ($request->unknown_user_email),['class'=>'form-control', 'readonly'] ) }}
           </td>
         </tr>
       </tbody>

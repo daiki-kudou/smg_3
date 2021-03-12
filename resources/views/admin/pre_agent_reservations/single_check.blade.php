@@ -72,33 +72,33 @@
       </thead>
       <tbody>
         <tr>
-          <td class="table-active">会社名・団体名</td>
+          <td class="table-active">エンドユーザー</td>
           <td>
             {{ Form::text('pre_enduser_company', ($request->pre_enduser_company),['class'=>'form-control', 'readonly'] ) }}
           </td>
-          <td class="table-active">担当者氏名</td>
-          <td>
-            {{ Form::text('pre_enduser_name', ($request->pre_enduser_name),['class'=>'form-control', 'readonly'] ) }}
-          </td>
-        </tr>
-        <tr>
           <td class="table-active">住所</td>
           <td>
             {{ Form::text('pre_enduser_address', ($request->pre_enduser_address),['class'=>'form-control', 'readonly'] ) }}
           </td>
-          <td class="table-active">電話番号</td>
-          <td>
-            {{ Form::text('pre_enduser_tel', ($request->pre_enduser_tel),['class'=>'form-control', 'readonly'] ) }}
-          </td>
         </tr>
         <tr>
-          <td class="table-active">当日連絡先</td>
+          <td class="table-active">連絡先</td>
           <td>
-            {{ Form::text('pre_enduser_mobile', ($request->pre_enduser_mobile),['class'=>'form-control', 'readonly'] ) }}
+            {{ Form::text('pre_enduser_tel', ($request->pre_enduser_tel),['class'=>'form-control', 'readonly'] ) }}
           </td>
           <td class="table-active">メールアドレス</td>
           <td>
             {{ Form::text('pre_enduser_email', ($request->pre_enduser_email),['class'=>'form-control', 'readonly'] ) }}
+          </td>
+        </tr>
+        <tr>
+          <td class="table-active">当日担当者</td>
+          <td>
+            {{ Form::text('pre_enduser_name', ($request->pre_enduser_name),['class'=>'form-control', 'readonly'] ) }}
+          </td>
+          <td class="table-active">当日連絡先</td>
+          <td>
+            {{ Form::text('pre_enduser_mobile', ($request->pre_enduser_mobile),['class'=>'form-control', 'readonly'] ) }}
           </td>
         </tr>
         <tr>

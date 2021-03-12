@@ -49,12 +49,12 @@
               <td>{{ ReservationHelper::formatDate($venue->created_at)}}</td>
               <td>{{$venue->alliance_flag==0?'直営':'提携'}}</td>
               <td>{{ $venue->name_area }}{{ $venue->name_bldg }}{{ $venue->name_venue }}</td>
-              <td>{{ $venue->size1}}</td>
-              <td>{{ $venue->size2 }}</td>
-              <td>{{ $venue->capacity }}</td>
-              <td>{{$venue->layout==1?"有":"無"}}</td>
-              <td>{{$venue->luggage_flag==1?"有":"無"}}</td>
-              <td>{{$venue->eat_in_flag==1?"有":"無"}}</td>
+              <td class="text-right">{{ $venue->size1}}</td>
+              <td class="text-right">{{ $venue->size2 }}</td>
+              <td class="text-right">{{ $venue->capacity }}</td>
+              <td class="text-center">{{$venue->layout==1?"有":"無"}}</td>
+              <td class="text-center">{{$venue->luggage_flag==1?"有":"無"}}</td>
+              <td class="text-center">{{$venue->eat_in_flag==1?"有":"無"}}</td>
               <td class="text-center"><a class="more_btn" href="{{ url('/admin/venues', $venue->id) }}">詳細</a></td>
             </tr>
             @else
@@ -63,13 +63,13 @@
               <td>{{ ReservationHelper::formatDate($venue->created_at)}}</td>
               <td>{{$venue->alliance_flag==0?'直営':'提携'}}</td>
               <td>{{ $venue->name_area }}{{ $venue->name_bldg }}{{ $venue->name_venue }}</td>
-              <td>{{ $venue->size1}}</td>
-              <td>{{ $venue->size2 }}</td>
-              <td>{{ $venue->capacity }}</td>
-              <td>{{$venue->layout==1?"有":"無"}}</td>
-              <td>{{$venue->luggage_flag==1?"有":"無"}}</td>
-              <td>{{$venue->eat_in_flag==1?"有":"無"}}</td>
-              <td><a class="more_btn" href="{{ url('/admin/venues', $venue->id) }}">詳細</a></td>
+              <td class="text-right">{{ $venue->size1}}</td>
+              <td class="text-right">{{ $venue->size2 }}</td>
+              <td class="text-right">{{ $venue->capacity }}</td>
+              <td class="text-center">{{$venue->layout==1?"有":"無"}}</td>
+              <td class="text-center">{{$venue->luggage_flag==1?"有":"無"}}</td>
+              <td class="text-center">{{$venue->eat_in_flag==1?"有":"無"}}</td>
+              <td class="text-center"><a class="more_btn" href="{{ url('/admin/venues', $venue->id) }}">詳細</a></td>
             </tr>
             @endif
             @endforeach

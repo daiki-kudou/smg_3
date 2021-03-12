@@ -68,7 +68,7 @@
     <table class="table table-bordered" style="table-layout: fixed;">
       <thead>
         <tr>
-          <th colspan="4">顧客情報（顧客登録がされていない場合）</th>
+          <th colspan="4">仮で入力する顧客情報</th>
         </tr>
       </thead>
       <tbody>

@@ -26,7 +26,7 @@
       <div class="col-sm-12">
         <table class="table table-bordered mt-5 dataTable no-footer" id="DataTables_Table_0" role="grid">
           <thead>
-            <tr role="row">
+            <tr class="table_row">
               <th>ID</th>
               <th>サービス名称</th>
               <th>運営会社名</th>
@@ -43,7 +43,7 @@
               <td>{{$query->company}}</td>
               <td>{{ReservationHelper::getAgentPerson($query->id)}}</td>
               <td>{{$query->person_tel}}</td>
-              <td><a href="{{ url('admin/agents', $query->id) }}" class="more_btn">詳細</a></td>
+              <td class="text-center"><a href="{{ url('admin/agents', $query->id) }}" class="more_btn">詳細</a></td>
             </tr>
             @endforeach
           </tbody>

@@ -80,18 +80,18 @@
               <td colspan="4">
                 <p class="title-icon">
                   <i class="fas fa-user icon-size" aria-hidden="true"></i>
-                  顧客情報(顧客登録がされていない場合)
+                  仮で入力する顧客情報
                 </p>
               </td>
             </tr>
             <tr>
-              <td class="table-active" width="25%"><label for="onedayCompany">会社名・団体名</label></td>
+              <td class="table-active" width="25%"><label for="onedayCompany">会社・団体名(仮)</label></td>
               <td>
                 @if (!empty($multiple->pre_reservations()->first()->unknown_user->unknown_user_company))
                 {{$multiple->pre_reservations()->first()->unknown_user->unknown_user_company}}
                 @endif
               </td>
-              <td class="table-active"><label for="onedayName">担当者氏名</label></td>
+              <td class="table-active"><label for="onedayName">担当者名(仮)</label></td>
               <td>
                 @if (!empty($multiple->pre_reservations()->first()->unknown_user->unknown_user_name))
                 {{$multiple->pre_reservations()->first()->unknown_user->unknown_user_name}}
@@ -99,10 +99,10 @@
               </td>
             </tr>
             <tr>
-              <td class="table-active" scope="row"><label for="onedayEmail">担当者メールアドレス</label></td>
+            <td class="table-active" scope="row"><label for="onedayTel">固定電話</label></td>
               <td>
-                @if (!empty($multiple->pre_reservations()->first()->unknown_user->unknown_user_email))
-                {{$multiple->pre_reservations()->first()->unknown_user->unknown_user_email}}
+                @if (!empty($multiple->pre_reservations()->first()->unknown_user->unknown_user_tel))
+                {{$multiple->pre_reservations()->first()->unknown_user->unknown_user_tel}}
                 @endif
               </td>
               <td class="table-active" scope="row"><label for="onedayMobile">携帯番号</label></td>
@@ -113,10 +113,10 @@
               </td>
             </tr>
             <tr>
-              <td class="table-active" scope="row"><label for="onedayTel">固定電話</label></td>
+            <td class="table-active" scope="row"><label for="onedayEmail">メールアドレス</label></td>
               <td>
-                @if (!empty($multiple->pre_reservations()->first()->unknown_user->unknown_user_tel))
-                {{$multiple->pre_reservations()->first()->unknown_user->unknown_user_tel}}
+                @if (!empty($multiple->pre_reservations()->first()->unknown_user->unknown_user_email))
+                {{$multiple->pre_reservations()->first()->unknown_user->unknown_user_email}}
                 @endif
               </td>
             </tr>

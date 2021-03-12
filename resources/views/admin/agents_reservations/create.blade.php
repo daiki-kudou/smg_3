@@ -335,18 +335,10 @@
             </tr>
             <tr>
               <td class="table-active">
-                <label for="enduser_company" class="">会社名・団体名</label>
+                <label for="enduser_company" class="">エンドユーザー</label>
               </td>
               <td>
                 {{ Form::text('enduser_company', old('enduser_company'),['class'=>'form-control', 'placeholder'=>'入力してください','id'=>'enduser_company'] ) }}
-              </td>
-            </tr>
-            <tr>
-              <td class="table-active">
-                <label for="enduser_incharge" class="">担当者氏名</label>
-              </td>
-              <td>
-                {{ Form::text('enduser_incharge', old('enduser_incharge'),['class'=>'form-control', 'placeholder'=>'入力してください', 'maxlength'=>13, 'id'=>'enduser_incharge'] ) }}
               </td>
             </tr>
             <tr>
@@ -359,10 +351,26 @@
             </tr>
             <tr>
               <td class="table-active">
-                <label for="enduser_tel" class="">電話番号</label>
+                <label for="enduser_tel" class="">連絡先</label>
               </td>
               <td>
                 {{ Form::text('enduser_tel', old('enduser_tel'),['class'=>'form-control', 'placeholder'=>'入力してください', 'maxlength'=>13, 'id'=>'enduser_tel'] ) }}
+              </td>
+            </tr>
+            <tr>
+              <td class="table-active">
+                <label for="enduser_mail" class=" ">メールアドレス</label>
+              </td>
+              <td>
+                {{ Form::text('enduser_mail', old('enduser_mail'),['class'=>'form-control', 'placeholder'=>'入力してください', 'maxlength'=>13,'id'=>'enduser_mail'] ) }}
+              </td>
+            </tr>
+            <tr>
+              <td class="table-active">
+                <label for="enduser_incharge" class="">当日担当者</label>
+              </td>
+              <td>
+                {{ Form::text('enduser_incharge', old('enduser_incharge'),['class'=>'form-control', 'placeholder'=>'入力してください', 'maxlength'=>13, 'id'=>'enduser_incharge'] ) }}
               </td>
             </tr>
             <tr>
@@ -372,14 +380,6 @@
               <td>
                 <input class="form-control" placeholder="入力してください" maxlength="13" id="enduser_mobile"
                   name="enduser_mobile" type="text">
-              </td>
-            </tr>
-            <tr>
-              <td class="table-active">
-                <label for="enduser_mail" class=" ">メールアドレス</label>
-              </td>
-              <td>
-                {{ Form::text('enduser_mail', old('enduser_mail'),['class'=>'form-control', 'placeholder'=>'入力してください', 'maxlength'=>13,'id'=>'enduser_mail'] ) }}
               </td>
             </tr>
             <tr>
