@@ -593,6 +593,7 @@ class PreReservation extends Model
         "tel" => $request->pre_enduser_tel,
         "address" => $request->pre_enduser_address,
         "attr" => $request->pre_enduser_attr,
+        'charge' => $request->enduser_charge
       ]);
     });
   }
