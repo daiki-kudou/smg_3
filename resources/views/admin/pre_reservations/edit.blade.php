@@ -251,15 +251,18 @@
             <td class="table-active">イベント開始時間</td>
             <td>
               <select name="event_start" id="event_start" class="form-control">
-                <option value=""></option>
+                <option disabled>選択してください</option>
                 @for ($start = 0*2; $start <=23*2; $start++) <option
                   value="{{date("H:i:s", strtotime("00:00 +". $start * 30 ." minute"))}}" @if (date("H:i:s",
-                  strtotime("00:00 +". $start * 30 ." minute"))==$PreReservation->event_start)
+                  strtotime("00:00 +". $start * 30 ." minute"))<$PreReservation->enter_time)
+                  disabled
+                  @elseif(date("H:i:s", strtotime("00:00 +". $start * 30 ." minute"))>$PreReservation->leave_time)
+                  disabled
+                  @elseif(date("H:i:s", strtotime("00:00 +". $start * 30 ." minute"))==$PreReservation->enter_time)
                   selected
                   @endif
                   >
-                  {{date("H時i分", strtotime("00:00 +". $start * 30 ." minute"))}}
-                  </option>
+                  {{date("H時i分", strtotime("00:00 +". $start * 30 ." minute"))}}</option>
                   @endfor
               </select>
             </td>
@@ -268,15 +271,18 @@
             <td class="table-active">イベント終了時間</td>
             <td>
               <select name="event_finish" id="event_finish" class="form-control">
-                <option value=""></option>
+                <option disabled>選択してください</option>
                 @for ($start = 0*2; $start <=23*2; $start++) <option
                   value="{{date("H:i:s", strtotime("00:00 +". $start * 30 ." minute"))}}" @if (date("H:i:s",
-                  strtotime("00:00 +". $start * 30 ." minute"))==$PreReservation->event_finish)
+                  strtotime("00:00 +". $start * 30 ." minute"))<$PreReservation->enter_time)
+                  disabled
+                  @elseif(date("H:i:s", strtotime("00:00 +". $start * 30 ." minute"))>$PreReservation->leave_time)
+                  disabled
+                  @elseif(date("H:i:s", strtotime("00:00 +". $start * 30 ." minute"))==$PreReservation->leave_time)
                   selected
                   @endif
                   >
-                  {{date("H時i分", strtotime("00:00 +". $start * 30 ." minute"))}}
-                  </option>
+                  {{date("H時i分", strtotime("00:00 +". $start * 30 ." minute"))}}</option>
                   @endfor
               </select>
             </td>
