@@ -275,6 +275,10 @@ Route::namespace('Admin')->prefix('admin')->name('admin.')->group(function () {
     Route::get('pre_agent_reservations/{pre_reservation}/edit', 'PreAgentReservationsController@edit');
     // 仲介会社ajax
     Route::post('pre_agent_reservations/get_agent', 'PreAgentReservationsController@get_agent');
+    // 仲介会社　編集　計算
+    Route::post('pre_agent_reservations/{pre_reservation}/edit_calculate', 'PreAgentReservationsController@edit_calculate');
+
+    Route::put('pre_agent_reservations/{pre_reservation}/update', 'PreAgentReservationsController@update');
 
 
     Route::resource('cxl', 'CxlController', ['except' => ['create']]);

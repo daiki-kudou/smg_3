@@ -38,9 +38,9 @@ class PreBreakdown extends Model
           $this->create([
             'pre_bill_id' => $pre_reservation->pre_bill->id,
             'unit_item' => $request->{'venue_breakdown_item' . $i},
-            'unit_cost' => $request->{'venue_breakdown_cost' . $i},
+            'unit_cost' => !empty($request->{'venue_breakdown_cost' . $i}) ? $request->{'venue_breakdown_cost' . $i} : 0,
             'unit_count' => $request->{'venue_breakdown_count' . $i},
-            'unit_subtotal' => $request->{'venue_breakdown_subtotal' . $i},
+            'unit_subtotal' => !empty($request->{'venue_breakdown_subtotal' . $i}) ? $request->{'venue_breakdown_subtotal' . $i} : 0,
             'unit_type' => 1,
           ]);
         }
@@ -49,9 +49,9 @@ class PreBreakdown extends Model
         $this->create([
           'pre_bill_id' => $pre_reservation->pre_bill->id,
           'unit_item' => $request->venue_breakdown_discount_item,
-          'unit_cost' => $request->venue_breakdown_discount_cost,
+          'unit_cost' => !empty($request->venue_breakdown_discount_cost) ? $request->venue_breakdown_discount_cost : 0,
           'unit_count' => $request->venue_breakdown_discount_count,
-          'unit_subtotal' => $request->venue_breakdown_discount_subtotal,
+          'unit_subtotal' => !empty($request->venue_breakdown_discount_subtotal) ? $request->venue_breakdown_discount_subtotal : 0,
           'unit_type' => 1,
         ]);
       }
@@ -62,9 +62,9 @@ class PreBreakdown extends Model
           $this->create([
             'pre_bill_id' => $pre_reservation->pre_bill->id,
             'unit_item' => $request->{'equipment_breakdown_item' . $equ},
-            'unit_cost' => $request->{'equipment_breakdown_cost' . $equ},
+            'unit_cost' => !empty($request->{'equipment_breakdown_cost' . $equ}) ? $request->{'equipment_breakdown_cost' . $equ} : 0,
             'unit_count' => $request->{'equipment_breakdown_count' . $equ},
-            'unit_subtotal' => $request->{'equipment_breakdown_subtotal' . $equ},
+            'unit_subtotal' => !empty($request->{'equipment_breakdown_subtotal' . $equ}) ? $request->{'equipment_breakdown_subtotal' . $equ} : 0,
             'unit_type' => 2,
           ]);
         }
@@ -76,9 +76,9 @@ class PreBreakdown extends Model
           $this->create([
             'pre_bill_id' => $pre_reservation->pre_bill->id,
             'unit_item' => $request->{'service_breakdown_item' . $ser},
-            'unit_cost' => $request->{'service_breakdown_cost' . $ser},
+            'unit_cost' => !empty($request->{'service_breakdown_cost' . $ser}) ? $request->{'service_breakdown_cost' . $ser} : 0,
             'unit_count' => $request->{'service_breakdown_count' . $ser},
-            'unit_subtotal' => $request->{'service_breakdown_subtotal' . $ser},
+            'unit_subtotal' => !empty($request->{'service_breakdown_subtotal' . $ser}) ? $request->{'service_breakdown_subtotal' . $ser} : 0,
             'unit_type' => 3,
           ]);
         }
@@ -94,13 +94,14 @@ class PreBreakdown extends Model
           'unit_type' => 3,
         ]);
       }
+
       if ($request->luggage_item) {
         $this->create([
           'pre_bill_id' => $pre_reservation->pre_bill->id,
           'unit_item' => $request->luggage_item,
-          'unit_cost' => $request->luggage_cost,
+          'unit_cost' => !empty($request->luggage_cost) ? $request->luggage_cost : 0,
           'unit_count' => 1,
-          'unit_subtotal' => $request->luggage_subtotal,
+          'unit_subtotal' => !empty($request->luggage_subtotal) ? $request->luggage_subtotal : 0,
           'unit_type' => 3,
         ]);
       }
@@ -109,9 +110,9 @@ class PreBreakdown extends Model
         $this->create([
           'pre_bill_id' => $pre_reservation->pre_bill->id,
           'unit_item' => $request->layout_prepare_item,
-          'unit_cost' => $request->layout_prepare_cost,
+          'unit_cost' => !empty($request->layout_prepare_cost) ? $request->layout_prepare_cost : 0,
           'unit_count' => 1,
-          'unit_subtotal' => $request->layout_prepare_subtotal,
+          'unit_subtotal' => !empty($request->layout_prepare_subtotal) ? $request->layout_prepare_subtotal : 0,
           'unit_type' => 4,
         ]);
       }
@@ -119,9 +120,9 @@ class PreBreakdown extends Model
         $this->create([
           'pre_bill_id' => $pre_reservation->pre_bill->id,
           'unit_item' => $request->layout_clean_item,
-          'unit_cost' => $request->layout_clean_cost,
+          'unit_cost' => !empty($request->layout_clean_cost) ? $request->layout_clean_cost : 0,
           'unit_count' => 1,
-          'unit_subtotal' => $request->layout_clean_subtotal,
+          'unit_subtotal' => !empty($request->layout_clean_subtotal) ? $request->layout_clean_subtotal : 0,
           'unit_type' => 4,
         ]);
       }
