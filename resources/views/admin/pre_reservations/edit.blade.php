@@ -1208,6 +1208,17 @@ $(function(){
     });
   })
 
+  $(function(){
+    $(document).on("click", "input:radio[name='eat_in']", function() {
+      var radioTarget=$('input:radio[name="eat_in"]:checked').val();
+      if (radioTarget==1) {
+        $('input:radio[name="eat_in_prepare"]').prop('disabled',false);
+      }else{
+        $('input:radio[name="eat_in_prepare"]').prop('disabled',true);
+        $('input:radio[name="eat_in_prepare"]').prop('checked', false);
+      }
+    })
+  })
 
 
 </script>
