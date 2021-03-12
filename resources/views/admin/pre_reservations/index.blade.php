@@ -121,7 +121,7 @@
             </td>
           </tr>
           <tr>
-            <th class="search_item_name"><label for="temp_company">エンドユーザー</label></th>
+            <th class="search_item_name"><label for="search_end_user">エンドユーザー</label></th>
             <td>
               {{Form::text("search_end_user",'', ['class'=>'form-control','id'=>''])}}
             </td>
