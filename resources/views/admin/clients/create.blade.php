@@ -102,7 +102,7 @@
               </tr>
               <tr>
                 <td class="table-active">{{ Form::label('attr', '顧客属性') }}</td>
-                <td>{{Form::select('attr', [1=>'一般企業', 2=>'上場企業',3=>'近隣利用', 4=>'個人講師', 5=>'MLM', 6=>'その他'])}}</td>
+                <td>{{Form::select('attr', [1=>'一般企業', 2=>'上場企業',3=>'近隣利用', 4=>'個人講師', 5=>'MLM', 6=>'仲介会社', 7=>'その他'])}}</td>
               </tr>
             </tbody>
           </table>
@@ -140,12 +140,14 @@
               <tr>
                 <td class="table-active form_required">{{ Form::label('mobile', '携帯番号') }}</td>
                 <td colspan="2">{{ Form::text('mobile', old('mobile'), ['class' => 'form-control']) }}
+                  <small>半角数字、ハイフンなしで入力してください</small>
                   <p class="is-error-mobile" style="color: red"></p>
                 </td>
               </tr>
               <tr>
                 <td class="table-active">{{ Form::label('tel', '固定電話') }}</td>
                 <td colspan="2">{{ Form::text('tel', old('tel'), ['class' => 'form-control']) }}
+                <small>半角数字、ハイフンなしで入力してください</small>
                 </td>
               </tr>
               <tr>

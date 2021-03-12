@@ -53,7 +53,6 @@
           <td class="table-active">携帯番号</td>
           <td>
             <p class="mobile">{{$request->user_id==999?"":ReservationHelper::getPersonMobile($request->user_id)}}</p>
-
           </td>
           <td class="table-active">固定電話</td>
           <td>
@@ -152,9 +151,7 @@
               <td>
                 <select name="enter_time" id="enter_time" class="form-control">
                   <option value=""></option>
-                  @for ($start = 0*2; $start <=23*2; $start++) <option
-                    value="{{date("H:i:s", strtotime("00:00 +". $start * 30 ." minute"))}}" @if (date("H:i:s",
-                    strtotime("00:00 +". $start * 30 ." minute"))==$request->enter_time)
+                  @for ($start = 0*2; $start <=23*2; $start++) <option value="{{date("H:i:s", strtotime("00:00 +". $start * 30 ." minute"))}}" @if (date("H:i:s", strtotime("00:00 +". $start * 30 ." minute"))==$request->enter_time)
                     selected
                     @endif
                     >
@@ -169,9 +166,7 @@
               <td>
                 <select name="leave_time" id="leave_time" class="form-control">
                   <option value=""></option>
-                  @for ($start = 0*2; $start <=23*2; $start++) <option
-                    value="{{date("H:i:s", strtotime("00:00 +". $start * 30 ." minute"))}}" @if (date("H:i:s",
-                    strtotime("00:00 +". $start * 30 ." minute"))==$request->leave_time)
+                  @for ($start = 0*2; $start <=23*2; $start++) <option value="{{date("H:i:s", strtotime("00:00 +". $start * 30 ." minute"))}}" @if (date("H:i:s", strtotime("00:00 +". $start * 30 ." minute"))==$request->leave_time)
                     selected
                     @endif
                     >
@@ -215,9 +210,7 @@
             <td>
               <select name="event_start" id="event_start" class="form-control">
                 <option disabled>選択してください</option>
-                @for ($start = 0*2; $start <=23*2; $start++) <option
-                  value="{{date("H:i:s", strtotime("00:00 +". $start * 30 ." minute"))}}"
-                  @if(date("H:i:s",strtotime("00:00 +". $start * 30 ." minute"))<$request->enter_time)
+                @for ($start = 0*2; $start <=23*2; $start++) <option value="{{date("H:i:s", strtotime("00:00 +". $start * 30 ." minute"))}}" @if(date("H:i:s",strtotime("00:00 +". $start * 30 ." minute"))<$request->enter_time)
                   disabled
                   @elseif(date("H:i:s", strtotime("00:00 +". $start * 30 ." minute"))>$request->leave_time)
                   disabled
@@ -235,9 +228,7 @@
             <td>
               <select name="event_finish" id="event_finish" class="form-control">
                 <option disabled>選択してください</option>
-                @for ($start = 0*2; $start <=23*2; $start++) <option
-                  value="{{date("H:i:s", strtotime("00:00 +". $start * 30 ." minute"))}}"
-                  @if(date("H:i:s",strtotime("00:00 +". $start * 30 ." minute"))<$request->enter_time)
+                @for ($start = 0*2; $start <=23*2; $start++) <option value="{{date("H:i:s", strtotime("00:00 +". $start * 30 ." minute"))}}" @if(date("H:i:s",strtotime("00:00 +". $start * 30 ." minute"))<$request->enter_time)
                   disabled
                   @elseif(date("H:i:s", strtotime("00:00 +". $start * 30 ." minute"))>$request->leave_time)
                   disabled
@@ -247,7 +238,8 @@
                   >
                   {{date("H時i分", strtotime("00:00 +". $start * 30 ." minute"))}}</option>
                   @endfor
-              </select> </td>
+              </select>
+            </td>
           </tr>
           <tr>
             <td class="table-active">イベント名称1</td>
@@ -517,6 +509,7 @@
               <td class="table-active"><label for="mobilePhone" class=" form_required">携帯番号</label></td>
               <td>
                 {{ Form::text('tel', $request->tel,['class'=>'form-control'] ) }}
+                <small>半角数字、ハイフンなしで入力してください</small>
                 <p class="is-error-tel" style="color: red"></p>
               </td>
             </tr>
@@ -576,8 +569,8 @@
               <td class="table-active"><label for="">原価率</label></td>
               <td>
                 <div class="d-flex align-items-center">
-                {{ Form::text('cost', $request->cost,['class'=>'form-control', 'placeholder'=>'入力してください'] ) }}
-                <span class="ml-1">%</span>
+                  {{ Form::text('cost', $request->cost,['class'=>'form-control', 'placeholder'=>'入力してください'] ) }}
+                  <span class="ml-1">%</span>
                 </div>
               </td>
             </tr>
@@ -1139,29 +1132,28 @@
     });
   })
 
-  $(function(){
+  $(function() {
     $(document).on("click", "input:radio[name='eat_in']", function() {
-      var radioTarget=$('input:radio[name="eat_in"]:checked').val();
-      if (radioTarget==1) {
-        $('input:radio[name="eat_in_prepare"]').prop('disabled',false);
-      }else{
-        $('input:radio[name="eat_in_prepare"]').prop('disabled',true);
+      var radioTarget = $('input:radio[name="eat_in"]:checked').val();
+      if (radioTarget == 1) {
+        $('input:radio[name="eat_in_prepare"]').prop('disabled', false);
+      } else {
+        $('input:radio[name="eat_in_prepare"]').prop('disabled', true);
         $('input:radio[name="eat_in_prepare"]').val("");
       }
     })
   })
 
 
-  $(function(){
-    var maxTarget=$('input[name="reserve_date"]').val();
+  $(function() {
+    var maxTarget = $('input[name="reserve_date"]').val();
     $('#datepicker9').datepicker({
       dateFormat: 'yy-mm-dd',
       minDate: 0,
-      maxDate:maxTarget,
+      maxDate: maxTarget,
       autoclose: true,
     });
   })
-
 </script>
 
 @endsection

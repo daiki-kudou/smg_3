@@ -100,6 +100,7 @@
                 </td>
                 <td colspan="2">
                   {{ Form::text('person_tel', $agent->person_tel, ['class' => 'form-control', 'id'=>'company']) }}
+                  <small>半角数字、ハイフンなしで入力してください</small>
                 </td>
               </tr>
               <tr>
@@ -108,6 +109,7 @@
                 </td>
                 <td colspan="2">
                   {{ Form::text('fax', $agent->fax, ['class' => 'form-control', 'id'=>'company']) }}
+                  <small>半角数字、ハイフンなしで入力してください</small>
                 </td>
               </tr>
               <tr>
@@ -138,6 +140,7 @@
                 </th>
                 <td colspan="2">
                   {{ Form::text('person_mobile', $agent->person_mobile, ['class' => 'form-control', 'id'=>'company']) }}
+                  <small>半角数字、ハイフンなしで入力してください</small>
                 </td>
               </tr>
               <tr>

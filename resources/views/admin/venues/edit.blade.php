@@ -47,7 +47,7 @@
 
     <div class="container-field">
       <section class="section-wrap">
-    <p class="text-right">※金額は税抜で入力してください。</p>
+        <p class="text-right">※金額は税抜で入力してください。</p>
         <!-- 会場URL ---------------------------------------------------->
         <div class="row">
           <div class="col">
@@ -257,6 +257,7 @@
                   <td class="table-active"><label for="luggage_tel">電話番号</label></td>
                   <td>
                     {{ Form::text('luggage_tel', $venue->luggage_tel, ['class' => 'form-control']) }}
+                    <small>半角数字、ハイフンなしで入力してください</small>
                     <p class="is-error-luggage_tel" style="color: red"></p>
                   </td>
                 </tr>
@@ -304,6 +305,7 @@
                   <td class="table-active"><label for="person_tel">担当者電話番号</label></td>
                   <td colspan="2">
                     {{ Form::text('person_tel', $venue->person_tel, ['class' => 'form-control']) }}
+                    <small>半角数字、ハイフンなしで入力してください</small>
                     <p class="is-error-person_tel" style="color: red"></p>
                   </td>
                 </tr>
@@ -339,12 +341,14 @@
                   <td class="table-active"><label for="mgmt_tel">電話番号</label></td>
                   <td colspan="2">
                     {{ Form::text('mgmt_tel', $venue->mgmt_tel, ['class' => 'form-control']) }}
+                    <small>半角数字、ハイフンなしで入力してください</small>
                   </td>
                 </tr>
                 <tr>
                   <td class="table-active"><label for="mgmt_emer_tel">夜間緊急連絡先</label></td>
                   <td colspan="2">
                     {{ Form::text('mgmt_emer_tel', $venue->mgmt_emer_tel, ['class' => 'form-control']) }}
+                    <small>半角数字、ハイフンなしで入力してください</small>
                   </td>
                 </tr>
 
@@ -374,6 +378,7 @@
                   <td class="table-active"><label for="mgmt_sec_tel">警備会社電話番号</label></td>
                   <td colspan="2">
                     {{ Form::text('mgmt_sec_company', $venue->mgmt_sec_tel, ['class' => 'form-control']) }}
+                    <small>半角数字、ハイフンなしで入力してください</small>
                   </td>
                 </tr>
                 <tr>
@@ -483,8 +488,7 @@
         </div>
         <select id='equipment_id' multiple='multiple' name="equipment_id[]">
           @for ($i = 0; $i < $m_equipments->count(); $i++)
-            <option value={{$m_equipments[$i]->id}} @foreach ($r_emptys as $r_empty)
-              {{$m_equipments[$i]->id==$r_empty->id?"selected":""}} @endforeach>{{$m_equipments[$i]->item}}
+            <option value={{$m_equipments[$i]->id}} @foreach ($r_emptys as $r_empty) {{$m_equipments[$i]->id==$r_empty->id?"selected":""}} @endforeach>{{$m_equipments[$i]->item}}
             </option>
             @endfor
         </select>
@@ -501,8 +505,7 @@
         </div>
         <select id='service_id' multiple='multiple' name="service_id[]">
           @for ($s = 0; $s < $m_services->count(); $s++)
-            <option value={{$m_services[$s]->id}} @foreach ($s_emptys as $s_empty)
-              {{$m_services[$s]->id==$s_empty->id?"selected":""}} @endforeach>{{$m_services[$s]->item}}
+            <option value={{$m_services[$s]->id}} @foreach ($s_emptys as $s_empty) {{$m_services[$s]->id==$s_empty->id?"selected":""}} @endforeach>{{$m_services[$s]->item}}
             </option>
             @endfor
         </select>

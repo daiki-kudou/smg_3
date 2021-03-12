@@ -76,32 +76,36 @@
           <td class="table-active">会社名・団体名</td>
           <td colspan="3">
             <p class="company">
-              {{$PreReservation->user_id==999?"":ReservationHelper::getCompany($PreReservation->user_id)}}</p>
+              {{$PreReservation->user_id==999?"":ReservationHelper::getCompany($PreReservation->user_id)}}
+            </p>
           </td>
         </tr>
         <tr>
           <td class="table-active">担当者氏名</td>
           <td>
             <p class="person">
-              {{$PreReservation->user_id==999?"":ReservationHelper::getPersonName($PreReservation->user_id)}}</p>
+              {{$PreReservation->user_id==999?"":ReservationHelper::getPersonName($PreReservation->user_id)}}
+            </p>
           </td>
           <td class="table-active">メールアドレス</td>
           <td>
             <p class="email">
-              {{$PreReservation->user_id==999?"":ReservationHelper::getPersonEmail($PreReservation->user_id)}}</p>
+              {{$PreReservation->user_id==999?"":ReservationHelper::getPersonEmail($PreReservation->user_id)}}
+            </p>
           </td>
         </tr>
         <tr>
           <td class="table-active">携帯番号</td>
           <td>
             <p class="mobile">
-              {{$PreReservation->user_id==999?"":ReservationHelper::getPersonMobile($PreReservation->user_id)}}</p>
-
+              {{$PreReservation->user_id==999?"":ReservationHelper::getPersonMobile($PreReservation->user_id)}}
+            </p>
           </td>
           <td class="table-active">固定電話</td>
           <td>
             <p class="tel">
-              {{$PreReservation->user_id==999?"":ReservationHelper::getPersonTel($PreReservation->user_id)}}</p>
+              {{$PreReservation->user_id==999?"":ReservationHelper::getPersonTel($PreReservation->user_id)}}
+            </p>
           </td>
         </tr>
       </tbody>
@@ -190,9 +194,7 @@
               <td>
                 <select name="enter_time" id="enter_time" class="form-control">
                   <option value=""></option>
-                  @for ($start = 0*2; $start <=23*2; $start++) <option
-                    value="{{date("H:i:s", strtotime("00:00 +". $start * 30 ." minute"))}}" @if (date("H:i:s",
-                    strtotime("00:00 +". $start * 30 ." minute"))==$PreReservation->enter_time)
+                  @for ($start = 0*2; $start <=23*2; $start++) <option value="{{date("H:i:s", strtotime("00:00 +". $start * 30 ." minute"))}}" @if (date("H:i:s", strtotime("00:00 +". $start * 30 ." minute"))==$PreReservation->enter_time)
                     selected
                     @endif
                     >
@@ -207,9 +209,7 @@
               <td>
                 <select name="leave_time" id="leave_time" class="form-control">
                   <option value=""></option>
-                  @for ($start = 0*2; $start <=23*2; $start++) <option
-                    value="{{date("H:i:s", strtotime("00:00 +". $start * 30 ." minute"))}}" @if (date("H:i:s",
-                    strtotime("00:00 +". $start * 30 ." minute"))==$PreReservation->leave_time)
+                  @for ($start = 0*2; $start <=23*2; $start++) <option value="{{date("H:i:s", strtotime("00:00 +". $start * 30 ." minute"))}}" @if (date("H:i:s", strtotime("00:00 +". $start * 30 ." minute"))==$PreReservation->leave_time)
                     selected
                     @endif
                     >
@@ -252,9 +252,7 @@
             <td>
               <select name="event_start" id="event_start" class="form-control">
                 <option disabled>選択してください</option>
-                @for ($start = 0*2; $start <=23*2; $start++) <option
-                  value="{{date("H:i:s", strtotime("00:00 +". $start * 30 ." minute"))}}" @if (date("H:i:s",
-                  strtotime("00:00 +". $start * 30 ." minute"))<$PreReservation->enter_time)
+                @for ($start = 0*2; $start <=23*2; $start++) <option value="{{date("H:i:s", strtotime("00:00 +". $start * 30 ." minute"))}}" @if (date("H:i:s", strtotime("00:00 +". $start * 30 ." minute"))<$PreReservation->enter_time)
                   disabled
                   @elseif(date("H:i:s", strtotime("00:00 +". $start * 30 ." minute"))>$PreReservation->leave_time)
                   disabled
@@ -272,9 +270,7 @@
             <td>
               <select name="event_finish" id="event_finish" class="form-control">
                 <option disabled>選択してください</option>
-                @for ($start = 0*2; $start <=23*2; $start++) <option
-                  value="{{date("H:i:s", strtotime("00:00 +". $start * 30 ." minute"))}}" @if (date("H:i:s",
-                  strtotime("00:00 +". $start * 30 ." minute"))<$PreReservation->enter_time)
+                @for ($start = 0*2; $start <=23*2; $start++) <option value="{{date("H:i:s", strtotime("00:00 +". $start * 30 ." minute"))}}" @if (date("H:i:s", strtotime("00:00 +". $start * 30 ." minute"))<$PreReservation->enter_time)
                   disabled
                   @elseif(date("H:i:s", strtotime("00:00 +". $start * 30 ." minute"))>$PreReservation->leave_time)
                   disabled
@@ -556,6 +552,7 @@
               <td class="table-active"><label for="mobilePhone" class=" form_required">携帯番号</label></td>
               <td>
                 {{ Form::text('tel', $PreReservation->tel,['class'=>'form-control'] ) }}
+                <small>半角数字、ハイフンなしで入力してください</small>
                 <p class="is-error-tel" style="color: red"></p>
               </td>
             </tr>
@@ -1131,96 +1128,94 @@
     });
   })
 
-  $(function () {
-  $(document).on("change", "#user_id", function() {
-    var user_id = Number($('#user_id').val());
-    if (user_id==999) {
-      $('input[name=unknown_user_company]').prop('readonly',false);
-      $('input[name=unknown_user_name]').prop('readonly',false);
-      $('input[name=unknown_user_email]').prop('readonly',false);
-      $('input[name=unknown_user_mobile]').prop('readonly',false);
-      $('input[name=unknown_user_tel]').prop('readonly',false);
-      $('.company').text('');
-      $('.person').text('');
-      $('.email').text('');
-      $('.mobile').text('');
-      $('.tel').text('');
-    }else{
-    ajaxGetuser(user_id);
-    $('input[name=unknown_user_company]').prop('readonly',true);
-      $('input[name=unknown_user_name]').prop('readonly',true);
-      $('input[name=unknown_user_email]').prop('readonly',true);
-      $('input[name=unknown_user_mobile]').prop('readonly',true);
-      $('input[name=unknown_user_tel]').prop('readonly',true);
-    $('input[name=unknown_user_company]').val("");
-      $('input[name=unknown_user_name]').val("");
-      $('input[name=unknown_user_email]').val("");
-      $('input[name=unknown_user_mobile]').val("");
-      $('input[name=unknown_user_tel]').val("");
+  $(function() {
+    $(document).on("change", "#user_id", function() {
+      var user_id = Number($('#user_id').val());
+      if (user_id == 999) {
+        $('input[name=unknown_user_company]').prop('readonly', false);
+        $('input[name=unknown_user_name]').prop('readonly', false);
+        $('input[name=unknown_user_email]').prop('readonly', false);
+        $('input[name=unknown_user_mobile]').prop('readonly', false);
+        $('input[name=unknown_user_tel]').prop('readonly', false);
+        $('.company').text('');
+        $('.person').text('');
+        $('.email').text('');
+        $('.mobile').text('');
+        $('.tel').text('');
+      } else {
+        ajaxGetuser(user_id);
+        $('input[name=unknown_user_company]').prop('readonly', true);
+        $('input[name=unknown_user_name]').prop('readonly', true);
+        $('input[name=unknown_user_email]').prop('readonly', true);
+        $('input[name=unknown_user_mobile]').prop('readonly', true);
+        $('input[name=unknown_user_tel]').prop('readonly', true);
+        $('input[name=unknown_user_company]').val("");
+        $('input[name=unknown_user_name]').val("");
+        $('input[name=unknown_user_email]').val("");
+        $('input[name=unknown_user_mobile]').val("");
+        $('input[name=unknown_user_tel]').val("");
 
-    }
+      }
+    });
+
+    function ajaxGetuser($user_id) {
+      $.ajax({
+          headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+          },
+          url: '/admin/pre_reservations/get_user',
+          type: 'POST',
+          data: {
+            'user_id': $user_id,
+          },
+          dataType: 'json',
+          beforeSend: function() {
+            $('#fullOverlay').css('display', 'block');
+          },
+        })
+        .done(function($user) {
+          $('#fullOverlay').css('display', 'none');
+          console.log($user);
+          $(".user_info").find('tr').eq(0).find('td').eq(1).text("");
+          $(".user_info").find('tr').eq(0).find('td').eq(1).text($user[0]);
+          $(".user_info").find('tr').eq(1).find('td').eq(1).text("");
+          $(".user_info").find('tr').eq(1).find('td').eq(1).text($user[1] + $user[2]);
+          $(".user_info").find('tr').eq(1).find('td').eq(3).text("");
+          $(".user_info").find('tr').eq(1).find('td').eq(3).text($user[3]);
+          $(".user_info").find('tr').eq(2).find('td').eq(1).text("");
+          $(".user_info").find('tr').eq(2).find('td').eq(1).text($user[4]);
+          $(".user_info").find('tr').eq(2).find('td').eq(3).text("");
+          $(".user_info").find('tr').eq(2).find('td').eq(3).text($user[5]);
+          $('input[name="user_id"]').val($user[6]);
+        })
+        .fail(function($user) {
+          $('#fullOverlay').css('display', 'none');
+          console.log("エラーです");
+        });
+    };
   });
 
-  function ajaxGetuser($user_id) {
-    $.ajax({
-      headers: {
-        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-      },
-      url: '/admin/pre_reservations/get_user',
-      type: 'POST',
-      data: {
-        'user_id': $user_id,
-      },
-      dataType: 'json',
-      beforeSend: function () {
-        $('#fullOverlay').css('display', 'block');
-      },
-    })
-      .done(function ($user) {
-        $('#fullOverlay').css('display', 'none');
-        console.log($user);
-        $(".user_info").find('tr').eq(0).find('td').eq(1).text("");
-        $(".user_info").find('tr').eq(0).find('td').eq(1).text($user[0]);
-        $(".user_info").find('tr').eq(1).find('td').eq(1).text("");
-        $(".user_info").find('tr').eq(1).find('td').eq(1).text($user[1]+$user[2]);
-        $(".user_info").find('tr').eq(1).find('td').eq(3).text("");
-        $(".user_info").find('tr').eq(1).find('td').eq(3).text($user[3]);
-        $(".user_info").find('tr').eq(2).find('td').eq(1).text("");
-        $(".user_info").find('tr').eq(2).find('td').eq(1).text($user[4]);
-        $(".user_info").find('tr').eq(2).find('td').eq(3).text("");
-        $(".user_info").find('tr').eq(2).find('td').eq(3).text($user[5]);
-        $('input[name="user_id"]').val($user[6]);
-      })
-      .fail(function ($user) {
-        $('#fullOverlay').css('display', 'none');
-        console.log("エラーです");
-      });
-  };
-});
-
-$(function(){
-    var maxTarget=$('input[name="reserve_date"]').val();
+  $(function() {
+    var maxTarget = $('input[name="reserve_date"]').val();
     $('#datepicker9').datepicker({
       dateFormat: 'yy-mm-dd',
       minDate: 0,
-      maxDate:maxTarget,
+      maxDate: maxTarget,
       autoclose: true,
     });
   })
 
-  $(function(){
+  $(function() {
     $(document).on("click", "input:radio[name='eat_in']", function() {
-      var radioTarget=$('input:radio[name="eat_in"]:checked').val();
-      if (radioTarget==1) {
-        $('input:radio[name="eat_in_prepare"]').prop('disabled',false);
-      }else{
-        $('input:radio[name="eat_in_prepare"]').prop('disabled',true);
+      var radioTarget = $('input:radio[name="eat_in"]:checked').val();
+      if (radioTarget == 1) {
+        $('input:radio[name="eat_in_prepare"]').prop('disabled', false);
+      } else {
+        $('input:radio[name="eat_in_prepare"]').prop('disabled', true);
         $('input:radio[name="eat_in_prepare"]').prop('checked', false);
       }
     })
   })
-
-
 </script>
 
 @endsection

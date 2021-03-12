@@ -907,9 +907,9 @@
           </tbody>
           <tbody class="layout_result">
             <tr>
-              <td colspan="1"></td>
+              <td colspan="2"></td>
               <td colspan="1">合計：</td>
-              <td colspan="2">合計：
+              <td colspan="1">
                 {{number_format($pre_reservation->pre_bill->layout_price)}}
               </td>
             </tr>
@@ -952,7 +952,7 @@
 
 
 
-      @if ($pre_reservation->user_id>0)
+      <!-- @if ($pre_reservation->user_id>0)
       <div class="others billdetails_content">
         <table class="table table-borderless" style="table-layout: fixed;">
           <tbody>
@@ -1020,7 +1020,7 @@
           </tbody>
         </table>
       </div>
-      @endif
+      @endif -->
 
 
       <div class="bill_total">

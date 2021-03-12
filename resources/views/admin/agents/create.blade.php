@@ -92,12 +92,14 @@
                 <td class="table-active"><label for="tel">電話番号</label></td>
                 <td colspan="2">
                   {{ Form::text('person_tel', old('person_tel'), ['class' => 'form-control']) }}
+                  <small>半角数字、ハイフンなしで入力してください</small>
                 </td>
               </tr>
               <tr>
                 <td class="table-active"><label for="fax">FAX</label></td>
                 <td colspan="2">
                   {{ Form::text('fax', old('fax'), ['class' => 'form-control']) }}
+                  <small>半角数字、ハイフンなしで入力してください</small>
                 </td>
               </tr>
               <tr>
@@ -124,6 +126,7 @@
                 <th class="table-active"><label for="person_tel">担当者TEL</label></th>
                 <td colspan="2">
                   {{ Form::text('person_mobile', old('person_mobile'), ['class' => 'form-control']) }}
+                  <small>半角数字、ハイフンなしで入力してください</small>
                 </td>
               </tr>
               <tr>
