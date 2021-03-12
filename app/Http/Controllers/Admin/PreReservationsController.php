@@ -168,6 +168,7 @@ class PreReservationsController extends Controller
       $venue = $venues->find($request->venue_id);
       $equipments = $venue->equipments()->get();
       $services = $venue->services()->get();
+      $SPVenue = $venues->find($request->venue_id);
 
       $price_details = $venue->calculate_price( //[0]は合計料金, [1]は延長料金, [2]は合計＋延長、 [3]は利用時間, [4]は延長時間
         $request->price_system,
@@ -215,6 +216,7 @@ class PreReservationsController extends Controller
         'masters' => $masters,
         'pay_limit' => $pay_limit,
         'user' => $user,
+        'SPVenue' => $SPVenue,
 
       ]);
     }

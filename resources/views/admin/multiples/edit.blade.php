@@ -207,6 +207,9 @@
                     @endforeach
                   </tbody>
                 </table>
+
+
+                @if ($venue->layout==1)
                 <table class="table table-bordered layout-table">
                   <thead>
                     <tr>
@@ -246,7 +249,10 @@
                     @endif
                   </tbody>
                 </table>
+                @endif
 
+
+                @if ($venue->luggage_flag==1)
                 <table class="table table-bordered luggage-table" style="table-layout: fixed;">
                   <thead>
                     <tr>
@@ -286,9 +292,10 @@
                     @endif
                   </tbody>
                 </table>
+                @endif
 
 
-
+                @if ($venue->eat_in_flag==1)
                 <table class="table table-bordered eating-table">
                   <thead>
                     <tr>
@@ -320,6 +327,11 @@
                       <td></td>
                     </tr>
                 </table>
+                @endif
+
+
+
+
               </div>
               <!-- 左側の項目 終わり-------------------------------------------------- -->
 
@@ -379,6 +391,8 @@
                   </tbody>
                 </table>
 
+
+                @if ($venue->alliance_flag==1)
                 <table class="table table-bordered sale-table">
                   <tbody>
                     <tr>
@@ -401,6 +415,10 @@
                     </tr>
                   </tbody>
                 </table>
+                @endif
+
+
+
                 <table class="table table-bordered note-table">
                   <tbody>
                     <tr>
@@ -705,6 +723,7 @@
                     </tbody>
                   </table>
 
+                  @if ($venue->layout==1)
                   <table class="table table-bordered layout-table">
                     <thead>
                       <tr>
@@ -720,6 +739,12 @@
                         <td class="table-active">準備</td>
                         <td>
                           <div class="form-check form-check-inline">
+                            @if ($pre_reservation->pre_breakdowns()->where('unit_item',"レイアウト準備料金")->count()==0)
+                            {{Form::radio('layout_prepare_copied'.$key, 1, false, ['id' => 'layout_prepare_copied'.$key, 'class' => 'form-check-input'])}}
+                            {{Form::label('layout_prepare_copied'.$key,'有り')}}
+                            {{Form::radio('layout_prepare_copied'.$key, 0, true, ['id' => 'no_layout_prepare_copied'.$key, 'class' => 'form-check-input'])}}
+                            {{Form::label('no_layout_prepare_copied'.$key,'無し')}}
+                            @else
                             @foreach ($pre_reservation->pre_breakdowns()->get() as $layout_prepares)
                             @if ($layout_prepares->unit_item=="レイアウト準備料金")
                             {{Form::radio('layout_prepare_copied'.$key, 1, true, ['id' => 'layout_prepare_copied'.$key, 'class' => 'form-check-input'])}}
@@ -734,6 +759,7 @@
                             {{Form::label('no_layout_prepare_copied'.$key,'無し')}}
                             @endif
                             @endforeach
+                            @endif
                           </div>
                         </td>
                       </tr>
@@ -741,6 +767,12 @@
                         <td class="table-active">片付</td>
                         <td>
                           <div class="form-check form-check-inline">
+                            @if ($pre_reservation->pre_breakdowns()->where('unit_item',"レイアウト片付料金")->count()==0)
+                            {{Form::radio('layout_clean_copied'.$key, 1, false, ['id' => 'layout_clean_copied'.$key, 'class' => 'form-check-input'])}}
+                            {{Form::label('layout_clean_copied'.$key,'有り')}}
+                            {{Form::radio('layout_clean_copied'.$key, 0, true, ['id' => 'no_layout_clean_copied'.$key, 'class' => 'form-check-input'])}}
+                            {{Form::label('no_layout_clean_copied'.$key,'無し')}}
+                            @else
                             @foreach ($pre_reservation->pre_breakdowns()->get() as $layout_prepares)
                             @if ($layout_prepares->unit_item=="レイアウト片付料金")
                             {{Form::radio('layout_clean_copied'.$key, 1, true, ['id' => 'layout_clean_copied'.$key, 'class' => 'form-check-input'])}}
@@ -755,12 +787,16 @@
                             {{Form::label('no_layout_clean_copied'.$key,'無し')}}
                             @endif
                             @endforeach
+                            @endif
+
                           </div>
                         </td>
                       </tr>
                     </tbody>
                   </table>
+                  @endif
 
+                  @if ($venue->luggage_flag==1)
                   <table class="table table-bordered luggage-table" style="table-layout: fixed;">
                     <thead>
                       <tr>
@@ -806,6 +842,9 @@
                       </tr>
                     </tbody>
                   </table>
+                  @endif
+
+                  @if ($venue->eat_in_flag==1)
                   <table class="table table-bordered eating-table">
                     <thead>
                       <tr>
@@ -837,6 +876,9 @@
                         <td></td>
                       </tr>
                   </table>
+                  @endif
+
+
                 </div>
                 <!-- 左側の項目 終わり-------------------------------------------------- -->
                 <!-- 右側の項目-------------------------------------------------- -->
@@ -892,6 +934,8 @@
                       </tr>
                     </tbody>
                   </table>
+
+                  @if ($venue->alliance_flag==1)
                   <table class="table table-bordered sale-table">
                     <tbody>
                       <tr>
@@ -914,6 +958,9 @@
                       </tr>
                     </tbody>
                   </table>
+                  @endif
+
+
                   <table class="table table-bordered note-table">
                     <tbody>
                       <tr>
@@ -1449,7 +1496,7 @@
 
     <ul class="d-flex col-12 justify-content-around mt-5 align-items-center">
       <li>
-        <p><a class="btn more_btn_lg" href="">詳細にもどる</a></p>
+        <p><a class="btn more_btn_lg" href="{{url('admin/multiples/'.$multiple->id)}}">詳細にもどる</a></p>
       </li>
       <li>
         <p id="master_submit" class="btn more_btn_lg">保存する</p>

@@ -152,7 +152,9 @@
               <td>
                 <select name="enter_time" id="enter_time" class="form-control">
                   <option value=""></option>
-                  @for ($start = 0*2; $start <=23*2; $start++) <option value="{{date("H:i:s", strtotime("00:00 +". $start * 30 ." minute"))}}" @if (date("H:i:s", strtotime("00:00 +". $start * 30 ." minute"))==$request->enter_time)
+                  @for ($start = 0*2; $start <=23*2; $start++) <option
+                    value="{{date("H:i:s", strtotime("00:00 +". $start * 30 ." minute"))}}" @if (date("H:i:s",
+                    strtotime("00:00 +". $start * 30 ." minute"))==$request->enter_time)
                     selected
                     @endif
                     >
@@ -167,7 +169,9 @@
               <td>
                 <select name="leave_time" id="leave_time" class="form-control">
                   <option value=""></option>
-                  @for ($start = 0*2; $start <=23*2; $start++) <option value="{{date("H:i:s", strtotime("00:00 +". $start * 30 ." minute"))}}" @if (date("H:i:s", strtotime("00:00 +". $start * 30 ." minute"))==$request->leave_time)
+                  @for ($start = 0*2; $start <=23*2; $start++) <option
+                    value="{{date("H:i:s", strtotime("00:00 +". $start * 30 ." minute"))}}" @if (date("H:i:s",
+                    strtotime("00:00 +". $start * 30 ." minute"))==$request->leave_time)
                     selected
                     @endif
                     >
@@ -196,10 +200,12 @@
             <td>
               <div class="radio-box">
                 <p>
-                  {{ Form::text('', $request->board_flag==1?"有り":"無し",['class'=>'form-control', 'readonly'] ) }}
+                  {{Form::radio('board_flag',1,$request->board_flag==1?true:false,['id'=>'board_flag'])}}
+                  {{Form::label('board_flag',"有り")}}
                 </p>
                 <p>
-                  {{ Form::hidden('board_flag', $request->board_flag,['class'=>'form-control', 'readonly'] ) }}
+                  {{Form::radio('board_flag',$request->board_flag==0?true:false,true,['id'=>'no_board_flag'])}}
+                  {{Form::label('no_board_flag',"無し")}}
                 </p>
               </div>
             </td>
@@ -207,33 +213,59 @@
           <tr>
             <td class="table-active">イベント開始時間</td>
             <td>
-              {{ Form::text('', date('H:i',strtotime($request->event_start)),['class'=>'form-control', 'readonly'] ) }}
-              {{ Form::hidden('event_start', $request->event_start,['class'=>'form-control', 'readonly'] ) }}
+              <select name="event_start" id="event_start" class="form-control">
+                <option disabled>選択してください</option>
+                @for ($start = 0*2; $start <=23*2; $start++) <option
+                  value="{{date("H:i:s", strtotime("00:00 +". $start * 30 ." minute"))}}" @if (date("H:i:s",
+                  strtotime("00:00 +". $start * 30 ." minute"))<$request->enter_time)
+                  disabled
+                  @elseif(date("H:i:s", strtotime("00:00 +". $start * 30 ." minute"))>$request->leave_time)
+                  disabled
+                  @elseif(date("H:i:s", strtotime("00:00 +". $start * 30 ." minute"))==$request->event_start)
+                  selected
+                  @endif
+                  >
+                  {{date("H時i分", strtotime("00:00 +". $start * 30 ." minute"))}}</option>
+                  @endfor
+              </select>
             </td>
           </tr>
           <tr>
             <td class="table-active">イベント終了時間</td>
             <td>
-              {{ Form::text('', date('H:i',strtotime($request->event_finish)),['class'=>'form-control', 'readonly'] ) }}
-              {{ Form::hidden('event_finish', $request->event_finish,['class'=>'form-control', 'readonly'] ) }}
+              <select name="event_finish" id="event_finish" class="form-control">
+                <option disabled>選択してください</option>
+                @for ($start = 0*2; $start <=23*2; $start++) <option
+                  value="{{date("H:i:s", strtotime("00:00 +". $start * 30 ." minute"))}}" @if (date("H:i:s",
+                  strtotime("00:00 +". $start * 30 ." minute"))<$request->enter_time)
+                  disabled
+                  @elseif(date("H:i:s", strtotime("00:00 +". $start * 30 ." minute"))>$request->leave_time)
+                  disabled
+                  @elseif(date("H:i:s", strtotime("00:00 +". $start * 30 ." minute"))==$request->event_finish)
+                  selected
+                  @endif
+                  >
+                  {{date("H時i分", strtotime("00:00 +". $start * 30 ." minute"))}}</option>
+                  @endfor
+              </select>
             </td>
           </tr>
           <tr>
             <td class="table-active">イベント名称1</td>
             <td>
-              {{ Form::text('event_name1', $request->event_name1,['class'=>'form-control', 'readonly'] ) }}
+              {{ Form::text('event_name1', $request->event_name1,['class'=>'form-control'] ) }}
             </td>
           </tr>
           <tr>
             <td class="table-active">イベント名称2</td>
             <td>
-              {{ Form::text('event_name2', $request->event_name2,['class'=>'form-control', 'readonly'] ) }}
+              {{ Form::text('event_name2', $request->event_name2,['class'=>'form-control'] ) }}
             </td>
           </tr>
           <tr>
             <td class="table-active">主催者名</td>
             <td>
-              {{ Form::text('event_owner', $request->event_owner,['class'=>'form-control', 'readonly'] ) }}
+              {{ Form::text('event_owner', $request->event_owner,['class'=>'form-control'] ) }}
             </td>
           </tr>
         </table>
@@ -405,6 +437,47 @@
             </tbody>
           </table>
         </div>
+
+
+        @if ($SPVenue->eat_in_flag==1)
+        <div class="eat_in">
+          <table class="table table-bordered">
+            <thead>
+              <tr>
+                <th colspan='2'>
+                  <p class="title-icon">
+                    <i class="fas fa-utensils icon-size fa-fw"></i>室内飲食
+                  </p>
+                </th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>
+                  {{Form::radio('eat_in', 1, $request->eat_in==1?true:false, ['id' => 'eat_in'])}}
+                  {{Form::label('eat_in',"あり")}}
+                </td>
+                <td>
+                  {{Form::radio('eat_in_prepare', 1, $request->eat_in_prepare==1?true:false , ['id' => 'eat_in_prepare', ''])}}
+                  {{Form::label('eat_in_prepare',"手配済み")}}
+                  {{Form::radio('eat_in_prepare', 2, $request->eat_in_prepare==2?true:false , ['id' => 'eat_in_consider',''])}}
+                  {{Form::label('eat_in_consider',"検討中")}}
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  {{Form::radio('eat_in', 0, $request->eat_in==0?true:false , ['id' => 'no_eat_in'])}}
+                  {{Form::label('no_eat_in',"なし")}}
+                </td>
+                <td></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        @endif
+
+
+
       </div>
 
       <div class="col">
@@ -448,29 +521,29 @@
             <tr>
               <td class="table-active"><label for="email_flag">送信メール</label></td>
               <td>
-                  @if ($request->email_flag!=0)
-                  <div class="radio-box">
+                @if ($request->email_flag!=0)
+                <div class="radio-box">
                   <p>
                     {{Form::radio('email_flag', 1, true , ['id' => 'email_flag'])}}
                     <label for="{{'email_flag'}}" class="form-check-label">有り</label>
-                    </p>
-                    <p>
+                  </p>
+                  <p>
                     {{Form::radio('email_flag', 0, false, ['id' => 'no_email_flag'])}}
                     <label for="{{'no_email_flag'}}" class="form-check-label">無し</label>
-                    </p>
-                  </div>
-                  @else
-                  <div class="radio-box">
+                  </p>
+                </div>
+                @else
+                <div class="radio-box">
                   <p>
                     {{Form::radio('email_flag', 1, false , ['id' => 'email_flag'])}}
                     <label for="{{'email_flag'}}" class="form-check-label">有り</label>
-                    </p>
-                    <p>
+                  </p>
+                  <p>
                     {{Form::radio('email_flag', 0, true, ['id' => 'no_email_flag'])}}
                     <label for="{{'no_email_flag'}}" class="form-check-label">無し</label>
-                    </p>
-                  </div>
-                  @endif
+                  </p>
+                </div>
+                @endif
               </td>
             </tr>
           </tbody>
@@ -1097,6 +1170,20 @@
       });
     });
   })
+
+  $(function(){
+    $(document).on("click", "input:radio[name='eat_in']", function() {
+      var radioTarget=$('input:radio[name="eat_in"]:checked').val();
+      if (radioTarget==1) {
+        $('input:radio[name="eat_in_prepare"]').prop('disabled',false);
+      }else{
+        $('input:radio[name="eat_in_prepare"]').prop('disabled',true);
+        $('input:radio[name="eat_in_prepare"]').prop('checked', false);
+      }
+    })
+  })
+
+
 </script>
 
 @endsection

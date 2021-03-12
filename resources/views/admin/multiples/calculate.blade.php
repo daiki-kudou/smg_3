@@ -202,6 +202,8 @@
                     @endforeach
                   </tbody>
                 </table>
+
+                @if ($venue->layout==1)
                 <table class="table table-bordered layout-table">
                   <thead>
                     <tr>
@@ -241,7 +243,9 @@
                     @endif
                   </tbody>
                 </table>
+                @endif
 
+                @if ($venue->luggage_flag==1)
                 <table class="table table-bordered luggage-table">
                   <thead>
                     <tr>
@@ -281,7 +285,10 @@
                     @endif
                   </tbody>
                 </table>
+                @endif
 
+
+                @if ($venue->eat_in_flag==1)
                 <table class="table table-bordered eating-table">
                   <thead>
                     <tr>
@@ -313,6 +320,11 @@
                       <td></td>
                     </tr>
                 </table>
+                @endif
+
+
+
+
                 </table>
               </div>
               <!-- 左側の項目 終わり-------------------------------------------------- -->
@@ -370,6 +382,7 @@
                   </tbody>
                 </table>
 
+                @if ($venue->alliance_flag==1)
                 <table class="table table-bordered sale-table">
                   <tbody>
                     <tr>
@@ -384,14 +397,16 @@
                       <td class="table-active"><label for="sale">原価率</label></td>
                       <td>
                         <div class="d-flex align-items-center">
-                        {{ Form::text('cp_master_cost', '',['class'=>'form-control'] ) }}
-                        <span class="ml-2">%</span>
+                          {{ Form::text('cp_master_cost', '',['class'=>'form-control'] ) }}
+                          <span class="ml-2">%</span>
                         </div>
                         <p class="is-error-cp_master_cost" style="color: red"></p>
                       </td>
                     </tr>
                   </tbody>
                 </table>
+                @endif
+
                 <table class="table table-bordered note-table">
                   <tbody>
                     <tr>
@@ -665,6 +680,7 @@
                     </tbody>
                   </table>
 
+                  @if ($venue->layout==1)
                   <table class="table table-bordered layout-table">
                     <thead>
                       <tr>
@@ -700,7 +716,9 @@
                       </tr>
                     </tbody>
                   </table>
+                  @endif
 
+                  @if ($venue->luggage_flag==1)
                   <table class="table table-bordered luggage-table">
                     <thead>
                       <tr>
@@ -740,7 +758,10 @@
                       @endif
                     </tbody>
                   </table>
+                  @endif
 
+
+                  @if ($venue->eat_in_flag==1)
                   <table class="table table-bordered eating-table">
                     <thead>
                       <tr>
@@ -780,6 +801,11 @@
                       </tr>
                     </tbody>
                   </table>
+                  @endif
+
+
+
+
                 </div>
                 <!-- 左側の項目 終わり-------------------------------------------------- -->
                 <!-- 右側の項目-------------------------------------------------- -->
@@ -835,6 +861,8 @@
                       </tr>
                     </tbody>
                   </table>
+
+                  @if ($venue->alliance_flag==1)
                   <table class="table table-bordered sale-table">
                     <tbody>
                       <tr>
@@ -849,13 +877,15 @@
                         <td class="table-active"><label for="sale">原価率</label></td>
                         <td>
                           <div class="d-flex align-items-center">
-                          {{ Form::text('cost_copied'.$key, $request->cp_master_cost,['class'=>'form-control'] ) }}
-                          <span class="ml-2">%</span>
+                            {{ Form::text('cost_copied'.$key, $request->cp_master_cost,['class'=>'form-control'] ) }}
+                            <span class="ml-2">%</span>
                           </div>
                         </td>
                       </tr>
                     </tbody>
                   </table>
+                  @endif
+
                   <table class="table table-bordered note-table">
                     <tbody>
                       <tr>
