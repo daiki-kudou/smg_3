@@ -749,8 +749,8 @@
                         <td>
                           {{Form::radio('eat_in_prepare_copied'.$key, 1, "" , ['id' => 'eat_in_prepare_copied'.$key])}}
                           {{Form::label('eat_in_prepare_copied'.$key,"手配済み")}}
-                          {{Form::radio('eat_in_prepare_copied'.$key, 2, "" , ['id' => 'eat_in_concider_copied'.$key])}}
-                          {{Form::label('eat_in_concider_copied'.$key,"検討中")}}
+                          {{Form::radio('eat_in_prepare_copied'.$key, 2, "" , ['id' => 'eat_in_consider_copied'.$key])}}
+                          {{Form::label('eat_in_consider_copied'.$key,"検討中")}}
                         </td>
                       </tr>
                       <tr>
@@ -760,6 +760,7 @@
                         </td>
                         <td></td>
                       </tr>
+                    </tbody>
                   </table>
                 </div>
                 <!-- 左側の項目 終わり-------------------------------------------------- -->

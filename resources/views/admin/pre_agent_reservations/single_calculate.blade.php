@@ -476,7 +476,10 @@
             <tr>
               <td class="table-active"><label for="">原価率</label></td>
               <td>
-                {{ Form::text('cost', $request->cost,['class'=>'form-control', 'placeholder'=>'入力してください'] ) }}%
+                <div class="d-flex align-items-center">
+                {{ Form::text('cost', $request->cost,['class'=>'form-control', 'placeholder'=>'入力してください'] ) }}
+                <span class="ml-1">%</span>
+                </div>
               </td>
             </tr>
           </tbody>
