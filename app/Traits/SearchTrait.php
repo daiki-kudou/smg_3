@@ -30,7 +30,7 @@ trait SearchTrait
     if (!empty($request->search_created_at)) { // 作成日の検索
       foreach ($this->SplitDate($request->search_created_at) as $key => $value) {
         $andSearch->orWhereDate("created_at", "=", current($value));
-        var_dump($value[0]);
+        // var_dump($value[0]);
       }
     }
 

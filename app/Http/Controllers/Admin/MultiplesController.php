@@ -30,7 +30,7 @@ class MultiplesController extends Controller
       $multiples = MultipleReserve::withCount('pre_reservations')->paginate(30);
     }
 
-    var_dump($multiples);
+    // var_dump($multiples);
     return view('admin.multiples.index', compact('multiples'));
   }
 

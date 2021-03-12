@@ -147,7 +147,7 @@
             </tr>
           </thead>
           <tbody>
-            {{var_dump($multiples)}}
+            {{-- {{var_dump($multiples)}} --}}
             {{-- @foreach ($multiples as $multiple)
             <tr>
               <td>
