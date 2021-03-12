@@ -151,6 +151,12 @@ class ReservationHelper
     return $agent->name;
   }
 
+  public static function getAgentCompanyName($agent_id)
+  {
+    $agent = Agent::find($agent_id);
+    return $agent->company;
+  }
+
   public static function getAgentEmail($agent_id)
   {
     $agent = Agent::find($agent_id);
