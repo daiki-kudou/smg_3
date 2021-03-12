@@ -22,6 +22,7 @@
 
 <section class="section-wrap">
   <div class="row">
+    <div class="col-12 mb-2"><a class="more_btn4" href="">削除</a></div>
     <div class="col-12">
       <table class="table ttl_head mb-0">
         <tbody>
