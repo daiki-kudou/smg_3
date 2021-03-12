@@ -16,18 +16,6 @@ trait SearchTrait
 {
 
 
-  public function WhereInSearch($returnQuery, $targetColumn, $request, $inputName, $LIKE = 0)
-  {
-    if ($LIKE === 0) {
-      foreach ($this->SplitDate($request->$inputName) as $key => $value) {
-        $returnQuery->whereIn($targetColumn, $value);
-      }
-    } else {
-      foreach ($this->SplitDate($request->$inputName) as $key => $value) {
-        $returnQuery->whereDate($targetColumn, 'LIKE', "%$value%");
-      }
-    }
-  }
 
 
   public function BasicSearch($class, $request)
@@ -58,15 +46,19 @@ trait SearchTrait
         // こちらを参照
       });
     }
-
     $this->SimpleWhereHas($request->search_mobile, $andSearch, "user", "mobile"); // 携帯
     $this->SimpleWhereHas($request->search_tel, $andSearch, "user", "tel"); // 電話
     $this->SimpleWhereHas($request->search_unkown_user, $andSearch, "unknown_user", "unknown_user_company"); // 会社名・団体名（仮）unknown_user
     $this->SimpleWhere($request, "search_agent", $andSearch, "agent_id"); // 仲介会社
     $this->SimpleWhereHas($request->search_end_user, $andSearch, "pre_enduser", "company"); // エンドユーザー
-
     // 最終return
     return $andSearch->paginate(30);
+  }
+
+  public function MultipleSearch($class, $request)
+  {
+    $this->SimpleWhereLike($request, "search_id", $class, "id"); // id検索
+    return $this->paginate(30);
   }
 
   public function SimpleWhere($request, $item, $masterQuery, $targetColumn)
@@ -106,6 +98,19 @@ trait SearchTrait
       $dateArrays[] = $target;
     }
     return [$dateArrays];
+  }
+
+  public function WhereInSearch($returnQuery, $targetColumn, $request, $inputName, $LIKE = 0)
+  {
+    if ($LIKE === 0) {
+      foreach ($this->SplitDate($request->$inputName) as $key => $value) {
+        $returnQuery->whereIn($targetColumn, $value);
+      }
+    } else {
+      foreach ($this->SplitDate($request->$inputName) as $key => $value) {
+        $returnQuery->whereDate($targetColumn, 'LIKE', "%$value%");
+      }
+    }
   }
 }
 

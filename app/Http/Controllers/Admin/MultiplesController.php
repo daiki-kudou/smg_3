@@ -25,11 +25,12 @@ class MultiplesController extends Controller
   {
     if (count($request->all()) != 0) {
       $class = new MultipleReserve;
-      $multiples = $this->BasicSearch($class, $request);
+      $multiples = $this->MultipleSearch($class, $request);
     } else {
       $multiples = MultipleReserve::withCount('pre_reservations')->paginate(30);
     }
 
+    var_dump($multiples);
     return view('admin.multiples.index', compact('multiples'));
   }
 
