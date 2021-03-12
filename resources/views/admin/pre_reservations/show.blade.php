@@ -28,16 +28,9 @@
           <tr>
             <td>
               <h3 class="text-white py-2">
-                <!-- 仮押え概要 -->
-              仮押えID：{{$pre_reservation->id}}
+                仮押えID：{{$pre_reservation->id}}
               </h3>
             </td>
-            <!-- <td>
-              <dl class="ttl_box">
-                <dt>仮押えID:</dt>
-                <dd class="total_result"></dd>
-              </dl>
-            </td> -->
 
             <td>
               <div class="d-flex justify-content-end align-items-center">
@@ -47,7 +40,8 @@
                   編集
                 </a>
                 @else
-                <a href="{{url('admin/pre_reservations/'.$pre_reservation->id.'/edit')}}" class="btn more_btn mr-2">
+                <a href="{{url('admin/pre_agent_reservations/'.$pre_reservation->id.'/edit')}}"
+                  class="btn more_btn mr-2">
                   仲介会社用編集
                 </a>
                 @endif
@@ -135,7 +129,7 @@
               </td>
             </tr>
             <tr>
-            <td class="table-active" scope="row"><label for="onedayTel">固定電話</label>
+              <td class="table-active" scope="row"><label for="onedayTel">固定電話</label>
               </td>
               <td>
                 {{$pre_reservation->user_id==999?$pre_reservation->unknown_user->unknown_user_tel:''}}

@@ -63,7 +63,9 @@
               <option value="{{$user->id}}" @if ($PreReservation->user_id==$user->id)
                 selected
                 @endif
-                >{{ReservationHelper::getCompany($user->id)}} ・ {{ReservationHelper::getPersonName($user->id)}}</option>
+                >
+                {{ReservationHelper::getCompany($user->id)}} ・ {{ReservationHelper::getPersonName($user->id)}}
+              </option>
               @endforeach
             </select>
           </th>

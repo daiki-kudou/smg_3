@@ -89,4 +89,18 @@ class PreAgentReservationsController extends Controller
     $request->session()->regenerate();
     return redirect('admin/pre_reservations');
   }
+
+  public function edit($pre_reservation)
+  {
+    $PreReservation = PreReservation::find($pre_reservation);
+    $agents = Agent::all();
+    $SPVenue = Venue::find($PreReservation->venue_id);
+    return view('admin.pre_agent_reservations.edit', compact('PreReservation', 'agents', 'SPVenue'));
+  }
+
+  public function get_agent(Request $request)
+  {
+    $agent = Agent::find($request->agent_id);
+    return $agent;
+  }
 }
