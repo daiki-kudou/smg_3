@@ -37,8 +37,7 @@
     {{ Form::open(['url' => 'admin/reservations', 'method'=>'get'])}}
     @csrf
 
-    <!-- 新しい検索ボックス--------------------------------------- -->
-    <div class="section-wrap">
+    <div class="search-wrap">
       <table class="table table-bordered">
         <tbody>
           <tr>
