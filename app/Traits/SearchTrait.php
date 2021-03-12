@@ -72,6 +72,9 @@ trait SearchTrait
       $query->orWhere(DB::raw('CONCAT(first_name, last_name)'), 'like', '%' . $request->search_person . '%');
     });
 
+    // ||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
+    // 検索実装途中
+    // ||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
 
     // $andSearch->where('id', "LIKE", "%$request->search_free%");
     // $andSearch->orWhere('created_at', "LIKE", "%$request->search_free%");
