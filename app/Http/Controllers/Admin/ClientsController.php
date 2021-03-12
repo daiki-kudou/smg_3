@@ -69,7 +69,6 @@ class ClientsController extends Controller
    */
   public function store(Request $request)
   {
-    var_dump($request->all());
     $user = new User;
     $user->company = $request->company;
     $user->post_code = $request->post_code;

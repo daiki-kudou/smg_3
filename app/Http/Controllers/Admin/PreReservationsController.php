@@ -101,7 +101,6 @@ class PreReservationsController extends Controller
   public function calculate(Request $request)
   {
     if ($request->judge_count == 1) { //単発仮押えの計算
-      var_dump($request->all());
       $users = User::all();
       $venues = Venue::all();
       $SpVenue = $venues->find($request->venue_id);
@@ -386,14 +385,19 @@ class PreReservationsController extends Controller
     $services = $pre_reservation->pre_breakdowns->where('unit_type', 3);
     $layouts = $pre_reservation->pre_breakdowns->where('unit_type', 4);
     $others = $pre_reservation->pre_breakdowns->where('unit_type', 5);
-    return view('admin.pre_reservations.show', [
-      'pre_reservation' => $pre_reservation,
-      'venues' => $venues,
-      'equipments' => $equipments,
-      'services' => $services,
-      'layouts' => $layouts,
-      'others' => $others,
-    ]);
+    $SPVenue = Venue::find($pre_reservation->venue_id);
+    return view(
+      'admin.pre_reservations.show',
+      compact(
+        'pre_reservation',
+        'venues',
+        'equipments',
+        'services',
+        'layouts',
+        'others',
+        'SPVenue'
+      )
+    );
   }
 
   /**

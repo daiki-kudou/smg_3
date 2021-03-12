@@ -325,6 +325,8 @@
             </tbody>
           </table>
         </div>
+
+        @if ($SpVenue->layout==1)
         <div class="layouts">
           <table class="table table-bordered">
             <thead>
@@ -398,6 +400,10 @@
             </tbody>
           </table>
         </div>
+        @endif
+
+
+        @if ($SpVenue->luggage_flag==1)
         <div class="luggage">
           <table class="table table-bordered">
             <thead>
@@ -437,6 +443,8 @@
             </tbody>
           </table>
         </div>
+        @endif
+
 
         @if ($SpVenue->eat_in_flag==1)
         <div class="eat_in">
@@ -893,36 +901,13 @@
                   </td>
                 </tr>
               </tbody>
-              <!-- <tbody class="equipment_discount">
-                <tr>
-                  <td>割引計算欄</td>
-                  <td>
-                    <p>
-                      割引金額
-                    </p>
-                    <div class="d-flex">
-                      {{ Form::text('equipment_number_discount', $request->equipment_number_discount?$request->equipment_number_discount:'',['class'=>'form-control'] ) }}
-                      <p>円</p>
-                    </div>
-                  </td>
-                  <td>
-                    <p>
-                      割引率
-                    </p>
-                    <div class="d-flex">
-                      {{ Form::text('equipment_percent_discount', $request->equipment_percent_discount?$request->equipment_percent_discount:'',['class'=>'form-control'] ) }}
-                      <p>%</p>
-                    </div>
-                  </td>
-                  <td>
-                    <input class="btn more_btn equipment_discount_btn" type="button" value="計算する">
-                  </td>
-                </tr>
-              </tbody> -->
+
             </table>
           </div>
           @endif
-          @if ($layouts_details[0]||$layouts_details[1])
+
+
+          @if ($SpVenue->layout==1)
           <div class="layout billdetails_content">
             <table class="table table-borderless">
               <tr>
@@ -972,76 +957,11 @@
                   </td>
                 </tr>
               </tbody>
-              <!-- <tbody class="layout_discount">
-                <tr>
-                  <td>割引計算欄</td>
-                  <td>
-                    <p>
-                      割引金額
-                    </p>
-                    <div class="d-flex">
-                      {{ Form::text('layout_number_discount', $request->layout_number_discount?$request->layout_number_discount:'',['class'=>'form-control'] ) }}
-                      <p>円</p>
-                    </div>
-                  </td>
-                  <td>
-                    <p>
-                      割引率
-                    </p>
-                    <div class="d-flex">
-                      {{ Form::text('layout_percent_discount', $request->layout_percent_discount?$request->layout_percent_discount:'',['class'=>'form-control'] ) }}
-                      <p>%</p>
-                    </div>
-                  </td>
-                  <td>
-                    <input class="btn more_btn layout_discount_btn" type="button" value="計算する">
-                  </td>
-                </tr>
-              </tbody> -->
             </table>
           </div>
           @endif
 
-          <!-- <div class="others billdetails_content">
-            <table class="table table-borderless">
-              <tr>
-                <td colspan="5">
-                  　<h4 class="billdetails_content_ttl">
-                    その他
-                  </h4>
-                </td>
-              </tr>
-              <tbody class="others_head">
-                <tr>
-                  <td>内容</td>
-                  <td>単価</td>
-                  <td>数量</td>
-                  <td>金額</td>
-                  <td>追加/削除</td>
-                </tr>
-              </tbody>
-              <tbody class="others_main">
-                <tr>
-                  <td>{{ Form::text('others_input_item0', '',['class'=>'form-control'] ) }}</td>
-                  <td>{{ Form::text('others_input_cost0', '',['class'=>'form-control'] ) }}</td>
-                  <td>{{ Form::text('others_input_count0', '',['class'=>'form-control'] ) }}</td>
-                  <td>{{ Form::text('others_input_subtotal0', '',['class'=>'form-control', 'readonly'] ) }}</td>
-                  <td>
-                    <input type="button" value="＋" class="add pluralBtn">
-                    <input type="button" value="ー" class="del pluralBtn">
-                  </td>
-                </tr>
-              </tbody>
-              <tbody class="others_result">
-                <tr>
-                  <td colspan="2"></td>
-                  <td colspan="3">合計
-                    {{ Form::text('others_price', '',['class'=>'form-control', 'readonly'] ) }}
-                  </td>
-                </tr>
-              </tbody>
-            </table>
-          </div> -->
+
 
           <div class="bill_total">
             <table class="table text-right">

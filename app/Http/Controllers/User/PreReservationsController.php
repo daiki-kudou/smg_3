@@ -54,6 +54,5 @@ class PreReservationsController extends Controller
     if ($pre_reservation->status != 1) { //ステータスが管理者編集権限の場合の制限
       return redirect(route('user.pre_reservations.index'));
     }
-    var_dump($request->all());
   }
 }

@@ -636,7 +636,6 @@ class MultipleReserve extends Model implements PresentableInterface //プレゼ�
 
         $master = $result + $layout_price;
 
-        var_dump('会場料金', $layout_price);
 
         if (empty($pre_reservation->pre_bill)) {
           $pre_bill = $pre_reservation->pre_bill()->create([
