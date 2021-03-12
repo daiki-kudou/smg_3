@@ -21,6 +21,8 @@
     </div>
 
     <section class="section-wrap">
+    <div class="mb-2"><a class="more_btn4" href="">削除</a></div>
+
       <table class="table ttl_head mb-0">
         <tbody>
           <tr>
@@ -31,7 +33,7 @@
             </td>
 
             <td class="text-right">
-              <a class="more_btn4" href="">削除</a>
+              <a class="more_btn4" href="">仮押さえ内容を確定する</a>
             </td>
         </tbody>
       </table>

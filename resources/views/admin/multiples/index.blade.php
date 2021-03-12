@@ -81,8 +81,12 @@
           </tr>
 
           <tr>
+            <th class="search_item_name"><label for="search_end_user">エンドユーザー</label></th>
+            <td>
+            <input type="text" name="search_end_user" class="form-control">
+            </td>
             <th class="search_item_name"><label for="freeword">フリーワード検索</label></th>
-            <td colspan="3">
+            <td>
               <input type="text" name="freeword" class="form-control" id="freeword">
             </td>
           </tr>
@@ -137,8 +141,7 @@
             @foreach ($multiples as $multiple)
             <tr>
               <td>
-                <input type="checkbox" name="{{'delete_check'.$multiple->id}}" value="{{$multiple->id}}"
-                  class="checkbox" />
+                <input type="checkbox" name="{{'delete_check'.$multiple->id}}" value="{{$multiple->id}}" class="checkbox" />
               </td>
               <td>{{$multiple->id}}</td>
               <td>{{$multiple->created_at}}</td>

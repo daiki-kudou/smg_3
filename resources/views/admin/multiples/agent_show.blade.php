@@ -21,6 +21,8 @@
     </div>
 
     <section class="section-wrap">
+    <div class="mb-2"><a class="more_btn4" href="">削除</a></div>
+
       <table class="table ttl_head mb-0">
         <tbody>
           <tr>
@@ -30,7 +32,7 @@
               </h3>
             </td>
             <td class="text-right">
-              <a class="more_btn4" href="">削除</a>
+              <a class="more_btn4" href="">仮押さえ内容を確定する</a>
             </td>
         </tbody>
       </table>
@@ -164,10 +166,10 @@
               <td rowspan="{{$venue_count}}">{{$multiple->id}}</td> {{--一括ID--}}
               <td rowspan="{{$venue_count}}">{{ReservationHelper::formatDate($multiple->created_at)}}</td>{{--作成日--}}
               <td>{{ReservationHelper::getVenue($venues[$i]->venue_id)}}</td>{{--利用会場--}}
-              <td rowspan="{{$venue_count}}">
+              <td class="text-center" rowspan="{{$venue_count}}">
                 {{$multiple->pre_reservations()->get()->count()}}
               </td>{{--総件数--}}
-              <td>
+              <td class="text-center">
                 {{$multiple->pre_reservations()->where('venue_id',$venues[$i]->venue_id)->get()->count()}}
               </td>
               <td class="text-center">
@@ -178,7 +180,7 @@
               @else
               <tr>
                 <td>{{ReservationHelper::getVenue($venues[$i]->venue_id)}}</td>
-                <td>
+                <td  class="text-center">
                   {{$multiple->pre_reservations()->where('venue_id',$venues[$i]->venue_id)->get()->count()}}
                 </td>
                 <td class="text-center">
@@ -186,7 +188,6 @@
                     href="{{url('admin/multiples/'.$multiple->id.'/edit'.'/'.$venues[$i]->venue_id)}}">編集</a> --}}
                   <a class="more_btn"
                     href="{{url('admin/multiples/agent/'.$multiple->id.'/edit'.'/'.$venues[$i]->venue_id)}}">編集</a>
-
                 </td>
               </tr>
               @endif
@@ -194,7 +195,6 @@
           </tbody>
         </table>
       </div>
-
     </section>
   </div>
   <div class="btn_wrapper">
