@@ -180,7 +180,7 @@
               @else
               <tr>
                 <td>{{ReservationHelper::getVenue($venues[$i]->venue_id)}}</td>
-                <td>
+                <td  class="text-center">
                   {{$multiple->pre_reservations()->where('venue_id',$venues[$i]->venue_id)->get()->count()}}
                 </td>
                 <td class="text-center">
@@ -188,7 +188,6 @@
                     href="{{url('admin/multiples/'.$multiple->id.'/edit'.'/'.$venues[$i]->venue_id)}}">編集</a> --}}
                   <a class="more_btn"
                     href="{{url('admin/multiples/agent/'.$multiple->id.'/edit'.'/'.$venues[$i]->venue_id)}}">編集</a>
-
                 </td>
               </tr>
               @endif
@@ -196,7 +195,6 @@
           </tbody>
         </table>
       </div>
-
     </section>
   </div>
   <div class="btn_wrapper">
