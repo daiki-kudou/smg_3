@@ -69,6 +69,8 @@ class PreAgentReservationsController extends Controller
       $layout_clean = 0;
     }
 
+    $layout_total = $layout_prepare + $layout_clean;
+
     return view('admin.pre_agent_reservations.single_calculate', [
       'agent' => $agent,
       'request' => $request,
@@ -76,6 +78,7 @@ class PreAgentReservationsController extends Controller
       'price' => $price,
       'layout_prepare' => $layout_prepare,
       'layout_clean' => $layout_clean,
+      'layout_total' => $layout_total,
     ]);
   }
 

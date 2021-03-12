@@ -455,8 +455,8 @@
               </td>
               <td>
                 <div class="d-flex align-items-center">
-                {{ Form::text('enduser_charge', $request->enduser_charge,['class'=>'form-control'] ) }}
-                <span class="ml-2">円</span>
+                  {{ Form::text('enduser_charge', $request->enduser_charge,['class'=>'form-control'] ) }}
+                  <span class="ml-2">円</span>
                 </div>
                 <p class="is-error-enduser_charge" style="color: red"></p>
               </td>
@@ -703,7 +703,7 @@
                 <tr>
                   <td colspan="2"></td>
                   <td colspan="3">合計
-                    {{ Form::text('layouts_price', $venue->getLayouts()[2],['class'=>'form-control', 'readonly'] ) }}
+                    {{ Form::text('layouts_price', $layout_total,['class'=>'form-control', 'readonly'] ) }}
                   </td>
                 </tr>
               </tbody>
@@ -748,19 +748,19 @@
                 <tr>
                   <td>小計：</td>
                   <td>
-                    {{ Form::text('master_subtotal',(floor($price+$layout_prepare+$layout_clean)) ,['class'=>'form-control text-right', 'readonly'] ) }}
+                    {{ Form::text('master_subtotal',(floor($price+$layout_total)) ,['class'=>'form-control text-right', 'readonly'] ) }}
                   </td>
                 </tr>
                 <tr>
                   <td>消費税：</td>
                   <td>
-                    {{ Form::text('master_tax',ReservationHelper::getTax(floor($price+$layout_prepare+$layout_clean)) ,['class'=>'form-control text-right', 'readonly'] ) }}
+                    {{ Form::text('master_tax',ReservationHelper::getTax(floor($price+$layout_total)) ,['class'=>'form-control text-right', 'readonly'] ) }}
                   </td>
                 </tr>
                 <tr>
                   <td class="font-weight-bold">合計金額</td>
                   <td>
-                    {{ Form::text('master_total',ReservationHelper::taxAndPrice(floor($price+$layout_prepare+$layout_clean)) ,['class'=>'form-control text-right', 'readonly'] ) }}
+                    {{ Form::text('master_total',ReservationHelper::taxAndPrice(floor($price+$layout_total)) ,['class'=>'form-control text-right', 'readonly'] ) }}
                   </td>
                 </tr>
               </tbody>
