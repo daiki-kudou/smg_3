@@ -203,7 +203,7 @@
           </tr>
         </thead>
 
-        @foreach ($reservations as $reservation)
+        {{-- @foreach ($reservations as $reservation)
         <tbody>
           <tr>
             <td rowspan="{{count($reservation->bills()->get())}}">※後ほど修正</td>
@@ -238,7 +238,7 @@
               @endif
             </td>
             <td>ダミーダミーダミー</td>
-            <td>会場予約</td>　{{--重要。固定最初は必ず　会場予約　のカテゴリ--}}
+            <td>会場予約</td>　
             <td>
               {{ReservationHelper::judgeStatus($reservation->bills()->first()->reservation_status)}}
             </td>
@@ -259,7 +259,7 @@
             </tr>
             @endfor
         </tbody>
-        @endforeach
+        @endforeach --}}
       </table>
     </div>
 
