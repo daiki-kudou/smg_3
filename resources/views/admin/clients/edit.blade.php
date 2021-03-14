@@ -182,7 +182,7 @@
           </tr>
           <tr>
             <th class="table-active form_required">{{ Form::label('pay_limit', '支払期日') }}</th>
-            <td>{{Form::select('pay_limit', [1=>'当月末〆当月末CASH', 2=>'当月末〆翌月末CASH',3=>'当月末〆翌々月末CACH',4=>'当月末〆3カ月末CASH'],$user->pay_limit)}}
+            <td>{{Form::select('pay_limit', [1=>'3営業日前', 2=>'当月末〆当月末CASH',3=>'当月末〆翌月末CASH',4=>'当月末〆翌々月末CACH'],$user->pay_limit)}}
               <p class="is-error-pay_limit" style="color: red"></p>
             </td>
           </tr>

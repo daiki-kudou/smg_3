@@ -123,7 +123,7 @@
         <li>
           <div class="d-flex">
             <a class="more_btn bg-red" href="">仮押え期間超過</a>
-            <p class="ml-3 font-weight-bold"><span class="count-color">ダミー</span>件</p>
+            <p class="ml-3 font-weight-bold"><span class="count-color">{{$counter}}</span>件</p>
           </div>
         </li>
       </ul>

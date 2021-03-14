@@ -69,6 +69,11 @@ class ClientsController extends Controller
    */
   public function store(Request $request)
   {
+    $validatedData = $request->validate([
+      'email' => 'required|unique:App\Models\User,email',
+    ]);
+
+
     $user = new User;
     $user->company = $request->company;
     $user->post_code = $request->post_code;
@@ -84,7 +89,7 @@ class ClientsController extends Controller
     $user->first_name_kana = $request->first_name_kana;
     $user->last_name_kana = $request->last_name_kana;
     $user->tel = $request->tel;
-    $user->mobile = $request->mobile;
+    $user->mobile = 0;
     $user->email = $request->email;
     $user->fax = $request->fax;
     $user->pay_method = $request->pay_method;
@@ -100,7 +105,7 @@ class ClientsController extends Controller
     $user->password = Hash::make('00000000');
     // 会員登録時デフォルトではでは会員ステータスを1とする
     $user->status = 1;
-    $user->admin_or_user = 1; //1なら管理者　2ならユーザー
+    $user->admin_or_user = $request->admin_or_user; //1なら管理者　2ならユーザー
     $user->save();
 
     return redirect('admin/clients');

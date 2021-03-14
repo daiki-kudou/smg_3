@@ -155,7 +155,7 @@
       <li>
         <div class="d-flex">
           <a class="more_btn bg-red" href="">仮押え期間超過</a>
-          <p class="ml-3 font-weight-bold"><span class="count-color">ダミーダミー</span>件</p>
+          <p class="ml-3 font-weight-bold"><span class="count-color">{{$counter}}</span>件</p>
         </div>
       </li>
     </ul>
@@ -181,7 +181,6 @@
           checked = $('[class="checkbox"]:checked').map(function(){
               return $(this).val();
             }).get();
-            console.log(checked.length);
             for (let index = 0; index < checked.length; index++) {
               var ap_data="<input type='hidden' name='destroy"+checked[index]+"' value='"+checked[index]+"'>"
               $('#for_destroy').append(ap_data);
@@ -264,7 +263,7 @@
             "applyLabel": "反映",
             "cancelLabel": "初期化",
             "weekLabel": "W",
-            "daysOfWeek": ["Su","Mo","Tu","We","Th","Fr","Sa"],
+            "daysOfWeek": ["日","月","火","水","木","金","土"],
             "monthNames": ["1月","2月","3月","4月","5月","6月","7月","8月","9月","10月","11月","12月"],
             "firstDay": 1,
             },

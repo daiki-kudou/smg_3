@@ -132,7 +132,6 @@
                     {{ReservationHelper::getVenue($venue->id)}}
                   </option>
                   @endforeach
-
                 </select>
                 <div class="price_selector">
                   <div>
@@ -635,14 +634,6 @@
     </div>
   </div>
 
-  <div class="spin_btn hide">
-    <div class="d-flex justify-content-center">
-      <button class="btn btn-primary btn-lg" type="button" disabled>
-        <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
-        Loading...
-      </button>
-    </div>
-  </div>
 
   {{Form::close()}}
 

@@ -26,12 +26,14 @@ class MultiplesController extends Controller
     if (count($request->all()) != 0) {
       $class = new MultipleReserve;
       $multiples = $this->MultipleSearch($class, $request);
+      $counter = count($multiples);
     } else {
       $multiples = MultipleReserve::paginate(30);
+      $counter = count($multiples);
     }
 
     // var_dump($multiples);
-    return view('admin.multiples.index', compact('multiples'));
+    return view('admin.multiples.index', compact('multiples', "counter"));
   }
 
   public function show($id)

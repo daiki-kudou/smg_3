@@ -1419,7 +1419,7 @@
 
     <ul class="d-flex col-12 justify-content-around mt-5 align-items-center">
       <li>
-        <p><a class="btn more_btn_lg" href="">詳細にもどる</a></p>
+        <p><a class="btn more_btn_lg" href="{{url("admin/multiples/".$multiple->id)}}">詳細にもどる</a></p>
       </li>
       <li>
         <p id="master_submit" class="btn more_btn_lg">保存する</p>

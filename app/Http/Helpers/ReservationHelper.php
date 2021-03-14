@@ -5,6 +5,7 @@ namespace App\Http\Helpers;
 use App\Models\Venue;
 use App\Models\User;
 use App\Models\Agent;
+use App\Models\PreEndUser;
 
 use Carbon\Carbon;
 
@@ -199,6 +200,31 @@ class ReservationHelper
         break;
     }
   }
+
+  public static function PreEndUserGetAttr($enduser_id)
+  {
+    switch ($enduser_id) {
+      case 1:
+        return "一般企業";
+        break;
+      case 2:
+        return "上場企業";
+        break;
+      case 3:
+        return "近隣利用";
+        break;
+      case 4:
+        return "個人講師";
+        break;
+      case 5:
+        return "MLM";
+        break;
+      case 6:
+        return "その他";
+        break;
+    }
+  }
+
 
   public static function judgePaid($num)
   {

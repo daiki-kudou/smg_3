@@ -15,9 +15,6 @@ use Illuminate\Support\Facades\DB; //トランザクション用
 trait SearchTrait
 {
 
-
-
-
   public function BasicSearch($class, $request)
   {
     $andSearch = $class->where('multiple_reserve_id', '=', 0); // マスタのクエリ 
@@ -54,19 +51,23 @@ trait SearchTrait
     return $andSearch->paginate(30);
   }
 
+
+
+
+
   public function MultipleSearch($class, $request)
   {
 
-    // if (!empty($request->search_id)) {
-    //   $result = $class->where("id", $request->search_id);
-    // }
     $result = $class::query();
 
     $this->SimpleWhere($request, "search_id", $result, "id");
 
+    $joinTable = $class->join("pre_reservations", "multiple_reserves.id", "pre_reservations.multiple_reserve_id");
+
 
     return $result->paginate(30);
   }
+
 
   public function SimpleWhere($request, $item, $masterQuery, $targetColumn)
   {
