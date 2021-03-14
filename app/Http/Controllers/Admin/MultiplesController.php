@@ -27,7 +27,7 @@ class MultiplesController extends Controller
       $class = new MultipleReserve;
       $multiples = $this->MultipleSearch($class, $request);
     } else {
-      $multiples = MultipleReserve::withCount('pre_reservations')->paginate(30);
+      $multiples = MultipleReserve::paginate(30);
     }
 
     // var_dump($multiples);

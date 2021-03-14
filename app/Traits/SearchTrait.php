@@ -30,7 +30,6 @@ trait SearchTrait
     if (!empty($request->search_created_at)) { // 作成日の検索
       foreach ($this->SplitDate($request->search_created_at) as $key => $value) {
         $andSearch->orWhereDate("created_at", "=", current($value));
-        // var_dump($value[0]);
       }
     }
 
@@ -57,8 +56,16 @@ trait SearchTrait
 
   public function MultipleSearch($class, $request)
   {
-    $this->SimpleWhereLike($request, "search_id", $class, "id"); // id検索
-    return $this->paginate(30);
+
+    // if (!empty($request->search_id)) {
+    //   $result = $class->where("id", $request->search_id);
+    // }
+    $result = $class::query();
+
+    $this->SimpleWhere($request, "search_id", $result, "id");
+
+
+    return $result->paginate(30);
   }
 
   public function SimpleWhere($request, $item, $masterQuery, $targetColumn)
