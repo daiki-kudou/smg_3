@@ -177,6 +177,10 @@ $(function () {
   ExceptString(cp_master_enduser_charge);
   var enduser_charge_copied = $("input[name^='enduser_charge_copied']");
   ExceptString(enduser_charge_copied);
+  var pre_endusers_tel = $("input[name^='pre_endusers_tel']");
+  ExceptString(pre_endusers_tel);
+  var pre_endusers_mobile = $("input[name^='pre_endusers_mobile']");
+  ExceptString(pre_endusers_mobile);
 });
 
 

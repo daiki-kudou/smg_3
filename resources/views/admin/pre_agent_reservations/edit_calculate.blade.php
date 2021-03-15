@@ -296,11 +296,15 @@
                   {{$service->item}}
                 </td>
                 <td>
-                  <div class="form-check form-check-inline">
-                    {{Form::radio('services_breakdown'.$s_key, 1, $request->{'services_breakdown'.$s_key}==1?true:false , ['id' => 'service'.$s_key.'on', 'class' => 'form-check-input'])}}
+                  <div class="radio-box">
+                    <p>
+                    {{Form::radio('services_breakdown'.$s_key, 1, $request->{'services_breakdown'.$s_key}==1?true:false , ['id' => 'service'.$s_key.'on'])}}
                     {{Form::label('service'.$s_key.'on', "有り")}}
-                    {{Form::radio('services_breakdown'.$s_key, 0, $request->{'services_breakdown'.$s_key}==0?true:false, ['id' => 'services_breakdown'.$s_key.'off', 'class' => 'form-check-input'])}}
+                    </p>
+                    <p>
+                    {{Form::radio('services_breakdown'.$s_key, 0, $request->{'services_breakdown'.$s_key}==0?true:false, ['id' => 'services_breakdown'.$s_key.'off'])}}
                     {{Form::label('services_breakdown'.$s_key.'off', "無し")}}
+                    </p>
                   </div>
                 </td>
               </tr>
@@ -326,11 +330,15 @@
                   レイアウト準備
                 </td>
                 <td>
-                  <div class="form-check form-check-inline">
-                    {{Form::radio('layout_prepare', 1, $request->layout_prepare==1?true:false , ['id' => 'layout_prepare', 'class' => 'form-check-input'])}}
+                  <div class="radio-box">
+                    <p>
+                    {{Form::radio('layout_prepare', 1, $request->layout_prepare==1?true:false , ['id' => 'layout_prepare'])}}
                     {{Form::label('layout_prepare', "有り")}}
-                    {{Form::radio('layout_prepare', 0, $request->layout_prepare==0?true:false, ['id' => 'no_layout_prepare', 'class' => 'form-check-input'])}}
+                    </p>
+                    <p>
+                    {{Form::radio('layout_prepare', 0, $request->layout_prepare==0?true:false, ['id' => 'no_layout_prepare'])}}
                     {{Form::label('no_layout_prepare', "無し")}}
+                    </p>
                   </div>
                 </td>
               </tr>
@@ -341,11 +349,15 @@
                   レイアウト片付
                 </td>
                 <td>
-                  <div class="form-check form-check-inline">
-                    {{Form::radio('layout_clean', 1, $request->layout_clean==1?true:false, ['id' => 'layout_clean', 'class' => 'form-check-input'])}}
+                  <div class="radio-box">
+                    <p>
+                    {{Form::radio('layout_clean', 1, $request->layout_clean==1?true:false, ['id' => 'layout_clean'])}}
                     {{Form::label('layout_clean', "有り")}}
-                    {{Form::radio('layout_clean', 0, $request->layout_clean==0?true:false, ['id' => 'no_layout_clean', 'class' => 'form-check-input'])}}
+                    </p>
+                    <p>
+                    {{Form::radio('layout_clean', 0, $request->layout_clean==0?true:false, ['id' => 'no_layout_clean'])}}
                     {{Form::label('no_layout_clean', "無し")}}
+                    </p>
                   </div>
                 </td>
               </tr>

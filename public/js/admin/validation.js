@@ -19,6 +19,18 @@ $(function () {
         number: true,
         minlength: 10
       },
+      pre_date0: {
+        required: true,
+      },
+      pre_venue0: {
+        required: true,
+      },
+      pre_enter0: {
+        required: true,
+      },
+      pre_leave0: {
+        required: true,
+      },
     },
     messages: {
       unknown_user_email: {
@@ -31,6 +43,18 @@ $(function () {
       unknown_user_tel: {
         number: '※数字を入力してください',
         minlength: '※最低桁数は10です',
+      },
+      pre_date0: {
+        required: '※必須項目です',
+      },
+      pre_venue0: {
+        required: '※必須項目です',
+      },
+      pre_enter0: {
+        required: '※必須項目です',
+      },
+      pre_leave0: {
+        required: '※必須項目です',
       },
     },
     errorPlacement: function (error, element) {
@@ -167,39 +191,29 @@ $(function () {
 $(function () {
   $("#pre_reservationSingleEditForm").validate({
     rules: {
-      in_charge: {
-        required: true,
-      },
-      tel: {
+      enduser_charge: {
         required: true,
         number: true,
-        minlength: 11
       },
-      unknown_user_mobile: {
+      pre_endusers_tel: {
         number: true,
-        minlength: 11
       },
-      unknown_user_tel: {
+      pre_endusers_mobile: {
         number: true,
-        minlength: 10
+        // minlength: 11
       },
     },
     messages: {
-      in_charge: {
+      enduser_charge: {
         required: '※必須項目です',
+        number: '※半角数字を入力してください',
       },
-      tel: {
-        required: '※必須項目です',
-        minlength: '※最低桁数は11です',
-        number: '※数字を入力してください',
+      pre_endusers_tel: {
+        number: '※半角数字を入力してください',
       },
-      unknown_user_mobile: {
-        number: '※数字を入力してください',
-        minlength: '※最低桁数は11です',
-      },
-      unknown_user_tel: {
-        number: '※数字を入力してください',
-        minlength: '※最低桁数は10です',
+      pre_endusers_mobile: {
+        number: '※半角数字を入力してください',
+        // minlength: '※最低桁数は11です',
       },
     },
     errorPlacement: function (error, element) {
@@ -287,9 +301,11 @@ $(function () {
   $("#pre_agent_reservationsCreateForm").validate({
     rules: {
       pre_enduser_tel: {
+        number: true,
         minlength: 10
       },
       pre_enduser_mobile: {
+        number: true,
         minlength: 11
       },
       pre_enduser_email: {
@@ -299,9 +315,11 @@ $(function () {
     messages: {
       pre_enduser_tel: {
         minlength: '※最低桁数は10です',
+        number: '※数字を入力してください',
       },
       pre_enduser_mobile: {
         minlength: '※最低桁数は11です',
+        number: '※数字を入力してください',
       },
       pre_enduser_email: {
         email: '※Emailの形式で入力してください',
@@ -338,11 +356,54 @@ $(function () {
     rules: {
       enduser_charge: {
         required: true,
+        number: true,
       },
     },
     messages: {
       enduser_charge: {
         required: '※必須項目です',
+        number: '※半角数字を入力してください',
+      },
+    },
+    errorPlacement: function (error, element) {
+      var name = element.attr('name');
+      if (element.attr('name') === 'category[]') {
+        error.appendTo($('.is-error-category'));
+      } else if (element.attr('name') === name) {
+        error.appendTo($('.is-error-' + name));
+      }
+    },
+    errorElement: "span",
+    errorClass: "is-error",
+    //送信前にLoadingを表示
+    submitHandler: function (form) {
+      $('.spin_btn').removeClass('hide');
+      $('.submit_btn').addClass('hide');
+      form.submit();
+    }
+  });
+  $('input').on('blur', function () {
+    $(this).valid();
+    // if ($('span').hasClass('is-error')) {
+    //   $('span').css('background', 'white');
+    // }
+  });
+})
+
+
+// 仮押え 仲介会社 詳細入力画面
+$(function () {
+  $("#pre_agent_reservationsSingleCalculateForm").validate({
+    rules: {
+      enduser_charge: {
+        required: true,
+        number: true,
+      },
+    },
+    messages: {
+      enduser_charge: {
+        required: '※必須項目です',
+        number: '※半角数字を入力してください',
       },
     },
     errorPlacement: function (error, element) {

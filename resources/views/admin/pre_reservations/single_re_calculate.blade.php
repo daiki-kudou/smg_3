@@ -313,10 +313,14 @@
                 </td>
                 <td>
                   <div class="radio-box">
-                    {{Form::radio('services_breakdown'.$key, 1, $request->{'services_breakdown'.$key}==1?true:false , ['id' => 'service'.$key.'on', 'class' => 'form-check-input'])}}
+                    <p>
+                    {{Form::radio('services_breakdown'.$key, 1, $request->{'services_breakdown'.$key}==1?true:false , ['id' => 'service'.$key.'on'])}}
                     <label for="{{'service'.$key.'on'}}" class="form-check-label">有り</label>
-                    {{Form::radio('services_breakdown'.$key, 0, $request->{'services_breakdown'.$key}==0?true:false, ['id' => 'services_breakdown'.$key.'off', 'class' => 'form-check-input'])}}
+                    </p>
+                    <p>
+                    {{Form::radio('services_breakdown'.$key, 0, $request->{'services_breakdown'.$key}==0?true:false, ['id' => 'services_breakdown'.$key.'off'])}}
                     <label for="{{'services_breakdown'.$key.'off'}}" class="form-check-label">無し</label>
+                    </p>
                   </div>
                 </td>
               </tr>
@@ -343,10 +347,14 @@
                 </td>
                 <td>
                   <div class="radio-box">
-                    {{Form::radio('layout_prepare', 1, true , ['id' => 'layout_prepare', 'class' => 'form-check-input'])}}
+                    <p>
+                    {{Form::radio('layout_prepare', 1, true , ['id' => 'layout_prepare'])}}
                     <label for="{{'layout_prepare'}}" class="form-check-label">有り</label>
-                    {{Form::radio('layout_prepare', 0, false, ['id' => 'no_layout_prepare', 'class' => 'form-check-input'])}}
+                    </p>
+                    <p>
+                    {{Form::radio('layout_prepare', 0, false, ['id' => 'no_layout_prepare'])}}
                     <label for="{{'no_layout_prepare'}}" class="form-check-label">無し</label>
+                    </p>
                   </div>
                 </td>
               </tr>
@@ -357,10 +365,14 @@
                 </td>
                 <td>
                   <div class="radio-box">
-                    {{Form::radio('layout_prepare', 1, false , ['id' => 'layout_prepare', 'class' => 'form-check-input'])}}
+                    <p>
+                    {{Form::radio('layout_prepare', 1, false , ['id' => 'layout_prepare'])}}
                     <label for="{{'layout_prepare'}}" class="form-check-label">有り</label>
-                    {{Form::radio('layout_prepare', 0, true, ['id' => 'no_layout_prepare', 'class' => 'form-check-input'])}}
+                    </p>
+                    <p>
+                    {{Form::radio('layout_prepare', 0, true, ['id' => 'no_layout_prepare'])}}
                     <label for="{{'no_layout_prepare'}}" class="form-check-label">無し</label>
+                    </p>
                   </div>
                 </td>
               </tr>
@@ -372,10 +384,14 @@
                 </td>
                 <td>
                   <div class="radio-box">
-                    {{Form::radio('layout_clean', 1, true, ['id' => 'layout_clean', 'class' => 'form-check-input'])}}
+                    <p>
+                    {{Form::radio('layout_clean', 1, true, ['id' => 'layout_clean'])}}
                     <label for='layout_clean' class="form-check-label">有り</label>
-                    {{Form::radio('layout_clean', 0, false, ['id' => 'no_layout_clean', 'class' => 'form-check-input'])}}
+                    </p>
+                    <p>
+                    {{Form::radio('layout_clean', 0, false, ['id' => 'no_layout_clean'])}}
                     <label for='no_layout_clean' class="form-check-label">無し</label>
+                    </p>
                   </div>
                 </td>
               </tr>
@@ -386,10 +402,14 @@
                 </td>
                 <td>
                   <div class="radio-box">
-                    {{Form::radio('layout_clean', 1, false, ['id' => 'layout_clean', 'class' => 'form-check-input'])}}
+                    <p>
+                    {{Form::radio('layout_clean', 1, false, ['id' => 'layout_clean'])}}
                     <label for='layout_clean' class="form-check-label">有り</label>
-                    {{Form::radio('layout_clean', 0, true, ['id' => 'no_layout_clean', 'class' => 'form-check-input'])}}
+                    </p>
+                    <p>
+                    {{Form::radio('layout_clean', 0, true, ['id' => 'no_layout_clean'])}}
                     <label for='no_layout_clean' class="form-check-label">無し</label>
+                    </p>
                   </div>
                 </td>
               </tr>
