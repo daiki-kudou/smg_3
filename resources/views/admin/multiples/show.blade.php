@@ -95,36 +95,38 @@
             <tr>
               <td class="table-active" width="25%"><label for="onedayCompany">会社・団体名(仮)</label></td>
               <td>
-                @if ($multiple->pre_reservations()->first()->id==999)
-                {{$multiple->pre_reservations()->first()->unknown_user()->unknown_user_company}}
+                {{-- {{var_dump($multiple->pre_reservations()->first()->unknown_user->unknown_user_company)}} --}}
+                {{-- {{var_dump($multiple->pre_reservations()->first()->user->id)}} --}}
+                @if ($multiple->pre_reservations()->first()->user->id==999)
+                {{$multiple->pre_reservations()->first()->unknown_user->unknown_user_company}}
                 @endif
               </td>
               <td class="table-active"><label for="onedayName">担当者名(仮)</label></td>
               <td>
-                @if ($multiple->pre_reservations()->first()->id==999)
-                {{$multiple->pre_reservations()->first()->unknown_user()->unknown_user_name}}
+                @if ($multiple->pre_reservations()->first()->user->id==999)
+                {{$multiple->pre_reservations()->first()->unknown_user->unknown_user_name}}
                 @endif
               </td>
             </tr>
             <tr>
               <td class="table-active" scope="row"><label for="onedayTel">固定電話</label></td>
               <td>
-                @if ($multiple->pre_reservations()->first()->id==999)
-                {{$multiple->pre_reservations()->first()->unknown_user()->unknown_user_tel}}
+                @if ($multiple->pre_reservations()->first()->user->id==999)
+                {{$multiple->pre_reservations()->first()->unknown_user->unknown_user_tel}}
                 @endif
               </td>
               <td class="table-active" scope="row"><label for="onedayMobile">携帯番号</label></td>
               <td>
-                @if ($multiple->pre_reservations()->first()->id==999)
-                {{$multiple->pre_reservations()->first()->unknown_user()->unknown_user_mobile}}
+                @if ($multiple->pre_reservations()->first()->user->id==999)
+                {{$multiple->pre_reservations()->first()->unknown_user->unknown_user_mobile}}
                 @endif
               </td>
             </tr>
             <tr>
               <td class="table-active" scope="row"><label for="onedayEmail">メールアドレス</label></td>
               <td>
-                @if ($multiple->pre_reservations()->first()->id==999)
-                {{$multiple->pre_reservations()->first()->unknown_user()->unknown_user_email}}
+                @if ($multiple->pre_reservations()->first()->user->id==999)
+                {{$multiple->pre_reservations()->first()->unknown_user->unknown_user_email}}
                 @endif
               </td>
             </tr>

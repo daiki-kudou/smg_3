@@ -103,6 +103,18 @@ trait SearchTrait
       });
     }
 
+    if (!empty($request->search_unkown_user)) {
+      $result->whereHas("pre_reservations.unknown_user", function ($query) use ($request) {
+        $query->where('unknown_user_company', "LIKE", "%$request->search_unkown_user%");
+      });
+    }
+
+    if (!empty($request->search_agent)) {
+      $result->whereHas("pre_reservations.agent", function ($query) use ($request) {
+        $query->where('company', "LIKE", "%$request->search_agent%");
+      });
+    }
+
 
 
 
