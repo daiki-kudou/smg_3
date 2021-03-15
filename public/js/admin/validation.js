@@ -436,8 +436,6 @@ $(function () {
   });
 })
 
-
-
 // 一括仮押え 仲介会社 編集
 $(function () {
   $("#multiplesAgentEdit").validate({
@@ -447,7 +445,45 @@ $(function () {
       },
     },
     messages: {
-      enduser_charge: {
+      cp_master_enduser_charge: {
+        required: '※必須項目です',
+      },
+    },
+    errorPlacement: function (error, element) {
+      var name = element.attr('name');
+      if (element.attr('name') === 'category[]') {
+        error.appendTo($('.is-error-category'));
+      } else if (element.attr('name') === name) {
+        error.appendTo($('.is-error-' + name));
+      }
+    },
+    errorElement: "span",
+    errorClass: "is-error",
+    //送信前にLoadingを表示
+    submitHandler: function (form) {
+      $('.spin_btn').removeClass('hide');
+      $('.submit_btn').addClass('hide');
+      form.submit();
+    }
+  });
+  $('input').on('blur', function () {
+    $(this).valid();
+    // if ($('span').hasClass('is-error')) {
+    //   $('span').css('background', 'white');
+    // }
+  });
+})
+
+// 一括仮押え 仲介会社 編集
+$(function () {
+  $("#multiplesAgentSpecificupdate").validate({
+    rules: {
+      enduser_charge_copied: {
+        required: true,
+      },
+    },
+    messages: {
+      enduser_charge_copied: {
         required: '※必須項目です',
       },
     },

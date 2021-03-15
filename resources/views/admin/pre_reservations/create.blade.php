@@ -29,7 +29,7 @@
 
 <section class="section-wrap">
   <div class="calendar">
-    <iframe src="{{url('admin/calendar/date_calendar')}}" width="100%" height="500">Your browser isn't
+    <iframe frameborder="0" src="{{url('admin/calendar/date_calendar')}}" width="100%" height="500">Your browser isn't
       compatible</iframe>
   </div>
 
@@ -108,14 +108,16 @@
           </td>
         </tr>
         <tr>
-        <td class="table-active">固定電話</td>
+          <td class="table-active">固定電話</td>
           <td>
             {{ Form::text('unknown_user_tel', '',['class'=>'form-control'] ) }}
+            <small>半角数字、ハイフンなしで入力してください</small>
             <p class="is-error-unknown_user_tel" style="color: red"></p>
           </td>
           <td class="table-active">携帯番号</td>
           <td>
             {{ Form::text('unknown_user_mobile', '',['class'=>'form-control'] ) }}
+            <small>半角数字、ハイフンなしで入力してください</small>
             <p class="is-error-unknown_user_mobile" style="color: red"></p>
           </td>
         </tr>
@@ -156,8 +158,7 @@
           <td>
             <select name="pre_enter0" id="pre_enter0" class="form-control">
               <option value=""></option>
-              @for ($start = 0*2; $start <=23*2; $start++) <option
-                value="{{date("H:i:s", strtotime("00:00 +". $start * 30 ." minute"))}}">
+              @for ($start = 0*2; $start <=23*2; $start++) <option value="{{date("H:i:s", strtotime("00:00 +". $start * 30 ." minute"))}}">
                 {{date("H時i分", strtotime("00:00 +". $start * 30 ." minute"))}}
                 </option>
                 @endfor
@@ -166,8 +167,7 @@
           <td>
             <select name="pre_leave0" id="pre_leave0" class="form-control">
               <option value=""></option>
-              @for ($start = 0*2; $start <=23*2; $start++) <option
-                value="{{date("H:i:s", strtotime("00:00 +". $start * 30 ." minute"))}}">
+              @for ($start = 0*2; $start <=23*2; $start++) <option value="{{date("H:i:s", strtotime("00:00 +". $start * 30 ." minute"))}}">
                 {{date("H時i分", strtotime("00:00 +". $start * 30 ." minute"))}}
                 </option>
                 @endfor
@@ -410,7 +410,7 @@
   //                 $($value).prop('disabled', true);
   //                 for (let counts = $index; counts < $index + ($targettimes[0] + 1); counts++) {
   //                   arrays.push(counts);
-                    
+
   //                 }
   //               }
   //             });

@@ -210,7 +210,7 @@
       <!-- 右側の項目　終わり -------------------------------------------------->
     </div>
     <div class="text-center mt-5">
-      <p><a class="more_btn_lg" href="">一覧にもどる</a>
+      <p><a class="more_btn_lg" href="{{url('admin/agents')}}">一覧にもどる</a>
       </p>
     </div>
   </section>

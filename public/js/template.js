@@ -174,7 +174,10 @@ $(function () {
   ExceptString(luggage_return_copied);
   var luggage_price_copied = $("input[name^='luggage_price_copied']");
   ExceptString(luggage_price_copied);
-
+  var cp_master_enduser_charge = $("input[name^='cp_master_enduser_charge']");
+  ExceptString(cp_master_enduser_charge);
+  var enduser_charge_copied = $("input[name^='enduser_charge_copied']");
+  ExceptString(enduser_charge_copied);
 });
 
 

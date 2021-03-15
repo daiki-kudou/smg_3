@@ -5,6 +5,7 @@
 <link href="{{ asset('/css/template.css') }}" rel="stylesheet">
 <script src="{{ asset('/js/admin/reservation.js') }}"></script>
 <script src="{{ asset('/js/ajax.js') }}"></script>
+<script src="{{ asset('/js/template.js') }}"></script>
 <script src="{{ asset('/js/admin/validation.js') }}"></script>
 
 
@@ -115,9 +116,7 @@
                 <div>
                   <select name="enter_time" id="sales_start" class="form-control">
                     <option selected></option>
-                    @for ($start = 0*2; $start <=23*2; $start++) <option
-                      value="{{date("H:i:s", strtotime("00:00 +". $start * 30 ." minute"))}}" @if (isset($request))
-                      @endif>
+                    @for ($start = 0*2; $start <=23*2; $start++) <option value="{{date("H:i:s", strtotime("00:00 +". $start * 30 ." minute"))}}" @if (isset($request)) @endif>
                       {{date("H時i分", strtotime("00:00 +". $start * 30 ." minute"))}}
                       </option>
                       @endfor
@@ -132,9 +131,7 @@
                 <div>
                   <select name="leave_time" id="sales_finish" class="form-control">
                     <option disabled selected></option>
-                    @for ($start = 0*2; $start <=23*2; $start++) <option
-                      value="{{date("H:i:s", strtotime("00:00 +". $start * 30 ." minute"))}}" @if (isset($request))
-                      @endif>
+                    @for ($start = 0*2; $start <=23*2; $start++) <option value="{{date("H:i:s", strtotime("00:00 +". $start * 30 ." minute"))}}" @if (isset($request)) @endif>
                       {{date("H時i分", strtotime("00:00 +". $start * 30 ." minute"))}}</option>
                       @endfor
                   </select>
@@ -160,10 +157,12 @@
               <td class="table-active">案内板</td>
               <td>
                 <div class="radio-box">
-                  <input type="radio" name="board_flag" value="0"
-                    {{isset($request->board_flag)?$request->board_flag==0?'checked':'':'checked',}}>無し
-                  <input type="radio" name="board_flag" value="1"
-                    {{isset($request->board_flag)?$request->board_flag==1?'checked':'':'',}}>有り
+                  <p>
+                    <input type="radio" name="board_flag" value="0" {{isset($request->board_flag)?$request->board_flag==0?'checked':'':'checked',}}>無し
+                  </p>
+                  <p>
+                    <input type="radio" name="board_flag" value="1" {{isset($request->board_flag)?$request->board_flag==1?'checked':'':'',}}>有り
+                  </p>
                 </div>
               </td>
             </tr>
@@ -173,9 +172,7 @@
                 <div>
                   <select name="event_start" id="event_start" class="form-control">
                     <option disabled>選択してください</option>
-                    @for ($start = 0*2; $start <=23*2; $start++) <option
-                      value="{{date("H:i:s", strtotime("00:00 +". $start * 30 ." minute"))}}" @if (isset($request))
-                      @endif>
+                    @for ($start = 0*2; $start <=23*2; $start++) <option value="{{date("H:i:s", strtotime("00:00 +". $start * 30 ." minute"))}}" @if (isset($request)) @endif>
                       {{date("H時i分", strtotime("00:00 +". $start * 30 ." minute"))}}</option>
                       @endfor
                   </select>
@@ -188,9 +185,7 @@
                 <div>
                   <select name="event_finish" id="event_finish" class="form-control">
                     <option disabled>選択してください</option>
-                    @for ($start = 0*2; $start <=23*2; $start++) <option
-                      value="{{date("H:i:s", strtotime("00:00 +". $start * 30 ." minute"))}}" @if (isset($request))
-                      @endif>
+                    @for ($start = 0*2; $start <=23*2; $start++) <option value="{{date("H:i:s", strtotime("00:00 +". $start * 30 ." minute"))}}" @if (isset($request)) @endif>
                       {{date("H時i分", strtotime("00:00 +". $start * 30 ." minute"))}}</option>
                       @endfor
                   </select>
@@ -220,38 +215,32 @@
 
         <div class="equipemnts">
           <table class="table table-bordered">
-            <thead>
+            <thead class="accordion-ttl">
               <tr>
                 <th colspan="2">
-                  <div class="d-flex justify-content-between align-items-center">
-                    <p class="title-icon fw-bolder py-1">
-                      <i class="fas fa-wrench icon-size fa-fw" aria-hidden="true"></i>有料備品
-                    </p>
-                    <i class="fas fa-plus icon_plus hide" aria-hidden="true"></i>
-                    <i class="fas fa-minus icon_minus" aria-hidden="true"></i>
-                  </div>
+                  <p class="title-icon fw-bolder py-1">
+                    <i class="fas fa-wrench icon-size fa-fw"></i>有料備品
+                  </p>
                 </th>
               </tr>
             </thead>
-            <tbody></tbody>
+
+
+            <tbody class="accordion-wrap"></tbody>
           </table>
         </div>
         <div class="services">
           <table class="table table-bordered">
-            <thead>
+            <thead class="accordion-ttl">
               <tr>
                 <th colspan="2">
-                  <div class="d-flex justify-content-between align-items-center">
-                    <p class="title-icon fw-bolder py-1">
-                      <i class="fas fa-hand-holding-heart icon-size fa-fw" aria-hidden="true"></i>有料サービス
-                    </p>
-                    <i class="fas fa-plus icon_plus hide" aria-hidden="true"></i>
-                    <i class="fas fa-minus icon_minus" aria-hidden="true"></i>
-                  </div>
+                  <p class="title-icon fw-bolder py-1">
+                    <i class="fas fa-hand-holding-heart icon-size fa-fw"></i>有料サービス
+                  </p>
                 </th>
               </tr>
             </thead>
-            <tbody></tbody>
+            <tbody class="accordion-wrap"></tbody>
           </table>
         </div>
         <div class="layouts">
@@ -362,10 +351,14 @@
               <td class="table-active"><label for="email_flag">送信メール</label></td>
               <td>
                 <div class="radio-box">
-                  {{Form::radio('email_flag', '0', true, ['id' => 'email_flag', 'class' => ''])}}
-                  {{Form::label('email_flag', "なし")}}
-                  {{Form::radio('email_flag', '1', false, ['id' => 'no_email_flag', 'class' => ''])}}
-                  {{Form::label('no_email_flag',"あり")}}
+                  <p>
+                    {{Form::radio('email_flag', '0', true, ['id' => 'email_flag', 'class' => ''])}}
+                    {{Form::label('email_flag', "なし")}}
+                  </p>
+                  <p>
+                    {{Form::radio('email_flag', '1', false, ['id' => 'no_email_flag', 'class' => ''])}}
+                    {{Form::label('no_email_flag',"あり")}}
+                  </p>
                 </div>
               </td>
             </tr>

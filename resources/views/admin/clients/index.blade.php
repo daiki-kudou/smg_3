@@ -140,6 +140,10 @@
                 </li>
                 <li>
                   <input type="checkbox" checked>
+                  <label for="personStatus">仲介会社</label>
+                </li>
+                <li>
+                  <input type="checkbox" checked>
                   <label for="personStatus">その他</label>
                 </li>
               </ul>
@@ -192,6 +196,8 @@
             @elseif($query->attr==5)
             MLM
             @elseif($query->attr==6)
+            仲介会社
+            @elseif($query->attr==7)
             その他
             @endif
           </td>

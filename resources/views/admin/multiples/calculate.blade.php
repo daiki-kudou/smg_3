@@ -351,6 +351,7 @@
                       <td class="table-active"><label for="mobilePhone">携帯番号</label></td>
                       <td>
                         {{ Form::text('cp_master_tel', '',['class'=>'form-control'] ) }}
+                        <small>半角数字、ハイフンなしで入力してください</small>
                       </td>
                     </tr>
                   </tbody>
@@ -583,8 +584,7 @@
                         <td>
                           <select name="{{'event_start_copied'.$key}}" class="form-control">
                             <option disabled>選択してください</option>
-                            @for ($start = 0*2; $start <=23*2; $start++) <option
-                              value="{{date("H:i:s", strtotime("00:00 +". $start * 30 ." minute"))}}" @if($request->
+                            @for ($start = 0*2; $start <=23*2; $start++) <option value="{{date("H:i:s", strtotime("00:00 +". $start * 30 ." minute"))}}" @if($request->
                               cp_master_event_start==date("H:i:s", strtotime("00:00 +". $start * 30 ." minute")))
                               selected
                               @endif
@@ -599,8 +599,7 @@
                         <td>
                           <select name="{{'event_finish_copied'.$key}}" class="form-control">
                             <option disabled>選択してください</option>
-                            @for ($start = 0*2; $start <=23*2; $start++) <option
-                              value="{{date("H:i:s", strtotime("00:00 +". $start * 30 ." minute"))}}" @if($request->
+                            @for ($start = 0*2; $start <=23*2; $start++) <option value="{{date("H:i:s", strtotime("00:00 +". $start * 30 ." minute"))}}" @if($request->
                               cp_master_event_finish==date("H:i:s", strtotime("00:00 +". $start * 30 ." minute")))
                               selected
                               @endif
@@ -831,6 +830,7 @@
                           <td class="table-active"><label for="mobilePhone">携帯番号</label></td>
                           <td>
                             {{ Form::text('tel_copied'.$key, $request->cp_master_tel,['class'=>'form-control'] ) }}
+                            <small>半角数字、ハイフンなしで入力してください</small>
                           </td>
                         </tr>
                       </tbody>
@@ -1466,15 +1466,14 @@
     })
   })
 
-  $(function(){
-    var maxTarget=$('input[name="reserve_date"]').val();
+  $(function() {
+    var maxTarget = $('input[name="reserve_date"]').val();
     $('.datepicker9').datepicker({
       dateFormat: 'yy-mm-dd',
       minDate: 0,
-      maxDate:maxTarget,
+      maxDate: maxTarget,
       autoclose: true,
     });
   })
-
 </script>
 @endsection

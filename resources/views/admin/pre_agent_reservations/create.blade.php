@@ -28,7 +28,7 @@
 
 <section class="section-wrap">
   <div class="calendar">
-    <iframe src="{{url('admin/calendar/date_calendar')}}" width="100%" height="500">Your browser isn't
+    <iframe frameborder="0" src="{{url('admin/calendar/date_calendar')}}" width="100%" height="500">Your browser isn't
       compatible</iframe>
   </div>
 
@@ -76,6 +76,7 @@
           <td class="table-active">電話番号</td>
           <td>
             {{ Form::text('pre_enduser_tel', '',['class'=>'form-control'] ) }}
+            <small>半角数字、ハイフンなしで入力してください</small>
             <p class="is-error-pre_enduser_tel" style="color: red"></p>
           </td>
         </tr>
@@ -83,6 +84,7 @@
           <td class="table-active">当日連絡先</td>
           <td>
             {{ Form::text('pre_enduser_mobile', '',['class'=>'form-control'] ) }}
+            <small>半角数字、ハイフンなしで入力してください</small>
             <p class="is-error-pre_enduser_mobile" style="color: red"></p>
           </td>
           <td class="table-active">メールアドレス</td>
@@ -164,63 +166,67 @@
 
 <script defer="defer">
   // 初期カレンダーのside var 非表示
-    $(function(){
-        $("iframe").on("load",function(){
-        $("iframe").contents().find('.main-sidebar').css("display","none");
-        $("iframe").contents().find('.content-wrapper').css("margin-left","0px");
-        $("iframe").contents().find('.main-header').css("margin-top","-48px");
-        });
-    })
+  $(function() {
+    $("iframe").on("load", function() {
+      $("iframe").contents().find('.main-sidebar').css("display", "none");
+      $("iframe").contents().find('.content-wrapper').css("margin-left", "0px");
+      $("iframe").contents().find('.main-header').css("margin-top", "-48px");
+    });
+  })
 
 
-    // select2, datepicker 初期表示用
-    $(function(){
-      $('#pre_venue').select2({ width: '100%' });
-      $('#pre_datepicker').datepicker({
-        dateFormat: 'yy-mm-dd',
-        autoclose: true
-      });
-    })
-    // 入退室初期時間選択desabled設定
+  // select2, datepicker 初期表示用
+  $(function() {
+    $('#pre_venue').select2({
+      width: '100%'
+    });
+    $('#pre_datepicker').datepicker({
+      dateFormat: 'yy-mm-dd',
+      autoclose: true
+    });
+  })
+  // 入退室初期時間選択desabled設定
   //プラスマイナスボタン
-    $(function(){
-      $(document).on("click", ".add", function() {
-        // すべてのselect2初期化
-        for (let destroy = 0; destroy < $('.date_selector tbody tr').length; destroy++) {
-          console.log($('.date_selector tbody tr').eq(destroy).find('td').eq(1).find('select').select2("destroy"));
-        }
+  $(function() {
+    $(document).on("click", ".add", function() {
+      // すべてのselect2初期化
+      for (let destroy = 0; destroy < $('.date_selector tbody tr').length; destroy++) {
+        console.log($('.date_selector tbody tr').eq(destroy).find('td').eq(1).find('select').select2("destroy"));
+      }
 
-        $(this).parent().parent().clone(true).insertAfter($(this).parent().parent());
-        var count = $(this).parent().parent().parent().find('tr').length;
-        var target =$(this).parent().parent().parent().find('tr');
+      $(this).parent().parent().clone(true).insertAfter($(this).parent().parent());
+      var count = $(this).parent().parent().parent().find('tr').length;
+      var target = $(this).parent().parent().parent().find('tr');
 
-        for (let index = 0; index < count; index++) {
-          // name属性
-          $(target).eq(index).find('td').eq(0).find('input, select').attr('name', "pre_date" + index);
-          $(target).eq(index).find('td').eq(1).find('input, select').attr('name', "pre_venue" + index);
-          $(target).eq(index).find('td').eq(2).find('input, select').attr('name', "pre_enter" + index);
-          $(target).eq(index).find('td').eq(3).find('input, select').attr('name', "pre_leave" + index);
-          // id属性
-          $(target).eq(index).find('td').eq(0).find('input, select').attr('id', "pre_datepicker" + index);
-          $(target).eq(index).find('td').eq(1).find('input, select').attr('id', "pre_venue" + index);
-          $(target).eq(index).find('td').eq(2).find('input, select').attr('id', "pre_enter" + index);
-          $(target).eq(index).find('td').eq(3).find('input, select').attr('id', "pre_leave" + index);
-          // dapicker付与
-          $('#pre_datepicker'+index).removeClass('hasDatepicker').datepicker({
-            dateFormat: 'yy-mm-dd',
-            minDate: 0,
-          });
-          // select2付与
-          $(target).eq(index).find('td').eq(1).find('select').select2({width: '100%'});
-          
-          if (index==count-1) {
-            $(target).eq(index).find('td').eq(2).find('input, select').val('');
-            $(target).eq(index).find('td').eq(3).find('input, select').val('');
-          }
+      for (let index = 0; index < count; index++) {
+        // name属性
+        $(target).eq(index).find('td').eq(0).find('input, select').attr('name', "pre_date" + index);
+        $(target).eq(index).find('td').eq(1).find('input, select').attr('name', "pre_venue" + index);
+        $(target).eq(index).find('td').eq(2).find('input, select').attr('name', "pre_enter" + index);
+        $(target).eq(index).find('td').eq(3).find('input, select').attr('name', "pre_leave" + index);
+        // id属性
+        $(target).eq(index).find('td').eq(0).find('input, select').attr('id', "pre_datepicker" + index);
+        $(target).eq(index).find('td').eq(1).find('input, select').attr('id', "pre_venue" + index);
+        $(target).eq(index).find('td').eq(2).find('input, select').attr('id', "pre_enter" + index);
+        $(target).eq(index).find('td').eq(3).find('input, select').attr('id', "pre_leave" + index);
+        // dapicker付与
+        $('#pre_datepicker' + index).removeClass('hasDatepicker').datepicker({
+          dateFormat: 'yy-mm-dd',
+          minDate: 0,
+        });
+        // select2付与
+        $(target).eq(index).find('td').eq(1).find('select').select2({
+          width: '100%'
+        });
+
+        if (index == count - 1) {
+          $(target).eq(index).find('td').eq(2).find('input, select').val('');
+          $(target).eq(index).find('td').eq(3).find('input, select').val('');
         }
-      })
-      // マイナスボタン
-      $(document).on("click", ".del", function() {
+      }
+    })
+    // マイナスボタン
+    $(document).on("click", ".del", function() {
       var master = $(this).parent().parent().parent().find('tr').length;
       var target = $(this).parent().parent();
       var re_target = target.parent();
@@ -231,23 +237,23 @@
       var count2 = $('.date_selector tbody tr').length;
       console.log(count2);
       for (let index = 0; index < count2; index++) {
-          $('.date_selector tbody tr').eq(index).find('td').eq(0).find('input, select').attr('name', "pre_date" + index);
-          $('.date_selector tbody tr').eq(index).find('td').eq(1).find('input, select').attr('name', "pre_venue" + index);
-          $('.date_selector tbody tr').eq(index).find('td').eq(2).find('input, select').attr('name', "pre_enter" + index);
-          $('.date_selector tbody tr').eq(index).find('td').eq(3).find('input, select').attr('name', "pre_leave" + index);
-          // id属性
-          $('.date_selector tbody tr').eq(index).find('td').eq(0).find('input, select').attr('id', "pre_datepicker" + index);
-          $('.date_selector tbody tr').eq(index).find('td').eq(1).find('input, select').attr('id', "pre_venue" + index);
-          $('.date_selector tbody tr').eq(index).find('td').eq(2).find('input, select').attr('id', "pre_enter" + index);
-          $('.date_selector tbody tr').eq(index).find('td').eq(3).find('input, select').attr('id', "pre_leave" + index);
-          $('#pre_datepicker'+index).removeClass('hasDatepicker').datepicker({
-            dateFormat: 'yy-mm-dd',
-            minDate: 0,
-          });
-        }
+        $('.date_selector tbody tr').eq(index).find('td').eq(0).find('input, select').attr('name', "pre_date" + index);
+        $('.date_selector tbody tr').eq(index).find('td').eq(1).find('input, select').attr('name', "pre_venue" + index);
+        $('.date_selector tbody tr').eq(index).find('td').eq(2).find('input, select').attr('name', "pre_enter" + index);
+        $('.date_selector tbody tr').eq(index).find('td').eq(3).find('input, select').attr('name', "pre_leave" + index);
+        // id属性
+        $('.date_selector tbody tr').eq(index).find('td').eq(0).find('input, select').attr('id', "pre_datepicker" + index);
+        $('.date_selector tbody tr').eq(index).find('td').eq(1).find('input, select').attr('id', "pre_venue" + index);
+        $('.date_selector tbody tr').eq(index).find('td').eq(2).find('input, select').attr('id', "pre_enter" + index);
+        $('.date_selector tbody tr').eq(index).find('td').eq(3).find('input, select').attr('id', "pre_leave" + index);
+        $('#pre_datepicker' + index).removeClass('hasDatepicker').datepicker({
+          dateFormat: 'yy-mm-dd',
+          minDate: 0,
+        });
+      }
     })
-    })
-    // 入室時間選択トリガー
+  })
+  // 入室時間選択トリガー
   // $(function () {
   //   $(document).on("click", "select", function () {
   //     var this_tr = $(this).parent().parent();
@@ -319,7 +325,5 @@
   //     }
   //   })
   // })
-
-
 </script>
 @endsection

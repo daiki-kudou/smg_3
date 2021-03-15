@@ -813,7 +813,7 @@ table td.table_column p:last-child {
 }
 
 .calendar {
-    padding: 3%;
+    padding: 2% 0;
     border: 1px solid #dee2e6;
 }
 

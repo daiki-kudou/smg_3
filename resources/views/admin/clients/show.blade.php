@@ -94,6 +94,8 @@
               @elseif($user->attr==5)
               MLM
               @elseif($user->attr==6)
+              仲介会社
+              @elseif($user->attr==7)
               その他
               @endif
             </td>
@@ -253,7 +255,7 @@
   <!-- 　備考終わり ----------------------------------------->
   
   <div class="text-center mt-5">
-  <p><a class="more_btn_lg" href="">一覧にもどる</a>
+  <p><a class="more_btn_lg" href="{{url('admin/clients')}}">一覧にもどる</a>
   </p>
   </div>
 

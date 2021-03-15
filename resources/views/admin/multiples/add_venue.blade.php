@@ -157,9 +157,8 @@
         </table>
       </div>
 
-
       <div class="calendar mt-5">
-        <iframe src="{{url('admin/calendar/date_calendar')}}" width="100%" height="500">Your browser isn't
+        <iframe frameborder="0" src="{{url('admin/calendar/date_calendar')}}" width="100%" height="500">Your browser isn't
           compatible</iframe>
       </div>
       {{Form::open(['url' => 'admin/multiples/'.$multiple->id.'/add_venue_store', 'method' => 'POST', 'id'=>''])}}
