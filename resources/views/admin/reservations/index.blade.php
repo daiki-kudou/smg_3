@@ -202,7 +202,7 @@
           </tr>
         </thead>
 
-        {{-- @foreach ($reservations as $reservation)
+        @foreach ($reservations as $reservation)
         <tbody>
           <tr>
             <td rowspan="{{count($reservation->bills()->get())}}">※後ほど修正</td>
@@ -229,8 +229,21 @@
               {{ReservationHelper::getAgentPerson($reservation->agent_id)}}
               @endif
             </td>
-            <td rowspan="{{count($reservation->bills()->get())}}">{{$user->find($reservation->venue_id)->mobile}}</td>
-            <td rowspan="{{count($reservation->bills()->get())}}">{{$user->find($reservation->venue_id)->tel}}</td>
+            <td rowspan="{{count($reservation->bills()->get())}}">
+              @if ($reservation->user_id>0)
+              {{$reservation->user->mobile}}
+              @else
+              {{$reservation->agent->mobile}}
+              @endif
+            </td>
+            <td rowspan="{{count($reservation->bills()->get())}}">
+              @if ($reservation->user_id>0)
+              {{$reservation->user->tel}}
+              @else
+              {{$reservation->agent->person_tel}}
+              @endif
+            </td>
+
             <td rowspan="{{count($reservation->bills()->get())}}">
               @if ($reservation->agent_id>0)
               {{ReservationHelper::getAgentCompany($reservation->agent_id)}}
@@ -258,7 +271,7 @@
             </tr>
             @endfor
         </tbody>
-        @endforeach --}}
+        @endforeach
       </table>
     </div>
 

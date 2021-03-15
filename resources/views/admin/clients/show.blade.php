@@ -262,8 +262,12 @@
     <hr>
 
     <ul class="d-flex justify-content-end mt-5">
-      <li class="mr-3"><a href="" class="more_btn3">仮押えをする</a></li>
-      <li><a href="" class="more_btn3">予約をする</a></li>
+      <li class="mr-3">
+        <a href="{{url('admin/pre_reservations/create')}}" class="more_btn3">仮押えをする</a>
+      </li>
+      <li>
+        <a href="{{url('admin/reservations/create')}}" class="more_btn3">予約をする</a>
+      </li>
     </ul>
 
     <h4 class="mb-2 mt-4">予約・利用履歴</h4>
@@ -284,46 +288,70 @@
           <th>エンドユーザー</th>
           <th width="120">売上区分</th>
           <th width="120">予約状況</th>
+          <th width="120">詳細</th>
         </tr>
       </thead>
+      @foreach ($reservations as $reservation)
       <tbody>
-        @foreach ($user->reservations()->get() as $res)
         <tr>
-          <td>※後ほど実装</td>
-          <td>{{$res->id}}</td>
-          <td>ダミー</td>
-          <td>ダミー</td>
-          <td>ダミー</td>
-          <td>ダミー</td>
-          <td>ダミー</td>
-          <td>ダミー</td>
-          <td>ダミー</td>
-          <td>ダミー</td>
-          <td>ダミー</td>
-          <td>ダミー</td>
-          <td>ダミー</td>
-          <td>ダミー</td>
+          <td rowspan="{{count($reservation->bills()->get())}}">※後ほど修正</td>
+          <td rowspan="{{count($reservation->bills()->get())}}">{{$reservation->id}}</td>
+          <td rowspan="{{count($reservation->bills()->get())}}">
+            {{ReservationHelper::formatDate($reservation->reserve_date)}}
+          </td>
+          <td rowspan="{{count($reservation->bills()->get())}}">{{$reservation->enter_time}}</td>
+          <td rowspan="{{count($reservation->bills()->get())}}">{{$reservation->leave_time}}</td>
+          <td rowspan="{{count($reservation->bills()->get())}}">
+            {{ReservationHelper::getVenue($reservation->venue->id)}}
+          </td>
+          <td rowspan="{{count($reservation->bills()->get())}}">
+            @if ($reservation->user_id>0)
+            {{$reservation->user->company}}
+            @elseif($reservation->user_id==0)
+            {{ReservationHelper::getAgentCompany($reservation->agent_id)}}
+            @endif
+          </td>
+          <td rowspan="{{count($reservation->bills()->get())}}">
+            @if ($reservation->user_id>0)
+            {{ReservationHelper::getPersonName($reservation->user_id)}}
+            @elseif($reservation->user_id==0)
+            {{ReservationHelper::getAgentPerson($reservation->agent_id)}}
+            @endif
+          </td>
+          <td rowspan="{{count($reservation->bills()->get())}}">{{$user->find($reservation->venue_id)->mobile}}</td>
+          <td rowspan="{{count($reservation->bills()->get())}}">{{$user->find($reservation->venue_id)->tel}}</td>
+          <td rowspan="{{count($reservation->bills()->get())}}">
+            @if ($reservation->agent_id>0)
+            {{ReservationHelper::getAgentCompany($reservation->agent_id)}}
+            @endif
+          </td>
+          <td>ダミーダミーダミー</td>
+          <td>会場予約</td>　
+          <td>
+            {{ReservationHelper::judgeStatus($reservation->bills()->first()->reservation_status)}}
+          </td>
+          <td rowspan="{{count($reservation->bills()->get())}}"><a
+              href="{{ url('admin/reservations', $reservation->id) }}" class="more_btn">詳細</a></td>
+          {{-- <td rowspan="{{count($reservation->bills()->get())}}"><a
+            href="{{ url('admin/reservations/generate_pdf/'.$reservation->id) }}" class="more_btn">表示</a></td> --}}
         </tr>
-        @endforeach
+        @for ($i = 0; $i < count($reservation->bills()->get())-1; $i++)
+          <tr>
+            <td>
+              @if ($reservation->bills()->skip($i+1)->first()->category==2)
+              追加請求
+              @endif
+            </td>
+            {{-- <td>{{ReservationHelper::judgeStatus($reservation->bills()->skip($i+1)->first()->reservation_status)}}
+            </td> --}}
+          </tr>
+          @endfor
       </tbody>
+      @endforeach
     </table>
 
-    <nav>
-      <ul class="pagination justify-content-end">
-        <li class="page-item disabled" aria-disabled="true" aria-label="&laquo; 前">
-          <span class="page-link" aria-hidden="true">&lsaquo;</span>
-        </li>
-        <li class="page-item active" aria-current="page"><span class="page-link">1</span></li>
-        <li class="page-item"><a class="page-link" href="">2</a></li>
-        <li class="page-item"><a class="page-link" href="">3</a></li>
-        <li class="page-item"><a class="page-link" href="">4</a></li>
-        <li class="page-item"><a class="page-link" href="">5</a></li>
-        <li class="page-item"><a class="page-link" href="">6</a></li>
-        <li class="page-item">
-          <a class="page-link" href="" rel="next" aria-label="次 &raquo">&rsaquo;</a>
-        </li>
-      </ul>
-    </nav>
+    {{ $reservations->links() }}
+
   </div>
 
   <div class="text-center">

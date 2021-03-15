@@ -120,9 +120,8 @@ class ClientsController extends Controller
   public function show($id)
   {
     $user = User::find($id);
-    return view('admin.clients.show', [
-      'user' => $user,
-    ]);
+    $reservations = $user->reservations()->paginate(10);
+    return view('admin.clients.show', compact("user", "reservations"));
   }
 
   /**
