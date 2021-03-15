@@ -110,14 +110,12 @@
         <tr>
           <td class="table-active">固定電話</td>
           <td>
-            {{ Form::text('unknown_user_tel', '',['class'=>'form-control'] ) }}
-            <small>半角数字、ハイフンなしで入力してください</small>
+            {{ Form::text('unknown_user_tel', '',['class'=>'form-control', 'placeholder' => '半角数字、ハイフンなしで入力してください'] ) }}
             <p class="is-error-unknown_user_tel" style="color: red"></p>
           </td>
           <td class="table-active">携帯番号</td>
           <td>
-            {{ Form::text('unknown_user_mobile', '',['class'=>'form-control'] ) }}
-            <small>半角数字、ハイフンなしで入力してください</small>
+            {{ Form::text('unknown_user_mobile', '',['class'=>'form-control', 'placeholder' => '半角数字、ハイフンなしで入力してください'] ) }}
             <p class="is-error-unknown_user_mobile" style="color: red"></p>
           </td>
         </tr>

@@ -12,9 +12,11 @@ $(function () {
         email: true
       },
       unknown_user_mobile: {
+        number: true,
         minlength: 11
       },
       unknown_user_tel: {
+        number: true,
         minlength: 10
       },
     },
@@ -23,9 +25,11 @@ $(function () {
         email: '※Emailの形式で入力してください',
       },
       unknown_user_mobile: {
+        number: '※数字を入力してください',
         minlength: '※最低桁数は11です',
       },
       unknown_user_tel: {
+        number: '※数字を入力してください',
         minlength: '※最低桁数は10です',
       },
     },
@@ -60,6 +64,7 @@ $(function () {
       },
       tel: {
         required: true,
+        number: true,
         minlength: 11
       },
       unknown_user_tel: {
@@ -72,6 +77,7 @@ $(function () {
       },
       tel: {
         required: '※必須項目です',
+        number: '※数字を入力してください',
         minlength: '※最低桁数は11です',
       },
       unknown_user_tel: {
@@ -112,6 +118,7 @@ $(function () {
       },
       tel: {
         required: true,
+        number: true,
         minlength: 11
       },
       unknown_user_tel: {
@@ -124,6 +131,7 @@ $(function () {
       },
       tel: {
         required: '※必須項目です',
+        number: '※数字を入力してください',
         minlength: '※最低桁数は11です',
       },
       unknown_user_tel: {
@@ -164,9 +172,15 @@ $(function () {
       },
       tel: {
         required: true,
+        number: true,
+        minlength: 11
+      },
+      unknown_user_mobile: {
+        number: true,
         minlength: 11
       },
       unknown_user_tel: {
+        number: true,
         minlength: 10
       },
     },
@@ -177,8 +191,14 @@ $(function () {
       tel: {
         required: '※必須項目です',
         minlength: '※最低桁数は11です',
+        number: '※数字を入力してください',
+      },
+      unknown_user_mobile: {
+        number: '※数字を入力してください',
+        minlength: '※最低桁数は11です',
       },
       unknown_user_tel: {
+        number: '※数字を入力してください',
         minlength: '※最低桁数は10です',
       },
     },
@@ -216,6 +236,7 @@ $(function () {
       },
       tel: {
         required: true,
+        number: true,
         minlength: 11
       },
       unknown_user_tel: {
@@ -228,6 +249,7 @@ $(function () {
       },
       tel: {
         required: '※必須項目です',
+        number: '※数字を入力してください',
         minlength: '※最低桁数は11です',
       },
       unknown_user_tel: {
@@ -827,6 +849,12 @@ $(function () {
         // required: true,
         maxlength: 7
       },
+      luggage_tel: {
+        number: true,
+      },
+      person_tel: {
+        number: true,
+      },
       // luggage_address1: {
       //   required: true,
       // },
@@ -916,6 +944,13 @@ $(function () {
       },
       luggage_flag: {
         required: "※必須項目です",
+      },
+      luggage_post_code: {
+        // required: "※必須項目です",
+        maxlength: '７桁で入力してください'
+      },
+      luggage_tel: {
+        number: '数字のみ入力してください'
       },
       luggage_post_code: {
         // required: "※必須項目です",

@@ -709,9 +709,18 @@ table td.table_column p:last-child {
     /* justify-content: space-around; */
 }
 
+.radio-box p > label {
+    display: block;
+    margin-left: 0.3em;
+}
+
 .radio-box p {
+    display: flex;
+    align-items: center;
     margin-right: 1em;
 }
+
+
 
 .radio-box span {
     margin-left: 5px;
