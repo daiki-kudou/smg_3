@@ -21,7 +21,7 @@
     </div>
 
     <section class="section-wrap">
-    <div class="mb-2"><a class="more_btn4" href="">削除</a></div>
+      <div class="mb-2"><a class="more_btn4" href="">削除</a></div>
 
       <table class="table ttl_head mb-0">
         <tbody>
@@ -107,7 +107,7 @@
               </td>
             </tr>
             <tr>
-            <td class="table-active" scope="row"><label for="onedayTel">固定電話</label></td>
+              <td class="table-active" scope="row"><label for="onedayTel">固定電話</label></td>
               <td>
                 @if ($multiple->pre_reservations()->first()->id==999)
                 {{$multiple->pre_reservations()->first()->unknown_user()->unknown_user_tel}}
