@@ -99,11 +99,11 @@
                         <div class="radio-box">
                           <p>
                             {{ Form::radio('cp_master_board_flag', 1, false, ['id'=>'cp_master_board_flag1']) }}
-                            {{Form::label('cp_master_board_flag1','あり')}}
+                            {{Form::label('cp_master_board_flag1','有り')}}
                           </p>
                           <p>
                             {{ Form::radio('cp_master_board_flag', 0, true, ['id'=>'cp_master_board_flagboard_flag2']) }}
-                            {{Form::label('cp_master_board_flagboard_flag2','なし')}}
+                            {{Form::label('cp_master_board_flagboard_flag2','無し')}}
                           </p>
                         </div>
                       </td>
@@ -196,11 +196,15 @@
                     <tr>
                       <td class="table-active">{{$service->item}}</td>
                       <td>
-                        <div class="form-check form-check-inline">
-                          {{Form::radio('cp_master_services_breakdown'.$key, 1, false , ['id' => 'cp_master_service'.$key.'on', 'class' => 'form-check-input'])}}
-                          {{Form::label('cp_master_service'.$key.'on','有り')}}
-                          {{Form::radio('cp_master_services_breakdown'.$key, 0, true, ['id' => 'cp_master_service'.$key.'off', 'class' => 'form-check-input'])}}
-                          {{Form::label('cp_master_service'.$key.'on','無し')}}
+                        <div class="radio-box">
+                          <p>
+                            {{Form::radio('cp_master_services_breakdown'.$key, 1, false , ['id' => 'cp_master_service'.$key.'on'])}}
+                            {{Form::label('cp_master_service'.$key.'on','有り')}}
+                          </p>
+                          <p>
+                            {{Form::radio('cp_master_services_breakdown'.$key, 0, true, ['id' => 'cp_master_service'.$key.'off'])}}
+                            {{Form::label('cp_master_service'.$key.'on','無し')}}
+                          </p>
                         </div>
                       </td>
                     </tr>
@@ -225,11 +229,15 @@
                     <tr>
                       <td class="table-active">準備</td>
                       <td>
-                        <div class="form-check form-check-inline">
-                          {{Form::radio('cp_master_layout_prepare', 1, false, ['id' => 'cp_master_layout_prepare', 'class' => 'form-check-input'])}}
-                          {{Form::label('cp_master_layout_prepare','有り')}}
-                          {{Form::radio('cp_master_layout_prepare', 0, true, ['id' => 'cp_master_no_layout_prepare', 'class' => 'form-check-input'])}}
-                          {{Form::label('cp_master_no_layout_prepare','無し')}}
+                        <div class="radio-box">
+                          <p>
+                            {{Form::radio('cp_master_layout_prepare', 1, false, ['id' => 'cp_master_layout_prepare'])}}
+                            {{Form::label('cp_master_layout_prepare','有り')}}
+                          </p>
+                          <p>
+                            {{Form::radio('cp_master_layout_prepare', 0, true, ['id' => 'cp_master_no_layout_prepare'])}}
+                            {{Form::label('cp_master_no_layout_prepare','無し')}}
+                          </p>
                         </div>
                       </td>
                     </tr>
@@ -238,11 +246,15 @@
                     <tr>
                       <td class="table-active">片付</td>
                       <td>
-                        <div class="form-check form-check-inline">
-                          {{Form::radio('cp_master_layout_clean', 1, false, ['id' => 'cp_master_layout_clean', 'class' => 'form-check-input'])}}
-                          {{Form::label('cp_master_layout_clean','有り')}}
-                          {{Form::radio('cp_master_layout_clean', 0, true, ['id' => 'cp_master_no_layout_clean', 'class' => 'form-check-input'])}}
-                          {{Form::label('cp_master_no_layout_clean','無し')}}
+                        <div class="radio-box">
+                          <p>
+                            {{Form::radio('cp_master_layout_clean', 1, false, ['id' => 'cp_master_layout_clean'])}}
+                            {{Form::label('cp_master_layout_clean','有り')}}
+                          </p>
+                          <p>
+                            {{Form::radio('cp_master_layout_clean', 0, true, ['id' => 'cp_master_no_layout_clean'])}}
+                            {{Form::label('cp_master_no_layout_clean','無し')}}
+                          </p>
                         </div>
                       </td>
                     </tr>
@@ -328,10 +340,6 @@
                     </tr>
                 </table>
                 @endif
-
-
-
-
               </div>
               <!-- 左側の項目 終わり-------------------------------------------------- -->
 
@@ -358,8 +366,8 @@
                       <tr>
                         <td class="table-active"><label for="mobilePhone">携帯番号</label></td>
                         <td>
-                          {{ Form::text('cp_master_tel', '',['class'=>'form-control'] ) }}
-                          <small>半角数字、ハイフンなしで入力してください</small>
+                          {{ Form::text('cp_master_tel', '',['class'=>'form-control', 'placeholder' => '半角数字、ハイフンなしで入力してください'] ) }}
+                          <p class="is-error-cp_master_tel" style="color: red"></p>
                         </td>
                       </tr>
                     </tbody>
@@ -379,13 +387,15 @@
                     <tr>
                       <td class="table-active"><label for="sendMail">送信メール</label></td>
                       <td>
-                        <div class="d-flex">
-                          <div class="form-check form-check-inline">
-                            {{Form::radio('cp_master_email_flag', 1, false, ['id' => 'cp_master_email_flag', 'class' => 'form-check-input'])}}
-                            {{Form::label('cp_master_email_flag','有り',['class'=>'mr-5'])}}
-                            {{Form::radio('cp_master_email_flag', 0, true, ['id' => 'cp_master_no_email_flag', 'class' => 'form-check-input'])}}
+                        <div class="radio-box">
+                          <p>
+                            {{Form::radio('cp_master_email_flag', 1, false, ['id' => 'cp_master_email_flag'])}}
+                            {{Form::label('cp_master_email_flag','有り')}}
+                          </p>
+                          <p>
+                            {{Form::radio('cp_master_email_flag', 0, true, ['id' => 'cp_master_no_email_flag'])}}
                             {{Form::label('cp_master_no_email_flag','無し')}}
-                          </div>
+                          </p>
                         </div>
                       </td>
                     </tr>
@@ -482,7 +492,7 @@
       {{ Form::hidden('', $multiple->pre_reservations()->where('venue_id',$venue->id)->get()->count(),['id'=>'counts_reserve']) }}
       {{-- 以下、pre_reservationの数分　ループ --}}
       @foreach ($multiple->pre_reservations()->where('venue_id',$venue->id)->get() as $key=>$pre_reservation)
-      {{ Form::open(['url' => 'admin/multiples/'.$multiple->id."/edit/".$venue->id.'/calculate/'.$pre_reservation->id.'/specific_update', 'method'=>'POST', 'id'=>'']) }}
+      {{ Form::open(['url' => 'admin/multiples/'.$multiple->id."/edit/".$venue->id.'/calculate/'.$pre_reservation->id.'/specific_update', 'method'=>'POST', 'id'=>'multipleSpecificUpdateForm'.$key]) }}
       @csrf
       {{ Form::hidden('split_keys', $key) }}
 
@@ -491,8 +501,7 @@
         <div class="register-list-item">
           <div class="from-group list_checkbox">
             <div class="form-check">
-              <input type="checkbox" name="{{'delete_check'.$pre_reservation->id}}" value="{{$pre_reservation->id}}"
-                class="checkbox mr-1" />
+              <input type="checkbox" name="{{'delete_check'.$pre_reservation->id}}" value="{{$pre_reservation->id}}" class="checkbox mr-1" />
               <!-- <input class="form-check-input" type="checkbox"> -->
               <label class="form-check-label"></label>
             </div>
@@ -566,11 +575,11 @@
                           <div class="radio-box">
                             <p>
                               {{ Form::radio('board_flag_copied'.$key, 1, $pre_reservation->board_flag==1?true:false, ['id'=>'board_flag_copied'.$key]) }}
-                              {{Form::label('board_flag_copied'.$key,'あり')}}
+                              {{Form::label('board_flag_copied'.$key,'有り')}}
                             </p>
                             <p>
                               {{ Form::radio('board_flag_copied'.$key, 0, $pre_reservation->board_flag==0?true:false, ['id'=>'board_flag_copied_off'.$key]) }}
-                              {{Form::label('board_flag_copied_off'.$key,'なし')}}
+                              {{Form::label('board_flag_copied_off'.$key,'無し')}}
                             </p>
                           </div>
                         </td>
@@ -595,9 +604,7 @@
                         <td>
                           <select name="{{'event_start_copied'.$key}}" class="form-control">
                             <option disabled>選択してください</option>
-                            @for ($start = 0*2; $start <=23*2; $start++) <option
-                              value="{{date("H:i:s", strtotime("00:00 +". $start * 30 ." minute"))}}" @if(date("H:i:s",
-                              strtotime("00:00 +". $start * 30 ." minute"))==$pre_reservation->enter_time)
+                            @for ($start = 0*2; $start <=23*2; $start++) <option value="{{date("H:i:s", strtotime("00:00 +". $start * 30 ." minute"))}}" @if(date("H:i:s", strtotime("00:00 +". $start * 30 ." minute"))==$pre_reservation->enter_time)
                               selected
                               @endif
                               >
@@ -609,12 +616,9 @@
                       <tr>
                         <td class="table-active"><label for="eventFinish">イベント終了時間</label></td>
                         <td>
-                          <select name="{{'event_finish_copied'.$key}}" id="{{'event_finish_copied'.$key}}"
-                            class="form-control">
+                          <select name="{{'event_finish_copied'.$key}}" id="{{'event_finish_copied'.$key}}" class="form-control">
                             <option disabled>選択してください</option>
-                            @for ($start = 0*2; $start <=23*2; $start++) <option
-                              value="{{date("H:i:s", strtotime("00:00 +". $start * 30 ." minute"))}}" @if (date("H:i:s",
-                              strtotime("00:00 +". $start * 30 ." minute"))==$pre_reservation->leave_time)
+                            @for ($start = 0*2; $start <=23*2; $start++) <option value="{{date("H:i:s", strtotime("00:00 +". $start * 30 ." minute"))}}" @if (date("H:i:s", strtotime("00:00 +". $start * 30 ." minute"))==$pre_reservation->leave_time)
                               selected
                               @endif
                               >
@@ -694,28 +698,40 @@
                           @if ($pre_reservation->pre_breakdowns)
                           @foreach ($pre_reservation->pre_breakdowns()->get() as $pre_re)
                           @if ($pre_re->unit_item==$service->item)
-                          <div class="form-check form-check-inline">
-                            {{Form::radio('services_breakdown'.$s_key.'_copied'.$key, 1, true , ['id' => 'services_breakdown'.$s_key.'_copied'.$key, 'class' => 'form-check-input'])}}
-                            {{Form::label('services_breakdown'.$s_key.'_copied'.$key,'有り')}}
-                            {{Form::radio('services_breakdown'.$s_key.'_copied'.$key, 0, false, ['id' => 'services_breakdown'.$s_key.'_copied'.$key."off", 'class' => 'form-check-input'])}}
-                            {{Form::label('services_breakdown'.$s_key.'_copied'.$key."off",'無し')}}
+                          <div class="radio-box">
+                            <p>
+                              {{Form::radio('services_breakdown'.$s_key.'_copied'.$key, 1, true , ['id' => 'services_breakdown'.$s_key.'_copied'.$key])}}
+                              {{Form::label('services_breakdown'.$s_key.'_copied'.$key,'有り')}}
+                            </p>
+                            <p>
+                              {{Form::radio('services_breakdown'.$s_key.'_copied'.$key, 0, false, ['id' => 'services_breakdown'.$s_key.'_copied'.$key."off"])}}
+                              {{Form::label('services_breakdown'.$s_key.'_copied'.$key."off",'無し')}}
+                            </p>
                           </div>
                           @break
                           @elseif($loop->last)
-                          <div class="form-check form-check-inline">
-                            {{Form::radio('services_breakdown'.$s_key.'_copied'.$key, 1, false , ['id' => 'services_breakdown'.$s_key.'_copied'.$key, 'class' => 'form-check-input'])}}
-                            {{Form::label('services_breakdown'.$s_key.'_copied'.$key,'有り')}}
-                            {{Form::radio('services_breakdown'.$s_key.'_copied'.$key, 0, true, ['id' => 'services_breakdown'.$s_key.'_copied'.$key."off", 'class' => 'form-check-input'])}}
-                            {{Form::label('services_breakdown'.$s_key.'_copied'.$key."off",'無し')}}
+                          <div class="radio-box">
+                            <p>
+                              {{Form::radio('services_breakdown'.$s_key.'_copied'.$key, 1, false , ['id' => 'services_breakdown'.$s_key.'_copied'.$key])}}
+                              {{Form::label('services_breakdown'.$s_key.'_copied'.$key,'有り')}}
+                            </p>
+                            <p>
+                              {{Form::radio('services_breakdown'.$s_key.'_copied'.$key, 0, true, ['id' => 'services_breakdown'.$s_key.'_copied'.$key."off"])}}
+                              {{Form::label('services_breakdown'.$s_key.'_copied'.$key."off",'無し')}}
+                            </p>
                           </div>
                           @endif
                           @endforeach
                           @else
-                          <div class="form-check form-check-inline">
-                            {{Form::radio('services_breakdown'.$s_key.'_copied'.$key, 1, false , ['id' => 'services_breakdown'.$s_key.'_copied'.$key, 'class' => 'form-check-input'])}}
-                            {{Form::label('services_breakdown'.$s_key.'_copied'.$key,'有り')}}
-                            {{Form::radio('services_breakdown'.$s_key.'_copied'.$key, 0, true, ['id' => 'services_breakdown'.$s_key.'_copied'.$key."off", 'class' => 'form-check-input'])}}
-                            {{Form::label('services_breakdown'.$s_key.'_copied'.$key."off",'無し')}}
+                          <div class="radio-box">
+                            <p>
+                              {{Form::radio('services_breakdown'.$s_key.'_copied'.$key, 1, false , ['id' => 'services_breakdown'.$s_key.'_copied'.$key])}}
+                              {{Form::label('services_breakdown'.$s_key.'_copied'.$key,'有り')}}
+                            </p>
+                            <p>
+                              {{Form::radio('services_breakdown'.$s_key.'_copied'.$key, 0, true, ['id' => 'services_breakdown'.$s_key.'_copied'.$key."off"])}}
+                              {{Form::label('services_breakdown'.$s_key.'_copied'.$key."off",'無し')}}
+                            </p>
                           </div>
                           @endif
                         </td>
@@ -739,25 +755,37 @@
                       <tr>
                         <td class="table-active">準備</td>
                         <td>
-                          <div class="form-check form-check-inline">
+                          <div class="radio-box">
                             @if ($pre_reservation->pre_breakdowns()->where('unit_item',"レイアウト準備料金")->count()==0)
-                            {{Form::radio('layout_prepare_copied'.$key, 1, false, ['id' => 'layout_prepare_copied'.$key, 'class' => 'form-check-input'])}}
-                            {{Form::label('layout_prepare_copied'.$key,'有り')}}
-                            {{Form::radio('layout_prepare_copied'.$key, 0, true, ['id' => 'no_layout_prepare_copied'.$key, 'class' => 'form-check-input'])}}
-                            {{Form::label('no_layout_prepare_copied'.$key,'無し')}}
+                            <p>
+                              {{Form::radio('layout_prepare_copied'.$key, 1, false, ['id' => 'layout_prepare_copied'.$key])}}
+                              {{Form::label('layout_prepare_copied'.$key,'有り')}}
+                            </p>
+                            <p>
+                              {{Form::radio('layout_prepare_copied'.$key, 0, true, ['id' => 'no_layout_prepare_copied'.$key])}}
+                              {{Form::label('no_layout_prepare_copied'.$key,'無し')}}
+                            </p>
                             @else
                             @foreach ($pre_reservation->pre_breakdowns()->get() as $layout_prepares)
                             @if ($layout_prepares->unit_item=="レイアウト準備料金")
-                            {{Form::radio('layout_prepare_copied'.$key, 1, true, ['id' => 'layout_prepare_copied'.$key, 'class' => 'form-check-input'])}}
-                            {{Form::label('layout_prepare_copied'.$key,'有り')}}
-                            {{Form::radio('layout_prepare_copied'.$key, 0, false, ['id' => 'no_layout_prepare_copied'.$key, 'class' => 'form-check-input'])}}
-                            {{Form::label('no_layout_prepare_copied'.$key,'無し')}}
+                            <p>
+                              {{Form::radio('layout_prepare_copied'.$key, 1, true, ['id' => 'layout_prepare_copied'.$key])}}
+                              {{Form::label('layout_prepare_copied'.$key,'有り')}}
+                            </p>
+                            <p>
+                              {{Form::radio('layout_prepare_copied'.$key, 0, false, ['id' => 'no_layout_prepare_copied'.$key])}}
+                              {{Form::label('no_layout_prepare_copied'.$key,'無し')}}
+                            </p>
                             @break
                             @elseif($loop->last)
-                            {{Form::radio('layout_prepare_copied'.$key, 1, false, ['id' => 'layout_prepare_copied'.$key, 'class' => 'form-check-input'])}}
-                            {{Form::label('layout_prepare_copied'.$key,'有り')}}
-                            {{Form::radio('layout_prepare_copied'.$key, 0, true, ['id' => 'no_layout_prepare_copied'.$key, 'class' => 'form-check-input'])}}
-                            {{Form::label('no_layout_prepare_copied'.$key,'無し')}}
+                            <p>
+                              {{Form::radio('layout_prepare_copied'.$key, 1, false, ['id' => 'layout_prepare_copied'.$key])}}
+                              {{Form::label('layout_prepare_copied'.$key,'有り')}}
+                            </p>
+                            <p>
+                              {{Form::radio('layout_prepare_copied'.$key, 0, true, ['id' => 'no_layout_prepare_copied'.$key])}}
+                              {{Form::label('no_layout_prepare_copied'.$key,'無し')}}
+                            </p>
                             @endif
                             @endforeach
                             @endif
@@ -767,25 +795,37 @@
                       <tr>
                         <td class="table-active">片付</td>
                         <td>
-                          <div class="form-check form-check-inline">
+                          <div class="radio-box">
                             @if ($pre_reservation->pre_breakdowns()->where('unit_item',"レイアウト片付料金")->count()==0)
-                            {{Form::radio('layout_clean_copied'.$key, 1, false, ['id' => 'layout_clean_copied'.$key, 'class' => 'form-check-input'])}}
-                            {{Form::label('layout_clean_copied'.$key,'有り')}}
-                            {{Form::radio('layout_clean_copied'.$key, 0, true, ['id' => 'no_layout_clean_copied'.$key, 'class' => 'form-check-input'])}}
-                            {{Form::label('no_layout_clean_copied'.$key,'無し')}}
+                            <p>
+                              {{Form::radio('layout_clean_copied'.$key, 1, false, ['id' => 'layout_clean_copied'.$key])}}
+                              {{Form::label('layout_clean_copied'.$key,'有り')}}
+                            </p>
+                            <p>
+                              {{Form::radio('layout_clean_copied'.$key, 0, true, ['id' => 'no_layout_clean_copied'.$key])}}
+                              {{Form::label('no_layout_clean_copied'.$key,'無し')}}
+                            </p>
                             @else
                             @foreach ($pre_reservation->pre_breakdowns()->get() as $layout_prepares)
                             @if ($layout_prepares->unit_item=="レイアウト片付料金")
-                            {{Form::radio('layout_clean_copied'.$key, 1, true, ['id' => 'layout_clean_copied'.$key, 'class' => 'form-check-input'])}}
-                            {{Form::label('layout_clean_copied'.$key,'有り')}}
-                            {{Form::radio('layout_clean_copied'.$key, 0, false, ['id' => 'no_layout_clean_copied'.$key, 'class' => 'form-check-input'])}}
-                            {{Form::label('no_layout_clean_copied'.$key,'無し')}}
+                            <p>
+                              {{Form::radio('layout_clean_copied'.$key, 1, true, ['id' => 'layout_clean_copied'.$key])}}
+                              {{Form::label('layout_clean_copied'.$key,'有り')}}
+                            </p>
+                            <p>
+                              {{Form::radio('layout_clean_copied'.$key, 0, false, ['id' => 'no_layout_clean_copied'.$key])}}
+                              {{Form::label('no_layout_clean_copied'.$key,'無し')}}
+                            </p>
                             @break
                             @elseif($loop->last)
-                            {{Form::radio('layout_clean_copied'.$key, 1, false, ['id' => 'layout_clean_copied'.$key, 'class' => 'form-check-input'])}}
-                            {{Form::label('layout_clean_copied'.$key,'有り')}}
-                            {{Form::radio('layout_clean_copied'.$key, 0, true, ['id' => 'no_layout_clean_copied'.$key, 'class' => 'form-check-input'])}}
-                            {{Form::label('no_layout_clean_copied'.$key,'無し')}}
+                            <p>
+                              {{Form::radio('layout_clean_copied'.$key, 1, false, ['id' => 'layout_clean_copied'.$key])}}
+                              {{Form::label('layout_clean_copied'.$key,'有り')}}
+                            </p>
+                            <p>
+                              {{Form::radio('layout_clean_copied'.$key, 0, true, ['id' => 'no_layout_clean_copied'.$key])}}
+                              {{Form::label('no_layout_clean_copied'.$key,'無し')}}
+                            </p>
                             @endif
                             @endforeach
                             @endif
@@ -851,7 +891,7 @@
                       <tr>
                         <th colspan='2'>
                           <p class="title-icon">
-                            <i class="fas fa-suitcase-rolling icon-size fa-fw"></i>室内飲食
+                            <i class="fas fa-utensils icon-size fa-fw"></i>室内飲食
                           </p>
                         </th>
                       </tr>
@@ -904,8 +944,8 @@
                         <tr>
                           <td class="table-active"><label for="mobilePhone">携帯番号</label></td>
                           <td>
-                            {{ Form::text('tel_copied'.$key, $pre_reservation->tel,['class'=>'form-control'] ) }}
-                            <small>半角数字、ハイフンなしで入力してください</small>
+                            {{ Form::text('tel_copied'.$key, $pre_reservation->tel,['class'=>'form-control', 'placeholder' => '半角数字、ハイフンなしで入力してください'] ) }}
+                            <p class="is-error-tel_copied" style="color: red"></p>
                           </td>
                         </tr>
                       </tbody>
@@ -925,11 +965,15 @@
                         <td class="table-active"><label for="sendMail">送信メール</label></td>
                         <td>
                           <div class="d-flex">
-                            <div class="form-check form-check-inline">
-                              {{Form::radio('email_flag_copied'.$key, 1, $pre_reservation->email_flag==1?true:false, ['id' => 'email_flag_copied'.$key, 'class' => 'form-check-input'])}}
-                              {{Form::label('email_flag_copied'.$key,'有り',['class'=>'mr-5'])}}
-                              {{Form::radio('email_flag_copied'.$key, 0, $pre_reservation->email_flag==0?true:false, ['id' => 'no_email_flag_copied'.$key, 'class' => 'form-check-input'])}}
-                              {{Form::label('no_email_flag_copied'.$key,'無し')}}
+                            <div class="radio-box">
+                              <p>
+                                {{Form::radio('email_flag_copied'.$key, 1, $pre_reservation->email_flag==1?true:false, ['id' => 'email_flag_copied'.$key])}}
+                                {{Form::label('email_flag_copied'.$key,'有り')}}
+                              </p>
+                              <p>
+                                {{Form::radio('email_flag_copied'.$key, 0, $pre_reservation->email_flag==0?true:false, ['id' => 'no_email_flag_copied'.$key])}}
+                                {{Form::label('no_email_flag_copied'.$key,'無し')}}
+                              </p>
                             </div>
                           </div>
                         </td>

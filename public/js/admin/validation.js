@@ -435,19 +435,60 @@ $(function () {
 $(function () {
   $("#multipleEditForm").validate({
     rules: {
-      enduser_charge: {
-        required: true,
+      cp_master_tel: {
+        number: true,
+        minlength: 11
       },
       cp_master_cost: {
         range: [1, 100]
       },
     },
     messages: {
-      enduser_charge: {
-        required: '※必須項目です',
+      cp_master_tel: {
+        number: '※半角数字を入力してください',
+        minlength: '※最低桁数は11です',
       },
       cp_master_cost: {
         range: '※1から100までの数値を入力してください',
+      },
+    },
+    errorPlacement: function (error, element) {
+      var name = element.attr('name');
+      if (element.attr('name') === 'category[]') {
+        error.appendTo($('.is-error-category'));
+      } else if (element.attr('name') === name) {
+        error.appendTo($('.is-error-' + name));
+      }
+    },
+    errorElement: "span",
+    errorClass: "is-error",
+    //送信前にLoadingを表示
+    submitHandler: function (form) {
+      $('.spin_btn').removeClass('hide');
+      $('.submit_btn').addClass('hide');
+      form.submit();
+    }
+  });
+  $('input').on('blur', function () {
+    $(this).valid();
+    // if ($('span').hasClass('is-error')) {
+    //   $('span').css('background', 'white');
+    // }
+  });
+})
+// 一括仮押さえ　タブ内 編集画面　
+$(function () {
+  $("#multipleSpecificUpdateForm0").validate({
+    rules: {
+      tel_copied0: {
+        number: true,
+        minlength: 11
+      },
+    },
+    messages: {
+      tel_copied: {
+        number: '※半角数字を入力してください',
+        minlength: '※最低桁数は11です',
       },
     },
     errorPlacement: function (error, element) {

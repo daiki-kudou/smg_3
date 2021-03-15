@@ -25,8 +25,8 @@
     <div class="alert-box d-flex align-items-center">
       <span class="mr-3"><i class="fas alert-icon fa-exclamation-triangle" aria-hidden="true"></i></span>
       <p>
-        変更がある場合は、必ず更新するボタンを押してください。<br>
-        更新しないまま画面遷移をすると、データが反映されません。
+        変更がある場合は、必ず保存するボタンを押してください。<br>
+        保存しないまま画面遷移をすると、データが反映されません。
       </p>
     </div>　
 

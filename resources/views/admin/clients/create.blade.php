@@ -144,15 +144,13 @@
               </tr>
               <tr>
                 <td class="table-active form_required">{{ Form::label('mobile', '携帯番号') }}</td>
-                <td colspan="2">{{ Form::text('mobile', old('mobile'), ['class' => 'form-control']) }}
-                  <small>半角数字、ハイフンなしで入力してください</small>
+                <td colspan="2">{{ Form::text('mobile', old('mobile'), ['class' => 'form-control', 'placeholder' => '半角数字、ハイフンなしで入力してください']) }}
                   <p class="is-error-mobile" style="color: red"></p>
                 </td>
               </tr>
               <tr>
                 <td class="table-active">{{ Form::label('tel', '固定電話') }}</td>
-                <td colspan="2">{{ Form::text('tel', old('tel'), ['class' => 'form-control']) }}
-                <small>半角数字、ハイフンなしで入力してください</small>
+                <td colspan="2">{{ Form::text('tel', old('tel'), ['class' => 'form-control', 'placeholder' => '半角数字、ハイフンなしで入力してください']) }}
                 </td>
               </tr>
               <tr>
@@ -306,6 +304,7 @@
           },
           mobile: {
             required: true,
+            number: true,
             minlength: 11
           },
           tel: {
@@ -352,6 +351,7 @@
           },
           mobile: {
             required: "※必須項目です",
+            number: '※半角数字で入力してください',
             minlength: '※最低桁数は11です',
           },
           tel: {
