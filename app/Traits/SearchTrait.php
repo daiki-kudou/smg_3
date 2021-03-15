@@ -20,6 +20,7 @@ trait SearchTrait
     $andSearch = $class->where('multiple_reserve_id', '=', 0); // マスタのクエリ 
 
     $this->SimpleWhereLike($request, "search_id", $andSearch, "id"); // id検索
+
     if (!empty($request->search_date)) { // 利用日の検索
       $this->WhereInSearch($andSearch, 'reserve_date', $request, "search_date");
     }
@@ -60,10 +61,26 @@ trait SearchTrait
 
     $result = $class::query();
 
-    $this->SimpleWhere($request, "search_id", $result, "id");
+    if (!empty($request->search_id)) {
+      $result->where("id", "LIKE", "%" . $request->search_id . "%");
+    }
 
-    $joinTable = $class->join("pre_reservations", "multiple_reserves.id", "pre_reservations.multiple_reserve_id");
+    if (!empty($request->search_created_at)) { // 作成日の検索
+      foreach ($this->SplitDate($request->search_created_at) as $key => $value) {
+        $result->whereDate("created_at", "=", current($value));
+      }
+    }
 
+    if (!empty($request->search_company)) {
+      $result->whereHas("pre_reservations.user", function ($query) use ($request) {
+        $query->where("company", 'LIKE', "%$request->search_company%");
+      });
+    }
+
+
+    // $this->SimpleWhere($request, "search_id", $result, "id");
+
+    // $joinTable = $class->join("pre_reservations", "multiple_reserves.id", "pre_reservations.multiple_reserve_id");
 
     return $result->paginate(30);
   }
