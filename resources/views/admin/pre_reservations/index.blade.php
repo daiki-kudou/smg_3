@@ -230,8 +230,8 @@
             </td>
             <td>{{ReservationHelper::checkAgentOrUserTel($pre_reservation->user_id, $pre_reservation->agent_id)}}</td>
             <td>{{$pre_reservation->user_id!=999?"":$pre_reservation->unknown_user->unknown_user_company}}</td>
-            {{-- <td>{{$pre_reservation->agent_id==0?"":ReservationHelper::getAgentCompany($pre_reservation->agent_id)}}
-            </td> --}}
+            <td>{{$pre_reservation->agent_id==0?"":($pre_reservation->agent_id)}}
+            </td>
             <td>{{$pre_reservation->agent_id==0?"":$pre_reservation->pre_enduser->company}}</td>
             <td class="text-center">
               <a class="more_btn" href="{{url('admin/pre_reservations/'.$pre_reservation->id)}}">詳細</a></td>
