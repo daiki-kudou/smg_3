@@ -115,6 +115,12 @@ trait SearchTrait
       });
     }
 
+    if (!empty($request->search_end_user)) {
+      $result->whereHas("pre_reservations.pre_enduser", function ($query) use ($request) {
+        $query->where('company', "LIKE", "%$request->search_end_user%");
+      });
+    }
+
 
 
 
