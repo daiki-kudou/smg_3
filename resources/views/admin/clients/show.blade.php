@@ -287,9 +287,10 @@
         </tr>
       </thead>
       <tbody>
+        @foreach ($user->reservations()->get() as $res)
         <tr>
-          <td>ダミー</td>
-          <td>ダミー</td>
+          <td>※後ほど実装</td>
+          <td>{{$res->id}}</td>
           <td>ダミー</td>
           <td>ダミー</td>
           <td>ダミー</td>
@@ -303,6 +304,7 @@
           <td>ダミー</td>
           <td>ダミー</td>
         </tr>
+        @endforeach
       </tbody>
     </table>
 

@@ -1328,3 +1328,48 @@ $(function () {
     // }
   });
 });
+
+
+
+// testtesttesttesttesttesttesttesttesttesttesttest
+$(function () {
+  var target = $("input[name^='tel_copied']");
+
+  for (let index = 0; index < target.length; index++) {
+    var targetName = "tel_copied" + index;
+    $("#testtest" + index).validate({
+      rules: {
+        [targetName]: {
+          required: true,
+        },
+      },
+      messages: {
+        [targetName]: {
+          required: "※必須項目です",
+        },
+      },
+      errorPlacement: function (error, element) {
+        var name = element.attr('name');
+        if (element.attr('name') === 'category[]') {
+          error.appendTo($('.is-error-category'));
+        } else if (element.attr('name') === name) {
+          error.appendTo($('.is-error-' + name));
+        }
+      },
+      errorElement: "span",
+      errorClass: "is-error",
+      //送信前にLoadingを表示
+      submitHandler: function (form) {
+        $('.approval').addClass('hide');
+        $('.loading').removeClass('hide');
+        form.submit();
+      }
+    });
+    $('input').on('blur', function () {
+      $(this).valid();
+      // if ($('span').hasClass('is-error')) {
+      //   $('span').css('background', 'white');
+      // }
+    });
+  }
+})
