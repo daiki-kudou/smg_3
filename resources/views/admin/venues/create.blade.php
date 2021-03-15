@@ -355,8 +355,6 @@
                 {{ Form::text('mgmt_last_name', old('mgmt_last_name'), ['class' => 'form-control']) }}
               </td>
             </tr>
-            <!-- 工藤さんに確認　顧客の新規登録のデータをピックアップ問題ないか -->
-
             <tr>
               <td class="table-active"><label for="mgmt_email">担当者メール</label></td>
               <td colspan="2">

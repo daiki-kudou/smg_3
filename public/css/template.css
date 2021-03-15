@@ -482,6 +482,11 @@ option:disabled  {
     width: 150px;
 }
 
+.remark_scroll {
+    height: 50px;
+    overflow-y: scroll;
+}
+
 
 
 /* アコーディオン ------------------------------------------*/
@@ -669,6 +674,10 @@ table td.table_column p:last-child {
     background: #464646;
     color: #fff;
     padding: 0.5em 1em;
+}
+
+.use_history {
+    margin: 50px 0;
 }
 
 /* 予約新規 -----------------------------------------------------*/

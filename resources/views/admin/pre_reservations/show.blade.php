@@ -274,7 +274,10 @@
                 <tr>
                   <td class="table-active"><label for="venue">会場</label></td>
                   <td>
+                    <p>
                     {{ReservationHelper::getVenue($pre_reservation->venue_id)}}
+                    </p>
+                    <p>工藤さん、ここに料金体系の選択内容を表示</p>
                   </td>
                 </tr>
                 <tr>

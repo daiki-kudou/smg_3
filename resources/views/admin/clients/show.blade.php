@@ -8,7 +8,7 @@
     <nav aria-label="breadcrumb">
       <ol class="breadcrumb">
         <li class="breadcrumb-item active">
-        ダミーダミーダミーダミー
+          ダミーダミーダミーダミー
         </li>
       </ol>
     </nav>
@@ -19,7 +19,7 @@
 
 <section class="section-wrap">
   <div class="align-items-center d-flex justify-content-between mb-3">
-  <div>
+    <div>
       {{ Form::model($user, ['route' => ['admin.clients.destroy', $user->id], 'method' => 'delete']) }}
       @csrf
       {{ Form::submit('削除', ['class' => 'btn more_btn4']) }}
@@ -37,11 +37,11 @@
         <thead>
           <tr>
             <td colspan="2">
-              <div  class="d-flex justify-content-between">
-              <p class="title-icon">
-                <i class="fas fa-exclamation-circle icon-size fa-fw"></i>基本情報
-              </p>
-              <p>{{$user->admin_or_user==1?"管理者登録":"ユーザー登録"}}</p>
+              <div class="d-flex justify-content-between">
+                <p class="title-icon">
+                  <i class="fas fa-exclamation-circle icon-size fa-fw"></i>基本情報
+                </p>
+                <p>{{$user->admin_or_user==1?"管理者登録":"ユーザー登録"}}</p>
               </div>
             </td>
           </tr>
@@ -163,7 +163,7 @@
         </thead>
         <tbody>
           <tr>
-            <th class="table-active">{{ Form::label('pay_method', '支払方法') }}</th>
+            <th width="35%" class="table-active">{{ Form::label('pay_method', '支払方法') }}</th>
             <td>
               @if ($user->pay_method==1)
               銀行振込
@@ -208,7 +208,9 @@
           </tr>
           <tr>
             <th class="table-active">{{ Form::label('pay_remark', '請求書備考') }}</th>
-            <td>{{$user->pay_remark}}</td>
+            <td>
+              <p class="remark_scroll">{{$user->pay_remark}}</p>
+            </td>
           </tr>
         </tbody>
       </table>
@@ -225,7 +227,7 @@
       <table class="table table table-bordered">
         <thead>
           <tr>
-          <th class="table-active caution">{{ Form::label('attention', '注意事項') }}</th>
+            <th class="table-active caution">{{ Form::label('attention', '注意事項') }}</th>
           </tr>
         </thead>
         <tbody>
@@ -240,7 +242,7 @@
       <table class="table table table-bordered">
         <thead>
           <tr>
-          <th class="table-active">{{ Form::label('remark', '備考') }}</th>
+            <th class="table-active">{{ Form::label('remark', '備考') }}</th>
           </tr>
         </thead>
         <tbody>
@@ -253,10 +255,125 @@
     </div>
   </div>
   <!-- 　備考終わり ----------------------------------------->
-  
-  <div class="text-center mt-5">
-  <p><a class="more_btn_lg" href="{{url('admin/clients')}}">一覧にもどる</a>
-  </p>
+
+
+  <!-- 利用履歴 ----------------------------------------------------->
+  <div class="use_history">
+    <hr>
+    <h4 class="mb-2 mt-4">予約・利用履歴</h4>
+    <table class="table table-bordered table-scroll mb-5">
+      <thead>
+        <tr class="table_row">
+          <th>予約一括ID</th>
+          <th>予約ID</th>
+          <th>利用日</th>
+          <th>入室</th>
+          <th>退室</th>
+          <th>利用会場</th>
+          <th>会社名団体名</th>
+          <th>担当者氏名</th>
+          <th>携帯電話</th>
+          <th>固定電話</th>
+          <th>仲介会社</th>
+          <th>エンドユーザー</th>
+          <th width="120">売上区分</th>
+          <th width="120">予約状況</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>ダミー</td>
+          <td>ダミー</td>
+          <td>ダミー</td>
+          <td>ダミー</td>
+          <td>ダミー</td>
+          <td>ダミー</td>
+          <td>ダミー</td>
+          <td>ダミー</td>
+          <td>ダミー</td>
+          <td>ダミー</td>
+          <td>ダミー</td>
+          <td>ダミー</td>
+          <td>ダミー</td>
+          <td>ダミー</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <h4 class="mb-2 mt-3">仮押さえ一覧</h4>
+    <table class="table table-bordered table-scroll mb-5">
+      <thead>
+        <tr class="table_row">
+          <th>仮押えID</th>
+          <th>作成日</th>
+          <th>利用日</th>
+          <th>入室</th>
+          <th>退室</th>
+          <th>利用会場</th>
+          <th>会社・団体名</th>
+          <th>担当者氏名</th>
+          <th>携帯電話</th>
+          <th>固定電話</th>
+          <th>会社・団体名(仮)</th>
+          <th>仲介会社</th>
+          <th>エンドユーザー</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>ダミー</td>
+          <td>ダミー</td>
+          <td>ダミー</td>
+          <td>ダミー</td>
+          <td>ダミー</td>
+          <td>ダミー</td>
+          <td>ダミー</td>
+          <td>ダミー</td>
+          <td>ダミー</td>
+          <td>ダミー</td>
+          <td>ダミー</td>
+          <td>ダミー</td>
+          <td>ダミー</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <h4 class="mb-2 mt-3">一括仮押さえ一覧</h4>
+    <table class="table table-bordered table-scroll">
+      <thead>
+        <tr class="table_row">
+          <th>一括仮押えID</th>
+          <th>作成日</th>
+          <th>件数</th>
+          <th>会社・団体名</th>
+          <th>担当者氏名</th>
+          <th>携帯電話</th>
+          <th>固定電話</th>
+          <th>会社・団体名(仮)</th>
+          <th>仲介会社</th>
+          <th>エンドユーザー</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>ダミー</td>
+          <td>ダミー</td>
+          <td>ダミー</td>
+          <td>ダミー</td>
+          <td>ダミー</td>
+          <td>ダミー</td>
+          <td>ダミー</td>
+          <td>ダミー</td>
+          <td>ダミー</td>
+          <td>ダミー</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="text-center">
+    <p><a class="more_btn_lg" href="{{url('admin/clients')}}">一覧にもどる</a>
+    </p>
   </div>
 
 </section>

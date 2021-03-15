@@ -187,11 +187,15 @@
                   <div>
                     <small>料金体系</small>
                   </div>
-                  <div class="form-check form-check-inline">
+                  <div class="form-check">
+                    <p>
                     {{Form::radio('price_system', 1, $PreReservation->price_system==1?true:false , ['id' => 'price_system_radio1', 'class' => 'form-check-input'])}}
-                    <label for="{{'price_system_radio1'}}" class="form-check-label">時間貸し</label>
+                    <label for="{{'price_system_radio1'}}" class="form-check-label">通常（枠貸）</label>
+                    </p>
+                    <p>
                     {{Form::radio('price_system', 2, $PreReservation->price_system==2?true:false, ['id' => 'price_system_radio2', 'class' => 'form-check-input'])}}
                     <label for="{{'price_system_radio2'}}" class="form-check-label">アクセア仕様</label>
+                    </p>
                   </div>
                 </div>
               </td>
