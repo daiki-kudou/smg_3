@@ -22,7 +22,7 @@
     <div>
       {{ Form::model($user, ['route' => ['admin.clients.destroy', $user->id], 'method' => 'delete']) }}
       @csrf
-      {{ Form::submit('削除', ['class' => 'btn more_btn4']) }}
+      {{ Form::submit('削除', ['class' => 'btn more_btn4',"id"=>"delete_btn"]) }}
       {{ Form::close() }}
     </div>
     <div>
@@ -372,4 +372,14 @@
   </div>
 
 </section>
+
+<script>
+  $(function(){
+  $('#delete_btn').on('click',function(){
+      if(!confirm('削除しますか？')){
+        return false;
+      }
+  });
+  });
+</script>
 @endsection

@@ -37,6 +37,8 @@ class MultipleReserve extends Model implements PresentableInterface //プレゼ�
     return $this->hasMany(PreReservation::class);
   }
 
+
+
   public function calculateVenue($venue_id, $all_requests)
   {
     $venue = Venue::find($venue_id);

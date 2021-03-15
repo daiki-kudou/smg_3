@@ -149,6 +149,7 @@
           <tbody>
             {{-- {{var_dump($multiples)}} --}}
             @foreach ($multiples as $multiple)
+            @if ($multiple->pre_reservations()->count()!=0)
             <tr>
               <td>
                 <input type="checkbox" name="{{'delete_check'.$multiple->id}}" value="{{$multiple->id}}"
@@ -211,6 +212,8 @@
               @endif
 
             </tr>
+
+            @endif
             @endforeach
           </tbody>
         </table>
