@@ -42,7 +42,7 @@ Breadcrumbs::for('admin.services.index', function ($trail) {
 });
 Breadcrumbs::for('admin.services.create', function ($trail) {
   $trail->parent('admin.services.index');
-  $trail->push('有料サービス管理 新規作成', route('admin.services.create'));
+  $trail->push('有料サービス管理 新規登録', route('admin.services.create'));
 });
 Breadcrumbs::for('admin.services.edit', function ($trail, $id) {
   $trail->parent('admin.services.index');
@@ -68,7 +68,7 @@ Breadcrumbs::for('admin.frame_prices.index', function ($trail) {
 });
 Breadcrumbs::for('admin.frame_prices.create', function ($trail, $id) {
   $trail->parent('admin.frame_prices.show', $id);
-  $trail->push('会場管理 新規作成(枠貸し)', route('admin.frame_prices.create', $id));
+  $trail->push('会場管理 新規登録(枠貸し)', route('admin.frame_prices.create', $id));
 });
 Breadcrumbs::for('admin.frame_prices.show', function ($trail, $id) {
   $trail->parent('admin.frame_prices.index');
@@ -76,11 +76,11 @@ Breadcrumbs::for('admin.frame_prices.show', function ($trail, $id) {
 });
 Breadcrumbs::for('admin.frame_prices.edit', function ($trail, $id) {
   $trail->parent('admin.frame_prices.show', $id);
-  $trail->push('料金管理 新規作成(枠貸し)', route('admin.frame_prices.edit', $id));
+  $trail->push('料金管理 新規登録(枠貸し)', route('admin.frame_prices.edit', $id));
 });
 Breadcrumbs::for('admin.time_prices.create', function ($trail, $id) {
   $trail->parent('admin.frame_prices.show', $id);
-  $trail->push('料金管理 新規作成(時間貸し)', route('admin.time_prices.create', $id));
+  $trail->push('料金管理 新規登録(時間貸し)', route('admin.time_prices.create', $id));
 });
 // 仲介会社
 Breadcrumbs::for('admin.agents.index', function ($trail) {
@@ -120,7 +120,7 @@ Breadcrumbs::for('admin.agents.create', function ($trail) {
 
 // Breadcrumbs::for('admin.equipments.create', function ($trail) {
 //   $trail->parent('admin.equipments.index');
-//   $trail->push('有料備品　新規作成', route('admin.equipments.create'));
+//   $trail->push('有料備品　新規登録', route('admin.equipments.create'));
 // });
 
 // Breadcrumbs::for('admin.equipments.edit', function ($trail, $equipment) {
@@ -142,7 +142,7 @@ Breadcrumbs::for('admin.agents.create', function ($trail) {
 
 // Breadcrumbs::for('admin.services.create', function ($trail) {
 //   $trail->parent('admin.services.index');
-//   $trail->push('有料サービス　新規作成', route('admin.services.create'));
+//   $trail->push('有料サービス　新規登録', route('admin.services.create'));
 // });
 
 // // dates
@@ -176,7 +176,7 @@ Breadcrumbs::for('admin.agents.create', function ($trail) {
 
 // Breadcrumbs::for('admin.frame_prices.create', function ($trail, $frame_price) {
 //   $trail->parent('admin.frame_prices.index');
-//   $trail->push('料金管理　新規作成（枠貸し）', route('admin.frame_prices.create', $frame_price));
+//   $trail->push('料金管理　新規登録（枠貸し）', route('admin.frame_prices.create', $frame_price));
 // });
 
 // Breadcrumbs::for('admin.frame_prices.edit', function ($trail, $frame_price) {
@@ -187,7 +187,7 @@ Breadcrumbs::for('admin.agents.create', function ($trail) {
 // // time price
 // Breadcrumbs::for('admin.time_prices.create', function ($trail, $time_price) {
 //   $trail->parent('admin.frame_prices.index');
-//   $trail->push('料金管理　新規作成（時間貸し）', route('admin.time_prices.create', $time_price));
+//   $trail->push('料金管理　新規登録（時間貸し）', route('admin.time_prices.create', $time_price));
 // });
 
 // Breadcrumbs::for('admin.time_prices.edit', function ($trail, $time_price) {

@@ -681,7 +681,7 @@ $(function () {
 });
 
 
-// 予約新規作成
+// 予約新規登録
 $(function () {
   $("#reservationCreateForm").validate({
     rules: {

@@ -271,6 +271,7 @@
     </ul>
 
     <h4 class="mb-2 mt-4">予約・利用履歴</h4>
+    <div class="table-wrap">
     <table class="table table-bordered table-scroll">
       <thead>
         <tr class="table_row">
@@ -361,6 +362,7 @@
       </tbody>
       @endforeach
     </table>
+    </div>
 
     {{ $reservations->links() }}
 

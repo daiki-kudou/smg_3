@@ -267,7 +267,7 @@
     return this.optional(element) || /^([ァ-ヶー]+)$/.test(value);
   }, "<br/>全角カタカナを入力してください");
 
-  // 顧客新規作成 バリデーション
+  // 顧客新規登録 バリデーション
   $(function() {
     $("#ClientsEditForm").validate({
       rules: {

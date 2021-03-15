@@ -23,7 +23,7 @@
     </ol>
   </nav>
 </div>
-<h2 class="mt-3 mb-3">有料サービス管理　新規作成</h2>
+<h2 class="mt-3 mb-3">有料サービス管理　新規登録</h2>
 <hr>
 
 {{ Form::open(['url' => 'admin/services', 'method'=>'POST', 'id'=>'ServiceCreateForm']) }}

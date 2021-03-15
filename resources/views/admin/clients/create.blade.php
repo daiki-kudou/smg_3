@@ -27,7 +27,7 @@
         </ol>
       </nav>
     </div>
-    <h2 class="mt-3 mb-3">顧客管理　新規作成</h2>
+    <h2 class="mt-3 mb-3">顧客管理　新規登録</h2>
     <hr>
 
     @if ($errors->any())
@@ -275,7 +275,7 @@
       return this.optional(element) || /^([ァ-ヶー]+)$/.test(value);
     }, "<br/>全角カタカナを入力してください");
 
-    // 顧客新規作成 バリデーション
+    // 顧客新規登録 バリデーション
     $(function() {
       $("#ClientsCreateForm").validate({
         rules: {
