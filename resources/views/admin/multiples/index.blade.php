@@ -156,7 +156,7 @@
               </td>
               <td>{{$multiple->id}}</td>
               <td>{{$multiple->created_at}}</td>
-              <td>{{$multiple->pre_reservations->count()}}</td>
+              <td class="text-center">{{$multiple->pre_reservations->count()}}</td>
               @if ($multiple->pre_reservations()->first()->user_id!=0)
               <td>{{ReservationHelper::getCompany($multiple->pre_reservations()->first()->user_id)}}</td>
               @else

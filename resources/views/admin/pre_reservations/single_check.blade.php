@@ -277,11 +277,15 @@
                   {{$service->item}}
                 </td>
                 <td>
-                  <div class="form-check form-check-inline">
-                    {{Form::radio('services_breakdown'.$key, 1, false , ['id' => 'service'.$key.'on', 'class' => 'form-check-input'])}}
+                  <div class="radio-box">
+                    <p>
+                    {{Form::radio('services_breakdown'.$key, 1, false , ['id' => 'service'.$key.'on'])}}
                     <label for="{{'service'.$key.'on'}}" class="form-check-label">有り</label>
-                    {{Form::radio('services_breakdown'.$key, 0, true, ['id' => 'services_breakdown'.$key.'off', 'class' => 'form-check-input'])}}
+                    </p>
+                    <p>
+                    {{Form::radio('services_breakdown'.$key, 0, true, ['id' => 'services_breakdown'.$key.'off'])}}
                     <label for="{{'services_breakdown'.$key.'off'}}" class="form-check-label">無し</label>
+                    </p>
                   </div>
                 </td>
               </tr>
@@ -309,11 +313,15 @@
                   準備
                 </td>
                 <td>
-                  <div class="form-check form-check-inline">
-                    {{Form::radio('layout_prepare', 1, false , ['id' => 'layout_prepare', 'class' => 'form-check-input'])}}
+                  <div class="radio-box">
+                    <p>
+                    {{Form::radio('layout_prepare', 1, false , ['id' => 'layout_prepare'])}}
                     <label for="{{'layout_prepare'}}" class="form-check-label">有り</label>
-                    {{Form::radio('layout_prepare', 0, true, ['id' => 'no_layout_prepare', 'class' => 'form-check-input'])}}
+                    </p>
+                    <p>
+                    {{Form::radio('layout_prepare', 0, true, ['id' => 'no_layout_prepare'])}}
                     <label for="{{'no_layout_prepare'}}" class="form-check-label">無し</label>
+                    </p>
                   </div>
                 </td>
               </tr>
@@ -324,11 +332,15 @@
                   片付
                 </td>
                 <td>
-                  <div class="form-check form-check-inline">
-                    {{Form::radio('layout_clean', 1, false, ['id' => 'layout_clean', 'class' => 'form-check-input'])}}
+                  <div class="radio-box">
+                    <p>
+                    {{Form::radio('layout_clean', 1, false, ['id' => 'layout_clean'])}}
                     <label for='layout_clean' class="form-check-label">有り</label>
-                    {{Form::radio('layout_clean', 0, true, ['id' => 'no_layout_clean', 'class' => 'form-check-input'])}}
+                    </p>
+                    <p>
+                    {{Form::radio('layout_clean', 0, true, ['id' => 'no_layout_clean'])}}
                     <label for='no_layout_clean' class="form-check-label">無し</label>
+                    </p>
                   </div>
                 </td>
               </tr>
@@ -441,8 +453,7 @@
             <tr>
               <td class="table-active"><label for="mobilePhone" class=" form_required">携帯番号</label></td>
               <td>
-                {{ Form::text('tel', '',['class'=>'form-control'] ) }}
-                <small>半角数字、ハイフンなしで入力してください</small>
+                {{ Form::text('tel', '',['class'=>'form-control','placeholder' => '半角数字、ハイフンなしで入力してください'] ) }}
                 <p class="is-error-tel" style="color: red"></p>
               </td>
             </tr>
@@ -463,11 +474,11 @@
                 <div class="radio-box">
                   <p>
                     {{Form::radio('email_flag', 1, false , ['id' => 'email_flag'])}}
-                    <label for="{{'email_flag'}}" class="form-check-label"><span>有り</span></label>
+                    <label for="{{'email_flag'}}" class="form-check-label">有り</label>
                   </p>
                   <p>
                     {{Form::radio('email_flag', 0, true, ['id' => 'no_email_flag'])}}
-                    <label for="{{'no_email_flag'}}" class="form-check-label"><span>無し</span></label>
+                    <label for="{{'no_email_flag'}}" class="form-check-label">無し</label>
                 </div>
                 </p>
               </td>

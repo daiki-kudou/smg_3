@@ -482,6 +482,11 @@ option:disabled  {
     width: 150px;
 }
 
+.remark_scroll {
+    height: 50px;
+    overflow-y: scroll;
+}
+
 
 
 /* アコーディオン ------------------------------------------*/
@@ -671,6 +676,10 @@ table td.table_column p:last-child {
     padding: 0.5em 1em;
 }
 
+.use_history {
+    margin: 50px 0;
+}
+
 /* 予約新規 -----------------------------------------------------*/
 
 .border-wrap {
@@ -700,9 +709,18 @@ table td.table_column p:last-child {
     /* justify-content: space-around; */
 }
 
+.radio-box p > label {
+    display: block;
+    margin-left: 0.3em;
+}
+
 .radio-box p {
+    display: flex;
+    align-items: center;
     margin-right: 1em;
 }
+
+
 
 .radio-box span {
     margin-left: 5px;

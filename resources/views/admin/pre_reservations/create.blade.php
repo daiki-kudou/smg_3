@@ -110,14 +110,12 @@
         <tr>
           <td class="table-active">固定電話</td>
           <td>
-            {{ Form::text('unknown_user_tel', '',['class'=>'form-control'] ) }}
-            <small>半角数字、ハイフンなしで入力してください</small>
+            {{ Form::text('unknown_user_tel', '',['class'=>'form-control', 'placeholder' => '半角数字、ハイフンなしで入力してください'] ) }}
             <p class="is-error-unknown_user_tel" style="color: red"></p>
           </td>
           <td class="table-active">携帯番号</td>
           <td>
-            {{ Form::text('unknown_user_mobile', '',['class'=>'form-control'] ) }}
-            <small>半角数字、ハイフンなしで入力してください</small>
+            {{ Form::text('unknown_user_mobile', '',['class'=>'form-control', 'placeholder' => '半角数字、ハイフンなしで入力してください'] ) }}
             <p class="is-error-unknown_user_mobile" style="color: red"></p>
           </td>
         </tr>
@@ -138,22 +136,25 @@
     <table class="table table-bordered" style="table-layout: fixed;">
       <thead>
         <tr>
-          <td>日付</td>
-          <td>会場名</td>
-          <td>入室時間</td>
-          <td>退室時間</td>
+          <td class="form_required">日付</td>
+          <td class="form_required">会場名</td>
+          <td class="form_required">入室時間</td>
+          <td class="form_required">退室時間</td>
           <td>追加・削除</td>
         </tr>
       </thead>
       <tbody>
         <tr>
-          <td>{{ Form::text('pre_date0', '',['class'=>'form-control', 'id'=>"pre_datepicker"] ) }}</td>
+          <td>{{ Form::text('pre_date0', '',['class'=>'form-control', 'id'=>"pre_datepicker"] ) }}
+          <p class="is-error-pre_date0" style="color: red"></p>
+          </td>
           <td>
             <select name="pre_venue0" id="pre_venue">
               @foreach ($venues as $venue)
               <option value="{{$venue->id}}">{{ReservationHelper::getVenue($venue->id)}}</option>
               @endforeach
             </select>
+            <p class="is-error-pre_venue0" style="color: red"></p>
           </td>
           <td>
             <select name="pre_enter0" id="pre_enter0" class="form-control">
@@ -163,6 +164,7 @@
                 </option>
                 @endfor
             </select>
+            <p class="is-error-pre_enter0" style="color: red"></p>
           </td>
           <td>
             <select name="pre_leave0" id="pre_leave0" class="form-control">
@@ -172,6 +174,7 @@
                 </option>
                 @endfor
             </select>
+            <p class="is-error-pre_leave0" style="color: red"></p>
           </td>
           <td>
             <input type="button" value="＋" class="add pluralBtn">

@@ -144,11 +144,15 @@
                   <div>
                     <small>※料金体系を選択してください</small>
                   </div>
-                  <div class="form-check form-check-inline">
-                    {{Form::radio('price_system', 1, true , ['id' => 'price_system', 'class' => 'form-check-input'])}}
-                    {{Form::label('price_system', "枠貸し")}}
-                    {{Form::radio('price_system', 0, false, ['id' => 'price_system_off', 'class' => 'form-check-input'])}}
-                    {{Form::label('price_system_off', "アクセア（時間貸）")}}
+                  <div class="form-check">
+                    <p>
+                      {{Form::radio('price_system', 1, true , ['id' => 'price_system', 'class' => 'form-check-input'])}}
+                      {{Form::label('price_system', "通常(枠貸)")}}
+                    </p>
+                    <p>
+                      {{Form::radio('price_system', 0, false, ['id' => 'price_system_off', 'class' => 'form-check-input'])}}
+                      {{Form::label('price_system_off', "アクセア（時間貸）")}}
+                    </p>
                   </div>
                 </div>
               </td>
@@ -192,10 +196,10 @@
             <td>
               <div class="radio-box">
                 <p>
-                  <input type="radio" name="board_flag" value="0" checked=""><span>無し</span>
+                  <input type="radio" name="board_flag" value="1"><span>有り</span>
                 </p>
                 <p>
-                  <input type="radio" name="board_flag" value="1"><span>有り</span>
+                  <input type="radio" name="board_flag" value="0" checked=""><span>無し</span>
                 </p>
               </div>
             </td>
@@ -306,11 +310,15 @@
                   {{$service->item}}
                 </td>
                 <td>
-                  <div class="form-check form-check-inline">
-                    {{Form::radio('services_breakdown'.$key, 1, false , ['id' => 'service'.$key.'on', 'class' => 'form-check-input'])}}
+                  <div class="radio-box">
+                    <p>
+                    {{Form::radio('services_breakdown'.$key, 1, false , ['id' => 'service'.$key.'on'])}}
                     {{Form::label('service'.$key.'on', "有り")}}
-                    {{Form::radio('services_breakdown'.$key, 0, true, ['id' => 'services_breakdown'.$key.'off', 'class' => 'form-check-input'])}}
+                    </p>
+                    <p>
+                    {{Form::radio('services_breakdown'.$key, 0, true, ['id' => 'services_breakdown'.$key.'off'])}}
                     {{Form::label('services_breakdown'.$key.'off', "無し")}}
+                    </p>
                   </div>
                 </td>
               </tr>
@@ -336,11 +344,15 @@
                   準備
                 </td>
                 <td>
-                  <div class="form-check form-check-inline">
-                    {{Form::radio('layout_prepare', 1, false , ['id' => 'layout_prepare', 'class' => 'form-check-input'])}}
+                  <div class="radio-box">
+                    <p>
+                    {{Form::radio('layout_prepare', 1, false , ['id' => 'layout_prepare'])}}
                     {{Form::label('layout_prepare', "有り")}}
-                    {{Form::radio('layout_prepare', 0, true, ['id' => 'no_layout_prepare', 'class' => 'form-check-input'])}}
+                    </p>
+                    <p>
+                    {{Form::radio('layout_prepare', 0, true, ['id' => 'no_layout_prepare'])}}
                     {{Form::label('no_layout_prepare', "無し")}}
+                    </p>
                   </div>
                 </td>
               </tr>
@@ -351,11 +363,15 @@
                   片付
                 </td>
                 <td>
-                  <div class="form-check form-check-inline">
-                    {{Form::radio('layout_clean', 1, false, ['id' => 'layout_clean', 'class' => 'form-check-input'])}}
+                  <div class="radio-box">
+                    <p>
+                    {{Form::radio('layout_clean', 1, false, ['id' => 'layout_clean'])}}
                     {{Form::label('layout_clean', "有り")}}
-                    {{Form::radio('layout_clean', 0, true, ['id' => 'no_layout_clean', 'class' => 'form-check-input'])}}
+                    </p>
+                    <p>
+                    {{Form::radio('layout_clean', 0, true, ['id' => 'no_layout_clean'])}}
                     {{Form::label('no_layout_clean', "無し")}}
+                    </p>
                   </div>
                 </td>
               </tr>

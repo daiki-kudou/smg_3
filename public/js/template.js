@@ -130,8 +130,7 @@ $(function () {
   ExceptString(extend);
   var mgmt_emer_tel = $("input[name^='mgmt_emer_tel']");
   ExceptString(mgmt_emer_tel);
-  // var mgmt_sec_company = $("input[name^='mgmt_sec_company']");
-  // ExceptString(mgmt_sec_company);
+
   var tel = $("input[name^='tel']");
   ExceptString(tel);
   var unknown_user_mobile = $("input[name^='unknown_user_mobile']");
@@ -178,6 +177,10 @@ $(function () {
   ExceptString(cp_master_enduser_charge);
   var enduser_charge_copied = $("input[name^='enduser_charge_copied']");
   ExceptString(enduser_charge_copied);
+  var pre_endusers_tel = $("input[name^='pre_endusers_tel']");
+  ExceptString(pre_endusers_tel);
+  var pre_endusers_mobile = $("input[name^='pre_endusers_mobile']");
+  ExceptString(pre_endusers_mobile);
 });
 
 

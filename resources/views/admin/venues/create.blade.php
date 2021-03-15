@@ -255,8 +255,7 @@
               <td class="table-active"><label for="luggage_tel">電話番号</label></td>
               <td>
                 {{ Form::text('luggage_tel', old('luggage_tel'), ['class' => 'form-control','placeholder' => '半角英数字で入力してください', 'maxlength'=>'13']) }}
-                <small>半角数字、ハイフンなしで入力してください</small>
-                <p class="is-error-capacity" style="color: red"></p>
+                <p class="is-error-luggage_tel" style="color: red"></p>
               </td>
             </tr>
           </tbody>
@@ -298,8 +297,7 @@
             <tr>
               <td class="table-active"><label for="person_tel">担当者電話番号</label></td>
               <td colspan="2">
-                {{ Form::text('person_tel', old('person_tel'), ['class' => 'form-control', 'maxlength'=>'13']) }}
-                <small>半角数字、ハイフンなしで入力してください</small>
+                {{ Form::text('person_tel', old('person_tel'), ['class' => 'form-control', 'maxlength'=>'13', 'placeholder' => '半角数字、ハイフンなしで入力してください']) }}
                 <p class="is-error-person_tel" style="color: red"></p>
               </td>
             </tr>
@@ -334,15 +332,14 @@
             <tr>
               <td class="table-active"><label for="mgmt_tel">電話番号</label></td>
               <td colspan="2">
-                {{ Form::text('mgmt_tel', old('mgmt_tel'), ['class' => 'form-control', 'maxlength'=>'13']) }}
-                <small>半角数字、ハイフンなしで入力してください</small>
+                {{ Form::text('mgmt_tel', old('mgmt_tel'), ['class' => 'form-control', 'maxlength'=>'13', 'placeholder' => '半角数字、ハイフンなしで入力してください',]) }}
+                <p class="is-error-mgmt_tel" style="color: red"></p>
               </td>
             </tr>
             <tr>
               <td class="table-active"><label for="mgmt_emer_tel">夜間緊急連絡先</label></td>
               <td colspan="2">
                 {{ Form::text('mgmt_emer_tel', old('mgmt_emer_tel'), ['class' => 'form-control', 'maxlength'=>'13']) }}
-                <small>半角数字、ハイフンなしで入力してください</small>
               </td>
             </tr>
 
@@ -355,8 +352,6 @@
                 {{ Form::text('mgmt_last_name', old('mgmt_last_name'), ['class' => 'form-control']) }}
               </td>
             </tr>
-            <!-- 工藤さんに確認　顧客の新規登録のデータをピックアップ問題ないか -->
-
             <tr>
               <td class="table-active"><label for="mgmt_email">担当者メール</label></td>
               <td colspan="2">
@@ -374,7 +369,6 @@
               <td class="table-active"><label for="mgmt_sec_tel">警備会社電話番号</label></td>
               <td colspan="2">
                 {{ Form::text('mgmt_sec_company', old('mgmt_sec_company'), ['class' => 'form-control', 'maxlength'=>'13']) }}
-                <small>半角数字、ハイフンなしで入力してください</small>
               </td>
             </tr>
             <tr>
