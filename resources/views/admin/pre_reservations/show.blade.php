@@ -244,7 +244,7 @@
             <tr>
               <td class="table-active">利用者属性</td>
               <td>
-                {{!empty($pre_reservation->pre_enduser->attr)?$pre_reservation->pre_enduser->attr:""}}
+                {{!empty($pre_reservation->pre_enduser->attr)?ReservationHelper::PreEndUserGetAttr($pre_reservation->pre_enduser->attr):""}}
               </td>
             </tr>
           </tbody>

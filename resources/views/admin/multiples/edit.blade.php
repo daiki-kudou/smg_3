@@ -1428,7 +1428,6 @@
 
     </section>
 
-
     <section class="master_totals border-wrap">
       <table class="table">
         <tbody class="master_total_head">
@@ -1454,15 +1453,15 @@
           <tr>
             <td>・有料備品　サービス</td>
             <td>{{$multiple->sumEquips($venue->id)}}円</td>
+            {{-- {{var_dump($multiple->pre_reservations()->where("venue_id",$venue->id)->get())}} --}}
+            @foreach ($multiple->pre_reservations()->where("venue_id",$venue->id)->get() as $test)
+                {{$test->pre_bill->equipment_price}}
+            @endforeach
           </tr>
           <tr>
             <td>・レイアウト変更料</td>
             <td>{{$multiple->sumLayouts($venue->id)}}円</td>
           </tr>
-          <!-- <tr>
-            <td>・その他</td>
-            <td>ダミー円</td>
-          </tr> -->
         </tbody>
         <tbody class="master_total_bottom">
           <tr>

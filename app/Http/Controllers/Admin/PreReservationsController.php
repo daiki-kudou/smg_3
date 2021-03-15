@@ -40,8 +40,10 @@ class PreReservationsController extends Controller
     if (count($request->all()) != 0) {
       $class = new PreReservation;
       $pre_reservations = $this->BasicSearch($class, $request);
+      $counter = count($pre_reservations);
     } else {
       $pre_reservations = PreReservation::where('multiple_reserve_id', '=', 0)->paginate(30);
+      $counter = count($pre_reservations);
     }
 
     $venues = Venue::all();
@@ -49,7 +51,7 @@ class PreReservationsController extends Controller
     $agents = Agent::all();
     return view(
       'admin.pre_reservations.index',
-      compact('pre_reservations', 'venues', 'users', 'agents')
+      compact('pre_reservations', 'venues', 'users', 'agents', "counter")
     );
   }
 
@@ -237,6 +239,15 @@ class PreReservationsController extends Controller
   public function store(Request $request)
   {
     if ($request->judge_count == 1) { //単発仮押えの保存
+      // $request->validate([
+      //   'venue_id' => 'required',
+      //   'start' => 'required',
+      //   'user_id' => 'required',
+      //   'agent_id' => 'required',
+      //   'reserve_date' => 'required',
+      //   'price_system' => 'required',
+      // ]);
+
       DB::transaction(function () use ($request) { //トランザクションさせる
         $pre_reservation = PreReservation::create([
           'multiple_reserve_id' => 0, //単発はデフォで0
@@ -599,6 +610,8 @@ class PreReservationsController extends Controller
       $PreReservation->update(['status' => 1]);
     });
     $admin = config('app.admin_email');
+
+    var_dump($PreReservation->user);
     Mail::to($admin) //管理者
       ->send(new AdminFinPreRes(
         $PreReservation->user->company,

@@ -22,10 +22,9 @@ class MultipleReservePresenter extends Presenter
     $pre_reservations = $this->pre_reservations()->where('venue_id', $venue_id)->get();
 
     foreach ($pre_reservations as $key => $value) {
-      if (empty($value->pre_bill->venue_price)) {
-        return 0;
+      if (!empty($value->pre_bill->venue_price)) {
+        $venue_prices += $value->pre_bill->venue_price;
       }
-      $venue_prices += $value->pre_bill->venue_price;
     }
     return $venue_prices;
   }
@@ -36,10 +35,9 @@ class MultipleReservePresenter extends Presenter
     $pre_reservations = $this->pre_reservations()->where('venue_id', $venue_id)->get();
 
     foreach ($pre_reservations as $key => $value) {
-      if (empty($value->pre_bill->equipment_price)) {
-        return 0;
+      if (!empty($value->pre_bill->equipment_price)) {
+        $equipment_price = $equipment_price + ($value->pre_bill->equipment_price);
       }
-      $equipment_price += $value->pre_bill->equipment_price;
     }
     return $equipment_price;
   }
@@ -50,10 +48,9 @@ class MultipleReservePresenter extends Presenter
     $pre_reservations = $this->pre_reservations()->where('venue_id', $venue_id)->get();
 
     foreach ($pre_reservations as $key => $value) {
-      if (empty($value->pre_bill->layout_price)) {
-        return 0;
+      if (!empty($value->pre_bill->layout_price)) {
+        $layout_price += $value->pre_bill->layout_price;
       }
-      $layout_price += $value->pre_bill->layout_price;
     }
     return $layout_price;
   }
@@ -64,10 +61,9 @@ class MultipleReservePresenter extends Presenter
     $pre_reservations = $this->pre_reservations()->where('venue_id', $venue_id)->get();
 
     foreach ($pre_reservations as $key => $value) {
-      if (empty($value->pre_bill->master_subtotal)) {
-        return 0;
+      if (!empty($value->pre_bill->master_subtotal)) {
+        $masters += $value->pre_bill->master_subtotal;
       }
-      $masters += $value->pre_bill->master_subtotal;
     }
     return $masters;
   }
@@ -78,10 +74,9 @@ class MultipleReservePresenter extends Presenter
     $pre_reservations = $this->pre_reservations()->where('venue_id', $venue_id)->get();
 
     foreach ($pre_reservations as $key => $value) {
-      if (empty($value->pre_bill->master_tax)) {
-        return 0;
+      if (!empty($value->pre_bill->master_tax)) {
+        $tax += $value->pre_bill->master_tax;
       }
-      $tax += $value->pre_bill->master_tax;
     }
     return $tax;
   }
@@ -92,10 +87,9 @@ class MultipleReservePresenter extends Presenter
     $pre_reservations = $this->pre_reservations()->where('venue_id', $venue_id)->get();
 
     foreach ($pre_reservations as $key => $value) {
-      if (empty($value->pre_bill->master_total)) {
-        return 0;
+      if (!empty($value->pre_bill->master_total)) {
+        $total += $value->pre_bill->master_total;
       }
-      $total += $value->pre_bill->master_total;
     }
     return $total;
   }

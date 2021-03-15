@@ -627,7 +627,10 @@
             <td>
               <dl class="ttl_box">
                 <dt>合計金額</dt>
-                <dd class="total_result">{{number_format($PreReservation->pre_bill->first()->master_total)}}円</dd>
+                <dd class="total_result">
+                  {{number_format($PreReservation->pre_bill->first()->master_total)}}
+                  円
+                </dd>
               </dl>
             </td>
           </tr>

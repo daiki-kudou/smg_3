@@ -5,14 +5,9 @@
 <!-- <script src="{{ asset('/js/admin/reservation.js') }}"></script> -->
 <link href="{{ asset('/css/template.css') }}" rel="stylesheet">
 
-<script>
-  $(function() {
-    $('.discount').on('click', function() {
-      $('#condition').toggleClass('checkon');
-    })
 
-  })
-</script>
+
+
 <style>
   .checkon {
     display: none;
@@ -34,6 +29,16 @@
     </div>
     <h2 class="mt-3 mb-3">顧客管理　新規作成</h2>
     <hr>
+
+    @if ($errors->any())
+    <div class="alert alert-danger">
+        <ul>
+            @foreach ($errors->all() as $error)
+                <li>{{ $error }}</li>
+            @endforeach
+        </ul>
+    </div>
+@endif
 
 
     <section class="section-wrap">
@@ -190,7 +195,7 @@
               <tr>
                 <td class="table-active form_required">{{ Form::label('pay_limit', '支払期日') }}</td>
                 <td>
-                  {{Form::select('pay_limit', [1=>'当月末〆当月末CASH', 2=>'当月末〆翌月末CASH',3=>'当月末〆翌々月末CACH',4=>'当月末〆3カ月末CASH'])}}
+                  {{Form::select('pay_limit', [1=>'3営業日前', 2=>'当月末〆当月末CASH',3=>'当月末〆翌月末CASH',4=>'当月末〆翌々月末CACH'])}}
                   <p class="is-error-pay_limit" style="color: red"></p>
                 </td>
               </tr>
@@ -262,6 +267,7 @@
       </div>
     </section>
 
+    {{Form::hidden("admin_or_user",1)}}
     {{ Form::submit('登録する', ['class' => 'btn more_btn_lg d-block btn-lg mx-auto my-5']) }}
     {{ Form::close() }}
   </div>
@@ -419,4 +425,14 @@
       ExceptString(tel);
     });
   </script>
+
+<script>
+  $(function() {
+    $('.discount').on('click', function() {
+      $('#condition').toggleClass('checkon');
+    })
+
+  })
+</script>
+
   @endsection
