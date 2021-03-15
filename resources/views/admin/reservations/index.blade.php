@@ -243,7 +243,6 @@
               {{$reservation->agent->person_tel}}
               @endif
             </td>
-
             <td rowspan="{{count($reservation->bills()->get())}}">
               @if ($reservation->agent_id>0)
               {{ReservationHelper::getAgentCompany($reservation->agent_id)}}
