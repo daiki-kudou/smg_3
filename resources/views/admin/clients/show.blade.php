@@ -260,8 +260,14 @@
   <!-- 利用履歴 ----------------------------------------------------->
   <div class="use_history">
     <hr>
+
+    <ul class="d-flex justify-content-end mt-5">
+      <li class="mr-3"><a href="" class="more_btn3">仮押えをする</a></li>
+      <li><a href="" class="more_btn3">予約をする</a></li>
+    </ul>
+
     <h4 class="mb-2 mt-4">予約・利用履歴</h4>
-    <table class="table table-bordered table-scroll mb-5">
+    <table class="table table-bordered table-scroll">
       <thead>
         <tr class="table_row">
           <th>予約一括ID</th>
@@ -300,75 +306,22 @@
       </tbody>
     </table>
 
-    <h4 class="mb-2 mt-3">仮押さえ一覧</h4>
-    <table class="table table-bordered table-scroll mb-5">
-      <thead>
-        <tr class="table_row">
-          <th>仮押えID</th>
-          <th>作成日</th>
-          <th>利用日</th>
-          <th>入室</th>
-          <th>退室</th>
-          <th>利用会場</th>
-          <th>会社・団体名</th>
-          <th>担当者氏名</th>
-          <th>携帯電話</th>
-          <th>固定電話</th>
-          <th>会社・団体名(仮)</th>
-          <th>仲介会社</th>
-          <th>エンドユーザー</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td>ダミー</td>
-          <td>ダミー</td>
-          <td>ダミー</td>
-          <td>ダミー</td>
-          <td>ダミー</td>
-          <td>ダミー</td>
-          <td>ダミー</td>
-          <td>ダミー</td>
-          <td>ダミー</td>
-          <td>ダミー</td>
-          <td>ダミー</td>
-          <td>ダミー</td>
-          <td>ダミー</td>
-        </tr>
-      </tbody>
-    </table>
-
-    <h4 class="mb-2 mt-3">一括仮押さえ一覧</h4>
-    <table class="table table-bordered table-scroll">
-      <thead>
-        <tr class="table_row">
-          <th>一括仮押えID</th>
-          <th>作成日</th>
-          <th>件数</th>
-          <th>会社・団体名</th>
-          <th>担当者氏名</th>
-          <th>携帯電話</th>
-          <th>固定電話</th>
-          <th>会社・団体名(仮)</th>
-          <th>仲介会社</th>
-          <th>エンドユーザー</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td>ダミー</td>
-          <td>ダミー</td>
-          <td>ダミー</td>
-          <td>ダミー</td>
-          <td>ダミー</td>
-          <td>ダミー</td>
-          <td>ダミー</td>
-          <td>ダミー</td>
-          <td>ダミー</td>
-          <td>ダミー</td>
-        </tr>
-      </tbody>
-    </table>
+    <nav>
+      <ul class="pagination justify-content-end">
+        <li class="page-item disabled" aria-disabled="true" aria-label="&laquo; 前">
+          <span class="page-link" aria-hidden="true">&lsaquo;</span>
+        </li>
+        <li class="page-item active" aria-current="page"><span class="page-link">1</span></li>
+        <li class="page-item"><a class="page-link" href="">2</a></li>
+        <li class="page-item"><a class="page-link" href="">3</a></li>
+        <li class="page-item"><a class="page-link" href="">4</a></li>
+        <li class="page-item"><a class="page-link" href="">5</a></li>
+        <li class="page-item"><a class="page-link" href="">6</a></li>
+        <li class="page-item">
+          <a class="page-link" href="" rel="next" aria-label="次 &raquo">&rsaquo;</a>
+        </li>
+      </ul>
+    </nav>
   </div>
 
   <div class="text-center">

@@ -391,7 +391,7 @@ $(function () {
 })
 
 
-// 仮押え 仲介会社 詳細入力画面
+// 仮押え 仲介会社 計算画面
 $(function () {
   $("#pre_agent_reservationsSingleCalculateForm").validate({
     rules: {
@@ -559,7 +559,7 @@ $(function () {
 
 // 一括仮押え 仲介会社 編集
 $(function () {
-  $("#multiplesAgentSpecificupdate").validate({
+  $("#master_form").validate({
     rules: {
       enduser_charge_copied: {
         required: true,
