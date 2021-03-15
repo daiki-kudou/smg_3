@@ -6,6 +6,7 @@ jQuery.validator.addMethod("katakana", function (value, element) {
 
 
 
+
 // 会場管理　新規登録validation
 // $(function () {
 //   $("#VenuesCreateForm").validate({

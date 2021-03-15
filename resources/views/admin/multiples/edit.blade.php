@@ -491,7 +491,8 @@
         <div class="register-list-item">
           <div class="from-group list_checkbox">
             <div class="form-check">
-              <input type="checkbox" name="{{'delete_check'.$pre_reservation->id}}" value="{{$pre_reservation->id}}" class="checkbox mr-1" />
+              <input type="checkbox" name="{{'delete_check'.$pre_reservation->id}}" value="{{$pre_reservation->id}}"
+                class="checkbox mr-1" />
               <!-- <input class="form-check-input" type="checkbox"> -->
               <label class="form-check-label"></label>
             </div>
@@ -594,7 +595,9 @@
                         <td>
                           <select name="{{'event_start_copied'.$key}}" class="form-control">
                             <option disabled>選択してください</option>
-                            @for ($start = 0*2; $start <=23*2; $start++) <option value="{{date("H:i:s", strtotime("00:00 +". $start * 30 ." minute"))}}" @if(date("H:i:s", strtotime("00:00 +". $start * 30 ." minute"))==$pre_reservation->enter_time)
+                            @for ($start = 0*2; $start <=23*2; $start++) <option
+                              value="{{date("H:i:s", strtotime("00:00 +". $start * 30 ." minute"))}}" @if(date("H:i:s",
+                              strtotime("00:00 +". $start * 30 ." minute"))==$pre_reservation->enter_time)
                               selected
                               @endif
                               >
@@ -606,9 +609,12 @@
                       <tr>
                         <td class="table-active"><label for="eventFinish">イベント終了時間</label></td>
                         <td>
-                          <select name="{{'event_finish_copied'.$key}}" id="{{'event_finish_copied'.$key}}" class="form-control">
+                          <select name="{{'event_finish_copied'.$key}}" id="{{'event_finish_copied'.$key}}"
+                            class="form-control">
                             <option disabled>選択してください</option>
-                            @for ($start = 0*2; $start <=23*2; $start++) <option value="{{date("H:i:s", strtotime("00:00 +". $start * 30 ." minute"))}}" @if (date("H:i:s", strtotime("00:00 +". $start * 30 ." minute"))==$pre_reservation->leave_time)
+                            @for ($start = 0*2; $start <=23*2; $start++) <option
+                              value="{{date("H:i:s", strtotime("00:00 +". $start * 30 ." minute"))}}" @if (date("H:i:s",
+                              strtotime("00:00 +". $start * 30 ." minute"))==$pre_reservation->leave_time)
                               selected
                               @endif
                               >
@@ -899,7 +905,7 @@
                           <td class="table-active"><label for="mobilePhone">携帯番号</label></td>
                           <td>
                             {{ Form::text('tel_copied'.$key, $pre_reservation->tel,['class'=>'form-control'] ) }}
-                          <small>半角数字、ハイフンなしで入力してください</small>
+                            <small>半角数字、ハイフンなしで入力してください</small>
                           </td>
                         </tr>
                       </tbody>
@@ -1453,10 +1459,6 @@
           <tr>
             <td>・有料備品　サービス</td>
             <td>{{$multiple->sumEquips($venue->id)}}円</td>
-            {{-- {{var_dump($multiple->pre_reservations()->where("venue_id",$venue->id)->get())}} --}}
-            @foreach ($multiple->pre_reservations()->where("venue_id",$venue->id)->get() as $test)
-                {{$test->pre_bill->equipment_price}}
-            @endforeach
           </tr>
           <tr>
             <td>・レイアウト変更料</td>

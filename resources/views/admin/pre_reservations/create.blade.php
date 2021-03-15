@@ -146,7 +146,7 @@
       <tbody>
         <tr>
           <td>{{ Form::text('pre_date0', '',['class'=>'form-control', 'id'=>"pre_datepicker"] ) }}
-          <p class="is-error-pre_date0" style="color: red"></p>
+            <p class="is-error-pre_date0" style="color: red"></p>
           </td>
           <td>
             <select name="pre_venue0" id="pre_venue">
@@ -159,7 +159,8 @@
           <td>
             <select name="pre_enter0" id="pre_enter0" class="form-control">
               <option value=""></option>
-              @for ($start = 0*2; $start <=23*2; $start++) <option value="{{date("H:i:s", strtotime("00:00 +". $start * 30 ." minute"))}}">
+              @for ($start = 0*2; $start <=23*2; $start++) <option
+                value="{{date("H:i:s", strtotime("00:00 +". $start * 30 ." minute"))}}">
                 {{date("H時i分", strtotime("00:00 +". $start * 30 ." minute"))}}
                 </option>
                 @endfor
@@ -169,7 +170,8 @@
           <td>
             <select name="pre_leave0" id="pre_leave0" class="form-control">
               <option value=""></option>
-              @for ($start = 0*2; $start <=23*2; $start++) <option value="{{date("H:i:s", strtotime("00:00 +". $start * 30 ." minute"))}}">
+              @for ($start = 0*2; $start <=23*2; $start++) <option
+                value="{{date("H:i:s", strtotime("00:00 +". $start * 30 ." minute"))}}">
                 {{date("H時i分", strtotime("00:00 +". $start * 30 ." minute"))}}
                 </option>
                 @endfor
