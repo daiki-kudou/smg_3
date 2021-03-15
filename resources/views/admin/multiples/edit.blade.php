@@ -281,6 +281,7 @@
                       <td class="table-active">事前に預かる荷物<br>（個数）</td>
                       <td>
                         {{ Form::text('cp_master_luggage_count', '',['class'=>'form-control'] ) }}
+                        <p class="is-error-cp_master_luggage_count" style="color: red"></p>
                       </td>
                     </tr>
                     <tr>
@@ -293,12 +294,14 @@
                       <td class="table-active">事後返送する荷物</td>
                       <td>
                         {{ Form::text('cp_master_luggage_return', '',['class'=>'form-control'] ) }}
+                        <p class="is-error-cp_master_luggage_return" style="color: red"></p>
                       </td>
                     </tr>
                     <tr>
                       <td class="table-active">荷物預かり/返送<br>料金</td>
                       <td>
                         {{ Form::text('cp_master_luggage_price', '',['class'=>'form-control'] ) }}
+                        <p class="is-error-cp_master_luggage_price" style="color: red"></p>
                       </td>
                     </tr>
                     @endif
@@ -492,7 +495,8 @@
       {{ Form::hidden('', $multiple->pre_reservations()->where('venue_id',$venue->id)->get()->count(),['id'=>'counts_reserve']) }}
       {{-- 以下、pre_reservationの数分　ループ --}}
       @foreach ($multiple->pre_reservations()->where('venue_id',$venue->id)->get() as $key=>$pre_reservation)
-      {{ Form::open(['url' => 'admin/multiples/'.$multiple->id."/edit/".$venue->id.'/calculate/'.$pre_reservation->id.'/specific_update', 'method'=>'POST', 'id'=>'multipleSpecificUpdateForm'.$key]) }}
+      {{ Form::open(['url' => 'admin/multiples/'.$multiple->id."/edit/".$venue->id.'/calculate/'.$pre_reservation->id.'/specific_update', 'method'=>'POST', 'id'=>'multipleSpecificUpdateForm'
+        ]) }}
       @csrf
       {{ Form::hidden('split_keys', $key) }}
 
@@ -853,6 +857,7 @@
                         <td class="table-active">事前に預かる荷物<br>（個数）</td>
                         <td>
                           {{ Form::text('luggage_count_copied'.$key, $pre_reservation->luggage_count,['class'=>'form-control'] ) }}
+                          <p class="{{"is-error-luggage_count_copied".$key}}" style="color: red"></p>
                         </td>
                       </tr>
                       <tr>
@@ -865,6 +870,7 @@
                         <td class="table-active">事後返送する荷物</td>
                         <td>
                           {{ Form::text('luggage_return_copied'.$key, $pre_reservation->luggage_return,['class'=>'form-control'] ) }}
+                          <p class="{{"is-error-luggage_return_copied".$key}}" style="color: red"></p>
                         </td>
                       </tr>
 
@@ -945,7 +951,7 @@
                           <td class="table-active"><label for="mobilePhone">携帯番号</label></td>
                           <td>
                             {{ Form::text('tel_copied'.$key, $pre_reservation->tel,['class'=>'form-control', 'placeholder' => '半角数字、ハイフンなしで入力してください'] ) }}
-                            <p class="is-error-tel_copied" style="color: red"></p>
+                            <p class="{{"is-error-tel_copied".$key}}" style="color: red"></p>
                           </td>
                         </tr>
                       </tbody>
