@@ -77,6 +77,14 @@ trait SearchTrait
       });
     }
 
+    if (!empty($request->search_person)) {
+      $result->whereHas("pre_reservations.user", function ($query) use ($request) {
+        $query->where("first_name", 'LIKE', "%$request->search_person%");
+        $query->orWhere("last_name", 'LIKE', "%$request->search_person%");
+        $query->orWhere(DB::raw('CONCAT(first_name, last_name)'), 'like', '%' . $request->search_person . '%');
+      });
+    }
+
 
     // $this->SimpleWhere($request, "search_id", $result, "id");
 
