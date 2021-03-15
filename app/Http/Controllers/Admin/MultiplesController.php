@@ -33,7 +33,7 @@ class MultiplesController extends Controller
     }
 
     // var_dump($multiples);
-    return view('admin.multiples.index', compact('multiples', "counter"));
+    return view('admin.multiples.index', compact('multiples', "counter", "request"));
   }
 
   public function show($id)

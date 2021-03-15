@@ -77,7 +77,7 @@ trait SearchTrait
       });
     }
 
-    if (!empty($request->search_person)) {
+    if (!empty($request->search_person)) { //参照　https://prglog.info/home/?p=462
       $result->whereHas("pre_reservations.user", function ($query) use ($request) {
         $query->where("first_name", 'LIKE', "%$request->search_person%");
         $query->orWhere("last_name", 'LIKE', "%$request->search_person%");
@@ -85,11 +85,33 @@ trait SearchTrait
       });
     }
 
+    if (!empty($request->search_mobile)) {
+      $result->whereHas("pre_reservations.user", function ($query) use ($request) {
+        $query->orWhere('mobile', "LIKE", "%$request->search_mobile%");
+      });
+    }
+
+    if (!empty($request->search_mobile)) {
+      $result->orWhereHas("pre_reservations.agent", function ($query) use ($request) {
+        $query->latest()->orWhere('person_mobile', "LIKE", "%$request->search_mobile%");
+      });
+    }
+
+    if (!empty($request->search_tel)) {
+      $result->whereHas("pre_reservations.user", function ($query) use ($request) {
+        $query->where('tel', "LIKE", "%$request->search_tel%");
+      });
+    }
+
+
+
+
 
     // $this->SimpleWhere($request, "search_id", $result, "id");
 
     // $joinTable = $class->join("pre_reservations", "multiple_reserves.id", "pre_reservations.multiple_reserve_id");
 
+    $result->orderBy('id');
     return $result->paginate(30);
   }
 
