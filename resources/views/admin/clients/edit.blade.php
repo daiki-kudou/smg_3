@@ -1,9 +1,9 @@
 @extends('layouts.admin.app')
 @section('content')
-<!-- <script src="{{ asset('/js/template.js') }}"></script> -->
-<!-- <script src="{{ asset('/js/admin/validation.js') }}"></script> -->
-<!-- <script src="{{ asset('/js/admin/reservation.js') }}"></script> -->
+
 <link href="{{ asset('/css/template.css') }}" rel="stylesheet">
+<script src="{{ asset('/js/ctrl_form.js') }}"></script>
+
 
 <script>
   $(function() {
@@ -100,7 +100,8 @@
           </tr>
           <tr>
             <th class="table-active">{{ Form::label('attr', '顧客属性') }}</th>
-            <td>{{Form::select('attr', [1=>'一般企業', 2=>'上場企業',3=>'近隣利用', 4=>'個人講師', 5=>'MLM', 6=>'仲介会社', 7=>'その他'],$user->attr)}}
+            <td>
+              {{Form::select('attr', [1=>'一般企業', 2=>'上場企業',3=>'近隣利用', 4=>'個人講師', 5=>'MLM', 6=>'仲介会社', 7=>'その他'],$user->attr)}}
             </td>
           </tr>
         </tbody>
@@ -141,14 +142,14 @@
           <tr>
             <th class="table-active form_required">{{ Form::label('mobile', '携帯番号') }}</th>
             <td colspan="2">{{ Form::text('mobile', $user->mobile, ['class' => 'form-control']) }}
-            <small>半角数字、ハイフンなしで入力してください</small>
+              <small>半角数字、ハイフンなしで入力してください</small>
               <p class="is-error-mobile" style="color: red"></p>
             </td>
           </tr>
           <tr>
             <th class="table-active">{{ Form::label('tel', '固定電話') }}</th>
             <td colspan="2">{{ Form::text('tel', $user->tel, ['class' => 'form-control']) }}
-            <small>半角数字、ハイフンなしで入力してください</small>
+              <small>半角数字、ハイフンなしで入力してください</small>
             </td>
           </tr>
           <tr>
@@ -184,7 +185,8 @@
           </tr>
           <tr>
             <th class="table-active form_required">{{ Form::label('pay_limit', '支払期日') }}</th>
-            <td>{{Form::select('pay_limit', [1=>'3営業日前', 2=>'当月末〆当月末CASH',3=>'当月末〆翌月末CASH',4=>'当月末〆翌々月末CACH'],$user->pay_limit)}}
+            <td>
+              {{Form::select('pay_limit', [1=>'3営業日前', 2=>'当月末〆当月末CASH',3=>'当月末〆翌月末CASH',4=>'当月末〆翌々月末CACH'],$user->pay_limit)}}
               <p class="is-error-pay_limit" style="color: red"></p>
             </td>
           </tr>

@@ -1,9 +1,7 @@
 @extends('layouts.admin.app')
 @section('content')
-<!-- <script src="{{ asset('/js/template.js') }}"></script> -->
-<!-- <script src="{{ asset('/js/admin/validation.js') }}"></script> -->
-<!-- <script src="{{ asset('/js/admin/reservation.js') }}"></script> -->
 <link href="{{ asset('/css/template.css') }}" rel="stylesheet">
+<script src="{{ asset('/js/ctrl_form.js') }}"></script>
 
 
 
@@ -32,13 +30,13 @@
 
     @if ($errors->any())
     <div class="alert alert-danger">
-        <ul>
-            @foreach ($errors->all() as $error)
-                <li>{{ $error }}</li>
-            @endforeach
-        </ul>
+      <ul>
+        @foreach ($errors->all() as $error)
+        <li>{{ $error }}</li>
+        @endforeach
+      </ul>
     </div>
-@endif
+    @endif
 
 
     <section class="section-wrap">
@@ -107,7 +105,8 @@
               </tr>
               <tr>
                 <td class="table-active">{{ Form::label('attr', '顧客属性') }}</td>
-                <td>{{Form::select('attr', [1=>'一般企業', 2=>'上場企業',3=>'近隣利用', 4=>'個人講師', 5=>'MLM', 6=>'仲介会社', 7=>'その他'])}}</td>
+                <td>{{Form::select('attr', [1=>'一般企業', 2=>'上場企業',3=>'近隣利用', 4=>'個人講師', 5=>'MLM', 6=>'仲介会社', 7=>'その他'])}}
+                </td>
               </tr>
             </tbody>
           </table>
@@ -152,7 +151,7 @@
               <tr>
                 <td class="table-active">{{ Form::label('tel', '固定電話') }}</td>
                 <td colspan="2">{{ Form::text('tel', old('tel'), ['class' => 'form-control']) }}
-                <small>半角数字、ハイフンなしで入力してください</small>
+                  <small>半角数字、ハイフンなしで入力してください</small>
                 </td>
               </tr>
               <tr>
@@ -426,13 +425,13 @@
     });
   </script>
 
-<script>
-  $(function() {
+  <script>
+    $(function() {
     $('.discount').on('click', function() {
       $('#condition').toggleClass('checkon');
     })
 
   })
-</script>
+  </script>
 
   @endsection
