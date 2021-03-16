@@ -29,7 +29,6 @@
     <div class="text-right">
       <a href="/admin/services/create" class="btn more_btn3">新規登録</a>
     </div>
-    <hr>
     <div class="d-flex justify-content-between my-3">
       {{-- <span>
         <select name="page_counter" id="page_counter">

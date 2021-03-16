@@ -58,8 +58,6 @@
               <li>
                 <p>すべての日程に反映したい場合はこちらから選択ください</p>
               </li>
-              <!-- <li class="plus_icon">
-              </li> -->
             </ul>
           </dt>
           <dt class="accordion-wrap p-3">

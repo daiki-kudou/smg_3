@@ -28,7 +28,6 @@
       <div class="text-right">
         <a href="/admin/equipments/create" class="btn more_btn3">新規登録</a>
       </div>
-      <hr>
       {{-- <div class="d-flex justify-content-between mt-3 mb-3">
         <span>
           <select name="page_counter" id="page_counter">
@@ -47,7 +46,7 @@
 
 
   <div id="DataTables_Table_0_wrapper" class="dataTables_wrapper form-inline dt-bootstrap no-footer">
-    <p class="text-right mb-2">※金額は税抜表記になります。</p>
+    <p class="text-right mb-2 mt-4">※金額は税抜表記になります。</p>
     <div class="row">
       <div class="col-sm-12">
         <table class="table table-bordered dataTable no-footer" id="DataTables_Table_0" role="grid">

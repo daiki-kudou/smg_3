@@ -14,18 +14,21 @@
       </ol>
     </nav>
   </div>
-
+  
+  
   <h2 class="mt-3 mb-3">会場一覧</h2>
   <hr>
+</div>
+
+<div class="container-field">
 
   <div id="DataTables_Table_0_wrapper" class="dataTables_wrapper form-inline dt-bootstrap no-footer">
     <div class="row">
       <div class="col-sm-6"></div>
       <div class="col-sm-6"></div>
     </div>
-    <div class="row">
-      <div class="col-sm-12">
-        <table class="table table-bordered mt-5 dataTable no-footer" id="DataTables_Table_0" role="grid">
+      <div class="table-wrap">
+        <table class="table table-bordered mt-5 dataTable no-footer table-scroll" id="DataTables_Table_0" role="grid">
           <thead>
             <tr class="table_row">
               <th>ID</th>
@@ -77,13 +80,12 @@
         </table>
         {{ $venues->links() }}
       </div>
-    </div>
     <div class="row">
       <div class="col-sm-5"></div>
       <div class="col-sm-7"></div>
     </div>
   </div>
-</div>
+  </div>
 
 <script>
   // テーブルソーと
