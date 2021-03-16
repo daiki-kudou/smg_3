@@ -61,12 +61,11 @@
   <hr>
 </div>
 
-<div class="p-3 mb-2 bg-white text-dark">
-  <div class="w-100 mb-3">
-    <span class="d-block mb-2">会場</span>
-    <strong class="border border-light d-block"
-      style="width:100%;">{{$venue->name_area}}{{$venue->name_bldg}}{{$venue->name_venue}}</strong>
-  </div>
+<div class="p-3 mb-2 bg-white text-dark wrap_shadow mt-4">
+
+  <h3 class="d-block mt-4 mb-3"><span class="mr-3">ID:{{ ReservationHelper::IdFormat($venue->id)}}</span>
+        {{ $venue->name_area }}・{{ $venue->name_bldg }}{{ $venue->name_venue }}
+      </h3>
   <div class="new_price">
     @if ($errors->any())
     <div class="alert alert-danger">

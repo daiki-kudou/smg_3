@@ -16,13 +16,10 @@
   <hr>
 </div>
 
-<section class="section-wrap">
-<p class="text-right">※金額は税抜表記になります。</p>
-@if (count($frame_prices)==0 && count($time_prices)==0)
-  <div class="w-100">
-    <h3 class="border border-light d-block" style="width:100%;">{{$venue->name_area}}・{{$venue->name_bldg}}{{$venue->name_venue}}</h3>
-    <span class="mt-5 mb-5 d-block">※料金データが登録されていません</span>
-  </div>
+<section class="section-wrap bg-white wrap_shadow">
+  @if (count($frame_prices)==0 && count($time_prices)==0)
+  <h3 class="d-block"><span class="mr-3">ID:{{ ReservationHelper::IdFormat($venue->id)}}</span>{{$venue->name_area}}・{{$venue->name_bldg}}{{$venue->name_venue}}</h3>
+  <span class="mt-5 mb-5 d-block">※料金データが登録されていません</span>
   <div class="d-flex justify-content-around">
     <div>
       {{ link_to_route('admin.frame_prices.create', '通常の料金体系で登録（枠貸し料金）', $parameters=$venue->id,['class' => 'btn more_btn']) }}
@@ -31,21 +28,23 @@
       {{ link_to_route('admin.time_prices.create', 'アクセア料金体系で登録（時間貸し料金）', $parameters=$venue->id,['class' => 'btn more_btn']) }}
     </div>
   </div>
-@else
+  @else
 
-<div class="">
-  <span>会場</span>
-  <div class="form-group">
-    {{ $venue->name_area}}{{ $venue->name_bldg}}{{ $venue->name_venue}}
-  </div>
-  <div>
-    <div class="d-flex justify-content-between mb-3">
-      <h4>料金体系：通常(枠貸し料金)</h4>
+  <div class="mb-3">
+    <h3 class="d-block mb-3 fw-bold"><span class="mr-3">ID:{{ ReservationHelper::IdFormat($venue->id)}}</span>
+      {{ $venue->name_area }}・{{ $venue->name_bldg }}{{ $venue->name_venue }}
+    </h3>
+    <hr>
+    <div class="text-right mt-5 mb-3">
       @if (!count($frame_prices)==0)
       {{ link_to_route('admin.frame_prices.edit', '枠貸し編集', $parameters=$venue->id,['class' => 'btn more_btn']) }}
       @else
       {{ link_to_route('admin.frame_prices.create', '枠貸し新規登録', $parameters=$venue->id,['class' => 'btn more_btn']) }}
       @endif
+    </div>
+    <div class="d-flex justify-content-between mb-2">
+    <h5>料金体系：通常(枠貸し料金)</h5>
+    <p>※金額は税抜表記になります。</p>
     </div>
     <table class="table table-bordered">
       <thead>
@@ -68,46 +67,42 @@
       </tbody>
     </table>
   </div>
-</div>
 
-
-
-<div class="mt-5">
-  <span>会場</span>
-  <div class="form-group">
-    {{ $venue->name_area}}{{ $venue->name_bldg}}{{ $venue->name_venue}}
-  </div>
-  <div>
-    <div class="d-flex justify-content-between mb-3">
-      <h4>料金体系：アクセア仕様(時間貸し料金)</h4>
-      @if (!count($time_prices)==0)
-      {{ link_to_route('admin.time_prices.edit', '時間貸し編集', $parameters=$venue->id,['class' => 'btn more_btn']) }}
-      @else
-      {{ link_to_route('admin.time_prices.create', '時間貸し新規登録', $parameters=$venue->id,['class' => 'btn more_btn']) }}
-      @endif
+  <div class="mt-5">
+    <div>
+      <div class="text-right mt-5 mb-3">
+        @if (!count($time_prices)==0)
+        {{ link_to_route('admin.time_prices.edit', '時間貸し編集', $parameters=$venue->id,['class' => 'btn more_btn']) }}
+        @else
+        {{ link_to_route('admin.time_prices.create', '時間貸し新規登録', $parameters=$venue->id,['class' => 'btn more_btn']) }}
+        @endif
+      </div>
+      <div class="d-flex justify-content-between mb-2">
+    <h5>料金体系：アクセア仕様(時間貸し料金)</h5>
+    <p>※金額は税抜表記になります。</p>
     </div>
-    <table class="table table-bordered">
-      <thead>
-        <tr>
-          <th scope="col">時間</th>
-          <th scope="col">料金</th>
-          <th scope="col">延長料金</th>
-          <th scope="col">登録日</th>
-        </tr>
-      </thead>
-      <tbody>
-        @foreach ($time_prices as $time_price)
-        <tr>
-          <th>{{ $time_price->time}}</th>
-          <td>{{ number_format($time_price->price)}}</td>
-          <td>{{ number_format($time_price->extend)}}</td>
-          <td>{{ ReservationHelper::formatDate($time_price->created_at)}}</td>
-        </tr>
-        @endforeach
-      </tbody>
-    </table>
+      <table class="table table-bordered">
+        <thead>
+          <tr>
+            <th scope="col">時間</th>
+            <th scope="col">料金</th>
+            <th scope="col">延長料金</th>
+            <!-- <th scope="col">登録日</th> -->
+          </tr>
+        </thead>
+        <tbody>
+          @foreach ($time_prices as $time_price)
+          <tr>
+            <th>{{ $time_price->time}}</th>
+            <td>{{ number_format($time_price->price)}}</td>
+            <td>{{ number_format($time_price->extend)}}</td>
+            <!-- <td>{{ ReservationHelper::formatDate($time_price->created_at)}}</td> -->
+          </tr>
+          @endforeach
+        </tbody>
+      </table>
+    </div>
   </div>
-</div>
-@endif
+  @endif
 </section>
 @endsection

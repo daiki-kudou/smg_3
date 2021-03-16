@@ -20,12 +20,14 @@
   </div>
   <h2 class="mt-3 mb-3">料金管理　新規登録（枠貸し）</h2>
   <hr>
-  <div class="d-flex justify-content-between mt-3 mb-5">
-  </div>
+
 </div>
 
-<div class="p-3 mb-2 bg-white text-dark">
-    <h3 class="d-block mt-4 mb-3"><span class="mr-3">ID:{{ ReservationHelper::IdFormat($venue->id)}}</span>{{ReservationHelper::getVenue($venue->id)}}</h3>
+<div class="p-3 mb-2 bg-white text-dark wrap_shadow mt-4">
+    <h3 class="d-block mt-4 mb-3"><span class="mr-3">ID:{{ ReservationHelper::IdFormat($venue->id)}}</span>
+    {{ $venue->name_area }}・{{ $venue->name_bldg }}{{ $venue->name_venue }}
+    <!-- {{ReservationHelper::getVenue($venue->id)}} -->
+  </h3>
   <div class="new_price">
     @if ($errors->any())
     <div class="alert alert-danger">
@@ -171,7 +173,7 @@
       </div>
       {{ Form::number('extend', old('extend'),['class'=>'form-control w-25']) }}
       {{Form::hidden('venue_id', $venue->id)}}
-      <div class="mt-5 mx-auto" style="width: 50px;">
+      <div class="mt-5 mx-auto">
         {{ Form::submit('登録する', ['class' => 'btn more_btn_lg d-block btn-lg mx-auto my-5']) }}</div>
       {{ Form::close() }}
     </div>
