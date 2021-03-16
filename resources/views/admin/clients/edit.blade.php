@@ -30,7 +30,7 @@
       </ol>
     </nav>
   </div>
-  <h2 class="mt-3 mb-3">顧客管理 編集</h2>
+  <h2 class="mt-3 mb-3">顧客管理 詳細情報(編集)</h2>
   <hr>
 </div>
 
@@ -148,15 +148,13 @@
           <tr>
             <th class="table-active form_required">{{ Form::label('mobile', '携帯番号') }}</th>
             <td colspan="2">
-              {{ Form::text('mobile', $user->mobile, ['class' => 'form-control']) }}
-              <small>半角数字、ハイフンなしで入力してください</small>
+              {{ Form::text('mobile', $user->mobile, ['class' => 'form-control','placeholder' => '半角数字、ハイフンなしで入力してください']) }}
               <p class="is-error-mobile" style="color: red"></p>
             </td>
           </tr>
           <tr>
             <th class="table-active">{{ Form::label('tel', '固定電話') }}</th>
-            <td colspan="2">{{ Form::text('tel', $user->tel, ['class' => 'form-control']) }}
-              <small>半角数字、ハイフンなしで入力してください</small>
+            <td colspan="2">{{ Form::text('tel', $user->tel, ['class' => 'form-control','placeholder' => '半角数字、ハイフンなしで入力してください']) }}
             </td>
           </tr>
           <tr>
@@ -167,7 +165,7 @@
           </tr>
           <tr>
             <th class="table-active">{{ Form::label('fax', 'FAX') }}</th>
-            <td colspan="2">{{ Form::text('fax', $user->fax, ['class' => 'form-control']) }}</td>
+            <td colspan="2">{{ Form::text('fax', $user->fax, ['class' => 'form-control','placeholder' => '半角数字、ハイフンなしで入力してください']) }}</td>
           </tr>
         <tbody>
       </table>

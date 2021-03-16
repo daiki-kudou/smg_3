@@ -35,9 +35,9 @@
             <th>広さ（坪）</th>
             <th>広さ（㎡）</th>
             <th>収容人数</th>
-            <th>レイアウト</th>
-            <th>荷物</th>
-            <th>飲食</th>
+            <th>レイアウト変更</th>
+            <th>預かり荷物</th>
+            <th>室内飲食</th>
             <th class="btn-cell">詳細</th>
           </tr>
         </thead>
@@ -47,28 +47,28 @@
           <tr role="row" class="even" style="background: #E3E3E3;">
             <td class="sorting_1">{{ ReservationHelper::IdFormat($venue->id)}}</td>
             <td>{{ ReservationHelper::formatDate($venue->created_at)}}</td>
-            <td>{{$venue->alliance_flag==0?'直営':'提携'}}</td>
-            <td>{{ $venue->name_area }}{{ $venue->name_bldg }}{{ $venue->name_venue }}</td>
+            <td class="text-center">{{$venue->alliance_flag==0?'直':'提'}}</td>
+            <td>{{ $venue->name_area }}・{{ $venue->name_bldg }}{{ $venue->name_venue }}</td>
             <td class="text-right">{{ $venue->size1}}</td>
             <td class="text-right">{{ $venue->size2 }}</td>
             <td class="text-right">{{ $venue->capacity }}</td>
-            <td class="text-center">{{$venue->layout==1?"有":"無"}}</td>
-            <td class="text-center">{{$venue->luggage_flag==1?"有":"無"}}</td>
-            <td class="text-center">{{$venue->eat_in_flag==1?"有":"無"}}</td>
+            <td class="text-center">{{$venue->layout==1?"可":"不可"}}</td>
+            <td class="text-center">{{$venue->luggage_flag==1?"可":"不可"}}</td>
+            <td class="text-center">{{$venue->eat_in_flag==1?"可":"不可"}}</td>
             <td class="text-center"><a class="more_btn" href="{{ url('/admin/venues', $venue->id) }}">詳細</a></td>
           </tr>
           @else
           <tr role="row" class="even">
             <td class="sorting_1">{{ ReservationHelper::IdFormat($venue->id)}}</td>
             <td>{{ ReservationHelper::formatDate($venue->created_at)}}</td>
-            <td>{{$venue->alliance_flag==0?'直営':'提携'}}</td>
-            <td>{{ $venue->name_area }}{{ $venue->name_bldg }}{{ $venue->name_venue }}</td>
+            <td class="text-center">{{$venue->alliance_flag==0?'直':'提'}}</td>
+            <td>{{ $venue->name_area }}・{{ $venue->name_bldg }}{{ $venue->name_venue }}</td>
             <td class="text-right">{{ $venue->size1}}</td>
             <td class="text-right">{{ $venue->size2 }}</td>
             <td class="text-right">{{ $venue->capacity }}</td>
-            <td class="text-center">{{$venue->layout==1?"有":"無"}}</td>
-            <td class="text-center">{{$venue->luggage_flag==1?"有":"無"}}</td>
-            <td class="text-center">{{$venue->eat_in_flag==1?"有":"無"}}</td>
+            <td class="text-center">{{$venue->layout==1?"可":"不可"}}</td>
+            <td class="text-center">{{$venue->luggage_flag==1?"可":"不可"}}</td>
+            <td class="text-center">{{$venue->eat_in_flag==1?"可":"不可"}}</td>
             <td class="text-center"><a class="more_btn" href="{{ url('/admin/venues', $venue->id) }}">詳細</a></td>
           </tr>
           @endif
@@ -89,7 +89,7 @@
 <script>
   $(function(){
     $('td').each(function(index, element){
-      if ($(element).text()=="提携") {
+      if ($(element).text()=="提") {
         $(element).css('color','red');
       }
   })

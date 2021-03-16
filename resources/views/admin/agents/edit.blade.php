@@ -22,7 +22,7 @@
         </ol>
       </nav>
     </div>
-    <h2 class="mt-3 mb-3">仲介会社 編集</h2>
+    <h2 class="mt-3 mb-3">仲介会社 詳細情報(編集)</h2>
     <hr>
   </div>
 
@@ -101,8 +101,7 @@
                   <label for="tel">電話番号</label>
                 </td>
                 <td colspan="2">
-                  {{ Form::text('person_tel', $agent->person_tel, ['class' => 'form-control', 'id'=>'company']) }}
-                  <small>半角数字、ハイフンなしで入力してください</small>
+                  {{ Form::text('person_tel', $agent->person_tel, ['class' => 'form-control', 'id'=>'company','placeholder' => '半角数字、ハイフンなしで入力してください']) }}
                 </td>
               </tr>
               <tr>
@@ -110,8 +109,7 @@
                   <label for="fax">FAX</label>
                 </td>
                 <td colspan="2">
-                  {{ Form::text('fax', $agent->fax, ['class' => 'form-control', 'id'=>'company']) }}
-                  <small>半角数字、ハイフンなしで入力してください</small>
+                  {{ Form::text('fax', $agent->fax, ['class' => 'form-control', 'id'=>'company','placeholder' => '半角数字、ハイフンなしで入力してください']) }}
                 </td>
               </tr>
               <tr>
@@ -143,8 +141,7 @@
                   <label for="person_tel">担当者TEL</label>
                 </th>
                 <td colspan="2">
-                  {{ Form::text('person_mobile', $agent->person_mobile, ['class' => 'form-control', 'id'=>'company']) }}
-                  <small>半角数字、ハイフンなしで入力してください</small>
+                  {{ Form::text('person_mobile', $agent->person_mobile, ['class' => 'form-control', 'id'=>'company','placeholder' => '半角数字、ハイフンなしで入力してください']) }}
                 </td>
               </tr>
               <tr>

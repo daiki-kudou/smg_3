@@ -205,9 +205,9 @@
           </thead>
           <tbody>
             <tr>
-              <td class="table-active"><label for="luggage_flag" class="form_required">荷物預かり　有・無</label></td>
+              <td class="table-active"><label for="luggage_flag" class="form_required">荷物預かり</label></td>
               <td>
-                {{Form::select('luggage_flag', ['無し', '有り'],0,['placeholder' => '選択してください','class'=>'custom-select mr-sm-2'])}}
+                {{Form::select('luggage_flag', ['可', '不可'],0,['placeholder' => '選択してください','class'=>'custom-select mr-sm-2'])}}
                 <p class="is-error-luggage_flag" style="color: red"></p>
               </td>
             </tr>
@@ -275,6 +275,24 @@
           </thead>
           <tbody>
             <tr>
+              <td class="table-active"><label for="">会社名 (工藤さん！！！追加項目です)</label></td>
+              <td colspan="2">
+              {{ Form::text('', old(''), ['class' => 'form-control']) }}
+              </td>
+            </tr>
+            <tr>
+              <td class="table-active"><label for="">TEL (工藤さん！！！追加項目です)</label></td>
+              <td colspan="2">
+              {{ Form::text('', old(''), ['class' => 'form-control','placeholder' => '半角数字、ハイフンなしで入力してください']) }}
+              </td>
+            </tr>
+            <tr>
+              <td class="table-active"><label for="">FAX (工藤さん！！！追加項目です)</label></td>
+              <td colspan="2">
+              {{ Form::text('', old(''), ['class' => 'form-control','placeholder' => '半角数字、ハイフンなしで入力してください']) }}
+              </td>
+            </tr>
+            <tr>
               <td class="table-active"><label for="first_name">担当者氏名</label></td>
               <td>姓：
                 {{ Form::text('first_name', old('first_name'), ['class' => 'form-control']) }}
@@ -295,7 +313,7 @@
               </td>
             </tr>
             <tr>
-              <td class="table-active"><label for="person_tel">担当者電話番号</label></td>
+              <td class="table-active"><label for="person_tel">担当者TEL</label></td>
               <td colspan="2">
                 {{ Form::text('person_tel', old('person_tel'), ['class' => 'form-control', 'maxlength'=>'13', 'placeholder' => '半角数字、ハイフンなしで入力してください']) }}
                 <p class="is-error-person_tel" style="color: red"></p>
@@ -306,6 +324,12 @@
               <td colspan="2">
                 {{ Form::text('person_email', old('person_email'), ['class' => 'form-control']) }}
                 <p class="is-error-person_email" style="color: red"></p>
+              </td>
+            </tr>
+            <tr>
+              <td class="table-active"><label for="">備考 (工藤さん！！！追加項目です)</label></td>
+              <td colspan="2">
+              {{ Form::textarea('', old(''), ['class' => 'form-control']) }}
               </td>
             </tr>
           </tbody>
@@ -339,7 +363,7 @@
             <tr>
               <td class="table-active"><label for="mgmt_emer_tel">夜間緊急連絡先</label></td>
               <td colspan="2">
-                {{ Form::text('mgmt_emer_tel', old('mgmt_emer_tel'), ['class' => 'form-control', 'maxlength'=>'13']) }}
+                {{ Form::text('mgmt_emer_tel', old('mgmt_emer_tel'), ['class' => 'form-control', 'maxlength'=>'13','placeholder' => '半角数字、ハイフンなしで入力してください']) }}
               </td>
             </tr>
 
@@ -350,6 +374,12 @@
               </td>
               <td>名：
                 {{ Form::text('mgmt_last_name', old('mgmt_last_name'), ['class' => 'form-control']) }}
+              </td>
+            </tr>
+            <tr>
+              <td class="table-active"><label for="person_email">担当者電話番号 (工藤さん！！！追加項目です)</label></td>
+              <td colspan="2">
+                {{ Form::text('', old(''), ['class' => 'form-control','placeholder' => '半角数字、ハイフンなしで入力してください']) }}
               </td>
             </tr>
             <tr>
@@ -368,7 +398,7 @@
             <tr>
               <td class="table-active"><label for="mgmt_sec_tel">警備会社電話番号</label></td>
               <td colspan="2">
-                {{ Form::text('mgmt_sec_company', old('mgmt_sec_company'), ['class' => 'form-control', 'maxlength'=>'13']) }}
+                {{ Form::text('mgmt_sec_company', old('mgmt_sec_company'), ['class' => 'form-control', 'maxlength'=>'13','placeholder' => '半角数字、ハイフンなしで入力してください']) }}
               </td>
             </tr>
             <tr>
@@ -395,7 +425,7 @@
             <tr>
               <td class="table-active"><label for="eat_in_flag" class="form_required">室内飲食</label></td>
               <td>
-                {{{Form::select('eat_in_flag', ['無し', '有り'],0,['placeholder' => '選択してください', 'class'=>'custom-select mr-sm-2'])}}}
+                {{{Form::select('eat_in_flag', ['不可', '可'],0,['placeholder' => '選択してください', 'class'=>'custom-select mr-sm-2'])}}}
                 <p class="is-error-eat_in_flag" style="color: red"></p>
               </td>
             </tr>
@@ -417,7 +447,7 @@
             <tr>
               <td class="table-active"><label for="layout" class="form_required">レイアウト変更</label></td>
               <td>
-                {{{Form::select('layout', ['無し', '有り'],0,['placeholder' => '選択してください', 'class'=>'custom-select mr-sm-2'])}}}
+                {{{Form::select('layout', ['不可', '可'],0,['placeholder' => '選択してください', 'class'=>'custom-select mr-sm-2'])}}}
                 <p class="is-error-layout" style="color: red"></p>
               </td>
             </tr>

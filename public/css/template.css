@@ -484,6 +484,13 @@ option:disabled  {
     background-color: #ccc;
 }
 
+.form-control::placeholder{
+    color: #c9c9c9;
+
+}
+
+
+
 /* 備考の長さ制限 -----------------------------*/
 .remark_limit {
     height: 100%;
@@ -937,6 +944,19 @@ table td.table_column p:last-child {
 .venue_table th {
     width: 45%;
     /* width: 200px; */
+}
+
+.option_list {
+    background: #fff;
+}
+
+.option_list li {
+    padding: 0.3em 0;
+    border-bottom: 1px solid #dee2e6;
+}
+
+.option_list li:last-child {
+    border-bottom: none;
 }
 
 .alliance_color {

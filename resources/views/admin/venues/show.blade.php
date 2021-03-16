@@ -19,6 +19,7 @@
   </div>
 
   <h2 class="mt-3 mb-3">会場　詳細情報</h2>
+  <p>ID:{{ $venue->id }}<span class="ml-2">{{ $venue->name_area }}・{{ $venue->name_bldg }}{{ $venue->name_venue }}</span></p>
   <hr>
 
   <section class="section-wrap">
@@ -45,8 +46,7 @@
     <!-- 会場URL ---------------------------------------------------->
     <div class="row">
       <div class="col">
-        <form method="POST" action="https://staging-smg2.herokuapp.com/admin/venues" accept-charset="UTF-8"
-          id="VenuesCreateForm">
+        <form method="POST" action="https://staging-smg2.herokuapp.com/admin/venues" accept-charset="UTF-8" id="VenuesCreateForm">
           <input name="_token" type="hidden" value="7YnZpH69frvKkgAQxFwljXRjXXjvobnDxuSeERdf">
           <input type="hidden" name="_token" value="7YnZpH69frvKkgAQxFwljXRjXXjvobnDxuSeERdf">
           <table class="table table-bordered">
@@ -161,15 +161,15 @@
             <tr>
               <td colspan="2">
                 <p class="title-icon">
-                  <i class="fas fa-suitcase-rolling icon-size fa-fw" aria-hidden="true"></i>荷物預かり
+                  <i class="fas fa-suitcase-rolling icon-size" aria-hidden="true"></i>荷物預かり
                 </p>
               </td>
             </tr>
           </thead>
           <tbody>
             <tr>
-              <th class="table-active"><label for="luggage_flag">荷物預かり　有・無</label></th>
-              <td> {{ $venue->luggage_flag==1?"有り":"無し" }}
+              <th class="table-active"><label for="luggage_flag">荷物預かり</label></th>
+              <td> {{ $venue->luggage_flag==1?"可":"不可" }}
               </td>
             </tr>
             <tr>
@@ -216,13 +216,24 @@
             <tr>
               <td colspan="3">
                 <p class="title-icon">
-                  <i class="fas fa-user-check icon-size fa-fw" aria-hidden="true"></i>担当者情報
+                  <i class="fas fa-user-check icon-size" aria-hidden="true"></i>予約担当者情報
                 </p>
               </td>
             </tr>
           </thead>
           <tbody>
-            <!-- 工藤さんに確認　顧客の新規登録のデータをピックアップ問題ないか -->
+            <tr>
+              <th class="table-active"><label for="">会社名 (工藤さん！！！追加項目です)</label></th>
+              <td colspan="2"></td>
+            </tr>
+            <tr>
+              <th class="table-active"><label for="">TEL (工藤さん！！！追加項目です)</label></th>
+              <td colspan="2"></td>
+            </tr>
+            <tr>
+              <th class="table-active"><label for="">FAX (工藤さん！！！追加項目です)</label></th>
+              <td colspan="2"></td>
+            </tr>
             <tr>
               <th class="table-active"><label for="first_name">担当者氏名</label></th>
               <td colspan="2"> {{ $venue->first_name}} {{ $venue->last_name}}
@@ -235,8 +246,6 @@
                 {{ $venue->last_name_kana}}
               </td>
             </tr>
-            <!-- 工藤さんに確認　顧客の新規登録のデータをピックアップ問題ないか -->
-
             <tr>
               <th class="table-active"><label for="person_tel">担当者電話番号</label></th>
               <td colspan="2">
@@ -248,6 +257,10 @@
               <td colspan="2"> {{ $venue->person_email}}
               </td>
             </tr>
+            <tr>
+              <th class="table-active"><label for="">備考 (工藤さん！！！追加項目です)</label></th>
+              <td colspan="2"></td>
+            </tr>
           </tbody>
         </table>
 
@@ -257,7 +270,7 @@
             <tr>
               <td colspan="3">
                 <p class="title-icon">
-                  <i class="fas fa-building icon-size fa-fw" aria-hidden="true"></i>ビル管理会社
+                  <i class="fas fa-building icon-size" aria-hidden="true"></i>ビル管理会社
                 </p>
               </td>
             </tr>
@@ -280,15 +293,15 @@
               </td>
             </tr>
 
-            <!-- 工藤さんに確認　顧客の新規登録のデータをピックアップ問題ないか -->
-            <tr>
-              <th class="table-active"><label for="mgmt_first_name">担当者氏名</label></th>
-              <td colspan="2">
-                {{ $venue->mgmt_first_name}} {{ $venue->mgmt_last_name}}
-              </td>
+            <th class="table-active"><label for="mgmt_first_name">担当者氏名</label></th>
+            <td colspan="2">
+              {{ $venue->mgmt_first_name}}{{ $venue->mgmt_last_name}}
+            </td>
             </tr>
-            <!-- 工藤さんに確認　顧客の新規登録のデータをピックアップ問題ないか -->
-
+            <tr>
+              <th class="table-active"><label for="">担当者電話番号 (工藤さん！！！追加項目です)</label></th>
+              <td colspan="2"></td>
+            </tr>
             <tr>
               <th class="table-active"><label for="mgmt_email">担当者メール</label></th>
               <td colspan="2"> {{ $venue->mgmt_email}}
@@ -318,7 +331,7 @@
             <tr>
               <td colspan="2">
                 <p class="title-icon">
-                  <i class="fas fa-utensils icon-size fa-fw" aria-hidden="true"></i>室内飲食
+                  <i class="fas fa-utensils icon-size" aria-hidden="true"></i>室内飲食
                 </p>
               </td>
             </tr>
@@ -327,7 +340,7 @@
             <tr>
               <th class="table-active"><label for="eat_in_flag">室内飲食</label></th>
               <td>
-                {{ $venue->eat_in_flag==1?"有り":"無し"}}
+                {{ $venue->eat_in_flag==1?"可":"不可"}}
               </td>
             </tr>
           </tbody>
@@ -339,7 +352,7 @@
             <tr>
               <td colspan="2">
                 <p class="title-icon">
-                  <i class="fas fa-th icon-size fa-fw" aria-hidden="true"></i>レイアウト
+                  <i class="fas fa-th icon-size" aria-hidden="true"></i>レイアウト
                 </p>
               </td>
             </tr>
@@ -348,7 +361,7 @@
             <tr>
               <th class="table-active"><label for="layout">レイアウト変更</label></th>
               <td>
-                {{ $venue->layout==1?"有り":"無し"}}
+                {{ $venue->layout==1?"可":"不可"}}
               </td>
             </tr>
             <tr>
@@ -372,7 +385,7 @@
             <tr>
               <td colspan="2">
                 <p class="title-icon">
-                  <i class="fas fa-yen-sign icon-size fa-fw" aria-hidden="true"></i>支払データ
+                  <i class="fas fa-yen-sign icon-size" aria-hidden="true"></i>支払データ
                 </p>
               </td>
             </tr>
@@ -396,37 +409,33 @@
   <section class="section-wrap">
     <!-- 有料備品 ------------------------------------------------------------------------>
     <div class="mb-5 border-wrap2">
-      <p class="title-icon table-active fw-bolder p-2 mb-2">
-        <i class="fas fa-wrench icon-size fa-fw" aria-hidden="true"></i>有料備品
+      <p class="title-icon table-active fw-bolder p-2">
+        <i class="fas fa-wrench icon-size" aria-hidden="true"></i>有料備品
       </p>
-      <div>
-        <ul class="p-3">
+        <ul class="p-3 option_list">
           @foreach ($equipments as $equipment)
           <li>{{$equipment->item}}</li>
           @endforeach
         </ul>
-      </div>
     </div>
 
     <!-- 有料サービス ------------------------------------------------------------------------>
     <div class="mb-5 border-wrap2">
-      <p class="title-icon table-active fw-bolder p-2 mb-2">
-        <i class="fas fa-hand-holding-heart icon-size fa-fw" aria-hidden="true"></i>有料サービス
+      <p class="title-icon table-active fw-bolder p-2">
+        <i class="fas fa-hand-holding-heart icon-size" aria-hidden="true"></i>有料サービス
       </p>
-      <div>
-        <ul class="p-3">
+        <ul class="p-3 option_list">
           @foreach ($services as $service)
           <li>{{$service->item}}
           </li>
           @endforeach
         </ul>
-      </div>
     </div>
 
     <!-- 営業時間 ------------------------------------------------------------------------>
     <div class="mb-5 border-wrap2">
       <p class="title-icon table-active fw-bolder p-2">
-        <i class="fas fa-clock icon-size fa-fw" aria-hidden="true"></i>営業時間
+        <i class="fas fa-clock icon-size" aria-hidden="true"></i>営業時間
       </p>
       <div>
         <table class="table table-bordered　mb-0">
@@ -469,7 +478,7 @@
 
     <div class="mb-5 border-wrap2">
       <p class="title-icon table-active fw-bolder p-2">
-        <i class="fas fa-yen-sign icon-size fa-fw" aria-hidden="true"></i>料金管理
+        <i class="fas fa-yen-sign icon-size" aria-hidden="true"></i>料金管理
       </p>
       <div class="p-3">
         <div class="mb-2">
