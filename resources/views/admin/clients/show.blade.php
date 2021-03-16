@@ -33,7 +33,7 @@
   <div class="row">
     <!-- 左側の項目 ---------------------------------------------------->
     <div class="col">
-      <table class="table table-bordered">
+      <table class="table table-bordered client_table">
         <thead>
           <tr>
             <td colspan="2">
@@ -108,12 +108,10 @@
       </table>
     </div>
     <!-- 左側の項目 終わり---------------------------------------------------->
-
-
     <!-- 右側の項目 ---------------------------------------------------->
     <div class="col">
       <!-- 担当者情報 ------------------------------------------------------>
-      <table class="table table-bordered">
+      <table class="table table-bordered client_table">
         <thead>
           <tr>
             <p class="title-icon">
@@ -151,7 +149,7 @@
       </table>
 
       <!-- 支払いデータ ------------------------------------------------>
-      <table class="table table-bordered">
+      <table class="table table-bordered client_table">
         <thead>
           <tr>
             <td colspan="3">
@@ -163,7 +161,7 @@
         </thead>
         <tbody>
           <tr>
-            <th width="35%" class="table-active">{{ Form::label('pay_method', '支払方法') }}</th>
+            <th class="table-active">{{ Form::label('pay_method', '支払方法') }}</th>
             <td>
               @if ($user->pay_method==1)
               銀行振込
@@ -209,14 +207,13 @@
           <tr>
             <th class="table-active">{{ Form::label('pay_remark', '請求書備考') }}</th>
             <td>
-              <p class="remark_scroll">{{$user->pay_remark}}</p>
+              <!-- <p class="remark_scroll"> -->
+                {{$user->pay_remark}}
+              <!-- </p> -->
             </td>
           </tr>
         </tbody>
       </table>
-
-
-
     </div>
     <!-- 右側の項目　終わり -------------------------------------------------->
   </div>
