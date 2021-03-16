@@ -5,6 +5,8 @@
 <script src="{{ asset('/js/template.js') }}"></script>
 <script src="{{ asset('/js/validation.js') }}"></script>
 <link href="{{ asset('/css/template.css') }}" rel="stylesheet">
+<script src="{{ asset('/js/ctrl_form.js') }}"></script>
+
 
 <div class="container-fluid">
 
@@ -150,7 +152,7 @@
       <div>
         {{ Form::model($venue, ['route' => ['admin.time_prices.update', $venue->id], 'method' => 'put', 'id'=>'timeEditForm']) }}
         @csrf
-    <p class="text-right">※金額は税抜で入力してください。</p>
+        <p class="text-right">※金額は税抜で入力してください。</p>
         <table class="table table-bordered">
           <thead>
             <tr>
@@ -164,17 +166,14 @@
             @foreach ($time_prices as $num=>$time_price)
             <tr>
               <td>
-                <p class="{{'is-error-time'.$num}}" style="color: white"></p>
                 {{ Form::text('time'.$num, old('time', $time_price->time), ['class' => 'form-control']) }}
                 <p class="{{'is-error-time'.$num}}" style="color: red"></p>
               </td>
               <td>
-                <p class="{{'is-error-price'.$num}}" style="color: white"></p>
                 {{ Form::text('price'.$num, old('price', $time_price->price), ['class' => 'form-control']) }}
                 <p class="{{'is-error-price'.$num}}" style="color: red"></p>
               </td>
               <td>
-                <p class="{{'is-error-extend'.$num}}" style="color: white"></p>
                 {{ Form::text('extend'.$num, old('extend', $time_price->extend), ['class' => 'form-control']) }}
                 <p class="{{'is-error-extend'.$num}}" style="color: red"></p>
               </td>

@@ -5,6 +5,8 @@
 {{-- <!-- <script src="{{ asset('/js/template.js') }}"></script> --> --}}
 <script src="{{ asset('/js/admin/reservation.js') }}"></script>
 <script src="{{ asset('/js/admin/validation.js') }}"></script>
+<script src="{{ asset('/js/ctrl_form.js') }}"></script>
+
 
 <style>
   .error {
@@ -106,6 +108,7 @@
                 <td class="table-active"><label for="person_firstname">担当者氏名</label></td>
                 <td>姓：
                   {{ Form::text('person_firstname', old('person_firstname'), ['class' => 'form-control']) }}
+                  <p class="is-error-person_firstname" style="color: red"></p>
                 </td>
                 <td>名：
                   {{ Form::text('person_lastname', old('person_lastname'), ['class' => 'form-control']) }}
@@ -116,10 +119,12 @@
                 <td>
                   セイ：
                   {{ Form::text('firstname_kana', old('firstname_kana'), ['class' => 'form-control']) }}
+                  <p class="is-error-price" style="color: red"></p>
                 </td>
                 <td>
                   メイ：
                   {{ Form::text('lastname_kana', old('lastname_kana'), ['class' => 'form-control']) }}
+                  <p class="is-error-lastname_kana" style="color: red"></p>
                 </td>
               </tr>
               <tr>

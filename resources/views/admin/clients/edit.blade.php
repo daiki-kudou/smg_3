@@ -1,9 +1,10 @@
 @extends('layouts.admin.app')
 @section('content')
-<!-- <script src="{{ asset('/js/template.js') }}"></script> -->
-<!-- <script src="{{ asset('/js/admin/validation.js') }}"></script> -->
-<!-- <script src="{{ asset('/js/admin/reservation.js') }}"></script> -->
+
 <link href="{{ asset('/css/template.css') }}" rel="stylesheet">
+<script src="{{ asset('/js/admin/validation.js') }}"></script>
+<script src="{{ asset('/js/ctrl_form.js') }}"></script>
+
 
 <script>
   $(function() {
@@ -33,12 +34,13 @@
   <hr>
 </div>
 
+{{ Form::open(['url' => 'admin/clients/'.$user->id, 'method'=>'PUT', 'id'=>'ClientsEditForm']) }}
+@csrf
+
 <section class="section-wrap">
   <div class="row">
     <!-- 左側の項目 ---------------------------------------------------------->
     <div class="col">
-      {{Form::model($user, ['route' => ['admin.clients.update', $user->id], 'method' => 'put','id'=>'ClientsEditForm'])}}
-      @csrf
       <table class="table table-bordered">
         <thead>
           <tr>
@@ -100,7 +102,8 @@
           </tr>
           <tr>
             <th class="table-active">{{ Form::label('attr', '顧客属性') }}</th>
-            <td>{{Form::select('attr', [1=>'一般企業', 2=>'上場企業',3=>'近隣利用', 4=>'個人講師', 5=>'MLM', 6=>'仲介会社', 7=>'その他'],$user->attr)}}
+            <td>
+              {{Form::select('attr', [1=>'一般企業', 2=>'上場企業',3=>'近隣利用', 4=>'個人講師', 5=>'MLM', 6=>'仲介会社', 7=>'その他'],$user->attr)}}
             </td>
           </tr>
         </tbody>
@@ -121,8 +124,11 @@
         </thead>
         <tbody>
           <tr>
-            <th class="table-active form_required">{{ Form::label('first_name', '担当者氏名') }}</th>
-            <td>姓：{{ Form::text('first_name', $user->first_name, ['class' => 'form-control']) }}
+            <th class="table-active form_required">
+              {{ Form::label('first_name', '担当者氏名') }}
+            </th>
+            <td>姓：
+              {{ Form::text('first_name', $user->first_name, ['class' => 'form-control']) }}
               <p class="is-error-first_name" style="color: red"></p>
             </td>
             <td>名：{{ Form::text('last_name', $user->last_name, ['class' => 'form-control']) }}
@@ -131,7 +137,8 @@
           </tr>
           <tr>
             <th class="table-active form_required">{{ Form::label('first_name_kana', '担当者氏名（フリガナ）') }}</th>
-            <td>セイ：{{ Form::text('first_name_kana', $user->first_name_kana, ['class' => 'form-control'])}}
+            <td>セイ：
+              {{ Form::text('first_name_kana', $user->first_name_kana, ['class' => 'form-control'])}}
               <p class="is-error-first_name_kana" style="color: red"></p>
             </td>
             <td>メイ：{{ Form::text('last_name_kana', $user->last_name_kana, ['class' => 'form-control']) }}
@@ -140,15 +147,16 @@
           </tr>
           <tr>
             <th class="table-active form_required">{{ Form::label('mobile', '携帯番号') }}</th>
-            <td colspan="2">{{ Form::text('mobile', $user->mobile, ['class' => 'form-control']) }}
-            <small>半角数字、ハイフンなしで入力してください</small>
+            <td colspan="2">
+              {{ Form::text('mobile', $user->mobile, ['class' => 'form-control']) }}
+              <small>半角数字、ハイフンなしで入力してください</small>
               <p class="is-error-mobile" style="color: red"></p>
             </td>
           </tr>
           <tr>
             <th class="table-active">{{ Form::label('tel', '固定電話') }}</th>
             <td colspan="2">{{ Form::text('tel', $user->tel, ['class' => 'form-control']) }}
-            <small>半角数字、ハイフンなしで入力してください</small>
+              <small>半角数字、ハイフンなしで入力してください</small>
             </td>
           </tr>
           <tr>
@@ -184,7 +192,8 @@
           </tr>
           <tr>
             <th class="table-active form_required">{{ Form::label('pay_limit', '支払期日') }}</th>
-            <td>{{Form::select('pay_limit', [1=>'3営業日前', 2=>'当月末〆当月末CASH',3=>'当月末〆翌月末CASH',4=>'当月末〆翌々月末CACH'],$user->pay_limit)}}
+            <td>
+              {{Form::select('pay_limit', [1=>'3営業日前', 2=>'当月末〆当月末CASH',3=>'当月末〆翌月末CASH',4=>'当月末〆翌々月末CACH'],$user->pay_limit)}}
               <p class="is-error-pay_limit" style="color: red"></p>
             </td>
           </tr>
@@ -256,12 +265,13 @@
 
   <div class="mt-5">
     {{ Form::submit('保存する', ['class' => 'btn more_btn_lg d-block btn-lg mx-auto my-5']) }}
-    {{ Form::close() }}
   </div>
 
 </section>
+{{ Form::close() }}
 
-<script>
+
+{{-- <script>
   // カタカナ
   jQuery.validator.addMethod("katakana", function(value, element) {
     return this.optional(element) || /^([ァ-ヶー]+)$/.test(value);
@@ -286,11 +296,11 @@
         last_name: {
           required: true,
         },
-        first_name_kana: {
+        firstname_kana: {
           required: true,
           katakana: true
         },
-        last_name_kana: {
+        lastname_kana: {
           required: true,
           katakana: true
         },
@@ -332,11 +342,11 @@
         last_name: {
           required: "※必須項目です",
         },
-        first_name_kana: {
+        firstname_kana: {
           required: "※必須項目です",
           katakana: "※カタカナで入力してください",
         },
-        last_name_kana: {
+        lastname_kana: {
           required: "※必須項目です",
           katakana: "※カタカナで入力してください",
         },
@@ -384,35 +394,35 @@
   })
 
 
-  $(function() {
-    function ExceptString($target) {
-      $target.numeric({
-        negative: false,
-      });
-      $target.on('change', function() {
-        charactersChange($(this));
-      })
-      charactersChange = function(ele) {
-        var val = ele.val();
-        var han = val.replace(/[Ａ-Ｚａ-ｚ０-９]/g, function(s) {
-          return String.fromCharCode(s.charCodeAt(0) - 0xFEE0)
-        });
-        if (val.match(/[Ａ-Ｚａ-ｚ０-９]/g)) {
-          $(ele).val(han);
-        }
-      }
-    }
-    var post_code = $("input[name^='post_code']");
-    ExceptString(post_code);
-    var luggage_post_code = $("input[name^='luggage_post_code']");
-    var pay_post_code = $("input[name^='pay_post_code']");
-    ExceptString(pay_post_code);
-    var fax = $("input[name^='fax']");
-    ExceptString(fax);
-    var mobile = $("input[name^='mobile']");
-    ExceptString(mobile);
-    var tel = $("input[name^='tel']");
-    ExceptString(tel);
-  });
-</script>
+  // $(function() {
+  //   function ExceptString($target) {
+  //     $target.numeric({
+  //       negative: false,
+  //     });
+  //     $target.on('change', function() {
+  //       charactersChange($(this));
+  //     })
+  //     charactersChange = function(ele) {
+  //       var val = ele.val();
+  //       var han = val.replace(/[Ａ-Ｚａ-ｚ０-９]/g, function(s) {
+  //         return String.fromCharCode(s.charCodeAt(0) - 0xFEE0)
+  //       });
+  //       if (val.match(/[Ａ-Ｚａ-ｚ０-９]/g)) {
+  //         $(ele).val(han);
+  //       }
+  //     }
+  //   }
+  //   var post_code = $("input[name^='post_code']");
+  //   ExceptString(post_code);
+  //   var luggage_post_code = $("input[name^='luggage_post_code']");
+  //   var pay_post_code = $("input[name^='pay_post_code']");
+  //   ExceptString(pay_post_code);
+  //   var fax = $("input[name^='fax']");
+  //   ExceptString(fax);
+  //   var mobile = $("input[name^='mobile']");
+  //   ExceptString(mobile);
+  //   var tel = $("input[name^='tel']");
+  //   ExceptString(tel);
+  // });
+</script> --}}
 @endsection

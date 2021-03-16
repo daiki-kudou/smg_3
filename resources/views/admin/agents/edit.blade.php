@@ -6,6 +6,8 @@
 <script src="{{ asset('/js/template.js') }}"></script>
 <script src="{{ asset('/js/admin/reservation.js') }}"></script>
 <script src="{{ asset('/js/admin/validation.js') }}"></script>
+<script src="{{ asset('/js/ctrl_form.js') }}"></script>
+
 
 <div class="container-fluid">
 
@@ -129,9 +131,11 @@
                 </td>
                 <td>セイ：
                   {{ Form::text('firstname_kana', $agent->firstname_kana, ['class' => 'form-control', 'id'=>'company']) }}
+                  <p class="is-error-firstname_kana" style="color: red"></p>
                 </td>
                 <td>メイ：
                   {{ Form::text('lastname_kana', $agent->lastname_kana, ['class' => 'form-control', 'id'=>'company']) }}
+                  <p class="is-error-lastname_kana" style="color: red"></p>
                 </td>
               </tr>
               <tr>

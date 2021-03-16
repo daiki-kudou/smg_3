@@ -3,6 +3,8 @@
 @section('content')
 {{-- @include('layouts.admin.side') --}}
 <link href="{{ asset('/css/template.css') }}" rel="stylesheet">
+<script src="{{ asset('/js/ctrl_form.js') }}"></script>
+
 
 <!-- フォーム追加 -->
 <script>
@@ -62,7 +64,8 @@
 <div class="p-3 mb-2 bg-white text-dark">
   <div class="w-100 mb-3">
     <span class="d-block mb-2">会場</span>
-    <strong class="border border-light d-block" style="width:100%;">{{$venue->name_area}}{{$venue->name_bldg}}{{$venue->name_venue}}</strong>
+    <strong class="border border-light d-block"
+      style="width:100%;">{{$venue->name_area}}{{$venue->name_bldg}}{{$venue->name_venue}}</strong>
   </div>
   <div class="new_price">
     @if ($errors->any())
@@ -77,7 +80,7 @@
     <div>
       {{ Form::model($time_price, ['route' => 'admin.time_prices.store']) }}
       @csrf
-    <p class="text-right">※金額は税抜で入力してください。</p>
+      <p class="text-right">※金額は税抜で入力してください。</p>
       <table class="table table-bordered">
         <thead>
           <tr>

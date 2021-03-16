@@ -3,6 +3,9 @@
 <script src="{{ asset('/js/template.js') }}"></script>
 <script src="{{ asset('/js/validation.js') }}"></script>
 <link href="{{ asset('/css/template.css') }}" rel="stylesheet">
+<script src="{{ asset('/js/ctrl_form.js') }}"></script>
+
+
 @if ($errors->any())
 <div class="alert alert-danger">
   <ul>
@@ -49,12 +52,10 @@
         <td>{{ ReservationHelper::IdFormat($service->id) }}</td>
         <td>{{ ($service->created_at) }}</td>
         <td>
-          <p class="is-error-item" style="color: white"></p>
           {{ Form::text('item', $service->item, ['class' => 'form-control']) }}
           <p class="is-error-item" style="color: red"></p>
         </td>
         <td>
-          <p class="is-error-price" style="color: white"></p>
           {{ Form::text('price', $service->price, ['class' => 'form-control']) }}
           <p class="is-error-price" style="color: red"></p>
         </td>

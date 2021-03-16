@@ -4,6 +4,7 @@
 <script src="{{ asset('/js/template.js') }}"></script>
 <script src="{{ asset('/js/admin/validation.js') }}"></script>
 <link href="{{ asset('/css/template.css') }}" rel="stylesheet">
+<script src="{{ asset('/js/ctrl_form.js') }}"></script>
 
 
 <style>
@@ -296,9 +297,11 @@
                   <td class="table-active"><label for="first_name_kana">担当者氏名（フリガナ）</label></td>
                   <td>セイ：
                     {{ Form::text('first_name_kana', $venue->first_name, ['class' => 'form-control']) }}
+                    <p class="is-error-first_name_kana" style="color: red"></p>
                   </td>
                   <td>メイ：
                     {{ Form::text('last_name_kana', $venue->last_name, ['class' => 'form-control']) }}
+                    <p class="is-error-last_name_kana" style="color: red"></p>
                   </td>
                 </tr>
                 <tr>
@@ -488,7 +491,8 @@
         </div>
         <select id='equipment_id' multiple='multiple' name="equipment_id[]">
           @for ($i = 0; $i < $m_equipments->count(); $i++)
-            <option value={{$m_equipments[$i]->id}} @foreach ($r_emptys as $r_empty) {{$m_equipments[$i]->id==$r_empty->id?"selected":""}} @endforeach>{{$m_equipments[$i]->item}}
+            <option value={{$m_equipments[$i]->id}} @foreach ($r_emptys as $r_empty)
+              {{$m_equipments[$i]->id==$r_empty->id?"selected":""}} @endforeach>{{$m_equipments[$i]->item}}
             </option>
             @endfor
         </select>
@@ -505,7 +509,8 @@
         </div>
         <select id='service_id' multiple='multiple' name="service_id[]">
           @for ($s = 0; $s < $m_services->count(); $s++)
-            <option value={{$m_services[$s]->id}} @foreach ($s_emptys as $s_empty) {{$m_services[$s]->id==$s_empty->id?"selected":""}} @endforeach>{{$m_services[$s]->item}}
+            <option value={{$m_services[$s]->id}} @foreach ($s_emptys as $s_empty)
+              {{$m_services[$s]->id==$s_empty->id?"selected":""}} @endforeach>{{$m_services[$s]->item}}
             </option>
             @endfor
         </select>

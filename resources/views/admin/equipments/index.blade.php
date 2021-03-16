@@ -3,7 +3,6 @@
 
 <script src="{{ asset('/js/tablesorter/jquery.tablesorter.js') }}"></script>
 <link href="{{ asset('/css/tablesorter/theme.default.min.css') }}" rel="stylesheet">
-
 {{-- <script src="{{ asset('/js/admin/venue.js') }}"></script> --}}
 <link href="{{ asset('/css/template.css') }}" rel="stylesheet">
 
@@ -63,7 +62,7 @@
                 @csrf
               </td>
               <td class="text-center">
-                {{ Form::submit('削除', ['class' => 'btn more_btn4']) }}
+                {{ Form::submit('削除', ['class' => 'btn more_btn4 del_btn']) }}
                 {{ Form::close() }}
               </td>
             </tr>
@@ -80,6 +79,16 @@
   $(function(){
     $("#equipments_sort").tablesorter();
   })
+
+  $(function () {
+  $('.del_btn').on('click', function () {
+    if (!confirm('削除しますか？')) {
+      return false;
+    } else {
+    }
+  })
+})
+
 </script>
 
 @endsection

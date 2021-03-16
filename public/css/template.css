@@ -247,7 +247,7 @@ select:disabled {
 /* 共通--------------------------------------- */
 
 .wrapper {
-    min-width: 1000px !important;
+    min-width: 1200px !important;
     margin: 0 auto !important;
     background-color: #f4f6f9;
 }
@@ -491,7 +491,7 @@ option:disabled  {
     white-space: nowrap;
     text-overflow: ellipsis;
     /* text-overflow: ellipsis clip; */
-    width: 250px;
+    width: 220px;
 }
 
 .remark_scroll {

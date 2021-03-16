@@ -2,8 +2,8 @@
 @section('content')
 <script src="{{ asset('/js/admin/validation.js') }}"></script>
 <link href="{{ asset('/css/template.css') }}" rel="stylesheet">
-{{-- <script src="{{ asset('/js/template.js') }}"></script> --}}
-<script src="{{ asset('/js/admin/reservation.js') }}"></script>
+<script src="{{ asset('/js/template.js') }}"></script>
+<script src="{{ asset('/js/ctrl_form.js') }}"></script>
 
 <style>
   .hide {
@@ -287,11 +287,11 @@
               <td class="table-active"><label for="first_name_kana">担当者氏名（フリガナ）</label></td>
               <td>セイ：
                 {{ Form::text('first_name_kana', old('first_name_kana'), ['class' => 'form-control']) }}
-                <!-- <p class="is-error-first_name_kana" style="color: red"></p> -->
+                <p class="is-error-first_name_kana" style="color: red"></p>
               </td>
               <td>メイ：
                 {{ Form::text('last_name_kana', old('last_name_kana'), ['class' => 'form-control']) }}
-                <!-- <p class="is-error-last_name_kana" style="color: red"></p> -->
+                <p class="is-error-last_name_kana" style="color: red"></p>
               </td>
             </tr>
             <tr>
