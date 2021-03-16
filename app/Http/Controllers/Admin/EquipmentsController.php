@@ -85,9 +85,11 @@ class EquipmentsController extends Controller
    * @param  int  $id
    * @return \Illuminate\Http\Response
    */
-  public function edit($id)
+  public function edit($id, Request $request)
   {
     $eqipment = Equipment::find($id);
+    $request->session()->put('current_page', $request->current_p);
+
     return view('admin.equipments.edit', [
       'eqipment' => $eqipment,
     ]);
@@ -117,8 +119,9 @@ class EquipmentsController extends Controller
       $eqipment->save();
     });
 
+    $current_page = $request->session()->pull('current_page');
     $request->session()->regenerate();
-    return redirect('admin/equipments');
+    return redirect('admin/equipments/?page=' . $current_page);
   }
 
   /**

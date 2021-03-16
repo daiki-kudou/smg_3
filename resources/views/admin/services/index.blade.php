@@ -56,7 +56,7 @@
       </thead>
       <tbody>
         @foreach ($querys as $query)
-        <tr role="row" class="even" style="background: #E3E3E3;">
+        <tr role="row" class="even">
           <td>{{ ReservationHelper::IdFormat($query->id) }}</td>
           <td>{{ ReservationHelper::formatDate($query->created_at) }}</td>
           <td class="s_item">{{ $query->item }}</td>
@@ -67,9 +67,18 @@
             </p>
           </td>
           <td class="text-center">
-            {{ link_to_route('admin.services.edit', '編集', $parameters = $query->id, ['class' => 'btn more_btn']) }}
           </td>
           <td class="text-center">
+            {{-- {{ link_to_route('admin.services.edit', '編集', $parameters = $query->id, ['class' => 'btn more_btn']) }}
+            --}}
+            {{ Form::open(['url' => 'admin/services/'.$query->id."/edit", 'method'=>'GET', 'id'=>'']) }}
+            @csrf
+            {{Form::hidden('current_p',$querys->currentPage() )}}
+            {{ Form::submit('編集', ['class' => 'btn more_btn']) }}
+            {{ Form::close() }}
+
+
+
             {{ Form::model($query, ['route' => ['admin.services.destroy', $query->id], 'method' => 'delete']) }}
             @csrf
             {{Form::hidden("page",$querys->currentPage())}}
