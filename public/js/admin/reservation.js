@@ -14,12 +14,30 @@ $(function () {
     autoclose: false
   });
 });
+
+jQuery(document).on('keydown', '.input_number_only', function (e) {
+  let k = e.keyCode;
+  let str = String.fromCharCode(k);
+  if (!(str.match(/[0-9]/) || (37 <= k && k <= 40) || k === 8 || k === 46)) {
+    return false;
+  }
+});
+
+jQuery(document).on('keyup', '.input_number_only', function (e) {
+  this.value = this.value.replace(/[^0-9]+/i, '');
+});
+
+jQuery(document).on('blur', '.input_number_only', function () {
+  this.value = this.value.replace(/[^0-9]+/i, '');
+});
+
 // 文字、マイナス、数字制御
-$(document).on('click', 'input', function (e) {
+$(document).on('input', 'input', function (e) {
   function ExceptString($target) {
     $target.numeric({ negative: false, });
     $target.on('change', function () {
       charactersChange($(this));
+      checkForm($(this));
     })
     charactersChange = function (ele) {
       var val = ele.val();
@@ -28,7 +46,18 @@ $(document).on('click', 'input', function (e) {
         $(ele).val(han);
       }
     }
+    function checkForm($this) {
+      var str = $this.value;
+      while (str.match(/[^A-Z^a-z\d\-]/)) {
+        str = str.replace(/[^A-Z^a-z\d\-]/, "");
+      }
+      $this.value = str;
+    }
   }
+
+  var tel = $("input[name='size1']");
+  ExceptString(tel);
+
 
   var tel = $("input[name^='tel']");
   ExceptString(tel);
