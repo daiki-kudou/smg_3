@@ -167,7 +167,7 @@
       </thead>
       <tbody>
         @foreach ($querys as $query)
-        <tr role="row" class="even" style="background: #E3E3E3;">
+        <tr role="row" class="even">
           <td>{{$query->attention!=null?'●':''}}</td>
           <td>{{$query->id}}</td>
           <td>{{$query->company}}</td>
