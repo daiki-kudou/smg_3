@@ -153,10 +153,11 @@ table.dataTable thead .sorting_desc:after {
     color: white;
     padding: 1px 5px;
     border-radius: 15%;
+    display: inline-block;
 }
 
 .is-error {
-    background: pink;
+    /* background: pink; */
 }
 
 .hide {
@@ -911,7 +912,7 @@ table td.table_column p:last-child {
 /* 会場 ===================================================================== */
 
 .venue_table th {
-    width: 33%;
+    width: 37%;
 }
 
 .alliance_color {
