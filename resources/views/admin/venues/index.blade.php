@@ -24,13 +24,7 @@
 </div>
 
 <div class="container-field">
-
-  <div class="row">
-    <div class="col-sm-6"></div>
-    <div class="col-sm-6"></div>
-  </div>
-  <div class="row">
-    <div class="col-sm-12">
+    <div class="table-wrap">
       <table class="table table-bordered mt-5" id="venue_index">
         <thead>
           <tr class="table_row">
@@ -83,11 +77,7 @@
       </table>
       {{ $venues->links() }}
     </div>
-  </div>
-  <div class="row">
-    <div class="col-sm-5"></div>
-    <div class="col-sm-7"></div>
-  </div>
+
 </div>
 
 <script>

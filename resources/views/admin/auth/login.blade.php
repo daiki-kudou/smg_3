@@ -10,6 +10,22 @@
     line-height: 48px;
     margin-left: 25px;
   }
+
+  .login_notion {
+    border-top: 1px solid #ddd;
+    padding-top: 1em;
+    margin-top: 2em;
+  }
+
+  .login_notion h5 {
+    font-size: 0.8rem;
+    font-weight: bold;
+    margin-bottom: 0;
+  }
+
+  .login_notion p {
+    margin-bottom: 0;
+  }
 </style>
 <div class="container" style="margin-top: 10%;">
   <div class="row justify-content-center">
@@ -74,18 +90,23 @@
               </div>
             </div>
           </form>
+          <!-- <h5 class="font-bold">推奨ブラウザについて</h5> -->
+          <div class="login_notion">
+            <div class="col-md-8 offset-md-4">
+              <h5>以下の環境でのご利用を推奨いたします。</h5>
+              <p>
+                ・Google Chrome<br>
+                ・Fire Fox<br>
+                ・Edge<br>
+                ・Google Chrome
+              </p>
+            </div>
+          </div>
         </div>
 
-            <!-- <h5 class="font-bold">推奨ブラウザについて</h5> -->
-            <p class="text-center">以下の環境でのご利用を推奨いたします。</p>
-            <p>
-            ・Google Chrome<br>
-            ・Fire Fox<br>
-            ・Edge<br>
-            ・Google Chrome
-            </p>
+
       </div>
-      
+
 
     </div>
   </div>

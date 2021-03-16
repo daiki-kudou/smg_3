@@ -118,13 +118,25 @@
           <li class="nav-item">
             <a href="{{ url('admin/venues') }}" class="nav-link venues-index">
               <i class="far fa-circle nav-icon ml-4"></i>
-              <p>一覧</p>
+              <p>会場一覧</p>
             </a>
           </li>
           <li class="nav-item">
             <a href="{{ url('admin/venues/create') }}" class="nav-link venues-create">
               <i class="far fa-circle nav-icon ml-4"></i>
-              <p>新規登録</p>
+              <p>会場新規登録</p>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a href="{{ url('admin/frame_prices') }}" class="nav-link venues-price">
+              <i class="far fa-circle nav-icon ml-4"></i>
+              <p>会場料金管理</p>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a href="{{ url('admin/dates') }}" class="nav-link venues-dates">
+              <i class="far fa-circle nav-icon ml-4"></i>
+              <p>会場営業時間管理</p>
             </a>
           </li>
           <li class="nav-item">
@@ -137,18 +149,6 @@
             <a href="{{ url('admin/services') }}" class="nav-link venues-services">
               <i class="far fa-circle nav-icon ml-4"></i>
               <p>有料サービス管理</p>
-            </a>
-          </li>
-          <li class="nav-item">
-            <a href="{{ url('admin/dates') }}" class="nav-link venues-dates">
-              <i class="far fa-circle nav-icon ml-4"></i>
-              <p>営業時間管理</p>
-            </a>
-          </li>
-          <li class="nav-item">
-            <a href="{{ url('admin/frame_prices') }}" class="nav-link venues-price">
-              <i class="far fa-circle nav-icon ml-4"></i>
-              <p>料金管理</p>
             </a>
           </li>
         </ul>

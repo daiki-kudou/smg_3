@@ -29,13 +29,11 @@
       <div class="text-right">
         <a href="/admin/equipments/create" class="btn more_btn3">新規登録</a>
       </div>
-      <hr>
     </div>
 
-    <p class="text-right mb-2">※金額は税抜表記になります。</p>
-    <div class="row">
-      <div class="col-sm-12">
-        <table class="table table-bordered mt-5" id="equipments_sort">
+    <p class="text-right mt-4">※金額は税抜表記になります。</p>
+    <div class="">
+        <table class="table table-bordered" id="equipments_sort">
           <thead>
             <tr class="table_row">
               <th>ID</th>
@@ -72,8 +70,7 @@
             @endforeach
           </tbody>
         </table>
-      </div>
-    </div>
+        </div>
   </div>
 </div>
 {{ $equipments->links() }}
