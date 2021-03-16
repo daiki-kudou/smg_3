@@ -207,9 +207,9 @@
           <tr>
             <th class="table-active">{{ Form::label('pay_remark', '請求書備考') }}</th>
             <td>
-              <!-- <p class="remark_scroll"> -->
-                {{$user->pay_remark}}
-              <!-- </p> -->
+              <p class="remark_scroll">
+                {!!nl2br(e($user->pay_remark))!!}
+              </p>
             </td>
           </tr>
         </tbody>
@@ -229,7 +229,9 @@
         </thead>
         <tbody>
           <tr>
-            <td class="caution">{{$user->attention}}</td>
+            <td class="caution">
+              {!!nl2br(e($user->attention))!!}
+            </td>
           </tr>
 
         </tbody>
@@ -244,7 +246,9 @@
         </thead>
         <tbody>
           <tr>
-            <td>{{$user->remark}}</td>
+            <td>
+              {!!nl2br(e($user->remark))!!}
+            </td>
           </tr>
           </thead>
         </tbody>

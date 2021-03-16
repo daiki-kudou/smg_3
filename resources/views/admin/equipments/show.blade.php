@@ -16,7 +16,9 @@
 </div>
 <div class="form-group">
   {{ Form::label('remark', '備考') }}
-  <div>{{$eqipment->remark}}</div>
+  <div>{!! nl2br(e($eqipment->remark)) !!}</div>
+
+
 </div>
 
 {{ link_to_route('admin.equipments.edit', '編集する', $parameters = $eqipment->id, ['class' => 'btn btn-primary']) }}

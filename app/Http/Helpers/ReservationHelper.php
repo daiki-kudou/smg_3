@@ -457,4 +457,20 @@ class ReservationHelper
       return $item;
     }
   }
+
+  public static function getController($route, $target1, $target2)
+  {
+    $controllerName1 = explode('.', $route)[0];
+    $controllerName2 = explode('.', $route)[1];
+    if ($controllerName1 == $target1 && $controllerName2 == $target2) {
+      return "menu-open";
+    }
+  }
+
+  public static function getRoute($route, $target)
+  {
+    if ($route == $target) {
+      return "active";
+    }
+  }
 }

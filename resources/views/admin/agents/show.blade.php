@@ -25,7 +25,7 @@
       <div>
         {{ Form::model($agent, ['route' => ['admin.agents.destroy', $agent->id], 'method' => 'delete']) }}
         @csrf
-        {{ Form::submit('削除する', ['class' => 'btn more_btn4']) }}
+        {{ Form::submit('削除する', ['class' => 'btn more_btn4 del_btn']) }}
         {{ Form::close() }}
 
       </div>
@@ -98,7 +98,9 @@
             </tr>
             <tr>
               <td class="table-active"><label for="remark">備考</label></td>
-              <td>{{ $agent->payment_remark }}</td>
+              <td>
+                {!!nl2br(e($agent->payment_remark))!!}
+              </td>
             </tr>
           </tbody>
         </table>
@@ -142,11 +144,15 @@
             </tr>
             <tr>
               <th class="table-active"><label for="alliance_remark">提携会場備考</label></th>
-              <td>{{ $agent->agent_remark }}</td>
+              <td>
+                {!!nl2br(e($agent->agent_remark))!!}
+              </td>
             </tr>
             <tr>
               <th class="table-active"><label for="site_remark">備考</label></th>
-              <td>{{ $agent->site_remark }}</td>
+              <td>
+                {!!nl2br(e($agent->site_remark))!!}
+              </td>
             </tr>
           </tbody>
         </table>
@@ -175,7 +181,9 @@
             </tr>
             <tr>
               <th class="table-active"><label for="deal_remark">備考</label></th>
-              <td>{{ $agent->cxl_remark }}</td>
+              <td>
+                {!!nl2br(e($agent->cxl_remark))!!}
+              </td>
             </tr>
           </tbody>
         </table>
@@ -196,7 +204,9 @@
             </tr>
             <tr>
               <th class="table-active"><label for="pay_remark">備考</label></th>
-              <td>{{ $agent->last_remark }}</td>
+              <td>
+                {!!nl2br(e($agent->last_remark))!!}
+              </td>
             </tr>
           </tbody>
         </table>
@@ -209,4 +219,16 @@
     </div>
   </section>
 </div>
+
+
+<script>
+  $(function () {
+  $('.del_btn').on('click', function () {
+    if (!confirm('削除しますか？')) {
+      return false;
+    } 
+  })
+})
+
+</script>
 @endsection

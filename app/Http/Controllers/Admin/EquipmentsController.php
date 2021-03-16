@@ -127,10 +127,17 @@ class EquipmentsController extends Controller
    * @param  int  $id
    * @return \Illuminate\Http\Response
    */
-  public function destroy($id)
+  public function destroy($id, Request $request)
   {
     $eqipment = Equipment::find($id);
-    $eqipment->delete();
-    return redirect('admin/equipments');
+    DB::transaction(function () use ($eqipment) {
+      $eqipment->delete();
+    });
+
+    if ($request->page == 1) {
+      return redirect('admin/equipments');
+    } else {
+      return redirect(url("admin/equipments?page=" . $request->page));
+    }
   }
 }

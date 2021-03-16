@@ -62,14 +62,18 @@
               <td>{{ $query->item }}</td>
               <td class="text-right">{{ number_format($query->price) }}</td>
               <td>
-                <p class="remark_limit">{{ $query->remark }}</p>
+                <p class="remark_limit">
+                  {!!nl2br(e($query->remark))!!}
+                </p>
+              </td>
+              <td class="text-center">
+
               </td>
               <td class="text-center">
                 {{ link_to_route('admin.services.edit', '編集', $parameters = $query->id, ['class' => 'btn more_btn']) }}
                 {{ Form::model($query, ['route' => ['admin.services.destroy', $query->id], 'method' => 'delete']) }}
                 @csrf
-              </td>
-              <td class="text-center">
+                {{Form::hidden("page",$querys->currentPage())}}
                 {{ Form::submit('削除', ['class' => 'btn more_btn4 del_btn']) }}
                 {{ Form::close() }}
               </td>

@@ -146,8 +146,14 @@
               </td>
             </tr>
             <tr>
+<<<<<<< HEAD
               <th class="table-active"><label for="remark">備考</label></th>
               <td> {{ $venue->remark }}
+=======
+              <td class="table-active"><label for="remark">備考</label></td>
+              <td>
+                {!!nl2br(e($venue->remark))!!}
+>>>>>>> 073493948e44d04f9ee31db00c7ea892b49d3b5e
               </td>
             </tr>
 
@@ -318,8 +324,9 @@
               </td>
             </tr>
             <tr>
-              <th class="table-active"><label for="mgmt_remark">備考</label></th>
-              <td colspan="2"> {{ $venue->mgmt_remark}}
+              <td class="table-active"><label for="mgmt_remark">備考</label></td>
+              <td colspan="2">
+                {!!nl2br(e($venue->mgmt_remark))!!}
               </td>
             </tr>
           </tbody>
