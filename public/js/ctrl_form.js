@@ -33,3 +33,4 @@ CTRLForm("input[name='person_mobile']");
 CTRLForm("input[name='cost']");
 CTRLForm("input[name='tel']");
 CTRLForm("input[name='pay_post_code']");
+CTRLForm("input[name='mobile']");

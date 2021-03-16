@@ -1,6 +1,7 @@
 @extends('layouts.admin.app')
 @section('content')
 <link href="{{ asset('/css/template.css') }}" rel="stylesheet">
+<script src="{{ asset('/js/admin/validation.js') }}"></script>
 <script src="{{ asset('/js/ctrl_form.js') }}"></script>
 
 
@@ -38,12 +39,11 @@
     </div>
     @endif
 
-
+    {{ Form::open(['url' => 'admin/clients', 'method'=>'POST', 'id'=>'ClientsCreateForm']) }}
+    @csrf
     <section class="section-wrap">
       <div class="row">
         <div class="col">
-          {{ Form::open(['url' => 'admin/clients', 'method'=>'POST', 'id'=>'ClientsCreateForm']) }}
-          @csrf
           <table class="table table-bordered">
             <thead>
               <tr>
@@ -265,165 +265,11 @@
         </div>
       </div>
     </section>
-
     {{Form::hidden("admin_or_user",1)}}
     {{ Form::submit('登録する', ['class' => 'btn more_btn_lg d-block btn-lg mx-auto my-5']) }}
     {{ Form::close() }}
   </div>
-  <script>
-    // カタカナ
-    jQuery.validator.addMethod("katakana", function(value, element) {
-      return this.optional(element) || /^([ァ-ヶー]+)$/.test(value);
-    }, "<br/>全角カタカナを入力してください");
 
-    // 顧客新規作成 バリデーション
-    $(function() {
-      $("#ClientsCreateForm").validate({
-        rules: {
-          company: {
-            required: true,
-          },
-          post_code: {
-            maxlength: 7
-          },
-          url: {
-            url: true
-          },
-          first_name: {
-            required: true,
-          },
-          last_name: {
-            required: true,
-          },
-          first_name_kana: {
-            required: true,
-            katakana: true
-          },
-          last_name_kana: {
-            required: true,
-            katakana: true
-          },
-          mobile: {
-            required: true,
-            minlength: 11
-          },
-          tel: {
-            minlength: 10
-          },
-          email: {
-            required: true,
-            email: true
-          },
-          pay_metdod: {
-            required: true,
-          },
-          pay_limit: {
-            required: true,
-          },
-          pay_post_code: {
-            maxlength: 7
-          },
-        },
-        messages: {
-          company: {
-            required: "※必須項目です",
-          },
-          post_code: {
-            required: "※必須項目です",
-            maxlength: '７桁で入力してください'
-          },
-          url: {
-            url: '正しいURLを記入してください(例:https://osaka-conference.com/)'
-          },
-          first_name: {
-            required: "※必須項目です",
-          },
-          last_name: {
-            required: "※必須項目です",
-          },
-          first_name_kana: {
-            required: "※必須項目です",
-            katakana: "※カタカナで入力してください",
-          },
-          last_name_kana: {
-            required: "※必須項目です",
-            katakana: "※カタカナで入力してください",
-          },
-          mobile: {
-            required: "※必須項目です",
-            minlength: '※最低桁数は11です',
-          },
-          tel: {
-            minlength: '※最低桁数は10です',
-          },
-          email: {
-            required: "※必須項目です",
-            email: '※Emailの形式で入力してください',
-          },
-          pay_metdod: {
-            required: "※必須項目です",
-          },
-          pay_limit: {
-            required: "※必須項目です",
-          },
-          pay_post_code: {
-            maxlength: 7
-          },
-        },
-        errorPlacement: function(error, element) {
-          var name = element.attr('name');
-          if (element.attr('name') === 'category[]') {
-            error.appendTo($('.is-error-category'));
-          } else if (element.attr('name') === name) {
-            error.appendTo($('.is-error-' + name));
-          }
-        },
-        errorElement: "span",
-        errorClass: "is-error",
-        //送信前にLoadingを表示
-        submitHandler: function(form) {
-          $('.approval').addClass('hide');
-          $('.loading').removeClass('hide');
-          form.submit();
-        }
-      });
-      $('input').on('blur', function() {
-        $(this).valid();
-      });
-    })
-
-
-    $(function() {
-      function ExceptString($target) {
-        $target.numeric({
-          negative: false,
-        });
-        $target.on('change', function() {
-          charactersChange($(this));
-        })
-        charactersChange = function(ele) {
-          var val = ele.val();
-          var han = val.replace(/[Ａ-Ｚａ-ｚ０-９]/g, function(s) {
-            return String.fromCharCode(s.charCodeAt(0) - 0xFEE0)
-          });
-          if (val.match(/[Ａ-Ｚａ-ｚ０-９]/g)) {
-            $(ele).val(han);
-          }
-        }
-      }
-      var post_code = $("input[name^='post_code']");
-      ExceptString(post_code);
-      var luggage_post_code = $("input[name^='luggage_post_code']");
-      var pay_post_code = $("input[name^='pay_post_code']");
-      ExceptString(pay_post_code);
-      var fax = $("input[name^='fax']");
-      ExceptString(fax);
-      var mobile = $("input[name^='mobile']");
-      ExceptString(mobile);
-      var tel = $("input[name^='tel']");
-      ExceptString(tel);
-    });
-  </script>
 
   <script>
     $(function() {

@@ -287,11 +287,11 @@
               <td class="table-active"><label for="first_name_kana">担当者氏名（フリガナ）</label></td>
               <td>セイ：
                 {{ Form::text('first_name_kana', old('first_name_kana'), ['class' => 'form-control']) }}
-                <!-- <p class="is-error-first_name_kana" style="color: red"></p> -->
+                <p class="is-error-first_name_kana" style="color: red"></p>
               </td>
               <td>メイ：
                 {{ Form::text('last_name_kana', old('last_name_kana'), ['class' => 'form-control']) }}
-                <!-- <p class="is-error-last_name_kana" style="color: red"></p> -->
+                <p class="is-error-last_name_kana" style="color: red"></p>
               </td>
             </tr>
             <tr>

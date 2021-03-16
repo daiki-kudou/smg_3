@@ -714,6 +714,12 @@ $(function () {
       payment_limit: {
         required: true,
       },
+      firstname_kana: {
+        katakana: true,
+      },
+      lastname_kana: {
+        katakana: true,
+      },
     },
     messages: {
       name: {
@@ -741,6 +747,12 @@ $(function () {
       cost: {
         required: "※必須項目です",
         range: "※1から100までの数値を入力してください"
+      },
+      firstname_kana: {
+        katakana: "※カタカナで入力してください",
+      },
+      lastname_kana: {
+        katakana: "※カタカナで入力してください",
       },
 
     },
@@ -799,6 +811,13 @@ $(function () {
       payment_limit: {
         required: true,
       },
+      firstname_kana: {
+        katakana: true,
+      },
+      lastname_kana: {
+        katakana: true,
+      },
+
     },
     messages: {
       name: {
@@ -827,6 +846,14 @@ $(function () {
         required: "※必須項目です",
         range: "※1から100までの数値を入力してください"
       },
+      firstname_kana: {
+        katakana: "カタカナで入力してください",
+      },
+      lastname_kana: {
+        katakana: "カタカナで入力してください",
+      },
+
+
 
     },
     errorPlacement: function (error, element) {
@@ -1222,6 +1249,12 @@ $(function () {
       luggage_flag: {
         required: "※必須項目です",
       },
+      first_name_kana: {
+        katakana: "※カタカナで入力してください",
+      },
+      last_name_kana: {
+        katakana: "※カタカナで入力してください",
+      },
       // luggage_post_code: {
       //   required: "※必須項目です",
       // },
@@ -1328,10 +1361,165 @@ $(function () {
     // }
   });
 });
+// 顧客管理　新規作成
+$(function () {
+  $("#ClientsCreateForm").validate({
+    rules: {
+      company: {
+        required: true,
+      },
+      first_name: {
+        required: true,
+      },
+      last_name: {
+        required: true,
+      },
+      first_name_kana: {
+        required: true,
+        katakana: true,
+      },
+      last_name_kana: {
+        required: true,
+        katakana: true,
+      },
+      mobile: {
+        required: true,
+      },
+      email: {
+        required: true,
+      },
+    },
+    messages: {
+      company: {
+        required: "※必須項目です",
+      },
+      first_name: {
+        required: "※必須項目です",
+      },
+      last_name: {
+        required: "※必須項目です",
+      },
+      first_name_kana: {
+        required: "※必須項目です",
+        katakana: "※カタカナで入力してください",
+      },
+      last_name_kana: {
+        required: "※必須項目です",
+        katakana: "※カタカナで入力してください",
+      },
+      mobile: {
+        required: "※必須項目です",
+      },
+      email: {
+        required: "※必須項目です",
+      },
+
+    },
+    errorPlacement: function (error, element) {
+      var name = element.attr('name');
+      if (element.attr('name') === 'category[]') {
+        error.appendTo($('.is-error-category'));
+      } else if (element.attr('name') === name) {
+        error.appendTo($('.is-error-' + name));
+      }
+    },
+    errorElement: "span",
+    errorClass: "is-error",
+    //送信前にLoadingを表示
+    submitHandler: function (form) {
+      $('.approval').addClass('hide');
+      $('.loading').removeClass('hide');
+      form.submit();
+    }
+  });
+  $('input').on('blur', function () {
+    $(this).valid();
+    // if ($('span').hasClass('is-error')) {
+    //   $('span').css('background', 'white');
+    // }
+  });
+});
+// 顧客管理　編集
+$(function () {
+  $("#ClientsEditForm").validate({
+    rules: {
+      company: {
+        required: true,
+      },
+      first_name: {
+        required: true,
+      },
+      last_name: {
+        required: true,
+      },
+      first_name_kana: {
+        required: true,
+        katakana: true,
+      },
+      last_name_kana: {
+        required: true,
+        katakana: true,
+      },
+      mobile: {
+        required: true,
+      },
+      email: {
+        required: true,
+      },
+    },
+    messages: {
+      company: {
+        required: "※必須項目です",
+      },
+      first_name: {
+        required: "※必須項目です",
+      },
+      last_name: {
+        required: "※必須項目です",
+      },
+      first_name_kana: {
+        required: "※必須項目です",
+        katakana: "※カタカナで入力してください",
+      },
+      last_name_kana: {
+        required: "※必須項目です",
+        katakana: "※カタカナで入力してください",
+      },
+      mobile: {
+        required: "※必須項目です",
+      },
+      email: {
+        required: "※必須項目です",
+      },
+
+    },
+    errorPlacement: function (error, element) {
+      var name = element.attr('name');
+      if (element.attr('name') === 'category[]') {
+        error.appendTo($('.is-error-category'));
+      } else if (element.attr('name') === name) {
+        error.appendTo($('.is-error-' + name));
+      }
+    },
+    errorElement: "span",
+    errorClass: "is-error",
+    //送信前にLoadingを表示
+    submitHandler: function (form) {
+      $('.approval').addClass('hide');
+      $('.loading').removeClass('hide');
+      form.submit();
+    }
+  });
+  $('input').on('blur', function () {
+    $(this).valid();
+    // if ($('span').hasClass('is-error')) {
+    //   $('span').css('background', 'white');
+    // }
+  });
+});
 
 
 
-// testtesttesttesttesttesttesttesttesttesttesttest
 $(function () {
   var target = $("input[name^='tel_copied']");
 
@@ -1372,4 +1560,9 @@ $(function () {
       // }
     });
   }
+})
+
+
+$(function () {
+
 })

@@ -131,9 +131,11 @@
                 </td>
                 <td>セイ：
                   {{ Form::text('firstname_kana', $agent->firstname_kana, ['class' => 'form-control', 'id'=>'company']) }}
+                  <p class="is-error-firstname_kana" style="color: red"></p>
                 </td>
                 <td>メイ：
                   {{ Form::text('lastname_kana', $agent->lastname_kana, ['class' => 'form-control', 'id'=>'company']) }}
+                  <p class="is-error-lastname_kana" style="color: red"></p>
                 </td>
               </tr>
               <tr>
