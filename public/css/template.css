@@ -1,12 +1,13 @@
 @charset "UTF-8";
 
 html {
-    font-size: 12px;
+    font-size: 14px;
 }
 
 body {
     font-family: -apple-system, 'Helvetica Neue', 'Hiragino Kaku Gothic ProN', '游ゴシック', 'メイリオ', meiryo, sans-serif;
-    font-size: 12px;
+    font-size: 14px;
+    color: #333;
 }
 
 /* venues. index */
@@ -152,10 +153,11 @@ table.dataTable thead .sorting_desc:after {
     color: white;
     padding: 1px 5px;
     border-radius: 15%;
+    display: inline-block;
 }
 
 .is-error {
-    background: pink;
+    /* background: pink; */
 }
 
 .hide {
@@ -225,8 +227,13 @@ h5 {
     margin-bottom: 0;
 }
 
-table {
+h2 {
+    font-weight: bold;
+}
+
+.table {
     font-size: 1rem;
+    background-color: #fff;
 }
 
 select:disabled {
@@ -240,17 +247,20 @@ select:disabled {
 /* 共通--------------------------------------- */
 
 .wrapper {
-    min-width: 1000px !important;
+    min-width: 1200px !important;
     margin: 0 auto !important;
+    background-color: #f4f6f9;
 }
 
 .content-wrapper {
-    background: #fff;
+    /* background: #fff; */
+    background-color: #f4f6f9;
     padding-bottom: 100px;
 }
 
 .breadcrumb {
-    background: #fff;
+    /* background: #fff; */
+    background: transparent;
 }
 
 .breadcrumb-item.active {
@@ -321,6 +331,7 @@ select:disabled {
     /* display: block; */
     position: relative;
     min-width: 100px;
+    background-color: #fff;
 }
 
 .more_btn3:hover {
@@ -446,7 +457,7 @@ select:disabled {
 
 .table_row th {
     text-align: center;
-    background: rgba(0, 0, 0, 0.075);
+    /* background: rgba(0, 0, 0, 0.075); */
 }
 
 
@@ -473,13 +484,21 @@ option:disabled  {
     background-color: #ccc;
 }
 
+.form-control::placeholder{
+    color: #c9c9c9;
+
+}
+
+
+
 /* 備考の長さ制限 -----------------------------*/
 .remark_limit {
     height: 100%;
     overflow: hidden;
     white-space: nowrap;
     text-overflow: ellipsis;
-    width: 150px;
+    /* text-overflow: ellipsis clip; */
+    width: 220px;
 }
 
 .remark_scroll {
@@ -522,40 +541,6 @@ option:disabled  {
     transition: 0.5s;
 }
 
-/* .plus_icon {
-    display: block;
-    position: relative;
-    width: 20px;
-    width: 100%;
-    height: 20px;
-    cursor: pointer;
-}
-
-.plus_icon::before,
-.plus_icon::after {
-    content: '';
-    display: block;
-    width: 15px;
-    height: 3px;
-    border-radius: 5px;
-    background: #35a7a7;
-    position: absolute;
-    right: 0;
-    top: 50%;
-    transform: translateY(-50%);
-}
-
-.plus_icon::after {
-    background: #35a7a7;
-    transform: translateY(-50%) rotate(90deg);
-    transition: 0.5s;
-}
-
-.plus_icon.active::after {
-    transform: rotate(0);
-    transition: 0.5s;
-} */
-
 /* 検索--------------------------------------- */
 
 .search-wrap {
@@ -594,8 +579,8 @@ option:disabled  {
 
 .table th.search_item_name {
     width: 140px;
-    /* background: #35a7a7; */
-    background:rgb(53 167 167 / 80%);;
+    /* background:rgb(53 167 167 / 80%); */
+    background: #17a2b8;
     margin-bottom: 0;
     color: #fff;
     /* text-align: center; */
@@ -679,6 +664,22 @@ table td.table_column p:last-child {
 .use_history {
     margin: 50px 0;
 }
+
+/* tablesorter css 上書き ------------------------------------*/
+.tablesorter-default {
+    font-family: -apple-system, 'Helvetica Neue', 'Hiragino Kaku Gothic ProN', '游ゴシック', 'メイリオ', meiryo, sans-serif;
+    font-size: 14px;
+    color: #333;
+}
+
+.tablesorter-default tr.even>td {
+    background-color: #fff;
+}
+
+.tablesorter-default .tablesorter-header {
+    white-space: nowrap;
+}
+
 
 /* 予約新規 -----------------------------------------------------*/
 
@@ -931,17 +932,42 @@ table td.table_column p:last-child {
     cursor: pointer;
 }
 
+/* 顧客 ===================================================================== */
+.client_table th {
+    width: 45%;
+    /* width: 200px; */
+}
+
 
 /* 会場 ===================================================================== */
 
 .venue_table th {
-    width: 33%;
+    width: 45%;
+    /* width: 200px; */
+}
+
+.option_list {
+    background: #fff;
+}
+
+.option_list li {
+    padding: 0.3em 0;
+    border-bottom: 1px solid #dee2e6;
+}
+
+.option_list li:last-child {
+    border-bottom: none;
 }
 
 .alliance_color {
     color: red;
 }
 
+/* 会場 ===================================================================== */
+.agent_table th {
+    width: 45%;
+    /* width: 200px; */
+}
 
 
 /* =============売上請求　一覧================================================ */

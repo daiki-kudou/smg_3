@@ -136,7 +136,7 @@
               {{ReservationHelper::getRoute(Route::currentRouteName(),'admin.venues.edit')}}
               ">
               <i class="far fa-circle nav-icon ml-4"></i>
-              <p>一覧</p>
+              <p>会場一覧</p>
             </a>
           </li>
           <li class="nav-item">
@@ -144,7 +144,7 @@
             {{ReservationHelper::getRoute(Route::currentRouteName(),'admin.venues.create')}}
             ">
               <i class="far fa-circle nav-icon ml-4"></i>
-              <p>新規登録</p>
+              <p>会場新規登録</p>
             </a>
           </li>
           <li class="nav-item">
@@ -154,7 +154,7 @@
             {{ReservationHelper::getRoute(Route::currentRouteName(),'admin.equipments.create')}}
             ">
               <i class="far fa-circle nav-icon ml-4"></i>
-              <p>有料備品管理</p>
+              <p>会場料金管理</p>
             </a>
           </li>
           <li class="nav-item">
@@ -164,7 +164,7 @@
             {{ReservationHelper::getRoute(Route::currentRouteName(),'admin.services.create')}}
             ">
               <i class="far fa-circle nav-icon ml-4"></i>
-              <p>有料サービス管理</p>
+              <p>会場営業時間管理</p>
             </a>
           </li>
           <li class="nav-item">
@@ -174,7 +174,7 @@
             {{ReservationHelper::getRoute(Route::currentRouteName(),'admin.dates.create')}}
             ">
               <i class="far fa-circle nav-icon ml-4"></i>
-              <p>営業時間管理</p>
+              <p>有料備品管理</p>
             </a>
           </li>
           <li class="nav-item">
@@ -185,7 +185,7 @@
             {{ReservationHelper::getRoute(Route::currentRouteName(),'admin.time_prices.edit')}}
             ">
               <i class="far fa-circle nav-icon ml-4"></i>
-              <p>料金管理</p>
+              <p>有料サービス管理</p>
             </a>
           </li>
         </ul>
@@ -309,7 +309,7 @@
     // }
 
 
-    
+
     // function explodeLink(tarArray, resultNum, tarClass){
     //   var path = location.pathname;
     //   var result = path.split('/');
@@ -329,14 +329,14 @@
     //     console.log("あってる");
     //   }
     // }
-    
+
     // explodeLink(["admin","venues"],2,'venues-index');
     // explodeLink(["admin","venues","create"],3,'venues-create');
 
 
     // link_check('/admin/venues', 'venues-index');
     // get_show('/admin/venues/', 'venues-index');
-    
+
 
     // link_check('/admin/venues/create', 'venues-create');
     // link_check('/admin/equipments', 'venues-equipments');

@@ -40,10 +40,10 @@
           <th>ID</th>
           <th>登録日</th>
           <th class="form_required">有料備品名</th>
-          <th class="form_required">料金</th>
+          <th class="form_required">料金<span class="ml-1 annotation">※税抜</span></th>
           <th class="form_required">数量</th>
           <th>備考</th>
-          <th>更新</th>
+          <th></th>
         </tr>
       </thead>
       <tbody>

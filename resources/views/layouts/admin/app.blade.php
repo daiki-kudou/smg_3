@@ -4,7 +4,7 @@
 <head>
   <meta charset="utf-8">
   <!-- <meta name="viewport" content="width=device-width, initial-scale=1"> -->
-  <meta name="viewport" content="width=1000, initial-scale=1">
+  <meta name="viewport" content="width=1200, initial-scale=1">
 
   <!-- CSRF Token -->
   <meta name="csrf-token" content="{{ csrf_token() }}">
@@ -111,7 +111,7 @@
     <aside class="main-sidebar sidebar-dark-primary elevation-4">
       <!-- Brand Logo -->
       <a href="/admin/home" class="brand-link">
-        <span class="brand-text font-weight-light">SMGアクセア貸会議室</span>
+        <span class="brand-text font-weight-light">SMGアクセア貸会議室<br>管理画面</span>
       </a>
 
       @include('layouts.admin.side')

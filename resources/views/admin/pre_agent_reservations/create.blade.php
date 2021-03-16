@@ -21,7 +21,7 @@
       </ol>
     </nav>
   </div>
-  <h2 class="mt-3 mb-3">仲介会社　仮押え 新規作成</h2>
+  <h2 class="mt-3 mb-3">仲介会社　仮押え 新規登録</h2>
   <hr>
 </div>
 

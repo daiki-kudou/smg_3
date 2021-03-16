@@ -435,16 +435,36 @@ $(function () {
 $(function () {
   $("#multipleEditForm").validate({
     rules: {
-      enduser_charge: {
-        required: true,
+      cp_master_tel: {
+        number: true,
+        minlength: 11
+      },
+      cp_master_luggage_count: {
+        number: true,
+      },
+      cp_master_luggage_return: {
+        number: true,
+      },
+      cp_master_luggage_price: {
+        number: true,
       },
       cp_master_cost: {
         range: [1, 100]
       },
     },
     messages: {
-      enduser_charge: {
-        required: '※必須項目です',
+      cp_master_tel: {
+        number: '※半角数字を入力してください',
+        minlength: '※最低桁数は11です',
+      },
+      cp_master_luggage_count: {
+        number: '※半角数字を入力してください',
+      },
+      cp_master_luggage_return: {
+        number: '※半角数字を入力してください',
+      },
+      cp_master_luggage_price: {
+        number: '※半角数字を入力してください',
       },
       cp_master_cost: {
         range: '※1から100までの数値を入力してください',
@@ -475,24 +495,97 @@ $(function () {
   });
 })
 
+// 一括仮押さえ　編集画面　タブ内　　
+$(function () {
+  var target = $("input[name^='tel_copied']");
+
+  for (let index = 0; index < target.length; index++) {
+    var telcopied = "tel_copied" + index;
+    var luggagecountcopied = "luggage_count_copied" + index;
+    var luggagereturncopied = "luggage_return_copied" + index;
+    $("#multipleSpecificUpdateForm" + index).validate({
+      rules: {
+        [telcopied]: {
+          number: true,
+        },
+        [luggagecountcopied]: {
+          number: true,
+        },
+        [luggagereturncopied]: {
+          number: true,
+        },
+      },
+      messages: {
+        [telcopied]: {
+          number: "※半角数字で入力してください",
+        },
+        [luggagecountcopied]: {
+          number: "※半角数字で入力してください",
+        },
+        [luggagereturncopied]: {
+          number: "※半角数字で入力してください",
+        },
+      },
+      errorPlacement: function (error, element) {
+        var name = element.attr('name');
+        if (element.attr('name') === 'category[]') {
+          error.appendTo($('.is-error-category'));
+        } else if (element.attr('name') === name) {
+          error.appendTo($('.is-error-' + name));
+        }
+      },
+      errorElement: "span",
+      errorClass: "is-error",
+      //送信前にLoadingを表示
+      submitHandler: function (form) {
+        $('.approval').addClass('hide');
+        $('.loading').removeClass('hide');
+        form.submit();
+      }
+    });
+    $('input').on('blur', function () {
+      $(this).valid();
+      // if ($('span').hasClass('is-error')) {
+      //   $('span').css('background', 'white');
+      // }
+    });
+  }
+})
+
 // 一括仮押さえ　編集の計算
 $(function () {
   $("#multipleCalculateForm").validate({
     rules: {
-      enduser_charge: {
-        required: true,
+      cp_master_tel: {
+        number: true,
+        minlength: 11
       },
-      cp_master_cost: {
-        range: [1, 100]
+      cp_master_luggage_count: {
+        number: true,
       },
+      cp_master_luggage_return: {
+        number: true,
+      },
+      cp_master_luggage_price: {
+        number: true,
+      },
+
     },
     messages: {
-      enduser_charge: {
-        required: '※必須項目です',
+      cp_master_tel: {
+        number: '※半角数字で入力してください',
+        minlength: '※最低桁数は11です',
       },
-      cp_master_cost: {
-        range: '※1から100までの数値を入力してください',
+      cp_master_luggage_count: {
+        number: '※半角数字で入力してください',
       },
+      cp_master_luggage_return: {
+        number: '※半角数字で入力してください',
+      },
+      cp_master_luggage_price: {
+        number: '※半角数字で入力してください',
+      },
+
     },
     errorPlacement: function (error, element) {
       var name = element.attr('name');
@@ -517,6 +610,71 @@ $(function () {
     //   $('span').css('background', 'white');
     // }
   });
+})
+
+
+// 一括仮押さえ　編集の計算　タブ内　
+$(function () {
+  var target = $("input[name^='tel_copied']");
+
+  for (let index = 0; index < target.length; index++) {
+    var telcopied = "tel_copied" + index;
+    var luggagecountcopied = "luggage_count_copied" + index;
+    var luggagereturncopied = "luggage_return_copied" + index;
+    var luggagepricecopied = "luggage_price_copied" + index;
+    $("#multipleCalculateSpecificUpdateForm" + index).validate({
+      rules: {
+        [telcopied]: {
+          number: true,
+        },
+        [luggagecountcopied]: {
+          number: true,
+        },
+        [luggagereturncopied]: {
+          number: true,
+        },
+        [luggagepricecopied]: {
+          number: true,
+        },
+      },
+      messages: {
+        [telcopied]: {
+          number: "※半角数字で入力してください",
+        },
+        [luggagecountcopied]: {
+          number: "※半角数字で入力してください",
+        },
+        [luggagereturncopied]: {
+          number: "※半角数字で入力してください",
+        },
+        [luggagepricecopied]: {
+          number: "※半角数字で入力してください",
+        },
+      },
+      errorPlacement: function (error, element) {
+        var name = element.attr('name');
+        if (element.attr('name') === 'category[]') {
+          error.appendTo($('.is-error-category'));
+        } else if (element.attr('name') === name) {
+          error.appendTo($('.is-error-' + name));
+        }
+      },
+      errorElement: "span",
+      errorClass: "is-error",
+      //送信前にLoadingを表示
+      submitHandler: function (form) {
+        $('.approval').addClass('hide');
+        $('.loading').removeClass('hide');
+        form.submit();
+      }
+    });
+    $('input').on('blur', function () {
+      $(this).valid();
+      // if ($('span').hasClass('is-error')) {
+      //   $('span').css('background', 'white');
+      // }
+    });
+  }
 })
 
 // 一括仮押え 仲介会社 編集
@@ -526,10 +684,22 @@ $(function () {
       cp_master_enduser_charge: {
         required: true,
       },
+      cp_master_luggage_count: {
+        number: true,
+      },
+      cp_master_luggage_return: {
+        number: true,
+      },
     },
     messages: {
       cp_master_enduser_charge: {
         required: '※必須項目です',
+      },
+      cp_master_luggage_count: {
+        number: '※半角数字で入力してください',
+      },
+      cp_master_luggage_return: {
+        number: '※半角数字で入力してください',
       },
     },
     errorPlacement: function (error, element) {
@@ -557,43 +727,75 @@ $(function () {
   });
 })
 
-// 一括仮押え 仲介会社 編集
+// 一括仮押さえ　仲介会社 編集　タブ内　
 $(function () {
-  $("#master_form").validate({
-    rules: {
-      enduser_charge_copied: {
-        required: true,
+  var target = $("input[name^='enduser_charge_copied']");
+
+  for (let index = 0; index < target.length; index++) {
+    var enduserchargecopied = "enduser_charge_copied" + index;
+    var luggagecountcopied = "luggage_count_copied" + index;
+    var luggagereturncopied = "luggage_return_copied" + index;
+    var luggagepricecopied = "luggage_price_copied" + index;
+    $("#multiplesAgentSpecificUpdateEdit" + index).validate({
+      rules: {
+        [enduserchargecopied]: {
+          required: true,
+        },
+        [luggagecountcopied]: {
+          number: true,
+        },
+        [luggagereturncopied]: {
+          number: true,
+        },
+        [luggagepricecopied]: {
+          number: true,
+        },
       },
-    },
-    messages: {
-      enduser_charge_copied: {
-        required: '※必須項目です',
+      messages: {
+        [enduserchargecopied]: {
+          required: "※必須項目です",
+        },
+        [luggagecountcopied]: {
+          number: "※半角数字で入力してください",
+        },
+        [luggagereturncopied]: {
+          number: "※半角数字で入力してください",
+        },
+        [luggagepricecopied]: {
+          number: "※半角数字で入力してください",
+        },
       },
-    },
-    errorPlacement: function (error, element) {
-      var name = element.attr('name');
-      if (element.attr('name') === 'category[]') {
-        error.appendTo($('.is-error-category'));
-      } else if (element.attr('name') === name) {
-        error.appendTo($('.is-error-' + name));
+      errorPlacement: function (error, element) {
+        var name = element.attr('name');
+        if (element.attr('name') === 'category[]') {
+          error.appendTo($('.is-error-category'));
+        } else if (element.attr('name') === name) {
+          error.appendTo($('.is-error-' + name));
+        }
+      },
+      errorElement: "span",
+      errorClass: "is-error",
+      //送信前にLoadingを表示
+      submitHandler: function (form) {
+        $('.approval').addClass('hide');
+        $('.loading').removeClass('hide');
+        form.submit();
       }
-    },
-    errorElement: "span",
-    errorClass: "is-error",
-    //送信前にLoadingを表示
-    submitHandler: function (form) {
-      $('.spin_btn').removeClass('hide');
-      $('.submit_btn').addClass('hide');
-      form.submit();
-    }
-  });
-  $('input').on('blur', function () {
-    $(this).valid();
-    // if ($('span').hasClass('is-error')) {
-    //   $('span').css('background', 'white');
-    // }
-  });
+    });
+    $('input').on('blur', function () {
+      $(this).valid();
+      // if ($('span').hasClass('is-error')) {
+      //   $('span').css('background', 'white');
+      // }
+    });
+  }
 })
+
+
+
+
+
+
 
 
 
@@ -1520,49 +1722,3 @@ $(function () {
 
 
 
-$(function () {
-  var target = $("input[name^='tel_copied']");
-
-  for (let index = 0; index < target.length; index++) {
-    var targetName = "tel_copied" + index;
-    $("#testtest" + index).validate({
-      rules: {
-        [targetName]: {
-          required: true,
-        },
-      },
-      messages: {
-        [targetName]: {
-          required: "※必須項目です",
-        },
-      },
-      errorPlacement: function (error, element) {
-        var name = element.attr('name');
-        if (element.attr('name') === 'category[]') {
-          error.appendTo($('.is-error-category'));
-        } else if (element.attr('name') === name) {
-          error.appendTo($('.is-error-' + name));
-        }
-      },
-      errorElement: "span",
-      errorClass: "is-error",
-      //送信前にLoadingを表示
-      submitHandler: function (form) {
-        $('.approval').addClass('hide');
-        $('.loading').removeClass('hide');
-        form.submit();
-      }
-    });
-    $('input').on('blur', function () {
-      $(this).valid();
-      // if ($('span').hasClass('is-error')) {
-      //   $('span').css('background', 'white');
-      // }
-    });
-  }
-})
-
-
-$(function () {
-
-})

@@ -19,6 +19,7 @@
   </div>
 
   <h2 class="mt-3 mb-3">会場　詳細情報</h2>
+  <p>ID:{{ $venue->id }}<span class="ml-2">{{ $venue->name_area }}・{{ $venue->name_bldg }}{{ $venue->name_venue }}</span></p>
   <hr>
 
   <section class="section-wrap">
@@ -45,14 +46,13 @@
     <!-- 会場URL ---------------------------------------------------->
     <div class="row">
       <div class="col">
-        <form method="POST" action="https://staging-smg2.herokuapp.com/admin/venues" accept-charset="UTF-8"
-          id="VenuesCreateForm">
+        <form method="POST" action="https://staging-smg2.herokuapp.com/admin/venues" accept-charset="UTF-8" id="VenuesCreateForm">
           <input name="_token" type="hidden" value="7YnZpH69frvKkgAQxFwljXRjXXjvobnDxuSeERdf">
           <input type="hidden" name="_token" value="7YnZpH69frvKkgAQxFwljXRjXXjvobnDxuSeERdf">
           <table class="table table-bordered">
             <tbody>
               <tr>
-                <td class="table-active"> <label for="smg_url">会場SMG URL</label></td>
+                <th class="table-active"> <label for="smg_url">会場SMG URL</label></th>
                 <td>{{$venue->smg_url}}
                 </td>
               </tr>
@@ -67,7 +67,7 @@
       <div class="col">
 
         <!-- 基本情報 ------------------------------------------------------------------------>
-        <table class="table table-bordered">
+        <table class="table table-bordered venue_table">
           <thead>
             <tr>
               <td colspan="2">
@@ -85,70 +85,75 @@
               </td>
             </tr>
             <tr>
-              <td class="table-active"><label for="name_area">エリア名</label></td>
+              <th class="table-active"><label for="name_area">エリア名</label></th>
               <td> {{ $venue->name_area }} </td>
             </tr>
             <tr>
-              <td class="table-active"><label for="name_bldg">ビル名</label></td>
+              <th class="table-active"><label for="name_bldg">ビル名</label></th>
               <td>
                 {{ $venue->name_bldg }}
               </td>
             </tr>
             <tr>
-              <td class="table-active"><label for="name_venue">会場名</label></td>
+              <th class="table-active"><label for="name_venue">会場名</label></th>
               <td>
                 {{ $venue->name_venue }}
               </td>
             </tr>
             <tr>
-              <td class="table-active"><label for="size1">会場広さ（坪）</label></td>
+              <th class="table-active"><label for="size1">会場広さ（坪）</label></th>
               <td>
                 {{ $venue->size1 }}
               </td>
             </tr>
             <tr>
-              <td class="table-active"><label for="size2">会場広さ（㎡）</label></td>
+              <th class="table-active"><label for="size2">会場広さ（㎡）</label></th>
               <td> {{ $venue->size2 }} </td>
             </tr>
             <tr>
-              <td class="table-active"><label for="capacity">収容人数</label></td>
+              <th class="table-active"><label for="capacity">収容人数</label></th>
               <td> {{ $venue->capacity }} </td>
             </tr>
             <tr>
-              <td class="table-active"><label for="post_code">郵便番号</label></td>
+              <th class="table-active"><label for="post_code">郵便番号</label></th>
               <td>
                 {{ $venue->post_code }}
               </td>
             </tr>
             <tr>
-              <td class="table-active"><label for="address1">住所（都道府県）</label></td>
+              <th class="table-active"><label for="address1">住所（都道府県）</label></th>
               <td> {{ $venue->address1 }}
               </td>
             </tr>
             <tr>
-              <td class="table-active"><label for="address2">住所（市町村番地）</label></td>
+              <th class="table-active"><label for="address2">住所（市町村番地）</label></th>
               <td> {{ $venue->address2 }}
               </td>
             </tr>
             <tr>
-              <td class="table-active"><label for="address3">住所（建物名）</label></td>
+              <th class="table-active"><label for="address3">住所（建物名）</label></th>
               <td> {{ $venue->address3 }}
               </td>
             </tr>
             <tr>
-              <td class="table-active"><label for="entrance_open_time">正面入口の開閉時間</label></td>
+              <th class="table-active"><label for="entrance_open_time">正面入口の開閉時間</label></th>
               <td> {{ $venue->entrance_open_time }}
               </td>
             </tr>
             <tr>
-              <td class="table-active"><label for="backyard_open_time">通用口の開閉時間</label></td>
+              <th class="table-active"><label for="backyard_open_time">通用口の開閉時間</label></th>
               <td> {{ $venue->backyard_open_time }}
               </td>
             </tr>
             <tr>
+<<<<<<< HEAD
+              <th class="table-active"><label for="remark">備考</label></th>
+              <td> {{ $venue->remark }}
+=======
               <td class="table-active"><label for="remark">備考</label></td>
               <td>
                 {!!nl2br(e($venue->remark))!!}
+>>>>>>> 073493948e44d04f9ee31db00c7ea892b49d3b5e
               </td>
             </tr>
 
@@ -157,50 +162,50 @@
         </table>
 
         <!-- 荷物預かり ------------------------------------------------------------------------->
-        <table class="table table-bordered">
+        <table class="table table-bordered venue_table">
           <thead>
             <tr>
               <td colspan="2">
                 <p class="title-icon">
-                  <i class="fas fa-suitcase-rolling icon-size fa-fw" aria-hidden="true"></i>荷物預かり
+                  <i class="fas fa-suitcase-rolling icon-size" aria-hidden="true"></i>荷物預かり
                 </p>
               </td>
             </tr>
           </thead>
           <tbody>
             <tr>
-              <td class="table-active"><label for="luggage_flag">荷物預かり　有・無</label></td>
-              <td> {{ $venue->luggage_flag==1?"有り":"無し" }}
+              <th class="table-active"><label for="luggage_flag">荷物預かり</label></th>
+              <td> {{ $venue->luggage_flag==1?"可":"不可" }}
               </td>
             </tr>
             <tr>
-              <td class="table-active"><label for="luggage_post_code">送付先郵便番号</label></td>
+              <th class="table-active"><label for="luggage_post_code">送付先郵便番号</label></th>
               <td>
                 {{ $venue->luggage_post_code }}
               </td>
             </tr>
             <tr>
-              <td class="table-active"><label for="luggage_address1">住所（都道府県）</label></td>
+              <th class="table-active"><label for="luggage_address1">住所（都道府県）</label></th>
               <td> {{ $venue->luggage_address1 }}
               </td>
             </tr>
             <tr>
-              <td class="table-active"><label for="luggage_address2">住所（市町村番地）</label></td>
+              <th class="table-active"><label for="luggage_address2">住所（市町村番地）</label></th>
               <td> {{ $venue->luggage_address2 }}
               </td>
             </tr>
             <tr>
-              <td class="table-active"><label for="luggage_address3">住所（建物名）</label></td>
+              <th class="table-active"><label for="luggage_address3">住所（建物名）</label></th>
               <td> {{ $venue->luggage_address3 }}
               </td>
             </tr>
             <tr>
-              <td class="table-active"><label for="luggage_name">送付先名</label></td>
+              <th class="table-active"><label for="luggage_name">送付先名</label></th>
               <td> {{ $venue->luggage_name }}
               </td>
             </tr>
             <tr>
-              <td class="table-active"><label for="luggage_tel">電話番号</label></td>
+              <th class="table-active"><label for="luggage_tel">電話番号</label></th>
               <td> {{ $venue->luggage_tel }}
               </td>
             </tr>
@@ -212,96 +217,109 @@
       <!-- 右側の項目 -------------------------------------------------------------------------->
       <div class="col">
         <!-- 担当者情報 ------------------------------------------------------------------------>
-        <table class="table table-bordered">
+        <table class="table table-bordered venue_table">
           <thead>
             <tr>
               <td colspan="3">
                 <p class="title-icon">
-                  <i class="fas fa-user-check icon-size fa-fw" aria-hidden="true"></i>担当者情報
+                  <i class="fas fa-user-check icon-size" aria-hidden="true"></i>予約担当者情報
                 </p>
               </td>
             </tr>
           </thead>
           <tbody>
-            <!-- 工藤さんに確認　顧客の新規登録のデータをピックアップ問題ないか -->
             <tr>
-              <td class="table-active"><label for="first_name">担当者氏名</label></td>
+              <th class="table-active"><label for="">会社名 (工藤さん！！！追加項目です)</label></th>
+              <td colspan="2"></td>
+            </tr>
+            <tr>
+              <th class="table-active"><label for="">TEL (工藤さん！！！追加項目です)</label></th>
+              <td colspan="2"></td>
+            </tr>
+            <tr>
+              <th class="table-active"><label for="">FAX (工藤さん！！！追加項目です)</label></th>
+              <td colspan="2"></td>
+            </tr>
+            <tr>
+              <th class="table-active"><label for="first_name">担当者氏名</label></th>
               <td colspan="2"> {{ $venue->first_name}} {{ $venue->last_name}}
               </td>
             </tr>
             <tr>
-              <td class="table-active"><label for="first_name_kana">担当者氏名（フリガナ）</label></td>
+              <th class="table-active"><label for="first_name_kana">担当者氏名（フリガナ）</label></th>
               <td colspan="2">
                 {{ $venue->first_name_kana}}
                 {{ $venue->last_name_kana}}
               </td>
             </tr>
-            <!-- 工藤さんに確認　顧客の新規登録のデータをピックアップ問題ないか -->
-
             <tr>
-              <td class="table-active"><label for="person_tel">担当者電話番号</label></td>
+              <th class="table-active"><label for="person_tel">担当者電話番号</label></th>
               <td colspan="2">
                 {{ $venue->person_tel}}
               </td>
             </tr>
             <tr>
-              <td class="table-active"><label for="person_email">担当者メールアドレス</label></td>
+              <th class="table-active"><label for="person_email">担当者メールアドレス</label></th>
               <td colspan="2"> {{ $venue->person_email}}
               </td>
+            </tr>
+            <tr>
+              <th class="table-active"><label for="">備考 (工藤さん！！！追加項目です)</label></th>
+              <td colspan="2"></td>
             </tr>
           </tbody>
         </table>
 
         <!-- ビル管理会社情報 ------------------------------------------------------------------------>
-        <table class="table table-bordered">
+        <table class="table table-bordered venue_table">
           <thead>
             <tr>
               <td colspan="3">
                 <p class="title-icon">
-                  <i class="fas fa-building icon-size fa-fw" aria-hidden="true"></i>ビル管理会社
+                  <i class="fas fa-building icon-size" aria-hidden="true"></i>ビル管理会社
                 </p>
               </td>
             </tr>
           </thead>
           <tbody>
             <tr>
-              <td class="table-active"><label for="mgmt_company">会社名</label></td>
+              <th class="table-active"><label for="mgmt_company">会社名</label></th>
               <td colspan="2">
                 {{ $venue->mgmt_company}}
               </td>
             </tr>
             <tr>
-              <td class="table-active"><label for="mgmt_tel">電話番号</label></td>
+              <th class="table-active"><label for="mgmt_tel">電話番号</label></th>
               <td colspan="2"> {{ $venue->mgmt_tel}}
               </td>
             </tr>
             <tr>
-              <td class="table-active"><label for="mgmt_emer_tel">夜間緊急連絡先</label></td>
+              <th class="table-active"><label for="mgmt_emer_tel">夜間緊急連絡先</label></th>
               <td colspan="2"> {{ $venue->mgmt_emer_tel}}
               </td>
             </tr>
 
-            <!-- 工藤さんに確認　顧客の新規登録のデータをピックアップ問題ないか -->
-            <tr>
-              <td class="table-active"><label for="mgmt_first_name">担当者氏名</label></td>
-              <td colspan="2">
-                {{ $venue->mgmt_first_name}} {{ $venue->mgmt_last_name}}
-              </td>
+            <th class="table-active"><label for="mgmt_first_name">担当者氏名</label></th>
+            <td colspan="2">
+              {{ $venue->mgmt_first_name}}{{ $venue->mgmt_last_name}}
+            </td>
             </tr>
-            <!-- 工藤さんに確認　顧客の新規登録のデータをピックアップ問題ないか -->
-
             <tr>
-              <td class="table-active"><label for="mgmt_email">担当者メール</label></td>
+              <th class="table-active"><label for="">担当者電話番号 (工藤さん！！！追加項目です)</label></th>
+              <td colspan="2"></td>
+            </tr>
+            <tr>
+              <th class="table-active"><label for="mgmt_email">担当者メール</label></th>
               <td colspan="2"> {{ $venue->mgmt_email}}
               </td>
             </tr>
             <tr>
-              <td class="table-active"><label for="mgmt_sec_company">警備会社名</label></td>
+              <th class="table-active"><label for="mgmt_sec_company">警備会社名</label></th>
               <td colspan="2"> {{ $venue->mgmt_sec_company}}
               </td>
             </tr>
             <tr>
-              <td class="table-active"><label for="mgmt_sec_tel">警備会社電話番号</label></td>
+              <th class="table-active"><label for="mgmt_sec_tel">警備会社電話番号</label></th>
               <td colspan="2"> {{ $venue->mgmt_sec_tel}}
               </td>
             </tr>
@@ -315,52 +333,52 @@
         </table>
 
         <!-- 室内飲食 ------------------------------------------------------------------------>
-        <table class="table table-bordered">
+        <table class="table table-bordered venue_table">
           <thead>
             <tr>
               <td colspan="2">
                 <p class="title-icon">
-                  <i class="fas fa-utensils icon-size fa-fw" aria-hidden="true"></i>室内飲食
+                  <i class="fas fa-utensils icon-size" aria-hidden="true"></i>室内飲食
                 </p>
               </td>
             </tr>
           </thead>
           <tbody>
             <tr>
-              <td class="table-active"><label for="eat_in_flag">室内飲食</label></td>
+              <th class="table-active"><label for="eat_in_flag">室内飲食</label></th>
               <td>
-                {{ $venue->eat_in_flag==1?"有り":"無し"}}
+                {{ $venue->eat_in_flag==1?"可":"不可"}}
               </td>
             </tr>
           </tbody>
         </table>
 
         <!-- レイアウト変更 ------------------------------------------------------------------------>
-        <table class="table table-bordered">
+        <table class="table table-bordered venue_table">
           <thead>
             <tr>
               <td colspan="2">
                 <p class="title-icon">
-                  <i class="fas fa-th icon-size fa-fw" aria-hidden="true"></i>レイアウト
+                  <i class="fas fa-th icon-size" aria-hidden="true"></i>レイアウト
                 </p>
               </td>
             </tr>
           </thead>
           <tbody>
             <tr>
-              <td class="table-active"><label for="layout">レイアウト変更</label></td>
+              <th class="table-active"><label for="layout">レイアウト変更</label></th>
               <td>
-                {{ $venue->layout==1?"有り":"無し"}}
+                {{ $venue->layout==1?"可":"不可"}}
               </td>
             </tr>
             <tr>
-              <td class="table-active"><label for="layout">レイアウト準備料金</label></td>
+              <th class="table-active"><label for="layout">レイアウト準備料金</label></th>
               <td>
                 {{ $venue->layout_prepare}}
               </td>
             </tr>
             <tr>
-              <td class="table-active"><label for="layout">レイアウト片付料金</label></td>
+              <th class="table-active"><label for="layout">レイアウト片付料金</label></th>
               <td>
                 {{ $venue->layout_clean}}
               </td>
@@ -369,19 +387,19 @@
         </table>
 
         <!-- 支払データ ------------------------------------------------------------------------>
-        <table class="table table-bordered">
+        <table class="table table-bordered venue_table">
           <thead>
             <tr>
               <td colspan="2">
                 <p class="title-icon">
-                  <i class="fas fa-yen-sign icon-size fa-fw" aria-hidden="true"></i>支払データ
+                  <i class="fas fa-yen-sign icon-size" aria-hidden="true"></i>支払データ
                 </p>
               </td>
             </tr>
           </thead>
           <tbody>
             <tr>
-              <td class="table-active"><label for="cost">支払割合（原価）</label></td>
+              <th class="table-active"><label for="cost">支払割合（原価）</label></th>
               <td>
                 {{ $venue->cost}}%
               </td>
@@ -398,37 +416,33 @@
   <section class="section-wrap">
     <!-- 有料備品 ------------------------------------------------------------------------>
     <div class="mb-5 border-wrap2">
-      <p class="title-icon table-active fw-bolder p-2 mb-2">
-        <i class="fas fa-wrench icon-size fa-fw" aria-hidden="true"></i>有料備品
+      <p class="title-icon table-active fw-bolder p-2">
+        <i class="fas fa-wrench icon-size" aria-hidden="true"></i>有料備品
       </p>
-      <div>
-        <ul class="p-3">
+        <ul class="p-3 option_list">
           @foreach ($equipments as $equipment)
           <li>{{$equipment->item}}</li>
           @endforeach
         </ul>
-      </div>
     </div>
 
     <!-- 有料サービス ------------------------------------------------------------------------>
     <div class="mb-5 border-wrap2">
-      <p class="title-icon table-active fw-bolder p-2 mb-2">
-        <i class="fas fa-hand-holding-heart icon-size fa-fw" aria-hidden="true"></i>有料サービス
+      <p class="title-icon table-active fw-bolder p-2">
+        <i class="fas fa-hand-holding-heart icon-size" aria-hidden="true"></i>有料サービス
       </p>
-      <div>
-        <ul class="p-3">
+        <ul class="p-3 option_list">
           @foreach ($services as $service)
           <li>{{$service->item}}
           </li>
           @endforeach
         </ul>
-      </div>
     </div>
 
     <!-- 営業時間 ------------------------------------------------------------------------>
     <div class="mb-5 border-wrap2">
       <p class="title-icon table-active fw-bolder p-2">
-        <i class="fas fa-clock icon-size fa-fw" aria-hidden="true"></i>営業時間
+        <i class="fas fa-clock icon-size" aria-hidden="true"></i>営業時間
       </p>
       <div>
         <table class="table table-bordered　mb-0">
@@ -471,7 +485,7 @@
 
     <div class="mb-5 border-wrap2">
       <p class="title-icon table-active fw-bolder p-2">
-        <i class="fas fa-yen-sign icon-size fa-fw" aria-hidden="true"></i>料金管理
+        <i class="fas fa-yen-sign icon-size" aria-hidden="true"></i>料金管理
       </p>
       <div class="p-3">
         <div class="mb-2">

@@ -30,7 +30,6 @@
     <div class="text-right">
       <a href="/admin/services/create" class="btn more_btn3">新規登録</a>
     </div>
-    <hr>
     <div class="d-flex justify-content-between my-3">
 
       {{ Form::open(['url' => 'admin/services', 'method'=>'get', 'id'=>'page_counter_form']) }}
@@ -43,9 +42,7 @@
   </div>
   <div id="DataTables_Table_0_wrapper" class="dataTables_wrapper form-inline dt-bootstrap no-footer">
     <p class="text-right">※金額は税抜表記になります。</p>
-    <div class="row">
-      <div class="col-sm-12">
-        <table class="table table-bordered mt-5" id="service_sort">
+        <table class="table table-bordered" id="service_sort">
           <thead>
             <tr class="table_row">
               <th>ID</th>
@@ -84,14 +81,12 @@
             @endforeach
           </tbody>
         </table>
-      </div>
-    </div>
     {{ $querys->links() }}
   </div>
 </div>
 
 <script>
-  $(function(){
+  $(function() {
     $("#service_sort").tablesorter();
   })
 

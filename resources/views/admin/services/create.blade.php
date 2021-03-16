@@ -25,7 +25,7 @@
     </ol>
   </nav>
 </div>
-<h2 class="mt-3 mb-3">有料サービス管理　新規作成</h2>
+<h2 class="mt-3 mb-3">有料サービス管理　新規登録</h2>
 <hr>
 
 {{ Form::open(['url' => 'admin/services', 'method'=>'POST', 'id'=>'ServiceCreateForm']) }}
@@ -37,9 +37,9 @@
       <th>ID</th>
       <th>登録日</th>
       <th class="form_required">有料サービス名</th>
-      <th class="form_required">料金</th>
+      <th class="form_required">料金<span class="ml-1 annotation">※税抜</span></th>
       <th>備考</th>
-      <th>詳細(編集)・削除</th>
+      <th></th>
     </tr>
   </thead>
   <tbody>

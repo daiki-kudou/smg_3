@@ -6,12 +6,6 @@
 <script src="{{ asset('/js/template.js') }}"></script>
 
 <div class="container-fluid">
-  <style>
-    .table th {
-      width: 35%;
-    }
-  </style>
-
   <div class="container-field">
     <div class="float-right">
       <nav aria-label="breadcrumb">
@@ -43,7 +37,7 @@
     <div class="row">
       <!-- 左側の項目 ---------------------------------------------------->
       <div class="col">
-        <table class="table table-bordered">
+        <table class="table table-bordered agent_table">
           <thead>
             <tr>
               <td colspan="2">
@@ -119,7 +113,7 @@
         <!-- 担当者情報 ------------------------------------------------------>
         <p class="title-icon">
         </p>
-        <table class="table table-bordered">
+        <table class="table table-bordered agent_table">
           <thead>
             <tr>
               <td colspan="3"><i class="fas fa-window-restore fa-fw icon-size" aria-hidden="true"></i>サイト情報
@@ -162,7 +156,7 @@
             </tr>
           </tbody>
         </table>
-        <table class="table table-bordered">
+        <table class="table table-bordered agent_table">
           <thead>
             <tr>
               <td colspan="3">
@@ -193,7 +187,7 @@
             </tr>
           </tbody>
         </table>
-        <table class="table table-bordered">
+        <table class="table table-bordered agent_table">
           <thead>
             <tr>
               <td colspan="3">
