@@ -19,28 +19,10 @@ class ServicesController extends Controller
    */
   public function index()
   {
-    // $search_freeword = $request->freeword;
-    // $search_id = $request->id;
-    // $search_item = $request->item;
-    // $page_counter = $request->page_counter;
-    // $service = new Service;
-    // $querys = $service->searchs(
-    //   $search_freeword,
-    //   $search_id,
-    //   $search_item,
-    //   $page_counter
-    // );
-    // if (empty($request->all())) {
-    //   $querys = Service::paginate(10);
-    // }
 
-    $querys = Service::paginate(30);
+    $querys = Service::paginate(3);
 
-    return view('admin.services.index', [
-      'querys' => $querys,
-      // 'request' => $request,
-
-    ]);
+    return view('admin.services.index', compact("querys"));
   }
 
   /**
@@ -137,10 +119,18 @@ class ServicesController extends Controller
    * @param  int  $id
    * @return \Illuminate\Http\Response
    */
-  public function destroy($id)
+  public function destroy($id, Request $request)
   {
     $service = Service::find($id);
-    $service->delete();
-    return redirect('admin/services');
+
+    DB::transaction(function () use ($service) {
+      $service->delete();
+    });
+
+    if ($request->page == 1) {
+      return redirect('admin/services');
+    } else {
+      return redirect(url("admin/services?page=" . $request->page));
+    }
   }
 }
