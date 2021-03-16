@@ -21,6 +21,10 @@
             <img src="https://osaka-conference.com/img/logo.jpg" alt="" width="40" height="40">
             <h3>SMGアクセア貸し会議室 </h3>
           </div>
+          <div class="d-flex justify-content-center">
+            <p style="color: red; font-weight:bold;">管理者ログイン画面</p>
+          </div>
+
         </div>
 
         <div class="card-body">
