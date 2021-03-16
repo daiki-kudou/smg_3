@@ -2,7 +2,7 @@
 @section('content')
 <script src="{{ asset('/js/admin/validation.js') }}"></script>
 <link href="{{ asset('/css/template.css') }}" rel="stylesheet">
-<script src="{{ asset('/js/template.js') }}"></script>
+{{-- <script src="{{ asset('/js/template.js') }}"></script> --}}
 <script src="{{ asset('/js/admin/reservation.js') }}"></script>
 
 <style>
@@ -116,7 +116,7 @@
             <tr>
               <td class="table-active"><label for="size1" class="form_required">会場広さ（坪）</label></td>
               <td>
-                {{ Form::text('size1', old('size1'), ['placeholder' => '半角英数字で入力してください','class' => 'form-control']) }}
+                {{ Form::text('size1', old('size1'), ['placeholder' => '半角英数字で入力してください','class' => 'form-control input_number_only']) }}
                 <p class="is-error-size1" style="color: red"></p>
               </td>
             </tr>
