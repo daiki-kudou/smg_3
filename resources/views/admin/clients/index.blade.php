@@ -1,20 +1,13 @@
 @extends('layouts.admin.app')
 
 @section('content')
+<script src="{{ asset('/js/tablesorter/jquery.tablesorter.js') }}"></script>
+<link href="{{ asset('/css/tablesorter/theme.default.min.css') }}" rel="stylesheet">
+
+{{-- <script src="{{ asset('/js/admin/venue.js') }}"></script> --}}
 <link href="{{ asset('/css/template.css') }}" rel="stylesheet">
 
-<script src="https://cdn.datatables.net/t/bs-3.3.6/jqc-1.12.0,dt-1.10.11/datatables.min.js"></script>
-<script>
-  $(function() {
-    $(".table").DataTable({
-      lengthChange: false, // 件数切替機能 無効
-      searching: false, // 検索機能 無効
-      ordering: true, // ソート機能 無効
-      info: false, // 情報表示 無効
-      paging: false, // ページング機能 無効
-    });
-  })
-</script>
+
 <style>
   .form-inline {
     display: block;
@@ -62,10 +55,6 @@
             <td class="text-right form-group">
               <input type="text" class="form-control float-right" id="id">
             </td>
-            <!-- <th class="search_item_name"><label for="status">顧客状況</label></th>
-            <td class="text-right">
-              <input type="text" name="status" class="form-control" id="status">
-            </td> -->
             <th class="search_item_name"><label for="company">会社名　団体名</label></th>
             <td class="text-right form-group">
               <input type="text" name="company" class="form-control float-right" id="company">
@@ -162,12 +151,11 @@
   <!-- 検索　終わり------------------------------------------------ -->
 
   <div class="table-wrap">
-    <table class="table table-bordered table-scroll">
+    <table class="table table-bordered table-scroll" id="client_sort">
       <thead>
         <tr class="table_row">
           <th>注意事項</th>
           <th>顧客ID</th>
-          <!-- <td>顧客状況</td> -->
           <th>会社名・団体名</th>
           <th>顧客属性</th>
           <th>担当者</th>
@@ -179,10 +167,9 @@
       </thead>
       <tbody>
         @foreach ($querys as $query)
-        <tr>
+        <tr role="row" class="even" style="background: #E3E3E3;">
           <td>{{$query->attention!=null?'●':''}}</td>
           <td>{{$query->id}}</td>
-          <!-- <td>{{$query->status==1?'会員':'退会'}}</td> -->
           <td>{{$query->company}}</td>
           <td>
             @if ($query->attr==1)
@@ -215,4 +202,12 @@
 
 </div>
 {{ $querys->links() }}
+
+
+<script>
+  $(function(){
+    $("#client_sort").tablesorter();
+  })
+
+</script>
 @endsection
