@@ -20,10 +20,8 @@
 <p class="text-right">※金額は税抜表記になります。</p>
 @if (count($frame_prices)==0 && count($time_prices)==0)
   <div class="w-100">
-    <span class="d-block mb-2">会場</span>
-    <strong class="border border-light d-block"
-      style="width:100%;">{{$venue->name_area}}{{$venue->name_bldg}}{{$venue->name_venue}}</strong>
-    <span class="mt-5 mb-5 d-block">料金データが登録されていません</span>
+    <h3 class="border border-light d-block" style="width:100%;">{{$venue->name_area}}・{{$venue->name_bldg}}{{$venue->name_venue}}</h3>
+    <span class="mt-5 mb-5 d-block">※料金データが登録されていません</span>
   </div>
   <div class="d-flex justify-content-around">
     <div>
@@ -35,7 +33,7 @@
   </div>
 @else
 
-<div class="mt-5">
+<div class="">
   <span>会場</span>
   <div class="form-group">
     {{ $venue->name_area}}{{ $venue->name_bldg}}{{ $venue->name_venue}}
