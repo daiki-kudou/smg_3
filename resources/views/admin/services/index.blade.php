@@ -1,14 +1,15 @@
 @extends('layouts.admin.app')
 @section('content')
-<script src="https://cdn.datatables.net/t/bs-3.3.6/jqc-1.12.0,dt-1.10.11/datatables.min.js"></script>
-<link href="{{ asset('/css/template.css') }}" rel="stylesheet">
-<div class="container-fluid">
+<script src="{{ asset('/js/tablesorter/jquery.tablesorter.js') }}"></script>
+<link href="{{ asset('/css/tablesorter/theme.default.min.css') }}" rel="stylesheet">
 
-  <style>
-    .hide {
-      display: none !important;
-    }
-  </style>
+{{-- <script src="{{ asset('/js/admin/venue.js') }}"></script> --}}
+<link href="{{ asset('/css/template.css') }}" rel="stylesheet">
+
+
+
+
+<div class="container-fluid">
 
 
 
@@ -30,13 +31,6 @@
       <a href="/admin/services/create" class="btn more_btn3">新規登録</a>
     </div>
     <div class="d-flex justify-content-between my-3">
-      {{-- <span>
-        <select name="page_counter" id="page_counter">
-          <option value="10" {{$request->page_counter==10?'selected':""}}>10</option>
-      <option value="30" {{$request->page_counter==30?'selected':""}}>30</option>
-      <option value="50" {{$request->page_counter==50?'selected':""}}>50</option>
-      </select>件表示
-      </span> --}}
 
       {{ Form::open(['url' => 'admin/services', 'method'=>'get', 'id'=>'page_counter_form']) }}
       @csrf
@@ -50,7 +44,7 @@
     <p class="text-right">※金額は税抜表記になります。</p>
     <div class="row">
       <div class="col-sm-12">
-        <table class="table table-bordered">
+        <table class="table table-bordered mt-5" id="service_sort">
           <thead>
             <tr class="table_row">
               <th>ID</th>
@@ -64,7 +58,7 @@
           </thead>
           <tbody>
             @foreach ($querys as $query)
-            <tr>
+            <tr role="row" class="even" style="background: #E3E3E3;">
               <td>{{ ReservationHelper::IdFormat($query->id) }}</td>
               <td>{{ ReservationHelper::formatDate($query->created_at) }}</td>
               <td>{{ $query->item }}</td>
@@ -90,28 +84,11 @@
     {{ $querys->links() }}
   </div>
 </div>
+
 <script>
-  $(function() {
-$(".table").DataTable({
-lengthChange: false, // 件数切替機能 無効
-searching: false, // 検索機能 無効
-ordering: true, // ソート機能 無効
-info: false, // 情報表示 無効
-paging: false, // ページング機能 無効
-aoColumnDefs: [{
-"bSortable": false,
-"aTargets": [5]
-}], //特定のカラムソート不可
-
-});
-
-$(function(){
-  $('#page_counter').on('change',function(){
-    $('#page_counter_input').val($(this).val());
-    $("#page_counter_form").submit();
-  });
-})
-
-})
+  $(function(){
+    $("#service_sort").tablesorter();
+  })
 </script>
+
 @endsection

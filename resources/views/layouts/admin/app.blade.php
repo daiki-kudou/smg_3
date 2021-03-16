@@ -68,6 +68,7 @@
   {{-- numeric --}}
   <script src="{{ asset('/js/numeric.js') }}"></script>
 
+
 </head>
 
 <body class="hold-transition sidebar-mini">
@@ -84,13 +85,15 @@
       </ul>
 
       <div class="dropdown">
-        <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+        <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown"
+          aria-haspopup="true" aria-expanded="false">
           ログイン中：{{Auth::user()->name}}
         </button>
         <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
           <div>
             {{-- ログアウト用 --}}
-            <a class="dropdown-item" href="{{ route('admin.logout') }}" onclick="event.preventDefault();document.getElementById('logout-form').submit();">
+            <a class="dropdown-item" href="{{ route('admin.logout') }}"
+              onclick="event.preventDefault();document.getElementById('logout-form').submit();">
               {{ __('Logout') }}
             </a>
             <form id="logout-form" action="{{ route('admin.logout') }}" method="POST" style="">
@@ -128,15 +131,14 @@
       </div>
     </div>
 
-    <!-- jQuery -->
-    {{-- <script src="{{ asset('js/jquery.min.js') }}"></script> --}}
-    <!-- Bootstrap 4 -->
-    {{-- <script src="{{ asset('js/bootstrap.bundle.min.js') }}"></script> --}}
-    <!-- AdminLTE App -->
-    <script src="{{ asset('js/adminlte.min.js') }}"></script>
 
   </div>
-
+  <script src="{{ asset('js/adminlte.min.js') }}"></script>
+  <script>
+    $(function(){
+      $('form').attr('autocomplete', 'off');
+    })
+  </script>
 </body>
 
 </html>
