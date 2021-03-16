@@ -42,45 +42,45 @@
   </div>
   <div id="DataTables_Table_0_wrapper" class="dataTables_wrapper form-inline dt-bootstrap no-footer">
     <p class="text-right">※金額は税抜表記になります。</p>
-        <table class="table table-bordered" id="service_sort">
-          <thead>
-            <tr class="table_row">
-              <th>ID</th>
-              <th>登録日</th>
-              <th>有料サービス名</th>
-              <th>料金</th>
-              <th>備考</th>
-              <th class="btn-cell">編集</th>
-              <th class="btn-cell">削除</th>
-            </tr>
-          </thead>
-          <tbody>
-            @foreach ($querys as $query)
-            <tr role="row" class="even" style="background: #E3E3E3;">
-              <td>{{ ReservationHelper::IdFormat($query->id) }}</td>
-              <td>{{ ReservationHelper::formatDate($query->created_at) }}</td>
-              <td>{{ $query->item }}</td>
-              <td class="text-right">{{ number_format($query->price) }}</td>
-              <td>
-                <p class="remark_limit">
-                  {!!nl2br(e($query->remark))!!}
-                </p>
-              </td>
-              <td class="text-center">
+    <table class="table table-bordered" id="service_sort">
+      <thead>
+        <tr class="table_row">
+          <th>ID</th>
+          <th>登録日</th>
+          <th>有料サービス名</th>
+          <th>料金</th>
+          <th>備考</th>
+          <th class="btn-cell">編集</th>
+          <th class="btn-cell">削除</th>
+        </tr>
+      </thead>
+      <tbody>
+        @foreach ($querys as $query)
+        <tr role="row" class="even" style="background: #E3E3E3;">
+          <td>{{ ReservationHelper::IdFormat($query->id) }}</td>
+          <td>{{ ReservationHelper::formatDate($query->created_at) }}</td>
+          <td class="s_item">{{ $query->item }}</td>
+          <td class="text-right">{{ number_format($query->price) }}</td>
+          <td>
+            <p class="remark_limit">
+              {!!nl2br(e($query->remark))!!}
+            </p>
+          </td>
+          <td class="text-center">
 
-              </td>
-              <td class="text-center">
-                {{ link_to_route('admin.services.edit', '編集', $parameters = $query->id, ['class' => 'btn more_btn']) }}
-                {{ Form::model($query, ['route' => ['admin.services.destroy', $query->id], 'method' => 'delete']) }}
-                @csrf
-                {{Form::hidden("page",$querys->currentPage())}}
-                {{ Form::submit('削除', ['class' => 'btn more_btn4 del_btn']) }}
-                {{ Form::close() }}
-              </td>
-            </tr>
-            @endforeach
-          </tbody>
-        </table>
+          </td>
+          <td class="text-center">
+            {{ link_to_route('admin.services.edit', '編集', $parameters = $query->id, ['class' => 'btn more_btn']) }}
+            {{ Form::model($query, ['route' => ['admin.services.destroy', $query->id], 'method' => 'delete']) }}
+            @csrf
+            {{Form::hidden("page",$querys->currentPage())}}
+            {{ Form::submit('削除', ['class' => 'btn more_btn4 del_btn']) }}
+            {{ Form::close() }}
+          </td>
+        </tr>
+        @endforeach
+      </tbody>
+    </table>
     {{ $querys->links() }}
   </div>
 </div>
@@ -92,7 +92,8 @@
 
   $(function () {
   $('.del_btn').on('click', function () {
-    if (!confirm('入力内容と反映された請求の一致を確認しましたか？')) {
+    var target = $(this).parent().parent().parent().find('td').eq(2).text();
+    if (!confirm(target+'を本当に削除しますか？\n削除した時点で会場情報・顧客側予約フォームからも削除されます')) {
       return false;
     } 
   })
