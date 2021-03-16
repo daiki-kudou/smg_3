@@ -3,6 +3,8 @@
 <script src="{{ asset('/js/template.js') }}"></script>
 <script src="{{ asset('/js/validation.js') }}"></script>
 <link href="{{ asset('/css/template.css') }}" rel="stylesheet">
+<script src="{{ asset('/js/ctrl_form.js') }}"></script>
+
 @if ($errors->any())
 <div class="alert alert-danger">
   <ul>
@@ -53,11 +55,11 @@
             <p class="is-error-item" style="color: red"></p>
           </td>
           <td>
-            {{ Form::number('price', old('price'), ['class' => 'form-control']) }}
+            {{ Form::text('price', old('price'), ['class' => 'form-control']) }}
             <p class="is-error-price" style="color: red"></p>
           </td>
           <td>
-            {{ Form::number('stock', old('stock'), ['class' => 'form-control']) }}
+            {{ Form::text('stock', old('stock'), ['class' => 'form-control']) }}
             <p class="is-error-stock" style="color: red"></p>
           </td>
           <td>{{ Form::textarea('remark', old('remark'), ['class' => 'form-control','rows'=>"2"]) }}</td>

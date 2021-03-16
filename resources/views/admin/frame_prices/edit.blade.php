@@ -4,6 +4,7 @@
 <script src="{{ asset('/js/template.js') }}"></script>
 <script src="{{ asset('/js/validation.js') }}"></script>
 <link href="{{ asset('/css/template.css') }}" rel="stylesheet">
+<script src="{{ asset('/js/ctrl_form.js') }}"></script>
 
 
 <div class="container-fluid">
@@ -41,7 +42,7 @@
         {{ Form::model($venue, ['route' => ['admin.frame_prices.update', $venue->id], 'method' => 'put', 'id'=>'dateCreateForm']) }}
         @csrf
 
-    <p class="text-right">※金額は税抜で入力してください。</p>
+        <p class="text-right">※金額は税抜で入力してください。</p>
         <table class="table table-bordered">
           <thead>
             <tr>
@@ -56,7 +57,6 @@
             @foreach ($frame_prices as $num=>$frame_price)
             <tr>
               <td>
-                <p class="{{'is-error-frame'.$num}}" style="color: white"></p>
                 {{ Form::text('frame'.$num, old('frame', $frame_price->frame), ['class' => 'form-control']) }}
                 <p class="{{'is-error-frame'.$num}}" style="color: red"></p>
               </td>
@@ -162,7 +162,6 @@
                     '23:30:00'=>'23:30',
                 ],old('finish', $frame_price->finish),['class'=>'form-control col-sm-12'])}}</td>
               <td>
-                <p class="{{'is-error-price'.$num}}" style="color: white"></p>
                 {{ Form::text('price'.$num, old('price', $frame_price->price), ['class' => 'form-control']) }}
                 <p class="{{'is-error-price'.$num}}" style="color: red"></p>
               </td>

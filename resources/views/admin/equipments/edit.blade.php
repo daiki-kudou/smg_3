@@ -3,6 +3,9 @@
 <script src="{{ asset('/js/template.js') }}"></script>
 <script src="{{ asset('/js/admin/validation.js') }}"></script>
 <link href="{{ asset('/css/template.css') }}" rel="stylesheet">
+<script src="{{ asset('/js/ctrl_form.js') }}"></script>
+
+
 @if ($errors->any())
 <div class="alert alert-danger">
   <ul>
@@ -77,6 +80,8 @@
     {{ Form::close() }}
   </div>
 </div>
+
+
 
 
 @endsection

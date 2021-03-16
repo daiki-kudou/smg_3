@@ -67,8 +67,6 @@
 
   {{-- numeric --}}
   <script src="{{ asset('/js/numeric.js') }}"></script>
-
-
 </head>
 
 <body class="hold-transition sidebar-mini">

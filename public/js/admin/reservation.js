@@ -17,82 +17,9 @@ $(function () {
 
 
 
-function CTRLForm($target) {
-  jQuery(document).on('keydown', $target, function (e) {
-    let k = e.keyCode;
-    let str = String.fromCharCode(k);
-    if (!(str.match(/[0-9]/) || (37 <= k && k <= 40) || k === 8 || k === 46)) {
-      return false;
-    }
-  });
-  jQuery(document).on('keyup', $target, function (e) {
-    this.value = this.value.replace(/[^0-9]+/i, '');
-  });
-  jQuery(document).on('blur', $target, function () {
-    this.value = this.value.replace(/[^0-9]+/i, '');
-  });
-}
-
-CTRLForm("input[name='size1']");
 
 
 
-// 文字、マイナス、数字制御
-// $(document).on('input', 'input', function (e) {
-//   function ExceptString($target) {
-//     $target.numeric({ negative: false, });
-//     $target.on('change', function () {
-//       charactersChange($(this));
-//       checkForm($(this));
-//     })
-//     charactersChange = function (ele) {
-//       var val = ele.val();
-//       var han = val.replace(/[Ａ-Ｚａ-ｚ０-９]/g, function (s) { return String.fromCharCode(s.charCodeAt(0) - 0xFEE0) });
-//       if (val.match(/[Ａ-Ｚａ-ｚ０-９]/g)) {
-//         $(ele).val(han);
-//       }
-//     }
-//     function checkForm($this) {
-//       var str = $this.value;
-//       while (str.match(/[^A-Z^a-z\d\-]/)) {
-//         str = str.replace(/[^A-Z^a-z\d\-]/, "");
-//       }
-//       $this.value = str;
-//     }
-//   }
-
-//   var tel = $("input[name='size1']");
-//   ExceptString(tel);
-
-
-//   var tel = $("input[name^='tel']");
-//   ExceptString(tel);
-//   var equ = $("input[name^='equipment_breakdown']");
-//   ExceptString(equ);
-//   var end = $("input[name^='enduser_charge']");
-//   ExceptString(end);
-//   var post_code = $("input[name^='post_code']");
-//   ExceptString(post_code);
-//   var luggage_post_code = $("input[name^='luggage_post_code']");
-//   ExceptString(luggage_post_code);
-//   var luggage_tel = $("input[name^='luggage_tel']");
-//   ExceptString(luggage_tel);
-//   var person_tel = $("input[name^='person_tel']");
-//   ExceptString(person_tel);
-//   var fax = $("input[name^='fax']");
-//   ExceptString(fax);
-//   var person_mobile = $("input[name^='person_mobile']");
-//   ExceptString(person_mobile);
-//   var fax = $("input[name^='fax']");
-//   ExceptString(fax);
-//   var cost = $("input[name^='cost']");
-//   ExceptString(cost);
-//   var cost = $("input[name^='pay_post_code']");
-//   ExceptString(pay_post_code);
-//   var cost = $("input[name^='mobile']");
-//   ExceptString(mobile);
-
-// });
 
 //////////////////////////////////////////////////////////////////
 // プラスボタンクリック

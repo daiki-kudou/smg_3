@@ -73,7 +73,7 @@
                 @csrf
               </td>
               <td class="text-center">
-                {{ Form::submit('削除', ['class' => 'btn more_btn4']) }}
+                {{ Form::submit('削除', ['class' => 'btn more_btn4 del_btn']) }}
                 {{ Form::close() }}
               </td>
             </tr>
@@ -90,6 +90,15 @@
   $(function(){
     $("#service_sort").tablesorter();
   })
+
+  $(function () {
+  $('.del_btn').on('click', function () {
+    if (!confirm('入力内容と反映された請求の一致を確認しましたか？')) {
+      return false;
+    } 
+  })
+})
+
 </script>
 
 @endsection

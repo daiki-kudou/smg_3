@@ -3,6 +3,8 @@
 <script src="{{ asset('/js/template.js') }}"></script>
 <script src="{{ asset('/js/validation.js') }}"></script>
 <link href="{{ asset('/css/template.css') }}" rel="stylesheet">
+<script src="{{ asset('/js/ctrl_form.js') }}"></script>
+
 
 @if ($errors->any())
 <div class="alert alert-danger">
@@ -45,11 +47,11 @@
       <td>{{ReservationHelper::IdFormat(App\Models\Service::all()->count()+1)}}</td>
       <td>{{ReservationHelper::formatDate(Carbon\Carbon::now())}}</td>
       <td>
-        {{ Form::text('item', old('item'), ['class' => 'form-control']) }}
+        {{ Form::text('item', "", ['class' => 'form-control']) }}
         <p class="is-error-item" style="color: red"></p>
       </td>
       <td>
-        {{ Form::text('price', old('price'), ['class' => 'form-control']) }}
+        {{ Form::text('price',"" , ['class' => 'form-control']) }}
         <p class="is-error-price" style="color: red"></p>
       </td>
       <td>
@@ -67,4 +69,7 @@
     </tr>
   </tbody>
 </table>
+
+
+
 @endsection

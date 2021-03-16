@@ -1,7 +1,7 @@
 @extends('layouts.admin.app')
 @section('content')
 <link href="{{ asset('/css/template.css') }}" rel="stylesheet">
-
+<script src="{{ asset('/js/ctrl_form.js') }}"></script>
 
 <!-- フォーム追加 -->
 
@@ -44,7 +44,7 @@
     <div>
       {{ Form:: open( ['route' => 'admin.frame_prices.store']) }}
       @csrf
-    <p class="text-right">※金額は税抜で入力してください。</p>
+      <p class="text-right">※金額は税抜で入力してください。</p>
       <table class="table table-bordered">
         <thead>
           <tr>
@@ -161,7 +161,7 @@
                 '23:30:00'=>'23:30',      
                 ], '12:00:00',['class'=>'form-control col-sm-12','id'=>'finish'])}}
             </td>
-            <td>{{ Form::number('price', old('price'), ['class' => 'form-control']) }}</td>
+            <td>{{ Form::text('price', "", ['class' => 'form-control']) }}</td>
             <td>
               <input type="button" value="＋" class="add pluralBtn">
               <input type="button" value="－" class="del pluralBtn">
@@ -176,7 +176,8 @@
       </div>
       {{ Form::number('extend', old('extend'),['class'=>'form-control w-25']) }}
       {{Form::hidden('venue_id', $venue->id)}}
-      <div class="mt-5 mx-auto" style="width: 50px;">{{ Form::submit('登録する', ['class' => 'btn more_btn_lg d-block btn-lg mx-auto my-5']) }}</div>
+      <div class="mt-5 mx-auto" style="width: 50px;">
+        {{ Form::submit('登録する', ['class' => 'btn more_btn_lg d-block btn-lg mx-auto my-5']) }}</div>
       {{ Form::close() }}
     </div>
   </div>
