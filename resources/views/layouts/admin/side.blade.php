@@ -89,8 +89,7 @@
       </li>
 
       <li class="nav-item has-treeview
-      {{ReservationHelper::getController(Route::currentRouteName(),"admin","clients")}}
-      ">
+      {{ReservationHelper::getController(Route::currentRouteName(),"admin","clients")}}">
         <a href="#" class="nav-link ">
           <i class="nav-icon fas fa-tasks"></i>
           <p>顧客管理<i class="right fas fa-angle-left"></i></p>
@@ -148,23 +147,14 @@
             </a>
           </li>
           <li class="nav-item">
-            <a href="{{ url('admin/equipments') }}" class="nav-link
-            {{ReservationHelper::getRoute(Route::currentRouteName(),'admin.equipments.index')}}
-            {{ReservationHelper::getRoute(Route::currentRouteName(),'admin.equipments.edit')}}
-            {{ReservationHelper::getRoute(Route::currentRouteName(),'admin.equipments.create')}}
+            <a href="{{ url('admin/frame_prices') }}" class="nav-link 
+            {{ReservationHelper::getRoute(Route::currentRouteName(),'admin.frame_prices.index')}}
+            {{ReservationHelper::getRoute(Route::currentRouteName(),'admin.frame_prices.show')}}
+            {{ReservationHelper::getRoute(Route::currentRouteName(),'admin.frame_prices.edit')}}
+            {{ReservationHelper::getRoute(Route::currentRouteName(),'admin.time_prices.edit')}}
             ">
               <i class="far fa-circle nav-icon ml-4"></i>
               <p>会場料金管理</p>
-            </a>
-          </li>
-          <li class="nav-item">
-            <a href="{{ url('admin/services') }}" class="nav-link 
-            {{ReservationHelper::getRoute(Route::currentRouteName(),'admin.services.index')}}
-            {{ReservationHelper::getRoute(Route::currentRouteName(),'admin.services.edit')}}
-            {{ReservationHelper::getRoute(Route::currentRouteName(),'admin.services.create')}}
-            ">
-              <i class="far fa-circle nav-icon ml-4"></i>
-              <p>会場営業時間管理</p>
             </a>
           </li>
           <li class="nav-item">
@@ -174,15 +164,24 @@
             {{ReservationHelper::getRoute(Route::currentRouteName(),'admin.dates.create')}}
             ">
               <i class="far fa-circle nav-icon ml-4"></i>
+              <p>会場営業時間管理</p>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a href="{{ url('admin/equipments') }}" class="nav-link
+            {{ReservationHelper::getRoute(Route::currentRouteName(),'admin.equipments.index')}}
+            {{ReservationHelper::getRoute(Route::currentRouteName(),'admin.equipments.edit')}}
+            {{ReservationHelper::getRoute(Route::currentRouteName(),'admin.equipments.create')}}
+            ">
+              <i class="far fa-circle nav-icon ml-4"></i>
               <p>有料備品管理</p>
             </a>
           </li>
           <li class="nav-item">
-            <a href="{{ url('admin/frame_prices') }}" class="nav-link 
-            {{ReservationHelper::getRoute(Route::currentRouteName(),'admin.frame_prices.index')}}
-            {{ReservationHelper::getRoute(Route::currentRouteName(),'admin.frame_prices.show')}}
-            {{ReservationHelper::getRoute(Route::currentRouteName(),'admin.frame_prices.edit')}}
-            {{ReservationHelper::getRoute(Route::currentRouteName(),'admin.time_prices.edit')}}
+            <a href="{{ url('admin/services') }}" class="nav-link 
+            {{ReservationHelper::getRoute(Route::currentRouteName(),'admin.services.index')}}
+            {{ReservationHelper::getRoute(Route::currentRouteName(),'admin.services.edit')}}
+            {{ReservationHelper::getRoute(Route::currentRouteName(),'admin.services.create')}}
             ">
               <i class="far fa-circle nav-icon ml-4"></i>
               <p>有料サービス管理</p>
