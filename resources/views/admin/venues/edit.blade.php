@@ -28,7 +28,8 @@
           </ol>
         </nav>
       </div>
-      <h2 class="mt-3 mb-3">会場　詳細情報</h2>
+      <h2 class="mt-3 mb-3">会場　詳細情報(編集)</h2>
+      <p>ID:{{ $venue->id }}<span class="ml-2">{{ $venue->name_area }}・{{ $venue->name_bldg }}{{ $venue->name_venue }}</span></p>
       <hr>
     </div>
 
@@ -168,7 +169,7 @@
                 <tr>
                   <td class="table-active"><label for="address3" class="form_required">住所（建物名）</label></td>
                   <td>
-                    {{ Form::text('address3', $venue->address3, ['placeholder' => 'プレサンスビル703号室','class' => 'form-control']) }}
+                    {{ Form::text('address3', $venue->address3, ['placeholder' => '四ツ橋サンワールドビル1号室','class' => 'form-control']) }}
                     <p class="is-error-address3" style="color: red"></p>
                   </td>
                 </tr>
@@ -209,9 +210,9 @@
               </thead>
               <tbody>
                 <tr>
-                  <td class="table-active"><label for="luggage_flag" class="form_required">荷物預かり　有・無</label></td>
+                  <td class="table-active"><label for="luggage_flag" class="form_required">荷物預かり</label></td>
                   <td>
-                    {{Form::select('luggage_flag', ['無し', '有り'],$venue->luggage_flag,['placeholder' => '選択してください','class'=>'custom-select mr-sm-2'])}}
+                    {{Form::select('luggage_flag', ['不可', '可'],$venue->luggage_flag,['placeholder' => '選択してください','class'=>'custom-select mr-sm-2'])}}
                     <p class="is-error-luggage_flag" style="color: red"></p>
                   </td>
                 </tr>
@@ -257,8 +258,7 @@
                 <tr>
                   <td class="table-active"><label for="luggage_tel">電話番号</label></td>
                   <td>
-                    {{ Form::text('luggage_tel', $venue->luggage_tel, ['class' => 'form-control']) }}
-                    <small>半角数字、ハイフンなしで入力してください</small>
+                    {{ Form::text('luggage_tel', $venue->luggage_tel, ['class' => 'form-control' ,'placeholder' => '半角数字、ハイフンなしで入力してください']) }}
                     <p class="is-error-luggage_tel" style="color: red"></p>
                   </td>
                 </tr>
@@ -278,12 +278,24 @@
                 <tr>
                   <td colspan="3">
                     <p class="title-icon">
-                      <i class="fas fa-user-check icon-size fa-fw" aria-hidden="true"></i>担当者情報
+                      <i class="fas fa-user-check icon-size fa-fw" aria-hidden="true"></i>予約担当者情報
                     </p>
                   </td>
                 </tr>
               </thead>
               <tbody>
+                <tr>
+                  <td class="table-active"><label for="">会社名 (工藤さん！！！追加項目です)</label></td>
+                  <td colspan="2"><input class="form-control" type="text"></td>
+                </tr>
+                <tr>
+                  <td class="table-active"><label for="">TEL (工藤さん！！！追加項目です)</label></td>
+                  <td colspan="2"><input class="form-control" type="text"></td>
+                </tr>
+                <tr>
+                  <td class="table-active"><label for="">FAX (工藤さん！！！追加項目です)</label></td>
+                  <td colspan="2"><input class="form-control" type="text"></td>
+                </tr>
                 <tr>
                   <td class="table-active"><label for="first_name">担当者氏名</label></td>
                   <td>姓：
@@ -307,8 +319,7 @@
                 <tr>
                   <td class="table-active"><label for="person_tel">担当者電話番号</label></td>
                   <td colspan="2">
-                    {{ Form::text('person_tel', $venue->person_tel, ['class' => 'form-control']) }}
-                    <small>半角数字、ハイフンなしで入力してください</small>
+                    {{ Form::text('person_tel', $venue->person_tel, ['class' => 'form-control','placeholder' => '半角数字、ハイフンなしで入力してください']) }}
                     <p class="is-error-person_tel" style="color: red"></p>
                   </td>
                 </tr>
@@ -317,6 +328,12 @@
                   <td colspan="2">
                     {{ Form::text('person_email', $venue->person_email, ['class' => 'form-control']) }}
                     <p class="is-error-person_email" style="color: red"></p>
+                  </td>
+                </tr>
+                <tr>
+                  <td class="table-active"><label for="">備考 (工藤さん！！！追加項目です)</label></td>
+                  <td colspan="2">
+                    <textarea class="form-control"></textarea>
                   </td>
                 </tr>
               </tbody>
@@ -343,15 +360,13 @@
                 <tr>
                   <td class="table-active"><label for="mgmt_tel">電話番号</label></td>
                   <td colspan="2">
-                    {{ Form::text('mgmt_tel', $venue->mgmt_tel, ['class' => 'form-control']) }}
-                    <small>半角数字、ハイフンなしで入力してください</small>
+                    {{ Form::text('mgmt_tel', $venue->mgmt_tel, ['class' => 'form-control','placeholder' => '半角数字、ハイフンなしで入力してください']) }}
                   </td>
                 </tr>
                 <tr>
                   <td class="table-active"><label for="mgmt_emer_tel">夜間緊急連絡先</label></td>
                   <td colspan="2">
-                    {{ Form::text('mgmt_emer_tel', $venue->mgmt_emer_tel, ['class' => 'form-control']) }}
-                    <small>半角数字、ハイフンなしで入力してください</small>
+                    {{ Form::text('mgmt_emer_tel', $venue->mgmt_emer_tel, ['class' => 'form-control','placeholder' => '半角数字、ハイフンなしで入力してください']) }}
                   </td>
                 </tr>
 
@@ -364,7 +379,10 @@
                     {{ Form::text('mgmt_last_name', $venue->mgmt_last_name, ['class' => 'form-control']) }}
                   </td>
                 </tr>
-
+                <tr>
+                  <td class="table-active"><label for="">担当者電話番号 (工藤さん！！！追加項目です)</label></td>
+                  <td colspan="2"><input class="form-control" type="text"></td>
+                </tr>
                 <tr>
                   <td class="table-active"><label for="mgmt_email">担当者メール</label></td>
                   <td colspan="2">
@@ -380,8 +398,7 @@
                 <tr>
                   <td class="table-active"><label for="mgmt_sec_tel">警備会社電話番号</label></td>
                   <td colspan="2">
-                    {{ Form::text('mgmt_sec_company', $venue->mgmt_sec_tel, ['class' => 'form-control']) }}
-                    <small>半角数字、ハイフンなしで入力してください</small>
+                    {{ Form::text('mgmt_sec_company', $venue->mgmt_sec_tel, ['class' => 'form-control','placeholder' => '半角数字、ハイフンなしで入力してください']) }}
                   </td>
                 </tr>
                 <tr>
@@ -408,7 +425,7 @@
                 <tr>
                   <td class="table-active"><label for="eat_in_flag" class="form_required">室内飲食</label></td>
                   <td>
-                    {{{Form::select('eat_in_flag', ['無し', '有り'],$venue->eat_in_flag,['placeholder' => '選択してください', 'class'=>'custom-select mr-sm-2'])}}}
+                    {{{Form::select('eat_in_flag', ['不可', '可'],$venue->eat_in_flag,['placeholder' => '選択してください', 'class'=>'custom-select mr-sm-2'])}}}
 
                   </td>
                 </tr>
@@ -430,7 +447,7 @@
                 <tr>
                   <td class="table-active"><label for="layout" class="form_required">レイアウト変更</label></td>
                   <td>
-                    {{{Form::select('layout', ['無し', '有り'],null,['placeholder' => '選択してください', 'class'=>'custom-select mr-sm-2'])}}}
+                    {{{Form::select('layout', ['不可', '可'],null,['placeholder' => '選択してください', 'class'=>'custom-select mr-sm-2'])}}}
 
                   </td>
                 </tr>
@@ -491,8 +508,7 @@
         </div>
         <select id='equipment_id' multiple='multiple' name="equipment_id[]">
           @for ($i = 0; $i < $m_equipments->count(); $i++)
-            <option value={{$m_equipments[$i]->id}} @foreach ($r_emptys as $r_empty)
-              {{$m_equipments[$i]->id==$r_empty->id?"selected":""}} @endforeach>{{$m_equipments[$i]->item}}
+            <option value={{$m_equipments[$i]->id}} @foreach ($r_emptys as $r_empty) {{$m_equipments[$i]->id==$r_empty->id?"selected":""}} @endforeach>{{$m_equipments[$i]->item}}
             </option>
             @endfor
         </select>
@@ -509,8 +525,7 @@
         </div>
         <select id='service_id' multiple='multiple' name="service_id[]">
           @for ($s = 0; $s < $m_services->count(); $s++)
-            <option value={{$m_services[$s]->id}} @foreach ($s_emptys as $s_empty)
-              {{$m_services[$s]->id==$s_empty->id?"selected":""}} @endforeach>{{$m_services[$s]->item}}
+            <option value={{$m_services[$s]->id}} @foreach ($s_emptys as $s_empty) {{$m_services[$s]->id==$s_empty->id?"selected":""}} @endforeach>{{$m_services[$s]->item}}
             </option>
             @endfor
         </select>

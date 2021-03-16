@@ -26,7 +26,7 @@
         </ol>
       </nav>
     </div>
-    <h2 class="mt-3 mb-3">顧客管理　新規作成</h2>
+    <h2 class="mt-3 mb-3">顧客管理　新規登録</h2>
     <hr>
 
     @if ($errors->any())
@@ -143,15 +143,13 @@
               </tr>
               <tr>
                 <td class="table-active form_required">{{ Form::label('mobile', '携帯番号') }}</td>
-                <td colspan="2">{{ Form::text('mobile', old('mobile'), ['class' => 'form-control']) }}
-                  <small>半角数字、ハイフンなしで入力してください</small>
+                <td colspan="2">{{ Form::text('mobile', old('mobile'), ['class' => 'form-control', 'placeholder' => '半角数字、ハイフンなしで入力してください']) }}
                   <p class="is-error-mobile" style="color: red"></p>
                 </td>
               </tr>
               <tr>
                 <td class="table-active">{{ Form::label('tel', '固定電話') }}</td>
-                <td colspan="2">{{ Form::text('tel', old('tel'), ['class' => 'form-control']) }}
-                  <small>半角数字、ハイフンなしで入力してください</small>
+                <td colspan="2">{{ Form::text('tel', old('tel'), ['class' => 'form-control', 'placeholder' => '半角数字、ハイフンなしで入力してください']) }}
                 </td>
               </tr>
               <tr>

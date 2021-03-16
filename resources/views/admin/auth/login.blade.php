@@ -10,6 +10,22 @@
     line-height: 48px;
     margin-left: 25px;
   }
+
+  .login_notion {
+    border-top: 1px solid #ddd;
+    padding-top: 1em;
+    margin-top: 2em;
+  }
+
+  .login_notion h5 {
+    font-size: 0.8rem;
+    font-weight: bold;
+    margin-bottom: 0;
+  }
+
+  .login_notion p {
+    margin-bottom: 0;
+  }
 </style>
 <div class="container" style="margin-top: 10%;">
   <div class="row justify-content-center">
@@ -31,8 +47,7 @@
               <label for="email" class="col-md-4 col-form-label text-md-right">メールアドレス</label>
 
               <div class="col-md-6">
-                <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email"
-                  value="{{ old('email') }}" required autocomplete="email" autofocus>
+                <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="email" autofocus>
                 @error('email')
                 <span class="invalid-feedback" role="alert">
                   <strong>{{ $message }}</strong>
@@ -45,8 +60,7 @@
               <label for="password" class="col-md-4 col-form-label text-md-right">パスワード</label>
 
               <div class="col-md-6">
-                <input id="password" type="password" class="form-control @error('password') is-invalid @enderror"
-                  name="password" required autocomplete="current-password">
+                <input id="password" type="password" class="form-control @error('password') is-invalid @enderror" name="password" required autocomplete="current-password">
 
                 @error('password')
                 <span class="invalid-feedback" role="alert">
@@ -59,8 +73,7 @@
             <div class="form-group row">
               <div class="col-md-6 offset-md-4">
                 <div class="form-check">
-                  <input class="form-check-input" type="checkbox" name="remember" id="remember"
-                    {{ old('remember') ? 'checked' : '' }}>
+                  <input class="form-check-input" type="checkbox" name="remember" id="remember" {{ old('remember') ? 'checked' : '' }}>
 
                   <label class="form-check-label" for="remember">
                     情報を保持する
@@ -77,9 +90,24 @@
               </div>
             </div>
           </form>
+          <!-- <h5 class="font-bold">推奨ブラウザについて</h5> -->
+          <div class="login_notion">
+            <div class="col-md-8 offset-md-4">
+              <h5>以下の環境でのご利用を推奨いたします。</h5>
+              <p>
+                ・Google Chrome<br>
+                ・Fire Fox<br>
+                ・Edge<br>
+                ・Google Chrome
+              </p>
+            </div>
+          </div>
         </div>
+
+
       </div>
+
+
     </div>
   </div>
-</div>
-@endsection
+  @endsection

@@ -18,14 +18,14 @@
       </ol>
     </nav>
   </div>
-  <h2 class="mt-3 mb-3">料金管理　新規作成（枠貸し）</h2>
+  <h2 class="mt-3 mb-3">料金管理　新規登録（枠貸し）</h2>
   <hr>
   <div class="d-flex justify-content-between mt-3 mb-5">
   </div>
 </div>
 
 <div class="p-3 mb-2 bg-white text-dark">
-  <div>料金管理　新規作成</div>
+  <div>料金管理　新規登録</div>
   <hr>
   <div class="w-100 mb-3">
     <span class="d-block mb-2">会場</span>

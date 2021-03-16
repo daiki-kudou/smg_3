@@ -33,7 +33,7 @@
   <div class="row">
     <!-- 左側の項目 ---------------------------------------------------->
     <div class="col">
-      <table class="table table-bordered">
+      <table class="table table-bordered client_table">
         <thead>
           <tr>
             <td colspan="2">
@@ -108,12 +108,10 @@
       </table>
     </div>
     <!-- 左側の項目 終わり---------------------------------------------------->
-
-
     <!-- 右側の項目 ---------------------------------------------------->
     <div class="col">
       <!-- 担当者情報 ------------------------------------------------------>
-      <table class="table table-bordered">
+      <table class="table table-bordered client_table">
         <thead>
           <tr>
             <p class="title-icon">
@@ -151,7 +149,7 @@
       </table>
 
       <!-- 支払いデータ ------------------------------------------------>
-      <table class="table table-bordered">
+      <table class="table table-bordered client_table">
         <thead>
           <tr>
             <td colspan="3">
@@ -163,7 +161,7 @@
         </thead>
         <tbody>
           <tr>
-            <th width="35%" class="table-active">{{ Form::label('pay_method', '支払方法') }}</th>
+            <th class="table-active">{{ Form::label('pay_method', '支払方法') }}</th>
             <td>
               @if ($user->pay_method==1)
               銀行振込
@@ -216,9 +214,6 @@
           </tr>
         </tbody>
       </table>
-
-
-
     </div>
     <!-- 右側の項目　終わり -------------------------------------------------->
   </div>
@@ -277,6 +272,7 @@
     </ul>
 
     <h4 class="mb-2 mt-4">予約・利用履歴</h4>
+    <div class="table-wrap">
     <table class="table table-bordered table-scroll">
       <thead>
         <tr class="table_row">
@@ -367,6 +363,7 @@
       </tbody>
       @endforeach
     </table>
+    </div>
 
     {{ $reservations->links() }}
 

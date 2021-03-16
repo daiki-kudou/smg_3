@@ -25,8 +25,8 @@
     <div class="alert-box d-flex align-items-center">
       <span class="mr-3"><i class="fas alert-icon fa-exclamation-triangle" aria-hidden="true"></i></span>
       <p>
-        変更がある場合は、必ず更新するボタンを押してください。<br>
-        更新しないまま画面遷移をすると、データが反映されません。
+        変更がある場合は、必ず保存するボタンを押してください。<br>
+        保存しないまま画面遷移をすると、データが反映されません。
       </p>
     </div>　
 
@@ -94,11 +94,11 @@
                         <div class="radio-box">
                           <p>
                             {{ Form::radio('cp_master_board_flag', 1, false, ['id'=>'cp_master_board_flag1']) }}
-                            {{Form::label('cp_master_board_flag1','あり')}}
+                            {{Form::label('cp_master_board_flag1','有り')}}
                           </p>
                           <p>
                             {{ Form::radio('cp_master_board_flag', 0, true, ['id'=>'cp_master_board_flagboard_flag2']) }}
-                            {{Form::label('cp_master_board_flagboard_flag2','なし')}}
+                            {{Form::label('cp_master_board_flagboard_flag2','無し')}}
                           </p>
                         </div>
                       </td>
@@ -191,11 +191,15 @@
                     <tr>
                       <td class="table-active">{{$service->item}}</td>
                       <td>
-                        <div class="form-check form-check-inline">
-                          {{Form::radio('cp_master_services_breakdown'.$key, 1, false , ['id' => 'cp_master_service'.$key.'on', 'class' => 'form-check-input'])}}
+                        <div class="radio-box">
+                          <p>
+                          {{Form::radio('cp_master_services_breakdown'.$key, 1, false , ['id' => 'cp_master_service'.$key.'on'])}}
                           {{Form::label('cp_master_service'.$key.'on','有り')}}
-                          {{Form::radio('cp_master_services_breakdown'.$key, 0, true, ['id' => 'cp_master_service'.$key.'off', 'class' => 'form-check-input'])}}
+                          </p>
+                          <p>
+                          {{Form::radio('cp_master_services_breakdown'.$key, 0, true, ['id' => 'cp_master_service'.$key.'off'])}}
                           {{Form::label('cp_master_service'.$key.'on','無し')}}
+                          </p>
                         </div>
                       </td>
                     </tr>
@@ -219,11 +223,15 @@
                     <tr>
                       <td class="table-active">準備</td>
                       <td>
-                        <div class="form-check form-check-inline">
-                          {{Form::radio('cp_master_layout_prepare', 1, false, ['id' => 'cp_master_layout_prepare', 'class' => 'form-check-input'])}}
+                        <div class="radio-box">
+                          <p>
+                          {{Form::radio('cp_master_layout_prepare', 1, false, ['id' => 'cp_master_layout_prepare'])}}
                           {{Form::label('cp_master_layout_prepare','有り')}}
-                          {{Form::radio('cp_master_layout_prepare', 0, true, ['id' => 'cp_master_no_layout_prepare', 'class' => 'form-check-input'])}}
+                          </p>
+                          <p>
+                          {{Form::radio('cp_master_layout_prepare', 0, true, ['id' => 'cp_master_no_layout_prepare'])}}
                           {{Form::label('cp_master_no_layout_prepare','無し')}}
+                          </p>
                         </div>
                       </td>
                     </tr>
@@ -232,11 +240,15 @@
                     <tr>
                       <td class="table-active">片付</td>
                       <td>
-                        <div class="form-check form-check-inline">
-                          {{Form::radio('cp_master_layout_clean', 1, false, ['id' => 'cp_master_layout_clean', 'class' => 'form-check-input'])}}
+                        <div class="radio-box">
+                          <p>
+                          {{Form::radio('cp_master_layout_clean', 1, false, ['id' => 'cp_master_layout_clean'])}}
                           {{Form::label('cp_master_layout_clean','有り')}}
-                          {{Form::radio('cp_master_layout_clean', 0, true, ['id' => 'cp_master_no_layout_clean', 'class' => 'form-check-input'])}}
+                          </p>
+                          <p>
+                          {{Form::radio('cp_master_layout_clean', 0, true, ['id' => 'cp_master_no_layout_clean'])}}
                           {{Form::label('cp_master_no_layout_clean','無し')}}
+                          </p>
                         </div>
                       </td>
                     </tr>
@@ -262,6 +274,7 @@
                       <td class="table-active">事前に預かる荷物<br>（個数）</td>
                       <td>
                         {{ Form::text('cp_master_luggage_count', '',['class'=>'form-control'] ) }}
+                        <p class="is-error-cp_master_luggage_count" style="color: red"></p>
                       </td>
                     </tr>
                     <tr>
@@ -274,12 +287,14 @@
                       <td class="table-active">事後返送する荷物</td>
                       <td>
                         {{ Form::text('cp_master_luggage_return', '',['class'=>'form-control'] ) }}
+                        <p class="is-error-cp_master_luggage_return" style="color: red"></p>
                       </td>
                     </tr>
                     <tr>
                       <td class="table-active">荷物預かり/返送<br>料金</td>
                       <td>
                         {{ Form::text('cp_master_luggage_price', '',['class'=>'form-control'] ) }}
+                        <p class="is-error-cp_master_luggage_price" style="color: red"></p>
                       </td>
                     </tr>
                     @endif
@@ -350,8 +365,8 @@
                     <tr>
                       <td class="table-active"><label for="mobilePhone">携帯番号</label></td>
                       <td>
-                        {{ Form::text('cp_master_tel', '',['class'=>'form-control'] ) }}
-                        <small>半角数字、ハイフンなしで入力してください</small>
+                        {{ Form::text('cp_master_tel', '',['class'=>'form-control','placeholder' => '半角数字、ハイフンなしで入力してください'] ) }}
+                        <p class="is-error-cp_master_tel" style="color: red"></p>
                       </td>
                     </tr>
                   </tbody>
@@ -371,11 +386,15 @@
                       <td class="table-active"><label for="sendMail">送信メール</label></td>
                       <td>
                         <div class="d-flex">
-                          <div class="form-check form-check-inline">
-                            {{Form::radio('cp_master_email_flag', 1, false, ['id' => 'cp_master_email_flag', 'class' => 'form-check-input'])}}
-                            {{Form::label('cp_master_email_flag','有り',['class'=>'mr-5'])}}
-                            {{Form::radio('cp_master_email_flag', 0, true, ['id' => 'cp_master_no_email_flag', 'class' => 'form-check-input'])}}
+                          <div class="radio-box">
+                            <p>
+                            {{Form::radio('cp_master_email_flag', 1, false, ['id' => 'cp_master_email_flag'])}}
+                            {{Form::label('cp_master_email_flag','有り')}}
+                            </p>
+                            <p>
+                            {{Form::radio('cp_master_email_flag', 0, true, ['id' => 'cp_master_no_email_flag'])}}
                             {{Form::label('cp_master_no_email_flag','無し')}}
+                            </p>
                           </div>
                         </div>
                       </td>
@@ -471,7 +490,7 @@
       {{ Form::hidden('', $multiple->pre_reservations()->where('venue_id',$venue->id)->get()->count(),['id'=>'counts_reserve']) }}
       {{-- 以下、pre_reservationの数分　ループ --}}
       @foreach ($multiple->getPreReservations($venue->id) as $key=>$pre_reservation)
-      {{ Form::open(['url' => 'admin/multiples/'.$multiple->id."/edit/".$venue->id.'/calculate/'.$pre_reservation->id.'/specific_update', 'method'=>'POST', 'id'=>'']) }}
+      {{ Form::open(['url' => 'admin/multiples/'.$multiple->id."/edit/".$venue->id.'/calculate/'.$pre_reservation->id.'/specific_update', 'method'=>'POST', 'id'=>'multipleCalculateSpecificUpdateForm'.$key]) }}
       @csrf
       {{ Form::hidden('split_keys', $key) }}
 
@@ -555,11 +574,11 @@
                           <div class="radio-box">
                             <p>
                               {{ Form::radio('board_flag_copied'.$key, 1, $request->cp_master_board_flag==1?true:false, ['id'=>'board_flag_copied'.$key]) }}
-                              {{Form::label('board_flag1'.$key,'あり')}}
+                              {{Form::label('board_flag1'.$key,'有り')}}
                             </p>
                             <p>
                               {{ Form::radio('board_flag_copied'.$key, 0, $request->cp_master_board_flag==0?true:false, ['id'=>'board_flag_copied_off'.$key]) }}
-                              {{Form::label('board_flag_copied_off'.$key,'なし')}}
+                              {{Form::label('board_flag_copied_off'.$key,'無し')}}
                             </p>
                           </div>
                         </td>
@@ -667,11 +686,15 @@
                       <tr>
                         <td class="table-active">{{$service->item}}</td>
                         <td>
-                          <div class="form-check form-check-inline">
-                            {{Form::radio('services_breakdown'.$s_key.'_copied'.$key, 1, $request->{'cp_master_services_breakdown'.$s_key}==1?true:false , ['id' => 'services_breakdown'.$s_key.'_copied'.$key, 'class' => 'form-check-input'])}}
-                            {{Form::label('services_breakdown'.$s_key.'_copied'.$key,'有り')}}
-                            {{Form::radio('services_breakdown'.$s_key.'_copied'.$key, 0, $request->{'cp_master_services_breakdown'.$s_key}==0?true:false, ['id' => 'services_breakdown_off'.$s_key.'_copied'.$key, 'class' => 'form-check-input'])}}
-                            {{Form::label('services_breakdown_off'.$s_key.'_copied'.$key,'無し')}}
+                          <div class="radio-box">
+                            <p>
+                              {{Form::radio('services_breakdown'.$s_key.'_copied'.$key, 1, $request->{'cp_master_services_breakdown'.$s_key}==1?true:false , ['id' => 'services_breakdown'.$s_key.'_copied'.$key])}}
+                              {{Form::label('services_breakdown'.$s_key.'_copied'.$key,'有り')}}
+                            </p>
+                            <p>
+                              {{Form::radio('services_breakdown'.$s_key.'_copied'.$key, 0, $request->{'cp_master_services_breakdown'.$s_key}==0?true:false, ['id' => 'services_breakdown_off'.$s_key.'_copied'.$key])}}
+                              {{Form::label('services_breakdown_off'.$s_key.'_copied'.$key,'無し')}}
+                            </p>
                           </div>
                         </td>
                       </tr>
@@ -694,22 +717,30 @@
                       <tr>
                         <td class="table-active">準備</td>
                         <td>
-                          <div class="form-check form-check-inline">
-                            {{Form::radio('layout_prepare_copied'.$key, 1, $request->cp_master_layout_prepare==1?true:false, ['id' => 'layout_prepare_copied'.$key, 'class' => 'form-check-input'])}}
-                            {{Form::label('layout_prepare_copied'.$key,'有り')}}
-                            {{Form::radio('layout_prepare_copied'.$key, 0, $request->cp_master_layout_prepare==0?true:false, ['id' => 'no_layout_prepare_copied'.$key, 'class' => 'form-check-input'])}}
-                            {{Form::label('no_layout_prepare_copied'.$key,'無し')}}
+                          <div class="radio-box">
+                            <p>
+                              {{Form::radio('layout_prepare_copied'.$key, 1, $request->cp_master_layout_prepare==1?true:false, ['id' => 'layout_prepare_copied'.$key])}}
+                              {{Form::label('layout_prepare_copied'.$key,'有り')}}
+                            </p>
+                            <p>
+                              {{Form::radio('layout_prepare_copied'.$key, 0, $request->cp_master_layout_prepare==0?true:false, ['id' => 'no_layout_prepare_copied'.$key])}}
+                              {{Form::label('no_layout_prepare_copied'.$key,'無し')}}
+                            </p>
                           </div>
                         </td>
                       </tr>
                       <tr>
                         <td class="table-active">片付</td>
                         <td>
-                          <div class="form-check form-check-inline">
-                            {{Form::radio('layout_clean_copied'.$key, 1, $request->cp_master_layout_clean==1?true:false, ['id' => 'layout_clean_copied'.$key, 'class' => 'form-check-input'])}}
-                            {{Form::label('layout_clean_copied'.$key,'有り')}}
-                            {{Form::radio('layout_clean_copied'.$key, 0, $request->cp_master_layout_clean==0?true:false, ['id' => 'no_layout_clean_copied'.$key, 'class' => 'form-check-input'])}}
-                            {{Form::label('no_layout_clean_copied'.$key,'無し')}}
+                          <div class="radio-box">
+                            <p>
+                              {{Form::radio('layout_clean_copied'.$key, 1, $request->cp_master_layout_clean==1?true:false, ['id' => 'layout_clean_copied'.$key])}}
+                              {{Form::label('layout_clean_copied'.$key,'有り')}}
+                            </p>
+                            <p>
+                              {{Form::radio('layout_clean_copied'.$key, 0, $request->cp_master_layout_clean==0?true:false, ['id' => 'no_layout_clean_copied'.$key])}}
+                              {{Form::label('no_layout_clean_copied'.$key,'無し')}}
+                            </p>
                           </div>
                         </td>
                       </tr>
@@ -734,6 +765,7 @@
                         <td class="table-active">事前に預かる荷物<br>（個数）</td>
                         <td>
                           {{ Form::text('luggage_count_copied'.$key, $request->cp_master_luggage_count,['class'=>'form-control'] ) }}
+                          <p class="{{"is-error-luggage_count_copied".$key}}" style="color: red"></p>
                         </td>
                       </tr>
                       <tr>
@@ -746,12 +778,14 @@
                         <td class="table-active">事後返送する荷物</td>
                         <td>
                           {{ Form::text('luggage_return_copied'.$key, $request->cp_master_luggage_return,['class'=>'form-control'] ) }}
+                          <p class="{{"is-error-luggage_return_copied".$key}}" style="color: red"></p>
                         </td>
                       </tr>
                       <tr>
                         <td class="table-active">荷物預かり/返送<br>料金</td>
                         <td>
                           {{ Form::text('luggage_price_copied'.$key, $request->cp_master_luggage_price,['class'=>'form-control'] ) }}
+                          <p class="{{"is-error-luggage_price_copied".$key}}" style="color: red"></p>
                         </td>
                       </tr>
                       @endif
@@ -829,8 +863,8 @@
                         <tr>
                           <td class="table-active"><label for="mobilePhone">携帯番号</label></td>
                           <td>
-                            {{ Form::text('tel_copied'.$key, $request->cp_master_tel,['class'=>'form-control'] ) }}
-                            <small>半角数字、ハイフンなしで入力してください</small>
+                            {{ Form::text('tel_copied'.$key, $request->cp_master_tel,['class'=>'form-control','placeholder' => '半角数字、ハイフンなしで入力してください'] ) }}
+                            <p class="{{"is-error-tel_copied".$key}}" style="color: red"></p>
                           </td>
                         </tr>
                       </tbody>
@@ -849,13 +883,15 @@
                       <tr>
                         <td class="table-active"><label for="sendMail">送信メール</label></td>
                         <td>
-                          <div class="d-flex">
-                            <div class="form-check form-check-inline">
-                              {{Form::radio('email_flag_copied'.$key, 1, $request->cp_master_email_flag==1?true:false, ['id' => 'email_flag_copied'.$key, 'class' => 'form-check-input'])}}
-                              {{Form::label('email_flag_copied'.$key,'有り',['class'=>'mr-5'])}}
-                              {{Form::radio('email_flag_copied'.$key, 0, $request->cp_master_email_flag==0?true:false, ['id' => 'no_email_flag_copied'.$key, 'class' => 'form-check-input'])}}
+                          <div class="radio-box">
+                            <p>
+                              {{Form::radio('email_flag_copied'.$key, 1, $request->cp_master_email_flag==1?true:false, ['id' => 'email_flag_copied'.$key])}}
+                              {{Form::label('email_flag_copied'.$key,'有り')}}
+                            </p>
+                            <p>
+                              {{Form::radio('email_flag_copied'.$key, 0, $request->cp_master_email_flag==0?true:false, ['id' => 'no_email_flag_copied'.$key])}}
                               {{Form::label('no_email_flag_copied'.$key,'無し')}}
-                            </div>
+                            </p>
                           </div>
                         </td>
                       </tr>

@@ -46,7 +46,7 @@
       @if (!count($frame_prices)==0)
       {{ link_to_route('admin.frame_prices.edit', '枠貸し編集', $parameters=$venue->id,['class' => 'btn more_btn']) }}
       @else
-      {{ link_to_route('admin.frame_prices.create', '枠貸し新規作成', $parameters=$venue->id,['class' => 'btn more_btn']) }}
+      {{ link_to_route('admin.frame_prices.create', '枠貸し新規登録', $parameters=$venue->id,['class' => 'btn more_btn']) }}
       @endif
     </div>
     <table class="table table-bordered">
@@ -85,7 +85,7 @@
       @if (!count($time_prices)==0)
       {{ link_to_route('admin.time_prices.edit', '時間貸し編集', $parameters=$venue->id,['class' => 'btn more_btn']) }}
       @else
-      {{ link_to_route('admin.time_prices.create', '時間貸し新規作成', $parameters=$venue->id,['class' => 'btn more_btn']) }}
+      {{ link_to_route('admin.time_prices.create', '時間貸し新規登録', $parameters=$venue->id,['class' => 'btn more_btn']) }}
       @endif
     </div>
     <table class="table table-bordered">

@@ -26,7 +26,7 @@
 
   <div class="p-3 mb-2 bg-white text-dark">
     <div class="mt-4 mb-4">
-      <span>この情報はカレンダーからのドラッグ登録や会場予約フォームの時間指定の開始・終了時間に紐づく情報です</span>
+      <span>この情報はカレンダーからの登録や会場予約フォームの時間指定の開始・終了時間に紐づく情報です</span>
     </div>
     <div class="w-100">
       <span class="d-block mb-2">会場</span>

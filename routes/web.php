@@ -172,7 +172,7 @@ Route::namespace('Admin')->prefix('admin')->name('admin.')->group(function () {
     // 請求書追加
     // Route::post('reservations/{reservation}/add_bill', 'ReservationsController@add_bill')->name('reservations.add_bill');
 
-    // 追加請求書新規作成
+    // 追加請求書新規登録
     Route::post('bills/create/{reservation}', 'BillsController@create');
     // // ajax 予約　請求書　追加
     Route::post('bills/ajaxaddbillsequipments', 'BillsController@ajaxaddbillsequipments');
