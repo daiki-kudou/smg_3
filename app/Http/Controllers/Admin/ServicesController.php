@@ -79,9 +79,11 @@ class ServicesController extends Controller
    * @param  int  $id
    * @return \Illuminate\Http\Response
    */
-  public function edit($id)
+  public function edit($id, Request $request)
   {
     $service = Service::find($id);
+    $request->session()->put('current_page', $request->current_p);
+
     return view('admin.services.edit', [
       'service' => $service,
     ]);
@@ -110,7 +112,10 @@ class ServicesController extends Controller
     });
     $request->session()->regenerate();
 
-    return redirect('admin/services');
+
+    $current_page = $request->session()->pull('current_page');
+    $request->session()->regenerate();
+    return redirect('admin/services/?page=' . $current_page);
   }
 
   /**

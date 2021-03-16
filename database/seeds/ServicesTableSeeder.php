@@ -13,7 +13,6 @@ class ServicesTableSeeder extends Seeder
    */
   public function run()
   {
-    // factory(\App\Models\Service::class, 30)->create();
     // DB::table('services')->truncate();
     DB::table('services')->insert([
       [
@@ -37,5 +36,6 @@ class ServicesTableSeeder extends Seeder
         'created_at' => Carbon::now(),
       ],
     ]);
+    factory(\App\Models\Service::class, 40)->create();
   }
 }
