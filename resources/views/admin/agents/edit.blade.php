@@ -161,7 +161,7 @@
                   <label for="remark">備考</label>
                 </th>
                 <td colspan="2">
-                  {{ Form::text('last_remark', $agent->last_remark, ['class' => 'form-control', 'id'=>'company']) }}
+                  {{ Form::textarea('last_remark', $agent->last_remark, ['class' => 'form-control', 'id'=>'company']) }}
                 </td>
               </tr>
             </tbody>
@@ -230,7 +230,7 @@
                   <label for="alliance_remark">提携会場備考</label>
                 </th>
                 <td colspan="2">
-                  {{ Form::text('agent_remark', $agent->agent_remark, ['class' => 'form-control', 'id'=>'company']) }}
+                  {{ Form::textarea('agent_remark', $agent->agent_remark, ['class' => 'form-control', 'id'=>'company']) }}
                 </td>
               </tr>
               <tr>
@@ -238,7 +238,7 @@
                   <label for="site_remark">備考</label>
                 </th>
                 <td colspan="2">
-                  {{ Form::text('site_remark', $agent->site_remark, ['class' => 'form-control', 'id'=>'company']) }}
+                  {{ Form::textarea('site_remark', $agent->site_remark, ['class' => 'form-control', 'id'=>'company']) }}
                 </td>
               </tr>
             </tbody>
@@ -300,7 +300,7 @@
                   <label for="deal_remark">備考</label>
                 </th>
                 <td colspan="2">
-                  {{ Form::text('cxl_remark', $agent->cxl_remark, ['class' => 'form-control']) }}
+                  {{ Form::textarea('cxl_remark', $agent->cxl_remark, ['class' => 'form-control']) }}
                 </td>
               </tr>
             </tbody>

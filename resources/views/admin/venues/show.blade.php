@@ -147,7 +147,8 @@
             </tr>
             <tr>
               <td class="table-active"><label for="remark">備考</label></td>
-              <td> {{ $venue->remark }}
+              <td>
+                {!!nl2br(e($venue->remark))!!}
               </td>
             </tr>
 
@@ -306,7 +307,8 @@
             </tr>
             <tr>
               <td class="table-active"><label for="mgmt_remark">備考</label></td>
-              <td colspan="2"> {{ $venue->mgmt_remark}}
+              <td colspan="2">
+                {!!nl2br(e($venue->mgmt_remark))!!}
               </td>
             </tr>
           </tbody>

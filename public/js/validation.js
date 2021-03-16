@@ -213,51 +213,7 @@ $(function () {
 
 // 料金管理　編集
 $(function () {
-  $("#dateCreateForm").validate({
-    errorPlacement: function (error, element) {
-      var name = element.attr('name');
-      if (element.attr('name') === 'category[]') {
-        error.appendTo($('.is-error-category'));
-      } else if (element.attr('name') === name) {
-        error.appendTo($('.is-error-' + name));
-      }
-    },
-    errorElement: "span",
-    errorClass: "is-error",
-  });
-  $('input').on('blur', function () {
-    $(this).valid();
-    // if ($('span').hasClass('is-error')) {
-    //   $('span').css('background', 'white');
-    // }
-  });
-  $("input[name^='frame']").each(function (index, elem) {
 
-    $("input[name='frame" + index + "']").rules("add", {
-      required: true,
-      messages: {
-        required: "※必須項目です",
-      }
-    });
-  });
-  $("input[name^='price']").each(function (index, elem) {
-    $("input[name='price" + index + "']").rules("add", {
-      required: true,
-      number: true,
-      messages: {
-        required: "※必須項目です",
-        number: "※半角英数字を入力してください"
-      }
-    });
-  });
-  // $("input[name='extend").rules("add", {
-  //   required: true,
-  //   number: true,
-  //   messages: {
-  //     required: "※必須項目です",
-  //     number: "※半角英数字を入力してください"
-  //   }
-  // });
 
 
 });

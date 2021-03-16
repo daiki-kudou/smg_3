@@ -58,7 +58,9 @@
               <td class="text-right">{{ number_format($query->price )}}</td>
               <td class="text-right">{{ $query->stock }}</td>
               <td>
-                <p class="remark_limit">{{ $query->remark }}</p>
+                <p class="remark_limit">
+                  {!!nl2br(e($query->remark))!!}
+                </p>
               </td>
               <td class="text-center">
                 {{ link_to_route('admin.equipments.edit', '編集', $parameters = $query->id, ['class' => 'btn more_btn']) }}

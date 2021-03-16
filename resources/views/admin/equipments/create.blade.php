@@ -62,7 +62,9 @@
             {{ Form::text('stock', old('stock'), ['class' => 'form-control']) }}
             <p class="is-error-stock" style="color: red"></p>
           </td>
-          <td>{{ Form::textarea('remark', old('remark'), ['class' => 'form-control','rows'=>"2"]) }}</td>
+          <td>
+            {{ Form::textarea('remark', old('remark'), ['class' => 'form-control','rows'=>"2"]) }}
+          </td>
           <td>
             {{ Form::submit('登録', ['class' => 'btn more_btn approval']) }}
             <div class="loading hide">

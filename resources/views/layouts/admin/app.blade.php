@@ -123,7 +123,6 @@
     <div class="content-wrapper">
       <div class="content">
         <div class="container-fluid">
-
           @yield('content')
         </div>
       </div>
@@ -133,9 +132,21 @@
   </div>
   <script src="{{ asset('js/adminlte.min.js') }}"></script>
   <script>
+    // 自動補完無効
     $(function(){
       $('form').attr('autocomplete', 'off');
     })
+
+    // enterキー無効
+    $(function(){
+        $("input").on("keydown", function(e) {
+            if ((e.which && e.which === 13) || (e.keyCode && e.keyCode === 13)) {
+                return false;
+            } else {
+                return true;
+            }
+        });
+    });
   </script>
 </body>
 

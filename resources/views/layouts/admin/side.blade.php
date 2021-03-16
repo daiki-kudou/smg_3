@@ -88,65 +88,102 @@
         </ul>
       </li>
 
-      <li class="nav-item has-treeview">
+      <li class="nav-item has-treeview
+      {{ReservationHelper::getController(Route::currentRouteName(),"admin","clients")}}
+      ">
         <a href="#" class="nav-link ">
           <i class="nav-icon fas fa-tasks"></i>
           <p>顧客管理<i class="right fas fa-angle-left"></i></p>
         </a>
         <ul class="nav nav-treeview">
           <li class="nav-item">
-            <a href="{{ url('admin/clients') }}" class="nav-link clients-index">
+            <a href="{{ url('admin/clients') }}" class="nav-link 
+            {{ReservationHelper::getRoute(Route::currentRouteName(),'admin.clients.index')}}
+            {{ReservationHelper::getRoute(Route::currentRouteName(),'admin.clients.show')}}
+            {{ReservationHelper::getRoute(Route::currentRouteName(),'admin.clients.edit')}}
+            ">
               <i class="far fa-circle nav-icon ml-4"></i>
               <p>一覧</p>
             </a>
           </li>
           <li class="nav-item">
-            <a href="{{ url('admin/clients/create') }}" class="nav-link clients-create">
+            <a href="{{ url('admin/clients/create') }}" class="nav-link 
+            {{ReservationHelper::getRoute(Route::currentRouteName(),'admin.clients.create')}}
+            ">
               <i class="far fa-circle nav-icon ml-4"></i>
               <p>新規登録</p>
             </a>
           </li>
         </ul>
       </li>
-
-      <li class="nav-item has-treeview">
+      <li class="nav-item has-treeview 
+      {{ReservationHelper::getController(Route::currentRouteName(),"admin","venues")}}
+      {{ReservationHelper::getController(Route::currentRouteName(),"admin","equipments")}}
+      {{ReservationHelper::getController(Route::currentRouteName(),"admin","services")}}
+      {{ReservationHelper::getController(Route::currentRouteName(),"admin","dates")}}
+      {{ReservationHelper::getController(Route::currentRouteName(),"admin","frame_prices")}}
+      {{ReservationHelper::getController(Route::currentRouteName(),"admin","time_prices")}}
+      ">
         <a href="#" class="nav-link venues">
           <i class="nav-icon fas fa-map-marker-alt"></i>
           <p>会場管理<i class="right fas fa-angle-left"></i></p>
         </a>
         <ul class="nav nav-treeview">
           <li class="nav-item">
-            <a href="{{ url('admin/venues') }}" class="nav-link venues-index">
+            <a href="{{ url('admin/venues') }}" class="nav-link 
+              {{ReservationHelper::getRoute(Route::currentRouteName(),'admin.venues.index')}}
+              {{ReservationHelper::getRoute(Route::currentRouteName(),'admin.venues.show')}}
+              {{ReservationHelper::getRoute(Route::currentRouteName(),'admin.venues.edit')}}
+              ">
               <i class="far fa-circle nav-icon ml-4"></i>
               <p>一覧</p>
             </a>
           </li>
           <li class="nav-item">
-            <a href="{{ url('admin/venues/create') }}" class="nav-link venues-create">
+            <a href="{{ url('admin/venues/create') }}" class="nav-link 
+            {{ReservationHelper::getRoute(Route::currentRouteName(),'admin.venues.create')}}
+            ">
               <i class="far fa-circle nav-icon ml-4"></i>
               <p>新規登録</p>
             </a>
           </li>
           <li class="nav-item">
-            <a href="{{ url('admin/equipments') }}" class="nav-link venues-equipments">
+            <a href="{{ url('admin/equipments') }}" class="nav-link
+            {{ReservationHelper::getRoute(Route::currentRouteName(),'admin.equipments.index')}}
+            {{ReservationHelper::getRoute(Route::currentRouteName(),'admin.equipments.edit')}}
+            {{ReservationHelper::getRoute(Route::currentRouteName(),'admin.equipments.create')}}
+            ">
               <i class="far fa-circle nav-icon ml-4"></i>
               <p>有料備品管理</p>
             </a>
           </li>
           <li class="nav-item">
-            <a href="{{ url('admin/services') }}" class="nav-link venues-services">
+            <a href="{{ url('admin/services') }}" class="nav-link 
+            {{ReservationHelper::getRoute(Route::currentRouteName(),'admin.services.index')}}
+            {{ReservationHelper::getRoute(Route::currentRouteName(),'admin.services.edit')}}
+            {{ReservationHelper::getRoute(Route::currentRouteName(),'admin.services.create')}}
+            ">
               <i class="far fa-circle nav-icon ml-4"></i>
               <p>有料サービス管理</p>
             </a>
           </li>
           <li class="nav-item">
-            <a href="{{ url('admin/dates') }}" class="nav-link venues-dates">
+            <a href="{{ url('admin/dates') }}" class="nav-link 
+            {{ReservationHelper::getRoute(Route::currentRouteName(),'admin.dates.index')}}
+            {{ReservationHelper::getRoute(Route::currentRouteName(),'admin.dates.show')}}
+            {{ReservationHelper::getRoute(Route::currentRouteName(),'admin.dates.create')}}
+            ">
               <i class="far fa-circle nav-icon ml-4"></i>
               <p>営業時間管理</p>
             </a>
           </li>
           <li class="nav-item">
-            <a href="{{ url('admin/frame_prices') }}" class="nav-link venues-price">
+            <a href="{{ url('admin/frame_prices') }}" class="nav-link 
+            {{ReservationHelper::getRoute(Route::currentRouteName(),'admin.frame_prices.index')}}
+            {{ReservationHelper::getRoute(Route::currentRouteName(),'admin.frame_prices.show')}}
+            {{ReservationHelper::getRoute(Route::currentRouteName(),'admin.frame_prices.edit')}}
+            {{ReservationHelper::getRoute(Route::currentRouteName(),'admin.time_prices.edit')}}
+            ">
               <i class="far fa-circle nav-icon ml-4"></i>
               <p>料金管理</p>
             </a>
@@ -169,20 +206,28 @@
         </ul>
       </li>
 
-      <li class="nav-item has-treeview">
+      <li class="nav-item has-treeview
+      {{ReservationHelper::getController(Route::currentRouteName(),"admin","agents")}}
+      ">
         <a href="#" class="nav-link">
           <i class="nav-icon fas fa-building"></i>
           <p>仲介会社<i class="right fas fa-angle-left"></i></p>
         </a>
         <ul class="nav nav-treeview">
           <li class="nav-item">
-            <a href="{{ url('admin/agents') }}" class="nav-link agent-index">
+            <a href="{{ url('admin/agents') }}" class="nav-link 
+            {{ReservationHelper::getRoute(Route::currentRouteName(),'admin.agents.index')}}
+            {{ReservationHelper::getRoute(Route::currentRouteName(),'admin.agents.show')}}
+            {{ReservationHelper::getRoute(Route::currentRouteName(),'admin.agents.edit')}}
+            ">
               <i class="far fa-circle nav-icon ml-4"></i>
               <p>一覧</p>
             </a>
           </li>
           <li class="nav-item">
-            <a href="{{ url('admin/agents/create') }}" class="nav-link agent-create">
+            <a href="{{ url('admin/agents/create') }}" class="nav-link 
+            {{ReservationHelper::getRoute(Route::currentRouteName(),'admin.agents.create')}}
+            ">
               <i class="far fa-circle nav-icon ml-4"></i>
               <p>新規登録</p>
             </a>
@@ -244,37 +289,77 @@
   $(function() {
     // こちらを参考
     // https://designsupply-web.com/media/knowledgeside/1592/
-    function link_check(link, classes) {
-      var path = location.pathname
-      if (path == link) {
-        var target = $("." + classes);
-        $(target).addClass('active');
-        $(target).parent().parent().parent().addClass('menu-open');
-      }
-    }
-    link_check('/admin/venues', 'venues-index');
-    link_check('/admin/venues/create', 'venues-create');
-    link_check('/admin/equipments', 'venues-equipments');
-    link_check('/admin/services', 'venues-services');
-    link_check('/admin/dates', 'venues-dates');
-    link_check('/admin/frame_prices', 'venues-price');
-    link_check('/admin/agents', 'agent-index');
-    link_check('/admin/agents/create', 'agent-create');
-    link_check('/admin/clients', 'clients-index');
-    link_check('/admin/clients/create', 'clients-create');
+    // function link_check(link, classes) {
+    //   var path = location.pathname;
+    //   // console.log(path);
+    //   if (path == link) {
+    //     var target = $("." + classes);
+    //     $(target).addClass('active');
+    //     $(target).parent().parent().parent().addClass('menu-open');
+    //   }
+    // }
+    // function get_show(link,classes){
+    //   var path = location.pathname;
+    //   var result=path.replace(link,'');
+    //   if (result.match(/^\d+$/)) {
+    //     var target = $("." + classes);
+    //     $(target).addClass('active');
+    //     $(target).parent().parent().parent().addClass('menu-open');
+    //   }
+    // }
 
-    link_check('/admin/reservations', 'reservations-index');
-    link_check('/admin/reservations/create', 'reservations-create');
-    link_check('/admin/calendar/venue_calendar', 'venue_calendar');
-    link_check('/admin/calendar/date_calendar', 'date_calendar');
 
-    link_check('/admin/agents_reservations/create', 'agents-reservations-create');
-    link_check('/admin/pre_reservations', 'pre-reservations-index');
-    link_check('/admin/pre_reservations/create', 'pre-reservations-create');
-    link_check('/admin/pre_agent_reservations/create', 'pre-agent-reservations-create');
+    
+    // function explodeLink(tarArray, resultNum, tarClass){
+    //   var path = location.pathname;
+    //   var result = path.split('/');
+    //   var cnt=0;
+    //   $.each(tarArray, function(key, value){
+    //     $.each(result, function(key2, value2){
+    //     if(value === value2){
+    //         cnt++;
+    //     }
+    //     });
+    //   });
+    //   console.log(cnt,resultNum);
+    //   if (cnt==resultNum) {
+    //     var target = $("." + tarClass);
+    //     $(target).addClass('active');
+    //     $(target).parent().parent().parent().addClass('menu-open');
+    //     console.log("あってる");
+    //   }
+    // }
+    
+    // explodeLink(["admin","venues"],2,'venues-index');
+    // explodeLink(["admin","venues","create"],3,'venues-create');
 
-    link_check('/admin/multiples', 'multiples-index');
-    link_check('/admin/mail_templates', 'mail_templates');
+
+    // link_check('/admin/venues', 'venues-index');
+    // get_show('/admin/venues/', 'venues-index');
+    
+
+    // link_check('/admin/venues/create', 'venues-create');
+    // link_check('/admin/equipments', 'venues-equipments');
+    // link_check('/admin/services', 'venues-services');
+    // link_check('/admin/dates', 'venues-dates');
+    // link_check('/admin/frame_prices', 'venues-price');
+    // link_check('/admin/agents', 'agent-index');
+    // link_check('/admin/agents/create', 'agent-create');
+    // link_check('/admin/clients', 'clients-index');
+    // link_check('/admin/clients/create', 'clients-create');
+
+    // link_check('/admin/reservations', 'reservations-index');
+    // link_check('/admin/reservations/create', 'reservations-create');
+    // link_check('/admin/calendar/venue_calendar', 'venue_calendar');
+    // link_check('/admin/calendar/date_calendar', 'date_calendar');
+
+    // link_check('/admin/agents_reservations/create', 'agents-reservations-create');
+    // link_check('/admin/pre_reservations', 'pre-reservations-index');
+    // link_check('/admin/pre_reservations/create', 'pre-reservations-create');
+    // link_check('/admin/pre_agent_reservations/create', 'pre-agent-reservations-create');
+
+    // link_check('/admin/multiples', 'multiples-index');
+    // link_check('/admin/mail_templates', 'mail_templates');
 
   });
 </script>

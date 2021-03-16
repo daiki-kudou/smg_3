@@ -60,7 +60,7 @@
           <p class="is-error-price" style="color: red"></p>
         </td>
         <td>
-          {{ Form::text('remark', $service->remark, ['class' => 'form-control']) }}
+          {{ Form::textarea('remark', $service->remark, ['class' => 'form-control','rows'=>"2"]) }}
         </td>
         <td>
           {{ Form::submit('更新', ['class' => 'btn more_btn approval']) }}
