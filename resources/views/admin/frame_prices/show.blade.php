@@ -30,29 +30,29 @@
   </div>
   @else
 
-  <div class="mb-3">
+  <div class="mb-5">
     <h3 class="d-block mb-3 price_ttl"><span class="mr-3">ID:{{ ReservationHelper::IdFormat($venue->id)}}</span>
       {{ $venue->name_area }}・{{ $venue->name_bldg }}{{ $venue->name_venue }}
     </h3>
     <hr>
-    <div class="text-right mt-5 mb-2">
+
+    <h4 class="mt-5">料金体系：通常(枠貸し料金)</h4>
+    <div class="d-flex justify-content-between align-items-center mt-3">
+    <p class="mb-2">・枠は「午前」「午後」「夜間」「午前＆午後」「午後＆夜間」「終日」です。</p>
+    <div class="text-right mb-2">
       @if (!count($frame_prices)==0)
       {{ link_to_route('admin.frame_prices.edit', '枠貸し編集', $parameters=$venue->id,['class' => 'btn more_btn']) }}
       @else
       {{ link_to_route('admin.frame_prices.create', '枠貸し新規登録', $parameters=$venue->id,['class' => 'btn more_btn']) }}
       @endif
     </div>
-    <h5 class="mb-3">料金体系：通常(枠貸し料金)</h5>
-    <div class="d-flex justify-content-between">
-    <p class="mb-2">枠は「午前」「午後」「夜間」「午前＆午後」「午後＆夜間」「終日」です。</p>
-    <p>※金額は税抜表記になります。</p>
     </div>
     <table class="table table-bordered">
       <thead>
         <tr>
-          <th scope="col">枠</th>
-          <th scope="col">時間</th>
-          <th scope="col">料金</th>
+          <th class="table-active" scope="col">枠</th>
+          <th class="table-active" scope="col">時間</th>
+          <th class="table-active" scope="col">料金<span class="ml-1 annotation">※税抜</span></th>
         </tr>
       </thead>
       <tbody>
@@ -69,25 +69,21 @@
     </table>
   </div>
 
-  <div class="mt-5">
-    <div>
-      <div class="text-right mt-5 mb-3">
+  <div class="pt-5">
+        <h4 class="mb-3">料金体系：アクセア仕様(時間貸し料金)</h4>
+      <div class="text-right mb-2">
         @if (!count($time_prices)==0)
         {{ link_to_route('admin.time_prices.edit', '時間貸し編集', $parameters=$venue->id,['class' => 'btn more_btn']) }}
         @else
         {{ link_to_route('admin.time_prices.create', '時間貸し新規登録', $parameters=$venue->id,['class' => 'btn more_btn']) }}
         @endif
       </div>
-      <div class="d-flex justify-content-between mb-2">
-    <h5>料金体系：アクセア仕様(時間貸し料金)</h5>
-    <p>※金額は税抜表記になります。</p>
-    </div>
       <table class="table table-bordered">
         <thead>
           <tr>
-            <th scope="col">時間</th>
-            <th scope="col">料金</th>
-            <th scope="col">延長料金</th>
+            <th class="table-active" scope="col">時間</th>
+            <th class="table-active" scope="col">料金<span class="ml-1 annotation">※税抜</span></th>
+            <th class="table-active" scope="col">延長料金<span class="ml-1 annotation">※税抜</span></th>
             <!-- <th scope="col">登録日</th> -->
           </tr>
         </thead>
@@ -102,8 +98,11 @@
           @endforeach
         </tbody>
       </table>
-    </div>
   </div>
   @endif
+
+
+
+
 </section>
 @endsection

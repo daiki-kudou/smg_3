@@ -534,15 +534,4 @@
 
 {{ Form::close() }}
 
-
-
-
-
-
-
-
-
-
-
-
 @endsection
