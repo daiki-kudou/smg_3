@@ -17,7 +17,7 @@
   <hr>
 </div>
 
-<section class="section-wrap">
+<section class="mt-5">
   <div class="align-items-center d-flex justify-content-between mb-3">
     <div>
       {{ Form::model($user, ['route' => ['admin.clients.destroy', $user->id], 'method' => 'delete']) }}

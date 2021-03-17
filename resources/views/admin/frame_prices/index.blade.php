@@ -4,7 +4,6 @@
 <link href="{{ asset('/css/template.css') }}" rel="stylesheet">
 <script src="{{ asset('/js/template.js') }}"></script>
 
-<div class="container-fluid">
   <div class="container-field mt-3">
     <div class="float-right">
       <nav aria-label="breadcrumb">
@@ -33,9 +32,5 @@
       </select>
     </div>
   </div>
-
-
-</div>
-
 
 @endsection

@@ -6,9 +6,6 @@
 <link href="{{ asset('/css/template.css') }}" rel="stylesheet">
 <script src="{{ asset('/js/ctrl_form.js') }}"></script>
 
-
-<div class="container-fluid">
-
   <div class="float-right">
     <nav aria-label="breadcrumb">
       <ol class="breadcrumb">
@@ -185,7 +182,6 @@
       </div>
     </div>
   </div>
-</div>
 <script>
   $(function() {
     // プラスボタンクリック

@@ -37,7 +37,7 @@
 {{ Form::open(['url' => 'admin/clients/'.$user->id, 'method'=>'PUT', 'id'=>'ClientsEditForm']) }}
 @csrf
 
-<section class="section-wrap">
+<section class="mt-5">
   <div class="row">
     <!-- 左側の項目 ---------------------------------------------------------->
     <div class="col">

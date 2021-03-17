@@ -5,11 +5,6 @@
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/2.1.2/sweetalert.min.js"></script>
 
-
-<div class="container-fluid">
-
-
-
   <div class="float-right">
     <nav aria-label="breadcrumb">
       <ol class="breadcrumb">
@@ -137,7 +132,6 @@
         </tbody>
       </table>
   </div>
-</div>
 <script>
   $(function() {
     $('#start').on('change', function() {

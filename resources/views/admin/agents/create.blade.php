@@ -18,8 +18,7 @@
   }
 </style>
 
-<div class="container-fluid">
-
+<div class="content">
   <div class="container-field">
     <div class="float-right">
       <nav aria-label="breadcrumb">

@@ -6,13 +6,6 @@
 {{-- <script src="{{ asset('/js/admin/venue.js') }}"></script> --}}
 <link href="{{ asset('/css/template.css') }}" rel="stylesheet">
 
-
-
-
-<div class="container-fluid">
-
-
-
   <div class="container-field mt-3">
     <div class="float-right">
       <nav aria-label="breadcrumb">
@@ -67,17 +60,15 @@
             </p>
           </td>
           <td class="text-center">
-          </td>
-          <td class="text-center">
-            {{-- {{ link_to_route('admin.services.edit', '編集', $parameters = $query->id, ['class' => 'btn more_btn']) }}
-            --}}
-            {{ Form::open(['url' => 'admin/services/'.$query->id."/edit", 'method'=>'GET', 'id'=>'']) }}
+          {{ Form::open(['url' => 'admin/services/'.$query->id."/edit", 'method'=>'GET', 'id'=>'']) }}
             @csrf
             {{Form::hidden('current_p',$querys->currentPage() )}}
             {{ Form::submit('編集', ['class' => 'btn more_btn']) }}
             {{ Form::close() }}
-
-
+          </td>
+          <td class="text-center">
+            {{-- {{ link_to_route('admin.services.edit', '編集', $parameters = $query->id, ['class' => 'btn more_btn']) }}
+            --}}
 
             {{ Form::model($query, ['route' => ['admin.services.destroy', $query->id], 'method' => 'delete']) }}
             @csrf
@@ -91,7 +82,6 @@
     </table>
     {{ $querys->links() }}
   </div>
-</div>
 
 <script>
   $(function() {

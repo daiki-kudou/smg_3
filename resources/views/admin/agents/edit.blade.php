@@ -8,10 +8,6 @@
 <script src="{{ asset('/js/admin/validation.js') }}"></script>
 <script src="{{ asset('/js/ctrl_form.js') }}"></script>
 
-
-<div class="container-fluid">
-
-
   <div class="container-field">
     <div class="float-right">
       <nav aria-label="breadcrumb">
@@ -343,7 +339,6 @@
       {{ Form::close() }}
     </div>
   </section>
-</div>
 
 
 

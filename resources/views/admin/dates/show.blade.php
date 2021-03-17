@@ -5,9 +5,6 @@
 <script src="{{ asset('/js/template.js') }}"></script>
 
 
-<div class="content">
-  <div class="container-fluid">
-
     <div class="float-right">
       <nav aria-label="breadcrumb">
         <ol class="breadcrumb">
@@ -70,8 +67,6 @@
           </tbody>
         </table>
     </div>
-  </div>
-</div>
 
 
 

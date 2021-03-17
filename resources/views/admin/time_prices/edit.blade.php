@@ -7,10 +7,6 @@
 <link href="{{ asset('/css/template.css') }}" rel="stylesheet">
 <script src="{{ asset('/js/ctrl_form.js') }}"></script>
 
-
-<div class="container-fluid">
-
-
   <!-- フォーム追加 -->
   <script>
     $(function() {
@@ -117,7 +113,6 @@
     });
   </script>
 
-  <div class="container-field mt-3">
     <div class="float-right">
       <nav aria-label="breadcrumb">
         <ol class="breadcrumb">
@@ -128,7 +123,6 @@
         </ol>
       </nav>
     </div>
-  </div>
 
   <h2 class="mt-3 mb-3">料金管理　編集（枠貸し）</h2>
   <hr>
@@ -189,6 +183,5 @@
       </div>
     </div>
   </div>
-</div>
 
 @endsection

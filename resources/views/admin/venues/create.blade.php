@@ -27,15 +27,16 @@
 {{ Form::open(['url' => 'admin/venues', 'method'=>'POST', 'id'=>'VenuesCreateForm']) }}
 @csrf
 
-<div class="container-field">
-  <div class="float-right">
-    <nav aria-label="breadcrumb">
-      <ol class="breadcrumb">
-        <li class="breadcrumb-item active">
-          {{ Breadcrumbs::render(Route::currentRouteName()) }}
-        </li>
-      </ol>
-    </nav>
+  <div class="container-field">
+    <div class="float-right">
+      <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+          <li class="breadcrumb-item active">
+            {{ Breadcrumbs::render(Route::currentRouteName()) }}
+          </li>
+        </ol>
+      </nav>
+    </div>
   </div>
 
   <h2 class="mt-3 mb-3">会場 新規登録</h2>
@@ -45,7 +46,6 @@
   </div>
 
   <section class="mt-5">
-
     <!-- 会場URL ---------------------------------------------------->
     <p class="text-right">※金額は税抜で入力してください。</p>
     <div class="row">
@@ -277,19 +277,19 @@
             <tr>
               <td class="table-active"><label for="">会社名 (工藤さん！！！追加項目です)</label></td>
               <td colspan="2">
-              {{ Form::text('', old(''), ['class' => 'form-control']) }}
+                {{ Form::text('', old(''), ['class' => 'form-control']) }}
               </td>
             </tr>
             <tr>
               <td class="table-active"><label for="">TEL (工藤さん！！！追加項目です)</label></td>
               <td colspan="2">
-              {{ Form::text('', old(''), ['class' => 'form-control','placeholder' => '半角数字、ハイフンなしで入力してください']) }}
+                {{ Form::text('', old(''), ['class' => 'form-control','placeholder' => '半角数字、ハイフンなしで入力してください']) }}
               </td>
             </tr>
             <tr>
               <td class="table-active"><label for="">FAX (工藤さん！！！追加項目です)</label></td>
               <td colspan="2">
-              {{ Form::text('', old(''), ['class' => 'form-control','placeholder' => '半角数字、ハイフンなしで入力してください']) }}
+                {{ Form::text('', old(''), ['class' => 'form-control','placeholder' => '半角数字、ハイフンなしで入力してください']) }}
               </td>
             </tr>
             <tr>
@@ -329,7 +329,7 @@
             <tr>
               <td class="table-active"><label for="">備考 (工藤さん！！！追加項目です)</label></td>
               <td colspan="2">
-              {{ Form::textarea('', old(''), ['class' => 'form-control']) }}
+                {{ Form::textarea('', old(''), ['class' => 'form-control']) }}
               </td>
             </tr>
           </tbody>
@@ -509,8 +509,8 @@
         <p>※左部リストよりクリックで選択し右部リストに移動させてください</p>
         <select id='equipment_id' multiple='multiple' name="equipment_id[]">
           @for ($i = 0; $i < $equipments->count(); $i++)
-          <option value={{$i_equipments[$i]}}>{{$s_equipments[$i]}}</option>
-          @endfor
+            <option value={{$i_equipments[$i]}}>{{$s_equipments[$i]}}</option>
+            @endfor
         </select>
       </div>
     </div>
@@ -524,8 +524,8 @@
         <span>※左部リストよりクリックで選択し右部リストに移動させてください</span>
         <select id='service_id' multiple='multiple' name="service_id[]">
           @for ($i = 0; $i < $services->count(); $i++)
-          <option value={{$i_services[$i]}}>{{$s_services[$i]}}</option>
-          @endfor
+            <option value={{$i_services[$i]}}>{{$s_services[$i]}}</option>
+            @endfor
         </select>
       </div>
     </div>
@@ -534,6 +534,5 @@
     {{ Form::submit('登録する', ['class' => 'mx-auto btn more_btn_lg d-block approval']) }}
     @include('layouts.admin.loading')
   </div>
-</div>
 {{ Form::close() }}
 @endsection
