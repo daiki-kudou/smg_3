@@ -234,6 +234,11 @@ h2 {
 .table {
     font-size: 1rem;
     background-color: #fff;
+    box-shadow: 0 0 1px rgb(0 0 0 / 13%), 0 1px 3px rgb(0 0 0 / 20%);
+}
+
+.wrap_shadow {
+    box-shadow: 0 0 1px rgb(0 0 0 / 13%), 0 1px 3px rgb(0 0 0 / 20%);
 }
 
 select:disabled {
@@ -249,11 +254,13 @@ select:disabled {
 .wrapper {
     min-width: 1200px !important;
     margin: 0 auto !important;
+    /* background-color: #f3f3f3; */
     background-color: #f4f6f9;
 }
 
 .content-wrapper {
     /* background: #fff; */
+    /* background-color: #f3f3f3; */
     background-color: #f4f6f9;
     padding-bottom: 100px;
 }
@@ -434,7 +441,7 @@ select:disabled {
 
 .section-wrap {
     padding: 3%;
-    background: #fff;
+    /* background: #fff; */
 }
 
 
@@ -679,6 +686,7 @@ table td.table_column p:last-child {
 
 .tablesorter-default .tablesorter-header {
     white-space: nowrap;
+    padding: 0.5em 20px 0.5em 0.5em;
 }
 
 
@@ -698,6 +706,7 @@ table td.table_column p:last-child {
     display: flex;
     align-items: center;
     margin-bottom: 0;
+    font-weight: bold;
 }
 
 .icon-size {
@@ -958,6 +967,10 @@ table td.table_column p:last-child {
 
 .option_list li:last-child {
     border-bottom: none;
+}
+
+.price_ttl {
+    font-weight: bold;
 }
 
 .alliance_color {

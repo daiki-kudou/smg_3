@@ -5,7 +5,6 @@
 <link href="{{ asset('/css/template.css') }}" rel="stylesheet">
 <script src="{{ asset('/js/template.js') }}"></script>
 
-<div class="container-fluid">
   <div class="container-field">
     <div class="float-right">
       <nav aria-label="breadcrumb">
@@ -20,18 +19,9 @@
     <hr>
   </div>
 
-  <section class="section-wrap">
-    <div class="align-items-center d-flex justify-content-between mb-2">
-      <div>
-        {{ Form::model($agent, ['route' => ['admin.agents.destroy', $agent->id], 'method' => 'delete']) }}
-        @csrf
-        {{ Form::submit('削除する', ['class' => 'btn more_btn4 del_btn']) }}
-        {{ Form::close() }}
-
-      </div>
-      <div>
-        {{ link_to_route('admin.agents.edit', '編集する', $parameters = $agent->id, ['class' => 'btn more_btn']) }}
-      </div>
+  <section class="mt-5">
+    <div class="text-right mb-2">
+      {{ link_to_route('admin.agents.edit', '編集する', $parameters = $agent->id, ['class' => 'btn more_btn']) }}
     </div>
 
     <div class="row">
@@ -42,7 +32,7 @@
             <tr>
               <td colspan="2">
                 <p class="title-icon">
-                  <i class="fas fa-exclamation-circle icon-size fa-fw" aria-hidden="true"></i>基本情報
+                  <i class="fas fa-exclamation-circle icon-size" aria-hidden="true"></i>基本情報
                 </p>
               </td>
             </tr>
@@ -116,8 +106,10 @@
         <table class="table table-bordered agent_table">
           <thead>
             <tr>
-              <td colspan="3"><i class="fas fa-window-restore fa-fw icon-size" aria-hidden="true"></i>サイト情報
-                <p></p>
+              <td colspan="3">
+                <p class="title-icon">
+                  <i class="fas fa-window-restore icon-size" aria-hidden="true"></i>サイト情報
+                </p>
               </td>
             </tr>
           </thead>
@@ -131,7 +123,7 @@
               <td>{{ $agent->site_url }}</td>
             </tr>
             <tr>
-              <th class="table-active"><label for="login_url">ログインURL</label></th>
+              <th class="table-active"><label for="login_url">管理URL</label></th>
               <td>{{ $agent->login }}</td>
             </tr>
             <tr>
@@ -142,12 +134,12 @@
               <th class="table-active"><label for="password">パスワード</label></th>
               <td>{{ $agent->site_pass }}</td>
             </tr>
-            <tr>
+            <!-- <tr>
               <th class="table-active"><label for="alliance_remark">提携会場備考</label></th>
               <td>
                 {!!nl2br(e($agent->agent_remark))!!}
               </td>
-            </tr>
+            </tr> -->
             <tr>
               <th class="table-active"><label for="site_remark">備考</label></th>
               <td>
@@ -169,7 +161,7 @@
           <tbody>
             <tr>
               <th class="table-active"><label for="cost">仲介手数料</label></th>
-              <td>{{ $agent->cost }}</td>
+              <td>{{ $agent->cost }}%</td>
             </tr>
             <tr>
               <th class="table-active"><label for="deal_details">取引詳細</label></th>
@@ -213,22 +205,28 @@
       </div>
       <!-- 右側の項目　終わり -------------------------------------------------->
     </div>
+
+    <div class="text-right">
+      {{ Form::model($agent, ['route' => ['admin.agents.destroy', $agent->id], 'method' => 'delete']) }}
+      @csrf
+      {{ Form::submit('削除する', ['class' => 'btn more_btn4 del_btn']) }}
+      {{ Form::close() }}
+    </div>
+
     <div class="text-center mt-5">
       <p><a class="more_btn_lg" href="{{url('admin/agents')}}">一覧にもどる</a>
       </p>
     </div>
   </section>
-</div>
 
 
 <script>
-  $(function () {
-  $('.del_btn').on('click', function () {
-    if (!confirm('削除しますか？')) {
-      return false;
-    } 
+  $(function() {
+    $('.del_btn').on('click', function() {
+      if (!confirm('削除しますか？')) {
+        return false;
+      }
+    })
   })
-})
-
 </script>
 @endsection

@@ -16,8 +16,6 @@
 </div>
 @endif
 
-<div class="content">
-  <div class="container-fluid">
     <div class="float-right">
       <nav aria-label="breadcrumb">
         <ol class="breadcrumb">
@@ -78,8 +76,6 @@
       </tbody>
     </table>
     {{ Form::close() }}
-  </div>
-</div>
 
 
 

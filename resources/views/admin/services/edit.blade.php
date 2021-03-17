@@ -15,8 +15,6 @@
   </ul>
 </div>
 @endif
-<div class="container-fluid">
-
 
   <div class="float-right">
     <nav aria-label="breadcrumb">
@@ -75,5 +73,4 @@
   </table>
   </form>
 
-</div>
 @endsection

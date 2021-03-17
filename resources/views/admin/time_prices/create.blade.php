@@ -61,12 +61,11 @@
   <hr>
 </div>
 
-<div class="p-3 mb-2 bg-white text-dark">
-  <div class="w-100 mb-3">
-    <span class="d-block mb-2">会場</span>
-    <strong class="border border-light d-block"
-      style="width:100%;">{{$venue->name_area}}{{$venue->name_bldg}}{{$venue->name_venue}}</strong>
-  </div>
+<div class="section-wrap bg-white wrap_shadow">
+
+  <h3 class="d-block mt-3 mb-5 price_ttl"><span class="mr-3">ID:{{ ReservationHelper::IdFormat($venue->id)}}</span>
+        {{ $venue->name_area }}・{{ $venue->name_bldg }}{{ $venue->name_venue }}
+      </h3>
   <div class="new_price">
     @if ($errors->any())
     <div class="alert alert-danger">
@@ -80,13 +79,12 @@
     <div>
       {{ Form::model($time_price, ['route' => 'admin.time_prices.store']) }}
       @csrf
-      <p class="text-right">※金額は税抜で入力してください。</p>
       <table class="table table-bordered">
         <thead>
           <tr>
             <th>時間</th>
-            <td>料金</td>
-            <td>延長料金（1H）</td>
+            <td>料金<span class="ml-1 annotation">※税抜</span></td>
+            <td>延長料金(1H)<span class="ml-1 annotation">※税抜</span></td>
             <td>追加・削除</td>
           </tr>
         </thead>

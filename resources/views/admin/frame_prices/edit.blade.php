@@ -6,9 +6,6 @@
 <link href="{{ asset('/css/template.css') }}" rel="stylesheet">
 <script src="{{ asset('/js/ctrl_form.js') }}"></script>
 
-
-<div class="container-fluid">
-
   <div class="float-right">
     <nav aria-label="breadcrumb">
       <ol class="breadcrumb">
@@ -23,11 +20,10 @@
   <hr>
 
 
-  <div class="section-wrap">
-    <div class="w-100 mb-3">
-      <span class="d-block mb-2">会場</span>
-      <strong class="border border-light d-block" style="width:100%;">四ツ橋サンワールドビル1号室</strong>
-    </div>
+  <div class="section-wrap bg-white wrap_shadow">
+      <h3 class="d-block mt-3 mb-5 price_ttl"><span class="mr-3">ID:{{ ReservationHelper::IdFormat($venue->id)}}</span>
+        {{ $venue->name_area }}・{{ $venue->name_bldg }}{{ $venue->name_venue }}
+      </h3>
     @if ($errors->any())
     <div class="alert alert-danger">
       <ul>
@@ -42,14 +38,14 @@
         {{ Form::model($venue, ['route' => ['admin.frame_prices.update', $venue->id], 'method' => 'put', 'id'=>'dateCreateForm']) }}
         @csrf
 
-        <p class="text-right">※金額は税抜で入力してください。</p>
+      <p class="mb-2 text-right">※枠は「午前」「午後」「夜間」「午前＆午後」「午後＆夜間」「終日」です。</p>
         <table class="table table-bordered">
           <thead>
             <tr>
               <th>枠</th>
               <td>時間（開始）</td>
               <td>時間（終了）</td>
-              <td>料金</td>
+              <td>料金<span class="ml-1 annotation">※税抜</span></td>
               <td>追加・削除</td>
             </tr>
           </thead>
@@ -174,7 +170,7 @@
           </tbody>
         </table>
         <div>
-          延長料金(1H)
+          延長料金(1H)<span class="ml-1 annotation">※税抜</span>
         </div>
         <div>
           {{ Form::text('extend', $frame_price->extend,['class'=>'form-control w-25 mb-2'])}}
@@ -186,52 +182,51 @@
       </div>
     </div>
   </div>
-</div>
 <script>
   $(function() {
-// プラスボタンクリック
-$(document).on("click", ".add", function() {
-$(this).parent().parent().clone(true).insertAfter($(this).parent().parent());
-var count = $('.table tbody tr').length;
+    // プラスボタンクリック
+    $(document).on("click", ".add", function() {
+      $(this).parent().parent().clone(true).insertAfter($(this).parent().parent());
+      var count = $('.table tbody tr').length;
 
-// 追加時内容クリア
-$(this).parent().parent().next().find('td').find('input, select').eq(0).val('');
-$(this).parent().parent().next().find('td').find('input, select').eq(1).val('');
-$(this).parent().parent().next().find('td').find('input, select').eq(2).val('');
-$(this).parent().parent().next().find('td').find('input, select').eq(3).val('');
+      // 追加時内容クリア
+      $(this).parent().parent().next().find('td').find('input, select').eq(0).val('');
+      $(this).parent().parent().next().find('td').find('input, select').eq(1).val('');
+      $(this).parent().parent().next().find('td').find('input, select').eq(2).val('');
+      $(this).parent().parent().next().find('td').find('input, select').eq(3).val('');
 
 
-for (let index = 0; index < count; index++) {
-var frame = "frame" + (index);
-var start = "start" + (index);
-var finish = "finish" + (index);
-var price = "price" + (index);
-$('.table tbody tr').eq(index).find('td').find('input, select').eq(0).attr('name', frame);
-$('.table tbody tr').eq(index).find('td').find('input, select').eq(1).attr('name', start);
-$('.table tbody tr').eq(index).find('td').find('input, select').eq(2).attr('name', finish);
-$('.table tbody tr').eq(index).find('td').find('input, select').eq(3).attr('name', price);
-}
-});
-//   マイナスボタンクリック
-$(document).on("click", ".del", function() {
-var target = $(this).parent().parent();
+      for (let index = 0; index < count; index++) {
+        var frame = "frame" + (index);
+        var start = "start" + (index);
+        var finish = "finish" + (index);
+        var price = "price" + (index);
+        $('.table tbody tr').eq(index).find('td').find('input, select').eq(0).attr('name', frame);
+        $('.table tbody tr').eq(index).find('td').find('input, select').eq(1).attr('name', start);
+        $('.table tbody tr').eq(index).find('td').find('input, select').eq(2).attr('name', finish);
+        $('.table tbody tr').eq(index).find('td').find('input, select').eq(3).attr('name', price);
+      }
+    });
+    //   マイナスボタンクリック
+    $(document).on("click", ".del", function() {
+      var target = $(this).parent().parent();
 
-if (target.parent().children().length > 1) {
-target.remove();
-}
-var count = $('.table tbody tr').length;
+      if (target.parent().children().length > 1) {
+        target.remove();
+      }
+      var count = $('.table tbody tr').length;
 
-for (let index = 0; index < count; index++) {
-var frame = "frame" + (index);
-var start = "start" + (index);
-var finish = "finish" + (index);
-var price = "price" + (index);
-$('.table tbody tr').eq(index).find('td').find('input, select').eq(0).attr('name', frame);
-$('.table tbody tr').eq(index).find('td').find('input, select').eq(1).attr('name', start);
-$('.table tbody tr').eq(index).find('td').find('input, select').eq(2).attr('name', finish);
-$('.table tbody tr').eq(index).find('td').find('input, select').eq(3).attr('name', price);
-}
-});
-});
+      for (let index = 0; index < count; index++) {
+        var frame = "frame" + (index);
+        var start = "start" + (index);
+        var finish = "finish" + (index);
+        var price = "price" + (index);
+        $('.table tbody tr').eq(index).find('td').find('input, select').eq(0).attr('name', frame);
+        $('.table tbody tr').eq(index).find('td').find('input, select').eq(1).attr('name', start);
+        $('.table tbody tr').eq(index).find('td').find('input, select').eq(2).attr('name', finish);
+        $('.table tbody tr').eq(index).find('td').find('input, select').eq(3).attr('name', price);
+      }
+    });
+  });
 </script>
 @endsection

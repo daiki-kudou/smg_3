@@ -4,7 +4,6 @@
 <link href="{{ asset('/css/template.css') }}" rel="stylesheet">
 <script src="{{ asset('/js/template.js') }}"></script>
 
-<div class="container-fluid">
   <div class="container-field mt-3">
     <div class="float-right">
       <nav aria-label="breadcrumb">
@@ -20,7 +19,7 @@
     <hr>
   </div>
 
-  <div class="p-3 mb-2 bg-white text-dark">
+  <div class="p-3 mb-2 bg-white text-dark wrap_shadow">
     <span>会場</span>
     <div class="form-group">
       <select id="venue_id" name="venue_id" class="form-control form-control-lg w-50" onChange="location.href=value;">
@@ -33,9 +32,5 @@
       </select>
     </div>
   </div>
-
-
-</div>
-
 
 @endsection

@@ -5,11 +5,6 @@
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/2.1.2/sweetalert.min.js"></script>
 
-
-<div class="container-fluid">
-
-
-
   <div class="float-right">
     <nav aria-label="breadcrumb">
       <ol class="breadcrumb">
@@ -22,25 +17,19 @@
 
   <h2 class="mt-3 mb-3">営業時間管理　編集</h2>
   <hr>
-
-
-  <div class="p-3 mb-2 bg-white text-dark">
-    <div class="mt-4 mb-4">
-      <span>この情報はカレンダーからの登録や会場予約フォームの時間指定の開始・終了時間に紐づく情報です</span>
+  <div class="section-wrap bg-white wrap_shadow">
+    <h3 class="d-block">
+      <span>会場：</span>{{ReservationHelper::getVenue($venue->id)}}
+    </h3>
+    <div class="mt-5 mb-2">
+      <p>※この情報はSMGサイト内、会場カレンダーや会場予約フォームの時間指定の開始・終了時間に紐づく情報です</p>
     </div>
-    <div class="w-100">
-      <span class="d-block mb-2">会場</span>
-      <strong class="border border-light d-block" style="width:100%;">
-        {{ReservationHelper::getVenue($venue->id)}}
-      </strong>
-    </div>
-    <div class="mt-5">
       <table class="table table-bordered">
         <thead>
           <tr>
-            <td>曜日</td>
+            <td width="10%" class="text-center">曜日</td>
             <td>営業時間</td>
-            <td>更新</td>
+            <td width="10%"></td>
           </tr>
         </thead>
         <tbody>
@@ -50,7 +39,7 @@
           {{ Form::open(['url' => 'admin/dates', 'method'=>'POST']) }}
           @csrf
           <tr>
-            <td>
+            <td class="text-center">
               @if ($date_venue->week_day==1)
               月
               @elseif ($date_venue->week_day==2)
@@ -70,8 +59,7 @@
             <td>
               <div class="form-inline">
                 <select name="start" id="start" class="form-control col-sm-2">
-                  @for ($i = 1; $i < 24; $i++) @for ($ii=1; $ii < 3; $ii++) @if ($ii%2==0) <option
-                    value="{{sprintf('%02d',$i).":30:00"}}" @if ($date_venues->
+                  @for ($i = 1; $i < 24; $i++) @for ($ii=1; $ii < 3; $ii++) @if ($ii%2==0) <option value="{{sprintf('%02d',$i).":30:00"}}" @if ($date_venues->
                     where('week_day',$weekday_id)->first()->start==sprintf('%02d',$i).":30:00")
                     selected
                     @endif
@@ -88,8 +76,7 @@
                 </select>
                 ~
                 <select name="finish" id="finish" class="form-control col-sm-2">
-                  @for ($i = 1; $i < 24; $i++) @for ($ii=1; $ii < 3; $ii++) @if ($ii%2==0) <option
-                    value="{{sprintf('%02d',$i).":30:00"}}" @if ($date_venues->
+                  @for ($i = 1; $i < 24; $i++) @for ($ii=1; $ii < 3; $ii++) @if ($ii%2==0) <option value="{{sprintf('%02d',$i).":30:00"}}" @if ($date_venues->
                     where('week_day',$weekday_id)->first()->finish==sprintf('%02d',$i).":30:00")
                     selected
                     @endif
@@ -106,7 +93,7 @@
                 </select>
               </div>
             </td>
-            <td>
+            <td class="text-center">
               {{Form::hidden('weekday_id', $weekday_id)}}
               {{Form::hidden('venue_id', $venue_id)}}
               {{Form::submit('更新', ['class'=>'submit btn more_btn'])}}
@@ -116,7 +103,7 @@
           {{ Form::close() }}
           @else
           <tr>
-            <td>
+            <td class="text-center">
               @if ($date_venue->week_day==1)
               月
               @elseif ($date_venue->week_day==2)
@@ -144,27 +131,25 @@
           @endforeach
         </tbody>
       </table>
-    </div>
   </div>
-</div>
 <script>
   $(function() {
-$('#start').on('change', function() {
-var start = $('#start').val();
-var finish = $('#finish').val();
-if (start > finish) {
-swal('営業開始時間は営業終了時間より前に設定してください');
-$('#start').val('');
-}
-})
-$('#finish').on('change', function() {
-var start = $('#start').val();
-var finish = $('#finish').val();
-if (start > finish) {
-swal('営業終了時間は営業開始時間より後に設定してください');
-$('#finish').val('');
-}
-})
-})
+    $('#start').on('change', function() {
+      var start = $('#start').val();
+      var finish = $('#finish').val();
+      if (start > finish) {
+        swal('営業開始時間は営業終了時間より前に設定してください');
+        $('#start').val('');
+      }
+    })
+    $('#finish').on('change', function() {
+      var start = $('#start').val();
+      var finish = $('#finish').val();
+      if (start > finish) {
+        swal('営業終了時間は営業開始時間より後に設定してください');
+        $('#finish').val('');
+      }
+    })
+  })
 </script>
 @endsection

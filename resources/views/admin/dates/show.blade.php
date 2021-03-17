@@ -5,9 +5,6 @@
 <script src="{{ asset('/js/template.js') }}"></script>
 
 
-<div class="content">
-  <div class="container-fluid">
-
     <div class="float-right">
       <nav aria-label="breadcrumb">
         <ol class="breadcrumb">
@@ -22,28 +19,23 @@
     <hr>
 
 
-    <div class="p-3 mb-2 bg-white text-dark">
-      <div class="mt-4 mb-4">
-        <span>※この情報はSMGサイト内、会場カレンダーや会場予約フォームの時間指定の開始・終了時間に紐づく情報です</span>
+    <div class="section-wrap bg-white wrap_shadow">
+      <h3 class="border border-light d-block">
+        <span>会場：</span>{{ReservationHelper::getVenue($venues->id)}}
+      </h3>
+      <div class="mt-5 mb-2">
+        <p>※この情報はSMGサイト内、会場カレンダーや会場予約フォームの時間指定の開始・終了時間に紐づく情報です</p>
       </div>
-      <div class="w-100">
-        <span class="d-block mb-2">会場</span>
-        <strong class="border border-light d-block" style="width:100%;">
-          {{ReservationHelper::getVenue($venues->id)}}
-        </strong>
-      </div>
-
-      <div class="mt-5">
         <table class="table table-bordered">
           <tbody>
             <tr>
-              <td>曜日</td>
+              <td width="10%" class="text-center">曜日</td>
               <td>営業時間</td>
-              <td>編集</td>
+              <td width="10%"></td>
             </tr>
             @foreach ($date_venues as $date_venue)
             <tr>
-              <td>
+              <td class="text-center">
                 @if ($date_venue->week_day==1)
                 月
                 @elseif ($date_venue->week_day==2)
@@ -63,7 +55,7 @@
               <td>{{Carbon\Carbon::parse($date_venue->start)->format('H:i')}} ~
                 {{Carbon\Carbon::parse($date_venue->finish)->format('H:i')}}
               </td>
-              <td>{{ Form::open(['url' => 'admin/dates/create', 'method'=>'get']) }}
+              <td class="text-center">{{ Form::open(['url' => 'admin/dates/create', 'method'=>'get']) }}
                 @csrf
                 {{Form::hidden('weekday_id', $date_venue->week_day)}}
                 {{Form::hidden('id', $venues->id)}}
@@ -74,10 +66,7 @@
             @endforeach
           </tbody>
         </table>
-      </div>
     </div>
-  </div>
-</div>
 
 
 

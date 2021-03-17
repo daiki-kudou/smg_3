@@ -6,11 +6,6 @@
 {{-- <script src="{{ asset('/js/admin/venue.js') }}"></script> --}}
 <link href="{{ asset('/css/template.css') }}" rel="stylesheet">
 
-
-
-
-<div class="content">
-  <div class="container-fluid">
     <div class="container-field mt-3">
       <div class="float-right">
         <nav aria-label="breadcrumb">
@@ -77,8 +72,6 @@
         </tbody>
       </table>
     </div>
-  </div>
-</div>
 {{ $equipments->links() }}
 
 

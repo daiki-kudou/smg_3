@@ -7,10 +7,6 @@
 <link href="{{ asset('/css/template.css') }}" rel="stylesheet">
 <script src="{{ asset('/js/ctrl_form.js') }}"></script>
 
-
-<div class="container-fluid">
-
-
   <!-- フォーム追加 -->
   <script>
     $(function() {
@@ -117,7 +113,6 @@
     });
   </script>
 
-  <div class="container-field mt-3">
     <div class="float-right">
       <nav aria-label="breadcrumb">
         <ol class="breadcrumb">
@@ -128,16 +123,14 @@
         </ol>
       </nav>
     </div>
-  </div>
 
   <h2 class="mt-3 mb-3">料金管理　編集（枠貸し）</h2>
   <hr>
 
-  <div class="section-wrap">
-    <div class="w-100 mb-3">
-      <span class="d-block mb-2">会場</span>
-      <strong class="border border-light d-block" style="width:100%;">四ツ橋サンワールドビル1号室</strong>
-    </div>
+  <div class="section-wrap bg-white wrap_shadow">
+  <h3 class="d-block mt-3 mb-5 price_ttl"><span class="mr-3">ID:{{ ReservationHelper::IdFormat($venue->id)}}</span>
+        {{ $venue->name_area }}・{{ $venue->name_bldg }}{{ $venue->name_venue }}
+      </h3>
     <div class="new_price">
       @if ($errors->any())
       <div class="alert alert-danger">
@@ -152,13 +145,12 @@
       <div>
         {{ Form::model($venue, ['route' => ['admin.time_prices.update', $venue->id], 'method' => 'put', 'id'=>'timeEditForm']) }}
         @csrf
-        <p class="text-right">※金額は税抜で入力してください。</p>
         <table class="table table-bordered">
           <thead>
             <tr>
               <th>時間</th>
-              <td>料金</td>
-              <td>延長料金（1H）</td>
+              <td>料金<span class="ml-1 annotation">※税抜</span></td>
+              <td>延長料金(1H)<span class="ml-1 annotation">※税抜</span></td>
               <td>追加・削除</td>
             </tr>
           </thead>
@@ -191,6 +183,5 @@
       </div>
     </div>
   </div>
-</div>
 
 @endsection
