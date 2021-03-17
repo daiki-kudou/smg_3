@@ -44,11 +44,11 @@ $(function () {
         email: '※Emailの形式で入力してください',
       },
       unknown_user_mobile: {
-        number: '※数字を入力してください',
+        number: '半角英数字を入力してください',
         minlength: '※最低桁数は11です',
       },
       unknown_user_tel: {
-        number: '※数字を入力してください',
+        number: '半角英数字を入力してください',
         minlength: '※最低桁数は10です',
       },
       pre_date0: {
@@ -108,7 +108,7 @@ $(function () {
       },
       tel: {
         required: '※必須項目です',
-        number: '※数字を入力してください',
+        number: '半角英数字を入力してください',
         minlength: '※最低桁数は11です',
       },
       unknown_user_tel: {
@@ -162,7 +162,7 @@ $(function () {
       },
       tel: {
         required: '※必須項目です',
-        number: '※数字を入力してください',
+        number: '半角英数字を入力してください',
         minlength: '※最低桁数は11です',
       },
       unknown_user_tel: {
@@ -213,13 +213,13 @@ $(function () {
     messages: {
       enduser_charge: {
         required: '※必須項目です',
-        number: '※半角数字を入力してください',
+        number: '半角英数字を入力してください',
       },
       pre_endusers_tel: {
-        number: '※半角数字を入力してください',
+        number: '半角英数字を入力してください',
       },
       pre_endusers_mobile: {
-        number: '※半角数字を入力してください',
+        number: '半角英数字を入力してください',
         // minlength: '※最低桁数は11です',
       },
     },
@@ -270,7 +270,7 @@ $(function () {
       },
       tel: {
         required: '※必須項目です',
-        number: '※数字を入力してください',
+        number: '半角英数字を入力してください',
         minlength: '※最低桁数は11です',
       },
       unknown_user_tel: {
@@ -322,11 +322,11 @@ $(function () {
     messages: {
       pre_enduser_tel: {
         minlength: '※最低桁数は10です',
-        number: '※数字を入力してください',
+        number: '半角英数字を入力してください',
       },
       pre_enduser_mobile: {
         minlength: '※最低桁数は11です',
-        number: '※数字を入力してください',
+        number: '半角英数字を入力してください',
       },
       pre_enduser_email: {
         email: '※Emailの形式で入力してください',
@@ -369,7 +369,7 @@ $(function () {
     messages: {
       enduser_charge: {
         required: '※必須項目です',
-        number: '※半角数字を入力してください',
+        number: '半角英数字を入力してください',
       },
     },
     errorPlacement: function (error, element) {
@@ -410,7 +410,7 @@ $(function () {
     messages: {
       enduser_charge: {
         required: '※必須項目です',
-        number: '※半角数字を入力してください',
+        number: '半角英数字を入力してください',
       },
     },
     errorPlacement: function (error, element) {
@@ -461,17 +461,17 @@ $(function () {
     },
     messages: {
       cp_master_tel: {
-        number: '※半角数字を入力してください',
+        number: '半角英数字を入力してください',
         minlength: '※最低桁数は11です',
       },
       cp_master_luggage_count: {
-        number: '※半角数字を入力してください',
+        number: '半角英数字を入力してください',
       },
       cp_master_luggage_return: {
-        number: '※半角数字を入力してください',
+        number: '半角英数字を入力してください',
       },
       cp_master_luggage_price: {
-        number: '※半角数字を入力してください',
+        number: '半角英数字を入力してください',
       },
       cp_master_cost: {
         range: '※1から100までの数値を入力してください',
@@ -1092,10 +1092,6 @@ $(function () {
 $(function () {
   $("#VenuesCreateForm").validate({
     rules: {
-      // smg_url: {
-      //   required: true,
-      //   url: true
-      // },
       alliance_flag: {
         required: true,
       },
@@ -1128,7 +1124,8 @@ $(function () {
       },
       post_code: {
         required: true,
-        maxlength: 7
+        maxlength: 7,
+        number: true,
       },
       address1: {
         required: true,
@@ -1152,21 +1149,6 @@ $(function () {
       person_tel: {
         number: true,
       },
-      // luggage_address1: {
-      //   required: true,
-      // },
-      // luggage_address2: {
-      //   required: true,
-      // },
-      // luggage_address3: {
-      //   required: true,
-      // },
-      // luggage_name: {
-      //   required: true,
-      // },
-      // luggage_tel: {
-      //   required: true,
-      // },
       eat_in_flag: {
         required: true,
       },
@@ -1185,18 +1167,11 @@ $(function () {
       mgmt_email: {
         email: true,
       },
-      // mgmt_sec_company: {
-      //   minlength: 10
-      // },
       cost: {
         range: [1, 100]
       },
     },
     messages: {
-      // smg_url: {
-      //   required: "※必須項目です",
-      //   url: '正しいURLを記入してください(例:https://osaka-conference.com/rental/t6-maronie/hall/)'
-      // },
       alliance_flag: {
         required: "※必須項目です",
       },
@@ -1223,12 +1198,13 @@ $(function () {
       },
       capacity: {
         required: "※必須項目です",
-        number: "数字を入力してください",
+        number: "半角英数字を入力してください",
         min: "0以上を入力してください"
       },
       post_code: {
         required: "※必須項目です",
-        maxlength: '７桁で入力してください'
+        maxlength: '７桁で入力してください',
+        number: "※半角英数字で入力してください",
       },
       address1: {
         required: "※必須項目です",
@@ -1243,7 +1219,6 @@ $(function () {
         required: "※必須項目です",
       },
       luggage_post_code: {
-        // required: "※必須項目です",
         maxlength: '７桁で入力してください'
       },
       luggage_tel: {
@@ -1253,21 +1228,6 @@ $(function () {
         // required: "※必須項目です",
         maxlength: '７桁で入力してください'
       },
-      // luggage_address1: {
-      //   required: "※必須項目です",
-      // },
-      // luggage_address2: {
-      //   required: "※必須項目です",
-      // },
-      // luggage_address3: {
-      //   required: "※必須項目です",
-      // },
-      // luggage_name: {
-      //   required: "※必須項目です",
-      // },
-      // luggage_tel: {
-      //   required: "※必須項目です",
-      // },
       eat_in_flag: {
         required: "※必須項目です",
       },
@@ -1478,7 +1438,7 @@ $(function () {
       },
       capacity: {
         required: "※必須項目です",
-        number: "数字を入力してください",
+        number: "半角英数字を入力してください",
         min: "0以上を入力してください"
       },
       post_code: {

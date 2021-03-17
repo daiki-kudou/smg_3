@@ -129,7 +129,7 @@
             <tr>
               <td class="table-active"><label for="capacity" class="form_required">収容人数</label></td>
               <td>
-                {{ Form::text('capacity', old('capacity'), ['placeholder' => '半角英数字で入力してください','class' => 'form-control']) }}
+                {{ Form::text('capacity', old('capacity'), ['placeholder' => '半角英数字で入力してください','class' => 'form-control', 'autocomplete'=>"off"]) }}
                 <p class="is-error-capacity" style="color: red"></p>
               </td>
             </tr>
@@ -452,26 +452,26 @@
             </tr>
             <tr>
               <td class="table-active"><label for="layout_prepare" class="">レイアウト準備料金</label>
-              <span class="ml-1 annotation">※税抜</span>
-            </td>
+                <span class="ml-1 annotation">※税抜</span>
+              </td>
               <td>
                 <div class="d-flex align-items-center">
-                {{ Form::text('layout_prepare', old('layout_prepare'), ['class' => 'form-control']) }}
-                <span class="ml-1">円</span>
+                  {{ Form::text('layout_prepare', old('layout_prepare'), ['class' => 'form-control']) }}
+                  <span class="ml-1">円</span>
                 </div>
-                <p class="is-error-layout" style="color: red"></p>
+                <p class="is-error-layout_prepare" style="color: red"></p>
               </td>
             </tr>
             <tr>
               <td class="table-active"><label for="layout_clean" class="">レイアウト片付料金</label>
-              <span class="ml-1 annotation">※税抜</span>
-            </td>
+                <span class="ml-1 annotation">※税抜</span>
+              </td>
               <td>
                 <div class="d-flex align-items-center">
-                {{ Form::text('layout_clean', old('layout_clean'), ['class' => 'form-control']) }}
-                <span class="ml-1">円</span>
+                  {{ Form::text('layout_clean', old('layout_clean'), ['class' => 'form-control']) }}
+                  <span class="ml-1">円</span>
+                  <p class="is-error-layout_clean" style="color: red"></p>
                 </div>
-                <p class="is-error-layout" style="color: red"></p>
               </td>
             </tr>
           </tbody>

@@ -30,22 +30,22 @@
 
 
   <!-- 会場URL ---------------------------------------------------->
-  <div class="row">
+  {{-- <div class="row">
     <div class="col">
       {{ Form::open(['url' => 'admin/venues', 'method'=>'POST', 'id'=>'VenuesCreateForm']) }}
-      @csrf
-      <table class="table table-bordered">
-        <tbody>
-          <tr>
-            <th width="20%" class="table-active"> <label for="smg_url">会場SMG URL</label></th>
-            <td>{{$venue->smg_url}}
-            </td>
-          </tr>
-        </tbody>
-      </table>
-      </form>
-    </div>
+  @csrf
+  <table class="table table-bordered">
+    <tbody>
+      <tr>
+        <th width="20%" class="table-active"> <label for="smg_url">会場SMG URL</label></th>
+        <td>{{$venue->smg_url}}
+        </td>
+      </tr>
+    </tbody>
+  </table>
+  </form>
   </div>
+  </div> --}}
 
   <div class="row">
     <!-- 左側の項目 -------------------------------------------------------------------------->
