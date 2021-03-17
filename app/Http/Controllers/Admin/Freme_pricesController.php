@@ -87,25 +87,21 @@ class Freme_pricesController extends Controller
 
     if ($count_request == 1) { //$requestの中身が１列の場合
       Frame_price::create([
-        'frame' => $request->frame,
-        'start' => $request->start,
-        'finish' => $request->finish,
-        'price' => $request->price,
+        'frame' => $request->frame0,
+        'start' => $request->start0,
+        'finish' => $request->finish0,
+        'price' => $request->price0,
         'venue_id' => $request->venue_id,
         'extend' => $request->extend,
       ]);
       //$requestが１列以上の場合
     } else {
       for ($i = 0; $i < $count_request; $i++) {
-        $v_frame = 'frame' . $i;
-        $v_start = 'start' . $i;
-        $v_finish = 'finish' . $i;
-        $v_price = 'price' . $i;
         Frame_price::create([
-          'frame' => $request->$v_frame,
-          'start' => $request->$v_start,
-          'finish' => $request->$v_finish,
-          'price' => $request->$v_price,
+          'frame' => $request->{'frame' . $i},
+          'start' => $request->{'start' . $i},
+          'finish' => $request->{'finish' . $i},
+          'price' => $request->{'price' . $i},
           'venue_id' => $request->venue_id,
           'extend' => $request->extend,
         ]);

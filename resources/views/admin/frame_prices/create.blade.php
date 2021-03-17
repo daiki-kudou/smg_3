@@ -5,8 +5,6 @@
 
 <!-- フォーム追加 -->
 
-
-
 <div class="container-field mt-3">
 
   <div class="float-right">
@@ -38,7 +36,7 @@
     </div>
     @endif
     <div>
-      {{ Form:: open( ['route' => 'admin.frame_prices.store']) }}
+      {{ Form::open( ['route' => 'admin.frame_prices.store',"id"=>'FramePriceCreateForm']) }}
       @csrf
       <p class="mb-2 text-right">※枠は「午前」「午後」「夜間」「午前＆午後」「午後＆夜間」「終日」です。</p>
       <table class="table table-bordered">
@@ -53,10 +51,10 @@
         </thead>
         <tbody>
           <tr>
-            <td>{{ Form::text('frame', old('frame'), ['class' => 'form-control']) }}
+            <td>{{ Form::text('frame0', old('frame'), ['class' => 'form-control']) }}
             </td>
             <td>
-              <select name="start" id="start" class="form-control col-sm-12">
+              <select name="start0" id="start" class="form-control col-sm-12">
                 @for ($start = 8*2; $start <=23*2; $start++) <option
                   value="{{date("H:i:s", strtotime("00:00 +". $start * 30 ." minute"))}}">
                   {{date("H時i分", strtotime("00:00 +". $start * 30 ." minute"))}}
@@ -65,7 +63,7 @@
               </select>
             </td>
             <td>
-              <select name="finish" id="finish" class="form-control col-sm-12">
+              <select name="finish0" id="finish" class="form-control col-sm-12">
                 @for ($start = 8*2; $start <=23*2; $start++) <option
                   value="{{date("H:i:s", strtotime("00:00 +". $start * 30 ." minute"))}}" @if (date("H:i:s",
                   strtotime("00:00 +". $start * 30 ." minute"))=="12:00:00" ) selected @endif>
@@ -74,7 +72,7 @@
                   @endfor
               </select>
             </td>
-            <td>{{ Form::text('price', "", ['class' => 'form-control']) }}</td>
+            <td>{{ Form::text('price0', "", ['class' => 'form-control']) }}</td>
             <td>
               <input type="button" value="＋" class="add pluralBtn">
               <input type="button" value="－" class="del pluralBtn">
@@ -95,7 +93,6 @@
     </div>
   </div>
 </div>
-
 
 <script>
   $(function() {
