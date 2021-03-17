@@ -30,7 +30,7 @@
 
 
   <!-- 会場URL ---------------------------------------------------->
-  <div class="row">
+  {{-- <div class="row">
     <div class="col">
       {{ Form::open(['url' => 'admin/venues', 'method'=>'POST', 'id'=>'VenuesCreateForm']) }}
       @csrf
@@ -45,6 +45,7 @@
       </table>
     </div>
   </div>
+  </div> --}}
 
   <div class="row">
     <!-- 左側の項目 -------------------------------------------------------------------------->
