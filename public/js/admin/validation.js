@@ -1191,6 +1191,7 @@ $(function () {
       cost: {
         range: [1, 100]
       },
+
     },
     messages: {
       // smg_url: {
@@ -1289,6 +1290,10 @@ $(function () {
       cost: {
         range: "※1から100までの数値を入力してください"
       },
+      layout_prepare: {
+        required: "必須",
+      },
+
     },
     errorPlacement: function (error, element) {
       var name = element.attr('name');

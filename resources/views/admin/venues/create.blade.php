@@ -26,17 +26,17 @@
 {{ Form::open(['url' => 'admin/venues', 'method'=>'POST', 'id'=>'VenuesCreateForm']) }}
 @csrf
 
-  <div class="container-field">
-    <div class="float-right">
-      <nav aria-label="breadcrumb">
-        <ol class="breadcrumb">
-          <li class="breadcrumb-item active">
-            {{ Breadcrumbs::render(Route::currentRouteName()) }}
-          </li>
-        </ol>
-      </nav>
-    </div>
+<div class="container-field">
+  <div class="float-right">
+    <nav aria-label="breadcrumb">
+      <ol class="breadcrumb">
+        <li class="breadcrumb-item active">
+          {{ Breadcrumbs::render(Route::currentRouteName()) }}
+        </li>
+      </ol>
+    </nav>
   </div>
+
 
   <h2 class="mt-3 mb-3">会場 新規登録</h2>
   <hr>
@@ -206,7 +206,7 @@
             <tr>
               <td class="table-active"><label for="luggage_flag" class="form_required">荷物預かり</label></td>
               <td>
-                {{Form::select('luggage_flag', ['可', '不可'],0,['placeholder' => '選択してください','class'=>'custom-select mr-sm-2'])}}
+                {{Form::select('luggage_flag', ['可', '不可'],"",['placeholder' => '選択してください','class'=>'custom-select mr-sm-2'])}}
                 <p class="is-error-luggage_flag" style="color: red"></p>
               </td>
             </tr>
@@ -424,7 +424,7 @@
             <tr>
               <td class="table-active"><label for="eat_in_flag" class="form_required">室内飲食</label></td>
               <td>
-                {{{Form::select('eat_in_flag', ['不可', '可'],0,['placeholder' => '選択してください', 'class'=>'custom-select mr-sm-2'])}}}
+                {{{Form::select('eat_in_flag', ['不可', '可'],"",['placeholder' => '選択してください', 'class'=>'custom-select mr-sm-2'])}}}
                 <p class="is-error-eat_in_flag" style="color: red"></p>
               </td>
             </tr>
@@ -446,7 +446,7 @@
             <tr>
               <td class="table-active"><label for="layout" class="form_required">レイアウト変更</label></td>
               <td>
-                {{{Form::select('layout', ['不可', '可'],0,['placeholder' => '選択してください', 'class'=>'custom-select mr-sm-2'])}}}
+                {{{Form::select('layout', ['不可', '可'],"",['placeholder' => '選択してください', 'class'=>'custom-select mr-sm-2'])}}}
                 <p class="is-error-layout" style="color: red"></p>
               </td>
             </tr>
@@ -543,5 +543,5 @@
     {{ Form::submit('登録する', ['class' => 'mx-auto btn more_btn_lg d-block approval']) }}
     @include('layouts.admin.loading')
   </div>
-{{ Form::close() }}
-@endsection
+  {{ Form::close() }}
+  @endsection
