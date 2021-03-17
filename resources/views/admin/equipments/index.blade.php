@@ -17,7 +17,6 @@
         </nav>
       </div>
 
-
       <h2 class="mt-3 mb-3">有料備品管理</h2>
       <hr>
       <div class="text-right">
@@ -26,7 +25,6 @@
     </div>
 
     <p class="text-right mt-4">※金額は税抜表記になります。</p>
-    <div class="">
       <table class="table table-bordered" id="equipments_sort">
         <thead>
           <tr class="table_row">
@@ -75,7 +73,6 @@
           @endforeach
         </tbody>
       </table>
-    </div>
 {{ $equipments->links() }}
 
 

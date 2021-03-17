@@ -57,9 +57,6 @@
   </div>
   {{ $querys->links() }}
 </div>
-
-
-
 <script>
   $(function(){
     $("#agent_sort").tablesorter();
