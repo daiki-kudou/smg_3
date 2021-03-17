@@ -967,6 +967,10 @@ table td.table_column p:last-child {
     border-bottom: none;
 }
 
+.price_ttl {
+    font-weight: bold;
+}
+
 .alliance_color {
     color: red;
 }

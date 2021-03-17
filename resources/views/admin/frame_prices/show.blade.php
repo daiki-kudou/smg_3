@@ -31,19 +31,20 @@
   @else
 
   <div class="mb-3">
-    <h3 class="d-block mb-3 fw-bold"><span class="mr-3">ID:{{ ReservationHelper::IdFormat($venue->id)}}</span>
+    <h3 class="d-block mb-3 price_ttl"><span class="mr-3">ID:{{ ReservationHelper::IdFormat($venue->id)}}</span>
       {{ $venue->name_area }}・{{ $venue->name_bldg }}{{ $venue->name_venue }}
     </h3>
     <hr>
-    <div class="text-right mt-5 mb-3">
+    <div class="text-right mt-5 mb-2">
       @if (!count($frame_prices)==0)
       {{ link_to_route('admin.frame_prices.edit', '枠貸し編集', $parameters=$venue->id,['class' => 'btn more_btn']) }}
       @else
       {{ link_to_route('admin.frame_prices.create', '枠貸し新規登録', $parameters=$venue->id,['class' => 'btn more_btn']) }}
       @endif
     </div>
-    <div class="d-flex justify-content-between mb-2">
-    <h5>料金体系：通常(枠貸し料金)</h5>
+    <h5 class="mb-3">料金体系：通常(枠貸し料金)</h5>
+    <div class="d-flex justify-content-between">
+    <p class="mb-2">枠は「午前」「午後」「夜間」「午前＆午後」「午後＆夜間」「終日」です。</p>
     <p>※金額は税抜表記になります。</p>
     </div>
     <table class="table table-bordered">
@@ -94,8 +95,8 @@
           @foreach ($time_prices as $time_price)
           <tr>
             <th>{{ $time_price->time}}</th>
-            <td>{{ number_format($time_price->price)}}</td>
-            <td>{{ number_format($time_price->extend)}}</td>
+            <td>{{ number_format($time_price->price)}}円</td>
+            <td>{{ number_format($time_price->extend)}}円</td>
             <!-- <td>{{ ReservationHelper::formatDate($time_price->created_at)}}</td> -->
           </tr>
           @endforeach

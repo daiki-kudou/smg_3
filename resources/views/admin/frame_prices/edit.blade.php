@@ -24,7 +24,7 @@
 
 
   <div class="section-wrap bg-white wrap_shadow">
-      <h3 class="d-block mt-3 mb-5"><span class="mr-3">ID:{{ ReservationHelper::IdFormat($venue->id)}}</span>
+      <h3 class="d-block mt-3 mb-5 price_ttl"><span class="mr-3">ID:{{ ReservationHelper::IdFormat($venue->id)}}</span>
         {{ $venue->name_area }}・{{ $venue->name_bldg }}{{ $venue->name_venue }}
       </h3>
     @if ($errors->any())
@@ -41,14 +41,14 @@
         {{ Form::model($venue, ['route' => ['admin.frame_prices.update', $venue->id], 'method' => 'put', 'id'=>'dateCreateForm']) }}
         @csrf
 
-        <p class="text-right">※金額は税抜で入力してください。</p>
+      <p class="mb-2 text-right">※枠は「午前」「午後」「夜間」「午前＆午後」「午後＆夜間」「終日」です。</p>
         <table class="table table-bordered">
           <thead>
             <tr>
               <th>枠</th>
               <td>時間（開始）</td>
               <td>時間（終了）</td>
-              <td>料金</td>
+              <td>料金<span class="ml-1 annotation">※税抜</span></td>
               <td>追加・削除</td>
             </tr>
           </thead>
@@ -173,7 +173,7 @@
           </tbody>
         </table>
         <div>
-          延長料金(1H)
+          延長料金(1H)<span class="ml-1 annotation">※税抜</span>
         </div>
         <div>
           {{ Form::text('extend', $frame_price->extend,['class'=>'form-control w-25 mb-2'])}}
