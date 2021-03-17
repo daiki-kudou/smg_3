@@ -27,17 +27,17 @@
 {{ Form::open(['url' => 'admin/venues', 'method'=>'POST', 'id'=>'VenuesCreateForm']) }}
 @csrf
 
-  <div class="container-field">
-    <div class="float-right">
-      <nav aria-label="breadcrumb">
-        <ol class="breadcrumb">
-          <li class="breadcrumb-item active">
-            {{ Breadcrumbs::render(Route::currentRouteName()) }}
-          </li>
-        </ol>
-      </nav>
-    </div>
+<div class="container-field">
+  <div class="float-right">
+    <nav aria-label="breadcrumb">
+      <ol class="breadcrumb">
+        <li class="breadcrumb-item active">
+          {{ Breadcrumbs::render(Route::currentRouteName()) }}
+        </li>
+      </ol>
+    </nav>
   </div>
+
 
   <h2 class="mt-3 mb-3">会場 新規登録</h2>
   <hr>
@@ -455,14 +455,14 @@
               <td class="table-active"><label for="layout_prepare" class="">レイアウト準備料金　※税抜 </label></td>
               <td>
                 {{ Form::text('layout_prepare', old('layout_prepare'), ['class' => 'form-control']) }}
-                <p class="is-error-layout" style="color: red"></p>
+                <p class="is-error-layout_prepare" style="color: red"></p>
               </td>
             </tr>
             <tr>
               <td class="table-active"><label for="layout_clean" class="">レイアウト片付料金　※税抜 </label></td>
               <td>
                 {{ Form::text('layout_clean', old('layout_clean'), ['class' => 'form-control']) }}
-                <p class="is-error-layout" style="color: red"></p>
+                <p class="is-error-layout_clean" style="color: red"></p>
               </td>
             </tr>
           </tbody>
@@ -534,5 +534,5 @@
     {{ Form::submit('登録する', ['class' => 'mx-auto btn more_btn_lg d-block approval']) }}
     @include('layouts.admin.loading')
   </div>
-{{ Form::close() }}
-@endsection
+  {{ Form::close() }}
+  @endsection
