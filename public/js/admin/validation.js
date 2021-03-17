@@ -1191,7 +1191,6 @@ $(function () {
       cost: {
         range: [1, 100]
       },
-
     },
     messages: {
       // smg_url: {
@@ -1290,10 +1289,6 @@ $(function () {
       cost: {
         range: "※1から100までの数値を入力してください"
       },
-      layout_prepare: {
-        required: "必須",
-      },
-
     },
     errorPlacement: function (error, element) {
       var name = element.attr('name');
@@ -1317,6 +1312,34 @@ $(function () {
     // if ($('span').hasClass('is-error')) {
     //   $('span').css('background', 'white');
     // }
+  });
+  // https://qiita.com/konnma/items/eb26651576e625b72805
+  $(document).on('change', '#layout', function () {
+    if ($('select[name="layout"] option:selected').val() == 1) {
+      $("input[name='layout_prepare']").rules("add", {
+        required: true,
+        messages: { required: "レイアウト変更が【可】の場合、必須項目です" },
+      });
+      $("input[name='layout_prepare']").prop("readonly", false);
+
+      $("input[name='layout_clean']").rules("add", {
+        required: true,
+        messages: { required: "レイアウト変更が【可】の場合、必須項目です" },
+      });
+      $("input[name='layout_clean']").prop("readonly", false);
+
+    } else {
+      // レイアウト準備
+      $("input[name='layout_prepare']").rules("remove", "required");
+      $("input[name='layout_prepare']").next().children().css("display", "none");
+      $("input[name='layout_prepare']").val("");
+      $("input[name='layout_prepare']").prop("readonly", true);
+      // レイアウト片付け
+      $("input[name='layout_clean']").rules("remove", "required");
+      $("input[name='layout_clean']").next().children().css("display", "none");
+      $("input[name='layout_clean']").val("");
+      $("input[name='layout_clean']").prop("readonly", true);
+    }
   });
 });
 
@@ -1417,6 +1440,12 @@ $(function () {
       cost: {
         range: [1, 100]
       },
+      layout_prepare: {
+        required: $("#layout").val() == 1
+      },
+      layout_clean: {
+        required: $("#layout").val() == 1
+      },
     },
     messages: {
       // smg_url: {
@@ -1500,6 +1529,13 @@ $(function () {
       cost: {
         range: "※1から100までの数値を入力してください"
       },
+      layout_prepare: {
+        required: "レイアウト変更が【可】の場合、必須項目です"
+      },
+      layout_clean: {
+        required: "レイアウト変更が【可】の場合、必須項目です"
+      },
+
     },
     errorPlacement: function (error, element) {
       var name = element.attr('name');
@@ -1523,6 +1559,32 @@ $(function () {
     // if ($('span').hasClass('is-error')) {
     //   $('span').css('background', 'white');
     // }
+  });
+  // https://qiita.com/konnma/items/eb26651576e625b72805
+  $(document).on('change', '#layout', function () {
+    if ($('select[name="layout"] option:selected').val() == 1) {
+      $("input[name='layout_prepare']").rules("add", {
+        required: true,
+        messages: { required: "レイアウト変更が【可】の場合、必須項目です" },
+      })
+      $("input[name='layout_clean']").rules("add", {
+        required: true,
+        messages: { required: "レイアウト変更が【可】の場合、必須項目です" },
+      })
+    } else {
+      // レイアウト準備
+      $("input[name='layout_prepare']").rules("remove", "required");
+      $("input[name='layout_prepare']").next().children().css("display", "none");
+      $("input[name='layout_prepare']").val("");
+      $("input[name='layout_prepare']").prop("readonly", true);
+      // レイアウト片付け
+      $("input[name='layout_clean']").rules("remove", "required");
+      $("input[name='layout_clean']").next().children().css("display", "none");
+      $("input[name='layout_clean']").val("");
+      $("input[name='layout_clean']").prop("readonly", true);
+
+    }
+    console.log("test");
   });
 });
 

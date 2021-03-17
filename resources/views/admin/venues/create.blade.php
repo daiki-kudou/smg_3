@@ -447,7 +447,7 @@
             <tr>
               <td class="table-active"><label for="layout" class="form_required">レイアウト変更</label></td>
               <td>
-                {{{Form::select('layout', ['不可', '可'],"",['placeholder' => '選択してください', 'class'=>'custom-select mr-sm-2'])}}}
+                {{{Form::select('layout', ['不可', '可'],"",['placeholder' => '選択してください', 'class'=>'custom-select mr-sm-2','id'=>'layout'])}}}
                 <p class="is-error-layout" style="color: red"></p>
               </td>
             </tr>
