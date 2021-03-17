@@ -134,12 +134,12 @@
               </tr>
               <tr>
                 <th class="table-active"><label for="entrance_open_time">正面入口の開閉時間</label></th>
-                <td> {{ $venue->entrance_open_time }}
+                <td class="word_break_none"> {{ $venue->entrance_open_time }}
                 </td>
               </tr>
               <tr>
                 <th class="table-active"><label for="backyard_open_time">通用口の開閉時間</label></th>
-                <td> {{ $venue->backyard_open_time }}
+                <td class="word_break_none"> {{ $venue->backyard_open_time }}
                 </td>
               </tr>
               <tr>
