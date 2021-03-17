@@ -164,6 +164,10 @@ table.dataTable thead .sorting_desc:after {
 
 .is-error {
     /* background: pink; */
+    background: #ffdce2;
+}
+span.is-error {
+    background-color: transparent;
 }
 
 .hide {
@@ -473,7 +477,11 @@ select:disabled {
 
 .table_row th {
     text-align: center;
-    /* background: rgba(0, 0, 0, 0.075); */
+    background: rgba(0, 0, 0, 0.075);
+}
+
+.table-active {
+    /* background: #f2f2f2; */
 }
 
 
