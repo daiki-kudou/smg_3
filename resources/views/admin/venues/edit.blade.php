@@ -378,8 +378,10 @@
             </td>
           </tr>
           <tr>
-            <td class="table-active"><label for="">担当者電話番号 (工藤さん！！！追加項目です)</label></td>
-            <td colspan="2"><input class="form-control" type="text"></td>
+            <td class="table-active"><label for="mgmt_person_tel">担当者電話番号 (工藤さん！！！追加項目です)</label></td>
+            <td colspan="2">
+              {{ Form::text('mgmt_person_tel', $venue->mgmt_person_tel, ['class' => 'form-control']) }}
+            </td>
           </tr>
           <tr>
             <td class="table-active"><label for="mgmt_email">担当者メール</label></td>
@@ -396,7 +398,7 @@
           <tr>
             <td class="table-active"><label for="mgmt_sec_tel">警備会社電話番号</label></td>
             <td colspan="2">
-              {{ Form::text('mgmt_sec_company', $venue->mgmt_sec_tel, ['class' => 'form-control','placeholder' => '半角数字、ハイフンなしで入力してください']) }}
+              {{ Form::text('mgmt_sec_tel', $venue->mgmt_sec_tel, ['class' => 'form-control','placeholder' => '半角数字、ハイフンなしで入力してください']) }}
             </td>
           </tr>
           <tr>

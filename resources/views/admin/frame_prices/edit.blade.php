@@ -6,57 +6,57 @@
 <link href="{{ asset('/css/template.css') }}" rel="stylesheet">
 <script src="{{ asset('/js/ctrl_form.js') }}"></script>
 
-  <div class="float-right">
-    <nav aria-label="breadcrumb">
-      <ol class="breadcrumb">
-        <li class="breadcrumb-item active">
-          {{ Breadcrumbs::render(Route::currentRouteName(),$venue->id) }}
-        </li>
-      </ol>
-    </nav>
+<div class="float-right">
+  <nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+      <li class="breadcrumb-item active">
+        {{ Breadcrumbs::render(Route::currentRouteName(),$venue->id) }}
+      </li>
+    </ol>
+  </nav>
+</div>
+
+<h2 class="mt-3 mb-3">料金管理　編集(枠貸し)</h2>
+<hr>
+
+
+<div class="section-wrap bg-white wrap_shadow">
+  <h3 class="d-block mt-3 mb-5 price_ttl"><span class="mr-3">ID:{{ ReservationHelper::IdFormat($venue->id)}}</span>
+    {{ $venue->name_area }}・{{ $venue->name_bldg }}{{ $venue->name_venue }}
+  </h3>
+  @if ($errors->any())
+  <div class="alert alert-danger">
+    <ul>
+      @foreach ($errors->all() as $error)
+      <li>{{ $error }}</li>
+      @endforeach
+    </ul>
   </div>
-
-  <h2 class="mt-3 mb-3">料金管理　編集(枠貸し)</h2>
-  <hr>
-
-
-  <div class="section-wrap bg-white wrap_shadow">
-      <h3 class="d-block mt-3 mb-5 price_ttl"><span class="mr-3">ID:{{ ReservationHelper::IdFormat($venue->id)}}</span>
-        {{ $venue->name_area }}・{{ $venue->name_bldg }}{{ $venue->name_venue }}
-      </h3>
-    @if ($errors->any())
-    <div class="alert alert-danger">
-      <ul>
-        @foreach ($errors->all() as $error)
-        <li>{{ $error }}</li>
-        @endforeach
-      </ul>
-    </div>
-    @endif
-    <div class="new_price">
-      <div>
-        {{ Form::model($venue, ['route' => ['admin.frame_prices.update', $venue->id], 'method' => 'put', 'id'=>'dateCreateForm']) }}
-        @csrf
+  @endif
+  <div class="new_price">
+    <div>
+      {{ Form::model($venue, ['route' => ['admin.frame_prices.update', $venue->id], 'method' => 'put', 'id'=>'dateCreateForm']) }}
+      @csrf
 
       <p class="mb-2 text-right">※枠は「午前」「午後」「夜間」「午前＆午後」「午後＆夜間」「終日」です。</p>
-        <table class="table table-bordered">
-          <thead>
-            <tr>
-              <th>枠</th>
-              <td>時間（開始）</td>
-              <td>時間（終了）</td>
-              <td>料金<span class="ml-1 annotation">※税抜</span></td>
-              <td>追加・削除</td>
-            </tr>
-          </thead>
-          <tbody>
-            @foreach ($frame_prices as $num=>$frame_price)
-            <tr>
-              <td>
-                {{ Form::text('frame'.$num, old('frame', $frame_price->frame), ['class' => 'form-control']) }}
-                <p class="{{'is-error-frame'.$num}}" style="color: red"></p>
-              </td>
-              <td>{{Form::select('start'.$num, [
+      <table class="table table-bordered">
+        <thead>
+          <tr>
+            <th>枠</th>
+            <td>時間（開始）</td>
+            <td>時間（終了）</td>
+            <td>料金<span class="ml-1 annotation">※税抜</span></td>
+            <td>追加・削除</td>
+          </tr>
+        </thead>
+        <tbody>
+          @foreach ($frame_prices as $num=>$frame_price)
+          <tr>
+            <td>
+              {{ Form::text('frame'.$num, old('frame', $frame_price->frame), ['class' => 'form-control']) }}
+              <p class="{{'is-error-frame'.$num}}" style="color: red"></p>
+            </td>
+            <td>{{Form::select('start'.$num, [
                     '00:00:00'=>'00:00',
                     '00:30:00'=>'00:30',
                     '01:00:00'=>'01:00',
@@ -106,8 +106,8 @@
                     '23:00:00'=>'23:00',
                     '23:30:00'=>'23:30',
                 ],old('start', $frame_price->start),['class'=>'form-control col-sm-12'])}}
-              </td>
-              <td>{{Form::select('finish'.$num, [
+            </td>
+            <td>{{Form::select('finish'.$num, [
                     '00:00:00'=>'00:00',
                     '00:30:00'=>'00:30',
                     '01:00:00'=>'01:00',
@@ -157,31 +157,31 @@
                     '23:00:00'=>'23:00',
                     '23:30:00'=>'23:30',
                 ],old('finish', $frame_price->finish),['class'=>'form-control col-sm-12'])}}</td>
-              <td>
-                {{ Form::text('price'.$num, old('price', $frame_price->price), ['class' => 'form-control']) }}
-                <p class="{{'is-error-price'.$num}}" style="color: red"></p>
-              </td>
-              <td>
-                <input type="button" value="＋" class="add pluralBtn">
-                <input type="button" value="ー" class="del pluralBtn">
-              </td>
-            </tr>
-            @endforeach
-          </tbody>
-        </table>
-        <div>
-          延長料金(1H)<span class="ml-1 annotation">※税抜</span>
-        </div>
-        <div>
-          {{ Form::text('extend', $frame_price->extend,['class'=>'form-control w-25 mb-2'])}}
-          <p class="{{'is-error-extend'}}" style="color: red"></p>
-        </div>
-        {{Form::hidden('venue_id', $venue->id)}}
-        {{ Form::submit('保存する', ['class' => 'btn more_btn_lg mx-auto d-block my-5']) }}
-        {{ Form::close() }}
+            <td>
+              {{ Form::text('price'.$num, old('price', $frame_price->price), ['class' => 'form-control']) }}
+              <p class="{{'is-error-price'.$num}}" style="color: red"></p>
+            </td>
+            <td>
+              <input type="button" value="＋" class="add pluralBtn">
+              <input type="button" value="ー" class="del pluralBtn">
+            </td>
+          </tr>
+          @endforeach
+        </tbody>
+      </table>
+      <div>
+        延長料金(1H)<span class="ml-1 annotation">※税抜</span>
       </div>
+      <div>
+        {{ Form::text('extend', $frame_price->extend,['class'=>'form-control w-25 mb-2'])}}
+        <p class="{{'is-error-extend'}}" style="color: red"></p>
+      </div>
+      {{Form::hidden('venue_id', $venue->id)}}
+      {{ Form::submit('保存する', ['class' => 'btn more_btn_lg mx-auto d-block my-5']) }}
+      {{ Form::close() }}
     </div>
   </div>
+</div>
 <script>
   $(function() {
     // プラスボタンクリック
@@ -228,5 +228,13 @@
       }
     });
   });
+
+  $(function(){
+    $(".del").on("click",function(){
+      if(!confirm('本当に削除しますか？\n削除した時点で会場情報・顧客側予約フォームからも削除されます')){
+        return false;
+    }
+    })
+  })
 </script>
 @endsection
