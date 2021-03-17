@@ -53,7 +53,7 @@
         <table class="table table-bordered">
           <tbody>
             <tr>
-              <td class="table-active"><label for="smg_url" class="form_required">会場SMG URL</label></td>
+              <td class="table-active"><label for="smg_url" class="">会場SMG URL</label></td>
               <td>
                 {{ Form::text('smg_url', old('smg_url'), ['class' => 'form-control', 'placeholder'=>"https://osaka-conference.com/rental/t6-maronie/hall/"]) }}
                 <p class="is-error-smg_url" style="color: red"></p>
@@ -277,19 +277,19 @@
             <tr>
               <td class="table-active"><label for="">会社名 (工藤さん！！！追加項目です)</label></td>
               <td colspan="2">
-              {{ Form::text('', old(''), ['class' => 'form-control']) }}
+                {{ Form::text('', old(''), ['class' => 'form-control']) }}
               </td>
             </tr>
             <tr>
               <td class="table-active"><label for="">TEL (工藤さん！！！追加項目です)</label></td>
               <td colspan="2">
-              {{ Form::text('', old(''), ['class' => 'form-control','placeholder' => '半角数字、ハイフンなしで入力してください']) }}
+                {{ Form::text('', old(''), ['class' => 'form-control','placeholder' => '半角数字、ハイフンなしで入力してください']) }}
               </td>
             </tr>
             <tr>
               <td class="table-active"><label for="">FAX (工藤さん！！！追加項目です)</label></td>
               <td colspan="2">
-              {{ Form::text('', old(''), ['class' => 'form-control','placeholder' => '半角数字、ハイフンなしで入力してください']) }}
+                {{ Form::text('', old(''), ['class' => 'form-control','placeholder' => '半角数字、ハイフンなしで入力してください']) }}
               </td>
             </tr>
             <tr>
@@ -329,7 +329,7 @@
             <tr>
               <td class="table-active"><label for="">備考 (工藤さん！！！追加項目です)</label></td>
               <td colspan="2">
-              {{ Form::textarea('', old(''), ['class' => 'form-control']) }}
+                {{ Form::textarea('', old(''), ['class' => 'form-control']) }}
               </td>
             </tr>
           </tbody>

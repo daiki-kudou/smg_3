@@ -4,6 +4,13 @@ jQuery.validator.addMethod("katakana", function (value, element) {
 }, "<br/>全角カタカナを入力してください"
 );
 
+jQuery.validator.addMethod("alphanum", function (value, element) {
+  return this.optional(element) || /^([a-zA-Z0-9]+)$/.test(value);
+}, "<br/>半角英数字を入力してください"
+);
+
+
+
 // 仮押え新規作成
 $(function () {
   $("#pre_reservationCreateForm").validate({
@@ -1085,10 +1092,10 @@ $(function () {
 $(function () {
   $("#VenuesCreateForm").validate({
     rules: {
-      smg_url: {
-        required: true,
-        url: true
-      },
+      // smg_url: {
+      //   required: true,
+      //   url: true
+      // },
       alliance_flag: {
         required: true,
       },
@@ -1105,13 +1112,13 @@ $(function () {
         required: true,
         number: true,
         min: 0,
-        max: 999,
+        max: 1000,
       },
       size2: {
         required: true,
         number: true,
         min: 0,
-        max: 999,
+        max: 1000,
 
       },
       capacity: {
@@ -1186,10 +1193,10 @@ $(function () {
       },
     },
     messages: {
-      smg_url: {
-        required: "※必須項目です",
-        url: '正しいURLを記入してください(例:https://osaka-conference.com/rental/t6-maronie/hall/)'
-      },
+      // smg_url: {
+      //   required: "※必須項目です",
+      //   url: '正しいURLを記入してください(例:https://osaka-conference.com/rental/t6-maronie/hall/)'
+      // },
       alliance_flag: {
         required: "※必須項目です",
       },
@@ -1204,15 +1211,15 @@ $(function () {
       },
       size1: {
         required: "※必須項目です",
-        number: "数字を入力してください",
+        number: "半角英数字を入力してください",
         min: "0以上を入力してください",
-        max: '999以上は入力できません',
+        max: '上限値は1000です',
       },
       size2: {
         required: "※必須項目です",
-        number: "数字を入力してください",
+        number: "半角英数字を入力してください",
         min: "0以上を入力してください",
-        max: '999以上は入力できません',
+        max: '上限値は1000です',
       },
       capacity: {
         required: "※必須項目です",
@@ -1315,10 +1322,10 @@ $(function () {
 $(function () {
   $("#VenuesEditForm").validate({
     rules: {
-      smg_url: {
-        required: true,
-        url: true
-      },
+      // smg_url: {
+      //   required: true,
+      //   url: true
+      // },
       alliance_flag: {
         required: true,
       },
@@ -1334,12 +1341,14 @@ $(function () {
       size1: {
         required: true,
         number: true,
-        min: 0
+        min: 0,
+        max: 1000
       },
       size2: {
         required: true,
         number: true,
-        min: 0
+        min: 0,
+        max: 1000
       },
       capacity: {
         required: true,
@@ -1405,10 +1414,10 @@ $(function () {
       },
     },
     messages: {
-      smg_url: {
-        required: "※必須項目です",
-        url: '正しいURLを記入してください(例:https://osaka-conference.com/rental/t6-maronie/hall/)'
-      },
+      // smg_url: {
+      //   required: "※必須項目です",
+      //   url: '正しいURLを記入してください(例:https://osaka-conference.com/rental/t6-maronie/hall/)'
+      // },
       alliance_flag: {
         required: "※必須項目です",
       },
@@ -1423,13 +1432,15 @@ $(function () {
       },
       size1: {
         required: "※必須項目です",
-        number: "数字を入力してください",
-        min: "0以上を入力してください"
+        number: "半角英数字を入力してください",
+        min: "0以上を入力してください",
+        max: "上限値は1000です"
       },
       size2: {
         required: "※必須項目です",
-        number: "数字を入力してください",
-        min: "0以上を入力してください"
+        number: "半角英数字を入力してください",
+        min: "0以上を入力してください",
+        max: "上限値は1000です"
       },
       capacity: {
         required: "※必須項目です",
