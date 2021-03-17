@@ -49,7 +49,7 @@
             <table class="table table-bordered">
               <tbody>
                 <tr>
-                  <th class="table-active"> <label for="smg_url">会場SMG URL</label></th>
+                  <th width="20%" class="table-active"> <label for="smg_url">会場SMG URL</label></th>
                   <td>{{$venue->smg_url}}
                   </td>
                 </tr>
