@@ -686,6 +686,7 @@ table td.table_column p:last-child {
 
 .tablesorter-default .tablesorter-header {
     white-space: nowrap;
+    padding: 0.5em 20px 0.5em 0.5em;
 }
 
 
@@ -705,6 +706,7 @@ table td.table_column p:last-child {
     display: flex;
     align-items: center;
     margin-bottom: 0;
+    font-weight: bold;
 }
 
 .icon-size {

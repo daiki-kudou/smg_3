@@ -36,7 +36,7 @@
 
     {{ Form::open(['url' => 'admin/agents', 'method'=>'POST', 'id'=>'agentReservationCreateForm']) }}
     @csrf
-    <section class="section-wrap">
+    <section class="mt-5">
       <div class="row">
         <!-- 左側の項目 ---------------------------------------------------------->
         <div class="col">
@@ -45,7 +45,7 @@
               <tr>
                 <td colspan="3">
                   <p class="title-icon">
-                    <i class="fas fa-exclamation-circle icon-size fa-fw" aria-hidden="true"></i>基本情報
+                    <i class="fas fa-exclamation-circle icon-size" aria-hidden="true"></i>基本情報
                   </p>
                 </td>
               </tr>
@@ -57,6 +57,7 @@
                 </td>
                 <td colspan="2">
                   {{ Form::text('name', old('name'), ['class' => 'form-control', 'id'=>'name']) }}
+                  <small>※仲介会社を選択するプルダウンリストに表示されます。</small>
                   <p class="is-error-name" style="color: red"></p>
                 </td>
               </tr>
@@ -157,8 +158,10 @@
           <table class="table table-bordered table_fixed">
             <thead>
               <tr>
-                <td colspan="3"><i class="fas fa-window-restore fa-fw icon-size" aria-hidden="true"></i>サイト情報
-                  <p></p>
+                <td colspan="3">
+                  <p class="title-icon">
+                    <i class="fas fa-window-restore icon-size" aria-hidden="true"></i>サイト情報
+                  </p>
                 </td>
               </tr>
             </thead>
@@ -178,7 +181,7 @@
               </tr>
               <tr>
                 <td class="table-active">
-                  <label for="login_url">ログインURL</label>
+                  <label for="login_url">管理URL</label>
                 </td>
                 <td colspan="2">
                   {{ Form::text('login', old('login'), ['class' => 'form-control']) }}
@@ -197,14 +200,14 @@
                   {{ Form::text('site_pass', old('site_pass'), ['class' => 'form-control']) }}
                 </td>
               </tr>
-              <tr>
+              <!-- <tr>
                 <th class="table-active">
                   <label for="alliance_remark">提携会場備考</label>
                 </th>
                 <td colspan="2">
                   {{ Form::textarea('agent_remark', old('agent_remark'), ['class' => 'form-control']) }}
                 </td>
-              </tr>
+              </tr> -->
               <tr>
                 <th class="table-active"><label for="site_remark">備考</label></th>
                 <td colspan="2">
@@ -285,10 +288,12 @@
                 <th class="table-active form_required"><label for="close_date">決済条件</label></th>
                 <td>
                   <select name="payment_limit" id="payment_limit">
-                    <option value="1">当月末〆当月末CASH</option>
-                    <option value="2">当月末〆翌月末CASH</option>
-                    <option value="3">当月末〆翌々月末CASH</option>
+                    <option>選択してください</option>
+                    <option value="1">当月末締め／当月末支払い</option>
+                    <option value="2">当月末締め／翌月末支払い</option>
+                    <option value="3">当月末締め／翌々月末支払い</option>
                   </select>
+                  <p class="is-error-payment_limit" style="color: red"></p>
                 </td>
               </tr>
               <tr>

@@ -26,10 +26,9 @@
     <hr>
   </div>
 
-  <section class="section-wrap">
+  <section class="mt-5">
     {{ Form::model($agent, ['route' => ['admin.agents.update', $agent->id], 'method' => 'put', 'id'=>'agentReservationEditForm']) }}
     @csrf
-    <div class="container mb-5">
       <div class="row">
         <!-- 左側の項目 ---------------------------------------------------------->
         <div class="col">
@@ -38,20 +37,20 @@
               <tr>
                 <td colspan="3">
                   <p class="title-icon">
-                    <i class="fas fa-exclamation-circle icon-size fa-fw" aria-hidden="true">
+                    <i class="fas fa-exclamation-circle icon-size" aria-hidden="true">
                     </i>基本情報
                   </p>
                 </td>
               </tr>
             </thead>
             <tbody>
-              <!-- 工藤さんに確認　増やした項目 -->
               <tr>
                 <td class="table-active form_required">
                   <label for="name">サービス名称</label>
                 </td>
                 <td colspan="2">
                   {{ Form::text('name', $agent->name, ['class' => 'form-control']) }}
+                  <small>※仲介会社を選択するプルダウンリストに表示されます。</small>
                   <p class="is-error-name" style="color: red"></p>
                 </td>
               </tr>
@@ -171,9 +170,8 @@
             <thead>
               <tr>
                 <td colspan="3">
-                  <i class="fas fa-window-restore fa-fw icon-size" aria-hidden="true">
-                  </i>サイト情報
-                  <p>
+                  <p class="title-icon">
+                    <i class="fas fa-window-restore icon-size" aria-hidden="true"></i>サイト情報
                   </p>
                 </td>
               </tr>
@@ -198,7 +196,7 @@
               </tr>
               <tr>
                 <td class="table-active">
-                  <label for="login_url">ログインURL</label>
+                  <label for="login_url">管理URL</label>
                 </td>
                 <td colspan="2">
                   {{ Form::text('login', $agent->login, ['class' => 'form-control', 'id'=>'company']) }}
@@ -222,14 +220,14 @@
                   {{ Form::text('site_pass', $agent->site_pass, ['class' => 'form-control', 'id'=>'company']) }}
                 </td>
               </tr>
-              <tr>
+              <!-- <tr>
                 <th class="table-active">
                   <label for="alliance_remark">提携会場備考</label>
                 </th>
                 <td colspan="2">
                   {{ Form::textarea('agent_remark', $agent->agent_remark, ['class' => 'form-control', 'id'=>'company']) }}
                 </td>
-              </tr>
+              </tr> -->
               <tr>
                 <th class="table-active">
                   <label for="site_remark">備考</label>
@@ -321,9 +319,9 @@
                 </th>
                 <td>
                   <select name="payment_limit" id="payment_limit">
-                    <option value="1" {{$agent->payment_limit==1?'selected':""}}>当月末〆当月末CASH</option>
-                    <option value="2" {{$agent->payment_limit==2?'selected':""}}>当月末〆翌月末CASH</option>
-                    <option value="3" {{$agent->payment_limit==3?'selected':""}}>当月末〆翌々月末CASH</option>
+                    <option value="1" {{$agent->payment_limit==1?'selected':""}}>当月末締め／当月末支払い</option>
+                    <option value="2" {{$agent->payment_limit==2?'selected':""}}>当月末締め／翌月末支払い</option>
+                    <option value="3" {{$agent->payment_limit==3?'selected':""}}>当月末締め／翌々月末支払い</option>
                   </select>
                 </td>
               </tr>
@@ -339,7 +337,6 @@
           </table>
         </div>
       </div>
-    </div>
     <div class="mt-5">
       {{Form::submit('保存する', ['class' => 'btn more_btn_lg d-block btn-lg mx-auto my-5 approval']) }}
       @include('layouts.admin.loading')
