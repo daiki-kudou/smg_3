@@ -18,7 +18,9 @@
 
 <section class="section-wrap bg-white wrap_shadow">
   @if (count($frame_prices)==0 && count($time_prices)==0)
-  <h3 class="d-block"><span class="mr-3">ID:{{ ReservationHelper::IdFormat($venue->id)}}</span>{{$venue->name_area}}・{{$venue->name_bldg}}{{$venue->name_venue}}</h3>
+  <h3 class="d-block"><span
+      class="mr-3">ID:{{ ReservationHelper::IdFormat($venue->id)}}</span>{{$venue->name_area}}・{{$venue->name_bldg}}{{$venue->name_venue}}
+  </h3>
   <span class="mt-5 mb-5 d-block">※料金データが登録されていません</span>
   <div class="d-flex justify-content-around">
     <div>
@@ -101,6 +103,7 @@
       </table>
     </div>
     @endif
+
 
 
 

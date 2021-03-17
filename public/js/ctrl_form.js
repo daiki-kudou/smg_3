@@ -11,7 +11,7 @@ $(function () {
   CTRLForm("input[name='luggage_tel']");
   CTRLForm("input[name='person_tel']");
   CTRLForm("input[name='mgmt_tel']");
-  CTRLForm("input[name='mgmt_sec_company']");
+  // CTRLForm("input[name='mgmt_sec_company']");
   CTRLForm("input[name='layout_prepare']");
   CTRLForm("input[name='layout_clean']");
   CTRLForm("input[name='stock']");
@@ -24,6 +24,9 @@ $(function () {
   CTRLForm("input[name='tel']");
   CTRLForm("input[name='pay_post_code']");
   CTRLForm("input[name='mobile']");
+  CTRLForm("input[name='mgmt_emer_tel']");
+  CTRLForm("input[name='mgmt_sec_tel']");
+  CTRLForm("input[name='mgmt_person_tel']");
 });
 
 // 文字制御開始
