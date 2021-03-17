@@ -470,8 +470,8 @@
                 <div class="d-flex align-items-center">
                   {{ Form::text('layout_clean', old('layout_clean'), ['class' => 'form-control']) }}
                   <span class="ml-1">円</span>
-                  <p class="is-error-layout_clean" style="color: red"></p>
                 </div>
+                <p class="is-error-layout_clean" style="color: red"></p>
               </td>
             </tr>
           </tbody>

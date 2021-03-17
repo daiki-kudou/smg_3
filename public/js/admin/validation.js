@@ -1291,12 +1291,12 @@ $(function () {
     } else {
       // レイアウト準備
       $("input[name='layout_prepare']").rules("remove", "required");
-      $("input[name='layout_prepare']").next().children().css("display", "none");
+      $("input[name='layout_prepare']").parent().parent().find("p").css("display", "none");
       $("input[name='layout_prepare']").val("");
       $("input[name='layout_prepare']").prop("readonly", true);
       // レイアウト片付け
       $("input[name='layout_clean']").rules("remove", "required");
-      $("input[name='layout_clean']").next().children().css("display", "none");
+      $("input[name='layout_clean']").parent().parent().find("p").css("display", "none");
       $("input[name='layout_clean']").val("");
       $("input[name='layout_clean']").prop("readonly", true);
     }
