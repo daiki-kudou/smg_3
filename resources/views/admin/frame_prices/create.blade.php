@@ -1,6 +1,7 @@
 @extends('layouts.admin.app')
 @section('content')
 <link href="{{ asset('/css/template.css') }}" rel="stylesheet">
+<script src="{{ asset('/js/admin/validation.js') }}"></script>
 <script src="{{ asset('/js/ctrl_form.js') }}"></script>
 
 <!-- フォーム追加 -->
@@ -18,7 +19,6 @@
   </div>
   <h2 class="mt-3 mb-3">料金管理　新規登録（枠貸し）</h2>
   <hr>
-
 </div>
 
 <div class="section-wrap bg-white wrap_shadow">

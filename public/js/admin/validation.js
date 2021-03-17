@@ -1758,9 +1758,9 @@ $(function () {
   });
 });
 
-
+// 料金管理　編集(枠貸し)
 $(function () {
-  $("#FramePriceCreateForm").validate({
+  $("#ClientsEditForm").validate({
     rules: {
       company: {
         required: true,
@@ -1790,11 +1790,7 @@ $(function () {
   });
   $('input').on('blur', function () {
     $(this).valid();
-    // if ($('span').hasClass('is-error')) {
-    //   $('span').css('background', 'white');
-    // }
   });
 });
-
 
 
