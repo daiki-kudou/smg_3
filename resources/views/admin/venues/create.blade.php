@@ -44,7 +44,7 @@
   <div class="errors">
   </div>
 
-  <section class="section-wrap">
+  <section class="mt-5">
 
     <!-- 会場URL ---------------------------------------------------->
     <p class="text-right">※金額は税抜で入力してください。</p>
@@ -499,35 +499,35 @@
 
   </section>
 
-  <section class="section-wrap">
+  <section class="mt-5">
     <!-- 有料備品 ------------------------------------------------------------------------>
-    <div class="mb-5">
-      <p class="title-icon table-active fw-bolder p-2 mb-2">
+    <div class="mb-5 border-wrap2 wrap_shadow">
+      <p class="title-icon table-active fw-bolder p-2">
         <i class="fas fa-wrench icon-size fa-fw" aria-hidden="true"></i>有料備品
       </p>
-      <div>
+      <div class="p-4 bg-white">
         <p>※左部リストよりクリックで選択し右部リストに移動させてください</p>
-      </div>
-      <select id='equipment_id' multiple='multiple' name="equipment_id[]">
-        @for ($i = 0; $i < $equipments->count(); $i++)
+        <select id='equipment_id' multiple='multiple' name="equipment_id[]">
+          @for ($i = 0; $i < $equipments->count(); $i++)
           <option value={{$i_equipments[$i]}}>{{$s_equipments[$i]}}</option>
           @endfor
-      </select>
+        </select>
+      </div>
     </div>
 
     <!-- 有料サービス ------------------------------------------------------------------------>
-    <div>
-      <p class="title-icon table-active fw-bolder p-2 mb-2">
+    <div class="mb-5 border-wrap2 wrap_shadow">
+      <p class="title-icon table-active fw-bolder p-2">
         <i class="fas fa-hand-holding-heart icon-size fa-fw" aria-hidden="true"></i>有料サービス
       </p>
-      <div>
+      <div class="p-4 bg-white">
         <span>※左部リストよりクリックで選択し右部リストに移動させてください</span>
-      </div>
-      <select id='service_id' multiple='multiple' name="service_id[]">
-        @for ($i = 0; $i < $services->count(); $i++)
+        <select id='service_id' multiple='multiple' name="service_id[]">
+          @for ($i = 0; $i < $services->count(); $i++)
           <option value={{$i_services[$i]}}>{{$s_services[$i]}}</option>
           @endfor
-      </select>
+        </select>
+      </div>
     </div>
   </section>
   <div class="mx-auto">

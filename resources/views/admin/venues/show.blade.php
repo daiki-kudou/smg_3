@@ -22,9 +22,8 @@
   <p>ID:{{ $venue->id }}<span class="ml-2">{{ $venue->name_area }}・{{ $venue->name_bldg }}{{ $venue->name_venue }}</span></p>
   <hr>
 
-  <section class="section-wrap">
-    <div class="d-flex mb-2 justify-content-between align-items-end">
-      <p class="text-left">※金額は税抜表記になります。</p>
+  <section class="mt-5">
+    <div class="text-right">
 
       {{ link_to_route('admin.venues.edit', '編集', $parameters = $venue->id, ['class' => 'btn more_btn'])}}
 
@@ -40,8 +39,9 @@
       {{ Form::open(['url' => 'admin/venues/'.$venue->id.'/restore', 'method'=>'post', 'id'=>'venueRestoreForm']) }}
       @csrf
       {{Form::close()}} --}}
-
     </div>
+    <p class="text-right">※金額は税抜表記になります。</p>
+
 
     <!-- 会場URL ---------------------------------------------------->
     <div class="row">
@@ -146,14 +146,9 @@
               </td>
             </tr>
             <tr>
-<<<<<<< HEAD
-              <th class="table-active"><label for="remark">備考</label></th>
-              <td> {{ $venue->remark }}
-=======
               <td class="table-active"><label for="remark">備考</label></td>
               <td>
                 {!!nl2br(e($venue->remark))!!}
->>>>>>> 073493948e44d04f9ee31db00c7ea892b49d3b5e
               </td>
             </tr>
 
@@ -413,9 +408,9 @@
 
   </section>
 
-  <section class="section-wrap">
+  <section class="mt-3">
     <!-- 有料備品 ------------------------------------------------------------------------>
-    <div class="mb-5 border-wrap2">
+    <div class="mb-5 border-wrap2 wrap_shadow">
       <p class="title-icon table-active fw-bolder p-2">
         <i class="fas fa-wrench icon-size" aria-hidden="true"></i>有料備品
       </p>
@@ -427,7 +422,7 @@
     </div>
 
     <!-- 有料サービス ------------------------------------------------------------------------>
-    <div class="mb-5 border-wrap2">
+    <div class="mb-5 border-wrap2 wrap_shadow">
       <p class="title-icon table-active fw-bolder p-2">
         <i class="fas fa-hand-holding-heart icon-size" aria-hidden="true"></i>有料サービス
       </p>
@@ -440,12 +435,12 @@
     </div>
 
     <!-- 営業時間 ------------------------------------------------------------------------>
-    <div class="mb-5 border-wrap2">
+    <div class="mb-5 border-wrap2 wrap_shadow bg-white">
       <p class="title-icon table-active fw-bolder p-2">
         <i class="fas fa-clock icon-size" aria-hidden="true"></i>営業時間
       </p>
-      <div>
-        <table class="table table-bordered　mb-0">
+      <div class="p-3">
+        <table class="table table-bordered mb-0">
           <thead>
             <tr>
               <th scope="col">曜日</th>
@@ -483,7 +478,8 @@
       </div>
     </div>
 
-    <div class="mb-5 border-wrap2">
+    <!-- 料金管理 ------------------------------------------------------------------------>
+    <div class="mb-5 border-wrap2 wrap_shadow bg-white">
       <p class="title-icon table-active fw-bolder p-2">
         <i class="fas fa-yen-sign icon-size" aria-hidden="true"></i>料金管理
       </p>

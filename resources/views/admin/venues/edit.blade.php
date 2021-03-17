@@ -49,7 +49,7 @@
     </div>
 
     <div class="container-field">
-      <section class="section-wrap">
+      <section class="mt-5">
         <p class="text-right">※金額は税抜で入力してください。</p>
         <!-- 会場URL ---------------------------------------------------->
         <div class="row">
