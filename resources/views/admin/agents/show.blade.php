@@ -192,7 +192,8 @@
           <tbody>
             <tr>
               <th class="table-active"><label for="close_date">決済条件</label></th>
-              <td>{{ $agent->payment_limit }}</td>
+              <td>{{ $agent->payment_limit }}
+              </td>
             </tr>
             <tr>
               <th class="table-active"><label for="pay_remark">備考</label></th>

@@ -139,6 +139,12 @@ table.dataTable thead .sorting_desc:after {
     border-top: 0px solid;
 }
 
+.word_break {
+    word-break: break-all;
+}
+
+
+
 
 
 .border-info {
@@ -158,6 +164,10 @@ table.dataTable thead .sorting_desc:after {
 
 .is-error {
     /* background: pink; */
+    background: #ffdce2;
+}
+span.is-error {
+    background-color: transparent;
 }
 
 .hide {
@@ -262,6 +272,7 @@ select:disabled {
     /* background: #fff; */
     /* background-color: #f3f3f3; */
     background-color: #f4f6f9;
+    /* background-color: #f0f2f5; */
     padding-bottom: 100px;
 }
 
@@ -272,6 +283,7 @@ select:disabled {
 
 .breadcrumb-item.active {
     color: #35a7a7;
+    color: #333;
 }
 
 .table-striped tbody tr:nth-of-type(odd) {
@@ -465,7 +477,11 @@ select:disabled {
 
 .table_row th {
     text-align: center;
-    /* background: rgba(0, 0, 0, 0.075); */
+    background: rgba(0, 0, 0, 0.075);
+}
+
+.table-active {
+    /* background: #f2f2f2; */
 }
 
 

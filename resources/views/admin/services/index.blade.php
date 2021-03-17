@@ -52,8 +52,13 @@
         <tr role="row" class="even">
           <td>{{ ReservationHelper::IdFormat($query->id) }}</td>
           <td>{{ ReservationHelper::formatDate($query->created_at) }}</td>
-          <td class="s_item">{{ $query->item }}</td>
-          <td class="text-right">{{ number_format($query->price) }}</td>
+          <td class="s_item word_break">{{ $query->item }}</td>
+          <td class="text-right">
+            <div class="d-flex justify-content-end">
+            {{ number_format($query->price) }}
+            <span>円</span>
+            </div>
+          </td>
           <td>
             <p class="remark_limit">
               {!!nl2br(e($query->remark))!!}

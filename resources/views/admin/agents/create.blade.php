@@ -286,12 +286,14 @@
               <tr>
                 <th class="table-active form_required"><label for="close_date">決済条件</label></th>
                 <td>
+                {{{Form::select('payment_limit', ['当月末締め／当月末支払い', '当月末締め／翌月末支払い', '当月末締め／翌々月末支払い'],"",['placeholder' => '選択してください', 'class'=>'custom-select mr-sm-2'])}}}
+                  <!-- 
                   <select name="payment_limit" id="payment_limit">
                     <option>選択してください</option>
                     <option value="1">当月末締め／当月末支払い</option>
                     <option value="2">当月末締め／翌月末支払い</option>
                     <option value="3">当月末締め／翌々月末支払い</option>
-                  </select>
+                  </select> -->
                   <p class="is-error-payment_limit" style="color: red"></p>
                 </td>
               </tr>

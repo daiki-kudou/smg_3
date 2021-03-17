@@ -451,16 +451,22 @@
             </td>
           </tr>
           <tr>
-            <td class="table-active"><label for="layout_prepare" class="">レイアウト準備料金</label></td>
+            <td class="table-active"><label for="layout_prepare" class="">レイアウト準備料金</label><span class="ml-1 annotation">※税抜</span></td>
             <td>
+              <div class="d-flex align-items-center">
               {{ Form::text('layout_prepare', $venue->layout_prepare, ['class' => 'form-control',$venue->layout_prepare==""?"readonly":""]) }}
+              <span class="ml-1">円</span>
+            </div>
               <p class="is-error-layout_prepare" style="color: red"></p>
             </td>
           </tr>
           <tr>
-            <td class="table-active"><label for="layout_clean" class="">レイアウト片付料金</label></td>
+            <td class="table-active"><label for="layout_clean" class="">レイアウト片付料金</label><span class="ml-1 annotation">※税抜</span></td>
             <td>
+              <div class="d-flex align-items-center">
               {{ Form::text('layout_clean', $venue->layout_clean, ['class' => 'form-control',$venue->layout_clean==""?"readonly":""]) }}
+              <span class="ml-1">円</span>
+            </div>
               <p class="is-error-layout_clean" style="color: red"></p>
             </td>
           </tr>
