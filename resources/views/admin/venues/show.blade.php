@@ -43,7 +43,6 @@
           </tr>
         </tbody>
       </table>
-      </form>
     </div>
   </div>
 
@@ -97,7 +96,7 @@
           </tr>
           <tr>
             <th class="table-active"><label for="capacity">収容人数</label></th>
-            <td> {{ $venue->capacity }}人</td>
+            <td class="word_break_none">{{ $venue->capacity }}</td>
           </tr>
           <tr>
             <th class="table-active"><label for="post_code">郵便番号</label></th>
@@ -122,12 +121,12 @@
           </tr>
           <tr>
             <th class="table-active"><label for="entrance_open_time">正面入口の開閉時間</label></th>
-            <td> {{ $venue->entrance_open_time }}
+            <td class="word_break_none">{{ $venue->entrance_open_time }}
             </td>
           </tr>
           <tr>
             <th class="table-active"><label for="backyard_open_time">通用口の開閉時間</label></th>
-            <td> {{ $venue->backyard_open_time }}
+            <td class="word_break_none">{{ $venue->backyard_open_time }}
             </td>
           </tr>
           <tr>
@@ -282,12 +281,111 @@
           <th class="table-active"><label for="mgmt_first_name">担当者氏名</label></th>
           <td colspan="2">
             {{ $venue->mgmt_first_name}}{{ $venue->mgmt_last_name}}
-
           </td>
+          </tr>
+          <tr>
+            <th class="table-active"><label for="">担当者電話番号 (工藤さん！！！追加項目です)</label></th>
+            <td colspan="2">{{ $venue->mgmt_person_tel}}</td>
+          </tr>
+          <tr>
+            <th class="table-active"><label for="mgmt_email">担当者メール</label></th>
+            <td colspan="2"> {{ $venue->mgmt_email}}
+            </td>
+          </tr>
+          <tr>
+            <th class="table-active"><label for="mgmt_sec_company">警備会社名</label></th>
+            <td colspan="2"> {{ $venue->mgmt_sec_company}}
+            </td>
+          </tr>
+          <tr>
+            <th class="table-active"><label for="mgmt_sec_tel">警備会社電話番号</label></th>
+            <td colspan="2"> {{ $venue->mgmt_sec_tel}}
+            </td>
+          </tr>
+          <tr>
+            <td class="table-active"><label for="mgmt_remark">備考</label></td>
+            <td colspan="2">
+              {!!nl2br(e($venue->mgmt_remark))!!}
+            </td>
           </tr>
         </tbody>
       </table>
-      </form>
+          <!-- 室内飲食 ------------------------------------------------------------------------>
+    <table class="table table-bordered venue_table">
+      <thead>
+        <tr>
+          <td colspan="2">
+            <p class="title-icon">
+              <i class="fas fa-utensils icon-size" aria-hidden="true"></i>室内飲食
+            </p>
+          </td>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <th class="table-active"><label for="eat_in_flag">室内飲食</label></th>
+          <td>
+            {{ $venue->eat_in_flag==1?"可":"不可"}}
+          </td>
+        </tr>
+      </tbody>
+    </table>
+
+    <!-- レイアウト変更 ------------------------------------------------------------------------>
+    <table class="table table-bordered venue_table">
+      <thead>
+        <tr>
+          <td colspan="2">
+            <p class="title-icon">
+              <i class="fas fa-th icon-size" aria-hidden="true"></i>レイアウト
+            </p>
+          </td>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <th class="table-active"><label for="layout">レイアウト変更</label></th>
+          <td>
+            {{ $venue->layout==1?"可":"不可"}}
+          </td>
+        </tr>
+        <tr>
+          <th class="table-active"><label for="layout">レイアウト準備料金</label></th>
+          <td>
+            {{ number_format($venue->layout_prepare)}}円
+          </td>
+        </tr>
+        <tr>
+          <th class="table-active"><label for="layout">レイアウト片付料金</label></th>
+          <td>
+            {{ number_format($venue->layout_clean)}}円
+          </td>
+        </tr>
+      </tbody>
+    </table>
+
+    <!-- 支払データ ------------------------------------------------------------------------>
+    <table class="table table-bordered venue_table">
+      <thead>
+        <tr>
+          <td colspan="2">
+            <p class="title-icon">
+              <i class="fas fa-yen-sign icon-size" aria-hidden="true"></i>支払データ
+            </p>
+          </td>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <th class="table-active"><label for="cost">支払割合（原価）</label></th>
+          <td>
+            {{ $venue->cost}}%
+          </td>
+        </tr>
+      </tbody>
+    </table>
+
+
     </div>
   </div>
 
