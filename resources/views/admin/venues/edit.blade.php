@@ -174,14 +174,14 @@
           <tr>
             <td class="table-active"><label for="entrance_open_time">正面入口の開閉時間</label></td>
             <td>
-              {{ Form::text('entrance_open_time', $venue->entrance_open_time, ['class' => 'form-control']) }}
+              {{ Form::textarea('entrance_open_time', $venue->entrance_open_time, ['class' => 'form-control','rows'=>"2"]) }}
               <p class="is-error-backyard_open_time" style="color: red"></p>
             </td>
           </tr>
           <tr>
             <td class="table-active"><label for="backyard_open_time">通用口の開閉時間</label></td>
             <td>
-              {{ Form::text('backyard_open_time', $venue->backyard_open_time, ['class' => 'form-control']) }}
+              {{ Form::textarea('backyard_open_time', $venue->backyard_open_time, ['class' => 'form-control','rows'=>"2"]) }}
               <p class="is-error-entrance_open_time" style="color: red"></p>
             </td>
           </tr>
@@ -256,7 +256,7 @@
           <tr>
             <td class="table-active"><label for="luggage_tel">電話番号</label></td>
             <td>
-              {{ Form::text('luggage_tel', $venue->luggage_tel, ['class' => 'form-control' ,'placeholder' => '半角数字、ハイフンなしで入力してください']) }}
+              {{ Form::textarea('luggage_tel', $venue->luggage_tel, ['class' => 'form-control' ,'placeholder' => '半角数字、ハイフンなしで入力してください','rows'=>"2"]) }}
               <p class="is-error-luggage_tel" style="color: red"></p>
             </td>
           </tr>

@@ -143,6 +143,10 @@ table.dataTable thead .sorting_desc:after {
     word-break: break-all;
 }
 
+.word_break_none {
+    white-space: pre-wrap;
+}
+
 
 
 
