@@ -139,6 +139,12 @@ table.dataTable thead .sorting_desc:after {
     border-top: 0px solid;
 }
 
+.word_break {
+    word-break: break-all;
+}
+
+
+
 
 
 .border-info {
@@ -262,6 +268,7 @@ select:disabled {
     /* background: #fff; */
     /* background-color: #f3f3f3; */
     background-color: #f4f6f9;
+    /* background-color: #f0f2f5; */
     padding-bottom: 100px;
 }
 
@@ -272,6 +279,7 @@ select:disabled {
 
 .breadcrumb-item.active {
     color: #35a7a7;
+    color: #333;
 }
 
 .table-striped tbody tr:nth-of-type(odd) {

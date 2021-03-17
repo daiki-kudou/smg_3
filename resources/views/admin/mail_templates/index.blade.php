@@ -2,7 +2,6 @@
 @section('content')
 <link href="{{ asset('/css/template.css') }}" rel="stylesheet">
 
-<div class="container-fluid">
   <div class="container-field mt-3">
     <div class="float-right">
       <nav aria-label="breadcrumb">
@@ -359,5 +358,4 @@
 
     </table>
   </div>
-</div>
 @endsection

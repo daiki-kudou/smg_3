@@ -100,16 +100,16 @@
               <tr>
                 <th class="table-active"><label for="size1">会場広さ（坪）</label></th>
                 <td>
-                  {{ $venue->size1 }}
+                  {{ $venue->size1 }}坪
                 </td>
               </tr>
               <tr>
                 <th class="table-active"><label for="size2">会場広さ（㎡）</label></th>
-                <td> {{ $venue->size2 }} </td>
+                <td> {{ $venue->size2 }}㎡</td>
               </tr>
               <tr>
                 <th class="table-active"><label for="capacity">収容人数</label></th>
-                <td> {{ $venue->capacity }} </td>
+                <td> {{ $venue->capacity }}人</td>
               </tr>
               <tr>
                 <th class="table-active"><label for="post_code">郵便番号</label></th>
@@ -503,7 +503,7 @@
                     ~
                     {{ReservationHelper::formatTime($date_venue->finish)}}
                   </td>
-                  <td>{{number_format($frame_price->price)}}
+                  <td>{{number_format($frame_price->price)}}円
                   </td>
                 </tr>
                 @endforeach
@@ -527,10 +527,10 @@
               <tbody>
                 @foreach ($time_prices as $time_price)
                 <tr>
-                  <td>{{$time_price->time}}
+                  <td>{{$time_price->time}}h
                   </td>
-                  <td>{{number_format($time_price->price)}} </td>
-                  <td>{{number_format($time_price->extend)}}
+                  <td>{{number_format($time_price->price)}}円</td>
+                  <td>{{number_format($time_price->extend)}}円
                   </td>
                 </tr>
                 @endforeach
