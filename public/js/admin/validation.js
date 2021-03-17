@@ -1119,7 +1119,6 @@ $(function () {
         number: true,
         min: 0,
         max: 1000,
-
       },
       capacity: {
         required: true,

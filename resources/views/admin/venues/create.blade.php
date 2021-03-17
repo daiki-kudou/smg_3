@@ -207,7 +207,7 @@
             <tr>
               <td class="table-active"><label for="luggage_flag" class="form_required">荷物預かり</label></td>
               <td>
-                {{Form::select('luggage_flag', ['可', '不可'],0,['placeholder' => '選択してください','class'=>'custom-select mr-sm-2'])}}
+                {{Form::select('luggage_flag', ['可', '不可'],"",['placeholder' => '選択してください','class'=>'custom-select mr-sm-2'])}}
                 <p class="is-error-luggage_flag" style="color: red"></p>
               </td>
             </tr>
@@ -425,7 +425,7 @@
             <tr>
               <td class="table-active"><label for="eat_in_flag" class="form_required">室内飲食</label></td>
               <td>
-                {{{Form::select('eat_in_flag', ['不可', '可'],0,['placeholder' => '選択してください', 'class'=>'custom-select mr-sm-2'])}}}
+                {{{Form::select('eat_in_flag', ['不可', '可'],"",['placeholder' => '選択してください', 'class'=>'custom-select mr-sm-2'])}}}
                 <p class="is-error-eat_in_flag" style="color: red"></p>
               </td>
             </tr>
@@ -447,19 +447,19 @@
             <tr>
               <td class="table-active"><label for="layout" class="form_required">レイアウト変更</label></td>
               <td>
-                {{{Form::select('layout', ['不可', '可'],0,['placeholder' => '選択してください', 'class'=>'custom-select mr-sm-2'])}}}
+                {{{Form::select('layout', ['不可', '可'],"",['placeholder' => '選択してください', 'class'=>'custom-select mr-sm-2'])}}}
                 <p class="is-error-layout" style="color: red"></p>
               </td>
             </tr>
             <tr>
-              <td class="table-active"><label for="layout_prepare" class="">レイアウト準備料金</label></td>
+              <td class="table-active"><label for="layout_prepare" class="">レイアウト準備料金　※税抜 </label></td>
               <td>
                 {{ Form::text('layout_prepare', old('layout_prepare'), ['class' => 'form-control']) }}
                 <p class="is-error-layout" style="color: red"></p>
               </td>
             </tr>
             <tr>
-              <td class="table-active"><label for="layout_clean" class="">レイアウト片付料金</label></td>
+              <td class="table-active"><label for="layout_clean" class="">レイアウト片付料金　※税抜 </label></td>
               <td>
                 {{ Form::text('layout_clean', old('layout_clean'), ['class' => 'form-control']) }}
                 <p class="is-error-layout" style="color: red"></p>
