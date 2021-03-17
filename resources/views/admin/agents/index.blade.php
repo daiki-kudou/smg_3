@@ -30,6 +30,7 @@
           <tr class="table_row">
             <th>ID</th>
             <th>サービス名称</th>
+            <th>管理URL</th>
             <th>運営会社名</th>
             <th>担当者氏名</th>
             <th>担当者TEL</th>
@@ -41,6 +42,9 @@
           <tr role="row" class="even">
             <td>{{$query->id}}</td>
             <td>{{$query->name}}</td>
+            <td class="text-center">
+            <a href="{{ $query->login }}" target="blank" class="more_btn">管理画面をみる</a>
+             </td>
             <td>{{$query->company}}</td>
             <td>{{ReservationHelper::getAgentPerson($query->id)}}</td>
             <td>{{$query->person_tel}}</td>
