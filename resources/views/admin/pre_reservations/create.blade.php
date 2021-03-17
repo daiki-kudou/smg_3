@@ -27,7 +27,7 @@
   <hr>
 </div>
 
-<section class="section-wrap">
+<section class="mt-5">
   <div class="calendar">
     <iframe frameborder="0" src="{{url('admin/calendar/date_calendar')}}" width="100%" height="500">Your browser isn't
       compatible</iframe>
@@ -49,7 +49,7 @@
     </select>
   </div>
 
-  <div class="selected_user mt-5">
+  <div class="selected_user mt-4">
     <table class="table table-bordered" style="table-layout: fixed;">
       <thead>
         <tr>
@@ -89,7 +89,7 @@
     </table>
   </div>
 
-  <div class="unknown_user mt-5">
+  <div class="unknown_user mt-4">
     <table class="table table-bordered" style="table-layout: fixed;">
       <thead>
         <tr>
@@ -130,8 +130,8 @@
     </table>
   </div>
 
-  <hr>
-  <div class="date_selector mt-5">
+  <div class="date_selector pt-4">
+    <hr>
     <h3 class="mb-2 pt-3">日程選択</h3>
     <table class="table table-bordered" style="table-layout: fixed;">
       <thead>

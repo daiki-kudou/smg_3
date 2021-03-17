@@ -147,6 +147,10 @@ table.dataTable thead .sorting_desc:after {
     white-space: pre-wrap;
 }
 
+.accordion-wrap td {
+    word-break: break-all;
+}
+
 
 
 
