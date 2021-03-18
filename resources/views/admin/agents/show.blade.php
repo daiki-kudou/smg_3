@@ -226,7 +226,7 @@
 <script>
   $(function() {
     $('.del_btn').on('click', function() {
-      if (!confirm('削除しますか？')) {
+      if (!confirm('本当に削除しますか？')) {
         return false;
       }
     })
