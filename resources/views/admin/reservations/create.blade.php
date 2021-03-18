@@ -218,7 +218,7 @@
             <thead class="accordion-ttl">
               <tr>
                 <th colspan="2">
-                  <p class="title-icon fw-bolder py-1">
+                  <p class="title-icon fw-bolder">
                     <i class="fas fa-wrench icon-size fa-fw"></i>有料備品
                   </p>
                 </th>
@@ -234,7 +234,7 @@
             <thead class="accordion-ttl">
               <tr>
                 <th colspan="2">
-                  <p class="title-icon fw-bolder py-1">
+                  <p class="title-icon fw-bolder">
                     <i class="fas fa-hand-holding-heart icon-size fa-fw"></i>有料サービス
                   </p>
                 </th>
