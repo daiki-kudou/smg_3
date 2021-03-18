@@ -4,7 +4,6 @@ $(function () {
   $('#service_id').multiSelect();
 });
 
-
 $(function () {
   // 日付選択画面にてボックス内、検索機能
   $('#venue_id').select2({ width: '100%' });
@@ -14,9 +13,6 @@ $(function () {
   $('#user_select').select2({ width: '100%' });
 });
 
-$(function () {
-  // 日付選択画面にてボックス内、検索機能
-});
 
 // datepicker
 $(function () {
@@ -87,136 +83,6 @@ $(function () {
     minutesInterval: 30, //分間隔を変更します。デフォルトは1です。  
   });
 });
-
-// $(function () {
-//   function ExceptString($target) {
-//     $target.numeric({ negative: false, });
-//     $target.on('change', function () {
-//       charactersChange($(this));
-//     })
-//     charactersChange = function (ele) {
-//       var val = ele.val();
-//       var han = val.replace(/[Ａ-Ｚａ-ｚ０-９]/g, function (s) { return String.fromCharCode(s.charCodeAt(0) - 0xFEE0) });
-//       if (val.match(/[Ａ-Ｚａ-ｚ０-９]/g)) {
-//         $(ele).val(han);
-//       }
-//     }
-//   }
-//   var size1 = $("input[name^='size1']");
-//   ExceptString(size1);
-//   var size2 = $("input[name^='size2']");
-//   ExceptString(size2);
-//   var capacity = $("input[name^='capacity']");
-//   ExceptString(capacity);
-//   var post_code = $("input[name^='post_code']");
-//   ExceptString(post_code);
-//   var luggage_post_code = $("input[name^='luggage_post_code']");
-//   ExceptString(luggage_post_code);
-//   var luggage_tel = $("input[name^='luggage_tel']");
-//   ExceptString(luggage_tel);
-//   var person_tel = $("input[name^='person_tel']");
-//   ExceptString(person_tel);
-//   var layout_prepare = $("input[name^='layout_prepare']");
-//   ExceptString(layout_prepare);
-//   var layout_clean = $("input[name^='layout_clean']");
-//   ExceptString(layout_clean);
-//   var cost = $("input[name^='cost']");
-//   ExceptString(cost);
-//   var price = $("input[name^='price']");
-//   ExceptString(price);
-//   var stock = $("input[name^='stock']");
-//   ExceptString(stock);
-//   var extend = $("input[name^='extend']");
-//   ExceptString(extend);
-//   var mgmt_emer_tel = $("input[name^='mgmt_emer_tel']");
-//   ExceptString(mgmt_emer_tel);
-
-//   var tel = $("input[name^='tel']");
-//   ExceptString(tel);
-//   var unknown_user_mobile = $("input[name^='unknown_user_mobile']");
-//   ExceptString(unknown_user_mobile);
-//   var unknown_user_tel = $("input[name^='unknown_user_tel']");
-//   ExceptString(unknown_user_tel);
-//   var luggage_count = $("input[name^='luggage_count']");
-//   ExceptString(luggage_count);
-//   var luggage_return = $("input[name^='luggage_return']");
-//   ExceptString(luggage_return);
-//   var luggage_price = $("input[name^='luggage_price']");
-//   ExceptString(luggage_price);
-//   var equipment_breakdown = $("input[name^='equipment_breakdown']");
-//   ExceptString(equipment_breakdown);
-//   var pre_enduser_tel = $("input[name^='pre_enduser_tel']");
-//   ExceptString(pre_enduser_tel);
-//   var pre_enduser_mobile = $("input[name^='pre_enduser_mobile']");
-//   ExceptString(pre_enduser_mobile);
-//   var enduser_charge = $("input[name^='enduser_charge']");
-//   ExceptString(enduser_charge);
-//   var cp_master_tel = $("input[name^='cp_master_tel']");
-//   ExceptString(cp_master_tel);
-//   var cp_master_equipment_breakdown = $("input[name^='cp_master_equipment_breakdown']");
-//   ExceptString(cp_master_equipment_breakdown);
-//   var cp_master_luggage_count = $("input[name^='cp_master_luggage_count']");
-//   ExceptString(cp_master_luggage_count);
-//   var cp_master_luggage_return = $("input[name^='cp_master_luggage_return']");
-//   ExceptString(cp_master_luggage_return);
-//   var cp_master_luggage_price = $("input[name^='cp_master_luggage_price']");
-//   ExceptString(cp_master_luggage_price);
-//   var cp_master_cost = $("input[name^='cp_master_cost']");
-//   ExceptString(cp_master_cost);
-//   var tel_copied = $("input[name^='tel_copied']");
-//   ExceptString(tel_copied);
-//   var cost_copied = $("input[name^='cost_copied']");
-//   ExceptString(cost_copied);
-//   var luggage_count_copied = $("input[name^='luggage_count_copied']");
-//   ExceptString(luggage_count_copied);
-//   var luggage_return_copied = $("input[name^='luggage_return_copied']");
-//   ExceptString(luggage_return_copied);
-//   var luggage_price_copied = $("input[name^='luggage_price_copied']");
-//   ExceptString(luggage_price_copied);
-//   var cp_master_enduser_charge = $("input[name^='cp_master_enduser_charge']");
-//   ExceptString(cp_master_enduser_charge);
-//   var enduser_charge_copied = $("input[name^='enduser_charge_copied']");
-//   ExceptString(enduser_charge_copied);
-//   var pre_endusers_tel = $("input[name^='pre_endusers_tel']");
-//   ExceptString(pre_endusers_tel);
-//   var pre_endusers_mobile = $("input[name^='pre_endusers_mobile']");
-//   ExceptString(pre_endusers_mobile);
-// });
-
-
-// numeric マイナス制御
-// フォーカスアウトしたら全角を半角に
-// $(function () {
-//   $(".venue_discount_percent,.venue_dicsount_number, .discount_item, .luggage_price_input").numeric({ negative: false, });
-//   $(".venue_discount_percent, .venue_dicsount_number, .discount_item, .luggage_price_input").on('change', function () {
-//     charactersChange($(this));
-//   })
-
-//   charactersChange = function (ele) {
-//     var val = ele.val();
-//     var han = val.replace(/[Ａ-Ｚａ-ｚ０-９]/g, function (s) { return String.fromCharCode(s.charCodeAt(0) - 0xFEE0) });
-
-//     if (val.match(/[Ａ-Ｚａ-ｚ０-９]/g)) {
-//       $(ele).val(han);
-//     }
-//   }
-// });
-
-// $(function () {
-//   $("input[name^='equipemnt']").numeric({ negative: false, });
-//   $("input[name^='equipemnt']").on('change', function () {
-//     charactersChange($(this));
-//   })
-
-//   charactersChange = function (ele) {
-//     var val = ele.val();
-//     var han = val.replace(/[Ａ-Ｚａ-ｚ０-９]/g, function (s) { return String.fromCharCode(s.charCodeAt(0) - 0xFEE0) });
-
-//     if (val.match(/[Ａ-Ｚａ-ｚ０-９]/g)) {
-//       $(ele).val(han);
-//     }
-//   }
-// });
 
 // プラスマイナスボタン
 $(function () {
@@ -497,6 +363,7 @@ $(function () {
     change_all_totals();
   });
 })
+
 
 //アコーディオン
 $(function () {

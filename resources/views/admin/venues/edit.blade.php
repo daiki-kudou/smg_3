@@ -4,6 +4,7 @@
 <script src="{{ asset('/js/template.js') }}"></script>
 <script src="{{ asset('/js/admin/validation.js') }}"></script>
 <link href="{{ asset('/css/template.css') }}" rel="stylesheet">
+<script src="{{ asset('/js/admin/reservation.js') }}"></script>
 <script src="{{ asset('/js/ctrl_form.js') }}"></script>
 
 
@@ -451,22 +452,24 @@
             </td>
           </tr>
           <tr>
-            <td class="table-active"><label for="layout_prepare" class="">レイアウト準備料金</label><span class="ml-1 annotation">※税抜</span></td>
+            <td class="table-active"><label for="layout_prepare" class="">レイアウト準備料金</label><span
+                class="ml-1 annotation">※税抜</span></td>
             <td>
               <div class="d-flex align-items-center">
-              {{ Form::text('layout_prepare', $venue->layout_prepare, ['class' => 'form-control',$venue->layout_prepare==""?"readonly":""]) }}
-              <span class="ml-1">円</span>
-            </div>
+                {{ Form::text('layout_prepare', $venue->layout_prepare, ['class' => 'form-control',$venue->layout_prepare==""?"readonly":""]) }}
+                <span class="ml-1">円</span>
+              </div>
               <p class="is-error-layout_prepare" style="color: red"></p>
             </td>
           </tr>
           <tr>
-            <td class="table-active"><label for="layout_clean" class="">レイアウト片付料金</label><span class="ml-1 annotation">※税抜</span></td>
+            <td class="table-active"><label for="layout_clean" class="">レイアウト片付料金</label><span
+                class="ml-1 annotation">※税抜</span></td>
             <td>
               <div class="d-flex align-items-center">
-              {{ Form::text('layout_clean', $venue->layout_clean, ['class' => 'form-control',$venue->layout_clean==""?"readonly":""]) }}
-              <span class="ml-1">円</span>
-            </div>
+                {{ Form::text('layout_clean', $venue->layout_clean, ['class' => 'form-control',$venue->layout_clean==""?"readonly":""]) }}
+                <span class="ml-1">円</span>
+              </div>
               <p class="is-error-layout_clean" style="color: red"></p>
             </td>
           </tr>
@@ -474,7 +477,7 @@
       </table>
 
       <!-- 支払データ ------------------------------------------------------------------------>
-      <table class="table table-bordered">
+      <table class="table table-bordered cost_data hide">
         <thead>
           <tr>
             <td colspan="2">
