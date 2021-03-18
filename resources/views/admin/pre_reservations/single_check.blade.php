@@ -91,7 +91,7 @@
 
 
   {{-- 以下、詳細入力 --}}
-  <div class="container-field bg-white text-dark mt-5 mb-5">
+  <div class="container-field text-dark mt-5 mb-5">
     <div class="row">
       <div class="col">
         <table class="table table-bordered">

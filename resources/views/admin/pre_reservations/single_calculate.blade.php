@@ -103,10 +103,10 @@
 
 
   {{-- 以下、詳細入力 --}}
-  <div class="container-field bg-white text-dark mt-5 mb-5">
+  <div class="container-field mt-5 mb-5">
     <div class="row">
       <div class="col">
-        <table class="table table-bordered">
+        <table class="table table-bordered preserve_table">
           <tbody>
             <tr>
               <td colspan="2">
@@ -667,7 +667,7 @@
         <table class="table bill_table">
           <tr>
             <td>
-              <h2 class="text-white">
+              <h2>
                 請求書No
               </h2>
             </td>
