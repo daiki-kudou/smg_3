@@ -20,7 +20,7 @@ class EquipmentsController extends Controller
   public function index()
   {
     // 検索処理はモデルに移行
-    $equipments = Equipment::paginate(30);
+    $equipments = Equipment::orderBy('id', 'desc')->paginate(30);
 
     return view('admin.equipments.index', [
       'equipments' => $equipments,

@@ -27,7 +27,8 @@ class VenuesController extends Controller
   public function index()
   {
 
-    $venues = Venue::paginate(30);
+    $venues = Venue::orderBy('id', 'desc')->paginate(30);
+
 
     return view('admin.venues.index', [
       'venues' => $venues,
