@@ -158,10 +158,12 @@
               <td>
                 <div class="radio-box">
                   <p>
-                    <input type="radio" name="board_flag" value="0" {{isset($request->board_flag)?$request->board_flag==0?'checked':'':'checked',}}>無し
+                    <input type="radio" name="board_flag" value="0" {{isset($request->board_flag)?$request->board_flag==0?'checked':'':'checked',}}>
+                    <span class="ml-1">無し</span>
                   </p>
                   <p>
                     <input type="radio" name="board_flag" value="1" {{isset($request->board_flag)?$request->board_flag==1?'checked':'':'',}}>有り
+                    <span class="ml-1">有り</span>
                   </p>
                 </div>
               </td>
@@ -376,7 +378,8 @@
             <tr>
               <td class="table-active"><label for="cost">原価率</label></td>
               <td class="d-flex align-items-center">
-                {{ Form::number('cost', old('cost'),['class'=>'form-control sales_percentage', 'placeholder'=>'入力してください'] ) }}%
+                {{ Form::number('cost', old('cost'),['class'=>'form-control sales_percentage', 'placeholder'=>'入力してください'] ) }}
+                <span class="ml-1">%</span>
               </td>
             </tr>
           </tbody>

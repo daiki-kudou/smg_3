@@ -1251,7 +1251,8 @@ h3 {
 }
 
 .bill_details,
-.information_details {
+.information_details,
+.paid_details {
     background-color: #f3f3f3;
     margin-bottom: 2px;
 }
