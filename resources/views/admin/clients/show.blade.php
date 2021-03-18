@@ -178,13 +178,13 @@
             <th class="table-active">{{ Form::label('pay_limit', '支払期日') }}</th>
             <td>
               @if ($user->pay_limit==1)
-              当月末〆当月末CASH
+              3営業日前
               @elseif($user->pay_limit==2)
-              当月末〆翌月末CASH
+              当月末締め／当月末支払い
               @elseif($user->pay_limit==3)
-              当月末〆翌々月末CACH
+              当月末締め／翌月末支払い
               @elseif($user->pay_limit==4)
-              当月末〆3カ月末CASH
+              当月末締め／翌々月末支払い
               @endif
             </td>
           </tr>

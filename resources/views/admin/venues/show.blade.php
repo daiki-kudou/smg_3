@@ -29,6 +29,24 @@
   <p class="text-right">※金額は税抜表記になります。</p>
 
 
+  <!-- 会場URL ---------------------------------------------------->
+  {{-- <div class="row">
+    <div class="col">
+      {{ Form::open(['url' => 'admin/venues', 'method'=>'POST', 'id'=>'VenuesCreateForm']) }}
+  @csrf
+  <table class="table table-bordered">
+    <tbody>
+      <tr>
+        <th width="20%" class="table-active"> <label for="smg_url">会場SMG URL</label></th>
+        <td>{{$venue->smg_url}}
+        </td>
+      </tr>
+    </tbody>
+  </table>
+  </div>
+  </div>
+  </div> --}}
+
   <div class="row">
     <!-- 左側の項目 -------------------------------------------------------------------------->
     <div class="col">
@@ -708,7 +726,7 @@
     </table>
 
     <!-- 支払データ ------------------------------------------------------------------------>
-    <table class="table table-bordered venue_table">
+    <table class="table table-bordered venue_table ">
       <thead>
         <tr>
           <td colspan="2">

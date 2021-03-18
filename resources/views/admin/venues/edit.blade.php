@@ -136,7 +136,7 @@
           <tr>
             <td class="table-active"><label for="capacity" class="form_required">収容人数</label></td>
             <td>
-              {{ Form::text('capacity', $venue->capacity, ['placeholder' => '15','class' => 'form-control']) }}
+              {{ Form::textarea('capacity', $venue->capacity, ['placeholder' => '15','class' => 'form-control','rows'=>"2"]) }}
               <p class="is-error-capacity" style="color: red"></p>
             </td>
           </tr>
