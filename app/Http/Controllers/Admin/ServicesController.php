@@ -20,7 +20,7 @@ class ServicesController extends Controller
   public function index()
   {
 
-    $querys = Service::paginate(30);
+    $querys = Service::orderBy('id', 'desc')->paginate(30);
 
     return view('admin.services.index', compact("querys"));
   }

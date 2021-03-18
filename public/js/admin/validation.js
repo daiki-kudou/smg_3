@@ -891,364 +891,120 @@ $(function () {
   });
 })
 
-// 仲介会社新規作成
+// 仲介会社新規作成＆編集
 $(function () {
-  $("#agentReservationCreateForm").validate({
-    rules: {
-      name: {
-        required: true,
+  var target = ["#agentReservationCreateForm", "#agentEditForm"];
+  $.each(target, function (index, value) {
+    $(value).validate({
+      rules: {
+        name: { required: true, },
+        post_code: { maxlength: 7, number: true },
+        person_tel: { minlength: 10, number: true },
+        fax: { minlength: 10, number: true },
+        firstname_kana: { katakana: true },
+        email: { email: true },
+        site_url: { url: true },
+        login: { url: true },
+        cost: { required: true, range: [1, 100], maxlength: 3 },
+        cxl_url: { url: true },
+        payment_limit: { required: true, },
+        firstname_kana: { katakana: true, },
+        lastname_kana: { katakana: true, },
+        person_mobile: { minlength: 10, number: true },
       },
-      post_code: {
-        maxlength: 7
-      },
-      tel: {
-        minlength: 10
-      },
-      email: {
-        email: true
-      },
-      site_url: {
-        url: true
-      },
-      login: {
-        url: true
-      },
-      cost: {
-        required: true,
-        range: [1, 100]
-      },
-      cxl_url: {
-        url: true
-      },
-      payment_limit: {
-        required: true,
-      },
-      firstname_kana: {
-        katakana: true,
-      },
-      lastname_kana: {
-        katakana: true,
-      },
-    },
-    messages: {
-      name: {
-        required: "※必須項目です",
-      },
-      post_code: {
-        required: "※必須項目です",
-        maxlength: '７桁で入力してください'
-      },
-      email: {
-        email: '※Emailの形式で入力してください',
-      },
-      site_url: {
-        url: '正しいURLを記入してください(例:https://osaka-conference.com/)'
-      },
-      login: {
-        url: '正しいURLを記入してください(例:https://osaka-conference.com/)'
-      },
-      cxl_url: {
-        url: '正しいURLを記入してください(例:https://osaka-conference.com/)'
-      },
-      payment_limit: {
-        required: "※必須項目です",
-      },
-      cost: {
-        required: "※必須項目です",
-        range: "※1から100までの数値を入力してください"
-      },
-      firstname_kana: {
-        katakana: "※カタカナで入力してください",
-      },
-      lastname_kana: {
-        katakana: "※カタカナで入力してください",
-      },
+      messages: {
+        name: { required: "※必須項目です", },
+        post_code: { maxlength: '７桁で入力してください', number: "半角英数字で入力してください" },
+        person_tel: { minlength: "最低桁数は10です", number: "半角英数字で入力してください" },
+        fax: { minlength: "最低桁数は10です", number: "半角英数字で入力してください" },
+        email: { email: '※Emailの形式で入力してください', },
+        site_url: { url: '正しいURLを記入してください(例:https://osaka-conference.com/)' },
+        login: { url: '正しいURLを記入してください(例:https://osaka-conference.com/)' },
+        cxl_url: { url: '正しいURLを記入してください(例:https://osaka-conference.com/)' },
+        payment_limit: { required: "※必須項目です", },
+        cost: { required: "※必須項目です", range: "※1から100までの半角英数字を入力してください", maxlength: "※最大桁数は3です" },
+        firstname_kana: { katakana: "※全角カタカナで入力してください", },
+        lastname_kana: { katakana: "※全角カタカナで入力してください", },
+        person_mobile: { minlength: "最低桁数は10です", number: "半角英数字で入力してください" },
 
-    },
-    errorPlacement: function (error, element) {
-      var name = element.attr('name');
-      if (element.attr('name') === 'category[]') {
-        error.appendTo($('.is-error-category'));
-      } else if (element.attr('name') === name) {
-        error.appendTo($('.is-error-' + name));
+      },
+      errorPlacement: function (error, element) {
+        var name = element.attr('name');
+        if (element.attr('name') === 'category[]') {
+          error.appendTo($('.is-error-category'));
+        } else if (element.attr('name') === name) {
+          error.appendTo($('.is-error-' + name));
+        }
+      },
+      errorElement: "span",
+      errorClass: "is-error",
+      //送信前にLoadingを表示
+      submitHandler: function (form) {
+        $('.approval').addClass('hide');
+        $('.loading').removeClass('hide');
+        form.submit();
       }
-    },
-    errorElement: "span",
-    errorClass: "is-error",
-    //送信前にLoadingを表示
-    submitHandler: function (form) {
-      $('.approval').addClass('hide');
-      $('.loading').removeClass('hide');
-      form.submit();
-    }
-  });
-  $('input').on('blur', function () {
-    $(this).valid();
-  });
-})
+    });
+    $('input').on('blur', function () {
+      $(this).valid();
+    });
+  })
+});
 
-
-// 仲介会社　編集
-$(function () {
-  $("#agentReservationEditForm").validate({
-    rules: {
-      name: {
-        required: true,
-      },
-      post_code: {
-        maxlength: 7
-      },
-      tel: {
-        minlength: 10
-      },
-      email: {
-        email: true
-      },
-      site_url: {
-        url: true
-      },
-      login: {
-        url: true
-      },
-      cost: {
-        required: true,
-        range: [1, 100]
-      },
-      cxl_url: {
-        url: true
-      },
-      payment_limit: {
-        required: true,
-      },
-      firstname_kana: {
-        katakana: true,
-      },
-      lastname_kana: {
-        katakana: true,
-      },
-
-    },
-    messages: {
-      name: {
-        required: "※必須項目です",
-      },
-      post_code: {
-        required: "※必須項目です",
-        maxlength: '７桁で入力してください'
-      },
-      email: {
-        email: '※Emailの形式で入力してください',
-      },
-      site_url: {
-        url: '正しいURLを記入してください(例:https://osaka-conference.com/)'
-      },
-      login: {
-        url: '正しいURLを記入してください(例:https://osaka-conference.com/)'
-      },
-      cxl_url: {
-        url: '正しいURLを記入してください(例:https://osaka-conference.com/)'
-      },
-      payment_limit: {
-        required: "※必須項目です",
-      },
-      cost: {
-        required: "※必須項目です",
-        range: "※1から100までの数値を入力してください"
-      },
-      firstname_kana: {
-        katakana: "カタカナで入力してください",
-      },
-      lastname_kana: {
-        katakana: "カタカナで入力してください",
-      },
-
-
-
-    },
-    errorPlacement: function (error, element) {
-      var name = element.attr('name');
-      if (element.attr('name') === 'category[]') {
-        error.appendTo($('.is-error-category'));
-      } else if (element.attr('name') === name) {
-        error.appendTo($('.is-error-' + name));
-      }
-    },
-    errorElement: "span",
-    errorClass: "is-error",
-    //送信前にLoadingを表示
-    submitHandler: function (form) {
-      $('.approval').addClass('hide');
-      $('.loading').removeClass('hide');
-      form.submit();
-    }
-  });
-  $('input').on('blur', function () {
-    $(this).valid();
-  });
-})
 
 
 // 会場管理　新規登録validation
 $(function () {
   $("#VenuesCreateForm").validate({
     rules: {
-      alliance_flag: {
-        required: true,
-      },
-      name_area: {
-        required: true,
-      },
-      name_bldg: {
-        required: true,
-      },
-      name_venue: {
-        required: true,
-      },
-      size1: {
-        required: true,
-        number: true,
-        min: 0,
-        max: 1000,
-      },
-      size2: {
-        required: true,
-        number: true,
-        min: 0,
-        max: 1000,
-
-      },
-      capacity: {
-        required: true,
-        number: true,
-        min: 0,
-      },
-      post_code: {
-        required: true,
-        maxlength: 7,
-        number: true,
-      },
-      address1: {
-        required: true,
-      },
-      address2: {
-        required: true,
-      },
-      address3: {
-        required: true,
-      },
-      luggage_flag: {
-        required: true,
-      },
-      luggage_post_code: {
-        // required: true,
-        maxlength: 7
-      },
-      luggage_tel: {
-        number: true,
-      },
-      person_tel: {
-        number: true,
-      },
-      eat_in_flag: {
-        required: true,
-      },
-      layout: {
-        required: true,
-      },
-      person_email: {
-        email: true,
-      },
-      first_name_kana: {
-        katakana: true,
-      },
-      last_name_kana: {
-        katakana: true,
-      },
-      mgmt_email: {
-        email: true,
-      },
-      cost: {
-        range: [1, 100]
-      },
+      alliance_flag: { required: true, },
+      name_area: { required: true, },
+      name_bldg: { required: true, },
+      name_venue: { required: true, },
+      size1: { required: true, number: true, min: 0, max: 1000, },
+      size2: { required: true, number: true, min: 0, max: 1000, },
+      capacity: { required: true, number: true, min: 0, },
+      post_code: { required: true, maxlength: 7, number: true, },
+      address1: { required: true, },
+      address2: { required: true, },
+      address3: { required: true, },
+      luggage_flag: { required: true, },
+      luggage_post_code: { maxlength: 7, number: true },
+      person_tel: { number: true, },
+      eat_in_flag: { required: true, },
+      layout: { required: true, },
+      person_email: { email: true, },
+      first_name_kana: { katakana: true, },
+      last_name_kana: { katakana: true, },
+      mgmt_email: { email: true, },
+      mgmt_tel: { number: true },
+      mgmt_emer_tel: { number: true },
+      cost: { range: [1, 100] },
     },
     messages: {
-      alliance_flag: {
-        required: "※必須項目です",
-      },
-      name_area: {
-        required: "※必須項目です",
-      },
-      name_bldg: {
-        required: "※必須項目です",
-      },
-      name_venue: {
-        required: "※必須項目です",
-      },
-      size1: {
-        required: "※必須項目です",
-        number: "半角英数字を入力してください",
-        min: "0以上を入力してください",
-        max: '上限値は1000です',
-      },
-      size2: {
-        required: "※必須項目です",
-        number: "半角英数字を入力してください",
-        min: "0以上を入力してください",
-        max: '上限値は1000です',
-      },
-      capacity: {
-        required: "※必須項目です",
-        number: "半角英数字を入力してください",
-        min: "0以上を入力してください"
-      },
-      post_code: {
-        required: "※必須項目です",
-        maxlength: '７桁で入力してください',
-        number: "※半角英数字で入力してください",
-      },
-      address1: {
-        required: "※必須項目です",
-      },
-      address2: {
-        required: "※必須項目です",
-      },
-      address3: {
-        required: "※必須項目です",
-      },
-      luggage_flag: {
-        required: "※必須項目です",
-      },
-      luggage_post_code: {
-        maxlength: '７桁で入力してください'
-      },
-      luggage_tel: {
-        number: '数字のみ入力してください'
-      },
-      luggage_post_code: {
-        // required: "※必須項目です",
-        maxlength: '７桁で入力してください'
-      },
-      eat_in_flag: {
-        required: "※必須項目です",
-      },
-      layout: {
-        required: "※必須項目です",
-      },
-      person_email: {
-        email: '※Emailの形式で入力してください',
-      },
-      first_name_kana: {
-        katakana: '※カタカナで入力してください',
-      },
-      last_name_kana: {
-        katakana: '※カタカナで入力してください',
-      },
-      mgmt_email: {
-        email: '※Emailの形式で入力してください',
-      },
-      cost: {
-        range: "※1から100までの数値を入力してください"
-      },
+      alliance_flag: { required: "※必須項目です", },
+      name_area: { required: "※必須項目です", },
+      name_bldg: { required: "※必須項目です", },
+      name_venue: { required: "※必須項目です", },
+      size1: { required: "※必須項目です", number: "半角英数字を入力してください", min: "0以上を入力してください", max: '上限値は1000です', },
+      size2: { required: "※必須項目です", number: "半角英数字を入力してください", min: "0以上を入力してください", max: '上限値は1000です', },
+      capacity: { required: "※必須項目です", number: "半角英数字を入力してください", min: "0以上を入力してください" },
+      post_code: { required: "※必須項目です", maxlength: '７桁で入力してください', number: "※半角英数字で入力してください", },
+      address1: { required: "※必須項目です", },
+      address2: { required: "※必須項目です", },
+      address3: { required: "※必須項目です", },
+      luggage_flag: { required: "※必須項目です", },
+      luggage_post_code: { maxlength: '７桁で入力してください', number: "※半角英数字で入力してください" },
+      person_tel: { number: "※半角英数字で入力してください", },
+      eat_in_flag: { required: "※必須項目です", },
+      layout: { required: "※必須項目です", },
+      person_email: { email: '※Emailの形式で入力してください', },
+      first_name_kana: { katakana: '※カタカナで入力してください', },
+      last_name_kana: { katakana: '※カタカナで入力してください', },
+      mgmt_email: { email: '※Emailの形式で入力してください', },
+      mgmt_tel: { number: "※半角英数字で入力してください" },
+      mgmt_emer_tel: { number: "※半角英数字で入力してください" },
+      cost: { range: "※1から100までの数値を入力してください" },
     },
     errorPlacement: function (error, element) {
       var name = element.attr('name');
@@ -1269,9 +1025,6 @@ $(function () {
   });
   $('input').on('blur', function () {
     $(this).valid();
-    // if ($('span').hasClass('is-error')) {
-    //   $('span').css('background', 'white');
-    // }
   });
   // https://qiita.com/konnma/items/eb26651576e625b72805
   $(document).on('change', '#layout', function () {
@@ -1759,38 +1512,38 @@ $(function () {
 });
 
 // 料金管理　編集(枠貸し)
-$(function () {
-  $("#ClientsEditForm").validate({
-    rules: {
-      company: {
-        required: true,
-      },
-    },
-    messages: {
-      company: {
-        required: "※必須項目です",
-      },
-    },
-    errorPlacement: function (error, element) {
-      var name = element.attr('name');
-      if (element.attr('name') === 'category[]') {
-        error.appendTo($('.is-error-category'));
-      } else if (element.attr('name') === name) {
-        error.appendTo($('.is-error-' + name));
-      }
-    },
-    errorElement: "span",
-    errorClass: "is-error",
-    //送信前にLoadingを表示
-    submitHandler: function (form) {
-      $('.approval').addClass('hide');
-      $('.loading').removeClass('hide');
-      form.submit();
-    }
-  });
-  $('input').on('blur', function () {
-    $(this).valid();
-  });
-});
+// $(function () {
+//   $("#FramePriceCreateForm").validate({
+//     rules: {
+//       company: {
+//         required: true,
+//       },
+//     },
+//     messages: {
+//       company: {
+//         required: "※必須項目です",
+//       },
+//     },
+//     errorPlacement: function (error, element) {
+//       var name = element.attr('name');
+//       if (element.attr('name') === 'category[]') {
+//         error.appendTo($('.is-error-category'));
+//       } else if (element.attr('name') === name) {
+//         error.appendTo($('.is-error-' + name));
+//       }
+//     },
+//     errorElement: "span",
+//     errorClass: "is-error",
+//     //送信前にLoadingを表示
+//     submitHandler: function (form) {
+//       $('.approval').addClass('hide');
+//       $('.loading').removeClass('hide');
+//       form.submit();
+//     }
+//   });
+//   $('input').on('blur', function () {
+//     $(this).valid();
+//   });
+// });
 
 

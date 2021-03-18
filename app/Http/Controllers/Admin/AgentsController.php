@@ -18,21 +18,9 @@ class AgentsController extends Controller
   public function index(Request $request)
   {
     // 検索ロジックはモデルに移行
-    $search_freeword = $request->freeword;
-    $search_id = $request->id;
-    $search_name = $request->name;
-    $search_tel = $request->person_tel;
-    $agent = new Agent;
-    $querys = $agent->searchs(
-      $search_freeword,
-      $search_id,
-      $search_name,
-      $search_tel,
-    );
+    $agents = Agent::orderBy('id', 'desc')->paginate(30);
     // 画面表示
-    return view('admin.agents.index', [
-      'querys' => $querys,
-    ]);
+    return view('admin.agents.index', compact("agents"));
   }
 
   /**
