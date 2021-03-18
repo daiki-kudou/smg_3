@@ -532,7 +532,7 @@
               <tr>
                 <td colspan="2">
                   <p class="title-icon">
-                    <i class="fas fa-envelope icon-size" aria-hidden="true"></i>備考
+                    <i class="fas fa-file-alt icon-size" aria-hidden="true"></i>備考
                   </p>
                 </td>
               </tr>
@@ -928,7 +928,7 @@
                 <tbody>
                   <tr>
                     <td colspan="5">
-                      　<h4 class="billdetails_content_ttl">
+                      <h4 class="billdetails_content_ttl">
                         その他
                       </h4>
                     </td>
@@ -1011,7 +1011,7 @@
             </div>
           </div>
           <div class="main">
-            <div class="informations billdetails_content pb-3">
+            <div class="informations billdetails_content py-3">
               <table class="table">
                 <tr>
                   <td>請求日：</td>
@@ -1044,7 +1044,7 @@
             </div>
           </div>
           <div class="main">
-            <div class="paids billdetails_content">
+            <div class="paids billdetails_content pt-3">
               <table class="table" style="table-layout: fixed;">
                 <tr>
                   <td>入金状況{{Form::select('paid', ['未入金', '入金済み'],null,['class'=>'form-control'])}}</td>

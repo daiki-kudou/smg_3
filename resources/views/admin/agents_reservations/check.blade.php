@@ -409,8 +409,6 @@
   </div>
 </section>
 
-
-
 <section class="mt-5">
   <div class="bill">
     <div class="bill_head">

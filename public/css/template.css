@@ -1246,6 +1246,10 @@ h3 {
     height: 50px;
 }
 
+.bill_details .main {
+    padding-top: 1.5em;
+}
+
 .bill_details,
 .information_details {
     background-color: #f3f3f3;
@@ -1254,7 +1258,7 @@ h3 {
 
 .billdetails_content {
     /* padding-top: 50px; */
-    padding-top: 20px;
+    /* padding-top: 20px; */
     width: 95%;
     margin: 0 auto;
 }
@@ -1438,11 +1442,19 @@ table .master_total_subttl {
 
 
 /* 追加請求のチェックボックス -------------------*/
+.venue_chkbox,
+.equipment_chkbox,
+.layout_chkbox,
+.others_chkbox {
+    padding: 0.5em 0;
+}
+
+
 .venue_chkbox label,
 .equipment_chkbox label,
 .layout_chkbox label,
 .others_chkbox label {
-    padding-left: 40px;
+    padding-left: 30px;
     font-size: 1.5rem;
     line-height: 32px;
     display: inline-block;
@@ -1455,14 +1467,16 @@ table .master_total_subttl {
 .layout_chkbox label:before,
 .others_chkbox label:before {
     content: '';
-    width: 32px;
-    height: 32px;
+    width: 20px;
+    height: 20px;
     display: inline-block;
     position: absolute;
+    transform: translateY(-50%);
+    top: 50%;
     left: 0;
     background-color: #fff;
     box-shadow: inset 1px 2px 3px 0px #000;
-    border-radius: 6px 6px 6px 6px;
+    border-radius: 3px;
 }
 
 .venue_chkbox input[type=checkbox],
