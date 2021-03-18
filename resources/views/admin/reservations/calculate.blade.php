@@ -4,13 +4,6 @@
 <link href="{{ asset('/css/template.css') }}" rel="stylesheet">
 <script src="{{ asset('/js/template.js') }}"></script>
 
-
-
-<div class="content">
-  <div class="container-fluid">
-
-
-
     <style>
       #fullOverlay {
         position: absolute;
@@ -151,14 +144,12 @@
     </script>
 
 
-
-
     {{Form::open(['url' => 'admin/reservations/calculate', 'method' => 'POST', 'id'=>'reservationCreateForm'])}}
     @csrf
-    <section class="section-wrap">
+    <section class="mt-5">
       <div class="row">
         <div class="col">
-          <table class="table table-bordered">
+          <table class="table table-bordered reserve_table">
             <tbody>
               <tr>
                 <td colspan="2">
@@ -318,7 +309,7 @@
               <tbody class="accordion-wrap">
                 @foreach ($spVenue->getEquipments() as $key=>$equipment)
                 <tr>
-                  <td>{{$equipment->item}}</td>
+                  <td class="table-active">{{$equipment->item}}</td>
                   <td>
                     {{ Form::text('equipment_breakdown'.$key, $request->{'equipment_breakdown'.$key},['class'=>'form-control'] ) }}
                   </td>
@@ -341,7 +332,7 @@
               <tbody class="accordion-wrap">
                 @foreach ($spVenue->getServices() as $key=>$service)
                 <tr>
-                  <td>
+                  <td class="table-active">
                     {{$service->item}}
                   </td>
                   <td>
@@ -370,7 +361,7 @@
               </thead>
               <tbody>
                 <tr>
-                  <td>レイアウト準備</td>
+                  <td class="table-active">レイアウト準備</td>
                   <td>
                     <div class="form-check form-check-inline">
                       {{Form::radio('layout_prepare', 1, $request->layout_prepare==1?true:false, ['id' => 'layout_prepare', 'class' => 'form-check-input'])}}
@@ -381,7 +372,7 @@
                   </td>
                 </tr>
                 <tr>
-                  <td>レイアウト準備</td>
+                  <td class="table-active">レイアウト準備</td>
                   <td>
                     <div class="form-check form-check-inline">
                       {{Form::radio('layout_clean', 1, $request->layout_clean==1?true:false, ['id' => 'layout_clean', 'class' => 'form-check-input'])}}
@@ -408,25 +399,25 @@
               </thead>
               <tbody>
                 <tr>
-                  <td>事前に預かる荷物<br>（個数）</td>
+                  <td class="table-active">事前に預かる荷物<br>（個数）</td>
                   <td>
                     {{ Form::text('luggage_count', $request->luggage_count,['class'=>'form-control'] ) }}
                   </td>
                 </tr>
                 <tr>
-                  <td>事前荷物の到着日<br>午前指定のみ</td>
+                  <td class="table-active">事前荷物の到着日<br>午前指定のみ</td>
                   <td>
                     {{ Form::text('luggage_arrive', $request->luggage_arrive,['class'=>'form-control'] ) }}
                   </td>
                 </tr>
                 <tr>
-                  <td>事後返送する荷物</td>
+                  <td class="table-active">事後返送する荷物</td>
                   <td>
                     {{ Form::text('luggage_return', $request->luggage_return,['class'=>'form-control'] ) }}
                   </td>
                 </tr>
                 <tr>
-                  <td>荷物預かり/返送<br>料金</td>
+                  <td class="table-active">荷物預かり/返送<br>料金</td>
                   <td>
                     {{ Form::text('luggage_price', $request->luggage_price,['class'=>'form-control'] ) }}
                   </td>
@@ -570,7 +561,7 @@
 
     {{ Form::open(['url' => 'admin/reservations/check', 'method'=>'POST', 'id'=>'agents_calculate_form']) }}
     @csrf
-    <section class="section-wrap">
+    <section class="">
       <div class="bill">
         <div class="bill_head">
           <table class="table bill_table">
@@ -1020,7 +1011,7 @@
             </div>
           </div>
           <div class="main">
-            <div class="informations billdetails_content">
+            <div class="informations billdetails_content pb-3">
               <table class="table">
                 <tr>
                   <td>請求日：</td>
@@ -1105,7 +1096,5 @@
 
     {{Form::submit('確認する', ['class'=>'btn d-block more_btn_lg mx-auto my-5', 'id'=>'check_submit'])}}
     {{Form::close()}}
-  </div>
-</div>
 
 @endsection

@@ -147,11 +147,10 @@ table.dataTable thead .sorting_desc:after {
     white-space: pre-wrap;
 }
 
-.accordion-wrap td {
+.accordion-wrap .table-active {
+    width: 50%;
     word-break: break-all;
 }
-
-
 
 
 
@@ -252,11 +251,11 @@ h2 {
 .table {
     font-size: 1rem;
     background-color: #fff;
-    box-shadow: 0 0 1px rgb(0 0 0 / 13%), 0 1px 3px rgb(0 0 0 / 20%);
+    box-shadow: 0 0 1px rgb(0 0 0 / 13%), 0 1px 3px rgb(0 0 0 / 18%);
 }
 
 .wrap_shadow {
-    box-shadow: 0 0 1px rgb(0 0 0 / 13%), 0 1px 3px rgb(0 0 0 / 20%);
+    box-shadow: 0 0 1px rgb(0 0 0 / 13%), 0 1px 3px rgb(0 0 0 / 18%);
 }
 
 select:disabled {
@@ -700,6 +699,14 @@ table td.table_column p:last-child {
     margin: 50px 0;
 }
 
+.reserve_table {
+    table-layout: fixed;
+}
+
+.name-table {
+    table-layout: fixed;
+}
+
 /* tablesorter css 上書き ------------------------------------*/
 .tablesorter-default {
     font-family: -apple-system, 'Helvetica Neue', 'Hiragino Kaku Gothic ProN', '游ゴシック', 'メイリオ', meiryo, sans-serif;
@@ -727,6 +734,7 @@ table td.table_column p:last-child {
 
 .border-wrap2 {
     border: 1px solid #dee2e6;
+    background: #fff;
 }
 
 .title-icon {
@@ -857,9 +865,21 @@ table td.table_column p:last-child {
     /* border: solid 1px #ced4da; */
 }
 
+.bill_head .table {
+    background: transparent;
+    box-shadow: none;
+}
+
 .border_color {
     border: 1px solid rgb(53 167 167 / 30%);
 }
+
+.preserve_table {
+    table-layout: fixed;
+}
+
+
+
 
 
 
@@ -923,6 +943,7 @@ table td.table_column p:last-child {
     font-weight: bold;
     padding: 2em;
     border: 1px solid #ef6243;
+    background-color: #fff;
 }
 
 .alert-icon {
@@ -1227,6 +1248,7 @@ h3 {
 
 .bill_details,
 .information_details {
+    background-color: #f3f3f3;
     margin-bottom: 2px;
 }
 
@@ -1239,8 +1261,7 @@ h3 {
 
 .billdetails_content_ttl {
     position: relative;
-    margin-left: 14px;
-    margin-bottom: 10px;
+    margin: 0.5em 0 0.5em 1.5em;
 }
 
 .billdetails_content_ttl::before {
@@ -1251,7 +1272,7 @@ h3 {
     background: #35a7a7;
     position: absolute;
     top: 45%;
-    left: -25px;
+    left: -1em;
     transform: translateY(-50%);
 }
 

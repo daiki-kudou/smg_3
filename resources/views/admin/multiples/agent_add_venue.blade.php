@@ -4,8 +4,7 @@
 <link href="{{ asset('/css/template.css') }}" rel="stylesheet">
 <script src="{{ asset('/js/template.js') }}"></script>
 <script src="{{ asset('/js/multiples/calculate.js') }}"></script>
-<div class="content">
-  <div class="container-fluid">
+
     <div class="container-field mt-3">
       <div class="float-right">
         <nav aria-label="breadcrumb">
@@ -20,7 +19,7 @@
       <hr>
     </div>
 
-    <section class="section-wrap">
+    <section class="mt-5">
       <table class="table ttl_head mb-0">
         <tbody>
           <tr>
@@ -224,8 +223,6 @@
       {{ Form::close() }}
 
     </section>
-  </div>
-</div>
 
 
 <script defer="defer">

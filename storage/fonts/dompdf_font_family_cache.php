@@ -78,7 +78,7 @@
     'normal' => $rootDir . '/lib/fonts/DejaVuSerif',
   ),
   'migmix-1p-regular' => array(
-    'normal' => $fontDir . '/migmix_1p_regular_normal_eee1dac3fb9578b97f6ae7590ac11f9d',
-    'bold' => $fontDir . '/migmix_1p_regular_bold_eee1dac3fb9578b97f6ae7590ac11f9d',
+    'normal' => $fontDir . '/migmix_1p_regular_normal_0919fd31b0b8044d880e382c56ff56fc',
+    'bold' => $fontDir . '/migmix_1p_regular_bold_0919fd31b0b8044d880e382c56ff56fc',
   ),
 ) ?>
