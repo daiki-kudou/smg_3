@@ -477,7 +477,7 @@
       </table>
 
       <!-- 支払データ ------------------------------------------------------------------------>
-      <table class="table table-bordered cost_data hide">
+      <table class="table table-bordered cost_data {{$venue->alliance_flag==0?"hide":""}}">
         <thead>
           <tr>
             <td colspan="2">
