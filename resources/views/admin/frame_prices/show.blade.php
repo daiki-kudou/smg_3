@@ -97,7 +97,7 @@
       <tbody>
         @foreach ($time_prices as $time_price)
         <tr>
-          <td>{{ $time_price->time}}</td>
+          <td>{{ $time_price->time}}H</td>
           <td>{{ number_format($time_price->price)}}円</td>
           <td>{{ number_format($time_price->extend)}}円</td>
           <!-- <td>{{ ReservationHelper::formatDate($time_price->created_at)}}</td> -->

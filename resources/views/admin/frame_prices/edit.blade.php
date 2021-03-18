@@ -43,10 +43,10 @@
         <thead>
           <tr>
             <th>枠</th>
-            <td>時間（開始）</td>
-            <td>時間（終了）</td>
-            <td>料金<span class="ml-1 annotation">※税抜</span></td>
-            <td>追加・削除</td>
+            <th>時間（開始）</th>
+            <th>時間（終了）</th>
+            <th>料金<span class="ml-1 annotation">※税抜</span></th>
+            <th>追加・削除</th>
           </tr>
         </thead>
         <tbody>
@@ -158,7 +158,10 @@
                     '23:30:00'=>'23:30',
                 ],old('finish', $frame_price->finish),['class'=>'form-control col-sm-12'])}}</td>
             <td>
-              {{ Form::text('price'.$num, old('price', $frame_price->price), ['class' => 'form-control']) }}
+              <div class="d-flex align-items-end">
+                {{ Form::text('price'.$num, old('price', $frame_price->price), ['class' => 'form-control']) }}
+                <span class="ml-1">円</span>
+              </div>
               <p class="{{'is-error-price'.$num}}" style="color: red"></p>
             </td>
             <td>
@@ -169,11 +172,14 @@
           @endforeach
         </tbody>
       </table>
-      <div>
+      <div class="fw-bold">
         延長料金(1H)<span class="ml-1 annotation">※税抜</span>
       </div>
       <div>
-        {{ Form::text('extend', $frame_price->extend,['class'=>'form-control w-25 mb-2'])}}
+        <div class="d-flex align-items-end">
+          {{ Form::text('extend', $frame_price->extend,['class'=>'form-control w-25 mb-2'])}}
+          <span class="ml-1 mb-1">円</span>
+        </div>
         <p class="{{'is-error-extend'}}" style="color: red"></p>
       </div>
       {{Form::hidden('venue_id', $venue->id)}}
@@ -229,11 +235,11 @@
     });
   });
 
-  $(function(){
-    $(".del").on("click",function(){
-      if(!confirm('本当に削除しますか？\n削除した時点で会場情報・顧客側予約フォームからも削除されます')){
+  $(function() {
+    $(".del").on("click", function() {
+      if (!confirm('本当に削除しますか？\n削除した時点で会場情報・顧客側予約フォームからも削除されます')) {
         return false;
-    }
+      }
     })
   })
 </script>

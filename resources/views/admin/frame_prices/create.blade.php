@@ -42,11 +42,11 @@
       <table class="table table-bordered">
         <thead>
           <tr>
-            <td>枠</td>
-            <td>時間（開始）</td>
-            <td>時間（終了）</td>
-            <td>料金<span class="ml-1 annotation">※税抜</span></td>
-            <td>追加・削除</td>
+            <th>枠</th>
+            <th>時間（開始）</th>
+            <th>時間（終了）</th>
+            <th>料金<span class="ml-1 annotation">※税抜</span></th>
+            <th>追加・削除</th>
           </tr>
         </thead>
         <tbody>
@@ -55,8 +55,7 @@
             </td>
             <td>
               <select name="start0" id="start" class="form-control col-sm-12">
-                @for ($start = 8*2; $start <=23*2; $start++) <option
-                  value="{{date("H:i:s", strtotime("00:00 +". $start * 30 ." minute"))}}">
+                @for ($start = 8*2; $start <=23*2; $start++) <option value="{{date("H:i:s", strtotime("00:00 +". $start * 30 ." minute"))}}">
                   {{date("H時i分", strtotime("00:00 +". $start * 30 ." minute"))}}
                   </option>
                   @endfor
@@ -64,15 +63,18 @@
             </td>
             <td>
               <select name="finish0" id="finish" class="form-control col-sm-12">
-                @for ($start = 8*2; $start <=23*2; $start++) <option
-                  value="{{date("H:i:s", strtotime("00:00 +". $start * 30 ." minute"))}}" @if (date("H:i:s",
-                  strtotime("00:00 +". $start * 30 ." minute"))=="12:00:00" ) selected @endif>
+                @for ($start = 8*2; $start <=23*2; $start++) <option value="{{date("H:i:s", strtotime("00:00 +". $start * 30 ." minute"))}}" @if (date("H:i:s", strtotime("00:00 +". $start * 30 ." minute"))=="12:00:00" ) selected @endif>
                   {{date("H時i分", strtotime("00:00 +". $start * 30 ." minute"))}}
                   </option>
                   @endfor
               </select>
             </td>
-            <td>{{ Form::text('price0', "", ['class' => 'form-control']) }}</td>
+            <td>
+              <div class="d-flex align-items-end">
+                {{ Form::text('price0', "", ['class' => 'form-control']) }}
+                <span class="ml-1">円</span>
+              </div>
+            </td>
             <td>
               <input type="button" value="＋" class="add pluralBtn">
               <input type="button" value="－" class="del pluralBtn">
@@ -85,10 +87,14 @@
           延長料金(1H)<span class="ml-1 annotation">※税抜</span>
         </p>
       </div>
-      {{ Form::number('extend', old('extend'),['class'=>'form-control w-25']) }}
+      <div class="d-flex align-items-end">
+        {{ Form::number('extend', old('extend'),['class'=>'form-control w-25']) }}
+        <span class="ml-1">円</span>
+      </div>
       {{Form::hidden('venue_id', $venue->id)}}
       <div class="mt-5 mx-auto">
-        {{ Form::submit('登録する', ['class' => 'btn more_btn_lg d-block btn-lg mx-auto my-5']) }}</div>
+        {{ Form::submit('登録する', ['class' => 'btn more_btn_lg d-block btn-lg mx-auto my-5']) }}
+      </div>
       {{ Form::close() }}
     </div>
   </div>

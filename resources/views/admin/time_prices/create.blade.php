@@ -83,15 +83,20 @@
         <thead>
           <tr>
             <th>時間</th>
-            <td>料金<span class="ml-1 annotation">※税抜</span></td>
-            <td>延長料金(1H)<span class="ml-1 annotation">※税抜</span></td>
-            <td>追加・削除</td>
+            <th>料金<span class="ml-1 annotation">※税抜</span></th>
+            <th>延長料金(1H)<span class="ml-1 annotation">※税抜</span></th>
+            <th>追加・削除</th>
           </tr>
         </thead>
         <tr>
           <td>{{ Form::number('time', old('time'), ['class' => 'form-control']) }}</td>
           <td>{{ Form::number('price', old('price'), ['class' => 'form-control']) }}</td>
-          <td>{{ Form::number('extend', old('extend'), ['class' => 'form-control']) }}</td>
+          <td>
+            <div class="d-flex align-items-end">
+            {{ Form::number('extend', old('extend'), ['class' => 'form-control']) }}
+            <span class="ml-1">円</span>
+            </div>
+          </td>
           <td>
             <input type="button" value="＋" class="add pluralBtn">
             <input type="button" value="－" class="del pluralBtn">

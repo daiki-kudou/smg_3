@@ -30,20 +30,15 @@
 
 
   <!-- 会場URL ---------------------------------------------------->
-  <div class="row">
-    <div class="col">
-      <table class="table table-bordered">
-        <tbody>
-          <tr>
-            <th width="20%" class="table-active"> <label for="smg_url">会場SMG URL</label></th>
-            <td>{{$venue->smg_url}}
-            </td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
-  </div>
-  </div>
+  <table class="table table-bordered">
+    <tbody>
+      <tr>
+        <th width="20%" class="table-active"> <label for="smg_url">会場SMG URL</label></th>
+        <td>{{$venue->smg_url}}
+        </td>
+      </tr>
+    </tbody>
+  </table>
 
   <div class="row">
     <!-- 左側の項目 -------------------------------------------------------------------------->
