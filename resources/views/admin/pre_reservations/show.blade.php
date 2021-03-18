@@ -65,7 +65,7 @@
       <div class="border-wrap2 p-4">
 
         @if ($pre_reservation->user_id>0)
-        <table class="table table-bordered customer-table mb-5 table_fixed">
+        <table class="table table-bordered customer-table mb-3 table_fixed">
           <tbody>
             <tr>
               <td colspan="4">
