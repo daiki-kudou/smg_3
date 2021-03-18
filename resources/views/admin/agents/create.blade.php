@@ -16,6 +16,10 @@
   .table th {
     width: 30%;
   }
+
+  .hide {
+    display: none !important;
+  }
 </style>
 
 <div class="content">
@@ -71,6 +75,7 @@
                 <td colspan="2">
                   <input class="search_address1 form-control" type="text" name="post_code" maxlength="8"
                     onKeyUp="AjaxZip3.zip2addr(this,'','address1','address2');">
+                  <p class="is-error-post_code" style="color: red"></p>
                 </td>
               </tr>
               <tr>
@@ -94,12 +99,14 @@
                 <td class="table-active"><label for="tel">電話番号</label></td>
                 <td colspan="2">
                   {{ Form::text('person_tel', old('person_tel'), ['class' => 'form-control','placeholder' => '半角数字、ハイフンなしで入力してください']) }}
+                  <p class="is-error-person_tel" style="color: red"></p>
                 </td>
               </tr>
               <tr>
                 <td class="table-active"><label for="fax">FAX</label></td>
                 <td colspan="2">
                   {{ Form::text('fax', old('fax'), ['class' => 'form-control','placeholder' => '半角数字、ハイフンなしで入力してください']) }}
+                  <p class="is-error-fax" style="color: red"></p>
                 </td>
               </tr>
               <tr>
@@ -117,7 +124,7 @@
                 <td>
                   セイ：
                   {{ Form::text('firstname_kana', old('firstname_kana'), ['class' => 'form-control']) }}
-                  <p class="is-error-price" style="color: red"></p>
+                  <p class="is-error-firstname_kana" style="color: red"></p>
                 </td>
                 <td>
                   メイ：
@@ -126,9 +133,10 @@
                 </td>
               </tr>
               <tr>
-                <th class="table-active"><label for="person_tel">担当者TEL</label></th>
+                <th class="table-active"><label for="person_mobile">担当者TEL</label></th>
                 <td colspan="2">
                   {{ Form::text('person_mobile', old('person_mobile'), ['class' => 'form-control','placeholder' => '半角数字、ハイフンなしで入力してください']) }}
+                  <p class="is-error-person_mobile" style="color: red"></p>
                 </td>
               </tr>
               <tr>
@@ -199,14 +207,6 @@
                   {{ Form::text('site_pass', old('site_pass'), ['class' => 'form-control']) }}
                 </td>
               </tr>
-              <!-- <tr>
-                <th class="table-active">
-                  <label for="alliance_remark">提携会場備考</label>
-                </th>
-                <td colspan="2">
-                  {{ Form::textarea('agent_remark', old('agent_remark'), ['class' => 'form-control']) }}
-                </td>
-              </tr> -->
               <tr>
                 <th class="table-active"><label for="site_remark">備考</label></th>
                 <td colspan="2">
@@ -239,9 +239,9 @@
                 </td>
               </tr>
               <tr>
-                <th class="table-active"><label for="deal_details">取引詳細</label></th>
+                <th class="table-active"><label for="deal_remark">取引詳細</label></th>
                 <td colspan="2">
-                  {{ Form::text('deal_remark', old('deal_remark'), ['class' => 'form-control']) }}
+                  {{ Form::textarea('deal_remark', old('deal_remark'), ['class' => 'form-control']) }}
                 </td>
               </tr>
               <tr>
@@ -256,16 +256,16 @@
                     {{ Form::label('cxl', '仲介会社ルール') }}
                   </p>
                   <p class="mt-2">
-                    <label for="cancel">キャンセルポリシーURL</label>
+                    <label for="cxl_url">キャンセルポリシーURL</label>
                     {{ Form::text('cxl_url', old('cxl_url'), ['class' => 'form-control']) }}
                     <p class="is-error-cxl_url" style="color: red"></p>
                   </p>
                 </td>
               </tr>
               <tr>
-                <th class="table-active"><label for="deal_remark">備考</label></th>
+                <th class="table-active"><label for="cxl_remark">備考</label></th>
                 <td colspan="2">
-                  {{ Form::text('cxl_remark', old('cxl_remark'), ['class' => 'form-control']) }}
+                  {{ Form::textarea('cxl_remark', old('cxl_remark'), ['class' => 'form-control']) }}
                 </td>
               </tr>
             </tbody>
@@ -286,14 +286,7 @@
               <tr>
                 <th class="table-active form_required"><label for="close_date">決済条件</label></th>
                 <td>
-                {{{Form::select('payment_limit', ['当月末締め／当月末支払い', '当月末締め／翌月末支払い', '当月末締め／翌々月末支払い'],"",['placeholder' => '選択してください', 'class'=>'custom-select mr-sm-2'])}}}
-                  <!-- 
-                  <select name="payment_limit" id="payment_limit">
-                    <option>選択してください</option>
-                    <option value="1">当月末締め／当月末支払い</option>
-                    <option value="2">当月末締め／翌月末支払い</option>
-                    <option value="3">当月末締め／翌々月末支払い</option>
-                  </select> -->
+                  {{{Form::select('payment_limit', ['当月末締め／当月末支払い', '当月末締め／翌月末支払い', '当月末締め／翌々月末支払い'],"",['placeholder' => '選択してください', 'class'=>'custom-select mr-sm-2'])}}}
                   <p class="is-error-payment_limit" style="color: red"></p>
                 </td>
               </tr>

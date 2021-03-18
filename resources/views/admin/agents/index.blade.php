@@ -38,24 +38,24 @@
           </tr>
         </thead>
         <tbody>
-          @foreach ($querys as $query)
+          @foreach ($agents as $agent)
           <tr role="row" class="even">
-            <td>{{$query->id}}</td>
-            <td>{{$query->name}}</td>
+            <td>{{$agent->id}}</td>
+            <td>{{$agent->name}}</td>
             <td class="text-center">
-            <a href="{{ $query->login }}" target="blank" class="more_btn">管理画面をみる</a>
-             </td>
-            <td>{{$query->company}}</td>
-            <td>{{ReservationHelper::getAgentPerson($query->id)}}</td>
-            <td>{{$query->person_tel}}</td>
-            <td class="text-center"><a href="{{ url('admin/agents', $query->id) }}" class="more_btn">詳細</a></td>
+              <a href="{{ $agent->login }}" target="blank" class="more_btn">管理画面をみる</a>
+            </td>
+            <td>{{$agent->company}}</td>
+            <td>{{ReservationHelper::getAgentPerson($agent->id)}}</td>
+            <td>{{$agent->person_tel}}</td>
+            <td class="text-center"><a href="{{ url('admin/agents', $agent->id) }}" class="more_btn">詳細</a></td>
           </tr>
           @endforeach
         </tbody>
       </table>
     </div>
   </div>
-  {{ $querys->links() }}
+  {{ $agents->links() }}
 </div>
 
 

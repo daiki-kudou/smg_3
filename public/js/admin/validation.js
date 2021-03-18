@@ -895,74 +895,35 @@ $(function () {
 $(function () {
   $("#agentReservationCreateForm").validate({
     rules: {
-      name: {
-        required: true,
-      },
-      post_code: {
-        maxlength: 7
-      },
-      tel: {
-        minlength: 10
-      },
-      email: {
-        email: true
-      },
-      site_url: {
-        url: true
-      },
-      login: {
-        url: true
-      },
-      cost: {
-        required: true,
-        range: [1, 100]
-      },
-      cxl_url: {
-        url: true
-      },
-      payment_limit: {
-        required: true,
-      },
-      firstname_kana: {
-        katakana: true,
-      },
-      lastname_kana: {
-        katakana: true,
-      },
+      name: { required: true, },
+      post_code: { maxlength: 7, number: true },
+      person_tel: { minlength: 10, number: true },
+      fax: { minlength: 10, number: true },
+      firstname_kana: { katakana: true },
+      email: { email: true },
+      site_url: { url: true },
+      login: { url: true },
+      cost: { required: true, range: [1, 100] },
+      cxl_url: { url: true },
+      payment_limit: { required: true, },
+      firstname_kana: { katakana: true, },
+      lastname_kana: { katakana: true, },
+      person_mobile: { minlength: 10, number: true },
     },
     messages: {
-      name: {
-        required: "※必須項目です",
-      },
-      post_code: {
-        required: "※必須項目です",
-        maxlength: '７桁で入力してください'
-      },
-      email: {
-        email: '※Emailの形式で入力してください',
-      },
-      site_url: {
-        url: '正しいURLを記入してください(例:https://osaka-conference.com/)'
-      },
-      login: {
-        url: '正しいURLを記入してください(例:https://osaka-conference.com/)'
-      },
-      cxl_url: {
-        url: '正しいURLを記入してください(例:https://osaka-conference.com/)'
-      },
-      payment_limit: {
-        required: "※必須項目です",
-      },
-      cost: {
-        required: "※必須項目です",
-        range: "※1から100までの数値を入力してください"
-      },
-      firstname_kana: {
-        katakana: "※カタカナで入力してください",
-      },
-      lastname_kana: {
-        katakana: "※カタカナで入力してください",
-      },
+      name: { required: "※必須項目です", },
+      post_code: { maxlength: '７桁で入力してください', number: "半角英数字で入力してください" },
+      person_tel: { minlength: "最低桁数は10です", number: "半角英数字で入力してください" },
+      fax: { minlength: "最低桁数は10です", number: "半角英数字で入力してください" },
+      email: { email: '※Emailの形式で入力してください', },
+      site_url: { url: '正しいURLを記入してください(例:https://osaka-conference.com/)' },
+      login: { url: '正しいURLを記入してください(例:https://osaka-conference.com/)' },
+      cxl_url: { url: '正しいURLを記入してください(例:https://osaka-conference.com/)' },
+      payment_limit: { required: "※必須項目です", },
+      cost: { required: "※必須項目です", range: "※1から100までの半角英数字を入力してください" },
+      firstname_kana: { katakana: "※全角カタカナで入力してください", },
+      lastname_kana: { katakana: "※全角カタカナで入力してください", },
+      person_mobile: { minlength: "最低桁数は10です", number: "半角英数字で入力してください" },
 
     },
     errorPlacement: function (error, element) {
@@ -1759,38 +1720,38 @@ $(function () {
 });
 
 // 料金管理　編集(枠貸し)
-$(function () {
-  $("#ClientsEditForm").validate({
-    rules: {
-      company: {
-        required: true,
-      },
-    },
-    messages: {
-      company: {
-        required: "※必須項目です",
-      },
-    },
-    errorPlacement: function (error, element) {
-      var name = element.attr('name');
-      if (element.attr('name') === 'category[]') {
-        error.appendTo($('.is-error-category'));
-      } else if (element.attr('name') === name) {
-        error.appendTo($('.is-error-' + name));
-      }
-    },
-    errorElement: "span",
-    errorClass: "is-error",
-    //送信前にLoadingを表示
-    submitHandler: function (form) {
-      $('.approval').addClass('hide');
-      $('.loading').removeClass('hide');
-      form.submit();
-    }
-  });
-  $('input').on('blur', function () {
-    $(this).valid();
-  });
-});
+// $(function () {
+//   $("#FramePriceCreateForm").validate({
+//     rules: {
+//       company: {
+//         required: true,
+//       },
+//     },
+//     messages: {
+//       company: {
+//         required: "※必須項目です",
+//       },
+//     },
+//     errorPlacement: function (error, element) {
+//       var name = element.attr('name');
+//       if (element.attr('name') === 'category[]') {
+//         error.appendTo($('.is-error-category'));
+//       } else if (element.attr('name') === name) {
+//         error.appendTo($('.is-error-' + name));
+//       }
+//     },
+//     errorElement: "span",
+//     errorClass: "is-error",
+//     //送信前にLoadingを表示
+//     submitHandler: function (form) {
+//       $('.approval').addClass('hide');
+//       $('.loading').removeClass('hide');
+//       form.submit();
+//     }
+//   });
+//   $('input').on('blur', function () {
+//     $(this).valid();
+//   });
+// });
 
 
