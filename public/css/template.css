@@ -251,11 +251,11 @@ h2 {
 .table {
     font-size: 1rem;
     background-color: #fff;
-    box-shadow: 0 0 1px rgb(0 0 0 / 13%), 0 1px 3px rgb(0 0 0 / 10%);
+    box-shadow: 0 0 1px rgb(0 0 0 / 13%), 0 1px 3px rgb(0 0 0 / 18%);
 }
 
 .wrap_shadow {
-    box-shadow: 0 0 1px rgb(0 0 0 / 13%), 0 1px 3px rgb(0 0 0 / 10%);
+    box-shadow: 0 0 1px rgb(0 0 0 / 13%), 0 1px 3px rgb(0 0 0 / 18%);
 }
 
 select:disabled {
@@ -726,6 +726,7 @@ table td.table_column p:last-child {
 
 .border-wrap2 {
     border: 1px solid #dee2e6;
+    background: #fff;
 }
 
 .title-icon {
@@ -934,6 +935,7 @@ table td.table_column p:last-child {
     font-weight: bold;
     padding: 2em;
     border: 1px solid #ef6243;
+    background-color: #fff;
 }
 
 .alert-icon {
