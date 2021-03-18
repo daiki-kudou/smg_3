@@ -33,17 +33,17 @@
   {{-- <div class="row">
     <div class="col">
       {{ Form::open(['url' => 'admin/venues', 'method'=>'POST', 'id'=>'VenuesCreateForm']) }}
-      @csrf
-      <table class="table table-bordered">
-        <tbody>
-          <tr>
-            <th width="20%" class="table-active"> <label for="smg_url">会場SMG URL</label></th>
-            <td>{{$venue->smg_url}}
-            </td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
+  @csrf
+  <table class="table table-bordered">
+    <tbody>
+      <tr>
+        <th width="20%" class="table-active"> <label for="smg_url">会場SMG URL</label></th>
+        <td>{{$venue->smg_url}}
+        </td>
+      </tr>
+    </tbody>
+  </table>
+  </div>
   </div>
   </div> --}}
 
@@ -311,80 +311,80 @@
           </tr>
         </tbody>
       </table>
-          <!-- 室内飲食 ------------------------------------------------------------------------>
-    <table class="table table-bordered venue_table">
-      <thead>
-        <tr>
-          <td colspan="2">
-            <p class="title-icon">
-              <i class="fas fa-utensils icon-size" aria-hidden="true"></i>室内飲食
-            </p>
-          </td>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <th class="table-active"><label for="eat_in_flag">室内飲食</label></th>
-          <td>
-            {{ $venue->eat_in_flag==1?"可":"不可"}}
-          </td>
-        </tr>
-      </tbody>
-    </table>
+      <!-- 室内飲食 ------------------------------------------------------------------------>
+      <table class="table table-bordered venue_table">
+        <thead>
+          <tr>
+            <td colspan="2">
+              <p class="title-icon">
+                <i class="fas fa-utensils icon-size" aria-hidden="true"></i>室内飲食
+              </p>
+            </td>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <th class="table-active"><label for="eat_in_flag">室内飲食</label></th>
+            <td>
+              {{ $venue->eat_in_flag==1?"可":"不可"}}
+            </td>
+          </tr>
+        </tbody>
+      </table>
 
-    <!-- レイアウト変更 ------------------------------------------------------------------------>
-    <table class="table table-bordered venue_table">
-      <thead>
-        <tr>
-          <td colspan="2">
-            <p class="title-icon">
-              <i class="fas fa-th icon-size" aria-hidden="true"></i>レイアウト
-            </p>
-          </td>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <th class="table-active"><label for="layout">レイアウト変更</label></th>
-          <td>
-            {{ $venue->layout==1?"可":"不可"}}
-          </td>
-        </tr>
-        <tr>
-          <th class="table-active"><label for="layout">レイアウト準備料金</label></th>
-          <td>
-            {{ number_format($venue->layout_prepare)}}円
-          </td>
-        </tr>
-        <tr>
-          <th class="table-active"><label for="layout">レイアウト片付料金</label></th>
-          <td>
-            {{ number_format($venue->layout_clean)}}円
-          </td>
-        </tr>
-      </tbody>
-    </table>
+      <!-- レイアウト変更 ------------------------------------------------------------------------>
+      <table class="table table-bordered venue_table">
+        <thead>
+          <tr>
+            <td colspan="2">
+              <p class="title-icon">
+                <i class="fas fa-th icon-size" aria-hidden="true"></i>レイアウト
+              </p>
+            </td>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <th class="table-active"><label for="layout">レイアウト変更</label></th>
+            <td>
+              {{ $venue->layout==1?"可":"不可"}}
+            </td>
+          </tr>
+          <tr>
+            <th class="table-active"><label for="layout">レイアウト準備料金</label></th>
+            <td>
+              {{ number_format($venue->layout_prepare)}}円
+            </td>
+          </tr>
+          <tr>
+            <th class="table-active"><label for="layout">レイアウト片付料金</label></th>
+            <td>
+              {{ number_format($venue->layout_clean)}}円
+            </td>
+          </tr>
+        </tbody>
+      </table>
 
-    <!-- 支払データ ------------------------------------------------------------------------>
-    <table class="table table-bordered venue_table">
-      <thead>
-        <tr>
-          <td colspan="2">
-            <p class="title-icon">
-              <i class="fas fa-yen-sign icon-size" aria-hidden="true"></i>支払データ
-            </p>
-          </td>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <th class="table-active"><label for="cost">支払割合（原価）</label></th>
-          <td>
-            {{ $venue->cost}}%
-          </td>
-        </tr>
-      </tbody>
-    </table>
+      <!-- 支払データ ------------------------------------------------------------------------>
+      <table class="table table-bordered venue_table">
+        <thead>
+          <tr>
+            <td colspan="2">
+              <p class="title-icon">
+                <i class="fas fa-yen-sign icon-size" aria-hidden="true"></i>支払データ
+              </p>
+            </td>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <th class="table-active"><label for="cost">支払割合（原価）</label></th>
+            <td>
+              {{ $venue->cost}}%
+            </td>
+          </tr>
+        </tbody>
+      </table>
 
 
     </div>
@@ -726,7 +726,7 @@
     </table>
 
     <!-- 支払データ ------------------------------------------------------------------------>
-    <table class="table table-bordered venue_table">
+    <table class="table table-bordered venue_table ">
       <thead>
         <tr>
           <td colspan="2">

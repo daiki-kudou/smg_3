@@ -478,7 +478,7 @@
         </table>
 
         <!-- 支払データ ------------------------------------------------------------------------>
-        <table class="table table-bordered cost_data hide">
+        <table class="table table-bordered cost_data">
           <thead>
             <tr>
               <td colspan="2">
