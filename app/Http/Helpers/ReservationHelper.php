@@ -473,4 +473,15 @@ class ReservationHelper
       return "active";
     }
   }
+
+  public static function payTerm($num)
+  {
+    if ($num == 1) {
+      return "当日末締め／当月末支払い";
+    } elseif ($num == 2) {
+      return "当日末締め／翌月末支払い";
+    } elseif ($num == 3) {
+      return "当日末締め／翌々月末支払い";
+    }
+  }
 }

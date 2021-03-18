@@ -89,7 +89,7 @@
           <tr>
             <td class="table-active"><label for="remark">備考</label></td>
             <td>
-              {!!nl2br(e($agent->payment_remark))!!}
+              {!!nl2br(e($agent->last_remark))!!}
             </td>
           </tr>
         </tbody>
@@ -194,13 +194,13 @@
         <tbody>
           <tr>
             <th class="table-active"><label for="close_date">決済条件</label></th>
-            <td>{{ $agent->payment_limit }}
+            <td>{{ ReservationHelper::payTerm($agent->payment_limit) }}
             </td>
           </tr>
           <tr>
             <th class="table-active"><label for="pay_remark">備考</label></th>
             <td>
-              {!!nl2br(e($agent->last_remark))!!}
+              {!!nl2br(e($agent->payment_remark))!!}
             </td>
           </tr>
         </tbody>
