@@ -18,7 +18,6 @@
 {{ Form::open(['url' => 'admin/multiples/switch_cfm/'.$multiple->id, 'method'=>'POST', 'id'=>'']) }}
 @csrf
 
-<div class="content">
   <div class="container-fluid">
     <div class="container-field mt-3">
       <div class="float-right">
@@ -34,7 +33,7 @@
     </div>
 
     <!-- 仮押え登録--------------------------------------------------------　 -->
-    <section class="section-wrap">
+    <section class="mt-5">
       <div class="row">
         <table class="table ttl_head mb-0">
           <tbody>
@@ -167,7 +166,6 @@
       {{ Form::submit('変更する', ['class' => 'btn more_btn_lg']) }}
     </p>
   </div>
-</div>
 {{ Form::close() }}
 
 

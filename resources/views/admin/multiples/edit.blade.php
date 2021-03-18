@@ -5,8 +5,6 @@
 <script src="{{ asset('/js/multiples/calculate.js') }}"></script>
 <script src="{{ asset('/js/admin/validation.js') }}"></script>
 
-<div class="content">
-  <div class="container-fluid">
 
     <div class="container-field mt-3">
       <div class="float-right">
@@ -1546,8 +1544,6 @@
         <p id="master_submit" class="btn more_btn_lg">保存する</p>
       </li>
     </ul>
-  </div>
-</div>
 
 {{ Form::open(['url' => 'admin/multiples/'.$multiple->id."/all_updates/".$venue->id, 'method'=>'POST', 'id'=>'master_form']) }}
 @csrf

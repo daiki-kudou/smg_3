@@ -50,7 +50,7 @@
 
 {{ Form::open(['url' => 'admin/pre_agent_reservations/'.$PreReservation->id.'/edit_calculate', 'method'=>'POST', 'id'=>'pre_reservationSingleEditForm']) }}
 @csrf
-<section class="section-wrap">
+<section class="mt-5">
   <div class="selected_user">
     <table class="table table-bordered" style="table-layout: fixed;">
       <thead>
@@ -109,7 +109,7 @@
     </table>
   </div>
 
-  <div class="unknown_user mt-5">
+  <div class="unknown_user mt-3">
     <table class="table table-bordered" style="table-layout: fixed;">
       <thead>
         <tr>
@@ -161,7 +161,7 @@
 
 
   {{-- 以下、詳細入力 --}}
-  <div class="container-field bg-white text-dark mt-5 mb-5">
+  <div class="container-field mt-5 mb-5">
     <div class="row">
       <div class="col">
         <table class="table table-bordered">
@@ -586,8 +586,6 @@
           </tbody>
         </table>
 
-        <table class="table table-bordered mail-table">
-        </table>
         <table class="table table-bordered note-table">
           <tbody>
             <tr>
@@ -642,7 +640,7 @@
   <div class="container-fluid">
     <div class="bill">
       <div class="bill_head py-0">
-        <table class="table" style="table-layout: fixed">
+        <table class="table mb-0" style="table-layout: fixed">
           <tr>
             <td>
               <h2 class="text-white">

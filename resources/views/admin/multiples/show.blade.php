@@ -5,8 +5,6 @@
 <link href="{{ asset('/css/template.css') }}" rel="stylesheet">
 <script src="{{ asset('/js/template.js') }}"></script>
 
-<div class="content">
-  <div class="container-fluid">
     <div class="container-field mt-3">
       <div class="float-right">
         <nav aria-label="breadcrumb">
@@ -20,7 +18,7 @@
       <hr>
     </div>
 
-    <section class="section-wrap">
+    <section class="mt-5">
       <div class="mb-2"><a class="more_btn4" href="">削除</a></div>
 
       <table class="table ttl_head mb-0">
@@ -182,11 +180,9 @@
       </div>
 
     </section>
-  </div>
   <div class="btn_wrapper">
     <p class="text-center"><a class="more_btn_lg" href="{{url('admin/multiples')}}">一覧にもどる</a></p>
   </div>
-</div>
 
 
 
