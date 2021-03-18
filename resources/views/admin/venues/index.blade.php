@@ -49,8 +49,8 @@
           <td>{{ ReservationHelper::formatDate($venue->created_at)}}</td>
           <td class="text-center">{{$venue->alliance_flag==0?'直':'提'}}</td>
           <td>{{ $venue->name_area }}・{{ $venue->name_bldg }}{{ $venue->name_venue }}</td>
-          <td class="text-right">{{ $venue->size1}}</td>
-          <td class="text-right">{{ $venue->size2 }}</td>
+          <td class="text-right">{{ $venue->size1}}坪</td>
+          <td class="text-right">{{ $venue->size2 }}㎡</td>
           <td class="text-right">{{ $venue->capacity }}</td>
           <td class="text-center">{{$venue->layout==1?"可":"不可"}}</td>
           <td class="text-center">{{$venue->luggage_flag==1?"可":"不可"}}</td>
@@ -63,8 +63,8 @@
           <td>{{ ReservationHelper::formatDate($venue->created_at)}}</td>
           <td class="text-center">{{$venue->alliance_flag==0?'直':'提'}}</td>
           <td>{{ $venue->name_area }}・{{ $venue->name_bldg }}{{ $venue->name_venue }}</td>
-          <td class="text-right">{{ $venue->size1}}</td>
-          <td class="text-right">{{ $venue->size2 }}</td>
+          <td class="text-right">{{ $venue->size1}}坪</td>
+          <td class="text-right">{{ $venue->size2 }}㎡</td>
           <td class="text-right">{{ $venue->capacity }}</td>
           <td class="text-center">{{$venue->layout==1?"可":"不可"}}</td>
           <td class="text-center">{{$venue->luggage_flag==1?"可":"不可"}}</td>

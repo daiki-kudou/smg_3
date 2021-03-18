@@ -51,7 +51,10 @@
         <p class="is-error-item" style="color: red"></p>
       </td>
       <td>
+        <div class="d-flex align-items-end">
         {{ Form::text('price',"" , ['class' => 'form-control']) }}
+        <span class="ml-1">円</span>
+        </div>
         <p class="is-error-price" style="color: red"></p>
       </td>
       <td>
