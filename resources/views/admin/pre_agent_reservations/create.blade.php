@@ -26,7 +26,7 @@
 </div>
 
 
-<section class="section-wrap">
+<section class="mt-5">
   <div class="calendar">
     <iframe frameborder="0" src="{{url('admin/calendar/date_calendar')}}" width="100%" height="500">Your browser isn't
       compatible</iframe>
@@ -50,7 +50,7 @@
   </div>
 
 
-  <div class="unknown_user mt-5">
+  <div class="unknown_user mt-3">
     <table class="table table-bordered" style="table-layout: fixed;">
       <thead>
         <tr>

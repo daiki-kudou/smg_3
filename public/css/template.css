@@ -856,6 +856,11 @@ table td.table_column p:last-child {
     /* border: solid 1px #ced4da; */
 }
 
+.bill_head .table {
+    background: transparent;
+    box-shadow: none;
+}
+
 .border_color {
     border: 1px solid rgb(53 167 167 / 30%);
 }

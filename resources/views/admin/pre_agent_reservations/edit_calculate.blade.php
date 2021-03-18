@@ -10,7 +10,7 @@
 {{ Form::open(['url' => 'admin/pre_agent_reservations/'.$id.'/edit_calculate', 'method'=>'POST', 'id'=>'pre_reservationSingleEditForm']) }}
 @csrf
 
-<section class="section-wrap">
+<section class="mt-5">
   <div class="selected_user">
     <table class="table table-bordered" style="table-layout: fixed;">
       <thead>
@@ -110,7 +110,7 @@
     </table>
   </div>
 
-  <div class="container-field bg-white text-dark mt-5">
+  <div class="container-field mt-3">
     <div class="row">
       <div class="col">
         <table class="table table-bordered">

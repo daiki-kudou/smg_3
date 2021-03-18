@@ -20,7 +20,7 @@
   <hr>
 </div>
 
-<section class="section-wrap">
+<section class="mt-5">
   <div class="row">
     <div class="col-12 mb-2"><a class="more_btn4" href="">削除</a></div>
     <div class="col-12">
@@ -687,7 +687,7 @@
 </section>
 
 {{-- 以下請求情報 --}}
-<section class="section-wrap pt-0">
+<section class="mt-5 pt-0">
   <div class="bill">
     <div class="bill_head">
       <table class="table bill_table">
