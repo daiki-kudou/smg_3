@@ -253,7 +253,7 @@
             <tr>
               <td class="table-active"><label for="luggage_tel">電話番号</label></td>
               <td>
-                {{ Form::textarea('luggage_tel', old('luggage_tel'), ['class' => 'form-control','placeholder' => '半角英数字で入力してください', 'maxlength'=>'13','rows'=>"2"]) }}
+                {{ Form::textarea('luggage_tel', old('luggage_tel'), ['class' => 'form-control','placeholder' => '半角英数字で入力してください', 'rows'=>"2"]) }}
                 <p class="is-error-luggage_tel" style="color: red"></p>
               </td>
             </tr>
@@ -314,7 +314,7 @@
             <tr>
               <td class="table-active"><label for="person_tel">担当者TEL</label></td>
               <td colspan="2">
-                {{ Form::text('person_tel', old('person_tel'), ['class' => 'form-control', 'maxlength'=>'13', 'placeholder' => '半角数字、ハイフンなしで入力してください']) }}
+                {{ Form::text('person_tel', old('person_tel'), ['class' => 'form-control', 'placeholder' => '半角数字、ハイフンなしで入力してください']) }}
                 <p class="is-error-person_tel" style="color: red"></p>
               </td>
             </tr>
@@ -363,6 +363,8 @@
               <td class="table-active"><label for="mgmt_emer_tel">夜間緊急連絡先</label></td>
               <td colspan="2">
                 {{ Form::text('mgmt_emer_tel', old('mgmt_emer_tel'), ['class' => 'form-control', 'maxlength'=>'13','placeholder' => '半角数字、ハイフンなしで入力してください']) }}
+                <p class="is-error-mgmt_emer_tel" style="color: red"></p>
+
               </td>
             </tr>
 

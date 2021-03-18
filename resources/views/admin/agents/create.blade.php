@@ -277,7 +277,8 @@
               <tr>
                 <td colspan="2">
                   <p class="title-icon">
-                    <i class="fas fa-yen-sign icon-size" aria-hidden="true"></i>決済条件
+                    <i class="fas fa-yen-sign icon-size" aria-hidden="true"></i>
+                    決済条件
                   </p>
                 </td>
               </tr>
