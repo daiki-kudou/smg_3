@@ -184,7 +184,9 @@
               <div>
                 <select name="event_start" id="event_start" class="form-control">
                   <option disabled>選択してください</option>
-                  @for ($start = 0*2; $start <=23*2; $start++) <option value="{{date("H:i:s", strtotime("00:00 +". $start * 30 ." minute"))}}" @if (date("H:i:s", strtotime("00:00 +". $start * 30 ." minute"))<$request->pre_enter0)
+                  @for ($start = 0*2; $start <=23*2; $start++) <option
+                    value="{{date("H:i:s", strtotime("00:00 +". $start * 30 ." minute"))}}" @if (date("H:i:s",
+                    strtotime("00:00 +". $start * 30 ." minute"))<$request->pre_enter0)
                     disabled
                     @elseif(date("H:i:s", strtotime("00:00 +". $start * 30 ." minute"))>$request->pre_leave0)
                     disabled
@@ -202,7 +204,9 @@
               <div>
                 <select name="event_finish" id="event_finish" class="form-control">
                   <option disabled>選択してください</option>
-                  @for ($start = 0*2; $start <=23*2; $start++) <option value="{{date("H:i:s", strtotime("00:00 +". $start * 30 ." minute"))}}" @if (date("H:i:s", strtotime("00:00 +". $start * 30 ." minute"))>$request->pre_leave0)
+                  @for ($start = 0*2; $start <=23*2; $start++) <option
+                    value="{{date("H:i:s", strtotime("00:00 +". $start * 30 ." minute"))}}" @if (date("H:i:s",
+                    strtotime("00:00 +". $start * 30 ." minute"))>$request->pre_leave0)
                     disabled
                     @elseif(date("H:i:s",strtotime("00:00 +". $start * 30 ." minute"))<$request->pre_enter0)
                       disabled
@@ -246,10 +250,10 @@
               </tr>
             </thead>
             <tbody class="accordion-wrap">
-              @foreach ($equipments as $key=>$equipment)
+              @foreach ($venue->getEquipments() as $key=>$equ)
               <tr>
                 <td class="table-active">
-                  {{$equipment->item}}
+                  {{$equ->item}}
                 </td>
                 <td>
                   {{ Form::text('equipment_breakdown'.$key, '',['class'=>'form-control'] ) }}
@@ -279,12 +283,12 @@
                 <td>
                   <div class="radio-box">
                     <p>
-                    {{Form::radio('services_breakdown'.$key, 1, false , ['id' => 'service'.$key.'on'])}}
-                    <label for="{{'service'.$key.'on'}}" class="form-check-label">有り</label>
+                      {{Form::radio('services_breakdown'.$key, 1, false , ['id' => 'service'.$key.'on'])}}
+                      <label for="{{'service'.$key.'on'}}" class="form-check-label">有り</label>
                     </p>
                     <p>
-                    {{Form::radio('services_breakdown'.$key, 0, true, ['id' => 'services_breakdown'.$key.'off'])}}
-                    <label for="{{'services_breakdown'.$key.'off'}}" class="form-check-label">無し</label>
+                      {{Form::radio('services_breakdown'.$key, 0, true, ['id' => 'services_breakdown'.$key.'off'])}}
+                      <label for="{{'services_breakdown'.$key.'off'}}" class="form-check-label">無し</label>
                     </p>
                   </div>
                 </td>
@@ -315,12 +319,12 @@
                 <td>
                   <div class="radio-box">
                     <p>
-                    {{Form::radio('layout_prepare', 1, false , ['id' => 'layout_prepare'])}}
-                    <label for="{{'layout_prepare'}}" class="form-check-label">有り</label>
+                      {{Form::radio('layout_prepare', 1, false , ['id' => 'layout_prepare'])}}
+                      <label for="{{'layout_prepare'}}" class="form-check-label">有り</label>
                     </p>
                     <p>
-                    {{Form::radio('layout_prepare', 0, true, ['id' => 'no_layout_prepare'])}}
-                    <label for="{{'no_layout_prepare'}}" class="form-check-label">無し</label>
+                      {{Form::radio('layout_prepare', 0, true, ['id' => 'no_layout_prepare'])}}
+                      <label for="{{'no_layout_prepare'}}" class="form-check-label">無し</label>
                     </p>
                   </div>
                 </td>
@@ -334,12 +338,12 @@
                 <td>
                   <div class="radio-box">
                     <p>
-                    {{Form::radio('layout_clean', 1, false, ['id' => 'layout_clean'])}}
-                    <label for='layout_clean' class="form-check-label">有り</label>
+                      {{Form::radio('layout_clean', 1, false, ['id' => 'layout_clean'])}}
+                      <label for='layout_clean' class="form-check-label">有り</label>
                     </p>
                     <p>
-                    {{Form::radio('layout_clean', 0, true, ['id' => 'no_layout_clean'])}}
-                    <label for='no_layout_clean' class="form-check-label">無し</label>
+                      {{Form::radio('layout_clean', 0, true, ['id' => 'no_layout_clean'])}}
+                      <label for='no_layout_clean' class="form-check-label">無し</label>
                     </p>
                   </div>
                 </td>

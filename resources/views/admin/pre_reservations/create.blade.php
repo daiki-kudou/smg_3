@@ -52,7 +52,7 @@
   </div>
 
   <div class="selected_user mt-4">
-    <table class="table table-bordered" style="table-layout: fixed;">
+    <table class="table table-bordered client_info" style="table-layout: fixed;">
       <thead>
         <tr>
           <th>顧客情報</th>
@@ -250,14 +250,14 @@
             $('.tel').text($user['tel']);
             $('.unknown_user input').attr('readonly', true);
           } else {
-            $('p').text('');
+            $('.client_info p').text('');
             $('.unknown_user input').attr('readonly', false);
           }
         })
         .fail(function($user) {
           $('#fullOverlay').css('display', 'none');
           console.log("失敗");
-          $('p').text('');
+          $('.client_info p').text('');
           swal('顧客情報取得に失敗しました。リロードして再度取得してください');
         });
     })
