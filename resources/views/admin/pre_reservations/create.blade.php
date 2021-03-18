@@ -39,7 +39,7 @@
   <div class="user_selector mt-5">
     <h3 class="mb-2">顧客検索</h3>
     <select name="user_id" id="user_id">
-      <option value="#">選択してください</option>
+      <option value="">選択してください</option>
       @foreach ($users as $user)
       <option value="{{$user->id}}">
         {{$user->id}} | {{ReservationHelper::getCompany($user->id)}} | {{ReservationHelper::getPersonName($user->id)}} |
@@ -47,6 +47,8 @@
       </option>
       @endforeach
     </select>
+    <p class="is-error-user_id" style="color: red"></p>
+
   </div>
 
   <div class="selected_user mt-4">
@@ -133,7 +135,7 @@
   <div class="date_selector pt-4">
     <hr>
     <h3 class="mb-2 pt-3">日程選択</h3>
-    <table class="table table-bordered" style="table-layout: fixed;">
+    <table class="table table-bordered PreResCre" style="table-layout: fixed;">
       <thead>
         <tr>
           <td class="form_required">日付</td>
@@ -145,11 +147,11 @@
       </thead>
       <tbody>
         <tr>
-          <td>{{ Form::text('pre_date0', '',['class'=>'form-control', 'id'=>"pre_datepicker"] ) }}
+          <td>{{ Form::text('pre_date0', '',['class'=>'form-control', 'id'=>"pre_datepicker", "required"] ) }}
             <p class="is-error-pre_date0" style="color: red"></p>
           </td>
           <td>
-            <select name="pre_venue0" id="pre_venue">
+            <select name="pre_venue0" id="pre_venue" required>
               @foreach ($venues as $venue)
               <option value="{{$venue->id}}">{{ReservationHelper::getVenue($venue->id)}}</option>
               @endforeach
@@ -157,7 +159,7 @@
             <p class="is-error-pre_venue0" style="color: red"></p>
           </td>
           <td>
-            <select name="pre_enter0" id="pre_enter0" class="form-control">
+            <select name="pre_enter0" id="pre_enter0" class="form-control" required>
               <option value=""></option>
               @for ($start = 0*2; $start <=23*2; $start++) <option
                 value="{{date("H:i:s", strtotime("00:00 +". $start * 30 ." minute"))}}">
@@ -168,7 +170,7 @@
             <p class="is-error-pre_enter0" style="color: red"></p>
           </td>
           <td>
-            <select name="pre_leave0" id="pre_leave0" class="form-control">
+            <select name="pre_leave0" id="pre_leave0" class="form-control" required>
               <option value=""></option>
               @for ($start = 0*2; $start <=23*2; $start++) <option
                 value="{{date("H:i:s", strtotime("00:00 +". $start * 30 ." minute"))}}">
@@ -274,9 +276,11 @@
   //プラスマイナスボタン
   $(function() {
     $(document).on("click", ".add", function() {
+
+      console.log($(this).parent().parent());
       // すべてのselect2初期化
       for (let destroy = 0; destroy < $('.date_selector tbody tr').length; destroy++) {
-        console.log($('.date_selector tbody tr').eq(destroy).find('td').eq(1).find('select').select2("destroy"));
+        $('.date_selector tbody tr').eq(destroy).find('td').eq(1).find('select').select2("destroy");
       }
 
       var base_venue = $(this).parent().parent().find('td').eq(1).find('select').val();
@@ -305,11 +309,17 @@
         $(target).eq(index).find('td').eq(1).find('select').select2({
           width: '100%'
         });
-
+        // 時間の入力を初期化
         if (index == count - 1) {
           $(target).eq(index).find('td').eq(2).find('input, select').val('');
           $(target).eq(index).find('td').eq(3).find('input, select').val('');
         }
+        // // バリデーションのエラー文を複製
+        // $(target).eq(index).find('td').eq(0).find('p').remove();
+        // $(target).eq(index).find('td').eq(0).append("<p class='is-error-pre_date"+index+"' style='color: red'></p>")
+        // $(target).eq(index).find('td').eq(1).find('p').attr('class', "is-error-pre_venue" + index);
+        // $(target).eq(index).find('td').eq(2).find('p').attr('class', "is-error-pre_enter" + index);
+        // $(target).eq(index).find('td').eq(3).find('p').attr('class', "is-error-pre_leave" + index);
 
       }
     })
@@ -337,6 +347,11 @@
           dateFormat: 'yy-mm-dd',
           minDate: 0,
         });
+        // // バリデーションのエラー文を削除
+        // $('.date_selector tbody tr').eq(index).find('td').eq(0).find('p').attr('class', "is-error-pre_date" + index);
+        // $('.date_selector tbody tr').eq(index).find('td').eq(1).find('p').attr('class', "is-error-pre_venue" + index);
+        // $('.date_selector tbody tr').eq(index).find('td').eq(2).find('p').attr('class', "is-error-pre_enter" + index);
+        // $('.date_selector tbody tr').eq(index).find('td').eq(3).find('p').attr('class', "is-error-pre_leave" + index);
       }
     })
   })

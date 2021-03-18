@@ -520,9 +520,11 @@
       <div class="p-4 bg-white">
         <p>※左部リストよりクリックで選択し右部リストに移動させてください</p>
         <select id='equipment_id' multiple='multiple' name="equipment_id[]">
-          @for ($i = 0; $i < $equipments->count(); $i++)
-            <option value={{$i_equipments[$i]}}>{{$s_equipments[$i]}}</option>
-            @endfor
+
+          @foreach ($equipments as $equipment)
+          <option value={{$equipment->id}}>
+            {{$equipment->id}}/{{$equipment->item}}/{{$equipment->price}}円/{{$equipment->remark}}</option>
+          @endforeach
         </select>
       </div>
     </div>
@@ -535,9 +537,12 @@
       <div class="p-4 bg-white">
         <span>※左部リストよりクリックで選択し右部リストに移動させてください</span>
         <select id='service_id' multiple='multiple' name="service_id[]">
-          @for ($i = 0; $i < $services->count(); $i++)
-            <option value={{$i_services[$i]}}>{{$s_services[$i]}}</option>
-            @endfor
+
+          @foreach ($services as $service)
+          <option value={{$service->id}}>{{$service->id}}/{{$service->item}}/{{$service->price}}円/{{$service->remark}}
+          </option>
+          @endforeach
+
         </select>
       </div>
     </div>
