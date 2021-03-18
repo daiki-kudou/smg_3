@@ -26,7 +26,7 @@ class ChangeVenuesTable extends Migration
   public function down()
   {
     Schema::table('venues', function (Blueprint $table) {
-      $table->string('note')->smg_url(false)->change();
+      $table->string('smg_url')->smg_url(false)->change();
     });
   }
 }
