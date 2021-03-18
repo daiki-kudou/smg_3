@@ -699,6 +699,14 @@ table td.table_column p:last-child {
     margin: 50px 0;
 }
 
+.reserve_table {
+    table-layout: fixed;
+}
+
+.name-table {
+    table-layout: fixed;
+}
+
 /* tablesorter css 上書き ------------------------------------*/
 .tablesorter-default {
     font-family: -apple-system, 'Helvetica Neue', 'Hiragino Kaku Gothic ProN', '游ゴシック', 'メイリオ', meiryo, sans-serif;

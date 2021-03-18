@@ -6,10 +6,6 @@
 <script src="{{ asset('/js/ajax.js') }}"></script>
 <script src="{{ asset('/js/admin/validation.js') }}"></script>
 
-
-
-<div class="container-fluid">
-
   <style>
     #fullOverlay {
       position: absolute;
@@ -57,7 +53,7 @@
 
   {{Form::open(['url' => 'admin/agents_reservations/calculate', 'method' => 'POST', 'id'=>'agentReservationCreateForm'])}}
   @csrf
-  <section class="section-wrap bg-white">
+  <section class="mt-5">
     <div class="row">
       <div class="col">
         <table class="table table-bordered">
@@ -443,5 +439,4 @@
   {{Form::submit('計算する', ['class'=>'btn btn-primary mx-auto d-block btn-lg', 'id'=>'check_submit'])}}
 
   {{Form::close()}}
-</div>
 @endsection

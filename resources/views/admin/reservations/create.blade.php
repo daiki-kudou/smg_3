@@ -60,10 +60,10 @@
 
   {{Form::open(['url' => 'admin/reservations/calculate', 'method' => 'POST', 'id'=>'reservationCreateForm'])}}
   @csrf
-  <section class="section-wrap">
+  <section class="mt-5">
     <div class="row">
       <div class="col">
-        <table class="table table-bordered">
+        <table class="table table-bordered reserve_table">
           <tbody>
             <tr>
               <td colspan="2">
@@ -369,7 +369,7 @@
             <tr>
               <td colspan="2">
                 <p class="title-icon">
-                  <i class="fas fa-yen-sign icon-size" aria-hidden="true"></i>売上原価（提携会場を選択した場合、提携会場で設定した原価率が適応されます）
+                  <i class="fas fa-yen-sign icon-size" aria-hidden="true"></i>売上原価<span class="annotation">（提携会場を選択した場合、提携会場で設定した原価率が適応されます）</span>
                 </p>
               </td>
             </tr>

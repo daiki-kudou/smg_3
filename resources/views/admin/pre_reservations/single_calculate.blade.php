@@ -667,7 +667,7 @@
         <table class="table bill_table">
           <tr>
             <td>
-              <h2>
+              <h2 class="text-white">
                 請求書No
               </h2>
             </td>
