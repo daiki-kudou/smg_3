@@ -15,54 +15,24 @@ jQuery.validator.addMethod("alphanum", function (value, element) {
 $(function () {
   $("#pre_reservationCreateForm").validate({
     rules: {
-      unknown_user_email: {
-        email: true
-      },
-      unknown_user_mobile: {
-        number: true,
-        minlength: 11
-      },
-      unknown_user_tel: {
-        number: true,
-        minlength: 10
-      },
-      pre_date0: {
-        required: true,
-      },
-      pre_venue0: {
-        required: true,
-      },
-      pre_enter0: {
-        required: true,
-      },
-      pre_leave0: {
-        required: true,
-      },
+      user_id: { required: true },
+      // unknown_user_email: { email: true },
+      // unknown_user_mobile: { number: true, minlength: 11 },
+      // unknown_user_tel: { number: true, minlength: 10 },
+      // pre_date0: { required: true, },
+      // pre_venue0: { required: true, },
+      // pre_enter0: { required: true, },
+      // pre_leave0: { required: true, },
     },
     messages: {
-      unknown_user_email: {
-        email: '※Emailの形式で入力してください',
-      },
-      unknown_user_mobile: {
-        number: '半角英数字を入力してください',
-        minlength: '※最低桁数は11です',
-      },
-      unknown_user_tel: {
-        number: '半角英数字を入力してください',
-        minlength: '※最低桁数は10です',
-      },
-      pre_date0: {
-        required: '※必須項目です',
-      },
-      pre_venue0: {
-        required: '※必須項目です',
-      },
-      pre_enter0: {
-        required: '※必須項目です',
-      },
-      pre_leave0: {
-        required: '※必須項目です',
-      },
+      user_id: { required: "※必須項目です" },
+      // unknown_user_email: { email: '※Emailの形式で入力してください', },
+      // unknown_user_mobile: { number: '半角英数字を入力してください', minlength: '※最低桁数は11です', },
+      // unknown_user_tel: { number: '半角英数字を入力してください', minlength: '※最低桁数は10です', },
+      // pre_date0: { required: '※必須項目です', },
+      // pre_venue0: { required: '※必須項目です', },
+      // pre_enter0: { required: '※必須項目です', },
+      // pre_leave0: { required: '※必須項目です', },
     },
     errorPlacement: function (error, element) {
       var name = element.attr('name');
@@ -84,7 +54,39 @@ $(function () {
   $('input').on('blur', function () {
     $(this).valid();
   });
+  $(document).on('click', '.add, .del', function () {
+    var num = 1;
+    var tar = $('.PreResCre tbody tr').length;
+    console.log(tar);
+    // if ($('select[name="layout"] option:selected').val() == 1) {
+    //   $("input[name='layout_prepare']").rules("add", {
+    //     required: true,
+    //     messages: { required: "レイアウト変更が【可】の場合、必須項目です" },
+    //   });
+    //   $("input[name='layout_prepare']").prop("readonly", false);
+
+    //   $("input[name='layout_clean']").rules("add", {
+    //     required: true,
+    //     messages: { required: "レイアウト変更が【可】の場合、必須項目です" },
+    //   });
+    //   $("input[name='layout_clean']").prop("readonly", false);
+
+    // } else {
+    //   // レイアウト準備
+    //   $("input[name='layout_prepare']").rules("remove", "required");
+    //   $("input[name='layout_prepare']").parent().parent().find("p").css("display", "none");
+    //   $("input[name='layout_prepare']").val("");
+    //   $("input[name='layout_prepare']").prop("readonly", true);
+    //   // レイアウト片付け
+    //   $("input[name='layout_clean']").rules("remove", "required");
+    //   $("input[name='layout_clean']").parent().parent().find("p").css("display", "none");
+    //   $("input[name='layout_clean']").val("");
+    //   $("input[name='layout_clean']").prop("readonly", true);
+    // }
+  });
+
 })
+
 
 // 仮押え詳細入力
 $(function () {

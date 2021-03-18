@@ -45,29 +45,29 @@ class VenuesController extends Controller
   {
     // $venues = new Venue;
     $equipments = Equipment::all();
-    $s_equipments = [];
-    $i_equipments = [];
-    foreach ($equipments as $equipment) {
-      $s_equipments[] = $equipment->item;
-      $i_equipments[] = $equipment->id;
-    }
+    // $s_equipments = [];
+    // $i_equipments = [];
+    // foreach ($equipments as $equipment) {
+    //   $s_equipments[] = $equipment->item;
+    //   $i_equipments[] = $equipment->id;
+    // }
 
     $services = Service::all();
-    $s_services = [];
-    $i_services = [];
-    foreach ($services as $service) {
-      $s_services[] = $service->item;
-      $i_services[] = $service->id;
-    }
+    // $s_services = [];
+    // $i_services = [];
+    // foreach ($services as $service) {
+    //   $s_services[] = $service->item;
+    //   $i_services[] = $service->id;
+    // }
 
     return view('admin.venues.create', [
       // 'venues' => $venues,
       'equipments' => $equipments,
       'services' => $services,
-      's_equipments' => $s_equipments,
-      'i_equipments' => $i_equipments,
-      's_services' => $s_services,
-      'i_services' => $i_services,
+      // 's_equipments' => $s_equipments,
+      // 'i_equipments' => $i_equipments,
+      // 's_services' => $s_services,
+      // 'i_services' => $i_services,
     ]);
   }
 
