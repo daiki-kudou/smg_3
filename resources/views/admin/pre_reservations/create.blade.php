@@ -324,6 +324,11 @@
         $(target).eq(index).find('td').eq(2).find('span').remove();
         $(target).eq(index).find('td').eq(3).find('span').remove();
 
+        $("input").removeClass('is-error');
+        $("input").attr('aria-describedby',"");
+        $("select").removeClass('is-error');
+        $("select").attr('aria-describedby',"");
+
         $(target).eq(index).find('td').eq(0).append("<p class='is-error-pre_date"+index+"' style='color: red'></p>");
         $(target).eq(index).find('td').eq(2).append("<p class='is-error-pre_enter"+index+"' style='color: red'></p>");
         $(target).eq(index).find('td').eq(3).append("<p class='is-error-pre_leave"+index+"' style='color: red'></p>");
@@ -387,6 +392,9 @@
     })
     // マイナスボタン
     $(document).on("click", ".del", function() {
+      var valid=$("#pre_reservationCreateForm").validate();
+      valid.destroy();
+
       var master = $(this).parent().parent().parent().find('tr').length;
       var target = $(this).parent().parent();
       var re_target = target.parent();
@@ -409,12 +417,74 @@
           dateFormat: 'yy-mm-dd',
           minDate: 0,
         });
-        // // バリデーションのエラー文を削除
-        // $('.date_selector tbody tr').eq(index).find('td').eq(0).find('p').attr('class', "is-error-pre_date" + index);
-        // $('.date_selector tbody tr').eq(index).find('td').eq(1).find('p').attr('class', "is-error-pre_venue" + index);
-        // $('.date_selector tbody tr').eq(index).find('td').eq(2).find('p').attr('class', "is-error-pre_enter" + index);
-        // $('.date_selector tbody tr').eq(index).find('td').eq(3).find('p').attr('class', "is-error-pre_leave" + index);
+
+        $('.date_selector tbody tr').eq(index).find('td').eq(0).find('p').remove();
+        $('.date_selector tbody tr').eq(index).find('td').eq(2).find('p').remove();
+        $('.date_selector tbody tr').eq(index).find('td').eq(3).find('p').remove();
+
+        $("input").removeClass('is-error');
+        $("input").attr('aria-describedby',"");
+        $("select").removeClass('is-error');
+        $("select").attr('aria-describedby',"");
+
+        $('.date_selector tbody tr').eq(index).find('td').eq(0).find('span').remove();
+        $('.date_selector tbody tr').eq(index).find('td').eq(2).find('span').remove();
+        $('.date_selector tbody tr').eq(index).find('td').eq(3).find('span').remove();
+
+        $('.date_selector tbody tr').eq(index).find('td').eq(0).append("<p class='is-error-pre_date"+index+"' style='color: red'></p>");
+        $('.date_selector tbody tr').eq(index).find('td').eq(2).append("<p class='is-error-pre_enter"+index+"' style='color: red'></p>");
+        $('.date_selector tbody tr').eq(index).find('td').eq(3).append("<p class='is-error-pre_leave"+index+"' style='color: red'></p>");
       }
+
+      $("#pre_reservationCreateForm").validate({
+          rules: {
+            user_id: { required: true },
+            unknown_user_email: { email: true },
+            unknown_user_mobile: { number: true, minlength: 11 },
+            unknown_user_tel: { number: true, minlength: 10 },
+          },
+          messages: {
+            user_id: { required: "※必須項目です" },
+            unknown_user_email: { email: '※Emailの形式で入力してください', },
+            unknown_user_mobile: { number: '半角英数字を入力してください', minlength: '※最低桁数は11です', },
+            unknown_user_tel: { number: '半角英数字を入力してください', minlength: '※最低桁数は10です', },
+          },
+          errorPlacement: function (error, element) {
+            var name = element.attr('name');
+            if (element.attr('name') === 'category[]') {
+              error.appendTo($('.is-error-category'));
+            } else if (element.attr('name') === name) {
+              error.appendTo($('.is-error-' + name));
+            }
+          },
+          errorElement: "span",
+          errorClass: "is-error",
+          //送信前にLoadingを表示
+          submitHandler: function (form) {
+            $('.spin_btn').removeClass('hide');
+            $('.submit_btn').addClass('hide');
+            form.submit();
+          }
+        });
+        $('input').on('blur', function () {
+          $(this).valid();
+        });
+        for (let index_b = 0; index_b < count2; index_b++) {
+          $("input[name='pre_date"+index_b+"']").rules("add", {
+          required: true,
+          messages: { required: "※必須項目です" },
+          });
+          $("select[name='pre_enter"+index_b+"']").rules("add", {
+          required: true,
+          messages: { required: "※必須項目です" },
+          });
+          $("select[name='pre_leave"+index_b+"']").rules("add", {
+          required: true,
+          messages: { required: "※必須項目です" },
+          });
+        }
+
+
     })
   })
   // 入室時間選択トリガー
