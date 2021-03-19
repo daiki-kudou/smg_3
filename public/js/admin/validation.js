@@ -61,6 +61,9 @@ $(function () {
 $(function () {
   $("#pre_reservationSingleCheckForm").validate({
     rules: {
+      price_system: {
+        required: true,
+      },
       in_charge: {
         required: true,
       },
@@ -86,6 +89,9 @@ $(function () {
       },
     },
     messages: {
+      price_system: {
+        required: "※必須項目です",
+      },
       in_charge: {
         required: '※必須項目です',
       },

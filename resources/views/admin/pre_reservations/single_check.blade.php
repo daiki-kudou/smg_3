@@ -151,10 +151,10 @@
                       {{Form::label('price_system_radio2','アクセア（時間貸）')}}
                     </div>
                   </div>
+                  @elseif($venue->getPriceSystem()[0]==0&&$venue->getPriceSystem()[1]==0)
+                  <p>※該当会場には定められた料金体系が存在しません。料金設定をお願いします。</p>
                   @endif
-
-
-
+                  <p class='{{'is-error-price_system'}}' style='color: red'></p>
 
                 </div>
               </td>
