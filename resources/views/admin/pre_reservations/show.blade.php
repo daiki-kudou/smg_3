@@ -275,7 +275,7 @@
                   <td class="table-active"><label for="venue">会場</label></td>
                   <td>
                     <p>
-                    {{ReservationHelper::getVenue($pre_reservation->venue_id)}}
+                      {{ReservationHelper::getVenue($pre_reservation->venue_id)}}
                     </p>
                     <p>工藤さん、ここに料金体系の選択内容を表示</p>
                   </td>
@@ -788,6 +788,7 @@
       @endif
 
       @if ($pre_reservation->user_id>0)
+      @if($pre_reservation->pre_breakdowns()->where("unit_type",2)->count()!=0||$pre_reservation->pre_breakdowns()->where("unit_type",2)->count()!=0)
       <div class="equipment billdetails_content">
         <table class="table table-borderless" style="table-layout: fixed;">
           <tbody>
@@ -838,7 +839,9 @@
           </tbody>
         </table>
       </div>
+      @endif
       @else
+      @if($pre_reservation->pre_breakdowns()->where("unit_type",2)->count()!=0||$pre_reservation->pre_breakdowns()->where("unit_type",2)->count()!=0)
       <div class="equipment billdetails_content">
         <table class="table table-borderless" style="table-layout: fixed;">
           <tbody>
@@ -863,7 +866,6 @@
               <td>{{$equipment_breakdown->unit_count}}</td>
             </tr>
             @endforeach
-
             @foreach ($pre_reservation->pre_breakdowns()->where('unit_type',3)->get() as $service_breakdown)
             <tr>
               <td>{{$service_breakdown->unit_item}}</td>
@@ -873,6 +875,7 @@
           </tbody>
         </table>
       </div>
+      @endif
       @endif
 
 
@@ -952,79 +955,6 @@
       </div>
       @endif
       @endif
-
-
-
-      <!-- @if ($pre_reservation->user_id>0)
-      <div class="others billdetails_content">
-        <table class="table table-borderless" style="table-layout: fixed;">
-          <tbody>
-            <tr>
-              <td colspan="4">
-                　<h4 class="billdetails_content_ttl">
-                  その他
-                </h4>
-              </td>
-            </tr>
-          </tbody>
-          <tbody class="others_head">
-            <tr>
-              <td>内容</td>
-              <td>単価</td>
-              <td>数量</td>
-              <td>金額</td>
-            </tr>
-          </tbody>
-          <tbody class="others_main">
-            @foreach ($pre_reservation->pre_breakdowns()->where('unit_type',5)->get() as $other)
-            <tr>
-              <td>{{$other->unit_item}}</td>
-              <td>{{number_format($other->unit_cost)}}</td>
-              <td>{{$other->unit_count}}</td>
-              <td>{{number_format($other->unit_subtotal)}}</td>
-            </tr>
-            @endforeach
-          </tbody>
-          <tbody class="others_result">
-            <tr>
-              <td colspan="1"></td>
-              <td colspan="1"></td>
-              <td colspan="2">合計：
-                {{$pre_reservation->pre_bill->others_price}}
-            </tr>
-          </tbody>
-        </table>
-      </div>
-      @else
-      <div class="others billdetails_content">
-        <table class="table table-borderless" style="table-layout: fixed;">
-          <tbody>
-            <tr>
-              <td>
-                　<h4 class="billdetails_content_ttl">
-                  その他
-                </h4>
-              </td>
-            </tr>
-          </tbody>
-          <tbody class="others_head">
-            <tr>
-              <td>内容</td>
-              <td>数量</td>
-            </tr>
-          </tbody>
-          <tbody class="others_main">
-            @foreach ($pre_reservation->pre_breakdowns()->where('unit_type',5)->get() as $others_breakdown)
-            <tr>
-              <td>{{$others_breakdown->unit_item}}</td>
-              <td>{{$others_breakdown->unit_count}}</td>
-            </tr>
-            @endforeach
-          </tbody>
-        </table>
-      </div>
-      @endif -->
-
 
       <div class="bill_total">
         <table class="table text-right">
