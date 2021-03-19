@@ -1181,7 +1181,7 @@
     </div>
 
     <div class="information">
-      <div class="information_details py-3">
+      <div class="information_details">
         <div class="head d-flex">
           <div class="accordion_btn">
             <i class="fas fa-plus bill_icon_size hide" aria-hidden="true"></i>
