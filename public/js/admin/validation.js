@@ -72,6 +72,18 @@ $(function () {
       unknown_user_tel: {
         minlength: 10
       },
+      luggage_count: {
+        number: true,
+        max: 100
+      },
+      luggage_return: {
+        number: true,
+        max: 100
+      },
+      luggage_price: {
+        number: true,
+        max: 1000000
+      },
     },
     messages: {
       in_charge: {
@@ -79,11 +91,23 @@ $(function () {
       },
       tel: {
         required: '※必須項目です',
-        number: '半角英数字を入力してください',
+        number: '※半角英数字を入力してください',
         minlength: '※最低桁数は11です',
       },
       unknown_user_tel: {
         minlength: '※最低桁数は10です',
+      },
+      luggage_count: {
+        number: "※半角英数字を入力してください",
+        max: "※最大値は100です",
+      },
+      luggage_return: {
+        number: "※半角英数字を入力してください",
+        max: "※最大値は100です",
+      },
+      luggage_price: {
+        number: "※半角英数字を入力してください",
+        max: "※最大値は1000000です",
       },
     },
     errorPlacement: function (error, element) {
@@ -105,65 +129,17 @@ $(function () {
   });
   $('input').on('blur', function () {
     $(this).valid();
-    // if ($('span').hasClass('is-error')) {
-    //   $('span').css('background', 'white');
-    // }
   });
+  $('.equipment_breakdowns').each(function (index, element) {
+    $("input[name='equipment_breakdown" + index + "']").rules("add", {
+      number: true,
+      max: 100,
+      messages: { number: "※半角英数字で入力してください", max: "※最大値は100です" },
+    });
+  })
+
 })
 
-// 仮押え再計算
-$(function () {
-  $("#pre_reservationSingleCheckForm").validate({
-    rules: {
-      in_charge: {
-        required: true,
-      },
-      tel: {
-        required: true,
-        number: true,
-        minlength: 11
-      },
-      unknown_user_tel: {
-        minlength: 10
-      },
-    },
-    messages: {
-      in_charge: {
-        required: '※必須項目です',
-      },
-      tel: {
-        required: '※必須項目です',
-        number: '半角英数字を入力してください',
-        minlength: '※最低桁数は11です',
-      },
-      unknown_user_tel: {
-        minlength: '※最低桁数は10です',
-      },
-    },
-    errorPlacement: function (error, element) {
-      var name = element.attr('name');
-      if (element.attr('name') === 'category[]') {
-        error.appendTo($('.is-error-category'));
-      } else if (element.attr('name') === name) {
-        error.appendTo($('.is-error-' + name));
-      }
-    },
-    errorElement: "span",
-    errorClass: "is-error",
-    //送信前にLoadingを表示
-    submitHandler: function (form) {
-      $('.spin_btn').removeClass('hide');
-      $('.submit_btn').addClass('hide');
-      form.submit();
-    }
-  });
-  $('input').on('blur', function () {
-    $(this).valid();
-    // if ($('span').hasClass('is-error')) {
-    //   $('span').css('background', 'white');
-    // }
-  });
-})
 
 // 仮押え編集
 $(function () {
