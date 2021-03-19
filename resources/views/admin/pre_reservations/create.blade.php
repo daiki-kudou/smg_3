@@ -344,8 +344,8 @@
           messages: {
             user_id: { required: "※必須項目です" },
             unknown_user_email: { email: '※Emailの形式で入力してください', },
-            unknown_user_mobile: { number: '半角英数字を入力してください', minlength: '※最低桁数は11です', },
-            unknown_user_tel: { number: '半角英数字を入力してください', minlength: '※最低桁数は10です', },
+            unknown_user_mobile: { number: '※半角英数字を入力してください', minlength: '※最低桁数は11です', },
+            unknown_user_tel: { number: '※半角英数字を入力してください', minlength: '※最低桁数は10です', },
           },
           errorPlacement: function (error, element) {
             var name = element.attr('name');
@@ -446,8 +446,8 @@
           messages: {
             user_id: { required: "※必須項目です" },
             unknown_user_email: { email: '※Emailの形式で入力してください', },
-            unknown_user_mobile: { number: '半角英数字を入力してください', minlength: '※最低桁数は11です', },
-            unknown_user_tel: { number: '半角英数字を入力してください', minlength: '※最低桁数は10です', },
+            unknown_user_mobile: { number: '※半角英数字を入力してください', minlength: '※最低桁数は11です', },
+            unknown_user_tel: { number: '※半角英数字を入力してください', minlength: '※最低桁数は10です', },
           },
           errorPlacement: function (error, element) {
             var name = element.attr('name');

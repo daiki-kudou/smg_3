@@ -6,7 +6,7 @@ jQuery.validator.addMethod("katakana", function (value, element) {
 
 jQuery.validator.addMethod("alphanum", function (value, element) {
   return this.optional(element) || /^([a-zA-Z0-9]+)$/.test(value);
-}, "<br/>半角英数字を入力してください"
+}, "<br/>※半角英数字を入力してください"
 );
 
 
@@ -27,8 +27,8 @@ $(function () {
     messages: {
       user_id: { required: "※必須項目です" },
       unknown_user_email: { email: '※Emailの形式で入力してください', },
-      unknown_user_mobile: { number: '半角英数字を入力してください', minlength: '※最低桁数は11です', },
-      unknown_user_tel: { number: '半角英数字を入力してください', minlength: '※最低桁数は10です', },
+      unknown_user_mobile: { number: '※半角英数字を入力してください', minlength: '※最低桁数は11です', },
+      unknown_user_tel: { number: '※半角英数字を入力してください', minlength: '※最低桁数は10です', },
       pre_date0: { required: '※必須項目です', },
       pre_venue0: { required: '※必須項目です', },
       pre_enter0: { required: '※必須項目です', },
@@ -170,27 +170,45 @@ $(function () {
       price_system: {
         required: true,
       },
+      luggage_count: {
+        number: true,
+      },
+      luggage_return: {
+        number: true,
+      },
+      luggage_price: {
+        number: true,
+      },
     },
     messages: {
       enduser_charge: {
         required: '※必須項目です',
-        number: '半角英数字を入力してください',
+        number: '※半角英数字を入力してください',
       },
       pre_endusers_tel: {
-        number: '半角英数字を入力してください',
+        number: '※半角英数字を入力してください',
       },
       pre_endusers_mobile: {
-        number: '半角英数字を入力してください',
+        number: '※半角英数字を入力してください',
       },
       in_charge: {
         required: '※必須項目です',
       },
       tel: {
         required: '※必須項目です',
-        number: '半角英数字を入力してください',
+        number: '※半角英数字を入力してください',
       },
       price_system: {
         required: '※必須項目です',
+      },
+      luggage_count: {
+        number: '※半角英数字を入力してください',
+      },
+      luggage_return: {
+        number: '※半角英数字を入力してください',
+      },
+      luggage_price: {
+        number: '※半角英数字を入力してください',
       },
     },
     errorPlacement: function (error, element) {
@@ -246,7 +264,7 @@ $(function () {
       },
       tel: {
         required: '※必須項目です',
-        number: '半角英数字を入力してください',
+        number: '※半角英数字を入力してください',
         minlength: '※最低桁数は11です',
       },
       unknown_user_tel: {
@@ -295,11 +313,11 @@ $(function () {
     messages: {
       pre_enduser_tel: {
         minlength: '※最低桁数は10です',
-        number: '半角英数字を入力してください',
+        number: '※半角英数字を入力してください',
       },
       pre_enduser_mobile: {
         minlength: '※最低桁数は11です',
-        number: '半角英数字を入力してください',
+        number: '※半角英数字を入力してください',
       },
       pre_enduser_email: {
         email: '※Emailの形式で入力してください',
@@ -339,7 +357,7 @@ $(function () {
     messages: {
       enduser_charge: {
         required: '※必須項目です',
-        number: '半角英数字を入力してください',
+        number: '※半角英数字を入力してください',
       },
     },
     errorPlacement: function (error, element) {
@@ -377,7 +395,7 @@ $(function () {
     messages: {
       enduser_charge: {
         required: '※必須項目です',
-        number: '半角英数字を入力してください',
+        number: '※半角英数字を入力してください',
       },
     },
     errorPlacement: function (error, element) {
@@ -425,17 +443,17 @@ $(function () {
     },
     messages: {
       cp_master_tel: {
-        number: '半角英数字を入力してください',
+        number: '※半角英数字を入力してください',
         minlength: '※最低桁数は11です',
       },
       cp_master_luggage_count: {
-        number: '半角英数字を入力してください',
+        number: '※半角英数字を入力してください',
       },
       cp_master_luggage_return: {
-        number: '半角英数字を入力してください',
+        number: '※半角英数字を入力してください',
       },
       cp_master_luggage_price: {
-        number: '半角英数字を入力してください',
+        number: '※半角英数字を入力してください',
       },
       cp_master_cost: {
         range: '※1から100までの数値を入力してください',
@@ -919,9 +937,9 @@ $(function () {
       name_area: { required: "※必須項目です", },
       name_bldg: { required: "※必須項目です", },
       name_venue: { required: "※必須項目です", },
-      size1: { required: "※必須項目です", number: "半角英数字を入力してください", min: "0以上を入力してください", max: '上限値は1000です', },
-      size2: { required: "※必須項目です", number: "半角英数字を入力してください", min: "0以上を入力してください", max: '上限値は1000です', },
-      capacity: { required: "※必須項目です", number: "半角英数字を入力してください", min: "0以上を入力してください" },
+      size1: { required: "※必須項目です", number: "※半角英数字を入力してください", min: "0以上を入力してください", max: '上限値は1000です', },
+      size2: { required: "※必須項目です", number: "※半角英数字を入力してください", min: "0以上を入力してください", max: '上限値は1000です', },
+      capacity: { required: "※必須項目です", number: "※半角英数字を入力してください", min: "0以上を入力してください" },
       post_code: { required: "※必須項目です", maxlength: '７桁で入力してください', number: "※半角英数字で入力してください", },
       address1: { required: "※必須項目です", },
       address2: { required: "※必須項目です", },
@@ -1112,19 +1130,19 @@ $(function () {
       },
       size1: {
         required: "※必須項目です",
-        number: "半角英数字を入力してください",
+        number: "※半角英数字を入力してください",
         min: "0以上を入力してください",
         max: "上限値は1000です"
       },
       size2: {
         required: "※必須項目です",
-        number: "半角英数字を入力してください",
+        number: "※半角英数字を入力してください",
         min: "0以上を入力してください",
         max: "上限値は1000です"
       },
       capacity: {
         required: "※必須項目です",
-        number: "半角英数字を入力してください",
+        number: "※半角英数字を入力してください",
         min: "0以上を入力してください"
       },
       post_code: {

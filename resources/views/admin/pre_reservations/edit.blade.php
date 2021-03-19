@@ -515,18 +515,20 @@
                 <td class="table-active">事前に預かる荷物<br>（個数）</td>
                 <td>
                   {{ Form::text('luggage_count', $PreReservation->luggage_count,['class'=>'form-control'] ) }}
+                  <p class='is-error-luggage_count' style='color: red'></p>
                 </td>
               </tr>
               <tr>
                 <td class="table-active">事前荷物の到着日<br>午前指定のみ</td>
                 <td>
-                  {{ Form::text('luggage_arrive', date('Y-m-d',strtotime($PreReservation->luggage_arrive)),['class'=>'form-control',"id"=>'datepicker9'] ) }}
+                  {{ Form::text('luggage_arrive', !empty($PreReservation->luggage_arrive)?date('Y-m-d',strtotime($PreReservation->luggage_arrive)):"",['class'=>'form-control',"id"=>'datepicker9'] ) }}
                 </td>
               </tr>
               <tr>
                 <td class="table-active">事後返送する荷物</td>
                 <td>
                   {{ Form::text('luggage_return', $PreReservation->luggage_return,['class'=>'form-control'] ) }}
+                  <p class='is-error-luggage_return' style='color: red'></p>
                 </td>
               </tr>
               <tr>
@@ -540,6 +542,7 @@
                   {{ Form::text('luggage_price', "",['class'=>'form-control'] ) }}
                   @endif
                   @endforeach
+                  <p class='is-error-luggage_price' style='color: red'></p>
                 </td>
               </tr>
             </tbody>
