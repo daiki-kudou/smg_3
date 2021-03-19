@@ -32,7 +32,6 @@
                 仮押えID：{{$pre_reservation->id}}
               </h3>
             </td>
-
             <td>
               <div class="d-flex justify-content-end align-items-center">
                 @if ($pre_reservation->status==0)
@@ -878,8 +877,6 @@
       @endif
       @endif
 
-
-
       @if ($pre_reservation->user_id>0)
       @if ($pre_reservation->venue->layout==1)
       <div class="layout billdetails_content">
@@ -955,7 +952,6 @@
       </div>
       @endif
       @endif
-
       <div class="bill_total">
         <table class="table text-right">
           <tbody>
