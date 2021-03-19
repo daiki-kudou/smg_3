@@ -52,7 +52,8 @@ class MakePreReservationTest extends DuskTestCase
   {
     $getCreateForm = $this->testCreatePreReservation();
     $this->browse(function ($getCreateForm) {
-      $getCreateForm->assertSee('仮押え　詳細入力画面');
+      $getCreateForm->assertSee('仮押え　詳細入力画面')
+        ->radio('price_system', 1);
     });
   }
 }
