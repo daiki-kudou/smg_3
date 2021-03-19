@@ -1301,7 +1301,7 @@ h3 {
 .equipment_discount,
 .layout_discount,
 .others_discount {
-    border: solid 1px #555555 !important;
+    border: solid 1px #b9b9b9 !important;
 }
 
 .venue_discount td:first-child,
@@ -1354,11 +1354,11 @@ h3 {
 }
 
 .bill_total {
-    border-top: 1px solid #3e3e3e;
-    padding-top: 15px;
+    padding-top: 2em;
+    border-top: 1px solid #909090;
     padding-bottom: 30px;
     width: 95%;
-    margin: 0 auto;
+    margin: 3em auto 0;
 }
 
 .bill_total table {
