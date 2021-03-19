@@ -131,7 +131,7 @@
           </td>
         </tr>
         <tr>
-        <td class="table-active">固定電話</td>
+          <td class="table-active">固定電話</td>
           <td>
             {{ Form::text('unknown_user_tel', empty($PreReservation->unknown_user->unknown_user_tel)?"":$PreReservation->unknown_user->unknown_user_tel,['class'=>'form-control', $PreReservation->user_id!=999?"readonly":"", 'placeholder' => '半角数字、ハイフンなしで入力してください'] ) }}
             <p class="is-error-unknown_user_tel" style="color: red"></p>
@@ -182,16 +182,40 @@
                   <div>
                     <small>料金体系</small>
                   </div>
+                  @if ($SPVenue->getPriceSystem()[0]==1&&$SPVenue->getPriceSystem()[1]==1)
                   <div class="form-check">
                     <p>
-                      {{Form::radio('price_system', 1, $PreReservation->price_system==1?true:false , ['id' => 'price_system_radio1', 'class' => 'form-check-input'])}}
-                      <label for="{{'price_system_radio1'}}" class="form-check-label">通常(枠貸)</label>
+                      {{ Form::radio('price_system', 1, $PreReservation->price_system==1?true:false, ['class'=>'mr-2', 'id'=>'price_system_radio1']) }}
+                      {{Form::label('price_system_radio1','通常（枠貸）')}}
                     </p>
                     <p>
-                      {{Form::radio('price_system', 2, $PreReservation->price_system==2?true:false, ['id' => 'price_system_radio2', 'class' => 'form-check-input'])}}
-                      <label for="{{'price_system_radio2'}}" class="form-check-label">アクセア仕様</label>
+                      {{ Form::radio('price_system', 2, $PreReservation->price_system==2?true:false, ['class'=>'mr-2', 'id'=>'price_system_radio2']) }}
+                      {{Form::label('price_system_radio2','アクセア（時間貸）')}}
                     </p>
                   </div>
+                  @elseif($SPVenue->getPriceSystem()[0]==1&&$SPVenue->getPriceSystem()[1]==0)
+                  <div class="form-check">
+                    <p>
+                      {{ Form::radio('price_system', 1, $PreReservation->price_system==1?true:false, ['class'=>'mr-2', 'id'=>'price_system_radio1']) }}
+                      {{Form::label('price_system_radio1','通常（枠貸）')}}
+                    </p>
+                    <p>
+                      {{ Form::radio('price_system', 2, $PreReservation->price_system==2?true:false, ['class'=>'mr-2', 'id'=>'price_system_radio2', 'disabled']) }}
+                      {{Form::label('price_system_radio2','アクセア（時間貸）')}}
+                    </p>
+                  </div>
+                  @elseif($SPVenue->getPriceSystem()[0]==0&&$SPVenue->getPriceSystem()[1]==1)
+                  <div class="form-check">
+                    <p>
+                      {{ Form::radio('price_system', 1, $PreReservation->price_system==1?true:false, ['class'=>'mr-2', 'id'=>'price_system_radio1','disabled']) }}
+                      {{Form::label('price_system_radio1','通常（枠貸）')}}
+                    </p>
+                    <p>
+                      {{ Form::radio('price_system', 2, $PreReservation->price_system==2?true:false, ['class'=>'mr-2', 'id'=>'price_system_radio2']) }}
+                      {{Form::label('price_system_radio2','アクセア（時間貸）')}}
+                    </p>
+                  </div>
+                  @endif
                 </div>
               </td>
             </tr>
@@ -200,7 +224,9 @@
               <td>
                 <select name="enter_time" id="enter_time" class="form-control">
                   <option value=""></option>
-                  @for ($start = 0*2; $start <=23*2; $start++) <option value="{{date("H:i:s", strtotime("00:00 +". $start * 30 ." minute"))}}" @if (date("H:i:s", strtotime("00:00 +". $start * 30 ." minute"))==$PreReservation->enter_time)
+                  @for ($start = 0*2; $start <=23*2; $start++) <option
+                    value="{{date("H:i:s", strtotime("00:00 +". $start * 30 ." minute"))}}" @if (date("H:i:s",
+                    strtotime("00:00 +". $start * 30 ." minute"))==$PreReservation->enter_time)
                     selected
                     @endif
                     >
@@ -215,7 +241,9 @@
               <td>
                 <select name="leave_time" id="leave_time" class="form-control">
                   <option value=""></option>
-                  @for ($start = 0*2; $start <=23*2; $start++) <option value="{{date("H:i:s", strtotime("00:00 +". $start * 30 ." minute"))}}" @if (date("H:i:s", strtotime("00:00 +". $start * 30 ." minute"))==$PreReservation->leave_time)
+                  @for ($start = 0*2; $start <=23*2; $start++) <option
+                    value="{{date("H:i:s", strtotime("00:00 +". $start * 30 ." minute"))}}" @if (date("H:i:s",
+                    strtotime("00:00 +". $start * 30 ." minute"))==$PreReservation->leave_time)
                     selected
                     @endif
                     >
@@ -258,7 +286,9 @@
             <td>
               <select name="event_start" id="event_start" class="form-control">
                 <option disabled>選択してください</option>
-                @for ($start = 0*2; $start <=23*2; $start++) <option value="{{date("H:i:s", strtotime("00:00 +". $start * 30 ." minute"))}}" @if (date("H:i:s", strtotime("00:00 +". $start * 30 ." minute"))<$PreReservation->enter_time)
+                @for ($start = 0*2; $start <=23*2; $start++) <option
+                  value="{{date("H:i:s", strtotime("00:00 +". $start * 30 ." minute"))}}" @if (date("H:i:s",
+                  strtotime("00:00 +". $start * 30 ." minute"))<$PreReservation->enter_time)
                   disabled
                   @elseif(date("H:i:s", strtotime("00:00 +". $start * 30 ." minute"))>$PreReservation->leave_time)
                   disabled
@@ -276,7 +306,9 @@
             <td>
               <select name="event_finish" id="event_finish" class="form-control">
                 <option disabled>選択してください</option>
-                @for ($start = 0*2; $start <=23*2; $start++) <option value="{{date("H:i:s", strtotime("00:00 +". $start * 30 ." minute"))}}" @if (date("H:i:s", strtotime("00:00 +". $start * 30 ." minute"))<$PreReservation->enter_time)
+                @for ($start = 0*2; $start <=23*2; $start++) <option
+                  value="{{date("H:i:s", strtotime("00:00 +". $start * 30 ." minute"))}}" @if (date("H:i:s",
+                  strtotime("00:00 +". $start * 30 ." minute"))<$PreReservation->enter_time)
                   disabled
                   @elseif(date("H:i:s", strtotime("00:00 +". $start * 30 ." minute"))>$PreReservation->leave_time)
                   disabled
@@ -329,12 +361,13 @@
                 <td>
                   @foreach ($PreReservation->pre_breakdowns()->get() as $s_equ)
                   @if ($s_equ->unit_item==$equ->item)
-                  {{ Form::text('equipment_breakdown'.$key,$s_equ->unit_count,['class'=>'form-control'] ) }}
+                  {{ Form::text('equipment_breakdown'.$key,$s_equ->unit_count,['class'=>'form-control equipment_breakdowns'] ) }}
                   @break
                   @elseif($loop->last)
-                  {{ Form::text('equipment_breakdown'.$key,"",['class'=>'form-control'] ) }}
+                  {{ Form::text('equipment_breakdown'.$key,"",['class'=>'form-control equipment_breakdowns'] ) }}
                   @endif
                   @endforeach
+                  <p class='{{'is-error-equipment_breakdown'.$key}}' style='color: red'></p>
                 </td>
               </tr>
               @endforeach
@@ -841,32 +874,6 @@
                   </td>
                 </tr>
               </tbody>
-              <!-- <tbody class="equipment_discount">
-                <tr>
-                  <td>割引計算欄</td>
-                  <td>
-                    <p>
-                      割引金額
-                    </p>
-                    <div class="d-flex">
-                      {{ Form::text('equipment_number_discount', $PreReservation->equipment_number_discount?$PreReservation->equipment_number_discount:'',['class'=>'form-control'] ) }}
-                      <p>円</p>
-                    </div>
-                  </td>
-                  <td>
-                    <p>
-                      割引率
-                    </p>
-                    <div class="d-flex">
-                      {{ Form::text('equipment_percent_discount', $PreReservation->equipment_percent_discount?$PreReservation->equipment_percent_discount:'',['class'=>'form-control'] ) }}
-                      <p>%</p>
-                    </div>
-                  </td>
-                  <td>
-                    <input class="btn more_btn equipment_discount_btn" type="button" value="計算する">
-                  </td>
-                </tr>
-              </tbody> -->
             </table>
           </div>
           <div class="layout billdetails_content">
@@ -912,80 +919,8 @@
                   </td>
                 </tr>
               </tbody>
-              <!-- <tbody class="layout_discount">
-                <tr>
-                  <td>割引計算欄</td>
-                  <td>
-                    <p>
-                      割引金額
-                    </p>
-                    <div class="d-flex">
-                      {{ Form::text('layout_number_discount', $PreReservation->layout_number_discount?$PreReservation->layout_number_discount:'',['class'=>'form-control'] ) }}
-                      <p>円</p>
-                    </div>
-                  </td>
-                  <td>
-                    <p>
-                      割引率
-                    </p>
-                    <div class="d-flex">
-                      {{ Form::text('layout_percent_discount', $PreReservation->layout_percent_discount?$PreReservation->layout_percent_discount:'',['class'=>'form-control'] ) }}
-                      <p>%</p>
-                    </div>
-                  </td>
-                  <td>
-                    <input class="btn more_btn layout_discount_btn" type="button" value="計算する">
-                  </td>
-                </tr>
-              </tbody> -->
             </table>
           </div>
-
-          <!-- <div class="others billdetails_content">
-            <table class="table table-borderless">
-              <tr>
-                <td colspan="4">
-                  　<h4 class="billdetails_content_ttl">
-                    その他
-                  </h4>
-                </td>
-              </tr>
-              <tbody class="others_head">
-                <tr>
-                  <td>内容</td>
-                  <td>単価</td>
-                  <td>数量</td>
-                  <td>金額</td>
-                </tr>
-              </tbody>
-              <tbody class="others_main">
-                @foreach ($PreReservation->pre_breakdowns()->where('unit_type',5)->get() as $key=>$o_break)
-                <tr>
-                  <td>
-                    {{ Form::text('others_input_item'.$key, $o_break->unit_item,['class'=>'form-control col-xs-3', 'readonly'] ) }}
-                  </td>
-                  <td>
-                    {{ Form::text('others_input_cost'.$key, $o_break->unit_cost,['class'=>'form-control col-xs-3', 'readonly'] ) }}
-                  </td>
-                  <td>
-                    {{ Form::text('others_input_count'.$key, $o_break->unit_count,['class'=>'form-control col-xs-3', 'readonly'] ) }}
-                  </td>
-                  <td>
-                    {{ Form::text('others_input_subtotal'.$key, $o_break->unit_subtotal,['class'=>'form-control col-xs-3', 'readonly'] ) }}
-                  </td>
-                </tr>
-                @endforeach
-              </tbody>
-              <tbody class="others_result">
-                <tr>
-                  <td colspan="2"></td>
-                  <td colspan="3">合計
-                    {{ Form::text('others_price', $PreReservation->pre_bill()->first()->others_price,['class'=>'form-control', 'readonly'] ) }}
-                  </td>
-                </tr>
-              </tbody>
-            </table>
-          </div> -->
 
           <div class="bill_total">
             <table class="table text-right">

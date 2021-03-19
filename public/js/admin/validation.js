@@ -136,14 +136,13 @@ $(function () {
   $('input').on('blur', function () {
     $(this).valid();
   });
-  $('.equipment_breakdowns').each(function (index, element) {
+  $('#pre_reservationSingleCheckForm .equipment_breakdowns').each(function (index, element) {
     $("input[name='equipment_breakdown" + index + "']").rules("add", {
       number: true,
       max: 100,
       messages: { number: "※半角英数字で入力してください", max: "※最大値は100です" },
     });
   })
-
 })
 
 
@@ -160,7 +159,16 @@ $(function () {
       },
       pre_endusers_mobile: {
         number: true,
-        // minlength: 11
+      },
+      in_charge: {
+        required: true,
+      },
+      tel: {
+        required: true,
+        number: true,
+      },
+      price_system: {
+        required: true,
       },
     },
     messages: {
@@ -173,7 +181,16 @@ $(function () {
       },
       pre_endusers_mobile: {
         number: '半角英数字を入力してください',
-        // minlength: '※最低桁数は11です',
+      },
+      in_charge: {
+        required: '※必須項目です',
+      },
+      tel: {
+        required: '※必須項目です',
+        number: '半角英数字を入力してください',
+      },
+      price_system: {
+        required: '※必須項目です',
       },
     },
     errorPlacement: function (error, element) {
@@ -195,10 +212,16 @@ $(function () {
   });
   $('input').on('blur', function () {
     $(this).valid();
-    // if ($('span').hasClass('is-error')) {
-    //   $('span').css('background', 'white');
-    // }
   });
+  $('#pre_reservationSingleEditForm .equipment_breakdowns').each(function (index, element) {
+    $("input[name='equipment_breakdown" + index + "']").rules("add", {
+      number: true,
+      max: 100,
+      messages: { number: "※半角英数字で入力してください", max: "※最大値は100です" },
+    });
+  })
+
+
 })
 
 // 仮押え編集からの再計算
@@ -249,9 +272,6 @@ $(function () {
   });
   $('input').on('blur', function () {
     $(this).valid();
-    // if ($('span').hasClass('is-error')) {
-    //   $('span').css('background', 'white');
-    // }
   });
 })
 
@@ -304,9 +324,6 @@ $(function () {
   });
   $('input').on('blur', function () {
     $(this).valid();
-    // if ($('span').hasClass('is-error')) {
-    //   $('span').css('background', 'white');
-    // }
   });
 })
 
@@ -344,9 +361,6 @@ $(function () {
   });
   $('input').on('blur', function () {
     $(this).valid();
-    // if ($('span').hasClass('is-error')) {
-    //   $('span').css('background', 'white');
-    // }
   });
 })
 
@@ -385,9 +399,6 @@ $(function () {
   });
   $('input').on('blur', function () {
     $(this).valid();
-    // if ($('span').hasClass('is-error')) {
-    //   $('span').css('background', 'white');
-    // }
   });
 })
 
@@ -449,9 +460,6 @@ $(function () {
   });
   $('input').on('blur', function () {
     $(this).valid();
-    // if ($('span').hasClass('is-error')) {
-    //   $('span').css('background', 'white');
-    // }
   });
 })
 
@@ -505,9 +513,6 @@ $(function () {
     });
     $('input').on('blur', function () {
       $(this).valid();
-      // if ($('span').hasClass('is-error')) {
-      //   $('span').css('background', 'white');
-      // }
     });
   }
 })
@@ -566,9 +571,6 @@ $(function () {
   });
   $('input').on('blur', function () {
     $(this).valid();
-    // if ($('span').hasClass('is-error')) {
-    //   $('span').css('background', 'white');
-    // }
   });
 })
 
@@ -630,9 +632,6 @@ $(function () {
     });
     $('input').on('blur', function () {
       $(this).valid();
-      // if ($('span').hasClass('is-error')) {
-      //   $('span').css('background', 'white');
-      // }
     });
   }
 })
@@ -681,9 +680,6 @@ $(function () {
   });
   $('input').on('blur', function () {
     $(this).valid();
-    // if ($('span').hasClass('is-error')) {
-    //   $('span').css('background', 'white');
-    // }
   });
 })
 
@@ -744,22 +740,9 @@ $(function () {
     });
     $('input').on('blur', function () {
       $(this).valid();
-      // if ($('span').hasClass('is-error')) {
-      //   $('span').css('background', 'white');
-      // }
     });
   }
 })
-
-
-
-
-
-
-
-
-
-
 
 // 予約新規作成
 $(function () {
@@ -838,9 +821,6 @@ $(function () {
   });
   $('input').on('blur', function () {
     $(this).valid();
-    // if ($('span').hasClass('is-error')) {
-    //   $('span').css('background', 'white');
-    // }
   });
 })
 
