@@ -598,4 +598,18 @@ class Venue extends Model implements PresentableInterface
     }
     return count($venue_details);
   }
+
+  public function getPriceSystem()
+  {
+    $frame = 0;
+    $time = 0;
+    if ($this->frame_prices()->count() != 0) {
+      $frame = 1;
+    }
+    if ($this->time_prices()->count() != 0) {
+      $time = 1;
+    }
+
+    return [$frame, $time];
+  }
 }
