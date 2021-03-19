@@ -55,7 +55,7 @@
 
 </div>
 
-<section class="register-wrap mt-5">
+<section class="register-wrap mt-2">
   <div class="row">
     <!-- 左側の項目------------------------------------------------------------------------ -->
     <div class="col">
@@ -699,7 +699,7 @@
         </tbody>
       </table>
     </div>
-    <div class="bill_status">
+    <div class="bill_status mb-0 py-3">
       <table class="table">
         <tbody>
           <tr>

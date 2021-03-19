@@ -939,11 +939,6 @@
               </table>
             </div>
             @endif
-
-
-
-
-
             <div class="others billdetails_content">
               <table class="table table-borderless">
                 <tbody>

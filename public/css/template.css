@@ -886,6 +886,7 @@ table td.table_column p:last-child {
 .border-inwrap {
     border: 1px solid rgb(53 167 167 / 40%);
     padding: 3%;
+    background: rgb(53 167 167 / 10%);
 }
 
 .calendar {
