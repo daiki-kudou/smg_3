@@ -37,7 +37,7 @@
   @csrf
 
   <div class="user_selector mt-5">
-    <h3 class="mb-2">顧客検索</h3>
+    <h3 class="mb-2 form_required">顧客検索</h3>
     <select name="user_id" id="user_id">
       <option value="">選択してください</option>
       @foreach ($users as $user)
@@ -147,19 +147,18 @@
       </thead>
       <tbody>
         <tr>
-          <td>{{ Form::text('pre_date0', '',['class'=>'form-control', 'id'=>"pre_datepicker", "required"] ) }}
+          <td>{{ Form::text('pre_date0', '',['class'=>'form-control', 'id'=>"pre_datepicker", ""] ) }}
             <p class="is-error-pre_date0" style="color: red"></p>
           </td>
           <td>
-            <select name="pre_venue0" id="pre_venue" required>
+            <select name="pre_venue0" id="pre_venue">
               @foreach ($venues as $venue)
               <option value="{{$venue->id}}">{{ReservationHelper::getVenue($venue->id)}}</option>
               @endforeach
             </select>
-            <p class="is-error-pre_venue0" style="color: red"></p>
           </td>
           <td>
-            <select name="pre_enter0" id="pre_enter0" class="form-control" required>
+            <select name="pre_enter0" id="pre_enter0" class="form-control">
               <option value=""></option>
               @for ($start = 0*2; $start <=23*2; $start++) <option
                 value="{{date("H:i:s", strtotime("00:00 +". $start * 30 ." minute"))}}">
@@ -170,7 +169,7 @@
             <p class="is-error-pre_enter0" style="color: red"></p>
           </td>
           <td>
-            <select name="pre_leave0" id="pre_leave0" class="form-control" required>
+            <select name="pre_leave0" id="pre_leave0" class="form-control">
               <option value=""></option>
               @for ($start = 0*2; $start <=23*2; $start++) <option
                 value="{{date("H:i:s", strtotime("00:00 +". $start * 30 ." minute"))}}">
@@ -220,7 +219,7 @@
     $('.unknown_user input').attr('readonly', true);
   })
 
-  // 顧客検索
+  // 顧客検索F
   $(function() {
     $('#user_id').on('input', function() {
       var user_id = $(this).val();
@@ -277,7 +276,9 @@
   $(function() {
     $(document).on("click", ".add", function() {
 
-      console.log($(this).parent().parent());
+      var valid=$("#pre_reservationCreateForm").validate();
+      valid.destroy();
+
       // すべてのselect2初期化
       for (let destroy = 0; destroy < $('.date_selector tbody tr').length; destroy++) {
         $('.date_selector tbody tr').eq(destroy).find('td').eq(1).find('select').select2("destroy");
@@ -291,15 +292,15 @@
 
       for (let index = 0; index < count; index++) {
         // name属性
-        $(target).eq(index).find('td').eq(0).find('input, select').attr('name', "pre_date" + index);
-        $(target).eq(index).find('td').eq(1).find('input, select').attr('name', "pre_venue" + index);
-        $(target).eq(index).find('td').eq(2).find('input, select').attr('name', "pre_enter" + index);
-        $(target).eq(index).find('td').eq(3).find('input, select').attr('name', "pre_leave" + index);
+        $(target).eq(index).find('td').eq(0).find('input').attr('name', "pre_date" + index);
+        $(target).eq(index).find('td').eq(1).find('select').attr('name', "pre_venue" + index);
+        $(target).eq(index).find('td').eq(2).find('select').attr('name', "pre_enter" + index);
+        $(target).eq(index).find('td').eq(3).find('select').attr('name', "pre_leave" + index);
         // id属性
-        $(target).eq(index).find('td').eq(0).find('input, select').attr('id', "pre_datepicker" + index);
-        $(target).eq(index).find('td').eq(1).find('input, select').attr('id', "pre_venue" + index);
-        $(target).eq(index).find('td').eq(2).find('input, select').attr('id', "pre_enter" + index);
-        $(target).eq(index).find('td').eq(3).find('input, select').attr('id', "pre_leave" + index);
+        $(target).eq(index).find('td').eq(0).find('input').attr('id', "pre_datepicker" + index);
+        $(target).eq(index).find('td').eq(1).find('select').attr('id', "pre_venue" + index);
+        $(target).eq(index).find('td').eq(2).find('select').attr('id', "pre_enter" + index);
+        $(target).eq(index).find('td').eq(3).find('select').attr('id', "pre_leave" + index);
         // dapicker付与
         $('#pre_datepicker' + index).removeClass('hasDatepicker').datepicker({
           dateFormat: 'yy-mm-dd',
@@ -314,14 +315,75 @@
           $(target).eq(index).find('td').eq(2).find('input, select').val('');
           $(target).eq(index).find('td').eq(3).find('input, select').val('');
         }
-        // // バリデーションのエラー文を複製
-        // $(target).eq(index).find('td').eq(0).find('p').remove();
-        // $(target).eq(index).find('td').eq(0).append("<p class='is-error-pre_date"+index+"' style='color: red'></p>")
-        // $(target).eq(index).find('td').eq(1).find('p').attr('class', "is-error-pre_venue" + index);
-        // $(target).eq(index).find('td').eq(2).find('p').attr('class', "is-error-pre_enter" + index);
-        // $(target).eq(index).find('td').eq(3).find('p').attr('class', "is-error-pre_leave" + index);
 
+        $(target).eq(index).find('td').eq(0).find('p').remove();
+        $(target).eq(index).find('td').eq(2).find('p').remove();
+        $(target).eq(index).find('td').eq(3).find('p').remove();
+
+        $(target).eq(index).find('td').eq(0).find('span').remove();
+        $(target).eq(index).find('td').eq(2).find('span').remove();
+        $(target).eq(index).find('td').eq(3).find('span').remove();
+
+        $(target).eq(index).find('td').eq(0).append("<p class='is-error-pre_date"+index+"' style='color: red'></p>");
+        $(target).eq(index).find('td').eq(2).append("<p class='is-error-pre_enter"+index+"' style='color: red'></p>");
+        $(target).eq(index).find('td').eq(3).append("<p class='is-error-pre_leave"+index+"' style='color: red'></p>");
       }
+
+        $("#pre_reservationCreateForm").validate({
+          rules: {
+            user_id: { required: true },
+            unknown_user_email: { email: true },
+            unknown_user_mobile: { number: true, minlength: 11 },
+            unknown_user_tel: { number: true, minlength: 10 },
+          },
+          messages: {
+            user_id: { required: "※必須項目です" },
+            unknown_user_email: { email: '※Emailの形式で入力してください', },
+            unknown_user_mobile: { number: '半角英数字を入力してください', minlength: '※最低桁数は11です', },
+            unknown_user_tel: { number: '半角英数字を入力してください', minlength: '※最低桁数は10です', },
+          },
+          errorPlacement: function (error, element) {
+            var name = element.attr('name');
+            if (element.attr('name') === 'category[]') {
+              error.appendTo($('.is-error-category'));
+            } else if (element.attr('name') === name) {
+              error.appendTo($('.is-error-' + name));
+            }
+          },
+          errorElement: "span",
+          errorClass: "is-error",
+          //送信前にLoadingを表示
+          submitHandler: function (form) {
+            $('.spin_btn').removeClass('hide');
+            $('.submit_btn').addClass('hide');
+            form.submit();
+          }
+        });
+        $('input').on('blur', function () {
+          $(this).valid();
+        });
+        for (let index_a = 0; index_a < count; index_a++) {
+          $("input[name='pre_date"+index_a+"']").rules("add", {
+          required: true,
+          messages: { required: "※必須項目です" },
+          });
+          $("select[name='pre_enter"+index_a+"']").rules("add", {
+          required: true,
+          messages: { required: "※必須項目です" },
+          });
+          $("select[name='pre_leave"+index_a+"']").rules("add", {
+          required: true,
+          messages: { required: "※必須項目です" },
+          });
+        }
+
+      
+
+
+
+
+
+
     })
     // マイナスボタン
     $(document).on("click", ".del", function() {
