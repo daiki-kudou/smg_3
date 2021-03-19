@@ -242,8 +242,17 @@
               <tr>
                 <td class="table-active">案内板</td>
                 <td>
-                  <input type="radio" name="board_flag" value="0" {{isset($request->board_flag)?$request->board_flag==0?'checked':'':'checked',}}>無し
-                  <input type="radio" name="board_flag" value="1" {{isset($request->board_flag)?$request->board_flag==1?'checked':'':'',}}>有り
+                  <div class="radio-box">
+                    <p>
+                  <input type="radio" name="board_flag" value="0" {{isset($request->board_flag)?$request->board_flag==0?'checked':'':'checked',}}>
+                  <label>無し</label>
+                  </p>
+                  <p>
+                  
+                  <input type="radio" name="board_flag" value="1" {{isset($request->board_flag)?$request->board_flag==1?'checked':'':'',}}>
+                <label>有り</label>
+                </p>
+                </div>
                 </td>
               </tr>
               <tr>
@@ -336,11 +345,15 @@
                     {{$service->item}}
                   </td>
                   <td>
-                    <div class="form-check form-check-inline">
-                      {{Form::radio('services_breakdown'.$key, 1, $request->{'services_breakdown'.$key}==1?true:false , ['id' => 'service'.$key.'on', 'class' => 'form-check-input'])}}
+                    <div class="radio-box">
+                      <p>
+                      {{Form::radio('services_breakdown'.$key, 1, $request->{'services_breakdown'.$key}==1?true:false , ['id' => 'service'.$key.'on'])}}
                       <label for="{{'service'.$key.'on'}}" class="form-check-label">有り</label>
-                      {{Form::radio('services_breakdown'.$key, 0, $request->{'services_breakdown'.$key}==0?true:false, ['id' => 'services_breakdown'.$key.'off', 'class' => 'form-check-input'])}}
+                      </p>
+                      <p>
+                      {{Form::radio('services_breakdown'.$key, 0, $request->{'services_breakdown'.$key}==0?true:false, ['id' => 'services_breakdown'.$key.'off'])}}
                       <label for="{{'services_breakdown'.$key.'off'}}" class="form-check-label">無し</label>
+                      </p>
                     </div>
                   </td>
                 </tr>
@@ -361,24 +374,32 @@
               </thead>
               <tbody>
                 <tr>
-                  <td class="table-active">レイアウト準備</td>
+                  <td class="table-active">準備</td>
                   <td>
-                    <div class="form-check form-check-inline">
-                      {{Form::radio('layout_prepare', 1, $request->layout_prepare==1?true:false, ['id' => 'layout_prepare', 'class' => 'form-check-input'])}}
+                    <div class="radio-box">
+                      <p>
+                      {{Form::radio('layout_prepare', 1, $request->layout_prepare==1?true:false, ['id' => 'layout_prepare'])}}
                       <label for='layout_prepare' class="form-check-label">有り</label>
-                      {{Form::radio('layout_prepare', 0, $request->layout_prepare==0?true:false, ['id' => 'no_layout_prepare', 'class' => 'form-check-input'])}}
+                      </p>
+                      <p>
+                      {{Form::radio('layout_prepare', 0, $request->layout_prepare==0?true:false, ['id' => 'no_layout_prepare'])}}
                       <label for='no_layout_prepare' class="form-check-label">無し</label>
+                      </p>
                     </div>
                   </td>
                 </tr>
                 <tr>
-                  <td class="table-active">レイアウト準備</td>
+                  <td class="table-active">片付</td>
                   <td>
-                    <div class="form-check form-check-inline">
-                      {{Form::radio('layout_clean', 1, $request->layout_clean==1?true:false, ['id' => 'layout_clean', 'class' => 'form-check-input'])}}
+                    <div class="radio-box">
+                      <p>
+                      {{Form::radio('layout_clean', 1, $request->layout_clean==1?true:false, ['id' => 'layout_clean'])}}
                       <label for='layout_clean' class="form-check-label">有り</label>
-                      {{Form::radio('layout_clean', 0, $request->layout_clean==0?true:false, ['id' => 'no_layout_clean', 'class' => 'form-check-input'])}}
+                      </p>
+                      <p>
+                      {{Form::radio('layout_clean', 0, $request->layout_clean==0?true:false, ['id' => 'no_layout_clean'])}}
                       <label for='no_layout_clean' class="form-check-label">無し</label>
+                      </p>
                     </div>
                   </td>
                 </tr>
@@ -532,7 +553,7 @@
               <tr>
                 <td colspan="2">
                   <p class="title-icon">
-                    <i class="fas fa-envelope icon-size" aria-hidden="true"></i>備考
+                    <i class="fas fa-file-alt icon-size" aria-hidden="true"></i>備考
                   </p>
                 </td>
               </tr>
@@ -918,17 +939,12 @@
               </table>
             </div>
             @endif
-
-
-
-
-
             <div class="others billdetails_content">
               <table class="table table-borderless">
                 <tbody>
                   <tr>
                     <td colspan="5">
-                      　<h4 class="billdetails_content_ttl">
+                      <h4 class="billdetails_content_ttl">
                         その他
                       </h4>
                     </td>
@@ -1011,7 +1027,7 @@
             </div>
           </div>
           <div class="main">
-            <div class="informations billdetails_content pb-3">
+            <div class="informations billdetails_content py-3">
               <table class="table">
                 <tr>
                   <td>請求日：</td>
@@ -1044,7 +1060,7 @@
             </div>
           </div>
           <div class="main">
-            <div class="paids billdetails_content">
+            <div class="paids billdetails_content pt-3">
               <table class="table" style="table-layout: fixed;">
                 <tr>
                   <td>入金状況{{Form::select('paid', ['未入金', '入金済み'],null,['class'=>'form-control'])}}</td>

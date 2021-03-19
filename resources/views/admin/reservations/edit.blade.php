@@ -46,12 +46,17 @@
 @csrf
 {{ Form::hidden('reservation_id',  $reservation->id) }}
 
-<div class="container-field bg-white text-dark">
+<section class="mt-5">
   <div class="row">
     <div class="col">
       <table class="table table-bordered">
         <tr>
-          <td colspan="2">予約情報</td>
+          <td colspan="2">
+            <p class="title-icon">
+              <i class="fas fa-info-circle icon-size"></i>
+              予約情報
+            </p>
+          </td>
         </tr>
         <tr>
           <td class="table-active form_required">利用日</td>
@@ -69,7 +74,7 @@
           </td>
         </tr>
         <tr>
-          <td>料金体系</td>
+          <td class="table-active">料金体系</td>
           <td>
             <div class='price_radio_selector'>
               <div class="d-flex justfy-content-start align-items-center">
@@ -87,9 +92,7 @@
           <td>
             <select name="enter_time" id="sales_start" class="form-control">
               <option disabled selected></option>
-              @for ($start = 0*2; $start <=23*2; $start++) <option
-                value="{{date("H:i:s", strtotime("00:00 +". $start * 30 ." minute"))}}" @if (date("H:i:s",
-                strtotime("00:00 +". $start * 30 ." minute"))==$reservation->enter_time)
+              @for ($start = 0*2; $start <=23*2; $start++) <option value="{{date("H:i:s", strtotime("00:00 +". $start * 30 ." minute"))}}" @if (date("H:i:s", strtotime("00:00 +". $start * 30 ." minute"))==$reservation->enter_time)
                 selected
                 @endif>
                 {{date("H時i分", strtotime("00:00 +". $start * 30 ." minute"))}}
@@ -103,9 +106,7 @@
           <td>
             <select name="leave_time" id="sales_finish" class="form-control">
               <option disabled selected></option>
-              @for ($start = 0*2; $start <=23*2; $start++) <option
-                value="{{date("H:i:s", strtotime("00:00 +". $start * 30 ." minute"))}}" @if (date("H:i:s",
-                strtotime("00:00 +". $start * 30 ." minute"))==$reservation->leave_time)
+              @for ($start = 0*2; $start <=23*2; $start++) <option value="{{date("H:i:s", strtotime("00:00 +". $start * 30 ." minute"))}}" @if (date("H:i:s", strtotime("00:00 +". $start * 30 ." minute"))==$reservation->leave_time)
                 selected
                 @endif
                 >
@@ -114,13 +115,28 @@
             </select>
           </td>
         </tr>
+      </table>
+      <table class="table table-bordered board-table">
         <tr>
-          <td>案内板</td>
+          <td colspan="2">
+            <div class="d-flex align-items-center justify-content-between">
+              <p class="title-icon">
+                <i class="fas fa-clipboard icon-size"></i>案内版
+              </p>
+            </div>
+          </td>
+        </tr>
+        <tr>
+          <td class="table-active">案内板</td>
           <td>
-            <input type="radio" name="board_flag" value="0"
-              {{isset($reservation->board_flag)?$reservation->board_flag==0?'checked':'':'checked',}}>無し
-            <input type="radio" name="board_flag" value="1"
-              {{isset($reservation->board_flag)?$reservation->board_flag==1?'checked':'':'',}}>有り
+            <div class="radio-box">
+              <p>
+                <input type="radio" name="board_flag" value="0" {{isset($reservation->board_flag)?$reservation->board_flag==0?'checked':'':'checked',}}>無し
+              </p>
+              <p>
+                <input type="radio" name="board_flag" value="1" {{isset($reservation->board_flag)?$reservation->board_flag==1?'checked':'':'',}}>有り
+              </p>
+            </div>
           </td>
         </tr>
         <tr>
@@ -128,9 +144,7 @@
           <td>
             <select name="event_start" id="event_start" class="form-control">
               <option disabled>選択してください</option>
-              @for ($start = 0*2; $start <=23*2; $start++) <option
-                value="{{date("H:i:s", strtotime("00:00 +". $start * 30 ." minute"))}}" @if (date("H:i:s",
-                strtotime("00:00 +". $start * 30 ." minute"))==$reservation->event_start)
+              @for ($start = 0*2; $start <=23*2; $start++) <option value="{{date("H:i:s", strtotime("00:00 +". $start * 30 ." minute"))}}" @if (date("H:i:s", strtotime("00:00 +". $start * 30 ." minute"))==$reservation->event_start)
                 selected
                 @endif
                 >
@@ -145,9 +159,7 @@
 
             <select name="event_finish" id="event_finish" class="form-control">
               <option disabled>選択してください</option>
-              @for ($start = 0*2; $start <=23*2; $start++) <option
-                value="{{date("H:i:s", strtotime("00:00 +". $start * 30 ." minute"))}}" @if (date("H:i:s",
-                strtotime("00:00 +". $start * 30 ." minute"))==$reservation->event_finish)
+              @for ($start = 0*2; $start <=23*2; $start++) <option value="{{date("H:i:s", strtotime("00:00 +". $start * 30 ." minute"))}}" @if (date("H:i:s", strtotime("00:00 +". $start * 30 ." minute"))==$reservation->event_finish)
                 selected
                 @endif
                 >
@@ -175,28 +187,28 @@
           </td>
         </tr>
       </table>
+
+
+
       <div class="equipemnts">
         <table class="table table-bordered" style="table-layout: fixed;">
-          <thead>
+          <thead class="accordion-ttl">
             <tr>
               <th colspan="2">
-                <div class="d-flex justify-content-between align-items-center">
-                  有料備品
-                  <i class="fas fa-plus icon_plus hide"></i>
-                  <i class="fas fa-minus icon_minus"></i>
-                </div>
+                <p class="title-icon fw-bolder">
+                  <i class="fas fa-wrench icon-size" aria-hidden="true"></i>有料備品
+                </p>
               </th>
             </tr>
           </thead>
-          <tbody>
+          <tbody class="accordion-wrap">
             @foreach ($venue->getEquipments() as $key=>$equ)
             <tr>
-              <td>
+              <td class="table-active">
                 {{$equ->item}}
               </td>
               <td>
-                <input type="text" class="form-control" name="{{'equipment_breakdown'.$key}}"
-                  @foreach($bill->breakdowns()->where('unit_type',2)->get() as $e_break)
+                <input type="text" class="form-control" name="{{'equipment_breakdown'.$key}}" @foreach($bill->breakdowns()->where('unit_type',2)->get() as $e_break)
                 @if ($e_break->unit_item==$equ->item)
                 value="{{$e_break->unit_count}}"
                 @endif
@@ -210,36 +222,42 @@
       </div>
       <div class="services">
         <table class="table table-bordered" style="table-layout: fixed;">
-          <thead>
+          <thead class="accordion-ttl">
             <tr>
               <th colspan="2">
-                <div class="d-flex justify-content-between align-items-center">
-                  有料サービス
-                  <i class="fas fa-plus icon_plus hide"></i>
-                  <i class="fas fa-minus icon_minus"></i>
-                </div>
+                <p class="title-icon fw-bolder">
+                  <i class="fas fa-hand-holding-heart icon-size" aria-hidden="true"></i>有料サービス
+                </p>
               </th>
             </tr>
           </thead>
-          <tbody>
+          <tbody class="accordion-wrap">
             @if ($checkItem[0][1]>0)
             @foreach ($venue->getServices() as $key=>$ser)
             <tr>
-              <td>{{$ser->item}}</td>
+              <td class="table-active">{{$ser->item}}</td>
               <td>
-                <div class="form-check form-check-inline">
+                <div class="radio-box">
                   @foreach ($bill->breakdowns()->where('unit_type',3)->get() as $s_break)
                   @if ($s_break->unit_item==$ser->item)
-                  {{Form::radio('services_breakdown'.$key, 1, true , ['id' => 'service'.$key.'on', 'class' => 'form-check-input'])}}
-                  {{Form::label('service'.$key.'on',"有り")}}
-                  {{Form::radio('services_breakdown'.$key, 0, false, ['id' => 'service'.$key.'off', 'class' => 'form-check-input'])}}
-                  {{Form::label('service'.$key.'off',"無し")}}
+                  <p>
+                    {{Form::radio('services_breakdown'.$key, 1, true , ['id' => 'service'.$key.'on'])}}
+                    {{Form::label('service'.$key.'on',"有り")}}
+                  </p>
+                  <p>
+                    {{Form::radio('services_breakdown'.$key, 0, false, ['id' => 'service'.$key.'off'])}}
+                    {{Form::label('service'.$key.'off',"無し")}}
+                  </p>
                   @break
                   @elseif($loop->last)
-                  {{Form::radio('services_breakdown'.$key, 1, false , ['id' => 'service'.$key.'on', 'class' => 'form-check-input'])}}
-                  {{Form::label('service'.$key.'on',"有り")}}
-                  {{Form::radio('services_breakdown'.$key, 0, true, ['id' => 'service'.$key.'off', 'class' => 'form-check-input'])}}
-                  {{Form::label('service'.$key.'off',"無し")}}
+                  <p>
+                    {{Form::radio('services_breakdown'.$key, 1, false , ['id' => 'service'.$key.'on'])}}
+                    {{Form::label('service'.$key.'on',"有り")}}
+                  </p>
+                  <p>
+                    {{Form::radio('services_breakdown'.$key, 0, true, ['id' => 'service'.$key.'off'])}}
+                    {{Form::label('service'.$key.'off',"無し")}}
+                  </p>
                   @endif
                   @endforeach
                 </div>
@@ -251,11 +269,15 @@
             <tr>
               <td>{{$ser->item}}</td>
               <td>
-                <div class="form-check form-check-inline">
-                  {{Form::radio('services_breakdown'.$key, 1, false , ['id' => 'service'.$key.'on', 'class' => 'form-check-input'])}}
-                  {{Form::label('service'.$key.'on',"有り")}}
-                  {{Form::radio('services_breakdown'.$key, 0, true, ['id' => 'service'.$key.'off', 'class' => 'form-check-input'])}}
-                  {{Form::label('service'.$key.'off',"無し")}}
+                <div class="radio-box">
+                  <p>
+                    {{Form::radio('services_breakdown'.$key, 1, false , ['id' => 'service'.$key.'on'])}}
+                    {{Form::label('service'.$key.'on',"有り")}}
+                  </p>
+                  <p>
+                    {{Form::radio('services_breakdown'.$key, 0, true, ['id' => 'service'.$key.'off'])}}
+                    {{Form::label('service'.$key.'off',"無し")}}
+                  </p>
                 </div>
               </td>
             </tr>
@@ -268,27 +290,39 @@
         <table class='table table-bordered' style="table-layout:fixed;">
           <thead>
             <tr>
-              <th colspan='2'>レイアウト</th>
+              <th colspan='2'>
+                <p class="title-icon py-1">
+                  <i class="fas fa-th icon-size fa-fw"></i>レイアウト
+                </p>
+              </th>
             </tr>
           </thead>
           <tbody>
             @if ($checkItem[0][2]>0)
             <tr>
-              <td>レイアウト準備</td>
+              <td class="table-active">準備</td>
               <td>
-                <div class="form-check form-check-inline">
+                <div class="radio-box">
                   @foreach ($bill->breakdowns()->where('unit_type',4)->get() as $l_break)
-                  @if ($l_break->unit_item=="レイアウト準備料金")
-                  {{Form::radio('layout_prepare', 1, true, ['id' => 'layout_prepare', 'class' => 'form-check-input'])}}
-                  {{Form::label('layout_prepare',"有り")}}
-                  {{Form::radio('layout_prepare', 0, false, ['id' => 'no_layout_prepare', 'class' => 'form-check-input'])}}
-                  {{Form::label('no_layout_prepare',"無し")}}
+                  @if ($l_break->unit_item=="準備料金")
+                  <p>
+                    {{Form::radio('layout_prepare', 1, true, ['id' => 'layout_prepare'])}}
+                    {{Form::label('layout_prepare',"有り")}}
+                  </p>
+                  <p>
+                    {{Form::radio('layout_prepare', 0, false, ['id' => 'no_layout_prepare'])}}
+                    {{Form::label('no_layout_prepare',"無し")}}
+                  </p>
                   @break
                   @elseif($loop->last)
-                  {{Form::radio('layout_prepare', 1, false, ['id' => 'layout_prepare', 'class' => 'form-check-input'])}}
-                  {{Form::label('layout_prepare',"有り")}}
-                  {{Form::radio('layout_prepare', 0, true, ['id' => 'no_layout_prepare', 'class' => 'form-check-input'])}}
-                  {{Form::label('no_layout_prepare',"無し")}}
+                  <p>
+                    {{Form::radio('layout_prepare', 1, false, ['id' => 'layout_prepare'])}}
+                    {{Form::label('layout_prepare',"有り")}}
+                  </p>
+                  <p>
+                    {{Form::radio('layout_prepare', 0, true, ['id' => 'no_layout_prepare'])}}
+                    {{Form::label('no_layout_prepare',"無し")}}
+                  </p>
                   @endif
                   @endforeach
                 </div>
@@ -296,13 +330,17 @@
             </tr>
             @else
             <tr>
-              <td>レイアウト準備</td>
+              <td class="table-active">準備</td>
               <td>
-                <div class="form-check form-check-inline">
-                  {{Form::radio('layout_prepare', 1, false, ['id' => 'layout_prepare', 'class' => 'form-check-input'])}}
-                  {{Form::label('layout_prepare',"有り")}}
-                  {{Form::radio('layout_prepare', 0, true, ['id' => 'no_layout_prepare', 'class' => 'form-check-input'])}}
-                  {{Form::label('no_layout_prepare',"無し")}}
+                <div class="radio-box">
+                  <p>
+                    {{Form::radio('layout_prepare', 1, false, ['id' => 'layout_prepare'])}}
+                    {{Form::label('layout_prepare',"有り")}}
+                  </p>
+                  <p>
+                    {{Form::radio('layout_prepare', 0, true, ['id' => 'no_layout_prepare'])}}
+                    {{Form::label('no_layout_prepare',"無し")}}
+                  </p>
                 </div>
               </td>
             </tr>
@@ -310,21 +348,29 @@
 
             @if ($checkItem[0][2]>0)
             <tr>
-              <td>レイアウト片付</td>
+              <td class="table-active">片付</td>
               <td>
-                <div class="form-check form-check-inline">
+                <div class="radio-box">
                   @foreach ($bill->breakdowns()->where('unit_type',4)->get() as $l_break)
-                  @if ($l_break->unit_item=="レイアウト片付料金")
-                  {{Form::radio('layout_clean', 1, true, ['id' => 'layout_clean', 'class' => 'form-check-input'])}}
-                  {{Form::label('layout_clean',"有り")}}
-                  {{Form::radio('layout_clean', 0, false, ['id' => 'no_layout_clean', 'class' => 'form-check-input'])}}
-                  {{Form::label('no_layout_clean',"無し")}}
+                  @if ($l_break->unit_item=="片付料金")
+                  <p>
+                    {{Form::radio('layout_clean', 1, true, ['id' => 'layout_clean'])}}
+                    {{Form::label('layout_clean',"有り")}}
+                  </p>
+                  <p>
+                    {{Form::radio('layout_clean', 0, false, ['id' => 'no_layout_clean'])}}
+                    {{Form::label('no_layout_clean',"無し")}}
+                  </p>
                   @break
                   @elseif($loop->last)
-                  {{Form::radio('layout_clean', 1, false, ['id' => 'layout_clean', 'class' => 'form-check-input'])}}
-                  {{Form::label('layout_clean',"有り")}}
-                  {{Form::radio('layout_clean', 0, true, ['id' => 'no_layout_clean', 'class' => 'form-check-input'])}}
-                  {{Form::label('no_layout_clean',"無し")}}
+                  <p>
+                    {{Form::radio('layout_clean', 1, false, ['id' => 'layout_clean'])}}
+                    {{Form::label('layout_clean',"有り")}}
+                  </p>
+                  <p>
+                    {{Form::radio('layout_clean', 0, true, ['id' => 'no_layout_clean'])}}
+                    {{Form::label('no_layout_clean',"無し")}}
+                  </p>
                   @endif
                   @endforeach
                 </div>
@@ -332,13 +378,17 @@
             </tr>
             @else
             <tr>
-              <td>レイアウト片付</td>
+              <td class="table-active">片付</td>
               <td>
-                <div class="form-check form-check-inline">
-                  {{Form::radio('layout_clean', 1, false, ['id' => 'layout_clean', 'class' => 'form-check-input'])}}
-                  {{Form::label('layout_clean',"有り")}}
-                  {{Form::radio('layout_clean', 0, true, ['id' => 'no_layout_clean', 'class' => 'form-check-input'])}}
-                  {{Form::label('no_layout_clean',"無し")}}
+                <div class="radio-box">
+                  <p>
+                    {{Form::radio('layout_clean', 1, false, ['id' => 'layout_clean'])}}
+                    {{Form::label('layout_clean',"有り")}}
+                  </p>
+                  <p>
+                    {{Form::radio('layout_clean', 0, true, ['id' => 'no_layout_clean'])}}
+                    {{Form::label('no_layout_clean',"無し")}}
+                  </p>
                 </div>
               </td>
             </tr>
@@ -351,30 +401,34 @@
         <table class='table table-bordered' style="table-layout:fixed;">
           <thead>
             <tr>
-              <th colspan='2'>荷物預かり</th>
+              <th colspan='2'>
+                <p class="title-icon">
+                  <i class="fas fa-suitcase-rolling icon-size fa-fw"></i>荷物預かり
+                </p>
+              </th>
             </tr>
           </thead>
           <tbody>
             <tr>
-              <td>事前に預かる荷物<br>（個数）</td>
+              <td class="table-active">事前に預かる荷物<br>（個数）</td>
               <td>
                 {{ Form::text('luggage_count', $reservation->luggage_count,['class'=>'form-control'] ) }}
               </td>
             </tr>
             <tr>
-              <td>事前荷物の到着日<br>午前指定のみ</td>
+              <td class="table-active">事前荷物の到着日<br>午前指定のみ</td>
               <td>
                 {{ Form::text('luggage_arrive', $reservation->luggage_arrive,['class'=>'form-control'] ) }}
               </td>
             </tr>
             <tr>
-              <td>事後返送する荷物</td>
+              <td class="table-active">事後返送する荷物</td>
               <td>
                 {{ Form::text('luggage_return', $reservation->luggage_return,['class'=>'form-control'] ) }}
               </td>
             </tr>
             <tr>
-              <td>荷物預かり/返送<br>料金</td>
+              <td class="table-active">荷物預かり/返送<br>料金</td>
               <td>
                 @foreach ($bill->breakdowns()->get() as $l_prices)
                 @if ($l_prices->unit_item=="荷物預かり/返送")
@@ -392,13 +446,13 @@
 
     </div>
     <div class="col">
-      <div class="client_mater">　
+      <div class="client_mater">
         <table class="table table-bordered name-table" style="table-layout:fixed;">
           <tr>
             <td colspan="2">
               <div class="d-flex align-items-center justify-content-between">
                 <p class="title-icon">
-                  <i class="far fa-id-card fa-2x fa-fw"></i>顧客情報
+                  <i class="far fa-id-card icon-size"></i>顧客情報
                 </p>
                 <p><a class="more_btn bg-green" href="">顧客詳細</a></p>
               </div>
@@ -432,7 +486,7 @@
           <tr>
             <td colspan="2">
               <p class="title-icon">
-                <i class="fas fa-user-check fa-2x fa-fw"></i>当日の連絡できる担当者
+                <i class="fas fa-user-check icon-size"></i>当日の連絡できる担当者
               </p>
             </td>
           </tr>
@@ -454,7 +508,7 @@
         <tr>
           <td colspan="2">
             <p class="title-icon">
-              <i class="fas fa-envelope fa-2x fa-fw"></i>利用後の送信メール
+              <i class="fas fa-envelope icon-size"></i>利用後の送信メール
             </p>
           </td>
         </tr>
@@ -470,7 +524,10 @@
         <tr>
           <td colspan="2">
             <p class="title-icon">
-              <i class="fas fa-yen-sign fa-2x fa-fw"></i>売上原価（提携会場を選択した場合、提携会場で設定した原価率が適応されます）
+              <i class="fas fa-yen-sign icon-size"></i>売上原価
+              <span class="annotaion">
+                （提携会場を選択した場合、提携会場で設定した原価率が適応されます）
+              </span>
             </p>
           </td>
         </tr>
@@ -486,11 +543,11 @@
         <tr>
           <td colspan="2">
             <p class="title-icon">
-              <i class="fas fa-envelope fa-2x fa-fw"></i>備考
+              <i class="fas fa-file-alt icon-size"></i>備考
             </p>
           </td>
         </tr>
-        <tr>
+        <!-- <tr>
           <td>
             <input type="checkbox" id="discount" checked>
             <label for="discount">割引条件</label>
@@ -502,10 +559,10 @@
             <label for="caution">注意事項</label>
             {{ Form::textarea('attention', $reservation->attention,['class'=>'form-control'] ) }}
           </td>
-        </tr>
+        </tr> -->
         <tr>
           <td>
-            <label for="userNote">顧客情報の備考</label>
+            <label for="userNote">申し込みフォーム備考</label>
             {{ Form::textarea('user_details', $reservation->user_details,['class'=>'form-control'] ) }}
           </td>
         </tr>
@@ -518,63 +575,57 @@
       </table>
     </div>
   </div>
-</div>
-{{Form::submit('再計算する', ['class'=>'btn btn-danger mx-auto d-block btn-lg mt-5 mb-5', 'id'=>'check_submit'])}}
+</section>
+{{Form::submit('再計算する', ['class'=>'btn more_btn4_lg mx-auto d-block mt-5 mb-5', 'id'=>'check_submit'])}}
 {{Form::close()}}
 
-{{-- 丸岡さんカスタム --}}
 {{ Form::open(['url' => '###################', 'method'=>'POST', 'id'=>'agents_calculate_form']) }}
 @csrf
-<div class="container-fluid">
+<section class="mt-5">
   <div class="bill">
     <div class="bill_head">
-      <table class="table" style="table-layout: fixed">
+      <table class="table bill_table">
         <tr>
           <td>
-            <h1 class="text-white">
+            <h2 class="text-white">
               請求書No
-            </h1>
+            </h2>
           </td>
-          <td style="font-size: 16px;">
-            <div class="bg-white d-flex justify-content-around align-items-center" style="height: 60px;">
-              <div>合計金額</div>
-              <div class="total_result">{{number_format($bill->master_total)}}円
-              </div>
-            </div>
+          <td>
+            <dl class="ttl_box">
+              <dt>合計金額</dt>
+              <dd class="total_result">{{number_format($reservation->bills()->first()->master_total)}}円</dd>
+            </dl>
           </td>
-        </tr>
-        <tr>
-          <td></td>
-          <td style="font-size: 16px;">
-            <div class="bg-white d-flex justify-content-around align-items-center" style="height: 60px;">
-              <div>支払い期日</div>
-              <div>{{ReservationHelper::formatDate($bill->payment_limit)}}
-              </div>
-            </div>
+          <td>
+            <dl class="ttl_box">
+              <dt>支払い期日</dt>
+              <dd class="total_result">{{ReservationHelper::formatDate($bill->payment_limit)}}</dd>
+            </dl>
           </td>
         </tr>
       </table>
     </div>
     <div class="bill_details">
       <div class="head d-flex">
-        <div style="width: 80px; background:gray;" class="d-flex justify-content-center align-items-center">
-          <i class="fas fa-plus fa-3x hide" style="color: white;"></i>
-          <i class="fas fa-minus fa-3x" style="color: white;"></i>
+        <div class="accordion_btn">
+          <i class="fas fa-plus bill_icon_size hide" aria-hidden="true"></i>
+          <i class="fas fa-minus bill_icon_size" aria-hidden="true"></i>
         </div>
-        <div style="font-size: 30px; width:200px;" class="d-flex justify-content-center align-items-center">
-          <p>
+        <div class="billdetails_ttl">
+          <h3>
             請求内訳
-          </p>
+          </h3>
         </div>
       </div>
       <div class="main">
-        <div class="venues" style="padding-top: 80px; width:90%; margin:0 auto;">
+        <div class="venues billdetails_content">
           <table class="table table-borderless">
             <tr>
               <td>
-                <h1>
-                  ■会場料
-                </h1>
+                <h4 class="billdetails_content_ttl">
+                  会場料
+                </h4>
               </td>
             </tr>
             <tbody class="venue_head">
@@ -633,20 +684,20 @@
                   </div>
                 </td>
                 <td>
-                  <input class="btn btn-success venue_discount_btn" type="button" value="計算する">
+                  <input class="btn more_btn venue_discount_btn" type="button" value="計算する">
                 </td>
               </tr>
             </tbody>
           </table>
         </div>
 
-        <div class="equipment" style="padding-top: 80px; width:90%; margin:0 auto;">
+        <div class="equipment billdetails_content">
           <table class="table table-borderless">
             <tr>
-              <td>
-                <h1>
-                  ■有料備品・サービス
-                </h1>
+              <td colspan="4">
+                <h4 class="billdetails_content_ttl">
+                  有料備品・サービス
+                </h4>
               </td>
             </tr>
             <tbody class="equipment_head">
@@ -721,20 +772,20 @@
                   </div>
                 </td>
                 <td>
-                  <input class="btn btn-success equipment_discount_btn" type="button" value="計算する">
+                  <input class="btn more_btn equipment_discount_btn" type="button" value="計算する">
                 </td>
               </tr>
             </tbody>
           </table>
         </div>
 
-        <div class="layout" style="padding-top: 80px; width:90%; margin:0 auto;">
+        <div class="layout billdetails_content">
           <table class="table table-borderless">
             <tr>
               <td>
-                <h1>
-                  ■レイアウト
-                </h1>
+                <h4 class="billdetails_content_ttl">
+                  レイアウト
+                </h4>
               </td>
             </tr>
             <tbody class="layout_head">
@@ -793,20 +844,20 @@
                   </div>
                 </td>
                 <td>
-                  <input class="btn btn-success layout_discount_btn" type="button" value="計算する">
+                  <input class="btn more_btn layout_discount_btn" type="button" value="計算する">
                 </td>
               </tr>
             </tbody>
           </table>
         </div>
 
-        <div class="others" style="padding: 80px 0px 80px 0px; width:90%; margin:0 auto;">
+        <div class="others billdetails_content">
           <table class="table table-borderless">
             <tr>
-              <td>
-                <h1>
-                  ■その他
-                </h1>
+              <td colspan="5">
+                <h4 class="billdetails_content_ttl">
+                  その他
+                </h4>
               </td>
             </tr>
             <tbody class="others_head">
@@ -865,37 +916,34 @@
                   </div>
                 </td>
                 <td>
-                  <input class="btn btn-success others_discount_btn" type="button" value="計算する">
+                  <input class="btn more_btn others_discount_btn" type="button" value="計算する">
                 </td>
               </tr>
             </tbody>
           </table>
         </div>
-        <div class="bill_total d-flex justify-content-end"
-          style="padding: 80px 0px 80px 0px; width:90%; margin:0 auto;">
-          <div style="width: 60%;">
-            <table class="table text-right" style="table-layout: fixed; font-size:16px;">
-              <tr>
-                <td>小計：</td>
-                <td>
-                  {{ Form::text('master_subtotal', $bill->master_subtotal,['class'=>'form-control', 'readonly'] ) }}
-                </td>
-              </tr>
-              <tr>
-                <td>消費税：</td>
-                <td>
-                  {{ Form::text('master_tax', $bill->master_tax,['class'=>'form-control', 'readonly'] ) }}
-                </td>
-              </tr>
-              <tr>
-                <td class="font-weight-bold">合計金額</td>
-                <td>
-                  {{ Form::text('master_total', $bill->master_total,['class'=>'form-control', 'readonly'] ) }}
+        <div class="bill_total">
+          <table class="table text-right">
+            <tr>
+              <td>小計：</td>
+              <td>
+                {{ Form::text('master_subtotal', $bill->master_subtotal,['class'=>'form-control', 'readonly'] ) }}
+              </td>
+            </tr>
+            <tr>
+              <td>消費税：</td>
+              <td>
+                {{ Form::text('master_tax', $bill->master_tax,['class'=>'form-control', 'readonly'] ) }}
+              </td>
+            </tr>
+            <tr>
+              <td class="font-weight-bold">合計金額</td>
+              <td>
+                {{ Form::text('master_total', $bill->master_total,['class'=>'form-control', 'readonly'] ) }}
 
-                </td>
-              </tr>
-            </table>
-          </div>
+              </td>
+            </tr>
+          </table>
         </div>
       </div>
     </div>
@@ -904,18 +952,18 @@
   <div class="information">
     <div class="information_details">
       <div class="head d-flex">
-        <div style="width: 80px; background:gray;" class="d-flex justify-content-center align-items-center">
-          <i class="fas fa-plus fa-3x hide" style="color: white;"></i>
-          <i class="fas fa-minus fa-3x" style="color: white;"></i>
+        <div class="accordion_btn">
+          <i class="fas fa-plus bill_icon_size hide" aria-hidden="true"></i>
+          <i class="fas fa-minus bill_icon_size" aria-hidden="true"></i>
         </div>
-        <div style="font-size: 30px; width:200px;" class="d-flex justify-content-center align-items-center">
-          <p>
+        <div class="billdetails_ttl">
+          <h3>
             請求書情報
-          </p>
+          </h3>
         </div>
       </div>
       <div class="main">
-        <div class="informations" style="padding-top: 20px; width:90%; margin:0 auto;">
+        <div class="informations billdetails_content py-3">
           <table class="table">
             <tr>
               <td>請求日：</td>
@@ -942,16 +990,14 @@
   <div class="paid">
     <div class="paid_details">
       <div class="head d-flex">
-        <div style="width: 80px; background:#ff782d;" class="d-flex justify-content-center align-items-center">
-        </div>
-        <div style="font-size: 30px; width:200px;" class="d-flex justify-content-center align-items-center">
-          <p>
+        <div class="d-flex align-items-center">
+          <h3 class="pl-3">
             入金情報
-          </p>
+          </h3>
         </div>
       </div>
       <div class="main">
-        <div class="paids" style="padding-top: 20px; width:90%; margin:0 auto;">
+        <div class="paids billdetails_content pt-3">
           <table class="table" style="table-layout: fixed;">
             <tr>
               <td>入金状況
@@ -977,8 +1023,8 @@
       </div>
     </div>
   </div>
-</div>
-{{Form::submit('確認する', ['class'=>'btn btn-primary d-block btn-lg mx-auto mt-5 mb-5', 'id'=>'check_submit'])}}
+</section>
+{{Form::submit('確認する', ['class'=>'btn more_btn_lg d-block btn-lg mx-auto mt-5 mb-5', 'id'=>'check_submit'])}}
 {{Form::close()}}
 
 
@@ -994,15 +1040,15 @@
     $(function() {
       $(document).on("click", ".add", function() {
         $(this).parent().parent().clone(true).insertAfter($(this).parent().parent());
-        addThisTr('.others .others_main tr', 'others_input_item', 'others_input_cost', 'others_input_count','others_input_subtotal');
-        addThisTr('.venue_main tr', 'venue_breakdown_item', 'venue_breakdown_cost', 'venue_breakdown_count','venue_breakdown_subtotal');
+        addThisTr('.others .others_main tr', 'others_input_item', 'others_input_cost', 'others_input_count', 'others_input_subtotal');
+        addThisTr('.venue_main tr', 'venue_breakdown_item', 'venue_breakdown_cost', 'venue_breakdown_count', 'venue_breakdown_subtotal');
         $(this).parent().parent().next().find('td').find('input, select').eq(0).val('');
         $(this).parent().parent().next().find('td').find('input, select').eq(1).val('');
         $(this).parent().parent().next().find('td').find('input, select').eq(2).val('');
         $(this).parent().parent().next().find('td').find('input, select').eq(3).val('');
       });
 
-      function addThisTr($targetTr, $TItem, $TCost,$TCount, $TSubtotal){
+      function addThisTr($targetTr, $TItem, $TCost, $TCount, $TSubtotal) {
         var count = $($targetTr).length;
         for (let index = 0; index < count; index++) {
           $($targetTr).eq(index).find('td').eq(0).find('input').attr('name', $TItem + index);
@@ -1013,7 +1059,7 @@
       }
 
       $(document).on("click", ".del", function() {
-        if ($(this).parent().parent().parent().attr('class')=="others_main") {
+        if ($(this).parent().parent().parent().attr('class') == "others_main") {
           var count = $('.others .others_main tr').length;
           var target = $(this).parent().parent();
           if (target.parent().children().length > 1) {
@@ -1036,10 +1082,10 @@
           }
           var total_target = $('input[name="others_price"]');
           total_target.val(total_val);
-  
-          var venue = $('input[name="venue_price"]').val()?Number($('input[name="venue_price"]').val()):0;
-          var equipment = $('input[name="equipment_price"]').val()?Number($('input[name="equipment_price"]').val()):0;
-          var layout = $('input[name="layout_price"]').val()?Number($('input[name="layout_price"]').val()):0;
+
+          var venue = $('input[name="venue_price"]').val() ? Number($('input[name="venue_price"]').val()) : 0;
+          var equipment = $('input[name="equipment_price"]').val() ? Number($('input[name="equipment_price"]').val()) : 0;
+          var layout = $('input[name="layout_price"]').val() ? Number($('input[name="layout_price"]').val()) : 0;
           var others = $('input[name="others_price"]').val() == "" ? 0 : Number($('input[name="others_price"]').val());
           var result = venue + equipment + layout + others;
           var result_tax = Math.floor(result * 0.1);
@@ -1047,7 +1093,7 @@
           $('input[name="master_subtotal"]').val(result);
           $('input[name="master_tax"]').val(result_tax);
           $('input[name="master_total"]').val(result + result_tax);
-        }else if($(this).parent().parent().parent().attr('class')=="venue_main"){
+        } else if ($(this).parent().parent().parent().attr('class') == "venue_main") {
           var count = $('.venue_main tr').length;
           var target = $(this).parent().parent();
           if (target.parent().children().length > 1) {
@@ -1070,10 +1116,10 @@
           }
           var total_target = $('input[name="venue_price"]');
           total_target.val(total_val);
-  
-          var venue = $('input[name="venue_price"]').val()?Number($('input[name="venue_price"]').val()):0;
-          var equipment = $('input[name="equipment_price"]').val()?Number($('input[name="equipment_price"]').val()):0;
-          var layout = $('input[name="layout_price"]').val()?Number($('input[name="layout_price"]').val()):0;
+
+          var venue = $('input[name="venue_price"]').val() ? Number($('input[name="venue_price"]').val()) : 0;
+          var equipment = $('input[name="equipment_price"]').val() ? Number($('input[name="equipment_price"]').val()) : 0;
+          var layout = $('input[name="layout_price"]').val() ? Number($('input[name="layout_price"]').val()) : 0;
           var others = $('input[name="others_price"]').val() == "" ? 0 : Number($('input[name="others_price"]').val());
           var result = venue + equipment + layout + others;
           var result_tax = Math.floor(result * 0.1);

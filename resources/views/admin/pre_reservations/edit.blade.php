@@ -131,15 +131,15 @@
           </td>
         </tr>
         <tr>
+        <td class="table-active">固定電話</td>
+          <td>
+            {{ Form::text('unknown_user_tel', empty($PreReservation->unknown_user->unknown_user_tel)?"":$PreReservation->unknown_user->unknown_user_tel,['class'=>'form-control', $PreReservation->user_id!=999?"readonly":"", 'placeholder' => '半角数字、ハイフンなしで入力してください'] ) }}
+            <p class="is-error-unknown_user_tel" style="color: red"></p>
+          </td>
           <td class="table-active">携帯番号</td>
           <td>
             {{ Form::text('unknown_user_mobile', empty($PreReservation->unknown_user->unknown_user_mobile)?"":$PreReservation->unknown_user->unknown_user_mobile,['class'=>'form-control', $PreReservation->user_id!=999?"readonly":"", 'placeholder' => '半角数字、ハイフンなしで入力してください'] ) }}
             <p class="is-error-unknown_user_mobile" style="color: red"></p>
-          </td>
-          <td class="table-active">固定電話</td>
-          <td>
-            {{ Form::text('unknown_user_tel', empty($PreReservation->unknown_user->unknown_user_tel)?"":$PreReservation->unknown_user->unknown_user_tel,['class'=>'form-control', $PreReservation->user_id!=999?"readonly":"", 'placeholder' => '半角数字、ハイフンなしで入力してください'] ) }}
-            <p class="is-error-unknown_user_tel" style="color: red"></p>
           </td>
         </tr>
         <tr>

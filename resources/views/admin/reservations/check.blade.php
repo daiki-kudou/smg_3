@@ -326,7 +326,7 @@
           <tr>
             <td colspan="2">
               <p class="title-icon">
-                <i class="fas fa-envelope icon-size" aria-hidden="true"></i>備考
+                <i class="fas fa-file-alt icon-size" aria-hidden="true"></i>備考
               </p>
             </td>
           </tr>
@@ -721,7 +721,7 @@
         </div>
       </div>
       <div class="main">
-        <div class="informations billdetails_content pb-3">
+        <div class="informations billdetails_content py-3">
           <table class="table">
             <tbody>
               <tr>
@@ -761,7 +761,7 @@
         </div>
       </div>
       <div class="main">
-        <div class="paids billdetails_content pb-2">
+        <div class="paids billdetails_content py-3">
           <table class="table" style="table-layout: fixed;">
             <tbody>
               <tr>

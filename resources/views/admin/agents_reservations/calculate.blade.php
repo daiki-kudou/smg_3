@@ -5,6 +5,7 @@
 <link href="{{ asset('/css/template.css') }}" rel="stylesheet">
 {{-- <script src="{{ asset('/js/admin/reservation.js') }}"></script> --}}
 <script src="{{ asset('/js/ajax.js') }}"></script>
+<script src="{{ asset('/js/template.js') }}"></script>
 <script src="{{ asset('/js/admin/validation.js') }}"></script>
 
 
@@ -36,47 +37,47 @@
 
   <script>
     $(function() {
-$("html,body").animate({
-scrollTop: $('.bill').offset().top
-});
+      $("html,body").animate({
+        scrollTop: $('.bill').offset().top
+      });
 
-$(function() {
-// プラスボタンクリック
-$(document).on("click", ".add", function() {
-$(this).parent().parent().clone(true).insertAfter($(this).parent().parent());
-addThisTr('.others .others_main tr', 'others_input_item', 'others_input_cost', 'others_input_count', 'others_input_subtotal');
-// 追加時内容クリア
-$(this).parent().parent().next().find('td').find('input, select').eq(0).val('');
-$(this).parent().parent().next().find('td').find('input, select').eq(1).val('');
-});
+      $(function() {
+        // プラスボタンクリック
+        $(document).on("click", ".add", function() {
+          $(this).parent().parent().clone(true).insertAfter($(this).parent().parent());
+          addThisTr('.others .others_main tr', 'others_input_item', 'others_input_cost', 'others_input_count', 'others_input_subtotal');
+          // 追加時内容クリア
+          $(this).parent().parent().next().find('td').find('input, select').eq(0).val('');
+          $(this).parent().parent().next().find('td').find('input, select').eq(1).val('');
+        });
 
-function addThisTr($targetTr, $TItem, $TCost, $TCount, $TSubtotal) {
-var count = $($targetTr).length;
-for (let index = 0; index < count; index++) {
-  $($targetTr).eq(index).find('td').eq(0).find('input').attr('name', $TItem + index);
-  $($targetTr).eq(index).find('td').eq(1).find('input').attr('name', $TCount + index);
-  // $($targetTr).eq(index).find('td').eq(2).find('input').attr('name', $TCount + index);
-  // $($targetTr).eq(index).find('td').eq(3).find('input').attr('name', $TSubtotal + index);
-}
-}
+        function addThisTr($targetTr, $TItem, $TCost, $TCount, $TSubtotal) {
+          var count = $($targetTr).length;
+          for (let index = 0; index < count; index++) {
+            $($targetTr).eq(index).find('td').eq(0).find('input').attr('name', $TItem + index);
+            $($targetTr).eq(index).find('td').eq(1).find('input').attr('name', $TCount + index);
+            // $($targetTr).eq(index).find('td').eq(2).find('input').attr('name', $TCount + index);
+            // $($targetTr).eq(index).find('td').eq(3).find('input').attr('name', $TSubtotal + index);
+          }
+        }
 
-// マイナスボタンクリック
-$(document).on("click", ".del", function() {
-if ($(this).parent().parent().parent().attr('class') == "others_main") {
-  var count = $('.others .others_main tr').length;
-  var target = $(this).parent().parent();
-  if (target.parent().children().length > 1) {
-    target.remove();
-  }
-  for (let index = 0; index < count; index++) {
-    // console.log(index);
-    $('.others_main tr').eq(index).find('td').eq(0).find('input').attr('name', 'others_input_item' + index);
-    $('.others_main tr').eq(index).find('td').eq(1).find('input').attr('name', 'others_input_count' + index);
-  }
-}
-});
-});
-})
+        // マイナスボタンクリック
+        $(document).on("click", ".del", function() {
+          if ($(this).parent().parent().parent().attr('class') == "others_main") {
+            var count = $('.others .others_main tr').length;
+            var target = $(this).parent().parent();
+            if (target.parent().children().length > 1) {
+              target.remove();
+            }
+            for (let index = 0; index < count; index++) {
+              // console.log(index);
+              $('.others_main tr').eq(index).find('td').eq(0).find('input').attr('name', 'others_input_item' + index);
+              $('.others_main tr').eq(index).find('td').eq(1).find('input').attr('name', 'others_input_count' + index);
+            }
+          }
+        });
+      });
+    })
   </script>
 
   <div id="fullOverlay">
@@ -90,10 +91,10 @@ if ($(this).parent().parent().parent().attr('class') == "others_main") {
 
   {{Form::open(['url' => 'admin/agents_reservations/calculate', 'method' => 'POST', 'id'=>'agentReservationCreateForm'])}}
   @csrf
-  <section class="section-wrap">
+  <section class="mt-5">
     <div class="row">
       <div class="col">
-        <table class="table table-bordered">
+        <table class="table table-bordered reserve_table">
           <tbody>
             <tr>
               <td colspan="2">
@@ -119,7 +120,8 @@ if ($(this).parent().parent().parent().attr('class') == "others_main") {
                     selected
                     @endif
                     >
-                    {{ReservationHelper::getVenue($venue->id)}}</option>
+                    {{ReservationHelper::getVenue($venue->id)}}
+                  </option>
                   @endforeach
                 </select>
                 <p class="is-error-venue_id" style="color: red"></p>
@@ -146,8 +148,7 @@ if ($(this).parent().parent().parent().attr('class') == "others_main") {
                 <div>
                   <select name="enter_time" id="sales_start" class="form-control">
                     <option disabled selected></option>
-                    @for ($start = 0*2; $start <=23*2; $start++) <option
-                      value="{{date("H:i:s", strtotime("00:00 +". $start * 30 ." minute"))}}" @if(!empty($request->
+                    @for ($start = 0*2; $start <=23*2; $start++) <option value="{{date("H:i:s", strtotime("00:00 +". $start * 30 ." minute"))}}" @if(!empty($request->
                       enter_time))
                       @if($request->enter_time==date("H:i:s", strtotime("00:00+".$start * 30 ." minute")))
                       selected
@@ -168,8 +169,7 @@ if ($(this).parent().parent().parent().attr('class') == "others_main") {
                 <div>
                   <select name="leave_time" id="sales_finish" class="form-control">
                     <option disabled selected></option>
-                    @for ($start = 0*2; $start <=23*2; $start++) <option
-                      value="{{date("H:i:s", strtotime("00:00 +". $start * 30 ." minute"))}}" @if(!empty($request->
+                    @for ($start = 0*2; $start <=23*2; $start++) <option value="{{date("H:i:s", strtotime("00:00 +". $start * 30 ." minute"))}}" @if(!empty($request->
                       leave_time))
                       @if($request->leave_time==date("H:i:s", strtotime("00:00
                       +".$start * 30 ." minute"))) selected @endif @endif>
@@ -186,12 +186,27 @@ if ($(this).parent().parent().parent().attr('class') == "others_main") {
         <table class="table table-bordered board-table">
           <tbody>
             <tr>
-              <td>案内板</td>
+              <td colspan="2">
+                <div class="d-flex align-items-center justify-content-between">
+                  <p class="title-icon">
+                    <i class="fas fa-clipboard icon-size" aria-hidden="true"></i>案内版
+                  </p>
+                </div>
+              </td>
+            </tr>
+            <tr>
+              <td class="table-active">案内板</td>
               <td>
-                {{ Form::radio('board_flag', 0, $request->board_flag==0?true:false, ['class'=>'mr-2', 'id'=>'board_flag1']) }}
-                {{Form::label('board_flag1','無し')}}
-                {{ Form::radio('board_flag', 1, $request->board_flag==1?true:false, ['class'=>'mr-2', 'id'=>'board_flag2']) }}
-                {{Form::label('board_flag2','有り')}}
+                <div class="radio-box">
+                  <p>
+                    {{ Form::radio('board_flag', 0, $request->board_flag==0?true:false, ['class'=>'mr-2', 'id'=>'board_flag1']) }}
+                    {{Form::label('board_flag1','無し')}}
+                  </p>
+                  <p>
+                    {{ Form::radio('board_flag', 1, $request->board_flag==1?true:false, ['class'=>'mr-2', 'id'=>'board_flag2']) }}
+                    {{Form::label('board_flag2','有り')}}
+                  </p>
+                </div>
               </td>
             </tr>
             <tr>
@@ -200,8 +215,7 @@ if ($(this).parent().parent().parent().attr('class') == "others_main") {
                 <div>
                   <select name="event_start" id="event_start" class="form-control">
                     <option disabled>選択してください</option>
-                    @for ($start = 0*2; $start <=23*2; $start++) <option
-                      value="{{date("H:i:s", strtotime("00:00 +". $start * 30 ." minute"))}}" @if(!empty($request->
+                    @for ($start = 0*2; $start <=23*2; $start++) <option value="{{date("H:i:s", strtotime("00:00 +". $start * 30 ." minute"))}}" @if(!empty($request->
                       event_start))
                       @if($request->event_start==date("H:i:s", strtotime("00:00 +".
                       $start * 30 ." minute"))) selected @endif @endif>
@@ -217,8 +231,7 @@ if ($(this).parent().parent().parent().attr('class') == "others_main") {
                 <div>
                   <select name="event_finish" id="event_finish" class="form-control">
                     <option disabled>選択してください</option>
-                    @for ($start = 0*2; $start <=23*2; $start++) <option
-                      value="{{date("H:i:s", strtotime("00:00 +". $start * 30 ." minute"))}}" @if(!empty($request->
+                    @for ($start = 0*2; $start <=23*2; $start++) <option value="{{date("H:i:s", strtotime("00:00 +". $start * 30 ." minute"))}}" @if(!empty($request->
                       event_finish)) @if($request->event_finish==date("H:i:s", strtotime("00:00
                       +". $start * 30 ." minute"))) selected @endif @endif>
                       {{date("H時i分", strtotime("00:00 +". $start * 30 ." minute"))}}</option>
@@ -249,23 +262,19 @@ if ($(this).parent().parent().parent().attr('class') == "others_main") {
         </table>
         <div class="equipemnts">
           <table class="table table-bordered">
-            <thead>
+            <thead class="accordion-ttl">
               <tr>
                 <th colspan="2">
-                  <div class="d-flex justify-content-between align-items-center">
-                    <p class="title-icon fw-bolder py-1">
-                      <i class="fas fa-wrench icon-size fa-fw" aria-hidden="true"></i>有料備品
-                    </p>
-                    <i class="fas fa-plus icon_plus hide" aria-hidden="true"></i>
-                    <i class="fas fa-minus icon_minus" aria-hidden="true"></i>
-                  </div>
+                  <p class="title-icon fw-bolder">
+                    <i class="fas fa-wrench icon-size" aria-hidden="true"></i>有料備品
+                  </p>
                 </th>
               </tr>
             </thead>
-            <tbody>
+            <tbody class="accordion-wrap">
               @foreach ($SPvenue->getEquipments() as $key=>$equipment)
               <tr>
-                <td>{{$equipment->item}}</td>
+                <td class="table-active">{{$equipment->item}}</td>
                 <td>
                   {{ Form::text('equipment_breakdown'.$key, $request->{'equipment_breakdown'.$key},['class'=>'form-control', 'placeholder'=>'入力してください'] ) }}
                 </td>
@@ -276,23 +285,19 @@ if ($(this).parent().parent().parent().attr('class') == "others_main") {
         </div>
         <div class="services">
           <table class="table table-bordered">
-            <thead>
+            <thead class="accordion-ttl">
               <tr>
                 <th colspan="2">
-                  <div class="d-flex justify-content-between align-items-center">
-                    <p class="title-icon fw-bolder py-1">
-                      <i class="fas fa-hand-holding-heart icon-size fa-fw" aria-hidden="true"></i>有料サービス
-                    </p>
-                    <i class="fas fa-plus icon_plus hide" aria-hidden="true"></i>
-                    <i class="fas fa-minus icon_minus" aria-hidden="true"></i>
-                  </div>
+                  <p class="title-icon fw-bolder">
+                    <i class="fas fa-hand-holding-heart icon-size" aria-hidden="true"></i>有料サービス
+                  </p>
                 </th>
               </tr>
             </thead>
-            <tbody>
+            <tbody class="accordion-wrap">
               @foreach ($SPvenue->getServices() as $key=>$service)
               <tr>
-                <td>{{$service->item}}</td>
+                <td class="table-active">{{$service->item}}</td>
                 <td>
                   <div class="form-check form-check-inline">
                     {{Form::radio('services_breakdown'.$key, 1,$request->{'services_breakdown'.$key}==1?true:false , ['id' => 'service'.$key.'on', 'class' => 'form-check-input'])}}
@@ -319,7 +324,7 @@ if ($(this).parent().parent().parent().attr('class') == "others_main") {
             </thead>
             <tbody>
               <tr>
-                <td>レイアウト準備</td>
+                <td class="table-active">準備</td>
                 <td>
                   <div class="form-check form-check-inline">
                     {{Form::radio('layout_prepare', 1, $request->layout_prepare==1?true:false, ['id' => 'layout_prepare', 'class' => 'form-check-input'])}}
@@ -330,7 +335,7 @@ if ($(this).parent().parent().parent().attr('class') == "others_main") {
                 </td>
               </tr>
               <tr>
-                <td>片付</td>
+                <td class="table-active">片付</td>
                 <td>
                   <div class="form-check form-check-inline">
                     {{Form::radio('layout_clean', 1, $request->layout_clean==1?true:false, ['id' => 'layout_clean', 'class' => 'form-check-input'])}}
@@ -356,30 +361,30 @@ if ($(this).parent().parent().parent().attr('class') == "others_main") {
             </thead>
             <tbody>
               <tr>
-                <td>事前に預かる荷物<br>（個数）</td>
+                <td class="table-active">事前に預かる荷物<br>（個数）</td>
                 <td>
                   {{ Form::text('luggage_count', $request->luggage_count,['class'=>'form-control'] ) }}
                 </td>
               </tr>
               <tr>
-                <td>事前荷物の到着日<br>午前指定のみ</td>
+                <td class="table-active">事前荷物の到着日<br>午前指定のみ</td>
                 <td>
                   {{ Form::text('luggage_arrive', $request->luggage_arrive,['class'=>'form-control','id'=>'datepicker'] ) }}
                 </td>
               </tr>
 
               <tr>
-                <td>事後返送する荷物</td>
+                <td class="table-active">事後返送する荷物</td>
                 <td>
                   {{ Form::text('luggage_return', $request->luggage_return,['class'=>'form-control'] ) }}
                 </td>
               </tr>
-              <tr>
-                <td>荷物預かり/返送<br>料金</td>
+              <!-- <tr>
+                <td class="table-active">荷物預かり/返送<br>料金</td>
                 <td>
                   {{ Form::text('luggage_price', $request->luggage_price,['class'=>'form-control'] ) }}
                 </td>
-              </tr>
+              </tr> -->
             </tbody>
           </table>
         </div>
@@ -431,24 +436,16 @@ if ($(this).parent().parent().parent().attr('class') == "others_main") {
             <tr>
               <td colspan="2">
                 <p class="title-icon">
-                  <i class="fas fa-user-check icon-size" aria-hidden="true"></i>エンドユーザー
+                  <i class="fas fa-user-check icon-size" aria-hidden="true"></i>エンドユーザー情報
                 </p>
               </td>
             </tr>
             <tr>
               <td class="table-active">
-                <label for="enduser_company" class="">会社名・団体名</label>
+                <label for="enduser_company" class="">エンドユーザー</label>
               </td>
               <td>
                 {{ Form::text('enduser_company', $request->enduser_company,['class'=>'form-control', 'placeholder'=>'入力してください','id'=>'enduser_company'] ) }}
-              </td>
-            </tr>
-            <tr>
-              <td class="table-active">
-                <label for="enduser_incharge" class="">担当者氏名</label>
-              </td>
-              <td>
-                {{ Form::text('enduser_incharge', $request->enduser_incharge,['class'=>'form-control', 'placeholder'=>'入力してください', 'id'=>'enduser_incharge'] ) }}
               </td>
             </tr>
             <tr>
@@ -461,18 +458,10 @@ if ($(this).parent().parent().parent().attr('class') == "others_main") {
             </tr>
             <tr>
               <td class="table-active">
-                <label for="enduser_tel" class="">電話番号</label>
+                <label for="enduser_tel" class="">連絡先</label>
               </td>
               <td>
                 {{ Form::text('enduser_tel', $request->enduser_tel,['class'=>'form-control', 'placeholder'=>'入力してください', 'maxlength'=>13, 'id'=>'enduser_tel'] ) }}
-              </td>
-            </tr>
-            <tr>
-              <td class="table-active">
-                <label for="enduser_mobile" class="">当日連絡先</label>
-              </td>
-              <td>
-                {{ Form::text('enduser_mobile', "",['class'=>'form-control', 'placeholder'=>'入力してください', 'maxlength'=>13, 'id'=>'enduser_tel'] ) }}
               </td>
             </tr>
             <tr>
@@ -481,6 +470,22 @@ if ($(this).parent().parent().parent().attr('class') == "others_main") {
               </td>
               <td>
                 {{ Form::text('enduser_mail', $request->enduser_mail,['class'=>'form-control', 'placeholder'=>'入力してください', 'maxlength'=>13,'id'=>'enduser_mail'] ) }}
+              </td>
+            </tr>
+            <tr>
+              <td class="table-active">
+                <label for="enduser_incharge" class="">当日担当者</label>
+              </td>
+              <td>
+                {{ Form::text('enduser_incharge', $request->enduser_incharge,['class'=>'form-control', 'placeholder'=>'入力してください', 'id'=>'enduser_incharge'] ) }}
+              </td>
+            </tr>
+            <tr>
+              <td class="table-active">
+                <label for="enduser_mobile" class="">当日連絡先</label>
+              </td>
+              <td>
+                {{ Form::text('enduser_mobile', "",['class'=>'form-control', 'placeholder'=>'入力してください', 'maxlength'=>13, 'id'=>'enduser_tel'] ) }}
               </td>
             </tr>
             <tr>
@@ -533,7 +538,7 @@ if ($(this).parent().parent().parent().attr('class') == "others_main") {
     </div>
   </section>
 
-  {{Form::submit('再計算する', ['class'=>'btn btn-danger mx-auto d-block btn-lg', 'id'=>'check_submit'])}}
+  {{Form::submit('再計算する', ['class'=>'my-5 btn more_btn4_lg mx-auto d-block btn-lg', 'id'=>'check_submit'])}}
 
   {{Form::close()}}
 
@@ -541,7 +546,7 @@ if ($(this).parent().parent().parent().attr('class') == "others_main") {
 
   {{ Form::open(['url' => 'admin/agents_reservations/check', 'method'=>'POST', 'id'=>'agents_calculate_form']) }}
   @csrf
-  <section class="section-wrap">
+  <section class="">
     <div class="bill">
       <div class="bill_head">
         <table class="table bill_table">
@@ -790,7 +795,6 @@ if ($(this).parent().parent().parent().attr('class') == "others_main") {
       </div>
     </div>
 
-
     <div class="information">
       <div class="information_details">
         <div class="head d-flex">
@@ -805,7 +809,7 @@ if ($(this).parent().parent().parent().attr('class') == "others_main") {
           </div>
         </div>
         <div class="main">
-          <div class="informations billdetails_content">
+          <div class="informations billdetails_content pb-3">
             <table class="table">
               <tbody>
                 <tr>
@@ -835,7 +839,6 @@ if ($(this).parent().parent().parent().attr('class') == "others_main") {
         </div>
       </div>
     </div>
-
 
     <div class="paid">
       <div class="paid_details">
@@ -900,7 +903,7 @@ if ($(this).parent().parent().parent().attr('class') == "others_main") {
   {{ Form::hidden('user_details', $request->user_details) }}
   {{ Form::hidden('admin_details', $request->admin_details) }}
 
-  {{Form::submit('確認する', ['class'=>'btn btn-primary d-block btn-lg mx-auto mt-5 mb-5', 'id'=>'check_submit'])}}
+  {{Form::submit('確認する', ['class'=>'btn more_btn_lg d-block  mx-auto my-5', 'id'=>'check_submit'])}}
   {{Form::close()}}
 
 </div>

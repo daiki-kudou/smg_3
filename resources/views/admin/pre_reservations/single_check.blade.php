@@ -10,7 +10,7 @@
 {{ Form::open(['url' => 'admin/pre_reservations/calculate', 'method'=>'POST', 'id'=>'pre_reservationSingleCheckForm']) }}
 @csrf
 
-<section class="section-wrap">
+<section class="mt-5">
   <div class="selected_user">
     <table class="table table-bordered" style="table-layout: fixed;">
       <thead>
@@ -51,7 +51,7 @@
     </table>
   </div>
 
-  <div class="unknown_user mt-5">
+  <div class="unknown_user mt-3">
     <table class="table table-bordered" style="table-layout: fixed;">
       <thead>
         <tr>
@@ -389,7 +389,10 @@
               <tr>
                 <td class="table-active">荷物預かり/返送<br>料金</td>
                 <td>
+                  <div class="d-flex align-items-end">
                   {{ Form::text('luggage_price', '',['class'=>'form-control'] ) }}
+                  <span class="ml-1">円</span>
+                  </div>
                 </td>
               </tr>
               @endif
