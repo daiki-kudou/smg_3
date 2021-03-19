@@ -390,8 +390,8 @@
                 <td class="table-active">荷物預かり/返送<br>料金</td>
                 <td>
                   <div class="d-flex align-items-end">
-                  {{ Form::text('luggage_price', '',['class'=>'form-control'] ) }}
-                  <span class="ml-1">円</span>
+                    {{ Form::text('luggage_price', '',['class'=>'form-control'] ) }}
+                    <span class="ml-1">円</span>
                   </div>
                 </td>
               </tr>
@@ -589,5 +589,7 @@
       }
     })
   })
+
+  
 </script>
 @endsection

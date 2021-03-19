@@ -101,7 +101,6 @@
     </table>
   </div>
 
-
   {{-- 以下、詳細入力 --}}
   <div class="container-field mt-5 mb-5">
     <div class="row">
@@ -154,7 +153,9 @@
               <td>
                 <select name="enter_time" id="enter_time" class="form-control">
                   <option value=""></option>
-                  @for ($start = 0*2; $start <=23*2; $start++) <option value="{{date("H:i:s", strtotime("00:00 +". $start * 30 ." minute"))}}" @if (date("H:i:s", strtotime("00:00 +". $start * 30 ." minute"))==$request->enter_time)
+                  @for ($start = 0*2; $start <=23*2; $start++) <option
+                    value="{{date("H:i:s", strtotime("00:00 +". $start * 30 ." minute"))}}" @if (date("H:i:s",
+                    strtotime("00:00 +". $start * 30 ." minute"))==$request->enter_time)
                     selected
                     @endif
                     >
@@ -169,7 +170,9 @@
               <td>
                 <select name="leave_time" id="leave_time" class="form-control">
                   <option value=""></option>
-                  @for ($start = 0*2; $start <=23*2; $start++) <option value="{{date("H:i:s", strtotime("00:00 +". $start * 30 ." minute"))}}" @if (date("H:i:s", strtotime("00:00 +". $start * 30 ." minute"))==$request->leave_time)
+                  @for ($start = 0*2; $start <=23*2; $start++) <option
+                    value="{{date("H:i:s", strtotime("00:00 +". $start * 30 ." minute"))}}" @if (date("H:i:s",
+                    strtotime("00:00 +". $start * 30 ." minute"))==$request->leave_time)
                     selected
                     @endif
                     >
@@ -213,7 +216,9 @@
             <td>
               <select name="event_start" id="event_start" class="form-control">
                 <option disabled>選択してください</option>
-                @for ($start = 0*2; $start <=23*2; $start++) <option value="{{date("H:i:s", strtotime("00:00 +". $start * 30 ." minute"))}}" @if(date("H:i:s",strtotime("00:00 +". $start * 30 ." minute"))<$request->enter_time)
+                @for ($start = 0*2; $start <=23*2; $start++) <option
+                  value="{{date("H:i:s", strtotime("00:00 +". $start * 30 ." minute"))}}"
+                  @if(date("H:i:s",strtotime("00:00 +". $start * 30 ." minute"))<$request->enter_time)
                   disabled
                   @elseif(date("H:i:s", strtotime("00:00 +". $start * 30 ." minute"))>$request->leave_time)
                   disabled
@@ -231,7 +236,9 @@
             <td>
               <select name="event_finish" id="event_finish" class="form-control">
                 <option disabled>選択してください</option>
-                @for ($start = 0*2; $start <=23*2; $start++) <option value="{{date("H:i:s", strtotime("00:00 +". $start * 30 ." minute"))}}" @if(date("H:i:s",strtotime("00:00 +". $start * 30 ." minute"))<$request->enter_time)
+                @for ($start = 0*2; $start <=23*2; $start++) <option
+                  value="{{date("H:i:s", strtotime("00:00 +". $start * 30 ." minute"))}}"
+                  @if(date("H:i:s",strtotime("00:00 +". $start * 30 ." minute"))<$request->enter_time)
                   disabled
                   @elseif(date("H:i:s", strtotime("00:00 +". $start * 30 ." minute"))>$request->leave_time)
                   disabled
