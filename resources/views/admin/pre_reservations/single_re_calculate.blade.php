@@ -20,7 +20,7 @@
 
 {{ Form::open(['url' => 'admin/pre_reservations/'.$request->id.'/re_calculate', 'method'=>'POST', 'id'=>'pre_reservationSingleRecalculateForm']) }}
 @csrf
-<section class="section-wrap">
+<section class="mt-5">
   <div class="selected_user">
     <table class="table table-bordered" style="table-layout: fixed;">
       <thead>
@@ -63,7 +63,7 @@
     </table>
   </div>
 
-  <div class="unknown_user mt-5">
+  <div class="unknown_user mt-3">
     <table class="table table-bordered" style="table-layout: fixed;">
       <thead>
         <tr>
@@ -103,7 +103,7 @@
 
 
   {{-- 以下、詳細入力 --}}
-  <div class="container-field bg-white text-dark mt-5 mb-5">
+  <div class="container-field mt-5 mb-5">
     <div class="row">
       <div class="col">
         <table class="table table-bordered">
@@ -143,12 +143,12 @@
                   </div>
                   <div class="form-check">
                     <p>
-                    {{Form::radio('price_system', 1, $request->price_system==1?true:false , ['id' => 'price_system_radio1', 'class' => 'form-check-input'])}}
-                    <label for="{{'price_system_radio1'}}" class="form-check-label">通常(枠貸)</label>
+                      {{Form::radio('price_system', 1, $request->price_system==1?true:false , ['id' => 'price_system_radio1', 'class' => 'form-check-input'])}}
+                      <label for="{{'price_system_radio1'}}" class="form-check-label">通常(枠貸)</label>
                     </p>
                     <p>
-                    {{Form::radio('price_system', 2, $request->price_system==2?true:false, ['id' => 'price_system_radio2', 'class' => 'form-check-input'])}}
-                    <label for="{{'price_system_radio2'}}" class="form-check-label">アクセア仕様</label>
+                      {{Form::radio('price_system', 2, $request->price_system==2?true:false, ['id' => 'price_system_radio2', 'class' => 'form-check-input'])}}
+                      <label for="{{'price_system_radio2'}}" class="form-check-label">アクセア仕様</label>
                     </p>
                   </div>
                 </div>
@@ -314,12 +314,12 @@
                 <td>
                   <div class="radio-box">
                     <p>
-                    {{Form::radio('services_breakdown'.$key, 1, $request->{'services_breakdown'.$key}==1?true:false , ['id' => 'service'.$key.'on'])}}
-                    <label for="{{'service'.$key.'on'}}" class="form-check-label">有り</label>
+                      {{Form::radio('services_breakdown'.$key, 1, $request->{'services_breakdown'.$key}==1?true:false , ['id' => 'service'.$key.'on'])}}
+                      <label for="{{'service'.$key.'on'}}" class="form-check-label">有り</label>
                     </p>
                     <p>
-                    {{Form::radio('services_breakdown'.$key, 0, $request->{'services_breakdown'.$key}==0?true:false, ['id' => 'services_breakdown'.$key.'off'])}}
-                    <label for="{{'services_breakdown'.$key.'off'}}" class="form-check-label">無し</label>
+                      {{Form::radio('services_breakdown'.$key, 0, $request->{'services_breakdown'.$key}==0?true:false, ['id' => 'services_breakdown'.$key.'off'])}}
+                      <label for="{{'services_breakdown'.$key.'off'}}" class="form-check-label">無し</label>
                     </p>
                   </div>
                 </td>
@@ -348,12 +348,12 @@
                 <td>
                   <div class="radio-box">
                     <p>
-                    {{Form::radio('layout_prepare', 1, true , ['id' => 'layout_prepare'])}}
-                    <label for="{{'layout_prepare'}}" class="form-check-label">有り</label>
+                      {{Form::radio('layout_prepare', 1, true , ['id' => 'layout_prepare'])}}
+                      <label for="{{'layout_prepare'}}" class="form-check-label">有り</label>
                     </p>
                     <p>
-                    {{Form::radio('layout_prepare', 0, false, ['id' => 'no_layout_prepare'])}}
-                    <label for="{{'no_layout_prepare'}}" class="form-check-label">無し</label>
+                      {{Form::radio('layout_prepare', 0, false, ['id' => 'no_layout_prepare'])}}
+                      <label for="{{'no_layout_prepare'}}" class="form-check-label">無し</label>
                     </p>
                   </div>
                 </td>
@@ -366,12 +366,12 @@
                 <td>
                   <div class="radio-box">
                     <p>
-                    {{Form::radio('layout_prepare', 1, false , ['id' => 'layout_prepare'])}}
-                    <label for="{{'layout_prepare'}}" class="form-check-label">有り</label>
+                      {{Form::radio('layout_prepare', 1, false , ['id' => 'layout_prepare'])}}
+                      <label for="{{'layout_prepare'}}" class="form-check-label">有り</label>
                     </p>
                     <p>
-                    {{Form::radio('layout_prepare', 0, true, ['id' => 'no_layout_prepare'])}}
-                    <label for="{{'no_layout_prepare'}}" class="form-check-label">無し</label>
+                      {{Form::radio('layout_prepare', 0, true, ['id' => 'no_layout_prepare'])}}
+                      <label for="{{'no_layout_prepare'}}" class="form-check-label">無し</label>
                     </p>
                   </div>
                 </td>
@@ -385,12 +385,12 @@
                 <td>
                   <div class="radio-box">
                     <p>
-                    {{Form::radio('layout_clean', 1, true, ['id' => 'layout_clean'])}}
-                    <label for='layout_clean' class="form-check-label">有り</label>
+                      {{Form::radio('layout_clean', 1, true, ['id' => 'layout_clean'])}}
+                      <label for='layout_clean' class="form-check-label">有り</label>
                     </p>
                     <p>
-                    {{Form::radio('layout_clean', 0, false, ['id' => 'no_layout_clean'])}}
-                    <label for='no_layout_clean' class="form-check-label">無し</label>
+                      {{Form::radio('layout_clean', 0, false, ['id' => 'no_layout_clean'])}}
+                      <label for='no_layout_clean' class="form-check-label">無し</label>
                     </p>
                   </div>
                 </td>
@@ -403,12 +403,12 @@
                 <td>
                   <div class="radio-box">
                     <p>
-                    {{Form::radio('layout_clean', 1, false, ['id' => 'layout_clean'])}}
-                    <label for='layout_clean' class="form-check-label">有り</label>
+                      {{Form::radio('layout_clean', 1, false, ['id' => 'layout_clean'])}}
+                      <label for='layout_clean' class="form-check-label">有り</label>
                     </p>
                     <p>
-                    {{Form::radio('layout_clean', 0, true, ['id' => 'no_layout_clean'])}}
-                    <label for='no_layout_clean' class="form-check-label">無し</label>
+                      {{Form::radio('layout_clean', 0, true, ['id' => 'no_layout_clean'])}}
+                      <label for='no_layout_clean' class="form-check-label">無し</label>
                     </p>
                   </div>
                 </td>
@@ -430,33 +430,35 @@
             </thead>
             <tbody>
               <tr>
-                <td>事前に預かる荷物<br>（個数）</td>
+                <td class="table-active">事前に預かる荷物<br>（個数）</td>
                 <td>
                   {{ Form::text('luggage_count', $request->luggage_count,['class'=>'form-control'] ) }}
                 </td>
               </tr>
               <tr>
-                <td>事前荷物の到着日<br>午前指定のみ</td>
+                <td class="table-active">事前荷物の到着日<br>午前指定のみ</td>
                 <td>
                   {{ Form::text('luggage_arrive', $request->luggage_arrive,['class'=>'form-control'] ) }}
                 </td>
               </tr>
               <tr>
-                <td>事後返送する荷物</td>
+                <td class="table-active">事後返送する荷物</td>
                 <td>
                   {{ Form::text('luggage_return', $request->luggage_return,['class'=>'form-control'] ) }}
                 </td>
               </tr>
               <tr>
-                <td>荷物預かり/返送<br>料金</td>
+                <td class="table-active">荷物預かり/返送<br>料金</td>
                 <td>
-                  {{ Form::text('luggage_price', $request->luggage_price,['class'=>'form-control'] ) }}
+                  <div class="d-flex align-items-end">
+                    {{ Form::text('luggage_price', $request->luggage_price,['class'=>'form-control'] ) }}
+                    <span class="ml-1">円</span>
+                  </div>
                 </td>
               </tr>
             </tbody>
           </table>
         </div>
-
 
         @if ($SPVenue->eat_in_flag==1)
         <div class="eat_in">

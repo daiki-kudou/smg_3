@@ -5,12 +5,14 @@
 <script src="{{ asset('/js/admin/validation.js') }}"></script>
 <link href="{{ asset('/css/template.css') }}" rel="stylesheet">
 
+
 <h2 class="mt-3 mb-3">仲介会社　仮押え 計算</h2>
+<hr>
 
 {{Form::open(['url' => 'admin/pre_agent_reservations/calculate', 'method' => 'POST', 'id'=>'pre_agent_reservationsSingleCalculateForm'])}}
 @csrf
 
-<section class="section-wrap">
+<section class="mt-5">
   <div class="selected_user">
     <table class="table table-bordered" style="table-layout: fixed;">
       <thead>
@@ -61,7 +63,7 @@
     </table>
   </div>
 
-  <div class="unknown_user mt-5">
+  <div class="unknown_user mt-3">
     <table class="table table-bordered" style="table-layout: fixed;">
       <thead>
         <tr>
@@ -110,7 +112,7 @@
     </table>
   </div>
 
-  <div class="container-field bg-white text-dark mt-5">
+  <div class="container-field mt-5">
     <div class="row">
       <div class="col">
         <table class="table table-bordered">
@@ -294,12 +296,12 @@
                 <td>
                   <div class="radio-box">
                     <p>
-                    {{Form::radio('services_breakdown'.$s_key, 1, $request->{'services_breakdown'.$s_key}==1?true:false , ['id' => 'service'.$s_key.'on'])}}
-                    {{Form::label('service'.$s_key.'on', "有り")}}
+                      {{Form::radio('services_breakdown'.$s_key, 1, $request->{'services_breakdown'.$s_key}==1?true:false , ['id' => 'service'.$s_key.'on'])}}
+                      {{Form::label('service'.$s_key.'on', "有り")}}
                     </p>
                     <p>
-                    {{Form::radio('services_breakdown'.$s_key, 0, $request->{'services_breakdown'.$s_key}==0?true:false, ['id' => 'services_breakdown'.$s_key.'off'])}}
-                    {{Form::label('services_breakdown'.$s_key.'off', "無し")}}
+                      {{Form::radio('services_breakdown'.$s_key, 0, $request->{'services_breakdown'.$s_key}==0?true:false, ['id' => 'services_breakdown'.$s_key.'off'])}}
+                      {{Form::label('services_breakdown'.$s_key.'off', "無し")}}
                     </p>
                   </div>
                 </td>
@@ -328,12 +330,12 @@
                 <td>
                   <div class="radio-box">
                     <p>
-                    {{Form::radio('layout_prepare', 1, $request->layout_prepare==1?true:false , ['id' => 'layout_prepare'])}}
-                    {{Form::label('layout_prepare', "有り")}}
+                      {{Form::radio('layout_prepare', 1, $request->layout_prepare==1?true:false , ['id' => 'layout_prepare'])}}
+                      {{Form::label('layout_prepare', "有り")}}
                     </p>
                     <p>
-                    {{Form::radio('layout_prepare', 0, $request->layout_prepare==0?true:false, ['id' => 'no_layout_prepare'])}}
-                    {{Form::label('no_layout_prepare', "無し")}}
+                      {{Form::radio('layout_prepare', 0, $request->layout_prepare==0?true:false, ['id' => 'no_layout_prepare'])}}
+                      {{Form::label('no_layout_prepare', "無し")}}
                     </p>
                   </div>
                 </td>
@@ -347,12 +349,12 @@
                 <td>
                   <div class="radio-box">
                     <p>
-                    {{Form::radio('layout_clean', 1, $request->layout_clean==1?true:false, ['id' => 'layout_clean'])}}
-                    {{Form::label('layout_clean', "有り")}}
+                      {{Form::radio('layout_clean', 1, $request->layout_clean==1?true:false, ['id' => 'layout_clean'])}}
+                      {{Form::label('layout_clean', "有り")}}
                     </p>
                     <p>
-                    {{Form::radio('layout_clean', 0, $request->layout_clean==0?true:false, ['id' => 'no_layout_clean'])}}
-                    {{Form::label('no_layout_clean', "無し")}}
+                      {{Form::radio('layout_clean', 0, $request->layout_clean==0?true:false, ['id' => 'no_layout_clean'])}}
+                      {{Form::label('no_layout_clean', "無し")}}
                     </p>
                   </div>
                 </td>
@@ -439,12 +441,6 @@
           </table>
         </div>
         @endif
-
-
-
-
-
-
       </div>
 
       <div class="col">
@@ -462,9 +458,9 @@
                 <label for="enduser_charge ">支払い料</label>
               </td>
               <td>
-                <div class="d-flex align-items-center">
+                <div class="d-flex align-items-end">
                   {{ Form::text('enduser_charge', $request->enduser_charge,['class'=>'form-control'] ) }}
-                  <span class="ml-2">円</span>
+                  <span class="ml-1">円</span>
                 </div>
                 <p class="is-error-enduser_charge" style="color: red"></p>
               </td>
@@ -537,7 +533,6 @@
   {{ Form::open(['url' => 'admin/pre_agent_reservations/store', 'method'=>'POST', 'id'=>'']) }}
   @csrf
   {{-- 以下計算結果 --}}
-  <div class="container-fluid">
     <div class="bill">
       <div class="bill_head">
         <table class="table bill_table" style="table-layout: fixed">
@@ -781,7 +776,6 @@
         </div>
       </div>
     </div>
-  </div>
 </section>
 
 
