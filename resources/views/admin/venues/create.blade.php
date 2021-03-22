@@ -518,12 +518,24 @@
         <i class="fas fa-wrench icon-size fa-fw" aria-hidden="true"></i>有料備品
       </p>
       <div class="p-4 bg-white">
-        <p>※左部リストよりクリックで選択し右部リストに移動させてください</p>
+        <ul class="option_list_ttl">
+          <li>
+            <h5 class="fw-bold">・選択可能一覧</h5>
+            <p class="mt-2">※下部リストより該当情報をクリックすると右の「選択後画面」に反映します。</p>
+          </li>
+          <li>
+            <h5 class="fw-bold">・選択後画面</h5>
+            <p class="mt-2"><span class="caution_color">下部リストの順番通りに会場予約フォームに反映します。</span>
+              <br>※削除する場合は該当情報をクリック
+            </p>
+          </li>
+        </ul>
         <select id='equipment_id' multiple='multiple' name="equipment_id[]">
 
           @foreach ($equipments as $equipment)
           <option value={{$equipment->id}}>
-            {{$equipment->id}}/{{$equipment->item}}/{{$equipment->price}}円/{{$equipment->remark}}</option>
+            {{$equipment->id}}/{{$equipment->item}}/{{$equipment->price}}円/{{$equipment->remark}}
+          </option>
           @endforeach
         </select>
       </div>
@@ -535,7 +547,18 @@
         <i class="fas fa-hand-holding-heart icon-size fa-fw" aria-hidden="true"></i>有料サービス
       </p>
       <div class="p-4 bg-white">
-        <span>※左部リストよりクリックで選択し右部リストに移動させてください</span>
+        <ul class="option_list_ttl">
+          <li>
+            <h5>・選択可能一覧</h5>
+            <p class="mt-2">※下部リストより該当情報をクリックすると右の「選択後画面」に反映します。</p>
+          </li>
+          <li>
+            <h5>・選択後画面</h5>
+            <p class="mt-2"><span class="caution_color">下部リストの順番通りに会場予約フォームに反映します。</span>
+              <br>※削除する場合は該当情報をクリック
+            </p>
+          </li>
+        </ul>
         <select id='service_id' multiple='multiple' name="service_id[]">
 
           @foreach ($services as $service)

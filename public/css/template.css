@@ -478,7 +478,7 @@ select:disabled {
 }
 
 .annotation {
-    font-size: 0.7rem;
+    font-size: 0.8rem;
 }
 
 .table_row {
@@ -787,7 +787,7 @@ table td.table_column p:last-child {
 }
 
 .caution_color {
-    color: #DC3545;
+    color: #ff0018;
 }
 
 .caution textarea {
@@ -1018,6 +1018,26 @@ table td.table_column p:last-child {
     border-bottom: none;
 }
 
+
+.option_list_ttl {
+    display: flex;
+}
+
+.option_list_ttl li {
+    width: 45%;
+}
+
+.option_list_ttl h5 {
+    font-weight: bold;
+}
+.option_list_ttl .caution_color {
+    font-weight: bold;
+}
+
+.option_list_ttl li:last-child {
+    margin-left: 10%;
+}
+
 .price_ttl {
     font-weight: bold;
 }
@@ -1026,7 +1046,6 @@ table td.table_column p:last-child {
     color: red;
 }
 
-/* 会場 ===================================================================== */
 .agent_table th {
     width: 45%;
     /* width: 200px; */
