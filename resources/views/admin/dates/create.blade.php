@@ -22,7 +22,8 @@
     <span>会場：</span>{{ReservationHelper::getVenue($venue->id)}}
   </h3>
   <div class="mt-5 mb-2">
-    <p>※この情報はSMGサイト内、会場カレンダーや会場予約フォームの時間指定の開始・終了時間に紐づく情報です</p>
+    <p>※この情報はSMGサイト内、会場カレンダーや会場予約フォームの時間指定の開始・終了時間に紐づく情報です。<br>
+      管理者側では、下記の営業時間に関係なく、24時間の予約入力が可能です。</p>
   </div>
   <table class="table table-bordered">
     <thead>
@@ -59,9 +60,7 @@
         <td>
           <div class="form-inline">
             <select name="start" id="start" class="form-control">
-              @for ($start = 8*2; $start <=23*2; $start++) <option
-                value="{{date("H:i:s", strtotime("00:00 +". $start * 30 ." minute"))}}" @if (date("H:i:s",
-                strtotime("00:00 +". $start * 30 ." minute"))==$date_venues->
+              @for ($start = 8*2; $start <=23*2; $start++) <option value="{{date("H:i:s", strtotime("00:00 +". $start * 30 ." minute"))}}" @if (date("H:i:s", strtotime("00:00 +". $start * 30 ." minute"))==$date_venues->
                 where('week_day',$weekday_id)->first()->start)
                 selected
                 @endif
@@ -72,9 +71,7 @@
             </select>
             ~
             <select name="finish" id="finish" class="form-control col-sm-2">
-              @for ($start = 8*2; $start <=23*2; $start++) <option
-                value="{{date("H:i:s", strtotime("00:00 +". $start * 30 ." minute"))}}"
-                @if(date("H:i:s",strtotime("00:00 +". $start * 30 ." minute"))==$date_venues->
+              @for ($start = 8*2; $start <=23*2; $start++) <option value="{{date("H:i:s", strtotime("00:00 +". $start * 30 ." minute"))}}" @if(date("H:i:s",strtotime("00:00 +". $start * 30 ." minute"))==$date_venues->
                 where('week_day',$weekday_id)->first()->finish)
                 selected
                 @endif
