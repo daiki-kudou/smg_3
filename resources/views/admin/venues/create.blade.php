@@ -454,7 +454,7 @@
               </td>
             </tr>
             <tr>
-              <td class="table-active"><label for="layout_prepare" class="">レイアウト準備料金</label>
+              <td class="table-active"><label for="layout_prepare" class="">レイアウト準備料金<span class="ml-1 annotation">※税抜</span></label>
                 <span class="ml-1 annotation">※税抜</span>
               </td>
               <td>
