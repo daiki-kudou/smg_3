@@ -55,7 +55,7 @@
     <table class="table table-bordered" style="table-layout: fixed;">
       <thead>
         <tr>
-          <th>顧客情報</th>
+          <th class="align-middle">顧客情報</th>
           <td colspan="3">
             <div class="d-flex align-items-center">
             <p class="col-2">顧客ID：{{$PreReservation->user_id}}</p>

@@ -56,7 +56,9 @@
       <thead>
         <tr>
           <th>仲介会社情報</th>
-          <th colspan="3">仲介会社ID：
+          <th colspan="3">
+            <div class="d-flex">
+            <p>仲介会社ID：</p>
             {{$PreReservation->agent_id}}
             <select name="agent_id" id="agent_id">
               @foreach ($agents as $agents)
@@ -68,6 +70,7 @@
               </option>
               @endforeach
             </select>
+            </div>
           </th>
         </tr>
       </thead>
