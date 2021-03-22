@@ -236,6 +236,9 @@ class ReservationHelper
     return $num == 1 ? '通常（枠貸）' : 'アクセア（時間貸）';
   }
 
+
+
+
   public static function getTax($num)
   {
     return floor($num * 0.1);

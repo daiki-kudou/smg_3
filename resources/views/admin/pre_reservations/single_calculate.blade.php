@@ -101,7 +101,6 @@
     </table>
   </div>
 
-
   {{-- 以下、詳細入力 --}}
   <div class="container-field mt-5 mb-5">
     <div class="row">
@@ -154,7 +153,9 @@
               <td>
                 <select name="enter_time" id="enter_time" class="form-control">
                   <option value=""></option>
-                  @for ($start = 0*2; $start <=23*2; $start++) <option value="{{date("H:i:s", strtotime("00:00 +". $start * 30 ." minute"))}}" @if (date("H:i:s", strtotime("00:00 +". $start * 30 ." minute"))==$request->enter_time)
+                  @for ($start = 0*2; $start <=23*2; $start++) <option
+                    value="{{date("H:i:s", strtotime("00:00 +". $start * 30 ." minute"))}}" @if (date("H:i:s",
+                    strtotime("00:00 +". $start * 30 ." minute"))==$request->enter_time)
                     selected
                     @endif
                     >
@@ -169,7 +170,9 @@
               <td>
                 <select name="leave_time" id="leave_time" class="form-control">
                   <option value=""></option>
-                  @for ($start = 0*2; $start <=23*2; $start++) <option value="{{date("H:i:s", strtotime("00:00 +". $start * 30 ." minute"))}}" @if (date("H:i:s", strtotime("00:00 +". $start * 30 ." minute"))==$request->leave_time)
+                  @for ($start = 0*2; $start <=23*2; $start++) <option
+                    value="{{date("H:i:s", strtotime("00:00 +". $start * 30 ." minute"))}}" @if (date("H:i:s",
+                    strtotime("00:00 +". $start * 30 ." minute"))==$request->leave_time)
                     selected
                     @endif
                     >
@@ -213,7 +216,9 @@
             <td>
               <select name="event_start" id="event_start" class="form-control">
                 <option disabled>選択してください</option>
-                @for ($start = 0*2; $start <=23*2; $start++) <option value="{{date("H:i:s", strtotime("00:00 +". $start * 30 ." minute"))}}" @if(date("H:i:s",strtotime("00:00 +". $start * 30 ." minute"))<$request->enter_time)
+                @for ($start = 0*2; $start <=23*2; $start++) <option
+                  value="{{date("H:i:s", strtotime("00:00 +". $start * 30 ." minute"))}}"
+                  @if(date("H:i:s",strtotime("00:00 +". $start * 30 ." minute"))<$request->enter_time)
                   disabled
                   @elseif(date("H:i:s", strtotime("00:00 +". $start * 30 ." minute"))>$request->leave_time)
                   disabled
@@ -231,7 +236,9 @@
             <td>
               <select name="event_finish" id="event_finish" class="form-control">
                 <option disabled>選択してください</option>
-                @for ($start = 0*2; $start <=23*2; $start++) <option value="{{date("H:i:s", strtotime("00:00 +". $start * 30 ." minute"))}}" @if(date("H:i:s",strtotime("00:00 +". $start * 30 ." minute"))<$request->enter_time)
+                @for ($start = 0*2; $start <=23*2; $start++) <option
+                  value="{{date("H:i:s", strtotime("00:00 +". $start * 30 ." minute"))}}"
+                  @if(date("H:i:s",strtotime("00:00 +". $start * 30 ." minute"))<$request->enter_time)
                   disabled
                   @elseif(date("H:i:s", strtotime("00:00 +". $start * 30 ." minute"))>$request->leave_time)
                   disabled
@@ -283,7 +290,8 @@
                   {{$equipment->item}}
                 </td>
                 <td>
-                  {{ Form::text('equipment_breakdown'.$key, $request->{'equipment_breakdown'.$key},['class'=>'form-control'] ) }}
+                  {{ Form::text('equipment_breakdown'.$key, $request->{'equipment_breakdown'.$key},['class'=>'form-control equipment_breakdowns'] ) }}
+                  <p class='{{'is-error-equipment_breakdown'.$key}}' style='color: red'></p>
                 </td>
               </tr>
               @endforeach
@@ -435,18 +443,21 @@
                 <td class="table-active">事前に預かる荷物<br>（個数）</td>
                 <td>
                   {{ Form::text('luggage_count', $request->luggage_count,['class'=>'form-control'] ) }}
+                  <p class='is-error-luggage_count' style=' color: red'></p>
                 </td>
               </tr>
               <tr>
                 <td class="table-active">事前荷物の到着日<br>午前指定のみ</td>
                 <td>
                   {{ Form::text('luggage_arrive', $request->luggage_arrive,['class'=>'form-control','id'=>'datepicker9'] ) }}
+                  <p class='is-error-luggage_arrive' style=' color: red'></p>
                 </td>
               </tr>
               <tr>
                 <td class="table-active">事後返送する荷物</td>
                 <td>
                   {{ Form::text('luggage_return', $request->luggage_return,['class'=>'form-control'] ) }}
+                  <p class='is-error-luggage_return' style=' color: red'></p>
                 </td>
               </tr>
               <tr>
@@ -456,6 +467,7 @@
                     {{ Form::text('luggage_price', $request->luggage_price,['class'=>'form-control'] ) }}
                     <span class="ml-1">円</span>
                   </div>
+                  <p class='is-error-luggage_price' style=' color: red'></p>
                 </td>
               </tr>
             </tbody>
@@ -921,6 +933,8 @@
 
 
           @if ($SpVenue->layout==1)
+          @if ($request->layout_prepare!=0&&$request->layout_clean!=0)
+
           <div class="layout billdetails_content">
             <table class="table table-borderless">
               <tr>
@@ -972,6 +986,7 @@
               </tbody>
             </table>
           </div>
+          @endif
           @endif
 
 

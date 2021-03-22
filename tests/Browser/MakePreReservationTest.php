@@ -29,7 +29,7 @@ class MakePreReservationTest extends DuskTestCase
 
   public function testCreatePreReservation()
   {
-    $this->browse(function (Browser $browser) {
+    $createForm = $this->browse(function (Browser $browser) {
       $browser->visit('/admin/pre_reservations/create')
         ->assertSee('仮押え 新規登録')
         ->select("user_id", 2)
@@ -43,6 +43,17 @@ class MakePreReservationTest extends DuskTestCase
         ->select("pre_leave0", '12:00:00')
         ->click('#check_submit')
         ->assertPathIs('/admin/pre_reservations/check');
+      // ->assertSee('仮押え　詳細入力画面');
+    });
+    return $createForm;
+  }
+
+  public function testCheckPreReservation()
+  {
+    $getCreateForm = $this->testCreatePreReservation();
+    $this->browse(function ($getCreateForm) {
+      $getCreateForm->assertSee('仮押え　詳細入力画面')
+        ->radio('price_system', 1);
     });
   }
 }

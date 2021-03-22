@@ -302,7 +302,6 @@ class Venue extends Model implements PresentableInterface
         $temporary = []; //temporaryに配列挿入後、一旦初期化
       }
 
-
       /*|--------------------------------------------------------------------------
       |↓↓↓ 一旦ここで、網羅できる料金体系を抽出完了↓↓↓
       |--------------------------------------------------------------------------|*/
@@ -598,5 +597,19 @@ class Venue extends Model implements PresentableInterface
       }
     }
     return count($venue_details);
+  }
+
+  public function getPriceSystem()
+  {
+    $frame = 0;
+    $time = 0;
+    if ($this->frame_prices()->count() != 0) {
+      $frame = 1;
+    }
+    if ($this->time_prices()->count() != 0) {
+      $time = 1;
+    }
+
+    return [$frame, $time];
   }
 }

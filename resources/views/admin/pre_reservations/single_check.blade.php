@@ -118,9 +118,10 @@
                   <div>
                     <small>※料金体系を選択してください</small>
                   </div>
+                  @if ($venue->getPriceSystem()[0]==1&&$venue->getPriceSystem()[1]==1)
                   <div class="price_radio_selector">
                     <div class="d-flex justfy-content-start align-items-center">
-                      {{ Form::radio('price_system', 1, true, ['class'=>'mr-2', 'id'=>'price_system_radio1']) }}
+                      {{ Form::radio('price_system', 1, false, ['class'=>'mr-2', 'id'=>'price_system_radio1']) }}
                       {{Form::label('price_system_radio1','通常（枠貸）')}}
                     </div>
                     <div class="d-flex justfy-content-start align-items-center">
@@ -128,6 +129,32 @@
                       {{Form::label('price_system_radio2','アクセア（時間貸）')}}
                     </div>
                   </div>
+                  @elseif($venue->getPriceSystem()[0]==1&&$venue->getPriceSystem()[1]==0)
+                  <div class="price_radio_selector">
+                    <div class="d-flex justfy-content-start align-items-center">
+                      {{ Form::radio('price_system', 1, true, ['class'=>'mr-2', 'id'=>'price_system_radio1']) }}
+                      {{Form::label('price_system_radio1','通常（枠貸）')}}
+                    </div>
+                    <div class="d-flex justfy-content-start align-items-center">
+                      {{ Form::radio('price_system', 2, false, ['class'=>'mr-2', 'id'=>'price_system_radio2', 'disabled']) }}
+                      {{Form::label('price_system_radio2','アクセア（時間貸）')}}
+                    </div>
+                  </div>
+                  @elseif($venue->getPriceSystem()[0]==0&&$venue->getPriceSystem()[1]==1)
+                  <div class="price_radio_selector">
+                    <div class="d-flex justfy-content-start align-items-center">
+                      {{ Form::radio('price_system', 1, false, ['class'=>'mr-2', 'id'=>'price_system_radio1','disabled']) }}
+                      {{Form::label('price_system_radio1','通常（枠貸）')}}
+                    </div>
+                    <div class="d-flex justfy-content-start align-items-center">
+                      {{ Form::radio('price_system', 2, true, ['class'=>'mr-2', 'id'=>'price_system_radio2']) }}
+                      {{Form::label('price_system_radio2','アクセア（時間貸）')}}
+                    </div>
+                  </div>
+                  @elseif($venue->getPriceSystem()[0]==0&&$venue->getPriceSystem()[1]==0)
+                  <p>※該当会場には定められた料金体系が存在しません。料金設定をお願いします。</p>
+                  @endif
+                  <p class='{{'is-error-price_system'}}' style='color: red'></p>
                 </div>
               </td>
             </tr>
@@ -256,7 +283,8 @@
                   {{$equ->item}}
                 </td>
                 <td>
-                  {{ Form::text('equipment_breakdown'.$key, '',['class'=>'form-control'] ) }}
+                  {{ Form::text('equipment_breakdown'.$key, '',['class'=>'form-control equipment_breakdowns'] ) }}
+                  <p class='{{'is-error-equipment_breakdown'.$key}}' style='color: red'></p>
                 </td>
               </tr>
               @endforeach
@@ -372,6 +400,7 @@
                 <td class="table-active">事前に預かる荷物<br>（個数）</td>
                 <td>
                   {{ Form::text('luggage_count', '',['class'=>'form-control'] ) }}
+                  <p class='is-error-luggage_count' style=' color: red'></p>
                 </td>
               </tr>
               <tr>
@@ -384,15 +413,18 @@
                 <td class="table-active">事後返送する荷物</td>
                 <td>
                   {{ Form::text('luggage_return', '',['class'=>'form-control'] ) }}
+                  <p class='is-error-luggage_return' style=' color: red'></p>
                 </td>
               </tr>
               <tr>
                 <td class="table-active">荷物預かり/返送<br>料金</td>
                 <td>
                   <div class="d-flex align-items-end">
-                  {{ Form::text('luggage_price', '',['class'=>'form-control'] ) }}
-                  <span class="ml-1">円</span>
+                    {{ Form::text('luggage_price', '',['class'=>'form-control'] ) }}
+                    <span class="ml-1">円</span>
                   </div>
+                  <p class='is-error-luggage_price' style=' color: red'></p>
+
                 </td>
               </tr>
               @endif
@@ -589,5 +621,7 @@
       }
     })
   })
+
+  
 </script>
 @endsection
