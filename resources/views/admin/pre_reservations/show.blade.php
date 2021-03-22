@@ -40,8 +40,7 @@
                   編集
                 </a>
                 @else
-                <a href="{{url('admin/pre_agent_reservations/'.$pre_reservation->id.'/edit')}}"
-                  class="btn more_btn mr-2">
+                <a href="{{url('admin/pre_agent_reservations/'.$pre_reservation->id.'/edit')}}" class="btn more_btn mr-2">
                   仲介会社用編集
                 </a>
                 @endif
@@ -771,14 +770,18 @@
           <tbody class="venue_head">
             <tr>
               <td>内容</td>
+              <td>単価</td>
               <td>数量</td>
+              <td>金額</td>
             </tr>
           </tbody>
           <tbody class="venue_main">
             @foreach ($pre_reservation->pre_breakdowns()->where('unit_type',1)->get() as $venue_breakdown)
             <tr>
               <td>{{$venue_breakdown->unit_item}}</td>
+              <td></td>
               <td>{{$venue_breakdown->unit_count}}</td>
+              <td></td>
             </tr>
             @endforeach
           </tbody>
@@ -855,20 +858,26 @@
           <tbody class="equipment_head">
             <tr>
               <td>内容</td>
+              <td>単価</td>
               <td>数量</td>
+              <td>金額</td>
             </tr>
           </tbody>
           <tbody class="equipment_main">
             @foreach ($pre_reservation->pre_breakdowns()->where('unit_type',2)->get() as $equipment_breakdown)
             <tr>
               <td>{{$equipment_breakdown->unit_item}}</td>
+              <td></td>
               <td>{{$equipment_breakdown->unit_count}}</td>
+              <td></td>
             </tr>
             @endforeach
             @foreach ($pre_reservation->pre_breakdowns()->where('unit_type',3)->get() as $service_breakdown)
             <tr>
               <td>{{$service_breakdown->unit_item}}</td>
+              <td></td>
               <td>{{$service_breakdown->unit_count}}</td>
+              <td></td>
             </tr>
             @endforeach
           </tbody>
@@ -937,14 +946,18 @@
           <tbody class="layout_head">
             <tr>
               <td>内容</td>
+              <td>単価</td>
               <td>数量</td>
+              <td>金額</td>
             </tr>
           </tbody>
           <tbody class="layout_main">
             @foreach ($pre_reservation->pre_breakdowns()->where('unit_type',4)->get() as $layout_breakdown)
             <tr>
               <td>{{$layout_breakdown->unit_item}}</td>
+              <td></td>
               <td>{{$layout_breakdown->unit_count}}</td>
+              <td></td>
             </tr>
             @endforeach
           </tbody>

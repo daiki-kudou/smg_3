@@ -533,25 +533,25 @@
   {{ Form::open(['url' => 'admin/pre_agent_reservations/store', 'method'=>'POST', 'id'=>'']) }}
   @csrf
   {{-- 以下計算結果 --}}
-    <div class="bill">
-      <div class="bill_head">
-        <table class="table bill_table" style="table-layout: fixed">
-          <tbody>
-            <tr>
-              <td>
-                <h2 class="text-white">
-                  請求書No
-                </h2>
-              </td>
-              <td>
-                <dl class="ttl_box">
-                  <dt>合計金額</dt>
-                  <dd class="total_result">
-                    {{number_format(ReservationHelper::taxAndPrice(floor($price+$layout_prepare+$layout_clean)))}}
-                  </dd>
-                </dl>
-              </td>
-              <!-- <td style="font-size: 16px;">
+  <div class="bill">
+    <div class="bill_head">
+      <table class="table bill_table" style="table-layout: fixed">
+        <tbody>
+          <tr>
+            <td>
+              <h2 class="text-white">
+                請求書No
+              </h2>
+            </td>
+            <td>
+              <dl class="ttl_box">
+                <dt>合計金額</dt>
+                <dd class="total_result">
+                  {{number_format(ReservationHelper::taxAndPrice(floor($price+$layout_prepare+$layout_clean)))}}
+                </dd>
+              </dl>
+            </td>
+            <!-- <td style="font-size: 16px;">
                 <div class="bg-white d-flex justify-content-around align-items-center" style="height: 60px;">
                   <div>合計金額</div>
                   <div class="total_result">
@@ -559,166 +559,178 @@
                   </div>
                 </div>
               </td> -->
-            </tr>
-          </tbody>
-        </table>
-      </div>
-      <div class="bill_details">
-        <div class="head d-flex">
-          <div class="accordion_btn">
-            <i class="fas fa-plus bill_icon_size hide" aria-hidden="true"></i>
-            <i class="fas fa-minus bill_icon_size" aria-hidden="true"></i>
-          </div>
-          <div class="billdetails_ttl">
-            <h3>
-              請求内訳
-            </h3>
-          </div>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="bill_details">
+      <div class="head d-flex">
+        <div class="accordion_btn">
+          <i class="fas fa-plus bill_icon_size hide" aria-hidden="true"></i>
+          <i class="fas fa-minus bill_icon_size" aria-hidden="true"></i>
         </div>
-        <div class="main">
-          <div class="venues billdetails_content">
-            <table class="table table-borderless">
-              <tbody>
-                <tr>
-                  <td>
-                    <h4 class="billdetails_content_ttl">
-                      会場料
-                    </h4>
-                  </td>
-                </tr>
-              </tbody>
-              <tbody class="venue_head">
-                <tr>
-                  <td>内容</td>
-                  <td>数量</td>
-                </tr>
-              </tbody>
-              <tbody class="venue_main">
-                <tr>
-                  <td>{{ Form::text('venue_breakdown_item0', "会場料金",['class'=>'form-control', 'readonly'] ) }} </td>
-                  <td>
-                    {{ Form::text('venue_breakdown_count0', ReservationHelper::getUsage($request->enter_time,$request->leave_time)."h",['class'=>'form-control', 'readonly'] ) }}
-                  </td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
+        <div class="billdetails_ttl">
+          <h3>
+            請求内訳
+          </h3>
+        </div>
+      </div>
+      <div class="main">
+        <div class="venues billdetails_content">
+          <table class="table table-borderless">
+            <tbody>
+              <tr>
+                <td>
+                  <h4 class="billdetails_content_ttl">
+                    会場料
+                  </h4>
+                </td>
+              </tr>
+            </tbody>
+            <tbody class="venue_head">
+              <tr>
+                <td>内容</td>
+                <td>単価</td>
+                <td>数量</td>
+                <td>金額</td>
+              </tr>
+            </tbody>
+            <tbody class="venue_main">
+              <tr>
+                <td>{{ Form::text('venue_breakdown_item0', "会場料金",['class'=>'form-control', 'readonly'] ) }} </td>
+                <td><input class="form-control" readonly></td>
+                <td>
+                  {{ Form::text('venue_breakdown_count0', ReservationHelper::getUsage($request->enter_time,$request->leave_time)."h",['class'=>'form-control', 'readonly'] ) }}
+                </td>
+                <td><input class="form-control" readonly></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
 
-          <div class="equipment billdetails_content">
-            <table class="table table-borderless">
-              <tbody>
-                <tr>
-                  <td colspan="4">
-                    <h4 class="billdetails_content_ttl">
-                      有料備品・サービス
-                    </h4>
-                  </td>
-                </tr>
-              </tbody>
-              <tbody class="equipment_head">
-                <tr>
-                  <td>内容</td>
-                  <td>数量</td>
-                </tr>
-              </tbody>
-              <tbody class="equipment_main">
-                @foreach ($venue->getEquipments() as $e_key=>$equipment)
-                @if ($request->{'equipment_breakdown'.$e_key}>0)
-                <tr>
-                  <td>
-                    {{ Form::text('equipment_breakdown_item'.$e_key, $equipment->item,['class'=>'form-control', 'readonly'] ) }}
-                  </td>
-                  <td>
-                    {{ Form::text('equipment_breakdown_count'.$e_key, $request->{'equipment_breakdown'.$e_key},['class'=>'form-control', 'readonly'] ) }}
-                  </td>
-                </tr>
-                @endif
-                @endforeach
-                @foreach ($venue->getServices() as $s_key=>$service)
-                @if ($request->{'services_breakdown'.$s_key}>0)
-                <tr>
-                  <td>
-                    {{ Form::text('service_breakdown_item'.$s_key, $service->item,['class'=>'form-control', 'readonly'] ) }}
-                  </td>
-                  <td>
-                    {{ Form::text('service_breakdown_count'.$s_key, $request->{'services_breakdown'.$s_key},['class'=>'form-control', 'readonly'] ) }}
-                  </td>
-                </tr>
-                @endif
-                @endforeach
-                @if ($request->luggage_price)
-                <tr>
-                  <td>
-                    {{ Form::text('luggage_item', '荷物預かり/返送',['class'=>'form-control', 'readonly'] ) }}
-                  </td>
-                  <td>
-                    {{ Form::text('luggage_count', $request->luggage_price,['class'=>'form-control', 'readonly'] ) }}
-                  </td>
-                </tr>
-                @endif
-              </tbody>
-            </table>
-          </div>
-
-          <div class="layout billdetails_content">
-            <table class="table table-borderless">
-              <tbody>
-                <tr>
-                  <td>
-                    <h4 class="billdetails_content_ttl">
-                      レイアウト
-                    </h4>
-                  </td>
-                </tr>
-              </tbody>
-              <tbody class="layout_head">
-                <tr>
-                  <td>内容</td>
-                  <td>単価</td>
-                  <td>数量</td>
-                  <td>金額</td>
-                </tr>
-              </tbody>
-              <tbody class="layout_main">
-                @if ($request->layout_prepare==1)
-                <tr>
-                  <td>{{ Form::text('layout_prepare_item', "レイアウト準備料金",['class'=>'form-control', 'readonly'] ) }}</td>
-                  <td>
-                    {{ Form::text('layout_prepare_cost', $venue->getLayouts()[0],['class'=>'form-control', 'readonly'] ) }}
-                  </td>
-                  <td>{{ Form::text('layout_prepare_count', 1,['class'=>'form-control', 'readonly'] )}}</td>
-                  <td>
-                    {{ Form::text('layout_prepare_subtotal', $venue->getLayouts()[0],['class'=>'form-control', 'readonly'] ) }}
-                  </td>
-                </tr>
-                @endif
-                @if ($request->layout_clean==1)
-                <tr>
-                  <td>{{ Form::text('layout_clean_item', "レイアウト準備料金",['class'=>'form-control', 'readonly'] ) }}</td>
-                  <td>
-                    {{ Form::text('layout_clean_cost', $venue->getLayouts()[1],['class'=>'form-control', 'readonly'] ) }}
-                  </td>
-                  <td>{{ Form::text('layout_clean_count', 1,['class'=>'form-control', 'readonly'] )}}</td>
-                  <td>
-                    {{ Form::text('layout_clean_subtotal', $venue->getLayouts()[1],['class'=>'form-control', 'readonly'] ) }}
-                  </td>
-                </tr>
-                @endif
-              </tbody>
-              @if($request->layout_prepare==1||$request->layout_clean==1)
-              <tbody class="layouts_result">
-                <tr>
-                  <td colspan="2"></td>
-                  <td colspan="3">合計
-                    {{ Form::text('layouts_price', $layout_total,['class'=>'form-control', 'readonly'] ) }}
-                  </td>
-                </tr>
-              </tbody>
+        <div class="equipment billdetails_content">
+          <table class="table table-borderless">
+            <tbody>
+              <tr>
+                <td colspan="4">
+                  <h4 class="billdetails_content_ttl">
+                    有料備品・サービス
+                  </h4>
+                </td>
+              </tr>
+            </tbody>
+            <tbody class="equipment_head">
+              <tr>
+                <td>内容</td>
+                <td>単価</td>
+                <td>数量</td>
+                <td>金額</td>
+              </tr>
+            </tbody>
+            <tbody class="equipment_main">
+              @foreach ($venue->getEquipments() as $e_key=>$equipment)
+              @if ($request->{'equipment_breakdown'.$e_key}>0)
+              <tr>
+                <td>
+                  {{ Form::text('equipment_breakdown_item'.$e_key, $equipment->item,['class'=>'form-control', 'readonly'] ) }}
+                </td>
+                <td><input class="form-control" readonly></td>
+                <td>
+                  {{ Form::text('equipment_breakdown_count'.$e_key, $request->{'equipment_breakdown'.$e_key},['class'=>'form-control', 'readonly'] ) }}
+                </td>
+                <td><input class="form-control" readonly></td>
+              </tr>
               @endif
-            </table>
-          </div>
+              @endforeach
+              @foreach ($venue->getServices() as $s_key=>$service)
+              @if ($request->{'services_breakdown'.$s_key}>0)
+              <tr>
+                <td>
+                  {{ Form::text('service_breakdown_item'.$s_key, $service->item,['class'=>'form-control', 'readonly'] ) }}
+                </td>
+                <td><input class="form-control" readonly></td>
+                <td>
+                  {{ Form::text('service_breakdown_count'.$s_key, $request->{'services_breakdown'.$s_key},['class'=>'form-control', 'readonly'] ) }}
+                </td>
+                <td><input class="form-control" readonly></td>
+              </tr>
+              @endif
+              @endforeach
+              @if ($request->luggage_price)
+              <tr>
+                <td>
+                  {{ Form::text('luggage_item', '荷物預かり/返送',['class'=>'form-control', 'readonly'] ) }}
+                </td>
+                <td><input class="form-control" readonly></td>
+                <td>
+                  {{ Form::text('luggage_count', $request->luggage_price,['class'=>'form-control', 'readonly'] ) }}
+                </td>
+                <td><input class="form-control" readonly></td>
+              </tr>
+              @endif
+            </tbody>
+          </table>
+        </div>
 
-          <!-- <div class="others billdetails_content">
+        <div class="layout billdetails_content">
+          <table class="table table-borderless">
+            <tbody>
+              <tr>
+                <td>
+                  <h4 class="billdetails_content_ttl">
+                    レイアウト
+                  </h4>
+                </td>
+              </tr>
+            </tbody>
+            <tbody class="layout_head">
+              <tr>
+                <td>内容</td>
+                <td>単価</td>
+                <td>数量</td>
+                <td>金額</td>
+              </tr>
+            </tbody>
+            <tbody class="layout_main">
+              @if ($request->layout_prepare==1)
+              <tr>
+                <td>{{ Form::text('layout_prepare_item', "レイアウト準備料金",['class'=>'form-control', 'readonly'] ) }}</td>
+                <td>
+                  {{ Form::text('layout_prepare_cost', $venue->getLayouts()[0],['class'=>'form-control', 'readonly'] ) }}
+                </td>
+                <td>{{ Form::text('layout_prepare_count', 1,['class'=>'form-control', 'readonly'] )}}</td>
+                <td>
+                  {{ Form::text('layout_prepare_subtotal', $venue->getLayouts()[0],['class'=>'form-control', 'readonly'] ) }}
+                </td>
+              </tr>
+              @endif
+              @if ($request->layout_clean==1)
+              <tr>
+                <td>{{ Form::text('layout_clean_item', "レイアウト準備料金",['class'=>'form-control', 'readonly'] ) }}</td>
+                <td>
+                  {{ Form::text('layout_clean_cost', $venue->getLayouts()[1],['class'=>'form-control', 'readonly'] ) }}
+                </td>
+                <td>{{ Form::text('layout_clean_count', 1,['class'=>'form-control', 'readonly'] )}}</td>
+                <td>
+                  {{ Form::text('layout_clean_subtotal', $venue->getLayouts()[1],['class'=>'form-control', 'readonly'] ) }}
+                </td>
+              </tr>
+              @endif
+            </tbody>
+            @if($request->layout_prepare==1||$request->layout_clean==1)
+            <tbody class="layouts_result">
+              <tr>
+                <td colspan="2"></td>
+                <td colspan="3">合計
+                  {{ Form::text('layouts_price', $layout_total,['class'=>'form-control', 'readonly'] ) }}
+                </td>
+              </tr>
+            </tbody>
+            @endif
+          </table>
+        </div>
+
+        <!-- <div class="others billdetails_content">
             <table class="table table-borderless">
               <tbody>
                 <tr>
@@ -749,33 +761,33 @@
             </table>
           </div> -->
 
-          <div class="bill_total">
-            <table class="table text-right" style="table-layout: fixed;">
-              <tbody>
-                <tr>
-                  <td>小計：</td>
-                  <td>
-                    {{ Form::text('master_subtotal',(floor($price+$layout_total)) ,['class'=>'form-control text-right', 'readonly'] ) }}
-                  </td>
-                </tr>
-                <tr>
-                  <td>消費税：</td>
-                  <td>
-                    {{ Form::text('master_tax',ReservationHelper::getTax(floor($price+$layout_total)) ,['class'=>'form-control text-right', 'readonly'] ) }}
-                  </td>
-                </tr>
-                <tr>
-                  <td class="font-weight-bold">合計金額</td>
-                  <td>
-                    {{ Form::text('master_total',ReservationHelper::taxAndPrice(floor($price+$layout_total)) ,['class'=>'form-control text-right', 'readonly'] ) }}
-                  </td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
+        <div class="bill_total">
+          <table class="table text-right" style="table-layout: fixed;">
+            <tbody>
+              <tr>
+                <td>小計：</td>
+                <td>
+                  {{ Form::text('master_subtotal',(floor($price+$layout_total)) ,['class'=>'form-control text-right', 'readonly'] ) }}
+                </td>
+              </tr>
+              <tr>
+                <td>消費税：</td>
+                <td>
+                  {{ Form::text('master_tax',ReservationHelper::getTax(floor($price+$layout_total)) ,['class'=>'form-control text-right', 'readonly'] ) }}
+                </td>
+              </tr>
+              <tr>
+                <td class="font-weight-bold">合計金額</td>
+                <td>
+                  {{ Form::text('master_total',ReservationHelper::taxAndPrice(floor($price+$layout_total)) ,['class'=>'form-control text-right', 'readonly'] ) }}
+                </td>
+              </tr>
+            </tbody>
+          </table>
         </div>
       </div>
     </div>
+  </div>
 </section>
 
 
