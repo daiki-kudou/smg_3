@@ -28,8 +28,7 @@
     </nav>
   </div>
   <h2 class="mt-3 mb-3">会場　詳細情報(編集)</h2>
-  <p>ID:{{ $venue->id }}<span
-      class="ml-2">{{ $venue->name_area }}・{{ $venue->name_bldg }}{{ $venue->name_venue }}</span></p>
+  <p>ID:{{ $venue->id }}<span class="ml-2">{{ $venue->name_area }}・{{ $venue->name_bldg }}{{ $venue->name_venue }}</span></p>
   <hr>
 </div>
 
@@ -452,8 +451,7 @@
             </td>
           </tr>
           <tr>
-            <td class="table-active"><label for="layout_prepare" class="">レイアウト準備料金</label><span
-                class="ml-1 annotation">※税抜</span></td>
+            <td class="table-active"><label for="layout_prepare" class="">レイアウト準備料金</label><span class="ml-1 annotation">※税抜</span></td>
             <td>
               <div class="d-flex align-items-center">
                 {{ Form::text('layout_prepare', $venue->layout_prepare, ['class' => 'form-control',$venue->layout_prepare==""?"readonly":""]) }}
@@ -463,8 +461,7 @@
             </td>
           </tr>
           <tr>
-            <td class="table-active"><label for="layout_clean" class="">レイアウト片付料金</label><span
-                class="ml-1 annotation">※税抜</span></td>
+            <td class="table-active"><label for="layout_clean" class="">レイアウト片付料金</label><span class="ml-1 annotation">※税抜</span></td>
             <td>
               <div class="d-flex align-items-center">
                 {{ Form::text('layout_clean', $venue->layout_clean, ['class' => 'form-control',$venue->layout_clean==""?"readonly":""]) }}
@@ -512,12 +509,21 @@
       <i class="fas fa-wrench icon-size" aria-hidden="true"></i>有料備品
     </p>
     <div class="p-4 bg-white">
-      <p>※左部リストよりクリックで選択し右部リストに移動させてください</p>
-      <p>※右部リストは現在選択されている備品一覧です</p>
+      <ul class="option_list_ttl">
+        <li>
+          <h5>・選択可能一覧</h5>
+          <p class="mt-2">※下部リストより該当情報をクリックすると右の「選択後画面」に反映します。</p>
+        </li>
+        <li>
+          <h5>・選択後画面</h5>
+          <p class="mt-2"><span class="caution_color">下部リストの順番通りに会場予約フォームに反映します。</span>
+            <br>※削除する場合は該当情報をクリック
+          </p>
+        </li>
+      </ul>
       <select id='equipment_id' multiple='multiple' name="equipment_id[]">
         @for ($i = 0; $i < $m_equipments->count(); $i++)
-          <option value={{$m_equipments[$i]->id}} @foreach ($r_emptys as $r_empty)
-            {{$m_equipments[$i]->id==$r_empty->id?"selected":""}} @endforeach>{{$m_equipments[$i]->item}}
+          <option value={{$m_equipments[$i]->id}} @foreach ($r_emptys as $r_empty) {{$m_equipments[$i]->id==$r_empty->id?"selected":""}} @endforeach>{{$m_equipments[$i]->item}}
           </option>
           @endfor
       </select>
@@ -530,12 +536,21 @@
       <i class="fas fa-hand-holding-heart icon-size" aria-hidden="true"></i>有料サービス
     </p>
     <div class="p-4 bg-white">
-      <p>※左部リストよりクリックで選択し右部リストに移動させてください</p>
-      <p>※右部リストは現在選択されているサービス一覧です</p>
+      <ul class="option_list_ttl">
+        <li>
+          <h5>・選択可能一覧</h5>
+          <p class="mt-2">※下部リストより該当情報をクリックすると右の「選択後画面」に反映します。</p>
+        </li>
+        <li>
+          <h5>・選択後画面</h5>
+          <p class="mt-2"><span class="caution_color">下部リストの順番通りに会場予約フォームに反映します。</span>
+            <br>※削除する場合は該当情報をクリック
+          </p>
+        </li>
+      </ul>
       <select id='service_id' multiple='multiple' name="service_id[]">
         @for ($s = 0; $s < $m_services->count(); $s++)
-          <option value={{$m_services[$s]->id}} @foreach ($s_emptys as $s_empty)
-            {{$m_services[$s]->id==$s_empty->id?"selected":""}} @endforeach>{{$m_services[$s]->item}}
+          <option value={{$m_services[$s]->id}} @foreach ($s_emptys as $s_empty) {{$m_services[$s]->id==$s_empty->id?"selected":""}} @endforeach>{{$m_services[$s]->item}}
           </option>
           @endfor
       </select>

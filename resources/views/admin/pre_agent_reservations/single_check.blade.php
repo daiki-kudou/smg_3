@@ -477,9 +477,9 @@
                 <label for="enduser_charge ">支払い料</label>
               </td>
               <td>
-                <div class="d-flex align-items-center">
+                <div class="d-flex align-items-end">
                   {{ Form::text('enduser_charge', '',['class'=>'form-control'] ) }}
-                  <span class="ml-2">円</span>
+                  <span class="ml-1">円</span>
                 </div>
                 <p class="is-error-enduser_charge" style="color: red"></p>
               </td>

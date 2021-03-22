@@ -131,10 +131,12 @@
           <td>
             <div class="radio-box">
               <p>
-                <input type="radio" name="board_flag" value="0" {{isset($reservation->board_flag)?$reservation->board_flag==0?'checked':'':'checked',}}>無し
+                <input type="radio" name="board_flag" value="0" {{isset($reservation->board_flag)?$reservation->board_flag==0?'checked':'':'checked',}}>
+                <span>無し</span>
               </p>
               <p>
-                <input type="radio" name="board_flag" value="1" {{isset($reservation->board_flag)?$reservation->board_flag==1?'checked':'':'',}}>有り
+                <input type="radio" name="board_flag" value="1" {{isset($reservation->board_flag)?$reservation->board_flag==1?'checked':'':'',}}>
+                <span>有り</span>
               </p>
             </div>
           </td>
@@ -525,7 +527,7 @@
           <td colspan="2">
             <p class="title-icon">
               <i class="fas fa-yen-sign icon-size"></i>売上原価
-              <span class="annotaion">
+              <span class="annotation">
                 （提携会場を選択した場合、提携会場で設定した原価率が適応されます）
               </span>
             </p>

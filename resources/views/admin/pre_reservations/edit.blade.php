@@ -56,8 +56,9 @@
       <thead>
         <tr>
           <th>顧客情報</th>
-          <th colspan="3">顧客ID：
-            {{$PreReservation->user_id}}
+          <td colspan="3">
+            <div class="d-flex align-items-center">
+            <p class="col-2">顧客ID：{{$PreReservation->user_id}}</p>
             <select name="user_id" id="user_id">
               @foreach ($users as $user)
               <option value="{{$user->id}}" @if ($PreReservation->user_id==$user->id)
@@ -68,7 +69,8 @@
               </option>
               @endforeach
             </select>
-          </th>
+            </div>
+          </td>
         </tr>
       </thead>
       <tbody class="user_info">
@@ -224,9 +226,7 @@
               <td>
                 <select name="enter_time" id="enter_time" class="form-control">
                   <option value=""></option>
-                  @for ($start = 0*2; $start <=23*2; $start++) <option
-                    value="{{date("H:i:s", strtotime("00:00 +". $start * 30 ." minute"))}}" @if (date("H:i:s",
-                    strtotime("00:00 +". $start * 30 ." minute"))==$PreReservation->enter_time)
+                  @for ($start = 0*2; $start <=23*2; $start++) <option value="{{date("H:i:s", strtotime("00:00 +". $start * 30 ." minute"))}}" @if (date("H:i:s", strtotime("00:00 +". $start * 30 ." minute"))==$PreReservation->enter_time)
                     selected
                     @endif
                     >
@@ -241,9 +241,7 @@
               <td>
                 <select name="leave_time" id="leave_time" class="form-control">
                   <option value=""></option>
-                  @for ($start = 0*2; $start <=23*2; $start++) <option
-                    value="{{date("H:i:s", strtotime("00:00 +". $start * 30 ." minute"))}}" @if (date("H:i:s",
-                    strtotime("00:00 +". $start * 30 ." minute"))==$PreReservation->leave_time)
+                  @for ($start = 0*2; $start <=23*2; $start++) <option value="{{date("H:i:s", strtotime("00:00 +". $start * 30 ." minute"))}}" @if (date("H:i:s", strtotime("00:00 +". $start * 30 ." minute"))==$PreReservation->leave_time)
                     selected
                     @endif
                     >
@@ -286,9 +284,7 @@
             <td>
               <select name="event_start" id="event_start" class="form-control">
                 <option disabled>選択してください</option>
-                @for ($start = 0*2; $start <=23*2; $start++) <option
-                  value="{{date("H:i:s", strtotime("00:00 +". $start * 30 ." minute"))}}" @if (date("H:i:s",
-                  strtotime("00:00 +". $start * 30 ." minute"))<$PreReservation->enter_time)
+                @for ($start = 0*2; $start <=23*2; $start++) <option value="{{date("H:i:s", strtotime("00:00 +". $start * 30 ." minute"))}}" @if (date("H:i:s", strtotime("00:00 +". $start * 30 ." minute"))<$PreReservation->enter_time)
                   disabled
                   @elseif(date("H:i:s", strtotime("00:00 +". $start * 30 ." minute"))>$PreReservation->leave_time)
                   disabled
@@ -306,9 +302,7 @@
             <td>
               <select name="event_finish" id="event_finish" class="form-control">
                 <option disabled>選択してください</option>
-                @for ($start = 0*2; $start <=23*2; $start++) <option
-                  value="{{date("H:i:s", strtotime("00:00 +". $start * 30 ." minute"))}}" @if (date("H:i:s",
-                  strtotime("00:00 +". $start * 30 ." minute"))<$PreReservation->enter_time)
+                @for ($start = 0*2; $start <=23*2; $start++) <option value="{{date("H:i:s", strtotime("00:00 +". $start * 30 ." minute"))}}" @if (date("H:i:s", strtotime("00:00 +". $start * 30 ." minute"))<$PreReservation->enter_time)
                   disabled
                   @elseif(date("H:i:s", strtotime("00:00 +". $start * 30 ." minute"))>$PreReservation->leave_time)
                   disabled
@@ -347,7 +341,7 @@
               <tr>
                 <th colspan="2">
                   <p class="title-icon fw-bolder py-1">
-                    <i class="fas fa-wrench icon-size fa-fw"></i>有料備品
+                    <i class="fas fa-wrench icon-size"></i>有料備品
                   </p>
                 </th>
               </tr>
@@ -380,7 +374,7 @@
               <tr>
                 <th colspan="2">
                   <p class="title-icon fw-bolder py-1">
-                    <i class="fas fa-hand-holding-heart icon-size fa-fw"></i>有料サービス
+                    <i class="fas fa-hand-holding-heart icon-size"></i>有料サービス
                   </p>
                 </th>
               </tr>
@@ -430,7 +424,7 @@
               <tr>
                 <th colspan='2'>
                   <p class="title-icon py-1">
-                    <i class="fas fa-th icon-size fa-fw"></i>レイアウト
+                    <i class="fas fa-th icon-size"></i>レイアウト
                   </p>
                 </th>
               </tr>
@@ -505,7 +499,7 @@
               <tr>
                 <th colspan='2'>
                   <p class="title-icon">
-                    <i class="fas fa-suitcase-rolling icon-size fa-fw"></i>荷物預かり
+                    <i class="fas fa-suitcase-rolling icon-size"></i>荷物預かり
                   </p>
                 </th>
               </tr>
@@ -534,14 +528,17 @@
               <tr>
                 <td class="table-active">荷物預かり/返送<br>料金</td>
                 <td>
-                  @foreach ($PreReservation->pre_breakdowns()->get() as $lug_chk)
-                  @if ($lug_chk->unit_item=="荷物預かり/返送")
-                  {{ Form::text('luggage_price', $lug_chk->unit_cost,['class'=>'form-control'] ) }}
-                  @break
-                  @elseif($loop->last)
-                  {{ Form::text('luggage_price', "",['class'=>'form-control'] ) }}
-                  @endif
-                  @endforeach
+                  <div class="d-flex align-items-end">
+                    @foreach ($PreReservation->pre_breakdowns()->get() as $lug_chk)
+                    @if ($lug_chk->unit_item=="荷物預かり/返送")
+                    {{ Form::text('luggage_price', $lug_chk->unit_cost,['class'=>'form-control'] ) }}
+                    @break
+                    @elseif($loop->last)
+                    {{ Form::text('luggage_price', "",['class'=>'form-control'] ) }}
+                    @endif
+                    @endforeach
+                    <span class="ml-1">円</span>
+                  </div>
                   <p class='is-error-luggage_price' style='color: red'></p>
                 </td>
               </tr>
@@ -556,7 +553,7 @@
               <tr>
                 <th colspan='2'>
                   <p class="title-icon">
-                    <i class="fas fa-suitcase-rolling icon-size fa-fw"></i>室内飲食
+                    <i class="fas fa-utensils icon-size"></i>室内飲食
                   </p>
                 </th>
               </tr>
@@ -714,7 +711,6 @@
   {{ Form::open(['url' => 'admin/pre_reservations/'.$PreReservation->id, 'method'=>'PUT']) }}
   @csrf
   {{-- 以下、計算結果 --}}
-  <div class="container-fluid">
     <div class="bill">
       <div class="bill_head py-0">
         <table class="table mb-0" style="table-layout: fixed">
@@ -951,7 +947,6 @@
       </div>
     </div>
 
-  </div>
 
   {{-- 単発仮押えか？一括仮押えか？ --}}
   {{ Form::hidden('judge_count', 1 ) }}

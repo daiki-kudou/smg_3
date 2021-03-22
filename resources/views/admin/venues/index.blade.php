@@ -36,7 +36,7 @@
           <th>広さ（㎡）</th>
           <th>収容人数</th>
           <th>レイアウト変更</th>
-          <th>預かり荷物</th>
+          <th>預り荷物</th>
           <th>室内飲食</th>
           <th class="btn-cell">詳細</th>
         </tr>

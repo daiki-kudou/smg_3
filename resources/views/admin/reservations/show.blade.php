@@ -33,7 +33,7 @@
 
   @if ($reservation->user_id>0)
   @if ($reservation->bills()->first()->reservation_status==3)
-  <p class="text-right">
+  <p class="text-right mb-5">
     {{ Form::open(['url' => 'admin/bills/create/'.$reservation->id, 'method'=>'POST', 'class'=>'']) }}
     @csrf
     {{ Form::hidden('reservation_id', $reservation->id ) }}
@@ -43,7 +43,7 @@
   @endif
   @else
   @if ($reservation->bills()->first()->reservation_status==3)
-  <p class="text-right">
+  <p class="text-right mb-5">
     {{ Form::open(['url' => 'admin/agents_reservations/add_bills/'.$reservation->id, 'method'=>'POST', 'class'=>'']) }}
     @csrf
     {{ Form::hidden('reservation_id', $reservation->id ) }}
@@ -1233,7 +1233,7 @@
           </div>
         </div>
         <div class="main">
-          <div class="paids">
+          <div class="paids billdetails_content">
             <table class="table">
               <tbody>
                 <tr>

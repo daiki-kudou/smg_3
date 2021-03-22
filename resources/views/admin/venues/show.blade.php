@@ -338,19 +338,22 @@
         </thead>
         <tbody>
           <tr>
-            <th class="table-active"><label for="layout">レイアウト変更</label></th>
+            <th class="table-active"><label for="layout">レイアウト変更</label>
+            </th>
             <td>
               {{ $venue->layout==1?"可":"不可"}}
             </td>
           </tr>
           <tr>
-            <th class="table-active"><label for="layout">レイアウト準備料金</label></th>
+            <th class="table-active"><label for="layout">レイアウト準備料金</label>
+            <span class="ml-1 annotation">※税抜</span></th>
             <td>
               {{ number_format($venue->layout_prepare)}}円
             </td>
           </tr>
           <tr>
-            <th class="table-active"><label for="layout">レイアウト片付料金</label></th>
+            <th class="table-active"><label for="layout">レイアウト片付料金</label>
+            <span class="ml-1 annotation">※税抜</span></th>
             <td>
               {{ number_format($venue->layout_clean)}}円
             </td>

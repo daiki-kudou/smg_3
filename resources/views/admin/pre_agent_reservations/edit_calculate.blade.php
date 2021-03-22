@@ -6,6 +6,7 @@
 <link href="{{ asset('/css/template.css') }}" rel="stylesheet">
 
 <h2 class="mt-3 mb-3">仲介会社　仮押え 計算</h2>
+<hr>
 
 {{ Form::open(['url' => 'admin/pre_agent_reservations/'.$id.'/edit_calculate', 'method'=>'POST', 'id'=>'pre_reservationSingleEditForm']) }}
 @csrf
@@ -61,7 +62,7 @@
     </table>
   </div>
 
-  <div class="unknown_user mt-5">
+  <div class="unknown_user mt-3">
     <table class="table table-bordered" style="table-layout: fixed;">
       <thead>
         <tr>
@@ -110,7 +111,7 @@
     </table>
   </div>
 
-  <div class="container-field mt-3">
+  <div class="container-field mt-5">
     <div class="row">
       <div class="col">
         <table class="table table-bordered">
@@ -206,9 +207,7 @@
             <td>
               <select name="event_start" id="event_start" class="form-control">
                 <option disabled></option>
-                @for ($start = 0*2; $start <=23*2; $start++) <option
-                  value="{{date("H:i:s", strtotime("00:00 +". $start * 30 ." minute"))}}"
-                  @if(date("H:i:s",strtotime("00:00 +". $start * 30 ." minute"))==$request->enter_time)
+                @for ($start = 0*2; $start <=23*2; $start++) <option value="{{date("H:i:s", strtotime("00:00 +". $start * 30 ." minute"))}}" @if(date("H:i:s",strtotime("00:00 +". $start * 30 ." minute"))==$request->enter_time)
                   selected
                   @endif>
                   {{date("H時i分", strtotime("00:00 +". $start * 30 ." minute"))}}
@@ -222,9 +221,7 @@
             <td>
               <select name="event_finish" id="event_finish" class="form-control">
                 <option disabled></option>
-                @for ($start = 0*2; $start <=23*2; $start++) <option
-                  value="{{date("H:i:s", strtotime("00:00 +". $start * 30 ." minute"))}}"
-                  @if(date("H:i:s",strtotime("00:00 +". $start * 30 ." minute"))==$request->event_finish)
+                @for ($start = 0*2; $start <=23*2; $start++) <option value="{{date("H:i:s", strtotime("00:00 +". $start * 30 ." minute"))}}" @if(date("H:i:s",strtotime("00:00 +". $start * 30 ." minute"))==$request->event_finish)
                   selected
                   @endif>
                   {{date("H時i分", strtotime("00:00 +". $start * 30 ." minute"))}}
@@ -298,12 +295,12 @@
                 <td>
                   <div class="radio-box">
                     <p>
-                    {{Form::radio('services_breakdown'.$s_key, 1, $request->{'services_breakdown'.$s_key}==1?true:false , ['id' => 'service'.$s_key.'on'])}}
-                    {{Form::label('service'.$s_key.'on', "有り")}}
+                      {{Form::radio('services_breakdown'.$s_key, 1, $request->{'services_breakdown'.$s_key}==1?true:false , ['id' => 'service'.$s_key.'on'])}}
+                      {{Form::label('service'.$s_key.'on', "有り")}}
                     </p>
                     <p>
-                    {{Form::radio('services_breakdown'.$s_key, 0, $request->{'services_breakdown'.$s_key}==0?true:false, ['id' => 'services_breakdown'.$s_key.'off'])}}
-                    {{Form::label('services_breakdown'.$s_key.'off', "無し")}}
+                      {{Form::radio('services_breakdown'.$s_key, 0, $request->{'services_breakdown'.$s_key}==0?true:false, ['id' => 'services_breakdown'.$s_key.'off'])}}
+                      {{Form::label('services_breakdown'.$s_key.'off', "無し")}}
                     </p>
                   </div>
                 </td>
@@ -332,12 +329,12 @@
                 <td>
                   <div class="radio-box">
                     <p>
-                    {{Form::radio('layout_prepare', 1, $request->layout_prepare==1?true:false , ['id' => 'layout_prepare'])}}
-                    {{Form::label('layout_prepare', "有り")}}
+                      {{Form::radio('layout_prepare', 1, $request->layout_prepare==1?true:false , ['id' => 'layout_prepare'])}}
+                      {{Form::label('layout_prepare', "有り")}}
                     </p>
                     <p>
-                    {{Form::radio('layout_prepare', 0, $request->layout_prepare==0?true:false, ['id' => 'no_layout_prepare'])}}
-                    {{Form::label('no_layout_prepare', "無し")}}
+                      {{Form::radio('layout_prepare', 0, $request->layout_prepare==0?true:false, ['id' => 'no_layout_prepare'])}}
+                      {{Form::label('no_layout_prepare', "無し")}}
                     </p>
                   </div>
                 </td>
@@ -351,12 +348,12 @@
                 <td>
                   <div class="radio-box">
                     <p>
-                    {{Form::radio('layout_clean', 1, $request->layout_clean==1?true:false, ['id' => 'layout_clean'])}}
-                    {{Form::label('layout_clean', "有り")}}
+                      {{Form::radio('layout_clean', 1, $request->layout_clean==1?true:false, ['id' => 'layout_clean'])}}
+                      {{Form::label('layout_clean', "有り")}}
                     </p>
                     <p>
-                    {{Form::radio('layout_clean', 0, $request->layout_clean==0?true:false, ['id' => 'no_layout_clean'])}}
-                    {{Form::label('no_layout_clean', "無し")}}
+                      {{Form::radio('layout_clean', 0, $request->layout_clean==0?true:false, ['id' => 'no_layout_clean'])}}
+                      {{Form::label('no_layout_clean', "無し")}}
                     </p>
                   </div>
                 </td>
@@ -461,9 +458,9 @@
                 <label for="enduser_charge ">支払い料</label>
               </td>
               <td>
-                <div class="d-flex align-items-center">
+                <div class="d-flex align-items-end">
                   {{ Form::text('enduser_charge', $request->enduser_charge,['class'=>'form-control'] ) }}
-                  <span class="ml-2">円</span>
+                  <span class="ml-1">円</span>
                 </div>
                 <p class="is-error-enduser_charge" style="color: red"></p>
               </td>
@@ -548,7 +545,8 @@
                 <dl class="ttl_box">
                   <dt>合計金額</dt>
                   <dd class="total_result">
-                    {{number_format(ReservationHelper::taxAndPrice(floor($price+$layout_prepare+$layout_clean)))}}</dd>
+                    {{number_format(ReservationHelper::taxAndPrice(floor($price+$layout_prepare+$layout_clean)))}}
+                  </dd>
                 </dl>
               </td>
             </tr>
@@ -837,29 +835,28 @@
     });
   })
 
-  $(function(){
-    var maxTarget=$('input[name="reserve_date"]').val();
+  $(function() {
+    var maxTarget = $('input[name="reserve_date"]').val();
     $('#datepicker9').datepicker({
       dateFormat: 'yy-mm-dd',
       minDate: 0,
-      maxDate:maxTarget,
+      maxDate: maxTarget,
       autoclose: true,
     });
   })
 
 
-  $(function(){
+  $(function() {
     $(document).on("click", "input:radio[name='eat_in']", function() {
-      var radioTarget=$('input:radio[name="eat_in"]:checked').val();
-      if (radioTarget==1) {
-        $('input:radio[name="eat_in_prepare"]').prop('disabled',false);
-      }else{
-        $('input:radio[name="eat_in_prepare"]').prop('disabled',true);
+      var radioTarget = $('input:radio[name="eat_in"]:checked').val();
+      if (radioTarget == 1) {
+        $('input:radio[name="eat_in_prepare"]').prop('disabled', false);
+      } else {
+        $('input:radio[name="eat_in_prepare"]').prop('disabled', true);
         $('input:radio[name="eat_in_prepare"]').prop('checked', false);
       }
     })
   })
-
 </script>
 
 
