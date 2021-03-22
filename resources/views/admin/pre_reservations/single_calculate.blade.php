@@ -933,7 +933,7 @@
 
 
           @if ($SpVenue->layout==1)
-          @if ($request->layout_prepare!=0&&$request->layout_clean!=0)
+          @if ($request->layout_prepare!=0||$request->layout_clean!=0)
 
           <div class="layout billdetails_content">
             <table class="table table-borderless">
