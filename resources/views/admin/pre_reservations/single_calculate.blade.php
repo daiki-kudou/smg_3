@@ -901,7 +901,7 @@
                   </td>
                 </tr>
                 @endforeach
-                @if ($pre_reser->luggage_price)
+                @if ($request->luggage_price)
                 <tr>
                   <td>
                     {{ Form::text('luggage_item', '荷物預かり/返送',['class'=>'form-control', 'readonly'] ) }}

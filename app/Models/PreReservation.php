@@ -7,7 +7,12 @@ use Illuminate\Database\Eloquent\Model;
 use App\Models\Venue;
 use Illuminate\Support\Facades\DB; //トランザクション用
 
+use App\Models\Reservation;
+
 use Carbon\Carbon;
+
+use Illuminate\Http\Request;
+
 
 class PreReservation extends Model
 {
@@ -631,9 +636,99 @@ class PreReservation extends Model
         'attention' => $request->attention,
         'user_details' => $request->user_details,
         'admin_details' => $request->admin_details,
-        'status' => 0,
+        'status' => $request->status,
       ]);
     });
+  }
+
+  public function MoveToReservation(Request $request)
+  {
+    $reservation = new Reservation;
+    //reservationのReserveStoreに持たせるためのrequestを作成
+    $request->merge([
+      'venue_id' => $this->venue_id,
+      'user_id' => $this->user_id,
+      'agent_id' => 0, //デフォで0
+      'reserve_date' => $this->reserve_date,
+      'price_system' => $this->price_system,
+      'enter_time' => $this->enter_time,
+      'leave_time' => $this->leave_time,
+      'board_flag' => $this->board_flag,
+      'event_start' => $this->event_start,
+      'event_finish' => $this->event_finish,
+      'event_name1' => $this->event_name1,
+      'event_name2' => $this->event_name2,
+      'event_owner' => $this->event_owner,
+      'luggage_count' => $this->luggage_count,
+      'luggage_arrive' => $this->luggage_arrive,
+      'luggage_return' => $this->luggage_return,
+      'email_flag' => $this->email_flag,
+      'in_charge' => $this->in_charge,
+      'tel' => $this->tel,
+      'cost' => $this->cost,
+      'discount_condition' => $this->discount_condition,
+      'attention' => $this->attention,
+      'user_details' => $this->user_details,
+      'admin_details' => $this->admin_details,
+    ]);
+    //reservationのReserveStoreBillに持たせるためのrequestを作成
+    $request->merge([
+      'venue_price' => $this->pre_bill->venue_price,
+      'equipment_price' => $this->pre_bill->equipment_price ? $this->pre_bill->equipment_price : 0, //備品・サービス・荷物
+      'layout_price' => $this->pre_bill->layout_price ? $this->pre_bill->layout_price : 0,
+      'others_price' => $this->pre_bill->others_price ? $this->pre_bill->others_price : 0,
+      'master_subtotal' => $this->pre_bill->master_subtotal,
+      'master_tax' => $this->pre_bill->master_tax,
+      'master_total' => $this->pre_bill->master_total,
+      'payment_limit' => $this->pre_bill->payment_limit,
+      'bill_company' => $this->pre_bill->bill_company,
+      'bill_person' => $this->pre_bill->bill_person,
+      'bill_created_at' => Carbon::now(),
+      'bill_remark' => $this->pre_bill->bill_remark,
+      'paid' => $this->pre_bill->paid,
+      'pay_day' => $this->pre_bill->pay_day,
+      'pay_person' => $this->pre_bill->pay_person,
+      'payment' => $this->pre_bill->payment,
+      'reservation_status' => 1, //デフォで1、仮押えのデフォは0
+      'double_check_status' => 0, //デフォで0
+      'category' => 1, //デフォで１。　新規以外だと　2:その他有料備品　3:レイアウト　4:その他
+      'admin_judge' => 1, //管理者作成なら1 ユーザー作成なら2
+    ]);
+    // breakdown保存用に、requestに現時点のpre_breakdownsの詳細を格納
+    foreach ($this->pre_breakdowns()->where('unit_type', 1)->get() as $v_key => $v_breakdown) {
+      $request->merge([
+        'venue_breakdown_item' . $v_key => $v_breakdown->unit_item,
+        'venue_breakdown_cost' . $v_key => $v_breakdown->unit_cost,
+        'venue_breakdown_count' . $v_key => $v_breakdown->unit_count,
+        'venue_breakdown_subtotal' . $v_key => $v_breakdown->unit_subtotal,
+      ]);
+    }
+    foreach ($this->pre_breakdowns()->where('unit_type', 2)->get() as $e_key => $e_breakdown) {
+      $request->merge([
+        'equipment_breakdown_item' . $e_key => $e_breakdown->unit_item,
+        'equipment_breakdown_cost' . $e_key => $e_breakdown->unit_cost,
+        'equipment_breakdown_count' . $e_key => $e_breakdown->unit_count,
+        'equipment_breakdown_subtotal' . $e_key => $e_breakdown->unit_subtotal,
+      ]);
+    }
+    foreach ($this->pre_breakdowns()->where('unit_type', 4)->get() as $l_key => $l_breakdown) {
+      if ($l_breakdown->unit_item == 'レイアウト準備料金') {
+        $request->merge([
+          'layout_prepare_item' => $l_breakdown->unit_item,
+          'layout_prepare_cost' => $l_breakdown->unit_cost,
+          'layout_prepare_subtotal' => $l_breakdown->unit_subtotal,
+        ]);
+      }
+      if ($l_breakdown->unit_item == 'レイアウト片付料金') {
+        $request->merge([
+          'layout_clean_item' => $l_breakdown->unit_item,
+          'layout_clean_cost' => $l_breakdown->unit_cost,
+          'layout_clean_subtotal' => $l_breakdown->unit_subtotal,
+        ]);
+      }
+    }
+    var_dump($request->all());
+    $reservation->ReserveStore($request);
   }
 
 
