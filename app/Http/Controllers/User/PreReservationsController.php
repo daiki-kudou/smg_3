@@ -70,6 +70,34 @@ class PreReservationsController extends Controller
 
   public function cfm(Request $request, $id)
   {
-    return view('user.pre_reservations.cfm', compact('id'));
+    $user_id = auth()->user()->id;
+    $pre_reservation = PreReservation::find($id);
+    if ($pre_reservation->user_id != $user_id) { //別ユーザーのページ制限
+      return redirect(route('user.pre_reservations.index'));
+    }
+    if ($pre_reservation->status != 1) { //ステータスが管理者編集権限の場合の制限
+      return redirect(route('user.pre_reservations.index'));
+    }
+
+    $request = $request->merge([
+      'user_id' => $user_id,
+      'enter_time' => $pre_reservation->enter_time,
+      'leave_time' => $pre_reservation->leave_time,
+      'status' => 2,
+      'price_system' => $pre_reservation->price_system,
+    ]);
+
+    // 一旦、最新情報でpre reservation を保存
+    $pre_reservation = PreReservation::find($id);
+    $pre_reservation->Updates($request);
+    $pre_bill = new PreBill;
+    $pre_bill->PreBillCreate($request, $pre_reservation);
+    $pre_breakdowns = new PreBreakdown;
+    $pre_breakdowns->PreBreakdownCreate($request, $pre_reservation);
+
+
+    $pre_reservation->MoveToReservation($request);
+
+    // return view('user.pre_reservations.cfm');
   }
 }

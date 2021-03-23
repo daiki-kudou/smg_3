@@ -121,7 +121,7 @@
                   @if ($venue->getPriceSystem()[0]==1&&$venue->getPriceSystem()[1]==1)
                   <div class="price_radio_selector">
                     <div class="d-flex justfy-content-start align-items-center">
-                      {{ Form::radio('price_system', 1, false, ['class'=>'mr-2', 'id'=>'price_system_radio1']) }}
+                      {{ Form::radio('price_system', 1, true, ['class'=>'mr-2', 'id'=>'price_system_radio1']) }}
                       {{Form::label('price_system_radio1','通常（枠貸）')}}
                     </div>
                     <div class="d-flex justfy-content-start align-items-center">

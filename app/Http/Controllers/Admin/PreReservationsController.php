@@ -441,6 +441,7 @@ class PreReservationsController extends Controller
    */
   public function update(Request $request, $id)
   {
+    $request = $request->merge(['status' => 0]); //現段階ではステータスを0に。
     $pre_reservation = PreReservation::find($id);
     $pre_reservation->Updates($request);
     $pre_bill = new PreBill;
