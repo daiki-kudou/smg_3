@@ -580,9 +580,11 @@ $(function () {
         },
         [luggagecountcopied]: {
           number: true,
+          max: 49
         },
         [luggagereturncopied]: {
           number: true,
+          max: 49
         },
       },
       messages: {
@@ -591,9 +593,11 @@ $(function () {
         },
         [luggagecountcopied]: {
           number: "※半角数字で入力してください",
+          max: "※最大値は49です",
         },
         [luggagereturncopied]: {
           number: "※半角数字で入力してください",
+          max: "※最大値は49です",
         },
       },
       errorPlacement: function (error, element) {
@@ -809,9 +813,11 @@ $(function () {
         },
         [luggagecountcopied]: {
           number: true,
+          max: 49
         },
         [luggagereturncopied]: {
           number: true,
+          max: 49
         },
         [luggagepricecopied]: {
           number: true,
@@ -823,9 +829,11 @@ $(function () {
         },
         [luggagecountcopied]: {
           number: "※半角数字で入力してください",
+          max: "※最大値は49です",
         },
         [luggagereturncopied]: {
           number: "※半角数字で入力してください",
+          max: "※最大値は49です",
         },
         [luggagepricecopied]: {
           number: "※半角数字で入力してください",
