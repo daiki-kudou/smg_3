@@ -15,7 +15,6 @@
     </nav>
   </div>
 
-
   <h2 class="mt-3 mb-3">仮押え　詳細</h2>
   <hr>
 </div>

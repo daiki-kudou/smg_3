@@ -380,6 +380,7 @@
                 <td class="table-active">事前に預かる荷物<br>（個数）</td>
                 <td>
                   {{ Form::text('luggage_count', $request->luggage_count,['class'=>'form-control'] ) }}
+                  <p class='is-error-luggage_count' style=' color: red'></p>
                 </td>
               </tr>
               <tr>
@@ -392,6 +393,7 @@
                 <td class="table-active">事後返送する荷物</td>
                 <td>
                   {{ Form::text('luggage_return', $request->luggage_return,['class'=>'form-control'] ) }}
+                  <p class='is-error-luggage_return' style=' color: red'></p>
                 </td>
               </tr>
               <!-- <tr>
@@ -828,7 +830,7 @@
 
 
 
-{{Form::submit('保存する', ['class'=>'btn more_btn_lg d-block btn-lg mx-auto my-5', 'id'=>'check_submit'])}}
+{{Form::submit('登録する', ['class'=>'btn more_btn_lg d-block btn-lg mx-auto my-5', 'id'=>'check_submit'])}}
 {{Form::close()}}
 
 
