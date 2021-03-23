@@ -67,4 +67,9 @@ class PreReservationsController extends Controller
       compact('pre_reservation', 'venue', 'request', 'item_details', 'layout_details', 'venue_price', 'master', 'id')
     );
   }
+
+  public function cfm(Request $request, $id)
+  {
+    return view('user.pre_reservations.cfm', compact('id'));
+  }
 }
