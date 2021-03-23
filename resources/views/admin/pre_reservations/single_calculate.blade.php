@@ -894,7 +894,7 @@
                   </td>
                 </tr>
                 @endforeach
-                @if ($request->luggage_price)
+                @if ($pre_reser->luggage_price)
                 <tr>
                   <td>
                     {{ Form::text('luggage_item', '荷物預かり/返送',['class'=>'form-control', 'readonly'] ) }}
@@ -927,7 +927,6 @@
 
           @if ($SpVenue->layout==1)
           @if ($request->layout_prepare!=0||$request->layout_clean!=0)
-
           <div class="layout billdetails_content">
             <table class="table table-borderless">
               <tr>

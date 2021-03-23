@@ -584,7 +584,6 @@ class Venue extends Model implements PresentableInterface
     $prepare == 1 ? $prepare_result = $this->layout_prepare : $prepare_result = 0;
     $clean == 1 ? $clean_result = $this->layout_clean : $clean_result = 0;
     $total = $prepare_result + $clean_result;
-
     return [$prepare_result, $clean_result, $total];
   }
 
@@ -609,7 +608,6 @@ class Venue extends Model implements PresentableInterface
     if ($this->time_prices()->count() != 0) {
       $time = 1;
     }
-
     return [$frame, $time];
   }
 }

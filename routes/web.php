@@ -37,6 +37,7 @@ Route::namespace('User')->prefix('user')->name('user.')->group(function () {
     Route::put('home/{home}/update_other_bills', 'HomeController@updateOtherBillsStatus');
 
     Route::post('pre_reservations/{pre_reservation}/calculate', 'PreReservationsController@calculate');
+    Route::post('pre_reservations/{pre_reservation}/cfm', 'PreReservationsController@cfm');
     Route::resource('pre_reservations', 'PreReservationsController');
 
 
