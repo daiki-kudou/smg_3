@@ -514,7 +514,7 @@
   <section class="mt-5">
     <!-- 有料備品 ------------------------------------------------------------------------>
     <div class="mb-5 border-wrap2 wrap_shadow">
-      <p class="title-icon table-active fw-bolder p-2">
+      <p class="title-icon table-active fw-bolder p-2 w-100">
         <i class="fas fa-wrench icon-size fa-fw" aria-hidden="true"></i>有料備品
       </p>
       <div class="p-4 bg-white">
@@ -543,7 +543,7 @@
 
     <!-- 有料サービス ------------------------------------------------------------------------>
     <div class="mb-5 border-wrap2 wrap_shadow">
-      <p class="title-icon table-active fw-bolder p-2">
+      <p class="title-icon table-active fw-bolder p-2 w-100">
         <i class="fas fa-hand-holding-heart icon-size fa-fw" aria-hidden="true"></i>有料サービス
       </p>
       <div class="p-4 bg-white">

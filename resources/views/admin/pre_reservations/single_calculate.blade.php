@@ -246,23 +246,31 @@
           <tr>
             <td class="table-active">イベント名称1</td>
             <td>
-              {{ Form::text('event_name1', $request->event_name1,['class'=>'form-control'] ) }}
+              <div class="align-items-center d-flex">
+                {{ Form::text('event_name1', $request->event_name1,['class'=>'form-control'] ) }}
+                <span class="ml-1 annotation count_num1"></span>
+              </div>
             </td>
           </tr>
           <tr>
             <td class="table-active">イベント名称2</td>
             <td>
-              {{ Form::text('event_name2', $request->event_name2,['class'=>'form-control'] ) }}
+              <div class="align-items-end d-flex">
+                {{ Form::text('event_name2', $request->event_name2,['class'=>'form-control'] ) }}
+                <span class="ml-1 annotation count_num2"></span>
+              </div>
             </td>
           </tr>
           <tr>
             <td class="table-active">主催者名</td>
             <td>
-              {{ Form::text('event_owner', $request->event_owner,['class'=>'form-control'] ) }}
+              <div class="align-items-end d-flex">
+                {{ Form::text('event_owner', $request->event_owner,['class'=>'form-control'] ) }}
+                <span class="ml-1 annotation count_num3"></span>
+              </div>
             </td>
           </tr>
         </table>
-
 
         <div class="equipemnts">
           <table class="table table-bordered" style="table-layout: fixed;">
@@ -894,7 +902,7 @@
                   </td>
                 </tr>
                 @endforeach
-                @if ($pre_reser->luggage_price)
+                @if ($request->luggage_price)
                 <tr>
                   <td>
                     {{ Form::text('luggage_item', '荷物預かり/返送',['class'=>'form-control', 'readonly'] ) }}
@@ -927,6 +935,7 @@
 
           @if ($SpVenue->layout==1)
           @if ($request->layout_prepare!=0||$request->layout_clean!=0)
+
           <div class="layout billdetails_content">
             <table class="table table-borderless">
               <tr>

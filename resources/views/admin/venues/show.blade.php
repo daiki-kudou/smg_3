@@ -751,7 +751,7 @@
 <section class="mt-3">
   <!-- 有料備品 ------------------------------------------------------------------------>
   <div class="mb-5 border-wrap2 wrap_shadow">
-    <p class="title-icon table-active fw-bolder p-2">
+    <p class="title-icon table-active fw-bolder p-2 w-100">
       <i class="fas fa-wrench icon-size" aria-hidden="true"></i>有料備品
     </p>
     <ul class="p-3 option_list">
@@ -763,7 +763,7 @@
 
   <!-- 有料サービス ------------------------------------------------------------------------>
   <div class="mb-5 border-wrap2 wrap_shadow">
-    <p class="title-icon table-active fw-bolder p-2">
+    <p class="title-icon table-active fw-bolder p-2 w-100">
       <i class="fas fa-hand-holding-heart icon-size" aria-hidden="true"></i>有料サービス
     </p>
     <ul class="p-3 option_list">
@@ -776,7 +776,7 @@
 
   <!-- 営業時間 ------------------------------------------------------------------------>
   <div class="mb-5 border-wrap2 wrap_shadow bg-white">
-    <p class="title-icon table-active fw-bolder p-2">
+    <p class="title-icon table-active fw-bolder p-2 w-100">
       <i class="fas fa-clock icon-size" aria-hidden="true"></i>営業時間
     </p>
     <div class="p-3">
@@ -820,7 +820,7 @@
 
   <!-- 料金管理 ------------------------------------------------------------------------>
   <div class="mb-5 border-wrap2 wrap_shadow bg-white">
-    <p class="title-icon table-active fw-bolder p-2">
+    <p class="title-icon table-active fw-bolder p-2 w-100">
       <i class="fas fa-yen-sign icon-size" aria-hidden="true"></i>料金管理
     </p>
     <div class="p-3">

@@ -375,5 +375,103 @@ $(function () {
 });
 
 
+// 案内板の文字数カウントダウン
+// イベント名称1
+$(function(){
+	var txt = $('input[name="event_name1"]').val(),
+		new_txt = $.trim(txt.replace(/\n/g, "")),
+		couter = new_txt.length;
+	$('.count_num1').html(couter + "/16");
+	$('input[name="event_name1"]').bind('keydown keyup keypress change',function(){
+		var txt = $(this).val(),
+			new_txt = $.trim(txt.replace(/\n/g, "")),
+			couter = new_txt.length;
+		$('.count_num1').html(couter + "/16");
+		if(couter > 16){
+    $('.count_num1').css('color', 'red');
+		}else{
+		   $('.count_num1').css('color', 'black');
+		}
+	});
+});
+
+// イベント名称2
+$(function(){
+	var txt = $('input[name="event_name2"]').val(),
+		new_txt = $.trim(txt.replace(/\n/g, "")),
+		couter = new_txt.length;
+	$('.count_num2').html(couter + "/16");
+	$('input[name="event_name2"]').bind('keydown keyup keypress change',function(){
+		var txt = $(this).val(),
+			new_txt = $.trim(txt.replace(/\n/g, "")),
+			couter = new_txt.length;
+		$('.count_num2').html(couter + "/16");
+		if(couter > 16){
+    $('.count_num2').css('color', 'red');
+		}else{
+		   $('.count_num2').css('color', 'black');
+		}
+	});
+});
+
+// 主催者名
+$(function(){
+	var txt = $('input[name="event_owner"]').val(),
+		new_txt = $.trim(txt.replace(/\n/g, "")),
+		couter = new_txt.length;
+	$('.count_num3').html(couter + "/30");
+	$('input[name="event_owner"]').bind('keydown keyup keypress change',function(){
+		var txt = $(this).val(),
+			new_txt = $.trim(txt.replace(/\n/g, "")),
+			couter = new_txt.length;
+		$('.count_num3').html(couter + "/30");
+		if(couter > 30){
+    $('.count_num3').css('color', 'red');
+		}else{
+		   $('.count_num3').css('color', 'black');
+		}
+	});
+});
+
+
+
+// $(function() {
+  
+//   $('#eventname1CountDown').keyup(function() {
+//     var remain = 16 - $(this).val().length;
+
+//     $('#count1').text(remain);
+//     if (remain < 0) {
+//       $('#count1').css('color', 'red');
+//     } else {
+//       $('#count1').css('color', 'grey');
+//     }
+//   });
+
+//   $('#eventname2CountDown').keyup(function() {
+//     var remain = 16 - $(this).val().length;
+
+//     $('#count2').text(remain);
+//     if (remain < 0) {
+//       $('#count2').css('color', 'red');
+//     } else {
+//       $('#count2').css('color', 'grey');
+//     }
+//   });
+
+//   $('#eventownerCountDown').keyup(function() {
+//     var remain = 30 - $(this).val().length;
+
+//     $('#count3').text(remain);
+//     if (remain < 0) {
+//       $('#count3').css('color', 'red');
+//     } else {
+//       $('#count3').css('color', 'grey');
+//     }
+//   });
+
+// });
+
+
 
 

@@ -197,8 +197,8 @@
             <th>エンドユーザー</th>
             <th width="120">売上区分</th>
             <th width="120">予約状況</th>
-            <th class="btn-cell">予約詳細</th>
-            <th class="btn-cell">案内板</th>
+            <th class="text-center">予約詳細</th>
+            <th class="text-center">案内板</th>
           </tr>
         </thead>
 
@@ -206,7 +206,7 @@
         <tbody>
           <tr>
             <td rowspan="{{count($reservation->bills()->get())}}">※後ほど修正</td>
-            <td rowspan="{{count($reservation->bills()->get())}}">{{$reservation->id}}</td>
+            <td class="text-center" rowspan="{{count($reservation->bills()->get())}}">{{$reservation->id}}</td>
             <td rowspan="{{count($reservation->bills()->get())}}">
               {{ReservationHelper::formatDate($reservation->reserve_date)}}
             </td>
@@ -253,9 +253,9 @@
             <td>
               {{ReservationHelper::judgeStatus($reservation->bills()->first()->reservation_status)}}
             </td>
-            <td rowspan="{{count($reservation->bills()->get())}}"><a
+            <td class="text-center" rowspan="{{count($reservation->bills()->get())}}"><a
                 href="{{ url('admin/reservations', $reservation->id) }}" class="more_btn">詳細</a></td>
-            <td rowspan="{{count($reservation->bills()->get())}}"><a
+            <td class="text-center" rowspan="{{count($reservation->bills()->get())}}"><a
                 href="{{ url('admin/reservations/generate_pdf/'.$reservation->id) }}" class="more_btn">表示</a></td>
           </tr>
           @for ($i = 0; $i < count($reservation->bills()->get())-1; $i++)

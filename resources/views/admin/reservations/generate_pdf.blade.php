@@ -3,6 +3,7 @@
 
 <head>
   <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <link href="{{ asset('css/app.css') }}" rel="stylesheet">
   <title>PDF</title>
   <style>
     @font-face {
@@ -30,7 +31,7 @@
 
     body {
       font-family: migmix-1p-regular;
-      /* line-height: 0.3; */
+      line-height: 0;
     }
 
     ul {
@@ -48,80 +49,55 @@
       font-size: 15px;
       color: #333;
       border: 10px solid #B08046;
-      padding: 30px 30px 0 30px;
+      padding: 40px 30px 0 30px;
     }
 
-    .board-box .date td {
+    .board-table {
+      border-collapse: collapse; 
+      width: 100%;
+      table-layout: fixed;
+    }
+
+    .board-table td{
+      line-height: 10px;
+    }
+
+    .board-table .date td {
       font-size: 30px;
+      padding-bottom: 30px;
+      height: 50px;
       /* padding-bottom: 2%; */
     }
 
-    .board-box .event-name td,
-    .board-box .event-name2 td {
+    .board-table .event-name td,
+    .board-table .event-name2 td {
       font-size: 60px;
+      height: 30px;
+      font-weight: bold;
       /* padding-bottom: 30px; */
     }
 
-    .board-box .event-owner td {
+    .board-table .event-owner td {
       font-size: 30px;
+      height: 100px;
       /* padding-top: 30px; */
       /* padding-bottom: 15%; */
     }
 
-    .board-box .venue td {
+    .board-table .venue td {
+      /* height: 100px; */
       font-size: 50px;
       text-align: right;
-      /* padding-top: 5%; */
-      /* padding-bottom: 2%; */
+      padding-top: 50px;
+      height: 50px;
       border-top: 2px solid #ddd;
     }
 
-    .board-inner li {
-      /* height: 30px; */
-      /* margin-bottom: 20px; */
-      line-height: 25px;
+    .board-table .venue td p{
+      word-break: all;
     }
 
-    .date  {
-      margin-bottom: 25px;
-    }
 
-    .date span {
-      font-size: 30px;
-    }
-
-    .event-name p,
-    .event-name2 p {
-      font-size: 60px;
-    }
-    .event-name2 p {
-      margin-top: -20px;
-    }
-
-    .event-owner {
-      margin-top: 25px;
-    }
-
-    .event-owner p {
-      font-size: 35px;
-    }
-
-    .event-owner p::after {
-      content: "";
-      display: block;
-      width: 100%;
-      height: 1px;
-      color: #ddd;
-    }
-
-    .venue {
-      margin-top: 48px;
-    }
-
-    .venue p {
-      font-size: 50px;
-      text-align: right;
-    }
   </style>
 
 </head>
@@ -136,9 +112,9 @@
     <h1>{{$reservation->venue->name_area}}{{$reservation->venue->name_bldg}}{{$reservation->venue->name_venue}}</h1>
 
   </div>  -->
- 
-  <!-- <div class="board-box">
-    <table  class="board-inner">
+
+  <div class="board-box">
+    <table  class="board-table">
       <tr class="date">
         <td>
           <span>{{ReservationHelper::formatDate($reservation->reserve_date)}}
@@ -168,34 +144,7 @@
         </td>
       </tr>
     </table>
-  </div> -->
-
-  <div class="board-box">
-    <ul class="board-inner">
-      <li class="date">
-        <span>{{ReservationHelper::formatDate($reservation->reserve_date)}}
-        </span>
-        <span>{{$reservation->event_start}}<span>~</span>{{$reservation->event_finish}}</span>
-      </li>
-      <li class="event-name">
-        <p>{{$reservation->event_name1}}</p>
-      </li>
-      <li class="event-name2">
-        <p>{{$reservation->event_name2}}</p>
-      </li>
-
-      <li class="event-owner">
-        <p><span>主催：</span>{{$reservation->event_owner}}</p>
-        <hr class="border_line">
-      </li>
-      <li class="venue">
-        <p>{{$reservation->venue->name_area}}{{$reservation->venue->name_bldg}}{{$reservation->venue->name_venue}}</p>
-      </li>
-    </ul>
   </div>
-
-
-
 </body>
 
 </html>
