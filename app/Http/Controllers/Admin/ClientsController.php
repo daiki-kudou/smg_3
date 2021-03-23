@@ -117,11 +117,11 @@ class ClientsController extends Controller
    * @param  int  $id
    * @return \Illuminate\Http\Response
    */
-  public function show($id)
+  public function show($id, Request $request)
   {
     $user = User::find($id);
     $reservations = $user->reservations()->paginate(10);
-    return view('admin.clients.show', compact("user", "reservations"));
+    return view('admin.clients.show', compact("user", "reservations", 'request'));
   }
 
   /**
@@ -185,12 +185,19 @@ class ClientsController extends Controller
    * @param  int  $id
    * @return \Illuminate\Http\Response
    */
-  public function destroy($id)
+  public function destroy($id, Request $request)
   {
-    $venue = User::find($id);
-    $venue->delete();
+    $user = User::find($id);
+    DB::transaction(function () use ($user) {
+      $user->delete();
+    });
 
-    return redirect('admin/clients');
+
+    if ($request->page == 1) {
+      return redirect('admin/clients');
+    } else {
+      return redirect(url("admin/clients?page=" . $request->page));
+    }
   }
 
   /***********************
