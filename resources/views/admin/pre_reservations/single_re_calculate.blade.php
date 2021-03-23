@@ -199,7 +199,7 @@
             </td>
           </tr>
           <tr>
-            <td>案内板</td>
+            <td class="table-active">案内板</td>
             <td>
               <div class="radio-box">
                 <p>
@@ -452,11 +452,12 @@
               <tr>
                 <td class="table-active">荷物預かり/返送<br>料金</td>
                 <td>
-                  <div class="d-flex align-items-end">
+                  <p class="annotation">※仮押え時点では、料金の設定ができません。<br>予約へ切り替え後に料金の設定が可能です。</p>
+                  <!-- <div class="d-flex align-items-end">
                     {{ Form::text('luggage_price', $request->luggage_price,['class'=>'form-control'] ) }}
                     <span class="ml-1">円</span>
                   </div>
-                  <p class='is-error-luggage_price' style=' color: red'></p>
+                  <p class='is-error-luggage_price' style=' color: red'></p> -->
                 </td>
               </tr>
             </tbody>

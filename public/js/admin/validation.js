@@ -156,9 +156,14 @@ $(function () {
       },
       pre_endusers_tel: {
         number: true,
+        minlength: 10
       },
       pre_endusers_mobile: {
         number: true,
+        minlength: 11
+      },
+      pre_endusers_email: {
+        email: true,
       },
       in_charge: {
         required: true,
@@ -188,31 +193,36 @@ $(function () {
         number: '※半角英数字を入力してください',
       },
       pre_endusers_tel: {
-        number: '※半角英数字を入力してください',
+        number: '※半角数字を入力してください',
+        minlength: '※最低桁数は10です',
       },
       pre_endusers_mobile: {
-        number: '※半角英数字を入力してください',
+        number: '※半角数字を入力してください',
+        minlength: '※最低桁数は11です',
+      },
+      pre_endusers_email: {
+        email: '※Emailの形式で入力してください',
       },
       in_charge: {
         required: '※必須項目です',
       },
       tel: {
         required: '※必須項目です',
-        number: '※半角英数字を入力してください',
+        number: '※半角数字を入力してください',
       },
       price_system: {
         required: '※必須項目です',
       },
       luggage_count: {
-        number: '※半角英数字を入力してください',
+        number: '※半角数字を入力してください',
         max: "※最大値は49です",
       },
       luggage_return: {
-        number: '※半角英数字を入力してください',
+        number: '※半角数字を入力してください',
         max: "※最大値は49です",
       },
       luggage_price: {
-        number: '※半角英数字を入力してください',
+        number: '※半角数字を入力してください',
       },
     },
     errorPlacement: function (error, element) {

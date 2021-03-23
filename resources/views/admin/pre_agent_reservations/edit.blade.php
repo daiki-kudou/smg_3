@@ -57,9 +57,8 @@
         <tr>
           <th>仲介会社情報</th>
           <th colspan="3">
-            <div class="d-flex">
-            <p>仲介会社ID：</p>
-            {{$PreReservation->agent_id}}
+            <div class="d-flex align-items-center">
+            <p class="w-25">仲介会社ID：{{$PreReservation->agent_id}}</p>
             <select name="agent_id" id="agent_id">
               @foreach ($agents as $agents)
               <option value="{{$agents->id}}" @if ($PreReservation->agent_id==$agents->id)
@@ -139,6 +138,7 @@
           <td class="table-active">メールアドレス </td>
           <td>
             {{Form::text('pre_endusers_email',$PreReservation->pre_enduser->email,['class'=>'form-control'])}}
+            <p class="is-error-pre_endusers_email" style="color: red"></p>
           </td>
         </tr>
         <tr>

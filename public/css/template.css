@@ -150,7 +150,7 @@ table.dataTable thead .sorting_desc:after {
 }
 
 .accordion-wrap .table-active {
-    width: 50%;
+    width: 45%;
     word-break: break-all;
 }
 
@@ -494,6 +494,7 @@ select:disabled {
 }
 
 .table-active {
+    width: 45%;
     /* background: #f2f2f2; */
 }
 
