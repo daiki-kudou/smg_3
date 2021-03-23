@@ -46,7 +46,7 @@
                 </a>
                 @endif
                 @endif
-                {{ Form::open(['url' => 'admin/pre_reservations/switch_status', 'method'=>'POST']) }}
+                {{ Form::open(['url' => 'admin/pre_reservations/switch_status', 'method'=>'POST','id'=>'confirm_prereserve']) }}
                 @csrf
                 @if ($pre_reservation->status==0)
                 {{ Form::hidden('pre_reservation_id', $pre_reservation->id)}}
@@ -980,6 +980,15 @@
   </div>
   </div>
   </div>
-
 </section>
+
+<script>
+  $(function(){
+    $("#confirm_prereserve").on('click',function(){
+      if(!confirm('仮押さえの内容を確定し、ユーザーにメールを送付しますか？')){
+        return false;
+    }
+    })
+  })
+</script>
 @endsection
