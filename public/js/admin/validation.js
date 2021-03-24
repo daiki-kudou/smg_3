@@ -1443,6 +1443,9 @@ $(function () {
         required: true,
         email: true
       },
+      pay_post_code: {
+        number: true
+      },
     },
     messages: {
       company: {
@@ -1479,7 +1482,9 @@ $(function () {
         required: "※必須項目です",
         email: '※メールアドレスの形式で入力してください'
       },
-
+      pay_post_code: {
+        number: '※半角英数字で入力してください',
+      },
     },
     errorPlacement: function (error, element) {
       var name = element.attr('name');

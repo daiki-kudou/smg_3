@@ -206,6 +206,8 @@
                                 'onKeyUp'=>"AjaxZip3.zip2addr(this,'','pay_address1','pay_address2');",
                                 'autocomplete'=>'off',
                                 ]) }}
+              <p class="is-error-pay_post_code" style="color: red"></p>
+
             </td>
           </tr>
           <tr>
