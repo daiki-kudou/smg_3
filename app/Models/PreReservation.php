@@ -648,14 +648,14 @@ class PreReservation extends Model
     $this->user_id != 0 ? $user = User::find($this->user_id) : $user = 0;
     $this->agent_id != 0 ? $agent = Agent::find($this->agent_id) : $agent = 0;
     // 支払期日
-    if ($user != 0) $payment_limit = $user->getUserPayLimit($request->reserve_date);
-    if ($agent != 0) $payment_limit = $agent->getPayDetails($request->reserve_date);
+    if (is_object($user)) $payment_limit = $user->getUserPayLimit($request->reserve_date);
+    if (is_object($agent)) $payment_limit = $agent->getPayDetails($request->reserve_date);
     // bill company
-    if ($user != 0) $bill_company = $user->company;
-    if ($agent != 0) $bill_company = $agent->company;
+    if (is_object($user)) $bill_company = $user->company;
+    if (is_object($agent)) $bill_company = $agent->company;
     // bill person
-    if ($user != 0) $bill_person = $user->first_name . $user->last_name;
-    if ($agent != 0) $bill_person = $agent->person_firstname . $agent->person_lastname;
+    if (is_object($user)) $bill_person = $user->first_name . $user->last_name;
+    if (is_object($agent)) $bill_person = $agent->person_firstname . $agent->person_lastname;
 
     $reservation = new Reservation;
     //reservationのReserveStoreに持たせるためのrequestを作成
@@ -696,13 +696,13 @@ class PreReservation extends Model
       'master_total' => $this->pre_bill->master_total,
       'payment_limit' => $payment_limit,
       'bill_company' => $bill_company,
-      'bill_person' => $this->pre_bill->bill_person,
+      'bill_person' => $bill_person,
       'bill_created_at' => Carbon::now(),
-      'bill_remark' => $this->pre_bill->bill_remark,
-      'paid' => $this->pre_bill->paid,
-      'pay_day' => $this->pre_bill->pay_day,
-      'pay_person' => $this->pre_bill->pay_person,
-      'payment' => $this->pre_bill->payment,
+      'bill_remark' => '',
+      'paid' => 0, //デフォで0、仮押さえから本予約切り替え時点では未入金のため
+      'pay_day' => NULL,
+      'pay_person' => '',
+      'payment' => NULL,
       'reservation_status' => 1, //デフォで1、仮押えのデフォは0
       'double_check_status' => 0, //デフォで0
       'category' => 1, //デフォで１。　新規以外だと　2:その他有料備品　3:レイアウト　4:その他

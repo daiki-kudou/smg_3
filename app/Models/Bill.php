@@ -49,6 +49,11 @@ class Bill extends Model
     'category',
     'admin_judge',
   ];
+  protected $dates = [
+    'pay_day',
+    'payment_limit',
+  ];
+
 
   /*
 |--------------------------------------------------------------------------
