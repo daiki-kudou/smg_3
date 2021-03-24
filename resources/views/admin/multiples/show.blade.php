@@ -31,10 +31,18 @@
         </td>
 
         <td class="text-right">
-          <a class="more_btn4 confirm_prereserve" href="">仮押さえ内容を確定する</a>
+          {{ Form::open(['url' => 'admin/multiples/switch_status', 'method'=>'POST','id'=>'']) }}
+          @csrf
+          {{ Form::hidden('multiple_id', $multiple->id)}}
+          @if ($checkEachStatus)
+          {{ Form::submit('仮押え内容を確定する', ['class' => 'btn more_btn4',$checkVenuePrice?'disabled':'']) }}
+          @endif
+          {{ Form::close() }}
+          <span class="text-white">{{$checkVenuePrice?'※会場料金未設定が一つでもあれば、選択できません':''}}</span>
         </td>
     </tbody>
   </table>
+
 
   <div class="border-wrap2 p-4">
     <table class="table table-bordered customer-table mb-5" style="table-layout: fixed;">

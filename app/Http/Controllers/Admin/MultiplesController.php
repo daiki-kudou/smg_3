@@ -43,13 +43,13 @@ class MultiplesController extends Controller
     $multiple = MultipleReserve::find($id);
     $venues = $multiple->pre_reservations()->distinct('')->select('venue_id')->get();
     $venue_count = $venues->count('venue_id');
+    $checkVenuePrice = $multiple->checkVenuePrice();
+    $checkEachStatus = $multiple->checkEachStatus();
 
-    return view('admin.multiples.show', [
-      'multiple' => $multiple,
-      'venue_count' => $venue_count,
-      'venues' => $venues,
-
-    ]);
+    return view(
+      'admin.multiples.show',
+      compact('multiple', 'venue_count', 'venues', 'checkVenuePrice', 'checkEachStatus')
+    );
   }
 
   public function switch($id)
@@ -79,6 +79,20 @@ class MultiplesController extends Controller
     });
     $request->session()->regenerate();
     return redirect('admin/multiples/' . $id);
+  }
+
+  public function switchStatus(Request $request)
+  {
+    var_dump($request->all());
+    $multiple = MultipleReserve::find($request->multiple_id);
+    DB::transaction(function () use ($multiple) {
+      foreach ($multiple->pre_reservations()->get() as $key => $value) {
+        $value->update(['status' => 1]);
+      }
+    });
+
+    $request->session()->regenerate();
+    return redirect()->route('admin.multiples.show', $request->multiple_id);
   }
 
   public function edit($multiple_id, $venue_id)

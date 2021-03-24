@@ -28,6 +28,7 @@
         <thead>
           <tr>
             <th>仮押えID</th>
+            <th>一括仮押えID</th>
             <th>利用日</th>
             <th>入室時間</th>
             <th>退室時間</th>
@@ -38,6 +39,7 @@
         <tbody>
           @foreach ($pre_reservations as $pre_reservation)
           <tr>
+            <td>{{$pre_reservation->multiple_reserve_id==0?"":$pre_reservation->multiple_reserve_id}}</td>
             <td>{{$pre_reservation->id}}</td>
             <td>{{ReservationHelper::formatDate($pre_reservation->reserve_date)}}</td>
             <td>{{ReservationHelper::formatTime($pre_reservation->enter_time)}}</td>

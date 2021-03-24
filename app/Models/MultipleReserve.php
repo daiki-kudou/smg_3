@@ -37,8 +37,6 @@ class MultipleReserve extends Model implements PresentableInterface //プレゼ�
     return $this->hasMany(PreReservation::class);
   }
 
-
-
   public function calculateVenue($venue_id, $all_requests)
   {
     $venue = Venue::find($venue_id);
@@ -67,7 +65,6 @@ class MultipleReserve extends Model implements PresentableInterface //プレゼ�
 
     $item_details = $venue->calculate_items_price($s_equipment, $s_services);    // [0]備品＋サービス [1]備品詳細 [2]サービス詳細 [3]備品合計 [4]サービス合計
     $layouts_details = $venue->getLayoutPrice($all_requests->cp_master_layout_prepare, $all_requests->cp_master_layout_clean);
-
 
     return [$venue_price_result, $item_details, $layouts_details];
   }
@@ -252,7 +249,6 @@ class MultipleReserve extends Model implements PresentableInterface //プレゼ�
           'reservation_status' => 0,
           'category' => 1
         ]);
-        //////////////////////////////////////////////////////////////////////////
         // 以下入力された会場
         $s_venue = [];
         foreach ($masterData as $s_v_key => $value) {
@@ -319,7 +315,6 @@ class MultipleReserve extends Model implements PresentableInterface //プレゼ�
           }
         }
 
-        //////////////////////////////////////////////////////////////////////////
         // 以下入力された備品
         $s_equipment = [];
         foreach ($masterData as $s_e_key => $value) {
@@ -387,9 +382,7 @@ class MultipleReserve extends Model implements PresentableInterface //プレゼ�
           }
         }
 
-        //////////////////////////////////////////////////////////////////////////
         // 以下入力されたサービス
-
         $s_service = [];
         foreach ($masterData as $s_s_key => $value) {
           if (preg_match('/services_breakdown_item/', $s_s_key)) {
@@ -426,7 +419,6 @@ class MultipleReserve extends Model implements PresentableInterface //プレゼ�
           }
         }
 
-        //////////////////////////////////////////////////////////////////////////
         // 以下入力されたレイアウト
         $s_layouts = [];
         foreach ($masterData as $s_l_key => $value) {
@@ -490,7 +482,6 @@ class MultipleReserve extends Model implements PresentableInterface //プレゼ�
           ]);
         }
 
-        //////////////////////////////////////////////////////////////////////////
         // 以下入力されたothers
         $s_others = [];
         foreach ($masterData as $s_o_key => $value) {
@@ -773,5 +764,23 @@ class MultipleReserve extends Model implements PresentableInterface //プレゼ�
         }
       }
     });
+  }
+
+  public function checkVenuePrice()
+  {
+    $judge = [];
+    foreach ($this->pre_reservations()->get() as $key => $value) {
+      $judge[] = $value->pre_bill->venue_price;
+    }
+    return in_array(0, $judge);
+  }
+
+  public function checkEachStatus()
+  {
+    $judge = [];
+    foreach ($this->pre_reservations()->get() as $key => $value) {
+      $judge[] = $value->status;
+    }
+    return in_array(0, $judge);
   }
 }

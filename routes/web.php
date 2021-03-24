@@ -228,7 +228,7 @@ Route::namespace('Admin')->prefix('admin')->name('admin.')->group(function () {
     // 一括仮押え index
     Route::get('multiples', 'MultiplesController@index');
     // 一括仮押え show
-    Route::get('multiples/{multiples}', 'MultiplesController@show');
+    Route::get('multiples/{multiples}', 'MultiplesController@show')->name('multiples.show');
     // 一括　個別　edit
     Route::get('multiples/{multiples}/edit/{venues}', 'MultiplesController@edit');
     // 一括　計算
@@ -261,8 +261,8 @@ Route::namespace('Admin')->prefix('admin')->name('admin.')->group(function () {
     Route::get('multiples/agent/{multiples}/add_venue', 'MultiplesController@agent_add_venue');
     // 仲介会社　一括仮押さえ、会場の追加
     Route::post('multiples/agent/{multiples}/add_venue_store', 'MultiplesController@agent_add_venue_store');
-
-
+    // 一括仮押さえ、ユーザーに編集権限譲渡
+    Route::post('multiples/switch_status', 'MultiplesController@switchStatus');
 
     // 仲介会社　仮押え 作成
     Route::get('pre_agent_reservations/create', 'PreAgentReservationsController@create');

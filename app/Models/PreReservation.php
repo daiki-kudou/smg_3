@@ -8,6 +8,8 @@ use App\Models\Venue;
 use Illuminate\Support\Facades\DB; //トランザクション用
 
 use App\Models\Reservation;
+use App\Models\User;
+use App\Models\Agent;
 
 use Carbon\Carbon;
 
@@ -643,6 +645,18 @@ class PreReservation extends Model
 
   public function MoveToReservation(Request $request)
   {
+    $this->user_id != 0 ? $user = User::find($this->user_id) : $user = 0;
+    $this->agent_id != 0 ? $agent = Agent::find($this->agent_id) : $agent = 0;
+    // 支払期日
+    if (is_object($user)) $payment_limit = $user->getUserPayLimit($request->reserve_date);
+    if (is_object($agent)) $payment_limit = $agent->getPayDetails($request->reserve_date);
+    // bill company
+    if (is_object($user)) $bill_company = $user->company;
+    if (is_object($agent)) $bill_company = $agent->company;
+    // bill person
+    if (is_object($user)) $bill_person = $user->first_name . $user->last_name;
+    if (is_object($agent)) $bill_person = $agent->person_firstname . $agent->person_lastname;
+
     $reservation = new Reservation;
     //reservationのReserveStoreに持たせるためのrequestを作成
     $request->merge([
@@ -662,7 +676,7 @@ class PreReservation extends Model
       'luggage_count' => $this->luggage_count,
       'luggage_arrive' => $this->luggage_arrive,
       'luggage_return' => $this->luggage_return,
-      'email_flag' => $this->email_flag,
+      'email_flag' => 0, //デフォで0(利用後の送信メール無し)を選択
       'in_charge' => $this->in_charge,
       'tel' => $this->tel,
       'cost' => $this->cost,
@@ -680,15 +694,15 @@ class PreReservation extends Model
       'master_subtotal' => $this->pre_bill->master_subtotal,
       'master_tax' => $this->pre_bill->master_tax,
       'master_total' => $this->pre_bill->master_total,
-      'payment_limit' => $this->pre_bill->payment_limit,
-      'bill_company' => $this->pre_bill->bill_company,
-      'bill_person' => $this->pre_bill->bill_person,
+      'payment_limit' => $payment_limit,
+      'bill_company' => $bill_company,
+      'bill_person' => $bill_person,
       'bill_created_at' => Carbon::now(),
-      'bill_remark' => $this->pre_bill->bill_remark,
-      'paid' => $this->pre_bill->paid,
-      'pay_day' => $this->pre_bill->pay_day,
-      'pay_person' => $this->pre_bill->pay_person,
-      'payment' => $this->pre_bill->payment,
+      'bill_remark' => '',
+      'paid' => 0, //デフォで0、仮押さえから本予約切り替え時点では未入金のため
+      'pay_day' => NULL,
+      'pay_person' => '',
+      'payment' => NULL,
       'reservation_status' => 1, //デフォで1、仮押えのデフォは0
       'double_check_status' => 0, //デフォで0
       'category' => 1, //デフォで１。　新規以外だと　2:その他有料備品　3:レイアウト　4:その他
@@ -709,6 +723,14 @@ class PreReservation extends Model
         'equipment_breakdown_cost' . $e_key => $e_breakdown->unit_cost,
         'equipment_breakdown_count' . $e_key => $e_breakdown->unit_count,
         'equipment_breakdown_subtotal' . $e_key => $e_breakdown->unit_subtotal,
+      ]);
+    }
+    foreach ($this->pre_breakdowns()->where('unit_type', 3)->get() as $s_key => $s_breakdown) {
+      $request->merge([
+        'service_breakdown_item' . $s_key => $s_breakdown->unit_item,
+        'service_breakdown_cost' . $s_key => $s_breakdown->unit_cost,
+        'service_breakdown_count' . $s_key => $s_breakdown->unit_count,
+        'service_breakdown_subtotal' . $s_key => $s_breakdown->unit_subtotal,
       ]);
     }
     foreach ($this->pre_breakdowns()->where('unit_type', 4)->get() as $l_key => $l_breakdown) {
