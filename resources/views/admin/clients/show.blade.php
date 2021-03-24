@@ -22,6 +22,7 @@
     <div>
       {{ Form::model($user, ['route' => ['admin.clients.destroy', $user->id], 'method' => 'delete']) }}
       @csrf
+      {{Form::hidden("page",$request->page)}}
       {{ Form::submit('削除', ['class' => 'btn more_btn4',"id"=>"delete_btn"]) }}
       {{ Form::close() }}
     </div>
@@ -273,96 +274,96 @@
 
     <h4 class="mb-2 mt-4">予約・利用履歴</h4>
     <div class="table-wrap">
-    <table class="table table-bordered table-scroll">
-      <thead>
-        <tr class="table_row">
-          <th>予約一括ID</th>
-          <th>予約ID</th>
-          <th>利用日</th>
-          <th>入室</th>
-          <th>退室</th>
-          <th>利用会場</th>
-          <th>会社名団体名</th>
-          <th>担当者氏名</th>
-          <th>携帯電話</th>
-          <th>固定電話</th>
-          <th>仲介会社</th>
-          <th>エンドユーザー</th>
-          <th width="120">売上区分</th>
-          <th width="120">予約状況</th>
-          <th width="120">詳細</th>
-        </tr>
-      </thead>
-      @foreach ($reservations as $reservation)
-      <tbody>
-        <tr>
-          <td rowspan="{{count($reservation->bills()->get())}}">※後ほど修正</td>
-          <td rowspan="{{count($reservation->bills()->get())}}">{{$reservation->id}}</td>
-          <td rowspan="{{count($reservation->bills()->get())}}">
-            {{ReservationHelper::formatDate($reservation->reserve_date)}}
-          </td>
-          <td rowspan="{{count($reservation->bills()->get())}}">{{$reservation->enter_time}}</td>
-          <td rowspan="{{count($reservation->bills()->get())}}">{{$reservation->leave_time}}</td>
-          <td rowspan="{{count($reservation->bills()->get())}}">
-            {{ReservationHelper::getVenue($reservation->venue->id)}}
-          </td>
-          <td rowspan="{{count($reservation->bills()->get())}}">
-            @if ($reservation->user_id>0)
-            {{$reservation->user->company}}
-            @elseif($reservation->user_id==0)
-            {{ReservationHelper::getAgentCompany($reservation->agent_id)}}
-            @endif
-          </td>
-          <td rowspan="{{count($reservation->bills()->get())}}">
-            @if ($reservation->user_id>0)
-            {{ReservationHelper::getPersonName($reservation->user_id)}}
-            @elseif($reservation->user_id==0)
-            {{ReservationHelper::getAgentPerson($reservation->agent_id)}}
-            @endif
-          </td>
-          <td rowspan="{{count($reservation->bills()->get())}}">
-            @if ($reservation->user_id>0)
-            {{$reservation->user->mobile}}
-            @else
-            {{$reservation->agent->mobile}}
-            @endif
-          </td>
-          <td rowspan="{{count($reservation->bills()->get())}}">
-            @if ($reservation->user_id>0)
-            {{$reservation->user->tel}}
-            @else
-            {{$reservation->agent->person_tel}}
-            @endif
-          </td>
-          <td rowspan="{{count($reservation->bills()->get())}}">
-            @if ($reservation->agent_id>0)
-            {{ReservationHelper::getAgentCompany($reservation->agent_id)}}
-            @endif
-          </td>
-          <td>ダミーダミーダミー</td>
-          <td>会場予約</td>　
-          <td>
-            {{ReservationHelper::judgeStatus($reservation->bills()->first()->reservation_status)}}
-          </td>
-          <td rowspan="{{count($reservation->bills()->get())}}"><a
-              href="{{ url('admin/reservations', $reservation->id) }}" class="more_btn">詳細</a></td>
-          {{-- <td rowspan="{{count($reservation->bills()->get())}}"><a
-            href="{{ url('admin/reservations/generate_pdf/'.$reservation->id) }}" class="more_btn">表示</a></td> --}}
-        </tr>
-        @for ($i = 0; $i < count($reservation->bills()->get())-1; $i++)
+      <table class="table table-bordered table-scroll">
+        <thead>
+          <tr class="table_row">
+            <th>予約一括ID</th>
+            <th>予約ID</th>
+            <th>利用日</th>
+            <th>入室</th>
+            <th>退室</th>
+            <th>利用会場</th>
+            <th>会社名団体名</th>
+            <th>担当者氏名</th>
+            <th>携帯電話</th>
+            <th>固定電話</th>
+            <th>仲介会社</th>
+            <th>エンドユーザー</th>
+            <th width="120">売上区分</th>
+            <th width="120">予約状況</th>
+            <th width="120">詳細</th>
+          </tr>
+        </thead>
+        @foreach ($reservations as $reservation)
+        <tbody>
           <tr>
-            <td>
-              @if ($reservation->bills()->skip($i+1)->first()->category==2)
-              追加請求
+            <td rowspan="{{count($reservation->bills()->get())}}">※後ほど修正</td>
+            <td rowspan="{{count($reservation->bills()->get())}}">{{$reservation->id}}</td>
+            <td rowspan="{{count($reservation->bills()->get())}}">
+              {{ReservationHelper::formatDate($reservation->reserve_date)}}
+            </td>
+            <td rowspan="{{count($reservation->bills()->get())}}">{{$reservation->enter_time}}</td>
+            <td rowspan="{{count($reservation->bills()->get())}}">{{$reservation->leave_time}}</td>
+            <td rowspan="{{count($reservation->bills()->get())}}">
+              {{ReservationHelper::getVenue($reservation->venue->id)}}
+            </td>
+            <td rowspan="{{count($reservation->bills()->get())}}">
+              @if ($reservation->user_id>0)
+              {{$reservation->user->company}}
+              @elseif($reservation->user_id==0)
+              {{ReservationHelper::getAgentCompany($reservation->agent_id)}}
               @endif
             </td>
-            {{-- <td>{{ReservationHelper::judgeStatus($reservation->bills()->skip($i+1)->first()->reservation_status)}}
-            </td> --}}
+            <td rowspan="{{count($reservation->bills()->get())}}">
+              @if ($reservation->user_id>0)
+              {{ReservationHelper::getPersonName($reservation->user_id)}}
+              @elseif($reservation->user_id==0)
+              {{ReservationHelper::getAgentPerson($reservation->agent_id)}}
+              @endif
+            </td>
+            <td rowspan="{{count($reservation->bills()->get())}}">
+              @if ($reservation->user_id>0)
+              {{$reservation->user->mobile}}
+              @else
+              {{$reservation->agent->mobile}}
+              @endif
+            </td>
+            <td rowspan="{{count($reservation->bills()->get())}}">
+              @if ($reservation->user_id>0)
+              {{$reservation->user->tel}}
+              @else
+              {{$reservation->agent->person_tel}}
+              @endif
+            </td>
+            <td rowspan="{{count($reservation->bills()->get())}}">
+              @if ($reservation->agent_id>0)
+              {{ReservationHelper::getAgentCompany($reservation->agent_id)}}
+              @endif
+            </td>
+            <td>ダミーダミーダミー</td>
+            <td>会場予約</td>　
+            <td>
+              {{ReservationHelper::judgeStatus($reservation->bills()->first()->reservation_status)}}
+            </td>
+            <td rowspan="{{count($reservation->bills()->get())}}"><a
+                href="{{ url('admin/reservations', $reservation->id) }}" class="more_btn">詳細</a></td>
+            {{-- <td rowspan="{{count($reservation->bills()->get())}}"><a
+              href="{{ url('admin/reservations/generate_pdf/'.$reservation->id) }}" class="more_btn">表示</a></td> --}}
           </tr>
-          @endfor
-      </tbody>
-      @endforeach
-    </table>
+          @for ($i = 0; $i < count($reservation->bills()->get())-1; $i++)
+            <tr>
+              <td>
+                @if ($reservation->bills()->skip($i+1)->first()->category==2)
+                追加請求
+                @endif
+              </td>
+              {{-- <td>{{ReservationHelper::judgeStatus($reservation->bills()->skip($i+1)->first()->reservation_status)}}
+              </td> --}}
+            </tr>
+            @endfor
+        </tbody>
+        @endforeach
+      </table>
     </div>
 
     {{ $reservations->links() }}

@@ -72,11 +72,11 @@
           </tr>
           <tr>
             <td class="table-active"><label for="person_firstname">担当者氏名</label></td>
-            <td>{{ $agent->id }}</td>
+            <td>{{ ReservationHelper::getAgentPerson($agent->id) }}</td>
           </tr>
           <tr>
             <td class="table-active"><label for="firstname_kana">担当者氏名（フリガナ）</label></td>
-            <td>{{ $agent->id }}</td>
+            <td>{{ ReservationHelper::getAgentPersonKANA($agent->id) }}</td>
           </tr>
           <tr>
             <td class="table-active"><label for="person_tel">担当者TEL</label></td>
@@ -171,7 +171,7 @@
           </tr>
           <tr>
             <th class="table-active"><label for="cancel">キャンセルポリシー</label></th>
-            <td>{{ $agent->cxl }}</td>
+            <td>{{ $agent->cxl==1?"SMGルール":"仲介会社ルール" }}</td>
           </tr>
           <tr>
             <th class="table-active"><label for="deal_remark">備考</label></th>

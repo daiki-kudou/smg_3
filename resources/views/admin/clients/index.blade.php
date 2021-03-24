@@ -192,7 +192,14 @@
           <td>{{$query->mobile}}</td>
           <td>{{$query->tel}}</td>
           <td>{{$query->email}}</td>
-          <td class="text-center"><a class="more_btn" href="{{ url('/admin/clients/'. $query->id) }}">詳細</a></td>
+          <td class="text-center">
+            {{-- <a class="more_btn" href="{{ url('/admin/clients/'. $query->id) }}">詳細</a> --}}
+            {{ Form::open(['url' => 'admin/clients/'.$query->id, 'method'=>'get']) }}
+            @csrf
+            {{Form::hidden("page",$querys->currentPage())}}
+            {{ Form::submit('詳細', ['class' => 'btn more_btn']) }}
+            {{ Form::close() }}
+          </td>
         </tr>
         @endforeach
       </tbody>
