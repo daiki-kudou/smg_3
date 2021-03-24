@@ -377,65 +377,6 @@ $(function () {
 
 // 案内板の文字数カウントダウン
 // イベント名称1
-// $(function(){
-// 	var txt = $('input[name="event_name1"]').val(),
-// 		new_txt = $.trim(txt.replace(/\n/g, "")),
-// 		couter = new_txt.length;
-// 	$('.count_num1').html(couter + "/16");
-// 	$('input[name="event_name1"]').bind('keydown keyup keypress change',function(){
-// 		var txt = $(this).val(),
-// 			new_txt = $.trim(txt.replace(/\n/g, "")),
-// 			couter = new_txt.length;
-// 		$('.count_num1').html(couter + "/16");
-// 		if(couter > 16){
-//     $('.count_num1').css('color', 'red');
-// 		}else{
-// 		   $('.count_num1').css('color', 'black');
-// 		}
-// 	});
-// });
-
-// イベント名称2
-// $(function(){
-// 	var txt = $('input[name="event_name2"]').val(),
-// 		new_txt = $.trim(txt.replace(/\n/g, "")),
-// 		couter = new_txt.length;
-// 	$('.count_num2').html(couter + "/16");
-// 	$('input[name="event_name2"]').bind('keydown keyup keypress change',function(){
-// 		var txt = $(this).val(),
-// 			new_txt = $.trim(txt.replace(/\n/g, "")),
-// 			couter = new_txt.length;
-// 		$('.count_num2').html(couter + "/16");
-// 		if(couter > 16){
-//     $('.count_num2').css('color', 'red');
-// 		}else{
-// 		   $('.count_num2').css('color', 'black');
-// 		}
-// 	});
-// });
-
-// 主催者名
-// $(function(){
-// 	var txt = $('input[name="event_owner"]').val(),
-// 		new_txt = $.trim(txt.replace(/\n/g, "")),
-// 		couter = new_txt.length;
-// 	$('.count_num3').html(couter + "/30");
-// 	$('input[name="event_owner"]').bind('keydown keyup keypress change',function(){
-// 		var txt = $(this).val(),
-// 			new_txt = $.trim(txt.replace(/\n/g, "")),
-// 			couter = new_txt.length;
-// 		$('.count_num3').html(couter + "/30");
-// 		if(couter > 30){
-//     $('.count_num3').css('color', 'red');
-// 		}else{
-// 		   $('.count_num3').css('color', 'black');
-// 		}
-// 	});
-// });
-
-
-// イベント名称1
-
 const eventname1 = function(){
   var len = textLength($(this).val());
   $('.count_num1').html(len + "/28");
@@ -456,7 +397,6 @@ const eventname1 = function(){
 $(function(){
   $(function(){
     $('.is-error-event_name1').hide();
-
     var len = textLength($('#eventname1Count').val());
     $('.count_num1').html(len + "/28");
 });
@@ -464,6 +404,68 @@ $(function(){
   $('#eventname1Count').on('keyup', eventname1);
   $('#eventname1Count').blur(eventname1);
 });
+
+// 一括のコピーの場合、イベント名称1
+// const copiedeventname1 = function(){
+//   var len = textLength($(this).val());
+//   $('.count_num1').html(len + "/28");
+//   if(len > 28){
+//   $('.count_num1').css('color', 'red');
+//   $(eventname1copied).text('※文字数がオーバーしています');
+//   $(eventname1copied).show();
+//   $(eventname1copiedcount).addClass('is-error');
+//   $(':submit').prop("disabled", true);
+//   }else{
+//   $('.count_num1').css('color', 'black');
+//   $(eventname1copied).hide();
+//   $(eventname1copiedcount).removeClass('is-error');
+//   $(':submit').prop("disabled", false);
+//   }
+// }
+
+$(function(){
+  
+  var target = $("input[name^='event_name1_copied']");
+  console.log(target);
+  for (let index = 0; index < target.length; index++) {
+    var eventname1copied = ".event_name1_copied" + index;
+    console.log(eventname1copied);
+    $(function(){
+      $(eventname1copied).hide();
+  
+    });
+  }
+
+  for (let index = 0; index < target.length; index++) {
+    var eventname1copiedcount = "#copiedeventname1Count" + index;
+    console.log(eventname1copiedcount);
+    
+    var len = textLength($(eventname1copiedcount).val());
+    $('.count_num1').html(len + "/28");
+  }
+
+  $(eventname1copiedcount).on('keyup', function(){
+    var len = textLength($(this).val());
+    $('.count_num1').html(len + "/28");
+    if(len > 28){
+    $('.count_num1').css('color', 'red');
+    $(eventname1copied).text('※文字数がオーバーしています');
+    $(eventname1copied).show();
+    $(eventname1copiedcount).addClass('is-error');
+    $(':submit').prop("disabled", true);
+    }else{
+    $('.count_num1').css('color', 'black');
+    $(eventname1copied).hide();
+    $(eventname1copiedcount).removeClass('is-error');
+    $(':submit').prop("disabled", false);
+    }
+  });
+
+  // $(eventname1copied).on('keyup', copiedeventname1);
+  // $(eventname1copied).blur(copiedeventname1);
+});
+
+
 
 // イベント名称2
 
@@ -494,8 +496,10 @@ $('#eventname2Count').on('keyup', eventname2);
 $('#eventname2Count').blur(eventname2);
 });
 
-// 主催者名
 
+
+
+// 主催者名
 const eventowner = function(){
   var len = textLength($(this).val());
 
@@ -523,6 +527,24 @@ $(function(){
 $('#eventownerCount').on('keyup', eventowner);
 $('#eventownerCount').blur(eventowner);
 });
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 function textLength(text){
   var regexp = /[\x01-\x7E\u{FF65}-\u{FF9F}]/mu;
