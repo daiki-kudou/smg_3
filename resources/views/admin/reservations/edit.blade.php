@@ -173,19 +173,31 @@
         <tr>
           <td class="table-active">イベント名称1</td>
           <td>
-            {{ Form::text('event_name1', $reservation->event_name1,['class'=>'form-control'] ) }}
+            <div class="align-items-end d-flex">
+              {{ Form::text('event_name1', $reservation->event_name1,['class'=>'form-control', 'id'=>'eventname1Count'] ) }}
+              <span class="ml-1 annotation count_num1"></span>
+            </div>
+            <p class="is-error-event_name1" style="color: red"></p>
           </td>
         </tr>
         <tr>
           <td class="table-active">イベント名称2</td>
           <td>
-            {{ Form::text('event_name2', $reservation->event_name2,['class'=>'form-control'] ) }}
+            <div class="align-items-end d-flex">
+              {{ Form::text('event_name2', $reservation->event_name2,['class'=>'form-control', 'id'=>'eventname2Count'] ) }}
+              <span class="ml-1 annotation count_num2"></span>
+            </div>
+            <p class="is-error-event_name2" style="color: red"></p>
           </td>
         </tr>
         <tr>
           <td class="table-active">主催者名</td>
           <td>
-            {{ Form::text('event_owner', $reservation->event_owner,['class'=>'form-control'] ) }}
+            <div class="align-items-end d-flex">
+              {{ Form::text('event_owner', $reservation->event_owner,['class'=>'form-control', 'id'=>'eventownerCount'] ) }}
+              <span class="ml-1 annotation count_num3"></span>
+            </div>
+            <p class="is-error-event_owner" style="color: red"></p>
           </td>
         </tr>
       </table>
