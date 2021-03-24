@@ -96,7 +96,7 @@ class PreReservationsController extends Controller
     $pre_breakdowns->PreBreakdownCreate($request, $pre_reservation);
 
 
-    $pre_reservation->MoveToReservation($request);
+    // $pre_reservation->MoveToReservation($request);
 
     // return view('user.pre_reservations.cfm');
   }
