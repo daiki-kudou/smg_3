@@ -725,6 +725,14 @@ class PreReservation extends Model
         'equipment_breakdown_subtotal' . $e_key => $e_breakdown->unit_subtotal,
       ]);
     }
+    foreach ($this->pre_breakdowns()->where('unit_type', 3)->get() as $s_key => $s_breakdown) {
+      $request->merge([
+        'service_breakdown_item' . $s_key => $s_breakdown->unit_item,
+        'service_breakdown_cost' . $s_key => $s_breakdown->unit_cost,
+        'service_breakdown_count' . $s_key => $s_breakdown->unit_count,
+        'service_breakdown_subtotal' . $s_key => $s_breakdown->unit_subtotal,
+      ]);
+    }
     foreach ($this->pre_breakdowns()->where('unit_type', 4)->get() as $l_key => $l_breakdown) {
       if ($l_breakdown->unit_item == 'レイアウト準備料金') {
         $request->merge([

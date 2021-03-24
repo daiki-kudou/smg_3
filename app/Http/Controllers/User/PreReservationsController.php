@@ -102,6 +102,6 @@ class PreReservationsController extends Controller
 
     $pre_reservation->MoveToReservation($request);
 
-    // return view('user.pre_reservations.cfm');
+    return view('user.pre_reservations.cfm');
   }
 }
