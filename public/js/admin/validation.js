@@ -1014,7 +1014,7 @@ $(function () {
       name_venue: { required: true, },
       size1: { required: true, number: true, min: 0, max: 1000, },
       size2: { required: true, number: true, min: 0, max: 1000, },
-      capacity: { required: true, number: true, min: 0, },
+      capacity: { required: true },
       post_code: { required: true, maxlength: 7, number: true, },
       address1: { required: true, },
       address2: { required: true, },
@@ -1039,7 +1039,7 @@ $(function () {
       name_venue: { required: "※必須項目です", },
       size1: { required: "※必須項目です", number: "※半角英数字を入力してください", min: "0以上を入力してください", max: '上限値は1000です', },
       size2: { required: "※必須項目です", number: "※半角英数字を入力してください", min: "0以上を入力してください", max: '上限値は1000です', },
-      capacity: { required: "※必須項目です", number: "※半角英数字を入力してください", min: "0以上を入力してください" },
+      capacity: { required: "※必須項目です" },
       post_code: { required: "※必須項目です", maxlength: '７桁で入力してください', number: "※半角英数字で入力してください", },
       address1: { required: "※必須項目です", },
       address2: { required: "※必須項目です", },
@@ -1114,10 +1114,6 @@ $(function () {
 $(function () {
   $("#VenuesEditForm").validate({
     rules: {
-      // smg_url: {
-      //   required: true,
-      //   url: true
-      // },
       alliance_flag: {
         required: true,
       },
@@ -1149,6 +1145,7 @@ $(function () {
       },
       post_code: {
         required: true,
+        number: true
       },
       address1: {
         required: true,
@@ -1168,24 +1165,6 @@ $(function () {
       last_name_kana: {
         katakana: true,
       },
-      // luggage_post_code: {
-      //   required: true,
-      // },
-      // luggage_address1: {
-      //   required: true,
-      // },
-      // luggage_address2: {
-      //   required: true,
-      // },
-      // luggage_address3: {
-      //   required: true,
-      // },
-      // luggage_name: {
-      //   required: true,
-      // },
-      // luggage_tel: {
-      //   required: true,
-      // },
       eat_in_flag: {
         required: true,
       },
@@ -1198,9 +1177,6 @@ $(function () {
       mgmt_email: {
         email: true,
       },
-      // mgmt_sec_company: {
-      //   minlength: 10
-      // },
       cost: {
         range: [1, 100]
       },
@@ -1212,10 +1188,6 @@ $(function () {
       },
     },
     messages: {
-      // smg_url: {
-      //   required: "※必須項目です",
-      //   url: '正しいURLを記入してください(例:https://osaka-conference.com/rental/t6-maronie/hall/)'
-      // },
       alliance_flag: {
         required: "※必須項目です",
       },
@@ -1247,6 +1219,7 @@ $(function () {
       },
       post_code: {
         required: "※必須項目です",
+        number: "※半角英数字で入力してください"
       },
       address1: {
         required: "※必須項目です",

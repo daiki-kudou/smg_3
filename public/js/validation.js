@@ -119,23 +119,28 @@ $(function () {
       },
       price: {
         required: true,
-        number: true
+        number: true,
+        min: 1,
       },
       stock: {
         required: true,
-        number: true
+        number: true,
+        min: 1,
       },
     },
     messages: {
       item: {
         required: "※必須項目です",
-        url: '正しいURLを記入してください(例:https://osaka-conference.com/rental/t6-maronie/hall/)'
       },
       price: {
         required: "※必須項目です",
+        number: '※半角英数字で入力してください',
+        min: '1以上を入力してください',
       },
       stock: {
         required: "※必須項目です",
+        number: '※半角英数字で入力してください',
+        min: '1以上を入力してください',
       },
     },
     errorPlacement: function (error, element) {
