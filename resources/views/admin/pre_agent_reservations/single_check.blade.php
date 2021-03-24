@@ -249,19 +249,31 @@
           <tr>
             <td class="table-active">イベント名称1</td>
             <td>
-              {{ Form::text('event_name1','',['class'=>'form-control', 'placeholder'=>'入力してください'] ) }}
+              <div class="align-items-end d-flex">
+                {{ Form::text('event_name1','',['class'=>'form-control', 'placeholder'=>'入力してください', 'id'=>'eventname1Count'] ) }}
+                <span class="ml-1 annotation count_num1"></span>
+              </div>
+              <p class="is-error-event_name1" style="color: red"></p>
             </td>
           </tr>
           <tr>
             <td class="table-active">イベント名称2</td>
             <td>
-              {{ Form::text('event_name2', '',['class'=>'form-control', 'placeholder'=>'入力してください'] ) }}
+              <div class="align-items-end d-flex">
+                {{ Form::text('event_name2', '',['class'=>'form-control', 'placeholder'=>'入力してください', 'id'=>'eventname2Count'] ) }}
+                <span class="ml-1 annotation count_num2"></span>
+              </div>
+              <p class="is-error-event_name2" style="color: red"></p>
             </td>
           </tr>
           <tr>
             <td class="table-active">主催者名</td>
             <td>
-              {{ Form::text('event_owner', '',['class'=>'form-control', 'placeholder'=>'入力してください'] ) }}
+              <div class="align-items-end d-flex">
+                {{ Form::text('event_owner', '',['class'=>'form-control', 'placeholder'=>'入力してください', 'id'=>'eventownerCount'] ) }}
+                <span class="ml-1 annotation count_num3"></span>
+              </div>
+              <p class="is-error-event_owner" style="color: red"></p>
             </td>
           </tr>
         </table>
@@ -312,12 +324,12 @@
                 <td>
                   <div class="radio-box">
                     <p>
-                    {{Form::radio('services_breakdown'.$key, 1, false , ['id' => 'service'.$key.'on'])}}
-                    {{Form::label('service'.$key.'on', "有り")}}
+                      {{Form::radio('services_breakdown'.$key, 1, false , ['id' => 'service'.$key.'on'])}}
+                      {{Form::label('service'.$key.'on', "有り")}}
                     </p>
                     <p>
-                    {{Form::radio('services_breakdown'.$key, 0, true, ['id' => 'services_breakdown'.$key.'off'])}}
-                    {{Form::label('services_breakdown'.$key.'off', "無し")}}
+                      {{Form::radio('services_breakdown'.$key, 0, true, ['id' => 'services_breakdown'.$key.'off'])}}
+                      {{Form::label('services_breakdown'.$key.'off', "無し")}}
                     </p>
                   </div>
                 </td>
@@ -346,12 +358,12 @@
                 <td>
                   <div class="radio-box">
                     <p>
-                    {{Form::radio('layout_prepare', 1, false , ['id' => 'layout_prepare'])}}
-                    {{Form::label('layout_prepare', "有り")}}
+                      {{Form::radio('layout_prepare', 1, false , ['id' => 'layout_prepare'])}}
+                      {{Form::label('layout_prepare', "有り")}}
                     </p>
                     <p>
-                    {{Form::radio('layout_prepare', 0, true, ['id' => 'no_layout_prepare'])}}
-                    {{Form::label('no_layout_prepare', "無し")}}
+                      {{Form::radio('layout_prepare', 0, true, ['id' => 'no_layout_prepare'])}}
+                      {{Form::label('no_layout_prepare', "無し")}}
                     </p>
                   </div>
                 </td>
@@ -365,12 +377,12 @@
                 <td>
                   <div class="radio-box">
                     <p>
-                    {{Form::radio('layout_clean', 1, false, ['id' => 'layout_clean'])}}
-                    {{Form::label('layout_clean', "有り")}}
+                      {{Form::radio('layout_clean', 1, false, ['id' => 'layout_clean'])}}
+                      {{Form::label('layout_clean', "有り")}}
                     </p>
                     <p>
-                    {{Form::radio('layout_clean', 0, true, ['id' => 'no_layout_clean'])}}
-                    {{Form::label('no_layout_clean', "無し")}}
+                      {{Form::radio('layout_clean', 0, true, ['id' => 'no_layout_clean'])}}
+                      {{Form::label('no_layout_clean', "無し")}}
                     </p>
                   </div>
                 </td>

@@ -49,7 +49,7 @@
         @endif
       </div>
     </div>
-    <table class="table table-bordered">
+    <table class="table table-bordered table_fixed">
       <thead>
         <tr>
           <th class="table-active" scope="col">枠</th>
@@ -85,7 +85,7 @@
       {{ link_to_route('admin.time_prices.create', '時間貸し新規登録', $parameters=$venue->id,['class' => 'btn more_btn']) }}
       @endif
     </div>
-    <table class="table table-bordered">
+    <table class="table table-bordered table_fixed">
       <thead>
         <tr>
           <th class="table-active" scope="col">時間</th>
