@@ -252,17 +252,17 @@
             <tr>
               <th colspan='2'>
                 <p class="title-icon">
-                  <i class="fas fa-suitcase-rolling icon-size fa-fw"></i>荷物預かり
+                  <i class="fas fa-suitcase-rolling icon-size fa-fw"></i>荷物預り
                 </p>
               </th>
             </tr>
           </thead>
           <tbody>
             <tr>
-              <td class="table-active"><label for="Delivery">荷物預かり/返送</label></td>
+              <td class="table-active"><label for="Delivery">荷物預り/返送</label></td>
               <td>
                 @foreach ($reservation->breakdowns()->get() as $breakdown)
-                {{$breakdown->unit_item=='荷物預かり/返送'?'あり':''}}
+                {{$breakdown->unit_item=='荷物預り/返送'?'あり':''}}
                 @endforeach
               </td>
             </tr>

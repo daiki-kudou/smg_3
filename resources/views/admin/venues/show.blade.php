@@ -134,20 +134,20 @@
         </tbody>
       </table>
 
-      <!-- 荷物預かり ------------------------------------------------------------------------->
+      <!-- 荷物預り ------------------------------------------------------------------------->
       <table class="table table-bordered venue_table">
         <thead>
           <tr>
             <td colspan="2">
               <p class="title-icon">
-                <i class="fas fa-suitcase-rolling icon-size" aria-hidden="true"></i>荷物預かり
+                <i class="fas fa-suitcase-rolling icon-size" aria-hidden="true"></i>荷物預り
               </p>
             </td>
           </tr>
         </thead>
         <tbody>
           <tr>
-            <th class="table-active"><label for="luggage_flag">荷物預かり</label></th>
+            <th class="table-active"><label for="luggage_flag">荷物預り</label></th>
             <td> {{ $venue->luggage_flag==1?"可":"不可" }}
             </td>
           </tr>
@@ -496,20 +496,20 @@
   </tbody>
   </table>
 
-  <!-- 荷物預かり ------------------------------------------------------------------------->
+  <!-- 荷物預り ------------------------------------------------------------------------->
   <table class="table table-bordered venue_table">
     <thead>
       <tr>
         <td colspan="2">
           <p class="title-icon">
-            <i class="fas fa-suitcase-rolling icon-size" aria-hidden="true"></i>荷物預かり
+            <i class="fas fa-suitcase-rolling icon-size" aria-hidden="true"></i>荷物預り
           </p>
         </td>
       </tr>
     </thead>
     <tbody>
       <tr>
-        <th class="table-active"><label for="luggage_flag">荷物預かり</label></th>
+        <th class="table-active"><label for="luggage_flag">荷物預り</label></th>
         <td> {{ $venue->luggage_flag==1?"可":"不可" }}
         </td>
       </tr>

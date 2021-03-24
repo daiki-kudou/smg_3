@@ -464,14 +464,14 @@
                   <tr>
                     <th colspan='2'>
                       <p class="title-icon">
-                        <i class="fas fa-suitcase-rolling icon-size fa-fw"></i>荷物預かり
+                        <i class="fas fa-suitcase-rolling icon-size fa-fw"></i>荷物預り
                       </p>
                     </th>
                   </tr>
                 </thead>
                 <tbody>
                   <tr>
-                    <td class="table-active"><label for="Delivery">荷物預かり/返送</label>
+                    <td class="table-active"><label for="Delivery">荷物預り/返送</label>
                     </td>
                     <td>
                       {{$pre_reservation->luggage_count?"あり":"なし"}}

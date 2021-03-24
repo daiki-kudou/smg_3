@@ -188,7 +188,7 @@
             <tr>
               <th colspan="2">
                 <p class="title-icon">
-                  <i class="fas fa-suitcase-rolling icon-size fa-fw" aria-hidden="true"></i>荷物預かり
+                  <i class="fas fa-suitcase-rolling icon-size fa-fw" aria-hidden="true"></i>荷物預り
                 </p>
               </th>
             </tr>
@@ -220,7 +220,7 @@
             @endif
             @if ($request->luggage_price)
             <tr>
-              <td class="table-active">荷物預かり/返送<br>料金</td>
+              <td class="table-active">荷物預り/返送<br>料金</td>
               <td>
                 {{ Form::text('luggage_price', $request->luggage_price,['class'=>'form-control', 'readonly'] ) }}
               </td>

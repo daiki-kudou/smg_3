@@ -249,7 +249,7 @@
                     <tr>
                       <th colspan='2'>
                         <p class="title-icon">
-                          <i class="fas fa-suitcase-rolling icon-size"></i>荷物預かり
+                          <i class="fas fa-suitcase-rolling icon-size"></i>荷物預り
                         </p>
                       </th>
                     </tr>
@@ -277,7 +277,7 @@
                       </td>
                     </tr>
                     {{-- <tr>
-                  <td class="table-active">荷物預かり/返送<br>料金</td>
+                  <td class="table-active">荷物預り/返送<br>料金</td>
                   <td>
                     {{ Form::text('cp_master_luggage_price', '',['class'=>'form-control'] ) }}
                     </td>
@@ -746,7 +746,7 @@
                       <tr>
                         <th colspan="2">
                           <p class="title-icon">
-                            <i class="fas fa-suitcase-rolling icon-size"></i>荷物預かり
+                            <i class="fas fa-suitcase-rolling icon-size"></i>荷物預り
                           </p>
                         </th>
                       </tr>
@@ -774,10 +774,10 @@
                       </tr>
 
                       {{-- <tr>
-                    <td class="table-active">荷物預かり/返送<br>料金</td>
+                    <td class="table-active">荷物預り/返送<br>料金</td>
                     <td>
                       @foreach ($pre_reservation->pre_breakdowns()->get() as $lugg)
-                      @if ($lugg->unit_item=="荷物預かり/返送")
+                      @if ($lugg->unit_item=="荷物預り/返送")
                       {{ Form::text('luggage_price_copied'.$key, $lugg->unit_cost,['class'=>'form-control'] ) }}
                       @break
                       @elseif($loop->last)

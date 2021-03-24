@@ -178,7 +178,7 @@ class ReservationsController extends Controller
   }
 
   /***********************
-   * ajax 荷物預かり　有り無し　判別
+   * ajax 荷物預り　有り無し　判別
    ***********************
    */
   public function getluggage(Request $request)
@@ -409,7 +409,7 @@ class ReservationsController extends Controller
     // }
 
     // $s_luggage = 0;
-    // if ($reservation->bills()->first()->breakdowns()->where('unit_item', '荷物預かり/返送')->first()) {
+    // if ($reservation->bills()->first()->breakdowns()->where('unit_item', '荷物預り/返送')->first()) {
     //   $s_luggage = 1;
     // } else {
     //   $s_luggage = 0;

@@ -457,7 +457,7 @@
         <table class='table table-bordered' style="table-layout:fixed;">
           <thead>
             <tr>
-              <th colspan='2'>荷物預かり</th>
+              <th colspan='2'>荷物預り</th>
             </tr>
           </thead>
           <tbody>
@@ -480,7 +480,7 @@
               </td>
             </tr>
             <tr>
-              <td>荷物預かり/返送<br>料金</td>
+              <td>荷物預り/返送<br>料金</td>
               <td>
                 {{ Form::text('luggage_price', $request->luggage_price,['class'=>'form-control'] ) }}
               </td>
@@ -854,7 +854,7 @@
               @if ($request->luggage_price)
               <tr>
                 <td>
-                  {{ Form::text('luggage_item', '荷物預かり/返送',['class'=>'form-control', 'readonly'] ) }}
+                  {{ Form::text('luggage_item', '荷物預り/返送',['class'=>'form-control', 'readonly'] ) }}
                 </td>
                 <td>
                   {{ Form::text('luggage_cost', $request->luggage_price,['class'=>'form-control', 'readonly'] ) }}

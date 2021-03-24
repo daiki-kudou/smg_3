@@ -499,7 +499,7 @@
               <tr>
                 <th colspan='2'>
                   <p class="title-icon">
-                    <i class="fas fa-suitcase-rolling icon-size"></i>荷物預かり
+                    <i class="fas fa-suitcase-rolling icon-size"></i>荷物預り
                   </p>
                 </th>
               </tr>
@@ -526,13 +526,13 @@
                 </td>
               </tr>
               <tr>
-                <td class="table-active">荷物預かり/返送<br>料金</td>
+                <td class="table-active">荷物預り/返送<br>料金</td>
                 <td>
                   <p class="annotation">※仮押え時点では、料金の設定ができません。<br>予約へ切り替え後に料金の設定が可能です。</p>
 
                   <!-- <div class="d-flex align-items-end">
                     @foreach ($PreReservation->pre_breakdowns()->get() as $lug_chk)
-                    @if ($lug_chk->unit_item=="荷物預かり/返送")
+                    @if ($lug_chk->unit_item=="荷物預り/返送")
                     {{ Form::text('luggage_price', $lug_chk->unit_cost,['class'=>'form-control'] ) }}
                     @break
                     @elseif($loop->last)

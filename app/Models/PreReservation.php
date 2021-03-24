@@ -285,7 +285,7 @@ class PreReservation extends Model
 
       if ($request->{'luggage_price_copied' . $splitKey}) {
         $pre_bill->pre_breakdowns()->create([
-          'unit_item' => '荷物預かり/返送',
+          'unit_item' => '荷物預り/返送',
           'unit_cost' => $request->{'luggage_price_copied' . $splitKey},
           'unit_count' => 1,
           'unit_subtotal' => $request->{'luggage_price_copied' . $splitKey},
@@ -415,7 +415,7 @@ class PreReservation extends Model
 
       if ($request->{'luggage_price_copied' . $splitKey}) {
         $pre_bill->pre_breakdowns()->create([
-          'unit_item' => '荷物預かり/返送',
+          'unit_item' => '荷物預り/返送',
           'unit_cost' => $request->{'luggage_price_copied' . $splitKey},
           'unit_count' => 1,
           'unit_subtotal' => $request->{'luggage_price_copied' . $splitKey},

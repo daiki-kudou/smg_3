@@ -281,10 +281,10 @@
                   </td>
                 </tr>
                 <tr>
-                  <td class="table-active"><label for="Delivery">荷物預かり/返送</label></td>
+                  <td class="table-active"><label for="Delivery">荷物預り/返送</label></td>
                   <td>
                     @foreach ($reservation->bills()->first()->breakdowns()->get() as $item)
-                    @if ($item->unit_item=="荷物預かり/返送")
+                    @if ($item->unit_item=="荷物預り/返送")
                     有り
                     @endif
                     @endforeach
@@ -381,7 +381,7 @@
                   <tr>
                     <th colspan='2'>
                       <p class="title-icon py-1">
-                        <i class="fas fa-suitcase-rolling icon-size fa-fw"></i>お荷物預かり
+                        <i class="fas fa-suitcase-rolling icon-size fa-fw"></i>お荷物預り
                       </p>
                     </th>
                   </tr>
@@ -391,14 +391,14 @@
                     <td class="table-active"><label for="Delivery"> お荷物預り/返送</label></td>
                     <td>
                       @foreach ($reservation->bills()->first()->breakdowns()->get() as $item)
-                      @if ($item->unit_item=="荷物預かり/返送")
+                      @if ($item->unit_item=="荷物預り/返送")
                       有り
                       @endif
                       @endforeach
                     </td>
                   </tr>
                   <tr>
-                    <td class="table-active"><label for="preDelivery">事前にお預かりする荷物</label></td>
+                    <td class="table-active"><label for="preDelivery">事前にお預りする荷物</label></td>
                     <td>
                       <ul class="table-cell-box">
                         <li>
@@ -1220,7 +1220,7 @@
           </dd>
         </div>
         <div class="col-3 bill-box_cell">
-          <dt>荷物預かり/返送</dt>
+          <dt>荷物預り/返送</dt>
           <dd class="d-flex align-items-center">
             {{$reservation->bills()->first()->luggage_total}}
             円

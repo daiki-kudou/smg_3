@@ -339,14 +339,14 @@
                 <tr>
                   <th colspan="2">
                     <p class="title-icon">
-                      <i class="fas fa-suitcase-rolling icon-size" aria-hidden="true"></i>お荷物預かり
+                      <i class="fas fa-suitcase-rolling icon-size" aria-hidden="true"></i>お荷物預り
                     </p>
                   </th>
                 </tr>
               </thead>
               <tbody>
                 <tr>
-                  <td class="table-active">事前にお預かりする荷物</td>
+                  <td class="table-active">事前にお預りする荷物</td>
                   <td>
                     {{Form::text('luggage_count',$pre_reservation->luggage_count,['class'=>'form-control'])}}
                   </td>
