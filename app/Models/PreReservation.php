@@ -8,6 +8,8 @@ use App\Models\Venue;
 use Illuminate\Support\Facades\DB; //トランザクション用
 
 use App\Models\Reservation;
+use App\Models\User;
+use App\Models\Agent;
 
 use Carbon\Carbon;
 
@@ -643,6 +645,18 @@ class PreReservation extends Model
 
   public function MoveToReservation(Request $request)
   {
+    $this->user_id != 0 ? $user = User::find($this->user_id) : $user = 0;
+    $this->agent_id != 0 ? $agent = Agent::find($this->agent_id) : $agent = 0;
+    // 支払期日
+    if ($user != 0) $payment_limit = $user->getUserPayLimit($request->reserve_date);
+    if ($agent != 0) $payment_limit = $agent->getPayDetails($request->reserve_date);
+    // bill company
+    if ($user != 0) $bill_company = $user->company;
+    if ($agent != 0) $bill_company = $agent->company;
+    // bill person
+    if ($user != 0) $bill_person = $user->first_name . $user->last_name;
+    if ($agent != 0) $bill_person = $agent->person_firstname . $agent->person_lastname;
+
     $reservation = new Reservation;
     //reservationのReserveStoreに持たせるためのrequestを作成
     $request->merge([
@@ -662,7 +676,7 @@ class PreReservation extends Model
       'luggage_count' => $this->luggage_count,
       'luggage_arrive' => $this->luggage_arrive,
       'luggage_return' => $this->luggage_return,
-      'email_flag' => $this->email_flag,
+      'email_flag' => 0, //デフォで0(利用後の送信メール無し)を選択
       'in_charge' => $this->in_charge,
       'tel' => $this->tel,
       'cost' => $this->cost,
@@ -680,8 +694,8 @@ class PreReservation extends Model
       'master_subtotal' => $this->pre_bill->master_subtotal,
       'master_tax' => $this->pre_bill->master_tax,
       'master_total' => $this->pre_bill->master_total,
-      'payment_limit' => $this->pre_bill->payment_limit,
-      'bill_company' => $this->pre_bill->bill_company,
+      'payment_limit' => $payment_limit,
+      'bill_company' => $bill_company,
       'bill_person' => $this->pre_bill->bill_person,
       'bill_created_at' => Carbon::now(),
       'bill_remark' => $this->pre_bill->bill_remark,

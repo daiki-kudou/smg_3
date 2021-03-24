@@ -98,14 +98,14 @@
                   <label for="ondayName" class=" form_required">氏名</label>
                 </td>
                 <td>
-                  {{Form::text('in_charge',$pre_reservation->in_charge,['class'=>'form-control'])}}
+                  {{Form::text('in_charge',$request->in_charge,['class'=>'form-control'])}}
                   <p class="is-error-in_charge" style="color: red"></p>
                 </td>
               </tr>
               <tr>
                 <td class="table-active"><label for="mobilePhone" class=" form_required">携帯番号</label></td>
                 <td>
-                  {{Form::text('tel',$pre_reservation->tel,['class'=>'form-control'])}}
+                  {{Form::text('tel',$request->tel,['class'=>'form-control'])}}
                   <p class="is-error-tel" style="color: red"></p>
                 </td>
               </tr>
@@ -127,11 +127,11 @@
                 <td>
                   <div class="radio-box">
                     <p>
-                      {{Form::radio('board_flag',0,true,['class'=>'','id'=>'board_flag'])}}
+                      {{Form::radio('board_flag',0,$request->board_flag==0?true:false,['class'=>'','id'=>'board_flag'])}}
                       {{Form::label('board_flag','なし')}}
                     </p>
                     <p>
-                      {{Form::radio('board_flag',1,false,['class'=>'','id'=>'no_board_flag'])}}
+                      {{Form::radio('board_flag',1,$request->board_flag==1?true:false,['class'=>'','id'=>'no_board_flag'])}}
                       {{Form::label('no_board_flag','あり')}}
                     </p>
                   </div>
@@ -143,11 +143,13 @@
                   <select name="event_start" id="event_start" class="form-control">
                     <option disabled>選択してください</option>
                     @for ($start = 0*2; $start <=23*2; $start++) <option
-                      value="{{date("H:i:s", strtotime("00:00 +". $start * 30 ." minute"))}}" @if (date("H:i:s",
-                      strtotime("00:00 +". $start * 30 ." minute"))<$pre_reservation->enter_time)
+                      value="{{date("H:i:s", strtotime("00:00 +". $start * 30 ." minute"))}}"
+                      @if(date("H:i:s",strtotime("00:00 +". $start * 30 ." minute"))<$pre_reservation->enter_time)
                       disabled
                       @elseif(date("H:i:s", strtotime("00:00 +". $start * 30 ." minute"))>$pre_reservation->leave_time)
                       disabled
+                      @elseif(date("H:i:s", strtotime("00:00 +". $start * 30 ." minute"))==$request->event_start)
+                      selected
                       @endif
                       >
                       {{date("H時i分", strtotime("00:00 +". $start * 30 ." minute"))}}</option>
@@ -161,11 +163,13 @@
                   <select name="event_finish" id="event_finish" class="form-control">
                     <option disabled>選択してください</option>
                     @for ($start = 0*2; $start <=23*2; $start++) <option
-                      value="{{date("H:i:s", strtotime("00:00 +". $start * 30 ." minute"))}}" @if (date("H:i:s",
-                      strtotime("00:00 +". $start * 30 ." minute"))>$pre_reservation->leave_time)
+                      value="{{date("H:i:s", strtotime("00:00 +". $start * 30 ." minute"))}}"
+                      @if(date("H:i:s",strtotime("00:00 +". $start * 30 ." minute"))>$pre_reservation->leave_time)
                       disabled
                       @elseif(date("H:i:s",strtotime("00:00 +". $start * 30 ." minute"))<$pre_reservation->enter_time)
                         disabled
+                        @elseif(date("H:i:s",strtotime("00:00 +". $start * 30 ." minute"))==$request->event_finish)
+                        selected
                         @endif
                         >
                         {{date("H時i分", strtotime("00:00 +". $start * 30 ." minute"))}}</option>
@@ -176,19 +180,19 @@
               <tr>
                 <td class="table-active">イベント名称1</td>
                 <td>
-                  {{Form::text('event_name1',$pre_reservation->event_name1,['class'=>'form-control'])}}
+                  {{Form::text('event_name1',$request->event_name1,['class'=>'form-control'])}}
                 </td>
               </tr>
               <tr>
                 <td class="table-active">イベント名称2</td>
                 <td>
-                  {{Form::text('event_name2',$pre_reservation->event_name2,['class'=>'form-control'])}}
+                  {{Form::text('event_name2',$request->event_name2,['class'=>'form-control'])}}
                 </td>
               </tr>
               <tr>
                 <td class="table-active">主催者名</td>
                 <td>
-                  {{Form::text('event_owner',$pre_reservation->event_owner,['class'=>'form-control'])}}
+                  {{Form::text('event_owner',$request->event_owner,['class'=>'form-control'])}}
                 </td>
               </tr>
             </tbody>
@@ -346,12 +350,9 @@
       </div>
     </div>
     <div class="btn_wrapper">
-      {{ Form::submit('再計算する', ['class' => 'btn more_btn_lg mx-auto d-block my-5']) }}
+      {{ Form::submit('再計算する', ['class' => 'btn more_btn_lg mx-auto d-block my-5','name'=>'re_calculate']) }}
     </div>
-    {{ Form::close() }}
 
-    {{ Form::open(['url' => 'user/pre_reservations/'.$id.'/cfm', 'method'=>'POST']) }}
-    @csrf
     <div class="bill mt-5">
       <div class="bill_head">
         <table class="table" style="table-layout: fixed">
@@ -605,7 +606,7 @@
     <div class="confirm_inner">
       <p class="mb-4">上記、内容で予約を申し込んでもよろしいでしょうか。よろしければ、予約の申し込みをお願いします。</p>
       <p class="text-center mb-5 mt-3">
-        {{ Form::submit('予約を申し込む', ['class' => 'btn more_btn4_lg confirm']) }}
+        {{ Form::submit('予約を申し込む', ['class' => 'btn more_btn4_lg confirm','name'=>'cfm']) }}
         {{ Form::close() }}
       </p>
       <p>※ご要望に相違がある場合は、下記連絡先までご連絡ください。<br>

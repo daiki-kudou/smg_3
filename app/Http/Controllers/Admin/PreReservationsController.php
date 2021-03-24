@@ -277,7 +277,7 @@ class PreReservationsController extends Controller
           'status' => 0, //デフォで0この時点でユーザーにはメールは送付されない
           'eat_in' => $request->eat_in,
           'eat_in_prepare' => $request->eat_in_prepare,
-          'cost' => $request->cost,
+          'cost' => !empty($request->cost) ? $request->cost : 0,
         ]);
 
         $pre_bills = $pre_reservation->pre_bill()->create([
