@@ -1428,9 +1428,20 @@ $(function () {
       },
       mobile: {
         required: true,
+        number: true,
+        minlength: 10,
+      },
+      tel: {
+        number: true,
+        minlength: 10,
+      },
+      fax: {
+        number: true,
+        minlength: 10,
       },
       email: {
         required: true,
+        email: true
       },
     },
     messages: {
@@ -1453,9 +1464,20 @@ $(function () {
       },
       mobile: {
         required: "※必須項目です",
+        number: '※半角英数字で入力してください',
+        minlength: '※10桁以上で入力してください',
+      },
+      tel: {
+        number: '※半角英数字で入力してください',
+        minlength: '※10桁以上で入力してください',
+      },
+      fax: {
+        number: '※半角英数字で入力してください',
+        minlength: '※10桁以上で入力してください',
       },
       email: {
         required: "※必須項目です",
+        email: '※メールアドレスの形式で入力してください'
       },
 
     },
