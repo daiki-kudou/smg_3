@@ -770,7 +770,7 @@ class MultipleReserve extends Model implements PresentableInterface //プレゼ�
   {
     $judge = [];
     foreach ($this->pre_reservations()->get() as $key => $value) {
-      $judge[] = $value->pre_bill->venue_price;
+      $judge[] = !empty($value->pre_bill->venue_price) ? $value->pre_bill->venue_price : 0;
     }
     return in_array(0, $judge);
   }

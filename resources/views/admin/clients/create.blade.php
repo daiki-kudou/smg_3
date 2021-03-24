@@ -141,13 +141,16 @@
           </tr>
           <tr>
             <td class="table-active form_required">{{ Form::label('mobile', '携帯番号') }}</td>
-            <td colspan="2">{{ Form::text('mobile', old('mobile'), ['class' => 'form-control', 'placeholder' => '半角数字、ハイフンなしで入力してください']) }}
+            <td colspan="2">
+              {{ Form::text('mobile', old('mobile'), ['class' => 'form-control', 'placeholder' => '半角数字、ハイフンなしで入力してください']) }}
               <p class="is-error-mobile" style="color: red"></p>
             </td>
           </tr>
           <tr>
             <td class="table-active">{{ Form::label('tel', '固定電話') }}</td>
-            <td colspan="2">{{ Form::text('tel', old('tel'), ['class' => 'form-control', 'placeholder' => '半角数字、ハイフンなしで入力してください']) }}
+            <td colspan="2">
+              {{ Form::text('tel', old('tel'), ['class' => 'form-control', 'placeholder' => '半角数字、ハイフンなしで入力してください']) }}
+              <p class="is-error-tel" style="color: red"></p>
             </td>
           </tr>
           <tr>
@@ -158,7 +161,9 @@
           </tr>
           <tr>
             <td class="table-active">{{ Form::label('fax', 'FAX') }}</td>
-            <td colspan="2">{{ Form::text('fax', old('fax'), ['class' => 'form-control']) }}</td>
+            <td colspan="2">{{ Form::text('fax', old('fax'), ['class' => 'form-control']) }}
+              <p class="is-error-fax" style="color: red"></p>
+            </td>
           </tr>
 
         </tbody>
@@ -201,6 +206,8 @@
                                 'onKeyUp'=>"AjaxZip3.zip2addr(this,'','pay_address1','pay_address2');",
                                 'autocomplete'=>'off',
                                 ]) }}
+              <p class="is-error-pay_post_code" style="color: red"></p>
+
             </td>
           </tr>
           <tr>

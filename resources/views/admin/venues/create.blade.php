@@ -254,7 +254,7 @@
             <tr>
               <td class="table-active"><label for="luggage_tel">電話番号</label></td>
               <td>
-                {{ Form::textarea('luggage_tel', old('luggage_tel'), ['class' => 'form-control','placeholder' => '半角英数字で入力してください', 'rows'=>"2"]) }}
+                {{ Form::textarea('luggage_tel', old('luggage_tel'), ['class' => 'form-control','placeholder' => '', 'rows'=>"2"]) }}
                 <p class="is-error-luggage_tel" style="color: red"></p>
               </td>
             </tr>
@@ -454,8 +454,8 @@
               </td>
             </tr>
             <tr>
-              <td class="table-active"><label for="layout_prepare" class="">レイアウト準備料金<span class="ml-1 annotation">※税抜</span></label>
-                <span class="ml-1 annotation">※税抜</span>
+              <td class="table-active"><label for="layout_prepare" class="">レイアウト準備料金<span
+                    class="ml-1 annotation">※税抜</span></label>
               </td>
               <td>
                 <div class="d-flex align-items-center">
@@ -534,7 +534,7 @@
 
           @foreach ($equipments as $equipment)
           <option value={{$equipment->id}}>
-            {{$equipment->id}}/{{$equipment->item}}/{{$equipment->price}}円/{{$equipment->remark}}
+            {{$equipment->id}}/{{$equipment->item}}/{{number_format($equipment->price)}}円/{{$equipment->remark}}
           </option>
           @endforeach
         </select>

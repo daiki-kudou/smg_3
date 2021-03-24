@@ -248,12 +248,12 @@
                 <td class="table-active"><label for="cancel">キャンセルポリシー</label></td>
                 <td colspan="2">
                   <p>
-                    {{ Form::radio('cxl', 1,true, ['class' => '']) }}
-                    {{ Form::label('cxl', 'SMGルール') }}
+                    {{ Form::radio('cxl', 1,true, ['id' => 'cxl1']) }}
+                    {{ Form::label('cxl1', 'SMGルール') }}
                   </p>
                   <p>
-                    {{ Form::radio('cxl', 2,false, ['class' => '']) }}
-                    {{ Form::label('cxl', '仲介会社ルール') }}
+                    {{ Form::radio('cxl', 2,false, ['id' => 'cxl2']) }}
+                    {{ Form::label('cxl2', '仲介会社ルール') }}
                   </p>
                   <p class="mt-2">
                     <label for="cxl_url">キャンセルポリシーURL</label>
