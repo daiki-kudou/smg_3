@@ -56,8 +56,9 @@
       <thead>
         <tr>
           <th>仲介会社情報</th>
-          <th colspan="3">仲介会社ID：
-            {{$PreReservation->agent_id}}
+          <th colspan="3">
+            <div class="d-flex align-items-center">
+            <p class="w-25">仲介会社ID：{{$PreReservation->agent_id}}</p>
             <select name="agent_id" id="agent_id">
               @foreach ($agents as $agents)
               <option value="{{$agents->id}}" @if ($PreReservation->agent_id==$agents->id)
@@ -68,6 +69,7 @@
               </option>
               @endforeach
             </select>
+            </div>
           </th>
         </tr>
       </thead>
@@ -136,6 +138,7 @@
           <td class="table-active">メールアドレス </td>
           <td>
             {{Form::text('pre_endusers_email',$PreReservation->pre_enduser->email,['class'=>'form-control'])}}
+            <p class="is-error-pre_endusers_email" style="color: red"></p>
           </td>
         </tr>
         <tr>
@@ -483,6 +486,7 @@
                 <td class="table-active">事前に預かる荷物<br>（個数）</td>
                 <td>
                   {{ Form::text('luggage_count', $PreReservation->luggage_count,['class'=>'form-control'] ) }}
+                  <p class='is-error-luggage_count' style=' color: red'></p>
                 </td>
               </tr>
               <tr>
@@ -495,6 +499,7 @@
                 <td class="table-active">事後返送する荷物</td>
                 <td>
                   {{ Form::text('luggage_return', $PreReservation->luggage_return,['class'=>'form-control'] ) }}
+                  <p class='is-error-luggage_return' style=' color: red'></p>
                 </td>
               </tr>
               <!-- <tr>

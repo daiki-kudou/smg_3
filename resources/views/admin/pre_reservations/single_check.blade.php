@@ -211,9 +211,7 @@
               <div>
                 <select name="event_start" id="event_start" class="form-control">
                   <option disabled>選択してください</option>
-                  @for ($start = 0*2; $start <=23*2; $start++) <option
-                    value="{{date("H:i:s", strtotime("00:00 +". $start * 30 ." minute"))}}" @if (date("H:i:s",
-                    strtotime("00:00 +". $start * 30 ." minute"))<$request->pre_enter0)
+                  @for ($start = 0*2; $start <=23*2; $start++) <option value="{{date("H:i:s", strtotime("00:00 +". $start * 30 ." minute"))}}" @if (date("H:i:s", strtotime("00:00 +". $start * 30 ." minute"))<$request->pre_enter0)
                     disabled
                     @elseif(date("H:i:s", strtotime("00:00 +". $start * 30 ." minute"))>$request->pre_leave0)
                     disabled
@@ -231,9 +229,7 @@
               <div>
                 <select name="event_finish" id="event_finish" class="form-control">
                   <option disabled>選択してください</option>
-                  @for ($start = 0*2; $start <=23*2; $start++) <option
-                    value="{{date("H:i:s", strtotime("00:00 +". $start * 30 ." minute"))}}" @if (date("H:i:s",
-                    strtotime("00:00 +". $start * 30 ." minute"))>$request->pre_leave0)
+                  @for ($start = 0*2; $start <=23*2; $start++) <option value="{{date("H:i:s", strtotime("00:00 +". $start * 30 ." minute"))}}" @if (date("H:i:s", strtotime("00:00 +". $start * 30 ." minute"))>$request->pre_leave0)
                     disabled
                     @elseif(date("H:i:s",strtotime("00:00 +". $start * 30 ." minute"))<$request->pre_enter0)
                       disabled
@@ -248,23 +244,31 @@
           <tr>
             <td class="table-active">イベント名称1</td>
             <td>
-              {{ Form::text('event_name1','',['class'=>'form-control', 'placeholder'=>'入力してください'] ) }}
+              <div class="d-flex align-items-end">
+                {{ Form::text('event_name1','',['class'=>'form-control', 'placeholder'=>'入力してください'] ) }}
+                <span class="ml-1 annotation count_num1"></span>
+              </div>
             </td>
           </tr>
           <tr>
             <td class="table-active">イベント名称2</td>
             <td>
-              {{ Form::text('event_name2', '',['class'=>'form-control', 'placeholder'=>'入力してください'] ) }}
+              <div class="align-items-end d-flex">
+                {{ Form::text('event_name2', '',['class'=>'form-control', 'placeholder'=>'入力してください'] ) }}
+                <span class="ml-1 annotation count_num2"></span>
+              </div>
             </td>
           </tr>
           <tr>
             <td class="table-active">主催者名</td>
             <td>
-              {{ Form::text('event_owner', '',['class'=>'form-control', 'placeholder'=>'入力してください'] ) }}
+              <div class="align-items-end d-flex">
+                {{ Form::text('event_owner', '',['class'=>'form-control', 'placeholder'=>'入力してください'] ) }}
+                <span class="ml-1 annotation count_num3"></span>
+              </div>
             </td>
           </tr>
         </table>
-
         <div class="equipemnts">
           <table class="table table-bordered" style="table-layout: fixed;">
             <thead class="accordion-ttl">
@@ -419,12 +423,12 @@
               <tr>
                 <td class="table-active">荷物預かり/返送<br>料金</td>
                 <td>
-                  <div class="d-flex align-items-end">
+                  <p class="annotation">※仮押え時点では、料金の設定ができません。<br>予約へ切り替え後に料金の設定が可能です。</p>
+                  <!-- <div class="d-flex align-items-end">
                     {{ Form::text('luggage_price', '',['class'=>'form-control'] ) }}
                     <span class="ml-1">円</span>
                   </div>
-                  <p class='is-error-luggage_price' style=' color: red'></p>
-
+                  <p class='is-error-luggage_price' style=' color: red'></p> -->
                 </td>
               </tr>
               @endif
@@ -621,7 +625,5 @@
       }
     })
   })
-
-  
 </script>
 @endsection

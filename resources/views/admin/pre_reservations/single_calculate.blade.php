@@ -153,9 +153,7 @@
               <td>
                 <select name="enter_time" id="enter_time" class="form-control">
                   <option value=""></option>
-                  @for ($start = 0*2; $start <=23*2; $start++) <option
-                    value="{{date("H:i:s", strtotime("00:00 +". $start * 30 ." minute"))}}" @if (date("H:i:s",
-                    strtotime("00:00 +". $start * 30 ." minute"))==$request->enter_time)
+                  @for ($start = 0*2; $start <=23*2; $start++) <option value="{{date("H:i:s", strtotime("00:00 +". $start * 30 ." minute"))}}" @if (date("H:i:s", strtotime("00:00 +". $start * 30 ." minute"))==$request->enter_time)
                     selected
                     @endif
                     >
@@ -170,9 +168,7 @@
               <td>
                 <select name="leave_time" id="leave_time" class="form-control">
                   <option value=""></option>
-                  @for ($start = 0*2; $start <=23*2; $start++) <option
-                    value="{{date("H:i:s", strtotime("00:00 +". $start * 30 ." minute"))}}" @if (date("H:i:s",
-                    strtotime("00:00 +". $start * 30 ." minute"))==$request->leave_time)
+                  @for ($start = 0*2; $start <=23*2; $start++) <option value="{{date("H:i:s", strtotime("00:00 +". $start * 30 ." minute"))}}" @if (date("H:i:s", strtotime("00:00 +". $start * 30 ." minute"))==$request->leave_time)
                     selected
                     @endif
                     >
@@ -216,9 +212,7 @@
             <td>
               <select name="event_start" id="event_start" class="form-control">
                 <option disabled>選択してください</option>
-                @for ($start = 0*2; $start <=23*2; $start++) <option
-                  value="{{date("H:i:s", strtotime("00:00 +". $start * 30 ." minute"))}}"
-                  @if(date("H:i:s",strtotime("00:00 +". $start * 30 ." minute"))<$request->enter_time)
+                @for ($start = 0*2; $start <=23*2; $start++) <option value="{{date("H:i:s", strtotime("00:00 +". $start * 30 ." minute"))}}" @if(date("H:i:s",strtotime("00:00 +". $start * 30 ." minute"))<$request->enter_time)
                   disabled
                   @elseif(date("H:i:s", strtotime("00:00 +". $start * 30 ." minute"))>$request->leave_time)
                   disabled
@@ -236,9 +230,7 @@
             <td>
               <select name="event_finish" id="event_finish" class="form-control">
                 <option disabled>選択してください</option>
-                @for ($start = 0*2; $start <=23*2; $start++) <option
-                  value="{{date("H:i:s", strtotime("00:00 +". $start * 30 ." minute"))}}"
-                  @if(date("H:i:s",strtotime("00:00 +". $start * 30 ." minute"))<$request->enter_time)
+                @for ($start = 0*2; $start <=23*2; $start++) <option value="{{date("H:i:s", strtotime("00:00 +". $start * 30 ." minute"))}}" @if(date("H:i:s",strtotime("00:00 +". $start * 30 ." minute"))<$request->enter_time)
                   disabled
                   @elseif(date("H:i:s", strtotime("00:00 +". $start * 30 ." minute"))>$request->leave_time)
                   disabled
@@ -254,23 +246,31 @@
           <tr>
             <td class="table-active">イベント名称1</td>
             <td>
-              {{ Form::text('event_name1', $request->event_name1,['class'=>'form-control'] ) }}
+              <div class="align-items-center d-flex">
+                {{ Form::text('event_name1', $request->event_name1,['class'=>'form-control'] ) }}
+                <span class="ml-1 annotation count_num1"></span>
+              </div>
             </td>
           </tr>
           <tr>
             <td class="table-active">イベント名称2</td>
             <td>
-              {{ Form::text('event_name2', $request->event_name2,['class'=>'form-control'] ) }}
+              <div class="align-items-end d-flex">
+                {{ Form::text('event_name2', $request->event_name2,['class'=>'form-control'] ) }}
+                <span class="ml-1 annotation count_num2"></span>
+              </div>
             </td>
           </tr>
           <tr>
             <td class="table-active">主催者名</td>
             <td>
-              {{ Form::text('event_owner', $request->event_owner,['class'=>'form-control'] ) }}
+              <div class="align-items-end d-flex">
+                {{ Form::text('event_owner', $request->event_owner,['class'=>'form-control'] ) }}
+                <span class="ml-1 annotation count_num3"></span>
+              </div>
             </td>
           </tr>
         </table>
-
 
         <div class="equipemnts">
           <table class="table table-bordered" style="table-layout: fixed;">
@@ -463,11 +463,12 @@
               <tr>
                 <td class="table-active">荷物預かり/返送<br>料金</td>
                 <td>
-                  <div class="d-flex align-items-end">
+                  <p class="annotation">※仮押え時点では、料金の設定ができません。<br>予約へ切り替え後に料金の設定が可能です。</p>
+                  <!-- <div class="d-flex align-items-end">
                     {{ Form::text('luggage_price', $request->luggage_price,['class'=>'form-control'] ) }}
                     <span class="ml-1">円</span>
                   </div>
-                  <p class='is-error-luggage_price' style=' color: red'></p>
+                  <p class='is-error-luggage_price' style=' color: red'></p> -->
                 </td>
               </tr>
             </tbody>
@@ -934,6 +935,7 @@
 
           @if ($SpVenue->layout==1)
           @if ($request->layout_prepare!=0||$request->layout_clean!=0)
+
           <div class="layout billdetails_content">
             <table class="table table-borderless">
               <tr>

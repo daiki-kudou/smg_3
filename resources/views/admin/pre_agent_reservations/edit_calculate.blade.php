@@ -17,8 +17,8 @@
       <thead>
         <tr>
           <th>仲介会社情報</th>
-          <th colspan="3">ID：<p class="user_id d-inline">{{$agent->id}}</p>
-          </th>
+          <td colspan="3">ID：<p class="user_id d-inline">{{$agent->id}}</p>
+          </td>
         </tr>
       </thead>
       <tbody>
@@ -73,38 +73,41 @@
         <tr>
           <td class="table-active">エンドユーザー</td>
           <td>
-            {{ Form::text('pre_endusers_company', ($request->pre_endusers_company),['class'=>'form-control', 'readonly'] ) }}
+            {{ Form::text('pre_endusers_company', ($request->pre_endusers_company),['class'=>'form-control'] ) }}
           </td>
           <td class="table-active">住所</td>
           <td>
-            {{ Form::text('pre_endusers_address', ($request->pre_endusers_address),['class'=>'form-control', 'readonly'] ) }}
+            {{ Form::text('pre_endusers_address', ($request->pre_endusers_address),['class'=>'form-control'] ) }}
           </td>
         </tr>
         <tr>
           <td class="table-active">連絡先</td>
           <td>
-            {{ Form::text('pre_endusers_tel', ($request->pre_endusers_tel),['class'=>'form-control', 'readonly'] ) }}
+            {{ Form::text('pre_endusers_tel', ($request->pre_endusers_tel),['class'=>'form-control'] ) }}
+            <p class="is-error-pre_endusers_tel" style="color: red"></p>
           </td>
           <td class="table-active">メールアドレス</td>
           <td>
-            {{ Form::text('pre_endusers_email', ($request->pre_endusers_email),['class'=>'form-control', 'readonly'] ) }}
+            {{ Form::text('pre_endusers_email', ($request->pre_endusers_email),['class'=>'form-control'] ) }}
+            <p class="is-error-pre_endusers_email" style="color: red"></p>
           </td>
         </tr>
         <tr>
           <td class="table-active">当日担当者</td>
           <td>
-            {{ Form::text('pre_endusers_person', ($request->pre_endusers_person),['class'=>'form-control', 'readonly'] ) }}
+            {{ Form::text('pre_endusers_person', ($request->pre_endusers_person),['class'=>'form-control'] ) }}
           </td>
           <td class="table-active">当日連絡先</td>
           <td>
-            {{ Form::text('pre_endusers_mobile', ($request->pre_endusers_mobile),['class'=>'form-control', 'readonly'] ) }}
+            {{ Form::text('pre_endusers_mobile', ($request->pre_endusers_mobile),['class'=>'form-control'] ) }}
+            <p class="is-error-pre_endusers_mobile" style="color: red"></p>
           </td>
         </tr>
         <tr>
           <td class="table-active">利用者属性</td>
           <td>
-            {{ Form::text('', ReservationHelper::getEndUser($request->pre_endusers_attr),['class'=>'form-control', 'readonly'] ) }}
-            {{ Form::hidden('pre_endusers_attr', ($request->pre_endusers_attr),['class'=>'form-control', 'readonly'] ) }}
+            {{ Form::text('', ReservationHelper::getEndUser($request->pre_endusers_attr),['class'=>'form-control'] ) }}
+            {{ Form::hidden('pre_endusers_attr', ($request->pre_endusers_attr),['class'=>'form-control'] ) }}
           </td>
         </tr>
       </tbody>
@@ -379,6 +382,7 @@
                 <td class="table-active">事前に預かる荷物<br>（個数）</td>
                 <td>
                   {{ Form::text('luggage_count', $request->luggage_count,['class'=>'form-control'] ) }}
+                  <p class='is-error-luggage_count' style=' color: red'></p>
                 </td>
               </tr>
               <tr>
@@ -391,6 +395,7 @@
                 <td class="table-active">事後返送する荷物</td>
                 <td>
                   {{ Form::text('luggage_return', $request->luggage_return,['class'=>'form-control'] ) }}
+                  <p class='is-error-luggage_return' style=' color: red'></p>
                 </td>
               </tr>
 
@@ -580,15 +585,19 @@
               <tbody class="venue_head">
                 <tr>
                   <td>内容</td>
+                  <td>単価</td>
                   <td>数量</td>
+                  <td>金額</td>
                 </tr>
               </tbody>
               <tbody class="venue_main">
                 <tr>
                   <td>{{ Form::text('venue_breakdown_item0', "会場料金",['class'=>'form-control', 'readonly'] ) }} </td>
+                  <td><input class="form-control" readonly></td>
                   <td>
                     {{ Form::text('venue_breakdown_count0', ReservationHelper::getUsage($request->enter_time,$request->leave_time)."h",['class'=>'form-control', 'readonly'] ) }}
                   </td>
+                  <td><input class="form-control" readonly></td>
                 </tr>
               </tbody>
             </table>
@@ -608,7 +617,9 @@
               <tbody class="equipment_head">
                 <tr>
                   <td>内容</td>
+                  <td>単価</td>
                   <td>数量</td>
+                  <td>金額</td>
                 </tr>
               </tbody>
               <tbody class="equipment_main">
@@ -618,9 +629,11 @@
                   <td>
                     {{ Form::text('equipment_breakdown_item'.$e_key, $equipment->item,['class'=>'form-control', 'readonly'] ) }}
                   </td>
+                  <td><input class="form-control" readonly></td>
                   <td>
                     {{ Form::text('equipment_breakdown_count'.$e_key, $request->{'equipment_breakdown'.$e_key},['class'=>'form-control', 'readonly'] ) }}
                   </td>
+                  <td><input class="form-control" readonly></td>
                 </tr>
                 @endif
                 @endforeach
@@ -630,9 +643,11 @@
                   <td>
                     {{ Form::text('service_breakdown_item'.$s_key, $service->item,['class'=>'form-control', 'readonly'] ) }}
                   </td>
+                  <td><input class="form-control" readonly></td>
                   <td>
                     {{ Form::text('service_breakdown_count'.$s_key, $request->{'services_breakdown'.$s_key},['class'=>'form-control', 'readonly'] ) }}
                   </td>
+                  <td><input class="form-control" readonly></td>
                 </tr>
                 @endif
                 @endforeach
@@ -641,9 +656,11 @@
                   <td>
                     {{ Form::text('luggage_item', '荷物預かり/返送',['class'=>'form-control', 'readonly'] ) }}
                   </td>
+                  <td><input class="form-control" readonly></td>
                   <td>
                     {{ Form::text('luggage_count', $request->luggage_price,['class'=>'form-control', 'readonly'] ) }}
                   </td>
+                  <td><input class="form-control" readonly></td>
                 </tr>
                 @endif
               </tbody>

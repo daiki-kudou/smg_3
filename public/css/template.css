@@ -5,9 +5,11 @@ html {
 }
 
 body {
-    font-family: -apple-system, 'Helvetica Neue', 'Hiragino Kaku Gothic ProN', '游ゴシック', 'メイリオ', meiryo, sans-serif;
+    /* font-family: -apple-system, 'Helvetica Neue', 'Hiragino Kaku Gothic ProN', '游ゴシック', 'メイリオ', meiryo, sans-serif; */
+    font-family: -apple-system, "Helvetica Neue", Arial, "Hiragino Kaku Gothic ProN", "Hiragino Sans", Meiryo, sans-serif;
     font-size: 14px;
     color: #333;
+    /* font-weight: 600; */
 }
 
 /* venues. index */
@@ -148,7 +150,7 @@ table.dataTable thead .sorting_desc:after {
 }
 
 .accordion-wrap .table-active {
-    width: 50%;
+    width: 45%;
     word-break: break-all;
 }
 
@@ -173,6 +175,7 @@ table.dataTable thead .sorting_desc:after {
     /* background: pink; */
     background: #ffdce2;
 }
+
 span.is-error {
     background-color: transparent;
 }
@@ -267,7 +270,7 @@ select:disabled {
 
 
 /* 共通--------------------------------------- */
-.content-wrapper >.content {
+.content-wrapper>.content {
     padding: 0 1.5rem;
 }
 
@@ -491,6 +494,7 @@ select:disabled {
 }
 
 .table-active {
+    width: 45%;
     /* background: #f2f2f2; */
 }
 
@@ -509,16 +513,17 @@ select:disabled {
     table-layout: fixed;
 }
 
-option:disabled  {
+option:disabled {
     color: #eee;
     background-color: #ccc;
 }
 
-.form-control:disabled, .form-control[readonly] {
+.form-control:disabled,
+.form-control[readonly] {
     background-color: #ccc;
 }
 
-.form-control::placeholder{
+.form-control::placeholder {
     color: #c9c9c9;
 
 }
@@ -709,7 +714,8 @@ table td.table_column p:last-child {
 
 /* tablesorter css 上書き ------------------------------------*/
 .tablesorter-default {
-    font-family: -apple-system, 'Helvetica Neue', 'Hiragino Kaku Gothic ProN', '游ゴシック', 'メイリオ', meiryo, sans-serif;
+    /* font-family: -apple-system, 'Helvetica Neue', 'Hiragino Kaku Gothic ProN', '游ゴシック', 'メイリオ', meiryo, sans-serif; */
+    font-family: -apple-system, "Helvetica Neue", Arial, "Hiragino Kaku Gothic ProN", "Hiragino Sans", Meiryo, sans-serif;
     font-size: 14px;
     color: #333;
 }
@@ -755,7 +761,7 @@ table td.table_column p:last-child {
     /* justify-content: space-around; */
 }
 
-.radio-box p > label {
+.radio-box p>label {
     display: block;
     margin-left: 0.3em;
 }
@@ -1030,6 +1036,7 @@ table td.table_column p:last-child {
 .option_list_ttl h5 {
     font-weight: bold;
 }
+
 .option_list_ttl .caution_color {
     font-weight: bold;
 }

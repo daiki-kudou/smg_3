@@ -55,20 +55,20 @@
     <table class="table table-bordered" style="table-layout: fixed;">
       <thead>
         <tr>
-          <th>顧客情報</th>
+          <th class="align-middle">顧客情報</th>
           <td colspan="3">
             <div class="d-flex align-items-center">
-            <p class="col-2">顧客ID：{{$PreReservation->user_id}}</p>
-            <select name="user_id" id="user_id">
-              @foreach ($users as $user)
-              <option value="{{$user->id}}" @if ($PreReservation->user_id==$user->id)
-                selected
-                @endif
-                >
-                {{ReservationHelper::getCompany($user->id)}} ・ {{ReservationHelper::getPersonName($user->id)}}
-              </option>
-              @endforeach
-            </select>
+              <p class="col-2">顧客ID：{{$PreReservation->user_id}}</p>
+              <select name="user_id" id="user_id">
+                @foreach ($users as $user)
+                <option value="{{$user->id}}" @if ($PreReservation->user_id==$user->id)
+                  selected
+                  @endif
+                  >
+                  {{ReservationHelper::getCompany($user->id)}} ・ {{ReservationHelper::getPersonName($user->id)}}
+                </option>
+                @endforeach
+              </select>
             </div>
           </td>
         </tr>
@@ -528,7 +528,9 @@
               <tr>
                 <td class="table-active">荷物預かり/返送<br>料金</td>
                 <td>
-                  <div class="d-flex align-items-end">
+                  <p class="annotation">※仮押え時点では、料金の設定ができません。<br>予約へ切り替え後に料金の設定が可能です。</p>
+
+                  <!-- <div class="d-flex align-items-end">
                     @foreach ($PreReservation->pre_breakdowns()->get() as $lug_chk)
                     @if ($lug_chk->unit_item=="荷物預かり/返送")
                     {{ Form::text('luggage_price', $lug_chk->unit_cost,['class'=>'form-control'] ) }}
@@ -539,7 +541,7 @@
                     @endforeach
                     <span class="ml-1">円</span>
                   </div>
-                  <p class='is-error-luggage_price' style='color: red'></p>
+                  <p class='is-error-luggage_price' style='color: red'></p> -->
                 </td>
               </tr>
             </tbody>
@@ -711,81 +713,81 @@
   {{ Form::open(['url' => 'admin/pre_reservations/'.$PreReservation->id, 'method'=>'PUT']) }}
   @csrf
   {{-- 以下、計算結果 --}}
-    <div class="bill">
-      <div class="bill_head py-0">
-        <table class="table mb-0" style="table-layout: fixed">
-          <tr>
-            <td>
-              <h2 class="text-white">
-                請求書No
-              </h2>
-            </td>
-            <td>
-              <dl class="ttl_box">
-                <dt>合計金額</dt>
-                <dd class="total_result">{{number_format($PreReservation->pre_bill->first()->master_total)}}円</dd>
-              </dl>
-            </td>
-          </tr>
-        </table>
-      </div>
-      <div class="bill_details">
-        <div class="head d-flex">
-          <div class="accordion_btn">
-            <i class="fas fa-plus bill_icon_size hide"></i>
-            <i class="fas fa-minus bill_icon_size"></i>
-          </div>
-          <div class="billdetails_ttl">
-            <h3>
-              請求内訳
-            </h3>
-          </div>
+  <div class="bill">
+    <div class="bill_head py-0">
+      <table class="table mb-0" style="table-layout: fixed">
+        <tr>
+          <td>
+            <h2 class="text-white">
+              請求書No
+            </h2>
+          </td>
+          <td>
+            <dl class="ttl_box">
+              <dt>合計金額</dt>
+              <dd class="total_result">{{number_format($PreReservation->pre_bill->first()->master_total)}}円</dd>
+            </dl>
+          </td>
+        </tr>
+      </table>
+    </div>
+    <div class="bill_details">
+      <div class="head d-flex">
+        <div class="accordion_btn">
+          <i class="fas fa-plus bill_icon_size hide"></i>
+          <i class="fas fa-minus bill_icon_size"></i>
         </div>
-        <div class="main">
-          <div class="venues billdetails_content">
-            <table class="table table-borderless">
+        <div class="billdetails_ttl">
+          <h3>
+            請求内訳
+          </h3>
+        </div>
+      </div>
+      <div class="main">
+        <div class="venues billdetails_content">
+          <table class="table table-borderless">
+            <tr>
+              <td>
+                <h4 class="billdetails_content_ttl">
+                  会場料
+                </h4>
+              </td>
+            </tr>
+            <tbody class="venue_head">
+              <tr>
+                <td>内容</td>
+                <td>単価</td>
+                <td>数量</td>
+                <td>金額</td>
+              </tr>
+            </tbody>
+            <tbody class="venue_main">
+              @foreach ($PreReservation->pre_breakdowns()->where('unit_type',1)->get() as $key=>$v_break)
               <tr>
                 <td>
-                  <h4 class="billdetails_content_ttl">
-                    会場料
-                  </h4>
+                  {{ Form::text('venue_breakdown_item'.$key, $v_break->unit_item,['class'=>'form-control col-xs-3', 'readonly'] ) }}
+                </td>
+                <td>
+                  {{ Form::text('venue_breakdown_cost'.$key, $v_break->unit_cost,['class'=>'form-control col-xs-3', 'readonly'] ) }}
+                </td>
+                <td>
+                  {{ Form::text('venue_breakdown_count'.$key, $v_break->unit_count,['class'=>'form-control col-xs-3', 'readonly'] ) }}
+                </td>
+                <td>
+                  {{ Form::text('venue_breakdown_subtotal'.$key, $v_break->unit_subtotal,['class'=>'form-control col-xs-3', 'readonly'] ) }}
                 </td>
               </tr>
-              <tbody class="venue_head">
-                <tr>
-                  <td>内容</td>
-                  <td>単価</td>
-                  <td>数量</td>
-                  <td>金額</td>
-                </tr>
-              </tbody>
-              <tbody class="venue_main">
-                @foreach ($PreReservation->pre_breakdowns()->where('unit_type',1)->get() as $key=>$v_break)
-                <tr>
-                  <td>
-                    {{ Form::text('venue_breakdown_item'.$key, $v_break->unit_item,['class'=>'form-control col-xs-3', 'readonly'] ) }}
-                  </td>
-                  <td>
-                    {{ Form::text('venue_breakdown_cost'.$key, $v_break->unit_cost,['class'=>'form-control col-xs-3', 'readonly'] ) }}
-                  </td>
-                  <td>
-                    {{ Form::text('venue_breakdown_count'.$key, $v_break->unit_count,['class'=>'form-control col-xs-3', 'readonly'] ) }}
-                  </td>
-                  <td>
-                    {{ Form::text('venue_breakdown_subtotal'.$key, $v_break->unit_subtotal,['class'=>'form-control col-xs-3', 'readonly'] ) }}
-                  </td>
-                </tr>
-                @endforeach
-              </tbody>
-              <tbody class="venue_result">
-                <tr>
-                  <td colspan="2"></td>
-                  <td colspan="2">合計
-                    {{ Form::text('venue_price', $PreReservation->pre_bill()->first()->venue_price,['class'=>'form-control col-xs-3', 'readonly'] ) }}
-                  </td>
-                </tr>
-              </tbody>
-              <!-- <tbody class="venue_discount">
+              @endforeach
+            </tbody>
+            <tbody class="venue_result">
+              <tr>
+                <td colspan="2"></td>
+                <td colspan="2">合計
+                  {{ Form::text('venue_price', $PreReservation->pre_bill()->first()->venue_price,['class'=>'form-control col-xs-3', 'readonly'] ) }}
+                </td>
+              </tr>
+            </tbody>
+            <!-- <tbody class="venue_discount">
                 <tr>
                   <td>割引計算欄</td>
                   <td>
@@ -811,141 +813,141 @@
                   </td>
                 </tr>
               </tbody> -->
-            </table>
-          </div>
+          </table>
+        </div>
 
-          <div class="equipment billdetails_content">
-            <table class="table table-borderless">
+        <div class="equipment billdetails_content">
+          <table class="table table-borderless">
+            <tr>
+              <td colspan="4">
+                <h4 class="billdetails_content_ttl">
+                  有料備品・サービス
+                </h4>
+              </td>
+            </tr>
+            <tbody class="equipment_head">
               <tr>
-                <td colspan="4">
-                  <h4 class="billdetails_content_ttl">
-                    有料備品・サービス
-                  </h4>
-                </td>
+                <td>内容</td>
+                <td>単価</td>
+                <td>数量</td>
+                <td>金額</td>
               </tr>
-              <tbody class="equipment_head">
-                <tr>
-                  <td>内容</td>
-                  <td>単価</td>
-                  <td>数量</td>
-                  <td>金額</td>
-                </tr>
-              </tbody>
-              <tbody class="equipment_main">
-                @foreach ($PreReservation->pre_breakdowns()->where('unit_type',2)->get() as $key=>$e_break)
-                <tr>
-                  <td>
-                    {{ Form::text('equipment_breakdown_item'.$key, $e_break->unit_item,['class'=>'form-control col-xs-3', 'readonly'] ) }}
-                  </td>
-                  <td>
-                    {{ Form::text('equipment_breakdown_cost'.$key, $e_break->unit_cost,['class'=>'form-control col-xs-3', 'readonly'] ) }}
-                  </td>
-                  <td>
-                    {{ Form::text('equipment_breakdown_count'.$key, $e_break->unit_count,['class'=>'form-control col-xs-3', 'readonly'] ) }}
-                  </td>
-                  <td>
-                    {{ Form::text('equipment_breakdown_subtotal'.$key, $e_break->unit_subtotal,['class'=>'form-control col-xs-3', 'readonly'] ) }}
-                  </td>
-                </tr>
-                @endforeach
-                @foreach ($PreReservation->pre_breakdowns()->where('unit_type',3)->get() as $key=>$s_break)
-                <tr>
-                  <td>
-                    {{ Form::text('services_breakdown_item'.$key, $s_break->unit_item,['class'=>'form-control col-xs-3', 'readonly'] ) }}
-                  </td>
-                  <td>
-                    {{ Form::text('services_breakdown_cost'.$key, $s_break->unit_cost,['class'=>'form-control col-xs-3', 'readonly'] ) }}
-                  </td>
-                  <td>
-                    {{ Form::text('services_breakdown_count'.$key, $s_break->unit_count,['class'=>'form-control col-xs-3', 'readonly'] ) }}
-                  </td>
-                  <td>
-                    {{ Form::text('services_breakdown_subtotal'.$key, $s_break->unit_subtotal,['class'=>'form-control col-xs-3', 'readonly'] ) }}
-                  </td>
-                </tr>
-                @endforeach
-              </tbody>
-              <tbody class="equipment_result">
-                <tr>
-                  <td colspan="2"></td>
-                  <td colspan="2">合計
-                    {{ Form::text('equipment_price',$PreReservation->pre_bill()->first()->equipment_price  ,['class'=>'form-control', 'readonly'] ) }}
-                  </td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
-          <div class="layout billdetails_content">
-            <table class="table table-borderless">
+            </tbody>
+            <tbody class="equipment_main">
+              @foreach ($PreReservation->pre_breakdowns()->where('unit_type',2)->get() as $key=>$e_break)
               <tr>
                 <td>
-                  <h4 class="billdetails_content_ttl">
-                    レイアウト
-                  </h4>
+                  {{ Form::text('equipment_breakdown_item'.$key, $e_break->unit_item,['class'=>'form-control col-xs-3', 'readonly'] ) }}
+                </td>
+                <td>
+                  {{ Form::text('equipment_breakdown_cost'.$key, $e_break->unit_cost,['class'=>'form-control col-xs-3', 'readonly'] ) }}
+                </td>
+                <td>
+                  {{ Form::text('equipment_breakdown_count'.$key, $e_break->unit_count,['class'=>'form-control col-xs-3', 'readonly'] ) }}
+                </td>
+                <td>
+                  {{ Form::text('equipment_breakdown_subtotal'.$key, $e_break->unit_subtotal,['class'=>'form-control col-xs-3', 'readonly'] ) }}
                 </td>
               </tr>
-              <tbody class="layout_head">
-                <tr>
-                  <td>内容</td>
-                  <td>単価</td>
-                  <td>数量</td>
-                  <td>金額</td>
-                </tr>
-              </tbody>
-              <tbody class="layout_main">
-                @foreach ($PreReservation->pre_breakdowns()->where('unit_type',4)->get() as $key=>$l_break)
-                <tr>
-                  <td>
-                    {{ Form::text('layout_breakdown_item'.$key, $l_break->unit_item,['class'=>'form-control col-xs-3', 'readonly'] ) }}
-                  </td>
-                  <td>
-                    {{ Form::text('layout_breakdown_cost'.$key, $l_break->unit_cost,['class'=>'form-control col-xs-3', 'readonly'] ) }}
-                  </td>
-                  <td>
-                    {{ Form::text('layout_breakdown_count'.$key, $l_break->unit_count,['class'=>'form-control col-xs-3', 'readonly'] ) }}
-                  </td>
-                  <td>
-                    {{ Form::text('layout_breakdown_subtotal'.$key, $l_break->unit_subtotal,['class'=>'form-control col-xs-3', 'readonly'] ) }}
-                  </td>
-                </tr>
-                @endforeach
-              </tbody>
-              <tbody class="layout_result">
-                <tr>
-                  <td colspan="2"></td>
-                  <td colspan="2">合計
-                    {{ Form::text('layout_price',$PreReservation->pre_bill()->first()->layout_price ,['class'=>'form-control', 'readonly'] ) }}
-                  </td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
+              @endforeach
+              @foreach ($PreReservation->pre_breakdowns()->where('unit_type',3)->get() as $key=>$s_break)
+              <tr>
+                <td>
+                  {{ Form::text('services_breakdown_item'.$key, $s_break->unit_item,['class'=>'form-control col-xs-3', 'readonly'] ) }}
+                </td>
+                <td>
+                  {{ Form::text('services_breakdown_cost'.$key, $s_break->unit_cost,['class'=>'form-control col-xs-3', 'readonly'] ) }}
+                </td>
+                <td>
+                  {{ Form::text('services_breakdown_count'.$key, $s_break->unit_count,['class'=>'form-control col-xs-3', 'readonly'] ) }}
+                </td>
+                <td>
+                  {{ Form::text('services_breakdown_subtotal'.$key, $s_break->unit_subtotal,['class'=>'form-control col-xs-3', 'readonly'] ) }}
+                </td>
+              </tr>
+              @endforeach
+            </tbody>
+            <tbody class="equipment_result">
+              <tr>
+                <td colspan="2"></td>
+                <td colspan="2">合計
+                  {{ Form::text('equipment_price',$PreReservation->pre_bill()->first()->equipment_price  ,['class'=>'form-control', 'readonly'] ) }}
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="layout billdetails_content">
+          <table class="table table-borderless">
+            <tr>
+              <td>
+                <h4 class="billdetails_content_ttl">
+                  レイアウト
+                </h4>
+              </td>
+            </tr>
+            <tbody class="layout_head">
+              <tr>
+                <td>内容</td>
+                <td>単価</td>
+                <td>数量</td>
+                <td>金額</td>
+              </tr>
+            </tbody>
+            <tbody class="layout_main">
+              @foreach ($PreReservation->pre_breakdowns()->where('unit_type',4)->get() as $key=>$l_break)
+              <tr>
+                <td>
+                  {{ Form::text('layout_breakdown_item'.$key, $l_break->unit_item,['class'=>'form-control col-xs-3', 'readonly'] ) }}
+                </td>
+                <td>
+                  {{ Form::text('layout_breakdown_cost'.$key, $l_break->unit_cost,['class'=>'form-control col-xs-3', 'readonly'] ) }}
+                </td>
+                <td>
+                  {{ Form::text('layout_breakdown_count'.$key, $l_break->unit_count,['class'=>'form-control col-xs-3', 'readonly'] ) }}
+                </td>
+                <td>
+                  {{ Form::text('layout_breakdown_subtotal'.$key, $l_break->unit_subtotal,['class'=>'form-control col-xs-3', 'readonly'] ) }}
+                </td>
+              </tr>
+              @endforeach
+            </tbody>
+            <tbody class="layout_result">
+              <tr>
+                <td colspan="2"></td>
+                <td colspan="2">合計
+                  {{ Form::text('layout_price',$PreReservation->pre_bill()->first()->layout_price ,['class'=>'form-control', 'readonly'] ) }}
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
 
-          <div class="bill_total">
-            <table class="table text-right">
-              <tr>
-                <td>小計：</td>
-                <td>
-                  {{ Form::text('master_subtotal',$PreReservation->pre_bill()->first()->master_subtotal ,['class'=>'form-control text-right', 'readonly'] ) }}
-                </td>
-              </tr>
-              <tr>
-                <td>消費税：</td>
-                <td>
-                  {{ Form::text('master_tax',$PreReservation->pre_bill()->first()->master_tax ,['class'=>'form-control text-right', 'readonly'] ) }}
-                </td>
-              </tr>
-              <tr>
-                <td class="font-weight-bold">合計金額</td>
-                <td>
-                  {{ Form::text('master_total',$PreReservation->pre_bill()->first()->master_total ,['class'=>'form-control text-right', 'readonly'] ) }}
-                </td>
-              </tr>
-            </table>
-          </div>
+        <div class="bill_total">
+          <table class="table text-right">
+            <tr>
+              <td>小計：</td>
+              <td>
+                {{ Form::text('master_subtotal',$PreReservation->pre_bill()->first()->master_subtotal ,['class'=>'form-control text-right', 'readonly'] ) }}
+              </td>
+            </tr>
+            <tr>
+              <td>消費税：</td>
+              <td>
+                {{ Form::text('master_tax',$PreReservation->pre_bill()->first()->master_tax ,['class'=>'form-control text-right', 'readonly'] ) }}
+              </td>
+            </tr>
+            <tr>
+              <td class="font-weight-bold">合計金額</td>
+              <td>
+                {{ Form::text('master_total',$PreReservation->pre_bill()->first()->master_total ,['class'=>'form-control text-right', 'readonly'] ) }}
+              </td>
+            </tr>
+          </table>
         </div>
       </div>
     </div>
+  </div>
 
 
   {{-- 単発仮押えか？一括仮押えか？ --}}
