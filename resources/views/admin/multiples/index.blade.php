@@ -17,6 +17,22 @@
   }
 </style>
 
+<script>
+  $(function(){
+    $('.flash_message').fadeOut(3000);
+  })
+</script>
+@if (session('flash_message'))
+<div class="flash_message bg-success text-center py-3 my-0">
+  {{ session('flash_message') }}
+</div>
+@endif
+@if (session('flash_message_error'))
+<div class="flash_message bg-danger text-center py-3 my-0">
+  {{ session('flash_message_error') }}
+</div>
+@endif
+
 <div class="content">
   <div class="container-fluid">
     <div class="container-field mt-3">
@@ -29,6 +45,8 @@
           </ol>
         </nav>
       </div>
+
+
 
       <h2 class="mt-3 mb-3">一括仮押え 一覧</h2>
       <hr>
@@ -115,7 +133,7 @@
       <ul class="d-flex reservation_list mb-2 justify-content-between">
         <li>
           {{-- 削除ボタン --}}
-          {{Form::open(['url' => 'admin/pre_reservations/destroy', 'method' => 'POST', 'id'=>'for_destroy'])}}
+          {{Form::open(['url' => 'admin/multiples/destroy', 'method' => 'delete', 'id'=>'for_destroy'])}}
           @csrf
           {{ Form::submit('削除', ['class' => 'btn more_btn4','id'=>'confirm_destroy']) }}
           {{ Form::close() }}
@@ -235,7 +253,7 @@
 
         // 削除確認コンファーム
         $('#confirm_destroy').on('click', function() {
-          if (!confirm('削除してもよろしいですか？')) {
+          if (!confirm('削除してもよろしいですか？\n一括仮押さえに関連する仮押さえの内容がすべて削除されます')) {
             return false;
           }
         })
@@ -246,7 +264,6 @@
           checked = $('[class="checkbox"]:checked').map(function() {
             return $(this).val();
           }).get();
-          console.log(checked.length);
           for (let index = 0; index < checked.length; index++) {
             var ap_data = "<input type='hidden' name='destroy" + checked[index] + "' value='" + checked[index] + "'>"
             $('#for_destroy').append(ap_data);

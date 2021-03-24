@@ -223,7 +223,6 @@ class MultiplesController extends Controller
     return redirect('admin/multiples/agent/' . $request->multiple_id);
   }
 
-
   public function agent_show($multiple_id)
   {
     $multiple = MultipleReserve::find($multiple_id);
@@ -231,5 +230,34 @@ class MultiplesController extends Controller
     $venue_count = $venues->count('venue_id');
     $_venues = Venue::all();
     return view('admin.multiples.agent_show', compact('multiple', 'venues', 'venue_count', '_venues'));
+  }
+
+  public function destroy(Request $request)
+  {
+
+    $shapeRequest = $request->except(['_method', '_token']);
+    if (count($shapeRequest) == 0) {
+      $request->session()->regenerate();
+      return redirect()->route('admin.multiples.index')->with('flash_message_error', '仮押えが選択されていません');
+    } else {
+      DB::transaction(function () use ($shapeRequest) {
+        foreach ($shapeRequest as $key => $value) {
+          $multiple = MultipleReserve::find($value);
+          foreach ($multiple->pre_reservations()->get() as $key2 => $value2) {
+            foreach ($value2->pre_breakdowns()->get() as $key3 => $value3) {
+              $value3->delete();
+            }
+            foreach ($value2->pre_bill()->get() as $key4 => $value4) {
+              $value4->delete();
+            }
+            $value2->unknown_user()->delete();
+            $value2->delete();
+          }
+          $multiple->delete();
+        }
+      });
+      $request->session()->regenerate();
+      return redirect()->route('admin.multiples.index')->with('flash_message', '一括仮押えの削除が完了しました');
+    }
   }
 }

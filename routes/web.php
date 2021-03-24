@@ -226,7 +226,7 @@ Route::namespace('Admin')->prefix('admin')->name('admin.')->group(function () {
     // 仮押え編集時にユーザー変更
     Route::post('pre_reservations/get_user', 'PreReservationsController@get_user');
     // 一括仮押え index
-    Route::get('multiples', 'MultiplesController@index');
+    Route::get('multiples', 'MultiplesController@index')->name('multiples.index');
     // 一括仮押え show
     Route::get('multiples/{multiples}', 'MultiplesController@show')->name('multiples.show');
     // 一括　個別　edit
@@ -263,6 +263,8 @@ Route::namespace('Admin')->prefix('admin')->name('admin.')->group(function () {
     Route::post('multiples/agent/{multiples}/add_venue_store', 'MultiplesController@agent_add_venue_store');
     // 一括仮押さえ、ユーザーに編集権限譲渡
     Route::post('multiples/switch_status', 'MultiplesController@switchStatus');
+    // 一括仮押さえ、indexページ内。削除
+    Route::delete('multiples/destroy', 'MultiplesController@destroy');
 
     // 仲介会社　仮押え 作成
     Route::get('pre_agent_reservations/create', 'PreAgentReservationsController@create');
