@@ -571,7 +571,7 @@
                         <td>
                           <div class="align-items-end d-flex">
                             {{ Form::text('event_name1_copied'.$key,$pre_reservation->event_name1,['class'=>'form-control', 'placeholder'=>'入力してください', 'id'=>"copiedeventname1Count".$key] ) }}
-                            <span class="ml-1 annotation count_num1"></span>
+                            <span class="ml-1 annotation count_num1_copied"></span>
                           </div>
                           <p class="{{"is-error-event_name1_copied".$key}}" style="color: red"></p>
                         </td>

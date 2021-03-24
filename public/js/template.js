@@ -427,39 +427,42 @@ $(function(){
   
   var target = $("input[name^='event_name1_copied']");
   console.log(target);
-  for (let index = 0; index < target.length; index++) {
-    var eventname1copied = ".event_name1_copied" + index;
-    console.log(eventname1copied);
-    $(function(){
-      $(eventname1copied).hide();
-  
-    });
-  }
+  // for (let index = 0; index < target.length; index++) {
+  //   var eventname1copied = ".event_name1_copied" + index;
+  //   console.log(eventname1copied);
+  //   $(function(){
+  //     $(eventname1copied).hide();
+  //   });
+  // }
 
   for (let index = 0; index < target.length; index++) {
     var eventname1copiedcount = "#copiedeventname1Count" + index;
-    console.log(eventname1copiedcount);
-    
-    var len = textLength($(eventname1copiedcount).val());
-    $('.count_num1').html(len + "/28");
-  }
+    var eventname1copied = ".is-error-event_name1_copied" + index;
 
-  $(eventname1copiedcount).on('keyup', function(){
+    console.log("ここ",eventname1copiedcount);
+    console.log(eventname1copied);
     var len = textLength($(this).val());
-    $('.count_num1').html(len + "/28");
-    if(len > 28){
-    $('.count_num1').css('color', 'red');
-    $(eventname1copied).text('※文字数がオーバーしています');
-    $(eventname1copied).show();
-    $(eventname1copiedcount).addClass('is-error');
-    $(':submit').prop("disabled", true);
-    }else{
-    $('.count_num1').css('color', 'black');
+    $('.count_num1_copied').html(len + "/28");
     $(eventname1copied).hide();
-    $(eventname1copiedcount).removeClass('is-error');
-    $(':submit').prop("disabled", false);
-    }
-  });
+
+    
+    $(eventname1copiedcount).on('keyup', function(){
+      var len = textLength($(this).val());
+      $('.count_num1_copied').html(len + "/28");
+      if(len > 28){
+        $('.count_num1_copied').css('color', 'red');
+        $(eventname1copied).text('※文字数がオーバーしています');
+        $(eventname1copied).show();
+        $(eventname1copiedcount).addClass('is-error');
+        $(':submit').prop("disabled", true);
+      }else{
+        $('.count_num1_copied').css('color', 'black');
+        $(eventname1copied).hide();
+        $(eventname1copiedcount).removeClass('is-error');
+        $(':submit').prop("disabled", false);
+      }
+    });
+  }
 
   // $(eventname1copied).on('keyup', copiedeventname1);
   // $(eventname1copied).blur(copiedeventname1);
