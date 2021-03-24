@@ -64,9 +64,10 @@
   {{-- swal alert --}}
   <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 
-
   {{-- numeric --}}
   <script src="{{ asset('/js/numeric.js') }}"></script>
+
+
 </head>
 
 <body class="hold-transition sidebar-mini">
@@ -131,6 +132,7 @@
 
   </div>
   <script src="{{ asset('js/adminlte.min.js') }}"></script>
+
   <script>
     // 自動補完無効
     $(function(){
