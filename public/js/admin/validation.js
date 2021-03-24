@@ -186,6 +186,15 @@ $(function () {
       luggage_price: {
         number: true,
       },
+      // event_name1: {
+      //   maxlength: 16
+      // },
+      // event_name2: {
+      //   maxlength: 16
+      // },
+      // event_owner: {
+      //   maxlength: 30
+      // },
     },
     messages: {
       enduser_charge: {
@@ -224,6 +233,15 @@ $(function () {
       luggage_price: {
         number: '※半角数字を入力してください',
       },
+      // event_name1: {
+      //   maxlength: '※16文字以内で入力してください',
+      // },
+      // event_name2: {
+      //   maxlength: '※16文字以内で入力してください',
+      // },
+      // event_owner: {
+      //   maxlength: '※30文字以内で入力してください',
+      // },
     },
     errorPlacement: function (error, element) {
       var name = element.attr('name');
