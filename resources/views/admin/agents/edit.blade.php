@@ -265,7 +265,7 @@
               <label for="deal_details">取引詳細</label>
             </th>
             <td colspan="2">
-              {{ Form::text('deal_remark', $agent->deal_remark, ['class' => 'form-control', 'id'=>'company']) }}
+              {{ Form::textarea('deal_remark', $agent->deal_remark, ['class' => 'form-control', 'id'=>'company']) }}
             </td>
           </tr>
           <tr>
@@ -274,12 +274,12 @@
             </td>
             <td colspan="2">
               <p>
-                {{ Form::radio('cxl', 1, $agent->cxl==1?true:false, ['class' => '']) }}
-                {{ Form::label('cxl', 'SMGルール') }}
+                {{ Form::radio('cxl', 1, $agent->cxl==1?true:false, ['id' => 'cxl1']) }}
+                {{ Form::label('cxl1', 'SMGルール') }}
               </p>
               <p>
-                {{ Form::radio('cxl', 2, $agent->cxl==2?true:false, ['class' => '']) }}
-                {{ Form::label('cxl', '仲介会社ルール') }}
+                {{ Form::radio('cxl', 2, $agent->cxl==2?true:false, ['id' => 'cxl2']) }}
+                {{ Form::label('cxl2', '仲介会社ルール') }}
               </p>
               <p class="mt-2">
                 <label for="cancel">キャンセルポリシーURL</label>
