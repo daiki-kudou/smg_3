@@ -15,7 +15,7 @@
       </ol>
     </nav>
   </div>
-  <h2 class="mt-3 mb-3">仲介会社　詳細ああああああああああ</h2>
+  <h2 class="mt-3 mb-3">仲介会社　詳細</h2>
   <hr>
 </div>
 

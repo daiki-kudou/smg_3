@@ -467,7 +467,7 @@ $(function(){
 //   $(eventname1copied).blur(copiedeventname1);
 // });
 
-// 一括のコピーの場合、イベント名称1 作業中ここまで！！！！！！！！！
+
 
 
 
@@ -531,6 +531,8 @@ $(function(){
 $('#eventownerCount').on('keyup', eventowner);
 $('#eventownerCount').blur(eventowner);
 });
+
+
 
 function textLength(text){
   var regexp = /[\x01-\x7E\u{FF65}-\u{FF9F}]/mu;
