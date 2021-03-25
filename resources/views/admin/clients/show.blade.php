@@ -79,7 +79,7 @@
           </tr> -->
           <tr>
             <th class="table-active">{{ Form::label('url', '会社・団体名URL') }}</th>
-            <td>{{$user->url}}</td>
+            <td class="word_break">{{$user->url}}</td>
           </tr>
           <tr>
             <th class="table-active">{{ Form::label('attr', '顧客属性') }}</th>
