@@ -51,7 +51,7 @@
                   <p class="title-icon">
                     <i class="fas fa-info-circle icon-size" aria-hidden="true"></i>
                     仮押え情報
-                    <span class="ml-3">仮押えID：{{$pre_reservation->id}}</span>
+                    <span class="ml-3">仮押えID：{{ReservationHelper::fixId($pre_reservation->id)}}</span>
                   </p>
                 </td>
               </tr>

@@ -36,7 +36,7 @@
       <tr>
         <td class="text-white d-flex align-items-center p-3">
           <h3>
-            仮押え一括ID:<span class="mr-3">{{$multiple->id}}</span>
+            仮押え一括ID:<span class="mr-3">{{ReservationHelper::fixId($multiple->id)}}</span>
           </h3>
           <h4 class="ml-2">{{ReservationHelper::getVenue($venue->id)}}</h4>
         </td>
@@ -296,7 +296,7 @@
                 <tr>
                   <td class="table-active">荷物預り/返送<br>料金</td>
                   <td>
-                  <p class="annotation">※仮押え時点では、料金の設定ができません。<br>予約へ切り替え後に料金の設定が可能です。</p>
+                    <p class="annotation">※仮押え時点では、料金の設定ができません。<br>予約へ切り替え後に料金の設定が可能です。</p>
                     <!-- {{ Form::text('cp_master_luggage_price', '',['class'=>'form-control'] ) }}
                     <p class="is-error-cp_master_luggage_price" style="color: red"></p> -->
                   </td>
@@ -475,7 +475,7 @@
       {{ Form::close() }}
     </p>
   </section>
-  
+
   <div class="pt-5 mx-5">
     <p>※一日程ごとに入力する場合は、下記タブより、それぞれ選択してください。</p>
     <p class="caution_color">※一日程ごとに入力後、すべての日程に反映するボタンをクリックすると、一日程ごとの内容が上書きされてしまうので、
@@ -509,7 +509,8 @@
     <div class="register-list-item">
       <div class="from-group list_checkbox">
         <div class="form-check">
-          <input type="checkbox" name="{{'delete_check'.$pre_reservation->id}}" value="{{$pre_reservation->id}}" class="checkbox mr-1" />
+          <input type="checkbox" name="{{'delete_check'.$pre_reservation->id}}" value="{{$pre_reservation->id}}"
+            class="checkbox mr-1" />
           <!-- <input class="form-check-input" type="checkbox"> -->
           <label class="form-check-label"></label>
         </div>
@@ -612,7 +613,9 @@
                     <td>
                       <select name="{{'event_start_copied'.$key}}" class="form-control">
                         <option disabled>選択してください</option>
-                        @for ($start = 0*2; $start <=23*2; $start++) <option value="{{date("H:i:s", strtotime("00:00 +". $start * 30 ." minute"))}}" @if(date("H:i:s", strtotime("00:00 +". $start * 30 ." minute"))==$pre_reservation->enter_time)
+                        @for ($start = 0*2; $start <=23*2; $start++) <option
+                          value="{{date("H:i:s", strtotime("00:00 +". $start * 30 ." minute"))}}" @if(date("H:i:s",
+                          strtotime("00:00 +". $start * 30 ." minute"))==$pre_reservation->enter_time)
                           selected
                           @endif
                           >
@@ -624,9 +627,12 @@
                   <tr>
                     <td class="table-active"><label for="eventFinish">イベント終了時間</label></td>
                     <td>
-                      <select name="{{'event_finish_copied'.$key}}" id="{{'event_finish_copied'.$key}}" class="form-control">
+                      <select name="{{'event_finish_copied'.$key}}" id="{{'event_finish_copied'.$key}}"
+                        class="form-control">
                         <option disabled>選択してください</option>
-                        @for ($start = 0*2; $start <=23*2; $start++) <option value="{{date("H:i:s", strtotime("00:00 +". $start * 30 ." minute"))}}" @if (date("H:i:s", strtotime("00:00 +". $start * 30 ." minute"))==$pre_reservation->leave_time)
+                        @for ($start = 0*2; $start <=23*2; $start++) <option
+                          value="{{date("H:i:s", strtotime("00:00 +". $start * 30 ." minute"))}}" @if (date("H:i:s",
+                          strtotime("00:00 +". $start * 30 ." minute"))==$pre_reservation->leave_time)
                           selected
                           @endif
                           >
@@ -881,7 +887,7 @@
                   <tr>
                     <td class="table-active">荷物預り/返送<br>料金</td>
                     <td>
-                  <p class="annotation">※仮押え時点では、料金の設定ができません。<br>予約へ切り替え後に料金の設定が可能です。</p>
+                      <p class="annotation">※仮押え時点では、料金の設定ができません。<br>予約へ切り替え後に料金の設定が可能です。</p>
                       <!-- @foreach ($pre_reservation->pre_breakdowns()->get() as $lugg)
                       @if ($lugg->unit_item=="荷物預り/返送")
                       {{ Form::text('luggage_price_copied'.$key, $lugg->unit_cost,['class'=>'form-control'] ) }}

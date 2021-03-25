@@ -487,4 +487,9 @@ class ReservationHelper
       return "当日末締め／翌々月末支払い";
     }
   }
+
+  public static function fixId($num)
+  {
+    return sprintf('%06d', $num);
+  }
 }

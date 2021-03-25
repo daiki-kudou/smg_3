@@ -42,7 +42,7 @@
             <td>
               <dl class="ttl_box">
                 <dt>予約ID：</dt>
-                <dd class="total_result">{{$reservation->id}}</dd>
+                <dd class="total_result">{{ReservationHelper::fixId($reservation->id)}}</dd>
               </dl>
             </td>
             <td>

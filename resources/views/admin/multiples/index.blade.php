@@ -173,7 +173,7 @@
                 <input type="checkbox" name="{{'delete_check'.$multiple->id}}" value="{{$multiple->id}}"
                   class="checkbox" />
               </td>
-              <td>{{$multiple->id}}</td>
+              <td>{{ReservationHelper::fixId($multiple->id)}}</td>
               <td>{{$multiple->created_at}}</td>
               <td class="text-center">{{$multiple->pre_reservations->count()}}</td>
               @if ($multiple->pre_reservations()->first()->user_id!=0)

@@ -58,7 +58,7 @@
           <th class="align-middle">顧客情報</th>
           <td colspan="3">
             <div class="d-flex align-items-center">
-              <p class="w-25">顧客ID：{{$PreReservation->user_id}}</p>
+              <p class="w-25">顧客ID：{{ReservationHelper::fixId($PreReservation->user_id)}}</p>
               <select name="user_id" id="user_id">
                 @foreach ($users as $user)
                 <option value="{{$user->id}}" @if ($PreReservation->user_id==$user->id)
@@ -226,7 +226,9 @@
               <td>
                 <select name="enter_time" id="enter_time" class="form-control">
                   <option value=""></option>
-                  @for ($start = 0*2; $start <=23*2; $start++) <option value="{{date("H:i:s", strtotime("00:00 +". $start * 30 ." minute"))}}" @if (date("H:i:s", strtotime("00:00 +". $start * 30 ." minute"))==$PreReservation->enter_time)
+                  @for ($start = 0*2; $start <=23*2; $start++) <option
+                    value="{{date("H:i:s", strtotime("00:00 +". $start * 30 ." minute"))}}" @if (date("H:i:s",
+                    strtotime("00:00 +". $start * 30 ." minute"))==$PreReservation->enter_time)
                     selected
                     @endif
                     >
@@ -241,7 +243,9 @@
               <td>
                 <select name="leave_time" id="leave_time" class="form-control">
                   <option value=""></option>
-                  @for ($start = 0*2; $start <=23*2; $start++) <option value="{{date("H:i:s", strtotime("00:00 +". $start * 30 ." minute"))}}" @if (date("H:i:s", strtotime("00:00 +". $start * 30 ." minute"))==$PreReservation->leave_time)
+                  @for ($start = 0*2; $start <=23*2; $start++) <option
+                    value="{{date("H:i:s", strtotime("00:00 +". $start * 30 ." minute"))}}" @if (date("H:i:s",
+                    strtotime("00:00 +". $start * 30 ." minute"))==$PreReservation->leave_time)
                     selected
                     @endif
                     >
@@ -284,7 +288,9 @@
             <td>
               <select name="event_start" id="event_start" class="form-control">
                 <option disabled>選択してください</option>
-                @for ($start = 0*2; $start <=23*2; $start++) <option value="{{date("H:i:s", strtotime("00:00 +". $start * 30 ." minute"))}}" @if (date("H:i:s", strtotime("00:00 +". $start * 30 ." minute"))<$PreReservation->enter_time)
+                @for ($start = 0*2; $start <=23*2; $start++) <option
+                  value="{{date("H:i:s", strtotime("00:00 +". $start * 30 ." minute"))}}" @if (date("H:i:s",
+                  strtotime("00:00 +". $start * 30 ." minute"))<$PreReservation->enter_time)
                   disabled
                   @elseif(date("H:i:s", strtotime("00:00 +". $start * 30 ." minute"))>$PreReservation->leave_time)
                   disabled
@@ -302,7 +308,9 @@
             <td>
               <select name="event_finish" id="event_finish" class="form-control">
                 <option disabled>選択してください</option>
-                @for ($start = 0*2; $start <=23*2; $start++) <option value="{{date("H:i:s", strtotime("00:00 +". $start * 30 ." minute"))}}" @if (date("H:i:s", strtotime("00:00 +". $start * 30 ." minute"))<$PreReservation->enter_time)
+                @for ($start = 0*2; $start <=23*2; $start++) <option
+                  value="{{date("H:i:s", strtotime("00:00 +". $start * 30 ." minute"))}}" @if (date("H:i:s",
+                  strtotime("00:00 +". $start * 30 ." minute"))<$PreReservation->enter_time)
                   disabled
                   @elseif(date("H:i:s", strtotime("00:00 +". $start * 30 ." minute"))>$PreReservation->leave_time)
                   disabled

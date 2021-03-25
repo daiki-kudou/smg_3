@@ -26,7 +26,7 @@
       <tr>
         <td>
           <h3 class="text-white py-2">
-            一括仮押えID：{{$multiple->id}}
+            一括仮押えID：{{ReservationHelper::fixId($multiple->id)}}
           </h3>
         </td>
 

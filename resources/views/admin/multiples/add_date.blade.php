@@ -26,7 +26,7 @@
           <tr>
             <td class="text-white d-flex align-items-center p-3">
               <h3>
-                仮押え一括ID:<span class="mr-3">{{$multiple->id}}</span>
+                仮押え一括ID:<span class="mr-3">{{ReservationHelper::fixId($multiple->id)}}</span>
               </h3>
             </td>
           </tr>
@@ -187,7 +187,8 @@
               <td>
                 <select name="pre_enter0" id="pre_enter0" class="form-control">
                   <option value=""></option>
-                  @for ($start = 0*2; $start <=23*2; $start++) <option value="{{date("H:i:s", strtotime("00:00 +". $start * 30 ." minute"))}}">
+                  @for ($start = 0*2; $start <=23*2; $start++) <option
+                    value="{{date("H:i:s", strtotime("00:00 +". $start * 30 ." minute"))}}">
                     {{date("H時i分", strtotime("00:00 +". $start * 30 ." minute"))}}
                     </option>
                     @endfor
@@ -196,7 +197,8 @@
               <td>
                 <select name="pre_leave0" id="pre_leave0" class="form-control">
                   <option value=""></option>
-                  @for ($start = 0*2; $start <=23*2; $start++) <option value="{{date("H:i:s", strtotime("00:00 +". $start * 30 ." minute"))}}">
+                  @for ($start = 0*2; $start <=23*2; $start++) <option
+                    value="{{date("H:i:s", strtotime("00:00 +". $start * 30 ." minute"))}}">
                     {{date("H時i分", strtotime("00:00 +". $start * 30 ." minute"))}}
                     </option>
                     @endfor

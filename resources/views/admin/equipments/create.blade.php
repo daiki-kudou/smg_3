@@ -44,7 +44,7 @@
   </thead>
   <tbody>
     <tr>
-      <td>{{ReservationHelper::IdFormat(App\Models\Equipment::all()->count()+1)}}</td>
+      <td>{{ReservationHelper::fixId(ReservationHelper::IdFormat(App\Models\Equipment::all()->count()+1))}}</td>
       <td>{{ReservationHelper::formatDate(Carbon\Carbon::now())}}</td>
       <td>
         {{ Form::text('item', old('item'), ['class' => 'form-control']) }}

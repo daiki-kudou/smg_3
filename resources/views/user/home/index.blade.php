@@ -77,7 +77,8 @@
             @foreach ($user->reservations()->get() as $reservation)
             <tbody>
               <tr>
-                <td rowspan="{{count($reservation->bills()->get())}}">{{$reservation->id}}</td>
+                <td rowspan="{{count($reservation->bills()->get())}}">{{ReservationHelper::fixId($reservation->id)}}
+                </td>
                 <td rowspan="{{count($reservation->bills()->get())}}">{{$reservation->reserve_date}}</td>
                 <td rowspan="{{count($reservation->bills()->get())}}">{{$reservation->enter_time}}</td>
                 <td rowspan="{{count($reservation->bills()->get())}}">{{$reservation->leave_time}}</td>
@@ -134,7 +135,8 @@
       <li class="page-item"><a class="page-link" href="">3</a>
       </li>
       <li class="page-item">
-        <a class="page-link" href="http://staging-smg2.herokuapp.com/admin/clients?page=2" rel="next" aria-label="次 &raquo">&rsaquo;</a>
+        <a class="page-link" href="http://staging-smg2.herokuapp.com/admin/clients?page=2" rel="next"
+          aria-label="次 &raquo">&rsaquo;</a>
       </li>
     </ul>
 

@@ -63,9 +63,9 @@
 
 <div class="section-wrap bg-white wrap_shadow">
 
-  <h3 class="d-block mt-3 mb-5 price_ttl"><span class="mr-3">ID:{{ ReservationHelper::IdFormat($venue->id)}}</span>
-        {{ $venue->name_area }}・{{ $venue->name_bldg }}{{ $venue->name_venue }}
-      </h3>
+  <h3 class="d-block mt-3 mb-5 price_ttl"><span class="mr-3">ID:{{ ReservationHelper::fixId($venue->id)}}</span>
+    {{ $venue->name_area }}・{{ $venue->name_bldg }}{{ $venue->name_venue }}
+  </h3>
   <div class="new_price">
     @if ($errors->any())
     <div class="alert alert-danger">
@@ -93,8 +93,8 @@
           <td>{{ Form::number('price', old('price'), ['class' => 'form-control']) }}</td>
           <td>
             <div class="d-flex align-items-end">
-            {{ Form::number('extend', old('extend'), ['class' => 'form-control']) }}
-            <span class="ml-1">円</span>
+              {{ Form::number('extend', old('extend'), ['class' => 'form-control']) }}
+              <span class="ml-1">円</span>
             </div>
           </td>
           <td>

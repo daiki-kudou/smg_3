@@ -50,7 +50,7 @@
         <tbody>
           <tr>
             <th class="table-active">{{ Form::label('id', '利用者ID') }}</th>
-            <td>{{$user->id}}</td>
+            <td>{{ReservationHelper::fixId($user->id)}}</td>
           </tr>
           <tr>
             <th class="table-active">{{ Form::label('company', '会社・団体名') }}</th>

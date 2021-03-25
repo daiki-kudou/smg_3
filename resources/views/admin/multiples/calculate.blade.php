@@ -38,7 +38,7 @@
           <tr>
             <td class="text-white d-flex align-items-center">
               <h3>
-                仮押え一括ID:<span class="mr-1">{{$multiple->id}}</span>
+                仮押え一括ID:<span class="mr-1">{{ReservationHelper::fixId($multiple->id)}}</span>
               </h3>
               <h4 class="ml-2">{{ReservationHelper::getVenue($venue->id)}}</h4>
             </td>
@@ -604,7 +604,8 @@
                         <td>
                           <select name="{{'event_start_copied'.$key}}" class="form-control">
                             <option disabled>選択してください</option>
-                            @for ($start = 0*2; $start <=23*2; $start++) <option value="{{date("H:i:s", strtotime("00:00 +". $start * 30 ." minute"))}}" @if($request->
+                            @for ($start = 0*2; $start <=23*2; $start++) <option
+                              value="{{date("H:i:s", strtotime("00:00 +". $start * 30 ." minute"))}}" @if($request->
                               cp_master_event_start==date("H:i:s", strtotime("00:00 +". $start * 30 ." minute")))
                               selected
                               @endif
@@ -619,7 +620,8 @@
                         <td>
                           <select name="{{'event_finish_copied'.$key}}" class="form-control">
                             <option disabled>選択してください</option>
-                            @for ($start = 0*2; $start <=23*2; $start++) <option value="{{date("H:i:s", strtotime("00:00 +". $start * 30 ." minute"))}}" @if($request->
+                            @for ($start = 0*2; $start <=23*2; $start++) <option
+                              value="{{date("H:i:s", strtotime("00:00 +". $start * 30 ." minute"))}}" @if($request->
                               cp_master_event_finish==date("H:i:s", strtotime("00:00 +". $start * 30 ." minute")))
                               selected
                               @endif
@@ -785,7 +787,7 @@
                       <tr>
                         <td class="table-active">荷物預り/返送<br>料金</td>
                         <td>
-                        <p class="annotation">※仮押え時点では、料金の設定ができません。<br>予約へ切り替え後に料金の設定が可能です。</p>
+                          <p class="annotation">※仮押え時点では、料金の設定ができません。<br>予約へ切り替え後に料金の設定が可能です。</p>
                           <!-- {{ Form::text('luggage_price_copied'.$key, $request->cp_master_luggage_price,['class'=>'form-control'] ) }}
                           <p class="{{"is-error-luggage_price_copied".$key}}" style="color: red"></p> -->
                         </td>

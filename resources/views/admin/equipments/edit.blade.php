@@ -46,7 +46,7 @@
   </thead>
   <tbody>
     <tr>
-      <td>{{ ReservationHelper::IdFormat($eqipment->id) }}</td>
+      <td>{{ ReservationHelper::fixId($eqipment->id) }}</td>
       <td>{{ ReservationHelper::formatDate($eqipment->created_at) }}</td>
       <td>
         <div class="d-flex align-items-center">

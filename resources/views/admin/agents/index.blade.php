@@ -40,7 +40,7 @@
         <tbody>
           @foreach ($agents as $agent)
           <tr role="row" class="even">
-            <td>{{$agent->id}}</td>
+            <td>{{ReservationHelper::fixId($agent->id)}}</td>
             <td>{{$agent->name}}</td>
             <td class="text-center">
               <a href="{{ $agent->login }}" target="blank" class="more_btn">管理画面をみる</a>
