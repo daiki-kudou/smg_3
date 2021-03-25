@@ -371,7 +371,7 @@
                     <li>
                       <p> {{$slctSession[0]['luggage_arrive']}}
                       </p>
-                      <p>{{ReservationHelper::getVenue($slctSession[0]['venue_id'])}}</p>
+                      <p>{{ReservationHelper::getVenueForUser($slctSession[0]['venue_id'])}}</p>
                     </li>
                   </ul>
                 </td>

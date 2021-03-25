@@ -18,7 +18,7 @@
 <h2 class="mt-3 mb-3">会場　詳細情報</h2>
 <p>ID:
   {{ ReservationHelper::fixId($venue->id) }}
-  <span class="ml-2">{{ $venue->name_area }}・{{ $venue->name_bldg }}{{ $venue->name_venue }}</span>
+  <span class="ml-2">{{ $venue->name_bldg }}{{ $venue->name_venue }}</span>
 </p>
 <hr>
 
@@ -759,7 +759,7 @@
     </p>
     <ul class="p-3 option_list">
       @foreach ($equipments as $equipment)
-      <li>{{$equipment->item}}</li>
+      <li>{{$equipment->id}}/{{$equipment->item}}/{{number_format($equipment->price)}}円</li>
       @endforeach
     </ul>
   </div>
@@ -771,7 +771,7 @@
     </p>
     <ul class="p-3 option_list">
       @foreach ($services as $service)
-      <li>{{$service->item}}
+      <li>{{$service->id}}/{{$service->item}}/{{number_format($service->price)}}円
       </li>
       @endforeach
     </ul>

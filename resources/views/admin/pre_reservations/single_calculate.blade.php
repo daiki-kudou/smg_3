@@ -117,20 +117,13 @@
             <tr>
               <td class="table-active">利用日</td>
               <td>
-                {{ Form::text('reserve_date', $request->reserve_date,['class'=>'form-control', 'id'=>'datepicker1'] ) }}
+                {{ Form::text('reserve_date', $request->reserve_date,['class'=>'form-control', 'readonly'] ) }}
               </td>
             </tr>
             <tr>
               <td class="table-active">会場</td>
               <td>
-                <select name="venue_id" id="venue_id">
-                  <option value=""></option>
-                  @foreach ($venues as $venue)
-                  <option value="{{$venue->id}}" {{$venue->id==$request->venue_id?'selected':''}}>
-                    {{ReservationHelper::getVenue($venue->id)}}
-                  </option>
-                  @endforeach
-                </select>
+                {{ Form::text('venue_id', ReservationHelper::getVenue($request->venue_id),['class'=>'form-control', 'readonly'] ) }}
                 <div class="price_selector">
                   <div>
                     <small>料金体系</small>
@@ -151,18 +144,8 @@
             <tr>
               <td class="table-active">入室時間</td>
               <td>
-                <select name="enter_time" id="enter_time" class="form-control">
-                  <option value=""></option>
-                  @for ($start = 0*2; $start <=23*2; $start++) <option
-                    value="{{date("H:i:s", strtotime("00:00 +". $start * 30 ." minute"))}}" @if (date("H:i:s",
-                    strtotime("00:00 +". $start * 30 ." minute"))==$request->enter_time)
-                    selected
-                    @endif
-                    >
-                    {{date("H時i分", strtotime("00:00 +". $start * 30 ." minute"))}}
-                    </option>
-                    @endfor
-                </select>
+                {{ Form::text('', date('H:i',strtotime($request->enter_time)),['class'=>'form-control', 'readonly'] ) }}
+                {{ Form::hidden('enter_time', $request->enter_time) }}
               </td>
             </tr>
             <tr>

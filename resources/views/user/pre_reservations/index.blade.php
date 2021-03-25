@@ -44,7 +44,7 @@
             <td>{{ReservationHelper::formatDate($pre_reservation->reserve_date)}}</td>
             <td>{{ReservationHelper::formatTime($pre_reservation->enter_time)}}</td>
             <td>{{ReservationHelper::formatTime($pre_reservation->leave_time)}}</td>
-            <td>{{ReservationHelper::getVenue($pre_reservation->venue_id)}}</td>
+            <td>{{ReservationHelper::getVenueForUser($pre_reservation->venue_id)}}</td>
             <td>
               <a href="{{url('user/pre_reservations/'.$pre_reservation->id)}}" class="more_btn">本予約を申込む</a>
             </td>

@@ -98,7 +98,7 @@
                   <td class="table-active"><label for="venue">会場</label></td>
                   <td>
                     <p>
-                      {{ReservationHelper::getVenue($reservation->venue_id)}}
+                      {{ReservationHelper::getVenueForUser($reservation->venue_id)}}
                     </p>
                     <p>{{ReservationHelper::priceSystem($reservation->price_system)}}</p>
 

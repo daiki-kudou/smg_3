@@ -22,7 +22,7 @@
 
 <div class="section-wrap bg-white wrap_shadow">
   <h3 class="d-block mt-3 mb-5 price_ttl"><span class="mr-3">ID:{{ ReservationHelper::IdFormat($venue->id)}}</span>
-    {{ $venue->name_area }}・{{ $venue->name_bldg }}{{ $venue->name_venue }}
+    {{ $venue->name_bldg }}{{ $venue->name_venue }}
   </h3>
   @if ($errors->any())
   <div class="alert alert-danger">

@@ -69,7 +69,7 @@
       <tr>
         <th>利用会場</th>
         <td>
-          {{ReservationHelper::getVenue($request->venue_id)}}
+          {{ReservationHelper::getVenueForUser($request->venue_id)}}
         </td>
       </tr>
       <tr>

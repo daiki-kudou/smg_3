@@ -29,7 +29,7 @@
   </div>
   <h2 class="mt-3 mb-3">会場　詳細情報(編集)</h2>
   <p>ID:{{ ReservationHelper::fixId($venue->id) }}<span
-      class="ml-2">{{ $venue->name_area }}・{{ $venue->name_bldg }}{{ $venue->name_venue }}</span></p>
+      class="ml-2">{{ $venue->name_bldg }}{{ $venue->name_venue }}</span></p>
   <hr>
 </div>
 
@@ -533,7 +533,8 @@
       <select id='equipment_id' multiple='multiple' name="equipment_id[]">
         @for ($i = 0; $i < $m_equipments->count(); $i++)
           <option value={{$m_equipments[$i]->id}} @foreach ($r_emptys as $r_empty)
-            {{$m_equipments[$i]->id==$r_empty->id?"selected":""}} @endforeach>{{$m_equipments[$i]->item}}
+            {{$m_equipments[$i]->id==$r_empty->id?"selected":""}} @endforeach>
+            {{$m_equipments[$i]->id}}/{{$m_equipments[$i]->item}}/{{number_format($m_equipments[$i]->price)}}円
           </option>
           @endfor
       </select>
@@ -561,7 +562,8 @@
       <select id='service_id' multiple='multiple' name="service_id[]">
         @for ($s = 0; $s < $m_services->count(); $s++)
           <option value={{$m_services[$s]->id}} @foreach ($s_emptys as $s_empty)
-            {{$m_services[$s]->id==$s_empty->id?"selected":""}} @endforeach>{{$m_services[$s]->item}}
+            {{$m_services[$s]->id==$s_empty->id?"selected":""}} @endforeach>
+            {{$m_services[$s]->id}}/{{$m_services[$s]->item}}/{{number_format($m_services[$s]->price)}}円
           </option>
           @endfor
       </select>

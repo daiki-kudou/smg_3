@@ -44,8 +44,6 @@ class PreAgentReservationsController extends Controller
         'venue' => $venue,
       ]);
     } else {
-      echo "<pre>";
-      echo "</pre>";
       $multiple = MultipleReserve::create(); //一括IDを作成
       $multiple->MultipleStoreForAgent($request);
       $request->session()->regenerate();

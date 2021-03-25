@@ -211,7 +211,7 @@
             <thead>
               <tr>
                 <th colspan="2">
-                  {{ReservationHelper::getVenue($reservation[0]['venue_id'])}}
+                  {{ReservationHelper::getVenueForUser($reservation[0]['venue_id'])}}
                 </th>
               </tr>
             </thead>
@@ -371,7 +371,7 @@
               @foreach ($sessions as $t_key=>$t_reservation)
               <tr>
                 <th class="">
-                  <label for="date">{{ReservationHelper::getVenue($t_reservation[0]["venue_id"])}}</label>
+                  <label for="date">{{ReservationHelper::getVenueForUser($t_reservation[0]["venue_id"])}}</label>
                 </th>
                 <td>
                   <ul class="sum-list">

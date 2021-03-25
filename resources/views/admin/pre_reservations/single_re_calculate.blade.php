@@ -120,7 +120,6 @@
               <td class="table-active">利用日</td>
               <td>
                 {{ Form::text('reserve_date', date('Y-m-d',strtotime($request->reserve_date)),['class'=>'form-control', 'readonly'] ) }}
-                <!-- {{ Form::text('reserve_date', $request->reserve_date,['class'=>'form-control', 'id'=>'datepicker1'] ) }} -->
               </td>
             </tr>
             <tr>

@@ -145,14 +145,30 @@
                     <small>※料金体系を選択してください</small>
                   </div>
                   <div class="form-check">
+                    @if ($venue->getPriceSystem()[0]==1&&$venue->getPriceSystem()[1]==1)
                     <p>
                       {{Form::radio('price_system', 1, true , ['id' => 'price_system', 'class' => 'form-check-input'])}}
                       {{Form::label('price_system', "通常(枠貸)")}}
                     </p>
                     <p>
-                      {{Form::radio('price_system', 0, false, ['id' => 'price_system_off', 'class' => 'form-check-input'])}}
+                      {{Form::radio('price_system', 2, false, ['id' => 'price_system_off', 'class' => 'form-check-input'])}}
                       {{Form::label('price_system_off', "アクセア（時間貸）")}}
                     </p>
+                    @elseif($venue->getPriceSystem()[0]==1&&$venue->getPriceSystem()[1]==0)
+                    <p>
+                      {{Form::radio('price_system', 1, true , ['id' => 'price_system', 'class' => 'form-check-input'])}}
+                      {{Form::label('price_system', "通常(枠貸)")}}
+                    </p>
+                    @elseif($venue->getPriceSystem()[0]==0&&$venue->getPriceSystem()[1]==1)
+                    <p>
+                      {{Form::radio('price_system', 2, true, ['id' => 'price_system_off', 'class' => 'form-check-input'])}}
+                      {{Form::label('price_system_off', "アクセア（時間貸）")}}
+                    </p>
+                    @elseif($venue->getPriceSystem()[0]==0&&$venue->getPriceSystem()[1]==0)
+                    <p>
+                      ※登録された料金体系がありません。料金体系を作成し再度仮押さえを作成してください
+                    </p>
+                    @endif
                   </div>
                 </div>
               </td>
@@ -354,6 +370,7 @@
               </tr>
             </thead>
             <tbody>
+              @if ($venue->getLayouts()!=0)
               @if ($venue->getLayouts()[0])
               <tr>
                 <td class="table-active">
@@ -391,6 +408,7 @@
                   </div>
                 </td>
               </tr>
+              @endif
               @endif
             </tbody>
           </table>
