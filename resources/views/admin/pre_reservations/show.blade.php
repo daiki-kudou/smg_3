@@ -420,13 +420,6 @@
                   </tr>
                 </thead>
                 <tbody>
-                  <!-- <tr>
-                    <td class="table-active"><label for="layout">レイアウト変更</label>
-                    </td>
-                    <td>
-                      {{$layouts?"あり":"なし"}}
-                    </td>
-                  </tr> -->
                   <tr>
                     <td class="table-active"><label for="prelayout">準備</label>
                     </td>

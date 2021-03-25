@@ -393,11 +393,11 @@ class PreReservationsController extends Controller
   public function show($id)
   {
     $pre_reservation = PreReservation::find($id);
-    $venues = $pre_reservation->pre_breakdowns->where('unit_type', 1);
-    $equipments = $pre_reservation->pre_breakdowns->where('unit_type', 2);
-    $services = $pre_reservation->pre_breakdowns->where('unit_type', 3);
-    $layouts = $pre_reservation->pre_breakdowns->where('unit_type', 4);
-    $others = $pre_reservation->pre_breakdowns->where('unit_type', 5);
+    $venues = $pre_reservation->pre_breakdowns->where('unit_type', 1)->get();
+    $equipments = $pre_reservation->pre_breakdowns->where('unit_type', 2)->get();
+    $services = $pre_reservation->pre_breakdowns->where('unit_type', 3)->get();
+    $layouts = $pre_reservation->pre_breakdowns->where('unit_type', 4)->get();
+    $others = $pre_reservation->pre_breakdowns->where('unit_type', 5)->get();
     $SPVenue = Venue::find($pre_reservation->venue_id);
     return view(
       'admin.pre_reservations.show',
