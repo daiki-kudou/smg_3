@@ -394,67 +394,8 @@ $(function () {
   $('#eventname1Count').blur(eventname1);
 });
 
-// 一括のコピーの場合、イベント名称1 作業中！！！！！！！！！
-// const copiedeventname1 = function(){
-//   var len = textLength($(this).val());
-//   $('.count_num1').html(len + "/28");
-//   if(len > 28){
-//   $('.count_num1').css('color', 'red');
-//   $(eventname1copied).text('※文字数がオーバーしています');
-//   $(eventname1copied).show();
-//   $(eventname1copiedcount).addClass('is-error');
-//   $(':submit').prop("disabled", true);
-//   }else{
-//   $('.count_num1').css('color', 'black');
-//   $(eventname1copied).hide();
-//   $(eventname1copiedcount).removeClass('is-error');
-//   $(':submit').prop("disabled", false);
-//   }
-// }
-
-// $(function(){
-//   var target = $("input[name^='event_name1_copied']");
-//   console.log(target);
-//   for (let index = 0; index < target.length; index++) {
-//     var eventname1copied = ".event_name1_copied" + index;
-//     console.log(eventname1copied);
-//     $(function(){
-//       $(eventname1copied).hide();
-//     });
-//   }
-
-//   for (let index = 0; index < target.length; index++) {
-//     var eventname1copiedcount = "#copiedeventname1Count" + index;
-//     var eventname1copied = ".is-error-event_name1_copied" + index;
-
-//     console.log("ここ",eventname1copiedcount);
-//     console.log(eventname1copied);
-//     var len = textLength($(this).val());
-//     $('.count_num1_copied').html(len + "/28");
-//     $(eventname1copied).hide();
 
 
-//     $(eventname1copiedcount).on('keyup', function(){
-//       var len = textLength($(this).val());
-//       $('.count_num1_copied').html(len + "/28");
-//       if(len > 28){
-//         $('.count_num1_copied').css('color', 'red');
-//         $(eventname1copied).text('※文字数がオーバーしています');
-//         $(eventname1copied).show();
-//         $(eventname1copiedcount).addClass('is-error');
-//         $(':submit').prop("disabled", true);
-//       }else{
-//         $('.count_num1_copied').css('color', 'black');
-//         $(eventname1copied).hide();
-//         $(eventname1copiedcount).removeClass('is-error');
-//         $(':submit').prop("disabled", false);
-//       }
-//     });
-//   }
-
-//   $(eventname1copied).on('keyup', copiedeventname1);
-//   $(eventname1copied).blur(copiedeventname1);
-// });
 
 
 
@@ -522,16 +463,136 @@ $(function () {
 });
 
 
+// 一括のコピーの場合、イベント名称1 作業中！！！！！！！！！
+// const copiedeventname1 = function(){
+//   var len = textLength($(this).val());
+//   $('.count_num1').html(len + "/28");
+//   if(len > 28){
+//   $('.count_num1').css('color', 'red');
+//   $(eventname1copied).text('※文字数がオーバーしています');
+//   $(eventname1copied).show();
+//   $(eventname1copiedcount).addClass('is-error');
+//   $(':submit').prop("disabled", true);
+//   }else{
+//   $('.count_num1').css('color', 'black');
+//   $(eventname1copied).hide();
+//   $(eventname1copiedcount).removeClass('is-error');
+//   $(':submit').prop("disabled", false);
+//   }
+// }
+
+// $(function(){
+//   var target = $("input[name^='event_name1_copied']");
+//   console.log(target);
+//   var len = textLength($(this).val());
+//   $('.count_num1_copied').html(len + "/28");
+//   console.log(this);
+
+//   for (let index = 0; index < target.length; index++) {
+//     var eventname1copiedcount = "#copiedeventname1Count" + index;
+//     var eventname1copied = "eventname1_error" + index;
+
+
+//     console.log("ここ",eventname1copiedcount);
+//     console.log(eventname1copied);
+
+
+
+//     $('.'+eventname1copied).hide();
+
+//     $(eventname1copiedcount).on('keyup', function(){
+//       var len = textLength($(this).val());
+//       $('.count_num1_copied').html(len + "/28");
+
+//       if(len > 28){
+//         $('.count_num1_copied').css('color', 'red');
+//         $('.'+eventname1copied).show();
+//         $(':submit').prop("disabled", true);
+//       }else{
+//         $('.count_num1_copied').css('color', 'black');
+//         $('.'+eventname1copied).hide();
+//         $(':submit').prop("disabled", false);
+//       }
+//     });
+//   }
+
+//   $(eventname1copied).on('keyup', copiedeventname1);
+//   $(eventname1copied).blur(copiedeventname1);
+// });
+
+
+
+
+
+
+
+
+
+
+$(function(){
+  var target = $("input[name^='event_name1_copied']");
+  for (let index = 0; index < target.length; index++) {
+    var eventname1copiedcount = "#copiedeventname1Count" + index;
+    var eventname1copied = "eventname1_error" + index;
+
+    console.log(eventname1copiedcount);
+    console.log(eventname1copied);
+  }
+});
+
+
+const copiedeventname1 = function () {
+  var len = textLength($(this).val());
+  $('.count_num1_copied').html(len + "/28");
+  if (len > 28) {
+    $('.count_num1_copied').css('color', 'red');
+    $('.eventname1_error').text('※文字数がオーバーしています');
+    $('.eventname1_error').show();
+    $(':submit').prop("disabled", true);
+  } else {
+    $('.count_num1_copied').css('color', 'black');
+    $('.eventname1_error').hide();
+    $(':submit').prop("disabled", false);
+  }
+}
+
+$(function () {
+  $(function () {
+    $('.eventname1_error').hide();
+    var len = textLength($('#copiedeventname1Count0').val());
+    $('.count_num1_copied').html(len + "/28");
+  });
+
+  $('#copiedeventname1Count0').on('keyup', copiedeventname1);
+  $('#copiedeventname1Count0').blur(copiedeventname1);
+});
+
+
 function textLength(text){
   var regexp = /[\x01-\x7E\u{FF65}-\u{FF9F}]/mu;
-
+  
   var len = 0;
-  for (i = 0; i < text.length; i++) {
+  for(i = 0; i < text.length; i++){
     var ch = text[i];
     len += regexp.test(new String(ch)) ? 1 : 2;
   }
   return len;
 }
+
+
+
+function textLength(text){
+  var regexp = /[\x01-\x7E\u{FF65}-\u{FF9F}]/mu;
+  
+  var len = 0;
+  for(i = 0; i < text.length; i++){
+    var ch = text[i];
+    len += regexp.test(new String(ch)) ? 1 : 2;
+  }
+  return len;
+}
+
+
 
 
 
