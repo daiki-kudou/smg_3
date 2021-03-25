@@ -530,12 +530,12 @@
                 </p>
               </td>
             </tr>
-            <tr class="caution">
+            <!-- <tr class="caution">
               <td>
                 <label for="caution">注意事項</label>
                 {{ Form::textarea('attention', '',['class'=>'form-control', 'placeholder'=>'入力してください'] ) }}
               </td>
-            </tr>
+            </tr> -->
             <!-- <tr>
               <td>
                 <label for="userNote">申し込みフォーム備考</label>
