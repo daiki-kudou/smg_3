@@ -105,6 +105,7 @@
                 ・Google Chrome<br>
                 ・Fire Fox<br>
                 ・Edge
+                ・Safari
               </p>
             </div>
           </div>

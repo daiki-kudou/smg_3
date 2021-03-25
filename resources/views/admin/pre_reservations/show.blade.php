@@ -419,13 +419,13 @@
                   </tr>
                 </thead>
                 <tbody>
-                  <tr>
+                  <!-- <tr>
                     <td class="table-active"><label for="layout">レイアウト変更</label>
                     </td>
                     <td>
                       {{$layouts?"あり":"なし"}}
                     </td>
-                  </tr>
+                  </tr> -->
                   <tr>
                     <td class="table-active"><label for="prelayout">準備</label>
                     </td>
@@ -487,15 +487,11 @@
                           </p>
                         </li>
                         <li class="d-flex justify-content-between">
-                          <p>荷物個数</p>
-                          <p> {{$pre_reservation->luggage_count?$pre_reservation->luggage_count:0}}個</p>
+                          <p>荷物個数：{{$pre_reservation->luggage_count?$pre_reservation->luggage_count:0}}個</p>
                         </li>
 
                         <li class="d-flex justify-content-between">
-                          <p>事前荷物の到着日</p>
-                          <p>
-                            {{$pre_reservation->luggage_arrive?ReservationHelper::formatDate($pre_reservation->luggage_arrive):""}}
-                          </p>
+                          <p>事前荷物の到着日：{{$pre_reservation->luggage_arrive?ReservationHelper::formatDate($pre_reservation->luggage_arrive):""}}</p>
                         </li>
                       </ul>
                     </td>
@@ -510,8 +506,7 @@
                           </p>
                         </li>
                         <li class="d-flex justify-content-between">
-                          <p>荷物個数</p>
-                          <p>{{$pre_reservation->luggage_return?$pre_reservation->luggage_return:0}}個</p>
+                          <p>荷物個数：{{$pre_reservation->luggage_return?$pre_reservation->luggage_return:0}}個</p>
                         </li>
                       </ul>
                     </td>
