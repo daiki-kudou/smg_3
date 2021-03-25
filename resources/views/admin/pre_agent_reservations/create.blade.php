@@ -94,7 +94,15 @@
         <tr>
           <td class="table-active">利用者属性</td>
           <td>
-            {{ Form::select('pre_enduser_attr', ['一般企業','上場企業','近隣利用','個人講師','MLM','その他'],0,['class'=>'form-control'] ) }}
+            <select name="pre_enduser_attr" class="form-control">
+              <option value=""></option>
+              <option value="0">一般企業</option>
+              <option value="1">上場企業</option>
+              <option value="2">近隣利用</option>
+              <option value="3">個人講師</option>
+              <option value="4">MLM</option>
+              <option value="5">その他</option>
+            </select>
           </td>
         </tr>
       </tbody>
@@ -180,7 +188,8 @@
     });
     $('#pre_datepicker').datepicker({
       dateFormat: 'yy-mm-dd',
-      autoclose: true
+      autoclose: true,
+      minDate:0
     });
   })
   // 入退室初期時間選択desabled設定

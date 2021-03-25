@@ -144,14 +144,30 @@
                     <small>※料金体系を選択してください</small>
                   </div>
                   <div class="price_radio_selector">
+                    @if ($venue->getPriceSystem()[0]==1&&$venue->getPriceSystem()[1]==1)
                     <div class="d-flex justfy-content-start align-items-center">
-                      {{Form::radio('price_system',1,true,['class'=>'mr-2','id'=>'price_system_radio1'])}}
-                      {{Form::label('price_system_radio1','通常（枠貸）')}}
+                      {{Form::radio('price_system', 1, $request->price_system==1?true:false , ['id' => 'price_system_radio1', 'class' => 'mr-2'])}}
+                      {{Form::label('price_system_radio1', "通常(枠貸)")}}
                     </div>
                     <div class="d-flex justfy-content-start align-items-center">
-                      {{Form::radio('price_system',2,false,['class'=>'mr-2','id'=>'price_system_radio2'])}}
-                      {{Form::label('price_system_radio2','アクセア（時間貸）')}}
+                      {{Form::radio('price_system', 2, $request->price_system==2?true:false, ['id' => 'price_system_radio2', 'class' => 'mr-2'])}}
+                      {{Form::label('price_system_radio2', "アクセア（時間貸）")}}
                     </div>
+                    @elseif($venue->getPriceSystem()[0]==1&&$venue->getPriceSystem()[1]==0)
+                    <div class="d-flex justfy-content-start align-items-center">
+                      {{Form::radio('price_system', 1, $request->price_system==1?true:false , ['id' => 'price_system_radio1', 'class' => 'mr-2'])}}
+                      {{Form::label('price_system_radio1', "通常(枠貸)")}}
+                    </div>
+                    @elseif($venue->getPriceSystem()[0]==0&&$venue->getPriceSystem()[1]==1)
+                    <div class="d-flex justfy-content-start align-items-center">
+                      {{Form::radio('price_system', 2, $request->price_system==2?true:false, ['id' => 'price_system_radio2', 'class' => 'mr-2'])}}
+                      {{Form::label('price_system_radio2', "アクセア（時間貸）")}}
+                    </div>
+                    @elseif($venue->getPriceSystem()[0]==0&&$venue->getPriceSystem()[1]==0)
+                    <div class="d-flex justfy-content-start align-items-center">
+                      ※登録された料金体系がありません。料金体系を作成し再度仮押さえを作成してください
+                    </div>
+                    @endif
                   </div>
                 </div>
               </td>

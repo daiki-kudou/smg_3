@@ -215,9 +215,9 @@
     });
   })
 
-  $(function() {
-    $('.unknown_user input').attr('readonly', true);
-  })
+  // $(function() {
+  //   $('.unknown_user input').attr('readonly', true);
+  // })
 
   // 顧客検索F
   $(function() {
@@ -247,10 +247,10 @@
             $('.email').text($user['email']);
             $('.mobile').text($user['mobile']);
             $('.tel').text($user['tel']);
-            $('.unknown_user input').attr('readonly', true);
+            // $('.unknown_user input').attr('readonly', true);
           } else {
             $('.client_info p').text('');
-            $('.unknown_user input').attr('readonly', false);
+            // $('.unknown_user input').attr('readonly', false);
           }
         })
         .fail(function($user) {
@@ -268,7 +268,8 @@
     });
     $('#pre_datepicker').datepicker({
       dateFormat: 'yy-mm-dd',
-      autoclose: true
+      autoclose: true,
+      minDate: 0
     });
   })
   // 入退室初期時間選択desabled設定
@@ -381,14 +382,6 @@
           messages: { required: "※必須項目です" },
           });
         }
-
-      
-
-
-
-
-
-
     })
     // マイナスボタン
     $(document).on("click", ".del", function() {

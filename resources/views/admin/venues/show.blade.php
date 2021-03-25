@@ -759,7 +759,7 @@
     </p>
     <ul class="p-3 option_list">
       @foreach ($equipments as $equipment)
-      <li>{{$equipment->item}}</li>
+      <li>{{$equipment->id}}/{{$equipment->item}}/{{number_format($equipment->price)}}円</li>
       @endforeach
     </ul>
   </div>
@@ -771,7 +771,7 @@
     </p>
     <ul class="p-3 option_list">
       @foreach ($services as $service)
-      <li>{{$service->item}}
+      <li>{{$service->id}}/{{$service->item}}/{{number_format($service->price)}}円
       </li>
       @endforeach
     </ul>
