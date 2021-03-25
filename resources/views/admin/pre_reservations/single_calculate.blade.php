@@ -123,75 +123,37 @@
             <tr>
               <td class="table-active">会場</td>
               <td>
-                {{ Form::text('venue_id', ReservationHelper::getVenue($request->venue_id),['class'=>'form-control', 'readonly'] ) }}
+                {{ Form::text('', ReservationHelper::getVenue($request->venue_id),['class'=>'form-control', 'readonly'] ) }}
+                {{ Form::hidden('venue_id', $request->venue_id,['class'=>'form-control', 'readonly'] ) }}
                 <div class="price_selector">
                   <div>
                     <small>料金体系</small>
                   </div>
                   <div class="form-check">
 
-                    SpVenue
-
 
                     @if ($SpVenue->getPriceSystem()[0]==1&&$SpVenue->getPriceSystem()[1]==1)
-                    <div class="price_radio_selector">
-                      <div class="d-flex justfy-content-start align-items-center">
-                        {{ Form::radio('price_system', 1, true, ['class'=>'mr-2', 'id'=>'price_system_radio1']) }}
-                        {{Form::label('price_system_radio1','通常（枠貸）')}}
-                      </div>
-                      <div class="d-flex justfy-content-start align-items-center">
-                        {{ Form::radio('price_system', 2, false, ['class'=>'mr-2', 'id'=>'price_system_radio2']) }}
-                        {{Form::label('price_system_radio2','アクセア（時間貸）')}}
-                      </div>
-                    </div>
+                    <p>
+                      {{ Form::radio('price_system', 1, true, ['class'=>'mr-2', 'id'=>'price_system_radio1']) }}
+                      {{Form::label('price_system_radio1','通常（枠貸）')}}
+                    </p>
+                    <p>
+                      {{ Form::radio('price_system', 2, false, ['class'=>'mr-2', 'id'=>'price_system_radio2']) }}
+                      {{Form::label('price_system_radio2','アクセア（時間貸）')}}
+                    </p>
                     @elseif($SpVenue->getPriceSystem()[0]==1&&$SpVenue->getPriceSystem()[1]==0)
-                    <div class="price_radio_selector">
-                      <div class="d-flex justfy-content-start align-items-center">
-                        {{ Form::radio('price_system', 1, true, ['class'=>'mr-2', 'id'=>'price_system_radio1']) }}
-                        {{Form::label('price_system_radio1','通常（枠貸）')}}
-                      </div>
-                    </div>
+                    <p>
+                      {{ Form::radio('price_system', 1, true, ['class'=>'mr-2', 'id'=>'price_system_radio1']) }}
+                      {{Form::label('price_system_radio1','通常（枠貸）')}}
+                    </p>
                     @elseif($SpVenue->getPriceSystem()[0]==0&&$SpVenue->getPriceSystem()[1]==1)
-                    <div class="price_radio_selector">
-                      <div class="d-flex justfy-content-start align-items-center">
-                        {{ Form::radio('price_system', 2, true, ['class'=>'mr-2', 'id'=>'price_system_radio2']) }}
-                        {{Form::label('price_system_radio2','アクセア（時間貸）')}}
-                      </div>
-                    </div>
+                    <p>
+                      {{ Form::radio('price_system', 2, true, ['class'=>'mr-2', 'id'=>'price_system_radio2']) }}
+                      {{Form::label('price_system_radio2','アクセア（時間貸）')}}
+                    </p>
                     @elseif($SpVenue->getPriceSystem()[0]==0&&$SpVenue->getPriceSystem()[1]==0)
                     <p>※該当会場には定められた料金体系が存在しません。料金設定をお願いします。</p>
                     @endif
-
-
-
-
-
-
-
-
-                    <p>
-                      {{Form::radio('price_system', 1, $request->price_system==1?true:false , ['id' => 'price_system_radio1', 'class' => 'form-check-input'])}}
-                      <label for="{{'price_system_radio1'}}" class="form-check-label">通常（枠貸）</label>
-                    </p>
-                    <p>
-                      {{Form::radio('price_system', 2, $request->price_system==2?true:false, ['id' => 'price_system_radio2', 'class' => 'form-check-input'])}}
-                      <label for="{{'price_system_radio2'}}" class="form-check-label">アクセア仕様</label>
-                    </p>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
                   </div>
                 </div>
