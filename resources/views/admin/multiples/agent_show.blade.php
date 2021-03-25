@@ -133,7 +133,7 @@
               </td>
             </tr>
             <tr>
-              <td class="table-active" scope="row"><label for="onedayTel">属性</label></td>
+              <td class="table-active" scope="row"><label for="onedayTel">利用者属性</label></td>
               <td>
                 @if (!empty($multiple->pre_reservations()->first()->pre_enduser->attr))
                 {{$multiple->pre_reservations()->first()->pre_enduser->attr}}

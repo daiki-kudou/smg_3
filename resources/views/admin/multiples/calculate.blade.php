@@ -193,12 +193,12 @@
                       <td>
                         <div class="radio-box">
                           <p>
-                          {{Form::radio('cp_master_services_breakdown'.$key, 1, false , ['id' => 'cp_master_service'.$key.'on'])}}
-                          {{Form::label('cp_master_service'.$key.'on','有り')}}
+                            {{Form::radio('cp_master_services_breakdown'.$key, 1, false , ['id' => 'cp_master_service'.$key.'on'])}}
+                            {{Form::label('cp_master_service'.$key.'on','有り')}}
                           </p>
                           <p>
-                          {{Form::radio('cp_master_services_breakdown'.$key, 0, true, ['id' => 'cp_master_service'.$key.'off'])}}
-                          {{Form::label('cp_master_service'.$key.'on','無し')}}
+                            {{Form::radio('cp_master_services_breakdown'.$key, 0, true, ['id' => 'cp_master_service'.$key.'off'])}}
+                            {{Form::label('cp_master_service'.$key.'on','無し')}}
                           </p>
                         </div>
                       </td>
@@ -225,12 +225,12 @@
                       <td>
                         <div class="radio-box">
                           <p>
-                          {{Form::radio('cp_master_layout_prepare', 1, false, ['id' => 'cp_master_layout_prepare'])}}
-                          {{Form::label('cp_master_layout_prepare','有り')}}
+                            {{Form::radio('cp_master_layout_prepare', 1, false, ['id' => 'cp_master_layout_prepare'])}}
+                            {{Form::label('cp_master_layout_prepare','有り')}}
                           </p>
                           <p>
-                          {{Form::radio('cp_master_layout_prepare', 0, true, ['id' => 'cp_master_no_layout_prepare'])}}
-                          {{Form::label('cp_master_no_layout_prepare','無し')}}
+                            {{Form::radio('cp_master_layout_prepare', 0, true, ['id' => 'cp_master_no_layout_prepare'])}}
+                            {{Form::label('cp_master_no_layout_prepare','無し')}}
                           </p>
                         </div>
                       </td>
@@ -242,12 +242,12 @@
                       <td>
                         <div class="radio-box">
                           <p>
-                          {{Form::radio('cp_master_layout_clean', 1, false, ['id' => 'cp_master_layout_clean'])}}
-                          {{Form::label('cp_master_layout_clean','有り')}}
+                            {{Form::radio('cp_master_layout_clean', 1, false, ['id' => 'cp_master_layout_clean'])}}
+                            {{Form::label('cp_master_layout_clean','有り')}}
                           </p>
                           <p>
-                          {{Form::radio('cp_master_layout_clean', 0, true, ['id' => 'cp_master_no_layout_clean'])}}
-                          {{Form::label('cp_master_no_layout_clean','無し')}}
+                            {{Form::radio('cp_master_layout_clean', 0, true, ['id' => 'cp_master_no_layout_clean'])}}
+                            {{Form::label('cp_master_no_layout_clean','無し')}}
                           </p>
                         </div>
                       </td>
@@ -293,8 +293,9 @@
                     <tr>
                       <td class="table-active">荷物預り/返送<br>料金</td>
                       <td>
-                        {{ Form::text('cp_master_luggage_price', '',['class'=>'form-control'] ) }}
-                        <p class="is-error-cp_master_luggage_price" style="color: red"></p>
+                        <p class="annotation">※仮押え時点では、料金の設定ができません。<br>予約へ切り替え後に料金の設定が可能です。</p>
+                        <!-- {{ Form::text('cp_master_luggage_price', '',['class'=>'form-control'] ) }}
+                        <p class="is-error-cp_master_luggage_price" style="color: red"></p> -->
                       </td>
                     </tr>
                     @endif
@@ -388,12 +389,12 @@
                         <div class="d-flex">
                           <div class="radio-box">
                             <p>
-                            {{Form::radio('cp_master_email_flag', 1, false, ['id' => 'cp_master_email_flag'])}}
-                            {{Form::label('cp_master_email_flag','有り')}}
+                              {{Form::radio('cp_master_email_flag', 1, false, ['id' => 'cp_master_email_flag'])}}
+                              {{Form::label('cp_master_email_flag','有り')}}
                             </p>
                             <p>
-                            {{Form::radio('cp_master_email_flag', 0, true, ['id' => 'cp_master_no_email_flag'])}}
-                            {{Form::label('cp_master_no_email_flag','無し')}}
+                              {{Form::radio('cp_master_email_flag', 0, true, ['id' => 'cp_master_no_email_flag'])}}
+                              {{Form::label('cp_master_no_email_flag','無し')}}
                             </p>
                           </div>
                         </div>
@@ -784,8 +785,9 @@
                       <tr>
                         <td class="table-active">荷物預り/返送<br>料金</td>
                         <td>
-                          {{ Form::text('luggage_price_copied'.$key, $request->cp_master_luggage_price,['class'=>'form-control'] ) }}
-                          <p class="{{"is-error-luggage_price_copied".$key}}" style="color: red"></p>
+                        <p class="annotation">※仮押え時点では、料金の設定ができません。<br>予約へ切り替え後に料金の設定が可能です。</p>
+                          <!-- {{ Form::text('luggage_price_copied'.$key, $request->cp_master_luggage_price,['class'=>'form-control'] ) }}
+                          <p class="{{"is-error-luggage_price_copied".$key}}" style="color: red"></p> -->
                         </td>
                       </tr>
                       @endif
