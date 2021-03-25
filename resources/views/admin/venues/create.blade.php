@@ -275,21 +275,21 @@
           </thead>
           <tbody>
             <tr>
-              <td class="table-active"><label for="">会社名 (工藤さん！！！追加項目です)</label></td>
+              <td class="table-active"><label for="">会社名</label></td>
               <td colspan="2">
-                {{ Form::text('', old(''), ['class' => 'form-control']) }}
+                {{ Form::text('reserver_company', old('reserver_company'), ['class' => 'form-control']) }}
               </td>
             </tr>
             <tr>
-              <td class="table-active"><label for="">TEL (工藤さん！！！追加項目です)</label></td>
+              <td class="table-active"><label for="">TEL</label></td>
               <td colspan="2">
-                {{ Form::text('', old(''), ['class' => 'form-control','placeholder' => '半角数字、ハイフンなしで入力してください']) }}
+                {{ Form::text('reserver_tel', old('reserver_tel'), ['class' => 'form-control','placeholder' => '半角数字、ハイフンなしで入力してください']) }}
               </td>
             </tr>
             <tr>
-              <td class="table-active"><label for="">FAX (工藤さん！！！追加項目です)</label></td>
+              <td class="table-active"><label for="">FAX</label></td>
               <td colspan="2">
-                {{ Form::text('', old(''), ['class' => 'form-control','placeholder' => '半角数字、ハイフンなしで入力してください']) }}
+                {{ Form::text('reserver_fax', old('reserver_fax'), ['class' => 'form-control','placeholder' => '半角数字、ハイフンなしで入力してください']) }}
               </td>
             </tr>
             <tr>
@@ -327,9 +327,9 @@
               </td>
             </tr>
             <tr>
-              <td class="table-active"><label for="">備考 (工藤さん！！！追加項目です)</label></td>
+              <td class="table-active"><label for="">備考</label></td>
               <td colspan="2">
-                {{ Form::textarea('', old(''), ['class' => 'form-control']) }}
+                {{ Form::textarea('reserver_remark', old('reserver_remark'), ['class' => 'form-control']) }}
               </td>
             </tr>
           </tbody>

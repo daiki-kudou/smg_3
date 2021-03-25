@@ -202,16 +202,16 @@
         </thead>
         <tbody>
           <tr>
-            <th class="table-active"><label for="">会社名 (工藤さん！！！追加項目です)</label></th>
-            <td colspan="2"></td>
+            <th class="table-active"><label for="">会社名</label></th>
+            <td colspan="2">{{ $venue->reserver_company}}</td>
           </tr>
           <tr>
-            <th class="table-active"><label for="">TEL (工藤さん！！！追加項目です)</label></th>
-            <td colspan="2"></td>
+            <th class="table-active"><label for="">TEL</label></th>
+            <td colspan="2">{{ $venue->reserver_tel}}</td>
           </tr>
           <tr>
-            <th class="table-active"><label for="">FAX (工藤さん！！！追加項目です)</label></th>
-            <td colspan="2"></td>
+            <th class="table-active"><label for="">FAX</label></th>
+            <td colspan="2">{{ $venue->reserver_fax}}</td>
           </tr>
           <tr>
             <th class="table-active"><label for="first_name">担当者氏名</label></th>
@@ -238,7 +238,9 @@
           </tr>
           <tr>
             <th class="table-active"><label for="">備考 (工藤さん！！！追加項目です)</label></th>
-            <td colspan="2"></td>
+            <td colspan="2">
+              {!!nl2br(e($venue->reserver_remark))!!}
+            </td>
           </tr>
         </tbody>
       </table>
@@ -346,14 +348,14 @@
           </tr>
           <tr>
             <th class="table-active"><label for="layout">レイアウト準備料金</label>
-            <span class="ml-1 annotation">※税抜</span></th>
+              <span class="ml-1 annotation">※税抜</span></th>
             <td>
               {{ number_format($venue->layout_prepare)}}円
             </td>
           </tr>
           <tr>
             <th class="table-active"><label for="layout">レイアウト片付料金</label>
-            <span class="ml-1 annotation">※税抜</span></th>
+              <span class="ml-1 annotation">※税抜</span></th>
             <td>
               {{ number_format($venue->layout_clean)}}円
             </td>

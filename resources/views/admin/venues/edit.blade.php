@@ -28,7 +28,8 @@
     </nav>
   </div>
   <h2 class="mt-3 mb-3">会場　詳細情報(編集)</h2>
-  <p>ID:{{ $venue->id }}<span class="ml-2">{{ $venue->name_area }}・{{ $venue->name_bldg }}{{ $venue->name_venue }}</span></p>
+  <p>ID:{{ $venue->id }}<span
+      class="ml-2">{{ $venue->name_area }}・{{ $venue->name_bldg }}{{ $venue->name_venue }}</span></p>
   <hr>
 </div>
 
@@ -283,16 +284,22 @@
         </thead>
         <tbody>
           <tr>
-            <td class="table-active"><label for="">会社名 (工藤さん！！！追加項目です)</label></td>
-            <td colspan="2"><input class="form-control" type="text"></td>
+            <td class="table-active"><label for="">会社名</label></td>
+            <td colspan="2">
+              {{ Form::text('reserver_company', $venue->reserver_company, ['class' => 'form-control']) }}
+            </td>
           </tr>
           <tr>
-            <td class="table-active"><label for="">TEL (工藤さん！！！追加項目です)</label></td>
-            <td colspan="2"><input class="form-control" type="text"></td>
+            <td class="table-active"><label for="">TEL </label></td>
+            <td colspan="2">
+              {{ Form::text('reserver_tel', $venue->reserver_tel, ['class' => 'form-control']) }}
+            </td>
           </tr>
           <tr>
-            <td class="table-active"><label for="">FAX (工藤さん！！！追加項目です)</label></td>
-            <td colspan="2"><input class="form-control" type="text"></td>
+            <td class="table-active"><label for="">FAX</label></td>
+            <td colspan="2">
+              {{ Form::text('reserver_fax', $venue->reserver_fax, ['class' => 'form-control']) }}
+            </td>
           </tr>
           <tr>
             <td class="table-active"><label for="first_name">担当者氏名</label></td>
@@ -451,7 +458,8 @@
             </td>
           </tr>
           <tr>
-            <td class="table-active"><label for="layout_prepare" class="">レイアウト準備料金</label><span class="ml-1 annotation">※税抜</span></td>
+            <td class="table-active"><label for="layout_prepare" class="">レイアウト準備料金</label><span
+                class="ml-1 annotation">※税抜</span></td>
             <td>
               <div class="d-flex align-items-center">
                 {{ Form::text('layout_prepare', $venue->layout_prepare, ['class' => 'form-control',$venue->layout_prepare==""?"readonly":""]) }}
@@ -461,7 +469,8 @@
             </td>
           </tr>
           <tr>
-            <td class="table-active"><label for="layout_clean" class="">レイアウト片付料金</label><span class="ml-1 annotation">※税抜</span></td>
+            <td class="table-active"><label for="layout_clean" class="">レイアウト片付料金</label><span
+                class="ml-1 annotation">※税抜</span></td>
             <td>
               <div class="d-flex align-items-center">
                 {{ Form::text('layout_clean', $venue->layout_clean, ['class' => 'form-control',$venue->layout_clean==""?"readonly":""]) }}
@@ -523,7 +532,8 @@
       </ul>
       <select id='equipment_id' multiple='multiple' name="equipment_id[]">
         @for ($i = 0; $i < $m_equipments->count(); $i++)
-          <option value={{$m_equipments[$i]->id}} @foreach ($r_emptys as $r_empty) {{$m_equipments[$i]->id==$r_empty->id?"selected":""}} @endforeach>{{$m_equipments[$i]->item}}
+          <option value={{$m_equipments[$i]->id}} @foreach ($r_emptys as $r_empty)
+            {{$m_equipments[$i]->id==$r_empty->id?"selected":""}} @endforeach>{{$m_equipments[$i]->item}}
           </option>
           @endfor
       </select>
@@ -550,7 +560,8 @@
       </ul>
       <select id='service_id' multiple='multiple' name="service_id[]">
         @for ($s = 0; $s < $m_services->count(); $s++)
-          <option value={{$m_services[$s]->id}} @foreach ($s_emptys as $s_empty) {{$m_services[$s]->id==$s_empty->id?"selected":""}} @endforeach>{{$m_services[$s]->item}}
+          <option value={{$m_services[$s]->id}} @foreach ($s_emptys as $s_empty)
+            {{$m_services[$s]->id==$s_empty->id?"selected":""}} @endforeach>{{$m_services[$s]->item}}
           </option>
           @endfor
       </select>

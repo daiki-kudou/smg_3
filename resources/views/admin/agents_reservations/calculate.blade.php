@@ -148,7 +148,8 @@
                 <div>
                   <select name="enter_time" id="sales_start" class="form-control">
                     <option disabled selected></option>
-                    @for ($start = 0*2; $start <=23*2; $start++) <option value="{{date("H:i:s", strtotime("00:00 +". $start * 30 ." minute"))}}" @if(!empty($request->
+                    @for ($start = 0*2; $start <=23*2; $start++) <option
+                      value="{{date("H:i:s", strtotime("00:00 +". $start * 30 ." minute"))}}" @if(!empty($request->
                       enter_time))
                       @if($request->enter_time==date("H:i:s", strtotime("00:00+".$start * 30 ." minute")))
                       selected
@@ -169,7 +170,8 @@
                 <div>
                   <select name="leave_time" id="sales_finish" class="form-control">
                     <option disabled selected></option>
-                    @for ($start = 0*2; $start <=23*2; $start++) <option value="{{date("H:i:s", strtotime("00:00 +". $start * 30 ." minute"))}}" @if(!empty($request->
+                    @for ($start = 0*2; $start <=23*2; $start++) <option
+                      value="{{date("H:i:s", strtotime("00:00 +". $start * 30 ." minute"))}}" @if(!empty($request->
                       leave_time))
                       @if($request->leave_time==date("H:i:s", strtotime("00:00
                       +".$start * 30 ." minute"))) selected @endif @endif>
@@ -215,7 +217,8 @@
                 <div>
                   <select name="event_start" id="event_start" class="form-control">
                     <option disabled>選択してください</option>
-                    @for ($start = 0*2; $start <=23*2; $start++) <option value="{{date("H:i:s", strtotime("00:00 +". $start * 30 ." minute"))}}" @if(!empty($request->
+                    @for ($start = 0*2; $start <=23*2; $start++) <option
+                      value="{{date("H:i:s", strtotime("00:00 +". $start * 30 ." minute"))}}" @if(!empty($request->
                       event_start))
                       @if($request->event_start==date("H:i:s", strtotime("00:00 +".
                       $start * 30 ." minute"))) selected @endif @endif>
@@ -231,7 +234,8 @@
                 <div>
                   <select name="event_finish" id="event_finish" class="form-control">
                     <option disabled>選択してください</option>
-                    @for ($start = 0*2; $start <=23*2; $start++) <option value="{{date("H:i:s", strtotime("00:00 +". $start * 30 ." minute"))}}" @if(!empty($request->
+                    @for ($start = 0*2; $start <=23*2; $start++) <option
+                      value="{{date("H:i:s", strtotime("00:00 +". $start * 30 ." minute"))}}" @if(!empty($request->
                       event_finish)) @if($request->event_finish==date("H:i:s", strtotime("00:00
                       +". $start * 30 ." minute"))) selected @endif @endif>
                       {{date("H時i分", strtotime("00:00 +". $start * 30 ." minute"))}}</option>
@@ -485,7 +489,7 @@
                 <label for="enduser_mobile" class="">当日連絡先</label>
               </td>
               <td>
-                {{ Form::text('enduser_mobile', "",['class'=>'form-control', 'placeholder'=>'入力してください', 'maxlength'=>13, 'id'=>'enduser_tel'] ) }}
+                {{ Form::text('enduser_mobile', $request->enduser_mobile,['class'=>'form-control', 'placeholder'=>'入力してください', 'maxlength'=>13, 'id'=>'enduser_tel'] ) }}
               </td>
             </tr>
             <tr>
@@ -899,6 +903,7 @@
   {{ Form::hidden('enduser_mail', $request->enduser_mail) }}
   {{ Form::hidden('enduser_attr', $request->enduser_attr) }}
   {{ Form::hidden('enduser_charge', $request->enduser_charge) }}
+  {{ Form::hidden('enduser_mobile', $request->enduser_mobile) }}
   {{ Form::hidden('attention', $request->attention) }}
   {{ Form::hidden('user_details', $request->user_details) }}
   {{ Form::hidden('admin_details', $request->admin_details) }}
