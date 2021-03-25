@@ -354,6 +354,7 @@
               </tr>
             </thead>
             <tbody>
+              @if (!empty($venue->getLayouts()[0]))
               @if ($venue->getLayouts()[0])
               <tr>
                 <td class="table-active">
@@ -373,6 +374,8 @@
                 </td>
               </tr>
               @endif
+              @endif
+              @if (!empty($venue->getLayouts()[1]))
               @if ($venue->getLayouts()[1])
               <tr>
                 <td class="table-active">
@@ -391,6 +394,7 @@
                   </div>
                 </td>
               </tr>
+              @endif
               @endif
             </tbody>
           </table>
@@ -533,18 +537,6 @@
                 </p>
               </td>
             </tr>
-            <!-- <tr class="caution">
-              <td>
-                <label for="caution">注意事項</label>
-                {{ Form::textarea('attention', $request->attention,['class'=>'form-control', 'placeholder'=>'入力してください'] ) }}
-              </td>
-            </tr> -->
-            <!-- <tr>
-              <td>
-                <label for="userNote">申し込みフォーム備考</label>
-                {{ Form::textarea('user_details', $request->user_details,['class'=>'form-control', 'placeholder'=>'入力してください'] ) }}
-              </td>
-            </tr> -->
             <tr>
               <td>
                 <label for="adminNote">管理者備考</label>
@@ -585,14 +577,6 @@
                 </dd>
               </dl>
             </td>
-            <!-- <td style="font-size: 16px;">
-                <div class="bg-white d-flex justify-content-around align-items-center" style="height: 60px;">
-                  <div>合計金額</div>
-                  <div class="total_result">
-                    {{number_format(ReservationHelper::taxAndPrice(floor($price+$venue->getLayouts()[2])))}}
-                  </div>
-                </div>
-              </td> -->
           </tr>
         </tbody>
       </table>

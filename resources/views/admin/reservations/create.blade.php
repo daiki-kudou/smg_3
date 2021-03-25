@@ -98,14 +98,28 @@
                     <small>※料金体系を選択してください</small>
                   </div>
                   <div class="price_radio_selector">
-                    <div class="d-flex justfy-content-start align-items-center">
+
+
+
+
+
+
+
+
+                    <div class="d-flex justfy-content-start align-items-center" id="price_system1">
                       {{ Form::radio('price_system', 1, isset($request->price_system)?$request->price_system==1?true:false:'', ['class'=>'mr-2', 'id'=>'price_system_radio1']) }}
                       {{Form::label('price_system_radio1','通常（枠貸）')}}
                     </div>
-                    <div class="d-flex justfy-content-start align-items-center">
+                    <div class="d-flex justfy-content-start align-items-center" id="price_system2">
                       {{ Form::radio('price_system', 2, isset($request->price_system)?$request->price_system==2?true:false:'', ['class'=>'mr-2','id'=>'price_system_radio2']) }}
                       {{Form::label('price_system_radio2','アクセア（時間貸）')}}
                     </div>
+
+
+
+
+
+
                   </div>
                 </div>
               </td>
@@ -116,7 +130,9 @@
                 <div>
                   <select name="enter_time" id="sales_start" class="form-control">
                     <option selected></option>
-                    @for ($start = 0*2; $start <=23*2; $start++) <option value="{{date("H:i:s", strtotime("00:00 +". $start * 30 ." minute"))}}" @if (isset($request)) @endif>
+                    @for ($start = 0*2; $start <=23*2; $start++) <option
+                      value="{{date("H:i:s", strtotime("00:00 +". $start * 30 ." minute"))}}" @if (isset($request))
+                      @endif>
                       {{date("H時i分", strtotime("00:00 +". $start * 30 ." minute"))}}
                       </option>
                       @endfor
@@ -131,7 +147,9 @@
                 <div>
                   <select name="leave_time" id="sales_finish" class="form-control">
                     <option disabled selected></option>
-                    @for ($start = 0*2; $start <=23*2; $start++) <option value="{{date("H:i:s", strtotime("00:00 +". $start * 30 ." minute"))}}" @if (isset($request)) @endif>
+                    @for ($start = 0*2; $start <=23*2; $start++) <option
+                      value="{{date("H:i:s", strtotime("00:00 +". $start * 30 ." minute"))}}" @if (isset($request))
+                      @endif>
                       {{date("H時i分", strtotime("00:00 +". $start * 30 ." minute"))}}</option>
                       @endfor
                   </select>
@@ -158,11 +176,13 @@
               <td>
                 <div class="radio-box">
                   <p>
-                    <input type="radio" name="board_flag" value="0" {{isset($request->board_flag)?$request->board_flag==0?'checked':'':'checked',}}>
+                    <input type="radio" name="board_flag" value="0"
+                      {{isset($request->board_flag)?$request->board_flag==0?'checked':'':'checked',}}>
                     <span class="ml-1">無し</span>
                   </p>
                   <p>
-                    <input type="radio" name="board_flag" value="1" {{isset($request->board_flag)?$request->board_flag==1?'checked':'':'',}}>有り
+                    <input type="radio" name="board_flag" value="1"
+                      {{isset($request->board_flag)?$request->board_flag==1?'checked':'':'',}}>有り
                     <span class="ml-1">有り</span>
                   </p>
                 </div>
@@ -174,7 +194,9 @@
                 <div>
                   <select name="event_start" id="event_start" class="form-control">
                     <option disabled>選択してください</option>
-                    @for ($start = 0*2; $start <=23*2; $start++) <option value="{{date("H:i:s", strtotime("00:00 +". $start * 30 ." minute"))}}" @if (isset($request)) @endif>
+                    @for ($start = 0*2; $start <=23*2; $start++) <option
+                      value="{{date("H:i:s", strtotime("00:00 +". $start * 30 ." minute"))}}" @if (isset($request))
+                      @endif>
                       {{date("H時i分", strtotime("00:00 +". $start * 30 ." minute"))}}</option>
                       @endfor
                   </select>
@@ -187,7 +209,9 @@
                 <div>
                   <select name="event_finish" id="event_finish" class="form-control">
                     <option disabled>選択してください</option>
-                    @for ($start = 0*2; $start <=23*2; $start++) <option value="{{date("H:i:s", strtotime("00:00 +". $start * 30 ." minute"))}}" @if (isset($request)) @endif>
+                    @for ($start = 0*2; $start <=23*2; $start++) <option
+                      value="{{date("H:i:s", strtotime("00:00 +". $start * 30 ." minute"))}}" @if (isset($request))
+                      @endif>
                       {{date("H時i分", strtotime("00:00 +". $start * 30 ." minute"))}}</option>
                       @endfor
                   </select>
@@ -383,7 +407,8 @@
             <tr>
               <td colspan="2">
                 <p class="title-icon">
-                  <i class="fas fa-yen-sign icon-size" aria-hidden="true"></i>売上原価<span class="annotation">（提携会場を選択した場合、提携会場で設定した原価率が適応されます）</span>
+                  <i class="fas fa-yen-sign icon-size" aria-hidden="true"></i>売上原価<span
+                    class="annotation">（提携会場を選択した場合、提携会場で設定した原価率が適応されます）</span>
                 </p>
               </td>
             </tr>

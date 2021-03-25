@@ -360,6 +360,7 @@
         </div>
         <div class="layouts">
           <table class="table table-bordered">
+            @if ($venue->getLayouts()!=0)
             <thead>
               <tr>
                 <th colspan='2'>
@@ -370,7 +371,6 @@
               </tr>
             </thead>
             <tbody>
-              @if ($venue->getLayouts()!=0)
               @if ($venue->getLayouts()[0])
               <tr>
                 <td class="table-active">
@@ -415,6 +415,7 @@
         </div>
         <div class="luggage">
           <table class="table table-bordered">
+            @if ($venue->getLuggage()==1)
             <thead>
               <tr>
                 <th colspan='2'>
@@ -425,7 +426,6 @@
               </tr>
             </thead>
             <tbody>
-              @if ($venue->getLuggage()==1)
               <tr>
                 <td class="table-active">事前に預かる荷物<br>（個数）</td>
                 <td>
