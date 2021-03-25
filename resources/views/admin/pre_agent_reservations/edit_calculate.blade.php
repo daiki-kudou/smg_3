@@ -17,7 +17,7 @@
       <thead>
         <tr>
           <th>仲介会社情報</th>
-          <td colspan="3">ID：<p class="user_id d-inline">{{$agent->id}}</p>
+          <td colspan="3">ID：<p class="user_id d-inline">{{ReservationHelper::fixId($agent->id)}}</p>
           </td>
         </tr>
       </thead>
@@ -210,7 +210,9 @@
             <td>
               <select name="event_start" id="event_start" class="form-control">
                 <option disabled></option>
-                @for ($start = 0*2; $start <=23*2; $start++) <option value="{{date("H:i:s", strtotime("00:00 +". $start * 30 ." minute"))}}" @if(date("H:i:s",strtotime("00:00 +". $start * 30 ." minute"))==$request->enter_time)
+                @for ($start = 0*2; $start <=23*2; $start++) <option
+                  value="{{date("H:i:s", strtotime("00:00 +". $start * 30 ." minute"))}}"
+                  @if(date("H:i:s",strtotime("00:00 +". $start * 30 ." minute"))==$request->enter_time)
                   selected
                   @endif>
                   {{date("H時i分", strtotime("00:00 +". $start * 30 ." minute"))}}
@@ -224,7 +226,9 @@
             <td>
               <select name="event_finish" id="event_finish" class="form-control">
                 <option disabled></option>
-                @for ($start = 0*2; $start <=23*2; $start++) <option value="{{date("H:i:s", strtotime("00:00 +". $start * 30 ." minute"))}}" @if(date("H:i:s",strtotime("00:00 +". $start * 30 ." minute"))==$request->event_finish)
+                @for ($start = 0*2; $start <=23*2; $start++) <option
+                  value="{{date("H:i:s", strtotime("00:00 +". $start * 30 ." minute"))}}"
+                  @if(date("H:i:s",strtotime("00:00 +". $start * 30 ." minute"))==$request->event_finish)
                   selected
                   @endif>
                   {{date("H時i分", strtotime("00:00 +". $start * 30 ." minute"))}}

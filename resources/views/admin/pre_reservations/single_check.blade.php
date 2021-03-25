@@ -16,7 +16,7 @@
       <thead>
         <tr>
           <th>顧客情報</th>
-          <th colspan="3">顧客ID：<p class="user_id d-inline">{{$request->user_id}}</p>
+          <th colspan="3">顧客ID：<p class="user_id d-inline">{{ReservationHelper::fixId($request->user_id)}}</p>
           </th>
         </tr>
       </thead>
@@ -211,7 +211,9 @@
               <div>
                 <select name="event_start" id="event_start" class="form-control">
                   <option disabled>選択してください</option>
-                  @for ($start = 0*2; $start <=23*2; $start++) <option value="{{date("H:i:s", strtotime("00:00 +". $start * 30 ." minute"))}}" @if (date("H:i:s", strtotime("00:00 +". $start * 30 ." minute"))<$request->pre_enter0)
+                  @for ($start = 0*2; $start <=23*2; $start++) <option
+                    value="{{date("H:i:s", strtotime("00:00 +". $start * 30 ." minute"))}}" @if (date("H:i:s",
+                    strtotime("00:00 +". $start * 30 ." minute"))<$request->pre_enter0)
                     disabled
                     @elseif(date("H:i:s", strtotime("00:00 +". $start * 30 ." minute"))>$request->pre_leave0)
                     disabled
@@ -229,7 +231,9 @@
               <div>
                 <select name="event_finish" id="event_finish" class="form-control">
                   <option disabled>選択してください</option>
-                  @for ($start = 0*2; $start <=23*2; $start++) <option value="{{date("H:i:s", strtotime("00:00 +". $start * 30 ." minute"))}}" @if (date("H:i:s", strtotime("00:00 +". $start * 30 ." minute"))>$request->pre_leave0)
+                  @for ($start = 0*2; $start <=23*2; $start++) <option
+                    value="{{date("H:i:s", strtotime("00:00 +". $start * 30 ." minute"))}}" @if (date("H:i:s",
+                    strtotime("00:00 +". $start * 30 ." minute"))>$request->pre_leave0)
                     disabled
                     @elseif(date("H:i:s",strtotime("00:00 +". $start * 30 ." minute"))<$request->pre_enter0)
                       disabled

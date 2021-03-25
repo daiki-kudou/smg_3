@@ -28,7 +28,7 @@
           <tr>
             <td>
               <h3 class="text-white py-2">
-                仮押えID：{{$pre_reservation->id}}
+                仮押えID：{{ReservationHelper::fixId($pre_reservation->id)}}
               </h3>
             </td>
             <td>

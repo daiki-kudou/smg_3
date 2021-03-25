@@ -40,7 +40,7 @@
           @foreach ($pre_reservations as $pre_reservation)
           <tr>
             <td>{{$pre_reservation->multiple_reserve_id==0?"":$pre_reservation->multiple_reserve_id}}</td>
-            <td>{{$pre_reservation->id}}</td>
+            <td>{{ReservationHelper::fixId($pre_reservation->id)}}</td>
             <td>{{ReservationHelper::formatDate($pre_reservation->reserve_date)}}</td>
             <td>{{ReservationHelper::formatTime($pre_reservation->enter_time)}}</td>
             <td>{{ReservationHelper::formatTime($pre_reservation->leave_time)}}</td>

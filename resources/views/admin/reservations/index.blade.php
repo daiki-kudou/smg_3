@@ -206,7 +206,8 @@
         <tbody>
           <tr>
             <td rowspan="{{count($reservation->bills()->get())}}">※後ほど修正</td>
-            <td class="text-center" rowspan="{{count($reservation->bills()->get())}}">{{$reservation->id}}</td>
+            <td class="text-center" rowspan="{{count($reservation->bills()->get())}}">
+              {{ReservationHelper::fixId($reservation->id)}}</td>
             <td rowspan="{{count($reservation->bills()->get())}}">
               {{ReservationHelper::formatDate($reservation->reserve_date)}}
             </td>

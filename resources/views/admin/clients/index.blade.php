@@ -169,7 +169,7 @@
         @foreach ($querys as $query)
         <tr role="row" class="even">
           <td>{{$query->attention!=null?'●':''}}</td>
-          <td>{{$query->id}}</td>
+          <td>{{ReservationHelper::fixId($query->id)}}</td>
           <td>{{$query->company}}</td>
           <td>
             @if ($query->attr==1)

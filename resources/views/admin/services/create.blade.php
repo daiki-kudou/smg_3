@@ -44,7 +44,7 @@
   </thead>
   <tbody>
     <tr>
-      <td>{{ReservationHelper::IdFormat(App\Models\Service::all()->count()+1)}}</td>
+      <td>{{ReservationHelper::fixId(App\Models\Service::all()->count()+1)}}</td>
       <td>{{ReservationHelper::formatDate(Carbon\Carbon::now())}}</td>
       <td>
         {{ Form::text('item', "", ['class' => 'form-control']) }}
@@ -52,8 +52,8 @@
       </td>
       <td>
         <div class="d-flex align-items-end">
-        {{ Form::text('price',"" , ['class' => 'form-control']) }}
-        <span class="ml-1">円</span>
+          {{ Form::text('price',"" , ['class' => 'form-control']) }}
+          <span class="ml-1">円</span>
         </div>
         <p class="is-error-price" style="color: red"></p>
       </td>

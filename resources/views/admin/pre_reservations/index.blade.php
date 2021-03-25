@@ -218,7 +218,7 @@
               <input type="checkbox" name="{{'delete_check'.$pre_reservation->id}}" value="{{$pre_reservation->id}}"
                 class="checkbox" />
             </td>
-            <td>{{$pre_reservation->id}}</td>
+            <td>{{ReservationHelper::fixId($pre_reservation->id)}}</td>
             <td>{{$pre_reservation->created_at}}</td>
             <td>{{$pre_reservation->reserve_date}}</td>
             <td>{{$pre_reservation->enter_time}}</td>

@@ -38,7 +38,7 @@
           <tr>
             <td class="text-white d-flex align-items-center p-3">
               <h3>
-                仮押え一括ID:<span class="mr-3">{{$multiple->id}}</span>
+                仮押え一括ID:<span class="mr-3">{{ReservationHelper::fixId($multiple->id)}}</span>
               </h3>
               <h4 class="ml-2">{{ReservationHelper::getVenue($venue->id)}}</h4>
             </td>
@@ -455,7 +455,8 @@
         <div class="register-list-item">
           <div class="from-group list_checkbox">
             <div class="form-check">
-              <input type="checkbox" name="{{'delete_check'.$pre_reservation->id}}" value="{{$pre_reservation->id}}" class="checkbox mr-1" />
+              <input type="checkbox" name="{{'delete_check'.$pre_reservation->id}}" value="{{$pre_reservation->id}}"
+                class="checkbox mr-1" />
               <!-- <input class="form-check-input" type="checkbox"> -->
               <label class="form-check-label"></label>
             </div>
@@ -543,7 +544,9 @@
                         <td>
                           <select name="{{'event_start_copied'.$key}}" class="form-control">
                             <option disabled>選択してください</option>
-                            @for ($start = 0*2; $start <=23*2; $start++) <option value="{{date("H:i:s", strtotime("00:00 +". $start * 30 ." minute"))}}" @if(date("H:i:s", strtotime("00:00 +". $start * 30 ." minute"))==$pre_reservation->enter_time)
+                            @for ($start = 0*2; $start <=23*2; $start++) <option
+                              value="{{date("H:i:s", strtotime("00:00 +". $start * 30 ." minute"))}}" @if(date("H:i:s",
+                              strtotime("00:00 +". $start * 30 ." minute"))==$pre_reservation->enter_time)
                               selected
                               @endif
                               >
@@ -555,9 +558,12 @@
                       <tr>
                         <td class="table-active"><label for="eventFinish">イベント終了時間</label></td>
                         <td>
-                          <select name="{{'event_finish_copied'.$key}}" id="{{'event_finish_copied'.$key}}" class="form-control">
+                          <select name="{{'event_finish_copied'.$key}}" id="{{'event_finish_copied'.$key}}"
+                            class="form-control">
                             <option disabled>選択してください</option>
-                            @for ($start = 0*2; $start <=23*2; $start++) <option value="{{date("H:i:s", strtotime("00:00 +". $start * 30 ." minute"))}}" @if (date("H:i:s", strtotime("00:00 +". $start * 30 ." minute"))==$pre_reservation->leave_time)
+                            @for ($start = 0*2; $start <=23*2; $start++) <option
+                              value="{{date("H:i:s", strtotime("00:00 +". $start * 30 ." minute"))}}" @if (date("H:i:s",
+                              strtotime("00:00 +". $start * 30 ." minute"))==$pre_reservation->leave_time)
                               selected
                               @endif
                               >
