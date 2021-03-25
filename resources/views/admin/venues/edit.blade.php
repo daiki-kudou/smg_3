@@ -55,7 +55,7 @@
       <table class="table table-bordered">
         <tbody>
           <tr>
-            <td width="20%" class="table-active"><label for="smg_url" class="">会場SMG URL</label></td>
+            <td class="table-active w-25"><label for="smg_url" class="">会場SMG URL</label></td>
             <td>
 
               {{ Form::text('smg_url', $venue->smg_url, ['class' => 'form-control']) }}

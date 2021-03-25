@@ -35,9 +35,8 @@
   <table class="table table-bordered">
     <tbody>
       <tr>
-        <th width="20%" class="table-active"> <label for="smg_url">会場SMG URL</label></th>
-        <td>{{$venue->smg_url}}
-        </td>
+        <th class="table-active w-25"> <label for="smg_url">会場SMG URL</label></th>
+        <td class="word_break">{{$venue->smg_url}}</td>
       </tr>
     </tbody>
   </table>
