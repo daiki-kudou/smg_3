@@ -192,20 +192,20 @@
           </tbody>
         </table>
 
-        <!-- 荷物預かり ------------------------------------------------------------------------->
+        <!-- 荷物預り ------------------------------------------------------------------------->
         <table class="table table-bordered">
           <thead>
             <tr>
               <td colspan="2">
                 <p class="title-icon">
-                  <i class="fas fa-suitcase-rolling icon-size fa-fw" aria-hidden="true"></i>荷物預かり
+                  <i class="fas fa-suitcase-rolling icon-size fa-fw" aria-hidden="true"></i>荷物預り
                 </p>
               </td>
             </tr>
           </thead>
           <tbody>
             <tr>
-              <td class="table-active"><label for="luggage_flag" class="form_required">荷物預かり</label></td>
+              <td class="table-active"><label for="luggage_flag" class="form_required">荷物預り</label></td>
               <td>
                 {{Form::select('luggage_flag', ['可', '不可'],"",['placeholder' => '選択してください','class'=>'custom-select mr-sm-2'])}}
                 <p class="is-error-luggage_flag" style="color: red"></p>

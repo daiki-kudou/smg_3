@@ -323,7 +323,7 @@ class Reservation extends Model
       // 荷物
       if (!empty($value->luggage_count) || !empty($value->luggage_arrive) || !empty($value->luggage_return)) {
         $bills->breakdowns()->create([
-          'unit_item' => "荷物預かり/返送",
+          'unit_item' => "荷物預り/返送",
           'unit_cost' => 500,
           'unit_count' => 3,
           'unit_subtotal' => 500,

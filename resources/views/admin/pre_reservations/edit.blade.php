@@ -58,7 +58,7 @@
           <th class="align-middle">顧客情報</th>
           <td colspan="3">
             <div class="d-flex align-items-center">
-              <p class="col-2">顧客ID：{{$PreReservation->user_id}}</p>
+              <p class="w-25">顧客ID：{{$PreReservation->user_id}}</p>
               <select name="user_id" id="user_id">
                 @foreach ($users as $user)
                 <option value="{{$user->id}}" @if ($PreReservation->user_id==$user->id)
@@ -318,19 +318,31 @@
           <tr>
             <td class="table-active">イベント名称1</td>
             <td>
-              {{ Form::text('event_name1', $PreReservation->event_name1,['class'=>'form-control', ''] ) }}
+              <div class="align-items-end d-flex">
+                {{ Form::text('event_name1', $PreReservation->event_name1,['class'=>'form-control', 'id'=>'eventname1Count'] ) }}
+                <span class="ml-1 annotation count_num1"></span>
+              </div>
+              <p class="is-error-event_name1" style="color: red"></p>
             </td>
           </tr>
           <tr>
             <td class="table-active">イベント名称2</td>
             <td>
-              {{ Form::text('event_name2', $PreReservation->event_name2,['class'=>'form-control', ''] ) }}
+              <div class="align-items-end d-flex">
+                {{ Form::text('event_name2', $PreReservation->event_name2,['class'=>'form-control', 'id'=>'eventname2Count'] ) }}
+                <span class="ml-1 annotation count_num2"></span>
+              </div>
+              <p class="is-error-event_name2" style="color: red"></p>
             </td>
           </tr>
           <tr>
             <td class="table-active">主催者名</td>
             <td>
-              {{ Form::text('event_owner', $PreReservation->event_owner,['class'=>'form-control', ''] ) }}
+              <div class="align-items-end d-flex">
+                {{ Form::text('event_owner', $PreReservation->event_owner,['class'=>'form-control', 'id'=>'eventownerCount'] ) }}
+                <span class="ml-1 annotation count_num3"></span>
+              </div>
+              <p class="is-error-event_owner" style="color: red"></p>
             </td>
           </tr>
         </table>
@@ -499,7 +511,7 @@
               <tr>
                 <th colspan='2'>
                   <p class="title-icon">
-                    <i class="fas fa-suitcase-rolling icon-size"></i>荷物預かり
+                    <i class="fas fa-suitcase-rolling icon-size"></i>荷物預り
                   </p>
                 </th>
               </tr>
@@ -526,13 +538,13 @@
                 </td>
               </tr>
               <tr>
-                <td class="table-active">荷物預かり/返送<br>料金</td>
+                <td class="table-active">荷物預り/返送<br>料金</td>
                 <td>
                   <p class="annotation">※仮押え時点では、料金の設定ができません。<br>予約へ切り替え後に料金の設定が可能です。</p>
 
                   <!-- <div class="d-flex align-items-end">
                     @foreach ($PreReservation->pre_breakdowns()->get() as $lug_chk)
-                    @if ($lug_chk->unit_item=="荷物預かり/返送")
+                    @if ($lug_chk->unit_item=="荷物預り/返送")
                     {{ Form::text('luggage_price', $lug_chk->unit_cost,['class'=>'form-control'] ) }}
                     @break
                     @elseif($loop->last)

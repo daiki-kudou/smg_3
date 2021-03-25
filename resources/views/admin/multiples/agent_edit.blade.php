@@ -122,20 +122,33 @@
                     </tr>
                     <tr>
                       <td class="table-active"><label for="eventName1">イベント名称1</label></td>
+
                       <td>
-                        {{ Form::text('cp_master_event_name1','',['class'=>'form-control', 'placeholder'=>'入力してください'] ) }}
+                        <div class="align-items-end d-flex">
+                          {{ Form::text('cp_master_event_name1','',['class'=>'form-control', 'placeholder'=>'入力してください', 'id'=>'eventname1Count'] ) }}
+                          <span class="ml-1 annotation count_num1"></span>
+                        </div>
+                        <p class="is-error-event_name1" style="color: red"></p>
                       </td>
                     </tr>
                     <tr>
                       <td class="table-active"><label for="eventName2">イベント名称2</label></td>
                       <td>
-                        {{ Form::text('cp_master_event_name2', '',['class'=>'form-control', 'placeholder'=>'入力してください'] ) }}
+                        <div class="align-items-end d-flex">
+                          {{ Form::text('cp_master_event_name2', '',['class'=>'form-control', 'placeholder'=>'入力してください', 'id'=>'eventname2Count'] ) }}
+                          <span class="ml-1 annotation count_num2"></span>
+                        </div>
+                        <p class="is-error-event_name2" style="color: red"></p>
                       </td>
                     </tr>
                     <tr>
                       <td class="table-active"><label for="organizer">主催者名</label></td>
                       <td>
-                        {{ Form::text('cp_master_event_owner', '',['class'=>'form-control', 'placeholder'=>'入力してください'] ) }}
+                        <div class="align-items-end d-flex">
+                          {{ Form::text('cp_master_event_owner', '',['class'=>'form-control', 'placeholder'=>'入力してください', 'id'=>'eventownerCount'] ) }}
+                          <span class="ml-1 annotation count_num3"></span>
+                        </div>
+                        <p class="is-error-event_owner" style="color: red"></p>
                       </td>
                     </tr>
                   </tbody>
@@ -249,7 +262,7 @@
                     <tr>
                       <th colspan='2'>
                         <p class="title-icon">
-                          <i class="fas fa-suitcase-rolling icon-size"></i>荷物預かり
+                          <i class="fas fa-suitcase-rolling icon-size"></i>荷物預り
                         </p>
                       </th>
                     </tr>
@@ -277,7 +290,7 @@
                       </td>
                     </tr>
                     {{-- <tr>
-                  <td class="table-active">荷物預かり/返送<br>料金</td>
+                  <td class="table-active">荷物預り/返送<br>料金</td>
                   <td>
                     {{ Form::text('cp_master_luggage_price', '',['class'=>'form-control'] ) }}
                     </td>
@@ -556,19 +569,31 @@
                       <tr>
                         <td class="table-active"><label for="eventName1">イベント名称1</label></td>
                         <td>
-                          {{ Form::text('event_name1_copied'.$key,$pre_reservation->event_name1,['class'=>'form-control', 'placeholder'=>'入力してください'] ) }}
+                          <div class="align-items-end d-flex">
+                            {{ Form::text('event_name1_copied'.$key,$pre_reservation->event_name1,['class'=>'form-control', 'placeholder'=>'入力してください', 'id'=>"copiedeventname1Count".$key] ) }}
+                            <span class="ml-1 annotation count_num1_copied"></span>
+                          </div>
+                          <p class="{{"is-error-event_name1_copied".$key}}" style="color: red"></p>
                         </td>
                       </tr>
                       <tr>
                         <td class="table-active"><label for="eventName2">イベント名称2</label></td>
                         <td>
-                          {{ Form::text('event_name2_copied'.$key, $pre_reservation->event_name2,['class'=>'form-control', 'placeholder'=>'入力してください'] ) }}
+                          <div class="align-items-end d-flex">
+                            {{ Form::text('event_name2_copied'.$key, $pre_reservation->event_name2,['class'=>'form-control', 'placeholder'=>'入力してください', 'id'=>'copiedeventname2Count'] ) }}
+                            <span class="ml-1 annotation count_num2"></span>
+                          </div>
+                          <p class="is-error-event_name2_copied" style="color: red"></p>
                         </td>
                       </tr>
                       <tr>
                         <td class="table-active"><label for="organizer">主催者名</label></td>
                         <td>
-                          {{ Form::text('event_owner'.$key, $pre_reservation->event_owner,['class'=>'form-control', 'placeholder'=>'入力してください'] ) }}
+                          <div class="align-items-end d-flex">
+                            {{ Form::text('event_owner'.$key, $pre_reservation->event_owner,['class'=>'form-control', 'placeholder'=>'入力してください', 'id'=>'copiedeventownerCount'] ) }}
+                            <span class="ml-1 annotation count_num3"></span>
+                          </div>
+                          <p class="is-error-event_owner_copied" style="color: red"></p>
                         </td>
                       </tr>
                     </tbody>
@@ -746,7 +771,7 @@
                       <tr>
                         <th colspan="2">
                           <p class="title-icon">
-                            <i class="fas fa-suitcase-rolling icon-size"></i>荷物預かり
+                            <i class="fas fa-suitcase-rolling icon-size"></i>荷物預り
                           </p>
                         </th>
                       </tr>
@@ -774,10 +799,10 @@
                       </tr>
 
                       {{-- <tr>
-                    <td class="table-active">荷物預かり/返送<br>料金</td>
+                    <td class="table-active">荷物預り/返送<br>料金</td>
                     <td>
                       @foreach ($pre_reservation->pre_breakdowns()->get() as $lugg)
-                      @if ($lugg->unit_item=="荷物預かり/返送")
+                      @if ($lugg->unit_item=="荷物預り/返送")
                       {{ Form::text('luggage_price_copied'.$key, $lugg->unit_cost,['class'=>'form-control'] ) }}
                       @break
                       @elseif($loop->last)

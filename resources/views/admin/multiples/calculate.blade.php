@@ -263,7 +263,7 @@
                     <tr>
                       <th colspan='2'>
                         <p class="title-icon">
-                          <i class="fas fa-suitcase-rolling icon-size fa-fw"></i>荷物預かり
+                          <i class="fas fa-suitcase-rolling icon-size fa-fw"></i>荷物預り
                         </p>
                       </th>
                     </tr>
@@ -291,7 +291,7 @@
                       </td>
                     </tr>
                     <tr>
-                      <td class="table-active">荷物預かり/返送<br>料金</td>
+                      <td class="table-active">荷物預り/返送<br>料金</td>
                       <td>
                         {{ Form::text('cp_master_luggage_price', '',['class'=>'form-control'] ) }}
                         <p class="is-error-cp_master_luggage_price" style="color: red"></p>
@@ -754,7 +754,7 @@
                       <tr>
                         <th colspan="2">
                           <p class="title-icon">
-                            <i class="fas fa-suitcase-rolling icon-size fa-fw"></i>荷物預かり
+                            <i class="fas fa-suitcase-rolling icon-size fa-fw"></i>荷物預り
                           </p>
                         </th>
                       </tr>
@@ -782,7 +782,7 @@
                         </td>
                       </tr>
                       <tr>
-                        <td class="table-active">荷物預かり/返送<br>料金</td>
+                        <td class="table-active">荷物預り/返送<br>料金</td>
                         <td>
                           {{ Form::text('luggage_price_copied'.$key, $request->cp_master_luggage_price,['class'=>'form-control'] ) }}
                           <p class="{{"is-error-luggage_price_copied".$key}}" style="color: red"></p>

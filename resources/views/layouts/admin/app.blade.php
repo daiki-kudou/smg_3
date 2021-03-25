@@ -112,7 +112,7 @@
     <aside class="main-sidebar sidebar-dark-primary elevation-4">
       <!-- Brand Logo -->
       <a href="/admin/home" class="brand-link">
-        <span class="brand-text font-weight-light">SMGアクセア貸会議室<br>管理画面</span>
+        <span class="brand-text font-weight-light">SMGアクセア貸会議室<br>管理者画面</span>
       </a>
 
       @include('layouts.admin.side')

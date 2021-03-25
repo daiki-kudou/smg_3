@@ -58,17 +58,17 @@
           <th>仲介会社情報</th>
           <th colspan="3">
             <div class="d-flex align-items-center">
-            <p class="w-25">仲介会社ID：{{$PreReservation->agent_id}}</p>
-            <select name="agent_id" id="agent_id">
-              @foreach ($agents as $agents)
-              <option value="{{$agents->id}}" @if ($PreReservation->agent_id==$agents->id)
-                selected
-                @endif
-                >
-                {{ReservationHelper::getAgentCompany($agents->id)}} ・ {{ReservationHelper::getAgentPerson($agents->id)}}
-              </option>
-              @endforeach
-            </select>
+              <p class="w-25">仲介会社ID：{{$PreReservation->agent_id}}</p>
+              <select name="agent_id" id="agent_id">
+                @foreach ($agents as $agents)
+                <option value="{{$agents->id}}" @if ($PreReservation->agent_id==$agents->id)
+                  selected
+                  @endif
+                  >
+                  {{ReservationHelper::getAgentCompany($agents->id)}} ・ {{ReservationHelper::getAgentPerson($agents->id)}}
+                </option>
+                @endforeach
+              </select>
             </div>
           </th>
         </tr>
@@ -296,19 +296,31 @@
           <tr>
             <td class="table-active">イベント名称1</td>
             <td>
-              {{ Form::text('event_name1', $PreReservation->event_name1,['class'=>'form-control', ''] ) }}
+              <div class="align-items-end d-flex">
+                {{ Form::text('event_name1', $PreReservation->event_name1,['class'=>'form-control', 'id'=>'eventname1Count'] ) }}
+                <span class="ml-1 annotation count_num1"></span>
+              </div>
+              <p class="is-error-event_name1" style="color: red"></p>
             </td>
           </tr>
           <tr>
             <td class="table-active">イベント名称2</td>
             <td>
-              {{ Form::text('event_name2', $PreReservation->event_name2,['class'=>'form-control', ''] ) }}
+              <div class="align-items-end d-flex">
+                {{ Form::text('event_name2', $PreReservation->event_name2,['class'=>'form-control', 'id'=>'eventname2Count'] ) }}
+                <span class="ml-1 annotation count_num2"></span>
+              </div>
+              <p class="is-error-event_name2" style="color: red"></p>
             </td>
           </tr>
           <tr>
             <td class="table-active">主催者名</td>
             <td>
-              {{ Form::text('event_owner', $PreReservation->event_owner,['class'=>'form-control', ''] ) }}
+              <div class="align-items-end d-flex">
+                {{ Form::text('event_owner', $PreReservation->event_owner,['class'=>'form-control', 'id'=>'eventownerCount'] ) }}
+                <span class="ml-1 annotation count_num3"></span>
+              </div>
+              <p class="is-error-event_owner" style="color: red"></p>
             </td>
           </tr>
         </table>
@@ -367,22 +379,22 @@
                     @foreach ($PreReservation->pre_breakdowns()->get() as $s_ser)
                     @if ($s_ser->unit_item==$ser->item)
                     <p>
-                    {{Form::radio('services_breakdown'.$key, 1, true, ['id' => 'service'.$key.'on'])}}
-                    {{Form::label('service'.$key.'on','有り')}}
+                      {{Form::radio('services_breakdown'.$key, 1, true, ['id' => 'service'.$key.'on'])}}
+                      {{Form::label('service'.$key.'on','有り')}}
                     </p>
                     <p>
-                    {{Form::radio('services_breakdown'.$key, 0, false, ['id' => 'service'.$key.'off'])}}
-                    {{Form::label('service'.$key.'off','無し')}}
+                      {{Form::radio('services_breakdown'.$key, 0, false, ['id' => 'service'.$key.'off'])}}
+                      {{Form::label('service'.$key.'off','無し')}}
                     </p>
                     @break
                     @elseif($loop->last)
                     <p>
-                    {{Form::radio('services_breakdown'.$key, 1, false, ['id' => 'service'.$key.'on'])}}
-                    {{Form::label('service'.$key.'on','有り')}}
+                      {{Form::radio('services_breakdown'.$key, 1, false, ['id' => 'service'.$key.'on'])}}
+                      {{Form::label('service'.$key.'on','有り')}}
                     </p>
                     <p>
-                    {{Form::radio('services_breakdown'.$key, 0, true, ['id' => 'service'.$key.'off'])}}
-                    {{Form::label('service'.$key.'off','無し')}}
+                      {{Form::radio('services_breakdown'.$key, 0, true, ['id' => 'service'.$key.'off'])}}
+                      {{Form::label('service'.$key.'off','無し')}}
                     </p>
                     @endif
                     @endforeach
@@ -414,22 +426,22 @@
                     @foreach ($PreReservation->pre_breakdowns()->get() as $s_lay_pre)
                     @if ($s_lay_pre->unit_item=="レイアウト準備料金")
                     <p>
-                    {{Form::radio('layout_prepare', 1, true , ['id' => 'layout_prepare'])}}
-                    {{Form::label('layout_prepare','有り')}}
+                      {{Form::radio('layout_prepare', 1, true , ['id' => 'layout_prepare'])}}
+                      {{Form::label('layout_prepare','有り')}}
                     </p>
                     <p>
-                    {{Form::radio('layout_prepare', 0, false, ['id' => 'no_layout_prepare'])}}
-                    {{Form::label('no_layout_prepare','無し')}}
+                      {{Form::radio('layout_prepare', 0, false, ['id' => 'no_layout_prepare'])}}
+                      {{Form::label('no_layout_prepare','無し')}}
                     </p>
                     @break
                     @elseif($loop->last)
                     <p>
-                    {{Form::radio('layout_prepare', 1, false , ['id' => 'layout_prepare'])}}
-                    {{Form::label('layout_prepare','有り')}}
+                      {{Form::radio('layout_prepare', 1, false , ['id' => 'layout_prepare'])}}
+                      {{Form::label('layout_prepare','有り')}}
                     </p>
                     <p>
-                    {{Form::radio('layout_prepare', 0, true, ['id' => 'no_layout_prepare'])}}
-                    {{Form::label('no_layout_prepare','無し')}}
+                      {{Form::radio('layout_prepare', 0, true, ['id' => 'no_layout_prepare'])}}
+                      {{Form::label('no_layout_prepare','無し')}}
                     </p>
                     @endif
                     @endforeach
@@ -443,22 +455,22 @@
                     @foreach ($PreReservation->pre_breakdowns()->get() as $s_lay_cle)
                     @if ($s_lay_cle->unit_item=="レイアウト片付料金")
                     <p>
-                    {{Form::radio('layout_clean', 1, true , ['id' => 'layout_clean'])}}
-                    {{Form::label('layout_clean','有り')}}
+                      {{Form::radio('layout_clean', 1, true , ['id' => 'layout_clean'])}}
+                      {{Form::label('layout_clean','有り')}}
                     </p>
                     <p>
-                    {{Form::radio('layout_clean', 0, false, ['id' => 'no_layout_clean'])}}
-                    {{Form::label('no_layout_clean','無し')}}
+                      {{Form::radio('layout_clean', 0, false, ['id' => 'no_layout_clean'])}}
+                      {{Form::label('no_layout_clean','無し')}}
                     </p>
                     @break
                     @elseif($loop->last)
                     <p>
-                    {{Form::radio('layout_clean', 1, false , ['id' => 'layout_clean'])}}
-                    {{Form::label('layout_clean','有り')}}
+                      {{Form::radio('layout_clean', 1, false , ['id' => 'layout_clean'])}}
+                      {{Form::label('layout_clean','有り')}}
                     </p>
                     <p>
-                    {{Form::radio('layout_clean', 0, true, ['id' => 'no_layout_clean'])}}
-                    {{Form::label('no_layout_clean','無し')}}
+                      {{Form::radio('layout_clean', 0, true, ['id' => 'no_layout_clean'])}}
+                      {{Form::label('no_layout_clean','無し')}}
                     </p>
                     @endif
                     @endforeach
@@ -476,7 +488,7 @@
               <tr>
                 <th colspan='2'>
                   <p class="title-icon">
-                    <i class="fas fa-suitcase-rolling icon-size"></i>荷物預かり
+                    <i class="fas fa-suitcase-rolling icon-size"></i>荷物預り
                   </p>
                 </th>
               </tr>
@@ -503,10 +515,10 @@
                 </td>
               </tr>
               <!-- <tr>
-                <td class="table-active">荷物預かり/返送<br>料金</td>
+                <td class="table-active">荷物預り/返送<br>料金</td>
                 <td>
                   @foreach ($PreReservation->pre_breakdowns()->get() as $lug_chk)
-                  @if ($lug_chk->unit_item=="荷物預かり/返送")
+                  @if ($lug_chk->unit_item=="荷物預り/返送")
                   {{ Form::text('luggage_price', $lug_chk->unit_cost,['class'=>'form-control'] ) }}
                   @break
                   @elseif($loop->last)

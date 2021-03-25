@@ -266,7 +266,7 @@
                 <tr>
                   <th colspan='2'>
                     <p class="title-icon">
-                      <i class="fas fa-suitcase-rolling icon-size fa-fw"></i>荷物預かり
+                      <i class="fas fa-suitcase-rolling icon-size fa-fw"></i>荷物預り
                     </p>
                   </th>
                 </tr>
@@ -294,7 +294,7 @@
                   </td>
                 </tr>
                 <tr>
-                  <td class="table-active">荷物預かり/返送<br>料金</td>
+                  <td class="table-active">荷物預り/返送<br>料金</td>
                   <td>
                   <p class="annotation">※仮押え時点では、料金の設定ができません。<br>予約へ切り替え後に料金の設定が可能です。</p>
                     <!-- {{ Form::text('cp_master_luggage_price', '',['class'=>'form-control'] ) }}
@@ -851,7 +851,7 @@
                   <tr>
                     <th colspan="2">
                       <p class="title-icon">
-                        <i class="fas fa-suitcase-rolling icon-size fa-fw"></i>荷物預かり
+                        <i class="fas fa-suitcase-rolling icon-size fa-fw"></i>荷物預り
                       </p>
                     </th>
                   </tr>
@@ -879,11 +879,11 @@
                   </tr>
 
                   <tr>
-                    <td class="table-active">荷物預かり/返送<br>料金</td>
+                    <td class="table-active">荷物預り/返送<br>料金</td>
                     <td>
                   <p class="annotation">※仮押え時点では、料金の設定ができません。<br>予約へ切り替え後に料金の設定が可能です。</p>
                       <!-- @foreach ($pre_reservation->pre_breakdowns()->get() as $lugg)
-                      @if ($lugg->unit_item=="荷物預かり/返送")
+                      @if ($lugg->unit_item=="荷物預り/返送")
                       {{ Form::text('luggage_price_copied'.$key, $lugg->unit_cost,['class'=>'form-control'] ) }}
                       @break
                       @elseif($loop->last)
@@ -1267,10 +1267,10 @@
                             {{ Form::text('services_breakdown_subtotal'.$sb_key.'_copied'.$key, $each_ser->unit_subtotal,['class'=>'form-control', 'readonly'] ) }}
                           </td>
                         </tr>
-                        {{-- @if ($each_ser->unit_item=="荷物預かり/返送")
+                        {{-- @if ($each_ser->unit_item=="荷物預り/返送")
                             <tr>
                               <td>
-                                {{ Form::text('luggage_item_copied'.$key, '荷物預かり/返送',['class'=>'form-control', 'readonly'] ) }}
+                                {{ Form::text('luggage_item_copied'.$key, '荷物預り/返送',['class'=>'form-control', 'readonly'] ) }}
                         </td>
                         <td>
                           {{ Form::text('luggage_cost_copied'.$key, $each_ser->unit_cost,['class'=>'form-control', 'readonly'] ) }}
