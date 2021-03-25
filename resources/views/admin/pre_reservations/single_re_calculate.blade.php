@@ -127,15 +127,6 @@
               <td>
                 {{ Form::text('', ReservationHelper::getVenue($request->venue_id),['class'=>'form-control', 'readonly'] ) }}
                 {{ Form::hidden('venue_id', $request->venue_id,['class'=>'form-control'] ) }}
-                <!-- <select name="venue_id" id="venue_id">
-                  <option value=""></option>
-                  @foreach ($venues as $venue)
-                  <option value="{{$venue->id}}" {{$venue->id==$request->venue_id?'selected':''}}>
-                    {{ReservationHelper::getVenue($venue->id)}}
-                  </option>
-                  @endforeach
-
-                </select> -->
                 <div class="price_selector">
                   <div>
                     <small>料金体系</small>

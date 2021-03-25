@@ -129,6 +129,46 @@
                     <small>料金体系</small>
                   </div>
                   <div class="form-check">
+
+                    SpVenue
+
+
+                    @if ($SpVenue->getPriceSystem()[0]==1&&$SpVenue->getPriceSystem()[1]==1)
+                    <div class="price_radio_selector">
+                      <div class="d-flex justfy-content-start align-items-center">
+                        {{ Form::radio('price_system', 1, true, ['class'=>'mr-2', 'id'=>'price_system_radio1']) }}
+                        {{Form::label('price_system_radio1','通常（枠貸）')}}
+                      </div>
+                      <div class="d-flex justfy-content-start align-items-center">
+                        {{ Form::radio('price_system', 2, false, ['class'=>'mr-2', 'id'=>'price_system_radio2']) }}
+                        {{Form::label('price_system_radio2','アクセア（時間貸）')}}
+                      </div>
+                    </div>
+                    @elseif($SpVenue->getPriceSystem()[0]==1&&$SpVenue->getPriceSystem()[1]==0)
+                    <div class="price_radio_selector">
+                      <div class="d-flex justfy-content-start align-items-center">
+                        {{ Form::radio('price_system', 1, true, ['class'=>'mr-2', 'id'=>'price_system_radio1']) }}
+                        {{Form::label('price_system_radio1','通常（枠貸）')}}
+                      </div>
+                    </div>
+                    @elseif($SpVenue->getPriceSystem()[0]==0&&$SpVenue->getPriceSystem()[1]==1)
+                    <div class="price_radio_selector">
+                      <div class="d-flex justfy-content-start align-items-center">
+                        {{ Form::radio('price_system', 2, true, ['class'=>'mr-2', 'id'=>'price_system_radio2']) }}
+                        {{Form::label('price_system_radio2','アクセア（時間貸）')}}
+                      </div>
+                    </div>
+                    @elseif($SpVenue->getPriceSystem()[0]==0&&$SpVenue->getPriceSystem()[1]==0)
+                    <p>※該当会場には定められた料金体系が存在しません。料金設定をお願いします。</p>
+                    @endif
+
+
+
+
+
+
+
+
                     <p>
                       {{Form::radio('price_system', 1, $request->price_system==1?true:false , ['id' => 'price_system_radio1', 'class' => 'form-check-input'])}}
                       <label for="{{'price_system_radio1'}}" class="form-check-label">通常（枠貸）</label>
@@ -137,6 +177,22 @@
                       {{Form::radio('price_system', 2, $request->price_system==2?true:false, ['id' => 'price_system_radio2', 'class' => 'form-check-input'])}}
                       <label for="{{'price_system_radio2'}}" class="form-check-label">アクセア仕様</label>
                     </p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
                   </div>
                 </div>
               </td>
@@ -151,21 +207,10 @@
             <tr>
               <td class="table-active">退室時間</td>
               <td>
-                <select name="leave_time" id="leave_time" class="form-control">
-                  <option value=""></option>
-                  @for ($start = 0*2; $start <=23*2; $start++) <option
-                    value="{{date("H:i:s", strtotime("00:00 +". $start * 30 ." minute"))}}" @if (date("H:i:s",
-                    strtotime("00:00 +". $start * 30 ." minute"))==$request->leave_time)
-                    selected
-                    @endif
-                    >
-                    {{date("H時i分", strtotime("00:00 +". $start * 30 ." minute"))}}
-                    </option>
-                    @endfor
-                </select>
+                {{ Form::text('', date('H:i',strtotime($request->leave_time)),['class'=>'form-control', 'readonly'] ) }}
+                {{ Form::hidden('leave_time', $request->leave_time) }}
               </td>
             </tr>
-
           </tbody>
         </table>
 
