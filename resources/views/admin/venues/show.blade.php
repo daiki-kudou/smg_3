@@ -18,7 +18,7 @@
 <h2 class="mt-3 mb-3">会場　詳細情報</h2>
 <p>ID:
   {{ ReservationHelper::fixId($venue->id) }}
-  <span class="ml-2">{{ $venue->name_area }}・{{ $venue->name_bldg }}{{ $venue->name_venue }}</span>
+  <span class="ml-2">{{ $venue->name_bldg }}{{ $venue->name_venue }}</span>
 </p>
 <hr>
 

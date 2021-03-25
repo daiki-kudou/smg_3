@@ -23,7 +23,7 @@
 
 <div class="section-wrap bg-white wrap_shadow">
   <h3 class="d-block mt-3 mb-5"><span class="mr-3">ID:{{ ReservationHelper::IdFormat($venue->id)}}</span>
-    {{ $venue->name_area }}・{{ $venue->name_bldg }}{{ $venue->name_venue }}
+    {{ $venue->name_bldg }}{{ $venue->name_venue }}
   </h3>
   <div class="new_price">
     @if ($errors->any())
@@ -55,7 +55,8 @@
             </td>
             <td>
               <select name="start0" id="start" class="form-control col-sm-12">
-                @for ($start = 8*2; $start <=23*2; $start++) <option value="{{date("H:i:s", strtotime("00:00 +". $start * 30 ." minute"))}}">
+                @for ($start = 8*2; $start <=23*2; $start++) <option
+                  value="{{date("H:i:s", strtotime("00:00 +". $start * 30 ." minute"))}}">
                   {{date("H時i分", strtotime("00:00 +". $start * 30 ." minute"))}}
                   </option>
                   @endfor
@@ -63,7 +64,9 @@
             </td>
             <td>
               <select name="finish0" id="finish" class="form-control col-sm-12">
-                @for ($start = 8*2; $start <=23*2; $start++) <option value="{{date("H:i:s", strtotime("00:00 +". $start * 30 ." minute"))}}" @if (date("H:i:s", strtotime("00:00 +". $start * 30 ." minute"))=="12:00:00" ) selected @endif>
+                @for ($start = 8*2; $start <=23*2; $start++) <option
+                  value="{{date("H:i:s", strtotime("00:00 +". $start * 30 ." minute"))}}" @if (date("H:i:s",
+                  strtotime("00:00 +". $start * 30 ." minute"))=="12:00:00" ) selected @endif>
                   {{date("H時i分", strtotime("00:00 +". $start * 30 ." minute"))}}
                   </option>
                   @endfor
