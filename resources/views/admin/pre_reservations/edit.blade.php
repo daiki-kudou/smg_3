@@ -550,18 +550,6 @@
                 <td>
                   <p class="annotation">※仮押え時点では、料金の設定ができません。<br>予約へ切り替え後に料金の設定が可能です。</p>
 
-                  <!-- <div class="d-flex align-items-end">
-                    @foreach ($PreReservation->pre_breakdowns()->get() as $lug_chk)
-                    @if ($lug_chk->unit_item=="荷物預り/返送")
-                    {{ Form::text('luggage_price', $lug_chk->unit_cost,['class'=>'form-control'] ) }}
-                    @break
-                    @elseif($loop->last)
-                    {{ Form::text('luggage_price', "",['class'=>'form-control'] ) }}
-                    @endif
-                    @endforeach
-                    <span class="ml-1">円</span>
-                  </div>
-                  <p class='is-error-luggage_price' style='color: red'></p> -->
                 </td>
               </tr>
             </tbody>

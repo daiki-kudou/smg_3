@@ -1066,6 +1066,7 @@
 {{Form::hidden('event_name2', $request->event_name2)}}
 {{Form::hidden('event_owner', $request->event_owner)}}
 {{Form::hidden('luggage_arrive', $request->luggage_arrive)}}
+{{Form::hidden('luggage_count', $request->luggage_count)}}
 {{Form::hidden('luggage_return', $request->luggage_return)}}
 {{Form::hidden('discount_condition', $request->discount_condition)}}
 {{Form::hidden('attention', $request->attention)}}
