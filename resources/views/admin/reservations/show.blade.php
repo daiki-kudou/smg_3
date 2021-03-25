@@ -581,9 +581,10 @@
           </tr>
           <tr>
             <td class="table-active">
-              <label for="" class="">当日連絡先(工藤さん！！追加項目です)</label>
+              <label for="" class="">当日連絡先</label>
             </td>
             <td>
+              {{$reservation->enduser->mobile}}
             </td>
           </tr>
           <tr>
@@ -679,11 +680,14 @@
             <td>
               <dl class="ttl_box">
                 <dt>支払い期日</dt>
-                <dd class="total_result">{{ReservationHelper::formatDate($reservation->bills()->first()->payment_limit)}}</dd>
+                <dd class="total_result">
+                  {{ReservationHelper::formatDate($reservation->bills()->first()->payment_limit)}}</dd>
               </dl>
             </td>
             <td>
-              @if ($reservation->bills()->first()->reservation_status<3) <a href="{{url('admin/reservations/'.$reservation->bills()->first()->id.'/edit')}}" class="btn more_btn">編集</a>
+              @if ($reservation->bills()->first()->reservation_status<3) <a
+                href="{{url('admin/reservations/'.$reservation->bills()->first()->id.'/edit')}}" class="btn more_btn">
+                編集</a>
                 @endif
             </td>
           </tr>

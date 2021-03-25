@@ -47,7 +47,6 @@ class AgentsReservationsController extends Controller
     $_equipment = Equipment::sumArrays($request);
     $_service = Service::sumArrays($request);
 
-
     $layout_price = 0;
     if ($request->layout_prepare > 0) {
       $layout_price += $venues->find($request->venue_id)->layout_prepare;
@@ -79,8 +78,6 @@ class AgentsReservationsController extends Controller
     );
   }
 
-
-
   public function check(Request $request)
   {
     $venue = Venue::find($request->venue_id);
@@ -93,6 +90,7 @@ class AgentsReservationsController extends Controller
       }
     }
     $others_details = !empty($others_details) ? count($others_details) : "";
+
     return view(
       'admin.agents_reservations.check',
       compact('request', 'venue', 'others_details')

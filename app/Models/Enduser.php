@@ -15,6 +15,7 @@ class Enduser extends Model
     'email',
     'attr',
     'charge',
+    'mobile',
   ];
 
   /*

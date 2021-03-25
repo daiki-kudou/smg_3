@@ -107,7 +107,9 @@
               <div>
                 <select name="enter_time" id="sales_start" class="form-control">
                   <option disabled selected></option>
-                  @for ($start = 0*2; $start <=23*2; $start++) <option value="{{date("H:i:s", strtotime("00:00 +". $start * 30 ." minute"))}}" @if (isset($request)) @endif>
+                  @for ($start = 0*2; $start <=23*2; $start++) <option
+                    value="{{date("H:i:s", strtotime("00:00 +". $start * 30 ." minute"))}}" @if (isset($request))
+                    @endif>
                     {{date("H時i分", strtotime("00:00 +". $start * 30 ." minute"))}}
                     </option>
                     @endfor
@@ -122,7 +124,9 @@
               <div>
                 <select name="leave_time" id="sales_finish" class="form-control">
                   <option disabled selected></option>
-                  @for ($start = 0*2; $start <=23*2; $start++) <option value="{{date("H:i:s", strtotime("00:00 +". $start * 30 ." minute"))}}" @if (isset($request)) @endif>
+                  @for ($start = 0*2; $start <=23*2; $start++) <option
+                    value="{{date("H:i:s", strtotime("00:00 +". $start * 30 ." minute"))}}" @if (isset($request))
+                    @endif>
                     {{date("H時i分", strtotime("00:00 +". $start * 30 ." minute"))}}</option>
                     @endfor
                 </select>
@@ -148,10 +152,12 @@
             <td class="table-active">案内板</td>
             <td class="d-flex align-items-center">
               <p class="mr-3">
-                <input type="radio" name="board_flag" value="0" {{isset($request->board_flag)?$request->board_flag==0?'checked':'':'checked',}}>無し
+                <input type="radio" name="board_flag" value="0"
+                  {{isset($request->board_flag)?$request->board_flag==0?'checked':'':'checked',}}>無し
               </p>
               <p>
-                <input type="radio" name="board_flag" value="1" {{isset($request->board_flag)?$request->board_flag==1?'checked':'':'',}}>有り
+                <input type="radio" name="board_flag" value="1"
+                  {{isset($request->board_flag)?$request->board_flag==1?'checked':'':'',}}>有り
               </p>
             </td>
           </tr>
@@ -161,7 +167,9 @@
               <div>
                 <select name="event_start" id="event_start" class="form-control">
                   <option disabled>選択してください</option>
-                  @for ($start = 0*2; $start <=23*2; $start++) <option value="{{date("H:i:s", strtotime("00:00 +". $start * 30 ." minute"))}}" @if (isset($request)) @endif>
+                  @for ($start = 0*2; $start <=23*2; $start++) <option
+                    value="{{date("H:i:s", strtotime("00:00 +". $start * 30 ." minute"))}}" @if (isset($request))
+                    @endif>
                     {{date("H時i分", strtotime("00:00 +". $start * 30 ." minute"))}}</option>
                     @endfor
                 </select>
@@ -174,7 +182,9 @@
               <div>
                 <select name="event_finish" id="event_finish" class="form-control">
                   <option disabled>選択してください</option>
-                  @for ($start = 0*2; $start <=23*2; $start++) <option value="{{date("H:i:s", strtotime("00:00 +". $start * 30 ." minute"))}}" @if (isset($request)) @endif>
+                  @for ($start = 0*2; $start <=23*2; $start++) <option
+                    value="{{date("H:i:s", strtotime("00:00 +". $start * 30 ." minute"))}}" @if (isset($request))
+                    @endif>
                     {{date("H時i分", strtotime("00:00 +". $start * 30 ." minute"))}}</option>
                     @endfor
                 </select>
@@ -356,7 +366,7 @@
               <label for="enduser_mobile" class="">当日連絡先</label>
             </td>
             <td>
-              <input class="form-control" placeholder="入力してください" maxlength="13" id="enduser_mobile" name="enduser_mobile" type="text">
+              {{ Form::text('enduser_mobile', old('enduser_mobile'),['class'=>'form-control', 'placeholder'=>'入力してください', 'maxlength'=>13, 'id'=>'enduser_mobile'] ) }}
             </td>
           </tr>
           <tr>

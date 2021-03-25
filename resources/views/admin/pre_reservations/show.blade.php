@@ -39,7 +39,8 @@
                   編集
                 </a>
                 @else
-                <a href="{{url('admin/pre_agent_reservations/'.$pre_reservation->id.'/edit')}}" class="btn more_btn mr-2">
+                <a href="{{url('admin/pre_agent_reservations/'.$pre_reservation->id.'/edit')}}"
+                  class="btn more_btn mr-2">
                   仲介会社用編集
                 </a>
                 @endif
@@ -274,7 +275,7 @@
                     <p>
                       {{ReservationHelper::getVenue($pre_reservation->venue_id)}}
                     </p>
-                    <p>工藤さん、ここに料金体系の選択内容を表示</p>
+                    <p>{{$pre_reservation->price_system==1?"通常（枠貸し）":"アクセア（時間貸し）"}}</p>
                   </td>
                 </tr>
                 <tr>
@@ -491,7 +492,9 @@
                         </li>
 
                         <li class="d-flex justify-content-between">
-                          <p>事前荷物の到着日：{{$pre_reservation->luggage_arrive?ReservationHelper::formatDate($pre_reservation->luggage_arrive):""}}</p>
+                          <p>
+                            事前荷物の到着日：{{$pre_reservation->luggage_arrive?ReservationHelper::formatDate($pre_reservation->luggage_arrive):""}}
+                          </p>
                         </li>
                       </ul>
                     </td>

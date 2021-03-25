@@ -356,7 +356,7 @@
               <label for="enduser_mobile" class="">当日連絡先</label>
             </td>
             <td>
-              {{ Form::text('enduser_tel', $request->enduser_mobile,['class'=>'form-control', 'readonly'] ) }}
+              {{ Form::text('enduser_mobile', $request->enduser_mobile,['class'=>'form-control', 'readonly'] ) }}
             </td>
           </tr>
           <tr>
@@ -787,6 +787,7 @@
 {{ Form::hidden('enduser_mail', $request->enduser_mail)}}
 {{ Form::hidden('enduser_attr', $request->enduser_attr)}}
 {{ Form::hidden('enduser_charge', $request->enduser_charge)}}
+{{ Form::hidden('enduser_mobile', $request->enduser_mobile)}}
 {{ Form::hidden('attention', $request->attention)}}
 {{ Form::hidden('user_details', $request->user_details)}}
 {{ Form::hidden('admin_details', $request->admin_details)}}

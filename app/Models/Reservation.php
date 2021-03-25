@@ -394,7 +394,8 @@ class Reservation extends Model
       !empty($request->enduser_tel) ||
       !empty($request->enduser_mail) ||
       !empty($request->enduser_attr) ||
-      !empty($request->enduser_charge)
+      !empty($request->enduser_charge) ||
+      !empty($request->enduser_mobile)
     ) {
       DB::transaction(function () use ($request) {
         $this->enduser()->create([
@@ -406,6 +407,7 @@ class Reservation extends Model
           'email' => $request->enduser_mail,
           'attr' => $request->enduser_attr,
           'charge' => $request->enduser_charge,
+          'mobile' => $request->enduser_mobile,
         ]);
       });
     }
