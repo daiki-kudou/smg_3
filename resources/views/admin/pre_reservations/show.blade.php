@@ -431,13 +431,10 @@
                     <td class="table-active"><label for="prelayout">準備</label>
                     </td>
                     <td>
-                      @if ($layouts)
-                      @foreach ($layouts as $layout)
-                      @if ($layout->unit_item=="レイアウト準備料金")
+                      @if (!empty($pre_reservation->pre_breakdowns()->where('unit_item','レイアウト準備料金')->first()))
                       あり
-                      @break
-                      @endif
-                      @endforeach
+                      @else
+                      なし
                       @endif
                     </td>
                   </tr>
@@ -445,13 +442,10 @@
                     <td class="table-active"><label for="postlayout">片付</label>
                     </td>
                     <td>
-                      @if ($layouts)
-                      @foreach ($layouts as $layout)
-                      @if ($layout->unit_item=="レイアウト片付料金")
+                      @if (!empty($pre_reservation->pre_breakdowns()->where('unit_item','レイアウト片付料金')->first()))
                       あり
-                      @break
-                      @endif
-                      @endforeach
+                      @else
+                      なし
                       @endif
                     </td>
                   </tr>
@@ -887,6 +881,7 @@
 
       @if ($pre_reservation->user_id>0)
       @if ($pre_reservation->venue->layout==1)
+      @if (!empty($pre_reservation->pre_breakdowns()->where('unit_type',4)->first()))
       <div class="layout billdetails_content">
         <table class="table table-borderless" style="table-layout: fixed;">
           <tbody>
@@ -928,9 +923,11 @@
         </table>
       </div>
       @endif
+      @endif
 
       @else
       @if ($pre_reservation->venue->layout==1)
+      @if (!empty($pre_reservation->pre_breakdowns()->where('unit_type',4)->first()))
       <div class="layout billdetails_content">
         <table class="table table-borderless" style="table-layout: fixed;">
           <tbody>
@@ -954,14 +951,15 @@
             @foreach ($pre_reservation->pre_breakdowns()->where('unit_type',4)->get() as $layout_breakdown)
             <tr>
               <td>{{$layout_breakdown->unit_item}}</td>
-              <td></td>
+              <td>{{$layout_breakdown->unit_cost}}</td>
               <td>{{$layout_breakdown->unit_count}}</td>
-              <td></td>
+              <td>{{$layout_breakdown->unit_subtotal}}</td>
             </tr>
             @endforeach
           </tbody>
         </table>
       </div>
+      @endif
       @endif
       @endif
       <div class="bill_total">
