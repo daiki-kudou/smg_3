@@ -379,9 +379,10 @@
               </td>
             </tr>
             <tr>
-              <td class="table-active"><label for="mgmt_person_tel">担当者電話番号 (工藤さん！！！追加項目です)</label></td>
+              <td class="table-active"><label for="mgmt_person_tel">担当者電話番号</label></td>
               <td colspan="2">
                 {{ Form::text('mgmt_person_tel', old('mgmt_person_tel'), ['class' => 'form-control','placeholder' => '半角数字、ハイフンなしで入力してください']) }}
+                <p class="is-error-mgmt_person_tel" style="color: red"></p>
               </td>
             </tr>
             <tr>
@@ -401,6 +402,7 @@
               <td class="table-active"><label for="mgmt_sec_tel">警備会社電話番号</label></td>
               <td colspan="2">
                 {{ Form::text('mgmt_sec_tel', old('mgmt_sec_tel'), ['class' => 'form-control', 'maxlength'=>'13','placeholder' => '半角数字、ハイフンなしで入力してください']) }}
+                <p class="is-error-mgmt_sec_tel" style="color: red"></p>
               </td>
             </tr>
             <tr>

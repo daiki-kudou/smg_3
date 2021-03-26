@@ -393,19 +393,19 @@ class PreReservationsController extends Controller
   public function show($id)
   {
     $pre_reservation = PreReservation::find($id);
-    $venues = $pre_reservation->pre_breakdowns->where('unit_type', 1);
-    $equipments = $pre_reservation->pre_breakdowns->where('unit_type', 2);
-    $services = $pre_reservation->pre_breakdowns->where('unit_type', 3);
-    $layouts = $pre_reservation->pre_breakdowns->where('unit_type', 4);
-    $others = $pre_reservation->pre_breakdowns->where('unit_type', 5);
+    // $venues = $pre_reservation->pre_breakdowns->where('unit_type', 1)->get();
+    // $equipments = $pre_reservation->pre_breakdowns->where('unit_type', 2)->get();
+    // $services = $pre_reservation->pre_breakdowns->where('unit_type', 3)->get();
+    $layouts = $pre_reservation->pre_breakdowns->where('unit_type', 4)->get();
+    $others = $pre_reservation->pre_breakdowns->where('unit_type', 5)->get();
     $SPVenue = Venue::find($pre_reservation->venue_id);
     return view(
       'admin.pre_reservations.show',
       compact(
         'pre_reservation',
-        'venues',
-        'equipments',
-        'services',
+        // 'venues',
+        // 'equipments',
+        // 'services',
         'layouts',
         'others',
         'SPVenue'
@@ -471,6 +471,7 @@ class PreReservationsController extends Controller
     DB::transaction(function () use ($request, $id) { //トランザクションさせる
       $pre_reservation = PreReservation::find($id);
       $pre_reservation->update([
+        'user_id' => $request->user_id,
         'price_system' => $request->price_system,
         'enter_time' => $request->enter_time,
         'leave_time' => $request->leave_time,
