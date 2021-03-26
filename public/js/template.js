@@ -16,6 +16,7 @@ $(function () {
 
 // datepicker
 $(function () {
+
   $('#datepicker1').datepicker({
     dateFormat: 'yy-mm-dd',
     minDate: 0,
@@ -26,16 +27,13 @@ $(function () {
     autoclose: true,
     minDate: 0,
   });
-
   $('#datepicker6').datepicker({
     dateFormat: 'yy-mm-dd',
     autoclose: true
-
   });
   $('#datepicker7').datepicker({
     dateFormat: 'yy-mm-dd',
     autoclose: true
-
   });
   $('#datepicker8').datepicker({
     dateFormat: 'yy-mm-dd',
@@ -44,7 +42,6 @@ $(function () {
     stepMonths: 0,         // 月の移動を3ヶ月単位とする
     autoclose: true
   });
-
   $('#datepicker99').datepicker({
     dateFormat: 'yy-mm-dd',
     numberOfMonths: 3,

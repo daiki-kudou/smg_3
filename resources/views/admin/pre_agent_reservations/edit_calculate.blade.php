@@ -197,10 +197,12 @@
             <td>
               <div class="radio-box">
                 <p>
-                  <input type="radio" name="board_flag" value="0" checked=""><span>無し</span>
+                  {{Form::radio('board_flag', 1, $request->board_flag==1?true:false , ['id' => 'board_flag_on'])}}
+                  {{Form::label('board_flag_on','有り')}}
                 </p>
                 <p>
-                  <input type="radio" name="board_flag" value="1"><span>有り</span>
+                  {{Form::radio('board_flag', 0, $request->board_flag==0?true:false, ['id' => 'board_flag_off'])}}
+                  {{Form::label('board_flag_off','無し')}}
                 </p>
               </div>
             </td>
@@ -210,14 +212,21 @@
             <td>
               <select name="event_start" id="event_start" class="form-control">
                 <option disabled></option>
+
                 @for ($start = 0*2; $start <=23*2; $start++) <option
-                  value="{{date("H:i:s", strtotime("00:00 +". $start * 30 ." minute"))}}"
-                  @if(date("H:i:s",strtotime("00:00 +". $start * 30 ." minute"))==$request->enter_time)
+                  value="{{date("H:i:s", strtotime("00:00 +". $start * 30 ." minute"))}}" @if (date("H:i:s",
+                  strtotime("00:00 +". $start * 30 ." minute"))==$request->event_start)
                   selected
-                  @endif>
-                  {{date("H時i分", strtotime("00:00 +". $start * 30 ." minute"))}}
-                  </option>
-                  @endfor
+                  @elseif(date("H:i:s",strtotime("00:00 +". $start * 30 ." minute")) < $request->enter_time)
+                    disabled
+                    @elseif(date("H:i:s", strtotime("00:00 +". $start * 30 ." minute"))>$request->leave_time)
+                    disabled
+                    @endif
+                    >
+                    {{date("H時i分", strtotime("00:00 +". $start * 30 ." minute"))}}
+                    </option>
+                    @endfor
+
               </select>
             </td>
           </tr>
@@ -226,14 +235,21 @@
             <td>
               <select name="event_finish" id="event_finish" class="form-control">
                 <option disabled></option>
+
                 @for ($start = 0*2; $start <=23*2; $start++) <option
                   value="{{date("H:i:s", strtotime("00:00 +". $start * 30 ." minute"))}}"
                   @if(date("H:i:s",strtotime("00:00 +". $start * 30 ." minute"))==$request->event_finish)
                   selected
-                  @endif>
-                  {{date("H時i分", strtotime("00:00 +". $start * 30 ." minute"))}}
-                  </option>
-                  @endfor
+                  @elseif(date("H:i:s",strtotime("00:00 +". $start * 30 ." minute")) < $request->enter_time)
+                    disabled
+                    @elseif(date("H:i:s", strtotime("00:00 +". $start * 30 ." minute"))>$request->leave_time)
+                    disabled
+                    @endif
+                    >
+                    {{date("H時i分", strtotime("00:00 +". $start * 30 ." minute"))}}
+                    </option>
+                    @endfor
+
               </select>
             </td>
           </tr>
@@ -532,7 +548,7 @@
             <tr>
               <td>
                 <label for="adminNote">管理者備考</label>
-                {{ Form::textarea('admin_details', $request->user_details,['class'=>'form-control', 'placeholder'=>'入力してください'] ) }}
+                {{ Form::textarea('admin_details', $request->admin_details,['class'=>'form-control', 'placeholder'=>'入力してください'] ) }}
               </td>
             </tr>
           </tbody>

@@ -622,15 +622,11 @@
                 </p>
               </td>
             </tr>
-            <!-- <td>
-              <label for="userNote">申し込みフォーム備考</label>
-              {{ Form::textarea('user_details', $request->user_details,['class'=>'form-control', 'placeholder'=>'入力してください'] ) }}
-            </td> -->
             </tr>
             <tr>
               <td>
                 <label for="adminNote">管理者備考</label>
-                {{ Form::textarea('admin_details', $request->admin_details,['class'=>'form-control', 'placeholder'=>'入力してください'] ) }}
+                {{ Form::textarea('admin_details', $request->admin_details,['class'=>'form-control'] ) }}
               </td>
             </tr>
           </tbody>

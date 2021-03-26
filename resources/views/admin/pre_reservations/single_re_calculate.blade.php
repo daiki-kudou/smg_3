@@ -163,34 +163,17 @@
             <tr>
               <td class="table-active">入室時間</td>
               <td>
-                <select name="enter_time" id="enter_time" class="form-control">
-                  <option value=""></option>
-                  @for ($start = 0*2; $start <=23*2; $start++) <option value="{{date("H:i:s", strtotime("00:00 +". $start * 30 ." minute"))}}" @if (date("H:i:s", strtotime("00:00 +". $start * 30 ." minute"))==$request->enter_time)
-                    selected
-                    @endif
-                    >
-                    {{date("H時i分", strtotime("00:00 +". $start * 30 ." minute"))}}
-                    </option>
-                    @endfor
-                </select>
+                {{ Form::text('', ReservationHelper::formatTime($request->enter_time),['class'=>'form-control','readonly'] ) }}
+                {{ Form::hidden('enter_time', $request->enter_time,['class'=>'form-control','readonly'] ) }}
               </td>
             </tr>
             <tr>
               <td class="table-active">退室時間</td>
               <td>
-                <select name="leave_time" id="leave_time" class="form-control">
-                  <option value=""></option>
-                  @for ($start = 0*2; $start <=23*2; $start++) <option value="{{date("H:i:s", strtotime("00:00 +". $start * 30 ." minute"))}}" @if (date("H:i:s", strtotime("00:00 +". $start * 30 ." minute"))==$request->leave_time)
-                    selected
-                    @endif
-                    >
-                    {{date("H時i分", strtotime("00:00 +". $start * 30 ." minute"))}}
-                    </option>
-                    @endfor
-                </select>
+                {{ Form::text('', ReservationHelper::formatTime($request->leave_time),['class'=>'form-control','readonly'] ) }}
+                {{ Form::hidden('leave_time', $request->leave_time,['class'=>'form-control','readonly'] ) }}
               </td>
             </tr>
-
           </tbody>
         </table>
 
@@ -213,7 +196,7 @@
                   {{Form::label('board_flag',"有り")}}
                 </p>
                 <p>
-                  {{Form::radio('board_flag',$request->board_flag==0?true:false,true,['id'=>'no_board_flag'])}}
+                  {{Form::radio('board_flag',0,$request->board_flag==0?true:false,['id'=>'no_board_flag'])}}
                   {{Form::label('no_board_flag',"無し")}}
                 </p>
               </div>
@@ -457,13 +440,13 @@
               <tr>
                 <td class="table-active">事前荷物の到着日<br>午前指定のみ</td>
                 <td>
-                  {{ Form::text('luggage_arrive', $request->luggage_arrive,['class'=>'form-control'] ) }}
+                  {{ Form::text('luggage_arrive', $request->luggage_arrive,['class'=>'form-control datepicker'] ) }}
                 </td>
               </tr>
               <tr>
                 <td class="table-active">事後返送する荷物</td>
                 <td>
-                  {{ Form::text('luggage_return', $request->luggage_return,['class'=>'form-control'] ) }}
+                  {{ Form::text('luggage_return', $request->luggage_return,['class'=>'form-control '] ) }}
                   <p class='is-error-luggage_return' style=' color: red'></p>
                 </td>
               </tr>
@@ -471,11 +454,6 @@
                 <td class="table-active">荷物預り/返送<br>料金</td>
                 <td>
                   <p class="annotation">※仮押え時点では、料金の設定ができません。<br>予約へ切り替え後に料金の設定が可能です。</p>
-                  <!-- <div class="d-flex align-items-end">
-                    {{ Form::text('luggage_price', $request->luggage_price,['class'=>'form-control'] ) }}
-                    <span class="ml-1">円</span>
-                  </div>
-                  <p class='is-error-luggage_price' style=' color: red'></p> -->
                 </td>
               </tr>
             </tbody>
@@ -618,14 +596,7 @@
     </div>
   </div>
 
-  <div class="spin_btn hide">
-    <div class="d-flex justify-content-center">
-      <button class="btn btn-primary btn-lg" type="button" disabled>
-        <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
-        Loading...
-      </button>
-    </div>
-  </div>
+
 
 
 
@@ -1177,6 +1148,16 @@
         });
     };
   });
+
+  $(function() {
+    var maxTarget = $('input[name="reserve_date"]').val();
+    $('.datepicker').datepicker({
+      dateFormat: 'yy-mm-dd',
+      minDate: 0,
+      maxDate: maxTarget,
+      autoclose: true,
+    });
+  })
 </script>
 
 @endsection
