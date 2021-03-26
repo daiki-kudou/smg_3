@@ -225,16 +225,14 @@
               <td class="table-active">入室時間</td>
               <td>
                 {{ Form::text('', ReservationHelper::formatTime($PreReservation->enter_time),['class'=>'form-control','readonly'] ) }}
-                {{ Form::hidden('enter_time', $PreReservation->enter_time,['class'=>'form-control','readonly'] ) }}
+                {{ Form::hidden('enter_time', $PreReservation->enter_time) }}
               </td>
             </tr>
             <tr>
               <td class="table-active">退室時間</td>
               <td>
                 {{ Form::text('', ReservationHelper::formatTime($PreReservation->leave_time),['class'=>'form-control','readonly'] ) }}
-                {{ Form::hidden('leave_time', $PreReservation->leave_time,['class'=>'form-control','readonly'] ) }}
-
-
+                {{ Form::hidden('leave_time', $PreReservation->leave_time) }}
               </td>
             </tr>
           </tbody>
@@ -271,8 +269,8 @@
               <select name="event_start" id="event_start" class="form-control">
                 <option disabled>選択してください</option>
                 @for ($start = 0*2; $start <=23*2; $start++) <option
-                  value="{{date("H:i:s", strtotime("00:00 +". $start * 30 ." minute"))}}" @if (date("H:i:s",
-                  strtotime("00:00 +". $start * 30 ." minute"))<$PreReservation->enter_time)
+                  value="{{date("H:i:s", strtotime("00:00 +". $start * 30 ." minute"))}}"
+                  @if(date("H:i:s",strtotime("00:00 +". $start * 30 ." minute")) < $PreReservation->enter_time)
                   disabled
                   @elseif(date("H:i:s", strtotime("00:00 +". $start * 30 ." minute"))>$PreReservation->leave_time)
                   disabled
