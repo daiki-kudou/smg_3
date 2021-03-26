@@ -156,7 +156,15 @@
         <tr>
           <td class="table-active">利用者属性</td>
           <td>
-            {{Form::text('pre_endusers_attr',$PreReservation->pre_enduser->attr,['class'=>'form-control'])}}
+            <select name="pre_endusers_attr" class="form-control">
+              <option></option>
+              <option value="0">一般企業</option>
+              <option value="1">上場企業</option>
+              <option value="2">近隣利用</option>
+              <option value="3">個人講師</option>
+              <option value="4">MLM</option>
+              <option value="5">その他</option>
+            </select>
           </td>
         </tr>
       </tbody>
