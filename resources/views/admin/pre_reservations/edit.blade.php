@@ -224,35 +224,17 @@
             <tr>
               <td class="table-active">入室時間</td>
               <td>
-                <select name="enter_time" id="enter_time" class="form-control">
-                  <option value=""></option>
-                  @for ($start = 0*2; $start <=23*2; $start++) <option
-                    value="{{date("H:i:s", strtotime("00:00 +". $start * 30 ." minute"))}}" @if (date("H:i:s",
-                    strtotime("00:00 +". $start * 30 ." minute"))==$PreReservation->enter_time)
-                    selected
-                    @endif
-                    >
-                    {{date("H時i分", strtotime("00:00 +". $start * 30 ." minute"))}}
-                    </option>
-                    @endfor
-                </select>
+                {{ Form::text('', ReservationHelper::formatTime($PreReservation->enter_time),['class'=>'form-control','readonly'] ) }}
+                {{ Form::hidden('enter_time', $PreReservation->enter_time,['class'=>'form-control','readonly'] ) }}
               </td>
             </tr>
             <tr>
               <td class="table-active">退室時間</td>
               <td>
-                <select name="leave_time" id="leave_time" class="form-control">
-                  <option value=""></option>
-                  @for ($start = 0*2; $start <=23*2; $start++) <option
-                    value="{{date("H:i:s", strtotime("00:00 +". $start * 30 ." minute"))}}" @if (date("H:i:s",
-                    strtotime("00:00 +". $start * 30 ." minute"))==$PreReservation->leave_time)
-                    selected
-                    @endif
-                    >
-                    {{date("H時i分", strtotime("00:00 +". $start * 30 ." minute"))}}
-                    </option>
-                    @endfor
-                </select>
+                {{ Form::text('', ReservationHelper::formatTime($PreReservation->leave_time),['class'=>'form-control','readonly'] ) }}
+                {{ Form::hidden('leave_time', $PreReservation->leave_time,['class'=>'form-control','readonly'] ) }}
+
+
               </td>
             </tr>
           </tbody>
