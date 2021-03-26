@@ -138,19 +138,31 @@
                 <tr>
                   <td class="table-active"><label for="eventName1">イベント名称1</label></td>
                   <td>
-                    {{ Form::text('cp_master_event_name1','',['class'=>'form-control', 'placeholder'=>'入力してください'] ) }}
+                    <div class="align-items-end d-flex">
+                      {{ Form::text('cp_master_event_name1','',['class'=>'form-control', 'placeholder'=>'入力してください','id'=>'eventname1Count'] ) }}
+                      <span class="ml-1 annotation count_num1"></span>
+                    </div>
+                    <p class="is-error-event_name1" style="color: red"></p>
                   </td>
                 </tr>
                 <tr>
                   <td class="table-active"><label for="eventName2">イベント名称2</label></td>
                   <td>
-                    {{ Form::text('cp_master_event_name2', '',['class'=>'form-control', 'placeholder'=>'入力してください'] ) }}
+                    <div class="align-items-end d-flex">
+                      {{ Form::text('cp_master_event_name2', '',['class'=>'form-control', 'placeholder'=>'入力してください', 'id'=>'eventname2Count'] ) }}
+                      <span class="ml-1 annotation count_num2"></span>
+                    </div>
+                    <p class="is-error-event_name2" style="color: red"></p>
                   </td>
                 </tr>
                 <tr>
                   <td class="table-active"><label for="organizer">主催者名</label></td>
                   <td>
-                    {{ Form::text('cp_master_event_owner', '',['class'=>'form-control', 'placeholder'=>'入力してください'] ) }}
+                    <div class="align-items-end d-flex">
+                      {{ Form::text('cp_master_event_owner', '',['class'=>'form-control', 'placeholder'=>'入力してください','id'=>'eventownerCount'] ) }}
+                      <span class="ml-1 annotation count_num3"></span>
+                    </div>
+                    <p class="is-error-event_owner" style="color: red"></p>
                   </td>
                 </tr>
               </tbody>
@@ -509,8 +521,7 @@
     <div class="register-list-item">
       <div class="from-group list_checkbox">
         <div class="form-check">
-          <input type="checkbox" name="{{'delete_check'.$pre_reservation->id}}" value="{{$pre_reservation->id}}"
-            class="checkbox mr-1" />
+          <input type="checkbox" name="{{'delete_check'.$pre_reservation->id}}" value="{{$pre_reservation->id}}" class="checkbox mr-1" />
           <!-- <input class="form-check-input" type="checkbox"> -->
           <label class="form-check-label"></label>
         </div>
@@ -613,9 +624,7 @@
                     <td>
                       <select name="{{'event_start_copied'.$key}}" class="form-control">
                         <option disabled>選択してください</option>
-                        @for ($start = 0*2; $start <=23*2; $start++) <option
-                          value="{{date("H:i:s", strtotime("00:00 +". $start * 30 ." minute"))}}" @if(date("H:i:s",
-                          strtotime("00:00 +". $start * 30 ." minute"))==$pre_reservation->enter_time)
+                        @for ($start = 0*2; $start <=23*2; $start++) <option value="{{date("H:i:s", strtotime("00:00 +". $start * 30 ." minute"))}}" @if(date("H:i:s", strtotime("00:00 +". $start * 30 ." minute"))==$pre_reservation->enter_time)
                           selected
                           @endif
                           >
@@ -627,12 +636,9 @@
                   <tr>
                     <td class="table-active"><label for="eventFinish">イベント終了時間</label></td>
                     <td>
-                      <select name="{{'event_finish_copied'.$key}}" id="{{'event_finish_copied'.$key}}"
-                        class="form-control">
+                      <select name="{{'event_finish_copied'.$key}}" id="{{'event_finish_copied'.$key}}" class="form-control">
                         <option disabled>選択してください</option>
-                        @for ($start = 0*2; $start <=23*2; $start++) <option
-                          value="{{date("H:i:s", strtotime("00:00 +". $start * 30 ." minute"))}}" @if (date("H:i:s",
-                          strtotime("00:00 +". $start * 30 ." minute"))==$pre_reservation->leave_time)
+                        @for ($start = 0*2; $start <=23*2; $start++) <option value="{{date("H:i:s", strtotime("00:00 +". $start * 30 ." minute"))}}" @if (date("H:i:s", strtotime("00:00 +". $start * 30 ." minute"))==$pre_reservation->leave_time)
                           selected
                           @endif
                           >
