@@ -546,7 +546,7 @@
             <tr>
               <td>
                 <label for="adminNote">管理者備考</label>
-                {{ Form::textarea('admin_details', $request->user_details,['class'=>'form-control', 'placeholder'=>'入力してください'] ) }}
+                {{ Form::textarea('admin_details', $request->admin_details,['class'=>'form-control', 'placeholder'=>'入力してください'] ) }}
               </td>
             </tr>
           </tbody>

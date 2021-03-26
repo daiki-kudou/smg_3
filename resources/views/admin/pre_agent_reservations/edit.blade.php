@@ -611,12 +611,6 @@
                 </p>
               </td>
             </tr>
-            <!-- <tr class="caution">
-              <td>
-                <label for="caution">注意事項</label>
-                {{ Form::textarea('attention', $PreReservation->attention,['class'=>'form-control', 'placeholder'=>'入力してください'] ) }}
-              </td>
-            </tr> -->
             <tr>
               <td>
                 <label for="adminNote">管理者備考</label>
