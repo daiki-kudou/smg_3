@@ -429,13 +429,13 @@
               <tr>
                 <td class="table-active">事前荷物の到着日<br>午前指定のみ</td>
                 <td>
-                  {{ Form::text('luggage_arrive', $request->luggage_arrive,['class'=>'form-control'] ) }}
+                  {{ Form::text('luggage_arrive', $request->luggage_arrive,['class'=>'form-control datepicker'] ) }}
                 </td>
               </tr>
               <tr>
                 <td class="table-active">事後返送する荷物</td>
                 <td>
-                  {{ Form::text('luggage_return', $request->luggage_return,['class'=>'form-control'] ) }}
+                  {{ Form::text('luggage_return', $request->luggage_return,['class'=>'form-control '] ) }}
                   <p class='is-error-luggage_return' style=' color: red'></p>
                 </td>
               </tr>
@@ -443,11 +443,6 @@
                 <td class="table-active">荷物預り/返送<br>料金</td>
                 <td>
                   <p class="annotation">※仮押え時点では、料金の設定ができません。<br>予約へ切り替え後に料金の設定が可能です。</p>
-                  <!-- <div class="d-flex align-items-end">
-                    {{ Form::text('luggage_price', $request->luggage_price,['class'=>'form-control'] ) }}
-                    <span class="ml-1">円</span>
-                  </div>
-                  <p class='is-error-luggage_price' style=' color: red'></p> -->
                 </td>
               </tr>
             </tbody>
@@ -1149,6 +1144,16 @@
         });
     };
   });
+
+  $(function() {
+    var maxTarget = $('input[name="reserve_date"]').val();
+    $('.datepicker').datepicker({
+      dateFormat: 'yy-mm-dd',
+      minDate: 0,
+      maxDate: maxTarget,
+      autoclose: true,
+    });
+  })
 </script>
 
 @endsection

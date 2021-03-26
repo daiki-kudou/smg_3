@@ -16,6 +16,7 @@ $(function () {
 
 // datepicker
 $(function () {
+
   $('#datepicker1').datepicker({
     dateFormat: 'yy-mm-dd',
     minDate: 0,
@@ -26,16 +27,13 @@ $(function () {
     autoclose: true,
     minDate: 0,
   });
-
   $('#datepicker6').datepicker({
     dateFormat: 'yy-mm-dd',
     autoclose: true
-
   });
   $('#datepicker7').datepicker({
     dateFormat: 'yy-mm-dd',
     autoclose: true
-
   });
   $('#datepicker8').datepicker({
     dateFormat: 'yy-mm-dd',
@@ -44,7 +42,6 @@ $(function () {
     stepMonths: 0,         // 月の移動を3ヶ月単位とする
     autoclose: true
   });
-
   $('#datepicker99').datepicker({
     dateFormat: 'yy-mm-dd',
     numberOfMonths: 3,
@@ -394,69 +391,6 @@ $(function () {
   $('#eventname1Count').blur(eventname1);
 });
 
-// 一括のコピーの場合、イベント名称1 作業中！！！！！！！！！
-// const copiedeventname1 = function(){
-//   var len = textLength($(this).val());
-//   $('.count_num1').html(len + "/28");
-//   if(len > 28){
-//   $('.count_num1').css('color', 'red');
-//   $(eventname1copied).text('※文字数がオーバーしています');
-//   $(eventname1copied).show();
-//   $(eventname1copiedcount).addClass('is-error');
-//   $(':submit').prop("disabled", true);
-//   }else{
-//   $('.count_num1').css('color', 'black');
-//   $(eventname1copied).hide();
-//   $(eventname1copiedcount).removeClass('is-error');
-//   $(':submit').prop("disabled", false);
-//   }
-// }
-
-// $(function(){
-//   var target = $("input[name^='event_name1_copied']");
-//   console.log(target);
-//   for (let index = 0; index < target.length; index++) {
-//     var eventname1copied = ".event_name1_copied" + index;
-//     console.log(eventname1copied);
-//     $(function(){
-//       $(eventname1copied).hide();
-//     });
-//   }
-
-//   for (let index = 0; index < target.length; index++) {
-//     var eventname1copiedcount = "#copiedeventname1Count" + index;
-//     var eventname1copied = ".is-error-event_name1_copied" + index;
-
-//     console.log("ここ",eventname1copiedcount);
-//     console.log(eventname1copied);
-//     var len = textLength($(this).val());
-//     $('.count_num1_copied').html(len + "/28");
-//     $(eventname1copied).hide();
-
-
-//     $(eventname1copiedcount).on('keyup', function(){
-//       var len = textLength($(this).val());
-//       $('.count_num1_copied').html(len + "/28");
-//       if(len > 28){
-//         $('.count_num1_copied').css('color', 'red');
-//         $(eventname1copied).text('※文字数がオーバーしています');
-//         $(eventname1copied).show();
-//         $(eventname1copiedcount).addClass('is-error');
-//         $(':submit').prop("disabled", true);
-//       }else{
-//         $('.count_num1_copied').css('color', 'black');
-//         $(eventname1copied).hide();
-//         $(eventname1copiedcount).removeClass('is-error');
-//         $(':submit').prop("disabled", false);
-//       }
-//     });
-//   }
-
-//   $(eventname1copied).on('keyup', copiedeventname1);
-//   $(eventname1copied).blur(copiedeventname1);
-// });
-
-// 一括のコピーの場合、イベント名称1 作業中ここまで！！！！！！！！！
 
 
 

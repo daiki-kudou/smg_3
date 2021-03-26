@@ -181,6 +181,6 @@ class PreAgentReservationsController extends Controller
         'charge' =>  $request->enduser_charge,
       ]);
     });
-    return redirect(url('admin/pre_reservations'));
+    return redirect(route('admin.pre_reservations.show', $id));
   }
 }
