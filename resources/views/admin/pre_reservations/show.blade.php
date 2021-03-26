@@ -435,6 +435,7 @@
                       @foreach ($layouts as $layout)
                       @if ($layout->unit_item=="レイアウト準備料金")
                       あり
+                      @break
                       @endif
                       @endforeach
                       @endif
@@ -448,6 +449,7 @@
                       @foreach ($layouts as $layout)
                       @if ($layout->unit_item=="レイアウト片付料金")
                       あり
+                      @break
                       @endif
                       @endforeach
                       @endif
