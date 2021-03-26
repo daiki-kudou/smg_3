@@ -512,43 +512,44 @@ $(function () {
 
 
 // 一括のコピーの場合、検証用！！！！！！！！！
-// $(function(){
-//   var target = $("input[name^='event_name1_copied']");
-//   for (let index = 0; index < target.length; index++) {
-//     var eventname1copiedcount = "#copiedeventname1Count" + index;
-//     var eventname1copied = "eventname1_error" + index;
+$(function(){
+  var target = $("input[name^='event_name1_copied']");
+  for (let index = 0; index < target.length; index++) {
+    var eventname1copiedcount = "#copiedeventname1Count" + index;
+    var eventname1copied = "eventname1_error" + index;
 
-//     console.log(eventname1copiedcount);
-//     console.log(eventname1copied);
-//   }
-// });
+    console.log(eventname1copiedcount);
+    console.log(eventname1copied);
+  }
+
+  $(function () {
+    $('.eventname1_error').hide();
+    var len = textLength($('#copiedeventname1Count0').val());
+    $('.count_num1_copied').html(len + "/28");
+  });
+
+  $('#copiedeventname1Count0').on('keyup', copiedeventname1);
+  $('#copiedeventname1Count0').blur(copiedeventname1);
 
 
-// const copiedeventname1 = function () {
-//   var len = textLength($(this).val());
-//   $('.count_num1_copied').html(len + "/28");
-//   if (len > 28) {
-//     $('.count_num1_copied').css('color', 'red');
-//     $('.eventname1_error').text('※文字数がオーバーしています');
-//     $('.eventname1_error').show();
-//     $(':submit').prop("disabled", true);
-//   } else {
-//     $('.count_num1_copied').css('color', 'black');
-//     $('.eventname1_error').hide();
-//     $(':submit').prop("disabled", false);
-//   }
-// }
+});
 
-// $(function () {
-//   $(function () {
-//     $('.eventname1_error').hide();
-//     var len = textLength($('#copiedeventname1Count0').val());
-//     $('.count_num1_copied').html(len + "/28");
-//   });
+const copiedeventname1 = function () {
+  var len = textLength($(this).val());
+  $('.count_num1_copied').html(len + "/28");
+  if (len > 28) {
+    $('.count_num1_copied').css('color', 'red');
+    $('.eventname1_error').text('※文字数がオーバーしています');
+    $('.eventname1_error').show();
+    $(':submit').prop("disabled", true);
+  } else {
+    $('.count_num1_copied').css('color', 'black');
+    $('.eventname1_error').hide();
+    $(':submit').prop("disabled", false);
+  }
+}
 
-//   $('#copiedeventname1Count0').on('keyup', copiedeventname1);
-//   $('#copiedeventname1Count0').blur(copiedeventname1);
-// });
+
 
 
 function textLength(text){
