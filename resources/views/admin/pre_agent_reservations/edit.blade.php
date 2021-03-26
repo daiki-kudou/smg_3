@@ -48,7 +48,7 @@
   <hr>
 </div>
 
-{{ Form::open(['url' => 'admin/pre_agent_reservations/'.$PreReservation->id.'/edit_calculate', 'method'=>'POST', 'id'=>'pre_reservationSingleEditForm']) }}
+{{ Form::open(['url' => 'admin/pre_agent_reservations/'.$PreReservation->id.'/edit_calculate', 'method'=>'POST', 'id'=>'pre_agent_reservationSingleEditForm']) }}
 @csrf
 <section class="mt-5">
   <div class="selected_user">

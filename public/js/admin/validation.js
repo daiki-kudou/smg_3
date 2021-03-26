@@ -27,8 +27,8 @@ $(function () {
     messages: {
       user_id: { required: "※必須項目です" },
       unknown_user_email: { email: '※Emailの形式で入力してください', },
-      unknown_user_mobile: { number: '※半角英数字を入力してください', minlength: '※最低桁数は11です', },
-      unknown_user_tel: { number: '※半角英数字を入力してください', minlength: '※最低桁数は10です', },
+      unknown_user_mobile: { number: '※半角数字を入力してください', minlength: '※最低桁数は11です', },
+      unknown_user_tel: { number: '※半角数字を入力してください', minlength: '※最低桁数は10です', },
       pre_date0: { required: '※必須項目です', },
       pre_venue0: { required: '※必須項目です', },
       pre_enter0: { required: '※必須項目です', },
@@ -54,304 +54,56 @@ $(function () {
   $('input').on('blur', function () {
     $(this).valid();
   });
-})
+});
 
 
-// 仮押え詳細入力
+// 仮押さえ　詳細＆再計算&編集&編集の再計算
 $(function () {
-  $("#pre_reservationSingleCheckForm").validate({
-    rules: {
-      price_system: {
-        required: true,
+  var target = ["#pre_reservationSingleCheckForm", "#pre_reservationSingleCalculateForm"
+  ,"#pre_reservationSingleEditForm", "#pre_reservationSingleRecalculateForm"];
+  $.each(target, function (index, value) {
+    $(value).validate({
+      rules: {
+        unknown_user_email: { email: true },
+        unknown_user_mobile: { number: true, minlength: 11 },
+        unknown_user_tel: { number: true, minlength: 10 },
+
+        in_charge: { required: true },
+        tel: { required: true, number: true, minlength: 11},
+        luggage_count: { max: 49, number: true },
+        luggage_return: { max: 49, number: true },
       },
-      in_charge: {
-        required: true,
+      messages: {
+        unknown_user_email: { email: '※Emailの形式で入力してください', },
+        unknown_user_mobile: { number: '※半角数字を入力してください', minlength: '※最低桁数は11です' },
+        unknown_user_tel: { number: '※半角数字を入力してください', minlength: '※最低桁数は10です' },
+        in_charge: { required: "※必須項目です"},
+        tel: { required: "※必須項目です", number: '※半角数字を入力してください', minlength: '※最低桁数は11です'},
+        luggage_count: { max: '※最大値は49です', number: "半角数字で入力してください" },
+        luggage_return: { max: '※最大値は49です', number: "半角数字で入力してください" },
       },
-      tel: {
-        required: true,
-        number: true,
-        minlength: 11
+      errorPlacement: function (error, element) {
+        var name = element.attr('name');
+        if (element.attr('name') === 'category[]') {
+          error.appendTo($('.is-error-category'));
+        } else if (element.attr('name') === name) {
+          error.appendTo($('.is-error-' + name));
+        }
       },
-      unknown_user_tel: {
-        minlength: 10
-      },
-      luggage_count: {
-        number: true,
-        max: 49
-      },
-      luggage_return: {
-        number: true,
-        max: 49
-      },
-      luggage_price: {
-        number: true,
-        max: 1000000
-      },
-    },
-    messages: {
-      price_system: {
-        required: "※必須項目です",
-      },
-      in_charge: {
-        required: '※必須項目です',
-      },
-      tel: {
-        required: '※必須項目です',
-        number: '※半角英数字を入力してください',
-        minlength: '※最低桁数は11です',
-      },
-      unknown_user_tel: {
-        minlength: '※最低桁数は10です',
-      },
-      luggage_count: {
-        number: "※半角英数字を入力してください",
-        max: "※最大値は49です",
-      },
-      luggage_return: {
-        number: "※半角英数字を入力してください",
-        max: "※最大値は49です",
-      },
-      luggage_price: {
-        number: "※半角英数字を入力してください",
-        max: "※最大値は1000000です",
-      },
-    },
-    errorPlacement: function (error, element) {
-      var name = element.attr('name');
-      if (element.attr('name') === 'category[]') {
-        error.appendTo($('.is-error-category'));
-      } else if (element.attr('name') === name) {
-        error.appendTo($('.is-error-' + name));
+      errorElement: "span",
+      errorClass: "is-error",
+      //送信前にLoadingを表示
+      submitHandler: function (form) {
+        $('.approval').addClass('hide');
+        $('.loading').removeClass('hide');
+        form.submit();
       }
-    },
-    errorElement: "span",
-    errorClass: "is-error",
-    //送信前にLoadingを表示
-    submitHandler: function (form) {
-      $('.spin_btn').removeClass('hide');
-      $('.submit_btn').addClass('hide');
-      form.submit();
-    }
-  });
-  $('input').on('blur', function () {
-    $(this).valid();
-  });
-  $('#pre_reservationSingleCheckForm .equipment_breakdowns').each(function (index, element) {
-    $("input[name='equipment_breakdown" + index + "']").rules("add", {
-      number: true,
-      max: 100,
-      messages: { number: "※半角英数字で入力してください", max: "※最大値は100です" },
+    });
+    $('input').on('blur', function () {
+      $(this).valid();
     });
   })
-})
-
-
-// 仮押え編集
-$(function () {
-  $("#pre_reservationSingleEditForm").validate({
-    rules: {
-      enduser_charge: {
-        required: true,
-        number: true,
-      },
-      pre_endusers_tel: {
-        number: true,
-        minlength: 10
-      },
-      pre_endusers_mobile: {
-        number: true,
-        minlength: 11
-      },
-      pre_endusers_email: {
-        email: true,
-      },
-      in_charge: {
-        required: true,
-      },
-      tel: {
-        required: true,
-        number: true,
-      },
-      price_system: {
-        required: true,
-      },
-      luggage_count: {
-        number: true,
-        max: 49
-      },
-      luggage_return: {
-        number: true,
-        max: 49
-      },
-      luggage_price: {
-        number: true,
-      },
-      // event_name1: {
-      //   maxlength: 16
-      // },
-      // event_name2: {
-      //   maxlength: 16
-      // },
-      // event_owner: {
-      //   maxlength: 30
-      // },
-    },
-    messages: {
-      enduser_charge: {
-        required: '※必須項目です',
-        number: '※半角英数字を入力してください',
-      },
-      pre_endusers_tel: {
-        number: '※半角数字を入力してください',
-        minlength: '※最低桁数は10です',
-      },
-      pre_endusers_mobile: {
-        number: '※半角数字を入力してください',
-        minlength: '※最低桁数は11です',
-      },
-      pre_endusers_email: {
-        email: '※Emailの形式で入力してください',
-      },
-      in_charge: {
-        required: '※必須項目です',
-      },
-      tel: {
-        required: '※必須項目です',
-        number: '※半角数字を入力してください',
-      },
-      price_system: {
-        required: '※必須項目です',
-      },
-      luggage_count: {
-        number: '※半角数字を入力してください',
-        max: "※最大値は49です",
-      },
-      luggage_return: {
-        number: '※半角数字を入力してください',
-        max: "※最大値は49です",
-      },
-      luggage_price: {
-        number: '※半角数字を入力してください',
-      },
-      // event_name1: {
-      //   maxlength: '※16文字以内で入力してください',
-      // },
-      // event_name2: {
-      //   maxlength: '※16文字以内で入力してください',
-      // },
-      // event_owner: {
-      //   maxlength: '※30文字以内で入力してください',
-      // },
-    },
-    errorPlacement: function (error, element) {
-      var name = element.attr('name');
-      if (element.attr('name') === 'category[]') {
-        error.appendTo($('.is-error-category'));
-      } else if (element.attr('name') === name) {
-        error.appendTo($('.is-error-' + name));
-      }
-    },
-    errorElement: "span",
-    errorClass: "is-error",
-    //送信前にLoadingを表示
-    submitHandler: function (form) {
-      $('.spin_btn').removeClass('hide');
-      $('.submit_btn').addClass('hide');
-      form.submit();
-    }
-  });
-  $('input').on('blur', function () {
-    $(this).valid();
-  });
-  $('#pre_reservationSingleEditForm .equipment_breakdowns').each(function (index, element) {
-    $("input[name='equipment_breakdown" + index + "']").rules("add", {
-      number: true,
-      max: 100,
-      messages: { number: "※半角英数字で入力してください", max: "※最大値は100です" },
-    });
-  })
-
-
-})
-
-// 仮押え編集からの再計算
-$(function () {
-  $("#pre_reservationSingleRecalculateForm").validate({
-    rules: {
-      in_charge: {
-        required: true,
-      },
-      tel: {
-        required: true,
-        number: true,
-        minlength: 11
-      },
-      unknown_user_tel: {
-        minlength: 10
-      },
-      price_system: {
-        required: true,
-      },
-      luggage_count: {
-        number: true,
-        max: 49
-      },
-      luggage_return: {
-        number: true,
-        max: 49
-      },
-      luggage_price: {
-        number: true,
-      },
-    },
-    messages: {
-      in_charge: {
-        required: '※必須項目です',
-      },
-      tel: {
-        required: '※必須項目です',
-        number: '※半角英数字を入力してください',
-        minlength: '※最低桁数は11です',
-      },
-      unknown_user_tel: {
-        minlength: '※最低桁数は10です',
-      },
-      price_system: {
-        required: '※必須項目です',
-      },
-      luggage_count: {
-        number: '※半角英数字を入力してください',
-        max: "※最大値は49です",
-      },
-      luggage_return: {
-        number: '※半角英数字を入力してください',
-        max: "※最大値は49です",
-      },
-      luggage_price: {
-        number: '※半角英数字を入力してください',
-      },
-    },
-    errorPlacement: function (error, element) {
-      var name = element.attr('name');
-      if (element.attr('name') === 'category[]') {
-        error.appendTo($('.is-error-category'));
-      } else if (element.attr('name') === name) {
-        error.appendTo($('.is-error-' + name));
-      }
-    },
-    errorElement: "span",
-    errorClass: "is-error",
-    //送信前にLoadingを表示
-    submitHandler: function (form) {
-      $('.spin_btn').removeClass('hide');
-      $('.submit_btn').addClass('hide');
-      form.submit();
-    }
-  });
-  $('input').on('blur', function () {
-    $(this).valid();
-  });
-})
+});
 
 
 // 仲介会社 仮押え新規作成
@@ -373,11 +125,11 @@ $(function () {
     messages: {
       pre_enduser_tel: {
         minlength: '※最低桁数は10です',
-        number: '※半角英数字を入力してください',
+        number: '※半角数字を入力してください',
       },
       pre_enduser_mobile: {
         minlength: '※最低桁数は11です',
-        number: '※半角英数字を入力してください',
+        number: '※半角数字を入力してください',
       },
       pre_enduser_email: {
         email: '※Emailの形式で入力してください',
@@ -405,118 +157,52 @@ $(function () {
   });
 })
 
-// 仮押え 仲介会社 詳細入力画面
-$(function () {
-  $("#pre_agent_reservationsSingleCheckForm").validate({
-    rules: {
-      enduser_charge: {
-        required: true,
-        number: true,
-      },
-      luggage_count: {
-        number: true,
-        max: 49
-      },
-      luggage_return: {
-        number: true,
-        max: 49
-      },
-      luggage_price: {
-        number: true,
-      },
-    },
-    messages: {
-      enduser_charge: {
-        required: '※必須項目です',
-        number: '※半角英数字を入力してください',
-      },
-      luggage_count: {
-        number: '※半角英数字を入力してください',
-        max: "※最大値は49です",
-      },
-      luggage_return: {
-        number: '※半角英数字を入力してください',
-        max: "※最大値は49です",
-      },
-      luggage_price: {
-        number: '※半角英数字を入力してください',
-      },
-    },
-    errorPlacement: function (error, element) {
-      var name = element.attr('name');
-      if (element.attr('name') === 'category[]') {
-        error.appendTo($('.is-error-category'));
-      } else if (element.attr('name') === name) {
-        error.appendTo($('.is-error-' + name));
-      }
-    },
-    errorElement: "span",
-    errorClass: "is-error",
-    //送信前にLoadingを表示
-    submitHandler: function (form) {
-      $('.spin_btn').removeClass('hide');
-      $('.submit_btn').addClass('hide');
-      form.submit();
-    }
-  });
-  $('input').on('blur', function () {
-    $(this).valid();
-  });
-})
 
-
-// 仮押え 仲介会社 計算画面
+// 仮押さえ　仲介会社詳細＆再計算&編集&編集の再計算
 $(function () {
-  $("#pre_agent_reservationsSingleCalculateForm").validate({
-    rules: {
-      enduser_charge: {
-        required: true,
-        number: true,
+  var target = ["#pre_agent_reservationsSingleCheckForm", "#pre_agent_reservationsSingleCalculateForm"
+  ,"#pre_agent_reservationSingleEditForm", "#pre_agent_reservationSingleEditForm"];
+  $.each(target, function (index, value) {
+    $(value).validate({
+      rules: {
+        enduser_charge: { required: true, number: true},
+        luggage_count: { max: 49, number: true },
+        luggage_return: { max: 49, number: true },
+        pre_endusers_tel: {number: true, minlength: 10},
+        pre_endusers_mobile: {number: true, minlength: 11},
+        pre_endusers_email: {email: true},
       },
-      luggage_count: {
-        number: true,
-        max: 49
+      messages: {
+        enduser_charge: { required: "※必須項目です", number: '※半角数字を入力してください'},
+        luggage_count: { max: '※最大値は49です', number: "半角数字で入力してください" },
+        luggage_return: { max: '※最大値は49です', number: "半角数字で入力してください" },
+        pre_endusers_tel: {minlength: '※最低桁数は10です',number: '※半角数字を入力してください'},
+        pre_endusers_mobile: {minlength: '※最低桁数は11です',number: '※半角数字を入力してください'},
+        pre_endusers_email: {email: '※Emailの形式で入力してください'},
       },
-      luggage_return: {
-        number: true,
-        max: 49
+      errorPlacement: function (error, element) {
+        var name = element.attr('name');
+        if (element.attr('name') === 'category[]') {
+          error.appendTo($('.is-error-category'));
+        } else if (element.attr('name') === name) {
+          error.appendTo($('.is-error-' + name));
+        }
       },
-    },
-    messages: {
-      enduser_charge: {
-        required: '※必須項目です',
-        number: '※半角英数字を入力してください',
-      },
-      luggage_count: {
-        number: '※半角英数字を入力してください',
-        max: "※最大値は49です",
-      },
-      luggage_return: {
-        number: '※半角英数字を入力してください',
-        max: "※最大値は49です",
-      },
-    },
-    errorPlacement: function (error, element) {
-      var name = element.attr('name');
-      if (element.attr('name') === 'category[]') {
-        error.appendTo($('.is-error-category'));
-      } else if (element.attr('name') === name) {
-        error.appendTo($('.is-error-' + name));
+      errorElement: "span",
+      errorClass: "is-error",
+      //送信前にLoadingを表示
+      submitHandler: function (form) {
+        $('.approval').addClass('hide');
+        $('.loading').removeClass('hide');
+        form.submit();
       }
-    },
-    errorElement: "span",
-    errorClass: "is-error",
-    //送信前にLoadingを表示
-    submitHandler: function (form) {
-      $('.spin_btn').removeClass('hide');
-      $('.submit_btn').addClass('hide');
-      form.submit();
-    }
-  });
-  $('input').on('blur', function () {
-    $(this).valid();
-  });
-})
+    });
+    $('input').on('blur', function () {
+      $(this).valid();
+    });
+  })
+});
+
 
 // 一括仮押さえ　編集画面　
 $(function () {
@@ -543,19 +229,19 @@ $(function () {
     },
     messages: {
       cp_master_tel: {
-        number: '※半角英数字を入力してください',
+        number: '※半角数字を入力してください',
         minlength: '※最低桁数は11です',
       },
       cp_master_luggage_count: {
-        number: '※半角英数字を入力してください',
+        number: '※半角数字を入力してください',
         max: "※最大値は49です",
       },
       cp_master_luggage_return: {
-        number: '※半角英数字を入力してください',
+        number: '※半角数字を入力してください',
         max: "※最大値は49です",
       },
       cp_master_luggage_price: {
-        number: '※半角英数字を入力してください',
+        number: '※半角数字を入力してください',
       },
       cp_master_cost: {
         range: '※1から100までの数値を入力してください',
@@ -1245,13 +931,13 @@ $(function () {
       },
       size1: {
         required: "※必須項目です",
-        number: "※半角英数字を入力してください",
+        number: "※半角数字を入力してください",
         min: "0以上を入力してください",
         max: "上限値は1000です"
       },
       size2: {
         required: "※必須項目です",
-        number: "※半角英数字を入力してください",
+        number: "※半角数字を入力してください",
         min: "0以上を入力してください",
         max: "上限値は1000です"
       },
@@ -1262,7 +948,7 @@ $(function () {
       },
       post_code: {
         required: "※必須項目です",
-        number: "※半角英数字で入力してください"
+        number: "※半角数字で入力してください"
       },
       address1: {
         required: "※必須項目です",
@@ -1283,7 +969,7 @@ $(function () {
         katakana: "※カタカナで入力してください",
       },
       person_tel: {
-        number: "※半角英数字で入力してください",
+        number: "※半角数字で入力してください",
       },
       person_email: {
         email: '※メールアドレスの形式で入力してください',
@@ -1304,22 +990,22 @@ $(function () {
         required: "レイアウト変更が【可】の場合、必須項目です"
       },
       reserver_tel: {
-        number: "※半角英数字で入力してください",
+        number: "※半角数字で入力してください",
       },
       reserver_fax: {
-        number: "※半角英数字で入力してください",
+        number: "※半角数字で入力してください",
       },
       mgmt_person_tel: {
-        number: "※半角英数字で入力してください",
+        number: "※半角数字で入力してください",
       },
       mgmt_tel: {
-        number: "※半角英数字で入力してください",
+        number: "※半角数字で入力してください",
       },
       mgmt_emer_tel: {
-        number: "※半角英数字で入力してください",
+        number: "※半角数字で入力してください",
       },
       mgmt_sec_tel: {
-        number: "※半角英数字で入力してください",
+        number: "※半角数字で入力してください",
       },
 
     },

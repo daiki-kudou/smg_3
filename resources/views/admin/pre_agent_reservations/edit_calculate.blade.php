@@ -8,7 +8,7 @@
 <h2 class="mt-3 mb-3">仲介会社　仮押え 計算</h2>
 <hr>
 
-{{ Form::open(['url' => 'admin/pre_agent_reservations/'.$id.'/edit_calculate', 'method'=>'POST', 'id'=>'pre_reservationSingleEditForm']) }}
+{{ Form::open(['url' => 'admin/pre_agent_reservations/'.$id.'/edit_calculate', 'method'=>'POST', 'id'=>'pre_agent_reservationSingleEditForm']) }}
 @csrf
 
 <section class="mt-5">

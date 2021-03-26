@@ -18,7 +18,7 @@
   <hr>
 </div>
 
-{{ Form::open(['url' => 'admin/pre_reservations/calculate', 'method'=>'POST', 'id'=>'pre_reservationSingleCheckForm']) }}
+{{ Form::open(['url' => 'admin/pre_reservations/calculate', 'method'=>'POST', 'id'=>'pre_reservationSingleCalculateForm']) }}
 @csrf
 
 <section class="mt-5">
