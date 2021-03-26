@@ -365,7 +365,11 @@
                   @if ($equipment->item==$equ->unit_item)
                   <tr>
                     <td class="justify-content-between d-flex">
-                      {{$equ->unit_item}}({{number_format($equ->unit_cost)}}円)×{{$equ->unit_count}}
+                      {{$equ->unit_item}}
+                      @if ($equ->unit_cost!=0)
+                      ({{number_format($equ->unit_cost)}}円)
+                      @endif
+                      ×{{$equ->unit_count}}
                     </td>
                   </tr>
                   @endif
@@ -394,7 +398,10 @@
                         @foreach ($pre_reservation->pre_breakdowns()->where('unit_type',3)->get() as $ser)
                         @if ($service->item==$ser->unit_item)
                         <li>
-                          {{$ser->unit_item}} {{number_format($ser->unit_cost)}}円
+                          {{$ser->unit_item}}
+                          @if ($ser->unit_cost!=0)
+                          {{number_format($ser->unit_cost)}}円
+                          @endif
                         </li>
                         @endif
                         @endforeach

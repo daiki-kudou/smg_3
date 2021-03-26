@@ -1126,7 +1126,6 @@
         $('input[name=unknown_user_email]').val("");
         $('input[name=unknown_user_mobile]').val("");
         $('input[name=unknown_user_tel]').val("");
-
       }
     });
 

@@ -471,6 +471,7 @@ class PreReservationsController extends Controller
     DB::transaction(function () use ($request, $id) { //トランザクションさせる
       $pre_reservation = PreReservation::find($id);
       $pre_reservation->update([
+        'user_id' => $request->user_id,
         'price_system' => $request->price_system,
         'enter_time' => $request->enter_time,
         'leave_time' => $request->leave_time,

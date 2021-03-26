@@ -26,11 +26,24 @@
       <thead>
         <tr>
           <th>顧客情報</th>
-          <th colspan="3">顧客ID：<p class="user_id d-inline">{{ReservationHelper::fixId($request->user_id)}}</p>
-          </th>
+          <td colspan="3">
+            <div class="d-flex align-items-center">
+              <p class="w-25">顧客ID：{{ReservationHelper::fixId($request->user_id)}}</p>
+              <select name="user_id" id="user_id">
+                @foreach ($users as $user)
+                <option value="{{$user->id}}" @if ($request->user_id==$user->id)
+                  selected
+                  @endif
+                  >
+                  {{ReservationHelper::getCompany($user->id)}} ・ {{ReservationHelper::getPersonName($user->id)}}
+                </option>
+                @endforeach
+              </select>
+            </div>
+          </td>
         </tr>
       </thead>
-      <tbody>
+      <tbody class="user_info">
         <tr>
           <td class="table-active">会社名・団体名</td>
           <td colspan="3">
@@ -734,32 +747,7 @@
                 </td>
               </tr>
             </tbody>
-            <!-- <tbody class="venue_discount">
-              <tr>
-                <td>割引計算欄</td>
-                <td>
-                  <p>
-                    割引金額
-                  </p>
-                  <div class="d-flex">
-                    {{ Form::text('venue_number_discount', $request->venue_number_discount?$request->venue_number_discount:'',['class'=>'form-control'] ) }}
-                    <p>円</p>
-                  </div>
-                </td>
-                <td>
-                  <p>
-                    割引率
-                  </p>
-                  <div class="d-flex">
-                    {{ Form::text('venue_percent_discount', $request->venue_percent_discount?$request->venue_percent_discount:'',['class'=>'form-control'] ) }}
-                    <p>%</p>
-                  </div>
-                </td>
-                <td>
-                  <input class="btn more_btn venue_discount_btn" type="button" value="計算する">
-                </td>
-              </tr>
-            </tbody> -->
+
             @else
             <span class="text-red">※料金体系がないため、手打ちで会場料を入力してください</span>
             <tbody class="venue_main">
@@ -870,32 +858,6 @@
                 </td>
               </tr>
             </tbody>
-            <!-- <tbody class="equipment_discount">
-              <tr>
-                <td>割引計算欄</td>
-                <td>
-                  <p>
-                    割引金額
-                  </p>
-                  <div class="d-flex">
-                    {{ Form::text('equipment_number_discount', $request->equipment_number_discount?$request->equipment_number_discount:'',['class'=>'form-control'] ) }}
-                    <p>円</p>
-                  </div>
-                </td>
-                <td>
-                  <p>
-                    割引率
-                  </p>
-                  <div class="d-flex">
-                    {{ Form::text('equipment_percent_discount', $request->equipment_percent_discount?$request->equipment_percent_discount:'',['class'=>'form-control'] ) }}
-                    <p>%</p>
-                  </div>
-                </td>
-                <td>
-                  <input class="btn more_btn equipment_discount_btn" type="button" value="計算する">
-                </td>
-              </tr>
-            </tbody> -->
           </table>
         </div>
         @endif
@@ -948,76 +910,9 @@
                 </td>
               </tr>
             </tbody>
-            <!-- <tbody class="layout_discount">
-              <tr>
-                <td>割引計算欄</td>
-                <td>
-                  <p>
-                    割引金額
-                  </p>
-                  <div class="d-flex">
-                    {{ Form::text('layout_number_discount', $request->layout_number_discount?$request->layout_number_discount:'',['class'=>'form-control'] ) }}
-                    <p>円</p>
-                  </div>
-                </td>
-                <td>
-                  <p>
-                    割引率
-                  </p>
-                  <div class="d-flex">
-                    {{ Form::text('layout_percent_discount', $request->layout_percent_discount?$request->layout_percent_discount:'',['class'=>'form-control'] ) }}
-                    <p>%</p>
-                  </div>
-                </td>
-                <td>
-                  <input class="btn more_btn layout_discount_btn" type="button" value="計算する">
-                </td>
-              </tr>
-            </tbody> -->
           </table>
         </div>
         @endif
-
-        <!-- <div class="others billdetails_content">
-          <table class="table table-borderless">
-            <tr>
-              <td colspan="4">
-                　<h4 class="billdetails_content_ttl">
-                  その他
-                </h4>
-              </td>
-            </tr>
-            <tbody class="others_head">
-              <tr>
-                <td>内容</td>
-                <td>単価</td>
-                <td>数量</td>
-                <td>金額</td>
-                <td>追加/削除</td>
-              </tr>
-            </tbody>
-            <tbody class="others_main">
-              <tr>
-                <td>{{ Form::text('others_input_item0', '',['class'=>'form-control'] ) }}</td>
-                <td>{{ Form::text('others_input_cost0', '',['class'=>'form-control'] ) }}</td>
-                <td>{{ Form::text('others_input_count0', '',['class'=>'form-control'] ) }}</td>
-                <td>{{ Form::text('others_input_subtotal0', '',['class'=>'form-control', 'readonly'] ) }}</td>
-                <td>
-                  <input type="button" value="＋" class="add pluralBtn">
-                  <input type="button" value="ー" class="del pluralBtn">
-                </td>
-              </tr>
-            </tbody>
-            <tbody class="others_result">
-              <tr>
-                <td colspan="2"></td>
-                <td colspan="3">合計
-                  {{ Form::text('others_price', '',['class'=>'form-control', 'readonly'] ) }}
-                </td>
-              </tr>
-            </tbody>
-          </table>
-        </div> -->
 
         <div class="bill_total">
           <table class="table text-right">
@@ -1080,6 +975,8 @@
 {{Form::hidden('unknown_user_email', $request->unknown_user_email)}}
 {{Form::hidden('unknown_user_tel', $request->unknown_user_tel)}}
 {{Form::hidden('unknown_user_mobile', $request->unknown_user_mobile)}}
+
+{{Form::hidden('user_id', $request->user_id)}}
 
 
 {{Form::submit('保存する', ['class'=>'btn more_btn_lg mx-auto d-block my-5', 'id'=>'check_submit'])}}
@@ -1206,6 +1103,73 @@
       }
     })
   })
+
+  $(function() {
+    $(document).on("change", "#user_id", function() {
+      var user_id = Number($('#user_id').val());
+      console.log(user_id);
+      if (user_id == 999) {
+        $('input[name=unknown_user_company]').prop('readonly', false);
+        $('input[name=unknown_user_name]').prop('readonly', false);
+        $('input[name=unknown_user_email]').prop('readonly', false);
+        $('input[name=unknown_user_mobile]').prop('readonly', false);
+        $('input[name=unknown_user_tel]').prop('readonly', false);
+        $('.company').text('');
+        $('.person').text('');
+        $('.email').text('');
+        $('.mobile').text('');
+        $('.tel').text('');
+      } else {
+        ajaxGetuser(user_id);
+        $('input[name=unknown_user_company]').prop('readonly', true);
+        $('input[name=unknown_user_name]').prop('readonly', true);
+        $('input[name=unknown_user_email]').prop('readonly', true);
+        $('input[name=unknown_user_mobile]').prop('readonly', true);
+        $('input[name=unknown_user_tel]').prop('readonly', true);
+        $('input[name=unknown_user_company]').val("");
+        $('input[name=unknown_user_name]').val("");
+        $('input[name=unknown_user_email]').val("");
+        $('input[name=unknown_user_mobile]').val("");
+        $('input[name=unknown_user_tel]').val("");
+      }
+    });
+
+    function ajaxGetuser($user_id) {
+      $.ajax({
+          headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+          },
+          url: '/admin/pre_reservations/get_user',
+          type: 'POST',
+          data: {
+            'user_id': $user_id,
+          },
+          dataType: 'json',
+          beforeSend: function() {
+            $('#fullOverlay').css('display', 'block');
+          },
+        })
+        .done(function($user) {
+          $('#fullOverlay').css('display', 'none');
+          console.log($user);
+          $(".user_info").find('tr').eq(0).find('td').eq(1).text("");
+          $(".user_info").find('tr').eq(0).find('td').eq(1).text($user[0]);
+          $(".user_info").find('tr').eq(1).find('td').eq(1).text("");
+          $(".user_info").find('tr').eq(1).find('td').eq(1).text($user[1] + $user[2]);
+          $(".user_info").find('tr').eq(1).find('td').eq(3).text("");
+          $(".user_info").find('tr').eq(1).find('td').eq(3).text($user[3]);
+          $(".user_info").find('tr').eq(2).find('td').eq(1).text("");
+          $(".user_info").find('tr').eq(2).find('td').eq(1).text($user[4]);
+          $(".user_info").find('tr').eq(2).find('td').eq(3).text("");
+          $(".user_info").find('tr').eq(2).find('td').eq(3).text($user[5]);
+          $('input[name="user_id"]').val($user[6]);
+        })
+        .fail(function($user) {
+          $('#fullOverlay').css('display', 'none');
+          console.log("エラーです");
+        });
+    };
+  });
 </script>
 
 @endsection
