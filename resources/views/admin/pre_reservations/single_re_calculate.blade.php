@@ -193,7 +193,7 @@
                   {{Form::label('board_flag',"有り")}}
                 </p>
                 <p>
-                  {{Form::radio('board_flag',$request->board_flag==0?true:false,true,['id'=>'no_board_flag'])}}
+                  {{Form::radio('board_flag',0,$request->board_flag==0?true:false,['id'=>'no_board_flag'])}}
                   {{Form::label('no_board_flag',"無し")}}
                 </p>
               </div>
@@ -585,14 +585,7 @@
     </div>
   </div>
 
-  <div class="spin_btn hide">
-    <div class="d-flex justify-content-center">
-      <button class="btn btn-primary btn-lg" type="button" disabled>
-        <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
-        Loading...
-      </button>
-    </div>
-  </div>
+
 
 
 

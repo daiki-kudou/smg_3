@@ -197,10 +197,12 @@
             <td>
               <div class="radio-box">
                 <p>
-                  <input type="radio" name="board_flag" value="0" checked=""><span>無し</span>
+                  {{Form::radio('board_flag', 1, $request->board_flag==1?true:false , ['id' => 'board_flag_on'])}}
+                  {{Form::label('board_flag_on','有り')}}
                 </p>
                 <p>
-                  <input type="radio" name="board_flag" value="1"><span>有り</span>
+                  {{Form::radio('board_flag', 0, $request->board_flag==0?true:false, ['id' => 'board_flag_off'])}}
+                  {{Form::label('board_flag_off','無し')}}
                 </p>
               </div>
             </td>
