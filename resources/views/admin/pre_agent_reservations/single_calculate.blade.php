@@ -724,7 +724,7 @@
               @endif
               @if ($request->layout_clean==1)
               <tr>
-                <td>{{ Form::text('layout_clean_item', "レイアウト準備料金",['class'=>'form-control', 'readonly'] ) }}</td>
+                <td>{{ Form::text('layout_clean_item', "レイアウト片付料金",['class'=>'form-control', 'readonly'] ) }}</td>
                 <td>
                   {{ Form::text('layout_clean_cost', $venue->getLayouts()[1],['class'=>'form-control', 'readonly'] ) }}
                 </td>
@@ -747,37 +747,6 @@
             @endif
           </table>
         </div>
-
-        <!-- <div class="others billdetails_content">
-            <table class="table table-borderless">
-              <tbody>
-                <tr>
-                  <td colspan="3">
-                    　<h4 class="billdetails_content_ttl">
-                      その他
-                    </h4>
-                  </td>
-                </tr>
-              </tbody>
-              <tbody class="others_head">
-                <tr>
-                  <td>内容</td>
-                  <td>数量</td>
-                  <td>追加/削除</td>
-                </tr>
-              </tbody>
-              <tbody class="others_main">
-                <tr>
-                  <td>{{ Form::text('others_input_item0', '',['class'=>'form-control'] ) }}</td>
-                  <td>{{ Form::text('others_input_count0', '',['class'=>'form-control'] ) }}</td>
-                  <td>
-                    <input type="button" value="＋" class="add pluralBtn">
-                    <input type="button" value="ー" class="del pluralBtn">
-                  </td>
-                </tr>
-              </tbody>
-            </table>
-          </div> -->
 
         <div class="bill_total">
           <table class="table text-right" style="table-layout: fixed;">
