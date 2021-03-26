@@ -257,7 +257,7 @@
           <tr>
             <td class="table-active"><label for="luggage_tel">電話番号</label></td>
             <td>
-              {{ Form::textarea('luggage_tel', $venue->luggage_tel, ['class' => 'form-control' ,'placeholder' => '半角数字、ハイフンなしで入力してください','rows'=>"2"]) }}
+              {{ Form::textarea('luggage_tel', $venue->luggage_tel, ['class' => 'form-control' ]) }}
               <p class="is-error-luggage_tel" style="color: red"></p>
             </td>
           </tr>
@@ -293,12 +293,14 @@
             <td class="table-active"><label for="">TEL </label></td>
             <td colspan="2">
               {{ Form::text('reserver_tel', $venue->reserver_tel, ['class' => 'form-control']) }}
+              <p class="is-error-reserver_tel" style="color: red"></p>
             </td>
           </tr>
           <tr>
             <td class="table-active"><label for="">FAX</label></td>
             <td colspan="2">
               {{ Form::text('reserver_fax', $venue->reserver_fax, ['class' => 'form-control']) }}
+              <p class="is-error-reserver_fax" style="color: red"></p>
             </td>
           </tr>
           <tr>
@@ -336,9 +338,9 @@
             </td>
           </tr>
           <tr>
-            <td class="table-active"><label for="">備考 (工藤さん！！！追加項目です)</label></td>
+            <td class="table-active"><label for="">備考</label></td>
             <td colspan="2">
-              <textarea class="form-control"></textarea>
+              {{ Form::textarea('reserver_remark', $venue->reserver_remark, ['class' => 'form-control']) }}
             </td>
           </tr>
         </tbody>
@@ -366,12 +368,14 @@
             <td class="table-active"><label for="mgmt_tel">電話番号</label></td>
             <td colspan="2">
               {{ Form::text('mgmt_tel', $venue->mgmt_tel, ['class' => 'form-control','placeholder' => '半角数字、ハイフンなしで入力してください']) }}
+              <p class="is-error-mgmt_tel" style="color: red"></p>
             </td>
           </tr>
           <tr>
             <td class="table-active"><label for="mgmt_emer_tel">夜間緊急連絡先</label></td>
             <td colspan="2">
               {{ Form::text('mgmt_emer_tel', $venue->mgmt_emer_tel, ['class' => 'form-control','placeholder' => '半角数字、ハイフンなしで入力してください']) }}
+              <p class="is-error-mgmt_emer_tel" style="color: red"></p>
             </td>
           </tr>
 
@@ -385,9 +389,10 @@
             </td>
           </tr>
           <tr>
-            <td class="table-active"><label for="mgmt_person_tel">担当者電話番号 (工藤さん！！！追加項目です)</label></td>
+            <td class="table-active"><label for="mgmt_person_tel">担当者電話番号</label></td>
             <td colspan="2">
               {{ Form::text('mgmt_person_tel', $venue->mgmt_person_tel, ['class' => 'form-control']) }}
+              <p class="is-error-mgmt_person_tel" style="color: red"></p>
             </td>
           </tr>
           <tr>
@@ -406,6 +411,7 @@
             <td class="table-active"><label for="mgmt_sec_tel">警備会社電話番号</label></td>
             <td colspan="2">
               {{ Form::text('mgmt_sec_tel', $venue->mgmt_sec_tel, ['class' => 'form-control','placeholder' => '半角数字、ハイフンなしで入力してください']) }}
+              <p class="is-error-mgmt_sec_tel" style="color: red"></p>
             </td>
           </tr>
           <tr>

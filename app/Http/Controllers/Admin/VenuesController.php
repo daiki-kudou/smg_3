@@ -124,6 +124,12 @@ class VenuesController extends Controller
     $venues->person_tel = $request->person_tel;
     $venues->person_email = $request->person_email;
     $venues->luggage_flag = $request->luggage_flag;
+
+    $venues->reserver_company = $request->reserver_company;
+    $venues->reserver_tel = $request->reserver_tel;
+    $venues->reserver_fax = $request->reserver_fax;
+    $venues->reserver_remark = $request->reserver_remark;
+
     $venues->luggage_post_code = $request->luggage_post_code;
     $venues->luggage_address1 = $request->luggage_address1;
     $venues->luggage_address2 = $request->luggage_address2;
@@ -299,6 +305,12 @@ class VenuesController extends Controller
       $venue->person_tel = $request->person_tel;
       $venue->person_email = $request->person_email;
       $venue->luggage_flag = $request->luggage_flag;
+
+      $venue->reserver_company = $request->reserver_company;
+      $venue->reserver_tel = $request->reserver_tel;
+      $venue->reserver_fax = $request->reserver_fax;
+      $venue->reserver_remark = $request->reserver_remark;
+
       $venue->luggage_post_code = $request->luggage_post_code;
       $venue->luggage_address1 = $request->luggage_address1;
       $venue->luggage_address2 = $request->luggage_address2;

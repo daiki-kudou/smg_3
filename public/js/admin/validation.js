@@ -1048,6 +1048,8 @@ $(function () {
       mgmt_email: { email: true, },
       mgmt_tel: { number: true },
       mgmt_emer_tel: { number: true },
+      mgmt_person_tel: { number: true },
+      mgmt_sec_tel: { number: true },
       cost: { range: [1, 100] },
     },
     messages: {
@@ -1073,6 +1075,8 @@ $(function () {
       mgmt_email: { email: '※Emailの形式で入力してください', },
       mgmt_tel: { number: "※半角英数字で入力してください" },
       mgmt_emer_tel: { number: "※半角英数字で入力してください" },
+      mgmt_person_tel: { number: "※半角英数字で入力してください" },
+      mgmt_sec_tel: { number: "※半角英数字で入力してください" },
       cost: { range: "※1から100までの数値を入力してください" },
     },
     errorPlacement: function (error, element) {
@@ -1158,8 +1162,8 @@ $(function () {
       },
       capacity: {
         required: true,
-        number: true,
-        min: 0
+        // number: true,
+        // min: 0
       },
       post_code: {
         required: true,
@@ -1183,6 +1187,12 @@ $(function () {
       last_name_kana: {
         katakana: true,
       },
+      person_tel: {
+        number: true,
+      },
+      person_email: {
+        email: true,
+      },
       eat_in_flag: {
         required: true,
       },
@@ -1203,6 +1213,21 @@ $(function () {
       },
       layout_clean: {
         required: $("#layout").val() == 1
+      },
+      reserver_tel: {
+        number: true,
+      },
+      reserver_fax: {
+        number: true,
+      },
+      mgmt_person_tel: {
+        number: true,
+      },
+      mgmt_emer_tel: {
+        number: true,
+      },
+      mgmt_sec_tel: {
+        number: true,
       },
     },
     messages: {
@@ -1232,8 +1257,8 @@ $(function () {
       },
       capacity: {
         required: "※必須項目です",
-        number: "※半角英数字を入力してください",
-        min: "0以上を入力してください"
+        // number: "※半角英数字を入力してください",
+        // min: "0以上を入力してください"
       },
       post_code: {
         required: "※必須項目です",
@@ -1257,24 +1282,12 @@ $(function () {
       last_name_kana: {
         katakana: "※カタカナで入力してください",
       },
-      // luggage_post_code: {
-      //   required: "※必須項目です",
-      // },
-      // luggage_address1: {
-      //   required: "※必須項目です",
-      // },
-      // luggage_address2: {
-      //   required: "※必須項目です",
-      // },
-      // luggage_address3: {
-      //   required: "※必須項目です",
-      // },
-      // luggage_name: {
-      //   required: "※必須項目です",
-      // },
-      // luggage_tel: {
-      //   required: "※必須項目です",
-      // },
+      person_tel: {
+        number: "※半角英数字で入力してください",
+      },
+      person_email: {
+        email: '※メールアドレスの形式で入力してください',
+      },
       eat_in_flag: {
         required: "※必須項目です",
       },
@@ -1289,6 +1302,24 @@ $(function () {
       },
       layout_clean: {
         required: "レイアウト変更が【可】の場合、必須項目です"
+      },
+      reserver_tel: {
+        number: "※半角英数字で入力してください",
+      },
+      reserver_fax: {
+        number: "※半角英数字で入力してください",
+      },
+      mgmt_person_tel: {
+        number: "※半角英数字で入力してください",
+      },
+      mgmt_tel: {
+        number: "※半角英数字で入力してください",
+      },
+      mgmt_emer_tel: {
+        number: "※半角英数字で入力してください",
+      },
+      mgmt_sec_tel: {
+        number: "※半角英数字で入力してください",
       },
 
     },
