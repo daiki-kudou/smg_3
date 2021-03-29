@@ -1229,6 +1229,9 @@ $(function () {
       mgmt_sec_tel: {
         number: true,
       },
+      luggage_post_code: {
+        number: true,
+      },
     },
     messages: {
       alliance_flag: {
@@ -1319,6 +1322,9 @@ $(function () {
         number: "※半角英数字で入力してください",
       },
       mgmt_sec_tel: {
+        number: "※半角英数字で入力してください",
+      },
+      luggage_post_code: {
         number: "※半角英数字で入力してください",
       },
 
