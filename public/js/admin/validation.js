@@ -1051,6 +1051,7 @@ $(function () {
       mgmt_person_tel: { number: true },
       mgmt_sec_tel: { number: true },
       cost: { range: [1, 100] },
+      reserver_tel: { number: true },
     },
     messages: {
       alliance_flag: { required: "※必須項目です", },
@@ -1078,6 +1079,8 @@ $(function () {
       mgmt_person_tel: { number: "※半角英数字で入力してください" },
       mgmt_sec_tel: { number: "※半角英数字で入力してください" },
       cost: { range: "※1から100までの数値を入力してください" },
+      reserver_tel: { number: "※半角英数字で入力してください" },
+
     },
     errorPlacement: function (error, element) {
       var name = element.attr('name');
