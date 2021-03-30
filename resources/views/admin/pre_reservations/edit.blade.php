@@ -651,6 +651,30 @@
             </tr>
           </tbody>
         </table>
+
+        @if ($SPVenue->alliance_flag==1)
+        <table class="table table-bordered cost-table">
+          <tbody>
+            <tr>
+              <td colspan="2">
+                <p class="title-icon">
+                  <i class="fas fa-yen-sign icon-size" aria-hidden="true"></i>売上原価
+                </p>
+              </td>
+            </tr>
+            <tr>
+              <td class="table-active"><label for="">原価率</label></td>
+              <td>
+                <div class="d-flex align-items-center">
+                  {{Form::text("cost", $SPVenue->cost,['class'=>'form-control'])}}
+                  <span class="ml-1">%</span>
+                </div>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+        @endif
+
         <table class="table table-bordered note-table">
           <tbody>
             <tr>

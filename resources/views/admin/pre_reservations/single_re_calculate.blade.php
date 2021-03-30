@@ -581,6 +581,33 @@
             </tr>
           </tbody>
         </table>
+
+        @if ($SPVenue->alliance_flag==1)
+        <table class="table table-bordered cost-table">
+          <tbody>
+            <tr>
+              <td colspan="2">
+                <p class="title-icon">
+                  <i class="fas fa-yen-sign icon-size" aria-hidden="true"></i>売上原価
+                </p>
+              </td>
+            </tr>
+            <tr>
+              <td class="table-active"><label for="">原価率</label></td>
+              <td>
+                <div class="d-flex align-items-center">
+                  {{Form::text("cost", $request->cost,['class'=>'form-control'])}}
+                  <span class="ml-1">%</span>
+                </div>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+
+        @endif
+
+
+
         <table class="table table-bordered note-table">
           <tbody>
             <tr>
@@ -641,7 +668,6 @@
 
 {{ Form::open(['url' => 'admin/pre_reservations/'.$request->id.'/edit_update', 'method'=>'PUT']) }}
 @csrf
-
 {{-- 以下、計算結果 --}}
 <div class="container-fluid">
   <div class="bill">
@@ -967,6 +993,9 @@
 {{Form::hidden('unknown_user_mobile', $request->unknown_user_mobile)}}
 
 {{Form::hidden('user_id', $request->user_id)}}
+
+{{Form::hidden("cost", $request->cost)}}
+
 
 
 {{Form::submit('保存する', ['class'=>'btn more_btn_lg mx-auto d-block my-5', 'id'=>'check_submit'])}}

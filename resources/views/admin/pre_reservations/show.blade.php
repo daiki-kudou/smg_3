@@ -634,7 +634,7 @@
                 <tr>
                   <td class="table-active"><label for="sale">原価率</label></td>
                   <td>
-                    (提携会場のときに表示)
+                    {{$pre_reservation->cost}}%
                   </td>
                 </tr>
               </tbody>
