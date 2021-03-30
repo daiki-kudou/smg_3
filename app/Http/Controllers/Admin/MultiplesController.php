@@ -67,6 +67,39 @@ class MultiplesController extends Controller
     ]);
   }
 
+  public function switchAgent($id)
+  {
+    $multiple = MultipleReserve::find($id);
+    $venues = $multiple->pre_reservations()->distinct('')->select('venue_id')->get();
+    $venue_count = $venues->count('venue_id');
+    $pre_enduser = $multiple->pre_reservations()->first()->pre_enduser;
+    $agents = Agent::all();
+
+    return view('admin.multiples.switch_agent', compact('multiple', 'venue_count', 'venues', 'agents', 'pre_enduser'));
+  }
+
+  public function switchAgent_cfm(Request $request, $id)
+  {
+    DB::transaction(function () use ($request, $id) { //トランザクションさせる
+      $multiple = MultipleReserve::find($id);
+      foreach ($multiple->pre_reservations()->get() as $key => $pre_reservation) {
+        $pre_reservation->update([
+          'agent_id' => $request->agent_id
+        ]);
+        $pre_reservation->pre_enduser->update([
+          "pre_reservation_id" => $pre_reservation->id,
+          "company" => $request->end_user_company,
+          "person" => $request->end_user_name,
+          "tel" => $request->end_user_tel,
+          "mobile" => $request->end_user_mobile,
+          "email" => $request->end_user_email,
+        ]);
+      }
+    });
+    $request->session()->regenerate();
+    return redirect('admin/multiples/agent/' . $id);
+  }
+
   public function switch_cfm(Request $request, $id)
   {
     DB::transaction(function () use ($request, $id) { //トランザクションさせる

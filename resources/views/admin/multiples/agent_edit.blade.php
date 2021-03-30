@@ -824,7 +824,7 @@
                   @endif
 
 
-
+                  @if ($venue->eat_in_flag!=0)
                   <table class="table table-bordered eating-table">
                     <thead>
                       <tr>
@@ -857,6 +857,9 @@
                       </tr>
                     </tbody>
                   </table>
+                  @endif
+
+
                 </div>
                 <!-- 左側の項目 終わり-------------------------------------------------- -->
                 <!-- 右側の項目-------------------------------------------------- -->
@@ -1007,14 +1010,6 @@
                             </tr>
                             @endforeach
                           </tbody>
-                          {{-- <tbody class="{{'venue_result'.$key}}">
-                          <tr>
-                            <td colspan=""></td>
-                            <td colspan="">合計
-                              {{ Form::text('venue_price'.$key,$pre_reservation->pre_bill->venue_price,['class'=>'form-control col-xs-3', 'readonly'] ) }}
-                            </td>
-                          </tr>
-                          </tbody> --}}
                         </table>
                       </div>
 
@@ -1077,18 +1072,11 @@
                             </tr>
                             @endforeach
                           </tbody>
-                          {{-- <tbody class="{{'equipment_result'.$key}}">
-                          <tr>
-                            <td colspan="2"></td>
-                            <td colspan="2">合計
-                              {{ Form::text('equipment_price'.$key, $pre_reservation->pre_bill->equipment_price,['class'=>'form-control', 'readonly'] ) }}
-                            </td>
-                          </tr>
-                          </tbody> --}}
                         </table>
                       </div>
 
                       {{-- 以下、レイアウト --}}
+                      @if ($venue->layout!=0)
                       <div class="layout billdetails_content">
                         <table class="table table-borderless">
                           <tr>
@@ -1135,6 +1123,7 @@
                           </tbody>
                         </table>
                       </div>
+                      @endif
 
                       {{-- 以下、総合計 --}}
                       <div class="bill_total">

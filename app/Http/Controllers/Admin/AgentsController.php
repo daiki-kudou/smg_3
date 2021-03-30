@@ -105,4 +105,10 @@ class AgentsController extends Controller
 
     return redirect('admin/agents');
   }
+
+  public function getAgent(Request $request)
+  {
+    $agent = Agent::find($request->agent_id);
+    return $agent;
+  }
 }
