@@ -455,8 +455,7 @@
         <div class="register-list-item">
           <div class="from-group list_checkbox">
             <div class="form-check">
-              <input type="checkbox" name="{{'delete_check'.$pre_reservation->id}}" value="{{$pre_reservation->id}}"
-                class="checkbox mr-1" />
+              <input type="checkbox" name="{{'delete_check'.$pre_reservation->id}}" value="{{$pre_reservation->id}}" class="checkbox mr-1" />
               <!-- <input class="form-check-input" type="checkbox"> -->
               <label class="form-check-label"></label>
             </div>
@@ -544,9 +543,7 @@
                         <td>
                           <select name="{{'event_start_copied'.$key}}" class="form-control">
                             <option disabled>選択してください</option>
-                            @for ($start = 0*2; $start <=23*2; $start++) <option
-                              value="{{date("H:i:s", strtotime("00:00 +". $start * 30 ." minute"))}}" @if(date("H:i:s",
-                              strtotime("00:00 +". $start * 30 ." minute"))==$pre_reservation->enter_time)
+                            @for ($start = 0*2; $start <=23*2; $start++) <option value="{{date("H:i:s", strtotime("00:00 +". $start * 30 ." minute"))}}" @if(date("H:i:s", strtotime("00:00 +". $start * 30 ." minute"))==$pre_reservation->enter_time)
                               selected
                               @endif
                               >
@@ -558,12 +555,9 @@
                       <tr>
                         <td class="table-active"><label for="eventFinish">イベント終了時間</label></td>
                         <td>
-                          <select name="{{'event_finish_copied'.$key}}" id="{{'event_finish_copied'.$key}}"
-                            class="form-control">
+                          <select name="{{'event_finish_copied'.$key}}" id="{{'event_finish_copied'.$key}}" class="form-control">
                             <option disabled>選択してください</option>
-                            @for ($start = 0*2; $start <=23*2; $start++) <option
-                              value="{{date("H:i:s", strtotime("00:00 +". $start * 30 ." minute"))}}" @if (date("H:i:s",
-                              strtotime("00:00 +". $start * 30 ." minute"))==$pre_reservation->leave_time)
+                            @for ($start = 0*2; $start <=23*2; $start++) <option value="{{date("H:i:s", strtotime("00:00 +". $start * 30 ." minute"))}}" @if (date("H:i:s", strtotime("00:00 +". $start * 30 ." minute"))==$pre_reservation->leave_time)
                               selected
                               @endif
                               >
@@ -577,31 +571,29 @@
                         <td>
                           <div class="align-items-end d-flex">
                             {{ Form::text('event_name1_copied'.$key,$pre_reservation->event_name1,['class'=>'form-control', 'placeholder'=>'入力してください', 'id'=>"copiedeventname1Count".$key] ) }}
-                            <!-- {{ Form::text('event_name1_copied'.$key,$pre_reservation->event_name1,['class'=>'form-control', 'placeholder'=>'入力してください', 'id'=>"copiedeventname1Count".$key] ) }} -->
-                            <span class="ml-1 annotation count_num1_copied"></span>
+                            <span class="ml-1 annotation {{'count_num1_copied'.$key}}"></span>
                           </div>
-                          <!-- <p class="{{"eventname1_error".$key}}" style="color: red">※文字数がオーバーしています</p> -->
-                          <p class="eventname1_error" style="color: red"></p>
+                          <p class="{{'eventname1_error'.$key}}" style="color: red"></p>
                         </td>
                       </tr>
                       <tr>
                         <td class="table-active"><label for="eventName2">イベント名称2</label></td>
                         <td>
                           <div class="align-items-end d-flex">
-                            {{ Form::text('event_name2_copied'.$key, $pre_reservation->event_name2,['class'=>'form-control', 'placeholder'=>'入力してください', 'id'=>'copiedeventname2Count'] ) }}
-                            <span class="ml-1 annotation count_num2"></span>
+                            {{ Form::text('event_name2_copied'.$key, $pre_reservation->event_name2,['class'=>'form-control', 'placeholder'=>'入力してください', 'id'=>"copiedeventname2Count".$key] ) }}
+                            <span class="ml-1 annotation {{'count_num2_copied'.$key}}"></span>
                           </div>
-                          <p class="is-error-event_name2_copied" style="color: red"></p>
+                          <p class="{{'eventname2_error'.$key}}" style="color: red"></p>
                         </td>
                       </tr>
                       <tr>
                         <td class="table-active"><label for="organizer">主催者名</label></td>
                         <td>
                           <div class="align-items-end d-flex">
-                            {{ Form::text('event_owner'.$key, $pre_reservation->event_owner,['class'=>'form-control', 'placeholder'=>'入力してください', 'id'=>'copiedeventownerCount'] ) }}
-                            <span class="ml-1 annotation count_num3"></span>
+                            {{ Form::text('event_owner'.$key, $pre_reservation->event_owner,['class'=>'form-control', 'placeholder'=>'入力してください', 'id'=>"copiedeventOwnerCount".$key] ) }}
+                            <span class="ml-1 annotation {{'count_num3_copied'.$key}}"></span>
                           </div>
-                          <p class="is-error-event_owner_copied" style="color: red"></p>
+                          <p class="{{'eventowner_error'.$key}}" style="color: red"></p>
                         </td>
                       </tr>
                     </tbody>
