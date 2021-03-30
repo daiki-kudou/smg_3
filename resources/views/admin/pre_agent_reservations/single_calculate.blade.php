@@ -342,6 +342,9 @@
             </tbody>
           </table>
         </div>
+
+
+        @if ($venue->layout!=0)
         <div class="layouts">
           <table class="table table-bordered">
             <thead>
@@ -399,6 +402,11 @@
             </tbody>
           </table>
         </div>
+        @endif
+
+
+
+        @if ($venue->luggage_flag!=0)
         <div class="luggage">
           <table class="table table-bordered">
             <thead>
@@ -432,16 +440,11 @@
                   <p class='is-error-luggage_return' style=' color: red'></p>
                 </td>
               </tr>
-              <!-- <tr>
-                <td class="table-active">荷物預り/返送<br>料金</td>
-                <td>
-                  {{ Form::text('luggage_price', $request->luggage_price,['class'=>'form-control'] ) }}
-                </td>
-              </tr> -->
               @endif
             </tbody>
           </table>
         </div>
+        @endif
 
         @if ($venue->eat_in_flag==1)
         <div class="eat_in">
@@ -690,6 +693,7 @@
           </table>
         </div>
 
+        @if ($venue->layout!=0)
         <div class="layout billdetails_content">
           <table class="table table-borderless">
             <tbody>
@@ -747,6 +751,8 @@
             @endif
           </table>
         </div>
+        @endif
+
 
         <div class="bill_total">
           <table class="table text-right" style="table-layout: fixed;">

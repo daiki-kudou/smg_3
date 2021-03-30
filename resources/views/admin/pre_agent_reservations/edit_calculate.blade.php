@@ -344,6 +344,8 @@
             </tbody>
           </table>
         </div>
+
+        @if ($venue->layout!=0)
         <div class="layouts">
           <table class="table table-bordered">
             <thead>
@@ -397,6 +399,9 @@
             </tbody>
           </table>
         </div>
+        @endif
+
+
         <div class="luggage">
           <table class="table table-bordered">
             <thead>
@@ -699,6 +704,8 @@
             </table>
           </div>
 
+          @if ($venue->layout!=0)
+
           <div class="layout billdetails_content">
             <table class="table table-borderless">
               <tbody>
@@ -756,6 +763,8 @@
               @endif
             </table>
           </div>
+          @endif
+
 
           <div class="bill_total">
             <table class="table text-right" style="table-layout: fixed;">

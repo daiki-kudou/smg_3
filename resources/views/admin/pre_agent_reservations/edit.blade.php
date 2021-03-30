@@ -798,6 +798,8 @@
 
             </table>
           </div>
+
+          @if ($SPVenue->layout!=0)
           <div class="layout billdetails_content">
             <table class="table table-borderless">
               <tr>
@@ -843,6 +845,8 @@
               </tbody>
             </table>
           </div>
+          @endif
+
 
           <div class="bill_total">
             <table class="table text-right">
