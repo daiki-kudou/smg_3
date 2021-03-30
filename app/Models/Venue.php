@@ -68,46 +68,6 @@ class Venue extends Model implements PresentableInterface
     'layout_clean',
   ];
 
-  public function searchs(
-    $freeword,
-    $id,
-    $alliance_flag,
-    $name_area,
-    $name_bldg,
-    $name_venue,
-    $capacity1,
-    $capacity2,
-    $counter
-  ) {
-    if (isset($freeword)) {
-      return $this->where('id', 'LIKE', "%$freeword%")
-        ->orWhere('alliance_flag', 'LIKE', "%$freeword%")
-        ->orWhere('name_area', 'LIKE', "%$freeword%")
-        ->orWhere('alliance_flag', 'LIKE', "%$freeword%")
-        ->orWhere('name_bldg', 'LIKE', "%$freeword%")
-        ->orWhere('name_venue', 'LIKE', "%$freeword%")
-        ->orWhere('capacity', 'LIKE', "%$freeword%")
-        ->orWhere('capacity', 'LIKE', "%$freeword%")->paginate($counter);
-    } elseif (isset($id)) {
-      return $this->where('id', 'LIKE', "%$id%")->paginate($counter);
-    } elseif (isset($alliance_flag)) {
-      return $this->where('alliance_flag', 'LIKE', "%$alliance_flag%")->paginate($counter);
-    } elseif (isset($name_area)) {
-      return $this->where('name_area', 'LIKE', "%$name_area%")->paginate($counter);
-    } elseif (isset($name_bldg)) {
-      return $this->where('name_bldg', 'LIKE', "%$name_bldg%")->paginate($counter);
-    } elseif (isset($name_venue)) {
-      return $this->where('name_venue', 'LIKE', "%$name_venue%")->paginate($counter);
-    } elseif (isset($capacity1) && isset($capacity2)) {
-      return $this->whereBetween('capacity', $capacity1, $capacity2)->paginate($counter);;
-    } elseif (isset($capacity1)) {
-      return $this->where('capacity', '>=', $capacity1)->paginate($counter);;
-    } elseif (isset($capacity2)) {
-      return $this->where('capacity', '<=', $capacity2)->paginate($counter);;
-    } else {
-      return $this->query()->paginate($counter);
-    }
-  }
 
   /*
 |--------------------------------------------------------------------------

@@ -36,8 +36,8 @@ trait SearchTrait
 
     if (!empty($request->search_person)) { // 担当者氏名
       $andSearch->whereHas('user', function ($query) use ($request) {
-        $query->where('first_name', 'LIKE', "%$request->search_person%");
-        $query->orWhere('last_name', 'LIKE', "%$request->search_person%");
+        $query->where('first_name', 'LIKE', "%{$request->search_person}%");
+        $query->orWhere('last_name', 'LIKE', "%{$request->search_person}%");
         $query->orWhere(DB::raw('CONCAT(first_name, last_name)'), 'like', '%' . $request->search_person . '%');
         //https://qiita.com/tkek321/items/cb807751943ab5f873cd
         // こちらを参照
@@ -73,27 +73,27 @@ trait SearchTrait
 
     if (!empty($request->search_company)) {
       $result->whereHas("pre_reservations.user", function ($query) use ($request) {
-        $query->where("company", 'LIKE', "%$request->search_company%");
+        $query->where("company", 'LIKE', "%{$request->search_company}%");
       });
     }
 
     if (!empty($request->search_person)) { //参照　https://prglog.info/home/?p=462
       $result->whereHas("pre_reservations.user", function ($query) use ($request) {
-        $query->where("first_name", 'LIKE', "%$request->search_person%");
-        $query->orWhere("last_name", 'LIKE', "%$request->search_person%");
+        $query->where("first_name", 'LIKE', "%{$request->search_person}%");
+        $query->orWhere("last_name", 'LIKE', "%{$request->search_person}%");
         $query->orWhere(DB::raw('CONCAT(first_name, last_name)'), 'like', '%' . $request->search_person . '%');
       });
     }
 
     if (!empty($request->search_mobile)) {
       $result->whereHas("pre_reservations.user", function ($query) use ($request) {
-        $query->orWhere('mobile', "LIKE", "%$request->search_mobile%");
+        $query->orWhere('mobile', "LIKE", "%{$request->search_mobile}%");
       });
     }
 
     if (!empty($request->search_mobile)) {
       $result->orWhereHas("pre_reservations.agent", function ($query) use ($request) {
-        $query->latest()->orWhere('person_mobile', "LIKE", "%$request->search_mobile%");
+        $query->latest()->orWhere('person_mobile', "LIKE", "%{$request->search_mobile}%");
       });
     }
 
@@ -105,19 +105,19 @@ trait SearchTrait
 
     if (!empty($request->search_unkown_user)) {
       $result->whereHas("pre_reservations.unknown_user", function ($query) use ($request) {
-        $query->where('unknown_user_company', "LIKE", "%$request->search_unkown_user%");
+        $query->where('unknown_user_company', "LIKE", "%{$request->search_unkown_user}%");
       });
     }
 
     if (!empty($request->search_agent)) {
       $result->whereHas("pre_reservations.agent", function ($query) use ($request) {
-        $query->where('company', "LIKE", "%$request->search_agent%");
+        $query->where('company', "LIKE", "%{$request->search_agent}%");
       });
     }
 
     if (!empty($request->search_end_user)) {
       $result->whereHas("pre_reservations.pre_enduser", function ($query) use ($request) {
-        $query->where('company', "LIKE", "%$request->search_end_user%");
+        $query->where('company', "LIKE", "%{$request->search_end_user}%");
       });
     }
 
