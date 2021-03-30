@@ -92,7 +92,7 @@
           </td>
         </tr>
         <tr>
-          <td class="table-active">利用者属性</td>
+          <td class="table-active form-required">利用者属性</td>
           <td>
             <select name="pre_enduser_attr" class="form-control">
               <option value=""></option>

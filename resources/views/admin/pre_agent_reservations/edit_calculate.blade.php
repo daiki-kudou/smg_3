@@ -213,9 +213,7 @@
               <select name="event_start" id="event_start" class="form-control">
                 <option disabled></option>
 
-                @for ($start = 0*2; $start <=23*2; $start++) <option
-                  value="{{date("H:i:s", strtotime("00:00 +". $start * 30 ." minute"))}}" @if (date("H:i:s",
-                  strtotime("00:00 +". $start * 30 ." minute"))==$request->event_start)
+                @for ($start = 0*2; $start <=23*2; $start++) <option value="{{date("H:i:s", strtotime("00:00 +". $start * 30 ." minute"))}}" @if (date("H:i:s", strtotime("00:00 +". $start * 30 ." minute"))==$request->event_start)
                   selected
                   @elseif(date("H:i:s",strtotime("00:00 +". $start * 30 ." minute")) < $request->enter_time)
                     disabled
@@ -236,9 +234,7 @@
               <select name="event_finish" id="event_finish" class="form-control">
                 <option disabled></option>
 
-                @for ($start = 0*2; $start <=23*2; $start++) <option
-                  value="{{date("H:i:s", strtotime("00:00 +". $start * 30 ." minute"))}}"
-                  @if(date("H:i:s",strtotime("00:00 +". $start * 30 ." minute"))==$request->event_finish)
+                @for ($start = 0*2; $start <=23*2; $start++) <option value="{{date("H:i:s", strtotime("00:00 +". $start * 30 ." minute"))}}" @if(date("H:i:s",strtotime("00:00 +". $start * 30 ." minute"))==$request->event_finish)
                   selected
                   @elseif(date("H:i:s",strtotime("00:00 +". $start * 30 ." minute")) < $request->enter_time)
                     disabled
@@ -522,7 +518,10 @@
             <tr>
               <td class="table-active"><label for="">原価率</label></td>
               <td>
-                {{ Form::text('cost', $request->cost,['class'=>'form-control', 'placeholder'=>'入力してください'] ) }}%
+                <div class="align-items-end d-flex">
+                  {{ Form::text('cost', $request->cost,['class'=>'form-control', 'placeholder'=>'入力してください'] ) }}
+                  <span class="ml-2">%</span>
+                </div>
               </td>
             </tr>
           </tbody>
