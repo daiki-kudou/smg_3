@@ -31,7 +31,7 @@
       </tr>
     </tbody>
   </table>
-  <div class="border-inwrap">
+  <div class="border-inwrap bg-white">
     <table class="table table-bordered customer-table mb-3" style="table-layout: fixed;">
       <tbody>
         <tr>

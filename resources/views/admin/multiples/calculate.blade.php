@@ -137,19 +137,31 @@
                     <tr>
                       <td class="table-active"><label for="eventName1">イベント名称1</label></td>
                       <td>
-                        {{ Form::text('cp_master_event_name1','',['class'=>'form-control', 'placeholder'=>'入力してください'] ) }}
+                        <div class="align-items-end d-flex">
+                          {{ Form::text('cp_master_event_name1','',['class'=>'form-control', 'placeholder'=>'入力してください','id'=>'eventname1Count'] ) }}
+                          <span class="ml-1 annotation count_num1"></span>
+                        </div>
+                        <p class="is-error-event_name1" style="color: red"></p>
                       </td>
                     </tr>
                     <tr>
                       <td class="table-active"><label for="eventName2">イベント名称2</label></td>
                       <td>
-                        {{ Form::text('cp_master_event_name2', '',['class'=>'form-control', 'placeholder'=>'入力してください'] ) }}
+                        <div class="align-items-end d-flex">
+                          {{ Form::text('cp_master_event_name2', '',['class'=>'form-control', 'placeholder'=>'入力してください','id'=>'eventname2Count'] ) }}
+                          <span class="ml-1 annotation count_num2"></span>
+                        </div>
+                        <p class="is-error-event_name2" style="color: red"></p>
                       </td>
                     </tr>
                     <tr>
                       <td class="table-active"><label for="organizer">主催者名</label></td>
                       <td>
-                        {{ Form::text('cp_master_event_owner', '',['class'=>'form-control', 'placeholder'=>'入力してください'] ) }}
+                        <div class="align-items-end d-flex">
+                          {{ Form::text('cp_master_event_owner', '',['class'=>'form-control', 'placeholder'=>'入力してください','id'=>'eventownerCount'] ) }}
+                          <span class="ml-1 annotation count_num3"></span>
+                        </div>
+                        <p class="is-error-event_owner" style="color: red"></p>
                       </td>
                     </tr>
                   </tbody>
@@ -604,8 +616,7 @@
                         <td>
                           <select name="{{'event_start_copied'.$key}}" class="form-control">
                             <option disabled>選択してください</option>
-                            @for ($start = 0*2; $start <=23*2; $start++) <option
-                              value="{{date("H:i:s", strtotime("00:00 +". $start * 30 ." minute"))}}" @if($request->
+                            @for ($start = 0*2; $start <=23*2; $start++) <option value="{{date("H:i:s", strtotime("00:00 +". $start * 30 ." minute"))}}" @if($request->
                               cp_master_event_start==date("H:i:s", strtotime("00:00 +". $start * 30 ." minute")))
                               selected
                               @endif
@@ -620,8 +631,7 @@
                         <td>
                           <select name="{{'event_finish_copied'.$key}}" class="form-control">
                             <option disabled>選択してください</option>
-                            @for ($start = 0*2; $start <=23*2; $start++) <option
-                              value="{{date("H:i:s", strtotime("00:00 +". $start * 30 ." minute"))}}" @if($request->
+                            @for ($start = 0*2; $start <=23*2; $start++) <option value="{{date("H:i:s", strtotime("00:00 +". $start * 30 ." minute"))}}" @if($request->
                               cp_master_event_finish==date("H:i:s", strtotime("00:00 +". $start * 30 ." minute")))
                               selected
                               @endif

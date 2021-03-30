@@ -835,9 +835,10 @@ table td.table_column p:last-child {
 } */
 
 .confirm-box {
-    background: #ffe7e1;
+    background: #fff;
     /* margin: 0 3%; */
     padding: 3%;
+    border: 1px solid #ef6243;
 }
 
 .confirm_inner {

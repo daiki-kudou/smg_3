@@ -148,6 +148,7 @@
           <td class="table-active">メールアドレス</td>
           <td>
             {{ Form::text('unknown_user_email', empty($PreReservation->unknown_user->unknown_user_email)?"":$PreReservation->unknown_user->unknown_user_email,['class'=>'form-control', $PreReservation->user_id!=999?"readonly":""] ) }}
+            <p class="is-error-unknown_user_email" style="color: red"></p>
           </td>
         </tr>
       </tbody>
