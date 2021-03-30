@@ -46,8 +46,9 @@
                 仲介会社情報
               </p>
               <p>
-                <a class="more_btn" href="">仲介会社情報を変更する</a>
-                {{-- <a href="{{url('admin/multiples/switch/'.$multiple->id)}}" class="more_btn">顧客情報を変更する</a> --}}
+                <a href="{{url('admin/multiples/agent_switch/'.$multiple->id)}}" class="more_btn">
+                  仲介会社情報を変更する
+                </a>
               </p>
             </div>
           </td>
@@ -136,7 +137,7 @@
           <td class="table-active" scope="row"><label for="onedayTel">利用者属性</label></td>
           <td>
             @if (!empty($multiple->pre_reservations()->first()->pre_enduser->attr))
-            {{$multiple->pre_reservations()->first()->pre_enduser->attr}}
+            {{ReservationHelper::PreEndUserGetAttr($multiple->pre_reservations()->first()->pre_enduser->attr)}}
             @endif
           </td>
         </tr>

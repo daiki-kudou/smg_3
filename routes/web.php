@@ -115,6 +115,8 @@ Route::namespace('Admin')->prefix('admin')->name('admin.')->group(function () {
     Route::get('time_prices/create/{time_price}', 'Time_pricesController@create')->name('time_prices.create');
     // 紹介会社
     Route::resource('agents', 'AgentsController');
+    Route::post('agents/get_agent', 'AgentsController@getAgent');
+
     // 管理者側からUser登録
     Route::resource('clients', 'ClientsController');
     // 予約　計算
@@ -265,6 +267,10 @@ Route::namespace('Admin')->prefix('admin')->name('admin.')->group(function () {
     Route::post('multiples/switch_status', 'MultiplesController@switchStatus');
     // 一括仮押さえ、indexページ内。削除
     Route::delete('multiples/destroy', 'MultiplesController@destroy');
+    // 一括仮押さえ（仲介会社経由）仲介会社変更
+    Route::get('multiples/agent_switch/{multiple}', 'MultiplesController@switchAgent');
+    // 一括　仲介会社　更新
+    Route::post('multiples/agent_switch_cfm/{multiple}', 'MultiplesController@switchAgent_cfm');
 
     // 仲介会社　仮押え 作成
     Route::get('pre_agent_reservations/create', 'PreAgentReservationsController@create');

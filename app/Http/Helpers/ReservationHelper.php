@@ -498,4 +498,13 @@ class ReservationHelper
   {
     return sprintf('%06d', $num);
   }
+
+  public static function isEmpty($item)
+  {
+    if (!empty($item)) {
+      return $item;
+    } else {
+      return "";
+    }
+  }
 }
