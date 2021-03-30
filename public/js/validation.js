@@ -17,12 +17,14 @@ $(function () {
       },
       price: {
         required: true,
-        number: true
+        number: true,
+        min: 1
       },
-      stock: {
-        required: true,
-        number: true
-      },
+      // stock: {
+      //   required: true,
+      //   number: true,
+      //   min: 1
+      // },
     },
     messages: {
       item: {
@@ -31,10 +33,14 @@ $(function () {
       },
       price: {
         required: "※必須項目です",
+        number: "※半角英数字で入力してください",
+        min: "※1以上を入力してください"
       },
-      stock: {
-        required: "※必須項目です",
-      },
+      // stock: {
+      //   required: "※必須項目です",
+      //   number: "※半角英数字で入力してください",
+      //   min: "※1以上を入力してください"
+      // },
     },
     errorPlacement: function (error, element) {
       var name = element.attr('name');
@@ -69,12 +75,13 @@ $(function () {
       },
       price: {
         required: true,
-        number: true
+        number: true,
+        min: 1
       },
-      stock: {
-        required: true,
-        number: true
-      },
+      // stock: {
+      //   required: true,
+      //   number: true
+      // },
     },
     messages: {
       item: {
@@ -83,11 +90,12 @@ $(function () {
       },
       price: {
         required: "※必須項目です",
-        number: "※数字を入力してください"
+        number: "※数字を入力してください",
+        min: "※1以上を入力してください"
       },
-      stock: {
-        required: "※必須項目です",
-      },
+      // stock: {
+      //   required: "※必須項目です",
+      // },
     },
     errorPlacement: function (error, element) {
       var name = element.attr('name');
