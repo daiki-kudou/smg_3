@@ -515,8 +515,9 @@ $(function () {
 $(function(){
   var target = $("input[name^='event_name1_copied']");
   for (let index = 0; index < target.length; index++) {
+
     var eventname1copiedcount = "#copiedeventname1Count" + index;
-    var eventname1copied = "eventname1_error" + index;
+    var eventname1copied = ".eventname1_error" + index;
 
     console.log(eventname1copiedcount);
     console.log(eventname1copied);
