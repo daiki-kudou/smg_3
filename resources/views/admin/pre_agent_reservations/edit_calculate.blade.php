@@ -104,10 +104,11 @@
           </td>
         </tr>
         <tr>
-          <td class="table-active">利用者属性</td>
+          <td class="table-active form_required">利用者属性</td>
           <td>
             {{ Form::text('', ReservationHelper::getEndUser($request->pre_endusers_attr),['class'=>'form-control'] ) }}
             {{ Form::hidden('pre_endusers_attr', ($request->pre_endusers_attr),['class'=>'form-control'] ) }}
+            <p class="is-error-pre_enduser_attr" style="color: red"></p>
           </td>
         </tr>
       </tbody>
