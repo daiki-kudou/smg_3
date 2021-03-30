@@ -44,13 +44,10 @@
     </tbody>
   </table>
 
-
-
   {{ Form::open(['url' => 'admin/multiples/'.$multiple->id."/edit/".$venue->id.'/calculate', 'method'=>'POST', 'id'=>'multipleEditForm']) }}
   @csrf
   <section class="m-5 border-inwrap">
     <div class="mb-2">
-      <!-- <p>同じ内容をすべての日程に反映することができます。</p> -->
     </div>
     <dl class="card">
       <dt class="card-header accordion-ttl">
@@ -104,21 +101,6 @@
                     </div>
                   </td>
                 </tr>
-                <!-- <tr>
-                      <td class="table-active"><label for="eventTime">イベント時間記載</label></td>
-                      <td>
-                        <div class="radio-box">
-                          <p>
-                            {{ Form::radio('cp_master_event', 1, false, ['id'=>'cp_master_event1']) }}
-                            {{Form::label('cp_master_event1','あり')}}
-                          </p>
-                          <p>
-                            {{ Form::radio('cp_master_event', 0, true, ['id'=>'cp_master_event2']) }}
-                            {{Form::label('cp_master_event2','なし')}}
-                          </p>
-                        </div>
-                      </td>
-                    </tr> -->
                 <tr>
                   <td class="table-active"><label for="eventStart">イベント開始時間</label></td>
                   <td>
@@ -309,8 +291,7 @@
                   <td class="table-active">荷物預り/返送<br>料金</td>
                   <td>
                     <p class="annotation">※仮押え時点では、料金の設定ができません。<br>予約へ切り替え後に料金の設定が可能です。</p>
-                    <!-- {{ Form::text('cp_master_luggage_price', '',['class'=>'form-control'] ) }}
-                    <p class="is-error-cp_master_luggage_price" style="color: red"></p> -->
+
                   </td>
                 </tr>
                 @endif
@@ -509,6 +490,9 @@
 
   {{-- jsで仮押えの件数判別のためのhidden --}}
   {{ Form::hidden('', $multiple->pre_reservations()->where('venue_id',$venue->id)->get()->count(),['id'=>'counts_reserve']) }}
+
+
+
   {{-- 以下、pre_reservationの数分　ループ --}}
   @foreach ($multiple->pre_reservations()->where('venue_id',$venue->id)->get() as $key=>$pre_reservation)
   {{ Form::open(['url' => 'admin/multiples/'.$multiple->id."/edit/".$venue->id.'/calculate/'.$pre_reservation->id.'/specific_update', 'method'=>'POST', 'id'=>'multipleSpecificUpdateForm' .$key]) }}
@@ -605,21 +589,6 @@
                       </div>
                     </td>
                   </tr>
-                  <!-- <tr>
-                        <td class="table-active"><label for="eventTime">イベント時間記載</label></td>
-                        <td>
-                          <div class="radio-box">
-                            <p>
-                              <input type="radio" id="eventTime" name="eventTime" checked="">
-                              <label for="eventTime">あり</label>
-                            </p>
-                            <p>
-                              <input type="radio" id="eventTime" name="eventTime" checked="">
-                              <label for="eventTime">なし</label>
-                            </p>
-                          </div>
-                        </td>
-                      </tr> -->
                   <tr>
                     <td class="table-active"><label for="eventStart">イベント開始時間</label></td>
                     <td>
@@ -1040,7 +1009,7 @@
                         {{ Form::text('cost_copied'.$key, $pre_reservation->cost,['class'=>'form-control'] ) }}
                         <span class="ml-2">%</span>
                       </div>
-                      <p class="is-error-cost_copied" style="color: red"></p>
+                      <p class="{{'is-error-cost_copied'.$key}}" style="color: red"></p>
                     </td>
                   </tr>
                 </tbody>
@@ -1058,21 +1027,6 @@
                       </p>
                     </td>
                   </tr>
-                  <!-- <tr>
-                        <td>
-                          <p>
-                            <input type="checkbox" id="discount" checked="">
-                            <label for="discount">割引条件</label>
-                          </p>
-                          {{ Form::textarea('discount_condition_copied'.$key, $pre_reservation->cp_master_discount_condition,['class'=>'form-control'] ) }}
-                        </td>
-                      </tr>
-                      <tr class="caution">
-                        <td>
-                          <label for="caution">注意事項</label>
-                          {{ Form::textarea('attention_copied'.$key, $pre_reservation->attention,['class'=>'form-control'] ) }}
-                        </td>
-                      </tr> -->
                   <tr>
                     <td>
                       <label for="adminNote">管理者備考</label>
@@ -1170,32 +1124,6 @@
                           </td>
                         </tr>
                       </tbody>
-                      <!-- <tbody class="{{'venue_discount'.$key}}">
-                            <tr>
-                              <td>割引計算欄</td>
-                              <td>
-                                <p>
-                                  割引金額
-                                </p>
-                                <div class="d-flex align-items-end">
-                                  {{ Form::text('venue_number_discount'.$key, '',['class'=>'form-control'] ) }}
-                                  <p class="ml-1">円</p>
-                                </div>
-                              </td>
-                              <td>
-                                <p>
-                                  割引率
-                                </p>
-                                <div class="d-flex align-items-end">
-                                  {{ Form::text('venue_percent_discount'.$key, '',['class'=>'form-control'] ) }}
-                                  <p class="ml-1">%</p>
-                                </div>
-                              </td>
-                              <td>
-                                <input class="{{'btn more_btn venue_discount_btn'.$key}}" type="button" value="計算する">
-                              </td>
-                            </tr>
-                          </tbody> -->
                       @else{{--料金体系無し、手打ち--}}
                       <span>※料金体系がないため、手打ちで会場料を入力してください</span>
                       <tbody class="venue_head">

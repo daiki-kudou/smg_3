@@ -490,6 +490,7 @@ class PreReservationsController extends Controller
         'attention' => $request->attention,
         'user_details' => $request->user_details,
         'admin_details' => $request->admin_details,
+        'cost' => $request->cost,
       ]);
 
       // 内訳削除

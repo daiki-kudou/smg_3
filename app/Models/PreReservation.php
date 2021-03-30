@@ -201,6 +201,7 @@ class PreReservation extends Model
         'discount_condition' => $request->{'discount_condition_copied' . $splitKey},
         'attention' => $request->{'attention_copied' . $splitKey},
         'admin_details' => $request->{'admin_details_copied' . $splitKey},
+        'cost' => $request->{'cost_copied' . $splitKey},
       ]);
 
       $venue_price = empty($result[0][2]) ? 0 : $result[0][2];
