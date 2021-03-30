@@ -1127,8 +1127,8 @@
                           </tbody>
                           <tbody class="{{'layout_result'.$key}}">
                             <tr>
-                              <td colspan="2"></td>
-                              <td colspan="2">合計
+                              <td colspan="3"></td>
+                              <td colspan="1">合計
                                 {{ Form::text('layout_price'.$key, empty($pre_reservation->pre_bill->layout_price)?0:$pre_reservation->pre_bill->layout_price,['class'=>'form-control', 'readonly'] ) }}
                               </td>
                             </tr>
