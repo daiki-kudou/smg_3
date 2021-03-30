@@ -284,6 +284,7 @@
               <td class="table-active"><label for="">TEL</label></td>
               <td colspan="2">
                 {{ Form::text('reserver_tel', old('reserver_tel'), ['class' => 'form-control','placeholder' => '半角数字、ハイフンなしで入力してください']) }}
+                <p class="is-error-reserver_tel" style="color: red"></p>
               </td>
             </tr>
             <tr>
