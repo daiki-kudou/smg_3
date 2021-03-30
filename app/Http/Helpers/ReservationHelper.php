@@ -231,7 +231,6 @@ class ReservationHelper
     }
   }
 
-
   public static function judgePaid($num)
   {
     return $num == 0 ? '未払' : '支払済';
@@ -242,9 +241,6 @@ class ReservationHelper
     return $num == 1 ? '通常（枠貸）' : 'アクセア（時間貸）';
   }
 
-
-
-
   public static function getTax($num)
   {
     return floor($num * 0.1);
@@ -254,8 +250,7 @@ class ReservationHelper
   {
     $tax = 0;
     $tax = floor($num * 0.1);
-    $result = floor($num + $tax);
-    return $result;
+    return floor($num + $tax);
   }
 
 
@@ -320,10 +315,8 @@ class ReservationHelper
   {
     $carbon1 = new Carbon($enter_time);
     $carbon2 = new Carbon($leave_time);
-
     $usage_hours = $carbon1->diffInMinutes($carbon2);
-    $usage_hours = $usage_hours / 60;
-    return $usage_hours;
+    return $usage_hours / 60;
   }
 
   public static function checkAgentOrUserCompany($user_id, $agent_id)
@@ -399,8 +392,7 @@ class ReservationHelper
         $s_equipment[] = $value;
       }
     }
-    $result = ReservationHelper::judgeArrayEmpty($s_equipment);
-    return $result;
+    return ReservationHelper::judgeArrayEmpty($s_equipment);
   }
 
   public static function checkServiceBreakdowns($arrays)
@@ -411,8 +403,8 @@ class ReservationHelper
         $s_service[] = $value;
       }
     }
-    $result = ReservationHelper::judgeArrayEmpty($s_service);
-    return $result;
+
+    return ReservationHelper::judgeArrayEmpty($s_service);
   }
 
   public static function jsonDecode($arrays)
@@ -422,8 +414,7 @@ class ReservationHelper
 
   public static function DBLJsonDecode($arrays)
   {
-    $first = json_decode($arrays, true);
-    return $first;
+    return json_decode($arrays, true);
   }
 
   public static function getLayoutPrice($venue_id)

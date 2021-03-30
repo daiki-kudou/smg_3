@@ -108,11 +108,11 @@ Route::namespace('Admin')->prefix('admin')->name('admin.')->group(function () {
     // 営業日登録
     Route::resource('dates', 'DatesController');
     // 枠貸し料金登録
-    Route::resource('frame_prices', 'Freme_pricesController')->except(['create']);
-    Route::get('frame_prices/create/{frame_price}', 'Freme_pricesController@create')->name('frame_prices.create');
+    Route::resource('frame_prices', 'FramePricesController')->except(['create']);
+    Route::get('frame_prices/create/{frame_price}', 'FramePricesController@create')->name('frame_prices.create');
     // 時間貸し料金登録
-    Route::resource('time_prices', 'Time_pricesController')->except(['create']);
-    Route::get('time_prices/create/{time_price}', 'Time_pricesController@create')->name('time_prices.create');
+    Route::resource('time_prices', 'TimePricesController')->except(['create']);
+    Route::get('time_prices/create/{time_price}', 'TimePricesController@create')->name('time_prices.create');
     // 紹介会社
     Route::resource('agents', 'AgentsController');
     Route::post('agents/get_agent', 'AgentsController@getAgent');

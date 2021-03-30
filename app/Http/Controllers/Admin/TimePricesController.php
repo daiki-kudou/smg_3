@@ -5,12 +5,12 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
-use App\Models\Time_price;
+use App\Models\TimePrices;
 use App\Models\Venue;
 use Carbon\Carbon;
 
 
-class Time_pricesController extends Controller
+class TimePricesController extends Controller
 {
   /**
    * Display a listing of the resource.

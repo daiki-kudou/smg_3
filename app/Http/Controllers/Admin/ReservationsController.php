@@ -30,7 +30,7 @@ class ReservationsController extends Controller
   public function index(Request $request)
   {
     if (!empty($request->all())) {
-      $newInstance = new Reservation;
+      $newInstance = new Reservation();
       $reservations = $newInstance->search_item((object)$request->all());
     } else {
       $reservations = Reservation::all();
@@ -289,7 +289,7 @@ class ReservationsController extends Controller
    */
   public function store(Request $request)
   {
-    $reservation = new Reservation;
+    $reservation = new Reservation();
     $reservation->ReserveStore($request);
     // 戻って再度送信してもエラーになるように設定
     $request->session()->regenerate();

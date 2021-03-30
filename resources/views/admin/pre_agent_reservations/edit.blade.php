@@ -606,7 +606,29 @@
                 <p class="is-error-enduser_charge" style="color: red"></p>
               </td>
             </tr>
+          </tbody>
+        </table>
 
+        <table class="table table-bordered sale-table">
+          <tbody>
+            <tr>
+              <td colspan="2">
+                <p class="title-icon">
+                  <i class="fas fa-yen-sign icon-size" aria-hidden="true"></i>
+                  売上原価
+                </p>
+              </td>
+            </tr>
+            <tr>
+              <td class="table-active"><label for="sale">原価率</label></td>
+              <td>
+                <div class="d-flex align-items-center">
+                  {{ Form::text('cost', $PreReservation->cost,['class'=>'form-control'] ) }}
+                  <span class="ml-2">%</span>
+                </div>
+                <p class="is-error-cost" style="color: red"></p>
+              </td>
+            </tr>
           </tbody>
         </table>
 

@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class Date extends Model
 {
 
-  protected $fillable = array('start', 'finish', 'week_day', 'venue_id');
+  protected $fillable = ['start', 'finish', 'week_day', 'venue_id'];
   // protected $dates = ['start', 'finish']; //formatで使用できるようにするため
 
 

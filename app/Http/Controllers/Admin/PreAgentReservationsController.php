@@ -19,7 +19,7 @@ use Illuminate\Support\Facades\DB; //トランザクション用
 
 class PreAgentReservationsController extends Controller
 {
-  public function create()
+  public function create() 
   {
     $agents = Agent::all();
     $venues = Venue::all();
@@ -165,6 +165,7 @@ class PreAgentReservationsController extends Controller
         'user_details' => $request->user_details,
         'admin_details' => $request->admin_details,
         'status' => 0,
+        'cost' => $request->cost,
       ]);
       $pre_bill = new PreBill;
       $pre_bill->PreBillCreate($request, $pre_reservation);

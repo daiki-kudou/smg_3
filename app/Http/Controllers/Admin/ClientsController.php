@@ -21,34 +21,8 @@ class ClientsController extends Controller
    */
   public function index(Request $request)
   {
-    $search_freeword = $request->freeword;
-    $search_id = $request->id;
-    $search_status = $request->status;
-    $search_company = $request->company;
-    $search_attr = $request->attr;
-    $search_person_name = $request->person_name;
-    $search_mobile = $request->mobile;
-    $search_tel = $request->tel;
-    $search_email = $request->email;
-    $search_attention = $request->attention;
-
-    $user = new User;
-    $querys = $user->searchs(
-      $search_freeword,
-      $search_id,
-      $search_status,
-      $search_company,
-      $search_attr,
-      $search_person_name,
-      $search_mobile,
-      $search_tel,
-      $search_email,
-      $search_attention,
-    );
-
-    return view('admin.clients.index', [
-      'querys' => $querys,
-    ]);
+    $querys = User::paginate(30);
+    return view('admin.clients.index', compact('querys'));
   }
 
   /**

@@ -188,8 +188,7 @@ class Agent extends Model implements PresentableInterface
   {
     $percent = $this->cost;
     $percent = $percent / 100;
-    $result = $enduser_charge - ($enduser_charge * $percent);
-    return $result;
+    return $enduser_charge - ($enduser_charge * $percent);
   }
 
   public function getAgentPayLimit($reserve_date)

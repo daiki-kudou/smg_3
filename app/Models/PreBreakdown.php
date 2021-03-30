@@ -31,7 +31,7 @@ class PreBreakdown extends Model
   {
     DB::transaction(function () use ($request, $pre_reservation) {
       // billモデルにあるLayoutBreakdownsを使う
-      $bill = new Bill;
+      $bill = new Bill();
       $countVenue = $bill->RequestBreakdowns($request, 'venue_breakdown_item');
       if ($countVenue != "") {
         for ($i = 0; $i < $countVenue; $i++) {

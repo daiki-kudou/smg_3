@@ -676,7 +676,7 @@ class PreReservationsController extends Controller
     } else {
       DB::transaction(function () use ($request) { //トランザクションさせる
         foreach ($request->all() as $key => $value) {
-          $pre_reservation = PreReservation::find((int)$value);
+          $pre_reservation = PreReservation::find((int) $value);
           if ($pre_reservation) {
             $pre_reservation->delete();
           }
