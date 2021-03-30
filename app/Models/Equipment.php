@@ -18,24 +18,6 @@ class Equipment extends Model
     return $this->belongsToMany('App\Models\Venue');
   }
 
-  public function searchs($freeword, $id, $item, $createdat, $page_counter = 10)
-  {
-    if (isset($freeword)) {
-      return $this->where('id', 'LIKE', "%$freeword%")
-        ->orWhere('item', 'LIKE', "%$freeword%")
-        ->orWhere('price', 'LIKE', "%$freeword%")
-        ->orWhere('created_at', 'LIKE', "%$freeword%")
-        ->orWhere('remark', 'LIKE', "%$freeword%")->paginate($page_counter);
-    } else if (isset($id)) {
-      return $this->where('id', 'LIKE', "%$id%")->paginate($page_counter);
-    } else if (isset($item)) {
-      return $this->where('item', 'LIKE', "%$item%")->paginate($page_counter);
-    } else if (isset($createdat)) {
-      return $this->where('created_at', 'LIKE', "%$createdat%")->paginate($page_counter);
-    } else {
-      return $this->query()->paginate($page_counter);
-    }
-  }
 
   public static function getArrays($request)
   {

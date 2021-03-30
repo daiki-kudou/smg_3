@@ -154,7 +154,7 @@ class Venue extends Model implements PresentableInterface
 */
   public function frame_prices()
   {
-    return $this->hasMany(Frame_price::class);
+    return $this->hasMany(FramePrice::class);
   }
 
   /*
@@ -164,7 +164,7 @@ class Venue extends Model implements PresentableInterface
 */
   public function time_prices()
   {
-    return $this->hasMany(Time_price::class);
+    return $this->hasMany(TimePrice::class);
   }
 
 

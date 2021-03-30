@@ -216,7 +216,7 @@ class PreReservation extends Model
 
       $pre_bill = $this->pre_bill()->create([
         'venue_price' => $venue_price,
-        'equipment_price' => $equipment_price + ((int)$request->{'luggage_price_copied' . $splitKey}),
+        'equipment_price' => $equipment_price + ((int) $request->{'luggage_price_copied' . $splitKey}),
         'layout_price' => $layout_price,
         'others_price' => 0, //othersは後ほど
         'master_subtotal' => floor($master),
@@ -658,7 +658,7 @@ class PreReservation extends Model
     if (is_object($user)) $bill_person = $user->first_name . $user->last_name;
     if (is_object($agent)) $bill_person = $agent->person_firstname . $agent->person_lastname;
 
-    $reservation = new Reservation;
+    $reservation = new Reservation();
     //reservationのReserveStoreに持たせるためのrequestを作成
     $request->merge([
       'venue_id' => $this->venue_id,

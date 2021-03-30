@@ -7,33 +7,32 @@ use Robbo\Presenter\Presenter;
 class VenuePresenter extends Presenter
 {
 
-  public function getPriceSystems(){
-    $frame=$this->frame_prices()->get();
-    $time=$this->time_prices()->get();
-    if (count($frame)==0&&count($time)==0) {
+  public function getPriceSystems()
+  {
+    $frame = $this->frame_prices()->get();
+    $time = $this->time_prices()->get();
+    if (count($frame) == 0 && count($time) == 0) {
       return 0;
-    }else{
+    } else {
       return 1;
     }
   }
 
   public function getEquipments()
   {
-    $equipments = $this->equipments()->get();
-    return $equipments;
+    return $this->equipments()->get();
   }
 
   public function getServices()
   {
-    $services = $this->services()->get();
-    return $services;
+    return $this->services()->get();
   }
 
   public function getLayouts()
   {
     $layout_prepare = $this->layout_prepare;
     $layout_clean = $this->layout_clean;
-    $sum = (int)$layout_prepare + (int)$layout_clean;
+    $sum = (int) $layout_prepare + (int) $layout_clean;
     if ($sum) {
       return [$layout_prepare, $layout_clean, $sum];
     } else {

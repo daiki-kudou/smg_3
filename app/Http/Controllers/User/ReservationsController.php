@@ -136,7 +136,7 @@ class ReservationsController extends Controller
     foreach ($sessions as $key => $value) {
       $test = (object)$value[0];
 
-      $reservation = new Reservation;
+      $reservation = new Reservation();
       $reservation->ReserveFromUser(((object)$value[0]), $value[1]);
     }
 

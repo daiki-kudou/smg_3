@@ -99,7 +99,7 @@ trait SearchTrait
 
     if (!empty($request->search_tel)) {
       $result->whereHas("pre_reservations.user", function ($query) use ($request) {
-        $query->where('tel', "LIKE", "%$request->search_tel%");
+        $query->where('tel', "LIKE", "%{$request->search_tel}%");
       });
     }
 
@@ -181,7 +181,7 @@ trait SearchTrait
       }
     } else {
       foreach ($this->SplitDate($request->$inputName) as $key => $value) {
-        $returnQuery->whereDate($targetColumn, 'LIKE', "%$value%");
+        $returnQuery->whereDate($targetColumn, 'LIKE', "%{$value}%");
       }
     }
   }

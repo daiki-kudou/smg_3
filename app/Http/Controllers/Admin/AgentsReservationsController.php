@@ -99,7 +99,7 @@ class AgentsReservationsController extends Controller
 
   public function store(Request $request)
   {
-    $reservation = new Reservation;
+    $reservation = new Reservation();
     $reservation->ReserveFromAgent($request);
     // 戻って再度送信してもエラーになるように設定
     $request->session()->regenerate();

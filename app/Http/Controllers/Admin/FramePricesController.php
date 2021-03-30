@@ -5,11 +5,11 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
-use App\Models\Frame_price;
+use App\Models\FramePrice;
 use App\Models\Venue;
 
 
-class Freme_pricesController extends Controller
+class FramePricesController extends Controller
 {
   /**
    * Display a listing of the resource.
@@ -86,7 +86,7 @@ class Freme_pricesController extends Controller
     // }
 
     if ($count_request == 1) { //$requestの中身が１列の場合
-      Frame_price::create([
+      FramePrice::create([
         'frame' => $request->frame0,
         'start' => $request->start0,
         'finish' => $request->finish0,
@@ -97,7 +97,7 @@ class Freme_pricesController extends Controller
       //$requestが１列以上の場合
     } else {
       for ($i = 0; $i < $count_request; $i++) {
-        Frame_price::create([
+        FramePrice::create([
           'frame' => $request->{'frame' . $i},
           'start' => $request->{'start' . $i},
           'finish' => $request->{'finish' . $i},
@@ -182,11 +182,11 @@ class Freme_pricesController extends Controller
     //   }
     // }
 
-    $frame_prices = Frame_price::where('venue_id', $id);
+    $frame_prices = FramePrice::where('venue_id', $id);
     $frame_prices->delete();
 
     if ($count_request == 1) { //$requestの中身が１列の場合
-      Frame_price::create([
+      FramePrice::create([
         'frame' => $request->frame0,
         'start' => $request->start0,
         'finish' => $request->finish0,
@@ -201,7 +201,7 @@ class Freme_pricesController extends Controller
         $v_start = 'start' . $i;
         $v_finish = 'finish' . $i;
         $v_price = 'price' . $i;
-        Frame_price::create([
+        FramePrice::create([
           'frame' => $request->$v_frame,
           'start' => $request->$v_start,
           'finish' => $request->$v_finish,

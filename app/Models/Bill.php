@@ -419,7 +419,7 @@ class Bill extends Model
     $layoutCxl = $this->checkCxlInput($request, 'cxl_layout_PC', $this->layout_price);
     $otherCxl = $this->checkCxlInput($request, 'cxl_other_PC', $this->others_price);
 
-    $subtotal = (int)$venueCxl + (int)$equipmentCxl + (int)$layoutCxl + (int)$otherCxl;
+    $subtotal = (int) $venueCxl + (int) $equipmentCxl + (int) $layoutCxl + (int) $otherCxl;
     return [$venueCxl, $equipmentCxl, $layoutCxl, $otherCxl, $subtotal];
     // 0会場　1備品　2レイアウト　3その他 4合計額
   }

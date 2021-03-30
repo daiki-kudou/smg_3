@@ -15,19 +15,6 @@ class Service extends Model
     return $this->belongsToMany('App\Models\Venue');
   }
 
-  public function searchs($freeword, $id, $item, $page_counter = 10)
-  {
-    if (isset($freeword)) {
-      return $this->where('id', 'LIKE', "%$freeword%")
-        ->orWhere('item', 'LIKE', "%$freeword%")->paginate($page_counter);
-    } elseif (isset($id)) {
-      return $this->where('id', 'LIKE', "%$id%")->paginate($page_counter);
-    } elseif (isset($item)) {
-      return $this->where('item', 'LIKE', "%$item%")->paginate($page_counter);
-    } else {
-      return $this->query()->paginate($page_counter);
-    }
-  }
 
   public static function getArrays($request)
   {

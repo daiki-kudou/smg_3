@@ -21,7 +21,6 @@ class ServicesController extends Controller
   {
 
     $querys = Service::orderBy('id', 'desc')->paginate(30);
-
     return view('admin.services.index', compact("querys"));
   }
 
