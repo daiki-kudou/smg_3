@@ -19,7 +19,7 @@ use Illuminate\Support\Facades\DB; //トランザクション用
 
 class PreAgentReservationsController extends Controller
 {
-  public function create()
+  public function create() 
   {
     $agents = Agent::all();
     $venues = Venue::all();
