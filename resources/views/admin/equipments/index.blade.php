@@ -24,14 +24,13 @@
   </div>
 </div>
 
-<p class="text-right mt-4">※金額は税抜表記になります。</p>
-<table class="table table-bordered" id="equipments_sort">
+<table class="table table-bordered mt-4" id="equipments_sort">
   <thead>
     <tr class="table_row">
       <th>ID</th>
       <th>登録日</th>
       <th>有料備品名</th>
-      <th>料金</th>
+      <th>料金<span class="ml-1 annotation">※税抜</span></th>
       <th>数量</th>
       <th>備考</th>
       <th class="btn-cell">編集</th>

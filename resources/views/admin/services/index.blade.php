@@ -34,14 +34,13 @@
   </div>
 </div>
 <div id="DataTables_Table_0_wrapper" class="dataTables_wrapper form-inline dt-bootstrap no-footer">
-  <p class="text-right">※金額は税抜表記になります。</p>
   <table class="table table-bordered" id="service_sort">
     <thead>
       <tr class="table_row">
         <th>ID</th>
         <th>登録日</th>
         <th>有料サービス名</th>
-        <th>料金</th>
+        <th>料金<span class="ml-1 annotation">※税抜</span></th>
         <th>備考</th>
         <th class="btn-cell">編集</th>
         <th class="btn-cell">削除</th>
