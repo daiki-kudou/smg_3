@@ -207,7 +207,9 @@
             <td>
               <select name="event_start" id="event_start" class="form-control">
                 <option disabled>選択してください</option>
-                @for ($start = 0*2; $start <=23*2; $start++) <option value="{{date("H:i:s", strtotime("00:00 +". $start * 30 ." minute"))}}" @if (date("H:i:s", strtotime("00:00 +". $start * 30 ." minute"))<$request->enter_time)
+                @for ($start = 0*2; $start <=23*2; $start++) <option
+                  value="{{date("H:i:s", strtotime("00:00 +". $start * 30 ." minute"))}}" @if (date("H:i:s",
+                  strtotime("00:00 +". $start * 30 ." minute"))<$request->enter_time)
                   disabled
                   @elseif(date("H:i:s", strtotime("00:00 +". $start * 30 ." minute"))>$request->leave_time)
                   disabled
@@ -225,7 +227,9 @@
             <td>
               <select name="event_finish" id="event_finish" class="form-control">
                 <option disabled>選択してください</option>
-                @for ($start = 0*2; $start <=23*2; $start++) <option value="{{date("H:i:s", strtotime("00:00 +". $start * 30 ." minute"))}}" @if (date("H:i:s", strtotime("00:00 +". $start * 30 ." minute"))<$request->enter_time)
+                @for ($start = 0*2; $start <=23*2; $start++) <option
+                  value="{{date("H:i:s", strtotime("00:00 +". $start * 30 ." minute"))}}" @if (date("H:i:s",
+                  strtotime("00:00 +". $start * 30 ." minute"))<$request->enter_time)
                   disabled
                   @elseif(date("H:i:s", strtotime("00:00 +". $start * 30 ." minute"))>$request->leave_time)
                   disabled
@@ -329,6 +333,9 @@
             </tbody>
           </table>
         </div>
+
+        @if ($SPVenue->layout!=0)
+
         <div class="layouts">
           <table class="table table-bordered">
             <thead>
@@ -418,6 +425,9 @@
             </tbody>
           </table>
         </div>
+        @endif
+
+        @if ($SPVenue->luggage_flag!=0)
         <div class="luggage">
           <table class="table table-bordered">
             <thead>
@@ -459,6 +469,8 @@
             </tbody>
           </table>
         </div>
+        @endif
+
 
         @if ($SPVenue->eat_in_flag==1)
         <div class="eat_in">
