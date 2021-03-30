@@ -24,7 +24,7 @@
     </ol>
   </nav>
 </div>
-<h2 class="mt-3 mb-3">有料備品　新規登録</h2>
+<h2 class="mt-3 mb-3">有料備品管理　新規登録</h2>
 <hr>
 
 {{ Form::open(['url' => 'admin/equipments', 'method'=>'POST', 'id'=>'EquipmentsCreateForm']) }}
