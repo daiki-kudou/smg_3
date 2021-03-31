@@ -51,7 +51,9 @@
         </thead>
         <tbody>
           <tr>
-            <td>{{ Form::text('frame0', old('frame'), ['class' => 'form-control']) }}
+            <td>
+              {{ Form::text('frame0', old('frame'), ['class' => 'form-control', 'required']) }}
+              <p class="is-error-frame0" style="color: red"></p>
             </td>
             <td>
               <select name="start0" id="start" class="form-control col-sm-12">
@@ -74,9 +76,10 @@
             </td>
             <td>
               <div class="d-flex align-items-end">
-                {{ Form::text('price0', "", ['class' => 'form-control']) }}
+                {{ Form::text('price0', "", ['class' => 'form-control','required']) }}
                 <span class="ml-1">円</span>
               </div>
+              <p class="is-error-price0" style="color: red"></p>
             </td>
             <td>
               <input type="button" value="＋" class="add pluralBtn">
@@ -94,6 +97,7 @@
         {{ Form::number('extend', old('extend'),['class'=>'form-control w-25']) }}
         <span class="ml-1">円</span>
       </div>
+      <p class="is-error-extend" style="color: red"></p>
       {{Form::hidden('venue_id', $venue->id)}}
       <div class="mt-5 mx-auto">
         {{ Form::submit('登録する', ['class' => 'btn more_btn_lg d-block btn-lg mx-auto my-5']) }}
@@ -105,7 +109,13 @@
 
 <script>
   $(function() {
+
     $(document).on("click", ".add", function() {
+      $("input").attr('aria-describedby','');
+      var validator = $( "#FramePriceCreateForm" ).validate();
+      validator.resetForm();
+      validator.destroy();
+
       $(this).parent().parent().clone(true).insertAfter($(this).parent().parent());
       var count = $('.table tbody tr').length;
 
@@ -116,17 +126,23 @@
       $(this).parent().parent().next().find('td').find('input, select').eq(3).val('');
 
       for (let index = 0; index < count; index++) {
-        var frame = "frame" + (index);
-        var start = "start" + (index);
-        var finish = "finish" + (index);
-        var price = "price" + (index);
-        $('.new_price tbody tr').eq(index).find('td').find('input, select').eq(0).attr('name', frame);
-        $('.new_price tbody tr').eq(index).find('td').find('input, select').eq(1).attr('name', start);
-        $('.new_price tbody tr').eq(index).find('td').find('input, select').eq(2).attr('name', finish);
-        $('.new_price tbody tr').eq(index).find('td').find('input, select').eq(3).attr('name', price);
+        $('.new_price tbody tr').eq(index).find('td').eq(0).find('input, select').attr('name', "frame" +index);
+        $('.new_price tbody tr').eq(index).find('td').eq(1).find('input, select').attr('name', "start" +index);
+        $('.new_price tbody tr').eq(index).find('td').eq(2).find('input, select').attr('name', "finish" +index);
+        $('.new_price tbody tr').eq(index).find('td').eq(3).find('input, select').attr('name', "price" +index);
+        $('.new_price tbody tr').eq(index).find('td').eq(0).find('p').remove();
+        $('.new_price tbody tr').eq(index).find('td').eq(0).append("<p class='is-error-frame"+index+"' style='color: red'></p>");
+        $('.new_price tbody tr').eq(index).find('td').eq(3).find('p').remove();
+        $('.new_price tbody tr').eq(index).find('td').eq(3).append("<p class='is-error-price"+index+"' style='color: red'></p>");
       }
+      validationThis(count);
     });
+
     $(document).on("click", ".del", function() {
+      var validator = $( "#FramePriceCreateForm" ).validate();
+      validator.resetForm();
+      validator.destroy();
+
       var target = $(this).parent().parent();
 
       if (target.parent().children().length > 1) {
@@ -139,12 +155,87 @@
         var start = "start" + (index);
         var finish = "finish" + (index);
         var price = "price" + (index);
-        $('.new_price tbody tr').eq(index).find('td').find('input, select').eq(0).attr('name', frame);
-        $('.new_price tbody tr').eq(index).find('td').find('input, select').eq(1).attr('name', start);
-        $('.new_price tbody tr').eq(index).find('td').find('input, select').eq(2).attr('name', finish);
-        $('.new_price tbody tr').eq(index).find('td').find('input, select').eq(3).attr('name', price);
+        $('.new_price tbody tr').eq(index).find('td').eq(0).find('input, select').attr('name', frame);
+        $('.new_price tbody tr').eq(index).find('td').eq(1).find('input, select').attr('name', start);
+        $('.new_price tbody tr').eq(index).find('td').eq(2).find('input, select').attr('name', finish);
+        $('.new_price tbody tr').eq(index).find('td').eq(3).find('input, select').attr('name', price);
+        $('.new_price tbody tr').eq(index).find('td').eq(0).find('p').remove();
+        $('.new_price tbody tr').eq(index).find('td').eq(0).append("<p class='is-error-frame"+index+"' style='color: red'></p>");
+        $('.new_price tbody tr').eq(index).find('td').eq(3).find('p').remove();
+        $('.new_price tbody tr').eq(index).find('td').eq(3).append("<p class='is-error-price"+index+"' style='color: red'></p>");
+
       }
+      validationThis(count);
     });
+
+    validationThis();
+
+    function validationThis($index=1){
+        $("#FramePriceCreateForm").validate({
+          rules: {
+            frame0: {
+              required: true,
+            },
+            price0: {
+              required: true,
+              number: true,
+              min:1
+            },
+            extend: {
+              required: true,
+              number: true,
+              min:1
+            },
+          },
+          messages: {
+            frame0: {
+              required: "※必須項目です",
+            },
+            price0: {
+              required: "※必須項目です",
+              number: "※半角英数字で入力してください",
+              min:'※1以上を入力してください'
+            },
+            extend: {
+              required: "※必須項目です",
+              number: "※半角英数字で入力してください",
+              min:'※1以上を入力してください'
+            },
+          },
+          errorPlacement: function (error, element) {
+            var name = element.attr('name');
+            if (element.attr('name') === 'category[]') {
+              error.appendTo($('.is-error-category'));
+            } else if (element.attr('name') === name) {
+              error.appendTo($('.is-error-' + name));
+            }
+          },
+          errorElement: "span",
+          errorClass: "is-error",
+          //送信前にLoadingを表示
+          submitHandler: function (form) {
+            $('.approval').addClass('hide');
+            $('.loading').removeClass('hide');
+            form.submit();
+          }
+        });
+        $('input').on('blur', function () {
+          $(this).valid();
+      });
+      for (let index2 = 1; index2 < $index; index2++) {
+        console.log(index2);
+        $("input[name='frame"+index2+"']").rules("add", {
+        required: true,
+        messages: { required: "※必須項目です" },
+        });
+        $("input[name='price"+index2+"']").rules("add", {
+        required: true,
+        number:true,
+        min:1,
+        messages: { required: "※必須項目です", number:"※半角英数字で入力してください",min:'※1以上を入力してください' },
+        });
+      }
+    }
 
     $('#start').on('change', function() {
       var start = $('#start').val();

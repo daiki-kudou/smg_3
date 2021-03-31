@@ -1241,38 +1241,5 @@ $(function () {
 });
 
 // 料金管理　編集(枠貸し)
-// $(function () {
-//   $("#FramePriceCreateForm").validate({
-//     rules: {
-//       company: {
-//         required: true,
-//       },
-//     },
-//     messages: {
-//       company: {
-//         required: "※必須項目です",
-//       },
-//     },
-//     errorPlacement: function (error, element) {
-//       var name = element.attr('name');
-//       if (element.attr('name') === 'category[]') {
-//         error.appendTo($('.is-error-category'));
-//       } else if (element.attr('name') === name) {
-//         error.appendTo($('.is-error-' + name));
-//       }
-//     },
-//     errorElement: "span",
-//     errorClass: "is-error",
-//     //送信前にLoadingを表示
-//     submitHandler: function (form) {
-//       $('.approval').addClass('hide');
-//       $('.loading').removeClass('hide');
-//       form.submit();
-//     }
-//   });
-//   $('input').on('blur', function () {
-//     $(this).valid();
-//   });
-// });
 
 

@@ -19,7 +19,6 @@
 <h2 class="mt-3 mb-3">料金管理　編集(枠貸し)</h2>
 <hr>
 
-
 <div class="section-wrap bg-white wrap_shadow">
   <h3 class="d-block mt-3 mb-5 price_ttl"><span class="mr-3">ID:{{ ReservationHelper::IdFormat($venue->id)}}</span>
     {{ $venue->name_bldg }}{{ $venue->name_venue }}
@@ -35,7 +34,7 @@
   @endif
   <div class="new_price">
     <div>
-      {{ Form::model($venue, ['route' => ['admin.frame_prices.update', $venue->id], 'method' => 'put', 'id'=>'dateCreateForm']) }}
+      {{ Form::model($venue, ['route' => ['admin.frame_prices.update', $venue->id], 'method' => 'put', 'id'=>'EditFramePrice']) }}
       @csrf
 
       <p class="mb-2 text-right">※枠は「午前」「午後」「夜間」「午前＆午後」「午後＆夜間」「終日」です。</p>
@@ -234,6 +233,10 @@
       }
     });
   });
+
+
+
+
 
   $(function() {
     $(".del").on("click", function() {

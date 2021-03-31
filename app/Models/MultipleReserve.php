@@ -108,7 +108,7 @@ class MultipleReserve extends Model implements PresentableInterface //プレゼ�
         if (empty($pre_reservation->pre_bill)) {
           $pre_bill = $pre_reservation->pre_bill()->create([
             'venue_price' => $venue_price,
-            'equipment_price' => $equipment_price + ((int)$requests->cp_master_luggage_price),
+            'equipment_price' => $equipment_price + ((int) $requests->cp_master_luggage_price),
             'layout_price' => $layout_price,
             'others_price' => 0, //othersは後ほど
             'master_subtotal' => floor($master),
@@ -122,7 +122,7 @@ class MultipleReserve extends Model implements PresentableInterface //プレゼ�
           $pre_reservation->pre_bill()->delete();
           $pre_bill = $pre_reservation->pre_bill()->create([
             'venue_price' => $venue_price,
-            'equipment_price' => $equipment_price + ((int)$requests->cp_master_luggage_price),
+            'equipment_price' => $equipment_price + ((int) $requests->cp_master_luggage_price),
             'layout_price' => $layout_price,
             'others_price' => 0, //othersは後ほど
             'master_subtotal' => floor($master),
@@ -240,7 +240,7 @@ class MultipleReserve extends Model implements PresentableInterface //プレゼ�
         $pre_bill = $pre_reserve->pre_bill()->create([
           'venue_price' => empty($masterData->{'venue_price' . $key}) ? 0 : $masterData->{'venue_price' . $key},
           // 'equipment_price' => ((int)$masterData->{'equipment_price' . $key}) + ((int)$masterData->{'luggage_price_copied' . $key}),
-          'equipment_price' => ((int)$masterData->{'equipment_price' . $key}),
+          'equipment_price' => ((int) $masterData->{'equipment_price' . $key}),
           'layout_price' => empty($masterData->{'layout_price' . $key}) ? 0 : $masterData->{'layout_price' . $key},
           'others_price' => empty($masterData->{'others_price' . $key}) ? 0 : $masterData->{'others_price' . $key},
           'master_subtotal' => empty($masterData->{'master_subtotal' . $key}) ? 0 : $masterData->{'master_subtotal' . $key},

@@ -5,7 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
-use App\Models\TimePrices;
+use App\Models\TimePrice;
 use App\Models\Venue;
 use Carbon\Carbon;
 
@@ -30,7 +30,7 @@ class TimePricesController extends Controller
   public function create($id)
   {
     $venue = Venue::find($id);
-    $time_price = new Time_price;
+    $time_price = new TimePrice;
     return view('admin.time_prices.create', [
       'venue' => $venue,
       'time_price' => $time_price,
@@ -58,22 +58,19 @@ class TimePricesController extends Controller
     //createからくるフォームのrequestが何列かにわかれてくるため何列かわかるための計算
     $count_request = (count($request->all()) - 2) / 3;
     if ($count_request == 1) { //$requestの中身が１列の場合
-      Time_price::create([
-        'time' => $request->time,
-        'price' => $request->price,
-        'extend' => $request->extend,
+      TimePrice::create([
+        'time' => $request->time0,
+        'price' => $request->price0,
+        'extend' => $request->extend0,
         'venue_id' => $request->venue_id,
       ]);
       //$requestが１列以上の場合
     } else {
       for ($i = 0; $i < $count_request; $i++) {
-        $v_time = 'time' . $i;
-        $v_price = 'price' . $i;
-        $v_extend = 'extend' . $i;
-        Time_price::create([
-          'time' => $request->$v_time,
-          'price' => $request->$v_price,
-          'extend' => $request->$v_extend,
+        TimePrice::create([
+          'time' => $request->{'time' . $i},
+          'price' => $request->{'price' . $i},
+          'extend' => $request->{'extend' . $i},
           'venue_id' => $request->venue_id,
         ]);
       }
@@ -138,11 +135,11 @@ class TimePricesController extends Controller
       }
     }
 
-    $time_prices = Time_price::where('venue_id', $id);
+    $time_prices = TimePrice::where('venue_id', $id);
     $time_prices->delete();
 
     if ($count_request == 1) { //$requestの中身が１列の場合
-      Time_price::create([
+      TimePrice::create([
         'time' => $request->time0,
         'price' => $request->price0,
         'extend' => $request->extend0,
@@ -154,7 +151,7 @@ class TimePricesController extends Controller
         $v_time = 'time' . $i;
         $v_price = 'price' . $i;
         $v_extend = 'extend' . $i;
-        Time_price::create([
+        TimePrice::create([
           'time' => $request->$v_time,
           'price' => $request->$v_price,
           'extend' => $request->$v_extend,
