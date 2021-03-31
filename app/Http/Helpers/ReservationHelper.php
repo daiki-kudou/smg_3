@@ -298,7 +298,7 @@ class ReservationHelper
 
   public static function numTimesNum($num1, $num2)
   {
-    return (int)$num1 * (int)$num2;
+    return (int) $num1 * (int) $num2;
   }
 
   public static function numTimesNumArrays($requests, $text)
