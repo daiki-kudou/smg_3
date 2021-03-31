@@ -171,7 +171,7 @@
             <tr>
               <td class="table-active form_required">利用者属性 工藤さん！！お願いします</td>
               <td>
-                <select name="pre_enduser_attr" class="form-control">
+                <!-- <select name="pre_enduser_attr" class="form-control">
                   <option value=""></option>
                   <option value="0">一般企業</option>
                   <option value="1">上場企業</option>
@@ -179,7 +179,7 @@
                   <option value="3">個人講師</option>
                   <option value="4">MLM</option>
                   <option value="5">その他</option>
-                </select>
+                </select> -->
                 <p class="is-error-pre_enduser_attr" style="color: red"></p>
               </td>
             </tr>
