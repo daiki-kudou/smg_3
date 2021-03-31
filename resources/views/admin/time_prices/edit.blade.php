@@ -21,7 +21,7 @@
   </nav>
 </div>
 
-<h2 class="mt-3 mb-3">料金管理　編集（枠貸し）</h2>
+<h2 class="mt-3 mb-3">料金管理　編集（時間貸し）</h2>
 <hr>
 
 <div class="section-wrap bg-white wrap_shadow">
@@ -51,7 +51,7 @@
             <th>追加・削除</th>
           </tr>
         </thead>
-        <tbody>
+        <tbody class="main_tbody">
           @foreach ($time_prices as $num=>$time_price)
           <tr>
             <td>
@@ -97,13 +97,11 @@
     $(document).on("click", ".add", function() {
       $(this).parent().parent().clone(true).insertAfter($(this).parent().parent());
       var count = $('.table tbody tr').length;
-
       // プラス選択時にクローンtrの文字クリア
       $(this).parent().parent().next().find('td').find('input, select').eq(0).val('');
       $(this).parent().parent().next().find('td').find('input, select').eq(1).val('');
       $(this).parent().parent().next().find('td').find('input, select').eq(2).val('');
 
-
       for (let index = 0; index < count; index++) {
         var time = "time" + (index);
         var price = "price" + (index);
@@ -111,79 +109,24 @@
         $('.table tbody tr').eq(index).find('td').find('input, select').eq(0).attr('name', time);
         $('.table tbody tr').eq(index).find('td').find('input, select').eq(1).attr('name', price);
         $('.table tbody tr').eq(index).find('td').find('input, select').eq(2).attr('name', extend);
+
+        $('.table tbody tr').eq(index).find('td').eq(0).find('p').remove();
+        $('.table tbody tr').eq(index).find('td').eq(0).append("<p class='is-error-time"+index+"' style='color: red'></p>");
+        $('.table tbody tr').eq(index).find('td').eq(1).find('p').remove();
+        $('.table tbody tr').eq(index).find('td').eq(1).append("<p class='is-error-price"+index+"' style='color: red'></p>");
+        $('.table tbody tr').eq(index).find('td').eq(2).find('p').remove();
+        $('.table tbody tr').eq(index).find('td').eq(2).append("<p class='is-error-extend"+index+"' style='color: red'></p>");
+
       };
-
-      $('table tr td p').remove();
-      for (let index = 0; index < count; index++) {
-        var time = "time" + (index);
-        var price = "price" + (index);
-        var extend = "extend" + (index);
-        $('.table tbody tr').eq(index).find('td').eq(0).append("<p class='is-error-" + time + "' style='color: red'></p>");
-        $('.table tbody tr').eq(index).find('td').eq(1).append("<p class='is-error-" + price + "' style='color: red'></p>");
-        $('.table tbody tr').eq(index).find('td').eq(2).append("<p class='is-error-" + extend + "' style='color: red'></p>");
-      };
-
-      $("#timeEditForm").validate({
-        errorPlacement: function(error, element) {
-          var name = element.attr('name');
-          if (element.attr('name') === 'category[]') {
-            error.appendTo($('.is-error-category'));
-          } else if (element.attr('name') === name) {
-            error.appendTo($('.is-error-' + name));
-          }
-        },
-        errorElement: "span",
-        errorClass: "is-error",
-      });
-      $('input').on('blur', function() {
-        $(this).valid();
-        if ($('span').hasClass('is-error')) {
-          $('span').css('background', 'white');
-        }
-      });
-      $("input[name^='time']").each(function(index, elem) {
-
-        $("input[name='time" + index + "']").rules("add", {
-          required: true,
-          messages: {
-            required: "※必須項目です",
-          }
-        });
-      });
-      $("input[name^='price']").each(function(index, elem) {
-
-        $("input[name='price" + index + "']").rules("add", {
-          required: true,
-          number: true,
-          messages: {
-            required: "※必須項目です",
-            number: "※半角英数字を入力してください"
-          }
-        });
-      });
-      $("input[name^='extend']").each(function(index, elem) {
-
-        $("input[name='extend" + index + "']").rules("add", {
-          required: true,
-          number: true,
-          messages: {
-            required: "※必須項目です",
-            number: "※半角英数字を入力してください"
-          }
-        });
-      });
-
+      validationThis(count);
     });
     //   マイナスボタンクリック
     $(document).on("click", ".del", function() {
       var target = $(this).parent().parent();
-
       if (target.parent().children().length > 1) {
         target.remove();
       }
       var count = $('.table tbody tr').length;
-
-
       for (let index = 0; index < count; index++) {
         var time = "time" + (index);
         var price = "price" + (index);
@@ -192,8 +135,89 @@
         $('.table tbody tr').eq(index).find('td').find('input, select').eq(1).attr('name', price);
         $('.table tbody tr').eq(index).find('td').find('input, select').eq(2).attr('name', extend);
       }
+      validationThis(count);
     });
   });
+
+  var trLength=$(".main_tbody").find("tr").length;
+    var rules = {};
+    var messages = {};
+    for (var i = 0; i < trLength; i++) {
+        rules["time"+i] = {
+            required: true
+        };
+        rules["price"+i] = {
+            required: true,
+            number:true,
+            min:1,
+        };
+        rules["extend"+i] = {
+            required: true,
+            number:true,
+            min:1,
+        };
+        messages["time"+i] = {
+            required: "※必須項目です"
+        };
+        messages["price"+i] = {
+          required: "※必須項目です",
+          number:"※半角英数字で入力してください",
+          min:"1以上を入力してください",
+        };
+        messages["extend"+i] = {
+          required: "※必須項目です",
+          number:"※半角英数字で入力してください",
+          min:"1以上を入力してください",
+        };
+    }
+      $("#timeEditForm").validate({
+          rules: rules,
+          messages:messages,
+          errorPlacement: function (error, element) {
+            var name = element.attr('name');
+            if (element.attr('name') === 'category[]') {
+              error.appendTo($('.is-error-category'));
+            } else if (element.attr('name') === name) {
+              error.appendTo($('.is-error-' + name));
+            }
+          },
+          errorElement: "span",
+          errorClass: "is-error",
+          //送信前にLoadingを表示
+          submitHandler: function (form) {
+            $('.approval').addClass('hide');
+            $('.loading').removeClass('hide');
+            form.submit();
+          }
+        });
+        $('input').on('blur', function () {
+          $(this).valid();
+      });
+
+      function validationThis($index=1){
+      for (let index2 = 1; index2 < $index; index2++) {
+        $("input[name='time"+index2+"']").rules("add", {
+        required: true,
+        messages: { required: "※必須項目です" },
+        });
+        $("input[name='price"+index2+"']").rules("add", {
+        required: true,
+        number:true,
+        min:1,
+        messages: { required: "※必須項目です", number:"※半角英数字で入力してください",min:'※1以上を入力してください' },
+        });
+        $("input[name='extend"+index2+"']").rules("add", {
+        required: true,
+        number:true,
+        min:1,
+        messages: { required: "※必須項目です", number:"※半角英数字で入力してください",min:'※1以上を入力してください' },
+        });
+      }
+    }
+
+
+
+
 
   $(function() {
     $(".del").on("click", function() {
