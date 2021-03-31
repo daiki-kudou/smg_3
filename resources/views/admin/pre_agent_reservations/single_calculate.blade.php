@@ -742,8 +742,8 @@
             @if($request->layout_prepare==1||$request->layout_clean==1)
             <tbody class="layouts_result">
               <tr>
-                <td colspan="2"></td>
-                <td colspan="3">合計
+                <td colspan="3"></td>
+                <td colspan="1">合計
                   {{ Form::text('layouts_price', $layout_total,['class'=>'form-control', 'readonly'] ) }}
                 </td>
               </tr>
