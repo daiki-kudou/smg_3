@@ -644,19 +644,31 @@
                       <tr>
                         <td class="table-active"><label for="eventName1">イベント名称1</label></td>
                         <td>
-                          {{ Form::text('event_name1_copied'.$key,$request->cp_master_event_name1,['class'=>'form-control', 'placeholder'=>'入力してください'] ) }}
+                          <div class="align-items-end d-flex">
+                            {{ Form::text('event_name1_copied'.$key,$request->cp_master_event_name1,['class'=>'form-control', 'placeholder'=>'入力してください', 'id'=>"copiedeventname1Count".$key] ) }}
+                            <span class="ml-1 annotation {{'count_num1_copied'.$key}}"></span>
+                          </div>
+                          <p class="{{'eventname1_error'.$key}}" style="color: red"></p>
                         </td>
                       </tr>
                       <tr>
                         <td class="table-active"><label for="eventName2">イベント名称2</label></td>
                         <td>
-                          {{ Form::text('event_name2_copied'.$key,$request->cp_master_event_name2,['class'=>'form-control', 'placeholder'=>'入力してください'] ) }}
+                          <div class="align-items-end d-flex">
+                            {{ Form::text('event_name2_copied'.$key,$request->cp_master_event_name2,['class'=>'form-control', 'placeholder'=>'入力してください', 'id'=>"copiedeventname2Count".$key] ) }}
+                            <span class="ml-1 annotation {{'count_num2_copied'.$key}}"></span>
+                          </div>
+                          <p class="{{'eventname2_error'.$key}}" style="color: red"></p>
                         </td>
                       </tr>
                       <tr>
                         <td class="table-active"><label for="organizer">主催者名</label></td>
                         <td>
-                          {{ Form::text('event_owner'.$key, $request->cp_master_event_owner,['class'=>'form-control', 'placeholder'=>'入力してください'] ) }}
+                          <div class="align-items-end d-flex">
+                          {{ Form::text('event_owner'.$key, $request->cp_master_event_owner,['class'=>'form-control', 'placeholder'=>'入力してください', 'id'=>"copiedeventOwnerCount".$key] ) }}
+                            <span class="ml-1 annotation {{'count_num3_copied'.$key}}"></span>
+                          </div>
+                          <p class="{{'eventowner_error'.$key}}" style="color: red"></p>
                         </td>
                       </tr>
                     </tbody>

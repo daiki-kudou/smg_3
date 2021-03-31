@@ -452,99 +452,7 @@ $(function () {
 });
 
 
-// 一括のコピーの場合、イベント名称1 作業中！！！！！！！！！
-// const copiedeventname1 = function(){
-//   var len = textLength($(this).val());
-//   $('.count_num1').html(len + "/28");
-//   if(len > 28){
-//   $('.count_num1').css('color', 'red');
-//   $(eventname1copied).text('※文字数がオーバーしています');
-//   $(eventname1copied).show();
-//   $(eventname1copiedcount).addClass('is-error');
-//   $(':submit').prop("disabled", true);
-//   }else{
-//   $('.count_num1').css('color', 'black');
-//   $(eventname1copied).hide();
-//   $(eventname1copiedcount).removeClass('is-error');
-//   $(':submit').prop("disabled", false);
-//   }
-// }
-
-// $(function(){
-//   var target = $("input[name^='event_name1_copied']");
-//   console.log(target);
-//   var len = textLength($(this).val());
-//   $('.count_num1_copied').html(len + "/28");
-//   console.log(this);
-
-//   for (let index = 0; index < target.length; index++) {
-//     var eventname1copiedcount = "#copiedeventname1Count" + index;
-//     var eventname1copied = "eventname1_error" + index;
-
-
-//     console.log("ここ",eventname1copiedcount);
-//     console.log(eventname1copied);
-
-
-
-//     $('.'+eventname1copied).hide();
-
-//     $(eventname1copiedcount).on('keyup', function(){
-//       var len = textLength($(this).val());
-//       $('.count_num1_copied').html(len + "/28");
-
-//       if(len > 28){
-//         $('.count_num1_copied').css('color', 'red');
-//         $('.'+eventname1copied).show();
-//         $(':submit').prop("disabled", true);
-//       }else{
-//         $('.count_num1_copied').css('color', 'black');
-//         $('.'+eventname1copied).hide();
-//         $(':submit').prop("disabled", false);
-//       }
-//     });
-//   }
-
-//   $(eventname1copied).on('keyup', copiedeventname1);
-//   $(eventname1copied).blur(copiedeventname1);
-// });
-
-
-// 一括のコピーの場合、検証用！！！！！！！！！
-// $(function () {
-//   var target = $("input[name^='event_name1_copied']");
-//   for (let index = 0; index < target.length; index++) {
-//     var eventname1copiedcount = "#copiedeventname1Count" + index;
-//     var eventname1copied = ".eventname1_error" + index;
-//   }
-
-//   $(function () {
-//     $('.eventname1_error').hide();
-//     var len = textLength($('#copiedeventname1Count0').val());
-//     $('.count_num1_copied').html(len + "/28");
-//   });
-
-//   $('#copiedeventname1Count0').on('keyup', copiedeventname1);
-//   $('#copiedeventname1Count0').blur(copiedeventname1);
-// });
-
-// const copiedeventname1 = function () {
-//   var len = textLength($(this).val());
-//   $('.count_num1_copied').html(len + "/28");
-//   if (len > 28) {
-//     $('.count_num1_copied').css('color', 'red');
-//     $('.eventname1_error').text('※文字数がオーバーしています');
-//     $('.eventname1_error').show();
-//     $(':submit').prop("disabled", true);
-//   } else {
-//     $('.count_num1_copied').css('color', 'black');
-//     $('.eventname1_error').hide();
-//     $(':submit').prop("disabled", false);
-//   }
-// }
-
-
-// 工藤追記！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！１
+// 一括タブ内、イベント名称1
 $(function () {
   var m_loop = $('input[name^="event_name1_copied"]');
   for (let index = 0; index < m_loop.length; index++) {
@@ -574,10 +482,65 @@ $(function () {
   }
 })
 
+// 一括タブ内、イベント名称2
+$(function () {
+  var m_loop = $('input[name^="event_name1_copied"]');
+  for (let index = 0; index < m_loop.length; index++) {
+    $('.eventname2_error' + index).hide();
+    $('.count_num2_copied' + index).html(textLength($("#copiedeventname2Count" + index).val()) + "/28");
 
-// 工藤追記！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！１
+    $('#copiedeventname2Count' + index).on('keyup', function () {
+      copiedeventname2($(this).val(), $('.count_num2_copied' + index), $('.eventname2_error' + index));
+    })
+    $('#copiedeventname2Count' + index).on('blur', function () {
+      copiedeventname2($(this).val(), $('.count_num2_copied' + index), $('.eventname2_error' + index));
+    })
+  }
+  function copiedeventname2($this_val, $target, $error) {
+    var len = textLength($this_val);
+    $target.html(len + "/28");
+    if (len > 28) {
+      $target.css('color', 'red');
+      $error.text('※文字数がオーバーしています');
+      $error.show();
+      $(':submit').prop("disabled", true);
+    } else {
+      $target.css('color', 'black');
+      $error.hide();
+      $(':submit').prop("disabled", false);
+    }
+  }
+})
 
+// 一括タブ内、主催者名
+$(function () {
+  var m_loop = $('input[name^="event_name1_copied"]');
+  for (let index = 0; index < m_loop.length; index++) {
+    $('.eventowner_error' + index).hide();
+    $('.count_num3_copied' + index).html(textLength($("#copiedeventOwnerCount" + index).val()) + "/53");
 
+    $('#copiedeventOwnerCount' + index).on('keyup', function () {
+      copiedeventowner($(this).val(), $('.count_num3_copied' + index), $('.eventowner_error' + index));
+    })
+    $('#copiedeventOwnerCount' + index).on('blur', function () {
+      copiedeventowner($(this).val(), $('.count_num3_copied' + index), $('.eventowner_error' + index));
+    })
+  }
+  function copiedeventowner($this_val, $target, $error) {
+    var len = textLength($this_val);
+    $target.html(len + "/53");
+    if (len > 53) {
+      $target.css('color', 'red');
+      $error.text('※文字数がオーバーしています');
+      $error.show();
+      $(':submit').prop("disabled", true);
+    } else {
+      $target.css('color', 'black');
+      $error.hide();
+      $(':submit').prop("disabled", false);
+    }
+  }
+})
 
 
 function textLength(text) {

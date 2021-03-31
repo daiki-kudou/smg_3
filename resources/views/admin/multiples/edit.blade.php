@@ -635,13 +635,21 @@
                   <tr>
                     <td class="table-active"><label for="eventName2">イベント名称2</label></td>
                     <td>
-                      {{ Form::text('event_name2_copied'.$key, $pre_reservation->event_name2,['class'=>'form-control', 'placeholder'=>'入力してください'] ) }}
+                      <div class="align-items-end d-flex">
+                      {{ Form::text('event_name2_copied'.$key, $pre_reservation->event_name2,['class'=>'form-control', 'placeholder'=>'入力してください', 'id'=>"copiedeventname2Count".$key] ) }}
+                        <span class="ml-1 annotation {{'count_num2_copied'.$key}}"></span>
+                      </div>
+                      <p class="{{'eventname2_error'.$key}}" style="color: red"></p>
                     </td>
                   </tr>
                   <tr>
                     <td class="table-active"><label for="organizer">主催者名</label></td>
                     <td>
-                      {{ Form::text('event_owner'.$key, $pre_reservation->event_owner,['class'=>'form-control', 'placeholder'=>'入力してください'] ) }}
+                      <div class="align-items-end d-flex">
+                      {{ Form::text('event_owner'.$key, $pre_reservation->event_owner,['class'=>'form-control', 'placeholder'=>'入力してください', 'id'=>"copiedeventOwnerCount".$key] ) }}
+                        <span class="ml-1 annotation {{'count_num3_copied'.$key}}"></span>
+                      </div>
+                      <p class="{{'eventowner_error'.$key}}" style="color: red"></p>
                     </td>
                   </tr>
                 </tbody>

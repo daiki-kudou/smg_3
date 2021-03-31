@@ -4,7 +4,7 @@
 
 <link href="{{ asset('/css/template.css') }}" rel="stylesheet">
 <script src="{{ asset('/js/template.js') }}"></script>
-
+<script src="{{ asset('/js/admin/validation.js') }}"></script>
 
 <div id="fullOverlay">
   <div class="frame_spinner">
@@ -15,7 +15,7 @@
 </div>
 
 
-{{ Form::open(['url' => 'admin/multiples/agent_switch_cfm/'.$multiple->id, 'method'=>'POST', 'id'=>'']) }}
+{{ Form::open(['url' => 'admin/multiples/agent_switch_cfm/'.$multiple->id, 'method'=>'POST', 'id'=>'multipleagent_switch']) }}
 @csrf
 
 <div class="container-fluid">
@@ -48,7 +48,7 @@
 
       <div class="border-wrap2 p-4">
         <div class="user_selector">
-          <h3 class="mb-2">顧客検索</h3>
+          <h3 class="mb-2">仲介会社検索</h3>
           <select name="agent_id" id="agent_id">
             @foreach ($agents as $agent)
             <option value="{{$agent->id}}" @if ($agent->id==$multiple->pre_reservations()->first()->user_id)
@@ -60,7 +60,6 @@
             @endforeach
           </select>
         </div>
-
         <table class="table table-bordered customer-table mb-5" style="table-layout: fixed;">
           <thead>
             <tr>
@@ -125,38 +124,63 @@
             </tr>
             <tr>
               <td class="table-active" width="25%">
-                <label for="onedayCompany">会社・団体名(仮)</label>
+                <label for="onedayCompany">エンドユーザー</label>
               </td>
               <td>
                 {{Form::text("end_user_company",!empty($pre_enduser)?$pre_enduser->company:'',["class"=>"form-control"])}}
               </td>
               <td class="table-active">
-                <label for="onedayName">担当者名(仮)</label>
+                <label for="">住所　工藤さん！！！お願いします</label>
               </td>
               <td>
-                {{Form::text("end_user_name",!empty($pre_enduser)?$pre_enduser->person:'',["class"=>"form-control"])}}
+                ダミーダミーダミー
               </td>
             </tr>
+
             <tr>
               <td class="table-active" scope="row">
-                <label for="onedayTel">固定電話</label>
+                <label for="onedayTel">連絡先</label>
               </td>
               <td>
                 {{Form::text("end_user_tel",!empty($pre_enduser)?$pre_enduser->tel:'',["class"=>"form-control"])}}
+                <p class="is-error-end_user_tel" style="color: red"></p>
               </td>
-              <td class="table-active" scope="row">
-                <label for="onedayMobile">携帯番号</label>
-              </td>
-              <td>
-                {{Form::text("end_user_mobile",!empty($pre_enduser)?$pre_enduser->mobile:'',["class"=>"form-control"])}}
-              </td>
-            </tr>
-            <tr>
               <td class="table-active" scope="row">
                 <label for="onedayEmail">メールアドレス</label>
               </td>
               <td>
                 {{Form::text("end_user_email",!empty($pre_enduser)?$pre_enduser->email:'',["class"=>"form-control"])}}
+                <p class="is-error-end_user_email" style="color: red"></p>
+              </td>
+            </tr>
+            <tr>
+              <td class="table-active">
+                <label for="onedayName">当日担当者</label>
+              </td>
+              <td>
+                {{Form::text("end_user_name",!empty($pre_enduser)?$pre_enduser->person:'',["class"=>"form-control"])}}
+              </td>
+              <td class="table-active" scope="row">
+                <label for="onedayMobile">当日連絡先</label>
+              </td>
+              <td>
+                {{Form::text("end_user_mobile",!empty($pre_enduser)?$pre_enduser->mobile:'',["class"=>"form-control"])}}
+                <p class="is-error-end_user_mobile" style="color: red"></p>
+              </td>
+            </tr>
+            <tr>
+              <td class="table-active form_required">利用者属性 工藤さん！！お願いします</td>
+              <td>
+                <select name="pre_enduser_attr" class="form-control">
+                  <option value=""></option>
+                  <option value="0">一般企業</option>
+                  <option value="1">上場企業</option>
+                  <option value="2">近隣利用</option>
+                  <option value="3">個人講師</option>
+                  <option value="4">MLM</option>
+                  <option value="5">その他</option>
+                </select>
+                <p class="is-error-pre_enduser_attr" style="color: red"></p>
               </td>
             </tr>
           </tbody>
@@ -198,7 +222,7 @@
           $('#fullOverlay').css('display', 'none');
           console.log($agent);
           $(".agent_info").find('tr').eq(0).find('td').eq(0).text("").text($agent["company"]);
-          $(".agent_info").find('tr').eq(0).find('td').eq(1).text("").text($agent["person_firstname"]+$agent["person_lastname"]);
+          $(".agent_info").find('tr').eq(0).find('td').eq(1).text("").text($agent["person_firstname"] + $agent["person_lastname"]);
           $(".agent_info").find('tr').eq(1).find('td').eq(0).text("").text($agent["email"]);
           $(".agent_info").find('tr').eq(1).find('td').eq(1).text("").text($agent["person_mobile"]);
           $(".agent_info").find('tr').eq(2).find('td').eq(0).text("").text($agent["person_tel"]);
