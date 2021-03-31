@@ -7,46 +7,7 @@
 
 
 <!-- フォーム追加 -->
-<script>
-  $(function() {
-    $(document).on("click", ".add", function() {
-      $(this).parent().parent().clone(true).insertAfter($(this).parent().parent());
-      var count = $('.new_price tbody tr').length;
 
-      // プラス選択時にクローンtrの文字クリア
-      $(this).parent().parent().next().find('td').find('input, select').eq(0).val('');
-      $(this).parent().parent().next().find('td').find('input, select').eq(1).val('');
-      $(this).parent().parent().next().find('td').find('input, select').eq(2).val('');
-
-      for (let index = 0; index < count; index++) {
-        var time = "time" + (index);
-        var price = "price" + (index);
-        var extend = "extend" + (index);
-        $('.new_price tbody tr').eq(index).find('td').find('input, select').eq(0).attr('name', time);
-        $('.new_price tbody tr').eq(index).find('td').find('input, select').eq(1).attr('name', price);
-        $('.new_price tbody tr').eq(index).find('td').find('input, select').eq(2).attr('name', extend);
-      }
-    });
-    $(document).on("click", ".del", function() {
-      var target = $(this).parent().parent();
-
-      if (target.parent().children().length > 1) {
-        target.remove();
-      }
-      var count = $('.new_price tbody tr').length;
-      console.log(count);
-
-      for (let index = 0; index < count; index++) {
-        var time = "time" + (index);
-        var price = "price" + (index);
-        var extend = "extend" + (index);
-        $('.new_price tbody tr').eq(index).find('td').find('input, select').eq(0).attr('name', time);
-        $('.new_price tbody tr').eq(index).find('td').find('input, select').eq(1).attr('name', price);
-        $('.new_price tbody tr').eq(index).find('td').find('input, select').eq(2).attr('name', extend);
-      }
-    });
-  });
-</script>
 
 <div class="container-field mt-3">
   <div class="float-right">
@@ -77,7 +38,7 @@
     </div>
     @endif
     <div>
-      {{ Form::model($time_price, ['route' => 'admin.time_prices.store']) }}
+      {{ Form::model($time_price, ['route' => 'admin.time_prices.store','id'=>'CreateTimePriceForm']) }}
       @csrf
       <table class="table table-bordered">
         <thead>
@@ -89,13 +50,20 @@
           </tr>
         </thead>
         <tr>
-          <td>{{ Form::number('time', old('time'), ['class' => 'form-control']) }}</td>
-          <td>{{ Form::number('price', old('price'), ['class' => 'form-control']) }}</td>
+          <td>
+            {{ Form::number('time0', old('time'), ['class' => 'form-control']) }}
+            <p class="is-error-time0" style="color: red"></p>
+          </td>
+          <td>
+            {{ Form::number('price0', old('price0'), ['class' => 'form-control']) }}
+            <p class="is-error-price0" style="color: red"></p>
+          </td>
           <td>
             <div class="d-flex align-items-end">
-              {{ Form::number('extend', old('extend'), ['class' => 'form-control']) }}
+              {{ Form::number('extend0', old('extend'), ['class' => 'form-control']) }}
               <span class="ml-1">円</span>
             </div>
+            <p class="is-error-extend0" style="color: red"></p>
           </td>
           <td>
             <input type="button" value="＋" class="add pluralBtn">
@@ -111,7 +79,133 @@
 </div>
 
 
+<script>
+  $(function() {
+    $(document).on("click", ".add", function() {
+      $("input").attr('aria-describedby','');
+      var validator = $( "#CreateTimePriceForm" ).validate();
+      validator.resetForm();
+      validator.destroy();
 
+      $(this).parent().parent().clone(true).insertAfter($(this).parent().parent());
+      var count = $('.new_price tbody tr').length;
+
+      // プラス選択時にクローンtrの文字クリア
+      $(this).parent().parent().next().find('td').find('input, select').eq(0).val('');
+      $(this).parent().parent().next().find('td').find('input, select').eq(1).val('');
+      $(this).parent().parent().next().find('td').find('input, select').eq(2).val('');
+
+      for (let index = 0; index < count; index++) {
+        $('.new_price tbody tr').eq(index).find('td').find('input, select').eq(0).attr('name', 'time'+index);
+        $('.new_price tbody tr').eq(index).find('td').find('input, select').eq(1).attr('name', 'price'+index);
+        $('.new_price tbody tr').eq(index).find('td').find('input, select').eq(2).attr('name', 'extend'+index);
+
+        $('.new_price tbody tr').eq(index).find('td').eq(0).find('p').remove();
+        $('.new_price tbody tr').eq(index).find('td').eq(0).append("<p class='is-error-time"+index+"' style='color: red'></p>");
+        $('.new_price tbody tr').eq(index).find('td').eq(1).find('p').remove();
+        $('.new_price tbody tr').eq(index).find('td').eq(1).append("<p class='is-error-price"+index+"' style='color: red'></p>");
+        $('.new_price tbody tr').eq(index).find('td').eq(2).find('p').remove();
+        $('.new_price tbody tr').eq(index).find('td').eq(2).append("<p class='is-error-extend"+index+"' style='color: red'></p>");
+
+      }
+      validationThis(count);
+
+    });
+
+    $(document).on("click", ".del", function() {
+      $("input").attr('aria-describedby','');
+      var validator = $( "#CreateTimePriceForm" ).validate();
+      validator.resetForm();
+      validator.destroy();
+
+      var target = $(this).parent().parent();
+
+      if (target.parent().children().length > 1) {
+        target.remove();
+      }
+      var count = $('.new_price tbody tr').length;
+      console.log(count);
+
+      for (let index = 0; index < count; index++) {
+        $('.new_price tbody tr').eq(index).find('td').find('input, select').eq(0).attr('name', 'time'+index);
+        $('.new_price tbody tr').eq(index).find('td').find('input, select').eq(1).attr('name', 'price'+index);
+        $('.new_price tbody tr').eq(index).find('td').find('input, select').eq(2).attr('name', 'extend'+index);
+      }
+      validationThis(count);
+
+    });
+
+
+    validationThis();
+
+
+    function validationThis($index=1){
+        $("#CreateTimePriceForm").validate({
+          rules: {
+            time0: {
+              required: true,
+              number: true,
+            },
+            price0: {
+              required: true,
+              number: true,
+            },
+            extend0: {
+              required: true,
+              number: true,
+            },
+          },
+          messages: {
+            time0: {
+              required: "※必須項目です",
+              number: "※半角英数字で入力してください",
+            },
+            price0: {
+              required: "※必須項目です",
+              number: "※半角英数字で入力してください",
+            },
+            extend0: {
+              required: "※必須項目です",
+              number: "※半角英数字で入力してください",
+            },
+          },
+          errorPlacement: function (error, element) {
+            var name = element.attr('name');
+            if (element.attr('name') === 'category[]') {
+              error.appendTo($('.is-error-category'));
+            } else if (element.attr('name') === name) {
+              error.appendTo($('.is-error-' + name));
+            }
+          },
+          errorElement: "span",
+          errorClass: "is-error",
+          //送信前にLoadingを表示
+          submitHandler: function (form) {
+            $('.approval').addClass('hide');
+            $('.loading').removeClass('hide');
+            form.submit();
+          }
+        });
+        $('input').on('blur', function () {
+          $(this).valid();
+      });
+      for (let index2 = 1; index2 < $index; index2++) {
+        $("input[name='time"+index2+"']").rules("add", {
+        required: true,
+        messages: { required: "※必須項目です" },
+        });
+        $("input[name='price"+index2+"']").rules("add", {
+        required: true,
+        messages: { required: "※必須項目です" },
+        });
+        $("input[name='extend"+index2+"']").rules("add", {
+        required: true,
+        messages: { required: "※必須項目です" },
+        });
+      }
+    }
+  });
+</script>
 
 
 @endsection

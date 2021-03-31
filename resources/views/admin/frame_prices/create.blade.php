@@ -97,6 +97,7 @@
         {{ Form::number('extend', old('extend'),['class'=>'form-control w-25']) }}
         <span class="ml-1">円</span>
       </div>
+      <p class="is-error-extend" style="color: red"></p>
       {{Form::hidden('venue_id', $venue->id)}}
       <div class="mt-5 mx-auto">
         {{ Form::submit('登録する', ['class' => 'btn more_btn_lg d-block btn-lg mx-auto my-5']) }}
@@ -170,7 +171,6 @@
     validationThis();
 
     function validationThis($index=1){
-
         $("#FramePriceCreateForm").validate({
           rules: {
             frame0: {
@@ -180,12 +180,20 @@
               required: true,
               number: true,
             },
+            extend: {
+              required: true,
+              number: true,
+            },
           },
           messages: {
             frame0: {
               required: "※必須項目です",
             },
             price0: {
+              required: "※必須項目です",
+              number: "※半角英数字で入力してください",
+            },
+            extend: {
               required: "※必須項目です",
               number: "※半角英数字で入力してください",
             },
@@ -210,7 +218,6 @@
         $('input').on('blur', function () {
           $(this).valid();
       });
-      
       for (let index2 = 1; index2 < $index; index2++) {
         console.log(index2);
         $("input[name='frame"+index2+"']").rules("add", {
