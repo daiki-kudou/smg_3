@@ -995,7 +995,7 @@
   {{Form::hidden('unknown_user_mobile', $PreReservation->unknown_user_mobile)}}
 
 
-  {{Form::submit('保存する', ['class'=>'btn more_btn_lg mx-auto d-block my-5', 'id'=>'check_submit'])}}
+  {{-- {{Form::submit('保存する', ['class'=>'btn more_btn_lg mx-auto d-block my-5', 'id'=>'check_submit'])}} --}}
 
 </section>
 {{Form::close()}}
