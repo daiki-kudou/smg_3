@@ -145,28 +145,34 @@
             time0: {
               required: true,
               number: true,
+              min:1,
             },
             price0: {
               required: true,
               number: true,
+              min:1,
             },
             extend0: {
               required: true,
               number: true,
+              min:1,
             },
           },
           messages: {
             time0: {
               required: "※必須項目です",
               number: "※半角英数字で入力してください",
+              min:'※1以上を入力してください'
             },
             price0: {
               required: "※必須項目です",
               number: "※半角英数字で入力してください",
+              min:'※1以上を入力してください'
             },
             extend0: {
               required: "※必須項目です",
               number: "※半角英数字で入力してください",
+              min:'※1以上を入力してください'
             },
           },
           errorPlacement: function (error, element) {
