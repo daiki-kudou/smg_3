@@ -1,10 +1,10 @@
 @extends('layouts.admin.app')
 
 @section('content')
-<script src="{{ asset('/js/template.js') }}"></script>
-<script src="{{ asset('/js/validation.js') }}"></script>
+{{-- <script src="{{ asset('/js/template.js') }}"></script> --}}
+{{-- <script src="{{ asset('/js/validation.js') }}"></script> --}}
 <link href="{{ asset('/css/template.css') }}" rel="stylesheet">
-<script src="{{ asset('/js/ctrl_form.js') }}"></script>
+{{-- <script src="{{ asset('/js/ctrl_form.js') }}"></script> --}}
 
 <div class="float-right">
   <nav aria-label="breadcrumb">
@@ -48,11 +48,11 @@
             <th>追加・削除</th>
           </tr>
         </thead>
-        <tbody>
+        <tbody class="main_tbody">
           @foreach ($frame_prices as $num=>$frame_price)
           <tr>
             <td>
-              {{ Form::text('frame'.$num, old('frame', $frame_price->frame), ['class' => 'form-control']) }}
+              {{ Form::text('frame'.$num, old('frame', $frame_price->frame), ['class' => 'form-control', '']) }}
               <p class="{{'is-error-frame'.$num}}" style="color: red"></p>
             </td>
             <td>{{Form::select('start'.$num, [
@@ -158,7 +158,7 @@
                 ],old('finish', $frame_price->finish),['class'=>'form-control col-sm-12'])}}</td>
             <td>
               <div class="d-flex align-items-end">
-                {{ Form::text('price'.$num, old('price', $frame_price->price), ['class' => 'form-control']) }}
+                {{ Form::text('price'.$num, old('price', $frame_price->price), ['class' => 'form-control', '']) }}
                 <span class="ml-1">円</span>
               </div>
               <p class="{{'is-error-price'.$num}}" style="color: red"></p>
@@ -193,48 +193,109 @@
     $(document).on("click", ".add", function() {
       $(this).parent().parent().clone(true).insertAfter($(this).parent().parent());
       var count = $('.table tbody tr').length;
-
       // 追加時内容クリア
       $(this).parent().parent().next().find('td').find('input, select').eq(0).val('');
-      $(this).parent().parent().next().find('td').find('input, select').eq(1).val('');
-      $(this).parent().parent().next().find('td').find('input, select').eq(2).val('');
+      // $(this).parent().parent().next().find('td').find('input, select').eq(1).val('');
+      // $(this).parent().parent().next().find('td').find('input, select').eq(2).val('');
       $(this).parent().parent().next().find('td').find('input, select').eq(3).val('');
-
-
       for (let index = 0; index < count; index++) {
-        var frame = "frame" + (index);
-        var start = "start" + (index);
-        var finish = "finish" + (index);
-        var price = "price" + (index);
-        $('.table tbody tr').eq(index).find('td').find('input, select').eq(0).attr('name', frame);
-        $('.table tbody tr').eq(index).find('td').find('input, select').eq(1).attr('name', start);
-        $('.table tbody tr').eq(index).find('td').find('input, select').eq(2).attr('name', finish);
-        $('.table tbody tr').eq(index).find('td').find('input, select').eq(3).attr('name', price);
+        $('.table tbody tr').eq(index).find('td').find('input, select').eq(0).attr('name', "frame" + index);
+        $('.table tbody tr').eq(index).find('td').find('input, select').eq(1).attr('name', "start" + index);
+        $('.table tbody tr').eq(index).find('td').find('input, select').eq(2).attr('name', "finish" + index);
+        $('.table tbody tr').eq(index).find('td').find('input, select').eq(3).attr('name', "price" + index);
+
+        $('.table tbody tr').eq(index).find('td').eq(0).find('p').remove();
+        $('.table tbody tr').eq(index).find('td').eq(0).append("<p class='is-error-frame"+index+"' style='color: red'></p>");
+        $('.table tbody tr').eq(index).find('td').eq(3).find('p').remove();
+        $('.table tbody tr').eq(index).find('td').eq(3).append("<p class='is-error-price"+index+"' style='color: red'></p>");
+
       }
+      validationThis(count);
     });
+
     //   マイナスボタンクリック
     $(document).on("click", ".del", function() {
       var target = $(this).parent().parent();
-
       if (target.parent().children().length > 1) {
         target.remove();
       }
       var count = $('.table tbody tr').length;
-
       for (let index = 0; index < count; index++) {
-        var frame = "frame" + (index);
-        var start = "start" + (index);
-        var finish = "finish" + (index);
-        var price = "price" + (index);
-        $('.table tbody tr').eq(index).find('td').find('input, select').eq(0).attr('name', frame);
-        $('.table tbody tr').eq(index).find('td').find('input, select').eq(1).attr('name', start);
-        $('.table tbody tr').eq(index).find('td').find('input, select').eq(2).attr('name', finish);
-        $('.table tbody tr').eq(index).find('td').find('input, select').eq(3).attr('name', price);
+        $('.table tbody tr').eq(index).find('td').find('input, select').eq(0).attr('name', "frame" + index);
+        $('.table tbody tr').eq(index).find('td').find('input, select').eq(1).attr('name', "start" + index);
+        $('.table tbody tr').eq(index).find('td').find('input, select').eq(2).attr('name', "finish" + index);
+        $('.table tbody tr').eq(index).find('td').find('input, select').eq(3).attr('name', "price" + index);
+
+        $('.table tbody tr').eq(index).find('td').eq(0).find('p').remove();
+        $('.table tbody tr').eq(index).find('td').eq(0).append("<p class='is-error-frame"+index+"' style='color: red'></p>");
+        $('.table tbody tr').eq(index).find('td').eq(3).find('p').remove();
+        $('.table tbody tr').eq(index).find('td').eq(3).append("<p class='is-error-price"+index+"' style='color: red'></p>");
+
       }
+      validationThis(count);
     });
+
+    var trLength=$(".main_tbody").find("tr").length;
+    var rules = {};
+    var messages = {};
+    for (var i = 0; i < trLength; i++) {
+        rules["frame"+i] = {
+            required: true
+        };
+        rules["price"+i] = {
+            required: true,
+            number:true,
+            min:1,
+        };
+        messages["frame"+i] = {
+            required: "※必須項目です"
+        };
+        messages["price"+i] = {
+          required: "※必須項目です",
+          number:"※半角英数字で入力してください",
+          min:"1以上を入力してください",
+        };
+    }
+      $("#EditFramePrice").validate({
+          rules: rules,
+          messages:messages,
+          errorPlacement: function (error, element) {
+            var name = element.attr('name');
+            if (element.attr('name') === 'category[]') {
+              error.appendTo($('.is-error-category'));
+            } else if (element.attr('name') === name) {
+              error.appendTo($('.is-error-' + name));
+            }
+          },
+          errorElement: "span",
+          errorClass: "is-error",
+          //送信前にLoadingを表示
+          submitHandler: function (form) {
+            $('.approval').addClass('hide');
+            $('.loading').removeClass('hide');
+            form.submit();
+          }
+        });
+        $('input').on('blur', function () {
+          $(this).valid();
+      });
+
+      function validationThis($index=1){
+      for (let index2 = 1; index2 < $index; index2++) {
+        console.log(index2);
+        $("input[name='frame"+index2+"']").rules("add", {
+        required: true,
+        messages: { required: "※必須項目です" },
+        });
+        $("input[name='price"+index2+"']").rules("add", {
+        required: true,
+        number:true,
+        min:1,
+        messages: { required: "※必須項目です", number:"※半角英数字で入力してください",min:'※1以上を入力してください' },
+        });
+      }
+    }
   });
-
-
 
 
 
