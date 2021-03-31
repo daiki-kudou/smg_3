@@ -8,6 +8,89 @@
 <script src="{{ asset('/js/ctrl_form.js') }}"></script>
 
 <!-- フォーム追加 -->
+
+
+<div class="float-right">
+  <nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+      <li class="breadcrumb-item active"><a href="https://staging-smg2.herokuapp.com/admin/home">ホーム</a> &gt;
+        <a href="https://staging-smg2.herokuapp.com/admin/frame_prices">料金管理</a> &gt;
+        料金管理　編集（時間貸し）
+      </li>
+    </ol>
+  </nav>
+</div>
+
+<h2 class="mt-3 mb-3">料金管理　編集（枠貸し）</h2>
+<hr>
+
+<div class="section-wrap bg-white wrap_shadow">
+  <h3 class="d-block mt-3 mb-5 price_ttl"><span class="mr-3">ID:{{ ReservationHelper::fixId($venue->id)}}</span>
+    {{ $venue->name_bldg }}{{ $venue->name_venue }}
+  </h3>
+  <div class="new_price">
+    @if ($errors->any())
+    <div class="alert alert-danger">
+      <ul>
+        @foreach ($errors->all() as $error)
+        <li>{{ $error }}</li>
+        @endforeach
+      </ul>
+    </div>
+    @endif
+
+    <div>
+      {{ Form::model($venue, ['route' => ['admin.time_prices.update', $venue->id], 'method' => 'put', 'id'=>'timeEditForm']) }}
+      @csrf
+      <table class="table table-bordered">
+        <thead>
+          <tr>
+            <th>時間</th>
+            <th>料金<span class="ml-1 annotation">※税抜</span></th>
+            <th>延長料金(1H)<span class="ml-1 annotation">※税抜</span></th>
+            <th>追加・削除</th>
+          </tr>
+        </thead>
+        <tbody>
+          @foreach ($time_prices as $num=>$time_price)
+          <tr>
+            <td>
+              <div class="d-flex align-items-end">
+                {{ Form::text('time'.$num, old('time', $time_price->time), ['class' => 'form-control']) }}
+                <span class="ml-1">H</span>
+              </div>
+              <p class="{{'is-error-time'.$num}}" style="color: red"></p>
+            </td>
+            <td>
+              <div class="d-flex align-items-end">
+                {{ Form::text('price'.$num, old('price', $time_price->price), ['class' => 'form-control']) }}
+                <span class="ml-1">円</span>
+              </div>
+              <p class="{{'is-error-price'.$num}}" style="color: red"></p>
+            </td>
+            <td>
+              <div class="d-flex align-items-end">
+                {{ Form::text('extend'.$num, old('extend', $time_price->extend), ['class' => 'form-control']) }}
+                <span class="ml-1">円</span>
+              </div>
+              <p class="{{'is-error-extend'.$num}}" style="color: red"></p>
+            </td>
+            <td>
+              <input type="button" value="＋" class="add pluralBtn">
+              <input type="button" value="ー" class="del pluralBtn">
+            </td>
+          </tr>
+          @endforeach
+        </tbody>
+      </table>
+      {{Form::hidden('venue_id', $venue->id)}}
+      {{ Form::submit('保存する', ['class' => 'btn more_btn_lg d-block btn-lg mx-auto my-5', 'id'=>'submit']) }}
+      {{ Form::close() }}
+    </div>
+  </div>
+</div>
+
+
 <script>
   $(function() {
     // プラスボタンクリック
@@ -111,89 +194,7 @@
       }
     });
   });
-</script>
 
-<div class="float-right">
-  <nav aria-label="breadcrumb">
-    <ol class="breadcrumb">
-      <li class="breadcrumb-item active"><a href="https://staging-smg2.herokuapp.com/admin/home">ホーム</a> &gt;
-        <a href="https://staging-smg2.herokuapp.com/admin/frame_prices">料金管理</a> &gt;
-        料金管理　編集（時間貸し）
-      </li>
-    </ol>
-  </nav>
-</div>
-
-<h2 class="mt-3 mb-3">料金管理　編集（枠貸し）</h2>
-<hr>
-
-<div class="section-wrap bg-white wrap_shadow">
-  <h3 class="d-block mt-3 mb-5 price_ttl"><span class="mr-3">ID:{{ ReservationHelper::fixId($venue->id)}}</span>
-    {{ $venue->name_bldg }}{{ $venue->name_venue }}
-  </h3>
-  <div class="new_price">
-    @if ($errors->any())
-    <div class="alert alert-danger">
-      <ul>
-        @foreach ($errors->all() as $error)
-        <li>{{ $error }}</li>
-        @endforeach
-      </ul>
-    </div>
-    @endif
-
-    <div>
-      {{ Form::model($venue, ['route' => ['admin.time_prices.update', $venue->id], 'method' => 'put', 'id'=>'timeEditForm']) }}
-      @csrf
-      <table class="table table-bordered">
-        <thead>
-          <tr>
-            <th>時間</th>
-            <th>料金<span class="ml-1 annotation">※税抜</span></th>
-            <th>延長料金(1H)<span class="ml-1 annotation">※税抜</span></th>
-            <th>追加・削除</th>
-          </tr>
-        </thead>
-        <tbody>
-          @foreach ($time_prices as $num=>$time_price)
-          <tr>
-            <td>
-              <div class="d-flex align-items-end">
-                {{ Form::text('time'.$num, old('time', $time_price->time), ['class' => 'form-control']) }}
-                <span class="ml-1">H</span>
-              </div>
-              <p class="{{'is-error-time'.$num}}" style="color: red"></p>
-            </td>
-            <td>
-              <div class="d-flex align-items-end">
-                {{ Form::text('price'.$num, old('price', $time_price->price), ['class' => 'form-control']) }}
-                <span class="ml-1">円</span>
-              </div>
-              <p class="{{'is-error-price'.$num}}" style="color: red"></p>
-            </td>
-            <td>
-              <div class="d-flex align-items-end">
-                {{ Form::text('extend'.$num, old('extend', $time_price->extend), ['class' => 'form-control']) }}
-                <span class="ml-1">円</span>
-              </div>
-              <p class="{{'is-error-extend'.$num}}" style="color: red"></p>
-            </td>
-            <td>
-              <input type="button" value="＋" class="add pluralBtn">
-              <input type="button" value="ー" class="del pluralBtn">
-            </td>
-          </tr>
-          @endforeach
-        </tbody>
-      </table>
-      {{Form::hidden('venue_id', $venue->id)}}
-      {{ Form::submit('保存する', ['class' => 'btn more_btn_lg d-block btn-lg mx-auto my-5', 'id'=>'submit']) }}
-      {{ Form::close() }}
-    </div>
-  </div>
-</div>
-
-<script>
   $(function() {
     $(".del").on("click", function() {
       if (!confirm('本当に削除しますか？\n削除した時点で会場情報・顧客側予約フォームからも削除されます')) {
@@ -201,6 +202,7 @@
       }
     })
   })
+
 </script>
 
 @endsection

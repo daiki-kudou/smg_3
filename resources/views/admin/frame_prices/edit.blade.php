@@ -208,7 +208,6 @@
         $('.table tbody tr').eq(index).find('td').eq(0).append("<p class='is-error-frame"+index+"' style='color: red'></p>");
         $('.table tbody tr').eq(index).find('td').eq(3).find('p').remove();
         $('.table tbody tr').eq(index).find('td').eq(3).append("<p class='is-error-price"+index+"' style='color: red'></p>");
-
       }
       validationThis(count);
     });
