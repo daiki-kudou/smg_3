@@ -14,7 +14,7 @@
       </ol>
     </nav>
   </div>
-  <h2 class="mt-3 mb-3">一括仮押え　概要</h2>
+  <h2 class="mt-3 mb-3">一括仮押え　詳細</h2>
   <hr>
 </div>
 

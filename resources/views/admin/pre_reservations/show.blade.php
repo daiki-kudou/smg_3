@@ -308,7 +308,7 @@
                 <td class="table-active"><label for="direction">案内板</label></td>
                 <td class="d-flex justify-content-between">
                   <p>
-                    {{$pre_reservation->board_flag==0?"なし":"要作成"}}
+                    {{$pre_reservation->board_flag==0?"無し":"有り"}}
                   </p>
                 </td>
               </tr>
