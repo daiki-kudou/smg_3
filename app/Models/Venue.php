@@ -479,7 +479,7 @@ class Venue extends Model implements PresentableInterface
           $specific_extend_time
         ];
       } else {
-        return fail;
+        return FALSE;
       }
     }
   }

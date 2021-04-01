@@ -22,6 +22,10 @@ use App\Models\MultipleReserve;
 use Illuminate\Support\Facades\Mail;
 use App\Mail\AdminFinPreRes;
 use App\Mail\UserFinPreRes;
+// キャンセル
+use App\Mail\AdminPreResCxl;
+use App\Mail\UserPreResCxl;
+
 
 use App\Traits\SearchTrait;
 
@@ -625,7 +629,6 @@ class PreReservationsController extends Controller
         $PreReservation->venue->post_code,
         $PreReservation->venue->address1 . $PreReservation->venue->address2 . $PreReservation->venue->address3,
         url('/') . '/user/pre_reservations'
-
       ));
     Mail::to($PreReservation->user->email) //ユーザー
       ->send(new UserFinPreRes(
@@ -669,7 +672,6 @@ class PreReservationsController extends Controller
    */
   public function destroy(Request $request)
   {
-
     if (count($request->all()) == 1) {
       $request->session()->regenerate();
       return redirect()->route('admin.pre_reservations.index')->with('flash_message_error', '仮押えが選択されていません');
@@ -679,6 +681,18 @@ class PreReservationsController extends Controller
           $pre_reservation = PreReservation::find((int) $value);
           if ($pre_reservation) {
             $pre_reservation->delete();
+            $admin = config('app.admin_email');
+            $user = User::find($pre_reservation->user_id);
+            Mail::to($admin) //管理者
+              ->send(new AdminPreResCxl(
+                $pre_reservation,
+                $user
+              ));
+            Mail::to($user->email) //ユーザ
+              ->send(new UserPreResCxl(
+                $pre_reservation,
+                $user
+              ));
           }
         }
       });

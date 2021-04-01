@@ -161,34 +161,7 @@
     </ul>
 
 
-    <script>
-      $(function(){
-        // 全選択アクション
-        $('#all_check').on('change',function(){
-          $('.checkbox').prop('checked', $(this).is(':checked'));
-        })
-
-        // 削除確認コンファーム
-        $('#confirm_destroy').on('click',function(){
-          if(!confirm('削除してもよろしいですか？')){
-              return false;
-          }
-        })
-      })
-
-      $(function(){
-        $("input[type='checkbox']").on('change', function() {
-          checked = $('[class="checkbox"]:checked').map(function(){
-              return $(this).val();
-            }).get();
-            console.log(checked.length);
-            for (let index = 0; index < checked.length; index++) {
-              var ap_data="<input type='hidden' name='destroy"+checked[index]+"' value='"+checked[index]+"'>"
-              $('#for_destroy').append(ap_data);
-            }
-        })
-      })
-    </script>
+    
 
     <div class="table-wrap">
       <table class="table table-bordered table-scroll">
@@ -243,7 +216,6 @@
     </div>
   </div>
 
-  {{-- {{ $pre_reservations->links() }} --}}
   {{ $pre_reservations->appends(request()->input())->links() }}
 
 
@@ -255,7 +227,6 @@
 
 <script>
   $(function(){
-
     function ActiveDateRangePicker($target){
             $("input[name='"+$target+"']").daterangepicker({
             "locale": {
@@ -283,6 +254,33 @@
     ActiveDateRangePicker('search_created_at');
     ActiveDateRangePicker('search_date');
   })
+
+      $(function(){
+        // 全選択アクション
+        $('#all_check').on('change',function(){
+          $('.checkbox').prop('checked', $(this).is(':checked'));
+        })
+
+        // 削除確認コンファーム
+        $('#confirm_destroy').on('click',function(){
+          if(!confirm('削除してもよろしいですか？')){
+              return false;
+          }
+        })
+      })
+
+      $(function(){
+        $("input[type='checkbox']").on('change', function() {
+          checked = $('[class="checkbox"]:checked').map(function(){
+              return $(this).val();
+            }).get();
+            console.log(checked.length);
+            for (let index = 0; index < checked.length; index++) {
+              var ap_data="<input type='hidden' name='destroy"+checked[index]+"' value='"+checked[index]+"'>"
+              $('#for_destroy').append(ap_data);
+            }
+        })
+      })
 </script>
 
 
