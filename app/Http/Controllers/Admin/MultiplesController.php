@@ -86,13 +86,17 @@ class MultiplesController extends Controller
         $pre_reservation->update([
           'agent_id' => $request->agent_id
         ]);
-        $pre_reservation->pre_enduser->update([
+        $pre_reservation->pre_enduser()->delete();
+        $pre_reservation->pre_enduser()->create([
           "pre_reservation_id" => $pre_reservation->id,
           "company" => $request->end_user_company,
           "person" => $request->end_user_name,
           "tel" => $request->end_user_tel,
           "mobile" => $request->end_user_mobile,
           "email" => $request->end_user_email,
+          "attr" => $request->end_user_attr,
+          "address" => $request->end_user_address,
+          "charge" => 0,
         ]);
       }
     });
