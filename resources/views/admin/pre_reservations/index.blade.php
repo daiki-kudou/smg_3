@@ -250,7 +250,6 @@
             $(this).val('');
             });
     }
-
     ActiveDateRangePicker('search_created_at');
     ActiveDateRangePicker('search_date');
   })

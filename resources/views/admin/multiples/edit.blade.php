@@ -411,7 +411,7 @@
                   <td class="table-active"><label for="sale">原価率</label></td>
                   <td>
                     <div class="d-flex align-items-center">
-                      {{ Form::text('cp_master_cost', '',['class'=>'form-control'] ) }}
+                      {{ Form::text('cp_master_cost', $venue->cost,['class'=>'form-control'] ) }}
                       <span class="ml-2">%</span>
                     </div>
                     <p class="is-error-cp_master_cost" style="color: red"></p>
@@ -1006,7 +1006,7 @@
                     <td class="table-active"><label for="sale">原価率</label></td>
                     <td>
                       <div class="d-flex align-items-center">
-                        {{ Form::text('cost_copied'.$key, $pre_reservation->cost,['class'=>'form-control'] ) }}
+                        {{ Form::text('cost_copied'.$key, $pre_reservation->cost?$pre_reservation->cost:$venue->cost,['class'=>'form-control'] ) }}
                         <span class="ml-2">%</span>
                       </div>
                       <p class="{{'is-error-cost_copied'.$key}}" style="color: red"></p>
