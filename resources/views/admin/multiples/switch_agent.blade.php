@@ -130,10 +130,10 @@
                 {{Form::text("end_user_company",!empty($pre_enduser)?$pre_enduser->company:'',["class"=>"form-control"])}}
               </td>
               <td class="table-active">
-                <label for="">住所　工藤さん！！！お願いします</label>
+                <label for="">住所</label>
               </td>
               <td>
-                ダミーダミーダミー
+                {{Form::text("end_user_address",!empty($pre_enduser)?$pre_enduser->address:'',["class"=>"form-control"])}}
               </td>
             </tr>
 
@@ -169,17 +169,28 @@
               </td>
             </tr>
             <tr>
-              <td class="table-active form_required">利用者属性 工藤さん！！お願いします</td>
+              <td class="table-active form_required">利用者属性</td>
               <td>
-                <!-- <select name="pre_enduser_attr" class="form-control">
+                <select name="end_user_attr" class="form-control">
+                  @if (!empty($pre_enduser->attr))
                   <option value=""></option>
-                  <option value="0">一般企業</option>
-                  <option value="1">上場企業</option>
-                  <option value="2">近隣利用</option>
-                  <option value="3">個人講師</option>
-                  <option value="4">MLM</option>
-                  <option value="5">その他</option>
-                </select> -->
+                  <option value="1" {{($pre_enduser->attr==1)?"selected":''}}>一般企業</option>
+                  <option value="2" {{($pre_enduser->attr==2)?"selected":''}}>上場企業</option>
+                  <option value="3" {{($pre_enduser->attr==3)?"selected":''}}>近隣利用</option>
+                  <option value="4" {{($pre_enduser->attr==4)?"selected":''}}>個人講師</option>
+                  <option value="5" {{($pre_enduser->attr==5)?"selected":''}}>MLM</option>
+                  <option value="6" {{($pre_enduser->attr==6)?"selected":''}}>その他</option> 
+                  @else
+                  <option value=""></option>
+                  <option value="1" >一般企業</option>
+                  <option value="2" >上場企業</option>
+                  <option value="3" >近隣利用</option>
+                  <option value="4" >個人講師</option>
+                  <option value="5" >MLM</option>
+                  <option value="6" >その他</option>
+                  @endif
+
+                </select>
                 <p class="is-error-pre_enduser_attr" style="color: red"></p>
               </td>
             </tr>
