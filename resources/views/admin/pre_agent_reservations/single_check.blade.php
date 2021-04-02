@@ -583,7 +583,17 @@
     {{ Form::hidden('judge_count', 1 ) }}
     {{-- ユーザー --}}
     {{ Form::hidden('agent_id', $request->agent_id ) }}
+
+
+    @if ($venue->getPriceSystems()==0)
+    <div class="">
+      <p class="d-block">選択された会場は料金が設定されていません。会場管理/料金管理に戻り設定してください</p>
+      <a href="{{url('admin/frame_prices')}}" class="btn more_btn_lg mt-5 d-flex justify-content-center">料金管理画面へ</a>
+    </div>
+    @else
     {{Form::submit('計算する', ['class'=>'btn more_btn_lg mx-auto d-block', 'id'=>'check_submit'])}}
+    @endif
+
   </div>
 </div>
 

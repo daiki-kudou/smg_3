@@ -464,7 +464,12 @@
     </dl>
     <!-- コピー作成用フィールド   終わり--------------------------------------------------　 -->
     <p class="text-center">
-      {{ Form::submit('すべての日程に反映する', ['class' => 'btn more_btn_lg mt-3'])}}
+      @if (count($venue->frame_prices)==0&&count($venue->time_prices)==0)
+      <span>※選択された会場に登録された料金がありません。料金を作成後再度編集してください</span>
+      {{ Form::submit('すべての日程に反映する', ['class' => 'btn more_btn_lg mt-3',"disabled"])}}
+      @else
+      {{ Form::submit('すべての日程に反映する', ['class' => 'btn more_btn_lg mt-3'])}}      
+      @endif
       {{ Form::close() }}
     </p>
   </section>
@@ -1040,7 +1045,12 @@
           </div>
           <div class="btn_wrapper">
             <p class="text-center">
+              @if (count($venue->frame_prices)==0&&count($venue->time_prices)==0)
+              <span>※選択された会場に登録された料金がありません。料金を作成後再度編集してください</span><br>
+              {{ Form::submit('請求に反映する', ['class' => 'btn more_btn_lg',"disabled"])}}
+              @else
               {{ Form::submit('請求に反映する', ['class' => 'btn more_btn_lg'])}}
+              @endif
             </p>
             {{ Form::close() }}
           </div>
@@ -1509,7 +1519,9 @@
     <p><a class="btn more_btn_lg" href="{{url('admin/multiples/'.$multiple->id)}}">詳細にもどる</a></p>
   </li>
   <li>
+    @if (count($venue->frame_prices)!=0&&count($venue->time_prices)!=0)
     <p id="master_submit" class="btn more_btn_lg">保存する</p>
+    @endif
   </li>
 </ul>
 
