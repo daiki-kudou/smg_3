@@ -182,7 +182,7 @@
                   </p>
                   <p>
                     <input type="radio" name="board_flag" value="1"
-                      {{isset($request->board_flag)?$request->board_flag==1?'checked':'':'',}}>有り
+                      {{isset($request->board_flag)?$request->board_flag==1?'checked':'':'',}}>
                     <span class="ml-1">有り</span>
                   </p>
                 </div>

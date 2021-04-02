@@ -802,6 +802,16 @@ table td.table_column p:last-child {
 
 /* =============予約詳細================================================ */
 
+
+.bill_status {
+    background: #fff;
+}
+
+.bill_status .table {
+    box-shadow: none;
+}
+
+
 .table-cell-box {
     padding: 0;
 }
@@ -817,11 +827,14 @@ table td.table_column p:last-child {
 
 /* =============予約チェックボックス================================================ */
 
-.duble_checkbox {
-    border: 1px solid #6c757d;
+.double_checkbox {
+    border-right: 1px solid #ced4da;
+    border-bottom: 1px solid #ced4da;
+    border-left: 1px solid #ced4da;
+    background: #fff;
 }
 
-.duble_checkbox dt {
+.double_checkbox dt {
     background: #35a7a7;
     padding: 0.5em;
     color: #fff;
@@ -1294,6 +1307,11 @@ h3 {
     /* padding-top: 20px; */
     width: 95%;
     margin: 0 auto;
+    padding: 10px 0;
+}
+
+.billdetails_content .table {
+    margin-bottom: 0;
 }
 
 .billdetails_content_ttl {
@@ -1450,7 +1468,8 @@ table .master_total_subttl {
 .payment_situation {
     display: flex;
     justify-content: space-around;
-    padding: 0 0 40px;
+    padding: 30px 0 40px;
+    background: #fff;
 }
 
 .payment_situation dl {

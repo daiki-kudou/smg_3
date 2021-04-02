@@ -380,7 +380,7 @@
               @if ($request->layout_clean==1)
               <tr>
                 <td class="table-active">
-                  片付け
+                  片付
                 </td>
                 <td>
                   <div class="radio-box">
@@ -398,7 +398,7 @@
               @else
               <tr>
                 <td class="table-active">
-                  片付け
+                  片付
                 </td>
                 <td>
                   <div class="radio-box">
@@ -979,8 +979,6 @@
           </div>
           @endif
           @endif
-
-
 
           <div class="bill_total">
             <table class="table text-right">

@@ -4,16 +4,9 @@
 <link href="{{ asset('/css/template.css') }}" rel="stylesheet">
 <script src="{{ asset('/js/template.js') }}"></script>
 
-
-
-
-
-<div class="container-fluid">
-
-
   {{ Form::open(['url' => 'admin/reservations/'.$id, 'method'=>'PUT', 'id'=>'agents_calculate_form']) }}
   @csrf
-  <section class="section-wrap">
+  <section class="mt-5">
     <div class="row">
       <div class="col">
         <table class="table table-bordered">
@@ -116,24 +109,20 @@
         </table>
         <div class="equipemnts">
           <table class="table table-bordered" style="table-layout: fixed;">
-            <thead>
+          <thead class="accordion-ttl">
               <tr>
                 <th colspan="2">
-                  <div class="d-flex justify-content-between align-items-center">
-                    <p class="title-icon fw-bolder py-1">
-                      <i class="fas fa-wrench icon-size fa-fw" aria-hidden="true"></i>有料備品
-                    </p>
-                    <i class="fas fa-plus icon_plus hide" aria-hidden="true"></i>
-                    <i class="fas fa-minus icon_minus" aria-hidden="true"></i>
-                  </div>
+                  <p class="title-icon fw-bolder py-1">
+                    <i class="fas fa-wrench icon-size"></i>有料備品
+                  </p>
                 </th>
               </tr>
             </thead>
-            <tbody>
+            <tbody class="accordion-wrap">
               @foreach ($venue->getEquipments() as $key=>$equipment)
               <tr>
                 <td>{{$equipment->item}}</td>
-                <td>
+                <td class="table-active">
                   @for ($i = 0; $i < $equ_breakdowns; $i++) @if ($equipment->
                     item==$request->{"equipment_breakdown_item".$i})
                     {{ Form::text('equipment_breakdown'.$key, $request->{'equipment_breakdown_count'.$i},['class'=>'form-control', 'readonly'] ) }}
@@ -150,24 +139,19 @@
         </div>
         <div class="services">
           <table class="table table-bordered" style="table-layout: fixed;">
-            <thead>
+          <thead class="accordion-ttl">
               <tr>
                 <th colspan="2">
-                  <div class="d-flex justify-content-between align-items-center">
-                    <p class="title-icon fw-bolder py-1">
-                      <i class="fas fa-hand-holding-heart icon-size fa-fw" aria-hidden="true"></i>有料サービス
-                    </p>
-                    <i class="fas fa-plus icon_plus hide" aria-hidden="true"></i>
-                    <i class="fas fa-minus icon_minus" aria-hidden="true"></i>
-                  </div>
+                  <p class="title-icon fw-bolder py-1">
+                    <i class="fas fa-hand-holding-heart icon-size"></i>有料サービス
+                  </p>
                 </th>
               </tr>
             </thead>
-            <tbody>
-
+            <tbody class="accordion-wrap">
               @foreach ($venue->getServices() as $key=>$service)
               <tr>
-                <td>{{$service->item}}</td>
+                <td class="table-active">{{$service->item}}</td>
                 <td>
                   @for ($i = 0; $i < $ser_breakdowns; $i++) @if ($service->
                     item==$request->{"services_breakdown_item".$i})
@@ -185,25 +169,27 @@
         </div>
         <div class="layouts">
           <table class="table table-bordered" style="table-layout:fixed;">
-            <thead>
+          <thead>
               <tr>
-                <th colspan="2">
-                  <p class="title-icon">
-                    <i class="fas fa-th icon-size fa-fw" aria-hidden="true"></i>レイアウト
+                <th colspan='2'>
+                  <p class="title-icon py-1">
+                    <i class="fas fa-th icon-size"></i>レイアウト
                   </p>
                 </th>
               </tr>
             </thead>
             <tbody>
               <tr>
-                <td>レイアウト準備</td>
+              <td class="table-active">
+                  準備
+                </td>
                 <td>
                   {{ Form::text('', $request->layout_prepare_count==1?"有り":"無し",['class'=>'form-control', 'readonly'] ) }}
                   {{ Form::hidden('layout_prepare', $request->layout_prepare,['class'=>'form-control', 'readonly'] ) }}
                 </td>
               </tr>
               <tr>
-                <td>レイアウト準備</td>
+                <td class="table-active">片付</td>
                 <td>
                   {{ Form::text('', $request->layout_clean_count==1?"有り":"無し",['class'=>'form-control', 'readonly'] ) }}
                   {{ Form::hidden('layout_clean', $request->layout_clean,['class'=>'form-control', 'readonly'] ) }}
@@ -214,11 +200,11 @@
         </div>
         <div class="luggage">
           <table class="table table-bordered" style="table-layout:fixed;">
-            <thead>
+          <thead>
               <tr>
-                <th colspan="2">
+                <th colspan='2'>
                   <p class="title-icon">
-                    <i class="fas fa-suitcase-rolling icon-size fa-fw" aria-hidden="true"></i>荷物預り
+                    <i class="fas fa-suitcase-rolling icon-size"></i>荷物預り
                   </p>
                 </th>
               </tr>
@@ -226,7 +212,7 @@
             <tbody>
               @if ($request->luggage_count)
               <tr>
-                <td>事前に預かる荷物<br>（個数）</td>
+                <td class="table-active">事前に預かる荷物<br>（個数）</td>
                 <td>
                   {{ Form::text('luggage_count', $request->luggage_count,['class'=>'form-control', 'readonly'] ) }}
                 </td>
@@ -234,7 +220,7 @@
               @endif
               @if ($request->luggage_arrive)
               <tr>
-                <td>事前荷物の到着日<br>午前指定のみ</td>
+                <td class="table-active">事前荷物の到着日<br>午前指定のみ</td>
                 <td>
                   {{ Form::text('luggage_arrive', $request->luggage_arrive,['class'=>'form-control', 'readonly'] ) }}
                 </td>
@@ -242,7 +228,7 @@
               @endif
               @if ($request->luggage_return)
               <tr>
-                <td>事後返送する荷物</td>
+                <td class="table-active">事後返送する荷物</td>
                 <td>
                   {{ Form::text('luggage_return', $request->luggage_return,['class'=>'form-control', 'readonly'] ) }}
                 </td>
@@ -250,7 +236,7 @@
               @endif
               @if ($request->luggage_price)
               <tr>
-                <td>荷物預り/返送<br>料金</td>
+                <td class="table-active">荷物預り/返送<br>料金</td>
                 <td>
                   {{ Form::text('luggage_price', $request->luggage_price,['class'=>'form-control', 'readonly'] ) }}
                 </td>
@@ -378,7 +364,7 @@
     </div>
   </section>
 
-  <section class="section-wrap">
+  <section class="mt-5">
     <div class="bill">
       <div class="bill_head">
         <table class="table bill_table">
@@ -488,13 +474,13 @@
           </div>
 
           @if ($equipment_details!="" ||$service_details!="" ||$request->luggage_price)
-          <div class="equipment" style="padding-top: 80px; width:90%; margin:0 auto;">
+          <div class="equipment billdetails_content">
             <table class="table table-borderless">
-              <tr>
-                <td>
-                  <h1>
-                    ■有料備品・サービス
-                  </h1>
+            <tr>
+                <td colspan="4">
+                  <h4 class="billdetails_content_ttl">
+                    有料備品・サービス
+                  </h4>
                 </td>
               </tr>
               <tbody class="equipment_head">
@@ -583,13 +569,13 @@
           @endif
 
           @if ($request->layout_prepare_subtotal||$request->layout_clean_subtotal)
-          <div class="layout" style="padding-top: 80px; width:90%; margin:0 auto;">
+          <div class="layout billdetails_content">
             <table class="table table-borderless">
-              <tr>
+            <tr>
                 <td>
-                  <h1>
-                    ■レイアウト
-                  </h1>
+                  <h4 class="billdetails_content_ttl">
+                    レイアウト
+                  </h4>
                 </td>
               </tr>
               <tbody class="layout_head">
@@ -663,13 +649,13 @@
           @endif
 
           @if ($others_details!="")
-          <div class="others" style="padding: 80px 0px 80px 0px; width:90%; margin:0 auto;">
+          <div class="others billdetails_content">
             <table class="table table-borderless">
-              <tr>
+            <tr>
                 <td>
-                  <h1>
-                    ■その他
-                  </h1>
+                  <h4 class="billdetails_content_ttl">
+                    その他
+                  </h4>
                 </td>
               </tr>
               <tbody class="others_head">
@@ -699,8 +685,8 @@
               </tbody>
               <tbody class="others_result">
                 <tr>
-                  <td colspan="2"></td>
-                  <td colspan="3">合計
+                  <td colspan="3"></td>
+                  <td colspan="1">合計
                     {{ Form::text('others_price', $request->others_price,['class'=>'form-control', 'readonly'] ) }}
                   </td>
                 </tr>
@@ -708,8 +694,6 @@
             </table>
           </div>
           @endif
-
-
 
           <div class="bill_total">
             <table class="table">
@@ -754,7 +738,7 @@
           </div>
         </div>
         <div class="main">
-          <div class="informations billdetails_content">
+          <div class="informations billdetails_content py-3">
             <table class="table">
               <tbody>
                 <tr>
@@ -794,7 +778,7 @@
           </div>
         </div>
         <div class="main">
-          <div class="paids billdetails_content">
+          <div class="paids billdetails_content py-3">
             <table class="table" style="table-layout: fixed;">
               <tbody>
                 <tr>
@@ -825,7 +809,7 @@
   <div class="container-field d-flex justify-content-center mt-5">
     <a href="javascript:$('#back').submit()" class="btn more_btn4_lg d-block mr-5">請求内訳を修正する</a>
 
-    {{Form::submit('予約を作成する', ['class'=>'d-block btn btn-primary btn-lg', 'id'=>'check_submit'])}}
+    {{Form::submit('保存する', ['class'=>'btn more_btn_lg d-block', 'id'=>'check_submit'])}}
     {{Form::close()}}
 
   </div>
@@ -900,5 +884,4 @@
       {{ Form::hidden('user_details', $request->user_details ) }}
       {{ Form::hidden('admin_details', $request->admin_details ) }}
       {{Form::close()}}
-</div>
 @endsection

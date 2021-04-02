@@ -30,7 +30,7 @@
           </h3>
         </td>
         <td class="text-right">
-          <a class="more_btn4" href="">仮押さえ内容を確定する</a>
+          <a class="more_btn4" href="">予約の編集・承認権限を顧客に移行</a>
         </td>
     </tbody>
   </table>

@@ -56,7 +56,7 @@
                 @csrf
                 @if ($pre_reservation->status==0)
                 {{ Form::hidden('pre_reservation_id', $pre_reservation->id)}}
-                {{ Form::submit('仮押え内容を確定する', ['class' => 'btn more_btn4']) }}
+                {{ Form::submit('予約の編集・承認権限を顧客に移行', ['class' => 'btn more_btn4']) }}
                 {{ Form::close() }}
                 @endif
 
@@ -109,6 +109,14 @@
               <td class="table-active" scope="row"><label for="tel">固定電話</label></td>
               <td>
                 {{ReservationHelper::checkAgentOrUserTel($pre_reservation->user_id, $pre_reservation->agent_id)}}
+              </td>
+              <td class="table-active" scope="row"><label for="tel">割引条件工藤さん！！！顧客からの紐づけお願いします。</label></td>
+              <td>
+              </td>
+            </tr>
+            <tr>
+              <td class="table-active" scope="row"><label for="tel">注意事項工藤さん！！！顧客からの紐づけお願いします。</label></td>
+              <td colspan="3">
               </td>
             </tr>
           </tbody>

@@ -172,7 +172,7 @@
           <tr>
             <th class="table-active"><label for="cancel">キャンセルポリシー</label></th>
             <td>{{ $agent->cxl==1?"SMGルール":"仲介会社ルール" }}
-              <div>{{$agent->cxl_url}}</div>
+            <p><a href="{{$agent->cxl_url}}" target="blank">{{$agent->cxl_url}}</a></p>
             </td>
           </tr>
           <tr>
