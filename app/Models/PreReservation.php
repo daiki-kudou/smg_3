@@ -348,6 +348,7 @@ class PreReservation extends Model
         'admin_details' => $request->{'admin_details_copied' . $splitKey},
         "eat_in" => $request->{'eat_in_copied' . $splitKey},
         "eat_in_prepare" => $request->{'eat_in_prepare_copied' . $splitKey},
+        "cost" => $request->{'cost_copied' . $splitKey},
       ]);
 
       $this->pre_enduser()->update([

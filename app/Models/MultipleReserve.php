@@ -628,6 +628,7 @@ class MultipleReserve extends Model implements PresentableInterface //プレゼ�
           'status' => 0,
           'eat_in' => $requests->cp_master_eat_in,
           'eat_in_prepare' => $requests->cp_master_eat_in_prepare,
+          'cost' => $requests->cp_master_cost,
         ]);
 
         if ($pre_reservation->pre_enduser()->count() == 1) {

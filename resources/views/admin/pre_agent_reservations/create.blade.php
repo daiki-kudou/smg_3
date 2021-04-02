@@ -96,12 +96,12 @@
           <td>
             <select name="pre_enduser_attr" class="form-control">
               <option value=""></option>
-              <option value="0">一般企業</option>
-              <option value="1">上場企業</option>
-              <option value="2">近隣利用</option>
-              <option value="3">個人講師</option>
-              <option value="4">MLM</option>
-              <option value="5">その他</option>
+              <option value="1">一般企業</option>
+              <option value="2">上場企業</option>
+              <option value="3">近隣利用</option>
+              <option value="4">個人講師</option>
+              <option value="5">MLM</option>
+              <option value="6">その他</option>
             </select>
             <p class="is-error-pre_enduser_attr" style="color: red"></p>
           </td>
