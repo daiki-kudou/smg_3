@@ -1265,12 +1265,7 @@
         <dd>
           {{ Form::model($reservation->id, ['route'=> ['admin.reservations.double_check',$reservation->id]]) }}
           @csrf
-          {{Form::select('double_check1_name', [
-        '名前test1' => '名前test1', 
-        '名前test2' => '名前test2',
-        '名前test3' => '名前test3',
-        '名前test4' => '名前test4',], 
-        null, ['placeholder' => '選択してください', 'class'=>'form-control double_check1_name'])}}
+          {{Form::select('double_check1_name', $admin, null, ['placeholder' => '選択してください', 'class'=>'form-control double_check1_name'])}}
           {{ Form::hidden('double_check_status', $reservation->bills()->first()->double_check_status ) }}
         </dd>
         <dd>
@@ -1289,12 +1284,7 @@
         <dd>
           {{ Form::model($reservation->id, ['route'=> ['admin.reservations.double_check',$reservation->id]]) }}
           @csrf
-          {{Form::select('double_check2_name', [
-        '名前test1' => '名前test1', 
-        '名前test2' => '名前test2',
-        '名前test3' => '名前test3',
-        '名前test4' => '名前test4',], 
-        null, ['placeholder' => '選択してください', 'class'=>'form-control double_check2_name'])}}
+          {{Form::select('double_check2_name', $admin, null, ['placeholder' => '選択してください', 'class'=>'form-control double_check2_name'])}}
           {{ Form::hidden('double_check_status', $reservation->bills()->first()->double_check_status ) }}
         </dd>
         <dd>

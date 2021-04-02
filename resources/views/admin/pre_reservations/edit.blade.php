@@ -125,29 +125,29 @@
         <tr>
           <td class="table-active">会社・団体名(仮)</td>
           <td>
-            {{ Form::text('unknown_user_company', empty($PreReservation->unknown_user->unknown_user_company)?'':$PreReservation->unknown_user->unknown_user_company,['class'=>'form-control', $PreReservation->user_id!=999?"readonly":""] ) }}
+            {{ Form::text('unknown_user_company', empty($PreReservation->unknown_user->unknown_user_company)?'':$PreReservation->unknown_user->unknown_user_company,['class'=>'form-control'] ) }}
           </td>
           <td class="table-active">担当者名(仮)</td>
           <td>
-            {{ Form::text('unknown_user_name', empty($PreReservation->unknown_user->unknown_user_name)?"":$PreReservation->unknown_user->unknown_user_name,['class'=>'form-control', $PreReservation->user_id!=999?"readonly":""] ) }}
+            {{ Form::text('unknown_user_name', empty($PreReservation->unknown_user->unknown_user_name)?"":$PreReservation->unknown_user->unknown_user_name,['class'=>'form-control'] ) }}
           </td>
         </tr>
         <tr>
           <td class="table-active">固定電話</td>
           <td>
-            {{ Form::text('unknown_user_tel', empty($PreReservation->unknown_user->unknown_user_tel)?"":$PreReservation->unknown_user->unknown_user_tel,['class'=>'form-control', $PreReservation->user_id!=999?"readonly":"", 'placeholder' => '半角数字、ハイフンなしで入力してください'] ) }}
+            {{ Form::text('unknown_user_tel', empty($PreReservation->unknown_user->unknown_user_tel)?"":$PreReservation->unknown_user->unknown_user_tel,['class'=>'form-control', 'placeholder' => '半角数字、ハイフンなしで入力してください'] ) }}
             <p class="is-error-unknown_user_tel" style="color: red"></p>
           </td>
           <td class="table-active">携帯番号</td>
           <td>
-            {{ Form::text('unknown_user_mobile', empty($PreReservation->unknown_user->unknown_user_mobile)?"":$PreReservation->unknown_user->unknown_user_mobile,['class'=>'form-control', $PreReservation->user_id!=999?"readonly":"", 'placeholder' => '半角数字、ハイフンなしで入力してください'] ) }}
+            {{ Form::text('unknown_user_mobile', empty($PreReservation->unknown_user->unknown_user_mobile)?"":$PreReservation->unknown_user->unknown_user_mobile,['class'=>'form-control', 'placeholder' => '半角数字、ハイフンなしで入力してください'] ) }}
             <p class="is-error-unknown_user_mobile" style="color: red"></p>
           </td>
         </tr>
         <tr>
           <td class="table-active">メールアドレス</td>
           <td>
-            {{ Form::text('unknown_user_email', empty($PreReservation->unknown_user->unknown_user_email)?"":$PreReservation->unknown_user->unknown_user_email,['class'=>'form-control', $PreReservation->user_id!=999?"readonly":""] ) }}
+            {{ Form::text('unknown_user_email', empty($PreReservation->unknown_user->unknown_user_email)?"":$PreReservation->unknown_user->unknown_user_email,['class'=>'form-control'] ) }}
             <p class="is-error-unknown_user_email" style="color: red"></p>
           </td>
         </tr>
@@ -1109,11 +1109,11 @@
     $(document).on("change", "#user_id", function() {
       var user_id = Number($('#user_id').val());
       if (user_id == 999) {
-        $('input[name=unknown_user_company]').prop('readonly', false);
-        $('input[name=unknown_user_name]').prop('readonly', false);
-        $('input[name=unknown_user_email]').prop('readonly', false);
-        $('input[name=unknown_user_mobile]').prop('readonly', false);
-        $('input[name=unknown_user_tel]').prop('readonly', false);
+        // $('input[name=unknown_user_company]').prop('readonly', false);
+        // $('input[name=unknown_user_name]').prop('readonly', false);
+        // $('input[name=unknown_user_email]').prop('readonly', false);
+        // $('input[name=unknown_user_mobile]').prop('readonly', false);
+        // $('input[name=unknown_user_tel]').prop('readonly', false);
         $('.company').text('');
         $('.person').text('');
         $('.email').text('');
@@ -1121,11 +1121,11 @@
         $('.tel').text('');
       } else {
         ajaxGetuser(user_id);
-        $('input[name=unknown_user_company]').prop('readonly', true);
-        $('input[name=unknown_user_name]').prop('readonly', true);
-        $('input[name=unknown_user_email]').prop('readonly', true);
-        $('input[name=unknown_user_mobile]').prop('readonly', true);
-        $('input[name=unknown_user_tel]').prop('readonly', true);
+        // $('input[name=unknown_user_company]').prop('readonly', true);
+        // $('input[name=unknown_user_name]').prop('readonly', true);
+        // $('input[name=unknown_user_email]').prop('readonly', true);
+        // $('input[name=unknown_user_mobile]').prop('readonly', true);
+        // $('input[name=unknown_user_tel]').prop('readonly', true);
         $('input[name=unknown_user_company]').val("");
         $('input[name=unknown_user_name]').val("");
         $('input[name=unknown_user_email]').val("");
