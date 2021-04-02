@@ -151,7 +151,7 @@
 @csrf
 
 
-<section class="section-wrap">
+<section class="mt-5">
   <div class="row">
     <div class="col">
       <table class="table table-bordered">
@@ -483,8 +483,8 @@
     </div>
     {{-- 右側 --}}
     <div class="col">
-      <div class="client_mater">　
-        <table class="table table-bordered name-table" style="table-layout:fixed;">
+      <div class="client_mater">
+      <table class="table table-bordered name-table" style="table-layout:fixed;">
           <tr>
             <td colspan="2">
               <div class="d-flex align-items-center justify-content-between">
@@ -620,7 +620,7 @@
 
 {{ Form::open(['url' => 'admin/reservations/'.$id.'/edit_check', 'method'=>'POST', 'id'=>'']) }}
 @csrf
-<section class="section-wrap">
+<section class="mt-5">
   <div class="bill">
     <div class="bill_head">
       <table class="table bill_table">
@@ -1061,7 +1061,7 @@
         </div>
       </div>
       <div class="main">
-        <div class="informations billdetails_content">
+        <div class="informations billdetails_content py-3">
           <table class="table">
             <tr>
               <td>請求日：</td>
@@ -1093,7 +1093,7 @@
         </div>
       </div>
       <div class="main">
-        <div class="paids billdetails_content">
+        <div class="py-3 paids billdetails_content">
           <table class="table" style="table-layout: fixed;">
             <tr>
               <td>入金状況{{Form::select('paid', ['未入金', '入金済み'],null,['class'=>'form-control'])}}</td>

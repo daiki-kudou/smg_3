@@ -681,12 +681,12 @@
               <dl class="ttl_box">
                 <dt>支払い期日</dt>
                 <dd class="total_result">
-                  {{ReservationHelper::formatDate($reservation->bills()->first()->payment_limit)}}</dd>
+                  {{ReservationHelper::formatDate($reservation->bills()->first()->payment_limit)}}
+                </dd>
               </dl>
             </td>
             <td>
-              @if ($reservation->bills()->first()->reservation_status<3) <a
-                href="{{url('admin/reservations/'.$reservation->bills()->first()->id.'/edit')}}" class="btn more_btn">
+              @if ($reservation->bills()->first()->reservation_status<3) <a href="{{url('admin/reservations/'.$reservation->bills()->first()->id.'/edit')}}" class="btn more_btn">
                 編集</a>
                 @endif
             </td>
@@ -1268,7 +1268,7 @@
           {{Form::select('double_check1_name', $admin, null, ['placeholder' => '選択してください', 'class'=>'form-control double_check1_name'])}}
           {{ Form::hidden('double_check_status', $reservation->bills()->first()->double_check_status ) }}
         </dd>
-        <dd>
+        <dd class="ml-2">
           <p class="text-right">
             {{Form::submit('チェック完了', ['class'=>'btn more_btn', 'id'=>'double_check1_submit'])}}
             {{ Form::close() }}
@@ -1281,7 +1281,7 @@
     <div class="double_checkbox section-wrap">
       <dl class="d-flex col-12 justify-content-end align-items-center">
         <dt><label for="checkname">二人目チェック者</label></dt>
-        <dd>
+        <dd class="ml-2">
           {{ Form::model($reservation->id, ['route'=> ['admin.reservations.double_check',$reservation->id]]) }}
           @csrf
           {{Form::select('double_check2_name', $admin, null, ['placeholder' => '選択してください', 'class'=>'form-control double_check2_name'])}}
@@ -1805,7 +1805,7 @@
         <td>{{number_format($master_prices[3])}}円</td>
       </tr>
     </tbody>
-    <tbody class="master_total_bottom">
+    <tbody class="master_total_bottom mb-0">
       <tr>
         <td></td>
         <td>
