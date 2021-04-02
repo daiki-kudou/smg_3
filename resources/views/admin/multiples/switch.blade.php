@@ -43,12 +43,6 @@
                 仮押え一括ID：{{ReservationHelper::fixId($multiple->id)}}
               </h3>
             </td>
-            <!-- <td>
-                  <dl class="ttl_box">
-                    <dt>仮押え一括ID:</dt>
-                    <dd class="total_result">{{$multiple->id}}</dd>
-                  </dl>
-                </td> -->
         </tbody>
       </table>
 
@@ -122,37 +116,27 @@
             <tr>
               <td class="table-active" width="25%"><label for="onedayCompany">会社・団体名(仮)</label></td>
               <td>
-                @if ($multiple->pre_reservations()->first()->id==999)
-                {{$multiple->pre_reservations()->first()->unknown_user()->unknown_user_company}}
-                @endif
+                {{Form::text("unknown_user_company",$multiple->pre_reservations()->first()->unknown_user->unknown_user_company,["class"=>"form-control"])}}
               </td>
               <td class="table-active"><label for="onedayName">担当者名(仮)</label></td>
               <td>
-                @if ($multiple->pre_reservations()->first()->id==999)
-                {{$multiple->pre_reservations()->first()->unknown_user()->unknown_user_name}}
-                @endif
+                {{Form::text("unknown_user_name",$multiple->pre_reservations()->first()->unknown_user->unknown_user_name,["class"=>"form-control"])}}
               </td>
             </tr>
             <tr>
               <td class="table-active" scope="row"><label for="onedayTel">固定電話</label></td>
               <td>
-                @if ($multiple->pre_reservations()->first()->id==999)
-                {{$multiple->pre_reservations()->first()->unknown_user()->unknown_user_tel}}
-                @endif
+                {{Form::text("unknown_user_tel",$multiple->pre_reservations()->first()->unknown_user->unknown_user_tel,["class"=>"form-control"])}}
               </td>
               <td class="table-active" scope="row"><label for="onedayMobile">携帯番号</label></td>
               <td>
-                @if ($multiple->pre_reservations()->first()->id==999)
-                {{$multiple->pre_reservations()->first()->unknown_user()->unknown_user_mobile}}
-                @endif
+                {{Form::text("unknown_user_mobile",$multiple->pre_reservations()->first()->unknown_user->unknown_user_mobile,["class"=>"form-control"])}}
               </td>
             </tr>
             <tr>
               <td class="table-active" scope="row"><label for="onedayEmail">メールアドレス</label></td>
               <td>
-                @if ($multiple->pre_reservations()->first()->id==999)
-                {{$multiple->pre_reservations()->first()->unknown_user()->unknown_user_email}}
-                @endif
+                {{Form::text("unknown_user_email",$multiple->pre_reservations()->first()->unknown_user->unknown_user_email,["class"=>"form-control"])}}
               </td>
             </tr>
           </tbody>

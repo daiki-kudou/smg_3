@@ -108,6 +108,15 @@ class MultiplesController extends Controller
         $pre_reservation->update([
           'user_id' => $request->user_id
         ]);
+        $pre_reservation->unknown_user()->delete();
+        $pre_reservation->unknown_user()->create([
+          "pre_reservation_id" => $pre_reservation->id,
+          "unknown_user_company" => $request->unknown_user_company,
+          "unknown_user_name" => $request->unknown_user_name,
+          "unknown_user_email" => $request->unknown_user_email,
+          "unknown_user_mobile" => $request->unknown_user_mobile,
+          "unknown_user_tel" => $request->unknown_user_tel,
+        ]);
       }
     });
     $request->session()->regenerate();

@@ -380,7 +380,7 @@
                       <td class="table-active"><label for="sale">原価率</label></td>
                       <td>
                         <div class="d-flex align-items-center">
-                          {{ Form::text('cp_master_cost', '',['class'=>'form-control'] ) }}
+                          {{ Form::text('cp_master_cost', $venue->cost,['class'=>'form-control'] ) }}
                           <span class="ml-2">%</span>
                         </div>
                         <p class="is-error-cp_master_cost" style="color: red"></p>
@@ -798,19 +798,6 @@
                         </td>
                       </tr>
 
-                      {{-- <tr>
-                    <td class="table-active">荷物預り/返送<br>料金</td>
-                    <td>
-                      @foreach ($pre_reservation->pre_breakdowns()->get() as $lugg)
-                      @if ($lugg->unit_item=="荷物預り/返送")
-                      {{ Form::text('luggage_price_copied'.$key, $lugg->unit_cost,['class'=>'form-control'] ) }}
-                      @break
-                      @elseif($loop->last)
-                      {{ Form::text('luggage_price_copied'.$key, '',['class'=>'form-control'] ) }}
-                      @endif
-                      @endforeach
-                      </td>
-                      </tr> --}}
                     </tbody>
                   </table>
                   @endif
@@ -893,7 +880,7 @@
                         <td class="table-active"><label for="sale">原価率</label></td>
                         <td>
                           <div class="d-flex align-items-center">
-                            {{ Form::text('cost_copied'.$key, $pre_reservation->cost,['class'=>'form-control'] ) }}
+                            {{ Form::text('cost_copied'.$key, $pre_reservation->cost?$pre_reservation->cost:$venue->cost,['class'=>'form-control'] ) }}
                             <span class="ml-2">%</span>
                           </div>
                           <p class="is-error-cost_copied" style="color: red"></p>

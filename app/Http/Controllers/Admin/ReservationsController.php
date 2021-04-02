@@ -13,6 +13,7 @@ use App\Models\Bill;
 use App\Models\Breakdown;
 use App\Models\Equipment;
 use App\Models\Service;
+use App\Models\Admin;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\DB; //トランザクション用
 use PDF;
@@ -312,7 +313,9 @@ class ReservationsController extends Controller
     for ($i = 0; $i < count($reservation->bills()->get()) - 1; $i++) {
       $other_bills[] = $reservation->bills()->skip($i + 1)->first();
     }
-    return view('admin.reservations.show', compact('venue', 'reservation', 'master_prices', 'user', 'other_bills'));
+
+    $admin = Admin::all()->sortBy('name', SORT_NATURAL | SORT_FLAG_CASE)->pluck('name', 'name');
+    return view('admin.reservations.show', compact('venue', 'reservation', 'master_prices', 'user', 'other_bills', "admin"));
   }
 
   public function double_check(Request $request, $id)
