@@ -683,22 +683,7 @@
                 <dd class="total_result">{{number_format($masters)}}円</dd>
               </dl>
             </td>
-            <!-- <td>
-              <dl class="ttl_box">
-                <dt>支払い期日</dt>
-                <dd class="total_result">{{ReservationHelper::formatDate($pay_limit)}}</dd>
-              </dl>
-            </td> -->
-          </tr>
-          <!-- <tr>
-            <td></td>
-            <td>
-              <div class="bg-white d-flex justify-content-around align-items-center" style="height: 60px;">
-                <div>支払い期日</div>
-                <div>{{ReservationHelper::formatDate($pay_limit)}}</div>
-              </div>
-            </td>
-          </tr> -->
+          
         </table>
       </div>
       <div class="bill_details">
@@ -781,32 +766,7 @@
                   </td>
                 </tr>
               </tbody>
-              <!-- <tbody class="venue_discount">
-                <tr>
-                  <td>割引計算欄</td>
-                  <td>
-                    <p>
-                      割引金額
-                    </p>
-                    <div class="d-flex">
-                      {{ Form::text('venue_number_discount', $request->venue_number_discount?$request->venue_number_discount:'',['class'=>'form-control'] ) }}
-                      <p>円</p>
-                    </div>
-                  </td>
-                  <td>
-                    <p>
-                      割引率
-                    </p>
-                    <div class="d-flex">
-                      {{ Form::text('venue_percent_discount', $request->venue_percent_discount?$request->venue_percent_discount:'',['class'=>'form-control'] ) }}
-                      <p>%</p>
-                    </div>
-                  </td>
-                  <td>
-                    <input class="btn more_btn venue_discount_btn" type="button" value="計算する">
-                  </td>
-                </tr>
-              </tbody> -->
+        
               @else
               <span class="text-red">※料金体系がないため、手打ちで会場料を入力してください</span>
               <tbody class="venue_main">

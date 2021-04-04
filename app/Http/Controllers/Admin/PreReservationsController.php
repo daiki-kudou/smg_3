@@ -252,7 +252,7 @@ class PreReservationsController extends Controller
       //   'price_system' => 'required',
       // ]);
 
-      DB::transaction(function () use ($request) { //トランザクションさせる
+      $new_preReserve = DB::transaction(function () use ($request) { //トランザクションさせる
         $pre_reservation = PreReservation::create([
           'multiple_reserve_id' => 0, //単発はデフォで0
           'venue_id' => $request->venue_id,
@@ -378,11 +378,13 @@ class PreReservationsController extends Controller
             'unknown_user_mobile' => $request->unknown_user_mobile
           ]);
         }
+        return $pre_reservation;
       });
 
       // 戻って再度送信してもエラーになるように設定
       $request->session()->regenerate();
-      return redirect()->route('admin.pre_reservations.index')->with('flash_message', '単発仮押えの登録が完了しました');
+      return redirect()->route('admin.pre_reservations.show', $new_preReserve->id)->with('flash_message', '単発仮押えの登録が完了しました');
+      var_dump($new_preReserve);
     } else {
       //複数仮押えの保存
     }

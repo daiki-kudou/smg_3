@@ -189,29 +189,29 @@
             <tr>
               <td class="table-active" width="25%"><label for="onedayCompany">会社・団体名(仮)</label></td>
               <td>
-                {{$pre_reservation->unknown_user->unknown_user_company}}
+                {{!empty($pre_reservation->unknown_user)?$pre_reservation->unknown_user->unknown_user_company:""}}
               </td>
               <td class="table-active"><label for="onedayName">担当者名(仮)</label></td>
               <td>
-                {{$pre_reservation->unknown_user->unknown_user_name}}
+                {{!empty($pre_reservation->unknown_user)?$pre_reservation->unknown_user->unknown_user_name:""}}
               </td>
             </tr>
             <tr>
               <td class="table-active" scope="row"><label for="onedayTel">固定電話</label>
               </td>
               <td>
-                {{$pre_reservation->unknown_user->unknown_user_tel}}
+                {{!empty($pre_reservation->unknown_user)?$pre_reservation->unknown_user->unknown_user_tel:""}}
               </td>
               <td class="table-active" scope="row"><label for="onedayMobile">携帯番号</label>
               </td>
               <td>
-                {{$pre_reservation->unknown_user->unknown_user_mobile}}
+                {{!empty($pre_reservation->unknown_user)?$pre_reservation->unknown_user->unknown_user_mobile:""}}
               </td>
             </tr>
             <tr>
               <td class="table-active" scope="row"><label for="onedayEmail">メールアドレス</label></td>
               <td>
-                {{$pre_reservation->unknown_user->unknown_user_email}}
+                {{!empty($pre_reservation->unknown_user)?$pre_reservation->unknown_user->unknown_user_email:""}}
               </td>
             </tr>
           </tbody>
