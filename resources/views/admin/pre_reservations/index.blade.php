@@ -7,7 +7,7 @@
 
 
 <script>
-  $(function(){
+  $(function() {
     $('.flash_message').fadeOut(3000);
   })
 </script>
@@ -60,6 +60,7 @@
           <tr>
             <th class="search_item_name"><label for="id">仮押えID</label>
             <td class="text-right">
+              <p class="annotation">すべて</p>
               {{Form::text("search_id",'', ['class'=>'form-control'])}}
             </td>
             <th class="search_item_name"><label for="">作成日</label></th>
@@ -161,13 +162,16 @@
     </ul>
 
 
-    
+
 
     <div class="table-wrap">
       <table class="table table-bordered table-scroll">
         <thead>
           <tr class="table_row">
-            <th><input type="checkbox" name="all_check" id="all_check" /></th>
+            <th>
+              <p class="annotation">すべて</p>
+              <input type="checkbox" name="all_check" id="all_check" />
+            </th>
             <th>仮押えID</th>
             <th>作成日</th>
             <th>利用日</th>
@@ -187,9 +191,8 @@
         <tbody>
           @foreach ($pre_reservations as $pre_reservation)
           <tr>
-            <td>
-              <input type="checkbox" name="{{'delete_check'.$pre_reservation->id}}" value="{{$pre_reservation->id}}"
-                class="checkbox" />
+            <td class="text-center">
+              <input type="checkbox" name="{{'delete_check'.$pre_reservation->id}}" value="{{$pre_reservation->id}}" class="checkbox" />
             </td>
             <td>{{ReservationHelper::fixId($pre_reservation->id)}}</td>
             <td>{{$pre_reservation->created_at}}</td>
@@ -208,7 +211,8 @@
             </td>
             <td>{{$pre_reservation->agent_id==0?"":$pre_reservation->pre_enduser->company}}</td>
             <td class="text-center">
-              <a class="more_btn" href="{{url('admin/pre_reservations/'.$pre_reservation->id)}}">詳細</a></td>
+              <a class="more_btn" href="{{url('admin/pre_reservations/'.$pre_reservation->id)}}">詳細</a>
+            </td>
           </tr>
           @endforeach
         </tbody>
@@ -226,60 +230,60 @@
 
 
 <script>
-  $(function(){
-    function ActiveDateRangePicker($target){
-            $("input[name='"+$target+"']").daterangepicker({
-            "locale": {
-            "format": "YYYY/MM/DD",
-            "separator": " ~ ",
-            "applyLabel": "反映",
-            "cancelLabel": "初期化",
-            "weekLabel": "W",
-            "daysOfWeek": ["Su","Mo","Tu","We","Th","Fr","Sa"],
-            "monthNames": ["1月","2月","3月","4月","5月","6月","7月","8月","9月","10月","11月","12月"],
-            "firstDay": 1,
-            },
-            autoUpdateInput: false
-            });
+  $(function() {
+    function ActiveDateRangePicker($target) {
+      $("input[name='" + $target + "']").daterangepicker({
+        "locale": {
+          "format": "YYYY/MM/DD",
+          "separator": " ~ ",
+          "applyLabel": "反映",
+          "cancelLabel": "初期化",
+          "weekLabel": "W",
+          "daysOfWeek": ["Su", "Mo", "Tu", "We", "Th", "Fr", "Sa"],
+          "monthNames": ["1月", "2月", "3月", "4月", "5月", "6月", "7月", "8月", "9月", "10月", "11月", "12月"],
+          "firstDay": 1,
+        },
+        autoUpdateInput: false
+      });
 
-            $("input[name='"+$target+"']").on('apply.daterangepicker', function(ev, picker) {
-            $(this).val(picker.startDate.format('YYYY/MM/DD') + ' - ' + picker.endDate.format('YYYY/MM/DD'));
-            });
+      $("input[name='" + $target + "']").on('apply.daterangepicker', function(ev, picker) {
+        $(this).val(picker.startDate.format('YYYY/MM/DD') + ' - ' + picker.endDate.format('YYYY/MM/DD'));
+      });
 
-            $("input[name='"+$target+"']").on('cancel.daterangepicker', function(ev, picker) {
-            $(this).val('');
-            });
+      $("input[name='" + $target + "']").on('cancel.daterangepicker', function(ev, picker) {
+        $(this).val('');
+      });
     }
     ActiveDateRangePicker('search_created_at');
     ActiveDateRangePicker('search_date');
   })
 
-      $(function(){
-        // 全選択アクション
-        $('#all_check').on('change',function(){
-          $('.checkbox').prop('checked', $(this).is(':checked'));
-        })
+  $(function() {
+    // 全選択アクション
+    $('#all_check').on('change', function() {
+      $('.checkbox').prop('checked', $(this).is(':checked'));
+    })
 
-        // 削除確認コンファーム
-        $('#confirm_destroy').on('click',function(){
-          if(!confirm('削除してもよろしいですか？')){
-              return false;
-          }
-        })
-      })
+    // 削除確認コンファーム
+    $('#confirm_destroy').on('click', function() {
+      if (!confirm('削除してもよろしいですか？')) {
+        return false;
+      }
+    })
+  })
 
-      $(function(){
-        $("input[type='checkbox']").on('change', function() {
-          checked = $('[class="checkbox"]:checked').map(function(){
-              return $(this).val();
-            }).get();
-            console.log(checked.length);
-            for (let index = 0; index < checked.length; index++) {
-              var ap_data="<input type='hidden' name='destroy"+checked[index]+"' value='"+checked[index]+"'>"
-              $('#for_destroy').append(ap_data);
-            }
-        })
-      })
+  $(function() {
+    $("input[type='checkbox']").on('change', function() {
+      checked = $('[class="checkbox"]:checked').map(function() {
+        return $(this).val();
+      }).get();
+      console.log(checked.length);
+      for (let index = 0; index < checked.length; index++) {
+        var ap_data = "<input type='hidden' name='destroy" + checked[index] + "' value='" + checked[index] + "'>"
+        $('#for_destroy').append(ap_data);
+      }
+    })
+  })
 </script>
 
 

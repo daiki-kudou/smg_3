@@ -480,6 +480,8 @@ select:disabled {
     white-space: nowrap;
 }
 
+
+
 .annotation {
     font-size: 0.8rem;
 }
@@ -488,9 +490,10 @@ select:disabled {
     white-space: nowrap;
 }
 
-.table_row th {
+.table .table_row th {
     text-align: center;
     background: rgba(0, 0, 0, 0.075);
+    vertical-align: middle;
 }
 
 .table-active {

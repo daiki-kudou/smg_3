@@ -18,7 +18,7 @@
 </style>
 
 <script>
-  $(function(){
+  $(function() {
     $('.flash_message').fadeOut(3000);
   })
 </script>
@@ -150,7 +150,10 @@
         <table class="table table-bordered table-scroll">
           <thead>
             <tr class="table_row">
-              <th><input type="checkbox" name="all_check" id="all_check" /></th>
+              <th>
+                <p class="annotation">すべて</p>
+                <input type="checkbox" name="all_check" id="all_check" />
+              </th>
               <th>一括仮押えID</th>
               <th>作成日</th>
               <th>件数</th>
@@ -169,9 +172,8 @@
             @foreach ($multiples as $multiple)
             @if ($multiple->pre_reservations()->count()!=0)
             <tr>
-              <td>
-                <input type="checkbox" name="{{'delete_check'.$multiple->id}}" value="{{$multiple->id}}"
-                  class="checkbox" />
+              <td class="text-center">
+                <input type="checkbox" name="{{'delete_check'.$multiple->id}}" value="{{$multiple->id}}" class="checkbox" />
               </td>
               <td>{{ReservationHelper::fixId($multiple->id)}}</td>
               <td>{{$multiple->created_at}}</td>
@@ -246,55 +248,55 @@
 
 <script>
   $(function() {
-        // 全選択アクション
-        $('#all_check').on('change', function() {
-          $('.checkbox').prop('checked', $(this).is(':checked'));
-        })
+    // 全選択アクション
+    $('#all_check').on('change', function() {
+      $('.checkbox').prop('checked', $(this).is(':checked'));
+    })
 
-        // 削除確認コンファーム
-        $('#confirm_destroy').on('click', function() {
-          if (!confirm('削除してもよろしいですか？\n一括仮押さえに関連する仮押さえの内容がすべて削除されます')) {
-            return false;
-          }
-        })
-      })
+    // 削除確認コンファーム
+    $('#confirm_destroy').on('click', function() {
+      if (!confirm('削除してもよろしいですか？\n一括仮押さえに関連する仮押さえの内容がすべて削除されます')) {
+        return false;
+      }
+    })
+  })
 
-      $(function() {
-        $("input[type='checkbox']").on('change', function() {
-          checked = $('[class="checkbox"]:checked').map(function() {
-            return $(this).val();
-          }).get();
-          for (let index = 0; index < checked.length; index++) {
-            var ap_data = "<input type='hidden' name='destroy" + checked[index] + "' value='" + checked[index] + "'>"
-            $('#for_destroy').append(ap_data);
-          }
-        })
-      })
+  $(function() {
+    $("input[type='checkbox']").on('change', function() {
+      checked = $('[class="checkbox"]:checked').map(function() {
+        return $(this).val();
+      }).get();
+      for (let index = 0; index < checked.length; index++) {
+        var ap_data = "<input type='hidden' name='destroy" + checked[index] + "' value='" + checked[index] + "'>"
+        $('#for_destroy').append(ap_data);
+      }
+    })
+  })
 
 
-  $(function(){
-    function ActiveDateRangePicker($target){
-            $("input[name='"+$target+"']").daterangepicker({
-            "locale": {
-            "format": "YYYY/MM/DD",
-            "separator": " ~ ",
-            "applyLabel": "反映",
-            "cancelLabel": "初期化",
-            "weekLabel": "W",
-            "daysOfWeek": ["Su","Mo","Tu","We","Th","Fr","Sa"],
-            "monthNames": ["1月","2月","3月","4月","5月","6月","7月","8月","9月","10月","11月","12月"],
-            "firstDay": 1,
-            },
-            autoUpdateInput: false
-            });
+  $(function() {
+    function ActiveDateRangePicker($target) {
+      $("input[name='" + $target + "']").daterangepicker({
+        "locale": {
+          "format": "YYYY/MM/DD",
+          "separator": " ~ ",
+          "applyLabel": "反映",
+          "cancelLabel": "初期化",
+          "weekLabel": "W",
+          "daysOfWeek": ["Su", "Mo", "Tu", "We", "Th", "Fr", "Sa"],
+          "monthNames": ["1月", "2月", "3月", "4月", "5月", "6月", "7月", "8月", "9月", "10月", "11月", "12月"],
+          "firstDay": 1,
+        },
+        autoUpdateInput: false
+      });
 
-            $("input[name='"+$target+"']").on('apply.daterangepicker', function(ev, picker) {
-            $(this).val(picker.startDate.format('YYYY/MM/DD') + ' - ' + picker.endDate.format('YYYY/MM/DD'));
-            });
+      $("input[name='" + $target + "']").on('apply.daterangepicker', function(ev, picker) {
+        $(this).val(picker.startDate.format('YYYY/MM/DD') + ' - ' + picker.endDate.format('YYYY/MM/DD'));
+      });
 
-            $("input[name='"+$target+"']").on('cancel.daterangepicker', function(ev, picker) {
-            $(this).val('');
-            });
+      $("input[name='" + $target + "']").on('cancel.daterangepicker', function(ev, picker) {
+        $(this).val('');
+      });
     }
     ActiveDateRangePicker('search_created_at');
     ActiveDateRangePicker('search_date');
