@@ -465,7 +465,7 @@
     <!-- コピー作成用フィールド   終わり--------------------------------------------------　 -->
     <p class="text-center">
       @if (count($venue->frame_prices)==0&&count($venue->time_prices)==0)
-      <span>※選択された会場に登録された料金がありません。料金を作成後再度編集してください</span>
+      <span class="d-block">※選択された会場に登録された料金がありません。料金を作成後再度編集してください</span>
       {{ Form::submit('すべての日程に反映する', ['class' => 'btn more_btn_lg mt-3',"disabled"])}}
       @else
       {{ Form::submit('すべての日程に反映する', ['class' => 'btn more_btn_lg mt-3'])}}      

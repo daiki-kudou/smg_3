@@ -71,6 +71,14 @@
           <td>
             <p class="tel">{{$request->user_id==999?"":ReservationHelper::getPersonTel($request->user_id)}}</p>
           </td>
+          <td class="table-active" scope="row"><label for="">割引条件工藤さん！！！顧客からの紐づけお願いします。</label></td>
+          <td>
+          </td>
+        </tr>
+        <tr>
+          <td class="table-active caution" scope="row"><label for="">注意事項工藤さん！！！顧客からの紐づけお願いします。</label></td>
+          <td class="caution" colspan="3">
+          </td>
         </tr>
       </tbody>
     </table>
