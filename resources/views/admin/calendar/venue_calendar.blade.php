@@ -24,6 +24,21 @@
 {{Form::hidden('reservation_id', $reservation->id)}}
 @endif
 @endforeach
+
+@foreach ($pre_reservations as $pre_reservation)
+@if ($pre_reservation->reserve_date==$day)
+{{Form::text('start', date('Y-m-d',strtotime($pre_reservation->reserve_date)).' '.$pre_reservation->enter_time,['id'=>date('Y-m-d',strtotime($day)).'start'])}}
+{{Form::text('finish', date('Y-m-d',strtotime($pre_reservation->reserve_date)).' '.$pre_reservation->leave_time,['id'=>date('Y-m-d',strtotime($day)).'finish'])}}
+{{Form::text('date', date('Y-m-d',strtotime($pre_reservation->reserve_date)))}}
+{{Form::text('status', $pre_reservation->pre_bill()->first()->reservation_status)}}
+@if ($pre_reservation->user_id>0)
+{{Form::text('company', ReservationHelper::getCompany($pre_reservation->user_id))}}
+@else
+{{Form::text('company', ReservationHelper::getAgentCompany($pre_reservation->agent_id))}}
+@endif
+{{Form::text('reservation_id', $pre_reservation->id)}}
+@endif
+@endforeach
 @endforeach
 
 
@@ -137,14 +152,12 @@
   $(function() {
     var name = $('input[name="start"]');
     for (let nums = 0; nums < name.length; nums++) {
-
       var start = $('input[name="start"]').eq(nums).val();
       var finish = $('input[name="finish"]').eq(nums).val();
       var s_date = $('input[name="date"]').eq(nums).val();
       var status = $('input[name="status"]').eq(nums).val();
       var company = $('input[name="company"]').eq(nums).val();
       var reservation_id = $('input[name="reservation_id"]').eq(nums).val();
-
       var ds = new Date(start);
       ds.setMinutes(ds.getMinutes() - (60));
       var df = new Date(finish);
@@ -152,13 +165,9 @@
       var diffTime = Math.floor(diffTime / (1000 * 60));
       var target = diffTime / 30;
 
-      console.log('ds',ds);
-
-
       function zeroPadding(num){
         return ('0' + num).slice(-2);
       }
-
       for (let index = 0; index < target; index++) {
         ds.setMinutes(ds.getMinutes() + (30));
         var hours=ds.getHours();
@@ -178,7 +187,6 @@
           }
         } else if (status < 3) {
           $("." + s_date + "cal" + result).addClass('bg-prereserve');
-
         }
       }
       // 最後に灰色

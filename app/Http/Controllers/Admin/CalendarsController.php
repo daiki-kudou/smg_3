@@ -7,6 +7,7 @@ use App\Http\Controllers\Controller;
 
 use App\Models\Venue;
 use App\Models\Reservation;
+use App\Models\PreReservation;
 
 use Carbon\Carbon;
 
@@ -26,13 +27,14 @@ class CalendarsController extends Controller
       $days[] = $dt->addDays($i);
     }
     $reservations = Reservation::where('venue_id', $selected_venue)->get();
-    // $find_venues = $reservations->where('venue_id', $selected_venue);
+    $pre_reservations = PreReservation::where("venue_id", $selected_venue)->get();
 
     return view('admin.calendar.venue_calendar', [
       'days' => $days,
       'venues' => $venues,
       'selected_venue' => $selected_venue,
       'reservations' => $reservations,
+      'pre_reservations' => $pre_reservations,
       'selected_year' => Carbon::now()->year,
       'selected_month' => Carbon::now()->month,
     ]);

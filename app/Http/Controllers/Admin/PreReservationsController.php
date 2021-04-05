@@ -685,6 +685,15 @@ class PreReservationsController extends Controller
             $pre_reservation->delete();
             $admin = config('app.admin_email');
             $user = User::find($pre_reservation->user_id);
+
+            try {
+              $user->email;
+            } catch (\Exception $e) {
+              DB::rollBack();
+              echo 'failed';
+              return redirect()->route('admin.pre_reservations.index')->with('flash_message_error', '一部ユーザーのメールアドレスに誤りがあり送信できませんでした');
+            }
+
             Mail::to($admin) //管理者
               ->send(new AdminPreResCxl(
                 $pre_reservation,
@@ -699,7 +708,7 @@ class PreReservationsController extends Controller
         }
       });
       $request->session()->regenerate();
-      return redirect()->route('admin.pre_reservations.index')->with('flash_message', '単発仮押えの削除が完了しました');
+      return redirect()->route('admin.pre_reservations.index');
     }
   }
 }
