@@ -158,12 +158,12 @@
           <td>
             <select name="pre_endusers_attr" class="form-control">
               <option></option>
-              <option value="0">一般企業</option>
-              <option value="1">上場企業</option>
-              <option value="2">近隣利用</option>
-              <option value="3">個人講師</option>
-              <option value="4">MLM</option>
-              <option value="5">その他</option>
+              <option value="1" {{$PreReservation->pre_enduser->attr==1?"selected":""}}>一般企業</option>
+              <option value="2"{{$PreReservation->pre_enduser->attr==2?"selected":""}}>上場企業</option>
+              <option value="3"{{$PreReservation->pre_enduser->attr==3?"selected":""}}>近隣利用</option>
+              <option value="4"{{$PreReservation->pre_enduser->attr==4?"selected":""}}>個人講師</option>
+              <option value="5"{{$PreReservation->pre_enduser->attr==5?"selected":""}}>MLM</option>
+              <option value="6"{{$PreReservation->pre_enduser->attr==6?"selected":""}}>その他</option>
             </select>
             <p class="is-error-pre_enduser_attr" style="color: red"></p>
           </td>

@@ -19,7 +19,7 @@ use Illuminate\Support\Facades\DB; //トランザクション用
 
 class PreAgentReservationsController extends Controller
 {
-  public function create() 
+  public function create()
   {
     $agents = Agent::all();
     $venues = Venue::all();
@@ -180,6 +180,7 @@ class PreAgentReservationsController extends Controller
         'mobile' =>  $request->pre_endusers_mobile,
         'tel' =>  $request->pre_endusers_tel,
         'charge' =>  $request->enduser_charge,
+        "attr" => $request->pre_enduser_attr,
       ]);
     });
     return redirect(route('admin.pre_reservations.show', $id));

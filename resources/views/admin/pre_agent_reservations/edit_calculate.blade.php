@@ -106,8 +106,17 @@
         <tr>
           <td class="table-active form_required">利用者属性</td>
           <td>
-            {{ Form::text('', ReservationHelper::getEndUser($request->pre_endusers_attr),['class'=>'form-control'] ) }}
-            {{ Form::hidden('pre_endusers_attr', ($request->pre_endusers_attr),['class'=>'form-control'] ) }}
+            {{-- {{ Form::text('', ReservationHelper::getEndUser($request->pre_endusers_attr),['class'=>'form-control'] ) }}
+            {{ Form::hidden('pre_endusers_attr', ($request->pre_endusers_attr),['class'=>'form-control'] ) }} --}}
+            <select name="pre_endusers_attr" class="form-control">
+              <option></option>
+              <option value="1" {{$request->pre_endusers_attr==1?"selected":""}}>一般企業</option>
+              <option value="2" {{$request->pre_endusers_attr==2?"selected":""}}>上場企業</option>
+              <option value="3" {{$request->pre_endusers_attr==3?"selected":""}}>近隣利用</option>
+              <option value="4" {{$request->pre_endusers_attr==4?"selected":""}}>個人講師</option>
+              <option value="5"{{$request->pre_endusers_attr==5?"selected":""}}>MLM</option>
+              <option value="6"{{$request->pre_endusers_attr==6?"selected":""}}>その他</option>
+            </select>
             <p class="is-error-pre_enduser_attr" style="color: red"></p>
           </td>
         </tr>
@@ -474,12 +483,6 @@
           </table>
         </div>
         @endif
-
-
-
-
-
-
       </div>
 
       <div class="col">
@@ -538,18 +541,6 @@
                 </p>
               </td>
             </tr>
-            <!-- <tr class="caution">
-              <td>
-                <label for="caution">注意事項</label>
-                {{ Form::textarea('attention', $request->attention,['class'=>'form-control', 'placeholder'=>'入力してください'] ) }}
-              </td>
-            </tr> -->
-            <!-- <tr>
-              <td>
-                <label for="userNote">申し込みフォーム備考</label>
-                {{ Form::textarea('user_details', $request->user_details,['class'=>'form-control', 'placeholder'=>'入力してください'] ) }}
-              </td>
-            </tr> -->
             <tr>
               <td>
                 <label for="adminNote">管理者備考</label>
@@ -840,6 +831,7 @@
 {{Form::hidden('pre_endusers_tel',$request->pre_endusers_tel)}}
 {{Form::hidden('pre_endusers_email',$request->pre_endusers_email)}}
 
+{{Form::hidden('pre_enduser_attr',$request->pre_endusers_attr)}}
 
 
 

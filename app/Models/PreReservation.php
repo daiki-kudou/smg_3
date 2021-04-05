@@ -536,8 +536,6 @@ class PreReservation extends Model
           ]);
         }
       }
-      // 
-
       $ser_arrays = [];
       foreach ($request->all() as $s_key => $value) {
         if (preg_match("/service_breakdown/", $s_key)) {
@@ -556,8 +554,6 @@ class PreReservation extends Model
           ]);
         }
       }
-      // 
-
       if ($request->layout_prepare_item) {
         $pre_bill->pre_breakdowns()->create([
           'unit_item' => $request->layout_prepare_item,
