@@ -466,11 +466,7 @@ class Reservation extends Model
     }
 
     // return ($query);
-    return $query->paginate(10);
-
-    // ■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■
-    // 検索の雛形はこれでOK
-    // ■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■
+    return $query->orderBy('id', 'desc')->paginate(10);
   }
 
   // reservations show 各請求書合計額

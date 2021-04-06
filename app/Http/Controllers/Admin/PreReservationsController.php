@@ -46,7 +46,7 @@ class PreReservationsController extends Controller
       $pre_reservations = $this->BasicSearch($class, $request);
       $counter = count($pre_reservations);
     } else {
-      $pre_reservations = PreReservation::where('multiple_reserve_id', '=', 0)->paginate(30);
+      $pre_reservations = PreReservation::where('multiple_reserve_id', '=', 0)->orderBy('id', 'desc')->paginate(30);
       $counter = count($pre_reservations);
     }
 
