@@ -21,7 +21,7 @@ class ClientsController extends Controller
    */
   public function index(Request $request)
   {
-    $querys = User::paginate(30);
+    $querys = User::orderBy('id', 'desc')->paginate(30);
     return view('admin.clients.index', compact('querys'));
   }
 
