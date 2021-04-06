@@ -608,7 +608,7 @@ class PreReservationsController extends Controller
       }
     });
     $request->session()->regenerate();
-    return redirect()->route('admin.pre_reservations.index');
+    return redirect()->route('admin.pre_reservations.show', $id);
   }
 
   public function switchStatus(Request $request)
