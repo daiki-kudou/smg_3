@@ -810,9 +810,10 @@ table td.table_column p:last-child {
     background: #fff;
 }
 
-.bill_status .table {
+.bill_status .table, .bill_status2 .table {
     box-shadow: none;
 }
+
 
 
 .table-cell-box {
@@ -842,6 +843,10 @@ table td.table_column p:last-child {
     padding: 0.5em;
     color: #fff;
     margin-bottom: 0;
+}
+
+.double_checkbox dd:last-child {
+    margin-left: 5px;
 }
 
 /* 
@@ -889,6 +894,11 @@ table td.table_column p:last-child {
 }
 
 .bill_head .table {
+    background: transparent;
+    box-shadow: none;
+}
+
+.bill_head2 .table {
     background: transparent;
     box-shadow: none;
 }
@@ -1245,9 +1255,9 @@ h3 {
 }
 
 .bill_head2 {
-    /* background: #7ebc4f; */
     background: #144c58;
     table-layout: fixed;
+    padding: 10px;
     /* border: solid 1px #ced4da; */
 }
 
@@ -1545,10 +1555,24 @@ table .master_total_subttl {
 .equipment_chkbox input[type=checkbox]:checked+label:before,
 .layout_chkbox input[type=checkbox]:checked+label:before,
 .others_chkbox input[type=checkbox]:checked+label:before {
-    content: '\2713';
-    font-size: 34px;
+    /* content: '\2713'; */
+    /* font-size: 20px; */
     color: #fff;
     background-color: #007BFF;
+}
+
+.venue_chkbox input[type=checkbox]:checked+label:after,
+.equipment_chkbox input[type=checkbox]:checked+label:after,
+.layout_chkbox input[type=checkbox]:checked+label:after,
+.others_chkbox input[type=checkbox]:checked+label:after {
+    content: '\2713';
+    font-size: 20px;
+    color: #fff;
+    position: absolute;
+    top: 10%;
+    left: 0;
+    width: 20px;
+    height: 20px;
 }
 
 /* キャンセル -----------------------------------------------------*/
