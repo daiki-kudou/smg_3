@@ -34,7 +34,7 @@ class ReservationsController extends Controller
       $newInstance = new Reservation();
       $reservations = $newInstance->search_item((object)$request->all());
     } else {
-      $reservations = Reservation::all();
+      $reservations = Reservation::orderBy('id', 'desc')->get();
     }
     $venue = Venue::all();
     $user = User::select('id', 'company', 'first_name', 'last_name', 'mobile', 'tel')->get();

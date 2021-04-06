@@ -49,7 +49,7 @@ trait SearchTrait
     $this->SimpleWhere($request, "search_agent", $andSearch, "agent_id"); // 仲介会社
     $this->SimpleWhereHas($request->search_end_user, $andSearch, "pre_enduser", "company"); // エンドユーザー
     // 最終return
-    return $andSearch->paginate(30);
+    return $andSearch->orderBy('id', 'desc')->paginate(30);
   }
 
 
@@ -58,7 +58,6 @@ trait SearchTrait
 
   public function MultipleSearch($class, $request)
   {
-
     $result = $class::query();
 
     if (!empty($request->search_id)) {
@@ -129,8 +128,7 @@ trait SearchTrait
 
     // $joinTable = $class->join("pre_reservations", "multiple_reserves.id", "pre_reservations.multiple_reserve_id");
 
-    $result->orderBy('id');
-    return $result->paginate(30);
+    return $result->orderBy('id', 'desc')->paginate(30);
   }
 
 
