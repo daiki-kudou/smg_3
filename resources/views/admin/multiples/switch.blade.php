@@ -4,7 +4,7 @@
 
 <link href="{{ asset('/css/template.css') }}" rel="stylesheet">
 <script src="{{ asset('/js/template.js') }}"></script>
-
+<script src="{{ asset('/js/admin/validation.js') }}"></script>
 
 <div id="fullOverlay">
   <div class="frame_spinner">
@@ -14,8 +14,7 @@
   </div>
 </div>
 
-
-{{ Form::open(['url' => 'admin/multiples/switch_cfm/'.$multiple->id, 'method'=>'POST', 'id'=>'']) }}
+{{ Form::open(['url' => 'admin/multiples/switch_cfm/'.$multiple->id, 'method'=>'POST', 'id'=>'multiple_switch']) }}
 @csrf
 
 <div class="container-fluid">
@@ -105,10 +104,10 @@
               </td>
             </tr>
             <tr>
-          <td class="table-active caution" scope="row"><label for="">注意事項工藤さん！！！顧客からの紐づけお願いします。</label></td>
-          <td class="caution" colspan="3">
-          </td>
-        </tr>
+              <td class="table-active caution" scope="row"><label for="">注意事項工藤さん！！！顧客からの紐づけお願いします。</label></td>
+              <td class="caution" colspan="3">
+              </td>
+            </tr>
           </tbody>
         </table>
         <table class="table table-bordered oneday-customer-table" style="table-layout: fixed;">
@@ -134,17 +133,20 @@
             <tr>
               <td class="table-active" scope="row"><label for="onedayTel">固定電話</label></td>
               <td>
-                {{Form::text("unknown_user_tel",$multiple->pre_reservations()->first()->unknown_user->unknown_user_tel,["class"=>"form-control"])}}
+                {{Form::text("unknown_user_tel",$multiple->pre_reservations()->first()->unknown_user->unknown_user_tel,["class"=>"form-control", 'placeholder' => '半角数字、ハイフンなしで入力してください'])}}
+                <p class="is-error-unknown_user_tel" style="color: red"></p>
               </td>
               <td class="table-active" scope="row"><label for="onedayMobile">携帯番号</label></td>
               <td>
-                {{Form::text("unknown_user_mobile",$multiple->pre_reservations()->first()->unknown_user->unknown_user_mobile,["class"=>"form-control"])}}
+                {{Form::text("unknown_user_mobile",$multiple->pre_reservations()->first()->unknown_user->unknown_user_mobile,["class"=>"form-control", 'placeholder' => '半角数字、ハイフンなしで入力してください'])}}
+                <p class="is-error-unknown_user_mobile" style="color: red"></p>
               </td>
             </tr>
             <tr>
               <td class="table-active" scope="row"><label for="onedayEmail">メールアドレス</label></td>
               <td>
                 {{Form::text("unknown_user_email",$multiple->pre_reservations()->first()->unknown_user->unknown_user_email,["class"=>"form-control"])}}
+                <p class="is-error-unknown_user_email" style="color: red"></p>
               </td>
             </tr>
           </tbody>
