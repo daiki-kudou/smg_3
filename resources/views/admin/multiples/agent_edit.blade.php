@@ -50,7 +50,6 @@
       @csrf
       <section class="m-5 border-inwrap">
         <div class="mb-2">
-          <!-- <p>同じ内容をすべての日程に反映することができます。</p> -->
         </div>
         <dl class="card">
           <dt class="card-header accordion-ttl">
@@ -417,7 +416,19 @@
         <!-- コピー作成用フィールド   終わり--------------------------------------------------　 -->
         <p class="text-center">
           {{Form::hidden('agent_id',$multiple->pre_reservations()->first()->agent_id)}}
+          @if (count($venue->frame_prices)==0&&count($venue->time_prices)==0)
+          <div class="d-flex justify-content-center">
+            <div class="">
+              <p class="d-block">
+                ※選択された会場は料金が設定されていません。会場管理/料金管理に戻り設定してください
+              </p>
+              <a href="{{url('admin/frame_prices')}}"
+                class="btn more_btn_lg mt-5 d-flex justify-content-center">料金管理画面へ</a>
+            </div>
+          </div>
+          @else
           {{ Form::submit('すべての日程に反映する', ['class' => 'btn more_btn_lg mt-3'])}}
+          @endif
           {{ Form::close() }}
         </p>
       </section>
@@ -455,7 +466,8 @@
         <div class="register-list-item">
           <div class="from-group list_checkbox">
             <div class="form-check">
-              <input type="checkbox" name="{{'delete_check'.$pre_reservation->id}}" value="{{$pre_reservation->id}}" class="checkbox mr-1" />
+              <input type="checkbox" name="{{'delete_check'.$pre_reservation->id}}" value="{{$pre_reservation->id}}"
+                class="checkbox mr-1" />
               <!-- <input class="form-check-input" type="checkbox"> -->
               <label class="form-check-label"></label>
             </div>
@@ -543,7 +555,9 @@
                         <td>
                           <select name="{{'event_start_copied'.$key}}" class="form-control">
                             <option disabled>選択してください</option>
-                            @for ($start = 0*2; $start <=23*2; $start++) <option value="{{date("H:i:s", strtotime("00:00 +". $start * 30 ." minute"))}}" @if(date("H:i:s", strtotime("00:00 +". $start * 30 ." minute"))==$pre_reservation->enter_time)
+                            @for ($start = 0*2; $start <=23*2; $start++) <option
+                              value="{{date("H:i:s", strtotime("00:00 +". $start * 30 ." minute"))}}" @if(date("H:i:s",
+                              strtotime("00:00 +". $start * 30 ." minute"))==$pre_reservation->enter_time)
                               selected
                               @endif
                               >
@@ -555,9 +569,12 @@
                       <tr>
                         <td class="table-active"><label for="eventFinish">イベント終了時間</label></td>
                         <td>
-                          <select name="{{'event_finish_copied'.$key}}" id="{{'event_finish_copied'.$key}}" class="form-control">
+                          <select name="{{'event_finish_copied'.$key}}" id="{{'event_finish_copied'.$key}}"
+                            class="form-control">
                             <option disabled>選択してください</option>
-                            @for ($start = 0*2; $start <=23*2; $start++) <option value="{{date("H:i:s", strtotime("00:00 +". $start * 30 ." minute"))}}" @if (date("H:i:s", strtotime("00:00 +". $start * 30 ." minute"))==$pre_reservation->leave_time)
+                            @for ($start = 0*2; $start <=23*2; $start++) <option
+                              value="{{date("H:i:s", strtotime("00:00 +". $start * 30 ." minute"))}}" @if (date("H:i:s",
+                              strtotime("00:00 +". $start * 30 ." minute"))==$pre_reservation->leave_time)
                               selected
                               @endif
                               >
@@ -914,7 +931,20 @@
               <div class="btn_wrapper">
                 <p class="text-center">
                   {{Form::hidden('agent_id',$pre_reservation->agent_id)}}
+                  @if (count($venue->frame_prices)==0&&count($venue->time_prices)==0)
+                  <div class="d-flex justify-content-center">
+                    <div class="">
+                      <p class="d-block">
+                        ※選択された会場は料金が設定されていません。会場管理/料金管理に戻り設定してください
+                      </p>
+                      <a href="{{url('admin/frame_prices')}}"
+                        class="btn more_btn_lg mt-5 d-flex justify-content-center">料金管理画面へ</a>
+                    </div>
+                  </div>
+                  @else
                   {{ Form::submit('請求に反映する', ['class' => 'btn more_btn_lg'])}}
+                  @endif
+
                 </p>
                 {{ Form::close() }}
               </div>
@@ -1211,7 +1241,6 @@
         <p><a class="btn more_btn_lg" href="">詳細にもどる</a></p>
       </li>
       <li>
-        {{-- <p id="master_submit" class="btn more_btn_lg">保存する</p> --}}
         <a href="{{url('admin/multiples')}}" class="btn more_btn_lg">保存する</a>
       </li>
     </ul>

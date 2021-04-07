@@ -107,6 +107,9 @@ class EquipmentsController extends Controller
       'price' => ['required', 'max:191'],
       'stock' => ['required', 'max:191'],
     ]);
+    echo "<pre>";
+    var_dump("1");
+    echo "</pre>";
 
     DB::transaction(function () use ($request, $id) {
       $eqipment = Equipment::find($id);
@@ -117,8 +120,11 @@ class EquipmentsController extends Controller
       $eqipment->save();
     });
 
+
     $current_page = $request->session()->pull('current_page');
-    $request->session()->regenerate();
+    // 複数タブ生成時、postする際tokenの不一致がおこるためregenerateはしない
+    // $request->session()->regenerate();
+
     return redirect('admin/equipments/?page=' . $current_page);
   }
 
