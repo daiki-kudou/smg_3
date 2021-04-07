@@ -110,13 +110,13 @@
               <td>
                 {{ReservationHelper::checkAgentOrUserTel($pre_reservation->user_id, $pre_reservation->agent_id)}}
               </td>
-              <td class="table-active" scope="row"><label for="tel">割引条件工藤さん！！！顧客からの紐づけお願いします。</label></td>
+              <td class="table-active" scope="row"><label for="">割引条件工藤さん！！！顧客からの紐づけお願いします。</label></td>
               <td>
               </td>
             </tr>
             <tr>
-              <td class="table-active" scope="row"><label for="tel">注意事項工藤さん！！！顧客からの紐づけお願いします。</label></td>
-              <td colspan="3">
+              <td class="table-active caution" scope="row"><label for="">注意事項工藤さん！！！顧客からの紐づけお願いします。</label></td>
+              <td class="caution" colspan="3">
               </td>
             </tr>
           </tbody>

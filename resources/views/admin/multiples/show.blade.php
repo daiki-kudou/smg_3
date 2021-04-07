@@ -85,6 +85,14 @@
           <td>
             {{ReservationHelper::getPersonTel($multiple->pre_reservations()->first()->user_id)}}
           </td>
+          <td class="table-active" scope="row"><label for="">割引条件工藤さん！！！顧客からの紐づけお願いします。</label></td>
+          <td>
+          </td>
+        </tr>
+        <tr>
+          <td class="table-active caution" scope="row"><label for="">注意事項工藤さん！！！顧客からの紐づけお願いします。</label></td>
+          <td class="caution" colspan="3">
+          </td>
         </tr>
       </tbody>
     </table>
@@ -138,8 +146,7 @@
     </table>
     <hr class="my-5 border_color">
     <div class="mt-5">
-      <p class="text-right"><a href="{{url('admin/multiples/'.$multiple->id."/add_venue")}}"
-          class="more_btn3">日程を追加する</a></p>
+      <p class="text-right"><a href="{{url('admin/multiples/'.$multiple->id."/add_venue")}}" class="more_btn3">日程を追加する</a></p>
       <p class="mb-2">詳細を入力する場合は、会場ごとに編集をしてください。</p>
     </div>
     <table class="table table-bordered table-scroll">
@@ -165,8 +172,7 @@
           <td class="text-center">
             {{$multiple->pre_reservations()->where('venue_id',$venues[$i]->venue_id)->get()->count()}}
           </td>
-          <td class="text-center"><a class="more_btn"
-              href="{{url('admin/multiples/'.$multiple->id.'/edit'.'/'.$venues[$i]->venue_id)}}">編集</a></td>
+          <td class="text-center"><a class="more_btn" href="{{url('admin/multiples/'.$multiple->id.'/edit'.'/'.$venues[$i]->venue_id)}}">編集</a></td>
           </tr>
           @else
           <tr>
@@ -175,8 +181,7 @@
               {{$multiple->pre_reservations()->where('venue_id',$venues[$i]->venue_id)->get()->count()}}
             </td>
             <td class="text-center">
-              <a class="more_btn"
-                href="{{url('admin/multiples/'.$multiple->id.'/edit'.'/'.$venues[$i]->venue_id)}}">編集</a>
+              <a class="more_btn" href="{{url('admin/multiples/'.$multiple->id.'/edit'.'/'.$venues[$i]->venue_id)}}">編集</a>
             </td>
           </tr>
           @endif
@@ -192,11 +197,11 @@
 
 
 <script>
-  $(function(){
-    $(".confirm_prereserve").on('click',function(){
-      if(!confirm('押すなって言ったじゃないか！！')){
+  $(function() {
+    $(".confirm_prereserve").on('click', function() {
+      if (!confirm('押すなって言ったじゃないか！！')) {
         return false;
-    }
+      }
     })
   })
 </script>
