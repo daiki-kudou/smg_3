@@ -263,7 +263,6 @@
               </tr>
             </thead>
 
-
             <tbody class="accordion-wrap"></tbody>
           </table>
         </div>

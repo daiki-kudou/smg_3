@@ -686,7 +686,8 @@
               </dl>
             </td>
             <td>
-              @if ($reservation->bills()->first()->reservation_status<3) <a href="{{url('admin/reservations/'.$reservation->bills()->first()->id.'/edit')}}" class="btn more_btn">
+              @if ($reservation->bills()->first()->reservation_status<3) <a
+                href="{{url('admin/reservations/'.$reservation->bills()->first()->id.'/edit')}}" class="btn more_btn">
                 編集</a>
                 @endif
             </td>
@@ -1724,11 +1725,7 @@
       <dd>
         {{ Form::open(['url' => 'admin/bills/other_doublecheck', 'method'=>'POST']) }}
         @csrf
-        {{Form::select('double_check1_name', [
-        '名前test1' => '名前test1', 
-        '名前test2' => '名前test2',
-        '名前test3' => '名前test3',
-        '名前test4' => '名前test4',], 
+        {{Form::select('double_check1_name', $admin, 
         null, ['placeholder' => '選択してください', 'class'=>'form-control double_check1_name'])}}
         {{ Form::hidden('double_check_status', $other_bill->double_check_status ) }}
         {{ Form::hidden('bills_id', $other_bill->id ) }}
@@ -1748,11 +1745,7 @@
       <dd>
         {{ Form::open(['url' => 'admin/bills/other_doublecheck', 'method'=>'POST']) }}
         @csrf
-        {{Form::select('double_check2_name', [
-        '名前test1' => '名前test1', 
-        '名前test2' => '名前test2',
-        '名前test3' => '名前test3',
-        '名前test4' => '名前test4',], 
+        {{Form::select('double_check2_name', $admin, 
         null, ['placeholder' => '選択してください', 'class'=>'form-control double_check2_name'])}}
         {{ Form::hidden('double_check_status', $other_bill->double_check_status ) }}
         {{ Form::hidden('bills_id', $other_bill->id ) }}
