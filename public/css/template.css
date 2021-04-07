@@ -806,7 +806,7 @@ table td.table_column p:last-child {
 /* =============予約詳細================================================ */
 
 
-.bill_status {
+.bill_status, .bill_status2 {
     background: #fff;
 }
 

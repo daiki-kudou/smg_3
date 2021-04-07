@@ -36,7 +36,7 @@
       {{ Form::open(['url' => 'admin/bills/create/'.$reservation->id, 'method'=>'POST', 'class'=>'']) }}
       @csrf
       {{ Form::hidden('reservation_id', $reservation->id ) }}
-      {{ Form::submit('追加の請求書を作成する',['class' => 'btn more_btn3']) }}
+      {{ Form::submit('追加の請求書を作成する',['class' => 'btn more_btn3 mb-3']) }}
       {{ Form::close() }}
     </p>
     @endif
@@ -1617,130 +1617,131 @@
           </div>
         </div>
       </div>
-    </div>
-    <div class="information">
-      <div class="information_details">
-        <div class="head d-flex">
-          <div class="accordion_btn">
-            <i class="fas fa-plus bill_icon_size hide" aria-hidden="true"></i>
-            <i class="fas fa-minus bill_icon_size" aria-hidden="true"></i>
+      <div class="information">
+        <div class="information_details">
+          <div class="head d-flex">
+            <div class="accordion_btn">
+              <i class="fas fa-plus bill_icon_size hide" aria-hidden="true"></i>
+              <i class="fas fa-minus bill_icon_size" aria-hidden="true"></i>
+            </div>
+            <div class="billdetails_ttl">
+              <h3>
+                請求書情報
+              </h3>
+            </div>
           </div>
-          <div class="billdetails_ttl">
-            <h3>
-              請求書情報
-            </h3>
-          </div>
-        </div>
-        <div class="main hide">
-          <div class="informations billdetails_content">
-            <table class="table">
-              <tbody>
-                <tr>
-                  <td>請求日：</td>
-                  <td>支払期日：{{ReservationHelper::formatDate($other_bill->payment_limit)}}
-                  </td>
-                </tr>
-                <tr>
-                  <td>請求書宛名：
-                    {{($other_bill->bill_company)}}
-                  </td>
-                  <td>
-                    担当者：
-                    {{$other_bill->bill_person}}
-                  </td>
-                </tr>
-                <tr>
-                  <td colspan="2">請求書備考
-                    {{$other_bill->bill_remark}}
-                  </td>
-                </tr>
-              </tbody>
-            </table>
+          <div class="main hide">
+            <div class="informations billdetails_content">
+              <table class="table">
+                <tbody>
+                  <tr>
+                    <td>請求日：</td>
+                    <td>支払期日：{{ReservationHelper::formatDate($other_bill->payment_limit)}}
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>請求書宛名：
+                      {{($other_bill->bill_company)}}
+                    </td>
+                    <td>
+                      担当者：
+                      {{$other_bill->bill_person}}
+                    </td>
+                  </tr>
+                  <tr>
+                    <td colspan="2">請求書備考
+                      {{$other_bill->bill_remark}}
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
           </div>
         </div>
       </div>
-    </div>
 
-    <div class="paid">
-      <div class="paid_details">
-        <div class="head d-flex">
-          <div class="d-flex align-items-center">
-            <h3 class="pl-3">
-              入金情報
-            </h3>
+      <div class="paid">
+        <div class="paid_details">
+          <div class="head d-flex">
+            <div class="d-flex align-items-center">
+              <h3 class="pl-3">
+                入金情報
+              </h3>
+            </div>
           </div>
-        </div>
-        <div class="main">
-          <div class="paids billdetails_content">
-            <table class="table">
-              <tbody>
-                <tr>
-                  <td> {{$other_bill->paid==0?"未入金":"入金済"}}
-                  </td>
-                  <td>
-                    入金日
-                    {{$other_bill->pay_day}}
-                  </td>
-                </tr>
-                <tr>
-                  <td>振込人名 {{$other_bill->pay_person}}</td>
-                  <td>入金額 {{$other_bill->pay_person}}</td>
-                </tr>
-              </tbody>
-            </table>
+          <div class="main">
+            <div class="paids billdetails_content">
+              <table class="table">
+                <tbody>
+                  <tr>
+                    <td> {{$other_bill->paid==0?"未入金":"入金済"}}
+                    </td>
+                    <td>
+                      入金日
+                      {{$other_bill->pay_day}}
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>振込人名 {{$other_bill->pay_person}}</td>
+                    <td>入金額 {{$other_bill->pay_person}}</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
           </div>
         </div>
       </div>
-    </div>
-    @if ($other_bill->double_check_status==0)
-    <div class="double_checkbox section-wrap">
-      <dl class="d-flex col-12 justify-content-end align-items-center">
-        <dt><label for="checkname">一人目チェック者</label></dt>
-        <dd>
-          {{ Form::open(['url' => 'admin/bills/other_doublecheck', 'method'=>'POST']) }}
-          @csrf
-          {{Form::select('double_check1_name', [
+      @if ($other_bill->double_check_status==0)
+      <div class="double_checkbox section-wrap">
+        <dl class="d-flex col-12 justify-content-end align-items-center">
+          <dt><label for="checkname">一人目チェック者</label></dt>
+          <dd>
+            {{ Form::open(['url' => 'admin/bills/other_doublecheck', 'method'=>'POST']) }}
+            @csrf
+            {{Form::select('double_check1_name', [
           '名前test1' => '名前test1',
           '名前test2' => '名前test2',
           '名前test3' => '名前test3',
           '名前test4' => '名前test4',],
           null, ['placeholder' => '選択してください', 'class'=>'form-control double_check1_name'])}}
-          {{ Form::hidden('double_check_status', $other_bill->double_check_status ) }}
-          {{ Form::hidden('bills_id', $other_bill->id ) }}
-        </dd>
-        <dd>
-          <p class="text-right">
-            {{Form::submit('チェック完了', ['class'=>'btn more_btn', 'id'=>'double_check1_submit'])}}
-            {{ Form::close() }}
-          </p>
-        </dd>
-      </dl>
-    </div>
-    @elseif($other_bill->double_check_status==1)
-    <div class="double_checkbox section-wrap">
-      <dl class="d-flex col-12 justify-content-end align-items-center">
-        <dt><label for="checkname">二人目チェック者</label></dt>
-        <dd>
-          {{ Form::open(['url' => 'admin/bills/other_doublecheck', 'method'=>'POST']) }}
-          @csrf
-          {{Form::select('double_check2_name', [
+            {{ Form::hidden('double_check_status', $other_bill->double_check_status ) }}
+            {{ Form::hidden('bills_id', $other_bill->id ) }}
+          </dd>
+          <dd>
+            <p class="text-right">
+              {{Form::submit('チェック完了', ['class'=>'btn more_btn', 'id'=>'double_check1_submit'])}}
+              {{ Form::close() }}
+            </p>
+          </dd>
+        </dl>
+      </div>
+      @elseif($other_bill->double_check_status==1)
+      <div class="double_checkbox section-wrap">
+        <dl class="d-flex col-12 justify-content-end align-items-center">
+          <dt><label for="checkname">二人目チェック者</label></dt>
+          <dd>
+            {{ Form::open(['url' => 'admin/bills/other_doublecheck', 'method'=>'POST']) }}
+            @csrf
+            {{Form::select('double_check2_name', [
           '名前test1' => '名前test1',
           '名前test2' => '名前test2',
           '名前test3' => '名前test3',
           '名前test4' => '名前test4',],
           null, ['placeholder' => '選択してください', 'class'=>'form-control double_check2_name'])}}
-          {{ Form::hidden('double_check_status', $other_bill->double_check_status ) }}
-          {{ Form::hidden('bills_id', $other_bill->id ) }}
-        </dd>
-        <dd>
-          <p class="text-right">
-            {{Form::submit('チェック完了', ['class'=>'btn more_btn', 'id'=>'double_check2_submit'])}}
-            {{ Form::close() }}
-          </p>
-        </dd>
-      </dl>
+            {{ Form::hidden('double_check_status', $other_bill->double_check_status ) }}
+            {{ Form::hidden('bills_id', $other_bill->id ) }}
+          </dd>
+          <dd>
+            <p class="text-right">
+              {{Form::submit('チェック完了', ['class'=>'btn more_btn', 'id'=>'double_check2_submit'])}}
+              {{ Form::close() }}
+            </p>
+          </dd>
+        </dl>
+      </div>
+      @endif
+
     </div>
-    @endif
   </section>
   @endforeach
 
