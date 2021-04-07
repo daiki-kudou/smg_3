@@ -5,16 +5,19 @@
 <link href="{{ asset('/css/template.css') }}" rel="stylesheet">
 <script src="{{ asset('/js/template.js') }}"></script>
 
-<script>
-  $(function() {
-    $('.flash_message').fadeOut(3000);
-  })
-</script>
+
 @if (session('flash_message'))
 <div class="flash_message bg-success text-center py-3 my-0">
   {{ session('flash_message') }}
 </div>
 @endif
+
+<style>
+  .svg {
+    width: 20px;
+    height: 20px;
+  }
+</style>
 
 <div class="content">
   <div class="container-fluid">
@@ -193,15 +196,13 @@
             <th>固定電話</th>
             <th>仲介会社</th>
             <th>エンドユーザー</th>
+            <th>アイコン</th>
             <th width="120">売上区分</th>
             <th width="120">予約状況</th>
             <th class="text-center">予約詳細</th>
             <th class="text-center">案内板</th>
           </tr>
         </thead>
-
-
-
 
         @foreach ($reservations as $reservation)
         <tbody>
@@ -251,6 +252,14 @@
               @endif
             </td>
             <td>ダミーダミーダミー</td>
+
+            {{-- アイコン --}}
+            <td>
+              {{-- {!!ImageHelper::show()!!} --}}
+              @foreach (ImageHelper::show($reservation->id) as $icon)
+              {!!$icon!!}
+              @endforeach
+            </td>
             <td>会場予約</td>　
             <td>
               {{ReservationHelper::judgeStatus($reservation->bills()->first()->reservation_status)}}
@@ -301,7 +310,11 @@
 
 
 
-
+<script>
+  $(function() {
+    $('.flash_message').fadeOut(3000);
+  })
+</script>
 
 
 @endsection
