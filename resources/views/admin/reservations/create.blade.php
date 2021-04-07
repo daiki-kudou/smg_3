@@ -342,12 +342,12 @@
                 <p class="is-error-user_id" style="color: red"></p>
               </td>
             </tr>
-            <tr>
+            {{-- <tr>
               <td class="table-active"><label for="name" class=" form_required">担当者氏名<br></label></td>
               <td>
                 <p class="selected_person"></p>
               </td>
-            </tr>
+            </tr> --}}
           </tbody>
         </table>
         <table class="table table-bordered oneday-table">
