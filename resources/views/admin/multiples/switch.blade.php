@@ -46,7 +46,7 @@
       </table>
 
       <div class="border-wrap2 p-4">
-        <div class="user_selector">
+        <div class="user_selector mb-3">
           <h3 class="mb-2">顧客検索</h3>
           <select name="user_id" id="user_id">
             @foreach ($users as $user)
