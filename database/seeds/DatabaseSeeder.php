@@ -23,6 +23,8 @@ class DatabaseSeeder extends Seeder
       Frame_priceTableSeeder::class,
       Time_priceTableSeeder::class,
 
+      PreReservationsTableSeeder::class,
+
     ]);
   }
 }

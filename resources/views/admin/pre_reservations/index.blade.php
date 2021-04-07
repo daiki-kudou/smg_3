@@ -140,10 +140,9 @@
       </div>
     </div>
     {{Form::close()}}
-
-
-
     <!-- 検索　終わり------------------------------------------------ -->
+
+
     <ul class="d-flex reservation_list mb-2 justify-content-between">
       <li>
         {{-- 削除ボタン --}}
@@ -159,8 +158,6 @@
         </div>
       </li>
     </ul>
-
-
 
 
     <div class="table-wrap">
@@ -191,13 +188,14 @@
           @foreach ($pre_reservations as $pre_reservation)
           <tr>
             <td class="text-center">
-              <input type="checkbox" name="{{'delete_check'.$pre_reservation->id}}" value="{{$pre_reservation->id}}" class="checkbox" />
+              <input type="checkbox" name="{{'delete_check'.$pre_reservation->id}}" value="{{$pre_reservation->id}}"
+                class="checkbox" />
             </td>
             <td>{{ReservationHelper::fixId($pre_reservation->id)}}</td>
-            <td>{{$pre_reservation->created_at}}</td>
-            <td>{{$pre_reservation->reserve_date}}</td>
-            <td>{{$pre_reservation->enter_time}}</td>
-            <td>{{$pre_reservation->leave_time}}</td>
+            <td>{{ReservationHelper::formatDate($pre_reservation->created_at)}}</td>
+            <td>{{ReservationHelper::formatDate($pre_reservation->reserve_date)}}</td>
+            <td>{{ReservationHelper::formatTime($pre_reservation->enter_time)}}</td>
+            <td>{{ReservationHelper::formatTime($pre_reservation->leave_time)}}</td>
             <td>{{ReservationHelper::getVenue($pre_reservation->venue_id)}}</td>
             <td>{{ReservationHelper::checkAgentOrUserCompany($pre_reservation->user_id, $pre_reservation->agent_id)}}
             </td>
@@ -205,10 +203,14 @@
             <td>{{ReservationHelper::checkAgentOrUserMobile($pre_reservation->user_id, $pre_reservation->agent_id)}}
             </td>
             <td>{{ReservationHelper::checkAgentOrUserTel($pre_reservation->user_id, $pre_reservation->agent_id)}}</td>
-            <td>{{$pre_reservation->user_id!=999?"":$pre_reservation->unknown_user->unknown_user_company}}</td>
-            <td>{{$pre_reservation->agent_id==0?"":($pre_reservation->agent_id)}}
+            <td>{{!empty($pre_reservation->unknown_user)?$pre_reservation->unknown_user->unknown_user_company:""}}</td>
+
+            <td>
+              {{$pre_reservation->agent_id==0?"":(ReservationHelper::getAgentCompanyName($pre_reservation->agent_id))}}
             </td>
-            <td>{{$pre_reservation->agent_id==0?"":$pre_reservation->pre_enduser->company}}</td>
+            <td>
+              {{!empty($pre_reservation->pre_enduser)?$pre_reservation->pre_enduser->company:""}}
+            </td>
             <td class="text-center">
               <a class="more_btn" href="{{url('admin/pre_reservations/'.$pre_reservation->id)}}">詳細</a>
             </td>
