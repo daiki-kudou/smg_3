@@ -18,7 +18,6 @@
 
 <div class="content">
   <div class="container-fluid">
-
     <div class="container-field mt-3">
       <div class="float-right">
         <nav aria-label="breadcrumb">
@@ -29,7 +28,6 @@
           </ol>
         </nav>
       </div>
-
       <h2 class="mt-3 mb-3">予約一覧</h2>
       <hr>
     </div>
@@ -201,6 +199,9 @@
             <th class="text-center">案内板</th>
           </tr>
         </thead>
+
+
+
 
         @foreach ($reservations as $reservation)
         <tbody>
