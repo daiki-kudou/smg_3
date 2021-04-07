@@ -252,10 +252,7 @@
               @endif
             </td>
             <td>ダミーダミーダミー</td>
-
-            {{-- アイコン --}}
             <td>
-              {{-- {!!ImageHelper::show()!!} --}}
               @foreach (ImageHelper::show($reservation->id) as $icon)
               {!!$icon!!}
               @endforeach
