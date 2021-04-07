@@ -80,23 +80,23 @@
               <td>
                 {{ReservationHelper::getCompany($multiple->pre_reservations()->first()->user_id)}}
               </td>
-              <td class="table-active"><label for="name">担当者氏名</label></td>
+              <th class="table-active"><label for="name">担当者氏名</label></th>
               <td>
                 {{ReservationHelper::getPersonName($multiple->pre_reservations()->first()->user_id)}}
               </td>
             </tr>
             <tr>
-              <td class="table-active" scope="row"><label for="email">担当者メールアドレス</label></td>
+              <th class="table-active" scope="row"><label for="email">担当者メールアドレス</label></th>
               <td>
                 {{ReservationHelper::getPersonEmail($multiple->pre_reservations()->first()->user_id)}}
               </td>
-              <td class="table-active" scope="row"><label for="mobile">携帯番号</label></td>
+              <th class="table-active" scope="row"><label for="mobile">携帯番号</label></th>
               <td>
                 {{ReservationHelper::getPersonMobile($multiple->pre_reservations()->first()->user_id)}}
               </td>
             </tr>
             <tr>
-              <td class="table-active" scope="row"><label for="tel">固定電話</label></td>
+              <th class="table-active" scope="row"><label for="tel">固定電話</label></th>
               <td>
                 {{ReservationHelper::getPersonTel($multiple->pre_reservations()->first()->user_id)}}
               </td>
@@ -190,16 +190,16 @@
         .done(function($user) {
           $('#fullOverlay').css('display', 'none');
           console.log($user);
-          $(".user_info").find('tr').eq(0).find('td').eq(1).text("");
-          $(".user_info").find('tr').eq(0).find('td').eq(1).text($user[0]);
-          $(".user_info").find('tr').eq(1).find('td').eq(1).text("");
-          $(".user_info").find('tr').eq(1).find('td').eq(1).text($user[1] + $user[2]);
-          $(".user_info").find('tr').eq(1).find('td').eq(3).text("");
-          $(".user_info").find('tr').eq(1).find('td').eq(3).text($user[3]);
-          $(".user_info").find('tr').eq(2).find('td').eq(1).text("");
-          $(".user_info").find('tr').eq(2).find('td').eq(1).text($user[4]);
-          $(".user_info").find('tr').eq(2).find('td').eq(3).text("");
-          $(".user_info").find('tr').eq(2).find('td').eq(3).text($user[5]);
+          $(".user_info").find('tr').eq(0).find('td').eq(0).text("").text($user[0]);
+          $(".user_info").find('tr').eq(0).find('td').eq(1).text("").text($user[1] + $user[2]);
+          
+          
+          $(".user_info").find('tr').eq(1).find('td').eq(0).text("").text($user[3]);
+
+          $(".user_info").find('tr').eq(1).find('td').eq(1).text("").text($user[4]);
+
+          $(".user_info").find('tr').eq(2).find('td').eq(0).text("").text($user[4]);
+          
           $('input[name="user_id"]').val($user[6]);
         })
         .fail(function($user) {

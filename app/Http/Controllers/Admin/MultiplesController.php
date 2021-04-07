@@ -28,7 +28,7 @@ class MultiplesController extends Controller
       $multiples = $this->MultipleSearch($class, $request);
       $counter = count($multiples);
     } else {
-      $multiples = MultipleReserve::paginate(30);
+      $multiples = MultipleReserve::orderBy('id', 'desc')->paginate(30);
       $counter = count($multiples);
     }
 

@@ -465,10 +465,14 @@
     <!-- コピー作成用フィールド   終わり--------------------------------------------------　 -->
     <p class="text-center">
       @if (count($venue->frame_prices)==0&&count($venue->time_prices)==0)
-      <span class="d-block">※選択された会場に登録された料金がありません。料金を作成後再度編集してください</span>
-      {{ Form::submit('すべての日程に反映する', ['class' => 'btn more_btn_lg mt-3',"disabled"])}}
+      <div class="d-flex justify-content-center">
+        <div class="">
+          <p class="d-block">※選択された会場は料金が設定されていません。会場管理/料金管理に戻り設定してください</p>
+          <a href="{{url('admin/frame_prices')}}" class="btn more_btn_lg mt-5 d-flex justify-content-center">料金管理画面へ</a>
+        </div>
+      </div>
       @else
-      {{ Form::submit('すべての日程に反映する', ['class' => 'btn more_btn_lg mt-3'])}}      
+      {{ Form::submit('すべての日程に反映する', ['class' => 'btn more_btn_lg mt-3'])}}
       @endif
       {{ Form::close() }}
     </p>
@@ -641,7 +645,7 @@
                     <td class="table-active"><label for="eventName2">イベント名称2</label></td>
                     <td>
                       <div class="align-items-end d-flex">
-                      {{ Form::text('event_name2_copied'.$key, $pre_reservation->event_name2,['class'=>'form-control', 'placeholder'=>'入力してください', 'id'=>"copiedeventname2Count".$key] ) }}
+                        {{ Form::text('event_name2_copied'.$key, $pre_reservation->event_name2,['class'=>'form-control', 'placeholder'=>'入力してください', 'id'=>"copiedeventname2Count".$key] ) }}
                         <span class="ml-1 annotation {{'count_num2_copied'.$key}}"></span>
                       </div>
                       <p class="{{'eventname2_error'.$key}}" style="color: red"></p>
@@ -651,7 +655,7 @@
                     <td class="table-active"><label for="organizer">主催者名</label></td>
                     <td>
                       <div class="align-items-end d-flex">
-                      {{ Form::text('event_owner'.$key, $pre_reservation->event_owner,['class'=>'form-control', 'placeholder'=>'入力してください', 'id'=>"copiedeventOwnerCount".$key] ) }}
+                        {{ Form::text('event_owner'.$key, $pre_reservation->event_owner,['class'=>'form-control', 'placeholder'=>'入力してください', 'id'=>"copiedeventOwnerCount".$key] ) }}
                         <span class="ml-1 annotation {{'count_num3_copied'.$key}}"></span>
                       </div>
                       <p class="{{'eventowner_error'.$key}}" style="color: red"></p>
@@ -1046,8 +1050,13 @@
           <div class="btn_wrapper">
             <p class="text-center">
               @if (count($venue->frame_prices)==0&&count($venue->time_prices)==0)
-              <span>※選択された会場に登録された料金がありません。料金を作成後再度編集してください</span><br>
-              {{ Form::submit('請求に反映する', ['class' => 'btn more_btn_lg',"disabled"])}}
+              <div class="d-flex justify-content-center">
+                <div class="">
+                  <p class="d-block">選択された会場は料金が設定されていません。会場管理/料金管理に戻り設定してください</p>
+                  <a href="{{url('admin/frame_prices')}}"
+                    class="btn more_btn_lg mt-5 d-flex justify-content-center">料金管理画面へ</a>
+                </div>
+              </div>
               @else
               {{ Form::submit('請求に反映する', ['class' => 'btn more_btn_lg'])}}
               @endif
