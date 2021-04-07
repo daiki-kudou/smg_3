@@ -60,7 +60,6 @@
           <tr>
             <th class="search_item_name"><label for="id">仮押えID</label>
             <td class="text-right">
-              <p class="annotation">すべて</p>
               {{Form::text("search_id",'', ['class'=>'form-control'])}}
             </td>
             <th class="search_item_name"><label for="">作成日</label></th>

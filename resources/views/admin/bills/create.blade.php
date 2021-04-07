@@ -346,7 +346,7 @@
     </div>
   </section>
 
-  {{ Form::submit('確認する', ['class' => 'btn more_btn_lg btn-block mt-5']) }}
+  {{ Form::submit('確認する', ['class' => 'btn more_btn_lg mx-auto d-block mt-5']) }}
 
   {{ Form::close() }}
 

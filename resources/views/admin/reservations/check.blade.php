@@ -721,7 +721,7 @@
         </div>
       </div>
       <div class="main">
-        <div class="informations billdetails_content py-3">
+        <div class="informations billdetails_content">
           <table class="table">
             <tbody>
               <tr>
@@ -761,7 +761,7 @@
         </div>
       </div>
       <div class="main">
-        <div class="paids billdetails_content py-3">
+        <div class="paids billdetails_content">
           <table class="table" style="table-layout: fixed;">
             <tbody>
               <tr>

@@ -76,33 +76,33 @@
       <tbody class="user_info">
         <tr>
           <td class="table-active">会社名・団体名</td>
-          <td colspan="3">
+          <td>
             <p class="company">
               {{$PreReservation->user_id==999?"":ReservationHelper::getCompany($PreReservation->user_id)}}
             </p>
           </td>
-        </tr>
-        <tr>
           <td class="table-active">担当者氏名</td>
           <td>
             <p class="person">
               {{$PreReservation->user_id==999?"":ReservationHelper::getPersonName($PreReservation->user_id)}}
             </p>
           </td>
+        </tr>
+        <tr>
           <td class="table-active">メールアドレス</td>
           <td>
             <p class="email">
               {{$PreReservation->user_id==999?"":ReservationHelper::getPersonEmail($PreReservation->user_id)}}
             </p>
           </td>
-        </tr>
-        <tr>
           <td class="table-active">携帯番号</td>
           <td>
             <p class="mobile">
               {{$PreReservation->user_id==999?"":ReservationHelper::getPersonMobile($PreReservation->user_id)}}
             </p>
           </td>
+        </tr>
+        <tr>
           <td class="table-active">固定電話</td>
           <td>
             <p class="tel">
