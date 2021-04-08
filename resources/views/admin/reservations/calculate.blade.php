@@ -39,108 +39,108 @@
 
 <script>
   $(function() {
-        $("html,body").animate({
-          scrollTop: $('.bill').offset().top
-        });
+    $("html,body").animate({
+      scrollTop: $('.bill').offset().top
+    });
 
-        $(function() {
-          // プラスボタンクリック
-          $(document).on("click", ".add", function() {
-            $(this).parent().parent().clone(true).insertAfter($(this).parent().parent());
-            addThisTr('.others .others_main tr', 'others_input_item', 'others_input_cost', 'others_input_count', 'others_input_subtotal');
-            addThisTr('.venue_main tr', 'venue_breakdown_item', 'venue_breakdown_cost', 'venue_breakdown_count', 'venue_breakdown_subtotal');
-            // 追加時内容クリア
-            $(this).parent().parent().next().find('td').find('input, select').eq(0).val('');
-            $(this).parent().parent().next().find('td').find('input, select').eq(1).val('');
-            $(this).parent().parent().next().find('td').find('input, select').eq(2).val('');
-            $(this).parent().parent().next().find('td').find('input, select').eq(3).val('');
-          });
+    $(function() {
+      // プラスボタンクリック
+      $(document).on("click", ".add", function() {
+        $(this).parent().parent().clone(true).insertAfter($(this).parent().parent());
+        addThisTr('.others .others_main tr', 'others_input_item', 'others_input_cost', 'others_input_count', 'others_input_subtotal');
+        addThisTr('.venue_main tr', 'venue_breakdown_item', 'venue_breakdown_cost', 'venue_breakdown_count', 'venue_breakdown_subtotal');
+        // 追加時内容クリア
+        $(this).parent().parent().next().find('td').find('input, select').eq(0).val('');
+        $(this).parent().parent().next().find('td').find('input, select').eq(1).val('');
+        $(this).parent().parent().next().find('td').find('input, select').eq(2).val('');
+        $(this).parent().parent().next().find('td').find('input, select').eq(3).val('');
+      });
 
-          function addThisTr($targetTr, $TItem, $TCost, $TCount, $TSubtotal) {
-            var count = $($targetTr).length;
-            for (let index = 0; index < count; index++) {
-              $($targetTr).eq(index).find('td').eq(0).find('input').attr('name', $TItem + index);
-              $($targetTr).eq(index).find('td').eq(1).find('input').attr('name', $TCost + index);
-              $($targetTr).eq(index).find('td').eq(2).find('input').attr('name', $TCount + index);
-              $($targetTr).eq(index).find('td').eq(3).find('input').attr('name', $TSubtotal + index);
-            }
+      function addThisTr($targetTr, $TItem, $TCost, $TCount, $TSubtotal) {
+        var count = $($targetTr).length;
+        for (let index = 0; index < count; index++) {
+          $($targetTr).eq(index).find('td').eq(0).find('input').attr('name', $TItem + index);
+          $($targetTr).eq(index).find('td').eq(1).find('input').attr('name', $TCost + index);
+          $($targetTr).eq(index).find('td').eq(2).find('input').attr('name', $TCount + index);
+          $($targetTr).eq(index).find('td').eq(3).find('input').attr('name', $TSubtotal + index);
+        }
+      }
+
+      // マイナスボタンクリック
+      $(document).on("click", ".del", function() {
+        if ($(this).parent().parent().parent().attr('class') == "others_main") {
+          var count = $('.others .others_main tr').length;
+          var target = $(this).parent().parent();
+          if (target.parent().children().length > 1) {
+            target.remove();
           }
+          for (let index = 0; index < count; index++) {
+            // console.log(index);
+            $('.others_main tr').eq(index).find('td').eq(0).find('input').attr('name', 'others_input_item' + index);
+            $('.others_main tr').eq(index).find('td').eq(1).find('input').attr('name', 'others_input_cost' + index);
+            $('.others_main tr').eq(index).find('td').eq(2).find('input').attr('name', 'others_input_count' + index);
+            $('.others_main tr').eq(index).find('td').eq(3).find('input').attr('name', 'others_input_subtotal' + index);
+          }
+          var re_count = $('.others .others_main tr').length;
+          var total_val = 0;
+          for (let index2 = 0; index2 < re_count; index2++) {
+            var num1 = $('input[name="others_input_cost' + index2 + '"]').val();
+            var num2 = $('input[name="others_input_count' + index2 + '"]').val();
+            var num3 = $('input[name="others_input_subtotal' + index2 + '"]');
+            num3.val(num1 * num2);
+            total_val = total_val + Number(num3.val());
+          }
+          var total_target = $('input[name="others_price"]');
+          total_target.val(total_val);
 
-          // マイナスボタンクリック
-          $(document).on("click", ".del", function() {
-            if ($(this).parent().parent().parent().attr('class') == "others_main") {
-              var count = $('.others .others_main tr').length;
-              var target = $(this).parent().parent();
-              if (target.parent().children().length > 1) {
-                target.remove();
-              }
-              for (let index = 0; index < count; index++) {
-                // console.log(index);
-                $('.others_main tr').eq(index).find('td').eq(0).find('input').attr('name', 'others_input_item' + index);
-                $('.others_main tr').eq(index).find('td').eq(1).find('input').attr('name', 'others_input_cost' + index);
-                $('.others_main tr').eq(index).find('td').eq(2).find('input').attr('name', 'others_input_count' + index);
-                $('.others_main tr').eq(index).find('td').eq(3).find('input').attr('name', 'others_input_subtotal' + index);
-              }
-              var re_count = $('.others .others_main tr').length;
-              var total_val = 0;
-              for (let index2 = 0; index2 < re_count; index2++) {
-                var num1 = $('input[name="others_input_cost' + index2 + '"]').val();
-                var num2 = $('input[name="others_input_count' + index2 + '"]').val();
-                var num3 = $('input[name="others_input_subtotal' + index2 + '"]');
-                num3.val(num1 * num2);
-                total_val = total_val + Number(num3.val());
-              }
-              var total_target = $('input[name="others_price"]');
-              total_target.val(total_val);
+          var venue = $('input[name="venue_price"]').val() ? Number($('input[name="venue_price"]').val()) : 0;
+          var equipment = $('input[name="equipment_price"]').val() ? Number($('input[name="equipment_price"]').val()) : 0;
+          var layout = $('input[name="layout_price"]').val() ? Number($('input[name="layout_price"]').val()) : 0;
+          var others = $('input[name="others_price"]').val() == "" ? 0 : Number($('input[name="others_price"]').val());
+          var result = venue + equipment + layout + others;
+          var result_tax = Math.floor(result * 0.1);
+          $('.total_result').text('').text(result);
+          $('input[name="master_subtotal"]').val(result);
+          $('input[name="master_tax"]').val(result_tax);
+          $('input[name="master_total"]').val(result + result_tax);
+        } else if ($(this).parent().parent().parent().attr('class') == "venue_main") {
+          var count = $('.venue_main tr').length;
+          var target = $(this).parent().parent();
+          if (target.parent().children().length > 1) {
+            target.remove();
+          }
+          for (let index = 0; index < count; index++) {
+            $('.venue_main tr').eq(index).find('td').eq(0).find('input').attr('name', 'venue_breakdown_item' + index);
+            $('.venue_main tr').eq(index).find('td').eq(1).find('input').attr('name', 'venue_breakdown_cost' + index);
+            $('.venue_main tr').eq(index).find('td').eq(2).find('input').attr('name', 'venue_breakdown_count' + index);
+            $('.venue_main tr').eq(index).find('td').eq(3).find('input').attr('name', 'venue_breakdown_subtotal' + index);
+          }
+          var re_count = $(' .venue_main tr').length;
+          var total_val = 0;
+          for (let index2 = 0; index2 < re_count; index2++) {
+            var num1 = $('input[name="venue_breakdown_cost' + index2 + '"]').val();
+            var num2 = $('input[name="venue_breakdown_count' + index2 + '"]').val();
+            var num3 = $('input[name="venue_breakdown_subtotal' + index2 + '"]');
+            num3.val(num1 * num2);
+            total_val = total_val + Number(num3.val());
+          }
+          var total_target = $('input[name="venue_price"]');
+          total_target.val(total_val);
 
-              var venue = $('input[name="venue_price"]').val() ? Number($('input[name="venue_price"]').val()) : 0;
-              var equipment = $('input[name="equipment_price"]').val() ? Number($('input[name="equipment_price"]').val()) : 0;
-              var layout = $('input[name="layout_price"]').val() ? Number($('input[name="layout_price"]').val()) : 0;
-              var others = $('input[name="others_price"]').val() == "" ? 0 : Number($('input[name="others_price"]').val());
-              var result = venue + equipment + layout + others;
-              var result_tax = Math.floor(result * 0.1);
-              $('.total_result').text('').text(result);
-              $('input[name="master_subtotal"]').val(result);
-              $('input[name="master_tax"]').val(result_tax);
-              $('input[name="master_total"]').val(result + result_tax);
-            } else if ($(this).parent().parent().parent().attr('class') == "venue_main") {
-              var count = $('.venue_main tr').length;
-              var target = $(this).parent().parent();
-              if (target.parent().children().length > 1) {
-                target.remove();
-              }
-              for (let index = 0; index < count; index++) {
-                $('.venue_main tr').eq(index).find('td').eq(0).find('input').attr('name', 'venue_breakdown_item' + index);
-                $('.venue_main tr').eq(index).find('td').eq(1).find('input').attr('name', 'venue_breakdown_cost' + index);
-                $('.venue_main tr').eq(index).find('td').eq(2).find('input').attr('name', 'venue_breakdown_count' + index);
-                $('.venue_main tr').eq(index).find('td').eq(3).find('input').attr('name', 'venue_breakdown_subtotal' + index);
-              }
-              var re_count = $(' .venue_main tr').length;
-              var total_val = 0;
-              for (let index2 = 0; index2 < re_count; index2++) {
-                var num1 = $('input[name="venue_breakdown_cost' + index2 + '"]').val();
-                var num2 = $('input[name="venue_breakdown_count' + index2 + '"]').val();
-                var num3 = $('input[name="venue_breakdown_subtotal' + index2 + '"]');
-                num3.val(num1 * num2);
-                total_val = total_val + Number(num3.val());
-              }
-              var total_target = $('input[name="venue_price"]');
-              total_target.val(total_val);
-
-              var venue = $('input[name="venue_price"]').val() ? Number($('input[name="venue_price"]').val()) : 0;
-              var equipment = $('input[name="equipment_price"]').val() ? Number($('input[name="equipment_price"]').val()) : 0;
-              var layout = $('input[name="layout_price"]').val() ? Number($('input[name="layout_price"]').val()) : 0;
-              var others = $('input[name="others_price"]').val() == "" ? 0 : Number($('input[name="others_price"]').val());
-              var result = venue + equipment + layout + others;
-              var result_tax = Math.floor(result * 0.1);
-              $('.total_result').text('').text(result);
-              $('input[name="master_subtotal"]').val(result);
-              $('input[name="master_tax"]').val(result_tax);
-              $('input[name="master_total"]').val(result + result_tax);
-            }
-          });
-        });
-      })
+          var venue = $('input[name="venue_price"]').val() ? Number($('input[name="venue_price"]').val()) : 0;
+          var equipment = $('input[name="equipment_price"]').val() ? Number($('input[name="equipment_price"]').val()) : 0;
+          var layout = $('input[name="layout_price"]').val() ? Number($('input[name="layout_price"]').val()) : 0;
+          var others = $('input[name="others_price"]').val() == "" ? 0 : Number($('input[name="others_price"]').val());
+          var result = venue + equipment + layout + others;
+          var result_tax = Math.floor(result * 0.1);
+          $('.total_result').text('').text(result);
+          $('input[name="master_subtotal"]').val(result);
+          $('input[name="master_tax"]').val(result_tax);
+          $('input[name="master_total"]').val(result + result_tax);
+        }
+      });
+    });
+  })
 </script>
 
 
@@ -202,9 +202,7 @@
             <td>
               <select name="enter_time" id="sales_start" class="form-control">
                 <option disabled selected></option>
-                @for ($start = 0*2; $start <=23*2; $start++) <option
-                  value="{{date("H:i:s", strtotime("00:00 +". $start * 30 ." minute"))}}" @if (date("H:i:s",
-                  strtotime("00:00 +". $start * 30 ." minute"))==$request->enter_time)
+                @for ($start = 0*2; $start <=23*2; $start++) <option value="{{date("H:i:s", strtotime("00:00 +". $start * 30 ." minute"))}}" @if (date("H:i:s", strtotime("00:00 +". $start * 30 ." minute"))==$request->enter_time)
                   selected
                   @endif>
                   {{date("H時i分", strtotime("00:00 +". $start * 30 ." minute"))}}
@@ -218,9 +216,7 @@
             <td>
               <select name="leave_time" id="sales_finish" class="form-control">
                 <option disabled selected></option>
-                @for ($start = 0*2; $start <=23*2; $start++) <option
-                  value="{{date("H:i:s", strtotime("00:00 +". $start * 30 ." minute"))}}" @if (date("H:i:s",
-                  strtotime("00:00 +". $start * 30 ." minute"))==$request->leave_time)
+                @for ($start = 0*2; $start <=23*2; $start++) <option value="{{date("H:i:s", strtotime("00:00 +". $start * 30 ." minute"))}}" @if (date("H:i:s", strtotime("00:00 +". $start * 30 ." minute"))==$request->leave_time)
                   selected
                   @endif
                   >
@@ -248,14 +244,12 @@
             <td>
               <div class="radio-box">
                 <p>
-                  <input type="radio" name="board_flag" value="0"
-                    {{isset($request->board_flag)?$request->board_flag==0?'checked':'':'checked',}}>
+                  <input type="radio" name="board_flag" value="0" {{isset($request->board_flag)?$request->board_flag==0?'checked':'':'checked',}}>
                   <label>無し</label>
                 </p>
                 <p>
 
-                  <input type="radio" name="board_flag" value="1"
-                    {{isset($request->board_flag)?$request->board_flag==1?'checked':'':'',}}>
+                  <input type="radio" name="board_flag" value="1" {{isset($request->board_flag)?$request->board_flag==1?'checked':'':'',}}>
                   <label>有り</label>
                 </p>
               </div>
@@ -266,9 +260,7 @@
             <td>
               <select name="event_start" id="event_start" class="form-control">
                 <option disabled>選択してください</option>
-                @for ($start = 0*2; $start <=23*2; $start++) <option
-                  value="{{date("H:i:s", strtotime("00:00 +". $start * 30 ." minute"))}}" @if (date("H:i:s",
-                  strtotime("00:00 +". $start * 30 ." minute"))==$request->event_start)
+                @for ($start = 0*2; $start <=23*2; $start++) <option value="{{date("H:i:s", strtotime("00:00 +". $start * 30 ." minute"))}}" @if (date("H:i:s", strtotime("00:00 +". $start * 30 ." minute"))==$request->event_start)
                   selected
                   @endif
                   >
@@ -282,9 +274,7 @@
             <td>
               <select name="event_finish" id="event_finish" class="form-control">
                 <option disabled>選択してください</option>
-                @for ($start = 0*2; $start <=23*2; $start++) <option
-                  value="{{date("H:i:s", strtotime("00:00 +". $start * 30 ." minute"))}}" @if (date("H:i:s",
-                  strtotime("00:00 +". $start * 30 ." minute"))==$request->event_finish)
+                @for ($start = 0*2; $start <=23*2; $start++) <option value="{{date("H:i:s", strtotime("00:00 +". $start * 30 ." minute"))}}" @if (date("H:i:s", strtotime("00:00 +". $start * 30 ." minute"))==$request->event_finish)
                   selected
                   @endif
                   >
@@ -296,19 +286,31 @@
           <tr>
             <td class="table-active">イベント名称1</td>
             <td>
-              {{ Form::text('event_name1', $request->event_name1,['class'=>'form-control'] ) }}
+              <div class="align-items-end d-flex">
+                {{ Form::text('event_name1', $request->event_name1,['class'=>'form-control','id'=>'eventname1Count'] ) }}
+                <span class="ml-1 annotation count_num1"></span>
+              </div>
+              <p class="is-error-event_name1" style="color: red"></p>
             </td>
           </tr>
           <tr>
             <td class="table-active">イベント名称2</td>
             <td>
-              {{ Form::text('event_name2', $request->event_name2,['class'=>'form-control'] ) }}
+              <div class="align-items-end d-flex">
+                {{ Form::text('event_name2', $request->event_name2,['class'=>'form-control', 'id'=>'eventname2Count'] ) }}
+                <span class="ml-1 annotation count_num2"></span>
+              </div>
+              <p class="is-error-event_name2" style="color: red"></p>
             </td>
           </tr>
           <tr>
             <td class="table-active">主催者名</td>
             <td>
-              {{ Form::text('event_owner', $request->event_owner,['class'=>'form-control'] ) }}
+              <div class="align-items-end d-flex">
+                {{ Form::text('event_owner', $request->event_owner,['class'=>'form-control', 'id'=>'eventownerCount'] ) }}
+                <span class="ml-1 annotation count_num3"></span>
+              </div>
+              <p class="is-error-event_owner" style="color: red"></p>
             </td>
           </tr>
         </tbody>
@@ -450,7 +452,10 @@
             <tr>
               <td class="table-active">荷物預り/返送<br>料金</td>
               <td>
-                {{ Form::text('luggage_price', $request->luggage_price,['class'=>'form-control'] ) }}
+                <div class="d-flex align-items-end">
+                  {{ Form::text('luggage_price', $request->luggage_price,['class'=>'form-control'] ) }}
+                  <span class="ml-1 annotation">円</span>
+                </div>
               </td>
             </tr>
           </tbody>
@@ -552,8 +557,11 @@
           <tr>
             <td class="table-active"><label for="cost">原価率</label></td>
             <td>
-              {{ Form::text('', $request->cost."%",['class'=>'form-control'] ) }}
-              {{ Form::hidden('cost', $request->cost,['class'=>'form-control'] ) }}
+              <div class="d-flex align-items-end">
+                {{ Form::text('', $request->cost."%",['class'=>'form-control'] ) }}
+                {{ Form::hidden('cost', $request->cost,['class'=>'form-control'] ) }}
+                <span class="ml-1 annotation">%</span>
+              </div>
               <p class="is-error-cost" style="color: red"></p>
             </td>
           </tr>

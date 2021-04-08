@@ -5,6 +5,8 @@
 <link href="{{ asset('/css/template.css') }}" rel="stylesheet">
 <script src="{{ asset('/js/template.js') }}"></script>
 <script src="{{ asset('/js/ajax.js') }}"></script>
+<script src="{{ asset('/js/admin/validation.js') }}"></script>
+
 
 <style>
   #fullOverlay {
@@ -195,9 +197,7 @@
           <td>
             <select name="enter_time" id="sales_start" class="form-control">
               <option disabled selected></option>
-              @for ($start = 0*2; $start <=23*2; $start++) <option
-                value="{{date("H:i:s", strtotime("00:00 +". $start * 30 ." minute"))}}" @if (date("H:i:s",
-                strtotime("00:00 +". $start * 30 ." minute"))==$request->enter_time)
+              @for ($start = 0*2; $start <=23*2; $start++) <option value="{{date("H:i:s", strtotime("00:00 +". $start * 30 ." minute"))}}" @if (date("H:i:s", strtotime("00:00 +". $start * 30 ." minute"))==$request->enter_time)
                 selected
                 @endif>
                 {{date("H時i分", strtotime("00:00 +". $start * 30 ." minute"))}}
@@ -211,9 +211,7 @@
           <td>
             <select name="leave_time" id="sales_finish" class="form-control">
               <option disabled selected></option>
-              @for ($start = 0*2; $start <=23*2; $start++) <option
-                value="{{date("H:i:s", strtotime("00:00 +". $start * 30 ." minute"))}}" @if (date("H:i:s",
-                strtotime("00:00 +". $start * 30 ." minute"))==$request->leave_time)
+              @for ($start = 0*2; $start <=23*2; $start++) <option value="{{date("H:i:s", strtotime("00:00 +". $start * 30 ." minute"))}}" @if (date("H:i:s", strtotime("00:00 +". $start * 30 ." minute"))==$request->leave_time)
                 selected
                 @endif
                 >
@@ -238,10 +236,8 @@
         <tr>
           <td class="table-active">案内板</td>
           <td>
-            <input type="radio" name="board_flag" value="0"
-              {{isset($request->board_flag)?$request->board_flag==0?'checked':'':'checked',}}>無し
-            <input type="radio" name="board_flag" value="1"
-              {{isset($request->board_flag)?$request->board_flag==1?'checked':'':'',}}>有り
+            <input type="radio" name="board_flag" value="0" {{isset($request->board_flag)?$request->board_flag==0?'checked':'':'checked',}}>無し
+            <input type="radio" name="board_flag" value="1" {{isset($request->board_flag)?$request->board_flag==1?'checked':'':'',}}>有り
           </td>
         </tr>
         <tr>
@@ -249,9 +245,7 @@
           <td>
             <select name="event_start" id="event_start" class="form-control">
               <option disabled>選択してください</option>
-              @for ($start = 0*2; $start <=23*2; $start++) <option
-                value="{{date("H:i:s", strtotime("00:00 +". $start * 30 ." minute"))}}" @if (date("H:i:s",
-                strtotime("00:00 +". $start * 30 ." minute"))==$request->event_start)
+              @for ($start = 0*2; $start <=23*2; $start++) <option value="{{date("H:i:s", strtotime("00:00 +". $start * 30 ." minute"))}}" @if (date("H:i:s", strtotime("00:00 +". $start * 30 ." minute"))==$request->event_start)
                 selected
                 @endif
                 >
@@ -265,9 +259,7 @@
           <td>
             <select name="event_finish" id="event_finish" class="form-control">
               <option disabled>選択してください</option>
-              @for ($start = 0*2; $start <=23*2; $start++) <option
-                value="{{date("H:i:s", strtotime("00:00 +". $start * 30 ." minute"))}}" @if (date("H:i:s",
-                strtotime("00:00 +". $start * 30 ." minute"))==$request->event_finish)
+              @for ($start = 0*2; $start <=23*2; $start++) <option value="{{date("H:i:s", strtotime("00:00 +". $start * 30 ." minute"))}}" @if (date("H:i:s", strtotime("00:00 +". $start * 30 ." minute"))==$request->event_finish)
                 selected
                 @endif
                 >
@@ -279,41 +271,51 @@
         <tr>
           <td class="table-active">イベント名称1</td>
           <td>
-            {{ Form::text('event_name1', $request->event_name1,['class'=>'form-control'] ) }}
+            <div class="align-items-end d-flex">
+              {{ Form::text('event_name1', $request->event_name1,['class'=>'form-control','id'=>'eventname1Count'] ) }}
+              <span class="ml-1 annotation count_num1"></span>
+            </div>
+            <p class="is-error-event_name1" style="color: red"></p>
           </td>
         </tr>
         <tr>
           <td class="table-active">イベント名称2</td>
           <td>
-            {{ Form::text('event_name2', $request->event_name2,['class'=>'form-control'] ) }}
+            <div class="align-items-end d-flex">
+              {{ Form::text('event_name2', $request->event_name2,['class'=>'form-control', 'id'=>'eventname2Count'] ) }}
+              <span class="ml-1 annotation count_num2"></span>
+            </div>
+            <p class="is-error-event_name2" style="color: red"></p>
           </td>
         </tr>
         <tr>
           <td class="table-active">主催者名</td>
           <td>
-            {{ Form::text('event_owner', $request->event_owner,['class'=>'form-control'] ) }}
+            <div class="align-items-end d-flex">
+              {{ Form::text('event_owner', $request->event_owner,['class'=>'form-control', 'id'=>'eventownerCount'] ) }}
+              <span class="ml-1 annotation count_num3"></span>
+            </div>
+            <p class="is-error-event_owner" style="color: red"></p>
           </td>
         </tr>
       </table>
 
       <div class="equipemnts">
         <table class="table table-bordered" style="table-layout: fixed;">
-          <thead>
+          <thead class="accordion-ttl">
             <tr>
               <th colspan="2">
-                <div class="d-flex justify-content-between align-items-center">
-                  有料備品
-                  <i class="fas fa-plus icon_plus hide"></i>
-                  <i class="fas fa-minus icon_minus"></i>
-                </div>
+                <p class="title-icon fw-bolder py-1">
+                  <i class="fas fa-wrench icon-size"></i>有料備品
+                </p>
               </th>
             </tr>
           </thead>
-          <tbody>
+          <tbody class="accordion-wrap">
             @if (!empty(array_filter($s_equipment)))
             @foreach ($equipments as $key=>$equipment)
             <tr>
-              <td>{{$equipment->item}}</td>
+              <td class="table-active">{{$equipment->item}}</td>
               <td>
                 {{ Form::text('equipment_breakdown'.$key, $s_equipment[$key],['class'=>'form-control'] ) }}
               </td>
@@ -322,7 +324,7 @@
             @else
             @foreach ($equipments as $key=>$equipment)
             <tr>
-              <td>{{$equipment->item}}</td>
+              <td class="table-active">{{$equipment->item}}</td>
               <td>
                 {{ Form::text('equipment_breakdown'.$key,'' ,['class'=>'form-control'] ) }}
               </td>
@@ -334,22 +336,20 @@
       </div>
       <div class="services">
         <table class="table table-bordered" style="table-layout: fixed;">
-          <thead>
+          <thead class="accordion-ttl">
             <tr>
               <th colspan="2">
-                <div class="d-flex justify-content-between align-items-center">
-                  有料サービス
-                  <i class="fas fa-plus icon_plus hide"></i>
-                  <i class="fas fa-minus icon_minus"></i>
-                </div>
+                <p class="title-icon fw-bolder py-1">
+                  <i class="fas fa-hand-holding-heart icon-size"></i>有料サービス
+                </p>
               </th>
             </tr>
           </thead>
-          <tbody>
+          <tbody class="accordion-wrap">
             @if (!empty(array_filter($s_services)))
             @foreach ($services as $key=>$service)
             <tr>
-              <td>
+              <td class="table-active">
                 {{$service->item}}
               </td>
               <td>
@@ -365,7 +365,7 @@
             @else
             @foreach ($services as $key=>$service)
             <tr>
-              <td>
+              <td class="table-active">
                 {{$service->item}}
               </td>
               <td>
@@ -387,13 +387,17 @@
         <table class='table table-bordered' style="table-layout:fixed;">
           <thead>
             <tr>
-              <th colspan='2'>レイアウト</th>
+              <th colspan='2'>
+                <p class="title-icon py-1">
+                  <i class="fas fa-th icon-size fa-fw"></i>レイアウト
+                </p>
+              </th>
             </tr>
           </thead>
           <tbody>
             @if ($request->layout_prepare)
             <tr>
-              <td>レイアウト準備</td>
+              <td class="table-active">準備</td>
               <td>
                 <div class="form-check form-check-inline">
                   {{Form::radio('layout_prepare', 1, true, ['id' => 'layout_prepare', 'class' => 'form-check-input'])}}
@@ -405,7 +409,7 @@
             </tr>
             @else
             <tr>
-              <td>レイアウト準備</td>
+              <td class="table-active">準備</td>
               <td>
                 <div class="form-check form-check-inline">
                   {{Form::radio('layout_prepare', 1, false, ['id' => 'layout_prepare', 'class' => 'form-check-input'])}}
@@ -418,7 +422,7 @@
             @endif
             @if ($request->layout_clean)
             <tr>
-              <td>レイアウト準備</td>
+              <td class="table-active">片付</td>
               <td>
                 <div class="form-check form-check-inline">
                   {{Form::radio('layout_clean', 1, true, ['id' => 'layout_clean', 'class' => 'form-check-input'])}}
@@ -430,7 +434,7 @@
             </tr>
             @else
             <tr>
-              <td>レイアウト準備</td>
+              <td class="table-active">片付</td>
               <td>
                 <div class="form-check form-check-inline">
                   {{Form::radio('layout_clean', 1, false, ['id' => 'layout_clean', 'class' => 'form-check-input'])}}
@@ -448,32 +452,40 @@
         <table class='table table-bordered' style="table-layout:fixed;">
           <thead>
             <tr>
-              <th colspan='2'>荷物預り</th>
+              <th colspan='2'>
+                <p class="title-icon">
+                  <i class="fas fa-suitcase-rolling icon-size"></i>荷物預り
+                </p>
+              </th>
             </tr>
           </thead>
           <tbody>
             <tr>
-              <td>事前に預かる荷物<br>（個数）</td>
+              <td class="table-active">事前に預かる荷物<br>（個数）</td>
               <td>
                 {{ Form::text('luggage_count', $request->luggage_count,['class'=>'form-control'] ) }}
               </td>
             </tr>
             <tr>
-              <td>事前荷物の到着日<br>午前指定のみ</td>
+              <td class="table-active">事前荷物の到着日<br>午前指定のみ</td>
               <td>
                 {{ Form::text('luggage_arrive', $request->luggage_arrive,['class'=>'form-control'] ) }}
               </td>
             </tr>
             <tr>
-              <td>事後返送する荷物</td>
+              <td class="table-active">事後返送する荷物</td>
               <td>
                 {{ Form::text('luggage_return', $request->luggage_return,['class'=>'form-control'] ) }}
               </td>
             </tr>
             <tr>
-              <td>荷物預り/返送<br>料金</td>
+              <td class="table-active">荷物預り/返送<br>料金</td>
               <td>
+                <div class="d-flex align-items-end">
                 {{ Form::text('luggage_price', $request->luggage_price,['class'=>'form-control'] ) }}
+                <span class="ml-1">円</span>
+              </div>
+                <p class='is-error-luggage_price' style=' color: red'></p>
               </td>
             </tr>
           </tbody>
@@ -484,7 +496,7 @@
     {{-- 右側 --}}
     <div class="col">
       <div class="client_mater">
-      <table class="table table-bordered name-table" style="table-layout:fixed;">
+        <table class="table table-bordered name-table" style="table-layout:fixed;">
           <tr>
             <td colspan="2">
               <div class="d-flex align-items-center justify-content-between">
@@ -570,8 +582,11 @@
         <tr>
           <td class="table-active"><label for="cost">原価率</label></td>
           <td>
-            {{ Form::text('', $request->cost."%",['class'=>'form-control'] ) }}
-            {{ Form::hidden('cost', $request->cost,['class'=>'form-control'] ) }}
+            <div class="d-flex align-items-end">
+              {{ Form::text('', $request->cost,['class'=>'form-control'] ) }}
+              {{ Form::hidden('cost', $request->cost,['class'=>'form-control'] ) }}
+              <span class="ml-1">%</span>
+            </div>
             <p class="is-error-cost" style="color: red"></p>
           </td>
         </tr>
@@ -586,20 +601,7 @@
         </tr>
         <tr>
           <td>
-            <input type="checkbox" id="discount" checked>
-            <label for="discount">割引条件</label>
-            {{ Form::textarea('discount_condition', $request->discount_condition,['class'=>'form-control'] ) }}
-          </td>
-        </tr>
-        <tr class="caution">
-          <td>
-            <label for="caution">注意事項</label>
-            {{ Form::textarea('attention', $request->attention,['class'=>'form-control'] ) }}
-          </td>
-        </tr>
-        <tr>
-          <td>
-            <label for="userNote">顧客情報の備考</label>
+            <label for="userNote">申し込みフォーム備考</label>
             {{ Form::textarea('user_details', $request->user_details,['class'=>'form-control'] ) }}
           </td>
         </tr>
