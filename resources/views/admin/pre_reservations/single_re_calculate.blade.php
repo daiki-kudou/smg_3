@@ -292,7 +292,7 @@
               </tr>
             </thead>
             <tbody class="accordion-wrap">
-              @foreach ($equipments as $key=>$equipment)
+              @foreach ($SPVenue->equipments as $key=>$equipment)
               <tr>
                 <td class="table-active">
                   {{$equipment->item}}
@@ -317,7 +317,7 @@
               </tr>
             </thead>
             <tbody class="accordion-wrap">
-              @foreach ($services as $key=>$service)
+              @foreach ($SPVenue->services as $key=>$service)
               <tr>
                 <td class="table-active">
                   {{$service->item}}

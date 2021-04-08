@@ -82,7 +82,7 @@ class PreReservationsController extends Controller
       }
     }
     if (count($judge_count) == 1) {
-      $venue = Venue::with('equipments', 'services')->find($request->pre_venue0);
+      $venue = Venue::with(['equipments', 'services'])->find($request->pre_venue0);
       $layouts = [];
       $layouts[] = $venue->layout_prepare == 0 ? 0 : $venue->layout_prepare;
       $layouts[] = $venue->layout_clean == 0 ? 0 : $venue->layout_clean;
@@ -99,7 +99,7 @@ class PreReservationsController extends Controller
   {
     if ($request->judge_count == 1) { //単発仮押えの計算
 
-      $SpVenue = Venue::with('equipments', 'services')->find($request->venue_id);
+      $SpVenue = Venue::with(['equipments', 'services'])->find($request->venue_id);
       $price_details = $SpVenue->calculate_price( //[0]は合計料金, [1]は延長料金, [2]は合計＋延長、 [3]は利用時間, [4]は延長時間
         $request->price_system,
         $request->enter_time,
@@ -146,15 +146,9 @@ class PreReservationsController extends Controller
   public function re_calculate(Request $request)
   {
     if ($request->judge_count == 1) { //単発仮押えの計算
-      // 
       $users = User::all();
-      $venues = Venue::all();
-      $venue = $venues->find($request->venue_id);
-      $equipments = $venue->equipments()->get();
-      $services = $venue->services()->get();
-      $SPVenue = $venues->find($request->venue_id);
-
-      $price_details = $venue->calculate_price( //[0]は合計料金, [1]は延長料金, [2]は合計＋延長、 [3]は利用時間, [4]は延長時間
+      $SPVenue = Venue::with(['equipments', 'services'])->find($request->venue_id);
+      $price_details = $SPVenue->calculate_price( //[0]は合計料金, [1]は延長料金, [2]は合計＋延長、 [3]は利用時間, [4]は延長時間
         $request->price_system,
         $request->enter_time,
         $request->leave_time
@@ -170,8 +164,8 @@ class PreReservationsController extends Controller
           $s_services[] = $value;
         }
       }
-      $item_details = $venue->calculate_items_price($s_equipment, $s_services);    // [0]備品＋サービス [1]備品詳細 [2]サービス詳細 [3]備品合計 [4]サービス合計
-      $layouts_details = $venue->getLayoutPrice($request->layout_prepare, $request->layout_clean);
+      $item_details = $SPVenue->calculate_items_price($s_equipment, $s_services);    // [0]備品＋サービス [1]備品詳細 [2]サービス詳細 [3]備品合計 [4]サービス合計
+      $layouts_details = $SPVenue->getLayoutPrice($request->layout_prepare, $request->layout_clean);
 
       if ($price_details == 0) { //枠がなく会場料金を手打ちするパターン
         $masters =
@@ -186,23 +180,18 @@ class PreReservationsController extends Controller
       $user = User::find($request->user_id);
       $pay_limit = $user->getUserPayLimit($request->reserve_date);
 
-      return view('admin.pre_reservations.single_re_calculate', [
-        'venues' => $venues,
-        'users' => $users,
-        'request' => $request,
-        'equipments' => $equipments,
-        'services' => $services,
-        's_equipment' => $s_equipment, //選択された備品
-        's_services' => $s_services, //選択されたサービス
-        'price_details' => $price_details,
-        'item_details' => $item_details,
-        'layouts_details' => $layouts_details,
-        'masters' => $masters,
-        'pay_limit' => $pay_limit,
-        'user' => $user,
-        'SPVenue' => $SPVenue,
-
-      ]);
+      return view(
+        'admin.pre_reservations.single_re_calculate',
+        compact(
+          'users',
+          'request',
+          'price_details',
+          'item_details',
+          'layouts_details',
+          'masters',
+          'SPVenue'
+        )
+      );
     }
   }
 
@@ -377,20 +366,11 @@ class PreReservationsController extends Controller
   public function show($id)
   {
     $pre_reservation = PreReservation::find($id);
-    // $venues = $pre_reservation->pre_breakdowns->where('unit_type', 1)->get();
-    // $equipments = $pre_reservation->pre_breakdowns->where('unit_type', 2)->get();
-    // $services = $pre_reservation->pre_breakdowns->where('unit_type', 3)->get();
-    // $layouts = $pre_reservation->pre_breakdowns->where('unit_type', 4)->get();
     $SPVenue = Venue::find($pre_reservation->venue_id);
     return view(
       'admin.pre_reservations.show',
       compact(
         'pre_reservation',
-        // 'venues',
-        // 'equipments',
-        // 'services',
-        // 'layouts',
-
         'SPVenue'
       )
     );
