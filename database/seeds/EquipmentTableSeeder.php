@@ -13,7 +13,6 @@ class EquipmentTableSeeder extends Seeder
    */
   public function run()
   {
-    // factory(\App\Models\Equipment::class, 30)->create();
     DB::table('equipments')->truncate();
     DB::table('equipments')->insert([
       [
