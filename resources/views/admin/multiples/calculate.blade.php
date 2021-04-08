@@ -616,7 +616,8 @@
                         <td>
                           <select name="{{'event_start_copied'.$key}}" class="form-control">
                             <option disabled>選択してください</option>
-                            @for ($start = 0*2; $start <=23*2; $start++) <option value="{{date("H:i:s", strtotime("00:00 +". $start * 30 ." minute"))}}" @if($request->
+                            @for ($start = 0*2; $start <=23*2; $start++) <option
+                              value="{{date("H:i:s", strtotime("00:00 +". $start * 30 ." minute"))}}" @if($request->
                               cp_master_event_start==date("H:i:s", strtotime("00:00 +". $start * 30 ." minute")))
                               selected
                               @endif
@@ -631,7 +632,8 @@
                         <td>
                           <select name="{{'event_finish_copied'.$key}}" class="form-control">
                             <option disabled>選択してください</option>
-                            @for ($start = 0*2; $start <=23*2; $start++) <option value="{{date("H:i:s", strtotime("00:00 +". $start * 30 ." minute"))}}" @if($request->
+                            @for ($start = 0*2; $start <=23*2; $start++) <option
+                              value="{{date("H:i:s", strtotime("00:00 +". $start * 30 ." minute"))}}" @if($request->
                               cp_master_event_finish==date("H:i:s", strtotime("00:00 +". $start * 30 ." minute")))
                               selected
                               @endif
@@ -665,7 +667,7 @@
                         <td class="table-active"><label for="organizer">主催者名</label></td>
                         <td>
                           <div class="align-items-end d-flex">
-                          {{ Form::text('event_owner'.$key, $request->cp_master_event_owner,['class'=>'form-control', 'placeholder'=>'入力してください', 'id'=>"copiedeventOwnerCount".$key] ) }}
+                            {{ Form::text('event_owner'.$key, $request->cp_master_event_owner,['class'=>'form-control', 'placeholder'=>'入力してください', 'id'=>"copiedeventOwnerCount".$key] ) }}
                             <span class="ml-1 annotation {{'count_num3_copied'.$key}}"></span>
                           </div>
                           <p class="{{'eventowner_error'.$key}}" style="color: red"></p>

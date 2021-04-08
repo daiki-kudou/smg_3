@@ -148,7 +148,7 @@ class MultiplesController extends Controller
 
   public function edit($multiple_id, $venue_id)
   {
-    $multiple = MultipleReserve::find($multiple_id);
+    $multiple = MultipleReserve::with('pre_reservations.pre_bill.pre_breakdowns')->find($multiple_id);
     $venue = Venue::find($venue_id);
     return view('admin.multiples.edit', [
       'multiple' => $multiple,
