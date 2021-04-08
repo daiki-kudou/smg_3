@@ -15,7 +15,7 @@ $factory->define(PreReservation::class, function (Faker $faker) {
   $agents = Agent::all()->pluck("id");
   $enter = ['10:00:00', '12:00:00', '14:00:00'];
   $leave = ['16:00:00', '18:00:00', '20:00:00'];
-  $date = ["2020-04-01 00:00:00", "2020-04-03 00:00:00", "2020-04-05 00:00:00", "2020-04-07 00:00:00", "2020-04-09 00:00:00", "2020-04-11 00:00:00", "2020-04-12 00:00:00", "2020-04-18 00:00:00", "2020-04-19 00:00:00", "2020-04-20 00:00:00", "2020-04-21 00:00:00", "2020-04-29 00:00:00"];
+  $date = ["2020-04-01 00:00:00", "2020-04-03", "2020-04-05", "2020-04-07", "2020-04-09", "2020-04-11", "2020-04-12", "2020-04-18", "2020-04-19", "2020-04-20", "2020-04-21", "2020-04-29"];
 
   return [
     'multiple_reserve_id' => 0,
@@ -27,11 +27,11 @@ $factory->define(PreReservation::class, function (Faker $faker) {
     'enter_time' => $enter[array_rand($enter, 1)],
     'leave_time' => $leave[array_rand($leave, 1)],
     'board_flag' => rand(0, 1),
-    'event_start' => "",
-    'event_finish' => "",
-    'event_name1' => "",
-    'event_name2' => "",
-    'event_owner' => "",
+    'event_start' => NULL,
+    'event_finish' => NULL,
+    'event_name1' => NULL,
+    'event_name2' => NULL,
+    'event_owner' => NULL,
     'luggage_count' => rand(1, 9),
     'luggage_arrive' => $date[array_rand($date, 1)],
     'luggage_return' => rand(1, 9),
