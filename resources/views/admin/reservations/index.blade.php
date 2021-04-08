@@ -157,12 +157,10 @@
 
       <div class="btn_box d-flex justify-content-center">
         <input type="reset" value="リセット" class="btn reset_btn">
-        <!-- <input type="submit" value="検索" class="btn search_btn"> -->
         {{ Form::submit('検索', ['class' => 'btn search_btn']) }}
       </div>
 
     </div>
-    <!-- 検索　終わり------------------------------------------------ -->
     {{ Form::close() }}
 
 
