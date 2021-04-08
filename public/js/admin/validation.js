@@ -28,7 +28,7 @@ $(function() {
 
 // 仮押さえ、一括仮押さえ一覧検索　
 $(function () {
-  var target = ["#preserve_search", "#multiples_search"];
+  var target = ["#preserve_search", "#multiples_search", "#clients_search"];
 
   $.each(target, function (index, value) {
     $(value).validate({
@@ -36,11 +36,17 @@ $(function () {
         search_id: { number: true },
         search_mobile: { number: true },
         search_tel: { number: true },
+        id: { number: true },
+        mobile: { number: true },
+        tel: { number: true },
       },
       messages: {
         search_id: { number: '※半角数字を入力してください' },
         search_mobile: { number: '※半角数字を入力してください' },
         search_tel: { number: '※半角数字を入力してください' },
+        id: { number: '※半角数字を入力してください' },
+        mobile: { number: '※半角数字を入力してください' },
+        tel: { number: '※半角数字を入力してください' },
       },
       errorPlacement: function (error, element) {
         var name = element.attr('name');
@@ -1118,7 +1124,6 @@ $(function () {
 });
 
 
-
 // 備品アップデート
 // 会場管理　新規登録validation
 $(function () {
@@ -1178,189 +1183,130 @@ $(function () {
     // }
   });
 });
-// 顧客管理　新規作成
-$(function () {
-  $("#ClientsCreateForm").validate({
-    rules: {
-      company: {
-        required: true,
-      },
-      first_name: {
-        required: true,
-      },
-      last_name: {
-        required: true,
-      },
-      first_name_kana: {
-        required: true,
-        katakana: true,
-      },
-      last_name_kana: {
-        required: true,
-        katakana: true,
-      },
-      mobile: {
-        required: true,
-        number: true,
-        minlength: 10,
-      },
-      tel: {
-        number: true,
-        minlength: 10,
-      },
-      fax: {
-        number: true,
-        minlength: 10,
-      },
-      email: {
-        required: true,
-        email: true
-      },
-      pay_post_code: {
-        number: true
-      },
-    },
-    messages: {
-      company: {
-        required: "※必須項目です",
-      },
-      first_name: {
-        required: "※必須項目です",
-      },
-      last_name: {
-        required: "※必須項目です",
-      },
-      first_name_kana: {
-        required: "※必須項目です",
-        katakana: "※カタカナで入力してください",
-      },
-      last_name_kana: {
-        required: "※必須項目です",
-        katakana: "※カタカナで入力してください",
-      },
-      mobile: {
-        required: "※必須項目です",
-        number: '※半角英数字で入力してください',
-        minlength: '※10桁以上で入力してください',
-      },
-      tel: {
-        number: '※半角英数字で入力してください',
-        minlength: '※10桁以上で入力してください',
-      },
-      fax: {
-        number: '※半角英数字で入力してください',
-        minlength: '※10桁以上で入力してください',
-      },
-      email: {
-        required: "※必須項目です",
-        email: '※メールアドレスの形式で入力してください'
-      },
-      pay_post_code: {
-        number: '※半角英数字で入力してください',
-      },
-    },
-    errorPlacement: function (error, element) {
-      var name = element.attr('name');
-      if (element.attr('name') === 'category[]') {
-        error.appendTo($('.is-error-category'));
-      } else if (element.attr('name') === name) {
-        error.appendTo($('.is-error-' + name));
-      }
-    },
-    errorElement: "span",
-    errorClass: "is-error",
-    //送信前にLoadingを表示
-    submitHandler: function (form) {
-      $('.approval').addClass('hide');
-      $('.loading').removeClass('hide');
-      form.submit();
-    }
-  });
-  $('input').on('blur', function () {
-    $(this).valid();
-    // if ($('span').hasClass('is-error')) {
-    //   $('span').css('background', 'white');
-    // }
-  });
-});
-// 顧客管理　編集
-$(function () {
-  $("#ClientsEditForm").validate({
-    rules: {
-      company: {
-        required: true,
-      },
-      first_name: {
-        required: true,
-      },
-      last_name: {
-        required: true,
-      },
-      first_name_kana: {
-        required: true,
-        katakana: true,
-      },
-      last_name_kana: {
-        required: true,
-        katakana: true,
-      },
-      mobile: {
-        required: true,
-      },
-      email: {
-        required: true,
-      },
-    },
-    messages: {
-      company: {
-        required: "※必須項目です",
-      },
-      first_name: {
-        required: "※必須項目です",
-      },
-      last_name: {
-        required: "※必須項目です",
-      },
-      first_name_kana: {
-        required: "※必須項目です",
-        katakana: "※カタカナで入力してください",
-      },
-      last_name_kana: {
-        required: "※必須項目です",
-        katakana: "※カタカナで入力してください",
-      },
-      mobile: {
-        required: "※必須項目です",
-      },
-      email: {
-        required: "※必須項目です",
-      },
 
-    },
-    errorPlacement: function (error, element) {
-      var name = element.attr('name');
-      if (element.attr('name') === 'category[]') {
-        error.appendTo($('.is-error-category'));
-      } else if (element.attr('name') === name) {
-        error.appendTo($('.is-error-' + name));
+// 顧客新規登録、編集
+$(function () {
+  var target = ["#ClientsCreateForm", "#ClientsEditForm"];
+
+  $.each(target, function (index, value) {
+    $(value).validate({
+      rules: {
+        company: {
+          required: true,
+        },
+        post_code: {
+          number: true,
+        },
+        url: {
+          url: true,
+        },
+        first_name: {
+          required: true,
+        },
+        last_name: {
+          required: true,
+        },
+        first_name_kana: {
+          required: true,
+          katakana: true,
+        },
+        last_name_kana: {
+          required: true,
+          katakana: true,
+        },
+        mobile: {
+          required: true,
+          number: true,
+          minlength: 10,
+        },
+        tel: {
+          number: true,
+          minlength: 10,
+        },
+        fax: {
+          number: true,
+          minlength: 10,
+        },
+        email: {
+          required: true,
+          email: true
+        },
+        pay_post_code: {
+          number: true
+        },
+      },
+      messages: {
+        company: {
+          required: "※必須項目です",
+        },
+        post_code: {
+          number: "※半角数字で入力してください",
+        },
+        url: { 
+          url: '正しいURLを記入してください(例:https://osaka-conference.com/)' 
+        },
+        first_name: {
+          required: "※必須項目です",
+        },
+        last_name: {
+          required: "※必須項目です",
+        },
+        first_name_kana: {
+          required: "※必須項目です",
+          katakana: "※カタカナで入力してください",
+        },
+        last_name_kana: {
+          required: "※必須項目です",
+          katakana: "※カタカナで入力してください",
+        },
+        mobile: {
+          required: "※必須項目です",
+          number: '※半角数字で入力してください',
+          minlength: '※10桁以上で入力してください',
+        },
+        tel: {
+          number: '※半角数字で入力してください',
+          minlength: '※10桁以上で入力してください',
+        },
+        fax: {
+          number: '※半角数字で入力してください',
+          minlength: '※10桁以上で入力してください',
+        },
+        email: {
+          required: "※必須項目です",
+          email: '※メールアドレスの形式で入力してください'
+        },
+        pay_post_code: {
+          number: '※半角数字で入力してください',
+        },
+      },
+      errorPlacement: function (error, element) {
+        var name = element.attr('name');
+        if (element.attr('name') === 'category[]') {
+          error.appendTo($('.is-error-category'));
+        } else if (element.attr('name') === name) {
+          error.appendTo($('.is-error-' + name));
+        }
+      },
+      errorElement: "span",
+      errorClass: "is-error",
+      //送信前にLoadingを表示
+      submitHandler: function (form) {
+        $('.approval').addClass('hide');
+        $('.loading').removeClass('hide');
+        form.submit();
       }
-    },
-    errorElement: "span",
-    errorClass: "is-error",
-    //送信前にLoadingを表示
-    submitHandler: function (form) {
-      $('.approval').addClass('hide');
-      $('.loading').removeClass('hide');
-      form.submit();
-    }
-  });
-  $('input').on('blur', function () {
-    $(this).valid();
-    // if ($('span').hasClass('is-error')) {
-    //   $('span').css('background', 'white');
-    // }
-  });
+    });
+    $('input').on('blur', function () {
+      $(this).valid();
+    });
+  })
+
+
+  
 });
+
+
 
 // 料金管理　編集(枠貸し)
 
