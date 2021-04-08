@@ -16,8 +16,9 @@ class Frame_priceTableSeeder extends Seeder
    */
   public function run()
   {
+    DB::table('frame_prices')->truncate();
     FramePrice::create([
-      'venue_id' => 4,
+      'venue_id' => 1,
       'frame' => '午前',
       'start' => '10:00:00',
       'finish' => '12:00:00',
@@ -26,7 +27,7 @@ class Frame_priceTableSeeder extends Seeder
     ]);
 
     FramePrice::create([
-      'venue_id' => 4,
+      'venue_id' => 1,
       'frame' => '午後',
       'start' => '13:00:00',
       'finish' => '17:00:00',
@@ -35,7 +36,7 @@ class Frame_priceTableSeeder extends Seeder
     ]);
 
     FramePrice::create([
-      'venue_id' => 4,
+      'venue_id' => 1,
       'frame' => '夜間',
       'start' => '18:00:00',
       'finish' => '23:00:00',
@@ -44,7 +45,7 @@ class Frame_priceTableSeeder extends Seeder
     ]);
 
     FramePrice::create([
-      'venue_id' => 4,
+      'venue_id' => 1,
       'frame' => '午前＆午後',
       'start' => '10:00:00',
       'finish' => '17:00:00',
@@ -53,7 +54,7 @@ class Frame_priceTableSeeder extends Seeder
     ]);
 
     FramePrice::create([
-      'venue_id' => 4,
+      'venue_id' => 1,
       'frame' => '午後＆夜間',
       'start' => '13:00:00',
       'finish' => '21:00:00',
@@ -62,7 +63,7 @@ class Frame_priceTableSeeder extends Seeder
     ]);
 
     FramePrice::create([
-      'venue_id' => 4,
+      'venue_id' => 1,
       'frame' => '終日',
       'start' => '10:00:00',
       'finish' => '21:00:00',
@@ -77,7 +78,7 @@ class Frame_priceTableSeeder extends Seeder
 
 
     FramePrice::create([
-      'venue_id' => 14,
+      'venue_id' => 2,
       'frame' => '午前',
       'start' => '10:00:00',
       'finish' => '12:00:00',
@@ -86,7 +87,7 @@ class Frame_priceTableSeeder extends Seeder
     ]);
 
     FramePrice::create([
-      'venue_id' => 14,
+      'venue_id' => 2,
       'frame' => '午後',
       'start' => '13:00:00',
       'finish' => '17:00:00',
@@ -95,7 +96,7 @@ class Frame_priceTableSeeder extends Seeder
     ]);
 
     FramePrice::create([
-      'venue_id' => 14,
+      'venue_id' => 2,
       'frame' => '夜間',
       'start' => '18:00:00',
       'finish' => '23:00:00',
@@ -104,7 +105,7 @@ class Frame_priceTableSeeder extends Seeder
     ]);
 
     FramePrice::create([
-      'venue_id' => 14,
+      'venue_id' => 2,
       'frame' => '午前＆午後',
       'start' => '10:00:00',
       'finish' => '17:00:00',
@@ -113,7 +114,7 @@ class Frame_priceTableSeeder extends Seeder
     ]);
 
     FramePrice::create([
-      'venue_id' => 14,
+      'venue_id' => 2,
       'frame' => '午後＆夜間',
       'start' => '13:00:00',
       'finish' => '21:00:00',
@@ -122,7 +123,7 @@ class Frame_priceTableSeeder extends Seeder
     ]);
 
     FramePrice::create([
-      'venue_id' => 14,
+      'venue_id' => 2,
       'frame' => '終日',
       'start' => '10:00:00',
       'finish' => '21:00:00',
@@ -138,7 +139,7 @@ class Frame_priceTableSeeder extends Seeder
 
 
     FramePrice::create([
-      'venue_id' => 24,
+      'venue_id' => 3,
       'frame' => '午前',
       'start' => '10:00:00',
       'finish' => '12:00:00',
@@ -147,7 +148,7 @@ class Frame_priceTableSeeder extends Seeder
     ]);
 
     FramePrice::create([
-      'venue_id' => 24,
+      'venue_id' => 3,
       'frame' => '午後',
       'start' => '13:00:00',
       'finish' => '17:00:00',
@@ -156,7 +157,7 @@ class Frame_priceTableSeeder extends Seeder
     ]);
 
     FramePrice::create([
-      'venue_id' => 24,
+      'venue_id' => 3,
       'frame' => '夜間',
       'start' => '18:00:00',
       'finish' => '23:00:00',
@@ -165,7 +166,7 @@ class Frame_priceTableSeeder extends Seeder
     ]);
 
     FramePrice::create([
-      'venue_id' => 24,
+      'venue_id' => 3,
       'frame' => '午前＆午後',
       'start' => '10:00:00',
       'finish' => '17:00:00',
@@ -174,7 +175,7 @@ class Frame_priceTableSeeder extends Seeder
     ]);
 
     FramePrice::create([
-      'venue_id' => 24,
+      'venue_id' => 3,
       'frame' => '午後＆夜間',
       'start' => '13:00:00',
       'finish' => '21:00:00',
@@ -183,7 +184,7 @@ class Frame_priceTableSeeder extends Seeder
     ]);
 
     FramePrice::create([
-      'venue_id' => 24,
+      'venue_id' => 3,
       'frame' => '終日',
       'start' => '10:00:00',
       'finish' => '21:00:00',

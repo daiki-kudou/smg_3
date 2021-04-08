@@ -11,6 +11,7 @@ class BillsTableSeeder extends Seeder
    */
   public function run()
   {
+    DB::table('bills')->truncate();
     factory(\App\Models\Bill::class, 200)->create();
   }
 }

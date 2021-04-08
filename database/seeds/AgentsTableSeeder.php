@@ -11,6 +11,7 @@ class AgentsTableSeeder extends Seeder
    */
   public function run()
   {
+    DB::table('agents')->truncate();
     factory(\App\Models\Agent::class, 50)->create();
   }
 }

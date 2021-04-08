@@ -203,7 +203,9 @@
               <div>
                 <select name="event_start" id="event_start" class="form-control">
                   <option disabled>選択してください</option>
-                  @for ($start = 0*2; $start <=23*2; $start++) <option value="{{date("H:i:s", strtotime("00:00 +". $start * 30 ." minute"))}}" @if (date("H:i:s", strtotime("00:00 +". $start * 30 ." minute"))<$request->pre_enter0)
+                  @for ($start = 0*2; $start <=23*2; $start++) <option
+                    value="{{date("H:i:s", strtotime("00:00 +". $start * 30 ." minute"))}}" @if (date("H:i:s",
+                    strtotime("00:00 +". $start * 30 ." minute"))<$request->pre_enter0)
                     disabled
                     @elseif(date("H:i:s", strtotime("00:00 +". $start * 30 ." minute"))>$request->pre_leave0)
                     disabled
@@ -221,7 +223,9 @@
               <div>
                 <select name="event_finish" id="event_finish" class="form-control">
                   <option disabled>選択してください</option>
-                  @for ($start = 0*2; $start <=23*2; $start++) <option value="{{date("H:i:s", strtotime("00:00 +". $start * 30 ." minute"))}}" @if (date("H:i:s", strtotime("00:00 +". $start * 30 ." minute"))>$request->pre_leave0)
+                  @for ($start = 0*2; $start <=23*2; $start++) <option
+                    value="{{date("H:i:s", strtotime("00:00 +". $start * 30 ." minute"))}}" @if (date("H:i:s",
+                    strtotime("00:00 +". $start * 30 ." minute"))>$request->pre_leave0)
                     disabled
                     @elseif(date("H:i:s",strtotime("00:00 +". $start * 30 ." minute"))<$request->pre_enter0)
                       disabled
@@ -276,7 +280,7 @@
               </tr>
             </thead>
             <tbody class="accordion-wrap">
-              @foreach ($venue->getEquipments() as $key=>$equ)
+              @foreach ($venue->equipments as $key=>$equ)
               <tr>
                 <td class="table-active">
                   {{$equ->item}}
@@ -302,7 +306,7 @@
               </tr>
             </thead>
             <tbody class="accordion-wrap">
-              @foreach ($services as $key=>$service)
+              @foreach ($venue->services as $key=>$service)
               <tr>
                 <td class="table-active">
                   {{$service->item}}
