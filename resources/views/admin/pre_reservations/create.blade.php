@@ -63,28 +63,38 @@
       <tbody>
         <tr>
           <td class="table-active">会社名・団体名</td>
-          <td colspan="3">
+          <td>
             <p class="company"></p>
           </td>
-        </tr>
-        <tr>
           <td class="table-active">担当者氏名</td>
           <td>
             <p class="person"></p>
           </td>
+        </tr>
+        <tr>
           <td class="table-active">メールアドレス</td>
           <td>
             <p class="email"></p>
           </td>
-        </tr>
-        <tr>
           <td class="table-active">携帯番号</td>
           <td>
             <p class="mobile"></p>
           </td>
+        </tr>
+        <tr>
           <td class="table-active">固定電話</td>
           <td>
             <p class="tel"></p>
+          </td>
+          <td class="table-active">割引条件 工藤さん！！お願いします</td>
+          <td>
+            <p class=""></p>
+          </td>
+        </tr>
+        <tr>
+          <td class="table-active caution">注意事項  工藤さん！！お願いします</td>
+          <td colspan="3" class="caution">
+            <p class=""></p>
           </td>
         </tr>
       </tbody>
