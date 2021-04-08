@@ -526,6 +526,7 @@
                   {{ Form::text('cost', $request->cost,['class'=>'form-control', 'placeholder'=>'入力してください'] ) }}
                   <span class="ml-2">%</span>
                 </div>
+                <p class="is-error-cost" style="color: red"></p>
               </td>
             </tr>
           </tbody>

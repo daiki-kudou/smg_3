@@ -541,6 +541,7 @@
                   {{ Form::text('cost', $venue->cost,['class'=>'form-control', 'placeholder'=>'入力してください'] ) }}
                   <span class="ml-1">%</span>
                 </div>
+                <p class="is-error-cost" style="color: red"></p>
               </td>
             </tr>
           </tbody>

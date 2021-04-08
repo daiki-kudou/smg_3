@@ -942,6 +942,7 @@
                             {{ Form::text('cost_copied'.$key, $request->cp_master_cost,['class'=>'form-control'] ) }}
                             <span class="ml-2">%</span>
                           </div>
+                          <p class="is-error-cost" style="color: red"></p>
                         </td>
                       </tr>
                     </tbody>

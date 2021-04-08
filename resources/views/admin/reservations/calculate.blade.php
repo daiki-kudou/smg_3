@@ -554,6 +554,7 @@
             <td>
               {{ Form::text('', $request->cost."%",['class'=>'form-control'] ) }}
               {{ Form::hidden('cost', $request->cost,['class'=>'form-control'] ) }}
+              <p class="is-error-cost" style="color: red"></p>
             </td>
           </tr>
         </tbody>

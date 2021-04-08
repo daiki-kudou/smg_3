@@ -605,6 +605,7 @@
                   {{Form::text("cost", $request->cost,['class'=>'form-control'])}}
                   <span class="ml-1">%</span>
                 </div>
+                <p class="is-error-cost" style="color: red"></p>
               </td>
             </tr>
           </tbody>

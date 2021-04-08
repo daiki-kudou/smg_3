@@ -9,8 +9,6 @@ jQuery.validator.addMethod("alphanum", function (value, element) {
 }, "<br/>※半角英数字を入力してください"
 );
 
-
-
 // 仮押え新規作成
 $(function () {
   $("#pre_reservationCreateForm").validate({
@@ -61,17 +59,18 @@ $(function () {
 $(function () {
   var target = ["#pre_reservationSingleCheckForm", "#pre_reservationSingleCalculateForm"
     , "#pre_reservationSingleEditForm", "#pre_reservationSingleRecalculateForm","#multiple_switch"];
+
   $.each(target, function (index, value) {
     $(value).validate({
       rules: {
         unknown_user_email: { email: true },
         unknown_user_mobile: { number: true, minlength: 11 },
         unknown_user_tel: { number: true, minlength: 10 },
-
         in_charge: { required: true },
         tel: { required: true, number: true, minlength: 11 },
         luggage_count: { max: 49, number: true },
         luggage_return: { max: 49, number: true },
+        cost: { range: [1, 100] },
       },
       messages: {
         unknown_user_email: { email: '※Emailの形式で入力してください', },
@@ -81,6 +80,7 @@ $(function () {
         tel: { required: "※必須項目です", number: '※半角数字を入力してください', minlength: '※最低桁数は11です' },
         luggage_count: { max: '※最大値は49です', number: "半角数字で入力してください" },
         luggage_return: { max: '※最大値は49です', number: "半角数字で入力してください" },
+        cost: { range: "※1から100までの半角英数字を入力してください" },
       },
       errorPlacement: function (error, element) {
         var name = element.attr('name');
@@ -222,11 +222,11 @@ $(function () {
 })
 
 
-
 // 仮押さえ　仲介会社詳細＆再計算&編集&編集の再計算
 $(function () {
   var target = ["#pre_agent_reservationsSingleCheckForm", "#pre_agent_reservationsSingleCalculateForm"
     , "#pre_agent_reservationSingleEditForm", "#pre_agent_reservationSingleEditForm"];
+
   $.each(target, function (index, value) {
     $(value).validate({
       rules: {
@@ -495,10 +495,14 @@ $(function () {
     var luggagecountcopied = "luggage_count_copied" + index;
     var luggagereturncopied = "luggage_return_copied" + index;
     var luggagepricecopied = "luggage_price_copied" + index;
+
+    console.log("enduserchargecopied");
+
     $("#multiplesAgentSpecificUpdateEdit" + index).validate({
       rules: {
         [enduserchargecopied]: {
           required: true,
+          number: true,
         },
         [luggagecountcopied]: {
           number: true,
@@ -515,6 +519,7 @@ $(function () {
       messages: {
         [enduserchargecopied]: {
           required: "※必須項目です",
+          number: "※半角数字で入力してください",
         },
         [luggagecountcopied]: {
           number: "※半角数字で入力してください",
@@ -721,7 +726,7 @@ $(function () {
       mgmt_emer_tel: { number: true },
       mgmt_person_tel: { number: true },
       mgmt_sec_tel: { number: true },
-      cost: { range: [1, 100] },
+      cost: { range: [1, 100], maxlength: 3 },
       reserver_tel: { number: true },
     },
     messages: {
@@ -749,7 +754,7 @@ $(function () {
       mgmt_emer_tel: { number: "※半角英数字で入力してください" },
       mgmt_person_tel: { number: "※半角英数字で入力してください" },
       mgmt_sec_tel: { number: "※半角英数字で入力してください" },
-      cost: { range: "※1から100までの数値を入力してください" },
+      cost: { range: "※1から100までの数値を入力してください", maxlength: "※最大桁数は3です" },
       reserver_tel: { number: "※半角英数字で入力してください" },
 
     },

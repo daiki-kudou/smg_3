@@ -550,6 +550,7 @@
           <td>
             {{ Form::text('', $reservation->cost."%",['class'=>'form-control'] ) }}
             {{ Form::hidden('cost', $reservation->cost,['class'=>'form-control'] ) }}
+            <p class="is-error-cost" style="color: red"></p>
           </td>
         </tr>
       </table>
