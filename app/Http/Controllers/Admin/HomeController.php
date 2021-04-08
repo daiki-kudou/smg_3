@@ -18,11 +18,11 @@ class HomeController extends Controller
 
   public function index()
   {
-    $venues = Venue::all()->count();
-    $users = User::all()->count();
+    // $venues = Venue::all()->count();
+    // $users = User::all()->count();
     return view('admin.home', [
-      'venues' => $venues,
-      'users' => $users,
+      // 'venues' => $venues,
+      // 'users' => $users,
     ]);
   }
 }

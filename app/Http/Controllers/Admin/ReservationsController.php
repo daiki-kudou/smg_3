@@ -30,18 +30,18 @@ class ReservationsController extends Controller
    */
   public function index(Request $request)
   {
-    if (!empty($request->all())) {
-      $newInstance = new Reservation();
-      $reservations = $newInstance->search_item((object)$request->all());
-    } else {
-      $reservations = Reservation::orderBy('id', 'desc')->get();
-    }
-    $venue = Venue::all();
-    $user = User::select('id', 'company', 'first_name', 'last_name', 'mobile', 'tel')->get();
+    // if (!empty($request->all())) {
+    //   $newInstance = new Reservation();
+    //   $reservations = $newInstance->search_item((object)$request->all());
+    // } else {
+    //   $reservations = Reservation::orderBy('id', 'desc')->get();
+    // }
+    // $venue = Venue::all();
+    // $user = User::select('id', 'company', 'first_name', 'last_name', 'mobile', 'tel')->get();
     return view('admin.reservations.index', [
-      'reservations' => $reservations,
-      'venue' => $venue,
-      'user' => $user,
+      // 'reservations' => $reservations,
+      // 'venue' => $venue,
+      // 'user' => $user,
     ]);
   }
 
