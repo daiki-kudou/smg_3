@@ -28,27 +28,32 @@ class MultiplesController extends Controller
       $multiples = $this->MultipleSearch($class, $request);
       $counter = count($multiples);
     } else {
-      $multiples = MultipleReserve::orderBy('id', 'desc')->paginate(30);
+      $multiples = MultipleReserve::with('pre_reservations')->orderBy('id', 'desc')->paginate(30);
       $counter = count($multiples);
     }
 
     $user = User::find(1);
 
-    // var_dump($multiples);
     return view('admin.multiples.index', compact('multiples', "counter", "request", "user"));
   }
 
   public function show($id)
   {
-    $multiple = MultipleReserve::find($id);
-    $venues = $multiple->pre_reservations()->distinct('')->select('venue_id')->get();
+    $multiple = MultipleReserve::with('pre_reservations.pre_bill')->find($id);
+    $venues = PreReservation::where('multiple_reserve_id', $multiple->id)->distinct('')->select('venue_id')->get();
     $venue_count = $venues->count('venue_id');
     $checkVenuePrice = $multiple->checkVenuePrice();
     $checkEachStatus = $multiple->checkEachStatus();
 
     return view(
       'admin.multiples.show',
-      compact('multiple', 'venue_count', 'venues', 'checkVenuePrice', 'checkEachStatus')
+      compact(
+        'multiple',
+        'venue_count',
+        'venues',
+        'checkVenuePrice',
+        'checkEachStatus'
+      )
     );
   }
 
