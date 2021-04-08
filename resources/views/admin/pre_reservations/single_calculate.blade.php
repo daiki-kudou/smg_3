@@ -20,7 +20,6 @@
 
 {{ Form::open(['url' => 'admin/pre_reservations/calculate', 'method'=>'POST', 'id'=>'pre_reservationSingleCalculateForm']) }}
 @csrf
-
 <section class="mt-5">
   <div class="selected_user">
     <table class="table table-bordered" style="table-layout: fixed;">
@@ -203,7 +202,9 @@
             <td>
               <select name="event_start" id="event_start" class="form-control">
                 <option disabled>選択してください</option>
-                @for ($start = 0*2; $start <=23*2; $start++) <option value="{{date("H:i:s", strtotime("00:00 +". $start * 30 ." minute"))}}" @if(date("H:i:s",strtotime("00:00 +". $start * 30 ." minute"))<$request->enter_time)
+                @for ($start = 0*2; $start <=23*2; $start++) <option
+                  value="{{date("H:i:s", strtotime("00:00 +". $start * 30 ." minute"))}}"
+                  @if(date("H:i:s",strtotime("00:00 +". $start * 30 ." minute"))<$request->enter_time)
                   disabled
                   @elseif(date("H:i:s", strtotime("00:00 +". $start * 30 ." minute"))>$request->leave_time)
                   disabled
@@ -221,7 +222,9 @@
             <td>
               <select name="event_finish" id="event_finish" class="form-control">
                 <option disabled>選択してください</option>
-                @for ($start = 0*2; $start <=23*2; $start++) <option value="{{date("H:i:s", strtotime("00:00 +". $start * 30 ." minute"))}}" @if(date("H:i:s",strtotime("00:00 +". $start * 30 ." minute"))<$request->enter_time)
+                @for ($start = 0*2; $start <=23*2; $start++) <option
+                  value="{{date("H:i:s", strtotime("00:00 +". $start * 30 ." minute"))}}"
+                  @if(date("H:i:s",strtotime("00:00 +". $start * 30 ." minute"))<$request->enter_time)
                   disabled
                   @elseif(date("H:i:s", strtotime("00:00 +". $start * 30 ." minute"))>$request->leave_time)
                   disabled
@@ -278,7 +281,7 @@
               </tr>
             </thead>
             <tbody class="accordion-wrap">
-              @foreach ($equipments as $key=>$equipment)
+              @foreach ($SpVenue->equipments as $key=>$equipment)
               <tr>
                 <td class="table-active">
                   {{$equipment->item}}
@@ -304,7 +307,7 @@
               </tr>
             </thead>
             <tbody class="accordion-wrap">
-              @foreach ($services as $key=>$service)
+              @foreach ($SpVenue->services as $key=>$service)
               <tr>
                 <td class="table-active">
                   {{$service->item}}
@@ -683,7 +686,7 @@
                 <dd class="total_result">{{number_format($masters)}}円</dd>
               </dl>
             </td>
-          
+
         </table>
       </div>
       <div class="bill_details">
@@ -766,7 +769,7 @@
                   </td>
                 </tr>
               </tbody>
-        
+
               @else
               <span class="text-red">※料金体系がないため、手打ちで会場料を入力してください</span>
               <tbody class="venue_main">

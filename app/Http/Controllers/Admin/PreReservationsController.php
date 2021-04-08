@@ -51,11 +51,10 @@ class PreReservationsController extends Controller
     }
 
     $venues = Venue::all();
-    $users = User::all();
     $agents = Agent::all();
     return view(
       'admin.pre_reservations.index',
-      compact('pre_reservations', 'venues', 'users', 'agents', "counter")
+      compact('pre_reservations', 'venues', 'agents', "counter")
     );
   }
 
@@ -83,19 +82,11 @@ class PreReservationsController extends Controller
       }
     }
     if (count($judge_count) == 1) {
-      $venue = Venue::find($request->pre_venue0);
-      $equipments = $venue->equipments()->get();
-      $services = $venue->services()->get();
+      $venue = Venue::with('equipments', 'services')->find($request->pre_venue0);
       $layouts = [];
       $layouts[] = $venue->layout_prepare == 0 ? 0 : $venue->layout_prepare;
       $layouts[] = $venue->layout_clean == 0 ? 0 : $venue->layout_clean;
-      return view('admin.pre_reservations.single_check', [
-        'request' => $request,
-        'equipments' => $equipments,
-        'services' => $services,
-        'venue' => $venue,
-        'layouts' => $layouts,
-      ]);
+      return view('admin.pre_reservations.single_check', compact('request', 'venue', 'layouts'));
     } else {
       $multiple = MultipleReserve::create(); //一括IDを作成
       $multiple->MultipleStore($request);
@@ -107,12 +98,8 @@ class PreReservationsController extends Controller
   public function calculate(Request $request)
   {
     if ($request->judge_count == 1) { //単発仮押えの計算
-      $users = User::all();
-      $venues = Venue::all();
-      $SpVenue = $venues->find($request->venue_id);
-      $equipments = $SpVenue->equipments()->get();
-      $services = $SpVenue->services()->get();
 
+      $SpVenue = Venue::with('equipments', 'services')->find($request->venue_id);
       $price_details = $SpVenue->calculate_price( //[0]は合計料金, [1]は延長料金, [2]は合計＋延長、 [3]は利用時間, [4]は延長時間
         $request->price_system,
         $request->enter_time,
@@ -145,23 +132,14 @@ class PreReservationsController extends Controller
       $user = User::find($request->user_id);
       $pay_limit = $user->getUserPayLimit($request->reserve_date);
 
-      return view('admin.pre_reservations.single_calculate', [
-        'venues' => $venues,
-        'SpVenue' => $SpVenue,
-        'users' => $users,
-        'request' => $request,
-        'equipments' => $equipments,
-        'services' => $services,
-        's_equipment' => $s_equipment, //選択された備品
-        's_services' => $s_services, //選択されたサービス
-        'price_details' => $price_details,
-        'item_details' => $item_details,
-        'layouts_details' => $layouts_details,
-        'masters' => $masters,
-        'pay_limit' => $pay_limit,
-        'user' => $user,
-
-      ]);
+      return view('admin.pre_reservations.single_calculate', compact(
+        'SpVenue',
+        'request',
+        'price_details',
+        'item_details',
+        'layouts_details',
+        'masters',
+      ));
     }
   }
 
