@@ -16,6 +16,7 @@ class Frame_priceTableSeeder extends Seeder
    */
   public function run()
   {
+    DB::table('frame_prices')->truncate();
     FramePrice::create([
       'venue_id' => 1,
       'frame' => '午前',

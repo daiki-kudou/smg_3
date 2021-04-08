@@ -11,6 +11,8 @@ class ReservationTableSeeder extends Seeder
    */
   public function run()
   {
+    DB::table('reservations')->truncate();
+
     factory(\App\Models\Reservation::class, 200)->create();
   }
 }

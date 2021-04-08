@@ -15,6 +15,8 @@ class Time_priceTableSeeder extends Seeder
    */
   public function run()
   {
+    DB::table('time_prices')->truncate();
+
     $venue = Venue::find(1);
     $venue->time_prices()->create([
       'venue_id' => $venue->id,

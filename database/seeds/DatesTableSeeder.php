@@ -19,7 +19,7 @@ class DatesTableSeeder extends Seeder
    */
   public function run()
   {
-    // DB::table('dates')->truncate();
+    DB::table('dates')->truncate();
     $venues = Venue::all();
     foreach ($venues as $venue) {
       for ($week_days = 1; $week_days <= 7; $week_days++) {
