@@ -230,7 +230,7 @@
         </thead>
         <tbody>
           <tr>
-            <td class="caution">
+            <td class="caution word_break">
               {!!nl2br(e($user->attention))!!}
             </td>
           </tr>
@@ -247,7 +247,7 @@
         </thead>
         <tbody>
           <tr>
-            <td>
+            <td class="word_break">
               {!!nl2br(e($user->remark))!!}
             </td>
           </tr>

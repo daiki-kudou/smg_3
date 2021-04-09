@@ -111,14 +111,14 @@
                 </td>
               </tr>
             </tbody>
-            <thead class="head_cancel">
+            <tbody class="head_cancel">
               <tr>
                 <td>内容</td>
                 <td>単価</td>
                 <td>数量</td>
                 <td>金額</td>
               </tr>
-            </thead>
+            </tbody>
             <tbody class="">
               @if ($bill->venue_price>0)
               <tr>

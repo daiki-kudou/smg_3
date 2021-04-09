@@ -1085,6 +1085,14 @@ table td.table_column p:last-child {
     word-break: break-all;
 }
 
+.note-table td {
+    word-break: break-all;
+}
+
+.name-table {
+    word-break: break-all;
+}
+
 .agent_table th {
     width: 45%;
     /* width: 200px; */

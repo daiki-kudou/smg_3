@@ -12,7 +12,6 @@ jQuery.validator.addMethod("alphanum", function (value, element) {
 
 // 有料備品の数字入力制限
 $(function () {
-
   $("input[name*='equipment_breakdown']").on('input', function (e) {
     let value = $(e.currentTarget).val();
     value = value
@@ -23,7 +22,6 @@ $(function () {
     $(e.currentTarget).val(value);
   });
 });
-
 
 
 // 仮押さえ、一括仮押さえ一覧検索　
