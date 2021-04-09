@@ -39,7 +39,7 @@ class MultiplesController extends Controller
 
   public function show($id)
   {
-    $multiple = MultipleReserve::with('pre_reservations.pre_bill')->find($id);
+    $multiple = MultipleReserve::find($id);
     $venues = PreReservation::where('multiple_reserve_id', $multiple->id)->distinct('')->select('venue_id')->get();
     $venue_count = $venues->count('venue_id');
     $checkVenuePrice = $multiple->checkVenuePrice();
