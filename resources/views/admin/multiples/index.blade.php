@@ -5,6 +5,7 @@
 
 <link href="{{ asset('/css/template.css') }}" rel="stylesheet">
 <script src="{{ asset('/js/template.js') }}"></script>
+<script src="{{ asset('/js/admin/validation.js') }}"></script>
 
 <style>
   .checkbox,
@@ -54,7 +55,7 @@
 
     <!-- 検索--------------------------------------- -->
 
-    {{Form::open(['url' => 'admin/multiples', 'method' => 'GET', 'id'=>''])}}
+    {{Form::open(['url' => 'admin/multiples', 'method' => 'GET', 'id'=>'searchMultiple'])}}
     @csrf
     <div class="search-wrap">
       <table class="table table-bordered mb-0">
@@ -63,6 +64,7 @@
             <th class="search_item_name"><label for="id">一括仮押えID</label>
             <td class="text-right">
               {{Form::text("search_id",$request->search_id, ['class'=>'form-control'])}}
+              <p class="is-error-search_id text-left" style="color: red"></p>
             </td>
             <th class="search_item_name"><label for="">作成日</label></th>
             <td class="text-right form-group">
@@ -84,10 +86,12 @@
             <th class="search_item_name"><label for="mobile">携帯電話</label></th>
             <td>
               {{Form::text("search_mobile",$request->search_mobile, ['class'=>'form-control','id'=>''])}}
+              <p class="is-error-search_mobile text-left" style="color: red"></p>
             </td>
             <th class="search_item_name"><label for="tel">固定電話</label></th>
             <td>
               {{Form::text("search_tel",$request->search_tel, ['class'=>'form-control','id'=>''])}}
+              <p class="is-error-search_tel text-left" style="color: red"></p>
             </td>
           </tr>
           <tr>
@@ -177,7 +181,7 @@
                   class="checkbox" />
               </td>
               <td>{{ReservationHelper::fixId($multiple->id)}}</td>
-              <td>{{$multiple->created_at}}</td>
+              <td>{{ReservationHelper::formatDate($multiple->created_at)}}</td>
               <td class="text-center">{{$multiple->pre_reservations->count()}}</td>
               @if ($multiple->pre_reservations()->first()->user_id!=0)
               <td>{{ReservationHelper::getCompany($multiple->pre_reservations()->first()->user_id)}}</td>
