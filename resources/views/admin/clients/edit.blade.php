@@ -65,6 +65,7 @@
                             'onKeyUp'=>"AjaxZip3.zip2addr(this,'','address1','address2');",
                             'autocomplete'=>'off',
                             ]) }}
+              <p class="is-error-post_code" style="color: red"></p>
             </td>
           </tr>
           <tr>
@@ -154,7 +155,9 @@
           </tr>
           <tr>
             <th class="table-active">{{ Form::label('tel', '固定電話') }}</th>
-            <td colspan="2">{{ Form::text('tel', $user->tel, ['class' => 'form-control','placeholder' => '半角数字、ハイフンなしで入力してください']) }}
+            <td colspan="2">
+              {{ Form::text('tel', $user->tel, ['class' => 'form-control','placeholder' => '半角数字、ハイフンなしで入力してください']) }}
+              <p class="is-error-tel" style="color: red"></p>
             </td>
           </tr>
           <tr>
@@ -165,7 +168,9 @@
           </tr>
           <tr>
             <th class="table-active">{{ Form::label('fax', 'FAX') }}</th>
-            <td colspan="2">{{ Form::text('fax', $user->fax, ['class' => 'form-control','placeholder' => '半角数字、ハイフンなしで入力してください']) }}</td>
+            <td colspan="2">
+              {{ Form::text('fax', $user->fax, ['class' => 'form-control','placeholder' => '半角数字、ハイフンなしで入力してください']) }}
+            </td>
           </tr>
         <tbody>
       </table>
