@@ -262,12 +262,12 @@
             <td>
               <div class="radio-box">
                 <p>
-                  {{Form::radio('board_flag', 1, $PreReservation->board_flag==1?true:false , ['id' => 'board_flag_on'])}}
-                  {{Form::label('board_flag_on','有り')}}
+                  {{Form::radio('board_flag', 1, $PreReservation->board_flag==1?true:false , ['id' => 'board_flag'])}}
+                  {{Form::label('board_flag','有り')}}
                 </p>
                 <p>
-                  {{Form::radio('board_flag', 0, $PreReservation->board_flag==0?true:false, ['id' => 'board_flag_off'])}}
-                  {{Form::label('board_flag_off','無し')}}
+                  {{Form::radio('board_flag', 0, $PreReservation->board_flag==0?true:false, ['id' => 'no_board_flag'])}}
+                  {{Form::label('no_board_flag','無し')}}
                 </p>
               </div>
             </td>
