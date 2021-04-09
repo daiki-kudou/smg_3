@@ -83,7 +83,9 @@
               </td>
             </tr>
             <tr>
-              <th class="table-active" width="25%"><label for="company">会社名・団体名</label><a href="" class="more_btn ml-2">顧客詳細</a>
+              <th class="table-active" width="25%">
+                <label for="company">会社名・団体名</label>
+                <a href="{{route('admin.clients.show',$pre_reservation->user_id)}}" class="more_btn ml-2">顧客詳細</a>
               </th>
               <td>
                 {{ReservationHelper::checkAgentOrUserCompany($pre_reservation->user_id, $pre_reservation->agent_id)}}

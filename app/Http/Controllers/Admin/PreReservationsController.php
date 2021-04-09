@@ -55,15 +55,6 @@ class PreReservationsController extends Controller
       $counter = count($pre_reservations);
     }
 
-    // if (count($request->all()) != 0) {
-    //   $class = new PreReservation;
-    //   $pre_reservations = $this->BasicSearch($class, $request);
-    //   $counter = count($pre_reservations);
-    // } else {
-    //   $pre_reservations = PreReservation::where('multiple_reserve_id', '=', 0)->orderBy('id', 'desc')->paginate(30);
-    //   $counter = count($pre_reservations);
-    // }
-
     $venues = Venue::all();
     $agents = Agent::all();
     return view(
