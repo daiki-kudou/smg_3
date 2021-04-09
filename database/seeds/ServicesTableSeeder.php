@@ -13,7 +13,6 @@ class ServicesTableSeeder extends Seeder
    */
   public function run()
   {
-    DB::table('services')->truncate();
     DB::table('services')->insert([
       [
         'item' => '領収書発行',

@@ -212,7 +212,6 @@
             </td>
             <td>{{ReservationHelper::checkAgentOrUserTel($pre_reservation->user_id, $pre_reservation->agent_id)}}</td>
             <td>{{!empty($pre_reservation->unknown_user)?$pre_reservation->unknown_user->unknown_user_company:""}}</td>
-
             <td>
               {{$pre_reservation->agent_id==0?"":(ReservationHelper::getAgentCompanyName($pre_reservation->agent_id))}}
             </td>

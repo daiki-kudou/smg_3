@@ -27,9 +27,10 @@ trait SearchTrait
     }
 
     if (!empty($request->search_created_at)) { // 作成日の検索
-      foreach ($this->SplitDate($request->search_created_at) as $key => $value) {
-        $andSearch->orWhereDate("created_at", "=", current($value));
-      }
+      $splitDate = explode(' - ', $request->search_created_at);
+      $s_carbon = Carbon::parse($splitDate[1]);
+      $add_day = $s_carbon->addDays(1);
+      $andSearch->whereBetween("created_at", [$splitDate[0], date('Y-m-d', strtotime($add_day))])->get();
     }
 
     $this->SimpleWhere($request, "search_venue", $andSearch, "venue_id"); // 利用会場の検索
@@ -46,6 +47,13 @@ trait SearchTrait
     }
     $this->SimpleWhereHas($request->search_mobile, $andSearch, "user", "mobile"); // 携帯
     $this->SimpleWhereHas($request->search_tel, $andSearch, "user", "tel"); // 電話
+    // aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+    if (!empty($request->search_tel)) {
+      $andSearch->orWhereHas('agent', function ($query) use ($request) {
+        $query->where('person_tel', 'LIKE', "%{$request->search_tel}%");
+      });
+    }
+    // aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
     $this->SimpleWhereHas($request->search_unkown_user, $andSearch, "unknown_user", "unknown_user_company"); // 会社名・団体名（仮）unknown_user
     $this->SimpleWhere($request, "search_agent", $andSearch, "agent_id"); // 仲介会社
     $this->SimpleWhereHas($request->search_end_user, $andSearch, "pre_enduser", "company"); // エンドユーザー
