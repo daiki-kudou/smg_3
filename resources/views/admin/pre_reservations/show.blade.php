@@ -52,6 +52,7 @@
                 </a>
                 @endif
                 @endif
+
                 {{ Form::open(['url' => 'admin/pre_reservations/switch_status', 'method'=>'POST','id'=>'confirm_prereserve']) }}
                 @csrf
                 @if ($pre_reservation->status==0)
@@ -59,7 +60,6 @@
                 {{ Form::submit('予約の編集・承認権限を顧客に移行', ['class' => 'btn more_btn4']) }}
                 {{ Form::close() }}
                 @endif
-
               </div>
             </td>
         </tbody>
