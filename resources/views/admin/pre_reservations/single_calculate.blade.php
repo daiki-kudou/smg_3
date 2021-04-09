@@ -33,29 +33,36 @@
       <tbody>
         <tr>
           <td class="table-active">会社名・団体名</td>
-          <td colspan="3">
+          <td>
             <p class="company">{{$request->user_id==999?"":ReservationHelper::getCompany($request->user_id)}}</p>
           </td>
-        </tr>
-        <tr>
           <td class="table-active">担当者氏名</td>
           <td>
             <p class="person">{{$request->user_id==999?"":ReservationHelper::getPersonName($request->user_id)}}</p>
           </td>
+        </tr>
+        <tr>
           <td class="table-active">メールアドレス</td>
           <td>
             <p class="email">{{$request->user_id==999?"":ReservationHelper::getPersonEmail($request->user_id)}}</p>
-
           </td>
-        </tr>
-        <tr>
           <td class="table-active">携帯番号</td>
           <td>
             <p class="mobile">{{$request->user_id==999?"":ReservationHelper::getPersonMobile($request->user_id)}}</p>
           </td>
+        </tr>
+        <tr>
           <td class="table-active">固定電話</td>
           <td>
             <p class="tel">{{$request->user_id==999?"":ReservationHelper::getPersonTel($request->user_id)}}</p>
+          </td>
+          <td class="table-active">割引条件 工藤さん！！お願いします！！</td>
+          <td>
+          </td>
+        </tr>
+        <tr>
+          <td class="table-active caution">注意事項 工藤さん！！お願いし！！</td>
+          <td colspan="3" class="caution"> 
           </td>
         </tr>
       </tbody>
@@ -607,6 +614,7 @@
                   {{ Form::text('cost', $request->cost,['class'=>'form-control', 'placeholder'=>'入力してください'] ) }}
                   <span class="ml-1">%</span>
                 </div>
+                <p class="is-error-cost" style="color: red"></p>
               </td>
             </tr>
           </tbody>
