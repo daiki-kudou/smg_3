@@ -416,6 +416,7 @@
               <td class="d-flex align-items-center">
                 {{ Form::number('cost', old('cost'),['class'=>'form-control sales_percentage', 'placeholder'=>'入力してください'] ) }}
                 <span class="ml-1">%</span>
+                <p class="is-error-cost" style="color: red"></p>
               </td>
             </tr>
           </tbody>

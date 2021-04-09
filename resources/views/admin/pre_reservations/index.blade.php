@@ -4,7 +4,7 @@
 
 <link href="{{ asset('/css/template.css') }}" rel="stylesheet">
 <script src="{{ asset('/js/template.js') }}"></script>
-
+<script src="{{ asset('/js/admin/validation.js') }}"></script>
 
 <script>
   $(function() {
@@ -52,7 +52,7 @@
     </div>
 
     <!-- 検索--------------------------------------- -->
-    {{Form::open(['url' => 'admin/pre_reservations', 'method' => 'GET', 'id'=>''])}}
+    {{Form::open(['url' => 'admin/pre_reservations', 'method' => 'GET', 'id'=>'preserve_search'])}}
     @csrf
     <div class="search-wrap">
       <table class="table table-bordered">
@@ -61,6 +61,7 @@
             <th class="search_item_name"><label for="id">仮押えID</label>
             <td class="text-right">
               {{Form::text("search_id",'', ['class'=>'form-control'])}}
+              <p class="is-error-search_id" style="color: red"></p>
             </td>
             <th class="search_item_name"><label for="">作成日</label></th>
             <td class="text-right form-group">
@@ -99,10 +100,12 @@
             <th class="search_item_name"><label for="mobile">携帯電話</label></th>
             <td>
               {{Form::text("search_mobile",'', ['class'=>'form-control','id'=>''])}}
+              <p class="is-error-search_mobile" style="color: red"></p>
             </td>
             <th class="search_item_name"><label for="tel">固定電話</label></th>
             <td>
               {{Form::text("search_tel",'', ['class'=>'form-control','id'=>''])}}
+              <p class="is-error-search_tel" style="color: red"></p>
             </td>
           </tr>
           <tr>
@@ -246,11 +249,9 @@
         },
         autoUpdateInput: false
       });
-
       $("input[name='" + $target + "']").on('apply.daterangepicker', function(ev, picker) {
         $(this).val(picker.startDate.format('YYYY/MM/DD') + ' - ' + picker.endDate.format('YYYY/MM/DD'));
       });
-
       $("input[name='" + $target + "']").on('cancel.daterangepicker', function(ev, picker) {
         $(this).val('');
       });
@@ -258,13 +259,11 @@
     ActiveDateRangePicker('search_created_at');
     ActiveDateRangePicker('search_date');
   })
-
   $(function() {
     // 全選択アクション
     $('#all_check').on('change', function() {
       $('.checkbox').prop('checked', $(this).is(':checked'));
     })
-
     // 削除確認コンファーム
     $('#confirm_destroy').on('click', function() {
       if (!confirm('削除してもよろしいですか？')) {
@@ -272,7 +271,6 @@
       }
     })
   })
-
   $(function() {
     $("input[type='checkbox']").on('change', function() {
       checked = $('[class="checkbox"]:checked').map(function() {

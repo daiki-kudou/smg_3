@@ -1,10 +1,9 @@
 @extends('layouts.admin.app')
 
 @section('content')
-
-
 <link href="{{ asset('/css/template.css') }}" rel="stylesheet">
 <script src="{{ asset('/js/template.js') }}"></script>
+<script src="{{ asset('/js/admin/validation.js') }}"></script>
 
 <style>
   .checkbox,
@@ -46,15 +45,12 @@
         </nav>
       </div>
 
-
-
       <h2 class="mt-3 mb-3">一括仮押え 一覧</h2>
       <hr>
     </div>
 
     <!-- 検索--------------------------------------- -->
-
-    {{Form::open(['url' => 'admin/multiples', 'method' => 'GET', 'id'=>''])}}
+    {{Form::open(['url' => 'admin/multiples', 'method' => 'GET', 'id'=>'multiples_search'])}}
     @csrf
     <div class="search-wrap">
       <table class="table table-bordered mb-0">
@@ -63,6 +59,7 @@
             <th class="search_item_name"><label for="id">一括仮押えID</label>
             <td class="text-right">
               {{Form::text("search_id",$request->search_id, ['class'=>'form-control'])}}
+              <p class="is-error-search_id" style="color: red"></p>
             </td>
             <th class="search_item_name"><label for="">作成日</label></th>
             <td class="text-right form-group">
@@ -84,10 +81,12 @@
             <th class="search_item_name"><label for="mobile">携帯電話</label></th>
             <td>
               {{Form::text("search_mobile",$request->search_mobile, ['class'=>'form-control','id'=>''])}}
+              <p class="is-error-search_mobile" style="color: red"></p>
             </td>
             <th class="search_item_name"><label for="tel">固定電話</label></th>
             <td>
               {{Form::text("search_tel",$request->search_tel, ['class'=>'form-control','id'=>''])}}
+              <p class="is-error-search_tel" style="color: red"></p>
             </td>
           </tr>
           <tr>
@@ -121,11 +120,6 @@
       </div>
     </div>
     {{Form::close()}}
-
-
-
-
-
 
     <!-- 検索　終わり------------------------------------------------ -->
     <div class="section-wrap">
@@ -244,15 +238,12 @@
   {{ $multiples->appends(request()->input())->links() }}
 </div>
 
-
-
 <script>
   $(function() {
     // 全選択アクション
     $('#all_check').on('change', function() {
       $('.checkbox').prop('checked', $(this).is(':checked'));
     })
-
     // 削除確認コンファーム
     $('#confirm_destroy').on('click', function() {
       if (!confirm('削除してもよろしいですか？\n一括仮押さえに関連する仮押さえの内容がすべて削除されます')) {
@@ -260,7 +251,6 @@
       }
     })
   })
-
   $(function() {
     $("input[type='checkbox']").on('change', function() {
       checked = $('[class="checkbox"]:checked').map(function() {
@@ -272,8 +262,6 @@
       }
     })
   })
-
-
   $(function() {
     function ActiveDateRangePicker($target) {
       $("input[name='" + $target + "']").daterangepicker({
@@ -289,11 +277,9 @@
         },
         autoUpdateInput: false
       });
-
       $("input[name='" + $target + "']").on('apply.daterangepicker', function(ev, picker) {
         $(this).val(picker.startDate.format('YYYY/MM/DD') + ' - ' + picker.endDate.format('YYYY/MM/DD'));
       });
-
       $("input[name='" + $target + "']").on('cancel.daterangepicker', function(ev, picker) {
         $(this).val('');
       });

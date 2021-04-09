@@ -170,6 +170,7 @@
             <th class="table-active">{{ Form::label('fax', 'FAX') }}</th>
             <td colspan="2">
               {{ Form::text('fax', $user->fax, ['class' => 'form-control','placeholder' => '半角数字、ハイフンなしで入力してください']) }}
+              <p class="is-error-fax" style="color: red"></p>
             </td>
           </tr>
         <tbody>
@@ -207,6 +208,7 @@
                                 'onKeyUp'=>"AjaxZip3.zip2addr(this,'','pay_address1','pay_address2');",
                                 'autocomplete'=>'off',
                                 ]) }}
+              <p class="is-error-pay_post_code" style="color: red"></p>
             </td>
           </tr>
           <tr>

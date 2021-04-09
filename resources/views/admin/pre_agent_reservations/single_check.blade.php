@@ -537,6 +537,7 @@
               <td class="d-flex align-items-center">
                 {{ Form::text('cost', $venue->cost,['class'=>'form-control', 'placeholder'=>'入力してください'] ) }}
                 <span class="ml-2">%</span>
+                <p class="is-error-cost" style="color: red"></p>
               </td>
             </tr>
           </tbody>

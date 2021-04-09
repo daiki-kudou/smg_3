@@ -3,6 +3,7 @@
 @section('content')
 <script src="{{ asset('/js/tablesorter/jquery.tablesorter.js') }}"></script>
 <link href="{{ asset('/css/tablesorter/theme.default.min.css') }}" rel="stylesheet">
+<script src="{{ asset('/js/admin/validation.js') }}"></script>
 
 {{-- <script src="{{ asset('/js/admin/venue.js') }}"></script> --}}
 <link href="{{ asset('/css/template.css') }}" rel="stylesheet">
@@ -45,7 +46,7 @@
   <hr>
 
   <!-- 検索-------------------------------------------------------- -->
-  <form class="" action="{{url('/admin/clients')}}">
+  <form class="" action="{{url('/admin/clients')}}" id="clients_search">
     <div class="search-wrap">
       @csrf
       <table class="table table-bordered">
@@ -53,7 +54,8 @@
           <tr>
             <th class="search_item_name"><label for="id">顧客ID</label></th>
             <td class="text-right form-group">
-              <input type="text" class="form-control float-right" id="id">
+              <input type="text" name="id" class="form-control float-right" id="id">
+              <p class="is-error-id" style="color: red"></p>
             </td>
             <th class="search_item_name"><label for="company">会社名　団体名</label></th>
             <td class="text-right form-group">
@@ -68,15 +70,15 @@
             </td>
             <th class="search_item_name"><label for="mobile">携帯電話</label></th>
             <td class="text-right">
-              <dd>
-                <input type="text" name="mobile" class="form-control" id="mobile">
+              <input type="text" name="mobile" class="form-control" id="mobile">
+              <p class="is-error-_mobile" style="color: red"></p>
             </td>
           </tr>
           <tr>
             <th class="search_item_name"><label for="tel">固定電話</label></th>
             <td class="text-right">
-              <dd>
-                <input type="text" name="tel" class="form-control" id="tel">
+              <input type="text" name="tel" class="form-control" id="tel">
+              <p class="is-error-tel" style="color: red"></p>
             </td>
             <th class="search_item_name"><label for="email">担当者メールアドレス</label></th>
             <td class="text-right">
@@ -108,31 +110,31 @@
             <td colspan="3">
               <ul class="search_category">
                 <li>
-                  <input type="checkbox" checked>
+                  <input type="checkbox">
                   <label for="personStatus">一般企業</label>
                 </li>
                 <li>
-                  <input type="checkbox" checked>
+                  <input type="checkbox">
                   <label for="personStatus">上場企業</label>
                 </li>
                 <li>
-                  <input type="checkbox" checked>
+                  <input type="checkbox">
                   <label for="personStatus">近隣利用</label>
                 </li>
                 <li>
-                  <input type="checkbox" checked>
+                  <input type="checkbox">
                   <label for="personStatus">個人講師</label>
                 </li>
                 <li>
-                  <input type="checkbox" checked>
+                  <input type="checkbox">
                   <label for="personStatus">MLM</label>
                 </li>
                 <li>
-                  <input type="checkbox" checked>
+                  <input type="checkbox">
                   <label for="personStatus">仲介会社</label>
                 </li>
                 <li>
-                  <input type="checkbox" checked>
+                  <input type="checkbox">
                   <label for="personStatus">その他</label>
                 </li>
               </ul>
@@ -215,6 +217,5 @@
   $(function(){
     $("#client_sort").tablesorter();
   })
-
 </script>
 @endsection

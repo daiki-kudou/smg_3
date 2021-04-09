@@ -33,29 +33,36 @@
       <tbody>
         <tr>
           <td class="table-active">会社名・団体名</td>
-          <td colspan="3">
+          <td>
             <p class="company">{{$request->user_id==999?"":ReservationHelper::getCompany($request->user_id)}}</p>
           </td>
-        </tr>
-        <tr>
           <td class="table-active">担当者氏名</td>
           <td>
             <p class="person">{{$request->user_id==999?"":ReservationHelper::getPersonName($request->user_id)}}</p>
           </td>
+        </tr>
+        <tr>
           <td class="table-active">メールアドレス</td>
           <td>
             <p class="email">{{$request->user_id==999?"":ReservationHelper::getPersonEmail($request->user_id)}}</p>
-
           </td>
-        </tr>
-        <tr>
           <td class="table-active">携帯番号</td>
           <td>
             <p class="mobile">{{$request->user_id==999?"":ReservationHelper::getPersonMobile($request->user_id)}}</p>
           </td>
+        </tr>
+        <tr>
           <td class="table-active">固定電話</td>
           <td>
             <p class="tel">{{$request->user_id==999?"":ReservationHelper::getPersonTel($request->user_id)}}</p>
+          </td>
+          <td class="table-active">割引条件 工藤さん！！お願いします！！</td>
+          <td>
+          </td>
+        </tr>
+        <tr>
+          <td class="table-active caution">注意事項 工藤さん！！お願いし！！</td>
+          <td colspan="3" class="caution">
           </td>
         </tr>
       </tbody>
@@ -607,6 +614,7 @@
                   {{ Form::text('cost', $request->cost,['class'=>'form-control', 'placeholder'=>'入力してください'] ) }}
                   <span class="ml-1">%</span>
                 </div>
+                <p class="is-error-cost" style="color: red"></p>
               </td>
             </tr>
           </tbody>
@@ -1016,7 +1024,6 @@
     $("html,body").animate({
       scrollTop: $('.bill').offset().top
     });
-
     $(function() {
       // プラスボタンクリック
       $(document).on("click", ".add", function() {
@@ -1029,7 +1036,6 @@
         $(this).parent().parent().next().find('td').find('input, select').eq(2).val('');
         $(this).parent().parent().next().find('td').find('input, select').eq(3).val('');
       });
-
       function addThisTr($targetTr, $TItem, $TCost, $TCount, $TSubtotal) {
         var count = $($targetTr).length;
         for (let index = 0; index < count; index++) {
@@ -1039,7 +1045,6 @@
           $($targetTr).eq(index).find('td').eq(3).find('input').attr('name', $TSubtotal + index);
         }
       }
-
       // マイナスボタンクリック
       $(document).on("click", ".del", function() {
         if ($(this).parent().parent().parent().attr('class') == "others_main") {
@@ -1066,7 +1071,6 @@
           }
           var total_target = $('input[name="others_price"]');
           total_target.val(total_val);
-
           var venue = $('input[name="venue_price"]').val() ? Number($('input[name="venue_price"]').val()) : 0;
           var equipment = $('input[name="equipment_price"]').val() ? Number($('input[name="equipment_price"]').val()) : 0;
           var layout = $('input[name="layout_price"]').val() ? Number($('input[name="layout_price"]').val()) : 0;
@@ -1100,7 +1104,6 @@
           }
           var total_target = $('input[name="venue_price"]');
           total_target.val(total_val);
-
           var venue = $('input[name="venue_price"]').val() ? Number($('input[name="venue_price"]').val()) : 0;
           var equipment = $('input[name="equipment_price"]').val() ? Number($('input[name="equipment_price"]').val()) : 0;
           var layout = $('input[name="layout_price"]').val() ? Number($('input[name="layout_price"]').val()) : 0;
@@ -1115,7 +1118,6 @@
       });
     });
   })
-
   $(function() {
     $(document).on("click", "input:radio[name='eat_in']", function() {
       var radioTarget = $('input:radio[name="eat_in"]:checked').val();
@@ -1127,8 +1129,6 @@
       }
     })
   })
-
-
   $(function() {
     var maxTarget = $('input[name="reserve_date"]').val();
     $('#datepicker9').datepicker({

@@ -63,28 +63,38 @@
       <tbody>
         <tr>
           <td class="table-active">会社名・団体名</td>
-          <td colspan="3">
+          <td>
             <p class="company"></p>
           </td>
-        </tr>
-        <tr>
           <td class="table-active">担当者氏名</td>
           <td>
             <p class="person"></p>
           </td>
+        </tr>
+        <tr>
           <td class="table-active">メールアドレス</td>
           <td>
             <p class="email"></p>
           </td>
-        </tr>
-        <tr>
           <td class="table-active">携帯番号</td>
           <td>
             <p class="mobile"></p>
           </td>
+        </tr>
+        <tr>
           <td class="table-active">固定電話</td>
           <td>
             <p class="tel"></p>
+          </td>
+          <td class="table-active">割引条件 工藤さん！！お願いします</td>
+          <td>
+            <p class=""></p>
+          </td>
+        </tr>
+        <tr>
+          <td class="table-active caution">注意事項 工藤さん！！お願いします</td>
+          <td colspan="3" class="caution">
+            <p class=""></p>
           </td>
         </tr>
       </tbody>
@@ -214,11 +224,9 @@
       $("iframe").contents().find('.main-header').css("margin-top", "-48px");
     });
   })
-
   // $(function() {
   //   $('.unknown_user input').attr('readonly', true);
   // })
-
   // 顧客検索F
   $(function() {
     $('#user_id').on('input', function() {
@@ -276,21 +284,17 @@
   //プラスマイナスボタン
   $(function() {
     $(document).on("click", ".add", function() {
-
       var valid=$("#pre_reservationCreateForm").validate();
       valid.destroy();
-
       // すべてのselect2初期化
       for (let destroy = 0; destroy < $('.date_selector tbody tr').length; destroy++) {
         $('.date_selector tbody tr').eq(destroy).find('td').eq(1).find('select').select2("destroy");
       }
-
       var base_venue = $(this).parent().parent().find('td').eq(1).find('select').val();
       $(this).parent().parent().clone(true).insertAfter($(this).parent().parent());
       $(this).parent().parent().next().find("td").eq(1).find("select option[value=" + base_venue + "]").prop('selected', true);
       var count = $(this).parent().parent().parent().find('tr').length;
       var target = $(this).parent().parent().parent().find('tr');
-
       for (let index = 0; index < count; index++) {
         // name属性
         $(target).eq(index).find('td').eq(0).find('input').attr('name', "pre_date" + index);
@@ -316,25 +320,20 @@
           $(target).eq(index).find('td').eq(2).find('input, select').val('');
           $(target).eq(index).find('td').eq(3).find('input, select').val('');
         }
-
         $(target).eq(index).find('td').eq(0).find('p').remove();
         $(target).eq(index).find('td').eq(2).find('p').remove();
         $(target).eq(index).find('td').eq(3).find('p').remove();
-
         $(target).eq(index).find('td').eq(0).find('span').remove();
         $(target).eq(index).find('td').eq(2).find('span').remove();
         $(target).eq(index).find('td').eq(3).find('span').remove();
-
         $("input").removeClass('is-error');
         $("input").attr('aria-describedby',"");
         $("select").removeClass('is-error');
         $("select").attr('aria-describedby',"");
-
         $(target).eq(index).find('td').eq(0).append("<p class='is-error-pre_date"+index+"' style='color: red'></p>");
         $(target).eq(index).find('td').eq(2).append("<p class='is-error-pre_enter"+index+"' style='color: red'></p>");
         $(target).eq(index).find('td').eq(3).append("<p class='is-error-pre_leave"+index+"' style='color: red'></p>");
       }
-
         $("#pre_reservationCreateForm").validate({
           rules: {
             user_id: { required: true },
@@ -387,14 +386,12 @@
     $(document).on("click", ".del", function() {
       var valid=$("#pre_reservationCreateForm").validate();
       valid.destroy();
-
       var master = $(this).parent().parent().parent().find('tr').length;
       var target = $(this).parent().parent();
       var re_target = target.parent();
       if (master > 1) {
         target.remove();
       }
-
       var count2 = $('.date_selector tbody tr').length;
       for (let index = 0; index < count2; index++) {
         $('.date_selector tbody tr').eq(index).find('td').eq(0).find('input, select').attr('name', "pre_date" + index);
@@ -410,25 +407,20 @@
           dateFormat: 'yy-mm-dd',
           minDate: 0,
         });
-
         $('.date_selector tbody tr').eq(index).find('td').eq(0).find('p').remove();
         $('.date_selector tbody tr').eq(index).find('td').eq(2).find('p').remove();
         $('.date_selector tbody tr').eq(index).find('td').eq(3).find('p').remove();
-
         $("input").removeClass('is-error');
         $("input").attr('aria-describedby',"");
         $("select").removeClass('is-error');
         $("select").attr('aria-describedby',"");
-
         $('.date_selector tbody tr').eq(index).find('td').eq(0).find('span').remove();
         $('.date_selector tbody tr').eq(index).find('td').eq(2).find('span').remove();
         $('.date_selector tbody tr').eq(index).find('td').eq(3).find('span').remove();
-
         $('.date_selector tbody tr').eq(index).find('td').eq(0).append("<p class='is-error-pre_date"+index+"' style='color: red'></p>");
         $('.date_selector tbody tr').eq(index).find('td').eq(2).append("<p class='is-error-pre_enter"+index+"' style='color: red'></p>");
         $('.date_selector tbody tr').eq(index).find('td').eq(3).append("<p class='is-error-pre_leave"+index+"' style='color: red'></p>");
       }
-
       $("#pre_reservationCreateForm").validate({
           rules: {
             user_id: { required: true },
@@ -476,8 +468,6 @@
           messages: { required: "※必須項目です" },
           });
         }
-
-
     })
   })
   // 入室時間選択トリガー
@@ -520,7 +510,6 @@
   //       } else {
   //         $(this).find('option').prop('disabled', true);
   //       }
-
   //       var masterTr = $('.date_selector tbody tr').length;
   //       for (let trs = 0; trs < masterTr; trs++) {
   //         var targetDate = $('.date_selector tbody tr').eq(trs).find('td').eq(0).find('input').val();
@@ -555,7 +544,6 @@
   //                 $($value).prop('disabled', true);
   //                 for (let counts = $index; counts < $index + ($targettimes[0] + 1); counts++) {
   //                   arrays.push(counts);
-
   //                 }
   //               }
   //             });
@@ -604,7 +592,6 @@
   //       } else {
   //         $(this).find('option').prop('disabled', true);
   //       }
-
   //       var masterTr = $('.date_selector tbody tr').length;
   //       for (let trs = 0; trs < masterTr; trs++) {
   //         var targetDate = $('.date_selector tbody tr').eq(trs).find('td').eq(0).find('input').val();

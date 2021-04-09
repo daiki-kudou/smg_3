@@ -484,7 +484,7 @@
     {{-- 右側 --}}
     <div class="col">
       <div class="client_mater">
-      <table class="table table-bordered name-table" style="table-layout:fixed;">
+        <table class="table table-bordered name-table" style="table-layout:fixed;">
           <tr>
             <td colspan="2">
               <div class="d-flex align-items-center justify-content-between">
@@ -572,6 +572,7 @@
           <td>
             {{ Form::text('', $request->cost."%",['class'=>'form-control'] ) }}
             {{ Form::hidden('cost', $request->cost,['class'=>'form-control'] ) }}
+            <p class="is-error-cost" style="color: red"></p>
           </td>
         </tr>
       </table>
