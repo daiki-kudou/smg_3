@@ -770,7 +770,7 @@ class MultipleReserve extends Model implements PresentableInterface //プレゼ�
   public function checkVenuePrice()
   {
     $judge = [];
-    foreach ($this->pre_reservations as $key => $value) {
+    foreach ($this->pre_reservations()->get() as $key => $value) {
       $judge[] = !empty($value->pre_bill->venue_price) ? $value->pre_bill->venue_price : 0;
     }
     return in_array(0, $judge);
@@ -779,7 +779,7 @@ class MultipleReserve extends Model implements PresentableInterface //プレゼ�
   public function checkEachStatus()
   {
     $judge = [];
-    foreach ($this->pre_reservations as $key => $value) {
+    foreach ($this->pre_reservations()->get() as $key => $value) {
       $judge[] = $value->status;
     }
     return in_array(0, $judge);

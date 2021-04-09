@@ -28,32 +28,27 @@ class MultiplesController extends Controller
       $multiples = $this->MultipleSearch($class, $request);
       $counter = count($multiples);
     } else {
-      $multiples = MultipleReserve::with('pre_reservations')->orderBy('id', 'desc')->paginate(30);
+      $multiples = MultipleReserve::orderBy('id', 'desc')->paginate(30);
       $counter = count($multiples);
     }
 
     $user = User::find(1);
 
+    // var_dump($multiples);
     return view('admin.multiples.index', compact('multiples', "counter", "request", "user"));
   }
 
   public function show($id)
   {
     $multiple = MultipleReserve::find($id);
-    $venues = PreReservation::where('multiple_reserve_id', $multiple->id)->distinct('')->select('venue_id')->get();
+    $venues = $multiple->pre_reservations()->distinct('')->select('venue_id')->get();
     $venue_count = $venues->count('venue_id');
     $checkVenuePrice = $multiple->checkVenuePrice();
     $checkEachStatus = $multiple->checkEachStatus();
 
     return view(
       'admin.multiples.show',
-      compact(
-        'multiple',
-        'venue_count',
-        'venues',
-        'checkVenuePrice',
-        'checkEachStatus'
-      )
+      compact('multiple', 'venue_count', 'venues', 'checkVenuePrice', 'checkEachStatus')
     );
   }
 
@@ -148,7 +143,7 @@ class MultiplesController extends Controller
 
   public function edit($multiple_id, $venue_id)
   {
-    $multiple = MultipleReserve::with(['pre_reservations', 'pre_reservations.pre_bill', 'pre_reservations.pre_breakdowns'])->find($multiple_id);
+    $multiple = MultipleReserve::find($multiple_id);
     $venue = Venue::find($venue_id);
     return view('admin.multiples.edit', [
       'multiple' => $multiple,
