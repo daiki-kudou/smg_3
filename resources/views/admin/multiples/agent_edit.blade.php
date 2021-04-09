@@ -89,6 +89,7 @@
             </table>
       </section>
 
+
       {{ Form::open(['url' => 'admin/multiples/agent/'.$multiple->id."/edit/".$venue->id.'/calculate', 'method'=>'POST', 'id'=>'multiplesAgentEdit']) }}
       @csrf
       <section class="m-5 border-inwrap">
