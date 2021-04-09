@@ -46,6 +46,49 @@
         </tbody>
       </table>
 
+      <section class="mx-5 mt-5">
+        <table class="table table-bordered customer-table mb-5" style="table-layout: fixed;">
+        <tbody>
+          <tr>
+            <td colspan="4">
+              <div class="d-flex align-items-center justify-content-between">
+                <p class="title-icon">
+                  <i class="far fa-address-card icon-size" aria-hidden="true"></i>
+                  仲介会社情報
+                </p>
+              </div>
+            </td>
+          </tr>
+          <tr>
+            <th class="table-active" width="25%"><label for="company">会社名・団体名</label></th>
+            <td>
+              {{ReservationHelper::getAgentCompany($multiple->pre_reservations()->first()->agent_id)}}
+            </td>
+            <td class="table-active"><label for="name">担当者氏名</label></td>
+            <td>
+              {{ReservationHelper::getAgentPerson($multiple->pre_reservations()->first()->agent_id)}}
+            </td>
+          </tr>
+          <tr>
+            <td class="table-active" scope="row"><label for="email">担当者メールアドレス</label></td>
+            <td>
+              {{ReservationHelper::getAgentEmail($multiple->pre_reservations()->first()->agent_id)}}
+            </td>
+            <td class="table-active" scope="row"><label for="mobile">携帯番号</label></td>
+            <td>
+              {{ReservationHelper::getAgentMobile($multiple->pre_reservations()->first()->agent_id)}}
+            </td>
+          </tr>
+          <tr>
+            <td class="table-active" scope="row"><label for="tel">固定電話</label></td>
+            <td>
+              {{ReservationHelper::getAgentTel($multiple->pre_reservations()->first()->agent_id)}}
+            </td>
+          </tr>
+        </tbody>
+            </table>
+      </section>
+
       {{ Form::open(['url' => 'admin/multiples/agent/'.$multiple->id."/edit/".$venue->id.'/calculate', 'method'=>'POST', 'id'=>'multiplesAgentEdit']) }}
       @csrf
       <section class="m-5 border-inwrap">

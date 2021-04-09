@@ -282,7 +282,7 @@
               <tr>
                 <th colspan="2">
                   <p class="title-icon fw-bolder py-1">
-                    <i class="fas fa-wrench icon-size fa-fw"></i>有料備品
+                    <i class="fas fa-wrench icon-size"></i>有料備品
                   </p>
                 </th>
               </tr>
@@ -308,7 +308,7 @@
               <tr>
                 <th colspan="2">
                   <p class="title-icon fw-bolder py-1">
-                    <i class="fas fa-hand-holding-heart icon-size fa-fw"></i>有料サービス
+                    <i class="fas fa-hand-holding-heart icon-size"></i>有料サービス
                   </p>
                 </th>
               </tr>
@@ -400,7 +400,7 @@
               <tr>
                 <th colspan='2'>
                   <p class="title-icon">
-                    <i class="fas fa-suitcase-rolling icon-size fa-fw"></i>荷物預り
+                    <i class="fas fa-suitcase-rolling icon-size"></i>荷物預り
                   </p>
                 </th>
               </tr>

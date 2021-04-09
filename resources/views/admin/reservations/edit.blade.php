@@ -5,6 +5,8 @@
 <link href="{{ asset('/css/template.css') }}" rel="stylesheet">
 <script src="{{ asset('/js/template.js') }}"></script>
 <script src="{{ asset('/js/ajax.js') }}"></script>
+<script src="{{ asset('/js/admin/validation.js') }}"></script>
+
 
 <style>
   #fullOverlay {
@@ -457,7 +459,10 @@
               <td>
                 @foreach ($bill->breakdowns()->get() as $l_prices)
                 @if ($l_prices->unit_item=="荷物預り/返送")
-                {{ Form::text('luggage_price', $l_prices->unit_cost,['class'=>'form-control'] ) }}
+                <div class="d-flex align-items-end">
+                  {{ Form::text('luggage_price', $l_prices->unit_cost,['class'=>'form-control'] ) }}
+                  <span class="ml-1 annotation">円</span>
+                </div>
                 @break
                 @elseif($loop->last)
                 {{ Form::text('luggage_price', "",['class'=>'form-control'] ) }}
@@ -559,8 +564,11 @@
         <tr>
           <td class="table-active"><label for="cost">原価率</label></td>
           <td>
-            {{ Form::text('', $reservation->cost."%",['class'=>'form-control'] ) }}
-            {{ Form::hidden('cost', $reservation->cost,['class'=>'form-control'] ) }}
+            <div class="d-flex align-items-end">
+              {{ Form::text('', $reservation->cost,['class'=>'form-control'] ) }}
+              {{ Form::hidden('cost', $reservation->cost,['class'=>'form-control'] ) }}
+              <span class="ml-1 annotation">%</span>
+            </div>
             <p class="is-error-cost" style="color: red"></p>
           </td>
         </tr>

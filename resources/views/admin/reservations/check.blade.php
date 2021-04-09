@@ -3,6 +3,8 @@
 
 <link href="{{ asset('/css/template.css') }}" rel="stylesheet">
 <script src="{{ asset('/js/template.js') }}"></script>
+<script src="{{ asset('/js/admin/validation.js') }}"></script>
+
 
 {{ Form::open(['url' => 'admin/reservations', 'method'=>'POST', 'id'=>'agents_calculate_form']) }}
 @csrf
@@ -222,7 +224,10 @@
             <tr>
               <td class="table-active">荷物預り/返送<br>料金</td>
               <td>
-                {{ Form::text('luggage_price', $request->luggage_price,['class'=>'form-control', 'readonly'] ) }}
+                <div class="d-flex align-items-end">
+                  {{ Form::text('luggage_price', $request->luggage_price,['class'=>'form-control', 'readonly'] ) }}
+                  <span class="ml-1 annotation">円</span>
+                </div>
               </td>
             </tr>
             @endif
@@ -315,8 +320,11 @@
           <tr>
             <td class="table-active"><label for="cost">原価率</label></td>
             <td>
-              {{ Form::text('', $request->cost."%",['class'=>'form-control', 'readonly'] ) }}
-              {{ Form::hidden('cost', $request->cost,['class'=>'form-control', 'readonly'] ) }}
+              <div class="d-flex align-items-end">
+                {{ Form::text('', $request->cost."%",['class'=>'form-control', 'readonly'] ) }}
+                {{ Form::hidden('cost', $request->cost,['class'=>'form-control', 'readonly'] ) }}
+                <span class="ml-1 annotation">%</span>
+              </div>
               <p class="is-error-cost" style="color: red"></p>
             </td>
           </tr>
