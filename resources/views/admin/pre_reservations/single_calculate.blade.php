@@ -62,7 +62,7 @@
         </tr>
         <tr>
           <td class="table-active caution">注意事項 工藤さん！！お願いし！！</td>
-          <td colspan="3" class="caution"> 
+          <td colspan="3" class="caution">
           </td>
         </tr>
       </tbody>
@@ -1024,7 +1024,6 @@
     $("html,body").animate({
       scrollTop: $('.bill').offset().top
     });
-
     $(function() {
       // プラスボタンクリック
       $(document).on("click", ".add", function() {
@@ -1037,7 +1036,6 @@
         $(this).parent().parent().next().find('td').find('input, select').eq(2).val('');
         $(this).parent().parent().next().find('td').find('input, select').eq(3).val('');
       });
-
       function addThisTr($targetTr, $TItem, $TCost, $TCount, $TSubtotal) {
         var count = $($targetTr).length;
         for (let index = 0; index < count; index++) {
@@ -1047,7 +1045,6 @@
           $($targetTr).eq(index).find('td').eq(3).find('input').attr('name', $TSubtotal + index);
         }
       }
-
       // マイナスボタンクリック
       $(document).on("click", ".del", function() {
         if ($(this).parent().parent().parent().attr('class') == "others_main") {
@@ -1074,7 +1071,6 @@
           }
           var total_target = $('input[name="others_price"]');
           total_target.val(total_val);
-
           var venue = $('input[name="venue_price"]').val() ? Number($('input[name="venue_price"]').val()) : 0;
           var equipment = $('input[name="equipment_price"]').val() ? Number($('input[name="equipment_price"]').val()) : 0;
           var layout = $('input[name="layout_price"]').val() ? Number($('input[name="layout_price"]').val()) : 0;
@@ -1108,7 +1104,6 @@
           }
           var total_target = $('input[name="venue_price"]');
           total_target.val(total_val);
-
           var venue = $('input[name="venue_price"]').val() ? Number($('input[name="venue_price"]').val()) : 0;
           var equipment = $('input[name="equipment_price"]').val() ? Number($('input[name="equipment_price"]').val()) : 0;
           var layout = $('input[name="layout_price"]').val() ? Number($('input[name="layout_price"]').val()) : 0;
@@ -1123,7 +1118,6 @@
       });
     });
   })
-
   $(function() {
     $(document).on("click", "input:radio[name='eat_in']", function() {
       var radioTarget = $('input:radio[name="eat_in"]:checked').val();
@@ -1135,8 +1129,6 @@
       }
     })
   })
-
-
   $(function() {
     var maxTarget = $('input[name="reserve_date"]').val();
     $('#datepicker9').datepicker({

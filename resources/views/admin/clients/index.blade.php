@@ -70,14 +70,14 @@
             </td>
             <th class="search_item_name"><label for="mobile">携帯電話</label></th>
             <td class="text-right">
-                <input type="text" name="mobile" class="form-control" id="mobile">
-                <p class="is-error-_mobile" style="color: red"></p>
+              <input type="text" name="mobile" class="form-control" id="mobile">
+              <p class="is-error-_mobile" style="color: red"></p>
             </td>
           </tr>
           <tr>
             <th class="search_item_name"><label for="tel">固定電話</label></th>
             <td class="text-right">
-                <input type="text" name="tel" class="form-control" id="tel">
+              <input type="text" name="tel" class="form-control" id="tel">
               <p class="is-error-tel" style="color: red"></p>
             </td>
             <th class="search_item_name"><label for="email">担当者メールアドレス</label></th>
@@ -217,6 +217,5 @@
   $(function(){
     $("#client_sort").tablesorter();
   })
-
 </script>
 @endsection

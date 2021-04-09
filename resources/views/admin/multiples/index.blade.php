@@ -244,7 +244,6 @@
     $('#all_check').on('change', function() {
       $('.checkbox').prop('checked', $(this).is(':checked'));
     })
-
     // 削除確認コンファーム
     $('#confirm_destroy').on('click', function() {
       if (!confirm('削除してもよろしいですか？\n一括仮押さえに関連する仮押さえの内容がすべて削除されます')) {
@@ -252,7 +251,6 @@
       }
     })
   })
-
   $(function() {
     $("input[type='checkbox']").on('change', function() {
       checked = $('[class="checkbox"]:checked').map(function() {
@@ -264,8 +262,6 @@
       }
     })
   })
-
-
   $(function() {
     function ActiveDateRangePicker($target) {
       $("input[name='" + $target + "']").daterangepicker({
@@ -281,11 +277,9 @@
         },
         autoUpdateInput: false
       });
-
       $("input[name='" + $target + "']").on('apply.daterangepicker', function(ev, picker) {
         $(this).val(picker.startDate.format('YYYY/MM/DD') + ' - ' + picker.endDate.format('YYYY/MM/DD'));
       });
-
       $("input[name='" + $target + "']").on('cancel.daterangepicker', function(ev, picker) {
         $(this).val('');
       });

@@ -94,7 +94,9 @@
           <td>
             <select name="enter_time" id="sales_start" class="form-control">
               <option disabled selected></option>
-              @for ($start = 0*2; $start <=23*2; $start++) <option value="{{date("H:i:s", strtotime("00:00 +". $start * 30 ." minute"))}}" @if (date("H:i:s", strtotime("00:00 +". $start * 30 ." minute"))==$reservation->enter_time)
+              @for ($start = 0*2; $start <=23*2; $start++) <option
+                value="{{date("H:i:s", strtotime("00:00 +". $start * 30 ." minute"))}}" @if (date("H:i:s",
+                strtotime("00:00 +". $start * 30 ." minute"))==$reservation->enter_time)
                 selected
                 @endif>
                 {{date("H時i分", strtotime("00:00 +". $start * 30 ." minute"))}}
@@ -108,7 +110,9 @@
           <td>
             <select name="leave_time" id="sales_finish" class="form-control">
               <option disabled selected></option>
-              @for ($start = 0*2; $start <=23*2; $start++) <option value="{{date("H:i:s", strtotime("00:00 +". $start * 30 ." minute"))}}" @if (date("H:i:s", strtotime("00:00 +". $start * 30 ." minute"))==$reservation->leave_time)
+              @for ($start = 0*2; $start <=23*2; $start++) <option
+                value="{{date("H:i:s", strtotime("00:00 +". $start * 30 ." minute"))}}" @if (date("H:i:s",
+                strtotime("00:00 +". $start * 30 ." minute"))==$reservation->leave_time)
                 selected
                 @endif
                 >
@@ -133,11 +137,13 @@
           <td>
             <div class="radio-box">
               <p>
-                <input type="radio" name="board_flag" value="0" {{isset($reservation->board_flag)?$reservation->board_flag==0?'checked':'':'checked',}}>
+                <input type="radio" name="board_flag" value="0"
+                  {{isset($reservation->board_flag)?$reservation->board_flag==0?'checked':'':'checked',}}>
                 <span>無し</span>
               </p>
               <p>
-                <input type="radio" name="board_flag" value="1" {{isset($reservation->board_flag)?$reservation->board_flag==1?'checked':'':'',}}>
+                <input type="radio" name="board_flag" value="1"
+                  {{isset($reservation->board_flag)?$reservation->board_flag==1?'checked':'':'',}}>
                 <span>有り</span>
               </p>
             </div>
@@ -148,7 +154,9 @@
           <td>
             <select name="event_start" id="event_start" class="form-control">
               <option disabled>選択してください</option>
-              @for ($start = 0*2; $start <=23*2; $start++) <option value="{{date("H:i:s", strtotime("00:00 +". $start * 30 ." minute"))}}" @if (date("H:i:s", strtotime("00:00 +". $start * 30 ." minute"))==$reservation->event_start)
+              @for ($start = 0*2; $start <=23*2; $start++) <option
+                value="{{date("H:i:s", strtotime("00:00 +". $start * 30 ." minute"))}}" @if (date("H:i:s",
+                strtotime("00:00 +". $start * 30 ." minute"))==$reservation->event_start)
                 selected
                 @endif
                 >
@@ -163,7 +171,9 @@
 
             <select name="event_finish" id="event_finish" class="form-control">
               <option disabled>選択してください</option>
-              @for ($start = 0*2; $start <=23*2; $start++) <option value="{{date("H:i:s", strtotime("00:00 +". $start * 30 ." minute"))}}" @if (date("H:i:s", strtotime("00:00 +". $start * 30 ." minute"))==$reservation->event_finish)
+              @for ($start = 0*2; $start <=23*2; $start++) <option
+                value="{{date("H:i:s", strtotime("00:00 +". $start * 30 ." minute"))}}" @if (date("H:i:s",
+                strtotime("00:00 +". $start * 30 ." minute"))==$reservation->event_finish)
                 selected
                 @endif
                 >
@@ -224,7 +234,8 @@
                 {{$equ->item}}
               </td>
               <td>
-                <input type="text" class="form-control" name="{{'equipment_breakdown'.$key}}" @foreach($bill->breakdowns()->where('unit_type',2)->get() as $e_break)
+                <input type="text" class="form-control" name="{{'equipment_breakdown'.$key}}"
+                  @foreach($bill->breakdowns()->where('unit_type',2)->get() as $e_break)
                 @if ($e_break->unit_item==$equ->item)
                 value="{{$e_break->unit_count}}"
                 @endif

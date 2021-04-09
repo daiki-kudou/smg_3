@@ -121,8 +121,8 @@
           <tbody class="accordion-wrap">
             @foreach ($venue->getEquipments() as $key=>$equipment)
             <tr>
-              <td class="table-active">{{$equipment->item}}</td>
-              <td>
+              <td>{{$equipment->item}}</td>
+              <td class="table-active">
                 @for ($i = 0; $i < $equ_breakdowns; $i++) @if ($equipment->
                   item==$request->{"equipment_breakdown_item".$i})
                   {{ Form::text('equipment_breakdown'.$key, $request->{'equipment_breakdown_count'.$i},['class'=>'form-control', 'readonly'] ) }}

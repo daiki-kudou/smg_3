@@ -249,11 +249,9 @@
         },
         autoUpdateInput: false
       });
-
       $("input[name='" + $target + "']").on('apply.daterangepicker', function(ev, picker) {
         $(this).val(picker.startDate.format('YYYY/MM/DD') + ' - ' + picker.endDate.format('YYYY/MM/DD'));
       });
-
       $("input[name='" + $target + "']").on('cancel.daterangepicker', function(ev, picker) {
         $(this).val('');
       });
@@ -261,13 +259,11 @@
     ActiveDateRangePicker('search_created_at');
     ActiveDateRangePicker('search_date');
   })
-
   $(function() {
     // 全選択アクション
     $('#all_check').on('change', function() {
       $('.checkbox').prop('checked', $(this).is(':checked'));
     })
-
     // 削除確認コンファーム
     $('#confirm_destroy').on('click', function() {
       if (!confirm('削除してもよろしいですか？')) {
@@ -275,7 +271,6 @@
       }
     })
   })
-
   $(function() {
     $("input[type='checkbox']").on('change', function() {
       checked = $('[class="checkbox"]:checked').map(function() {

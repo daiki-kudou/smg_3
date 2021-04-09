@@ -11,16 +11,16 @@ jQuery.validator.addMethod("alphanum", function (value, element) {
 
 
 // 有料備品の数字入力制限
-$(function() {
-  
-  $("input[name*='equipment_breakdown']").on('input', function(e) {
-      let value = $(e.currentTarget).val();
-      value = value
-          .replace(/[０-９]/g, function(s) {
-              return String.fromCharCode(s.charCodeAt(0) - 65248);
-          })
-          .replace(/[^0-9]/g, '');
-      $(e.currentTarget).val(value);
+$(function () {
+
+  $("input[name*='equipment_breakdown']").on('input', function (e) {
+    let value = $(e.currentTarget).val();
+    value = value
+      .replace(/[０-９]/g, function (s) {
+        return String.fromCharCode(s.charCodeAt(0) - 65248);
+      })
+      .replace(/[^0-9]/g, '');
+    $(e.currentTarget).val(value);
   });
 });
 
@@ -121,7 +121,7 @@ $(function () {
 // 仮押さえ　詳細＆再計算&編集&編集の再計算
 $(function () {
   var target = ["#pre_reservationSingleCheckForm", "#pre_reservationSingleCalculateForm"
-    , "#pre_reservationSingleEditForm", "#pre_reservationSingleRecalculateForm","#multiple_switch"];
+    , "#pre_reservationSingleEditForm", "#pre_reservationSingleRecalculateForm", "#multiple_switch"];
 
   $.each(target, function (index, value) {
     $(value).validate({
@@ -523,7 +523,7 @@ $(function () {
       },
       messages: {
         cp_master_enduser_charge: { required: "※必須項目です", number: "半角数字で入力してください" },
-        cp_master_luggage_count: {  number: "半角数字で入力してください", range: '※最大値は49です' },
+        cp_master_luggage_count: { number: "半角数字で入力してください", range: '※最大値は49です' },
         cp_master_luggage_return: { number: "半角数字で入力してください", range: '※最大値は49です' },
         cp_master_cost: { number: "半角数字で入力してください", range: "※1から100までの数値を入力してください" },
       },
@@ -1242,8 +1242,8 @@ $(function () {
         post_code: {
           number: "※半角数字で入力してください",
         },
-        url: { 
-          url: '正しいURLを記入してください(例:https://osaka-conference.com/)' 
+        url: {
+          url: '正しいURLを記入してください(例:https://osaka-conference.com/)'
         },
         first_name: {
           required: "※必須項目です",
@@ -1303,7 +1303,7 @@ $(function () {
   })
 
 
-  
+
 });
 
 

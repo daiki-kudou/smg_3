@@ -52,7 +52,7 @@
         </tr>
         <tr>
           <td class="table-active caution">注意事項 工藤さん！！お願いし！！</td>
-          <td colspan="3" class="caution"> 
+          <td colspan="3" class="caution">
           </td>
         </tr>
       </tbody>
@@ -621,7 +621,6 @@
       autoclose: true,
     });
   })
-
   $(function() {
     $(document).on("click", "input:radio[name='eat_in']", function() {
       var radioTarget = $('input:radio[name="eat_in"]:checked').val();

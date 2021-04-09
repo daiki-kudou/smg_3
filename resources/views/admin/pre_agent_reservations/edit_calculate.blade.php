@@ -114,8 +114,8 @@
               <option value="2" {{$request->pre_endusers_attr==2?"selected":""}}>上場企業</option>
               <option value="3" {{$request->pre_endusers_attr==3?"selected":""}}>近隣利用</option>
               <option value="4" {{$request->pre_endusers_attr==4?"selected":""}}>個人講師</option>
-              <option value="5"{{$request->pre_endusers_attr==5?"selected":""}}>MLM</option>
-              <option value="6"{{$request->pre_endusers_attr==6?"selected":""}}>その他</option>
+              <option value="5" {{$request->pre_endusers_attr==5?"selected":""}}>MLM</option>
+              <option value="6" {{$request->pre_endusers_attr==6?"selected":""}}>その他</option>
             </select>
             <p class="is-error-pre_enduser_attr" style="color: red"></p>
           </td>
@@ -223,7 +223,9 @@
               <select name="event_start" id="event_start" class="form-control">
                 <option disabled></option>
 
-                @for ($start = 0*2; $start <=23*2; $start++) <option value="{{date("H:i:s", strtotime("00:00 +". $start * 30 ." minute"))}}" @if (date("H:i:s", strtotime("00:00 +". $start * 30 ." minute"))==$request->event_start)
+                @for ($start = 0*2; $start <=23*2; $start++) <option
+                  value="{{date("H:i:s", strtotime("00:00 +". $start * 30 ." minute"))}}" @if (date("H:i:s",
+                  strtotime("00:00 +". $start * 30 ." minute"))==$request->event_start)
                   selected
                   @elseif(date("H:i:s",strtotime("00:00 +". $start * 30 ." minute")) < $request->enter_time)
                     disabled
@@ -244,7 +246,9 @@
               <select name="event_finish" id="event_finish" class="form-control">
                 <option disabled></option>
 
-                @for ($start = 0*2; $start <=23*2; $start++) <option value="{{date("H:i:s", strtotime("00:00 +". $start * 30 ." minute"))}}" @if(date("H:i:s",strtotime("00:00 +". $start * 30 ." minute"))==$request->event_finish)
+                @for ($start = 0*2; $start <=23*2; $start++) <option
+                  value="{{date("H:i:s", strtotime("00:00 +". $start * 30 ." minute"))}}"
+                  @if(date("H:i:s",strtotime("00:00 +". $start * 30 ." minute"))==$request->event_finish)
                   selected
                   @elseif(date("H:i:s",strtotime("00:00 +". $start * 30 ." minute")) < $request->enter_time)
                     disabled
