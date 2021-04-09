@@ -136,7 +136,6 @@
         </tbody>
       </table>
       <p class="text-right">※フリーワード検索は本画面表記の項目のみ対象となります</p>
-
       <div class="btn_box d-flex justify-content-center">
         <a href="{{url('admin/pre_reservations')}}" class="btn reset_btn">リセット</a>
         {{Form::submit('検索', ['class'=>'btn search_btn', 'id'=>''])}}
@@ -156,7 +155,13 @@
       </li>
       <li>
         <div class="d-flex">
-          <a class="more_btn bg-red" href="">仮押え期間超過</a>
+          {{-- 仮押さえ超過ボタン --}}
+          {{Form::open(['url' => 'admin/pre_reservations', 'method' => 'GET', 'id'=>''])}}
+          @csrf
+          {{ Form::submit('仮押え期間超過', ['class' => 'btn more_btn bg-red','name'=>'time_over']) }}
+          {{ Form::close() }}
+
+          {{-- <a class="more_btn bg-red" href="">仮押え期間超過</a> --}}
           <p class="ml-3 font-weight-bold"><span class="count-color">ダミーダミー</span>件</p>
         </div>
       </li>

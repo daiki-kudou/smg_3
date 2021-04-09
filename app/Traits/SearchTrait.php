@@ -17,6 +17,7 @@ trait SearchTrait
 
   public function BasicSearch($class, $request)
   {
+
     $andSearch = $class->where('multiple_reserve_id', '=', 0); // マスタのクエリ 
 
     $this->SimpleWhereLike($request, "search_id", $andSearch, "id"); // id検索
@@ -48,6 +49,8 @@ trait SearchTrait
     $this->SimpleWhereHas($request->search_unkown_user, $andSearch, "unknown_user", "unknown_user_company"); // 会社名・団体名（仮）unknown_user
     $this->SimpleWhere($request, "search_agent", $andSearch, "agent_id"); // 仲介会社
     $this->SimpleWhereHas($request->search_end_user, $andSearch, "pre_enduser", "company"); // エンドユーザー
+
+
     // 最終return
     return $andSearch->orderBy('id', 'desc')->paginate(30);
   }
@@ -119,10 +122,6 @@ trait SearchTrait
         $query->where('company', "LIKE", "%{$request->search_end_user}%");
       });
     }
-
-
-
-
 
     // $this->SimpleWhere($request, "search_id", $result, "id");
 

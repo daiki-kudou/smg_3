@@ -41,7 +41,12 @@ class PreReservationsController extends Controller
    */
   public function index(Request $request)
   {
-    if (count($request->all()) != 0) {
+    if (!empty($request->time_over)) {
+      $today = Carbon::now();
+      $threeDaysBefore = date('Y-m-d H:i:s', strtotime($today->subHours(72)));
+      $pre_reservations = PreReservation::where('status', 1)->where('updated_at', '<', $threeDaysBefore)->orderBy('id', 'desc')->paginate(30);
+      $counter = count($pre_reservations);
+    } elseif (count($request->all()) != 0) {
       $class = new PreReservation;
       $pre_reservations = $this->BasicSearch($class, $request);
       $counter = count($pre_reservations);
@@ -49,6 +54,15 @@ class PreReservationsController extends Controller
       $pre_reservations = PreReservation::where('multiple_reserve_id', '=', 0)->orderBy('id', 'desc')->paginate(30);
       $counter = count($pre_reservations);
     }
+
+    // if (count($request->all()) != 0) {
+    //   $class = new PreReservation;
+    //   $pre_reservations = $this->BasicSearch($class, $request);
+    //   $counter = count($pre_reservations);
+    // } else {
+    //   $pre_reservations = PreReservation::where('multiple_reserve_id', '=', 0)->orderBy('id', 'desc')->paginate(30);
+    //   $counter = count($pre_reservations);
+    // }
 
     $venues = Venue::all();
     $agents = Agent::all();
@@ -351,7 +365,6 @@ class PreReservationsController extends Controller
       // 戻って再度送信してもエラーになるように設定
       $request->session()->regenerate();
       return redirect()->route('admin.pre_reservations.show', $new_preReserve->id)->with('flash_message', '単発仮押えの登録が完了しました');
-      var_dump($new_preReserve);
     } else {
       //複数仮押えの保存
     }
@@ -577,7 +590,7 @@ class PreReservationsController extends Controller
     });
     $admin = config('app.admin_email');
 
-    var_dump($PreReservation->user);
+
     Mail::to($admin) //管理者
       ->send(new AdminFinPreRes(
         $PreReservation->user->company,
