@@ -27,8 +27,6 @@
     更新しないまま画面遷移をすると、データが反映されません。
   </p>
 </div>　
-
-
 <!-- 詳細選択画面--------------------------------------------------　 -->
 <p class="font-weight-bold">日程ごとに、詳細を編集できます。</p>
 <section class="border-wrap2 pb-5">
@@ -579,7 +577,6 @@
         <div class="form-check">
           <input type="checkbox" name="{{'delete_check'.$pre_reservation->id}}" value="{{$pre_reservation->id}}"
             class="checkbox mr-1" />
-          <!-- <input class="form-check-input" type="checkbox"> -->
           <label class="form-check-label"></label>
         </div>
       </div>
@@ -757,6 +754,7 @@
                     </td>
                   </tr>
                   @endforeach
+
                 </tbody>
               </table>
               <table class="table table-bordered service-table">
@@ -835,25 +833,11 @@
                     <td class="table-active">準備</td>
                     <td>
                       <div class="radio-box">
-                        {{-- ■注意
-                        ■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■
-                        ■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■
-                        ■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■
-                        ■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■
-                        ■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■
-                        ■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■
-                        ■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■
-                        ■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■
-                        ■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■
-                        N+1発生中 --}}
-
-                        {{-- ↓
-                          ↓ --}}
-
-                        {{-- @if ($pre_reservation->pre_breakdowns()->where('unit_item',"レイアウト準備料金")->count()==0)
+                        @if (!empty($pre_reservation->pre_breakdowns))
+                        @if ($pre_reservation->pre_breakdowns->where('unit_item',"レイアウト準備料金")->count()==0)
                         <p>
                           {{Form::radio('layout_prepare_copied'.$key, 1, false, ['id' => 'layout_prepare_copied'.$key])}}
-                        {{Form::label('layout_prepare_copied'.$key,'有り')}}
+                          {{Form::label('layout_prepare_copied'.$key,'有り')}}
                         </p>
                         <p>
                           {{Form::radio('layout_prepare_copied'.$key, 0, true, ['id' => 'no_layout_prepare_copied'.$key])}}
@@ -882,7 +866,8 @@
                         </p>
                         @endif
                         @endforeach
-                        @endif --}}
+                        @endif
+                        @endif
                       </div>
                     </td>
                   </tr>
@@ -890,32 +875,17 @@
                     <td class="table-active">片付</td>
                     <td>
                       <div class="radio-box">
-                        {{-- ■注意
-                        ■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■
-                        ■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■
-                        ■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■
-                        ■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■
-                        ■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■
-                        ■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■
-                        ■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■
-                        ■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■
-                        ■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■
-                        N+1発生中 --}}
-
-                        {{-- ↓
-                          ↓ --}}
-
-                        {{-- @if ($pre_reservation->pre_breakdowns()->where('unit_item',"レイアウト片付料金")->count()==0)
+                        @if (empty($pre_reservation->pre_breakdowns))
                         <p>
                           {{Form::radio('layout_clean_copied'.$key, 1, false, ['id' => 'layout_clean_copied'.$key])}}
-                        {{Form::label('layout_clean_copied'.$key,'有り')}}
+                          {{Form::label('layout_clean_copied'.$key,'有り')}}
                         </p>
                         <p>
                           {{Form::radio('layout_clean_copied'.$key, 0, true, ['id' => 'no_layout_clean_copied'.$key])}}
                           {{Form::label('no_layout_clean_copied'.$key,'無し')}}
                         </p>
                         @else
-                        @foreach ($pre_reservation->pre_breakdowns()->get() as $layout_prepares)
+                        @foreach ($pre_reservation->pre_breakdowns as $layout_prepares)
                         @if ($layout_prepares->unit_item=="レイアウト片付料金")
                         <p>
                           {{Form::radio('layout_clean_copied'.$key, 1, true, ['id' => 'layout_clean_copied'.$key])}}
@@ -937,8 +907,7 @@
                         </p>
                         @endif
                         @endforeach
-                        @endif --}}
-
+                        @endif
                       </div>
                     </td>
                   </tr>
@@ -1203,37 +1172,22 @@
                         </tr>
                       </tbody>
                       <tbody class="{{'venue_main'.$key}}">
-                        {{-- ■注意
-                        ■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■
-                        ■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■
-                        ■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■
-                        ■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■
-                        ■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■
-                        ■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■
-                        ■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■
-                        ■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■
-                        ■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■
-                        N+1発生中 --}}
-
-                        {{-- ↓
-                          ↓ --}}
-
-                        {{-- @foreach ($pre_reservation->pre_breakdowns()->where('unit_type',1)->get() as $each_venue)
+                        @foreach ($pre_reservation->pre_breakdowns->where('unit_type',1) as $each_venue)
                         <tr>
                           <td>
                             {{ Form::text('venue_breakdown_item0_copied'.$key, $each_venue->unit_item,['class'=>'form-control', 'readonly'] ) }}
-                        </td>
-                        <td>
-                          {{ Form::text('venue_breakdown_cost0_copied'.$key, $each_venue->unit_cost,['class'=>'form-control', 'readonly'] ) }}
-                        </td>
-                        <td>
-                          {{ Form::text('venue_breakdown_count0_copied'.$key, $each_venue->unit_count,['class'=>'form-control', 'readonly'] ) }}
-                        </td>
-                        <td>
-                          {{ Form::text('venue_breakdown_subtotal0_copied'.$key, $each_venue->unit_subtotal,['class'=>'form-control', 'readonly'] ) }}
-                        </td>
+                          </td>
+                          <td>
+                            {{ Form::text('venue_breakdown_cost0_copied'.$key, $each_venue->unit_cost,['class'=>'form-control', 'readonly'] ) }}
+                          </td>
+                          <td>
+                            {{ Form::text('venue_breakdown_count0_copied'.$key, $each_venue->unit_count,['class'=>'form-control', 'readonly'] ) }}
+                          </td>
+                          <td>
+                            {{ Form::text('venue_breakdown_subtotal0_copied'.$key, $each_venue->unit_subtotal,['class'=>'form-control', 'readonly'] ) }}
+                          </td>
                         </tr>
-                        @endforeach --}}
+                        @endforeach
                       </tbody>
                       <tbody class="{{'venue_result'.$key}}">
                         <tr>
@@ -1311,39 +1265,25 @@
                         </tr>
                       </tbody>
                       <tbody class="{{'equipment_main'.$key}}">
-                        {{-- ■注意
-                        ■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■
-                        ■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■
-                        ■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■
-                        ■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■
-                        ■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■
-                        ■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■
-                        ■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■
-                        ■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■
-                        ■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■
-                        N+1発生中 --}}
 
-                        {{-- ↓
-                          ↓ --}}
-
-                        {{-- @foreach ($pre_reservation->pre_breakdowns()->where('unit_type',2)->get() as
+                        @foreach ($pre_reservation->pre_breakdowns->where('unit_type',2) as
                         $eb_key=>$each_equ)
                         <tr>
                           <td>
                             {{ Form::text('equipment_breakdown_item'.$eb_key.'_copied'.$key, $each_equ->unit_item,['class'=>'form-control', 'readonly'] ) }}
-                        </td>
-                        <td>
-                          {{ Form::text('equipment_breakdown_cost'.$eb_key.'_copied'.$key, $each_equ->unit_cost,['class'=>'form-control', 'readonly'] ) }}
-                        </td>
-                        <td>
-                          {{ Form::text('equipment_breakdown_count'.$eb_key.'_copied'.$key, $each_equ->unit_count,['class'=>'form-control', 'readonly'] ) }}
-                        </td>
-                        <td>
-                          {{ Form::text('equipment_breakdown_subtotal'.$eb_key.'_copied'.$key, $each_equ->unit_subtotal,['class'=>'form-control', 'readonly'] ) }}
-                        </td>
+                          </td>
+                          <td>
+                            {{ Form::text('equipment_breakdown_cost'.$eb_key.'_copied'.$key, $each_equ->unit_cost,['class'=>'form-control', 'readonly'] ) }}
+                          </td>
+                          <td>
+                            {{ Form::text('equipment_breakdown_count'.$eb_key.'_copied'.$key, $each_equ->unit_count,['class'=>'form-control', 'readonly'] ) }}
+                          </td>
+                          <td>
+                            {{ Form::text('equipment_breakdown_subtotal'.$eb_key.'_copied'.$key, $each_equ->unit_subtotal,['class'=>'form-control', 'readonly'] ) }}
+                          </td>
                         </tr>
                         @endforeach
-                        @foreach ($pre_reservation->pre_breakdowns()->where('unit_type',3)->get() as
+                        @foreach ($pre_reservation->pre_breakdowns->where('unit_type',3) as
                         $sb_key=>$each_ser)
                         <tr>
                           <td>
@@ -1359,7 +1299,8 @@
                             {{ Form::text('services_breakdown_subtotal'.$sb_key.'_copied'.$key, $each_ser->unit_subtotal,['class'=>'form-control', 'readonly'] ) }}
                           </td>
                         </tr>
-                        @endforeach --}}
+                        @endforeach
+
                       </tbody>
                       <tbody class="{{'equipment_result'.$key}}">
                         <tr>
@@ -1394,38 +1335,24 @@
                         </tr>
                       </tbody>
                       <tbody class="{{'layout_main'.$key}}">
-                        {{-- ■注意
-                        ■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■
-                        ■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■
-                        ■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■
-                        ■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■
-                        ■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■
-                        ■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■
-                        ■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■
-                        ■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■
-                        ■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■
-                        N+1発生中 --}}
 
-                        {{-- ↓
-                          ↓ --}}
-
-                        {{-- @foreach ($pre_reservation->pre_breakdowns()->where('unit_type',4)->get() as
+                        @foreach ($pre_reservation->pre_breakdowns->where('unit_type',4) as
                         $slp_key=>$each_play)
                         <tr>
                           <td>
                             {{ Form::text('layout_breakdown_item'.$slp_key.'_copied'.$key, $each_play->unit_item,['class'=>'form-control', 'readonly'] ) }}
-                        </td>
-                        <td>
-                          {{ Form::text('layout_breakdown_cost'.$slp_key.'_copied'.$key, $each_play->unit_cost,['class'=>'form-control', 'readonly'] ) }}
-                        </td>
-                        <td>
-                          {{ Form::text('layout_breakdown_count'.$slp_key.'_copied'.$key, $each_play->unit_count,['class'=>'form-control', 'readonly'] ) }}
-                        </td>
-                        <td>
-                          {{ Form::text('layout_breakdown_subtotal'.$slp_key.'_copied'.$key, $each_play->unit_subtotal,['class'=>'form-control', 'readonly'] ) }}
-                        </td>
+                          </td>
+                          <td>
+                            {{ Form::text('layout_breakdown_cost'.$slp_key.'_copied'.$key, $each_play->unit_cost,['class'=>'form-control', 'readonly'] ) }}
+                          </td>
+                          <td>
+                            {{ Form::text('layout_breakdown_count'.$slp_key.'_copied'.$key, $each_play->unit_count,['class'=>'form-control', 'readonly'] ) }}
+                          </td>
+                          <td>
+                            {{ Form::text('layout_breakdown_subtotal'.$slp_key.'_copied'.$key, $each_play->unit_subtotal,['class'=>'form-control', 'readonly'] ) }}
+                          </td>
                         </tr>
-                        @endforeach --}}
+                        @endforeach
                       </tbody>
                       <tbody class="{{'layout_result'.$key}}">
                         <tr>
@@ -1465,21 +1392,15 @@
                       </tr>
                     </table>
                   </div>
-
                 </div>
-                <!-- 請求内訳 終わり ------------------------------------------------------>
               </div>
             </div>
           </section>
         </dt>
-        <!-- /.card-body -->
       </dl>
-      <!-- /.card -->
     </div>
-    <!-- 仮押え一括 タブ終わり-->
   </section>
   @endforeach
-
 </section>
 
 <section class="master_totals border-wrap">
