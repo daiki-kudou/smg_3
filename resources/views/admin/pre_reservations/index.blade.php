@@ -160,8 +160,6 @@
           @csrf
           {{ Form::submit('仮押え期間超過', ['class' => 'btn more_btn bg-red','name'=>'time_over']) }}
           {{ Form::close() }}
-
-          {{-- <a class="more_btn bg-red" href="">仮押え期間超過</a> --}}
           <p class="ml-3 font-weight-bold"><span class="count-color">ダミーダミー</span>件</p>
         </div>
       </li>

@@ -26,6 +26,8 @@ class DatabaseSeeder extends Seeder
 
       PreReservationsTableSeeder::class,
 
+      UnknownUsersTableSeeder::class,
+
     ]);
   }
 }

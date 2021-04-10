@@ -8,6 +8,8 @@ use App\Models\User;
 use App\Models\Agent;
 use Faker\Generator as Faker;
 
+use Faker\Provider\DateTime;
+
 
 $factory->define(PreReservation::class, function (Faker $faker) {
   $venues = Venue::all()->pluck("id");
@@ -16,11 +18,21 @@ $factory->define(PreReservation::class, function (Faker $faker) {
   $enter = ['10:00:00', '12:00:00', '14:00:00'];
   $leave = ['16:00:00', '18:00:00', '20:00:00'];
   $date = ["2020-04-01 00:00:00", "2020-04-03", "2020-04-05", "2020-04-07", "2020-04-09", "2020-04-11", "2020-04-12", "2020-04-18", "2020-04-19", "2020-04-20", "2020-04-21", "2020-04-29"];
+
+  $randUser = $users[array_rand($users->all(), 1)];
+  $randAgent = $agents[array_rand($agents->all(), 1)];
+  if ($randUser % 2 == 0) {
+    $randUser = 0;
+    $randAgent = $agents[array_rand($agents->all(), 1)];
+  } else {
+    $randUser = $users[array_rand($users->all(), 1)];
+    $randAgent = 0;
+  }
   return [
     'multiple_reserve_id' => 0,
     'venue_id' => $venues[array_rand($venues->all(), 1)],
-    'user_id' => $users[array_rand($users->all(), 1)],
-    'agent_id' => 0,
+    'user_id' => $randUser,
+    'agent_id' => $randAgent,
     'reserve_date' => $faker->dateTimeThisYear,
     'price_system' => rand(1, 2),
     'enter_time' => $enter[array_rand($enter, 1)],
@@ -41,9 +53,10 @@ $factory->define(PreReservation::class, function (Faker $faker) {
     'attention' => "",
     'user_details' => "",
     'admin_details' => "",
-    'status' => 0,
+    'status' => rand(0, 2),
     'eat_in' => 0,
     'eat_in_prepare' => 0,
     'cost' => 0,
+    'created_at' => $faker->dateTimeBetween($startDate = '-2 month', $endDate = '+2 moth'),
   ];
 });
