@@ -229,6 +229,8 @@
   </div>
 
   {{ $pre_reservations->appends(request()->input())->links() }}
+  {{-- {{ $pre_reservations->links() }} --}}
+
 
 
 
