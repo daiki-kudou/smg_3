@@ -36,6 +36,14 @@ trait SearchTrait
           $query->orWhere('name_venue', 'LIKE', "%{$request->search_free}%");
           $query->orWhere(DB::raw('CONCAT(name_bldg, name_venue)'), 'like', "%{$request->search_free}%");
         });
+        $query->orWhereHas('agent', function ($query) use ($request) {
+          $query->where('person_firstname', 'LIKE', "%{$request->search_free}%");
+          $query->orWhere('person_lastname', 'LIKE', "%{$request->search_free}%");
+          $query->orWhere(DB::raw('CONCAT(person_firstname, person_lastname)'), 'like', '%' . $request->search_free . '%');
+          $query->orWhere('company', 'LIKE', "%{$request->search_free}%");
+          $query->orWhere('person_mobile', 'LIKE', "%{$request->search_free}%");
+          $query->orWhere('person_tel', 'LIKE', "%{$request->search_free}%");
+        });
         $query->orWhereHas('unknown_user', function ($query) use ($request) {
           $query->where('unknown_user_company', 'LIKE', "%{$request->search_free}%");
         });
