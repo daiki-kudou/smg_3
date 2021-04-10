@@ -53,8 +53,6 @@
       <hr>
     </div>
 
-    {{var_dump($request->all())}}
-
     <!-- 検索--------------------------------------- -->
     {{Form::open(['url' => 'admin/pre_reservations', 'method' => 'GET', 'id'=>'preserve_search'])}}
     @csrf
@@ -213,8 +211,7 @@
             <td>{{ReservationHelper::formatTime($pre_reservation->enter_time)}}</td>
             <td>{{ReservationHelper::formatTime($pre_reservation->leave_time)}}</td>
             <td>{{ReservationHelper::getVenue($pre_reservation->venue_id)}}</td>
-            <td>{{ReservationHelper::checkAgentOrUserCompany($pre_reservation->user_id, $pre_reservation->agent_id)}}
-            </td>
+            <td>{{$pre_reservation->user_id>0?ReservationHelper::getCompany($pre_reservation->user_id):""}}</td>
             <td>{{ReservationHelper::checkAgentOrUserName($pre_reservation->user_id, $pre_reservation->agent_id)}}</td>
             <td>{{ReservationHelper::checkAgentOrUserMobile($pre_reservation->user_id, $pre_reservation->agent_id)}}
             </td>
