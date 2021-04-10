@@ -41,7 +41,9 @@
       <div class="float-right">
         <nav aria-label="breadcrumb">
           <ol class="breadcrumb">
-            <li class="breadcrumb-item active"><a href="http://staging-smg2.herokuapp.com/admin/home">ホーム</a> >
+            <li class="breadcrumb-item active">
+              <a href="http://staging-smg2.herokuapp.com/admin/home">ホーム</a>
+              >
               ダミーダミーダミー
             </li>
           </ol>
@@ -160,7 +162,11 @@
           @csrf
           {{ Form::submit('仮押え期間超過', ['class' => 'btn more_btn bg-red','name'=>'time_over']) }}
           {{ Form::close() }}
-          <p class="ml-3 font-weight-bold"><span class="count-color">ダミーダミー</span>件</p>
+          <p class="ml-3 font-weight-bold">
+            @if ($counter!=0)
+            <span class="count-color">{{$counter}}</span>件
+            @endif
+          </p>
         </div>
       </li>
     </ul>
