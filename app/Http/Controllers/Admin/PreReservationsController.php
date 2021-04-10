@@ -62,7 +62,7 @@ class PreReservationsController extends Controller
     $agents = Agent::all();
     return view(
       'admin.pre_reservations.index',
-      compact('pre_reservations', 'venues', 'agents', "counter")
+      compact('pre_reservations', 'venues', 'agents', "counter", 'request')
     );
   }
 

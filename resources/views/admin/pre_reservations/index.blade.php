@@ -53,6 +53,8 @@
       <hr>
     </div>
 
+    {{var_dump($request->all())}}
+
     <!-- 検索--------------------------------------- -->
     {{Form::open(['url' => 'admin/pre_reservations', 'method' => 'GET', 'id'=>'preserve_search'])}}
     @csrf
@@ -62,18 +64,18 @@
           <tr>
             <th class="search_item_name"><label for="id">仮押えID</label>
             <td class="text-right">
-              {{Form::text("search_id",'', ['class'=>'form-control'])}}
+              {{Form::text("search_id", $request->search_id?:'', ['class'=>'form-control'])}}
               <p class="is-error-search_id" style="color: red"></p>
             </td>
             <th class="search_item_name"><label for="">作成日</label></th>
             <td class="text-right form-group">
-              {{Form::text("search_created_at",'', ['class'=>'form-control','id'=>'datepicker1'])}}
+              {{Form::text("search_created_at",$request->search_created_at?:'', ['class'=>'form-control','id'=>'datepicker1'])}}
             </td>
           </tr>
           <tr>
             <th class="search_item_name"><label for="date">利用日</label></th>
             <td class="text-right form-group">
-              {{Form::text("search_date",'', ['class'=>'form-control','id'=>'datepicker2'])}}
+              {{Form::text("search_date",$request->search_date?:'', ['class'=>'form-control','id'=>'datepicker2'])}}
             </td>
 
             <th class="search_item_name"><label for="venue">利用会場</label></th>
@@ -90,30 +92,30 @@
           <tr>
             <th class="search_item_name"><label for="company">会社・団体名</label></th>
             <td class="text-right">
-              {{Form::text('search_user','',['class'=>'form-control'])}}
+              {{Form::text('search_user',$request->search_user?:'',['class'=>'form-control'])}}
             </td>
             <th class="search_item_name"><label for="person_name">担当者氏名</label></th>
             <td class="text-right">
               <dd>
-                {{Form::text('search_person','',['class'=>'form-control'])}}
+                {{Form::text('search_person',$request->search_person?:'',['class'=>'form-control'])}}
             </td>
           </tr>
           <tr>
             <th class="search_item_name"><label for="mobile">携帯電話</label></th>
             <td>
-              {{Form::text("search_mobile",'', ['class'=>'form-control','id'=>''])}}
+              {{Form::text("search_mobile",$request->search_mobile?:'', ['class'=>'form-control','id'=>''])}}
               <p class="is-error-search_mobile" style="color: red"></p>
             </td>
             <th class="search_item_name"><label for="tel">固定電話</label></th>
             <td>
-              {{Form::text("search_tel",'', ['class'=>'form-control','id'=>''])}}
+              {{Form::text("search_tel",$request->search_tel?:'', ['class'=>'form-control','id'=>''])}}
               <p class="is-error-search_tel" style="color: red"></p>
             </td>
           </tr>
           <tr>
             <th class="search_item_name"><label for="temp_company">会社・団体名(仮)</label></th>
             <td>
-              {{Form::text("search_unkown_user",'', ['class'=>'form-control','id'=>''])}}
+              {{Form::text("search_unkown_user",$request->search_unkown_user?:'', ['class'=>'form-control','id'=>''])}}
             </td>
             <th class="search_item_name"><label for="agent">仲介会社</label></th>
             <td>
@@ -128,11 +130,11 @@
           <tr>
             <th class="search_item_name"><label for="search_end_user">エンドユーザー</label></th>
             <td>
-              {{Form::text("search_end_user",'', ['class'=>'form-control','id'=>''])}}
+              {{Form::text("search_end_user",$request->search_end_user?:'', ['class'=>'form-control','id'=>''])}}
             </td>
             <th class="search_item_name"><label for="freeword">フリーワード検索</label></th>
             <td colspan="3">
-              {{Form::text("search_free",'', ['class'=>'form-control','id'=>''])}}
+              {{Form::text("search_free",$request->search_free?:'', ['class'=>'form-control','id'=>''])}}
             </td>
           </tr>
         </tbody>
@@ -165,6 +167,8 @@
           <p class="ml-3 font-weight-bold">
             @if ($counter!=0)
             <span class="count-color">{{$counter}}</span>件
+            @elseif($request->counter!=0)
+            <span class="count-color">{{$request->counter}}</span>件
             @endif
           </p>
         </div>
@@ -232,7 +236,11 @@
     </div>
   </div>
 
-  {{ $pre_reservations->appends(request()->input())->links() }}
+  @if ($counter)
+  {{ $pre_reservations->appends(request()->input())->appends(['counter'=>$counter])->links() }}
+  @elseif($request->counter)
+  {{ $pre_reservations->appends(request()->input())->appends(['counter'=>$request->counter])->links() }}
+  @endif
   {{-- {{ $pre_reservations->links() }} --}}
 
 
