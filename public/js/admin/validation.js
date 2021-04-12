@@ -28,7 +28,6 @@ $(function () {
     });
 });
 
-// 案内板の表示、非表示
 
 // $(function () {
 //     var flag = $("input[name='board_flag']:checked").val();
@@ -47,7 +46,7 @@ $(function () {
 //         $("#eventownerCount").prop("disabled", false);
 //     }
 // });
-
+// ロード時の、案内板入力制御
 $( document ).ready(function(){
     $("#no_board_flag:checked").each(function(){
         var flag = $(this);
@@ -61,8 +60,8 @@ $( document ).ready(function(){
     });
 });
 
+// ラジオボタンクリック時の入力制御
 $(function () {
-    // $('input[name="board_flag"]').click(function(){
     $('input[name="board_flag"]').change(function () {
         var prop = $("#no_board_flag").prop("checked");
         if (prop) {
@@ -127,55 +126,55 @@ $(function () {
 });
 
 // 仮押え新規作成
-$(function () {
-    $("#pre_reservationCreateForm").validate({
-        rules: {
-            user_id: { required: true },
-            unknown_user_email: { email: true },
-            unknown_user_mobile: { number: true, minlength: 11 },
-            unknown_user_tel: { number: true, minlength: 10 },
-            pre_date0: { required: true },
-            pre_venue0: { required: true },
-            pre_enter0: { required: true },
-            pre_leave0: { required: true },
-        },
-        messages: {
-            user_id: { required: "※必須項目です" },
-            unknown_user_email: { email: "※Emailの形式で入力してください" },
-            unknown_user_mobile: {
-                number: "※半角数字を入力してください",
-                minlength: "※最低桁数は11です",
-            },
-            unknown_user_tel: {
-                number: "※半角数字を入力してください",
-                minlength: "※最低桁数は10です",
-            },
-            pre_date0: { required: "※必須項目です" },
-            pre_venue0: { required: "※必須項目です" },
-            pre_enter0: { required: "※必須項目です" },
-            pre_leave0: { required: "※必須項目です" },
-        },
-        errorPlacement: function (error, element) {
-            var name = element.attr("name");
-            if (element.attr("name") === "category[]") {
-                error.appendTo($(".is-error-category"));
-            } else if (element.attr("name") === name) {
-                error.appendTo($(".is-error-" + name));
-            }
-        },
-        errorElement: "span",
-        errorClass: "is-error",
-        //送信前にLoadingを表示
-        submitHandler: function (form) {
-            $(".spin_btn").removeClass("hide");
-            $(".submit_btn").addClass("hide");
-            form.submit();
-        },
-    });
-    $("input").on("blur", function () {
-        $(this).valid();
-    });
-});
+// $(function () {
+//     $("#pre_reservationCreateForm").validate({
+//         rules: {
+//             user_id: { required: true },
+//             unknown_user_email: { email: true },
+//             unknown_user_mobile: { number: true, minlength: 11 },
+//             unknown_user_tel: { number: true, minlength: 10 },
+//             pre_date0: { required: true },
+//             pre_venue0: { required: true },
+//             pre_enter0: { required: true },
+//             pre_leave0: { required: true },
+//         },
+//         messages: {
+//             user_id: { required: "※必須項目です" },
+//             unknown_user_email: { email: "※Emailの形式で入力してください" },
+//             unknown_user_mobile: {
+//                 number: "※半角数字を入力してください",
+//                 minlength: "※最低桁数は11です",
+//             },
+//             unknown_user_tel: {
+//                 number: "※半角数字を入力してください",
+//                 minlength: "※最低桁数は10です",
+//             },
+//             pre_date0: { required: "※必須項目です" },
+//             pre_venue0: { required: "※必須項目です" },
+//             pre_enter0: { required: "※必須項目です" },
+//             pre_leave0: { required: "※必須項目です" },
+//         },
+//         errorPlacement: function (error, element) {
+//             var name = element.attr("name");
+//             if (element.attr("name") === "category[]") {
+//                 error.appendTo($(".is-error-category"));
+//             } else if (element.attr("name") === name) {
+//                 error.appendTo($(".is-error-" + name));
+//             }
+//         },
+//         errorElement: "span",
+//         errorClass: "is-error",
+//         //送信前にLoadingを表示
+//         submitHandler: function (form) {
+//             $(".spin_btn").removeClass("hide");
+//             $(".submit_btn").addClass("hide");
+//             form.submit();
+//         },
+//     });
+//     $("input").on("blur", function () {
+//         $(this).valid();
+//     });
+// });
 
 // 仮押さえ　詳細＆再計算&編集&編集の再計算
 $(function () {
