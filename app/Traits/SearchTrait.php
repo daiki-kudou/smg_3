@@ -55,14 +55,7 @@ trait SearchTrait
         $query->orWhere("leave_time", "LIKE", "%{$request->search_free}%");
 
         $query->orWhereDate("reserve_date", date('Y-m-d', strtotime($request->search_free)));
-        // $query->orWhereYear("reserve_date",  date('Y-m-d', strtotime($request->search_free)));
-        // $query->orWhereMonth("reserve_date", "LIKE", "%{$request->search_free}%");
-        // $query->orWhereDay("reserve_date", "LIKE", "%{$request->search_free}%");
-
         $query->orWhereDate("created_at",  date('Y-m-d', strtotime($request->search_free)));
-        // $query->orWhereYear("created_at", "LIKE", "%{$request->search_free}%");
-        // $query->orWhereMonth("created_at", "LIKE", "%{$request->search_free}%");
-        // $query->orWhereDay("created_at", "LIKE", "%{$request->search_free}%");
       });
     }
 
@@ -118,7 +111,7 @@ trait SearchTrait
   {
     if (!empty($request->search_free)) {
       $result = $class->where("id", "LIKE", "%{$request->search_free}%")
-        ->orWhereDate("created_at", "LIKE", "%{$request->search_free}%")
+        ->orWhereDate("created_at", date('Y-m-d', strtotime($request->search_free)))
         ->orWhereHas('pre_reservations.user', function ($query) use ($request) {
           $query->where('first_name', 'LIKE', "%{$request->search_free}%");
           $query->orWhere('last_name', 'LIKE', "%{$request->search_free}%");
@@ -139,7 +132,6 @@ trait SearchTrait
           $query->where('company', 'LIKE', "%{$request->search_free}%");
         });
     }
-
 
     if (!empty($request->search_id)) {
       $result = $class->where("id", "LIKE", "%{$request->search_id}%");
