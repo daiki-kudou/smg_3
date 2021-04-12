@@ -40,8 +40,6 @@ Route::namespace('User')->prefix('user')->name('user.')->group(function () {
     Route::post('pre_reservations/{pre_reservation}/cfm', 'PreReservationsController@cfm');
     Route::resource('pre_reservations', 'PreReservationsController');
 
-
-
     // 以下、ユーザーからの予約経路
     // 例外でgetリクエスト
     Route::get('reservations/create', 'ReservationsController@create');
@@ -94,7 +92,6 @@ Route::namespace('Admin')->prefix('admin')->name('admin.')->group(function () {
 
   // ログイン認証後
   Route::middleware('auth:admin')->group(function () {
-
     // TOPページ
     Route::resource('home', 'ReservationsController', ['only' => 'index']);
     // 会場登録
@@ -116,7 +113,6 @@ Route::namespace('Admin')->prefix('admin')->name('admin.')->group(function () {
     // 紹介会社
     Route::resource('agents', 'AgentsController');
     Route::post('agents/get_agent', 'AgentsController@getAgent');
-
     // 管理者側からUser登録
     Route::resource('clients', 'ClientsController');
     // 予約　計算
@@ -267,6 +263,8 @@ Route::namespace('Admin')->prefix('admin')->name('admin.')->group(function () {
     Route::post('multiples/switch_status', 'MultiplesController@switchStatus');
     // 一括仮押さえ、indexページ内。削除
     Route::delete('multiples/destroy', 'MultiplesController@destroy');
+    // 一括仮押さえ、edit内、個別削除
+    Route::post('multiples/{multiple}/sp_destroy/{venue}', 'MultiplesController@SPDestroy');
     // 一括仮押さえ（仲介会社経由）仲介会社変更
     Route::get('multiples/agent_switch/{multiple}', 'MultiplesController@switchAgent');
     // 一括　仲介会社　更新
