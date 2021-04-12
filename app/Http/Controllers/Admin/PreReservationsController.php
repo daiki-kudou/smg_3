@@ -432,7 +432,9 @@ class PreReservationsController extends Controller
       $user->email,
       $user->mobile,
       $user->tel,
-      $user->id
+      $user->id,
+      $user->condition,
+      $user->attention,
     ];
   }
 

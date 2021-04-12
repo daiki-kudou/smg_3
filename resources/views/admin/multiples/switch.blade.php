@@ -99,15 +99,19 @@
               <td>
                 {{ReservationHelper::getPersonTel($multiple->pre_reservations()->first()->user_id)}}
               </td>
-              <td class="table-active" scope="row"><label for="">割引条件</label></td>
+              <th class="table-active" scope="row"><label for="">割引条件</label></th>
               <td>
-                {!!nl2br(e($multiple->pre_reservations->first()->user->condition))!!}
+                <p class="condition">
+                  {!!nl2br(e($multiple->pre_reservations->first()->user->condition))!!}
+                </p>
               </td>
             </tr>
             <tr>
-              <td class="table-active caution" scope="row"><label for="">注意事項</label></td>
+              <th class="table-active caution" scope="row"><label for="">注意事項</label></th>
               <td class="caution" colspan="3">
-                {!!nl2br(e($multiple->pre_reservations->first()->user->attention))!!}
+                <p class="attention">
+                  {!!nl2br(e($multiple->pre_reservations->first()->user->attention))!!}
+                </p>
               </td>
             </tr>
           </tbody>
@@ -192,16 +196,26 @@
         })
         .done(function($user) {
           $('#fullOverlay').css('display', 'none');
-          console.log($user);
+
           $(".user_info").find('tr').eq(0).find('td').eq(0).text("").text($user[0]);
           $(".user_info").find('tr').eq(0).find('td').eq(1).text("").text($user[1] + $user[2]);
-          
-          
           $(".user_info").find('tr').eq(1).find('td').eq(0).text("").text($user[3]);
           $(".user_info").find('tr').eq(1).find('td').eq(1).text("").text($user[4]);
           $(".user_info").find('tr').eq(2).find('td').eq(0).text("").text($user[4]);
-          
+          $(".user_info").find('tr').eq(2).find('td').eq(0).text("").text($user[4]);
           $('input[name="user_id"]').val($user[6]);
+
+          $(".condition").text("");
+          $(".attention").text("");
+
+          if ($user[7]!==null) {
+            $(".condition").html($user[7].replace(/\n/g, '<br>'));
+          }
+          if ($user[8]!==null) {
+            $(".attention").html($user[8].replace(/\n/g, '<br>'));
+          }
+
+
         })
         .fail(function($user) {
           $('#fullOverlay').css('display', 'none');
