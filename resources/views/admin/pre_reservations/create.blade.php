@@ -254,8 +254,18 @@
             $('.email').text($user['email']);
             $('.mobile').text($user['mobile']);
             $('.tel').text($user['tel']);
+
+            $('.condition').text("");
+            $('.attention').text("");
+
+            if ($user['condition']!==null) {
             $('.condition').html($user['condition'].replace(/\n/g, '<br>'));
+            }
+            if ($user['attention']!==null) {
             $('.attention').html($user['attention'].replace(/\n/g, '<br>'));
+            }
+
+
           } else {
             $('.client_info p').text('');
           }
