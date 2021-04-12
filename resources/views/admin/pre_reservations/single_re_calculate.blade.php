@@ -156,14 +156,41 @@
                     <small>料金体系</small>
                   </div>
                   <div class="form-check">
-                    <p>
+                    {{-- <p>
                       {{Form::radio('price_system', 1, $request->price_system==1?true:false , ['id' => 'price_system_radio1', 'class' => 'form-check-input'])}}
-                      <label for="{{'price_system_radio1'}}" class="form-check-label">通常(枠貸)</label>
+                    <label for="{{'price_system_radio1'}}" class="form-check-label">通常(枠貸)</label>
                     </p>
                     <p>
                       {{Form::radio('price_system', 2, $request->price_system==2?true:false, ['id' => 'price_system_radio2', 'class' => 'form-check-input'])}}
                       <label for="{{'price_system_radio2'}}" class="form-check-label">アクセア仕様</label>
-                    </p>
+                    </p> --}}
+                    @if ($SPVenue->getPriceSystem()[0]==1&&$SPVenue->getPriceSystem()[1]==1)
+                    <div class="form-check">
+                      <p>
+                        {{ Form::radio('price_system', 1, $request->price_system==1?true:false, ['class'=>'mr-2', 'id'=>'price_system_radio1']) }}
+                        {{Form::label('price_system_radio1','通常（枠貸）')}}
+                      </p>
+                      <p>
+                        {{ Form::radio('price_system', 2, $request->price_system==2?true:false, ['class'=>'mr-2', 'id'=>'price_system_radio2']) }}
+                        {{Form::label('price_system_radio2','アクセア（時間貸）')}}
+                      </p>
+                    </div>
+                    @elseif($SPVenue->getPriceSystem()[0]==1&&$SPVenue->getPriceSystem()[1]==0)
+                    <div class="form-check">
+                      <p>
+                        {{ Form::radio('price_system', 1, true, ['class'=>'mr-2', 'id'=>'price_system_radio1']) }}
+                        {{Form::label('price_system_radio1','通常（枠貸）')}}
+                      </p>
+                    </div>
+                    @elseif($SPVenue->getPriceSystem()[0]==0&&$SPVenue->getPriceSystem()[1]==1)
+                    <div class="form-check">
+                      <p>
+                        {{ Form::radio('price_system', 2, true, ['class'=>'mr-2', 'id'=>'price_system_radio2']) }}
+                        {{Form::label('price_system_radio2','アクセア（時間貸）')}}
+                      </p>
+                    </div>
+                    @endif
+
                   </div>
                 </div>
               </td>
