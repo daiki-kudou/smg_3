@@ -7,6 +7,10 @@
 <script src="{{ asset('/js/template.js') }}"></script>
 <script src="{{ asset('/js/admin/validation.js') }}"></script>
 
+<script src="{{ asset('/js/tablesorter/jquery.tablesorter.js') }}"></script>
+<link href="{{ asset('/css/tablesorter/theme.default.min.css') }}" rel="stylesheet">
+
+
 <style>
   .checkbox,
   #all_check {
@@ -155,7 +159,7 @@
       </ul>
 
       <div class="table-wrap">
-        <table class="table table-bordered table-scroll">
+        <table class="table table-bordered table-scroll sort_table">
           <thead>
             <tr class="table_row">
               <th>
@@ -357,6 +361,11 @@
     ActiveDateRangePicker('search_created_at');
     ActiveDateRangePicker('search_date');
   })
+
+  $(function(){
+    $(".sort_table").tablesorter();
+  })
+
 </script>
 
 
