@@ -213,13 +213,13 @@
               <div class="radio-box">
                 <p>
                   {{-- <input type="radio" name="board_flag" value="1"><span>有り</span> --}}
-                  {{Form::radio('board_flag', 1, true , ['id' => 'board_flag_on'])}}
-                  {{Form::label('board_flag_on','有り')}}
+                  {{Form::radio('board_flag', 1, true , ['id' => 'board_flag'])}}
+                  {{Form::label('board_flag','有り')}}
                 </p>
                 <p>
                   {{-- <input type="radio" name="board_flag" value="0" checked=""><span>無し</span> --}}
-                  {{Form::radio('board_flag', 0, false , ['id' => 'board_flag_off'])}}
-                  {{Form::label('board_flag_off','無し')}}
+                  {{Form::radio('board_flag', 0, false , ['id' => 'no_board_flag'])}}
+                  {{Form::label('no_board_flag','無し')}}
                 </p>
               </div>
             </td>
