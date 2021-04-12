@@ -32,10 +32,11 @@ class MultiplesController extends Controller
       $counter = count($multiples);
     }
 
-    $user = User::find(1);
+    // $user = User::find(1);
+    $agents = Agent::all();
 
     // var_dump($multiples);
-    return view('admin.multiples.index', compact('multiples', "counter", "request", "user"));
+    return view('admin.multiples.index', compact('multiples', "counter", "request", "agents"));
   }
 
   public function show($id)
