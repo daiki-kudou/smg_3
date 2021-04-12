@@ -31,11 +31,11 @@ trait SearchTrait
           $query->orWhere('mobile', 'LIKE', "%{$request->search_free}%");
           $query->orWhere('tel', 'LIKE', "%{$request->search_free}%");
         });
-        // $query->orWhereHas('venue', function ($query) use ($request) {
-        //   $query->where('name_bldg', 'LIKE', "%{$request->search_free}%");
-        //   $query->orWhere('name_venue', 'LIKE', "%{$request->search_free}%");
-        //   $query->orWhere(DB::raw('CONCAT(name_bldg, name_venue)'), 'like', "%{$request->search_free}%");
-        // });
+        $query->orWhereHas('venue', function ($query) use ($request) {
+          $query->where('name_bldg', 'LIKE', "%{$request->search_free}%");
+          $query->orWhere('name_venue', 'LIKE', "%{$request->search_free}%");
+          $query->orWhere(DB::raw('CONCAT(name_bldg, name_venue)'), 'like', "%{$request->search_free}%");
+        });
         // $query->orWhereHas('agent', function ($query) use ($request) {
         //   $query->where('person_firstname', 'LIKE', "%{$request->search_free}%");
         //   $query->orWhere('person_lastname', 'LIKE', "%{$request->search_free}%");
