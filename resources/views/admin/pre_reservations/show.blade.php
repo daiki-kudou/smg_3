@@ -112,13 +112,19 @@
               <td>
                 {{ReservationHelper::checkAgentOrUserTel($pre_reservation->user_id, $pre_reservation->agent_id)}}
               </td>
-              <td class="table-active" scope="row"><label for="">割引条件工藤さん！！！顧客からの紐づけお願いします。</label></td>
+              <td class="table-active" scope="row"><label for="">割引条件</label></td>
               <td>
+                @if ($pre_reservation->user_id>0)
+                {!!nl2br(e($pre_reservation->user->condition))!!}
+                @endif
               </td>
             </tr>
             <tr>
-              <td class="table-active caution" scope="row"><label for="">注意事項工藤さん！！！顧客からの紐づけお願いします。</label></td>
+              <td class="table-active caution" scope="row"><label for="">注意事項</label></td>
               <td class="caution" colspan="3">
+                @if ($pre_reservation->user_id>0)
+                {!!nl2br(e($pre_reservation->user->attention))!!}
+                @endif
               </td>
             </tr>
           </tbody>
