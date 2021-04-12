@@ -674,7 +674,7 @@
               <td class="table-active"><label for="">原価率</label></td>
               <td>
                 <div class="d-flex align-items-center">
-                  {{Form::text("cost", $SPVenue->cost,['class'=>'form-control'])}}
+                  {{Form::text("cost", $PreReservation->cost?$PreReservation->cost:$SPVenue->cost,['class'=>'form-control'])}}
                   <span class="ml-1">%</span>
                 </div>
                 <p class="is-error-cost" style="color: red"></p>

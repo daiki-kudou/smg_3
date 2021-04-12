@@ -14,7 +14,7 @@ class VenuesTableSeeder extends Seeder
    */
   public function run()
   {
-    DB::table('venues')->truncate();
+    // DB::table('venues')->truncate();
 
     Venue::create([
       'alliance_flag' => 0,

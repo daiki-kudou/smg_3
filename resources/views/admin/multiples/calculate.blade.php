@@ -994,7 +994,6 @@
                             {{ Form::text('cost_copied'.$key, $request->cp_master_cost,['class'=>'form-control'] ) }}
                             <span class="ml-2">%</span>
                           </div>
-                          <p class="is-error-cost" style="color: red"></p>
                         </td>
                       </tr>
                     </tbody>
@@ -1573,14 +1572,12 @@
         var value = $(elem).val();
         data[key] = value;
       })
-
       console.log(data);
       var encodes = JSON.stringify(data);
       $('#master_data').val(encodes);
       $('#master_form').submit();
     })
   })
-
   $(function() {
     var maxTarget = $('input[name="reserve_date"]').val();
     $('.datepicker9').datepicker({

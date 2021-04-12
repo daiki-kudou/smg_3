@@ -13,7 +13,7 @@ class EquipmentTableSeeder extends Seeder
    */
   public function run()
   {
-    DB::table('equipments')->truncate();
+    // DB::table('equipments')->truncate();
     DB::table('equipments')->insert([
       [
         'item' => '有線マイク',

@@ -173,7 +173,6 @@
       var user_id = Number($('#user_id').val());
       ajaxGetuser(user_id);
     });
-
     function ajaxGetuser($user_id) {
       $.ajax({
           headers: {
@@ -197,9 +196,7 @@
           
           
           $(".user_info").find('tr').eq(1).find('td').eq(0).text("").text($user[3]);
-
           $(".user_info").find('tr').eq(1).find('td').eq(1).text("").text($user[4]);
-
           $(".user_info").find('tr').eq(2).find('td').eq(0).text("").text($user[4]);
           
           $('input[name="user_id"]').val($user[6]);

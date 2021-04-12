@@ -1245,14 +1245,12 @@
               円
             </td>
           </tr>
-          {{-- <!-- <tr>
-            <td>・有料備品　サービス</td>
-            <td>{{$multiple->sumEquips($venue->id)}}円</td>
-          </tr> --> --}}
+          @if ($venue->layout==1)
           <tr>
             <td>・レイアウト変更料</td>
             <td>{{$multiple->sumLayouts($venue->id)}}円</td>
           </tr>
+          @endif
         </tbody>
         <tbody class="master_total_bottom">
           <tr>
@@ -1316,14 +1314,12 @@
         var value = $(elem).val();
         data[key] = value;
       })
-
       console.log(data);
       var encodes = JSON.stringify(data);
       $('#master_data').val(encodes);
       $('#master_form').submit();
     })
   })
-
   $(function() {
     var maxTarget = $('input[name="reserve_date"]').val();
     $('.datepicker9').datepicker({

@@ -6,14 +6,7 @@
 <script src="{{ asset('/js/ctrl_form.js') }}"></script>
 
 
-<script>
-  $(function() {
-    $('.discount').on('click', function() {
-      $('#condition').toggleClass('checkon');
-    })
 
-  })
-</script>
 <style>
   .checkon {
     display: none;
@@ -80,11 +73,6 @@
             <th class="table-active">{{ Form::label('address3', '住所3（建物名）') }}</th>
             <td>{{ Form::text('address3', $user->address3, ['class' => 'form-control']) }}</td>
           </tr>
-          <!-- <tr>
-            <th class="table-active">{{ Form::label('address_remark', '住所備考') }}</th>
-            <td>{{ Form::textarea('address_remark', $user->address_remark, ['class' => 'form-control']) }}
-            </td>
-          </tr> -->
           <tr>
             <th class="table-active">{{ Form::label('url', '会社・団体名URL') }}</th>
             <td>{{ Form::text('url', $user->url, ['class' => 'form-control']) }}
@@ -94,11 +82,12 @@
           <tr>
             <td class="table-active">
               <div class="d-flex align-items-center">
-                <input type="checkbox" class="discount mr-1">
+                <input type="checkbox" class="discount mr-1" {{$user->condition?"checked":""}}>
                 {{ Form::label('condition', '割引条件') }}
               </div>
             </td>
-            <td>{{ Form::textarea('condition', old('condition'), ['class' => 'form-control checkon']) }}
+            <td>
+              {{ Form::textarea('condition', $user->condition?$user->condition:"平日 %\n土日 %\n3週間前 %\n", $user->condition?['class' => 'form-control ']:['class' => 'form-control checkon']) }}
             </td>
           </tr>
           <tr>
@@ -275,159 +264,14 @@
 </section>
 {{ Form::close() }}
 
-
-{{-- <script>
-  // カタカナ
-  jQuery.validator.addMethod("katakana", function(value, element) {
-    return this.optional(element) || /^([ァ-ヶー]+)$/.test(value);
-  }, "<br/>全角カタカナを入力してください");
-
-  // 顧客新規登録 バリデーション
+<script>
   $(function() {
-    $("#ClientsEditForm").validate({
-      rules: {
-        company: {
-          required: true,
-        },
-        post_code: {
-          maxlength: 7
-        },
-        url: {
-          url: true
-        },
-        first_name: {
-          required: true,
-        },
-        last_name: {
-          required: true,
-        },
-        firstname_kana: {
-          required: true,
-          katakana: true
-        },
-        lastname_kana: {
-          required: true,
-          katakana: true
-        },
-        mobile: {
-          required: true,
-          minlength: 11
-        },
-        tel: {
-          minlength: 10
-        },
-        email: {
-          required: true,
-          email: true
-        },
-        pay_metdod: {
-          required: true,
-        },
-        pay_limit: {
-          required: true,
-        },
-        pay_post_code: {
-          maxlength: 7
-        },
-      },
-      messages: {
-        company: {
-          required: "※必須項目です",
-        },
-        post_code: {
-          required: "※必須項目です",
-          maxlength: '７桁で入力してください'
-        },
-        url: {
-          url: '正しいURLを記入してください(例:https://osaka-conference.com/)'
-        },
-        first_name: {
-          required: "※必須項目です",
-        },
-        last_name: {
-          required: "※必須項目です",
-        },
-        firstname_kana: {
-          required: "※必須項目です",
-          katakana: "※カタカナで入力してください",
-        },
-        lastname_kana: {
-          required: "※必須項目です",
-          katakana: "※カタカナで入力してください",
-        },
-        mobile: {
-          required: "※必須項目です",
-          minlength: '※最低桁数は11です',
-        },
-        tel: {
-          minlength: '※最低桁数は10です',
-        },
-        email: {
-          required: "※必須項目です",
-          email: '※Emailの形式で入力してください',
-        },
-        pay_metdod: {
-          required: "※必須項目です",
-        },
-        pay_limit: {
-          required: "※必須項目です",
-        },
-        pay_post_code: {
-          maxlength: 7
-        },
-      },
-      errorPlacement: function(error, element) {
-        var name = element.attr('name');
-        if (element.attr('name') === 'category[]') {
-          error.appendTo($('.is-error-category'));
-        } else if (element.attr('name') === name) {
-          error.appendTo($('.is-error-' + name));
-        }
-      },
-      errorElement: "span",
-      errorClass: "is-error",
-      //送信前にLoadingを表示
-      submitHandler: function(form) {
-        $('.approval').addClass('hide');
-        $('.loading').removeClass('hide');
-        form.submit();
-      }
-    });
-    $('input').on('blur', function() {
-      $(this).valid();
-    });
+    $('.discount').on('click', function() {
+      $('#condition').toggleClass('checkon');
+    })
+
   })
+</script>
 
 
-  // $(function() {
-  //   function ExceptString($target) {
-  //     $target.numeric({
-  //       negative: false,
-  //     });
-  //     $target.on('change', function() {
-  //       charactersChange($(this));
-  //     })
-  //     charactersChange = function(ele) {
-  //       var val = ele.val();
-  //       var han = val.replace(/[Ａ-Ｚａ-ｚ０-９]/g, function(s) {
-  //         return String.fromCharCode(s.charCodeAt(0) - 0xFEE0)
-  //       });
-  //       if (val.match(/[Ａ-Ｚａ-ｚ０-９]/g)) {
-  //         $(ele).val(han);
-  //       }
-  //     }
-  //   }
-  //   var post_code = $("input[name^='post_code']");
-  //   ExceptString(post_code);
-  //   var luggage_post_code = $("input[name^='luggage_post_code']");
-  //   var pay_post_code = $("input[name^='pay_post_code']");
-  //   ExceptString(pay_post_code);
-  //   var fax = $("input[name^='fax']");
-  //   ExceptString(fax);
-  //   var mobile = $("input[name^='mobile']");
-  //   ExceptString(mobile);
-  //   var tel = $("input[name^='tel']");
-  //   ExceptString(tel);
-  // });
-</script> --}}
 @endsection

@@ -380,7 +380,7 @@ class ReservationHelper
         return ReservationHelper::getPersonTel($user_id);
       }
     } else {
-      return ReservationHelper::getAgentMobile($agent_id);
+      return ReservationHelper::getAgentTel($agent_id);
     }
   }
 

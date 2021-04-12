@@ -1,6 +1,8 @@
 @extends('layouts.admin.app')
 
 @section('content')
+
+
 <link href="{{ asset('/css/template.css') }}" rel="stylesheet">
 <script src="{{ asset('/js/template.js') }}"></script>
 <script src="{{ asset('/js/admin/validation.js') }}"></script>
@@ -45,12 +47,14 @@
         </nav>
       </div>
 
+
+
       <h2 class="mt-3 mb-3">一括仮押え 一覧</h2>
       <hr>
     </div>
 
     <!-- 検索--------------------------------------- -->
-    {{Form::open(['url' => 'admin/multiples', 'method' => 'GET', 'id'=>'multiples_search'])}}
+    {{Form::open(['url' => 'admin/multiples', 'method' => 'GET', 'id'=>'searchMultiple'])}}
     @csrf
     <div class="search-wrap">
       <table class="table table-bordered mb-0">
@@ -59,7 +63,7 @@
             <th class="search_item_name"><label for="id">一括仮押えID</label>
             <td class="text-right">
               {{Form::text("search_id",$request->search_id, ['class'=>'form-control'])}}
-              <p class="is-error-search_id" style="color: red"></p>
+              <p class="is-error-search_id text-left" style="color: red"></p>
             </td>
             <th class="search_item_name"><label for="">作成日</label></th>
             <td class="text-right form-group">
@@ -81,12 +85,12 @@
             <th class="search_item_name"><label for="mobile">携帯電話</label></th>
             <td>
               {{Form::text("search_mobile",$request->search_mobile, ['class'=>'form-control','id'=>''])}}
-              <p class="is-error-search_mobile" style="color: red"></p>
+              <p class="is-error-search_mobile text-left" style="color: red"></p>
             </td>
             <th class="search_item_name"><label for="tel">固定電話</label></th>
             <td>
               {{Form::text("search_tel",$request->search_tel, ['class'=>'form-control','id'=>''])}}
-              <p class="is-error-search_tel" style="color: red"></p>
+              <p class="is-error-search_tel text-left" style="color: red"></p>
             </td>
           </tr>
           <tr>
@@ -120,6 +124,11 @@
       </div>
     </div>
     {{Form::close()}}
+
+
+
+
+
 
     <!-- 検索　終わり------------------------------------------------ -->
     <div class="section-wrap">
@@ -163,71 +172,125 @@
           </thead>
           <tbody>
             @foreach ($multiples as $multiple)
-            @if ($multiple->pre_reservations->count()!=0)
             <tr>
               <td class="text-center">
                 <input type="checkbox" name="{{'delete_check'.$multiple->id}}" value="{{$multiple->id}}"
                   class="checkbox" />
               </td>
-              <td>{{ReservationHelper::fixId($multiple->id)}}</td>
+
+              <td>{{$multiple->id}}</td>
               <td>{{$multiple->created_at}}</td>
+              <td>{{$multiple->pre_reservations()->count()}}</td>
+              <td>
+                @if ($multiple->pre_reservations()->first()->user_id!=0)
+                {{ReservationHelper::getCompany($multiple->pre_reservations()->first()->user_id)}}
+                @endif
+              </td>
+              <td>
+                @if ($multiple->pre_reservations()->first()->user_id!=0)
+                {{ReservationHelper::getPersonName($multiple->pre_reservations()->first()->user_id)}}
+                @else
+                {{ReservationHelper::getAgentPerson($multiple->pre_reservations()->first()->agent_id)}}
+                @endif
+              </td>
+              <td>
+                @if ($multiple->pre_reservations()->first()->user_id!=0)
+                {{ReservationHelper::getPersonMobile($multiple->pre_reservations()->first()->user_id)}}
+                @else
+                {{ReservationHelper::getAgentMobile($multiple->pre_reservations()->first()->agent_id)}}
+                @endif
+              </td>
+              <td>
+                @if ($multiple->pre_reservations()->first()->user_id!=0)
+                {{ReservationHelper::getPersonTel($multiple->pre_reservations()->first()->user_id)}}
+                @else
+                {{ReservationHelper::getAgentTel($multiple->pre_reservations()->first()->agent_id)}}
+                @endif
+              </td>
+              <td>
+                @if ($multiple->pre_reservations()->first()->user_id!=0)
+                {{($multiple->pre_reservations()->first()->unknown_user->unknown_user_company)}}
+                @endif
+              </td>
+              <td>
+                @if ($multiple->pre_reservations()->first()->agent_id!=0)
+                {{(ReservationHelper::getAgentCompanyName($multiple->pre_reservations()->first()->agent_id))}}
+                @endif
+              </td>
+              <td>
+                @if ($multiple->pre_reservations()->first()->agent_id!=0)
+                {{($multiple->pre_reservations()->first()->pre_enduser->company)}}
+                @endif
+              </td>
+              <td>
+                @if ($multiple->pre_reservations()->first()->user_id!=0)
+                <a href="{{url('admin/multiples/'.$multiple->id)}}" class="btn more_btn">詳細</a>
+                @else
+                <a href="{{url('admin/multiples/agent/'.$multiple->id)}}" class="btn more_btn">詳細</a>
+                @endif
+
+              </td>
+              {{-- <td class="text-center">
+                <input type="checkbox" name="{{'delete_check'.$multiple->id}}" value="{{$multiple->id}}"
+              class="checkbox" />
+              </td>
+              <td>{{ReservationHelper::fixId($multiple->id)}}</td>
+              <td>{{ReservationHelper::formatDate($multiple->created_at)}}</td>
               <td class="text-center">{{$multiple->pre_reservations->count()}}</td>
-              @if ($multiple->pre_reservations->first()->user_id!=0)
-              <td>{{ReservationHelper::getCompany($multiple->pre_reservations->first()->user_id)}}</td>
+              @if ($multiple->pre_reservations()->first()->user_id!=0)
+              <td>{{ReservationHelper::getCompany($multiple->pre_reservations()->first()->user_id)}}</td>
               @else
               <td></td>
               @endif
 
-              @if ($multiple->pre_reservations->first()->user_id!=0)
-              <td>{{ReservationHelper::getPersonName($multiple->pre_reservations->first()->user_id)}}</td>
+              @if ($multiple->pre_reservations()->first()->user_id!=0)
+              <td>{{ReservationHelper::getPersonName($multiple->pre_reservations()->first()->user_id)}}</td>
               @else
-              <td>{{ReservationHelper::getAgentPerson($multiple->pre_reservations->first()->agent_id)}}</td>
+              <td>{{ReservationHelper::getAgentPerson($multiple->pre_reservations()->first()->agent_id)}}</td>
               @endif
 
-              @if ($multiple->pre_reservations->first()->user_id!=0)
-              <td>{{ReservationHelper::getPersonMobile($multiple->pre_reservations->first()->user_id)}}</td>
+              @if ($multiple->pre_reservations()->first()->user_id!=0)
+              <td>{{ReservationHelper::getPersonMobile($multiple->pre_reservations()->first()->user_id)}}</td>
               @else
-              <td>{{ReservationHelper::getAgentMobile($multiple->pre_reservations->first()->agent_id)}}</td>
+              <td>{{ReservationHelper::getAgentMobile($multiple->pre_reservations()->first()->agent_id)}}</td>
               @endif
 
-              @if ($multiple->pre_reservations->first()->user_id!=0)
-              <td>{{ReservationHelper::getPersonTel($multiple->pre_reservations->first()->user_id)}}</td>
+              @if ($multiple->pre_reservations()->first()->user_id!=0)
+              <td>{{ReservationHelper::getPersonTel($multiple->pre_reservations()->first()->user_id)}}</td>
               @else
-              <td>{{ReservationHelper::getAgentTel($multiple->pre_reservations->first()->agent_id)}}</td>
+              <td>{{ReservationHelper::getAgentTel($multiple->pre_reservations()->first()->agent_id)}}</td>
               @endif
 
-              @if ($multiple->pre_reservations->first()->user_id!=0)
+              @if ($multiple->pre_reservations()->first()->user_id!=0)
               <td>
-                {{!empty($multiple->pre_reservations->first()->unknown_user->unknown_user_company)?$multiple->pre_reservations->first()->unknown_user->unknown_user_company:""}}
+                {{!empty($multiple->pre_reservations()->first()->unknown_user->unknown_user_company)?$multiple->pre_reservations()->first()->unknown_user->unknown_user_company:""}}
               </td>
               @else
               <td></td>
               @endif
 
-              @if ($multiple->pre_reservations->first()->user_id!=0)
+              @if ($multiple->pre_reservations()->first()->user_id!=0)
               <td> </td>
               @else
-              <td>{{ReservationHelper::getAgentCompanyName($multiple->pre_reservations->first()->agent_id)}}</td>
+              <td>{{ReservationHelper::getAgentCompanyName($multiple->pre_reservations()->first()->agent_id)}}</td>
               @endif
 
-              @if ($multiple->pre_reservations->first()->user_id!=0)
+              @if ($multiple->pre_reservations()->first()->user_id!=0)
               <td> </td>
               @else
               <td>
-                {{!empty($multiple->pre_reservations->first()->pre_enduser->company)?$multiple->pre_reservations->first()->pre_enduser->company:""}}
+                {{!empty($multiple->pre_reservations()->first()->pre_enduser->company)?$multiple->pre_reservations()->first()->pre_enduser->company:""}}
               </td>
               @endif
 
-              @if ($multiple->pre_reservations->first()->user_id!=0)
+              @if ($multiple->pre_reservations()->first()->user_id!=0)
               <td><a href="{{url('admin/multiples/'.$multiple->id)}}" class="btn more_btn">詳細</a></td>
               @else
               <td> <a href="{{url('admin/multiples/agent/'.$multiple->id)}}" class="btn more_btn">詳細</a>
               </td>
-              @endif
-
+              @endif --}}
             </tr>
 
-            @endif
             @endforeach
           </tbody>
         </table>
@@ -237,6 +300,8 @@
 
   {{ $multiples->appends(request()->input())->links() }}
 </div>
+
+
 
 <script>
   $(function() {

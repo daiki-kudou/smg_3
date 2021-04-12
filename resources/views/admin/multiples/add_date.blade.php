@@ -232,13 +232,11 @@
       for (let destroy = 0; destroy < $('.date_selector tbody tr').length; destroy++) {
         console.log($('.date_selector tbody tr').eq(destroy).find('td').eq(1).find('select').select2("destroy"));
       }
-
       var base_venue = $(this).parent().parent().find('td').eq(1).find('select').val();
       $(this).parent().parent().clone(true).insertAfter($(this).parent().parent());
       $(this).parent().parent().next().find("td").eq(1).find("select option[value=" + base_venue + "]").prop('selected', true);
       var count = $(this).parent().parent().parent().find('tr').length;
       var target = $(this).parent().parent().parent().find('tr');
-
       for (let index = 0; index < count; index++) {
         // name属性
         $(target).eq(index).find('td').eq(0).find('input, select').attr('name', "pre_date" + index);
@@ -259,12 +257,10 @@
         $(target).eq(index).find('td').eq(1).find('select').select2({
           width: '100%'
         });
-
         if (index == count - 1) {
           $(target).eq(index).find('td').eq(2).find('input, select').val('');
           $(target).eq(index).find('td').eq(3).find('input, select').val('');
         }
-
       }
     })
     // マイナスボタン
@@ -275,7 +271,6 @@
       if (master > 1) {
         target.remove();
       }
-
       var count2 = $('.date_selector tbody tr').length;
       for (let index = 0; index < count2; index++) {
         $('.date_selector tbody tr').eq(index).find('td').eq(0).find('input, select').attr('name', "pre_date" + index);

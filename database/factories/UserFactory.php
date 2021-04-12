@@ -18,22 +18,24 @@ use Illuminate\Support\Facades\Hash;
 |
 */
 
+
+
 $factory->define(User::class, function (Faker $faker) {
   return [
-    'email'              => $faker->unique()->safeEmail,
-    'password'             => Hash::make('12345678'),
-    'company'          => $faker->company,
-    'post_code'    => $faker->postcode,
+    'email' => $faker->unique()->safeEmail,
+    'password' => Hash::make('12345678'),
+    'company' => $faker->company,
+    'post_code' => $faker->postcode,
     'address1' => $faker->city,
     'address2' => $faker->streetName,
     'address3' => $faker->streetAddress,
-    'first_name'    => $faker->lastName,
-    'last_name'    => $faker->firstName,
-    'first_name_kana'    => 'ダミーのため一致しません',
-    'last_name_kana'    => 'ダミーのため一致しません',
-    'status'    => 1,
-    'mobile' =>  $faker->phoneNumber(),
-    'tel' =>  $faker->phoneNumber(),
+    'first_name' => $faker->lastName,
+    'last_name' => $faker->firstName,
+    'first_name_kana' => 'ダミーのため一致しません',
+    'last_name_kana' => 'ダミーのため一致しません',
+    'status' => 1,
+    'mobile' =>  $faker->numberBetween(11111111111, 99999999999),
+    'tel' =>  $faker->numberBetween(1111111111, 9999999999),
     "pay_method" => $faker->randomElement(['0', '1', '2', '3']),
     'pay_limit' => $faker->randomElement(['1', '2', '3', '4']),
     'pay_post_code' => $faker->postcode,

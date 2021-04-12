@@ -179,15 +179,15 @@
                   <option value="3" {{($pre_enduser->attr==3)?"selected":''}}>近隣利用</option>
                   <option value="4" {{($pre_enduser->attr==4)?"selected":''}}>個人講師</option>
                   <option value="5" {{($pre_enduser->attr==5)?"selected":''}}>MLM</option>
-                  <option value="6" {{($pre_enduser->attr==6)?"selected":''}}>その他</option> 
+                  <option value="6" {{($pre_enduser->attr==6)?"selected":''}}>その他</option>
                   @else
                   <option value=""></option>
-                  <option value="1" >一般企業</option>
-                  <option value="2" >上場企業</option>
-                  <option value="3" >近隣利用</option>
-                  <option value="4" >個人講師</option>
-                  <option value="5" >MLM</option>
-                  <option value="6" >その他</option>
+                  <option value="1">一般企業</option>
+                  <option value="2">上場企業</option>
+                  <option value="3">近隣利用</option>
+                  <option value="4">個人講師</option>
+                  <option value="5">MLM</option>
+                  <option value="6">その他</option>
                   @endif
 
                 </select>
@@ -213,7 +213,6 @@
       var agent_id = Number($('#agent_id').val());
       ajaxGetAgent(agent_id);
     });
-
     function ajaxGetAgent($agent_id) {
       $.ajax({
           headers: {
