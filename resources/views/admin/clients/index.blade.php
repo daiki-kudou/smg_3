@@ -71,7 +71,7 @@
             <th class="search_item_name"><label for="mobile">携帯電話</label></th>
             <td class="text-right">
               <input type="text" name="mobile" class="form-control" id="mobile">
-              <p class="is-error-_mobile" style="color: red"></p>
+              <p class="is-error-mobile" style="color: red"></p>
             </td>
           </tr>
           <tr>

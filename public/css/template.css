@@ -262,7 +262,9 @@ h2 {
 }
 
 select:disabled {
-    color: red;
+    /* color: red; */
+    color: #333;
+    background: #333;
 }
 
 
@@ -807,11 +809,13 @@ table td.table_column p:last-child {
 /* =============予約詳細================================================ */
 
 
-.bill_status, .bill_status2 {
+.bill_status,
+.bill_status2 {
     background: #fff;
 }
 
-.bill_status .table, .bill_status2 .table {
+.bill_status .table,
+.bill_status2 .table {
     box-shadow: none;
 }
 
@@ -1082,6 +1086,14 @@ table td.table_column p:last-child {
 }
 
 .agent_table {
+    word-break: break-all;
+}
+
+.note-table td {
+    word-break: break-all;
+}
+
+.name-table {
     word-break: break-all;
 }
 

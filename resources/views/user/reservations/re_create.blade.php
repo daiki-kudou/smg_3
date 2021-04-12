@@ -131,8 +131,8 @@
               <div class="selectTime">
                 {{ Form::radio('board_flag', 1, $fix->board_flag==1?true:false, ['class'=>'radio-input','id'=>'board_flag']) }}
                 {{Form::label('board_flag','する')}}
-                {{ Form::radio('board_flag', 0, $fix->board_flag==0?true:false, ['class'=>'radio-input', 'id'=>'board_flag_off']) }}
-                {{Form::label('board_flag_off','しない')}}
+                {{ Form::radio('board_flag', 0, $fix->board_flag==0?true:false, ['class'=>'radio-input', 'id'=>'no_board_flag']) }}
+                {{Form::label('no_board_flag','しない')}}
               </div>
             </li>
             <li><a href=""><i class="fas fa-external-link-alt form-icon"></i>案内板サンプルはこちら</a></li>

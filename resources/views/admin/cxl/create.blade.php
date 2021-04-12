@@ -6,17 +6,15 @@
 <link href="{{ asset('/css/template.css') }}" rel="stylesheet">
 <script src="{{ asset('/js/template.js') }}"></script>
 
-<div class="container-fluid">
   <h2 class="mt-3 mb-3">キャンセル請求書 作成</h2>
   <hr>
-</div>
 
 {{ Form::open(['url' => 'admin/cxl/calculate', 'method'=>'POST', 'class'=>'']) }}
 @csrf
 {{Form::hidden('bills_id',$bill->id)}}
 {{Form::hidden('reservation_id',$request->reservation_id)}}
 
-<section class="section-wrap">
+<section class="mt-5">
   <div class="bill">
     <div class="bill_details">
       <div class="head d-flex">

@@ -44,6 +44,58 @@
             </td>
         </tbody>
       </table>
+      <section class="mx-5 mt-5">
+        <table class="table table-bordered customer-table mb-5" style="table-layout: fixed;">
+          <tbody>
+            <tr>
+              <td colspan="4">
+                <div class="d-flex align-items-center justify-content-between">
+                  <p class="title-icon">
+                    <i class="far fa-address-card icon-size" aria-hidden="true"></i>
+                    顧客情報
+                  </p>
+                </div>
+              </td>
+            </tr>
+            <tr>
+              <th class="table-active" width="25%"><label for="company">会社名・団体名</label><a href="" class="more_btn ml-2">顧客詳細</a></th>
+              <td>
+                {{ReservationHelper::getCompany($multiple->pre_reservations->first()->user_id)}}
+              </td>
+              <td class="table-active"><label for="name">担当者氏名</label></td>
+              <td>
+                {{ReservationHelper::getPersonName($multiple->pre_reservations->first()->user_id)}}
+              </td>
+            </tr>
+            <tr>
+              <td class="table-active" scope="row"><label for="email">担当者メールアドレス</label></td>
+              <td>
+                {{ReservationHelper::getPersonEmail($multiple->pre_reservations->first()->user_id)}}
+              </td>
+              <td class="table-active" scope="row"><label for="mobile">携帯番号</label></td>
+              <td>
+                {{ReservationHelper::getPersonMobile($multiple->pre_reservations->first()->user_id)}}
+              </td>
+            </tr>
+            <tr>
+              <td class="table-active" scope="row"><label for="tel">固定電話</label></td>
+              <td>
+                {{ReservationHelper::getPersonTel($multiple->pre_reservations->first()->user_id)}}
+              </td>
+              <td class="table-active" scope="row"><label for="">割引条件工藤さん！！！顧客からの紐づけお願いします。</label></td>
+              <td>
+              </td>
+            </tr>
+            <tr>
+              <td class="table-active caution" scope="row"><label for="">注意事項工藤さん！！！顧客からの紐づけお願いします。</label></td>
+              <td class="caution" colspan="3">
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </section>
+
+
 
       {{ Form::open(['url' => 'admin/multiples/'.$multiple->id."/edit/".$venue->id.'/calculate', 'method'=>'POST', 'id'=>'multipleCalculateForm']) }}
       @csrf
@@ -616,8 +668,7 @@
                         <td>
                           <select name="{{'event_start_copied'.$key}}" class="form-control">
                             <option disabled>選択してください</option>
-                            @for ($start = 0*2; $start <=23*2; $start++) <option
-                              value="{{date("H:i:s", strtotime("00:00 +". $start * 30 ." minute"))}}" @if($request->
+                            @for ($start = 0*2; $start <=23*2; $start++) <option value="{{date("H:i:s", strtotime("00:00 +". $start * 30 ." minute"))}}" @if($request->
                               cp_master_event_start==date("H:i:s", strtotime("00:00 +". $start * 30 ." minute")))
                               selected
                               @endif
@@ -632,8 +683,7 @@
                         <td>
                           <select name="{{'event_finish_copied'.$key}}" class="form-control">
                             <option disabled>選択してください</option>
-                            @for ($start = 0*2; $start <=23*2; $start++) <option
-                              value="{{date("H:i:s", strtotime("00:00 +". $start * 30 ." minute"))}}" @if($request->
+                            @for ($start = 0*2; $start <=23*2; $start++) <option value="{{date("H:i:s", strtotime("00:00 +". $start * 30 ." minute"))}}" @if($request->
                               cp_master_event_finish==date("H:i:s", strtotime("00:00 +". $start * 30 ." minute")))
                               selected
                               @endif
