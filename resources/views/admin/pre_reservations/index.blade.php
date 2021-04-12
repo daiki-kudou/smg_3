@@ -6,6 +6,10 @@
 <script src="{{ asset('/js/template.js') }}"></script>
 <script src="{{ asset('/js/admin/validation.js') }}"></script>
 
+<script src="{{ asset('/js/tablesorter/jquery.tablesorter.js') }}"></script>
+<link href="{{ asset('/css/tablesorter/theme.default.min.css') }}" rel="stylesheet">
+
+
 <script>
   $(function() {
     $('.flash_message').fadeOut(3000);
@@ -21,7 +25,6 @@
   {{ session('flash_message_error') }}
 </div>
 @endif
-
 
 <style>
   .checkbox,
@@ -175,7 +178,7 @@
 
 
     <div class="table-wrap">
-      <table class="table table-bordered table-scroll">
+      <table class="table table-bordered table-scroll sort_table">
         <thead>
           <tr class="table_row">
             <th>
@@ -298,6 +301,12 @@
       }
     })
   })
+
+  
+  $(function(){
+    $(".sort_table").tablesorter();
+  })
+
 </script>
 
 
