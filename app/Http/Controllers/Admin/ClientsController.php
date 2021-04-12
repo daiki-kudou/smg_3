@@ -63,7 +63,7 @@ class ClientsController extends Controller
     $user->first_name_kana = $request->first_name_kana;
     $user->last_name_kana = $request->last_name_kana;
     $user->tel = $request->tel;
-    $user->mobile = 0;
+    $user->mobile = $request->mobile;
     $user->email = $request->email;
     $user->fax = $request->fax;
     $user->pay_method = $request->pay_method;
