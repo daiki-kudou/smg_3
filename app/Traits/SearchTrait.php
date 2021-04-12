@@ -31,38 +31,38 @@ trait SearchTrait
           $query->orWhere('mobile', 'LIKE', "%{$request->search_free}%");
           $query->orWhere('tel', 'LIKE', "%{$request->search_free}%");
         });
-        $query->orWhereHas('venue', function ($query) use ($request) {
-          $query->where('name_bldg', 'LIKE', "%{$request->search_free}%");
-          $query->orWhere('name_venue', 'LIKE', "%{$request->search_free}%");
-          $query->orWhere(DB::raw('CONCAT(name_bldg, name_venue)'), 'like', "%{$request->search_free}%");
-        });
-        $query->orWhereHas('agent', function ($query) use ($request) {
-          $query->where('person_firstname', 'LIKE', "%{$request->search_free}%");
-          $query->orWhere('person_lastname', 'LIKE', "%{$request->search_free}%");
-          $query->orWhere(DB::raw('CONCAT(person_firstname, person_lastname)'), 'like', '%' . $request->search_free . '%');
-          $query->orWhere('company', 'LIKE', "%{$request->search_free}%");
-          $query->orWhere('person_mobile', 'LIKE', "%{$request->search_free}%");
-          $query->orWhere('person_tel', 'LIKE', "%{$request->search_free}%");
-        });
-        $query->orWhereHas('unknown_user', function ($query) use ($request) {
-          $query->where('unknown_user_company', 'LIKE', "%{$request->search_free}%");
-        });
-        $query->orWhereHas('pre_enduser', function ($query) use ($request) {
-          $query->where('company', 'LIKE', "%{$request->search_free}%");
-        });
-        $query->orWhere("id", "LIKE", "%{$request->search_free}%"); //id
-        $query->orWhere("enter_time", "LIKE", "%{$request->search_free}%");
-        $query->orWhere("leave_time", "LIKE", "%{$request->search_free}%");
+        // $query->orWhereHas('venue', function ($query) use ($request) {
+        //   $query->where('name_bldg', 'LIKE', "%{$request->search_free}%");
+        //   $query->orWhere('name_venue', 'LIKE', "%{$request->search_free}%");
+        //   $query->orWhere(DB::raw('CONCAT(name_bldg, name_venue)'), 'like', "%{$request->search_free}%");
+        // });
+        // $query->orWhereHas('agent', function ($query) use ($request) {
+        //   $query->where('person_firstname', 'LIKE', "%{$request->search_free}%");
+        //   $query->orWhere('person_lastname', 'LIKE', "%{$request->search_free}%");
+        //   $query->orWhere(DB::raw('CONCAT(person_firstname, person_lastname)'), 'like', '%' . $request->search_free . '%');
+        //   $query->orWhere('company', 'LIKE', "%{$request->search_free}%");
+        //   $query->orWhere('person_mobile', 'LIKE', "%{$request->search_free}%");
+        //   $query->orWhere('person_tel', 'LIKE', "%{$request->search_free}%");
+        // });
+        // $query->orWhereHas('unknown_user', function ($query) use ($request) {
+        //   $query->where('unknown_user_company', 'LIKE', "%{$request->search_free}%");
+        // });
+        // $query->orWhereHas('pre_enduser', function ($query) use ($request) {
+        //   $query->where('company', 'LIKE', "%{$request->search_free}%");
+        // });
+        // $query->orWhere("id", "LIKE", "%{$request->search_free}%"); //id
+        // $query->orWhere("enter_time", "LIKE", "%{$request->search_free}%");
+        // $query->orWhere("leave_time", "LIKE", "%{$request->search_free}%");
 
-        $query->orWhereDate("reserve_date", "LIKE", "%{$request->search_free}%");
-        $query->orWhereYear("reserve_date", "LIKE", "%{$request->search_free}%");
-        $query->orWhereMonth("reserve_date", "LIKE", "%{$request->search_free}%");
-        $query->orWhereDay("reserve_date", "LIKE", "%{$request->search_free}%");
+        // $query->orWhereDate("reserve_date", "LIKE", "%{$request->search_free}%");
+        // $query->orWhereYear("reserve_date", "LIKE", "%{$request->search_free}%");
+        // $query->orWhereMonth("reserve_date", "LIKE", "%{$request->search_free}%");
+        // $query->orWhereDay("reserve_date", "LIKE", "%{$request->search_free}%");
 
-        $query->orWhereDate("created_at", "LIKE", "%{$request->search_free}%");
-        $query->orWhereYear("created_at", "LIKE", "%{$request->search_free}%");
-        $query->orWhereMonth("created_at", "LIKE", "%{$request->search_free}%");
-        $query->orWhereDay("created_at", "LIKE", "%{$request->search_free}%");
+        // $query->orWhereDate("created_at", "LIKE", "%{$request->search_free}%");
+        // $query->orWhereYear("created_at", "LIKE", "%{$request->search_free}%");
+        // $query->orWhereMonth("created_at", "LIKE", "%{$request->search_free}%");
+        // $query->orWhereDay("created_at", "LIKE", "%{$request->search_free}%");
       });
     }
 
