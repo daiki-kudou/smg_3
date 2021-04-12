@@ -113,10 +113,35 @@ $(function () {
     });
 });
 
+$(document).ready(function () {
+    var target = $("input[name^='tel_copied']");
+    var target = $('[id^="price_system_copied"]');
+
+    for (let index = 0; index < target.length; index++) {
+        var board_flag_copied_off = "#board_flag_copied_off" + index;
+        var event_start_copied = "#event_start_copied" + index;
+        var event_finish_copied = "#event_finish_copied" + index;
+        var copiedeventname1Count = "#copiedeventname1Count" + index;
+        var copiedeventname2Count = "#copiedeventname2Count" + index;
+        var copiedeventOwnerCount = "#copiedeventOwnerCount" + index;
+
+
+    $(board_flag_copied_off).each(function () {
+        var flag = $(this);
+        if ($(flag).is(":checked") != null) {
+            $(event_start_copied).prop("disabled", true);
+            $(event_finish_copied).prop("disabled", true);
+            $(copiedeventname1Count).prop("disabled", true);
+            $(copiedeventname2Count).prop("disabled", true);
+            $(copiedeventOwnerCount).prop("disabled", true);
+        }
+    });
+}
+});
+
 $(function () {
     // var target = $('input[name="board_flag_copied_off"]');
     var target = $("input[name^='tel_copied']");
-
     for (let index = 0; index < target.length; index++) {
         var board_flag_copied_off = "#board_flag_copied_off" + index;
         var event_start_copied = "#event_start_copied" + index;
@@ -127,8 +152,7 @@ $(function () {
 
         console.log(board_flag_copied_off);
         console.log(event_start_copied);
-
-        $(function () {
+        
             $("input[name^='board_flag_copied']").change(function () {
                 var prop = $(board_flag_copied_off).prop("checked");
                 if (prop) {
@@ -145,7 +169,6 @@ $(function () {
                     $(copiedeventOwnerCount).prop("disabled", false);
                 }
             });
-        });
     }
 });
 
@@ -195,55 +218,49 @@ $(function () {
 });
 
 // 仮押え新規作成
-// $(function () {
-//     $("#pre_reservationCreateForm").validate({
-//         rules: {
-//             user_id: { required: true },
-//             unknown_user_email: { email: true },
-//             unknown_user_mobile: { number: true, minlength: 11 },
-//             unknown_user_tel: { number: true, minlength: 10 },
-//             pre_date0: { required: true },
-//             pre_venue0: { required: true },
-//             pre_enter0: { required: true },
-//             pre_leave0: { required: true },
-//         },
-//         messages: {
-//             user_id: { required: "※必須項目です" },
-//             unknown_user_email: { email: "※Emailの形式で入力してください" },
-//             unknown_user_mobile: {
-//                 number: "※半角数字を入力してください",
-//                 minlength: "※最低桁数は11です",
-//             },
-//             unknown_user_tel: {
-//                 number: "※半角数字を入力してください",
-//                 minlength: "※最低桁数は10です",
-//             },
-//             pre_date0: { required: "※必須項目です" },
-//             pre_venue0: { required: "※必須項目です" },
-//             pre_enter0: { required: "※必須項目です" },
-//             pre_leave0: { required: "※必須項目です" },
-//         },
-//         errorPlacement: function (error, element) {
-//             var name = element.attr("name");
-//             if (element.attr("name") === "category[]") {
-//                 error.appendTo($(".is-error-category"));
-//             } else if (element.attr("name") === name) {
-//                 error.appendTo($(".is-error-" + name));
-//             }
-//         },
-//         errorElement: "span",
-//         errorClass: "is-error",
-//         //送信前にLoadingを表示
-//         submitHandler: function (form) {
-//             $(".spin_btn").removeClass("hide");
-//             $(".submit_btn").addClass("hide");
-//             form.submit();
-//         },
-//     });
-//     $("input").on("blur", function () {
-//         $(this).valid();
-//     });
-// });
+$(function () {
+    $("#pre_reservationCreateForm").validate({
+        rules: {
+            user_id: { required: true },
+            unknown_user_email: { email: true },
+            unknown_user_mobile: { number: true, minlength: 11 },
+            unknown_user_tel: { number: true, minlength: 10 },
+        },
+        messages: {
+            user_id: { required: "※必須項目です" },
+            unknown_user_email: { email: "※Emailの形式で入力してください" },
+            unknown_user_mobile: {
+                number: "※半角数字を入力してください",
+                minlength: "※最低桁数は11です",
+            },
+            unknown_user_tel: {
+                number: "※半角数字を入力してください",
+                minlength: "※最低桁数は10です",
+            },
+        },
+        errorPlacement: function (error, element) {
+            var name = element.attr("name");
+            if (element.attr("name") === "category[]") {
+                error.appendTo($(".is-error-category"));
+            } else if (element.attr("name") === name) {
+                error.appendTo($(".is-error-" + name));
+            }
+        },
+        errorElement: "span",
+        errorClass: "is-error",
+        //送信前にLoadingを表示
+        submitHandler: function (form) {
+            $(".spin_btn").removeClass("hide");
+            $(".submit_btn").addClass("hide");
+            form.submit();
+        },
+    });
+    $("input").on("blur", function () {
+        $(this).valid();
+    });
+});
+
+
 
 // 仮押さえ　詳細＆再計算&編集&編集の再計算
 $(function () {
@@ -323,6 +340,9 @@ $(function () {
 $(function () {
     $("#pre_agent_reservationsCreateForm").validate({
         rules: {
+            agent_id: {
+                required: true,
+            },
             pre_enduser_tel: {
                 number: true,
                 minlength: 10,
@@ -339,6 +359,9 @@ $(function () {
             },
         },
         messages: {
+            agent_id: {
+                required: "※必須項目です",
+            },
             pre_enduser_tel: {
                 minlength: "※最低桁数は10です",
                 number: "※半角数字を入力してください",
