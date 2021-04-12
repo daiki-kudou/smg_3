@@ -51,7 +51,7 @@ trait SearchTrait
           $query->where('company', 'LIKE', "%{$request->search_free}%");
         });
         $query->orWhere("id", "LIKE", "%{$request->search_free}%"); //id
-        // $query->orWhere("enter_time", "LIKE", "%{$request->search_free}%");
+        $query->orWhere("enter_time", "LIKE", "%{$request->search_free}%");
         // $query->orWhere("leave_time", "LIKE", "%{$request->search_free}%");
 
         // $query->orWhereDate("reserve_date", "LIKE", "%{$request->search_free}%");
