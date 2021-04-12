@@ -159,11 +159,11 @@
             <select name="pre_endusers_attr" class="form-control">
               <option></option>
               <option value="1" {{$PreReservation->pre_enduser->attr==1?"selected":""}}>一般企業</option>
-              <option value="2"{{$PreReservation->pre_enduser->attr==2?"selected":""}}>上場企業</option>
-              <option value="3"{{$PreReservation->pre_enduser->attr==3?"selected":""}}>近隣利用</option>
-              <option value="4"{{$PreReservation->pre_enduser->attr==4?"selected":""}}>個人講師</option>
-              <option value="5"{{$PreReservation->pre_enduser->attr==5?"selected":""}}>MLM</option>
-              <option value="6"{{$PreReservation->pre_enduser->attr==6?"selected":""}}>その他</option>
+              <option value="2" {{$PreReservation->pre_enduser->attr==2?"selected":""}}>上場企業</option>
+              <option value="3" {{$PreReservation->pre_enduser->attr==3?"selected":""}}>近隣利用</option>
+              <option value="4" {{$PreReservation->pre_enduser->attr==4?"selected":""}}>個人講師</option>
+              <option value="5" {{$PreReservation->pre_enduser->attr==5?"selected":""}}>MLM</option>
+              <option value="6" {{$PreReservation->pre_enduser->attr==6?"selected":""}}>その他</option>
             </select>
             <p class="is-error-pre_enduser_attr" style="color: red"></p>
           </td>
@@ -203,14 +203,34 @@
                     <small>料金体系</small>
                   </div>
                   <div class="form-check">
-                    <p>
-                      {{Form::radio('price_system', 1, $PreReservation->price_system==1?true:false , ['id' => 'price_system_radio1', 'class' => 'form-check-input'])}}
-                      <label for="{{'price_system_radio1'}}" class="form-check-label">通常（枠貸）</label>
-                    </p>
-                    <p>
-                      {{Form::radio('price_system', 2, $PreReservation->price_system==2?true:false, ['id' => 'price_system_radio2', 'class' => 'form-check-input'])}}
-                      <label for="{{'price_system_radio2'}}" class="form-check-label">アクセア仕様</label>
-                    </p>
+                    @if ($SPVenue->getPriceSystem()[0]==1&&$SPVenue->getPriceSystem()[1]==1)
+                    <div class="price_radio_selector">
+                      <div class="d-flex justfy-content-start align-items-center">
+                        {{ Form::radio('price_system', 1, $PreReservation->price_system==1?true:false, ['class'=>'mr-2', 'id'=>'price_system_radio1']) }}
+                        {{Form::label('price_system_radio1','通常（枠貸）')}}
+                      </div>
+                      <div class="d-flex justfy-content-start align-items-center">
+                        {{ Form::radio('price_system', 2, $PreReservation->price_system==2?true:false, ['class'=>'mr-2', 'id'=>'price_system_radio2']) }}
+                        {{Form::label('price_system_radio2','アクセア（時間貸）')}}
+                      </div>
+                    </div>
+                    @elseif($SPVenue->getPriceSystem()[0]==1&&$SPVenue->getPriceSystem()[1]==0)
+                    <div class="price_radio_selector">
+                      <div class="d-flex justfy-content-start align-items-center">
+                        {{ Form::radio('price_system', 1, true, ['class'=>'mr-2', 'id'=>'price_system_radio1']) }}
+                        {{Form::label('price_system_radio1','通常（枠貸）')}}
+                      </div>
+                    </div>
+                    @elseif($SPVenue->getPriceSystem()[0]==0&&$SPVenue->getPriceSystem()[1]==1)
+                    <div class="price_radio_selector">
+                      <div class="d-flex justfy-content-start align-items-center">
+                        {{ Form::radio('price_system', 2, true, ['class'=>'mr-2', 'id'=>'price_system_radio2']) }}
+                        {{Form::label('price_system_radio2','アクセア（時間貸）')}}
+                      </div>
+                    </div>
+                    @elseif($SPVenue->getPriceSystem()[0]==0&&$SPVenue->getPriceSystem()[1]==0)
+                    <p>※該当会場には定められた料金体系が存在しません。料金設定をお願いします。</p>
+                    @endif
                   </div>
                 </div>
               </td>
