@@ -141,8 +141,8 @@
                             {{Form::label('cp_master_board_flag1','有り')}}
                           </p>
                           <p>
-                            {{ Form::radio('cp_master_board_flag', 0, true, ['id'=>'cp_master_board_flagboard_flag2']) }}
-                            {{Form::label('cp_master_board_flagboard_flag2','無し')}}
+                            {{ Form::radio('cp_master_board_flag', 0, true, ['id'=>'cp_master_board_no_board_flag']) }}
+                            {{Form::label('cp_master_board_no_board_flag','無し')}}
                           </p>
                         </div>
                       </td>
