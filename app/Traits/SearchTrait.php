@@ -55,11 +55,11 @@ trait SearchTrait
         $query->orWhere("leave_time", "LIKE", "%{$request->search_free}%");
 
         $query->orWhereDate("reserve_date", date('Y-m-d', strtotime($request->search_free)));
-        $query->orWhereYear("reserve_date",  date('Y-m-d', strtotime($request->search_free)));
+        // $query->orWhereYear("reserve_date",  date('Y-m-d', strtotime($request->search_free)));
         // $query->orWhereMonth("reserve_date", "LIKE", "%{$request->search_free}%");
         // $query->orWhereDay("reserve_date", "LIKE", "%{$request->search_free}%");
 
-        // $query->orWhereDate("created_at", "LIKE", "%{$request->search_free}%");
+        $query->orWhereDate("created_at",  date('Y-m-d', strtotime($request->search_free)));
         // $query->orWhereYear("created_at", "LIKE", "%{$request->search_free}%");
         // $query->orWhereMonth("created_at", "LIKE", "%{$request->search_free}%");
         // $query->orWhereDay("created_at", "LIKE", "%{$request->search_free}%");
