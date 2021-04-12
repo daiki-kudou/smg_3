@@ -136,12 +136,29 @@
           <table class="table table-bordered" style="table-layout: fixed;">
             <thead>
               <tr>
-                <th>仲介会社情報</th>
-                <th colspan="3">仲介会社ID：<p class="user_id d-inline">
-                    {{($pre_reservation->agent_id)}}
+              <td colspan="4">
+                <div class="d-flex align-items-center justify-content-between">
+                  <p class="title-icon">
+                    <i class="far fa-address-card icon-size" aria-hidden="true"></i>
+                    仲介会社情報
+                    <!-- <span class="ml-2">仲介会社ID：{{($pre_reservation->agent_id)}}</span> -->
                   </p>
-                </th>
-              </tr>
+                  <p>
+                    @if ($pre_reservation->status==0)
+                    @if ($pre_reservation->user_id>0)
+                    <a href="{{url('admin/pre_reservations/'.$pre_reservation->id.'/edit')}}" class="btn more_btn mr-2">
+                      編集
+                    </a>
+                    @else
+                    <a href="{{url('admin/pre_agent_reservations/'.$pre_reservation->id.'/edit')}}" class="btn more_btn mr-2">
+                      仲介会社用編集
+                    </a>
+                    @endif
+                    @endif
+                  </p>
+                </div>
+              </td>
+            </tr>
             </thead>
             <tbody>
               <tr>
@@ -230,7 +247,12 @@
         <table class="table table-bordered" style="table-layout: fixed;">
           <thead>
             <tr>
-              <th colspan="4">エンドユーザー情報 </th>
+              <td colspan="4">
+                <p class="title-icon">
+                  <i class="fas fa-user icon-size" aria-hidden="true"></i>
+                  エンドユーザー情報
+                </p>
+              </td>
             </tr>
           </thead>
           <tbody>

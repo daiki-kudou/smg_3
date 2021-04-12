@@ -58,8 +58,7 @@
           </td>
         </tr>
         <tr>
-          <th class="table-active" width="25%"><label for="company">会社名・団体名</label><a href=""
-              class="more_btn ml-2">顧客詳細</a></th>
+          <th class="table-active" width="25%"><label for="company">会社名・団体名</label><a href="" class="more_btn ml-2">顧客詳細</a></th>
           <td>
             {{ReservationHelper::getCompany($multiple->pre_reservations->first()->user_id)}}
           </td>
@@ -141,69 +140,85 @@
                     </div>
                   </td>
                 </tr>
-                <tr>
-                  <td class="table-active"><label for="direction">案内板</label></td>
-                  <td>
-                    <div class="radio-box">
-                      <p>
-                        {{ Form::radio('cp_master_board_flag', 1, false, ['id'=>'cp_master_board_flag1']) }}
-                        {{Form::label('cp_master_board_flag1','有り')}}
-                      </p>
-                      <p>
-                        {{ Form::radio('cp_master_board_flag', 0, true, ['id'=>'cp_master_board_flagboard_flag2']) }}
-                        {{Form::label('cp_master_board_flagboard_flag2','無し')}}
-                      </p>
-                    </div>
-                  </td>
-                </tr>
-                <tr>
-                  <td class="table-active"><label for="eventStart">イベント開始時間</label></td>
-                  <td>
-                    <select name="cp_master_event_start" id="cp_master_event_start" class="form-control">
-                      {!!ReservationHelper::timeOptions()!!}
-                    </select>
-                  </td>
-                </tr>
-                <tr>
-                  <td class="table-active"><label for="eventFinish">イベント終了時間</label></td>
-                  <td>
-                    <select name="cp_master_event_finish" id="cp_master_event_finish" class="form-control">
-                      {!!ReservationHelper::timeOptions()!!}
-                    </select>
-                  </td>
-                </tr>
-                <tr>
-                  <td class="table-active"><label for="eventName1">イベント名称1</label></td>
-                  <td>
-                    <div class="align-items-end d-flex">
-                      {{ Form::text('cp_master_event_name1','',['class'=>'form-control', 'placeholder'=>'入力してください','id'=>'eventname1Count'] ) }}
-                      <span class="ml-1 annotation count_num1"></span>
-                    </div>
-                    <p class="is-error-event_name1" style="color: red"></p>
-                  </td>
-                </tr>
-                <tr>
-                  <td class="table-active"><label for="eventName2">イベント名称2</label></td>
-                  <td>
-                    <div class="align-items-end d-flex">
-                      {{ Form::text('cp_master_event_name2', '',['class'=>'form-control', 'placeholder'=>'入力してください', 'id'=>'eventname2Count'] ) }}
-                      <span class="ml-1 annotation count_num2"></span>
-                    </div>
-                    <p class="is-error-event_name2" style="color: red"></p>
-                  </td>
-                </tr>
-                <tr>
-                  <td class="table-active"><label for="organizer">主催者名</label></td>
-                  <td>
-                    <div class="align-items-end d-flex">
-                      {{ Form::text('cp_master_event_owner', '',['class'=>'form-control', 'placeholder'=>'入力してください','id'=>'eventownerCount'] ) }}
-                      <span class="ml-1 annotation count_num3"></span>
-                    </div>
-                    <p class="is-error-event_owner" style="color: red"></p>
-                  </td>
-                </tr>
+
               </tbody>
             </table>
+
+            <table class="table table-bordered board-table">
+              <tr>
+                <td colspan="2">
+                  <div class="d-flex align-items-center justify-content-between">
+                    <p class="title-icon">
+                      <i class="fas fa-clipboard icon-size"></i>案内版
+                    </p>
+                  </div>
+                </td>
+              </tr>
+              <tr>
+                <td class="table-active"><label for="direction">案内板</label></td>
+                <td>
+                  <div class="radio-box">
+                    <p>
+                      {{ Form::radio('cp_master_board_flag', 1, false, ['id'=>'cp_master_board_flag1']) }}
+                      {{Form::label('cp_master_board_flag1','有り')}}
+                    </p>
+                    <p>
+                      {{ Form::radio('cp_master_board_flag', 0, true, ['id'=>'cp_master_board_no_board_flag']) }}
+                      {{Form::label('cp_master_board_no_board_flag','無し')}}
+                    </p>
+                  </div>
+                </td>
+              </tr>
+              <tr>
+                <td class="table-active"><label for="eventStart">イベント開始時間</label></td>
+                <td>
+                  <select name="cp_master_event_start" id="cp_master_event_start" class="form-control">
+                    {!!ReservationHelper::timeOptions()!!}
+                  </select>
+                </td>
+              </tr>
+              <tr>
+                <td class="table-active"><label for="eventFinish">イベント終了時間</label></td>
+                <td>
+                  <select name="cp_master_event_finish" id="cp_master_event_finish" class="form-control">
+                    {!!ReservationHelper::timeOptions()!!}
+                  </select>
+                </td>
+              </tr>
+              <tr>
+                <td class="table-active"><label for="eventName1">イベント名称1</label></td>
+                <td>
+                  <div class="align-items-end d-flex">
+                    {{ Form::text('cp_master_event_name1','',['class'=>'form-control', 'placeholder'=>'入力してください','id'=>'eventname1Count'] ) }}
+                    <span class="ml-1 annotation count_num1"></span>
+                  </div>
+                  <p class="is-error-event_name1" style="color: red"></p>
+                </td>
+              </tr>
+              <tr>
+                <td class="table-active"><label for="eventName2">イベント名称2</label></td>
+                <td>
+                  <div class="align-items-end d-flex">
+                    {{ Form::text('cp_master_event_name2', '',['class'=>'form-control', 'placeholder'=>'入力してください', 'id'=>'eventname2Count'] ) }}
+                    <span class="ml-1 annotation count_num2"></span>
+                  </div>
+                  <p class="is-error-event_name2" style="color: red"></p>
+                </td>
+              </tr>
+              <tr>
+                <td class="table-active"><label for="organizer">主催者名</label></td>
+                <td>
+                  <div class="align-items-end d-flex">
+                    {{ Form::text('cp_master_event_owner', '',['class'=>'form-control', 'placeholder'=>'入力してください','id'=>'eventownerCount'] ) }}
+                    <span class="ml-1 annotation count_num3"></span>
+                  </div>
+                  <p class="is-error-event_owner" style="color: red"></p>
+                </td>
+              </tr>
+            </table>
+
+
+
             <table class="table table-bordered equipment-table">
               <thead class="accordion-ttl">
                 <tr>
@@ -520,16 +535,16 @@
     <!-- コピー作成用フィールド   終わり--------------------------------------------------　 -->
     <p class="text-center">
       @if (count($venue->frame_prices)==0&&count($venue->time_prices)==0)
-      <div class="d-flex justify-content-center">
-        <div class="">
-          <p class="d-block">※選択された会場は料金が設定されていません。会場管理/料金管理に戻り設定してください</p>
-          <a href="{{url('admin/frame_prices')}}" class="btn more_btn_lg mt-5 d-flex justify-content-center">料金管理画面へ</a>
-        </div>
+    <div class="d-flex justify-content-center">
+      <div class="">
+        <p class="d-block">※選択された会場は料金が設定されていません。会場管理/料金管理に戻り設定してください</p>
+        <a href="{{url('admin/frame_prices')}}" class="btn more_btn_lg mt-5 d-flex justify-content-center">料金管理画面へ</a>
       </div>
-      @else
-      {{ Form::submit('すべての日程に反映する', ['class' => 'btn more_btn_lg mt-3'])}}
-      @endif
-      {{ Form::close() }}
+    </div>
+    @else
+    {{ Form::submit('すべての日程に反映する', ['class' => 'btn more_btn_lg mt-3'])}}
+    @endif
+    {{ Form::close() }}
     </p>
   </section>
 
@@ -571,8 +586,7 @@
     <div class="register-list-item">
       <div class="from-group list_checkbox">
         <div class="form-check">
-          <input type="checkbox" name="{{'delete_check'.$pre_reservation->id}}" value="{{$pre_reservation->id}}"
-            class="checkbox mr-1" />
+          <input type="checkbox" name="{{'delete_check'.$pre_reservation->id}}" value="{{$pre_reservation->id}}" class="checkbox mr-1" />
           <!-- <input class="form-check-input" type="checkbox"> -->
           <label class="form-check-label"></label>
         </div>
@@ -640,86 +654,98 @@
                       </div>
                     </td>
                   </tr>
-                  <tr>
-                    <td class="table-active"><label for="direction">案内板</label></td>
-                    <td>
-                      <div class="radio-box">
-                        <p>
-                          {{ Form::radio('board_flag_copied'.$key, 1, $pre_reservation->board_flag==1?true:false, ['id'=>'board_flag_copied'.$key]) }}
-                          {{Form::label('board_flag_copied'.$key,'有り')}}
-                        </p>
-                        <p>
-                          {{ Form::radio('board_flag_copied'.$key, 0, $pre_reservation->board_flag==0?true:false, ['id'=>'board_flag_copied_off'.$key]) }}
-                          {{Form::label('board_flag_copied_off'.$key,'無し')}}
-                        </p>
-                      </div>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td class="table-active"><label for="eventStart">イベント開始時間</label></td>
-                    <td>
-                      <select name="{{'event_start_copied'.$key}}" class="form-control">
-                        <option disabled>選択してください</option>
-                        @for ($start = 0*2; $start <=23*2; $start++) <option
-                          value="{{date("H:i:s", strtotime("00:00 +". $start * 30 ." minute"))}}" @if(date("H:i:s",
-                          strtotime("00:00 +". $start * 30 ." minute"))==$pre_reservation->enter_time)
-                          selected
-                          @endif
-                          >
-                          {{date("H時i分", strtotime("00:00 +". $start * 30 ." minute"))}}</option>
-                          @endfor
-                      </select>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td class="table-active"><label for="eventFinish">イベント終了時間</label></td>
-                    <td>
-                      <select name="{{'event_finish_copied'.$key}}" id="{{'event_finish_copied'.$key}}"
-                        class="form-control">
-                        <option disabled>選択してください</option>
-                        @for ($start = 0*2; $start <=23*2; $start++) <option
-                          value="{{date("H:i:s", strtotime("00:00 +". $start * 30 ." minute"))}}" @if (date("H:i:s",
-                          strtotime("00:00 +". $start * 30 ." minute"))==$pre_reservation->leave_time)
-                          selected
-                          @endif
-                          >
-                          {{date("H時i分", strtotime("00:00 +". $start * 30 ." minute"))}}</option>
-                          @endfor
-                      </select>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td class="table-active"><label for="eventName1">イベント名称1</label></td>
-                    <td>
-                      <div class="align-items-end d-flex">
-                        {{ Form::text('event_name1_copied'.$key,$pre_reservation->event_name1,['class'=>'form-control', 'placeholder'=>'入力してください', 'id'=>"copiedeventname1Count".$key] ) }}
-                        <span class="ml-1 annotation {{'count_num1_copied'.$key}}"></span>
-                      </div>
-                      <p class="{{'eventname1_error'.$key}}" style="color: red"></p>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td class="table-active"><label for="eventName2">イベント名称2</label></td>
-                    <td>
-                      <div class="align-items-end d-flex">
-                        {{ Form::text('event_name2_copied'.$key, $pre_reservation->event_name2,['class'=>'form-control', 'placeholder'=>'入力してください', 'id'=>"copiedeventname2Count".$key] ) }}
-                        <span class="ml-1 annotation {{'count_num2_copied'.$key}}"></span>
-                      </div>
-                      <p class="{{'eventname2_error'.$key}}" style="color: red"></p>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td class="table-active"><label for="organizer">主催者名</label></td>
-                    <td>
-                      <div class="align-items-end d-flex">
-                        {{ Form::text('event_owner'.$key, $pre_reservation->event_owner,['class'=>'form-control', 'placeholder'=>'入力してください', 'id'=>"copiedeventOwnerCount".$key] ) }}
-                        <span class="ml-1 annotation {{'count_num3_copied'.$key}}"></span>
-                      </div>
-                      <p class="{{'eventowner_error'.$key}}" style="color: red"></p>
-                    </td>
-                  </tr>
+
                 </tbody>
               </table>
+
+
+              <table class="table table-bordered board-table">
+                <tr>
+                  <td colspan="2">
+                    <div class="d-flex align-items-center justify-content-between">
+                      <p class="title-icon">
+                        <i class="fas fa-clipboard icon-size"></i>案内版
+                      </p>
+                    </div>
+                  </td>
+                </tr>
+                <tr>
+                  <td class="table-active"><label for="direction">案内板</label></td>
+                  <td>
+                    <div class="radio-box">
+                      <p>
+                        {{ Form::radio('board_flag_copied'.$key, 1, $pre_reservation->board_flag==1?true:false, ['id'=>'board_flag_copied'.$key]) }}
+                        {{Form::label('board_flag_copied'.$key,'有り')}}
+                      </p>
+                      <p>
+                        {{ Form::radio('board_flag_copied'.$key, 0, $pre_reservation->board_flag==0?true:false, ['id'=>'board_flag_copied_off'.$key]) }}
+                        {{Form::label('board_flag_copied_off'.$key,'無し')}}
+                      </p>
+                    </div>
+                  </td>
+                </tr>
+                <tr>
+                  <td class="table-active"><label for="eventStart">イベント開始時間</label></td>
+                  <td>
+                    <select name="{{'event_start_copied'.$key}}" id="{{'event_finish_copied'.$key}}" class="form-control">
+                      <option disabled>選択してください</option>
+                      @for ($start = 0*2; $start <=23*2; $start++) <option value="{{date("H:i:s", strtotime("00:00 +". $start * 30 ." minute"))}}" @if(date("H:i:s", strtotime("00:00 +". $start * 30 ." minute"))==$pre_reservation->enter_time)
+                        selected
+                        @endif
+                        >
+                        {{date("H時i分", strtotime("00:00 +". $start * 30 ." minute"))}}</option>
+                        @endfor
+                    </select>
+                  </td>
+                </tr>
+                <tr>
+                  <td class="table-active"><label for="eventFinish">イベント終了時間</label></td>
+                  <td>
+                    <select name="{{'event_finish_copied'.$key}}" id="{{'event_finish_copied'.$key}}" class="form-control">
+                      <option disabled>選択してください</option>
+                      @for ($start = 0*2; $start <=23*2; $start++) <option value="{{date("H:i:s", strtotime("00:00 +". $start * 30 ." minute"))}}" @if (date("H:i:s", strtotime("00:00 +". $start * 30 ." minute"))==$pre_reservation->leave_time)
+                        selected
+                        @endif
+                        >
+                        {{date("H時i分", strtotime("00:00 +". $start * 30 ." minute"))}}</option>
+                        @endfor
+                    </select>
+                  </td>
+                </tr>
+                <tr>
+                  <td class="table-active"><label for="eventName1">イベント名称1</label></td>
+                  <td>
+                    <div class="align-items-end d-flex">
+                      {{ Form::text('event_name1_copied'.$key,$pre_reservation->event_name1,['class'=>'form-control', 'placeholder'=>'入力してください', 'id'=>"copiedeventname1Count".$key] ) }}
+                      <span class="ml-1 annotation {{'count_num1_copied'.$key}}"></span>
+                    </div>
+                    <p class="{{'eventname1_error'.$key}}" style="color: red"></p>
+                  </td>
+                </tr>
+                <tr>
+                  <td class="table-active"><label for="eventName2">イベント名称2</label></td>
+                  <td>
+                    <div class="align-items-end d-flex">
+                      {{ Form::text('event_name2_copied'.$key, $pre_reservation->event_name2,['class'=>'form-control', 'placeholder'=>'入力してください', 'id'=>"copiedeventname2Count".$key] ) }}
+                      <span class="ml-1 annotation {{'count_num2_copied'.$key}}"></span>
+                    </div>
+                    <p class="{{'eventname2_error'.$key}}" style="color: red"></p>
+                  </td>
+                </tr>
+                <tr>
+                  <td class="table-active"><label for="organizer">主催者名</label></td>
+                  <td>
+                    <div class="align-items-end d-flex">
+                      {{ Form::text('event_owner'.$key, $pre_reservation->event_owner,['class'=>'form-control', 'placeholder'=>'入力してください', 'id'=>"copiedeventOwnerCount".$key] ) }}
+                      <span class="ml-1 annotation {{'count_num3_copied'.$key}}"></span>
+                    </div>
+                    <p class="{{'eventowner_error'.$key}}" style="color: red"></p>
+                  </td>
+                </tr>
+              </table>
+
+
+
               <table class="table table-bordered equipment-table">
                 <thead class="accordion-ttl">
                   <tr>
@@ -1107,16 +1133,15 @@
           <div class="btn_wrapper">
             <p class="text-center">
               @if (count($venue->frame_prices)==0&&count($venue->time_prices)==0)
-              <div class="d-flex justify-content-center">
-                <div class="">
-                  <p class="d-block">選択された会場は料金が設定されていません。会場管理/料金管理に戻り設定してください</p>
-                  <a href="{{url('admin/frame_prices')}}"
-                    class="btn more_btn_lg mt-5 d-flex justify-content-center">料金管理画面へ</a>
-                </div>
+            <div class="d-flex justify-content-center">
+              <div class="">
+                <p class="d-block">選択された会場は料金が設定されていません。会場管理/料金管理に戻り設定してください</p>
+                <a href="{{url('admin/frame_prices')}}" class="btn more_btn_lg mt-5 d-flex justify-content-center">料金管理画面へ</a>
               </div>
-              @else
-              {{ Form::submit('請求に反映する', ['class' => 'btn more_btn_lg'])}}
-              @endif
+            </div>
+            @else
+            {{ Form::submit('請求に反映する', ['class' => 'btn more_btn_lg'])}}
+            @endif
             </p>
             {{ Form::close() }}
           </div>

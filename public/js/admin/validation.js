@@ -28,8 +28,6 @@ $(function () {
     });
 });
 
-// 案内板の表示、非表示
-
 // $(function () {
 //     var flag = $("input[name='board_flag']:checked").val();
 //     console.log(flag);
@@ -47,9 +45,9 @@ $(function () {
 //         $("#eventownerCount").prop("disabled", false);
 //     }
 // });
-
-$( document ).ready(function(){
-    $("#no_board_flag:checked").each(function(){
+// ロード時の、案内板入力制御
+$(document).ready(function () {
+    $("#no_board_flag:checked").each(function () {
         var flag = $(this);
         if ($(flag).is(":checked") != null) {
             $("#event_start").prop("disabled", true);
@@ -61,8 +59,8 @@ $( document ).ready(function(){
     });
 });
 
+// ラジオボタンクリック時の入力制御
 $(function () {
-    // $('input[name="board_flag"]').click(function(){
     $('input[name="board_flag"]').change(function () {
         var prop = $("#no_board_flag").prop("checked");
         if (prop) {
@@ -79,6 +77,76 @@ $(function () {
             $("#eventownerCount").prop("disabled", false);
         }
     });
+});
+
+// 一括ロード時の、案内板入力制御
+$(document).ready(function () {
+    $("#cp_master_board_no_board_flag:checked").each(function () {
+        var flag = $(this);
+        if ($(flag).is(":checked") != null) {
+            $("#cp_master_event_start").prop("disabled", true);
+            $("#cp_master_event_finish").prop("disabled", true);
+            $("#eventname1Count").prop("disabled", true);
+            $("#eventname2Count").prop("disabled", true);
+            $("#eventownerCount").prop("disabled", true);
+        }
+    });
+});
+
+// 一括ラジオボタンクリック時の入力制御
+$(function () {
+    $('input[name="cp_master_board_flag"]').change(function () {
+        var prop = $("#cp_master_board_no_board_flag").prop("checked");
+        if (prop) {
+            $("#cp_master_event_start").prop("disabled", true);
+            $("#cp_master_event_finish").prop("disabled", true);
+            $("#eventname1Count").prop("disabled", true);
+            $("#eventname2Count").prop("disabled", true);
+            $("#eventownerCount").prop("disabled", true);
+        } else {
+            $("#cp_master_event_start").prop("disabled", false);
+            $("#cp_master_event_finish").prop("disabled", false);
+            $("#eventname1Count").prop("disabled", false);
+            $("#eventname2Count").prop("disabled", false);
+            $("#eventownerCount").prop("disabled", false);
+        }
+    });
+});
+
+$(function () {
+    // var target = $('input[name="board_flag_copied_off"]');
+    var target = $("input[name^='tel_copied']");
+
+    for (let index = 0; index < target.length; index++) {
+        var board_flag_copied_off = "#board_flag_copied_off" + index;
+        var event_start_copied = "#event_start_copied" + index;
+        var event_finish_copied = "#event_finish_copied" + index;
+        var copiedeventname1Count = "#copiedeventname1Count" + index;
+        var copiedeventname2Count = "#copiedeventname2Count" + index;
+        var copiedeventOwnerCount = "#copiedeventOwnerCount" + index;
+
+        console.log(board_flag_copied_off);
+        console.log(event_start_copied);
+
+        $(function () {
+            $("input[name^='board_flag_copied']").change(function () {
+                var prop = $(board_flag_copied_off).prop("checked");
+                if (prop) {
+                    $(event_start_copied).prop("disabled", true);
+                    $(event_finish_copied).prop("disabled", true);
+                    $(copiedeventname1Count).prop("disabled", true);
+                    $(copiedeventname2Count).prop("disabled", true);
+                    $(copiedeventOwnerCount).prop("disabled", true);
+                } else {
+                    $(event_start_copied).prop("disabled", false);
+                    $(event_finish_copied).prop("disabled", false);
+                    $(copiedeventname1Count).prop("disabled", false);
+                    $(copiedeventname2Count).prop("disabled", false);
+                    $(copiedeventOwnerCount).prop("disabled", false);
+                }
+            });
+        });
+    }
 });
 
 // 仮押さえ、一括仮押さえ一覧検索
@@ -127,55 +195,55 @@ $(function () {
 });
 
 // 仮押え新規作成
-$(function () {
-    $("#pre_reservationCreateForm").validate({
-        rules: {
-            user_id: { required: true },
-            unknown_user_email: { email: true },
-            unknown_user_mobile: { number: true, minlength: 11 },
-            unknown_user_tel: { number: true, minlength: 10 },
-            pre_date0: { required: true },
-            pre_venue0: { required: true },
-            pre_enter0: { required: true },
-            pre_leave0: { required: true },
-        },
-        messages: {
-            user_id: { required: "※必須項目です" },
-            unknown_user_email: { email: "※Emailの形式で入力してください" },
-            unknown_user_mobile: {
-                number: "※半角数字を入力してください",
-                minlength: "※最低桁数は11です",
-            },
-            unknown_user_tel: {
-                number: "※半角数字を入力してください",
-                minlength: "※最低桁数は10です",
-            },
-            pre_date0: { required: "※必須項目です" },
-            pre_venue0: { required: "※必須項目です" },
-            pre_enter0: { required: "※必須項目です" },
-            pre_leave0: { required: "※必須項目です" },
-        },
-        errorPlacement: function (error, element) {
-            var name = element.attr("name");
-            if (element.attr("name") === "category[]") {
-                error.appendTo($(".is-error-category"));
-            } else if (element.attr("name") === name) {
-                error.appendTo($(".is-error-" + name));
-            }
-        },
-        errorElement: "span",
-        errorClass: "is-error",
-        //送信前にLoadingを表示
-        submitHandler: function (form) {
-            $(".spin_btn").removeClass("hide");
-            $(".submit_btn").addClass("hide");
-            form.submit();
-        },
-    });
-    $("input").on("blur", function () {
-        $(this).valid();
-    });
-});
+// $(function () {
+//     $("#pre_reservationCreateForm").validate({
+//         rules: {
+//             user_id: { required: true },
+//             unknown_user_email: { email: true },
+//             unknown_user_mobile: { number: true, minlength: 11 },
+//             unknown_user_tel: { number: true, minlength: 10 },
+//             pre_date0: { required: true },
+//             pre_venue0: { required: true },
+//             pre_enter0: { required: true },
+//             pre_leave0: { required: true },
+//         },
+//         messages: {
+//             user_id: { required: "※必須項目です" },
+//             unknown_user_email: { email: "※Emailの形式で入力してください" },
+//             unknown_user_mobile: {
+//                 number: "※半角数字を入力してください",
+//                 minlength: "※最低桁数は11です",
+//             },
+//             unknown_user_tel: {
+//                 number: "※半角数字を入力してください",
+//                 minlength: "※最低桁数は10です",
+//             },
+//             pre_date0: { required: "※必須項目です" },
+//             pre_venue0: { required: "※必須項目です" },
+//             pre_enter0: { required: "※必須項目です" },
+//             pre_leave0: { required: "※必須項目です" },
+//         },
+//         errorPlacement: function (error, element) {
+//             var name = element.attr("name");
+//             if (element.attr("name") === "category[]") {
+//                 error.appendTo($(".is-error-category"));
+//             } else if (element.attr("name") === name) {
+//                 error.appendTo($(".is-error-" + name));
+//             }
+//         },
+//         errorElement: "span",
+//         errorClass: "is-error",
+//         //送信前にLoadingを表示
+//         submitHandler: function (form) {
+//             $(".spin_btn").removeClass("hide");
+//             $(".submit_btn").addClass("hide");
+//             form.submit();
+//         },
+//     });
+//     $("input").on("blur", function () {
+//         $(this).valid();
+//     });
+// });
 
 // 仮押さえ　詳細＆再計算&編集&編集の再計算
 $(function () {
@@ -693,7 +761,7 @@ $(function () {
         var luggagereturncopied = "luggage_return_copied" + index;
         var luggagepricecopied = "luggage_price_copied" + index;
 
-        console.log("enduserchargecopied");
+        // console.log("enduserchargecopied");
 
         $("#multiplesAgentSpecificUpdateEdit" + index).validate({
             rules: {
@@ -1493,40 +1561,47 @@ $(function () {
 
 // 一括仮押さえ一覧　検索
 $(function () {
-  $("#searchMultiple").validate({
-    rules: {
-      search_id: { number: true, min: 1 },
-      search_mobile: { number: true, minlength: 11 },
-      search_tel: { number: true, minlength: 10 },
-    },
-    messages: {
-      search_id: { number: "※半角英数字で入力してください", min: "※0以上を入力してください" },
-      search_mobile: { number: "※半角英数字で入力してください", minlength: "11桁で入力してください" },
-      search_tel: { number: "※半角英数字で入力してください", minlength: "10桁で入力してください" },
-    },
-    errorPlacement: function (error, element) {
-      var name = element.attr('name');
-      if (element.attr('name') === 'category[]') {
-        error.appendTo($('.is-error-category'));
-      } else if (element.attr('name') === name) {
-        error.appendTo($('.is-error-' + name));
-      }
-    },
-    errorElement: "span",
-    errorClass: "is-error",
-    //送信前にLoadingを表示
-    submitHandler: function (form) {
-      $('.approval').addClass('hide');
-      $('.loading').removeClass('hide');
-      form.submit();
-    }
-  });
-  $('input').on('blur', function () {
-    $(this).valid();
-    // if ($('span').hasClass('is-error')) {
-    //   $('span').css('background', 'white');
-    // }
-  });
+    $("#searchMultiple").validate({
+        rules: {
+            search_id: { number: true, min: 1 },
+            search_mobile: { number: true, minlength: 11 },
+            search_tel: { number: true, minlength: 10 },
+        },
+        messages: {
+            search_id: {
+                number: "※半角英数字で入力してください",
+                min: "※0以上を入力してください",
+            },
+            search_mobile: {
+                number: "※半角英数字で入力してください",
+                minlength: "11桁で入力してください",
+            },
+            search_tel: {
+                number: "※半角英数字で入力してください",
+                minlength: "10桁で入力してください",
+            },
+        },
+        errorPlacement: function (error, element) {
+            var name = element.attr("name");
+            if (element.attr("name") === "category[]") {
+                error.appendTo($(".is-error-category"));
+            } else if (element.attr("name") === name) {
+                error.appendTo($(".is-error-" + name));
+            }
+        },
+        errorElement: "span",
+        errorClass: "is-error",
+        //送信前にLoadingを表示
+        submitHandler: function (form) {
+            $(".approval").addClass("hide");
+            $(".loading").removeClass("hide");
+            form.submit();
+        },
+    });
+    $("input").on("blur", function () {
+        $(this).valid();
+        // if ($('span').hasClass('is-error')) {
+        //   $('span').css('background', 'white');
+        // }
+    });
 });
-
-
