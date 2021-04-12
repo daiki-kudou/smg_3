@@ -183,8 +183,8 @@
                   class="checkbox" />
               </td>
 
-              <td>{{$multiple->id}}</td>
-              <td>{{$multiple->created_at}}</td>
+              <td>{{ReservationHelper::fixId($multiple->id)}}</td>
+              <td>{{ReservationHelper::formatDate($multiple->created_at)}}</td>
               <td>{{$multiple->pre_reservations()->count()}}</td>
               <td>
                 @if ($multiple->pre_reservations()->first()->user_id!=0)
