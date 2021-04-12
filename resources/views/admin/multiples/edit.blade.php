@@ -58,7 +58,8 @@
           </td>
         </tr>
         <tr>
-          <th class="table-active" width="25%"><label for="company">会社名・団体名</label><a href="" class="more_btn ml-2">顧客詳細</a></th>
+          <th class="table-active" width="25%"><label for="company">会社名・団体名</label><a href=""
+              class="more_btn ml-2">顧客詳細</a></th>
           <td>
             {{ReservationHelper::getCompany($multiple->pre_reservations->first()->user_id)}}
           </td>
@@ -503,21 +504,6 @@
                     </p>
                   </td>
                 </tr>
-                <!-- <tr>
-                      <td>
-                        <p>
-                          <input type="checkbox" id="discount" checked="">
-                          <label for="discount">割引条件</label>
-                        </p>
-                        {{ Form::textarea('cp_master_discount_condition', '',['class'=>'form-control'] ) }}
-                      </td>
-                    </tr>
-                    <tr class="caution">
-                      <td>
-                        <label for="caution">注意事項</label>
-                        {{ Form::textarea('cp_master_attention', '',['class'=>'form-control'] ) }}
-                      </td>
-                    </tr> -->
                 <tr>
                   <td>
                     <label for="adminNote">管理者備考</label>
@@ -535,16 +521,16 @@
     <!-- コピー作成用フィールド   終わり--------------------------------------------------　 -->
     <p class="text-center">
       @if (count($venue->frame_prices)==0&&count($venue->time_prices)==0)
-    <div class="d-flex justify-content-center">
-      <div class="">
-        <p class="d-block">※選択された会場は料金が設定されていません。会場管理/料金管理に戻り設定してください</p>
-        <a href="{{url('admin/frame_prices')}}" class="btn more_btn_lg mt-5 d-flex justify-content-center">料金管理画面へ</a>
+      <div class="d-flex justify-content-center">
+        <div class="">
+          <p class="d-block">※選択された会場は料金が設定されていません。会場管理/料金管理に戻り設定してください</p>
+          <a href="{{url('admin/frame_prices')}}" class="btn more_btn_lg mt-5 d-flex justify-content-center">料金管理画面へ</a>
+        </div>
       </div>
-    </div>
-    @else
-    {{ Form::submit('すべての日程に反映する', ['class' => 'btn more_btn_lg mt-3'])}}
-    @endif
-    {{ Form::close() }}
+      @else
+      {{ Form::submit('すべての日程に反映する', ['class' => 'btn more_btn_lg mt-3'])}}
+      @endif
+      {{ Form::close() }}
     </p>
   </section>
 
@@ -586,7 +572,8 @@
     <div class="register-list-item">
       <div class="from-group list_checkbox">
         <div class="form-check">
-          <input type="checkbox" name="{{'delete_check'.$pre_reservation->id}}" value="{{$pre_reservation->id}}" class="checkbox mr-1" />
+          <input type="checkbox" name="{{'delete_check'.$pre_reservation->id}}" value="{{$pre_reservation->id}}"
+            class="checkbox mr-1" />
           <!-- <input class="form-check-input" type="checkbox"> -->
           <label class="form-check-label"></label>
         </div>
@@ -689,7 +676,9 @@
                   <td>
                     <select name="{{'event_start_copied'.$key}}" id="{{'event_start_copied'.$key}}" class="form-control">
                       <option disabled>選択してください</option>
-                      @for ($start = 0*2; $start <=23*2; $start++) <option value="{{date("H:i:s", strtotime("00:00 +". $start * 30 ." minute"))}}" @if(date("H:i:s", strtotime("00:00 +". $start * 30 ." minute"))==$pre_reservation->enter_time)
+                      @for ($start = 0*2; $start <=23*2; $start++) <option
+                        value="{{date("H:i:s", strtotime("00:00 +". $start * 30 ." minute"))}}" @if(date("H:i:s",
+                        strtotime("00:00 +". $start * 30 ." minute"))==$pre_reservation->enter_time)
                         selected
                         @endif
                         >
@@ -701,9 +690,12 @@
                 <tr>
                   <td class="table-active"><label for="eventFinish">イベント終了時間</label></td>
                   <td>
-                    <select name="{{'event_finish_copied'.$key}}" id="{{'event_finish_copied'.$key}}" class="form-control">
+                    <select name="{{'event_finish_copied'.$key}}" id="{{'event_finish_copied'.$key}}"
+                      class="form-control">
                       <option disabled>選択してください</option>
-                      @for ($start = 0*2; $start <=23*2; $start++) <option value="{{date("H:i:s", strtotime("00:00 +". $start * 30 ." minute"))}}" @if (date("H:i:s", strtotime("00:00 +". $start * 30 ." minute"))==$pre_reservation->leave_time)
+                      @for ($start = 0*2; $start <=23*2; $start++) <option
+                        value="{{date("H:i:s", strtotime("00:00 +". $start * 30 ." minute"))}}" @if (date("H:i:s",
+                        strtotime("00:00 +". $start * 30 ." minute"))==$pre_reservation->leave_time)
                         selected
                         @endif
                         >
@@ -1133,15 +1125,16 @@
           <div class="btn_wrapper">
             <p class="text-center">
               @if (count($venue->frame_prices)==0&&count($venue->time_prices)==0)
-            <div class="d-flex justify-content-center">
-              <div class="">
-                <p class="d-block">選択された会場は料金が設定されていません。会場管理/料金管理に戻り設定してください</p>
-                <a href="{{url('admin/frame_prices')}}" class="btn more_btn_lg mt-5 d-flex justify-content-center">料金管理画面へ</a>
+              <div class="d-flex justify-content-center">
+                <div class="">
+                  <p class="d-block">選択された会場は料金が設定されていません。会場管理/料金管理に戻り設定してください</p>
+                  <a href="{{url('admin/frame_prices')}}"
+                    class="btn more_btn_lg mt-5 d-flex justify-content-center">料金管理画面へ</a>
+                </div>
               </div>
-            </div>
-            @else
-            {{ Form::submit('請求に反映する', ['class' => 'btn more_btn_lg'])}}
-            @endif
+              @else
+              {{ Form::submit('請求に反映する', ['class' => 'btn more_btn_lg'])}}
+              @endif
             </p>
             {{ Form::close() }}
           </div>
@@ -1326,22 +1319,7 @@
                             {{ Form::text('services_breakdown_subtotal'.$sb_key.'_copied'.$key, $each_ser->unit_subtotal,['class'=>'form-control', 'readonly'] ) }}
                           </td>
                         </tr>
-                        {{-- @if ($each_ser->unit_item=="荷物預り/返送")
-                            <tr>
-                              <td>
-                                {{ Form::text('luggage_item_copied'.$key, '荷物預り/返送',['class'=>'form-control', 'readonly'] ) }}
-                        </td>
-                        <td>
-                          {{ Form::text('luggage_cost_copied'.$key, $each_ser->unit_cost,['class'=>'form-control', 'readonly'] ) }}
-                        </td>
-                        <td>
-                          {{ Form::text('luggage_count_copied'.$key, 1,['class'=>'form-control', 'readonly'] ) }}
-                        </td>
-                        <td>
-                          {{ Form::text('luggage_subtotal_copied'.$key, $each_ser->unit_cost,['class'=>'form-control', 'readonly'] ) }}
-                        </td>
-                        </tr>
-                        @endif --}}
+
                         @endforeach
                       </tbody>
                       <tbody class="{{'equipment_result'.$key}}">
@@ -1352,32 +1330,7 @@
                           </td>
                         </tr>
                       </tbody>
-                      <!-- <tbody class="{{'equipment_discount'.$key}}">
-                            <tr>
-                              <td>割引計算欄</td>
-                              <td>
-                                <p>
-                                  割引金額
-                                </p>
-                                <div class="d-flex align-items-end">
-                                  {{ Form::text('equipment_number_discount'.$key,'',['class'=>'form-control'] ) }}
-                                  <p class="ml-1">円</p>
-                                </div>
-                              </td>
-                              <td>
-                                <p>
-                                  割引率
-                                </p>
-                                <div class="d-flex align-items-end">
-                                  {{ Form::text('equipment_percent_discount'.$key, '',['class'=>'form-control'] ) }}
-                                  <p class="ml-1">%</p>
-                                </div>
-                              </td>
-                              <td>
-                                <input class="btn more_btn {{'equipment_discount_btn'.$key}}" type="button" value="計算する">
-                              </td>
-                            </tr>
-                          </tbody> -->
+
                     </table>
                   </div>
                   @endif
@@ -1429,84 +1382,11 @@
                         </tr>
                       </tbody>
                       <tbody class="{{'layout_discount'.$key}}">
-                        <!-- <tr>
-                              <td>割引計算欄</td>
-                              <td>
-                                <p>
-                                  割引金額
-                                </p>
-                                <div class="d-flex align-items-end">
-                                  {{ Form::text('layout_number_discount'.$key, '',['class'=>'form-control'] ) }}
-                                  <p class="ml-1">円</p>
-                                </div>
-                              </td>
-                              <td>
-                                <p>
-                                  割引率
-                                </p>
-                                <div class="d-flex align-items-end">
-                                  {{ Form::text('layout_percent_discount'.$key, '',['class'=>'form-control'] ) }}
-                                  <p class="ml-1">%</p>
-                                </div>
-                              </td>
-                              <td>
-                                <input class="btn more_btn {{'layout_discount_btn'.$key}}" type="button" value="計算する">
-                              </td>
-                            </tr>
-                          </tbody> -->
+
                     </table>
                   </div>
                   @endif
 
-                  {{-- 以下、その他 --}}
-                  <!-- <div class="others billdetails_content">
-                        <table class="table table-borderless">
-                          <tr>
-                            <td colspan="5">
-                              　<h4 class="billdetails_content_ttl">
-                                その他
-                              </h4>
-                            </td>
-                          </tr>
-                          <tbody class="others_head">
-                            <tr>
-                              <td>内容</td>
-                              <td>単価</td>
-                              <td>数量</td>
-                              <td>金額</td>
-                              <td>追加/削除</td>
-                            </tr>
-                          </tbody>
-                          <tbody class="{{'others_main'.$key}}">
-                            <tr>
-                              <td>
-                                {{ Form::text('others_input_item0_copied'.$key, '',['class'=>'form-control'] ) }}
-                              </td>
-                              <td>
-                                {{ Form::text('others_input_cost0_copied'.$key, '',['class'=>'form-control'] ) }}
-                              </td>
-                              <td>
-                                {{ Form::text('others_input_count0_copied'.$key, '',['class'=>'form-control'] ) }}
-                              </td>
-                              <td>
-                                {{ Form::text('others_input_subtotal0_copied'.$key, '',['class'=>'form-control', 'readonly'] ) }}
-                              </td>
-                              <td>
-                                <input type="button" value="＋" class="add pluralBtn bg-blue">
-                                <input type="button" value="ー" class="del pluralBtn bg-red">
-                              </td>
-                            </tr>
-                          </tbody>
-                          <tbody class="others_result">
-                            <tr>
-                              <td colspan="2"></td>
-                              <td colspan="3">合計
-                                {{ Form::text('others_price'.$key, '',['class'=>'form-control', 'readonly'] ) }}
-                              </td>
-                            </tr>
-                          </tbody>
-                        </table>
-                      </div> -->
                   {{-- 以下、総合計 --}}
                   <div class="bill_total">
                     <table class="table">
