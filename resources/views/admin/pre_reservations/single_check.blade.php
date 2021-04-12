@@ -46,13 +46,15 @@
           <td>
             <p class="tel">{{$request->user_id==999?"":ReservationHelper::getPersonTel($request->user_id)}}</p>
           </td>
-          <td class="table-active">割引条件 工藤さん！！お願いし！！</td>
+          <td class="table-active">割引条件</td>
           <td>
+            {!!nl2br(e(ReservationHelper::getPersonCondition($request->user_id)))!!}
           </td>
         </tr>
         <tr>
-          <td class="table-active caution">注意事項 工藤さん！！お願いし！！</td>
+          <td class="table-active caution">注意事項</td>
           <td colspan="3" class="caution">
+            {!!nl2br(e(ReservationHelper::getPersonAttention($request->user_id)))!!}
           </td>
         </tr>
       </tbody>

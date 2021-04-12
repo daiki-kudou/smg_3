@@ -99,13 +99,15 @@
               <td>
                 {{ReservationHelper::getPersonTel($multiple->pre_reservations()->first()->user_id)}}
               </td>
-              <td class="table-active" scope="row"><label for="">割引条件工藤さん！！！顧客からの紐づけお願いします。</label></td>
+              <td class="table-active" scope="row"><label for="">割引条件</label></td>
               <td>
+                {!!nl2br(e($multiple->pre_reservations->first()->user->condition))!!}
               </td>
             </tr>
             <tr>
-              <td class="table-active caution" scope="row"><label for="">注意事項工藤さん！！！顧客からの紐づけお願いします。</label></td>
+              <td class="table-active caution" scope="row"><label for="">注意事項</label></td>
               <td class="caution" colspan="3">
+                {!!nl2br(e($multiple->pre_reservations->first()->user->attention))!!}
               </td>
             </tr>
           </tbody>

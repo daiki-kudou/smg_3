@@ -9,7 +9,7 @@
 <div class="date_calender_wrapper" id="date_calender_wrapper">
   <div class="calender-ttl">
     <h3>予約状況</h3>
-  
+
     <div class="d-flex align-items-center">
       <div class="row w-100">
         <div class="col text-right">
@@ -35,7 +35,7 @@
         </div>
       </div>
     </div>
-  
+
   </div>
   <ul class="calender-color">
     <li class="li-bg-reserve">予約済み</li>
@@ -43,7 +43,7 @@
     <li class="li-bg-empty">空室</li>
     <li class="li-bg-closed">休業日</li>
   </ul>
-  
+
   <table class="table table-bordered calender-flame">
     <thead>
       <tr class="calender-head">
@@ -115,9 +115,10 @@
 <input type="hidden" name="start" value="{{date('H:i',strtotime($reservation->enter_time))}}">
 <input type="hidden" name="finish" value="{{date('H:i',strtotime($reservation->leave_time)) }}">
 <input type="hidden" name="status" value="{{$reservation->bills()->first()->reservation_status }}">
-
 @endforeach
 
+
+{{var_dump($json_result)}}
 
 
 <script>

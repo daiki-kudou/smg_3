@@ -58,7 +58,8 @@
               </td>
             </tr>
             <tr>
-              <th class="table-active" width="25%"><label for="company">会社名・団体名</label><a href="" class="more_btn ml-2">顧客詳細</a></th>
+              <th class="table-active" width="25%"><label for="company">会社名・団体名</label><a href=""
+                  class="more_btn ml-2">顧客詳細</a></th>
               <td>
                 {{ReservationHelper::getCompany($multiple->pre_reservations->first()->user_id)}}
               </td>
@@ -82,13 +83,15 @@
               <td>
                 {{ReservationHelper::getPersonTel($multiple->pre_reservations->first()->user_id)}}
               </td>
-              <td class="table-active" scope="row"><label for="">割引条件工藤さん！！！顧客からの紐づけお願いします。</label></td>
+              <td class="table-active" scope="row"><label for="">割引条件</label></td>
               <td>
+                {!!nl2br(e($multiple->pre_reservations->first()->user->condition))!!}
               </td>
             </tr>
             <tr>
-              <td class="table-active caution" scope="row"><label for="">注意事項工藤さん！！！顧客からの紐づけお願いします。</label></td>
+              <td class="table-active caution" scope="row"><label for="">注意事項</label></td>
               <td class="caution" colspan="3">
+                {!!nl2br(e($multiple->pre_reservations->first()->user->attention))!!}
               </td>
             </tr>
           </tbody>
@@ -668,7 +671,8 @@
                         <td>
                           <select name="{{'event_start_copied'.$key}}" class="form-control">
                             <option disabled>選択してください</option>
-                            @for ($start = 0*2; $start <=23*2; $start++) <option value="{{date("H:i:s", strtotime("00:00 +". $start * 30 ." minute"))}}" @if($request->
+                            @for ($start = 0*2; $start <=23*2; $start++) <option
+                              value="{{date("H:i:s", strtotime("00:00 +". $start * 30 ." minute"))}}" @if($request->
                               cp_master_event_start==date("H:i:s", strtotime("00:00 +". $start * 30 ." minute")))
                               selected
                               @endif
@@ -683,7 +687,8 @@
                         <td>
                           <select name="{{'event_finish_copied'.$key}}" class="form-control">
                             <option disabled>選択してください</option>
-                            @for ($start = 0*2; $start <=23*2; $start++) <option value="{{date("H:i:s", strtotime("00:00 +". $start * 30 ." minute"))}}" @if($request->
+                            @for ($start = 0*2; $start <=23*2; $start++) <option
+                              value="{{date("H:i:s", strtotime("00:00 +". $start * 30 ." minute"))}}" @if($request->
                               cp_master_event_finish==date("H:i:s", strtotime("00:00 +". $start * 30 ." minute")))
                               selected
                               @endif

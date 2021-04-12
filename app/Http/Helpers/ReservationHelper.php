@@ -140,6 +140,16 @@ class ReservationHelper
     $user = User::find($user_id);
     return $user->tel;
   }
+  public static function getPersonCondition($user_id)
+  {
+    $user = User::find($user_id);
+    return $user->condition;
+  }
+  public static function getPersonAttention($user_id)
+  {
+    $user = User::find($user_id);
+    return $user->attention;
+  }
 
   public static function getAgentPerson($agent_id)
   {

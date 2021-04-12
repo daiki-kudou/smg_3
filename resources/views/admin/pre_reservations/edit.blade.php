@@ -109,13 +109,15 @@
               {{$PreReservation->user_id==999?"":ReservationHelper::getPersonTel($PreReservation->user_id)}}
             </p>
           </td>
-          <td class="table-active" scope="row"><label for="">割引条件工藤さん！！！顧客からの紐づけお願いします。</label></td>
+          <td class="table-active" scope="row"><label for="">割引条件</label></td>
           <td>
+            {!!nl2br(e($PreReservation->user->condition))!!}
           </td>
         </tr>
         <tr>
-          <td class="table-active caution" scope="row"><label for="">注意事項工藤さん！！！顧客からの紐づけお願いします。</label></td>
+          <td class="table-active caution" scope="row"><label for="">注意事項</label></td>
           <td class="caution" colspan="3">
+            {!!nl2br(e($PreReservation->user->attention))!!}
           </td>
         </tr>
       </tbody>

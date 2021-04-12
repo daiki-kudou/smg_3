@@ -70,7 +70,6 @@ class CalendarsController extends Controller
   }
 
 
-
   public function date_calendar(Request $request)
   {
     if (empty($request->all())) {
@@ -85,6 +84,7 @@ class CalendarsController extends Controller
 
 
     $reservations = Reservation::where('reserve_date', $today)->get();
+    $pre_reservations = PreReservation::where('reserve_date', $today)->get();
     $venues = Venue::all();
 
     $result = [];
@@ -99,11 +99,11 @@ class CalendarsController extends Controller
       }
       $result[] = $pre;
     }
-
     $json_result = json_encode($result);
 
     return view('admin.calendar.date_calendar', [
       'reservations' => $reservations,
+      'pre_reservations' => $pre_reservations,
       'venues' => $venues,
       'today' => $today,
       'tomorrow' => $tomorrow,
