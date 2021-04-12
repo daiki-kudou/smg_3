@@ -137,7 +137,7 @@
           </tr>
         </tbody>
       </table>
-      <p class="text-right">※フリーワード検索は本画面表記の項目のみ対象となります</p>
+      <p class="text-right">※フリーワード検索は本画面表記の項目のみ対象となります<br><br>※日付検索時は「2021-04-12」のようにように年と月と日付を-で分けてください</p>
       <div class="btn_box d-flex justify-content-center">
         <a href="{{url('admin/pre_reservations')}}" class="btn reset_btn">リセット</a>
         {{Form::submit('検索', ['class'=>'btn search_btn', 'id'=>''])}}
