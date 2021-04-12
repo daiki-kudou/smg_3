@@ -397,6 +397,9 @@ $(function () {
 $(function () {
   $("#pre_agent_reservationsCreateForm").validate({
     rules: {
+        agent_id: {
+        required: true,
+      },
       pre_enduser_tel: {
         number: true,
         minlength: 10,
@@ -413,6 +416,9 @@ $(function () {
       },
     },
     messages: {
+        agent_id: {
+        required: "※必須項目です",
+      },
       pre_enduser_tel: {
         minlength: "※最低桁数は10です",
         number: "※半角数字を入力してください",
