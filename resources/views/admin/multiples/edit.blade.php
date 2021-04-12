@@ -141,7 +141,6 @@
                     </div>
                   </td>
                 </tr>
-
               </tbody>
             </table>
 
@@ -217,8 +216,6 @@
                 </td>
               </tr>
             </table>
-
-
 
             <table class="table table-bordered equipment-table">
               <thead class="accordion-ttl">
@@ -549,16 +546,16 @@
       </div>
     </li>
     <li>
-      <p><a class="more_btn4" href="">削除</a></p>
+      <p>
+        <p class="more_btn4 destroy_link" href="">削除</p>
+        {{-- 削除用 --}}
+
+      </p>
     </li>
   </ul>
 
   {{-- jsで仮押えの件数判別のためのhidden --}}
-
   {{ Form::hidden('', $multiple->pre_reservations()->where('venue_id',$venue->id)->get()->count(),['id'=>'counts_reserve']) }}
-
-
-
 
   {{-- 以下、pre_reservationの数分　ループ --}}
   @foreach ($multiple->pre_reservations()->where('venue_id',$venue->id)->get() as $key=>$pre_reservation)
@@ -574,7 +571,6 @@
         <div class="form-check">
           <input type="checkbox" name="{{'delete_check'.$pre_reservation->id}}" value="{{$pre_reservation->id}}"
             class="checkbox mr-1" />
-          <!-- <input class="form-check-input" type="checkbox"> -->
           <label class="form-check-label"></label>
         </div>
       </div>
@@ -1501,6 +1497,15 @@
 {{ Form::hidden('master_data', '',['class' => 'btn btn-primary more_btn_lg', 'id'=>'master_data'])}}
 {{ Form::close() }}
 
+{{ Form::open(['url' => 'admin/multiples/'.$multiple->id."/sp_destroy/".$venue->id, 'method'=>'POST', 'id'=>'for_destroy']) }}
+@csrf
+{{ Form::hidden('multiple_id', $multiple->id)}}
+{{ Form::hidden('venue_id', $venue->id)}}
+{{-- {{ Form::submit('削除', ['class' => 'btn more_btn4','id'=>'confirm_destroy']) }} --}}
+{{ Form::close() }}
+
+
+
 
 <script>
   $(function() {
@@ -1521,7 +1526,6 @@
         var value = $(elem).val();
         data[key] = value;
       })
-      console.log(data);
       var encodes = JSON.stringify(data);
       $('#master_data').val(encodes);
       $('#master_form').submit();
@@ -1536,6 +1540,44 @@
       autoclose: true,
     });
   })
+  
+  $(function() {
+    // 全選択アクション
+    $('#all_check').on('change', function() {
+      $('.checkbox').prop('checked', $(this).is(':checked'));
+    })
+    // 削除確認コンファーム
+    $('#confirm_destroy').on('click', function() {
+      if (!confirm('削除してもよろしいですか？')) {
+        return false;
+      }
+    })
+  })
+  $(function() {
+    $("input[type='checkbox']").on('change', function() {
+      // console.log($(".checkbox").val());
+      var checked=[];
+      $('.checkbox:checked').each(function(index, value) {
+        // console.log(Number($(value).val()));
+        checked.push(Number($(value).val()));
+      });
+      
+      $('.sp_destroy').remove();
+
+      for (let index = 0; index < checked.length; index++) {
+        var ap_data = "<input type='hidden' class='sp_destroy' name='destroy" + checked[index] + "' value='" + checked[index] + "'>"
+        $('#for_destroy').append(ap_data);
+      }
+    })
+  })
+$(function(){
+  $('.destroy_link').on('click',function(){
+    $('#for_destroy').submit();
+  })
+})
+
+
+
 </script>
 
 

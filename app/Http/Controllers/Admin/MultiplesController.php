@@ -281,7 +281,6 @@ class MultiplesController extends Controller
 
   public function destroy(Request $request)
   {
-
     $shapeRequest = $request->except(['_method', '_token']);
     if (count($shapeRequest) == 0) {
       $request->session()->regenerate();
@@ -306,5 +305,11 @@ class MultiplesController extends Controller
       $request->session()->regenerate();
       return redirect()->route('admin.multiples.index')->with('flash_message', '一括仮押えの削除が完了しました');
     }
+  }
+
+  public function SPDestroy(Request $request)
+  {
+    $shapeRequest = $request->except(['_method', '_token']);
+    var_dump($shapeRequest);
   }
 }

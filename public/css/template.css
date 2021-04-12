@@ -494,7 +494,7 @@ select:disabled {
 
 .table .table_row th {
     text-align: center;
-    background: rgba(0, 0, 0, 0.075);
+    /* background: rgba(0, 0, 0, 0.075); */
     vertical-align: middle;
 }
 
