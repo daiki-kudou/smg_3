@@ -35,7 +35,7 @@
           @csrf
           {{ Form::hidden('multiple_id', $multiple->id)}}
           @if ($checkEachStatus)
-          {{ Form::submit('仮押え内容を確定する', ['class' => 'btn more_btn4',$checkVenuePrice?'disabled':'']) }}
+          {{ Form::submit('予約の編集・承認権限を顧客に移行', ['class' => 'btn more_btn4',$checkVenuePrice?'disabled':'']) }}
           @endif
           {{ Form::close() }}
           <span class="text-white">{{$checkVenuePrice?'※会場料金未設定が一つでもあれば、選択できません':''}}</span>
