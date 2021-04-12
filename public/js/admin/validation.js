@@ -29,13 +29,40 @@ $(function () {
 });
 
 // 案内板の表示、非表示
-$(window).on("load", function () {
-  // value = $("input[name='RadioGroup01']:checked").val();
 
-//   $("#board_flag").prop("checked",true); 
-    // $("#no_board_flag").prop("checked");
-    // $("#no_board_flag").prop("checked");
+// $(function () {
+//     var flag = $("input[name='board_flag']:checked").val();
+//     console.log(flag);
+//     if (flag === 0) {
+//         $("#event_start").prop("disabled", true);
+//         $("#event_finish").prop("disabled", true);
+//         $("#eventname1Count").prop("disabled", true);
+//         $("#eventname2Count").prop("disabled", true);
+//         $("#eventownerCount").prop("disabled", true);
+//     } else {
+//         $("#event_start").prop("disabled", false);
+//         $("#event_finish").prop("disabled", false);
+//         $("#eventname1Count").prop("disabled", false);
+//         $("#eventname2Count").prop("disabled", false);
+//         $("#eventownerCount").prop("disabled", false);
+//     }
+// });
 
+$( document ).ready(function(){
+    $("#no_board_flag:checked").each(function(){
+        var flag = $(this);
+        if ($(flag).is(":checked") != null) {
+            $("#event_start").prop("disabled", true);
+            $("#event_finish").prop("disabled", true);
+            $("#eventname1Count").prop("disabled", true);
+            $("#eventname2Count").prop("disabled", true);
+            $("#eventownerCount").prop("disabled", true);
+        }
+    });
+});
+
+$(function () {
+    // $('input[name="board_flag"]').click(function(){
     $('input[name="board_flag"]').change(function () {
         var prop = $("#no_board_flag").prop("checked");
         if (prop) {

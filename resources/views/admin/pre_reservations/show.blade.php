@@ -40,18 +40,7 @@
             </td>
             <td>
               <div class="d-flex justify-content-end align-items-center">
-                @if ($pre_reservation->status==0)
-                @if ($pre_reservation->user_id>0)
-                <a href="{{url('admin/pre_reservations/'.$pre_reservation->id.'/edit')}}" class="btn more_btn mr-2">
-                  編集
-                </a>
-                @else
-                <a href="{{url('admin/pre_agent_reservations/'.$pre_reservation->id.'/edit')}}"
-                  class="btn more_btn mr-2">
-                  仲介会社用編集
-                </a>
-                @endif
-                @endif
+
 
                 {{ Form::open(['url' => 'admin/pre_reservations/switch_status', 'method'=>'POST','id'=>'confirm_prereserve']) }}
                 @csrf
@@ -78,6 +67,19 @@
                   <p class="title-icon">
                     <i class="far fa-address-card icon-size" aria-hidden="true"></i>
                     顧客情報
+                  </p>
+                  <p>
+                    @if ($pre_reservation->status==0)
+                    @if ($pre_reservation->user_id>0)
+                    <a href="{{url('admin/pre_reservations/'.$pre_reservation->id.'/edit')}}" class="btn more_btn mr-2">
+                      編集
+                    </a>
+                    @else
+                    <a href="{{url('admin/pre_agent_reservations/'.$pre_reservation->id.'/edit')}}" class="btn more_btn mr-2">
+                      仲介会社用編集
+                    </a>
+                    @endif
+                    @endif
                   </p>
                 </div>
               </td>
@@ -1008,17 +1010,17 @@
 </section>
 
 <script>
-  $(function(){
-    $("#confirm_prereserve").on('click',function(){
-      if(!confirm('仮押さえの内容を確定し、ユーザーにメールを送付しますか？')){
+  $(function() {
+    $("#confirm_prereserve").on('click', function() {
+      if (!confirm('仮押さえの内容を確定し、ユーザーにメールを送付しますか？')) {
         return false;
-    }
+      }
     })
 
-    $("#confirm_destroy").on('click',function(){
-      if(!confirm('本当に削除しますか？')){
+    $("#confirm_destroy").on('click', function() {
+      if (!confirm('本当に削除しますか？')) {
         return false;
-    }
+      }
     })
 
   })
