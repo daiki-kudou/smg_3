@@ -142,8 +142,8 @@
           {{ Form::close() }}
         </li>
         <li>
-          <div class="d-flex">
-            <a class="more_btn bg-red" href="">仮押え期間超過</a>
+          <div class="d-flex align-items-center">
+            <p><a class="more_btn bg-red" href="">仮押え期間超過</a></p>
             <p class="ml-3 font-weight-bold"><span class="count-color">{{$counter}}</span>件</p>
           </div>
         </li>
