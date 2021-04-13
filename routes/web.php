@@ -269,7 +269,6 @@ Route::namespace('Admin')->prefix('admin')->name('admin.')->group(function () {
     Route::get('multiples/agent_switch/{multiple}', 'MultiplesController@switchAgent');
     // 一括　仲介会社　更新
     Route::post('multiples/agent_switch_cfm/{multiple}', 'MultiplesController@switchAgent_cfm');
-
     // 仲介会社　仮押え 作成
     Route::get('pre_agent_reservations/create', 'PreAgentReservationsController@create')->name('pre_agent_reservations.create');
     // 仲介会社　仮押え 確認
