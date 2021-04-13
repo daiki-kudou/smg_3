@@ -45,6 +45,7 @@ $(function () {
 //         $("#eventownerCount").prop("disabled", false);
 //     }
 // });
+
 // ロード時の、案内板入力制御
 $(document).ready(function () {
   $("#no_board_flag:checked").each(function () {
@@ -55,11 +56,13 @@ $(document).ready(function () {
       $("#eventname1Count").prop("disabled", true);
       $("#eventname2Count").prop("disabled", true);
       $("#eventownerCount").prop("disabled", true);
+      $(".board-table input[type='text']").val("");
+      $(".board-table option:selected").val("");
     }
   });
 });
 
-// ラジオボタンクリック時の入力制御
+// ラジオボタンクリック時の案内板入力制御
 $(function () {
   $('input[name="board_flag"]').change(function () {
     var prop = $("#no_board_flag").prop("checked");
@@ -69,6 +72,7 @@ $(function () {
       $("#eventname1Count").prop("disabled", true);
       $("#eventname2Count").prop("disabled", true);
       $("#eventownerCount").prop("disabled", true);
+      $(".board-table input[type='text']").val("");
     } else {
       $("#event_start").prop("disabled", false);
       $("#event_finish").prop("disabled", false);
@@ -114,7 +118,7 @@ $(function () {
 });
 
 $(document).ready(function () {
-    var target = $("input[name^='tel_copied']");
+    // var target = $("input[name^='tel_copied']");
     var target = $('[id^="price_system_copied"]');
 
     for (let index = 0; index < target.length; index++) {
