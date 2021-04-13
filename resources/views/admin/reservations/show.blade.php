@@ -684,24 +684,26 @@
               </h2>
             </td>
             <td>
-              <dl class="ttl_box">
-                <dt>合計金額</dt>
-                <dd class="total_result">{{number_format($reservation->bills()->first()->master_total)}} 円</dd>
-              </dl>
-            </td>
-            <td>
-              <dl class="ttl_box">
-                <dt>支払い期日</dt>
-                <dd class="total_result">
-                  {{ReservationHelper::formatDate($reservation->bills()->first()->payment_limit)}}
-                </dd>
-              </dl>
-            </td>
-            <td>
-              @if ($reservation->bills()->first()->reservation_status<3) <a
-                href="{{url('admin/reservations/'.$reservation->bills()->first()->id.'/edit')}}" class="btn more_btn">
-                編集</a>
-                @endif
+              <div class="d-flex align-items-center justify-content-end">
+                <dl class="ttl_box">
+                  <dt>合計金額：</dt>
+                  <dd class="total_result">{{number_format($reservation->bills()->first()->master_total)}} 円</dd>
+                </dl>
+                            <!-- </td> -->
+                            <!-- <td> -->
+                <dl class="ttl_box">
+                  <dt>支払い期日：</dt>
+                  <dd class="total_result">
+                    {{ReservationHelper::formatDate($reservation->bills()->first()->payment_limit)}}
+                  </dd>
+                </dl>
+                            <!-- </td> -->
+                            <!-- <td> -->
+                @if ($reservation->bills()->first()->reservation_status<3) <p>
+                   <a href="{{url('admin/reservations/'.$reservation->bills()->first()->id.'/edit')}}" class="btn more_btn">編集</a>
+                </p>
+                  @endif
+              </div>
             </td>
           </tr>
           <!-- <tr>
