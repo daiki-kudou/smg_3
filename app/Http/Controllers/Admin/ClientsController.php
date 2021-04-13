@@ -7,13 +7,15 @@ use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\DB;
 
-
-
 use App\Models\User;
+
+
 
 
 class ClientsController extends Controller
 {
+
+
   /**
    * Display a listing of the resource.
    *
@@ -21,8 +23,21 @@ class ClientsController extends Controller
    */
   public function index(Request $request)
   {
-    $querys = User::orderBy('id', 'desc')->paginate(30);
-    return view('admin.clients.index', compact('querys'));
+
+    // var_dump($request->all());
+
+    if (count($request->except('token')) != 0) {
+      $class = new User;
+      $querys = $class->search($request)->paginate(30);
+    } else {
+      $querys = User::paginate(30);
+    }
+
+
+
+
+    // $querys->orderBy('id', 'desc')->paginate(30);
+    return view('admin.clients.index', compact('querys', 'request'));
   }
 
   /**

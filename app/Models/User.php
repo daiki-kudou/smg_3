@@ -9,6 +9,8 @@ use Illuminate\Auth\Passwords\CanResetPassword;
 
 use Carbon\Carbon;
 
+use Illuminate\Support\Facades\DB; //トランザクション用
+
 
 
 // implements MustVerifyEmailを削除した
@@ -116,5 +118,56 @@ class User extends Authenticatable
   public function getPerson()
   {
     return $this->first_name . $this->last_name;
+  }
+
+  public function search($request)
+  {
+    $class = $this->where(function ($query) use ($request) {
+      if ($request->search_id) {
+        $query->where("id", "LIKE", "%" . $request->search_id . "%");
+      }
+      if ($request->search_company) {
+        $query->where("company", "LIKE", "%" . $request->search_company . "%");
+      }
+      if ($request->search_person) {
+        $query->where('first_name', 'LIKE', "%{$request->search_person}%");
+        $query->orWhere('last_name', 'LIKE', "%{$request->search_person}%");
+        $query->orWhere(DB::raw('CONCAT(first_name, last_name)'), 'like', '%' . $request->search_person . '%');
+      }
+      if ($request->search_mobile) {
+        $query->where('mobile', 'LIKE', "%{$request->search_mobile}%");
+      }
+      if ($request->search_tel) {
+        $query->where('tel', 'LIKE', "%{$request->search_tel}%");
+      }
+      if ($request->search_email) {
+        $query->where('email', 'LIKE', "%{$request->search_email}%");
+      }
+      if ($request->attention == 1) {
+        $query->where('attention', "LIKE", "%%");
+      } else {
+        $query->whereNull('attention');
+      }
+      $query->where(function ($query) use ($request) {
+        for ($i = 1; $i <= 7; $i++) {
+          if (!empty($request->{"attr" . $i})) {
+            $query->orWhere("attr", $request->{"attr" . $i});
+          }
+        }
+      });
+
+      if ($request->freeword) {
+        $query->where('id', 'LIKE', "%{$request->freeword}%")
+          ->orWhere("company", "LIKE", "%{$request->freeword}%")
+          ->orWhere("first_name", "LIKE", "%{$request->freeword}%")
+          ->orWhere("last_name", "LIKE", "%{$request->freeword}%")
+          ->orWhere(DB::raw('CONCAT(first_name, last_name)'), 'like', '%' . $request->freeword . '%')
+          ->orWhere("mobile", "LIKE", "%{$request->freeword}%")
+          ->orWhere("tel", "LIKE", "%{$request->freeword}%")
+          ->orWhere("email", "LIKE", "%{$request->freeword}%");
+      }
+    });
+
+    return $class;
   }
 }
