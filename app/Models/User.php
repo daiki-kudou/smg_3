@@ -117,4 +117,9 @@ class User extends Authenticatable
   {
     return $this->first_name . $this->last_name;
   }
+
+  public function search($request)
+  {
+    return $this->where("id", "LIKE", $request->search_id)->paginate(30);
+  }
 }

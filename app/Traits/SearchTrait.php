@@ -17,9 +17,7 @@ trait SearchTrait
 
   public function BasicSearch($class, $request)
   {
-
     $andSearch = $class->where('multiple_reserve_id', 0); // マスタのクエリ 
-
     // フリーワード
     if (!empty($request->search_free)) {
       $andSearch->where(function ($query) use ($request) {
@@ -102,10 +100,6 @@ trait SearchTrait
     // 最終return
     return [$andSearch->orderBy('id', 'desc')->paginate(30), $andSearch->count()];
   }
-
-
-
-
 
   public function MultipleSearch($class, $request)
   {
