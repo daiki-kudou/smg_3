@@ -215,7 +215,7 @@
           </thead>
 
           <tbody>
-            <tr>
+            <!-- <tr>
               <td class="table-active"><label for="layout">レイアウト変更</label></td>
               <td>
                 @foreach ($reservation->breakdowns()->get() as $breakdown)
@@ -225,7 +225,7 @@
                 @endif
                 @endforeach
               </td>
-            </tr>
+            </tr> -->
             <tr>
               <td class="table-active"><label for="prelayout">準備</label></td>
               <td>
@@ -258,14 +258,14 @@
             </tr>
           </thead>
           <tbody>
-            <tr>
+            <!-- <tr>
               <td class="table-active"><label for="Delivery">荷物預り/返送</label></td>
               <td>
                 @foreach ($reservation->breakdowns()->get() as $breakdown)
                 {{$breakdown->unit_item=='荷物預り/返送'?'あり':''}}
                 @endforeach
               </td>
-            </tr>
+            </tr> -->
             <tr>
               <td class="table-active"><label for="preDelivery">事前に預かる荷物</label></td>
               <td>
@@ -357,13 +357,13 @@
               {{ReservationHelper::getPersonName($user->id)}}
             </td>
           </tr>
-          <tr>
+          <!-- <tr>
             <td class="table-active">担当者氏名(フリガナ)</td>
             <td>
               {{ReservationHelper::getPersonNameKANA($user->id)}}
             </td>
-          </tr>
-          <tr>
+          </tr> -->
+          <!-- <tr>
             <td class="table-active">電話番号</td>
             <td>
               <ul class="table-cell-box">
@@ -381,7 +381,7 @@
                 </li>
               </ul>
             </td>
-          </tr>
+          </tr> -->
           <tr>
             <td class="table-active">メールアドレス</td>
             <td>
@@ -389,12 +389,24 @@
             </td>
           </tr>
           <tr>
+              <td class="table-active">携帯番号 工藤さん！！</td>
+              <td>
+                <p class="mobile"></p>
+              </td>
+            </tr>
+            <tr>
+              <td class="table-active">固定電話 工藤さん！！</td>
+              <td>
+                <p class="tel"></p>
+              </td>
+            </tr>
+          <!-- <tr>
             <td class="table-active">顧客属性</td>
             <td>
               {{$user->attr}}
             </td>
-          </tr>
-          <tr>
+          </tr> -->
+          <!-- <tr>
             <td colspan="2">
               <p>備考</p>
               <p>
@@ -403,7 +415,7 @@
                 @endif
               </p>
             </td>
-          </tr>
+          </tr> -->
           <tr class="caution">
             <td colspan="2">
               <p>注意事項</p>

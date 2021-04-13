@@ -329,6 +329,10 @@ select:disabled {
     font-size: 12px;
 }
 
+input.more_btn {
+    color: #fff;
+}
+
 .more_btn:hover {
     background: #004792;
     color: #fff;

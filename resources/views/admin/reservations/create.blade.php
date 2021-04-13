@@ -130,9 +130,7 @@
                 <div>
                   <select name="enter_time" id="sales_start" class="form-control">
                     <option selected></option>
-                    @for ($start = 0*2; $start <=23*2; $start++) <option
-                      value="{{date("H:i:s", strtotime("00:00 +". $start * 30 ." minute"))}}" @if (isset($request))
-                      @endif>
+                    @for ($start = 0*2; $start <=23*2; $start++) <option value="{{date("H:i:s", strtotime("00:00 +". $start * 30 ." minute"))}}" @if (isset($request)) @endif>
                       {{date("H時i分", strtotime("00:00 +". $start * 30 ." minute"))}}
                       </option>
                       @endfor
@@ -147,9 +145,7 @@
                 <div>
                   <select name="leave_time" id="sales_finish" class="form-control">
                     <option disabled selected></option>
-                    @for ($start = 0*2; $start <=23*2; $start++) <option
-                      value="{{date("H:i:s", strtotime("00:00 +". $start * 30 ." minute"))}}" @if (isset($request))
-                      @endif>
+                    @for ($start = 0*2; $start <=23*2; $start++) <option value="{{date("H:i:s", strtotime("00:00 +". $start * 30 ." minute"))}}" @if (isset($request)) @endif>
                       {{date("H時i分", strtotime("00:00 +". $start * 30 ." minute"))}}</option>
                       @endfor
                   </select>
@@ -176,15 +172,14 @@
               <td>
                 <div class="radio-box">
                   <p>
-                    <input type="radio" name="board_flag" value="0"
-                      {{isset($request->board_flag)?$request->board_flag==0?'checked':'':'checked',}}>
-                    <span class="ml-1">無し</span>
-                  </p>
-                  <p>
-                    <input type="radio" name="board_flag" value="1"
-                      {{isset($request->board_flag)?$request->board_flag==1?'checked':'':'',}}>
+                    <input type="radio" name="board_flag" value="1" id="board_flag" {{isset($request->board_flag)?$request->board_flag==1?'checked':'':'',}}>
                     <span class="ml-1">有り</span>
                   </p>
+                  <p>
+                    <input type="radio" name="board_flag" value="0" id="no_board_flag" {{isset($request->board_flag)?$request->board_flag==0?'checked':'':'checked',}}>
+                    <span class="ml-1">無し</span>
+                  </p>
+
                 </div>
               </td>
             </tr>
@@ -194,9 +189,7 @@
                 <div>
                   <select name="event_start" id="event_start" class="form-control">
                     <option disabled>選択してください</option>
-                    @for ($start = 0*2; $start <=23*2; $start++) <option
-                      value="{{date("H:i:s", strtotime("00:00 +". $start * 30 ." minute"))}}" @if (isset($request))
-                      @endif>
+                    @for ($start = 0*2; $start <=23*2; $start++) <option value="{{date("H:i:s", strtotime("00:00 +". $start * 30 ." minute"))}}" @if (isset($request)) @endif>
                       {{date("H時i分", strtotime("00:00 +". $start * 30 ." minute"))}}</option>
                       @endfor
                   </select>
@@ -209,9 +202,7 @@
                 <div>
                   <select name="event_finish" id="event_finish" class="form-control">
                     <option disabled>選択してください</option>
-                    @for ($start = 0*2; $start <=23*2; $start++) <option
-                      value="{{date("H:i:s", strtotime("00:00 +". $start * 30 ." minute"))}}" @if (isset($request))
-                      @endif>
+                    @for ($start = 0*2; $start <=23*2; $start++) <option value="{{date("H:i:s", strtotime("00:00 +". $start * 30 ." minute"))}}" @if (isset($request)) @endif>
                       {{date("H時i分", strtotime("00:00 +". $start * 30 ." minute"))}}</option>
                       @endfor
                   </select>
@@ -262,6 +253,7 @@
                 </th>
               </tr>
             </thead>
+
             <tbody class="accordion-wrap"></tbody>
           </table>
         </div>
@@ -322,7 +314,7 @@
                   <p class="title-icon">
                     <i class="far fa-id-card icon-size" aria-hidden="true"></i>顧客情報
                   </p>
-                  <p><a class="more_btn bg-green" href="">顧客詳細</a></p>
+                  <p><a class="more_btn" href="">顧客詳細工藤さん！！リンク</a></p>
                 </div>
               </td>
             </tr>
@@ -340,12 +332,43 @@
                 <p class="is-error-user_id" style="color: red"></p>
               </td>
             </tr>
-            {{-- <tr>
-              <td class="table-active"><label for="name" class=" form_required">担当者氏名<br></label></td>
+            <tr>
+              <td class="table-active"><label for="name">担当者氏名　工藤さん！！</label></td>
               <td>
-                <p class="selected_person"></p>
+                <p class="person"></p>
               </td>
-            </tr> --}}
+            </tr>
+            <tr>
+              <td class="table-active">メールアドレス 工藤さん！！</td>
+              <td>
+                <p class="email"></p>
+              </td>
+            </tr>
+            <tr>
+              <td class="table-active">携帯番号 工藤さん！！</td>
+              <td>
+                <p class="mobile"></p>
+              </td>
+            </tr>
+            <tr>
+              <td class="table-active">固定電話 工藤さん！！</td>
+              <td>
+                <p class="tel"></p>
+              </td>
+            </tr>
+            <tr>
+              <td class="table-active">割引条件 工藤さん！！</td>
+              <td>
+                <p class="condition">
+                </p>
+              </td>
+            </tr>
+            <tr>
+              <td class="table-active caution">注意事項 工藤さん！！</td>
+              <td class="caution">
+                <p class="attention"></p>
+              </td>
+            </tr>
           </tbody>
         </table>
         <table class="table table-bordered oneday-table">
@@ -388,12 +411,12 @@
               <td>
                 <div class="radio-box">
                   <p>
-                    {{Form::radio('email_flag', '0', true, ['id' => 'email_flag', 'class' => ''])}}
-                    {{Form::label('email_flag', "なし")}}
+                    {{Form::radio('email_flag', '1', false, ['id' => 'no_email_flag', 'class' => ''])}}
+                    {{Form::label('no_email_flag',"有り")}}
                   </p>
                   <p>
-                    {{Form::radio('email_flag', '1', false, ['id' => 'no_email_flag', 'class' => ''])}}
-                    {{Form::label('no_email_flag',"あり")}}
+                    {{Form::radio('email_flag', '0', true, ['id' => 'email_flag', 'class' => ''])}}
+                    {{Form::label('email_flag', "無し")}}
                   </p>
                 </div>
               </td>
@@ -405,8 +428,7 @@
             <tr>
               <td colspan="2">
                 <p class="title-icon">
-                  <i class="fas fa-yen-sign icon-size" aria-hidden="true"></i>売上原価<span
-                    class="annotation">（提携会場を選択した場合、提携会場で設定した原価率が適応されます）</span>
+                  <i class="fas fa-yen-sign icon-size" aria-hidden="true"></i>売上原価<span class="annotation">（提携会場を選択した場合、提携会場で設定した原価率が適応されます）</span>
                 </p>
               </td>
             </tr>
