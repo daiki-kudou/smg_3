@@ -119,64 +119,69 @@ $(function () {
   });
 });
 
-$(document).ready(function () {
-    // var target = $("input[name^='tel_copied']");
-    var target = $('[id^="price_system_copied"]');
+// 日程ごとのタブいったんコメントアウト
+// $(document).ready(function () {
+//     var target = $("input[name^='tel_copied']");
+//     var target = $('[id^="price_system_copied"]');
+//     var target = $("input[name^='admin_details_copied']");
 
-    for (let index = 0; index < target.length; index++) {
-        var board_flag_copied_off = "#board_flag_copied_off" + index;
-        var event_start_copied = "#event_start_copied" + index;
-        var event_finish_copied = "#event_finish_copied" + index;
-        var copiedeventname1Count = "#copiedeventname1Count" + index;
-        var copiedeventname2Count = "#copiedeventname2Count" + index;
-        var copiedeventOwnerCount = "#copiedeventOwnerCount" + index;
+//     for (let index = 0; index < target.length; index++) {
+//         var board_flag_copied_off = "#board_flag_copied_off" + index;
+//         var event_start_copied = "#event_start_copied" + index;
+//         var event_finish_copied = "#event_finish_copied" + index;
+//         var copiedeventname1Count = "#copiedeventname1Count" + index;
+//         var copiedeventname2Count = "#copiedeventname2Count" + index;
+//         var copiedeventOwnerCount = "#copiedeventOwnerCount" + index;
 
 
-    $(board_flag_copied_off).each(function () {
-        var flag = $(this);
-        if ($(flag).is(":checked") != null) {
-            $(event_start_copied).prop("disabled", true);
-            $(event_finish_copied).prop("disabled", true);
-            $(copiedeventname1Count).prop("disabled", true);
-            $(copiedeventname2Count).prop("disabled", true);
-            $(copiedeventOwnerCount).prop("disabled", true);
-        }
-    });
-}
-});
+//     $(board_flag_copied_off).ready(function () {
+//         var flag = $(this);
+//         if ($(flag).is(":checked") != null) {
+//             $(event_start_copied).prop("disabled", true);
+//             $(event_finish_copied).prop("disabled", true);
+//             $(copiedeventname1Count).prop("disabled", true);
+//             $(copiedeventname2Count).prop("disabled", true);
+//             $(copiedeventOwnerCount).prop("disabled", true);
+//         }
+//     });
+// }
+// });
 
-$(function () {
-    // var target = $('input[name="board_flag_copied_off"]');
-    var target = $("input[name^='tel_copied']");
-    for (let index = 0; index < target.length; index++) {
-        var board_flag_copied_off = "#board_flag_copied_off" + index;
-        var event_start_copied = "#event_start_copied" + index;
-        var event_finish_copied = "#event_finish_copied" + index;
-        var copiedeventname1Count = "#copiedeventname1Count" + index;
-        var copiedeventname2Count = "#copiedeventname2Count" + index;
-        var copiedeventOwnerCount = "#copiedeventOwnerCount" + index;
+// $(function () {
+//     var target = $('input[name="board_flag_copied_off"]');
+//     var target = $("input[name^='tel_copied']");
+//     var target = $("input[name^='admin_details_copied']");
+//     console.log(target);
 
-        console.log(board_flag_copied_off);
-        console.log(event_start_copied);
+//     for (let index = 0; index < target.length; index++) {
+//         var board_flag_copied_off = "#board_flag_copied_off" + index;
+//         var event_start_copied = "#event_start_copied" + index;
+//         var event_finish_copied = "#event_finish_copied" + index;
+//         var copiedeventname1Count = "#copiedeventname1Count" + index;
+//         var copiedeventname2Count = "#copiedeventname2Count" + index;
+//         var copiedeventOwnerCount = "#copiedeventOwnerCount" + index;
+
+//         console.log(board_flag_copied_off);
+//         console.log(event_start_copied);
         
-            $("input[name^='board_flag_copied']").change(function () {
-                var prop = $(board_flag_copied_off).prop("checked");
-                if (prop) {
-                    $(event_start_copied).prop("disabled", true);
-                    $(event_finish_copied).prop("disabled", true);
-                    $(copiedeventname1Count).prop("disabled", true);
-                    $(copiedeventname2Count).prop("disabled", true);
-                    $(copiedeventOwnerCount).prop("disabled", true);
-                } else {
-                    $(event_start_copied).prop("disabled", false);
-                    $(event_finish_copied).prop("disabled", false);
-                    $(copiedeventname1Count).prop("disabled", false);
-                    $(copiedeventname2Count).prop("disabled", false);
-                    $(copiedeventOwnerCount).prop("disabled", false);
-                }
-            });
-    }
-});
+//             $("input[name^='board_flag_copied']").change(function () {
+//                 var prop = $(board_flag_copied_off).prop("checked");
+//                 if (prop) {
+//                     $(event_start_copied).prop("disabled", true);
+//                     $(event_finish_copied).prop("disabled", true);
+//                     $(copiedeventname1Count).prop("disabled", true);
+//                     $(copiedeventname2Count).prop("disabled", true);
+//                     $(copiedeventOwnerCount).prop("disabled", true);
+//                 } else {
+//                     $(event_start_copied).prop("disabled", false);
+//                     $(event_finish_copied).prop("disabled", false);
+//                     $(copiedeventname1Count).prop("disabled", false);
+//                     $(copiedeventname2Count).prop("disabled", false);
+//                     $(copiedeventOwnerCount).prop("disabled", false);
+//                 }
+//             });
+//     }
+// });
 
 // 仮押さえ、一括仮押さえ一覧検索
 $(function () {
