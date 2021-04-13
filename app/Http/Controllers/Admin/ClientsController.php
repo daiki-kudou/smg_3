@@ -28,9 +28,9 @@ class ClientsController extends Controller
 
     if (count($request->except('token')) != 0) {
       $class = new User;
-      $querys = $class->search($request)->paginate(30);
+      $querys = $class->search($request)->orderBy('id', 'desc')->paginate(30);
     } else {
-      $querys = User::paginate(30);
+      $querys = User::orderBy('id', 'desc')->paginate(30);
     }
 
 

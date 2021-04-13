@@ -149,8 +149,7 @@ trait SearchTrait
         $query->where('first_name', 'LIKE', "%{$request->search_person}%");
         $query->orWhere('last_name', 'LIKE', "%{$request->search_person}%");
         $query->orWhere(DB::raw('CONCAT(first_name, last_name)'), 'like', '%' . $request->search_person . '%');
-      });
-      $result = $class->whereHas('pre_reservations.agent', function ($query) use ($request) {
+      })->orWhereHas('pre_reservations.agent', function ($query) use ($request) {
         $query->where('person_firstname', 'LIKE', "%{$request->search_person}%");
         $query->orWhere('person_lastname', 'LIKE', "%{$request->search_person}%");
         $query->orWhere(DB::raw('CONCAT(person_firstname, person_lastname)'), 'like', '%' . $request->search_person . '%');

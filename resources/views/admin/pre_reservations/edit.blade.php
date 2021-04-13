@@ -799,7 +799,7 @@
               <tr>
                 <td colspan="2"></td>
                 <td colspan="2">合計
-                  {{ Form::text('venue_price', $PreReservation->pre_bill()->first()->venue_price,['class'=>'form-control col-xs-3', 'readonly'] ) }}
+                  {{ Form::text('venue_price', $PreReservation->pre_bill->first()->venue_price,['class'=>'form-control col-xs-3', 'readonly'] ) }}
                 </td>
               </tr>
             </tbody>
@@ -887,7 +887,7 @@
               <tr>
                 <td colspan="2"></td>
                 <td colspan="2">合計
-                  {{ Form::text('equipment_price',$PreReservation->pre_bill()->first()->equipment_price  ,['class'=>'form-control', 'readonly'] ) }}
+                  {{ Form::text('equipment_price',$PreReservation->pre_bill->first()->equipment_price  ,['class'=>'form-control', 'readonly'] ) }}
                 </td>
               </tr>
             </tbody>
@@ -932,7 +932,7 @@
               <tr>
                 <td colspan="2"></td>
                 <td colspan="2">合計
-                  {{ Form::text('layout_price',$PreReservation->pre_bill()->first()->layout_price ,['class'=>'form-control', 'readonly'] ) }}
+                  {{ Form::text('layout_price',$PreReservation->pre_bill->first()->layout_price ,['class'=>'form-control', 'readonly'] ) }}
                 </td>
               </tr>
             </tbody>
@@ -944,19 +944,19 @@
             <tr>
               <td>小計：</td>
               <td>
-                {{ Form::text('master_subtotal',$PreReservation->pre_bill()->first()->master_subtotal ,['class'=>'form-control text-right', 'readonly'] ) }}
+                {{ Form::text('master_subtotal',$PreReservation->pre_bill->first()->master_subtotal ,['class'=>'form-control text-right', 'readonly'] ) }}
               </td>
             </tr>
             <tr>
               <td>消費税：</td>
               <td>
-                {{ Form::text('master_tax',$PreReservation->pre_bill()->first()->master_tax ,['class'=>'form-control text-right', 'readonly'] ) }}
+                {{ Form::text('master_tax',$PreReservation->pre_bill->first()->master_tax ,['class'=>'form-control text-right', 'readonly'] ) }}
               </td>
             </tr>
             <tr>
               <td class="font-weight-bold">合計金額</td>
               <td>
-                {{ Form::text('master_total',$PreReservation->pre_bill()->first()->master_total ,['class'=>'form-control text-right', 'readonly'] ) }}
+                {{ Form::text('master_total',$PreReservation->pre_bill->first()->master_total ,['class'=>'form-control text-right', 'readonly'] ) }}
               </td>
             </tr>
           </table>

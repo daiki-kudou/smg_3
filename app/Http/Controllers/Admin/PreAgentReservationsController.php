@@ -38,7 +38,7 @@ class PreAgentReservationsController extends Controller
       }
     }
     if (count($judge_count) == 1) {
-      $venue = Venue::find($request->pre_venue0);
+      $venue = Venue::with(["frame_prices", "time_prices"])->find($request->pre_venue0);
       return view('admin.pre_agent_reservations.single_check', [
         'request' => $request,
         'venue' => $venue,
@@ -54,7 +54,7 @@ class PreAgentReservationsController extends Controller
   public function calculate(Request $request)
   {
     $agent = Agent::find($request->agent_id);
-    $venue = Venue::find($request->venue_id);
+    $venue = Venue::with(["frame_prices", "time_prices"])->find($request->venue_id);
     $price = $agent->agentPriceCalculate($request->enduser_charge);
     if ($request->layout_prepare == 1) {
       $layout_prepare = $venue->getLayoutPrice($request->layout_prepare, $request->layout_clean)[0];
@@ -96,7 +96,7 @@ class PreAgentReservationsController extends Controller
   {
     $PreReservation = PreReservation::find($pre_reservation);
     $agents = Agent::all();
-    $SPVenue = Venue::find($PreReservation->venue_id);
+    $SPVenue = Venue::with(["frame_prices", "time_prices"])->find($PreReservation->venue_id);
     return view('admin.pre_agent_reservations.edit', compact('PreReservation', 'agents', 'SPVenue'));
   }
 
@@ -109,7 +109,7 @@ class PreAgentReservationsController extends Controller
   public function edit_calculate(Request $request, $id)
   {
     $agent = Agent::find($request->agent_id);
-    $venue = Venue::find($request->venue_id);
+    $venue = Venue::with(["frame_prices", "time_prices"])->find($request->venue_id);
     $price = $agent->agentPriceCalculate($request->enduser_charge);
     if ($request->layout_prepare == 1) {
       $layout_prepare = $venue->getLayoutPrice($request->layout_prepare, $request->layout_clean)[0];

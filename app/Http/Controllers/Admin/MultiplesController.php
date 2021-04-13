@@ -25,10 +25,10 @@ class MultiplesController extends Controller
   {
     if (count($request->all()) != 0) {
       $class = new MultipleReserve;
-      $multiples = $this->MultipleSearch($class, $request);
+      $multiples = $this->MultipleSearch($class->with(["pre_reservations.unknown_user", "pre_reservations.pre_enduser"]), $request);
       $counter = count($multiples);
     } else {
-      $multiples = MultipleReserve::orderBy('id', 'desc')->paginate(30);
+      $multiples = MultipleReserve::with(["pre_reservations.unknown_user", "pre_reservations.pre_enduser"])->orderBy('id', 'desc')->paginate(30);
       $counter = count($multiples);
     }
 
@@ -41,8 +41,8 @@ class MultiplesController extends Controller
 
   public function show($id)
   {
-    $multiple = MultipleReserve::find($id);
-    $venues = $multiple->pre_reservations()->distinct()->select("venue_id")->get();
+    $multiple = MultipleReserve::with("pre_reservations.pre_bill")->find($id);
+    $venues = PreReservation::distinct("venue_id")->where("multiple_reserve_id", $id)->get();
     $venue_count = $venues->count("venue_id");
     $checkVenuePrice = $multiple->checkVenuePrice();
     $checkEachStatus = $multiple->checkEachStatus();

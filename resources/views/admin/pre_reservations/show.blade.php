@@ -75,7 +75,8 @@
                       編集
                     </a>
                     @else
-                    <a href="{{url('admin/pre_agent_reservations/'.$pre_reservation->id.'/edit')}}" class="btn more_btn mr-2">
+                    <a href="{{url('admin/pre_agent_reservations/'.$pre_reservation->id.'/edit')}}"
+                      class="btn more_btn mr-2">
                       仲介会社用編集
                     </a>
                     @endif
@@ -136,29 +137,31 @@
           <table class="table table-bordered" style="table-layout: fixed;">
             <thead>
               <tr>
-              <td colspan="4">
-                <div class="d-flex align-items-center justify-content-between">
-                  <p class="title-icon">
-                    <i class="far fa-address-card icon-size" aria-hidden="true"></i>
-                    仲介会社情報
-                    <!-- <span class="ml-2">仲介会社ID：{{($pre_reservation->agent_id)}}</span> -->
-                  </p>
-                  <p>
-                    @if ($pre_reservation->status==0)
-                    @if ($pre_reservation->user_id>0)
-                    <a href="{{url('admin/pre_reservations/'.$pre_reservation->id.'/edit')}}" class="btn more_btn mr-2">
-                      編集
-                    </a>
-                    @else
-                    <a href="{{url('admin/pre_agent_reservations/'.$pre_reservation->id.'/edit')}}" class="btn more_btn mr-2">
-                      仲介会社用編集
-                    </a>
-                    @endif
-                    @endif
-                  </p>
-                </div>
-              </td>
-            </tr>
+                <td colspan="4">
+                  <div class="d-flex align-items-center justify-content-between">
+                    <p class="title-icon">
+                      <i class="far fa-address-card icon-size" aria-hidden="true"></i>
+                      仲介会社情報
+                      <!-- <span class="ml-2">仲介会社ID：{{($pre_reservation->agent_id)}}</span> -->
+                    </p>
+                    <p>
+                      @if ($pre_reservation->status==0)
+                      @if ($pre_reservation->user_id>0)
+                      <a href="{{url('admin/pre_reservations/'.$pre_reservation->id.'/edit')}}"
+                        class="btn more_btn mr-2">
+                        編集
+                      </a>
+                      @else
+                      <a href="{{url('admin/pre_agent_reservations/'.$pre_reservation->id.'/edit')}}"
+                        class="btn more_btn mr-2">
+                        仲介会社用編集
+                      </a>
+                      @endif
+                      @endif
+                    </p>
+                  </div>
+                </td>
+              </tr>
             </thead>
             <tbody>
               <tr>
@@ -408,7 +411,7 @@
                 </thead>
                 <tbody class="accordion-wrap">
                   @foreach ($SPVenue->getEquipments() as $equipment)
-                  @foreach ($pre_reservation->pre_breakdowns()->where('unit_type',2)->get() as $equ)
+                  @foreach ($pre_reservation->pre_bill->pre_breakdowns->where('unit_type',2) as $equ)
                   @if ($equipment->item==$equ->unit_item)
                   <tr>
                     <td class="justify-content-between d-flex">

@@ -63,31 +63,31 @@
         <tr>
           <th class="table-active" width="25%">
             <label for="company">会社名・団体名</label>
-            <a href="{{route('admin.clients.show',$multiple->pre_reservations()->first()->user_id)}}"
+            <a href="{{route('admin.clients.show',$multiple->pre_reservations->first()->user_id)}}"
               class="more_btn ml-2">顧客詳細</a>
           </th>
           <td>
-            {{ReservationHelper::getCompany($multiple->pre_reservations()->first()->user_id)}}
+            {{ReservationHelper::getCompany($multiple->pre_reservations->first()->user_id)}}
           </td>
           <td class="table-active"><label for="name">担当者氏名</label></td>
           <td>
-            {{ReservationHelper::getPersonName($multiple->pre_reservations()->first()->user_id)}}
+            {{ReservationHelper::getPersonName($multiple->pre_reservations->first()->user_id)}}
           </td>
         </tr>
         <tr>
           <td class="table-active" scope="row"><label for="email">担当者メールアドレス</label></td>
           <td>
-            {{ReservationHelper::getPersonEmail($multiple->pre_reservations()->first()->user_id)}}
+            {{ReservationHelper::getPersonEmail($multiple->pre_reservations->first()->user_id)}}
           </td>
           <td class="table-active" scope="row"><label for="mobile">携帯番号</label></td>
           <td>
-            {{ReservationHelper::getPersonMobile($multiple->pre_reservations()->first()->user_id)}}
+            {{ReservationHelper::getPersonMobile($multiple->pre_reservations->first()->user_id)}}
           </td>
         </tr>
         <tr>
           <td class="table-active" scope="row"><label for="tel">固定電話</label></td>
           <td>
-            {{ReservationHelper::getPersonTel($multiple->pre_reservations()->first()->user_id)}}
+            {{ReservationHelper::getPersonTel($multiple->pre_reservations->first()->user_id)}}
           </td>
           <td class="table-active" scope="row"><label for="">割引条件</label></td>
           <td>
@@ -115,37 +115,27 @@
         <tr>
           <td class="table-active" width="25%"><label for="onedayCompany">会社・団体名(仮)</label></td>
           <td>
-            {{-- @if ($multiple->pre_reservations()->first()->user->id==999) --}}
-            {{$multiple->pre_reservations()->first()->unknown_user->unknown_user_company}}
-            {{-- @endif --}}
+            {{$multiple->pre_reservations->first()->unknown_user->unknown_user_company}}
           </td>
           <td class="table-active"><label for="onedayName">担当者名(仮)</label></td>
           <td>
-            {{-- @if ($multiple->pre_reservations()->first()->user->id==999) --}}
-            {{$multiple->pre_reservations()->first()->unknown_user->unknown_user_name}}
-            {{-- @endif --}}
+            {{$multiple->pre_reservations->first()->unknown_user->unknown_user_name}}
           </td>
         </tr>
         <tr>
           <td class="table-active" scope="row"><label for="onedayTel">固定電話</label></td>
           <td>
-            {{-- @if ($multiple->pre_reservations()->first()->user->id==999) --}}
-            {{$multiple->pre_reservations()->first()->unknown_user->unknown_user_tel}}
-            {{-- @endif --}}
+            {{$multiple->pre_reservations->first()->unknown_user->unknown_user_tel}}
           </td>
           <td class="table-active" scope="row"><label for="onedayMobile">携帯番号</label></td>
           <td>
-            {{-- @if ($multiple->pre_reservations()->first()->user->id==999) --}}
-            {{$multiple->pre_reservations()->first()->unknown_user->unknown_user_mobile}}
-            {{-- @endif --}}
+            {{$multiple->pre_reservations->first()->unknown_user->unknown_user_mobile}}
           </td>
         </tr>
         <tr>
           <td class="table-active" scope="row"><label for="onedayEmail">メールアドレス</label></td>
           <td>
-            {{-- @if ($multiple->pre_reservations()->first()->user->id==999) --}}
-            {{$multiple->pre_reservations()->first()->unknown_user->unknown_user_email}}
-            {{-- @endif --}}
+            {{$multiple->pre_reservations->first()->unknown_user->unknown_user_email}}
           </td>
         </tr>
       </tbody>
@@ -165,17 +155,16 @@
           <th>総件数</th>
           <th>件数</th>
           <th>編集</th>
-          <!-- <th>日程の追加</th> -->
         </tr>
       </thead>
       <tbody>
         @for ($i = 0; $i < $venue_count; $i++) @if ($i==0) <tr>
-          <td class="text-center" rowspan="{{$venue_count}}">{{$multiple->id}}</td> {{--一括ID--}}
-          <td rowspan="{{$venue_count}}">{{ReservationHelper::formatDate($multiple->created_at)}}</td>{{--作成日--}}
-          <td>{{ReservationHelper::getVenue($venues[$i]->venue_id)}}</td>{{--利用会場--}}
+          <td class="text-center" rowspan="{{$venue_count}}">{{$multiple->id}}</td>
+          <td rowspan="{{$venue_count}}">{{ReservationHelper::formatDate($multiple->created_at)}}</td>
+          <td>{{ReservationHelper::getVenue($venues[$i]->venue_id)}}</td>
           <td class="text-center" rowspan="{{$venue_count}}">
             {{$multiple->pre_reservations()->get()->count()}}
-          </td>{{--総件数--}}
+          </td>
           <td class="text-center">
             {{$multiple->pre_reservations()->where('venue_id',$venues[$i]->venue_id)->get()->count()}}
           </td>

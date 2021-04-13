@@ -50,11 +50,11 @@ class PreReservationsController extends Controller
       $counter = $result->count();
     } elseif (count($request->all()) != 0) {
       $class = new PreReservation;
-      $result = $this->BasicSearch($class, $request);
+      $result = $this->BasicSearch($class->with(["unknown_user", "pre_enduser"]), $request);
       $pre_reservations = $result[0];
       $counter = $result[1];
     } else {
-      $pre_reservations = PreReservation::where('multiple_reserve_id', '=', 0)->orderBy('id', 'desc')->paginate(30);
+      $pre_reservations = PreReservation::with(["unknown_user", "pre_enduser"])->where('multiple_reserve_id', '=', 0)->orderBy('id', 'desc')->paginate(30);
       $counter = 0;
     }
 
@@ -372,7 +372,7 @@ class PreReservationsController extends Controller
    */
   public function show($id)
   {
-    $pre_reservation = PreReservation::find($id);
+    $pre_reservation = PreReservation::with("pre_bill.pre_breakdowns")->find($id);
     $SPVenue = Venue::find($pre_reservation->venue_id);
     return view(
       'admin.pre_reservations.show',
@@ -391,9 +391,9 @@ class PreReservationsController extends Controller
    */
   public function edit($id)
   {
-    $PreReservation = PreReservation::find($id);
+    $PreReservation = PreReservation::with("pre_bill")->find($id);
     $users = User::all();
-    $venues = Venue::all();
+    $venues = Venue::with(["frame_prices", "time_prices"])->get();
     $SPVenue = $venues->find($PreReservation->venue_id);
 
     return view(
