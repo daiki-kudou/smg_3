@@ -562,10 +562,10 @@ class Venue extends Model implements PresentableInterface
   {
     $frame = 0;
     $time = 0;
-    if ($this->frame_prices()->count() != 0) {
+    if ($this->frame_prices->count() != 0) {
       $frame = 1;
     }
-    if ($this->time_prices()->count() != 0) {
+    if ($this->time_prices->count() != 0) {
       $time = 1;
     }
     return [$frame, $time];
