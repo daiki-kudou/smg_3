@@ -92,11 +92,11 @@
           <td class="text-left">
             <ul class="search_category">
               <li>
-                {{Form::checkbox('attention1', 1, false,['id'=>'chk_atten'])}}
+                {{Form::radio('attention', 1, false,['id'=>'chk_atten'])}}
                 {{Form::label("chk_atten","あり")}}
               </li>
               <li>
-                {{Form::checkbox('attention0', 0, false,['id'=>'chk_atten_no'])}}
+                {{Form::radio('attention', 2, false,['id'=>'chk_atten_no'])}}
                 {{Form::label("chk_atten_no","なし")}}
               </li>
             </ul>
@@ -172,8 +172,7 @@
       <tbody>
         @foreach ($querys as $query)
         <tr role="row" class="even">
-          <td class="text-center">{{$query->attention!=null?'●':''}}
-          </td>
+          <td class="text-center">{{$query->attention!=null?'●':''}}</td>
           <td>{{ReservationHelper::fixId($query->id)}}</td>
           <td>{{$query->company}}</td>
           <td>
@@ -193,7 +192,7 @@
             その他
             @endif
           </td>
-          <td>{{$query->first_name}} {{$query->last_name}}</td>
+          <td>{{$query->first_name}}{{$query->last_name}}</td>
           <td>{{$query->mobile}}</td>
           <td>{{$query->tel}}</td>
           <td>{{$query->email}}</td>

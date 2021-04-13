@@ -28,7 +28,7 @@ class ClientsController extends Controller
 
     if (count($request->except('token')) != 0) {
       $class = new User;
-      $querys = $class->search($request);
+      $querys = $class->search($request)->paginate(30);
     } else {
       $querys = User::paginate(30);
     }
