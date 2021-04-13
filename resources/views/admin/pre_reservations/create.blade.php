@@ -48,7 +48,6 @@
       @endforeach
     </select>
     <p class="is-error-user_id" style="color: red"></p>
-
   </div>
 
   <div class="selected_user mt-4">

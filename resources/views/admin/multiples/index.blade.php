@@ -231,7 +231,7 @@
                 {{($multiple->pre_reservations()->first()->pre_enduser->company)}}
                 @endif
               </td>
-              <td>
+              <td class="text-center">
                 @if ($multiple->pre_reservations()->first()->user_id!=0)
                 <a href="{{url('admin/multiples/'.$multiple->id)}}" class="btn more_btn">詳細</a>
                 @else

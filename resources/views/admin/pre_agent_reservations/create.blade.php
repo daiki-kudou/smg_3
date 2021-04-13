@@ -36,7 +36,7 @@
   @csrf
 
   <div class="user_selector mt-5">
-    <h3 class="mb-2">仲介会社情報</h3>
+    <h3 class="mb-2 form_required">仲介会社情報</h3>
     <select name="agent_id" id="agent_id">
       <option value="">選択してください</option>
       @foreach ($agents as $agent)
@@ -47,6 +47,7 @@
       </option>
       @endforeach
     </select>
+    <p class="is-error-agent_id" style="color: red"></p>
   </div>
 
 
