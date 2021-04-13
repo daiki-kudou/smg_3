@@ -92,11 +92,11 @@
           <td class="text-left">
             <ul class="search_category">
               <li>
-                {{Form::radio('attention', 1, false,['id'=>'chk_atten'])}}
+                {{Form::radio('attention', 1, $request->attention==1?true:false,['id'=>'chk_atten'])}}
                 {{Form::label("chk_atten","あり")}}
               </li>
               <li>
-                {{Form::radio('attention', 2, false,['id'=>'chk_atten_no'])}}
+                {{Form::radio('attention', 2, $request->attention==2?true:false,['id'=>'chk_atten_no'])}}
                 {{Form::label("chk_atten_no","なし")}}
               </li>
             </ul>
@@ -111,31 +111,31 @@
           <td colspan="3">
             <ul class="search_category">
               <li>
-                {{Form::checkbox('attr1', 1, false,['id'=>'attr1'])}}
+                {{Form::checkbox('attr1', 1, !empty($request->attr1)?true:false,['id'=>'attr1'])}}
                 {{Form::label("attr1","一般企業")}}
               </li>
               <li>
-                {{Form::checkbox('attr2', 2, false,['id'=>'attr2'])}}
+                {{Form::checkbox('attr2', 2, !empty($request->attr2)?true:false,['id'=>'attr2'])}}
                 {{Form::label("attr2","上場企業")}}
               </li>
               <li>
-                {{Form::checkbox('attr3', 3, false,['id'=>'attr3'])}}
+                {{Form::checkbox('attr3', 3, !empty($request->attr3)?true:false,['id'=>'attr3'])}}
                 {{Form::label("attr3","近隣利用")}}
               </li>
               <li>
-                {{Form::checkbox('attr4', 4, false,['id'=>'attr4'])}}
+                {{Form::checkbox('attr4', 4, !empty($request->attr4)?true:false,['id'=>'attr4'])}}
                 {{Form::label("attr4","個人講師")}}
               </li>
               <li>
-                {{Form::checkbox('attr5', 5, false,['id'=>'attr5'])}}
+                {{Form::checkbox('attr5', 5, !empty($request->attr5)?true:false,['id'=>'attr5'])}}
                 {{Form::label("attr5","MLM")}}
               </li>
               <li>
-                {{Form::checkbox('attr6', 6, false,['id'=>'attr6'])}}
+                {{Form::checkbox('attr6', 6, !empty($request->attr6)?true:false,['id'=>'attr6'])}}
                 {{Form::label("attr6","仲介会社")}}
               </li>
               <li>
-                {{Form::checkbox('attr7', 7, false,['id'=>'attr7'])}}
+                {{Form::checkbox('attr7', 7, !empty($request->attr7)?true:false,['id'=>'attr7'])}}
                 {{Form::label("attr7","その他")}}
               </li>
             </ul>
