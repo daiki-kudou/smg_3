@@ -5,8 +5,20 @@
 <script src="{{ asset('/js/admin/validation.js') }}"></script>
 <link href="{{ asset('/css/template.css') }}" rel="stylesheet">
 
-<h2 class="mt-3 mb-3">仮押え 仲介会社 詳細入力画面</h2>
-<hr>
+
+<div class="container-field">
+  <div class="float-right">
+    <nav aria-label="breadcrumb">
+      <ol class="breadcrumb">
+        <li class="breadcrumb-item active">
+          {{ Breadcrumbs::render(Route::currentRouteName()) }}
+        </li>
+      </ol>
+    </nav>
+  </div>
+  <h2 class="mt-3 mb-3">仮押え 仲介会社 詳細入力画面</h2>
+  <hr>
+</div>
 
 
 {{ Form::open(['url' => 'admin/pre_agent_reservations/calculate', 'method'=>'POST', 'id'=>'pre_agent_reservationsSingleCheckForm']) }}

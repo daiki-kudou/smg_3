@@ -11,7 +11,7 @@
     <nav aria-label="breadcrumb">
       <ol class="breadcrumb">
         <li class="breadcrumb-item active">
-          ダミーダミーダミー
+          {{ Breadcrumbs::render(Route::currentRouteName(),$multiple->id, $venue->id) }}
         </li>
       </ol>
     </nav>
@@ -670,7 +670,8 @@
                 <tr>
                   <td class="table-active"><label for="eventStart">イベント開始時間</label></td>
                   <td>
-                    <select name="{{'event_start_copied'.$key}}" id="{{'event_start_copied'.$key}}" class="form-control">
+                    <select name="{{'event_start_copied'.$key}}" id="{{'event_start_copied'.$key}}"
+                      class="form-control">
                       <option disabled>選択してください</option>
                       @for ($start = 0*2; $start <=23*2; $start++) <option
                         value="{{date("H:i:s", strtotime("00:00 +". $start * 30 ." minute"))}}" @if(date("H:i:s",
