@@ -496,6 +496,7 @@ select:disabled {
     text-align: center;
     /* background: rgba(0, 0, 0, 0.075); */
     vertical-align: middle;
+    white-space: nowrap;
 }
 
 .table-active {
