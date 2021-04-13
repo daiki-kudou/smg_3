@@ -93,6 +93,7 @@ $(document).ready(function () {
       $("#eventname1Count").prop("disabled", true);
       $("#eventname2Count").prop("disabled", true);
       $("#eventownerCount").prop("disabled", true);
+      $(".board-table input[type='text']").val("");
     }
   });
 });
@@ -107,6 +108,7 @@ $(function () {
       $("#eventname1Count").prop("disabled", true);
       $("#eventname2Count").prop("disabled", true);
       $("#eventownerCount").prop("disabled", true);
+      $(".board-table input[type='text']").val("");
     } else {
       $("#cp_master_event_start").prop("disabled", false);
       $("#cp_master_event_finish").prop("disabled", false);
