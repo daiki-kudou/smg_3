@@ -1149,8 +1149,8 @@
                           </tbody>
                           <tbody class="{{'venue_result'.$key}}">
                             <tr>
-                              <td colspan="2"></td>
-                              <td colspan="2">合計
+                              <td colspan="3"></td>
+                              <td colspan="1">合計
                                 {{ Form::text('venue_price'.$key,$pre_reservation->pre_bill->venue_price,['class'=>'form-control col-xs-3', 'readonly'] ) }}
                               </td>
                             </tr>
@@ -1215,8 +1215,8 @@
                           </tbody>
                           <tbody class="{{'venue_result'.$key}}">
                             <tr>
-                              <td colspan="2"></td>
-                              <td colspan="2">合計
+                              <td colspan="3"></td>
+                              <td colspan="1">合計
                                 {{ Form::text('venue_price'.$key,'',['class'=>'form-control col-xs-3', 'readonly'] ) }}
                               </td>
                             </tr>
@@ -1287,8 +1287,8 @@
                           </tbody>
                           <tbody class="{{'equipment_result'.$key}}">
                             <tr>
-                              <td colspan="2"></td>
-                              <td colspan="2">合計
+                              <td colspan="3"></td>
+                              <td colspan="1">合計
                                 {{-- {{ Form::text('equipment_price'.$key, $pre_reservation->pre_bill->equipment_price+((int)$request->cp_master_luggage_price),['class'=>'form-control', 'readonly'] ) }}
                                 --}}
                                 {{ Form::text('equipment_price'.$key, $pre_reservation->pre_bill->equipment_price,['class'=>'form-control', 'readonly'] ) }}
@@ -1368,8 +1368,8 @@
                           </tbody>
                           <tbody class="{{'layout_result'.$key}}">
                             <tr>
-                              <td colspan="2"></td>
-                              <td colspan="2">合計
+                              <td colspan="3"></td>
+                              <td colspan="1">合計
                                 {{ Form::text('layout_price'.$key, $pre_reservation->pre_bill->layout_price,['class'=>'form-control', 'readonly'] ) }}
                               </td>
                             </tr>
