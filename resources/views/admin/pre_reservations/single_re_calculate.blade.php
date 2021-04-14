@@ -793,8 +793,9 @@
             </tbody>
             <tbody class="venue_result">
               <tr>
-                <td colspan="2"></td>
-                <td colspan="2">合計
+                <td colspan="3"></td>
+                <td colspan="1">
+                <p class="text-left">合計</p>
                   {{ Form::text('venue_price', $price_details[0],['class'=>'form-control col-xs-3', 'readonly'] ) }}
                 </td>
               </tr>
@@ -824,8 +825,9 @@
             </tbody>
             <tbody class="venue_result">
               <tr>
-                <td colspan="2"></td>
-                <td colspan="2">合計
+                <td colspan="3"></td>
+                <td colspan="1">
+                <p class="text-left">合計</p>
                   {{ Form::text('venue_price', '',['class'=>'form-control col-xs-3', 'readonly'] ) }}
                 </td>
               </tr>
@@ -904,8 +906,9 @@
             </tbody>
             <tbody class="equipment_result">
               <tr>
-                <td colspan="2"></td>
-                <td colspan="2">合計
+                <td colspan="3"></td>
+                <td colspan="1">
+                <p class="text-left">合計</p>
                   {{ Form::text('equipment_price', ($item_details[0]+$request->luggage_price),['class'=>'form-control', 'readonly'] ) }}
                 </td>
               </tr>
@@ -956,8 +959,9 @@
             </tbody>
             <tbody class="layout_result">
               <tr>
-                <td colspan="2"></td>
-                <td colspan="2">合計
+                <td colspan="3"></td>
+                <td colspan="1">
+                <p class="text-left">合計</p>
                   {{ Form::text('layout_price',$layouts_details[2] ,['class'=>'form-control', 'readonly'] ) }}
                 </td>
               </tr>

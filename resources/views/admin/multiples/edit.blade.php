@@ -61,8 +61,7 @@
           </td>
         </tr>
         <tr>
-          <th class="table-active" width="25%"><label for="company">会社名・団体名</label><a href=""
-              class="more_btn ml-2">顧客詳細</a></th>
+          <th class="table-active" width="25%"><label for="company">会社名・団体名</label><a href="" class="more_btn ml-2">顧客詳細</a></th>
           <td>
             {{ReservationHelper::getCompany($multiple->pre_reservations->first()->user_id)}}
           </td>
@@ -521,16 +520,16 @@
     <!-- コピー作成用フィールド   終わり--------------------------------------------------　 -->
     <p class="text-center">
       @if (count($venue->frame_prices)==0&&count($venue->time_prices)==0)
-      <div class="d-flex justify-content-center">
-        <div class="">
-          <p class="d-block">※選択された会場は料金が設定されていません。会場管理/料金管理に戻り設定してください</p>
-          <a href="{{url('admin/frame_prices')}}" class="btn more_btn_lg mt-5 d-flex justify-content-center">料金管理画面へ</a>
-        </div>
+    <div class="d-flex justify-content-center">
+      <div class="">
+        <p class="d-block">※選択された会場は料金が設定されていません。会場管理/料金管理に戻り設定してください</p>
+        <a href="{{url('admin/frame_prices')}}" class="btn more_btn_lg mt-5 d-flex justify-content-center">料金管理画面へ</a>
       </div>
-      @else
-      {{ Form::submit('すべての日程に反映する', ['class' => 'btn more_btn_lg mt-3'])}}
-      @endif
-      {{ Form::close() }}
+    </div>
+    @else
+    {{ Form::submit('すべての日程に反映する', ['class' => 'btn more_btn_lg mt-3'])}}
+    @endif
+    {{ Form::close() }}
     </p>
   </section>
 
@@ -563,8 +562,8 @@
     </li>
     <li>
       <p>
-        <p class="more_btn4 destroy_link" href="">削除</p>
-        {{-- 削除用 --}}
+      <p class="more_btn4 destroy_link" href="">削除</p>
+      {{-- 削除用 --}}
 
       </p>
     </li>
@@ -585,8 +584,7 @@
     <div class="register-list-item">
       <div class="from-group list_checkbox">
         <div class="form-check">
-          <input type="checkbox" name="{{'delete_check'.$pre_reservation->id}}" value="{{$pre_reservation->id}}"
-            class="checkbox mr-1" />
+          <input type="checkbox" name="{{'delete_check'.$pre_reservation->id}}" value="{{$pre_reservation->id}}" class="checkbox mr-1" />
           <label class="form-check-label"></label>
         </div>
       </div>
@@ -1555,7 +1553,7 @@
       autoclose: true,
     });
   })
-  
+
   $(function() {
     // 全選択アクション
     $('#all_check').on('change', function() {
@@ -1571,12 +1569,12 @@
   $(function() {
     $("input[type='checkbox']").on('change', function() {
       // console.log($(".checkbox").val());
-      var checked=[];
+      var checked = [];
       $('.checkbox:checked').each(function(index, value) {
         // console.log(Number($(value).val()));
         checked.push(Number($(value).val()));
       });
-      
+
       $('.sp_destroy').remove();
 
       for (let index = 0; index < checked.length; index++) {
@@ -1585,14 +1583,11 @@
       }
     })
   })
-$(function(){
-  $('.destroy_link').on('click',function(){
-    $('#for_destroy').submit();
+  $(function() {
+    $('.destroy_link').on('click', function() {
+      $('#for_destroy').submit();
+    })
   })
-})
-
-
-
 </script>
 
 

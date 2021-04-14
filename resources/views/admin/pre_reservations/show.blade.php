@@ -781,10 +781,9 @@
           </tbody>
           <tbody class="venue_result">
             <tr>
-              <td colspan="2"></td>
-              <td colspan="1">合計：</td>
-              <td colspan="1" class="">
-                {{number_format($pre_reservation->pre_bill->venue_price)}}
+              <td colspan="3"></td>
+              <td colspan="1">
+              合計：{{number_format($pre_reservation->pre_bill->venue_price)}}
               </td>
             </tr>
           </tbody>
@@ -866,10 +865,9 @@
           </tbody>
           <tbody class="equipment_result">
             <tr>
-              <td colspan="2"></td>
-              <td colspan="1">合計：</td>
-              <td colspan="1" class="">
-                {{number_format($pre_reservation->pre_bill->equipment_price)}}
+              <td colspan="3"></td>
+              <td colspan="1">
+              合計：{{number_format($pre_reservation->pre_bill->equipment_price)}}
               </td>
               </td>
             </tr>
@@ -955,10 +953,9 @@
           </tbody>
           <tbody class="layout_result">
             <tr>
-              <td colspan="2"></td>
-              <td colspan="1">合計：</td>
+              <td colspan="3"></td>
               <td colspan="1">
-                {{number_format($pre_reservation->pre_bill->layout_price)}}
+              合計：{{number_format($pre_reservation->pre_bill->layout_price)}}
               </td>
             </tr>
           </tbody>
@@ -1008,21 +1005,18 @@
         <table class="table text-right">
           <tbody>
             <tr>
-              <td>小計：</td>
               <td>
-                {{number_format($pre_reservation->pre_bill->master_subtotal)}}
+              小計：{{number_format($pre_reservation->pre_bill->master_subtotal)}}
               </td>
             </tr>
             <tr>
-              <td>消費税：</td>
               <td>
-                {{number_format($pre_reservation->pre_bill->master_tax)}}
+              消費税：{{number_format($pre_reservation->pre_bill->master_tax)}}
               </td>
             </tr>
             <tr>
-              <td class="font-weight-bold">合計金額</td>
               <td>
-                {{number_format($pre_reservation->pre_bill->master_total)}}
+                <span class="font-weight-bold">合計金額：</span>{{number_format($pre_reservation->pre_bill->master_total)}}
               </td>
             </tr>
           </tbody>
