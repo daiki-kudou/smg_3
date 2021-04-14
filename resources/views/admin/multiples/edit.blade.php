@@ -31,7 +31,6 @@
 <!-- 詳細選択画面--------------------------------------------------　 -->
 <p class="font-weight-bold">日程ごとに、詳細を編集できます。</p>
 
-{{session("error")}}
 
 <section class="border-wrap2 pb-5">
   <table class="table ttl_head">
@@ -61,7 +60,8 @@
           </td>
         </tr>
         <tr>
-          <th class="table-active" width="25%"><label for="company">会社名・団体名</label><a href="" class="more_btn ml-2">顧客詳細</a></th>
+          <th class="table-active" width="25%"><label for="company">会社名・団体名</label><a href=""
+              class="more_btn ml-2">顧客詳細</a></th>
           <td>
             {{ReservationHelper::getCompany($multiple->pre_reservations->first()->user_id)}}
           </td>
@@ -520,16 +520,16 @@
     <!-- コピー作成用フィールド   終わり--------------------------------------------------　 -->
     <p class="text-center">
       @if (count($venue->frame_prices)==0&&count($venue->time_prices)==0)
-    <div class="d-flex justify-content-center">
-      <div class="">
-        <p class="d-block">※選択された会場は料金が設定されていません。会場管理/料金管理に戻り設定してください</p>
-        <a href="{{url('admin/frame_prices')}}" class="btn more_btn_lg mt-5 d-flex justify-content-center">料金管理画面へ</a>
+      <div class="d-flex justify-content-center">
+        <div class="">
+          <p class="d-block">※選択された会場は料金が設定されていません。会場管理/料金管理に戻り設定してください</p>
+          <a href="{{url('admin/frame_prices')}}" class="btn more_btn_lg mt-5 d-flex justify-content-center">料金管理画面へ</a>
+        </div>
       </div>
-    </div>
-    @else
-    {{ Form::submit('すべての日程に反映する', ['class' => 'btn more_btn_lg mt-3'])}}
-    @endif
-    {{ Form::close() }}
+      @else
+      {{ Form::submit('すべての日程に反映する', ['class' => 'btn more_btn_lg mt-3'])}}
+      @endif
+      {{ Form::close() }}
     </p>
   </section>
 
@@ -562,12 +562,21 @@
     </li>
     <li>
       <p>
-      <p class="more_btn4 destroy_link" href="">削除</p>
-      {{-- 削除用 --}}
-
+        <p class="more_btn4 destroy_link" href="">削除</p>
+        {{-- 削除用 --}}
       </p>
     </li>
   </ul>
+
+  @if (session("error"))
+  <div class="alert alert-danger">
+    <ul>
+      <li>{{session("error")}}
+      </li>
+    </ul>
+  </div>
+  @endif
+
 
   {{-- jsで仮押えの件数判別のためのhidden --}}
   {{ Form::hidden('', $multiple->pre_reservations()->where('venue_id',$venue->id)->get()->count(),['id'=>'counts_reserve']) }}
@@ -584,7 +593,8 @@
     <div class="register-list-item">
       <div class="from-group list_checkbox">
         <div class="form-check">
-          <input type="checkbox" name="{{'delete_check'.$pre_reservation->id}}" value="{{$pre_reservation->id}}" class="checkbox mr-1" />
+          <input type="checkbox" name="{{'delete_check'.$pre_reservation->id}}" value="{{$pre_reservation->id}}"
+            class="checkbox mr-1" />
           <label class="form-check-label"></label>
         </div>
       </div>
@@ -1194,7 +1204,7 @@
                           </h4>
                         </td>
                       </tr>
-                      @if (!empty($pre_reservation->pre_bill->venue_price))
+                      @if (!is_null($pre_reservation->pre_bill->venue_price))
                       <tbody class="venue_head">
                         <tr>
                           <td>内容</td>
