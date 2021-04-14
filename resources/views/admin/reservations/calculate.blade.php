@@ -3,6 +3,8 @@
 
 <link href="{{ asset('/css/template.css') }}" rel="stylesheet">
 <script src="{{ asset('/js/template.js') }}"></script>
+<script src="{{ asset('/js/admin/validation.js') }}"></script>
+
 
 <style>
   #fullOverlay {
@@ -594,7 +596,7 @@
             <td class="table-active"><label for="cost">原価率</label></td>
             <td>
               <div class="d-flex align-items-end">
-                {{ Form::text('', $request->cost."%",['class'=>'form-control'] ) }}
+                {{ Form::text('', $request->cost,['class'=>'form-control'] ) }}
                 {{ Form::hidden('cost', $request->cost,['class'=>'form-control'] ) }}
                 <span class="ml-1 annotation">%</span>
               </div>

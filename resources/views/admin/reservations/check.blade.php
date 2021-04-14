@@ -262,12 +262,6 @@
               {{ Form::text('', ReservationHelper::getPersonName($request->user_id),['class'=>'form-control', 'readonly'] ) }}
             </td>
           </tr>
-          <tr>
-            <td class="table-active"><label for="name">担当者氏名<br></label></td>
-            <td>
-              {{ Form::text('', $request->user_id?ReservationHelper::getPersonName($request->user_id):'',['class'=>'form-control'] ) }}
-            </td>
-          </tr>
             <tr>
               <td class="table-active">メールアドレス 工藤さん！！</td>
               <td>
@@ -358,7 +352,7 @@
             <td class="table-active"><label for="cost">原価率</label></td>
             <td>
               <div class="d-flex align-items-end">
-                {{ Form::text('', $request->cost."%",['class'=>'form-control', 'readonly'] ) }}
+                {{ Form::text('', $request->cost,['class'=>'form-control', 'readonly'] ) }}
                 {{ Form::hidden('cost', $request->cost,['class'=>'form-control', 'readonly'] ) }}
                 <span class="ml-1 annotation">%</span>
               </div>

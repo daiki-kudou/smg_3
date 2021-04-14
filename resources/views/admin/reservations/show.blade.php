@@ -54,6 +54,12 @@
   @endif
 
 </div>
+<div class="alert-box d-flex align-items-center">
+      <!-- <span class="mr-3"><i class="fas alert-icon fa-exclamation-triangle" aria-hidden="true"></i></span> -->
+      <p>
+        ダブルチェックをおこなってください。
+      </p>
+    </div>　
 
 <section class="register-wrap mt-2">
   <div class="row">
