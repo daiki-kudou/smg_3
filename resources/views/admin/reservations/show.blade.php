@@ -54,10 +54,11 @@
   @endif
 
 </div>
-<div class="alert-box d-flex align-items-center">
+<div class="alert-box d-flex align-items-center mb-0">
       <!-- <span class="mr-3"><i class="fas alert-icon fa-exclamation-triangle" aria-hidden="true"></i></span> -->
       <p>
-        ダブルチェックをおこなってください。
+        一人目のチェックが終了しています。ダブルチェックを行ってください。
+        工藤さん！！一人目チェックが完了時に、表示をお願いします。
       </p>
     </div>　
 
