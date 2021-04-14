@@ -148,8 +148,7 @@
                 <div>
                   <select name="enter_time" id="sales_start" class="form-control">
                     <option disabled selected></option>
-                    @for ($start = 0*2; $start <=23*2; $start++) <option
-                      value="{{date("H:i:s", strtotime("00:00 +". $start * 30 ." minute"))}}" @if(!empty($request->
+                    @for ($start = 0*2; $start <=23*2; $start++) <option value="{{date("H:i:s", strtotime("00:00 +". $start * 30 ." minute"))}}" @if(!empty($request->
                       enter_time))
                       @if($request->enter_time==date("H:i:s", strtotime("00:00+".$start * 30 ." minute")))
                       selected
@@ -170,8 +169,7 @@
                 <div>
                   <select name="leave_time" id="sales_finish" class="form-control">
                     <option disabled selected></option>
-                    @for ($start = 0*2; $start <=23*2; $start++) <option
-                      value="{{date("H:i:s", strtotime("00:00 +". $start * 30 ." minute"))}}" @if(!empty($request->
+                    @for ($start = 0*2; $start <=23*2; $start++) <option value="{{date("H:i:s", strtotime("00:00 +". $start * 30 ." minute"))}}" @if(!empty($request->
                       leave_time))
                       @if($request->leave_time==date("H:i:s", strtotime("00:00
                       +".$start * 30 ." minute"))) selected @endif @endif>
@@ -200,7 +198,7 @@
               <td class="table-active">案内板</td>
               <td>
                 <div class="radio-box">
-                <p>
+                  <p>
                     {{ Form::radio('board_flag', 1, $request->board_flag==1?true:false, ['class'=>'', 'id'=>'board_flag']) }}
                     {{Form::label('board_flag2','有り')}}
                   </p>
@@ -217,8 +215,7 @@
                 <div>
                   <select name="event_start" id="event_start" class="form-control">
                     <option disabled>選択してください</option>
-                    @for ($start = 0*2; $start <=23*2; $start++) <option
-                      value="{{date("H:i:s", strtotime("00:00 +". $start * 30 ." minute"))}}" @if(!empty($request->
+                    @for ($start = 0*2; $start <=23*2; $start++) <option value="{{date("H:i:s", strtotime("00:00 +". $start * 30 ." minute"))}}" @if(!empty($request->
                       event_start))
                       @if($request->event_start==date("H:i:s", strtotime("00:00 +".
                       $start * 30 ." minute"))) selected @endif @endif>
@@ -234,8 +231,7 @@
                 <div>
                   <select name="event_finish" id="event_finish" class="form-control">
                     <option disabled>選択してください</option>
-                    @for ($start = 0*2; $start <=23*2; $start++) <option
-                      value="{{date("H:i:s", strtotime("00:00 +". $start * 30 ." minute"))}}" @if(!empty($request->
+                    @for ($start = 0*2; $start <=23*2; $start++) <option value="{{date("H:i:s", strtotime("00:00 +". $start * 30 ." minute"))}}" @if(!empty($request->
                       event_finish)) @if($request->event_finish==date("H:i:s", strtotime("00:00
                       +". $start * 30 ." minute"))) selected @endif @endif>
                       {{date("H時i分", strtotime("00:00 +". $start * 30 ." minute"))}}</option>
@@ -606,7 +602,9 @@
               <tbody class="venue_head">
                 <tr>
                   <td>内容</td>
+                  <td>単価</td>
                   <td>数量</td>
+                  <td>金額</td>
                 </tr>
               </tbody>
               <tbody class="venue_main">
@@ -614,9 +612,11 @@
                   <td>
                     {{ Form::text('venue_breakdown_item0', "会場料金",['class'=>'form-control', 'readonly'] ) }}
                   </td>
+                  <td><input class="form-control" readonly></td>
                   <td>
                     {{ Form::text('venue_breakdown_count0', $usage_hours."h",['class'=>'form-control', 'readonly'] ) }}
                   </td>
+                  <td><input class="form-control" readonly></td>
                 </tr>
               </tbody>
             </table>
@@ -638,7 +638,9 @@
               <tbody class="equipment_head">
                 <tr>
                   <td>内容</td>
+                  <td>単価</td>
                   <td>数量</td>
+                  <td>金額</td>
                 </tr>
               </tbody>
               <tbody class="equipment_main">
@@ -648,9 +650,11 @@
                   <td>
                     {{ Form::text('equipment_breakdown_item'.$key, $equipment->item,['class'=>'form-control', 'readonly'] ) }}
                   </td>
+                  <td><input class="form-control" readonly></td>
                   <td>
                     {{ Form::text('equipment_breakdown_count'.$key, $request->{'equipment_breakdown'.$key},['class'=>'form-control', 'readonly'] ) }}
                   </td>
+                  <td><input class="form-control" readonly></td>
                 </tr>
                 @endif
                 @endforeach
@@ -660,9 +664,11 @@
                   <td>
                     {{ Form::text('service_breakdown_item'.$key, $service->item,['class'=>'form-control', 'readonly'] ) }}
                   </td>
+                  <td><input class="form-control" readonly></td>
                   <td>
                     {{ Form::text('service_breakdown_count'.$key, $request->{'services_breakdown'.$key},['class'=>'form-control', 'readonly'] ) }}
                   </td>
+                  <td><input class="form-control" readonly></td>
                 </tr>
                 @endif
                 @endforeach
@@ -671,9 +677,11 @@
                   <td>
                     {{ Form::text('luggage_item', '荷物預り/返送',['class'=>'form-control', 'readonly'] ) }}
                   </td>
+                  <td><input class="form-control" readonly></td>
                   <td>
                     {{ Form::text('luggage_count', $request->luggage_price,['class'=>'form-control', 'readonly'] ) }}
                   </td>
+                  <td><input class="form-control" readonly></td>
                 </tr>
                 @endif
               </tbody>
@@ -730,7 +738,8 @@
               <tbody class="layouts_result">
                 <tr>
                   <td colspan="3"></td>
-                  <td colspan="1">合計
+                  <td colspan="1">
+                  <p class="text-left">合計</p>
                     {{ Form::text('layouts_price', $layout_price,['class'=>'form-control', 'readonly'] ) }}
                   </td>
                 </tr>
@@ -745,7 +754,7 @@
               <tbody>
                 <tr>
                   <td colspan="3">
-                    　<h4 class="billdetails_content_ttl">
+                    <h4 class="billdetails_content_ttl">
                       その他
                     </h4>
                   </td>
@@ -754,14 +763,18 @@
               <tbody class="others_head">
                 <tr>
                   <td>内容</td>
+                  <td>単価</td>
                   <td>数量</td>
+                  <td>金額</td>
                   <td>追加/削除</td>
                 </tr>
               </tbody>
               <tbody class="others_main">
                 <tr>
                   <td>{{ Form::text('others_input_item0', '',['class'=>'form-control'] ) }}</td>
+                  <td><input class="form-control" readonly></td>
                   <td>{{ Form::text('others_input_count0', '',['class'=>'form-control'] ) }}</td>
+                  <td><input class="form-control" readonly></td>
                   <td>
                     <input type="button" value="＋" class="add pluralBtn">
                     <input type="button" value="ー" class="del pluralBtn">

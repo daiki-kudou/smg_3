@@ -28,8 +28,8 @@
           </h3>
         </div>
       </div>
-      <div class="main" style="">
-        <div class="cancel_content cancel_border">
+      <div class="main">
+        <div class="cancel_content cancel_border bg-white">
           <h4 class="cancel_ttl">キャンセル料計算</h4>
           <table class="table table-borderless">
             <thead class="head_cancel">

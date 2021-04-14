@@ -448,10 +448,4 @@
   {{Form::submit('保存する', ['class'=>'btn d-block more_btn_lg mx-auto my-5', 'id'=>''])}}
   {{Form::close()}}
 </div>
-
-
-
-
-
-
 @endsection

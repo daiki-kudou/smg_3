@@ -121,8 +121,8 @@
           <tbody class="accordion-wrap">
             @foreach ($venue->getEquipments() as $key=>$equipment)
             <tr>
-              <td>{{$equipment->item}}</td>
-              <td class="table-active">
+              <td class="table-active">{{$equipment->item}}</td>
+              <td>
                 @for ($i = 0; $i < $equ_breakdowns; $i++) @if ($equipment->
                   item==$request->{"equipment_breakdown_item".$i})
                   {{ Form::text('equipment_breakdown'.$key, $request->{'equipment_breakdown_count'.$i},['class'=>'form-control', 'readonly'] ) }}
@@ -468,12 +468,10 @@
             </tbody>
             <tbody class="venue_result">
               <tr>
-                <td colspan="2"></td>
-                <td colspan="2">
-                  <p class="text-right">
-                    <span>合計：</span>
+                <td colspan="3"></td>
+                <td colspan="1">
+                <p class="text-left">合計</p>
                     {{ Form::text('venue_price', $request->venue_price,['class'=>'form-control col-xs-3', 'readonly'] ) }}
-                  </p>
                 </td>
               </tr>
             </tbody>
@@ -565,8 +563,9 @@
             </tbody>
             <tbody class="equipment_result">
               <tr>
-                <td colspan="2"></td>
-                <td colspan="2">合計
+                <td colspan="3"></td>
+                <td colspan="1">
+                <p class="text-left">合計</p>
                   {{ Form::text('equipment_price', $request->equipment_price,['class'=>'form-control', 'readonly'] ) }}
                 </td>
               </tr>
@@ -645,8 +644,9 @@
             </tbody>
             <tbody class="layout_result">
               <tr>
-                <td colspan="2"></td>
-                <td colspan="2">合計
+                <td colspan="3"></td>
+                <td colspan="1">
+                <p class="text-left">合計</p>
                   {{ Form::text('layout_price',$request->layout_price,['class'=>'form-control', 'readonly'] ) }}
                 </td>
               </tr>
@@ -693,7 +693,8 @@
             <tbody class="others_result">
               <tr>
                 <td colspan="3"></td>
-                <td colspan="1">合計
+                <td colspan="1">
+                <p class="text-left">合計</p>
                   {{ Form::text('others_price', $request->others_price,['class'=>'form-control', 'readonly'] ) }}
                 </td>
               </tr>

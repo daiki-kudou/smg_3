@@ -468,7 +468,9 @@
             <tbody class="venue_head">
               <tr>
                 <td>内容</td>
+                <td>単価</td>
                 <td>数量</td>
+                <td>金額</td>
               </tr>
             </tbody>
             <tbody class="venue_main">
@@ -476,9 +478,11 @@
                 <td>
                   {{ Form::text('venue_breakdown_item0', $request->venue_breakdown_item0,['class'=>'form-control', 'readonly'] ) }}
                 </td>
+                <td><input class="form-control" readonly></td>
                 <td>
                   {{ Form::text('venue_breakdown_count0', $request->venue_breakdown_count0,['class'=>'form-control', 'readonly'] ) }}
                 </td>
+                <td><input class="form-control" readonly></td>
               </tr>
             </tbody>
           </table>
@@ -499,7 +503,9 @@
             <tbody class="equipment_head">
               <tr>
                 <td>内容</td>
+                <td>単価</td>
                 <td>数量</td>
+                <td>金額</td>
               </tr>
             </tbody>
             <tbody class="equipment_main">
@@ -509,9 +515,11 @@
                 <td>
                   {{ Form::text('equipment_breakdown_item'.$key, $request->{'equipment_breakdown_item'.$key} ,['class'=>'form-control','readonly'] ) }}
                 </td>
+                <td><input class="form-control" readonly></td>
                 <td>
                   {{ Form::text('equipment_breakdown_count'.$key, $request->{'equipment_breakdown_count'.$key} ,['class'=>'form-control','readonly'] ) }}
                 </td>
+                <td><input class="form-control" readonly></td>
               </tr>
               @endif
               @endforeach
@@ -522,9 +530,11 @@
                 <td>
                   {{ Form::text('service_breakdown_item'.$key, $request->{'service_breakdown_item'.$key} ,['class'=>'form-control','readonly'] ) }}
                 </td>
+                <td><input class="form-control" readonly></td>
                 <td>
                   {{ Form::text('service_breakdown_count'.$key, $request->{'service_breakdown_count'.$key} ,['class'=>'form-control','readonly'] ) }}
                 </td>
+                <td><input class="form-control" readonly></td>
               </tr>
               @endif
               @endforeach
@@ -533,9 +543,11 @@
                 <td>
                   {{ Form::text('luggage_item', $request->luggage_item ,['class'=>'form-control','readonly'] ) }}
                 </td>
+                <td><input class="form-control" readonly></td>
                 <td>
                   {{ Form::text('luggage_count', $request->luggage_count ,['class'=>'form-control','readonly'] ) }}
                 </td>
+                <td><input class="form-control" readonly></td>
               </tr>
               @endif
             </tbody>
@@ -598,8 +610,9 @@
             </tbody>
             <tbody class="layouts_result">
               <tr>
-                <td colspan="2"></td>
-                <td colspan="2">合計
+                <td colspan="3"></td>
+                <td colspan="1">
+                <p class="text-left">合計</p>
                   {{ Form::text('layouts_price', $request->layouts_price,['class'=>'form-control', 'readonly'] ) }}
                 </td>
               </tr>
@@ -609,19 +622,23 @@
 
 
         @if ($others_details!="")
-        <div class="others" style="padding: 80px 0px 80px 0px; width:90%; margin:0 auto;">
-          <table class="table table-borderless" style="table-layout: fixed;">
-            <tr>
-              <td>
-                <h1>
-                  ■その他
-                </h1>
-              </td>
-            </tr>
+        <div class="others billdetails_content">
+          <table class="table table-borderless">
+          <tbody>
+                <tr>
+                  <td colspan="3">
+                    <h4 class="billdetails_content_ttl">
+                      その他
+                    </h4>
+                  </td>
+                </tr>
+              </tbody>
             <tbody class="others_head">
               <tr>
                 <td>内容</td>
+                <td>単価</td>
                 <td>数量</td>
+                <td>金額</td>
               </tr>
             </tbody>
             <tbody class="others_main">
@@ -629,9 +646,11 @@
                 <td>
                   {{ Form::text('others_breakdown_item'.$i, $request->{'others_input_item'.$i} ,['class'=>'form-control','readonly'] ) }}
                 </td>
+                <td><input class="form-control" readonly></td>
                 <td>
                   {{ Form::text('others_breakdown_count'.$i, $request->{'others_input_count'.$i} ,['class'=>'form-control','readonly'] ) }}
                 </td>
+                <td><input class="form-control" readonly></td>
                 </tr>
                 @endfor
             </tbody>

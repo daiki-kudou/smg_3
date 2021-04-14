@@ -26,8 +26,8 @@
           </h3>
         </div>
       </div>
-      <div class="main" style="">
-        <div class="cancel_content cancel_border">
+      <div class="main">
+        <div class="cancel_content cancel_border bg-white">
           {{ Form::open(['url' => 'admin/cxl/calculate', 'method'=>'POST', 'class'=>'']) }}
           @csrf
           {{Form::hidden('bills_id',$bill->id)}}
@@ -111,14 +111,14 @@
                 </td>
               </tr>
             </tbody>
-            <thead class="head_cancel">
+            <tbody class="head_cancel">
               <tr>
                 <td>内容</td>
                 <td>単価</td>
                 <td>数量</td>
                 <td>金額</td>
               </tr>
-            </thead>
+            </tbody>
             <tbody class="">
               @if ($bill->venue_price>0)
               <tr>
