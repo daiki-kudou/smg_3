@@ -775,7 +775,7 @@
               <div><span>申込日：</span>{{$reservation->bills()->first()->created_at}}</div>
               <div><span>予約予約を確定する日：</span>{{$reservation->bills()->first()->approve_send_at}}</div>
             </td>
-            @if ($reservation->bills()->first()->reservation_status==3)
+            <!-- @if ($reservation->bills()->first()->reservation_status==3)
             <td>
               <div>
                 {{ Form::open(['url' => 'admin/cxl/create', 'method'=>'POST', 'class'=>'']) }}
@@ -786,7 +786,7 @@
                 {{ Form::close() }}
               </div>
             </td>
-            @endif
+            @endif -->
           </tr>
         </tbody>
       </table>
@@ -838,6 +838,16 @@
             @endif
             @endif
             @endif
+      </div>
+      <div class="cancel">
+        @if ($reservation->bills()->first()->reservation_status==3)
+        {{ Form::open(['url' => 'admin/cxl/create', 'method'=>'POST', 'class'=>'']) }}
+        @csrf
+        {{ Form::hidden('reservation_id', $reservation->id ) }}
+        {{ Form::hidden('bills_id', $reservation->bills()->first()->id ) }}
+        <p class="text-right py-2 mr-2">{{ Form::submit('キャンセル',['class' => 'btn more_btn4']) }}</p>
+        {{ Form::close() }}
+        @endif
       </div>
     </div>
     <div class="bill_details">
@@ -1406,33 +1416,34 @@
               <div><span>申込日：</span>{{$other_bill->created_at}}</div>
               <div><span>予約予約を確定する日：</span>{{$other_bill->approve_send_at}}</div>
             </td>
-            @if ($other_bill->reservation_status==3)
-            <td>
-              <div>キャンセル！！！！！！！！！！１</div>
-            </td>
-            @endif
+
           </tr>
         </tbody>
       </table>
       <div class="approve_or_confirm">
         @if ($other_bill->double_check_status==2)
-        @if ($other_bill->reservation_status<=2) 
-        <div class="d-flex justify-content-end mt-2 mb-2">
-              {{ Form::open(['url' => 'admin/bills/other_send_approve', 'method'=>'POST', 'class'=>'']) }}
-              @csrf
-              {{ Form::hidden('bill_id', $other_bill->id ) }}
-              {{ Form::hidden('user_id', $reservation->user_id ) }}
-              {{ Form::hidden('reservation_id', $reservation->id ) }}
+        @if ($other_bill->reservation_status<=2) <div class="d-flex justify-content-end mt-2 mb-2">
+          {{ Form::open(['url' => 'admin/bills/other_send_approve', 'method'=>'POST', 'class'=>'']) }}
+          @csrf
+          {{ Form::hidden('bill_id', $other_bill->id ) }}
+          {{ Form::hidden('user_id', $reservation->user_id ) }}
+          {{ Form::hidden('reservation_id', $reservation->id ) }}
 
-              <p class="mr-2">{{ Form::submit('利用者に承認メールを送る',['class' => 'btn more_btn']) }}</p>
-              {{ Form::close() }}
-              {{ Form::open(['url' => 'admin/agents_reservations/confirm', 'method'=>'POST', 'class'=>'']) }}
-              @csrf
-              {{ Form::hidden('bill_id', $other_bill->id ) }}
-              <p>{{ Form::submit('予約を確定する',['class' => 'btn more_btn4']) }}</p>
-              {{ Form::close() }}
+          <p class="mr-2">{{ Form::submit('利用者に承認メールを送る',['class' => 'btn more_btn']) }}</p>
+          {{ Form::close() }}
+          {{ Form::open(['url' => 'admin/agents_reservations/confirm', 'method'=>'POST', 'class'=>'']) }}
+          @csrf
+          {{ Form::hidden('bill_id', $other_bill->id ) }}
+          <p>{{ Form::submit('予約を確定する',['class' => 'btn more_btn4']) }}</p>
+          {{ Form::close() }}
           @endif
           @endif
+      </div>
+      <div class="cancel">
+        @if ($other_bill->reservation_status==3)
+        <p class="text-right py-2 mr-2">
+        <input type="" class="btn more_btn4" value="工藤さん！！キャンセル！！！！！！！！！！１"></p>
+        @endif
       </div>
     </div>
 
