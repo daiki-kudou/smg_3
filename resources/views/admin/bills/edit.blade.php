@@ -1,52 +1,52 @@
 @extends('layouts.admin.app')
 
 @section('content')
-
-
 <link href="{{ asset('/css/template.css') }}" rel="stylesheet">
 {{-- <script src="{{ asset('/js/template.js') }}"></script> --}}
 {{-- <script src="{{ asset('/js/admin/template.js') }}"></script> --}}
 <script src="{{ asset('/js/admin/reservation.js') }}"></script>
 
-
-
-
-
+<style>
+  .hide {
+    display: none;
+  }
+</style>
 
 <div class="container-fluid">
 
-  <h1>追加請求書　編集画面</h1>
+  <h2 class="mt-3 mb-3">追加請求書　編集</h2>
+  <hr>
 
   {{ Form::open(['url' => 'admin/bills/'.$bill->id, 'method'=>'PUT']) }}
   @csrf
 
-  <div class="container-fluid">
+  <section class="mt-5">
     <div class="bill">
       <div class="bill_details">
         <div class="head d-flex">
-          <div style="width: 80px; background:gray;" class="d-flex justify-content-center align-items-center">
-            <i class="fas fa-plus fa-3x hide" style="color: white;" aria-hidden="true"></i>
-            <i class="fas fa-minus fa-3x" style="color: white;" aria-hidden="true"></i>
+          <div class="accordion_btn">
+            <i class="fas fa-plus bill_icon_size hide" aria-hidden="true"></i>
+            <i class="fas fa-minus bill_icon_size" aria-hidden="true"></i>
           </div>
-          <div style="font-size: 30px; width:200px;" class="d-flex justify-content-center align-items-center">
-            <p>
+          <div class="billdetails_ttl">
+            <h3>
               請求内訳
-            </p>
+            </h3>
           </div>
         </div>
         <div class="main">
-          <div class="venues" style="padding-top: 80px; width:90%; margin:0 auto;">
+          <div class="venues billdetails_content">
             <table class="table table-borderless">
               <tbody>
                 <tr>
-                  <td colspan="4">
-                    <h1>
-                      ■会場料
-                    </h1>
+                  <td>
+                    <h4 class="billdetails_content_ttl">
+                      会場料
+                    </h4>
                   </td>
                 </tr>
               </tbody>
-              <tbody class="venue_head ">
+              <tbody class="venue_head">
                 <tr>
                   <td>内容</td>
                   <td>単価</td>
@@ -55,7 +55,7 @@
                   <td>追加/削除</td>
                 </tr>
               </tbody>
-              <tbody class="venue_main ">
+              <tbody class="venue_main">
                 @if (count($bill->breakdowns()->where('unit_type',1)->get())!=0)
                 @foreach ($bill->breakdowns()->where('unit_type',1)->get() as $key=>$venue)
                 <tr>
@@ -98,9 +98,9 @@
                 </tr>
                 @endif
               </tbody>
-              <tbody class="venue_result ">
+              <tbody class="venue_result">
                 <tr>
-                  <td colspan="2"></td>
+                  <td colspan="3"></td>
                   <td colspan="2">合計
                     {{Form::text('venue_price',$bill->venue_price,['class'=>'form-control','readonly'])}}
                   </td>
@@ -109,18 +109,18 @@
             </table>
           </div>
 
-          <div class="equipment" style="padding-top: 80px; width:90%; margin:0 auto;">
+          <div class="equipment billdetails_content">
             <table class="table table-borderless">
               <tbody>
                 <tr>
                   <td colspan="4">
-                    <h1>
-                      ■有料備品・サービス料
-                    </h1>
+                    <h4 class="billdetails_content_ttl">
+                      有料備品・サービス
+                    </h4>
                   </td>
                 </tr>
               </tbody>
-              <tbody class="equipment_head ">
+              <tbody class="equipment_head">
                 <tr>
                   <td>内容</td>
                   <td>単価</td>
@@ -129,7 +129,7 @@
                   <td>追加/削除</td>
                 </tr>
               </tbody>
-              <tbody class="equipment_main ">
+              <tbody class="equipment_main">
                 @if (count($bill->breakdowns()->where('unit_type',2)->get())!=0)
                 @foreach ($bill->breakdowns()->where('unit_type',2)->get() as $key=>$equ)
                 <tr>
@@ -173,9 +173,9 @@
                 @endif
 
               </tbody>
-              <tbody class="equipment_result ">
+              <tbody class="equipment_result">
                 <tr>
-                  <td colspan="2"></td>
+                  <td colspan="3"></td>
                   <td colspan="2">合計
                     {{Form::text('equipment_price',$bill->equipment_price,['class'=>'form-control','readonly'])}}
                   </td>
@@ -184,18 +184,18 @@
             </table>
           </div>
 
-          <div class="layout" style="padding-top: 80px; width:90%; margin:0 auto;">
+          <div class="layout billdetails_content">
             <table class="table table-borderless">
               <tbody>
                 <tr>
-                  <td colspan="4">
-                    <h1>
-                      ■ レイアウト変更料
-                    </h1>
+                  <td>
+                    <h4 class="billdetails_content_ttl">
+                      レイアウト
+                    </h4>
                   </td>
                 </tr>
               </tbody>
-              <tbody class="layout_head ">
+              <tbody class="layout_head">
                 <tr>
                   <td>内容</td>
                   <td>単価</td>
@@ -249,9 +249,9 @@
 
 
               </tbody>
-              <tbody class="layout_result ">
+              <tbody class="layout_result">
                 <tr>
-                  <td colspan="2"></td>
+                  <td colspan="3"></td>
                   <td colspan="2">合計
                     {{Form::text('layout_price',$bill->layout_price,['class'=>'form-control','readonly'])}}
                   </td>
@@ -261,18 +261,18 @@
           </div>
 
 
-          <div class="others" style="padding: 80px 0px 80px 0px; width:90%; margin:0 auto;">
+          <div class="others billdetails_content">
             <table class="table table-borderless">
               <tbody>
                 <tr>
                   <td colspan="4">
-                    <h1>
-                      ■その他
-                    </h1>
+                    <h4 class="billdetails_content_ttl">
+                      その他
+                    </h4>
                   </td>
                 </tr>
               </tbody>
-              <tbody class="others_head ">
+              <tbody class="others_head">
                 <tr>
                   <td>内容</td>
                   <td>単価</td>
@@ -281,7 +281,7 @@
                   <td>追加/削除</td>
                 </tr>
               </tbody>
-              <tbody class="others_main ">
+              <tbody class="others_main">
                 @if (count($bill->breakdowns()->where('unit_type',5)->get())!=0)
                 @foreach ($bill->breakdowns()->where('unit_type',5)->get() as $key=>$other)
                 <tr>
@@ -324,10 +324,10 @@
                 </tr>
                 @endif
               </tbody>
-              <tbody class="others_result ">
+              <tbody class="others_result">
                 <tr>
-                  <td colspan="2"></td>
-                  <td colspan="3">合計
+                  <td colspan="3"></td>
+                  <td colspan="2">合計
                     {{Form::text('others_price',$bill->others_price,['class'=>'form-control','readonly'])}}
                   </td>
                 </tr>
@@ -335,59 +335,54 @@
             </table>
           </div>
 
-
-          <div class="bill_total d-flex justify-content-end"
-            style="padding: 80px 0px 80px 0px; width:90%; margin:0 auto;">
-            <div style="width: 60%;">
-              <table class="table text-right" style="table-layout: fixed; font-size:16px;">
-                <tbody>
-                  <tr>
-                    <td>小計：</td>
-                    <td>
-                      {{Form::text('master_subtotal', $bill->master_subtotal,['class'=>'form-control','readonly'])}}
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>消費税：</td>
-                    <td>
-                      {{Form::text('master_tax', $bill->master_tax,['class'=>'form-control','readonly'])}}
-                    </td>
-                  </tr>
-                  <tr>
-                    <td class="font-weight-bold">合計金額</td>
-                    <td>
-                      {{Form::text('master_total', $bill->master_total,['class'=>'form-control','readonly'])}}
-                    </td>
-                  </tr>
-                </tbody>
-              </table>
-            </div>
+          <div class="bill_total">
+            <table class="table text-right">
+              <tbody>
+                <tr>
+                  <td>小計：</td>
+                  <td>
+                    {{Form::text('master_subtotal', $bill->master_subtotal,['class'=>'form-control','readonly'])}}
+                  </td>
+                </tr>
+                <tr>
+                  <td>消費税：</td>
+                  <td>
+                    {{Form::text('master_tax', $bill->master_tax,['class'=>'form-control','readonly'])}}
+                  </td>
+                </tr>
+                <tr>
+                  <td class="font-weight-bold">合計金額</td>
+                  <td>
+                    {{Form::text('master_total', $bill->master_total,['class'=>'form-control','readonly'])}}
+                  </td>
+                </tr>
+              </tbody>
+            </table>
           </div>
         </div>
       </div>
     </div>
 
-
     <div class="information">
       <div class="information_details">
         <div class="head d-flex">
-          <div style="width: 80px; background:gray;" class="d-flex justify-content-center align-items-center">
-            <i class="fas fa-plus fa-3x hide" style="color: white;" aria-hidden="true"></i>
-            <i class="fas fa-minus fa-3x" style="color: white;" aria-hidden="true"></i>
+          <div class="accordion_btn">
+            <i class="fas fa-plus bill_icon_size hide" aria-hidden="true"></i>
+            <i class="fas fa-minus bill_icon_size" aria-hidden="true"></i>
           </div>
-          <div style="font-size: 30px; width:200px;" class="d-flex justify-content-center align-items-center">
-            <p>
+          <div class="billdetails_ttl">
+            <h3>
               請求書情報
-            </p>
+            </h3>
           </div>
         </div>
         <div class="main">
-          <div class="informations" style="padding-top: 20px; width:90%; margin:0 auto;">
-            <table class="table" style="table-layout: fixed;">
+          <div class="informations billdetails_content">
+            <table class="table">
               <tbody>
                 <tr>
                   <td>請求日：</td>
-                  <td>支払期日：
+                  <td>支払期日
                     {{Form::text('payment_limit', $bill->payment_limit,['class'=>'form-control', 'datepicker1'])}}
                   </td>
                 </tr>
@@ -416,17 +411,15 @@
     <div class="paid">
       <div class="paid_details">
         <div class="head d-flex">
-          <div style="width: 80px; background:#ff782d;" class="d-flex justify-content-center align-items-center">
-          </div>
-          <div style="font-size: 30px; width:200px;" class="d-flex justify-content-center align-items-center">
-            <p>
+          <div class="d-flex align-items-center">
+            <h3 class="pl-3">
               入金情報
-            </p>
+            </h3>
           </div>
         </div>
         <div class="main">
-          <div class="paids" style="padding-top: 20px; width:90%; margin:0 auto;">
-            <table class="table" style="table-layout: fixed;">
+          <div class="paids billdetails_content">
+            <table class="table">
               <tbody>
                 <tr>
                   <td>入金状況
@@ -451,8 +444,8 @@
         </div>
       </div>
     </div>
-  </div>
-  {{Form::submit('再作成', ['class'=>'btn d-block more_btn_lg mx-auto my-5', 'id'=>''])}}
+  </section>
+  {{Form::submit('保存する', ['class'=>'btn d-block more_btn_lg mx-auto my-5', 'id'=>''])}}
   {{Form::close()}}
 </div>
 
