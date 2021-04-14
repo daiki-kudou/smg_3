@@ -770,8 +770,9 @@
               </tbody>
               <tbody class="venue_result">
                 <tr>
-                  <td colspan="2"></td>
-                  <td colspan="2">合計
+                  <td colspan="3"></td>
+                  <td colspan="1">
+                  <p class="text-left">合計</p>
                     {{ Form::text('venue_price', $PreReservation->pre_bill()->first()->venue_price,['class'=>'form-control col-xs-3', 'readonly'] ) }}
                   </td>
                 </tr>
@@ -832,8 +833,9 @@
               </tbody>
               <tbody class="equipment_result">
                 <tr>
-                  <td colspan="2"></td>
-                  <td colspan="2">合計
+                  <td colspan="3"></td>
+                  <td colspan="1">
+                  <p class="text-left">合計</p>
                     {{ Form::text('equipment_price',$PreReservation->pre_bill()->first()->equipment_price  ,['class'=>'form-control', 'readonly'] ) }}
                   </td>
                 </tr>
@@ -880,8 +882,9 @@
               </tbody>
               <tbody class="layout_result">
                 <tr>
-                  <td colspan="2"></td>
-                  <td colspan="2">合計
+                  <td colspan="3"></td>
+                  <td colspan="1">
+                  <p class="text-left">合計</p>
                     {{ Form::text('layout_price',$PreReservation->pre_bill()->first()->layout_price ,['class'=>'form-control', 'readonly'] ) }}
                   </td>
                 </tr>

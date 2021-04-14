@@ -772,7 +772,8 @@
               <tbody class="layouts_result">
                 <tr>
                   <td colspan="3"></td>
-                  <td colspan="1">合計
+                  <td colspan="1">
+                  <p class="text-left">合計</p>
                     {{ Form::text('layouts_price', $layout_total,['class'=>'form-control', 'readonly'] ) }}
                   </td>
                 </tr>

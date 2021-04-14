@@ -1387,6 +1387,12 @@ h3 {
 .others_main td {
     padding-left: 1.5em;
 }
+.venue_main td:last-child,
+.equipment_main td:last-child,
+.layout_main td:last-child,
+.others_main td:last-child {
+    padding-right: 1.5em;
+}
 
 .venue_discount,
 .equipment_discount,
@@ -1420,11 +1426,13 @@ h3 {
 .venue_result td,
 .equipment_result td,
 .layout_result td,
+.layouts_result td,
 .others_result td {
     border-top: 1px solid #dee2e6 !important;
     padding-top: 2em;
     padding-bottom: 1em;
     padding-right: 1.5em;
+    padding-left: 1.5em;
     text-align: right;
 }
 
