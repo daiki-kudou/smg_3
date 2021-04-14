@@ -123,9 +123,21 @@ class User extends Authenticatable
   public function search($request)
   {
     $class = $this->where(function ($query) use ($request) {
+
       if ($request->search_id) {
-        $query->where("id", "LIKE", "%" . $request->search_id . "%");
+        $editId = $request->search_id;
+        if (substr($request->search_id, 0, 5) == "00000") {
+          $editId = str_replace("00000", "", $request->search_id);
+        } elseif (substr($request->search_id, 0, 4) == "0000") {
+          $editId = str_replace("0000", "", $request->search_id);
+        } elseif (substr($request->search_id, 0, 3) == "000") {
+          $editId = str_replace("000", "", $request->search_id);
+        } elseif (substr($request->search_id, 0, 2) == "00") {
+          $editId = str_replace("00", "", $request->search_id);
+        }
+        $query->where("id", "LIKE", "%" . $editId . "%");
       }
+
       if ($request->search_company) {
         $query->where("company", "LIKE", "%" . $request->search_company . "%");
       }

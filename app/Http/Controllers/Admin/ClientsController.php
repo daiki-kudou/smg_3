@@ -24,7 +24,6 @@ class ClientsController extends Controller
   public function index(Request $request)
   {
 
-    // var_dump($request->all());
 
     if (count($request->except('token')) != 0) {
       $class = new User;
