@@ -143,11 +143,16 @@ class User extends Authenticatable
       if ($request->search_email) {
         $query->where('email', 'LIKE', "%{$request->search_email}%");
       }
-      if ($request->attention == 1) {
-        $query->where('attention', "LIKE", "%%");
-      } else {
-        $query->whereNull('attention');
+
+      if ($request->attention) {
+        if ($request->attention == 1) {
+          $query->where('attention', "LIKE", "%%");
+        } elseif ($request->attention == 2) {
+          $query->whereNull('attention');
+        }
       }
+
+
       $query->where(function ($query) use ($request) {
         for ($i = 1; $i <= 7; $i++) {
           if (!empty($request->{"attr" . $i})) {

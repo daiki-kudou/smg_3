@@ -1501,7 +1501,10 @@
   </li>
   <li>
     @if (count($venue->frame_prices)!=0&&count($venue->time_prices)!=0)
-    <p id="master_submit" class="btn more_btn_lg">保存する</p>
+    {{-- <p id="master_submit" class="btn more_btn_lg disabled">保存する</p> --}}
+    {{-- <a id="master_submit" class="btn more_btn_lg disabled" href="javascript:master_form.submit()">保存する</a> --}}
+
+    <button id="master_submit" class="btn more_btn_lg">保存する</button>
     @endif
   </li>
 </ul>
@@ -1515,13 +1518,27 @@
 @csrf
 {{ Form::hidden('multiple_id', $multiple->id)}}
 {{ Form::hidden('venue_id', $venue->id)}}
-{{-- {{ Form::submit('削除', ['class' => 'btn more_btn4','id'=>'confirm_destroy']) }} --}}
 {{ Form::close() }}
 
 
 
 
 <script>
+  $(function(){
+    var inputs=$('input[name="venue_breakdown_item0_copied1"]').val();
+    console.log(inputs);
+    if (inputs=="") {
+      $("#master_submit").prop("disabled",true);
+    }
+  })
+  $(function(){
+    var inputs=$('input[name="venue_breakdown_item0_copied1"]').val();
+    $(document).on("input", "input", function() {
+      alert(inputs);
+    })
+
+  })
+
   $(function() {
     $(document).on("click", "#master_submit", function() {
       var data = {};

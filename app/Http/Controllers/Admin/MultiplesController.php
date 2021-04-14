@@ -15,9 +15,6 @@ use Illuminate\Support\Facades\DB; //トランザクション用
 
 use App\Traits\SearchTrait;
 
-use Illuminate\Support\Facades\Validator;
-
-
 
 
 class MultiplesController extends Controller
@@ -217,31 +214,22 @@ class MultiplesController extends Controller
 
   public function allUpdates(Request $request, $multiples_id, $venues_id)
   {
+    // $masterData = json_decode($request->master_data);
+    // $validator = Validator::make($request->all(), [
+    //   $masterData->venue_breakdown_item0_copied0 => 'required',
+    // ]);
+
+    // if ($validator->fails()) {
+    //   return redirect(route('admin.multiples.edit', [$multiples_id, $venues_id]))
+    //     ->withErrors($validator)
+    //     ->withInput();
+    // }
+
+
     $masterData = json_decode($request->master_data);
-    $validator = Validator::make($request->all(), [
-      $masterData->event_name1_copied0 => 'required',
-    ]);
-
-    if ($validator->fails()) {
-      return redirect(route('admin.multiples.edit', [$multiples_id, $venues_id]))
-        ->withErrors($validator)
-        ->withInput();
-    }
-
-
-
-    echo "<pre>";
-    var_dump($masterData);
-    echo "</pre>";
-
-    echo "<pre>";
-    var_dump($masterData->cp_master_event_name1);
-    echo "</pre>";
-
-
-    // $multiple = MultipleReserve::find($multiples_id);
-    // $multiple->UpdateAndReCreateAll($masterData, $venues_id);
-    // return redirect('admin/multiples/' . $multiples_id . '/edit/' . $venues_id);
+    $multiple = MultipleReserve::find($multiples_id);
+    $multiple->UpdateAndReCreateAll($masterData, $venues_id);
+    return redirect('admin/multiples/' . $multiples_id . '/edit/' . $venues_id);
   }
 
   public function add_date($multiple_id, $venue_id)
