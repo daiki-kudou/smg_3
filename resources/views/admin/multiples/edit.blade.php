@@ -1204,42 +1204,12 @@
                           </h4>
                         </td>
                       </tr>
-                      @if (!is_null($pre_reservation->pre_bill->venue_price))
-                      <tbody class="venue_head">
-                        <tr>
-                          <td>内容</td>
-                          <td>単価</td>
-                          <td>数量</td>
-                          <td>金額</td>
-                        </tr>
-                      </tbody>
-                      <tbody class="{{'venue_main'.$key}}">
-                        @foreach ($pre_reservation->pre_breakdowns()->where('unit_type',1)->get() as $each_venue)
-                        <tr>
-                          <td>
-                            {{ Form::text('venue_breakdown_item0_copied'.$key, $each_venue->unit_item,['class'=>'form-control', 'readonly'] ) }}
-                          </td>
-                          <td>
-                            {{ Form::text('venue_breakdown_cost0_copied'.$key, $each_venue->unit_cost,['class'=>'form-control', 'readonly'] ) }}
-                          </td>
-                          <td>
-                            {{ Form::text('venue_breakdown_count0_copied'.$key, $each_venue->unit_count,['class'=>'form-control', 'readonly'] ) }}
-                          </td>
-                          <td>
-                            {{ Form::text('venue_breakdown_subtotal0_copied'.$key, $each_venue->unit_subtotal,['class'=>'form-control', 'readonly'] ) }}
-                          </td>
-                        </tr>
-                        @endforeach
-                      </tbody>
-                      <tbody class="{{'venue_result'.$key}}">
-                        <tr>
-                          <td colspan="2"></td>
-                          <td colspan="2">合計
-                            {{ Form::text('venue_price'.$key,$pre_reservation->pre_bill->venue_price,['class'=>'form-control col-xs-3', 'readonly'] ) }}
-                          </td>
-                        </tr>
-                      </tbody>
-                      @else{{--料金体系無し、手打ち--}}
+
+
+
+
+
+                      @if (empty($pre_reservation->pre_bill))
                       <span>※料金体系がないため、手打ちで会場料を入力してください</span>
                       <tbody class="venue_head">
                         <tr>
@@ -1275,6 +1245,41 @@
                           <td colspan="2"></td>
                           <td colspan="2">合計
                             {{ Form::text('venue_price'.$key,'',['class'=>'form-control col-xs-3', 'readonly'] ) }}
+                          </td>
+                        </tr>
+                      </tbody>
+                      @else
+                      <tbody class="venue_head">
+                        <tr>
+                          <td>内容</td>
+                          <td>単価</td>
+                          <td>数量</td>
+                          <td>金額</td>
+                        </tr>
+                      </tbody>
+                      <tbody class="{{'venue_main'.$key}}">
+                        @foreach ($pre_reservation->pre_breakdowns()->where('unit_type',1)->get() as $each_venue)
+                        <tr>
+                          <td>
+                            {{ Form::text('venue_breakdown_item0_copied'.$key, $each_venue->unit_item,['class'=>'form-control', 'readonly'] ) }}
+                          </td>
+                          <td>
+                            {{ Form::text('venue_breakdown_cost0_copied'.$key, $each_venue->unit_cost,['class'=>'form-control', 'readonly'] ) }}
+                          </td>
+                          <td>
+                            {{ Form::text('venue_breakdown_count0_copied'.$key, $each_venue->unit_count,['class'=>'form-control', 'readonly'] ) }}
+                          </td>
+                          <td>
+                            {{ Form::text('venue_breakdown_subtotal0_copied'.$key, $each_venue->unit_subtotal,['class'=>'form-control', 'readonly'] ) }}
+                          </td>
+                        </tr>
+                        @endforeach
+                      </tbody>
+                      <tbody class="{{'venue_result'.$key}}">
+                        <tr>
+                          <td colspan="2"></td>
+                          <td colspan="2">合計
+                            {{ Form::text('venue_price'.$key,$pre_reservation->pre_bill->venue_price,['class'=>'form-control col-xs-3', 'readonly'] ) }}
                           </td>
                         </tr>
                       </tbody>

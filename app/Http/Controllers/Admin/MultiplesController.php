@@ -46,6 +46,7 @@ class MultiplesController extends Controller
     $venue_count = $venues->count("venue_id");
     $checkVenuePrice = $multiple->checkVenuePrice();
     $checkEachStatus = $multiple->checkEachStatus();
+    var_dump($checkEachStatus);
 
     return view(
       'admin.multiples.show',
@@ -230,7 +231,6 @@ class MultiplesController extends Controller
           ->with('error', '一部予約の会場利用料が未設定です。必ず設定してください');
       }
     }
-
 
     $multiple = MultipleReserve::find($multiples_id);
     $multiple->UpdateAndReCreateAll($masterData, $venues_id);
