@@ -30,15 +30,8 @@
 
 <!-- 詳細選択画面--------------------------------------------------　 -->
 <p class="font-weight-bold">日程ごとに、詳細を編集できます。</p>
-{{-- @if ($errors->any())
-<div class="alert alert-danger">
-  <ul>
-    @foreach ($errors->all() as $error)
-    <li>{{ $error }}</li>
-@endforeach
-</ul>
-</div>
-@endif --}}
+
+{{session("error")}}
 
 <section class="border-wrap2 pb-5">
   <table class="table ttl_head">
