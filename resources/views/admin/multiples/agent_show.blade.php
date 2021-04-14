@@ -9,12 +9,13 @@
   <div class="float-right">
     <nav aria-label="breadcrumb">
       <ol class="breadcrumb">
-        <li class="breadcrumb-item active">ダミーダミーダミー
+        <li class="breadcrumb-item active">
+          {{ Breadcrumbs::render(Route::currentRouteName(),$multiple->id) }}
         </li>
       </ol>
     </nav>
   </div>
-  <h2 class="mt-3 mb-3">一括仮押え　詳細</h2>
+  <h2 class="mt-3 mb-3">一括仮押え(仲介会社経由)　詳細</h2>
   <hr>
 </div>
 

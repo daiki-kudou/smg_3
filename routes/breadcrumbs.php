@@ -143,8 +143,6 @@ Breadcrumbs::for('admin.pre_agent_reservations.calculate', function ($trail) {
   $trail->parent('admin.pre_agent_reservations.check');
   $trail->push('仲介会社 仮押え 計算', route('admin.pre_agent_reservations.calculate'));
 });
-
-
 // 一括仮押さえ
 Breadcrumbs::for('admin.multiples.index', function ($trail) {
   $trail->parent('admin.home.index');
@@ -153,6 +151,10 @@ Breadcrumbs::for('admin.multiples.index', function ($trail) {
 Breadcrumbs::for('admin.multiples.show', function ($trail, $id) {
   $trail->parent('admin.multiples.index');
   $trail->push('一括仮押え 詳細', route('admin.multiples.show', $id));
+});
+Breadcrumbs::for('admin.multiples.add_venue', function ($trail, $id) {
+  $trail->parent('admin.multiples.show', $id);
+  $trail->push('一括仮押さえ 日程の追加', route('admin.multiples.add_venue', $id));
 });
 Breadcrumbs::for('admin.multiples.switch', function ($trail, $id) {
   $trail->parent('admin.multiples.show', $id);
@@ -166,102 +168,40 @@ Breadcrumbs::for('admin.multiples.edit_calculate', function ($trail, $id, $venue
   $trail->parent('admin.multiples.show', $id);
   $trail->push('一括仮押え 編集', route('admin.multiples.edit_calculate', [$id, $venue]));
 });
+// 一括仮押さえ仲介会社
+Breadcrumbs::for('admin.multiples.agent_show', function ($trail, $id) {
+  $trail->parent('admin.multiples.index');
+  $trail->push('一括仮押え(仲介会社経由) 詳細', route('admin.multiples.agent_show', $id));
+});
+Breadcrumbs::for('admin.multiples.agent_switch', function ($trail, $id) {
+  $trail->parent('admin.multiples.agent_show', $id);
+  $trail->push('一括仮押え(仲介会社経由) 変更', route('admin.multiples.agent_switch', $id));
+});
+Breadcrumbs::for('admin.multiples.agent_add_venue', function ($trail, $id) {
+  $trail->parent('admin.multiples.agent_show', $id);
+  $trail->push('一括仮押さえ(仲介会社経由) 日程追加', route('admin.multiples.agent_add_venue', $id));
+});
+Breadcrumbs::for('admin.multiples.agent_edit', function ($trail, $id, $venue) {
+  $trail->parent('admin.multiples.agent_show', $id);
+  $trail->push('一括仮押さえ(仲介会社経由) 編集', route('admin.multiples.agent_edit', [$id, $venue]));
+});
 
 
 
-
-
-
-
-
-
-
-
-// Breadcrumbs::for('admin.equipments.index', function ($trail) {
-//   $trail->parent('admin.home.index');
-//   $trail->push('有料備品管理', route('admin.equipments.index'));
-// });
-
-// Breadcrumbs::for('admin.equipments.create', function ($trail) {
-//   $trail->parent('admin.equipments.index');
-//   $trail->push('有料備品　新規登録', route('admin.equipments.create'));
-// });
-
-// Breadcrumbs::for('admin.equipments.edit', function ($trail, $equipment) {
-//   $trail->parent('admin.equipments.index');
-//   $trail->push('有料備品　編集', route('admin.equipments.edit', $equipment));
-// });
-
-
-// // service
-// Breadcrumbs::for('admin.services.index', function ($trail) {
-//   $trail->parent('admin.home.index');
-//   $trail->push('有料サービス管理', route('admin.services.index'));
-// });
-
-// Breadcrumbs::for('admin.services.edit', function ($trail, $service) {
-//   $trail->parent('admin.services.index');
-//   $trail->push('有料サービス管理　編集', route('admin.services.edit', $service));
-// });
-
-// Breadcrumbs::for('admin.services.create', function ($trail) {
-//   $trail->parent('admin.services.index');
-//   $trail->push('有料サービス　新規登録', route('admin.services.create'));
-// });
-
-// // dates
-// Breadcrumbs::for('admin.dates.index', function ($trail) {
-//   $trail->parent('admin.home.index');
-//   $trail->push('営業時間管理', route('admin.dates.index'));
-// });
-
-// Breadcrumbs::for('admin.dates.show', function ($trail, $date) {
-//   $trail->parent('admin.dates.index');
-//   $trail->push('営業時間管理　詳細', route('admin.dates.show', $date));
-// });
-
-// Breadcrumbs::for('admin.dates.create', function ($trail, $date) {
-//   $trail->parent('admin.dates.index');
-//   $trail->push('営業時間管理　編集', route('admin.dates.create', $date));
-// });
-
-
-
-// // frame price
-// Breadcrumbs::for('admin.frame_prices.index', function ($trail) {
-//   $trail->parent('admin.home.index');
-//   $trail->push('料金管理', route('admin.frame_prices.index'));
-// });
-
-// Breadcrumbs::for('admin.frame_prices.show', function ($trail, $frame_price) {
-//   $trail->parent('admin.frame_prices.index');
-//   $trail->push('料金管理　詳細', route('admin.frame_prices.show', $frame_price));
-// });
-
-// Breadcrumbs::for('admin.frame_prices.create', function ($trail, $frame_price) {
-//   $trail->parent('admin.frame_prices.index');
-//   $trail->push('料金管理　新規登録（枠貸し）', route('admin.frame_prices.create', $frame_price));
-// });
-
-// Breadcrumbs::for('admin.frame_prices.edit', function ($trail, $frame_price) {
-//   $trail->parent('admin.frame_prices.index');
-//   $trail->push('料金管理　編集（枠貸し）', route('admin.frame_prices.edit', $frame_price));
-// });
-
-// // time price
-// Breadcrumbs::for('admin.time_prices.create', function ($trail, $time_price) {
-//   $trail->parent('admin.frame_prices.index');
-//   $trail->push('料金管理　新規登録（時間貸し）', route('admin.time_prices.create', $time_price));
-// });
-
-// Breadcrumbs::for('admin.time_prices.edit', function ($trail, $time_price) {
-//   $trail->parent('admin.frame_prices.index');
-//   $trail->push('料金管理　編集（時間貸し）', route('admin.time_prices.edit', $time_price));
-// });
-
-
-// // reservatioins
-// Breadcrumbs::for('admin.reservations.create', function ($trail) {
-//   $trail->parent('admin.home.index');
-//   $trail->push('予約　新規登録', route('admin.reservations.create'));
-// });
+// 顧客管理
+Breadcrumbs::for('admin.clients.index', function ($trail) {
+  $trail->parent('admin.home.index');
+  $trail->push('顧客管理 一覧', route('admin.clients.index'));
+});
+Breadcrumbs::for('admin.clients.create', function ($trail) {
+  $trail->parent('admin.home.index');
+  $trail->push('顧客管理 新規登録', route('admin.clients.create'));
+});
+Breadcrumbs::for('admin.clients.show', function ($trail, $id) {
+  $trail->parent('admin.clients.index');
+  $trail->push('顧客管理 詳細', route('admin.clients.show', $id));
+});
+Breadcrumbs::for('admin.clients.edit', function ($trail, $id) {
+  $trail->parent('admin.clients.show', $id);
+  $trail->push('顧客管理 詳細', route('admin.clients.edit', $id));
+});

@@ -31,6 +31,8 @@
             {{ReservationHelper::getRoute(Route::currentRouteName(),'admin.multiples.switch')}}
             {{ReservationHelper::getRoute(Route::currentRouteName(),'admin.multiples.edit')}}
             {{ReservationHelper::getRoute(Route::currentRouteName(),'admin.multiples.edit_calculate')}}
+            {{ReservationHelper::getRoute(Route::currentRouteName(),'admin.multiples.agent_show')}}
+            {{ReservationHelper::getRoute(Route::currentRouteName(),'admin.multiples.agent_edit')}}
             ">
               <i class="far fa-circle nav-icon ml-4"></i>
               <p>一括仮押え一覧</p>

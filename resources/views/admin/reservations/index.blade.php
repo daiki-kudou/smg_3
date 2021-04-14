@@ -261,8 +261,8 @@
             </td>
             <td class="text-center" rowspan="{{count($reservation->bills()->get())}}"><a
                 href="{{ url('admin/reservations', $reservation->id) }}" class="more_btn">詳細</a></td>
-            <td class="text-center" rowspan="{{count($reservation->bills()->get())}}"><a
-                href="{{ url('admin/reservations/generate_pdf/'.$reservation->id) }}" class="more_btn">表示</a></td>
+            <td class="text-center" rowspan="{{count($reservation->bills()->get())}}">
+              <a href="{{ url('admin/reservations/generate_pdf/'.$reservation->id) }}" class="more_btn">表示</a></td>
           </tr>
           @for ($i = 0; $i < count($reservation->bills()->get())-1; $i++)
             <tr>

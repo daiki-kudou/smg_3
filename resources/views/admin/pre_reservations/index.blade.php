@@ -238,8 +238,11 @@
   {{ $pre_reservations->appends(request()->input())->appends(['counter'=>$counter])->links() }}
   @elseif($request->counter)
   {{ $pre_reservations->appends(request()->input())->appends(['counter'=>$request->counter])->links() }}
+  @else
+  {{ $pre_reservations->links() }}
   @endif
-  {{-- {{ $pre_reservations->links() }} --}}
+
+
 
 
 
