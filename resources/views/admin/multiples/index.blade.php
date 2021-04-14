@@ -246,6 +246,10 @@
 
 
 <script>
+    $(function(){
+    $(".sort_table").tablesorter();
+  })
+
   $(function() {
     $('.flash_message').fadeOut(3000);
   })
@@ -299,9 +303,6 @@
     ActiveDateRangePicker('search_date');
   })
 
-  $(function(){
-    $(".sort_table").tablesorter();
-  })
 
 </script>
 

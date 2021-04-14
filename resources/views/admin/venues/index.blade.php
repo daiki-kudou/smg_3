@@ -80,14 +80,13 @@
 
 </div>
 
-<script>
-  $(function(){
-    $("#venue_index").tablesorter();
-  })
-</script>
 
 <script>
   $(function(){
+    $(function(){
+    $("#venue_index").tablesorter();
+  })
+
     $('td').each(function(index, element){
       if ($(element).text()=="提") {
         $(element).css('color','red');
