@@ -484,7 +484,7 @@
                 <p class="title-icon">
                   <i class="far fa-id-card icon-size"></i>顧客情報
                 </p>
-                <p><a class="more_btn bg-green" href="">顧客詳細</a></p>
+                <p><a class="more_btn" href="">顧客詳細</a></p>
               </div>
             </td>
           </tr>
@@ -690,8 +690,9 @@
             </tbody>
             <tbody class="venue_result">
               <tr>
-                <td colspan="2"></td>
-                <td colspan="2">合計
+                <td colspan="3"></td>
+                <td colspan="1">
+                <p class="text-left">合計</p>
                   {{ Form::text('venue_price', $bill->venue_price,['class'=>'form-control col-xs-3', 'readonly'] ) }}
                 </td>
               </tr>
@@ -778,8 +779,9 @@
             </tbody>
             <tbody class="equipment_result">
               <tr>
-                <td colspan="2"></td>
-                <td colspan="2">合計
+                <td colspan="3"></td>
+                <td colspan="1">
+                <p class="text-left">合計</p>
                   {{ Form::text('equipment_price', $bill->equipment_price,['class'=>'form-control', 'readonly'] ) }}
                 </td>
               </tr>
@@ -850,8 +852,9 @@
             </tbody>
             <tbody class="layout_result">
               <tr>
-                <td colspan="2"></td>
-                <td colspan="2">合計
+                <td colspan="3"></td>
+                <td colspan="1">
+                <p class="text-left">合計</p>
                   {{ Form::text('layout_price',$bill->layout_price ,['class'=>'form-control', 'readonly'] ) }}
                 </td>
               </tr>
@@ -900,6 +903,7 @@
                 <td>単価</td>
                 <td>数量</td>
                 <td>金額</td>
+                <td>追加/削除</td>
               </tr>
             </tbody>
             <tbody class="others_main">
@@ -917,13 +921,15 @@
                 <td>
                   {{ Form::text('others_input_subtotal'.$key, $others_price->unit_subtotal,['class'=>'form-control', 'readonly'] ) }}
                 </td>
+                <td>工藤さん！！！追加と削除のボタンの実装</td>
               </tr>
               @endforeach
             </tbody>
             <tbody class="others_result">
               <tr>
-                <td colspan="2"></td>
-                <td colspan="3">合計
+                <td colspan="4"></td>
+                <td colspan="1">
+                <p class="text-left">合計</p>
                   {{ Form::text('others_price', $bill->others_price,['class'=>'form-control', 'readonly'] ) }}
                 </td>
               </tr>
