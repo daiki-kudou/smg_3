@@ -30,6 +30,16 @@
 
 <!-- 詳細選択画面--------------------------------------------------　 -->
 <p class="font-weight-bold">日程ごとに、詳細を編集できます。</p>
+{{-- @if ($errors->any())
+<div class="alert alert-danger">
+  <ul>
+    @foreach ($errors->all() as $error)
+    <li>{{ $error }}</li>
+@endforeach
+</ul>
+</div>
+@endif --}}
+
 <section class="border-wrap2 pb-5">
   <table class="table ttl_head">
     <tbody>
@@ -572,6 +582,9 @@
 
   {{-- 以下、pre_reservationの数分　ループ --}}
   @foreach ($multiple->pre_reservations()->where('venue_id',$venue->id)->get() as $key=>$pre_reservation)
+  {{ Form::open(['url' => 'admin/multiples/'.$multiple->id."/edit/".$venue->id.'/calculate/'.$pre_reservation->id.'/specific_update', 'method'=>'POST', 'id'=>'multipleSpecificUpdateForm' .$key]) }}
+  @csrf
+  {{ Form::hidden('split_keys', $key) }}
 
   <section class="register-list col">
 
@@ -585,838 +598,846 @@
         </div>
       </div>
       <dl class="card">
-        ここ
-        <div>
-          {{ Form::open(['url' => 'admin/multiples/'.$multiple->id."/edit/".$venue->id.'/calculate/'.$pre_reservation->id.'/specific_update', 'method'=>'POST', 'id'=>'multipleSpecificUpdateForm' .$key]) }}
-          @csrf
-          {{ Form::hidden('split_keys', $key) }}
-          <dt class="card-header accordion-ttl">
-            <ul class="title-icon d-flex">
-              <li class="col-1">
-                {{$pre_reservation->id}}
-              </li>
-              <li class="col-2">
-                <div class="input-group">
-                  <label for="date"></label>
-                  {{ Form::text('', ReservationHelper::formatDate($pre_reservation->reserve_date) ,['class'=>'form-control', 'readonly'] ) }}
-                  {{ Form::hidden('reserve_date'.$key, $pre_reservation->reserve_date ,['class'=>'form-control', 'readonly'] ) }}
-                </div>
-              </li>
-              <li class="col-3 d-flex align-items-center">
-                <p>
-                </p>
-                <div class="input-group">
-                  <label for="start"></label>
-                  {{ Form::text('', ReservationHelper::formatTime($pre_reservation->enter_time) ,['class'=>'form-control', 'readonly'] ) }}
-                  {{ Form::hidden('enter_time'.$key, $pre_reservation->enter_time ,['class'=>'form-control', 'readonly'] ) }}
-                </div>
-                <p></p>
-                <p class="mx-1">～</p>
-                <p>
-                </p>
-                <div class="input-group">
-                  <label for="finish"></label>
-                  {{ Form::text('', ReservationHelper::formatTime($pre_reservation->leave_time) ,['class'=>'form-control', 'readonly'] ) }}
-                  {{ Form::hidden('leave_time'.$key, $pre_reservation->leave_time ,['class'=>'form-control', 'readonly'] ) }}
-                </div>
-                <p></p>
-              </li>
-            </ul>
-          </dt>
-          <dt class="accordion-wrap">
-            <div class="row p-3">
-              <!-- 左側の項目------------------------------------------------------------------------ -->
-              <div class="col">
-                <table class="table table-bordered">
-                  <tbody>
-                    <tr>
-                      <td colspan="2">
-                        <p class="title-icon">
-                          <i class="fas fa-info-circle icon-size" aria-hidden="true"></i>
-                          仮押え情報
-                        </p>
-                      </td>
-                    </tr>
-                    <tr>
-                      <td class="table-active">
-                        <label for="direction">料金体系</label>
-                      </td>
-                      <td>
-                        <div class="">
-                          {{ Form::radio('price_system_copied'.$key, 1, $pre_reservation->price_system==1?true:false, ['id'=>'price_system_copied'.$key]) }}
-                          {{Form::label('price_system_copied'.$key,'通常（枠貸）')}}
-                        </div>
-                        <div>
-                          {{ Form::radio('price_system_copied'.$key, 2, $pre_reservation->price_system==2?true:false, ['id'=>'price_system_copied_off'.$key]) }}
-                          {{Form::label('price_system_copied_off'.$key,'アクセア（時間貸）')}}
-                        </div>
-                      </td>
-                    </tr>
-                  </tbody>
-                </table>
-                <table class="table table-bordered board-table">
+        <dt class="card-header accordion-ttl">
+          <ul class="title-icon d-flex">
+            <li class="col-1">
+              {{$pre_reservation->id}}
+            </li>
+            <li class="col-2">
+              <div class="input-group">
+                <label for="date"></label>
+                {{ Form::text('', ReservationHelper::formatDate($pre_reservation->reserve_date) ,['class'=>'form-control', 'readonly'] ) }}
+                {{ Form::hidden('reserve_date'.$key, $pre_reservation->reserve_date ,['class'=>'form-control', 'readonly'] ) }}
+              </div>
+            </li>
+            <li class="col-3 d-flex align-items-center">
+              <p>
+              </p>
+              <div class="input-group">
+                <label for="start"></label>
+                {{ Form::text('', ReservationHelper::formatTime($pre_reservation->enter_time) ,['class'=>'form-control', 'readonly'] ) }}
+                {{ Form::hidden('enter_time'.$key, $pre_reservation->enter_time ,['class'=>'form-control', 'readonly'] ) }}
+              </div>
+              <p></p>
+              <p class="mx-1">～</p>
+              <p>
+              </p>
+              <div class="input-group">
+                <label for="finish"></label>
+                {{ Form::text('', ReservationHelper::formatTime($pre_reservation->leave_time) ,['class'=>'form-control', 'readonly'] ) }}
+                {{ Form::hidden('leave_time'.$key, $pre_reservation->leave_time ,['class'=>'form-control', 'readonly'] ) }}
+              </div>
+              <p></p>
+            </li>
+          </ul>
+        </dt>
+        <dt class="accordion-wrap">
+          <div class="row p-3">
+            <!-- 左側の項目------------------------------------------------------------------------ -->
+            <div class="col">
+              <table class="table table-bordered">
+                <tbody>
                   <tr>
                     <td colspan="2">
-                      <div class="d-flex align-items-center justify-content-between">
-                        <p class="title-icon">
-                          <i class="fas fa-clipboard icon-size"></i>案内版
-                        </p>
+                      <p class="title-icon">
+                        <i class="fas fa-info-circle icon-size" aria-hidden="true"></i>
+                        仮押え情報
+                      </p>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td class="table-active">
+                      <label for="direction">料金体系</label>
+                    </td>
+                    <td>
+                      <div class="">
+                        {{ Form::radio('price_system_copied'.$key, 1, $pre_reservation->price_system==1?true:false, ['id'=>'price_system_copied'.$key]) }}
+                        {{Form::label('price_system_copied'.$key,'通常（枠貸）')}}
+                      </div>
+                      <div>
+                        {{ Form::radio('price_system_copied'.$key, 2, $pre_reservation->price_system==2?true:false, ['id'=>'price_system_copied_off'.$key]) }}
+                        {{Form::label('price_system_copied_off'.$key,'アクセア（時間貸）')}}
                       </div>
                     </td>
                   </tr>
-                  <tr>
-                    <td class="table-active"><label for="direction">案内板</label></td>
-                    <td>
-                      <div class="radio-box">
-                        <p>
-                          {{ Form::radio('board_flag_copied'.$key, 1, $pre_reservation->board_flag==1?true:false, ['id'=>'board_flag_copied'.$key]) }}
-                          {{Form::label('board_flag_copied'.$key,'有り')}}
-                        </p>
-                        <p>
-                          {{ Form::radio('board_flag_copied'.$key, 0, $pre_reservation->board_flag==0?true:false, ['id'=>'board_flag_copied_off'.$key]) }}
-                          {{Form::label('board_flag_copied_off'.$key,'無し')}}
-                        </p>
-                      </div>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td class="table-active"><label for="eventStart">イベント開始時間</label></td>
-                    <td>
-                      <select name="{{'event_start_copied'.$key}}" id="{{'event_start_copied'.$key}}"
-                        class="form-control">
-                        <option disabled>選択してください</option>
-                        @for ($start = 0*2; $start <=23*2; $start++) <option
-                          value="{{date("H:i:s", strtotime("00:00 +". $start * 30 ." minute"))}}" @if(date("H:i:s",
-                          strtotime("00:00 +". $start * 30 ." minute"))==$pre_reservation->enter_time)
-                          selected
-                          @endif
-                          >
-                          {{date("H時i分", strtotime("00:00 +". $start * 30 ." minute"))}}</option>
-                          @endfor
-                      </select>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td class="table-active"><label for="eventFinish">イベント終了時間</label></td>
-                    <td>
-                      <select name="{{'event_finish_copied'.$key}}" id="{{'event_finish_copied'.$key}}"
-                        class="form-control">
-                        <option disabled>選択してください</option>
-                        @for ($start = 0*2; $start <=23*2; $start++) <option
-                          value="{{date("H:i:s", strtotime("00:00 +". $start * 30 ." minute"))}}" @if (date("H:i:s",
-                          strtotime("00:00 +". $start * 30 ." minute"))==$pre_reservation->leave_time)
-                          selected
-                          @endif
-                          >
-                          {{date("H時i分", strtotime("00:00 +". $start * 30 ." minute"))}}</option>
-                          @endfor
-                      </select>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td class="table-active"><label for="eventName1">イベント名称1</label></td>
-                    <td>
-                      <div class="align-items-end d-flex">
-                        {{ Form::text('event_name1_copied'.$key,$pre_reservation->event_name1,['class'=>'form-control', 'placeholder'=>'入力してください', 'id'=>"copiedeventname1Count".$key] ) }}
-                        <span class="ml-1 annotation {{'count_num1_copied'.$key}}"></span>
-                      </div>
-                      <p class="{{'eventname1_error'.$key}}" style="color: red"></p>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td class="table-active"><label for="eventName2">イベント名称2</label></td>
-                    <td>
-                      <div class="align-items-end d-flex">
-                        {{ Form::text('event_name2_copied'.$key, $pre_reservation->event_name2,['class'=>'form-control', 'placeholder'=>'入力してください', 'id'=>"copiedeventname2Count".$key] ) }}
-                        <span class="ml-1 annotation {{'count_num2_copied'.$key}}"></span>
-                      </div>
-                      <p class="{{'eventname2_error'.$key}}" style="color: red"></p>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td class="table-active"><label for="organizer">主催者名</label></td>
-                    <td>
-                      <div class="align-items-end d-flex">
-                        {{ Form::text('event_owner'.$key, $pre_reservation->event_owner,['class'=>'form-control', 'placeholder'=>'入力してください', 'id'=>"copiedeventOwnerCount".$key] ) }}
-                        <span class="ml-1 annotation {{'count_num3_copied'.$key}}"></span>
-                      </div>
-                      <p class="{{'eventowner_error'.$key}}" style="color: red"></p>
-                    </td>
-                  </tr>
-                </table>
-                <table class="table table-bordered equipment-table">
-                  <thead class="accordion-ttl">
-                    <tr>
-                      <th colspan="2">
-                        <p class="title-icon fw-bolder py-1">
-                          <i class="fas fa-wrench icon-size fa-fw"></i>有料備品
-                        </p>
-                      </th>
-                    </tr>
-                  </thead>
-                  <tbody class="accordion-wrap">
-                    @foreach ($venue->getEquipments() as $e_key=>$equipment)
-                    <tr>
-                      <td class="table-active">{{$equipment->item}}</td>
-                      <td>
-                        @if ($pre_reservation->pre_breakdowns)
-                        @foreach ($pre_reservation->pre_breakdowns()->get() as $pre_re)
-                        @if ($pre_re->unit_item==$equipment->item)
-                        {{Form::text('equipment_breakdown' . $e_key.'_copied'.$key , $pre_re->unit_count, ['class' => 'form-control'])}}
-                        @break
-                        @elseif($loop->last)
-                        {{Form::text('equipment_breakdown' . $e_key.'_copied'.$key , '', ['class' => 'form-control'])}}
-                        @endif
-                        @endforeach
-                        @else
-                        {{Form::text('equipment_breakdown' . $e_key.'_copied'.$key , '', ['class' => 'form-control'])}}
-                        @endif
-                      </td>
-                    </tr>
-                    @endforeach
-                  </tbody>
-                </table>
-                <table class="table table-bordered service-table">
-                  <thead class="accordion-ttl">
-                    <tr>
-                      <th colspan="2">
-                        <p class="title-icon fw-bolder py-1">
-                          <i class="fas fa-hand-holding-heart icon-size fa-fw"></i>有料サービス
-                        </p>
-                      </th>
-                    </tr>
-                  </thead>
-                  <tbody class="accordion-wrap">
-                    @foreach ($venue->getServices() as $s_key=>$service)
-                    <tr>
-                      <td class="table-active">{{$service->item}}</td>
-                      <td>
-                        @if ($pre_reservation->pre_breakdowns)
-                        @foreach ($pre_reservation->pre_breakdowns()->get() as $pre_re)
-                        @if ($pre_re->unit_item==$service->item)
-                        <div class="radio-box">
-                          <p>
-                            {{Form::radio('services_breakdown'.$s_key.'_copied'.$key, 1, true , ['id' => 'services_breakdown'.$s_key.'_copied'.$key])}}
-                            {{Form::label('services_breakdown'.$s_key.'_copied'.$key,'有り')}}
-                          </p>
-                          <p>
-                            {{Form::radio('services_breakdown'.$s_key.'_copied'.$key, 0, false, ['id' => 'services_breakdown'.$s_key.'_copied'.$key."off"])}}
-                            {{Form::label('services_breakdown'.$s_key.'_copied'.$key."off",'無し')}}
-                          </p>
-                        </div>
-                        @break
-                        @elseif($loop->last)
-                        <div class="radio-box">
-                          <p>
-                            {{Form::radio('services_breakdown'.$s_key.'_copied'.$key, 1, false , ['id' => 'services_breakdown'.$s_key.'_copied'.$key])}}
-                            {{Form::label('services_breakdown'.$s_key.'_copied'.$key,'有り')}}
-                          </p>
-                          <p>
-                            {{Form::radio('services_breakdown'.$s_key.'_copied'.$key, 0, true, ['id' => 'services_breakdown'.$s_key.'_copied'.$key."off"])}}
-                            {{Form::label('services_breakdown'.$s_key.'_copied'.$key."off",'無し')}}
-                          </p>
-                        </div>
-                        @endif
-                        @endforeach
-                        @else
-                        <div class="radio-box">
-                          <p>
-                            {{Form::radio('services_breakdown'.$s_key.'_copied'.$key, 1, false , ['id' => 'services_breakdown'.$s_key.'_copied'.$key])}}
-                            {{Form::label('services_breakdown'.$s_key.'_copied'.$key,'有り')}}
-                          </p>
-                          <p>
-                            {{Form::radio('services_breakdown'.$s_key.'_copied'.$key, 0, true, ['id' => 'services_breakdown'.$s_key.'_copied'.$key."off"])}}
-                            {{Form::label('services_breakdown'.$s_key.'_copied'.$key."off",'無し')}}
-                          </p>
-                        </div>
-                        @endif
-                      </td>
-                    </tr>
-                    @endforeach
-                  </tbody>
-                </table>
-                @if ($venue->layout==1)
-                <table class="table table-bordered layout-table">
-                  <thead>
-                    <tr>
-                      <th colspan="2">
-                        <p class="title-icon py-1">
-                          <i class="fas fa-th icon-size fa-fw"></i>レイアウト
-                        </p>
-                      </th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <tr>
-                      <td class="table-active">準備</td>
-                      <td>
-                        <div class="radio-box">
-                          @if ($pre_reservation->pre_breakdowns()->where('unit_item',"レイアウト準備料金")->count()==0)
-                          <p>
-                            {{Form::radio('layout_prepare_copied'.$key, 1, false, ['id' => 'layout_prepare_copied'.$key])}}
-                            {{Form::label('layout_prepare_copied'.$key,'有り')}}
-                          </p>
-                          <p>
-                            {{Form::radio('layout_prepare_copied'.$key, 0, true, ['id' => 'no_layout_prepare_copied'.$key])}}
-                            {{Form::label('no_layout_prepare_copied'.$key,'無し')}}
-                          </p>
-                          @else
-                          @foreach ($pre_reservation->pre_breakdowns()->get() as $layout_prepares)
-                          @if ($layout_prepares->unit_item=="レイアウト準備料金")
-                          <p>
-                            {{Form::radio('layout_prepare_copied'.$key, 1, true, ['id' => 'layout_prepare_copied'.$key])}}
-                            {{Form::label('layout_prepare_copied'.$key,'有り')}}
-                          </p>
-                          <p>
-                            {{Form::radio('layout_prepare_copied'.$key, 0, false, ['id' => 'no_layout_prepare_copied'.$key])}}
-                            {{Form::label('no_layout_prepare_copied'.$key,'無し')}}
-                          </p>
-                          @break
-                          @elseif($loop->last)
-                          <p>
-                            {{Form::radio('layout_prepare_copied'.$key, 1, false, ['id' => 'layout_prepare_copied'.$key])}}
-                            {{Form::label('layout_prepare_copied'.$key,'有り')}}
-                          </p>
-                          <p>
-                            {{Form::radio('layout_prepare_copied'.$key, 0, true, ['id' => 'no_layout_prepare_copied'.$key])}}
-                            {{Form::label('no_layout_prepare_copied'.$key,'無し')}}
-                          </p>
-                          @endif
-                          @endforeach
-                          @endif
-                        </div>
-                      </td>
-                    </tr>
-                    <tr>
-                      <td class="table-active">片付</td>
-                      <td>
-                        <div class="radio-box">
-                          @if ($pre_reservation->pre_breakdowns()->where('unit_item',"レイアウト片付料金")->count()==0)
-                          <p>
-                            {{Form::radio('layout_clean_copied'.$key, 1, false, ['id' => 'layout_clean_copied'.$key])}}
-                            {{Form::label('layout_clean_copied'.$key,'有り')}}
-                          </p>
-                          <p>
-                            {{Form::radio('layout_clean_copied'.$key, 0, true, ['id' => 'no_layout_clean_copied'.$key])}}
-                            {{Form::label('no_layout_clean_copied'.$key,'無し')}}
-                          </p>
-                          @else
-                          @foreach ($pre_reservation->pre_breakdowns()->get() as $layout_prepares)
-                          @if ($layout_prepares->unit_item=="レイアウト片付料金")
-                          <p>
-                            {{Form::radio('layout_clean_copied'.$key, 1, true, ['id' => 'layout_clean_copied'.$key])}}
-                            {{Form::label('layout_clean_copied'.$key,'有り')}}
-                          </p>
-                          <p>
-                            {{Form::radio('layout_clean_copied'.$key, 0, false, ['id' => 'no_layout_clean_copied'.$key])}}
-                            {{Form::label('no_layout_clean_copied'.$key,'無し')}}
-                          </p>
-                          @break
-                          @elseif($loop->last)
-                          <p>
-                            {{Form::radio('layout_clean_copied'.$key, 1, false, ['id' => 'layout_clean_copied'.$key])}}
-                            {{Form::label('layout_clean_copied'.$key,'有り')}}
-                          </p>
-                          <p>
-                            {{Form::radio('layout_clean_copied'.$key, 0, true, ['id' => 'no_layout_clean_copied'.$key])}}
-                            {{Form::label('no_layout_clean_copied'.$key,'無し')}}
-                          </p>
-                          @endif
-                          @endforeach
-                          @endif
-                        </div>
-                      </td>
-                    </tr>
-                  </tbody>
-                </table>
-                @endif
-                @if ($venue->luggage_flag==1)
-                <table class="table table-bordered luggage-table" style="table-layout: fixed;">
-                  <thead>
-                    <tr>
-                      <th colspan="2">
-                        <p class="title-icon">
-                          <i class="fas fa-suitcase-rolling icon-size fa-fw"></i>荷物預り
-                        </p>
-                      </th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <tr>
-                      <td class="table-active">事前に預かる荷物<br>（個数）</td>
-                      <td>
-                        {{ Form::text('luggage_count_copied'.$key, $pre_reservation->luggage_count,['class'=>'form-control'] ) }}
-                        <p class="{{"is-error-luggage_count_copied".$key}}" style="color: red"></p>
-                      </td>
-                    </tr>
-                    <tr>
-                      <td class="table-active">事前荷物の到着日<br>午前指定のみ</td>
-                      <td>
-                        {{ Form::text('luggage_arrive_copied'.$key, date('Y-m-d',strtotime($pre_reservation->luggage_arrive)),['class'=>'form-control datepicker9','id'=>''] ) }}
-                      </td>
-                    </tr>
-                    <tr>
-                      <td class="table-active">事後返送する荷物</td>
-                      <td>
-                        {{ Form::text('luggage_return_copied'.$key, $pre_reservation->luggage_return,['class'=>'form-control'] ) }}
-                        <p class="{{"is-error-luggage_return_copied".$key}}" style="color: red"></p>
-                      </td>
-                    </tr>
-                    <tr>
-                      <td class="table-active">荷物預り/返送<br>料金</td>
-                      <td>
-                        <p class="annotation">※仮押え時点では、料金の設定ができません。<br>予約へ切り替え後に料金の設定が可能です。</p>
-                      </td>
-                    </tr>
-                  </tbody>
-                </table>
-                @endif
-                @if ($venue->eat_in_flag==1)
-                <table class="table table-bordered eating-table">
-                  <thead>
-                    <tr>
-                      <th colspan='2'>
-                        <p class="title-icon">
-                          <i class="fas fa-utensils icon-size fa-fw"></i>室内飲食
-                        </p>
-                      </th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <tr>
-                      <td>
-                        {{Form::radio('eat_in_copied'.$key, 1, false , ['id' => 'eat_in_copied'.$key])}}
-                        {{Form::label('eat_in_copied'.$key,"あり")}}
-                      </td>
-                      <td>
-                        {{Form::radio('eat_in_prepare_copied'.$key, 1, "" , ['id' => 'eat_in_prepare_copied'.$key])}}
-                        {{Form::label('eat_in_prepare_copied'.$key,"手配済み")}}
-                        {{Form::radio('eat_in_prepare_copied'.$key, 2, "" , ['id' => 'eat_in_concider_copied'.$key])}}
-                        {{Form::label('eat_in_concider_copied'.$key,"検討中")}}
-                      </td>
-                    </tr>
-                    <tr>
-                      <td>
-                        {{Form::radio('eat_in_copied'.$key, 0, true , ['id' => 'no_eat_in'.$key])}}
-                        {{Form::label('no_eat_in'.$key,"なし")}}
-                      </td>
-                      <td></td>
-                    </tr>
-                </table>
-                @endif
-              </div>
-              <!-- 左側の項目 終わり-------------------------------------------------- -->
-              <!-- 右側の項目-------------------------------------------------- -->
-              <div class="col">
-                <div class="customer-table">
-                  <table class="table table-bordered oneday-table">
-                    <tbody>
-                      <tr>
-                        <td colspan="2">
-                          <p class="title-icon">
-                            <i class="fas fa-user icon-size" aria-hidden="true"></i>
-                            当日の連絡できる担当者
-                          </p>
-                        </td>
-                      </tr>
-                      <tr>
-                        <td class="table-active"><label for="ondayName">氏名</label></td>
-                        <td>
-                          {{ Form::text('in_charge_copied'.$key, $pre_reservation->in_charge,['class'=>'form-control'] ) }}
-                        </td>
-                      </tr>
-                      <tr>
-                        <td class="table-active"><label for="mobilePhone">携帯番号</label></td>
-                        <td>
-                          {{ Form::text('tel_copied'.$key, $pre_reservation->tel,['class'=>'form-control', 'placeholder' => '半角数字、ハイフンなしで入力してください'] ) }}
-                          <p class="{{"is-error-tel_copied".$key}}" style="color: red"></p>
-                        </td>
-                      </tr>
-                    </tbody>
-                  </table>
-                </div>
-                <table class="table table-bordered mail-table">
-                  <tbody>
-                    <tr>
-                      <td colspan="2">
-                        <p class="title-icon">
-                          <i class="fas fa-envelope icon-size" aria-hidden="true"></i>
-                          利用後の送信メール
-                        </p>
-                      </td>
-                    </tr>
-                    <tr>
-                      <td class="table-active"><label for="sendMail">送信メール</label></td>
-                      <td>
-                        <div class="d-flex">
-                          <div class="radio-box">
-                            <p>
-                              {{Form::radio('email_flag_copied'.$key, 1, $pre_reservation->email_flag==1?true:false, ['id' => 'email_flag_copied'.$key])}}
-                              {{Form::label('email_flag_copied'.$key,'有り')}}
-                            </p>
-                            <p>
-                              {{Form::radio('email_flag_copied'.$key, 0, $pre_reservation->email_flag==0?true:false, ['id' => 'no_email_flag_copied'.$key])}}
-                              {{Form::label('no_email_flag_copied'.$key,'無し')}}
-                            </p>
-                          </div>
-                        </div>
-                      </td>
-                    </tr>
-                  </tbody>
-                </table>
-                @if ($venue->alliance_flag==1)
-                <table class="table table-bordered sale-table">
-                  <tbody>
-                    <tr>
-                      <td colspan="2">
-                        <p class="title-icon">
-                          <i class="fas fa-yen-sign icon-size" aria-hidden="true"></i>
-                          売上原価
-                        </p>
-                      </td>
-                    </tr>
-                    <tr>
-                      <td class="table-active"><label for="sale">原価率</label></td>
-                      <td>
-                        <div class="d-flex align-items-center">
-                          {{ Form::text('cost_copied'.$key, $pre_reservation->cost?$pre_reservation->cost:$venue->cost,['class'=>'form-control'] ) }}
-                          <span class="ml-2">%</span>
-                        </div>
-                        <p class="{{'is-error-cost_copied'.$key}}" style="color: red"></p>
-                      </td>
-                    </tr>
-                  </tbody>
-                </table>
-                @endif
-                <table class="table table-bordered note-table">
-                  <tbody>
-                    <tr>
-                      <td colspan="2">
-                        <p class="title-icon">
-                          <i class="fas fa-file-alt icon-size" aria-hidden="true"></i>
-                          備考
-                        </p>
-                      </td>
-                    </tr>
-                    <tr>
-                      <td>
-                        <label for="adminNote">管理者備考</label>
-                        {{ Form::textarea('admin_details_copied'.$key, $pre_reservation->admin_details,['class'=>'form-control'] ) }}
-                      </td>
-                    </tr>
-                  </tbody>
-                </table>
-              </div>
-              <!-- 右側の項目 終わり-------------------------------------------------- -->
-            </div>
-            <div class="btn_wrapper">
-              <p class="text-center">
-                @if (count($venue->frame_prices)==0&&count($venue->time_prices)==0)
-                <div class="d-flex justify-content-center">
-                  <div class="">
-                    <p class="d-block">選択された会場は料金が設定されていません。会場管理/料金管理に戻り設定してください</p>
-                    <a href="{{url('admin/frame_prices')}}"
-                      class="btn more_btn_lg mt-5 d-flex justify-content-center">料金管理画面へ</a>
-                  </div>
-                </div>
-                @else
-                {{ Form::submit('請求に反映する', ['class' => 'btn more_btn_lg'])}}
-                @endif
-              </p>
-            </div>
-            {{ Form::close() }}
-        </div>
-        ここ
 
-        {{ Form::open(['url' => 'admin/home', 'method'=>'POST', 'id'=>'test' .$key]) }}
-        @csrf
-        <section class="section-wrap">
-          <div class="bill">
-            <div class="bill_head">
-              <table class="table bill_table">
+                </tbody>
+              </table>
+
+
+              <table class="table table-bordered board-table">
                 <tr>
-                  <td>
-                    <h2 class="text-white">
-                      請求書No
-                    </h2>
+                  <td colspan="2">
+                    <div class="d-flex align-items-center justify-content-between">
+                      <p class="title-icon">
+                        <i class="fas fa-clipboard icon-size"></i>案内版
+                      </p>
+                    </div>
                   </td>
+                </tr>
+                <tr>
+                  <td class="table-active"><label for="direction">案内板</label></td>
                   <td>
-                    <dl class="ttl_box mb-0">
-                      <dt>合計金額</dt>
-                      <dd class="total_result">
-                        {{number_format(empty($pre_reservation->pre_bill->master_total)?0:$pre_reservation->pre_bill->master_total)}}
-                        円
-                      </dd>
-                    </dl>
+                    <div class="radio-box">
+                      <p>
+                        {{ Form::radio('board_flag_copied'.$key, 1, $pre_reservation->board_flag==1?true:false, ['id'=>'board_flag_copied'.$key]) }}
+                        {{Form::label('board_flag_copied'.$key,'有り')}}
+                      </p>
+                      <p>
+                        {{ Form::radio('board_flag_copied'.$key, 0, $pre_reservation->board_flag==0?true:false, ['id'=>'board_flag_copied_off'.$key]) }}
+                        {{Form::label('board_flag_copied_off'.$key,'無し')}}
+                      </p>
+                    </div>
+                  </td>
+                </tr>
+                <tr>
+                  <td class="table-active"><label for="eventStart">イベント開始時間</label></td>
+                  <td>
+                    <select name="{{'event_start_copied'.$key}}" id="{{'event_start_copied'.$key}}"
+                      class="form-control">
+                      <option disabled>選択してください</option>
+                      @for ($start = 0*2; $start <=23*2; $start++) <option
+                        value="{{date("H:i:s", strtotime("00:00 +". $start * 30 ." minute"))}}" @if(date("H:i:s",
+                        strtotime("00:00 +". $start * 30 ." minute"))==$pre_reservation->enter_time)
+                        selected
+                        @endif
+                        >
+                        {{date("H時i分", strtotime("00:00 +". $start * 30 ." minute"))}}</option>
+                        @endfor
+                    </select>
+                  </td>
+                </tr>
+                <tr>
+                  <td class="table-active"><label for="eventFinish">イベント終了時間</label></td>
+                  <td>
+                    <select name="{{'event_finish_copied'.$key}}" id="{{'event_finish_copied'.$key}}"
+                      class="form-control">
+                      <option disabled>選択してください</option>
+                      @for ($start = 0*2; $start <=23*2; $start++) <option
+                        value="{{date("H:i:s", strtotime("00:00 +". $start * 30 ." minute"))}}" @if (date("H:i:s",
+                        strtotime("00:00 +". $start * 30 ." minute"))==$pre_reservation->leave_time)
+                        selected
+                        @endif
+                        >
+                        {{date("H時i分", strtotime("00:00 +". $start * 30 ." minute"))}}</option>
+                        @endfor
+                    </select>
+                  </td>
+                </tr>
+                <tr>
+                  <td class="table-active"><label for="eventName1">イベント名称1</label></td>
+                  <td>
+                    <div class="align-items-end d-flex">
+                      {{ Form::text('event_name1_copied'.$key,$pre_reservation->event_name1,['class'=>'form-control', 'placeholder'=>'入力してください', 'id'=>"copiedeventname1Count".$key] ) }}
+                      <span class="ml-1 annotation {{'count_num1_copied'.$key}}"></span>
+                    </div>
+                    <p class="{{'eventname1_error'.$key}}" style="color: red"></p>
+                  </td>
+                </tr>
+                <tr>
+                  <td class="table-active"><label for="eventName2">イベント名称2</label></td>
+                  <td>
+                    <div class="align-items-end d-flex">
+                      {{ Form::text('event_name2_copied'.$key, $pre_reservation->event_name2,['class'=>'form-control', 'placeholder'=>'入力してください', 'id'=>"copiedeventname2Count".$key] ) }}
+                      <span class="ml-1 annotation {{'count_num2_copied'.$key}}"></span>
+                    </div>
+                    <p class="{{'eventname2_error'.$key}}" style="color: red"></p>
+                  </td>
+                </tr>
+                <tr>
+                  <td class="table-active"><label for="organizer">主催者名</label></td>
+                  <td>
+                    <div class="align-items-end d-flex">
+                      {{ Form::text('event_owner'.$key, $pre_reservation->event_owner,['class'=>'form-control', 'placeholder'=>'入力してください', 'id'=>"copiedeventOwnerCount".$key] ) }}
+                      <span class="ml-1 annotation {{'count_num3_copied'.$key}}"></span>
+                    </div>
+                    <p class="{{'eventowner_error'.$key}}" style="color: red"></p>
                   </td>
                 </tr>
               </table>
+
+
+
+              <table class="table table-bordered equipment-table">
+                <thead class="accordion-ttl">
+                  <tr>
+                    <th colspan="2">
+                      <p class="title-icon fw-bolder py-1">
+                        <i class="fas fa-wrench icon-size fa-fw"></i>有料備品
+                      </p>
+                    </th>
+                  </tr>
+                </thead>
+                <tbody class="accordion-wrap">
+
+                  @foreach ($venue->getEquipments() as $e_key=>$equipment)
+                  <tr>
+                    <td class="table-active">{{$equipment->item}}</td>
+                    <td>
+                      @if ($pre_reservation->pre_breakdowns)
+                      @foreach ($pre_reservation->pre_breakdowns()->get() as $pre_re)
+                      @if ($pre_re->unit_item==$equipment->item)
+                      {{Form::text('equipment_breakdown' . $e_key.'_copied'.$key , $pre_re->unit_count, ['class' => 'form-control'])}}
+                      @break
+                      @elseif($loop->last)
+                      {{Form::text('equipment_breakdown' . $e_key.'_copied'.$key , '', ['class' => 'form-control'])}}
+                      @endif
+                      @endforeach
+                      @else
+                      {{Form::text('equipment_breakdown' . $e_key.'_copied'.$key , '', ['class' => 'form-control'])}}
+                      @endif
+                    </td>
+                  </tr>
+                  @endforeach
+                </tbody>
+              </table>
+              <table class="table table-bordered service-table">
+                <thead class="accordion-ttl">
+                  <tr>
+                    <th colspan="2">
+                      <p class="title-icon fw-bolder py-1">
+                        <i class="fas fa-hand-holding-heart icon-size fa-fw"></i>有料サービス
+                      </p>
+                    </th>
+                  </tr>
+                </thead>
+                <tbody class="accordion-wrap">
+                  @foreach ($venue->getServices() as $s_key=>$service)
+                  <tr>
+                    <td class="table-active">{{$service->item}}</td>
+                    <td>
+                      @if ($pre_reservation->pre_breakdowns)
+                      @foreach ($pre_reservation->pre_breakdowns()->get() as $pre_re)
+                      @if ($pre_re->unit_item==$service->item)
+                      <div class="radio-box">
+                        <p>
+                          {{Form::radio('services_breakdown'.$s_key.'_copied'.$key, 1, true , ['id' => 'services_breakdown'.$s_key.'_copied'.$key])}}
+                          {{Form::label('services_breakdown'.$s_key.'_copied'.$key,'有り')}}
+                        </p>
+                        <p>
+                          {{Form::radio('services_breakdown'.$s_key.'_copied'.$key, 0, false, ['id' => 'services_breakdown'.$s_key.'_copied'.$key."off"])}}
+                          {{Form::label('services_breakdown'.$s_key.'_copied'.$key."off",'無し')}}
+                        </p>
+                      </div>
+                      @break
+                      @elseif($loop->last)
+                      <div class="radio-box">
+                        <p>
+                          {{Form::radio('services_breakdown'.$s_key.'_copied'.$key, 1, false , ['id' => 'services_breakdown'.$s_key.'_copied'.$key])}}
+                          {{Form::label('services_breakdown'.$s_key.'_copied'.$key,'有り')}}
+                        </p>
+                        <p>
+                          {{Form::radio('services_breakdown'.$s_key.'_copied'.$key, 0, true, ['id' => 'services_breakdown'.$s_key.'_copied'.$key."off"])}}
+                          {{Form::label('services_breakdown'.$s_key.'_copied'.$key."off",'無し')}}
+                        </p>
+                      </div>
+                      @endif
+                      @endforeach
+                      @else
+                      <div class="radio-box">
+                        <p>
+                          {{Form::radio('services_breakdown'.$s_key.'_copied'.$key, 1, false , ['id' => 'services_breakdown'.$s_key.'_copied'.$key])}}
+                          {{Form::label('services_breakdown'.$s_key.'_copied'.$key,'有り')}}
+                        </p>
+                        <p>
+                          {{Form::radio('services_breakdown'.$s_key.'_copied'.$key, 0, true, ['id' => 'services_breakdown'.$s_key.'_copied'.$key."off"])}}
+                          {{Form::label('services_breakdown'.$s_key.'_copied'.$key."off",'無し')}}
+                        </p>
+                      </div>
+                      @endif
+                    </td>
+                  </tr>
+                  @endforeach
+                </tbody>
+              </table>
+
+              @if ($venue->layout==1)
+              <table class="table table-bordered layout-table">
+                <thead>
+                  <tr>
+                    <th colspan="2">
+                      <p class="title-icon py-1">
+                        <i class="fas fa-th icon-size fa-fw"></i>レイアウト
+                      </p>
+                    </th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td class="table-active">準備</td>
+                    <td>
+                      <div class="radio-box">
+                        @if ($pre_reservation->pre_breakdowns()->where('unit_item',"レイアウト準備料金")->count()==0)
+                        <p>
+                          {{Form::radio('layout_prepare_copied'.$key, 1, false, ['id' => 'layout_prepare_copied'.$key])}}
+                          {{Form::label('layout_prepare_copied'.$key,'有り')}}
+                        </p>
+                        <p>
+                          {{Form::radio('layout_prepare_copied'.$key, 0, true, ['id' => 'no_layout_prepare_copied'.$key])}}
+                          {{Form::label('no_layout_prepare_copied'.$key,'無し')}}
+                        </p>
+                        @else
+                        @foreach ($pre_reservation->pre_breakdowns()->get() as $layout_prepares)
+                        @if ($layout_prepares->unit_item=="レイアウト準備料金")
+                        <p>
+                          {{Form::radio('layout_prepare_copied'.$key, 1, true, ['id' => 'layout_prepare_copied'.$key])}}
+                          {{Form::label('layout_prepare_copied'.$key,'有り')}}
+                        </p>
+                        <p>
+                          {{Form::radio('layout_prepare_copied'.$key, 0, false, ['id' => 'no_layout_prepare_copied'.$key])}}
+                          {{Form::label('no_layout_prepare_copied'.$key,'無し')}}
+                        </p>
+                        @break
+                        @elseif($loop->last)
+                        <p>
+                          {{Form::radio('layout_prepare_copied'.$key, 1, false, ['id' => 'layout_prepare_copied'.$key])}}
+                          {{Form::label('layout_prepare_copied'.$key,'有り')}}
+                        </p>
+                        <p>
+                          {{Form::radio('layout_prepare_copied'.$key, 0, true, ['id' => 'no_layout_prepare_copied'.$key])}}
+                          {{Form::label('no_layout_prepare_copied'.$key,'無し')}}
+                        </p>
+                        @endif
+                        @endforeach
+                        @endif
+                      </div>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td class="table-active">片付</td>
+                    <td>
+                      <div class="radio-box">
+                        @if ($pre_reservation->pre_breakdowns()->where('unit_item',"レイアウト片付料金")->count()==0)
+                        <p>
+                          {{Form::radio('layout_clean_copied'.$key, 1, false, ['id' => 'layout_clean_copied'.$key])}}
+                          {{Form::label('layout_clean_copied'.$key,'有り')}}
+                        </p>
+                        <p>
+                          {{Form::radio('layout_clean_copied'.$key, 0, true, ['id' => 'no_layout_clean_copied'.$key])}}
+                          {{Form::label('no_layout_clean_copied'.$key,'無し')}}
+                        </p>
+                        @else
+                        @foreach ($pre_reservation->pre_breakdowns()->get() as $layout_prepares)
+                        @if ($layout_prepares->unit_item=="レイアウト片付料金")
+                        <p>
+                          {{Form::radio('layout_clean_copied'.$key, 1, true, ['id' => 'layout_clean_copied'.$key])}}
+                          {{Form::label('layout_clean_copied'.$key,'有り')}}
+                        </p>
+                        <p>
+                          {{Form::radio('layout_clean_copied'.$key, 0, false, ['id' => 'no_layout_clean_copied'.$key])}}
+                          {{Form::label('no_layout_clean_copied'.$key,'無し')}}
+                        </p>
+                        @break
+                        @elseif($loop->last)
+                        <p>
+                          {{Form::radio('layout_clean_copied'.$key, 1, false, ['id' => 'layout_clean_copied'.$key])}}
+                          {{Form::label('layout_clean_copied'.$key,'有り')}}
+                        </p>
+                        <p>
+                          {{Form::radio('layout_clean_copied'.$key, 0, true, ['id' => 'no_layout_clean_copied'.$key])}}
+                          {{Form::label('no_layout_clean_copied'.$key,'無し')}}
+                        </p>
+                        @endif
+                        @endforeach
+                        @endif
+
+                      </div>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+              @endif
+
+              @if ($venue->luggage_flag==1)
+              <table class="table table-bordered luggage-table" style="table-layout: fixed;">
+                <thead>
+                  <tr>
+                    <th colspan="2">
+                      <p class="title-icon">
+                        <i class="fas fa-suitcase-rolling icon-size fa-fw"></i>荷物預り
+                      </p>
+                    </th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td class="table-active">事前に預かる荷物<br>（個数）</td>
+                    <td>
+                      {{ Form::text('luggage_count_copied'.$key, $pre_reservation->luggage_count,['class'=>'form-control'] ) }}
+                      <p class="{{"is-error-luggage_count_copied".$key}}" style="color: red"></p>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td class="table-active">事前荷物の到着日<br>午前指定のみ</td>
+                    <td>
+                      {{ Form::text('luggage_arrive_copied'.$key, date('Y-m-d',strtotime($pre_reservation->luggage_arrive)),['class'=>'form-control datepicker9','id'=>''] ) }}
+                    </td>
+                  </tr>
+                  <tr>
+                    <td class="table-active">事後返送する荷物</td>
+                    <td>
+                      {{ Form::text('luggage_return_copied'.$key, $pre_reservation->luggage_return,['class'=>'form-control'] ) }}
+                      <p class="{{"is-error-luggage_return_copied".$key}}" style="color: red"></p>
+                    </td>
+                  </tr>
+
+                  <tr>
+                    <td class="table-active">荷物預り/返送<br>料金</td>
+                    <td>
+                      <p class="annotation">※仮押え時点では、料金の設定ができません。<br>予約へ切り替え後に料金の設定が可能です。</p>
+                      <!-- @foreach ($pre_reservation->pre_breakdowns()->get() as $lugg)
+                      @if ($lugg->unit_item=="荷物預り/返送")
+                      {{ Form::text('luggage_price_copied'.$key, $lugg->unit_cost,['class'=>'form-control'] ) }}
+                      @break
+                      @elseif($loop->last)
+                      {{ Form::text('luggage_price_copied'.$key, '',['class'=>'form-control'] ) }}
+                      @endif
+                      @endforeach -->
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+              @endif
+
+              @if ($venue->eat_in_flag==1)
+              <table class="table table-bordered eating-table">
+                <thead>
+                  <tr>
+                    <th colspan='2'>
+                      <p class="title-icon">
+                        <i class="fas fa-utensils icon-size fa-fw"></i>室内飲食
+                      </p>
+                    </th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>
+                      {{Form::radio('eat_in_copied'.$key, 1, false , ['id' => 'eat_in_copied'.$key])}}
+                      {{Form::label('eat_in_copied'.$key,"あり")}}
+                    </td>
+                    <td>
+                      {{Form::radio('eat_in_prepare_copied'.$key, 1, "" , ['id' => 'eat_in_prepare_copied'.$key])}}
+                      {{Form::label('eat_in_prepare_copied'.$key,"手配済み")}}
+                      {{Form::radio('eat_in_prepare_copied'.$key, 2, "" , ['id' => 'eat_in_concider_copied'.$key])}}
+                      {{Form::label('eat_in_concider_copied'.$key,"検討中")}}
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>
+                      {{Form::radio('eat_in_copied'.$key, 0, true , ['id' => 'no_eat_in'.$key])}}
+                      {{Form::label('no_eat_in'.$key,"なし")}}
+                    </td>
+                    <td></td>
+                  </tr>
+              </table>
+              @endif
+
+
             </div>
-            <div class="bill_details">
-              <div class="head d-flex">
-                <div class="accordion_btn">
-                  <i class="fas fa-plus bill_icon_size hide"></i>
-                  <i class="fas fa-minus bill_icon_size"></i>
-                </div>
-                <div class="billdetails_ttl">
-                  <h3>
-                    請求内訳
-                  </h3>
-                </div>
-              </div>
-              <div class="main">
-                <div class="venues billdetails_content">
-                  <table class="table table-borderless">
+            <!-- 左側の項目 終わり-------------------------------------------------- -->
+            <!-- 右側の項目-------------------------------------------------- -->
+            <div class="col">
+              <div class="customer-table">
+                <table class="table table-bordered oneday-table">
+                  <tbody>
                     <tr>
-                      <td>
-                        <h4 class="billdetails_content_ttl">
-                          会場料
-                        </h4>
+                      <td colspan="2">
+                        <p class="title-icon">
+                          <i class="fas fa-user icon-size" aria-hidden="true"></i>
+                          当日の連絡できる担当者
+                        </p>
                       </td>
                     </tr>
-                    @if (!empty($pre_reservation->pre_bill->venue_price))
-                    <tbody class="venue_head">
-                      <tr>
-                        <td>内容</td>
-                        <td>単価</td>
-                        <td>数量</td>
-                        <td>金額</td>
-                      </tr>
-                    </tbody>
-                    <tbody class="{{'venue_main'.$key}}">
-                      @foreach ($pre_reservation->pre_breakdowns()->where('unit_type',1)->get() as $each_venue)
-                      <tr>
-                        <td>
-                          {{ Form::text('venue_breakdown_item0_copied'.$key, $each_venue->unit_item,['class'=>'form-control', 'readonly'] ) }}
-                        </td>
-                        <td>
-                          {{ Form::text('venue_breakdown_cost0_copied'.$key, $each_venue->unit_cost,['class'=>'form-control', 'readonly'] ) }}
-                        </td>
-                        <td>
-                          {{ Form::text('venue_breakdown_count0_copied'.$key, $each_venue->unit_count,['class'=>'form-control', 'readonly'] ) }}
-                        </td>
-                        <td>
-                          {{ Form::text('venue_breakdown_subtotal0_copied'.$key, $each_venue->unit_subtotal,['class'=>'form-control', 'readonly'] ) }}
-                        </td>
-                      </tr>
-                      @endforeach
-                    </tbody>
-                    <tbody class="{{'venue_result'.$key}}">
-                      <tr>
-                        <td colspan="2"></td>
-                        <td colspan="2">合計
-                          {{ Form::text('venue_price'.$key,$pre_reservation->pre_bill->venue_price,['class'=>'form-control col-xs-3', 'readonly'] ) }}
-                        </td>
-                      </tr>
-                    </tbody>
-                    @else{{--料金体系無し、手打ち--}}
-                    <span>※料金体系がないため、手打ちで会場料を入力してください</span>
-                    <tbody class="venue_head">
-                      <tr>
-                        <td>内容</td>
-                        <td>単価</td>
-                        <td>数量</td>
-                        <td>金額</td>
-                        <td></td>
-                      </tr>
-                    </tbody>
-                    <tbody class="{{'venue_main'.$key}}">
-                      <tr>
-                        <td>
-                          {{ Form::text('venue_breakdown_item0_copied'.$key, '',['class'=>'form-control'] ) }}
-                        </td>
-                        <td>
-                          {{ Form::text('venue_breakdown_cost0_copied'.$key, '',['class'=>'form-control'] ) }}
-                        </td>
-                        <td>
-                          {{ Form::text('venue_breakdown_count0_copied'.$key, '',['class'=>'form-control'] ) }}
-                        </td>
-                        <td>
-                          {{ Form::text('venue_breakdown_subtotal0_copied'.$key, '',['class'=>'form-control'] ) }}
-                        </td>
-                        <td>
-                          <input type="button" value="＋" class="add pluralBtn">
-                          <input type="button" value="ー" class="del pluralBtn">
-                        </td>
-                      </tr>
-                    </tbody>
-                    <tbody class="{{'venue_result'.$key}}">
-                      <tr>
-                        <td colspan="2"></td>
-                        <td colspan="2">合計
-                          {{ Form::text('venue_price'.$key,'',['class'=>'form-control col-xs-3', 'readonly'] ) }}
-                        </td>
-                      </tr>
-                    </tbody>
-                    @endif
-                  </table>
-                </div>
+                    <tr>
+                      <td class="table-active"><label for="ondayName">氏名</label></td>
+                      <td>
+                        {{ Form::text('in_charge_copied'.$key, $pre_reservation->in_charge,['class'=>'form-control'] ) }}
+                      </td>
+                    </tr>
+                    <tr>
+                      <td class="table-active"><label for="mobilePhone">携帯番号</label></td>
+                      <td>
+                        {{ Form::text('tel_copied'.$key, $pre_reservation->tel,['class'=>'form-control', 'placeholder' => '半角数字、ハイフンなしで入力してください'] ) }}
+                        <p class="{{"is-error-tel_copied".$key}}" style="color: red"></p>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+              <table class="table table-bordered mail-table">
+                <tbody>
+                  <tr>
+                    <td colspan="2">
+                      <p class="title-icon">
+                        <i class="fas fa-envelope icon-size" aria-hidden="true"></i>
+                        利用後の送信メール
+                      </p>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td class="table-active"><label for="sendMail">送信メール</label></td>
+                    <td>
+                      <div class="d-flex">
+                        <div class="radio-box">
+                          <p>
+                            {{Form::radio('email_flag_copied'.$key, 1, $pre_reservation->email_flag==1?true:false, ['id' => 'email_flag_copied'.$key])}}
+                            {{Form::label('email_flag_copied'.$key,'有り')}}
+                          </p>
+                          <p>
+                            {{Form::radio('email_flag_copied'.$key, 0, $pre_reservation->email_flag==0?true:false, ['id' => 'no_email_flag_copied'.$key])}}
+                            {{Form::label('no_email_flag_copied'.$key,'無し')}}
+                          </p>
+                        </div>
+                      </div>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
 
-                {{-- 0が料金合計　
+              @if ($venue->alliance_flag==1)
+              <table class="table table-bordered sale-table">
+                <tbody>
+                  <tr>
+                    <td colspan="2">
+                      <p class="title-icon">
+                        <i class="fas fa-yen-sign icon-size" aria-hidden="true"></i>
+                        売上原価
+                      </p>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td class="table-active"><label for="sale">原価率</label></td>
+                    <td>
+                      <div class="d-flex align-items-center">
+                        {{ Form::text('cost_copied'.$key, $pre_reservation->cost?$pre_reservation->cost:$venue->cost,['class'=>'form-control'] ) }}
+                        <span class="ml-2">%</span>
+                      </div>
+                      <p class="{{'is-error-cost_copied'.$key}}" style="color: red"></p>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+              @endif
+
+
+              <table class="table table-bordered note-table">
+                <tbody>
+                  <tr>
+                    <td colspan="2">
+                      <p class="title-icon">
+                        <i class="fas fa-file-alt icon-size" aria-hidden="true"></i>
+                        備考
+                      </p>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <label for="adminNote">管理者備考</label>
+                      {{ Form::textarea('admin_details_copied'.$key, $pre_reservation->admin_details,['class'=>'form-control'] ) }}
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <!-- 右側の項目 終わり-------------------------------------------------- -->
+          </div>
+          <div class="btn_wrapper">
+            <p class="text-center">
+              @if (count($venue->frame_prices)==0&&count($venue->time_prices)==0)
+              <div class="d-flex justify-content-center">
+                <div class="">
+                  <p class="d-block">選択された会場は料金が設定されていません。会場管理/料金管理に戻り設定してください</p>
+                  <a href="{{url('admin/frame_prices')}}"
+                    class="btn more_btn_lg mt-5 d-flex justify-content-center">料金管理画面へ</a>
+                </div>
+              </div>
+              @else
+              {{ Form::submit('請求に反映する', ['class' => 'btn more_btn_lg'])}}
+              @endif
+            </p>
+            {{ Form::close() }}
+          </div>
+
+          <section class="section-wrap">
+            <div class="bill">
+              <div class="bill_head">
+                <table class="table bill_table">
+                  <tr>
+                    <td>
+                      <h2 class="text-white">
+                        請求書No
+                      </h2>
+                    </td>
+                    <td>
+                      <dl class="ttl_box mb-0">
+                        <dt>合計金額</dt>
+                        <dd class="total_result">
+                          {{number_format(empty($pre_reservation->pre_bill->master_total)?0:$pre_reservation->pre_bill->master_total)}}
+                          円
+                        </dd>
+                      </dl>
+                    </td>
+                  </tr>
+                </table>
+              </div>
+              <div class="bill_details">
+                <div class="head d-flex">
+                  <div class="accordion_btn">
+                    <i class="fas fa-plus bill_icon_size hide"></i>
+                    <i class="fas fa-minus bill_icon_size"></i>
+                  </div>
+                  <div class="billdetails_ttl">
+                    <h3>
+                      請求内訳
+                    </h3>
+                  </div>
+                </div>
+                <div class="main">
+                  <div class="venues billdetails_content">
+                    <table class="table table-borderless">
+                      <tr>
+                        <td>
+                          <h4 class="billdetails_content_ttl">
+                            会場料
+                          </h4>
+                        </td>
+                      </tr>
+                      @if (!empty($pre_reservation->pre_bill->venue_price))
+                      <tbody class="venue_head">
+                        <tr>
+                          <td>内容</td>
+                          <td>単価</td>
+                          <td>数量</td>
+                          <td>金額</td>
+                        </tr>
+                      </tbody>
+                      <tbody class="{{'venue_main'.$key}}">
+                        @foreach ($pre_reservation->pre_breakdowns()->where('unit_type',1)->get() as $each_venue)
+                        <tr>
+                          <td>
+                            {{ Form::text('venue_breakdown_item0_copied'.$key, $each_venue->unit_item,['class'=>'form-control', 'readonly'] ) }}
+                          </td>
+                          <td>
+                            {{ Form::text('venue_breakdown_cost0_copied'.$key, $each_venue->unit_cost,['class'=>'form-control', 'readonly'] ) }}
+                          </td>
+                          <td>
+                            {{ Form::text('venue_breakdown_count0_copied'.$key, $each_venue->unit_count,['class'=>'form-control', 'readonly'] ) }}
+                          </td>
+                          <td>
+                            {{ Form::text('venue_breakdown_subtotal0_copied'.$key, $each_venue->unit_subtotal,['class'=>'form-control', 'readonly'] ) }}
+                          </td>
+                        </tr>
+                        @endforeach
+                      </tbody>
+                      <tbody class="{{'venue_result'.$key}}">
+                        <tr>
+                          <td colspan="2"></td>
+                          <td colspan="2">合計
+                            {{ Form::text('venue_price'.$key,$pre_reservation->pre_bill->venue_price,['class'=>'form-control col-xs-3', 'readonly'] ) }}
+                          </td>
+                        </tr>
+                      </tbody>
+                      @else{{--料金体系無し、手打ち--}}
+                      <span>※料金体系がないため、手打ちで会場料を入力してください</span>
+                      <tbody class="venue_head">
+                        <tr>
+                          <td>内容</td>
+                          <td>単価</td>
+                          <td>数量</td>
+                          <td>金額</td>
+                          <td></td>
+                        </tr>
+                      </tbody>
+                      <tbody class="{{'venue_main'.$key}}">
+                        <tr>
+                          <td>
+                            {{ Form::text('venue_breakdown_item0_copied'.$key, '',['class'=>'form-control'] ) }}
+                          </td>
+                          <td>
+                            {{ Form::text('venue_breakdown_cost0_copied'.$key, '',['class'=>'form-control'] ) }}
+                          </td>
+                          <td>
+                            {{ Form::text('venue_breakdown_count0_copied'.$key, '',['class'=>'form-control'] ) }}
+                          </td>
+                          <td>
+                            {{ Form::text('venue_breakdown_subtotal0_copied'.$key, '',['class'=>'form-control'] ) }}
+                          </td>
+                          <td>
+                            <input type="button" value="＋" class="add pluralBtn">
+                            <input type="button" value="ー" class="del pluralBtn">
+                          </td>
+                        </tr>
+                      </tbody>
+                      <tbody class="{{'venue_result'.$key}}">
+                        <tr>
+                          <td colspan="2"></td>
+                          <td colspan="2">合計
+                            {{ Form::text('venue_price'.$key,'',['class'=>'form-control col-xs-3', 'readonly'] ) }}
+                          </td>
+                        </tr>
+                      </tbody>
+                      @endif
+                    </table>
+                  </div>
+
+                  {{-- 0が料金合計　
                     1が備品breakdown
                     2がserviceのbreakdown
                     3が備品料金
                     4がサービス料金 --}}
-                {{-- 以下備品 --}}
-                @if (!empty($pre_reservation->pre_bill->equipment_price))
-                <div class="equipment billdetails_content">
-                  <table class="table table-borderless">
-                    <tr>
-                      <td colspan="4">
-                        <h4 class="billdetails_content_ttl">
-                          有料備品・サービス
-                        </h4>
-                      </td>
-                    </tr>
-                    <tbody class="equipment_head">
+                  {{-- 以下備品 --}}
+                  @if (!empty($pre_reservation->pre_bill->equipment_price))
+                  <div class="equipment billdetails_content">
+                    <table class="table table-borderless">
                       <tr>
-                        <td>内容</td>
-                        <td>単価</td>
-                        <td>数量</td>
-                        <td>金額</td>
-                      </tr>
-                    </tbody>
-                    <tbody class="{{'equipment_main'.$key}}">
-                      @foreach ($pre_reservation->pre_breakdowns()->where('unit_type',2)->get() as
-                      $eb_key=>$each_equ)
-                      <tr>
-                        <td>
-                          {{ Form::text('equipment_breakdown_item'.$eb_key.'_copied'.$key, $each_equ->unit_item,['class'=>'form-control', 'readonly'] ) }}
-                        </td>
-                        <td>
-                          {{ Form::text('equipment_breakdown_cost'.$eb_key.'_copied'.$key, $each_equ->unit_cost,['class'=>'form-control', 'readonly'] ) }}
-                        </td>
-                        <td>
-                          {{ Form::text('equipment_breakdown_count'.$eb_key.'_copied'.$key, $each_equ->unit_count,['class'=>'form-control', 'readonly'] ) }}
-                        </td>
-                        <td>
-                          {{ Form::text('equipment_breakdown_subtotal'.$eb_key.'_copied'.$key, $each_equ->unit_subtotal,['class'=>'form-control', 'readonly'] ) }}
+                        <td colspan="4">
+                          <h4 class="billdetails_content_ttl">
+                            有料備品・サービス
+                          </h4>
                         </td>
                       </tr>
-                      @endforeach
-                      @foreach ($pre_reservation->pre_breakdowns()->where('unit_type',3)->get() as
-                      $sb_key=>$each_ser)
-                      <tr>
-                        <td>
-                          {{ Form::text('services_breakdown_item'.$sb_key.'_copied'.$key, $each_ser->unit_item,['class'=>'form-control', 'readonly'] ) }}
-                        </td>
-                        <td>
-                          {{ Form::text('services_breakdown_cost'.$sb_key.'_copied'.$key, $each_ser->unit_cost,['class'=>'form-control', 'readonly'] ) }}
-                        </td>
-                        <td>
-                          {{ Form::text('services_breakdown_count'.$sb_key.'_copied'.$key, $each_ser->unit_count,['class'=>'form-control', 'readonly'] ) }}
-                        </td>
-                        <td>
-                          {{ Form::text('services_breakdown_subtotal'.$sb_key.'_copied'.$key, $each_ser->unit_subtotal,['class'=>'form-control', 'readonly'] ) }}
-                        </td>
-                      </tr>
+                      <tbody class="equipment_head">
+                        <tr>
+                          <td>内容</td>
+                          <td>単価</td>
+                          <td>数量</td>
+                          <td>金額</td>
+                        </tr>
+                      </tbody>
+                      <tbody class="{{'equipment_main'.$key}}">
+                        @foreach ($pre_reservation->pre_breakdowns()->where('unit_type',2)->get() as
+                        $eb_key=>$each_equ)
+                        <tr>
+                          <td>
+                            {{ Form::text('equipment_breakdown_item'.$eb_key.'_copied'.$key, $each_equ->unit_item,['class'=>'form-control', 'readonly'] ) }}
+                          </td>
+                          <td>
+                            {{ Form::text('equipment_breakdown_cost'.$eb_key.'_copied'.$key, $each_equ->unit_cost,['class'=>'form-control', 'readonly'] ) }}
+                          </td>
+                          <td>
+                            {{ Form::text('equipment_breakdown_count'.$eb_key.'_copied'.$key, $each_equ->unit_count,['class'=>'form-control', 'readonly'] ) }}
+                          </td>
+                          <td>
+                            {{ Form::text('equipment_breakdown_subtotal'.$eb_key.'_copied'.$key, $each_equ->unit_subtotal,['class'=>'form-control', 'readonly'] ) }}
+                          </td>
+                        </tr>
+                        @endforeach
+                        @foreach ($pre_reservation->pre_breakdowns()->where('unit_type',3)->get() as
+                        $sb_key=>$each_ser)
+                        <tr>
+                          <td>
+                            {{ Form::text('services_breakdown_item'.$sb_key.'_copied'.$key, $each_ser->unit_item,['class'=>'form-control', 'readonly'] ) }}
+                          </td>
+                          <td>
+                            {{ Form::text('services_breakdown_cost'.$sb_key.'_copied'.$key, $each_ser->unit_cost,['class'=>'form-control', 'readonly'] ) }}
+                          </td>
+                          <td>
+                            {{ Form::text('services_breakdown_count'.$sb_key.'_copied'.$key, $each_ser->unit_count,['class'=>'form-control', 'readonly'] ) }}
+                          </td>
+                          <td>
+                            {{ Form::text('services_breakdown_subtotal'.$sb_key.'_copied'.$key, $each_ser->unit_subtotal,['class'=>'form-control', 'readonly'] ) }}
+                          </td>
+                        </tr>
 
-                      @endforeach
-                    </tbody>
-                    <tbody class="{{'equipment_result'.$key}}">
+                        @endforeach
+                      </tbody>
+                      <tbody class="{{'equipment_result'.$key}}">
+                        <tr>
+                          <td colspan="2"></td>
+                          <td colspan="2">合計
+                            {{ Form::text('equipment_price'.$key, $pre_reservation->pre_bill->equipment_price,['class'=>'form-control', 'readonly'] ) }}
+                          </td>
+                        </tr>
+                      </tbody>
+
+                    </table>
+                  </div>
+                  @endif
+
+                  {{-- 以下、レイアウト --}}
+                  @if (!empty($pre_reservation->pre_bill->layout_price))
+                  <div class="layout billdetails_content">
+                    <table class="table table-borderless">
                       <tr>
-                        <td colspan="2"></td>
-                        <td colspan="2">合計
-                          {{ Form::text('equipment_price'.$key, $pre_reservation->pre_bill->equipment_price,['class'=>'form-control', 'readonly'] ) }}
+                        <td>
+                          <h4 class="billdetails_content_ttl">
+                            レイアウト
+                          </h4>
                         </td>
                       </tr>
-                    </tbody>
+                      <tbody class="layout_head">
+                        <tr>
+                          <td>内容</td>
+                          <td>単価</td>
+                          <td>数量</td>
+                          <td>金額</td>
+                        </tr>
+                      </tbody>
+                      <tbody class="{{'layout_main'.$key}}">
+                        @foreach ($pre_reservation->pre_breakdowns()->where('unit_type',4)->get() as
+                        $slp_key=>$each_play)
+                        <tr>
+                          <td>
+                            {{ Form::text('layout_breakdown_item'.$slp_key.'_copied'.$key, $each_play->unit_item,['class'=>'form-control', 'readonly'] ) }}
+                          </td>
+                          <td>
+                            {{ Form::text('layout_breakdown_cost'.$slp_key.'_copied'.$key, $each_play->unit_cost,['class'=>'form-control', 'readonly'] ) }}
+                          </td>
+                          <td>
+                            {{ Form::text('layout_breakdown_count'.$slp_key.'_copied'.$key, $each_play->unit_count,['class'=>'form-control', 'readonly'] ) }}
+                          </td>
+                          <td>
+                            {{ Form::text('layout_breakdown_subtotal'.$slp_key.'_copied'.$key, $each_play->unit_subtotal,['class'=>'form-control', 'readonly'] ) }}
+                          </td>
+                        </tr>
+                        @endforeach
+                      </tbody>
+                      <tbody class="{{'layout_result'.$key}}">
+                        <tr>
+                          <td colspan="2"></td>
+                          <td colspan="2">合計
+                            {{ Form::text('layout_price'.$key, $pre_reservation->pre_bill->layout_price,['class'=>'form-control', 'readonly'] ) }}
+                          </td>
+                        </tr>
+                      </tbody>
+                      <tbody class="{{'layout_discount'.$key}}">
 
-                  </table>
+                    </table>
+                  </div>
+                  @endif
+
+                  {{-- 以下、総合計 --}}
+                  <div class="bill_total">
+                    <table class="table">
+                      <tr>
+                        <td>小計：</td>
+                        <td>
+                          {{ Form::hidden('master_subtotal'.$key.'fixed',empty($pre_reservation->pre_bill->master_subtotal)?0:$pre_reservation->pre_bill->master_subtotal,['class'=>'form-control text-right', 'readonly'] ) }}
+                          {{ Form::text('master_subtotal'.$key,empty($pre_reservation->pre_bill->master_subtotal)?0:$pre_reservation->pre_bill->master_subtotal,['class'=>'form-control text-right', 'readonly'] ) }}
+                        </td>
+                      </tr>
+                      <tr>
+                        <td>消費税：</td>
+                        <td>
+                          {{ Form::text('master_tax'.$key, empty($pre_reservation->pre_bill->master_tax)?0:$pre_reservation->pre_bill->master_tax ,['class'=>'form-control text-right', 'readonly'] ) }}
+                        </td>
+                      </tr>
+                      <tr>
+                        <td class="font-weight-bold">合計金額</td>
+                        <td>
+                          {{ Form::text('master_total'.$key, empty($pre_reservation->pre_bill->master_total)?0:$pre_reservation->pre_bill->master_total,['class'=>'form-control text-right', 'readonly'] ) }}
+                        </td>
+                      </tr>
+                    </table>
+                  </div>
                 </div>
-                @endif
-
-                {{-- 以下、レイアウト --}}
-                @if (!empty($pre_reservation->pre_bill->layout_price))
-                <div class="layout billdetails_content">
-                  <table class="table table-borderless">
-                    <tr>
-                      <td>
-                        <h4 class="billdetails_content_ttl">
-                          レイアウト
-                        </h4>
-                      </td>
-                    </tr>
-                    <tbody class="layout_head">
-                      <tr>
-                        <td>内容</td>
-                        <td>単価</td>
-                        <td>数量</td>
-                        <td>金額</td>
-                      </tr>
-                    </tbody>
-                    <tbody class="{{'layout_main'.$key}}">
-                      @foreach ($pre_reservation->pre_breakdowns()->where('unit_type',4)->get() as
-                      $slp_key=>$each_play)
-                      <tr>
-                        <td>
-                          {{ Form::text('layout_breakdown_item'.$slp_key.'_copied'.$key, $each_play->unit_item,['class'=>'form-control', 'readonly'] ) }}
-                        </td>
-                        <td>
-                          {{ Form::text('layout_breakdown_cost'.$slp_key.'_copied'.$key, $each_play->unit_cost,['class'=>'form-control', 'readonly'] ) }}
-                        </td>
-                        <td>
-                          {{ Form::text('layout_breakdown_count'.$slp_key.'_copied'.$key, $each_play->unit_count,['class'=>'form-control', 'readonly'] ) }}
-                        </td>
-                        <td>
-                          {{ Form::text('layout_breakdown_subtotal'.$slp_key.'_copied'.$key, $each_play->unit_subtotal,['class'=>'form-control', 'readonly'] ) }}
-                        </td>
-                      </tr>
-                      @endforeach
-                    </tbody>
-                    <tbody class="{{'layout_result'.$key}}">
-                      <tr>
-                        <td colspan="2"></td>
-                        <td colspan="2">合計
-                          {{ Form::text('layout_price'.$key, $pre_reservation->pre_bill->layout_price,['class'=>'form-control', 'readonly'] ) }}
-                        </td>
-                      </tr>
-                    </tbody>
-                    <tbody class="{{'layout_discount'.$key}}">
-
-                  </table>
-                </div>
-                @endif
-
-                {{-- 以下、総合計 --}}
-                <div class="bill_total">
-                  <table class="table">
-                    <tr>
-                      <td>小計：</td>
-                      <td>
-                        {{ Form::hidden('master_subtotal'.$key.'fixed',empty($pre_reservation->pre_bill->master_subtotal)?0:$pre_reservation->pre_bill->master_subtotal,['class'=>'form-control text-right', 'readonly'] ) }}
-                        {{ Form::text('master_subtotal'.$key,empty($pre_reservation->pre_bill->master_subtotal)?0:$pre_reservation->pre_bill->master_subtotal,['class'=>'form-control text-right', 'readonly'] ) }}
-                      </td>
-                    </tr>
-                    <tr>
-                      <td>消費税：</td>
-                      <td>
-                        {{ Form::text('master_tax'.$key, empty($pre_reservation->pre_bill->master_tax)?0:$pre_reservation->pre_bill->master_tax ,['class'=>'form-control text-right', 'readonly'] ) }}
-                      </td>
-                    </tr>
-                    <tr>
-                      <td class="font-weight-bold">合計金額</td>
-                      <td>
-                        {{ Form::text('master_total'.$key, empty($pre_reservation->pre_bill->master_total)?0:$pre_reservation->pre_bill->master_total,['class'=>'form-control text-right', 'readonly'] ) }}
-                      </td>
-                    </tr>
-                  </table>
-                </div>
-
               </div>
-              <!-- 請求内訳 終わり ------------------------------------------------------>
             </div>
-          </div>
-        </section>
-        {{ Form::close() }}
-
-
-
-
+          </section>
         </dt>
       </dl>
     </div>
-    <!-- 仮押え一括 タブ終わり-->
   </section>
   @endforeach
 
