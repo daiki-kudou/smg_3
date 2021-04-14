@@ -113,6 +113,10 @@ Breadcrumbs::for('admin.pre_reservations.edit', function ($trail, $id) {
   $trail->parent('admin.pre_reservations.show', $id);
   $trail->push('仮抑え 編集', route('admin.pre_reservations.edit', $id));
 });
+Breadcrumbs::for('admin.pre_agent_reservations.edit', function ($trail, $id) {
+  $trail->parent('admin.pre_reservations.show', $id);
+  $trail->push('仮抑え(仲介会社経由) 編集', route('admin.pre_agent_reservations.edit', $id));
+});
 Breadcrumbs::for('admin.pre_reservations.re_calculate', function ($trail, $id) {
   $trail->parent('admin.pre_reservations.edit', $id);
   $trail->push('仮抑え 編集 再計算', route('admin.pre_reservations.re_calculate', $id));

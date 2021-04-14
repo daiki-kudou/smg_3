@@ -538,6 +538,19 @@
     </p>
     <hr>
   </div>
+
+
+  @if ($errors->any())
+  <div class="alert alert-danger">
+    <ul>
+      @foreach ($errors->all() as $error)
+      <li>{{ $error }}</li>
+      @endforeach
+    </ul>
+  </div>
+  @endif
+
+
   <ul class="register-list-header">
     <li class="from-group">
       <div class="form-check">
@@ -1532,6 +1545,7 @@
       $('#master_form').submit();
     })
   })
+
   $(function() {
     var maxTarget = $('input[name="reserve_date"]').val();
     $('.datepicker9').datepicker({
