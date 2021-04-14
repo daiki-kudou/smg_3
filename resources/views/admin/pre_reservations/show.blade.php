@@ -445,7 +445,7 @@
                     <td colspan="2">
                       <ul class="icheck-primary">
                         @foreach ($SPVenue->getServices() as $service)
-                        @foreach ($pre_reservation->pre_breakdowns()->where('unit_type',3)->get() as $ser)
+                        @foreach ($pre_reservation->pre_bill->pre_breakdowns->where('unit_type',3) as $ser)
                         @if ($service->item==$ser->unit_item)
                         <li>
                           {{$ser->unit_item}}
@@ -481,7 +481,7 @@
                     <td class="table-active"><label for="prelayout">準備</label>
                     </td>
                     <td>
-                      @if (!empty($pre_reservation->pre_breakdowns()->where('unit_item','レイアウト準備料金')->first()))
+                      @if (!empty($pre_reservation->pre_bill->pre_breakdowns->where('unit_item','レイアウト準備料金')->first()))
                       あり
                       @else
                       なし
@@ -492,7 +492,7 @@
                     <td class="table-active"><label for="postlayout">片付</label>
                     </td>
                     <td>
-                      @if (!empty($pre_reservation->pre_breakdowns()->where('unit_item','レイアウト片付料金')->first()))
+                      @if (!empty($pre_reservation->pre_bill->pre_breakdowns->where('unit_item','レイアウト片付料金')->first()))
                       あり
                       @else
                       なし
@@ -770,7 +770,7 @@
             </tr>
           </tbody>
           <tbody class="venue_main">
-            @foreach ($pre_reservation->pre_breakdowns()->where('unit_type',1)->get() as $venue)
+            @foreach ($pre_reservation->pre_bill->pre_breakdowns->where('unit_type',1) as $venue)
             <tr>
               <td>{{$venue->unit_item}}</td>
               <td>{{number_format($venue->unit_cost)}}</td>
@@ -811,7 +811,7 @@
             </tr>
           </tbody>
           <tbody class="venue_main">
-            @foreach ($pre_reservation->pre_breakdowns()->where('unit_type',1)->get() as $venue_breakdown)
+            @foreach ($pre_reservation->pre_bill->pre_breakdowns->where('unit_type',1) as $venue_breakdown)
             <tr>
               <td>{{$venue_breakdown->unit_item}}</td>
               <td></td>
@@ -825,7 +825,7 @@
       @endif
 
       @if ($pre_reservation->user_id>0)
-      @if($pre_reservation->pre_breakdowns()->where("unit_type",2)->count()!=0||$pre_reservation->pre_breakdowns()->where("unit_type",2)->count()!=0)
+      @if($pre_reservation->pre_bill->pre_breakdowns->where("unit_type",2)->count()!=0||$pre_reservation->pre_bill->pre_breakdowns->where("unit_type",2)->count()!=0)
       <div class="equipment billdetails_content">
         <table class="table table-borderless" style="table-layout: fixed;">
           <tbody>
@@ -846,7 +846,7 @@
             </tr>
           </tbody>
           <tbody class="equipment_main">
-            @foreach ($pre_reservation->pre_breakdowns()->where('unit_type',2)->get() as $equipment)
+            @foreach ($pre_reservation->pre_bill->pre_breakdowns->where('unit_type',2) as $equipment)
             <tr>
               <td>{{$equipment->unit_item}}</td>
               <td>{{number_format($equipment->unit_cost)}}</td>
@@ -855,7 +855,7 @@
             </tr>
             @endforeach
 
-            @foreach ($pre_reservation->pre_breakdowns()->where('unit_type',3)->get() as $service)
+            @foreach ($pre_reservation->pre_bill->pre_breakdowns->where('unit_type',3) as $service)
             <tr>
               <td>{{$service->unit_item}}</td>
               <td>{{number_format($service->unit_cost)}}</td>
@@ -878,7 +878,7 @@
       </div>
       @endif
       @else
-      @if($pre_reservation->pre_breakdowns()->where("unit_type",2)->count()!=0||$pre_reservation->pre_breakdowns()->where("unit_type",2)->count()!=0)
+      @if($pre_reservation->pre_bill->pre_breakdowns->where("unit_type",2)->count()!=0||$pre_reservation->pre_bill->pre_breakdowns->where("unit_type",2)->count()!=0)
       <div class="equipment billdetails_content">
         <table class="table table-borderless" style="table-layout: fixed;">
           <tbody>
@@ -899,7 +899,7 @@
             </tr>
           </tbody>
           <tbody class="equipment_main">
-            @foreach ($pre_reservation->pre_breakdowns()->where('unit_type',2)->get() as $equipment_breakdown)
+            @foreach ($pre_reservation->pre_bill->pre_breakdowns->where('unit_type',2) as $equipment_breakdown)
             <tr>
               <td>{{$equipment_breakdown->unit_item}}</td>
               <td></td>
@@ -907,7 +907,7 @@
               <td></td>
             </tr>
             @endforeach
-            @foreach ($pre_reservation->pre_breakdowns()->where('unit_type',3)->get() as $service_breakdown)
+            @foreach ($pre_reservation->pre_bill->pre_breakdowns->where('unit_type',3) as $service_breakdown)
             <tr>
               <td>{{$service_breakdown->unit_item}}</td>
               <td></td>
@@ -923,7 +923,7 @@
 
       @if ($pre_reservation->user_id>0)
       @if ($pre_reservation->venue->layout==1)
-      @if (!empty($pre_reservation->pre_breakdowns()->where('unit_type',4)->first()))
+      @if (!empty($pre_reservation->pre_bill->pre_breakdowns->where('unit_type',4)->first()))
       <div class="layout billdetails_content">
         <table class="table table-borderless" style="table-layout: fixed;">
           <tbody>
@@ -944,7 +944,7 @@
             </tr>
           </tbody>
           <tbody class="layout_main">
-            @foreach ($pre_reservation->pre_breakdowns()->where('unit_type',4)->get() as $layout)
+            @foreach ($pre_reservation->pre_bill->pre_breakdowns->where('unit_type',4) as $layout)
             <tr>
               <td>{{$layout->unit_item}}</td>
               <td>{{number_format($layout->unit_cost)}}</td>
@@ -969,7 +969,7 @@
 
       @else
       @if ($pre_reservation->venue->layout==1)
-      @if (!empty($pre_reservation->pre_breakdowns()->where('unit_type',4)->first()))
+      @if (!empty($pre_reservation->pre_bill->pre_breakdowns->where('unit_type',4)->first()))
       <div class="layout billdetails_content">
         <table class="table table-borderless" style="table-layout: fixed;">
           <tbody>
@@ -990,7 +990,7 @@
             </tr>
           </tbody>
           <tbody class="layout_main">
-            @foreach ($pre_reservation->pre_breakdowns()->where('unit_type',4)->get() as $layout_breakdown)
+            @foreach ($pre_reservation->pre_bill->pre_breakdowns->where('unit_type',4) as $layout_breakdown)
             <tr>
               <td>{{$layout_breakdown->unit_item}}</td>
               <td>{{$layout_breakdown->unit_cost}}</td>

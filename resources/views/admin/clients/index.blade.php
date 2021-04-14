@@ -37,7 +37,7 @@
     <nav aria-label="breadcrumb">
       <ol class="breadcrumb">
         <li class="breadcrumb-item active">
-          ダミーダミーダミーダミー
+          {{ Breadcrumbs::render(Route::currentRouteName()) }}
         </li>
       </ol>
     </nav>

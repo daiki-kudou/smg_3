@@ -238,8 +238,11 @@
   {{ $pre_reservations->appends(request()->input())->appends(['counter'=>$counter])->links() }}
   @elseif($request->counter)
   {{ $pre_reservations->appends(request()->input())->appends(['counter'=>$request->counter])->links() }}
+  @else
+  {{ $pre_reservations->links() }}
   @endif
-  {{-- {{ $pre_reservations->links() }} --}}
+
+
 
 
 
@@ -250,6 +253,10 @@
 
 
 <script>
+    $(function(){
+    $(".sort_table").tablesorter();
+  })
+
   $(function() {
     function ActiveDateRangePicker($target) {
       $("input[name='" + $target + "']").daterangepicker({
@@ -301,9 +308,6 @@
   })
 
   
-  $(function(){
-    $(".sort_table").tablesorter();
-  })
 
 </script>
 

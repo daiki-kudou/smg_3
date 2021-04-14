@@ -244,19 +244,19 @@ Route::namespace('Admin')->prefix('admin')->name('admin.')->group(function () {
     // 一括仮押さえ、日付の追加保存
     Route::post('multiples/{multiples}/add_date_store/{venues}/', 'MultiplesController@add_date_store');
     // 一括仮押さえ、会場の追加
-    Route::get('multiples/{multiples}/add_venue', 'MultiplesController@add_venue');
+    Route::get('multiples/{multiples}/add_venue', 'MultiplesController@add_venue')->name('multiples.add_venue');
     // 一括仮押さえ、会場の追加保存
     Route::post('multiples/{multiples}/add_venue_store', 'MultiplesController@add_venue_store');
     // 一括仮押さえ、詳細。仲介会社用
-    Route::get('multiples/agent/{multiples}', 'MultiplesController@agent_show');
+    Route::get('multiples/agent/{multiples}', 'MultiplesController@agent_show')->name('multiples.agent_show');
     // 仲介会社一括編集
-    Route::get('multiples/agent/{multiples}/edit/{venues}', 'MultiplesController@agent_edit');
+    Route::get('multiples/agent/{multiples}/edit/{venues}', 'MultiplesController@agent_edit')->name('multiples.agent_edit');
     // 仲介会社　一括　計算
     Route::post('multiples/agent/{multiples}/edit/{venues}/calculate', 'MultiplesController@agent_calculate');
     // 仲介会社　一括　個別　計算
     Route::post('multiples/agent/{multiples}/edit/{venues}/calculate/{pre_reservations}/specific_update', 'MultiplesController@agent_specificUpdate');
     // 仲介会社　一括仮押さえ、会場の追加
-    Route::get('multiples/agent/{multiples}/add_venue', 'MultiplesController@agent_add_venue');
+    Route::get('multiples/agent/{multiples}/add_venue', 'MultiplesController@agent_add_venue')->name("multiples.agent_add_venue");
     // 仲介会社　一括仮押さえ、会場の追加
     Route::post('multiples/agent/{multiples}/add_venue_store', 'MultiplesController@agent_add_venue_store');
     // 一括仮押さえ、ユーザーに編集権限譲渡
@@ -266,7 +266,7 @@ Route::namespace('Admin')->prefix('admin')->name('admin.')->group(function () {
     // 一括仮押さえ、edit内、個別削除
     Route::post('multiples/{multiple}/sp_destroy/{venue}', 'MultiplesController@SPDestroy');
     // 一括仮押さえ（仲介会社経由）仲介会社変更
-    Route::get('multiples/agent_switch/{multiple}', 'MultiplesController@switchAgent');
+    Route::get('multiples/agent_switch/{multiple}', 'MultiplesController@switchAgent')->name("multiples.agent_switch");
     // 一括　仲介会社　更新
     Route::post('multiples/agent_switch_cfm/{multiple}', 'MultiplesController@switchAgent_cfm');
     // 仲介会社　仮押え 作成
