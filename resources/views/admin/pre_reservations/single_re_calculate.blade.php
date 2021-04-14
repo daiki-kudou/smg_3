@@ -9,7 +9,7 @@
     <nav aria-label="breadcrumb">
       <ol class="breadcrumb">
         <li class="breadcrumb-item active">
-          ダミーテキスト
+          {{ Breadcrumbs::render(Route::currentRouteName(),$request->id) }}
         </li>
       </ol>
     </nav>

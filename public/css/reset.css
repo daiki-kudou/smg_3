@@ -1,4 +1,4 @@
-@charset "UTF-8";
+/* @charset "UTF-8";
 @import url('https://fonts.googleapis.com/css?family=Noto+Sans+JP:100,300,400,500,700');
 @import url('https://fonts.googleapis.com/css?family=Noto+Serif+JP:300,400,500,600&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=EB+Garamond:wght@400;500;600&display=swap');
@@ -243,7 +243,6 @@ img{ max-width: 100%; vertical-align: bottom;}
 }
 ruby rt{ font-size: 14px;}
 
-/*===================*/
 html { overflow-y: scroll; }
 body {
     background: #fff;
@@ -264,7 +263,6 @@ body {
 .wrap{
     position: relative;
     width: 1050px;
-    /*width: calc(100% - 100px);*/
     margin: 0 auto;
     box-sizing: border-box;
 }
@@ -276,10 +274,8 @@ body {
     z-index: 2;
 }
 
-/*===================*/
 section.block{
     position: relative;
-/*    max-width: 1800px;*/
     margin:0 auto;
 }
 
@@ -302,57 +298,4 @@ section.block{
 }
 .border-b-br{
     border-bottom: 1px solid rgba(84,73,33,.5);
-}
-
-
-/*===================*/
-/*===================*/
-/*===================*/
-/*
-.guide-center{
-    position: fixed;
-    height: 100%;
-    width: 1px;
-    background: rgba(107,140,217,.6);
-    top: 0;
-    left: 50%;
-    z-index: 999;
-}
-.guide-01-l{
-    position: fixed;
-    height: 100%;
-    width: 1px;
-    background: rgba(0,255,255,.4);
-    top: 0;
-    left: calc(50% - 600px);
-    z-index: 999;
-}
-.guide-01-r{
-    position: fixed;
-    height: 100%;
-    width: 1px;
-    background: rgba(0,255,255,.4);
-    top: 0;
-    left: calc(50% + 599px);
-    z-index: 999;
-}
-.guide-02-l{
-    position: fixed;
-    height: 100%;
-    width: 1px;
-    background: rgba(255,0,0,.4);
-    top: 0;
-    left: calc(50% - 750px);
-    z-index: 999;
-}
-.guide-02-r{
-    position: fixed;
-    height: 100%;
-    width: 1px;
-    background: rgba(255,0,0,.4);
-    top: 0;
-    left: calc(50% + 749px);
-    z-index: 999;
-}
-
-*/
+} */

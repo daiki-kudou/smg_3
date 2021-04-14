@@ -13,7 +13,7 @@
         <nav aria-label="breadcrumb">
           <ol class="breadcrumb">
             <li class="breadcrumb-item active">
-              ダミーダミーダミー
+              {{ Breadcrumbs::render(Route::currentRouteName(),$multiple->id, $venue->id) }}
             </li>
           </ol>
         </nav>
@@ -58,7 +58,8 @@
               </td>
             </tr>
             <tr>
-              <th class="table-active" width="25%"><label for="company">会社名・団体名</label><a href="" class="more_btn ml-2">顧客詳細</a></th>
+              <th class="table-active" width="25%"><label for="company">会社名・団体名</label><a href=""
+                  class="more_btn ml-2">顧客詳細</a></th>
               <td>
                 {{ReservationHelper::getCompany($multiple->pre_reservations->first()->user_id)}}
               </td>
@@ -698,7 +699,8 @@
                       <td>
                         <select name="{{'event_start_copied'.$key}}" class="form-control">
                           <option disabled>選択してください</option>
-                          @for ($start = 0*2; $start <=23*2; $start++) <option value="{{date("H:i:s", strtotime("00:00 +". $start * 30 ." minute"))}}" @if($request->
+                          @for ($start = 0*2; $start <=23*2; $start++) <option
+                            value="{{date("H:i:s", strtotime("00:00 +". $start * 30 ." minute"))}}" @if($request->
                             cp_master_event_start==date("H:i:s", strtotime("00:00 +". $start * 30 ." minute")))
                             selected
                             @endif
@@ -713,7 +715,8 @@
                       <td>
                         <select name="{{'event_finish_copied'.$key}}" class="form-control">
                           <option disabled>選択してください</option>
-                          @for ($start = 0*2; $start <=23*2; $start++) <option value="{{date("H:i:s", strtotime("00:00 +". $start * 30 ." minute"))}}" @if($request->
+                          @for ($start = 0*2; $start <=23*2; $start++) <option
+                            value="{{date("H:i:s", strtotime("00:00 +". $start * 30 ." minute"))}}" @if($request->
                             cp_master_event_finish==date("H:i:s", strtotime("00:00 +". $start * 30 ." minute")))
                             selected
                             @endif

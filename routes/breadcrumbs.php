@@ -100,8 +100,72 @@ Breadcrumbs::for('admin.agents.create', function ($trail) {
   $trail->push('仲介会社 新規登録', route('admin.agents.create'));
 });
 
+// 仮押さえ 一覧
+Breadcrumbs::for('admin.pre_reservations.index', function ($trail) {
+  $trail->parent('admin.home.index');
+  $trail->push('仮抑え 一覧', route('admin.pre_reservations.index'));
+});
+Breadcrumbs::for('admin.pre_reservations.show', function ($trail, $id) {
+  $trail->parent('admin.pre_reservations.index', $id);
+  $trail->push('仮抑え 詳細', route('admin.pre_reservations.show', $id));
+});
+Breadcrumbs::for('admin.pre_reservations.edit', function ($trail, $id) {
+  $trail->parent('admin.pre_reservations.show', $id);
+  $trail->push('仮抑え 編集', route('admin.pre_reservations.edit', $id));
+});
+Breadcrumbs::for('admin.pre_reservations.re_calculate', function ($trail, $id) {
+  $trail->parent('admin.pre_reservations.edit', $id);
+  $trail->push('仮抑え 編集 再計算', route('admin.pre_reservations.re_calculate', $id));
+});
+// 仮押さえ 作成
+Breadcrumbs::for('admin.pre_reservations.create', function ($trail) {
+  $trail->parent('admin.home.index');
+  $trail->push('仮抑え 新規登録', route('admin.pre_reservations.create'));
+});
+Breadcrumbs::for('admin.pre_reservations.check', function ($trail) {
+  $trail->parent('admin.pre_reservations.create');
+  $trail->push('仮抑え 詳細入力', route('admin.pre_reservations.check'));
+});
+Breadcrumbs::for('admin.pre_reservations.calculate', function ($trail) {
+  $trail->parent('admin.pre_reservations.check');
+  $trail->push('仮抑え 詳細計算', route('admin.pre_reservations.calculate'));
+});
+// 仲介会社経由　仮抑え　新規登録
+Breadcrumbs::for('admin.pre_agent_reservations.create', function ($trail) {
+  $trail->parent('admin.home.index');
+  $trail->push('仲介会社 仮押え 新規登録', route('admin.pre_agent_reservations.create'));
+});
+Breadcrumbs::for('admin.pre_agent_reservations.check', function ($trail) {
+  $trail->parent('admin.pre_agent_reservations.create');
+  $trail->push('仲介会社 仮押え 詳細入力画面', route('admin.pre_agent_reservations.check'));
+});
+Breadcrumbs::for('admin.pre_agent_reservations.calculate', function ($trail) {
+  $trail->parent('admin.pre_agent_reservations.check');
+  $trail->push('仲介会社 仮押え 計算', route('admin.pre_agent_reservations.calculate'));
+});
 
 
+// 一括仮押さえ
+Breadcrumbs::for('admin.multiples.index', function ($trail) {
+  $trail->parent('admin.home.index');
+  $trail->push('一括仮押え 一覧', route('admin.multiples.index'));
+});
+Breadcrumbs::for('admin.multiples.show', function ($trail, $id) {
+  $trail->parent('admin.multiples.index');
+  $trail->push('一括仮押え 詳細', route('admin.multiples.show', $id));
+});
+Breadcrumbs::for('admin.multiples.switch', function ($trail, $id) {
+  $trail->parent('admin.multiples.show', $id);
+  $trail->push('一括仮押え 顧客情報情報編集', route('admin.multiples.switch', $id));
+});
+Breadcrumbs::for('admin.multiples.edit', function ($trail, $id, $venue) {
+  $trail->parent('admin.multiples.show', $id);
+  $trail->push('一括仮押え 編集', route('admin.multiples.edit', [$id, $venue]));
+});
+Breadcrumbs::for('admin.multiples.edit_calculate', function ($trail, $id, $venue) {
+  $trail->parent('admin.multiples.show', $id);
+  $trail->push('一括仮押え 編集', route('admin.multiples.edit_calculate', [$id, $venue]));
+});
 
 
 

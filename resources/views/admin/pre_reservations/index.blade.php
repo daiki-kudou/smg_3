@@ -45,9 +45,7 @@
         <nav aria-label="breadcrumb">
           <ol class="breadcrumb">
             <li class="breadcrumb-item active">
-              <a href="http://staging-smg2.herokuapp.com/admin/home">ホーム</a>
-              >
-              ダミーダミーダミー
+              {{ Breadcrumbs::render(Route::currentRouteName()) }}
             </li>
           </ol>
         </nav>

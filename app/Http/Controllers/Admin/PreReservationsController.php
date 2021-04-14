@@ -274,7 +274,7 @@ class PreReservationsController extends Controller
           'category' => 1, //デフォで１。　新規以外だと　2:その他有料備品　3:レイアウト　4:その他
           'admin_judge' => 1, //管理者作成なら1 ユーザー作成なら2
         ]);
-        function toBreakDown($num, $sub, $target, $type)
+        function toBreakDown($num, $sub, $target, $type, $instance)
         {
           $s_arrays = [];
           foreach ($num as $key => $value) {
@@ -285,6 +285,7 @@ class PreReservationsController extends Controller
           $counts = (count($s_arrays) / 4);
           for ($i = 0; $i < $counts; $i++) {
             $target->pre_breakdowns()->create([
+              'pre_bill_id' => $instance,
               'unit_item' => $s_arrays[($i * 4)],
               'unit_cost' => $s_arrays[($i * 4) + 1],
               'unit_count' => $s_arrays[($i * 4) + 2],
@@ -293,16 +294,17 @@ class PreReservationsController extends Controller
             ]);
           }
         }
-        toBreakDown($request->all(), 'venue_breakdown', $pre_bills, 1);
-        toBreakDown($request->all(), 'equipment_breakdown', $pre_bills, 2);
-        toBreakDown($request->all(), 'services_breakdown', $pre_bills, 3);
+        toBreakDown($request->all(), 'venue_breakdown', $pre_bills, 1, $pre_bills->id);
+        toBreakDown($request->all(), 'equipment_breakdown', $pre_bills, 2, $pre_bills->id);
+        toBreakDown($request->all(), 'services_breakdown', $pre_bills, 3, $pre_bills->id);
 
         if ($request->others_price) {
-          toBreakDown($request->all(), 'others_input', $pre_bills, 5);
+          toBreakDown($request->all(), 'others_input', $pre_bills, 5, $pre_bills->id);
         }
 
         if ($request->luggage_subtotal) {
           $pre_bills->pre_breakdowns()->create([
+            'pre_bill_id' => $pre_bills->id,
             'unit_item' => $request->luggage_item,
             'unit_cost' => $request->luggage_cost,
             'unit_count' => 1,
@@ -312,6 +314,7 @@ class PreReservationsController extends Controller
         }
         if ($request->layout_prepare_subtotal) {
           $pre_bills->pre_breakdowns()->create([
+            'pre_bill_id' => $pre_bills->id,
             'unit_item' => $request->layout_prepare_item,
             'unit_cost' => $request->layout_prepare_cost,
             'unit_count' => $request->layout_prepare_count,
@@ -321,6 +324,7 @@ class PreReservationsController extends Controller
         }
         if ($request->layout_clean_subtotal) {
           $pre_bills->pre_breakdowns()->create([
+            'pre_bill_id' => $pre_bills->id,
             'unit_item' => $request->layout_clean_item,
             'unit_cost' => $request->layout_clean_cost,
             'unit_count' => $request->layout_clean_count,
@@ -330,6 +334,7 @@ class PreReservationsController extends Controller
         }
         if ($request->layout_breakdown_discount_item) {
           $pre_bills->pre_breakdowns()->create([
+            'pre_bill_id' => $pre_bills->id,
             'unit_item' => $request->layout_breakdown_discount_item,
             'unit_cost' => $request->layout_breakdown_discount_cost,
             'unit_count' => $request->layout_breakdown_discount_count,
@@ -346,6 +351,7 @@ class PreReservationsController extends Controller
           $request->unknown_user_mobile
         ) {
           $pre_reservation->unknown_user()->create([
+            'pre_reservation_id' => $pre_reservation->id,
             'unknown_user_company' => $request->unknown_user_company,
             'unknown_user_name' => $request->unknown_user_name,
             'unknown_user_email' => $request->unknown_user_email,
