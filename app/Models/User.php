@@ -123,9 +123,21 @@ class User extends Authenticatable
   public function search($request)
   {
     $class = $this->where(function ($query) use ($request) {
+
       if ($request->search_id) {
-        $query->where("id", "LIKE", "%" . $request->search_id . "%");
+        $editId = $request->search_id;
+        if (substr($request->search_id, 0, 5) == "00000") {
+          $editId = str_replace("00000", "", $request->search_id);
+        } elseif (substr($request->search_id, 0, 4) == "0000") {
+          $editId = str_replace("0000", "", $request->search_id);
+        } elseif (substr($request->search_id, 0, 3) == "000") {
+          $editId = str_replace("000", "", $request->search_id);
+        } elseif (substr($request->search_id, 0, 2) == "00") {
+          $editId = str_replace("00", "", $request->search_id);
+        }
+        $query->where("id", "LIKE", "%" . $editId . "%");
       }
+
       if ($request->search_company) {
         $query->where("company", "LIKE", "%" . $request->search_company . "%");
       }
@@ -143,11 +155,16 @@ class User extends Authenticatable
       if ($request->search_email) {
         $query->where('email', 'LIKE', "%{$request->search_email}%");
       }
-      if ($request->attention == 1) {
-        $query->where('attention', "LIKE", "%%");
-      } else {
-        $query->whereNull('attention');
+
+      if ($request->attention) {
+        if ($request->attention == 1) {
+          $query->where('attention', "LIKE", "%%");
+        } elseif ($request->attention == 2) {
+          $query->whereNull('attention');
+        }
       }
+
+
       $query->where(function ($query) use ($request) {
         for ($i = 1; $i <= 7; $i++) {
           if (!empty($request->{"attr" . $i})) {

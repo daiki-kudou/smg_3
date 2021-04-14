@@ -214,6 +214,18 @@ class MultiplesController extends Controller
 
   public function allUpdates(Request $request, $multiples_id, $venues_id)
   {
+    // $masterData = json_decode($request->master_data);
+    // $validator = Validator::make($request->all(), [
+    //   $masterData->venue_breakdown_item0_copied0 => 'required',
+    // ]);
+
+    // if ($validator->fails()) {
+    //   return redirect(route('admin.multiples.edit', [$multiples_id, $venues_id]))
+    //     ->withErrors($validator)
+    //     ->withInput();
+    // }
+
+
     $masterData = json_decode($request->master_data);
     $multiple = MultipleReserve::find($multiples_id);
     $multiple->UpdateAndReCreateAll($masterData, $venues_id);

@@ -239,7 +239,6 @@ class MultipleReserve extends Model implements PresentableInterface //プレゼ�
 
         $pre_bill = $pre_reserve->pre_bill()->create([
           'venue_price' => empty($masterData->{'venue_price' . $key}) ? 0 : $masterData->{'venue_price' . $key},
-          // 'equipment_price' => ((int)$masterData->{'equipment_price' . $key}) + ((int)$masterData->{'luggage_price_copied' . $key}),
           'equipment_price' => empty($masterData->{'equipment_price' . $key}) ? 0 : $masterData->{'equipment_price' . $key},
           'layout_price' => empty($masterData->{'layout_price' . $key}) ? 0 : $masterData->{'layout_price' . $key},
           'others_price' => empty($masterData->{'others_price' . $key}) ? 0 : $masterData->{'others_price' . $key},
