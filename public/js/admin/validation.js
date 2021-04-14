@@ -28,23 +28,6 @@ $(function () {
     });
 });
 
-// $(function () {
-//     var flag = $("input[name='board_flag']:checked").val();
-//     console.log(flag);
-//     if (flag === 0) {
-//         $("#event_start").prop("disabled", true);
-//         $("#event_finish").prop("disabled", true);
-//         $("#eventname1Count").prop("disabled", true);
-//         $("#eventname2Count").prop("disabled", true);
-//         $("#eventownerCount").prop("disabled", true);
-//     } else {
-//         $("#event_start").prop("disabled", false);
-//         $("#event_finish").prop("disabled", false);
-//         $("#eventname1Count").prop("disabled", false);
-//         $("#eventname2Count").prop("disabled", false);
-//         $("#eventownerCount").prop("disabled", false);
-//     }
-// });
 
 // ロード時の、案内板入力制御
 $(document).ready(function () {
@@ -72,7 +55,7 @@ $(function () {
             $("#eventname1Count").prop("disabled", true);
             $("#eventname2Count").prop("disabled", true);
             $("#eventownerCount").prop("disabled", true);
-            $(".board-table input[type='text']").val("");
+            // $(".board-table input[type='text']").val("");
         } else {
             $("#event_start").prop("disabled", false);
             $("#event_finish").prop("disabled", false);
@@ -93,7 +76,7 @@ $(document).ready(function () {
             $("#eventname1Count").prop("disabled", true);
             $("#eventname2Count").prop("disabled", true);
             $("#eventownerCount").prop("disabled", true);
-            $(".board-table input[type='text']").val("");
+            // $(".board-table input[type='text']").val("");
         }
     });
 });
@@ -108,7 +91,7 @@ $(function () {
             $("#eventname1Count").prop("disabled", true);
             $("#eventname2Count").prop("disabled", true);
             $("#eventownerCount").prop("disabled", true);
-            $(".board-table input[type='text']").val("");
+            // $(".board-table input[type='text']").val("");
         } else {
             $("#cp_master_event_start").prop("disabled", false);
             $("#cp_master_event_finish").prop("disabled", false);

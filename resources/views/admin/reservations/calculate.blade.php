@@ -3,6 +3,8 @@
 
 <link href="{{ asset('/css/template.css') }}" rel="stylesheet">
 <script src="{{ asset('/js/template.js') }}"></script>
+<script src="{{ asset('/js/admin/validation.js') }}"></script>
+
 
 <style>
   #fullOverlay {
@@ -244,13 +246,12 @@
             <td>
               <div class="radio-box">
                 <p>
-                  <input type="radio" name="board_flag" value="0" {{isset($request->board_flag)?$request->board_flag==0?'checked':'':'checked',}}>
-                  <label>無し</label>
+                  <input type="radio" name="board_flag" value="1" id="board_flag" {{isset($request->board_flag)?$request->board_flag==1?'checked':'':'',}}>
+                  <label>有り</label>
                 </p>
                 <p>
-
-                  <input type="radio" name="board_flag" value="1" {{isset($request->board_flag)?$request->board_flag==1?'checked':'':'',}}>
-                  <label>有り</label>
+                  <input type="radio" name="board_flag" value="0" id="no_board_flag" {{isset($request->board_flag)?$request->board_flag==0?'checked':'':'checked',}}>
+                  <label>無し</label>
                 </p>
               </div>
             </td>
@@ -473,7 +474,7 @@
                 <p class="title-icon">
                   <i class="far fa-id-card icon-size" aria-hidden="true"></i>顧客情報
                 </p>
-                <p><a class="more_btn bg-green" href="">顧客詳細</a></p>
+                <p><a class="more_btn" href="">顧客詳細</a></p>
               </div>
             </td>
           </tr>
@@ -495,11 +496,48 @@
             </td>
           </tr>
           <tr>
-            <td class="table-active"><label for="name" class=" form_required">担当者氏名<br></label></td>
+            <td class="table-active"><label for="name">担当者氏名<br></label></td>
             <td>
               {{ Form::text('', $request->user_id?ReservationHelper::getPersonName($request->user_id):'',['class'=>'form-control'] ) }}
             </td>
           </tr>
+          <tr>
+              <td class="table-active"><label for="name">担当者氏名　工藤さん！！</label></td>
+              <td>
+                <p class="person"></p>
+              </td>
+            </tr>
+            <tr>
+              <td class="table-active">メールアドレス 工藤さん！！</td>
+              <td>
+                <p class="email"></p>
+              </td>
+            </tr>
+            <tr>
+              <td class="table-active">携帯番号 工藤さん！！</td>
+              <td>
+                <p class="mobile"></p>
+              </td>
+            </tr>
+            <tr>
+              <td class="table-active">固定電話 工藤さん！！</td>
+              <td>
+                <p class="tel"></p>
+              </td>
+            </tr>
+            <tr>
+              <td class="table-active">割引条件 工藤さん！！</td>
+              <td>
+                <p class="condition">
+                </p>
+              </td>
+            </tr>
+            <tr>
+              <td class="table-active caution">注意事項 工藤さん！！</td>
+              <td class="caution">
+                <p class="attention"></p>
+              </td>
+            </tr>
         </tbody>
       </table>
       <table class="table table-bordered oneday-table" style="table-layout:fixed;">
@@ -558,7 +596,7 @@
             <td class="table-active"><label for="cost">原価率</label></td>
             <td>
               <div class="d-flex align-items-end">
-                {{ Form::text('', $request->cost."%",['class'=>'form-control'] ) }}
+                {{ Form::text('', $request->cost,['class'=>'form-control'] ) }}
                 {{ Form::hidden('cost', $request->cost,['class'=>'form-control'] ) }}
                 <span class="ml-1 annotation">%</span>
               </div>
