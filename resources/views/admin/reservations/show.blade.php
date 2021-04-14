@@ -533,7 +533,7 @@
           </tr>
           <tr>
             <td class="table-active">
-              <label for="agent_id" class=" form_required">サービス名称</label>
+              <label for="agent_id">サービス名称</label>
             </td>
             <td>
               {{ReservationHelper::getAgentCompany($reservation->agent_id)}}
@@ -541,7 +541,7 @@
             </td>
           </tr>
           <tr>
-            <td class="table-active"><label for="name" class=" form_required">担当者氏名<br></label></td>
+            <td class="table-active"><label for="name">担当者氏名<br></label></td>
             <td>
               {{ReservationHelper::getAgentPerson($reservation->agent_id)}}
               <p class="selected_person"></p>
@@ -623,7 +623,7 @@
           </td>
         </tr>
         <tr>
-          <td class="table-active form_required">
+          <td class="table-active">
             <label for="enduser_charge ">支払い料</label>
           </td>
           <td class="d-flex align-items-center">
