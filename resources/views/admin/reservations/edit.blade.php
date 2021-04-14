@@ -136,15 +136,15 @@
           <td class="table-active">案内板</td>
           <td>
             <div class="radio-box">
-              <p>
-                <input type="radio" name="board_flag" value="0"
-                  {{isset($reservation->board_flag)?$reservation->board_flag==0?'checked':'':'checked',}}>
-                <span>無し</span>
-              </p>
-              <p>
-                <input type="radio" name="board_flag" value="1"
+            <p>
+                <input type="radio" name="board_flag" value="1" id="board_flag"
                   {{isset($reservation->board_flag)?$reservation->board_flag==1?'checked':'':'',}}>
                 <span>有り</span>
+              </p>
+              <p>
+                <input type="radio" name="board_flag" value="0" id="no_board_flag"
+                  {{isset($reservation->board_flag)?$reservation->board_flag==0?'checked':'':'checked',}}>
+                <span>無し</span>
               </p>
             </div>
           </td>
@@ -484,7 +484,7 @@
                 <p class="title-icon">
                   <i class="far fa-id-card icon-size"></i>顧客情報
                 </p>
-                <p><a class="more_btn" href="">顧客詳細</a></p>
+                <p><a class="more_btn" href="">顧客詳細工藤さん！！リンク</a></p>
               </div>
             </td>
           </tr>
@@ -506,11 +506,42 @@
             </td>
           </tr>
           <tr>
-            <td class="table-active"><label for="name" class=" form_required">担当者氏名<br></label></td>
-            <td>
-              {{ Form::text('', $reservation->user_id?ReservationHelper::getPersonName($reservation->user_id):'',['class'=>'form-control'] ) }}
-            </td>
-          </tr>
+              <td class="table-active"><label for="name">担当者氏名　工藤さん！！</label></td>
+              <td>
+                <p class="person"></p>
+              </td>
+            </tr>
+            <tr>
+              <td class="table-active">メールアドレス 工藤さん！！</td>
+              <td>
+                <p class="email"></p>
+              </td>
+            </tr>
+            <tr>
+              <td class="table-active">携帯番号 工藤さん！！</td>
+              <td>
+                <p class="mobile"></p>
+              </td>
+            </tr>
+            <tr>
+              <td class="table-active">固定電話 工藤さん！！</td>
+              <td>
+                <p class="tel"></p>
+              </td>
+            </tr>
+            <tr>
+              <td class="table-active">割引条件 工藤さん！！</td>
+              <td>
+                <p class="condition">
+                </p>
+              </td>
+            </tr>
+            <tr>
+              <td class="table-active caution">注意事項 工藤さん！！</td>
+              <td class="caution">
+                <p class="attention"></p>
+              </td>
+            </tr>
         </table>
         <table class="table table-bordered oneday-table" style="table-layout:fixed;">
           <tr>
