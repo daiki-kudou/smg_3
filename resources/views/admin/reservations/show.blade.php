@@ -773,7 +773,7 @@
             @endif
             <td>
               <div><span>申込日：</span>{{$reservation->bills()->first()->created_at}}</div>
-              <div><span>予約予約を確定する日：</span>{{$reservation->bills()->first()->approve_send_at}}</div>
+              <div><span>予約確定日：</span>{{$reservation->bills()->first()->approve_send_at}}</div>
             </td>
             <!-- @if ($reservation->bills()->first()->reservation_status==3)
             <td>
@@ -1414,7 +1414,7 @@
             @endif
             <td>
               <div><span>申込日：</span>{{$other_bill->created_at}}</div>
-              <div><span>予約予約を確定する日：</span>{{$other_bill->approve_send_at}}</div>
+              <div><span>予約確定日：</span>{{$other_bill->approve_send_at}}</div>
             </td>
 
           </tr>
