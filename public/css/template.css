@@ -813,10 +813,10 @@ table td.table_column p:last-child {
 
 /* =============予約詳細================================================ */
 
-
 .bill_status,
 .bill_status2 {
     background: #fff;
+    padding-top: 1em;
 }
 
 .bill_status .table,
@@ -1345,6 +1345,7 @@ h3 {
 
 .billdetails_content .table {
     margin-bottom: 0;
+    table-layout: fixed;
 }
 
 .billdetails_content_ttl {
@@ -1377,6 +1378,14 @@ h3 {
 .layout_head td,
 .others_head td {
     font-weight: bold;
+    padding-left: 1.5em;
+}
+
+.venue_main td,
+.equipment_main td,
+.layout_main td,
+.others_main td {
+    padding-left: 1.5em;
 }
 
 .venue_discount,
@@ -1408,12 +1417,15 @@ h3 {
 }
 
 
-
 .venue_result td,
 .equipment_result td,
 .layout_result td,
 .others_result td {
-    padding-bottom: 1.8em;
+    border-top: 1px solid #dee2e6 !important;
+    padding-top: 2em;
+    padding-bottom: 1em;
+    padding-right: 1.5em;
+    text-align: right;
 }
 
 .bill_icon_size {
@@ -1436,11 +1448,15 @@ h3 {
 }
 
 .bill_total {
-    padding-top: 2em;
+    padding-top: 1.5em;
     border-top: 1px solid #909090;
     padding-bottom: 30px;
     width: 95%;
-    margin: 3em auto 0;
+    margin: 1.5em auto 0;
+}
+
+.bill_total td {
+    padding-right: 1.5em;
 }
 
 .bill_total table {

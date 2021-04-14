@@ -520,7 +520,7 @@
     @else
     <div class="col">
       <div class="client_mater">　
-        <table class="table table-bordered name-table" style="table-layout: fixed;">
+        <table class="table table-bordered name-table">
           <tr>
             <td colspan="2">
               <div class="d-flex align-items-center justify-content-between">
@@ -866,7 +866,7 @@
 
         @if ($reservation->user_id>0)
         <div class="venues billdetails_content">
-          <table class="table table-borderless" style="table-layout: fixed;">
+          <table class="table table-borderless">
             <tbody>
               <tr>
                 <td>
@@ -898,16 +898,15 @@
             </tbody>
             <tbody class="venue_result">
               <tr>
-                <td colspan="2"></td>
-                <td colspan="1">合計：</td>
-                <td colspan="1" class=""> {{number_format($reservation->bills()->first()->venue_price)}}</td>
+                <td colspan="3"></td>
+                <td colspan="1" class="">合計：{{number_format($reservation->bills()->first()->venue_price)}}</td>
               </tr>
             </tbody>
           </table>
         </div>
         @else
         <div class="venues billdetails_content">
-          <table class="table table-borderless" style="table-layout: fixed;">
+          <table class="table table-borderless">
             <tbody>
               <tr>
                 <td>
@@ -940,7 +939,7 @@
         @if ($reservation->user_id>0)
         @if ($reservation->bills()->first()->equipment_price!=0||$reservation->bills()->first()->equipment_price)
         <div class="equipment billdetails_content">
-          <table class="table table-borderless" style="table-layout: fixed;">
+          <table class="table table-borderless">
             <tbody>
               <tr>
                 <td colspan="4">
@@ -982,9 +981,8 @@
             </tbody>
             <tbody class="equipment_result">
               <tr>
-                <td colspan="2"></td>
-                <td colspan="1">合計：</td>
-                <td colspan="1" class=""> {{number_format($reservation->bills()->first()->equipment_price)}}</td>
+                <td colspan="3"></td>
+                <td colspan="1" class="">合計：{{number_format($reservation->bills()->first()->equipment_price)}}</td>
                 </td>
               </tr>
             </tbody>
@@ -993,7 +991,7 @@
         @endif
         @else
         <div class="equipment billdetails_content">
-          <table class="table table-borderless" style="table-layout: fixed;">
+          <table class="table table-borderless">
             <tbody>
               <tr>
                 <td>
@@ -1034,7 +1032,7 @@
             @if ($reservation->user_id>0)
             @if ($reservation->bills()->first()->layout_price!=0||$reservation->bills()->first()->layout_price)
             <div class="layout billdetails_content">
-              <table class="table table-borderless" style="table-layout: fixed;">
+              <table class="table table-borderless">
                 <tbody>
                   <tr>
                     <td>
@@ -1066,9 +1064,8 @@
                 </tbody>
                 <tbody class="layout_result">
                   <tr>
-                    <td colspan="1"></td>
-                    <td colspan="1">合計：</td>
-                    <td colspan="2">合計：{{number_format($reservation->bills()->first()->layout_price)}}
+                    <td colspan="3"></td>
+                    <td colspan="1">合計：{{number_format($reservation->bills()->first()->layout_price)}}
                     </td>
                   </tr>
                 </tbody>
@@ -1077,7 +1074,7 @@
             @endif
             @else
             <div class="layout billdetails_content">
-              <table class="table table-borderless" style="table-layout: fixed;">
+              <table class="table table-borderless">
                 <tbody>
                   <tr>
                     <td colspan="2">
@@ -1112,7 +1109,7 @@
             @if ($reservation->user_id>0)
             @if ($reservation->bills()->first()->others_price!=0||$reservation->bills()->first()->others_price)
             <div class="others billdetails_content">
-              <table class="table table-borderless" style="table-layout: fixed;">
+              <table class="table table-borderless">
                 <tbody>
                   <tr>
                     <td colspan="4">
@@ -1144,9 +1141,8 @@
                 </tbody>
                 <tbody class="others_result">
                   <tr>
-                    <td colspan="2"></td>
-                    <td colspan="1"></td>
-                    <td colspan="2">合計：{{$reservation->bills()->first()->others_price}}
+                    <td colspan="3"></td>
+                    <td colspan="1">合計：{{$reservation->bills()->first()->others_price}}
                   </tr>
                 </tbody>
               </table>
@@ -1154,7 +1150,7 @@
             @endif
             @else
             <div class="others billdetails_content">
-              <table class="table table-borderless" style="table-layout: fixed;">
+              <table class="table table-borderless">
                 <tbody>
                   <tr>
                     <td>
@@ -1183,28 +1179,25 @@
               </table>
             </div>
             @endif
-
-
-
             <div class="bill_total">
               <table class="table text-right">
                 <tbody>
                   <tr>
-                    <td>小計：</td>
+                    <td></td>
                     <td>
-                      {{number_format($reservation->bills()->first()->master_subtotal)}}
+                    小計：{{number_format($reservation->bills()->first()->master_subtotal)}}
                     </td>
                   </tr>
                   <tr>
-                    <td>消費税：</td>
+                    <td></td>
                     <td>
-                      {{number_format($reservation->bills()->first()->master_tax)}}
+                    消費税：{{number_format($reservation->bills()->first()->master_tax)}}
                     </td>
                   </tr>
                   <tr>
-                    <td class="font-weight-bold">合計金額</td>
+                    <td></td>
                     <td>
-                      {{number_format($reservation->bills()->first()->master_total)}}
+                    <span class="font-weight-bold">合計金額：</span>{{number_format($reservation->bills()->first()->master_total)}}
                     </td>
                   </tr>
                 </tbody>
@@ -1229,7 +1222,7 @@
         </div>
         <div class="main hide">
           <div class="informations billdetails_content">
-            <table class="table" style="table-layout: fixed;">
+            <table class="table">
               <tbody>
                 <tr>
                   <td>請求日：</td>
@@ -1494,9 +1487,8 @@
             </tbody>
             <tbody class="venue_result">
               <tr>
-                <td colspan="2"></td>
-                <td colspan="1">合計：</td>
-                <td colspan="1" class=""> {{number_format($other_bill->venue_price)}}</td>
+                <td colspan="3"></td>
+                <td colspan="1" class="">合計：{{number_format($other_bill->venue_price)}}</td>
               </tr>
             </tbody>
           </table>
@@ -1548,9 +1540,8 @@
             </tbody>
             <tbody class="equipment_result">
               <tr>
-                <td colspan="2"></td>
-                <td colspan="1">合計：</td>
-                <td colspan="1" class=""> {{number_format($other_bill->equipment_price)}}</td>
+                <td colspan="3"></td>
+                <td colspan="1" class="">合計：{{number_format($other_bill->equipment_price)}}</td>
                 </td>
               </tr>
             </tbody>
@@ -1592,9 +1583,8 @@
             </tbody>
             <tbody class="layout_result">
               <tr>
-                <td colspan="2"></td>
-                <td colspan="1">合計：</td>
-                <td colspan="2">合計：{{number_format($other_bill->layout_price)}}
+                <td colspan="3"></td>
+                <td colspan="1">合計：{{number_format($other_bill->layout_price)}}
                 </td>
               </tr>
             </tbody>
@@ -1637,9 +1627,8 @@
             </tbody>
             <tbody class="others_result">
               <tr>
-                <td colspan="2"></td>
-                <td colspan="1"></td>
-                <td colspan="2">合計：{{$other_bill->others_price}}
+                <td colspan="3"></td>
+                <td colspan="1">合計：{{$other_bill->others_price}}
               </tr>
             </tbody>
           </table>
@@ -1649,21 +1638,18 @@
           <table class="table text-right">
             <tbody>
               <tr>
-                <td>小計：</td>
                 <td>
-                  {{number_format($other_bill->master_subtotal)}}
+                小計：{{number_format($other_bill->master_subtotal)}}
                 </td>
               </tr>
               <tr>
-                <td>消費税：</td>
                 <td>
-                  {{number_format($other_bill->master_tax)}}
+                消費税：{{number_format($other_bill->master_tax)}}
                 </td>
               </tr>
               <tr>
-                <td class="font-weight-bold">合計金額</td>
                 <td>
-                  {{number_format($other_bill->master_total)}}
+                <span class="font-weight-bold">合計金額：</span>{{number_format($other_bill->master_total)}}
                 </td>
               </tr>
             </tbody>
