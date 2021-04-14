@@ -78,79 +78,58 @@ class VenuesController extends Controller
    */
   public function store(Request $request)
   {
-    // $this->validate($request, [
-    //   'alliance_flag' => ['required', 'max:191'],
-    //   'name_area' => ['required', 'max:191'],
-    //   'name_bldg' => ['required', 'max:191'],
-    //   'name_venue' => ['required', 'max:191'],
-    //   'size1' => ['required', 'max:191', 'numeric'],
-    //   'size2' => ['required', 'max:191', 'numeric'],
-    //   'capacity' => ['required', 'max:191', 'numeric'],
-    //   'eat_in_flag' => ['required', 'max:191', 'numeric'],
-    //   'post_code' => ['required', 'max:191'],
-    //   'address1' => 'required',
-    //   'address2' => 'required',
-    //   'address3' => 'required',
-    //   'luggage_flag' => ['required', 'max:191', 'numeric'],
-    //   'luggage_post_code' => ['required', 'max:191'],
-    //   'luggage_address1' => 'required',
-    //   'luggage_address2' => 'required',
-    //   'luggage_address3' => 'required',
-    //   'luggage_name' => 'required',
-    //   'luggage_tel' => ['required', 'max:191'],
-    //   'smg_url' => 'required',
-    //   'layout' => 'required',
-    // ]);
 
-    $venues = new Venue;
-    $venues->alliance_flag = $request->alliance_flag;
-    $venues->name_area = $request->name_area;
-    $venues->name_bldg = $request->name_bldg;
-    $venues->name_venue = $request->name_venue;
-    $venues->size1 = $request->size1;
-    $venues->size2 = $request->size2;
-    $venues->capacity = $request->capacity;
-    $venues->eat_in_flag = $request->eat_in_flag;
-    $venues->post_code = $request->post_code;
-    $venues->address1 = $request->address1;
-    $venues->address2 = $request->address2;
-    $venues->address3 = $request->address3;
-    $venues->remark = $request->remark;
-    $venues->first_name = $request->first_name;
-    $venues->last_name = $request->last_name;
-    $venues->first_name_kana = $request->first_name_kana;
-    $venues->last_name_kana = $request->last_name_kana;
-    $venues->person_tel = $request->person_tel;
-    $venues->person_email = $request->person_email;
-    $venues->luggage_flag = $request->luggage_flag;
+    $venue = Venue::create([
+      'alliance_flag' => $request->alliance_flag,
+      'name_area' => $request->name_area,
+      'name_bldg' => $request->name_bldg,
+      'name_venue' => $request->name_venue,
+      'size1' => $request->size1,
+      'size2' => $request->size2,
+      'capacity' => $request->capacity,
+      'eat_in_flag' => $request->eat_in_flag,
+      'post_code' => $request->post_code,
+      'address1' => $request->address1,
+      'address2' => $request->address2,
+      'address3' => $request->address3,
+      'remark' => $request->remark,
+      'first_name' => $request->first_name,
+      'last_name' => $request->last_name,
+      'first_name_kana' => $request->first_name_kana,
+      'last_name_kana' => $request->last_name_kana,
+      'person_tel' => $request->person_tel,
+      'person_email' => $request->person_email,
+      'luggage_flag' => $request->luggage_flag,
 
-    $venues->reserver_company = $request->reserver_company;
-    $venues->reserver_tel = $request->reserver_tel;
-    $venues->reserver_fax = $request->reserver_fax;
-    $venues->reserver_remark = $request->reserver_remark;
+      'reserver_company' => $request->reserver_company,
+      'reserver_tel' => $request->reserver_tel,
+      'reserver_fax' => $request->reserver_fax,
+      'reserver_remark' => $request->reserver_remark,
 
-    $venues->luggage_post_code = $request->luggage_post_code;
-    $venues->luggage_address1 = $request->luggage_address1;
-    $venues->luggage_address2 = $request->luggage_address2;
-    $venues->luggage_address3 = $request->luggage_address3;
-    $venues->luggage_name = $request->luggage_name;
-    $venues->luggage_tel = $request->luggage_tel;
-    $venues->cost = $request->cost;
-    $venues->mgmt_company = $request->mgmt_company;
-    $venues->mgmt_tel = $request->mgmt_tel;
-    $venues->mgmt_emer_tel = $request->mgmt_emer_tel;
-    $venues->mgmt_first_name = $request->mgmt_first_name;
-    $venues->mgmt_last_name = $request->mgmt_last_name;
-    $venues->mgmt_person_tel = $request->mgmt_person_tel;
-    $venues->mgmt_email = $request->mgmt_email;
-    $venues->mgmt_sec_company = $request->mgmt_sec_company;
-    $venues->mgmt_sec_tel = $request->mgmt_sec_tel;
-    $venues->mgmt_remark = $request->mgmt_remark;
-    $venues->smg_url = $request->smg_url;
-    $venues->entrance_open_time = $request->entrance_open_time;
-    $venues->backyard_open_time = $request->backyard_open_time;
-    $venues->layout = $request->layout;
-    $venues->save();
+      'luggage_post_code' => $request->luggage_post_code,
+      'luggage_address1' => $request->luggage_address1,
+      'luggage_address2' => $request->luggage_address2,
+      'luggage_address3' => $request->luggage_address3,
+      'luggage_name' => $request->luggage_name,
+      'luggage_tel' => $request->luggage_tel,
+      'cost' => $request->cost,
+      'mgmt_company' => $request->mgmt_company,
+      'mgmt_tel' => $request->mgmt_tel,
+      'mgmt_emer_tel' => $request->mgmt_emer_tel,
+      'mgmt_first_name' => $request->mgmt_first_name,
+      'mgmt_last_name' => $request->mgmt_last_name,
+      'mgmt_person_tel' => $request->mgmt_person_tel,
+      'mgmt_email' => $request->mgmt_email,
+      'mgmt_sec_company' => $request->mgmt_sec_company,
+      'mgmt_sec_tel' => $request->mgmt_sec_tel,
+      'mgmt_remark' => $request->mgmt_remark,
+      'smg_url' => $request->smg_url,
+      'entrance_open_time' => $request->entrance_open_time,
+      'backyard_open_time' => $request->backyard_open_time,
+      'layout' => $request->layout,
+    ]);
+
+
 
     // 備品保存
     $e_selects = $request->equipment_id;
@@ -159,7 +138,7 @@ class VenuesController extends Controller
       for ($e = 0; $e < count($e_selects); $e++) {
         $e_array[] = $e_selects[$e];
       }
-      $venues->save_equipments($e_array);
+      $venue->save_equipments($e_array);
     }
     // サービス保存
     $s_selects = $request->service_id;
@@ -168,13 +147,13 @@ class VenuesController extends Controller
       for ($s = 0; $s < count($s_selects); $s++) {
         $s_array[] = $s_selects[$s];
       }
-      $venues->save_services($s_array);
+      $venue->save_services($s_array);
     }
 
     // 会場に紐づく営業日（曜日）のデフォルトを追加
     for ($week_days = 1; $week_days <= 7; $week_days++) {
-      $venues->dates()->create([
-        'venue_id' => $venues->id,
+      $venue->dates()->create([
+        'venue_id' => $venue->id,
         'week_day' => $week_days,
         'start' => Carbon::parse('08:00'),
         'finish' => Carbon::parse('23:00'),
