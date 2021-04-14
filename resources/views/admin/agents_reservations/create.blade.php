@@ -47,7 +47,7 @@
       </ol>
     </nav>
   </div>
-  <h2 class="mt-3 mb-3">仲介会社経由の予約 新規登録</h2>
+  <h2 class="mt-3 mb-3">予約 新規登録(仲介会社経由)</h2>
   <hr>
 </div>
 
@@ -151,14 +151,16 @@
           <tr>
             <td class="table-active">案内板</td>
             <td class="d-flex align-items-center">
-              <p class="mr-3">
-                <input type="radio" name="board_flag" value="0"
-                  {{isset($request->board_flag)?$request->board_flag==0?'checked':'':'checked',}}>無し
-              </p>
+            <div class="radio-box">
               <p>
-                <input type="radio" name="board_flag" value="1"
-                  {{isset($request->board_flag)?$request->board_flag==1?'checked':'':'',}}>有り
-              </p>
+                  <input type="radio" name="board_flag" value="1" id="board_flag" class="mr-1"
+                    {{isset($request->board_flag)?$request->board_flag==1?'checked':'':'',}}>有り
+                </p>
+                <p class="mr-3">
+                  <input type="radio" name="board_flag" value="0" id="no_board_flag" class="mr-1"
+                    {{isset($request->board_flag)?$request->board_flag==0?'checked':'':'checked',}}>無し
+                </p>
+            </div>
             </td>
           </tr>
           <tr>
@@ -194,19 +196,19 @@
           <tr>
             <td class="table-active">イベント名称1</td>
             <td>
-              {{ Form::text('event_name1','',['class'=>'form-control', 'placeholder'=>'入力してください'] ) }}
+              {{ Form::text('event_name1','',['class'=>'form-control', 'placeholder'=>'入力してください', 'id'=>'eventname1Count'] ) }}
             </td>
           </tr>
           <tr>
             <td class="table-active">イベント名称2</td>
             <td>
-              {{ Form::text('event_name2', '',['class'=>'form-control', 'placeholder'=>'入力してください'] ) }}
+              {{ Form::text('event_name2', '',['class'=>'form-control', 'placeholder'=>'入力してください', 'id'=>'eventname2Count'] ) }}
             </td>
           </tr>
           <tr>
             <td class="table-active">主催者名</td>
             <td>
-              {{ Form::text('event_owner', '',['class'=>'form-control', 'placeholder'=>'入力してください'] ) }}
+              {{ Form::text('event_owner', '',['class'=>'form-control', 'placeholder'=>'入力してください', 'id'=>'eventownerCount'] ) }}
             </td>
           </tr>
         </tbody>
@@ -305,7 +307,7 @@
             </td>
           </tr>
           <tr>
-            <td class="table-active"><label for="name" class=" form_required">担当者氏名<br></label></td>
+            <td class="table-active"><label for="name">担当者氏名<br></label></td>
             <td>
               <p class="selected_person"></p>
             </td>
@@ -374,7 +376,7 @@
               <label for="enduser_attr" class="">利用者属性</label>
             </td>
             <td>
-              <select name="enduser_attr">
+              <select name="enduser_attr" class="form-control">
                 <option value="1">一般企業</option>
                 <option value="2">上場企業</option>
                 <option value="3">近隣利用</option>

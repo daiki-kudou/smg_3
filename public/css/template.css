@@ -329,6 +329,10 @@ select:disabled {
     font-size: 12px;
 }
 
+input.more_btn {
+    color: #fff;
+}
+
 .more_btn:hover {
     background: #004792;
     color: #fff;
@@ -1286,6 +1290,8 @@ h3 {
     display: flex;
     justify-content: space-around;
     align-items: center;
+    padding: 0 15px;
+    margin-right: 15px;
 }
 
 .accordion_btn {

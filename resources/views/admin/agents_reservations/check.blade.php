@@ -280,7 +280,7 @@
                 <p class="title-icon">
                   <i class="far fa-id-card icon-size" aria-hidden="true"></i>仲介会社情報
                 </p>
-                <p><a class="more_btn bg-green" href="">仲介会社詳細</a></p>
+                <p><a class="more_btn" href="">仲介会社詳細</a></p>
               </div>
             </td>
           </tr>
@@ -295,7 +295,7 @@
             </td>
           </tr>
           <tr>
-            <td class="table-active"><label for="name" class=" form_required">担当者氏名<br></label></td>
+            <td class="table-active"><label for="name">担当者氏名<br></label></td>
             <td>
               {{ Form::text('', ReservationHelper::getAgentPerson($request->agent_id),['class'=>'form-control', 'readonly'] ) }}
             </td>
