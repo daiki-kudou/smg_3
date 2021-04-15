@@ -157,7 +157,7 @@
               <tbody>
                 <tr>
                   <td colspan="5">
-                    <div class="layout_chkbox ">
+                    <div class="layout_chkbox">
                       <input type="checkbox" id="layout" name="layout" value="1" />
                       <label for="layout">レイアウト変更料</label>
                     </div>
@@ -270,8 +270,6 @@
         </div>
       </div>
     </div>
-
-
     <div class="information">
       <div class="information_details">
         <div class="head d-flex">
@@ -315,8 +313,6 @@
         </div>
       </div>
     </div>
-
-
     <div class="paid">
       <div class="paid_details">
         <div class="head d-flex">

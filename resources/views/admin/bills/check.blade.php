@@ -296,7 +296,6 @@
     </div>
   </div>
 
-
   <div class="paid">
     <div class="paid_details">
       <div class="head d-flex">

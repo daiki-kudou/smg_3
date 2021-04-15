@@ -4,7 +4,7 @@
 
 
 <link href="{{ asset('/css/template.css') }}" rel="stylesheet">
-{{-- <script src="{{ asset('/js/template.js') }}"></script> --}}
+<script src="{{ asset('/js/template.js') }}"></script> 
 
 <style>
   #fullOverlay {
@@ -58,29 +58,29 @@
           <table class="table table-borderless">
             <tbody>
               <tr>
-                  <td colspan="4">
-                    <div class="venue_chkbox">
-                      <input type="checkbox" id="venue" name="venue" value="1" />
-                      <label for="venue">会場料</label>
-                    </div>
-                  </td>
-                </tr>
+                <td colspan="4">
+                  <div class="venue_chkbox">
+                    <input type="checkbox" id="venue" name="venue" value="1" />
+                    <label for="venue">会場料</label>
+                  </div>
+                </td>
+              </tr>
             </tbody>
             <tbody class="venue_head hide">
               <tr>
                 <td colspan="2">内容</td>
-                <!-- <td></td> -->
+                <td></td>
                 <td>数量</td>
-                <!-- <td></td> -->
+                <td></td>
                 <td>追加/削除</td>
               </tr>
             </tbody>
             <tbody class="venue_main hide">
               <tr>
                 <td colspan="2">{{ Form::text('venue_breakdown_item0', '', ['class' => 'form-control'])}}</td>
-                <!-- <td>{{ Form::hidden('venue_breakdown_cost0', 0, ['class' => 'form-control'])}}</td> -->
+                <td>{{ Form::hidden('venue_breakdown_cost0', 0, ['class' => 'form-control'])}}</td>
                 <td>{{ Form::text('venue_breakdown_count0', '', ['class' => 'form-control'])}}</td>
-                <!-- <td>{{ Form::hidden('venue_breakdown_subtotal0', 0, ['class' => 'form-control', 'readonly'])}}</td> -->
+                <td>{{ Form::hidden('venue_breakdown_subtotal0', 0, ['class' => 'form-control', 'readonly'])}}</td>
                 <td>
                   <input type="button" value="＋" class="add pluralBtn">
                   <input type="button" value="ー" class="del pluralBtn">
@@ -105,18 +105,18 @@
             <tbody class="equipment_head hide">
               <tr>
                 <td colspan="2">内容</td>
-                <!-- <td></td> -->
+                <td></td>
                 <td>数量</td>
-                <!-- <td></td> -->
+                <td></td>
                 <td>追加/削除</td>
               </tr>
             </tbody>
             <tbody class="equipment_main hide">
               <tr>
                 <td colspan="2">{{ Form::text('equipment_breakdown_item0', '', ['class' => 'form-control'])}}</td>
-                <!-- <td>{{ Form::hidden('equipment_breakdown_cost0', 0, ['class' => 'form-control'])}}</td> -->
+                <td>{{ Form::hidden('equipment_breakdown_cost0', 0, ['class' => 'form-control'])}}</td>
                 <td>{{ Form::text('equipment_breakdown_count0', '', ['class' => 'form-control'])}}</td>
-                <!-- <td>{{ Form::hidden('equipment_breakdown_subtotal0', 0, ['class' => 'form-control', 'readonly'])}} -->
+                <td>{{ Form::hidden('equipment_breakdown_subtotal0', 0, ['class' => 'form-control', 'readonly'])}}
                 </td>
                 <td>
                   <input type="button" value="＋" class="add pluralBtn">
@@ -162,8 +162,9 @@
             </tbody>
             <tbody class="layout_result hide">
               <tr>
-                <td colspan="2"></td>
-                <td colspan="2">合計
+                <td colspan="4"></td>
+                <td colspan="1">
+                  <p class="text-left">合計</p>
                   {{ Form::text('layout_price', 0, ['class' => 'form-control' , 'readonly'])}}
                 </td>
               </tr>
@@ -172,7 +173,7 @@
         </div>
 
 
-        <div class="others" style="padding: 80px 0px 80px 0px; width:90%; margin:0 auto;">
+        <div class="others billdetails_content">
           <table class="table table-borderless">
             <tbody>
               <tr>
@@ -186,7 +187,7 @@
             </tbody>
             <tbody class="others_head hide">
               <tr>
-                <td>内容</td>
+                <td colspan="2">内容</td>
                 <td></td>
                 <td>数量</td>
                 <td></td>
@@ -195,7 +196,7 @@
             </tbody>
             <tbody class="others_main hide">
               <tr>
-                <td>{{ Form::text('others_breakdown_item0', '', ['class' => 'form-control'])}}</td>
+                <td colspan="2">{{ Form::text('others_breakdown_item0', '', ['class' => 'form-control'])}}</td>
                 <td>{{ Form::hidden('others_breakdown_cost0', 0, ['class' => 'form-control'])}}</td>
                 <td>{{ Form::text('others_breakdown_count0', '', ['class' => 'form-control'])}}</td>
                 <td>{{ Form::hidden('others_breakdown_subtotal0', 0, ['class' => 'form-control', 'readonly'])}}</td>
@@ -208,65 +209,61 @@
             </tbody>
           </table>
         </div>
-
-        <div class="bill_total d-flex justify-content-end" style="padding: 80px 0px 80px 0px; width:90%; margin:0 auto;">
-          <div style="width: 60%;">
-            <table class="table text-right" style="table-layout: fixed; font-size:16px;">
-              <tbody>
-                <tr>
-                  <td class="font-weight-bold">エンドクライアントへの
-                    <br>
-                    支払い料（支払割合
-                    <span id="percent">{{$percent}}</span>
-                    %）
-                  </td>
-                  <td>
-                    {{ Form::text('enduser_charge', '', ['class' => 'form-control','placeholder'=>"入力してください" ])}}
-                    {{ Form::hidden('enduser_charge_result', '', ['class' => 'form-control','placeholder'=>"入力してください" ])}}
-                  </td>
-                </tr>
-                <tr>
-                  <td>小計：</td>
-                  <td>
-                    {{ Form::text('master_subtotal', '', ['class' => 'form-control' , 'readonly'])}}
-                  </td>
-                </tr>
-                <tr>
-                  <td>消費税：</td>
-                  <td>
-                    {{ Form::text('master_tax', '', ['class' => 'form-control' , 'readonly'])}}
-                  </td>
-                </tr>
-                <tr>
-                  <td class="font-weight-bold">合計金額</td>
-                  <td>
-                    {{ Form::text('master_total', '', ['class' => 'form-control' , 'readonly'])}}
-                  </td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
+        <div class="bill_total">
+          <table class="table text-right">
+            <tbody>
+              <tr>
+                <td class="font-weight-bold">エンドユーザーへの
+                  <br>
+                  支払い料（支払割合
+                  <span id="percent">{{$percent}}</span>
+                  %）
+                </td>
+                <td>
+                  {{ Form::text('enduser_charge', '', ['class' => 'form-control','placeholder'=>"入力してください" ])}}
+                  {{ Form::hidden('enduser_charge_result', '', ['class' => 'form-control','placeholder'=>"入力してください" ])}}
+                </td>
+              </tr>
+              <tr>
+                <td>小計：</td>
+                <td>
+                  {{ Form::text('master_subtotal', '', ['class' => 'form-control' , 'readonly'])}}
+                </td>
+              </tr>
+              <tr>
+                <td>消費税：</td>
+                <td>
+                  {{ Form::text('master_tax', '', ['class' => 'form-control' , 'readonly'])}}
+                </td>
+              </tr>
+              <tr>
+                <td class="font-weight-bold">合計金額</td>
+                <td>
+                  {{ Form::text('master_total', '', ['class' => 'form-control' , 'readonly'])}}
+                </td>
+              </tr>
+            </tbody>
+          </table>
         </div>
       </div>
     </div>
   </div>
 
-
   <div class="information">
     <div class="information_details">
       <div class="head d-flex">
-        <div style="width: 80px; background:gray;" class="d-flex justify-content-center align-items-center">
-          <i class="fas fa-plus fa-3x hide" style="color: white;" aria-hidden="true"></i>
-          <i class="fas fa-minus fa-3x" style="color: white;" aria-hidden="true"></i>
+        <div class="accordion_btn">
+          <i class="fas fa-plus bill_icon_size hide" aria-hidden="true"></i>
+          <i class="fas fa-minus bill_icon_size" aria-hidden="true"></i>
         </div>
-        <div style="font-size: 30px; width:200px;" class="d-flex justify-content-center align-items-center">
-          <p>
+        <div class="billdetails_ttl">
+          <h3>
             請求書情報
-          </p>
+          </h3>
         </div>
       </div>
       <div class="main">
-        <div class="informations" style="padding-top: 20px; width:90%; margin:0 auto;">
+        <div class="informations billdetails_content">
           <table class="table">
             <tbody>
               <tr>
@@ -296,22 +293,18 @@
       </div>
     </div>
   </div>
-
-
   <div class="paid">
     <div class="paid_details">
       <div class="head d-flex">
-        <div style="width: 80px; background:#ff782d;" class="d-flex justify-content-center align-items-center">
-        </div>
-        <div style="font-size: 30px; width:200px;" class="d-flex justify-content-center align-items-center">
-          <p>
+        <div class="d-flex align-items-center">
+          <h3 class="pl-3">
             入金情報
-          </p>
+          </h3>
         </div>
       </div>
       <div class="main">
-        <div class="paids" style="padding-top: 20px; width:90%; margin:0 auto;">
-          <table class="table" style="table-layout: fixed;">
+        <div class="paids billdetails_content">
+          <table class="table">
             <tbody>
               <tr>
                 <td>入金状況{{Form::select('paid', ['未入金', '入金済み'],null,['class'=>'form-control'])}}</td>
@@ -330,9 +323,7 @@
     </div>
   </div>
 </section>
-
-
-{{ Form::submit('確認する', ['class' => 'btn btn-primary btn-block']) }}
+{{ Form::submit('確認する', ['class' => 'btn more_btn_lg mx-auto d-block mt-5']) }}
 
 {{ Form::close() }}
 
