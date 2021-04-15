@@ -346,7 +346,7 @@
                   <i class="far fa-address-card icon-size"></i>
                   顧客情報
                 </p>
-                <p><a class="more_btn" href="">顧客詳細</a></p>
+                <p><a class="more_btn" href="">顧客詳細工藤さん！リンク</a></p>
               </div>
             </td>
           </tr>
@@ -527,7 +527,7 @@
                 <p class="title-icon">
                   <i class="far fa-id-card icon-size"></i>仲介会社情報
                 </p>
-                <p><a class="more_btn" href="">仲介会社詳細</a></p>
+                <p><a class="more_btn" href="">仲介会社詳細工藤さん！リンク</a></p>
               </div>
             </td>
           </tr>
