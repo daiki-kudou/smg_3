@@ -1714,6 +1714,10 @@ table .master_total_subttl {
     padding-left: 0.5rem;
   }
 
+  .user-profile th {
+      background: #f2f2f2;
+  }
+
 @media screen and (max-width: 767px) {
 
     .accordion_btn {
@@ -1755,6 +1759,10 @@ table .master_total_subttl {
 
     .master_total_body tr td:last-child {
         padding-right: 0.5rem;
+    }
+
+    .user-profile {
+        width: 100%;
     }
 
 } 
@@ -1800,6 +1808,9 @@ h4 {
     width: 100%;
 }
 
+.user-profile th, .user-profile td {
+    display: block;
+}
 
 }
 
