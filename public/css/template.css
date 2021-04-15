@@ -1777,6 +1777,29 @@ table .master_total_subttl {
     display: block;
 }
 
+.user_wrap .table th,
+.user_wrap .table td {
+    display: block;
+}
+
+.user_wrap .table-active {
+    width: 100%;
+}
+
+h2 {
+    font-size: 1.5rem;
+}
+h3 {
+    font-size: 1.3rem;
+}
+h4 {
+    font-size: 1.2rem;
+}
+
+.confirm_inner {
+    width: 100%;
+}
+
 
 }
 

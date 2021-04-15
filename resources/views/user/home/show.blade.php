@@ -75,7 +75,7 @@
       </table>
     </div>
 
-    <div class="row">
+    <div class="row user_wrap">
       <!-- 左側の項目------------------------------------------------------------------------ -->
       <div class="col-md-6 col-12">
         <table class="table table-bordered">
@@ -532,7 +532,7 @@
         </div>
         <div class="main hide">
           <div class="venues billdetails_content">
-            <table class="table table-borderless">
+            <table class="table table-bordered">
               <tbody>
                 <tr>
                   <td colspan="4">
@@ -571,7 +571,7 @@
           </div>
 
           <div class="equipment billdetails_content">
-            <table class="table table-borderless">
+            <table class="table table-bordered">
               <tbody>
                 <tr>
                   <td colspan="4">
@@ -616,7 +616,7 @@
           </div>
 
           <div class="layout billdetails_content">
-            <table class="table table-borderless">
+            <table class="table table-bordered">
               <tbody>
                 <tr>
                   <td colspan="4">
@@ -661,11 +661,11 @@
           </div>
 
           <div class="others billdetails_content">
-            <table class="table table-borderless">
+            <table class="table table-bordered">
               <tbody>
                 <tr>
                   <td colspan="4">
-                    　<h4 class="billdetails_content_ttl">
+                    <h4 class="billdetails_content_ttl">
                       その他
                     </h4>
                   </td>
@@ -800,7 +800,7 @@
         </div>
         <div class="main hide">
           <div class="venues billdetails_content">
-            <table class="table table-borderless">
+            <table class="table table-bordered">
               <tbody>
                 <tr>
                   <td colspan="4">
@@ -839,7 +839,7 @@
           </div>
 
           <div class="equipment billdetails_content">
-            <table class="table table-borderless">
+            <table class="table table-bordered">
               <tbody>
                 <tr>
                   <td colspan="4">
@@ -885,7 +885,7 @@
           </div>
 
           <div class="layout billdetails_content">
-            <table class="table table-borderless">
+            <table class="table table-bordered">
               <tbody>
                 <tr>
                   <td colspan="4">
@@ -931,7 +931,7 @@
           </div>
 
           <div class="others billdetails_content">
-            <table class="table table-borderless">
+            <table class="table table-bordered">
               <tbody>
                 <tr>
                   <td colspan="4">

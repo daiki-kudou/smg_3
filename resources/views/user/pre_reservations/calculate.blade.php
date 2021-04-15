@@ -40,7 +40,7 @@
   {{ Form::open(['url' => 'user/pre_reservations/'.$pre_reservation->id.'/calculate', 'method'=>'POST', 'id'=>'']) }}
   @csrf
   <div class="border-wrap2 p-4">
-    <div class="row">
+    <div class="row user_wrap">
       <div class="col-md-6 col-12">
         <table class="table table-bordered">
           <tbody>
