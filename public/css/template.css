@@ -804,7 +804,7 @@ table td.table_column p:last-child {
 }
 
 .caution_color {
-    color: #ff0018;
+    color: #ef6243;
 }
 
 .caution textarea {
@@ -1749,6 +1749,14 @@ table .master_total_subttl {
         margin-right: 15px;
     }
 
+    .master_total_body tr td:first-child {
+        padding-left: 0.5rem;
+    }
+
+    .master_total_body tr td:last-child {
+        padding-right: 0.5rem;
+    }
+
 } 
 
 @media screen and (max-width: 480px) { 
@@ -1759,6 +1767,14 @@ table .master_total_subttl {
 
 .user_wrapper .bill_total table {
     width: 100%;
+}
+
+.content-wrapper>.content {
+    padding: 0 0.5rem;
+}
+
+.master_total_body td {
+    display: block;
 }
 
 
