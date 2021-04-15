@@ -148,7 +148,7 @@ class ReservationHelper
   public static function getPersonAttention($user_id)
   {
     $user = User::find($user_id);
-    return $user->attentionss;
+    return $user->attention;
   }
 
   public static function getAgentPerson($agent_id)

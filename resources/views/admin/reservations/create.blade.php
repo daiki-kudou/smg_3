@@ -58,7 +58,7 @@
   <hr>
 
 
-  {{Form::open(['url' => 'admin/reservations/calculate', 'method' => 'POST', 'id'=>'reservationCreateForm'])}}
+  {{Form::open(['url' => 'admin/reservations/store_session', 'method' => 'post', 'id'=>'reservationCreateForm'])}}
   @csrf
   <section class="mt-5">
     <div class="row">
@@ -98,14 +98,6 @@
                     <small>※料金体系を選択してください</small>
                   </div>
                   <div class="price_radio_selector">
-
-
-
-
-
-
-
-
                     <div class="d-flex justfy-content-start align-items-center" id="price_system1">
                       {{ Form::radio('price_system', 1, isset($request->price_system)?$request->price_system==1?true:false:'', ['class'=>'mr-2', 'id'=>'price_system_radio1']) }}
                       {{Form::label('price_system_radio1','通常（枠貸）')}}
@@ -114,12 +106,6 @@
                       {{ Form::radio('price_system', 2, isset($request->price_system)?$request->price_system==2?true:false:'', ['class'=>'mr-2','id'=>'price_system_radio2']) }}
                       {{Form::label('price_system_radio2','アクセア（時間貸）')}}
                     </div>
-
-
-
-
-
-
                   </div>
                 </div>
               </td>
@@ -130,7 +116,9 @@
                 <div>
                   <select name="enter_time" id="sales_start" class="form-control">
                     <option selected></option>
-                    @for ($start = 0*2; $start <=23*2; $start++) <option value="{{date("H:i:s", strtotime("00:00 +". $start * 30 ." minute"))}}" @if (isset($request)) @endif>
+                    @for ($start = 0*2; $start <=23*2; $start++) <option
+                      value="{{date("H:i:s", strtotime("00:00 +". $start * 30 ." minute"))}}" @if (isset($request))
+                      @endif>
                       {{date("H時i分", strtotime("00:00 +". $start * 30 ." minute"))}}
                       </option>
                       @endfor
@@ -145,7 +133,9 @@
                 <div>
                   <select name="leave_time" id="sales_finish" class="form-control">
                     <option disabled selected></option>
-                    @for ($start = 0*2; $start <=23*2; $start++) <option value="{{date("H:i:s", strtotime("00:00 +". $start * 30 ." minute"))}}" @if (isset($request)) @endif>
+                    @for ($start = 0*2; $start <=23*2; $start++) <option
+                      value="{{date("H:i:s", strtotime("00:00 +". $start * 30 ." minute"))}}" @if (isset($request))
+                      @endif>
                       {{date("H時i分", strtotime("00:00 +". $start * 30 ." minute"))}}</option>
                       @endfor
                   </select>
@@ -155,7 +145,6 @@
             </tr>
           </tbody>
         </table>
-
         <table class="table table-bordered board-table">
           <tbody>
             <tr>
@@ -172,11 +161,13 @@
               <td>
                 <div class="radio-box">
                   <p>
-                    <input type="radio" name="board_flag" value="1" id="board_flag" {{isset($request->board_flag)?$request->board_flag==1?'checked':'':'',}}>
+                    <input type="radio" name="board_flag" value="1" id="board_flag"
+                      {{isset($request->board_flag)?$request->board_flag==1?'checked':'':'',}}>
                     <span class="ml-1">有り</span>
                   </p>
                   <p>
-                    <input type="radio" name="board_flag" value="0" id="no_board_flag" {{isset($request->board_flag)?$request->board_flag==0?'checked':'':'checked',}}>
+                    <input type="radio" name="board_flag" value="0" id="no_board_flag"
+                      {{isset($request->board_flag)?$request->board_flag==0?'checked':'':'checked',}}>
                     <span class="ml-1">無し</span>
                   </p>
 
@@ -189,7 +180,9 @@
                 <div>
                   <select name="event_start" id="event_start" class="form-control">
                     <option disabled>選択してください</option>
-                    @for ($start = 0*2; $start <=23*2; $start++) <option value="{{date("H:i:s", strtotime("00:00 +". $start * 30 ." minute"))}}" @if (isset($request)) @endif>
+                    @for ($start = 0*2; $start <=23*2; $start++) <option
+                      value="{{date("H:i:s", strtotime("00:00 +". $start * 30 ." minute"))}}" @if (isset($request))
+                      @endif>
                       {{date("H時i分", strtotime("00:00 +". $start * 30 ." minute"))}}</option>
                       @endfor
                   </select>
@@ -202,7 +195,9 @@
                 <div>
                   <select name="event_finish" id="event_finish" class="form-control">
                     <option disabled>選択してください</option>
-                    @for ($start = 0*2; $start <=23*2; $start++) <option value="{{date("H:i:s", strtotime("00:00 +". $start * 30 ." minute"))}}" @if (isset($request)) @endif>
+                    @for ($start = 0*2; $start <=23*2; $start++) <option
+                      value="{{date("H:i:s", strtotime("00:00 +". $start * 30 ." minute"))}}" @if (isset($request))
+                      @endif>
                       {{date("H時i分", strtotime("00:00 +". $start * 30 ." minute"))}}</option>
                       @endfor
                   </select>
@@ -241,7 +236,6 @@
             </tr>
           </tbody>
         </table>
-
         <div class="equipemnts">
           <table class="table table-bordered">
             <thead class="accordion-ttl">
@@ -253,7 +247,6 @@
                 </th>
               </tr>
             </thead>
-
             <tbody class="accordion-wrap"></tbody>
           </table>
         </div>
@@ -304,7 +297,6 @@
         <div class="price_details">
         </div>
       </div>
-
       <div class="col">
         <table class="table table-bordered name-table">
           <tbody>
@@ -428,7 +420,8 @@
             <tr>
               <td colspan="2">
                 <p class="title-icon">
-                  <i class="fas fa-yen-sign icon-size" aria-hidden="true"></i>売上原価<span class="annotation">（提携会場を選択した場合、提携会場で設定した原価率が適応されます）</span>
+                  <i class="fas fa-yen-sign icon-size" aria-hidden="true"></i>売上原価<span
+                    class="annotation">（提携会場を選択した場合、提携会場で設定した原価率が適応されます）</span>
                 </p>
               </td>
             </tr>
@@ -483,9 +476,6 @@
         </button>
       </div>
     </div>
-
-
-
   </section>
   {{Form::close()}}
 </div>

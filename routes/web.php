@@ -115,14 +115,18 @@ Route::namespace('Admin')->prefix('admin')->name('admin.')->group(function () {
     Route::post('agents/get_agent', 'AgentsController@getAgent');
     // 管理者側からUser登録
     Route::resource('clients', 'ClientsController');
+    // 予約　session
+    Route::post('reservations/store_session', 'ReservationsController@storeSession')->name('reservations.storeSession');
     // 予約　計算
-    Route::post('reservations/calculate', 'ReservationsController@calculate')->name('reservations.calculate');
+    Route::get('reservations/calculate', 'ReservationsController@calculate')->name('reservations.calculate');
+    // 予約　check session
+    Route::post('reservations/check_session', 'ReservationsController@checkSession')->name('reservations.checkSession');
     // 予約
     Route::resource('reservations', 'ReservationsController', ['except' => ['show']]);
+    // 予約　（確認）
+    Route::get('reservations/check', 'ReservationsController@check')->name('reservations.check');
     // 予約　show
     Route::get('reservations/{reservation}', 'ReservationsController@show')->name('reservations.show');
-    // 予約　（確認）
-    Route::post('reservations/check', 'ReservationsController@check')->name('reservations.check');
     // 予約　編集
     Route::post('reservations/{reservation}/edit_calculate', 'ReservationsController@edit_calculate')->name('reservations.edit_calculate');
     // 予約　編集確認

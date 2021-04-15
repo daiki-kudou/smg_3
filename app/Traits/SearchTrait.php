@@ -14,7 +14,6 @@ use Illuminate\Support\Facades\DB; //トランザクション用
 
 trait SearchTrait
 {
-
   public function BasicSearch($class, $request)
   {
     $andSearch = $class->where('multiple_reserve_id', 0); // マスタのクエリ 

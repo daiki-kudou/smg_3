@@ -54,4 +54,15 @@ class Equipment extends Model
       return "";
     }
   }
+
+  public static function getSessionArrays($array)
+  {
+    $s_equipment = [];
+    foreach ($array->all() as $key => $value) {
+      if (preg_match('/equipment_breakdown/', $key)) {
+        $s_equipment[] = $value;
+      }
+    }
+    return $s_equipment;
+  }
 }

@@ -523,7 +523,7 @@ $(function () {
         // console.log($result);
         $('.layouts table tbody').html(''); //初期化
         var data =
-        $result == 1 ? $('.layouts table tbody').append("<tr><td class='table-active'>準備</td><td><input type='radio' name='layout_prepare' id='layout_prepare' value='1' class='mr-1'><label for='layout_prepare' class='mr-2'>有り</label><input type='radio' name='layout_prepare' id='no_layout_prepare' value='0' checked class='mr-1'><label for='no_layout_prepare'>無し</label></td></tr><tr><td class='table-active'>片付</td><td><input type='radio' name='layout_clean' id='layout_clean' value='1' class='mr-1'><label for='layout_clean' class='mr-2'>有り</label><input type='radio' name='layout_clean' id='no_layout_clean' value='0'checked class='mr-1'><label for='no_layout_clean'>無し</label></td></tr>") : $('.layouts table tbody').append('<tr><td>該当会場はレイアウト変更を受け付けていません</td></tr>');
+          $result == 1 ? $('.layouts table tbody').append("<tr><td class='table-active'>準備</td><td><input type='radio' name='layout_prepare' id='layout_prepare' value='1' class='mr-1'><label for='layout_prepare' class='mr-2'>有り</label><input type='radio' name='layout_prepare' id='no_layout_prepare' value='0' checked class='mr-1'><label for='no_layout_prepare'>無し</label></td></tr><tr><td class='table-active'>片付</td><td><input type='radio' name='layout_clean' id='layout_clean' value='1' class='mr-1'><label for='layout_clean' class='mr-2'>有り</label><input type='radio' name='layout_clean' id='no_layout_clean' value='0'checked class='mr-1'><label for='no_layout_clean'>無し</label></td></tr>") : $('.layouts table tbody').append('<tr><td>該当会場はレイアウト変更を受け付けていません</td></tr>');
       })
       .fail(function ($result) {
         $('#fullOverlay').css('display', 'none');

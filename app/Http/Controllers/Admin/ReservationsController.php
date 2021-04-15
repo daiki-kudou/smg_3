@@ -20,9 +20,13 @@ use PDF;
 use App\Mail\SendUserApprove;
 use Illuminate\Support\Facades\Mail;
 
+use App\Traits\PregTrait;
+
 
 class ReservationsController extends Controller
 {
+  use PregTrait;
+
   /**
    * Display a listing of the resource.
    *
@@ -214,12 +218,13 @@ class ReservationsController extends Controller
    */
   public function create(Request $request)
   {
+    $request->session()->forget('master_info'); //予約作成TOPに来るとsession初期化
+    $request->session()->forget('calc_info'); //予約作成TOPに来るとsession初期化
+    $request->session()->forget('discount_info'); //予約作成TOPに来るとsession初期化
     $venues = Venue::select('name_area', 'name_bldg', 'name_venue', 'id')->get();
     $users = User::all();
-
     $target = $request->all_requests;
     $target = json_decode($target);
-
     // if ($target != null) {
     return view('admin.reservations.create', [
       'venues' => $venues,
@@ -228,57 +233,114 @@ class ReservationsController extends Controller
     ]);
   }
 
+  public function storeSession(Request $request)
+  {
+    $request->session()->forget('master_info'); //一度あったものを削除
+    $request->session()->forget('calc_info'); //一度あったものを削除
+    $request->session()->forget('discount_info'); //一度あったものを削除
+    $data = $request->all();
+    var_dump($data);
+    $request->session()->put('master_info', $data);
+    $calcData = $this->calcSession($request);
+    $request->session()->put('calc_info', $calcData);
+    return redirect(route("admin.reservations.calculate"));
+  }
+
+  public function calcSession($data)
+  {
+    $spVenue = Venue::find($data->venue_id);
+    // //[0]は合計料金, [1]は延長料金, [2]は合計＋延長、 [3]は利用時間, [4]は延長時間
+    $price_details = $spVenue->calculate_price($data->price_system, $data->enter_time, $data->leave_time);
+    $s_equipment = Equipment::getSessionArrays($data);
+    $s_services = Service::getSessionArrays($data);
+    // [0]備品＋サービス [1]備品詳細 [2]サービス詳細 [3]備品合計 [4]サービス合計
+    $item_details = $spVenue->calculate_items_price($s_equipment, $s_services);
+    $layouts_details = $spVenue->getLayoutPrice($data->layout_prepare, $data->layout_clean);
+    // //枠がなく会場料金を手打ちするパターン
+    if ($price_details == 0) {
+      $masters = ($item_details[0] + $data->luggage_price) + $layouts_details[2];
+    } else {
+      $masters = ($price_details[2] ? $price_details[2] : 0) + ($item_details[0] + $data->luggage_price) + $layouts_details[2];
+    }
+    $user = User::find($data->user_id);
+    $pay_limit = $user->getUserPayLimit($data->reserve_date);
+    return [
+      'price_details' => $price_details, 'item_details' => $item_details, 'layouts_details' => $layouts_details, 'masters' => $masters, 'pay_limit' => $pay_limit
+    ];
+  }
+
   public function calculate(Request $request)
   {
+    $value = $request->session()->get('master_info');
+    $priceResult = $request->session()->get('calc_info');
+    $checkInfo = $request->session()->get('discount_info');
 
     $users = User::all();
     $venues = Venue::all();
-    $spVenue = $venues->find($request->venue_id);
-    //[0]は合計料金, [1]は延長料金, [2]は合計＋延長、 [3]は利用時間, [4]は延長時間
-    $price_details = $spVenue->calculate_price($request->price_system, $request->enter_time, $request->leave_time);
-    $s_equipment = Equipment::getArrays($request);
-    $s_services = Service::getArrays($request);
-    $item_details = $spVenue->calculate_items_price($s_equipment, $s_services);    // [0]備品＋サービス [1]備品詳細 [2]サービス詳細 [3]備品合計 [4]サービス合計
-    $layouts_details = $spVenue->getLayoutPrice($request->layout_prepare, $request->layout_clean);
-    //枠がなく会場料金を手打ちするパターン
-    if ($price_details == 0) {
-      $masters =
-        ($item_details[0] + $request->luggage_price)
-        + $layouts_details[2];
-    } else {
-      $masters =
-        ($price_details[2] ? $price_details[2] : 0)
-        + ($item_details[0] + $request->luggage_price)
-        + $layouts_details[2];
-    }
-    $user = $users->find($request->user_id);
-    $pay_limit = $user->getUserPayLimit($request->reserve_date);
+    $spVenue = $venues->find($value['venue_id']);
     return view(
       'admin.reservations.calculate',
-      compact('users', 'venues', 'request', 'spVenue', 'price_details', 'item_details', 'layouts_details', 'masters', 'pay_limit')
+      compact(
+        'users',
+        'venues',
+        'request',
+        'spVenue',
+        'value',
+        'priceResult',
+        'checkInfo',
+      )
     );
   }
 
+  public function checkSession(Request $request)
+  {
+    $counter = 0;
+    foreach ($request->all() as $key => $value) {
+      if (preg_match('/venue_breakdown_item/', $key)) {
+        $counter++;
+      }
+    }
+    for ($i = 0; $i < $counter; $i++) {
+      $v_i = 'venue_breakdown_item' . $i;
+      $v_cost = 'venue_breakdown_cost' . $i;
+      $v_cnt = 'venue_breakdown_count' . $i;
+      $v_s = 'venue_breakdown_subtotal' . $i;
+      $test = $this->validate(
+        $request,
+        [$v_i => ['required'], $v_cost => ['required'], $v_cnt => ['required'], $v_s => ['required']],
+        ["{$v_i}.required" => "会場利用料　内容は必須です", "{$v_cost}.required" => "会場利用料　単価は必須です", "{$v_cnt}.required" => "会場利用料　数量は必須です", "{$v_s}.required" => "会場利用料　金額は必須です"]
+      );
+    }
+    $request->session()->forget('discount_info'); //一度あったものを削除
+    $data = $request->all();
+    $request->session()->put('discount_info', $data);
+    return redirect(route("admin.reservations.check"));
+  }
 
   public function check(Request $request)
   {
-    $venue = Venue::find($request->venue_id);
-    $venue_details = Venue::getBreakdowns($request);
-    $equipment_details = Equipment::getBreakdowns($request);
-    $service_details = Service::getBreakdowns($request);
-    $others_details = [];
-    foreach ($request->all() as $key => $value) {
-      if (preg_match('/others_input_item/', $key)) {
+    $value = $request->session()->get('master_info');
+    $priceResult = $request->session()->get('calc_info');
+    $checkInfo = $request->session()->get('discount_info');
+    $venue = Venue::find($value['venue_id']);
 
-        if (!empty($value)) {
-          $others_details[] = $value;
-        }
-      }
-    }
-    $others_details = !empty($others_details) ? count($others_details) : "";
+    $v_cnt = $this->preg($checkInfo, "venue_breakdown_item");
+    $e_cnt = $this->preg($checkInfo, "equipment_breakdown_item");
+    $s_cnt = $this->preg($checkInfo, "services_breakdown_item");
+    $o_cnt = $this->preg($checkInfo, "others_input_item");
+
     return view(
       'admin.reservations.check',
-      compact('request', 'venue', 'venue_details', 'equipment_details', 'service_details', 'others_details')
+      compact(
+        'value',
+        'priceResult',
+        'checkInfo',
+        'venue',
+        'v_cnt',
+        'e_cnt',
+        's_cnt',
+        'o_cnt',
+      )
     );
   }
 

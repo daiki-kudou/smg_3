@@ -15,7 +15,6 @@ class Service extends Model
     return $this->belongsToMany('App\Models\Venue');
   }
 
-
   public static function getArrays($request)
   {
     $s_services = [];
@@ -51,5 +50,16 @@ class Service extends Model
     } else {
       return "";
     }
+  }
+
+  public static function getSessionArrays($array)
+  {
+    $s_services = [];
+    foreach ($array->all() as $key => $value) {
+      if (preg_match('/services_breakdown/', $key)) {
+        $s_services[] = $value;
+      }
+    }
+    return $s_services;
   }
 }
