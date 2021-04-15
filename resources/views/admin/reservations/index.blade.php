@@ -56,7 +56,24 @@
             <td class="text-right form-group">
               {{ Form::text('reserve_date', '', ['class' => 'form-control', 'id'=>'datepicker1']) }}
             </td>
-            <th class="search_item_name"><label for="venue">利用会場</label></th>
+
+            <th class="search_item_name"><label for="time">入室・退室工藤さん！！</label></th>
+            <td class="text-right">
+              <div class="d-flex align-items-center">
+                <select class="form-control select2" name="">
+                  <option value="">
+                  </option>
+                </select>
+                <span>～</span>
+                <select class="form-control select2" name="">
+                  <option value="">
+                  </option>
+                </select>
+              </div>
+            </td>
+          </tr>
+          <tr>
+          <th class="search_item_name"><label for="venue">利用会場</label></th>
             <td class="text-right">
               <select class="form-control select2" name="venue_id">
                 @foreach ($venue as $venues)
@@ -66,60 +83,92 @@
                 @endforeach
               </select>
             </td>
-          </tr>
-          <tr>
-            <th class="search_item_name"><label for="company">会社名・団体名</label></th>
+
+            <th class="search_item_name"><label for="company">会社・団体名工藤さん！フリー項目です</label></th>
             <td class="text-right">
-              <select class="form-control select2" style="width: 100%;" name="user_id">
+              <!-- <select class="form-control select2" style="width: 100%;" name="user_id">
                 @foreach ($user as $users)
                 <option value="{{$users->id}}">{{ReservationHelper::getCompany($users->id)}}</option>
                 @endforeach
-              </select>
-            </td>
-            <th class="search_item_name"><label for="person_name">担当者氏名</label></th>
-            <td class="text-right">
-              <select class="form-control select2" style="width: 100%;" name="user_id">
-                @foreach ($user as $users)
-                <option value="{{$users->id}}">{{ReservationHelper::getPersonName($users->id)}}</option>
-                @endforeach
-              </select>
+              </select> -->
+              <input type="text" name="company" class="form-control" id="company">
             </td>
           </tr>
           <tr>
+          <th class="search_item_name"><label for="person_name">担当者氏名工藤さん！フリー項目です</label></th>
+            <td class="text-right">
+              <!-- <select class="form-control select2" style="width: 100%;" name="user_id">
+                @foreach ($user as $users)
+                <option value="{{$users->id}}">{{ReservationHelper::getPersonName($users->id)}}</option>
+                @endforeach
+              </select> -->
+              <input type="text" name="person_name" class="form-control" id="person_name">
+            </td>
             <th class="search_item_name"><label for="mobile">携帯電話</label></th>
             <td>
               <input type="text" name="mobile" class="form-control" id="mobile">
             </td>
-            <th class="search_item_name"><label for="tel">固定電話</label></th>
+          </tr>
+          <tr>
+          <th class="search_item_name"><label for="tel">固定電話</label></th>
             <td>
               <input type="text" name="tel" class="form-control" id="tel">
             </td>
+            <th class="search_item_name"><label for="agent">仲介会社工藤さん！追加です</label></th>
+            <td class="text-right">
+              <select class="form-control select2" style="width: 100%;" name="agent">
+                <option value=""></option>
+              </select>
+            </td>
           </tr>
           <tr>
-            <th class="search_item_name"><label for="enduser_person">エンドユーザー</label></th>
+          <th class="search_item_name"><label for="enduser_person">エンドユーザー</label></th>
             <td class="text-right">
               <input type="text" name="enduser_person" class="form-control" id="enduser_person">
             </td>
-            <th class="search_item_name"><label for="category">売上区分</label></th>
+            <th class="search_item_name"><label for="category">アイコン</label></th>
             <td class="text-right">
               <ul class="search_category">
                 <li>
-                  <input type="checkbox" id="checkboxPrimary1" checked name="category1" value="1">
+                  <input type="checkbox" id="checkboxPrimary1" name="" value="">
+                  <label for="checkboxPrimary1">有料備品</label>
+                </li>
+                <li>
+                  <input type="checkbox" id="checkboxPrimary2" name="" value="">
+                  <label for="checkboxPrimary2">有料サービス</label>
+                </li>
+                <li>
+                  <input type="checkbox" id="checkboxPrimary3" name="" value="">
+                  <label for="checkboxPrimary3">レイアウト</label>
+                </li>
+                <li>
+                  <input type="checkbox" id="checkboxPrimary3" name="" value="">
+                  <label for="checkboxPrimary3">ケータリング</label>
+                </li>
+              </ul>
+            </td>
+          </tr>
+          <tr>
+          <th class="search_item_name"><label for="category">売上区分</label></th>
+            <td class="text-right" colspan="3">
+              <ul class="search_category">
+                <li>
+                  <input type="checkbox" id="checkboxPrimary1" name="" value="1">
                   <label for="checkboxPrimary1">会場</label>
                 </li>
                 <li>
-                  <input type="checkbox" id="checkboxPrimary3" checked name="category3" value="1">
+                  <input type="checkbox" id="checkboxPrimary3" name="" value="1">
                   <label for="checkboxPrimary3">追加請求</label>
                 </li>
                 <li>
-                  <input type="checkbox" id="checkboxPrimary2" checked name="category2" value="1">
+                  <input type="checkbox" id="checkboxPrimary2" name="" value="1">
                   <label for="checkboxPrimary2">キャンセル</label>
                 </li>
               </ul>
             </td>
           </tr>
           <tr>
-            <th class="search_item_name"><label for="Status">予約状況</label></th>
+          <th class="search_item_name"><label for="Status">予約状況</label></th>
             <td colspan="3">
               <ul class="search_category">
                 <li>
@@ -146,7 +195,7 @@
             </td>
           </tr>
           <tr>
-            <th class="search_item_name"><label for="freeword">フリーワード検索</label></th>
+          <th class="search_item_name"><label for="freeword">フリーワード検索</label></th>
             <td colspan="3">
               {{ Form::text('freeword', '', ['class' => 'form-control', 'id'=>'']) }}
             </td>
