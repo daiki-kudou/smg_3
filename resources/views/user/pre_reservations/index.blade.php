@@ -4,9 +4,6 @@
 {{-- <script src="{{ asset('/js/template.js') }}"></script>
 <script src="{{ asset('/js/ajax.js') }}"></script> --}}
 
-
-<div class="content">
-  <div class="container-fluid">
     <div class="container-field mt-3">
       <div class="float-right">
         <nav aria-label="breadcrumb">
@@ -23,8 +20,8 @@
     <div class="mt-5">
       <p class="text-right font-weight-bold"><span class="count-color">10</span>件</p>
     </div>
-    <div class="container-field">
-      <table class="table table-striped table-bordered table-box">
+    <div class="table-wrap">
+      <table class="table table-bordered table-box table-scroll">
         <thead>
           <tr>
             <th>仮押えID</th>
@@ -71,8 +68,6 @@
       </li>
     </ul>
 
-  </div>
-</div>
 
 
 
