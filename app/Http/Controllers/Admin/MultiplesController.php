@@ -46,6 +46,7 @@ class MultiplesController extends Controller
     $venue_count = $venues->count("venue_id");
     $checkVenuePrice = $multiple->checkVenuePrice();
     $checkEachStatus = $multiple->checkEachStatus();
+    var_dump($checkEachStatus);
 
     return view(
       'admin.multiples.show',
@@ -217,33 +218,23 @@ class MultiplesController extends Controller
 
     $masterData = json_decode($request->master_data);
 
-    // var_dump($masterData);
     $test = [];
     foreach ($masterData as $key => $value) {
       if (preg_match('/venue_breakdown/', $key)) {
         $test[] = $value;
       }
     }
-
     foreach ($test as $key => $value) {
       if ($value === "") {
         return redirect()
           ->route('admin.multiples.edit', [$multiples_id, $venues_id])
-          ->with('error', '一部予約の会場利用料が空白です。');
+          ->with('error', '一部予約の会場利用料が未設定です。必ず設定してください');
       }
     }
 
-    // var_dump($test);
-
-    // var_dump($masterData->venue_breakdown_item0_copied1);
-
-    // if ($masterData->) {
-    //   # code...
-    // }
-
-    // $multiple = MultipleReserve::find($multiples_id);
-    // $multiple->UpdateAndReCreateAll($masterData, $venues_id);
-    // return redirect('admin/multiples/' . $multiples_id . '/edit/' . $venues_id);
+    $multiple = MultipleReserve::find($multiples_id);
+    $multiple->UpdateAndReCreateAll($masterData, $venues_id);
+    return redirect('admin/multiples/' . $multiples_id . '/edit/' . $venues_id);
   }
 
   public function add_date($multiple_id, $venue_id)
