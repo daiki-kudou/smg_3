@@ -37,8 +37,6 @@
 {{ Form::open(['url' => 'admin/agents_reservations/add_bills/check/'.$reservation->id, 'method'=>'POST']) }}
 @csrf
 {{ Form::hidden('reservation_id', $reservation->id, ['class' => 'form-control'])}}
-
-
 <section class="mt-5">
   <div class="bill">
     <div class="bill_details">
