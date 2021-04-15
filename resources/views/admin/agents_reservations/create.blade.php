@@ -4,6 +4,7 @@
 <link href="{{ asset('/css/template.css') }}" rel="stylesheet">
 <script src="{{ asset('/js/admin/reservation.js') }}"></script>
 <script src="{{ asset('/js/ajax.js') }}"></script>
+<script src="{{ asset('/js/template.js') }}"></script>
 <script src="{{ asset('/js/admin/validation.js') }}"></script>
 
 <style>
@@ -195,21 +196,33 @@
           </tr>
           <tr>
             <td class="table-active">イベント名称1</td>
-            <td>
-              {{ Form::text('event_name1','',['class'=>'form-control', 'placeholder'=>'入力してください', 'id'=>'eventname1Count'] ) }}
-            </td>
+              <td>
+                <div class="align-items-end d-flex">
+                  {{ Form::text('event_name1','',['class'=>'form-control', 'placeholder'=>'入力してください', 'id'=>'eventname1Count'] ) }}
+                  <span class="ml-1 annotation count_num1"></span>
+                </div>
+                <p class="is-error-event_name1" style="color: red"></p>
+              </td>
           </tr>
           <tr>
             <td class="table-active">イベント名称2</td>
-            <td>
-              {{ Form::text('event_name2', '',['class'=>'form-control', 'placeholder'=>'入力してください', 'id'=>'eventname2Count'] ) }}
-            </td>
+              <td>
+                <div class="align-items-end d-flex">
+                  {{ Form::text('event_name2', '',['class'=>'form-control', 'placeholder'=>'入力してください', 'id'=>'eventname2Count'] ) }}
+                  <span class="ml-1 annotation count_num2"></span>
+                </div>
+                <p class="is-error-event_name2" style="color: red"></p>
+              </td>
           </tr>
           <tr>
             <td class="table-active">主催者名</td>
-            <td>
-              {{ Form::text('event_owner', '',['class'=>'form-control', 'placeholder'=>'入力してください', 'id'=>'eventownerCount'] ) }}
-            </td>
+              <td>
+                <div class="align-items-end d-flex">
+                  {{ Form::text('event_owner', '',['class'=>'form-control', 'placeholder'=>'入力してください', 'id'=>'eventownerCount'] ) }}
+                  <span class="ml-1 annotation count_num3"></span>
+                </div>
+                <p class="is-error-event_owner" style="color: red"></p>
+              </td>
           </tr>
         </tbody>
       </table>
@@ -277,7 +290,6 @@
     </div>
 
     <div class="col">
-      <!-- <div class="client_mater">　 -->
       <table class="table table-bordered name-table">
         <tbody>
           <tr>
@@ -286,7 +298,7 @@
                 <p class="title-icon">
                   <i class="far fa-id-card icon-size" aria-hidden="true"></i>仲介会社情報
                 </p>
-                <p><a class="more_btn bg-green" href="">仲介会社詳細</a></p>
+                <p><a class="more_btn" href="">仲介会社詳細工藤さん！リンク</a></p>
               </div>
             </td>
           </tr>
@@ -336,7 +348,7 @@
               <label for="enduser_address" class=" ">住所</label>
             </td>
             <td>
-              {{ Form::text('enduser_address', old('enduser_address'),['class'=>'form-control', 'placeholder'=>'入力してください', 'maxlength'=>13,'id'=>'enduser_address'] ) }}
+              {{ Form::text('enduser_address', old('enduser_address'),['class'=>'form-control', 'placeholder'=>'入力してください','id'=>'enduser_address'] ) }}
             </td>
           </tr>
           <tr>
@@ -344,7 +356,7 @@
               <label for="enduser_tel" class="">連絡先</label>
             </td>
             <td>
-              {{ Form::text('enduser_tel', old('enduser_tel'),['class'=>'form-control', 'placeholder'=>'入力してください', 'maxlength'=>13, 'id'=>'enduser_tel'] ) }}
+              {{ Form::text('enduser_tel', old('enduser_tel'),['class'=>'form-control', 'placeholder'=>'入力してください', 'id'=>'enduser_tel'] ) }}
             </td>
           </tr>
           <tr>
@@ -352,7 +364,7 @@
               <label for="enduser_mail" class=" ">メールアドレス</label>
             </td>
             <td>
-              {{ Form::text('enduser_mail', old('enduser_mail'),['class'=>'form-control', 'placeholder'=>'入力してください', 'maxlength'=>13,'id'=>'enduser_mail'] ) }}
+              {{ Form::text('enduser_mail', old('enduser_mail'),['class'=>'form-control', 'placeholder'=>'入力してください', 'id'=>'enduser_mail'] ) }}
             </td>
           </tr>
           <tr>
@@ -360,7 +372,7 @@
               <label for="enduser_incharge" class="">当日担当者</label>
             </td>
             <td>
-              {{ Form::text('enduser_incharge', old('enduser_incharge'),['class'=>'form-control', 'placeholder'=>'入力してください', 'maxlength'=>13, 'id'=>'enduser_incharge'] ) }}
+              {{ Form::text('enduser_incharge', old('enduser_incharge'),['class'=>'form-control', 'placeholder'=>'入力してください', 'id'=>'enduser_incharge'] ) }}
             </td>
           </tr>
           <tr>
@@ -368,7 +380,7 @@
               <label for="enduser_mobile" class="">当日連絡先</label>
             </td>
             <td>
-              {{ Form::text('enduser_mobile', old('enduser_mobile'),['class'=>'form-control', 'placeholder'=>'入力してください', 'maxlength'=>13, 'id'=>'enduser_mobile'] ) }}
+              {{ Form::text('enduser_mobile', old('enduser_mobile'),['class'=>'form-control', 'placeholder'=>'入力してください', 'id'=>'enduser_mobile'] ) }}
             </td>
           </tr>
           <tr>
@@ -388,7 +400,6 @@
           </tr>
         </tbody>
       </table>
-      <!-- </div> -->
       <table class="table table-bordered sale-table">
         <tbody>
           <tr>

@@ -220,7 +220,6 @@
             </select>
           </td>
         </tr>
-
       </table>
 
       <table class="table table-bordered board-table">
@@ -236,8 +235,10 @@
         <tr>
           <td class="table-active">案内板</td>
           <td>
-            <input type="radio" name="board_flag" value="0" {{isset($request->board_flag)?$request->board_flag==0?'checked':'':'checked',}}>無し
-            <input type="radio" name="board_flag" value="1" {{isset($request->board_flag)?$request->board_flag==1?'checked':'':'',}}>有り
+            <div class="radio-box">
+              <p><input type="radio" name="board_flag" value="1"  id="board_flag" {{isset($request->board_flag)?$request->board_flag==1?'checked':'':'',}}><span>有り</span></p>
+              <p><input type="radio" name="board_flag" value="0" id="no_board_flag" {{isset($request->board_flag)?$request->board_flag==0?'checked':'':'checked',}}><span>無し</span></p>
+            </div>
           </td>
         </tr>
         <tr>

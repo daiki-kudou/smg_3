@@ -39,7 +39,7 @@ $(document).ready(function () {
       $("#eventname1Count").prop("disabled", true);
       $("#eventname2Count").prop("disabled", true);
       $("#eventownerCount").prop("disabled", true);
-      $(".board-table input[type='text']").val("");
+      // $(".board-table input[type='text']").val("");
       $(".board-table option:selected").val("");
     }
   });
@@ -55,7 +55,7 @@ $(function () {
       $("#eventname1Count").prop("disabled", true);
       $("#eventname2Count").prop("disabled", true);
       $("#eventownerCount").prop("disabled", true);
-      $(".board-table input[type='text']").val("");
+      // $(".board-table input[type='text']").val("");
     } else {
       $("#event_start").prop("disabled", false);
       $("#event_finish").prop("disabled", false);

@@ -242,20 +242,32 @@
             </tr>
             <tr>
               <td class="table-active">イベント名称1</td>
-              <td>
-                {{ Form::text('event_name1',$request->event_name1,['class'=>'form-control', 'placeholder'=>'入力してください', 'id'=>'eventname1Count'] ) }}
-              </td>
+                <td>
+                  <div class="align-items-end d-flex">
+                  {{ Form::text('event_name1',$request->event_name1,['class'=>'form-control', 'placeholder'=>'入力してください', 'id'=>'eventname1Count'] ) }}
+                  <span class="ml-1 annotation count_num1"></span>
+                </div>
+                <p class="is-error-event_name1" style="color: red"></p>
+               </td>
             </tr>
             <tr>
               <td class="table-active">イベント名称2</td>
-              <td>
-                {{ Form::text('event_name2',$request->event_name2,['class'=>'form-control', 'placeholder'=>'入力してください', 'id'=>'eventname2Count'] ) }}
+                <td>
+                  <div class="align-items-end d-flex">
+                  {{ Form::text('event_name2',$request->event_name2,['class'=>'form-control', 'placeholder'=>'入力してください', 'id'=>'eventname2Count'] ) }}
+                  <span class="ml-1 annotation count_num2"></span>
+                </div>
+                <p class="is-error-event_name2" style="color: red"></p>
               </td>
             </tr>
             <tr>
               <td class="table-active">主催者名</td>
-              <td>
-                {{ Form::text('event_owner',$request->event_owner,['class'=>'form-control', 'placeholder'=>'入力してください', 'id'=>'eventownerCount'] ) }}
+                <td>
+                  <div class="align-items-end d-flex">
+                  {{ Form::text('event_owner',$request->event_owner,['class'=>'form-control', 'placeholder'=>'入力してください', 'id'=>'eventownerCount'] ) }}
+                  <span class="ml-1 annotation count_num3"></span>
+                </div>
+                <p class="is-error-event_owner" style="color: red"></p>
               </td>
             </tr>
           </tbody>
@@ -461,7 +473,7 @@
                 <label for="enduser_tel" class="">連絡先</label>
               </td>
               <td>
-                {{ Form::text('enduser_tel', $request->enduser_tel,['class'=>'form-control', 'placeholder'=>'入力してください', 'maxlength'=>13, 'id'=>'enduser_tel'] ) }}
+                {{ Form::text('enduser_tel', $request->enduser_tel,['class'=>'form-control', 'placeholder'=>'入力してください', 'id'=>'enduser_tel'] ) }}
               </td>
             </tr>
             <tr>
@@ -469,7 +481,7 @@
                 <label for="enduser_mail" class=" ">メールアドレス</label>
               </td>
               <td>
-                {{ Form::text('enduser_mail', $request->enduser_mail,['class'=>'form-control', 'placeholder'=>'入力してください', 'maxlength'=>13,'id'=>'enduser_mail'] ) }}
+                {{ Form::text('enduser_mail', $request->enduser_mail,['class'=>'form-control', 'placeholder'=>'入力してください', 'id'=>'enduser_mail'] ) }}
               </td>
             </tr>
             <tr>
@@ -485,7 +497,7 @@
                 <label for="enduser_mobile" class="">当日連絡先</label>
               </td>
               <td>
-                {{ Form::text('enduser_mobile', $request->enduser_mobile,['class'=>'form-control', 'placeholder'=>'入力してください', 'maxlength'=>13, 'id'=>'enduser_tel'] ) }}
+                {{ Form::text('enduser_mobile', $request->enduser_mobile,['class'=>'form-control', 'placeholder'=>'入力してください', 'id'=>'enduser_tel'] ) }}
               </td>
             </tr>
             <tr>
@@ -493,7 +505,7 @@
                 <label for="enduser_attr" class="">利用者属性</label>
               </td>
               <td>
-                {{ Form::text('enduser_attr', $request->enduser_attr,['class'=>'form-control', 'placeholder'=>'入力してください', 'maxlength'=>13, 'id'=>'enduser_attr'] ) }}
+                {{ Form::text('enduser_attr', $request->enduser_attr,['class'=>'form-control', 'placeholder'=>'入力してください', 'id'=>'enduser_attr'] ) }}
               </td>
             </tr>
           </tbody>

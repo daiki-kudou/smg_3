@@ -614,23 +614,10 @@
         </tr>
         <!-- <tr>
           <td>
-            <input type="checkbox" id="discount" checked>
-            <label for="discount">割引条件</label>
-            {{ Form::textarea('discount_condition', $reservation->discount_condition,['class'=>'form-control'] ) }}
-          </td>
-        </tr>
-        <tr class="caution">
-          <td>
-            <label for="caution">注意事項</label>
-            {{ Form::textarea('attention', $reservation->attention,['class'=>'form-control'] ) }}
-          </td>
-        </tr> -->
-        <tr>
-          <td>
             <label for="userNote">申し込みフォーム備考</label>
             {{ Form::textarea('user_details', $reservation->user_details,['class'=>'form-control'] ) }}
           </td>
-        </tr>
+        </tr> -->
         <tr>
           <td>
             <label for="adminNote">管理者備考</label>
