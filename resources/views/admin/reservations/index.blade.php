@@ -211,8 +211,6 @@
 
     </div>
     {{ Form::close() }}
-
-
     <div class="d-flex justify-content-between">
       <ul class="d-flex reservation_list">
         <li><a class="more_btn" href="">前日予約</a></li>
@@ -225,8 +223,6 @@
       </ul>
       <p class="font-weight-bold"><span class="count-color">ダミーダミー</span>件</p>
     </div>
-
-
     <div class="table-wrap">
       <table class="table table-bordered table-scroll">
         <thead>
@@ -304,7 +300,7 @@
               {!!$icon!!}
               @endforeach
             </td>
-            <td>会場予約</td>　
+            <td>会場予約</td>
             <td>
               {{ReservationHelper::judgeStatus($reservation->bills()->first()->reservation_status)}}
             </td>
