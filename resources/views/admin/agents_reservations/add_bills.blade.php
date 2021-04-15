@@ -29,102 +29,58 @@
   .hide {
     display: none;
   }
-
-  /* ラベルのスタイル　*/
-  .venue_chkbox label,
-  .equipment_chkbox label,
-  .layout_chkbox label,
-  .others_chkbox label {
-    padding-left: 38px;
-    font-size: 32px;
-    line-height: 32px;
-    display: inline-block;
-    cursor: pointer;
-    position: relative;
-  }
-
-  .venue_chkbox label:before,
-  .equipment_chkbox label:before,
-  .layout_chkbox label:before,
-  .others_chkbox label:before {
-    content: '';
-    width: 32px;
-    height: 32px;
-    display: inline-block;
-    position: absolute;
-    left: 0;
-    background-color: #fff;
-    box-shadow: inset 1px 2px 3px 0px #000;
-    border-radius: 6px 6px 6px 6px;
-  }
-
-  .venue_chkbox input[type=checkbox],
-  .equipment_chkbox input[type=checkbox],
-  .layout_chkbox input[type=checkbox],
-  .others_chkbox input[type=checkbox] {
-    display: none;
-  }
-
-  .venue_chkbox input[type=checkbox]:checked+label:before,
-  .equipment_chkbox input[type=checkbox]:checked+label:before,
-  .layout_chkbox input[type=checkbox]:checked+label:before,
-  .others_chkbox input[type=checkbox]:checked+label:before {
-    content: '\2713';
-    font-size: 34px;
-    color: #fff;
-    background-color: #06f;
-  }
 </style>
 
-<h1>仲介会社　追加請求書</h1>
+<h2 class="mt-3 mb-3">仲介会社　追加請求書</h2>
+<hr>
 
 {{ Form::open(['url' => 'admin/agents_reservations/add_bills/check/'.$reservation->id, 'method'=>'POST']) }}
 @csrf
 {{ Form::hidden('reservation_id', $reservation->id, ['class' => 'form-control'])}}
 
 
-<div class="container-fluid">
+<section class="mt-5">
   <div class="bill">
     <div class="bill_details">
       <div class="head d-flex">
-        <div style="width: 80px; background:gray;" class="d-flex justify-content-center align-items-center">
-          <i class="fas fa-plus fa-3x hide" style="color: white;" aria-hidden="true"></i>
-          <i class="fas fa-minus fa-3x" style="color: white;" aria-hidden="true"></i>
+        <div class="accordion_btn">
+          <i class="fas fa-plus bill_icon_size hide" aria-hidden="true"></i>
+          <i class="fas fa-minus bill_icon_size" aria-hidden="true"></i>
         </div>
-        <div style="font-size: 30px; width:200px;" class="d-flex justify-content-center align-items-center">
-          <p>
+        <div class="billdetails_ttl">
+          <h3>
             請求内訳
-          </p>
+          </h3>
         </div>
       </div>
       <div class="main">
-        <div class="venues" style="padding-top: 80px; width:90%; margin:0 auto;">
+        <div class="venues billdetails_content">
           <table class="table table-borderless">
             <tbody>
               <tr>
-                <td colspan="4">
-                  <div class="venue_chkbox">
-                    <input type="checkbox" id="venue" name="venue" value="1" />
-                    <label for="venue">会場料</label>
-                  </div>
-                </td>
-              </tr>
+                  <td colspan="4">
+                    <div class="venue_chkbox">
+                      <input type="checkbox" id="venue" name="venue" value="1" />
+                      <label for="venue">会場料</label>
+                    </div>
+                  </td>
+                </tr>
             </tbody>
             <tbody class="venue_head hide">
               <tr>
-                <td>内容</td>
-                <td></td>
+                <td colspan="2">内容</td>
+                <!-- <td></td> -->
                 <td>数量</td>
-                <td></td>
+                <!-- <td></td> -->
                 <td>追加/削除</td>
               </tr>
             </tbody>
             <tbody class="venue_main hide">
               <tr>
-                <td>{{ Form::text('venue_breakdown_item0', '', ['class' => 'form-control'])}}</td>
-                <td>{{ Form::hidden('venue_breakdown_cost0', 0, ['class' => 'form-control'])}}</td>
+                <td colspan="2">{{ Form::text('venue_breakdown_item0', '', ['class' => 'form-control'])}}</td>
+                <!-- <td>{{ Form::hidden('venue_breakdown_cost0', 0, ['class' => 'form-control'])}}</td> -->
                 <td>{{ Form::text('venue_breakdown_count0', '', ['class' => 'form-control'])}}</td>
-                <td>{{ Form::hidden('venue_breakdown_subtotal0', 0, ['class' => 'form-control', 'readonly'])}}</td>
+                <!-- <td>{{ Form::hidden('venue_breakdown_subtotal0', 0, ['class' => 'form-control', 'readonly'])}}</td> -->
                 <td>
                   <input type="button" value="＋" class="add pluralBtn">
                   <input type="button" value="ー" class="del pluralBtn">
@@ -134,8 +90,7 @@
           </table>
         </div>
 
-
-        <div class="equipment" style="padding-top: 80px; width:90%; margin:0 auto;">
+        <div class="equipment billdetails_content">
           <table class="table table-borderless">
             <tbody>
               <tr>
@@ -149,19 +104,19 @@
             </tbody>
             <tbody class="equipment_head hide">
               <tr>
-                <td>内容</td>
-                <td></td>
+                <td colspan="2">内容</td>
+                <!-- <td></td> -->
                 <td>数量</td>
-                <td></td>
+                <!-- <td></td> -->
                 <td>追加/削除</td>
               </tr>
             </tbody>
             <tbody class="equipment_main hide">
               <tr>
-                <td>{{ Form::text('equipment_breakdown_item0', '', ['class' => 'form-control'])}}</td>
-                <td>{{ Form::hidden('equipment_breakdown_cost0', 0, ['class' => 'form-control'])}}</td>
+                <td colspan="2">{{ Form::text('equipment_breakdown_item0', '', ['class' => 'form-control'])}}</td>
+                <!-- <td>{{ Form::hidden('equipment_breakdown_cost0', 0, ['class' => 'form-control'])}}</td> -->
                 <td>{{ Form::text('equipment_breakdown_count0', '', ['class' => 'form-control'])}}</td>
-                <td>{{ Form::hidden('equipment_breakdown_subtotal0', 0, ['class' => 'form-control', 'readonly'])}}
+                <!-- <td>{{ Form::hidden('equipment_breakdown_subtotal0', 0, ['class' => 'form-control', 'readonly'])}} -->
                 </td>
                 <td>
                   <input type="button" value="＋" class="add pluralBtn">
@@ -172,12 +127,12 @@
           </table>
         </div>
 
-        <div class="layout" style="padding-top: 80px; width:90%; margin:0 auto;">
+        <div class="layout billdetails_content">
           <table class="table table-borderless">
             <tbody>
               <tr>
-                <td colspan="4">
-                  <div class="layout_chkbox ">
+                <td colspan="5">
+                  <div class="layout_chkbox">
                     <input type="checkbox" id="layout" name="layout" value="1" />
                     <label for="layout">レイアウト変更料</label>
                   </div>
@@ -254,8 +209,7 @@
           </table>
         </div>
 
-        <div class="bill_total d-flex justify-content-end"
-          style="padding: 80px 0px 80px 0px; width:90%; margin:0 auto;">
+        <div class="bill_total d-flex justify-content-end" style="padding: 80px 0px 80px 0px; width:90%; margin:0 auto;">
           <div style="width: 60%;">
             <table class="table text-right" style="table-layout: fixed; font-size:16px;">
               <tbody>
@@ -375,7 +329,7 @@
       </div>
     </div>
   </div>
-</div>
+</section>
 
 
 {{ Form::submit('確認する', ['class' => 'btn btn-primary btn-block']) }}
@@ -488,10 +442,10 @@
       })
     };
 
-    $('input[name="enduser_charge"]').on('input',function(){
-      var val=Number($(this).val());
-      var target_percent=Number($('#percent').text())/100;
-      var result = Math.floor(val-(val*target_percent));
+    $('input[name="enduser_charge"]').on('input', function() {
+      var val = Number($(this).val());
+      var target_percent = Number($('#percent').text()) / 100;
+      var result = Math.floor(val - (val * target_percent));
       $('input[name="enduser_charge_result"]').val(result);
     })
 
@@ -503,8 +457,8 @@
     function MaterCalc() {
       var tar3 = Number($('input[name="layout_price"]').val());
       var tar5 = Number($('input[name="enduser_charge_result"]').val());
-      var master_sub = tar3+tar5;
-      var master_tax = Math.floor(Number(( master_sub ) * 0.1));
+      var master_sub = tar3 + tar5;
+      var master_tax = Math.floor(Number((master_sub) * 0.1));
 
       $('input[name="master_subtotal"]').val(master_sub);
       $('input[name="master_tax"]').val(master_tax);

@@ -98,16 +98,15 @@
               </tbody>
               <tbody class="venue_result hide">
                 <tr>
-                  <td colspan="3"></td>
-                  <td colspan="2">合計
+                  <td colspan="4"></td>
+                  <td colspan="1">
+                  <p class="text-left">合計</p>
                     {{ Form::text('venue_price', '', ['class' => 'form-control' , 'readonly'])}}
                   </td>
                 </tr>
               </tbody>
             </table>
           </div>
-
-
           <div class="equipment billdetails_content">
             <table class="table table-borderless">
               <tbody>
@@ -143,8 +142,9 @@
               </tbody>
               <tbody class="equipment_result hide">
                 <tr>
-                  <td colspan="2"></td>
-                  <td colspan="2">合計
+                  <td colspan="4"></td>
+                  <td colspan="1">
+                  <p class="text-left">合計</p>
                     {{ Form::text('equipment_price', '', ['class' => 'form-control' , 'readonly'])}}
                   </td>
                 </tr>
@@ -187,8 +187,9 @@
               </tbody>
               <tbody class="layout_result hide">
                 <tr>
-                  <td colspan="3"></td>
-                  <td colspan="2">合計
+                  <td colspan="4"></td>
+                  <td colspan="1">
+                    <p class="text-left">合計</p>
                     {{ Form::text('layout_price', '', ['class' => 'form-control' , 'readonly'])}}
                   </td>
                 </tr>
@@ -232,8 +233,9 @@
               </tbody>
               <tbody class="others_result hide">
                 <tr>
-                  <td colspan="3"></td>
-                  <td colspan="2">合計
+                  <td colspan="4"></td>
+                  <td colspan="1">
+                  <p class="text-left">合計</p>
                     {{ Form::text('others_price', '', ['class' => 'form-control' , 'readonly'])}}
                   </td>
                 </tr>
