@@ -9,9 +9,12 @@ use Illuminate\Support\Facades\DB;
 
 use Carbon\Carbon;
 
+use App\Traits\PregTrait;
+
 
 class Bill extends Model
 {
+  use PregTrait;
 
   use SoftDeletes;
 
@@ -95,130 +98,134 @@ class Bill extends Model
     return $this->hasOne(Cxl::class);
   }
 
-
-
   public function ReserveStoreBreakdown($request)
   {
-    DB::transaction(function () use ($request) {
-      $countVenue = $this->RequestBreakdowns($request, 'venue_breakdown_item');
-      if ($countVenue != "") {
-        for ($i = 0; $i < $countVenue; $i++) {
-          $this->breakdowns()->create([
-            'unit_item' => $request->{'venue_breakdown_item' . $i},
-            'unit_cost' => $request->{'venue_breakdown_cost' . $i},
-            'unit_count' => $request->{'venue_breakdown_count' . $i},
-            'unit_subtotal' => $request->{'venue_breakdown_subtotal' . $i},
-            'unit_type' => 1,
-          ]);
-        }
-      }
-      // 会場割引
-      if ($request->venue_breakdown_discount_item) {
+    $discount_info = $request->session()->get('discount_info');
+
+    DB::transaction(function () use ($request, $discount_info) {
+      // 会場料金
+      $v_cnt = $this->preg($discount_info, "venue_breakdown_item");
+      for ($i = 0; $i < $v_cnt; $i++) {
         $this->breakdowns()->create([
-          'unit_item' => $request->venue_breakdown_discount_item,
-          'unit_cost' => $request->venue_breakdown_discount_cost,
-          'unit_count' => $request->venue_breakdown_discount_count,
-          'unit_subtotal' => $request->venue_breakdown_discount_subtotal,
+          'unit_item' => $discount_info['venue_breakdown_item' . $i],
+          'unit_cost' => $discount_info['venue_breakdown_cost' . $i],
+          'unit_count' => $discount_info['venue_breakdown_count' . $i],
+          'unit_subtotal' => $discount_info['venue_breakdown_subtotal' . $i],
           'unit_type' => 1,
         ]);
       }
-      $countEqu = $this->RequestBreakdowns($request, 'equipment_breakdown_item');
-      if ($countEqu != "") {
-        for ($equ = 0; $equ < $countEqu; $equ++) {
+      // 会場割引
+      if (!empty($discount_info['venue_breakdown_discount_item'])) {
+        $this->breakdowns()->create([
+          'unit_item' => $discount_info['venue_breakdown_discount_item'],
+          'unit_cost' => $discount_info['venue_breakdown_discount_cost'],
+          'unit_count' => $discount_info['venue_breakdown_discount_count'],
+          'unit_subtotal' => $discount_info['venue_breakdown_discount_subtotal'],
+          'unit_type' => 1,
+        ]);
+      }
+      // 備品等料金
+      $e_cnt = $this->preg($discount_info, "equipment_breakdown_item");
+      if ($e_cnt != 0) {
+        for ($equ = 0; $equ < $e_cnt; $equ++) {
           $this->breakdowns()->create([
-            'unit_item' => $request->{'equipment_breakdown_item' . $equ},
-            'unit_cost' => $request->{'equipment_breakdown_cost' . $equ},
-            'unit_count' => $request->{'equipment_breakdown_count' . $equ},
-            'unit_subtotal' => $request->{'equipment_breakdown_subtotal' . $equ},
+            'unit_item' => $discount_info['equipment_breakdown_item' . $equ],
+            'unit_cost' => $discount_info['equipment_breakdown_cost' . $equ],
+            'unit_count' => $discount_info['equipment_breakdown_count' . $equ],
+            'unit_subtotal' => $discount_info['equipment_breakdown_subtotal' . $equ],
             'unit_type' => 2,
           ]);
         }
       }
-      $countSer = $this->RequestBreakdowns($request, 'service_breakdown_item');
-      if ($countSer != "") {
-        for ($ser = 0; $ser < $countSer; $ser++) {
+      // サービス料金
+      $s_cnt = $this->preg($discount_info, "services_breakdown_item");
+      if ($s_cnt != 0) {
+        for ($ser = 0; $ser < $s_cnt; $ser++) {
           $this->breakdowns()->create([
-            'unit_item' => $request->{'service_breakdown_item' . $ser},
-            'unit_cost' => $request->{'service_breakdown_cost' . $ser},
-            'unit_count' => $request->{'service_breakdown_count' . $ser},
-            'unit_subtotal' => $request->{'service_breakdown_subtotal' . $ser},
-            'unit_type' => 3,
+            'unit_item' => $discount_info['services_breakdown_item' . $ser],
+            'unit_cost' => $discount_info['services_breakdown_cost' . $ser],
+            'unit_count' => $discount_info['services_breakdown_count' . $ser],
+            'unit_subtotal' => $discount_info['services_breakdown_subtotal' . $ser],
+            'unit_type' => 2,
           ]);
         }
       }
-      // 備品割引
-      if ($request->equipment_breakdown_discount_item) {
+      // 備品＋サービス割引
+      if (!empty($discount_info['equipment_breakdown_discount_item'])) {
         $this->breakdowns()->create([
-          'unit_item' => $request->equipment_breakdown_discount_item,
-          'unit_cost' => $request->equipment_breakdown_discount_cost,
-          'unit_count' => $request->equipment_breakdown_discount_count,
-          'unit_subtotal' => $request->equipment_breakdown_discount_subtotal,
+          'unit_item' => $discount_info['equipment_breakdown_discount_item'],
+          'unit_cost' => $discount_info['equipment_breakdown_discount_cost'],
+          'unit_count' => $discount_info['equipment_breakdown_discount_count'],
+          'unit_subtotal' => $discount_info['equipment_breakdown_discount_subtotal'],
           'unit_type' => 3,
         ]);
       }
-      if ($request->luggage_item) {
+      // 荷物預かり
+      if (!empty($discount_info['luggage_item'])) {
         $this->breakdowns()->create([
-          'unit_item' => $request->luggage_item,
-          'unit_cost' => $request->luggage_cost,
+          'unit_item' => $discount_info['luggage_item'],
+          'unit_cost' => $discount_info['luggage_cost'],
           'unit_count' => 1,
-          'unit_subtotal' => $request->luggage_subtotal,
+          'unit_subtotal' => $discount_info['luggage_subtotal'],
           'unit_type' => 3,
         ]);
       }
       // レイアウト
-      if ($request->layout_prepare_item) {
+      if (!empty($discount_info['layout_prepare_item'])) {
         $this->breakdowns()->create([
-          'unit_item' => $request->layout_prepare_item,
-          'unit_cost' => $request->layout_prepare_cost,
+          'unit_item' => $discount_info['layout_prepare_item'],
+          'unit_cost' => $discount_info['layout_prepare_cost'],
           'unit_count' => 1,
-          'unit_subtotal' => $request->layout_prepare_subtotal,
+          'unit_subtotal' => $discount_info['layout_prepare_subtotal'],
           'unit_type' => 4,
         ]);
       }
-      if ($request->layout_clean_item) {
+      if (!empty($discount_info['layout_clean_item'])) {
         $this->breakdowns()->create([
-          'unit_item' => $request->layout_clean_item,
-          'unit_cost' => $request->layout_clean_cost,
+          'unit_item' => $discount_info['layout_clean_item'],
+          'unit_cost' => $discount_info['layout_clean_cost'],
           'unit_count' => 1,
-          'unit_subtotal' => $request->layout_clean_subtotal,
+          'unit_subtotal' => $discount_info['layout_clean_subtotal'],
           'unit_type' => 4,
         ]);
       }
 
       // 請求書追加でレイアウトが発生する場合
-      if (empty($request->layout_prepare_item) && empty($request->layout_clean_item)) {
-        $countLay = $this->RequestBreakdowns($request, 'layout_breakdown_item');
-        if ($countLay != "") {
-          for ($lay = 0; $lay < $countLay; $lay++) {
-            $this->breakdowns()->create([
-              'unit_item' => $request->{'layout_breakdown_item' . $lay},
-              'unit_cost' => $request->{'layout_breakdown_cost' . $lay},
-              'unit_count' => $request->{'layout_breakdown_count' . $lay},
-              'unit_subtotal' => $request->{'layout_breakdown_subtotal' . $lay},
-              'unit_type' => 4,
-            ]);
-          }
-        }
-      }
+      // if (empty($request->layout_prepare_item) && empty($request->layout_clean_item)) {
+      //   $countLay = $this->RequestBreakdowns($request, 'layout_breakdown_item');
+      //   if ($countLay != "") {
+      //     for ($lay = 0; $lay < $countLay; $lay++) {
+      //       $this->breakdowns()->create([
+      //         'unit_item' => $request->{'layout_breakdown_item' . $lay},
+      //         'unit_cost' => $request->{'layout_breakdown_cost' . $lay},
+      //         'unit_count' => $request->{'layout_breakdown_count' . $lay},
+      //         'unit_subtotal' => $request->{'layout_breakdown_subtotal' . $lay},
+      //         'unit_type' => 4,
+      //       ]);
+      //     }
+      //   }
+      // }
 
-      if ($request->layout_breakdown_discount_item) {
+      // レイアウト割引
+      if (!empty($discount_info['layout_breakdown_discount_item'])) {
         $this->breakdowns()->create([
-          'unit_item' => $request->layout_breakdown_discount_item,
-          'unit_cost' => $request->layout_breakdown_discount_cost,
-          'unit_count' => $request->layout_breakdown_discount_count,
-          'unit_subtotal' => $request->layout_breakdown_discount_subtotal,
+          'unit_item' => $discount_info['layout_breakdown_discount_item'],
+          'unit_cost' => $discount_info['layout_breakdown_discount_cost'],
+          'unit_count' => $discount_info['layout_breakdown_discount_count'],
+          'unit_subtotal' => $discount_info['layout_breakdown_discount_subtotal'],
           'unit_type' => 4,
         ]);
       }
 
-      $countOth = $this->RequestBreakdowns($request, 'others_breakdown_item');
-      if ($countOth != "") {
-        for ($oth = 0; $oth < $countOth; $oth++) {
+      // その他
+      $o_cnt = $this->preg($discount_info, "others_input_item");
+      if ($o_cnt != 0) {
+        for ($ohr = 0; $ohr < $o_cnt; $ohr++) {
           $this->breakdowns()->create([
-            'unit_item' => $request->{'others_breakdown_item' . $oth},
-            'unit_cost' => $request->{'others_breakdown_cost' . $oth},
-            'unit_count' => $request->{'others_breakdown_count' . $oth},
-            'unit_subtotal' => $request->{'others_breakdown_subtotal' . $oth},
+            'unit_item' => $discount_info['others_input_item' . $ohr],
+            'unit_cost' => $discount_info['others_input_cost' . $ohr],
+            'unit_count' => $discount_info['others_input_count' . $ohr],
+            'unit_subtotal' => $discount_info['others_input_subtotal' . $ohr],
             'unit_type' => 5,
           ]);
         }

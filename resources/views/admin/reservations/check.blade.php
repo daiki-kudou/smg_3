@@ -5,6 +5,15 @@
 <script src="{{ asset('/js/template.js') }}"></script>
 <script src="{{ asset('/js/admin/validation.js') }}"></script>
 
+@if (session('flash_message'))
+<div class="alert alert-danger">
+  <ul>
+    <li> {!! session('flash_message') !!} </li>
+  </ul>
+</div>
+@endif
+
+
 
 {{ Form::open(['url' => 'admin/reservations', 'method'=>'POST', 'id'=>'agents_calculate_form']) }}
 @csrf
@@ -842,10 +851,6 @@
   {{Form::close()}}
 </div>
 
-<style>
-  .test_post {
-    display: none !important;
-  }
-</style>
+
 
 @endsection

@@ -1016,10 +1016,12 @@
               </td>
             </tr>
             <tr>
-              <td>請求書宛名{{ Form::text('pay_company', $users[$value['user_id']]->company,['class'=>'form-control'] ) }}
+              <td>請求書宛名
+                {{ Form::text('pay_company', $users[$value['user_id']]->company,['class'=>'form-control'] ) }}
               </td>
               <td>
-                担当者{{ Form::text('bill_person', $request->user_id?ReservationHelper::getPersonName($request->user_id):'',['class'=>'form-control'] ) }}
+                担当者
+                {{ Form::text('bill_person', ReservationHelper::getPersonName($value['user_id']),['class'=>'form-control'] ) }}
               </td>
             </tr>
             <tr>

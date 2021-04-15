@@ -146,32 +146,33 @@ class Reservation extends Model
 */
   public function ReserveStore($request)
   {
-    DB::transaction(function () use ($request) { //トランザクションさせる
+    $master_info = $request->session()->get('master_info');
+    DB::transaction(function () use ($master_info, $request) { //トランザクションさせる
       $reservation = $this->create([
-        'venue_id' => $request->venue_id,
-        'user_id' => $request->user_id,
+        'venue_id' => $master_info['venue_id'],
+        'user_id' => $master_info['user_id'],
         'agent_id' => 0, //デフォで0
-        'reserve_date' => $request->reserve_date,
-        'price_system' => $request->price_system,
-        'enter_time' => $request->enter_time,
-        'leave_time' => $request->leave_time,
-        'board_flag' => $request->board_flag,
-        'event_start' => $request->event_start,
-        'event_finish' => $request->event_finish,
-        'event_name1' => $request->event_name1,
-        'event_name2' => $request->event_name2,
-        'event_owner' => $request->event_owner,
-        'luggage_count' => $request->luggage_count,
-        'luggage_arrive' => $request->luggage_arrive,
-        'luggage_return' => $request->luggage_return,
-        'email_flag' => $request->email_flag,
-        'in_charge' => $request->in_charge,
-        'tel' => $request->tel,
-        'cost' => $request->cost,
-        'discount_condition' => $request->discount_condition,
-        'attention' => $request->attention,
-        'user_details' => $request->user_details,
-        'admin_details' => $request->admin_details,
+        'reserve_date' => $master_info['reserve_date'],
+        'price_system' => $master_info['price_system'],
+        'enter_time' => $master_info['enter_time'],
+        'leave_time' => $master_info['leave_time'],
+        'board_flag' => $master_info['board_flag'],
+        'event_start' => !empty($master_info['event_start']) ? $master_info['event_start'] : "",
+        'event_finish' => !empty($master_info['event_finish']) ? $master_info['event_finish'] : "",
+        'event_name1' => !empty($master_info['event_name1']) ? $master_info['event_name1'] : "",
+        'event_name2' => !empty($master_info['event_name2']) ? $master_info['event_name2'] : "",
+        'event_owner' => !empty($master_info['event_owner']) ? $master_info['event_owner'] : "",
+        'luggage_count' => $master_info['luggage_count'],
+        'luggage_arrive' => $master_info['luggage_arrive'],
+        'luggage_return' => $master_info['luggage_return'],
+        'email_flag' => $master_info['email_flag'],
+        'in_charge' => $master_info['in_charge'],
+        'tel' => $master_info['tel'],
+        'cost' => $master_info['cost'],
+        'discount_condition' => "",
+        'attention' => "",
+        'user_details' => $master_info['user_details'],
+        'admin_details' => $master_info['admin_details'],
       ]);
       $reservation->ReserveStoreBill($request);
     });
@@ -179,25 +180,26 @@ class Reservation extends Model
 
   public function ReserveStoreBill($request)
   {
-    DB::transaction(function () use ($request) {
+    $discount_info = $request->session()->get('discount_info');
+    DB::transaction(function () use ($discount_info, $request) {
       $bill = $this->bills()->create([
         'reservation_id' => $this->id,
-        'venue_price' => $request->venue_price,
-        'equipment_price' => $request->equipment_price ? $request->equipment_price : 0, //備品・サービス・荷物
-        'layout_price' => $request->layout_price ? $request->layout_price : 0,
-        'others_price' => $request->others_price ? $request->others_price : 0,
-        'master_subtotal' => $request->master_subtotal,
-        'master_tax' => $request->master_tax,
-        'master_total' => $request->master_total,
-        'payment_limit' => $request->payment_limit,
-        'bill_company' => $request->bill_company,
-        'bill_person' => $request->bill_person,
+        'venue_price' => $discount_info['venue_price'],
+        'equipment_price' => !empty($discount_info['equipment_price']) ? $discount_info['equipment_price'] : 0, //備品・サービス・荷物
+        'layout_price' => !empty($discount_info['layout_price']) ? $discount_info['layout_price'] : 0,
+        'others_price' => !empty($discount_info['others_price']) ? $discount_info['others_price'] : 0,
+        'master_subtotal' => $discount_info['master_subtotal'],
+        'master_tax' => $discount_info['master_tax'],
+        'master_total' => $discount_info['master_total'],
+        'payment_limit' => $discount_info['pay_limit'],
+        'bill_company' => $discount_info['pay_company'],
+        'bill_person' => $discount_info['bill_person'],
         'bill_created_at' => Carbon::now(),
-        'bill_remark' => $request->bill_remark,
-        'paid' => $request->paid,
-        'pay_day' => $request->pay_day,
-        'pay_person' => $request->pay_person,
-        'payment' => $request->payment,
+        'bill_remark' => $discount_info['bill_remark'],
+        'paid' => $discount_info['paid'],
+        'pay_day' => $discount_info['pay_day'],
+        'pay_person' => $discount_info['pay_person'],
+        'payment' => $discount_info['payment'],
         'reservation_status' => 1, //デフォで1、仮押えのデフォは0
         'double_check_status' => 0, //デフォで0
         'category' => 1, //デフォで１。　新規以外だと　2:その他有料備品　3:レイアウト　4:その他

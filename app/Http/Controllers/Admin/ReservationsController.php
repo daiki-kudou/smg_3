@@ -225,7 +225,6 @@ class ReservationsController extends Controller
     $users = User::all();
     $target = $request->all_requests;
     $target = json_decode($target);
-    // if ($target != null) {
     return view('admin.reservations.create', [
       'venues' => $venues,
       'users' => $users,
@@ -353,9 +352,15 @@ class ReservationsController extends Controller
   public function store(Request $request)
   {
     $reservation = new Reservation();
-    $reservation->ReserveStore($request);
+    try {
+      $reservation->ReserveStore($request);
+    } catch (\Exception $e) {
+      session()->flash('flash_message', '更新に失敗しました。<br>フォーム内の空欄や全角など確認した上でもう一度お試しください。');
+      return redirect(route('admin.reservations.check'));
+    }
     // 戻って再度送信してもエラーになるように設定
     $request->session()->regenerate();
+    $request->session()->flush();
     return redirect()->route('admin.reservations.index');
   }
 
