@@ -163,12 +163,12 @@
               </p>
             </td>
           </tr>
-          <tr>
+          <!-- <tr>
             <td class="table-active"><label for="eventTime">イベント時間記載</label></td>
             <td>
               {{isset($reservation->event_start)?'有り':"無し"}}
             </td>
-          </tr>
+          </tr> -->
           <tr>
             <td class="table-active"><label for="eventStart">イベント開始時間</label></td>
             <td>
