@@ -264,8 +264,11 @@
       </div>
     </div>
   </div>
-  {{ Form::submit('修正する !!丸岡さん、このボタンのデザインお願いします', ['class' => 'btn more_btn_lg mx-auto d-block my-5','name'=>'back']) }}
-  {{ Form::submit('確認する', ['class' => 'btn more_btn_lg mx-auto d-block my-5']) }}
+
+  <div class="container-field d-flex justify-content-center mt-5">
+  {{ Form::submit('修正する', ['class' => 'btn more_btn4_lg d-block mr-5','name'=>'back']) }}
+  {{ Form::submit('確認する', ['class' => 'btn more_btn_lg d-block']) }}
+</div>
   {{ Form::close() }}
 </section>
 
