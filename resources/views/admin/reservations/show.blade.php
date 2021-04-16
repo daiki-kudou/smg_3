@@ -489,20 +489,6 @@
             </p>
           </td>
         </tr>
-        <!-- <tr>
-              <td>
-                <p>
-                  割引条件
-                </p>
-                <p>{{isset($reservation->discount_condition)?$reservation->discount_condition:'なし'}}</p>
-              </td>
-            </tr>
-            <tr class="caution">
-              <td>
-                <p>注意事項</p>
-                <p>{{isset($reservation->attention)?$reservation->attention:'なし'}}</p>
-              </td>
-            </tr> -->
         <tr>
           <td>
             <p>申し込みフォーム備考</p>
@@ -512,7 +498,8 @@
         <tr>
           <td>
             <p>管理者備考</p>
-            <p>{{isset($reservation->admin_details)?$reservation->admin_details:'なし'}}</p>
+            <!-- <p>{{isset($reservation->admin_details)?$reservation->admin_details:'なし'}}</p> -->
+            <p>{!!nl2br(e($reservation->admin_details))!!}</p>
           </td>
         </tr>
       </table>

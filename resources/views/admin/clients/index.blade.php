@@ -85,6 +85,7 @@
           <td class="text-right">
             <dd>
               {{Form::text("search_email",$request->search_email?:'', ['class'=>'form-control','id'=>''])}}
+              <p class="is-error-search_email" style="color: red"></p>
           </td>
         </tr>
         <tr>

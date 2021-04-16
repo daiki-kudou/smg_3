@@ -15,6 +15,15 @@ jQuery.validator.addMethod(
   "<br/>※半角英数字を入力してください"
 );
 
+// 半角プラス記号
+jQuery.validator.addMethod(
+  "sign",
+  function (value, element) {
+    return this.optional(element) || /^([a-zA-Z0-9!@#$%^\[\\\]\&*()+-={};:?,._]+)$/.test(value);
+  },
+  "<br/>※半角英数字を入力してください"
+);
+
 // 有料備品の数字入力制限
 $(function () {
   $("input[name*='equipment_breakdown']").on("input", function (e) {
@@ -173,6 +182,7 @@ $(function () {
         search_id: { number: true },
         search_mobile: { number: true },
         search_tel: { number: true },
+        search_email: { sign: true },
         id: { number: true },
         mobile: { number: true },
         tel: { number: true },
@@ -181,6 +191,7 @@ $(function () {
         search_id: { number: "※半角数字を入力してください" },
         search_mobile: { number: "※半角数字を入力してください" },
         search_tel: { number: "※半角数字を入力してください" },
+        search_email: { sign: "※半角英数字を入力してください" },
         id: { number: "※半角数字を入力してください" },
         mobile: { number: "※半角数字を入力してください" },
         tel: { number: "※半角数字を入力してください" },
