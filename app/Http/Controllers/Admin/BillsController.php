@@ -18,12 +18,15 @@ use Illuminate\Support\Facades\Mail;
 
 use Carbon\Carbon;
 
+use App\Traits\PregTrait;
 
 
 
 
 class BillsController extends Controller
 {
+  use PregTrait;
+
   /**
    * Display a listing of the resource.
    *
@@ -41,14 +44,28 @@ class BillsController extends Controller
    */
   public function create(Request $request)
   {
+    var_dump($request->all());
     $reservation = Reservation::find($request->reservation_id);
     $user = User::find($reservation->user_id);
     $pay_limit = $user->getUserPayLimit($reservation->reserve_date);
+    $data = $request->session()->get('add_bill');
+    if (!empty($data)) {
+      $venues = $this->preg($data, 'venue_breakdown_item');
+      $equipments = $this->preg($data, 'equipment_breakdown_item');
+      $layouts = $this->preg($data, 'layout_breakdown_item');
+      $others = $this->preg($data, 'others_breakdown_item');
+      return view('admin/bills/create', compact('reservation', 'pay_limit', 'data', 'venues', 'equipments', 'layouts', 'others'));
+    } else {
+      return view('admin/bills/create', compact('reservation', 'pay_limit'));
+    }
+  }
 
-    return view('admin/bills/create', [
-      'reservation' => $reservation,
-      'pay_limit' => $pay_limit,
-    ]);
+  public function createSession(Request $request)
+  {
+    $request->session()->forget('add_bill');
+    $data = $request->all();
+    $request->session()->put('add_bill', $data);
+    return redirect(route("admin.bills.check"));
   }
 
   /***********************
@@ -79,31 +96,34 @@ class BillsController extends Controller
 
   public function check(Request $request)
   {
-    $venues = Venue::getBreakdowns($request);
-    $equipments = Venue::getBreakdowns($request);
-    $services = Venue::getBreakdowns($request);
-    $layouts = [];
-    foreach ($request->all() as $key => $value) {
-      if (preg_match('/layout_breakdown_item/', $key)) {
-        $layouts[] = $value;
-      }
-    }
-    $layouts = count($layouts);
-    $others = [];
-    foreach ($request->all() as $key => $value) {
-      if (preg_match('/others_breakdown_item/', $key)) {
-        $others[] = $value;
-      }
-    }
-    $others = count($others);
+
+    $data = $request->session()->get('add_bill');
+    $venues = $this->preg($data, 'venue_breakdown_item');
+    $equipments = $this->preg($data, 'equipment_breakdown_item');
+    $layouts = $this->preg($data, 'layout_breakdown_item');
+    $others = $this->preg($data, 'others_breakdown_item');
+    // $services = Venue::getBreakdowns($request);
+    // $layouts = [];
+    // foreach ($request->all() as $key => $value) {
+    //   if (preg_match('/layout_breakdown_item/', $key)) {
+    //     $layouts[] = $value;
+    //   }
+    // }
+    // $layouts = count($layouts);
+    // $others = [];
+    // foreach ($request->all() as $key => $value) {
+    //   if (preg_match('/others_breakdown_item/', $key)) {
+    //     $others[] = $value;
+    //   }
+    // }
+    // $others = count($others);
 
     return view('admin.bills.check', compact(
-      'request',
+      'data',
       'venues',
       'equipments',
-      'services',
       'layouts',
-      'others'
+      'others',
     ));
   }
 
@@ -115,11 +135,23 @@ class BillsController extends Controller
    */
   public function store(Request $request)
   {
-    $reservation = Reservation::find($request->reservation_id);
-    $reservation->ReserveStoreBill($request);
+    $data = $request->session()->get('add_bill');
+    if ($request->back) {
+      return redirect(route('admin.bills.create', [
+        'reservation_id' => $data['reservation_id']
+      ]));
+    }
 
-    $request->session()->regenerate();
-    return redirect()->route('admin.reservations.show', $request->reservation_id);
+    $reservation = Reservation::find($data["reservation_id"]);
+    // try {
+    $reservation->ReserveStoreSessionBill($request, 'add_bill', 'add_bill', "add"); //引数4番は追加請求時のみ発動、デフォはnormal
+    // } catch (\Exception $e) {
+    //   session()->flash('flash_message', '更新に失敗しました。<br>フォーム内の空欄や全角など確認した上でもう一度お試しください。');
+    //   return redirect(route('admin.bills.check', $request->reservation_id));
+    // }
+
+    // $request->session()->regenerate();
+    // return redirect()->route('admin.reservations.show', $request->reservation_id);
   }
 
   public function OtherDoubleCheck(Request $request)

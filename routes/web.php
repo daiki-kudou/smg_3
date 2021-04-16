@@ -156,8 +156,6 @@ Route::namespace('Admin')->prefix('admin')->name('admin.')->group(function () {
 
     Route::get('reservations/generate_pdf/{reservation}', 'ReservationsController@generate_pdf')->name('reservations.generate_pdf');
 
-    // Bill　予約に紐づく
-    Route::resource('bills', 'BillsController');
     // Breakdown　Billに紐づく
     Route::resource('breakdowns', 'BreakdownsController');
 
@@ -176,13 +174,15 @@ Route::namespace('Admin')->prefix('admin')->name('admin.')->group(function () {
     // Route::post('reservations/{reservation}/add_bill', 'ReservationsController@add_bill')->name('reservations.add_bill');
 
     // 追加請求書新規登録
-    Route::post('bills/create/{reservation}', 'BillsController@create');
+    Route::get('bills/create', 'BillsController@create');
+    // session 追加請求書
+    Route::post('bills/create_session', 'BillsController@createSession');
     // // ajax 予約　請求書　追加
     Route::post('bills/ajaxaddbillsequipments', 'BillsController@ajaxaddbillsequipments');
     // // ajax 予約　請求書　追加　レイアウト取得
     Route::post('bills/ajaxaddbillslaytout', 'BillsController@ajaxaddbillslaytout');
     // // 管理者請求書作成　確認画面
-    Route::post('bills/check/{reservation}', 'BillsController@check');
+    Route::get('bills/check', 'BillsController@check')->name('bills.check');
     // // 管理者請求書作成　保存
     // Route::post('bills/store', 'BillsController@store');
 
@@ -191,6 +191,9 @@ Route::namespace('Admin')->prefix('admin')->name('admin.')->group(function () {
     Route::post('bills/other_send_approve', 'BillsController@other_send_approve');
     // 仲介会社経由予約
     Route::get('agents_reservations/create', 'AgentsReservationsController@create');
+    // Bill　予約に紐づく
+    Route::resource('bills', 'BillsController');
+
     // 仲介会社経由　計算
     Route::post('agents_reservations/calculate', 'AgentsReservationsController@calculate');
     // 仲介会社経由　確認

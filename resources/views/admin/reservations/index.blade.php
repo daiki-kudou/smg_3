@@ -73,7 +73,7 @@
             </td>
           </tr>
           <tr>
-          <th class="search_item_name"><label for="venue">利用会場</label></th>
+            <th class="search_item_name"><label for="venue">利用会場</label></th>
             <td class="text-right">
               <select class="form-control select2" name="venue_id">
                 @foreach ($venue as $venues)
@@ -95,7 +95,7 @@
             </td>
           </tr>
           <tr>
-          <th class="search_item_name"><label for="person_name">担当者氏名工藤さん！フリー項目です</label></th>
+            <th class="search_item_name"><label for="person_name">担当者氏名工藤さん！フリー項目です</label></th>
             <td class="text-right">
               <!-- <select class="form-control select2" style="width: 100%;" name="user_id">
                 @foreach ($user as $users)
@@ -110,7 +110,7 @@
             </td>
           </tr>
           <tr>
-          <th class="search_item_name"><label for="tel">固定電話</label></th>
+            <th class="search_item_name"><label for="tel">固定電話</label></th>
             <td>
               <input type="text" name="tel" class="form-control" id="tel">
             </td>
@@ -122,7 +122,7 @@
             </td>
           </tr>
           <tr>
-          <th class="search_item_name"><label for="enduser_person">エンドユーザー</label></th>
+            <th class="search_item_name"><label for="enduser_person">エンドユーザー</label></th>
             <td class="text-right">
               <input type="text" name="enduser_person" class="form-control" id="enduser_person">
             </td>
@@ -149,7 +149,7 @@
             </td>
           </tr>
           <tr>
-          <th class="search_item_name"><label for="category">売上区分</label></th>
+            <th class="search_item_name"><label for="category">売上区分</label></th>
             <td class="text-right" colspan="3">
               <ul class="search_category">
                 <li>
@@ -168,7 +168,7 @@
             </td>
           </tr>
           <tr>
-          <th class="search_item_name"><label for="Status">予約状況</label></th>
+            <th class="search_item_name"><label for="Status">予約状況</label></th>
             <td colspan="3">
               <ul class="search_category">
                 <li>
@@ -195,7 +195,7 @@
             </td>
           </tr>
           <tr>
-          <th class="search_item_name"><label for="freeword">フリーワード検索</label></th>
+            <th class="search_item_name"><label for="freeword">フリーワード検索</label></th>
             <td colspan="3">
               {{ Form::text('freeword', '', ['class' => 'form-control', 'id'=>'']) }}
             </td>
@@ -311,6 +311,13 @@
           </tr>
           @for ($i = 0; $i < count($reservation->bills()->get())-1; $i++)
             <tr>
+              <td>エンドユーザーダミー123
+              </td>
+              <td>
+                @foreach (ImageHelper::addBillsShow($reservation->bills()->skip($i+1)->first()->id) as $icon)
+                {!!$icon!!}
+                @endforeach
+              </td>
               <td>
                 @if ($reservation->bills()->skip($i+1)->first()->category==2)
                 追加請求

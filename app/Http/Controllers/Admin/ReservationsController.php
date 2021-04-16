@@ -353,7 +353,7 @@ class ReservationsController extends Controller
   {
     $reservation = new Reservation();
     try {
-      $reservation->ReserveStore($request);
+      $reservation->ReserveStoreSession($request, 'master_info', 'discount_info');
     } catch (\Exception $e) {
       session()->flash('flash_message', '更新に失敗しました。<br>フォーム内の空欄や全角など確認した上でもう一度お試しください。');
       return redirect(route('admin.reservations.check'));
@@ -372,6 +372,8 @@ class ReservationsController extends Controller
    */
   public function show($id)
   {
+    session()->forget('add_bill');
+
     $reservation = Reservation::find($id);
     $venue = Venue::find($reservation->venue->id);
     $user = User::find($reservation->user_id);
