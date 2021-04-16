@@ -259,56 +259,6 @@ $(function () {
   });
 });
 
-// 仮押さえ　詳細＆再計算&編集&編集の再計算
-$(function () {
-  $("#pre_reservationCreateForm").validate({
-    rules: {
-      user_id: { required: true },
-      unknown_user_email: { email: true },
-      unknown_user_mobile: { number: true, minlength: 11 },
-      unknown_user_tel: { number: true, minlength: 10 },
-      pre_date0: { required: true },
-      pre_venue0: { required: true },
-      pre_enter0: { required: true },
-      pre_leave0: { required: true },
-    },
-    messages: {
-      user_id: { required: "※必須項目です" },
-      unknown_user_email: { email: "※Emailの形式で入力してください" },
-      unknown_user_mobile: {
-        number: "※半角数字を入力してください",
-        minlength: "※最低桁数は11です",
-      },
-      unknown_user_tel: {
-        number: "※半角数字を入力してください",
-        minlength: "※最低桁数は10です",
-      },
-      pre_date0: { required: "※必須項目です" },
-      pre_venue0: { required: "※必須項目です" },
-      pre_enter0: { required: "※必須項目です" },
-      pre_leave0: { required: "※必須項目です" },
-    },
-    errorPlacement: function (error, element) {
-      var name = element.attr("name");
-      if (element.attr("name") === "category[]") {
-        error.appendTo($(".is-error-category"));
-      } else if (element.attr("name") === name) {
-        error.appendTo($(".is-error-" + name));
-      }
-    },
-    errorElement: "span",
-    errorClass: "is-error",
-    //送信前にLoadingを表示
-    submitHandler: function (form) {
-      $(".spin_btn").removeClass("hide");
-      $(".submit_btn").addClass("hide");
-      form.submit();
-    },
-  });
-  $("input").on("blur", function () {
-    $(this).valid();
-  });
-});
 
 // 仮押さえ　詳細＆再計算&編集&編集の再計算
 $(function () {
@@ -894,81 +844,155 @@ $(function () {
 });
 
 // 予約新規作成
+// $(function () {
+//   $("#reservationCreateForm").validate({
+//     rules: {
+//       reserve_date: {
+//         required: true,
+//       },
+//       venue_id: {
+//         required: true,
+//       },
+//       price_system: {
+//         required: true,
+//       },
+//       enter_time: {
+//         required: true,
+//       },
+//       leave_time: {
+//         required: true,
+//       },
+//       user_id: {
+//         required: true,
+//       },
+//       in_charge: {
+//         required: true,
+//       },
+//       tel: {
+//         required: true,
+//         minlength: 10,
+//       },
+//     },
+//     messages: {
+//       reserve_date: {
+//         required: "※必須項目です",
+//       },
+//       venue_id: {
+//         required: "※必須項目です",
+//       },
+//       price_system: {
+//         required: "※必須項目です",
+//       },
+//       enter_time: {
+//         required: "※必須項目です",
+//       },
+//       leave_time: {
+//         required: "※必須項目です",
+//       },
+//       user_id: {
+//         required: "※必須項目です",
+//       },
+//       in_charge: {
+//         required: "※必須項目です",
+//       },
+//       tel: {
+//         required: "※必須項目です",
+//         minlength: "※最低桁数は10です",
+//       },
+//     },
+//     errorPlacement: function (error, element) {
+//       var name = element.attr("name");
+//       if (element.attr("name") === "category[]") {
+//         error.appendTo($(".is-error-category"));
+//       } else if (element.attr("name") === name) {
+//         error.appendTo($(".is-error-" + name));
+//       }
+//     },
+//     errorElement: "span",
+//     errorClass: "is-error",
+//     //送信前にLoadingを表示
+//     submitHandler: function (form) {
+//       $(".spin_btn").removeClass("hide");
+//       $(".submit_btn").addClass("hide");
+//       form.submit();
+//     },
+//   });
+//   $("input").on("blur", function () {
+//     $(this).valid();
+//   });
+// });
+
+
+// 予約登録
 $(function () {
-  $("#reservationCreateForm").validate({
-    rules: {
-      reserve_date: {
-        required: true,
+  var target = [
+    "#reservationCreateForm",
+  ];
+
+  $.each(target, function (index, value) {
+    $(value).validate({
+      rules: {
+        reserve_date: { required: true },
+        venue_id: { required: true },
+        price_system: { required: true },
+        enter_time: { required: true },
+        leave_time: { required: true },
+        user_id: { required: true },
+        in_charge: { required: true },
+        tel: { required: true, number: true, minlength: 10 },
+        luggage_count: { number: true, minlength: 49 },
+        luggage_return: { number: true, minlength: 49 },
+        luggage_price: { number: true },
       },
-      venue_id: {
-        required: true,
+      messages: {
+        reserve_date: { required: "※必須項目です" },
+        venue_id: { required: "※必須項目です" },
+        price_system: { required: "※必須項目です" },
+        enter_time: { required: "※必須項目です" },
+        leave_time: { required: "※必須項目です" },
+        user_id: { required: "※必須項目です" },
+        in_charge: { required: "※必須項目です" },
+        tel: {
+          required: "※必須項目です",
+          number: "※半角数字を入力してください",
+          minlength: "※最低桁数は10です",
+        },
+        luggage_count: {
+          number: "半角数字で入力してください",
+          range: "※最大値は49です",
+        },
+        luggage_return: {
+          number: "半角数字で入力してください",
+          range: "※最大値は49です",
+        },
+        luggage_return: {
+          number: "半角数字で入力してください",
+        },
+        cost: {
+          number: "半角数字で入力してください",
+          range: "※1から100までの半角英数字を入力してください",
+        },
       },
-      price_system: {
-        required: true,
+      errorPlacement: function (error, element) {
+        var name = element.attr("name");
+        if (element.attr("name") === "category[]") {
+          error.appendTo($(".is-error-category"));
+        } else if (element.attr("name") === name) {
+          error.appendTo($(".is-error-" + name));
+        }
       },
-      enter_time: {
-        required: true,
+      errorElement: "span",
+      errorClass: "is-error",
+      //送信前にLoadingを表示
+      submitHandler: function (form) {
+        $(".approval").addClass("hide");
+        $(".loading").removeClass("hide");
+        form.submit();
       },
-      leave_time: {
-        required: true,
-      },
-      user_id: {
-        required: true,
-      },
-      in_charge: {
-        required: true,
-      },
-      tel: {
-        required: true,
-        minlength: 10,
-      },
-    },
-    messages: {
-      reserve_date: {
-        required: "※必須項目です",
-      },
-      venue_id: {
-        required: "※必須項目です",
-      },
-      price_system: {
-        required: "※必須項目です",
-      },
-      enter_time: {
-        required: "※必須項目です",
-      },
-      leave_time: {
-        required: "※必須項目です",
-      },
-      user_id: {
-        required: "※必須項目です",
-      },
-      in_charge: {
-        required: "※必須項目です",
-      },
-      tel: {
-        required: "※必須項目です",
-        minlength: "※最低桁数は10です",
-      },
-    },
-    errorPlacement: function (error, element) {
-      var name = element.attr("name");
-      if (element.attr("name") === "category[]") {
-        error.appendTo($(".is-error-category"));
-      } else if (element.attr("name") === name) {
-        error.appendTo($(".is-error-" + name));
-      }
-    },
-    errorElement: "span",
-    errorClass: "is-error",
-    //送信前にLoadingを表示
-    submitHandler: function (form) {
-      $(".spin_btn").removeClass("hide");
-      $(".submit_btn").addClass("hide");
-      form.submit();
-    },
-  });
-  $("input").on("blur", function () {
-    $(this).valid();
+    });
+    $("input").on("blur", function () {
+      $(this).valid();
+    });
   });
 });
 

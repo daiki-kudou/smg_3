@@ -529,8 +529,8 @@
           </tr>
           <tr>
             <td>
-              <label for="userNote">申し込みフォーム備考</label>
-              {{ Form::textarea('user_details', $value['user_details'],['class'=>'form-control'] ) }}
+              <!-- <label for="userNote">申し込みフォーム備考</label> -->
+              {{ Form::hidden('user_details', $value['user_details'],['class'=>'form-control'] ) }}
             </td>
           </tr>
           <tr>

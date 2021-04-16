@@ -93,6 +93,7 @@
                   @endforeach
                 </select>
                 <p class="is-error-venue_id" style="color: red"></p>
+
                 <div class="price_selector">
                   <div>
                     <small>※料金体系を選択してください</small>
@@ -107,6 +108,7 @@
                       {{Form::label('price_system_radio2','アクセア（時間貸）')}}
                     </div>
                   </div>
+                <p class="is-error-price_system" style="color: red"></p>
                 </div>
               </td>
             </tr>
@@ -311,7 +313,7 @@
               </td>
             </tr>
             <tr>
-              <td class="table-active" width="33%"><label for="user_id" class=" form_required">会社名/団体名</label></td>
+              <td class="table-active"><label for="user_id" class=" form_required">会社名/団体名</label></td>
               <td>
                 <select class="form-control" name="user_id" id="user_select">
                   <option disabled selected>選択してください</option>
@@ -446,8 +448,8 @@
             </tr>
             <tr>
               <td>
-                <label for="userNote">申し込みフォーム備考</label>
-                {{ Form::textarea('user_details', old('user_details'),['class'=>'form-control', 'placeholder'=>'入力してください'] ) }}
+                <!-- <label for="userNote">申し込みフォーム備考</label> -->
+                {{ Form::hidden('user_details', old('user_details'),['class'=>'form-control', 'placeholder'=>'入力してください'] ) }}
               </td>
             </tr>
             <tr>
