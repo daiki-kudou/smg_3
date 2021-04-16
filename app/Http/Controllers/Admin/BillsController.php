@@ -143,15 +143,16 @@ class BillsController extends Controller
     }
 
     $reservation = Reservation::find($data["reservation_id"]);
-    // try {
-    $reservation->ReserveStoreSessionBill($request, 'add_bill', 'add_bill', "add"); //引数4番は追加請求時のみ発動、デフォはnormal
-    // } catch (\Exception $e) {
-    //   session()->flash('flash_message', '更新に失敗しました。<br>フォーム内の空欄や全角など確認した上でもう一度お試しください。');
-    //   return redirect(route('admin.bills.check', $request->reservation_id));
-    // }
+    try {
+      $reservation->ReserveStoreSessionBill($request, 'add_bill', 'add_bill', "add"); //引数4番は追加請求時のみ発動、デフォはnormal
+    } catch (\Exception $e) {
+      report($e);
+      session()->flash('flash_message', '更新に失敗しました。<br>フォーム内の空欄や全角など確認した上でもう一度お試しください。');
+      return redirect(route('admin.bills.check', $request->reservation_id));
+    }
 
-    // $request->session()->regenerate();
-    // return redirect()->route('admin.reservations.show', $request->reservation_id);
+    $request->session()->regenerate();
+    return redirect()->route('admin.reservations.show', $data['reservation_id']);
   }
 
   public function OtherDoubleCheck(Request $request)
