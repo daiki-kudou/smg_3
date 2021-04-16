@@ -252,82 +252,6 @@
             @endif
             @endforeach
             @endforeach
-            <!-- <tr>
-                  <td class="table-active"><label for="layout">レイアウト変更</label></td>
-                  <td>
-                    @foreach ($reservation->bills()->first()->get() as $layout)
-                    {{$layout->layout_total?'有り':'無し'}}
-                    @endforeach
-                  </td>
-                </tr>
-                <tr>
-                  <td class="table-active"><label for="prelayout">レイアウト準備</label></td>
-                  <td>
-                    @foreach ($reservation->bills()->first()->breakdowns()->get() as $item)
-                    @if ($item->unit_item=="レイアウト準備")
-                    有り
-                    @endif
-                    @endforeach
-                  </td>
-                </tr>
-                <tr>
-                  <td class="table-active"><label for="postlayout">レイアウト片付</label></td>
-                  <td>
-                    @foreach ($reservation->bills()->first()->breakdowns()->get() as $item)
-                    @if ($item->unit_item=="レイアウト片付")
-                    有り
-                    @endif
-                    @endforeach
-                  </td>
-                </tr>
-                <tr>
-                  <td class="table-active"><label for="Delivery">荷物預り/返送</label></td>
-                  <td>
-                    @foreach ($reservation->bills()->first()->breakdowns()->get() as $item)
-                    @if ($item->unit_item=="荷物預り/返送")
-                    有り
-                    @endif
-                    @endforeach
-                  </td>
-                </tr>
-                <tr>
-                  <td class="table-active"><label for="preDelivery">事前に預かる荷物</label></td>
-                  <td>
-                    <ul class="table-cell-box">
-                      <li>
-                        <p>
-                          {{$reservation->luggage_count?'有り':'無し'}}
-                        </p>
-                      </li>
-                      <li class="d-flex justify-content-between">
-                        <p>荷物個数</p>
-                        <p>
-                          {{$reservation->luggage_count}}個
-                        </p>
-                      </li>
-                      <li class="d-flex justify-content-between">
-                        <p>事前荷物の到着日</p>
-                        <p>{{$reservation->luggage_arrive}}</p>
-                      </li>
-                    </ul>
-                  </td>
-                </tr>
-                <tr>
-                  <td class="table-active"><label for="postDelivery">事後返送する荷物</label></td>
-                  <td>
-                    <ul class="table-cell-box">
-                      <li>
-                        <p>
-                          {{$reservation->luggage_return?'有り':'無し'}}
-                        </p>
-                      </li>
-                      <li class="d-flex justify-content-between">
-                        <p>荷物個数</p>
-                        <p>{{$reservation->luggage_return}}個</p>
-                      </li>
-                    </ul>
-                  </td>
-                </tr> -->
           </tbody>
         </table>
 
@@ -445,13 +369,15 @@
         <table class="table table-bordered eating-table">
           <tbody>
             <tr>
-              <td>
-                <p class="title-icon">室内飲食</p>
-              </td>
+              <th colspan="2">
+                <p class="title-icon">
+                  <i class="fas fa-utensils icon-size"></i>室内飲食
+                </p>
+              </th>
             </tr>
             <tr>
               <td>
-                なし
+                工藤さん！未実装
               </td>
             </tr>
           </tbody>
@@ -467,6 +393,9 @@
                 </p>
               </td>
             </tr>
+            <tr>
+              <td>工藤さん！未実装</td>
+            </tr>
           </tbody>
         </table>
       </div>
@@ -481,7 +410,7 @@
   <section class="mt-5">
     <div class="bill">
       {{-- ステータス３は予約完了 --}}
-      <!-- @if ($reservation->bills()->first()->reservation_status>=3) -->
+      {{--@if ($reservation->bills()->first()->reservation_status>=3)--}}
       <div class="bill_head">
         <table class="table bill_table">
           <tbody>
@@ -506,8 +435,8 @@
                       <p class="mb-2"><a class="more_btn" href="{{ url('user/home/generate_invoice/'.$reservation->id) }}">請求書を見る</a></p>
                       <!-- 工藤さん！領収書をみるボタンはステータスが入金確認後に表示------ -->
                       <p><a class="more_btn4" href="">領収書を見る</a></p>
-                      <!-- @if ($reservation->bills()->first()->paid==1) -->
-                      <!-- @endif -->
+                      {{--@if ($reservation->bills()->first()->paid==1)　--}}
+                      {{-- @endif --}}
                     </div>
                   </li>
                 </ul>
@@ -515,7 +444,7 @@
             </tr>
           </tbody>
         </table>
-        <!-- @endif -->
+        {{-- @endif --}}
       </div>
 
       <div class="bill_details">
@@ -552,10 +481,10 @@
               </tbody>
               <tbody class="venue_main">
                 <tr>
-                  <td>会場料金</td>
-                  <td>36,000</td>
-                  <td>4</td>
-                  <td>36,000</td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
                 </tr>
               </tbody>
               <tbody class="venue_result">
@@ -591,16 +520,16 @@
               </tbody>
               <tbody class="equipment_main">
                 <tr>
-                  <td>無線マイク</td>
-                  <td>3,000</td>
-                  <td>1</td>
-                  <td>3,000</td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
                 </tr>
                 <tr>
-                  <td>次亜塩素酸水専用・超音波加湿器＋スプレーボトル</td>
-                  <td>1,000</td>
-                  <td>1</td>
-                  <td>1,000</td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
                 </tr>
               </tbody>
               <tbody class="equipment_result">
@@ -636,16 +565,10 @@
               </tbody>
               <tbody class="layout_main">
                 <tr>
-                  <td>レイアウト準備料金</td>
-                  <td>5,000</td>
-                  <td>1</td>
-                  <td>5,000</td>
-                </tr>
-                <tr>
-                  <td>レイアウト片付料金</td>
-                  <td>8,000</td>
-                  <td>1</td>
-                  <td>8,000</td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
                 </tr>
               </tbody>
               <tbody class="layout_result">
@@ -699,28 +622,28 @@
             </table>
           </div>
           <div class="bill_total">
-              <table class="table text-right">
-                <tbody>
-                  <tr>
-                    <td>小計：</td>
-                    <td>
-                      ダミー
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>消費税：</td>
-                    <td>
-                      ダミー
-                    </td>
-                  </tr>
-                  <tr>
-                    <td class="font-weight-bold">合計金額</td>
-                    <td>
-                      ダミー
-                    </td>
-                  </tr>
-                </tbody>
-              </table>
+            <table class="table text-right">
+              <tbody>
+                <tr>
+                  <td>小計：</td>
+                  <td>
+                    ダミー
+                  </td>
+                </tr>
+                <tr>
+                  <td>消費税：</td>
+                  <td>
+                    ダミー
+                  </td>
+                </tr>
+                <tr>
+                  <td class="font-weight-bold">合計金額</td>
+                  <td>
+                    ダミー
+                  </td>
+                </tr>
+              </tbody>
+            </table>
           </div>
         </div>
       </div>
@@ -820,10 +743,10 @@
               </tbody>
               <tbody class="venue_main">
                 <tr>
-                  <td>会場料金</td>
-                  <td>36,000</td>
-                  <td>4</td>
-                  <td>36,000</td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
                 </tr>
               </tbody>
               <tbody class="venue_result">
@@ -859,16 +782,16 @@
               </tbody>
               <tbody class="equipment_main">
                 <tr>
-                  <td>無線マイク</td>
-                  <td>3,000</td>
-                  <td>1</td>
-                  <td>3,000</td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
                 </tr>
                 <tr>
-                  <td>次亜塩素酸水専用・超音波加湿器＋スプレーボトル</td>
-                  <td>1,000</td>
-                  <td>1</td>
-                  <td>1,000</td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
                 </tr>
               </tbody>
               <tbody class="equipment_result">
@@ -877,7 +800,6 @@
                     <div class="result_sum">
                       <p class="text-right">合計金額：ダミー</p>
                     </div>
-                  </td>
                   </td>
                 </tr>
               </tbody>
@@ -905,16 +827,10 @@
               </tbody>
               <tbody class="layout_main">
                 <tr>
-                  <td>レイアウト準備料金</td>
-                  <td>5,000</td>
-                  <td>1</td>
-                  <td>5,000</td>
-                </tr>
-                <tr>
-                  <td>レイアウト片付料金</td>
-                  <td>8,000</td>
-                  <td>1</td>
-                  <td>8,000</td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
                 </tr>
               </tbody>
               <tbody class="layout_result">
@@ -923,7 +839,6 @@
                     <div class="result_sum">
                       <p class="text-right">合計金額：ダミー</p>
                     </div>
-                  </td>
                   </td>
                 </tr>
               </tbody>
@@ -935,7 +850,7 @@
               <tbody>
                 <tr>
                   <td colspan="4">
-                    　<h4 class="billdetails_content_ttl">
+                    <h4 class="billdetails_content_ttl">
                       その他
                     </h4>
                   </td>
@@ -969,100 +884,107 @@
             </table>
           </div>
           <div class="bill_total">
-            <div>
-              <table class="table text-right">
-                <tbody>
-                  <tr>
-                    <td>小計：</td>
-                    <td>
-                      57,500
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>消費税：</td>
-                    <td>
-                      5,750
-                    </td>
-                  </tr>
-                  <tr>
-                    <td class="font-weight-bold">合計金額</td>
-                    <td>
-                      63,250
-                    </td>
-                  </tr>
-                </tbody>
-              </table>
-            </div>
+            <table class="table text-right">
+              <tbody>
+                <tr>
+                  <td>小計：</td>
+                  <td>
+                    ダミー
+                  </td>
+                </tr>
+                <tr>
+                  <td>消費税：</td>
+                  <td>
+                    ダミー
+                  </td>
+                </tr>
+                <tr>
+                  <td class="font-weight-bold">合計金額</td>
+                  <td>
+                    ダミー
+                  </td>
+                </tr>
+              </tbody>
+            </table>
           </div>
         </div>
       </div>
     </div>
   </section>
+
+  <!-- 合計請求額------------------------------------------------------------------- -->
+  <section class="master_totals mt-5">
+    <table class="table border-wrap">
+      <tbody class="master_total_head">
+        <tr>
+          <td colspan="2">
+            <h3>
+              合計請求額
+            </h3>
+          </td>
+        </tr>
+      </tbody>
+      <tr>
+        <td colspan="2" class="master_total_subttl">
+          <h4>内訳</h4>
+        </td>
+      </tr>
+      <tbody class="master_total_body">
+        <tr>
+          <td>会場料</td>
+          <td>
+            <p>ダミーダミーダミーダミー円</p>
+          </td>
+        </tr>
+        <tr>
+          <td>有料備品　サービス</td>
+          <td>
+            <p>ダミーダミーダミーダミー円</p>
+          </td>
+        </tr>
+        <tr>
+          <td>レイアウト変更料</td>
+          <td>
+            <p>ダミーダミーダミーダミー円</p>
+          </td>
+        </tr>
+        <tr>
+          <td>その他</td>
+          <td>
+            <p>ダミーダミーダミーダミー円</p>
+          </td>
+        </tr>
+      </tbody>
+      <tbody class="master_total_bottom">
+        <tr>
+          <td colspan="2">
+            <div class="d-flex justify-content-end">
+              <p>小計：</p>
+              <p>ダミーダミーダミーダミー円</p>
+            </div>
+          </td>
+        </tr>
+        <tr>
+          <td colspan="2">
+            <div class="d-flex justify-content-end">
+              <p>消費税：</p>
+              <p>ダミーダミーダミーダミー円</p>
+            </div>
+          </td>
+        </tr>
+        <tr>
+          <td colspan="2">
+            <div class="d-flex justify-content-end">
+              <p>合計金額：</p>
+              <p>ダミーダミーダミーダミー円</p>
+            </div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </section>
 </section>
 
-<!-- 合計請求額------------------------------------------------------------------- -->
-<section class="master_totals mt-5">
-  <table class="table border-wrap">
-    <tbody class="master_total_head">
-      <tr>
-        <td colspan="2">
-          <h3>
-            合計請求額
-          </h3>
-        </td>
-      </tr>
-    </tbody>
-    <tr>
-      <td colspan="2" class="master_total_subttl">
-        <h4>内訳</h4>
-      </td>
-    </tr>
-    <tbody class="master_total_body">
-      <tr>
-        <td>会場料</td>
-        <td><p>ダミーダミーダミーダミー円</p></td>
-      </tr>
-      <tr>
-        <td>有料備品　サービス</td>
-        <td><p>ダミーダミーダミーダミー円</p></td>
-      </tr>
-      <tr>
-        <td>レイアウト変更料</td>
-        <td><p>ダミーダミーダミーダミー円</p></td>
-      </tr>
-      <tr>
-        <td>その他</td>
-        <td><p>ダミーダミーダミーダミー円</p></td>
-      </tr>
-    </tbody>
-    <tbody class="master_total_bottom">
-      <tr>
-        <td colspan="2">
-          <div class="d-flex justify-content-end">
-            <p>小計：</p>
-            <p>ダミーダミーダミーダミー円</p>
-          </div>
-        </td>
-      </tr>
-      <tr>
-        <td colspan="2">
-          <div class="d-flex justify-content-end">
-            <p>消費税：</p>
-            <p>ダミーダミーダミーダミー円</p>
-          </div>
-        </td>
-      </tr>
-      <tr>
-        <td colspan="2">
-          <div class="d-flex justify-content-end">
-            <p>合計金額：</p>
-            <p>ダミーダミーダミーダミー円</p>
-          </div>
-        </td>
-      </tr>
-    </tbody>
-  </table>
-</section>
 
 <!-- ステータスが予約承認まちのときに表示 -->
 
