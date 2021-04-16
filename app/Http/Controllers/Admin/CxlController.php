@@ -94,8 +94,14 @@ class CxlController extends Controller
     if ($request->back) {
       return redirect(route('admin.cxl.multi_calc'));
     }
-    // $cxl = new Cxl;
-    // $cxl->storeCxl($request);
+    // $info = session()->get('cxlMaster');
+    $data = session()->get('cxlCalcInfo');
+    // $result = session()->get('cxlResult');
+    $invoice = session()->get('invoice');
+
+    $cxl = new Cxl;
+    $cxlBill = $cxl->storeCxl($data, $invoice);
+    $cxlBill->storeCxlBreakdown($request);
   }
 
   /**
