@@ -100,8 +100,9 @@
               </tbody>
               <tbody class="venue_result">
                 <tr>
-                  <td colspan="3"></td>
-                  <td colspan="2">合計
+                  <td colspan="4"></td>
+                  <td colspan="1">
+                  <p class="text-left">合計</p>
                     {{Form::text('venue_price',$bill->venue_price,['class'=>'form-control','readonly'])}}
                   </td>
                 </tr>
@@ -175,8 +176,9 @@
               </tbody>
               <tbody class="equipment_result">
                 <tr>
-                  <td colspan="3"></td>
-                  <td colspan="2">合計
+                  <td colspan="4"></td>
+                  <td colspan="1">
+                  <p class="text-left">合計</p>
                     {{Form::text('equipment_price',$bill->equipment_price,['class'=>'form-control','readonly'])}}
                   </td>
                 </tr>
@@ -251,8 +253,9 @@
               </tbody>
               <tbody class="layout_result">
                 <tr>
-                  <td colspan="3"></td>
-                  <td colspan="2">合計
+                  <td colspan="4"></td>
+                  <td colspan="1">
+                  <p class="text-left">合計</p>
                     {{Form::text('layout_price',$bill->layout_price,['class'=>'form-control','readonly'])}}
                   </td>
                 </tr>
@@ -326,8 +329,9 @@
               </tbody>
               <tbody class="others_result">
                 <tr>
-                  <td colspan="3"></td>
-                  <td colspan="2">合計
+                  <td colspan="4"></td>
+                  <td colspan="1">
+                  <p class="text-left">合計</p>
                     {{Form::text('others_price',$bill->others_price,['class'=>'form-control','readonly'])}}
                   </td>
                 </tr>
@@ -406,8 +410,6 @@
         </div>
       </div>
     </div>
-
-
     <div class="paid">
       <div class="paid_details">
         <div class="head d-flex">

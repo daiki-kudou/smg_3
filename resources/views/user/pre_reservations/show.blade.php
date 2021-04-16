@@ -3,399 +3,430 @@
 
 <link href="{{ asset('/css/template.css') }}" rel="stylesheet">
 <script src="{{ asset('/js/template.js') }}"></script>
+<script src="{{ asset('/js/admin/validation.js') }}"></script>
 
-
-<div class="container-fluid">
-  <div class="container-field mt-3">
-    <div class="float-right">
-      <nav aria-label="breadcrumb">
-        <ol class="breadcrumb">
-          <li class="breadcrumb-item active">
-            ダミーダミーダミーダミー
-          </li>
-        </ol>
-      </nav>
-    </div>
-    <h2 class="mt-3 mb-5">仮押え 申込み</h2>
-    <hr>
+<div class="container-field mt-3">
+  <div class="float-right">
+    <nav aria-label="breadcrumb">
+      <ol class="breadcrumb">
+        <li class="breadcrumb-item active">
+          ダミーダミーダミーダミー
+        </li>
+      </ol>
+    </nav>
   </div>
+  <h2 class="mt-3 mb-5">仮押え 申込み</h2>
+  <hr>
+</div>
 
-  @if ($pre_reservation->status==1)
-  <div class="confirm-box text-center mt-5">
-    <p>下記の日程にて、会場を仮押えしています。
-      本予約に申し込む場合は、詳細を入力してお申込みください。</p>
-  </div>
-  @endif
+@if ($pre_reservation->status==1)
+<div class="confirm-box text-center mt-5">
+  <p>下記の日程にて、会場を仮押えしています。
+    本予約に申し込む場合は、詳細を入力してお申込みください。</p>
+</div>
+@endif
 
-  <section class="section-wrap">
-    <table class="table ttl_head mb-0">
-      <tbody>
-        <tr>
-          <td>
-            <h3 class="text-white p-2">
-              仮押えお申込み内容
-            </h3>
-          </td>
-        </tr>
-      </tbody>
-    </table>
-    {{ Form::open(['url' => 'user/pre_reservations/'.$pre_reservation->id.'/calculate', 'method'=>'POST', 'id'=>'']) }}
-    @csrf
-    <div class="border-wrap2 p-5">
-      <div class="row">
-        <div class="col">
-          <table class="table table-bordered">
-            <tbody>
-              <tr>
-                <td colspan="2">
+<section class="mt-5">
+  <table class="table ttl_head mb-0">
+    <tbody>
+      <tr>
+        <td>
+          <h3 class="text-white p-2">
+            仮押えお申込み内容
+          </h3>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+  {{ Form::open(['url' => 'user/pre_reservations/'.$pre_reservation->id.'/calculate', 'method'=>'POST', 'id'=>'']) }}
+  @csrf
+  <div class="border-wrap2 p-4">
+    <div class="row">
+      <div class="col-md-6 col-12">
+        <table class="table table-bordered">
+          <tbody>
+            <tr>
+              <td colspan="2">
+                <p class="title-icon">
+                  <i class="fas fa-info-circle icon-size" aria-hidden="true"></i>
+                  仮押え情報
+                  <span class="ml-3">仮押えID：{{ReservationHelper::fixId($pre_reservation->id)}}</span>
+                </p>
+              </td>
+            </tr>
+            <tr>
+              <td class="table-active">利用日</td>
+              <td>
+                {{ReservationHelper::formatDate($pre_reservation->reserve_date)}}
+                {{Form::hidden('reserve_date',$pre_reservation->reserve_date)}}
+              </td>
+            </tr>
+            <tr>
+              <td class="table-active">会場</td>
+              <td>
+                {{ReservationHelper::getVenueForUser($venue->id)}}
+                <div>料金体系：{{$pre_reservation->price_system==1?"通常（枠貸）":"アクセア（時間貸）"}}</div>
+              </td>
+            </tr>
+            <tr>
+              <td class="table-active">入室時間</td>
+              <td>
+                {{ReservationHelper::formatTime($pre_reservation->enter_time)}}
+              </td>
+            </tr>
+            <tr>
+              <td class="table-active">退室時間</td>
+              <td>
+                {{ReservationHelper::formatTime($pre_reservation->leave_time)}}
+              </td>
+            </tr>
+          </tbody>
+        </table>
+        <table class="table table-bordered">
+          <tbody>
+            <tr>
+              <td colspan="2">
+                <p class="title-icon">
+                  <i class="fas fa-user-check icon-size" aria-hidden="true"></i>
+                  当日連絡のできるご担当者様
+                </p>
+              </td>
+            </tr>
+            <tr>
+              <td class="table-active">
+                <label for="ondayName" class=" form_required">氏名</label>
+              </td>
+              <td>
+                {{Form::text('in_charge',$pre_reservation->in_charge,['class'=>'form-control'])}}
+                <p class="is-error-in_charge" style="color: red"></p>
+              </td>
+            </tr>
+            <tr>
+              <td class="table-active"><label for="mobilePhone" class=" form_required">携帯番号</label></td>
+              <td>
+                {{Form::text('tel',$pre_reservation->tel,['class'=>'form-control'])}}
+                <p class="is-error-tel" style="color: red"></p>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+        <table class="table table-bordered board-table">
+          <tbody>
+            <tr>
+              <td colspan="2">
+                <div class="d-flex align-items-center justify-content-between">
                   <p class="title-icon">
-                    <i class="fas fa-info-circle icon-size" aria-hidden="true"></i>
-                    仮押え情報
-                    <span class="ml-3">仮押えID：{{ReservationHelper::fixId($pre_reservation->id)}}</span>
+                    <i class="fas fa-clipboard icon-size" aria-hidden="true"></i>案内版
                   </p>
-                </td>
-              </tr>
-              <tr>
-                <td class="table-active">利用日</td>
-                <td>
-                  {{ReservationHelper::formatDate($pre_reservation->reserve_date)}}
-                  {{Form::hidden('reserve_date',$pre_reservation->reserve_date)}}
-                </td>
-              </tr>
-              <tr>
-                <td class="table-active">会場</td>
-                <td>
-                  {{ReservationHelper::getVenueForUser($venue->id)}}
-                  <div>料金体系：{{$pre_reservation->price_system==1?"通常（枠貸）":"アクセア（時間貸）"}}</div>
-                </td>
-              </tr>
-              <tr>
-                <td class="table-active form_required">入室時間</td>
-                <td>
-                  {{ReservationHelper::formatTime($pre_reservation->enter_time)}}
-                </td>
-              </tr>
-              <tr>
-                <td class="table-active form_required">退室時間</td>
-                <td>
-                  {{ReservationHelper::formatTime($pre_reservation->leave_time)}}
-                </td>
-              </tr>
-            </tbody>
-          </table>
-          <table class="table table-bordered">
-            <tbody>
-              <tr>
-                <td colspan="2">
-                  <p class="title-icon">
-                    <i class="fas fa-user-check icon-size" aria-hidden="true"></i>
-                    当日連絡のできるご担当者様
+                </div>
+              </td>
+            </tr>
+            <tr>
+              <td class="table-active">案内板</td>
+              <td>
+                <div class="radio-box">
+                  <p>
+                    {{Form::radio('board_flag',1,false,['class'=>'','id'=>'board_flag'])}}
+                    {{Form::label('board_flag','あり')}}
                   </p>
-                </td>
-              </tr>
-              <tr>
-                <td class="table-active">
-                  <label for="ondayName" class=" form_required">氏名</label>
-                </td>
-                <td>
-                  {{Form::text('in_charge',$pre_reservation->in_charge,['class'=>'form-control'])}}
-                  <p class="is-error-in_charge" style="color: red"></p>
-                </td>
-              </tr>
-              <tr>
-                <td class="table-active"><label for="mobilePhone" class=" form_required">携帯番号</label></td>
-                <td>
-                  {{Form::text('tel',$pre_reservation->tel,['class'=>'form-control'])}}
-                  <p class="is-error-tel" style="color: red"></p>
-                </td>
-              </tr>
-            </tbody>
-          </table>
-          <table class="table table-bordered board-table">
-            <tbody>
-              <tr>
-                <td colspan="2">
-                  <div class="d-flex align-items-center justify-content-between">
-                    <p class="title-icon">
-                      <i class="fas fa-clipboard icon-size" aria-hidden="true"></i>案内版
-                    </p>
-                  </div>
-                </td>
-              </tr>
-              <tr>
-                <td class="table-active">案内板</td>
-                <td>
-                  <div class="radio-box">
-                    <p>
-                      {{Form::radio('board_flag',0,true,['class'=>'','id'=>'board_flag'])}}
-                      {{Form::label('board_flag','なし')}}
-                    </p>
-                    <p>
-                      {{Form::radio('board_flag',1,false,['class'=>'','id'=>'no_board_flag'])}}
-                      {{Form::label('no_board_flag','あり')}}
-                    </p>
-                  </div>
-                </td>
-              </tr>
-              <tr>
-                <td class="table-active">イベント開始時間</td>
-                <td>
-                  <select name="event_start" id="event_start" class="form-control">
-                    <option disabled>選択してください</option>
-                    @for ($start = 0*2; $start <=23*2; $start++) <option
-                      value="{{date("H:i:s", strtotime("00:00 +". $start * 30 ." minute"))}}" @if (date("H:i:s",
-                      strtotime("00:00 +". $start * 30 ." minute"))<$pre_reservation->enter_time)
-                      disabled
-                      @elseif(date("H:i:s", strtotime("00:00 +". $start * 30 ." minute"))>$pre_reservation->leave_time)
+                  <p>
+                    {{Form::radio('board_flag',0,true,['class'=>'','id'=>'no_board_flag'])}}
+                    {{Form::label('no_board_flag','なし')}}
+                  </p>
+                </div>
+              </td>
+            </tr>
+            <tr>
+              <td class="table-active">イベント開始時間</td>
+              <td>
+                <select name="event_start" id="event_start" class="form-control">
+                  <option disabled>選択してください</option>
+                  @for ($start = 0*2; $start <=23*2; $start++) <option value="{{date("H:i:s", strtotime("00:00 +". $start * 30 ." minute"))}}" @if (date("H:i:s", strtotime("00:00 +". $start * 30 ." minute"))<$pre_reservation->enter_time)
+                    disabled
+                    @elseif(date("H:i:s", strtotime("00:00 +". $start * 30 ." minute"))>$pre_reservation->leave_time)
+                    disabled
+                    @endif
+                    >
+                    {{date("H時i分", strtotime("00:00 +". $start * 30 ." minute"))}}</option>
+                    @endfor
+                </select>
+              </td>
+            </tr>
+            <tr>
+              <td class="table-active">イベント終了時間</td>
+              <td>
+                <select name="event_finish" id="event_finish" class="form-control">
+                  <option disabled>選択してください</option>
+                  @for ($start = 0*2; $start <=23*2; $start++) <option value="{{date("H:i:s", strtotime("00:00 +". $start * 30 ." minute"))}}" @if (date("H:i:s", strtotime("00:00 +". $start * 30 ." minute"))>$pre_reservation->leave_time)
+                    disabled
+                    @elseif(date("H:i:s",strtotime("00:00 +". $start * 30 ." minute"))<$pre_reservation->enter_time)
                       disabled
                       @endif
                       >
                       {{date("H時i分", strtotime("00:00 +". $start * 30 ." minute"))}}</option>
                       @endfor
-                  </select>
-                </td>
-              </tr>
-              <tr>
-                <td class="table-active">イベント終了時間</td>
+                </select>
+              </td>
+            </tr>
+            <tr>
+              <td class="table-active">イベント名称1</td>
                 <td>
-                  <select name="event_finish" id="event_finish" class="form-control">
-                    <option disabled>選択してください</option>
-                    @for ($start = 0*2; $start <=23*2; $start++) <option
-                      value="{{date("H:i:s", strtotime("00:00 +". $start * 30 ." minute"))}}" @if (date("H:i:s",
-                      strtotime("00:00 +". $start * 30 ." minute"))>$pre_reservation->leave_time)
-                      disabled
-                      @elseif(date("H:i:s",strtotime("00:00 +". $start * 30 ." minute"))<$pre_reservation->enter_time)
-                        disabled
-                        @endif
-                        >
-                        {{date("H時i分", strtotime("00:00 +". $start * 30 ." minute"))}}</option>
-                        @endfor
-                  </select>
-                </td>
-              </tr>
-              <tr>
-                <td class="table-active">イベント名称1</td>
+                  <div class="align-items-end d-flex">
+                {{Form::text('event_name1',$pre_reservation->event_name1,['class'=>'form-control', 'id'=>'eventname1Count'])}}
+                <span class="ml-1 annotation count_num1"></span>
+              </div>
+              <p class="is-error-event_name1" style="color: red"></p>
+            </td>
+            </tr>
+            <tr>
+              <td class="table-active">イベント名称2</td>
                 <td>
-                  {{Form::text('event_name1',$pre_reservation->event_name1,['class'=>'form-control'])}}
-                </td>
-              </tr>
-              <tr>
-                <td class="table-active">イベント名称2</td>
+                  <div class="align-items-end d-flex">
+                {{Form::text('event_name2',$pre_reservation->event_name2,['class'=>'form-control', 'id'=>'eventname2Count'])}}
+                <span class="ml-1 annotation count_num2"></span>
+              </div>
+              <p class="is-error-event_name2" style="color: red"></p>
+            </td>
+            </tr>
+            <tr>
+              <td class="table-active">主催者名</td>
                 <td>
-                  {{Form::text('event_name2',$pre_reservation->event_name2,['class'=>'form-control'])}}
-                </td>
-              </tr>
+                  <div class="align-items-end d-flex">
+                {{Form::text('event_owner',$pre_reservation->event_owner,['class'=>'form-control', 'id'=>'eventownerCount'])}}
+                <span class="ml-1 annotation count_num3"></span>
+              </div>
+              <p class="is-error-event_owner" style="color: red"></p>
+            </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="col-md-6 col-12">
+        <div class="equipemnts">
+          <table class="table table-bordered" style="table-layout: fixed;">
+            <thead class="accordion-ttl">
               <tr>
-                <td class="table-active">主催者名</td>
+                <th colspan="2">
+                  <p class="title-icon fw-bolder py-1">
+                    <i class="fas fa-wrench icon-size" aria-hidden="true"></i>有料備品
+                  </p>
+                </th>
+              </tr>
+            </thead>
+            <tbody class="accordion-wrap" style="display: none;">
+              @foreach ($venue->getEquipments() as $key=>$equ)
+              <tr>
+                <td class="table-active">
+                  {{$equ->item}}
+                </td>
                 <td>
-                  {{Form::text('event_owner',$pre_reservation->event_owner,['class'=>'form-control'])}}
+                  @foreach ($pre_reservation->pre_breakdowns()->get() as $s_equ)
+                  @if ($s_equ->unit_item==$equ->item)
+                  {{Form::text('equipment_breakdown'.$key,$s_equ->unit_count,['class'=>'form-control'])}}
+                  @break
+                  @elseif($loop->last)
+                  {{Form::text('equipment_breakdown'.$key,'',['class'=>'form-control'])}}
+                  @endif
+                  @endforeach
                 </td>
               </tr>
+              @endforeach
             </tbody>
           </table>
         </div>
-
-        <div class="col">
-          <div class="equipemnts">
-            <table class="table table-bordered" style="table-layout: fixed;">
-              <thead class="accordion-ttl">
-                <tr>
-                  <th colspan="2">
-                    <p class="title-icon fw-bolder py-1">
-                      <i class="fas fa-wrench icon-size" aria-hidden="true"></i>有料備品
-                    </p>
-                  </th>
-                </tr>
-              </thead>
-              <tbody class="accordion-wrap" style="display: none;">
-                @foreach ($venue->getEquipments() as $key=>$equ)
-                <tr>
-                  <td class="table-active">
-                    {{$equ->item}}
-                  </td>
-                  <td>
-                    @foreach ($pre_reservation->pre_breakdowns()->get() as $s_equ)
-                    @if ($s_equ->unit_item==$equ->item)
-                    {{Form::text('equipment_breakdown'.$key,$s_equ->unit_count,['class'=>'form-control'])}}
-                    @break
-                    @elseif($loop->last)
-                    {{Form::text('equipment_breakdown'.$key,'',['class'=>'form-control'])}}
-                    @endif
-                    @endforeach
-                  </td>
-                </tr>
-                @endforeach
-              </tbody>
-            </table>
-          </div>
-          <div class="services">
-            <table class="table table-bordered">
-              <thead class="accordion-ttl">
-                <tr>
-                  <th colspan="2">
-                    <p class="title-icon fw-bolder py-1">
-                      <i class="fas fa-hand-holding-heart icon-size" aria-hidden="true"></i>有料サービス
-                    </p>
-                  </th>
-                </tr>
-              </thead>
-              <tbody class="accordion-wrap" style="display: none;">
-                @foreach ($venue->getServices() as $key=>$ser)
-                <tr>
-                  <td class="table-active">
-                    {{$ser->item}}
-                  </td>
-                  <td>
-                    @foreach ($pre_reservation->pre_breakdowns()->get() as $s_ser)
-                    @if ($s_ser->unit_item==$ser->item)
-                    <div class="form-check form-check-inline">
-                      {{Form::radio('services_breakdown'.$key, 1, true , ['id' => 'service'.$key.'on', 'class' => 'form-check-input'])}}
+        <div class="services">
+          <table class="table table-bordered">
+            <thead class="accordion-ttl">
+              <tr>
+                <th colspan="2">
+                  <p class="title-icon fw-bolder py-1">
+                    <i class="fas fa-hand-holding-heart icon-size" aria-hidden="true"></i>有料サービス
+                  </p>
+                </th>
+              </tr>
+            </thead>
+            <tbody class="accordion-wrap" style="display: none;">
+              @foreach ($venue->getServices() as $key=>$ser)
+              <tr>
+                <td class="table-active">
+                  {{$ser->item}}
+                </td>
+                <td>
+                  @foreach ($pre_reservation->pre_breakdowns()->get() as $s_ser)
+                  @if ($s_ser->unit_item==$ser->item)
+                  <div class="radio-box">
+                    <p>
+                      {{Form::radio('services_breakdown'.$key, 1, true , ['id' => 'service'.$key.'on', 'class' => ''])}}
                       {{Form::label('service'.$key.'on','あり')}}
-                      {{Form::radio('services_breakdown'.$key, 0, false, ['id' => 'services_breakdown'.$key.'off', 'class' => 'form-check-input'])}}
+                    </p>
+                    <p>
+                      {{Form::radio('services_breakdown'.$key, 0, false, ['id' => 'services_breakdown'.$key.'off', 'class' => ''])}}
                       {{Form::label('services_breakdown'.$key.'off','なし')}}
-                    </div>
-                    @break
-                    @elseif($loop->last)
-                    <div class="form-check form-check-inline">
-                      {{Form::radio('services_breakdown'.$key, 1, false , ['id' => 'service'.$key.'on', 'class' => 'form-check-input'])}}
+                    </p>
+                  </div>
+                  @break
+                  @elseif($loop->last)
+                  <div class="radio-box">
+                    <p>
+                      {{Form::radio('services_breakdown'.$key, 1, false , ['id' => 'service'.$key.'on', 'class' => ''])}}
                       {{Form::label('service'.$key.'on','あり')}}
-                      {{Form::radio('services_breakdown'.$key, 0, true, ['id' => 'services_breakdown'.$key.'off', 'class' => 'form-check-input'])}}
+                    </p>
+                    <p>
+                      {{Form::radio('services_breakdown'.$key, 0, true, ['id' => 'services_breakdown'.$key.'off', 'class' => ''])}}
                       {{Form::label('services_breakdown'.$key.'off','なし')}}
-                    </div>
-                    @endif
-                    @endforeach
-                  </td>
-                </tr>
-                @endforeach
-              </tbody>
-            </table>
-          </div>
-          <div class="layouts">
-            <table class="table table-bordered">
-              <thead>
-                <tr>
-                  <th colspan="2">
-                    <p class="title-icon py-1">
-                      <i class="fas fa-th icon-size" aria-hidden="true"></i>レイアウト
                     </p>
-                  </th>
-                </tr>
-              </thead>
-              <tbody>
-                @if ($pre_reservation->venue->layout==1)
-                <tr>
-                  <td class="table-active">レイアウト準備</td>
-                  <td>
-                    @foreach ($pre_reservation->pre_breakdowns()->get() as $s_lay)
-                    @if ($s_lay->unit_item=='レイアウト準備料金')
-                    <div class="form-check form-check-inline">
-                      {{Form::radio('layout_prepare', 1, true , ['id' => 'layout_prepare', 'class' => 'form-check-input'])}}
+                  </div>
+                  @endif
+                  @endforeach
+                </td>
+              </tr>
+              @endforeach
+            </tbody>
+          </table>
+        </div>
+        <div class="layouts">
+          <table class="table table-bordered">
+            <thead>
+              <tr>
+                <th colspan="2">
+                  <p class="title-icon py-1">
+                    <i class="fas fa-th icon-size" aria-hidden="true"></i>レイアウト
+                  </p>
+                </th>
+              </tr>
+            </thead>
+            <tbody>
+              @if ($pre_reservation->venue->layout==1)
+              <tr>
+                <td class="table-active">レイアウト準備</td>
+                <td>
+                  @foreach ($pre_reservation->pre_breakdowns()->get() as $s_lay)
+                  @if ($s_lay->unit_item=='レイアウト準備料金')
+                  <div class="radio-box">
+                    <p>
+                      {{Form::radio('layout_prepare', 1, true , ['id' => 'layout_prepare', 'class' => ''])}}
                       {{Form::label('layout_prepare','あり')}}
-                      {{Form::radio('layout_prepare', 0, false, ['id' => 'no_layout_prepare', 'class' => 'form-check-input'])}}
-                      {{Form::label('no_layout_prepare','なし')}}
-                    </div>
-                    @break
-                    @elseif($loop->last)
-                    <div class="form-check form-check-inline">
-                      {{Form::radio('layout_prepare', 1, false , ['id' => 'layout_prepare', 'class' => 'form-check-input'])}}
-                      {{Form::label('layout_prepare','あり')}}
-                      {{Form::radio('layout_prepare', 0, true, ['id' => 'no_layout_prepare', 'class' => 'form-check-input'])}}
-                      {{Form::label('no_layout_prepare','なし')}}
-                    </div>
-                    @endif
-                    @endforeach
-                  </td>
-                </tr>
-                <tr>
-                  <td class="table-active">レイアウト片付</td>
-                  <td>
-                    @foreach ($pre_reservation->pre_breakdowns()->get() as $s_lay)
-                    @if ($s_lay->unit_item=='レイアウト片付料金')
-                    <div class="form-check form-check-inline">
-                      {{Form::radio('layout_clean', 1, true , ['id' => 'layout_clean', 'class' => 'form-check-input'])}}
-                      {{Form::label('layout_clean','あり')}}
-                      {{Form::radio('layout_clean', 0, false, ['id' => 'no_layout_clean', 'class' => 'form-check-input'])}}
-                      {{Form::label('no_layout_clean','なし')}}
-                    </div>
-                    @break
-                    @elseif($loop->last)
-                    <div class="form-check form-check-inline">
-                      {{Form::radio('layout_clean', 1, false , ['id' => 'layout_clean', 'class' => 'form-check-input'])}}
-                      {{Form::label('layout_clean','あり')}}
-                      {{Form::radio('layout_clean', 0, true, ['id' => 'no_layout_clean', 'class' => 'form-check-input'])}}
-                      {{Form::label('no_layout_clean','なし')}}
-                    </div>
-                    @endif
-                    @endforeach
-                  </td>
-                </tr>
-                @endif
-              </tbody>
-            </table>
-          </div>
-          <div class="luggage">
-            <table class="table table-bordered">
-              <thead>
-                <tr>
-                  <th colspan="2">
-                    <p class="title-icon">
-                      <i class="fas fa-suitcase-rolling icon-size" aria-hidden="true"></i>お荷物預り
                     </p>
-                  </th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr>
-                  <td class="table-active">事前にお預りする荷物</td>
-                  <td>
-                    {{Form::text('luggage_count',$pre_reservation->luggage_count,['class'=>'form-control'])}}
-                  </td>
-                </tr>
-                <tr>
-                  <td class="table-active">事前荷物の到着日<br>午前指定のみ</td>
-                  <td>
-                    {{Form::text('luggage_arrive',date('Y-m-d',strtotime($pre_reservation->luggage_arrive)),['class'=>'form-control','id'=>'datepicker9'])}}
-                  </td>
-                </tr>
-                <tr>
-                  <td class="table-active">事後返送するお荷物</td>
-                  <td>
-                    {{Form::text('luggage_return',$pre_reservation->luggage_return,['class'=>'form-control'])}}
-                  </td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
-
-
-          <table class="table table-bordered note-table">
+                    <p>
+                      {{Form::radio('layout_prepare', 0, false, ['id' => 'no_layout_prepare', 'class' => ''])}}
+                      {{Form::label('no_layout_prepare','なし')}}
+                    </p>
+                  </div>
+                  @break
+                  @elseif($loop->last)
+                  <div class="radio-box">
+                    <p>
+                      {{Form::radio('layout_prepare', 1, false , ['id' => 'layout_prepare', 'class' => ''])}}
+                      {{Form::label('layout_prepare','あり')}}
+                    </p>
+                    <p>
+                      {{Form::radio('layout_prepare', 0, true, ['id' => 'no_layout_prepare', 'class' => ''])}}
+                      {{Form::label('no_layout_prepare','なし')}}
+                    </p>
+                  </div>
+                  @endif
+                  @endforeach
+                </td>
+              </tr>
+              <tr>
+                <td class="table-active">レイアウト片付</td>
+                <td>
+                  @foreach ($pre_reservation->pre_breakdowns()->get() as $s_lay)
+                  @if ($s_lay->unit_item=='レイアウト片付料金')
+                  <div class="radio-box">
+                    <p>
+                      {{Form::radio('layout_clean', 1, true , ['id' => 'layout_clean', 'class' => ''])}}
+                      {{Form::label('layout_clean','あり')}}
+                    </p>
+                    <p>
+                      {{Form::radio('layout_clean', 0, false, ['id' => 'no_layout_clean', 'class' => ''])}}
+                      {{Form::label('no_layout_clean','なし')}}
+                    </p>
+                  </div>
+                  @break
+                  @elseif($loop->last)
+                  <div class="radio-box">
+                    <p>
+                      {{Form::radio('layout_clean', 1, false , ['id' => 'layout_clean', 'class' => ''])}}
+                      {{Form::label('layout_clean','あり')}}
+                    </p>
+                    <p>
+                      {{Form::radio('layout_clean', 0, true, ['id' => 'no_layout_clean', 'class' => ''])}}
+                      {{Form::label('no_layout_clean','なし')}}
+                    </p>
+                  </div>
+                  @endif
+                  @endforeach
+                </td>
+              </tr>
+              @endif
+            </tbody>
+          </table>
+        </div>
+        <div class="luggage">
+          <table class="table table-bordered">
+            <thead>
+              <tr>
+                <th colspan="2">
+                  <p class="title-icon">
+                    <i class="fas fa-suitcase-rolling icon-size" aria-hidden="true"></i>お荷物預り
+                  </p>
+                </th>
+              </tr>
+            </thead>
             <tbody>
               <tr>
-                <td colspan="2">
-                  <p class="title-icon">
-                    <i class="fas fa-file-alt icon-size" aria-hidden="true"></i>備考
-                  </p>
+                <td class="table-active">事前にお預りする荷物</td>
+                <td>
+                  {{Form::text('luggage_count',$pre_reservation->luggage_count,['class'=>'form-control'])}}
                 </td>
               </tr>
               <tr>
+                <td class="table-active">事前荷物の到着日<br>午前指定のみ</td>
                 <td>
-                  <label for="userNote">備考</label>
-                  {{Form::textarea('user_details',$pre_reservation->user_details,['class'=>'form-control'])}}
+                  {{Form::text('luggage_arrive',date('Y-m-d',strtotime($pre_reservation->luggage_arrive)),['class'=>'form-control','id'=>'datepicker9'])}}
+                </td>
+              </tr>
+              <tr>
+                <td class="table-active">事後返送するお荷物</td>
+                <td>
+                  {{Form::text('luggage_return',$pre_reservation->luggage_return,['class'=>'form-control'])}}
                 </td>
               </tr>
             </tbody>
           </table>
         </div>
+
+
+        <table class="table table-bordered note-table">
+          <tbody>
+            <tr>
+              <td colspan="2">
+                <p class="title-icon">
+                  <i class="fas fa-file-alt icon-size" aria-hidden="true"></i>備考
+                </p>
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <label for="userNote">備考</label>
+                {{Form::textarea('user_details',$pre_reservation->user_details,['class'=>'form-control'])}}
+              </td>
+            </tr>
+          </tbody>
+        </table>
       </div>
     </div>
+  </div>
 
-    <div class="btn_wrapper">
-      {{ Form::submit('金額を確認する', ['class' => 'btn more_btn_lg mx-auto d-block my-5']) }}
-    </div>
-    {{ Form::close() }}
+  <div class="btn_wrapper">
+    {{ Form::submit('金額を確認する', ['class' => 'btn more_btn_lg mx-auto d-block my-5']) }}
+  </div>
+  {{ Form::close() }}
 
 
-    {{-- <div class="bill mt-5">
+  {{-- <div class="bill mt-5">
       <div class="bill_head">
         <table class="table" style="table-layout: fixed">
           <tbody>
@@ -594,9 +625,9 @@
       </div>
     </div> --}}
 
-  </section>
+</section>
 
-  {{-- <div class="confirm-box">
+{{-- <div class="confirm-box">
     <div class="confirm_inner">
       <p class="mb-4">上記、内容で予約を申し込んでもよろしいでしょうか。よろしければ、予約の申し込みをお願いします。</p>
       <p class="text-center mb-5 mt-3"><a href="" class="more_btn4_lg">予約を申し込む</a></p>
@@ -607,16 +638,15 @@
     </div>
   </div> --}}
 
-</div>
 
 
 <script>
-  $(function(){
-    var maxTarget=$('input[name="reserve_date"]').val();
+  $(function() {
+    var maxTarget = $('input[name="reserve_date"]').val();
     $('#datepicker9').datepicker({
       dateFormat: 'yy-mm-dd',
       minDate: 0,
-      maxDate:maxTarget,
+      maxDate: maxTarget,
       autoclose: true,
     });
   })

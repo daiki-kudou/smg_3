@@ -134,9 +134,7 @@
 </head>
 
 <body class="hold-transition sidebar-mini">
-
-
-  <div class="wrapper">
+  <div class="wrapper user_wrapper">
     <nav class="main-header navbar navbar-expand navbar-white navbar-light d-flex justify-content-between">
       <ul class="navbar-nav d-block">
         <li class="nav-item">

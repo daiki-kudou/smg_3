@@ -1,7 +1,5 @@
 @extends('layouts.admin.app')
-
 @section('content')
-
 
 
 <link href="{{ asset('/css/template.css') }}" rel="stylesheet">
@@ -30,80 +28,49 @@
   .hide {
     display: none;
   }
-
-  /* ラベルのスタイル　*/
-  .venue_chkbox label,
-  .equipment_chkbox label,
-  .layout_chkbox label,
-  .others_chkbox label {
-    padding-left: 38px;
-    font-size: 32px;
-    line-height: 32px;
-    display: inline-block;
-    cursor: pointer;
-    position: relative;
-  }
-
-
-  .venue_chkbox input[type=checkbox],
-  .equipment_chkbox input[type=checkbox],
-  .layout_chkbox input[type=checkbox],
-  .others_chkbox input[type=checkbox] {
-    display: none;
-  }
-
-  .venue_chkbox input[type=checkbox]:checked+label:before,
-  .equipment_chkbox input[type=checkbox]:checked+label:before,
-  .layout_chkbox input[type=checkbox]:checked+label:before,
-  .others_chkbox input[type=checkbox]:checked+label:before {
-    content: '\2713';
-    font-size: 34px;
-    color: #fff;
-    background-color: #06f;
-  }
 </style>
 
-<h1>仲介会社　追加請求書</h1>
+<h2 class="mt-3 mb-3">追加請求書　確認画面</h2>
+<hr>
 
 {{ Form::open(['url' => 'admin/agents_reservations/add_bills/store/'.$request->reservation_id, 'method'=>'POST']) }}
 @csrf
 {{ Form::hidden('reservation_id', $request->reservation_id, ['class' => 'form-control'])}}
 
-<div class="container-fluid">
+<section class="mt-5">
   <div class="bill">
     <div class="bill_details">
       <div class="head d-flex">
-        <div style="width: 80px; background:gray;" class="d-flex justify-content-center align-items-center">
-          <i class="fas fa-plus fa-3x hide" style="color: white;" aria-hidden="true"></i>
-          <i class="fas fa-minus fa-3x" style="color: white;" aria-hidden="true"></i>
+        <div class="accordion_btn">
+          <i class="fas fa-plus bill_icon_size hide" aria-hidden="true"></i>
+          <i class="fas fa-minus bill_icon_size" aria-hidden="true"></i>
         </div>
-        <div style="font-size: 30px; width:200px;" class="d-flex justify-content-center align-items-center">
-          <p>
+        <div class="billdetails_ttl">
+          <h3>
             請求内訳
-          </p>
+          </h3>
         </div>
       </div>
       <div class="main">
-
         @if (!empty($request->venue_breakdown_item0))
-        <div class="venues" style="padding-top: 80px; width:90%; margin:0 auto;">
+        <div class="venues billdetails_content">
           <table class="table table-borderless">
             <tbody>
               <tr>
-                <td colspan="4">
-                  <div class="venue_chkbox">
-                    <label for="venue">■会場料</label>
-                  </div>
+                <td>
+                  <h4 class="billdetails_content_ttl">
+                    会場料
+                  </h4>
                 </td>
               </tr>
             </tbody>
-            <tbody class="venue_head ">
+            <tbody class="venue_head">
               <tr>
                 <td colspan="2">内容</td>
                 <td colspan="2">数量</td>
               </tr>
             </tbody>
-            <tbody class="venue_main ">
+            <tbody class="venue_main">
               @for ($i = 0; $i < (count($s_venues)/4); $i++) <tr>
                 <td>
                   {{ Form::text('venue_breakdown_item'.$i, $s_venues[($i*4)], ['class' => 'form-control','readonly'])}}
@@ -125,25 +92,24 @@
         @endif
 
         @if (!empty($request->equipment_breakdown_item0))
-        <div class="equipment" style="padding-top: 80px; width:90%; margin:0 auto;">
+        <div class="equipment billdetails_content">
           <table class="table table-borderless">
             <tbody>
               <tr>
                 <td colspan="4">
-                  <div class="equipment_chkbox">
-                    <input type="checkbox" id="equipment" name="equipment" value="1" />
-                    <label for="equipment">■有料備品・サービス料</label>
-                  </div>
+                  <h4 class="billdetails_content_ttl">
+                    有料備品・サービス
+                  </h4>
                 </td>
               </tr>
             </tbody>
-            <tbody class="equipment_head ">
+            <tbody class="equipment_head">
               <tr>
                 <td colspan="2">内容</td>
                 <td colspan="2">数量</td>
               </tr>
             </tbody>
-            <tbody class="equipment_main ">
+            <tbody class="equipment_main">
               @for ($i = 0; $i < (count($s_equipments)/4); $i++) <tr>
                 <td>
                   {{ Form::text('equipment_breakdown_item'.$i, $s_equipments[($i*4)], ['class' => 'form-control','readonly'])}}
@@ -165,19 +131,18 @@
         @endif
 
         @if (!empty($request->layout_breakdown_cost0))
-        <div class="layout" style="padding-top: 80px; width:90%; margin:0 auto;">
+        <div class="layout billdetails_content">
           <table class="table table-borderless">
             <tbody>
               <tr>
-                <td colspan="4">
-                  <div class="layout_chkbox ">
-                    <input type="checkbox" id="layout" name="layout" value="1" />
-                    <label for="layout">■レイアウト変更料</label>
-                  </div>
+                <td>
+                  <h4 class="billdetails_content_ttl">
+                    レイアウト
+                  </h4>
                 </td>
               </tr>
             </tbody>
-            <tbody class="layout_head ">
+            <tbody class="layout_head">
               <tr>
                 <td>内容</td>
                 <td>単価</td>
@@ -185,7 +150,7 @@
                 <td>金額</td>
               </tr>
             </tbody>
-            <tbody class="layout_main ">
+            <tbody class="layout_main">
               @for ($i = 0; $i < count($s_layouts)/4; $i++) <tr>
                 <td>
                   {{ Form::text('layout_breakdown_item'.$i, $s_layouts[$i*4], ['class' => 'form-control','readonly'])}}
@@ -202,10 +167,11 @@
                 </tr>
                 @endfor
             </tbody>
-            <tbody class="layout_result ">
+            <tbody class="layout_result">
               <tr>
-                <td colspan="2"></td>
-                <td colspan="2">合計
+                <td colspan="3"></td>
+                <td colspan="1">
+                  <p class="text-left">合計</p>
                   {{ Form::text('layout_price', $request->layout_price, ['class' => 'form-control' , 'readonly'])}}
                 </td>
               </tr>
@@ -214,27 +180,25 @@
         </div>
         @endif
 
-
         @if (!empty($request->others_breakdown_item0))
-        <div class="others" style="padding: 80px 0px 80px 0px; width:90%; margin:0 auto;">
+        <div class="others billdetails_content">
           <table class="table table-borderless">
             <tbody>
               <tr>
                 <td colspan="4">
-                  <div class="others_chkbox">
-                    <input type="checkbox" id="others" name="others" value="1" />
-                    <label for="others">■その他</label>
-                  </div>
+                  　<h4 class="billdetails_content_ttl">
+                    その他
+                  </h4>
                 </td>
               </tr>
             </tbody>
-            <tbody class="others_head ">
+            <tbody class="others_head">
               <tr>
                 <td colspan="2">内容</td>
                 <td colspan="2">数量</td>
               </tr>
             </tbody>
-            <tbody class="others_main ">
+            <tbody class="others_main">
               @for ($i = 0; $i < (count($s_others)/4); $i++) <tr>
                 <td>
                   {{ Form::text('others_breakdown_item'.$i, $s_others[($i*4)], ['class' => 'form-control','readonly'])}}
@@ -255,64 +219,58 @@
         </div>
         @endif
 
-
-        <div class="bill_total d-flex justify-content-end"
-          style="padding: 80px 0px 80px 0px; width:90%; margin:0 auto;">
-          <div style="width: 60%;">
-            <table class="table text-right" style="table-layout: fixed; font-size:16px;">
-              <tbody>
-                <tr>
-                  <td class="font-weight-bold">エンドクライアントへの
-                    <br>
-                    支払い料（支払割合
-                    %）
-                  </td>
-                  <td>
-                    {{ Form::text('enduser_charge', $request->enduser_charge, ['class' => 'form-control',"readonly" ])}}
-                  </td>
-                </tr>
-                <tr>
-                  <td>小計：</td>
-                  <td>
-                    {{ Form::text('master_subtotal', $request->master_subtotal, ['class' => 'form-control' , 'readonly'])}}
-                  </td>
-                </tr>
-                <tr>
-                  <td>消費税：</td>
-                  <td>
-                    {{ Form::text('master_tax', $request->master_tax, ['class' => 'form-control' , 'readonly'])}}
-                  </td>
-                </tr>
-                <tr>
-                  <td class="font-weight-bold">合計金額</td>
-                  <td>
-                    {{ Form::text('master_total', $request->master_total, ['class' => 'form-control' , 'readonly'])}}
-                  </td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
+        <div class="bill_total">
+          <table class="table text-right">
+            <tbody>
+              <tr>
+                <td class="font-weight-bold">エンドユーザーへの
+                  <br>
+                  支払い料（支払割合 %）
+                </td>
+                <td>
+                  {{ Form::text('enduser_charge', $request->enduser_charge, ['class' => 'form-control',"readonly" ])}}
+                </td>
+              </tr>
+              <tr>
+                <td>小計：</td>
+                <td>
+                  {{ Form::text('master_subtotal', $request->master_subtotal, ['class' => 'form-control' , 'readonly'])}}
+                </td>
+              </tr>
+              <tr>
+                <td>消費税：</td>
+                <td>
+                  {{ Form::text('master_tax', $request->master_tax, ['class' => 'form-control' , 'readonly'])}}
+                </td>
+              </tr>
+              <tr>
+                <td class="font-weight-bold">合計金額</td>
+                <td>
+                  {{ Form::text('master_total', $request->master_total, ['class' => 'form-control' , 'readonly'])}}
+                </td>
+              </tr>
+            </tbody>
+          </table>
         </div>
       </div>
     </div>
   </div>
 
-
   <div class="information">
     <div class="information_details">
       <div class="head d-flex">
-        <div style="width: 80px; background:gray;" class="d-flex justify-content-center align-items-center">
-          <i class="fas fa-plus fa-3x hide" style="color: white;" aria-hidden="true"></i>
-          <i class="fas fa-minus fa-3x" style="color: white;" aria-hidden="true"></i>
+        <div class="accordion_btn">
+          <i class="fas fa-plus bill_icon_size hide" aria-hidden="true"></i>
+          <i class="fas fa-minus bill_icon_size" aria-hidden="true"></i>
         </div>
-        <div style="font-size: 30px; width:200px;" class="d-flex justify-content-center align-items-center">
-          <p>
+        <div class="billdetails_ttl">
+          <h3>
             請求書情報
-          </p>
+          </h3>
         </div>
       </div>
       <div class="main">
-        <div class="informations" style="padding-top: 20px; width:90%; margin:0 auto;">
+        <div class="informations billdetails_content">
           <table class="table">
             <tbody>
               <tr>
@@ -342,21 +300,18 @@
     </div>
   </div>
 
-
   <div class="paid">
     <div class="paid_details">
       <div class="head d-flex">
-        <div style="width: 80px; background:#ff782d;" class="d-flex justify-content-center align-items-center">
-        </div>
-        <div style="font-size: 30px; width:200px;" class="d-flex justify-content-center align-items-center">
-          <p>
+        <div class="d-flex align-items-center">
+          <h3 class="pl-3">
             入金情報
-          </p>
+          </h3>
         </div>
       </div>
       <div class="main">
-        <div class="paids" style="padding-top: 20px; width:90%; margin:0 auto;">
-          <table class="table" style="table-layout: fixed;">
+        <div class="paids billdetails_content">
+          <table class="table">
             <tbody>
               <tr>
                 <td>入金状況
@@ -383,11 +338,10 @@
       </div>
     </div>
   </div>
-</div>
+</section>
 
 
-<div class="mt-5 d-flex justify-content-center">
-  {{ Form::submit('作成する', ['class' => 'btn btn-primary d-block btn-lg']) }}</div>
+  {{ Form::submit('追加請求書を確定する', ['class' => 'btn more_btn_lg mx-auto d-block mt-5']) }}
 
 {{ Form::close() }}
 

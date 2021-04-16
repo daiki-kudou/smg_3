@@ -76,7 +76,7 @@
 <body class="hold-transition sidebar-mini">
 
 
-  <div class="wrapper">
+  <div class="wrapper pc_wrapper">
     <!-- Navbar -->
     <nav class="main-header navbar navbar-expand navbar-white navbar-light d-flex justify-content-between">
       <!-- Left navbar links -->

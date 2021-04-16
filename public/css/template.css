@@ -277,10 +277,13 @@ select:disabled {
 }
 
 .wrapper {
-    min-width: 1200px !important;
     margin: 0 auto !important;
     /* background-color: #f3f3f3; */
     background-color: #f4f6f9;
+}
+
+.pc-wrapper {
+    min-width: 1200px !important;
 }
 
 .content-wrapper {
@@ -305,10 +308,7 @@ select:disabled {
     background-color: rgba(255, 255, 255, 0.05);
 }
 
-.table-box th,
-.table-box td {
-    text-align: center;
-}
+
 
 .btn_wrapper {
     margin: 50px 0;
@@ -804,7 +804,7 @@ table td.table_column p:last-child {
 }
 
 .caution_color {
-    color: #ff0018;
+    color: #ef6243;
 }
 
 .caution textarea {
@@ -1675,6 +1675,156 @@ table .master_total_subttl {
 
 
 /* マイページ =============================================================*/
+
+
+.user_wrapper .ttl_box {
+    margin-right: 0;
+}
+
+.user_wrapper .bill_header {
+    display: flex;
+    justify-content: space-between;
+}
+
+.user_wrapper .bill_header li {
+    display: flex;
+}
+.user_wrapper .bill_header li .ttl_box:first-child {
+    margin-right: 10px;
+}
+
+.bill_btn_wrap {
+    margin-left: 10px;
+}
+
+.user_wrapper .venue_main td, .user_wrapper .equipment_main td,
+.user_wrapper .layout_main td, .user_wrapper .others_main td {
+    padding: 0.5rem;
+}
+
+.result_sum {
+    width: 25%;
+    margin-left: auto;
+}
+
+.user_wrapper .venue_result td, .user_wrapper .equipment_result td,
+.user_wrapper .layout_result td, .user_wrapper .layouts_result td,
+.user_wrapper .others_result td {
+    padding-right: 0.5rem;
+    padding-left: 0.5rem;
+  }
+
+  .user-profile th {
+      background: #f2f2f2;
+  }
+
+@media screen and (max-width: 767px) {
+
+    .accordion_btn {
+        width: 50px;
+    }
+
+    .user_wrapper .bill_header {
+        display: block;
+    }
+
+    .user_wrapper .ttl_box {
+        margin-right: 0;
+    }
+
+    .user_wrapper .bill_header li .ttl_box:first-child {
+        margin-right: 0;
+        margin-bottom: 10px;
+        margin-top: 10px;
+    }
+
+    .user_wrapper .bill_header li {
+        display: block;
+    }
+
+    .bill_btn_wrap {
+        margin-left: 0;
+        margin-top: 10px;
+        display: flex;
+        justify-content: center;
+    }
+
+    .bill_btn_wrap p:first-child {
+        margin-right: 15px;
+    }
+
+    .master_total_body tr td:first-child {
+        padding-left: 0.5rem;
+    }
+
+    .master_total_body tr td:last-child {
+        padding-right: 0.5rem;
+    }
+
+    .user-profile {
+        width: 100%;
+    }
+
+} 
+
+@media screen and (max-width: 480px) { 
+    
+.result_sum {
+    width: 100%;
+}
+
+.user_wrapper .bill_total table {
+    width: 100%;
+}
+
+.content-wrapper>.content {
+    padding: 0 0.5rem;
+}
+
+.master_total_body td {
+    display: block;
+}
+
+.user_wrap .table th,
+.user_wrap .table td {
+    display: block;
+}
+
+.user_wrap .table-active {
+    width: 100%;
+}
+
+h2 {
+    font-size: 1.5rem;
+}
+h3 {
+    font-size: 1.3rem;
+}
+h4 {
+    font-size: 1.2rem;
+}
+
+.confirm_inner {
+    width: 100%;
+}
+
+.user-profile th, .user-profile td {
+    display: block;
+}
+
+}
+
+
+.table-box th,
+.table-box td {
+    text-align: center;
+}
+
+.pagination {
+    margin-top: 1em;
+}
+
+
 .nav-tabs .nav-item {
     border: 1px solid #ddd;
 }

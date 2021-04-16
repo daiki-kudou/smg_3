@@ -4,24 +4,22 @@
 {{-- <script src="{{ asset('/js/template.js') }}"></script>
 <script src="{{ asset('/js/ajax.js') }}"></script> --}}
 
-
-<div class="content">
-  <div class="container-fluid">
     <div class="container-field mt-3">
       <div class="float-right">
         <nav aria-label="breadcrumb">
           <ol class="breadcrumb">
             <li class="breadcrumb-item active"><a href="http://staging-smg2.herokuapp.com/admin/home">ホーム</a> >
-              予約一覧
+            ダミーダミー
             </li>
           </ol>
         </nav>
       </div>
-      <h1 class="mt-3 mb-5">予約一覧</h1>
+
+      <h2 class="mt-3 mb-3">予約一覧</h2>
       <hr>
     </div>
 
-    <div class="col12">
+    <div class="col-12">
       <dl class="d-flex col-12 justify-content-end align-items-center statuscheck">
         <dt><label for="">支払状況</label></dt>
         <dd class="mr-1">
@@ -51,77 +49,64 @@
       </li>
     </ul>
 
-
-    <div class="tab-content">
-      <div id="reserve-list" class="tab-pane active">
-        <div class="container-field">
-          <table class="table table-striped table-bordered table-box">
-            <thead>
-              <tr>
-                <th>予約<br>ID</th>
-                <th>利用日</th>
-                <th>入室</th>
-                <th>退室</th>
-                <th>会場</th>
-                <th width="120">予約状況</th>
-                <th width="120">カテゴリー</th>
-                <th>利用料金（税込）</th>
-                <th>支払期日</th>
-                <th>支払状況</th>
-                <th class="btn-cell">詳細</th>
-                <th class="btn-cell">請求書</th>
-                <th class="btn-cell">領収書</th>
-              </tr>
-            </thead>
-
-            @foreach ($user->reservations()->get() as $reservation)
-            <tbody>
-              <tr>
-                <td rowspan="{{count($reservation->bills()->get())}}">{{ReservationHelper::fixId($reservation->id)}}
-                </td>
-                <td rowspan="{{count($reservation->bills()->get())}}">{{$reservation->reserve_date}}</td>
-                <td rowspan="{{count($reservation->bills()->get())}}">{{$reservation->enter_time}}</td>
-                <td rowspan="{{count($reservation->bills()->get())}}">{{$reservation->leave_time}}</td>
-                <td>{{$reservation->venue_id}}</td>
-                <td>{{ReservationHelper::judgeStatus($reservation->bills()->first()->reservation_status)}}</td>
-                <td>※カテゴリー</td>
-                <td>{{number_format($reservation->bills()->first()->total)}}円</td>
-                <td>{{$reservation->payment_limit}}</td>
-                <td rowspan="{{count($reservation->bills()->get())}}">{{$reservation->bills()->first()->paid}}</td>
-                <td><a href="{{ url('user/home/'.$reservation->id) }}" class="more_btn">詳細</a></td>
-                <td></td>
-                <td></td>
-              </tr>
-              @for ($i = 0; $i < count($reservation->bills()->get())-1; $i++)
-                <tr>
-                  <td></td>
-                  <td>
-                    {{ReservationHelper::judgeStatus($reservation->bills()->skip($i+1)->first()->reservation_status)}}
-                  </td>
-                  <td>カテゴリ</td>
-                  <td>{{number_format($reservation->bills()->skip($i+1)->first()->total)}}円</td>
-                  <td></td>
-                  <td></td>
-                  <td></td>
-                </tr>
-                @endfor
-            </tbody>
-            @endforeach
-
-
-
-
-
-          </table>
+      <div class="tab-content">
+        <div id="reserve-list" class="tab-pane active">
+            <div class="table-wrap">
+              <table class="table table-bordered table-box table-scroll">
+                <thead>
+                  <tr>
+                    <th>予約ID</th>
+                    <th>利用日</th>
+                    <th>入室</th>
+                    <th>退室</th>
+                    <th>会場</th>
+                    <th width="120">予約状況</th>
+                    <th width="120">カテゴリー</th>
+                    <th>利用料金（税込）</th>
+                    <th>支払期日</th>
+                    <th>支払状況</th>
+                    <th class="btn-cell">詳細</th>
+                    <th class="btn-cell">請求書</th>
+                    <th class="btn-cell">領収書</th>
+                  </tr>
+                </thead>
+                @foreach ($user->reservations()->get() as $reservation)
+                <tbody>
+                  <tr>
+                    <td rowspan="{{count($reservation->bills()->get())}}">{{ReservationHelper::fixId($reservation->id)}}
+                    </td>
+                    <td rowspan="{{count($reservation->bills()->get())}}">{{$reservation->reserve_date}}</td>
+                    <td rowspan="{{count($reservation->bills()->get())}}">{{$reservation->enter_time}}</td>
+                    <td rowspan="{{count($reservation->bills()->get())}}">{{$reservation->leave_time}}</td>
+                    <td>{{$reservation->venue_id}}</td>
+                    <td>{{ReservationHelper::judgeStatus($reservation->bills()->first()->reservation_status)}}</td>
+                    <td>※カテゴリー</td>
+                    <td>{{number_format($reservation->bills()->first()->total)}}円</td>
+                    <td>{{$reservation->payment_limit}}</td>
+                    <td rowspan="{{count($reservation->bills()->get())}}">{{$reservation->bills()->first()->paid}}</td>
+                    <td><a href="{{ url('user/home/'.$reservation->id) }}" class="more_btn">詳細</a></td>
+                    <td></td>
+                    <td></td>
+                  </tr>
+                  @for ($i = 0; $i < count($reservation->bills()->get())-1; $i++)
+                    <tr>
+                      <td></td>
+                      <td>
+                        {{ReservationHelper::judgeStatus($reservation->bills()->skip($i+1)->first()->reservation_status)}}
+                      </td>
+                      <td>カテゴリ</td>
+                      <td>{{number_format($reservation->bills()->skip($i+1)->first()->total)}}円</td>
+                      <td></td>
+                      <td></td>
+                      <td></td>
+                    </tr>
+                    @endfor
+                </tbody>
+                @endforeach
+              </table>
+            </div>
         </div>
       </div>
-    </div>
-
-
-
-
-
-
 
     <!-- 一覧　　終わり------------------------------------------------ -->
 
@@ -139,9 +124,8 @@
           aria-label="次 &raquo">&rsaquo;</a>
       </li>
     </ul>
+    </div>	
 
-  </div>
-</div>
 
 
 
