@@ -30,13 +30,13 @@
             </td>
           </tr>
           <tr>
-            <td class="table-active form_required">利用日</td>
+            <td class="table-active">利用日</td>
             <td>
               {{$value["reserve_date"]}}
             </td>
           </tr>
           <tr>
-            <td class="table-active form_required">会場</td>
+            <td class="table-active">会場</td>
             <td>
               {{ReservationHelper::getVenue($value["venue_id"])}}
             </td>
@@ -48,13 +48,13 @@
             </td>
           </tr>
           <tr>
-            <td class="table-active form_required">入室時間</td>
+            <td class="table-active">入室時間</td>
             <td>
               {{date('H:i',strtotime($value['enter_time'])) }}
             </td>
           </tr>
           <tr>
-            <td class="table-active form_required">退室時間</td>
+            <td class="table-active">退室時間</td>
             <td>
               {{date('H:i',strtotime($value['leave_time'])) }}
             </td>
@@ -180,14 +180,14 @@
           </thead>
           <tbody>
             <tr>
-              <td class="table-active">レイアウト準備</td>
+              <td class="table-active">準備</td>
               <td>
                 {{$value['layout_prepare']==1?"あり":"なし"}}
 
               </td>
             </tr>
             <tr>
-              <td class="table-active">レイアウト準備</td>
+              <td class="table-active">片付</td>
               <td>
                 {{$value['layout_clean']==1?"あり":"なし"}}
               </td>
@@ -261,7 +261,7 @@
             </td>
           </tr>
           <tr>
-            <td class="table-active"><label for="user_id" class=" form_required">会社名/団体名</label></td>
+            <td class="table-active"><label for="user_id" class="">会社名/団体名</label></td>
             <td>
               {{ReservationHelper::getCompany($value['user_id'])}}
             </td>
@@ -305,7 +305,7 @@
             </td>
           </tr>
           <tr>
-            <td class="table-active caution">注意事項 工藤さん！！</td>
+            <td class="table-active caution">注意事項</td>
             <td class="caution">
               <p class="attention">
                 {{ReservationHelper::getPersonAttention($value['user_id'])}}
@@ -324,13 +324,13 @@
             </td>
           </tr>
           <tr>
-            <td class="table-active"><label for="ondayName" class=" form_required">氏名</label></td>
+            <td class="table-active"><label for="ondayName" class="">氏名</label></td>
             <td>
               {{$value['in_charge']}}
             </td>
           </tr>
           <tr>
-            <td class="table-active"><label for="mobilePhone" class=" form_required">携帯番号</label></td>
+            <td class="table-active"><label for="mobilePhone" class="">携帯番号</label></td>
             <td>
               {{$value['tel']}}
             </td>
@@ -387,12 +387,12 @@
               </p>
             </td>
           </tr>
-          <tr>
+          <!-- <tr>
             <td>
               <label for="userNote">申し込みフォーム備考</label>
               {!!nl2br($value['user_details'])!!}
             </td>
-          </tr>
+          </tr> -->
           <tr>
             <td>
               <label for="adminNote">管理者備考</label>
