@@ -6,6 +6,14 @@ jQuery.validator.addMethod(
   },
   "<br/>全角カタカナを入力してください"
 );
+// 半角カタカナ
+jQuery.validator.addMethod(
+  "hankaku",
+  function (value, element) {
+    return this.optional(element) || /^[ｱ-ﾝﾞﾟｧ-ｫｬ-ｮｰ｡｢｣､a-zA-Z0-9]+$/.test(value);
+  },
+  "<br/>全角カタカナを入力してください"
+);
 
 jQuery.validator.addMethod(
   "alphanum",
@@ -27,6 +35,32 @@ jQuery.validator.addMethod(
 // 有料備品の数字入力制限
 $(function () {
   $("input[name*='equipment_breakdown']").on("input", function (e) {
+    let value = $(e.currentTarget).val();
+    value = value
+      .replace(/[０-９]/g, function (s) {
+        return String.fromCharCode(s.charCodeAt(0) - 65248);
+      })
+      .replace(/[^0-9]/g, "");
+    $(e.currentTarget).val(value);
+  });
+});
+
+
+// その他の数字入力制限
+$(function () {
+  $("input[name*='others_input_cost']").on("input", function (e) {
+    let value = $(e.currentTarget).val();
+    value = value
+      .replace(/[０-９]/g, function (s) {
+        return String.fromCharCode(s.charCodeAt(0) - 65248);
+      })
+      .replace(/[^0-9]/g, "");
+    $(e.currentTarget).val(value);
+  });
+});
+
+$(function () {
+  $("input[name*='others_input_count']").on("input", function (e) {
     let value = $(e.currentTarget).val();
     value = value
       .replace(/[０-９]/g, function (s) {
@@ -937,7 +971,7 @@ $(function () {
 // 予約登録
 $(function () {
   var target = [
-    "#reservationCreateForm",
+    "#reservationCreateForm","#reservations_calculate_form",
   ];
 
   $.each(target, function (index, value) {
@@ -954,6 +988,15 @@ $(function () {
         luggage_count: { number: true, range: [0, 49] },
         luggage_return: { number: true, range: [0, 49] },
         luggage_price: { number: true },
+        cost: { number: true, range: [0, 100] },
+        venue_number_discount: { number: true },
+        venue_percent_discount: { number: true },
+        equipment_number_discount: { number: true },
+        equipment_percent_discount: { number: true },
+        layout_number_discount: { number: true },
+        layout_percent_discount: { number: true },
+        pay_person: { hankaku: true },
+        payment: { number: true },
       },
       messages: {
         reserve_date: { required: "※必須項目です" },
@@ -973,16 +1016,24 @@ $(function () {
           range: "※最大値は49です",
         },
         luggage_return: {
-          number: "半角数字で入力してください",
+          number: "※半角数字で入力してください",
           range: "※最大値は49です",
         },
         luggage_price: {
-          number: "半角数字で入力してください",
+          number: "※半角数字で入力してください",
         },
         cost: {
-          number: "半角数字で入力してください",
-          range: "※1から100までの半角英数字を入力してください",
+          number: "※半角数字で入力してください",
+          range: "※1から100までの数字を入力してください",
         },
+        venue_number_discount: { number: "※半角数字を入力してください" },
+        venue_percent_discount: { number: "※半角数字を入力してください" },
+        equipment_number_discount: { number: "※半角数字を入力してください" },
+        equipment_percent_discount: { number: "※半角数字を入力してください" },
+        layout_number_discount: { number: "※半角数字を入力してください" },
+        layout_percent_discount: { number: "※半角数字を入力してください" },
+        pay_person: { hankaku: "※半角ｶﾀｶﾅを入力してください" },
+        payment: { number: "※半角数字を入力してください" },
       },
       errorPlacement: function (error, element) {
         var name = element.attr("name");
@@ -1006,6 +1057,7 @@ $(function () {
     });
   });
 });
+
 
 // 仲介会社新規作成＆編集
 $(function () {

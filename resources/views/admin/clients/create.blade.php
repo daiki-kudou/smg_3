@@ -4,9 +4,6 @@
 <script src="{{ asset('/js/admin/validation.js') }}"></script>
 <script src="{{ asset('/js/ctrl_form.js') }}"></script>
 
-
-
-
 <style>
   .checkon {
     display: none;
