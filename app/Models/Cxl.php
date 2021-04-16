@@ -42,10 +42,10 @@ class Cxl extends Model
     $info = session()->get('cxlMaster');
     $data = session()->get('cxlCalcInfo');
 
-    $venue_result = $this->eachCalc($info[0], $data['cxl_venue_PC']);
-    $equ_result = $this->eachCalc($info[1], $data['cxl_equipment_PC']);
-    $lay_result = $this->eachCalc($info[2], $data['cxl_layout_PC']);
-    $oth_result = $this->eachCalc($info[3], $data['cxl_other_PC']);
+    $venue_result = !empty($data['cxl_venue_PC']) ? $this->eachCalc($info[0], $data['cxl_venue_PC']) : 0;
+    $equ_result = !empty($data['cxl_equipment_PC']) ? $this->eachCalc($info[1], $data['cxl_equipment_PC']) : 0;
+    $lay_result = !empty($data['cxl_layout_PC']) ? $this->eachCalc($info[2], $data['cxl_layout_PC']) : 0;
+    $oth_result = !empty($data['cxl_other_PC']) ? $this->eachCalc($info[3], $data['cxl_other_PC']) : 0;
     $subtotal = $venue_result + $equ_result + $lay_result + $oth_result;
     return [$venue_result, $equ_result, $lay_result, $oth_result, $subtotal];
   }
