@@ -32,7 +32,7 @@
   @if ($reservation->user_id>0)
   @if ($reservation->bills()->first()->reservation_status==3)
   <p class="text-right mb-5">
-    {{ Form::open(['url' => 'admin/bills/create/'.$reservation->id, 'method'=>'POST', 'class'=>'']) }}
+    {{ Form::open(['url' => 'admin/bills/create/', 'method'=>'get', 'class'=>'']) }}
     @csrf
     {{ Form::hidden('reservation_id', $reservation->id ) }}
     {{ Form::submit('追加の請求書を作成する',['class' => 'btn more_btn3']) }}
@@ -705,7 +705,8 @@
                 <!-- </td> -->
                 <!-- <td> -->
                 @if ($reservation->bills()->first()->reservation_status<3) <p>
-                  <a href="{{url('admin/reservations/'.$reservation->bills()->first()->id.'/edit')}}" class="btn more_btn">編集</a>
+                  <a href="{{url('admin/reservations/'.$reservation->bills()->first()->id.'/edit')}}"
+                    class="btn more_btn">編集</a>
                   </p>
                   @endif
               </div>
@@ -795,22 +796,21 @@
         @if ($reservation->bills()->first()->double_check_status==2)
         <!-- 利用者に承認メールを送る確認ボタン-ダブルチェック後に表示------ -->
         {{-- 予約完了後、非表示 --}}
-        @if ($reservation->bills()->first()->reservation_status<=2) 
-        <div class="d-flex justify-content-end mt-2 mb-2">
-            {{-- 予約ステータスを2にして、ユーザーにメール送付 --}}
-            {{-- <a class="more_btn" href="">利用者に承認メールを送る</a> --}}
-            {{ Form::open(['url' => 'admin/reservations/'.$reservation->id.'/send_email_and_approve', 'method'=>'POST', 'class'=>'']) }}
-            @csrf
-            {{ Form::hidden('reservation_id', $reservation->id ) }}
-            {{ Form::hidden('user_id', $reservation->user_id ) }}
-            <p class="mr-2">{{ Form::submit('利用者に承認メールを送る',['class' => 'btn more_btn']) }}</p>
-            {{ Form::close() }}
-            {{ Form::open(['url' => 'admin/reservations/'.$reservation->id.'/confirm_reservation', 'method'=>'POST', 'class'=>'']) }}
-            @csrf
-            {{ Form::hidden('reservation_id', $reservation->id ) }}
-            {{ Form::hidden('user_id', $reservation->user_id ) }}
-            <p>{{ Form::submit('予約を確定する',['class' => 'btn more_btn4']) }}</p>
-            {{ Form::close() }}
+        @if ($reservation->bills()->first()->reservation_status<=2) <div class="d-flex justify-content-end mt-2 mb-2">
+          {{-- 予約ステータスを2にして、ユーザーにメール送付 --}}
+          {{-- <a class="more_btn" href="">利用者に承認メールを送る</a> --}}
+          {{ Form::open(['url' => 'admin/reservations/'.$reservation->id.'/send_email_and_approve', 'method'=>'POST', 'class'=>'']) }}
+          @csrf
+          {{ Form::hidden('reservation_id', $reservation->id ) }}
+          {{ Form::hidden('user_id', $reservation->user_id ) }}
+          <p class="mr-2">{{ Form::submit('利用者に承認メールを送る',['class' => 'btn more_btn']) }}</p>
+          {{ Form::close() }}
+          {{ Form::open(['url' => 'admin/reservations/'.$reservation->id.'/confirm_reservation', 'method'=>'POST', 'class'=>'']) }}
+          @csrf
+          {{ Form::hidden('reservation_id', $reservation->id ) }}
+          {{ Form::hidden('user_id', $reservation->user_id ) }}
+          <p>{{ Form::submit('予約を確定する',['class' => 'btn more_btn4']) }}</p>
+          {{ Form::close() }}
       </div>
       @endif
       @endif
@@ -818,31 +818,30 @@
       @if ($reservation->bills()->first()->double_check_status==2)
       <!-- 利用者に承認メールを送る確認ボタン-ダブルチェック後に表示------ -->
       {{-- 予約完了後、非表示 --}}
-      @if ($reservation->bills()->first()->reservation_status<=2)
-        <div class="d-flex justify-content-end mt-2 mb-2">
-            {{-- <a class="more_btn4" href="">予約を確定する</a> --}}
-            {{ Form::open(['url' => 'admin/reservations/'.$reservation->id.'/confirm_reservation', 'method'=>'POST', 'class'=>'']) }}
-            @csrf
-            {{ Form::hidden('reservation_id', $reservation->id ) }}
-            {{ Form::hidden('user_id', $reservation->user_id ) }}
-            <p>{{ Form::submit('予約を確定する',['class' => 'btn more_btn4']) }}</p>
-            <span>※仲介会社経由の予約は予約を確定するのみ。メール送信は扶養</span>
-            {{ Form::close() }}
-        </div>
-        @endif
-        @endif
-        @endif
+      @if ($reservation->bills()->first()->reservation_status<=2) <div class="d-flex justify-content-end mt-2 mb-2">
+        {{-- <a class="more_btn4" href="">予約を確定する</a> --}}
+        {{ Form::open(['url' => 'admin/reservations/'.$reservation->id.'/confirm_reservation', 'method'=>'POST', 'class'=>'']) }}
+        @csrf
+        {{ Form::hidden('reservation_id', $reservation->id ) }}
+        {{ Form::hidden('user_id', $reservation->user_id ) }}
+        <p>{{ Form::submit('予約を確定する',['class' => 'btn more_btn4']) }}</p>
+        <span>※仲介会社経由の予約は予約を確定するのみ。メール送信は扶養</span>
+        {{ Form::close() }}
     </div>
-    <div class="cancel">
-      @if ($reservation->bills()->first()->reservation_status==3)
-      {{ Form::open(['url' => 'admin/cxl/create', 'method'=>'POST', 'class'=>'']) }}
-      @csrf
-      {{ Form::hidden('reservation_id', $reservation->id ) }}
-      {{ Form::hidden('bills_id', $reservation->bills()->first()->id ) }}
-      <p class="text-right py-2 mr-2">{{ Form::submit('キャンセル',['class' => 'btn more_btn4']) }}</p>
-      {{ Form::close() }}
-      @endif
-    </div>
+    @endif
+    @endif
+    @endif
+  </div>
+  <div class="cancel">
+    @if ($reservation->bills()->first()->reservation_status==3)
+    {{ Form::open(['url' => 'admin/cxl/create', 'method'=>'POST', 'class'=>'']) }}
+    @csrf
+    {{ Form::hidden('reservation_id', $reservation->id ) }}
+    {{ Form::hidden('bills_id', $reservation->bills()->first()->id ) }}
+    <p class="text-right py-2 mr-2">{{ Form::submit('キャンセル',['class' => 'btn more_btn4']) }}</p>
+    {{ Form::close() }}
+    @endif
+  </div>
   </div>
   <div class="bill_details">
     <div class="head d-flex">
@@ -1209,7 +1208,8 @@
             <tr>
               <td></td>
               <td>
-                <span class="font-weight-bold">合計金額：</span>{{number_format($reservation->bills()->first()->master_total)}}
+                <span
+                  class="font-weight-bold">合計金額：</span>{{number_format($reservation->bills()->first()->master_total)}}
               </td>
             </tr>
           </tbody>
