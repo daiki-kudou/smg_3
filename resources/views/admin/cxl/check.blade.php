@@ -30,8 +30,8 @@
         <div class="cancel_content cancel_border bg-white">
           {{ Form::open(['url' => 'admin/cxl/calculate', 'method'=>'POST', 'class'=>'']) }}
           @csrf
-          {{Form::hidden('bills_id',$bill->id)}}
-          {{Form::hidden('reservation_id',$request->reservation_id)}}
+          {{-- {{Form::hidden('bills_id',$bill->id)}}
+          {{Form::hidden('reservation_id',$request->reservation_id)}} --}}
           <h4 class="cancel_ttl">キャンセル料計算</h4>
           <table class="table table-borderless">
             <thead class="head_cancel">
@@ -45,53 +45,61 @@
             <tbody class="venue_main_cancel">
               <tr>
                 <td>会場料</td>
-                <td>{{number_format($bill->venue_price)}}円</td>
+                <td>
+                  {{-- {{number_format($bill->venue_price)}} --}}
+                  円</td>
                 <td class="multiple">×</td>
                 <td class="d-flex align-items-center">
-                  {{Form::text('cxl_venue_PC',$request->cxl_venue_PC,['class'=>'form-control'])}}
+                  {{-- {{Form::text('cxl_venue_PC',$request->cxl_venue_PC,['class'=>'form-control'])}} --}}
                   <span class="ml-1">%</span>
                 </td>
               </tr>
             </tbody>
 
-            @if ($bill->equipment_price>0)
+            {{-- @if ($bill->equipment_price>0) --}}
             <tbody class="equipment_cancel">
               <tr>
                 <td>有料備品・有料サービス料</td>
-                <td>{{number_format($bill->equipment_price)}}円</td>
+                <td>
+                  {{-- {{number_format($bill->equipment_price)}}円 --}}
+                </td>
                 <td class="multiple">×</td>
                 <td class="d-flex align-items-center">
-                  {{Form::text('cxl_equipment_PC',$request->cxl_equipment_PC,['class'=>'form-control'])}}
+                  {{-- {{Form::text('cxl_equipment_PC',$request->cxl_equipment_PC,['class'=>'form-control'])}} --}}
                   <span class="ml-1">%</span></td>
               </tr>
             </tbody>
-            @endif
+            {{-- @endif --}}
 
-            @if ($bill->layout_price>0)
+            {{-- @if ($bill->layout_price>0) --}}
             <tbody class="layout_cancel">
               <tr>
                 <td>レイアウト変更料</td>
-                <td>{{number_format($bill->layout_price)}}円</td>
+                <td>
+                  {{-- {{number_format($bill->layout_price)}}円 --}}
+                </td>
                 <td class="multiple">×</td>
                 <td class="d-flex align-items-center">
-                  {{Form::text('cxl_layout_PC',$request->cxl_layout_PC,['class'=>'form-control'])}}
+                  {{-- {{Form::text('cxl_layout_PC',$request->cxl_layout_PC,['class'=>'form-control'])}} --}}
                   <span class="ml-1">%</span></td>
               </tr>
             </tbody>
-            @endif
+            {{-- @endif --}}
 
-            @if ($bill->others_price>0)
+            {{-- @if ($bill->others_price>0) --}}
             <tbody class="others_cancel">
               <tr>
                 <td>その他</td>
-                <td>{{number_format($bill->others_price)}}円</td>
+                <td>
+                  {{-- {{number_format($bill->others_price)}} --}}
+                  円</td>
                 <td class="multiple">×</td>
                 <td class="d-flex align-items-center">
-                  {{Form::text('cxl_other_PC',$request->cxl_other_PC,['class'=>'form-control'])}}
+                  {{-- {{Form::text('cxl_other_PC',$request->cxl_other_PC,['class'=>'form-control'])}} --}}
                   <span class="ml-1">%</span></td>
               </tr>
             </tbody>
-            @endif
+            {{-- @endif --}}
           </table>
           {{ Form::submit('再計算する', ['class' => 'btn more_btn_lg mx-auto d-block my-5']) }}
           {{ Form::close() }}
@@ -120,38 +128,62 @@
               </tr>
             </tbody>
             <tbody class="">
-              @if ($bill->venue_price>0)
+              {{-- @if ($bill->venue_price>0) --}}
               <tr>
-                <td>キャンセル料(<span>会場料</span>・<span>{{$request->cxl_venue_PC}}%</span>)</td>
-                <td>{{number_format($result[0])}}</td>
+                <td>キャンセル料(<span>会場料</span>・<span>
+                    {{-- {{$request->cxl_venue_PC}} --}}
+                    %</span>)</td>
+                <td>
+                  {{-- {{number_format($result[0])}} --}}
+                </td>
                 <td>1</td>
-                <td>{{number_format($result[0])}}円</td>
+                <td>
+                  {{-- {{number_format($result[0])}} --}}
+                  円</td>
               </tr>
-              @endif
-              @if ($bill->equipment_price>0)
+              {{-- @endif --}}
+              {{-- @if ($bill->equipment_price>0) --}}
               <tr>
-                <td>キャンセル料(<span>有料備品・サービス料</span>・<span>{{$request->cxl_equipment_PC}}%</span>)</td>
-                <td>{{number_format($result[1])}}</td>
+                <td>キャンセル料(<span>有料備品・サービス料</span>・<span>
+                    {{-- {{$request->cxl_equipment_PC}} --}}
+                    %</span>)</td>
+                <td>
+                  {{-- {{number_format($result[1])}} --}}
+                </td>
                 <td>1</td>
-                <td>{{number_format($result[1])}}円</td>
+                <td>
+                  {{-- {{number_format($result[1])}} --}}
+                  円</td>
               </tr>
-              @endif
-              @if ($bill->layout_price>0)
+              {{-- @endif --}}
+              {{-- @if ($bill->layout_price>0) --}}
               <tr>
-                <td>キャンセル料(<span>レイアウト変更料</span>・<span>{{$request->cxl_layout_PC}}%</span>)</td>
-                <td>{{number_format($result[2])}}</td>
+                <td>キャンセル料(<span>レイアウト変更料</span>・<span>
+                    {{-- {{$request->cxl_layout_PC}} --}}
+                    %</span>)</td>
+                <td>
+                  {{-- {{number_format($result[2])}} --}}
+                </td>
                 <td>1</td>
-                <td>{{number_format($result[2])}}円</td>
+                <td>
+                  {{-- {{number_format($result[2])}} --}}
+                  円</td>
               </tr>
-              @endif
-              @if ($bill->others_price>0)
+              {{-- @endif --}}
+              {{-- @if ($bill->others_price>0) --}}
               <tr>
-                <td>キャンセル料(<span>その他</span>・<span>{{$request->cxl_other_PC}}%</span>)</td>
-                <td>{{number_format($result[3])}}</td>
+                <td>キャンセル料(<span>その他</span>・<span>
+                    {{-- {{$request->cxl_other_PC}} --}}
+                    %</span>)</td>
+                <td>
+                  {{-- {{number_format($result[3])}} --}}
+                </td>
                 <td>1</td>
-                <td>{{number_format($result[3])}}円</td>
+                <td>
+                  {{-- {{number_format($result[3])}} --}}
+                  円</td>
               </tr>
-              @endif
+              {{-- @endif --}}
             </tbody>
           </table>
         </div>
@@ -162,19 +194,21 @@
               <tr>
                 <td>小計：</td>
                 <td>
-                  {{Form::text('master_subtotal',$result[4],['class'=>'form-control','readonly'])}}
+                  {{-- {{Form::text('master_subtotal',$result[4],['class'=>'form-control','readonly'])}} --}}
                 </td>
               </tr>
               <tr>
                 <td>消費税：</td>
                 <td>
-                  {{Form::text('master_tax',ReservationHelper::getTax($result[4]),['class'=>'form-control','readonly'])}}
+                  {{-- {{Form::text('master_tax',ReservationHelper::getTax($result[4]),['class'=>'form-control','readonly'])}}
+                  --}}
                 </td>
               </tr>
               <tr>
                 <td class="font-weight-bold">合計金額</td>
                 <td>
-                  {{Form::text('master_total',ReservationHelper::taxAndPrice($result[4]),['class'=>'form-control','readonly'])}}
+                  {{-- {{Form::text('master_total',ReservationHelper::taxAndPrice($result[4]),['class'=>'form-control','readonly'])}}
+                  --}}
                 </td>
               </tr>
             </tbody>
@@ -205,21 +239,23 @@
               <tr>
                 <td>請求日：</td>
                 <td>支払期日
-                  {{Form::text('payment_limit',$payment_limit,['class'=>'form-control', 'id'=>'datepicker1'])}}
+                  {{-- {{Form::text('payment_limit',$payment_limit,['class'=>'form-control', 'id'=>'datepicker1'])}}
+                  --}}
                 </td>
               </tr>
               <tr>
                 <td>請求書宛名
-                  {{Form::text('bill_company',$user->company,['class'=>'form-control'])}}
+                  {{-- {{Form::text('bill_company',$user->company,['class'=>'form-control'])}} --}}
                 </td>
                 <td>
                   担当者
-                  {{Form::text('bill_person',ReservationHelper::getPersonName($user->id),['class'=>'form-control'])}}
+                  {{-- {{Form::text('bill_person',ReservationHelper::getPersonName($user->id),['class'=>'form-control'])}}
+                  --}}
                 </td>
               </tr>
               <tr>
                 <td colspan="2">請求書備考
-                  {{Form::textarea('bill_remark','',['class'=>'form-control'])}}
+                  {{-- {{Form::textarea('bill_remark','',['class'=>'form-control'])}} --}}
                 </td>
               </tr>
             </tbody>
@@ -245,19 +281,19 @@
             <tbody>
               <tr>
                 <td>入金状況
-                  {{Form::select('paid', ['未入金','入金済み'], '0',['class'=>'form-control'])}}
+                  {{-- {{Form::select('paid', ['未入金','入金済み'], '0',['class'=>'form-control'])}} --}}
                 </td>
                 <td>
                   入金日
-                  {{Form::text('pay_day','',['class'=>'form-control','id'=>'datepicker2'])}}
+                  {{-- {{Form::text('pay_day','',['class'=>'form-control','id'=>'datepicker2'])}} --}}
                 </td>
               </tr>
               <tr>
                 <td>振込人名
-                  {{Form::text('pay_person','',['class'=>'form-control'])}}
+                  {{-- {{Form::text('pay_person','',['class'=>'form-control'])}} --}}
                 </td>
                 <td>入金額
-                  {{Form::text('payment','',['class'=>'form-control'])}}
+                  {{-- {{Form::text('payment','',['class'=>'form-control'])}} --}}
                 </td>
               </tr>
             </tbody>
@@ -266,7 +302,7 @@
       </div>
     </div>
   </div>
-  {{Form::hidden('reservation_id',$request->reservation_id)}}
+  {{-- {{Form::hidden('reservation_id',$request->reservation_id)}}
   {{Form::hidden('cxl_venue_PC',$request->cxl_venue_PC,['class'=>'form-control'])}}
   @if ($bill->equipment_price>0)
   {{Form::hidden('cxl_equipment_PC',$request->cxl_equipment_PC,['class'=>'form-control'])}}
@@ -278,7 +314,7 @@
   {{Form::hidden('cxl_other_PC',$request->cxl_other_PC,['class'=>'form-control'])}}
   @endif
   {{Form::hidden('bill_id',$bill->id)}}
-  {{Form::hidden('reservation_id',$request->reservation_id)}}
+  {{Form::hidden('reservation_id',$request->reservation_id)}} --}}
 
   {{ Form::submit('キャンセルを確定する', ['class' => 'btn more_btn_lg mx-auto d-block my-5']) }}
   {{ Form::close() }}

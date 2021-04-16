@@ -11,7 +11,6 @@ use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\DB; //トランザクション用
 
 
-
 trait PregTrait
 {
   public function preg($array, $inputNames)

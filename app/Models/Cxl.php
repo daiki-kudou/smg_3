@@ -37,6 +37,27 @@ class Cxl extends Model
     return $this->belongsTo(Bill::class);
   }
 
+  public function calcCxlAmount()
+  {
+    $info = session()->get('cxlMaster');
+    $data = session()->get('cxlCalcInfo');
+
+    $venue_result = $this->eachCalc($info[0], $data['cxl_venue_PC']);
+    $equ_result = $this->eachCalc($info[1], $data['cxl_equipment_PC']);
+    $lay_result = $this->eachCalc($info[2], $data['cxl_layout_PC']);
+    $oth_result = $this->eachCalc($info[3], $data['cxl_other_PC']);
+    $subtotal = $venue_result + $equ_result + $lay_result + $oth_result;
+    return [$venue_result, $equ_result, $lay_result, $oth_result, $subtotal];
+  }
+
+  public function eachCalc($target, $target2)
+  {
+    if (!empty($target)) {
+      return $target * ((int)$target2 / 100);
+    } else {
+      return 0;
+    }
+  }
 
 
   public function storeCxl($request)

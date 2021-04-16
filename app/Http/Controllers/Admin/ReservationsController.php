@@ -373,8 +373,7 @@ class ReservationsController extends Controller
   public function show($id)
   {
     session()->forget('add_bill');
-
-    $reservation = Reservation::find($id);
+    $reservation = Reservation::with('bills')->find($id);
     $venue = Venue::find($reservation->venue->id);
     $user = User::find($reservation->user_id);
     $master_prices = $reservation->TotalAmount();
@@ -382,9 +381,10 @@ class ReservationsController extends Controller
     for ($i = 0; $i < count($reservation->bills()->get()) - 1; $i++) {
       $other_bills[] = $reservation->bills()->skip($i + 1)->first();
     }
-
     $admin = Admin::all()->sortBy('name', SORT_NATURAL | SORT_FLAG_CASE)->pluck('name', 'name');
-    return view('admin.reservations.show', compact('venue', 'reservation', 'master_prices', 'user', 'other_bills', "admin"));
+    //付随する追加予約のステータスが予約完了になってるか判別
+    $judgeMultiDelete = ($reservation->checkBillsStatus());
+    return view('admin.reservations.show', compact('venue', 'reservation', 'master_prices', 'user', 'other_bills', "admin", 'judgeMultiDelete'));
   }
 
   public function double_check(Request $request, $id)

@@ -218,8 +218,6 @@ class Reservation extends Model
     });
   }
 
-
-
   public function ReserveStore($request)
   {
     DB::transaction(function () use ($request) { //トランザクションさせる
@@ -282,9 +280,6 @@ class Reservation extends Model
       $bill->ReserveStoreBreakdown($request);
     });
   }
-
-
-
 
   /*
 |--------------------------------------------------------------------------
@@ -609,5 +604,26 @@ class Reservation extends Model
       $request->session()->regenerate();
       return redirect()->route('admin.reservations.index');
     });
+  }
+
+  public function checkBillsStatus()
+  {
+    $collection = $this->bills->pluck('reservation_status');
+    foreach ($collection as $key => $value) {
+      if ($value < 3) {
+        return 0;
+        break;
+      }
+    }
+    return 1;
+  }
+
+  public function pluckSum($array)
+  {
+    $result = [];
+    foreach ($array as $key => $value) {
+      $result[] = $this->bills->pluck($value)->sum();
+    }
+    return $result;
   }
 }
