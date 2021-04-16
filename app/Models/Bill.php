@@ -129,17 +129,19 @@ class Bill extends Model
         ]);
       }
       // 備品等料金
-      $e_cnt = $this->preg($discount_info, "equipment_breakdown_item");
-      var_dump($e_cnt);
-      if ($e_cnt != 0) {
-        for ($equ = 0; $equ < $e_cnt; $equ++) {
-          $this->breakdowns()->create([
-            'unit_item' => $discount_info['equipment_breakdown_item' . $equ],
-            'unit_cost' => $discount_info['equipment_breakdown_cost' . $equ],
-            'unit_count' => $discount_info['equipment_breakdown_count' . $equ],
-            'unit_subtotal' => $discount_info['equipment_breakdown_subtotal' . $equ],
-            'unit_type' => 2,
-          ]);
+      if ($discount_info['equipment_price'] != "") {
+        $e_cnt = $this->preg($discount_info, "equipment_breakdown_item");
+        var_dump($e_cnt);
+        if ($e_cnt != 0) {
+          for ($equ = 0; $equ < $e_cnt; $equ++) {
+            $this->breakdowns()->create([
+              'unit_item' => $discount_info['equipment_breakdown_item' . $equ],
+              'unit_cost' => $discount_info['equipment_breakdown_cost' . $equ],
+              'unit_count' => $discount_info['equipment_breakdown_count' . $equ],
+              'unit_subtotal' => $discount_info['equipment_breakdown_subtotal' . $equ],
+              'unit_type' => 2,
+            ]);
+          }
         }
       }
       // サービス料金
@@ -155,6 +157,7 @@ class Bill extends Model
           ]);
         }
       }
+
       // 備品＋サービス割引
       if (!empty($discount_info['equipment_breakdown_discount_item'])) {
         $this->breakdowns()->create([
@@ -175,7 +178,8 @@ class Bill extends Model
           'unit_type' => 3,
         ]);
       }
-      // レイアウト
+
+      // レイアウト 新規作成時の挙動
       if (!empty($discount_info['layout_prepare_item'])) {
         $this->breakdowns()->create([
           'unit_item' => $discount_info['layout_prepare_item'],
@@ -194,6 +198,23 @@ class Bill extends Model
           'unit_type' => 4,
         ]);
       }
+      // レイアウト追加請求書の挙動
+
+      if (empty($discount_info['layout_prepare_item']) && empty($discount_info['layout_clean_itemaaaaa'])) {
+        if (!empty($discount_info['layout_price'])) {
+          $l_cnt = $this->preg($discount_info, "layout_breakdown_item");
+          for ($lay = 0; $lay < $l_cnt; $lay++) {
+            $this->breakdowns()->create([
+              'unit_item' => $discount_info['layout_breakdown_item' . $lay],
+              'unit_cost' => $discount_info['layout_breakdown_cost' . $lay],
+              'unit_count' => $discount_info['layout_breakdown_count' . $lay],
+              'unit_subtotal' => $discount_info['layout_breakdown_subtotal' . $lay],
+              'unit_type' => 4,
+            ]);
+          }
+        }
+      }
+
 
 
       // レイアウト割引
