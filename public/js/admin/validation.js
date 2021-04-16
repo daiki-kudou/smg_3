@@ -972,6 +972,8 @@ $(function () {
 $(function () {
   var target = [
     "#reservationCreateForm","#reservations_calculate_form",
+    "#reservations_edit","#edit_calculate",
+    "#edit_check","#edit_calculate",
   ];
 
   $.each(target, function (index, value) {
@@ -995,6 +997,8 @@ $(function () {
         equipment_percent_discount: { number: true },
         layout_number_discount: { number: true },
         layout_percent_discount: { number: true },
+        others_number_discount: { number: true },
+        others_percent_discount: { number: true },
         pay_person: { hankaku: true },
         payment: { number: true },
       },
@@ -1032,6 +1036,8 @@ $(function () {
         equipment_percent_discount: { number: "※半角数字を入力してください" },
         layout_number_discount: { number: "※半角数字を入力してください" },
         layout_percent_discount: { number: "※半角数字を入力してください" },
+        others_number_discount: { number: "※半角数字を入力してください" },
+        others_percent_discount: { number: "※半角数字を入力してください" },
         pay_person: { hankaku: "※半角ｶﾀｶﾅを入力してください" },
         payment: { number: "※半角数字を入力してください" },
       },

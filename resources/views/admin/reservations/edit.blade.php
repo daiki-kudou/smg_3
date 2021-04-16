@@ -44,7 +44,7 @@
 
 
 
-{{Form::open(['url' => 'admin/reservations/'.$reservation->id.'/edit_calculate', 'method' => 'POST', 'id'=>''])}}
+{{Form::open(['url' => 'admin/reservations/'.$reservation->id.'/edit_calculate', 'method' => 'POST', 'id'=>'reservations_edit'])}}
 @csrf
 {{ Form::hidden('reservation_id',  $reservation->id) }}
 
@@ -440,6 +440,7 @@
               <td class="table-active">事前に預かる荷物<br>（個数）</td>
               <td>
                 {{ Form::text('luggage_count', $reservation->luggage_count,['class'=>'form-control'] ) }}
+                <p class="is-error-luggage_count" style="color: red"></p>
               </td>
             </tr>
             <tr>
@@ -452,6 +453,7 @@
               <td class="table-active">事後返送する荷物</td>
               <td>
                 {{ Form::text('luggage_return', $reservation->luggage_return,['class'=>'form-control'] ) }}
+                <p class="is-error-luggage_return" style="color: red"></p>
               </td>
             </tr>
             <tr>
@@ -468,6 +470,7 @@
                 {{ Form::text('luggage_price', "",['class'=>'form-control'] ) }}
                 @endif
                 @endforeach
+                <p class="is-error-luggage_price" style="color: red"></p>
               </td>
             </tr>
           </tbody>
@@ -555,12 +558,14 @@
             <td class="table-active"><label for="ondayName" class=" form_required">氏名</label></td>
             <td>
               {{ Form::text('in_charge', $reservation->in_charge,['class'=>'form-control'] ) }}
+              <p class="is-error-in_charge" style="color: red"></p>
             </td>
           </tr>
           <tr>
             <td class="table-active"><label for="mobilePhone" class=" form_required">携帯番号</label></td>
             <td>
               {{ Form::text('tel', $reservation->tel,['class'=>'form-control'] ) }}
+              <p class="is-error-tel" style="color: red"></p>
             </td>
           </tr>
         </table>
@@ -631,7 +636,7 @@
 {{Form::submit('再計算する', ['class'=>'btn more_btn4_lg mx-auto d-block mt-5 mb-5', 'id'=>'check_submit'])}}
 {{Form::close()}}
 
-{{ Form::open(['url' => '###################', 'method'=>'POST', 'id'=>'agents_calculate_form']) }}
+{{ Form::open(['url' => '###################', 'method'=>'POST', 'id'=>'reservations_calculate_form']) }}
 @csrf
 <section class="mt-5">
   <div class="bill">
@@ -726,6 +731,7 @@
                     {{ Form::text('venue_number_discount', '',['class'=>'form-control'] ) }}
                     <p>円</p>
                   </div>
+                  <p class="is-error-venue_number_discount" style="color: red"></p>
                 </td>
                 <td>
                   <p>
@@ -735,6 +741,7 @@
                     {{ Form::text('venue_percent_discount', '',['class'=>'form-control'] ) }}
                     <p>%</p>
                   </div>
+                  <p class="is-error-venue_percent_discount" style="color: red"></p>
                 </td>
                 <td>
                   <input class="btn more_btn venue_discount_btn" type="button" value="計算する">
@@ -815,6 +822,7 @@
                     {{ Form::text('equipment_number_discount', '',['class'=>'form-control'] ) }}
                     <p>円</p>
                   </div>
+                  <p class="is-error-equipment_number_discount" style="color: red"></p>
                 </td>
                 <td>
                   <p>
@@ -824,6 +832,7 @@
                     {{ Form::text('equipment_percent_discount', '',['class'=>'form-control'] ) }}
                     <p>%</p>
                   </div>
+                  <p class="is-error-equipment_percent_discount" style="color: red"></p>
                 </td>
                 <td>
                   <input class="btn more_btn equipment_discount_btn" type="button" value="計算する">
@@ -888,6 +897,7 @@
                     {{ Form::text('layout_number_discount', '',['class'=>'form-control'] ) }}
                     <p>円</p>
                   </div>
+                  <p class="is-error-layout_number_discount" style="color: red"></p>
                 </td>
                 <td>
                   <p>
@@ -897,6 +907,7 @@
                     {{ Form::text('layout_percent_discount', '',['class'=>'form-control'] ) }}
                     <p>%</p>
                   </div>
+                  <p class="is-error-layout_percent_discount" style="color: red"></p>
                 </td>
                 <td>
                   <input class="btn more_btn layout_discount_btn" type="button" value="計算する">
@@ -963,6 +974,7 @@
                     {{ Form::text('others_number_discount', '',['class'=>'form-control'] ) }}
                     <p>円</p>
                   </div>
+                  <p class="is-error-others_number_discount" style="color: red"></p>
                 </td>
                 <td>
                   <p>
@@ -972,10 +984,12 @@
                     {{ Form::text('others_percent_discount', '',['class'=>'form-control'] ) }}
                     <p>%</p>
                   </div>
+                  <p class="is-error-others_percent_discount" style="color: red"></p>
                 </td>
                 <td>
                   <input class="btn more_btn others_discount_btn" type="button" value="計算する">
                 </td>
+                <td></td>
               </tr>
             </tbody>
           </table>
@@ -1072,8 +1086,10 @@
             <tr>
               <td>
                 振込人名{{ Form::text('pay_person', $bill->pay_person,['class'=>'form-control'] ) }}
+                <p class="is-error-pay_person" style="color: red"></p>
               </td>
               <td>入金額{{ Form::text('payment', $bill->payment,['class'=>'form-control'] ) }}
+              <p class="is-error-payment" style="color: red"></p>
               </td>
             </tr>
           </table>
