@@ -1944,7 +1944,8 @@
           <tr>
             <td>
               <h2 class="text-white">
-                丸岡さん!! ここピンク色にしてください　　　請求書No
+                丸岡さん!! ここピンク色にしてください　　　
+                請求書No
               </h2>
             </td>
             <td style="width: 70%;">
@@ -2018,7 +2019,6 @@
               <div><span>申込日：</span>{{$cxl->created_at}}</div>
               <div><span>予約確定日：</span>{{$cxl->approve_send_at}}</div>
             </td>
-
           </tr>
         </tbody>
       </table>
@@ -2043,13 +2043,6 @@
           @endif
           @endif
       </div>
-      {{-- <div class="cancel">
-        @if ($cxl->reservation_status==3)
-        <p class="text-right py-2 mr-2">
-          <input type="" class="btn more_btn4" value="個別キャンセル">
-        </p>
-        @endif
-      </div> --}}
     </div>
 
     <div class="bill_details">
@@ -2116,7 +2109,6 @@
             </tbody>
           </table>
         </div>
-
         <div class="bill_total">
           <table class="table text-right">
             <tbody>
@@ -2261,6 +2253,8 @@
 @endforeach
 
 {{-- キャンセル総合計請求額 --}}
+@if (!empty($reservation->cxls))
+
 <div class="master_totals border-wrap">
   <table class="table">
     <tbody class="master_total_head">
@@ -2268,6 +2262,7 @@
         <td colspan="2">
           <h3>
             キャンセル料　合計請求額
+            丸岡さん!!! ここの色も変更必要かと思います
           </h3>
         </td>
       </tr>
@@ -2324,6 +2319,7 @@
     </dl>
   </div>
 </div>
+@endif
 
 
 
