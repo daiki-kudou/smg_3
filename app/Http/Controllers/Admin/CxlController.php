@@ -42,40 +42,34 @@ class CxlController extends Controller
 
   public function multiCalc(Request $request)
   {
-    $request->session()->forget('cxlCalcInfo');
+    $request->session()->forget('invoice');
     $request->session()->put('cxlCalcInfo', $request->all());
     $cxl = new Cxl;
     $result = $cxl->calcCxlAmount();
-    return redirect(route('admin.cxl.multi_calc', compact('result')));
+    $request->session()->put('cxlResult', $result);
+    return redirect(route('admin.cxl.multi_calc'));
   }
 
   public function multiCalcShow(Request $request)
   {
     $info = session()->get('cxlMaster');
     $data = session()->get('cxlCalcInfo');
+    $result = session()->get('cxlResult');
+
     $reservation = Reservation::with('user')->find($data['reservation_id']);
     $user = $reservation->user;
-    $result = $request->result;
+    // $result = $request->result;
     return view('admin.cxl.multi_calculate', compact('info', 'data', 'result', 'user'));
   }
-
-
-  // public function calculate(Request $request)
-  // {
-  //   // $bill = Bill::find($request->bills_id);
-  //   // $result = $bill->getCxlPrice($request);
-  //   // $user = User::find($bill->reservation->user_id);
-  //   // $payment_limit = $user->getUserPayLimit($bill->reservation->reserve_date);
-  //   return view(
-  //     'admin.cxl.calculate',
-  //     // compact('bill', 'request', 'result', 'user', 'payment_limit')
-  //   );
-  // }
 
   public function check(Request $request)
   {
     $info = session()->get('cxlMaster');
     $data = session()->get('cxlCalcInfo');
+    $result = session()->get('cxlResult');
+    $request->session()->put('invoice', $request->all());
+    $invoice = session()->get('invoice');
+
     if ($request->back) {
       return redirect(route(
         'admin.cxl.multi_create',
@@ -85,7 +79,7 @@ class CxlController extends Controller
 
     return view(
       'admin.cxl.check',
-      // compact('bill', 'request', 'result', 'payment_limit', 'user')
+      compact('info', 'data', 'result', 'invoice')
     );
   }
 
@@ -97,8 +91,17 @@ class CxlController extends Controller
    */
   public function store(Request $request)
   {
+    if ($request->back) {
+      return redirect(route('admin.cxl.multi_calc'));
+    }
+    // $info = session()->get('cxlMaster');
+    $data = session()->get('cxlCalcInfo');
+    // $result = session()->get('cxlResult');
+    $invoice = session()->get('invoice');
+
     $cxl = new Cxl;
-    $cxl->storeCxl($request);
+    $cxlBill = $cxl->storeCxl($data, $invoice);
+    $cxlBill->storeCxlBreakdown($request);
   }
 
   /**

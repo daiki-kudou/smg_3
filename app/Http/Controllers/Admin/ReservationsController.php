@@ -372,7 +372,7 @@ class ReservationsController extends Controller
    */
   public function show($id)
   {
-    session()->forget('add_bill');
+    session()->forget(['add_bill', 'cxlCalcInfo', 'cxlMaster', 'cxlResult', 'invoice']);
     $reservation = Reservation::with('bills')->find($id);
     $venue = Venue::find($reservation->venue->id);
     $user = User::find($reservation->user_id);
