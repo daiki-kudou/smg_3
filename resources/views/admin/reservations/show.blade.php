@@ -280,17 +280,15 @@
                       {{isset($reservation->luggage_count)?'あり':'なし'}}
                     </p>
                   </li>
-                  <li class="d-flex justify-content-between">
-                    <p>荷物個数</p>
+                  <li>
                     <p>
-                      {{isset($reservation->luggage_count)?$reservation->luggage_count:''}}個
+                      荷物個数：{{isset($reservation->luggage_count)?$reservation->luggage_count:''}}個
                     </p>
                   </li>
 
-                  <li class="d-flex justify-content-between">
-                    <p>事前荷物の到着日</p>
+                  <li>
                     <p>
-                      {{isset($reservation->luggage_arrive)?ReservationHelper::formatDate($reservation->luggage_arrive):''}}
+                    事前荷物の到着日：{{isset($reservation->luggage_arrive)?ReservationHelper::formatDate($reservation->luggage_arrive):''}}
                     </p>
                   </li>
                 </ul>
@@ -305,10 +303,9 @@
                       {{isset($reservation->luggage_return)?'あり':''}}
                     </p>
                   </li>
-                  <li class="d-flex justify-content-between">
-                    <p>荷物個数</p>
+                  <li>
                     <p>
-                      {{isset($reservation->luggage_return)?$reservation->luggage_return:''}}個
+                    荷物個数：{{isset($reservation->luggage_return)?$reservation->luggage_return:''}}個
                     </p>
                   </li>
                 </ul>

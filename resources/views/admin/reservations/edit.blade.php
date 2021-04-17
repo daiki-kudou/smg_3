@@ -601,7 +601,7 @@
           <td class="table-active"><label for="cost">原価率</label></td>
           <td>
             <div class="d-flex align-items-end">
-              {{ Form::text('', $reservation->cost,['class'=>'form-control'] ) }}
+              {{ Form::text('cost', $reservation->cost,['class'=>'form-control'] ) }}
               {{ Form::hidden('cost', $reservation->cost,['class'=>'form-control'] ) }}
               <span class="ml-1 annotation">%</span>
             </div>
