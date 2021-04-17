@@ -205,7 +205,7 @@
                   {{Form::text('bill_created_at', date('Y-m-d',strtotime(\Carbon\Carbon::now())) ,['class'=>'form-control', 'id'=>'datepicker1'])}}
                 </td>
                 <td>支払期日
-                  {{Form::text('payment_limit',!empty(session('invoice')['payment_limit'])?session('invoice')['payment_limit']:"",['class'=>'form-control', 'id'=>'datepicker1'])}}
+                  {{Form::text('payment_limit','',['class'=>'form-control', 'id'=>'datepicker1'])}}
                 </td>
               </tr>
               <tr>
@@ -219,7 +219,7 @@
               </tr>
               <tr>
                 <td colspan="2">請求書備考
-                  {{Form::textarea('bill_remark',!empty(session('invoice')['bill_remark'])?session('invoice')['bill_remark']:"",['class'=>'form-control'])}}
+                  {{Form::textarea('bill_remark','',['class'=>'form-control'])}}
                 </td>
               </tr>
             </tbody>
@@ -247,15 +247,15 @@
                 </td>
                 <td>
                   入金日
-                  {{Form::text('pay_day',!empty(session('invoice')['pay_day'])?session('invoice')['pay_day']:"",['class'=>'form-control','id'=>'datepicker2'])}}
+                  {{Form::text('pay_day','',['class'=>'form-control','id'=>'datepicker2'])}}
                 </td>
               </tr>
               <tr>
                 <td>振込人名
-                  {{Form::text('pay_person',!empty(session('invoice')['pay_person'])?session('invoice')['pay_person']:"",['class'=>'form-control'])}}
+                  {{Form::text('pay_person','',['class'=>'form-control'])}}
                 </td>
                 <td>入金額
-                  {{Form::text('payment',!empty(session('invoice')['payment'])?session('invoice')['payment']:"",['class'=>'form-control'])}}
+                  {{Form::text('payment','',['class'=>'form-control'])}}
                 </td>
               </tr>
             </tbody>

@@ -1036,26 +1036,26 @@ $(function () {
   $.each(target, function (index, value) {
     $(value).validate({
       rules: {
-        venue_number_discount: { number: true },
-        venue_percent_discount: { number: true },
-        equipment_number_discount: { number: true },
-        equipment_percent_discount: { number: true },
-        layout_number_discount: { number: true },
-        layout_percent_discount: { number: true },
-        others_number_discount: { number: true },
-        others_percent_discount: { number: true },
+        // venue_number_discount: { number: true },
+        // venue_percent_discount: { number: true },
+        // equipment_number_discount: { number: true },
+        // equipment_percent_discount: { number: true },
+        // layout_number_discount: { number: true },
+        // layout_percent_discount: { number: true },
+        // others_number_discount: { number: true },
+        // others_percent_discount: { number: true },
         pay_person: { hankaku: true },
         payment: { number: true },
       },
       messages: {
-        venue_number_discount: { number: "※半角数字を入力してください" },
-        venue_percent_discount: { number: "※半角数字を入力してください" },
-        equipment_number_discount: { number: "※半角数字を入力してください" },
-        equipment_percent_discount: { number: "※半角数字を入力してください" },
-        layout_number_discount: { number: "※半角数字を入力してください" },
-        layout_percent_discount: { number: "※半角数字を入力してください" },
-        others_number_discount: { number: "※半角数字を入力してください" },
-        others_percent_discount: { number: "※半角数字を入力してください" },
+        // venue_number_discount: { number: "※半角数字を入力してください" },
+        // venue_percent_discount: { number: "※半角数字を入力してください" },
+        // equipment_number_discount: { number: "※半角数字を入力してください" },
+        // equipment_percent_discount: { number: "※半角数字を入力してください" },
+        // layout_number_discount: { number: "※半角数字を入力してください" },
+        // layout_percent_discount: { number: "※半角数字を入力してください" },
+        // others_number_discount: { number: "※半角数字を入力してください" },
+        // others_percent_discount: { number: "※半角数字を入力してください" },
         pay_person: { hankaku: "※半角ｶﾀｶﾅを入力してください" },
         payment: { number: "※半角数字を入力してください" },
       },
@@ -1082,6 +1082,53 @@ $(function () {
   });
 });
 
+
+// キャンセル請求書
+$(function () {
+  var target = [
+    "#cxlcalc","#multi_calc",
+  ];
+
+  $.each(target, function (index, value) {
+    $(value).validate({
+      rules: {
+        cxl_venue_PC: { number: true },
+        cxl_equipment_PC: { number: true },
+        cxl_layout_PC: { number: true },
+        cxl_other_PC: { number: true },
+        pay_person: { hankaku: true },
+        payment: { number: true },
+      },
+      messages: {
+        cxl_venue_PC: { number: "※半角数字を入力してください" },
+        cxl_equipment_PC: { number: "※半角数字を入力してください" },
+        cxl_layout_PC: { number: "※半角数字を入力してください" },
+        cxl_other_PC: { number: "※半角数字を入力してください" },
+        pay_person: { hankaku: "※半角ｶﾀｶﾅを入力してください" },
+        payment: { number: "※半角数字を入力してください" },
+      },
+      errorPlacement: function (error, element) {
+        var name = element.attr("name");
+        if (element.attr("name") === "category[]") {
+          error.appendTo($(".is-error-category"));
+        } else if (element.attr("name") === name) {
+          error.appendTo($(".is-error-" + name));
+        }
+      },
+      errorElement: "span",
+      errorClass: "is-error",
+      //送信前にLoadingを表示
+      submitHandler: function (form) {
+        $(".approval").addClass("hide");
+        $(".loading").removeClass("hide");
+        form.submit();
+      },
+    });
+    $("input").on("blur", function () {
+      $(this).valid();
+    });
+  });
+});
 
 
 
@@ -1790,5 +1837,80 @@ $(function () {
     // if ($('span').hasClass('is-error')) {
     //   $('span').css('background', 'white');
     // }
+  });
+});
+
+
+
+
+// マイページvalidation
+
+$(function () {
+  var target = [
+    "#mypageForm","#mypageCalculate",
+  ];
+
+  $.each(target, function (index, value) {
+    $(value).validate({
+      rules: {
+        in_charge: { required: true },
+        tel: { required: true, number: true, minlength: 11 },
+        luggage_count: { number: true, range: [0, 49] },
+        luggage_return: { number: true, range: [0, 49] },
+        luggage_price: { number: true },
+
+      },
+      messages: {
+        in_charge: { required: "※必須項目です" },
+        tel: {
+          required: "※必須項目です",
+          number: "※半角数字を入力してください",
+          minlength: "※最低桁数は11です",
+        },
+        luggage_count: {
+          number: "半角数字で入力してください",
+          range: "※最大値は49です",
+        },
+        luggage_return: {
+          number: "※半角数字で入力してください",
+          range: "※最大値は49です",
+        },
+        luggage_price: {
+          number: "※半角数字で入力してください",
+        },
+      },
+      errorPlacement: function (error, element) {
+        var name = element.attr("name");
+        if (element.attr("name") === "category[]") {
+          error.appendTo($(".is-error-category"));
+        } else if (element.attr("name") === name) {
+          error.appendTo($(".is-error-" + name));
+        }
+      },
+      errorElement: "span",
+      errorClass: "is-error",
+      //送信前にLoadingを表示
+      submitHandler: function (form) {
+        $(".approval").addClass("hide");
+        $(".loading").removeClass("hide");
+        form.submit();
+      },
+    });
+    $("input").on("blur", function () {
+      $(this).valid();
+    });
+  });
+});
+
+// 有料備品の数字入力制限
+$(function () {
+  $(".equipment_breakdown").on("input", function (e) {
+    let value = $(e.currentTarget).val();
+    value = value
+      .replace(/[０-９]/g, function (s) {
+        return String.fromCharCode(s.charCodeAt(0) - 65248);
+      })
+      .replace(/[^0-9]/g, "");
+    $(e.currentTarget).val(value);
   });
 });
