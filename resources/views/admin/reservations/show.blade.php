@@ -1453,7 +1453,7 @@
         {{ Form::hidden('reservation_id', $reservation->id ) }}
         {{ Form::hidden('bill_id', $other_bill->id ) }}
         <p class="text-right py-2 mr-2">
-          {{ Form::submit('個別キャンセル',['class' => 'btn more_btn4', 'name'=>'single']) }}
+          {{ Form::submit('個別キャンセル',['class' => 'btn more_btn4',$judgeSingleDelete!=1?"disabled":"", 'name'=>'single']) }}
         </p>
         {{ Form::close() }}
         @endif

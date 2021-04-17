@@ -617,7 +617,20 @@ class Reservation extends Model
   {
     $collection = $this->bills->pluck('reservation_status');
     foreach ($collection as $key => $value) {
-      if ($value < 3) {
+      if ($value < 3 || $value != 6) {
+        //ステータスが予約完了　もしくは　キャンセル完了していないキャンセルプロセスがあれば
+        return 0;
+        break;
+      }
+    }
+    return 1;
+  }
+  public function checkSingleBillsStatus()
+  {
+    $collection = $this->bills->pluck('reservation_status');
+    foreach ($collection as $key => $value) {
+      if ($value > 3 && $value != 6) {
+        //ステータスが予約完了　もしくは　キャンセル完了していないキャンセルプロセスがあれば
         return 0;
         break;
       }

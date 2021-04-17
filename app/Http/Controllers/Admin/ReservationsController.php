@@ -383,9 +383,10 @@ class ReservationsController extends Controller
     }
     $admin = Admin::all()->sortBy('name', SORT_NATURAL | SORT_FLAG_CASE)->pluck('name', 'name');
     //付随する追加予約のステータスが予約完了になってるか判別
-    $judgeMultiDelete = ($reservation->checkBillsStatus());
+    $judgeMultiDelete = $reservation->checkBillsStatus();
+    $judgeSingleDelete = $reservation->checkSingleBillsStatus();
     $cxl_subtotal = $reservation->cxls->pluck('master_subtotal')->sum();
-    return view('admin.reservations.show', compact('venue', 'reservation', 'master_prices', 'user', 'other_bills', "admin", 'judgeMultiDelete', 'cxl_subtotal'));
+    return view('admin.reservations.show', compact('venue', 'reservation', 'master_prices', 'user', 'other_bills', "admin", 'judgeMultiDelete', 'judgeSingleDelete', 'cxl_subtotal'));
   }
 
   public function double_check(Request $request, $id)
