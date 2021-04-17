@@ -5,6 +5,7 @@
 {{-- <script src="{{ asset('/js/template.js') }}"></script> --}}
 {{-- <script src="{{ asset('/js/admin/template.js') }}"></script> --}}
 <script src="{{ asset('/js/admin/reservation.js') }}"></script>
+<script src="{{ asset('/js/admin/validation.js') }}"></script>
 
 <style>
   .hide {
@@ -17,7 +18,7 @@
   <h2 class="mt-3 mb-3">追加請求書　編集</h2>
   <hr>
 
-  {{ Form::open(['url' => 'admin/bills/'.$bill->id, 'method'=>'PUT']) }}
+  {{ Form::open(['url' => 'admin/bills/'.$bill->id, 'method'=>'PUT', 'id'=>'billsEditForm']) }}
   @csrf
 
   <section class="mt-5">
@@ -435,9 +436,11 @@
                 <tr>
                   <td>振込人名
                     {{Form::text('pay_person', $bill->pay_person,['class'=>'form-control'])}}
+                    <p class="is-error-pay_person" style="color: red"></p>
                   </td>
                   <td>入金額
                     {{Form::text('payment', $bill->payment,['class'=>'form-control'])}}
+                    <p class="is-error-payment" style="color: red"></p>
                   </td>
                 </tr>
               </tbody>

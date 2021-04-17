@@ -244,7 +244,7 @@
             <tr>
               <td class="table-active">{{$equipment->item}}</td>
               <td>
-                {{ Form::text('equipment_breakdown'.$key, $value['equipment_breakdown'.$key],['class'=>'form-control'] ) }}
+                {{ Form::text('equipment_breakdown'.$key, $value['equipment_breakdown'.$key],['class'=>'form-control equipment_breakdown'] ) }}
               </td>
             </tr>
             @endforeach
