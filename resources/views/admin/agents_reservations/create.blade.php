@@ -315,7 +315,7 @@
                 </option>
                 @endforeach
               </select>
-              <p class="is-error-user_id" style="color: red"></p>
+              <p class="is-error-agent_id" style="color: red"></p>
             </td>
           </tr>
           <tr>
@@ -357,6 +357,7 @@
             </td>
             <td>
               {{ Form::text('enduser_tel', old('enduser_tel'),['class'=>'form-control', 'placeholder'=>'入力してください', 'id'=>'enduser_tel'] ) }}
+              <p class="is-error-enduser_tel" style="color: red"></p>
             </td>
           </tr>
           <tr>
@@ -365,6 +366,7 @@
             </td>
             <td>
               {{ Form::text('enduser_mail', old('enduser_mail'),['class'=>'form-control', 'placeholder'=>'入力してください', 'id'=>'enduser_mail'] ) }}
+              <p class="is-error-enduser_mail" style="color: red"></p>
             </td>
           </tr>
           <tr>
@@ -381,6 +383,7 @@
             </td>
             <td>
               {{ Form::text('enduser_mobile', old('enduser_mobile'),['class'=>'form-control', 'placeholder'=>'入力してください', 'id'=>'enduser_mobile'] ) }}
+              <p class="is-error-enduser_mobile" style="color: red"></p>
             </td>
           </tr>
           <tr>
@@ -413,10 +416,12 @@
             <td class="table-active form_required">
               <label for="enduser_charge ">支払い料</label>
             </td>
-            <td class="d-flex align-items-end">
-              {{ Form::text('enduser_charge', old('enduser_charge'),['class'=>'form-control sales_percentage', 'placeholder'=>'入力してください'] ) }}
-              <span class="ml-1">円</span>
-
+            <td>
+              <div class="d-flex align-items-end">
+                {{ Form::text('enduser_charge', old('enduser_charge'),['class'=>'form-control sales_percentage', 'placeholder'=>'入力してください'] ) }}
+                <span class="ml-1">円</span>
+              </div>
+              <p class="is-error-enduser_charge" style="color: red"></p>
             </td>
           </tr>
         </tbody>

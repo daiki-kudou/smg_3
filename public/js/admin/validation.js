@@ -888,92 +888,13 @@ $(function () {
   }
 });
 
-// 予約新規作成
-// $(function () {
-//   $("#reservationCreateForm").validate({
-//     rules: {
-//       reserve_date: {
-//         required: true,
-//       },
-//       venue_id: {
-//         required: true,
-//       },
-//       price_system: {
-//         required: true,
-//       },
-//       enter_time: {
-//         required: true,
-//       },
-//       leave_time: {
-//         required: true,
-//       },
-//       user_id: {
-//         required: true,
-//       },
-//       in_charge: {
-//         required: true,
-//       },
-//       tel: {
-//         required: true,
-//         minlength: 10,
-//       },
-//     },
-//     messages: {
-//       reserve_date: {
-//         required: "※必須項目です",
-//       },
-//       venue_id: {
-//         required: "※必須項目です",
-//       },
-//       price_system: {
-//         required: "※必須項目です",
-//       },
-//       enter_time: {
-//         required: "※必須項目です",
-//       },
-//       leave_time: {
-//         required: "※必須項目です",
-//       },
-//       user_id: {
-//         required: "※必須項目です",
-//       },
-//       in_charge: {
-//         required: "※必須項目です",
-//       },
-//       tel: {
-//         required: "※必須項目です",
-//         minlength: "※最低桁数は10です",
-//       },
-//     },
-//     errorPlacement: function (error, element) {
-//       var name = element.attr("name");
-//       if (element.attr("name") === "category[]") {
-//         error.appendTo($(".is-error-category"));
-//       } else if (element.attr("name") === name) {
-//         error.appendTo($(".is-error-" + name));
-//       }
-//     },
-//     errorElement: "span",
-//     errorClass: "is-error",
-//     //送信前にLoadingを表示
-//     submitHandler: function (form) {
-//       $(".spin_btn").removeClass("hide");
-//       $(".submit_btn").addClass("hide");
-//       form.submit();
-//     },
-//   });
-//   $("input").on("blur", function () {
-//     $(this).valid();
-//   });
-// });
-
-
 // 予約登録
 $(function () {
   var target = [
     "#reservationCreateForm","#reservations_calculate_form",
     "#reservations_edit","#edit_calculate",
-    "#edit_check","#edit_calculate",
+    "#edit_check","#edit_calculate","#agentReservationCreateForm",
+    "#agentReservationCalculateForm","#agents_calculate_form",
   ];
 
   $.each(target, function (index, value) {
@@ -985,8 +906,13 @@ $(function () {
         enter_time: { required: true },
         leave_time: { required: true },
         user_id: { required: true },
+        agent_id: { required: true },
         in_charge: { required: true },
         tel: { required: true, number: true, minlength: 10 },
+        enduser_tel: { number: true, minlength: 10 },
+        enduser_mail: { email: true },
+        enduser_mobile: { number: true, minlength: 11 },
+        enduser_charge: { required: true, number: true },
         luggage_count: { number: true, range: [0, 49] },
         luggage_return: { number: true, range: [0, 49] },
         luggage_price: { number: true },
@@ -1009,11 +935,27 @@ $(function () {
         enter_time: { required: "※必須項目です" },
         leave_time: { required: "※必須項目です" },
         user_id: { required: "※必須項目です" },
+        agent_id: { required: "※必須項目です" },
         in_charge: { required: "※必須項目です" },
         tel: {
           required: "※必須項目です",
           number: "※半角数字を入力してください",
           minlength: "※最低桁数は10です",
+        },
+        enduser_tel: {
+          number: "※半角数字を入力してください",
+          minlength: "※最低桁数は10です",
+        },
+        enduser_mail: {
+         email: "※メールアドレスの形式で入力してください",
+        },
+        enduser_mobile: {
+          number: "※半角数字を入力してください",
+          minlength: "※最低桁数は11です",
+        },
+        enduser_charge: {
+          required: "※必須項目です",
+          number: "※半角数字を入力してください",
         },
         luggage_count: {
           number: "半角数字で入力してください",
@@ -1067,7 +1009,7 @@ $(function () {
 
 // 仲介会社新規作成＆編集
 $(function () {
-  var target = ["#agentReservationCreateForm", "#agentEditForm"];
+  var target = ["#agentCreateForm", "#agentEditForm"];
   $.each(target, function (index, value) {
     $(value).validate({
       rules: {
