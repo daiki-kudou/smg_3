@@ -62,23 +62,21 @@ class CxlController extends Controller
     return view('admin.cxl.multi_calculate', compact('info', 'data', 'result', 'user'));
   }
 
-  public function check(Request $request)
+  public function multiCheck(Request $request)
   {
     $info = session()->get('cxlMaster');
     $data = session()->get('cxlCalcInfo');
     $result = session()->get('cxlResult');
     $request->session()->put('invoice', $request->all());
     $invoice = session()->get('invoice');
-
     if ($request->back) {
       return redirect(route(
         'admin.cxl.multi_create',
         ['reservation_id' => $data['reservation_id']]
       ));
     }
-
     return view(
-      'admin.cxl.check',
+      'admin.cxl.multi_check',
       compact('info', 'data', 'result', 'invoice')
     );
   }
@@ -89,19 +87,31 @@ class CxlController extends Controller
    * @param  \Illuminate\Http\Request  $request
    * @return \Illuminate\Http\Response
    */
-  public function store(Request $request)
+  public function multiStore(Request $request)
   {
     if ($request->back) {
       return redirect(route('admin.cxl.multi_calc'));
     }
-    // $info = session()->get('cxlMaster');
     $data = session()->get('cxlCalcInfo');
-    // $result = session()->get('cxlResult');
     $invoice = session()->get('invoice');
+    $reservation_id = $data['reservation_id'];
 
+    // try {
     $cxl = new Cxl;
-    $cxlBill = $cxl->storeCxl($data, $invoice);
-    $cxlBill->storeCxlBreakdown($request);
+    $bill_id = 0; //一括キャンセルによりbill_idを0にする　単発の場合はbillに応じたbill_id;
+    $cxlBill = $cxl->storeCxl($data, $invoice, $bill_id);
+    $cxlBill->storeCxlBreakdown($data, $invoice);
+    $bills = Bill::where('reservation_id', $reservation_id)->where('reservation_status', 3)->get();
+    foreach ($bills as $key => $value) {
+      $value->updateStatusByCxl();
+    }
+    // } catch (\Exception $e) {
+    //   report($e);
+    //   session()->flash('flash_message', '作成に失敗しました。<br>フォーム内の空欄や全角など確認した上でもう一度お試しください。');
+    //   return redirect(route('admin.cxl.multi_calc'));
+    // }
+    // $request->session()->regenerate();
+    // return redirect()->route('admin.reservations.show', $reservation_id);
   }
 
   /**

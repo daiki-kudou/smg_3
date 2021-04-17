@@ -583,4 +583,9 @@ class Bill extends Model
       return "";
     }
   }
+
+  public function updateStatusByCxl()
+  {
+    $this->update(['reservation_status' => 4]);
+  }
 }

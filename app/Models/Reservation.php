@@ -622,7 +622,7 @@ class Reservation extends Model
   {
     $result = [];
     foreach ($array as $key => $value) {
-      $result[] = $this->bills->pluck($value)->sum();
+      $result[] = $this->bills->where("reservation_status", 3)->pluck($value)->sum(); //予約ステータス3（予約完了）のみが対象
     }
     return $result;
   }

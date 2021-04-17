@@ -13,7 +13,7 @@
 
 
 <section class="section-wrap">
-  {{ Form::open(['url' => 'admin/cxl/store', 'method'=>'POST', 'class'=>'']) }}
+  {{ Form::open(['url' => 'admin/cxl/multi_store', 'method'=>'POST', 'class'=>'']) }}
   @csrf
   <div class="bill">
     <div class="bill_details">
@@ -125,58 +125,34 @@
             <tbody class="">
               @if (!empty($info[0]))
               <tr>
-                <td>キャンセル料(<span>会場料</span>・<span>
-                    {{$data['cxl_venue_PC']}}
-                    %</span>)</td>
-                <td>
-                  {{number_format($result[0])}}
-                </td>
+                <td>キャンセル料(<span>会場料</span>・<span>{{$data['cxl_venue_PC']}}%</span>)</td>
+                <td>{{number_format($result[0])}}</td>
                 <td>1</td>
-                <td>
-                  {{number_format($result[0])}}
-                  円</td>
+                <td>{{number_format($result[0])}}円</td>
               </tr>
               @endif
               @if (!empty($info[1]))
               <tr>
-                <td>キャンセル料(<span>有料備品・サービス料</span>・<span>
-                    {{$data['cxl_equipment_PC']}}
-                    %</span>)</td>
-                <td>
-                  {{number_format($result[1])}}
-                </td>
+                <td>キャンセル料(<span>有料備品・サービス料</span>・<span>{{$data['cxl_equipment_PC']}}%</span>)</td>
+                <td>{{number_format($result[1])}}</td>
                 <td>1</td>
-                <td>
-                  {{number_format($result[1])}}
-                  円</td>
+                <td>{{number_format($result[1])}}円</td>
               </tr>
               @endif
               @if (!empty($info[2]))
               <tr>
-                <td>キャンセル料(<span>レイアウト変更料</span>・<span>
-                    {{$data['cxl_layout_PC']}}
-                    %</span>)</td>
-                <td>
-                  {{number_format($result[2])}}
-                </td>
+                <td>キャンセル料(<span>レイアウト変更料</span>・<span>{{$data['cxl_layout_PC']}}%</span>)</td>
+                <td>{{number_format($result[2])}}</td>
                 <td>1</td>
-                <td>
-                  {{number_format($result[2])}}
-                  円</td>
+                <td>{{number_format($result[2])}}円</td>
               </tr>
               @endif
               @if (!empty($info[3]))
               <tr>
-                <td>キャンセル料(<span>その他</span>・<span>
-                    {{$data['cxl_other_PC']}}
-                    %</span>)</td>
-                <td>
-                  {{number_format($result[3])}}
-                </td>
+                <td>キャンセル料(<span>その他</span>・<span>{{$data['cxl_other_PC']}}%</span>)</td>
+                <td>{{number_format($result[3])}}</td>
                 <td>1</td>
-                <td>
-                  {{number_format($result[3])}}
-                  円</td>
+                <td>{{number_format($result[3])}}円</td>
               </tr>
               @endif
             </tbody>
