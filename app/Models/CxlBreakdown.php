@@ -11,6 +11,7 @@ class CxlBreakdown extends Model
     'unit_count',
     'unit_cost',
     'unit_subtotal',
+    'unit_type',
   ];
 
   protected $casts = [

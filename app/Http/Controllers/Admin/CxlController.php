@@ -96,22 +96,22 @@ class CxlController extends Controller
     $invoice = session()->get('invoice');
     $reservation_id = $data['reservation_id'];
 
-    // try {
-    $cxl = new Cxl;
-    $bill_id = 0; //一括キャンセルによりbill_idを0にする　単発の場合はbillに応じたbill_id;
-    $cxlBill = $cxl->storeCxl($data, $invoice, $bill_id);
-    $cxlBill->storeCxlBreakdown($data, $invoice);
-    $bills = Bill::where('reservation_id', $reservation_id)->where('reservation_status', 3)->get();
-    foreach ($bills as $key => $value) {
-      $value->updateStatusByCxl();
+    try {
+      $cxl = new Cxl;
+      $bill_id = 0; //一括キャンセルによりbill_idを0にする　単発の場合はbillに応じたbill_id;
+      $cxlBill = $cxl->storeCxl($data, $invoice, $bill_id, $reservation_id);
+      $cxlBill->storeCxlBreakdown($data, $invoice);
+      $bills = Bill::where('reservation_id', $reservation_id)->where('reservation_status', 3)->get();
+      foreach ($bills as $key => $value) {
+        $value->updateStatusByCxl();
+      }
+    } catch (\Exception $e) {
+      report($e);
+      session()->flash('flash_message', '作成に失敗しました。<br>フォーム内の空欄や全角など確認した上でもう一度お試しください。');
+      return redirect(route('admin.cxl.multi_calc'));
     }
-    // } catch (\Exception $e) {
-    //   report($e);
-    //   session()->flash('flash_message', '作成に失敗しました。<br>フォーム内の空欄や全角など確認した上でもう一度お試しください。');
-    //   return redirect(route('admin.cxl.multi_calc'));
-    // }
-    // $request->session()->regenerate();
-    // return redirect()->route('admin.reservations.show', $reservation_id);
+    $request->session()->regenerate();
+    return redirect()->route('admin.reservations.show', $reservation_id);
   }
 
   /**

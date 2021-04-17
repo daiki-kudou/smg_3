@@ -37,6 +37,12 @@ class Cxl extends Model
     return $this->belongsTo(Bill::class);
   }
 
+  public function reservation()
+  {
+    return $this->belongsTo('App\Models\Reservation');
+  }
+
+
   public function cxl_breakdowns()
   {
     return $this->hasMany('App\Models\CxlBreakdown');
@@ -65,11 +71,11 @@ class Cxl extends Model
   }
 
 
-  public function storeCxl($data, $invoice, $bill_id)
+  public function storeCxl($data, $invoice, $bill_id, $reservation_id)
   {
-    $cxlBill = DB::transaction(function () use ($data, $invoice, $bill_id) {
+    $cxlBill = DB::transaction(function () use ($data, $invoice, $bill_id, $reservation_id) {
       $cxlBill = $this->create([
-        'reservation_id' => $data['reservation_id'],
+        'reservation_id' => $reservation_id,
         'bill_id' => $bill_id,
         'master_subtotal' => $invoice['master_subtotal'],
         'master_tax' => $invoice['master_tax'],
@@ -103,6 +109,16 @@ class Cxl extends Model
           'unit_count' => $invoice['cxl_unit_count'][$key],
           'unit_cost' => $invoice['cxl_unit_cost'][$key],
           'unit_subtotal' => $invoice['cxl_unit_subtotal'][$key],
+          'unit_type' => 1 //1が計算結果　2が計算対象
+        ]);
+      }
+      foreach ($invoice['cxl_target_percent'] as $key => $value) {
+        $this->cxl_breakdowns()->create([
+          'unit_item' => $invoice['cxl_target_item'][$key],
+          'unit_count' => $invoice['cxl_target_percent'][$key],
+          'unit_cost' => $invoice['cxl_target_cost'][$key],
+          'unit_subtotal' => 0, //計算対象は合計金額がない
+          'unit_type' => 2 //1が計算結果　2が計算対象
         ]);
       }
     });

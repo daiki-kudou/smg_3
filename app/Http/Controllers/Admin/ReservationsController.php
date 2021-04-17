@@ -373,7 +373,7 @@ class ReservationsController extends Controller
   public function show($id)
   {
     session()->forget(['add_bill', 'cxlCalcInfo', 'cxlMaster', 'cxlResult', 'invoice']);
-    $reservation = Reservation::with('bills')->find($id);
+    $reservation = Reservation::with(['bills', 'cxls.cxl_breakdowns'])->find($id);
     $venue = Venue::find($reservation->venue->id);
     $user = User::find($reservation->user_id);
     $master_prices = $reservation->TotalAmount();
@@ -384,7 +384,8 @@ class ReservationsController extends Controller
     $admin = Admin::all()->sortBy('name', SORT_NATURAL | SORT_FLAG_CASE)->pluck('name', 'name');
     //付随する追加予約のステータスが予約完了になってるか判別
     $judgeMultiDelete = ($reservation->checkBillsStatus());
-    return view('admin.reservations.show', compact('venue', 'reservation', 'master_prices', 'user', 'other_bills', "admin", 'judgeMultiDelete'));
+    $cxl_subtotal = $reservation->cxls->pluck('master_subtotal')->sum();
+    return view('admin.reservations.show', compact('venue', 'reservation', 'master_prices', 'user', 'other_bills', "admin", 'judgeMultiDelete', 'cxl_subtotal'));
   }
 
   public function double_check(Request $request, $id)

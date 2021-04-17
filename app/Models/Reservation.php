@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\DB; //トランザクション用
 
 use App\Models\Venue;
 use App\Models\User;
+use App\Models\Cxl;
 
 use Carbon\Carbon;
 
@@ -116,6 +117,12 @@ class Reservation extends Model
   public function agent()
   {
     return $this->belongsTo(Agent::class);
+  }
+
+  // cxl一対多
+  public function cxls()
+  {
+    return $this->hasMany(Cxl::Class);
   }
 
 
