@@ -1847,7 +1847,7 @@ $(function () {
 
 $(function () {
   var target = [
-    "#mypageForm","#mypageCalculate",
+    "#mypageForm","#mypageDone",
   ];
 
   $.each(target, function (index, value) {
