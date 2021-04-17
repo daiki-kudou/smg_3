@@ -6,12 +6,9 @@
 <link href="{{ asset('/css/template.css') }}" rel="stylesheet">
 <script src="{{ asset('/js/template.js') }}"></script>
 
-<h2 class="mt-3 mb-3">一括キャンセル請求書 作成</h2>
+<h2 class="mt-3 mb-3">キャンセル請求書 作成</h2>
 <hr>
 
-{{ Form::open(['url' => 'admin/cxl/multi_calc', 'method'=>'POST', 'class'=>'','id'=>'cxlcalc']) }}
-@csrf
-{{Form::hidden('reservation_id',$reservation->id)}}
 <section class="mt-5">
   <div class="bill">
     <div class="bill_details">
@@ -27,6 +24,14 @@
         </div>
       </div>
       <div class="main">
+        {{ Form::open(['url' => 'admin/cxl/multi_calc', 'method'=>'POST', 'class'=>'','id'=>'cxlcalc']) }}
+        @csrf
+        {{Form::hidden('reservation_id',$reservation->id)}}
+        @if (!empty($bill->id))
+        {{Form::hidden('bill_id',$bill->id)}}
+        @else
+        {{Form::hidden('bill_id',0)}}
+        @endif
         <div class="cancel_content cancel_border bg-white">
           <h4 class="cancel_ttl">キャンセル料計算</h4>
           <table class="table table-borderless">
@@ -89,11 +94,11 @@
             @endif
           </table>
           {{ Form::submit('計算する', ['class' => 'btn more_btn_lg mx-auto d-block my-5']) }}
+          {{ Form::close() }}
         </div>
       </div>
     </div>
   </div>
-  {{ Form::close() }}
 </section>
 
 

@@ -34,10 +34,25 @@ class CxlController extends Controller
    */
   public function multiCreate(Request $request)
   {
+    $request->session()->forget(['invoice', 'cxlMaster', 'cxlResult']);
+
     $reservation = Reservation::with('bills')->find($request->reservation_id);
-    $price_result = $reservation->pluckSum(['venue_price', 'equipment_price', 'layout_price', 'others_price']);
+    $bill = Bill::find($request->bill_id);
+
+    if ($request->multi) {
+      //一括キャンセル押下時
+      $price_result = $reservation->pluckSum(['venue_price', 'equipment_price', 'layout_price', 'others_price']);
+      $multi = 1;
+      $single = 0;
+    } elseif ($request->single) {
+      //個別キャンセル押下時
+      $price_result = [$bill->venue_price, $bill->equipment_price, $bill->layout_price, $bill->others_price];
+      $multi = 0;
+      $single = 1;
+    }
     session()->put('cxlMaster', $price_result);
-    return view('admin.cxl.multi_create', compact('price_result', 'reservation'));
+    session()->put('multiOrSingle', ['multi' => $multi, 'single' => $single]);
+    return view('admin.cxl.multi_create', compact('price_result', 'reservation', 'bill'));
   }
 
   public function multiCalc(Request $request)
@@ -69,10 +84,16 @@ class CxlController extends Controller
     $result = session()->get('cxlResult');
     $request->session()->put('invoice', $request->all());
     $invoice = session()->get('invoice');
+    $multiOrSingle = session()->get('multiOrSingle');
+    $judge = $multiOrSingle['multi'] == 1 ? 'multi' : 'single';
     if ($request->back) {
       return redirect(route(
         'admin.cxl.multi_create',
-        ['reservation_id' => $data['reservation_id']]
+        [
+          'reservation_id' => $data['reservation_id'],
+          'bill_id' => $data['bill_id'],
+          $judge => $judge,
+        ]
       ));
     }
     return view(
@@ -87,23 +108,21 @@ class CxlController extends Controller
    * @param  \Illuminate\Http\Request  $request
    * @return \Illuminate\Http\Response
    */
-  public function multiStore(Request $request)
+  public function store(Request $request)
   {
     if ($request->back) {
       return redirect(route('admin.cxl.multi_calc'));
     }
     $data = session()->get('cxlCalcInfo');
     $invoice = session()->get('invoice');
+    $multiOrSingle = session()->get('multiOrSingle');
     $reservation_id = $data['reservation_id'];
-
+    $bill_id = $data['bill_id'];
     try {
-      $cxl = new Cxl;
-      $bill_id = 0; //一括キャンセルによりbill_idを0にする　単発の場合はbillに応じたbill_id;
-      $cxlBill = $cxl->storeCxl($data, $invoice, $bill_id, $reservation_id);
-      $cxlBill->storeCxlBreakdown($data, $invoice);
-      $bills = Bill::where('reservation_id', $reservation_id)->where('reservation_status', 3)->get();
-      foreach ($bills as $key => $value) {
-        $value->updateStatusByCxl();
+      if ($multiOrSingle['multi'] === 1) {
+        $this->multiStore($data, $invoice, $bill_id, $reservation_id);
+      } elseif ($multiOrSingle['single'] === 1) {
+        $this->singleStore($data, $invoice, $bill_id, $reservation_id);
       }
     } catch (\Exception $e) {
       report($e);
@@ -112,6 +131,26 @@ class CxlController extends Controller
     }
     $request->session()->regenerate();
     return redirect()->route('admin.reservations.show', $reservation_id);
+  }
+
+  public function multiStore($data, $invoice, $bill_id, $reservation_id)
+  {
+    $cxl = new Cxl;
+    $cxlBill = $cxl->storeCxl($data, $invoice, $bill_id, $reservation_id);
+    $cxlBill->storeCxlBreakdown($data, $invoice);
+    $bills = Bill::where('reservation_id', $reservation_id)->where('reservation_status', 3)->get();
+    foreach ($bills as $key => $value) {
+      $value->updateStatusByCxl();
+    }
+  }
+
+  public function singleStore($data, $invoice, $bill_id, $reservation_id)
+  {
+    $cxl = new Cxl;
+    $cxlBill = $cxl->storeCxl($data, $invoice, $bill_id, $reservation_id);
+    $cxlBill->storeCxlBreakdown($data, $invoice);
+    $bill = Bill::find($bill_id);
+    $bill->updateStatusByCxl();
   }
 
   /**

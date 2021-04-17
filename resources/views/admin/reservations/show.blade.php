@@ -838,7 +838,7 @@
     @csrf
     {{ Form::hidden('reservation_id', $reservation->id ) }}
     <p class="text-right py-2 mr-2">
-      {{ Form::submit('一括キャンセル',['class' => 'btn more_btn4', $judgeMultiDelete!=1?"disabled":""]) }}
+      {{ Form::submit('一括キャンセル',['class' => 'btn more_btn4', $judgeMultiDelete!=1?"disabled":"",'name'=>'multi']) }}
       <div class="text-right"><span>※全ての予約ステータスが「予約完了」か確認してください</span></div>
     </p>
     {{ Form::close() }}
@@ -1448,9 +1448,14 @@
       </div>
       <div class="cancel">
         @if ($other_bill->reservation_status==3)
+        {{ Form::open(['url' => 'admin/cxl/multi_create', 'method'=>'get', 'class'=>'']) }}
+        @csrf
+        {{ Form::hidden('reservation_id', $reservation->id ) }}
+        {{ Form::hidden('bill_id', $other_bill->id ) }}
         <p class="text-right py-2 mr-2">
-          <input type="" class="btn more_btn4" value="個別キャンセル">
+          {{ Form::submit('個別キャンセル',['class' => 'btn more_btn4', 'name'=>'single']) }}
         </p>
+        {{ Form::close() }}
         @endif
       </div>
     </div>
