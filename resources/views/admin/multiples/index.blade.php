@@ -174,7 +174,6 @@
           </thead>
           <tbody>
             @foreach ($multiples as $multiple)
-            <pre>{{var_dump(ReservationHelper::getCompany($multiple->pre_reservations->first()->user_id))}}</pre>
             <tr>
               <td class="text-center">
                 <input type="checkbox" name="{{'delete_check'.$multiple->id}}" value="{{$multiple->id}}"
@@ -184,33 +183,33 @@
               <td>{{ReservationHelper::formatDate($multiple->created_at)}}</td>
               <td>{{$multiple->pre_reservations->count()}}</td>
               <td>
-                @if ($multiple->pre_reservations->first()->user_id!=0)
-                {{(ReservationHelper::getCompany($multiple->pre_reservations->first()->user_id))}}
+                @if ($multiple->pre_reservations->first()->user->id!=0)
+                {{(ReservationHelper::getCompany($multiple->pre_reservations->first()->user->id))}}
                 @endif
               </td>
               <td>
-                @if ($multiple->pre_reservations->first()->user_id!=0)
-                {{ReservationHelper::getPersonName($multiple->pre_reservations->first()->user_id)}}
+                @if ($multiple->pre_reservations->first()->user->id!=0)
+                {{ReservationHelper::getPersonName($multiple->pre_reservations->first()->user->id)}}
                 @else
                 {{ReservationHelper::getAgentPerson($multiple->pre_reservations->first()->agent_id)}}
                 @endif
               </td>
-              {{-- <td>
-                @if ($multiple->pre_reservations->first()->user_id!=0)
-                {{ReservationHelper::getPersonMobile($multiple->pre_reservations->first()->user_id)}}
-              @else
-              {{ReservationHelper::getAgentMobile($multiple->pre_reservations->first()->agent_id)}}
-              @endif
+              <td>
+                @if ($multiple->pre_reservations->first()->user->id!=0)
+                {{ReservationHelper::getPersonMobile($multiple->pre_reservations->first()->user->id)}}
+                @else
+                {{ReservationHelper::getAgentMobile($multiple->pre_reservations->first()->agent_id)}}
+                @endif
               </td>
               <td>
-                @if ($multiple->pre_reservations->first()->user_id!=0)
-                {{ReservationHelper::getPersonTel($multiple->pre_reservations->first()->user_id)}}
+                @if ($multiple->pre_reservations->first()->user->id!=0)
+                {{ReservationHelper::getPersonTel($multiple->pre_reservations->first()->user->id)}}
                 @else
                 {{ReservationHelper::getAgentTel($multiple->pre_reservations->first()->agent_id)}}
                 @endif
               </td>
               <td>
-                @if ($multiple->pre_reservations->first()->user_id!=0)
+                @if ($multiple->pre_reservations->first()->user->id!=0)
                 {{($multiple->pre_reservations->first()->unknown_user->unknown_user_company)}}
                 @endif
               </td>
@@ -225,12 +224,12 @@
                 @endif
               </td>
               <td class="text-center">
-                @if ($multiple->pre_reservations->first()->user_id!=0)
+                @if ($multiple->pre_reservations->first()->user->id!=0)
                 <a href="{{url('admin/multiples/'.$multiple->id)}}" class="btn more_btn">詳細</a>
                 @else
                 <a href="{{url('admin/multiples/agent/'.$multiple->id)}}" class="btn more_btn">詳細</a>
                 @endif
-              </td> --}}
+              </td>
             </tr>
 
             @endforeach
