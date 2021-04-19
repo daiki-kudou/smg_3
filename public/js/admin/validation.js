@@ -207,10 +207,12 @@ $(function () {
 
 // 仮押さえ、一括仮押さえ一覧検索
 $(function () {
-  var target = ["#preserve_search", "#multiples_search", "#clients_search"];
+  var target = ["#preserve_search", "#multiples_search"
+  ,"#clients_search", "#reserve_search"];
   $.each(target, function (index, value) {
     $(value).validate({
       rules: {
+        multiple_id: { number: true },
         search_id: { number: true },
         search_mobile: { number: true },
         search_tel: { number: true },
@@ -220,6 +222,7 @@ $(function () {
         tel: { number: true },
       },
       messages: {
+        multiple_id: { number: "※半角数字を入力してください" },
         search_id: { number: "※半角数字を入力してください" },
         search_mobile: { number: "※半角数字を入力してください" },
         search_tel: { number: "※半角数字を入力してください" },
