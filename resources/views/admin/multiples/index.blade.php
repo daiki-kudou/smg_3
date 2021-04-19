@@ -190,8 +190,10 @@
               </td>
               <td>
                 @if (!empty($multiple->pre_reservations->first()->user))
+                user<br>
                 {{ReservationHelper::getPersonName($multiple->pre_reservations->first()->user->id)}}
                 @else
+                agent<br>
                 {{-- {{ReservationHelper::getAgentPerson($multiple->pre_reservations->first()->agent->id)}} --}}
                 {{(var_dump($multiple->pre_reservations->first()->agent))}}
                 @endif
