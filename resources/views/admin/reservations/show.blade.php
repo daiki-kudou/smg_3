@@ -335,7 +335,7 @@
                   <i class="far fa-address-card icon-size"></i>
                   顧客情報
                 </p>
-                <p><a class="more_btn" href="">顧客詳細工藤さん！リンク</a></p>
+                <p><a class="more_btn" href="{{url('admin/clients/'.$reservation->user_id)}}">顧客詳細</a></p>
               </div>
             </td>
           </tr>
@@ -351,31 +351,6 @@
               {{ReservationHelper::getPersonName($user->id)}}
             </td>
           </tr>
-          <!-- <tr>
-            <td class="table-active">担当者氏名(フリガナ)</td>
-            <td>
-              {{ReservationHelper::getPersonNameKANA($user->id)}}
-            </td>
-          </tr> -->
-          <!-- <tr>
-            <td class="table-active">電話番号</td>
-            <td>
-              <ul class="table-cell-box">
-                <li>
-                  <p>携帯番号</p>
-                  <p>
-                    {{$user->mobile}}
-                  </p>
-                </li>
-                <li>
-                  <p>固定番号</p>
-                  <p>
-                    {{$user->tel}}
-                  </p>
-                </li>
-              </ul>
-            </td>
-          </tr> -->
           <tr>
             <td class="table-active">メールアドレス</td>
             <td>
@@ -383,33 +358,17 @@
             </td>
           </tr>
           <tr>
-            <td class="table-active">携帯番号 工藤さん！！</td>
+            <td class="table-active">携帯番号 </td>
             <td>
-              <p class="mobile"></p>
+              <p class="mobile"> {{$user->mobile}} </p>
             </td>
           </tr>
           <tr>
-            <td class="table-active">固定電話 工藤さん！！</td>
+            <td class="table-active">固定電話 </td>
             <td>
-              <p class="tel"></p>
+              <p class="tel">{{$user->tel}}</p>
             </td>
           </tr>
-          <!-- <tr>
-            <td class="table-active">顧客属性</td>
-            <td>
-              {{$user->attr}}
-            </td>
-          </tr> -->
-          <!-- <tr>
-            <td colspan="2">
-              <p>備考</p>
-              <p>
-                @if ($reservation->user_id>0)
-                {{$user->remark}}
-                @endif
-              </p>
-            </td>
-          </tr> -->
           <tr class="caution">
             <td colspan="2">
               <p>注意事項</p>
