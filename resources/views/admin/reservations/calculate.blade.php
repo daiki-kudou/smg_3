@@ -401,7 +401,7 @@
               <select class="form-control" name="user_id" id="user_select">
                 <option disabled selected>選択してください</option>
                 @foreach ($users as $user)
-                <option value="{{$user->id}}" @if ($value['user_id']==$user->id)
+                <option value="{{$user->id}}" @if ((int)$value['user_id']==$user->id)
                   selected
                   @endif
                   >
@@ -414,15 +414,16 @@
           </tr>
           <tr>
             <td class="table-active"><label for="name">担当者氏名<br></label></td>
-            <td>
-              {{ReservationHelper::getPersonName($users[$value['user_id']]->id)}}
+            <td class="person">
+              {{ReservationHelper::getPersonName($value['user_id'])}}
             </td>
           </tr>
           <tr>
             <td class="table-active">メールアドレス</td>
             <td>
               <p class="email">
-                {{ReservationHelper::getPersonEmail($users[$value['user_id']]->id)}}
+                {{$value['user_id']}}
+                {{ReservationHelper::getPersonEmail($value['user_id'])}}
               </p>
             </td>
           </tr>
@@ -430,7 +431,7 @@
             <td class="table-active">携帯番号</td>
             <td>
               <p class="mobile">
-                {{ReservationHelper::getPersonMobile($users[$value['user_id']]->id)}}
+                {{ReservationHelper::getPersonMobile($value['user_id'])}}
               </p>
             </td>
           </tr>
@@ -438,22 +439,21 @@
             <td class="table-active">固定電話</td>
             <td>
               <p class="tel">
-                {{ReservationHelper::getPersonTel($users[$value['user_id']]->id)}}
+                {{ReservationHelper::getPersonTel($value['user_id'])}}
               </p>
             </td>
           </tr>
           <tr>
             <td class="table-active">割引条件</td>
-            <td>
-              {!! nl2br(e($users[$value['user_id']]->condition)) !!}
-
+            <td class="condition">
+              {!! nl2br(e(ReservationHelper::getPersonCondition($value['user_id']))) !!}
             </td>
           </tr>
           <tr>
             <td class="table-active caution">注意事項</td>
             <td class="caution">
               <p class="attention">
-                {!! nl2br(e($users[$value['user_id']]->attention)) !!}
+                {!! nl2br(e(ReservationHelper::getPersonAttention($value['user_id']))) !!}
               </p>
             </td>
           </tr>
@@ -1081,6 +1081,38 @@
 {{Form::close()}}
 
 <script>
+  $(document).on("change", '#user_select', function () {
+    var user_id=$('#user_select').val();
+    $.ajax({
+      headers: {
+        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+      },
+      url: '/admin/clients/getclients',
+      type: 'POST',
+      data: {
+        'user_id': user_id
+      },
+      dataType: 'json',
+      beforeSend: function () {
+        $('#fullOverlay').css('display', 'block');
+      },
+    })
+      .done(function ($user_results) {
+        $('#fullOverlay').css('display', 'none');
+        $('.person').text('').text($user_results[0]);
+        $('.email').text('').text($user_results[1]);
+        $('.mobile').text('').text($user_results[2]);
+        $('.tel').text('').text($user_results[3]);
+        $('.condition').html('').html($user_results[4].replace(/\n/g, "<br>"));
+        $('.attention').html('').html($user_results[5].replace(/\n/g, "<br>"));
+        console.log($user_results);
+      })
+      .fail(function ($user_results) {
+        $('#fullOverlay').css('display', 'none');
+        console.log('ajaxGetClients 失敗', $user_results)
+      });
+  });
+
   $(function(){
     var $maxDate =$('#datepicker1').val(); 
     $('#datepicker3').datepicker({
