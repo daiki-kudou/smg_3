@@ -1981,7 +1981,7 @@
             <td>
               <div class="d-flex">
                 <p class="bg-status p-2">予約状況</p>
-                <p class="border p-2">{{($cxl->cxl_status)}}</p>
+                <p class="border p-2">{{(ReservationHelper::cxlStatus($cxl->cxl_status))}}</p>
               </div>
             </td>
             @if ($cxl->double_check_status==0)
@@ -2029,18 +2029,18 @@
       </table>
       <div class="approve_or_confirm">
         @if ($cxl->double_check_status==2)
-        @if ($cxl->cxl_status<=2) <div class="d-flex justify-content-end mt-2 mb-2">
-          {{ Form::open(['url' => '#', 'method'=>'POST', 'class'=>'']) }}
+        @if ($cxl->cxl_status<2) <div class="d-flex justify-content-end mt-2 mb-2">
+          {{ Form::open(['url' => 'admin/cxl/send_email_and_approve', 'method'=>'POST', 'class'=>'']) }}
           @csrf
-          {{ Form::hidden('bill_id', '$other_bill->id##############################' ) }}
-          {{ Form::hidden('user_id', '$reservation->user_id#############################' ) }}
-          {{ Form::hidden('reservation_id', '$reservation->id####################################33' ) }}
-          <p class="mr-2">{{ Form::submit('利用者にキャンセル承認メールを送る',['class' => 'btn more_btn']) }}</p>
+          {{ Form::hidden('cxl_id', $cxl->id ) }}
+          <p class="mr-2">
+            {{ Form::submit('利用者にキャンセル承認メールを送る',['class' => 'btn more_btn']) }}
+          </p>
           {{ Form::close() }}
 
-          {{ Form::open(['url' => '#', 'method'=>'POST', 'class'=>'']) }}
+          {{ Form::open(['url' => 'admin/cxl/confirm', 'method'=>'POST', 'class'=>'']) }}
           @csrf
-          {{ Form::hidden('bill_id', '$other_bill->id####################3' ) }}
+          {{ Form::hidden('cxl_id', $cxl->id ) }}
           <p>
             {{ Form::submit('キャンセルを確定する',['class' => 'btn more_btn4']) }}
           </p>
@@ -2259,7 +2259,7 @@
 @endforeach
 
 {{-- キャンセル総合計請求額 --}}
-@if (!empty($reservation->cxls))
+@if ($reservation->cxls->count()!=0)
 
 <div class="master_totals border-wrap">
   <table class="table">

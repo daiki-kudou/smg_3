@@ -221,7 +221,7 @@
               </td>
               <td>
                 @if ($multiple->pre_reservations->first()->agent_id!=0)
-                {{($multiple->pre_reservations->first()->pre_enduser->company)}}
+                {{!empty($multiple->pre_reservations->first()->pre_enduser->company)?$multiple->pre_reservations->first()->pre_enduser->company:""}}
                 @endif
               </td>
               <td class="text-center">
@@ -246,7 +246,7 @@
 
 
 <script>
-    $(function(){
+  $(function(){
     $(".sort_table").tablesorter();
   })
 

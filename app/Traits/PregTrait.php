@@ -18,7 +18,7 @@ trait PregTrait
     $cnt = 0;
     foreach ($array as $key => $value) {
       if (preg_match("/$inputNames/", $key)) {
-        $cnt++;
+        !empty($value) ? $cnt++ : "";
       }
     }
     return $cnt;
