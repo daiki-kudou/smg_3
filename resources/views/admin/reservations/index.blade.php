@@ -247,7 +247,13 @@
           </tr>
         </thead>
 
+        <style>
+          .cxl_gray {
+            background: gray;
+          }
+        </style>
         @foreach ($reservations as $reservation)
+        <tbody class="{{$reservation->cxlGray()? "cxl_gray":""}}">
         <tbody>
           <tr>
             <td rowspan="{{count($reservation->bills()->get())}}">※後ほど修正</td>
@@ -334,20 +340,8 @@
 
   </div>
 
-  <ul class="pagination justify-content-center mt-5">
-    <li class="page-item disabled" aria-disabled="true" aria-label="&laquo; 前">
-      <span class="page-link" aria-hidden="true">&lsaquo;</span>
-    </li>
-    <li class="page-item active" aria-current="page"><span class="page-link">1</span></li>
-    <li class="page-item"><a class="page-link" href="">2</a>
-    </li>
-    <li class="page-item"><a class="page-link" href="">3</a>
-    </li>
-    <li class="page-item">
-      <a class="page-link" href="http://staging-smg2.herokuapp.com/admin/clients?page=2" rel="next"
-        aria-label="次 &raquo">&rsaquo;</a>
-    </li>
-  </ul>
+  {{-- {{$reservations->appends(request()->input())->links()}} --}}
+
 
 
 </div>
