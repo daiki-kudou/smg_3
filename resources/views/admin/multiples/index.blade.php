@@ -195,12 +195,12 @@
                 {{ReservationHelper::getAgentPerson($multiple->pre_reservations->first()->agent_id)}}
                 @endif
               </td>
-              <td>
+              {{-- <td>
                 @if ($multiple->pre_reservations->first()->user_id!=0)
                 {{ReservationHelper::getPersonMobile($multiple->pre_reservations->first()->user_id)}}
-                @else
-                {{ReservationHelper::getAgentMobile($multiple->pre_reservations->first()->agent_id)}}
-                @endif
+              @else
+              {{ReservationHelper::getAgentMobile($multiple->pre_reservations->first()->agent_id)}}
+              @endif
               </td>
               <td>
                 @if ($multiple->pre_reservations->first()->user_id!=0)
@@ -230,7 +230,7 @@
                 @else
                 <a href="{{url('admin/multiples/agent/'.$multiple->id)}}" class="btn more_btn">詳細</a>
                 @endif
-              </td>
+              </td> --}}
             </tr>
 
             @endforeach
