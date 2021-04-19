@@ -193,6 +193,7 @@
                 {{ReservationHelper::getPersonName($multiple->pre_reservations->first()->user->id)}}
                 @else
                 {{-- {{ReservationHelper::getAgentPerson($multiple->pre_reservations->first()->agent->id)}} --}}
+                {{ReservationHelper::getAgentPerson($multiple->pre_reservations->first()->agent)}}
                 @endif
               </td>
               {{-- <td>
