@@ -234,7 +234,7 @@
                 {{$equ->item}}
               </td>
               <td>
-                <input type="text" class="form-control" name="{{'equipment_breakdown'.$key}}"
+                <input type="text" class="form-control equipment_breakdown" name="{{'equipment_breakdown'.$key}}"
                   @foreach($bill->breakdowns()->where('unit_type',2)->get() as $e_break)
                 @if ($e_break->unit_item==$equ->item)
                 value="{{$e_break->unit_count}}"
