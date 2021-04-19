@@ -188,12 +188,12 @@
                 {{(ReservationHelper::getCompany($multiple->pre_reservations->first()->user->id))}}
                 @endif
               </td>
-              <td>
+              {{-- <td>
                 @if (!empty($multiple->pre_reservations->first()->user))
                 {{ReservationHelper::getPersonName($multiple->pre_reservations->first()->user->id)}}
-                @else
-                {{ReservationHelper::getAgentPerson($multiple->pre_reservations->first()->agent->id)}}
-                @endif
+              @else
+              {{ReservationHelper::getAgentPerson($multiple->pre_reservations->first()->agent->id)}}
+              @endif
               </td>
               <td>
                 @if (!empty($multiple->pre_reservations->first()->user))
@@ -201,7 +201,7 @@
                 @else
                 {{ReservationHelper::getAgentMobile($multiple->pre_reservations->first()->agent->id)}}
                 @endif
-              </td>
+              </td> --}}
               {{-- <td>
                 @if (!empty($multiple->pre_reservations->first()->user))
                 {{ReservationHelper::getPersonTel($multiple->pre_reservations->first()->user->id)}}
