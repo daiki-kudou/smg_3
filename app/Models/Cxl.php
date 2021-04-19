@@ -6,6 +6,12 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\DB;
 use Carbon\Carbon;
 
+// キャンセル
+use App\Mail\AdminCxlChck;
+use App\Mail\UserCxlChck;
+
+use Illuminate\Support\Facades\Mail;
+
 
 class Cxl extends Model
 {
@@ -123,5 +129,73 @@ class Cxl extends Model
         ]);
       }
     });
+  }
+
+  public function doubleCheck(
+    $doubleCheckStatus,
+    $cxlId,
+    $doubleCheckName,
+    $doubleCheckName2 = ""
+  ) {
+    if ($doubleCheckStatus == 0) {
+      $this->update([
+        'double_check1_name' => $doubleCheckName,
+        'double_check_status' => 1
+      ]);
+    } elseif ($doubleCheckStatus == 1) {
+      $this->update([
+        'double_check2_name' => $doubleCheckName2,
+        'double_check_status' => 2
+      ]);
+    }
+  }
+
+  public function sendCxlEmail()
+  {
+    $admin = config('app.admin_email');
+
+    $company = $this->reservation->user->company;
+    $date = $this->reservation->reserve_date;
+    $enter_time = $this->reservation->enter_time;
+    $leave_time = $this->reservation->leave_time;
+    $venue = $this->reservation->venue->name_area . $this->reservation->venue->name_bldg . $this->reservation->venue->name_venue;
+    $cxlPrice = $this->master_subtotal;
+
+    Mail::to($admin)
+      ->send(new AdminCxlChck($company, $date, $enter_time, $leave_time, $venue, $cxlPrice));
+
+    $user = $this->reservation->user->email;
+    Mail::to($user)
+      ->send(new UserCxlChck($company, $date, $enter_time, $leave_time, $venue, $cxlPrice));
+  }
+
+  public function updateCxlStatusByEmail($status)
+  {
+    $result = DB::transaction(function () use ($status) {
+      $result = $this->update([
+        'cxl_status' => $status,
+        'approve_send_at' => Carbon::now(),
+      ]);
+      return $result;
+    });
+  }
+
+  public function updateReservationStatusByCxl($status)
+  {
+    if ($this->bill_id == 0) {
+      //cxlのbill_id=0は該当予約の全てのbillのキャンセル
+      $target = $this->reservation->bills;
+      DB::transaction(function () use ($target, $status) {
+        foreach ($target as $key => $value) {
+          $value->update([
+            'reservation_status' => $status
+          ]);
+        }
+      });
+    } else {
+      $this->bill->update([
+        'reservation_status' => $status
+      ]);
+    }
   }
 }

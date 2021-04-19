@@ -617,8 +617,11 @@ class Reservation extends Model
   {
     $collection = $this->bills->pluck('reservation_status');
     foreach ($collection as $key => $value) {
-      if ($value < 3 || $value != 6) {
+      if ($value < 3) {
         //ステータスが予約完了　もしくは　キャンセル完了していないキャンセルプロセスがあれば
+        return 0;
+        break;
+      } elseif ($value > 3 && $value < 6) {
         return 0;
         break;
       }

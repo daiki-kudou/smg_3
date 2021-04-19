@@ -228,6 +228,7 @@ class Bill extends Model
 
       // その他
       $o_cnt = $this->preg($discount_info, "others_breakdown_item");
+      var_dump($o_cnt);
       if ($o_cnt != 0) {
         for ($ohr = 0; $ohr < $o_cnt; $ohr++) {
           $this->breakdowns()->create([

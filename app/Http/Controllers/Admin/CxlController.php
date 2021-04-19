@@ -153,6 +153,46 @@ class CxlController extends Controller
     $bill->updateStatusByCxl();
   }
 
+  public function doubleCheck(Request $request)
+  {
+    $cxl = Cxl::find($request->cxl_id);
+    $cxl->doubleCheck($request->double_check_status, $request->cxl_id, $request->double_check1_name, $request->double_check2_name);
+    return redirect(route('admin.reservations.show', $cxl->reservation_id));
+  }
+
+  public function send_email_and_approve(Request $request)
+  {
+    $cxl = Cxl::with('reservation.bills')->find($request->cxl_id);
+    $reservation_id = $cxl->reservation->id;
+    try {
+      $cxl->sendCxlEmail();
+      $cxl->updateCxlStatusByEmail(1);
+      $cxl->updateReservationStatusByCxl(5);
+    } catch (\Exception $e) {
+      report($e);
+    }
+
+    $request->session()->regenerate();
+    return redirect()->route('admin.reservations.show', $reservation_id);
+  }
+
+  public function confirm_cxl(Request $request)
+  {
+    $cxl = Cxl::find($request->cxl_id);
+    $reservation_id = $cxl->reservation->id;
+    try {
+      $cxl->updateCxlStatusByEmail(2);
+      $cxl->updateReservationStatusByCxl(6);
+    } catch (\Exception $e) {
+      report($e);
+    }
+    $request->session()->regenerate();
+    return redirect()->route('admin.reservations.show', $reservation_id);
+  }
+
+
+
+
   /**
    * Display the specified resource.
    *

@@ -508,4 +508,19 @@ class ReservationHelper
       return "";
     }
   }
+
+  public static function cxlStatus($cxl_id)
+  {
+    switch ($cxl_id) {
+      case 0:
+        return "キャンセル申請中";
+        break;
+      case 1:
+        return "キャンセル承認待ち";
+        break;
+      case 2:
+        return "キャンセル";
+        break;
+    }
+  }
 }

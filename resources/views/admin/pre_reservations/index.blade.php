@@ -253,7 +253,7 @@
 
 
 <script>
-    $(function(){
+  $(function(){
     $(".sort_table").tablesorter();
   })
 
