@@ -259,35 +259,44 @@ $(function () {
     })
       .done(function ($prices) {
         $('#fullOverlay').css('display', 'none');
+        $('#price_system_radio1').prop('checked', false).prop('disabled', false); //初期化
+        $('#price_system1').removeClass("hide");
+        $('#price_system2').removeClass("hide");
+
         if ($prices[0].length > 0 && $prices[1].length > 0) { //配列の空チェック
           //どちらも配列ある
-          $('#price_system_radio1').prop('checked', false).prop('disabled', false); //初期化
-          $('#price_system_radio2').prop('checked', false).prop('disabled', false); //初期化
+          $('#price_system_radio1').prop('checked', true);
+          // $('#price_system_radio1').prop('checked', false).prop('disabled', false); //初期化
+          // $('#price_system_radio2').prop('checked', false).prop('disabled', false); //初期化
         } else if ($prices[0].length > 0 && $prices[1].length == 0) {
           //時間枠がある・アクセアがない
-          $('#price_system_radio1').prop('checked', false).prop('disabled', false); //初期化
-          $('#price_system_radio2').prop('checked', false).prop('disabled', false); //初期化
+          // $('#price_system_radio1').prop('checked', false).prop('disabled', false); //初期化
+          // $('#price_system_radio2').prop('checked', false).prop('disabled', false); //初期化
           $('#price_system_radio1').prop('checked', true);
-          $('#price_system_radio2').prop('disabled', true);
+          $('#price_system2').addClass("hide");
         } else if ($prices[0].length == 0 && $prices[1].length > 0) {
           //時間枠がない・アクセアがある
-          $('#price_system_radio1').prop('checked', false).prop('disabled', false); //初期化
-          $('#price_system_radio2').prop('checked', false).prop('disabled', false); //初期化
+          // $('#price_system_radio1').prop('checked', false).prop('disabled', false); //初期化
+          // $('#price_system_radio2').prop('checked', false).prop('disabled', false); //初期化
           $('#price_system_radio2').prop('checked', true);
-          $('#price_system_radio1').prop('disabled', true);
+          $('#price_system1').addClass("hide");
         } else {
           // どちらも配列がない
-          swal('選択した会場は登録された料金体系がありません。会場管理/料金管理 にて作成してください');
-          $('#price_system_radio1').prop('checked', false).prop('disabled', true); //初期化
-          $('#price_system_radio2').prop('checked', false).prop('disabled', true); //初期化
+          $('#price_system1').addClass("hide");
+          $('#price_system2').addClass("hide");
+          // swal('選択した会場は登録された料金体系がありません。会場管理/料金管理 にて作成してください');
+          // $('#price_system_radio1').prop('checked', false).prop('disabled', true); //初期化
+          // $('#price_system_radio2').prop('checked', false).prop('disabled', true); //初期化
         }
       })
       .fail(function ($prices) {
         $('#fullOverlay').css('display', 'none');
         // $('.price_selector').html('');
         // console.log('失敗したよ');
-        $('#price_system_radio1').prop('checked', false).prop('disabled', true); //初期化
-        $('#price_system_radio2').prop('checked', false).prop('disabled', true); //初期化
+        // $('#price_system_radio1').prop('checked', false).prop('disabled', true); //初期化
+        // $('#price_system_radio2').prop('checked', false).prop('disabled', true); //初期化
+        $('#price_system1').addClass("hide");
+        $('#price_system2').addClass("hide");
 
       });
   };
@@ -596,9 +605,11 @@ $(function () {
       },
     })
       .done(function ($luggage) {
+
         if ($luggage == 1) {
+          var maxDate = $('#datepicker').val();
           $('.luggage table tbody').html('');
-          $('.luggage table tbody').append("<tr> <td class='table-active'>事前に預かる荷物<br>（個数）</td> <td class=''><input type='text' class='form-control luggage_count' placeholder='個数入力' name='luggage_count'><p class='is-error-luggage_count' style='color: red'></p></td> </tr> <tr> <td class='table-active'>事前荷物の到着日<br>午前指定のみ</td> <td class=''> <input id='datepicker3' type='text' class='form-control' placeholder='年-月-日' name='luggage_arrive'> </td> </tr> <tr> <td class='table-active'>事後返送する荷物</td> <td class=''><input type='text' class='form-control luggage_return' placeholder='個数入力' name='luggage_return'><p class='is-error-luggage_return' style='color: red'></p> </td> </tr> <tr><td class='table-active'>荷物預り/返送　料金</td><td class=''><input type='text' class='form-control luggage_price' placeholder='金額入力' name='luggage_price'><p class='is-error-luggage_price' style='color: red'></p> </td></tr><script>$('#datepicker3').datepicker({ dateFormat: 'yy-mm-dd', minDate: 0, });</script>");
+          $('.luggage table tbody').append("<tr> <td class='table-active'>事前に預かる荷物<br>（個数）</td> <td class=''><input type='text' class='form-control luggage_count' placeholder='個数入力' name='luggage_count'><p class='is-error-luggage_count' style='color: red'></p></td> </tr> <tr> <td class='table-active'>事前荷物の到着日<br>午前指定のみ</td> <td class=''> <input id='datepicker3' type='text' class='form-control' placeholder='年-月-日' name='luggage_arrive'> </td> </tr> <tr> <td class='table-active'>事後返送する荷物</td> <td class=''><input type='text' class='form-control luggage_return' placeholder='個数入力' name='luggage_return'><p class='is-error-luggage_return' style='color: red'></p></td> </tr> <tr><td class='table-active'>荷物預り/返送　料金</td><td class=''><input type='text' class='form-control luggage_price' placeholder='金額入力' name='luggage_price'><p class='is-error-luggage_price' style='color: red'></p></td></tr><script>$('#datepicker3').datepicker({ dateFormat: 'yy-mm-dd', minDate: 0, maxDate:'" + maxDate + "' });</script>");
           // ***********マイナス、全角制御用
           function ExceptString($target) {
             $target.numeric({ negative: false, });
@@ -644,8 +655,14 @@ $(function () {
       },
     })
       .done(function ($operaions) {
+        // $('.sales_percentage').val('').val($operaions);
+        $('#user_cost').removeClass('hide');
         $('.sales_percentage').val('');
-        $('.sales_percentage').val($operaions);
+        if ($operaions[0] == 0) {
+          $('#user_cost').addClass('hide');
+        } else {
+          $('.sales_percentage').val($operaions[1]);
+        }
       })
       .fail(function ($operaions) {
         $('#fullOverlay').css('display', 'none');

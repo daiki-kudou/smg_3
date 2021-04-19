@@ -189,30 +189,25 @@
                 @endif
               </td>
               <td>
-                {{var_dump($multiple->pre_reservations->first()->user)}}
-                {{var_dump($multiple->pre_reservations->first()->agent)}}
-                {{-- @if (!empty($multiple->pre_reservations->first()->user))
-                user<br>
+                @if (!empty($multiple->pre_reservations->first()->user))
                 {{ReservationHelper::getPersonName($multiple->pre_reservations->first()->user->id)}}
                 @else
-                agent<br>
                 {{ReservationHelper::getAgentPerson($multiple->pre_reservations->first()->agent->id)}}
-                {{(var_dump($multiple->pre_reservations->first()->agent))}}
-                @endif --}}
+                @endif
               </td>
-              {{-- <td>
+              <td>
                 @if (!empty($multiple->pre_reservations->first()->user))
                 {{ReservationHelper::getPersonMobile($multiple->pre_reservations->first()->user->id)}}
-              @else
-              {{ReservationHelper::getAgentMobile($multiple->pre_reservations->first()->agent->id)}}
-              @endif
-              </td> --}}
-              {{-- <td>
+                @else
+                {{ReservationHelper::getAgentMobile($multiple->pre_reservations->first()->agent->id)}}
+                @endif
+              </td>
+              <td>
                 @if (!empty($multiple->pre_reservations->first()->user))
                 {{ReservationHelper::getPersonTel($multiple->pre_reservations->first()->user->id)}}
-              @else
-              {{ReservationHelper::getAgentTel($multiple->pre_reservations->first()->agent->id)}}
-              @endif
+                @else
+                {{ReservationHelper::getAgentTel($multiple->pre_reservations->first()->agent->id)}}
+                @endif
               </td>
               <td>
                 @if (!empty($multiple->pre_reservations->first()->user))
@@ -235,7 +230,7 @@
                 @else
                 <a href="{{url('admin/multiples/agent/'.$multiple->id)}}" class="btn more_btn">詳細</a>
                 @endif
-              </td> --}}
+              </td>
             </tr>
 
             @endforeach

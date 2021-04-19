@@ -222,7 +222,6 @@ class MultiplesController extends Controller
 
   public function allUpdates(Request $request, $multiples_id, $venues_id)
   {
-
     $masterData = json_decode($request->master_data);
 
     $test = [];

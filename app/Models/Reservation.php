@@ -13,10 +13,18 @@ use App\Models\Cxl;
 
 use Carbon\Carbon;
 
+use App\Presenters\ReservationPresenter;
+use Robbo\Presenter\PresentableInterface; //プレゼンターの追加
 
 
-class Reservation extends Model
+class Reservation extends Model implements PresentableInterface
 {
+
+  public function getPresenter() //実装したプレゼンタを利用
+  {
+    return new ReservationPresenter($this);
+  }
+
 
   use SoftDeletes; //reservation大事なのでソフトデリートする
 
@@ -177,7 +185,7 @@ class Reservation extends Model
         'email_flag' => $master_info['email_flag'],
         'in_charge' => $master_info['in_charge'],
         'tel' => $master_info['tel'],
-        'cost' => $master_info['cost'],
+        'cost' => !empty($master_info['cost']) ? $master_info['cost'] : 0,
         'discount_condition' => "",
         'attention' => "",
         'user_details' => $master_info['user_details'],
@@ -544,7 +552,7 @@ class Reservation extends Model
     }
 
     // return ($query);
-    return $query->orderBy('id', 'desc')->paginate(10);
+    return $query->with('bills')->orderBy('id', 'desc')->paginate(30);
   }
 
   // reservations show 各請求書合計額
@@ -557,7 +565,7 @@ class Reservation extends Model
     $master_subtotals = 0;
     $master_taxs = 0;
     $master_totals = 0;
-    foreach ($this->bills()->get() as $key => $value) {
+    foreach ($this->bills->where('reservation_status', '<', 4) as $key => $value) {
       $venues_master += $value->venue_price;
       $items_master += $value->equipment_price;
       $layouts_master += $value->layout_price;

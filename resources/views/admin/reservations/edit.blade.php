@@ -42,8 +42,6 @@
 </div>
 
 
-
-
 {{Form::open(['url' => 'admin/reservations/'.$reservation->id.'/edit_calculate', 'method' => 'POST', 'id'=>'reservations_edit'])}}
 @csrf
 {{ Form::hidden('reservation_id',  $reservation->id) }}
@@ -133,7 +131,8 @@
           <td>
             <div class="radio-box">
               <p>
-                <input type="radio" name="board_flag" value="1" id="board_flag" {{isset($reservation->board_flag)?$reservation->board_flag==1?'checked':'':'',}}>
+                <input type="radio" name="board_flag" value="1" id="board_flag"
+                  {{isset($reservation->board_flag)?$reservation->board_flag==1?'checked':'':'',}}>
                 <span>有り</span>
               </p>
               <p>
@@ -1062,7 +1061,9 @@
         <div class="informations billdetails_content py-3">
           <table class="table">
             <tr>
-              <td>請求日：</td>
+              <td>請求日：
+                {{ Form::text('bill_created_at', $bill->bill_created_at,['class'=>'form-control', 'id'=>'datepicker6'] ) }}
+              </td>
               <td>支払期日
                 {{ Form::text('pay_limit', $bill->pay_limit,['class'=>'form-control', 'id'=>'datepicker6'] ) }}
               </td>

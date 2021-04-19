@@ -128,8 +128,9 @@ class Bill extends Model
           'unit_type' => 1,
         ]);
       }
+
       // 備品等料金
-      if ($discount_info['equipment_price'] != "") {
+      if (!empty($discount_info['equipment_price'])) {
         $e_cnt = $this->preg($discount_info, "equipment_breakdown_item");
         var_dump($e_cnt);
         if ($e_cnt != 0) {
