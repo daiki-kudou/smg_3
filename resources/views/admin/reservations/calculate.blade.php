@@ -176,9 +176,10 @@
                 <option disabled>選択してください</option>
                 @for ($start = 0*2; $start <=23*2; $start++) <option
                   value="{{date("H:i:s", strtotime("00:00 +". $start * 30 ." minute"))}}"
-                  @if(!empty($value['event_finish'])) @if (date("H:i:s", strtotime("00:00 +". $start * 30 ."
-                  minute"))==$value['event_finish']) selected @endif @endif>
-                  {{date("H時i分", strtotime("00:00 +". $start * 30 ." minute"))}}</option>
+                  @if(!empty($value['event_finish'])) @if (date("H:i:s", strtotime("00:00 +". $start * 30
+                  ."minute"))==$value['event_finish']) selected @endif @endif>
+                  {{date("H時i分", strtotime("00:00 +". $start * 30 ." minute"))}}
+                  </option>
                   @endfor
               </select>
             </td>
