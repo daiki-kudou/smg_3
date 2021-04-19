@@ -167,6 +167,8 @@
           </tbody>
         </table>
       </div>
+
+      @if ($venue->layout!=0)
       <div class="layouts">
         <table class="table table-bordered" style="table-layout:fixed;">
           <thead>
@@ -195,6 +197,9 @@
           </tbody>
         </table>
       </div>
+      @endif
+
+      @if ($venue->luggage_flag!=0)
       <div class="luggage">
         <table class="table table-bordered" style="table-layout:fixed;">
           <thead>
@@ -245,6 +250,7 @@
           </tbody>
         </table>
       </div>
+      @endif
     </div>
 
     <div class="col">

@@ -42,8 +42,6 @@ class ReservationsController extends Controller
         ->orderBy('id', 'desc')
         ->paginate(30);
     }
-
-
     $venue = Venue::all();
     $user = User::select('id', 'company', 'first_name', 'last_name', 'mobile', 'tel')->get();
 
@@ -207,7 +205,7 @@ class ReservationsController extends Controller
   {
     $venue = Venue::find($request->venue_id);
     $flag = $venue->alliance_flag;
-    $percentage = $venue->cost;
+    $percentage = $venue->cost ? $venue->cost : 0;
     if ($flag == 0) {
       return 0;
     } else {
@@ -378,7 +376,7 @@ class ReservationsController extends Controller
   public function show($id)
   {
     session()->forget(['add_bill', 'cxlCalcInfo', 'cxlMaster', 'cxlResult', 'invoice', 'multiOrSingle']);
-    $reservation = Reservation::with(['bills', 'cxls.cxl_breakdowns'])->find($id);
+    $reservation = Reservation::with(['bills.breakdowns', 'cxls.cxl_breakdowns'])->find($id);
     $venue = Venue::find($reservation->venue->id);
     $user = User::find($reservation->user_id);
     $master_prices = $reservation->TotalAmount();

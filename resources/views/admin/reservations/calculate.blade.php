@@ -285,6 +285,8 @@
           </tbody>
         </table>
       </div>
+
+      @if ($spVenue->layout!=0)
       <div class="layouts">
         <table class="table table-bordered" style="table-layout:fixed;">
           <thead>
@@ -330,7 +332,9 @@
           </tbody>
         </table>
       </div>
+      @endif
 
+      @if ($spVenue->luggage_flag!=0)
       <div class="luggage">
         <table class="table table-bordered" style="table-layout:fixed;">
           <thead>
@@ -352,7 +356,7 @@
             <tr>
               <td class="table-active">事前荷物の到着日<br>午前指定のみ</td>
               <td>
-                {{ Form::text('luggage_arrive', $value['luggage_arrive'],['class'=>'form-control'] ) }}
+                {{ Form::text('luggage_arrive', $value['luggage_arrive'],['class'=>'form-control','id'=>'datepicker3'] ) }}
               </td>
             </tr>
             <tr>
@@ -373,6 +377,8 @@
           </tbody>
         </table>
       </div>
+      @endif
+
     </div>
 
     <div class="col">
@@ -1010,7 +1016,10 @@
         <div class="informations billdetails_content py-3">
           <table class="table">
             <tr>
-              <td>請求日：</td>
+              <td>請求日：
+                {{ Form::text('bill_created_at', '',['class'=>'form-control', 'id'=>'datepicker6'] ) }}
+
+              </td>
               <td>支払期日
                 {{ Form::text('pay_limit', $priceResult['pay_limit'],['class'=>'form-control', 'id'=>'datepicker6'] ) }}
               </td>
@@ -1067,6 +1076,14 @@
 {{Form::close()}}
 
 <script>
+  $(function(){
+    var $maxDate =$('#datepicker1').val(); 
+    $('#datepicker3').datepicker({
+       dateFormat: 'yy-mm-dd', 
+       minDate: 0, 
+       maxDate: $maxDate
+       });
+    })
   $(function() {
     $("html,body").animate({
       scrollTop: $('.bill').offset().top

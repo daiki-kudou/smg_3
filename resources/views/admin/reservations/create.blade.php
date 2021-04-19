@@ -31,7 +31,7 @@
   }
 
   .hide {
-    display: none;
+    display: none !important;
   }
 </style>
 

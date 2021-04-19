@@ -81,9 +81,8 @@
           <td class="table-active"><label for="venue">会場</label></td>
           <td>
             <p>
-              {{ReservationHelper::getVenue($reservation->venue_id)}}
+              {{($reservation->price_system==1?'通常（枠貸）':"アクセア（時間貸）")}}
             </p>
-            <p>アクセア仕様</p>
           </td>
         </tr>
         <tr>
@@ -207,6 +206,7 @@
         </tbody>
       </table>
 
+
       <div class='layouts'>
         <table class='table table-bordered' style="table-layout:fixed;">
           <thead>
@@ -220,22 +220,11 @@
           </thead>
 
           <tbody>
-            <!-- <tr>
-              <td class="table-active"><label for="layout">レイアウト変更</label></td>
-              <td>
-                @foreach ($reservation->breakdowns()->get() as $breakdown)
-                @if ($breakdown->unit_type==3)
-                あり
-                @break
-                @endif
-                @endforeach
-              </td>
-            </tr> -->
             <tr>
               <td class="table-active"><label for="prelayout">準備</label></td>
               <td>
-                @foreach ($reservation->breakdowns()->get() as $breakdown)
-                {{$breakdown->unit_item=='準備'?'あり':''}}
+                @foreach ($reservation->bills->first()->breakdowns as $breakdown)
+                {{$breakdown->unit_item=='レイアウト準備料金'?'あり':''}}
                 @endforeach
               </td>
             </tr>
@@ -243,7 +232,7 @@
               <td class="table-active"><label for="postlayout">片付</label></td>
               <td>
                 @foreach ($reservation->breakdowns()->get() as $breakdown)
-                {{$breakdown->unit_item=='片付'?'あり':''}}
+                {{$breakdown->unit_item=='レイアウト片付料金'?'あり':''}}
                 @endforeach
               </td>
             </tr>
@@ -803,13 +792,13 @@
           @csrf
           {{ Form::hidden('reservation_id', $reservation->id ) }}
           {{ Form::hidden('user_id', $reservation->user_id ) }}
-          <p class="mr-2">{{ Form::submit('利用者に承認メールを送る',['class' => 'btn more_btn']) }}</p>
+          <p class="mr-2">{{ Form::submit('利用者に承認メールを送る',['class' => 'btn more_btn','id'=>'send_confirm']) }}</p>
           {{ Form::close() }}
           {{ Form::open(['url' => 'admin/reservations/'.$reservation->id.'/confirm_reservation', 'method'=>'POST', 'class'=>'']) }}
           @csrf
           {{ Form::hidden('reservation_id', $reservation->id ) }}
           {{ Form::hidden('user_id', $reservation->user_id ) }}
-          <p>{{ Form::submit('予約を確定する',['class' => 'btn more_btn4']) }}</p>
+          <p>{{ Form::submit('予約を確定する',['class' => 'btn more_btn4','id'=>'reservation_confirm']) }}</p>
           {{ Form::close() }}
       </div>
       @endif
@@ -2328,7 +2317,25 @@
 @endif
 
 
-
+<script>
+  $(function(){
+  $('#double_check1_submit,#double_check2_submit').on('click',function(){
+      if(!confirm('チェック完了しますか？')){
+        return false;
+      }
+  });
+  $('#send_confirm').on('click',function(){
+      if(!confirm('利用者に承認メールを送付しますか？')){
+        return false;
+      }
+  });
+  $('#reservation_confirm').on('click',function(){
+      if(!confirm('予約を確定しますか？')){
+        return false;
+      }
+  });
+  });
+</script>
 
 
 
