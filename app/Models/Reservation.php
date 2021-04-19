@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\DB; //トランザクション用
 
 use App\Models\Venue;
 use App\Models\User;
+use App\Models\Cxl;
 
 use Carbon\Carbon;
 
@@ -116,6 +117,12 @@ class Reservation extends Model
   public function agent()
   {
     return $this->belongsTo(Agent::class);
+  }
+
+  // cxl一対多
+  public function cxls()
+  {
+    return $this->hasMany(Cxl::Class);
   }
 
 
@@ -610,7 +617,20 @@ class Reservation extends Model
   {
     $collection = $this->bills->pluck('reservation_status');
     foreach ($collection as $key => $value) {
-      if ($value < 3) {
+      if ($value < 3 || $value != 6) {
+        //ステータスが予約完了　もしくは　キャンセル完了していないキャンセルプロセスがあれば
+        return 0;
+        break;
+      }
+    }
+    return 1;
+  }
+  public function checkSingleBillsStatus()
+  {
+    $collection = $this->bills->pluck('reservation_status');
+    foreach ($collection as $key => $value) {
+      if ($value > 3 && $value != 6) {
+        //ステータスが予約完了　もしくは　キャンセル完了していないキャンセルプロセスがあれば
         return 0;
         break;
       }
@@ -622,7 +642,7 @@ class Reservation extends Model
   {
     $result = [];
     foreach ($array as $key => $value) {
-      $result[] = $this->bills->pluck($value)->sum();
+      $result[] = $this->bills->where("reservation_status", 3)->pluck($value)->sum(); //予約ステータス3（予約完了）のみが対象
     }
     return $result;
   }

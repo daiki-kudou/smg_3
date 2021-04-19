@@ -215,8 +215,6 @@ class Bill extends Model
         }
       }
 
-
-
       // レイアウト割引
       if (!empty($discount_info['layout_breakdown_discount_item'])) {
         $this->breakdowns()->create([
@@ -229,14 +227,14 @@ class Bill extends Model
       }
 
       // その他
-      $o_cnt = $this->preg($discount_info, "others_input_item");
+      $o_cnt = $this->preg($discount_info, "others_breakdown_item");
       if ($o_cnt != 0) {
         for ($ohr = 0; $ohr < $o_cnt; $ohr++) {
           $this->breakdowns()->create([
-            'unit_item' => $discount_info['others_input_item' . $ohr],
-            'unit_cost' => $discount_info['others_input_cost' . $ohr],
-            'unit_count' => $discount_info['others_input_count' . $ohr],
-            'unit_subtotal' => $discount_info['others_input_subtotal' . $ohr],
+            'unit_item' => $discount_info['others_breakdown_item' . $ohr],
+            'unit_cost' => $discount_info['others_breakdown_cost' . $ohr],
+            'unit_count' => $discount_info['others_breakdown_count' . $ohr],
+            'unit_subtotal' => $discount_info['others_breakdown_subtotal' . $ohr],
             'unit_type' => 5,
           ]);
         }
@@ -582,5 +580,10 @@ class Bill extends Model
     } else {
       return "";
     }
+  }
+
+  public function updateStatusByCxl()
+  {
+    $this->update(['reservation_status' => 4]);
   }
 }

@@ -298,8 +298,8 @@ Route::namespace('Admin')->prefix('admin')->name('admin.')->group(function () {
     Route::post('cxl/multi_calc', 'CxlController@multiCalc');
     Route::get('cxl/multi_calc', 'CxlController@multiCalcShow')->name('cxl.multi_calc');
     Route::get('cxl/multi_create', 'CxlController@multiCreate')->name('cxl.multi_create');
-    Route::post('cxl/calculate', 'CxlController@calculate')->name('cxl.calculate');
-    Route::post('cxl/check', 'CxlController@check')->name('cxl.check');
+    // Route::post('cxl/calculate', 'CxlController@calculate')->name('cxl.calculate');
+    Route::post('cxl/multi_check', 'CxlController@multiCheck')->name('cxl.multi_check');
     Route::post('cxl/store', 'CxlController@store');
 
     // Route::resource('cxl', 'CxlController', ['except' => ['create']]);
