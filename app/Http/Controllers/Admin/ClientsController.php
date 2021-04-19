@@ -202,6 +202,6 @@ class ClientsController extends Controller
     $condition = $user->condition;
     $attention = $user->attention;
 
-    return [$person, $email, $mobile, $tel, $condition, $attention];
+    return [$person, $email, $mobile, $tel, $condition, $attention, $request->user_id];
   }
 }

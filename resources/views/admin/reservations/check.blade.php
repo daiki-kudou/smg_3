@@ -311,7 +311,7 @@
             </td>
           </tr>
           <tr>
-            <td class="table-active caution">注意事項 工藤さん！！</td>
+            <td class="table-active caution">注意事項</td>
             <td class="caution">
               <p class="attention">
                 {{ReservationHelper::getPersonAttention($value['user_id'])}}
