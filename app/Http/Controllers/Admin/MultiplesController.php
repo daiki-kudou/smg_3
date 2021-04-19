@@ -28,7 +28,7 @@ class MultiplesController extends Controller
       $multiples = $this->MultipleSearch($class->with(["pre_reservations.unknown_user", "pre_reservations.pre_enduser"]), $request);
       $counter = count($multiples);
     } else {
-      $multiples = MultipleReserve::with(["pre_reservations.unknown_user", "pre_reservations.pre_enduser"])->orderBy('id', 'desc')->paginate(30);
+      $multiples = MultipleReserve::with(["pre_reservations", "pre_reservations.unknown_user", "pre_reservations.pre_enduser"])->orderBy('id', 'desc')->paginate(30);
       $counter = count($multiples);
     }
 
