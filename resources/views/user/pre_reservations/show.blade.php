@@ -223,10 +223,10 @@
                 <td>
                   @foreach ($pre_reservation->pre_breakdowns()->get() as $s_equ)
                   @if ($s_equ->unit_item==$equ->item)
-                  {{Form::text('equipment_breakdown'.$key,$s_equ->unit_count,['class'=>'form-control equipment_breakdown'])}}
+                  {{Form::text('equipment_breakdown'.$key,$s_equ->unit_count,['class'=>'form-control equipment_validation'])}}
                   @break
                   @elseif($loop->last)
-                  {{Form::text('equipment_breakdown'.$key,'',['class'=>'form-control'])}}
+                  {{Form::text('equipment_breakdown'.$key,'',['class'=>'form-control equipment_validation'])}}
                   @endif
                   @endforeach
                 </td>

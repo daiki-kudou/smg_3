@@ -225,7 +225,7 @@
                   {{$equ->item}}
                 </td>
                 <td>
-                  {{Form::text('equipment_breakdown'.$key,$request->{'equipment_breakdown'.$key},['class'=>'form-control equipment_breakdown'])}}
+                  {{Form::text('equipment_breakdown'.$key,$request->{'equipment_breakdown'.$key},['class'=>'form-control equipment_validation'])}}
                 </td>
               </tr>
               @endforeach
