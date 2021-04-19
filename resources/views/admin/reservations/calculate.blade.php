@@ -101,9 +101,7 @@
             <td>
               <select name="enter_time" id="sales_start" class="form-control">
                 <option disabled selected></option>
-                @for ($start = 0*2; $start <=23*2; $start++) <option
-                  value="{{date("H:i:s", strtotime("00:00 +". $start * 30 ." minute"))}}" @if (date("H:i:s",
-                  strtotime("00:00 +". $start * 30 ." minute"))==$value['enter_time']) selected @endif>
+                @for ($start = 0*2; $start <=23*2; $start++) <option value="{{date("H:i:s", strtotime("00:00 +". $start * 30 ." minute"))}}" @if (date("H:i:s", strtotime("00:00 +". $start * 30 ." minute"))==$value['enter_time']) selected @endif>
                   {{date("H時i分", strtotime("00:00 +". $start * 30 ." minute"))}}
                   </option>
                   @endfor
@@ -115,9 +113,7 @@
             <td>
               <select name="leave_time" id="sales_finish" class="form-control">
                 <option disabled selected></option>
-                @for ($start = 0*2; $start <=23*2; $start++) <option
-                  value="{{date("H:i:s", strtotime("00:00 +". $start * 30 ." minute"))}}" @if (date("H:i:s",
-                  strtotime("00:00 +". $start * 30 ." minute"))==$value['leave_time']) selected @endif>
+                @for ($start = 0*2; $start <=23*2; $start++) <option value="{{date("H:i:s", strtotime("00:00 +". $start * 30 ." minute"))}}" @if (date("H:i:s", strtotime("00:00 +". $start * 30 ." minute"))==$value['leave_time']) selected @endif>
                   {{date("H時i分", strtotime("00:00 +". $start * 30 ." minute"))}}</option>
                   @endfor
               </select>
@@ -142,13 +138,11 @@
             <td>
               <div class="radio-box">
                 <p>
-                  <input type="radio" name="board_flag" value="1" id="board_flag"
-                    {{$value['board_flag']==1?"checked":""}}>
+                  <input type="radio" name="board_flag" value="1" id="board_flag" {{$value['board_flag']==1?"checked":""}}>
                   <label>有り</label>
                 </p>
                 <p>
-                  <input type="radio" name="board_flag" value="0" id="no_board_flag"
-                    {{$value['board_flag']==0?"checked":""}}>
+                  <input type="radio" name="board_flag" value="0" id="no_board_flag" {{$value['board_flag']==0?"checked":""}}>
                   <label>無し</label>
                 </p>
               </div>
@@ -159,10 +153,7 @@
             <td>
               <select name="event_start" id="event_start" class="form-control">
                 <option disabled>選択してください</option>
-                @for ($start = 0*2; $start <=23*2; $start++) <option
-                  value="{{date("H:i:s", strtotime("00:00 +". $start * 30 ." minute"))}}"
-                  @if(!empty($value['event_start'])) @if(date("H:i:s",strtotime("00:00 +". $start * 30 ."
-                  minute"))==$value['event_start']) selected @endif @endif>
+                @for ($start = 0*2; $start <=23*2; $start++) <option value="{{date("H:i:s", strtotime("00:00 +". $start * 30 ." minute"))}}" @if(!empty($value['event_start'])) @if(date("H:i:s",strtotime("00:00 +". $start * 30 ." minute"))==$value['event_start']) selected @endif @endif>
                   {{date("H時i分", strtotime("00:00 +". $start * 30 ." minute"))}}</option>
                   @endfor
               </select>
@@ -174,10 +165,7 @@
             <td>
               <select name="event_finish" id="event_finish" class="form-control">
                 <option disabled>選択してください</option>
-                @for ($start = 0*2; $start <=23*2; $start++) <option
-                  value="{{date("H:i:s", strtotime("00:00 +". $start * 30 ." minute"))}}"
-                  @if(!empty($value['event_finish'])) @if (date("H:i:s", strtotime("00:00 +". $start * 30 ."
-                  minute"))==$value['event_finish']) selected @endif @endif>
+                @for ($start = 0*2; $start <=23*2; $start++) <option value="{{date("H:i:s", strtotime("00:00 +". $start * 30 ." minute"))}}" @if(!empty($value['event_finish'])) @if (date("H:i:s", strtotime("00:00 +". $start * 30 ." minute"))==$value['event_finish']) selected @endif @endif>
                   {{date("H時i分", strtotime("00:00 +". $start * 30 ." minute"))}}</option>
                   @endfor
               </select>
@@ -347,7 +335,7 @@
               <td class="table-active">事前に預かる荷物<br>（個数）</td>
               <td>
                 {{ Form::text('luggage_count', $value['luggage_count'],['class'=>'form-control'] ) }}
-              <p class="is-error-luggage_count" style="color: red"></p>
+                <p class="is-error-luggage_count" style="color: red"></p>
               </td>
             </tr>
             <tr>
@@ -360,7 +348,7 @@
               <td class="table-active">事後返送する荷物</td>
               <td>
                 {{ Form::text('luggage_return', $value['luggage_return'],['class'=>'form-control'] ) }}
-              <p class="is-error-luggage_return" style="color: red"></p>
+                <p class="is-error-luggage_return" style="color: red"></p>
               </td>
             </tr>
             <tr>
@@ -370,12 +358,49 @@
                   {{ Form::text('luggage_price', $value['luggage_price'],['class'=>'form-control'] ) }}
                   <span class="ml-1 annotation">円</span>
                 </div>
-              <p class="is-error-luggage_price" style="color: red"></p>
+                <p class="is-error-luggage_price" style="color: red"></p>
               </td>
             </tr>
           </tbody>
         </table>
       </div>
+
+      <div class="eat_in">
+        <table class="table table-bordered">
+          <thead>
+            <tr>
+              <th colspan='2'>
+                <p class="title-icon">
+                  <i class="fas fa-utensils icon-size fa-fw"></i>室内飲食工藤さん！追加項目です。仮押さえから丸コピーしました。
+                </p>
+              </th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>
+                {{Form::radio('eat_in', 1, false , ['id' => 'eat_in'])}}
+                {{Form::label('eat_in',"あり")}}
+              </td>
+              <td>
+                {{Form::radio('eat_in_prepare', 1, false , ['id' => 'eat_in_prepare', 'disabled'])}}
+                {{Form::label('eat_in_prepare',"手配済み")}}
+                {{Form::radio('eat_in_prepare', 2, false , ['id' => 'eat_in_consider','disabled'])}}
+                {{Form::label('eat_in_consider',"検討中")}}
+              </td>
+            </tr>
+            <tr>
+              <td>
+                {{Form::radio('eat_in', 0, true , ['id' => 'no_eat_in'])}}
+                {{Form::label('no_eat_in',"なし")}}
+              </td>
+              <td></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+
     </div>
 
     <div class="col">
@@ -1065,10 +1090,10 @@
             </tr>
             <tr>
               <td>振込人名{{ Form::text('pay_person', null,['class'=>'form-control'] ) }}
-              <p class="is-error-pay_person" style="color: red"></p>
+                <p class="is-error-pay_person" style="color: red"></p>
               </td>
               <td>入金額{{ Form::text('payment', null,['class'=>'form-control'] ) }}
-              <p class="is-error-payment" style="color: red"></p>
+                <p class="is-error-payment" style="color: red"></p>
               </td>
             </tr>
           </table>
@@ -1192,7 +1217,6 @@
     $('.equipment_discount_btn').click();
     $('.layout_discount_btn').click();
   });
-
 </script>
 
 @endsection

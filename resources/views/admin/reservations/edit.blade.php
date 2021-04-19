@@ -94,9 +94,7 @@
           <td>
             <select name="enter_time" id="sales_start" class="form-control">
               <option disabled selected></option>
-              @for ($start = 0*2; $start <=23*2; $start++) <option
-                value="{{date("H:i:s", strtotime("00:00 +". $start * 30 ." minute"))}}" @if (date("H:i:s",
-                strtotime("00:00 +". $start * 30 ." minute"))==$reservation->enter_time)
+              @for ($start = 0*2; $start <=23*2; $start++) <option value="{{date("H:i:s", strtotime("00:00 +". $start * 30 ." minute"))}}" @if (date("H:i:s", strtotime("00:00 +". $start * 30 ." minute"))==$reservation->enter_time)
                 selected
                 @endif>
                 {{date("H時i分", strtotime("00:00 +". $start * 30 ." minute"))}}
@@ -110,9 +108,7 @@
           <td>
             <select name="leave_time" id="sales_finish" class="form-control">
               <option disabled selected></option>
-              @for ($start = 0*2; $start <=23*2; $start++) <option
-                value="{{date("H:i:s", strtotime("00:00 +". $start * 30 ." minute"))}}" @if (date("H:i:s",
-                strtotime("00:00 +". $start * 30 ." minute"))==$reservation->leave_time)
+              @for ($start = 0*2; $start <=23*2; $start++) <option value="{{date("H:i:s", strtotime("00:00 +". $start * 30 ." minute"))}}" @if (date("H:i:s", strtotime("00:00 +". $start * 30 ." minute"))==$reservation->leave_time)
                 selected
                 @endif
                 >
@@ -136,14 +132,12 @@
           <td class="table-active">案内板</td>
           <td>
             <div class="radio-box">
-            <p>
-                <input type="radio" name="board_flag" value="1" id="board_flag"
-                  {{isset($reservation->board_flag)?$reservation->board_flag==1?'checked':'':'',}}>
+              <p>
+                <input type="radio" name="board_flag" value="1" id="board_flag" {{isset($reservation->board_flag)?$reservation->board_flag==1?'checked':'':'',}}>
                 <span>有り</span>
               </p>
               <p>
-                <input type="radio" name="board_flag" value="0" id="no_board_flag"
-                  {{isset($reservation->board_flag)?$reservation->board_flag==0?'checked':'':'checked',}}>
+                <input type="radio" name="board_flag" value="0" id="no_board_flag" {{isset($reservation->board_flag)?$reservation->board_flag==0?'checked':'':'checked',}}>
                 <span>無し</span>
               </p>
             </div>
@@ -154,9 +148,7 @@
           <td>
             <select name="event_start" id="event_start" class="form-control">
               <option disabled>選択してください</option>
-              @for ($start = 0*2; $start <=23*2; $start++) <option
-                value="{{date("H:i:s", strtotime("00:00 +". $start * 30 ." minute"))}}" @if (date("H:i:s",
-                strtotime("00:00 +". $start * 30 ." minute"))==$reservation->event_start)
+              @for ($start = 0*2; $start <=23*2; $start++) <option value="{{date("H:i:s", strtotime("00:00 +". $start * 30 ." minute"))}}" @if (date("H:i:s", strtotime("00:00 +". $start * 30 ." minute"))==$reservation->event_start)
                 selected
                 @endif
                 >
@@ -171,9 +163,7 @@
 
             <select name="event_finish" id="event_finish" class="form-control">
               <option disabled>選択してください</option>
-              @for ($start = 0*2; $start <=23*2; $start++) <option
-                value="{{date("H:i:s", strtotime("00:00 +". $start * 30 ." minute"))}}" @if (date("H:i:s",
-                strtotime("00:00 +". $start * 30 ." minute"))==$reservation->event_finish)
+              @for ($start = 0*2; $start <=23*2; $start++) <option value="{{date("H:i:s", strtotime("00:00 +". $start * 30 ." minute"))}}" @if (date("H:i:s", strtotime("00:00 +". $start * 30 ." minute"))==$reservation->event_finish)
                 selected
                 @endif
                 >
@@ -234,8 +224,7 @@
                 {{$equ->item}}
               </td>
               <td>
-                <input type="text" class="form-control equipment_breakdown" name="{{'equipment_breakdown'.$key}}"
-                  @foreach($bill->breakdowns()->where('unit_type',2)->get() as $e_break)
+                <input type="text" class="form-control equipment_breakdown" name="{{'equipment_breakdown'.$key}}" @foreach($bill->breakdowns()->where('unit_type',2)->get() as $e_break)
                 @if ($e_break->unit_item==$equ->item)
                 value="{{$e_break->unit_count}}"
                 @endif
@@ -477,6 +466,41 @@
         </table>
       </div>
 
+      <div class="eat_in">
+        <table class="table table-bordered">
+          <thead>
+            <tr>
+              <th colspan='2'>
+                <p class="title-icon">
+                  <i class="fas fa-utensils icon-size fa-fw"></i>室内飲食工藤さん！追加項目です。仮押さえから丸コピーしました。
+                </p>
+              </th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>
+                {{Form::radio('eat_in', 1, false , ['id' => 'eat_in'])}}
+                {{Form::label('eat_in',"あり")}}
+              </td>
+              <td>
+                {{Form::radio('eat_in_prepare', 1, false , ['id' => 'eat_in_prepare', 'disabled'])}}
+                {{Form::label('eat_in_prepare',"手配済み")}}
+                {{Form::radio('eat_in_prepare', 2, false , ['id' => 'eat_in_consider','disabled'])}}
+                {{Form::label('eat_in_consider',"検討中")}}
+              </td>
+            </tr>
+            <tr>
+              <td>
+                {{Form::radio('eat_in', 0, true , ['id' => 'no_eat_in'])}}
+                {{Form::label('no_eat_in',"なし")}}
+              </td>
+              <td></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
     </div>
     <div class="col">
       <div class="client_mater">
@@ -509,42 +533,42 @@
             </td>
           </tr>
           <tr>
-              <td class="table-active"><label for="name">担当者氏名　工藤さん！！</label></td>
-              <td>
-                <p class="person"></p>
-              </td>
-            </tr>
-            <tr>
-              <td class="table-active">メールアドレス 工藤さん！！</td>
-              <td>
-                <p class="email"></p>
-              </td>
-            </tr>
-            <tr>
-              <td class="table-active">携帯番号 工藤さん！！</td>
-              <td>
-                <p class="mobile"></p>
-              </td>
-            </tr>
-            <tr>
-              <td class="table-active">固定電話 工藤さん！！</td>
-              <td>
-                <p class="tel"></p>
-              </td>
-            </tr>
-            <tr>
-              <td class="table-active">割引条件 工藤さん！！</td>
-              <td>
-                <p class="condition">
-                </p>
-              </td>
-            </tr>
-            <tr>
-              <td class="table-active caution">注意事項 工藤さん！！</td>
-              <td class="caution">
-                <p class="attention"></p>
-              </td>
-            </tr>
+            <td class="table-active"><label for="name">担当者氏名　工藤さん！！</label></td>
+            <td>
+              <p class="person"></p>
+            </td>
+          </tr>
+          <tr>
+            <td class="table-active">メールアドレス 工藤さん！！</td>
+            <td>
+              <p class="email"></p>
+            </td>
+          </tr>
+          <tr>
+            <td class="table-active">携帯番号 工藤さん！！</td>
+            <td>
+              <p class="mobile"></p>
+            </td>
+          </tr>
+          <tr>
+            <td class="table-active">固定電話 工藤さん！！</td>
+            <td>
+              <p class="tel"></p>
+            </td>
+          </tr>
+          <tr>
+            <td class="table-active">割引条件 工藤さん！！</td>
+            <td>
+              <p class="condition">
+              </p>
+            </td>
+          </tr>
+          <tr>
+            <td class="table-active caution">注意事項 工藤さん！！</td>
+            <td class="caution">
+              <p class="attention"></p>
+            </td>
+          </tr>
         </table>
         <table class="table table-bordered oneday-table" style="table-layout:fixed;">
           <tr>
@@ -715,7 +739,7 @@
               <tr>
                 <td colspan="3"></td>
                 <td colspan="1">
-                <p class="text-left">合計</p>
+                  <p class="text-left">合計</p>
                   {{ Form::text('venue_price', $bill->venue_price,['class'=>'form-control col-xs-3', 'readonly'] ) }}
                 </td>
               </tr>
@@ -806,7 +830,7 @@
               <tr>
                 <td colspan="3"></td>
                 <td colspan="1">
-                <p class="text-left">合計</p>
+                  <p class="text-left">合計</p>
                   {{ Form::text('equipment_price', $bill->equipment_price,['class'=>'form-control', 'readonly'] ) }}
                 </td>
               </tr>
@@ -881,7 +905,7 @@
               <tr>
                 <td colspan="3"></td>
                 <td colspan="1">
-                <p class="text-left">合計</p>
+                  <p class="text-left">合計</p>
                   {{ Form::text('layout_price',$bill->layout_price ,['class'=>'form-control', 'readonly'] ) }}
                 </td>
               </tr>
@@ -958,7 +982,7 @@
               <tr>
                 <td colspan="4"></td>
                 <td colspan="1">
-                <p class="text-left">合計</p>
+                  <p class="text-left">合計</p>
                   {{ Form::text('others_price', $bill->others_price,['class'=>'form-control', 'readonly'] ) }}
                 </td>
               </tr>
@@ -1089,7 +1113,7 @@
                 <p class="is-error-pay_person" style="color: red"></p>
               </td>
               <td>入金額{{ Form::text('payment', $bill->payment,['class'=>'form-control'] ) }}
-              <p class="is-error-payment" style="color: red"></p>
+                <p class="is-error-payment" style="color: red"></p>
               </td>
             </tr>
           </table>

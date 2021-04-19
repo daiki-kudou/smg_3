@@ -245,6 +245,30 @@
           </tbody>
         </table>
       </div>
+
+      <div class="eat_in">
+        <table class="table table-bordered eating-table">
+          <tbody>
+            <tr>
+              <td colspan="2">
+                <p class="title-icon">
+                  <i class="fas fa-utensils icon-size fa-fw"></i>室内飲食工藤さん！追加項目です。
+                </p>
+              </td>
+            </tr>
+            <tr>
+              <td>
+                ありかなし
+              </td>
+            </tr>
+            <tr>
+              <td>
+                手配済みか検討中
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
     </div>
 
     <div class="col">
