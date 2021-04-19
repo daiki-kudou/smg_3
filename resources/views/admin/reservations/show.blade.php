@@ -487,8 +487,8 @@
         <tr>
           <td>
             <p>管理者備考</p>
-            <!-- <p>{{isset($reservation->admin_details)?$reservation->admin_details:'なし'}}</p> -->
-            <p>{!!nl2br(e($reservation->admin_details))!!}</p>
+            <p>{{isset($reservation->admin_details)?$reservation->admin_details:'なし'}}</p>
+            <!-- <p>{!!nl2br(e($reservation->admin_details))!!}</p> -->
           </td>
         </tr>
       </table>

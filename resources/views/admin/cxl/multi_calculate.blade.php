@@ -5,6 +5,7 @@
 
 <link href="{{ asset('/css/template.css') }}" rel="stylesheet">
 <script src="{{ asset('/js/template.js') }}"></script>
+<script src="{{ asset('/js/admin/validation.js') }}"></script>
 
 <div class="">
   <h2 class="mt-3 mb-3">一括キャンセル請求書 作成</h2>
@@ -36,7 +37,7 @@
       </div>
       <div class="main">
         <div class="cancel_content cancel_border bg-white">
-          {{ Form::open(['url' => 'admin/cxl/multi_check', 'method'=>'POST', 'class'=>'']) }}
+          {{ Form::open(['url' => 'admin/cxl/multi_check', 'method'=>'POST', 'class'=>'' ,'id'=>'cxl_multicalc']) }}
           @csrf
           <h4 class="cancel_ttl">キャンセル料計算</h4>
           <table class="table table-borderless">
@@ -316,9 +317,11 @@
               <tr>
                 <td>振込人名
                   {{Form::text('pay_person','',['class'=>'form-control'])}}
+                  <p class="is-error-pay_person" style="color: red"></p>
                 </td>
                 <td>入金額
                   {{Form::text('payment','',['class'=>'form-control'])}}
+                  <p class="is-error-payment" style="color: red"></p>
                 </td>
               </tr>
             </tbody>

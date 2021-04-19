@@ -1090,6 +1090,7 @@ $(function () {
 $(function () {
   var target = [
     "#cxlcalc","#multi_calc",
+    "#cxl_multicalc","#multi_calc",
   ];
 
   $.each(target, function (index, value) {
