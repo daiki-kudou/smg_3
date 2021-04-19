@@ -102,7 +102,7 @@
                 <tr>
                   <td colspan="4"></td>
                   <td colspan="1">
-                  <p class="text-left">合計</p>
+                    <p class="text-left">合計</p>
                     {{Form::text('venue_price',$bill->venue_price,['class'=>'form-control','readonly'])}}
                   </td>
                 </tr>
@@ -178,7 +178,7 @@
                 <tr>
                   <td colspan="4"></td>
                   <td colspan="1">
-                  <p class="text-left">合計</p>
+                    <p class="text-left">合計</p>
                     {{Form::text('equipment_price',$bill->equipment_price,['class'=>'form-control','readonly'])}}
                   </td>
                 </tr>
@@ -255,7 +255,7 @@
                 <tr>
                   <td colspan="4"></td>
                   <td colspan="1">
-                  <p class="text-left">合計</p>
+                    <p class="text-left">合計</p>
                     {{Form::text('layout_price',$bill->layout_price,['class'=>'form-control','readonly'])}}
                   </td>
                 </tr>
@@ -331,7 +331,7 @@
                 <tr>
                   <td colspan="4"></td>
                   <td colspan="1">
-                  <p class="text-left">合計</p>
+                    <p class="text-left">合計</p>
                     {{Form::text('others_price',$bill->others_price,['class'=>'form-control','readonly'])}}
                   </td>
                 </tr>
@@ -385,7 +385,10 @@
             <table class="table">
               <tbody>
                 <tr>
-                  <td>請求日：</td>
+                  <td>請求日：
+                    {{Form::text('bill_created_at', $bill->bill_created_at,['class'=>'form-control', 'datepicker1'])}}
+
+                  </td>
                   <td>支払期日
                     {{Form::text('payment_limit', $bill->payment_limit,['class'=>'form-control', 'datepicker1'])}}
                   </td>

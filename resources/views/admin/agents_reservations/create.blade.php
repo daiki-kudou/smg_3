@@ -152,8 +152,8 @@
           <tr>
             <td class="table-active">案内板</td>
             <td class="d-flex align-items-center">
-            <div class="radio-box">
-              <p>
+              <div class="radio-box">
+                <p>
                   <input type="radio" name="board_flag" value="1" id="board_flag" class="mr-1"
                     {{isset($request->board_flag)?$request->board_flag==1?'checked':'':'',}}>有り
                 </p>
@@ -161,7 +161,7 @@
                   <input type="radio" name="board_flag" value="0" id="no_board_flag" class="mr-1"
                     {{isset($request->board_flag)?$request->board_flag==0?'checked':'':'checked',}}>無し
                 </p>
-            </div>
+              </div>
             </td>
           </tr>
           <tr>
@@ -196,33 +196,33 @@
           </tr>
           <tr>
             <td class="table-active">イベント名称1</td>
-              <td>
-                <div class="align-items-end d-flex">
-                  {{ Form::text('event_name1','',['class'=>'form-control', 'placeholder'=>'入力してください', 'id'=>'eventname1Count'] ) }}
-                  <span class="ml-1 annotation count_num1"></span>
-                </div>
-                <p class="is-error-event_name1" style="color: red"></p>
-              </td>
+            <td>
+              <div class="align-items-end d-flex">
+                {{ Form::text('event_name1','',['class'=>'form-control', 'placeholder'=>'入力してください', 'id'=>'eventname1Count'] ) }}
+                <span class="ml-1 annotation count_num1"></span>
+              </div>
+              <p class="is-error-event_name1" style="color: red"></p>
+            </td>
           </tr>
           <tr>
             <td class="table-active">イベント名称2</td>
-              <td>
-                <div class="align-items-end d-flex">
-                  {{ Form::text('event_name2', '',['class'=>'form-control', 'placeholder'=>'入力してください', 'id'=>'eventname2Count'] ) }}
-                  <span class="ml-1 annotation count_num2"></span>
-                </div>
-                <p class="is-error-event_name2" style="color: red"></p>
-              </td>
+            <td>
+              <div class="align-items-end d-flex">
+                {{ Form::text('event_name2', '',['class'=>'form-control', 'placeholder'=>'入力してください', 'id'=>'eventname2Count'] ) }}
+                <span class="ml-1 annotation count_num2"></span>
+              </div>
+              <p class="is-error-event_name2" style="color: red"></p>
+            </td>
           </tr>
           <tr>
             <td class="table-active">主催者名</td>
-              <td>
-                <div class="align-items-end d-flex">
-                  {{ Form::text('event_owner', '',['class'=>'form-control', 'placeholder'=>'入力してください', 'id'=>'eventownerCount'] ) }}
-                  <span class="ml-1 annotation count_num3"></span>
-                </div>
-                <p class="is-error-event_owner" style="color: red"></p>
-              </td>
+            <td>
+              <div class="align-items-end d-flex">
+                {{ Form::text('event_owner', '',['class'=>'form-control', 'placeholder'=>'入力してください', 'id'=>'eventownerCount'] ) }}
+                <span class="ml-1 annotation count_num3"></span>
+              </div>
+              <p class="is-error-event_owner" style="color: red"></p>
+            </td>
           </tr>
         </tbody>
       </table>
