@@ -174,7 +174,7 @@
           </thead>
           <tbody>
             @foreach ($multiples as $multiple)
-            <pre>{{var_dump($multiple->pre_reservations->first())}}</pre>
+            <pre>{{var_dump($multiple->pre_reservations->first()->user_id)}}</pre>
             {{-- <tr>
               <td class="text-center">
                 <input type="checkbox" name="{{'delete_check'.$multiple->id}}" value="{{$multiple->id}}"
