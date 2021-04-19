@@ -2218,12 +2218,12 @@
     <dl class="d-flex col-12 justify-content-end align-items-center">
       <dt><label for="checkname">一人目チェック者</label></dt>
       <dd>
-        {{ Form::open(['url' => 'admin/bills/other_doublecheck', 'method'=>'POST']) }}
+        {{ Form::open(['url' => 'admin/cxl/double_check', 'method'=>'POST']) }}
         @csrf
         {{Form::select('double_check1_name', $admin, 
         null, ['placeholder' => '選択してください', 'class'=>'form-control double_check1_name'])}}
         {{ Form::hidden('double_check_status', $cxl->double_check_status ) }}
-        {{ Form::hidden('bills_id', $cxl->id ) }}
+        {{ Form::hidden('cxl_id', $cxl->id ) }}
       </dd>
       <dd>
         <p class="text-right">
@@ -2238,12 +2238,12 @@
     <dl class="d-flex col-12 justify-content-end align-items-center">
       <dt><label for="checkname">二人目チェック者</label></dt>
       <dd>
-        {{ Form::open(['url' => 'admin/bills/other_doublecheck', 'method'=>'POST']) }}
+        {{ Form::open(['url' => 'admin/cxl/double_check', 'method'=>'POST']) }}
         @csrf
         {{Form::select('double_check2_name', $admin, 
         null, ['placeholder' => '選択してください', 'class'=>'form-control double_check2_name'])}}
         {{ Form::hidden('double_check_status', $cxl->double_check_status ) }}
-        {{ Form::hidden('bills_id', $cxl->id ) }}
+        {{ Form::hidden('cxl_id', $cxl->id ) }}
       </dd>
       <dd>
         <p class="text-right">

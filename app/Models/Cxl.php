@@ -124,4 +124,18 @@ class Cxl extends Model
       }
     });
   }
+  public function doubleCheck($doubleCheckStatus, $cxlId, $doubleCheckName, $doubleCheckName2 = "")
+  {
+    if ($doubleCheckStatus == 0) {
+      $this->update([
+        'double_check1_name' => $doubleCheckName,
+        'double_check_status' => 1
+      ]);
+    } elseif ($doubleCheckStatus == 1) {
+      $this->update([
+        'double_check2_name' => $doubleCheckName2,
+        'double_check_status' => 2
+      ]);
+    }
+  }
 }
