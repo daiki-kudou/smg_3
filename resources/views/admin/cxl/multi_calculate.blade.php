@@ -59,10 +59,10 @@
                   {{Form::hidden('cxl_target_cost[]',$info[0])}}
                 </td>
                 <td class="multiple">×</td>
-                <td class="d-flex align-items-center">
+                <td class="">
                   {{$data['cxl_venue_PC']}}
                   {{Form::hidden('cxl_target_percent[]',$data['cxl_venue_PC'])}}
-                  <span class="ml-1">%</span>
+                  <span>%</span>
                 </td>
               </tr>
             </tbody>
@@ -79,10 +79,10 @@
                   {{Form::hidden('cxl_target_cost[]',$info[1])}}
                 </td>
                 <td class="multiple">×</td>
-                <td class="d-flex align-items-center">
+                <td class="">
                   {{$data['cxl_equipment_PC']}}
                   {{Form::hidden('cxl_target_percent[]',$data['cxl_equipment_PC'])}}
-                  <span class="ml-1">%</span></td>
+                  <span>%</span></td>
               </tr>
             </tbody>
             @endif
@@ -97,10 +97,10 @@
                   {{Form::hidden('cxl_target_cost[]',$info[2])}}
                 </td>
                 <td class="multiple">×</td>
-                <td class="d-flex align-items-center">
+                <td class="">
                   {{$data['cxl_layout_PC']}}
                   {{Form::hidden('cxl_target_percent[]',$data['cxl_layout_PC'])}}
-                  <span class="ml-1">%</span></td>
+                  <span>%</span></td>
               </tr>
             </tbody>
             @endif
@@ -115,10 +115,10 @@
                   {{Form::hidden('cxl_target_cost[]',$info[3])}}
                 </td>
                 <td class="multiple">×</td>
-                <td class="d-flex align-items-center">
+                <td class="">
                   {{$data['cxl_other_PC']}}
                   {{Form::hidden('cxl_target_percent[]',$data['cxl_other_PC'])}}
-                  <span class="ml-1">%</span></td>
+                  <span>%</span></td>
               </tr>
             </tbody>
             @endif

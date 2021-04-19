@@ -1920,20 +1920,16 @@
 @endif
 
 
-
-
-
 {{-- キャンセル詳細 --}}
 @foreach ($reservation->cxls as $key=>$cxl)
 <section class="mt-5 p-0">
   <div class="bill">
-    <div class="bill_head2">
-      <table class="table bill_table pt-2">
+    <div class="bill_head_cancel">
+      <table class="table bill_table pt-2 bill_head_cancel">
         <tbody>
           <tr>
             <td>
               <h2 class="text-white">
-                丸岡さん!! ここピンク色にしてください　　　
                 請求書No
               </h2>
             </td>

@@ -1638,10 +1638,17 @@ table .master_total_subttl2 {
 }
 
 
-.bill_head_cancel {
+.bill_head_cancel .table {
+    background: #ee6243;
+    padding: 10px;
+}
+
+.bill_head_cancel .table {
     background: #ee6243;
     table-layout: fixed;
+    padding: 10px;
 }
+
 
 .cancel_content {
     margin: 5%;
