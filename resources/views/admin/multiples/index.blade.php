@@ -202,18 +202,18 @@
                 {{ReservationHelper::getAgentMobile($multiple->pre_reservations->first()->agent->id)}}
                 @endif
               </td>
-              <td>
-                @if (!empty($multiple->pre_reservations->first()->user))
-                {{ReservationHelper::getPersonTel($multiple->pre_reservations->first()->user->id)}}
-                @else
-                {{ReservationHelper::getAgentTel($multiple->pre_reservations->first()->agent->id)}}
-                @endif
-              </td>
               {{-- <td>
                 @if (!empty($multiple->pre_reservations->first()->user))
-                {{($multiple->pre_reservations->first()->unknown_user->unknown_user_company)}}
+                {{ReservationHelper::getPersonTel($multiple->pre_reservations->first()->user->id)}}
+              @else
+              {{ReservationHelper::getAgentTel($multiple->pre_reservations->first()->agent->id)}}
               @endif
-              </td> --}}
+              </td>
+              <td>
+                @if (!empty($multiple->pre_reservations->first()->user))
+                {{($multiple->pre_reservations->first()->unknown_user->unknown_user_company)}}
+                @endif
+              </td>
               <td>
                 @if (empty($multiple->pre_reservations->first()->user))
                 {{$multiple->pre_reservations->first()->agent->company}}
@@ -230,7 +230,7 @@
                 @else
                 <a href="{{url('admin/multiples/agent/'.$multiple->id)}}" class="btn more_btn">詳細</a>
                 @endif
-              </td>
+              </td> --}}
             </tr>
 
             @endforeach
