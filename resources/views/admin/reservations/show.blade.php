@@ -2035,14 +2035,14 @@
           {{ Form::hidden('bill_id', '$other_bill->id##############################' ) }}
           {{ Form::hidden('user_id', '$reservation->user_id#############################' ) }}
           {{ Form::hidden('reservation_id', '$reservation->id####################################33' ) }}
-          <p class="mr-2">{{ Form::submit('利用者に承認メールを送る',['class' => 'btn more_btn']) }}</p>
+          <p class="mr-2">{{ Form::submit('利用者にキャンセル承認メールを送る',['class' => 'btn more_btn']) }}</p>
           {{ Form::close() }}
 
           {{ Form::open(['url' => '#', 'method'=>'POST', 'class'=>'']) }}
           @csrf
           {{ Form::hidden('bill_id', '$other_bill->id####################3' ) }}
           <p>
-            {{ Form::submit('予約を確定する',['class' => 'btn more_btn4']) }}
+            {{ Form::submit('キャンセルを確定する',['class' => 'btn more_btn4']) }}
           </p>
           {{ Form::close() }}
           @endif
@@ -2223,6 +2223,7 @@
         {{Form::select('double_check1_name', $admin, 
         null, ['placeholder' => '選択してください', 'class'=>'form-control double_check1_name'])}}
         {{ Form::hidden('double_check_status', $cxl->double_check_status ) }}
+        {{ Form::hidden('reservation_id', $reservation->id ) }}
         {{ Form::hidden('cxl_id', $cxl->id ) }}
       </dd>
       <dd>

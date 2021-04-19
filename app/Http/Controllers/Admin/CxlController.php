@@ -156,29 +156,8 @@ class CxlController extends Controller
   public function doubleCheck(Request $request)
   {
     $cxl = Cxl::find($request->cxl_id);
-
     $cxl->doubleCheck($request->double_check_status, $request->cxl_id, $request->double_check1_name, $request->double_check2_name);
-    // ■ここ！！！！！！！！
-    // ■ここ！！！！！！！！
-    // ■ここ！！！！！！！！
-    // ■ここ！！！！！！！！
-    // ■ここ！！！！！！！！
-    // ■ここ！！！！！！！！
-    // ■ここ！！！！！！！！
-    // ■ここ！！！！！！！！
-    // ■ここ！！！！！！！！
-
-    // if ($request->double_check_status == 0) {
-    //   $reservation_bills->update([
-    //     'double_check1_name' => $request->double_check1_name,
-    //     'double_check_status' => 1
-    //   ]);
-    // } elseif ($request->double_check_status == 1) {
-    //   $reservation_bills->update([
-    //     'double_check2_name' => $request->double_check2_name,
-    //     'double_check_status' => 2
-    //   ]);
-    // }
+    return redirect(route('admin.reservations.show', $cxl->reservation_id));
   }
 
 
