@@ -2244,20 +2244,19 @@
 {{-- キャンセル総合計請求額 --}}
 @if (!empty($reservation->cxls))
 
-<div class="master_totals border-wrap">
+<div class="master_totals_cancel">
   <table class="table">
-    <tbody class="master_total_head">
+    <tbody class="master_total_head2">
       <tr>
         <td colspan="2">
           <h3>
             キャンセル料　合計請求額
-            丸岡さん!!! ここの色も変更必要かと思います
           </h3>
         </td>
       </tr>
     </tbody>
     <tr>
-      <td colspan="2" class="master_total_subttl">
+      <td colspan="2" class="master_total_subttl2">
         <h4>内訳</h4>
       </td>
     </tr>

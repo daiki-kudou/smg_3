@@ -288,7 +288,7 @@
               <tr>
                 <td class="table-active">{{$equipment->item}}</td>
                 <td>
-                  {{ Form::text('equipment_breakdown'.$key, $request->{'equipment_breakdown'.$key},['class'=>'form-control', 'placeholder'=>'入力してください'] ) }}
+                  {{ Form::text('equipment_breakdown'.$key, $request->{'equipment_breakdown'.$key},['class'=>'form-control equipment_breakdown', 'placeholder'=>'入力してください'] ) }}
                 </td>
               </tr>
               @endforeach
