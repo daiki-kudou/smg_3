@@ -185,7 +185,7 @@
               <td>{{$multiple->pre_reservations->count()}}</td>
               <td>
                 @if ($multiple->pre_reservations->first()->user_id!=0)
-                {{var_dump(ReservationHelper::getCompany($multiple->pre_reservations->first()->user_id))}}
+                {{-- {{var_dump(ReservationHelper::getCompany($multiple->pre_reservations->first()->user_id))}} --}}
                 @endif
               </td>
               <td>
