@@ -2043,10 +2043,17 @@
         </div>
       </div>
       <div class="main hide">
-        <div class="venues billdetails_content">
-          <div>
-            丸岡さん!!! ここにキャンセル料計算のデザイン（中務さんからいただいた）お願いします
-            <table class="table">
+        <div class="billdetails_content">
+          <h4 class="cancel_ttl">キャンセル料計算</h4>
+            <table class="table table-borderless">
+            <thead class="head_cancel">
+              <tr>
+                <td>内容</td>
+                <td>申込み金額</td>
+                <td></td>
+                <td>キャンセル料率</td>
+              </tr>
+            </thead>
               @foreach ($cxl->cxl_breakdowns->where('unit_type',2) as $cxl_calc)
               <tr>
                 <td>{{$cxl_calc->unit_item}}円</td>
@@ -2056,8 +2063,9 @@
               </tr>
               @endforeach
             </table>
-          </div>
+        </div>
 
+        <div class="billdetails_content">
           <table class="table table-borderless">
             <tbody>
               <tr>
