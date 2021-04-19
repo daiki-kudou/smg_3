@@ -25,8 +25,20 @@ $(function () {
     var venue_id = $('#venues_selector').val();
     // ajaxGetItems(venue_id);
     ajaxGetSalesHours(venue_id, dates);
+  });
+
+
+  $(document).on("change", "#user_select", function () {
+    var user_id = $('#user_select').val();
+    $('.user_link').html('');
+    $('.user_link').append("<a class='more_btn' href='/admin/clients/" + user_id + "'>顧客詳細</a>")
+
+    getUserDetails(user_id);
 
   });
+
+
+
 
   /*--------------------------------------------------
   // 計算するボタン押下トリガー
@@ -54,7 +66,6 @@ $(function () {
       var s_target = $('.services table tbody tr').eq(services_index).find("input:radio[name='" + 'service' + (services_index) + "']:checked").val();
       services_array.push(Number(s_target));
     }
-    // console.log('サービスの数', services_array);
 
     ajaxGetItemsDetails(venue_id, equipemnts_array, services_array);
 
@@ -74,8 +85,7 @@ $(function () {
       $(elem).val('');
     })
 
-    var user_id = $('.select2-hidden-accessible').val();
-    ajaxGetClients(user_id);
+    // ajaxGetClients(user_id);
 
 
     // 関数処理の順番にばらつきがあるので、１秒後に実行
@@ -672,7 +682,70 @@ $(function () {
 
 
   // 顧客　情報　取得
-  function ajaxGetClients($user_id) {
+  // function ajaxGetClients($user_id) {
+  //   $.ajax({
+  //     headers: {
+  //       'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+  //     },
+  //     url: '/admin/clients/getclients',
+  //     type: 'POST',
+  //     data: {
+  //       'user_id': $user_id
+  //     },
+  //     dataType: 'json',
+  //     beforeSend: function () {
+  //       $('#fullOverlay').css('display', 'block');
+  //     },
+  //   })
+  //     .done(function ($user_results) {
+  //       $('#fullOverlay').css('display', 'none');
+  //       console.log('ajaxGetClients 成功', $user_results)
+  //       // 1. ３営業日前　2. 当月末　3. 翌月末 のいずれかで返ってくる
+  //       var s_date = $('#datepicker1').val();
+  //       if ($user_results[0] == 1) {
+  //         var dt = new Date(s_date);
+  //         var three_days_before = dt.setDate(dt.getDate() - 3); //営業日前
+  //         three_days_before = new Date(three_days_before);
+  //         var target_name = $('input[name="payment_limit"]');
+  //         var target_name2 = $('input[name="bill_pay_limit"]');
+  //         target_name.val(three_days_before.getFullYear() + '-' + (('0' + (three_days_before.getMonth() + 1)).slice(-2)) + '-' + (('0' + three_days_before.getDate()).slice(-2)));
+  //         target_name2.val(three_days_before.getFullYear() + '-' + (('0' + (three_days_before.getMonth() + 1)).slice(-2)) + '-' + (('0' + three_days_before.getDate()).slice(-2)));
+  //         $('.selected_person').text('');
+  //         $('.selected_person').text($user_results[1]);
+  //         $('input[name="bill_person"]').val(''); //hiddenのbill_personに挿入
+  //         $('input[name="bill_person"]').val($user_results[1]);//hiddenのbill_personに挿入
+  //       } else if ($user_results[0] == 2) {
+  //         var dt = new Date(s_date);
+  //         var end_of_month = new Date(dt.getFullYear(), dt.getMonth() + 1, 0);　//当月末日
+  //         var target_name = $('input[name="payment_limit"]');
+  //         var target_name2 = $('input[name="bill_pay_limit"]');
+  //         target_name.val(end_of_month.getFullYear() + '-' + (('0' + (end_of_month.getMonth() + 1)).slice(-2)) + '-' + (('0' + end_of_month.getDate()).slice(-2)));
+  //         target_name2.val(end_of_month.getFullYear() + '-' + (('0' + (end_of_month.getMonth() + 1)).slice(-2)) + '-' + (('0' + end_of_month.getDate()).slice(-2)));
+  //         $('.selected_person').text('');
+  //         $('.selected_person').text($user_results[1]);
+  //         $('input[name="bill_person"]').val(''); //hiddenのbill_personに挿入
+  //         $('input[name="bill_person"]').val($user_results[1]);//hiddenのbill_personに挿入
+  //       } else if ($user_results[0] == 3) {
+  //         var dt = new Date(s_date);
+  //         var end_of_next_month = new Date(dt.getFullYear(), dt.getMonth() + 2, 0);
+  //         var target_name = $('input[name="payment_limit"]');
+  //         var target_name2 = $('input[name="bill_pay_limit"]');
+  //         target_name.val(end_of_next_month.getFullYear() + '-' + (('0' + (end_of_next_month.getMonth() + 1)).slice(-2)) + '-' + (('0' + end_of_next_month.getDate()).slice(-2)));
+  //         target_name2.val(end_of_next_month.getFullYear() + '-' + (('0' + (end_of_next_month.getMonth() + 1)).slice(-2)) + '-' + (('0' + end_of_next_month.getDate()).slice(-2)));
+  //         $('.selected_person').text('');
+  //         $('.selected_person').text($user_results[1]);
+  //         $('input[name="bill_person"]').val(''); //hiddenのbill_personに挿入
+  //         $('input[name="bill_person"]').val($user_results[1]);//hiddenのbill_personに挿入  
+  //       };
+  //     })
+  //     .fail(function ($user_results) {
+  //       console.log('ajaxGetClients 失敗', $user_results)
+  //       $('#fullOverlay').css('display', 'none');
+  //       swal('顧客情報の取得に失敗しました。');
+  //     });
+  // };
+
+  function getUserDetails(user_id) {
     $.ajax({
       headers: {
         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -680,7 +753,7 @@ $(function () {
       url: '/admin/clients/getclients',
       type: 'POST',
       data: {
-        'user_id': $user_id
+        'user_id': user_id
       },
       dataType: 'json',
       beforeSend: function () {
@@ -689,51 +762,19 @@ $(function () {
     })
       .done(function ($user_results) {
         $('#fullOverlay').css('display', 'none');
-        console.log('ajaxGetClients 成功', $user_results)
-        // 1. ３営業日前　2. 当月末　3. 翌月末 のいずれかで返ってくる
-        var s_date = $('#datepicker1').val();
-        if ($user_results[0] == 1) {
-          var dt = new Date(s_date);
-          var three_days_before = dt.setDate(dt.getDate() - 3); //営業日前
-          three_days_before = new Date(three_days_before);
-          var target_name = $('input[name="payment_limit"]');
-          var target_name2 = $('input[name="bill_pay_limit"]');
-          target_name.val(three_days_before.getFullYear() + '-' + (('0' + (three_days_before.getMonth() + 1)).slice(-2)) + '-' + (('0' + three_days_before.getDate()).slice(-2)));
-          target_name2.val(three_days_before.getFullYear() + '-' + (('0' + (three_days_before.getMonth() + 1)).slice(-2)) + '-' + (('0' + three_days_before.getDate()).slice(-2)));
-          $('.selected_person').text('');
-          $('.selected_person').text($user_results[1]);
-          $('input[name="bill_person"]').val(''); //hiddenのbill_personに挿入
-          $('input[name="bill_person"]').val($user_results[1]);//hiddenのbill_personに挿入
-        } else if ($user_results[0] == 2) {
-          var dt = new Date(s_date);
-          var end_of_month = new Date(dt.getFullYear(), dt.getMonth() + 1, 0);　//当月末日
-          var target_name = $('input[name="payment_limit"]');
-          var target_name2 = $('input[name="bill_pay_limit"]');
-          target_name.val(end_of_month.getFullYear() + '-' + (('0' + (end_of_month.getMonth() + 1)).slice(-2)) + '-' + (('0' + end_of_month.getDate()).slice(-2)));
-          target_name2.val(end_of_month.getFullYear() + '-' + (('0' + (end_of_month.getMonth() + 1)).slice(-2)) + '-' + (('0' + end_of_month.getDate()).slice(-2)));
-          $('.selected_person').text('');
-          $('.selected_person').text($user_results[1]);
-          $('input[name="bill_person"]').val(''); //hiddenのbill_personに挿入
-          $('input[name="bill_person"]').val($user_results[1]);//hiddenのbill_personに挿入
-        } else if ($user_results[0] == 3) {
-          var dt = new Date(s_date);
-          var end_of_next_month = new Date(dt.getFullYear(), dt.getMonth() + 2, 0);
-          var target_name = $('input[name="payment_limit"]');
-          var target_name2 = $('input[name="bill_pay_limit"]');
-          target_name.val(end_of_next_month.getFullYear() + '-' + (('0' + (end_of_next_month.getMonth() + 1)).slice(-2)) + '-' + (('0' + end_of_next_month.getDate()).slice(-2)));
-          target_name2.val(end_of_next_month.getFullYear() + '-' + (('0' + (end_of_next_month.getMonth() + 1)).slice(-2)) + '-' + (('0' + end_of_next_month.getDate()).slice(-2)));
-          $('.selected_person').text('');
-          $('.selected_person').text($user_results[1]);
-          $('input[name="bill_person"]').val(''); //hiddenのbill_personに挿入
-          $('input[name="bill_person"]').val($user_results[1]);//hiddenのbill_personに挿入  
-        };
+        $('.person').text('').text($user_results[0]);
+        $('.email').text('').text($user_results[1]);
+        $('.mobile').text('').text($user_results[2]);
+        $('.tel').text('').text($user_results[3]);
+        $('.condition').html('').html($user_results[4].replace(/\n/g, "<br>"));
+        $('.attention').html('').html($user_results[5].replace(/\n/g, "<br>"));
+        console.log($user_results);
       })
       .fail(function ($user_results) {
-        console.log('ajaxGetClients 失敗', $user_results)
         $('#fullOverlay').css('display', 'none');
-        swal('顧客情報の取得に失敗しました。');
+        console.log('ajaxGetClients 失敗', $user_results)
       });
-  };
+  }
 });
 
 

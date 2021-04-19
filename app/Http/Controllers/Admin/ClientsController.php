@@ -194,10 +194,14 @@ class ClientsController extends Controller
    */
   public function getclients(Request $request)
   {
-    $user_id = $request->user_id;
-    $user = User::find($user_id);
-    $name = $user->first_name . $user->last_name;
-    //1. ３営業日前　2. 当月末　3. 翌月末
-    return [$user->pay_limit, $name];
+    $user = User::find($request->user_id);
+    $person = $user->first_name . $user->last_name;
+    $email = $user->email;
+    $mobile = $user->mobile;
+    $tel = $user->tel;
+    $condition = $user->condition;
+    $attention = $user->attention;
+
+    return [$person, $email, $mobile, $tel, $condition, $attention, $request->user_id];
   }
 }

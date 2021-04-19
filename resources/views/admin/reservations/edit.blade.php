@@ -510,7 +510,9 @@
                 <p class="title-icon">
                   <i class="far fa-id-card icon-size"></i>顧客情報
                 </p>
-                <p><a class="more_btn" href="">顧客詳細工藤さん！！リンク</a></p>
+                <p class="user_link">
+                  <a class="more_btn" href="{{url('admin/clients/'.$reservation->user_id)}}">顧客詳細</a>
+                </p>
               </div>
             </td>
           </tr>
@@ -532,40 +534,50 @@
             </td>
           </tr>
           <tr>
-            <td class="table-active"><label for="name">担当者氏名　工藤さん！！</label></td>
+            <td class="table-active"><label for="name">担当者氏名</label></td>
             <td>
-              <p class="person"></p>
+              <p class="person">
+                {{ReservationHelper::getPersonName($user->id)}}
+              </p>
             </td>
           </tr>
           <tr>
             <td class="table-active">メールアドレス 工藤さん！！</td>
             <td>
-              <p class="email"></p>
+              <p class="email">{{ReservationHelper::getPersonEmail($user->id)}}</p>
             </td>
           </tr>
           <tr>
             <td class="table-active">携帯番号 工藤さん！！</td>
             <td>
-              <p class="mobile"></p>
+              <p class="mobile">
+                {{ReservationHelper::getPersonMobile($user->id)}}
+              </p>
             </td>
           </tr>
           <tr>
             <td class="table-active">固定電話 工藤さん！！</td>
             <td>
-              <p class="tel"></p>
+              <p class="tel">
+                {{ReservationHelper::getPersonTel($user->id)}}
+              </p>
             </td>
           </tr>
           <tr>
             <td class="table-active">割引条件 工藤さん！！</td>
             <td>
               <p class="condition">
+                {!!nl2br(e(ReservationHelper::getPersonCondition($user->id)))!!}
               </p>
             </td>
           </tr>
           <tr>
             <td class="table-active caution">注意事項 工藤さん！！</td>
             <td class="caution">
-              <p class="attention"></p>
+              <p class="attention">
+                {!!nl2br(e(ReservationHelper::getPersonAttention($user->id)))!!}
+
+              </p>
             </td>
           </tr>
         </table>
