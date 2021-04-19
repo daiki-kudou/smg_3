@@ -260,12 +260,29 @@
                 {{ Form::text('luggage_return', $request->luggage_return,['class'=>'form-control', 'readonly'] ) }}
               </td>
             </tr>
-            <!-- <tr>
-              <td class="table-active">荷物預り料金</td>
+          </tbody>
+        </table>
+      </div>
+      <div class="eat_in">
+        <table class="table table-bordered">
+          <thead>
+            <tr>
+              <th colspan='2'>
+                <p class="title-icon">
+                  <i class="fas fa-utensils icon-size fa-fw"></i>室内飲食工藤さん！追加項目です。
+                </p>
+              </th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
               <td>
-                {{ Form::text('luggage_price', $request->luggage_price,['class'=>'form-control', 'readonly'] ) }}
+                ありかなし
               </td>
-            </tr> -->
+              <td>
+              手配済みか検討中
+              </td>
+            </tr>
           </tbody>
         </table>
       </div>
@@ -400,7 +417,7 @@
           <tr>
             <td>
               <label for="adminNote">管理者備考</label>
-              {{ Form::textarea('admin_details', $request->admin_details,['class'=>'form-control', 'placeholder'=>'入力してください'] ) }}
+              {{ Form::textarea('admin_details', $request->admin_details,['class'=>'form-control', 'readonly'] ) }}
             </td>
           </tr>
         </tbody>

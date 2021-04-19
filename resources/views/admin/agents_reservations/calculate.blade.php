@@ -414,6 +414,43 @@
             </tbody>
           </table>
         </div>
+
+        <div class="eat_in">
+        <table class="table table-bordered">
+          <thead>
+            <tr>
+              <th colspan='2'>
+                <p class="title-icon">
+                  <i class="fas fa-utensils icon-size fa-fw"></i>室内飲食工藤さん！追加項目です。仮押さえから丸コピーしました。
+                </p>
+              </th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>
+                {{Form::radio('eat_in', 1, false , ['id' => 'eat_in'])}}
+                {{Form::label('eat_in',"あり")}}
+              </td>
+              <td>
+                {{Form::radio('eat_in_prepare', 1, false , ['id' => 'eat_in_prepare', 'disabled'])}}
+                {{Form::label('eat_in_prepare',"手配済み")}}
+                {{Form::radio('eat_in_prepare', 2, false , ['id' => 'eat_in_consider','disabled'])}}
+                {{Form::label('eat_in_consider',"検討中")}}
+              </td>
+            </tr>
+            <tr>
+              <td>
+                {{Form::radio('eat_in', 0, true , ['id' => 'no_eat_in'])}}
+                {{Form::label('no_eat_in',"なし")}}
+              </td>
+              <td></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+
       </div>
 
       <div class="col">
