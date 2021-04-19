@@ -209,11 +209,11 @@
                 {{ReservationHelper::getAgentTel($multiple->pre_reservations->first()->agent->id)}}
                 @endif
               </td>
-              <td>
+              {{-- <td>
                 @if (!empty($multiple->pre_reservations->first()->user))
                 {{($multiple->pre_reservations->first()->unknown_user->unknown_user_company)}}
-                @endif
-              </td>
+              @endif
+              </td> --}}
               <td>
                 @if (empty($multiple->pre_reservations->first()->user))
                 {{$multiple->pre_reservations->first()->agent->company}}
