@@ -655,7 +655,14 @@ $(function () {
       },
     })
       .done(function ($operaions) {
-        $('.sales_percentage').val('').val($operaions);
+        // $('.sales_percentage').val('').val($operaions);
+        $('#user_cost').removeClass('hide');
+        $('.sales_percentage').val('');
+        if ($operaions[0] == 0) {
+          $('#user_cost').addClass('hide');
+        } else {
+          $('.sales_percentage').val($operaions[1]);
+        }
       })
       .fail(function ($operaions) {
         $('#fullOverlay').css('display', 'none');

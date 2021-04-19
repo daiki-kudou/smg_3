@@ -500,6 +500,9 @@
           </tr>
         </tbody>
       </table>
+
+      @if (!empty($value['cost']))
+
       <table class="table table-bordered sale-table" style="table-layout:fixed;">
         <tbody>
           <tr>
@@ -524,6 +527,8 @@
           </tr>
         </tbody>
       </table>
+      @endif
+
       <table class="table table-bordered note-table">
         <tbody>
           <tr>

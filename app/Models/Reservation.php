@@ -185,7 +185,7 @@ class Reservation extends Model implements PresentableInterface
         'email_flag' => $master_info['email_flag'],
         'in_charge' => $master_info['in_charge'],
         'tel' => $master_info['tel'],
-        'cost' => $master_info['cost'],
+        'cost' => !empty($master_info['cost']) ? $master_info['cost'] : 0,
         'discount_condition' => "",
         'attention' => "",
         'user_details' => $master_info['user_details'],

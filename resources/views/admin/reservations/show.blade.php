@@ -454,6 +454,8 @@
         </tr>
       </table>
 
+      @if ($venue->alliance_flag!=0)
+
       <table class="table table-bordered sale-table">
         <tr>
           <td colspan="2">
@@ -468,6 +470,7 @@
           <td>{{$reservation->cost==0?'':$reservation->cost}}</td>
         </tr>
       </table>
+      @endif
 
       <table class="table table-bordered note-table">
         <tr>

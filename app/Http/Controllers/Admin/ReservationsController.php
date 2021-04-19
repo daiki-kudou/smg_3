@@ -205,11 +205,11 @@ class ReservationsController extends Controller
   {
     $venue = Venue::find($request->venue_id);
     $flag = $venue->alliance_flag;
-    $percentage = $venue->cost ? $venue->cost : 0;
+    $percentage = $venue->cost;
     if ($flag == 0) {
-      return 0;
+      return [0, ''];
     } else {
-      return $percentage;
+      return [1, $percentage];
     }
   }
 

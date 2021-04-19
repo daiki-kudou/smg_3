@@ -296,6 +296,7 @@
         </div>
         <div class="price_details">
         </div>
+
       </div>
       <div class="col">
         <table class="table table-bordered name-table">
@@ -415,7 +416,7 @@
             </tr>
           </tbody>
         </table>
-        <table class="table table-bordered sale-table">
+        <table class="table table-bordered sale-table" id="user_cost">
           <tbody>
             <tr>
               <td colspan="2">
