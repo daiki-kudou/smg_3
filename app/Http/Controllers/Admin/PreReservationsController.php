@@ -668,15 +668,9 @@ class PreReservationsController extends Controller
             }
 
             Mail::to($admin) //管理者
-              ->send(new AdminPreResCxl(
-                $pre_reservation,
-                $user
-              ));
+              ->send(new AdminPreResCxl($pre_reservation, $user));
             Mail::to($user->email) //ユーザ
-              ->send(new UserPreResCxl(
-                $pre_reservation,
-                $user
-              ));
+              ->send(new UserPreResCxl($pre_reservation, $user));
           }
         }
       });
