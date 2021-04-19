@@ -115,7 +115,8 @@ class ReservationHelper
   public static function getPersonName($user_id)
   {
     $user = User::find($user_id);
-    return $user->first_name . $user->last_name;
+    // return $user->first_name . $user->last_name;
+    return var_dump($user);
   }
 
   public static function getPersonNameKANA($user_id)
