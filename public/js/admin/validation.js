@@ -32,7 +32,7 @@ jQuery.validator.addMethod(
 
 // 有料備品の数字入力制限
 $(function () {
-  $(".equipment_breakdown").on("input", function (e) {
+  $(".equipment_validation").on("input", function (e) {
     let value = $(e.currentTarget).val();
     value = value
       .replace(/[０-９]/g, function (s) {

@@ -358,10 +358,10 @@
                 <td>
                   @foreach ($PreReservation->pre_breakdowns()->get() as $s_equ)
                   @if ($s_equ->unit_item==$equ->item)
-                  {{ Form::text('equipment_breakdown'.$key,$s_equ->unit_count,['class'=>'form-control equipment_breakdowns'] ) }}
+                  {{ Form::text('equipment_breakdown'.$key,$s_equ->unit_count,['class'=>'form-control equipment_breakdowns equipment_validation'] ) }}
                   @break
                   @elseif($loop->last)
-                  {{ Form::text('equipment_breakdown'.$key,"",['class'=>'form-control equipment_breakdowns'] ) }}
+                  {{ Form::text('equipment_breakdown'.$key,"",['class'=>'form-control equipment_breakdowns equipment_validation'] ) }}
                   @endif
                   @endforeach
                   <p class='{{'is-error-equipment_breakdown'.$key}}' style='color: red'></p>
