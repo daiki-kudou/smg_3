@@ -42,8 +42,6 @@
 </div>
 
 
-
-
 {{Form::open(['url' => 'admin/reservations/'.$reservation->id.'/edit_calculate', 'method' => 'POST', 'id'=>''])}}
 @csrf
 {{ Form::hidden('reservation_id',  $reservation->id) }}
@@ -136,7 +134,7 @@
           <td class="table-active">案内板</td>
           <td>
             <div class="radio-box">
-            <p>
+              <p>
                 <input type="radio" name="board_flag" value="1" id="board_flag"
                   {{isset($reservation->board_flag)?$reservation->board_flag==1?'checked':'':'',}}>
                 <span>有り</span>
@@ -506,42 +504,42 @@
             </td>
           </tr>
           <tr>
-              <td class="table-active"><label for="name">担当者氏名　工藤さん！！</label></td>
-              <td>
-                <p class="person"></p>
-              </td>
-            </tr>
-            <tr>
-              <td class="table-active">メールアドレス 工藤さん！！</td>
-              <td>
-                <p class="email"></p>
-              </td>
-            </tr>
-            <tr>
-              <td class="table-active">携帯番号 工藤さん！！</td>
-              <td>
-                <p class="mobile"></p>
-              </td>
-            </tr>
-            <tr>
-              <td class="table-active">固定電話 工藤さん！！</td>
-              <td>
-                <p class="tel"></p>
-              </td>
-            </tr>
-            <tr>
-              <td class="table-active">割引条件 工藤さん！！</td>
-              <td>
-                <p class="condition">
-                </p>
-              </td>
-            </tr>
-            <tr>
-              <td class="table-active caution">注意事項 工藤さん！！</td>
-              <td class="caution">
-                <p class="attention"></p>
-              </td>
-            </tr>
+            <td class="table-active"><label for="name">担当者氏名　工藤さん！！</label></td>
+            <td>
+              <p class="person"></p>
+            </td>
+          </tr>
+          <tr>
+            <td class="table-active">メールアドレス 工藤さん！！</td>
+            <td>
+              <p class="email"></p>
+            </td>
+          </tr>
+          <tr>
+            <td class="table-active">携帯番号 工藤さん！！</td>
+            <td>
+              <p class="mobile"></p>
+            </td>
+          </tr>
+          <tr>
+            <td class="table-active">固定電話 工藤さん！！</td>
+            <td>
+              <p class="tel"></p>
+            </td>
+          </tr>
+          <tr>
+            <td class="table-active">割引条件 工藤さん！！</td>
+            <td>
+              <p class="condition">
+              </p>
+            </td>
+          </tr>
+          <tr>
+            <td class="table-active caution">注意事項 工藤さん！！</td>
+            <td class="caution">
+              <p class="attention"></p>
+            </td>
+          </tr>
         </table>
         <table class="table table-bordered oneday-table" style="table-layout:fixed;">
           <tr>
@@ -710,7 +708,7 @@
               <tr>
                 <td colspan="3"></td>
                 <td colspan="1">
-                <p class="text-left">合計</p>
+                  <p class="text-left">合計</p>
                   {{ Form::text('venue_price', $bill->venue_price,['class'=>'form-control col-xs-3', 'readonly'] ) }}
                 </td>
               </tr>
@@ -799,7 +797,7 @@
               <tr>
                 <td colspan="3"></td>
                 <td colspan="1">
-                <p class="text-left">合計</p>
+                  <p class="text-left">合計</p>
                   {{ Form::text('equipment_price', $bill->equipment_price,['class'=>'form-control', 'readonly'] ) }}
                 </td>
               </tr>
@@ -872,7 +870,7 @@
               <tr>
                 <td colspan="3"></td>
                 <td colspan="1">
-                <p class="text-left">合計</p>
+                  <p class="text-left">合計</p>
                   {{ Form::text('layout_price',$bill->layout_price ,['class'=>'form-control', 'readonly'] ) }}
                 </td>
               </tr>
@@ -947,7 +945,7 @@
               <tr>
                 <td colspan="4"></td>
                 <td colspan="1">
-                <p class="text-left">合計</p>
+                  <p class="text-left">合計</p>
                   {{ Form::text('others_price', $bill->others_price,['class'=>'form-control', 'readonly'] ) }}
                 </td>
               </tr>
@@ -1024,7 +1022,9 @@
         <div class="informations billdetails_content py-3">
           <table class="table">
             <tr>
-              <td>請求日：</td>
+              <td>請求日：
+                {{ Form::text('bill_created_at', $bill->bill_created_at,['class'=>'form-control', 'id'=>'datepicker6'] ) }}
+              </td>
               <td>支払期日
                 {{ Form::text('pay_limit', $bill->pay_limit,['class'=>'form-control', 'id'=>'datepicker6'] ) }}
               </td>

@@ -470,8 +470,8 @@
               <tr>
                 <td colspan="3"></td>
                 <td colspan="1">
-                <p class="text-left">合計</p>
-                    {{ Form::text('venue_price', $request->venue_price,['class'=>'form-control col-xs-3', 'readonly'] ) }}
+                  <p class="text-left">合計</p>
+                  {{ Form::text('venue_price', $request->venue_price,['class'=>'form-control col-xs-3', 'readonly'] ) }}
                 </td>
               </tr>
             </tbody>
@@ -565,7 +565,7 @@
               <tr>
                 <td colspan="3"></td>
                 <td colspan="1">
-                <p class="text-left">合計</p>
+                  <p class="text-left">合計</p>
                   {{ Form::text('equipment_price', $request->equipment_price,['class'=>'form-control', 'readonly'] ) }}
                 </td>
               </tr>
@@ -646,7 +646,7 @@
               <tr>
                 <td colspan="3"></td>
                 <td colspan="1">
-                <p class="text-left">合計</p>
+                  <p class="text-left">合計</p>
                   {{ Form::text('layout_price',$request->layout_price,['class'=>'form-control', 'readonly'] ) }}
                 </td>
               </tr>
@@ -694,7 +694,7 @@
               <tr>
                 <td colspan="3"></td>
                 <td colspan="1">
-                <p class="text-left">合計</p>
+                  <p class="text-left">合計</p>
                   {{ Form::text('others_price', $request->others_price,['class'=>'form-control', 'readonly'] ) }}
                 </td>
               </tr>
@@ -750,7 +750,9 @@
           <table class="table">
             <tbody>
               <tr>
-                <td>請求日：</td>
+                <td>請求日：
+                  {{ Form::text('bill_created_at', $request->bill_created_at,['class'=>'form-control', 'readonly'] ) }}
+                </td>
                 <td>支払期日
                   {{ Form::text('payment_limit', $request->pay_limit,['class'=>'form-control', 'readonly'] ) }}
                 </td>
@@ -864,9 +866,6 @@
     @endif
     @endfor
     @endforeach
-
-
-
 
     {{ Form::hidden('layout_prepare', $request->layout_prepare ) }}
     {{ Form::hidden('layout_clean', $request->layout_clean ) }}

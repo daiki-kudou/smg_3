@@ -197,7 +197,9 @@
           <td>
             <select name="enter_time" id="sales_start" class="form-control">
               <option disabled selected></option>
-              @for ($start = 0*2; $start <=23*2; $start++) <option value="{{date("H:i:s", strtotime("00:00 +". $start * 30 ." minute"))}}" @if (date("H:i:s", strtotime("00:00 +". $start * 30 ." minute"))==$request->enter_time)
+              @for ($start = 0*2; $start <=23*2; $start++) <option
+                value="{{date("H:i:s", strtotime("00:00 +". $start * 30 ." minute"))}}" @if (date("H:i:s",
+                strtotime("00:00 +". $start * 30 ." minute"))==$request->enter_time)
                 selected
                 @endif>
                 {{date("H時i分", strtotime("00:00 +". $start * 30 ." minute"))}}
@@ -211,7 +213,9 @@
           <td>
             <select name="leave_time" id="sales_finish" class="form-control">
               <option disabled selected></option>
-              @for ($start = 0*2; $start <=23*2; $start++) <option value="{{date("H:i:s", strtotime("00:00 +". $start * 30 ." minute"))}}" @if (date("H:i:s", strtotime("00:00 +". $start * 30 ." minute"))==$request->leave_time)
+              @for ($start = 0*2; $start <=23*2; $start++) <option
+                value="{{date("H:i:s", strtotime("00:00 +". $start * 30 ." minute"))}}" @if (date("H:i:s",
+                strtotime("00:00 +". $start * 30 ." minute"))==$request->leave_time)
                 selected
                 @endif
                 >
@@ -236,8 +240,10 @@
           <td class="table-active">案内板</td>
           <td>
             <div class="radio-box">
-              <p><input type="radio" name="board_flag" value="1"  id="board_flag" {{isset($request->board_flag)?$request->board_flag==1?'checked':'':'',}}><span>有り</span></p>
-              <p><input type="radio" name="board_flag" value="0" id="no_board_flag" {{isset($request->board_flag)?$request->board_flag==0?'checked':'':'checked',}}><span>無し</span></p>
+              <p><input type="radio" name="board_flag" value="1" id="board_flag"
+                  {{isset($request->board_flag)?$request->board_flag==1?'checked':'':'',}}><span>有り</span></p>
+              <p><input type="radio" name="board_flag" value="0" id="no_board_flag"
+                  {{isset($request->board_flag)?$request->board_flag==0?'checked':'':'checked',}}><span>無し</span></p>
             </div>
           </td>
         </tr>
@@ -246,7 +252,9 @@
           <td>
             <select name="event_start" id="event_start" class="form-control">
               <option disabled>選択してください</option>
-              @for ($start = 0*2; $start <=23*2; $start++) <option value="{{date("H:i:s", strtotime("00:00 +". $start * 30 ." minute"))}}" @if (date("H:i:s", strtotime("00:00 +". $start * 30 ." minute"))==$request->event_start)
+              @for ($start = 0*2; $start <=23*2; $start++) <option
+                value="{{date("H:i:s", strtotime("00:00 +". $start * 30 ." minute"))}}" @if (date("H:i:s",
+                strtotime("00:00 +". $start * 30 ." minute"))==$request->event_start)
                 selected
                 @endif
                 >
@@ -260,7 +268,9 @@
           <td>
             <select name="event_finish" id="event_finish" class="form-control">
               <option disabled>選択してください</option>
-              @for ($start = 0*2; $start <=23*2; $start++) <option value="{{date("H:i:s", strtotime("00:00 +". $start * 30 ." minute"))}}" @if (date("H:i:s", strtotime("00:00 +". $start * 30 ." minute"))==$request->event_finish)
+              @for ($start = 0*2; $start <=23*2; $start++) <option
+                value="{{date("H:i:s", strtotime("00:00 +". $start * 30 ." minute"))}}" @if (date("H:i:s",
+                strtotime("00:00 +". $start * 30 ." minute"))==$request->event_finish)
                 selected
                 @endif
                 >
@@ -483,9 +493,9 @@
               <td class="table-active">荷物預り/返送<br>料金</td>
               <td>
                 <div class="d-flex align-items-end">
-                {{ Form::text('luggage_price', $request->luggage_price,['class'=>'form-control'] ) }}
-                <span class="ml-1">円</span>
-              </div>
+                  {{ Form::text('luggage_price', $request->luggage_price,['class'=>'form-control'] ) }}
+                  <span class="ml-1">円</span>
+                </div>
                 <p class='is-error-luggage_price' style=' color: red'></p>
               </td>
             </tr>
@@ -730,7 +740,7 @@
               <tr>
                 <td colspan="3"></td>
                 <td colspan="1">
-                <p class="text-left">合計</p>
+                  <p class="text-left">合計</p>
                   {{ Form::text('venue_price', $price_details[0],['class'=>'form-control col-xs-3', 'readonly'] ) }}
                 </td>
               </tr>
@@ -787,7 +797,7 @@
               <tr>
                 <td colspan="3"></td>
                 <td colspan="1">
-                <p class="text-left">合計</p>
+                  <p class="text-left">合計</p>
                   {{ Form::text('venue_price', '',['class'=>'form-control col-xs-3', 'readonly'] ) }}
                 </td>
               </tr>
@@ -869,7 +879,7 @@
               <tr>
                 <td colspan="3"></td>
                 <td colspan="1">
-                <p class="text-left">合計</p>
+                  <p class="text-left">合計</p>
                   {{ Form::text('equipment_price', ($item_details[0]+$request->luggage_price),['class'=>'form-control', 'readonly'] ) }}
                 </td>
               </tr>
@@ -949,7 +959,7 @@
               <tr>
                 <td colspan="3"></td>
                 <td colspan="1">
-                <p class="text-left">合計</p>
+                  <p class="text-left">合計</p>
                   {{ Form::text('layout_price',$layouts_details[2] ,['class'=>'form-control', 'readonly'] ) }}
                 </td>
               </tr>
@@ -1019,7 +1029,7 @@
               <tr>
                 <td colspan="4"></td>
                 <td colspan="1">
-                <p class="text-left">合計</p>
+                  <p class="text-left">合計</p>
                   {{ Form::text('others_price', '',['class'=>'form-control', 'readonly'] ) }}
                 </td>
               </tr>
@@ -1073,7 +1083,10 @@
         <div class="informations billdetails_content py-3">
           <table class="table">
             <tr>
-              <td>請求日：</td>
+              <td>請求日：
+                {{ Form::text('bill_created_at', $request->bill_created_at,['class'=>'form-control', 'id'=>'datepicker6'] ) }}
+
+              </td>
               <td>支払期日 {{ Form::text('pay_limit', $pay_limit,['class'=>'form-control', 'id'=>'datepicker6'] ) }} </td>
             </tr>
             <tr>

@@ -375,7 +375,7 @@ class ReservationsController extends Controller
    */
   public function show($id)
   {
-    session()->forget(['add_bill', 'cxlCalcInfo', 'cxlMaster', 'cxlResult', 'invoice', 'multiOrSingle']);
+    session()->forget(['add_bill', 'cxlCalcInfo', 'cxlMaster', 'cxlResult', 'invoice', 'multiOrSingle', 'discount_info', 'calc_info', 'master_info']);
     $reservation = Reservation::with(['bills.breakdowns', 'cxls.cxl_breakdowns'])->find($id);
     $venue = Venue::find($reservation->venue->id);
     $user = User::find($reservation->user_id);
@@ -535,12 +535,6 @@ class ReservationsController extends Controller
 
   public function edit_check(Request $request, $id)
   {
-    echo "<pre>";
-
-    echo "</pre>";
-    echo "<pre>";
-
-    echo "</pre>";
 
     $venue = Venue::find($request->venue_id);
     $venue_details = Venue::getBreakdowns($request);
@@ -585,9 +579,10 @@ class ReservationsController extends Controller
    */
   public function update(Request $request, $id)
   {
-
     $reservation = Reservation::find($id);
     $reservation->UpdateReservation($request);
+
+    return redirect(route('admin.reservations.show', $reservation->id));
   }
 
   /**
