@@ -52,7 +52,7 @@
   <hr>
 </div>
 
-{{Form::open(['url' => 'admin/agents_reservations/calculate', 'method' => 'POST', 'id'=>'agentReservationCreateForm'])}}
+{{Form::open(['url' => 'admin/agents_reservations/store_session', 'method' => 'POST', 'id'=>'agentReservationCreateForm'])}}
 @csrf
 <section class="mt-5">
   <div class="row">
@@ -108,7 +108,9 @@
               <div>
                 <select name="enter_time" id="sales_start" class="form-control">
                   <option disabled selected></option>
-                  @for ($start = 0*2; $start <=23*2; $start++) <option value="{{date("H:i:s", strtotime("00:00 +". $start * 30 ." minute"))}}" @if (isset($request)) @endif>
+                  @for ($start = 0*2; $start <=23*2; $start++) <option
+                    value="{{date("H:i:s", strtotime("00:00 +". $start * 30 ." minute"))}}" @if (isset($request))
+                    @endif>
                     {{date("H時i分", strtotime("00:00 +". $start * 30 ." minute"))}}
                     </option>
                     @endfor
@@ -123,7 +125,9 @@
               <div>
                 <select name="leave_time" id="sales_finish" class="form-control">
                   <option disabled selected></option>
-                  @for ($start = 0*2; $start <=23*2; $start++) <option value="{{date("H:i:s", strtotime("00:00 +". $start * 30 ." minute"))}}" @if (isset($request)) @endif>
+                  @for ($start = 0*2; $start <=23*2; $start++) <option
+                    value="{{date("H:i:s", strtotime("00:00 +". $start * 30 ." minute"))}}" @if (isset($request))
+                    @endif>
                     {{date("H時i分", strtotime("00:00 +". $start * 30 ." minute"))}}</option>
                     @endfor
                 </select>
@@ -154,7 +158,8 @@
                     {{isset($request->board_flag)?$request->board_flag==1?'checked':'':'',}}>有り
                 </p>
                 <p class="mr-3">
-                  <input type="radio" name="board_flag" value="0" id="no_board_flag" class="mr-1" {{isset($request->board_flag)?$request->board_flag==0?'checked':'':'checked',}}>無し
+                  <input type="radio" name="board_flag" value="0" id="no_board_flag" class="mr-1"
+                    {{isset($request->board_flag)?$request->board_flag==0?'checked':'':'checked',}}>無し
                 </p>
               </div>
             </td>
@@ -165,7 +170,9 @@
               <div>
                 <select name="event_start" id="event_start" class="form-control">
                   <option disabled>選択してください</option>
-                  @for ($start = 0*2; $start <=23*2; $start++) <option value="{{date("H:i:s", strtotime("00:00 +". $start * 30 ." minute"))}}" @if (isset($request)) @endif>
+                  @for ($start = 0*2; $start <=23*2; $start++) <option
+                    value="{{date("H:i:s", strtotime("00:00 +". $start * 30 ." minute"))}}" @if (isset($request))
+                    @endif>
                     {{date("H時i分", strtotime("00:00 +". $start * 30 ." minute"))}}</option>
                     @endfor
                 </select>
@@ -178,7 +185,9 @@
               <div>
                 <select name="event_finish" id="event_finish" class="form-control">
                   <option disabled>選択してください</option>
-                  @for ($start = 0*2; $start <=23*2; $start++) <option value="{{date("H:i:s", strtotime("00:00 +". $start * 30 ." minute"))}}" @if (isset($request)) @endif>
+                  @for ($start = 0*2; $start <=23*2; $start++) <option
+                    value="{{date("H:i:s", strtotime("00:00 +". $start * 30 ." minute"))}}" @if (isset($request))
+                    @endif>
                     {{date("H時i分", strtotime("00:00 +". $start * 30 ." minute"))}}</option>
                     @endfor
                 </select>
@@ -288,7 +297,7 @@
               </th>
             </tr>
           </thead>
-          <tbody>
+          <tbody class="eat_in">
             <tr>
               <td>
                 {{Form::radio('eat_in', 1, false , ['id' => 'eat_in'])}}

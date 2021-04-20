@@ -23,57 +23,73 @@ class AgentsReservationsController extends Controller
 {
   public function create()
   {
-    $venues = Venue::select('id', 'name_area', 'name_bldg', 'name_venue')->get();
-
+    $venues = Venue::all();
     $agents = Agent::all();
-    return view('admin.agents_reservations.create', [
-      'venues' => $venues,
-      'agents' => $agents,
-    ]);
+    return view('admin.agents_reservations.create', compact('venues', 'agents'));
   }
 
-  public function calculate(Request $request)
+  public function storeSession(Request $request)
   {
-    $venues = Venue::all();
-    $SPvenue = $venues->find($request->venue_id);
-    $agents = Agent::all();
-    $agent = $agents->find($request->agent_id);
+    $data = $request->all();
+    $request->session()->put('master_info', $data);
+    $calcData = $this->calcSession($request);
+    $request->session()->put('calc_info', $calcData);
+
+    return redirect(route('admin.agents_reservations.calculate'));
+  }
+
+  public function calcSession($request)
+  {
+    $agent = Agent::find($request->agent_id);
     $price = $agent->agentPriceCalculate($request->enduser_charge);
     $payment_limit = $agent->getAgentPayLimit($request->reserve_date);
     $carbon1 = new Carbon($request->enter_time);
     $carbon2 = new Carbon($request->leave_time);
-    $usage_hours = $carbon1->diffInMinutes($carbon2);
-    $usage_hours = $usage_hours / 60;
-    $_equipment = Equipment::sumArrays($request);
-    $_service = Service::sumArrays($request);
+    $usage_hours = ($carbon1->diffInMinutes($carbon2)) / 60;
 
-    $layout_price = 0;
-    if ($request->layout_prepare > 0) {
-      $layout_price += $venues->find($request->venue_id)->layout_prepare;
-    } else {
-      $layout_price += 0;
-    }
-    if ($request->layout_clean > 0) {
-      $layout_price += $venues->find($request->venue_id)->layout_clean;
-    } else {
-      $layout_price += 0;
-    }
-    $price = $price + $layout_price;
+    return [$price, $payment_limit, $usage_hours];
+  }
+
+  public function calculate(Request $request)
+  {
+    $master_info = $request->session()->get('master_info');
+    $calc_info = $request->session()->get('calc_info');
+    $discount_info = $request->session()->get('discount_info');
+
+    $venues = Venue::all();
+    // $SPvenue = $venues->find($request->venue_id);
+    $agents = Agent::all();
+    // $agent = $agents->find($request->agent_id);
+    // $price = $agent->agentPriceCalculate($request->enduser_charge);
+    // $payment_limit = $agent->getAgentPayLimit($request->reserve_date);
+    // $carbon1 = new Carbon($request->enter_time);
+    // $carbon2 = new Carbon($request->leave_time);
+    // $usage_hours = $carbon1->diffInMinutes($carbon2);
+    // $usage_hours = $usage_hours / 60;
+    // $_equipment = Equipment::sumArrays($request);
+    // $_service = Service::sumArrays($request);
+
+    // $layout_price = 0;
+    // if ($request->layout_prepare > 0) {
+    //   $layout_price += $venues->find($request->venue_id)->layout_prepare;
+    // } else {
+    //   $layout_price += 0;
+    // }
+    // if ($request->layout_clean > 0) {
+    //   $layout_price += $venues->find($request->venue_id)->layout_clean;
+    // } else {
+    //   $layout_price += 0;
+    // }
+    // $price = $price + $layout_price;
 
     return view(
       'admin.agents_reservations.calculate',
       compact(
-        'SPvenue',
-        'agents',
-        'agent',
-        'payment_limit',
-        'price',
         'venues',
-        'request',
-        'usage_hours',
-        'layout_price',
-        '_equipment',
-        '_service',
+        'agents',
+        'master_info',
+        'calc_info',
+        'discount_info',
       )
     );
   }

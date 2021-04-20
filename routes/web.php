@@ -189,19 +189,21 @@ Route::namespace('Admin')->prefix('admin')->name('admin.')->group(function () {
     Route::post('bills/other_doublecheck', 'BillsController@OtherDoubleCheck');
 
     Route::post('bills/other_send_approve', 'BillsController@other_send_approve');
-    // 仲介会社経由予約
-    Route::get('agents_reservations/create', 'AgentsReservationsController@create');
     // Bill　予約に紐づく
     Route::resource('bills', 'BillsController');
-
+    //********************** */
+    //***仲介会社　予約 */
+    //********************** */
+    // 仲介会社経由予約
+    Route::get('agents_reservations/create', 'AgentsReservationsController@create');
+    // 仲介　予約　計算　SESSION
+    Route::post('agents_reservations/store_session', 'AgentsReservationsController@storeSession');
     // 仲介会社経由　計算
-    Route::post('agents_reservations/calculate', 'AgentsReservationsController@calculate');
+    Route::get('agents_reservations/calculate', 'AgentsReservationsController@calculate')->name('agents_reservations.calculate');
     // 仲介会社経由　確認
     Route::post('agents_reservations/check', 'AgentsReservationsController@check');
     // 仲介会社経由　保存
     Route::post('agents_reservations', 'AgentsReservationsController@store');
-    // 仲介会社経由　再計算
-    // Route::post('agents_reservations/recalculate', 'AgentsReservationsController@recalculate')->name('agents_reservations.recalculate');
     // 仲介会社　請求　追加
     Route::post('agents_reservations/add_bills/{reservation}', 'AgentsReservationsController@add_bills')->name('agents_reservations.add_bills');
     // 仲介会社　追加請求　確認
@@ -276,6 +278,9 @@ Route::namespace('Admin')->prefix('admin')->name('admin.')->group(function () {
     Route::get('multiples/agent_switch/{multiple}', 'MultiplesController@switchAgent')->name("multiples.agent_switch");
     // 一括　仲介会社　更新
     Route::post('multiples/agent_switch_cfm/{multiple}', 'MultiplesController@switchAgent_cfm');
+    //********************** */
+    //***仲介会社　仮抑え */
+    //********************** */
     // 仲介会社　仮押え 作成
     Route::get('pre_agent_reservations/create', 'PreAgentReservationsController@create')->name('pre_agent_reservations.create');
     // 仲介会社　仮押え 確認
