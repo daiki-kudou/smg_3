@@ -277,7 +277,7 @@
 
                   <li>
                     <p>
-                    事前荷物の到着日：{{isset($reservation->luggage_arrive)?ReservationHelper::formatDate($reservation->luggage_arrive):''}}
+                      事前荷物の到着日：{{isset($reservation->luggage_arrive)?ReservationHelper::formatDate($reservation->luggage_arrive):''}}
                     </p>
                   </li>
                 </ul>
@@ -294,7 +294,7 @@
                   </li>
                   <li>
                     <p>
-                    荷物個数：{{isset($reservation->luggage_return)?$reservation->luggage_return:''}}個
+                      荷物個数：{{isset($reservation->luggage_return)?$reservation->luggage_return:''}}個
                     </p>
                   </li>
                 </ul>
@@ -640,8 +640,7 @@
                 <!-- </td> -->
                 <!-- <td> -->
                 @if ($reservation->bills()->first()->reservation_status<3) <p>
-                  <a href="{{url('admin/reservations/'.$reservation->bills()->first()->id.'/edit')}}"
-                    class="btn more_btn">編集</a>
+                  <a href="{{url('admin/reservations/'.$reservation->bills()->first()->id.'/edit')}}" class="btn more_btn">編集</a>
                   </p>
                   @endif
               </div>
@@ -774,10 +773,16 @@
     {{ Form::hidden('reservation_id', $reservation->id ) }}
     <p class="text-right py-2 mr-2">
       {{ Form::submit('一括キャンセル',['class' => 'btn more_btn4', $judgeMultiDelete!=1?"disabled":"",'name'=>'multi']) }}
-      <div class="text-right"><span>※全ての予約ステータスが「予約完了」か確認してください</span></div>
+    <div class="text-right"><span>※全ての予約ステータスが「予約完了」か確認してください</span></div>
     </p>
     {{ Form::close() }}
     @endif
+  </div>
+
+  <div class="invoice_box d-flex justify-content-end my-3">
+    工藤さん！！請求書のボタンです！！
+    <p class="mr-2"><a class="more_btn" href="">請求書をみる</a></p>
+    <p class="mr-2"><a class="more_btn4" href="">領収書をみる</a></p>
   </div>
   </div>
   <div class="bill_details">
@@ -1145,8 +1150,7 @@
             <tr>
               <td></td>
               <td>
-                <span
-                  class="font-weight-bold">合計金額：</span>{{number_format($reservation->bills()->first()->master_total)}}
+                <span class="font-weight-bold">合計金額：</span>{{number_format($reservation->bills()->first()->master_total)}}
               </td>
             </tr>
           </tbody>
@@ -1392,6 +1396,11 @@
         </p>
         {{ Form::close() }}
         @endif
+      </div>
+      <div class="invoice_box d-flex justify-content-end my-3">
+        工藤さん！！請求書のボタンです！！
+        <p class="mr-2"><a class="more_btn" href="">請求書をみる</a></p>
+        <p class="mr-2"><a class="more_btn4" href="">領収書をみる</a></p>
       </div>
     </div>
 
@@ -1979,6 +1988,12 @@
           @endif
           @endif
       </div>
+
+      <div class="invoice_box d-flex justify-content-end my-3">
+        工藤さん！！請求書のボタンです！！
+        <p class="mr-2"><a class="more_btn" href="">請求書をみる</a></p>
+        <p class="mr-2"><a class="more_btn4" href="">領収書をみる</a></p>
+      </div>
     </div>
 
     <div class="bill_details">
@@ -1996,7 +2011,7 @@
       <div class="main hide">
         <div class="billdetails_content">
           <h4 class="cancel_ttl">キャンセル料計算</h4>
-            <table class="table table-borderless">
+          <table class="table table-borderless">
             <thead class="head_cancel">
               <tr>
                 <td>内容</td>
@@ -2005,15 +2020,15 @@
                 <td>キャンセル料率</td>
               </tr>
             </thead>
-              @foreach ($cxl->cxl_breakdowns->where('unit_type',2) as $cxl_calc)
-              <tr>
-                <td>{{$cxl_calc->unit_item}}円</td>
-                <td>{{($cxl_calc->unit_cost)}}</td>
-                <td>×</td>
-                <td>{{$cxl_calc->unit_count}}%</td>
-              </tr>
-              @endforeach
-            </table>
+            @foreach ($cxl->cxl_breakdowns->where('unit_type',2) as $cxl_calc)
+            <tr>
+              <td>{{$cxl_calc->unit_item}}円</td>
+              <td>{{($cxl_calc->unit_cost)}}</td>
+              <td>×</td>
+              <td>{{$cxl_calc->unit_count}}%</td>
+            </tr>
+            @endforeach
+          </table>
         </div>
 
         <div class="billdetails_content">
@@ -2267,22 +2282,22 @@
 
 
 <script>
-  $(function(){
-  $('#double_check1_submit,#double_check2_submit').on('click',function(){
-      if(!confirm('チェック完了しますか？')){
+  $(function() {
+    $('#double_check1_submit,#double_check2_submit').on('click', function() {
+      if (!confirm('チェック完了しますか？')) {
         return false;
       }
-  });
-  $('#send_confirm').on('click',function(){
-      if(!confirm('利用者に承認メールを送付しますか？')){
+    });
+    $('#send_confirm').on('click', function() {
+      if (!confirm('利用者に承認メールを送付しますか？')) {
         return false;
       }
-  });
-  $('#reservation_confirm').on('click',function(){
-      if(!confirm('予約を確定しますか？')){
+    });
+    $('#reservation_confirm').on('click', function() {
+      if (!confirm('予約を確定しますか？')) {
         return false;
       }
-  });
+    });
   });
 </script>
 
