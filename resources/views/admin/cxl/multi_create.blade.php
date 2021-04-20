@@ -5,6 +5,7 @@
 
 <link href="{{ asset('/css/template.css') }}" rel="stylesheet">
 <script src="{{ asset('/js/template.js') }}"></script>
+<script src="{{ asset('/js/admin/validation.js') }}"></script>
 
 <h2 class="mt-3 mb-3">キャンセル請求書 作成</h2>
 <hr>
@@ -49,9 +50,12 @@
                 <td>会場料</td>
                 <td>{{number_format($price_result[0])}}円</td>
                 <td class="multiple">×</td>
-                <td class="d-flex align-items-center">
-                  {{Form::text('cxl_venue_PC',!empty(session('cxlCalcInfo')['cxl_venue_PC'])?session('cxlCalcInfo')['cxl_venue_PC']:"",['class'=>'form-control'])}}
-                  <span class="ml-1">%</span>
+                <td>
+                  <div class="d-flex align-items-center">
+                    {{Form::text('cxl_venue_PC',!empty(session('cxlCalcInfo')['cxl_venue_PC'])?session('cxlCalcInfo')['cxl_venue_PC']:"",['class'=>'form-control'])}}
+                    <span class="ml-1">%</span>
+                  </div>
+                  <p class="is-error-cxl_venue_PC" style="color: red"></p>
                 </td>
               </tr>
             </tbody>
@@ -62,9 +66,13 @@
                 <td>有料備品・有料サービス料</td>
                 <td>{{number_format($price_result[1])}}円</td>
                 <td class="multiple">×</td>
-                <td class="d-flex align-items-center">
-                  {{Form::text('cxl_equipment_PC',!empty(session('cxlCalcInfo')['cxl_equipment_PC'])?session('cxlCalcInfo')['cxl_equipment_PC']:"",['class'=>'form-control'])}}
-                  <span class="ml-1">%</span></td>
+                <td>
+                  <div class="d-flex align-items-center">
+                    {{Form::text('cxl_equipment_PC',!empty(session('cxlCalcInfo')['cxl_equipment_PC'])?session('cxlCalcInfo')['cxl_equipment_PC']:"",['class'=>'form-control'])}}
+                    <span class="ml-1">%</span>
+                  </div>
+                  <p class="is-error-cxl_equipment_PC" style="color: red"></p>
+                </td>
               </tr>
             </tbody>
             @endif
@@ -74,9 +82,13 @@
                 <td>レイアウト変更料</td>
                 <td>{{number_format($price_result[2])}}円</td>
                 <td class="multiple">×</td>
-                <td class="d-flex align-items-center">
-                  {{Form::text('cxl_layout_PC',!empty(session('cxlCalcInfo')['cxl_layout_PC'])?session('cxlCalcInfo')['cxl_layout_PC']:"",['class'=>'form-control'])}}
-                  <span class="ml-1">%</span></td>
+                <td>
+                  <div class="d-flex align-items-center">
+                    {{Form::text('cxl_layout_PC',!empty(session('cxlCalcInfo')['cxl_layout_PC'])?session('cxlCalcInfo')['cxl_layout_PC']:"",['class'=>'form-control'])}}
+                    <span class="ml-1">%</span>
+                  </div>
+                  <p class="is-error-cxl_layout_PC" style="color: red"></p>
+                </td>
               </tr>
             </tbody>
             @endif
@@ -86,9 +98,13 @@
                 <td>その他</td>
                 <td>{{number_format($price_result[3])}}円</td>
                 <td class="multiple">×</td>
-                <td class="d-flex align-items-center">
-                  {{Form::text('cxl_other_PC',!empty(session('cxlCalcInfo')['cxl_other_PC'])?session('cxlCalcInfo')['cxl_other_PC']:"",['class'=>'form-control'])}}
-                  <span class="ml-1">%</span></td>
+                <td>
+                  <div class="d-flex align-items-center">
+                    {{Form::text('cxl_other_PC',!empty(session('cxlCalcInfo')['cxl_other_PC'])?session('cxlCalcInfo')['cxl_other_PC']:"",['class'=>'form-control'])}}
+                    <span class="ml-1">%</span>
+                  </div>
+                  <p class="is-error-cxl_other_PC" style="color: red"></p>
+                </td>
               </tr>
             </tbody>
             @endif
@@ -103,7 +119,7 @@
 
 
 <script>
-  $(function () {
+  $(function() {
 
     // チェックボックス開閉
     checkToggle('.venue_chkbox #venue', ['.venue_head', '.venue_main', '.venue_result']);
@@ -114,8 +130,8 @@
     checkToggle('.others_chkbox #others', ['.others_head', '.others_main', '.others_result']);
 
     function checkToggle($target, $items) {
-      $($target).on('click', function () {
-        $.each($items, function (index, value) {
+      $($target).on('click', function() {
+        $.each($items, function(index, value) {
           $(value).toggleClass('hide');
         });
       });

@@ -163,7 +163,7 @@ $(function () {
         $('.equipemnts table tbody').html(''); //一旦初期会
         $.each($items[0], function (index, value) {
           // ココで備品取得
-          $('.equipemnts table tbody').append("<tr><td class='table-active'>" + value['item'] + "</td>" + "<td><input type='text' value='0' min=0 name='equipment_breakdown" + index + "' class='form-control'></td></tr>");
+          $('.equipemnts table tbody').append("<tr><td class='table-active'>" + value['item'] + "</td>" + "<td><input type='text' value='0' min=0 name='equipment_breakdown" + index + "' class='form-control equipment_breakdown'></td></tr>");
         });
         // ***********マイナス、全角制御用
         function ExceptString($target) {
@@ -187,7 +187,7 @@ $(function () {
         $.each($items[1], function (index, value) {
           // ココでサービス取得
           // 有り・無しに変更するため以下コメントアウト
-          $('.services table tbody').append("<tr><td class='table-active'>" + value['item'] + "</td>" + "<td><input type='radio' value='1' name='services_breakdown" + index + "' id='service" + index + "on'><label class='mr-3' for='service" + index + "on' class='mr-1'>有り</label><input type='radio' value='0' id='service" + index + "off' name='services_breakdown" + index + "' checked><label for='service" + index + "off' class='mr-1'>無し</label></td></tr>");
+          $('.services table tbody').append("<tr><td class='table-active'>" + value['item'] + "</td>" + "<td><input type='radio' value='1' name='services_breakdown" + index + "' id='service" + index + "on'><label class='mr-3 ml-1' for='service" + index + "on'>有り</label><input type='radio' value='0' id='service" + index + "off' name='services_breakdown" + index + "' checked><label for='service" + index + "off' class='ml-1'>無し</label></td></tr>");
         });
       })
       .fail(function (data) {
@@ -619,7 +619,7 @@ $(function () {
         if ($luggage == 1) {
           var maxDate = $('#datepicker').val();
           $('.luggage table tbody').html('');
-          $('.luggage table tbody').append("<tr> <td class='table-active'>事前に預かる荷物<br>（個数）</td> <td class=''><input type='text' class='form-control luggage_count' placeholder='個数入力' name='luggage_count'></td> </tr> <tr> <td class='table-active'>事前荷物の到着日<br>午前指定のみ</td> <td class=''> <input id='datepicker3' type='text' class='form-control' placeholder='年-月-日' name='luggage_arrive'> </td> </tr> <tr> <td class='table-active'>事後返送する荷物</td> <td class=''><input type='text' class='form-control luggage_return' placeholder='個数入力' name='luggage_return'></td> </tr> <tr><td class='table-active'>荷物預り/返送　料金</td><td class=''><input type='text' class='form-control luggage_price' placeholder='金額入力' name='luggage_price'></td></tr><script>$('#datepicker3').datepicker({ dateFormat: 'yy-mm-dd', minDate: 0, maxDate:'" + maxDate + "' });</script>");
+          $('.luggage table tbody').append("<tr> <td class='table-active'>事前に預かる荷物<br>（個数）</td> <td class=''><input type='text' class='form-control luggage_count' placeholder='個数入力' name='luggage_count'><p class='is-error-luggage_count' style='color: red'></p></td> </tr> <tr> <td class='table-active'>事前荷物の到着日<br>午前指定のみ</td> <td class=''> <input id='datepicker3' type='text' class='form-control' placeholder='年-月-日' name='luggage_arrive'> </td> </tr> <tr> <td class='table-active'>事後返送する荷物</td> <td class=''><input type='text' class='form-control luggage_return' placeholder='個数入力' name='luggage_return'><p class='is-error-luggage_return' style='color: red'></p></td> </tr> <tr><td class='table-active'>荷物預り/返送　料金</td><td class=''><input type='text' class='form-control luggage_price' placeholder='金額入力' name='luggage_price'><p class='is-error-luggage_price' style='color: red'></p></td></tr><script>$('#datepicker3').datepicker({ dateFormat: 'yy-mm-dd', minDate: 0, maxDate:'" + maxDate + "' });</script>");
           // ***********マイナス、全角制御用
           function ExceptString($target) {
             $target.numeric({ negative: false, });

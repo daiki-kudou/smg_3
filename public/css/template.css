@@ -1436,6 +1436,7 @@ h3 {
     text-align: right;
 }
 
+
 .bill_icon_size {
     font-size: 2em;
     color: #fff;
@@ -1499,10 +1500,11 @@ h3 {
     background: #35a7a7;
     color: #fff;
 }
-
 table .master_total_subttl {
     border-bottom: 2px solid #35a7a7;
 }
+
+
 
 .master_total_body tr td {
     font-size: 1.1em;
@@ -1620,10 +1622,33 @@ table .master_total_subttl {
 }
 
 /* キャンセル -----------------------------------------------------*/
-.bill_head_cancel {
+
+.master_total_head2 {
+    background: #ef6243;
+    color: #fff;
+}
+
+table .master_total_subttl2 {
+    border-bottom: 2px solid #ef6243;
+}
+
+.master_totals_cancel {
+    border: 2px solid #ef6243;
+    margin: 3% 0;
+}
+
+
+.bill_head_cancel .table {
+    background: #ee6243;
+    padding: 10px;
+}
+
+.bill_head_cancel .table {
     background: #ee6243;
     table-layout: fixed;
+    padding: 10px;
 }
+
 
 .cancel_content {
     margin: 5%;

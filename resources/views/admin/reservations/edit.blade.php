@@ -42,7 +42,7 @@
 </div>
 
 
-{{Form::open(['url' => 'admin/reservations/'.$reservation->id.'/edit_calculate', 'method' => 'POST', 'id'=>''])}}
+{{Form::open(['url' => 'admin/reservations/'.$reservation->id.'/edit_calculate', 'method' => 'POST', 'id'=>'reservations_edit'])}}
 @csrf
 {{ Form::hidden('reservation_id',  $reservation->id) }}
 
@@ -92,9 +92,7 @@
           <td>
             <select name="enter_time" id="sales_start" class="form-control">
               <option disabled selected></option>
-              @for ($start = 0*2; $start <=23*2; $start++) <option
-                value="{{date("H:i:s", strtotime("00:00 +". $start * 30 ." minute"))}}" @if (date("H:i:s",
-                strtotime("00:00 +". $start * 30 ." minute"))==$reservation->enter_time)
+              @for ($start = 0*2; $start <=23*2; $start++) <option value="{{date("H:i:s", strtotime("00:00 +". $start * 30 ." minute"))}}" @if (date("H:i:s", strtotime("00:00 +". $start * 30 ." minute"))==$reservation->enter_time)
                 selected
                 @endif>
                 {{date("H時i分", strtotime("00:00 +". $start * 30 ." minute"))}}
@@ -108,9 +106,7 @@
           <td>
             <select name="leave_time" id="sales_finish" class="form-control">
               <option disabled selected></option>
-              @for ($start = 0*2; $start <=23*2; $start++) <option
-                value="{{date("H:i:s", strtotime("00:00 +". $start * 30 ." minute"))}}" @if (date("H:i:s",
-                strtotime("00:00 +". $start * 30 ." minute"))==$reservation->leave_time)
+              @for ($start = 0*2; $start <=23*2; $start++) <option value="{{date("H:i:s", strtotime("00:00 +". $start * 30 ." minute"))}}" @if (date("H:i:s", strtotime("00:00 +". $start * 30 ." minute"))==$reservation->leave_time)
                 selected
                 @endif
                 >
@@ -140,8 +136,7 @@
                 <span>有り</span>
               </p>
               <p>
-                <input type="radio" name="board_flag" value="0" id="no_board_flag"
-                  {{isset($reservation->board_flag)?$reservation->board_flag==0?'checked':'':'checked',}}>
+                <input type="radio" name="board_flag" value="0" id="no_board_flag" {{isset($reservation->board_flag)?$reservation->board_flag==0?'checked':'':'checked',}}>
                 <span>無し</span>
               </p>
             </div>
@@ -152,9 +147,7 @@
           <td>
             <select name="event_start" id="event_start" class="form-control">
               <option disabled>選択してください</option>
-              @for ($start = 0*2; $start <=23*2; $start++) <option
-                value="{{date("H:i:s", strtotime("00:00 +". $start * 30 ." minute"))}}" @if (date("H:i:s",
-                strtotime("00:00 +". $start * 30 ." minute"))==$reservation->event_start)
+              @for ($start = 0*2; $start <=23*2; $start++) <option value="{{date("H:i:s", strtotime("00:00 +". $start * 30 ." minute"))}}" @if (date("H:i:s", strtotime("00:00 +". $start * 30 ." minute"))==$reservation->event_start)
                 selected
                 @endif
                 >
@@ -169,9 +162,7 @@
 
             <select name="event_finish" id="event_finish" class="form-control">
               <option disabled>選択してください</option>
-              @for ($start = 0*2; $start <=23*2; $start++) <option
-                value="{{date("H:i:s", strtotime("00:00 +". $start * 30 ." minute"))}}" @if (date("H:i:s",
-                strtotime("00:00 +". $start * 30 ." minute"))==$reservation->event_finish)
+              @for ($start = 0*2; $start <=23*2; $start++) <option value="{{date("H:i:s", strtotime("00:00 +". $start * 30 ." minute"))}}" @if (date("H:i:s", strtotime("00:00 +". $start * 30 ." minute"))==$reservation->event_finish)
                 selected
                 @endif
                 >
@@ -232,8 +223,7 @@
                 {{$equ->item}}
               </td>
               <td>
-                <input type="text" class="form-control" name="{{'equipment_breakdown'.$key}}"
-                  @foreach($bill->breakdowns()->where('unit_type',2)->get() as $e_break)
+                <input type="text" class="form-control equipment_breakdown" name="{{'equipment_breakdown'.$key}}" @foreach($bill->breakdowns()->where('unit_type',2)->get() as $e_break)
                 @if ($e_break->unit_item==$equ->item)
                 value="{{$e_break->unit_count}}"
                 @endif
@@ -438,6 +428,7 @@
               <td class="table-active">事前に預かる荷物<br>（個数）</td>
               <td>
                 {{ Form::text('luggage_count', $reservation->luggage_count,['class'=>'form-control'] ) }}
+                <p class="is-error-luggage_count" style="color: red"></p>
               </td>
             </tr>
             <tr>
@@ -450,6 +441,7 @@
               <td class="table-active">事後返送する荷物</td>
               <td>
                 {{ Form::text('luggage_return', $reservation->luggage_return,['class'=>'form-control'] ) }}
+                <p class="is-error-luggage_return" style="color: red"></p>
               </td>
             </tr>
             <tr>
@@ -466,7 +458,43 @@
                 {{ Form::text('luggage_price', "",['class'=>'form-control'] ) }}
                 @endif
                 @endforeach
+                <p class="is-error-luggage_price" style="color: red"></p>
               </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="eat_in">
+        <table class="table table-bordered">
+          <thead>
+            <tr>
+              <th colspan='2'>
+                <p class="title-icon">
+                  <i class="fas fa-utensils icon-size fa-fw"></i>室内飲食工藤さん！追加項目です。仮押さえから丸コピーしました。
+                </p>
+              </th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>
+                {{Form::radio('eat_in', 1, false , ['id' => 'eat_in'])}}
+                {{Form::label('eat_in',"あり")}}
+              </td>
+              <td>
+                {{Form::radio('eat_in_prepare', 1, false , ['id' => 'eat_in_prepare', 'disabled'])}}
+                {{Form::label('eat_in_prepare',"手配済み")}}
+                {{Form::radio('eat_in_prepare', 2, false , ['id' => 'eat_in_consider','disabled'])}}
+                {{Form::label('eat_in_consider',"検討中")}}
+              </td>
+            </tr>
+            <tr>
+              <td>
+                {{Form::radio('eat_in', 0, true , ['id' => 'no_eat_in'])}}
+                {{Form::label('no_eat_in',"なし")}}
+              </td>
+              <td></td>
             </tr>
           </tbody>
         </table>
@@ -565,12 +593,14 @@
             <td class="table-active"><label for="ondayName" class=" form_required">氏名</label></td>
             <td>
               {{ Form::text('in_charge', $reservation->in_charge,['class'=>'form-control'] ) }}
+              <p class="is-error-in_charge" style="color: red"></p>
             </td>
           </tr>
           <tr>
             <td class="table-active"><label for="mobilePhone" class=" form_required">携帯番号</label></td>
             <td>
               {{ Form::text('tel', $reservation->tel,['class'=>'form-control'] ) }}
+              <p class="is-error-tel" style="color: red"></p>
             </td>
           </tr>
         </table>
@@ -606,7 +636,7 @@
           <td class="table-active"><label for="cost">原価率</label></td>
           <td>
             <div class="d-flex align-items-end">
-              {{ Form::text('', $reservation->cost,['class'=>'form-control'] ) }}
+              {{ Form::text('cost', $reservation->cost,['class'=>'form-control'] ) }}
               {{ Form::hidden('cost', $reservation->cost,['class'=>'form-control'] ) }}
               <span class="ml-1 annotation">%</span>
             </div>
@@ -641,7 +671,7 @@
 {{Form::submit('再計算する', ['class'=>'btn more_btn4_lg mx-auto d-block mt-5 mb-5', 'id'=>'check_submit'])}}
 {{Form::close()}}
 
-{{ Form::open(['url' => '###################', 'method'=>'POST', 'id'=>'agents_calculate_form']) }}
+{{ Form::open(['url' => '###################', 'method'=>'POST', 'id'=>'reservations_calculate_form']) }}
 @csrf
 <section class="mt-5">
   <div class="bill">
@@ -736,6 +766,7 @@
                     {{ Form::text('venue_number_discount', '',['class'=>'form-control'] ) }}
                     <p>円</p>
                   </div>
+                  <p class="is-error-venue_number_discount" style="color: red"></p>
                 </td>
                 <td>
                   <p>
@@ -745,6 +776,7 @@
                     {{ Form::text('venue_percent_discount', '',['class'=>'form-control'] ) }}
                     <p>%</p>
                   </div>
+                  <p class="is-error-venue_percent_discount" style="color: red"></p>
                 </td>
                 <td>
                   <input class="btn more_btn venue_discount_btn" type="button" value="計算する">
@@ -825,6 +857,7 @@
                     {{ Form::text('equipment_number_discount', '',['class'=>'form-control'] ) }}
                     <p>円</p>
                   </div>
+                  <p class="is-error-equipment_number_discount" style="color: red"></p>
                 </td>
                 <td>
                   <p>
@@ -834,6 +867,7 @@
                     {{ Form::text('equipment_percent_discount', '',['class'=>'form-control'] ) }}
                     <p>%</p>
                   </div>
+                  <p class="is-error-equipment_percent_discount" style="color: red"></p>
                 </td>
                 <td>
                   <input class="btn more_btn equipment_discount_btn" type="button" value="計算する">
@@ -898,6 +932,7 @@
                     {{ Form::text('layout_number_discount', '',['class'=>'form-control'] ) }}
                     <p>円</p>
                   </div>
+                  <p class="is-error-layout_number_discount" style="color: red"></p>
                 </td>
                 <td>
                   <p>
@@ -907,6 +942,7 @@
                     {{ Form::text('layout_percent_discount', '',['class'=>'form-control'] ) }}
                     <p>%</p>
                   </div>
+                  <p class="is-error-layout_percent_discount" style="color: red"></p>
                 </td>
                 <td>
                   <input class="btn more_btn layout_discount_btn" type="button" value="計算する">
@@ -973,6 +1009,7 @@
                     {{ Form::text('others_number_discount', '',['class'=>'form-control'] ) }}
                     <p>円</p>
                   </div>
+                  <p class="is-error-others_number_discount" style="color: red"></p>
                 </td>
                 <td>
                   <p>
@@ -982,10 +1019,12 @@
                     {{ Form::text('others_percent_discount', '',['class'=>'form-control'] ) }}
                     <p>%</p>
                   </div>
+                  <p class="is-error-others_percent_discount" style="color: red"></p>
                 </td>
                 <td>
                   <input class="btn more_btn others_discount_btn" type="button" value="計算する">
                 </td>
+                <td></td>
               </tr>
             </tbody>
           </table>
@@ -1084,8 +1123,10 @@
             <tr>
               <td>
                 振込人名{{ Form::text('pay_person', $bill->pay_person,['class'=>'form-control'] ) }}
+                <p class="is-error-pay_person" style="color: red"></p>
               </td>
               <td>入金額{{ Form::text('payment', $bill->payment,['class'=>'form-control'] ) }}
+                <p class="is-error-payment" style="color: red"></p>
               </td>
             </tr>
           </table>

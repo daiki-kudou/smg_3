@@ -24,8 +24,8 @@
       <table class="table table-bordered table-box table-scroll">
         <thead>
           <tr>
-            <th>仮押えID</th>
             <th>一括仮押えID</th>
+            <th>仮押えID</th>
             <th>利用日</th>
             <th>入室時間</th>
             <th>退室時間</th>

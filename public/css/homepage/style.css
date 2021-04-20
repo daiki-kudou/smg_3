@@ -361,7 +361,8 @@ form table td textarea {
     }
 
     .selectTime {
-        margin-left: -20px;
+        /* margin-left: -20px; */
+        display: block;
     }
 
     .sp {

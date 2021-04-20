@@ -38,7 +38,7 @@
       </tr>
     </tbody>
   </table>
-  {{ Form::open(['url' => 'user/pre_reservations/'.$pre_reservation->id.'/calculate', 'method'=>'POST', 'id'=>'']) }}
+  {{ Form::open(['url' => 'user/pre_reservations/'.$pre_reservation->id.'/calculate', 'method'=>'POST', 'id'=>'mypageForm']) }}
   @csrf
   <div class="border-wrap2 p-4">
     <div class="row">
@@ -170,33 +170,33 @@
             </tr>
             <tr>
               <td class="table-active">イベント名称1</td>
-                <td>
-                  <div class="align-items-end d-flex">
-                {{Form::text('event_name1',$pre_reservation->event_name1,['class'=>'form-control', 'id'=>'eventname1Count'])}}
-                <span class="ml-1 annotation count_num1"></span>
-              </div>
-              <p class="is-error-event_name1" style="color: red"></p>
-            </td>
+              <td>
+                <div class="align-items-end d-flex">
+                  {{Form::text('event_name1',$pre_reservation->event_name1,['class'=>'form-control', 'id'=>'eventname1Count'])}}
+                  <span class="ml-1 annotation count_num1"></span>
+                </div>
+                <p class="is-error-event_name1" style="color: red"></p>
+              </td>
             </tr>
             <tr>
               <td class="table-active">イベント名称2</td>
-                <td>
-                  <div class="align-items-end d-flex">
-                {{Form::text('event_name2',$pre_reservation->event_name2,['class'=>'form-control', 'id'=>'eventname2Count'])}}
-                <span class="ml-1 annotation count_num2"></span>
-              </div>
-              <p class="is-error-event_name2" style="color: red"></p>
-            </td>
+              <td>
+                <div class="align-items-end d-flex">
+                  {{Form::text('event_name2',$pre_reservation->event_name2,['class'=>'form-control', 'id'=>'eventname2Count'])}}
+                  <span class="ml-1 annotation count_num2"></span>
+                </div>
+                <p class="is-error-event_name2" style="color: red"></p>
+              </td>
             </tr>
             <tr>
               <td class="table-active">主催者名</td>
-                <td>
-                  <div class="align-items-end d-flex">
-                {{Form::text('event_owner',$pre_reservation->event_owner,['class'=>'form-control', 'id'=>'eventownerCount'])}}
-                <span class="ml-1 annotation count_num3"></span>
-              </div>
-              <p class="is-error-event_owner" style="color: red"></p>
-            </td>
+              <td>
+                <div class="align-items-end d-flex">
+                  {{Form::text('event_owner',$pre_reservation->event_owner,['class'=>'form-control', 'id'=>'eventownerCount'])}}
+                  <span class="ml-1 annotation count_num3"></span>
+                </div>
+                <p class="is-error-event_owner" style="color: red"></p>
+              </td>
             </tr>
           </tbody>
         </table>
@@ -223,10 +223,10 @@
                 <td>
                   @foreach ($pre_reservation->pre_breakdowns()->get() as $s_equ)
                   @if ($s_equ->unit_item==$equ->item)
-                  {{Form::text('equipment_breakdown'.$key,$s_equ->unit_count,['class'=>'form-control'])}}
+                  {{Form::text('equipment_breakdown'.$key,$s_equ->unit_count,['class'=>'form-control equipment_validation'])}}
                   @break
                   @elseif($loop->last)
-                  {{Form::text('equipment_breakdown'.$key,'',['class'=>'form-control'])}}
+                  {{Form::text('equipment_breakdown'.$key,'',['class'=>'form-control equipment_validation'])}}
                   @endif
                   @endforeach
                 </td>
@@ -380,6 +380,7 @@
                 <td class="table-active">事前にお預りする荷物</td>
                 <td>
                   {{Form::text('luggage_count',$pre_reservation->luggage_count,['class'=>'form-control'])}}
+                  <p class="is-error-luggage_count" style="color: red"></p>
                 </td>
               </tr>
               <tr>
@@ -392,6 +393,7 @@
                 <td class="table-active">事後返送するお荷物</td>
                 <td>
                   {{Form::text('luggage_return',$pre_reservation->luggage_return,['class'=>'form-control'])}}
+                  <p class="is-error-luggage_return" style="color: red"></p>
                 </td>
               </tr>
             </tbody>

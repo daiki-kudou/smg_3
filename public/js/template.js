@@ -543,16 +543,16 @@ $(function () {
 // })
 
 
-// function textLength(text) {
-//   var regexp = /[\x01-\x7E\u{FF65}-\u{FF9F}]/mu;
+function textLength(text) {
+  var regexp = /[\x01-\x7E\u{FF65}-\u{FF9F}]/mu;
 
-//   var len = 0;
-//   for (i = 0; i < text.length; i++) {
-//     var ch = text[i];
-//     len += regexp.test(new String(ch)) ? 1 : 2;
-//   }
-//   return len;
-// }
+  var len = 0;
+  for (i = 0; i < text.length; i++) {
+    var ch = text[i];
+    len += regexp.test(new String(ch)) ? 1 : 2;
+  }
+  return len;
+}
 
 
 

@@ -6,6 +6,7 @@
 <link href="{{ asset('/css/template.css') }}" rel="stylesheet">
 <script src="{{ asset('/js/add_bill_ajax.js') }}"></script>
 <script src="{{ asset('/js/template.js') }}"></script>
+<script src="{{ asset('/js/admin/validation.js') }}"></script>
 
 <style>
   #fullOverlay {
@@ -43,7 +44,7 @@
 <div class="container-fluid">
   <h2 class="mt-3 mb-3">追加請求書</h2>
   <hr>
-  {{ Form::open(['url' => 'admin/bills/create_session', 'method'=>'POST']) }}
+  {{ Form::open(['url' => 'admin/bills/create_session', 'method'=>'POST','id'=>'billsCreateForm']) }}
   @csrf
   {{ Form::hidden('reservation_id', $reservation->id, ['class' => 'form-control'])}}
 
@@ -70,8 +71,7 @@
                 <tr>
                   <td colspan="5">
                     <div class="venue_chkbox">
-                      <input type="checkbox" id="venue" name="venue" value="1"
-                        {{ !empty(session('add_bill')['venue_price'])?"checked":"" }}>
+                      <input type="checkbox" id="venue" name="venue" value="1" {{ !empty(session('add_bill')['venue_price'])?"checked":"" }}>
                       <label for="venue">会場料</label>
                     </div>
                   </td>
@@ -137,8 +137,7 @@
                 <tr>
                   <td colspan="5">
                     <div class="equipment_chkbox">
-                      <input type="checkbox" id="equipment" name="equipment" value="1"
-                        {{ !empty(session('add_bill')['equipment_price'])?"checked":"" }}>
+                      <input type="checkbox" id="equipment" name="equipment" value="1" {{ !empty(session('add_bill')['equipment_price'])?"checked":"" }}>
                       <label for="equipment">有料備品・サービス料</label>
                     </div>
                   </td>
@@ -205,8 +204,7 @@
                 <tr>
                   <td colspan="5">
                     <div class="layout_chkbox">
-                      <input type="checkbox" id="layout" name="layout" value="1"
-                        {{ !empty(session('add_bill')['layout_price'])?"checked":"" }}>
+                      <input type="checkbox" id="layout" name="layout" value="1" {{ !empty(session('add_bill')['layout_price'])?"checked":"" }}>
                       <label for="layout">レイアウト変更料</label>
                     </div>
                   </td>
@@ -274,8 +272,7 @@
                 <tr>
                   <td colspan="5">
                     <div class="others_chkbox">
-                      <input type="checkbox" id="others" name="others" value="1"
-                        {{ !empty(session('add_bill')['others_price'])?"checked":"" }}>
+                      <input type="checkbox" id="others" name="others" value="1" {{ !empty(session('add_bill')['others_price'])?"checked":"" }}>
                       <label for="others">その他</label>
                     </div>
                   </td>
@@ -429,8 +426,12 @@
                   </td>
                 </tr>
                 <tr>
-                  <td>振込人名{{ Form::text('pay_person', null,['class'=>'form-control'] ) }}</td>
-                  <td>入金額{{ Form::text('payment', null,['class'=>'form-control'] ) }}</td>
+                  <td>振込人名{{ Form::text('pay_person', null,['class'=>'form-control'] ) }}
+                    <p class="is-error-pay_person" style="color: red"></p>
+                  </td>
+                  <td>入金額{{ Form::text('payment', null,['class'=>'form-control'] ) }}
+                    <p class="is-error-payment" style="color: red"></p>
+                  </td>
                 </tr>
               </tbody>
             </table>
@@ -478,7 +479,7 @@
         var re_target = target.parent();
         if (master > 1) {
           target.remove();
-        }else{
+        } else {
           for (let index = 0; index < 3; index++) {
             target.find('input').eq(index).val('');
           }
@@ -516,11 +517,11 @@
           var result = $($targetTr).eq(calc).find('td').eq(3).find('input').val(multiple1 * multiple2);
           result_add = result_add + (multiple1 * multiple2);
         }
-        if (result_add!=0) {
+        if (result_add != 0) {
           $($targetSum).val(result_add);
-          }else{
-            $($targetSum).val("");
-          }
+        } else {
+          $($targetSum).val("");
+        }
       };
 
 
@@ -555,9 +556,9 @@
             var result = $($targetTr).eq(calc).find('td').eq(3).find('input').val(multiple1 * multiple2);
             result_add = result_add + (multiple1 * multiple2);
           }
-          if (result_add!=0) {
-          $($targetSum).val(result_add);
-          }else{
+          if (result_add != 0) {
+            $($targetSum).val(result_add);
+          } else {
             $($targetSum).val("");
           }
         })

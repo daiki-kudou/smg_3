@@ -48,9 +48,9 @@
                   {{number_format($info[0])}}
                   円</td>
                 <td class="multiple">×</td>
-                <td class="d-flex align-items-center">
+                <td class="">
                   {{number_format($data['cxl_venue_PC'])}}
-                  <span class="ml-1">%</span>
+                  <span>%</span>
                 </td>
               </tr>
             </tbody>
@@ -64,9 +64,9 @@
                   {{number_format($info[1])}}円
                 </td>
                 <td class="multiple">×</td>
-                <td class="d-flex align-items-center">
+                <td class="">
                   {{number_format($data['cxl_equipment_PC'])}}
-                  <span class="ml-1">%</span></td>
+                  <span>%</span></td>
               </tr>
             </tbody>
             @endif
@@ -79,9 +79,9 @@
                   {{number_format($info[2])}}円
                 </td>
                 <td class="multiple">×</td>
-                <td class="d-flex align-items-center">
+                <td class="">
                   {{number_format($data['cxl_layout_PC'])}}
-                  <span class="ml-1">%</span></td>
+                  <span>%</span></td>
               </tr>
             </tbody>
             @endif
@@ -94,9 +94,9 @@
                   {{number_format($info[3])}}
                   円</td>
                 <td class="multiple">×</td>
-                <td class="d-flex align-items-center">
+                <td class="">
                   {{number_format($data['cxl_other_PC'])}}
-                  <span class="ml-1">%</span></td>
+                  <span>%</span></td>
               </tr>
             </tbody>
             @endif
@@ -272,8 +272,11 @@
     </div>
   </div>
 
-  {{ Form::submit('修正する 丸岡さん!!ここのボタンのデザインお願いします！！！', ['class' => 'btn more_btn_lg mx-auto d-block my-5','name'=>'back']) }}
-  {{ Form::submit('キャンセルを確定する', ['class' => 'btn more_btn_lg mx-auto d-block my-5']) }}
+  <div class="d-flex justify-content-center mt-5">
+    {{ Form::submit('内容を修正する', ['class' => 'btn more_btn4_lg d-block mr-5','name'=>'back']) }}
+    {{ Form::submit('キャンセル請求書を作成する', ['class' => 'btn more_btn_lg d-block']) }}
+  </div>
+  
   {{ Form::close() }}
 </section>
 

@@ -250,7 +250,7 @@
                     <tr>
                       <td class="table-active">{{$equipment->item}}</td>
                       <td>
-                        {{Form::text('cp_master_equipment_breakdown' . $key , '', ['class' => 'form-control'])}}
+                        {{Form::text('cp_master_equipment_breakdown' . $key , '', ['class' => 'form-control equipment_validation'])}}
                       </td>
                     </tr>
                     @endforeach
@@ -773,7 +773,7 @@
                       <tr>
                         <td class="table-active">{{$equipment->item}}</td>
                         <td>
-                          {{Form::text('equipment_breakdown'.$e_key.'_copied'.$key , $request->{'cp_master_equipment_breakdown'.$e_key}, ['class' => 'form-control'])}}
+                          {{Form::text('equipment_breakdown'.$e_key.'_copied'.$key , $request->{'cp_master_equipment_breakdown'.$e_key}, ['class' => 'form-control equipment_validation'])}}
                         </td>
                       </tr>
                       @endforeach

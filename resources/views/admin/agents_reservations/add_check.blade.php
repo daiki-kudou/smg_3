@@ -341,7 +341,10 @@
 </section>
 
 
-  {{ Form::submit('追加請求書を確定する', ['class' => 'btn more_btn_lg mx-auto d-block mt-5']) }}
+<div class="container-field d-flex justify-content-center mt-5">
+  {{ Form::submit('請求内容を修正する', ['class' => 'btn more_btn4_lg d-block mr-5','name'=>'back']) }}
+  {{ Form::submit('追加請求書を確定する', ['class' => 'btn more_btn_lg d-block']) }}
+</div>
 
 {{ Form::close() }}
 

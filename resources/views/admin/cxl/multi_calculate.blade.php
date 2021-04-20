@@ -5,8 +5,9 @@
 
 <link href="{{ asset('/css/template.css') }}" rel="stylesheet">
 <script src="{{ asset('/js/template.js') }}"></script>
+<script src="{{ asset('/js/admin/validation.js') }}"></script>
 
-<div class="container-fluid">
+<div class="">
   <h2 class="mt-3 mb-3">一括キャンセル請求書 作成</h2>
   <hr>
 </div>
@@ -20,7 +21,7 @@
 @endif
 
 
-<section class="section-wrap">
+<section class="mt-5">
   <div class="bill">
     <div class="bill_details">
       <div class="head d-flex">
@@ -36,7 +37,7 @@
       </div>
       <div class="main">
         <div class="cancel_content cancel_border bg-white">
-          {{ Form::open(['url' => 'admin/cxl/multi_check', 'method'=>'POST', 'class'=>'']) }}
+          {{ Form::open(['url' => 'admin/cxl/multi_check', 'method'=>'POST', 'class'=>'' ,'id'=>'cxl_multicalc']) }}
           @csrf
           <h4 class="cancel_ttl">キャンセル料計算</h4>
           <table class="table table-borderless">
@@ -59,10 +60,10 @@
                   {{Form::hidden('cxl_target_cost[]',$info[0])}}
                 </td>
                 <td class="multiple">×</td>
-                <td class="d-flex align-items-center">
+                <td class="">
                   {{$data['cxl_venue_PC']}}
                   {{Form::hidden('cxl_target_percent[]',$data['cxl_venue_PC'])}}
-                  <span class="ml-1">%</span>
+                  <span>%</span>
                 </td>
               </tr>
             </tbody>
@@ -79,10 +80,10 @@
                   {{Form::hidden('cxl_target_cost[]',$info[1])}}
                 </td>
                 <td class="multiple">×</td>
-                <td class="d-flex align-items-center">
+                <td class="">
                   {{$data['cxl_equipment_PC']}}
                   {{Form::hidden('cxl_target_percent[]',$data['cxl_equipment_PC'])}}
-                  <span class="ml-1">%</span></td>
+                  <span>%</span></td>
               </tr>
             </tbody>
             @endif
@@ -97,10 +98,10 @@
                   {{Form::hidden('cxl_target_cost[]',$info[2])}}
                 </td>
                 <td class="multiple">×</td>
-                <td class="d-flex align-items-center">
+                <td class="">
                   {{$data['cxl_layout_PC']}}
                   {{Form::hidden('cxl_target_percent[]',$data['cxl_layout_PC'])}}
-                  <span class="ml-1">%</span></td>
+                  <span>%</span></td>
               </tr>
             </tbody>
             @endif
@@ -115,10 +116,10 @@
                   {{Form::hidden('cxl_target_cost[]',$info[3])}}
                 </td>
                 <td class="multiple">×</td>
-                <td class="d-flex align-items-center">
+                <td class="">
                   {{$data['cxl_other_PC']}}
                   {{Form::hidden('cxl_target_percent[]',$data['cxl_other_PC'])}}
-                  <span class="ml-1">%</span></td>
+                  <span>%</span></td>
               </tr>
             </tbody>
             @endif
@@ -268,7 +269,7 @@
                   {{Form::text('bill_created_at', date('Y-m-d',strtotime(\Carbon\Carbon::now())) ,['class'=>'form-control', 'id'=>'datepicker1'])}}
                 </td>
                 <td>支払期日
-                  {{Form::text('payment_limit',!empty(session('invoice')['payment_limit'])?session('invoice')['payment_limit']:"",['class'=>'form-control', 'id'=>'datepicker1'])}}
+                  {{Form::text('payment_limit','',['class'=>'form-control', 'id'=>'datepicker1'])}}
                 </td>
               </tr>
               <tr>
@@ -282,7 +283,7 @@
               </tr>
               <tr>
                 <td colspan="2">請求書備考
-                  {{Form::textarea('bill_remark',!empty(session('invoice')['bill_remark'])?session('invoice')['bill_remark']:"",['class'=>'form-control'])}}
+                  {{Form::textarea('bill_remark','',['class'=>'form-control'])}}
                 </td>
               </tr>
             </tbody>
@@ -310,15 +311,17 @@
                 </td>
                 <td>
                   入金日
-                  {{Form::text('pay_day',!empty(session('invoice')['pay_day'])?session('invoice')['pay_day']:"",['class'=>'form-control','id'=>'datepicker2'])}}
+                  {{Form::text('pay_day','',['class'=>'form-control','id'=>'datepicker2'])}}
                 </td>
               </tr>
               <tr>
                 <td>振込人名
-                  {{Form::text('pay_person',!empty(session('invoice')['pay_person'])?session('invoice')['pay_person']:"",['class'=>'form-control'])}}
+                  {{Form::text('pay_person','',['class'=>'form-control'])}}
+                  <p class="is-error-pay_person" style="color: red"></p>
                 </td>
                 <td>入金額
-                  {{Form::text('payment',!empty(session('invoice')['payment'])?session('invoice')['payment']:"",['class'=>'form-control'])}}
+                  {{Form::text('payment','',['class'=>'form-control'])}}
+                  <p class="is-error-payment" style="color: red"></p>
                 </td>
               </tr>
             </tbody>
@@ -327,8 +330,11 @@
       </div>
     </div>
   </div>
-  {{ Form::submit('修正する !!丸岡さん、このボタンのデザインお願いします', ['class' => 'btn more_btn_lg mx-auto d-block my-5','name'=>'back']) }}
-  {{ Form::submit('確認する', ['class' => 'btn more_btn_lg mx-auto d-block my-5']) }}
+
+  <div class="container-field d-flex justify-content-center mt-5">
+  {{ Form::submit('修正する', ['class' => 'btn more_btn4_lg d-block mr-5','name'=>'back']) }}
+  {{ Form::submit('確認する', ['class' => 'btn more_btn_lg d-block']) }}
+</div>
   {{ Form::close() }}
 </section>
 

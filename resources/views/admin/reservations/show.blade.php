@@ -269,17 +269,15 @@
                       {{isset($reservation->luggage_count)?'あり':'なし'}}
                     </p>
                   </li>
-                  <li class="d-flex justify-content-between">
-                    <p>荷物個数</p>
+                  <li>
                     <p>
-                      {{isset($reservation->luggage_count)?$reservation->luggage_count:''}}個
+                      荷物個数：{{isset($reservation->luggage_count)?$reservation->luggage_count:''}}個
                     </p>
                   </li>
 
-                  <li class="d-flex justify-content-between">
-                    <p>事前荷物の到着日</p>
+                  <li>
                     <p>
-                      {{isset($reservation->luggage_arrive)?ReservationHelper::formatDate($reservation->luggage_arrive):''}}
+                    事前荷物の到着日：{{isset($reservation->luggage_arrive)?ReservationHelper::formatDate($reservation->luggage_arrive):''}}
                     </p>
                   </li>
                 </ul>
@@ -294,10 +292,9 @@
                       {{isset($reservation->luggage_return)?'あり':''}}
                     </p>
                   </li>
-                  <li class="d-flex justify-content-between">
-                    <p>荷物個数</p>
+                  <li>
                     <p>
-                      {{isset($reservation->luggage_return)?$reservation->luggage_return:''}}個
+                    荷物個数：{{isset($reservation->luggage_return)?$reservation->luggage_return:''}}個
                     </p>
                   </li>
                 </ul>
@@ -440,20 +437,6 @@
             </p>
           </td>
         </tr>
-        <!-- <tr>
-              <td>
-                <p>
-                  割引条件
-                </p>
-                <p>{{isset($reservation->discount_condition)?$reservation->discount_condition:'なし'}}</p>
-              </td>
-            </tr>
-            <tr class="caution">
-              <td>
-                <p>注意事項</p>
-                <p>{{isset($reservation->attention)?$reservation->attention:'なし'}}</p>
-              </td>
-            </tr> -->
         <tr>
           <td>
             <p>申し込みフォーム備考</p>
@@ -464,6 +447,7 @@
           <td>
             <p>管理者備考</p>
             <p>{{isset($reservation->admin_details)?$reservation->admin_details:'なし'}}</p>
+            <!-- <p>{!!nl2br(e($reservation->admin_details))!!}</p> -->
           </td>
         </tr>
       </table>
@@ -1887,20 +1871,16 @@
 @endif
 
 
-
-
-
 {{-- キャンセル詳細 --}}
 @foreach ($reservation->cxls as $key=>$cxl)
 <section class="mt-5 p-0">
   <div class="bill">
-    <div class="bill_head2">
-      <table class="table bill_table pt-2">
+    <div class="bill_head_cancel">
+      <table class="table bill_table pt-2 bill_head_cancel">
         <tbody>
           <tr>
             <td>
               <h2 class="text-white">
-                丸岡さん!! ここピンク色にしてください　　　
                 請求書No
               </h2>
             </td>
@@ -2014,10 +1994,17 @@
         </div>
       </div>
       <div class="main hide">
-        <div class="venues billdetails_content">
-          <div>
-            丸岡さん!!! ここにキャンセル料計算のデザイン（中務さんからいただいた）お願いします
-            <table class="table">
+        <div class="billdetails_content">
+          <h4 class="cancel_ttl">キャンセル料計算</h4>
+            <table class="table table-borderless">
+            <thead class="head_cancel">
+              <tr>
+                <td>内容</td>
+                <td>申込み金額</td>
+                <td></td>
+                <td>キャンセル料率</td>
+              </tr>
+            </thead>
               @foreach ($cxl->cxl_breakdowns->where('unit_type',2) as $cxl_calc)
               <tr>
                 <td>{{$cxl_calc->unit_item}}円</td>
@@ -2027,8 +2014,9 @@
               </tr>
               @endforeach
             </table>
-          </div>
+        </div>
 
+        <div class="billdetails_content">
           <table class="table table-borderless">
             <tbody>
               <tr>
@@ -2212,20 +2200,19 @@
 {{-- キャンセル総合計請求額 --}}
 @if ($reservation->cxls->count()!=0)
 
-<div class="master_totals border-wrap">
+<div class="master_totals_cancel">
   <table class="table">
-    <tbody class="master_total_head">
+    <tbody class="master_total_head2">
       <tr>
         <td colspan="2">
           <h3>
             キャンセル料　合計請求額
-            丸岡さん!!! ここの色も変更必要かと思います
           </h3>
         </td>
       </tr>
     </tbody>
     <tr>
-      <td colspan="2" class="master_total_subttl">
+      <td colspan="2" class="master_total_subttl2">
         <h4>内訳</h4>
       </td>
     </tr>

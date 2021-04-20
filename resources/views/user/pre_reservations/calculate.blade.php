@@ -3,6 +3,7 @@
 
 <link href="{{ asset('/css/template.css') }}" rel="stylesheet">
 <script src="{{ asset('/js/template.js') }}"></script>
+<script src="{{ asset('/js/admin/validation.js') }}"></script>
 
 <div class="container-field mt-3">
   <div class="float-right">
@@ -37,7 +38,7 @@
       </tr>
     </tbody>
   </table>
-  {{ Form::open(['url' => 'user/pre_reservations/'.$pre_reservation->id.'/calculate', 'method'=>'POST', 'id'=>'']) }}
+  {{ Form::open(['url' => 'user/pre_reservations/'.$pre_reservation->id.'/calculate', 'method'=>'POST', 'id'=>'mypageDone']) }}
   @csrf
   <div class="border-wrap2 p-4">
     <div class="row user_wrap">
@@ -224,7 +225,7 @@
                   {{$equ->item}}
                 </td>
                 <td>
-                  {{Form::text('equipment_breakdown'.$key,$request->{'equipment_breakdown'.$key},['class'=>'form-control'])}}
+                  {{Form::text('equipment_breakdown'.$key,$request->{'equipment_breakdown'.$key},['class'=>'form-control equipment_validation'])}}
                 </td>
               </tr>
               @endforeach
@@ -328,6 +329,7 @@
                 <td class="table-active">事前にお預りする荷物</td>
                 <td>
                   {{Form::text('luggage_count',$request->luggage_count,['class'=>'form-control'])}}
+                  <p class="is-error-luggage_count" style="color: red"></p>
                 </td>
               </tr>
               <tr>
@@ -340,6 +342,7 @@
                 <td class="table-active">事後返送するお荷物</td>
                 <td>
                   {{Form::text('luggage_return',$request->luggage_return,['class'=>'form-control'])}}
+                  <p class="is-error-luggage_return" style="color: red"></p>
                 </td>
               </tr>
             </tbody>
@@ -377,18 +380,18 @@
         <tbody>
           <tr>
             <td>
-            <ul class="bill_header">
-              <li>
-                <h2 class="text-white">
-                  ご利用料金
-                </h2>
-              </li>
-              <li>
-                <dl class="ttl_box">
-                  <dd class="total_result">合計金額：{{number_format(ReservationHelper::taxAndPrice($master))}}円</dd>
-                </dl>
-              </li>
-            </ul>
+              <ul class="bill_header">
+                <li>
+                  <h2 class="text-white">
+                    ご利用料金
+                  </h2>
+                </li>
+                <li>
+                  <dl class="ttl_box">
+                    <dd class="total_result">合計金額：{{number_format(ReservationHelper::taxAndPrice($master))}}円</dd>
+                  </dl>
+                </li>
+              </ul>
             </td>
           </tr>
         </tbody>
@@ -586,10 +589,10 @@
               @endif
               <tr>
                 <td colspan="4">
-                <div class="result_sum">
-                  <p class="text-left">合計</p>
+                  <div class="result_sum">
+                    <p class="text-left">合計</p>
                     {{ Form::text('layout_price', $layout_details,['class'=>'form-control', 'readonly'] )}}
-                </div>
+                  </div>
                 </td>
               </tr>
             </tbody>

@@ -108,9 +108,7 @@
               <div>
                 <select name="enter_time" id="sales_start" class="form-control">
                   <option disabled selected></option>
-                  @for ($start = 0*2; $start <=23*2; $start++) <option
-                    value="{{date("H:i:s", strtotime("00:00 +". $start * 30 ." minute"))}}" @if (isset($request))
-                    @endif>
+                  @for ($start = 0*2; $start <=23*2; $start++) <option value="{{date("H:i:s", strtotime("00:00 +". $start * 30 ." minute"))}}" @if (isset($request)) @endif>
                     {{date("H時i分", strtotime("00:00 +". $start * 30 ." minute"))}}
                     </option>
                     @endfor
@@ -125,9 +123,7 @@
               <div>
                 <select name="leave_time" id="sales_finish" class="form-control">
                   <option disabled selected></option>
-                  @for ($start = 0*2; $start <=23*2; $start++) <option
-                    value="{{date("H:i:s", strtotime("00:00 +". $start * 30 ." minute"))}}" @if (isset($request))
-                    @endif>
+                  @for ($start = 0*2; $start <=23*2; $start++) <option value="{{date("H:i:s", strtotime("00:00 +". $start * 30 ." minute"))}}" @if (isset($request)) @endif>
                     {{date("H時i分", strtotime("00:00 +". $start * 30 ." minute"))}}</option>
                     @endfor
                 </select>
@@ -158,8 +154,7 @@
                     {{isset($request->board_flag)?$request->board_flag==1?'checked':'':'',}}>有り
                 </p>
                 <p class="mr-3">
-                  <input type="radio" name="board_flag" value="0" id="no_board_flag" class="mr-1"
-                    {{isset($request->board_flag)?$request->board_flag==0?'checked':'':'checked',}}>無し
+                  <input type="radio" name="board_flag" value="0" id="no_board_flag" class="mr-1" {{isset($request->board_flag)?$request->board_flag==0?'checked':'':'checked',}}>無し
                 </p>
               </div>
             </td>
@@ -170,9 +165,7 @@
               <div>
                 <select name="event_start" id="event_start" class="form-control">
                   <option disabled>選択してください</option>
-                  @for ($start = 0*2; $start <=23*2; $start++) <option
-                    value="{{date("H:i:s", strtotime("00:00 +". $start * 30 ." minute"))}}" @if (isset($request))
-                    @endif>
+                  @for ($start = 0*2; $start <=23*2; $start++) <option value="{{date("H:i:s", strtotime("00:00 +". $start * 30 ." minute"))}}" @if (isset($request)) @endif>
                     {{date("H時i分", strtotime("00:00 +". $start * 30 ." minute"))}}</option>
                     @endfor
                 </select>
@@ -185,9 +178,7 @@
               <div>
                 <select name="event_finish" id="event_finish" class="form-control">
                   <option disabled>選択してください</option>
-                  @for ($start = 0*2; $start <=23*2; $start++) <option
-                    value="{{date("H:i:s", strtotime("00:00 +". $start * 30 ." minute"))}}" @if (isset($request))
-                    @endif>
+                  @for ($start = 0*2; $start <=23*2; $start++) <option value="{{date("H:i:s", strtotime("00:00 +". $start * 30 ." minute"))}}" @if (isset($request)) @endif>
                     {{date("H時i分", strtotime("00:00 +". $start * 30 ." minute"))}}</option>
                     @endfor
                 </select>
@@ -285,6 +276,42 @@
           </tbody>
         </table>
       </div>
+
+      <div class="eat_in">
+        <table class="table table-bordered">
+          <thead>
+            <tr>
+              <th colspan='2'>
+                <p class="title-icon">
+                  <i class="fas fa-utensils icon-size fa-fw"></i>室内飲食工藤さん！追加項目です。仮押さえから丸コピーしました。
+                </p>
+              </th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>
+                {{Form::radio('eat_in', 1, false , ['id' => 'eat_in'])}}
+                {{Form::label('eat_in',"あり")}}
+              </td>
+              <td>
+                {{Form::radio('eat_in_prepare', 1, false , ['id' => 'eat_in_prepare', 'disabled'])}}
+                {{Form::label('eat_in_prepare',"手配済み")}}
+                {{Form::radio('eat_in_prepare', 2, false , ['id' => 'eat_in_consider','disabled'])}}
+                {{Form::label('eat_in_consider',"検討中")}}
+              </td>
+            </tr>
+            <tr>
+              <td>
+                {{Form::radio('eat_in', 0, true , ['id' => 'no_eat_in'])}}
+                {{Form::label('no_eat_in',"なし")}}
+              </td>
+              <td></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
       <div class="price_details">
       </div>
     </div>
@@ -315,7 +342,7 @@
                 </option>
                 @endforeach
               </select>
-              <p class="is-error-user_id" style="color: red"></p>
+              <p class="is-error-agent_id" style="color: red"></p>
             </td>
           </tr>
           <tr>
@@ -357,6 +384,7 @@
             </td>
             <td>
               {{ Form::text('enduser_tel', old('enduser_tel'),['class'=>'form-control', 'placeholder'=>'入力してください', 'id'=>'enduser_tel'] ) }}
+              <p class="is-error-enduser_tel" style="color: red"></p>
             </td>
           </tr>
           <tr>
@@ -365,6 +393,7 @@
             </td>
             <td>
               {{ Form::text('enduser_mail', old('enduser_mail'),['class'=>'form-control', 'placeholder'=>'入力してください', 'id'=>'enduser_mail'] ) }}
+              <p class="is-error-enduser_mail" style="color: red"></p>
             </td>
           </tr>
           <tr>
@@ -381,6 +410,7 @@
             </td>
             <td>
               {{ Form::text('enduser_mobile', old('enduser_mobile'),['class'=>'form-control', 'placeholder'=>'入力してください', 'id'=>'enduser_mobile'] ) }}
+              <p class="is-error-enduser_mobile" style="color: red"></p>
             </td>
           </tr>
           <tr>
@@ -413,10 +443,12 @@
             <td class="table-active form_required">
               <label for="enduser_charge ">支払い料</label>
             </td>
-            <td class="d-flex align-items-end">
-              {{ Form::text('enduser_charge', old('enduser_charge'),['class'=>'form-control sales_percentage', 'placeholder'=>'入力してください'] ) }}
-              <span class="ml-1">円</span>
-
+            <td>
+              <div class="d-flex align-items-end">
+                {{ Form::text('enduser_charge', old('enduser_charge'),['class'=>'form-control sales_percentage', 'placeholder'=>'入力してください'] ) }}
+                <span class="ml-1">円</span>
+              </div>
+              <p class="is-error-enduser_charge" style="color: red"></p>
             </td>
           </tr>
         </tbody>

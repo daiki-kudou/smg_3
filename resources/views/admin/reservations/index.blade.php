@@ -4,6 +4,7 @@
 
 <link href="{{ asset('/css/template.css') }}" rel="stylesheet">
 <script src="{{ asset('/js/template.js') }}"></script>
+<script src="{{ asset('/js/admin/validation.js') }}"></script>
 
 
 @if (session('flash_message'))
@@ -35,20 +36,22 @@
       <hr>
     </div>
 
-    {{ Form::open(['url' => 'admin/reservations', 'method'=>'get'])}}
+    {{ Form::open(['url' => 'admin/reservations', 'method'=>'get', 'id'=>'reserve_search'])}}
     @csrf
 
     <div class="search-wrap">
       <table class="table table-bordered">
         <tbody>
           <tr>
-            <th class="search_item_name"><label for="bulkid">予約一括ID</label>
+            <th class="search_item_name"><label for="multiple_id">予約一括ID</label>
             <td class="text-right">
               {{ Form::text('multiple_id', '', ['class' => 'form-control', 'id'=>'multiple_id']) }}
+              <p class="is-error-multiple_id" style="color: red"></p>
             </td>
-            <th class="search_item_name"><label for="id">予約ID</label></th>
+            <th class="search_item_name"><label for="search_id">予約ID</label></th>
             <td>
-              {{ Form::text('id', '', ['class' => 'form-control', 'id'=>'']) }}
+              {{ Form::text('search_id', '', ['class' => 'form-control', 'id'=>'']) }}
+              <p class="is-error-search_id" style="color: red"></p>
             </td>
           </tr>
           <tr>
@@ -104,15 +107,17 @@
               </select> -->
               <input type="text" name="person_name" class="form-control" id="person_name">
             </td>
-            <th class="search_item_name"><label for="mobile">携帯電話</label></th>
+            <th class="search_item_name"><label for="search_mobile">携帯電話</label></th>
             <td>
-              <input type="text" name="mobile" class="form-control" id="mobile">
+              <input type="text" name="search_mobile" class="form-control" id="search_mobile">
+              <p class="is-error-search_mobile" style="color: red"></p>
             </td>
           </tr>
           <tr>
-            <th class="search_item_name"><label for="tel">固定電話</label></th>
+            <th class="search_item_name"><label for="search_tel">固定電話</label></th>
             <td>
-              <input type="text" name="tel" class="form-control" id="tel">
+              <input type="text" name="search_tel" class="form-control" id="search_tel">
+              <p class="is-error-search_tel" style="color: red"></p>
             </td>
             <th class="search_item_name"><label for="agent">仲介会社工藤さん！追加です</label></th>
             <td class="text-right">
