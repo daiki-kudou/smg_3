@@ -53,7 +53,6 @@
 
 </div>
 <div class="alert-box d-flex align-items-center mb-0">
-  <!-- <span class="mr-3"><i class="fas alert-icon fa-exclamation-triangle" aria-hidden="true"></i></span> -->
   <p>
     一人目のチェックが終了しています。ダブルチェックを行ってください。
     工藤さん！！一人目チェックが完了時に、表示をお願いします。
@@ -97,7 +96,6 @@
             {{$reservation->leave_time}}
           </td>
         </tr>
-
       </table>
 
       <table class="table table-bordered board-table">
@@ -252,14 +250,6 @@
             </tr>
           </thead>
           <tbody>
-            <!-- <tr>
-              <td class="table-active"><label for="Delivery">荷物預り/返送</label></td>
-              <td>
-                @foreach ($reservation->breakdowns()->get() as $breakdown)
-                {{$breakdown->unit_item=='荷物預り/返送'?'あり':''}}
-                @endforeach
-              </td>
-            </tr> -->
             <tr>
               <td class="table-active"><label for="preDelivery">事前に預かる荷物</label></td>
               <td>
@@ -322,272 +312,9 @@
     <!-- 左側の項目 終わり-------------------------------------------------- -->
     <!-- 右側の項目-------------------------------------------------- -->
     @if ($reservation->user_id>0)
-    <div class="col">
-      <div class="customer-table">
-        <table class="table table-bordered name-table">
-          <tr>
-            <td colspan="2">
-              <div class="d-flex align-items-center justify-content-between">
-                <p class="title-icon">
-                  <i class="far fa-address-card icon-size"></i>
-                  顧客情報
-                </p>
-                <p><a class="more_btn" href="{{url('admin/clients/'.$reservation->user_id)}}">顧客詳細</a></p>
-              </div>
-            </td>
-          </tr>
-          <tr>
-            <td class="table-active"><label for="company">会社名・団体名</label></td>
-            <td>
-              {{$user->company}}
-            </td>
-          </tr>
-          <tr>
-            <td class="table-active"><label for="name">担当者氏名</label></td>
-            <td>
-              {{ReservationHelper::getPersonName($user->id)}}
-            </td>
-          </tr>
-          <tr>
-            <td class="table-active">メールアドレス</td>
-            <td>
-              {{$user->email}}
-            </td>
-          </tr>
-          <tr>
-            <td class="table-active">携帯番号 </td>
-            <td>
-              <p class="mobile"> {{$user->mobile}} </p>
-            </td>
-          </tr>
-          <tr>
-            <td class="table-active">固定電話 </td>
-            <td>
-              <p class="tel">{{$user->tel}}</p>
-            </td>
-          </tr>
-          <tr class="caution">
-            <td colspan="2">
-              <p>注意事項</p>
-              <p>
-                {{$user->attention}}
-              </p>
-            </td>
-          </tr>
-        </table>
-        <table class="table table-bordered oneday-table">
-          <tr>
-            <td colspan="2">
-              <p class="title-icon">
-                <i class="fas fa-user icon-size"></i>
-                当日の連絡できる担当者
-              </p>
-            </td>
-          </tr>
-          <tr>
-            <td class="table-active"><label for="ondayName">氏名</label></td>
-            <td>{{$reservation->in_charge}}</td>
-          </tr>
-          <tr>
-            <td class="table-active"><label for="mobilePhone">携帯番号</label></td>
-            <td>{{$reservation->tel}}</td>
-          </tr>
-        </table>
-      </div>
-
-      <table class="table table-bordered mail-table">
-        <tr>
-          <td colspan="2">
-            <p class="title-icon">
-              <i class="fas fa-envelope icon-size"></i>
-              利用後の送信メール
-            </p>
-          </td>
-        </tr>
-        <tr>
-          <td class="table-active"><label for="sendMail">送信メール</label></td>
-          <td>{{$reservation->email_flag==1?'あり':'なし'}}</td>
-        </tr>
-      </table>
-
-      @if ($venue->alliance_flag!=0)
-
-      <table class="table table-bordered sale-table">
-        <tr>
-          <td colspan="2">
-            <p class="title-icon">
-              <i class="fas fa-yen-sign icon-size"></i>
-              売上原価
-            </p>
-          </td>
-        </tr>
-        <tr>
-          <td class="table-active"><label for="sale">原価率</label></td>
-          <td>{{$reservation->cost==0?'':$reservation->cost}}</td>
-        </tr>
-      </table>
-      @endif
-
-      <table class="table table-bordered note-table">
-        <tr>
-          <td colspan="2">
-            <p class="title-icon">
-              <i class="fas fa-file-alt icon-size"></i>
-              備考
-            </p>
-          </td>
-        </tr>
-        <tr>
-          <td>
-            <p>申し込みフォーム備考</p>
-            <p>{{isset($reservation->user_details)?$reservation->user_details:'なし'}}</p>
-          </td>
-        </tr>
-        <tr>
-          <td>
-            <p>管理者備考</p>
-            <p>{{isset($reservation->admin_details)?$reservation->admin_details:'なし'}}</p>
-            <!-- <p>{!!nl2br(e($reservation->admin_details))!!}</p> -->
-          </td>
-        </tr>
-      </table>
-    </div>
+    @include('admin.reservations.show.user.right_column')
     @else
-    <div class="col">
-      <div class="client_mater">
-        <table class="table table-bordered name-table">
-          <tr>
-            <td colspan="2">
-              <div class="d-flex align-items-center justify-content-between">
-                <p class="title-icon">
-                  <i class="far fa-id-card icon-size"></i>仲介会社情報
-                </p>
-                <p><a class="more_btn" href="">仲介会社詳細工藤さん！リンク</a></p>
-              </div>
-            </td>
-          </tr>
-          <tr>
-            <td class="table-active">
-              <label for="agent_id">サービス名称</label>
-            </td>
-            <td>
-              {{ReservationHelper::getAgentCompany($reservation->agent_id)}}
-              <p class="is-error-user_id" style="color: red"></p>
-            </td>
-          </tr>
-          <tr>
-            <td class="table-active"><label for="name">担当者氏名<br></label></td>
-            <td>
-              {{ReservationHelper::getAgentPerson($reservation->agent_id)}}
-              <p class="selected_person"></p>
-            </td>
-          </tr>
-        </table>
-        <table class="table table-bordered oneday-table">
-          <tr>
-            <td colspan="2">
-              <p class="title-icon">
-                <i class="fas fa-user-check icon-size"></i>エンドユーザー情報
-              </p>
-            </td>
-          </tr>
-          <tr>
-            <td class="table-active">
-              <label for="enduser_company" class="">エンドユーザー</label>
-            </td>
-            <td>
-              {{$reservation->enduser->company}}
-            </td>
-          </tr>
-          <tr>
-            <td class="table-active">
-              <label for="enduser_address" class=" ">住所</label>
-            </td>
-            <td>
-              {{$reservation->enduser->address}}
-            </td>
-          </tr>
-          <tr>
-            <td class="table-active">
-              <label for="enduser_tel" class="">連絡先</label>
-            </td>
-            <td>
-              {{$reservation->enduser->tel}}
-            </td>
-          </tr>
-          <tr>
-            <td class="table-active">
-              <label for="enduser_mail" class=" ">メールアドレス</label>
-            </td>
-            <td>
-              {{$reservation->enduser->email}}
-            </td>
-          </tr>
-          <tr>
-            <td class="table-active">
-              <label for="enduser_incharge" class="">当日担当者</label>
-            </td>
-            <td>
-              {{$reservation->enduser->person}}
-            </td>
-          </tr>
-          <tr>
-            <td class="table-active">
-              <label for="" class="">当日連絡先</label>
-            </td>
-            <td>
-              {{$reservation->enduser->mobile}}
-            </td>
-          </tr>
-          <tr>
-            <td class="table-active">
-              <label for="enduser_attr" class="">利用者属性</label>
-            </td>
-            <td>
-              {{$reservation->enduser->attr}}
-            </td>
-          </tr>
-        </table>
-      </div>
-      <table class="table table-bordered sale-table">
-        <tr>
-          <td colspan="2">
-            <p class="title-icon">
-              <i class="fas fa-yen-sign icon-size"></i>エンドユーザーへの支払い料
-            </p>
-          </td>
-        </tr>
-        <tr>
-          <td class="table-active">
-            <label for="enduser_charge ">支払い料</label>
-          </td>
-          <td class="d-flex align-items-center">
-            {{number_format($reservation->enduser->charge)}}円
-          </td>
-        </tr>
-      </table>
-      <table class="table table-bordered note-table">
-        <tr>
-          <td colspan="2">
-            <p class="title-icon">
-              <i class="fas fa-envelope icon-size"></i>備考
-            </p>
-          </td>
-        </tr>
-        <tr>
-          <td>
-            <label for="userNote">申し込みフォーム備考</label>
-            <div>{{$reservation->user_details}}</div>
-          </td>
-        </tr>
-        <tr>
-          <td>
-            <label for="adminNote">管理者備考</label>
-            <div>{{$reservation->admin_details}}</div>
-          </td>
-        </tr>
-      </table>
-    </div>
+    @include('admin.reservations.show.agent.right_column')
     @endif
 
     <!-- 右側の項目 終わり-------------------------------------------------- -->
@@ -629,32 +356,20 @@
                   <dt>合計金額：</dt>
                   <dd class="total_result">{{number_format($reservation->bills()->first()->master_total)}} 円</dd>
                 </dl>
-                <!-- </td> -->
-                <!-- <td> -->
                 <dl class="ttl_box">
                   <dt>支払い期日：</dt>
                   <dd class="total_result">
                     {{ReservationHelper::formatDate($reservation->bills()->first()->payment_limit)}}
                   </dd>
                 </dl>
-                <!-- </td> -->
-                <!-- <td> -->
                 @if ($reservation->bills()->first()->reservation_status<3) <p>
-                  <a href="{{url('admin/reservations/'.$reservation->bills()->first()->id.'/edit')}}" class="btn more_btn">編集</a>
+                  <a href="{{url('admin/reservations/'.$reservation->bills()->first()->id.'/edit')}}"
+                    class="btn more_btn">編集</a>
                   </p>
                   @endif
               </div>
             </td>
           </tr>
-          <!-- <tr>
-              <td></td>
-              <td>
-                <div class="bg-white d-flex justify-content-around align-items-center">
-                  <div>支払い期日</div>
-                  <div>{{ReservationHelper::formatDate($reservation->bills()->first()->payment_limit)}}</div>
-                </div>
-              </td>
-            </tr> -->
         </tbody>
       </table>
     </div>
@@ -710,454 +425,80 @@
               <div><span>申込日：</span>{{$reservation->bills()->first()->created_at}}</div>
               <div><span>予約確定日：</span>{{$reservation->bills()->first()->approve_send_at}}</div>
             </td>
-            <!-- @if ($reservation->bills()->first()->reservation_status==3)
-            <td>
-              <div>
-                {{ Form::open(['url' => 'admin/cxl/create', 'method'=>'POST', 'class'=>'']) }}
-                @csrf
-                {{ Form::hidden('reservation_id', $reservation->id ) }}
-                {{ Form::hidden('bills_id', $reservation->bills()->first()->id ) }}
-                {{ Form::submit('キャンセル',['class' => 'btn more_btn4']) }}
-                {{ Form::close() }}
-              </div>
-            </td>
-            @endif -->
           </tr>
         </tbody>
       </table>
       <div class="approve_or_confirm">
         @if ($reservation->user_id>0)
-        @if ($reservation->bills()->first()->double_check_status==2)
-        <!-- 利用者に承認メールを送る確認ボタン-ダブルチェック後に表示------ -->
-        {{-- 予約完了後、非表示 --}}
-        @if ($reservation->bills()->first()->reservation_status<=2) <div class="d-flex justify-content-end mt-2 mb-2">
-          {{-- 予約ステータスを2にして、ユーザーにメール送付 --}}
-          {{-- <a class="more_btn" href="">利用者に承認メールを送る</a> --}}
-          {{ Form::open(['url' => 'admin/reservations/'.$reservation->id.'/send_email_and_approve', 'method'=>'POST', 'class'=>'']) }}
-          @csrf
-          {{ Form::hidden('reservation_id', $reservation->id ) }}
-          {{ Form::hidden('user_id', $reservation->user_id ) }}
-          <p class="mr-2">{{ Form::submit('利用者に承認メールを送る',['class' => 'btn more_btn','id'=>'send_confirm']) }}</p>
-          {{ Form::close() }}
-          {{ Form::open(['url' => 'admin/reservations/'.$reservation->id.'/confirm_reservation', 'method'=>'POST', 'class'=>'']) }}
-          @csrf
-          {{ Form::hidden('reservation_id', $reservation->id ) }}
-          {{ Form::hidden('user_id', $reservation->user_id ) }}
-          <p>{{ Form::submit('予約を確定する',['class' => 'btn more_btn4','id'=>'reservation_confirm']) }}</p>
-          {{ Form::close() }}
+        @include('admin.reservations.show.user.double_check')
+        @else
+        @include('admin.reservations.show.agent.double_check')
+        @endif
       </div>
-      @endif
-      @endif
-      @else
-      @if ($reservation->bills()->first()->double_check_status==2)
-      <!-- 利用者に承認メールを送る確認ボタン-ダブルチェック後に表示------ -->
-      {{-- 予約完了後、非表示 --}}
-      @if ($reservation->bills()->first()->reservation_status<=2) <div class="d-flex justify-content-end mt-2 mb-2">
-        {{-- <a class="more_btn4" href="">予約を確定する</a> --}}
-        {{ Form::open(['url' => 'admin/reservations/'.$reservation->id.'/confirm_reservation', 'method'=>'POST', 'class'=>'']) }}
+      <div class="cancel">
+        @if ($reservation->bills()->first()->reservation_status==3)
+        {{ Form::open(['url' => 'admin/cxl/multi_create', 'method'=>'get', 'class'=>'']) }}
         @csrf
         {{ Form::hidden('reservation_id', $reservation->id ) }}
-        {{ Form::hidden('user_id', $reservation->user_id ) }}
-        <p>{{ Form::submit('予約を確定する',['class' => 'btn more_btn4']) }}</p>
-        <span>※仲介会社経由の予約は予約を確定するのみ。メール送信は扶養</span>
+        <p class="text-right py-2 mr-2">
+          {{ Form::submit('一括キャンセル',['class' => 'btn more_btn4', $judgeMultiDelete!=1?"disabled":"",'name'=>'multi']) }}
+          <div class="text-right"><span>※全ての予約ステータスが「予約完了」か確認してください</span></div>
+        </p>
         {{ Form::close() }}
-    </div>
-    @endif
-    @endif
-    @endif
-  </div>
-  <div class="cancel">
-    @if ($reservation->bills()->first()->reservation_status==3)
-    {{ Form::open(['url' => 'admin/cxl/multi_create', 'method'=>'get', 'class'=>'']) }}
-    @csrf
-    {{ Form::hidden('reservation_id', $reservation->id ) }}
-    <p class="text-right py-2 mr-2">
-      {{ Form::submit('一括キャンセル',['class' => 'btn more_btn4', $judgeMultiDelete!=1?"disabled":"",'name'=>'multi']) }}
-    <div class="text-right"><span>※全ての予約ステータスが「予約完了」か確認してください</span></div>
-    </p>
-    {{ Form::close() }}
-    @endif
-  </div>
-
-  <div class="invoice_box d-flex justify-content-end my-3">
-    工藤さん！！請求書のボタンです！！
-    <p class="mr-2"><a class="more_btn" href="">請求書をみる</a></p>
-    <p class="mr-2"><a class="more_btn4" href="">領収書をみる</a></p>
-  </div>
-  </div>
-  <div class="bill_details">
-    <div class="head d-flex">
-      <div class="accordion_btn">
-        <i class="fas fa-plus bill_icon_size hide" aria-hidden="true"></i>
-        <i class="fas fa-minus bill_icon_size" aria-hidden="true"></i>
+        @endif
       </div>
-      <div class="billdetails_ttl">
-        <h3>
-          請求内訳
-        </h3>
+
+      <div class="invoice_box d-flex justify-content-end my-3">
+        工藤さん！！請求書のボタンです！！
+        <p class="mr-2"><a class="more_btn" href="">請求書をみる</a></p>
+        <p class="mr-2"><a class="more_btn4" href="">領収書をみる</a></p>
       </div>
     </div>
-    <div class="main hide">
-
-      @if ($reservation->user_id>0)
-      <div class="venues billdetails_content">
-        <table class="table table-borderless">
-          <tbody>
-            <tr>
-              <td>
-                <h4 class="billdetails_content_ttl">
-                  会場料
-                </h4>
-              </td>
-            </tr>
-          </tbody>
-          <tbody class="venue_head">
-            <tr>
-              <td>内容</td>
-              <td>単価</td>
-              <td>数量</td>
-              <td>金額</td>
-            </tr>
-          </tbody>
-          <tbody class="venue_main">
-            @foreach ($reservation->bills()->first()->breakdowns()->get() as $venue_breakdown)
-            @if ($venue_breakdown->unit_type==1)
-            <tr>
-              <td>{{$venue_breakdown->unit_item}}</td>
-              <td>{{number_format($venue_breakdown->unit_cost)}}</td>
-              <td>{{$venue_breakdown->unit_count}}</td>
-              <td>{{number_format($venue_breakdown->unit_subtotal)}}</td>
-            </tr>
-            @endif
-            @endforeach
-          </tbody>
-          <tbody class="venue_result">
-            <tr>
-              <td colspan="3"></td>
-              <td colspan="1" class="">合計：{{number_format($reservation->bills()->first()->venue_price)}}</td>
-            </tr>
-          </tbody>
-        </table>
+    <div class="bill_details">
+      <div class="head d-flex">
+        <div class="accordion_btn">
+          <i class="fas fa-plus bill_icon_size hide" aria-hidden="true"></i>
+          <i class="fas fa-minus bill_icon_size" aria-hidden="true"></i>
+        </div>
+        <div class="billdetails_ttl">
+          <h3>
+            請求内訳
+          </h3>
+        </div>
       </div>
-      @else
-      <div class="venues billdetails_content">
-        <table class="table table-borderless">
-          <tbody>
-            <tr>
-              <td>
-                <h4 class="billdetails_content_ttl">
-                  会場料
-                </h4>
-              </td>
-            </tr>
-          </tbody>
-          <tbody class="venue_head">
-            <tr>
-              <td>内容</td>
-              <td>単価</td>
-              <td>数量</td>
-              <td>金額</td>
-            </tr>
-          </tbody>
-          <tbody class="venue_main">
-            @foreach ($reservation->bills()->first()->breakdowns()->get() as $venue_breakdown)
-            @if ($venue_breakdown->unit_type==1)
-            <tr>
-              <td>{{$venue_breakdown->unit_item}}</td>
-              <td></td>
-              <td>{{$venue_breakdown->unit_count}}</td>
-              <td></td>
-            </tr>
-            @endif
-            @endforeach
-          </tbody>
-        </table>
-      </div>
-      @endif
-
-      @if ($reservation->user_id>0)
-      @if ($reservation->bills()->first()->equipment_price!=0||$reservation->bills()->first()->equipment_price)
-      <div class="equipment billdetails_content">
-        <table class="table table-borderless">
-          <tbody>
-            <tr>
-              <td colspan="4">
-                <h4 class="billdetails_content_ttl">
-                  有料備品・サービス
-                </h4>
-              </td>
-            </tr>
-          </tbody>
-          <tbody class="equipment_head">
-            <tr>
-              <td>内容</td>
-              <td>単価</td>
-              <td>数量</td>
-              <td>金額</td>
-            </tr>
-          </tbody>
-          <tbody class="equipment_main">
-            @foreach ($reservation->bills()->first()->breakdowns()->get() as $equipment_breakdown)
-            @if ($equipment_breakdown->unit_type==2)
-            <tr>
-              <td>{{$equipment_breakdown->unit_item}}</td>
-              <td>{{number_format($equipment_breakdown->unit_cost)}}</td>
-              <td>{{$equipment_breakdown->unit_count}}</td>
-              <td>{{number_format($equipment_breakdown->unit_subtotal)}}</td>
-            </tr>
-            @endif
-            @endforeach
-            @foreach ($reservation->bills()->first()->breakdowns()->get() as $service_breakdown)
-            @if ($service_breakdown->unit_type==3)
-            <tr>
-              <td>{{$service_breakdown->unit_item}}</td>
-              <td>{{number_format($service_breakdown->unit_cost)}}</td>
-              <td>{{$service_breakdown->unit_count}}</td>
-              <td>{{number_format($service_breakdown->unit_subtotal)}}</td>
-            </tr>
-            @endif
-            @endforeach
-          </tbody>
-          <tbody class="equipment_result">
-            <tr>
-              <td colspan="3"></td>
-              <td colspan="1" class="">合計：{{number_format($reservation->bills()->first()->equipment_price)}}</td>
-              </td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
-      @endif
-      @else
-      <div class="equipment billdetails_content">
-        <table class="table table-borderless">
-          <tbody>
-            <tr>
-              <td>
-                <h4 class="billdetails_content_ttl">
-                  有料備品・サービス
-                </h4>
-              </td>
-            </tr>
-          </tbody>
-          <tbody class="equipment_head">
-            <tr>
-              <td>内容</td>
-              <td>単価</td>
-              <td>数量</td>
-              <td>金額</td>
-            </tr>
-          </tbody>
-          <tbody class="equipment_main">
-            @foreach ($reservation->bills()->first()->breakdowns()->get() as $equipment_breakdown)
-            @if ($equipment_breakdown->unit_type==2)
-            <tr>
-              <td>{{$equipment_breakdown->unit_item}}</td>
-              <td></td>
-              <td>{{$equipment_breakdown->unit_count}}</td>
-              <td></td>
-            </tr>
-            @endif
-            @endforeach
-            @foreach ($reservation->bills()->first()->breakdowns()->get() as $service_breakdown)
-            @if ($service_breakdown->unit_type==3)
-            <tr>
-              <td>{{$service_breakdown->unit_item}}</td>
-              <td></td>
-              <td>{{$service_breakdown->unit_count}}</td>
-              <td></td>
-            </tr>
-            @endif
-            @endforeach
-          </tbody>
-        </table>
-      </div>
-      @endif
-
-
-
-      @if ($reservation->user_id>0)
-      @if ($reservation->bills()->first()->layout_price!=0||$reservation->bills()->first()->layout_price)
-      <div class="layout billdetails_content">
-        <table class="table table-borderless">
-          <tbody>
-            <tr>
-              <td>
-                <h4 class="billdetails_content_ttl">
-                  レイアウト
-                </h4>
-              </td>
-            </tr>
-          </tbody>
-          <tbody class="layout_head">
-            <tr>
-              <td>内容</td>
-              <td>単価</td>
-              <td>数量</td>
-              <td>金額</td>
-            </tr>
-          </tbody>
-          <tbody class="layout_main">
-            @foreach ($reservation->bills()->first()->breakdowns()->get() as $layout_breakdown)
-            @if ($layout_breakdown->unit_type==4)
-            <tr>
-              <td>{{$layout_breakdown->unit_item}}</td>
-              <td>{{number_format($layout_breakdown->unit_cost)}}</td>
-              <td>{{$layout_breakdown->unit_count}}</td>
-              <td>{{number_format($layout_breakdown->unit_subtotal)}}</td>
-            </tr>
-            @endif
-            @endforeach
-          </tbody>
-          <tbody class="layout_result">
-            <tr>
-              <td colspan="3"></td>
-              <td colspan="1">合計：{{number_format($reservation->bills()->first()->layout_price)}}
-              </td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
-      @endif
-      @else
-      <div class="layout billdetails_content">
-        <table class="table table-borderless">
-          <tbody>
-            <tr>
-              <td colspan="2">
-                <h4 class="billdetails_content_ttl">
-                  レイアウト
-                </h4>
-              </td>
-            </tr>
-          </tbody>
-          <tbody class="layout_head">
-            <tr>
-              <td>内容</td>
-              <td>単価</td>
-              <td>数量</td>
-              <td>金額</td>
-            </tr>
-          </tbody>
-          <tbody class="layout_main">
-            @foreach ($reservation->bills()->first()->breakdowns()->get() as $layout_breakdown)
-            @if ($layout_breakdown->unit_type==4)
-            <tr>
-              <td>{{$layout_breakdown->unit_item}}</td>
-              <td></td>
-              <td>{{$layout_breakdown->unit_count}}</td>
-              <td></td>
-            </tr>
-            @endif
-            @endforeach
-          </tbody>
-        </table>
-      </div>
-      @endif
-
-      @if ($reservation->user_id>0)
-      @if ($reservation->bills()->first()->others_price!=0||$reservation->bills()->first()->others_price)
-      <div class="others billdetails_content">
-        <table class="table table-borderless">
-          <tbody>
-            <tr>
-              <td colspan="4">
-                　<h4 class="billdetails_content_ttl">
-                  その他
-                </h4>
-              </td>
-            </tr>
-          </tbody>
-          <tbody class="others_head">
-            <tr>
-              <td>内容</td>
-              <td>単価</td>
-              <td>数量</td>
-              <td>金額</td>
-            </tr>
-          </tbody>
-          <tbody class="others_main">
-            @foreach ($reservation->bills()->first()->breakdowns()->get() as $others_breakdown)
-            @if ($others_breakdown->unit_type==5)
-            <tr>
-              <td>{{$others_breakdown->unit_item}}</td>
-              <td>{{number_format($others_breakdown->unit_cost)}}</td>
-              <td>{{$others_breakdown->unit_count}}</td>
-              <td>{{number_format($others_breakdown->unit_subtotal)}}</td>
-            </tr>
-            @endif
-            @endforeach
-          </tbody>
-          <tbody class="others_result">
-            <tr>
-              <td colspan="3"></td>
-              <td colspan="1">合計：{{$reservation->bills()->first()->others_price}}
-            </tr>
-          </tbody>
-        </table>
-      </div>
-      @endif
-      @else
-      <div class="others billdetails_content">
-        <table class="table table-borderless">
-          <tbody>
-            <tr>
-              <td>
-                　<h4 class="billdetails_content_ttl">
-                  その他
-                </h4>
-              </td>
-            </tr>
-          </tbody>
-          <tbody class="others_head">
-            <tr>
-              <td>内容</td>
-              <td>単価</td>
-              <td>数量</td>
-              <td>金額</td>
-            </tr>
-          </tbody>
-          <tbody class="others_main">
-            @foreach ($reservation->bills()->first()->breakdowns()->get() as $others_breakdown)
-            @if ($others_breakdown->unit_type==5)
-            <tr>
-              <td>{{$others_breakdown->unit_item}}</td>
-              <td></td>
-              <td>{{$others_breakdown->unit_count}}</td>
-              <td></td>
-            </tr>
-            @endif
-            @endforeach
-          </tbody>
-        </table>
-      </div>
-      @endif
-      <div class="bill_total">
-        <table class="table text-right">
-          <tbody>
-            <tr>
-              <td></td>
-              <td>
-                小計：{{number_format($reservation->bills()->first()->master_subtotal)}}
-              </td>
-            </tr>
-            <tr>
-              <td></td>
-              <td>
-                消費税：{{number_format($reservation->bills()->first()->master_tax)}}
-              </td>
-            </tr>
-            <tr>
-              <td></td>
-              <td>
-                <span class="font-weight-bold">合計金額：</span>{{number_format($reservation->bills()->first()->master_total)}}
-              </td>
-            </tr>
-          </tbody>
-        </table>
+      <div class="main hide">
+        @if ($reservation->user_id>0)
+        @include('admin.reservations.show.user.breakdown')
+        @else
+        @include('admin.reservations.show.agent.breakdown')
+        @endif
+        <div class="bill_total">
+          <table class="table text-right">
+            <tbody>
+              <tr>
+                <td></td>
+                <td>
+                  小計：{{number_format($reservation->bills()->first()->master_subtotal)}}
+                </td>
+              </tr>
+              <tr>
+                <td></td>
+                <td>
+                  消費税：{{number_format($reservation->bills()->first()->master_tax)}}
+                </td>
+              </tr>
+              <tr>
+                <td></td>
+                <td>
+                  <span
+                    class="font-weight-bold">合計金額：</span>{{number_format($reservation->bills()->first()->master_total)}}
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
       </div>
     </div>
-  </div>
   </div>
 
   <div class="information">
@@ -1252,7 +593,6 @@
       </dd>
     </dl>
   </div>
-  {{-- test --}}
   @elseif($reservation->bills()->first()->double_check_status==1)
   <div class="double_checkbox section-wrap">
     <dl class="d-flex col-12 justify-content-end align-items-center">
@@ -1297,14 +637,10 @@
                   <dt>合計金額：</dt>
                   <dd class="total_result">{{number_format($other_bill->master_total)}} 円</dd>
                 </dl>
-                <!-- </td> -->
-                <!-- <td> -->
                 <dl class="ttl_box">
                   <dt>支払い期日：</dt>
                   <dd class="total_result">{{ReservationHelper::formatDate($other_bill->payment_limit)}}</dd>
                 </dl>
-                <!-- </td> -->
-                <!-- <td> -->
                 <p><a href="{{url('admin/bills/'.$other_bill->id.'/edit')}}" class="btn more_btn">編集</a></p>
               </div>
             </td>
@@ -1362,7 +698,6 @@
               <div><span>申込日：</span>{{$other_bill->created_at}}</div>
               <div><span>予約確定日：</span>{{$other_bill->approve_send_at}}</div>
             </td>
-
           </tr>
         </tbody>
       </table>
@@ -1417,187 +752,13 @@
         </div>
       </div>
       <div class="main hide">
-        @if ($other_bill->venue_price!=0||$other_bill->venue_price)
-        <div class="venues billdetails_content">
-          <table class="table table-borderless">
-            <tbody>
-              <tr>
-                <td>
-                  <h4 class="billdetails_content_ttl">
-                    会場料
-                  </h4>
-                </td>
-              </tr>
-            </tbody>
-            <tbody class="venue_head">
-              <tr>
-                <td>内容</td>
-                <td>単価</td>
-                <td>数量</td>
-                <td>金額</td>
-              </tr>
-            </tbody>
-            <tbody class="venue_main">
-              @foreach ($other_bill->breakdowns()->get() as $venue_breakdown)
-              @if ($venue_breakdown->unit_type==1)
-              <tr>
-                <td>{{$venue_breakdown->unit_item}}</td>
-                <td>{{number_format($venue_breakdown->unit_cost)}}</td>
-                <td>{{$venue_breakdown->unit_count}}</td>
-                <td>{{number_format($venue_breakdown->unit_subtotal)}}</td>
-              </tr>
-              @endif
-              @endforeach
-            </tbody>
-            <tbody class="venue_result">
-              <tr>
-                <td colspan="3"></td>
-                <td colspan="1" class="">合計：{{number_format($other_bill->venue_price)}}</td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
+        @if ($reservation->user_id>0)
+        @include('admin.reservations.show.user.additional_breakdown')
+        @else
+        @include('admin.reservations.show.agent.additional_breakdown')
         @endif
 
 
-        @if ($other_bill->equipment_price!=0||$other_bill->equipment_price)
-        <div class="equipment billdetails_content">
-          <table class="table table-borderless">
-            <tbody>
-              <tr>
-                <td colspan="4">
-                  <h4 class="billdetails_content_ttl">
-                    有料備品・サービス
-                  </h4>
-                </td>
-              </tr>
-            </tbody>
-            <tbody class="equipment_head">
-              <tr>
-                <td>内容</td>
-                <td>単価</td>
-                <td>数量</td>
-                <td>金額</td>
-              </tr>
-            </tbody>
-            <tbody class="equipment_main">
-              @foreach ($other_bill->breakdowns()->get() as $equipment_breakdown)
-              @if ($equipment_breakdown->unit_type==2)
-              <tr>
-                <td>{{$equipment_breakdown->unit_item}}</td>
-                <td>{{number_format($equipment_breakdown->unit_cost)}}</td>
-                <td>{{$equipment_breakdown->unit_count}}</td>
-                <td>{{number_format($equipment_breakdown->unit_subtotal)}}</td>
-              </tr>
-              @endif
-              @endforeach
-              @foreach ($other_bill->breakdowns()->get() as $service_breakdown)
-              @if ($service_breakdown->unit_type==3)
-              <tr>
-                <td>{{$service_breakdown->unit_item}}</td>
-                <td>{{number_format($service_breakdown->unit_cost)}}</td>
-                <td>{{$service_breakdown->unit_count}}</td>
-                <td>{{number_format($service_breakdown->unit_subtotal)}}</td>
-              </tr>
-              @endif
-              @endforeach
-            </tbody>
-            <tbody class="equipment_result">
-              <tr>
-                <td colspan="3"></td>
-                <td colspan="1" class="">合計：{{number_format($other_bill->equipment_price)}}</td>
-                </td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
-        @endif
-
-        @if ($other_bill->layout_price!=0||$other_bill->layout_price)
-        <div class="layout billdetails_content">
-          <table class="table table-borderless">
-            <tbody>
-              <tr>
-                <td>
-                  <h4 class="billdetails_content_ttl">
-                    レイアウト
-                  </h4>
-                </td>
-              </tr>
-            </tbody>
-            <tbody class="layout_head">
-              <tr>
-                <td>内容</td>
-                <td>単価</td>
-                <td>数量</td>
-                <td>金額</td>
-              </tr>
-            </tbody>
-            <tbody class="layout_main">
-              @foreach ($other_bill->breakdowns()->get() as $layout_breakdown)
-              @if ($layout_breakdown->unit_type==4)
-              <tr>
-                <td>{{$layout_breakdown->unit_item}}</td>
-                <td>{{number_format($layout_breakdown->unit_cost)}}</td>
-                <td>{{$layout_breakdown->unit_count}}</td>
-                <td>{{number_format($layout_breakdown->unit_subtotal)}}</td>
-              </tr>
-              @endif
-              @endforeach
-            </tbody>
-            <tbody class="layout_result">
-              <tr>
-                <td colspan="3"></td>
-                <td colspan="1">合計：{{number_format($other_bill->layout_price)}}
-                </td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
-        @endif
-
-
-        @if ($other_bill->others_price!=0||$other_bill->others_price)
-        <div class="others billdetails_content">
-          <table class="table table-borderless">
-            <tbody>
-              <tr>
-                <td colspan="4">
-                  　<h4 class="billdetails_content_ttl">
-                    その他
-                  </h4>
-                </td>
-              </tr>
-            </tbody>
-            <tbody class="others_head">
-              <tr>
-                <td>内容</td>
-                <td>単価</td>
-                <td>数量</td>
-                <td>金額</td>
-              </tr>
-            </tbody>
-            <tbody class="others_main">
-              @foreach ($other_bill->breakdowns()->get() as $others_breakdown)
-              @if ($others_breakdown->unit_type==5)
-              <tr>
-                <td>{{$others_breakdown->unit_item}}</td>
-                <td>{{number_format($others_breakdown->unit_cost)}}</td>
-                <td>{{$others_breakdown->unit_count}}</td>
-                <td>{{number_format($others_breakdown->unit_subtotal)}}</td>
-              </tr>
-              @endif
-              @endforeach
-            </tbody>
-            <tbody class="others_result">
-              <tr>
-                <td colspan="3"></td>
-                <td colspan="1">合計：{{$other_bill->others_price}}
-              </tr>
-            </tbody>
-          </table>
-        </div>
-        @endif
         <div class="bill_total">
           <table class="table text-right">
             <tbody>
@@ -1620,6 +781,7 @@
           </table>
         </div>
       </div>
+
     </div>
   </div>
   <div class="information">

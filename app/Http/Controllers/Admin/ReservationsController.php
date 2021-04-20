@@ -381,8 +381,8 @@ class ReservationsController extends Controller
     $user = User::find($reservation->user_id);
     $master_prices = $reservation->TotalAmount();
     $other_bills = [];
-    for ($i = 0; $i < count($reservation->bills()->get()) - 1; $i++) {
-      $other_bills[] = $reservation->bills()->skip($i + 1)->first();
+    for ($i = 0; $i < count($reservation->bills) - 1; $i++) {
+      $other_bills[] = $reservation->bills->skip($i + 1)->first();
     }
     $admin = Admin::all()->sortBy('name', SORT_NATURAL | SORT_FLAG_CASE)->pluck('name', 'name');
     //付随する追加予約のステータスが予約完了になってるか判別

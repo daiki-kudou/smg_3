@@ -454,7 +454,7 @@
             </td>
             <td>
               <div class="d-flex align-items-end">
-                {{ Form::text('enduser_charge', old('enduser_charge'),['class'=>'form-control sales_percentage', 'placeholder'=>'入力してください'] ) }}
+                {{ Form::text('enduser_charge', old('enduser_charge'),['class'=>'form-control ', 'placeholder'=>'入力してください'] ) }}
                 <span class="ml-1">円</span>
               </div>
               <p class="is-error-enduser_charge" style="color: red"></p>

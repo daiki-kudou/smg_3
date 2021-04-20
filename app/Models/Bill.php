@@ -438,6 +438,7 @@ class Bill extends Model
           }
         }
       }
+
       if ($request->luggage_item) {
         $this->breakdowns()->create([
           'unit_item' => $request->luggage_item,

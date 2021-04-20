@@ -102,7 +102,6 @@ class AgentsReservationsController extends Controller
   {
     $reservation = new Reservation();
     $reservation->ReserveFromAgent($request);
-    // 戻って再度送信してもエラーになるように設定
     $request->session()->regenerate();
     return redirect()->route('admin.reservations.index');
   }
