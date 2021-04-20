@@ -17,10 +17,13 @@ use Illuminate\Support\Facades\DB; //トランザクション用
 
 use App\Models\Bill;
 
+use App\Traits\PregTrait;
 
 
 class AgentsReservationsController extends Controller
 {
+  use PregTrait;
+
   public function create()
   {
     $venues = Venue::all();
@@ -34,7 +37,6 @@ class AgentsReservationsController extends Controller
     $request->session()->put('master_info', $data);
     $calcData = $this->calcSession($request);
     $request->session()->put('calc_info', $calcData);
-
     return redirect(route('admin.agents_reservations.calculate'));
   }
 
@@ -46,7 +48,6 @@ class AgentsReservationsController extends Controller
     $carbon1 = new Carbon($request->enter_time);
     $carbon2 = new Carbon($request->leave_time);
     $usage_hours = ($carbon1->diffInMinutes($carbon2)) / 60;
-
     return [$price, $payment_limit, $usage_hours];
   }
 
@@ -55,33 +56,12 @@ class AgentsReservationsController extends Controller
     $master_info = $request->session()->get('master_info');
     $calc_info = $request->session()->get('calc_info');
     $discount_info = $request->session()->get('discount_info');
-
     $venues = Venue::all();
-    // $SPvenue = $venues->find($request->venue_id);
     $agents = Agent::all();
-    // $agent = $agents->find($request->agent_id);
-    // $price = $agent->agentPriceCalculate($request->enduser_charge);
-    // $payment_limit = $agent->getAgentPayLimit($request->reserve_date);
-    // $carbon1 = new Carbon($request->enter_time);
-    // $carbon2 = new Carbon($request->leave_time);
-    // $usage_hours = $carbon1->diffInMinutes($carbon2);
-    // $usage_hours = $usage_hours / 60;
-    // $_equipment = Equipment::sumArrays($request);
-    // $_service = Service::sumArrays($request);
-
-    // $layout_price = 0;
-    // if ($request->layout_prepare > 0) {
-    //   $layout_price += $venues->find($request->venue_id)->layout_prepare;
-    // } else {
-    //   $layout_price += 0;
-    // }
-    // if ($request->layout_clean > 0) {
-    //   $layout_price += $venues->find($request->venue_id)->layout_clean;
-    // } else {
-    //   $layout_price += 0;
-    // }
-    // $price = $price + $layout_price;
-
+    $_equipment = $this->preg($master_info, 'equipment_breakdown');
+    $_service = $this->preg($master_info, 'services_breakdown');
+    $layoutPrice = $venues->find($master_info['venue_id'])->getLayoutPrice($master_info['layout_prepare'], $master_info['layout_clean']);
+    $price = ($layoutPrice[2]) + (floor($calc_info[0]));
     return view(
       'admin.agents_reservations.calculate',
       compact(
@@ -90,26 +70,31 @@ class AgentsReservationsController extends Controller
         'master_info',
         'calc_info',
         'discount_info',
+        'layoutPrice',
+        'price',
+        '_equipment',
+        '_service',
       )
     );
   }
 
+  public function checkSession(Request $request)
+  {
+    $data = $request->all();
+    $request->session()->put('check_info', $data);
+    return redirect(route('admin.agents_reservations.check'));
+  }
+
+
   public function check(Request $request)
   {
-    $venue = Venue::find($request->venue_id);
-    $others_details = [];
-    foreach ($request->all() as $key => $value) {
-      if (preg_match('/others_input_item/', $key)) {
-        if (!empty($value)) {
-          $others_details[] = $value;
-        }
-      }
-    }
-    $others_details = !empty($others_details) ? count($others_details) : "";
-
+    $master_info = $request->session()->get('master_info');
+    $calc_info = $request->session()->get('calc_info');
+    $check_info = $request->session()->get('check_info');
+    $venue = Venue::find($master_info['venue_id']);
     return view(
       'admin.agents_reservations.check',
-      compact('request', 'venue', 'others_details')
+      compact('master_info', 'calc_info', 'check_info', 'venue')
     );
   }
 

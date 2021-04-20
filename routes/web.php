@@ -200,8 +200,10 @@ Route::namespace('Admin')->prefix('admin')->name('admin.')->group(function () {
     Route::post('agents_reservations/store_session', 'AgentsReservationsController@storeSession');
     // 仲介会社経由　計算
     Route::get('agents_reservations/calculate', 'AgentsReservationsController@calculate')->name('agents_reservations.calculate');
+    // 仲介　予約　check　SESSION
+    Route::post('agents_reservations/check_session', 'AgentsReservationsController@checkSession');
     // 仲介会社経由　確認
-    Route::post('agents_reservations/check', 'AgentsReservationsController@check');
+    Route::get('agents_reservations/check', 'AgentsReservationsController@check')->name('agents_reservations.check');
     // 仲介会社経由　保存
     Route::post('agents_reservations', 'AgentsReservationsController@store');
     // 仲介会社　請求　追加

@@ -394,9 +394,6 @@ class Bill extends Model
 
   public function ReserveFromAgentBreakdown($request)
   {
-    echo "<pre>";
-
-    echo "</pre>";
 
     DB::transaction(function () use ($request) {
       $countVenue = $this->RequestBreakdowns($request, 'venue_breakdown_item');
