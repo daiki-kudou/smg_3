@@ -2,12 +2,11 @@
 
 @section('content')
 
-
-
-
-
-
 <link href="{{ asset('/css/template.css') }}" rel="stylesheet">
+
+
+<h2 class="mt-3 mb-3">予約状況カレンダー 会場別</h2>
+<hr>
 
 @foreach ($days as $key=>$day)
 @foreach ($reservations as $reservation)
@@ -42,32 +41,34 @@
 @endforeach
 
 
-<div class="calender-wrap">
 
+<section class="mt-5 bg-white">
   <div class="calender-ttl">
+    <!-- <h3 class="">予約状況</h3> -->
     {{ Form::open(['url' => '/admin/calendar/venue_calendar', 'method' => 'post']) }}
     @csrf
-    <select name="venue_id" id="venue_id">
-      @foreach ($venues as $venue)
-      <option value="{{$venue->id}}" @if ($venue->id==$selected_venue)
-        selected
-        @endif
-        >{{$venue->name_area}}{{$venue->name_bldg}}{{$venue->name_venue}}</option>
-      @endforeach
-    </select>
-    <select name="selected_year" id="selected_year">
-      @for ($i = 2021; $i < 2031; $i++) <option value="{{$i}}" @if ($selected_year==$i) selected @endif>{{$i}}</option>
-        @endfor
-    </select>
-    <select name="selected_month" id="selected_month">
-      @for ($ii = 1; $ii <= 12; $ii++) <option value="{{$ii}}" @if ($selected_month==$ii) selected @endif>{{$ii}}月
-        </option>
-        @endfor
-    </select>
-    {{Form::submit('確認する')}}
-    {{ Form::close() }}
+    <div class="d-flex align-items-center">
+      <select name="venue_id" id="venue_id" class="form-control">
+        @foreach ($venues as $venue)
+        <option value="{{$venue->id}}" @if ($venue->id==$selected_venue)
+          selected
+          @endif
+          >{{$venue->name_area}}{{$venue->name_bldg}}{{$venue->name_venue}}</option>
+        @endforeach
+      </select>
+      <select name="selected_year" id="selected_year" class="form-control w-25 ml-2">
+        @for ($i = 2021; $i < 2031; $i++) <option value="{{$i}}" @if ($selected_year==$i) selected @endif>{{$i}}</option>
+          @endfor
+      </select>
+      <select name="selected_month" id="selected_month" class="form-control w-25 mx-2">
+        @for ($ii = 1; $ii <= 12; $ii++) <option value="{{$ii}}" @if ($selected_month==$ii) selected @endif>{{$ii}}月
+          </option>
+          @endfor
+      </select>
+      {{Form::submit('予約状況を確認する', ['class' => 'btn more_btn'])}}
+    </div>
+      {{ Form::close() }}
 
-    <h3>予約状況</h3>
   </div>
   <ul class="calender-color">
     <li class="li-bg-reserve">予約済み</li>
@@ -132,7 +133,7 @@
       @endforeach
     </tbody>
   </table>
-</div>
+</section>
 
 <style>
   .no_wrap {
@@ -165,17 +166,17 @@
       var diffTime = Math.floor(diffTime / (1000 * 60));
       var target = diffTime / 30;
 
-      function zeroPadding(num){
+      function zeroPadding(num) {
         return ('0' + num).slice(-2);
       }
       for (let index = 0; index < target; index++) {
         ds.setMinutes(ds.getMinutes() + (30));
-        var hours=ds.getHours();
-        hours=zeroPadding(hours);
+        var hours = ds.getHours();
+        hours = zeroPadding(hours);
         var minutes = ds.getMinutes();
         minutes = zeroPadding(minutes);
         // console.log(hours+minutes);
-        var result = hours+minutes;
+        var result = hours + minutes;
         if (status == 3) {
           $("." + s_date + "cal" + result).addClass('bg-reserve');
           if (!$("." + s_date + "cal" + result).prev().hasClass('bg-reserve')) {

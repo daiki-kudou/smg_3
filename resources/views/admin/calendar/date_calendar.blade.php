@@ -6,15 +6,14 @@
 <script src="{{ asset('/js/template.js') }}"></script>
 
 
-<h2 class="mt-3 mb-3">予約状況カレンダー</h2>
+<h2 class="mt-3 mb-3">予約状況カレンダー 利用日別</h2>
 <hr>
 
 
 <section class="mt-5 bg-white">
   <div class="date_calender_wrapper" id="date_calender_wrapper">
     <div class="calender-ttl">
-      <h3>予約状況</h3>
-
+      <!-- <h3>予約状況</h3> -->
       <div class="d-flex align-items-center">
         <div class="row w-100">
           <div class="col text-right">

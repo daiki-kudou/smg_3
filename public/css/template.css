@@ -1190,7 +1190,7 @@ h3 {
     display: block;
     position: absolute;
     left: 0;
-    border: 1px solid #ededed;
+    border: 1px solid #c7c7c7;
 }
 
 .calender-color li.li-bg-reserve::before {
@@ -1245,7 +1245,7 @@ h3 {
 }
 
 .calender-head .field-title {
-    width: 10%;
+    width: 15%;
     background: #fff;
     text-align: left;
     padding-left: 1em;
@@ -1256,7 +1256,7 @@ h3 {
 }
 
 .calender-flame .calender-data .calhalf {
-    border-right: 2px dotted #ddd;
+    /* border-right: 2px dotted #ddd; */
     border-left: 2px solid #c5c5c5;
 }
 
