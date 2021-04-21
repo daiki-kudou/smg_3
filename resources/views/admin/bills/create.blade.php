@@ -91,7 +91,7 @@
                 <tr>
                   <td>{{ Form::text('venue_breakdown_item0', '', ['class' => 'form-control'])}}</td>
                   <td>{{ Form::text('venue_breakdown_cost0', '', ['class' => 'form-control'])}}</td>
-                  <td>{{ Form::text('venue_breakdown_count0', '', ['class' => 'form-control'])}}</td>
+                  <td>{{ Form::text('venue_breakdown_count0', '', ['class' => 'form-control number_validation'])}}</td>
                   <td>{{ Form::text('venue_breakdown_subtotal0', '', ['class' => 'form-control', 'readonly'])}}</td>
                   <td>
                     <input type="button" value="＋" class="add pluralBtn">
@@ -107,7 +107,7 @@
                     {{ Form::text('venue_breakdown_cost'.$i, $data['venue_breakdown_cost'.$i], ['class' => 'form-control'])}}
                   </td>
                   <td>
-                    {{ Form::text('venue_breakdown_count'.$i, $data['venue_breakdown_count'.$i], ['class' => 'form-control'])}}
+                    {{ Form::text('venue_breakdown_count'.$i, $data['venue_breakdown_count'.$i], ['class' => 'form-control number_validation'])}}
                   </td>
                   <td>
                     {{ Form::text('venue_breakdown_subtotal'.$i, $data['venue_breakdown_subtotal'.$i], ['class' => 'form-control', 'readonly'])}}
@@ -157,7 +157,7 @@
                 <tr>
                   <td>{{ Form::text('equipment_breakdown_item0', '', ['class' => 'form-control'])}}</td>
                   <td>{{ Form::text('equipment_breakdown_cost0', '', ['class' => 'form-control'])}}</td>
-                  <td>{{ Form::text('equipment_breakdown_count0', '', ['class' => 'form-control'])}}</td>
+                  <td>{{ Form::text('equipment_breakdown_count0', '', ['class' => 'form-control number_validation'])}}</td>
                   <td>{{ Form::text('equipment_breakdown_subtotal0', '', ['class' => 'form-control', 'readonly'])}}</td>
                   <td>
                     <input type="button" value="＋" class="add pluralBtn">
@@ -173,7 +173,7 @@
                     {{ Form::text('equipment_breakdown_cost'.$i, $data['equipment_breakdown_cost'.$i], ['class' => 'form-control'])}}
                   </td>
                   <td>
-                    {{ Form::text('equipment_breakdown_count'.$i, $data['equipment_breakdown_count'.$i], ['class' => 'form-control'])}}
+                    {{ Form::text('equipment_breakdown_count'.$i, $data['equipment_breakdown_count'.$i], ['class' => 'form-control number_validation'])}}
                   </td>
                   <td>
                     {{ Form::text('equipment_breakdown_subtotal'.$i, $data['equipment_breakdown_subtotal'.$i], ['class' => 'form-control', 'readonly'])}}
@@ -224,7 +224,7 @@
                 <tr>
                   <td>{{ Form::text('layout_breakdown_item0', '', ['class' => 'form-control'])}}</td>
                   <td>{{ Form::text('layout_breakdown_cost0', '', ['class' => 'form-control'])}}</td>
-                  <td>{{ Form::text('layout_breakdown_count0', '', ['class' => 'form-control'])}}</td>
+                  <td>{{ Form::text('layout_breakdown_count0', '', ['class' => 'form-control number_validation'])}}</td>
                   <td>{{ Form::text('layout_breakdown_subtotal0', '', ['class' => 'form-control', 'readonly'])}}</td>
                   <td>
                     <input type="button" value="＋" class="add pluralBtn">
@@ -240,7 +240,7 @@
                     {{ Form::text('layout_breakdown_cost'.$i, $data['layout_breakdown_cost'.$i], ['class' => 'form-control'])}}
                   </td>
                   <td>
-                    {{ Form::text('layout_breakdown_count'.$i, $data['layout_breakdown_count'.$i], ['class' => 'form-control'])}}
+                    {{ Form::text('layout_breakdown_count'.$i, $data['layout_breakdown_count'.$i], ['class' => 'form-control number_validation'])}}
                   </td>
                   <td>
                     {{ Form::text('layout_breakdown_subtotal'.$i, $data['layout_breakdown_subtotal'.$i], ['class' => 'form-control', 'readonly'])}}
@@ -292,7 +292,7 @@
                 <tr>
                   <td>{{ Form::text('others_breakdown_item0', '', ['class' => 'form-control'])}}</td>
                   <td>{{ Form::text('others_breakdown_cost0', '', ['class' => 'form-control'])}}</td>
-                  <td>{{ Form::text('others_breakdown_count0', '', ['class' => 'form-control'])}}</td>
+                  <td>{{ Form::text('others_breakdown_count0', '', ['class' => 'form-control number_validation'])}}</td>
                   <td>{{ Form::text('others_breakdown_subtotal0', '', ['class' => 'form-control', 'readonly'])}}</td>
                   <td>
                     <input type="button" value="＋" class="add pluralBtn">
@@ -308,7 +308,7 @@
                     {{ Form::text('others_breakdown_cost'.$i, $data['others_breakdown_cost'.$i], ['class' => 'form-control'])}}
                   </td>
                   <td>
-                    {{ Form::text('others_breakdown_count'.$i, $data['others_breakdown_count'.$i], ['class' => 'form-control'])}}
+                    {{ Form::text('others_breakdown_count'.$i, $data['others_breakdown_count'.$i], ['class' => 'form-control number_validation'])}}
                   </td>
                   <td>
                     {{ Form::text('others_breakdown_subtotal'.$i, $data['others_breakdown_subtotal'.$i], ['class' => 'form-control', 'readonly'])}}

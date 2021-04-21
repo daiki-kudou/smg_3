@@ -20,7 +20,6 @@
 </div>
 @endif
 
-
 <section class="mt-5">
   <div class="bill">
     <div class="bill_details">
@@ -317,7 +316,7 @@
               <tr>
                 <td>振込人名
                   {{Form::text('pay_person','',['class'=>'form-control'])}}
-                  <p class="is-error-pay_person" style="color: red"></p>
+                <p class="is-error-pay_person" style="color: red"></p>
                 </td>
                 <td>入金額
                   {{Form::text('payment','',['class'=>'form-control'])}}

@@ -10,7 +10,7 @@ jQuery.validator.addMethod(
 jQuery.validator.addMethod(
   "hankaku",
   function (value, element) {
-    return this.optional(element) || /^[ｱ-ﾝﾞﾟｧ-ｫｬ-ｮｰ｡｢｣､a-zA-Z0-9]+$/.test(value);
+    return this.optional(element) || /^[ｱ-ﾝﾞﾟｧ-ｫｬ-ｮｰ｡｢｣､a-zA-Z0-9()]+$/.test(value);
   },
 );
 
@@ -29,6 +29,14 @@ jQuery.validator.addMethod(
     return this.optional(element) || /^([a-zA-Z0-9!@#$%^\[\\\]\&*()+-={};:?,._]+)$/.test(value);
   },
 );
+
+jQuery.validator.addMethod(
+  "number",
+  function (value, element) {
+    return this.optional(element) || /^([0-9-]+)$/.test(value);
+  },
+);
+
 
 // 有料備品の数字入力制限
 $(function () {
@@ -56,8 +64,9 @@ $(function () {
   });
 });
 
+// 数字入力制限
 $(function () {
-  $("input[name*='others_input_count']").on("input", function (e) {
+  $(".number_validation").on("input", function (e) {
     let value = $(e.currentTarget).val();
     value = value
       .replace(/[０-９]/g, function (s) {
@@ -1906,15 +1915,3 @@ $(function () {
   });
 });
 
-// 有料備品の数字入力制限
-$(function () {
-  $(".equipment_breakdown").on("input", function (e) {
-    let value = $(e.currentTarget).val();
-    value = value
-      .replace(/[０-９]/g, function (s) {
-        return String.fromCharCode(s.charCodeAt(0) - 65248);
-      })
-      .replace(/[^0-9]/g, "");
-    $(e.currentTarget).val(value);
-  });
-});
