@@ -89,12 +89,6 @@ class AgentsReservationsController extends Controller
   public function check(Request $request)
   {
     $data = $request->session()->get('add_bill');
-    $venues = $this->preg($data, 'venue_breakdown_item');
-    $equipments = $this->preg($data, 'equipment_breakdown_item');
-    $layouts = $this->preg($data, 'layout_breakdown_item');
-    $others = $this->preg($data, 'others_breakdown_item');
-
-
     $master_info = $request->session()->get('master_info');
     $calc_info = $request->session()->get('calc_info');
     $check_info = $request->session()->get('check_info');
@@ -168,7 +162,6 @@ class AgentsReservationsController extends Controller
         'reserve_date' => $data['reserve_date'],
       ]));
     }
-
     DB::transaction(function () use ($request) { //トランザクションさせる
       $bill = Bill::create([
         'reservation_id' => $request->reservation_id,
@@ -188,7 +181,6 @@ class AgentsReservationsController extends Controller
         'pay_day' => $request->pay_day,
         'pay_person' => $request->pay_person,
         'payment' => $request->payment,
-
         'reservation_status' => 1, //固定で1
         'double_check_status' => 0, //固定で1
         'category' => 2, //1が会場　２が追加請求
@@ -219,7 +211,6 @@ class AgentsReservationsController extends Controller
       storeAndBreakDown($request->all(), 'layout_breakdown_', $bill, 4);
       storeAndBreakDown($request->all(), 'others_breakdown', $bill, 5);
     });
-
     $request->session()->regenerate();
     return redirect()->route('admin.reservations.show', $request->reservation_id);
   }

@@ -362,7 +362,8 @@
                     {{ReservationHelper::formatDate($reservation->bills()->first()->payment_limit)}}
                   </dd>
                 </dl>
-                @if ($reservation->bills()->first()->reservation_status<3) <p>
+                {{var_dump($)}}
+                @if ($reservation->bills->first()->reservation_status<3) <p>
                   <a href="{{url('admin/reservations/'.$reservation->bills()->first()->id.'/edit')}}"
                     class="btn more_btn">編集</a>
                   </p>

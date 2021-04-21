@@ -76,6 +76,7 @@ class RegisterController extends Controller
       'last_name_kana' =>  $data['last_name_kana'],
       'status' => 1,
       'admin_or_user' => 2,
+      'mobile' => $data['mobile'],
     ]);
   }
 }

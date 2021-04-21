@@ -375,10 +375,12 @@ class ReservationsController extends Controller
    */
   public function show($id)
   {
-    session()->forget(['add_bill', 'cxlCalcInfo', 'cxlMaster', 'cxlResult', 'invoice', 'multiOrSingle', 'discount_info', 'calc_info', 'master_info']);
-    $reservation = Reservation::with(['bills.breakdowns', 'cxls.cxl_breakdowns'])->find($id);
-    $venue = Venue::find($reservation->venue->id);
-    $user = User::find($reservation->user_id);
+    session()->forget(['add_bill', 'cxlCalcInfo', 'cxlMaster', 'cxlResult', 'invoice', 'multiOrSingle', 'discount_info', 'calc_info', 'master_info', 'check_info']);
+    $reservation = Reservation::with(['bills.breakdowns', 'cxls.cxl_breakdowns', 'user', 'agent', 'venue'])->find($id);
+    // $venue = Venue::find($reservation->venue->id);
+    $venue = $reservation->venue;
+    // $user = User::find($reservation->user_id);
+    $user = $reservation->user;
     $master_prices = $reservation->TotalAmount();
     $other_bills = [];
     for ($i = 0; $i < count($reservation->bills) - 1; $i++) {
@@ -453,19 +455,19 @@ class ReservationsController extends Controller
    */
   public function edit($id)
   {
-    $bill = Bill::find($id);
+    $bill = Bill::with(['reservation', 'breakdowns'])->find($id);
     $reservation = $bill->reservation;
-    $venues = Venue::all();
-    $venue = $venues->find($reservation->venue_id);
+    $venue = Venue::find($reservation->venue_id);
     $users = User::all();
 
     $checkItem = $bill->checkBreakdowns();
     // [0] 0備品個数　1サービス個数　2レイアウト個数　3その他個数
     // [1] 0会場詳細　1備品詳細　2サービス詳細　3レイアウト詳細　4その他詳細
 
+
+
     return view('admin.reservations.edit', [
       'reservation' => $reservation,
-      'venues' => $venues,
       'venue' => $venue,
       'users' => $users,
       'bill' => $bill,

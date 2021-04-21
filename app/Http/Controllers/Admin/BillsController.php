@@ -210,6 +210,7 @@ class BillsController extends Controller
     $bill = Bill::with('reservation')->find($id);
     $bill->UpdateBill($request);
     $bill->ReserveStoreBreakdown($request);
+    $request->session()->regenerate();
     return redirect(route('admin.reservations.show', $bill->reservation->id));
   }
 
