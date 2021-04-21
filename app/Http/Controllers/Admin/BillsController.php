@@ -96,28 +96,11 @@ class BillsController extends Controller
 
   public function check(Request $request)
   {
-
     $data = $request->session()->get('add_bill');
     $venues = $this->preg($data, 'venue_breakdown_item');
     $equipments = $this->preg($data, 'equipment_breakdown_item');
     $layouts = $this->preg($data, 'layout_breakdown_item');
     $others = $this->preg($data, 'others_breakdown_item');
-    // $services = Venue::getBreakdowns($request);
-    // $layouts = [];
-    // foreach ($request->all() as $key => $value) {
-    //   if (preg_match('/layout_breakdown_item/', $key)) {
-    //     $layouts[] = $value;
-    //   }
-    // }
-    // $layouts = count($layouts);
-    // $others = [];
-    // foreach ($request->all() as $key => $value) {
-    //   if (preg_match('/others_breakdown_item/', $key)) {
-    //     $others[] = $value;
-    //   }
-    // }
-    // $others = count($others);
-
     return view('admin.bills.check', compact(
       'data',
       'venues',
