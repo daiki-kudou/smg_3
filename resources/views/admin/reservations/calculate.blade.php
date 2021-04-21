@@ -462,7 +462,6 @@
             <td class="table-active">メールアドレス</td>
             <td>
               <p class="email">
-                {{$value['user_id']}}
                 {{ReservationHelper::getPersonEmail($value['user_id'])}}
               </p>
             </td>

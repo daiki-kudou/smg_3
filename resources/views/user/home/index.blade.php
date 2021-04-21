@@ -75,18 +75,18 @@
                   <tr>
                     <td rowspan="{{count($reservation->bills()->get())}}">{{ReservationHelper::fixId($reservation->id)}}
                     </td>
-                    <td rowspan="{{count($reservation->bills()->get())}}">{{$reservation->reserve_date}}</td>
-                    <td rowspan="{{count($reservation->bills()->get())}}">{{$reservation->enter_time}}</td>
-                    <td rowspan="{{count($reservation->bills()->get())}}">{{$reservation->leave_time}}</td>
-                    <td>{{$reservation->venue_id}}</td>
+                    <td rowspan="{{count($reservation->bills()->get())}}">{{ReservationHelper::formatDate($reservation->reserve_date)}}</td>
+                    <td rowspan="{{count($reservation->bills()->get())}}">{{ReservationHelper::formatTime($reservation->enter_time)}}</td>
+                    <td rowspan="{{count($reservation->bills()->get())}}">{{ReservationHelper::formatTime($reservation->leave_time)}}</td>
+                    <td>{{ReservationHelper::getVenueForUser($reservation->venue_id)}}</td>
                     <td>{{ReservationHelper::judgeStatus($reservation->bills()->first()->reservation_status)}}</td>
                     <td>※カテゴリー</td>
                     <td>{{number_format($reservation->bills()->first()->total)}}円</td>
                     <td>{{$reservation->payment_limit}}</td>
                     <td rowspan="{{count($reservation->bills()->get())}}">{{$reservation->bills()->first()->paid}}</td>
                     <td><a href="{{ url('user/home/'.$reservation->id) }}" class="more_btn">詳細</a></td>
-                    <td></td>
-                    <td></td>
+                    <td><a href="" class="more_btn">請求書をみる</a></td>
+                    <td><a href="" class="more_btn">領収書をみる</a></td>
                   </tr>
                   @for ($i = 0; $i < count($reservation->bills()->get())-1; $i++)
                     <tr>

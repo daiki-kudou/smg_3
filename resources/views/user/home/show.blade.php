@@ -107,13 +107,13 @@
             <tr>
               <td class="table-active"><label for="start">入室時間</label></td>
               <td>
-                {{$reservation->enter_time}}
+                {{ReservationHelper::formatTime($reservation->enter_time)}}
               </td>
             </tr>
             <tr>
               <td class="table-active"><label for="finish">退室時間</label></td>
               <td>
-                {{$reservation->leave_time}}
+                {{ReservationHelper::formatTime($reservation->leave_time)}}
               </td>
             </tr>
           </tbody>
@@ -339,7 +339,7 @@
                     <li>
                       <p>事前荷物の到着日</p>
                       <p>
-                        {{$reservation->luggage_arrive}}
+                      {{ReservationHelper::formatDate($reservation->luggage_arrive)}}
                       </p>
                     </li>
                   </ul>
@@ -694,7 +694,7 @@
               <td>
                 <ul class="d-sm-flex justify-content-between">
                   <li class="d-flex align-items-center mb-2">
-                    <p class="bg-status p-2">予約状況</p>
+                    <p class="bg-status p-2 border">予約状況</p>
                     <p class="border p-2">
                       {{ReservationHelper::judgeStatus($reservation->bills()->first()->reservation_status)}}
                     </p>
