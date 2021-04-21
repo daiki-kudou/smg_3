@@ -356,7 +356,21 @@
 
           {{-- スロット --}}
           @slot('others_breakdown_loop')
+          @for ($i = 0; $i < count($result["others_input_item"]); $i++)
           <tr>
+            <td>
+              {{ Form::text('others_breakdown_item'.$i, $result['others_input_item'][$i],['class'=>'form-control','readonly'] ) }}
+            </td>
+            <td>
+                <input class="form-control" readonly></td>
+            <td>
+              {{ Form::text('others_breakdown_count'.$i, $result['others_input_count'][$i],['class'=>'form-control','readonly'] ) }}
+            </td>
+            <td>
+                <input class="form-control" readonly></td>
+          </tr>          
+          @endfor
+          {{-- <tr>
             <td>{{ Form::text('others_input_item[]', '',['class'=>'form-control'] ) }}</td>
             <td><input class="form-control" readonly></td>
             <td>{{ Form::text('others_input_count[]', '',['class'=>'form-control'] ) }}</td>
@@ -365,7 +379,7 @@
               <input type="button" value="＋" class="add pluralBtn">
               <input type="button" value="ー" class="del pluralBtn">
             </td>
-          </tr>
+          </tr> --}}
           @endslot
 
           {{-- スロット --}}
@@ -525,31 +539,5 @@
 
 
           @endcomponent
-          <script>
-            $(function() {
-              $("html,body").animate({
-                scrollTop: $('.bill').offset().top
-              });
           
-              $(function() {
-                // プラスボタンクリック
-                $(document).on("click", ".add", function() {
-                  $(this).parent().parent().clone(true).insertAfter($(this).parent().parent());
-                  $(this).parent().parent().next().find('td').find('input, select').eq(0).val('');
-                  $(this).parent().parent().next().find('td').find('input, select').eq(1).val('');
-                });
-        
-                // マイナスボタンクリック
-                $(document).on("click", ".del", function() {
-                  if ($(this).parent().parent().parent().attr('class') == "others_main") {
-                    var count = $('.others .others_main tr').length;
-                    var target = $(this).parent().parent();
-                    if (target.parent().children().length > 1) {
-                      target.remove();
-                    }
-                  }
-                });
-              });
-            })
-          </script>
           @endsection

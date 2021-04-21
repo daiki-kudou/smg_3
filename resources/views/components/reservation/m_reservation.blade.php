@@ -1,7 +1,3 @@
-{{-- {{Form::open(['url' => 'admin/reservations/'.$reservation->id.'/edit_calculate', 'method' => 'POST', 'id'=>'reservations_edit'])}}
---}}
-{{-- @csrf --}}
-{{-- {{ Form::hidden('reservation_id',  $reservation->id) }} --}}
 
 {{$form_open1}}
 <section class="mt-5">
@@ -695,22 +691,6 @@
             </tbody>
             <tbody class="layout_main">
               {{$layout_breakdown_loop}}
-              {{-- @foreach ($checkItem[1][3] as $key=>$layouts_price)
-              <tr>
-                <td>
-                  {{ Form::text('layout_breakdown_item'.$key, $layouts_price->unit_item,['class'=>'form-control', 'readonly'] ) }}
-              </td>
-              <td>
-                {{ Form::text('layout_breakdown_cost'.$key, $layouts_price->unit_cost,['class'=>'form-control', 'readonly'] ) }}
-              </td>
-              <td>
-                {{ Form::text('layout_breakdown_count'.$key, $layouts_price->unit_count,['class'=>'form-control', 'readonly'] ) }}
-              </td>
-              <td>
-                {{ Form::text('layout_breakdown_subtotal'.$key, $layouts_price->unit_subtotal,['class'=>'form-control', 'readonly'] ) }}
-              </td>
-              </tr>
-              @endforeach --}}
             </tbody>
             <tbody class="layout_result">
               <tr>
@@ -718,7 +698,6 @@
                 <td colspan="1">
                   <p class="text-left">合計</p>
                   {{$layout_price}}
-                  {{-- {{ Form::text('layout_price',$bill->layout_price ,['class'=>'form-control', 'readonly'] ) }} --}}
                 </td>
               </tr>
             </tbody>
@@ -740,7 +719,7 @@
                 <td>単価</td>
                 <td>数量</td>
                 <td>金額</td>
-                <td>追加/削除</td>
+                {!!empty(preg_match('/edit_check/',url()->current()))?"<td>追加/削除</td>":""!!}
               </tr>
             </tbody>
             <tbody class="others_main">

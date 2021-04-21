@@ -221,6 +221,8 @@ Route::namespace('Admin')->prefix('admin')->name('admin.')->group(function () {
     Route::get('agents_reservations/edit_show', 'AgentsReservationsController@editShow')->name('agents_reservations.edit_show');
     Route::post('agents_reservations/session_input', 'AgentsReservationsController@addSessionInput');
     Route::get('agents_reservations/show_input', 'AgentsReservationsController@showInput')->name('agents_reservations.show_input');
+    Route::post('agents_reservations/session_check', 'AgentsReservationsController@editCheckSession');
+    Route::get('agents_reservations/edit_check', 'AgentsReservationsController@editCheck')->name('agents_reservations.edit_check');
 
 
     //********************** */

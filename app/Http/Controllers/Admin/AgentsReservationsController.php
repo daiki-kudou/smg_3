@@ -276,10 +276,11 @@ class AgentsReservationsController extends Controller
   public function showInput(Request $request)
   {
     $inputs = $request->session()->get('inputs');
+    $bill = $request->session()->get('bill');
+    $reservation = $request->session()->get('reservation');
     $breakdown = $request->session()->get('breakdown');
     $agents = Agent::all();
     $venue = Venue::find($inputs['venue_id']);
-
 
     $price = $agents->find($inputs['agent_id'])->agentPriceCalculate($inputs['enduser_charge']);
     $payment_limit = $agents->find($inputs['agent_id'])->getAgentPayLimit($inputs['reserve_date']);
@@ -287,12 +288,10 @@ class AgentsReservationsController extends Controller
     $carbon2 = new Carbon($inputs['leave_time']);
     $usage_hours = ($carbon1->diffInMinutes($carbon2)) / 60;
 
-
     $_equipment = $this->preg($inputs, 'equipment_breakdown');
     $_service = $this->preg($inputs, 'services_breakdown');
     $layoutPrice = $venue->getLayoutPrice($inputs['layout_prepare'], $inputs['layout_clean']);
     $price = ($layoutPrice[2]) + (floor($price));
-
 
     return view('admin.agents_reservations.edit_calc', compact(
       'inputs',
@@ -301,7 +300,54 @@ class AgentsReservationsController extends Controller
       'agents',
       'usage_hours',
       'layoutPrice',
+      'layoutPrice',
+      "price",
+      "payment_limit",
+      "reservation",
+      "bill",
     ));
+  }
+
+  public function editCheckSession(Request $request)
+  {
+    $data = $request->all();
+    $request->session()->put('result', $data);
+    return redirect(route("admin.agents_reservations.edit_check"));
+  }
+
+  public function editCheck(Request $request)
+  {
+    $result = $request->session()->get('result');
+    $inputs = $request->session()->get('inputs');
+    $venue = Venue::find($inputs['venue_id']);
+    $agents = Agent::all();
+
+    $price = $agents->find($inputs['agent_id'])->agentPriceCalculate($inputs['enduser_charge']);
+    $payment_limit = $agents->find($inputs['agent_id'])->getAgentPayLimit($inputs['reserve_date']);
+    $carbon1 = new Carbon($inputs['enter_time']);
+    $carbon2 = new Carbon($inputs['leave_time']);
+    $usage_hours = ($carbon1->diffInMinutes($carbon2)) / 60;
+    $layoutPrice = $venue->getLayoutPrice($inputs['layout_prepare'], $inputs['layout_clean']);
+    $price = ($layoutPrice[2]) + (floor($price));
+
+    $bill = $request->session()->get('bill');
+    $reservation = $request->session()->get('reservation');
+    $breakdown = $request->session()->get('breakdown');
+
+    return view(
+      "admin.agents_reservations.edit_check",
+      compact(
+        "result",
+        "inputs",
+        "venue",
+        "payment_limit",
+        "usage_hours",
+        "layoutPrice",
+        "price",
+        "bill",
+        "agents",
+      )
+    );
   }
 
   // public function editCalc(Request $request)
