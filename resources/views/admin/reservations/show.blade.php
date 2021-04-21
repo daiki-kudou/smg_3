@@ -362,12 +362,25 @@
                     {{ReservationHelper::formatDate($reservation->bills()->first()->payment_limit)}}
                   </dd>
                 </dl>
-                {{var_dump($)}}
+                @if (!empty($reservation->user))
                 @if ($reservation->bills->first()->reservation_status<3) <p>
                   <a href="{{url('admin/reservations/'.$reservation->bills()->first()->id.'/edit')}}"
                     class="btn more_btn">編集</a>
                   </p>
                   @endif
+                  @else
+                  仲介会社用編集ボタン
+                  @if ($reservation->bills->first()->reservation_status<3) <p>
+                    {{-- <a href="{{url('admin/agents_reservations/'.$reservation->bills->first()->id.'/edit/')}}"
+                    class="btn more_btn">編集</a>
+                    </p> --}}
+                    {{ Form::open(['url' => "admin/agents_reservations/".$reservation->bills->first()->id."/edit", 'method'=>'get', 'class'=>'']) }}
+                    @csrf
+                    {{ Form::hidden('reservation_id', $reservation->id ) }}
+                    {{ Form::hidden('bill_id', $reservation->bills->first()->id)}}
+                    {{ Form::submit('編集',['class' => 'btn more_btn']) }}
+                    {{ Form::close() }} @endif
+                    @endif
               </div>
             </td>
           </tr>

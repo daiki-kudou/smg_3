@@ -10,6 +10,7 @@ use App\Models\Venue;
 use App\Models\Agent;
 use App\Models\Equipment;
 use App\Models\Service;
+use App\Models\User;
 
 use Carbon\Carbon;
 
@@ -215,7 +216,6 @@ class AgentsReservationsController extends Controller
     return redirect()->route('admin.reservations.show', $request->reservation_id);
   }
 
-
   public function add_confirm(Request $request)
   {
     DB::transaction(function () use ($request) {
@@ -231,5 +231,17 @@ class AgentsReservationsController extends Controller
     $request->session()->regenerate();
     $bill = Bill::find($request->bill_id);
     return redirect()->route('admin.reservations.show', $bill->reservation->id);
+  }
+
+  public function edit(Request $request)
+  {
+    $request->session()->forget(['master_info', 'calc_info']);
+    $reservation = Reservation::with(
+      ['venue', 'bills.breakdowns', 'user', 'agent', 'enduser']
+    )->find($request->reservation_id);
+    $venue = $reservation->venue;
+    $users = User::all();
+    $agents = Agent::all();
+    return view('admin.agents_reservations.edit', compact('reservation', 'venue', 'users', 'agents'));
   }
 }

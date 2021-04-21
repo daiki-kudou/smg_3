@@ -216,6 +216,12 @@ Route::namespace('Admin')->prefix('admin')->name('admin.')->group(function () {
     Route::post('agents_reservations/add_bills/store', 'AgentsReservationsController@add_store')->name('agents_reservations.add_store');
     // 仲介会社　メールなしで予約確定ボタン
     Route::post('agents_reservations/confirm', 'AgentsReservationsController@add_confirm')->name('agents_reservations.add_confirm');
+    // 仲介会社予約編集
+    Route::get('agents_reservations/{bill}/edit', 'AgentsReservationsController@edit');
+
+    //********************** */
+    //***仮抑え */
+    //********************** */
     // 仮押え（削除は別で作成予定）
     Route::resource('pre_reservations', 'PreReservationsController')->except(['destroy']);
     // 仮押え ajax 顧客情報取得
