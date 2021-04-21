@@ -374,7 +374,7 @@
                     {{-- <a href="{{url('admin/agents_reservations/'.$reservation->bills->first()->id.'/edit/')}}"
                     class="btn more_btn">編集</a>
                     </p> --}}
-                    {{ Form::open(['url' => "admin/agents_reservations/".$reservation->bills->first()->id."/edit", 'method'=>'get', 'class'=>'']) }}
+                    {{ Form::open(['url' => "admin/agents_reservations/edit", 'method'=>'post', 'class'=>'']) }}
                     @csrf
                     {{ Form::hidden('reservation_id', $reservation->id ) }}
                     {{ Form::hidden('bill_id', $reservation->bills->first()->id)}}

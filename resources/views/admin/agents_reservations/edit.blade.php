@@ -27,11 +27,12 @@
   <h2 class="mt-3 mb-3">仲介会社経由　予約　編集</h2>
   <hr>
 
-
   @component('components.reservation.m_reservation')
   {{-- スロット --}}
   @slot('form_open1')
-  {{ Form::open(['url' => 'admin/bills/create/', 'method'=>'get', 'class'=>'']) }}
+  {{ Form::open(['url' => 'admin/agents_reservations/session_input', 'method'=>'post', 'class'=>'']) }}
+  {{Form::hidden('agent_id',$reservation->agent->id)}}
+  {{Form::hidden('reservation_id',$reservation->id)}}
   @csrf
   @endslot
 
@@ -574,15 +575,16 @@
           {{-- スロット --}}
           @slot('end_user_charge')
           {{ Form::text('enduser_charge', $reservation->enduser->charge,['class'=>'form-control ', 'placeholder'=>'入力してください'] ) }}
-
           @endslot
+
           {{-- スロット --}}
           @slot('user_details')
-          {{$reservation->user_details}}
+          {{ Form::textarea('user_details', $reservation->user_details,['class'=>'form-control ', 'placeholder'=>'入力してください'] ) }}
           @endslot
+
           {{-- スロット --}}
           @slot('admin_details')
-          {{$reservation->admin_details}}
+          {{ Form::textarea('admin_details', $reservation->admin_details,['class'=>'form-control ', 'placeholder'=>'入力してください'] ) }}
           @endslot
 
 

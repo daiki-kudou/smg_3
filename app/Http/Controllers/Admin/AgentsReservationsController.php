@@ -27,6 +27,8 @@ class AgentsReservationsController extends Controller
 
   public function create()
   {
+    session()->forget(['master_info', 'calc_info', 'reservation', 'bill', 'breakdown']);
+
     $venues = Venue::all();
     $agents = Agent::all();
     return view('admin.agents_reservations.create', compact('venues', 'agents'));
@@ -235,13 +237,76 @@ class AgentsReservationsController extends Controller
 
   public function edit(Request $request)
   {
-    $request->session()->forget(['master_info', 'calc_info']);
-    $reservation = Reservation::with(
-      ['venue', 'bills.breakdowns', 'user', 'agent', 'enduser']
-    )->find($request->reservation_id);
-    $venue = $reservation->venue;
-    $users = User::all();
-    $agents = Agent::all();
-    return view('admin.agents_reservations.edit', compact('reservation', 'venue', 'users', 'agents'));
+    $request->session()->forget(['master_info', 'calc_info', 'reservation', 'bill', 'breakdown']);
+    $reservation = Reservation::with(['bills.breakdowns', 'venue', 'user', 'agent', 'enduser'])->find($request->reservation_id);
+    $bill = $reservation->bills->find($request->bill_id);
+    $breakdown = $bill->breakdowns;
+    $request->session()->put('reservation', $reservation);
+    $request->session()->put('bill', $bill);
+    $request->session()->put('breakdown', $breakdown);
+    return redirect(route('admin.agents_reservations.edit_show'));
+
+    // $reservation = Reservation::with(
+    //   ['venue', 'bills.breakdowns', 'user', 'agent', 'enduser']
+    // )->find($request->reservation_id);
+    // $venue = $reservation->venue;
+    // $users = User::all();
+    // $agents = Agent::all();
+    // return view('admin.agents_reservations.edit', compact('reservation', 'venue', 'users', 'agents'));
   }
+
+  public function editShow(Request $request)
+  {
+    $reservation = $request->session()->get('reservation');
+    $bill = $request->session()->get('bill');
+    $breakdown = $request->session()->get('breakdown');
+    // var_dump('reservation', $bill, $breakdown);
+    $venue = $reservation->venue;
+    $agents = Agent::all();
+    return view('admin.agents_reservations.edit', compact('reservation', 'bill', 'breakdown', 'venue', 'agents'));
+  }
+
+  public function addSessionInput(Request $request)
+  {
+    $data = $request->all();
+    $request->session()->put('inputs', $data);
+    return redirect(route('admin.agents_reservations.show_input'));
+  }
+
+  public function showInput(Request $request)
+  {
+    $inputs = $request->session()->get('inputs');
+    $breakdown = $request->session()->get('breakdown');
+    $agents = Agent::all();
+
+    $venue = Venue::find($inputs['venue_id']);
+    return view('admin.agents_reservations.edit_calc', compact('inputs', 'venue', 'breakdown', 'agents'));
+  }
+
+  // public function editCalc(Request $request)
+  // {
+  //   $data = $request->all();
+  //   $request->session()->put('master_info', $data);
+  //   $calcData = $this->editCalcSession($request);
+  //   $request->session()->put('calc_info', $calcData);
+  //   $master_info = $request->session()->get('master_info');
+  //   $calc_info = $request->session()->get('calc_info');
+  //   $venue = Venue::find($master_info['venue_id']);
+  //   $agents = Agent::all();
+  //   return view(
+  //     'admin.agents_reservations.edit_calc',
+  //     compact(['master_info', 'calc_info', 'venue', 'agents'])
+  //   );
+  // }
+
+  // public function editCalcSession($request)
+  // {
+  //   $agent = Agent::find($request->agent_id);
+  //   $price = $agent->agentPriceCalculate($request->enduser_charge);
+  //   $payment_limit = $agent->getAgentPayLimit($request->reserve_date);
+  //   $carbon1 = new Carbon($request->enter_time);
+  //   $carbon2 = new Carbon($request->leave_time);
+  //   $usage_hours = ($carbon1->diffInMinutes($carbon2)) / 60;
+  //   return [$price, $payment_limit, $usage_hours];
+  // }
 }

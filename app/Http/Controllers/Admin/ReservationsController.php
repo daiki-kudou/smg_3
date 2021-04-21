@@ -221,6 +221,7 @@ class ReservationsController extends Controller
    */
   public function create(Request $request)
   {
+    $request->session()->forget(['master_info', 'calc_info', 'reservation', 'bill', 'breakdown']);
     $request->session()->forget('master_info'); //予約作成TOPに来るとsession初期化
     $request->session()->forget('calc_info'); //予約作成TOPに来るとsession初期化
     $request->session()->forget('discount_info'); //予約作成TOPに来るとsession初期化

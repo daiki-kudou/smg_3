@@ -217,7 +217,11 @@ Route::namespace('Admin')->prefix('admin')->name('admin.')->group(function () {
     // 仲介会社　メールなしで予約確定ボタン
     Route::post('agents_reservations/confirm', 'AgentsReservationsController@add_confirm')->name('agents_reservations.add_confirm');
     // 仲介会社予約編集
-    Route::get('agents_reservations/{bill}/edit', 'AgentsReservationsController@edit');
+    Route::post('agents_reservations/edit', 'AgentsReservationsController@edit');
+    Route::get('agents_reservations/edit_show', 'AgentsReservationsController@editShow')->name('agents_reservations.edit_show');
+    Route::post('agents_reservations/session_input', 'AgentsReservationsController@addSessionInput');
+    Route::get('agents_reservations/show_input', 'AgentsReservationsController@showInput')->name('agents_reservations.show_input');
+
 
     //********************** */
     //***仮抑え */
