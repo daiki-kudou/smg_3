@@ -28,7 +28,7 @@
         <td>
           <dl>
             <dd>{{$reservation->user->company}}御中</dd>
-            <dd>{{$reservation->user->first_name}}{{$reservation->user->last_name}}様</dd>
+            <dd>{{ReservationHelper::getPersonName($reservation->user->id)}}様</dd>
           </dl>
         </td>
         <td>
@@ -51,13 +51,13 @@
         <td>
           <dl class="total-billing">
             <dt>ご請求金額</dt>
-            <dd>{{$bill->master_total}}<span>円</span><span class="tax">(税込)</span></dd>
+            <dd>{{number_format($bill->master_total)}}<span>円</span><span class="tax">(税込)</span></dd>
           </dl>
         </td>
         <td>
-          <p><span>請求書No：</span>{{$bill->id}}</p>
-          <p><span>請求日：</span>{{$bill->bill_created_at}}</p>
-          <p><span>支払期日：</span>{{$bill->bill_pay_limit}}</p>
+          <p><span>請求書No：</span>{{($bill->id)}}</p>
+          <p><span>請求日：</span>{{ReservationHelper::formatDate($bill->bill_created_at)}}</p>
+          <p><span>支払期日：</span>{{ReservationHelper::formatDate($bill->payment_limit)}}</p>
         </td>
       </tr>
     </table>
@@ -67,8 +67,8 @@
         <tr class="heading">
           <td colspan="4">
             <dl class="bill-heading">
-              <dd>{{$reservation->reserve_date}}<span>ご利用料金</span></dd>
-              <dd>{{$reservation->venue_id}}</dd>
+              <dd>{{ReservationHelper::formatDate($reservation->reserve_date)}}<span>ご利用料金</span></dd>
+              <dd>{{ReservationHelper::getVenueForUser($reservation->venue_id)}}</dd>
             </dl>
           </td>
         </tr>
@@ -94,13 +94,13 @@
           {{$item->unit_item}}
           </td>
           <td>
-          {{$item->unit_cost}}
+          {{number_format($item->unit_cost)}}
           </td>
           <td>
           {{$item->unit_count}}
           </td>
           <td>
-          {{$item->unit_subtotal}}<span>円</span>
+          {{number_format($item->unit_subtotal)}}<span>円</span>
           </td>
         </tr>
         @endforeach
@@ -110,13 +110,13 @@
     <table cellpadding="0" cellspacing="0" class="total-table">
       <tr class="total">
         <td>
-          <p class="sub-total"><span>小計：</span>{{$bill->master_subtotal}}円</p>
-          <p class="sub-tax"><span>消費税：</span>{{$bill->master_tax}}円</p>
+          <p class="sub-total"><span>小計：</span>{{number_format($bill->master_subtotal)}}円</p>
+          <p class="sub-tax"><span>消費税：</span>{{number_format($bill->master_tax)}}円</p>
         </td>
       </tr>
       <tr class="total-amount">
         <td>
-          <span>請求総額：</span>{{$bill->master_total}}<span>円</span>
+          <span>請求総額：</span>{{number_format($bill->master_total)}}<span>円</span>
         </td>
       </tr>
     </table>
@@ -137,17 +137,17 @@
 
 <script>
 
-// $(function () {
-//   var len = $(".bill-details").length;
-//   console.log(len);
+$(function () {
+  var len = $(".bill-details").length;
+  console.log(len);
 
-//   if( len > 16) {
-// $(".pagebreak").addClass("break");
-// // $(".total-table").css('margin-top','20mm');
-//   } else {
-//     $(".pagebreak").removeClass("break");
-//   }
-//   });
+  if( len > 17) {
+$(".bill-note-wrap").addClass("break");
+// $(".total-table").css('margin-top','20mm');
+  } else {
+    $(".bill-note-wrap").removeClass("break");
+  }
+  });
 </script>
 
 </html>
@@ -160,8 +160,8 @@
 ↓　↓　↓　↓　↓　↓　↓　↓　↓　↓　<br>
 <pre>{{var_dump($reservation)}}</pre><br>
 
-<br>
-
+<br> -->
+<!-- 
 <p style="font-size: 26px;">
   変数の取得に関して、
   予約日がほしい場合</p>
@@ -194,4 +194,5 @@
       {{$item->unit_subtotal}}</td>
   </tr>
   @endforeach
+
 </table> -->

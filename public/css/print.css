@@ -200,9 +200,7 @@
   }
   
   .invoice-box .top-title {
-    /* padding-bottom: 8mm; */
     font-size: 25pt;
-    /* line-height: 45mm; */
     text-align: center;
     border-bottom: 2pt solid #35A7A7;
   }
@@ -213,26 +211,26 @@
   
   .invoice-box table tr.heading td {
     background: #eee;
-    border: 1pt solid #ddd;
+    border: 0.5pt solid #ddd;
     font-weight: bold;
   }
   
   .invoice-box table tr.details td {
     padding-bottom: 10mm;
   }
-  
+/*   
   .invoice-box table tr.item td {
     border-bottom: 1pt solid #eee;
-  }
+  } */
   
   .invoice-box table tr.item.last td {
     border-bottom: none;
   }
   
-  .invoice-box table tr.total td:nth-child(2) {
+  /* .invoice-box table tr.total td:nth-child(2) {
     border-top: 2pt solid #eee;
     font-weight: bold;
-  }
+  } */
   
   .bill-detail-table {
     margin-top: 2mm;
@@ -284,7 +282,7 @@
   
   .invoice-box .bill-details td {
     text-align: right;
-    border-bottom: 1px solid #ddd;
+    border-bottom: 0.5pt solid #ddd;
     /* padding: 5mm 10mm; */
   }
   
@@ -305,8 +303,6 @@
   
   .total-table {
     margin-top: 2mm;
-    /* break-before: auto; */
-  
   }
   
   .total-amount td {
@@ -318,14 +314,16 @@
   .bill-note-wrap {
     border-top: 1pt solid #35A7A7;
     margin-top: 8mm;
+
   }
+
   
   .invoice-box .bill-note-wrap .bank-info {
     padding-top: 2mm;
   }
   
   .bill-note {
-    border-top: 1pt solid #ddd;
+    border-top: 0.5pt solid #ddd;
   }
   
   .bill-note p:first-child {

@@ -203,6 +203,9 @@ caption, th, td {
 .invoice-box .information td {
   padding-bottom: 40px;
 }
+/* .invoice-box .information td:first-child {
+  font-size: 30px;
+} */
 
 .invoice-box table tr.heading td {
   background: #eee;
