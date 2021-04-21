@@ -250,6 +250,8 @@
           </tbody>
         </table>
       </div>
+      @endif
+
 
       <div class="eat_in">
         <table class="table table-bordered eating-table">

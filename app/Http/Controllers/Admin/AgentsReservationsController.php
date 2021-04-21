@@ -88,6 +88,13 @@ class AgentsReservationsController extends Controller
 
   public function check(Request $request)
   {
+    $data = $request->session()->get('add_bill');
+    $venues = $this->preg($data, 'venue_breakdown_item');
+    $equipments = $this->preg($data, 'equipment_breakdown_item');
+    $layouts = $this->preg($data, 'layout_breakdown_item');
+    $others = $this->preg($data, 'others_breakdown_item');
+
+
     $master_info = $request->session()->get('master_info');
     $calc_info = $request->session()->get('calc_info');
     $check_info = $request->session()->get('check_info');
@@ -108,51 +115,59 @@ class AgentsReservationsController extends Controller
 
   public function add_bills(Request $request)
   {
-
-    $reservation = Reservation::find($request->reservation_id);
-    $percent = $reservation->agent->cost;
+    $reservation = Reservation::with(['agent'])->find($request->reservation_id);
     $pay_limit = $reservation->agent->getAgentPayLimit($reservation->reserve_date);
-    return view('admin.agents_reservations.add_bills', [
-      'request' => $request,
-      'percent' => $percent,
-      'pay_limit' => $pay_limit,
-      'reservation' => $reservation,
-    ]);
+    $percent = $reservation->agent->cost;
+    $data = $request->session()->get('add_bill');
+    if (!empty($data)) {
+      $venues = $this->preg($data, 'venue_breakdown_item');
+      $equipments = $this->preg($data, 'equipment_breakdown_item');
+      $layouts = $this->preg($data, 'layout_breakdown_item');
+      $others = $this->preg($data, 'others_breakdown_item');
+      return view(
+        'admin.agents_reservations.add_bills',
+        compact('reservation', 'pay_limit', 'data', 'venues', 'equipments', 'layouts', 'others', 'percent')
+      );
+    } else {
+      return view(
+        'admin.agents_reservations.add_bills',
+        compact('request', 'percent', 'pay_limit', 'reservation',)
+      );
+    }
+  }
+
+  public function createSession(Request $request)
+  {
+    $request->session()->forget('add_bill');
+    $data = $request->all();
+    $request->session()->put('add_bill', $data);
+    return redirect(route("admin.agents_reservations.add_check"));
   }
 
   public function add_check(Request $request)
   {
-    $s_venues = [];
-    $s_equipments = [];
-    $s_layouts = [];
-    $s_others = [];
-    foreach ($request->all() as $key => $value) {
-      if (preg_match("/venue_breakdown/", $key)) {
-        $s_venues[] = $value;
-      }
-      if (preg_match("/equipment_breakdown/", $key)) {
-        $s_equipments[] = $value;
-      }
-      if (preg_match("/layout_breakdown/", $key)) {
-        $s_layouts[] = $value;
-      }
-      if (preg_match("/others_breakdown/", $key)) {
-        $s_others[] = $value;
-      }
-    }
-
-
-
-    return view('admin.agents_reservations.add_check', [
-      'request' => $request,
-      's_venues' => $s_venues,
-      's_equipments' => $s_equipments,
-      's_layouts' => $s_layouts,
-      's_others' => $s_others,
-    ]);
+    $data = $request->session()->get('add_bill');
+    $venues = $this->preg($data, 'venue_breakdown_item');
+    $equipments = $this->preg($data, 'equipment_breakdown_item');
+    $layouts = $this->preg($data, 'layout_breakdown_item');
+    $others = $this->preg($data, 'others_breakdown_item');
+    return view('admin.agents_reservations.add_check', compact(
+      'data',
+      'venues',
+      'equipments',
+      'layouts',
+      'others',
+    ));
   }
   public function add_store(Request $request)
   {
+    $data = $request->session()->get('add_bill');
+    if ($request->back) {
+      return redirect(route('admin.agents_reservations.add_bills', [
+        'reservation_id' => $data['reservation_id'],
+        'reserve_date' => $data['reserve_date'],
+      ]));
+    }
 
     DB::transaction(function () use ($request) { //トランザクションさせる
       $bill = Bill::create([

@@ -207,11 +207,13 @@ Route::namespace('Admin')->prefix('admin')->name('admin.')->group(function () {
     // 仲介会社経由　保存
     Route::post('agents_reservations', 'AgentsReservationsController@store');
     // 仲介会社　請求　追加
-    Route::post('agents_reservations/add_bills/{reservation}', 'AgentsReservationsController@add_bills')->name('agents_reservations.add_bills');
+    Route::get('agents_reservations/add_bills', 'AgentsReservationsController@add_bills')->name('agents_reservations.add_bills');
+    // 仲介会社　session 作成
+    Route::post('agents_reservations/create_session', 'AgentsReservationsController@createSession');
     // 仲介会社　追加請求　確認
-    Route::post('agents_reservations/add_bills/check/{reservation}', 'AgentsReservationsController@add_check')->name('agents_reservations.add_check');
+    Route::get('agents_reservations/add_bills/check', 'AgentsReservationsController@add_check')->name('agents_reservations.add_check');
     // 仲介会社　追加請求　保存
-    Route::post('agents_reservations/add_bills/store/{reservation}', 'AgentsReservationsController@add_store')->name('agents_reservations.add_store');
+    Route::post('agents_reservations/add_bills/store', 'AgentsReservationsController@add_store')->name('agents_reservations.add_store');
     // 仲介会社　メールなしで予約確定ボタン
     Route::post('agents_reservations/confirm', 'AgentsReservationsController@add_confirm')->name('agents_reservations.add_confirm');
     // 仮押え（削除は別で作成予定）

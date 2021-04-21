@@ -101,7 +101,9 @@
             <td>
               <select name="enter_time" id="sales_start" class="form-control">
                 <option disabled selected></option>
-                @for ($start = 0*2; $start <=23*2; $start++) <option value="{{date("H:i:s", strtotime("00:00 +". $start * 30 ." minute"))}}" @if (date("H:i:s", strtotime("00:00 +". $start * 30 ." minute"))==$value['enter_time']) selected @endif>
+                @for ($start = 0*2; $start <=23*2; $start++) <option
+                  value="{{date("H:i:s", strtotime("00:00 +". $start * 30 ." minute"))}}" @if (date("H:i:s",
+                  strtotime("00:00 +". $start * 30 ." minute"))==$value['enter_time']) selected @endif>
                   {{date("H時i分", strtotime("00:00 +". $start * 30 ." minute"))}}
                   </option>
                   @endfor
@@ -113,7 +115,9 @@
             <td>
               <select name="leave_time" id="sales_finish" class="form-control">
                 <option disabled selected></option>
-                @for ($start = 0*2; $start <=23*2; $start++) <option value="{{date("H:i:s", strtotime("00:00 +". $start * 30 ." minute"))}}" @if (date("H:i:s", strtotime("00:00 +". $start * 30 ." minute"))==$value['leave_time']) selected @endif>
+                @for ($start = 0*2; $start <=23*2; $start++) <option
+                  value="{{date("H:i:s", strtotime("00:00 +". $start * 30 ." minute"))}}" @if (date("H:i:s",
+                  strtotime("00:00 +". $start * 30 ." minute"))==$value['leave_time']) selected @endif>
                   {{date("H時i分", strtotime("00:00 +". $start * 30 ." minute"))}}</option>
                   @endfor
               </select>
@@ -138,11 +142,13 @@
             <td>
               <div class="radio-box">
                 <p>
-                  <input type="radio" name="board_flag" value="1" id="board_flag" {{$value['board_flag']==1?"checked":""}}>
+                  <input type="radio" name="board_flag" value="1" id="board_flag"
+                    {{$value['board_flag']==1?"checked":""}}>
                   <label>有り</label>
                 </p>
                 <p>
-                  <input type="radio" name="board_flag" value="0" id="no_board_flag" {{$value['board_flag']==0?"checked":""}}>
+                  <input type="radio" name="board_flag" value="0" id="no_board_flag"
+                    {{$value['board_flag']==0?"checked":""}}>
                   <label>無し</label>
                 </p>
               </div>
@@ -153,7 +159,10 @@
             <td>
               <select name="event_start" id="event_start" class="form-control">
                 <option disabled>選択してください</option>
-                @for ($start = 0*2; $start <=23*2; $start++) <option value="{{date("H:i:s", strtotime("00:00 +". $start * 30 ." minute"))}}" @if(!empty($value['event_start'])) @if(date("H:i:s",strtotime("00:00 +". $start * 30 ." minute"))==$value['event_start']) selected @endif @endif>
+                @for ($start = 0*2; $start <=23*2; $start++) <option
+                  value="{{date("H:i:s", strtotime("00:00 +". $start * 30 ." minute"))}}"
+                  @if(!empty($value['event_start'])) @if(date("H:i:s",strtotime("00:00 +". $start * 30 ."
+                  minute"))==$value['event_start']) selected @endif @endif>
                   {{date("H時i分", strtotime("00:00 +". $start * 30 ." minute"))}}</option>
                   @endfor
               </select>
@@ -372,6 +381,8 @@
           </tbody>
         </table>
       </div>
+      @endif
+
 
       <div class="eat_in">
         <table class="table table-bordered">
@@ -534,7 +545,6 @@
       </table>
 
       @if (!empty($value['cost']))
-
       <table class="table table-bordered sale-table" style="table-layout:fixed;">
         <tbody>
           <tr>

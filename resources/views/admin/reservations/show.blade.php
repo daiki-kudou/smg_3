@@ -42,7 +42,7 @@
   @else
   @if ($reservation->bills()->first()->reservation_status==3)
   <p class="text-right mb-5">
-    {{ Form::open(['url' => 'admin/agents_reservations/add_bills/'.$reservation->id, 'method'=>'POST', 'class'=>'']) }}
+    {{ Form::open(['url' => 'admin/agents_reservations/add_bills', 'method'=>'get', 'class'=>'']) }}
     @csrf
     {{ Form::hidden('reservation_id', $reservation->id ) }}
     {{ Form::submit('追加の請求書を作成する',['class' => 'btn more_btn3']) }}
