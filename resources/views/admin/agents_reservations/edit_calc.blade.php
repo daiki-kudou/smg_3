@@ -246,7 +246,7 @@
 
           {{-- スロット --}}
           @slot('form_close1')
-          {{-- {{Form::close()}} --}}
+          {{Form::close()}}
           @endslot
 
           {{-- スロット --}}
@@ -268,63 +268,53 @@
 
           {{-- スロット --}}
           @slot('venue_breakdown_loop')
-          {{-- @foreach ($reservation->bills->first()->breakdowns->where('unit_type',1) as $v_key=>$venue_break)
           <tr>
             <td>
-              {{ Form::text('venue_breakdown_item'.$v_key, $venue_break->unit_item,['class'=>'form-control', 'readonly'] ) }}
-          </td>
-          <td>
-            {{ Form::text('venue_breakdown_cost'.$v_key, $venue_break->unit_cost,['class'=>'form-control', 'readonly'] ) }}
-          </td>
-          <td>
-            {{ Form::text('venue_breakdown_count'.$v_key, $venue_break->unit_count,['class'=>'form-control', 'readonly'] ) }}
-          </td>
-          <td>
-            {{ Form::text('venue_breakdown_subtotal'.$v_key, $venue_break->unit_subtotal,['class'=>'form-control', 'readonly'] ) }}
-          </td>
+              {{ Form::text('venue_breakdown_item0', "会場料金",['class'=>'form-control', 'readonly'] ) }}
+            </td>
+            <td><input class="form-control" readonly></td>
+            <td>
+              {{ Form::text('venue_breakdown_count0', $usage_hours."h",['class'=>'form-control', 'readonly'] ) }}
+            </td>
+            <td><input class="form-control" readonly></td>
           </tr>
-          @endforeach --}}
           @endslot
 
 
           {{-- スロット --}}
           @slot('equipment_breakdown_loop')
-          {{-- @foreach ($reservation->bills->first()->breakdowns->where('unit_type',2) as $e_key=>$equipment_break)
+          @foreach ($venue->getEquipments() as $key=>$equipment)
+          @if (!empty($inputs['equipment_breakdown'.$key]))
           <tr>
             <td>
-              {{ Form::text('equipment_breakdown_item'.$e_key, $equipment_break->unit_item,['class'=>'form-control', 'readonly'] ) }}
-          </td>
-          <td>
-            {{ Form::text('equipment_breakdown_cost'.$e_key, $equipment_break->unit_cost,['class'=>'form-control', 'readonly'] ) }}
-          </td>
-          <td>
-            {{ Form::text('equipment_breakdown_count'.$e_key, $equipment_break->unit_count,['class'=>'form-control', 'readonly'] ) }}
-          </td>
-          <td>
-            {{ Form::text('equipment_breakdown_subtotal'.$e_key, $equipment_break->unit_subtotal,['class'=>'form-control', 'readonly'] ) }}
-          </td>
+              {{ Form::text('equipment_breakdown_item'.$key, $equipment->item,['class'=>'form-control', 'readonly'] ) }}
+            </td>
+            <td><input class="form-control" readonly></td>
+            <td>
+              {{ Form::text('equipment_breakdown_count'.$key, $inputs['equipment_breakdown'.$key],['class'=>'form-control', 'readonly'] ) }}
+            </td>
+            <td><input class="form-control" readonly></td>
           </tr>
-          @endforeach --}}
+          @endif
+          @endforeach
           @endslot
 
           {{-- スロット --}}
           @slot('service_breakdown_loop')
-          {{-- @foreach ($reservation->bills->first()->breakdowns->where('unit_type',3) as $s_key=>$service_break)
+          @foreach ($venue->getServices() as $key=>$service)
+          @if (!empty($inputs['services_breakdown'.$key]))
           <tr>
             <td>
-              {{ Form::text('service_breakdown_cost'.$s_key, $service_break->unit_item,['class'=>'form-control', 'readonly'] ) }}
-          </td>
-          <td>
-            {{ Form::text('service_breakdown_cost'.$s_key, $service_break->unit_cost,['class'=>'form-control', 'readonly'] ) }}
-          </td>
-          <td>
-            {{ Form::text('service_breakdown_count'.$s_key, $service_break->unit_count,['class'=>'form-control', 'readonly'] ) }}
-          </td>
-          <td>
-            {{ Form::text('servie_breakdown_subtotal'.$s_key, $service_break->unit_subtotal,['class'=>'form-control', 'readonly'] ) }}
-          </td>
+              {{ Form::text('service_breakdown_item'.$key, $service->item,['class'=>'form-control', 'readonly'] ) }}
+            </td>
+            <td><input class="form-control" readonly></td>
+            <td>
+              {{ Form::text('service_breakdown_count'.$key, $inputs['services_breakdown'.$key],['class'=>'form-control', 'readonly'] ) }}
+            </td>
+            <td><input class="form-control" readonly></td>
           </tr>
-          @endforeach --}}
+          @endif
+          @endforeach
           @endslot
 
           {{-- スロット --}}
@@ -335,48 +325,49 @@
 
           {{-- スロット --}}
           @slot('layout_breakdown_loop')
-          {{-- @foreach ($reservation->bills->first()->breakdowns->where('unit_type',4) as $l_key=>$layout_break)
+          @if ($inputs['layout_prepare']!=0)
           <tr>
+            <td>{{ Form::text('layout_prepare_item', "レイアウト準備料金",['class'=>'form-control', 'readonly'] ) }}</td>
             <td>
-              {{ Form::text('layout_breakdown_item'.$l_key, $layout_break->unit_item,['class'=>'form-control', 'readonly'] ) }}
-          </td>
-          <td>
-            {{ Form::text('layout_breakdown_cost'.$l_key, $layout_break->unit_cost,['class'=>'form-control', 'readonly'] ) }}
-          </td>
-          <td>
-            {{ Form::text('layout_breakdown_count'.$l_key, $layout_break->unit_count,['class'=>'form-control', 'readonly'] ) }}
-          </td>
-          <td>
-            {{ Form::text('layout_breakdown_subtotal'.$l_key, $layout_break->unit_subtotal,['class'=>'form-control', 'readonly'] ) }}
-          </td>
+              {{ Form::text('layout_prepare_cost', $layoutPrice[0],['class'=>'form-control', 'readonly'] ) }}
+            </td>
+            <td>{{ Form::text('layout_prepare_count', 1,['class'=>'form-control', 'readonly'] )}}</td>
+            <td>
+              {{ Form::text('layout_prepare_subtotal', $venue->getLayouts()[0],['class'=>'form-control', 'readonly'] ) }}
+            </td>
           </tr>
-          @endforeach --}}
+          @endif
+          @if ($inputs['layout_clean']!=0)
+          <tr>
+            <td>{{ Form::text('layout_clean_item', "レイアウト片付料金",['class'=>'form-control', 'readonly'] ) }}</td>
+            <td>
+              {{ Form::text('layout_clean_cost', $layoutPrice[1],['class'=>'form-control', 'readonly'] ) }}
+            </td>
+            <td>{{ Form::text('layout_clean_count', 1,['class'=>'form-control', 'readonly'] )}}</td>
+            <td>
+              {{ Form::text('layout_clean_subtotal', $venue->getLayouts()[1],['class'=>'form-control', 'readonly'] ) }}
+            </td>
+          </tr>
+          @endif
           @endslot
 
           {{-- スロット --}}
           @slot('layout_price')
-          {{-- {{ Form::text('layout_price',$reservation->bills->first()->layout_price ,['class'=>'form-control', 'readonly'] ) }}
-          --}}
+          {{ Form::text('layout_price',$layoutPrice[2] ,['class'=>'form-control', 'readonly'] ) }}
           @endslot
 
           {{-- スロット --}}
           @slot('others_breakdown_loop')
-          {{-- @foreach ($reservation->bills->first()->breakdowns->where('unit_type',5) as $o_key=>$other_break) --}}
-          {{-- <tr>
+          <tr>
+            <td>{{ Form::text('others_input_item[]', '',['class'=>'form-control'] ) }}</td>
+            <td><input class="form-control" readonly></td>
+            <td>{{ Form::text('others_input_count[]', '',['class'=>'form-control'] ) }}</td>
+            <td><input class="form-control" readonly></td>
             <td>
-              {{ Form::text('others_input_item'.$o_key, $other_break->unit_item,['class'=>'form-control', 'readonly'] ) }}
-          </td>
-          <td>
-            {{ Form::text('others_input_cost'.$o_key, $other_break->unit_cost,['class'=>'form-control', 'readonly'] ) }}
-          </td>
-          <td>
-            {{ Form::text('others_input_count'.$o_key, $other_break->unit_count,['class'=>'form-control', 'readonly'] ) }}
-          </td>
-          <td>
-            {{ Form::text('others_input_subtotal'.$o_key, $other_break->unit_subtotal,['class'=>'form-control', 'readonly'] ) }}
-          </td>
-          </tr> --}}
-          {{-- @endforeach --}}
+              <input type="button" value="＋" class="add pluralBtn">
+              <input type="button" value="ー" class="del pluralBtn">
+            </td>
+          </tr>
           @endslot
 
           {{-- スロット --}}
@@ -532,7 +523,6 @@
           {{-- スロット --}}
           @slot('user_details')
           {{ Form::textarea('user_details', $inputs['user_details'],['class'=>'form-control ', 'placeholder'=>'入力してください'] ) }}
-
           @endslot
 
           {{-- スロット --}}
