@@ -1,0 +1,339 @@
+/* A4縦用のベース設定 */
+@page {
+    size: A4 portrait; /* 横の場合はlandscape */
+    margin: 0mm;
+  }
+  
+  
+  /* 各要素の余白リセット */
+  *{
+    margin: 0mm;
+    padding: 0mm;
+  }
+  
+  
+  /* @media print{
+      .print_pages{
+      width: 210mm;
+      height: 297mm;
+      page-break-after: always;
+    }
+    .print_pages:last-child{
+        page-break-after: auto;
+    }
+    
+  } */
+  
+  @media all and (-ms-high-contrast: none){
+      .print_pages.page-break {
+          page-break-before: auto;
+      }
+    }
+  
+  
+  body {
+    width: 210mm; /* 用紙の横幅を改めて指定 Chrome用 */
+    -webkit-print-color-adjust: exact;
+    color-adjust: exact;
+    line-height: 1mm;
+  }
+  
+    @import url('https://fonts.googleapis.com/css?family=Noto+Sans+JP:100,300,400,500,700');
+    @import url('https://fonts.googleapis.com/css?family=Noto+Serif+JP:300,400,500,600&display=swap');
+    @import url('https://fonts.googleapis.com/css2?family=EB+Garamond:wght@400;500;600&display=swap');
+    
+    /* common css */
+    html,
+    body,
+    div,
+    span,
+    applet,
+    object,
+    iframe,
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6,
+    p,
+    blockquote,
+    pre,
+    a,
+    abbr,
+    acronym,
+    address,
+    big,
+    cite,
+    code,
+    del,
+    dfn,
+    em,
+    img,
+    ins,
+    kbd,
+    q,
+    s,
+    samp,
+    small,
+    strike,
+    strong,
+    sub,
+    sup,
+    tt,
+    var,
+    b,
+    u,
+    i,
+    center,
+    dl,
+    dt,
+    dd,
+    ol,
+    ul,
+    li,
+    fieldset,
+    form,
+    label,
+    legend,
+    caption,
+    article,
+    aside,
+    canvas,
+    details,
+    embed,
+    figure,
+    figcaption,
+    footer,
+    header,
+    hgroup,
+    menu,
+    nav,
+    output,
+    ruby,
+    section,
+    summary,
+    time,
+    mark,
+    audio,
+    video {
+      margin: 0;
+      padding: 0;
+      border: 0;
+      font: inherit;
+      font-size: 100%;
+      vertical-align: baseline;
+    }
+    
+    img {
+      max-width: 100%;
+      vertical-align: bottom;
+    }
+    
+    table { border-collapse: collapse; border-spacing: 0; }
+    
+    caption, th, td {
+      font-weight: normal;
+      vertical-align: middle;
+    }
+    
+   /* invoice css------------------------------------------------------- */
+  
+  
+   .break {
+    page-break-before: always;
+    break-before: always;
+  }
+  
+  .invoice-box {
+    /* width: 172mm; */
+    /* height: 251mm; */
+    /* max-width: 800px; */
+    /* margin: 30px; */
+    padding: 10mm;
+    /* border: 1px solid #eee; */
+    /* box-shadow: 0 0 10px rgba(0, 0, 0, .15); */
+    font-size: 9pt;
+    /* line-height: 24pt; */
+    font-family: 'Helvetica Neue', 'Helvetica', Helvetica, Arial, sans-serif;
+    /* font-family: 'Yu Mincho Light','YuMincho','Yu Mincho','游明朝体',sans-serif; */
+    font-family: YuMincho, 'Yu Mincho', 'Noto Serif JP', serif;
+    color: #333;
+    position: relative;
+    /* overflow: hidden; */
+  }
+  
+  .cancel_line {
+    content: "打消し";
+    display: block;
+    width: 100%;
+    height: 20mm;
+    font-weight: bold;
+    line-height: 20mm;
+    font-size: 28pt;
+    text-align: center;
+    border-radius: 7pt;
+    color: red;
+    border: 1pt solid red;
+    background-color: #fff;
+    position: absolute;
+    top: 50%;
+    left: 0mm;
+    transform: rotate(-45deg);
+    z-index: 1;
+  }
+  
+  
+  .invoice-box table {
+    width: 100%;
+    line-height: inherit;
+    text-align: left;
+  }
+  
+  .invoice-box table td {
+    padding: 1.5mm;
+    vertical-align: top;
+  }
+  
+  .invoice-box table tr td:nth-child(2) {
+    text-align: right;
+  }
+  
+  .invoice-box .top-title {
+    /* padding-bottom: 8mm; */
+    font-size: 25pt;
+    /* line-height: 45mm; */
+    text-align: center;
+    border-bottom: 2pt solid #35A7A7;
+  }
+  
+  .invoice-box .information td {
+    /* padding-bottom: 10mm; */
+  }
+  
+  .invoice-box table tr.heading td {
+    background: #eee;
+    border: 1pt solid #ddd;
+    font-weight: bold;
+  }
+  
+  .invoice-box table tr.details td {
+    padding-bottom: 10mm;
+  }
+  
+  .invoice-box table tr.item td {
+    border-bottom: 1pt solid #eee;
+  }
+  
+  .invoice-box table tr.item.last td {
+    border-bottom: none;
+  }
+  
+  .invoice-box table tr.total td:nth-child(2) {
+    border-top: 2pt solid #eee;
+    font-weight: bold;
+  }
+  
+  .bill-detail-table {
+    margin-top: 2mm;
+  }
+  
+  .total-billing {
+    display: flex;
+    background: #eee;
+    font-size: 13pt;
+    padding: 5mm;
+    font-weight: bold;
+  }
+  
+  .total-billing dt {
+    margin-right: 3mm;
+  }
+  
+  .total-billing p {
+    font-size: 10pt;
+    margin: 0;
+  }
+  
+  .total-billing .tax {
+    font-size: 6pt;
+    margin-left: 1mm;
+  }
+  
+  .space {
+    padding: 0;
+  }
+  
+  .invoice-box table .bill-wrap {
+    border-right: 1pt solid #ddd;
+    border-left: 1pt solid #ddd;
+    padding: 0;
+  }
+  
+  
+  .bill-heading {
+    display: flex;
+    font-weight: bold;
+    flex-wrap: wrap;
+  }
+  
+  .bill-heading dd {
+    /* padding: 3mm; */
+    font-weight: bold;
+  }
+  
+  .invoice-box .bill-details td {
+    text-align: right;
+    border-bottom: 1px solid #ddd;
+    /* padding: 5mm 10mm; */
+  }
+  
+  .bill-details td:first-child{
+    text-align: left;
+  }
+  
+  .total td {
+    text-align: right;
+  }
+  
+  .sub-total {
+    font-weight: bold;
+  }
+  .sub-tax {
+    font-size: 6pt;
+  }
+  
+  .total-table {
+    margin-top: 2mm;
+    /* break-before: auto; */
+  
+  }
+  
+  .total-amount td {
+    text-align: right;
+    font-size: 13pt;
+    font-weight: bold;
+  }
+  
+  .bill-note-wrap {
+    border-top: 1pt solid #35A7A7;
+    margin-top: 8mm;
+  }
+  
+  .invoice-box .bill-note-wrap .bank-info {
+    padding-top: 2mm;
+  }
+  
+  .bill-note {
+    border-top: 1pt solid #ddd;
+  }
+  
+  .bill-note p:first-child {
+    font-weight: bold;
+  }
+  
+  .button-wrap {
+    display: none;
+  }
+  
+  
