@@ -1638,7 +1638,7 @@ table .master_total_subttl2 {
 }
 
 
-.bill_head_cancel .table {
+.bill_head_cancel {
     background: #ee6243;
     padding: 10px;
 }
@@ -1647,6 +1647,7 @@ table .master_total_subttl2 {
     background: #ee6243;
     table-layout: fixed;
     padding: 10px;
+    box-shadow: none;
 }
 
 
