@@ -88,13 +88,13 @@
         <tr>
           <td class="table-active"><label for="start">入室時間</label></td>
           <td>
-            {{$reservation->enter_time}}
+            {{ReservationHelper::formatTime($reservation->enter_time)}}
           </td>
         </tr>
         <tr>
           <td class="table-active"><label for="finish">退室時間</label></td>
           <td>
-            {{$reservation->leave_time}}
+            {{ReservationHelper::formatTime($reservation->leave_time)}}
           </td>
         </tr>
       </table>

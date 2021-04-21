@@ -414,10 +414,6 @@
         </tbody>
       </table>
       @endif
-
-
-
-
       <table class="table table-bordered note-table">
         <tbody>
           <tr>
