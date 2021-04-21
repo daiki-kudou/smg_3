@@ -29,6 +29,7 @@
 
 <!-- 工藤さん！！！キャンセル承認まちのときの文言です。 -->
 <div class="confirm-box text-center">
+  <p>工藤さん！！！キャンセル承認まちのときに表示です！！</p>
   <p>下記、予約内容のキャンセルを承認される場合は、承認ボタンを押してください。</p>
   <p>※承認ボタンは、画面一番下にあります。</p>
 </div>
@@ -345,7 +346,7 @@
                     <li>
                       <p>事前荷物の到着日</p>
                       <p>
-                      {{ReservationHelper::formatDate($reservation->luggage_arrive)}}
+                        {{ReservationHelper::formatDate($reservation->luggage_arrive)}}
                       </p>
                     </li>
                   </ul>
@@ -1292,6 +1293,7 @@
 
 <!-- 工藤さん！！キャンセルが承認まちの時に表示です！！！ -->
 <div class="confirm-box text-center mt-5">
+  <p>工藤さん！！！キャンセル承認まちのときに表示です！！</p>
   <p>上記、予約内容をキャンセルしてもよろしいでしょうか。問題なければ、承認をお願い致します。</p>
   <p class="text-center mt-3">
     {{ Form::model($reservation, ['method'=>'PUT', 'route'=> ['user.home.updatestatus',$reservation->id],'class'=>"text-center"])}}
