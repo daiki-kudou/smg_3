@@ -300,8 +300,6 @@ Route::namespace('Admin')->prefix('admin')->name('admin.')->group(function () {
 
     Route::put('pre_agent_reservations/{pre_reservation}/update', 'PreAgentReservationsController@update');
 
-
-
     Route::post('cxl/multi_calc', 'CxlController@multiCalc');
     Route::get('cxl/multi_calc', 'CxlController@multiCalcShow')->name('cxl.multi_calc');
     Route::get('cxl/multi_create', 'CxlController@multiCreate')->name('cxl.multi_create');
@@ -313,5 +311,7 @@ Route::namespace('Admin')->prefix('admin')->name('admin.')->group(function () {
 
     // メールてんぷれ
     Route::get('mail_templates', 'MailTemplatesController@index');
+
+    Route::post('invoice', 'InvoiceController@show');
   });
 });

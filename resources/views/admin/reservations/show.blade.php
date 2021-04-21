@@ -450,7 +450,15 @@
 
       <div class="invoice_box d-flex justify-content-end my-3">
         工藤さん！！請求書のボタンです！！
-        <p class="mr-2"><a class="more_btn" href="">請求書をみる</a></p>
+        <p class="mr-2">
+          {{-- <a class="more_btn" href="">請求書をみる</a> --}}
+          {{ Form::open(['url' => 'admin/invoice', 'method'=>'post', 'class'=>'']) }}
+          @csrf
+          {{ Form::hidden('reservation_id', $reservation->id ) }}
+          {{ Form::hidden('bill_id', $reservation->bills->first()->id ) }}
+          {{ Form::submit('請求書をみる',['class' => 'btn more_btn']) }}
+          {{ Form::close() }}
+        </p>
         <p class="mr-2"><a class="more_btn4" href="">領収書をみる</a></p>
       </div>
     </div>
