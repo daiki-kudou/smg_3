@@ -373,13 +373,13 @@ class Bill extends Model
     });
   }
 
-
-  public function LayoutBreakdowns($request) //追加請求書の編集の際のみ利用。　レイアウトの追加を複数可能
+  //追加請求書の編集の際のみ利用。　レイアウトの追加を複数可能
+  public function LayoutBreakdowns($request)
   {
     DB::transaction(function () use ($request) {
-      $countVenue = $this->RequestBreakdowns($request, 'layout_breakdown_item');
-      if ($countVenue != "") {
-        for ($i = 0; $i < $countVenue; $i++) {
+      $l_count = $this->preg($request->all(), "equipment_breakdown_item");
+      if (!empty($l_count)) {
+        for ($i = 0; $i < $l_count; $i++) {
           $this->breakdowns()->create([
             'unit_item' => $request->{'layout_breakdown_item' . $i},
             'unit_cost' => $request->{'layout_breakdown_cost' . $i},
@@ -498,9 +498,6 @@ class Bill extends Model
 
   public function UpdateBill($request)
   {
-    echo "<pre>";
-
-    echo "</pre>";
     DB::transaction(function () use ($request) {
       $this->update([
         'venue_price' => $request->venue_price,
