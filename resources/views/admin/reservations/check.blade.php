@@ -411,8 +411,9 @@
             <td class="table-active"><label for="cost">原価率</label></td>
             <td>
               <div class="d-flex align-items-end">
-                {{ Form::text('cost', $value['cost'],['class'=>'form-control'] ) }}
-                <span class="ml-1 annotation">%</span>
+                <!-- {{ Form::text('cost', $value['cost'],['class'=>'form-control'] ) }} -->
+                {{$value['cost']}}
+                <span class="ml-1">%</span>
               </div>
               <p class="is-error-cost" style="color: red"></p>
             </td>

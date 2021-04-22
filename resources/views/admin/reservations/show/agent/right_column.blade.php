@@ -115,7 +115,7 @@
     <tr>
       <td colspan="2">
         <p class="title-icon">
-          <i class="fas fa-envelope icon-size"></i>備考
+          <i class="fas fa-file-alt icon-size"></i>備考
         </p>
       </td>
     </tr>
