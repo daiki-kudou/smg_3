@@ -429,7 +429,8 @@
                   <i class="far fa-id-card icon-size" aria-hidden="true"></i>顧客情報
                 </p>
                 <p class="user_link">
-                  <a class="more_btn" target="_blank" rel="noopener" href="/admin/clients/{{(int)$value['user_id']}}">顧客詳細</a>
+                  <a class="more_btn" target="_blank" rel="noopener"
+                    href="/admin/clients/{{(int)$value['user_id']}}">顧客詳細</a>
                 </p>
               </div>
             </td>
@@ -1067,9 +1068,8 @@
         <div class="informations billdetails_content py-3">
           <table class="table">
             <tr>
-              <td>請求日：
-                {{ Form::text('bill_created_at', '',['class'=>'form-control', 'id'=>'datepicker6'] ) }}
-
+              <td>請求日
+                {{ Form::text('bill_created_at', date('Y-m-d'),['class'=>'form-control', 'id'=>'datepicker6'] ) }}
               </td>
               <td>支払期日
                 {{ Form::text('pay_limit', $priceResult['pay_limit'],['class'=>'form-control', 'id'=>'datepicker6'] ) }}
@@ -1077,7 +1077,6 @@
             </tr>
             <tr>
               <td>請求書宛名
-                {{-- {{ Form::text('pay_company', $users[$value['user_id']]->company,['class'=>'form-control'] ) }} --}}
                 {{ Form::text('pay_company', $users->find($value['user_id'])->company,['class'=>'form-control'] ) }}
               </td>
               <td>

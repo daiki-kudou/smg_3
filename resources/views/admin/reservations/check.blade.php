@@ -818,7 +818,9 @@
           <table class="table">
             <tbody>
               <tr>
-                <td>請求日：</td>
+                <td>請求日
+                  {{ Form::text('bill_created_at', $checkInfo['bill_created_at'],['class'=>'form-control', 'readonly'] ) }}
+                </td>
                 <td>支払期日
                   {{ Form::text('payment_limit', $checkInfo['pay_limit'],['class'=>'form-control', 'readonly'] ) }}
                 </td>

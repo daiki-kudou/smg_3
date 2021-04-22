@@ -7,6 +7,7 @@ $(function () {
 $(function () {
   // 日付選択画面にてボックス内、検索機能
   $('#venue_id').select2({ width: '100%' });
+  $('#venues_selector').select2({ width: '100%' });
   $('#agent_select').select2({ width: '100%' });
   $('#user_id').select2({ width: '100%' });
   $('#agent_id').select2({ width: '100%' });
