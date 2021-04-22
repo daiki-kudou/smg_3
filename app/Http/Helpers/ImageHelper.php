@@ -50,9 +50,9 @@ class ImageHelper
   public static function show($reservation_id)
   {
     $helper = new ImageHelper;
-    $allReservation = Reservation::all();
+    $allReservation = Reservation::with('breakdowns');
     $reservation = $allReservation->find($reservation_id);
-    $breakdown = $reservation->breakdowns()->get();
+    $breakdown = $reservation->breakdowns;
     $icon = [];
     if ($breakdown->where('unit_type', 2)->count() > 0) $icon[] = $helper->equipment;
     if ($breakdown->where('unit_type', 3)->count() > 0) $icon[] = $helper->service;
@@ -60,15 +60,14 @@ class ImageHelper
     if ($allReservation->where('user_id', $reservation->user_id)->count() == 1) {
       $icon[] = $helper->new;
     }
-
     return $icon;
   }
 
   public static function addBillsShow($bill_id)
   {
     $helper = new ImageHelper;
-    $bill = Bill::find($bill_id);
-    $breakdown = $bill->breakdowns()->get();
+    $bill = Bill::with('breakdowns')->find($bill_id);
+    $breakdown = $bill->breakdowns;
     $icon = [];
     if ($breakdown->where('unit_type', 2)->count() > 0) $icon[] = $helper->equipment;
     if ($breakdown->where('unit_type', 3)->count() > 0) $icon[] = $helper->service;

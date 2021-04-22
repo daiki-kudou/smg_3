@@ -14,6 +14,7 @@ use App\Models\Breakdown;
 use App\Models\Equipment;
 use App\Models\Service;
 use App\Models\Admin;
+use App\Models\Agent;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\DB; //トランザクション用
 use PDF;
@@ -35,21 +36,18 @@ class ReservationsController extends Controller
   public function index(Request $request)
   {
     if (!empty($request->all())) {
-      $newInstance = new Reservation();
-      $reservations = $newInstance->search_item((object)$request->all());
+      $class = new Reservation;
+      $reservations = $class->search_item($request)->orderBy('id', 'desc')->paginate(30);
     } else {
-      $reservations = Reservation::with('bills')
+      $reservations = Reservation::with(['bills.breakdowns', 'user', 'agent', 'venue'])
         ->orderBy('id', 'desc')
         ->paginate(30);
     }
     $venue = Venue::all();
     $user = User::select('id', 'company', 'first_name', 'last_name', 'mobile', 'tel')->get();
+    $agents = Agent::all();
 
-    return view('admin.reservations.index', [
-      'reservations' => $reservations,
-      'venue' => $venue,
-      'user' => $user,
-    ]);
+    return view('admin.reservations.index', compact('reservations', 'venue', 'user', 'agents'));
   }
 
   /***********************

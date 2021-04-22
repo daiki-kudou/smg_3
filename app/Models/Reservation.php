@@ -25,7 +25,6 @@ class Reservation extends Model implements PresentableInterface
     return new ReservationPresenter($this);
   }
 
-
   use SoftDeletes; //reservation大事なのでソフトデリートする
 
   protected $fillable = [
@@ -541,17 +540,108 @@ class Reservation extends Model implements PresentableInterface
 
   public function search_item($request)
   {
-    $query = $this->query();
-    if (!empty($request->id)) {
-      $query->where('id', $request->id)->get();
-    }
+    $class = $this->where(function ($query) use ($request) {
 
-    if (!empty($request->reserve_date)) {
-      $query->where('reserve_date', $request->reserve_date)->get();
-    }
+      if ($request->search_id) {
+        $editId = $request->search_id;
+        if (substr($request->search_id, 0, 5) == "00000") {
+          $editId = str_replace("00000", "", $request->search_id);
+        } elseif (substr($request->search_id, 0, 4) == "0000") {
+          $editId = str_replace("0000", "", $request->search_id);
+        } elseif (substr($request->search_id, 0, 3) == "000") {
+          $editId = str_replace("000", "", $request->search_id);
+        } elseif (substr($request->search_id, 0, 2) == "00") {
+          $editId = str_replace("00", "", $request->search_id);
+        }
+        $query->where("id", "LIKE", "%" . $editId . "%");
+      }
 
-    // return ($query);
-    return $query->with('bills')->orderBy('id', 'desc')->paginate(30);
+      if ($request->reserve_date) {
+        $query->whereDate("reserve_date", $request->reserve_date);
+      }
+
+      if ($request->enter_time) {
+        $query->whereTime("enter_time", '>=', $request->enter_time);
+      }
+
+      if ($request->leave_time) {
+        $query->whereTime("leave_time", '<=', $request->leave_time);
+      }
+
+      if ($request->venue_id) {
+        $query->where("venue_id",  $request->venue_id);
+      }
+
+      if ($request->company) {
+        $query->whereHas('user', function ($query) use ($request) {
+          $query->where('company', 'LIKE', "%{$request->company}%");
+        })->orWhereHas('agent', function ($query) use ($request) {
+          $query->where('company', 'LIKE', "%{$request->company}%");
+        });
+      }
+
+      if ($request->person_name) {
+        $query->whereHas('user', function ($query) use ($request) {
+          $query->where('first_name', 'LIKE', "%{$request->person_name}%");
+          $query->orWhere('last_name', 'LIKE', "%{$request->person_name}%");
+          $query->orWhere(DB::raw('CONCAT(first_name, last_name)'), 'like', '%' . $request->person_name . '%');
+        })->orWhereHas('agent', function ($query) use ($request) {
+          $query->where('person_firstname', 'LIKE', "%{$request->person_name}%");
+          $query->orWhere('person_lastname', 'LIKE', "%{$request->person_name}%");
+          $query->orWhere(DB::raw('CONCAT(person_firstname, person_lastname)'), 'like', '%' . $request->person_name . '%');
+        });
+      }
+
+      if ($request->search_mobile) {
+        $query->whereHas('user', function ($query) use ($request) {
+          $query->where('mobile', 'LIKE', "%{$request->search_mobile}%");
+        })->orWhereHas('agent', function ($query) use ($request) {
+          $query->where('person_mobile', 'LIKE', "%{$request->search_mobile}%");
+        });
+      }
+
+      if ($request->search_tel) {
+        $query->whereHas('user', function ($query) use ($request) {
+          $query->where('tel', 'LIKE', "%{$request->search_tel}%");
+        })->orWhereHas('agent', function ($query) use ($request) {
+          $query->where('person_tel', 'LIKE', "%{$request->search_tel}%");
+        });
+      }
+
+      if ($request->agent) {
+        $query->where("agent_id",  $request->agent);
+      }
+
+      if ($request->enduser_person) {
+        $query->whereHas('enduser', function ($query) use ($request) {
+          $query->where('company', 'LIKE', "%{$request->enduser_person}%");
+        });
+      }
+
+      $query->where(function ($query) use ($request) {
+        for ($i = 1; $i <= 4; $i++) {
+          if (!empty($request->{"check_icon" . $i})) {
+            $query->whereHas('breakdowns', function ($query) use ($request, $i) {
+              $query->where('unit_type', $request->{'check_icon' . $i});
+            });
+          }
+        }
+      });
+
+
+      if ($request->freeword) {
+        $query->where('id', 'LIKE', "%{$request->freeword}%")
+          ->orWhere("company", "LIKE", "%{$request->freeword}%")
+          ->orWhere("first_name", "LIKE", "%{$request->freeword}%")
+          ->orWhere("last_name", "LIKE", "%{$request->freeword}%")
+          ->orWhere(DB::raw('CONCAT(first_name, last_name)'), 'like', '%' . $request->freeword . '%')
+          ->orWhere("mobile", "LIKE", "%{$request->freeword}%")
+          ->orWhere("tel", "LIKE", "%{$request->freeword}%")
+          ->orWhere("email", "LIKE", "%{$request->freeword}%");
+      }
+    });
+
+    return $class;
   }
 
   // reservations show 各請求書合計額
