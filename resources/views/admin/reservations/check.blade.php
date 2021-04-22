@@ -252,30 +252,38 @@
       </div>
       @endif
 
-
+      @if ($venue->eat_in_flag!=0)
       <div class="eat_in">
         <table class="table table-bordered eating-table">
           <tbody>
             <tr>
               <td colspan="2">
                 <p class="title-icon">
-                  <i class="fas fa-utensils icon-size fa-fw"></i>室内飲食工藤さん！追加項目です。
+                  <i class="fas fa-utensils icon-size fa-fw"></i>室内飲食
                 </p>
               </td>
             </tr>
             <tr>
               <td>
-                ありかなし
+                {{$value['eat_in']==1?"あり":"なし"}}
               </td>
             </tr>
             <tr>
               <td>
-                手配済みか検討中
+                @if ($value['eat_in']==1)
+                @if ($value['eat_in_prepare']==1)
+                手配済み
+                @else
+                検討中
+                @endif
+                @endif
               </td>
             </tr>
           </tbody>
         </table>
       </div>
+      @endif
+
     </div>
 
     <div class="col">
