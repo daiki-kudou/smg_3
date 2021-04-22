@@ -198,6 +198,14 @@ class BillsController extends Controller
     return view('admin.bills.edit', compact('bill'));
   }
 
+  public function agentEdit($id)
+  {
+    $bill = Bill::with('reservation.agent')->find($id);
+    $percent = $bill->reservation->agent->cost;
+    var_dump($percent);
+    return view('admin.bills.agent_edit', compact('bill', 'percent'));
+  }
+
   /**
    * Update the specified resource in storage.
    *
@@ -210,6 +218,18 @@ class BillsController extends Controller
     $bill = Bill::with('reservation')->find($id);
     $bill->UpdateBill($request);
     $bill->ReserveStoreBreakdown($request);
+    $request->session()->regenerate();
+    return redirect(route('admin.reservations.show', $bill->reservation->id));
+  }
+
+  public function agentEditUpdate(Request $request, $id)
+  {
+    var_dump($request->all());
+    $bill = Bill::with('reservation')->find($id);
+    $bill->UpdateBill($request);
+    $request->session()->put('add_breakdown', $request->all());
+    $data = $request->session()->get('add_breakdown');
+    $bill->agentUpdateBreakdown($data);
     $request->session()->regenerate();
     return redirect(route('admin.reservations.show', $bill->reservation->id));
   }

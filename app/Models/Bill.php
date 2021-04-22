@@ -499,7 +499,7 @@ class Bill extends Model
   {
     DB::transaction(function () use ($request) {
       $this->update([
-        'venue_price' => $request->venue_price,
+        'venue_price' => $request->venue_price ? $request->venue_price : 0,
         'equipment_price' => $request->equipment_price ? $request->equipment_price : 0, //備品・サービス・荷物
         'layout_price' => $request->layout_price ? $request->layout_price : 0,
         'others_price' => $request->others_price ? $request->others_price : 0,
@@ -519,6 +519,7 @@ class Bill extends Model
       $this->breakdowns()->delete();
     });
   }
+
 
   public function checkBreakdowns()
   {
@@ -681,6 +682,63 @@ class Bill extends Model
           'unit_subtotal' => 0,
           'unit_type' => 5,
         ]);
+      }
+    });
+  }
+
+  public function agentUpdateBreakdown($data)
+  {
+    DB::transaction(function () use ($data) {
+      $v_cnt = $this->preg($data, "venue_breakdown_item");
+      if ($v_cnt != 0) {
+        for ($i = 0; $i < $v_cnt; $i++) {
+          $this->breakdowns()->create([
+            'unit_item' => $data['venue_breakdown_item' . $i],
+            'unit_cost' => 0,
+            'unit_count' => $data['venue_breakdown_count' . $i],
+            'unit_subtotal' => 0,
+            'unit_type' => 1,
+          ]);
+        }
+      }
+
+      $e_cnt = $this->preg($data, "equipment_breakdown_item");
+      if ($e_cnt != 0) {
+        for ($i = 0; $i < $e_cnt; $i++) {
+          $this->breakdowns()->create([
+            'unit_item' => $data['equipment_breakdown_item' . $i],
+            'unit_cost' => 0,
+            'unit_count' => $data['equipment_breakdown_count' . $i],
+            'unit_subtotal' => 0,
+            'unit_type' => 2,
+          ]);
+        }
+      }
+
+      $l_cnt = $this->preg($data, "layout_breakdown_item");
+      if ($l_cnt != 0) {
+        for ($i = 0; $i < $l_cnt; $i++) {
+          $this->breakdowns()->create([
+            'unit_item' => $data['layout_breakdown_item' . $i],
+            'unit_cost' => 0,
+            'unit_count' => $data['layout_breakdown_cost' . $i],
+            'unit_subtotal' => 0,
+            'unit_type' => 4,
+          ]);
+        }
+      }
+
+      $o_cnt = $this->preg($data, "others_breakdown_item");
+      if ($o_cnt != 0) {
+        for ($i = 0; $i < $o_cnt; $i++) {
+          $this->breakdowns()->create([
+            'unit_item' => $data['others_breakdown_item' . $i],
+            'unit_cost' => 0,
+            'unit_count' => $data['others_breakdown_count' . $i],
+            'unit_subtotal' => 0,
+            'unit_type' => 5,
+          ]);
+        }
       }
     });
   }

@@ -227,7 +227,7 @@ class AgentsReservationsController extends Controller
           'reservation_status' => 3,
           'approve_send_at' => date('Y-m-d H:i:s')
         ]
-      ); //固定で3
+      );
     });
 
     $request->session()->regenerate();
@@ -348,17 +348,16 @@ class AgentsReservationsController extends Controller
     $breakdown = $request->session()->get('breakdown');
     $inputs = $request->session()->get('inputs');
     $result = $request->session()->get('result');
-
-    // try {
-    $reservation->updateAgentReservation($inputs);
-    $reservation->UpdateAgentEndUser($inputs);
-    $bill->updateAgentBill($result);
-    $bill->updateAgentBreakdown($result, $inputs);
-    // } catch (\Exception $e) {
-    //   report($e);
-    //   session()->flash('flash_message', '更新に失敗しました。<br>フォーム内の空欄や全角など確認した上でもう一度お試しください。');
-    //   return redirect(route('admin.agents_reservations.show_input'));
-    // }
+    try {
+      $reservation->updateAgentReservation($inputs);
+      $reservation->UpdateAgentEndUser($inputs);
+      $bill->updateAgentBill($result);
+      $bill->updateAgentBreakdown($result, $inputs);
+    } catch (\Exception $e) {
+      report($e);
+      session()->flash('flash_message', '更新に失敗しました。<br>フォーム内の空欄や全角など確認した上でもう一度お試しください。');
+      return redirect(route('admin.agents_reservations.show_input'));
+    }
 
     $request->session()->regenerate();
     $request->session()->flush();

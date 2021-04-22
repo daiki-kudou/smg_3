@@ -183,12 +183,15 @@ Route::namespace('Admin')->prefix('admin')->name('admin.')->group(function () {
     Route::post('bills/ajaxaddbillslaytout', 'BillsController@ajaxaddbillslaytout');
     // // 管理者請求書作成　確認画面
     Route::get('bills/check', 'BillsController@check')->name('bills.check');
-    // // 管理者請求書作成　保存
-    // Route::post('bills/store', 'BillsController@store');
 
     Route::post('bills/other_doublecheck', 'BillsController@OtherDoubleCheck');
 
     Route::post('bills/other_send_approve', 'BillsController@other_send_approve');
+
+    Route::get('bills/{bill}/agent_edit', 'BillsController@agentEdit')->name('bills.agent_edit');
+
+    Route::post('bills/{bill}/agent_edit_update', 'BillsController@agentEditUpdate');
+
     // Bill　予約に紐づく
     Route::resource('bills', 'BillsController');
     //********************** */

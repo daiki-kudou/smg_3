@@ -663,7 +663,13 @@
                   <dt>支払い期日：</dt>
                   <dd class="total_result">{{ReservationHelper::formatDate($other_bill->payment_limit)}}</dd>
                 </dl>
-                <p><a href="{{url('admin/bills/'.$other_bill->id.'/edit')}}" class="btn more_btn">編集</a></p>
+                <p>
+                  @if ($reservation->user_id>0)
+                  <a href="{{url('admin/bills/'.$other_bill->id.'/edit')}}" class="btn more_btn">編集</a>
+                  @else
+                  <a href="{{url('admin/bills/'.$other_bill->id.'/agent_edit')}}" class="btn more_btn">仲介会社編集</a>
+                  @endif
+                </p>
               </div>
             </td>
           </tr>
