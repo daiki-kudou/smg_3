@@ -336,7 +336,6 @@
                     <i class="far fa-id-card icon-size" aria-hidden="true"></i>顧客情報
                   </p>
                   <p class="user_link">
-
                   </p>
                 </div>
               </td>

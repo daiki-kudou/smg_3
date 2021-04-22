@@ -31,7 +31,7 @@ $(function () {
   $(document).on("change", "#user_select", function () {
     var user_id = $('#user_select').val();
     $('.user_link').html('');
-    $('.user_link').append("<a class='more_btn' href='/admin/clients/" + user_id + "'>顧客詳細</a>")
+    $('.user_link').append("<a class='more_btn' target='_blank' rel='noopener' href='/admin/clients/" + user_id + "'>顧客詳細</a>")
 
     getUserDetails(user_id);
 

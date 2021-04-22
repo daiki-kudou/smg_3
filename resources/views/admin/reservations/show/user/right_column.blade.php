@@ -8,7 +8,7 @@
               <i class="far fa-address-card icon-size"></i>
               顧客情報
             </p>
-            <p><a class="more_btn" href="{{url('admin/clients/'.$reservation->user_id)}}">顧客詳細</a></p>
+            <p><a class="more_btn" target="_blank" rel="noopener" href="{{url('admin/clients/'.$reservation->user_id)}}">顧客詳細</a></p>
           </div>
         </td>
       </tr>

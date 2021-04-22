@@ -429,7 +429,7 @@
                   <i class="far fa-id-card icon-size" aria-hidden="true"></i>顧客情報
                 </p>
                 <p class="user_link">
-                  <a class="more_btn" href="/admin/clients/{{(int)$value['user_id']}}">顧客詳細</a>
+                  <a class="more_btn" target="_blank" rel="noopener" href="/admin/clients/{{(int)$value['user_id']}}">顧客詳細</a>
                 </p>
               </div>
             </td>
@@ -1157,7 +1157,7 @@
         $user_results[4]?$('.condition').html('').html($user_results[4].replace(/\n/g, "<br>")):"";
         $user_results[5]?$('.attention').html('').html($user_results[5].replace(/\n/g, "<br>")):"";
         $('.user_link').html('');
-        $('.user_link').append("<a class='more_btn' href='/admin/clients/" + $user_results[6] + "'>顧客詳細</a>")
+        $('.user_link').append("<a class='more_btn' target='_blank' rel='noopener' href='/admin/clients/" + $user_results[6] + "'>顧客詳細</a>")
       })
       .fail(function ($user_results) {
         $('#fullOverlay').css('display', 'none');
