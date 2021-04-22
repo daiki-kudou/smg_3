@@ -458,9 +458,9 @@
     @endslot
 
     {{-- スロット --}}
-    @slot('user_details')
+    {{-- @slot('user_details')
     {{ Form::textarea('user_details', $inputs['user_details'],['class'=>'form-control ', 'placeholder'=>'入力してください','readonly'] ) }}
-    @endslot
+    @endslot --}}
 
     {{-- スロット --}}
     @slot('admin_details')

@@ -648,9 +648,9 @@
   @endslot
 
   {{-- スロット --}}
-  @slot('user_details')
+  {{-- @slot('user_details')
   {{ Form::textarea('user_details', $reservation->user_details,['class'=>'form-control ', 'placeholder'=>'入力してください'] ) }}
-  @endslot
+  @endslot --}}
 
   {{-- スロット --}}
   @slot('admin_details')
