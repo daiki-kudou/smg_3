@@ -167,7 +167,6 @@ $(function(){
           "<input type='button' value='削除' class='del'>"+
         "</td>"+
       "</tr>";
-
     $('.main_table').append(data);
   })
 })
