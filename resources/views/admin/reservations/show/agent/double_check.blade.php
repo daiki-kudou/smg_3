@@ -8,7 +8,7 @@
   {{ Form::hidden('reservation_id', $reservation->id ) }}
   {{ Form::hidden('user_id', $reservation->user_id ) }}
   <p>{{ Form::submit('予約を確定する',['class' => 'btn more_btn4']) }}</p>
-  <span>※仲介会社経由の予約は予約を確定するのみ。メール送信は不要</span>
+  <!-- <span class=>※仲介会社経由の予約は予約を確定するのみ。メール送信は不要</span> -->
   {{ Form::close() }}
   </div>
   @endif

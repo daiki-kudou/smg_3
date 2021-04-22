@@ -30,12 +30,12 @@
       @endif
       @endforeach
     </tbody>
-    <tbody class="venue_result">
+    <!-- <tbody class="venue_result">
       <tr>
         <td colspan="3"></td>
         <td colspan="1" class="">合計：{{number_format($other_bill->venue_price)}}</td>
       </tr>
-    </tbody>
+    </tbody> -->
   </table>
 </div>
 @endif
@@ -82,13 +82,13 @@
       @endif
       @endforeach
     </tbody>
-    <tbody class="equipment_result">
+    <!-- <tbody class="equipment_result">
       <tr>
         <td colspan="3"></td>
         <td colspan="1" class="">合計：{{number_format($other_bill->equipment_price)}}</td>
         </td>
       </tr>
-    </tbody>
+    </tbody> -->
   </table>
 </div>
 @endif
@@ -168,12 +168,12 @@
       @endif
       @endforeach
     </tbody>
-    <tbody class="others_result">
+    <!-- <tbody class="others_result">
       <tr>
         <td colspan="3"></td>
         <td colspan="1">合計：{{$other_bill->others_price}}
       </tr>
-    </tbody>
+    </tbody> -->
   </table>
 </div>
 @endif

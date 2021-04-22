@@ -306,7 +306,7 @@
             </td>
           </tr>
           <tr>
-            <td class="table-active">割引条件 工藤さん！！</td>
+            <td class="table-active">割引条件</td>
             <td>
               <p class="condition">
                 {{ Form::textarea('', ReservationHelper::getPersonCondition($request->user_id),['class'=>'form-control', 'readonly'] ) }}
@@ -314,7 +314,7 @@
             </td>
           </tr>
           <tr>
-            <td class="table-active caution">注意事項 工藤さん！！</td>
+            <td class="table-active caution">注意事項</td>
             <td class="caution">
               <p class="attention">
                 {{ Form::textarea('', ReservationHelper::getPersonAttention($request->user_id),['class'=>'form-control', 'readonly'] ) }}
