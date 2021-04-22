@@ -50,10 +50,7 @@ class ReservationsController extends Controller
     return view('admin.reservations.index', compact('reservations', 'venue', 'user', 'agents'));
   }
 
-  /***********************
-   * ajax 備品orサービス取得
-   **********************
-   */
+  /** ajax 備品orサービス取得*/
   public function geteitems(Request $request)
   {
     $id = $request->venue_id;
@@ -63,10 +60,7 @@ class ReservationsController extends Controller
     return [$venue_equipments, $venue_services];
   }
 
-  /***********************
-   * ajax 
-   ***********************
-   */
+  /** ajax */
   public function getpricesystem(Request $request)
   {
     $id = $request->venue_id; //会場ID
@@ -83,10 +77,7 @@ class ReservationsController extends Controller
     return [$frame_price, $time_price, $date];
   }
 
-  /***********************
-   * ajax 営業時間取得
-   ***********************
-   */
+  /*** ajax 営業時間取得*/
   public function getsaleshours(Request $request)
   {
     $venue_id = $request->venue_id;
@@ -105,10 +96,7 @@ class ReservationsController extends Controller
     return [$reject_targets];
   }
 
-  /***********************
-   * ajax 料金取得
-   ***********************
-   */
+  /**** ajax 料金取得****/
   public function getpricedetails(Request $request)
   {
     $venue = Venue::find($request->venue_id);
@@ -122,10 +110,7 @@ class ReservationsController extends Controller
     return [$result];
   }
 
-  /***********************
-   * ajax 備品＆サービス　料金取得
-   ***********************
-   */
+  /*** ajax 備品＆サービス　料金取得   **/
   public function geteitemsprices(Request $request)
   {
     $venue = Venue::find($request->venue_id);
@@ -142,10 +127,7 @@ class ReservationsController extends Controller
     }
   }
 
-  /***********************
-   * ajax レイアウト有り無し判別取得
-   ***********************
-   */
+  /**** ajax レイアウト有り無し判別取得****/
   public function getlayout(Request $request)
   {
     $venue = Venue::find($request->venue_id);
@@ -154,10 +136,7 @@ class ReservationsController extends Controller
     return [$result];
   }
 
-  /***********************
-   * ajax レイアウト金額
-   ***********************
-   */
+  /*** ajax レイアウト金額***/
   public function getlayoutprice(Request $request)
   {
     $venue = Venue::find($request->venue_id);
@@ -183,10 +162,7 @@ class ReservationsController extends Controller
     return [$result, $total];
   }
 
-  /***********************
-   * ajax 荷物預り　有り無し　判別
-   ***********************
-   */
+  /**** ajax 荷物預り　有り無し　判別****/
   public function getluggage(Request $request)
   {
     $venue = Venue::find($request->venue_id);
@@ -195,10 +171,7 @@ class ReservationsController extends Controller
     return [$result];
   }
 
-  /***********************
-   * ajax 直営　or　提携　判別
-   ***********************
-   */
+  /**** ajax 直営　or　提携　判別****/
   public function getoperation(Request $request)
   {
     $venue = Venue::find($request->venue_id);
@@ -209,6 +182,14 @@ class ReservationsController extends Controller
     } else {
       return [1, $percentage];
     }
+  }
+
+  /**** ケータリング取得****/
+  public function getEatIn(Request $request)
+  {
+    $venue = Venue::find($request->venue_id);
+    $eatIn = $venue->eat_in_flag;
+    return $eatIn;
   }
 
 

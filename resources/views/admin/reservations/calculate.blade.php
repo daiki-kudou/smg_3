@@ -142,11 +142,16 @@
             <td>
               <select name="event_start" id="event_start" class="form-control">
                 <option disabled>選択してください</option>
-                @for ($start = 0*2; $start <=23*2; $start++) <option
-                  value="{{date("H:i:s", strtotime("00:00 +". $start * 30 ." minute"))}}"
-                  @if(!empty($value['event_start'])) @if(date("H:i:s",strtotime("00:00 +". $start * 30 ."
-                  minute"))==$value['event_start']) selected @endif @endif>
-                  {{date("H時i分", strtotime("00:00 +". $start * 30 ." minute"))}}</option>
+                @for ($start = 0*2; $start <=23*2; $start++) 
+                <option value="{{date("H:i:s", strtotime("00:00 +". $start * 30 ." minute"))}}"
+                  @if(!empty($value['event_start'])) 
+                  @if(date("H:i:s",strtotime("00:00 +".$start * 30 ."minute"))==$value['event_start']) 
+                  selected 
+                  @endif 
+                  @endif
+                  >
+                  {{date("H時i分", strtotime("00:00 +". $start * 30 ." minute"))}}
+                  </option>
                   @endfor
               </select>
             </td>
@@ -157,10 +162,14 @@
             <td>
               <select name="event_finish" id="event_finish" class="form-control">
                 <option disabled>選択してください</option>
-                @for ($start = 0*2; $start <=23*2; $start++) <option
-                  value="{{date("H:i:s", strtotime("00:00 +". $start * 30 ." minute"))}}"
-                  @if(!empty($value['event_finish'])) @if (date("H:i:s", strtotime("00:00 +". $start * 30
-                  ."minute"))==$value['event_finish']) selected @endif @endif>
+                @for ($start = 0*2; $start <=23*2; $start++) 
+                <option value="{{date("H:i:s", strtotime("00:00 +". $start * 30 ." minute"))}}"
+                  @if(!empty($value['event_finish'])) 
+                  @if (date("H:i:s", strtotime("00:00 +". $start * 30 ."minute"))==$value['event_finish']) 
+                  selected 
+                  @endif 
+                  @endif
+                  >
                   {{date("H時i分", strtotime("00:00 +". $start * 30 ." minute"))}}
                   </option>
                   @endfor
@@ -366,13 +375,14 @@
       </div>
       @endif
 
+      @if ($spVenue->eat_in_flag!=0)
       <div class="eat_in">
         <table class="table table-bordered">
           <thead>
             <tr>
               <th colspan='2'>
                 <p class="title-icon">
-                  <i class="fas fa-utensils icon-size fa-fw"></i>室内飲食工藤さん！追加項目です。仮押さえから丸コピーしました。
+                  <i class="fas fa-utensils icon-size fa-fw"></i>室内飲食
                 </p>
               </th>
             </tr>
@@ -380,19 +390,19 @@
           <tbody>
             <tr>
               <td>
-                {{Form::radio('eat_in', 1, false , ['id' => 'eat_in'])}}
+                {{Form::radio('eat_in', 1, $value['eat_in']==1?true:false , ['id' => 'eat_in'])}}
                 {{Form::label('eat_in',"あり")}}
               </td>
               <td>
-                {{Form::radio('eat_in_prepare', 1, false , ['id' => 'eat_in_prepare', 'disabled'])}}
+                {{Form::radio('eat_in_prepare', 1, $value['eat_in']==1&&$value['eat_in_prepare']==1?true:false , ['id' => 'eat_in_prepare', $value['eat_in']!=1?"disabled":""])}}
                 {{Form::label('eat_in_prepare',"手配済み")}}
-                {{Form::radio('eat_in_prepare', 2, false , ['id' => 'eat_in_consider','disabled'])}}
+                {{Form::radio('eat_in_prepare', 2, $value['eat_in']==1&&$value['eat_in_prepare']==2?true:false , ['id' => 'eat_in_consider',$value['eat_in']!=1?"disabled":""])}}
                 {{Form::label('eat_in_consider',"検討中")}}
               </td>
             </tr>
             <tr>
               <td>
-                {{Form::radio('eat_in', 0, true , ['id' => 'no_eat_in'])}}
+                {{Form::radio('eat_in', 0, $value['eat_in']==0?true:false , ['id' => 'no_eat_in'])}}
                 {{Form::label('no_eat_in',"なし")}}
               </td>
               <td></td>
@@ -400,6 +410,8 @@
           </tbody>
         </table>
       </div>
+      @endif
+
     </div>
 
     <div class="col">
@@ -1114,6 +1126,18 @@
 {{Form::close()}}
 
 <script>
+  $(function() {
+    $(document).on("click", "input:radio[name='eat_in']", function() {
+      var radioTarget = $('input:radio[name="eat_in"]:checked').val();
+      if (radioTarget == 1) {
+        $('input:radio[name="eat_in_prepare"]').prop('disabled', false);
+      } else {
+        $('input:radio[name="eat_in_prepare"]').prop('disabled', true);
+        $('input:radio[name="eat_in_prepare"]').val("");
+      }
+    })
+  })
+
   $(document).on("change", '#user_select', function () {
     var user_id=$('#user_select').val();
     $.ajax({

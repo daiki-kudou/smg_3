@@ -151,6 +151,8 @@ Route::namespace('Admin')->prefix('admin')->name('admin.')->group(function () {
     Route::post('reservations/getoperation', 'ReservationsController@getoperation');
     // ajax 会場　直営 or 提携　判別
     Route::post('clients/getclients', 'ClientsController@getclients');
+    // ajax ケータリング
+    Route::post('reservations/get_eat_in', 'ReservationsController@getEatIn');
     //予約に対するダブルチェック
     Route::post('reservations/{reservation}/double_check', 'ReservationsController@double_check')->name('reservations.double_check');
 
