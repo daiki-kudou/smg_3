@@ -67,7 +67,7 @@
                     {{Form::text('venue_breakdown_cost'.$key,$venue->unit_cost,['class'=>'form-control'])}}
                   </td>
                   <td>
-                    {{Form::text('venue_breakdown_count'.$key,$venue->unit_count,['class'=>'form-control'])}}
+                    {{Form::text('venue_breakdown_count'.$key,$venue->unit_count,['class'=>'form-control number_validation'])}}
                   </td>
                   <td>
                     {{Form::text('venue_breakdown_subtotal'.$key,$venue->unit_subtotal,['class'=>'form-control','readonly'])}}
@@ -87,7 +87,7 @@
                     {{Form::text('venue_breakdown_cost0','',['class'=>'form-control'])}}
                   </td>
                   <td>
-                    {{Form::text('venue_breakdown_count0','',['class'=>'form-control'])}}
+                    {{Form::text('venue_breakdown_count0','',['class'=>'form-control number_validation'])}}
                   </td>
                   <td>
                     {{Form::text('venue_breakdown_subtotal0','',['class'=>'form-control','readonly'])}}
@@ -142,7 +142,7 @@
                     {{Form::text('equipment_breakdown_cost'.$key,$equ->unit_cost,['class'=>'form-control'])}}
                   </td>
                   <td>
-                    {{Form::text('equipment_breakdown_count'.$key,$equ->unit_count,['class'=>'form-control'])}}
+                    {{Form::text('equipment_breakdown_count'.$key,$equ->unit_count,['class'=>'form-control number_validation'])}}
                   </td>
                   <td>
                     {{Form::text('equipment_breakdown_subtotal'.$key,$equ->unit_subtotal,['class'=>'form-control','readonly'])}}
@@ -162,7 +162,7 @@
                     {{Form::text('equipment_breakdown_cost0','',['class'=>'form-control'])}}
                   </td>
                   <td>
-                    {{Form::text('equipment_breakdown_count0','',['class'=>'form-control'])}}
+                    {{Form::text('equipment_breakdown_count0','',['class'=>'form-control number_validation'])}}
                   </td>
                   <td>
                     {{Form::text('equipment_breakdown_subtotal0','',['class'=>'form-control','readonly'])}}
@@ -218,7 +218,7 @@
                     {{Form::text('layout_breakdown_cost'.$key,$lay->unit_cost,['class'=>'form-control'])}}
                   </td>
                   <td>
-                    {{Form::text('layout_breakdown_count'.$key,$lay->unit_count,['class'=>'form-control'])}}
+                    {{Form::text('layout_breakdown_count'.$key,$lay->unit_count,['class'=>'form-control number_validation'])}}
                   </td>
                   <td>
                     {{Form::text('layout_breakdown_subtotal'.$key,$lay->unit_subtotal,['class'=>'form-control','readonly'])}}
@@ -238,7 +238,7 @@
                     {{Form::text('layout_breakdown_cost0','',['class'=>'form-control'])}}
                   </td>
                   <td>
-                    {{Form::text('layout_breakdown_count0','',['class'=>'form-control'])}}
+                    {{Form::text('layout_breakdown_count0','',['class'=>'form-control number_validation'])}}
                   </td>
                   <td>
                     {{Form::text('layout_breakdown_subtotal0','',['class'=>'form-control','readonly'])}}
@@ -296,7 +296,7 @@
                     {{Form::text('others_breakdown_cost'.$key,$other->unit_cost,['class'=>'form-control'])}}
                   </td>
                   <td>
-                    {{Form::text('others_breakdown_count'.$key,$other->unit_count,['class'=>'form-control'])}}
+                    {{Form::text('others_breakdown_count'.$key,$other->unit_count,['class'=>'form-control number_validation'])}}
                   </td>
                   <td>
                     {{Form::text('others_breakdown_subtotal'.$key,$other->unit_subtotal,['class'=>'form-control','readonly'])}}
@@ -316,7 +316,7 @@
                     {{Form::text('others_breakdown_cost0', '',['class'=>'form-control'])}}
                   </td>
                   <td>
-                    {{Form::text('others_breakdown_count0', '',['class'=>'form-control'])}}
+                    {{Form::text('others_breakdown_count0', '',['class'=>'form-control number_validation'])}}
                   </td>
                   <td>
                     {{Form::text('others_breakdown_subtotal0', '',['class'=>'form-control','readonly'])}}

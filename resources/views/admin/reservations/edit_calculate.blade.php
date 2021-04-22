@@ -471,7 +471,7 @@
                 <p class="title-icon">
                   <i class="far fa-id-card icon-size"></i>顧客情報
                 </p>
-                <p><a class="more_btn" href="">顧客詳細</a></p>
+                <p><a class="more_btn" target="_blank" rel="noopener" href="">工藤さん！こちらもリンクお願いします。顧客詳細</a></p>
               </div>
             </td>
           </tr>

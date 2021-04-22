@@ -1,0 +1,338 @@
+@charset "UTF-8";
+@import url('https://fonts.googleapis.com/css?family=Noto+Sans+JP:100,300,400,500,700');
+@import url('https://fonts.googleapis.com/css?family=Noto+Serif+JP:300,400,500,600&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=EB+Garamond:wght@400;500;600&display=swap');
+
+/* common css */
+html,
+body,
+div,
+span,
+applet,
+object,
+iframe,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p,
+blockquote,
+pre,
+a,
+abbr,
+acronym,
+address,
+big,
+cite,
+code,
+del,
+dfn,
+em,
+img,
+ins,
+kbd,
+q,
+s,
+samp,
+small,
+strike,
+strong,
+sub,
+sup,
+tt,
+var,
+b,
+u,
+i,
+center,
+dl,
+dt,
+dd,
+ol,
+ul,
+li,
+fieldset,
+form,
+label,
+legend,
+caption,
+article,
+aside,
+canvas,
+details,
+embed,
+figure,
+figcaption,
+footer,
+header,
+hgroup,
+menu,
+nav,
+output,
+ruby,
+section,
+summary,
+time,
+mark,
+audio,
+video {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  font: inherit;
+  font-size: 100%;
+  vertical-align: baseline;
+}
+
+input {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  background: transparent;
+  border: none;
+  border-radius: 0;
+  font: inherit;
+  outline: none;
+}
+
+img {
+  max-width: 100%;
+  vertical-align: bottom;
+}
+
+table { border-collapse: collapse; border-spacing: 0; }
+
+caption, th, td {
+  font-weight: normal;
+  vertical-align: middle;
+}
+
+.break {
+  page-break-before: always;
+  break-before: always;
+}
+
+/* invoice css------------------------------------------------------- */
+.button-wrap {
+  position: fixed;
+  top: 0;
+  right: 0;
+  background-color: #85858599;
+  width: 100%;
+  height: 80px;
+  z-index: 1;
+}
+
+.button-wrap p {
+  text-align: right;
+  margin-right: 20px;
+  margin-top: 20px;
+}
+
+.print-btn {
+  background: #333;
+  padding: 10px 20px;
+  color: #fff;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+
+.invoice-box {
+  width: 210mm;
+  /* height: 297mm; */
+  margin: 30px auto;
+  padding: 30px;
+  border: 1px solid #eee;
+  /* box-shadow: 0 0 10px rgba(0, 0, 0, .15); */
+  font-size: 15px;
+  line-height: 24px;
+  font-family: 'Helvetica Neue', 'Helvetica', Helvetica, Arial, sans-serif;
+  /* font-family: 'Yu Mincho Light','YuMincho','Yu Mincho','游明朝体',sans-serif; */
+  font-family: YuMincho, 'Yu Mincho', 'Noto Serif JP', serif;
+  color: #333;
+  position: relative;
+}
+
+.cancel_line {
+  content: "打消し";
+  display: block;
+  width: 120%;
+  height: 70px;
+  font-weight: bold;
+  line-height: 70px;
+  font-size: 50px;
+  text-align: center;
+  border-radius: 7px;
+  color: red;
+  border: 1px solid red;
+  background-color: #fff;
+  position: absolute;
+  top: 50%;
+  left: -70px;
+  transform: rotate(-45deg);
+  z-index: 1;
+}
+
+
+.invoice-box table {
+  width: 100%;
+  line-height: inherit;
+  text-align: left;
+}
+
+.invoice-box table td {
+  padding: 5px;
+  vertical-align: top;
+}
+
+.invoice-box table tr td:nth-child(2) {
+  text-align: right;
+}
+
+.invoice-box .top-title {
+  padding-bottom: 20px;
+  font-size: 45px;
+  line-height: 45px;
+  text-align: center;
+  border-bottom: 3px solid #35A7A7;
+}
+
+.invoice-box .information td {
+  padding-bottom: 40px;
+}
+/* .invoice-box .information td:first-child {
+  font-size: 30px;
+} */
+
+.invoice-box table tr.heading td {
+  background: #eee;
+  border: 1px solid #ddd;
+  font-weight: bold;
+}
+
+.invoice-box table tr.details td {
+  padding-bottom: 20px;
+}
+
+.invoice-box table tr.item td {
+  border-bottom: 1px solid #eee;
+}
+
+.invoice-box table tr.item.last td {
+  border-bottom: none;
+}
+
+.invoice-box table tr.total td:nth-child(2) {
+  border-top: 2px solid #eee;
+  font-weight: bold;
+}
+
+.total-billing {
+  display: flex;
+  /* flex-wrap: wrap; */
+  background: #eee;
+  font-size: 1.5rem;
+  padding: 20px;
+  /* width: 80%; */
+  font-weight: bold;
+}
+
+.total-billing dt {
+  margin-right: 3em;
+}
+
+.total-billing .tax {
+  font-size: 0.5em;
+  margin-left: 0.5em;
+}
+
+.space {
+  padding: 0;
+}
+
+.invoice-box table .bill-wrap {
+  border-right: 1px solid #ddd;
+  border-left: 1px solid #ddd;
+  padding: 0;
+}
+
+
+.bill-heading {
+  display: flex;
+  font-weight: bold;
+  flex-wrap: wrap;
+}
+
+.bill-heading dd {
+  padding: 0.3em;
+  font-weight: bold;
+}
+
+.invoice-box .bill-details td {
+  text-align: right;
+  border-bottom: 1px solid #ddd;
+  padding: 5px 10px;
+}
+
+.bill-details td:first-child{
+  text-align: left;
+}
+
+.total td {
+  text-align: right;
+}
+
+.sub-total {
+  font-weight: bold;
+}
+.sub-tax {
+  font-size: 0.8rem;
+}
+
+.total-table {
+  margin-top: 20px;
+
+}
+
+
+.total-amount td {
+  text-align: right;
+  font-size: 1.2rem;
+  font-weight: bold;
+}
+
+.bill-note-wrap {
+  border-top: 3px solid #35A7A7;
+  margin-top: 60px;
+}
+
+.invoice-box .bill-note-wrap .bank-info {
+  padding-top: 15px;
+}
+
+.bill-note {
+  border-top: 1px solid #ddd;
+}
+
+.bill-note p:first-child {
+  font-weight: bold;
+}
+
+
+@media only screen and (max-width: 600px) {
+  .invoice-box table tr.top table td {
+    width: 100%;
+    display: block;
+    text-align: center;
+  }
+
+  .invoice-box table tr.information table td {
+    width: 100%;
+    display: block;
+    text-align: center;
+  }
+}
+
