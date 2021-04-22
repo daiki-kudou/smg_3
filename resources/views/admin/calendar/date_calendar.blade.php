@@ -107,6 +107,7 @@
 </section>
 
 <section class="mt-5">
+  <input type="button" value="メモを追加する" class="add_button">
   <table class="table table-bordered">
     <tbody>
       <tr>
@@ -115,36 +116,22 @@
         <td>会社名</td>
         <td>対応内容</td>
         <td>編集</td>
-        <td>追加/削除</td>
+        <td>削除</td>
       </tr>
     </tbody>
-    <tbody id="sortableArea">
-    <tr>
-        <td>ダミー</td>
-        <td>ダミー</td>
-        <td>ダミー</td>
-        <td>ダミー</td>
-        <td>
-          <a href="" class="more_btn">保存</a>
-        </td>
-        <td>
-          <input type="button" value="＋" class="add pluralBtn">
-          <input type="button" value="ー" class="del pluralBtn">
-        </td>
-      </tr>
-      <tr>
+    <tbody id="sortableArea" class="main_table">
+      {{-- <tr>
         <td><input type="text" class="form-control"></td>
         <td><input type="text" class="form-control"></td>
         <td><input type="text" class="form-control"></td>
-        <td><input type="text" class="form-control"></td>
+        <td><input type="textarea" class="form-control"></td>
         <td>
           <a href="" class="more_btn">編集</a>
         </td>
         <td>
-          <input type="button" value="＋" class="add pluralBtn">
-          <input type="button" value="ー" class="del pluralBtn">
+          <input type="button" value="削除" class="del">
         </td>
-      </tr>
+      </tr> --}}
     </tbody>
   </table>
 </section>
@@ -162,10 +149,29 @@
 @endforeach
 
 
-<!-- {{var_dump($json_result)}} -->
 
 <script type="text/javascript" src="https://code.jquery.com/ui/1.12.0/jquery-ui.min.js"></script>
 <script>
+
+$(function(){
+  $(".add_button").on('click',function(){
+    var data="<tr>"+
+        "<td><input type='text' class='form-control'></td>"+
+        "<td><input type='text' class='form-control'></td>"+
+        "<td><input type='text' class='form-control'></td>"+
+        "<td><input type='textarea' class='form-control'></td>"+
+        "<td>"+
+          "<a href='' class='more_btn'>保存</a>"+
+        "</td>"+
+        "<td>"+
+          "<input type='button' value='削除' class='del'>"+
+        "</td>"+
+      "</tr>";
+
+    $('.main_table').append(data);
+  })
+})
+
   $(function() {
     $('#datepicker8').on('change', function() {
       $('input[name="date"]').val($(this).val());
