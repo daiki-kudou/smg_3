@@ -519,7 +519,8 @@
                   <i class="far fa-id-card icon-size"></i>顧客情報
                 </p>
                 <p class="user_link">
-                  <a class="more_btn" target="_blank" rel="noopener" href="{{url('admin/clients/'.$reservation->user_id)}}">顧客詳細</a>
+                  <a class="more_btn" target="_blank" rel="noopener"
+                    href="{{url('admin/clients/'.$reservation->user_id)}}">顧客詳細</a>
                 </p>
               </div>
             </td>
@@ -584,7 +585,6 @@
             <td class="caution">
               <p class="attention">
                 {!!nl2br(e(ReservationHelper::getPersonAttention($user->id)))!!}
-
               </p>
             </td>
           </tr>

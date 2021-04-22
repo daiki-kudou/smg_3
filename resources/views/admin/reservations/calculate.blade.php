@@ -60,40 +60,23 @@
             <td class="table-active form_required">利用日</td>
             <td>
               {{ Form::text('reserve_date', $value["reserve_date"] ,['class'=>'form-control',
-              'id'=>'datepicker1', 'placeholder'=>'入力してください'] ) }}
+              'id'=>'datepicker1', 'placeholder'=>'入力してください','readonly'] ) }}
               <p class="is-error-reserve_date" style="color: red"></p>
             </td>
           </tr>
           <tr>
             <td class="table-active form_required">会場</td>
             <td>
-              <select id="venues_selector" class=" form-control" name='venue_id'>
-                <option value='#' disabled selected>選択してください</option>
-                @foreach ($venues as $venue)
-                <option value="{{$venue->id}}" @if (($value["venue_id"]==$venue->id))
-                  selected
-                  @endif
-                  >{{ReservationHelper::getVenue($venue->id)}}
-                </option>
-                @endforeach
-              </select>
+              {{ Form::text('', ReservationHelper::getVenue($value['venue_id']) ,['class'=>'form-control','readonly'] ) }}
+              {{ Form::hidden('venue_id', ($value['venue_id']) ,['class'=>'form-control','readonly'] ) }}
               <p class="is-error-venue_id" style="color: red"></p>
             </td>
           </tr>
           <tr>
             <td class="table-active">料金体系</td>
             <td>
-
-              <div class="price_radio_selector">
-                <div class="d-flex justfy-content-start align-items-center">
-                  {{ Form::radio('price_system', 1, $value['price_system']==1?true:false, ['class'=>'mr-2', 'id'=>'price_system_radio1']) }}
-                  {{Form::label('price_system_radio1','通常（枠貸）')}}
-                </div>
-                <div class="d-flex justfy-content-start align-items-center">
-                  {{ Form::radio('price_system', 2, $value['price_system']==2?true:false, ['class'=>'mr-2','id'=>'price_system_radio2']) }}
-                  {{Form::label('price_system_radio2','アクセア（時間貸）')}}
-                </div>
-              </div>
+              {{ Form::text('', $value['price_system']==1?"通常（枠貸）":"アクセア（時間貸）" ,['class'=>'form-control','readonly'] ) }}
+              {{ Form::hidden('price_system', $value['price_system'] ,['class'=>'form-control','readonly'] ) }}
             </td>
           </tr>
           <tr>

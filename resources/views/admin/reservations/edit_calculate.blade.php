@@ -7,7 +7,6 @@
 <script src="{{ asset('/js/ajax.js') }}"></script>
 <script src="{{ asset('/js/admin/validation.js') }}"></script>
 
-
 <style>
   #fullOverlay {
     position: absolute;
@@ -471,7 +470,10 @@
                 <p class="title-icon">
                   <i class="far fa-id-card icon-size"></i>顧客情報
                 </p>
-                <p><a class="more_btn" target="_blank" rel="noopener" href="">工藤さん！こちらもリンクお願いします。顧客詳細</a></p>
+                <p>
+                  <a class="more_btn user_link" target="_blank" rel="noopener"
+                    href="{{url('admin/clients/'.$request->user_id)}}">顧客詳細</a>
+                </p>
               </div>
             </td>
           </tr>
@@ -493,40 +495,51 @@
             </td>
           </tr>
           <tr>
-            <td class="table-active"><label for="name">担当者氏名　工藤さん！！</label></td>
+            <td class="table-active"><label for="name">担当者氏名</label></td>
             <td>
-              <p class="person"></p>
+              <p class="person">
+                {{ReservationHelper::getPersonName($request->user_id)}}
+              </p>
             </td>
           </tr>
           <tr>
-            <td class="table-active">メールアドレス 工藤さん！！</td>
+            <td class="table-active">メールアドレス</td>
             <td>
-              <p class="email"></p>
+              <p class="email">
+                {{ReservationHelper::getPersonEmail($request->user_id)}}
+              </p>
             </td>
           </tr>
           <tr>
-            <td class="table-active">携帯番号 工藤さん！！</td>
+            <td class="table-active">携帯番号</td>
             <td>
-              <p class="mobile"></p>
+              <p class="mobile">
+                {{ReservationHelper::getPersonMobile($request->user_id)}}
+              </p>
             </td>
           </tr>
           <tr>
-            <td class="table-active">固定電話 工藤さん！！</td>
+            <td class="table-active">固定電話</td>
             <td>
-              <p class="tel"></p>
+              <p class="tel">
+                {{ReservationHelper::getPersonTel($request->user_id)}}
+              </p>
             </td>
           </tr>
           <tr>
             <td class="table-active">割引条件 工藤さん！！</td>
             <td>
               <p class="condition">
+                {!!nl2br(e(ReservationHelper::getPersonCondition($request->user_id)))!!}
               </p>
             </td>
           </tr>
           <tr>
             <td class="table-active caution">注意事項 工藤さん！！</td>
             <td class="caution">
-              <p class="attention"></p>
+              <p class="attention">
+                {!!nl2br(e(ReservationHelper::getPersonAttention($request->user_id)))!!}
+              </p>
             </td>
           </tr>
         </table>
@@ -600,12 +613,7 @@
             </p>
           </td>
         </tr>
-        <!-- <tr>
-          <td>
-            <label for="userNote">申し込みフォーム備考</label>
-            {{ Form::textarea('user_details', $request->user_details,['class'=>'form-control'] ) }}
-          </td>
-        </tr> -->
+
         <tr>
           <td>
             <label for="adminNote">管理者備考</label>
@@ -647,15 +655,6 @@
             </dl>
           </td>
         </tr>
-        <!--<tr>
-          <td></td>
-           <td>
-            <div class="bg-white d-flex justify-content-around align-items-center" style="height: 60px;">
-              <div>支払い期日</div>
-              <div>{{ReservationHelper::formatDate($pay_limit)}}</div>
-            </div>
-          </td> 
-        </tr>-->
       </table>
     </div>
     <div class="bill_details">

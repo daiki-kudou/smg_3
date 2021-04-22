@@ -259,7 +259,10 @@
                 <p class="title-icon">
                   <i class="far fa-id-card icon-size" aria-hidden="true"></i>顧客情報
                 </p>
-                <p><a class="more_btn" target="_blank" rel="noopener" href="">工藤さん！リンクお願いします。顧客詳細</a></p>
+                <p>
+                  <a class="more_btn user_link" target="_blank" rel="noopener"
+                    href="{{url('admin/clients/'.$request->user_id)}}">顧客詳細</a>
+                </p>
               </div>
             </td>
           </tr>
@@ -271,40 +274,51 @@
             </td>
           </tr>
           <tr>
-            <td class="table-active"><label for="name">担当者氏名　工藤さん！！</label></td>
+            <td class="table-active"><label for="name">担当者氏名</label></td>
             <td>
-              <p class="person"></p>
+              <p class="person">
+                {{ Form::text('', ReservationHelper::getPersonName($request->user_id),['class'=>'form-control', 'readonly'] ) }}
+              </p>
             </td>
           </tr>
           <tr>
-            <td class="table-active">メールアドレス 工藤さん！！</td>
+            <td class="table-active">メールアドレス</td>
             <td>
-              <p class="email"></p>
+              <p class="email">
+                {{ Form::text('', ReservationHelper::getPersonEmail($request->user_id),['class'=>'form-control', 'readonly'] ) }}
+              </p>
             </td>
           </tr>
           <tr>
-            <td class="table-active">携帯番号 工藤さん！！</td>
+            <td class="table-active">携帯番号</td>
             <td>
-              <p class="mobile"></p>
+              <p class="mobile">
+                {{ Form::text('', ReservationHelper::getPersonMobile($request->user_id),['class'=>'form-control', 'readonly'] ) }}
+              </p>
             </td>
           </tr>
           <tr>
-            <td class="table-active">固定電話 工藤さん！！</td>
+            <td class="table-active">固定電話</td>
             <td>
-              <p class="tel"></p>
+              <p class="tel">
+                {{ Form::text('', ReservationHelper::getPersonTel($request->user_id),['class'=>'form-control', 'readonly'] ) }}
+              </p>
             </td>
           </tr>
           <tr>
             <td class="table-active">割引条件 工藤さん！！</td>
             <td>
               <p class="condition">
+                {{ Form::textarea('', ReservationHelper::getPersonCondition($request->user_id),['class'=>'form-control', 'readonly'] ) }}
               </p>
             </td>
           </tr>
           <tr>
             <td class="table-active caution">注意事項 工藤さん！！</td>
             <td class="caution">
-              <p class="attention"></p>
+              <p class="attention">
+                {{ Form::textarea('', ReservationHelper::getPersonAttention($request->user_id),['class'=>'form-control', 'readonly'] ) }}
+              </p>
             </td>
           </tr>
         </tbody>

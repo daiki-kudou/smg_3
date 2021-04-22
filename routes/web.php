@@ -331,5 +331,6 @@ Route::namespace('Admin')->prefix('admin')->name('admin.')->group(function () {
     Route::get('mail_templates', 'MailTemplatesController@index');
 
     Route::post('invoice', 'InvoiceController@show');
+    Route::post('board', 'BoardController@show');
   });
 });
