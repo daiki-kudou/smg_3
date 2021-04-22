@@ -394,7 +394,6 @@ class Bill extends Model
 
   public function ReserveFromAgentBreakdown($request)
   {
-
     DB::transaction(function () use ($request) {
       $countVenue = $this->RequestBreakdowns($request, 'venue_breakdown_item');
       if ($countVenue != "") {
@@ -582,5 +581,107 @@ class Bill extends Model
   public function updateStatusByCxl()
   {
     $this->update(['reservation_status' => 4]);
+  }
+
+  public function updateAgentBill($result)
+  {
+    DB::transaction(function () use ($result) {
+      $this->update([
+        'layout_price' => $result['layout_price'] ? $result['layout_price'] : 0,
+        'master_subtotal' => $result['master_subtotal'],
+        'master_tax' => $result['master_tax'],
+        'master_total' => $result['master_total'],
+        'payment_limit' => $result['pay_limit'],
+        'bill_company' => $result['pay_company'],
+        'bill_person' => $result['bill_person'],
+        'bill_created_at' => Carbon::now(),
+        'bill_remark' => $result['bill_remark'],
+        'paid' => $result['paid'],
+        'pay_day' => $result['pay_day'],
+        'pay_person' => $result['pay_person'],
+        'payment' => $result['payment'],
+      ]);
+      $this->breakdowns()->delete();
+    });
+  }
+
+  public function updateAgentBreakdown($result, $inputs)
+  {
+    DB::transaction(function () use ($result, $inputs) {
+      $v_cnt = $this->preg($result, "venue_breakdown_item");
+      for ($i = 0; $i < $v_cnt; $i++) {
+        $this->breakdowns()->create([
+          'unit_item' => $result['venue_breakdown_item' . $i],
+          'unit_cost' => 0,
+          'unit_count' => $result['venue_breakdown_count' . $i],
+          'unit_subtotal' => 0,
+          'unit_type' => 1,
+        ]);
+      }
+
+      $e_cnt = $this->preg($result, "equipment_breakdown_item");
+      var_dump($e_cnt);
+      for ($i = 0; $i < $e_cnt; $i++) {
+        $this->breakdowns()->create([
+          'unit_item' => $result['equipment_breakdown_item' . $i],
+          'unit_cost' => 0,
+          'unit_count' => $result['equipment_breakdown_count' . $i],
+          'unit_subtotal' => 0,
+          'unit_type' => 2,
+        ]);
+      }
+
+      $s_cnt = $this->preg($result, "service_breakdown_item");
+      for ($i = 0; $i < $s_cnt; $i++) {
+        $this->breakdowns()->create([
+          'unit_item' => $result['service_breakdown_item' . $i],
+          'unit_cost' => 0,
+          'unit_count' => $result['service_breakdown_count' . $i],
+          'unit_subtotal' => 0,
+          'unit_type' => 3,
+        ]);
+      }
+
+      // if ($inputs['luggage_count']) {
+      //   $this->breakdowns->create([
+      //     'unit_item' => $inputs['luggage_item'],
+      //     'unit_cost' => 0,
+      //     'unit_count' => 1,
+      //     'unit_subtotal' => 0,
+      //     'unit_type' => 3,
+      //   ]);
+      // }
+
+      if (!empty($result['layout_prepare_item'])) {
+        $this->breakdowns()->create([
+          'unit_item' => $result['layout_prepare_item'],
+          'unit_cost' => $result['layout_prepare_cost'],
+          'unit_count' => 1,
+          'unit_subtotal' => $result['layout_prepare_subtotal'],
+          'unit_type' => 4,
+        ]);
+      }
+
+      if (!empty($result['layout_clean_item'])) {
+        $this->breakdowns()->create([
+          'unit_item' => $result['layout_clean_item'],
+          'unit_cost' => $result['layout_clean_cost'],
+          'unit_count' => 1,
+          'unit_subtotal' => $result['layout_clean_subtotal'],
+          'unit_type' => 4,
+        ]);
+      }
+
+      $o_cnt = $this->preg($result, "others_breakdown_item");
+      for ($i = 0; $i < $o_cnt; $i++) {
+        $this->breakdowns()->create([
+          'unit_item' => $result['others_breakdown_item' . $i],
+          'unit_cost' => 0,
+          'unit_count' => $result['others_breakdown_count' . $i],
+          'unit_subtotal' => 0,
+          'unit_type' => 5,
+        ]);
+      }
+    });
   }
 }

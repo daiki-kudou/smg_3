@@ -159,7 +159,6 @@ class Reservation extends Model implements PresentableInterface
 | 管理者　予約　保存
 |--------------------------------------------------------------------------|
 */
-
   // session利用
   public function ReserveStoreSession($request, $sessionName, $sessionName2)
   {
@@ -656,5 +655,65 @@ class Reservation extends Model implements PresentableInterface
       $result[] = $this->bills->where("reservation_status", 3)->pluck($value)->sum(); //予約ステータス3（予約完了）のみが対象
     }
     return $result;
+  }
+
+  public function updateAgentReservation($inputs)
+  {
+    $reservation = DB::transaction(function () use ($inputs) { //トランザクションさせる
+      $reservation = $this->update([
+        'agent_id' => $inputs['agent_id'],
+        'price_system' => $inputs['price_system'],
+        'enter_time' => $inputs['enter_time'],
+        'leave_time' => $inputs['leave_time'],
+        'board_flag' => $inputs['board_flag'],
+        'event_start' => !empty($inputs['event_start']) ? $inputs['event_start'] : "",
+        'event_finish' => !empty($inputs['event_finish']) ? $inputs['event_finish'] : "",
+        'event_name1' => !empty($inputs['event_name1']) ? $inputs['event_name1'] : "",
+        'event_name2' => !empty($inputs['event_name2']) ? $inputs['event_name2'] : "",
+        'event_owner' => !empty($inputs['event_owner']) ? $inputs['event_owner'] : "",
+        'luggage_count' => $inputs['luggage_count'],
+        'luggage_arrive' => $inputs['luggage_arrive'],
+        'luggage_return' => $inputs['luggage_return'],
+        'email_flag' => 0,
+        'in_charge' => '',
+        'tel' => '',
+        'cost' => !empty($inputs['cost']) ? $inputs['cost'] : 0,
+        'discount_condition' => "",
+        'attention' => "",
+        'user_details' => $inputs['user_details'],
+        'admin_details' => $inputs['admin_details'],
+      ]);
+      return $reservation;
+    });
+    return $reservation;
+  }
+
+  public function UpdateAgentEndUser($inputs)
+  {
+    $this->enduser()->delete();
+    if (
+      !empty($inputs['enduser_company']) ||
+      !empty($inputs['enduser_incharge']) ||
+      !empty($inputs['enduser_address']) ||
+      !empty($inputs['enduser_tel']) ||
+      !empty($inputs['enduser_mail']) ||
+      !empty($inputs['enduser_attr']) ||
+      !empty($inputs['enduser_charge']) ||
+      !empty($inputs['enduser_mobile'])
+    ) {
+      DB::transaction(function () use ($inputs) {
+        $this->enduser()->create([
+          'reservation_id' => $this->id,
+          'company' => $inputs['enduser_company'],
+          'person' => $inputs['enduser_incharge'],
+          'address' => $inputs['enduser_address'],
+          'tel' => $inputs['enduser_tel'],
+          'email' => $inputs['enduser_mail'],
+          'attr' => $inputs['enduser_attr'],
+          'charge' => $inputs['enduser_charge'],
+          'mobile' => $inputs['enduser_mobile'],
+        ]);
+      });
+    }
   }
 }

@@ -10,6 +10,11 @@ use Robbo\Presenter\PresentableInterface; //プレゼンターの追加
 
 use Illuminate\Support\Facades\DB;
 
+use App\Models\Venue;
+use App\Models\User;
+use App\Models\Cxl;
+use App\Models\Reservation;
+
 
 class Agent extends Model implements PresentableInterface
 {

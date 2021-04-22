@@ -1,4 +1,3 @@
-
 {{$form_open1}}
 <section class="mt-5">
   <div class="row">
@@ -26,8 +25,6 @@
           <td>
             {{$venue}}
             {{$venue_hidden}}
-            {{-- {{ Form::text('',  ReservationHelper::getVenue($reservation->venue_id),['class'=>'form-control',  'readonly'] ) }}
-            {{ Form::hidden('venue_id',  $reservation->venue_id,['class'=>'form-control',  'readonly'] ) }} --}}
             <p class="is-error-venue_id" style="color: red"></p>
           </td>
         </tr>
@@ -37,49 +34,22 @@
             <div class='price_radio_selector'>
               <div class="d-flex justfy-content-start align-items-center">
                 {{$price_system1}}
-                {{-- {{ Form::radio('price_system', 1, isset($reservation->price_system)?$reservation->price_system==1?true:false:'', ['class'=>'mr-2', 'id'=>'price_system_radio1']) }}--}}
-                {{Form::label('price_system_radio1','通常（枠貸）')}}
               </div>
               <div class="d-flex justfy-content-start align-items-center">
                 {{$price_system2}}
-                {{-- {{ Form::radio('price_system', 2, isset($reservation->price_system)?$reservation->price_system==2?true:false:'', ['class'=>'mr-2','id'=>'price_system_radio2']) }}
-                --}}
-                {{Form::label('price_system_radio2','アクセア（時間貸）')}}
               </div>
           </td>
         </tr>
         <tr>
           <td class="table-active form_required">入室時間</td>
           <td>
-            <select name="enter_time" id="sales_start" class="form-control">
-              <option disabled selected></option>
-              {{$enter_time_loop}}
-              {{-- @for ($start = 0*2; $start <=23*2; $start++) <option
-                value="{{date("H:i:s", strtotime("00:00 +". $start * 30 ." minute"))}}" @if (date("H:i:s",
-              strtotime("00:00 +". $start * 30 ." minute"))==$reservation->enter_time)
-              selected
-              @endif>
-              {{date("H時i分", strtotime("00:00 +". $start * 30 ." minute"))}}
-              </option>
-              @endfor --}}
-            </select>
+            {{$enter_time_loop}}
           </td>
         </tr>
         <tr>
           <td class="table-active form_required">退室時間</td>
           <td>
-            <select name="leave_time" id="sales_finish" class="form-control">
-              <option disabled selected></option>
-              {{$leave_time_loop}}
-              {{-- @for ($start = 0*2; $start <=23*2; $start++) <option
-                value="{{date("H:i:s", strtotime("00:00 +". $start * 30 ." minute"))}}" @if (date("H:i:s",
-              strtotime("00:00 +". $start * 30 ." minute"))==$reservation->leave_time)
-              selected
-              @endif
-              >
-              {{date("H時i分", strtotime("00:00 +". $start * 30 ." minute"))}}</option>
-              @endfor --}}
-            </select>
+            {{$leave_time_loop}}
           </td>
         </tr>
       </table>
@@ -115,35 +85,13 @@
         <tr>
           <td class="table-active">イベント開始時間</td>
           <td>
-            <select name="event_start" id="event_start" class="form-control">
-              <option disabled>選択してください</option>
-              {{$event_start_loop}}
-              {{-- @for ($start = 0*2; $start <=23*2; $start++) <option
-                value="{{date("H:i:s", strtotime("00:00 +". $start * 30 ." minute"))}}" @if (date("H:i:s",
-              strtotime("00:00 +". $start * 30 ." minute"))==$reservation->event_start)
-              selected
-              @endif
-              >
-              {{date("H時i分", strtotime("00:00 +". $start * 30 ." minute"))}}</option>
-              @endfor --}}
-            </select>
+            {{$event_start_loop}}
           </td>
         </tr>
         <tr>
           <td class="table-active">イベント終了時間</td>
           <td>
-            <select name="event_finish" id="event_finish" class="form-control">
-              <option disabled>選択してください</option>
-              {{$event_finish_loop}}
-              {{-- @for ($start = 0*2; $start <=23*2; $start++) <option
-                value="{{date("H:i:s", strtotime("00:00 +". $start * 30 ." minute"))}}" @if (date("H:i:s",
-              strtotime("00:00 +". $start * 30 ." minute"))==$reservation->event_finish)
-              selected
-              @endif
-              >
-              {{date("H時i分", strtotime("00:00 +". $start * 30 ." minute"))}}</option>
-              @endfor --}}
-            </select>
+            {{$event_finish_loop}}
           </td>
         </tr>
         <tr>
@@ -398,10 +346,7 @@
               <label for="agent_id">サービス名称</label>
             </td>
             <td>
-              <select class="form-control" name="agent_id" id="agent_select">
-                <option disabled selected>選択してください</option>
-                {{$agent_select}}
-              </select>
+              {{$agent_select}}
               <p class="is-error-user_id" style="color: red"></p>
             </td>
           </tr>
@@ -840,17 +785,11 @@
           <table class="table" style="table-layout: fixed;">
             <tr>
               <td>入金状況
-                <select name="paid" class="form-control">
-                  <option value="#" disabled>選択してください</option>
-                  {{$paid_select}}
-                  {{-- <option value="0" {{$bill->paid==0?'selected':''}}>未入金</option> --}}
-                  {{-- <option value="1" {{$bill->paid==1?'selected':''}}>入金済み</option> --}}
-                </select>
+                {{$paid_select}}
               </td>
               <td>
                 入金日
                 {{$pay_day}}
-                {{-- {{ Form::text('pay_day', $bill->pay_day,['class'=>'form-control', 'id'=>'datepicker7'] ) }} --}}
               </td>
             </tr>
             <tr>

@@ -100,12 +100,19 @@
       @if ($layout_breakdown->unit_type==4)
       <tr>
         <td>{{$layout_breakdown->unit_item}}</td>
-        <td></td>
+        <td>{{$layout_breakdown->unit_cost}}</td>
         <td>{{$layout_breakdown->unit_count}}</td>
-        <td></td>
+        <td>{{$layout_breakdown->unit_subtotal}}</td>
       </tr>
       @endif
       @endforeach
+    </tbody>
+    <tbody class="layout_result">
+      <tr>
+        <td colspan="3"></td>
+        <td colspan="1">合計：{{number_format($reservation->bills()->first()->layout_price)}}
+        </td>
+      </tr>
     </tbody>
   </table>
 </div>
