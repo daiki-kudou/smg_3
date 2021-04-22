@@ -770,7 +770,7 @@ class Reservation extends Model implements PresentableInterface
         'cost' => !empty($inputs['cost']) ? $inputs['cost'] : 0,
         'discount_condition' => "",
         'attention' => "",
-        'user_details' => $inputs['user_details'],
+        'user_details' => null,
         'admin_details' => $inputs['admin_details'],
       ]);
       return $reservation;

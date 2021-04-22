@@ -456,15 +456,14 @@
             </p>
           </td>
         </tr>
-        <tr>
+        {{-- <tr>
           <td>
             <label for="userNote">申し込みフォーム備考</label>
             <div>
               {{$user_details}}
-              {{-- {{$reservation->user_details}} --}}
             </div>
           </td>
-        </tr>
+        </tr> --}}
         <tr>
           <td>
             <label for="adminNote">管理者備考</label>

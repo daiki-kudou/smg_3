@@ -44,7 +44,7 @@ class BillsController extends Controller
    */
   public function create(Request $request)
   {
-    var_dump($request->all());
+    
     $reservation = Reservation::find($request->reservation_id);
     $user = User::find($reservation->user_id);
     $pay_limit = $user->getUserPayLimit($reservation->reserve_date);
@@ -202,7 +202,7 @@ class BillsController extends Controller
   {
     $bill = Bill::with('reservation.agent')->find($id);
     $percent = $bill->reservation->agent->cost;
-    var_dump($percent);
+    
     return view('admin.bills.agent_edit', compact('bill', 'percent'));
   }
 
@@ -224,7 +224,7 @@ class BillsController extends Controller
 
   public function agentEditUpdate(Request $request, $id)
   {
-    var_dump($request->all());
+    
     $bill = Bill::with('reservation')->find($id);
     $bill->UpdateBill($request);
     $request->session()->put('add_breakdown', $request->all());

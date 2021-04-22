@@ -147,11 +147,11 @@ $(function () {
       data: { 'venue_id': $venue_id, 'text': 'Ajax成功' },
       dataType: 'json',
       beforeSend: function () {
-        $('#fullOverlay').css('display', 'block');
+        // $('#fullOverlay').css('display', 'block');
       },
     })
       .done(function ($items) {
-        $('#fullOverlay').css('display', 'none');
+        // $('#fullOverlay').css('display', 'none');
         $('.equipemnts table tbody').html(''); //一旦初期会
         $.each($items[0], function (index, value) {
           // ココで備品取得
@@ -174,7 +174,6 @@ $(function () {
         ExceptString($(".equipemnts table tbody input[name^='equipemnt']"));
         // ***********マイナス、全角制御用
 
-
         $('.services table tbody').html('');
         $.each($items[1], function (index, value) {
           // ココでサービス取得
@@ -183,7 +182,7 @@ $(function () {
         });
       })
       .fail(function (data) {
-        $('#fullOverlay').css('display', 'none');
+        // $('#fullOverlay').css('display', 'none');
         $('.equipemnts table tbody').html('');
         $('.services table tbody').html('');
         // console.log("item失敗");
@@ -203,11 +202,11 @@ $(function () {
       data: { 'venue_id': $venue_id, 'dates': $dates },
       dataType: 'json',
       beforeSend: function () {
-        $('#fullOverlay').css('display', 'block');
+        // $('#fullOverlay').css('display', 'block');
       },
     })
       .done(function ($times) {
-        $('#fullOverlay').css('display', 'none');
+        // $('#fullOverlay').css('display', 'none');
         // 初期化
         $("#sales_start option").each(function ($result) {
           $('#sales_start option').eq($result).prop('disabled', false);
@@ -231,11 +230,9 @@ $(function () {
             }
           });
         }
-
-
       })
       .fail(function ($times) {
-        $('#fullOverlay').css('display', 'none');
+        // $('#fullOverlay').css('display', 'none');
       });
   };
 
@@ -250,11 +247,11 @@ $(function () {
       data: { 'venue_id': $venue_id },
       dataType: 'json',
       beforeSend: function () {
-        $('#fullOverlay').css('display', 'block');
+        // $('#fullOverlay').css('display', 'block');
       },
     })
       .done(function ($prices) {
-        $('#fullOverlay').css('display', 'none');
+        // $('#fullOverlay').css('display', 'none');
         $('#price_system_radio1').prop('checked', false).prop('disabled', false); //初期化
         $('#price_system1').removeClass("hide");
         $('#price_system2').removeClass("hide");
@@ -278,7 +275,7 @@ $(function () {
         }
       })
       .fail(function ($prices) {
-        $('#fullOverlay').css('display', 'none');
+        // $('#fullOverlay').css('display', 'none');
         $('#price_system1').addClass("hide");
         $('#price_system2').addClass("hide");
 
@@ -301,11 +298,11 @@ $(function () {
       },
       dataType: 'json',
       beforeSend: function () {
-        $('#fullOverlay').css('display', 'block');
+        // $('#fullOverlay').css('display', 'block');
       },
     })
       .done(function ($details) {
-        $('#fullOverlay').css('display', 'none');
+        // $('#fullOverlay').css('display', 'none');
         // 手入力部分は初期化
         $('#handinput_venue').val('');
         $('#handinput_extend').val('');
@@ -353,7 +350,7 @@ $(function () {
         }
       })
       .fail(function ($details) {
-        $('#fullOverlay').css('display', 'none');
+        // $('#fullOverlay').css('display', 'none');
         swal("料金の取得に失敗しました.", '枠料金にて入退室時間が08:00~23:00で入力した場合はページをリロードし再度条件を変え再計算してください。もし08:00~23:00以外で入力した場合は、そのまま進み会場料金を手入力してください')
           .then((value) => {
             swal(`アクセア料金を選択し利用時間が15時間を超過した場合、そのまま進み会場料金を手入力してください`);
@@ -393,13 +390,11 @@ $(function () {
       },
       dataType: 'json',
       beforeSend: function () {
-        $('#fullOverlay').css('display', 'block');
+        // $('#fullOverlay').css('display', 'block');
       },
     })
       .done(function ($each) {
-        // console.log('成功？？', $each);
-
-        $('#fullOverlay').css('display', 'none');
+        // $('#fullOverlay').css('display', 'none');
         // ※$eachの[0][0]には備品とサービスの合計料金
         // ※$eachの[0][1]には連想配列で選択された備品の個数、単価、備品名
         // ※$eachの[0][2]には連想配列で選択されたサービスの個数、単価、備品名
@@ -481,7 +476,7 @@ $(function () {
         $('.all_items_total').val((Math.floor((Number($each[0][0]) + Number(luggage_target)) * 0.1)) + (Number($each[0][0]) + Number(luggage_target)));
       })
       .fail(function ($each) {
-        $('#fullOverlay').css('display', 'none');
+        // $('#fullOverlay').css('display', 'none');
         // console.log('備品又はサービスの料金取得に失敗しました。ページをリロードし再度試して下さい');
         // console.log('備品エラー', $each);
         $('.items_equipments table tbody').html(''); //テーブル初期化
@@ -508,18 +503,18 @@ $(function () {
       },
       dataType: 'json',
       beforeSend: function () {
-        $('#fullOverlay').css('display', 'block');
+        // $('#fullOverlay').css('display', 'block');
       },
     })
       .done(function ($result) {
-        $('#fullOverlay').css('display', 'none');
+        // $('#fullOverlay').css('display', 'none');
         // console.log($result);
         $('.layouts table tbody').html(''); //初期化
         var data =
           $result == 1 ? $('.layouts table tbody').append("<tr><td class='table-active'>準備</td><td><input type='radio' name='layout_prepare' id='layout_prepare' value='" + 1 + "' class='mr-1'><label for='layout_prepare' class='mr-2'>有り</label><input type='radio' name='layout_prepare' id='no_layout_prepare' value='" + 0 + "' checked class='mr-1'><label for='no_layout_prepare'>無し</label></td></tr><tr><td class='table-active'>片付</td><td><input type='radio' name='layout_clean' id='layout_clean' value='" + 1 + "' class='mr-1'><label for='layout_clean' class='mr-2'>有り</label><input type='radio' name='layout_clean' id='no_layout_clean' value='" + 0 + "'checked class='mr-1'><label for='no_layout_clean'>無し</label></td></tr>") : $('.layouts table tbody').append('<tr><td>該当会場はレイアウト変更を受け付けていません</td></tr>');
       })
       .fail(function ($result) {
-        $('#fullOverlay').css('display', 'none');
+        // $('#fullOverlay').css('display', 'none');
         swal('レイアウトの取得に失敗しました。ページをリロードし再度試して下さい!!!!');
       });
   };
@@ -539,11 +534,11 @@ $(function () {
       },
       dataType: 'json',
       beforeSend: function () {
-        $('#fullOverlay').css('display', 'block');
+        // $('#fullOverlay').css('display', 'block');
       },
     })
       .done(function ($result) {
-        $('#fullOverlay').css('display', 'none');
+        // $('#fullOverlay').css('display', 'none');
         // console.log($result[0]);
         $('.selected_layouts table tbody').html('');
         for (let s_layout = 0; s_layout < $result[0].length; s_layout++) {
@@ -566,7 +561,7 @@ $(function () {
         $('.after_duscount_layouts').val($result[1]);
       })
       .fail(function ($result) {
-        $('#fullOverlay').css('display', 'none');
+        // $('#fullOverlay').css('display', 'none');
         swal('レイアウトの金額取得に失敗しました。ページをリロードし再度試して下さい!!!!');
       });
   };
@@ -585,7 +580,7 @@ $(function () {
       },
       dataType: 'json',
       beforeSend: function () {
-        $('#fullOverlay').css('display', 'block');
+        // $('#fullOverlay').css('display', 'block');
       },
     })
       .done(function ($luggage) {
@@ -617,7 +612,7 @@ $(function () {
         }
       })
       .fail(function ($luggage) {
-        $('#fullOverlay').css('display', 'none');
+        // $('#fullOverlay').css('display', 'none');
         swal('荷物預りの取得に失敗しました。ページをリロードし再度試して下さい!!!!');
       });
   };
@@ -635,7 +630,7 @@ $(function () {
       },
       dataType: 'json',
       beforeSend: function () {
-        $('#fullOverlay').css('display', 'block');
+        // $('#fullOverlay').css('display', 'block');
       },
     })
       .done(function ($operaions) {
@@ -649,7 +644,7 @@ $(function () {
         }
       })
       .fail(function ($operaions) {
-        $('#fullOverlay').css('display', 'none');
+        // $('#fullOverlay').css('display', 'none');
         swal('会場の運営形態の取得に失敗しました');
       });
   };
@@ -667,11 +662,11 @@ $(function () {
       },
       dataType: 'json',
       beforeSend: function () {
-        $('#fullOverlay').css('display', 'block');
+        // $('#fullOverlay').css('display', 'block');
       },
     })
       .done(function ($user_results) {
-        $('#fullOverlay').css('display', 'none');
+        // $('#fullOverlay').css('display', 'none');
         $('.person').text('').text($user_results[0]);
         $('.email').text('').text($user_results[1]);
         $('.mobile').text('').text($user_results[2]);
@@ -681,7 +676,7 @@ $(function () {
         console.log($user_results);
       })
       .fail(function ($user_results) {
-        $('#fullOverlay').css('display', 'none');
+        // $('#fullOverlay').css('display', 'none');
         console.log('ajaxGetClients 失敗', $user_results)
       });
   }
@@ -702,7 +697,9 @@ $(function () {
       },
     })
       .done(function ($result) {
-        $('.eat_in').removeClass('hide');
+        $('#fullOverlay').css('display', 'none');
+
+        // $('.eat_in').removeClass('hide');
         if ($result != 1) {
           $('.eat_in').addClass('hide');
         }

@@ -401,7 +401,7 @@
           <!-- <tr>
             <td>
               <label for="userNote">申し込みフォーム備考</label>
-              {{ Form::textarea('user_details', $request->user_details,['class'=>'form-control', 'readonly'] ) }}
+              {{-- {{ Form::textarea('user_details', $request->user_details,['class'=>'form-control', 'readonly'] ) }} --}}
             </td>
           </tr> -->
           <tr>
