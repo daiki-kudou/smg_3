@@ -1077,6 +1077,7 @@
             </tr>
             <tr>
               <td>請求書宛名
+                {{-- {{ Form::text('pay_company', $users[$value['user_id']]->company,['class'=>'form-control'] ) }} --}}
                 {{ Form::text('pay_company', $users->find($value['user_id'])->company,['class'=>'form-control'] ) }}
               </td>
               <td>

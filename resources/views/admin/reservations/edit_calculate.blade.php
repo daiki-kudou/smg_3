@@ -41,111 +41,7 @@
   </div>
 </div>
 
-<script>
-  $(function() {
-    $("html,body").animate({
-      scrollTop: $('.bill').offset().top
-    });
 
-    $(function() {
-      // プラスボタンクリック
-      $(document).on("click", ".add", function() {
-        $(this).parent().parent().clone(true).insertAfter($(this).parent().parent());
-        addThisTr('.others .others_main tr', 'others_input_item', 'others_input_cost', 'others_input_count', 'others_input_subtotal');
-        addThisTr('.venue_main tr', 'venue_breakdown_item', 'venue_breakdown_cost', 'venue_breakdown_count', 'venue_breakdown_subtotal');
-        // 追加時内容クリア
-        $(this).parent().parent().next().find('td').find('input, select').eq(0).val('');
-        $(this).parent().parent().next().find('td').find('input, select').eq(1).val('');
-        $(this).parent().parent().next().find('td').find('input, select').eq(2).val('');
-        $(this).parent().parent().next().find('td').find('input, select').eq(3).val('');
-      });
-
-      function addThisTr($targetTr, $TItem, $TCost, $TCount, $TSubtotal) {
-        var count = $($targetTr).length;
-        for (let index = 0; index < count; index++) {
-          $($targetTr).eq(index).find('td').eq(0).find('input').attr('name', $TItem + index);
-          $($targetTr).eq(index).find('td').eq(1).find('input').attr('name', $TCost + index);
-          $($targetTr).eq(index).find('td').eq(2).find('input').attr('name', $TCount + index);
-          $($targetTr).eq(index).find('td').eq(3).find('input').attr('name', $TSubtotal + index);
-        }
-      }
-
-      // マイナスボタンクリック
-      $(document).on("click", ".del", function() {
-        if ($(this).parent().parent().parent().attr('class') == "others_main") {
-          var count = $('.others .others_main tr').length;
-          var target = $(this).parent().parent();
-          if (target.parent().children().length > 1) {
-            target.remove();
-          }
-          for (let index = 0; index < count; index++) {
-            // console.log(index);
-            $('.others_main tr').eq(index).find('td').eq(0).find('input').attr('name', 'others_input_item' + index);
-            $('.others_main tr').eq(index).find('td').eq(1).find('input').attr('name', 'others_input_cost' + index);
-            $('.others_main tr').eq(index).find('td').eq(2).find('input').attr('name', 'others_input_count' + index);
-            $('.others_main tr').eq(index).find('td').eq(3).find('input').attr('name', 'others_input_subtotal' + index);
-          }
-          var re_count = $('.others .others_main tr').length;
-          var total_val = 0;
-          for (let index2 = 0; index2 < re_count; index2++) {
-            var num1 = $('input[name="others_input_cost' + index2 + '"]').val();
-            var num2 = $('input[name="others_input_count' + index2 + '"]').val();
-            var num3 = $('input[name="others_input_subtotal' + index2 + '"]');
-            num3.val(num1 * num2);
-            total_val = total_val + Number(num3.val());
-          }
-          var total_target = $('input[name="others_price"]');
-          total_target.val(total_val);
-
-          var venue = $('input[name="venue_price"]').val() ? Number($('input[name="venue_price"]').val()) : 0;
-          var equipment = $('input[name="equipment_price"]').val() ? Number($('input[name="equipment_price"]').val()) : 0;
-          var layout = $('input[name="layout_price"]').val() ? Number($('input[name="layout_price"]').val()) : 0;
-          var others = $('input[name="others_price"]').val() == "" ? 0 : Number($('input[name="others_price"]').val());
-          var result = venue + equipment + layout + others;
-          var result_tax = Math.floor(result * 0.1);
-          $('.total_result').text('').text(result);
-          $('input[name="master_subtotal"]').val(result);
-          $('input[name="master_tax"]').val(result_tax);
-          $('input[name="master_total"]').val(result + result_tax);
-        } else if ($(this).parent().parent().parent().attr('class') == "venue_main") {
-          var count = $('.venue_main tr').length;
-          var target = $(this).parent().parent();
-          if (target.parent().children().length > 1) {
-            target.remove();
-          }
-          for (let index = 0; index < count; index++) {
-            $('.venue_main tr').eq(index).find('td').eq(0).find('input').attr('name', 'venue_breakdown_item' + index);
-            $('.venue_main tr').eq(index).find('td').eq(1).find('input').attr('name', 'venue_breakdown_cost' + index);
-            $('.venue_main tr').eq(index).find('td').eq(2).find('input').attr('name', 'venue_breakdown_count' + index);
-            $('.venue_main tr').eq(index).find('td').eq(3).find('input').attr('name', 'venue_breakdown_subtotal' + index);
-          }
-          var re_count = $(' .venue_main tr').length;
-          var total_val = 0;
-          for (let index2 = 0; index2 < re_count; index2++) {
-            var num1 = $('input[name="venue_breakdown_cost' + index2 + '"]').val();
-            var num2 = $('input[name="venue_breakdown_count' + index2 + '"]').val();
-            var num3 = $('input[name="venue_breakdown_subtotal' + index2 + '"]');
-            num3.val(num1 * num2);
-            total_val = total_val + Number(num3.val());
-          }
-          var total_target = $('input[name="venue_price"]');
-          total_target.val(total_val);
-
-          var venue = $('input[name="venue_price"]').val() ? Number($('input[name="venue_price"]').val()) : 0;
-          var equipment = $('input[name="equipment_price"]').val() ? Number($('input[name="equipment_price"]').val()) : 0;
-          var layout = $('input[name="layout_price"]').val() ? Number($('input[name="layout_price"]').val()) : 0;
-          var others = $('input[name="others_price"]').val() == "" ? 0 : Number($('input[name="others_price"]').val());
-          var result = venue + equipment + layout + others;
-          var result_tax = Math.floor(result * 0.1);
-          $('.total_result').text('').text(result);
-          $('input[name="master_subtotal"]').val(result);
-          $('input[name="master_tax"]').val(result_tax);
-          $('input[name="master_total"]').val(result + result_tax);
-        }
-      });
-    });
-  })
-</script>
 
 
 
@@ -368,7 +264,7 @@
                   <p>
                     {{Form::radio('services_breakdown'.$key, 1, $s_services[$key]==1?true:false , ['id' => 'service'.$key.'on', 'class' => ''])}}
                     <label for="{{'service'.$key.'on'}}" class="form-check-label">有り</label>
-                  <p>
+                    <p>
                     </p>
                     {{Form::radio('services_breakdown'.$key, 0, $s_services[$key]==0?true:false, ['id' => 'services_breakdown'.$key.'off', 'class' => ''])}}
                     <label for="{{'services_breakdown'.$key.'off'}}" class="form-check-label">無し</label>
@@ -597,42 +493,42 @@
             </td>
           </tr>
           <tr>
-              <td class="table-active"><label for="name">担当者氏名　工藤さん！！</label></td>
-              <td>
-                <p class="person"></p>
-              </td>
-            </tr>
-            <tr>
-              <td class="table-active">メールアドレス 工藤さん！！</td>
-              <td>
-                <p class="email"></p>
-              </td>
-            </tr>
-            <tr>
-              <td class="table-active">携帯番号 工藤さん！！</td>
-              <td>
-                <p class="mobile"></p>
-              </td>
-            </tr>
-            <tr>
-              <td class="table-active">固定電話 工藤さん！！</td>
-              <td>
-                <p class="tel"></p>
-              </td>
-            </tr>
-            <tr>
-              <td class="table-active">割引条件 工藤さん！！</td>
-              <td>
-                <p class="condition">
-                </p>
-              </td>
-            </tr>
-            <tr>
-              <td class="table-active caution">注意事項 工藤さん！！</td>
-              <td class="caution">
-                <p class="attention"></p>
-              </td>
-            </tr>
+            <td class="table-active"><label for="name">担当者氏名　工藤さん！！</label></td>
+            <td>
+              <p class="person"></p>
+            </td>
+          </tr>
+          <tr>
+            <td class="table-active">メールアドレス 工藤さん！！</td>
+            <td>
+              <p class="email"></p>
+            </td>
+          </tr>
+          <tr>
+            <td class="table-active">携帯番号 工藤さん！！</td>
+            <td>
+              <p class="mobile"></p>
+            </td>
+          </tr>
+          <tr>
+            <td class="table-active">固定電話 工藤さん！！</td>
+            <td>
+              <p class="tel"></p>
+            </td>
+          </tr>
+          <tr>
+            <td class="table-active">割引条件 工藤さん！！</td>
+            <td>
+              <p class="condition">
+              </p>
+            </td>
+          </tr>
+          <tr>
+            <td class="table-active caution">注意事項 工藤さん！！</td>
+            <td class="caution">
+              <p class="attention"></p>
+            </td>
+          </tr>
         </table>
         <table class="table table-bordered oneday-table" style="table-layout:fixed;">
           <tr>
@@ -1225,10 +1121,10 @@
             </tr>
             <tr>
               <td>振込人名{{ Form::text('pay_person', null,['class'=>'form-control'] ) }}
-              <p class="is-error-pay_person" style="color: red"></p>
+                <p class="is-error-pay_person" style="color: red"></p>
               </td>
               <td>入金額{{ Form::text('payment', null,['class'=>'form-control'] ) }}
-              <p class="is-error-payment" style="color: red"></p>
+                <p class="is-error-payment" style="color: red"></p>
               </td>
             </tr>
           </table>
@@ -1268,4 +1164,110 @@
 {{ Form::hidden('layouts_details', json_encode($layouts_details)) }}
 {{Form::submit('確認する', ['class'=>'btn d-block more_btn_lg mx-auto my-5', 'id'=>'check_submit'])}}
 {{Form::close()}}
+
+<script>
+  $(function() {
+    $("html,body").animate({
+      scrollTop: $('.bill').offset().top
+    });
+
+    $(function() {
+      // プラスボタンクリック
+      $(document).on("click", ".add", function() {
+        $(this).parent().parent().clone(true).insertAfter($(this).parent().parent());
+        addThisTr('.others .others_main tr', 'others_input_item', 'others_input_cost', 'others_input_count', 'others_input_subtotal');
+        addThisTr('.venue_main tr', 'venue_breakdown_item', 'venue_breakdown_cost', 'venue_breakdown_count', 'venue_breakdown_subtotal');
+        // 追加時内容クリア
+        $(this).parent().parent().next().find('td').find('input, select').eq(0).val('');
+        $(this).parent().parent().next().find('td').find('input, select').eq(1).val('');
+        $(this).parent().parent().next().find('td').find('input, select').eq(2).val('');
+        $(this).parent().parent().next().find('td').find('input, select').eq(3).val('');
+      });
+
+      function addThisTr($targetTr, $TItem, $TCost, $TCount, $TSubtotal) {
+        var count = $($targetTr).length;
+        for (let index = 0; index < count; index++) {
+          $($targetTr).eq(index).find('td').eq(0).find('input').attr('name', $TItem + index);
+          $($targetTr).eq(index).find('td').eq(1).find('input').attr('name', $TCost + index);
+          $($targetTr).eq(index).find('td').eq(2).find('input').attr('name', $TCount + index);
+          $($targetTr).eq(index).find('td').eq(3).find('input').attr('name', $TSubtotal + index);
+        }
+      }
+
+      // マイナスボタンクリック
+      $(document).on("click", ".del", function() {
+        if ($(this).parent().parent().parent().attr('class') == "others_main") {
+          var count = $('.others .others_main tr').length;
+          var target = $(this).parent().parent();
+          if (target.parent().children().length > 1) {
+            target.remove();
+          }
+          for (let index = 0; index < count; index++) {
+            // console.log(index);
+            $('.others_main tr').eq(index).find('td').eq(0).find('input').attr('name', 'others_input_item' + index);
+            $('.others_main tr').eq(index).find('td').eq(1).find('input').attr('name', 'others_input_cost' + index);
+            $('.others_main tr').eq(index).find('td').eq(2).find('input').attr('name', 'others_input_count' + index);
+            $('.others_main tr').eq(index).find('td').eq(3).find('input').attr('name', 'others_input_subtotal' + index);
+          }
+          var re_count = $('.others .others_main tr').length;
+          var total_val = 0;
+          for (let index2 = 0; index2 < re_count; index2++) {
+            var num1 = $('input[name="others_input_cost' + index2 + '"]').val();
+            var num2 = $('input[name="others_input_count' + index2 + '"]').val();
+            var num3 = $('input[name="others_input_subtotal' + index2 + '"]');
+            num3.val(num1 * num2);
+            total_val = total_val + Number(num3.val());
+          }
+          var total_target = $('input[name="others_price"]');
+          total_target.val(total_val);
+
+          var venue = $('input[name="venue_price"]').val() ? Number($('input[name="venue_price"]').val()) : 0;
+          var equipment = $('input[name="equipment_price"]').val() ? Number($('input[name="equipment_price"]').val()) : 0;
+          var layout = $('input[name="layout_price"]').val() ? Number($('input[name="layout_price"]').val()) : 0;
+          var others = $('input[name="others_price"]').val() == "" ? 0 : Number($('input[name="others_price"]').val());
+          var result = venue + equipment + layout + others;
+          var result_tax = Math.floor(result * 0.1);
+          $('.total_result').text('').text(result);
+          $('input[name="master_subtotal"]').val(result);
+          $('input[name="master_tax"]').val(result_tax);
+          $('input[name="master_total"]').val(result + result_tax);
+        } else if ($(this).parent().parent().parent().attr('class') == "venue_main") {
+          var count = $('.venue_main tr').length;
+          var target = $(this).parent().parent();
+          if (target.parent().children().length > 1) {
+            target.remove();
+          }
+          for (let index = 0; index < count; index++) {
+            $('.venue_main tr').eq(index).find('td').eq(0).find('input').attr('name', 'venue_breakdown_item' + index);
+            $('.venue_main tr').eq(index).find('td').eq(1).find('input').attr('name', 'venue_breakdown_cost' + index);
+            $('.venue_main tr').eq(index).find('td').eq(2).find('input').attr('name', 'venue_breakdown_count' + index);
+            $('.venue_main tr').eq(index).find('td').eq(3).find('input').attr('name', 'venue_breakdown_subtotal' + index);
+          }
+          var re_count = $(' .venue_main tr').length;
+          var total_val = 0;
+          for (let index2 = 0; index2 < re_count; index2++) {
+            var num1 = $('input[name="venue_breakdown_cost' + index2 + '"]').val();
+            var num2 = $('input[name="venue_breakdown_count' + index2 + '"]').val();
+            var num3 = $('input[name="venue_breakdown_subtotal' + index2 + '"]');
+            num3.val(num1 * num2);
+            total_val = total_val + Number(num3.val());
+          }
+          var total_target = $('input[name="venue_price"]');
+          total_target.val(total_val);
+
+          var venue = $('input[name="venue_price"]').val() ? Number($('input[name="venue_price"]').val()) : 0;
+          var equipment = $('input[name="equipment_price"]').val() ? Number($('input[name="equipment_price"]').val()) : 0;
+          var layout = $('input[name="layout_price"]').val() ? Number($('input[name="layout_price"]').val()) : 0;
+          var others = $('input[name="others_price"]').val() == "" ? 0 : Number($('input[name="others_price"]').val());
+          var result = venue + equipment + layout + others;
+          var result_tax = Math.floor(result * 0.1);
+          $('.total_result').text('').text(result);
+          $('input[name="master_subtotal"]').val(result);
+          $('input[name="master_tax"]').val(result_tax);
+          $('input[name="master_total"]').val(result + result_tax);
+        }
+      });
+    });
+  })
+</script>
 @endsection
