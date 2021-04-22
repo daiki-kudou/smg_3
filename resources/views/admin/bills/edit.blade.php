@@ -40,10 +40,11 @@
             <table class="table table-borderless">
               <tbody>
                 <tr>
-                  <td>
-                    <h4 class="billdetails_content_ttl">
-                      会場料
-                    </h4>
+                  <td colspan="5">
+                    <div class="venue_chkbox">
+                      <input type="checkbox" id="venue" name="venue" value="1">
+                      <label for="venue">会場料</label>
+                    </div>
                   </td>
                 </tr>
               </tbody>
@@ -115,10 +116,11 @@
             <table class="table table-borderless">
               <tbody>
                 <tr>
-                  <td colspan="4">
-                    <h4 class="billdetails_content_ttl">
-                      有料備品・サービス
-                    </h4>
+                  <td colspan="5">
+                    <div class="equipment_chkbox">
+                      <input type="checkbox" id="equipment" name="equipment" value="1">
+                      <label for="equipment">有料備品・サービス料</label>
+                    </div>
                   </td>
                 </tr>
               </tbody>
@@ -191,10 +193,11 @@
             <table class="table table-borderless">
               <tbody>
                 <tr>
-                  <td>
-                    <h4 class="billdetails_content_ttl">
-                      レイアウト
-                    </h4>
+                  <td colspan="5">
+                    <div class="layout_chkbox">
+                      <input type="checkbox" id="layout" name="layout" value="1" {{ !empty(session('add_bill')['layout_price'])?"checked":"" }}>
+                      <label for="layout">レイアウト変更料</label>
+                    </div>
                   </td>
                 </tr>
               </tbody>
@@ -269,10 +272,11 @@
             <table class="table table-borderless">
               <tbody>
                 <tr>
-                  <td colspan="4">
-                    <h4 class="billdetails_content_ttl">
-                      その他
-                    </h4>
+                  <td colspan="5">
+                    <div class="others_chkbox">
+                      <input type="checkbox" id="others" name="others" value="1" {{ !empty(session('add_bill')['others_price'])?"checked":"" }}>
+                      <label for="others">その他</label>
+                    </div>
                   </td>
                 </tr>
               </tbody>
