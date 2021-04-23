@@ -105,7 +105,7 @@ $(function () {
       $("#eventname1Count").prop("readonly", true);
       $("#eventname2Count").prop("readonly", true);
       $("#eventownerCount").prop("readonly", true);
-      // $(".board-table input[type='text']").val("");
+      $(".board-table input[type='text']").val("");
     } else {
       $("#event_start").prop("readonly", false);
       $("#event_finish").prop("readonly", false);
@@ -217,7 +217,7 @@ $(function () {
 // 仮押さえ、一括仮押さえ一覧検索
 $(function () {
   var target = ["#preserve_search", "#multiples_search"
-  ,"#clients_search", "#reserve_search"];
+    , "#clients_search", "#reserve_search"];
   $.each(target, function (index, value) {
     $(value).validate({
       rules: {
@@ -901,10 +901,10 @@ $(function () {
 // 予約登録、編集　仲介会社経由も含む
 $(function () {
   var target = [
-    "#reservationCreateForm","#reservations_calculate_form",
-    "#reservations_edit","#edit_calculate",
-    "#edit_check","#edit_calculate","#agentReservationCreateForm",
-    "#agentReservationCalculateForm","#agents_calculate_form",
+    "#reservationCreateForm", "#reservations_calculate_form",
+    "#reservations_edit", "#edit_calculate",
+    "#edit_check", "#edit_calculate", "#agentReservationCreateForm",
+    "#agentReservationCalculateForm", "#agents_calculate_form",
   ];
 
   $.each(target, function (index, value) {
@@ -957,7 +957,7 @@ $(function () {
           minlength: "※最低桁数は10です",
         },
         enduser_mail: {
-         email: "※メールアドレスの形式で入力してください",
+          email: "※メールアドレスの形式で入力してください",
         },
         enduser_mobile: {
           number: "※半角数字を入力してください",
@@ -1033,7 +1033,7 @@ $(function () {
 //         .replace(/[^0-9]/g, "");
 //       $(e.currentTarget).val(value);
 //     });
- 
+
 //   }
 
 
@@ -1042,7 +1042,7 @@ $(function () {
 // 追加請求書
 $(function () {
   var target = [
-    "#billsCreateForm","#billsEditForm",
+    "#billsCreateForm", "#billsEditForm",
   ];
 
   $.each(target, function (index, value) {
@@ -1098,8 +1098,8 @@ $(function () {
 // キャンセル請求書
 $(function () {
   var target = [
-    "#cxlcalc","#multi_calc",
-    "#cxl_multicalc","#multi_calc",
+    "#cxlcalc", "#multi_calc",
+    "#cxl_multicalc", "#multi_calc",
   ];
 
   $.each(target, function (index, value) {
@@ -1860,7 +1860,7 @@ $(function () {
 
 $(function () {
   var target = [
-    "#mypageForm","#mypageDone",
+    "#mypageForm", "#mypageDone",
   ];
 
   $.each(target, function (index, value) {

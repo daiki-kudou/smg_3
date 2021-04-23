@@ -128,12 +128,14 @@ Route::namespace('Admin')->prefix('admin')->name('admin.')->group(function () {
 
 
 
-    // calculate前のセッションｎ保存
+    // calculate前のセッション保存
     Route::post('reservations/session_for_edit_calculate', 'ReservationsController@sessionForEditCalculate');
     // 予約　編集
     Route::get('reservations/edit_calculate', 'ReservationsController@edit_calculate')->name('reservations.edit_calculate');
+    // check前のセッション保存
+    Route::post('reservations/session_for_edit_check', 'ReservationsController@sessionForEditCheck');
     // 予約　編集確認
-    Route::post('reservations/{reservation}/edit_check', 'ReservationsController@edit_check')->name('reservations.edit_check');
+    Route::get('reservations/edit_check', 'ReservationsController@edit_check')->name('reservations.edit_check');
 
 
 

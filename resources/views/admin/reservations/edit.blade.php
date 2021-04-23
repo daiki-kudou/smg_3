@@ -70,14 +70,17 @@
         <tr>
           <td class="table-active form_required">会場</td>
           <td>
-            {{ Form::text('', ReservationHelper::getVenue($reservation->venue_id),['class'=>'form-control',  'readonly'] ) }}
-            {{ Form::text('venue_id',  ($reservation->venue_id),['class'=>'form-control',  'readonly'] ) }}
+            {{ Form::text('',  ReservationHelper::getVenue($reservation->venue_id),['class'=>'form-control',  'readonly'] ) }}
+            {{ Form::hidden('venue_id',  ($reservation->venue_id),['class'=>'form-control',  'readonly'] ) }}
             <p class="is-error-venue_id" style="color: red"></p>
           </td>
         </tr>
         <tr>
           <td class="table-active">料金体系</td>
           <td>
+            {{-- @if ($venue->getPriceSystem()[0]==)
+                
+            @endif --}}
             <div class='price_radio_selector'>
               <div class="d-flex justfy-content-start align-items-center">
                 {{ Form::radio('price_system', 1, isset($reservation->price_system)?$reservation->price_system==1?true:false:'', ['class'=>'mr-2', 'id'=>'price_system_radio1']) }}
@@ -257,41 +260,41 @@
             </tr>
           </thead>
           <tbody class="accordion-wrap">
-            @foreach ($venue->getServices() as $key=>$ser)
+            {{-- @foreach ($venue->getServices() as $key=>$ser)
             <tr>
               <td class="table-active">{{$ser->item}}</td>
-              <td>
-                <div class="radio-box">
-                  @foreach ($bill->breakdowns->where('unit_type',3) as $s_break)
-                  @if ($s_break->unit_item==$ser->item)
-                  <p>
-                    {{Form::radio('services_breakdown'.$key, 1, true , ['id' => 'service'.$key.'on'])}}
-                    {{Form::label('service'.$key.'on',"有り")}}
-                  </p>
-                  <p>
-                    {{Form::radio('services_breakdown'.$key, 0, false, ['id' => 'service'.$key.'off'])}}
-                    {{Form::label('service'.$key.'off',"無し")}}
-                  </p>
-                  @break
-                  @elseif($loop->last)
-                  <p>
-                    {{Form::radio('services_breakdown'.$key, 1, false , ['id' => 'service'.$key.'on'])}}
-                    {{Form::label('service'.$key.'on',"有り")}}
-                  </p>
-                  <p>
-                    {{Form::radio('services_breakdown'.$key, 0, true, ['id' => 'service'.$key.'off'])}}
-                    {{Form::label('service'.$key.'off',"無し")}}
-                  </p>
-                  @endif
-                  @endforeach
-                </div>
-              </td>
+            <td>
+              <div class="radio-box">
+                @foreach ($bill->breakdowns->where('unit_type',3) as $s_break)
+                @if ($s_break->unit_item==$ser->item)
+                <p>
+                  {{Form::radio('services_breakdown'.$key, 1, true , ['id' => 'service'.$key.'on'])}}
+                  {{Form::label('service'.$key.'on',"有り")}}
+                </p>
+                <p>
+                  {{Form::radio('services_breakdown'.$key, 0, false, ['id' => 'service'.$key.'off'])}}
+                  {{Form::label('service'.$key.'off',"無し")}}
+                </p>
+                @break
+                @elseif($loop->last)
+                <p>
+                  {{Form::radio('services_breakdown'.$key, 1, false , ['id' => 'service'.$key.'on'])}}
+                  {{Form::label('service'.$key.'on',"有り")}}
+                </p>
+                <p>
+                  {{Form::radio('services_breakdown'.$key, 0, true, ['id' => 'service'.$key.'off'])}}
+                  {{Form::label('service'.$key.'off',"無し")}}
+                </p>
+                @endif
+                @endforeach
+              </div>
+            </td>
             </tr>
-            @endforeach
+            @endforeach --}}
 
             @foreach ($venue->getServices() as $key=>$ser)
             <tr>
-              <td>{{$ser->item}}</td>
+              <td class="table-active">{{$ser->item}}</td>
               <td>
                 <div class="radio-box">
                   <p>
@@ -401,7 +404,7 @@
             <tr>
               <td class="table-active">事前荷物の到着日<br>午前指定のみ</td>
               <td>
-                {{ Form::text('luggage_arrive', $reservation->luggage_arrive,['class'=>'form-control'] ) }}
+                {{ Form::text('luggage_arrive', date('Y-m-d',strtotime($reservation->luggage_arrive)),['class'=>'form-control lilmited_datepicker'] ) }}
               </td>
             </tr>
             <tr>
@@ -438,7 +441,7 @@
             <tr>
               <th colspan='2'>
                 <p class="title-icon">
-                  <i class="fas fa-utensils icon-size fa-fw"></i>室内飲食工藤さん！追加項目です。仮押さえから丸コピーしました。
+                  <i class="fas fa-utensils icon-size fa-fw"></i>室内飲食
                 </p>
               </th>
             </tr>
@@ -446,19 +449,19 @@
           <tbody>
             <tr>
               <td>
-                {{Form::radio('eat_in', 1, false , ['id' => 'eat_in'])}}
+                {{Form::radio('eat_in', 1, $reservation->eat_in==1?true:false , ['id' => 'eat_in'])}}
                 {{Form::label('eat_in',"あり")}}
               </td>
               <td>
-                {{Form::radio('eat_in_prepare', 1, false , ['id' => 'eat_in_prepare', 'disabled'])}}
+                {{Form::radio('eat_in_prepare', 1, $reservation->eat_in_prepare==1?true:false , ['id' => 'eat_in_prepare', 'disabled'])}}
                 {{Form::label('eat_in_prepare',"手配済み")}}
-                {{Form::radio('eat_in_prepare', 2, false , ['id' => 'eat_in_consider','disabled'])}}
+                {{Form::radio('eat_in_prepare', 2, $reservation->eat_in_prepare==2?true:false , ['id' => 'eat_in_consider','disabled'])}}
                 {{Form::label('eat_in_consider',"検討中")}}
               </td>
             </tr>
             <tr>
               <td>
-                {{Form::radio('eat_in', 0, true , ['id' => 'no_eat_in'])}}
+                {{Form::radio('eat_in', 0, $reservation->eat_in==0?true:false , ['id' => 'no_eat_in'])}}
                 {{Form::label('no_eat_in',"なし")}}
               </td>
               <td></td>
@@ -603,7 +606,7 @@
           <td class="table-active"><label for="cost">原価率</label></td>
           <td>
             <div class="d-flex align-items-end">
-              {{ Form::text('cost', $reservation->cost,['class'=>'form-control'] ) }}
+              {{ Form::text('', $reservation->cost,['class'=>'form-control'] ) }}
               {{ Form::hidden('cost', $reservation->cost,['class'=>'form-control'] ) }}
               <span class="ml-1 annotation">%</span>
             </div>
@@ -1103,8 +1106,19 @@
 
 
 
-
 <script>
+  $(function() {
+    $(document).on("click", "input:radio[name='eat_in']", function() {
+      var radioTarget = $('input:radio[name="eat_in"]:checked').val();
+      if (radioTarget == 1) {
+        $('input:radio[name="eat_in_prepare"]').prop('disabled', false);
+      } else {
+        $('input:radio[name="eat_in_prepare"]').prop('disabled', true);
+        $('input:radio[name="eat_in_prepare"]').val("");
+      }
+    })
+  })
+
   $(function() {
     $("html,body").animate({
       scrollTop: $('.bill').offset().top
