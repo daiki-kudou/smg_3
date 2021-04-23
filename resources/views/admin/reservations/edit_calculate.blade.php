@@ -45,6 +45,13 @@
 {{Form::open(['url' => 'admin/reservations/session_for_edit_calculate', 'method' => 'POST', 'id'=>'reservations_edit'])}}
 @csrf
 
+@if (session('flash_message'))
+<div class="alert alert-danger">
+  <ul>
+    <li> {!! session('flash_message') !!} </li>
+  </ul>
+</div>
+@endif
 
 <section class="mt-5">
   <div class="row">

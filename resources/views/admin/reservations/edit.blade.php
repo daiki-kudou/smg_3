@@ -42,8 +42,6 @@
 </div>
 
 
-{{-- {{Form::open(['url' => 'admin/reservations/'.$bill->id.'/edit_calculate', 'method' => 'POST', 'id'=>'reservations_edit'])}}
---}}
 {{Form::open(['url' => 'admin/reservations/session_for_edit_calculate', 'method' => 'POST', 'id'=>'reservations_edit'])}}
 @csrf
 
@@ -274,38 +272,6 @@
             </tr>
           </thead>
           <tbody class="accordion-wrap">
-            {{-- @foreach ($venue->getServices() as $key=>$ser)
-            <tr>
-              <td class="table-active">{{$ser->item}}</td>
-            <td>
-              <div class="radio-box">
-                @foreach ($bill->breakdowns->where('unit_type',3) as $s_break)
-                @if ($s_break->unit_item==$ser->item)
-                <p>
-                  {{Form::radio('services_breakdown'.$key, 1, true , ['id' => 'service'.$key.'on'])}}
-                  {{Form::label('service'.$key.'on',"有り")}}
-                </p>
-                <p>
-                  {{Form::radio('services_breakdown'.$key, 0, false, ['id' => 'service'.$key.'off'])}}
-                  {{Form::label('service'.$key.'off',"無し")}}
-                </p>
-                @break
-                @elseif($loop->last)
-                <p>
-                  {{Form::radio('services_breakdown'.$key, 1, false , ['id' => 'service'.$key.'on'])}}
-                  {{Form::label('service'.$key.'on',"有り")}}
-                </p>
-                <p>
-                  {{Form::radio('services_breakdown'.$key, 0, true, ['id' => 'service'.$key.'off'])}}
-                  {{Form::label('service'.$key.'off',"無し")}}
-                </p>
-                @endif
-                @endforeach
-              </div>
-            </td>
-            </tr>
-            @endforeach --}}
-
             @foreach ($venue->getServices() as $key=>$ser)
             <tr>
               <td class="table-active">{{$ser->item}}</td>
@@ -653,7 +619,7 @@
 {{Form::submit('再計算する', ['class'=>'btn more_btn4_lg mx-auto d-block mt-5 mb-5', 'id'=>'check_submit'])}}
 {{Form::close()}}
 
-{{ Form::open(['url' => '###################', 'method'=>'POST', 'id'=>'reservations_calculate_form']) }}
+{{ Form::open(['url' => 'admin/reservations/session_for_edit_check', 'method'=>'POST', 'id'=>'']) }}
 @csrf
 <section class="mt-5">
   <div class="bill">

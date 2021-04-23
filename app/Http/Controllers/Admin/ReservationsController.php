@@ -355,7 +355,9 @@ class ReservationsController extends Controller
    */
   public function show($id)
   {
-    session()->forget(['add_bill', 'cxlCalcInfo', 'cxlMaster', 'cxlResult', 'invoice', 'multiOrSingle', 'discount_info', 'calc_info', 'master_info', 'check_info']);
+    // session()->forget(['add_bill', 'cxlCalcInfo', 'cxlMaster', 'cxlResult', 'invoice', 'multiOrSingle', 'discount_info', 'calc_info', 'master_info', 'check_info']);
+    session()->flush();
+
     $reservation = Reservation::with(['bills.breakdowns', 'cxls.cxl_breakdowns', 'user', 'agent', 'venue'])->find($id);
     $venue = $reservation->venue;
     $user = $reservation->user;
@@ -433,13 +435,60 @@ class ReservationsController extends Controller
    */
   public function edit($id)
   {
-    $bill = Bill::with(['reservation.user', 'reservation.venue', 'breakdowns'])->find($id);
+    $bill = Bill::with(['reservation.user', 'reservation.venue.equipments', 'reservation.venue.services', 'breakdowns'])->find($id);
     $reservation = $bill->reservation;
     $venue = $bill->reservation->venue;
     $users = User::all();
-    var_dump($venue->getPriceSystem());
-
     session()->put('reservationEditMaster', $bill);
+
+    $spReservation = Reservation::find($reservation->id);
+    $castObject = json_decode(json_encode($spReservation), true);
+
+    foreach ($venue->equipments as $key => $value) {
+      foreach ($bill->breakdowns as $b_key => $e_value) {
+        if ($value->item == $e_value->unit_item) {
+          $castObject['equipment_breakdown' . $key] = $e_value->unit_count;
+        } else {
+          $castObject['equipment_breakdown' . $key] = 0;
+        }
+      }
+    }
+    foreach ($venue->services as $key => $value) {
+      foreach ($bill->breakdowns as $s_key => $s_value) {
+        if ($value->item == $s_value->unit_item) {
+          $castObject['services_breakdown' . $key] = $s_value->unit_count;
+        } else {
+          $castObject['services_breakdown' . $key] = 0;
+        }
+      }
+    }
+
+    foreach ($bill->breakdowns as $s_key => $l_value) {
+      if ($l_value->unit_item == 'レイアウト準備料金') {
+        $castObject['layout_prepare'] = 1;
+      } else {
+        $castObject['layout_prepare'] = 0;
+      }
+    }
+    foreach ($bill->breakdowns as $s_key => $le_value) {
+      if ($le_value->unit_item == 'レイアウト片付料金') {
+        $castObject['layout_clean'] = 1;
+      } else {
+        $castObject['layout_clean'] = 0;
+      }
+    }
+    foreach ($bill->breakdowns as $s_key => $lec_value) {
+      if ($lec_value->unit_item == '荷物預り/返送') {
+        $castObject['luggage_price'] = $lec_value->unit_cost;
+      } else {
+        $castObject['luggage_price'] = 0;
+      }
+    }
+
+
+
+    session()->put('basicInfo', $castObject);
+
     return view('admin.reservations.edit', [
       'reservation' => $reservation,
       'venue' => $venue,
@@ -561,22 +610,25 @@ class ReservationsController extends Controller
     if ($request->back) {
       return redirect(route('admin.reservations.edit_calculate'));
     }
-
     $reservationEditMaster = $request->session()->get('reservationEditMaster');
     $basicInfo = $request->session()->get('basicInfo');
     $result = $request->session()->get('result');
 
-    $reservation = $reservationEditMaster->reservation;
-    $reservation->UpdateReservation($basicInfo, $result);
 
-    $bill = $reservation->bills->first();
-    $bill->UpdateBillSession($result);
-    $bill->ReserveStoreSessionBreakdown($request, 'result');
-
+    try {
+      $reservation = $reservationEditMaster->reservation;
+      $reservation->UpdateReservation($basicInfo, $result);
+      $bill = $reservation->bills->first();
+      $bill->UpdateBillSession($result);
+      $bill->ReserveStoreSessionBreakdown($request, 'result');
+    } catch (\Exception $e) {
+      report($e);
+      session()->flash('flash_message', '更新に失敗しました。<br>フォーム内の空欄や全角など確認した上でもう一度お試しください。');
+      return redirect(route('admin.reservations.edit_calculate'));
+    }
 
     $request->session()->regenerate();
     $request->session()->flush();
-
     return redirect(route('admin.reservations.show', $reservation->id));
   }
 

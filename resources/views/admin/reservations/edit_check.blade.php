@@ -272,7 +272,6 @@
         </table>
       </div>
       @endif
-
     </div>
 
     <div class="col">
