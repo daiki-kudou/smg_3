@@ -42,9 +42,10 @@
 </div>
 
 
-{{Form::open(['url' => 'admin/reservations/'.$reservation->id.'/edit_calculate', 'method' => 'POST', 'id'=>'reservations_edit'])}}
+{{-- {{Form::open(['url' => 'admin/reservations/'.$bill->id.'/edit_calculate', 'method' => 'POST', 'id'=>'reservations_edit'])}}
+--}}
+{{Form::open(['url' => 'admin/reservations/session_for_edit_calculate', 'method' => 'POST', 'id'=>'reservations_edit'])}}
 @csrf
-{{ Form::hidden('reservation_id',  $reservation->id) }}
 
 <section class="mt-5">
   <div class="row">
@@ -61,7 +62,8 @@
         <tr>
           <td class="table-active form_required">利用日</td>
           <td>
-            {{ Form::text('reserve_date', date('Y-m-d', strtotime($reservation->reserve_date)) ,['class'=>'form-control',  'readonly'] ) }}
+            {{ Form::text('', date('Y-m-d', strtotime($reservation->reserve_date)) ,['class'=>'form-control',  'readonly'] ) }}
+            {{ Form::hidden('reserve_date', $reservation->reserve_date ,['class'=>'form-control',  'readonly'] ) }}
             <p class="is-error-reserve_date" style="color: red"></p>
           </td>
         </tr>
@@ -69,7 +71,7 @@
           <td class="table-active form_required">会場</td>
           <td>
             {{ Form::text('',  ReservationHelper::getVenue($reservation->venue_id),['class'=>'form-control',  'readonly'] ) }}
-            {{ Form::hidden('venue_id',  $reservation->venue_id,['class'=>'form-control',  'readonly'] ) }}
+            {{ Form::text('venue_id',  ($reservation->venue_id),['class'=>'form-control',  'readonly'] ) }}
             <p class="is-error-venue_id" style="color: red"></p>
           </td>
         </tr>
@@ -230,7 +232,7 @@
               </td>
               <td>
                 <input type="text" class="form-control equipment_breakdown" name="{{'equipment_breakdown'.$key}}"
-                  @foreach($bill->breakdowns()->where('unit_type',2)->get() as $e_break)
+                  @foreach($bill->breakdowns->where('unit_type',2) as $e_break)
                 @if ($e_break->unit_item==$equ->item)
                 value="{{$e_break->unit_count}}"
                 @endif
@@ -255,13 +257,12 @@
             </tr>
           </thead>
           <tbody class="accordion-wrap">
-            @if ($checkItem[0][1]>0)
             @foreach ($venue->getServices() as $key=>$ser)
             <tr>
               <td class="table-active">{{$ser->item}}</td>
               <td>
                 <div class="radio-box">
-                  @foreach ($bill->breakdowns()->where('unit_type',3)->get() as $s_break)
+                  @foreach ($bill->breakdowns->where('unit_type',3) as $s_break)
                   @if ($s_break->unit_item==$ser->item)
                   <p>
                     {{Form::radio('services_breakdown'.$key, 1, true , ['id' => 'service'.$key.'on'])}}
@@ -287,7 +288,7 @@
               </td>
             </tr>
             @endforeach
-            @else
+
             @foreach ($venue->getServices() as $key=>$ser)
             <tr>
               <td>{{$ser->item}}</td>
@@ -305,10 +306,10 @@
               </td>
             </tr>
             @endforeach
-            @endif
           </tbody>
         </table>
       </div>
+      {{var_dump($bill->breakdowns->where('unit_item','レイアウト準備料金')->count())}}
       <div class='layouts'>
         <table class='table table-bordered' style="table-layout:fixed;">
           <thead>
@@ -321,13 +322,11 @@
             </tr>
           </thead>
           <tbody>
-            @if ($checkItem[0][2]>0)
             <tr>
               <td class="table-active">準備</td>
               <td>
                 <div class="radio-box">
-                  @foreach ($bill->breakdowns()->where('unit_type',4)->get() as $l_break)
-                  @if ($l_break->unit_item=="準備料金")
+                  @if ($bill->breakdowns->where('unit_item','レイアウト準備料金')->count()!=0)
                   <p>
                     {{Form::radio('layout_prepare', 1, true, ['id' => 'layout_prepare'])}}
                     {{Form::label('layout_prepare',"有り")}}
@@ -336,26 +335,7 @@
                     {{Form::radio('layout_prepare', 0, false, ['id' => 'no_layout_prepare'])}}
                     {{Form::label('no_layout_prepare',"無し")}}
                   </p>
-                  @break
-                  @elseif($loop->last)
-                  <p>
-                    {{Form::radio('layout_prepare', 1, false, ['id' => 'layout_prepare'])}}
-                    {{Form::label('layout_prepare',"有り")}}
-                  </p>
-                  <p>
-                    {{Form::radio('layout_prepare', 0, true, ['id' => 'no_layout_prepare'])}}
-                    {{Form::label('no_layout_prepare',"無し")}}
-                  </p>
-                  @endif
-                  @endforeach
-                </div>
-              </td>
-            </tr>
-            @else
-            <tr>
-              <td class="table-active">準備</td>
-              <td>
-                <div class="radio-box">
+                  @else
                   <p>
                     {{Form::radio('layout_prepare', 1, false, ['id' => 'layout_prepare'])}}
                     {{Form::label('layout_prepare',"有り")}}
@@ -369,13 +349,11 @@
             </tr>
             @endif
 
-            @if ($checkItem[0][2]>0)
             <tr>
               <td class="table-active">片付</td>
               <td>
                 <div class="radio-box">
-                  @foreach ($bill->breakdowns()->where('unit_type',4)->get() as $l_break)
-                  @if ($l_break->unit_item=="片付料金")
+                  @if ($bill->breakdowns->where('unit_item','レイアウト片付料金')->count()!=0)
                   <p>
                     {{Form::radio('layout_clean', 1, true, ['id' => 'layout_clean'])}}
                     {{Form::label('layout_clean',"有り")}}
@@ -384,8 +362,7 @@
                     {{Form::radio('layout_clean', 0, false, ['id' => 'no_layout_clean'])}}
                     {{Form::label('no_layout_clean',"無し")}}
                   </p>
-                  @break
-                  @elseif($loop->last)
+                  @else
                   <p>
                     {{Form::radio('layout_clean', 1, false, ['id' => 'layout_clean'])}}
                     {{Form::label('layout_clean',"有り")}}
@@ -395,31 +372,13 @@
                     {{Form::label('no_layout_clean',"無し")}}
                   </p>
                   @endif
-                  @endforeach
                 </div>
               </td>
             </tr>
-            @else
-            <tr>
-              <td class="table-active">片付</td>
-              <td>
-                <div class="radio-box">
-                  <p>
-                    {{Form::radio('layout_clean', 1, false, ['id' => 'layout_clean'])}}
-                    {{Form::label('layout_clean',"有り")}}
-                  </p>
-                  <p>
-                    {{Form::radio('layout_clean', 0, true, ['id' => 'no_layout_clean'])}}
-                    {{Form::label('no_layout_clean',"無し")}}
-                  </p>
-                </div>
-              </td>
-            </tr>
-            @endif
-
           </tbody>
         </table>
       </div>
+
       <div class='luggage'>
         <table class='table table-bordered' style="table-layout:fixed;">
           <thead>
@@ -731,7 +690,7 @@
               </tr>
             </tbody>
             <tbody class="venue_main">
-              @foreach ($checkItem[1][0] as $key=>$venue_price)
+              @foreach ($bill->breakdowns->where('unit_type',1) as $key=>$venue_price)
               <tr>
                 <td>
                   {{ Form::text('venue_breakdown_item'.$key, $venue_price->unit_item,['class'=>'form-control', 'readonly'] ) }}
@@ -757,6 +716,7 @@
                 </td>
               </tr>
             </tbody>
+
             <tbody class="venue_discount">
               <tr>
                 <td>割引計算欄</td>
@@ -806,7 +766,7 @@
               </tr>
             </tbody>
             <tbody class="equipment_main">
-              @foreach ($checkItem[1][1] as $key=>$equipment_price)
+              @foreach ($bill->breakdowns->where('unit_type',2) as $key=>$equipment_price)
               <tr>
                 <td>
                   {{ Form::text('equipment_breakdown_item'.$key, $equipment_price->unit_item,['class'=>'form-control', 'readonly'] ) }}
@@ -822,7 +782,7 @@
                 </td>
               </tr>
               @endforeach
-              @foreach ($checkItem[1][2] as $key=>$service_price)
+              @foreach ($bill->breakdowns->where('unit_type',3) as $key=>$service_price)
               <tr>
                 <td>
                   {{ Form::text('equipment_breakdown_item'.$key, $service_price->unit_item,['class'=>'form-control', 'readonly'] ) }}
@@ -897,7 +857,7 @@
               </tr>
             </tbody>
             <tbody class="layout_main">
-              @foreach ($checkItem[1][3] as $key=>$layouts_price)
+              @foreach ($bill->breakdowns->where('unit_type',4) as $key=>$layouts_price)
               <tr>
                 <td>
                   {{ Form::text('layout_breakdown_item'.$key, $layouts_price->unit_item,['class'=>'form-control', 'readonly'] ) }}
@@ -973,7 +933,7 @@
               </tr>
             </tbody>
             <tbody class="others_main">
-              @foreach ($checkItem[1][4] as $key=>$others_price)
+              @foreach ($bill->breakdowns->where('unit_type',5) as $key=>$others_price)
               <tr>
                 <td>
                   {{ Form::text('others_input_item'.$key, $others_price->unit_item,['class'=>'form-control', 'readonly'] ) }}

@@ -142,14 +142,10 @@
             <td>
               <select name="event_start" id="event_start" class="form-control">
                 <option disabled>選択してください</option>
-                @for ($start = 0*2; $start <=23*2; $start++) 
-                <option value="{{date("H:i:s", strtotime("00:00 +". $start * 30 ." minute"))}}"
-                  @if(!empty($value['event_start'])) 
-                  @if(date("H:i:s",strtotime("00:00 +".$start * 30 ."minute"))==$value['event_start']) 
-                  selected 
-                  @endif 
-                  @endif
-                  >
+                @for ($start = 0*2; $start <=23*2; $start++) <option
+                  value="{{date("H:i:s", strtotime("00:00 +". $start * 30 ." minute"))}}"
+                  @if(!empty($value['event_start'])) @if(date("H:i:s",strtotime("00:00 +".$start * 30
+                  ."minute"))==$value['event_start']) selected @endif @endif>
                   {{date("H時i分", strtotime("00:00 +". $start * 30 ." minute"))}}
                   </option>
                   @endfor
@@ -162,14 +158,10 @@
             <td>
               <select name="event_finish" id="event_finish" class="form-control">
                 <option disabled>選択してください</option>
-                @for ($start = 0*2; $start <=23*2; $start++) 
-                <option value="{{date("H:i:s", strtotime("00:00 +". $start * 30 ." minute"))}}"
-                  @if(!empty($value['event_finish'])) 
-                  @if (date("H:i:s", strtotime("00:00 +". $start * 30 ."minute"))==$value['event_finish']) 
-                  selected 
-                  @endif 
-                  @endif
-                  >
+                @for ($start = 0*2; $start <=23*2; $start++) <option
+                  value="{{date("H:i:s", strtotime("00:00 +". $start * 30 ." minute"))}}"
+                  @if(!empty($value['event_finish'])) @if (date("H:i:s", strtotime("00:00 +". $start * 30
+                  ."minute"))==$value['event_finish']) selected @endif @endif>
                   {{date("H時i分", strtotime("00:00 +". $start * 30 ." minute"))}}
                   </option>
                   @endfor
@@ -779,7 +771,7 @@
           </table>
         </div>
 
-        @if(ReservationHelper::judgeArrayEmpty($priceResult['item_details'])==1||$request->luggage_price)
+        @if(!empty($priceResult['item_details'])||$request->luggage_price)
         <div class="equipment billdetails_content">
           <table class="table table-borderless">
             <tr>
