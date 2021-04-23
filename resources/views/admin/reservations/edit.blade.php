@@ -70,7 +70,7 @@
         <tr>
           <td class="table-active form_required">会場</td>
           <td>
-            {{ Form::text('',  ReservationHelper::getVenue($reservation->venue_id),['class'=>'form-control',  'readonly'] ) }}
+            {{ Form::text('', ReservationHelper::getVenue($reservation->venue_id),['class'=>'form-control',  'readonly'] ) }}
             {{ Form::text('venue_id',  ($reservation->venue_id),['class'=>'form-control',  'readonly'] ) }}
             <p class="is-error-venue_id" style="color: red"></p>
           </td>
