@@ -522,21 +522,21 @@
             <td class="table-active"><label for="name">担当者氏名</label></td>
             <td>
               <p class="person">
-                {{ReservationHelper::getPersonName($user->id)}}
+                {{ReservationHelper::getPersonName($reservation->user->id)}}
               </p>
             </td>
           </tr>
           <tr>
             <td class="table-active">メールアドレス</td>
             <td>
-              <p class="email">{{ReservationHelper::getPersonEmail($user->id)}}</p>
+              <p class="email">{{ReservationHelper::getPersonEmail($reservation->user->id)}}</p>
             </td>
           </tr>
           <tr>
             <td class="table-active">携帯番号</td>
             <td>
               <p class="mobile">
-                {{ReservationHelper::getPersonMobile($user->id)}}
+                {{ReservationHelper::getPersonMobile($reservation->user->id)}}
               </p>
             </td>
           </tr>
@@ -544,7 +544,7 @@
             <td class="table-active">固定電話</td>
             <td>
               <p class="tel">
-                {{ReservationHelper::getPersonTel($user->id)}}
+                {{ReservationHelper::getPersonTel($reservation->user->id)}}
               </p>
             </td>
           </tr>
@@ -552,7 +552,7 @@
             <td class="table-active">割引条件</td>
             <td>
               <p class="condition">
-                {!!nl2br(e(ReservationHelper::getPersonCondition($user->id)))!!}
+                {!!nl2br(e(ReservationHelper::getPersonCondition($reservation->user->id)))!!}
               </p>
             </td>
           </tr>
@@ -560,7 +560,7 @@
             <td class="table-active caution">注意事項</td>
             <td class="caution">
               <p class="attention">
-                {!!nl2br(e(ReservationHelper::getPersonAttention($user->id)))!!}
+                {!!nl2br(e(ReservationHelper::getPersonAttention($reservation->user->id)))!!}
               </p>
             </td>
           </tr>
@@ -1064,7 +1064,7 @@
               </td>
             </tr>
             <tr>
-              <td>請求書宛名{{ Form::text('pay_company', $user->company,['class'=>'form-control'] ) }}</td>
+              <td>請求書宛名{{ Form::text('pay_company', $bill->pay_company,['class'=>'form-control'] ) }}</td>
               <td>
                 担当者{{ Form::text('bill_person', $bill->pay_person,['class'=>'form-control'] ) }}
 

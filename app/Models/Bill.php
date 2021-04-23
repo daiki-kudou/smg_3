@@ -104,7 +104,6 @@ class Bill extends Model
 
     DB::transaction(function () use ($request, $discount_info) {
       // 会場料金
-
       if ($discount_info['venue_price'] != "") {
         $v_cnt = $this->preg($discount_info, "venue_breakdown_item");
         for ($i = 0; $i < $v_cnt; $i++) {
@@ -740,6 +739,31 @@ class Bill extends Model
           ]);
         }
       }
+    });
+  }
+
+  public function UpdateBillSession($result)
+  {
+    DB::transaction(function () use ($result) {
+      $this->update([
+        'venue_price' => !empty($result['venue_price']) ? $result['venue_price'] : 0,
+        'equipment_price' => !empty($result['equipment_price']) ? $result['equipment_price'] : 0, //備品・サービス・荷物
+        'layout_price' => !empty($result['layout_price']) ? $result['layout_price'] : 0,
+        'others_price' => !empty($result['others_price']) ? $result['others_price'] : 0,
+        'master_subtotal' => $result['master_subtotal'],
+        'master_tax' => $result['master_tax'],
+        'master_total' => $result['master_total'],
+        'payment_limit' => $result['pay_limit'],
+        'bill_company' => $result['pay_company'],
+        'bill_person' => $result['bill_person'],
+        'bill_created_at' => Carbon::now(),
+        'bill_remark' => $result['bill_remark'],
+        'paid' => $result['paid'],
+        'pay_day' => $result['pay_day'],
+        'pay_person' => $result['pay_person'],
+        'payment' => $result['payment'],
+      ]);
+      $this->breakdowns()->delete();
     });
   }
 }

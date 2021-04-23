@@ -525,6 +525,7 @@ class ReservationsController extends Controller
 
   public function edit_check(Request $request)
   {
+
     $reservationEditMaster = $request->session()->get('reservationEditMaster');
     $venue = $reservationEditMaster->reservation->venue;
     $reservation = $reservationEditMaster->reservation;
@@ -548,9 +549,6 @@ class ReservationsController extends Controller
       )
     );
   }
-
-
-
   /**
    * Update the specified resource in storage.
    *
@@ -558,13 +556,28 @@ class ReservationsController extends Controller
    * @param  int  $id
    * @return \Illuminate\Http\Response
    */
-  public function update(Request $request, $id)
+  public function update(Request $request)
   {
-    var_dump($request->all());
-    // $reservationEditMaster = $request->session()->get('reservationEditMaster');
-    // $reservation = Reservation::find($id);
-    // $reservation->UpdateReservation($request);
-    // return redirect(route('admin.reservations.show', $reservation->id));
+    if ($request->back) {
+      return redirect(route('admin.reservations.edit_calculate'));
+    }
+
+    $reservationEditMaster = $request->session()->get('reservationEditMaster');
+    $basicInfo = $request->session()->get('basicInfo');
+    $result = $request->session()->get('result');
+
+    $reservation = $reservationEditMaster->reservation;
+    $reservation->UpdateReservation($basicInfo, $result);
+
+    $bill = $reservation->bills->first();
+    $bill->UpdateBillSession($result);
+    $bill->ReserveStoreSessionBreakdown($request, 'result');
+
+
+    $request->session()->regenerate();
+    $request->session()->flush();
+
+    return redirect(route('admin.reservations.show', $reservation->id));
   }
 
   /**

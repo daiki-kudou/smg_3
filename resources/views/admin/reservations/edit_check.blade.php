@@ -119,21 +119,18 @@
             </tr>
           </thead>
           <tbody class="accordion-wrap">
-            {{-- @foreach ($venue->getEquipments() as $key=>$equipment)
+            @foreach ($venue->getEquipments() as $key=>$equipment)
             <tr>
               <td class="table-active">{{$equipment->item}}</td>
-            <td>
-              @for ($i = 0; $i < $equ_breakdowns; $i++) @if ($equipment->
-                item==$request->{"equipment_breakdown_item".$i})
-                {{ Form::text('equipment_breakdown'.$key, $request->{'equipment_breakdown_count'.$i},['class'=>'form-control', 'readonly'] ) }}
-                @break
-                @elseif($i==$equ_breakdowns-1)
-                {{ Form::text('equipment_breakdown'.$key, "0",['class'=>'form-control', 'readonly'] ) }}
+              <td>
+                @if (!empty($basicInfo['equipment_breakdown'.$key]))
+                {{ Form::text('equipment_breakdown'.$key, $basicInfo['equipment_breakdown'.$key],['class'=>'form-control equipment_breakdown','readonly'] ) }}
+                @else
+                {{ Form::text('equipment_breakdown'.$key, null,['class'=>'form-control equipment_breakdown','readonly'] ) }}
                 @endif
-                @endfor
-            </td>
+              </td>
             </tr>
-            @endforeach --}}
+            @endforeach
           </tbody>
         </table>
       </div>
@@ -149,24 +146,21 @@
             </tr>
           </thead>
           <tbody class="accordion-wrap">
-            {{-- @foreach ($venue->getServices() as $key=>$service)
+            @foreach ($venue->getServices() as $key=>$service)
             <tr>
-              <td class="table-active">{{$service->item}}</td>
-            <td>
-              @for ($i = 0; $i < $ser_breakdowns; $i++) @if ($service->
-                item==$request->{"services_breakdown_item".$i})
-                {{ Form::text('services_breakdown'.$key, $request->{'services_breakdown_count'.$i},['class'=>'form-control', 'readonly'] ) }}
-                @break
-                @elseif($i==$ser_breakdowns-1)
-                {{ Form::text('services_breakdown'.$key, 0,['class'=>'form-control', 'readonly'] ) }}
-                @endif
-                @endfor
-            </td>
+              <td class="table-active">
+                {{$service->item}}
+              </td>
+              <td>
+                {{ Form::text('services_breakdown'.$key, $basicInfo['services_breakdown'.$key]==1?"あり":"なし",['class'=>'form-control','readonly'] ) }}
+              </td>
             </tr>
-            @endforeach --}}
+            @endforeach
           </tbody>
         </table>
       </div>
+
+      @if ($venue->layout!=0)
       <div class="layouts">
         <table class="table table-bordered" style="table-layout:fixed;">
           <thead>
@@ -198,6 +192,9 @@
           </tbody>
         </table>
       </div>
+      @endif
+
+      @if ($venue->luggage_flag!=0)
       <div class="luggage">
         <table class="table table-bordered" style="table-layout:fixed;">
           <thead>
@@ -248,6 +245,34 @@
           </tbody>
         </table>
       </div>
+      @endif
+
+      @if ($venue->eat_in_flag!=0)
+      <div class="eat_in">
+        <table class="table table-bordered">
+          <thead>
+            <tr>
+              <th colspan='2'>
+                <p class="title-icon">
+                  <i class="fas fa-utensils icon-size fa-fw"></i>室内飲食
+                </p>
+              </th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>
+                {{$basicInfo['eat_in']==1?'あり':'なし'}}
+              </td>
+              <td>
+                {{!empty($basicInfo['eat_in_prepare'])?($basicInfo['eat_in_prepare']==1?'手配済み':'検討中'):"なし"}}
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      @endif
+
     </div>
 
     <div class="col">
