@@ -8,6 +8,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Venue;
 use App\Models\Reservation;
 use App\Models\PreReservation;
+use App\Models\Note;
 
 use Carbon\Carbon;
 
@@ -72,6 +73,9 @@ class CalendarsController extends Controller
 
   public function date_calendar(Request $request)
   {
+
+    $note = Note::all();
+
     if (empty($request->all())) {
       $today = Carbon::now()->toDateString();
       $tomorrow = Carbon::now()->addDay()->toDateString();
@@ -101,14 +105,18 @@ class CalendarsController extends Controller
     }
     $json_result = json_encode($result);
 
-    return view('admin.calendar.date_calendar', [
-      'reservations' => $reservations,
-      'pre_reservations' => $pre_reservations,
-      'venues' => $venues,
-      'today' => $today,
-      'tomorrow' => $tomorrow,
-      'yesterday' => $yesterday,
-      'json_result' => $json_result,
-    ]);
+    return view(
+      'admin.calendar.date_calendar',
+      compact(
+        'reservations',
+        'pre_reservations',
+        'venues',
+        'today',
+        'tomorrow',
+        'yesterday',
+        'json_result',
+        'note',
+      )
+    );
   }
 }

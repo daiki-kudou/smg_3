@@ -16,7 +16,8 @@
       <div class="d-flex align-items-center">
         <div class="row w-100">
           <div class="col text-right">
-            <a href="javascript:$('#yesterday').submit()" class="text-white"><i class="fas fa-chevron-left fa-2x"></i></a>
+            <a href="javascript:$('#yesterday').submit()" class="text-white"><i
+                class="fas fa-chevron-left fa-2x"></i></a>
             {{ Form::open(['url' => 'admin/calendar/date_calendar', 'method' => 'get','id'=>'yesterday']) }}
             @csrf
             {{ Form::hidden('date', $yesterday) }}
@@ -30,7 +31,8 @@
             {{ Form::close() }}
           </div>
           <div class="col">
-            <a href="javascript:$('#tomorrow').submit()" class="text-white"><i class="fas fa-chevron-right fa-2x"></i></a>
+            <a href="javascript:$('#tomorrow').submit()" class="text-white"><i
+                class="fas fa-chevron-right fa-2x"></i></a>
             {{ Form::open(['url' => 'admin/calendar/date_calendar', 'method' => 'get','id'=>'tomorrow']) }}
             @csrf
             {{ Form::hidden('date', $tomorrow) }}
@@ -106,8 +108,12 @@
   </div>
 </section>
 
+<iframe src="/admin/note" frameborder="0" width="100%" height="500px;"></iframe>
+{{-- {{ Form::open(['url' => 'admin/note', 'method' => 'post','id'=>'add_note_form']) }}
+@csrf
 <section class="mt-5">
   <input type="button" value="メモを追加する" class="add_button">
+  <input type="button" value="メモを編集する" class="edit_button">
   <table class="table table-bordered">
     <tbody>
       <tr>
@@ -116,26 +122,26 @@
         <td>会社名</td>
         <td>対応内容</td>
         <td>編集</td>
-        <td>削除</td>
       </tr>
     </tbody>
-    <tbody id="sortableArea" class="main_table">
-      {{-- <tr>
-        <td><input type="text" class="form-control"></td>
-        <td><input type="text" class="form-control"></td>
-        <td><input type="text" class="form-control"></td>
-        <td><input type="textarea" class="form-control"></td>
+    <tbody id="sortableArea" class="main_table" style="table-layout: fixed;">
+      @foreach ($note as $item)
+      <tr>
+        <td>{{$item->hour}}</td>
+        <td>{{$item->venue}}</td>
+        <td>{{$item->company}}</td>
+        <td>{!!nl2br(e($item->content))!!}</td>
         <td>
-          <a href="" class="more_btn">編集</a>
+          <a class="delete" href="{{url('admin/note/delete/'.$item->id)}}">削除</a>
         </td>
-        <td>
-          <input type="button" value="削除" class="del">
-        </td>
-      </tr> --}}
+      </tr>
+      @endforeach
     </tbody>
   </table>
 </section>
 
+{{ Form::close() }}
+--}}
 
 
 @foreach ($reservations as $reservation)
@@ -152,24 +158,28 @@
 
 <script type="text/javascript" src="https://code.jquery.com/ui/1.12.0/jquery-ui.min.js"></script>
 <script>
+  $(function(){
+  $('.delete').on('click', function() {
+      if (!confirm('本当に削除しますか？')) {
+        return false;
+      }
+    })
+})
 
-$(function(){
-  $(".add_button").on('click',function(){
+  $(document).on("click", ".add_button", function() {
     var data="<tr>"+
-        "<td><input type='text' class='form-control'></td>"+
-        "<td><input type='text' class='form-control'></td>"+
-        "<td><input type='text' class='form-control'></td>"+
-        "<td><input type='textarea' class='form-control'></td>"+
+        "<td><input name='hour' type='text' class='form-control'></td>"+
+        "<td><input name='venue' type='text' class='form-control'></td>"+
+        "<td><input name='company' type='text' class='form-control'></td>"+
+        
+        "<td><textarea name='content' class='form-control'></textarea></td>"+
         "<td>"+
-          "<a href='' class='more_btn'>保存</a>"+
-        "</td>"+
-        "<td>"+
-          "<input type='button' value='削除' class='del'>"+
+          "<input type='submit' value='保存'>"+
         "</td>"+
       "</tr>";
     $('.main_table').append(data);
+    $(this).remove();
   })
-})
 
   $(function() {
     $('#datepicker8').on('change', function() {
