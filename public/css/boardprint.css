@@ -1,0 +1,195 @@
+/* A4縦用のベース設定 */
+@page {
+    size: A4 landscape; /* 横の場合はlandscape */
+    margin: 0mm;
+  }
+  
+  /* 各要素の余白リセット */
+  *{
+    margin: 0mm;
+    padding: 0mm;
+  }
+  
+  body {
+    width: 297mm; /* 用紙の横幅を改めて指定 Chrome用 */
+    -webkit-print-color-adjust: exact;
+    color-adjust: exact;
+    line-height: 0mm;
+  }
+  
+    @import url('https://fonts.googleapis.com/css?family=Noto+Sans+JP:100,300,400,500,700');
+    @import url('https://fonts.googleapis.com/css?family=Noto+Serif+JP:300,400,500,600&display=swap');
+    @import url('https://fonts.googleapis.com/css2?family=EB+Garamond:wght@400;500;600&display=swap');
+    
+    /* common css */
+    html,
+    body,
+    div,
+    span,
+    applet,
+    object,
+    iframe,
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6,
+    p,
+    blockquote,
+    pre,
+    a,
+    abbr,
+    acronym,
+    address,
+    big,
+    cite,
+    code,
+    del,
+    dfn,
+    em,
+    img,
+    ins,
+    kbd,
+    q,
+    s,
+    samp,
+    small,
+    strike,
+    strong,
+    sub,
+    sup,
+    tt,
+    var,
+    b,
+    u,
+    i,
+    center,
+    dl,
+    dt,
+    dd,
+    ol,
+    ul,
+    li,
+    fieldset,
+    form,
+    label,
+    legend,
+    caption,
+    article,
+    aside,
+    canvas,
+    details,
+    embed,
+    figure,
+    figcaption,
+    footer,
+    header,
+    hgroup,
+    menu,
+    nav,
+    output,
+    ruby,
+    section,
+    summary,
+    time,
+    mark,
+    audio,
+    video {
+      margin: 0;
+      padding: 0;
+      border: 0;
+      font: inherit;
+      font-size: 100%;
+      vertical-align: baseline;
+    }
+    
+    img {
+      width: 100%;
+      vertical-align: bottom;
+    }
+    
+    table { border-collapse: collapse; border-spacing: 0; }
+    
+    caption, th, td {
+      font-weight: normal;
+      vertical-align: middle;
+    }
+
+    @media print{
+        html,body{
+          height: auto;
+          margin: 0;
+        }
+      }
+
+  /* board css------------------------------------------------------- */
+  .print-cover {
+    background: no-repeat center url(../img/board_bg2.png);
+    background-size: cover;
+    width: 297mm;
+    height: 200mm;
+    padding: 5mm;
+    margin-top: 3mm;
+    display: block;
+  }
+  
+  .board-box {
+    font-size: 15pt;
+    /* line-height: inherit; */
+    font-family: YuGothic,'Yu Gothic',sans-serif;
+    color: #333;
+    text-align: left;
+    height: 200mm;
+    table-layout: fixed;
+  }
+  
+  .board-box td {
+    padding-left: 15mm;
+    padding-right: 10mm;
+  }
+  
+  
+  .board-box .date td{
+    font-size: 30pt;
+    height: 30pt;
+    font-weight: bold;
+    padding-top: 20mm;
+    padding-bottom: 10mm;
+  }
+  
+  .board-box .event-name td,
+  .board-box .event-name2 td {
+    font-size: 55pt;
+    height: 55pt;
+    font-weight: bold;
+  }
+  
+  .board-box .event-owner td{
+    font-size: 26pt;
+    height: 26pt;
+    font-weight: bold;
+    padding-top: 20mm;
+    padding-bottom: 5mm;
+  }
+  
+  .border-line {
+    width: 100%;
+    background: #ddd;
+    height: 0.8mm;
+    margin-bottom: 10mm;
+  }
+  
+  .board-box .venue td {
+    /* width: 100%; */
+    font-size: 30pt;
+    height: 30pt;
+    font-weight: bold;
+    text-align: right;
+    padding-bottom: 15mm;
+  }
+  
+  .button-wrap {
+    display: none;
+  }
+  
