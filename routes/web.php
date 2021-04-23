@@ -125,12 +125,21 @@ Route::namespace('Admin')->prefix('admin')->name('admin.')->group(function () {
     Route::resource('reservations', 'ReservationsController', ['except' => ['show']]);
     // 予約　（確認）
     Route::get('reservations/check', 'ReservationsController@check')->name('reservations.check');
-    // 予約　show
-    Route::get('reservations/{reservation}', 'ReservationsController@show')->name('reservations.show');
+
+
+
+    // calculate前のセッションｎ保存
+    Route::post('reservations/session_for_edit_calculate', 'ReservationsController@sessionForEditCalculate');
     // 予約　編集
-    Route::post('reservations/{reservation}/edit_calculate', 'ReservationsController@edit_calculate')->name('reservations.edit_calculate');
+    Route::get('reservations/edit_calculate', 'ReservationsController@edit_calculate')->name('reservations.edit_calculate');
     // 予約　編集確認
     Route::post('reservations/{reservation}/edit_check', 'ReservationsController@edit_check')->name('reservations.edit_check');
+
+
+
+    // 予約　show
+    Route::get('reservations/{reservation}', 'ReservationsController@show')->name('reservations.show');
+
     // ajax アイテム
     Route::post('reservations/geteitems', 'ReservationsController@geteitems');
     // ajax 料金体系

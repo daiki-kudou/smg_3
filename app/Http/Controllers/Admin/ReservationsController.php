@@ -357,9 +357,7 @@ class ReservationsController extends Controller
   {
     session()->forget(['add_bill', 'cxlCalcInfo', 'cxlMaster', 'cxlResult', 'invoice', 'multiOrSingle', 'discount_info', 'calc_info', 'master_info', 'check_info']);
     $reservation = Reservation::with(['bills.breakdowns', 'cxls.cxl_breakdowns', 'user', 'agent', 'venue'])->find($id);
-    // $venue = Venue::find($reservation->venue->id);
     $venue = $reservation->venue;
-    // $user = User::find($reservation->user_id);
     $user = $reservation->user;
     $master_prices = $reservation->TotalAmount();
     $other_bills = [];
@@ -435,84 +433,90 @@ class ReservationsController extends Controller
    */
   public function edit($id)
   {
-    $bill = Bill::with(['reservation', 'breakdowns'])->find($id);
+    $bill = Bill::with(['reservation.user', 'reservation.venue', 'breakdowns'])->find($id);
     $reservation = $bill->reservation;
-    $venue = Venue::find($reservation->venue_id);
+    var_dump($bill->reservation->id);
+    $venue = $bill->reservation->venue;
     $users = User::all();
-
-    $checkItem = $bill->checkBreakdowns();
-    // [0] 0備品個数　1サービス個数　2レイアウト個数　3その他個数
-    // [1] 0会場詳細　1備品詳細　2サービス詳細　3レイアウト詳細　4その他詳細
-
-
-
+    session()->put('reservationEditMaster', $bill);
     return view('admin.reservations.edit', [
       'reservation' => $reservation,
       'venue' => $venue,
-      'users' => $users,
       'bill' => $bill,
-      'checkItem' => $checkItem,
+      'users' => $users,
     ]);
   }
 
-  public function edit_calculate(Request $request, $id)
+  public function sessionForEditCalculate(Request $request)
   {
-    echo "<pre>";
+    $data = $request->all();
+    $request->session()->put('basicInfo', $data);
+    return redirect(route('admin.reservations.edit_calculate'));
+  }
 
-    echo "</pre>";
 
-    $users = User::all();
-    $venues = Venue::all();
-    $venue = Venue::find($request->venue_id);
-    $equipments = $venue->equipments()->get();
-    $services = $venue->services()->get();
-    $price_details = $venue->calculate_price( //[0]は合計料金, [1]は延長料金, [2]は合計＋延長、 [3]は利用時間, [4]は延長時間
-      $request->price_system,
-      $request->enter_time,
-      $request->leave_time
+
+  public function edit_calculate(Request $request)
+  {
+    $basicInfo = $request->session()->get('basicInfo');
+
+    var_dump($basicInfo);
+    // $users = User::all();
+    // $venues = Venue::all();
+    // $venue = Venue::find($request->venue_id);
+    // $equipments = $venue->equipments()->get();
+    // $services = $venue->services()->get();
+    // $price_details = $venue->calculate_price( //[0]は合計料金, [1]は延長料金, [2]は合計＋延長、 [3]は利用時間, [4]は延長時間
+    //   $request->price_system,
+    //   $request->enter_time,
+    //   $request->leave_time
+    // );
+
+    // $s_equipment = [];
+    // $s_services = [];
+    // foreach ($request->all() as $key => $value) {
+    //   if (preg_match('/equipment_breakdown/', $key)) {
+    //     $s_equipment[] = $value;
+    //   }
+    //   if (preg_match('/services_breakdown/', $key)) {
+    //     $s_services[] = $value;
+    //   }
+    // }
+    // $item_details = $venue->calculate_items_price($s_equipment, $s_services);    // [0]備品＋サービス [1]備品詳細 [2]サービス詳細 [3]備品合計 [4]サービス合計
+    // $layouts_details = $venue->getLayoutPrice($request->layout_prepare, $request->layout_clean);
+    // if ($price_details == 0) { //枠がなく会場料金を手打ちするパターン
+    //   $masters =
+    //     ($item_details[0] + $request->luggage_price)
+    //     + $layouts_details[2];
+    // } else {
+    //   $masters =
+    //     ($price_details[2] ? $price_details[2] : 0)
+    //     + ($item_details[0] + $request->luggage_price)
+    //     + $layouts_details[2];
+    // }
+    // $user = User::find($request->user_id);
+    // $pay_limit = $user->getUserPayLimit($request->reserve_date);
+
+    return view(
+      'admin.reservations.edit_calculate',
+      compact('basicInfo')
+      // [
+      // 'venues' => $venues,
+      // 'users' => $users,
+      // 'request' => $request,
+      // 'equipments' => $equipments,
+      // 'services' => $services,
+      // 's_equipment' => $s_equipment, //選択された備品
+      // 's_services' => $s_services, //選択されたサービス
+      // 'price_details' => $price_details,
+      // 'item_details' => $item_details,
+      // 'layouts_details' => $layouts_details,
+      // 'masters' => $masters,
+      // 'pay_limit' => $pay_limit,
+      // 'user' => $user,
+      // 'venue' => $venue,
+      // ]
     );
-
-    $s_equipment = [];
-    $s_services = [];
-    foreach ($request->all() as $key => $value) {
-      if (preg_match('/equipment_breakdown/', $key)) {
-        $s_equipment[] = $value;
-      }
-      if (preg_match('/services_breakdown/', $key)) {
-        $s_services[] = $value;
-      }
-    }
-    $item_details = $venue->calculate_items_price($s_equipment, $s_services);    // [0]備品＋サービス [1]備品詳細 [2]サービス詳細 [3]備品合計 [4]サービス合計
-    $layouts_details = $venue->getLayoutPrice($request->layout_prepare, $request->layout_clean);
-    if ($price_details == 0) { //枠がなく会場料金を手打ちするパターン
-      $masters =
-        ($item_details[0] + $request->luggage_price)
-        + $layouts_details[2];
-    } else {
-      $masters =
-        ($price_details[2] ? $price_details[2] : 0)
-        + ($item_details[0] + $request->luggage_price)
-        + $layouts_details[2];
-    }
-    $user = User::find($request->user_id);
-    $pay_limit = $user->getUserPayLimit($request->reserve_date);
-    return view('admin.reservations.edit_calculate', [
-      'venues' => $venues,
-      'users' => $users,
-      'request' => $request,
-      'equipments' => $equipments,
-      'services' => $services,
-      's_equipment' => $s_equipment, //選択された備品
-      's_services' => $s_services, //選択されたサービス
-      'price_details' => $price_details,
-      'item_details' => $item_details,
-      'layouts_details' => $layouts_details,
-      'masters' => $masters,
-      'pay_limit' => $pay_limit,
-      'user' => $user,
-      'id' => $id,
-      'venue' => $venue,
-    ]);
   }
 
   public function edit_check(Request $request, $id)

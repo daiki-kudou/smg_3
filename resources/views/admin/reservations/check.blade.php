@@ -578,7 +578,7 @@
           </table>
         </div>
 
-        @if ($e_cnt!=0 ||$s_cnt!=0 ||!empty($checkInfo['luggage_price']))
+        @if ($e_cnt!=0 ||$s_cnt!=0 ||!empty($checkInfo['luggage_subtotal']))
         <div class="equipment billdetails_content">
           <table class="table table-borderless">
             <tr>
