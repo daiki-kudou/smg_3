@@ -131,7 +131,7 @@
     height: 200mm;
     padding: 5mm;
     margin-top: 3mm;
-    display: block;
+    /* display: block; */
   }
   
   .board-box {
@@ -177,7 +177,7 @@
     width: 100%;
     background: #ddd;
     height: 0.8mm;
-    margin-bottom: 10mm;
+    margin-top: 10mm;
   }
   
   .board-box .venue td {
@@ -186,6 +186,7 @@
     height: 30pt;
     font-weight: bold;
     text-align: right;
+    /* padding-top: 20mm; */
     padding-bottom: 15mm;
   }
   

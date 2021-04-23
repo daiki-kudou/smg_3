@@ -37,12 +37,12 @@
         <td>
           <span>主催：</span>
           <span>{{$reservation->event_owner}}</span>
+          <p class="border-line"></p>
         </td>
       </tr>
 
       <tr class="venue">
         <td>
-          <p class="border-line"></p>
           <p>{{ReservationHelper::getVenueForUser($reservation->venue_id)}}</p>
         </td>
       </tr>
