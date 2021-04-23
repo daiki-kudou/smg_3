@@ -454,13 +454,53 @@ class ReservationsController extends Controller
     return redirect(route('admin.reservations.edit_calculate'));
   }
 
+  public function searchPreg($array, $target)
+  {
+    $result = [];
+    foreach ($array as $key => $value) {
+      if (preg_match('/' . $target . '/', $key)) {
+        $result[] = $value;
+      }
+    }
+    return $result;
+  }
 
+  public function getMasterPrice($price_details, $item_details, $layouts_details, $target)
+  {
+    //枠がなく会場料金を手打ちするパターン
+    if ($price_details == 0) {
+      $masters =
+        ($item_details[0] + $target['luggage_price'])
+        + $layouts_details[2];
+    } else {
+      $masters =
+        ($price_details[2] ? $price_details[2] : 0)
+        + ($item_details[0] + $target['luggage_price'])
+        + $layouts_details[2];
+    }
+    return $masters;
+  }
 
   public function edit_calculate(Request $request)
   {
     $basicInfo = $request->session()->get('basicInfo');
+    $reservationEditMaster = $request->session()->get('reservationEditMaster');
+    $venue = $reservationEditMaster->reservation->venue;
+    $users = User::all();
+    $price_details = $venue->calculate_price(
+      $basicInfo['price_system'],
+      $basicInfo['enter_time'],
+      $basicInfo['leave_time']
+    );
+    $s_equipment = $this->searchPreg($basicInfo, 'equipment_breakdown');
+    $s_services = $this->searchPreg($basicInfo, 'services_breakdown');
+    $item_details = $venue->calculate_items_price($s_equipment, $s_services);
+    $layouts_details = $venue->getLayoutPrice($basicInfo['layout_prepare'], $basicInfo['layout_clean']);
+    $masters = $this->getMasterPrice($price_details, $item_details, $layouts_details, $basicInfo);
+    $user = $reservationEditMaster->reservation->user;
+    $pay_limit = $user->getUserPayLimit($request->reserve_date);
 
-    var_dump($basicInfo);
+
     // $users = User::all();
     // $venues = Venue::all();
     // $venue = Venue::find($request->venue_id);
@@ -499,7 +539,17 @@ class ReservationsController extends Controller
 
     return view(
       'admin.reservations.edit_calculate',
-      compact('basicInfo')
+      compact(
+        'basicInfo',
+        'reservationEditMaster',
+        'venue',
+        'users',
+        'price_details',
+        'masters',
+        'pay_limit',
+        'item_details',
+        'layouts_details',
+      )
       // [
       // 'venues' => $venues,
       // 'users' => $users,
@@ -554,6 +604,8 @@ class ReservationsController extends Controller
       )
     );
   }
+
+
 
   /**
    * Update the specified resource in storage.
