@@ -10,8 +10,8 @@
         <th>会場</th>
         <th>会社名</th>
         <th>対応内容</th>
-        <th class="text-center">編集</th>
-        <th class="text-center">削除</th>
+        <th class="btn-cell">編集</th>
+        <th class="btn-cell">削除</th>
       </tr>
     </tbody>
     <tbody id="sortableArea" class="main_table">
@@ -38,7 +38,7 @@
 <script>
   $(function() {
     $('.delete').on('click', function() {
-      if (!confirm('本当に削除しますか？')) {
+      if (!confirm('削除してもよろしいでしょうか？')) {
         return false;
       }
     })

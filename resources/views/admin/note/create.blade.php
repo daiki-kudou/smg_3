@@ -21,7 +21,7 @@
         <td>{{Form::text('company',null , ['class' => 'form-control'])}}</td>
         <td>{{Form::textarea('content',null , ['class' => 'form-control'])}}</td>
         <td>
-          {{ Form::submit('保存する', ['class' => 'btn more_btn']) }}
+          {{ Form::submit('追加する', ['class' => 'btn more_btn']) }}
         </td>
       </tr>
     </tbody>
