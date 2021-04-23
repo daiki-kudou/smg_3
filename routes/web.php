@@ -170,7 +170,7 @@ Route::namespace('Admin')->prefix('admin')->name('admin.')->group(function () {
     Route::get('calendar/venue_calendar', 'CalendarsController@venue_calendar');
     Route::post('calendar/venue_calendar', 'CalendarsController@venue_calendargetData');
     // 日時別
-    Route::get('calendar/date_calendar', 'CalendarsController@date_calendar');
+    Route::get('calendar/date_calendar', 'CalendarsController@date_calendar')->name('calendar.date_calendar');
 
     // 請求書追加
     // Route::post('reservations/{reservation}/add_bill', 'ReservationsController@add_bill')->name('reservations.add_bill');
@@ -334,5 +334,14 @@ Route::namespace('Admin')->prefix('admin')->name('admin.')->group(function () {
 
     Route::post('invoice', 'InvoiceController@show');
     Route::post('board', 'BoardController@show');
+    // note
+    // Route::post('note', 'NoteController@store');
+    // Route::get('note/delete/{note}', 'NoteController@destroy');
+    Route::get('note', 'NoteController@index')->name('note');
+    Route::get('note/create', 'NoteController@create');
+    Route::post('note/store', 'NoteController@store');
+    Route::get('note/edit/{note}', 'NoteController@edit');
+    Route::get('note/delete/{note}', 'NoteController@destroy');
+    Route::post('note/update', 'NoteController@update');
   });
 });
