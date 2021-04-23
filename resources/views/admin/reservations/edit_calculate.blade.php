@@ -530,6 +530,8 @@
           </td>
         </tr>
       </table>
+
+      @if ($venue->alliance_flag==1)
       <table class="table table-bordered sale-table" style="table-layout:fixed;">
         <tr>
           <td colspan="2">
@@ -551,6 +553,8 @@
           </td>
         </tr>
       </table>
+      @endif
+
       <table class="table table-bordered note-table">
         <tr>
           <td colspan="2">

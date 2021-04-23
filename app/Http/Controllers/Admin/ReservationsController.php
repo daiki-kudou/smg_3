@@ -525,38 +525,28 @@ class ReservationsController extends Controller
 
   public function edit_check(Request $request)
   {
-    var_dump($request->all());
-    // $venue = Venue::find($request->venue_id);
-    // $venue_details = Venue::getBreakdowns($request);
-    // $equipment_details = Equipment::getBreakdowns($request);
-    // $service_details = Service::getBreakdowns($request);
-    // $others_details = [];
-    // foreach ($request->all() as $key => $value) {
-    //   if (preg_match('/others_input_item/', $key)) {
-
-    //     if (!empty($value)) {
-    //       $others_details[] = $value;
-    //     }
-    //   }
-    // }
-    // $others_details = !empty($others_details) ? count($others_details) : "";
-
-    // $equ_breakdowns = Equipment::getBreakdowns($request);
-    // $ser_breakdowns = Service::getBreakdowns($request);
-    // return view(
-    //   'admin.reservations.edit_check',
-    //   compact(
-    //     'request',
-    //     'venue',
-    //     'venue_details',
-    //     'equipment_details',
-    //     'service_details',
-    //     'others_details',
-    //     'equ_breakdowns',
-    //     'ser_breakdowns',
-    //     'id'
-    //   )
-    // );
+    $reservationEditMaster = $request->session()->get('reservationEditMaster');
+    $venue = $reservationEditMaster->reservation->venue;
+    $reservation = $reservationEditMaster->reservation;
+    $basicInfo = $request->session()->get('basicInfo');
+    $result = $request->session()->get('result');
+    $v_cnt = $this->preg($result, "venue_breakdown_item");
+    $e_cnt = $this->preg($result, "equipment_breakdown_item");
+    $s_cnt = $this->preg($result, "services_breakdown_item");
+    $o_cnt = $this->preg($result, "others_input_item");
+    return view(
+      'admin.reservations.edit_check',
+      compact(
+        'basicInfo',
+        'result',
+        'venue',
+        'v_cnt',
+        'e_cnt',
+        's_cnt',
+        'o_cnt',
+        'reservation',
+      )
+    );
   }
 
 
@@ -570,10 +560,11 @@ class ReservationsController extends Controller
    */
   public function update(Request $request, $id)
   {
-    $reservation = Reservation::find($id);
-    $reservation->UpdateReservation($request);
-
-    return redirect(route('admin.reservations.show', $reservation->id));
+    var_dump($request->all());
+    // $reservationEditMaster = $request->session()->get('reservationEditMaster');
+    // $reservation = Reservation::find($id);
+    // $reservation->UpdateReservation($request);
+    // return redirect(route('admin.reservations.show', $reservation->id));
   }
 
   /**

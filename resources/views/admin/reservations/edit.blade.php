@@ -78,9 +78,7 @@
         <tr>
           <td class="table-active">料金体系</td>
           <td>
-            {{-- @if ($venue->getPriceSystem()[0]==)
-                
-            @endif --}}
+            @if ($venue->getPriceSystem()[0]==1&&$venue->getPriceSystem()[1]==1)
             <div class='price_radio_selector'>
               <div class="d-flex justfy-content-start align-items-center">
                 {{ Form::radio('price_system', 1, isset($reservation->price_system)?$reservation->price_system==1?true:false:'', ['class'=>'mr-2', 'id'=>'price_system_radio1']) }}
@@ -90,6 +88,22 @@
                 {{ Form::radio('price_system', 2, isset($reservation->price_system)?$reservation->price_system==2?true:false:'', ['class'=>'mr-2','id'=>'price_system_radio2']) }}
                 {{Form::label('price_system_radio2','アクセア（時間貸）')}}
               </div>
+            </div>
+            @elseif($venue->getPriceSystem()[0]==1&&$venue->getPriceSystem()[1]==0)
+            <div class='price_radio_selector'>
+              <div class="d-flex justfy-content-start align-items-center">
+                {{ Form::radio('price_system', 1, true, ['class'=>'mr-2', 'id'=>'price_system_radio1']) }}
+                {{Form::label('price_system_radio1','通常（枠貸）')}}
+              </div>
+            </div>
+            @elseif($venue->getPriceSystem()[0]==0&&$venue->getPriceSystem()[1]==1)
+            <div class='price_radio_selector'>
+              <div class="d-flex justfy-content-start align-items-center">
+                {{ Form::radio('price_system', 2, true, ['class'=>'mr-2','id'=>'price_system_radio2']) }}
+                {{Form::label('price_system_radio2','アクセア（時間貸）')}}
+              </div>
+            </div>
+            @endif
           </td>
         </tr>
         <tr>
@@ -591,6 +605,8 @@
           </td>
         </tr>
       </table>
+
+      @if ($venue->alliance_flag==1)
       <table class="table table-bordered sale-table" style="table-layout:fixed;">
         <tr>
           <td colspan="2">
@@ -614,6 +630,8 @@
           </td>
         </tr>
       </table>
+      @endif
+
       <table class="table table-bordered note-table">
         <tr>
           <td colspan="2">
