@@ -584,7 +584,6 @@ $(function () {
       },
     })
       .done(function ($luggage) {
-
         if ($luggage == 1) {
           var maxDate = $('#datepicker').val();
           $('.luggage table tbody').html('');

@@ -433,6 +433,7 @@ class ReservationsController extends Controller
    */
   public function edit($id)
   {
+
     $bill = Bill::with(['reservation.user', 'reservation.venue', 'breakdowns'])->find($id);
     $reservation = $bill->reservation;
     var_dump($bill->reservation->id);

@@ -49,9 +49,18 @@ $(function () {
     stepMonths: 0,         // 月の移動を3ヶ月単位とする
     autoclose: true
   });
-
-
 });
+
+$(function () {
+  var maxDate = $('input[name="reserve_date"]').val();
+  $('.lilmited_datepicker').datepicker({
+    dateFormat: 'yy-mm-dd',
+    autoclose: true,
+    minDate: 0,
+    maxDate: maxDate
+  })
+})
+
 
 // reservatiosn create の時間取得
 // 一旦やめる。別の予約が入っていないか制御する必要あり
