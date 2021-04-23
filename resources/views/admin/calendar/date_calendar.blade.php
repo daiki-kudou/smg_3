@@ -108,13 +108,15 @@
   </div>
 </section>
 
-<iframe src="/admin/note" frameborder="0" width="100%" height="500px;"></iframe>
+<iframe class="mt-5" src="/admin/note" frameborder="0" width="100%" height="500px;" scrolling="no"></iframe>
 {{-- {{ Form::open(['url' => 'admin/note', 'method' => 'post','id'=>'add_note_form']) }}
 @csrf
 <section class="mt-5">
-  <input type="button" value="メモを追加する" class="add_button">
-  <input type="button" value="メモを編集する" class="edit_button">
-  <table class="table table-bordered">
+  <div class="">
+    <p class="more_btn3"><input type="button" value="メモを追加する" class="add_button btn"></p>
+    <p><input type="button" value="メモを編集する" class="edit_button"></p>
+  </div>
+  <table class="table table-bordered calender-note">
     <tbody>
       <tr>
         <td>時間</td>
