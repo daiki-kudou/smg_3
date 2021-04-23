@@ -433,12 +433,12 @@ class ReservationsController extends Controller
    */
   public function edit($id)
   {
-
     $bill = Bill::with(['reservation.user', 'reservation.venue', 'breakdowns'])->find($id);
     $reservation = $bill->reservation;
-    var_dump($bill->reservation->id);
     $venue = $bill->reservation->venue;
     $users = User::all();
+    var_dump($venue->getPriceSystem());
+
     session()->put('reservationEditMaster', $bill);
     return view('admin.reservations.edit', [
       'reservation' => $reservation,
@@ -500,44 +500,6 @@ class ReservationsController extends Controller
     $masters = $this->getMasterPrice($price_details, $item_details, $layouts_details, $basicInfo);
     $user = $reservationEditMaster->reservation->user;
     $pay_limit = $user->getUserPayLimit($request->reserve_date);
-
-
-    // $users = User::all();
-    // $venues = Venue::all();
-    // $venue = Venue::find($request->venue_id);
-    // $equipments = $venue->equipments()->get();
-    // $services = $venue->services()->get();
-    // $price_details = $venue->calculate_price( //[0]は合計料金, [1]は延長料金, [2]は合計＋延長、 [3]は利用時間, [4]は延長時間
-    //   $request->price_system,
-    //   $request->enter_time,
-    //   $request->leave_time
-    // );
-
-    // $s_equipment = [];
-    // $s_services = [];
-    // foreach ($request->all() as $key => $value) {
-    //   if (preg_match('/equipment_breakdown/', $key)) {
-    //     $s_equipment[] = $value;
-    //   }
-    //   if (preg_match('/services_breakdown/', $key)) {
-    //     $s_services[] = $value;
-    //   }
-    // }
-    // $item_details = $venue->calculate_items_price($s_equipment, $s_services);    // [0]備品＋サービス [1]備品詳細 [2]サービス詳細 [3]備品合計 [4]サービス合計
-    // $layouts_details = $venue->getLayoutPrice($request->layout_prepare, $request->layout_clean);
-    // if ($price_details == 0) { //枠がなく会場料金を手打ちするパターン
-    //   $masters =
-    //     ($item_details[0] + $request->luggage_price)
-    //     + $layouts_details[2];
-    // } else {
-    //   $masters =
-    //     ($price_details[2] ? $price_details[2] : 0)
-    //     + ($item_details[0] + $request->luggage_price)
-    //     + $layouts_details[2];
-    // }
-    // $user = User::find($request->user_id);
-    // $pay_limit = $user->getUserPayLimit($request->reserve_date);
-
     return view(
       'admin.reservations.edit_calculate',
       compact(
@@ -551,59 +513,50 @@ class ReservationsController extends Controller
         'item_details',
         'layouts_details',
       )
-      // [
-      // 'venues' => $venues,
-      // 'users' => $users,
-      // 'request' => $request,
-      // 'equipments' => $equipments,
-      // 'services' => $services,
-      // 's_equipment' => $s_equipment, //選択された備品
-      // 's_services' => $s_services, //選択されたサービス
-      // 'price_details' => $price_details,
-      // 'item_details' => $item_details,
-      // 'layouts_details' => $layouts_details,
-      // 'masters' => $masters,
-      // 'pay_limit' => $pay_limit,
-      // 'user' => $user,
-      // 'venue' => $venue,
-      // ]
     );
   }
 
-  public function edit_check(Request $request, $id)
+  public function sessionForEditCheck(Request $request)
   {
+    $data = $request->all();
+    $request->session()->put('result', $data);
+    return redirect(route('admin.reservations.edit_check'));
+  }
 
-    $venue = Venue::find($request->venue_id);
-    $venue_details = Venue::getBreakdowns($request);
-    $equipment_details = Equipment::getBreakdowns($request);
-    $service_details = Service::getBreakdowns($request);
-    $others_details = [];
-    foreach ($request->all() as $key => $value) {
-      if (preg_match('/others_input_item/', $key)) {
+  public function edit_check(Request $request)
+  {
+    var_dump($request->all());
+    // $venue = Venue::find($request->venue_id);
+    // $venue_details = Venue::getBreakdowns($request);
+    // $equipment_details = Equipment::getBreakdowns($request);
+    // $service_details = Service::getBreakdowns($request);
+    // $others_details = [];
+    // foreach ($request->all() as $key => $value) {
+    //   if (preg_match('/others_input_item/', $key)) {
 
-        if (!empty($value)) {
-          $others_details[] = $value;
-        }
-      }
-    }
-    $others_details = !empty($others_details) ? count($others_details) : "";
+    //     if (!empty($value)) {
+    //       $others_details[] = $value;
+    //     }
+    //   }
+    // }
+    // $others_details = !empty($others_details) ? count($others_details) : "";
 
-    $equ_breakdowns = Equipment::getBreakdowns($request);
-    $ser_breakdowns = Service::getBreakdowns($request);
-    return view(
-      'admin.reservations.edit_check',
-      compact(
-        'request',
-        'venue',
-        'venue_details',
-        'equipment_details',
-        'service_details',
-        'others_details',
-        'equ_breakdowns',
-        'ser_breakdowns',
-        'id'
-      )
-    );
+    // $equ_breakdowns = Equipment::getBreakdowns($request);
+    // $ser_breakdowns = Service::getBreakdowns($request);
+    // return view(
+    //   'admin.reservations.edit_check',
+    //   compact(
+    //     'request',
+    //     'venue',
+    //     'venue_details',
+    //     'equipment_details',
+    //     'service_details',
+    //     'others_details',
+    //     'equ_breakdowns',
+    //     'ser_breakdowns',
+    //     'id'
+    //   )
+    // );
   }
 
 

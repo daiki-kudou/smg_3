@@ -42,10 +42,7 @@
 
 
 
-{{-- {{Form::open(['url' => 'admin/reservations/'.$id.'/edit_calculate', 'method' => 'POST', 'id'=>'edit_calculate'])}}
---}}
 {{Form::open(['url' => 'admin/reservations/session_for_edit_calculate', 'method' => 'POST', 'id'=>'reservations_edit'])}}
-
 @csrf
 
 
@@ -582,8 +579,8 @@
 
 
 
-{{-- {{ Form::open(['url' => 'admin/reservations/'.$id.'/edit_check', 'method'=>'POST', 'id'=>'edit_check']) }}
-@csrf --}}
+{{ Form::open(['url' => 'admin/reservations/session_for_edit_check', 'method'=>'POST', 'id'=>'']) }}
+@csrf
 <section class="mt-5">
   <div class="bill">
     <div class="bill_head">
@@ -1089,36 +1086,8 @@
     </div>
   </div>
 </section>
-{{-- {{ Form::hidden('venue_id', $request->venue_id )}}
-{{ Form::hidden('reserve_date', $request->reserve_date )}}
-{{ Form::hidden('user_id', $request->user_id )}}
-{{ Form::hidden('price_system', $request->price_system )}}
-{{ Form::hidden('enter_time', $request->enter_time )}}
-{{ Form::hidden('leave_time', $request->leave_time )}}
-{{ Form::hidden('board_flag', $request->board_flag )}}
-{{ Form::hidden('event_start', $request->event_start )}}
-{{ Form::hidden('event_finish', $request->event_finish )}}
-{{ Form::hidden('event_name1', $request->event_name1 )}}
-{{ Form::hidden('event_name2', $request->event_name2 )}}
-{{ Form::hidden('event_owner', $request->event_owner )}}
-{{ Form::hidden('in_charge', $request->in_charge )}}
-{{ Form::hidden('tel', $request->tel )}}
-{{ Form::hidden('email_flag', $request->email_flag )}}
-{{ Form::hidden('cost', $request->cost )}}
 
-{{ Form::hidden('luggage_arrive', $request->luggage_arrive )}}
-{{ Form::hidden('luggage_return', $request->luggage_return )}}
-{{ Form::hidden('luggage_return', $request->luggage_return )}}
-{{ Form::hidden('luggage_price', $request->luggage_price )}}
-
-{{ Form::hidden('layout_prepare', $request->layout_prepare )}}
-{{ Form::hidden('layout_clean', $request->layout_clean )}}
-
-
-
-{{ Form::hidden('item_details', json_encode($item_details) )}}
-{{ Form::hidden('layouts_details', json_encode($layouts_details)) }} --}}
-{{Form::submit('確認する', ['class'=>'btn d-block more_btn_lg mx-auto my-5', 'id'=>'check_submit'])}}
+{{Form::submit('確認する', ['class'=>'btn d-block more_btn_lg mx-auto my-5', 'id'=>''])}}
 {{Form::close()}}
 
 <script>

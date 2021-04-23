@@ -78,6 +78,9 @@
         <tr>
           <td class="table-active">料金体系</td>
           <td>
+            {{-- @if ($venue->getPriceSystem()[0]==)
+                
+            @endif --}}
             <div class='price_radio_selector'>
               <div class="d-flex justfy-content-start align-items-center">
                 {{ Form::radio('price_system', 1, isset($reservation->price_system)?$reservation->price_system==1?true:false:'', ['class'=>'mr-2', 'id'=>'price_system_radio1']) }}
