@@ -1,32 +1,30 @@
+<link href="{{ asset('css/adminlte.min.css')}}" rel="stylesheet">
 <link href="{{ asset('/css/template.css') }}" rel="stylesheet">
-<script src="{{ asset('/js/template.js') }}"></script>
 
-<section class="mt-5">
-  <a href="{{url('admin/note')}}">戻る</a>
-
-  <table class="table table-bordered" style="width:100%">
+<section class="mt-5 px-5">
+  <table class="table table-bordered">
     <tbody>
       <tr>
         <td>時間</td>
         <td>会場</td>
         <td>会社名</td>
         <td>対応内容</td>
-        <td>編集</td>
+        <td></td>
       </tr>
     </tbody>
-    <tbody id="sortableArea" class="main_table" style="table-layout: fixed;">
+    <tbody class="main_table" style="table-layout: fixed;">
       @foreach ($notes as $note)
       @if ($id==$note->id)
       {{ Form::open(['url' => 'admin/note/update', 'method' => 'post','id'=>'add_note_form']) }}
       @csrf
       <tr>
-        <td>{{Form::text('hour',$note->hour)}}</td>
-        <td>{{Form::text('venue',$note->venue)}}</td>
-        <td>{{Form::text('company',$note->company)}}</td>
-        <td>{{Form::textarea('content',$note->content)}}</td>
+        <td>{{Form::text('hour',$note->hour, ['class' => 'form-control'])}}</td>
+        <td>{{Form::text('venue',$note->venue, ['class' => 'form-control'])}}</td>
+        <td>{{Form::text('company',$note->company, ['class' => 'form-control'])}}</td>
+        <td>{{Form::textarea('content',$note->content, ['class' => 'form-control'])}}</td>
         <td>
           {{Form::hidden('note_id',$note->id)}}
-          {{ Form::submit('更新', ['class' => 'btn']) }}
+          {{ Form::submit('更新する', ['class' => 'btn more_btn']) }}
         </td>
       </tr>
       {{ Form::close() }}
@@ -41,6 +39,7 @@
       @endif
       @endforeach
     </tbody>
-
   </table>
+
+  <a class="btn more_btn" href="{{url('admin/note')}}">戻る</a>
 </section>

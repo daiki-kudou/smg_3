@@ -362,6 +362,7 @@ input.more_btn {
 }
 
 .more_btn3 {
+    text-decoration: none;
     padding: 1em 5em;
     color: #333;
     font-weight: bold;
@@ -1018,16 +1019,6 @@ table td.table_column p:last-child {
 /* =============予約状況カレンダー　================================================ */
 .calenderframe {
     margin-top: 40px;
-}
-
-
-.calneder-wrap {
-    padding: 30px;
-    border: 1px solid #ced4da;
-}
-
-.calender-note {
-    margin-top: 30px;
 }
 
 #sortableArea {
