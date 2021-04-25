@@ -467,6 +467,7 @@
         </tbody>
       </table>
     </div>
+
     <div class="bill_details">
       <div class="head d-flex">
         <div class="accordion_btn">
@@ -544,7 +545,7 @@
           </table>
         </div>
 
-        @if (!empty($e_cnt)||!empty($s_cnt)||$result['luggage_subtotal'])
+        @if (!empty($e_cnt)||!empty($s_cnt)||!empty($result['luggage_subtotal']))
         <div class="equipment billdetails_content">
           <table class="table table-borderless">
             <tr>
@@ -594,7 +595,7 @@
                   </td>
                   </tr>
                   @endfor
-                  @if ($result['luggage_subtotal'])
+                  @if (!empty($result['luggage_subtotal']))
                   <tr>
                     <td>
                       {{ Form::text('luggage_item', $result['luggage_item'],['class'=>'form-control', 'readonly'] ) }}
@@ -606,7 +607,7 @@
                       {{ Form::text('', 1,['class'=>'form-control', 'readonly'] ) }}
                     </td>
                     <td>
-                      {{ Form::text('luggage_subtotal', $result['luggage_subtotal'],['class'=>'form-control', 'readonly'] ) }}
+                      {{ Form::text('luggage_subtotal', !empty($result['luggage_subtotal']),['class'=>'form-control', 'readonly'] ) }}
                     </td>
                   </tr>
                   @endif
@@ -640,7 +641,7 @@
         </div>
         @endif
 
-        @if ($result['layout_prepare_subtotal']||$result['layout_clean_subtotal'])
+        @if ($result['layout_prepare_subtotal']||!empty($result['layout_clean_subtotal']))
         <div class="layout billdetails_content">
           <table class="table table-borderless">
             <tr>
@@ -675,7 +676,7 @@
                 </td>
               </tr>
               @endif
-              @if ($result['layout_clean_subtotal'])
+              @if (!empty($result['layout_clean_subtotal']))
               <tr>
                 <td>
                   {{ Form::text('layout_clean_item', $result['layout_clean_item'],['class'=>'form-control', 'readonly'] ) }}

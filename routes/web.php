@@ -137,6 +137,7 @@ Route::namespace('Admin')->prefix('admin')->name('admin.')->group(function () {
     // 予約　編集確認
     Route::get('reservations/edit_check', 'ReservationsController@edit_check')->name('reservations.edit_check');
 
+    Route::post('reservations/edit_without_calc', 'ReservationsController@editWithoutCalc');
 
 
     // 予約　show
@@ -240,6 +241,7 @@ Route::namespace('Admin')->prefix('admin')->name('admin.')->group(function () {
     Route::post('agents_reservations/session_check', 'AgentsReservationsController@editCheckSession');
     Route::get('agents_reservations/edit_check', 'AgentsReservationsController@editCheck')->name('agents_reservations.edit_check');
     Route::post('agents_reservations/update', 'AgentsReservationsController@update');
+
 
 
     //********************** */

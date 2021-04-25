@@ -63,6 +63,8 @@ class Reservation extends Model implements PresentableInterface
     'bill_created_at',
     'bill_pay_limit',
     'bill_remark',
+    'eat_in',
+    'eat_in_prepare',
   ];
   protected $dates = [
     'reserve_date',
@@ -188,6 +190,8 @@ class Reservation extends Model implements PresentableInterface
         'attention' => "",
         'user_details' => $master_info['user_details'],
         'admin_details' => $master_info['admin_details'],
+        'eat_in' => !empty($master_info['eat_in']) ? $master_info['eat_in'] : 0,
+        'eat_in_prepare' => !empty($master_info['eat_in_prepare']) ? $master_info['eat_in_prepare'] : 0,
       ]);
       $reservation->ReserveStoreSessionBill($request, $sessionName2, $sessionName2);
     });

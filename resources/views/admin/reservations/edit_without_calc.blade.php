@@ -619,7 +619,7 @@
 {{Form::submit('再計算する', ['class'=>'btn more_btn4_lg mx-auto d-block mt-5 mb-5', 'id'=>'check_submit'])}}
 {{Form::close()}}
 
-{{ Form::open(['url' => 'admin/reservations/edit_without_calc', 'method'=>'POST', 'id'=>'']) }}
+{{ Form::open(['url' => 'admin/reservations/session_for_edit_check', 'method'=>'POST', 'id'=>'']) }}
 @csrf
 <section class="mt-5">
   <div class="bill">
@@ -677,22 +677,37 @@
               </tr>
             </tbody>
             <tbody class="venue_main">
-              @foreach ($bill->breakdowns->where('unit_type',1) as $key=>$venue_price)
-              <tr>
+              @for ($i = 0; $i < $v_cnt; $i++) <tr>
                 <td>
-                  {{ Form::text('venue_breakdown_item'.$key, $venue_price->unit_item,['class'=>'form-control', 'readonly'] ) }}
+                  {{ Form::text('venue_breakdown_item'.$i, $result['venue_breakdown_item'.$i],['class'=>'form-control', 'readonly'] ) }}
                 </td>
                 <td>
-                  {{ Form::text('venue_breakdown_cost'.$key, $venue_price->unit_cost,['class'=>'form-control', 'readonly'] ) }}
+                  {{ Form::text('venue_breakdown_cost'.$i, $result['venue_breakdown_cost'.$i],['class'=>'form-control', 'readonly'] ) }}
                 </td>
                 <td>
-                  {{ Form::text('venue_breakdown_count'.$key, $venue_price->unit_count,['class'=>'form-control', 'readonly'] ) }}
+                  {{ Form::text('venue_breakdown_count'.$i, $result['venue_breakdown_count'.$i],['class'=>'form-control', 'readonly'] ) }}
                 </td>
                 <td>
-                  {{ Form::text('venue_breakdown_subtotal'.$key, $venue_price->unit_subtotal,['class'=>'form-control', 'readonly'] ) }}
+                  {{ Form::text('venue_breakdown_subtotal'.$i, $result['venue_breakdown_subtotal'.$i],['class'=>'form-control', 'readonly'] ) }}
                 </td>
-              </tr>
-              @endforeach
+                </tr>
+                @endfor
+                @if (!empty($result['venue_breakdown_discount_item']))
+                <tr>
+                  <td>
+                    {{ Form::text('venue_breakdown_discount_item', $result['venue_breakdown_discount_item'],['class'=>'form-control', 'readonly'] ) }}
+                  </td>
+                  <td>
+                    {{ Form::text('venue_breakdown_discount_cost', $result['venue_breakdown_discount_cost'],['class'=>'form-control', 'readonly'] ) }}
+                  </td>
+                  <td>
+                    {{ Form::text('venue_breakdown_discount_count', $result['venue_breakdown_discount_count'],['class'=>'form-control', 'readonly'] ) }}
+                  </td>
+                  <td>
+                    {{ Form::text('venue_breakdown_discount_subtotal', $result['venue_breakdown_discount_subtotal'],['class'=>'form-control', 'readonly'] ) }}
+                  </td>
+                </tr>
+                @endif
             </tbody>
             <tbody class="venue_result">
               <tr>
@@ -703,38 +718,10 @@
                 </td>
               </tr>
             </tbody>
-
-            <tbody class="venue_discount">
-              <tr>
-                <td>割引計算欄</td>
-                <td>
-                  <p>
-                    割引金額
-                  </p>
-                  <div class="d-flex">
-                    {{ Form::text('venue_number_discount', '',['class'=>'form-control'] ) }}
-                    <p>円</p>
-                  </div>
-                  <p class="is-error-venue_number_discount" style="color: red"></p>
-                </td>
-                <td>
-                  <p>
-                    割引率
-                  </p>
-                  <div class="d-flex">
-                    {{ Form::text('venue_percent_discount', '',['class'=>'form-control'] ) }}
-                    <p>%</p>
-                  </div>
-                  <p class="is-error-venue_percent_discount" style="color: red"></p>
-                </td>
-                <td>
-                  <input class="btn more_btn venue_discount_btn" type="button" value="計算する">
-                </td>
-              </tr>
-            </tbody>
           </table>
         </div>
 
+        @if (!empty($e_cnt)||!empty($s_cnt)||!empty($result['luggage_subtotal']))
         <div class="equipment billdetails_content">
           <table class="table table-borderless">
             <tr>
@@ -753,78 +740,82 @@
               </tr>
             </tbody>
             <tbody class="equipment_main">
-              @foreach ($bill->breakdowns->where('unit_type',2) as $e_key=>$equipment_price)
-              <tr>
+              @for ($ii = 0; $ii < $e_cnt; $ii++) <tr>
                 <td>
-                  {{ Form::text('equipment_breakdown_item'.$e_key, $equipment_price->unit_item,['class'=>'form-control', 'readonly'] ) }}
+                  {{ Form::text('equipment_breakdown_item'.$ii, $result['equipment_breakdown_item'.$ii],['class'=>'form-control', 'readonly'] ) }}
                 </td>
                 <td>
-                  {{ Form::text('equipment_breakdown_cost'.$e_key, $equipment_price->unit_cost,['class'=>'form-control', 'readonly'] ) }}
+                  {{ Form::text('equipment_breakdown_cost'.$ii, $result['equipment_breakdown_cost'.$ii],['class'=>'form-control', 'readonly'] ) }}
                 </td>
                 <td>
-                  {{ Form::text('equipment_breakdown_count'.$e_key, $equipment_price->unit_count,['class'=>'form-control', 'readonly'] ) }}
+                  {{ Form::text('equipment_breakdown_count'.$ii, $result['equipment_breakdown_count'.$ii],['class'=>'form-control', 'readonly'] ) }}
                 </td>
                 <td>
-                  {{ Form::text('equipment_breakdown_subtotal'.$e_key, $equipment_price->unit_subtotal,['class'=>'form-control', 'readonly'] ) }}
+                  {{ Form::text('equipment_breakdown_subtotal'.$ii, $result['equipment_breakdown_subtotal'.$ii],['class'=>'form-control', 'readonly'] ) }}
                 </td>
-              </tr>
-              @endforeach
-              @foreach ($bill->breakdowns->where('unit_type',3) as $s_key=>$service_price)
-              <tr>
-                <td>
-                  {{ Form::text('equipment_breakdown_item'.$key, $service_price->unit_item,['class'=>'form-control', 'readonly'] ) }}
-                </td>
-                <td>
-                  {{ Form::text('equipment_breakdown_cost'.$key, $service_price->unit_cost,['class'=>'form-control', 'readonly'] ) }}
-                </td>
-                <td>
-                  {{ Form::text('equipment_breakdown_count'.$key, $service_price->unit_count,['class'=>'form-control', 'readonly'] ) }}
-                </td>
-                <td>
-                  {{ Form::text('equipment_breakdown_subtotal'.$key, $service_price->unit_subtotal,['class'=>'form-control', 'readonly'] ) }}
-                </td>
-              </tr>
-              @endforeach
+                </tr>
+                @endfor
+
+                @for ($ss = 0; $ss < $s_cnt; $ss++) <tr>
+                  <td>
+                    {{ Form::text('service_breakdown_item'.$ss, $result['services_breakdown_item'.$ss],['class'=>'form-control', 'readonly'] ) }}
+                  </td>
+                  <td>
+                    {{ Form::text('service_breakdown_cost'.$ss, $result['services_breakdown_cost'.$ss],['class'=>'form-control', 'readonly'] ) }}
+                  </td>
+                  <td>
+                    {{ Form::text('service_breakdown_count'.$ss, $result['services_breakdown_count'.$ss],['class'=>'form-control', 'readonly'] ) }}
+                  </td>
+                  <td>
+                    {{ Form::text('service_breakdown_subtotal'.$ss, $result['services_breakdown_subtotal'.$ss],['class'=>'form-control', 'readonly'] ) }}
+                  </td>
+                  </tr>
+                  @endfor
+                  @if ($result['luggage_subtotal'])
+                  <tr>
+                    <td>
+                      {{ Form::text('luggage_item', $result['luggage_item'],['class'=>'form-control', 'readonly'] ) }}
+                    </td>
+                    <td>
+                      {{ Form::text('luggage_cost', $result['luggage_cost'],['class'=>'form-control', 'readonly'] ) }}
+                    </td>
+                    <td>
+                      {{ Form::text('', 1,['class'=>'form-control', 'readonly'] ) }}
+                    </td>
+                    <td>
+                      {{ Form::text('luggage_subtotal', $result['luggage_subtotal'],['class'=>'form-control', 'readonly'] ) }}
+                    </td>
+                  </tr>
+                  @endif
+                  @if (!empty($result['equipment_breakdown_discount_item']))
+                  <tr>
+                    <td>
+                      {{ Form::text('equipment_breakdown_discount_item', $result['equipment_breakdown_discount_item'],['class'=>'form-control', 'readonly'] ) }}
+                    </td>
+                    <td>
+                      {{ Form::text('equipment_breakdown_discount_cost', $result['equipment_breakdown_discount_cost'],['class'=>'form-control', 'readonly'] ) }}
+                    </td>
+                    <td>
+                      {{ Form::text('equipment_breakdown_discount_count', $result['equipment_breakdown_discount_count'],['class'=>'form-control', 'readonly'] ) }}
+                    </td>
+                    <td>
+                      {{ Form::text('equipment_breakdown_discount_subtotal', $result['equipment_breakdown_discount_subtotal'],['class'=>'form-control', 'readonly'] ) }}
+                    </td>
+                  </tr>
+                  @endif
             </tbody>
             <tbody class="equipment_result">
               <tr>
                 <td colspan="3"></td>
                 <td colspan="1">
                   <p class="text-left">合計</p>
-                  {{ Form::text('equipment_price', $bill->equipment_price,['class'=>'form-control', 'readonly'] ) }}
-                </td>
-              </tr>
-            </tbody>
-            <tbody class="equipment_discount">
-              <tr>
-                <td>割引計算欄</td>
-                <td>
-                  <p>
-                    割引金額
-                  </p>
-                  <div class="d-flex">
-                    {{ Form::text('equipment_number_discount', '',['class'=>'form-control'] ) }}
-                    <p>円</p>
-                  </div>
-                  <p class="is-error-equipment_number_discount" style="color: red"></p>
-                </td>
-                <td>
-                  <p>
-                    割引率
-                  </p>
-                  <div class="d-flex">
-                    {{ Form::text('equipment_percent_discount', '',['class'=>'form-control'] ) }}
-                    <p>%</p>
-                  </div>
-                  <p class="is-error-equipment_percent_discount" style="color: red"></p>
-                </td>
-                <td>
-                  <input class="btn more_btn equipment_discount_btn" type="button" value="計算する">
+                  {{ Form::text('equipment_price', $result['equipment_price'],['class'=>'form-control', 'readonly'] ) }}
                 </td>
               </tr>
             </tbody>
           </table>
         </div>
+        @endif
 
         <div class="layout billdetails_content">
           <table class="table table-borderless">
@@ -923,21 +914,18 @@
               @foreach ($bill->breakdowns->where('unit_type',5) as $key=>$others_price)
               <tr>
                 <td>
-                  {{ Form::text('others_input_item'.$key, $others_price->unit_item,['class'=>'form-control', ''] ) }}
+                  {{ Form::text('others_input_item'.$key, $others_price->unit_item,['class'=>'form-control', 'readonly'] ) }}
                 </td>
                 <td>
-                  {{ Form::text('others_input_cost'.$key, $others_price->unit_cost,['class'=>'form-control', ''] ) }}
+                  {{ Form::text('others_input_cost'.$key, $others_price->unit_cost,['class'=>'form-control', 'readonly'] ) }}
                 </td>
                 <td>
-                  {{ Form::text('others_input_count'.$key, $others_price->unit_count,['class'=>'form-control', ''] ) }}
+                  {{ Form::text('others_input_count'.$key, $others_price->unit_count,['class'=>'form-control', 'readonly'] ) }}
                 </td>
                 <td>
-                  {{ Form::text('others_input_subtotal'.$key, $others_price->unit_subtotal,['class'=>'form-control', ''] ) }}
+                  {{ Form::text('others_input_subtotal'.$key, $others_price->unit_subtotal,['class'=>'form-control', 'readonly'] ) }}
                 </td>
-                <td>
-                  <input type="button" value="＋" class="add pluralBtn">
-                  <input type="button" value="ー" class="del pluralBtn">
-                </td>
+                <td>工藤さん！！！追加と削除のボタンの実装</td>
               </tr>
               @endforeach
             </tbody>

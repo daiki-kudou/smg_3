@@ -247,6 +247,7 @@ class Bill extends Model
   {
     DB::transaction(function () use ($request) {
       $countVenue = $this->RequestBreakdowns($request, 'venue_breakdown_item');
+
       if ($countVenue != "") {
         for ($i = 0; $i < $countVenue; $i++) {
           $this->breakdowns()->create([
@@ -484,7 +485,9 @@ class Bill extends Model
     $array_details = [];
     foreach ($request->all() as $key => $value) {
       if (preg_match('/' . $targetItem . '/', $key)) {
-        $array_details[] = $value;
+        if (!empty($value)) {
+          $array_details[] = $value;
+        }
       }
     }
     if (!empty($array_details)) {
