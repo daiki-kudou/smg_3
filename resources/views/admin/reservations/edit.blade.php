@@ -680,16 +680,16 @@
               @foreach ($bill->breakdowns->where('unit_type',1) as $key=>$venue_price)
               <tr>
                 <td>
-                  {{ Form::text('venue_breakdown_item'.$key, $venue_price->unit_item,['class'=>'form-control', 'readonly'] ) }}
+                  {{ Form::text('venue_breakdown_item[]', $venue_price->unit_item,['class'=>'form-control', 'readonly'] ) }}
                 </td>
                 <td>
-                  {{ Form::text('venue_breakdown_cost'.$key, $venue_price->unit_cost,['class'=>'form-control', 'readonly'] ) }}
+                  {{ Form::text('venue_breakdown_cost[]', $venue_price->unit_cost,['class'=>'form-control', 'readonly'] ) }}
                 </td>
                 <td>
-                  {{ Form::text('venue_breakdown_count'.$key, $venue_price->unit_count,['class'=>'form-control', 'readonly'] ) }}
+                  {{ Form::text('venue_breakdown_count[]', $venue_price->unit_count,['class'=>'form-control', 'readonly'] ) }}
                 </td>
                 <td>
-                  {{ Form::text('venue_breakdown_subtotal'.$key, $venue_price->unit_subtotal,['class'=>'form-control', 'readonly'] ) }}
+                  {{ Form::text('venue_breakdown_subtotal[]', $venue_price->unit_subtotal,['class'=>'form-control', 'readonly'] ) }}
                 </td>
               </tr>
               @endforeach
@@ -756,32 +756,32 @@
               @foreach ($bill->breakdowns->where('unit_type',2) as $e_key=>$equipment_price)
               <tr>
                 <td>
-                  {{ Form::text('equipment_breakdown_item'.$e_key, $equipment_price->unit_item,['class'=>'form-control', 'readonly'] ) }}
+                  {{ Form::text('equipment_breakdown_item[]', $equipment_price->unit_item,['class'=>'form-control', 'readonly'] ) }}
                 </td>
                 <td>
-                  {{ Form::text('equipment_breakdown_cost'.$e_key, $equipment_price->unit_cost,['class'=>'form-control', 'readonly'] ) }}
+                  {{ Form::text('equipment_breakdown_cost[]', $equipment_price->unit_cost,['class'=>'form-control', 'readonly'] ) }}
                 </td>
                 <td>
-                  {{ Form::text('equipment_breakdown_count'.$e_key, $equipment_price->unit_count,['class'=>'form-control', 'readonly'] ) }}
+                  {{ Form::text('equipment_breakdown_count[]', $equipment_price->unit_count,['class'=>'form-control', 'readonly'] ) }}
                 </td>
                 <td>
-                  {{ Form::text('equipment_breakdown_subtotal'.$e_key, $equipment_price->unit_subtotal,['class'=>'form-control', 'readonly'] ) }}
+                  {{ Form::text('equipment_breakdown_subtotal[]', $equipment_price->unit_subtotal,['class'=>'form-control', 'readonly'] ) }}
                 </td>
               </tr>
               @endforeach
               @foreach ($bill->breakdowns->where('unit_type',3) as $s_key=>$service_price)
               <tr>
                 <td>
-                  {{ Form::text('equipment_breakdown_item'.$key, $service_price->unit_item,['class'=>'form-control', 'readonly'] ) }}
+                  {{ Form::text('equipment_breakdown_item[]', $service_price->unit_item,['class'=>'form-control', 'readonly'] ) }}
                 </td>
                 <td>
-                  {{ Form::text('equipment_breakdown_cost'.$key, $service_price->unit_cost,['class'=>'form-control', 'readonly'] ) }}
+                  {{ Form::text('equipment_breakdown_cost[]', $service_price->unit_cost,['class'=>'form-control', 'readonly'] ) }}
                 </td>
                 <td>
-                  {{ Form::text('equipment_breakdown_count'.$key, $service_price->unit_count,['class'=>'form-control', 'readonly'] ) }}
+                  {{ Form::text('equipment_breakdown_count[]', $service_price->unit_count,['class'=>'form-control', 'readonly'] ) }}
                 </td>
                 <td>
-                  {{ Form::text('equipment_breakdown_subtotal'.$key, $service_price->unit_subtotal,['class'=>'form-control', 'readonly'] ) }}
+                  {{ Form::text('equipment_breakdown_subtotal[]', $service_price->unit_subtotal,['class'=>'form-control', 'readonly'] ) }}
                 </td>
               </tr>
               @endforeach
@@ -847,16 +847,16 @@
               @foreach ($bill->breakdowns->where('unit_type',4) as $key=>$layouts_price)
               <tr>
                 <td>
-                  {{ Form::text('layout_breakdown_item'.$key, $layouts_price->unit_item,['class'=>'form-control', 'readonly'] ) }}
+                  {{ Form::text('layout_breakdown_item[]', $layouts_price->unit_item,['class'=>'form-control', 'readonly'] ) }}
                 </td>
                 <td>
-                  {{ Form::text('layout_breakdown_cost'.$key, $layouts_price->unit_cost,['class'=>'form-control', 'readonly'] ) }}
+                  {{ Form::text('layout_breakdown_cost[]', $layouts_price->unit_cost,['class'=>'form-control', 'readonly'] ) }}
                 </td>
                 <td>
-                  {{ Form::text('layout_breakdown_count'.$key, $layouts_price->unit_count,['class'=>'form-control', 'readonly'] ) }}
+                  {{ Form::text('layout_breakdown_count[]', $layouts_price->unit_count,['class'=>'form-control', 'readonly'] ) }}
                 </td>
                 <td>
-                  {{ Form::text('layout_breakdown_subtotal'.$key, $layouts_price->unit_subtotal,['class'=>'form-control', 'readonly'] ) }}
+                  {{ Form::text('layout_breakdown_subtotal[]', $layouts_price->unit_subtotal,['class'=>'form-control', 'readonly'] ) }}
                 </td>
               </tr>
               @endforeach
@@ -923,16 +923,16 @@
               @foreach ($bill->breakdowns->where('unit_type',5) as $key=>$others_price)
               <tr>
                 <td>
-                  {{ Form::text('others_input_item'.$key, $others_price->unit_item,['class'=>'form-control', ''] ) }}
+                  {{ Form::text('others_input_item[]', $others_price->unit_item,['class'=>'form-control', ''] ) }}
                 </td>
                 <td>
-                  {{ Form::text('others_input_cost'.$key, $others_price->unit_cost,['class'=>'form-control', ''] ) }}
+                  {{ Form::text('others_input_cost[]', $others_price->unit_cost,['class'=>'form-control', ''] ) }}
                 </td>
                 <td>
-                  {{ Form::text('others_input_count'.$key, $others_price->unit_count,['class'=>'form-control', ''] ) }}
+                  {{ Form::text('others_input_count[]', $others_price->unit_count,['class'=>'form-control', ''] ) }}
                 </td>
                 <td>
-                  {{ Form::text('others_input_subtotal'.$key, $others_price->unit_subtotal,['class'=>'form-control', ''] ) }}
+                  {{ Form::text('others_input_subtotal[]', $others_price->unit_subtotal,['class'=>'form-control', ''] ) }}
                 </td>
                 <td>
                   <input type="button" value="＋" class="add pluralBtn">

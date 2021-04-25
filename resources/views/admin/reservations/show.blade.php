@@ -736,12 +736,12 @@
           {{ Form::hidden('user_id', $reservation->user_id ) }}
           {{ Form::hidden('reservation_id', $reservation->id ) }}
 
-          <p class="mr-2">{{ Form::submit('利用者に承認メールを送る',['class' => 'btn more_btn']) }}</p>
+          <p class="mr-2">{{ Form::submit('利用者に承認メールを送る',['class' => 'btn more_btn approve_send']) }}</p>
           {{ Form::close() }}
           {{ Form::open(['url' => 'admin/agents_reservations/confirm', 'method'=>'POST', 'class'=>'']) }}
           @csrf
           {{ Form::hidden('bill_id', $other_bill->id ) }}
-          <p>{{ Form::submit('予約を確定する',['class' => 'btn more_btn4']) }}</p>
+          <p>{{ Form::submit('予約を確定する',['class' => 'btn more_btn4 confirm_btn']) }}</p>
           {{ Form::close() }}
           @endif
           @endif
@@ -1161,7 +1161,7 @@
           @csrf
           {{ Form::hidden('cxl_id', $cxl->id ) }}
           <p class="mr-2">
-            {{ Form::submit('利用者にキャンセル承認メールを送る',['class' => 'btn more_btn']) }}
+            {{ Form::submit('利用者にキャンセル承認メールを送る',['class' => 'btn more_btn approve_send']) }}
           </p>
           {{ Form::close() }}
 
@@ -1484,7 +1484,19 @@
         return false;
       }
     });
+    $('.approve_send').on('click', function() {
+      if (!confirm('利用者に承認メールを送付しますか？')) {
+        return false;
+      }
+    });
+    $('.confirm_btn').on('click', function() {
+      if (!confirm('予約を確定しますか？')) {
+        return false;
+      }
+    });
   });
+
+
 </script>
 
 

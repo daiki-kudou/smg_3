@@ -463,6 +463,8 @@ class ReservationsController extends Controller
     $s_cnt = $this->preg($result, "services_breakdown_item");
     $o_cnt = $this->preg($result, "others_input_item");
 
+    var_dump($result["venue_breakdown_item"]);
+
     return view('admin.reservations.edit_without_calc', [
       'reservation' => $reservation,
       'venue' => $venue,

@@ -676,6 +676,7 @@
                 <td>金額</td>
               </tr>
             </tbody>
+            {{var_dump($result["venue_breakdown_item"])}}
             <tbody class="venue_main">
               @for ($i = 0; $i < $v_cnt; $i++) <tr>
                 <td>

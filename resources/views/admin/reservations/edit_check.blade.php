@@ -641,7 +641,7 @@
         </div>
         @endif
 
-        @if ($result['layout_prepare_subtotal']||!empty($result['layout_clean_subtotal']))
+        @if (!empty($result['layout_prepare_subtotal'])||!empty($result['layout_clean_subtotal']))
         <div class="layout billdetails_content">
           <table class="table table-borderless">
             <tr>
@@ -660,7 +660,7 @@
               </tr>
             </tbody>
             <tbody class="layout_main">
-              @if ($result['layout_prepare_subtotal'])
+              @if (!empty($result['layout_prepare_subtotal']))
               <tr>
                 <td>
                   {{ Form::text('layout_prepare_item', $result['layout_prepare_item'],['class'=>'form-control', 'readonly'] ) }}
@@ -672,7 +672,7 @@
                   {{ Form::text('layout_prepare_count', $result['layout_prepare_count'],['class'=>'form-control', 'readonly'] )}}
                 </td>
                 <td>
-                  {{ Form::text('layout_prepare_subtotal', $result['layout_prepare_subtotal'],['class'=>'form-control', 'readonly'] )}}
+                  {{ Form::text('layout_prepare_subtotal', !empty($result['layout_prepare_subtotal']),['class'=>'form-control', 'readonly'] )}}
                 </td>
               </tr>
               @endif
