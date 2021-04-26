@@ -665,7 +665,7 @@
                 <td colspan="3"></td>
                 <td colspan="1">
                   <p class="text-left">合計</p>
-                  {{ Form::text('equipment_price', $checkInfo['equipment_price']+$value['luggage_price'],['class'=>'form-control', 'readonly'] ) }}
+                  {{ Form::text('equipment_price', $checkInfo['equipment_price']+(!empty($value['luggage_price'])?$value['luggage_price']:0),['class'=>'form-control', 'readonly'] ) }}
                 </td>
               </tr>
             </tbody>
@@ -754,7 +754,7 @@
         </div>
         @endif
 
-        @if ($o_cnt!=0)
+        @if (!empty($o_cnt))
         <div class="others billdetails_content">
           <table class="table table-borderless">
             <tr>
@@ -775,16 +775,16 @@
             <tbody class="others_main">
               @for ($o = 0; $o < $o_cnt; $o++) <tr>
                 <td>
-                  {{ Form::text('others_breakdown_item'.$o, $checkInfo['others_input_item'.$o],['class'=>'form-control', 'readonly'] ) }}
+                  {{ Form::text('others_breakdown_item'.$o, $checkInfo['others_breakdown_item'.$o],['class'=>'form-control', 'readonly'] ) }}
                 </td>
                 <td>
-                  {{ Form::text('others_breakdown_cost'.$o, $checkInfo['others_input_cost'.$o],['class'=>'form-control', 'readonly'] ) }}
+                  {{ Form::text('others_breakdown_cost'.$o, $checkInfo['others_breakdown_cost'.$o],['class'=>'form-control', 'readonly'] ) }}
                 </td>
                 <td>
-                  {{ Form::text('others_breakdown_count'.$o, $checkInfo['others_input_count'.$o],['class'=>'form-control', 'readonly'] ) }}
+                  {{ Form::text('others_breakdown_count'.$o, $checkInfo['others_breakdown_count'.$o],['class'=>'form-control', 'readonly'] ) }}
                 </td>
                 <td>
-                  {{ Form::text('others_breakdown_subtotal'.$o, $checkInfo['others_input_subtotal'.$o],['class'=>'form-control', 'readonly'] ) }}
+                  {{ Form::text('others_breakdown_subtotal'.$o, $checkInfo['others_breakdown_subtotal'.$o],['class'=>'form-control', 'readonly'] ) }}
                 </td>
                 </tr>
                 @endfor

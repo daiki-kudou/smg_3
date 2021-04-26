@@ -309,7 +309,7 @@ class ReservationsController extends Controller
     $v_cnt = $this->preg($checkInfo, "venue_breakdown_item");
     $e_cnt = $this->preg($checkInfo, "equipment_breakdown_item");
     $s_cnt = $this->preg($checkInfo, "services_breakdown_item");
-    $o_cnt = $this->preg($checkInfo, "others_input_item");
+    $o_cnt = $this->preg($checkInfo, "others_breakdown_item");
 
     return view(
       'admin.reservations.check',
@@ -567,7 +567,7 @@ class ReservationsController extends Controller
     $v_cnt = $this->preg($result, "venue_breakdown_item");
     $e_cnt = $this->preg($result, "equipment_breakdown_item");
     $s_cnt = $this->preg($result, "services_breakdown_item");
-    $o_cnt = $this->preg($result, "others_input_item");
+    $o_cnt = $this->preg($result, "others_breakdown_item");
     return view(
       'admin.reservations.edit_check',
       compact(

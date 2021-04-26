@@ -756,11 +756,11 @@ class Reservation extends Model implements PresentableInterface
     return 1;
   }
 
-  public function pluckSum($array)
+  public function pluckSum($array, $targetStatus)
   {
     $result = [];
     foreach ($array as $key => $value) {
-      $result[] = $this->bills->where("reservation_status", 3)->pluck($value)->sum(); //予約ステータス3（予約完了）のみが対象
+      $result[] = $this->bills->where("reservation_status", $targetStatus)->pluck($value)->sum(); //予約ステータス3（予約完了）のみが対象
     }
     return $result;
   }

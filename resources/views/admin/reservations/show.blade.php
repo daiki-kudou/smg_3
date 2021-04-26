@@ -1090,15 +1090,11 @@
                   <dt>合計金額：</dt>
                   <dd class="total_result">{{number_format($cxl->master_total)}} 円</dd>
                 </dl>
-                <!-- </td> -->
-                <!-- <td> -->
                 <dl class="ttl_box">
                   <dt>支払い期日：</dt>
                   <dd class="total_result">{{ReservationHelper::formatDate($cxl->payment_limit)}}</dd>
                 </dl>
-                <!-- </td> -->
-                <!-- <td> -->
-                <p><a href="#" class="btn more_btn">編集</a></p>
+                <p><a href="{{url('admin/cxl/edit/'.$cxl->id)}}" class="btn more_btn">キャンセル編集</a></p>
               </div>
             </td>
           </tr>

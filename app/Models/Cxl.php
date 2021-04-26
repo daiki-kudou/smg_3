@@ -116,7 +116,9 @@ class Cxl extends Model
           'unit_count' => $invoice['cxl_unit_count'][$key],
           'unit_cost' => $invoice['cxl_unit_cost'][$key],
           'unit_subtotal' => $invoice['cxl_unit_subtotal'][$key],
-          'unit_type' => 1 //1が計算結果　2が計算対象
+          'unit_type' => 1, //1が計算結果　2が計算対象
+          'unit_percent' => $invoice['cxl_unit_percent'][$key],
+          'unit_percent_type' => $invoice['cxl_target_type'][$key],
         ]);
       }
       foreach ($invoice['cxl_target_percent'] as $key => $value) {
@@ -125,11 +127,67 @@ class Cxl extends Model
           'unit_count' => $invoice['cxl_target_percent'][$key],
           'unit_cost' => $invoice['cxl_target_cost'][$key],
           'unit_subtotal' => 0, //計算対象は合計金額がない
-          'unit_type' => 2 //1が計算結果　2が計算対象
+          'unit_type' => 2, //1が計算結果　2が計算対象
+          'unit_percent' => 0, //計算結果のため、キャンセル料率の表示は不要
+          'unit_percent_type' => 0 //計算結果のため、タイプは不要
         ]);
       }
     });
   }
+
+  public function updateCxl($data, $invoice)
+  {
+    $cxlBill = DB::transaction(function () use ($data, $invoice) {
+      $cxlBill = $this->update([
+        'master_subtotal' => $invoice['master_subtotal'],
+        'master_tax' => $invoice['master_tax'],
+        'master_total' => $invoice['master_total'],
+        'payment_limit' => $invoice['payment_limit'],
+        'bill_company' => $invoice['bill_company'],
+        'bill_person' => $invoice['bill_person'],
+        'bill_created_at' => Carbon::now(),
+        'bill_remark' => $invoice['bill_remark'],
+        'paid' => $invoice["paid"],
+        'pay_day' => $invoice['pay_day'],
+        'pay_person' => $invoice['pay_person'],
+        'payment' => $invoice['payment'],
+      ]);
+      return $cxlBill;
+    });
+    return $cxlBill;
+  }
+
+  public function updateCxlBreakdowns($data, $invoice)
+  {
+    DB::transaction(function () use ($data, $invoice) {
+      foreach ($invoice['cxl_unit_subtotal'] as $key => $value) {
+        $this->cxl_breakdowns()->create([
+          'unit_item' => $invoice['cxl_unit_item'][$key],
+          'unit_count' => $invoice['cxl_unit_count'][$key],
+          'unit_cost' => $invoice['cxl_unit_cost'][$key],
+          'unit_subtotal' => $invoice['cxl_unit_subtotal'][$key],
+          'unit_type' => 1, //1が計算結果　2が計算対象
+          'unit_percent' => $invoice['cxl_unit_percent'][$key],
+          'unit_percent_type' => $invoice['cxl_target_type'][$key],
+        ]);
+      }
+      foreach ($invoice['cxl_target_percent'] as $key => $value) {
+        $this->cxl_breakdowns()->create([
+          'unit_item' => $invoice['cxl_target_item'][$key],
+          'unit_count' => $invoice['cxl_target_percent'][$key],
+          'unit_cost' => $invoice['cxl_target_cost'][$key],
+          'unit_subtotal' => 0, //計算対象は合計金額がない
+          'unit_type' => 2, //1が計算結果　2が計算対象
+          'unit_percent' => 0, //計算結果のため、キャンセル料率の表示は不要
+          'unit_percent_type' => 0 //計算結果のため、タイプは不要
+        ]);
+      }
+    });
+  }
+
+
+
+
 
   public function doubleCheck(
     $doubleCheckStatus,

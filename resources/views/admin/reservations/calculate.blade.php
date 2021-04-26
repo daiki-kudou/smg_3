@@ -844,7 +844,7 @@
                 <td colspan="3"></td>
                 <td colspan="1">
                   <p class="text-left">合計</p>
-                  {{ Form::text('equipment_price', ($priceResult['item_details'][0]+!empty($value["luggage_price"])?$value["luggage_price"]:0),['class'=>'form-control', 'readonly'] ) }}
+                  {{ Form::text('equipment_price', ($priceResult['item_details'][0]+(!empty($value["luggage_price"])?$value["luggage_price"]:0)),['class'=>'form-control', 'readonly'] ) }}
                 </td>
               </tr>
             </tbody>
@@ -986,10 +986,10 @@
             </tbody>
             <tbody class="others_main">
               <tr>
-                <td>{{ Form::text('others_input_item0', '',['class'=>'form-control'] ) }}</td>
-                <td>{{ Form::text('others_input_cost0', '',['class'=>'form-control'] ) }}</td>
-                <td>{{ Form::text('others_input_count0', '',['class'=>'form-control'] ) }}</td>
-                <td>{{ Form::text('others_input_subtotal0', '',['class'=>'form-control', 'readonly'] ) }}</td>
+                <td>{{ Form::text('others_breakdown_item0', '',['class'=>'form-control'] ) }}</td>
+                <td>{{ Form::text('others_breakdown_cost0', '',['class'=>'form-control'] ) }}</td>
+                <td>{{ Form::text('others_breakdown_count0', '',['class'=>'form-control'] ) }}</td>
+                <td>{{ Form::text('others_breakdown_subtotal0', '',['class'=>'form-control', 'readonly'] ) }}</td>
                 <td>
                   <input type="button" value="＋" class="add pluralBtn bg-blue">
                   <input type="button" value="ー" class="del pluralBtn bg-red">
@@ -1180,7 +1180,7 @@
       // プラスボタンクリック
       $(document).on("click", ".add", function() {
         $(this).parent().parent().clone(true).insertAfter($(this).parent().parent());
-        addThisTr('.others .others_main tr', 'others_input_item', 'others_input_cost', 'others_input_count', 'others_input_subtotal');
+        addThisTr('.others .others_main tr', 'others_breakdown_item', 'others_breakdown_cost', 'others_breakdown_count', 'others_breakdown_subtotal');
         addThisTr('.venue_main tr', 'venue_breakdown_item', 'venue_breakdown_cost', 'venue_breakdown_count', 'venue_breakdown_subtotal');
         // 追加時内容クリア
         $(this).parent().parent().next().find('td').find('input, select').eq(0).val('');
@@ -1209,17 +1209,17 @@
           }
           for (let index = 0; index < count; index++) {
             // console.log(index);
-            $('.others_main tr').eq(index).find('td').eq(0).find('input').attr('name', 'others_input_item' + index);
-            $('.others_main tr').eq(index).find('td').eq(1).find('input').attr('name', 'others_input_cost' + index);
-            $('.others_main tr').eq(index).find('td').eq(2).find('input').attr('name', 'others_input_count' + index);
-            $('.others_main tr').eq(index).find('td').eq(3).find('input').attr('name', 'others_input_subtotal' + index);
+            $('.others_main tr').eq(index).find('td').eq(0).find('input').attr('name', 'others_breakdown_item' + index);
+            $('.others_main tr').eq(index).find('td').eq(1).find('input').attr('name', 'others_breakdown_cost' + index);
+            $('.others_main tr').eq(index).find('td').eq(2).find('input').attr('name', 'others_breakdown_count' + index);
+            $('.others_main tr').eq(index).find('td').eq(3).find('input').attr('name', 'others_breakdown_subtotal' + index);
           }
           var re_count = $('.others .others_main tr').length;
           var total_val = 0;
           for (let index2 = 0; index2 < re_count; index2++) {
-            var num1 = $('input[name="others_input_cost' + index2 + '"]').val();
-            var num2 = $('input[name="others_input_count' + index2 + '"]').val();
-            var num3 = $('input[name="others_input_subtotal' + index2 + '"]');
+            var num1 = $('input[name="others_breakdown_cost' + index2 + '"]').val();
+            var num2 = $('input[name="others_breakdown_count' + index2 + '"]').val();
+            var num3 = $('input[name="others_breakdown_subtotal' + index2 + '"]');
             num3.val(num1 * num2);
             total_val = total_val + Number(num3.val());
           }
