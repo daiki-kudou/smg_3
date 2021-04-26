@@ -15,18 +15,32 @@ use Carbon\Carbon;
 
 class CalendarsController extends Controller
 {
-  public function venue_calendar()
+  public function venue_calendar(Request $request)
   {
-    $venues = Venue::all();
-    $selected_venue = 1;
-    $days = [];
-    $start_of_month = Carbon::now()->firstOfMonth();
-    $end_of_month = Carbon::now()->endOfMonth();
-    $diff = $start_of_month->diffInDays($end_of_month);
-    for ($i = 0; $i < $diff; $i++) {
-      $dt = Carbon::now()->firstOfMonth();
-      $days[] = $dt->addDays($i);
+    if (!empty($request->except('_token'))) {
+      $selected_venue = $request->venue_id;
+      $start_of_month = Carbon::parse($request->selected_year . '-' . sprintf('%02d', $request->selected_month))->firstOfMonth();
+      $end_of_month = Carbon::parse($request->selected_year . '-' . sprintf('%02d', $request->selected_month))->endOfMonth();
+      $days = [];
+      $diff = $start_of_month->diffInDays($end_of_month);
+      for ($i = 0; $i <= $diff; $i++) {
+        $dt = Carbon::parse($start_of_month);
+        $days[] = $dt->addDays($i);
+      }
+    } else {
+      $selected_venue = 1;
+      $start_of_month = Carbon::now()->firstOfMonth();
+      $end_of_month = Carbon::now()->endOfMonth();
+      $days = [];
+      $diff = $start_of_month->diffInDays($end_of_month);
+      for ($i = 0; $i <= $diff; $i++) {
+        $dt = Carbon::now()->firstOfMonth();
+        $days[] = $dt->addDays($i);
+      }
     }
+
+
+    $venues = Venue::all();
     $reservations = Reservation::where('venue_id', $selected_venue)->get();
     $pre_reservations = PreReservation::where("venue_id", $selected_venue)->get();
 
@@ -36,8 +50,8 @@ class CalendarsController extends Controller
       'selected_venue' => $selected_venue,
       'reservations' => $reservations,
       'pre_reservations' => $pre_reservations,
-      'selected_year' => Carbon::now()->year,
-      'selected_month' => Carbon::now()->month,
+      'selected_year' => !empty($request->selected_year) ? $request->selected_year : Carbon::now()->year,
+      'selected_month' => !empty($request->selected_month) ? $request->selected_month : Carbon::now()->month,
     ]);
   }
 
