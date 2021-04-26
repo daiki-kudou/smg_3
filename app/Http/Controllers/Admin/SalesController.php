@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
 use App\Models\Reservation;
+use App\Models\Bill;
 
 
 class SalesController extends Controller
@@ -22,14 +23,30 @@ class SalesController extends Controller
         fputcsv($stream, [
           'id',
           'reserve_date',
+          'reservation_id',
         ]);
         // データ
-        foreach (Reservation::cursor() as $reservation) {
-          fputcsv($stream, [
-            $reservation->id,
-            $reservation->reserve_date,
-          ]);
-        }
+        // foreach (Reservation::chunk() as $reservation) {
+        //   fputcsv($stream, [
+        //     $reservation->id,
+        //     $reservation->reserve_date,
+        //   ]);
+        // }
+
+        // ↓　多分これいける
+        Bill::with('reservation')->chunk(
+          1000,
+          function ($bills) use ($stream) {
+            foreach ($bills as $bill) {
+              fputcsv($stream, [
+                $bill->id,
+                $bill->reservation->reserve_date,
+                $bill->reservation->id,
+              ]);
+            }
+          }
+        );
+
         fclose($stream);
       },
       'reservations.csv',
