@@ -295,8 +295,8 @@
             <td rowspan="{{count($reservation->bills)}}">
               {{ReservationHelper::formatDate($reservation->reserve_date)}}
             </td>
-            <td rowspan="{{count($reservation->bills)}}">{{$reservation->enter_time}}</td>
-            <td rowspan="{{count($reservation->bills)}}">{{$reservation->leave_time}}</td>
+            <td rowspan="{{count($reservation->bills)}}">{{ReservationHelper::formatTime($reservation->enter_time)}}</td>
+            <td rowspan="{{count($reservation->bills)}}">{{ReservationHelper::formatTime($reservation->leave_time)}}</td>
             <td rowspan="{{count($reservation->bills)}}">
               {{ReservationHelper::getVenue($reservation->venue->id)}}
             </td>

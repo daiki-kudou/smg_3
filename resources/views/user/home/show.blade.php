@@ -432,11 +432,11 @@
                   <li>
                     <dl class="ttl_box">
                       <!-- <dt>合計金額</dt> -->
-                      <dd class="total_result">合計金額：{{number_format($reservation->bills()->first()->master_total)}}円</dd>
+                      <dd class="total_result">合計金額：ダミー円</dd>
                     </dl>
                     <dl class="ttl_box">
                       <!-- <dt>支払い期日</dt> -->
-                      <dd class="total_result">支払い期日：{{ReservationHelper::formatDate($reservation->bills()->first()->payment_limit)}}</dd>
+                      <dd class="total_result">支払い期日：ダミー</dd>
                     </dl>
                     <div class="bill_btn_wrap">
                       <p class="mb-2"><a class="more_btn" href="{{ url('user/home/generate_invoice/'.$reservation->id) }}">請求書を見る</a></p>
@@ -467,30 +467,186 @@
           </div>
         </div>
         <div class="main hide">
-        @if ($reservation->user_id>0)
-        @include('admin.reservations.show.user.breakdown')
-        @else
-        @include('admin.reservations.show.agent.breakdown')
-        @endif
+          <div class="venues billdetails_content">
+            <table class="table table-bordered">
+              <tbody>
+                <tr>
+                  <td colspan="4">
+                    <h4 class="billdetails_content_ttl">
+                      会場料
+                    </h4>
+                  </td>
+                </tr>
+              </tbody>
+              <tbody class="venue_head">
+                <tr>
+                  <td>内容</td>
+                  <td>単価</td>
+                  <td>数量</td>
+                  <td>金額</td>
+                </tr>
+              </tbody>
+              <tbody class="venue_main">
+                <tr>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                </tr>
+              </tbody>
+              <tbody class="venue_result">
+                <tr>
+                  <td colspan="4">
+                    <div class="result_sum">
+                      <p class="text-right">合計金額：ダミー</p>
+                    </div>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <div class="equipment billdetails_content">
+            <table class="table table-bordered">
+              <tbody>
+                <tr>
+                  <td colspan="4">
+                    <h4 class="billdetails_content_ttl">
+                      有料備品・サービス
+                    </h4>
+                  </td>
+                </tr>
+              </tbody>
+              <tbody class="equipment_head">
+                <tr>
+                  <td>内容</td>
+                  <td>単価</td>
+                  <td>数量</td>
+                  <td>金額</td>
+                </tr>
+              </tbody>
+              <tbody class="equipment_main">
+                <tr>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                </tr>
+                <tr>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                </tr>
+              </tbody>
+              <tbody class="equipment_result">
+                <tr>
+                  <td colspan="4">
+                    <div class="result_sum">
+                      <p class="text-right">合計金額：ダミー</p>
+                    </div>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <div class="layout billdetails_content">
+            <table class="table table-bordered">
+              <tbody>
+                <tr>
+                  <td colspan="4">
+                    <h4 class="billdetails_content_ttl">
+                      レイアウト
+                    </h4>
+                  </td>
+                </tr>
+              </tbody>
+              <tbody class="layout_head">
+                <tr>
+                  <td>内容</td>
+                  <td>単価</td>
+                  <td>数量</td>
+                  <td>金額</td>
+                </tr>
+              </tbody>
+              <tbody class="layout_main">
+                <tr>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                </tr>
+              </tbody>
+              <tbody class="layout_result">
+                <tr>
+                  <td colspan="4">
+                    <div class="result_sum">
+                      <p class="text-right">合計金額：ダミー</p>
+                    </div>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <div class="others billdetails_content">
+            <table class="table table-bordered">
+              <tbody>
+                <tr>
+                  <td colspan="4">
+                    <h4 class="billdetails_content_ttl">
+                      その他
+                    </h4>
+                  </td>
+                </tr>
+              </tbody>
+              <tbody class="others_head">
+                <tr>
+                  <td>内容</td>
+                  <td>単価</td>
+                  <td>数量</td>
+                  <td>金額</td>
+                </tr>
+              </tbody>
+              <tbody class="others_main">
+                <tr>
+                  <td>ダミーダミーダミー</td>
+                  <td>ダミーダミーダミー</td>
+                  <td>ダミーダミーダミー</td>
+                  <td>ダミーダミーダミー</td>
+                </tr>
+              </tbody>
+              <tbody class="others_result">
+                <tr>
+                  <td colspan="4">
+                    <div class="result_sum">
+                      <p class="text-right">合計金額：ダミー</p>
+                    </div>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
           <div class="bill_total">
             <table class="table text-right">
               <tbody>
                 <tr>
                   <td>小計：</td>
                   <td>
-                  {{number_format($reservation->bills()->first()->master_subtotal)}}
+                    ダミー
                   </td>
                 </tr>
                 <tr>
                   <td>消費税：</td>
                   <td>
-                  {{number_format($reservation->bills()->first()->master_tax)}}
+                    ダミー
                   </td>
                 </tr>
                 <tr>
                   <td class="font-weight-bold">合計金額</td>
                   <td>
-                  {{number_format($reservation->bills()->first()->master_total)}}
+                    ダミー
                   </td>
                 </tr>
               </tbody>
