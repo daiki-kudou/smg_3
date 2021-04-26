@@ -20,6 +20,9 @@
 </div>
 @endif
 
+{{ Form::open(['url' => 'admin/cxl/multi_check', 'method'=>'POST', 'class'=>'' ,'id'=>'cxl_multicalc']) }}
+@csrf
+
 <section class="mt-5">
   <div class="bill">
     <div class="bill_details">
@@ -36,8 +39,6 @@
       </div>
       <div class="main">
         <div class="cancel_content cancel_border bg-white">
-          {{ Form::open(['url' => 'admin/cxl/multi_check', 'method'=>'POST', 'class'=>'' ,'id'=>'cxl_multicalc']) }}
-          @csrf
           <h4 class="cancel_ttl">キャンセル料計算</h4>
           <table class="table table-borderless">
             <thead class="head_cancel">
@@ -268,7 +269,7 @@
                   {{Form::text('bill_created_at', date('Y-m-d',strtotime(\Carbon\Carbon::now())) ,['class'=>'form-control', 'id'=>'datepicker1'])}}
                 </td>
                 <td>支払期日
-                  {{Form::text('payment_limit','',['class'=>'form-control', 'id'=>'datepicker1'])}}
+                  {{Form::text('payment_limit','',['class'=>'form-control datepicker', 'id'=>''])}}
                 </td>
               </tr>
               <tr>
@@ -310,13 +311,13 @@
                 </td>
                 <td>
                   入金日
-                  {{Form::text('pay_day','',['class'=>'form-control','id'=>'datepicker2'])}}
+                  {{Form::text('pay_day','',['class'=>'form-control datepicker','id'=>''])}}
                 </td>
               </tr>
               <tr>
                 <td>振込人名
                   {{Form::text('pay_person','',['class'=>'form-control'])}}
-                <p class="is-error-pay_person" style="color: red"></p>
+                  <p class="is-error-pay_person" style="color: red"></p>
                 </td>
                 <td>入金額
                   {{Form::text('payment','',['class'=>'form-control'])}}
@@ -331,9 +332,9 @@
   </div>
 
   <div class="container-field d-flex justify-content-center mt-5">
-  {{ Form::submit('修正する', ['class' => 'btn more_btn4_lg d-block mr-5','name'=>'back']) }}
-  {{ Form::submit('確認する', ['class' => 'btn more_btn_lg d-block']) }}
-</div>
+    {{ Form::submit('修正する', ['class' => 'btn more_btn4_lg d-block mr-5','name'=>'back']) }}
+    {{ Form::submit('確認する', ['class' => 'btn more_btn_lg d-block']) }}
+  </div>
   {{ Form::close() }}
 </section>
 

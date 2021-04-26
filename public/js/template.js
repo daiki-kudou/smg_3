@@ -42,11 +42,9 @@ $(function () {
     stepMonths: 0,         // 月の移動を3ヶ月単位とする
     autoclose: true
   });
-  $('#datepicker99').datepicker({
+  $('.datepicker').datepicker({
     dateFormat: 'yy-mm-dd',
-    numberOfMonths: 3,
-    showCurrentAtPos: 1,   // 表示位置は左から2番目 (真ん中)
-    stepMonths: 0,         // 月の移動を3ヶ月単位とする
+    minDate: 0,
     autoclose: true
   });
 });
@@ -196,7 +194,7 @@ function change_all_totals() {
   others ? others : others = 0;
   var result = venue + equipment + layout + others;
   var result_tax = Math.floor(result * 0.1);
-  $('.total_result').text('').text(result);
+  $('.total_result').text('').text((result + result_tax));
   $('input[name="master_subtotal"]').val(result);
   $('input[name="master_tax"]').val(result_tax);
   $('input[name="master_total"]').val(result + result_tax);

@@ -164,7 +164,7 @@ class Reservation extends Model implements PresentableInterface
   public function ReserveStoreSession($request, $sessionName, $sessionName2)
   {
     $master_info = $request->session()->get($sessionName);
-    DB::transaction(function () use ($master_info, $request, $sessionName2) { //トランザクションさせる
+    $reservation = DB::transaction(function () use ($master_info, $request, $sessionName2) { //トランザクションさせる
       $reservation = $this->create([
         'venue_id' => $master_info['venue_id'],
         'user_id' => $master_info['user_id'],
@@ -193,8 +193,10 @@ class Reservation extends Model implements PresentableInterface
         'eat_in' => !empty($master_info['eat_in']) ? $master_info['eat_in'] : 0,
         'eat_in_prepare' => !empty($master_info['eat_in_prepare']) ? $master_info['eat_in_prepare'] : 0,
       ]);
-      $reservation->ReserveStoreSessionBill($request, $sessionName2, $sessionName2);
+      // $reservation->ReserveStoreSessionBill($request, $sessionName2, $sessionName2);
+      return $reservation;
     });
+    return $reservation;
   }
   // session利用
   public function ReserveStoreSessionBill($request, $sessionName, $sessionName2, $attr = "normal")
@@ -207,7 +209,7 @@ class Reservation extends Model implements PresentableInterface
       $venue_price = $discount_info['venue_price'];
       $category = 1;
     }
-    DB::transaction(function () use ($discount_info, $request, $sessionName2, $attr, $venue_price, $category) {
+    $bill = DB::transaction(function () use ($discount_info, $request, $sessionName2, $attr, $venue_price, $category) {
       $bill = $this->bills()->create([
         'reservation_id' => $this->id,
         'venue_price' => $venue_price,
@@ -231,8 +233,10 @@ class Reservation extends Model implements PresentableInterface
         'category' => $category, //デフォで１。　新規以外だと　2:その他有料備品　3:レイアウト　4:その他
         'admin_judge' => 1, //管理者作成なら1 ユーザー作成なら2
       ]);
-      $bill->ReserveStoreSessionBreakdown($request, $sessionName2);
+      // $bill->ReserveStoreSessionBreakdown($request, $sessionName2);
+      return $bill;
     });
+    return $bill;
   }
 
   public function ReserveStore($request)

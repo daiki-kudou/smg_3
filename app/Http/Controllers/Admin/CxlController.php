@@ -70,10 +70,8 @@ class CxlController extends Controller
     $info = session()->get('cxlMaster');
     $data = session()->get('cxlCalcInfo');
     $result = session()->get('cxlResult');
-
     $reservation = Reservation::with('user')->find($data['reservation_id']);
     $user = $reservation->user;
-    // $result = $request->result;
     return view('admin.cxl.multi_calculate', compact('info', 'data', 'result', 'user'));
   }
 

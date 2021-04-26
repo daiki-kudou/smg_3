@@ -610,7 +610,7 @@
             <td>
               <dl class="ttl_box">
                 <dt>支払い期日</dt>
-                <dd class="total_result">{{ReservationHelper::formatDate($priceResult['pay_limit'])}}</dd>
+                <dd class="pay_limit">{{ReservationHelper::formatDate($priceResult['pay_limit'])}}</dd>
               </dl>
             </td>
           </tr>
@@ -1232,7 +1232,7 @@
           var others = $('input[name="others_price"]').val() == "" ? 0 : Number($('input[name="others_price"]').val());
           var result = venue + equipment + layout + others;
           var result_tax = Math.floor(result * 0.1);
-          $('.total_result').text('').text(result);
+          // $('.total_result').text('').text(result);
           $('input[name="master_subtotal"]').val(result);
           $('input[name="master_tax"]').val(result_tax);
           $('input[name="master_total"]').val(result + result_tax);
@@ -1266,7 +1266,7 @@
           var others = $('input[name="others_price"]').val() == "" ? 0 : Number($('input[name="others_price"]').val());
           var result = venue + equipment + layout + others;
           var result_tax = Math.floor(result * 0.1);
-          $('.total_result').text('').text(result);
+          // $('.total_result').text('').text(result);
           $('input[name="master_subtotal"]').val(result);
           $('input[name="master_tax"]').val(result_tax);
           $('input[name="master_total"]').val(result + result_tax);
