@@ -269,7 +269,7 @@
                   {{Form::text('bill_created_at', date('Y-m-d',strtotime(\Carbon\Carbon::now())) ,['class'=>'form-control', 'id'=>'datepicker1'])}}
                 </td>
                 <td>支払期日
-                  {{Form::text('payment_limit','',['class'=>'form-control datepicker', 'id'=>''])}}
+                  {{Form::text('payment_limit',$pay_limit,['class'=>'form-control datepicker', 'id'=>''])}}
                 </td>
               </tr>
               <tr>

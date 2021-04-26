@@ -72,7 +72,8 @@ class CxlController extends Controller
     $result = session()->get('cxlResult');
     $reservation = Reservation::with('user')->find($data['reservation_id']);
     $user = $reservation->user;
-    return view('admin.cxl.multi_calculate', compact('info', 'data', 'result', 'user'));
+    $pay_limit = $user->getUserPayLimit($reservation->reserve_date);
+    return view('admin.cxl.multi_calculate', compact('info', 'data', 'result', 'user', 'pay_limit'));
   }
 
   public function multiCheck(Request $request)
