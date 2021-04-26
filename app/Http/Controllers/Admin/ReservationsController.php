@@ -341,9 +341,7 @@ class ReservationsController extends Controller
       session()->flash('flash_message', '更新に失敗しました。<br>フォーム内の空欄や全角など確認した上でもう一度お試しください。');
       return redirect(route('admin.reservations.check'));
     }
-    // 戻って再度送信してもエラーになるように設定
     $request->session()->regenerate();
-    $request->session()->flush();
     return redirect()->route('admin.reservations.index');
   }
 
@@ -355,7 +353,8 @@ class ReservationsController extends Controller
    */
   public function show($id)
   {
-    session()->forget(['add_bill', 'cxlCalcInfo', 'cxlMaster', 'cxlResult', 'invoice', 'multiOrSingle', 'discount_info', 'calc_info', 'master_info', 'check_info']);
+    session()->forget(['add_bill', 'cxlCalcInfo', 'cxlMaster', 'cxlResult', 'invoice', 'multiOrSingle', 'discount_info', 'calc_info', 'master_info', 'check_info', 'basicInfo', 'reservationEditMaster']);
+
     $reservation = Reservation::with(['bills.breakdowns', 'cxls.cxl_breakdowns', 'user', 'agent', 'venue'])->find($id);
     $venue = $reservation->venue;
     $user = $reservation->user;
@@ -433,12 +432,10 @@ class ReservationsController extends Controller
    */
   public function edit($id)
   {
-    $bill = Bill::with(['reservation.user', 'reservation.venue', 'breakdowns'])->find($id);
+    $bill = Bill::with(['reservation.user', 'reservation.venue.equipments', 'reservation.venue.services', 'breakdowns'])->find($id);
     $reservation = $bill->reservation;
     $venue = $bill->reservation->venue;
     $users = User::all();
-    var_dump($venue->getPriceSystem());
-
     session()->put('reservationEditMaster', $bill);
     return view('admin.reservations.edit', [
       'reservation' => $reservation,
@@ -447,6 +444,41 @@ class ReservationsController extends Controller
       'users' => $users,
     ]);
   }
+
+  public function editWithoutCalc(Request $request)
+  {
+    $reservationEditMaster = $request->session()->get('reservationEditMaster');
+
+    $bill = $reservationEditMaster;
+    $reservation = $bill->reservation;
+    $venue = $bill->reservation->venue;
+    $users = User::all();
+    session()->put('reservationEditMaster', $bill);
+
+    $data = $request->all();
+    $request->session()->put('result', $data);
+    $result = $request->session()->get('result');
+    $v_cnt = $this->preg($result, "venue_breakdown_item");
+    $e_cnt = $this->preg($result, "equipment_breakdown_item");
+    $s_cnt = $this->preg($result, "services_breakdown_item");
+    $o_cnt = $this->preg($result, "others_input_item");
+
+    var_dump($result["venue_breakdown_item"]);
+
+
+    return view('admin.reservations.edit_without_calc', [
+      'reservation' => $reservation,
+      'venue' => $venue,
+      'bill' => $bill,
+      'users' => $users,
+      'v_cnt' => $v_cnt,
+      'e_cnt' => $e_cnt,
+      's_cnt' => $s_cnt,
+      'o_cnt' => $o_cnt,
+      'result' => $result,
+    ]);
+  }
+
 
   public function sessionForEditCalculate(Request $request)
   {
@@ -525,42 +557,29 @@ class ReservationsController extends Controller
 
   public function edit_check(Request $request)
   {
-    var_dump($request->all());
-    // $venue = Venue::find($request->venue_id);
-    // $venue_details = Venue::getBreakdowns($request);
-    // $equipment_details = Equipment::getBreakdowns($request);
-    // $service_details = Service::getBreakdowns($request);
-    // $others_details = [];
-    // foreach ($request->all() as $key => $value) {
-    //   if (preg_match('/others_input_item/', $key)) {
-
-    //     if (!empty($value)) {
-    //       $others_details[] = $value;
-    //     }
-    //   }
-    // }
-    // $others_details = !empty($others_details) ? count($others_details) : "";
-
-    // $equ_breakdowns = Equipment::getBreakdowns($request);
-    // $ser_breakdowns = Service::getBreakdowns($request);
-    // return view(
-    //   'admin.reservations.edit_check',
-    //   compact(
-    //     'request',
-    //     'venue',
-    //     'venue_details',
-    //     'equipment_details',
-    //     'service_details',
-    //     'others_details',
-    //     'equ_breakdowns',
-    //     'ser_breakdowns',
-    //     'id'
-    //   )
-    // );
+    $reservationEditMaster = $request->session()->get('reservationEditMaster');
+    $venue = $reservationEditMaster->reservation->venue;
+    $reservation = $reservationEditMaster->reservation;
+    $basicInfo = $request->session()->get('basicInfo');
+    $result = $request->session()->get('result');
+    $v_cnt = $this->preg($result, "venue_breakdown_item");
+    $e_cnt = $this->preg($result, "equipment_breakdown_item");
+    $s_cnt = $this->preg($result, "services_breakdown_item");
+    $o_cnt = $this->preg($result, "others_input_item");
+    return view(
+      'admin.reservations.edit_check',
+      compact(
+        'basicInfo',
+        'result',
+        'venue',
+        'v_cnt',
+        'e_cnt',
+        's_cnt',
+        'o_cnt',
+        'reservation',
+      )
+    );
   }
-
-
-
   /**
    * Update the specified resource in storage.
    *
@@ -568,11 +587,27 @@ class ReservationsController extends Controller
    * @param  int  $id
    * @return \Illuminate\Http\Response
    */
-  public function update(Request $request, $id)
+  public function update(Request $request)
   {
-    $reservation = Reservation::find($id);
-    $reservation->UpdateReservation($request);
+    if ($request->back) {
+      return redirect(route('admin.reservations.edit_calculate'));
+    }
+    $reservationEditMaster = $request->session()->get('reservationEditMaster');
+    $basicInfo = $request->session()->get('basicInfo');
+    $result = $request->session()->get('result');
+    try {
+      $reservation = $reservationEditMaster->reservation;
+      $reservation->UpdateReservation($basicInfo, $result);
+      $bill = $reservation->bills->first();
+      $bill->UpdateBillSession($result);
+      $bill->ReserveStoreSessionBreakdown($request, 'result');
+    } catch (\Exception $e) {
+      report($e);
+      session()->flash('flash_message', '更新に失敗しました。<br>フォーム内の空欄や全角など確認した上でもう一度お試しください。');
+      return redirect(route('admin.reservations.edit_calculate'));
+    }
 
+    $request->session()->regenerate();
     return redirect(route('admin.reservations.show', $reservation->id));
   }
 

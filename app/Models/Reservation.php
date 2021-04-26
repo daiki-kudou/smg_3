@@ -63,6 +63,8 @@ class Reservation extends Model implements PresentableInterface
     'bill_created_at',
     'bill_pay_limit',
     'bill_remark',
+    'eat_in',
+    'eat_in_prepare',
   ];
   protected $dates = [
     'reserve_date',
@@ -188,6 +190,8 @@ class Reservation extends Model implements PresentableInterface
         'attention' => "",
         'user_details' => $master_info['user_details'],
         'admin_details' => $master_info['admin_details'],
+        'eat_in' => !empty($master_info['eat_in']) ? $master_info['eat_in'] : 0,
+        'eat_in_prepare' => !empty($master_info['eat_in_prepare']) ? $master_info['eat_in_prepare'] : 0,
       ]);
       $reservation->ReserveStoreSessionBill($request, $sessionName2, $sessionName2);
     });
@@ -674,39 +678,32 @@ class Reservation extends Model implements PresentableInterface
   }
 
   // reservations update
-  public function UpdateReservation($request)
+  public function UpdateReservation($basicInfo, $result)
   {
-    DB::transaction(function () use ($request) { //トランザクションさせる
+    DB::transaction(function () use ($basicInfo, $result) {
       $this->update([
-        'venue_id' => $request->venue_id,
-        'user_id' => $request->user_id,
+        'user_id' => $basicInfo['user_id'],
         'agent_id' => 0, //デフォで0
-        'reserve_date' => $request->reserve_date,
-        'price_system' => $request->price_system,
-        'enter_time' => $request->enter_time,
-        'leave_time' => $request->leave_time,
-        'board_flag' => $request->board_flag,
-        'event_start' => $request->event_start,
-        'event_finish' => $request->event_finish,
-        'event_name1' => $request->event_name1,
-        'event_name2' => $request->event_name2,
-        'event_owner' => $request->event_owner,
-        'luggage_count' => $request->luggage_count,
-        'luggage_arrive' => $request->luggage_arrive,
-        'luggage_return' => $request->luggage_return,
-        'email_flag' => $request->email_flag,
-        'in_charge' => $request->in_charge,
-        'tel' => $request->tel,
-        'cost' => $request->cost,
-        'discount_condition' => $request->discount_condition,
-        'attention' => $request->attention,
-        'user_details' => $request->user_details,
-        'admin_details' => $request->admin_details,
+        'price_system' => $basicInfo['price_system'],
+        'enter_time' => $basicInfo['enter_time'],
+        'leave_time' => $basicInfo['leave_time'],
+        'board_flag' => $basicInfo['board_flag'],
+        'event_start' => $basicInfo['event_start'],
+        'event_finish' => $basicInfo['event_finish'],
+        'event_name1' => $basicInfo['event_name1'],
+        'event_name2' => $basicInfo['event_name2'],
+        'event_owner' => $basicInfo['event_owner'],
+        'luggage_count' => $basicInfo['luggage_count'],
+        'luggage_arrive' => $basicInfo['luggage_arrive'],
+        'luggage_return' => $basicInfo['luggage_return'],
+        'email_flag' => $basicInfo['email_flag'],
+        'in_charge' => $basicInfo['in_charge'],
+        'tel' => $basicInfo['tel'],
+        'cost' => !empty($basicInfo['cost']) ? $basicInfo['cost'] : 0,
+        'admin_details' => $basicInfo['admin_details'],
+        'eat_in' => !empty($basicInfo['eat_in']) ? $basicInfo['eat_in'] : 0,
+        'eat_in_prepare' => !empty($basicInfo['eat_in_prepare']) ? $basicInfo['eat_in_prepare'] : 0,
       ]);
-      $this->bills()->first()->UpdateBill($request);
-      $this->bills()->first()->ReserveStoreBreakdown($request);
-      $request->session()->regenerate();
-      return redirect()->route('admin.reservations.index');
     });
   }
 

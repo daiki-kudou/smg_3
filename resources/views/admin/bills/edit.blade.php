@@ -42,13 +42,13 @@
                 <tr>
                   <td colspan="5">
                     <div class="venue_chkbox">
-                      <input type="checkbox" id="venue" name="venue" value="1">
+                      <input type="checkbox" id="venue" name="venue" value="1" {{!empty($bill->venue_price)?"checked":""}} class="checkbox">
                       <label for="venue">会場料</label>
                     </div>
                   </td>
                 </tr>
               </tbody>
-              <tbody class="venue_head">
+              <tbody class="venue_head {{empty($bill->venue_price)?"hide":""}}">
                 <tr>
                   <td>内容</td>
                   <td>単価</td>
@@ -57,7 +57,7 @@
                   <td>追加/削除</td>
                 </tr>
               </tbody>
-              <tbody class="venue_main">
+              <tbody class="venue_main {{empty($bill->venue_price)?"hide":""}}">
                 @if (count($bill->breakdowns()->where('unit_type',1)->get())!=0)
                 @foreach ($bill->breakdowns()->where('unit_type',1)->get() as $key=>$venue)
                 <tr>
@@ -100,7 +100,7 @@
                 </tr>
                 @endif
               </tbody>
-              <tbody class="venue_result">
+              <tbody class="venue_result {{empty($bill->venue_price)?"hide":""}}">
                 <tr>
                   <td colspan="4"></td>
                   <td colspan="1">
@@ -118,13 +118,13 @@
                 <tr>
                   <td colspan="5">
                     <div class="equipment_chkbox">
-                      <input type="checkbox" id="equipment" name="equipment" value="1">
+                      <input type="checkbox" class="checkbox" id="equipment" name="equipment" value="1" {{!empty($bill->equipment_price)?"checked":""}}>
                       <label for="equipment">有料備品・サービス料</label>
                     </div>
                   </td>
                 </tr>
               </tbody>
-              <tbody class="equipment_head">
+              <tbody class="equipment_head {{empty($bill->equipment_price)?"hide":""}}">
                 <tr>
                   <td>内容</td>
                   <td>単価</td>
@@ -133,7 +133,7 @@
                   <td>追加/削除</td>
                 </tr>
               </tbody>
-              <tbody class="equipment_main">
+              <tbody class="equipment_main {{empty($bill->equipment_price)?"hide":""}}">
                 @if (count($bill->breakdowns()->where('unit_type',2)->get())!=0)
                 @foreach ($bill->breakdowns()->where('unit_type',2)->get() as $key=>$equ)
                 <tr>
@@ -177,7 +177,7 @@
                 @endif
 
               </tbody>
-              <tbody class="equipment_result">
+              <tbody class="equipment_result {{empty($bill->equipment_price)?"hide":""}}">
                 <tr>
                   <td colspan="4"></td>
                   <td colspan="1">
@@ -195,13 +195,13 @@
                 <tr>
                   <td colspan="5">
                     <div class="layout_chkbox">
-                      <input type="checkbox" id="layout" name="layout" value="1" {{ !empty(session('add_bill')['layout_price'])?"checked":"" }}>
+                      <input type="checkbox" class="checkbox" id="layout" name="layout" value="1" {{!empty($bill->layout_price)?"checked":""}}>
                       <label for="layout">レイアウト変更料</label>
                     </div>
                   </td>
                 </tr>
               </tbody>
-              <tbody class="layout_head">
+              <tbody class="layout_head {{empty($bill->layout_price)?"hide":""}}">
                 <tr>
                   <td>内容</td>
                   <td>単価</td>
@@ -210,7 +210,7 @@
                   <td>追加/削除</td>
                 </tr>
               </tbody>
-              <tbody class="layout_main">
+              <tbody class="layout_main {{empty($bill->layout_price)?"hide":""}}">
                 @if (count($bill->breakdowns()->where('unit_type',4)->get())!=0)
                 @foreach ($bill->breakdowns()->where('unit_type',4)->get() as $key=>$lay)
                 <tr>
@@ -252,10 +252,8 @@
                   </td>
                 </tr>
                 @endif
-
-
               </tbody>
-              <tbody class="layout_result">
+              <tbody class="layout_result {{empty($bill->layout_price)?"hide":""}}">
                 <tr>
                   <td colspan="4"></td>
                   <td colspan="1">
@@ -274,13 +272,13 @@
                 <tr>
                   <td colspan="5">
                     <div class="others_chkbox">
-                      <input type="checkbox" id="others" name="others" value="1" {{ !empty(session('add_bill')['others_price'])?"checked":"" }}>
+                      <input type="checkbox" class="checkbox" id="others" name="others" value="1" {{!empty($bill->others_price)?"checked":""}}>
                       <label for="others">その他</label>
                     </div>
                   </td>
                 </tr>
               </tbody>
-              <tbody class="others_head">
+              <tbody class="others_head {{empty($bill->others_price)?"hide":""}}">
                 <tr>
                   <td>内容</td>
                   <td>単価</td>
@@ -289,7 +287,7 @@
                   <td>追加/削除</td>
                 </tr>
               </tbody>
-              <tbody class="others_main">
+              <tbody class="others_main {{empty($bill->others_price)?"hide":""}}">
                 @if (count($bill->breakdowns()->where('unit_type',5)->get())!=0)
                 @foreach ($bill->breakdowns()->where('unit_type',5)->get() as $key=>$other)
                 <tr>
@@ -332,7 +330,7 @@
                 </tr>
                 @endif
               </tbody>
-              <tbody class="others_result">
+              <tbody class="others_result {{empty($bill->others_price)?"hide":""}}">
                 <tr>
                   <td colspan="4"></td>
                   <td colspan="1">
@@ -460,4 +458,145 @@
   {{Form::submit('保存する', ['class'=>'btn d-block more_btn_lg mx-auto my-5', 'id'=>''])}}
   {{Form::close()}}
 </div>
+
+<script>
+  $(function() {
+    // プラス・マイナス押下アクション
+    $(document).on("click", ".add", function() {
+      var target = $(this).parent().parent();
+      target.clone(true).insertAfter(target);
+      AddTr(target, 'venue_main', 'venue_breakdown');
+      AddTr(target, 'equipment_main', 'equipment_breakdown');
+      AddTr(target, 'layout_main', 'layout_breakdown');
+      AddTr(target, 'others_main', 'others_breakdown');
+      target.parent().find('tr').last().find('td').eq(0).find('input').val('');
+      target.parent().find('tr').last().find('td').eq(1).find('input').val('');
+      target.parent().find('tr').last().find('td').eq(2).find('input').val('');
+      target.parent().find('tr').last().find('td').eq(3).find('input').val('');
+    })
+
+    function AddTr($target, $targetClass, $targetName) {
+      if ($target.parent().hasClass($targetClass)) {
+        var target_length = $target.parent().find('tr').length;
+        for (let index = 0; index < target_length; index++) {
+          $target.parent().find('tr').eq(index).find('td').eq(0).find('input').attr('name', $targetName + '_item' + index)
+          $target.parent().find('tr').eq(index).find('td').eq(1).find('input').attr('name', $targetName + '_cost' + index)
+          $target.parent().find('tr').eq(index).find('td').eq(2).find('input').attr('name', $targetName + '_count' + index)
+          $target.parent().find('tr').eq(index).find('td').eq(3).find('input').attr('name', $targetName + '_subtotal' + index)
+        }
+      }
+    }
+    // マイナス押下
+    $(document).on("click", ".del", function() {
+      var master = $(this).parent().parent().parent().find('tr').length;
+      var target = $(this).parent().parent();
+      var re_target = target.parent();
+      if (master > 1) {
+        target.remove();
+      } else {
+        for (let index = 0; index < 3; index++) {
+          target.find('input').eq(index).val('');
+        }
+      }
+      DelTr(re_target, 'venue_main', 'venue_breakdown');
+      DelTr(re_target, 'equipment_main', 'equipment_breakdown');
+      DelTr(re_target, 'layout_main', 'layout_breakdown');
+      DelTr(re_target, 'others_main', 'others_breakdown');
+      DelCalc('.venues input', '.venue_main tr', 'input[name="venue_price"]');
+      DelCalc('.equipment input', '.equipment_main tr', 'input[name="equipment_price"]');
+      DelCalc('.layout input', '.layout_main tr', 'input[name="layout_price"]');
+      DelCalc('.others input', '.others_main tr', 'input[name="others_price"]');
+
+      MaterCalc();
+
+    })
+
+    function DelTr($target, $targetClass, $targetName) {
+      if ($target.hasClass($targetClass)) {
+        for (let num = 0; num < $target.find('tr').length; num++) {
+          $target.find('tr').eq(num).find('td').eq(0).find('input').attr('name', $targetName + '_item' + num)
+          $target.find('tr').eq(num).find('td').eq(1).find('input').attr('name', $targetName + '_cost' + num)
+          $target.find('tr').eq(num).find('td').eq(2).find('input').attr('name', $targetName + '_count' + num)
+          $target.find('tr').eq(num).find('td').eq(3).find('input').attr('name', $targetName + '_subtotal' + num)
+        }
+      }
+    }
+
+    function DelCalc($targetClass, $targetTr, $targetSum) {
+      var trTarget = $($targetTr).length;
+      var result_add = 0;
+      for (let calc = 0; calc < trTarget; calc++) {
+        var multiple1 = Number($($targetTr).eq(calc).find('td').eq(1).find('input').val());
+        var multiple2 = Number($($targetTr).eq(calc).find('td').eq(2).find('input').val());
+        var result = $($targetTr).eq(calc).find('td').eq(3).find('input').val(multiple1 * multiple2);
+        result_add = result_add + (multiple1 * multiple2);
+      }
+      if (result_add != 0) {
+        $($targetSum).val(result_add);
+      } else {
+        $($targetSum).val("");
+      }
+    };
+
+
+
+    // チェックボックス開閉
+    checkToggle('.venue_chkbox #venue', ['.venue_head', '.venue_main', '.venue_result']);
+    checkToggle('.equipment_chkbox #equipment', ['.equipment_head', '.equipment_main', '.equipment_result']);
+    checkToggle('.layout_chkbox #layout', ['.layout_head', '.layout_main', '.layout_result']);
+    checkToggle('.others_chkbox #others', ['.others_head', '.others_main', '.others_result']);
+
+    function checkToggle($target, $items) {
+      $($target).on('click', function() {
+        $.each($items, function(index, value) {
+          $(value).toggleClass('hide');
+        });
+      });
+    }
+
+    // 各input からの計算
+    calc('.venues input', '.venue_main tr', 'input[name="venue_price"]');
+    calc('.equipment input', '.equipment_main tr', 'input[name="equipment_price"]');
+    calc('.layout input', '.layout_main tr', 'input[name="layout_price"]');
+    calc('.others input', '.others_main tr', 'input[name="others_price"]');
+
+    function calc($targetClass, $targetTr, $targetSum) {
+      $($targetClass).on('input', function() {
+        var trTarget = $($targetTr).length;
+        var result_add = 0;
+        for (let calc = 0; calc < trTarget; calc++) {
+          var multiple1 = Number($($targetTr).eq(calc).find('td').eq(1).find('input').val());
+          var multiple2 = Number($($targetTr).eq(calc).find('td').eq(2).find('input').val());
+          var result = $($targetTr).eq(calc).find('td').eq(3).find('input').val(multiple1 * multiple2);
+          result_add = result_add + (multiple1 * multiple2);
+        }
+        if (result_add != 0) {
+          $($targetSum).val(result_add);
+        } else {
+          $($targetSum).val("");
+        }
+      })
+    };
+
+    // 総合計額抽出
+    $('input').on('input', function() {
+      MaterCalc();
+    })
+
+
+    function MaterCalc() {
+      var tar1 = Number($('input[name="venue_price"]').val());
+      var tar2 = Number($('input[name="equipment_price"]').val());
+      var tar3 = Number($('input[name="layout_price"]').val());
+      var tar4 = Number($('input[name="others_price"]').val());
+      var master_sub = tar1 + tar2 + tar3 + tar4;
+      var master_tax = Math.floor(Number((tar1 + tar2 + tar3 + tar4) * 0.1));
+
+      $('input[name="master_subtotal"]').val(master_sub);
+      $('input[name="master_tax"]').val(master_tax);
+      $('input[name="master_total"]').val(master_sub + master_tax);
+
+    }
+  })
+</script>
 @endsection
