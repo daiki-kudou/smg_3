@@ -663,7 +663,8 @@ option:disabled {
 }
 
 .reset_btn {
-    background: #eeeeee;
+    background: #ddd;
+    border: 1px solid #cacaca;
 }
 
 .search_btn {
