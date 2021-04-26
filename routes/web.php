@@ -348,20 +348,19 @@ Route::namespace('Admin')->prefix('admin')->name('admin.')->group(function () {
     Route::post('cxl/edit_check', 'CxlController@editCheck');
     Route::post('cxl/update', 'CxlController@update');
 
-
     // メールてんぷれ
     Route::get('mail_templates', 'MailTemplatesController@index');
 
     Route::post('invoice', 'InvoiceController@show');
     Route::post('board', 'BoardController@show');
     // note
-    // Route::post('note', 'NoteController@store');
-    // Route::get('note/delete/{note}', 'NoteController@destroy');
     Route::get('note', 'NoteController@index')->name('note');
     Route::get('note/create', 'NoteController@create');
     Route::post('note/store', 'NoteController@store');
     Route::get('note/edit/{note}', 'NoteController@edit');
     Route::get('note/delete/{note}', 'NoteController@destroy');
     Route::post('note/update', 'NoteController@update');
+
+    Route::get('csv', 'SalesController@download_csv');
   });
 });
