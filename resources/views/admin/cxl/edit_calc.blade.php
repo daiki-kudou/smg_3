@@ -20,7 +20,7 @@
 </div>
 @endif
 
-{{ Form::open(['url' => 'admin/cxl/multi_check', 'method'=>'POST', 'class'=>'' ,'id'=>'cxl_multicalc']) }}
+{{ Form::open(['url' => 'admin/cxl/edit_check', 'method'=>'POST', 'class'=>'' ,'id'=>'']) }}
 @csrf
 
 <section class="mt-5">
@@ -63,7 +63,7 @@
                 <td class="">
                   {{$data['cxl_venue_PC']}}
                   {{Form::hidden('cxl_target_percent[]',$data['cxl_venue_PC'])}}
-                  {{Form::text('cxl_target_type[]',1)}}
+                  {{Form::hidden('cxl_target_type[]',1)}}
                   <span>%</span>
                 </td>
               </tr>
@@ -84,7 +84,7 @@
                 <td class="">
                   {{$data['cxl_equipment_PC']}}
                   {{Form::hidden('cxl_target_percent[]',$data['cxl_equipment_PC'])}}
-                  {{Form::text('cxl_target_type[]',2)}}
+                  {{Form::hidden('cxl_target_type[]',2)}}
                   <span>%</span></td>
               </tr>
             </tbody>
@@ -103,7 +103,7 @@
                 <td class="">
                   {{$data['cxl_layout_PC']}}
                   {{Form::hidden('cxl_target_percent[]',$data['cxl_layout_PC'])}}
-                  {{Form::text('cxl_target_type[]',3)}}
+                  {{Form::hidden('cxl_target_type[]',3)}}
                   <span>%</span></td>
               </tr>
             </tbody>
@@ -122,7 +122,7 @@
                 <td class="">
                   {{$data['cxl_other_PC']}}
                   {{Form::hidden('cxl_target_percent[]',$data['cxl_other_PC'])}}
-                  {{Form::text('cxl_target_type[]',4)}}
+                  {{Form::hidden('cxl_target_type[]',4)}}
                   <span>%</span></td>
               </tr>
             </tbody>
@@ -348,26 +348,7 @@
 </section>
 
 
-<script>
-  $(function () {
-    // チェックボックス開閉
-    checkToggle('.venue_chkbox #venue', ['.venue_head', '.venue_main', '.venue_result']);
-    checkToggle('.equipment_chkbox #equipment', ['.equipment_head', '.equipment_main',
-      '.equipment_result'
-    ]);
-    checkToggle('.layout_chkbox #layout', ['.layout_head', '.layout_main', '.layout_result']);
-    checkToggle('.others_chkbox #others', ['.others_head', '.others_main', '.others_result']);
 
-    function checkToggle($target, $items) {
-      $($target).on('click', function () {
-        $.each($items, function (index, value) {
-          $(value).toggleClass('hide');
-        });
-      });
-    }
-
-  })
-</script>
 </section>
 
 
