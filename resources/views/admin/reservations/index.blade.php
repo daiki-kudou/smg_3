@@ -295,8 +295,8 @@
             <td rowspan="{{count($reservation->bills)}}">
               {{ReservationHelper::formatDate($reservation->reserve_date)}}
             </td>
-            <td rowspan="{{count($reservation->bills)}}">{{$reservation->enter_time}}</td>
-            <td rowspan="{{count($reservation->bills)}}">{{$reservation->leave_time}}</td>
+            <td rowspan="{{count($reservation->bills)}}">{{ReservationHelper::formatTime($reservation->enter_time)}}</td>
+            <td rowspan="{{count($reservation->bills)}}">{{ReservationHelper::formatTime($reservation->leave_time)}}</td>
             <td rowspan="{{count($reservation->bills)}}">
               {{ReservationHelper::getVenue($reservation->venue->id)}}
             </td>
@@ -348,7 +348,7 @@
               {{ReservationHelper::judgeStatus($reservation->bills->first()->reservation_status)}}
             </td>
             <td class="text-center" rowspan="{{count($reservation->bills)}}"><a
-                href="{{ url('admin/reservations', $reservation->id) }}" class="more_btn">詳細</a></td>
+                href="{{ url('admin/reservations', $reservation->id) }}" class="more_btn btn">詳細</a></td>
             <td class="text-center" rowspan="{{count($reservation->bills)}}">
               {{ Form::open(['url' => 'admin/board', 'method'=>'post', 'id'=>'', 'target'=>'_blank'])}}
               @csrf

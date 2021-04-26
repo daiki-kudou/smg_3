@@ -58,7 +58,6 @@
 <div class="alert-box d-flex align-items-center mb-0">
   <p>
     一人目のチェックが終了しています。ダブルチェックを行ってください。
-    工藤さん！！一人目チェックが完了時に、表示をお願いします。
   </p>
 </div>　
 @endif
@@ -159,7 +158,7 @@
         <thead class="accordion-ttl">
           <tr>
             <th colspan="2">
-              <p class="title-icon fw-bolder">
+              <p class="title-icon fw-bolder py-1">
                 <i class="fas fa-wrench icon-size" aria-hidden="true"></i>有料備品
               </p>
             </th>
@@ -475,7 +474,7 @@
         {{ Form::hidden('bill_id', $reservation->bills->first()->id ) }}
         <p class="mr-2">{{ Form::submit('請求書をみる',['class' => 'btn more_btn']) }}</p>
         {{ Form::close() }}
-        <p class="mr-2"><input class="more_btn4 btn" value="領収書をみる"></p>
+        <p class="mr-2"><input class="btn more_btn4" type="submit" value="領収書をみる"></p>
       </div>
     </div>
     <div class="bill_details">
@@ -765,8 +764,8 @@
         @endif
       </div>
       <div class="invoice_box d-flex justify-content-end my-3">
-        <p class="mr-2"><a class="more_btn" href="">請求書をみる</a></p>
-        <p class="mr-2"><a class="more_btn4" href="">領収書をみる</a></p>
+        <p class="mr-2"><a class="btn more_btn" href="">請求書をみる</a></p>
+        <p class="mr-2"><a class="btn more_btn4" href="">領収書をみる</a></p>
       </div>
     </div>
 
@@ -1179,8 +1178,8 @@
       </div>
 
       <div class="invoice_box d-flex justify-content-end my-3">
-        <p class="mr-2"><a class="more_btn" href="">請求書をみる</a></p>
-        <p class="mr-2"><a class="more_btn4" href="">領収書をみる</a></p>
+        <p class="mr-2"><a class="btn more_btn" href="">請求書をみる</a></p>
+        <p class="mr-2"><a class="btn more_btn4" href="">領収書をみる</a></p>
       </div>
     </div>
 

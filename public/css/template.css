@@ -483,7 +483,7 @@ input.more_btn {
 }
 
 .table-scroll {
-    /* overflow-x: scroll; */
+    overflow-x: scroll;
     white-space: nowrap;
 }
 
@@ -663,7 +663,8 @@ option:disabled {
 }
 
 .reset_btn {
-    background: #eeeeee;
+    background: #ddd;
+    border: 1px solid #cacaca;
 }
 
 .search_btn {
@@ -1811,6 +1812,10 @@ table .master_total_subttl2 {
     width: 100%;
 }
 
+.user_wrapper .head_cancel td:nth-child(3) {
+    width: 30px;
+}
+
 h2 {
     font-size: 1.5rem;
 }
@@ -1829,7 +1834,12 @@ h4 {
     display: block;
 }
 
+
+
 }
+
+
+
 
 
 .table-box th,

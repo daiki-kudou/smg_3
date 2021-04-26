@@ -991,13 +991,55 @@
           </div>
         </div>
         <div class="main hide">
-          <div class="venues billdetails_content">
+
+          <div class="billdetails_content">
+            <h4 class="cancel_ttl">キャンセル料計算の内訳</h4>
+            <table class="table table-borderless">
+              <thead class="head_cancel">
+                <tr>
+                  <td>内容</td>
+                  <td>申込み金額</td>
+                  <td></td>
+                  <td>キャンセル料率</td>
+                </tr>
+              </thead>
+              <tr>
+                <td>会場料</td>
+                <td>35000</td>
+                <td>×</td>
+                <td>70%</td>
+              </tr>
+              <tr>
+                <td>有料備品・有料サービス料</td>
+                <td>900</td>
+                <td>×</td>
+                <td>70%</td>
+              </tr>
+              <tr>
+                <td>レイアウト変更料</td>
+                <td>13000</td>
+                <td>×</td>
+                <td>70%</td>
+              </tr>
+              <tr>
+                <td>その他</td>
+                <td>35000</td>
+                <td>×</td>
+                <td>70%</td>
+              </tr>
+            </table>
+          </div>
+
+
+
+
+          <div class="billdetails_content">
             <table class="table table-bordered">
               <tbody>
                 <tr>
                   <td colspan="4">
                     <h4 class="billdetails_content_ttl">
-                      会場料
+                      キャンセル料
                     </h4>
                   </td>
                 </tr>
@@ -1012,10 +1054,10 @@
               </tbody>
               <tbody class="venue_main">
                 <tr>
-                  <td></td>
-                  <td></td>
-                  <td></td>
-                  <td></td>
+                  <td>キャンセル料(会場料・10%)</td>
+                  <td>4,000</td>
+                  <td>1</td>
+                  <td>4,000</td>
                 </tr>
               </tbody>
               <tbody class="venue_result">
@@ -1030,128 +1072,7 @@
             </table>
           </div>
 
-          <div class="equipment billdetails_content">
-            <table class="table table-bordered">
-              <tbody>
-                <tr>
-                  <td colspan="4">
-                    <h4 class="billdetails_content_ttl">
-                      有料備品・サービス
-                    </h4>
-                  </td>
-                </tr>
-              </tbody>
-              <tbody class="equipment_head">
-                <tr>
-                  <td>内容</td>
-                  <td>単価</td>
-                  <td>数量</td>
-                  <td>金額</td>
-                </tr>
-              </tbody>
-              <tbody class="equipment_main">
-                <tr>
-                  <td></td>
-                  <td></td>
-                  <td></td>
-                  <td></td>
-                </tr>
-                <tr>
-                  <td></td>
-                  <td></td>
-                  <td></td>
-                  <td></td>
-                </tr>
-              </tbody>
-              <tbody class="equipment_result">
-                <tr>
-                  <td colspan="4">
-                    <div class="result_sum">
-                      <p class="text-right">合計金額：ダミー</p>
-                    </div>
-                  </td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
 
-          <div class="layout billdetails_content">
-            <table class="table table-bordered">
-              <tbody>
-                <tr>
-                  <td colspan="4">
-                    <h4 class="billdetails_content_ttl">
-                      レイアウト
-                    </h4>
-                  </td>
-                </tr>
-              </tbody>
-              <tbody class="layout_head">
-                <tr>
-                  <td>内容</td>
-                  <td>単価</td>
-                  <td>数量</td>
-                  <td>金額</td>
-                </tr>
-              </tbody>
-              <tbody class="layout_main">
-                <tr>
-                  <td></td>
-                  <td></td>
-                  <td></td>
-                  <td></td>
-                </tr>
-              </tbody>
-              <tbody class="layout_result">
-                <tr>
-                  <td colspan="4">
-                    <div class="result_sum">
-                      <p class="text-right">合計金額：ダミー</p>
-                    </div>
-                  </td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
-
-          <div class="others billdetails_content">
-            <table class="table table-bordered">
-              <tbody>
-                <tr>
-                  <td colspan="4">
-                    <h4 class="billdetails_content_ttl">
-                      その他
-                    </h4>
-                  </td>
-                </tr>
-              </tbody>
-              <tbody class="others_head">
-                <tr>
-                  <td>内容</td>
-                  <td>単価</td>
-                  <td>数量</td>
-                  <td>金額</td>
-                </tr>
-              </tbody>
-              <tbody class="others_main">
-                <tr>
-                  <td>ダミーダミーダミー</td>
-                  <td>ダミーダミーダミー</td>
-                  <td>ダミーダミーダミー</td>
-                  <td>ダミーダミーダミー</td>
-                </tr>
-              </tbody>
-              <tbody class="others_result">
-                <tr>
-                  <td colspan="4">
-                    <div class="result_sum">
-                      <p class="text-right">合計金額：ダミー</p>
-                    </div>
-                  </td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
           <div class="bill_total">
             <table class="table text-right">
               <tbody>

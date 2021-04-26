@@ -32,7 +32,7 @@
           <tr>
             <td class="table-active">利用日</td>
             <td>
-              {{$value["reserve_date"]}}
+              {{ReservationHelper::formatDate($value["reserve_date"])}}
             </td>
           </tr>
           <tr>
@@ -461,7 +461,7 @@
           <tr>
             <td>
               <label for="adminNote">管理者備考</label>
-              {!!nl2br($value['admin_details'])!!}
+              <p>{!!nl2br($value['admin_details'])!!}</p>
             </td>
           </tr>
         </tbody>

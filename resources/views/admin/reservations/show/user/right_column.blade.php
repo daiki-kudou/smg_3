@@ -99,7 +99,7 @@
     </tr>
     <tr>
       <td class="table-active"><label for="sale">原価率</label></td>
-      <td>{{$reservation->cost==0?'':$reservation->cost}}</td>
+      <td>{{$reservation->cost==0?'':$reservation->cost}}%</td>
     </tr>
   </table>
   @endif
