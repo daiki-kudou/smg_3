@@ -1049,7 +1049,7 @@
                 {{ Form::text('bill_created_at', $reservationEditMaster['bill_created_at'],['class'=>'form-control', 'id'=>'datepicker6'] ) }}
               </td>
               <td>支払期日
-                {{ Form::text('pay_limit', date('Y-m-d',strtotime($reservationEditMaster['payment_limit'])),['class'=>'form-control', 'id'=>'datepicker6'] ) }}
+                {{ Form::text('pay_limit', date('Y-m-d',strtotime($reservationEditMaster['payment_limit'])),['class'=>'form-control datepicker', 'id'=>''] ) }}
               </td>
             </tr>
             <tr>
@@ -1122,9 +1122,9 @@
   })
 
   $(function() {
-    $("html,body").animate({
-      scrollTop: $('.bill').offset().top
-    });
+    // $("html,body").animate({
+    //   scrollTop: $('.bill').offset().top
+    // });
 
     $(function() {
       // プラスボタンクリック

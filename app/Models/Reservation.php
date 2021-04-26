@@ -626,15 +626,32 @@ class Reservation extends Model implements PresentableInterface
         });
       }
 
+      // アイコン（備品。サービス、レイアウト、ケータリング検索）
       $query->where(function ($query) use ($request) {
         for ($i = 1; $i <= 4; $i++) {
           if (!empty($request->{"check_icon" . $i})) {
-            $query->whereHas('breakdowns', function ($query) use ($request, $i) {
+            $query->orWhereHas('breakdowns', function ($query) use ($request, $i) {
               $query->where('unit_type', $request->{'check_icon' . $i});
             });
           }
         }
       });
+
+      // 売上区分での検索：未実装
+
+
+
+      // 予約状況検索
+      $query->where(function ($query) use ($request) {
+        for ($i = 1; $i <= 6; $i++) {
+          if (!empty($request->{"check_status" . $i})) {
+            $query->orWhereHas('bills', function ($query) use ($request, $i) {
+              $query->where('reservation_status', $request->{'check_status' . $i});
+            });
+          }
+        }
+      });
+
 
 
       if ($request->freeword) {

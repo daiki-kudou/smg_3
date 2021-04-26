@@ -1096,9 +1096,9 @@
   })
 
   $(function() {
-    $("html,body").animate({
-      scrollTop: $('.bill').offset().top
-    });
+    // $("html,body").animate({
+    //   scrollTop: $('.bill').offset().top
+    // });
 
     $(function() {
       $(document).on("click", ".add", function() {

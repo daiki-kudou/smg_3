@@ -335,20 +335,20 @@
             <tr>
               <td class="table-active">事前に預かる荷物<br>（個数）</td>
               <td>
-                {{ Form::text('luggage_count', $value['luggage_count'],['class'=>'form-control'] ) }}
+                {{ Form::text('luggage_count', !empty($value['luggage_count'])?$value['luggage_count']:"",['class'=>'form-control'] ) }}
                 <p class="is-error-luggage_count" style="color: red"></p>
               </td>
             </tr>
             <tr>
               <td class="table-active">事前荷物の到着日<br>午前指定のみ</td>
               <td>
-                {{ Form::text('luggage_arrive', $value['luggage_arrive'],['class'=>'form-control','id'=>'datepicker3'] ) }}
+                {{ Form::text('luggage_arrive', !empty($value['luggage_arrive'])?$value['luggage_arrive']:"",['class'=>'form-control','id'=>'datepicker3'] ) }}
               </td>
             </tr>
             <tr>
               <td class="table-active">事後返送する荷物</td>
               <td>
-                {{ Form::text('luggage_return', $value['luggage_return'],['class'=>'form-control'] ) }}
+                {{ Form::text('luggage_return', !empty($value['luggage_return'])?$value['luggage_return']:"",['class'=>'form-control'] ) }}
                 <p class="is-error-luggage_return" style="color: red"></p>
               </td>
             </tr>
@@ -356,7 +356,7 @@
               <td class="table-active">荷物預り/返送<br>料金</td>
               <td>
                 <div class="d-flex align-items-end">
-                  {{ Form::text('luggage_price', $value['luggage_price'],['class'=>'form-control'] ) }}
+                  {{ Form::text('luggage_price', !empty($value['luggage_price'])?$value['luggage_price']:"",['class'=>'form-control'] ) }}
                   <span class="ml-1 annotation">円</span>
                 </div>
                 <p class="is-error-luggage_price" style="color: red"></p>
@@ -822,7 +822,7 @@
                 </td>
               </tr>
               @endforeach
-              @if ($value['luggage_price'])
+              @if (!empty($value['luggage_price']))
               <tr>
                 <td>
                   {{ Form::text('luggage_item', '荷物預り/返送',['class'=>'form-control', 'readonly'] ) }}
@@ -844,7 +844,7 @@
                 <td colspan="3"></td>
                 <td colspan="1">
                   <p class="text-left">合計</p>
-                  {{ Form::text('equipment_price', ($priceResult['item_details'][0]+$value["luggage_price"]),['class'=>'form-control', 'readonly'] ) }}
+                  {{ Form::text('equipment_price', ($priceResult['item_details'][0]+!empty($value["luggage_price"])?$value["luggage_price"]:0),['class'=>'form-control', 'readonly'] ) }}
                 </td>
               </tr>
             </tbody>
@@ -1172,9 +1172,9 @@
        });
     })
   $(function() {
-    $("html,body").animate({
-      scrollTop: $('.bill').offset().top
-    });
+    // $("html,body").animate({
+    //   scrollTop: $('.bill').offset().top
+    // });
 
     $(function() {
       // プラスボタンクリック

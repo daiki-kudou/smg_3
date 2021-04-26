@@ -64,7 +64,7 @@
               {{ Form::text('reserve_date', '', ['class' => 'form-control', 'id'=>'datepicker1']) }}
             </td>
 
-            <th class="search_item_name"><label for="time">入室・退室工藤さん！！</label></th>
+            <th class="search_item_name"><label for="time">入室・退室</label></th>
             <td class="text-right">
 
               <div class="d-flex align-items-center">
@@ -103,7 +103,7 @@
             </td>
 
             <th class="search_item_name">
-              <label for="company">会社・団体名工藤さん！フリー項目です</label>
+              <label for="company">会社・団体名</label>
             </th>
             <td class="text-right">
               {{ Form::text('company', '', ['class' => 'form-control', 'id'=>'']) }}
@@ -111,7 +111,7 @@
           </tr>
           <tr>
             <th class="search_item_name">
-              <label for="person_name">担当者氏名工藤さん！フリー項目です</label>
+              <label for="person_name">担当者氏名</label>
             </th>
             <td class="text-right">
               {{ Form::text('person_name', '', ['class' => 'form-control', 'id'=>'']) }}
@@ -133,7 +133,7 @@
               <p class="is-error-search_tel" style="color: red"></p>
             </td>
             <th class="search_item_name">
-              <label for="agent">仲介会社工藤さん！追加です</label>
+              <label for="agent">仲介会社</label>
             </th>
             <td class="text-right">
               <select class="form-control select2" style="width: 100%;" name="agent">
@@ -203,19 +203,23 @@
                 </li>
                 <li>
                   {{Form::checkbox('check_status2', 2, false,['id'=>'check_status2'])}}
-                  {{Form::label("check_status2","予約完了")}}
+                  {{Form::label("check_status2","予約承認待ち")}}
                 </li>
                 <li>
                   {{Form::checkbox('check_status3', 3, false,['id'=>'check_status3'])}}
-                  {{Form::label("check_status3","キャンセル申請中")}}
+                  {{Form::label("check_status3","予約完了")}}
                 </li>
                 <li>
                   {{Form::checkbox('check_status4', 4, false,['id'=>'check_status4'])}}
-                  {{Form::label("check_status4","キャンセル承認待ち")}}
+                  {{Form::label("check_status4","キャンセル申請中")}}
                 </li>
                 <li>
                   {{Form::checkbox('check_status5', 5, false,['id'=>'check_status5'])}}
-                  {{Form::label("check_status5","キャンセル")}}
+                  {{Form::label("check_status5","キャンセル承認待ち")}}
+                </li>
+                <li>
+                  {{Form::checkbox('check_status6', 6, false,['id'=>'check_status6'])}}
+                  {{Form::label("check_status6","キャンセル")}}
                 </li>
               </ul>
             </td>
@@ -280,10 +284,12 @@
           }
         </style>
         @foreach ($reservations as $reservation)
+
         <tbody class="{{$reservation->cxlGray()? "cxl_gray":""}}">
         <tbody>
           <tr>
-            <td rowspan="{{count($reservation->bills)}}">※後ほど修正</td>
+            <td rowspan="{{count($reservation->bills)}}">※後ほど修正
+            </td>
             <td class="text-center" rowspan="{{count($reservation->bills)}}">
               {{ReservationHelper::fixId($reservation->id)}}</td>
             <td rowspan="{{count($reservation->bills)}}">
@@ -330,6 +336,7 @@
               @foreach (ImageHelper::show($reservation->id) as $icon)
               {!!$icon!!}
               @endforeach
+              {!!ImageHelper::newUser($reservation->user_id,$reservation->id)!!}
             </td>
             <td>会場予約</td>
             <td>
@@ -338,9 +345,6 @@
             <td class="text-center" rowspan="{{count($reservation->bills)}}"><a
                 href="{{ url('admin/reservations', $reservation->id) }}" class="more_btn">詳細</a></td>
             <td class="text-center" rowspan="{{count($reservation->bills)}}">
-              {{-- <a href="{{ url('admin/reservations/generate_pdf/'.$reservation->id) }}" class="more_btn">
-              表示
-              </a> --}}
               {{ Form::open(['url' => 'admin/board', 'method'=>'post', 'id'=>'', 'target'=>'_blank'])}}
               @csrf
               {{Form::hidden('reservation_id',$reservation->id)}}
