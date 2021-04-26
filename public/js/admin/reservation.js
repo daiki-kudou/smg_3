@@ -167,3 +167,32 @@ $(function () {
   })
 })
 
+$(function () {
+
+  $(document).on("click", '#sales_finish', function () {
+    disabledAll(false);
+    var start = $('#sales_start').val();
+    if (start == "") {
+      disabledAll(true);
+    }
+    partOfDisabled(start);
+  });
+
+  function disabledAll(trueOrFalse) {
+    $('#sales_finish').find('option').each(function (index, element) {
+      $('#sales_finish').find('option').eq(index).prop("disabled", trueOrFalse);
+    })
+  }
+
+  function partOfDisabled(start) {
+    $('#sales_finish').find('option').each(function (index, element) {
+      console.log($(element).val());
+      if (start > $(element).val()) {
+        $('#sales_finish').find('option').eq(index).prop("disabled", true);
+
+      }
+    })
+  }
+
+})
+
