@@ -73,9 +73,7 @@ class CalendarsController extends Controller
 
   public function date_calendar(Request $request)
   {
-
     $note = Note::all();
-
     if (empty($request->all())) {
       $today = Carbon::now()->toDateString();
       $tomorrow = Carbon::now()->addDay()->toDateString();
@@ -85,10 +83,7 @@ class CalendarsController extends Controller
       $tomorrow = Carbon::parse($request->date)->addDay()->toDateString();
       $yesterday = Carbon::parse($request->date)->addDays(-1)->toDateString();
     }
-
-
-    $reservations = Reservation::where('reserve_date', $today)->get();
-    $pre_reservations = PreReservation::where('reserve_date', $today)->get();
+    $reservations = Reservation::with('bills')->where('reserve_date', $today)->get();
     $venues = Venue::all();
 
     $result = [];
@@ -103,7 +98,27 @@ class CalendarsController extends Controller
       }
       $result[] = $pre;
     }
-    $json_result = json_encode($result);
+    $json_result = json_encode($result, JSON_HEX_TAG | JSON_HEX_AMP | JSON_HEX_APOS | JSON_HEX_QUOT);
+
+
+    $pre_reservations = PreReservation::where('reserve_date', $today)->get();
+    $pre_reservation_result = [];
+    foreach ($pre_reservations as $key => $pre_reservation) {
+      $pre_pre = [];
+      $start = Carbon::parse($pre_reservation->enter_time);
+      $finish = Carbon::parse($pre_reservation->leave_time);
+      $diff = (($start->diffInMinutes($finish)) / 30);
+      $pre_pre[] = date('Hi', strtotime($start));
+      for ($i = 0; $i < $diff; $i++) {
+        $pre_pre[] = date('Hi', strtotime($start->addMinutes(30)));
+      }
+      $pre_reservation_result[] = $pre_pre;
+    }
+    $pre_json_result = json_encode($pre_reservation_result, JSON_HEX_TAG | JSON_HEX_AMP | JSON_HEX_APOS | JSON_HEX_QUOT);
+
+    echo "<pre>";
+    var_dump($pre_json_result);
+    echo "</pre>";
 
     return view(
       'admin.calendar.date_calendar',
@@ -115,6 +130,7 @@ class CalendarsController extends Controller
         'tomorrow',
         'yesterday',
         'json_result',
+        'pre_json_result',
         'note',
       )
     );
