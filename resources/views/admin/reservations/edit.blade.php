@@ -41,11 +41,16 @@
   </div>
 </div>
 
+<div class="alert-box d-flex align-items-center mb-0 mt-5">
+  <p>
+    編集を行う場合は、必ず計算するボタンをクリックしてください。
+  </p>
+</div>　
 
 {{Form::open(['url' => 'admin/reservations/session_for_edit_calculate', 'method' => 'POST', 'id'=>'reservations_edit'])}}
 @csrf
 
-<section class="mt-5">
+<section class="mt-3">
   <div class="row">
     <div class="col">
       <table class="table table-bordered">
@@ -626,7 +631,7 @@
     </div>
   </div>
 </section>
-{{Form::submit('再計算する', ['class'=>'btn more_btn4_lg mx-auto d-block mt-5 mb-5', 'id'=>'check_submit'])}}
+{{Form::submit('計算する', ['class'=>'btn more_btn4_lg mx-auto d-block mt-5 mb-5', 'id'=>'check_submit'])}}
 {{Form::close()}}
 
 {{-- {{ Form::open(['url' => 'admin/reservations/edit_without_calc', 'method'=>'POST', 'id'=>'']) }}
