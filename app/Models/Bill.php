@@ -153,7 +153,7 @@ class Bill extends Model
             'unit_cost' => $discount_info['services_breakdown_cost' . $ser],
             'unit_count' => $discount_info['services_breakdown_count' . $ser],
             'unit_subtotal' => $discount_info['services_breakdown_subtotal' . $ser],
-            'unit_type' => 2,
+            'unit_type' => 3,
           ]);
         }
       }

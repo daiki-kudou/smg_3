@@ -203,19 +203,23 @@
                 </li>
                 <li>
                   {{Form::checkbox('check_status2', 2, false,['id'=>'check_status2'])}}
-                  {{Form::label("check_status2","予約完了")}}
+                  {{Form::label("check_status2","予約承認待ち")}}
                 </li>
                 <li>
                   {{Form::checkbox('check_status3', 3, false,['id'=>'check_status3'])}}
-                  {{Form::label("check_status3","キャンセル申請中")}}
+                  {{Form::label("check_status3","予約完了")}}
                 </li>
                 <li>
                   {{Form::checkbox('check_status4', 4, false,['id'=>'check_status4'])}}
-                  {{Form::label("check_status4","キャンセル承認待ち")}}
+                  {{Form::label("check_status4","キャンセル申請中")}}
                 </li>
                 <li>
                   {{Form::checkbox('check_status5', 5, false,['id'=>'check_status5'])}}
-                  {{Form::label("check_status5","キャンセル")}}
+                  {{Form::label("check_status5","キャンセル承認待ち")}}
+                </li>
+                <li>
+                  {{Form::checkbox('check_status6', 6, false,['id'=>'check_status6'])}}
+                  {{Form::label("check_status6","キャンセル")}}
                 </li>
               </ul>
             </td>
