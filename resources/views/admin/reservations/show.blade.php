@@ -55,7 +55,6 @@
 <div class="alert-box d-flex align-items-center mb-0">
   <p>
     一人目のチェックが終了しています。ダブルチェックを行ってください。
-    工藤さん！！一人目チェックが完了時に、表示をお願いします。
   </p>
 </div>　
 
