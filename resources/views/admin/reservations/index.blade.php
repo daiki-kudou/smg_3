@@ -343,14 +343,13 @@
               {{ReservationHelper::judgeStatus($reservation->bills->first()->reservation_status)}}
             </td>
             <td class="text-center" rowspan="{{count($reservation->bills)}}"><a
-                href="{{ url('admin/reservations', $reservation->id) }}" class="more_btn">詳細</a></td>
+                href="{{ url('admin/reservations', $reservation->id) }}" class="more_btn btn">詳細</a></td>
             <td class="text-center" rowspan="{{count($reservation->bills)}}">
               {{ Form::open(['url' => 'admin/board', 'method'=>'post', 'id'=>'', 'target'=>'_blank'])}}
               @csrf
               {{Form::hidden('reservation_id',$reservation->id)}}
               {{Form::submit('表示', ['class' => 'btn more_btn']) }}
               {{Form::close()}}
-
             </td>
           </tr>
           @for ($i = 0; $i < count($reservation->bills)-1; $i++)
