@@ -331,7 +331,12 @@
               {{ReservationHelper::getAgentCompanyName($reservation->agent_id)}}
               @endif
             </td>
-            <td>ダミーダミーダミー</td>
+            <td rowspan="{{count($reservation->bills)}}">
+              @if ($reservation->agent_id>0)
+              {{$reservation->endusers->company}}
+              @endif
+
+            </td>
             <td>
               @foreach (ImageHelper::show($reservation->id) as $icon)
               {!!$icon!!}
@@ -350,13 +355,12 @@
               {{Form::hidden('reservation_id',$reservation->id)}}
               {{Form::submit('表示', ['class' => 'btn more_btn']) }}
               {{Form::close()}}
-
             </td>
           </tr>
           @for ($i = 0; $i < count($reservation->bills)-1; $i++)
             <tr>
-              <td>エンドユーザーダミー123
-              </td>
+              {{-- <td>エンドユーザーダミー123
+              </td> --}}
               <td>
                 @foreach (ImageHelper::addBillsShow($reservation->bills->skip($i+1)->first()->id) as $icon)
                 {!!$icon!!}

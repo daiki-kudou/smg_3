@@ -25,7 +25,6 @@ class Enduser extends Model
 */
   public function reservation()
   {
-    return $this->hasOne(Enduser::class);
     return $this->belongsTo(Reservation::class);
   }
 }

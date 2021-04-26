@@ -42,7 +42,8 @@
                 <tr>
                   <td colspan="5">
                     <div class="venue_chkbox">
-                      <input type="checkbox" id="venue" name="venue" value="1" {{!empty($bill->venue_price)?"checked":""}} class="checkbox">
+                      <input type="checkbox" id="venue" name="venue" value="1"
+                        {{!empty($bill->venue_price)?"checked":""}} class="checkbox">
                       <label for="venue">会場料</label>
                     </div>
                   </td>
@@ -118,7 +119,8 @@
                 <tr>
                   <td colspan="5">
                     <div class="equipment_chkbox">
-                      <input type="checkbox" class="checkbox" id="equipment" name="equipment" value="1" {{!empty($bill->equipment_price)?"checked":""}}>
+                      <input type="checkbox" class="checkbox" id="equipment" name="equipment" value="1"
+                        {{!empty($bill->equipment_price)?"checked":""}}>
                       <label for="equipment">有料備品・サービス料</label>
                     </div>
                   </td>
@@ -195,7 +197,8 @@
                 <tr>
                   <td colspan="5">
                     <div class="layout_chkbox">
-                      <input type="checkbox" class="checkbox" id="layout" name="layout" value="1" {{!empty($bill->layout_price)?"checked":""}}>
+                      <input type="checkbox" class="checkbox" id="layout" name="layout" value="1"
+                        {{!empty($bill->layout_price)?"checked":""}}>
                       <label for="layout">レイアウト変更料</label>
                     </div>
                   </td>
@@ -272,7 +275,8 @@
                 <tr>
                   <td colspan="5">
                     <div class="others_chkbox">
-                      <input type="checkbox" class="checkbox" id="others" name="others" value="1" {{!empty($bill->others_price)?"checked":""}}>
+                      <input type="checkbox" class="checkbox" id="others" name="others" value="1"
+                        {{!empty($bill->others_price)?"checked":""}}>
                       <label for="others">その他</label>
                     </div>
                   </td>
@@ -389,25 +393,25 @@
               <tbody>
                 <tr>
                   <td>請求日：
-                    {{Form::text('bill_created_at', $bill->bill_created_at,['class'=>'form-control', 'datepicker1'])}}
+                    {{Form::text('bill_created_at', $bill->bill_created_at,['class'=>'form-control datepicker'])}}
 
                   </td>
                   <td>支払期日
-                    {{Form::text('payment_limit', $bill->payment_limit,['class'=>'form-control', 'datepicker1'])}}
+                    {{Form::text('payment_limit', date('Y-m-d',strtotime($bill->payment_limit)),['class'=>'form-control datepicker'])}}
                   </td>
                 </tr>
                 <tr>
                   <td>請求書宛名
-                    {{Form::text('bill_company', $bill->bill_company,['class'=>'form-control', 'datepicker1'])}}
+                    {{Form::text('bill_company', $bill->bill_company,['class'=>'form-control'])}}
                   </td>
                   <td>
                     担当者
-                    {{Form::text('bill_person', $bill->bill_person,['class'=>'form-control', 'datepicker1'])}}
+                    {{Form::text('bill_person', $bill->bill_person,['class'=>'form-control '])}}
                   </td>
                 </tr>
                 <tr>
                   <td colspan="2">請求書備考
-                    {{Form::textarea('bill_remark', $bill->bill_remark,['class'=>'form-control', 'datepicker1'])}}
+                    {{Form::textarea('bill_remark', $bill->bill_remark,['class'=>'form-control '])}}
                   </td>
                 </tr>
               </tbody>
@@ -435,7 +439,7 @@
                   </td>
                   <td>
                     入金日
-                    {{Form::text('pay_day', $bill->pay_day,['class'=>'form-control'])}}
+                    {{Form::text('pay_day', $bill->pay_day,['class'=>'form-control datepicker'])}}
                   </td>
                 </tr>
                 <tr>
@@ -461,6 +465,12 @@
 
 <script>
   $(function() {
+
+    $('.datepicker').datepicker({
+    dateFormat: 'yy-mm-dd',
+    minDate: 0,
+    autoclose: true
+  });
     // プラス・マイナス押下アクション
     $(document).on("click", ".add", function() {
       var target = $(this).parent().parent();
@@ -582,7 +592,6 @@
     $('input').on('input', function() {
       MaterCalc();
     })
-
 
     function MaterCalc() {
       var tar1 = Number($('input[name="venue_price"]').val());

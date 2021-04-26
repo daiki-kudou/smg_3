@@ -230,6 +230,8 @@
           </tbody>
         </table>
       </div>
+
+      @if ($venue->luggage_flag!=0)
       <div class="luggage">
         <table class="table table-bordered">
           <thead>
@@ -264,6 +266,8 @@
           </tbody>
         </table>
       </div>
+      @endif
+
       <div class="eat_in">
         <table class="table table-bordered">
           <thead>

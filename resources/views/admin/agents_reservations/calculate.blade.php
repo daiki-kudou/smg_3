@@ -328,6 +328,9 @@
             </tbody>
           </table>
         </div>
+
+        @if ($venues->find($master_info['venue_id'])->luggage_flag!=0)
+
         <div class="luggage">
           <table class="table table-bordered">
             <thead>
@@ -364,6 +367,7 @@
             </tbody>
           </table>
         </div>
+        @endif
 
         <div class="eat_in">
           <table class="table table-bordered">

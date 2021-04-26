@@ -667,10 +667,12 @@
                 </dl>
                 <p>
                   @if ($reservation->user_id>0)
-                  <a href="{{url('admin/bills/'.$other_bill->id.'/edit')}}" class="btn more_btn">編集</a>
-                  @else
-                  <a href="{{url('admin/bills/'.$other_bill->id.'/agent_edit')}}" class="btn more_btn">編集</a>
-                  @endif
+                  @if ($other_bill->reservation_status < 3) <a href="{{url('admin/bills/'.$other_bill->id.'/edit')}}"
+                    class="btn more_btn">追加請求書編集</a>
+                    @endif
+                    @else
+                    <a href="{{url('admin/bills/'.$other_bill->id.'/agent_edit')}}" class="btn more_btn">編集</a>
+                    @endif
                 </p>
               </div>
             </td>

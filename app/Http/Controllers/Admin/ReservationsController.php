@@ -39,7 +39,7 @@ class ReservationsController extends Controller
       $class = new Reservation;
       $reservations = $class->search_item($request)->orderBy('id', 'desc')->paginate(30);
     } else {
-      $reservations = Reservation::with(['bills.breakdowns', 'user', 'agent', 'venue'])
+      $reservations = Reservation::with(['bills.breakdowns', 'user', 'agent', 'venue', 'endusers'])
         ->orderBy('id', 'desc')
         ->paginate(30);
     }

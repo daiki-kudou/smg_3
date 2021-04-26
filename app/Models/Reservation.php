@@ -10,6 +10,7 @@ use Illuminate\Support\Facades\DB; //トランザクション用
 use App\Models\Venue;
 use App\Models\User;
 use App\Models\Cxl;
+use App\Models\Enduser;
 
 use Carbon\Carbon;
 
@@ -132,6 +133,11 @@ class Reservation extends Model implements PresentableInterface
   public function cxls()
   {
     return $this->hasMany(Cxl::Class);
+  }
+
+  public function endusers()
+  {
+    return $this->hasOne(Enduser::Class);
   }
 
 
