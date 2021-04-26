@@ -52,11 +52,15 @@
   @endif
 
 </div>
+
+@if ($reservation->bills->first()->double_check_status==0)
+
 <div class="alert-box d-flex align-items-center mb-0">
   <p>
     一人目のチェックが終了しています。ダブルチェックを行ってください。
   </p>
 </div>　
+@endif
 
 <section class="register-wrap mt-2">
   <div class="row">
@@ -464,12 +468,12 @@
       </div>
 
       <div class="invoice_box d-flex justify-content-end my-3">
-          {{ Form::open(['url' => 'admin/invoice', 'method'=>'post', 'class'=>'']) }}
-          @csrf
-          {{ Form::hidden('reservation_id', $reservation->id ) }}
-          {{ Form::hidden('bill_id', $reservation->bills->first()->id ) }}
-          <p class="mr-2">{{ Form::submit('請求書をみる',['class' => 'btn more_btn']) }}</p>
-          {{ Form::close() }}
+        {{ Form::open(['url' => 'admin/invoice', 'method'=>'post', 'class'=>'']) }}
+        @csrf
+        {{ Form::hidden('reservation_id', $reservation->id ) }}
+        {{ Form::hidden('bill_id', $reservation->bills->first()->id ) }}
+        <p class="mr-2">{{ Form::submit('請求書をみる',['class' => 'btn more_btn']) }}</p>
+        {{ Form::close() }}
         <p class="mr-2"><input class="more_btn4 btn" value="領収書をみる"></p>
       </div>
     </div>

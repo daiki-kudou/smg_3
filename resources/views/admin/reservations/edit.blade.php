@@ -566,8 +566,18 @@
         <tr>
           <td class="table-active"><label for="email_flag">送信メール</label></td>
           <td>
-            {{ Form::text('', $reservation->email_flag==1?"有り":"無し",['class'=>'form-control'] ) }}
-            {{ Form::hidden('email_flag', $reservation->email_flag,['class'=>'form-control'] ) }}
+            <div class="radio-box">
+              <p>
+                {{Form::radio('email_flag', '1', $reservation->email_flag==1?true:false, ['id' => 'no_email_flag', 'class' => ''])}}
+                {{Form::label('no_email_flag',"有り")}}
+              </p>
+              <p>
+                {{Form::radio('email_flag', '0', $reservation->email_flag==0?true:false, ['id' => 'email_flag', 'class' => ''])}}
+                {{Form::label('email_flag', "無し")}}
+              </p>
+            </div>
+            {{-- {{ Form::text('', $reservation->email_flag==1?"有り":"無し",['class'=>'form-control'] ) }}
+            {{ Form::hidden('email_flag', $reservation->email_flag,['class'=>'form-control'] ) }} --}}
           </td>
         </tr>
       </table>
@@ -619,8 +629,8 @@
 {{Form::submit('再計算する', ['class'=>'btn more_btn4_lg mx-auto d-block mt-5 mb-5', 'id'=>'check_submit'])}}
 {{Form::close()}}
 
-{{ Form::open(['url' => 'admin/reservations/edit_without_calc', 'method'=>'POST', 'id'=>'']) }}
-@csrf
+{{-- {{ Form::open(['url' => 'admin/reservations/edit_without_calc', 'method'=>'POST', 'id'=>'']) }}
+@csrf --}}
 <section class="mt-5">
   <div class="bill">
     <div class="bill_head">
@@ -916,28 +926,28 @@
                 <td>単価</td>
                 <td>数量</td>
                 <td>金額</td>
-                <td>追加/削除</td>
+                {{-- <td>追加/削除</td> --}}
               </tr>
             </tbody>
             <tbody class="others_main">
               @foreach ($bill->breakdowns->where('unit_type',5) as $key=>$others_price)
               <tr>
                 <td>
-                  {{ Form::text('others_input_item[]', $others_price->unit_item,['class'=>'form-control', ''] ) }}
+                  {{ Form::text('others_input_item[]', $others_price->unit_item,['class'=>'form-control', 'readonly'] ) }}
                 </td>
                 <td>
-                  {{ Form::text('others_input_cost[]', $others_price->unit_cost,['class'=>'form-control', ''] ) }}
+                  {{ Form::text('others_input_cost[]', $others_price->unit_cost,['class'=>'form-control', 'readonly'] ) }}
                 </td>
                 <td>
-                  {{ Form::text('others_input_count[]', $others_price->unit_count,['class'=>'form-control', ''] ) }}
+                  {{ Form::text('others_input_count[]', $others_price->unit_count,['class'=>'form-control', 'readonly'] ) }}
                 </td>
                 <td>
-                  {{ Form::text('others_input_subtotal[]', $others_price->unit_subtotal,['class'=>'form-control', ''] ) }}
+                  {{ Form::text('others_input_subtotal[]', $others_price->unit_subtotal,['class'=>'form-control', 'readonly'] ) }}
                 </td>
-                <td>
+                {{-- <td>
                   <input type="button" value="＋" class="add pluralBtn">
                   <input type="button" value="ー" class="del pluralBtn">
-                </td>
+                </td> --}}
               </tr>
               @endforeach
             </tbody>
@@ -1087,8 +1097,8 @@
     </div>
   </div>
 </section>
-{{Form::submit('確認する', ['class'=>'btn more_btn_lg d-block btn-lg mx-auto mt-5 mb-5', 'id'=>'check_submit'])}}
-{{Form::close()}}
+{{-- {{Form::submit('確認する', ['class'=>'btn more_btn_lg d-block btn-lg mx-auto mt-5 mb-5', 'id'=>'check_submit'])}}
+{{Form::close()}} --}}
 
 
 
