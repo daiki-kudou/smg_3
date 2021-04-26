@@ -58,10 +58,17 @@ class ImageHelper
     if ($breakdown->where('unit_type', 3)->count() > 0) $icon[] = $helper->service;
     if ($breakdown->where('unit_type', 4)->count() > 0) $icon[] = $helper->layout;
     if ($reservation->eat_in == 1) $icon[] = $helper->catering;
-    if ($allReservation->where('user_id', $reservation->user_id)->count() == 1) {
-      $icon[] = $helper->new;
-    }
     return $icon;
+  }
+
+  public static function newUser($user_id, $reservation_id)
+  {
+    $helper = new ImageHelper;
+    $reservations = Reservation::all();
+    $first_use = $reservations->where('user_id', $user_id)->first();
+    if ($first_use->id == $reservation_id) {
+      return $helper->new;
+    }
   }
 
   public static function addBillsShow($bill_id)
