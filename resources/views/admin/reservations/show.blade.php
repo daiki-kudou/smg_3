@@ -158,7 +158,7 @@
         <thead class="accordion-ttl">
           <tr>
             <th colspan="2">
-              <p class="title-icon fw-bolder">
+              <p class="title-icon fw-bolder py-1">
                 <i class="fas fa-wrench icon-size" aria-hidden="true"></i>有料備品
               </p>
             </th>
