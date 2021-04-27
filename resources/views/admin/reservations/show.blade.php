@@ -601,12 +601,12 @@
                 </td>
                 <td>
                   入金日：
-                  {{$reservation->bills->first()->pay_day}}
+                  {{ReservationHelper::formatDate($reservation->bills->first()->pay_day)}}
                 </td>
               </tr>
               <tr>
                 <td>振込人名：{{$reservation->bills->first()->pay_person}}</td>
-                <td>入金額：{{$reservation->bills->first()->pay_person}}</td>
+                <td>入金額：{{$reservation->bills->first()->payment}}</td>
               </tr>
             </tbody>
           </table>
@@ -895,7 +895,7 @@
               </tr>
               <tr>
                 <td>振込人名：{{$other_bill->pay_person}}</td>
-                <td>入金額：{{$other_bill->pay_person}}</td>
+                <td>入金額：{{$other_bill->payment}}</td>
               </tr>
             </tbody>
           </table>
@@ -1356,12 +1356,12 @@
                 <td> {{$cxl->paid==0?"未入金":"入金済"}}
                 </td>
                 <td>
-                  入金日：{{$cxl->pay_day}}
+                  入金日：{{ReservationHelper::formatDate($cxl->pay_day)}}
                 </td>
               </tr>
               <tr>
                 <td>振込人名：{{$cxl->pay_person}}</td>
-                <td>入金額：{{$cxl->pay_person}}</td>
+                <td>入金額：{{$cxl->payment}}</td>
               </tr>
             </tbody>
           </table>

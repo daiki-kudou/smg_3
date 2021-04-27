@@ -1104,6 +1104,11 @@
     </div>
   </div>
 </section>
+<div class="alert-box d-flex align-items-center mb-0 mt-5">
+  <p>
+    予約内容に変更がある場合は、再計算するボタンをクリックしてから確認画面に進んでください。
+  </p>
+</div>　
 
 {{Form::submit('確認する', ['class'=>'btn d-block more_btn_lg mx-auto my-5', 'id'=>''])}}
 {{Form::close()}}
