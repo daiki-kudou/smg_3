@@ -334,7 +334,9 @@
                 <p class="title-icon">
                   <i class="far fa-id-card icon-size" aria-hidden="true"></i>仲介会社情報
                 </p>
-                <p><a class="more_btn" href="">仲介会社詳細工藤さん！リンク</a></p>
+                <p class="agent_link">
+                  {{-- <a class="more_btn" href="">仲介会社詳細工藤さん！リンク</a> --}}
+                </p>
               </div>
             </td>
           </tr>
