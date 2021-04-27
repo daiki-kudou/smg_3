@@ -5,7 +5,7 @@
 <link href="{{ asset('/css/template.css') }}" rel="stylesheet">
 {{-- <script src="{{ asset('/js/admin/reservation.js') }}"></script> --}}
 <script src="{{ asset('/js/ajax.js') }}"></script>
-{{-- <script src="{{ asset('/js/template.js') }}"></script> --}}
+<script src="{{ asset('/js/template.js') }}"></script>
 <script src="{{ asset('/js/admin/validation.js') }}"></script>
 
 
@@ -859,7 +859,7 @@
                     {{ Form::text('bill_created_at', date('Y-m-d'),['class'=>'form-control', 'id'=>'datepicker6'] ) }}
                   </td>
                   <td>支払期日
-                    {{ Form::text('pay_limit', $calc_info[1],['class'=>'form-control', 'id'=>'datepicker6'] ) }}
+                    {{ Form::text('pay_limit', $calc_info[1],['class'=>'form-control datepicker', 'id'=>''] ) }}
                   </td>
                 </tr>
                 <tr>
