@@ -18,7 +18,7 @@
       </tr>
     </tbody>
     <tbody class="venue_main">
-      @foreach ($reservation->bills()->first()->breakdowns()->get() as $venue_breakdown)
+      @foreach ($reservation->bills->first()->breakdowns as $venue_breakdown)
       @if ($venue_breakdown->unit_type==1)
       <tr>
         <td>{{$venue_breakdown->unit_item}}</td>
@@ -52,7 +52,7 @@
       </tr>
     </tbody>
     <tbody class="equipment_main">
-      @foreach ($reservation->bills()->first()->breakdowns()->get() as $equipment_breakdown)
+      @foreach ($reservation->bills->first()->breakdowns as $equipment_breakdown)
       @if ($equipment_breakdown->unit_type==2)
       <tr>
         <td>{{$equipment_breakdown->unit_item}}</td>
@@ -62,7 +62,7 @@
       </tr>
       @endif
       @endforeach
-      @foreach ($reservation->bills()->first()->breakdowns()->get() as $service_breakdown)
+      @foreach ($reservation->bills->first()->breakdowns as $service_breakdown)
       @if ($service_breakdown->unit_type==3)
       <tr>
         <td>{{$service_breakdown->unit_item}}</td>
@@ -96,7 +96,7 @@
       </tr>
     </tbody>
     <tbody class="layout_main">
-      @foreach ($reservation->bills()->first()->breakdowns()->get() as $layout_breakdown)
+      @foreach ($reservation->bills->first()->breakdowns as $layout_breakdown)
       @if ($layout_breakdown->unit_type==4)
       <tr>
         <td>{{$layout_breakdown->unit_item}}</td>
@@ -110,7 +110,7 @@
     <tbody class="layout_result">
       <tr>
         <td colspan="3"></td>
-        <td colspan="1">合計：{{number_format($reservation->bills()->first()->layout_price)}}
+        <td colspan="1">合計：{{number_format($reservation->bills->first()->layout_price)}}
         </td>
       </tr>
     </tbody>
@@ -137,7 +137,7 @@
       </tr>
     </tbody>
     <tbody class="others_main">
-      @foreach ($reservation->bills()->first()->breakdowns()->get() as $others_breakdown)
+      @foreach ($reservation->bills->first()->breakdowns as $others_breakdown)
       @if ($others_breakdown->unit_type==5)
       <tr>
         <td>{{$others_breakdown->unit_item}}</td>

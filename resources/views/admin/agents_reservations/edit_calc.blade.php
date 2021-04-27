@@ -379,9 +379,13 @@
   {{-- スロット --}}
   @slot('others_breakdown_loop')
   <tr>
-    <td>{{ Form::text('others_input_item[]', '',['class'=>'form-control'] ) }}</td>
+    <td>
+      {{ Form::text('others_breakdown_item0', "",['class'=>'form-control', ''] ) }}
+    </td>
     <td><input class="form-control" readonly></td>
-    <td>{{ Form::text('others_input_count[]', '',['class'=>'form-control'] ) }}</td>
+    <td>
+      {{ Form::text('others_breakdown_count0', "",['class'=>'form-control', ''] ) }}
+    </td>
     <td><input class="form-control" readonly></td>
     <td>
       <input type="button" value="＋" class="add pluralBtn">
@@ -418,7 +422,6 @@
   @slot('master_total2')
   {{ Form::text('master_total', (ReservationHelper::taxAndPrice($price)),['class'=>'form-control', 'readonly'] ) }}
   @endslot
-
 
 
   {{-- スロット --}}
@@ -570,7 +573,18 @@
                   $(this).parent().parent().clone(true).insertAfter($(this).parent().parent());
                   $(this).parent().parent().next().find('td').find('input, select').eq(0).val('');
                   $(this).parent().parent().next().find('td').find('input, select').eq(1).val('');
+                  addThisTr('.others .others_main tr', 'others_breakdown_item', 'others_breakdown_cost', 'others_breakdown_count', 'others_breakdown_subtotal');
                 });
+                function addThisTr($targetTr, $TItem, $TCost, $TCount, $TSubtotal) {
+                  var count = $($targetTr).length;
+                  for (let index = 0; index < count; index++) {
+                    $($targetTr).eq(index).find('td').eq(0).find('input').attr('name', $TItem + index);
+                    $($targetTr).eq(index).find('td').eq(1).find('input').attr('name', $TCost + index);
+                    $($targetTr).eq(index).find('td').eq(2).find('input').attr('name', $TCount + index);
+                    $($targetTr).eq(index).find('td').eq(3).find('input').attr('name', $TSubtotal + index);
+                  }
+                }
+
         
                 // マイナスボタンクリック
                 $(document).on("click", ".del", function() {

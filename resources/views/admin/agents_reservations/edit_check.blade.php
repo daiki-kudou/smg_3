@@ -32,7 +32,7 @@
   @component('components.reservation.m_reservation')
   {{-- スロット --}}
   @slot('form_open1')
-  {{ Form::open(['url' => 'admin/agents_reservations/show_input', 'method'=>'get', 'class'=>'']) }}
+  {{ Form::open(['url' => 'admin/agents_reservations/update', 'method'=>'post', 'class'=>'']) }}
   @csrf
   @endslot
 
@@ -197,18 +197,18 @@
 
   {{-- スロット --}}
   @slot('form_submit1')
-  {{Form::submit('再計算する', ['class'=>'btn more_btn4_lg mx-auto d-block mt-5 mb-5', 'id'=>'check_submit'])}}
+  {{-- {{Form::submit('再計算する', ['class'=>'btn more_btn4_lg mx-auto d-block mt-5 mb-5', 'id'=>'check_submit'])}} --}}
   @endslot
 
   {{-- スロット --}}
   @slot('form_close1')
-  {{Form::close()}}
+  {{-- {{Form::close()}} --}}
   @endslot
 
   {{-- スロット --}}
   @slot('form_open2')
-  {{ Form::open(['url' => 'admin/agents_reservations/update', 'method'=>'post', 'class'=>'']) }}
-  @csrf
+  {{-- {{ Form::open(['url' => 'admin/agents_reservations/update', 'method'=>'post', 'class'=>'']) }} --}}
+  {{-- @csrf --}}
   @endslot
 
 
@@ -311,14 +311,14 @@
 
   {{-- スロット --}}
   @slot('others_breakdown_loop')
-  @for ($i = 0; $i < count($result["others_input_item"]); $i++) <tr>
+  @for ($i = 0; $i < $o_count; $i++) <tr>
     <td>
-      {{ Form::text('others_breakdown_item'.$i, $result['others_input_item'][$i],['class'=>'form-control','readonly'] ) }}
+      {{ Form::text('others_breakdown_item'.$i, $result['others_breakdown_item'.$i],['class'=>'form-control','readonly'] ) }}
     </td>
     <td>
       <input class="form-control" readonly></td>
     <td>
-      {{ Form::text('others_breakdown_count'.$i, $result['others_input_count'][$i],['class'=>'form-control','readonly'] ) }}
+      {{ Form::text('others_breakdown_count'.$i, $result['others_breakdown_count'.$i],['class'=>'form-control','readonly'] ) }}
     </td>
     <td>
       <input class="form-control" readonly></td>
@@ -398,7 +398,10 @@
 
     {{-- スロット --}}
     @slot('form_submit2')
-    {{Form::submit('編集を確定する', ['class'=>'btn more_btn_lg d-block btn-lg mx-auto mt-5 mb-5', 'id'=>'check_submit'])}}
+    <div class="container-field d-flex justify-content-center mt-5">
+      {{Form::submit('請求内訳を修正する', ['class'=>'btn more_btn4_lg d-block btn-lg mx-auto mt-5 mb-5', 'name'=>'back'])}}
+      {{Form::submit('編集を確定する', ['class'=>'btn more_btn_lg d-block btn-lg mx-auto mt-5 mb-5', 'id'=>'check_submit'])}}
+    </div>
     @endslot
     {{-- スロット --}}
 

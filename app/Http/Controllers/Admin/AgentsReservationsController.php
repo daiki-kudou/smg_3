@@ -325,6 +325,8 @@ class AgentsReservationsController extends Controller
     $reservation = $request->session()->get('reservation');
     $breakdown = $request->session()->get('breakdown');
 
+    $o_count = $this->preg($result, 'others_breakdown_item');
+
     return view(
       "admin.agents_reservations.edit_check",
       compact(
@@ -337,12 +339,17 @@ class AgentsReservationsController extends Controller
         "price",
         "bill",
         "agents",
+        "o_count",
       )
     );
   }
 
   public function update(Request $request)
   {
+    if ($request->back) {
+      return redirect(route('admin.agents_reservations.edit_show'));
+    }
+
     $reservation = $request->session()->get('reservation');
     $bill = $request->session()->get('bill');
     $breakdown = $request->session()->get('breakdown');
@@ -359,7 +366,6 @@ class AgentsReservationsController extends Controller
       return redirect(route('admin.agents_reservations.show_input'));
     }
     $request->session()->regenerate();
-    $request->session()->flush();
     return redirect()->route('admin.reservations.show', $reservation->id);
   }
 }
