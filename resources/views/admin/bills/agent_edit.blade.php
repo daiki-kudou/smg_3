@@ -2,9 +2,7 @@
 
 @section('content')
 <link href="{{ asset('/css/template.css') }}" rel="stylesheet">
-{{-- <script src="{{ asset('/js/admin/reservation.js') }}"></script> --}}
 <script src="{{ asset('/js/admin/validation.js') }}"></script>
-<script src="{{ asset('/js/admin/reservation.js') }}"></script>
 <script src="{{ asset('/js/template.js') }}"></script>
 
 <style>
@@ -14,13 +12,11 @@
 </style>
 
 <div class="container-fluid">
-
   <h2 class="mt-3 mb-3">追加請求書　編集</h2>
   <hr>
 
   {{ Form::open(['url' => 'admin/bills/'.$bill->id.'/agent_edit_update', 'method'=>'psot', 'id'=>'']) }}
   @csrf
-
   <section class="mt-5">
     <div class="bill">
       <div class="bill_details">
@@ -35,6 +31,7 @@
             </h3>
           </div>
         </div>
+        {{var_dump($bill->breakdowns->where('unit_type',2)->count())}}
         <div class="main">
           <div class="venues billdetails_content">
             <table class="table table-borderless">
@@ -42,13 +39,14 @@
                 <tr>
                   <td colspan="5">
                     <div class="venue_chkbox">
-                      <input type="checkbox" id="venue" name="venue" value="1" {{!empty($bill->venue_price)?"checked":""}} class="checkbox">
+                      <input type="checkbox" id="venue" name="venue" value="1"
+                        {{!empty($bill->breakdowns->where('unit_type',1)->first())?"checked":""}} class="checkbox">
                       <label for="venue">会場料</label>
                     </div>
                   </td>
                 </tr>
               </tbody>
-              <tbody class="venue_head">
+              <tbody class="venue_head {{empty($bill->breakdowns->where('unit_type',1)->first())?"hide":""}}">
                 <tr>
                   <td>内容</td>
                   <td>単価</td>
@@ -57,18 +55,18 @@
                   <td>追加/削除</td>
                 </tr>
               </tbody>
-              <tbody class="venue_main">
-                @if (count($bill->breakdowns()->where('unit_type',1)->get())!=0)
-                @foreach ($bill->breakdowns()->where('unit_type',1)->get() as $key=>$venue)
+              <tbody class="venue_main {{empty($bill->breakdowns->where('unit_type',1)->first())?"hide":""}}">
+                @if (count($bill->breakdowns->where('unit_type',1))!=0)
+                @foreach ($bill->breakdowns->where('unit_type',1) as $key=>$value)
                 <tr>
                   <td>
-                    {{Form::text('venue_breakdown_item'.$key,$venue->unit_item,['class'=>'form-control'])}}
+                    {{Form::text('venue_breakdown_item'.$loop->index,$value->unit_item,['class'=>'form-control'])}}
                   </td>
                   <td>
                     {{Form::text('','',['class'=>'form-control','readonly'])}}
                   </td>
                   <td>
-                    {{Form::text('venue_breakdown_count'.$key,$venue->unit_count,['class'=>'form-control'])}}
+                    {{Form::text('venue_breakdown_count'.$loop->index,$value->unit_count,['class'=>'form-control'])}}
                   </td>
                   <td>
                     {{Form::text('','',['class'=>'form-control','readonly'])}}
@@ -100,15 +98,6 @@
                 </tr>
                 @endif
               </tbody>
-              {{-- <tbody class="venue_result">
-                <tr>
-                  <td colspan="4"></td>
-                  <td colspan="1">
-                    <p class="text-left">合計</p>
-                    {{Form::text('venue_price',$bill->venue_price,['class'=>'form-control','readonly'])}}
-              </td>
-              </tr>
-              </tbody> --}}
             </table>
           </div>
 
@@ -118,13 +107,14 @@
                 <tr>
                   <td colspan="5">
                     <div class="equipment_chkbox">
-                      <input type="checkbox" class="checkbox" id="equipment" name="equipment" value="1" {{!empty($bill->equipment_price)?"checked":""}}>
+                      <input type="checkbox" class="checkbox" id="equipment" name="equipment" value="1"
+                        {{!empty($bill->breakdowns->where('unit_type',2)->first())?"checked":""}} class="checkbox">
                       <label for="equipment">有料備品・サービス料</label>
                     </div>
                   </td>
                 </tr>
               </tbody>
-              <tbody class="equipment_head">
+              <tbody class="equipment_head {{empty($bill->breakdowns->where('unit_type',2)->first())?"hide":""}}">
                 <tr>
                   <td>内容</td>
                   <td>単価</td>
@@ -133,18 +123,18 @@
                   <td>追加/削除</td>
                 </tr>
               </tbody>
-              <tbody class="equipment_main">
-                @if (count($bill->breakdowns()->where('unit_type',2)->get())!=0)
-                @foreach ($bill->breakdowns()->where('unit_type',2)->get() as $key=>$equ)
+              <tbody class="equipment_main {{empty($bill->breakdowns->where('unit_type',2)->first())?"hide":""}}">
+                @if (count($bill->breakdowns->where('unit_type',2))!=0)
+                @foreach ($bill->breakdowns->where('unit_type',2) as $key=>$equ)
                 <tr>
                   <td>
-                    {{Form::text('equipment_breakdown_item'.$key,$equ->unit_item,['class'=>'form-control'])}}
+                    {{Form::text('equipment_breakdown_item'.$loop->index,$equ->unit_item,['class'=>'form-control'])}}
                   </td>
                   <td>
                     {{Form::text('','',['class'=>'form-control','readonly'])}}
                   </td>
                   <td>
-                    {{Form::text('equipment_breakdown_count'.$key,$equ->unit_count,['class'=>'form-control'])}}
+                    {{Form::text('equipment_breakdown_count'.$loop->index,$equ->unit_count,['class'=>'form-control'])}}
                   </td>
                   <td>
                     {{Form::text('','',['class'=>'form-control','readonly'])}}
@@ -176,15 +166,6 @@
                 </tr>
                 @endif
               </tbody>
-              {{-- <tbody class="equipment_result">
-                <tr>
-                  <td colspan="4"></td>
-                  <td colspan="1">
-                    <p class="text-left">合計</p>
-                    {{Form::text('equipment_price',$bill->equipment_price,['class'=>'form-control','readonly'])}}
-              </td>
-              </tr>
-              </tbody> --}}
             </table>
           </div>
 
@@ -194,13 +175,14 @@
                 <tr>
                   <td colspan="5">
                     <div class="layout_chkbox">
-                      <input type="checkbox" class="checkbox" id="layout" name="layout" value="1" {{!empty($bill->layout_price)?"checked":""}}>
+                      <input type="checkbox" class="checkbox" id="layout" name="layout" value="1"
+                        {{!empty($bill->breakdowns->where('unit_type',4)->first())?"checked":""}}>
                       <label for="layout">レイアウト変更料</label>
                     </div>
                   </td>
                 </tr>
               </tbody>
-              <tbody class="layout_head">
+              <tbody class="layout_head {{empty($bill->breakdowns->where('unit_type',4)->first())?"hide":""}}">
                 <tr>
                   <td>内容</td>
                   <td>単価</td>
@@ -209,9 +191,9 @@
                   <td>追加/削除</td>
                 </tr>
               </tbody>
-              <tbody class="layout_main">
-                @if (count($bill->breakdowns()->where('unit_type',4)->get())!=0)
-                @foreach ($bill->breakdowns()->where('unit_type',4)->get() as $key=>$lay)
+              <tbody class="layout_main {{empty($bill->breakdowns->where('unit_type',4)->first())?"hide":""}}">
+                @if (count($bill->breakdowns->where('unit_type',4))!=0)
+                @foreach ($bill->breakdowns->where('unit_type',4) as $key=>$lay)
                 <tr>
                   <td>
                     {{Form::text('layout_breakdown_item'.$key,$lay->unit_item,['class'=>'form-control'])}}
@@ -252,7 +234,7 @@
                 </tr>
                 @endif
               </tbody>
-              <tbody class="layout_result">
+              <tbody class="layout_result {{empty($bill->breakdowns->where('unit_type',4)->first())?"hide":""}}">
                 <tr>
                   <td colspan="4"></td>
                   <td colspan="1">
@@ -271,13 +253,14 @@
                 <tr>
                   <td colspan="5">
                     <div class="others_chkbox">
-                      <input type="checkbox" class="checkbox" id="others" name="others" value="1" {{!empty($bill->others_price)?"checked":""}}>
+                      <input type="checkbox" class="checkbox" id="others" name="others" value="1"
+                        {{!empty($bill->breakdowns->where('unit_type',5)->first())?"checked":""}} class="checkbox">
                       <label for="others">その他</label>
                     </div>
                   </td>
                 </tr>
               </tbody>
-              <tbody class="others_head">
+              <tbody class="others_head {{empty($bill->breakdowns->where('unit_type',5)->first())?"hide":""}}">
                 <tr>
                   <td>内容</td>
                   <td>単価</td>
@@ -286,18 +269,18 @@
                   <td>追加/削除</td>
                 </tr>
               </tbody>
-              <tbody class="others_main">
-                @if (count($bill->breakdowns()->where('unit_type',5)->get())!=0)
-                @foreach ($bill->breakdowns()->where('unit_type',5)->get() as $key=>$other)
+              <tbody class="others_main {{empty($bill->breakdowns->where('unit_type',5)->first())?"hide":""}}">
+                @if (count($bill->breakdowns->where('unit_type',5))!=0)
+                @foreach ($bill->breakdowns->where('unit_type',5) as $key=>$other)
                 <tr>
                   <td>
-                    {{Form::text('others_breakdown_item'.$key,$other->unit_item,['class'=>'form-control'])}}
+                    {{Form::text('others_breakdown_item'.$loop->index,$other->unit_item,['class'=>'form-control'])}}
                   </td>
                   <td>
                     {{Form::text('','',['class'=>'form-control','readonly'])}}
                   </td>
                   <td>
-                    {{Form::text('others_breakdown_count'.$key,$other->unit_count,['class'=>'form-control'])}}
+                    {{Form::text('others_breakdown_count'.$loop->index,$other->unit_count,['class'=>'form-control'])}}
                   </td>
                   <td>
                     {{Form::text('','',['class'=>'form-control','readonly'])}}
@@ -329,15 +312,6 @@
                 </tr>
                 @endif
               </tbody>
-              {{-- <tbody class="others_result">
-                <tr>
-                  <td colspan="4"></td>
-                  <td colspan="1">
-                    <p class="text-left">合計</p>
-                    {{Form::text('others_price',$bill->others_price,['class'=>'form-control','readonly'])}}
-              </td>
-              </tr>
-              </tbody> --}}
             </table>
           </div>
 
@@ -400,25 +374,25 @@
               <tbody>
                 <tr>
                   <td>請求日：
-                    {{Form::text('bill_created_at', $bill->bill_created_at,['class'=>'form-control', 'datepicker1'])}}
+                    {{Form::text('bill_created_at', $bill->bill_created_at,['class'=>'form-control datepicker'])}}
 
                   </td>
                   <td>支払期日
-                    {{Form::text('payment_limit', $bill->payment_limit,['class'=>'form-control', 'datepicker1'])}}
+                    {{Form::text('payment_limit', date('Y-m-d',strtotime($bill->payment_limit)),['class'=>'form-control datepicker'])}}
                   </td>
                 </tr>
                 <tr>
                   <td>請求書宛名
-                    {{Form::text('bill_company', $bill->bill_company,['class'=>'form-control', 'datepicker1'])}}
+                    {{Form::text('bill_company', $bill->bill_company,['class'=>'form-control', ''])}}
                   </td>
                   <td>
                     担当者
-                    {{Form::text('bill_person', $bill->bill_person,['class'=>'form-control', 'datepicker1'])}}
+                    {{Form::text('bill_person', $bill->bill_person,['class'=>'form-control', ''])}}
                   </td>
                 </tr>
                 <tr>
                   <td colspan="2">請求書備考
-                    {{Form::textarea('bill_remark', $bill->bill_remark,['class'=>'form-control', 'datepicker1'])}}
+                    {{Form::textarea('bill_remark', $bill->bill_remark,['class'=>'form-control', ''])}}
                   </td>
                 </tr>
               </tbody>
@@ -446,7 +420,7 @@
                   </td>
                   <td>
                     入金日
-                    {{Form::text('pay_day', $bill->pay_day,['class'=>'form-control'])}}
+                    {{Form::text('pay_day', $bill->pay_day,['class'=>'form-control datepicker'])}}
                   </td>
                 </tr>
                 <tr>

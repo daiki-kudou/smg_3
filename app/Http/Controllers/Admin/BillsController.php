@@ -203,7 +203,7 @@ class BillsController extends Controller
 
   public function agentEdit($id)
   {
-    $bill = Bill::with('reservation.agent')->find($id);
+    $bill = Bill::with(['reservation.agent', 'breakdowns'])->find($id);
     $percent = $bill->reservation->agent->cost;
 
     return view('admin.bills.agent_edit', compact('bill', 'percent'));
