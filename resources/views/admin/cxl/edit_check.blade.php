@@ -274,7 +274,7 @@
 
   <div class="d-flex justify-content-center mt-5">
     {{ Form::submit('内容を修正する', ['class' => 'btn more_btn4_lg d-block mr-5','name'=>'back']) }}
-    {{ Form::submit('キャンセル請求書を作成する', ['class' => 'btn more_btn_lg d-block']) }}
+    {{ Form::submit('内容を保存する', ['class' => 'btn more_btn_lg d-block']) }}
   </div>
 
   {{ Form::close() }}
