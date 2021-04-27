@@ -11,6 +11,7 @@
 
 <link href="{{ asset('/css/template.css') }}" rel="stylesheet">
 <script src="{{ asset('/js/template.js') }}"></script>
+<script src="{{ asset('/js/admin/validation.js') }}"></script>
 
 
 <div class="">
@@ -39,7 +40,7 @@
   @component('components.reservation.m_reservation')
   {{-- スロット --}}
   @slot('form_open1')
-  {{ Form::open(['url' => 'admin/agents_reservations/session_input', 'method'=>'post', 'class'=>'']) }}
+  {{ Form::open(['url' => 'admin/agents_reservations/session_input', 'method'=>'post', 'class'=>'', 'id'=>'agents_reservations_editcalc']) }}
   {{Form::hidden('agent_id',$inputs['agent_id'])}}
   {{Form::hidden('reservation_id',$inputs['reservation_id'])}}
 
@@ -294,7 +295,7 @@
 
   {{-- スロット --}}
   @slot('form_open2')
-  {{ Form::open(['url' => 'admin/agents_reservations/session_check', 'method'=>'post', 'class'=>'']) }}
+  {{ Form::open(['url' => 'admin/agents_reservations/session_check', 'method'=>'post', 'class'=>'', 'id'=>'agents_reservations_bill']) }}
 
   @csrf
   @endslot
@@ -452,7 +453,7 @@
 
   {{-- スロット --}}
   @slot('pay_limit')
-  {{ Form::text('pay_limit', $payment_limit,['class'=>'form-control', 'id'=>'datepicker6'] ) }}
+  {{ Form::text('pay_limit', $payment_limit,['class'=>'form-control datepicker', 'id'=>''] ) }}
   @endslot
 
   {{-- スロット --}}
@@ -492,6 +493,12 @@
   @slot('payment')
   {{ Form::text('payment', $bill->payment,['class'=>'form-control'] ) }}
   @endslot
+
+  <div class="alert-box d-flex align-items-center mb-0 mt-5">
+  <p>
+    予約内容に変更がある場合は、再計算するボタンをクリックしてから確認画面に進んでください。
+  </p>
+</div>　
 
   {{-- スロット --}}
   @slot('form_submit2')
