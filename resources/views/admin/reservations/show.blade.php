@@ -301,18 +301,34 @@
       </div>
 
       <table class="table table-bordered eating-table">
-        <tr>
-          <td>
-            <p class="title-icon">
-              <i class="fas fa-utensils icon-size fa-fw"></i>室内飲食
-            </p>
-          </td>
-        </tr>
-        <tr>
-          <td>
-            ※後ほど修正　なし
-          </td>
-        </tr>
+        <thead>
+          <tr>
+            <th colspan='2'>
+              <p class="title-icon">
+                <i class="fas fa-utensils icon-size fa-fw"></i>室内飲食
+              </p>
+            </th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>
+              {{$reservation->eat_in==1?"あり":"なし"}}
+              {{ Form::hidden('eat_in', $reservation->eat_in) }}
+            </td>
+            <td>
+              @if ($reservation->eat_in==1)
+              @if ($reservation->eat_in_prepare==1)
+              手配済み
+              {{ Form::hidden('eat_in_prepare', $reservation->eat_in_prepare) }}
+              @else
+              検討中
+              {{ Form::hidden('eat_in_prepare', $reservation->eat_in_prepare) }}
+              @endif
+              @endif
+            </td>
+          </tr>
+        </tbody>
       </table>
     </div>
     <!-- 左側の項目 終わり-------------------------------------------------- -->

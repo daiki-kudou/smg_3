@@ -330,7 +330,6 @@
         </div>
 
         @if ($venues->find($master_info['venue_id'])->luggage_flag!=0)
-
         <div class="luggage">
           <table class="table table-bordered">
             <thead>
@@ -369,33 +368,34 @@
         </div>
         @endif
 
+        @if ($venues->find($master_info['venue_id'])->eat_in_flag!=0)
         <div class="eat_in">
           <table class="table table-bordered">
             <thead>
               <tr>
                 <th colspan='2'>
                   <p class="title-icon">
-                    <i class="fas fa-utensils icon-size fa-fw"></i>室内飲食工藤さん！追加項目です。仮押さえから丸コピーしました。
+                    <i class="fas fa-utensils icon-size fa-fw"></i>室内飲食
                   </p>
                 </th>
               </tr>
             </thead>
-            <tbody class="eat_in">
+            <tbody>
               <tr>
                 <td>
-                  {{Form::radio('eat_in', 1, false , ['id' => 'eat_in'])}}
+                  {{Form::radio('eat_in', 1, $master_info['eat_in']==1?true:false , ['id' => 'eat_in'])}}
                   {{Form::label('eat_in',"あり")}}
                 </td>
                 <td>
-                  {{Form::radio('eat_in_prepare', 1, false , ['id' => 'eat_in_prepare', 'disabled'])}}
+                  {{Form::radio('eat_in_prepare', 1, $master_info['eat_in']==1&&$master_info['eat_in_prepare']==1?true:false , ['id' => 'eat_in_prepare', $master_info['eat_in']!=1?"disabled":""])}}
                   {{Form::label('eat_in_prepare',"手配済み")}}
-                  {{Form::radio('eat_in_prepare', 2, false , ['id' => 'eat_in_consider','disabled'])}}
+                  {{Form::radio('eat_in_prepare', 2, $master_info['eat_in']==1&&$master_info['eat_in_prepare']==2?true:false , ['id' => 'eat_in_consider',$master_info['eat_in']!=1?"disabled":""])}}
                   {{Form::label('eat_in_consider',"検討中")}}
                 </td>
               </tr>
               <tr>
                 <td>
-                  {{Form::radio('eat_in', 0, true , ['id' => 'no_eat_in'])}}
+                  {{Form::radio('eat_in', 0, $master_info['eat_in']==0?true:false , ['id' => 'no_eat_in'])}}
                   {{Form::label('no_eat_in',"なし")}}
                 </td>
                 <td></td>
@@ -403,6 +403,11 @@
             </tbody>
           </table>
         </div>
+        @endif
+
+
+
+
       </div>
 
       <div class="col">
@@ -924,6 +929,18 @@
 </div>
 
 <script>
+  $(function() {
+    $(document).on("click", "input:radio[name='eat_in']", function() {
+      var radioTarget = $('input:radio[name="eat_in"]:checked').val();
+      if (radioTarget == 1) {
+        $('input:radio[name="eat_in_prepare"]').prop('disabled', false);
+      } else {
+        $('input:radio[name="eat_in_prepare"]').prop('disabled', true);
+        $('input:radio[name="eat_in_prepare"]').val("");
+      }
+    })
+  })
+
   $(function() {
     $("html,body").animate({
       scrollTop: $('.bill').offset().top

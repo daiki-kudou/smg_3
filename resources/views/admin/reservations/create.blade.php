@@ -536,6 +536,5 @@
       }
     })
   })
-
 </script>
 @endsection
