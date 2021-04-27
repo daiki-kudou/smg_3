@@ -99,14 +99,21 @@
   @endslot
 
   {{-- スロット --}}
-  @slot('board_flag1')
-  {{isset($reservation->board_flag)?$reservation->board_flag==1?'checked':'':'',}}
+  @slot('board_flag')
+  <div class="radio-box">
+    <p>
+      <input type="radio" name="board_flag" value="1" id="board_flag"
+        {{isset($reservation->board_flag)?$reservation->board_flag==1?'checked':'':'',}}>
+      {{Form::label('board_flag','あり')}}
+    </p>
+    <p>
+      <input type="radio" name="board_flag" value="0" id="no_board_flag"
+        {{isset($reservation->board_flag)?$reservation->board_flag==0?'checked':'':'checked',}}>
+      {{Form::label('no_board_flag','無し')}}
+    </p>
+  </div>
   @endslot
 
-  {{-- スロット --}}
-  @slot('board_flag2')
-  {{isset($reservation->board_flag)?$reservation->board_flag==0?'checked':'':'checked',}}
-  @endslot
 
   {{-- スロット --}}
   @slot('event_start_loop')
@@ -678,10 +685,13 @@
 
 
 
-
-
-
-
-
   @endcomponent
+
+  <script>
+    $(function(){
+      $(".bill").hide();
+      $(".information").hide();
+      $(".paid").hide();
+    })
+  </script>
   @endsection

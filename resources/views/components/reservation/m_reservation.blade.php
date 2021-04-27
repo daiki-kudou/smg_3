@@ -66,20 +66,7 @@
         <tr>
           <td class="table-active">案内板</td>
           <td>
-            <div class="radio-box">
-              <p>
-                <input type="radio" name="board_flag" value="1" id="board_flag"
-                  {{-- {{isset($reservation->board_flag)?$reservation->board_flag==1?'checked':'':'',}} --}}
-                  {{$board_flag1}}>
-                <span>有り</span>
-              </p>
-              <p>
-                <input type="radio" name="board_flag" value="0" id="no_board_flag"
-                  {{-- {{isset($reservation->board_flag)?$reservation->board_flag==0?'checked':'':'checked',}} --}}
-                  {{$board_flag2}}>
-                <span>無し</span>
-              </p>
-            </div>
+            {{$board_flag}}
           </td>
         </tr>
         <tr>

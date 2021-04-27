@@ -75,13 +75,8 @@
   @endslot
 
   {{-- スロット --}}
-  @slot('board_flag1')
-  {{isset($inputs['board_flag'])?$inputs['board_flag']==1?'checked':'':'',}}
-  @endslot
-
-  {{-- スロット --}}
-  @slot('board_flag2')
-  {{isset($inputs['board_flag'])?$inputs['board_flag']==0?'checked':'':'checked',}}
+  @slot('board_flag')
+  {{Form::text('',$inputs['board_flag']==1?"あり":"なし",['class'=>'form-control', 'readonly'])}}
   @endslot
 
   {{-- スロット --}}
