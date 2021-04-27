@@ -51,7 +51,7 @@ $(function () {
 
 $(function () {
   var maxDate = $('input[name="reserve_date"]').val();
-  $('.lilmited_datepicker').datepicker({
+  $('.limited_datepicker').datepicker({
     dateFormat: 'yy-mm-dd',
     autoclose: true,
     minDate: 0,

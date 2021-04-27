@@ -384,7 +384,7 @@
             <tr>
               <td class="table-active">事前荷物の到着日<br>午前指定のみ</td>
               <td>
-                {{ Form::text('luggage_arrive', date('Y-m-d',strtotime($reservation->luggage_arrive)),['class'=>'form-control lilmited_datepicker'] ) }}
+                {{ Form::text('luggage_arrive', date('Y-m-d',strtotime($reservation->luggage_arrive)),['class'=>'form-control limited_datepicker'] ) }}
               </td>
             </tr>
             <tr>

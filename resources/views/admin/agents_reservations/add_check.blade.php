@@ -77,13 +77,13 @@
                   {{ Form::text('venue_breakdown_item'.$i, $data['venue_breakdown_item'.$i], ['class' => 'form-control','readonly'])}}
                 </td>
                 <td>
-                  {{ Form::hidden('venue_breakdown_cost'.$i, $data['venue_breakdown_cost'.$i], ['class' => 'form-control','readonly'])}}
+                  {{ Form::text('venue_breakdown_cost'.$i, $data['venue_breakdown_cost'.$i], ['class' => 'form-control','readonly'])}}
                 </td>
                 <td>
                   {{ Form::text('venue_breakdown_count'.$i, $data['venue_breakdown_count'.$i], ['class' => 'form-control','readonly'])}}
                 </td>
                 <td>
-                  {{ Form::hidden('venue_breakdown_subtotal'.$i, $data['venue_breakdown_subtotal'.$i], ['class' => 'form-control','readonly'])}}
+                  {{ Form::text('venue_breakdown_subtotal'.$i, $data['venue_breakdown_subtotal'.$i], ['class' => 'form-control','readonly'])}}
                 </td>
                 </tr>
                 @endfor
