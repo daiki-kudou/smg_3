@@ -289,7 +289,6 @@
                 </p>
                 <p>
                   {{$client_link}}
-                  {{-- <a class="more_btn" href="">仲介会社詳細工藤さん！リンク</a> --}}
                 </p>
               </div>
             </td>
@@ -629,23 +628,6 @@
             </tbody>
             <tbody class="others_main">
               {{$others_breakdown_loop}}
-              {{-- @foreach ($checkItem[1][4] as $key=>$others_price)
-              <tr>
-                <td>
-                  {{ Form::text('others_input_item'.$key, $others_price->unit_item,['class'=>'form-control', 'readonly'] ) }}
-              </td>
-              <td>
-                {{ Form::text('others_input_cost'.$key, $others_price->unit_cost,['class'=>'form-control', 'readonly'] ) }}
-              </td>
-              <td>
-                {{ Form::text('others_input_count'.$key, $others_price->unit_count,['class'=>'form-control', 'readonly'] ) }}
-              </td>
-              <td>
-                {{ Form::text('others_input_subtotal'.$key, $others_price->unit_subtotal,['class'=>'form-control', 'readonly'] ) }}
-              </td>
-              <td>工藤さん！！！追加と削除のボタンの実装</td>
-              </tr>
-              @endforeach --}}
             </tbody>
 
           </table>
@@ -656,22 +638,18 @@
               <td>小計：</td>
               <td>
                 {{$master_subtotal}}
-                {{-- {{ Form::text('master_subtotal', $bill->master_subtotal,['class'=>'form-control', 'readonly'] ) }}
-                --}}
               </td>
             </tr>
             <tr>
               <td>消費税：</td>
               <td>
                 {{$master_tax}}
-                {{-- {{ Form::text('master_tax', $bill->master_tax,['class'=>'form-control', 'readonly'] ) }} --}}
               </td>
             </tr>
             <tr>
               <td class="font-weight-bold">合計金額</td>
               <td>
                 {{$master_total2}}
-                {{-- {{ Form::text('master_total', $bill->master_total,['class'=>'form-control', 'readonly'] ) }} --}}
               </td>
             </tr>
           </table>
