@@ -3,7 +3,7 @@
 
 <link href="{{ asset('/css/template.css') }}" rel="stylesheet">
 <script src="{{ asset('/js/admin/reservation.js') }}"></script>
-<script src="{{ asset('/js/ajax.js') }}"></script>
+<script src="{{ asset('/js/ajax_agent.js') }}"></script>
 <script src="{{ asset('/js/template.js') }}"></script>
 <script src="{{ asset('/js/admin/validation.js') }}"></script>
 

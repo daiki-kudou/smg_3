@@ -476,7 +476,7 @@ class Reservation extends Model implements PresentableInterface
         'in_charge' => '',
         'tel' => '',
         'cost' => 0,
-        'eat_in' => $request->eat_in,
+        'eat_in' => !empty($request->eat_in) ? $request->eat_in : 0,
         'eat_in_prepare' => !empty($request->eat_in_prepare) ? $request->eat_in_prepare : 0,
       ]);
       $reservation->CreateEndUser($request);
@@ -797,6 +797,8 @@ class Reservation extends Model implements PresentableInterface
         'attention' => "",
         'user_details' => null,
         'admin_details' => $inputs['admin_details'],
+        'eat_in' => !empty($inputs['eat_in']) ? $inputs['eat_in'] : 0,
+        'eat_in_prepare' => !empty($inputs['eat_in_prepare']) ? $inputs['eat_in_prepare'] : 0,
       ]);
       return $reservation;
     });

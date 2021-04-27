@@ -168,7 +168,6 @@ $(function () {
 })
 
 $(function () {
-
   $(document).on("click", '#sales_finish', function () {
     disabledAll(false);
     var start = $('#sales_start').val();
@@ -189,10 +188,8 @@ $(function () {
       console.log($(element).val());
       if (start > $(element).val()) {
         $('#sales_finish').find('option').eq(index).prop("disabled", true);
-
       }
     })
   }
-
 })
 

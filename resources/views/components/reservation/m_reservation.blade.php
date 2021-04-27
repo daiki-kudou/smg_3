@@ -286,43 +286,9 @@
         </table>
       </div>
 
-      <div class="eat_in">
-        <table class="table table-bordered">
-          <thead>
-            <tr>
-              <th colspan='2'>
-                <p class="title-icon">
-                  <i class="fas fa-utensils icon-size fa-fw"></i>室内飲食工藤さん！追加項目です。仮押さえから丸コピーしました。
-                </p>
-              </th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td>
-                {{$eat_in1}}
-                {{-- {{Form::radio('eat_in', 1, false , ['id' => 'eat_in'])}} --}}
-                {{-- {{Form::label('eat_in',"あり")}} --}}
-              </td>
-              <td>
-                {{$eat_in_prepare}}
-                {{-- {{Form::radio('eat_in_prepare', 1, false , ['id' => 'eat_in_prepare', 'disabled'])}}
-                {{Form::label('eat_in_prepare',"手配済み")}}
-                {{Form::radio('eat_in_prepare', 2, false , ['id' => 'eat_in_consider','disabled'])}}
-                {{Form::label('eat_in_consider',"検討中")}} --}}
-              </td>
-            </tr>
-            <tr>
-              <td>
-                {{$eat_in2}}
-                {{-- {{Form::radio('eat_in', 0, true , ['id' => 'no_eat_in'])}}
-                {{Form::label('no_eat_in',"なし")}} --}}
-              </td>
-              <td></td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
+
+      {{$eat_in1}}
+
 
     </div>
     <div class="col">
@@ -461,20 +427,20 @@
             <label for="userNote">申し込みフォーム備考</label>
             <div>
               {{$user_details}}
-            </div>
-          </td>
-        </tr> --}}
-        <tr>
-          <td>
-            <label for="adminNote">管理者備考</label>
-            <div>
-              {{$admin_details}}
-              {{-- {{$reservation->admin_details}} --}}
-            </div>
-          </td>
-        </tr>
-      </table>
     </div>
+    </td>
+    </tr> --}}
+    <tr>
+      <td>
+        <label for="adminNote">管理者備考</label>
+        <div>
+          {{$admin_details}}
+          {{-- {{$reservation->admin_details}} --}}
+        </div>
+      </td>
+    </tr>
+    </table>
+  </div>
   </div>
 </section>
 {{$form_submit1}}
@@ -813,5 +779,19 @@
 
 {{$form_submit2}}
 {{$form_close2}}
-{{-- {{Form::submit('確認する', ['class'=>'btn more_btn_lg d-block btn-lg mx-auto mt-5 mb-5', 'id'=>'check_submit'])}} --}}
-{{-- {{Form::close()}} --}}
+
+
+<script>
+  $(function() {
+    $(document).on("click", "input:radio[name='eat_in']", function() {
+      var radioTarget = $('input:radio[name="eat_in"]:checked').val();
+      if (radioTarget == 1) {
+        $('input:radio[name="eat_in_prepare"]').prop('disabled', false);
+        $('input:radio[name="eat_in_prepare"]:first-child').prop('checked', true);
+      } else {
+        $('input:radio[name="eat_in_prepare"]').prop('disabled', true);
+        $('input:radio[name="eat_in_prepare"]').val("");
+      }
+    })
+  })
+</script>

@@ -605,13 +605,6 @@ $(function () {
             "<p class='is-error-luggage_return' style='color: red'></p>" +
             "</td>" +
             "</tr>" +
-            "<tr>" +
-            "<td class='table-active'>荷物預り/返送　料金</td>" +
-            "<td class=''>" +
-            "<input type='text' class='form-control luggage_price' placeholder='金額入力' name='luggage_price'>" +
-            "<p class='is-error-luggage_price' style='color: red'></p>" +
-            "</td>" +
-            "</tr>" +
             "<script>$('#datepicker3').datepicker({dateFormat: 'yy-mm-dd', minDate: 0, maxDate:'" + maxDate + "' });</script>";
 
           $('.luggage table tbody').append(data);

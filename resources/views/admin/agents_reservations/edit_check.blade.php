@@ -172,22 +172,40 @@
 
   {{-- スロット --}}
   @slot('eat_in1')
-  {{Form::radio('eat_in', 1, false , ['id' => 'eat_in'])}}
-  {{Form::label('eat_in',"あり")}}
-  @endslot
-
-  {{-- スロット --}}
-  @slot('eat_in_prepare')
-  {{Form::radio('eat_in_prepare', 1, false , ['id' => 'eat_in_prepare', 'disabled'])}}
-  {{Form::label('eat_in_prepare',"手配済み")}}
-  {{Form::radio('eat_in_prepare', 2, false , ['id' => 'eat_in_consider','disabled'])}}
-  {{Form::label('eat_in_consider',"検討中")}}
-  @endslot
-
-  {{-- スロット --}}
-  @slot('eat_in2')
-  {{Form::radio('eat_in', 0, true , ['id' => 'no_eat_in'])}}
-  {{Form::label('no_eat_in',"なし")}}
+  @if ($venue->eat_in_flag!=0)
+  <div class="eat_in">
+    <table class="table table-bordered">
+      <thead>
+        <tr>
+          <th colspan='2'>
+            <p class="title-icon">
+              <i class="fas fa-utensils icon-size fa-fw"></i>室内飲食
+            </p>
+          </th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>
+            {{$inputs['eat_in']==1?"あり":"なし"}}
+            {{ Form::hidden('eat_in', $inputs['eat_in']) }}
+          </td>
+          <td>
+            @if ($inputs['eat_in']==1)
+            @if ($inputs['eat_in_prepare']==1)
+            手配済み
+            {{ Form::hidden('eat_in_prepare', $inputs['eat_in_prepare']) }}
+            @else
+            検討中
+            {{ Form::hidden('eat_in_prepare', $inputs['eat_in_prepare']) }}
+            @endif
+            @endif
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  @endif
   @endslot
 
   {{-- スロット --}}

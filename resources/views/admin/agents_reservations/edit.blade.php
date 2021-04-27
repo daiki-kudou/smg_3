@@ -333,7 +333,7 @@
 
   {{-- スロット --}}
   @slot('luggage_arrive')
-  {{ Form::text('luggage_arrive', $reservation->luggage_arrive,['class'=>'form-control'] ) }}
+  {{ Form::text('luggage_arrive', $reservation->luggage_arrive,['class'=>'form-control limited_datepicker'] ) }}
   @endslot
 
   {{-- スロット --}}
@@ -343,23 +343,44 @@
 
   {{-- スロット --}}
   @slot('eat_in1')
-  {{Form::radio('eat_in', 1, false , ['id' => 'eat_in'])}}
-  {{Form::label('eat_in',"あり")}}
+  @if ($reservation->venue->eat_in_flag!=0)
+  <div class="eat_in">
+    <table class="table table-bordered">
+      <thead>
+        <tr>
+          <th colspan='2'>
+            <p class="title-icon">
+              <i class="fas fa-utensils icon-size fa-fw"></i>室内飲食
+            </p>
+          </th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>
+            {{Form::radio('eat_in', 1, $reservation->eat_in==1?true:false , ['id' => 'eat_in'])}}
+            {{Form::label('eat_in',"あり")}}
+          </td>
+          <td>
+            {{Form::radio('eat_in_prepare', 1, $reservation->eat_in==1?($reservation->eat_in_prepare==1?true:false):"" , ['id' => 'eat_in_prepare', $reservation->eat_in==0?'disabled':''])}}
+            {{Form::label('eat_in_prepare',"手配済み")}}
+            {{Form::radio('eat_in_prepare', 2, $reservation->eat_in==1?($reservation->eat_in_prepare==2?true:false):"" , ['id' => 'eat_in_consider',$reservation->eat_in==0?'disabled':''])}}
+            {{Form::label('eat_in_consider',"検討中")}}
+          </td>
+        </tr>
+        <tr>
+          <td>
+            {{Form::radio('eat_in', 0, $reservation->eat_in==0?true:false , ['id' => 'no_eat_in'])}}
+            {{Form::label('no_eat_in',"なし")}}
+          </td>
+          <td></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  @endif
   @endslot
 
-  {{-- スロット --}}
-  @slot('eat_in_prepare')
-  {{Form::radio('eat_in_prepare', 1, false , ['id' => 'eat_in_prepare', 'disabled'])}}
-  {{Form::label('eat_in_prepare',"手配済み")}}
-  {{Form::radio('eat_in_prepare', 2, false , ['id' => 'eat_in_consider','disabled'])}}
-  {{Form::label('eat_in_consider',"検討中")}}
-  @endslot
-
-  {{-- スロット --}}
-  @slot('eat_in2')
-  {{Form::radio('eat_in', 0, true , ['id' => 'no_eat_in'])}}
-  {{Form::label('no_eat_in',"なし")}}
-  @endslot
 
   {{-- スロット --}}
   @slot('client_link')
