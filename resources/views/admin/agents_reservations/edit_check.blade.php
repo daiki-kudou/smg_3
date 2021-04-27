@@ -412,8 +412,8 @@
     {{-- スロット --}}
     @slot('form_submit2')
     <div class="container-field d-flex justify-content-center mt-5">
-      {{Form::submit('請求内訳を修正する', ['class'=>'btn more_btn4_lg d-block btn-lg mx-auto mt-5 mb-5', 'name'=>'back'])}}
-      {{Form::submit('編集を確定する', ['class'=>'btn more_btn_lg d-block btn-lg mx-auto mt-5 mb-5', 'id'=>'check_submit'])}}
+      {{Form::submit('請求内訳を修正する', ['class'=>'btn more_btn4_lg d-block btn-lg mr-3 mt-5 mb-5', 'name'=>'back'])}}
+      {{Form::submit('編集を確定する', ['class'=>'btn more_btn_lg d-block btn-lg mt-5 mb-5', 'id'=>'check_submit'])}}
     </div>
     @endslot
     {{-- スロット --}}

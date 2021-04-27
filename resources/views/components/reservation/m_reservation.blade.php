@@ -393,11 +393,12 @@
           </td>
         </tr>
         <tr>
-          <td class="table-active">
-            <label for="enduser_charge ">支払い料</label>
+          <td class="table-active form_required">
+            <label for="enduser_charge">支払い料</label>
           </td>
           <td class="d-flex align-items-center">
             {{$end_user_charge}}円
+            <p class="is-error-end_user_charge" style="color: red"></p>
           </td>
         </tr>
       </table>

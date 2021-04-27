@@ -11,6 +11,7 @@
 
 <link href="{{ asset('/css/template.css') }}" rel="stylesheet">
 <script src="{{ asset('/js/template.js') }}"></script>
+<script src="{{ asset('/js/admin/validation.js') }}"></script>
 
 
 <div class="">
@@ -27,10 +28,17 @@
   <h2 class="mt-3 mb-3">仲介会社経由　予約　編集</h2>
   <hr>
 
+  <div class="alert-box d-flex align-items-center mb-0 mt-5">
+  <p>
+    編集を行う場合は、必ず計算するボタンをクリックしてください。<br>
+    請求書内容は、計算するボタンをクリック後の画面で編集できます。
+  </p>
+</div>　
+
   @component('components.reservation.m_reservation')
   {{-- スロット --}}
   @slot('form_open1')
-  {{ Form::open(['url' => 'admin/agents_reservations/session_input', 'method'=>'post', 'class'=>'']) }}
+  {{ Form::open(['url' => 'admin/agents_reservations/session_input', 'method'=>'post', 'class'=>'', 'id'=>'agents_reservations_edit']) }}
   {{Form::hidden('agent_id',$reservation->agent->id)}}
   {{Form::hidden('reservation_id',$reservation->id)}}
   @csrf
@@ -396,7 +404,7 @@
 
   {{-- スロット --}}
   @slot('form_submit1')
-  {{Form::submit('再計算する', ['class'=>'btn more_btn4_lg mx-auto d-block mt-5 mb-5', 'id'=>'check_submit'])}}
+  {{Form::submit('計算する', ['class'=>'btn more_btn_lg mx-auto d-block mt-5 mb-5', 'id'=>'check_submit'])}}
   @endslot
 
   {{-- スロット --}}
@@ -564,7 +572,7 @@
 
   {{-- スロット --}}
   @slot('pay_limit')
-  {{ Form::text('pay_limit', $reservation->bills->first()->pay_limit,['class'=>'form-control', 'id'=>'datepicker6'] ) }}
+  {{ Form::text('pay_limit', ReservationHelper::formatDate($reservation->bills->first()->pay_limit),['class'=>'form-control', 'id'=>'datepicker6'] ) }}
   @endslot
 
   {{-- スロット --}}

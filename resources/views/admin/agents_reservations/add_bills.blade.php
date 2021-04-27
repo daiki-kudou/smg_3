@@ -69,9 +69,9 @@
             <tbody class="venue_head {{empty($venues)?"hide":""}}">
               <tr>
                 <td colspan="2">内容</td>
-                <td></td>
+                <td>単価</td>
                 <td>数量</td>
-                <td></td>
+                <td>金額</td>
                 <td>追加/削除</td>
               </tr>
             </tbody>
@@ -127,10 +127,10 @@
             </tbody>
             <tbody class="equipment_head {{empty($equipments)?"hide":""}}">
               <tr>
-                <td colspan="2">内容</td>
-                <td></td>
+              <td colspan="2">内容</td>
+                <td>単価</td>
                 <td>数量</td>
-                <td></td>
+                <td>金額</td>
                 <td>追加/削除</td>
               </tr>
             </tbody>
@@ -186,7 +186,7 @@
             </tbody>
             <tbody class="layout_head {{empty($layouts)?"hide":""}}">
               <tr>
-                <td>内容</td>
+              <td>内容</td>
                 <td>単価</td>
                 <td>数量</td>
                 <td>金額</td>
@@ -254,10 +254,10 @@
             </tbody>
             <tbody class="others_head {{empty($others)?"hide":""}}">
               <tr>
-                <td colspan="2">内容</td>
-                <td></td>
+              <td colspan="2">内容</td>
+                <td>単価</td>
                 <td>数量</td>
-                <td></td>
+                <td>金額</td>
                 <td>追加/削除</td>
               </tr>
             </tbody>
@@ -360,7 +360,7 @@
 
                 </td>
                 <td>支払期日
-                  {{ Form::text('pay_limit', !empty($data['pay_limit'])?$data['pay_limit']:$pay_limit, ['class' => 'form-control' ,'id'=>'datepicker6'])}}
+                  {{ Form::text('pay_limit', !empty($data['pay_limit'])?$data['pay_limit']:$pay_limit, ['class' => 'form-control datepicker' ,'id'=>''])}}
                 </td>
               </tr>
               <tr>

@@ -905,6 +905,8 @@ $(function () {
     "#reservations_edit", "#edit_calculate",
     "#edit_check", "#edit_calculate", "#agentReservationCreateForm",
     "#agentReservationCalculateForm", "#agents_calculate_form",
+    "#agents_reservations_edit", "#agents_reservations_editcalc",
+    "#agents_reservations_bill", "#",
   ];
 
   $.each(target, function (index, value) {

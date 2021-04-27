@@ -803,7 +803,7 @@
                 </td>
               </tr>
               <tr>
-                <td>振込人名{{ Form::text('pay_person', $check_info['pay_day'],['class'=>'form-control', 'readonly'] ) }}
+                <td>振込人名{{ Form::text('pay_person', $check_info['pay_person'],['class'=>'form-control', 'readonly'] ) }}
                 </td>
                 <td>入金額{{ Form::text('payment', $check_info['payment'],['class'=>'form-control', 'readonly'] ) }}</td>
               </tr>

@@ -43,7 +43,8 @@
 
 <div class="alert-box d-flex align-items-center mb-0 mt-5">
   <p>
-    編集を行う場合は、必ず計算するボタンをクリックしてください。
+    編集を行う場合は、必ず計算するボタンをクリックしてください。<br>
+    請求書内容は、計算するボタンをクリック後の画面で編集できます。
   </p>
 </div>　
 
@@ -631,12 +632,12 @@
     </div>
   </div>
 </section>
-{{Form::submit('計算する', ['class'=>'btn more_btn4_lg mx-auto d-block mt-5 mb-5', 'id'=>'check_submit'])}}
+{{Form::submit('計算する', ['class'=>'btn more_btn_lg mx-auto d-block mt-5 mb-5', 'id'=>'check_submit'])}}
 {{Form::close()}}
 
 {{-- {{ Form::open(['url' => 'admin/reservations/edit_without_calc', 'method'=>'POST', 'id'=>'']) }}
 @csrf --}}
-<section class="mt-5">
+<!-- <section class="mt-5">
   <div class="bill">
     <div class="bill_head">
       <table class="table bill_table">
@@ -1101,7 +1102,7 @@
       </div>
     </div>
   </div>
-</section>
+</section> -->
 {{-- {{Form::submit('確認する', ['class'=>'btn more_btn_lg d-block btn-lg mx-auto mt-5 mb-5', 'id'=>'check_submit'])}}
 {{Form::close()}} --}}
 
