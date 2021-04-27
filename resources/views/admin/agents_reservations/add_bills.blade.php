@@ -308,8 +308,8 @@
                   %）
                 </td>
                 <td>
-                  {{ Form::text('enduser_charge', '', ['class' => 'form-control','placeholder'=>"入力してください" ])}}
-                  {{ Form::hidden('enduser_charge_result', '', ['class' => 'form-control','placeholder'=>"入力してください" ])}}
+                  {{ Form::text('enduser_charge', !empty($data['enduser_charge'])?$data['enduser_charge']:"", ['class' => 'form-control','placeholder'=>"入力してください" ])}}
+                  {{ Form::hidden('enduser_charge_result', !empty($data['enduser_charge_result'])?$data['enduser_charge_result']:"", ['class' => 'form-control','placeholder'=>"入力してください" ])}}
                 </td>
               </tr>
               <tr>
@@ -534,7 +534,7 @@
     })
 
     // 総合計額抽出
-    $('input').on('input', function() {
+    $('input').on('change', function() {
       MaterCalc();
     })
 
@@ -552,6 +552,7 @@
 
   $(window).on('load',function(){
     $('input[name="layout_breakdown_count0"]').change();
+    $('input[name="enduser_charge"]').change();
   });
 
 </script>
