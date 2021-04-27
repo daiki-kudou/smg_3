@@ -476,7 +476,8 @@ class Reservation extends Model implements PresentableInterface
         'in_charge' => '',
         'tel' => '',
         'cost' => 0,
-        'admin_details' => $request->admin_details,
+        'eat_in' => $request->eat_in,
+        'eat_in_prepare' => !empty($request->eat_in_prepare) ? $request->eat_in_prepare : 0,
       ]);
       $reservation->CreateEndUser($request);
       $reservation->ReserveFromAgentBill($request);

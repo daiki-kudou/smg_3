@@ -21,7 +21,7 @@
   <h2 class="mt-3 mb-3">予約 詳細</h2>
   <hr>
   <div class="mb-3 mt-5 align-items-center d-flex justify-content-between">
-    @if ($reservation->bills()->first()->reservation_status<3) <div class="text-left">
+    @if ($reservation->bills->first()->reservation_status<3) <div class="text-left">
       {{ Form::model($reservation, ['route' => ['admin.reservations.destroy', $reservation->id], 'method' => 'delete']) }}
       @csrf
       {{ Form::submit('削除', ['class' => 'btn more_btn4']) }}
@@ -30,7 +30,7 @@
   @endif
 
   @if ($reservation->user_id>0)
-  @if ($reservation->bills()->first()->reservation_status==3)
+  @if ($reservation->bills->first()->reservation_status==3)
   <p class="text-right mb-5">
     {{ Form::open(['url' => 'admin/bills/create/', 'method'=>'get', 'class'=>'']) }}
     @csrf
@@ -40,7 +40,7 @@
   </p>
   @endif
   @else
-  @if ($reservation->bills()->first()->reservation_status==3)
+  @if ($reservation->bills->first()->reservation_status==3)
   <p class="text-right mb-5">
     {{ Form::open(['url' => 'admin/agents_reservations/add_bills', 'method'=>'get', 'class'=>'']) }}
     @csrf
@@ -166,7 +166,7 @@
         </thead>
         <tbody class="accordion-wrap">
           @foreach ($venue->getEquipments() as $equipment)
-          @foreach ($reservation->breakdowns()->get() as $breakdown)
+          @foreach ($reservation->bills->first()->breakdowns as $breakdown)
           @if ($equipment->item==$breakdown->unit_item)
           <tr>
             <td class="justify-content-between d-flex">
@@ -194,7 +194,7 @@
             <td colspan="2">
               <ul class="icheck-primary">
                 @foreach ($venue->getServices() as $service)
-                @foreach ($reservation->breakdowns()->get() as $breakdown)
+                @foreach ($reservation->bills->first()->breakdowns as $breakdown)
                 @if ($service->item==$breakdown->unit_item)
                 <li>
                   {{$service->item}}({{$service->price}}円)
@@ -233,7 +233,7 @@
             <tr>
               <td class="table-active"><label for="postlayout">片付</label></td>
               <td>
-                @foreach ($reservation->breakdowns()->get() as $breakdown)
+                @foreach ($reservation->bills->first()->breakdowns as $breakdown)
                 {{$breakdown->unit_item=='レイアウト片付料金'?'あり':''}}
                 @endforeach
               </td>
@@ -301,18 +301,34 @@
       </div>
 
       <table class="table table-bordered eating-table">
-        <tr>
-          <td>
-            <p class="title-icon">
-              <i class="fas fa-utensils icon-size fa-fw"></i>室内飲食
-            </p>
-          </td>
-        </tr>
-        <tr>
-          <td>
-            ※後ほど修正　なし
-          </td>
-        </tr>
+        <thead>
+          <tr>
+            <th colspan='2'>
+              <p class="title-icon">
+                <i class="fas fa-utensils icon-size fa-fw"></i>室内飲食
+              </p>
+            </th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>
+              {{$reservation->eat_in==1?"あり":"なし"}}
+              {{ Form::hidden('eat_in', $reservation->eat_in) }}
+            </td>
+            <td>
+              @if ($reservation->eat_in==1)
+              @if ($reservation->eat_in_prepare==1)
+              手配済み
+              {{ Form::hidden('eat_in_prepare', $reservation->eat_in_prepare) }}
+              @else
+              検討中
+              {{ Form::hidden('eat_in_prepare', $reservation->eat_in_prepare) }}
+              @endif
+              @endif
+            </td>
+          </tr>
+        </tbody>
       </table>
     </div>
     <!-- 左側の項目 終わり-------------------------------------------------- -->
@@ -360,25 +376,22 @@
               <div class="d-flex align-items-center justify-content-end">
                 <dl class="ttl_box">
                   <dt>合計金額：</dt>
-                  <dd class="total_result">{{number_format($reservation->bills()->first()->master_total)}} 円</dd>
+                  <dd class="total_result">{{number_format($reservation->bills->first()->master_total)}} 円</dd>
                 </dl>
                 <dl class="ttl_box">
                   <dt>支払い期日：</dt>
                   <dd class="total_result">
-                    {{ReservationHelper::formatDate($reservation->bills()->first()->payment_limit)}}
+                    {{ReservationHelper::formatDate($reservation->bills->first()->payment_limit)}}
                   </dd>
                 </dl>
                 @if (!empty($reservation->user))
                 @if ($reservation->bills->first()->reservation_status<3) <p>
-                  <a href="{{url('admin/reservations/'.$reservation->bills()->first()->id.'/edit')}}"
+                  <a href="{{url('admin/reservations/'.$reservation->bills->first()->id.'/edit')}}"
                     class="btn more_btn">編集</a>
                   </p>
                   @endif
                   @else
                   @if ($reservation->bills->first()->reservation_status<3) <p>
-                    {{-- <a href="{{url('admin/agents_reservations/'.$reservation->bills->first()->id.'/edit/')}}"
-                    class="btn more_btn">編集</a>
-                    </p> --}}
                     {{ Form::open(['url' => "admin/agents_reservations/edit", 'method'=>'post', 'class'=>'']) }}
                     @csrf
                     {{ Form::hidden('reservation_id', $reservation->id ) }}
@@ -400,11 +413,11 @@
               <div class="d-flex">
                 <p class="bg-status p-2">予約状況</p>
                 <p class="border p-2">
-                  {{ReservationHelper::judgeStatus($reservation->bills()->first()->reservation_status)}}
+                  {{ReservationHelper::judgeStatus($reservation->bills->first()->reservation_status)}}
                 </p>
               </div>
             </td>
-            @if ($reservation->bills()->first()->double_check_status==0)
+            @if ($reservation->bills->first()->double_check_status==0)
             <td>
               <div class="d-flex">
                 <p class="bg-status p-2">一人目チェック</p>
@@ -412,11 +425,11 @@
                 </p>
               </div>
             </td>
-            @elseif ($reservation->bills()->first()->double_check_status==1)
+            @elseif ($reservation->bills->first()->double_check_status==1)
             <td>
               <div class="d-flex">
                 <p class="bg-status p-2">一人目チェック</p>
-                <p class="border p-2">{{$reservation->bills()->first()->double_check1_name}}</p>
+                <p class="border p-2">{{$reservation->bills->first()->double_check1_name}}</p>
               </div>
             </td>
             <td>
@@ -426,23 +439,23 @@
                 </p>
               </div>
             </td>
-            @elseif ($reservation->bills()->first()->double_check_status==2)
+            @elseif ($reservation->bills->first()->double_check_status==2)
             <td>
               <div class="d-flex">
                 <p class="bg-status p-2">一人目チェック</p>
-                <p class="border p-2">{{$reservation->bills()->first()->double_check1_name}}</p>
+                <p class="border p-2">{{$reservation->bills->first()->double_check1_name}}</p>
               </div>
             </td>
             <td>
               <div class="d-flex">
                 <p class="bg-status p-2">二人目チェック</p>
-                <p class="border p-2">{{$reservation->bills()->first()->double_check2_name}}</p>
+                <p class="border p-2">{{$reservation->bills->first()->double_check2_name}}</p>
               </div>
             </td>
             @endif
             <td>
-              <div><span>申込日：</span>{{$reservation->bills()->first()->created_at}}</div>
-              <div><span>予約確定日：</span>{{$reservation->bills()->first()->approve_send_at}}</div>
+              <div><span>申込日：</span>{{$reservation->bills->first()->created_at}}</div>
+              <div><span>予約確定日：</span>{{$reservation->bills->first()->approve_send_at}}</div>
             </td>
           </tr>
         </tbody>
@@ -455,7 +468,7 @@
         @endif
       </div>
       <div class="cancel">
-        @if ($reservation->bills()->first()->reservation_status==3)
+        @if ($reservation->bills->first()->reservation_status==3)
         {{ Form::open(['url' => 'admin/cxl/multi_create', 'method'=>'get', 'class'=>'']) }}
         @csrf
         {{ Form::hidden('reservation_id', $reservation->id ) }}
@@ -472,7 +485,9 @@
         @csrf
         {{ Form::hidden('reservation_id', $reservation->id ) }}
         {{ Form::hidden('bill_id', $reservation->bills->first()->id ) }}
-        <p class="mr-2">{{ Form::submit('請求書をみる',['class' => 'btn more_btn']) }}</p>
+        <p class="mr-2">
+          {{ Form::submit('請求書をみる',['class' => 'btn more_btn']) }}
+        </p>
         {{ Form::close() }}
         <p class="mr-2"><input class="btn more_btn4" type="submit" value="領収書をみる"></p>
       </div>
@@ -501,20 +516,20 @@
               <tr>
                 <td></td>
                 <td>
-                  小計：{{number_format($reservation->bills()->first()->master_subtotal)}}
+                  小計：{{number_format($reservation->bills->first()->master_subtotal)}}
                 </td>
               </tr>
               <tr>
                 <td></td>
                 <td>
-                  消費税：{{number_format($reservation->bills()->first()->master_tax)}}
+                  消費税：{{number_format($reservation->bills->first()->master_tax)}}
                 </td>
               </tr>
               <tr>
                 <td></td>
                 <td>
                   <span
-                    class="font-weight-bold">合計金額：</span>{{number_format($reservation->bills()->first()->master_total)}}
+                    class="font-weight-bold">合計金額：</span>{{number_format($reservation->bills->first()->master_total)}}
                 </td>
               </tr>
             </tbody>
@@ -543,22 +558,22 @@
             <tbody>
               <tr>
                 <td>請求日：</td>
-                <td>支払期日：{{ReservationHelper::formatDate($reservation->bills()->first()->payment_limit)}}
+                <td>支払期日：{{ReservationHelper::formatDate($reservation->bills->first()->payment_limit)}}
                 </td>
               </tr>
               <tr>
                 <td>請求書宛名：
-                  {{($reservation->bills()->first()->bill_company)}}
+                  {{($reservation->bills->first()->bill_company)}}
                 </td>
                 <td>
                   担当者：
-                  {{$reservation->bills()->first()->bill_person}}
+                  {{$reservation->bills->first()->bill_person}}
                 </td>
               </tr>
               <tr>
                 <td colspan="2">
-                <p>請求書備考</p>
-                  <p>{{$reservation->bills()->first()->bill_remark}}</p>
+                  <p>請求書備考</p>
+                  <p>{{$reservation->bills->first()->bill_remark}}</p>
                 </td>
               </tr>
             </tbody>
@@ -582,15 +597,16 @@
           <table class="table">
             <tbody>
               <tr>
-                <td> {{$reservation->bills()->first()->paid==0?"未入金":"入金済"}}
+                <td> {{$reservation->bills->first()->paid==0?"未入金":"入金済"}}
                 </td>
                 <td>
-                  入金日：{{$reservation->bills()->first()->pay_day}}
+                  入金日：
+                  {{$reservation->bills->first()->pay_day}}
                 </td>
               </tr>
               <tr>
-                <td>振込人名：{{$reservation->bills()->first()->pay_person}}</td>
-                <td>入金額：{{$reservation->bills()->first()->pay_person}}</td>
+                <td>振込人名：{{$reservation->bills->first()->pay_person}}</td>
+                <td>入金額：{{$reservation->bills->first()->pay_person}}</td>
               </tr>
             </tbody>
           </table>
@@ -598,7 +614,8 @@
       </div>
     </div>
   </div>
-  @if ($reservation->bills()->first()->double_check_status==0)
+
+  @if ($reservation->bills->first()->double_check_status==0)
   <div class="double_checkbox section-wrap">
     <dl class="d-flex col-12 justify-content-end align-items-center">
       <dt><label for="checkname">一人目チェック者</label></dt>
@@ -606,7 +623,7 @@
         {{ Form::model($reservation->id, ['route'=> ['admin.reservations.double_check',$reservation->id]]) }}
         @csrf
         {{Form::select('double_check1_name', $admin, null, ['placeholder' => '選択してください', 'class'=>'form-control double_check1_name'])}}
-        {{ Form::hidden('double_check_status', $reservation->bills()->first()->double_check_status ) }}
+        {{ Form::hidden('double_check_status', $reservation->bills->first()->double_check_status ) }}
       </dd>
       <dd class="ml-2">
         <p class="text-right">
@@ -616,7 +633,7 @@
       </dd>
     </dl>
   </div>
-  @elseif($reservation->bills()->first()->double_check_status==1)
+  @elseif($reservation->bills->first()->double_check_status==1)
   <div class="double_checkbox section-wrap">
     <dl class="d-flex col-12 justify-content-end align-items-center">
       <dt><label for="checkname">二人目チェック者</label></dt>
@@ -624,7 +641,7 @@
         {{ Form::model($reservation->id, ['route'=> ['admin.reservations.double_check',$reservation->id]]) }}
         @csrf
         {{Form::select('double_check2_name', $admin, null, ['placeholder' => '選択してください', 'class'=>'form-control double_check2_name'])}}
-        {{ Form::hidden('double_check_status', $reservation->bills()->first()->double_check_status ) }}
+        {{ Form::hidden('double_check_status', $reservation->bills->first()->double_check_status ) }}
       </dd>
       <dd>
         <p class="text-right">
@@ -635,8 +652,6 @@
     </dl>
   </div>
   @endif
-  </div>
-
 </section>
 
 
@@ -1401,7 +1416,6 @@
 
 {{-- キャンセル総合計請求額 --}}
 @if ($reservation->cxls->count()!=0)
-
 <div class="master_totals_cancel">
   <table class="table">
     <tbody class="master_total_head2">

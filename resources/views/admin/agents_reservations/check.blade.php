@@ -268,13 +268,14 @@
       </div>
       @endif
 
+      @if ($venue->eat_in_flag!=0)
       <div class="eat_in">
         <table class="table table-bordered">
           <thead>
             <tr>
               <th colspan='2'>
                 <p class="title-icon">
-                  <i class="fas fa-utensils icon-size fa-fw"></i>室内飲食工藤さん！追加項目です。
+                  <i class="fas fa-utensils icon-size fa-fw"></i>室内飲食
                 </p>
               </th>
             </tr>
@@ -282,15 +283,26 @@
           <tbody>
             <tr>
               <td>
-                ありかなし
+                {{$master_info['eat_in']==1?"あり":"なし"}}
+                {{ Form::hidden('eat_in', $master_info['eat_in']) }}
               </td>
               <td>
-                手配済みか検討中
+                @if ($master_info['eat_in']==1)
+                @if ($master_info['eat_in_prepare']==1)
+                手配済み
+                {{ Form::hidden('eat_in_prepare', $master_info['eat_in_prepare']) }}
+                @else
+                検討中
+                {{ Form::hidden('eat_in_prepare', $master_info['eat_in_prepare']) }}
+                @endif
+                @endif
               </td>
             </tr>
           </tbody>
         </table>
       </div>
+      @endif
+
     </div>
 
     <div class="col">

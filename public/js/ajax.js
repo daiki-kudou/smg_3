@@ -697,8 +697,7 @@ $(function () {
     })
       .done(function ($result) {
         $('#fullOverlay').css('display', 'none');
-
-        // $('.eat_in').removeClass('hide');
+        $('.eat_in').removeClass('hide');
         if ($result != 1) {
           $('.eat_in').addClass('hide');
         }

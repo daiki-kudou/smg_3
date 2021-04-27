@@ -378,7 +378,7 @@
 
   {{-- スロット --}}
   @slot('form_open2')
-  {{ Form::open(['url' => '###################', 'method'=>'POST', 'id'=>'reservations_calculate_form']) }}
+  {{-- {{ Form::open(['url' => '###################', 'method'=>'POST', 'id'=>'reservations_calculate_form']) }} --}}
   @csrf
   @endslot
 
@@ -574,11 +574,12 @@
   @endslot
   {{-- スロット --}}
   @slot('form_submit2')
-  {{Form::submit('確認する', ['class'=>'btn more_btn_lg d-block btn-lg mx-auto mt-5 mb-5', 'id'=>'check_submit'])}}
+  {{-- {{Form::submit('確認する', ['class'=>'btn more_btn_lg d-block btn-lg mx-auto mt-5 mb-5', 'id'=>'check_submit'])}}
+  --}}
   @endslot
   {{-- スロット --}}
   @slot('form_close2')
-  {{Form::close()}}
+  {{-- {{Form::close()}} --}}
   @endslot
 
   {{-- スロット --}}
@@ -647,10 +648,6 @@
   {{ Form::text('enduser_charge', $reservation->enduser->charge,['class'=>'form-control ', 'placeholder'=>'入力してください'] ) }}
   @endslot
 
-  {{-- スロット --}}
-  {{-- @slot('user_details')
-  {{ Form::textarea('user_details', $reservation->user_details,['class'=>'form-control ', 'placeholder'=>'入力してください'] ) }}
-  @endslot --}}
 
   {{-- スロット --}}
   @slot('admin_details')

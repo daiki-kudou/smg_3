@@ -347,7 +347,7 @@
                     %）
                   </td>
                   <td>
-                    {{ Form::text('enduser_charge', "", ['class' => 'form-control','placeholder'=>"入力してください" ])}}
+                    {{ Form::text('enduser_charge', $bill->end_user_charge, ['class' => 'form-control','placeholder'=>"入力してください" ])}}
                     {{ Form::hidden('enduser_charge_result', '', ['class' => 'form-control','placeholder'=>"入力してください" ])}}
                   </td>
                 </tr>

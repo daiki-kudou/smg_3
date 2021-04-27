@@ -188,6 +188,7 @@ class AgentsReservationsController extends Controller
         'double_check_status' => 0, //固定で1
         'category' => 2, //1が会場　２が追加請求
         'admin_judge' => 1, //１が管理者　２がユーザー
+        'end_user_charge' => $request->enduser_charge
       ]);
 
       function storeAndBreakDown($num, $sub, $target, $type)
@@ -325,6 +326,8 @@ class AgentsReservationsController extends Controller
     $reservation = $request->session()->get('reservation');
     $breakdown = $request->session()->get('breakdown');
 
+    $o_count = $this->preg($result, 'others_breakdown_item');
+
     return view(
       "admin.agents_reservations.edit_check",
       compact(
@@ -337,12 +340,17 @@ class AgentsReservationsController extends Controller
         "price",
         "bill",
         "agents",
+        "o_count",
       )
     );
   }
 
   public function update(Request $request)
   {
+    if ($request->back) {
+      return redirect(route('admin.agents_reservations.edit_show'));
+    }
+
     $reservation = $request->session()->get('reservation');
     $bill = $request->session()->get('bill');
     $breakdown = $request->session()->get('breakdown');
@@ -359,7 +367,6 @@ class AgentsReservationsController extends Controller
       return redirect(route('admin.agents_reservations.show_input'));
     }
     $request->session()->regenerate();
-    $request->session()->flush();
     return redirect()->route('admin.reservations.show', $reservation->id);
   }
 }

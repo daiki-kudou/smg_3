@@ -20,30 +20,22 @@ class Bill extends Model
 
   protected $fillable = [
     'reservation_id',
-
     'venue_price',
-
     'equipment_price',
-
     'layout_price',
-
     'others_price',
-
     'master_subtotal',
     'master_tax',
     'master_total',
-
     'payment_limit',
     'bill_company',
     'bill_person',
     'bill_created_at',
     'bill_remark',
-
     'paid',
     'pay_day',
     'pay_person',
     'payment',
-
     'reservation_status',
     'double_check_status',
     'double_check1_name',
@@ -51,6 +43,7 @@ class Bill extends Model
     'approve_send_at',
     'category',
     'admin_judge',
+    'end_user_charge',
   ];
   protected $dates = [
     'pay_day',
