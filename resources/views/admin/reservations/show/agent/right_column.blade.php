@@ -111,6 +111,24 @@
       </td>
     </tr>
   </table>
+
+  @if ($venue->alliance_flag!=0)
+  <table class="table table-bordered sale-table">
+    <tr>
+      <td colspan="2">
+        <p class="title-icon">
+          <i class="fas fa-yen-sign icon-size"></i>
+          売上原価
+        </p>
+      </td>
+    </tr>
+    <tr>
+      <td class="table-active"><label for="sale">原価率</label></td>
+      <td>{{$reservation->cost==0?'':$reservation->cost}}%</td>
+    </tr>
+  </table>
+  @endif
+
   <table class="table table-bordered note-table">
     <tr>
       <td colspan="2">
@@ -119,12 +137,6 @@
         </p>
       </td>
     </tr>
-    {{-- <tr>
-      <td>
-        <label for="userNote">申し込みフォーム備考</label>
-        <div>{{$reservation->user_details}}</div>
-      </td>
-    </tr> --}}
     <tr>
       <td>
         <label for="adminNote">管理者備考</label>

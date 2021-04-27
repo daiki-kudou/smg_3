@@ -862,7 +862,7 @@
               </tr>
               <tr>
                 <td colspan="2">
-                <p>請求書備考</p>
+                  <p>請求書備考</p>
                   <p>{{$other_bill->bill_remark}}</p>
                 </td>
               </tr>
@@ -1040,38 +1040,26 @@
         <td></td>
       </tr>
     </tbody>
-    <tbody class="master_total_bottom">
+    <tr>
+      <td colspan="2" class="master_total_subttl">
+        <h4>内訳</h4>
+      </td>
+    </tr>
+    <tbody class="master_total_body">
       <tr>
-        <td></td>
+        <td>・会場料</td>
         <td>
-          <div class="d-flex justify-content-end" colspan="2">
-            <p>小計：</p>
-            <p>
-              {{number_format($master_prices[4])}}
-              円
-            </p>
-          </div>
-        </td>
+          {{$agentPriceWithoutLayout}}
+          円</td>
       </tr>
       <tr>
-        <td></td>
+        <td>・レイアウト変更料</td>
         <td>
-          <div class="d-flex justify-content-end" colspan="2">
-            <p>消費税：</p>
-            <p>{{number_format(ReservationHelper::getTax($master_prices[4]))}}円</p>
-          </div>
-        </td>
-      </tr>
-      <tr>
-        <td></td>
-        <td>
-          <div class="d-flex justify-content-end" colspan="2">
-            <p>合計金額：</p>
-            <p>{{number_format(ReservationHelper::taxAndPrice($master_prices[4]))}}円</p>
-          </div>
-        </td>
+          {{$agentLayoutPrice}}
+          円</td>
       </tr>
     </tbody>
+
   </table>
   <div class="payment_situation">
     <dl>
@@ -1328,7 +1316,7 @@
               </tr>
               <tr>
                 <td colspan="2">
-                <p>請求書備考</p>
+                  <p>請求書備考</p>
                   <p>{{$cxl->bill_remark}}</p>
                 </td>
               </tr>

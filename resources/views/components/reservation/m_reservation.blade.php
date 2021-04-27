@@ -402,6 +402,13 @@
           </td>
         </tr>
       </table>
+
+      {{$user_cost}}
+
+
+
+
+
       <table class="table table-bordered note-table">
         <tr>
           <td colspan="2">

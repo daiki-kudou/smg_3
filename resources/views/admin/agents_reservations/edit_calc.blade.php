@@ -502,10 +502,10 @@
   @endslot
 
   <div class="alert-box d-flex align-items-center mb-0 mt-5">
-  <p>
-    予約内容に変更がある場合は、再計算するボタンをクリックしてから確認画面に進んでください。
-  </p>
-</div>　
+    <p>
+      予約内容に変更がある場合は、再計算するボタンをクリックしてから確認画面に進んでください。
+    </p>
+  </div>　
 
   {{-- スロット --}}
   @slot('form_submit2')
@@ -583,10 +583,31 @@
   {{ Form::text('enduser_charge', $inputs['enduser_charge'],['class'=>'form-control ', 'placeholder'=>'入力してください'] ) }}
   @endslot
 
-  {{-- スロット --}}
-  {{-- @slot('user_details')
-  {{ Form::textarea('user_details', $inputs['user_details'],['class'=>'form-control ', 'placeholder'=>'入力してください'] ) }}
-  @endslot --}}
+  @slot('user_cost')
+  @if ($reservation->venue->alliance_flag!=0)
+  <table class="table table-bordered sale-table" id="user_cost">
+    <tbody>
+      <tr>
+        <td colspan="2">
+          <p class="title-icon">
+            <i class="fas fa-yen-sign icon-size" aria-hidden="true"></i>売上原価<span
+              class="annotation">（提携会場を選択した場合、提携会場で設定した原価率が適応されます）</span>
+          </p>
+        </td>
+      </tr>
+      <tr>
+        <td class="table-active"><label for="cost">原価率</label></td>
+        <td class="d-flex align-items-center">
+          {{Form::text('cost',$inputs['cost'],['class'=>'form-control sales_percentage'])}}
+          <span class="ml-1">%</span>
+          <p class="is-error-cost" style="color: red"></p>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+  @endif
+  @endslot
+
 
   {{-- スロット --}}
   @slot('admin_details')
