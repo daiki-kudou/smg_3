@@ -156,6 +156,8 @@
           </tr>
         </tbody>
       </table>
+
+
       <div class="equipemnts">
         <table class="table table-bordered">
           <thead class="accordion-ttl">
@@ -179,6 +181,7 @@
           </tbody>
         </table>
       </div>
+
       <div class="services">
         <table class="table table-bordered">
           <thead class="accordion-ttl">
@@ -203,6 +206,8 @@
           </tbody>
         </table>
       </div>
+
+      @if ($venue->layout!=0)
       <div class="layouts">
         <table class="table table-bordered">
           <thead>
@@ -230,6 +235,8 @@
           </tbody>
         </table>
       </div>
+      @endif
+
 
       @if ($venue->luggage_flag!=0)
       <div class="luggage">
@@ -522,7 +529,7 @@
           </table>
         </div>
 
-
+        @if(!empty($check_info['equipment_breakdown_item0'])&&!empty($check_info['service_breakdown_item'])&&!empty($check_info['luggage_count']))
         <div class="equipment billdetails_content">
           <table class="table table-borderless">
             <tbody>
@@ -572,6 +579,7 @@
               </tr>
               @endif
               @endforeach
+
               @if (!empty($check_info['luggage_count']))
               <tr>
                 <td>
@@ -587,9 +595,10 @@
             </tbody>
           </table>
         </div>
+        @endif
+
 
         @if (!empty($check_info['layouts_price']))
-
         <div class="layout billdetails_content">
           <table class="table table-borderless">
             <tbody>
