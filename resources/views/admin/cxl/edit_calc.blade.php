@@ -20,7 +20,7 @@
 </div>
 @endif
 
-{{ Form::open(['url' => 'admin/cxl/edit_check', 'method'=>'POST', 'class'=>'' ,'id'=>'']) }}
+{{ Form::open(['url' => 'admin/cxl/edit_check', 'method'=>'POST', 'class'=>'' ,'id'=>'cxl_edit_calc']) }}
 @csrf
 
 <section class="mt-5">

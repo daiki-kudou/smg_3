@@ -61,10 +61,13 @@
                 </td>
                 <td class="multiple">×</td>
                 <td class="">
-                  {{$data['cxl_venue_PC']}}
-                  {{Form::hidden('cxl_target_percent[]',$data['cxl_venue_PC'])}}
-                  {{Form::text('cxl_target_type[]',1)}}
-                  <span>%</span>
+                  <div class="d-flex align-items-center">
+                    {{$data['cxl_venue_PC']}}
+                    {{Form::hidden('cxl_target_percent[]',$data['cxl_venue_PC'])}}
+                    {{Form::text('cxl_target_type[]',1)}}
+                    <span>%</span>
+                  </div>
+                  <p class="is-error-cxl_venue_PC" style="color: red"></p>
                 </td>
               </tr>
             </tbody>
@@ -82,10 +85,13 @@
                 </td>
                 <td class="multiple">×</td>
                 <td class="">
-                  {{$data['cxl_equipment_PC']}}
-                  {{Form::hidden('cxl_target_percent[]',$data['cxl_equipment_PC'])}}
-                  {{Form::text('cxl_target_type[]',2)}}
-                  <span>%</span></td>
+                  <div class="d-flex align-items-center">
+                    {{$data['cxl_equipment_PC']}}
+                    {{Form::hidden('cxl_target_percent[]',$data['cxl_equipment_PC'])}}
+                    {{Form::text('cxl_target_type[]',2)}}
+                    <span>%</span></td>
+                  </div>
+                  <p class="is-error-cxl_equipment_PC" style="color: red"></p>
               </tr>
             </tbody>
             @endif
@@ -101,10 +107,13 @@
                 </td>
                 <td class="multiple">×</td>
                 <td class="">
-                  {{$data['cxl_layout_PC']}}
-                  {{Form::hidden('cxl_target_percent[]',$data['cxl_layout_PC'])}}
-                  {{Form::text('cxl_target_type[]',3)}}
-                  <span>%</span></td>
+                  <div class="d-flex align-items-center">
+                    {{$data['cxl_layout_PC']}}
+                    {{Form::hidden('cxl_target_percent[]',$data['cxl_layout_PC'])}}
+                    {{Form::text('cxl_target_type[]',3)}}
+                    <span>%</span></td>
+                  </div>
+                  <p class="is-error-cxl_layout_PC" style="color: red"></p>
               </tr>
             </tbody>
             @endif
@@ -120,10 +129,13 @@
                 </td>
                 <td class="multiple">×</td>
                 <td class="">
-                  {{$data['cxl_other_PC']}}
-                  {{Form::hidden('cxl_target_percent[]',$data['cxl_other_PC'])}}
-                  {{Form::text('cxl_target_type[]',4)}}
-                  <span>%</span></td>
+                  <div class="d-flex align-items-center">
+                    {{$data['cxl_other_PC']}}
+                    {{Form::hidden('cxl_target_percent[]',$data['cxl_other_PC'])}}
+                    {{Form::text('cxl_target_type[]',4)}}
+                    <span>%</span></td>
+                  </div>
+                  <p class="is-error-cxl_layout_PC" style="color: red"></p>
               </tr>
             </tbody>
             @endif

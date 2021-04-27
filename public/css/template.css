@@ -1112,6 +1112,19 @@ table td.table_column p:last-child {
     padding: 0.5em 5em;
     border: 1px solid #3E4B5B;
 }
+.cancel-color {
+    color: red;
+  }
+
+  .sale-number p {
+    text-align: right;
+    justify-content: flex-end;
+
+  }
+
+  .sale-body td {
+    border-bottom: 1px solid #6f6f6f;
+  }
 
 /* =============メールテンプレート　一覧================================================ */
 .mail_template tbody tr td:last-child {

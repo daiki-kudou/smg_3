@@ -383,7 +383,7 @@
 
                   </td>
                   <td>支払期日
-                    {{ Form::text('pay_limit', $pay_limit, ['class' => 'form-control' ,'id'=>'datepicker6'])}}
+                    {{ Form::text('pay_limit', $pay_limit, ['class' => 'form-control datepicker' ,'id'=>''])}}
                   </td>
                 </tr>
                 <tr>

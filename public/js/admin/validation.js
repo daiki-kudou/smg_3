@@ -1100,6 +1100,7 @@ $(function () {
   var target = [
     "#cxlcalc", "#multi_calc",
     "#cxl_multicalc", "#multi_calc",
+    "#cxl_edit", "#cxl_edit_calc",
   ];
 
   $.each(target, function (index, value) {
