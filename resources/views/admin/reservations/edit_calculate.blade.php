@@ -599,7 +599,7 @@
 
 {{ Form::open(['url' => 'admin/reservations/session_for_edit_check', 'method'=>'POST', 'id'=>'']) }}
 @csrf
-<section class="mt-5">
+<section class="mt-5 pt-5">
   <div class="bill">
     <div class="bill_head">
       <table class="table bill_table">
@@ -1087,7 +1087,7 @@
                 {{Form::select('paid', ['未入金', '入金済み'],$reservationEditMaster['paid']==1?1:2,['class'=>'form-control'])}}
               </td>
               <td>
-                入金日{{ Form::text('pay_day', $reservationEditMaster['pay_day'],['class'=>'form-control', 'id'=>'datepicker7'] ) }}
+                入金日{{ Form::text('pay_day', date('Y-m-d',strtotime($reservationEditMaster['pay_day'])),['class'=>'form-control', 'id'=>'datepicker7'] ) }}
               </td>
             </tr>
             <tr>
