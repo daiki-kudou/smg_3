@@ -4,6 +4,7 @@
 <link href="{{ asset('/css/template.css') }}" rel="stylesheet">
 {{-- <script src="{{ asset('/js/admin/reservation.js') }}"></script> --}}
 <script src="{{ asset('/js/admin/validation.js') }}"></script>
+<script src="{{ asset('/js/admin/reservation.js') }}"></script>
 <script src="{{ asset('/js/template.js') }}"></script>
 
 <style>
@@ -39,10 +40,11 @@
             <table class="table table-borderless">
               <tbody>
                 <tr>
-                  <td>
-                    <h4 class="billdetails_content_ttl">
-                      会場料
-                    </h4>
+                  <td colspan="5">
+                    <div class="venue_chkbox">
+                      <input type="checkbox" id="venue" name="venue" value="1" {{!empty($bill->venue_price)?"checked":""}} class="checkbox">
+                      <label for="venue">会場料</label>
+                    </div>
                   </td>
                 </tr>
               </tbody>
@@ -114,10 +116,11 @@
             <table class="table table-borderless">
               <tbody>
                 <tr>
-                  <td colspan="4">
-                    <h4 class="billdetails_content_ttl">
-                      有料備品・サービス
-                    </h4>
+                  <td colspan="5">
+                    <div class="equipment_chkbox">
+                      <input type="checkbox" class="checkbox" id="equipment" name="equipment" value="1" {{!empty($bill->equipment_price)?"checked":""}}>
+                      <label for="equipment">有料備品・サービス料</label>
+                    </div>
                   </td>
                 </tr>
               </tbody>
@@ -189,10 +192,11 @@
             <table class="table table-borderless">
               <tbody>
                 <tr>
-                  <td>
-                    <h4 class="billdetails_content_ttl">
-                      レイアウト
-                    </h4>
+                  <td colspan="5">
+                    <div class="layout_chkbox">
+                      <input type="checkbox" class="checkbox" id="layout" name="layout" value="1" {{!empty($bill->layout_price)?"checked":""}}>
+                      <label for="layout">レイアウト変更料</label>
+                    </div>
                   </td>
                 </tr>
               </tbody>
@@ -265,10 +269,11 @@
             <table class="table table-borderless">
               <tbody>
                 <tr>
-                  <td colspan="4">
-                    <h4 class="billdetails_content_ttl">
-                      その他
-                    </h4>
+                  <td colspan="5">
+                    <div class="others_chkbox">
+                      <input type="checkbox" class="checkbox" id="others" name="others" value="1" {{!empty($bill->others_price)?"checked":""}}>
+                      <label for="others">その他</label>
+                    </div>
                   </td>
                 </tr>
               </tbody>
@@ -590,9 +595,8 @@
     }
   })
 
-  $(window).on('load',function(){
+  $(window).on('load', function() {
     $('input[name="layout_breakdown_count0"]').change();
   });
-
 </script>
 @endsection
