@@ -556,8 +556,9 @@
                 </td>
               </tr>
               <tr>
-                <td colspan="2">請求書備考
-                  {{$reservation->bills()->first()->bill_remark}}
+                <td colspan="2">
+                <p>請求書備考</p>
+                  <p>{{$reservation->bills()->first()->bill_remark}}</p>
                 </td>
               </tr>
             </tbody>
@@ -584,13 +585,12 @@
                 <td> {{$reservation->bills()->first()->paid==0?"未入金":"入金済"}}
                 </td>
                 <td>
-                  入金日
-                  {{$reservation->bills()->first()->pay_day}}
+                  入金日：{{$reservation->bills()->first()->pay_day}}
                 </td>
               </tr>
               <tr>
-                <td>振込人名 {{$reservation->bills()->first()->pay_person}}</td>
-                <td>入金額 {{$reservation->bills()->first()->pay_person}}</td>
+                <td>振込人名：{{$reservation->bills()->first()->pay_person}}</td>
+                <td>入金額：{{$reservation->bills()->first()->pay_person}}</td>
               </tr>
             </tbody>
           </table>
@@ -846,8 +846,9 @@
                 </td>
               </tr>
               <tr>
-                <td colspan="2">請求書備考
-                  {{$other_bill->bill_remark}}
+                <td colspan="2">
+                <p>請求書備考</p>
+                  <p>{{$other_bill->bill_remark}}</p>
                 </td>
               </tr>
             </tbody>
@@ -874,13 +875,12 @@
                 <td> {{$other_bill->paid==0?"未入金":"入金済"}}
                 </td>
                 <td>
-                  入金日
-                  {{$other_bill->pay_day}}
+                  入金日：{{ReservationHelper::formatDate($other_bill->pay_day)}}
                 </td>
               </tr>
               <tr>
-                <td>振込人名 {{$other_bill->pay_person}}</td>
-                <td>入金額 {{$other_bill->pay_person}}</td>
+                <td>振込人名：{{$other_bill->pay_person}}</td>
+                <td>入金額：{{$other_bill->pay_person}}</td>
               </tr>
             </tbody>
           </table>
@@ -1312,8 +1312,9 @@
                 </td>
               </tr>
               <tr>
-                <td colspan="2">請求書備考
-                  {{$cxl->bill_remark}}
+                <td colspan="2">
+                <p>請求書備考</p>
+                  <p>{{$cxl->bill_remark}}</p>
                 </td>
               </tr>
             </tbody>
@@ -1340,13 +1341,12 @@
                 <td> {{$cxl->paid==0?"未入金":"入金済"}}
                 </td>
                 <td>
-                  入金日
-                  {{$cxl->pay_day}}
+                  入金日：{{$cxl->pay_day}}
                 </td>
               </tr>
               <tr>
-                <td>振込人名 {{$cxl->pay_person}}</td>
-                <td>入金額 {{$cxl->pay_person}}</td>
+                <td>振込人名：{{$cxl->pay_person}}</td>
+                <td>入金額：{{$cxl->pay_person}}</td>
               </tr>
             </tbody>
           </table>
