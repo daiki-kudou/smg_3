@@ -116,17 +116,20 @@
           <td class="table-active"><label for="direction">案内板</label></td>
           <td class="d-flex justify-content-between">
             <p>{{$reservation->board_flag==0?'無し':"要作成"}}</p>
-            <p>
-              <a href="{{ url('/admin/reservations/generate_pdf', $reservation->id) }}" class="more_btn">案内版出力</a>
-            </p>
+            {{ Form::open(['url' => 'admin/board', 'method'=>'post', 'id'=>'', 'target'=>'_blank'])}}
+              @csrf
+              {{Form::hidden('reservation_id',$reservation->id)}}
+              <p>{{Form::submit('案内板を表示', ['class' => 'btn more_btn']) }}</p>
+              {{Form::close()}}
+              <!-- <a href="{{ url('/admin/reservations/generate_pdf', $reservation->id) }}" class="more_btn">案内版出力</a> -->
           </td>
         </tr>
-        <tr>
+        <!-- <tr>
           <td class="table-active"><label for="eventTime">イベント時間記載</label></td>
           <td>
             {{isset($reservation->event_start)&&isset($reservation->event_finish)?"有り":"無し"}}
           </td>
-        </tr>
+        </tr> -->
         <tr>
           <td class="table-active"><label for="eventStart">イベント開始時間</label></td>
           <td>
