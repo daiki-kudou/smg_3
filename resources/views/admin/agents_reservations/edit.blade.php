@@ -565,7 +565,7 @@
 
   {{-- スロット --}}
   @slot('pay_limit')
-  {{ Form::text('pay_limit', $reservation->bills->first()->pay_limit,['class'=>'form-control', 'id'=>'datepicker6'] ) }}
+  {{ Form::text('pay_limit', ReservationHelper::formatDate($reservation->bills->first()->pay_limit),['class'=>'form-control', 'id'=>'datepicker6'] ) }}
   @endslot
 
   {{-- スロット --}}

@@ -229,7 +229,7 @@
 
   {{-- スロット --}}
   @slot('luggage_arrive')
-  {{ Form::text('luggage_arrive', $inputs['luggage_arrive'],['class'=>'form-control'] ) }}
+  {{ Form::text('luggage_arrive', $inputs['luggage_arrive'],['class'=>'form-control limited_datepicker'] ) }}
   @endslot
 
   {{-- スロット --}}
