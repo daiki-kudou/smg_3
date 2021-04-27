@@ -135,7 +135,7 @@
                     {{Form::text('cxl_target_type[]',4)}}
                     <span>%</span></td>
                   </div>
-                  <p class="is-error-cxl_other_PC" style="color: red"></p>
+                  <p class="is-error-cxl_layout_PC" style="color: red"></p>
               </tr>
             </tbody>
             @endif

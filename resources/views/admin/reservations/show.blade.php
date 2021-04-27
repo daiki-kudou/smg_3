@@ -353,7 +353,7 @@
           <tr>
             <td>
               <h2 class="text-white">
-                請求書No
+                請求書No{{$reservation->bills->first()->id}}
               </h2>
             </td>
             <td style="width: 70%;">
