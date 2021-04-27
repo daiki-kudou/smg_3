@@ -32,7 +32,6 @@ class SalesController extends Controller
         //     $reservation->reserve_date,
         //   ]);
         // }
-
         // ↓　多分これいける
         Bill::with('reservation')->chunk(
           1000,
