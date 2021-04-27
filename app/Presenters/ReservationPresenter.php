@@ -12,7 +12,11 @@ class ReservationPresenter extends Presenter
     $result = $target->every(function ($value, $key) {
       return ($value == 6);
     });
-
     return $result;
+  }
+
+  public function billCount()
+  {
+    return $this->bills->count();
   }
 }

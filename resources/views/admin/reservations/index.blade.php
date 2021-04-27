@@ -295,8 +295,10 @@
             <td rowspan="{{count($reservation->bills)}}">
               {{ReservationHelper::formatDate($reservation->reserve_date)}}
             </td>
-            <td rowspan="{{count($reservation->bills)}}">{{ReservationHelper::formatTime($reservation->enter_time)}}</td>
-            <td rowspan="{{count($reservation->bills)}}">{{ReservationHelper::formatTime($reservation->leave_time)}}</td>
+            <td rowspan="{{count($reservation->bills)}}">{{ReservationHelper::formatTime($reservation->enter_time)}}
+            </td>
+            <td rowspan="{{count($reservation->bills)}}">{{ReservationHelper::formatTime($reservation->leave_time)}}
+            </td>
             <td rowspan="{{count($reservation->bills)}}">
               {{ReservationHelper::getVenue($reservation->venue->id)}}
             </td>
@@ -359,8 +361,6 @@
           </tr>
           @for ($i = 0; $i < count($reservation->bills)-1; $i++)
             <tr>
-              {{-- <td>エンドユーザーダミー123
-              </td> --}}
               <td>
                 @foreach (ImageHelper::addBillsShow($reservation->bills->skip($i+1)->first()->id) as $icon)
                 {!!$icon!!}

@@ -11,16 +11,19 @@ use App\Models\Bill;
 
 class SalesController extends Controller
 {
+  public function index(Request $request)
+  {
+    $reservations = Reservation::with(['bills', 'user', 'agent', 'cxls', 'enduser'])->get();
+    return view('admin.sales.index', compact('reservations'));
+  }
+
   public function download_csv(Request $request)
   {
     return response()->streamDownload(
       function () {
-        // 出力バッファをopen
-        $stream = fopen('php://output', 'w');
-        // 文字コードをShift-JISに変換
-        stream_filter_prepend($stream, 'convert.iconv.utf-8/cp932//TRANSLIT');
-        // ヘッダー
-        fputcsv($stream, [
+        $stream = fopen('php://output', 'w'); // 出力バッファをopen
+        stream_filter_prepend($stream, 'convert.iconv.utf-8/cp932//TRANSLIT'); // 文字コードをShift-JISに変換
+        fputcsv($stream, [ // ヘッダー
           'id',
           'reserve_date',
           'reservation_id',
@@ -32,7 +35,6 @@ class SalesController extends Controller
         //     $reservation->reserve_date,
         //   ]);
         // }
-        // ↓　多分これいける
         Bill::with('reservation')->chunk(
           1000,
           function ($bills) use ($stream) {
@@ -45,13 +47,10 @@ class SalesController extends Controller
             }
           }
         );
-
         fclose($stream);
       },
       'reservations.csv',
-      [
-        'Content-Type' => 'application/octet-stream',
-      ]
+      ['Content-Type' => 'application/octet-stream',]
     );
   }
 }
