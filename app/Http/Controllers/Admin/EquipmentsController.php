@@ -107,9 +107,6 @@ class EquipmentsController extends Controller
       'price' => ['required', 'max:191'],
       'stock' => ['required', 'max:191'],
     ]);
-    echo "<pre>";
-    var_dump("1");
-    echo "</pre>";
 
     DB::transaction(function () use ($request, $id) {
       $eqipment = Equipment::find($id);

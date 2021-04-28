@@ -273,6 +273,8 @@ class Reservation extends Model implements PresentableInterface
         'attention' => $request->attention,
         'user_details' => $request->user_details,
         'admin_details' => $request->admin_details,
+        'eat_in' => !empty($request->eat_in) ? $request->eat_in : 0,
+        'eat_in_prepare' => !empty($request->eat_in_prepare) ? $request->eat_in_prepare : 0,
       ]);
       $reservation->ReserveStoreBill($request);
     });

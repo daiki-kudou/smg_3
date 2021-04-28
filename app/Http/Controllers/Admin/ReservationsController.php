@@ -221,7 +221,6 @@ class ReservationsController extends Controller
     $request->session()->forget('calc_info'); //一度あったものを削除
     $request->session()->forget('discount_info'); //一度あったものを削除
     $data = $request->all();
-    var_dump($data);
     $request->session()->put('master_info', $data);
     $calcData = $this->calcSession($request);
     $request->session()->put('calc_info', $calcData);
@@ -372,7 +371,6 @@ class ReservationsController extends Controller
     $agentLayoutPrice = $reservation->bills->pluck('layout_price')->sum();
     $agentPrice = $reservation->bills->pluck('master_subtotal')->sum();
     $agentPriceWithoutLayout = $agentPrice - $agentLayoutPrice;
-    var_dump($agentLayoutPrice);
     return view(
       'admin.reservations.show',
       compact(
@@ -483,7 +481,6 @@ class ReservationsController extends Controller
     $s_cnt = $this->preg($result, "services_breakdown_item");
     $o_cnt = $this->preg($result, "others_input_item");
 
-    var_dump($result["venue_breakdown_item"]);
 
 
     return view('admin.reservations.edit_without_calc', [

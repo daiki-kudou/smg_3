@@ -298,7 +298,6 @@
           </tbody>
         </table>
       </div>
-      {{var_dump($bill->breakdowns->where('unit_item','レイアウト準備料金')->count())}}
       <div class='layouts'>
         <table class='table table-bordered' style="table-layout:fixed;">
           <thead>

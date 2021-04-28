@@ -13,6 +13,9 @@ use App\Models\User;
 use App\Models\Equipment;
 use App\Models\Service;
 
+use Illuminate\Support\Facades\DB;
+
+
 
 class PreReservationsController extends Controller
 {
@@ -48,7 +51,7 @@ class PreReservationsController extends Controller
   public function calculate(Request $request, $id)
   {
     if ($request->cfm) {
-      $this->cfm($request, $id);
+      return $this->cfm($request, $id);
     } else {
       $user_id = auth()->user()->id;
       $pre_reservation = PreReservation::find($id);
@@ -91,17 +94,21 @@ class PreReservationsController extends Controller
       'price_system' => $pre_reservation->price_system,
     ]);
 
-    // 一旦、最新情報でpre reservation を保存
-    $pre_reservation = PreReservation::find($id);
-    $pre_reservation->Updates($request);
-    $pre_bill = new PreBill;
-    $pre_bill->PreBillCreate($request, $pre_reservation);
-    $pre_breakdowns = new PreBreakdown;
-    $pre_breakdowns->PreBreakdownCreate($request, $pre_reservation);
+    // 一旦、最新情報でpre reservation を保存。その後予約へ移動
+    DB::transaction(function () use ($id, $request) {
+      $pre_reservation = PreReservation::find($id);
+      $pre_reservation->Updates($request);
+      $pre_bill = new PreBill;
+      $pre_bill->PreBillCreate($request, $pre_reservation);
+      $pre_breakdowns = new PreBreakdown;
+      $pre_breakdowns->PreBreakdownCreate($request, $pre_reservation);
+      $pre_reservation->MoveToReservation($request);
+    });
+    return redirect(route('user.pre_reservations.show_cfm'));
+  }
 
-
-    $pre_reservation->MoveToReservation($request);
-
+  public function showCfm()
+  {
     return view('user.pre_reservations.cfm');
   }
 }

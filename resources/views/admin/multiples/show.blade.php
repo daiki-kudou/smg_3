@@ -31,7 +31,6 @@
           </h3>
         </td>
 
-        {{var_dump($checkVenuePrice)}}
 
         <td class="text-right">
           {{ Form::open(['url' => 'admin/multiples/switch_status', 'method'=>'POST','id'=>'']) }}

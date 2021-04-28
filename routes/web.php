@@ -38,7 +38,10 @@ Route::namespace('User')->prefix('user')->name('user.')->group(function () {
 
     Route::post('pre_reservations/{pre_reservation}/calculate', 'PreReservationsController@calculate');
     Route::post('pre_reservations/{pre_reservation}/cfm', 'PreReservationsController@cfm');
-    Route::resource('pre_reservations', 'PreReservationsController');
+    Route::get('pre_reservations', 'PreReservationsController@index')->name('pre_reservations.index');
+    Route::get('pre_reservations/cfm', 'PreReservationsController@showCfm')->name('pre_reservations.show_cfm');
+    Route::get('pre_reservations/{pre_reservation}', 'PreReservationsController@show');
+    // Route::resource('pre_reservations', 'PreReservationsController')->except('show');
 
     // 以下、ユーザーからの予約経路
     // 例外でgetリクエスト
