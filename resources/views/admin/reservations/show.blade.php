@@ -489,7 +489,12 @@
           {{ Form::submit('請求書をみる',['class' => 'btn more_btn']) }}
         </p>
         {{ Form::close() }}
-        <p class="mr-2"><input class="btn more_btn4" type="submit" value="領収書をみる"></p>
+        <p class="mr-2">
+          @if ($reservation->bills->first()->paid==1)
+          <a target='_blank' href="{{url('admin/receipts/'.$reservation->bills->first()->id)}}"
+            class="btn more_btn4">領収書をみる</a>
+          @endif
+        </p>
       </div>
     </div>
     <div class="bill_details">
@@ -780,7 +785,12 @@
       </div>
       <div class="invoice_box d-flex justify-content-end my-3">
         <p class="mr-2"><a class="btn more_btn" href="">請求書をみる</a></p>
-        <p class="mr-2"><a class="btn more_btn4" href="">領収書をみる</a></p>
+        <p class="mr-2">
+          @if ($other_bill->paid==1)
+          <a target='_blank' href="{{url('admin/receipts/'.$reservation->bills->first()->id)}}"
+            class="btn more_btn4">領収書をみる</a>
+          @endif
+        </p>
       </div>
     </div>
 
@@ -1182,7 +1192,7 @@
 
       <div class="invoice_box d-flex justify-content-end my-3">
         <p class="mr-2"><a class="btn more_btn" href="">請求書をみる</a></p>
-        <p class="mr-2"><a class="btn more_btn4" href="">領収書をみる</a></p>
+        <p class="mr-2"><a class="btn more_btn4" href="">キャンセル領収書をみる</a></p>
       </div>
     </div>
 

@@ -364,5 +364,7 @@ Route::namespace('Admin')->prefix('admin')->name('admin.')->group(function () {
     Route::get('csv', 'SalesController@download_csv');
 
     Route::get('sales', 'SalesController@index');
+
+    Route::get('receipts/{bill}', 'ReceiptsController@show');
   });
 });
