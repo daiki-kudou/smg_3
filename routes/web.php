@@ -30,6 +30,8 @@ Route::namespace('User')->prefix('user')->name('user.')->group(function () {
   //verfified一旦停止
   Route::middleware('auth')->group(function () {
     Route::get('home/user_info', 'HomeController@user_info')->name('home.user_info');
+    Route::post('home/user_edit', 'HomeController@user_edit');
+    Route::post('home/user_update', 'HomeController@user_update');
 
     Route::resource('home', 'HomeController');
     Route::put('home/{home}/update_status', 'HomeController@updateStatus')->name('home.updatestatus');

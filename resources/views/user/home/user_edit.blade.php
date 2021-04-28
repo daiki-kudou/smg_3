@@ -1,8 +1,6 @@
 @extends('layouts.user.app')
 @section('content')
 <link href="{{ asset('/css/template.css') }}" rel="stylesheet">
-{{-- <script src="{{ asset('/js/template.js') }}"></script>
-<script src="{{ asset('/js/ajax.js') }}"></script> --}}
 
 <div class="container-field mt-3">
   <div class="float-right">
@@ -18,14 +16,8 @@
   <hr>
 </div>
 
-@if (session('flash_message'))
-<div class="alert alert-danger">
-  <ul>
-    <li> {!! session('flash_message') !!} </li>
-  </ul>
-</div>
-@endif
-
+{{Form::open(['url' => 'user/home/user_update', 'method' => 'POST'])}}
+@csrf
 
 <section class="section-bg mt-5">
   <table class="table user-profile table-bordered">
@@ -42,71 +34,92 @@
     <tbody>
       <tr>
         <th><label for="company">会社・団体名</label></th>
-        <td colspan="2">{{$user->company}}</td>
+        {{-- <td colspan="2">{{$user->company}}</td> --}}
+        <td colspan="2">
+          {{Form::text('company',$user->company,['class'=>'form-control'])}}
+        </td>
       </tr>
       <tr>
         <th><label for="first_name">担当者氏名</label></th>
-        <td>{{ReservationHelper::getPersonName($user->id)}}</td>
+        <td>
+          <div class="d-flex">
+            {{Form::text('first_name',$user->first_name,['class'=>'form-control'])}}
+            {{Form::text('last_name',$user->last_name,['class'=>'form-control'])}}
+          </div>
+        </td>
       </tr>
       <tr>
         <th><label for="first_name_kana">担当者氏名（フリガナ）</label></th>
-        <td>{{ReservationHelper::getPersonNameKANA($user->id)}}</td>
+        <td>
+          <div class="d-flex">
+            {{Form::text('first_name_kana',$user->first_name_kana,['class'=>'form-control'])}}
+            {{Form::text('last_name_kana',$user->last_name_kana,['class'=>'form-control'])}}
+          </div>
+        </td>
       </tr>
       <tr>
         <th>郵便番号</th>
         <td class="d-flex align-items-center">
-          <p>〒{{$user->post_code}}</p>
+          <p>
+            {{Form::text('post_code',$user->post_code,['class'=>'form-control'])}}
+          </p>
         </td>
       </tr>
       <tr>
         <th><label for="address1">住所1（都道府県）</label></th>
-        <td colspan="2">{{$user->address1}}</td>
+        <td colspan="2">
+          {{Form::text('address1',$user->address1,['class'=>'form-control'])}}
+        </td>
       </tr>
       <tr>
         <th><label for="address2">住所2（市町村番地）</label></th>
-        <td colspan="2">{{$user->address2}}</td>
+        <td colspan="2">
+          {{Form::text('address2',$user->address2,['class'=>'form-control'])}}
+        </td>
       </tr>
       <tr>
         <th><label for="address3">住所3（建物名）</label></th>
-        <td colspan="2">{{$user->address3}}</td>
+        <td colspan="2">
+          {{Form::text('address3',$user->address3,['class'=>'form-control'])}}
+        </td>
       </tr>
       <tr>
         <th><label for="tel">電話番号</label></th>
-        <td colspan="2">{{$user->tel}}
+        <td colspan="2">
+          {{Form::text('tel',$user->tel,['class'=>'form-control'])}}
         </td>
       </tr>
       <tr>
         <th><label for="mobile">携帯番号</label></th>
-        <td colspan="2">{{$user->mobile}}
+        <td colspan="2">
+          {{Form::text('mobile',$user->mobile,['class'=>'form-control'])}}
         </td>
       </tr>
       <tr>
         <th><label for="fax">FAX</label></th>
-        <td colspan="2">{{$user->fax}}
+        <td colspan="2">
+          {{Form::text('fax',$user->fax,['class'=>'form-control'])}}
         </td>
       </tr>
       <tr>
         <th><label for="email">メールアドレス</label></th>
-        <td colspan="2">{{$user->email}}</td>
+        <td colspan="2">
+          {{Form::text('email',$user->email,['class'=>'form-control'])}}
+        </td>
       </tr>
     </tbody>
   </table>
 </section>
 
-
 　<div class="btn-wrapper mt-5">
-
   <p class="text-center">
-    <a href="{{url('user/password/reset')}}">パスワードを変更する</a>
-    {{Form::open(['url' => 'user/home/user_edit', 'method' => 'POST'])}}
-    @csrf
-    {{Form::hidden('user_id',$user->id)}}
-    {{Form::submit('編集する',['class'=>'more_btn_lg btn'])}}
-    {{Form::close()}}
-
+    {{Form::hidden('user_id',$user->id,['class'=>'form-control'])}}
+    {{Form::submit('更新',['class'=>'more_btn_lg btn'])}}
   </p>
 </div>
 
+
+{{Form::close()}}
 
 
 
