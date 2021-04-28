@@ -3,6 +3,8 @@
 <script src="{{ asset('/js/template.js') }}"></script>
 <script src="{{ asset('/js/admin/validation.js') }}"></script>
 <link href="{{ asset('/css/template.css') }}" rel="stylesheet">
+<script src="{{ asset('/js/admin/control_time.js') }}"></script>
+
 
 
 <div id="fullOverlay">
@@ -169,7 +171,7 @@
             </select>
           </td>
           <td>
-            <select name="pre_enter0" id="pre_enter0" class="form-control">
+            <select name="pre_enter0" id="pre_enter0" class="enter_control_pre_reservation0 form-control">
               <option value=""></option>
               @for ($start = 0*2; $start <=23*2; $start++) <option
                 value="{{date("H:i:s", strtotime("00:00 +". $start * 30 ." minute"))}}">
@@ -180,7 +182,7 @@
             <p class="is-error-pre_enter0" style="color: red"></p>
           </td>
           <td>
-            <select name="pre_leave0" id="pre_leave0" class="form-control">
+            <select name="pre_leave0" id="pre_leave0" class="leave_control_pre_reservation0 form-control">
               <option value=""></option>
               @for ($start = 0*2; $start <=23*2; $start++) <option
                 value="{{date("H:i:s", strtotime("00:00 +". $start * 30 ." minute"))}}">
@@ -263,8 +265,6 @@
             if ($user['attention']!==null) {
             $('.attention').html($user['attention'].replace(/\n/g, '<br>'));
             }
-
-
           } else {
             $('.client_info p').text('');
           }
@@ -314,6 +314,10 @@
         $(target).eq(index).find('td').eq(1).find('select').attr('id', "pre_venue" + index);
         $(target).eq(index).find('td').eq(2).find('select').attr('id', "pre_enter" + index);
         $(target).eq(index).find('td').eq(3).find('select').attr('id', "pre_leave" + index);
+        // class属性
+        $(target).eq(index).find('td').eq(2).find('select').attr('class', "enter_control_pre_reservation" + index+" form-control");
+        $(target).eq(index).find('td').eq(3).find('select').attr('class', "leave_control_pre_reservation" + index+" form-control ");
+
         // dapicker付与
         $('#pre_datepicker' + index).removeClass('hasDatepicker').datepicker({
           dateFormat: 'yy-mm-dd',

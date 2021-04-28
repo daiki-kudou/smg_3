@@ -19,7 +19,7 @@
   <link rel="dns-prefetch" href="//fonts.gstatic.com">
   <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet">
 
-<!-- reset css -->
+  <!-- reset css -->
   <link href="{{ asset('css/reset.css')}}" rel="stylesheet">
 
   <!-- Theme style -->
