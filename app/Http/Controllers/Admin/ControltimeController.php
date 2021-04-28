@@ -18,7 +18,7 @@ class ControltimeController extends Controller
   {
     $date = $request->date;
     $venue_id = $request->venue_id;
-    $reservations = Reservation::whereDate('reserve_date', $date)->where('venue_id', $venue_id)->get();
+    $reservations = Reservation::with('bills')->whereDate('reserve_date', $date)->where('venue_id', $venue_id)->get();
     $pre_reservations = PreReservation::whereDate('reserve_date', $date)->where('venue_id', $venue_id)->get();
 
     $result = $this->getTimes($reservations, $pre_reservations);
@@ -29,11 +29,13 @@ class ControltimeController extends Controller
   {
     $timeArray = [];
     foreach ($reservations as $key => $value) {
-      $f_start = Carbon::createFromTimeString($value->enter_time, 'Asia/Tokyo');
-      $f_finish = Carbon::createFromTimeString($value->leave_time, 'Asia/Tokyo');
-      $diff = ($f_finish->diffInMinutes($f_start) / 30);
-      for ($i = 0; $i <= $diff; $i++) {
-        $timeArray[] = date('H:i:s', strtotime($f_start . "+ " . (30 * $i) . " min"));
+      if ($value->bills->first()->reservation_status <= 3) { //キャンセルプロセスにあるものは除外
+        $f_start = Carbon::createFromTimeString($value->enter_time, 'Asia/Tokyo');
+        $f_finish = Carbon::createFromTimeString($value->leave_time, 'Asia/Tokyo');
+        $diff = ($f_finish->diffInMinutes($f_start) / 30);
+        for ($i = 0; $i <= $diff; $i++) {
+          $timeArray[] = date('H:i:s', strtotime($f_start . "+ " . (30 * $i) . " min"));
+        }
       }
     }
     foreach ($pre_reservations as $key => $value) {

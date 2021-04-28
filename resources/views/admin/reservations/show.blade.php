@@ -117,11 +117,11 @@
           <td class="d-flex justify-content-between">
             <p>{{$reservation->board_flag==0?'無し':"要作成"}}</p>
             {{ Form::open(['url' => 'admin/board', 'method'=>'post', 'id'=>'', 'target'=>'_blank'])}}
-              @csrf
-              {{Form::hidden('reservation_id',$reservation->id)}}
-              <p>{{Form::submit('案内板を表示', ['class' => 'btn more_btn']) }}</p>
-              {{Form::close()}}
-              <!-- <a href="{{ url('/admin/reservations/generate_pdf', $reservation->id) }}" class="more_btn">案内版出力</a> -->
+            @csrf
+            {{Form::hidden('reservation_id',$reservation->id)}}
+            <p>{{Form::submit('案内板を表示', ['class' => 'btn more_btn']) }}</p>
+            {{Form::close()}}
+            <!-- <a href="{{ url('/admin/reservations/generate_pdf', $reservation->id) }}" class="more_btn">案内版出力</a> -->
           </td>
         </tr>
         <!-- <tr>
@@ -630,7 +630,7 @@
       <dd>
         {{ Form::model($reservation->id, ['route'=> ['admin.reservations.double_check',$reservation->id]]) }}
         @csrf
-        {{Form::select('double_check1_name', $admin, null, ['placeholder' => '選択してください', 'class'=>'form-control double_check1_name'])}}
+        {{Form::select('double_check1_name', $admin, null, ['class'=>'form-control double_check1_name'])}}
         {{ Form::hidden('double_check_status', $reservation->bills->first()->double_check_status ) }}
       </dd>
       <dd class="ml-2">
@@ -648,7 +648,7 @@
       <dd class="ml-2">
         {{ Form::model($reservation->id, ['route'=> ['admin.reservations.double_check',$reservation->id]]) }}
         @csrf
-        {{Form::select('double_check2_name', $admin, null, ['placeholder' => '選択してください', 'class'=>'form-control double_check2_name'])}}
+        {{Form::select('double_check2_name', $admin, null, ['class'=>'form-control double_check2_name'])}}
         {{ Form::hidden('double_check_status', $reservation->bills->first()->double_check_status ) }}
       </dd>
       <dd>
@@ -933,7 +933,7 @@
         {{ Form::open(['url' => 'admin/bills/other_doublecheck', 'method'=>'POST']) }}
         @csrf
         {{Form::select('double_check1_name', $admin, 
-        null, ['placeholder' => '選択してください', 'class'=>'form-control double_check1_name'])}}
+        null, ['class'=>'form-control double_check1_name'])}}
         {{ Form::hidden('double_check_status', $other_bill->double_check_status ) }}
         {{ Form::hidden('bills_id', $other_bill->id ) }}
       </dd>
@@ -953,7 +953,7 @@
         {{ Form::open(['url' => 'admin/bills/other_doublecheck', 'method'=>'POST']) }}
         @csrf
         {{Form::select('double_check2_name', $admin, 
-        null, ['placeholder' => '選択してください', 'class'=>'form-control double_check2_name'])}}
+        null, ['class'=>'form-control double_check2_name'])}}
         {{ Form::hidden('double_check_status', $other_bill->double_check_status ) }}
         {{ Form::hidden('bills_id', $other_bill->id ) }}
       </dd>
@@ -974,153 +974,9 @@
 
 <!-- 合計請求額------------------------------------------------------------------- -->
 @if ($reservation->user_id>0)
-<div class="master_totals border-wrap">
-  <table class="table">
-    <tbody class="master_total_head">
-      <tr>
-        <td colspan="2">
-          <h3>
-            合計請求額
-          </h3>
-        </td>
-      </tr>
-    </tbody>
-    <tr>
-      <td colspan="2" class="master_total_subttl">
-        <h4>内訳</h4>
-      </td>
-    </tr>
-    <tbody class="master_total_body">
-      <tr>
-        <td>・会場料</td>
-        <td>{{number_format($master_prices[0])}}円</td>
-      </tr>
-      <tr>
-        <td>・有料備品　サービス</td>
-        <td>{{number_format($master_prices[1])}}円</td>
-      </tr>
-      <tr>
-        <td>・レイアウト変更料</td>
-        <td>{{number_format($master_prices[2])}}円</td>
-      </tr>
-      <tr>
-        <td>・その他</td>
-        <td>{{number_format($master_prices[3])}}円</td>
-      </tr>
-    </tbody>
-    <tbody class="master_total_bottom mb-0">
-      <tr>
-        <td></td>
-        <td>
-          <div class="d-flex justify-content-end" colspan="2">
-            <p>小計：</p>
-            <p>{{number_format($master_prices[4])}}円</p>
-          </div>
-        </td>
-      </tr>
-      <tr>
-        <td></td>
-        <td>
-          <div class="d-flex justify-content-end" colspan="2">
-            <p>消費税：</p>
-            <p>{{number_format(ReservationHelper::getTax($master_prices[4]))}}円</p>
-          </div>
-        </td>
-      </tr>
-      <tr>
-        <td></td>
-        <td>
-          <div class="d-flex justify-content-end" colspan="2">
-            <p>合計金額：</p>
-            <p>{{number_format(ReservationHelper::taxAndPrice($master_prices[4]))}}円</p>
-          </div>
-        </td>
-      </tr>
-    </tbody>
-  </table>
-  <div class="payment_situation">
-    <dl>
-      <dt>合計入金額</dt>
-      <dd>円</dd>
-    </dl>
-    <dl>
-      <dt>未入金額</dt>
-      <dd>円</dd>
-    </dl>
-  </div>
-</div>
+@include('admin.reservations.show.user.total')
 @else
-<div class="master_totals border-wrap">
-  <table class="table">
-    <tbody class="master_total_head">
-      <tr>
-        <td colspan="2">
-          <h3>
-            合計請求額
-          </h3>
-        </td>
-      </tr>
-    </tbody>
-    <tr>
-      <td colspan="2" class="master_total_subttl">
-        <h4>内訳</h4>
-      </td>
-    </tr>
-    <tbody class="master_total_body">
-      <tr>
-        <td>・会場料</td>
-        <td>
-          {{$agentPriceWithoutLayout}}
-          円</td>
-      </tr>
-      <tr>
-        <td>・レイアウト変更料</td>
-        <td>
-          {{$agentLayoutPrice}}
-          円</td>
-      </tr>
-    </tbody>
-    <tbody class="master_total_bottom mb-0">
-      <tr>
-        <td></td>
-        <td>
-          <div class="d-flex justify-content-end">
-            <p>小計：</p>
-            <p>ダミー円</p>
-          </div>
-        </td>
-      </tr>
-      <tr>
-        <td></td>
-        <td>
-          <div class="d-flex justify-content-end">
-            <p>消費税：</p>
-            <p>ダミー円</p>
-          </div>
-        </td>
-      </tr>
-      <tr>
-        <td></td>
-        <td>
-          <div class="d-flex justify-content-end">
-            <p>合計金額：</p>
-            <p>ダミー円</p>
-          </div>
-        </td>
-      </tr>
-    </tbody>
-  </table>
-  <div class="payment_situation">
-    <dl>
-      <dt>合計入金額</dt>
-      <dd>円</dd>
-    </dl>
-    <dl>
-      <dt>未入金額</dt>
-      <dd>円</dd>
-    </dl>
-  </div>
-</div>
+@include('admin.reservations.show.agent.total')
 @endif
 
 
@@ -1414,7 +1270,7 @@
         {{ Form::open(['url' => 'admin/cxl/double_check', 'method'=>'POST']) }}
         @csrf
         {{Form::select('double_check1_name', $admin, 
-        null, ['placeholder' => '選択してください', 'class'=>'form-control double_check1_name'])}}
+        null, ['class'=>'form-control double_check1_name'])}}
         {{ Form::hidden('double_check_status', $cxl->double_check_status ) }}
         {{ Form::hidden('reservation_id', $reservation->id ) }}
         {{ Form::hidden('cxl_id', $cxl->id ) }}
@@ -1435,7 +1291,7 @@
         {{ Form::open(['url' => 'admin/cxl/double_check', 'method'=>'POST']) }}
         @csrf
         {{Form::select('double_check2_name', $admin, 
-        null, ['placeholder' => '選択してください', 'class'=>'form-control double_check2_name'])}}
+        null, ['class'=>'form-control double_check2_name'])}}
         {{ Form::hidden('double_check_status', $cxl->double_check_status ) }}
         {{ Form::hidden('cxl_id', $cxl->id ) }}
       </dd>

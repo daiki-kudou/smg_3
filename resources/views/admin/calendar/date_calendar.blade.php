@@ -6,6 +6,20 @@
 <script src="{{ asset('/js/template.js') }}"></script>
 <script src="{{ asset('/js/date_calendar.js') }}"></script>
 
+<style>
+  .no_wrap {
+    white-space: nowrap;
+  }
+
+  .gray {
+    background: gray;
+  }
+
+  a {
+    text-decoration: none;
+    color: black;
+  }
+</style>
 
 <h2 class="mt-3 mb-3">予約状況カレンダー 利用日別</h2>
 <hr>
@@ -115,6 +129,9 @@
 <input type="hidden" name="venue_name" value="{{ReservationHelper::getVenue($reservation->venue_id)}}">
 <input type="hidden" name="start" value="{{date('H:i',strtotime($reservation->enter_time))}}">
 <input type="hidden" name="status" value="{{$reservation->bills->first()->reservation_status }}">
+<input type="hidden" name="company"
+  value="{{ ReservationHelper::checkAgentOrUserCompany($reservation->user_id,$reservation->agent_id)}}">
+<input type="hidden" name="reservation_id" value="{{$reservation->id }}">
 @endforeach
 <input type="hidden" name="json" value="{{$json_result}}">
 
@@ -124,6 +141,9 @@
   value="{{ReservationHelper::getVenue($pre_reservation->venue_id)}}">
 <input type="hidden" name="pre_reservation_start" value="{{date('H:i',strtotime($pre_reservation->enter_time))}}">
 <input type="hidden" name="pre_reservation_finish" value="{{date('H:i',strtotime($pre_reservation->leave_time)) }}">
+<input type="hidden" name="pre_company"
+  value="{{ReservationHelper::checkAgentOrUserCompany($pre_reservation->user_id,$pre_reservation->agent_id) }}">
+<input type="hidden" name="pre_reservation_id" value="{{$pre_reservation->id }}">
 @endforeach
 <input type="hidden" name="pre_json" value="{{$pre_json_result}}">
 

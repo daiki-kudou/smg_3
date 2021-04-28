@@ -555,7 +555,7 @@
           </table>
         </div>
 
-        @if(!empty($check_info['equipment_breakdown_item0'])&&!empty($check_info['service_breakdown_item'])&&!empty($check_info['luggage_count']))
+        @if(!empty($check_info['equipment_breakdown_item0'])||!empty($check_info['service_breakdown_item'])||!empty($check_info['luggage_count']))
         <div class="equipment billdetails_content">
           <table class="table table-borderless">
             <tbody>

@@ -10,44 +10,47 @@ $(function () {
 
 $(function () {
   for (let index = 0; index < $('input[name="start"]').length; index++) {
-    // var reservation_id = $('input[name="reservation_id"]').eq(index).val();
-    // var venue_id = $('input[name="venue_id"]').eq(index).val();
     var venue_name = $('input[name="venue_name"]').eq(index).val();
-    // var user_id = $('input[name="user_id"]').eq(index).val();
-    // var start = $('input[name="start"]').eq(index).val();
-    // var finish = $('input[name="finish"]').eq(index).val();
     var status = $('input[name="status"]').eq(index).val();
+    var company = $('input[name="company"]').eq(index).val();
+    var reservation_id = $('input[name="reservation_id"]').eq(index).val();
 
     var json = $('input[name="json"]').val();
     var json_result = JSON.parse(json);
 
     var target_length = (json_result[index]).length;
     for (let index2 = 0; index2 < target_length; index2++) {
-      //最後のみ描写しないためbreak
-      if (index2 == target_length - 1) {
-        break;
-      }
       // 以下ステータス別色分け
-      if (status > 3) {
-        $("." + venue_name + "cal" + json_result[index][index2]).addClass('bg-prereserve');
-      } else if (status == 3) {
-        $("." + venue_name + "cal" + json_result[index][index2]).addClass('bg-reserve');
+      if (status == 3) {
+        if (index2 == 0) {
+          $("." + venue_name + "cal" + json_result[index][index2]).prev().addClass('gray');
+          $("." + venue_name + "cal" + json_result[index][index2]).addClass('bg-reserve');
+        } else {
+          $("." + venue_name + "cal" + json_result[index][index2]).addClass('bg-reserve');
+        }
+        if ($("." + venue_name + "cal" + json_result[index][index2]).prev().hasClass('gray')) {
+          $("." + venue_name + "cal" + json_result[index][index2]).html(
+            "<a href='/admin/reservations/" + reservation_id + "'>" + company + "</a>"
+          )
+        };
+
+      } else if (status < 3) {
+        if (index2 == 0) {
+          $("." + venue_name + "cal" + json_result[index][index2]).prev().addClass('gray');
+          $("." + venue_name + "cal" + json_result[index][index2]).addClass('bg-prereserve');
+        } else {
+          $("." + venue_name + "cal" + json_result[index][index2]).addClass('bg-prereserve');
+        }
       }
     }
-    $('.bg-reserve:last').css('background', 'gray');
+    $('.bg-reserve:last').addClass('gray');
+    $('.bg-prereserve:last').addClass('gray');
   }
 })
 
 $(function () {
   for (let index = 0; index < $('input[name="pre_reservation_start"]').length; index++) {
-    // var reservation_id = $('input[name="reservation_id"]').eq(index).val();
-    // var venue_id = $('input[name="venue_id"]').eq(index).val();
     var venue_name = $('input[name="pre_reservation_venue_name"]').eq(index).val();
-
-    // var user_id = $('input[name="user_id"]').eq(index).val();
-    // var start = $('input[name="start"]').eq(index).val();
-    // var finish = $('input[name="finish"]').eq(index).val();
-    // var status = $('input[name="status"]').eq(index).val();
 
     var json = $('input[name="pre_json"]').val();
     var json_result = JSON.parse(json);
@@ -56,15 +59,14 @@ $(function () {
 
 
     for (let index2 = 0; index2 < target_length; index2++) {
-      //最後のみ描写しないためbreak
-      // if (index2 == target_length - 1) {
-      //   break;
-      // }
-      $("." + venue_name + "cal" + json_result[index][index2]).addClass('bg-prereserve');
-      console.log(venue_name, json_result[index][index2]);
-
+      if (index2 == 0) {
+        $("." + venue_name + "cal" + json_result[index][index2]).prev().addClass('gray');
+        $("." + venue_name + "cal" + json_result[index][index2]).addClass('bg-prereserve');
+      } else {
+        $("." + venue_name + "cal" + json_result[index][index2]).addClass('bg-prereserve');
+      }
     }
-    $('.bg-reserve:last').css('background', 'gray');
+    $('.bg-prereserve:last').css('background', 'gray');
   }
 })
 
