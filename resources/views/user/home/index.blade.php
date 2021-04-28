@@ -109,6 +109,48 @@
             @endfor
         </tbody>
         @endforeach
+
+        <tbody>
+          <tr>
+            <td class="text-center">00000</td>
+            <td>2020/12/07(月)</td>
+            <td>00：00</td>
+            <td>00：00</td>
+            <td>四ツ橋・サンワールドビル22号室</td>
+            <td class="table_column">
+              <p>ステータス</p>
+              <p>ステータス</p>
+            </td>
+            <td class="table_column">
+              <p>カテゴリー</p>
+              <p>カテゴリー</p>
+            </td>
+            <td class="table_column">
+              <p class="justify-content-center">0円</p>
+              <p class="justify-content-center">0円</p>
+            </td>
+            <td class="table_column">
+              <p>2020/12/07(月)</p>
+              <p>2020/12/07(月)</p>
+            </td>
+            <td class="table_column">
+              <p>ステータス</p>
+              <p>ステータス</p>
+            </td>
+            <td class="table_column">
+              <p class="justify-content-center"><a class="more_btn btn" href="">詳細</a></p>
+              <p class="justify-content-center"><a class="more_btn btn" href="">詳細</a></p>
+            </td>
+            <td class="table_column">
+              <p class="justify-content-center"><a class="more_btn btn" href="">請求書をみる</a></p>
+              <p class="justify-content-center"><a class="more_btn btn" href="">請求書をみる</a></p>
+            </td>
+            <td class="table_column">
+              <p class="justify-content-center"><a class="more_btn btn" href="">領収書をみる</a></p>
+              <p class="justify-content-center"><a class="more_btn btn" href="">領収書をみる</a></p>
+            </td>
+          </tr>
+        </tbody>
       </table>
     </div>
   </div>
