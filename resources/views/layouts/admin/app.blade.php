@@ -134,7 +134,7 @@
 
 
   </div>
-  {{-- <script src="{{ asset('js/adminlte.min.js') }}"></script> --}}
+  <script src="{{ asset('js/adminlte.min.js') }}"></script>
 
   <script>
     // 自動補完無効
