@@ -3,6 +3,8 @@
 <script src="{{ asset('/js/template.js') }}"></script>
 <script src="{{ asset('/js/admin/validation.js') }}"></script>
 <link href="{{ asset('/css/template.css') }}" rel="stylesheet">
+<script src="{{ asset('/js/admin/control_time.js') }}"></script>
+
 
 
 <div id="fullOverlay">
@@ -169,7 +171,7 @@
             </select>
           </td>
           <td>
-            <select name="pre_enter0" id="pre_enter0" class="form-control">
+            <select name="pre_enter0" id="pre_enter0" class="form-control enter_control_pre_reservation">
               <option value=""></option>
               @for ($start = 0*2; $start <=23*2; $start++) <option
                 value="{{date("H:i:s", strtotime("00:00 +". $start * 30 ." minute"))}}">
@@ -180,7 +182,7 @@
             <p class="is-error-pre_enter0" style="color: red"></p>
           </td>
           <td>
-            <select name="pre_leave0" id="pre_leave0" class="form-control">
+            <select name="pre_leave0" id="pre_leave0" class="form-control leave_control_pre_reservation">
               <option value=""></option>
               @for ($start = 0*2; $start <=23*2; $start++) <option
                 value="{{date("H:i:s", strtotime("00:00 +". $start * 30 ." minute"))}}">
