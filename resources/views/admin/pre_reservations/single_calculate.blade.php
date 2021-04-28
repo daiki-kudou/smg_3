@@ -775,7 +775,8 @@
                 <tr>
                   <td colspan="3"></td>
                   <td colspan="1">
-                  <p class="text-left">合計</p>{{ Form::text('venue_price', $price_details[0],['class'=>'form-control col-xs-3', 'readonly'] ) }}
+                    <p class="text-left">合計</p>
+                    {{ Form::text('venue_price', $price_details[0],['class'=>'form-control col-xs-3', 'readonly'] ) }}
                   </td>
                 </tr>
               </tbody>
@@ -806,7 +807,7 @@
                 <tr>
                   <td colspan="3"></td>
                   <td colspan="1">
-                  <p class="text-left">合計</p>
+                    <p class="text-left">合計</p>
                     {{ Form::text('venue_price', '',['class'=>'form-control col-xs-3', 'readonly'] ) }}
                   </td>
                 </tr>
@@ -887,7 +888,7 @@
                 <tr>
                   <td colspan="3"></td>
                   <td colspan="1">
-                  <p class="text-left">合計</p>
+                    <p class="text-left">合計</p>
                     {{ Form::text('equipment_price', ($item_details[0]+$request->luggage_price),['class'=>'form-control', 'readonly'] ) }}
                   </td>
                 </tr>
@@ -946,7 +947,7 @@
                 <tr>
                   <td colspan="3"></td>
                   <td colspan="1">
-                  <p class="text-left">合計</p>
+                    <p class="text-left">合計</p>
                     {{ Form::text('layout_price',$layouts_details[2] ,['class'=>'form-control', 'readonly'] ) }}
                   </td>
                 </tr>
@@ -1003,6 +1004,7 @@
 {{Form::hidden('event_name1', $request->event_name1)}}
 {{Form::hidden('event_name2', $request->event_name2)}}
 {{Form::hidden('event_owner', $request->event_owner)}}
+{{Form::hidden('luggage_count', $request->luggage_count)}}
 {{Form::hidden('luggage_arrive', $request->luggage_arrive)}}
 {{Form::hidden('luggage_return', $request->luggage_return)}}
 {{Form::hidden('discount_condition', $request->discount_condition)}}
