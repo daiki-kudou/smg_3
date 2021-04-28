@@ -321,7 +321,6 @@
                 <p class="title-icon">
                   <i class="far fa-id-card icon-size" aria-hidden="true"></i>仲介会社情報
                 </p>
-                <p><a class="more_btn" href="">仲介会社詳細</a></p>
               </div>
             </td>
           </tr>

@@ -267,6 +267,10 @@ select:disabled {
     background: #333;
 }
 
+form {
+    margin-bottom: 0;
+}
+
 
 
 
