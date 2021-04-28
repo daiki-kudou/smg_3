@@ -329,6 +329,13 @@ class ReservationHelper
     return $usage_hours / 60;
   }
 
+  public static function checkAgentOrUser($user_id)
+  {
+    if ($user_id != 0) {
+    }
+  }
+
+
   public static function checkAgentOrUserCompany($user_id, $agent_id)
   {
     if ($user_id > 0) {

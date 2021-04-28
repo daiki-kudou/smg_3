@@ -23,4 +23,15 @@ trait PregTrait
     }
     return $cnt;
   }
+
+  public function pregRequest($request, $inputNames)
+  {
+    $cnt = 0;
+    foreach ($request->all() as $key => $value) {
+      if (preg_match("/$inputNames/", $key)) {
+        !empty($value) ? $cnt++ : "";
+      }
+    }
+    return $cnt;
+  }
 }

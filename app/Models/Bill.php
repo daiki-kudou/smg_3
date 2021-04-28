@@ -399,7 +399,7 @@ class Bill extends Model
         }
       }
 
-      $countEqu = $this->RequestBreakdowns($request, 'equipment_breakdown');
+      $countEqu = $this->RequestBreakdowns($request, 'equipment_breakdown_item');
       if ($countEqu != "") {
         for ($equ = 0; $equ < $countEqu; $equ++) {
           if (!empty($request->{'equipment_breakdown_item' . $equ})) {
@@ -414,7 +414,7 @@ class Bill extends Model
         }
       }
 
-      $countSer = $this->RequestBreakdowns($request, 'services_breakdown');
+      $countSer = $this->RequestBreakdowns($request, 'service_breakdown_item');
       if ($countSer != "") {
         for ($ser = 0; $ser < $countSer; $ser++) {
           if (!empty($request->{'service_breakdown_item' . $ser})) {

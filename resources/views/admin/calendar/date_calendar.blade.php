@@ -129,7 +129,8 @@
 <input type="hidden" name="venue_name" value="{{ReservationHelper::getVenue($reservation->venue_id)}}">
 <input type="hidden" name="start" value="{{date('H:i',strtotime($reservation->enter_time))}}">
 <input type="hidden" name="status" value="{{$reservation->bills->first()->reservation_status }}">
-<input type="hidden" name="company" value="{{ReservationHelper::getCompany($reservation->user_id) }}">
+<input type="hidden" name="company"
+  value="{{ ReservationHelper::checkAgentOrUserCompany($reservation->user_id,$reservation->agent_id)}}">
 <input type="hidden" name="reservation_id" value="{{$reservation->id }}">
 @endforeach
 <input type="hidden" name="json" value="{{$json_result}}">
@@ -140,7 +141,8 @@
   value="{{ReservationHelper::getVenue($pre_reservation->venue_id)}}">
 <input type="hidden" name="pre_reservation_start" value="{{date('H:i',strtotime($pre_reservation->enter_time))}}">
 <input type="hidden" name="pre_reservation_finish" value="{{date('H:i',strtotime($pre_reservation->leave_time)) }}">
-<input type="hidden" name="pre_company" value="{{ReservationHelper::getCompany($pre_reservation->user_id) }}">
+<input type="hidden" name="pre_company"
+  value="{{ReservationHelper::checkAgentOrUserCompany($pre_reservation->user_id,$pre_reservation->agent_id) }}">
 <input type="hidden" name="pre_reservation_id" value="{{$pre_reservation->id }}">
 @endforeach
 <input type="hidden" name="pre_json" value="{{$pre_json_result}}">
