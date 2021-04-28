@@ -367,6 +367,7 @@ class ReservationsController extends Controller
     //付随する追加予約のステータスが予約完了になってるか判別
     $judgeMultiDelete = $reservation->checkBillsStatus();
     $judgeSingleDelete = $reservation->checkSingleBillsStatus();
+
     $cxl_subtotal = $reservation->cxls->pluck('master_subtotal')->sum();
     $agentLayoutPrice = $reservation->bills->pluck('layout_price')->sum();
     $agentPrice = $reservation->bills->pluck('master_subtotal')->sum();
@@ -384,6 +385,7 @@ class ReservationsController extends Controller
         'judgeSingleDelete',
         'cxl_subtotal',
         'agentLayoutPrice',
+        'agentPrice',
         'agentPriceWithoutLayout',
       )
     );

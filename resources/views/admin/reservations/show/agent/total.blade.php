@@ -34,7 +34,7 @@
         <td>
           <div class="d-flex justify-content-end">
             <p>小計：</p>
-            <p>ダミー円</p>
+            <p>{{$agentPrice}}円</p>
           </div>
         </td>
       </tr>
@@ -43,7 +43,7 @@
         <td>
           <div class="d-flex justify-content-end">
             <p>消費税：</p>
-            <p>ダミー円</p>
+            <p>{{ReservationHelper::getTax($agentPrice)}}円</p>
           </div>
         </td>
       </tr>
@@ -52,7 +52,7 @@
         <td>
           <div class="d-flex justify-content-end">
             <p>合計金額：</p>
-            <p>ダミー円</p>
+            <p>{{ReservationHelper::taxAndPrice($agentPrice)}}円</p>
           </div>
         </td>
       </tr>
