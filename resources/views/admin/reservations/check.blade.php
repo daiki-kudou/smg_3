@@ -99,7 +99,7 @@
             <td class="table-active">イベント名称1</td>
             <td>
               @if (!empty($value['event_name1']))
-              {{date('H:i',strtotime($value['event_name1']))}}
+              {{$value['event_name1']}}
               @endif
             </td>
           </tr>
@@ -107,7 +107,7 @@
             <td class="table-active">イベント名称2</td>
             <td>
               @if (!empty($value['event_name2']))
-              {{date('H:i',strtotime($value['event_name2']))}}
+              {{$value['event_name2']}}
               @endif
             </td>
           </tr>
@@ -115,7 +115,7 @@
             <td class="table-active">主催者名</td>
             <td>
               @if (!empty($value['event_owner']))
-              {{date('H:i',strtotime($value['event_owner']))}}
+              {{$value['event_owner']}}
               @endif
             </td>
           </tr>

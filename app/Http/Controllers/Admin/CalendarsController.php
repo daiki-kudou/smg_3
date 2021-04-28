@@ -17,6 +17,7 @@ class CalendarsController extends Controller
 {
   public function venue_calendar(Request $request)
   {
+    var_dump($request->all());
     if (!empty($request->except('_token'))) {
       $selected_venue = $request->venue_id;
       $start_of_month = Carbon::parse($request->selected_year . '-' . sprintf('%02d', $request->selected_month))->firstOfMonth();
@@ -38,7 +39,6 @@ class CalendarsController extends Controller
         $days[] = $dt->addDays($i);
       }
     }
-
 
     $venues = Venue::all();
     $reservations = Reservation::where('venue_id', $selected_venue)->get();
