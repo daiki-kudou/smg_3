@@ -21,14 +21,22 @@ class ControltimeController extends Controller
     $reservations = Reservation::whereDate('reserve_date', $date)->where('venue_id', $venue_id)->get();
     $pre_reservations = PreReservation::whereDate('reserve_date', $date)->where('venue_id', $venue_id)->get();
 
-    $result = $this->getTimes($reservations);
+    $result = $this->getTimes($reservations, $pre_reservations);
     return $result;
   }
 
-  public function getTimes($reservations)
+  public function getTimes($reservations, $pre_reservations)
   {
     $timeArray = [];
     foreach ($reservations as $key => $value) {
+      $f_start = Carbon::createFromTimeString($value->enter_time, 'Asia/Tokyo');
+      $f_finish = Carbon::createFromTimeString($value->leave_time, 'Asia/Tokyo');
+      $diff = ($f_finish->diffInMinutes($f_start) / 30);
+      for ($i = 0; $i <= $diff; $i++) {
+        $timeArray[] = date('H:i:s', strtotime($f_start . "+ " . (30 * $i) . " min"));
+      }
+    }
+    foreach ($pre_reservations as $key => $value) {
       $f_start = Carbon::createFromTimeString($value->enter_time, 'Asia/Tokyo');
       $f_finish = Carbon::createFromTimeString($value->leave_time, 'Asia/Tokyo');
       $diff = ($f_finish->diffInMinutes($f_start) / 30);
