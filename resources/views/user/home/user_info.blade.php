@@ -26,7 +26,6 @@
 </div>
 @endif
 
-
 <section class="section-bg mt-5">
   <table class="table user-profile table-bordered">
     <thead>
