@@ -475,7 +475,7 @@ class Reservation extends Model implements PresentableInterface
         'email_flag' => 0,
         'in_charge' => '',
         'tel' => '',
-        'cost' => $request->cost,
+        'cost' => !empty($request->cost) ? $request->cost : 0,
         'eat_in' => !empty($request->eat_in) ? $request->eat_in : 0,
         'eat_in_prepare' => !empty($request->eat_in_prepare) ? $request->eat_in_prepare : 0,
       ]);
