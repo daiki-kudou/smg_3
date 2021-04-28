@@ -1,20 +1,26 @@
 $(function () {
-  $(document).on('click', '.enter_control_pre_reservation', function () {
-    var target = $('.enter_control_pre_reservation');
-    initializeTimeOption(target);
-    var date = $(this).parent().parent().find('td').eq(0).find('input').val();
-    var venue_id = $(this).parent().parent().find('td').eq(1).find('select option:selected').val();
-    resultGetTimeAjax(date, venue_id, target);
-  });
 
-  $(document).on('click', '.leave_control_pre_reservation', function () {
-    var target = $('.leave_control_pre_reservation');
-    initializeTimeOption(target);
-    var date = $(this).parent().parent().find('td').eq(0).find('input').val();
-    var venue_id = $(this).parent().parent().find('td').eq(1).find('select option:selected').val();
-    resultGetTimeAjax(date, venue_id, target);
-  });
+  $(function () {
+    $('select').on('click', function () {
+      var target = $("[class^='enter_control_pre_reservation']").length;
+      for (let index = 0; index < target; index++) {
+        // 仮抑え入室時間クリック制御開始
+        preReservationControlTime(".enter_control_pre_reservation" + index, $(".enter_control_pre_reservation" + index));
+        // 仮抑え退室時間クリック制御開始
+        preReservationControlTime(".leave_control_pre_reservation" + index, $(".leave_control_pre_reservation" + index));
+      }
+    })
+  })
 
+  function preReservationControlTime(targetClass, targetElement) {
+    $(document).on('click', targetClass, function () {
+      var target = targetElement;
+      initializeTimeOption(target);
+      var date = $(this).parent().parent().find('td').eq(0).find('input').val();
+      var venue_id = $(this).parent().parent().find('td').eq(1).find('select option:selected').val();
+      resultGetTimeAjax(date, venue_id, target);
+    });
+  }
 
   function resultGetTimeAjax(date, venue_id, target) {
     getTimeAjax(date, venue_id).done(function ($result) {
@@ -22,7 +28,6 @@ $(function () {
       target.find('option').each(function ($index, $element) { //メイン時間
         $.each($result, function ($resultIndex, $resultValue) { //ajax結果
           if ($($element).val() == $resultValue) {
-            console.log($element);
             $($element).prop('disabled', true);
           }
         })

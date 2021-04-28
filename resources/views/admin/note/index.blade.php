@@ -1,4 +1,4 @@
-<link href="{{ asset('css/adminlte.min.css')}}" rel="stylesheet">
+{{-- <link href="{{ asset('css/adminlte.min.css')}}" rel="stylesheet"> --}}
 <link href="{{ asset('/css/template.css') }}" rel="stylesheet">
 
 <section class="mt-5 px-5">
