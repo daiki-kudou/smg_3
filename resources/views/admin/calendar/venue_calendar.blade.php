@@ -8,20 +8,19 @@
 
 <h2 class="mt-3 mb-3">予約状況カレンダー 会場別</h2>
 <hr>
-
 @foreach ($days as $key=>$day)
 @foreach ($reservations as $reservation)
 @if ($reservation->reserve_date==$day)
-{{Form::hidden('start', date('Y-m-d',strtotime($reservation->reserve_date)).' '.$reservation->enter_time,['id'=>date('Y-m-d',strtotime($day)).'start'])}}
-{{Form::hidden('finish', date('Y-m-d',strtotime($reservation->reserve_date)).' '.$reservation->leave_time,['id'=>date('Y-m-d',strtotime($day)).'finish'])}}
-{{Form::hidden('date', date('Y-m-d',strtotime($reservation->reserve_date)))}}
-{{Form::hidden('status', $reservation->bills()->first()->reservation_status)}}
+{{Form::text('start', date('Y-m-d',strtotime($reservation->reserve_date)).' '.$reservation->enter_time,['id'=>date('Y-m-d',strtotime($day)).'start'])}}
+{{Form::text('finish', date('Y-m-d',strtotime($reservation->reserve_date)).' '.$reservation->leave_time,['id'=>date('Y-m-d',strtotime($day)).'finish'])}}
+{{Form::text('date', date('Y-m-d',strtotime($reservation->reserve_date)))}}
+{{Form::text('status', $reservation->bills()->first()->reservation_status)}}
 @if ($reservation->user_id>0)
-{{Form::hidden('company', ReservationHelper::getCompany($reservation->user_id))}}
+{{Form::text('company', ReservationHelper::getCompany($reservation->user_id))}}
 @else
-{{Form::hidden('company', ReservationHelper::getAgentCompany($reservation->agent_id))}}
+{{Form::text('company', ReservationHelper::getAgentCompany($reservation->agent_id))}}
 @endif
-{{Form::hidden('reservation_id', $reservation->id)}}
+{{Form::text('reservation_id', $reservation->id)}}
 @endif
 @endforeach
 
