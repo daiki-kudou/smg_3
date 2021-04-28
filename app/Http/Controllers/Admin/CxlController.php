@@ -216,11 +216,9 @@ class CxlController extends Controller
     if (empty($cxl->bill)) {
       //一括キャンセル押下時
       $price_result = $cxl->reservation->pluckSum(['venue_price', 'equipment_price', 'layout_price', 'others_price'], 4);
-      var_dump($price_result);
     } else {
       //個別キャンセル押下時
       $price_result = [$cxl->bill->venue_price, $cxl->bill->equipment_price, $cxl->bill->layout_price, $cxl->bill->others_price];
-      var_dump($price_result);
     }
     session()->put('cxlMaster', $price_result);
     return view('admin.cxl.edit', compact('price_result', 'cxl'));
@@ -283,9 +281,6 @@ class CxlController extends Controller
     $multiOrSingle = session()->get('multiOrSingle');
     $reservation_id = $data['reservation_id'];
     $bill_id = $data['bill_id'];
-    echo "<pre>";
-    var_dump($data);
-    echo "</pre>";
     try {
       $cxl = Cxl::with('cxl_breakdowns')->find($data['cxl_id']);
       $cxl->updateCxl($data, $invoice);

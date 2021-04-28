@@ -26,6 +26,9 @@
 </div>
 @endif
 
+{{ Form::open(['url' => 'user/pre_reservations/'.$pre_reservation->id.'/calculate', 'method'=>'POST', 'id'=>'mypageDone']) }}
+@csrf
+
 <section class="mt-5">
   <table class="table ttl_head mb-0">
     <tbody>
@@ -38,8 +41,6 @@
       </tr>
     </tbody>
   </table>
-  {{ Form::open(['url' => 'user/pre_reservations/'.$pre_reservation->id.'/calculate', 'method'=>'POST', 'id'=>'mypageDone']) }}
-  @csrf
   <div class="border-wrap2 p-4">
     <div class="row user_wrap">
       <div class="col-md-6 col-12">
@@ -141,7 +142,9 @@
               <td>
                 <select name="event_start" id="event_start" class="form-control">
                   <option disabled>選択してください</option>
-                  @for ($start = 0*2; $start <=23*2; $start++) <option value="{{date("H:i:s", strtotime("00:00 +". $start * 30 ." minute"))}}" @if(date("H:i:s",strtotime("00:00 +". $start * 30 ." minute"))<$pre_reservation->enter_time)
+                  @for ($start = 0*2; $start <=23*2; $start++) <option
+                    value="{{date("H:i:s", strtotime("00:00 +". $start * 30 ." minute"))}}"
+                    @if(date("H:i:s",strtotime("00:00 +". $start * 30 ." minute"))<$pre_reservation->enter_time)
                     disabled
                     @elseif(date("H:i:s", strtotime("00:00 +". $start * 30 ." minute"))>$pre_reservation->leave_time)
                     disabled
@@ -159,7 +162,9 @@
               <td>
                 <select name="event_finish" id="event_finish" class="form-control">
                   <option disabled>選択してください</option>
-                  @for ($start = 0*2; $start <=23*2; $start++) <option value="{{date("H:i:s", strtotime("00:00 +". $start * 30 ." minute"))}}" @if(date("H:i:s",strtotime("00:00 +". $start * 30 ." minute"))>$pre_reservation->leave_time)
+                  @for ($start = 0*2; $start <=23*2; $start++) <option
+                    value="{{date("H:i:s", strtotime("00:00 +". $start * 30 ." minute"))}}"
+                    @if(date("H:i:s",strtotime("00:00 +". $start * 30 ." minute"))>$pre_reservation->leave_time)
                     disabled
                     @elseif(date("H:i:s",strtotime("00:00 +". $start * 30 ." minute"))<$pre_reservation->enter_time)
                       disabled
@@ -633,7 +638,6 @@
     <p class="mb-4">上記、内容で予約を申し込んでもよろしいでしょうか。よろしければ、予約の申し込みをお願いします。</p>
     <p class="text-center mb-5 mt-3">
       {{ Form::submit('予約を申し込む', ['class' => 'btn more_btn4_lg confirm','name'=>'cfm']) }}
-      {{ Form::close() }}
     </p>
     <p>※ご要望に相違がある場合は、下記連絡先までご連絡ください。<br>
       TEL：06-1234-5678<br>
@@ -641,7 +645,7 @@
     </p>
   </div>
 </div>
-
+{{ Form::close() }}
 
 <script>
   $(function() {

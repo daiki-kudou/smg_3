@@ -31,7 +31,6 @@
             </h3>
           </div>
         </div>
-        {{var_dump($bill->breakdowns->where('unit_type',2)->count())}}
         <div class="main">
           <div class="venues billdetails_content">
             <table class="table table-borderless">

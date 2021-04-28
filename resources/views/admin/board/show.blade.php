@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="ja">
 
@@ -24,7 +23,7 @@
       </tr>
       <tr class="event-name">
         <td>
-        {{$reservation->event_name1}}
+          {{$reservation->event_name1}}
         </td>
       </tr>
       <tr class="event-name2">
@@ -51,22 +50,3 @@
 </body>
 
 </html>
-
-
-
-
-<!-- <pre>{{var_dump($reservation)}}</pre>
-<br>
-<br>
-<br>
-<br>
-<pre>{{var_dump($reservation->user)}}</pre>
-<br>
-<br>
-<br>
-<br>
-<pre>{{var_dump($reservation->enduser)}}</pre>
-<br>
-<br>
-<br>
-<br> -->

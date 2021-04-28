@@ -451,7 +451,6 @@
 
   {{-- スロット --}}
   @slot('equipment_breakdown_loop')
-  {{-- {{var_dump($reservation)}} --}}
   @foreach ($reservation->bills->first()->breakdowns->where('unit_type',2) as $e_key=>$equipment_break)
   <tr>
     <td>

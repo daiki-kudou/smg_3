@@ -130,10 +130,6 @@ class CalendarsController extends Controller
     }
     $pre_json_result = json_encode($pre_reservation_result, JSON_HEX_TAG | JSON_HEX_AMP | JSON_HEX_APOS | JSON_HEX_QUOT);
 
-    echo "<pre>";
-    var_dump($pre_json_result);
-    echo "</pre>";
-
     return view(
       'admin.calendar.date_calendar',
       compact(

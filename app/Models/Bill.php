@@ -124,7 +124,6 @@ class Bill extends Model
       // 備品等料金
       if (!empty($discount_info['equipment_price'])) {
         $e_cnt = $this->preg($discount_info, "equipment_breakdown_item");
-        var_dump($e_cnt);
         if ($e_cnt != 0) {
           for ($equ = 0; $equ < $e_cnt; $equ++) {
             $this->breakdowns()->create([
@@ -221,7 +220,6 @@ class Bill extends Model
 
       // その他
       $o_cnt = $this->preg($discount_info, "others_breakdown_item");
-      var_dump($o_cnt);
       if ($o_cnt != 0) {
         for ($ohr = 0; $ohr < $o_cnt; $ohr++) {
           $this->breakdowns()->create([
@@ -616,7 +614,6 @@ class Bill extends Model
       }
 
       $e_cnt = $this->preg($result, "equipment_breakdown_item");
-      var_dump($e_cnt);
       for ($i = 0; $i < $e_cnt; $i++) {
         $this->breakdowns()->create([
           'unit_item' => $result['equipment_breakdown_item' . $i],

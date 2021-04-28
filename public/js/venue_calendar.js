@@ -71,20 +71,11 @@ $(function () {
       var minutes = ds.getMinutes();
       minutes = zeroPadding(minutes);
       var result = hours + minutes;
-      // if (status == 3) {
-      //   $("." + s_date + "cal" + result).addClass('bg-reserve');
-      //   if (!$("." + s_date + "cal" + result).prev().hasClass('bg-reserve')) {
-      //     // 始めに灰色
-      //     $("." + s_date + "cal" + result).addClass('gray');
-      //   }
-      //   if ($("." + s_date + "cal" + result).prev().hasClass('gray')) {
-      //     $("." + s_date + "cal" + result).html(
-      //       "<a href='/admin/reservations/" + reservation_id + "'>" + company + "</a>"
-      //     );
-      //   }
-      // } else if (status < 3) {
-      $("." + s_date + "cal" + result).addClass('bg-prereserve');
-      // }
+      if (index == 0) {
+        $("." + s_date + "cal" + result).addClass('gray');
+      } else {
+        $("." + s_date + "cal" + result).addClass('bg-prereserve');
+      }
     }
     // 最後に灰色
     $('.bg-reserve:last').addClass('gray');

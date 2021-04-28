@@ -42,7 +42,6 @@ class MultiplesController extends Controller
     // $user = User::find(1);
     $agents = Agent::all();
 
-    // var_dump($multiples);
     return view('admin.multiples.index', compact('multiples', "counter", "request", "agents"));
   }
 
@@ -53,7 +52,6 @@ class MultiplesController extends Controller
     $venue_count = $venues->count("venue_id");
     $checkVenuePrice = $multiple->checkVenuePrice();
     $checkEachStatus = $multiple->checkEachStatus();
-    var_dump($checkEachStatus);
 
     return view(
       'admin.multiples.show',
@@ -138,7 +136,6 @@ class MultiplesController extends Controller
 
   public function switchStatus(Request $request)
   {
-    var_dump($request->all());
     $multiple = MultipleReserve::find($request->multiple_id);
     DB::transaction(function () use ($multiple) {
       foreach ($multiple->pre_reservations()->get() as $key => $value) {
@@ -333,6 +330,5 @@ class MultiplesController extends Controller
   public function SPDestroy(Request $request)
   {
     $shapeRequest = $request->except(['_method', '_token']);
-    var_dump($shapeRequest);
   }
 }

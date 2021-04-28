@@ -58,7 +58,6 @@ class Cxl extends Model
   {
     $info = session()->get('cxlMaster');
     $data = session()->get('cxlCalcInfo');
-    var_dump($info[0]);
 
     $venue_result = !empty($data['cxl_venue_PC']) ? $this->eachCalc($info[0], $data['cxl_venue_PC']) : 0;
     $equ_result = !empty($data['cxl_equipment_PC']) ? $this->eachCalc($info[1], $data['cxl_equipment_PC']) : 0;
