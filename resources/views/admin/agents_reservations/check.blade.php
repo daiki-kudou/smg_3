@@ -156,6 +156,8 @@
           </tr>
         </tbody>
       </table>
+
+
       <div class="equipemnts">
         <table class="table table-bordered">
           <thead class="accordion-ttl">
@@ -179,6 +181,7 @@
           </tbody>
         </table>
       </div>
+
       <div class="services">
         <table class="table table-bordered">
           <thead class="accordion-ttl">
@@ -203,6 +206,8 @@
           </tbody>
         </table>
       </div>
+
+      @if ($venue->layout!=0)
       <div class="layouts">
         <table class="table table-bordered">
           <thead>
@@ -230,6 +235,8 @@
           </tbody>
         </table>
       </div>
+      @endif
+
 
       @if ($venue->luggage_flag!=0)
       <div class="luggage">
@@ -422,6 +429,33 @@
           </tr>
         </tbody>
       </table>
+
+
+      @if ($venue->alliance_flag!=0)
+
+      <table class="table table-bordered sale-table" id="user_cost">
+        <tbody>
+          <tr>
+            <td colspan="2">
+              <p class="title-icon">
+                <i class="fas fa-yen-sign icon-size" aria-hidden="true"></i>売上原価<span
+                  class="annotation">（提携会場を選択した場合、提携会場で設定した原価率が適応されます）</span>
+              </p>
+            </td>
+          </tr>
+          <tr>
+            <td class="table-active"><label for="cost">原価率</label></td>
+            <td class="d-flex align-items-center">
+              {{Form::text('cost',$master_info['cost'],['class'=>'form-control sales_percentage','readonly'])}}
+              <span class="ml-1">%</span>
+              <p class="is-error-cost" style="color: red"></p>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+      @endif
+
+
       <table class="table table-bordered note-table">
         <tbody>
           <tr>
@@ -522,7 +556,7 @@
           </table>
         </div>
 
-
+        @if(!empty($check_info['equipment_breakdown_item0'])&&!empty($check_info['service_breakdown_item'])&&!empty($check_info['luggage_count']))
         <div class="equipment billdetails_content">
           <table class="table table-borderless">
             <tbody>
@@ -572,6 +606,7 @@
               </tr>
               @endif
               @endforeach
+
               @if (!empty($check_info['luggage_count']))
               <tr>
                 <td>
@@ -587,9 +622,10 @@
             </tbody>
           </table>
         </div>
+        @endif
+
 
         @if (!empty($check_info['layouts_price']))
-
         <div class="layout billdetails_content">
           <table class="table table-borderless">
             <tbody>

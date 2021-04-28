@@ -283,6 +283,8 @@
             </tbody>
           </table>
         </div>
+
+        @if ($venues->find($master_info['venue_id'])->layout!=0)
         <div class="layouts">
           <table class="table table-bordered">
             <thead>
@@ -328,6 +330,7 @@
             </tbody>
           </table>
         </div>
+        @endif
 
         @if ($venues->find($master_info['venue_id'])->luggage_flag!=0)
         <div class="luggage">
@@ -516,7 +519,14 @@
                 <label for="enduser_attr" class="">利用者属性</label>
               </td>
               <td>
-                {{ Form::text('enduser_attr', $master_info['enduser_attr'],['class'=>'form-control', 'placeholder'=>'入力してください', 'id'=>'enduser_attr'] ) }}
+                <select name="enduser_attr" class="form-control">
+                  <option value="1" {{$master_info['enduser_attr']==1?"selected":""}}>一般企業</option>
+                  <option value="2" {{$master_info['enduser_attr']==2?"selected":""}}>上場企業</option>
+                  <option value="3" {{$master_info['enduser_attr']==3?"selected":""}}>近隣利用</option>
+                  <option value="4" {{$master_info['enduser_attr']==4?"selected":""}}>個人講師</option>
+                  <option value="5" {{$master_info['enduser_attr']==5?"selected":""}}>MLM</option>
+                  <option value="6" {{$master_info['enduser_attr']==6?"selected":""}}>その他</option>
+                </select>
               </td>
             </tr>
           </tbody>
@@ -544,6 +554,30 @@
             </tr>
           </tbody>
         </table>
+
+        @if ($venues->find($master_info['venue_id'])->alliance_flag!=0)
+        <table class="table table-bordered sale-table" id="user_cost">
+          <tbody>
+            <tr>
+              <td colspan="2">
+                <p class="title-icon">
+                  <i class="fas fa-yen-sign icon-size" aria-hidden="true"></i>売上原価<span
+                    class="annotation">（提携会場を選択した場合、提携会場で設定した原価率が適応されます）</span>
+                </p>
+              </td>
+            </tr>
+            <tr>
+              <td class="table-active"><label for="cost">原価率</label></td>
+              <td class="d-flex align-items-center">
+                {{Form::text('cost',$master_info['cost'],['class'=>'form-control sales_percentage'])}}
+                <span class="ml-1">%</span>
+                <p class="is-error-cost" style="color: red"></p>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+        @endif
+
         <table class="table table-bordered note-table">
           <tbody>
             <tr>
@@ -714,6 +748,10 @@
           </div>
           @endif
 
+          @if ($venues->find($master_info['venue_id'])->layout!=0)
+
+
+
           @if ((int)$master_info['layout_prepare']!=0||(int)$master_info['layout_clean']!=0)
           <div class="layout billdetails_content">
             <table class="table table-borderless">
@@ -771,6 +809,7 @@
               </tbody>
             </table>
           </div>
+          @endif
           @endif
 
 

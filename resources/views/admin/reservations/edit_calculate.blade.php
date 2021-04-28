@@ -480,7 +480,7 @@
             </td>
           </tr>
           <tr>
-            <td class="table-active">割引条件 工藤さん！！</td>
+            <td class="table-active">割引条件 </td>
             <td>
               <p class="condition">
                 {!!nl2br(e(ReservationHelper::getPersonCondition($basicInfo['user_id'])))!!}
@@ -488,7 +488,7 @@
             </td>
           </tr>
           <tr>
-            <td class="table-active caution">注意事項 工藤さん！！</td>
+            <td class="table-active caution">注意事項 </td>
             <td class="caution">
               <p class="attention">
                 {!!nl2br(e(ReservationHelper::getPersonAttention($basicInfo['user_id'])))!!}

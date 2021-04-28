@@ -356,7 +356,6 @@ class ReservationsController extends Controller
   public function show($id)
   {
     session()->forget(['add_bill', 'cxlCalcInfo', 'cxlMaster', 'cxlResult', 'invoice', 'multiOrSingle', 'discount_info', 'calc_info', 'master_info', 'check_info', 'basicInfo', 'reservationEditMaster']);
-
     $reservation = Reservation::with(['bills.breakdowns', 'cxls.cxl_breakdowns', 'user', 'agent', 'venue'])->find($id);
     $venue = $reservation->venue;
     $user = $reservation->user;
@@ -370,7 +369,26 @@ class ReservationsController extends Controller
     $judgeMultiDelete = $reservation->checkBillsStatus();
     $judgeSingleDelete = $reservation->checkSingleBillsStatus();
     $cxl_subtotal = $reservation->cxls->pluck('master_subtotal')->sum();
-    return view('admin.reservations.show', compact('venue', 'reservation', 'master_prices', 'user', 'other_bills', "admin", 'judgeMultiDelete', 'judgeSingleDelete', 'cxl_subtotal'));
+    $agentLayoutPrice = $reservation->bills->pluck('layout_price')->sum();
+    $agentPrice = $reservation->bills->pluck('master_subtotal')->sum();
+    $agentPriceWithoutLayout = $agentPrice - $agentLayoutPrice;
+    var_dump($agentLayoutPrice);
+    return view(
+      'admin.reservations.show',
+      compact(
+        'venue',
+        'reservation',
+        'master_prices',
+        'user',
+        'other_bills',
+        "admin",
+        'judgeMultiDelete',
+        'judgeSingleDelete',
+        'cxl_subtotal',
+        'agentLayoutPrice',
+        'agentPriceWithoutLayout',
+      )
+    );
   }
 
   public function double_check(Request $request, $id)

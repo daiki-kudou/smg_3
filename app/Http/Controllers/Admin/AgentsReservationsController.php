@@ -63,8 +63,12 @@ class AgentsReservationsController extends Controller
     $agents = Agent::all();
     $_equipment = $this->preg($master_info, 'equipment_breakdown');
     $_service = $this->preg($master_info, 'services_breakdown');
-    $layoutPrice = $venues->find($master_info['venue_id'])->getLayoutPrice($master_info['layout_prepare'], $master_info['layout_clean']);
-    $price = ($layoutPrice[2]) + (floor($calc_info[0]));
+    if (empty($master_info['layout_prepare']) && empty($master_info['layout_clean'])) {
+      $layoutPrice = 0;
+    } else {
+      $layoutPrice = $venues->find($master_info['venue_id'])->getLayoutPrice($master_info['layout_prepare'], $master_info['layout_clean']);
+    }
+    $price = (!empty($layoutPrice[2]) ? $layoutPrice[2] : 0) + (floor($calc_info[0]));
     return view(
       'admin.agents_reservations.calculate',
       compact(
