@@ -13,6 +13,6 @@ class ReceiptsController extends Controller
   public function show($bill_id)
   {
     $bill = Bill::find($bill_id);
-    return view('admin.receipts.show');
+    return view('admin.receipts.show', compact('bill'));
   }
 }
