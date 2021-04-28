@@ -635,7 +635,9 @@
 
 <div class="confirm-box mt-5">
   <div class="confirm_inner">
-    <p class="mb-4">上記、内容で予約を申し込んでもよろしいでしょうか。よろしければ、予約の申し込みをお願いします。</p>
+    <p class="mb-4">上記、内容で予約を申し込んでもよろしいでしょうか。よろしければ、予約の申し込みをお願いします。<br>
+    予約内容を変更したい場合は、仮押えお申込み内容を変更後、再計算するボタンをクリックしてください。
+  </p>
     <p class="text-center mb-5 mt-3">
       {{ Form::submit('予約を申し込む', ['class' => 'btn more_btn4_lg confirm','name'=>'cfm']) }}
     </p>
