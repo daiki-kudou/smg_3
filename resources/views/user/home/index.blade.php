@@ -75,9 +75,12 @@
           <tr>
             <td rowspan="{{count($reservation->bills()->get())}}">{{ReservationHelper::fixId($reservation->id)}}
             </td>
-            <td rowspan="{{count($reservation->bills()->get())}}">{{ReservationHelper::formatDate($reservation->reserve_date)}}</td>
-            <td rowspan="{{count($reservation->bills()->get())}}">{{ReservationHelper::formatTime($reservation->enter_time)}}</td>
-            <td rowspan="{{count($reservation->bills()->get())}}">{{ReservationHelper::formatTime($reservation->leave_time)}}</td>
+            <td rowspan="{{count($reservation->bills()->get())}}">
+              {{ReservationHelper::formatDate($reservation->reserve_date)}}</td>
+            <td rowspan="{{count($reservation->bills()->get())}}">
+              {{ReservationHelper::formatTime($reservation->enter_time)}}</td>
+            <td rowspan="{{count($reservation->bills()->get())}}">
+              {{ReservationHelper::formatTime($reservation->leave_time)}}</td>
             <td>{{ReservationHelper::getVenueForUser($reservation->venue_id)}}</td>
             <td>{{ReservationHelper::judgeStatus($reservation->bills()->first()->reservation_status)}}</td>
             <td>※カテゴリー</td>
@@ -168,7 +171,8 @@
   <li class="page-item"><a class="page-link" href="">3</a>
   </li>
   <li class="page-item">
-    <a class="page-link" href="http://staging-smg2.herokuapp.com/admin/clients?page=2" rel="next" aria-label="次 &raquo">&rsaquo;</a>
+    <a class="page-link" href="http://staging-smg2.herokuapp.com/admin/clients?page=2" rel="next"
+      aria-label="次 &raquo">&rsaquo;</a>
   </li>
 </ul>
 </div>
