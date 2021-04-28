@@ -59,7 +59,6 @@ $(function () {
 
 
     for (let index2 = 0; index2 < target_length; index2++) {
-      // $("." + venue_name + "cal" + json_result[index][index2]).addClass('bg-prereserve');
       if (index2 == 0) {
         $("." + venue_name + "cal" + json_result[index][index2]).prev().addClass('gray');
         $("." + venue_name + "cal" + json_result[index][index2]).addClass('bg-prereserve');
