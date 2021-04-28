@@ -1050,7 +1050,6 @@
             合計請求額
           </h3>
         </td>
-        <td></td>
       </tr>
     </tbody>
     <tr>
@@ -1072,7 +1071,35 @@
           円</td>
       </tr>
     </tbody>
-
+    <tbody class="master_total_bottom mb-0">
+      <tr>
+        <td></td>
+        <td>
+          <div class="d-flex justify-content-end">
+            <p>小計：</p>
+            <p>ダミー円</p>
+          </div>
+        </td>
+      </tr>
+      <tr>
+        <td></td>
+        <td>
+          <div class="d-flex justify-content-end">
+            <p>消費税：</p>
+            <p>ダミー円</p>
+          </div>
+        </td>
+      </tr>
+      <tr>
+        <td></td>
+        <td>
+          <div class="d-flex justify-content-end">
+            <p>合計金額：</p>
+            <p>ダミー円</p>
+          </div>
+        </td>
+      </tr>
+    </tbody>
   </table>
   <div class="payment_situation">
     <dl>
