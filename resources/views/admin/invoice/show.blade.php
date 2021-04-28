@@ -27,8 +27,17 @@
       <tr class="information">
         <td>
           <dl>
-            <dd>{{$reservation->user->company}}御中</dd>
-            <dd>{{ReservationHelper::getPersonName($reservation->user->id)}}様</dd>
+            <dd>
+              <!-- @if ($reservation->user_id>0)
+              {{$reservation->user->company}}御中
+              @else
+              {{ReservationHelper::getAgentCompany($reservation->agent_id)}}御中
+              @endif -->
+              {{$bill->bill_company}}御中
+            </dd>
+            <dd>
+              {{$bill->bill_person}}様
+            </dd>
           </dl>
         </td>
         <td>
@@ -91,16 +100,16 @@
         @foreach ($bill->breakdowns as $item)
         <tr class="bill-details">
           <td>
-          {{$item->unit_item}}
+            {{$item->unit_item}}
           </td>
           <td>
-          {{number_format($item->unit_cost)}}
+            {{number_format($item->unit_cost)}}
           </td>
           <td>
-          {{$item->unit_count}}
+            {{$item->unit_count}}
           </td>
           <td>
-          {{number_format($item->unit_subtotal)}}<span>円</span>
+            {{number_format($item->unit_subtotal)}}<span>円</span>
           </td>
         </tr>
         @endforeach
@@ -136,18 +145,20 @@
 </body>
 
 <script>
+  $(function() {
+    var len = $(".bill-details").length;
+    console.log(len);
 
-$(function () {
-  var len = $(".bill-details").length;
-  console.log(len);
-
-  if( len > 17) {
-$(".bill-note-wrap").addClass("break");
-// $(".total-table").css('margin-top','20mm');
-  } else {
-    $(".bill-note-wrap").removeClass("break");
-  }
+    if (len > 17) {
+      $(".bill-note-wrap").addClass("break");
+      // $(".total-table").css('margin-top','20mm');
+    } else {
+      $(".bill-note-wrap").removeClass("break");
+    }
   });
 </script>
 
 </html>
+
+{{-- 仲介会社情報 --}}
+<pre>{{var_dump($bill->reservation->agent)}}</pre>

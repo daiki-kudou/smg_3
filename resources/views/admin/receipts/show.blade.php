@@ -28,7 +28,7 @@
         <td>
           <dl>
             <dd>{{$bill->bill_company}}御中</dd>
-            <dd>{{$bill->bill_person}}</dd>
+            <dd>{{$bill->bill_person}}様</dd>
           </dl>
         </td>
         <td>
@@ -43,7 +43,7 @@
       </tr>
       <tr>
         <td colspan="4" class="title">
-          <p>但し、<span>{{ReservationHelper::formatDate($bill->pay_day)}}</span>の会場利用料として</p>
+          <p>但し、<span>{{ReservationHelper::formatDate($bill->reservation->reserve_date)}}</span>の会場利用料として</p>
           <p>下記の通り、領収いたしました。</p>
         </td>
       </tr>
@@ -115,7 +115,7 @@
       </tr>
       <tr class="total-amount">
         <td>
-          <span>請求総額：</span>{{number_format($bill->master_total)}}<span>円</span>
+          <span>合計：</span>{{number_format($bill->master_total)}}<span>円</span>
         </td>
       </tr>
     </table>

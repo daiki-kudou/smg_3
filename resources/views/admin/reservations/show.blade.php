@@ -484,7 +484,7 @@
       </div>
 
       <div class="invoice_box d-flex justify-content-end my-3">
-        {{ Form::open(['url' => 'admin/invoice', 'method'=>'post', 'class'=>'']) }}
+        {{ Form::open(['url' => 'admin/invoice', 'method'=>'post', 'target'=>'_blank','class'=>'']) }}
         @csrf
         {{ Form::hidden('reservation_id', $reservation->id ) }}
         {{ Form::hidden('bill_id', $reservation->bills->first()->id ) }}
@@ -787,7 +787,16 @@
         @endif
       </div>
       <div class="invoice_box d-flex justify-content-end my-3">
-        <p class="mr-2"><a class="btn more_btn" href="">請求書をみる</a></p>
+        <!-- <p class="mr-2"><a class="btn more_btn" href="">請求書をみる</a></p> -->
+        {{ Form::open(['url' => 'admin/invoice', 'method'=>'post', 'target'=>'_blank','class'=>'']) }}
+        @csrf
+        {{ Form::hidden('reservation_id', $reservation->id ) }}
+        {{ Form::hidden('bill_id', $other_bill->id ) }}
+        <p class="mr-2">
+          {{ Form::submit('請求書をみる',['class' => 'btn more_btn']) }}
+        </p>
+        {{ Form::close() }}
+
         <p class="mr-2">
           @if ($other_bill->paid==1)
           <a target='_blank' href="{{url('admin/receipts/'.$reservation->bills->first()->id)}}"
