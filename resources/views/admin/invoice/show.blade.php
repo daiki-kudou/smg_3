@@ -27,8 +27,17 @@
       <tr class="information">
         <td>
           <dl>
-            <dd>{{$reservation->user->company}}御中</dd>
-            <dd>{{ReservationHelper::getPersonName($reservation->user->id)}}様</dd>
+            <dd>
+              <!-- @if ($reservation->user_id>0)
+              {{$reservation->user->company}}御中
+              @else
+              {{ReservationHelper::getAgentCompany($reservation->agent_id)}}御中
+              @endif -->
+              {{$bill->bill_company}}御中
+            </dd>
+            <dd>
+              {{$bill->bill_person}}様
+            </dd>
           </dl>
         </td>
         <td>
@@ -37,7 +46,7 @@
             <dd>〒550-0014</dd>
             <dd>大阪市西区北堀江1丁目6番2号</dd>
             <dd>サンワールドビル11階</dd>
-            <dd>TEL：06-6538-4329</dd>
+            <dd>TEL：06-6556-6462</dd>
           </dl>
         </td>
       </tr>
@@ -91,16 +100,16 @@
         @foreach ($bill->breakdowns as $item)
         <tr class="bill-details">
           <td>
-          {{$item->unit_item}}
+            {{$item->unit_item}}
           </td>
           <td>
-          {{number_format($item->unit_cost)}}
+            {{number_format($item->unit_cost)}}
           </td>
           <td>
-          {{$item->unit_count}}
+            {{$item->unit_count}}
           </td>
           <td>
-          {{number_format($item->unit_subtotal)}}<span>円</span>
+            {{number_format($item->unit_subtotal)}}<span>円</span>
           </td>
         </tr>
         @endforeach
@@ -123,6 +132,9 @@
     <table cellpadding="0" cellspacing="0" class="bill-note-wrap">
       <tr>
         <td class="bank-info">
+          <p>※申込時の「会社名・団体名」名義でお振込み下さい。別名義でのお振込みの場合は必ず事前にSMGまでご連絡下さい。
+          お振込み手数料は御社ご負担にてお願い致します。
+          </p>
           <p>お振込み先：みずほ銀行　四ツ橋支店　普通 1113739　ｶ)ｴｽｴﾑｼﾞｰ</p>
       </tr>
       <tr>
@@ -136,18 +148,20 @@
 </body>
 
 <script>
+  $(function() {
+    var len = $(".bill-details").length;
+    console.log(len);
 
-$(function () {
-  var len = $(".bill-details").length;
-  console.log(len);
-
-  if( len > 17) {
-$(".bill-note-wrap").addClass("break");
-// $(".total-table").css('margin-top','20mm');
-  } else {
-    $(".bill-note-wrap").removeClass("break");
-  }
+    if (len > 17) {
+      $(".bill-note-wrap").addClass("break");
+      // $(".total-table").css('margin-top','20mm');
+    } else {
+      $(".bill-note-wrap").removeClass("break");
+    }
   });
 </script>
 
 </html>
+
+{{-- 仲介会社情報 --}}
+<pre>{{var_dump($bill->reservation->agent)}}</pre>
