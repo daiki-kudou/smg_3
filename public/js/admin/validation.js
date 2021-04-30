@@ -1058,8 +1058,12 @@ $(function () {
         // layout_percent_discount: { number: true },
         // others_number_discount: { number: true },
         // others_percent_discount: { number: true },
+        master_subtotal: { required: true },
+        master_tax: { required: true },
+        master_total: { required: true },
         pay_person: { hankaku: true },
         payment: { number: true },
+        enduser_charge: { required: true },
       },
       messages: {
         // venue_number_discount: { number: "※半角数字を入力してください" },
@@ -1070,8 +1074,12 @@ $(function () {
         // layout_percent_discount: { number: "※半角数字を入力してください" },
         // others_number_discount: { number: "※半角数字を入力してください" },
         // others_percent_discount: { number: "※半角数字を入力してください" },
+        master_subtotal: { required: "※金額を入力してください" },
+        master_tax: { required: "※金額を入力してください" },
+        master_total: { required: "※金額を入力してください" },
         pay_person: { hankaku: "※半角ｶﾀｶﾅを入力してください" },
         payment: { number: "※半角数字を入力してください" },
+        enduser_charge: { required: "※金額を入力してください" },
       },
       errorPlacement: function (error, element) {
         var name = element.attr("name");
@@ -1095,6 +1103,50 @@ $(function () {
     });
   });
 });
+
+// 仲介会社追加請求書
+$(function () {
+  var target = [
+    "#agentsbillsCreateForm"
+  ];
+
+  $.each(target, function (index, value) {
+    $(value).validate({
+      rules: {
+        pay_person: { hankaku: true },
+        payment: { number: true },
+        enduser_charge: { required: true },
+      },
+      messages: {
+        pay_person: { hankaku: "※半角ｶﾀｶﾅを入力してください" },
+        payment: { number: "※半角数字を入力してください" },
+        enduser_charge: { required: "※金額を入力してください" },
+      },
+      errorPlacement: function (error, element) {
+        var name = element.attr("name");
+        if (element.attr("name") === "category[]") {
+          error.appendTo($(".is-error-category"));
+        } else if (element.attr("name") === name) {
+          error.appendTo($(".is-error-" + name));
+        }
+      },
+      errorElement: "span",
+      errorClass: "is-error",
+      //送信前にLoadingを表示
+      submitHandler: function (form) {
+        $(".approval").addClass("hide");
+        $(".loading").removeClass("hide");
+        form.submit();
+      },
+    });
+    $("input").on("blur", function () {
+      $(this).valid();
+    });
+  });
+});
+
+
+
 
 
 // キャンセル請求書
