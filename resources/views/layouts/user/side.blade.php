@@ -49,7 +49,7 @@
       </li>
 
       <li class="nav-item has-treeview">
-        <a href="#" class="nav-link">
+        <a href="https://osaka-conference.com/cancelpolicy/" class="nav-link" target="_blank" rel="noopener">
           <i class="nav-icon fas fa-clipboard-list" style=""></i>
           <p>変更キャンセルについて</p>
         </a>
