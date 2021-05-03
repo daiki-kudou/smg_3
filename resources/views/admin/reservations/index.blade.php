@@ -94,6 +94,7 @@
             </th>
             <td class="text-right">
               <select class="form-control select2" name="venue_id">
+                <option value=""></option>
                 @foreach ($venue as $venues)
                 <option value="{{$venues->id}}">
                   {{ReservationHelper::getVenue($venues->id)}}
@@ -252,7 +253,13 @@
         <li><a class="more_btn bg-green" href="">キャンセル申請中</a></li>
         <li><a class="more_btn bg-black" href="">予約完了</a></li>
       </ul>
-      <p class="font-weight-bold"><span class="count-color">ダミーダミー</span>件</p>
+
+      @if ($counter!=0)    
+      <p class="font-weight-bold">
+        <span class="count-color">
+        {{$counter}}</span>件
+      </p>
+      @endif
     </div>
     <div class="table-wrap">
       <table class="table table-bordered table-scroll">

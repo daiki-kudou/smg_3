@@ -38,16 +38,17 @@ class ReservationsController extends Controller
     if (!empty($request->all())) {
       $class = new Reservation;
       $reservations = $class->search_item($request)->orderBy('id', 'desc')->paginate(30);
+      $counter = $reservations->count();
     } else {
       $reservations = Reservation::with(['bills.breakdowns', 'user', 'agent', 'venue', 'endusers'])
         ->orderBy('id', 'desc')
         ->paginate(30);
+      $counter = 0;
     }
     $venue = Venue::all();
     $user = User::select('id', 'company', 'first_name', 'last_name', 'mobile', 'tel')->get();
     $agents = Agent::all();
-
-    return view('admin.reservations.index', compact('reservations', 'venue', 'user', 'agents'));
+    return view('admin.reservations.index', compact('reservations', 'venue', 'user', 'agents', "counter"));
   }
 
   /** ajax 備品orサービス取得*/
