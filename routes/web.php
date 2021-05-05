@@ -37,6 +37,9 @@ Route::namespace('User')->prefix('user')->name('user.')->group(function () {
     Route::put('home/{home}/update_status', 'HomeController@updateStatus')->name('home.updatestatus');
     Route::get('home/generate_invoice/{home}', 'HomeController@generate_invoice')->name('home.generate_invoice');
     Route::put('home/{home}/update_other_bills', 'HomeController@updateOtherBillsStatus');
+    Route::post('home/cfm_cxl', 'HomeController@cxl_cfm_by_user');
+
+
 
     Route::post('pre_reservations/{pre_reservation}/calculate', 'PreReservationsController@calculate');
     Route::post('pre_reservations/{pre_reservation}/cfm', 'PreReservationsController@cfm');

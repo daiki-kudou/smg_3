@@ -9,6 +9,7 @@ use App\Models\User;
 use App\Models\Venue;
 use App\Models\Reservation;
 use App\Models\Bill;
+use App\Models\Cxl;
 
 use Illuminate\Support\Facades\Auth;
 
@@ -43,19 +44,14 @@ class HomeController extends Controller
 
   public function show($id)
   {
-    $reservation = Reservation::find($id);
+    $reservation = Reservation::with(["bills.breakdowns", "cxls"])->find($id);
     if (Auth::id() == $reservation->user_id) {
       $venue = Venue::find($reservation->venue_id);
       $other_bills = [];
-      for ($i = 0; $i < count($reservation->bills()->get()) - 1; $i++) {
-        $other_bills[] = $reservation->bills()->skip($i + 1)->first();
+      for ($i = 0; $i < count($reservation->bills) - 1; $i++) {
+        $other_bills[] = $reservation->bills->skip($i + 1)->first();
       }
-
-      return view('user.home.show', [
-        'reservation' => $reservation,
-        'venue' => $venue,
-        'other_bills' => $other_bills,
-      ]);
+      return view('user.home.show', compact("reservation", "venue", "other_bills"));
     } else {
       return redirect('user/login');
     }
@@ -92,7 +88,6 @@ class HomeController extends Controller
       return redirect()->route('user.home.index');
     });
   }
-
 
   public function generate_invoice($id)
   {
@@ -158,5 +153,14 @@ class HomeController extends Controller
     } else {
       return redirect('user/login');
     }
+  }
+
+  public function cxl_cfm_by_user(Request $request)
+  {
+    $cxl = Cxl::with("reservation")->find($request->cxl_id);
+    $cxl->update(["cxl_status" => 2]);
+    $bill = Bill::find($cxl->bill_id);
+    $bill->update(["reservation_status" => 6]);
+    return redirect('user/home');
   }
 }
