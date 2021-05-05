@@ -353,7 +353,7 @@
             <td>会場予約</td>
             <td>
               {{!empty($reservation->bills->first()->reservation_status)?$reservation->bills->first()->reservation_status:""}}
-              {{-- {{ReservationHelper::judgeStatus($reservation->bills->first()->reservation_status)}} --}}
+              {{ReservationHelper::judgeStatus($reservation->bills->first()->reservation_status)}}
             </td>
             <td class="text-center" rowspan="{{count($reservation->bills)}}"><a
                 href="{{ url('admin/reservations', $reservation->id) }}" class="more_btn btn">詳細</a></td>
