@@ -217,7 +217,7 @@
           <tbody class="accordion-wrap">
             @foreach ($venue->getEquipments() as $key=>$equipment)
             <tr>
-              <td class="table-active">{{$equipment->item}}</td>
+              <td class="table-active">{{$equipment->item}}({{$equipment->price}}円)</td>
               <td>
                 @if (!empty($basicInfo['equipment_breakdown'.$key]))
                 {{ Form::text('equipment_breakdown'.$key, $basicInfo['equipment_breakdown'.$key],['class'=>'form-control equipment_breakdown'] ) }}
@@ -245,7 +245,7 @@
             @foreach ($venue->getServices() as $key=>$service)
             <tr>
               <td class="table-active">
-                {{$service->item}}
+                {{$service->item}}({{$service->price}}円)
               </td>
               <td>
                 <div class="radio-box">

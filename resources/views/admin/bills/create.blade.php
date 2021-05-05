@@ -340,18 +340,21 @@
                   <td>小計：</td>
                   <td>
                     {{ Form::text('master_subtotal', !empty(session('add_bill')['master_subtotal'])?session('add_bill')['master_subtotal']:"", ['class' => 'form-control' , 'readonly'])}}
+                    <p class="is-error-master_subtotal" style="color: red"></p>
                   </td>
                 </tr>
                 <tr>
                   <td>消費税：</td>
                   <td>
                     {{ Form::text('master_tax', !empty(session('add_bill')['master_tax'])?session('add_bill')['master_tax']:"", ['class' => 'form-control' , 'readonly'])}}
+                    <p class="is-error-master_tax" style="color: red"></p>
                   </td>
                 </tr>
                 <tr>
                   <td class="font-weight-bold">合計金額</td>
                   <td>
                     {{ Form::text('master_total', !empty(session('add_bill')['master_total'])?session('add_bill')['master_total']:"", ['class' => 'form-control' , 'readonly'])}}
+                    <p class="is-error-master_total" style="color: red"></p>
                   </td>
                 </tr>
               </tbody>

@@ -249,7 +249,7 @@
             @foreach ($venue->getEquipments() as $key=>$equ)
             <tr>
               <td class="table-active">
-                {{$equ->item}}
+                {{$equ->item}}({{$equ->price}}円)
               </td>
               <td>
                 <input type="text" class="form-control equipment_breakdown" name="{{'equipment_breakdown'.$key}}"
@@ -280,7 +280,7 @@
           <tbody class="accordion-wrap">
             @foreach ($venue->getServices() as $key=>$ser)
             <tr>
-              <td class="table-active">{{$ser->item}}</td>
+              <td class="table-active">{{$ser->item}}({{$ser->price}}円)</td>
               <td>
                 <div class="radio-box">
                   <p>

@@ -69,10 +69,15 @@
       <table class="table table-bordered">
         <tr>
           <td colspan="2">
+            <div class="d-flex align-items-center">
             <p class="title-icon">
               <i class="fas fa-info-circle icon-size"></i>
               予約情報
             </p>
+            <!-- <p class="alliance_color ml-2">工藤さん！！！！！！管理者登録</p> -->
+            <p class="ml-2">予約ID：{{$reservation->id}}</p>
+            <!-- <p class="ml-2">一括ID：工藤さん！！！！！！</p> -->
+            </div>
           </td>
         </tr>
         <tr>
