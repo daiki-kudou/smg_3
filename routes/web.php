@@ -370,7 +370,7 @@ Route::namespace('Admin')->prefix('admin')->name('admin.')->group(function () {
 
     Route::get('sales', 'SalesController@index');
 
-    Route::get('receipts/{bill}', 'ReceiptsController@show');
+    Route::post('receipts', 'ReceiptsController@show');
 
     Route::post('control_time', 'ControltimeController@getInformation');
   });
