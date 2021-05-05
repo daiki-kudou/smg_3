@@ -889,7 +889,7 @@
             <tbody>
               <tr>
                 <td>入金状況
-                  {{Form::text('',$checkInfo['paid']==1?"支払済":"未払",['class'=>'form-control','readonly'])}}
+                  {{Form::text('',ReservationHelper::paidStatus($checkInfo['paid']),['class'=>'form-control','readonly'])}}
                 </td>
                 <td>
                   入金日{{ Form::text('pay_day', $checkInfo['pay_day'],['class'=>'form-control', 'readonly'] ) }}

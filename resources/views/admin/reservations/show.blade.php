@@ -627,7 +627,9 @@
           <table class="table">
             <tbody>
               <tr>
-                <td> {{$reservation->bills->first()->paid==0?"未入金":"入金済"}}
+                <td> 
+                  入金状況
+                  {{ReservationHelper::paidStatus($reservation->bills->first()->paid)}}
                 </td>
                 <td>
                   入金日：

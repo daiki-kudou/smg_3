@@ -530,4 +530,28 @@ class ReservationHelper
         break;
     }
   }
+
+  public static function paidStatus($num)
+  {
+    switch ($num) {
+      case 0:
+        return "未入金";
+        break;
+      case 1:
+        return "入金済";
+        break;
+      case 2:
+        return "遅延";
+        break;
+      case 3:
+        return "入金不足";
+        break;
+      case 4:
+        return "入金過多";
+        break;
+      case 5:
+        return "次回繰越";
+        break;
+    }
+  }
 }
