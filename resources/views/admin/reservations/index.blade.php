@@ -342,9 +342,8 @@
             </td>
             <td rowspan="{{count($reservation->bills)}}">
               @if ($reservation->agent_id>0)
-              {{$reservation->endusers->company}}
+              {{!empty($reservation->endusers->company)?$reservation->endusers->company:""}}
               @endif
-
             </td>
             <td>
               @foreach (ImageHelper::show($reservation->id) as $icon)
@@ -354,7 +353,8 @@
             </td>
             <td>会場予約</td>
             <td>
-              {{ReservationHelper::judgeStatus($reservation->bills->first()->reservation_status)}}
+              {{!empty($reservation->bills->first()->reservation_status)?$reservation->bills->first()->reservation_status:""}}
+              {{-- {{ReservationHelper::judgeStatus($reservation->bills->first()->reservation_status)}} --}}
             </td>
             <td class="text-center" rowspan="{{count($reservation->bills)}}"><a
                 href="{{ url('admin/reservations', $reservation->id) }}" class="more_btn btn">詳細</a></td>

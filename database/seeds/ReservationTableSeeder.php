@@ -2,6 +2,8 @@
 
 use Illuminate\Database\Seeder;
 
+use App\Models\Reservation;
+
 class ReservationTableSeeder extends Seeder
 {
   /**
