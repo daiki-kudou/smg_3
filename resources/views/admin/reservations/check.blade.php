@@ -182,14 +182,13 @@
           </thead>
           <tbody>
             <tr>
-              <td class="table-active">準備</td>
+              <td class="table-active">準備({{number_format($venue->layout_prepare)}})</td>
               <td>
                 {{$value['layout_prepare']==1?"あり":"なし"}}
-
               </td>
             </tr>
             <tr>
-              <td class="table-active">片付</td>
+              <td class="table-active">片付({{number_format($venue->layout_clean)}})</td>
               <td>
                 {{$value['layout_clean']==1?"あり":"なし"}}
               </td>

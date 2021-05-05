@@ -175,7 +175,7 @@
           <tbody>
             <tr>
               <td class="table-active">
-                準備
+                準備({{number_format($venue->layout_prepare)}}円)
               </td>
               <td>
                 {{ Form::text('', $basicInfo['layout_prepare']==1?"有り":"無し",['class'=>'form-control', 'readonly'] ) }}
@@ -183,7 +183,9 @@
               </td>
             </tr>
             <tr>
-              <td class="table-active">片付</td>
+              <td class="table-active">
+                片付({{number_format($venue->layout_clean)}}円)
+              </td>
               <td>
                 {{ Form::text('', $basicInfo['layout_clean']==1?"有り":"無し",['class'=>'form-control', 'readonly'] ) }}
                 {{ Form::hidden('layout_clean', $basicInfo['layout_clean'],['class'=>'form-control', 'readonly'] ) }}

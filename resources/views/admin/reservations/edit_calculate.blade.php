@@ -277,7 +277,7 @@
           </thead>
           <tbody>
             <tr>
-              <td class="table-active">準備</td>
+              <td class="table-active">準備({{number_format($venue->layout_prepare)}}円)</td>
               <td>
                 <div class="radio-box">
                   @if (!empty($basicInfo['layout_prepare']))
@@ -303,7 +303,7 @@
               </td>
             </tr>
             <tr>
-              <td class="table-active">片付</td>
+              <td class="table-active">片付({{number_format($venue->layout_clean)}}円)</td>
               <td>
                 <div class="radio-box">
                   @if ($basicInfo['layout_clean'])
