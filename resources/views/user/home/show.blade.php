@@ -1181,8 +1181,6 @@
               </tbody>
             </table>
           </div>
-
-
           <div class="bill_total">
             <table class="table text-right">
               <tbody>
@@ -1214,7 +1212,7 @@
   @endforeach
 
   <!-- 工藤さん！！キャンセル料合計請求額------------------------------------------------------------------- -->
-  <!-- <div class="master_totals_cancel">
+  <div class="master_totals_cancel">
     <table class="table mb-0">
       <tbody class="master_total_head2">
         <tr>
@@ -1233,7 +1231,9 @@
       <tbody class="master_total_body">
         <tr>
           <td>キャンセル料</td>
-          <td><p>ダミー円</p></td>
+          <td><p>
+            {{number_format($reservation->cxls->pluck("master_subtotal")->sum())}}
+            円</p></td>
         </tr>
       </tbody>
       <tbody class="master_total_bottom mb-0">
@@ -1242,7 +1242,9 @@
           <td>
             <div class="d-flex justify-content-end" colspan="2">
               <p>小計：</p>
-              <p>ダミー円</p>
+              <p>
+                {{number_format($reservation->cxls->pluck("master_subtotal")->sum())}}
+                円</p>
             </div>
           </td>
         </tr>
@@ -1251,7 +1253,9 @@
           <td>
             <div class="d-flex justify-content-end" colspan="2">
               <p>消費税：</p>
-              <p>ダミー円</p>
+              <p>
+                {{number_format(ReservationHelper::getTax($reservation->cxls->pluck("master_subtotal")->sum()))}}
+                円</p>
             </div>
           </td>
         </tr>
@@ -1260,14 +1264,15 @@
           <td>
             <div class="d-flex justify-content-end" colspan="2">
               <p>合計金額：</p>
-              <p>ダミー円</p>
+              <p>
+                {{number_format(ReservationHelper::taxAndPrice($reservation->cxls->pluck("master_subtotal")->sum()))}}
+                円</p>
             </div>
           </td>
         </tr>
       </tbody>
     </table>
-  </div> -->
-
+  </div> 
 </section>
 
 
