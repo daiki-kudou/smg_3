@@ -74,11 +74,11 @@
               <i class="fas fa-info-circle icon-size"></i>
               予約情報
             </p>
-             <p class="alliance_color ml-2">
+             <p class="alliance_color ml-3">
                {{$reservation->user->admin_or_user==1?"管理者登録":"ユーザー登録"}}
               </p>
-            <p class="ml-2">予約ID：{{ReservationHelper::IdFormat($reservation->id)}}</p>
-            <p class="ml-2">一括ID：{{!empty($reservation->multiple_reserve_id)?ReservationHelper::IdFormat($reservation->multiple_reserve_id):""}}</p>
+            <p class="ml-3">予約ID：{{ReservationHelper::IdFormat($reservation->id)}}</p>
+            <p class="ml-3">一括ID：{{!empty($reservation->multiple_reserve_id)?ReservationHelper::IdFormat($reservation->multiple_reserve_id):""}}</p>
             </div>
           </td>
         </tr>

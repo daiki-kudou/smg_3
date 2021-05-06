@@ -303,7 +303,7 @@
               </tr>
             </thead>
             <tbody>
-              <tr>
+              <!-- <tr>
                 <td class="table-active"><label for="Delivery"> お荷物預り/返送</label></td>
                 <td>
                   @foreach ($reservation->bills->first()->breakdowns as $item)
@@ -312,7 +312,7 @@
                   @endif
                   @endforeach
                 </td>
-              </tr>
+              </tr> -->
               <tr>
                 <td class="table-active"><label for="preDelivery">事前にお預りする荷物</label></td>
                 <td>
