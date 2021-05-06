@@ -220,7 +220,7 @@ Route::namespace('Admin')->prefix('admin')->name('admin.')->group(function () {
     //***仲介会社　予約 */
     //********************** */
     // 仲介会社経由予約
-    Route::get('agents_reservations/create', 'AgentsReservationsController@create');
+    Route::get('agents_reservations/create', 'AgentsReservationsController@create')->name("agents_reservations.create");
     // 仲介　予約　計算　SESSION
     Route::post('agents_reservations/store_session', 'AgentsReservationsController@storeSession');
     // 仲介会社経由　計算
