@@ -689,7 +689,7 @@
                   <li>
                     <dl class="ttl_box">
                       <dd class="total_result">合計金額：
-                        {{$other_bill->master_subtotal}}
+                        {{$other_bill->master_total}}
                         円
                       </dd>
                     </dl>
