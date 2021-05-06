@@ -56,8 +56,8 @@
 @if ($reservation->bills->first()->double_check_status==0)
 
 <div class="alert-box d-flex align-items-center mb-0">
-  <p>
-    一人目のチェックが終了しています。ダブルチェックを行ってください。
+  <p class="w-100 text-center">
+    ダブルチェックを行ってください。
   </p>
 </div>　
 @endif
