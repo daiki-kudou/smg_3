@@ -216,6 +216,9 @@ class Reservation extends Model implements PresentableInterface
       $venue_price = $discount_info['venue_price'];
       $category = 1;
     }
+    // 以下、請求書No作成用
+    // $search_bill_count = Bill::where("created_at", "LIKE", "%" . (date("Y-m")) . "%")->count();
+    // $invoice_number = date('Y') . date('m') . mt_rand(0, 9) . sprintf('%03d', ($search_bill_count + 1));
     $bill = DB::transaction(function () use ($discount_info, $request, $sessionName2, $attr, $venue_price, $category) {
       $bill = $this->bills()->create([
         'reservation_id' => $this->id,
