@@ -100,7 +100,9 @@
               {{ Form::open(['url' => 'admin/receipts', 'method'=>'post', 'target'=>'_blank', 'class'=>'']) }}
               @csrf
               {{ Form::hidden('bill_id', $reservation->bills->first()->id ) }}
+              @if ($reservation->bills->first()->paid==1)
               <p class="mr-2">{{ Form::submit('領収書をみる',['class' => 'more_btn btn']) }}</p>
+              @endif
               {{ Form::close() }}
             </td>
           </tr>
@@ -125,7 +127,9 @@
                 {{ Form::open(['url' => 'admin/receipts', 'method'=>'post', 'target'=>'_blank', 'class'=>'']) }}
                 @csrf
                 {{ Form::hidden('bill_id', $reservation->bills->skip($i+1)->first()->id)}}
+                @if ($reservation->bills->skip($i+1)->first()->paid==1)
                 <p class="mr-2">{{ Form::submit('領収書をみる',['class' => 'more_btn btn']) }}</p>
+                @endif
                 {{ Form::close() }}
               </td>
             </tr>
