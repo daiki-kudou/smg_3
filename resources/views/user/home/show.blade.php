@@ -968,6 +968,80 @@
   @endforeach
 
 
+
+
+  <!-- 合計請求額------------------------------------------------------------------- -->
+  <section class="master_totals mt-5">
+    <table class="table border-wrap">
+      <tbody class="master_total_head">
+        <tr>
+          <td colspan="2">
+            <h3>
+              合計請求額
+            </h3>
+          </td>
+        </tr>
+      </tbody>
+      <tr>
+        <td colspan="2" class="master_total_subttl">
+          <h4>内訳</h4>
+        </td>
+      </tr>
+      <tbody class="master_total_body">
+        <tr>
+          <td>会場料</td>
+          <td>
+            <p>{{number_format($reservation->bills()->where("reservation_status","<=",3)->pluck("venue_price")->sum())}}円</p>
+          </td>
+        </tr>
+        <tr>
+          <td>有料備品　サービス</td>
+          <td>
+            <p>{{number_format($reservation->bills()->where("reservation_status","<=",3)->pluck("equipment_price")->sum())}}円</p>
+          </td>
+        </tr>
+        <tr>
+          <td>レイアウト変更料</td>
+          <td>
+            <p>{{number_format($reservation->bills()->where("reservation_status","<=",3)->pluck("layout_price")->sum())}}円</p>
+          </td>
+        </tr>
+        <tr>
+          <td>その他</td>
+          <td>
+            <p>{{number_format($reservation->bills()->where("reservation_status","<=",3)->pluck("others_price")->sum())}}円</p>
+          </td>
+        </tr>
+      </tbody>
+      <tbody class="master_total_bottom">
+        <tr>
+          <td colspan="2">
+            <div class="d-flex justify-content-end">
+              <p>小計：</p>
+              <p>{{number_format($reservation->bills()->where("reservation_status","<=",3)->pluck("master_subtotal")->sum())}}円</p>
+            </div>
+          </td>
+        </tr>
+        <tr>
+          <td colspan="2">
+            <div class="d-flex justify-content-end">
+              <p>消費税：</p>
+              <p>{{number_format(ReservationHelper::getTax($reservation->bills()->where("reservation_status","<=",3)->pluck("master_subtotal")->sum()))}}円</p>
+            </div>
+          </td>
+        </tr>
+        <tr>
+          <td colspan="2">
+            <div class="d-flex justify-content-end">
+              <p>合計金額：</p>
+              <p>{{number_format(ReservationHelper::taxAndPrice($reservation->bills()->where("reservation_status","<=",3)->pluck("master_subtotal")->sum()))}}円</p>
+            </div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </section>
+
   <!-- キャンセル請求セクション------------------------------------------------------------------- -->
   @foreach ($reservation->cxls as $cxl)
   <section class="mt-5">
@@ -1139,77 +1213,61 @@
   </section>
   @endforeach
 
-  <!-- 合計請求額------------------------------------------------------------------- -->
-  <section class="master_totals mt-5">
-    <table class="table border-wrap">
-      <tbody class="master_total_head">
+  <!-- 工藤さん！！キャンセル料合計請求額------------------------------------------------------------------- -->
+  <!-- <div class="master_totals_cancel">
+    <table class="table mb-0">
+      <tbody class="master_total_head2">
         <tr>
           <td colspan="2">
             <h3>
-              合計請求額
+              キャンセル料　合計請求額
             </h3>
           </td>
         </tr>
       </tbody>
       <tr>
-        <td colspan="2" class="master_total_subttl">
+        <td colspan="2" class="master_total_subttl2">
           <h4>内訳</h4>
         </td>
       </tr>
       <tbody class="master_total_body">
         <tr>
-          <td>会場料</td>
-          <td>
-            <p>{{number_format($reservation->bills()->where("reservation_status","<=",3)->pluck("venue_price")->sum())}}円</p>
-          </td>
-        </tr>
-        <tr>
-          <td>有料備品　サービス</td>
-          <td>
-            <p>{{number_format($reservation->bills()->where("reservation_status","<=",3)->pluck("equipment_price")->sum())}}円</p>
-          </td>
-        </tr>
-        <tr>
-          <td>レイアウト変更料</td>
-          <td>
-            <p>{{number_format($reservation->bills()->where("reservation_status","<=",3)->pluck("layout_price")->sum())}}円</p>
-          </td>
-        </tr>
-        <tr>
-          <td>その他</td>
-          <td>
-            <p>{{number_format($reservation->bills()->where("reservation_status","<=",3)->pluck("others_price")->sum())}}円</p>
-          </td>
+          <td>キャンセル料</td>
+          <td><p>ダミー円</p></td>
         </tr>
       </tbody>
-      <tbody class="master_total_bottom">
+      <tbody class="master_total_bottom mb-0">
         <tr>
-          <td colspan="2">
-            <div class="d-flex justify-content-end">
+          <td></td>
+          <td>
+            <div class="d-flex justify-content-end" colspan="2">
               <p>小計：</p>
-              <p>{{number_format($reservation->bills()->where("reservation_status","<=",3)->pluck("master_subtotal")->sum())}}円</p>
+              <p>ダミー円</p>
             </div>
           </td>
         </tr>
         <tr>
-          <td colspan="2">
-            <div class="d-flex justify-content-end">
+          <td></td>
+          <td>
+            <div class="d-flex justify-content-end" colspan="2">
               <p>消費税：</p>
-              <p>{{number_format(ReservationHelper::getTax($reservation->bills()->where("reservation_status","<=",3)->pluck("master_subtotal")->sum()))}}円</p>
+              <p>ダミー円</p>
             </div>
           </td>
         </tr>
         <tr>
-          <td colspan="2">
-            <div class="d-flex justify-content-end">
+          <td></td>
+          <td>
+            <div class="d-flex justify-content-end" colspan="2">
               <p>合計金額：</p>
-              <p>{{number_format(ReservationHelper::taxAndPrice($reservation->bills()->where("reservation_status","<=",3)->pluck("master_subtotal")->sum()))}}円</p>
+              <p>ダミー円</p>
             </div>
           </td>
         </tr>
       </tbody>
     </table>
-  </section>
+  </div> -->
+
 </section>
 
 
