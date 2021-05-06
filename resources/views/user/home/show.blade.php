@@ -1212,6 +1212,9 @@
   @endforeach
 
   <!-- 工藤さん！！キャンセル料合計請求額------------------------------------------------------------------- -->
+
+  @if ($reservation->cxls->count()!=0)
+      
   <div class="master_totals_cancel">
     <table class="table mb-0">
       <tbody class="master_total_head2">
@@ -1273,6 +1276,7 @@
       </tbody>
     </table>
   </div> 
+  @endif
 </section>
 
 
