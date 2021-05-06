@@ -303,7 +303,7 @@
               </tr>
             </thead>
             <tbody>
-              <tr>
+              <!-- <tr>
                 <td class="table-active"><label for="Delivery"> お荷物預り/返送</label></td>
                 <td>
                   @foreach ($reservation->bills->first()->breakdowns as $item)
@@ -312,7 +312,7 @@
                   @endif
                   @endforeach
                 </td>
-              </tr>
+              </tr> -->
               <tr>
                 <td class="table-active"><label for="preDelivery">事前にお預りする荷物</label></td>
                 <td>
@@ -380,7 +380,7 @@
           </tbody>
         </table>
 
-        
+
 
         <table class="table table-bordered note-table">
           <tbody>
@@ -431,11 +431,12 @@
                       </dd>
                     </dl>
                     <div class="bill_btn_wrap">
-                      <p class="mb-2">
-                        <a class="more_btn" href="{{ url('user/home/generate_invoice/'.$reservation->id) }}">
-                          請求書を見る
-                        </a>
-                      </p>
+                      {{ Form::open(['url' => 'admin/invoice', 'method'=>'post', 'target'=>'_blank', 'class'=>'']) }}
+                      @csrf
+                      {{ Form::hidden('reservation_id', $reservation->id ) }}
+                      {{ Form::hidden('bill_id', $reservation->bills->first()->id ) }}
+                      <p class="mr-2">{{ Form::submit('請求書をみる',['class' => 'btn more_btn']) }}</p>
+                      {{ Form::close() }}
                       <!-- 工藤さん！領収書をみるボタンはステータスが入金確認後に表示------ -->
                       @if ($reservation->bills->first()->paid==1)
                       <p><a class="more_btn4" href="">領収書を見る</a></p>
@@ -488,7 +489,7 @@
                   <td>{{number_format($v->unit_cost)}}</td>
                   <td>{{$v->unit_count}}</td>
                   <td>{{number_format($v->unit_subtotal)}}</td>
-                </tr> 
+                </tr>
                 @endforeach
               </tbody>
               <tbody class="venue_result">
@@ -688,8 +689,9 @@
                   <li>
                     <dl class="ttl_box">
                       <dd class="total_result">合計金額：
-                        {{$other_bill->master_subtotal}}
-                        円</dd>
+                        {{$other_bill->master_total}}
+                        円
+                      </dd>
                     </dl>
                     <dl class="ttl_box">
                       <dd class="total_result">支払い期日：
@@ -697,7 +699,14 @@
                       </dd>
                     </dl>
                     <div class="bill_btn_wrap">
-                      <p class="mb-2"><a class="more_btn" href="{{ url('user/home/generate_invoice/'.$reservation->id) }}">請求書を見る</a></p>
+                      <!-- <p class="mb-2"><a class="more_btn" href="{{ url('user/home/generate_invoice/'.$reservation->id) }}">請求書を見る</a></p> -->
+                      {{ Form::open(['url' => 'admin/invoice', 'method'=>'post', 'target'=>'_blank', 'class'=>'']) }}
+                      @csrf
+                      {{ Form::hidden('reservation_id', $reservation->id ) }}
+                      {{ Form::hidden('bill_id', $other_bill->id ) }}
+                      <p class="mr-2">{{ Form::submit('請求書をみる',['class' => 'btn more_btn']) }}</p>
+                      {{ Form::close() }}
+
                       <!-- 工藤さん！領収書をみるボタンはステータスが入金確認後に表示------ -->
                       @if ($other_bill->paid==1)
                       <p><a class="more_btn4" href="">領収書を見る</a></p>
@@ -959,175 +968,7 @@
   @endforeach
 
 
-  <!-- キャンセル請求セクション------------------------------------------------------------------- -->
-@foreach ($reservation->cxls as $cxl)
-<section class="mt-5">
-  <div class="bill">
-    <div class="bill_head_cancel">
-      <table class="table bill_table">
-        <tbody>
-          <tr>
-            <td>
-              <ul class="bill_header">
-                <li>
-                  <h2 class="text-white">
-                    請求書No
-                  </h2>
-                </li>
-                <li>
-                  <dl class="ttl_box">
-                    <!-- <dt>合計金額</dt> -->
-                    <dd class="total_result">合計金額：
-                      {{number_format($cxl->master_total)}}
-                      円</dd>
-                  </dl>
-                  <dl class="ttl_box">
-                    <!-- <dt>支払い期日</dt> -->
-                    <dd class="total_result">支払い期日：
-                      {{(ReservationHelper::formatDate($cxl->payment_limit))}}
-                    </dd>
-                  </dl>
-                  <div class="bill_btn_wrap">
-                    <p class="mb-2"><a class="more_btn" href="{{ url('user/home/generate_invoice/'.$reservation->id) }}">請求書を見る</a></p>
-                    <!-- 工藤さん！領収書をみるボタンはステータスが入金確認後に表示------ -->
-                    <p><a class="more_btn4" href="">領収書を見る</a></p>
-                  </div>
-                </li>
-              </ul>
-            </td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
-    <div class="bill_status">
-      <table class="table">
-        <tbody>
-          <tr>
-            <td>
-              <ul class="d-sm-flex justify-content-between">
-                <li class="d-flex align-items-center mb-2">
-                  <p class="bg-status p-2 border">予約状況</p>
-                  <p class="border p-2">
-                    {{ReservationHelper::cxlStatus($cxl->cxl_status)}}
-                  </p>
-                </li>
-                <li>
-                  <p><span>申込日：</span>{{ReservationHelper::formatDate($reservation->created_at)}}</p>
-                  {{-- <p><span>予約確定日：</span>工藤さん！！！！</p> --}}
-                </li>
-              </ul>
-            </td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
-    <div class="bill_details">
-      <div class="head d-flex">
-        <div class="accordion_btn">
-          <i class="fas fa-plus bill_icon_size hide" aria-hidden="true"></i>
-          <i class="fas fa-minus bill_icon_size" aria-hidden="true"></i>
-        </div>
-        <div class="billdetails_ttl">
-          <h3>
-            請求内訳
-          </h3>
-        </div>
-      </div>
-      <div class="main hide">
 
-        <div class="billdetails_content">
-          <h4 class="cancel_ttl">キャンセル料計算の内訳</h4>
-          <table class="table table-borderless">
-            <thead class="head_cancel">
-              <tr>
-                <td>内容</td>
-                <td>申込み金額</td>
-                <td></td>
-                <td>キャンセル料率</td>
-              </tr>
-            </thead>
-            @foreach ($cxl->cxl_breakdowns->where('unit_type',2) as $cxl_calc)
-            <tr>
-              <td>{{$cxl_calc->unit_item}}円</td>
-              <td>{{($cxl_calc->unit_cost)}}</td>
-              <td>×</td>
-              <td>{{$cxl_calc->unit_count}}%</td>
-            </tr>
-            @endforeach
-          </table>
-        </div>
-
-        <div class="billdetails_content">
-          <table class="table table-bordered">
-            <tbody>
-              <tr>
-                <td colspan="4">
-                  <h4 class="billdetails_content_ttl">
-                    キャンセル料
-                  </h4>
-                </td>
-              </tr>
-            </tbody>
-            <tbody class="venue_head">
-              <tr>
-                <td>内容</td>
-                <td>単価</td>
-                <td>数量</td>
-                <td>金額</td>
-              </tr>
-            </tbody>
-            <tbody class="venue_main">
-              @foreach ($cxl->cxl_breakdowns->where('unit_type',1) as $cxl_breakdowns)
-              <tr>
-                <td>{{$cxl_breakdowns->unit_item}}</td>
-                <td>{{number_format($cxl_breakdowns->unit_cost)}}</td>
-                <td>{{$cxl_breakdowns->unit_count}}</td>
-                <td>{{number_format($cxl_breakdowns->unit_subtotal)}}</td>
-              </tr>
-              @endforeach
-            </tbody>
-            <tbody class="venue_result">
-              <tr>
-                <td colspan="4">
-                  <div class="result_sum">
-                    <p class="text-right">合計金額：{{$cxl->master_subtotal}}</p>
-                  </div>
-                </td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
-
-
-        <div class="bill_total">
-          <table class="table text-right">
-            <tbody>
-              <tr>
-                <td>小計：</td>
-                <td>
-                  {{number_format($cxl->master_subtotal)}}
-                </td>
-              </tr>
-              <tr>
-                <td>消費税：</td>
-                <td>
-                  {{number_format($cxl->master_tax)}}
-                </td>
-              </tr>
-              <tr>
-                <td class="font-weight-bold">合計金額</td>
-                <td>
-                  {{number_format($cxl->master_total)}}
-                </td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-@endforeach
 
   <!-- 合計請求額------------------------------------------------------------------- -->
   <section class="master_totals mt-5">
@@ -1200,6 +1041,233 @@
       </tbody>
     </table>
   </section>
+
+  <!-- キャンセル請求セクション------------------------------------------------------------------- -->
+  @foreach ($reservation->cxls as $cxl)
+  <section class="mt-5">
+    <div class="bill">
+      <div class="bill_head_cancel">
+        <table class="table bill_table">
+          <tbody>
+            <tr>
+              <td>
+                <ul class="bill_header">
+                  <li>
+                    <h2 class="text-white">
+                      請求書No
+                    </h2>
+                  </li>
+                  <li>
+                    <dl class="ttl_box">
+                      <!-- <dt>合計金額</dt> -->
+                      <dd class="total_result">合計金額：
+                        {{number_format($cxl->master_total)}}
+                        円
+                      </dd>
+                    </dl>
+                    <dl class="ttl_box">
+                      <!-- <dt>支払い期日</dt> -->
+                      <dd class="total_result">支払い期日：
+                        {{(ReservationHelper::formatDate($cxl->payment_limit))}}
+                      </dd>
+                    </dl>
+                    <div class="bill_btn_wrap">
+                      <p class="mb-2"><a class="more_btn" href="{{ url('user/home/generate_invoice/'.$reservation->id) }}">請求書を見る</a></p>
+                      <!-- 工藤さん！領収書をみるボタンはステータスが入金確認後に表示------ -->
+                      <p><a class="more_btn4" href="">領収書を見る</a></p>
+                    </div>
+                  </li>
+                </ul>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="bill_status">
+        <table class="table">
+          <tbody>
+            <tr>
+              <td>
+                <ul class="d-sm-flex justify-content-between">
+                  <li class="d-flex align-items-center mb-2">
+                    <p class="bg-status p-2 border">予約状況</p>
+                    <p class="border p-2">
+                      {{ReservationHelper::cxlStatus($cxl->cxl_status)}}
+                    </p>
+                  </li>
+                  <li>
+                    <p><span>申込日：</span>{{ReservationHelper::formatDate($reservation->created_at)}}</p>
+                    {{-- <p><span>予約確定日：</span>工藤さん！！！！</p> --}}
+                  </li>
+                </ul>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="bill_details">
+        <div class="head d-flex">
+          <div class="accordion_btn">
+            <i class="fas fa-plus bill_icon_size hide" aria-hidden="true"></i>
+            <i class="fas fa-minus bill_icon_size" aria-hidden="true"></i>
+          </div>
+          <div class="billdetails_ttl">
+            <h3>
+              請求内訳
+            </h3>
+          </div>
+        </div>
+        <div class="main hide">
+
+          <div class="billdetails_content">
+            <h4 class="cancel_ttl">キャンセル料計算の内訳</h4>
+            <table class="table table-borderless">
+              <thead class="head_cancel">
+                <tr>
+                  <td>内容</td>
+                  <td>申込み金額</td>
+                  <td></td>
+                  <td>キャンセル料率</td>
+                </tr>
+              </thead>
+              @foreach ($cxl->cxl_breakdowns->where('unit_type',2) as $cxl_calc)
+              <tr>
+                <td>{{$cxl_calc->unit_item}}円</td>
+                <td>{{($cxl_calc->unit_cost)}}</td>
+                <td>×</td>
+                <td>{{$cxl_calc->unit_count}}%</td>
+              </tr>
+              @endforeach
+            </table>
+          </div>
+
+          <div class="billdetails_content">
+            <table class="table table-bordered">
+              <tbody>
+                <tr>
+                  <td colspan="4">
+                    <h4 class="billdetails_content_ttl">
+                      キャンセル料
+                    </h4>
+                  </td>
+                </tr>
+              </tbody>
+              <tbody class="venue_head">
+                <tr>
+                  <td>内容</td>
+                  <td>単価</td>
+                  <td>数量</td>
+                  <td>金額</td>
+                </tr>
+              </tbody>
+              <tbody class="venue_main">
+                @foreach ($cxl->cxl_breakdowns->where('unit_type',1) as $cxl_breakdowns)
+                <tr>
+                  <td>{{$cxl_breakdowns->unit_item}}</td>
+                  <td>{{number_format($cxl_breakdowns->unit_cost)}}</td>
+                  <td>{{$cxl_breakdowns->unit_count}}</td>
+                  <td>{{number_format($cxl_breakdowns->unit_subtotal)}}</td>
+                </tr>
+                @endforeach
+              </tbody>
+              <tbody class="venue_result">
+                <tr>
+                  <td colspan="4">
+                    <div class="result_sum">
+                      <p class="text-right">合計金額：{{$cxl->master_subtotal}}</p>
+                    </div>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+
+          <div class="bill_total">
+            <table class="table text-right">
+              <tbody>
+                <tr>
+                  <td>小計：</td>
+                  <td>
+                    {{number_format($cxl->master_subtotal)}}
+                  </td>
+                </tr>
+                <tr>
+                  <td>消費税：</td>
+                  <td>
+                    {{number_format($cxl->master_tax)}}
+                  </td>
+                </tr>
+                <tr>
+                  <td class="font-weight-bold">合計金額</td>
+                  <td>
+                    {{number_format($cxl->master_total)}}
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  @endforeach
+
+  <!-- 工藤さん！！キャンセル料合計請求額------------------------------------------------------------------- -->
+  <!-- <div class="master_totals_cancel">
+    <table class="table mb-0">
+      <tbody class="master_total_head2">
+        <tr>
+          <td colspan="2">
+            <h3>
+              キャンセル料　合計請求額
+            </h3>
+          </td>
+        </tr>
+      </tbody>
+      <tr>
+        <td colspan="2" class="master_total_subttl2">
+          <h4>内訳</h4>
+        </td>
+      </tr>
+      <tbody class="master_total_body">
+        <tr>
+          <td>キャンセル料</td>
+          <td><p>ダミー円</p></td>
+        </tr>
+      </tbody>
+      <tbody class="master_total_bottom mb-0">
+        <tr>
+          <td></td>
+          <td>
+            <div class="d-flex justify-content-end" colspan="2">
+              <p>小計：</p>
+              <p>ダミー円</p>
+            </div>
+          </td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>
+            <div class="d-flex justify-content-end" colspan="2">
+              <p>消費税：</p>
+              <p>ダミー円</p>
+            </div>
+          </td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>
+            <div class="d-flex justify-content-end" colspan="2">
+              <p>合計金額：</p>
+              <p>ダミー円</p>
+            </div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div> -->
+
 </section>
 
 
@@ -1239,18 +1307,31 @@
 </div>
 @endif
 
+<!-- 工藤さん！！！！追加請求のステータスが予約承認まちのときに表示 -->
+<!-- <div class="confirm-box text-center mt-5">
+  <p>上記、追加請求の内容で間違いないでしょうか。問題なければ、予約の承認をお願い致します。</p>
+  <p class="text-center mt-3">
+  <input class="btn more_btn4_lg" type="submit" value="追加請求の内容を承認する">
+  </p>
+  <p class="notion">※ご要望に相違がある場合は、下記連絡先までご連絡ください。<br>
+    TEL：06-1234-5678<br>
+    mail：test@gmail.com</p>
+</div> -->
+
+
+
 <!-- 工藤さん！！キャンセルが承認まちの時に表示です！！！ -->
 @if ($reservation->cxls->pluck("cxl_status")->contains(1))
 <div class="confirm-box text-center mt-5">
   <p>上記、予約内容をキャンセルしてもよろしいでしょうか。問題なければ、承認をお願い致します。</p>
   <p class="text-center mt-3">
     @foreach ($reservation->cxls->where("cxl_status",1) as $cfm_selected_cxl)
-        
+
     {{ Form::open(['url' => "user/home/cfm_cxl", 'method'=>'post', 'class'=>'']) }}
     @csrf
     {{ Form::hidden('cxl_id', $cfm_selected_cxl->id)}}
     {{ Form::submit('キャンセルを承認する',['class' => 'btn more_btn4_lg']) }}
-    {{ Form::close() }} 
+    {{ Form::close() }}
     @endforeach
   </p>
   <p class="notion">※ご要望に相違がある場合は、下記連絡先までご連絡ください。<br>

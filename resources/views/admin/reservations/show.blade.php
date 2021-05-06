@@ -56,8 +56,8 @@
 @if ($reservation->bills->first()->double_check_status==0)
 
 <div class="alert-box d-flex align-items-center mb-0">
-  <p>
-    一人目のチェックが終了しています。ダブルチェックを行ってください。
+  <p class="w-100 text-center">
+    ダブルチェックを行ってください。
   </p>
 </div>　
 @endif
@@ -79,8 +79,8 @@
                {{$reservation->user->admin_or_user==1?"管理者登録":"ユーザー登録"}}
                @endif
               </p>
-            <p class="ml-2">予約ID：{{ReservationHelper::IdFormat($reservation->id)}}</p>
-            <p class="ml-2">一括ID：{{!empty($reservation->multiple_reserve_id)?ReservationHelper::IdFormat($reservation->multiple_reserve_id):""}}</p>
+            <p class="ml-3">予約ID：{{ReservationHelper::IdFormat($reservation->id)}}</p>
+            <p class="ml-3">一括ID：{{!empty($reservation->multiple_reserve_id)?ReservationHelper::IdFormat($reservation->multiple_reserve_id):""}}</p>
             </div>
           </td>
         </tr>
