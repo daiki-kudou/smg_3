@@ -89,7 +89,7 @@
             <td>{{ReservationHelper::paidStatus($reservation->bills->first()->paid)}}</td>
             <td rowspan="{{count($reservation->bills)}}"><a href="{{ url('user/home/'.$reservation->id) }}" class="more_btn btn">詳細</a></td>
             <td> 
-              {{ Form::open(['url' => 'admin/invoice', 'method'=>'post', 'class'=>'']) }}
+              {{ Form::open(['url' => 'admin/invoice', 'method'=>'post', 'target'=>'_blank', 'class'=>'']) }}
               @csrf
               {{ Form::hidden('reservation_id', $reservation->id ) }}
               {{ Form::hidden('bill_id', $reservation->bills->first()->id ) }}
@@ -97,7 +97,7 @@
               {{ Form::close() }}
             </td>
             <td>
-              {{ Form::open(['url' => 'admin/receipts', 'method'=>'post', 'class'=>'']) }}
+              {{ Form::open(['url' => 'admin/receipts', 'method'=>'post', 'target'=>'_blank', 'class'=>'']) }}
               @csrf
               {{ Form::hidden('bill_id', $reservation->bills->first()->id ) }}
               <p class="mr-2">{{ Form::submit('領収書をみる',['class' => 'more_btn btn']) }}</p>
@@ -114,7 +114,7 @@
               <td>{{ReservationHelper::formatDate($reservation->bills->skip($i+1)->first()->payment_limit)}}</td>
               <td>{{ReservationHelper::paidStatus($reservation->bills->skip($i+1)->first()->paid)}}</td>
               <td>
-                {{ Form::open(['url' => 'admin/invoice', 'method'=>'post', 'class'=>'']) }}
+                {{ Form::open(['url' => 'admin/invoice', 'method'=>'post', 'target'=>'_blank', 'class'=>'']) }}
                 @csrf
                 {{ Form::hidden('reservation_id', $reservation->id ) }}
                 {{ Form::hidden('bill_id', $reservation->bills->skip($i+1)->first()->id ) }}
@@ -122,7 +122,7 @@
                 {{ Form::close() }}  
               </td>
               <td>
-                {{ Form::open(['url' => 'admin/receipts', 'method'=>'post', 'class'=>'']) }}
+                {{ Form::open(['url' => 'admin/receipts', 'method'=>'post', 'target'=>'_blank', 'class'=>'']) }}
                 @csrf
                 {{ Form::hidden('bill_id', $reservation->bills->skip($i+1)->first()->id)}}
                 <p class="mr-2">{{ Form::submit('領収書をみる',['class' => 'more_btn btn']) }}</p>

@@ -1760,6 +1760,10 @@ table .master_total_subttl2 {
       background: #f2f2f2;
   }
 
+  .user_wrapper .bill_status ul li:last-child p {
+      text-align: right;
+  }
+
 @media screen and (max-width: 767px) {
 
     .accordion_btn {
@@ -1835,6 +1839,11 @@ table .master_total_subttl2 {
 .user_wrap .table-active {
     width: 100%;
 }
+
+.user_wrapper .bill_status ul li:last-child p {
+    text-align: left;
+}
+
 
 .user_wrapper .head_cancel td:nth-child(3) {
     width: 30px;
