@@ -359,7 +359,7 @@
                 <tr>
                   <th colspan='2'>
                     <p class="title-icon">
-                      <i class="fas fa-utensils icon-size fa-fw"></i>工藤さん！！！こちらお願いします。室内飲食
+                      <i class="fas fa-utensils icon-size fa-fw"></i>室内飲食
                     </p>
                   </th>
                 </tr>
