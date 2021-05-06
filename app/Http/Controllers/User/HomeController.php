@@ -159,8 +159,14 @@ class HomeController extends Controller
   {
     $cxl = Cxl::with("reservation")->find($request->cxl_id);
     $cxl->update(["cxl_status" => 2]);
-    $bill = Bill::find($cxl->bill_id);
-    $bill->update(["reservation_status" => 6]);
+    if ($cxl->bill_id == 0) {
+      $cxl->reservation->bills->map(function ($item, $key) {
+        $item->update(["reservation_status" => 6]);
+      });
+    } else {
+      $bill = Bill::find($cxl->bill_id);
+      $bill->update(["reservation_status" => 6]);
+    }
     return redirect('user/home');
   }
 }

@@ -1333,8 +1333,6 @@
     {{ Form::submit('キャンセルを承認する',['class' => 'btn more_btn4_lg']) }}
     {{ Form::close() }}
     @endforeach
-
-
   </p>
   <p class="notion">※ご要望に相違がある場合は、下記連絡先までご連絡ください。<br>
     TEL：06-1234-5678<br>
