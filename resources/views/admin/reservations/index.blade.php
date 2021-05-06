@@ -179,7 +179,7 @@
               </ul>
             </td>
           </tr>
-          <tr>
+          <!-- <tr>
             <th class="search_item_name"><label for="category">売上区分</label></th>
             <td class="text-right" colspan="3">
               <ul class="search_category">
@@ -193,7 +193,7 @@
                 </li>
               </ul>
             </td>
-          </tr>
+          </tr> -->
           <tr>
             <th class="search_item_name"><label for="Status">予約状況</label></th>
             <td colspan="3">
