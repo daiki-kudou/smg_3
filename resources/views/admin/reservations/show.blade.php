@@ -142,13 +142,13 @@
         <tr>
           <td class="table-active"><label for="eventStart">イベント開始時間</label></td>
           <td>
-            {{$reservation->event_start}}
+            {{ReservationHelper::formatTime($reservation->event_start)}}
           </td>
         </tr>
         <tr>
           <td class="table-active"><label for="eventFinish">イベント終了時間</label></td>
           <td>
-            {{$reservation->event_finish}}
+            {{ReservationHelper::formatTime($reservation->event_finish)}}
           </td>
         </tr>
         <tr>
@@ -466,7 +466,7 @@
             </td>
             @endif
             <td>
-              <div><span>申込日：</span>{{$reservation->bills->first()->created_at}}</div>
+              <div><span>申込日：</span>{{ReservationHelper::formatDate($reservation->bills->first()->created_at)}}</div>
               <div><span>予約確定日：</span>{{$reservation->bills->first()->approve_send_at}}</div>
             </td>
           </tr>
@@ -1284,10 +1284,16 @@
   <div class="paid">
     <div class="paid_details">
       <div class="head d-flex">
-        <div class="d-flex align-items-center">
+        <div class="d-flex align-items-center justify-content-between w-100">
           <h3 class="pl-3">
             入金情報
           </h3>
+          <p class="mr-2">
+          @if ($cxl->paid==1)
+          <a target='_blank' href="{{url('admin/receipts/'.$reservation->bills->first()->id)}}"
+            class="btn more_btn4">領収書をみる</a>
+          @endif
+        </p>
         </div>
       </div>
       <div class="main">
