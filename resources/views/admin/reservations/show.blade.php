@@ -1124,10 +1124,11 @@
           @endif
       </div>
 
-      <div class="invoice_box d-flex justify-content-end my-3">
+      <!-- <div class="invoice_box d-flex justify-content-end my-3">
         <p class="mr-2"><a class="btn more_btn" href="">請求書をみる</a></p>
         <p class="mr-2"><a class="btn more_btn4" href="">キャンセル領収書をみる</a></p>
-      </div>
+      </div> -->
+
     </div>
 
     <div class="bill_details">
@@ -1238,6 +1239,15 @@
           <h3>
             請求書情報
           </h3>
+          </h3>
+          {{ Form::open(['url' => 'admin/invoice', 'method'=>'post', 'target'=>'_blank','class'=>'']) }}
+        @csrf
+        {{ Form::hidden('reservation_id', $reservation->id ) }}
+        {{ Form::hidden('cxl_id', $cxl->id ) }}
+        <p class="mr-2">
+          {{ Form::submit('請求書をみる',['class' => 'btn more_btn']) }}
+        </p>
+        {{ Form::close() }}
         </div>
       </div>
       <div class="main hide">
