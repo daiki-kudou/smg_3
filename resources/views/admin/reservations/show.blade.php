@@ -70,17 +70,17 @@
         <tr>
           <td colspan="2">
             <div class="d-flex align-items-center">
-            <p class="title-icon">
-              <i class="fas fa-info-circle icon-size"></i>
-              予約情報
-            </p>
-             <p class="alliance_color ml-2">
-               @if ($reservation->user_id>0)
-               {{$reservation->user->admin_or_user==1?"管理者登録":"ユーザー登録"}}
-               @endif
+              <p class="title-icon">
+                <i class="fas fa-info-circle icon-size"></i>
+                予約情報
               </p>
-            <p class="ml-3">予約ID：{{ReservationHelper::IdFormat($reservation->id)}}</p>
-            <p class="ml-3">一括ID：{{!empty($reservation->multiple_reserve_id)?ReservationHelper::IdFormat($reservation->multiple_reserve_id):""}}</p>
+              <p class="alliance_color ml-2">
+                @if ($reservation->user_id>0)
+                {{$reservation->user->admin_or_user==1?"管理者登録":"ユーザー登録"}}
+                @endif
+              </p>
+              <p class="ml-3">予約ID：{{ReservationHelper::IdFormat($reservation->id)}}</p>
+              <p class="ml-3">一括ID：{{!empty($reservation->multiple_reserve_id)?ReservationHelper::IdFormat($reservation->multiple_reserve_id):""}}</p>
             </div>
           </td>
         </tr>
@@ -398,8 +398,7 @@
                 </dl>
                 @if (!empty($reservation->user))
                 @if ($reservation->bills->first()->reservation_status<3) <p>
-                  <a href="{{url('admin/reservations/'.$reservation->bills->first()->id.'/edit')}}"
-                    class="btn more_btn">編集</a>
+                  <a href="{{url('admin/reservations/'.$reservation->bills->first()->id.'/edit')}}" class="btn more_btn">編集</a>
                   </p>
                   @endif
                   @else
@@ -486,7 +485,7 @@
         {{ Form::hidden('reservation_id', $reservation->id ) }}
         <p class="text-right py-2 mr-2">
           {{ Form::submit('一括キャンセル',['class' => 'btn more_btn4', $judgeMultiDelete!=1?"disabled":"",'name'=>'multi']) }}
-          <div class="text-right"><span>※全ての予約ステータスが「予約完了」か確認してください</span></div>
+        <div class="text-right"><span>※全ての予約ステータスが「予約完了」か確認してください</span></div>
         </p>
         {{ Form::close() }}
         @endif
@@ -546,8 +545,7 @@
               <tr>
                 <td></td>
                 <td>
-                  <span
-                    class="font-weight-bold">合計金額：</span>{{number_format($reservation->bills->first()->master_total)}}
+                  <span class="font-weight-bold">合計金額：</span>{{number_format($reservation->bills->first()->master_total)}}
                 </td>
               </tr>
             </tbody>
@@ -569,13 +567,13 @@
             請求書情報
           </h3>
           {{ Form::open(['url' => 'admin/invoice', 'method'=>'post', 'target'=>'_blank','class'=>'']) }}
-        @csrf
-        {{ Form::hidden('reservation_id', $reservation->id ) }}
-        {{ Form::hidden('bill_id', $reservation->bills->first()->id ) }}
-        <p class="mr-2">
-          {{ Form::submit('請求書をみる',['class' => 'btn more_btn']) }}
-        </p>
-        {{ Form::close() }}
+          @csrf
+          {{ Form::hidden('reservation_id', $reservation->id ) }}
+          {{ Form::hidden('bill_id', $reservation->bills->first()->id ) }}
+          <p class="mr-2">
+            {{ Form::submit('請求書をみる',['class' => 'btn more_btn']) }}
+          </p>
+          {{ Form::close() }}
         </div>
       </div>
       <div class="main hide">
@@ -616,12 +614,19 @@
           <h3 class="pl-3">
             入金情報
           </h3>
-          <p class="mr-2">
+          <!-- <p class="mr-2">
           @if ($reservation->bills->first()->paid==1)
           <a target='_blank' href="{{url('admin/receipts/'.$reservation->bills->first()->id)}}"
             class="btn more_btn4">領収書をみる</a>
           @endif
-        </p>
+        </p> -->
+          {{ Form::open(['url' => 'admin/receipts', 'method'=>'post', 'target'=>'_blank', 'class'=>'']) }}
+          @csrf
+          {{ Form::hidden('bill_id', $reservation->bills->first()->id ) }}
+          @if ($reservation->bills->first()->paid==1)
+          <p class="mr-2">{{ Form::submit('領収書をみる',['class' => 'more_btn4 btn']) }}</p>
+          @endif
+          {{ Form::close() }}
         </div>
       </div>
       <div class="main">
@@ -629,7 +634,7 @@
           <table class="table">
             <tbody>
               <tr>
-                <td> 
+                <td>
                   入金状況
                   {{ReservationHelper::paidStatus($reservation->bills->first()->paid)}}
                 </td>
@@ -715,8 +720,7 @@
                 </dl>
                 <p>
                   @if ($reservation->user_id>0)
-                  @if ($other_bill->reservation_status < 3) <a href="{{url('admin/bills/'.$other_bill->id.'/edit')}}"
-                    class="btn more_btn">追加請求書編集</a>
+                  @if ($other_bill->reservation_status < 3) <a href="{{url('admin/bills/'.$other_bill->id.'/edit')}}" class="btn more_btn">追加請求書編集</a>
                     @endif
                     @else
                     <a href="{{url('admin/bills/'.$other_bill->id.'/agent_edit')}}" class="btn more_btn">編集</a>
@@ -888,13 +892,13 @@
             請求書情報
           </h3>
           {{ Form::open(['url' => 'admin/invoice', 'method'=>'post', 'target'=>'_blank','class'=>'']) }}
-        @csrf
-        {{ Form::hidden('reservation_id', $reservation->id ) }}
-        {{ Form::hidden('bill_id', $other_bill->id ) }}
-        <p class="mr-2">
-          {{ Form::submit('請求書をみる',['class' => 'btn more_btn']) }}
-        </p>
-        {{ Form::close() }}
+          @csrf
+          {{ Form::hidden('reservation_id', $reservation->id ) }}
+          {{ Form::hidden('bill_id', $other_bill->id ) }}
+          <p class="mr-2">
+            {{ Form::submit('請求書をみる',['class' => 'btn more_btn']) }}
+          </p>
+          {{ Form::close() }}
         </div>
       </div>
       <div class="main hide">
@@ -935,12 +939,19 @@
           <h3 class="pl-3">
             入金情報
           </h3>
-          <p class="mr-2">
+          <!-- <p class="mr-2">
+            @if ($other_bill->paid==1)
+            <a target='_blank' href="{{url('admin/receipts/'.$reservation->bills->first()->id)}}" class="btn more_btn4">領収書をみる</a>
+            @endif
+          </p> -->
+          {{ Form::open(['url' => 'admin/receipts', 'method'=>'post', 'target'=>'_blank', 'class'=>'']) }}
+          @csrf
+          {{ Form::hidden('reservation_id', $reservation->id ) }}
+          {{ Form::hidden('bill_id', $other_bill->id ) }}
           @if ($other_bill->paid==1)
-          <a target='_blank' href="{{url('admin/receipts/'.$reservation->bills->first()->id)}}"
-            class="btn more_btn4">領収書をみる</a>
+          <p class="mr-2">{{ Form::submit('領収書をみる',['class' => 'more_btn4 btn']) }}</p>
           @endif
-        </p>
+          {{ Form::close() }}
         </div>
       </div>
       <div class="main">
@@ -1241,13 +1252,13 @@
           </h3>
           </h3>
           {{ Form::open(['url' => 'admin/invoice', 'method'=>'post', 'target'=>'_blank','class'=>'']) }}
-        @csrf
-        {{ Form::hidden('reservation_id', $reservation->id ) }}
-        {{ Form::hidden('cxl_id', $cxl->id ) }}
-        <p class="mr-2">
-          {{ Form::submit('請求書をみる',['class' => 'btn more_btn']) }}
-        </p>
-        {{ Form::close() }}
+          @csrf
+          {{ Form::hidden('reservation_id', $reservation->id ) }}
+          {{ Form::hidden('cxl_id', $cxl->id ) }}
+          <p class="mr-2">
+            {{ Form::submit('請求書をみる',['class' => 'btn more_btn']) }}
+          </p>
+          {{ Form::close() }}
         </div>
       </div>
       <div class="main hide">
@@ -1288,12 +1299,19 @@
           <h3 class="pl-3">
             入金情報
           </h3>
-          <p class="mr-2">
+          <!-- <p class="mr-2">
+            @if ($cxl->paid==1)
+            <a target='_blank' href="{{url('admin/receipts/'.$reservation->bills->first()->id)}}" class="btn more_btn4">領収書をみる</a>
+            @endif
+          </p> -->
+          {{ Form::open(['url' => 'admin/receipts', 'method'=>'post', 'target'=>'_blank', 'class'=>'']) }}
+          @csrf
+          {{ Form::hidden('reservation_id', $reservation->id ) }}
+          {{ Form::hidden('bill_id', $cxl->id ) }}
           @if ($cxl->paid==1)
-          <a target='_blank' href="{{url('admin/receipts/'.$reservation->bills->first()->id)}}"
-            class="btn more_btn4">領収書をみる</a>
+          <p class="mr-2">{{ Form::submit('領収書をみる',['class' => 'more_btn4 btn']) }}</p>
           @endif
-        </p>
+          {{ Form::close() }}
         </div>
       </div>
       <div class="main">
@@ -1458,8 +1476,6 @@
       }
     });
   });
-
-
 </script>
 
 
