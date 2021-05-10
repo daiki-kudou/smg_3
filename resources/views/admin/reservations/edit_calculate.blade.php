@@ -217,7 +217,7 @@
           <tbody class="accordion-wrap">
             @foreach ($venue->getEquipments() as $key=>$equipment)
             <tr>
-              <td class="table-active">{{$equipment->item}}</td>
+              <td class="table-active">{{$equipment->item}}({{$equipment->price}}円)</td>
               <td>
                 @if (!empty($basicInfo['equipment_breakdown'.$key]))
                 {{ Form::text('equipment_breakdown'.$key, $basicInfo['equipment_breakdown'.$key],['class'=>'form-control equipment_breakdown'] ) }}
@@ -245,7 +245,7 @@
             @foreach ($venue->getServices() as $key=>$service)
             <tr>
               <td class="table-active">
-                {{$service->item}}
+                {{$service->item}}({{$service->price}}円)
               </td>
               <td>
                 <div class="radio-box">
@@ -277,7 +277,7 @@
           </thead>
           <tbody>
             <tr>
-              <td class="table-active">準備</td>
+              <td class="table-active">準備({{number_format($venue->layout_prepare)}}円)</td>
               <td>
                 <div class="radio-box">
                   @if (!empty($basicInfo['layout_prepare']))
@@ -303,7 +303,7 @@
               </td>
             </tr>
             <tr>
-              <td class="table-active">片付</td>
+              <td class="table-active">片付({{number_format($venue->layout_clean)}}円)</td>
               <td>
                 <div class="radio-box">
                   @if ($basicInfo['layout_clean'])
@@ -1084,7 +1084,7 @@
           <table class="table" style="table-layout: fixed;">
             <tr>
               <td>入金状況
-                {{Form::select('paid', ['未入金', '入金済み'],$reservationEditMaster['paid']==1?1:2,['class'=>'form-control'])}}
+                {{Form::select('paid', ['未入金', '入金済み','遅延','入金不足','入金過多','次回繰越'],$reservationEditMaster['paid'],['class'=>'form-control'])}}
               </td>
               <td>
                 入金日{{ Form::text('pay_day', date('Y-m-d',strtotime($reservationEditMaster['pay_day'])),['class'=>'form-control', 'id'=>'datepicker7'] ) }}

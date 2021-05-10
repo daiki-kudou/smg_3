@@ -1,10 +1,9 @@
 @extends('layouts.admin.app')
 
 @section('content')
-
-
 <link href="{{ asset('/css/template.css') }}" rel="stylesheet">
 <script src="{{ asset('/js/template.js') }}"></script>
+<script src="{{ asset('/js/admin/validation.js') }}"></script>
 
 <style>
   #fullOverlay {
@@ -35,7 +34,7 @@
 <hr>
 
 
-{{ Form::open(['url' => 'admin/agents_reservations/create_session', 'method'=>'POST']) }}
+{{ Form::open(['url' => 'admin/agents_reservations/create_session', 'method'=>'POST','id'=>'agentsbillsCreateForm']) }}
 @csrf
 {{ Form::hidden('reservation_id', $reservation->id)}}
 {{ Form::hidden('reserve_date', $reservation->reserve_date,)}}
@@ -310,24 +309,28 @@
                 <td>
                   {{ Form::text('enduser_charge', !empty($data['enduser_charge'])?$data['enduser_charge']:"", ['class' => 'form-control','placeholder'=>"入力してください" ])}}
                   {{ Form::hidden('enduser_charge_result', !empty($data['enduser_charge_result'])?$data['enduser_charge_result']:"", ['class' => 'form-control','placeholder'=>"入力してください" ])}}
+                  <p class="is-error-enduser_charge" style="color: red"></p>
                 </td>
               </tr>
               <tr>
                 <td>小計：</td>
                 <td>
                   {{ Form::text('master_subtotal', '', ['class' => 'form-control' , 'readonly'])}}
+                  <p class="is-error-master_subtotal" style="color: red"></p>
                 </td>
               </tr>
               <tr>
                 <td>消費税：</td>
                 <td>
                   {{ Form::text('master_tax', '', ['class' => 'form-control' , 'readonly'])}}
+                  <p class="is-error-master_tax" style="color: red"></p>
                 </td>
               </tr>
               <tr>
                 <td class="font-weight-bold">合計金額</td>
                 <td>
                   {{ Form::text('master_total', '', ['class' => 'form-control' , 'readonly'])}}
+                  <p class="is-error-master_total" style="color: red"></p>
                 </td>
               </tr>
             </tbody>

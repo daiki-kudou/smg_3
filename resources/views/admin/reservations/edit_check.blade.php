@@ -121,7 +121,7 @@
           <tbody class="accordion-wrap">
             @foreach ($venue->getEquipments() as $key=>$equipment)
             <tr>
-              <td class="table-active">{{$equipment->item}}</td>
+              <td class="table-active">{{$equipment->item}}({{$equipment->price}}円)</td>
               <td>
                 @if (!empty($basicInfo['equipment_breakdown'.$key]))
                 {{ Form::text('equipment_breakdown'.$key, $basicInfo['equipment_breakdown'.$key],['class'=>'form-control equipment_breakdown','readonly'] ) }}
@@ -149,7 +149,7 @@
             @foreach ($venue->getServices() as $key=>$service)
             <tr>
               <td class="table-active">
-                {{$service->item}}
+                {{$service->item}}({{$equipment->price}}円)
               </td>
               <td>
                 {{ Form::text('services_breakdown'.$key, $basicInfo['services_breakdown'.$key]==1?"あり":"なし",['class'=>'form-control','readonly'] ) }}
@@ -175,7 +175,7 @@
           <tbody>
             <tr>
               <td class="table-active">
-                準備
+                準備({{number_format($venue->layout_prepare)}}円)
               </td>
               <td>
                 {{ Form::text('', $basicInfo['layout_prepare']==1?"有り":"無し",['class'=>'form-control', 'readonly'] ) }}
@@ -183,7 +183,9 @@
               </td>
             </tr>
             <tr>
-              <td class="table-active">片付</td>
+              <td class="table-active">
+                片付({{number_format($venue->layout_clean)}}円)
+              </td>
               <td>
                 {{ Form::text('', $basicInfo['layout_clean']==1?"有り":"無し",['class'=>'form-control', 'readonly'] ) }}
                 {{ Form::hidden('layout_clean', $basicInfo['layout_clean'],['class'=>'form-control', 'readonly'] ) }}
@@ -860,7 +862,7 @@
             <tbody>
               <tr>
                 <td>入金状況
-                  {{Form::text('',$result['paid']==1?"支払済":"未払",['class'=>'form-control','readonly'])}}
+                  {{Form::text('',ReservationHelper::paidStatus($result['paid']),['class'=>'form-control','readonly'])}}
                   {{Form::hidden('paid',$result['paid'],['class'=>'form-control','readonly'])}}
                 </td>
                 <td>

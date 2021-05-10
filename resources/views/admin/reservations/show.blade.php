@@ -56,8 +56,8 @@
 @if ($reservation->bills->first()->double_check_status==0)
 
 <div class="alert-box d-flex align-items-center mb-0">
-  <p>
-    一人目のチェックが終了しています。ダブルチェックを行ってください。
+  <p class="w-100 text-center">
+    ダブルチェックを行ってください。
   </p>
 </div>　
 @endif
@@ -69,10 +69,19 @@
       <table class="table table-bordered">
         <tr>
           <td colspan="2">
+            <div class="d-flex align-items-center">
             <p class="title-icon">
               <i class="fas fa-info-circle icon-size"></i>
               予約情報
             </p>
+             <p class="alliance_color ml-2">
+               @if ($reservation->user_id>0)
+               {{$reservation->user->admin_or_user==1?"管理者登録":"ユーザー登録"}}
+               @endif
+              </p>
+            <p class="ml-3">予約ID：{{ReservationHelper::IdFormat($reservation->id)}}</p>
+            <p class="ml-3">一括ID：{{!empty($reservation->multiple_reserve_id)?ReservationHelper::IdFormat($reservation->multiple_reserve_id):""}}</p>
+            </div>
           </td>
         </tr>
         <tr>
@@ -620,7 +629,9 @@
           <table class="table">
             <tbody>
               <tr>
-                <td> {{$reservation->bills->first()->paid==0?"未入金":"入金済"}}
+                <td> 
+                  入金状況
+                  {{ReservationHelper::paidStatus($reservation->bills->first()->paid)}}
                 </td>
                 <td>
                   入金日：

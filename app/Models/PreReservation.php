@@ -684,6 +684,7 @@ class PreReservation extends Model
       'admin_details' => $this->admin_details,
       'eat_in' => !empty($this->eat_in) ? $this->eat_in : 0,
       'eat_in_prepare' => !empty($this->eat_in_prepare) ? $this->eat_in_prepare : 0,
+      "multiple_reserve_id" => $this->multiple_reserve_id,
     ]);
     //reservationのReserveStoreBillに持たせるためのrequestを作成
     $request->merge([

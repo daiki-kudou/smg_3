@@ -172,7 +172,6 @@
                       {{isset($request->board_flag)?$request->board_flag==0?'checked':'':'checked',}}>
                     <span class="ml-1">無し</span>
                   </p>
-
                 </div>
               </td>
             </tr>

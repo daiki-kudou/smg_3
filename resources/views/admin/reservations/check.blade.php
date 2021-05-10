@@ -135,7 +135,7 @@
           <tbody class="accordion-wrap">
             @foreach ($venue->getEquipments() as $key=>$equipment)
             <tr>
-              <td class="table-active">{{$equipment->item}}</td>
+              <td class="table-active">{{$equipment->item}}({{$equipment->price}}円)</td>
               <td>
                 {{$value['equipment_breakdown'.$key]}}
               </td>
@@ -158,7 +158,7 @@
           <tbody class="accordion-wrap">
             @foreach ($venue->getServices() as $key=>$service)
             <tr>
-              <td class="table-active">{{$service->item}}</td>
+              <td class="table-active">{{$service->item}}({{$service->price}}円)</td>
               <td>
                 {{$value['services_breakdown'.$key]==1?"あり":"なし"}}
               </td>
@@ -182,14 +182,13 @@
           </thead>
           <tbody>
             <tr>
-              <td class="table-active">準備</td>
+              <td class="table-active">準備({{number_format($venue->layout_prepare)}})</td>
               <td>
                 {{$value['layout_prepare']==1?"あり":"なし"}}
-
               </td>
             </tr>
             <tr>
-              <td class="table-active">片付</td>
+              <td class="table-active">片付({{number_format($venue->layout_clean)}})</td>
               <td>
                 {{$value['layout_clean']==1?"あり":"なし"}}
               </td>
@@ -890,7 +889,7 @@
             <tbody>
               <tr>
                 <td>入金状況
-                  {{Form::text('',$checkInfo['paid']==1?"支払済":"未払",['class'=>'form-control','readonly'])}}
+                  {{Form::text('',ReservationHelper::paidStatus($checkInfo['paid']),['class'=>'form-control','readonly'])}}
                 </td>
                 <td>
                   入金日{{ Form::text('pay_day', $checkInfo['pay_day'],['class'=>'form-control', 'readonly'] ) }}

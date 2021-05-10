@@ -63,26 +63,35 @@
         </ul>
       </li>
 
-      <li class="nav-item has-treeview">
+      <li class="nav-item has-treeview 
+      {{ReservationHelper::getController(Route::currentRouteName(),"admin","reservations")}}
+      {{ReservationHelper::getController(Route::currentRouteName(),"admin","agents_reservations")}}
+      ">
         <a href="#" class="nav-link">
           <i class="nav-icon fas fa-book-open"></i>
           <p>予約<i class="right fas fa-angle-left"></i></p>
         </a>
         <ul class="nav nav-treeview">
           <li class="nav-item">
-            <a href="{{ url('admin/reservations') }}" class="nav-link reservations-index">
+            <a href="{{ url('admin/reservations') }}" class="nav-link reservations-index
+            {{ReservationHelper::getRoute(Route::currentRouteName(),'admin.reservations.index')}}
+            ">
               <i class="far fa-circle nav-icon ml-4"></i>
               <p>一覧</p>
             </a>
           </li>
           <li class="nav-item">
-            <a href="{{ url('admin/reservations/create') }}" class="nav-link reservations-create">
+            <a href="{{ url('admin/reservations/create') }}" class="nav-link reservations-create
+            {{ReservationHelper::getRoute(Route::currentRouteName(),'admin.reservations.create')}}
+            ">
               <i class="far fa-circle nav-icon ml-4"></i>
               <p>新規登録</p>
             </a>
           </li>
           <li class="nav-item">
-            <a href="{{ url('admin/agents_reservations/create') }}" class="nav-link agents-reservations-create">
+            <a href="{{ url('admin/agents_reservations/create') }}" class="nav-link agents-reservations-create
+            {{ReservationHelper::getRoute(Route::currentRouteName(),'admin.agents_reservations.create')}}
+            ">
               <div class="d-flex align-items-center">
                 <i class="far fa-circle nav-icon ml-4"></i>
                 <p>新規登録<br>(仲介会社経由)</p>

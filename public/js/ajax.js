@@ -154,7 +154,7 @@ $(function () {
         $('.equipemnts table tbody').html(''); //一旦初期会
         $.each($items[0], function (index, value) {
           // ココで備品取得
-          $('.equipemnts table tbody').append("<tr><td class='table-active'>" + value['item'] + "</td>" + "<td><input type='text' value='0' min=0 name='equipment_breakdown" + index + "' class='form-control equipment_breakdown'></td></tr>");
+          $('.equipemnts table tbody').append("<tr><td class='table-active'>" + value['item'] + "(" +(Number(value['price'])).toLocaleString() + "円)"+ "</td>" + "<td><input type='text' value='0' min=0 name='equipment_breakdown" + index + "' class='form-control equipment_breakdown'></td></tr>");
         });
         // ***********マイナス、全角制御用
         function ExceptString($target) {
@@ -177,7 +177,7 @@ $(function () {
         $.each($items[1], function (index, value) {
           // ココでサービス取得
           // 有り・無しに変更するため以下コメントアウト
-          $('.services table tbody').append("<tr><td class='table-active'>" + value['item'] + "</td>" + "<td><input type='radio' value='1' name='services_breakdown" + index + "' id='service" + index + "on'><label class='mr-3 ml-1' for='service" + index + "on'>有り</label><input type='radio' value='0' id='service" + index + "off' name='services_breakdown" + index + "' checked><label for='service" + index + "off' class='ml-1'>無し</label></td></tr>");
+          $('.services table tbody').append("<tr><td class='table-active'>" + value['item'] + "(" +(Number(value['price'])).toLocaleString()+ "円)"+ "</td>" + "<td><input type='radio' value='1' name='services_breakdown" + index + "' id='service" + index + "on'><label class='mr-3 ml-1' for='service" + index + "on'>有り</label><input type='radio' value='0' id='service" + index + "off' name='services_breakdown" + index + "' checked><label for='service" + index + "off' class='ml-1'>無し</label></td></tr>");
         });
       })
       .fail(function (data) {
@@ -506,10 +506,7 @@ $(function () {
       },
     })
       .done(function ($result) {
-        // $('#fullOverlay').css('display', 'none');
-        // console.log($result);
         $('.layouts table tbody').html(''); //初期化
-        var data =
           $result == 1 ? $('.layouts table tbody').append("<tr><td class='table-active'>準備</td><td><input type='radio' name='layout_prepare' id='layout_prepare' value='" + 1 + "' class='mr-1'><label for='layout_prepare' class='mr-2'>有り</label><input type='radio' name='layout_prepare' id='no_layout_prepare' value='" + 0 + "' checked class='mr-1'><label for='no_layout_prepare'>無し</label></td></tr><tr><td class='table-active'>片付</td><td><input type='radio' name='layout_clean' id='layout_clean' value='" + 1 + "' class='mr-1'><label for='layout_clean' class='mr-2'>有り</label><input type='radio' name='layout_clean' id='no_layout_clean' value='" + 0 + "'checked class='mr-1'><label for='no_layout_clean'>無し</label></td></tr>") : $('.layouts table tbody').append('<tr><td>該当会場はレイアウト変更を受け付けていません</td></tr>');
       })
       .fail(function ($result) {

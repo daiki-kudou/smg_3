@@ -22,5 +22,10 @@ $factory->define(Bill::class, function (Faker $faker) {
     'double_check_status' => 0,
     'category' => 1,
     'admin_judge' => 1,
+    'payment_limit' => "2020-12-12",
+    'bill_company' => "test",
+    'bill_person' => "test",
+    'bill_created_at' => "2020-12-12",
+    'reservation_status' => "1",
   ];
 });

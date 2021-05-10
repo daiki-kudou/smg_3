@@ -10,9 +10,9 @@ use App\Models\Bill;
 
 class ReceiptsController extends Controller
 {
-  public function show($bill_id)
+  public function show(Request $request)
   {
-    $bill = Bill::with(['reservation.user', 'reservation.agent', 'breakdowns'])->find($bill_id);
+    $bill = Bill::with(['reservation.user', 'reservation.agent', 'breakdowns'])->find($request->bill_id);
     return view('admin.receipts.show', compact('bill'));
   }
 }

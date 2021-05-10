@@ -70,50 +70,74 @@
             <th class="btn-cell">領収書</th>
           </tr>
         </thead>
-        @foreach ($user->reservations()->get() as $reservation)
+        @foreach ($user->reservations as $reservation)
         <tbody>
           <tr>
-            <td rowspan="{{count($reservation->bills()->get())}}">{{ReservationHelper::fixId($reservation->id)}}
+            <td rowspan="{{count($reservation->bills)}}">{{ReservationHelper::fixId($reservation->id)}}
             </td>
-            <td rowspan="{{count($reservation->bills()->get())}}">
+            <td rowspan="{{count($reservation->bills)}}">
               {{ReservationHelper::formatDate($reservation->reserve_date)}}</td>
-            <td rowspan="{{count($reservation->bills()->get())}}">
+            <td rowspan="{{count($reservation->bills)}}">
               {{ReservationHelper::formatTime($reservation->enter_time)}}</td>
-            <td rowspan="{{count($reservation->bills()->get())}}">
+            <td rowspan="{{count($reservation->bills)}}">
               {{ReservationHelper::formatTime($reservation->leave_time)}}</td>
-            <td>{{ReservationHelper::getVenueForUser($reservation->venue_id)}}</td>
-            <td>{{ReservationHelper::judgeStatus($reservation->bills()->first()->reservation_status)}}</td>
-            <td>※カテゴリー</td>
-            <td>{{number_format($reservation->bills()->first()->total)}}円</td>
-            <td>{{$reservation->payment_limit}}</td>
-            <td rowspan="{{count($reservation->bills()->get())}}">{{$reservation->bills()->first()->paid}}</td>
-            <td><a href="{{ url('user/home/'.$reservation->id) }}" class="more_btn btn">詳細</a></td>
-            <td> {{ Form::open(['url' => 'admin/invoice', 'method'=>'post', 'class'=>'']) }}
+            <td rowspan="{{count($reservation->bills)}}">{{ReservationHelper::getVenueForUser($reservation->venue_id)}}</td>
+            <td>{{ReservationHelper::judgeStatus($reservation->bills->first()->reservation_status)}}</td>
+            <td>会場予約</td>
+            <td>{{number_format($reservation->bills->first()->master_total)}}円</td>
+            <td>{{ReservationHelper::formatDate($reservation->bills->first()->payment_limit)}}</td>
+            <td>{{ReservationHelper::paidStatus($reservation->bills->first()->paid)}}</td>
+            <td rowspan="{{count($reservation->bills)}}"><a href="{{ url('user/home/'.$reservation->id) }}" class="more_btn btn">詳細</a></td>
+            <td> 
+              {{ Form::open(['url' => 'admin/invoice', 'method'=>'post', 'target'=>'_blank', 'class'=>'']) }}
               @csrf
               {{ Form::hidden('reservation_id', $reservation->id ) }}
               {{ Form::hidden('bill_id', $reservation->bills->first()->id ) }}
               <p class="mr-2">{{ Form::submit('請求書をみる',['class' => 'btn more_btn']) }}</p>
               {{ Form::close() }}
             </td>
-            <td><a href="" class="more_btn btn">領収書をみる</a></td>
+            <td>
+              {{ Form::open(['url' => 'admin/receipts', 'method'=>'post', 'target'=>'_blank', 'class'=>'']) }}
+              @csrf
+              {{ Form::hidden('bill_id', $reservation->bills->first()->id ) }}
+              @if ($reservation->bills->first()->paid==1)
+              <p class="mr-2">{{ Form::submit('領収書をみる',['class' => 'more_btn btn']) }}</p>
+              @endif
+              {{ Form::close() }}
+            </td>
           </tr>
-          @for ($i = 0; $i < count($reservation->bills()->get())-1; $i++)
+          @for ($i = 0; $i < count($reservation->bills)-1; $i++)
             <tr>
-              <td></td>
               <td>
-                {{ReservationHelper::judgeStatus($reservation->bills()->skip($i+1)->first()->reservation_status)}}
+                {{ReservationHelper::judgeStatus($reservation->bills->skip($i+1)->first()->reservation_status)}}
               </td>
-              <td>カテゴリ</td>
-              <td>{{number_format($reservation->bills()->skip($i+1)->first()->total)}}円</td>
-              <td></td>
-              <td></td>
-              <td></td>
+              <td>追加請求</td>
+              <td>{{number_format($reservation->bills->skip($i+1)->first()->master_total)}}円</td>
+              <td>{{ReservationHelper::formatDate($reservation->bills->skip($i+1)->first()->payment_limit)}}</td>
+              <td>{{ReservationHelper::paidStatus($reservation->bills->skip($i+1)->first()->paid)}}</td>
+              <td>
+                {{ Form::open(['url' => 'admin/invoice', 'method'=>'post', 'target'=>'_blank', 'class'=>'']) }}
+                @csrf
+                {{ Form::hidden('reservation_id', $reservation->id ) }}
+                {{ Form::hidden('bill_id', $reservation->bills->skip($i+1)->first()->id ) }}
+                <p class="mr-2">{{ Form::submit('請求書をみる',['class' => 'btn more_btn']) }}</p>
+                {{ Form::close() }}  
+              </td>
+              <td>
+                {{ Form::open(['url' => 'admin/receipts', 'method'=>'post', 'target'=>'_blank', 'class'=>'']) }}
+                @csrf
+                {{ Form::hidden('bill_id', $reservation->bills->skip($i+1)->first()->id)}}
+                @if ($reservation->bills->skip($i+1)->first()->paid==1)
+                <p class="mr-2">{{ Form::submit('領収書をみる',['class' => 'more_btn btn']) }}</p>
+                @endif
+                {{ Form::close() }}
+              </td>
             </tr>
             @endfor
         </tbody>
         @endforeach
 
-        <tbody>
+        {{-- <tbody>
           <tr>
             <td class="text-center">00000</td>
             <td>2020/12/07(月)</td>
@@ -153,7 +177,7 @@
               <p class="justify-content-center"><a class="more_btn btn" href="">領収書をみる</a></p>
             </td>
           </tr>
-        </tbody>
+        </tbody> --}}
       </table>
     </div>
   </div>

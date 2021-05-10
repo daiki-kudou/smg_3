@@ -275,7 +275,6 @@
           <td> {{ReservationHelper::formatDate($reservation->bills->skip($i)->first()->payment_limit)}}</td>
         </tr>
         @endif
-
         @endfor
     </tbody>
     @endforeach

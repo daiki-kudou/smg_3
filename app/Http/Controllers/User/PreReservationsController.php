@@ -92,6 +92,7 @@ class PreReservationsController extends Controller
       'leave_time' => $pre_reservation->leave_time,
       'status' => 2,
       'price_system' => $pre_reservation->price_system,
+      'multiple_reserve_id' => $pre_reservation->multiple_reserve_id,
     ]);
 
     // 一旦、最新情報でpre reservation を保存。その後予約へ移動

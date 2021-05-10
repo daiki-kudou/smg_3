@@ -94,6 +94,7 @@
             </th>
             <td class="text-right">
               <select class="form-control select2" name="venue_id">
+                <option value=""></option>
                 @foreach ($venue as $venues)
                 <option value="{{$venues->id}}">
                   {{ReservationHelper::getVenue($venues->id)}}
@@ -178,7 +179,7 @@
               </ul>
             </td>
           </tr>
-          <tr>
+          <!-- <tr>
             <th class="search_item_name"><label for="category">売上区分</label></th>
             <td class="text-right" colspan="3">
               <ul class="search_category">
@@ -192,7 +193,7 @@
                 </li>
               </ul>
             </td>
-          </tr>
+          </tr> -->
           <tr>
             <th class="search_item_name"><label for="Status">予約状況</label></th>
             <td colspan="3">
@@ -252,7 +253,13 @@
         <li><a class="more_btn bg-green" href="">キャンセル申請中</a></li>
         <li><a class="more_btn bg-black" href="">予約完了</a></li>
       </ul>
-      <p class="font-weight-bold"><span class="count-color">ダミーダミー</span>件</p>
+
+      @if ($counter!=0)    
+      <p class="font-weight-bold">
+        <span class="count-color">
+        {{$counter}}</span>件
+      </p>
+      @endif
     </div>
     <div class="table-wrap">
       <table class="table table-bordered table-scroll">
@@ -284,7 +291,6 @@
           }
         </style>
         @foreach ($reservations as $reservation)
-
         <tbody class="{{$reservation->cxlGray()? "cxl_gray":""}}">
         <tbody>
           <tr>
@@ -335,9 +341,8 @@
             </td>
             <td rowspan="{{count($reservation->bills)}}">
               @if ($reservation->agent_id>0)
-              {{$reservation->endusers->company}}
+              {{!empty($reservation->endusers->company)?$reservation->endusers->company:""}}
               @endif
-
             </td>
             <td>
               @foreach (ImageHelper::show($reservation->id) as $icon)
@@ -352,11 +357,13 @@
             <td class="text-center" rowspan="{{count($reservation->bills)}}"><a
                 href="{{ url('admin/reservations', $reservation->id) }}" class="more_btn btn">詳細</a></td>
             <td class="text-center" rowspan="{{count($reservation->bills)}}">
+              @if ($reservation->board_flag!=0)
               {{ Form::open(['url' => 'admin/board', 'method'=>'post', 'id'=>'', 'target'=>'_blank'])}}
               @csrf
               {{Form::hidden('reservation_id',$reservation->id)}}
               {{Form::submit('表示', ['class' => 'btn more_btn']) }}
               {{Form::close()}}
+              @endif
             </td>
           </tr>
           @for ($i = 0; $i < count($reservation->bills)-1; $i++)

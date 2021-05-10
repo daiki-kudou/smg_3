@@ -20,7 +20,7 @@
 </div>
 
 {{-- ステータス承認待ち --}}
-@if ($reservation->bills()->first()->reservation_status==2)
+@if ($reservation->bills->first()->reservation_status==2)
 <div class="confirm-box text-center">
   <p>下記、予約内容で承認される場合は、承認ボタンを押してください。</p>
   <p>※承認ボタンは、画面一番下にあります。</p>
@@ -28,11 +28,12 @@
 @endif
 
 <!-- 工藤さん！！！キャンセル承認まちのときの文言です。 -->
+@if ($reservation->cxls->pluck("cxl_status")->contains(1))
 <div class="confirm-box text-center">
-  <p>工藤さん！！！キャンセル承認まちのときに表示です！！</p>
   <p>下記、予約内容のキャンセルを承認される場合は、承認ボタンを押してください。</p>
   <p>※承認ボタンは、画面一番下にあります。</p>
 </div>
+@endif
 
 <!-- 予約詳細--------------------------------------------------------　 -->
 <section class="mt-5">
@@ -68,12 +69,12 @@
                 <li class="d-flex align-items-center mb-2">
                   <p class="bg-status p-2">予約状況</p>
                   <p class="border p-2">
-                    {{ReservationHelper::judgeStatus($reservation->bills()->first()->reservation_status)}}
+                    {{ReservationHelper::judgeStatus($reservation->bills->first()->reservation_status)}}
                   </p>
                 </li>
                 <li>
                   <p><span>申込日：</span>{{ReservationHelper::formatDate($reservation->created_at)}}</p>
-                  <p><span>予約確定日：</span>工藤さん！！！！</p>
+                  <p><span>予約確定日：</span>{{!empty($reservation->approve_send_at)?ReservationHelper::formatDate($reservation->approve_send_at):""}}</p>
                 </li>
               </ul>
             </td>
@@ -166,7 +167,7 @@
             <td class="table-active"><label for="direction">案内板</label></td>
             <td class="d-flex justify-content-between">
               <p>
-                {{$reservation->board_flag}}
+                {{$reservation->board_flag==1?"有り":"無し"}}
               </p>
             </td>
           </tr>
@@ -224,7 +225,7 @@
           </thead>
           <tbody class="accordion-wrap">
             @foreach ($venue->equipments()->get() as $equipment)
-            @foreach ($reservation->bills()->first()->breakdowns()->get() as $breakdown)
+            @foreach ($reservation->bills->first()->breakdowns as $breakdown)
             @if ($equipment->item==$breakdown->unit_item)
             <tr>
               <td class="justify-content-between d-flex">
@@ -249,7 +250,7 @@
           </thead>
           <tbody class="accordion-wrap">
             @foreach ($venue->services()->get() as $service)
-            @foreach ($reservation->bills()->first()->breakdowns()->get() as $breakdown)
+            @foreach ($reservation->bills->first()->breakdowns as $breakdown)
             @if ($service->item==$breakdown->unit_item)
             <tr>
               <td colspan="2">
@@ -274,32 +275,16 @@
               </tr>
             </thead>
             <tbody>
-              <!-- <tr>
-                    <td class="table-active"><label for="layout">レイアウト変更</label></td>
-                    <td>
-                      @foreach ($reservation->bills()->first()->get() as $layout)
-                      {{$layout->layout_total?'有り':'無し'}}
-                      @endforeach
-                    </td>
-                  </tr> -->
               <tr>
                 <td class="table-active"><label for="prelayout">準備</label></td>
                 <td>
-                  @foreach ($reservation->bills()->first()->breakdowns()->get() as $item)
-                  @if ($item->unit_item=="レイアウト準備")
-                  有り
-                  @endif
-                  @endforeach
+                  {{!empty($reservation->bills->first()->breakdowns->where("unit_item","レイアウト準備料金"))?"有り":"無し"}}
                 </td>
               </tr>
               <tr>
                 <td class="table-active"><label for="postlayout">片付</label></td>
                 <td>
-                  @foreach ($reservation->bills()->first()->breakdowns()->get() as $item)
-                  @if ($item->unit_item=="レイアウト片付")
-                  有り
-                  @endif
-                  @endforeach
+                  {{!empty($reservation->bills->first()->breakdowns->where("unit_item","レイアウト片付料金"))?"有り":"無し"}}
                 </td>
               </tr>
             </tbody>
@@ -318,16 +303,16 @@
               </tr>
             </thead>
             <tbody>
-              <tr>
+              <!-- <tr>
                 <td class="table-active"><label for="Delivery"> お荷物預り/返送</label></td>
                 <td>
-                  @foreach ($reservation->bills()->first()->breakdowns()->get() as $item)
+                  @foreach ($reservation->bills->first()->breakdowns as $item)
                   @if ($item->unit_item=="荷物預り/返送")
                   有り
                   @endif
                   @endforeach
                 </td>
-              </tr>
+              </tr> -->
               <tr>
                 <td class="table-active"><label for="preDelivery">事前にお預りする荷物</label></td>
                 <td>
@@ -384,11 +369,18 @@
             </tr>
             <tr>
               <td>
-                工藤さん！未実装
+                {{$reservation->eat_in==1?"あり":"なし"}}
+              </td>
+            </tr>
+            <tr>
+              <td>
+                {{$reservation->eat_in_prepare==1?"手配済み":"検討中"}}
               </td>
             </tr>
           </tbody>
         </table>
+
+
 
         <table class="table table-bordered note-table">
           <tbody>
@@ -401,16 +393,13 @@
               </td>
             </tr>
             <tr>
-              <td>工藤さん！未実装</td>
+              <td>{{$reservation->remark}}</td>
             </tr>
           </tbody>
         </table>
       </div>
       <!-- 右側の項目 終わり-------------------------------------------------- -->
     </div>
-
-
-
   </section>
   <!-- 予約詳細   終わり--------------------------------------------------　 -->
 
@@ -431,19 +420,27 @@
                   </li>
                   <li>
                     <dl class="ttl_box">
-                      <!-- <dt>合計金額</dt> -->
-                      <dd class="total_result">合計金額：ダミー円</dd>
+                      <dd class="total_result">合計金額：
+                        {{number_format($reservation->bills->first()->master_total)}}
+                      </dd>
                     </dl>
                     <dl class="ttl_box">
-                      <!-- <dt>支払い期日</dt> -->
-                      <dd class="total_result">支払い期日：ダミー</dd>
+                      <dd class="total_result">支払い期日：
+                        {{(ReservationHelper::formatDate($reservation->bills->first()->payment_limit))}}
+
+                      </dd>
                     </dl>
                     <div class="bill_btn_wrap">
-                      <p class="mb-2"><a class="more_btn" href="{{ url('user/home/generate_invoice/'.$reservation->id) }}">請求書を見る</a></p>
+                      {{ Form::open(['url' => 'admin/invoice', 'method'=>'post', 'target'=>'_blank', 'class'=>'']) }}
+                      @csrf
+                      {{ Form::hidden('reservation_id', $reservation->id ) }}
+                      {{ Form::hidden('bill_id', $reservation->bills->first()->id ) }}
+                      <p class="mr-2">{{ Form::submit('請求書をみる',['class' => 'btn more_btn']) }}</p>
+                      {{ Form::close() }}
                       <!-- 工藤さん！領収書をみるボタンはステータスが入金確認後に表示------ -->
+                      @if ($reservation->bills->first()->paid==1)
                       <p><a class="more_btn4" href="">領収書を見る</a></p>
-                      {{--@if ($reservation->bills()->first()->paid==1)　--}}
-                      {{-- @endif --}}
+                      @endif
                     </div>
                   </li>
                 </ul>
@@ -451,7 +448,6 @@
             </tr>
           </tbody>
         </table>
-        {{-- @endif --}}
       </div>
 
       <div class="bill_details">
@@ -487,18 +483,22 @@
                 </tr>
               </tbody>
               <tbody class="venue_main">
+                @foreach ($reservation->bills->first()->breakdowns->where("unit_type",1) as $v)
                 <tr>
-                  <td></td>
-                  <td></td>
-                  <td></td>
-                  <td></td>
+                  <td>{{$v->unit_item}}</td>
+                  <td>{{number_format($v->unit_cost)}}</td>
+                  <td>{{$v->unit_count}}</td>
+                  <td>{{number_format($v->unit_subtotal)}}</td>
                 </tr>
+                @endforeach
               </tbody>
               <tbody class="venue_result">
                 <tr>
                   <td colspan="4">
                     <div class="result_sum">
-                      <p class="text-right">合計金額：ダミー</p>
+                      <p class="text-right">合計金額：
+                        {{number_format($reservation->bills->first()->venue_price)}}
+                      </p>
                     </div>
                   </td>
                 </tr>
@@ -526,24 +526,30 @@
                 </tr>
               </tbody>
               <tbody class="equipment_main">
+                @foreach ($reservation->bills->first()->breakdowns->where("unit_type",2) as $e)
                 <tr>
-                  <td></td>
-                  <td></td>
-                  <td></td>
-                  <td></td>
+                  <td>{{$e->unit_item}}</td>
+                  <td>{{number_format($e->unit_cost)}}</td>
+                  <td>{{$e->unit_count}}</td>
+                  <td>{{number_format($e->unit_subtotal)}}</td>
                 </tr>
+                @endforeach
+                @foreach ($reservation->bills->first()->breakdowns->where("unit_type",3) as $s)
                 <tr>
-                  <td></td>
-                  <td></td>
-                  <td></td>
-                  <td></td>
+                  <td>{{$s->unit_item}}</td>
+                  <td>{{number_format($s->unit_cost)}}</td>
+                  <td>{{$s->unit_count}}</td>
+                  <td>{{number_format($s->unit_subtotal)}}</td>
                 </tr>
+                @endforeach
               </tbody>
               <tbody class="equipment_result">
                 <tr>
                   <td colspan="4">
                     <div class="result_sum">
-                      <p class="text-right">合計金額：ダミー</p>
+                      <p class="text-right">合計金額：
+                        {{number_format($reservation->bills->first()->equipment_price)}}
+                      </p>
                     </div>
                   </td>
                 </tr>
@@ -571,18 +577,22 @@
                 </tr>
               </tbody>
               <tbody class="layout_main">
+                @foreach ($reservation->bills->first()->breakdowns->where("unit_type",4) as $l)
                 <tr>
-                  <td></td>
-                  <td></td>
-                  <td></td>
-                  <td></td>
+                  <td>{{$l->unit_item}}</td>
+                  <td>{{number_format($l->unit_cost)}}</td>
+                  <td>{{$l->unit_count}}</td>
+                  <td>{{number_format($l->unit_subtotal)}}</td>
                 </tr>
+                @endforeach
               </tbody>
               <tbody class="layout_result">
                 <tr>
                   <td colspan="4">
                     <div class="result_sum">
-                      <p class="text-right">合計金額：ダミー</p>
+                      <p class="text-right">合計金額：
+                        {{number_format($reservation->bills->first()->layout_price)}}
+                      </p>
                     </div>
                   </td>
                 </tr>
@@ -610,18 +620,22 @@
                 </tr>
               </tbody>
               <tbody class="others_main">
+                @foreach ($reservation->bills->first()->breakdowns->where("unit_type",5) as $o)
                 <tr>
-                  <td>ダミーダミーダミー</td>
-                  <td>ダミーダミーダミー</td>
-                  <td>ダミーダミーダミー</td>
-                  <td>ダミーダミーダミー</td>
+                  <td>{{$o->unit_item}}</td>
+                  <td>{{$o->unit_cost}}</td>
+                  <td>{{$o->unit_count}}</td>
+                  <td>{{$o->unit_subtotal}}</td>
                 </tr>
+                @endforeach
               </tbody>
               <tbody class="others_result">
                 <tr>
                   <td colspan="4">
                     <div class="result_sum">
-                      <p class="text-right">合計金額：ダミー</p>
+                      <p class="text-right">合計金額：
+                        {{number_format($reservation->bills->first()->others_price)}}
+                      </p>
                     </div>
                   </td>
                 </tr>
@@ -634,19 +648,19 @@
                 <tr>
                   <td>小計：</td>
                   <td>
-                    ダミー
+                    {{number_format($reservation->bills->first()->master_subtotal)}}
                   </td>
                 </tr>
                 <tr>
                   <td>消費税：</td>
                   <td>
-                    ダミー
+                    {{number_format($reservation->bills->first()->master_tax)}}
                   </td>
                 </tr>
                 <tr>
                   <td class="font-weight-bold">合計金額</td>
                   <td>
-                    ダミー
+                    {{number_format($reservation->bills->first()->master_total)}}
                   </td>
                 </tr>
               </tbody>
@@ -658,6 +672,7 @@
   </section>
 
   <!-- 追加請求セクション------------------------------------------------------------------- -->
+  @foreach ($other_bills as $other_bill)
   <section class="mt-5">
     <div class="bill">
       <div class="bill_head2">
@@ -673,19 +688,29 @@
                   </li>
                   <li>
                     <dl class="ttl_box">
-                      <!-- <dt>合計金額</dt> -->
-                      <dd class="total_result">合計金額：ダミー円</dd>
+                      <dd class="total_result">合計金額：
+                        {{$other_bill->master_total}}
+                        円
+                      </dd>
                     </dl>
                     <dl class="ttl_box">
-                      <!-- <dt>支払い期日</dt> -->
-                      <dd class="total_result">支払い期日：ダミー</dd>
+                      <dd class="total_result">支払い期日：
+                        {{ReservationHelper::formatDate($other_bill->payment_limit)}}
+                      </dd>
                     </dl>
                     <div class="bill_btn_wrap">
-                      <p class="mb-2"><a class="more_btn" href="{{ url('user/home/generate_invoice/'.$reservation->id) }}">請求書を見る</a></p>
+                      <!-- <p class="mb-2"><a class="more_btn" href="{{ url('user/home/generate_invoice/'.$reservation->id) }}">請求書を見る</a></p> -->
+                      {{ Form::open(['url' => 'admin/invoice', 'method'=>'post', 'target'=>'_blank', 'class'=>'']) }}
+                      @csrf
+                      {{ Form::hidden('reservation_id', $reservation->id ) }}
+                      {{ Form::hidden('bill_id', $other_bill->id ) }}
+                      <p class="mr-2">{{ Form::submit('請求書をみる',['class' => 'btn more_btn']) }}</p>
+                      {{ Form::close() }}
+
                       <!-- 工藤さん！領収書をみるボタンはステータスが入金確認後に表示------ -->
+                      @if ($other_bill->paid==1)
                       <p><a class="more_btn4" href="">領収書を見る</a></p>
-                      <!-- @if ($reservation->bills()->first()->paid==1) -->
-                      <!-- @endif -->
+                      @endif
                     </div>
                   </li>
                 </ul>
@@ -703,12 +728,16 @@
                   <li class="d-flex align-items-center mb-2">
                     <p class="bg-status p-2 border">予約状況</p>
                     <p class="border p-2">
-                      {{ReservationHelper::judgeStatus($reservation->bills()->first()->reservation_status)}}
+                      {{ReservationHelper::judgeStatus($other_bill->reservation_status)}}
                     </p>
                   </li>
                   <li>
-                    <p><span>申込日：</span>{{ReservationHelper::formatDate($reservation->created_at)}}</p>
-                    <p><span>予約確定日：</span>工藤さん！！！！</p>
+                    <p><span>申込日：</span>
+                      {{ReservationHelper::formatDate($other_bill->created_at)}}
+                    </p>
+                    <p><span>予約確定日：</span>
+                      {{!empty($other_bill->approve_send_at)?ReservationHelper::formatDate($other_bill->approve_send_at):""}}
+                    </p>
                   </li>
                 </ul>
               </td>
@@ -749,18 +778,22 @@
                 </tr>
               </tbody>
               <tbody class="venue_main">
+                @foreach ($other_bill->breakdowns->where("unit_type",1) as $o_v)
                 <tr>
-                  <td></td>
-                  <td></td>
-                  <td></td>
-                  <td></td>
+                  <td>{{$o_v->unit_item}}</td>
+                  <td>{{number_format($o_v->unit_cost)}}</td>
+                  <td>{{$o_v->unit_count}}</td>
+                  <td>{{number_format($o_v->unit_subtotal)}}</td>
                 </tr>
+                @endforeach
               </tbody>
               <tbody class="venue_result">
                 <tr>
                   <td colspan="4">
                     <div class="result_sum">
-                      <p class="text-right">合計金額：ダミー</p>
+                      <p class="text-right">合計金額：
+                        {{number_format($other_bill->venue_price)}}
+                      </p>
                     </div>
                   </td>
                 </tr>
@@ -788,24 +821,30 @@
                 </tr>
               </tbody>
               <tbody class="equipment_main">
+                @foreach ($other_bill->breakdowns->where("unit_type",2) as $o_e)
                 <tr>
-                  <td></td>
-                  <td></td>
-                  <td></td>
-                  <td></td>
+                  <td>{{$o_e->unit_item}}</td>
+                  <td>{{number_format($o_e->unit_cost)}}</td>
+                  <td>{{$o_e->unit_count}}</td>
+                  <td>{{number_format($o_e->unit_subtotal)}}</td>
                 </tr>
+                @endforeach
+                @foreach ($other_bill->breakdowns->where("unit_type",3) as $o_s)
                 <tr>
-                  <td></td>
-                  <td></td>
-                  <td></td>
-                  <td></td>
+                  <td>{{$o_s->unit_item}}</td>
+                  <td>{{number_format($o_s->unit_cost)}}</td>
+                  <td>{{$o_s->unit_count}}</td>
+                  <td>{{number_format($o_s->unit_subtotal)}}</td>
                 </tr>
+                @endforeach
               </tbody>
               <tbody class="equipment_result">
                 <tr>
                   <td colspan="4">
                     <div class="result_sum">
-                      <p class="text-right">合計金額：ダミー</p>
+                      <p class="text-right">合計金額：
+                        {{number_format($other_bill->equipment_price)}}
+                      </p>
                     </div>
                   </td>
                 </tr>
@@ -833,18 +872,22 @@
                 </tr>
               </tbody>
               <tbody class="layout_main">
+                @foreach ($other_bill->breakdowns->where("unit_type",4) as $o_l)
                 <tr>
-                  <td></td>
-                  <td></td>
-                  <td></td>
-                  <td></td>
+                  <td>{{($o_l->unit_item)}}</td>
+                  <td>{{number_format($o_l->unit_cost)}}</td>
+                  <td>{{($o_l->unit_count)}}</td>
+                  <td>{{number_format($o_l->unit_subtotal)}}</td>
                 </tr>
+                @endforeach
               </tbody>
               <tbody class="layout_result">
                 <tr>
                   <td colspan="4">
                     <div class="result_sum">
-                      <p class="text-right">合計金額：ダミー</p>
+                      <p class="text-right">合計金額：
+                        {{number_format($other_bill->layout_price)}}
+                      </p>
                     </div>
                   </td>
                 </tr>
@@ -872,18 +915,22 @@
                 </tr>
               </tbody>
               <tbody class="others_main">
+                @foreach ($other_bill->breakdowns->where("unit_type",4) as $o_o)
                 <tr>
-                  <td>ダミーダミーダミー</td>
-                  <td>ダミーダミーダミー</td>
-                  <td>ダミーダミーダミー</td>
-                  <td>ダミーダミーダミー</td>
+                  <td>{{$o_o->unit_item}}</td>
+                  <td>{{number_format($o_o->unit_cost)}}</td>
+                  <td>{{$o_o->unit_count}}</td>
+                  <td>{{number_format($o_o->unit_subtotal)}}</td>
                 </tr>
+                @endforeach
               </tbody>
               <tbody class="others_result">
                 <tr>
                   <td colspan="4">
                     <div class="result_sum">
-                      <p class="text-right">合計金額：ダミー</p>
+                      <p class="text-right">合計金額：
+                        {{number_format($other_bill->others_price)}}
+                      </p>
                     </div>
                   </td>
                 </tr>
@@ -896,19 +943,19 @@
                 <tr>
                   <td>小計：</td>
                   <td>
-                    ダミー
+                    {{number_format($other_bill->master_subtotal)}}
                   </td>
                 </tr>
                 <tr>
                   <td>消費税：</td>
                   <td>
-                    ダミー
+                    {{number_format($other_bill->master_tax)}}
                   </td>
                 </tr>
                 <tr>
                   <td class="font-weight-bold">合計金額</td>
                   <td>
-                    ダミー
+                    {{number_format($other_bill->master_total)}}
                   </td>
                 </tr>
               </tbody>
@@ -918,8 +965,85 @@
       </div>
     </div>
   </section>
+  @endforeach
+
+
+
+
+  <!-- 合計請求額------------------------------------------------------------------- -->
+  <section class="master_totals mt-5">
+    <table class="table border-wrap">
+      <tbody class="master_total_head">
+        <tr>
+          <td colspan="2">
+            <h3>
+              合計請求額
+            </h3>
+          </td>
+        </tr>
+      </tbody>
+      <tr>
+        <td colspan="2" class="master_total_subttl">
+          <h4>内訳</h4>
+        </td>
+      </tr>
+      <tbody class="master_total_body">
+        <tr>
+          <td>会場料</td>
+          <td>
+            <p>{{number_format($reservation->bills()->where("reservation_status","<=",3)->pluck("venue_price")->sum())}}円</p>
+          </td>
+        </tr>
+        <tr>
+          <td>有料備品　サービス</td>
+          <td>
+            <p>{{number_format($reservation->bills()->where("reservation_status","<=",3)->pluck("equipment_price")->sum())}}円</p>
+          </td>
+        </tr>
+        <tr>
+          <td>レイアウト変更料</td>
+          <td>
+            <p>{{number_format($reservation->bills()->where("reservation_status","<=",3)->pluck("layout_price")->sum())}}円</p>
+          </td>
+        </tr>
+        <tr>
+          <td>その他</td>
+          <td>
+            <p>{{number_format($reservation->bills()->where("reservation_status","<=",3)->pluck("others_price")->sum())}}円</p>
+          </td>
+        </tr>
+      </tbody>
+      <tbody class="master_total_bottom">
+        <tr>
+          <td colspan="2">
+            <div class="d-flex justify-content-end">
+              <p>小計：</p>
+              <p>{{number_format($reservation->bills()->where("reservation_status","<=",3)->pluck("master_subtotal")->sum())}}円</p>
+            </div>
+          </td>
+        </tr>
+        <tr>
+          <td colspan="2">
+            <div class="d-flex justify-content-end">
+              <p>消費税：</p>
+              <p>{{number_format(ReservationHelper::getTax($reservation->bills()->where("reservation_status","<=",3)->pluck("master_subtotal")->sum()))}}円</p>
+            </div>
+          </td>
+        </tr>
+        <tr>
+          <td colspan="2">
+            <div class="d-flex justify-content-end">
+              <p>合計金額：</p>
+              <p>{{number_format(ReservationHelper::taxAndPrice($reservation->bills()->where("reservation_status","<=",3)->pluck("master_subtotal")->sum()))}}円</p>
+            </div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </section>
 
   <!-- キャンセル請求セクション------------------------------------------------------------------- -->
+  @foreach ($reservation->cxls as $cxl)
   <section class="mt-5">
     <div class="bill">
       <div class="bill_head_cancel">
@@ -936,18 +1060,21 @@
                   <li>
                     <dl class="ttl_box">
                       <!-- <dt>合計金額</dt> -->
-                      <dd class="total_result">合計金額：ダミー円</dd>
+                      <dd class="total_result">合計金額：
+                        {{number_format($cxl->master_total)}}
+                        円
+                      </dd>
                     </dl>
                     <dl class="ttl_box">
                       <!-- <dt>支払い期日</dt> -->
-                      <dd class="total_result">支払い期日：ダミー</dd>
+                      <dd class="total_result">支払い期日：
+                        {{(ReservationHelper::formatDate($cxl->payment_limit))}}
+                      </dd>
                     </dl>
                     <div class="bill_btn_wrap">
                       <p class="mb-2"><a class="more_btn" href="{{ url('user/home/generate_invoice/'.$reservation->id) }}">請求書を見る</a></p>
                       <!-- 工藤さん！領収書をみるボタンはステータスが入金確認後に表示------ -->
                       <p><a class="more_btn4" href="">領収書を見る</a></p>
-                      <!-- @if ($reservation->bills()->first()->paid==1) -->
-                      <!-- @endif -->
                     </div>
                   </li>
                 </ul>
@@ -965,12 +1092,12 @@
                   <li class="d-flex align-items-center mb-2">
                     <p class="bg-status p-2 border">予約状況</p>
                     <p class="border p-2">
-                      {{ReservationHelper::judgeStatus($reservation->bills()->first()->reservation_status)}}
+                      {{ReservationHelper::cxlStatus($cxl->cxl_status)}}
                     </p>
                   </li>
                   <li>
                     <p><span>申込日：</span>{{ReservationHelper::formatDate($reservation->created_at)}}</p>
-                    <p><span>予約確定日：</span>工藤さん！！！！</p>
+                    {{-- <p><span>予約確定日：</span>工藤さん！！！！</p> --}}
                   </li>
                 </ul>
               </td>
@@ -1003,35 +1130,16 @@
                   <td>キャンセル料率</td>
                 </tr>
               </thead>
+              @foreach ($cxl->cxl_breakdowns->where('unit_type',2) as $cxl_calc)
               <tr>
-                <td>会場料</td>
-                <td>35000</td>
+                <td>{{$cxl_calc->unit_item}}円</td>
+                <td>{{($cxl_calc->unit_cost)}}</td>
                 <td>×</td>
-                <td>70%</td>
+                <td>{{$cxl_calc->unit_count}}%</td>
               </tr>
-              <tr>
-                <td>有料備品・有料サービス料</td>
-                <td>900</td>
-                <td>×</td>
-                <td>70%</td>
-              </tr>
-              <tr>
-                <td>レイアウト変更料</td>
-                <td>13000</td>
-                <td>×</td>
-                <td>70%</td>
-              </tr>
-              <tr>
-                <td>その他</td>
-                <td>35000</td>
-                <td>×</td>
-                <td>70%</td>
-              </tr>
+              @endforeach
             </table>
           </div>
-
-
-
 
           <div class="billdetails_content">
             <table class="table table-bordered">
@@ -1053,45 +1161,45 @@
                 </tr>
               </tbody>
               <tbody class="venue_main">
+                @foreach ($cxl->cxl_breakdowns->where('unit_type',1) as $cxl_breakdowns)
                 <tr>
-                  <td>キャンセル料(会場料・10%)</td>
-                  <td>4,000</td>
-                  <td>1</td>
-                  <td>4,000</td>
+                  <td>{{$cxl_breakdowns->unit_item}}</td>
+                  <td>{{number_format($cxl_breakdowns->unit_cost)}}</td>
+                  <td>{{$cxl_breakdowns->unit_count}}</td>
+                  <td>{{number_format($cxl_breakdowns->unit_subtotal)}}</td>
                 </tr>
+                @endforeach
               </tbody>
               <tbody class="venue_result">
                 <tr>
                   <td colspan="4">
                     <div class="result_sum">
-                      <p class="text-right">合計金額：ダミー</p>
+                      <p class="text-right">合計金額：{{$cxl->master_subtotal}}</p>
                     </div>
                   </td>
                 </tr>
               </tbody>
             </table>
           </div>
-
-
           <div class="bill_total">
             <table class="table text-right">
               <tbody>
                 <tr>
                   <td>小計：</td>
                   <td>
-                    ダミー
+                    {{number_format($cxl->master_subtotal)}}
                   </td>
                 </tr>
                 <tr>
                   <td>消費税：</td>
                   <td>
-                    ダミー
+                    {{number_format($cxl->master_tax)}}
                   </td>
                 </tr>
                 <tr>
                   <td class="font-weight-bold">合計金額</td>
                   <td>
-                    ダミー
+                    {{number_format($cxl->master_total)}}
                   </td>
                 </tr>
               </tbody>
@@ -1101,84 +1209,80 @@
       </div>
     </div>
   </section>
+  @endforeach
 
-  <!-- 合計請求額------------------------------------------------------------------- -->
-  <section class="master_totals mt-5">
-    <table class="table border-wrap">
-      <tbody class="master_total_head">
+  <!-- 工藤さん！！キャンセル料合計請求額------------------------------------------------------------------- -->
+
+  @if ($reservation->cxls->count()!=0)
+      
+  <div class="master_totals_cancel">
+    <table class="table mb-0">
+      <tbody class="master_total_head2">
         <tr>
           <td colspan="2">
             <h3>
-              合計請求額
+              キャンセル料　合計請求額
             </h3>
           </td>
         </tr>
       </tbody>
       <tr>
-        <td colspan="2" class="master_total_subttl">
+        <td colspan="2" class="master_total_subttl2">
           <h4>内訳</h4>
         </td>
       </tr>
       <tbody class="master_total_body">
         <tr>
-          <td>会場料</td>
-          <td>
-            <p>ダミーダミーダミーダミー円</p>
-          </td>
-        </tr>
-        <tr>
-          <td>有料備品　サービス</td>
-          <td>
-            <p>ダミーダミーダミーダミー円</p>
-          </td>
-        </tr>
-        <tr>
-          <td>レイアウト変更料</td>
-          <td>
-            <p>ダミーダミーダミーダミー円</p>
-          </td>
-        </tr>
-        <tr>
-          <td>その他</td>
-          <td>
-            <p>ダミーダミーダミーダミー円</p>
-          </td>
+          <td>キャンセル料</td>
+          <td><p>
+            {{number_format($reservation->cxls->pluck("master_subtotal")->sum())}}
+            円</p></td>
         </tr>
       </tbody>
-      <tbody class="master_total_bottom">
+      <tbody class="master_total_bottom mb-0">
         <tr>
-          <td colspan="2">
-            <div class="d-flex justify-content-end">
+          <td></td>
+          <td>
+            <div class="d-flex justify-content-end" colspan="2">
               <p>小計：</p>
-              <p>ダミーダミーダミーダミー円</p>
+              <p>
+                {{number_format($reservation->cxls->pluck("master_subtotal")->sum())}}
+                円</p>
             </div>
           </td>
         </tr>
         <tr>
-          <td colspan="2">
-            <div class="d-flex justify-content-end">
+          <td></td>
+          <td>
+            <div class="d-flex justify-content-end" colspan="2">
               <p>消費税：</p>
-              <p>ダミーダミーダミーダミー円</p>
+              <p>
+                {{number_format(ReservationHelper::getTax($reservation->cxls->pluck("master_subtotal")->sum()))}}
+                円</p>
             </div>
           </td>
         </tr>
         <tr>
-          <td colspan="2">
-            <div class="d-flex justify-content-end">
+          <td></td>
+          <td>
+            <div class="d-flex justify-content-end" colspan="2">
               <p>合計金額：</p>
-              <p>ダミーダミーダミーダミー円</p>
+              <p>
+                {{number_format(ReservationHelper::taxAndPrice($reservation->cxls->pluck("master_subtotal")->sum()))}}
+                円</p>
             </div>
           </td>
         </tr>
       </tbody>
     </table>
-  </section>
+  </div> 
+  @endif
 </section>
 
 
 <!-- ステータスが予約承認まちのときに表示 -->
 
-@if ($reservation->bills()->first()->reservation_status==2)
+@if ($reservation->bills->first()->reservation_status==2)
 <div class="confirm-box text-center mt-5">
   <p>上記、予約内容で間違いないでしょうか。問題なければ、予約の承認をお願い致します。</p>
   <p class="text-center mt-3">
@@ -1197,7 +1301,7 @@
 
 
 <!-- ステータスが予約完了のときに表示 -->
-@if ($reservation->bills()->first()->reservation_status>2)
+@if ($reservation->bills->first()->reservation_status>2)
 <div class="confirm-box mt-5">
   <h3 class="caution_color mb-2 font-weight-bold">振込先案内</h3>
   <p class="p-3 border-wrap2 mb-2">
@@ -1212,22 +1316,39 @@
 </div>
 @endif
 
+<!-- 工藤さん！！！！追加請求のステータスが予約承認まちのときに表示 -->
+<!-- <div class="confirm-box text-center mt-5">
+  <p>上記、追加請求の内容で間違いないでしょうか。問題なければ、予約の承認をお願い致します。</p>
+  <p class="text-center mt-3">
+  <input class="btn more_btn4_lg" type="submit" value="追加請求の内容を承認する">
+  </p>
+  <p class="notion">※ご要望に相違がある場合は、下記連絡先までご連絡ください。<br>
+    TEL：06-1234-5678<br>
+    mail：test@gmail.com</p>
+</div> -->
+
+
+
 <!-- 工藤さん！！キャンセルが承認まちの時に表示です！！！ -->
+@if ($reservation->cxls->pluck("cxl_status")->contains(1))
 <div class="confirm-box text-center mt-5">
-  <p>工藤さん！！！キャンセル承認まちのときに表示です！！</p>
   <p>上記、予約内容をキャンセルしてもよろしいでしょうか。問題なければ、承認をお願い致します。</p>
   <p class="text-center mt-3">
-    {{ Form::model($reservation, ['method'=>'PUT', 'route'=> ['user.home.updatestatus',$reservation->id],'class'=>"text-center"])}}
-    @csrf
-    {{ Form::hidden('update_status',3,) }}
+    @foreach ($reservation->cxls->where("cxl_status",1) as $cfm_selected_cxl)
 
+    {{ Form::open(['url' => "user/home/cfm_cxl", 'method'=>'post', 'class'=>'']) }}
+    @csrf
+    {{ Form::hidden('cxl_id', $cfm_selected_cxl->id)}}
     {{ Form::submit('キャンセルを承認する',['class' => 'btn more_btn4_lg']) }}
     {{ Form::close() }}
+    @endforeach
   </p>
   <p class="notion">※ご要望に相違がある場合は、下記連絡先までご連絡ください。<br>
     TEL：06-1234-5678<br>
     mail：test@gmail.com</p>
 </div>
+@endif
+
 
 <div class="btn_wrapper">
   <p class="text-center"><a class="more_btn_lg" href="">予約一覧へもどる</a></p>

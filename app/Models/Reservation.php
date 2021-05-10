@@ -66,6 +66,7 @@ class Reservation extends Model implements PresentableInterface
     'bill_remark',
     'eat_in',
     'eat_in_prepare',
+    'multiple_reserve_id'
   ];
   protected $dates = [
     'reserve_date',
@@ -215,6 +216,9 @@ class Reservation extends Model implements PresentableInterface
       $venue_price = $discount_info['venue_price'];
       $category = 1;
     }
+    // 以下、請求書No作成用
+    // $search_bill_count = Bill::where("created_at", "LIKE", "%" . (date("Y-m")) . "%")->count();
+    // $invoice_number = date('Y') . date('m') . mt_rand(0, 9) . sprintf('%03d', ($search_bill_count + 1));
     $bill = DB::transaction(function () use ($discount_info, $request, $sessionName2, $attr, $venue_price, $category) {
       $bill = $this->bills()->create([
         'reservation_id' => $this->id,
@@ -268,13 +272,14 @@ class Reservation extends Model implements PresentableInterface
         'email_flag' => $request->email_flag,
         'in_charge' => $request->in_charge,
         'tel' => $request->tel,
-        'cost' => $request->cost,
+        'cost' => !empty($request->cost) ? $request->cost : 0,
         'discount_condition' => $request->discount_condition,
         'attention' => $request->attention,
         'user_details' => $request->user_details,
         'admin_details' => $request->admin_details,
         'eat_in' => !empty($request->eat_in) ? $request->eat_in : 0,
         'eat_in_prepare' => !empty($request->eat_in_prepare) ? $request->eat_in_prepare : 0,
+        'multiple_reserve_id' => ($request->multiple_reserve_id)
       ]);
       $reservation->ReserveStoreBill($request);
     });

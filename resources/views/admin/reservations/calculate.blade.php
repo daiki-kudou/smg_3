@@ -227,7 +227,7 @@
           <tbody class="accordion-wrap">
             @foreach ($spVenue->getEquipments() as $key=>$equipment)
             <tr>
-              <td class="table-active">{{$equipment->item}}</td>
+              <td class="table-active">{{$equipment->item}}({{$equipment->price}}円)</td>
               <td>
                 {{ Form::text('equipment_breakdown'.$key, $value['equipment_breakdown'.$key],['class'=>'form-control equipment_breakdown'] ) }}
               </td>
@@ -251,7 +251,7 @@
             @foreach ($spVenue->getServices() as $key=>$service)
             <tr>
               <td class="table-active">
-                {{$service->item}}
+                {{$service->item}}({{$service->price}}円)
               </td>
               <td>
                 <div class="radio-box">
@@ -285,7 +285,7 @@
           </thead>
           <tbody>
             <tr>
-              <td class="table-active">準備</td>
+              <td class="table-active">準備({{number_format($spVenue->layout_prepare)}}円)</td>
               <td>
                 <div class="radio-box">
                   <p>
@@ -300,7 +300,7 @@
               </td>
             </tr>
             <tr>
-              <td class="table-active">片付</td>
+              <td class="table-active">片付({{number_format($spVenue->layout_clean)}}円)</td>
               <td>
                 <div class="radio-box">
                   <p>
@@ -1094,7 +1094,7 @@
         <div class="paids billdetails_content pt-3">
           <table class="table" style="table-layout: fixed;">
             <tr>
-              <td>入金状況{{Form::select('paid', ['未入金', '入金済み'],null,['class'=>'form-control'])}}</td>
+              <td>入金状況{{Form::select('paid', ['未入金', '入金済み','遅延','入金不足','入金過多','次回繰越'],null,['class'=>'form-control'])}}</td>
               <td>
                 入金日{{ Form::text('pay_day', null,['class'=>'form-control', 'id'=>'datepicker7'] ) }}
               </td>
