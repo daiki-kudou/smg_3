@@ -421,7 +421,7 @@
                   <li>
                     <dl class="ttl_box">
                       <dd class="total_result">合計金額：
-                        {{number_format($reservation->bills->first()->master_total)}}
+                        {{number_format($reservation->bills->first()->master_total)}}円
                       </dd>
                     </dl>
                     <dl class="ttl_box">
@@ -915,7 +915,7 @@
                 </tr>
               </tbody>
               <tbody class="others_main">
-                @foreach ($other_bill->breakdowns->where("unit_type",4) as $o_o)
+                @foreach ($other_bill->breakdowns->where("unit_type",5) as $o_o)
                 <tr>
                   <td>{{$o_o->unit_item}}</td>
                   <td>{{number_format($o_o->unit_cost)}}</td>

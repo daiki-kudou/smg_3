@@ -464,9 +464,9 @@
               </div>
             </td>
             @endif
-            <td>
+            <td class="text-right">
               <div><span>申込日：</span>{{ReservationHelper::formatDate($reservation->bills->first()->created_at)}}</div>
-              <div><span>予約確定日：</span>{{$reservation->bills->first()->approve_send_at}}</div>
+              <div><span>予約確定日：</span>{{ReservationHelper::formatDate($reservation->bills->first()->approve_send_at)}}</div>
             </td>
           </tr>
         </tbody>
@@ -778,9 +778,9 @@
               </div>
             </td>
             @endif
-            <td>
-              <div><span>申込日：</span>{{$other_bill->created_at}}</div>
-              <div><span>予約確定日：</span>{{$other_bill->approve_send_at}}</div>
+            <td class="text-right">
+              <div><span>申込日：</span>{{ReservationHelper::formatDate($other_bill->created_at)}}</div>
+              <div><span>予約確定日：</span>{{ReservationHelper::formatDate($other_bill->approve_send_at)}}</div>
             </td>
           </tr>
         </tbody>
@@ -1106,9 +1106,9 @@
               </div>
             </td>
             @endif
-            <td>
-              <div><span>申込日：</span>{{$cxl->created_at}}</div>
-              <div><span>予約確定日：</span>{{$cxl->approve_send_at}}</div>
+            <td class="text-right">
+              <div><span>申込日：</span>{{ReservationHelper::formatDate($cxl->created_at)}}</div>
+              <div><span>予約確定日：</span>{{ReservationHelper::formatDate($cxl->approve_send_at)}}</div>
             </td>
           </tr>
         </tbody>
