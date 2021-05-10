@@ -8,9 +8,6 @@ use App\Http\Controllers\Controller;
 use App\Models\Reservation;
 use App\Models\Venue;
 use App\Models\Agent;
-use App\Models\Equipment;
-use App\Models\Service;
-use App\Models\User;
 
 use Carbon\Carbon;
 
@@ -80,7 +77,7 @@ class AgentsReservationsController extends Controller
         'layoutPrice',
         'price',
         '_equipment',
-        '_service',
+        '_service'
       )
     );
   }
