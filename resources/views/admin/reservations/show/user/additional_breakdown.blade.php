@@ -19,7 +19,7 @@
       </tr>
     </tbody>
     <tbody class="venue_main">
-      @foreach ($other_bill->breakdowns()->get() as $venue_breakdown)
+      @foreach ($other_bill->breakdowns as $venue_breakdown)
       @if ($venue_breakdown->unit_type==1)
       <tr>
         <td>{{$venue_breakdown->unit_item}}</td>
@@ -61,7 +61,7 @@
       </tr>
     </tbody>
     <tbody class="equipment_main">
-      @foreach ($other_bill->breakdowns()->get() as $equipment_breakdown)
+      @foreach ($other_bill->breakdowns as $equipment_breakdown)
       @if ($equipment_breakdown->unit_type==2)
       <tr>
         <td>{{$equipment_breakdown->unit_item}}</td>
@@ -71,7 +71,7 @@
       </tr>
       @endif
       @endforeach
-      @foreach ($other_bill->breakdowns()->get() as $service_breakdown)
+      @foreach ($other_bill->breakdowns as $service_breakdown)
       @if ($service_breakdown->unit_type==3)
       <tr>
         <td>{{$service_breakdown->unit_item}}</td>
@@ -114,7 +114,7 @@
       </tr>
     </tbody>
     <tbody class="layout_main">
-      @foreach ($other_bill->breakdowns()->get() as $layout_breakdown)
+      @foreach ($other_bill->breakdowns as $layout_breakdown)
       @if ($layout_breakdown->unit_type==4)
       <tr>
         <td>{{$layout_breakdown->unit_item}}</td>
@@ -157,7 +157,7 @@
       </tr>
     </tbody>
     <tbody class="others_main">
-      @foreach ($other_bill->breakdowns()->get() as $others_breakdown)
+      @foreach ($other_bill->breakdowns as $others_breakdown)
       @if ($others_breakdown->unit_type==5)
       <tr>
         <td>{{$others_breakdown->unit_item}}</td>

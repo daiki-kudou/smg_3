@@ -28,7 +28,7 @@ class NoteController extends Controller
       'hour' => $request->hour,
       'venue' => $request->venue,
       'company' => $request->company,
-      'content' => $request->content
+      'content' => $request->content,
     ]);
     return redirect()->route('admin.note');
   }
