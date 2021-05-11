@@ -19,6 +19,8 @@ use Illuminate\Support\Facades\DB; //トランザクション用
 
 use App\Mail\ConfirmReservationByUser;
 use App\Mail\ConfirmToAdmin;
+use App\Mail\AdminFinAddRes;
+use App\Mail\UserFinAddRes;
 use Illuminate\Support\Facades\Mail;
 
 
@@ -168,5 +170,19 @@ class HomeController extends Controller
       $bill->update(["reservation_status" => 6]);
     }
     return redirect('user/home');
+  }
+
+  public function approve_user_additional_cfm(Request $request)
+  {
+    $bill = Bill::with('reservation')->find($request->bill_id);
+    $bill->update(['reservation_status' => 3,]);
+
+    $email = $bill->reservation->user->email;
+    Mail::to($email)->send(new UserFinAddRes()); // ユーザーに予約完了メール送信
+
+    $admin = config('app.admin_email');
+    Mail::to($admin)->send(new AdminFinAddRes()); // 管理者に予約完了メール送信
+
+    return redirect('user/home/' . $bill->reservation->id);
   }
 }
