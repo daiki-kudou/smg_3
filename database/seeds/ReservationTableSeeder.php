@@ -107,7 +107,7 @@ class ReservationTableSeeder extends Seeder
         'bill_person' => 'test',
         'bill_created_at' => '2020-12-12',
         'paid' => 0,
-        'reservation_status' => 0,
+        'reservation_status' => mt_rand(1, 3),
         'double_check_status' => 0,
         'category' => 0,
         'admin_judge' => 0,

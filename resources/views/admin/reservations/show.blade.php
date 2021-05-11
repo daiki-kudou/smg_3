@@ -69,17 +69,19 @@
         <tr>
           <td colspan="2">
             <div class="d-flex align-items-center">
-            <p class="title-icon">
-              <i class="fas fa-info-circle icon-size"></i>
-              予約情報
-            </p>
-             <p class="alliance_color ml-2">
-               @if ($reservation->user_id>0)
-               {{$reservation->user->admin_or_user==1?"管理者登録":"ユーザー登録"}}
-               @endif
+              <p class="title-icon">
+                <i class="fas fa-info-circle icon-size"></i>
+                予約情報
               </p>
-            <p class="ml-3">予約ID：{{ReservationHelper::IdFormat($reservation->id)}}</p>
-            <p class="ml-3">一括ID：{{!empty($reservation->multiple_reserve_id)?ReservationHelper::IdFormat($reservation->multiple_reserve_id):""}}</p>
+              <p class="alliance_color ml-2">
+                @if ($reservation->user_id>0)
+                {{$reservation->user->admin_or_user==1?"管理者登録":"ユーザー登録"}}
+                @endif
+              </p>
+              <p class="ml-3">予約ID：{{ReservationHelper::IdFormat($reservation->id)}}</p>
+              <p class="ml-3">
+                一括ID：{{!empty($reservation->multiple_reserve_id)?ReservationHelper::IdFormat($reservation->multiple_reserve_id):""}}
+              </p>
             </div>
           </td>
         </tr>
@@ -236,17 +238,21 @@
             <tr>
               <td class="table-active"><label for="prelayout">準備</label></td>
               <td>
-                @foreach ($reservation->bills->first()->breakdowns as $breakdown)
-                {{$breakdown->unit_item=='レイアウト準備料金'?'あり':''}}
-                @endforeach
+                @if ($reservation->bills->first()->breakdowns->contains("unit_item","レイアウト準備料金"))
+                あり
+                @else
+                なし
+                @endif
               </td>
             </tr>
             <tr>
               <td class="table-active"><label for="postlayout">片付</label></td>
               <td>
-                @foreach ($reservation->bills->first()->breakdowns as $breakdown)
-                {{$breakdown->unit_item=='レイアウト片付料金'?'あり':''}}
-                @endforeach
+                @if ($reservation->bills->first()->breakdowns->contains("unit_item","レイアウト片付料金"))
+                あり
+                @else
+                なし
+                @endif
               </td>
             </tr>
           </tbody>
@@ -568,13 +574,13 @@
             請求書情報
           </h3>
           {{ Form::open(['url' => 'admin/invoice', 'method'=>'post', 'target'=>'_blank','class'=>'']) }}
-        @csrf
-        {{ Form::hidden('reservation_id', $reservation->id ) }}
-        {{ Form::hidden('bill_id', $reservation->bills->first()->id ) }}
-        <p class="mr-2">
-          {{ Form::submit('請求書をみる',['class' => 'btn more_btn']) }}
-        </p>
-        {{ Form::close() }}
+          @csrf
+          {{ Form::hidden('reservation_id', $reservation->id ) }}
+          {{ Form::hidden('bill_id', $reservation->bills->first()->id ) }}
+          <p class="mr-2">
+            {{ Form::submit('請求書をみる',['class' => 'btn more_btn']) }}
+          </p>
+          {{ Form::close() }}
         </div>
       </div>
       <div class="main hide">
@@ -616,11 +622,11 @@
             入金情報
           </h3>
           <p class="mr-2">
-          @if ($reservation->bills->first()->paid==1)
-          <a target='_blank' href="{{url('admin/receipts/'.$reservation->bills->first()->id)}}"
-            class="btn more_btn4">領収書をみる</a>
-          @endif
-        </p>
+            @if ($reservation->bills->first()->paid==1)
+            <a target='_blank' href="{{url('admin/receipts/'.$reservation->bills->first()->id)}}"
+              class="btn more_btn4">領収書をみる</a>
+            @endif
+          </p>
         </div>
       </div>
       <div class="main">
@@ -887,13 +893,13 @@
             請求書情報
           </h3>
           {{ Form::open(['url' => 'admin/invoice', 'method'=>'post', 'target'=>'_blank','class'=>'']) }}
-        @csrf
-        {{ Form::hidden('reservation_id', $reservation->id ) }}
-        {{ Form::hidden('bill_id', $other_bill->id ) }}
-        <p class="mr-2">
-          {{ Form::submit('請求書をみる',['class' => 'btn more_btn']) }}
-        </p>
-        {{ Form::close() }}
+          @csrf
+          {{ Form::hidden('reservation_id', $reservation->id ) }}
+          {{ Form::hidden('bill_id', $other_bill->id ) }}
+          <p class="mr-2">
+            {{ Form::submit('請求書をみる',['class' => 'btn more_btn']) }}
+          </p>
+          {{ Form::close() }}
         </div>
       </div>
       <div class="main hide">
@@ -935,11 +941,11 @@
             入金情報
           </h3>
           <p class="mr-2">
-          @if ($other_bill->paid==1)
-          <a target='_blank' href="{{url('admin/receipts/'.$reservation->bills->first()->id)}}"
-            class="btn more_btn4">領収書をみる</a>
-          @endif
-        </p>
+            @if ($other_bill->paid==1)
+            <a target='_blank' href="{{url('admin/receipts/'.$reservation->bills->first()->id)}}"
+              class="btn more_btn4">領収書をみる</a>
+            @endif
+          </p>
         </div>
       </div>
       <div class="main">

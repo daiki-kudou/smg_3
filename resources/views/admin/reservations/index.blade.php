@@ -179,21 +179,6 @@
               </ul>
             </td>
           </tr>
-          <!-- <tr>
-            <th class="search_item_name"><label for="category">売上区分</label></th>
-            <td class="text-right" colspan="3">
-              <ul class="search_category">
-                <li>
-                  {{Form::checkbox('check_category1', 1, false,['id'=>'check_category1'])}}
-                  {{Form::label("check_category1","会場")}}
-                </li>
-                <li>
-                  {{Form::checkbox('check_category2', 2, false,['id'=>'check_category2'])}}
-                  {{Form::label("check_category2","追加請求")}}
-                </li>
-              </ul>
-            </td>
-          </tr> -->
           <tr>
             <th class="search_item_name"><label for="Status">予約状況</label></th>
             <td colspan="3">
@@ -239,25 +224,32 @@
         {{ Form::submit('検索', ['class' => 'btn search_btn']) }}
       </div>
     </div>
-    {{ Form::close() }}
 
 
 
     <div class="d-flex justify-content-between">
       <ul class="d-flex reservation_list">
-        <li><a class="more_btn" href="">前日予約</a></li>
-        <li><a class="more_btn" href="">当日予約</a></li>
-        <li><a class="more_btn" href="">翌日予約</a></li>
+        <li>
+          {{ Form::submit('前日予約', ['class' => 'btn more_btn','name'=>'day_before','id'=>'day_before']) }}
+        </li>
+        <li>
+          {{ Form::submit('当日予約', ['class' => 'btn more_btn','name'=>'today','id'=>'today']) }}
+        </li>
+        <li>
+          {{ Form::submit('翌日予約', ['class' => 'btn more_btn','name'=>'day_after','id'=>'day_after']) }}
+        </li>
         <li><a class="more_btn bg-red" href="">予約確認中</a></li>
         <li><a class="more_btn bg-red" href="">予約承認待ち</a></li>
         <li><a class="more_btn bg-green" href="">キャンセル申請中</a></li>
         <li><a class="more_btn bg-black" href="">予約完了</a></li>
       </ul>
+      {{ Form::close() }}
 
-      @if ($counter!=0)    
+
+      @if ($counter!=0)
       <p class="font-weight-bold">
         <span class="count-color">
-        {{$counter}}</span>件
+          {{$counter}}</span>件
       </p>
       @endif
     </div>
@@ -403,6 +395,14 @@
 <script>
   $(function() {
     $('.flash_message').fadeOut(3000);
+  })
+
+  $(function(){
+    $('#day_before, #today, #day_after').on('click',function(){
+      $('input[type="text"]').each(function($key,$value){
+        $($value).val('');
+      })
+    })
   })
 </script>
 
