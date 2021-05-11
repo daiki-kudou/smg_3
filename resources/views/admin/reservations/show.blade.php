@@ -358,6 +358,8 @@
 
     <!-- 右側の項目 終わり-------------------------------------------------- -->
     <!-- 予約完了後も編集可能な備考欄-------------------------------------------------- -->
+
+
     <div class="col-12">
       <table class="table table-bordered note-table">
         <tr>
@@ -365,16 +367,25 @@
             <p class="title-icon">
               <i class="fas fa-file-alt icon-size"></i>
               <label for="extraNote">予約内容変更履歴</label>
+
+              <div class="text-right">
+                <input type="checkbox" id="remark_checkbox">
+                <label for="remark_checkbox">編集</label>
+              </div>
             </p>
           </td>
         </tr>
         <tr>
           <td>
-            なし
+            {{Form::textarea('remark_textarea', null, ['class' => 'form-control remark_textarea','rows' => '10','readonly'])}}
+            {{Form::submit('更新')}}
           </td>
         </tr>
       </table>
     </div>
+
+
+
   </div>
 </section>
 
@@ -1447,6 +1458,16 @@
       }
     });
   });
+
+  $(function(){
+    $('#remark_checkbox').on('click',function(){
+      if ($('.remark_textarea').prop('readonly')) {
+        $('.remark_textarea').prop('readonly',false);
+      }else{
+        $('.remark_textarea').prop('readonly',true);
+      }
+    })
+  })
 
 
 </script>

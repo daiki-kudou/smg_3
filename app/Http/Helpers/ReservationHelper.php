@@ -15,6 +15,9 @@ class ReservationHelper
   // Laravelの標準ヘルパの実装に習い staticにする
   public static function judgeStatus($num)
   {
+    if (empty($num)) {
+      return null;
+    }
     switch ($num) {
       case 0:
         return "仮押え";
