@@ -135,12 +135,20 @@
         <td rowspan="2">追加予約受付完了</td>
         <td>【管理者通知】追加の備品・サービス（その他）予約完了のお知らせ</td>
         <td>管理者</td>
-        <td><a href="" class="more_btn">未　編集</a></td>
+        <td>
+          <a href="{{url('admin/maileclipse/templates/edit/adminFinAddRes')}}" class="more_btn">
+            編集
+          </a>
+        </td>
       </tr>
       <tr>
         <td>追加の備品・サービス（その他）予約完了のお知らせ</td>
         <td>ユーザー</td>
-        <td><a href="" class="more_btn">未　編集</a></td>
+        <td>
+          <a href="{{url('admin/maileclipse/templates/edit/userFinAddRes')}}" class="more_btn">
+            編集
+          </a>
+        </td>
       </tr>
     </tbody>
 
