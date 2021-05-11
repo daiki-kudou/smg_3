@@ -651,10 +651,6 @@ class Reservation extends Model implements PresentableInterface
         }
       });
 
-      // 売上区分での検索：未実装
-
-
-
       // 予約状況検索
       $query->where(function ($query) use ($request) {
         for ($i = 1; $i <= 6; $i++) {
@@ -666,8 +662,6 @@ class Reservation extends Model implements PresentableInterface
         }
       });
 
-
-
       if ($request->freeword) {
         $query->where('id', 'LIKE', "%{$request->freeword}%")
           ->orWhere("company", "LIKE", "%{$request->freeword}%")
@@ -677,6 +671,23 @@ class Reservation extends Model implements PresentableInterface
           ->orWhere("mobile", "LIKE", "%{$request->freeword}%")
           ->orWhere("tel", "LIKE", "%{$request->freeword}%")
           ->orWhere("email", "LIKE", "%{$request->freeword}%");
+      }
+
+      // 前日予約
+      if ($request->day_before) {
+        $today = Carbon::now();
+        $yesterday = $today->subDay();
+        $query->whereDate('reserve_date', date('Y-m-d', strtotime($yesterday)));
+      }
+      // 当日予約
+      if ($request->today) {
+        $today = Carbon::now();
+        $query->whereDate('reserve_date', date('Y-m-d', strtotime($today)));
+      }
+      // 翌日予約
+      if ($request->day_after) {
+        $tomorrow = Carbon::tomorrow();
+        $query->whereDate('reserve_date', date('Y-m-d', strtotime($tomorrow)));
       }
     });
 

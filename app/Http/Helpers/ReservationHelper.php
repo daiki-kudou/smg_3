@@ -42,6 +42,9 @@ class ReservationHelper
 
   public static function formatDate($num)
   {
+    if (empty($num)) {
+      return null;
+    }
     $weekday = date('w', strtotime($num));
     if ($weekday == 0) {
       $weekday = "日";

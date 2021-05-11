@@ -51,10 +51,6 @@
               <dt>予約ID：</dt>
               <dd class="total_result">{{ReservationHelper::fixId($reservation->id)}}</dd>
             </dl>
-            <!-- <dl class="ttl_box">
-                  <dt>予約一括ID</dt>
-                  <dd class="total_result">ダミー</dd>
-                </dl> -->
           </div>
         </td>
     </tbody>
@@ -74,7 +70,9 @@
                 </li>
                 <li>
                   <p><span>申込日：</span>{{ReservationHelper::formatDate($reservation->created_at)}}</p>
-                  <p><span>予約確定日：</span>{{!empty($reservation->approve_send_at)?ReservationHelper::formatDate($reservation->approve_send_at):""}}</p>
+                  <p>
+                    <span>予約確定日：</span>{{!empty($reservation->approve_send_at)?ReservationHelper::formatDate($reservation->approve_send_at):""}}
+                  </p>
                 </li>
               </ul>
             </td>
@@ -462,7 +460,7 @@
             </h3>
           </div>
         </div>
-        <div class="main hide">
+        <div class="main">
           <div class="venues billdetails_content">
             <table class="table table-bordered">
               <tbody>
@@ -670,6 +668,24 @@
       </div>
     </div>
   </section>
+  <!-- ステータスが予約承認まちのときに表示 -->
+  @if ($reservation->bills->first()->reservation_status==2)
+  <div class="confirm-box text-center mt-5">
+    <p>上記、予約内容で間違いないでしょうか。問題なければ、予約の承認をお願い致します。</p>
+    <p class="text-center mt-3">
+      {{ Form::model($reservation, ['method'=>'PUT', 'route'=> ['user.home.updatestatus',$reservation->id],'class'=>"text-center"])}}
+      @csrf
+      {{ Form::hidden('update_status',3,) }}
+
+      {{ Form::submit('予約を承認する',['class' => 'btn more_btn4_lg']) }}
+      {{ Form::close() }}
+    </p>
+    <p class="notion">※ご要望に相違がある場合は、下記連絡先までご連絡ください。<br>
+      TEL：06-1234-5678<br>
+      mail：test@gmail.com</p>
+  </div>
+  @endif
+
 
   <!-- 追加請求セクション------------------------------------------------------------------- -->
   @foreach ($other_bills as $other_bill)
@@ -757,7 +773,7 @@
             </h3>
           </div>
         </div>
-        <div class="main hide">
+        <div class="main ">
           <div class="venues billdetails_content">
             <table class="table table-bordered">
               <tbody>
@@ -965,6 +981,25 @@
       </div>
     </div>
   </section>
+  @if ($other_bill->reservation_status==2)
+  <!-- 工藤さん！！！！追加請求のステータスが予約承認まちのときに表示 -->
+  <div class="confirm-box text-center">
+    <p>上記、追加請求の内容で間違いないでしょうか。問題なければ、予約の承認をお願い致します。</p>
+    <p class="text-center mt-3">
+      {{-- <input class="btn more_btn4_lg" type="submit" value="追加請求の内容を承認する"> --}}
+      {{ Form::open(['url' => "user/home/approve_user_additional_cfm", 'method'=>'post', 'class'=>'']) }}
+      @csrf
+      {{ Form::hidden('bill_id', $other_bill->id)}}
+      {{ Form::submit('追加請求の内容を承認する',['class' => 'btn more_btn4_lg']) }}
+      {{ Form::close() }}
+    </p>
+    <p class="notion">※ご要望に相違がある場合は、下記連絡先までご連絡ください。<br>
+      TEL：06-1234-5678<br>
+      mail：test@gmail.com</p>
+  </div>
+  @endif
+
+
   @endforeach
 
 
@@ -991,25 +1026,33 @@
         <tr>
           <td>会場料</td>
           <td>
-            <p>{{number_format($reservation->bills()->where("reservation_status","<=",3)->pluck("venue_price")->sum())}}円</p>
+            <p>
+              {{number_format($reservation->bills()->where("reservation_status","<=",3)->pluck("venue_price")->sum())}}円
+            </p>
           </td>
         </tr>
         <tr>
           <td>有料備品　サービス</td>
           <td>
-            <p>{{number_format($reservation->bills()->where("reservation_status","<=",3)->pluck("equipment_price")->sum())}}円</p>
+            <p>
+              {{number_format($reservation->bills()->where("reservation_status","<=",3)->pluck("equipment_price")->sum())}}円
+            </p>
           </td>
         </tr>
         <tr>
           <td>レイアウト変更料</td>
           <td>
-            <p>{{number_format($reservation->bills()->where("reservation_status","<=",3)->pluck("layout_price")->sum())}}円</p>
+            <p>
+              {{number_format($reservation->bills()->where("reservation_status","<=",3)->pluck("layout_price")->sum())}}円
+            </p>
           </td>
         </tr>
         <tr>
           <td>その他</td>
           <td>
-            <p>{{number_format($reservation->bills()->where("reservation_status","<=",3)->pluck("others_price")->sum())}}円</p>
+            <p>
+              {{number_format($reservation->bills()->where("reservation_status","<=",3)->pluck("others_price")->sum())}}円
+            </p>
           </td>
         </tr>
       </tbody>
@@ -1018,7 +1061,9 @@
           <td colspan="2">
             <div class="d-flex justify-content-end">
               <p>小計：</p>
-              <p>{{number_format($reservation->bills()->where("reservation_status","<=",3)->pluck("master_subtotal")->sum())}}円</p>
+              <p>
+                {{number_format($reservation->bills()->where("reservation_status","<=",3)->pluck("master_subtotal")->sum())}}円
+              </p>
             </div>
           </td>
         </tr>
@@ -1026,7 +1071,9 @@
           <td colspan="2">
             <div class="d-flex justify-content-end">
               <p>消費税：</p>
-              <p>{{number_format(ReservationHelper::getTax($reservation->bills()->where("reservation_status","<=",3)->pluck("master_subtotal")->sum()))}}円</p>
+              <p>
+                {{number_format(ReservationHelper::getTax($reservation->bills()->where("reservation_status","<=",3)->pluck("master_subtotal")->sum()))}}円
+              </p>
             </div>
           </td>
         </tr>
@@ -1034,7 +1081,9 @@
           <td colspan="2">
             <div class="d-flex justify-content-end">
               <p>合計金額：</p>
-              <p>{{number_format(ReservationHelper::taxAndPrice($reservation->bills()->where("reservation_status","<=",3)->pluck("master_subtotal")->sum()))}}円</p>
+              <p>
+                {{number_format(ReservationHelper::taxAndPrice($reservation->bills()->where("reservation_status","<=",3)->pluck("master_subtotal")->sum()))}}円
+              </p>
             </div>
           </td>
         </tr>
@@ -1072,7 +1121,8 @@
                       </dd>
                     </dl>
                     <div class="bill_btn_wrap">
-                      <p class="mb-2"><a class="more_btn" href="{{ url('user/home/generate_invoice/'.$reservation->id) }}">請求書を見る</a></p>
+                      <p class="mb-2"><a class="more_btn"
+                          href="{{ url('user/home/generate_invoice/'.$reservation->id) }}">請求書を見る</a></p>
                       <!-- 工藤さん！領収書をみるボタンはステータスが入金確認後に表示------ -->
                       <p><a class="more_btn4" href="">領収書を見る</a></p>
                     </div>
@@ -1117,8 +1167,7 @@
             </h3>
           </div>
         </div>
-        <div class="main hide">
-
+        <div class="main ">
           <div class="billdetails_content">
             <h4 class="cancel_ttl">キャンセル料計算の内訳</h4>
             <table class="table table-borderless">
@@ -1214,7 +1263,7 @@
   <!-- 工藤さん！！キャンセル料合計請求額------------------------------------------------------------------- -->
 
   @if ($reservation->cxls->count()!=0)
-      
+
   <div class="master_totals_cancel">
     <table class="table mb-0">
       <tbody class="master_total_head2">
@@ -1234,9 +1283,11 @@
       <tbody class="master_total_body">
         <tr>
           <td>キャンセル料</td>
-          <td><p>
-            {{number_format($reservation->cxls->pluck("master_subtotal")->sum())}}
-            円</p></td>
+          <td>
+            <p>
+              {{number_format($reservation->cxls->pluck("master_subtotal")->sum())}}
+              円</p>
+          </td>
         </tr>
       </tbody>
       <tbody class="master_total_bottom mb-0">
@@ -1275,29 +1326,11 @@
         </tr>
       </tbody>
     </table>
-  </div> 
+  </div>
   @endif
 </section>
 
 
-<!-- ステータスが予約承認まちのときに表示 -->
-
-@if ($reservation->bills->first()->reservation_status==2)
-<div class="confirm-box text-center mt-5">
-  <p>上記、予約内容で間違いないでしょうか。問題なければ、予約の承認をお願い致します。</p>
-  <p class="text-center mt-3">
-    {{ Form::model($reservation, ['method'=>'PUT', 'route'=> ['user.home.updatestatus',$reservation->id],'class'=>"text-center"])}}
-    @csrf
-    {{ Form::hidden('update_status',3,) }}
-
-    {{ Form::submit('予約を承認する',['class' => 'btn more_btn4_lg']) }}
-    {{ Form::close() }}
-  </p>
-  <p class="notion">※ご要望に相違がある場合は、下記連絡先までご連絡ください。<br>
-    TEL：06-1234-5678<br>
-    mail：test@gmail.com</p>
-</div>
-@endif
 
 
 <!-- ステータスが予約完了のときに表示 -->
@@ -1316,17 +1349,6 @@
 </div>
 @endif
 
-<!-- 工藤さん！！！！追加請求のステータスが予約承認まちのときに表示 -->
-<!-- <div class="confirm-box text-center mt-5">
-  <p>上記、追加請求の内容で間違いないでしょうか。問題なければ、予約の承認をお願い致します。</p>
-  <p class="text-center mt-3">
-  <input class="btn more_btn4_lg" type="submit" value="追加請求の内容を承認する">
-  </p>
-  <p class="notion">※ご要望に相違がある場合は、下記連絡先までご連絡ください。<br>
-    TEL：06-1234-5678<br>
-    mail：test@gmail.com</p>
-</div> -->
-
 
 
 <!-- 工藤さん！！キャンセルが承認まちの時に表示です！！！ -->
@@ -1335,7 +1357,6 @@
   <p>上記、予約内容をキャンセルしてもよろしいでしょうか。問題なければ、承認をお願い致します。</p>
   <p class="text-center mt-3">
     @foreach ($reservation->cxls->where("cxl_status",1) as $cfm_selected_cxl)
-
     {{ Form::open(['url' => "user/home/cfm_cxl", 'method'=>'post', 'class'=>'']) }}
     @csrf
     {{ Form::hidden('cxl_id', $cfm_selected_cxl->id)}}

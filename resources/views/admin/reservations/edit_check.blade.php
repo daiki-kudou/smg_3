@@ -745,16 +745,16 @@
             <tbody class="others_main">
               @for ($other = 0; $other < $o_cnt; $other++) <tr>
                 <td>
-                  {{ Form::text('others_breakdown_item'.$other, $result['others_input_item'.$other],['class'=>'form-control', 'readonly'] ) }}
+                  {{ Form::text('others_breakdown_item'.$other, $result['others_breakdown_item'.$other],['class'=>'form-control', 'readonly'] ) }}
                 </td>
                 <td>
-                  {{ Form::text('others_breakdown_cost'.$other, $result['others_input_cost'.$other],['class'=>'form-control', 'readonly'] ) }}
+                  {{ Form::text('others_breakdown_cost'.$other, $result['others_breakdown_cost'.$other],['class'=>'form-control', 'readonly'] ) }}
                 </td>
                 <td>
-                  {{ Form::text('others_breakdown_count'.$other, $result['others_input_count'.$other],['class'=>'form-control', 'readonly'] ) }}
+                  {{ Form::text('others_breakdown_count'.$other, $result['others_breakdown_count'.$other],['class'=>'form-control', 'readonly'] ) }}
                 </td>
                 <td>
-                  {{ Form::text('others_breakdown_subtotal'.$other, $result['others_input_subtotal'.$other],['class'=>'form-control', 'readonly'] ) }}
+                  {{ Form::text('others_breakdown_subtotal'.$other, $result['others_breakdown_subtotal'.$other],['class'=>'form-control', 'readonly'] ) }}
                 </td>
                 </tr>
                 @endfor

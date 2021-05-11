@@ -19,7 +19,7 @@
       </tr>
     </tbody>
     <tbody class="venue_main">
-      @foreach ($other_bill->breakdowns()->get() as $venue_breakdown)
+      @foreach ($other_bill->breakdowns as $venue_breakdown)
       @if ($venue_breakdown->unit_type==1)
       <tr>
         <td>{{$venue_breakdown->unit_item}}</td>
@@ -157,7 +157,7 @@
       </tr>
     </tbody>
     <tbody class="others_main">
-      @foreach ($other_bill->breakdowns()->get() as $others_breakdown)
+      @foreach ($other_bill->breakdowns as $others_breakdown)
       @if ($others_breakdown->unit_type==5)
       <tr>
         <td>{{$others_breakdown->unit_item}}</td>

@@ -10,12 +10,6 @@ use Robbo\Presenter\PresentableInterface; //プレゼンターの追加
 
 use Illuminate\Support\Facades\DB;
 
-use App\Models\Venue;
-use App\Models\User;
-use App\Models\Cxl;
-use App\Models\Reservation;
-
-
 class Agent extends Model implements PresentableInterface
 {
   protected $fillable = [
@@ -57,10 +51,15 @@ class Agent extends Model implements PresentableInterface
 
 
   // プレゼンター連携
-  /**
+    /**
+     * @var mixed
+     */
+    private $payment_limit;
+
+    /**
    * Return a created presenter.
    *
-   * @return Robbo\Presenter\Presenter
+   * @return Robbo\Presenter\Presenter|AgentPresenter
    */
   public function getPresenter()
   {
@@ -150,28 +149,28 @@ class Agent extends Model implements PresentableInterface
 | 会場と予約の一対多
 |--------------------------------------------------------------------------|
 */
-  public function reservations()
+  public function reservations(): \Illuminate\Database\Eloquent\Relations\HasMany
   {
     return $this->hasMany(Reservation::class);
   }
 
 
-  public function searchs($freeword, $id, $name, $person_tel)
-  {
-    if (isset($freeword)) {
-      return $this->where('id', 'LIKE', "%$freeword%")
-        ->orWhere('name', 'LIKE', "%$freeword%")
-        ->orWhere('person_tel', 'LIKE', "%$freeword%")->paginate(10);
-    } elseif (isset($id)) {
-      return $this->where('id', 'LIKE', "%$id%")->paginate(10);
-    } elseif (isset($name)) {
-      return $this->where('name', 'LIKE', "%$name%")->paginate(10);
-    } elseif (isset($person_tel)) {
-      return $this->where('person_tel', 'LIKE', "%$person_tel%")->paginate(10);
-    } else {
-      return $this->query()->paginate(10);
-    }
-  }
+//  public function searchs($freeword, $id, $name, $person_tel)
+//  {
+//    if (isset($freeword)) {
+//      return $this->where('id', 'LIKE', "%$freeword%")
+//        ->orWhere('name', 'LIKE', "%$freeword%")
+//        ->orWhere('person_tel', 'LIKE', "%$freeword%")->paginate(10);
+//    } elseif (isset($id)) {
+//      return $this->where('id', 'LIKE', "%$id%")->paginate(10);
+//    } elseif (isset($name)) {
+//      return $this->where('name', 'LIKE', "%$name%")->paginate(10);
+//    } elseif (isset($person_tel)) {
+//      return $this->where('person_tel', 'LIKE', "%$person_tel%")->paginate(10);
+//    } else {
+//      return $this->query()->paginate(10);
+//    }
+//  }
 
   public function getPayDetails($date)
   {

@@ -7,7 +7,8 @@
             <p class="title-icon">
               <i class="far fa-id-card icon-size"></i>仲介会社情報
             </p>
-            <p><a class="more_btn" target="_blank" rel="noopener" href="{{url('admin/agents/'.$reservation->id)}}">仲介会社詳細</a></p>
+            <p><a class="more_btn" target="_blank" rel="noopener"
+                href="{{url('admin/agents/'.$reservation->id)}}">仲介会社詳細</a></p>
           </div>
         </td>
       </tr>
@@ -41,7 +42,7 @@
           <label for="enduser_company" class="">エンドユーザー</label>
         </td>
         <td>
-          {{$reservation->enduser->company}}
+          {{optional($reservation->enduser)->company}}
         </td>
       </tr>
       <tr>
@@ -49,7 +50,7 @@
           <label for="enduser_address" class=" ">住所</label>
         </td>
         <td>
-          {{$reservation->enduser->address}}
+          {{optional($reservation->enduser)->address}}
         </td>
       </tr>
       <tr>
@@ -57,7 +58,7 @@
           <label for="enduser_tel" class="">連絡先</label>
         </td>
         <td>
-          {{$reservation->enduser->tel}}
+          {{optional($reservation->enduser)->tel}}
         </td>
       </tr>
       <tr>
@@ -65,7 +66,7 @@
           <label for="enduser_mail" class=" ">メールアドレス</label>
         </td>
         <td>
-          {{$reservation->enduser->email}}
+          {{optional($reservation->enduser)->email}}
         </td>
       </tr>
       <tr>
@@ -73,7 +74,7 @@
           <label for="enduser_incharge" class="">当日担当者</label>
         </td>
         <td>
-          {{$reservation->enduser->person}}
+          {{optional($reservation->enduser)->person}}
         </td>
       </tr>
       <tr>
@@ -81,7 +82,7 @@
           <label for="" class="">当日連絡先</label>
         </td>
         <td>
-          {{$reservation->enduser->mobile}}
+          {{optional($reservation->enduser)->mobile}}
         </td>
       </tr>
       <tr>
@@ -89,7 +90,7 @@
           <label for="enduser_attr" class="">利用者属性</label>
         </td>
         <td>
-          {{$reservation->enduser->attr}}
+          {{optional($reservation->enduser)->attr}}
         </td>
       </tr>
     </table>
@@ -107,7 +108,7 @@
         <label for="enduser_charge ">支払い料</label>
       </td>
       <td class="d-flex align-items-center">
-        {{number_format($reservation->enduser->charge)}}円
+        {{number_format(optional($reservation->enduser)->charge)}}円
       </td>
     </tr>
   </table>

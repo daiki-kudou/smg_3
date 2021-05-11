@@ -38,7 +38,7 @@ class ReservationsController extends Controller
     if (!empty($request->all())) {
       $class = new Reservation;
       $result = $class->search_item($request);
-      $reservations = $class->search_item($request)->orderBy('id', 'desc')->paginate(30);
+      $reservations = $result->orderBy('id', 'desc')->paginate(30);
       $counter = $result->count();
     } else {
       $reservations = Reservation::with(['bills.breakdowns', 'user', 'agent', 'venue', 'endusers'])

@@ -50,7 +50,6 @@
   </p>
   @endif
   @endif
-
 </div>
 
 @if ($reservation->bills->first()->double_check_status==0)
@@ -80,7 +79,9 @@
                 @endif
               </p>
               <p class="ml-3">予約ID：{{ReservationHelper::IdFormat($reservation->id)}}</p>
-              <p class="ml-3">一括ID：{{!empty($reservation->multiple_reserve_id)?ReservationHelper::IdFormat($reservation->multiple_reserve_id):""}}</p>
+              <p class="ml-3">
+                一括ID：{{!empty($reservation->multiple_reserve_id)?ReservationHelper::IdFormat($reservation->multiple_reserve_id):""}}
+              </p>
             </div>
           </td>
         </tr>
@@ -237,17 +238,21 @@
             <tr>
               <td class="table-active"><label for="prelayout">準備</label></td>
               <td>
-                @foreach ($reservation->bills->first()->breakdowns as $breakdown)
-                {{$breakdown->unit_item=='レイアウト準備料金'?'あり':''}}
-                @endforeach
+                @if ($reservation->bills->first()->breakdowns->contains("unit_item","レイアウト準備料金"))
+                あり
+                @else
+                なし
+                @endif
               </td>
             </tr>
             <tr>
               <td class="table-active"><label for="postlayout">片付</label></td>
               <td>
-                @foreach ($reservation->bills->first()->breakdowns as $breakdown)
-                {{$breakdown->unit_item=='レイアウト片付料金'?'あり':''}}
-                @endforeach
+                @if ($reservation->bills->first()->breakdowns->contains("unit_item","レイアウト片付料金"))
+                あり
+                @else
+                なし
+                @endif
               </td>
             </tr>
           </tbody>
@@ -982,7 +987,7 @@
       <dd>
         {{ Form::open(['url' => 'admin/bills/other_doublecheck', 'method'=>'POST']) }}
         @csrf
-        {{Form::select('double_check1_name', $admin, 
+        {{Form::select('double_check1_name', $admin,
         null, ['class'=>'form-control double_check1_name'])}}
         {{ Form::hidden('double_check_status', $other_bill->double_check_status ) }}
         {{ Form::hidden('bills_id', $other_bill->id ) }}
@@ -1002,7 +1007,7 @@
       <dd>
         {{ Form::open(['url' => 'admin/bills/other_doublecheck', 'method'=>'POST']) }}
         @csrf
-        {{Form::select('double_check2_name', $admin, 
+        {{Form::select('double_check2_name', $admin,
         null, ['class'=>'form-control double_check2_name'])}}
         {{ Form::hidden('double_check_status', $other_bill->double_check_status ) }}
         {{ Form::hidden('bills_id', $other_bill->id ) }}
@@ -1342,7 +1347,7 @@
       <dd>
         {{ Form::open(['url' => 'admin/cxl/double_check', 'method'=>'POST']) }}
         @csrf
-        {{Form::select('double_check1_name', $admin, 
+        {{Form::select('double_check1_name', $admin,
         null, ['class'=>'form-control double_check1_name'])}}
         {{ Form::hidden('double_check_status', $cxl->double_check_status ) }}
         {{ Form::hidden('reservation_id', $reservation->id ) }}
@@ -1363,7 +1368,7 @@
       <dd>
         {{ Form::open(['url' => 'admin/cxl/double_check', 'method'=>'POST']) }}
         @csrf
-        {{Form::select('double_check2_name', $admin, 
+        {{Form::select('double_check2_name', $admin,
         null, ['class'=>'form-control double_check2_name'])}}
         {{ Form::hidden('double_check_status', $cxl->double_check_status ) }}
         {{ Form::hidden('cxl_id', $cxl->id ) }}

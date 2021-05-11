@@ -284,11 +284,11 @@
               <td>
                 <div class="radio-box">
                   <p>
-                    {{Form::radio('services_breakdown'.$key, 1, false , ['id' => 'service'.$key.'on'])}}
+                    {{Form::radio('services_breakdown'.$key, 1, $bill->breakdowns->contains('unit_item',$ser->item)?true:false , ['id' => 'service'.$key.'on'])}}
                     {{Form::label('service'.$key.'on',"有り")}}
                   </p>
                   <p>
-                    {{Form::radio('services_breakdown'.$key, 0, true, ['id' => 'service'.$key.'off'])}}
+                    {{Form::radio('services_breakdown'.$key, 0, $bill->breakdowns->contains('unit_item',$ser->item)?false:true, ['id' => 'service'.$key.'off'])}}
                     {{Form::label('service'.$key.'off',"無し")}}
                   </p>
                 </div>

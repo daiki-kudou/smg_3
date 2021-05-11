@@ -39,6 +39,8 @@ Route::namespace('User')->prefix('user')->name('user.')->group(function () {
     Route::put('home/{home}/update_other_bills', 'HomeController@updateOtherBillsStatus');
     Route::post('home/cfm_cxl', 'HomeController@cxl_cfm_by_user');
 
+    Route::post('home/approve_user_additional_cfm', 'HomeController@approve_user_additional_cfm');
+
 
 
     Route::post('pre_reservations/{pre_reservation}/calculate', 'PreReservationsController@calculate');
