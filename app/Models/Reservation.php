@@ -141,6 +141,11 @@ class Reservation extends Model implements PresentableInterface
     return $this->hasOne(Enduser::Class);
   }
 
+  public function change_log()
+  {
+    return $this->hasOne('App\Models\ChangeLog');
+  }
+
 
   // bills 削除用
   protected static function boot()
@@ -152,6 +157,8 @@ class Reservation extends Model implements PresentableInterface
       }
     });
   }
+
+
 
   public function addAllBills()
   {

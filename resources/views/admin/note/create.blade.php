@@ -1,4 +1,4 @@
- <link href="{{ asset('css/adminlte.min.css')}}" rel="stylesheet">
+<link href="{{ asset('css/adminlte.min.css')}}" rel="stylesheet">
 <link href="{{ asset('/css/template.css') }}" rel="stylesheet">
 
 <section class="mt-5 px-5">
@@ -19,7 +19,7 @@
         <td>{{Form::text('hour',null , ['class' => 'form-control'])}}</td>
         <td>{{Form::text('venue',null , ['class' => 'form-control'])}}</td>
         <td>{{Form::text('company',null , ['class' => 'form-control'])}}</td>
-        <td>{{Form::textarea('content',null , ['class' => 'form-control'])}}</td>
+        <td>{{Form::textarea('content',null , ['class' => 'form-control','rows'=>3])}}</td>
         <td>
           {{ Form::submit('追加する', ['class' => 'btn more_btn']) }}
         </td>
