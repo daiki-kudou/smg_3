@@ -6,7 +6,6 @@
 <link href="{{ asset('/css/template.css') }}" rel="stylesheet">
 <script src="{{ asset('/js/template.js') }}"></script>
 
-
 <div class="">
   <div class="float-right">
     <nav aria-label="breadcrumb">
@@ -364,15 +363,16 @@
       <table class="table table-bordered note-table">
         <tr>
           <td>
-            <p class="title-icon">
-              <i class="fas fa-file-alt icon-size"></i>
-              <label for="extraNote">予約内容変更履歴</label>
-
-              <div class="text-right">
-                <input type="checkbox" id="remark_checkbox">
-                <label for="remark_checkbox">編集</label>
-              </div>
-            </p>
+            <div class="d-flex align-items-center justify-content-between">
+              <p class="title-icon">
+                <i class="fas fa-file-alt icon-size"></i>
+                <label for="extraNote">予約内容変更履歴</label>
+              </p>
+                <div class="text-right">
+                  <input type="checkbox" id="remark_checkbox">
+                  <label for="remark_checkbox">編集する</label>
+                </div>
+            </div>
           </td>
         </tr>
         <tr>
@@ -381,15 +381,12 @@
             @csrf
             {{Form::textarea('remark_textarea', optional($reservation->change_log)->content, ['class' => 'form-control remark_textarea','rows' => '10','readonly'])}}
             {{ Form::hidden('reservation_id', $reservation->id ) }}
-            {{Form::submit('更新',['class'=>'remark_textarea_submit','disabled'])}}
+            <p class="mt-2 text-right">{{Form::submit('更新する',['class'=>'remark_textarea_submit btn more_btn','disabled'])}}</p>
             {{Form::close()}}
           </td>
         </tr>
       </table>
     </div>
-
-
-
   </div>
 </section>
 
