@@ -378,5 +378,7 @@ Route::namespace('Admin')->prefix('admin')->name('admin.')->group(function () {
     Route::post('receipts', 'ReceiptsController@show');
 
     Route::post('control_time', 'ControltimeController@getInformation');
+
+    Route::post('change_log', 'ChangeLogsController@update');
   });
 });

@@ -357,7 +357,7 @@ class ReservationsController extends Controller
   public function show($id)
   {
     session()->forget(['add_bill', 'cxlCalcInfo', 'cxlMaster', 'cxlResult', 'invoice', 'multiOrSingle', 'discount_info', 'calc_info', 'master_info', 'check_info', 'basicInfo', 'reservationEditMaster']);
-    $reservation = Reservation::with(['bills.breakdowns', 'cxls.cxl_breakdowns', 'user', 'agent', 'venue'])->find($id);
+    $reservation = Reservation::with(['bills.breakdowns', 'cxls.cxl_breakdowns', 'user', 'agent', 'venue', 'change_log'])->find($id);
     $venue = $reservation->venue;
     $user = $reservation->user;
     $master_prices = $reservation->TotalAmount();
