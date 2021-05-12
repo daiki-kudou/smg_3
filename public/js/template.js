@@ -47,6 +47,10 @@ $(function () {
     minDate: 0,
     autoclose: true
   });
+  $('.datepicker_no_min_date').datepicker({
+    dateFormat: 'yy-mm-dd',
+    autoclose: true
+  });
 });
 
 $(function () {

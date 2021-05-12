@@ -20,6 +20,20 @@
   </div>
   <h2 class="mt-3 mb-3">予約 詳細</h2>
   <hr>
+
+  @if ($errors->any())
+  <div class="alert alert-danger">
+    <strong>
+      <p class="">再度、編集→更新をおこなってください</p>
+    </strong>
+    <ul>
+      @foreach ($errors->all() as $error)
+      <li>{{ $error }}</li>
+      @endforeach
+    </ul>
+  </div>
+  @endif
+
   <div class="mb-3 mt-5 align-items-center d-flex justify-content-between">
     @if ($reservation->bills->first()->reservation_status<3) <div class="text-left">
       {{ Form::model($reservation, ['route' => ['admin.reservations.destroy', $reservation->id], 'method' => 'delete']) }}
@@ -566,8 +580,9 @@
               <tr>
                 <td></td>
                 <td>
-                  <span
-                    class="font-weight-bold">合計金額：</span>{{number_format($reservation->bills->first()->master_total)}}
+                  <span　class="font-weight-bold">
+                    合計金額：
+                  </span>{{number_format($reservation->bills->first()->master_total)}}
                 </td>
               </tr>
             </tbody>
@@ -598,33 +613,51 @@
           {{ Form::close() }}
         </div>
       </div>
+
       <div class="main hide">
+        {{ Form::open(['url' => 'admin/bills/update_bill_info', 'method'=>'post']) }}
+        @csrf
+        {{ Form::hidden('bill_id', $reservation->bills->first()->id)}}
+        <p class="text-right">
+          <input type="checkbox" id="bill_edit">
+          <label for="bill_edit">編集</label>
+        </p>
         <div class="informations billdetails_content">
           <table class="table">
             <tbody>
               <tr>
-                <td>請求日：</td>
-                <td>支払期日：{{ReservationHelper::formatDate($reservation->bills->first()->payment_limit)}}
+                <td>
+                  請求日：{{Form::text('bill_created_at',$reservation->bills->first()->bill_created_at,['class'=>'form-control bill_edit','disabled'])}}
+                </td>
+                <td>
+                  支払期日：{{Form::text('payment_limit',date('Y-m-d',strtotime($reservation->bills->first()->payment_limit)),['class'=>'form-control bill_edit datepicker_no_min_date','disabled'])}}
                 </td>
               </tr>
               <tr>
-                <td>請求書宛名：
-                  {{($reservation->bills->first()->bill_company)}}
+                <td>
+                  請求書宛名：{{Form::text('bill_company',$reservation->bills->first()->bill_company,['class'=>'form-control bill_edit','disabled'])}}
                 </td>
                 <td>
-                  担当者：
-                  {{$reservation->bills->first()->bill_person}}
+                  担当者：{{Form::text('bill_person',$reservation->bills->first()->bill_person,['class'=>'form-control bill_edit','disabled'])}}
                 </td>
               </tr>
               <tr>
                 <td colspan="2">
                   <p>請求書備考</p>
-                  <p>{{$reservation->bills->first()->bill_remark}}</p>
+                  <p>
+                    {{Form::textarea('bill_remark',$reservation->bills->first()->bill_remark,['class'=>'form-control bill_edit','disabled'])}}
+                  </p>
                 </td>
               </tr>
             </tbody>
           </table>
         </div>
+        <div class="text-right">
+          <p>
+            {{Form::submit('更新',['class'=>'bill_edit','disabled'])}}
+          </p>
+        </div>
+        {{ Form::close() }}
       </div>
     </div>
   </div>
@@ -645,26 +678,41 @@
         </div>
       </div>
       <div class="main">
+        {{ Form::open(['url' => 'admin/bills/update_paid_info', 'method'=>'post']) }}
+        @csrf
+        {{ Form::hidden('bill_id', $reservation->bills->first()->id)}}
+        <div class="text-right">
+          <input type="checkbox" id="paid_edit">
+          <label for="paid_edit">編集</label>
+        </div>
         <div class="paids billdetails_content">
           <table class="table">
             <tbody>
               <tr>
                 <td>
                   入金状況
-                  {{ReservationHelper::paidStatus($reservation->bills->first()->paid)}}
+                  {{Form::select('paid', ['未入金','入金済み'],$reservation->bills->first()->paid==1?1:0,['class'=>'form-control paid_edit','disabled'])}}
                 </td>
                 <td>
                   入金日：
-                  {{ReservationHelper::formatDate($reservation->bills->first()->pay_day)}}
+                  {{Form::text('pay_day',!empty($reservation->bills->first()->pay_day)?date('Y-m-d',strtotime($reservation->bills->first()->pay_day)):"",['class'=>'form-control paid_edit datepicker_no_min_date', 'disabled'])}}
                 </td>
               </tr>
               <tr>
-                <td>振込人名：{{$reservation->bills->first()->pay_person}}</td>
-                <td>入金額：{{$reservation->bills->first()->payment}}</td>
+                <td>振込人名：
+                  {{Form::text('pay_person',$reservation->bills->first()->pay_person,['class'=>'form-control paid_edit', 'disabled'])}}
+                </td>
+                <td>入金額：
+                  {{Form::text('payment',$reservation->bills->first()->payment,['class'=>'form-control paid_edit', 'disabled','min'=>0])}}
+                </td>
               </tr>
             </tbody>
           </table>
         </div>
+        <p class="text-right">
+          {{Form::submit('更新',['disabled','class'=>'paid_edit'])}}
+        </p>
+        {{Form::close()}}
       </div>
     </div>
   </div>
@@ -1471,6 +1519,26 @@
       }else{
         $('.remark_textarea').prop('readonly',true);
         $('.remark_textarea_submit').prop('disabled',true);
+      }
+    })
+  })
+
+  $(function(){
+    $('#bill_edit').on('click',function(){
+      if ($('.bill_edit').prop('disabled')) {
+        $('.bill_edit').prop('disabled',false);
+      }else{
+        $('.bill_edit').prop('disabled',true);
+      }
+    })
+  })
+
+  $(function(){
+    $('#paid_edit').on('click',function(){
+      if ($('.paid_edit').prop('disabled')) {
+        $('.paid_edit').prop('disabled',false);
+      }else{
+        $('.paid_edit').prop('disabled',true);
       }
     })
   })

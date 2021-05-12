@@ -216,6 +216,10 @@ Route::namespace('Admin')->prefix('admin')->name('admin.')->group(function () {
 
     Route::post('bills/{bill}/agent_edit_update', 'BillsController@agentEditUpdate');
 
+    Route::post('bills/update_bill_info', 'BillsController@updateBillInfo');
+
+    Route::post('bills/update_paid_info', 'BillsController@updatePaidInfo');
+
     // Bill　予約に紐づく
     Route::resource('bills', 'BillsController');
     //********************** */

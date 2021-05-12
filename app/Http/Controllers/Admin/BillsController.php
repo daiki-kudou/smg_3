@@ -44,7 +44,6 @@ class BillsController extends Controller
    */
   public function create(Request $request)
   {
-
     $reservation = Reservation::find($request->reservation_id);
     $user = User::find($reservation->user_id);
     $pay_limit = $user->getUserPayLimit($reservation->reserve_date);
@@ -77,7 +76,6 @@ class BillsController extends Controller
     $reservation = Reservation::find($request->reservation_id);
     $equipments = $reservation->venue->equipments()->get();
     $services = $reservation->venue->services()->get();
-
     return [$equipments, $services];
   }
 
@@ -134,7 +132,6 @@ class BillsController extends Controller
       session()->flash('flash_message', '更新に失敗しました。<br>フォーム内の空欄や全角など確認した上でもう一度お試しください。');
       return redirect(route('admin.bills.check', $request->reservation_id));
     }
-
     $request->session()->regenerate();
     return redirect()->route('admin.reservations.show', $data['reservation_id']);
   }
@@ -172,10 +169,6 @@ class BillsController extends Controller
     return redirect()->route('admin.reservations.index');
   }
 
-
-
-
-
   /**
    * Display the specified resource.
    *
@@ -205,7 +198,6 @@ class BillsController extends Controller
   {
     $bill = Bill::with(['reservation.agent', 'breakdowns'])->find($id);
     $percent = $bill->reservation->agent->cost;
-
     return view('admin.bills.agent_edit', compact('bill', 'percent'));
   }
 
@@ -227,7 +219,6 @@ class BillsController extends Controller
 
   public function agentEditUpdate(Request $request, $id)
   {
-
     $bill = Bill::with('reservation')->find($id);
     $bill->UpdateBill($request);
     $request->session()->put('add_breakdown', $request->all());
@@ -247,4 +238,60 @@ class BillsController extends Controller
   // {
   //   //
   // }
+
+  public function updateBillInfo(Request $request)
+  {
+    $validatedData = $request->validate(
+      [
+        'bill_created_at' => 'required',
+        'payment_limit' => 'required',
+        'bill_company' => 'required',
+        'bill_person' => 'required',
+      ],
+      [
+        'bill_created_at.required' => '[請求書情報] ※請求日は必須です',
+        'payment_limit.required' => '[請求書情報] ※支払期日は必須です',
+        'bill_company.required' => '[請求書情報] ※請求書宛名は必須です',
+        'bill_person.required' => '[請求書情報] ※担当者は必須です',
+      ]
+    );
+    $bill = Bill::with('reservation')->find($request->bill_id);
+    $bill->update(
+      [
+        'bill_created_at' => $request->bill_created_at,
+        'payment_limit' => $request->payment_limit,
+        'bill_company' => $request->bill_company,
+        'bill_person' => $request->bill_person,
+        'bill_remark' => $request->bill_remark,
+      ]
+    );
+    return redirect(url('admin/reservations/' . $bill->reservation->id));
+  }
+
+  public function updatePaidInfo(Request $request)
+  {
+    $validatedData = $request->validate(
+      [
+        'paid' => 'required',
+        'pay_day' => 'date',
+        'payment' => 'integer|min:0',
+      ],
+      [
+        'paid.required' => '[入金情報] ※入金状況は必須です',
+        'pay_day.date' => '[入金情報] ※入金日は日付で入力してください',
+        'payment.integer' => '[入金情報] ※半角英数字で入力してください',
+        'payment.min' => '[入金情報] ※0以上を入力してください',
+      ]
+    );
+    $bill = Bill::with('reservation')->find($request->bill_id);
+    $bill->update(
+      [
+        'paid' => $request->paid,
+        'pay_day' => $request->pay_day,
+        'pay_person' => $request->pay_person,
+        'payment' => $request->payment,
+      ]
+    );
+    return redirect(url('admin/reservations/' . $bill->reservation->id));
+  }
 }
