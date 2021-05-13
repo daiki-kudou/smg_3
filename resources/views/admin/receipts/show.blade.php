@@ -18,7 +18,7 @@
 
   <section class="invoice-box print_pages">
     <!-- <div class="cancel_line">打消し</div> -->
-    <table cellpadding="0" cellspacing="0" >
+    <table cellpadding="0" cellspacing="0">
       <tr class="top">
         <td colspan="4">
           <h1 class="top-title">領収書</h1>
@@ -61,7 +61,7 @@
       </tr>
     </table>
 
-    <table cellpadding="0" cellspacing="0" class="bill-detail-table" >
+    <table cellpadding="0" cellspacing="0" class="bill-detail-table">
       <thead>
         <tr class="heading">
           <td colspan="4">
@@ -90,16 +90,16 @@
         @foreach ($bill->breakdowns as $item)
         <tr class="bill-details">
           <td>
-          {{$item->unit_item}}
+            {{$item->unit_item}}
           </td>
           <td>
-          {{number_format($item->unit_cost)}}
+            {{number_format($item->unit_cost)}}
           </td>
           <td>
-          {{$item->unit_count}}
+            {{$item->unit_count}}
           </td>
           <td>
-          {{number_format($item->unit_subtotal)}}<span>円</span>
+            {{number_format($item->unit_subtotal)}}<span>円</span>
           </td>
         </tr>
         @endforeach
@@ -131,8 +131,7 @@
 </body>
 
 <script>
-
-$(function () {
+  $(function () {
   var len = $(".bill-details").length;
   console.log(len);
 
@@ -146,23 +145,3 @@ $(".bill-note-wrap").addClass("break");
 </script>
 
 </html>
-
-
-
-
-
-
-<!-- 
-{{-- 請求書情報 --}}
-<pre>{{var_dump($bill)}}</pre>
-
-{{-- ユーザー情報 --}}
-<pre>{{var_dump($bill->reservation->user)}}</pre>
-
-{{-- 仲介会社情報 --}}
-<pre>{{var_dump($bill->reservation->agent)}}</pre>
-
-
-{{-- 請求書内訳 --}}
-<pre>{{var_dump($bill->breakdowns)}}</pre> -->
-
