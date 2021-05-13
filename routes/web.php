@@ -361,6 +361,9 @@ Route::namespace('Admin')->prefix('admin')->name('admin.')->group(function () {
     Route::get('cxl/edit_calc', 'CxlController@editCalcShow')->name('cxl.edit_calc');
     Route::post('cxl/edit_check', 'CxlController@editCheck');
     Route::post('cxl/update', 'CxlController@update');
+    Route::post('cxl/update_cxl_bill_info', 'CxlController@updateCxlBillInfo');
+    Route::post('cxl/update_cxl_paid_info', 'CxlController@updateCxlPaidInfo');
+
 
     // メールてんぷれ
     Route::get('mail_templates', 'MailTemplatesController@index');

@@ -19,7 +19,7 @@ class MultipleReserveTableSeeder extends Seeder
    */
   public function run()
   {
-    for ($i = 1; $i <= 50; $i++) {
+    for ($i = 1; $i <= 2000; $i++) {
       MultipleReserve::create([
         "id" => $i,
       ]);

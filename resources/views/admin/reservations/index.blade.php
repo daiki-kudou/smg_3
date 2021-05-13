@@ -95,7 +95,7 @@
             <td class="text-right">
               <select class="form-control select2" name="venue_id">
                 <option value=""></option>
-                @foreach ($venue as $venues)
+                @foreach (App\Models\Venue::cursor() as $venues)
                 <option value="{{$venues->id}}">
                   {{ReservationHelper::getVenue($venues->id)}}
                 </option>
@@ -139,12 +139,13 @@
             <td class="text-right">
               <select class="form-control select2" style="width: 100%;" name="agent">
                 <option value=""></option>
-                @foreach ($agents as $agent)
+                @foreach ($agents->chunk(1000) as $agent_e)
+                @foreach ($agent_e as $agent)
                 <option value="{{$agent->id}}">
                   {{ReservationHelper::getAgentCompanyName($agent->id)}}
                 </option>
                 @endforeach
-
+                @endforeach
               </select>
             </td>
           </tr>
