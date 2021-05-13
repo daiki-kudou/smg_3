@@ -1172,9 +1172,9 @@
               </div>
             </td>
             @endif
-            <td class="text-right">
-              <div><span>申込日：</span>{{ReservationHelper::formatDate($cxl->created_at)}}</div>
-              <div><span>予約確定日：</span>{{ReservationHelper::formatDate($cxl->approve_send_at)}}</div>
+            <td>
+              <div><span>申込日：</span>{{$cxl->created_at}}</div>
+              <div><span>予約確定日：</span>{{$cxl->approve_send_at}}</div>
             </td>
           </tr>
         </tbody>
@@ -1200,12 +1200,6 @@
           @endif
           @endif
       </div>
-
-      <!-- <div class="invoice_box d-flex justify-content-end my-3">
-        <p class="mr-2"><a class="btn more_btn" href="">請求書をみる</a></p>
-        <p class="mr-2"><a class="btn more_btn4" href="">キャンセル領収書をみる</a></p>
-      </div> -->
-
     </div>
 
     <div class="bill_details">
@@ -1316,7 +1310,6 @@
           <h3>
             請求書情報
           </h3>
-          </h3>
           {{ Form::open(['url' => 'admin/invoice', 'method'=>'post', 'target'=>'_blank','class'=>'']) }}
           @csrf
           {{ Form::hidden('reservation_id', $reservation->id ) }}
@@ -1365,16 +1358,10 @@
           <h3 class="pl-3">
             入金情報
           </h3>
-          <!-- <p class="mr-2">
-            @if ($cxl->paid==1)
-            <a target='_blank' href="{{url('admin/receipts/'.$reservation->bills->first()->id)}}" class="btn more_btn4">領収書をみる</a>
-            @endif
-          </p> -->
           {{ Form::open(['url' => 'admin/receipts', 'method'=>'post', 'target'=>'_blank', 'class'=>'']) }}
           @csrf
-          {{ Form::hidden('reservation_id', $reservation->id ) }}
-          {{ Form::hidden('bill_id', $cxl->id ) }}
-          @if ($cxl->paid==1)
+          {{ Form::hidden('cxl_id', $cxl->id ) }}
+          @if ($reservation->cxls->first()->paid==1)
           <p class="mr-2">{{ Form::submit('領収書をみる',['class' => 'more_btn4 btn']) }}</p>
           @endif
           {{ Form::close() }}
@@ -1444,6 +1431,7 @@
   </div>
   @endif
 </section>
+
 @endforeach
 
 {{-- キャンセル総合計請求額 --}}
