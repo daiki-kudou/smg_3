@@ -614,16 +614,16 @@
         {{ Form::open(['url' => 'admin/bills/update_bill_info', 'method'=>'post']) }}
         @csrf
         {{ Form::hidden('bill_id', $reservation->bills->first()->id)}}
-        <p class="text-right billdetails_content pb-0">
-          <input type="checkbox" id="bill_edit">
-          <label for="bill_edit">編集する</label>
+        <p class="text-right">
+          <input type="checkbox" class="bill_edit_m" id="{{'bill_edit_m'.$reservation->bills->first()->id}}">
+          <label for="{{'bill_edit_m'.$reservation->bills->first()->id}}">編集</label>
         </p>
         <div class="informations billdetails_content">
           <table class="table">
             <tbody>
               <tr>
                 <td>
-                  請求日：{{Form::text('bill_created_at',$reservation->bills->first()->bill_created_at,['class'=>'form-control bill_edit','disabled'])}}
+                  請求日：{{Form::text('bill_created_at',$reservation->bills->first()->bill_created_at,['class'=>'form-control bill_edit datepicker_no_min_date','disabled'])}}
                 </td>
                 <td>
                   支払期日：{{Form::text('payment_limit',date('Y-m-d',strtotime($reservation->bills->first()->payment_limit)),['class'=>'form-control bill_edit datepicker_no_min_date','disabled'])}}
@@ -684,16 +684,17 @@
         {{ Form::open(['url' => 'admin/bills/update_paid_info', 'method'=>'post']) }}
         @csrf
         {{ Form::hidden('bill_id', $reservation->bills->first()->id)}}
-        <div class="text-right billdetails_content pb-0">
-          <input type="checkbox" id="paid_edit">
-          <label for="paid_edit">編集する</label>
+
+        <div class="text-right">
+          <input type="checkbox" class="paid_edit_m" id="{{'paid_edit_m'.$reservation->bills->first()->id}}">
+          <label for="{{'paid_edit_m'.$reservation->bills->first()->id}}">編集</label>
         </div>
         <div class="paids billdetails_content">
           <table class="table">
             <tbody>
               <tr>
                 <td>
-                  入金状況
+                  入金状況：
                   {{Form::select('paid', ['未入金','入金済み'],$reservation->bills->first()->paid==1?1:0,['class'=>'form-control paid_edit','disabled'])}}
                 </td>
                 <td>
@@ -967,34 +968,53 @@
           {{ Form::close() }}
         </div>
       </div>
+
       <div class="main hide">
+        {{ Form::open(['url' => 'admin/bills/update_bill_info', 'method'=>'post']) }}
+        @csrf
+        {{ Form::hidden('bill_id', $other_bill->id)}}
+        <p class="text-right">
+          <input type="checkbox" class="bill_edit_m" id="{{'bill_edit_m'.$other_bill->id}}">
+          <label for="{{'bill_edit_m'.$other_bill->id}}">編集</label>
+        </p>
         <div class="informations billdetails_content">
           <table class="table">
             <tbody>
               <tr>
-                <td>請求日：</td>
-                <td>支払期日：{{ReservationHelper::formatDate($other_bill->payment_limit)}}
+                <td>
+                  請求日：{{Form::text('bill_created_at',$other_bill->bill_created_at,['class'=>'form-control bill_edit datepicker_no_min_date','disabled'])}}
+                </td>
+                <td>
+                  支払期日：{{Form::text('payment_limit',date('Y-m-d',strtotime($other_bill->payment_limit)),['class'=>"form-control bill_edit datepicker_no_min_date",'disabled'])}}
                 </td>
               </tr>
               <tr>
-                <td>請求書宛名：
-                  {{($other_bill->bill_company)}}
+                <td>
+                  請求書宛名：{{Form::text('bill_company',$other_bill->bill_company,['class'=>'form-control bill_edit','disabled'])}}
                 </td>
                 <td>
-                  担当者：
-                  {{$other_bill->bill_person}}
+                  担当者：{{Form::text('bill_person',$other_bill->bill_person,['class'=>'form-control bill_edit','disabled'])}}
                 </td>
               </tr>
               <tr>
                 <td colspan="2">
                   <p>請求書備考</p>
-                  <p>{{$other_bill->bill_remark}}</p>
+                  <p>
+                    {{Form::textarea('bill_remark',$other_bill->bill_remark,['class'=>'form-control bill_edit','disabled'])}}
+                  </p>
                 </td>
               </tr>
             </tbody>
           </table>
         </div>
+        <div class="text-right">
+          <p>
+            {{Form::submit('更新',['class'=>'bill_edit','disabled'])}}
+          </p>
+        </div>
+        {{ Form::close() }}
       </div>
+
     </div>
   </div>
 
@@ -1020,24 +1040,43 @@
           {{ Form::close() }}
         </div>
       </div>
+
       <div class="main">
+        {{ Form::open(['url' => 'admin/bills/update_paid_info', 'method'=>'post']) }}
+        @csrf
+        {{ Form::hidden('bill_id', $other_bill->id)}}
+        <div class="text-right">
+          <input type="checkbox" class="paid_edit_m" id="{{'paid_edit_m'.$other_bill->id}}">
+          <label for="{{'paid_edit_m'.$other_bill->id}}">編集</label>
+        </div>
         <div class="paids billdetails_content">
           <table class="table">
             <tbody>
               <tr>
-                <td> {{$other_bill->paid==0?"未入金":"入金済"}}
+                <td>
+                  入金状況：
+                  {{Form::select('paid', ['未入金','入金済み'],$other_bill->paid==1?1:0,['class'=>'form-control paid_edit','disabled'])}}
                 </td>
                 <td>
-                  入金日：{{ReservationHelper::formatDate($other_bill->pay_day)}}
+                  入金日：
+                  {{Form::text('pay_day',!empty($other_bill->pay_day)?date('Y-m-d',strtotime($other_bill->pay_day)):"",['class'=>'form-control paid_edit datepicker_no_min_date', 'disabled'])}}
                 </td>
               </tr>
               <tr>
-                <td>振込人名：{{$other_bill->pay_person}}</td>
-                <td>入金額：{{$other_bill->payment}}</td>
+                <td>振込人名：
+                  {{Form::text('pay_person',$other_bill->pay_person,['class'=>'form-control paid_edit', 'disabled'])}}
+                </td>
+                <td>入金額：
+                  {{Form::text('payment',$other_bill->payment,['class'=>'form-control paid_edit', 'disabled','min'=>0])}}
+                </td>
               </tr>
             </tbody>
           </table>
         </div>
+        <p class="text-right">
+          {{Form::submit('更新',['disabled','class'=>'paid_edit'])}}
+        </p>
+        {{Form::close()}}
       </div>
     </div>
   </div>
@@ -1320,33 +1359,54 @@
           {{ Form::close() }}
         </div>
       </div>
+
+
       <div class="main hide">
+        {{ Form::open(['url' => 'admin/cxl/update_cxl_bill_info', 'method'=>'post']) }}
+        @csrf
+        {{ Form::hidden('cxl_id', $cxl->id)}}
+        <p class="text-right">
+          <input type="checkbox" class="cxl_bill_edit_m" id="{{'cxl_bill_edit_m'.$cxl->id}}">
+          <label for="{{'cxl_bill_edit_m'.$cxl->id}}">編集</label>
+        </p>
         <div class="informations billdetails_content">
           <table class="table">
             <tbody>
               <tr>
-                <td>請求日：</td>
-                <td>支払期日：{{ReservationHelper::formatDate($cxl->payment_limit)}}
+                <td>
+                  請求日：
+                  {{Form::text('bill_created_at',$cxl->bill_created_at,['class'=>'form-control datepicker_no_min_date cxl_bill_edit', 'disabled'])}}
+                </td>
+                <td>支払期日：
+                  {{Form::text('payment_limit',$cxl->payment_limit,['class'=>'form-control datepicker_no_min_date cxl_bill_edit', 'disabled'])}}
                 </td>
               </tr>
               <tr>
                 <td>請求書宛名：
-                  {{($cxl->bill_company)}}
+                  {{Form::text('bill_company',$cxl->bill_company,['class'=>'form-control cxl_bill_edit', 'disabled'])}}
                 </td>
                 <td>
                   担当者：
-                  {{$cxl->bill_person}}
+                  {{Form::text('bill_person',$cxl->bill_person,['class'=>'form-control cxl_bill_edit', 'disabled'])}}
                 </td>
               </tr>
               <tr>
                 <td colspan="2">
                   <p>請求書備考</p>
-                  <p>{{$cxl->bill_remark}}</p>
+                  <p>
+                    {{Form::textarea('bill_remark',$cxl->bill_remark,['class'=>'form-control cxl_bill_edit', 'disabled'])}}
+                  </p>
                 </td>
               </tr>
             </tbody>
           </table>
         </div>
+        <div class="text-right">
+          <p>
+            {{Form::submit('更新',['class'=>'cxl_bill_edit','disabled'])}}
+          </p>
+        </div>
+        {{Form::close()}}
       </div>
     </div>
   </div>
@@ -1367,25 +1427,51 @@
           {{ Form::close() }}
         </div>
       </div>
+
+
       <div class="main">
+        {{ Form::open(['url' => 'admin/cxl/update_cxl_paid_info', 'method'=>'post']) }}
+        @csrf
+        {{ Form::hidden('cxl_id', $cxl->id)}}
+
+        <div class="text-right">
+          <input type="checkbox" class="cxl_paid_edit_m" id="{{'cxl_paid_edit_m'.$cxl->id}}">
+          <label for="{{'cxl_paid_edit_m'.$cxl->id}}">編集</label>
+        </div>
         <div class="paids billdetails_content">
           <table class="table">
             <tbody>
               <tr>
-                <td> {{$cxl->paid==0?"未入金":"入金済"}}
+                <td>入金状況：
+                  {{Form::select('paid', ['未入金','入金済み'],$cxl->paid==1?1:0,['class'=>'form-control cxl_paid_edit','disabled'])}}
                 </td>
                 <td>
-                  入金日：{{ReservationHelper::formatDate($cxl->pay_day)}}
+                  入金日：
+                  {{Form::text('pay_day',!empty($cxl->pay_day)?date('Y-m-d',strtotime($cxl->pay_day)):"",['class'=>'form-control cxl_paid_edit datepicker_no_min_date', 'disabled'])}}
                 </td>
               </tr>
               <tr>
-                <td>振込人名：{{$cxl->pay_person}}</td>
-                <td>入金額：{{$cxl->payment}}</td>
+                <td>振込人名：
+                  {{Form::text('pay_person',$cxl->pay_person,['class'=>'form-control cxl_paid_edit', 'disabled'])}}
+                </td>
+                <td>
+                  入金額：
+                  {{Form::text('payment',$cxl->payment,['class'=>'form-control cxl_paid_edit', 'disabled','min'=>0])}}
+                </td>
               </tr>
             </tbody>
           </table>
         </div>
+        <div class="text-right">
+          <p>
+            {{Form::submit('更新',['class'=>'cxl_paid_edit','disabled'])}}
+          </p>
+        </div>
+        {{Form::close()}}
       </div>
+
+
+
     </div>
   </div>
   @if ($cxl->double_check_status==0)
@@ -1544,21 +1630,48 @@
   })
 
   $(function(){
-    $('#bill_edit').on('click',function(){
-      if ($('.bill_edit').prop('disabled')) {
-        $('.bill_edit').prop('disabled',false);
+    $('.bill_edit_m').on('click',function(){
+      if ($('.bill_edit',$(this).parent().parent()).prop('disabled')) {
+        $('.bill_edit',$(this).parent().parent()).prop('disabled',false);
       }else{
-        $('.bill_edit').prop('disabled',true);
+        $('.bill_edit',$(this).parent().parent()).prop('disabled',true);
       }
     })
   })
 
   $(function(){
-    $('#paid_edit').on('click',function(){
-      if ($('.paid_edit').prop('disabled')) {
-        $('.paid_edit').prop('disabled',false);
+    $('.paid_edit_m').on('click',function(){
+      console.log($(this));
+      if ($('.paid_edit',$(this).parent().next()).prop('disabled')) {
+        $('.paid_edit',$(this).parent().next()).prop('disabled',false);
+        $('.paid_edit',$(this).parent().next().next()).prop('disabled',false);
       }else{
-        $('.paid_edit').prop('disabled',true);
+        $('.paid_edit',$(this).parent().next()).prop('disabled',true);
+        $('.paid_edit',$(this).parent().next().next()).prop('disabled',true);
+      }
+    })
+  })
+
+  $(function(){
+    $('.cxl_bill_edit_m').on('click',function(){
+      if ($('.cxl_bill_edit',$(this).parent().next()).prop('disabled')) {
+        $('.cxl_bill_edit',$(this).parent().next()).prop('disabled',false);
+        $('.cxl_bill_edit',$(this).parent().next().next()).prop('disabled',false);
+      }else{
+        $('.cxl_bill_edit',$(this).parent().next()).prop('disabled',true);
+        $('.cxl_bill_edit',$(this).parent().next().next()).prop('disabled',true);
+      }
+    })
+  })
+
+  $(function(){
+    $('.cxl_paid_edit_m').on('click',function(){
+      if ($('.cxl_paid_edit',$(this).parent().next()).prop('disabled')) {
+        $('.cxl_paid_edit',$(this).parent().next()).prop('disabled',false);
+        $('.cxl_paid_edit',$(this).parent().next().next()).prop('disabled',false);
+      }else{
+        $('.cxl_paid_edit',$(this).parent().next()).prop('disabled',true);
+        $('.cxl_paid_edit',$(this).parent().next().next()).prop('disabled',true);
       }
     })
   })

@@ -279,8 +279,8 @@ class BillsController extends Controller
       [
         'paid.required' => '[入金情報] ※入金状況は必須です',
         'pay_day.date' => '[入金情報] ※入金日は日付で入力してください',
-        'payment.integer' => '[入金情報] ※半角英数字で入力してください',
-        'payment.min' => '[入金情報] ※0以上を入力してください',
+        'payment.integer' => '[入金情報] ※入金額は半角英数字で入力してください',
+        'payment.min' => '[入金情報] ※入金額は0以上を入力してください',
       ]
     );
     $bill = Bill::with('reservation')->find($request->bill_id);
@@ -289,7 +289,7 @@ class BillsController extends Controller
         'paid' => $request->paid,
         'pay_day' => $request->pay_day,
         'pay_person' => $request->pay_person,
-        'payment' => $request->payment,
+        'payment' => !empty($request->payment) ? $request->payment : 0,
       ]
     );
     return redirect(url('admin/reservations/' . $bill->reservation->id));

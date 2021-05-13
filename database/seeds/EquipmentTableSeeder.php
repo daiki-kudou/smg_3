@@ -100,6 +100,6 @@ class EquipmentTableSeeder extends Seeder
         'created_at' => Carbon::now(),
       ],
     ]);
-    factory(\App\Models\Equipment::class, 330)->create();
+    factory(\App\Models\Equipment::class, 2000)->create();
   }
 }

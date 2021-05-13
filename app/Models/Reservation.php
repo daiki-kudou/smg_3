@@ -17,9 +17,12 @@ use Carbon\Carbon;
 use App\Presenters\ReservationPresenter;
 use Robbo\Presenter\PresentableInterface; //プレゼンターの追加
 
+use App\Traits\InvoiceTrait;
+
 
 class Reservation extends Model implements PresentableInterface
 {
+  use InvoiceTrait;
 
   public function getPresenter() //実装したプレゼンタを利用
   {
@@ -27,6 +30,7 @@ class Reservation extends Model implements PresentableInterface
   }
 
   use SoftDeletes; //reservation大事なのでソフトデリートする
+
 
   protected $fillable = [
     'venue_id',
@@ -224,8 +228,6 @@ class Reservation extends Model implements PresentableInterface
       $category = 1;
     }
     // 以下、請求書No作成用
-    // $search_bill_count = Bill::where("created_at", "LIKE", "%" . (date("Y-m")) . "%")->count();
-    // $invoice_number = date('Y') . date('m') . mt_rand(0, 9) . sprintf('%03d', ($search_bill_count + 1));
     $bill = DB::transaction(function () use ($discount_info, $request, $sessionName2, $attr, $venue_price, $category) {
       $bill = $this->bills()->create([
         'reservation_id' => $this->id,
@@ -249,6 +251,7 @@ class Reservation extends Model implements PresentableInterface
         'double_check_status' => 0, //デフォで0
         'category' => $category, //デフォで１。　新規以外だと　2:その他有料備品　3:レイアウト　4:その他
         'admin_judge' => 1, //管理者作成なら1 ユーザー作成なら2
+        'invoice_number' => $this->generate_invoice_number(),
       ]);
       // $bill->ReserveStoreSessionBreakdown($request, $sessionName2);
       return $bill;
@@ -317,6 +320,8 @@ class Reservation extends Model implements PresentableInterface
         'double_check_status' => 0, //デフォで0
         'category' => 1, //デフォで１。　新規以外だと　2:その他有料備品　3:レイアウト　4:その他
         'admin_judge' => 1, //管理者作成なら1 ユーザー作成なら2
+        'invoice_number' => $this->generate_invoice_number(),
+
       ]);
       $bill->ReserveStoreBreakdown($request);
     });
@@ -384,6 +389,8 @@ class Reservation extends Model implements PresentableInterface
         'double_check_status' => 0, //デフォで0
         'category' => 1, //デフォで１。　新規以外だと　2:その他有料備品　3:レイアウト　4:その他
         'admin_judge' => 2, //管理者作成なら1 ユーザー作成なら2
+        'invoice_number' => $this->generate_invoice_number(),
+
       ]);
 
       // 料金内訳
@@ -551,6 +558,7 @@ class Reservation extends Model implements PresentableInterface
         'double_check_status' => 0, //デフォで0
         'category' => 1, //デフォで１。　新規以外だと　2:その他有料備品　3:レイアウト　4:その他
         'admin_judge' => 1, //管理者作成なら1 ユーザー作成なら2
+        'invoice_number' => $this->generate_invoice_number(),
       ]);
       $bill->ReserveFromAgentBreakdown($request);
     });

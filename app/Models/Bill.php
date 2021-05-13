@@ -44,7 +44,7 @@ class Bill extends Model
     'category',
     'admin_judge',
     'end_user_charge',
-    // 'invoice_number',
+    'invoice_number',
   ];
   protected $dates = [
     'pay_day',

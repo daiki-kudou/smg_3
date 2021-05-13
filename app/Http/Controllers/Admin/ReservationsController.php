@@ -46,10 +46,11 @@ class ReservationsController extends Controller
         ->paginate(30);
       $counter = 0;
     }
+
     $venue = Venue::all();
-    $user = User::select('id', 'company', 'first_name', 'last_name', 'mobile', 'tel')->get();
     $agents = Agent::all();
-    return view('admin.reservations.index', compact('reservations', 'venue', 'user', 'agents', "counter"));
+
+    return view('admin.reservations.index', compact('reservations', 'venue', 'agents', "counter"));
   }
 
   /** ajax 備品orサービス取得*/
@@ -528,7 +529,7 @@ class ReservationsController extends Controller
         + $layouts_details[2];
     } else {
       $masters =
-        ($price_details[2] ? $price_details[2] : 0)
+        ($price_details[0] ? $price_details[0] : 0)
         + ($item_details[0] + $target['luggage_price'])
         + $layouts_details[2];
     }
