@@ -320,6 +320,8 @@ class Reservation extends Model implements PresentableInterface
         'double_check_status' => 0, //デフォで0
         'category' => 1, //デフォで１。　新規以外だと　2:その他有料備品　3:レイアウト　4:その他
         'admin_judge' => 1, //管理者作成なら1 ユーザー作成なら2
+        'invoice_number' => $this->generate_invoice_number(),
+
       ]);
       $bill->ReserveStoreBreakdown($request);
     });

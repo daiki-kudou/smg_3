@@ -32,7 +32,7 @@
     </div>
     <div class="confirm_inner">
       <p class="text-center mb-5 mt-3">
-        <a href="" class="more_btn_lg">申込み内容を確認する</a>
+        <a href="{{url('user/home')}}" class="more_btn_lg">予約一覧</a>
       </p>
     </div>
   </div>
