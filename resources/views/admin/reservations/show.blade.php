@@ -6,7 +6,6 @@
 <link href="{{ asset('/css/template.css') }}" rel="stylesheet">
 <script src="{{ asset('/js/template.js') }}"></script>
 
-
 <div class="">
   <div class="float-right">
     <nav aria-label="breadcrumb">
@@ -157,13 +156,13 @@
         <tr>
           <td class="table-active"><label for="eventStart">イベント開始時間</label></td>
           <td>
-            {{$reservation->event_start}}
+            {{ReservationHelper::formatTime($reservation->event_start)}}
           </td>
         </tr>
         <tr>
           <td class="table-active"><label for="eventFinish">イベント終了時間</label></td>
           <td>
-            {{$reservation->event_finish}}
+            {{ReservationHelper::formatTime($reservation->event_finish)}}
           </td>
         </tr>
         <tr>
@@ -378,15 +377,16 @@
       <table class="table table-bordered note-table">
         <tr>
           <td>
-            <p class="title-icon">
-              <i class="fas fa-file-alt icon-size"></i>
-              <label for="extraNote">予約内容変更履歴</label>
-
-              <div class="text-right">
-                <input type="checkbox" id="remark_checkbox">
-                <label for="remark_checkbox">編集</label>
-              </div>
-            </p>
+            <div class="d-flex align-items-center justify-content-between">
+              <p class="title-icon">
+                <i class="fas fa-file-alt icon-size"></i>
+                <label for="extraNote">予約内容変更履歴</label>
+              </p>
+                <div class="text-right">
+                  <input type="checkbox" id="remark_checkbox">
+                  <label for="remark_checkbox">編集する</label>
+                </div>
+            </div>
           </td>
         </tr>
         <tr>
@@ -395,15 +395,12 @@
             @csrf
             {{Form::textarea('remark_textarea', optional($reservation->change_log)->content, ['class' => 'form-control remark_textarea','rows' => '10','readonly'])}}
             {{ Form::hidden('reservation_id', $reservation->id ) }}
-            {{Form::submit('更新',['class'=>'remark_textarea_submit','disabled'])}}
+            <p class="mt-2 text-right">{{Form::submit('更新する',['class'=>'remark_textarea_submit btn more_btn','disabled'])}}</p>
             {{Form::close()}}
           </td>
         </tr>
       </table>
     </div>
-
-
-
   </div>
 </section>
 
@@ -432,8 +429,7 @@
                 </dl>
                 @if (!empty($reservation->user))
                 @if ($reservation->bills->first()->reservation_status<3) <p>
-                  <a href="{{url('admin/reservations/'.$reservation->bills->first()->id.'/edit')}}"
-                    class="btn more_btn">編集</a>
+                  <a href="{{url('admin/reservations/'.$reservation->bills->first()->id.'/edit')}}" class="btn more_btn">編集</a>
                   </p>
                   @endif
                   @else
@@ -499,9 +495,9 @@
               </div>
             </td>
             @endif
-            <td>
-              <div><span>申込日：</span>{{$reservation->bills->first()->created_at}}</div>
-              <div><span>予約確定日：</span>{{$reservation->bills->first()->approve_send_at}}</div>
+            <td class="text-right">
+              <div><span>申込日：</span>{{ReservationHelper::formatDate($reservation->bills->first()->created_at)}}</div>
+              <div><span>予約確定日：</span>{{ReservationHelper::formatDate($reservation->bills->first()->approve_send_at)}}</div>
             </td>
           </tr>
         </tbody>
@@ -520,7 +516,7 @@
         {{ Form::hidden('reservation_id', $reservation->id ) }}
         <p class="text-right py-2 mr-2">
           {{ Form::submit('一括キャンセル',['class' => 'btn more_btn4', $judgeMultiDelete!=1?"disabled":"",'name'=>'multi']) }}
-          <div class="text-right"><span>※全ての予約ステータスが「予約完了」か確認してください</span></div>
+        <div class="text-right"><span>※全ての予約ステータスが「予約完了」か確認してください</span></div>
         </p>
         {{ Form::close() }}
         @endif
@@ -652,9 +648,9 @@
             </tbody>
           </table>
         </div>
-        <div class="text-right">
+        <div class="text-right billdetails_content">
           <p>
-            {{Form::submit('更新',['class'=>'bill_edit','disabled'])}}
+            {{Form::submit('更新する',['class'=>'bill_edit btn more_btn','disabled'])}}
           </p>
         </div>
         {{ Form::close() }}
@@ -669,18 +665,26 @@
           <h3 class="pl-3">
             入金情報
           </h3>
-          <p class="mr-2">
-            @if ($reservation->bills->first()->paid==1)
-            <a target='_blank' href="{{url('admin/receipts/'.$reservation->bills->first()->id)}}"
-              class="btn more_btn4">領収書をみる</a>
-            @endif
-          </p>
+          <!-- <p class="mr-2">
+          @if ($reservation->bills->first()->paid==1)
+          <a target='_blank' href="{{url('admin/receipts/'.$reservation->bills->first()->id)}}"
+            class="btn more_btn4">領収書をみる</a>
+          @endif
+        </p> -->
+          {{ Form::open(['url' => 'admin/receipts', 'method'=>'post', 'target'=>'_blank', 'class'=>'']) }}
+          @csrf
+          {{ Form::hidden('bill_id', $reservation->bills->first()->id ) }}
+          @if ($reservation->bills->first()->paid==1)
+          <p class="mr-2">{{ Form::submit('領収書をみる',['class' => 'more_btn4 btn']) }}</p>
+          @endif
+          {{ Form::close() }}
         </div>
       </div>
       <div class="main">
         {{ Form::open(['url' => 'admin/bills/update_paid_info', 'method'=>'post']) }}
         @csrf
         {{ Form::hidden('bill_id', $reservation->bills->first()->id)}}
+
         <div class="text-right">
           <input type="checkbox" class="paid_edit_m" id="{{'paid_edit_m'.$reservation->bills->first()->id}}">
           <label for="{{'paid_edit_m'.$reservation->bills->first()->id}}">編集</label>
@@ -709,8 +713,8 @@
             </tbody>
           </table>
         </div>
-        <p class="text-right">
-          {{Form::submit('更新',['disabled','class'=>'paid_edit'])}}
+        <p class="text-right billdetails_content">
+          {{Form::submit('更新する',['disabled','class'=>'paid_edit btn more_btn'])}}
         </p>
         {{Form::close()}}
       </div>
@@ -783,8 +787,7 @@
                 </dl>
                 <p>
                   @if ($reservation->user_id>0)
-                  @if ($other_bill->reservation_status < 3) <a href="{{url('admin/bills/'.$other_bill->id.'/edit')}}"
-                    class="btn more_btn">追加請求書編集</a>
+                  @if ($other_bill->reservation_status < 3) <a href="{{url('admin/bills/'.$other_bill->id.'/edit')}}" class="btn more_btn">追加請求書編集</a>
                     @endif
                     @else
                     <a href="{{url('admin/bills/'.$other_bill->id.'/agent_edit')}}" class="btn more_btn">編集</a>
@@ -842,9 +845,9 @@
               </div>
             </td>
             @endif
-            <td>
-              <div><span>申込日：</span>{{$other_bill->created_at}}</div>
-              <div><span>予約確定日：</span>{{$other_bill->approve_send_at}}</div>
+            <td class="text-right">
+              <div><span>申込日：</span>{{ReservationHelper::formatDate($other_bill->created_at)}}</div>
+              <div><span>予約確定日：</span>{{ReservationHelper::formatDate($other_bill->approve_send_at)}}</div>
             </td>
           </tr>
         </tbody>
@@ -1022,12 +1025,19 @@
           <h3 class="pl-3">
             入金情報
           </h3>
-          <p class="mr-2">
+          <!-- <p class="mr-2">
             @if ($other_bill->paid==1)
-            <a target='_blank' href="{{url('admin/receipts/'.$reservation->bills->first()->id)}}"
-              class="btn more_btn4">領収書をみる</a>
+            <a target='_blank' href="{{url('admin/receipts/'.$reservation->bills->first()->id)}}" class="btn more_btn4">領収書をみる</a>
             @endif
-          </p>
+          </p> -->
+          {{ Form::open(['url' => 'admin/receipts', 'method'=>'post', 'target'=>'_blank', 'class'=>'']) }}
+          @csrf
+          {{ Form::hidden('reservation_id', $reservation->id ) }}
+          {{ Form::hidden('bill_id', $other_bill->id ) }}
+          @if ($other_bill->paid==1)
+          <p class="mr-2">{{ Form::submit('領収書をみる',['class' => 'more_btn4 btn']) }}</p>
+          @endif
+          {{ Form::close() }}
         </div>
       </div>
 
@@ -1229,11 +1239,6 @@
           @endif
           @endif
       </div>
-
-      <div class="invoice_box d-flex justify-content-end my-3">
-        <p class="mr-2"><a class="btn more_btn" href="">請求書をみる</a></p>
-        <p class="mr-2"><a class="btn more_btn4" href="">キャンセル領収書をみる</a></p>
-      </div>
     </div>
 
     <div class="bill_details">
@@ -1344,6 +1349,14 @@
           <h3>
             請求書情報
           </h3>
+          {{ Form::open(['url' => 'admin/invoice', 'method'=>'post', 'target'=>'_blank','class'=>'']) }}
+          @csrf
+          {{ Form::hidden('reservation_id', $reservation->id ) }}
+          {{ Form::hidden('cxl_id', $cxl->id ) }}
+          <p class="mr-2">
+            {{ Form::submit('請求書をみる',['class' => 'btn more_btn']) }}
+          </p>
+          {{ Form::close() }}
         </div>
       </div>
 
@@ -1401,10 +1414,17 @@
   <div class="paid">
     <div class="paid_details">
       <div class="head d-flex">
-        <div class="d-flex align-items-center">
+        <div class="d-flex align-items-center justify-content-between w-100">
           <h3 class="pl-3">
             入金情報
           </h3>
+          {{ Form::open(['url' => 'admin/receipts', 'method'=>'post', 'target'=>'_blank', 'class'=>'']) }}
+          @csrf
+          {{ Form::hidden('cxl_id', $cxl->id ) }}
+          @if ($reservation->cxls->first()->paid==1)
+          <p class="mr-2">{{ Form::submit('領収書をみる',['class' => 'more_btn4 btn']) }}</p>
+          @endif
+          {{ Form::close() }}
         </div>
       </div>
 
@@ -1497,6 +1517,7 @@
   </div>
   @endif
 </section>
+
 @endforeach
 
 {{-- キャンセル総合計請求額 --}}

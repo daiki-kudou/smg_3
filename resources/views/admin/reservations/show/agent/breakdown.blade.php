@@ -122,7 +122,7 @@
     <tbody>
       <tr>
         <td>
-          　<h4 class="billdetails_content_ttl">
+          <h4 class="billdetails_content_ttl">
             その他
           </h4>
         </td>

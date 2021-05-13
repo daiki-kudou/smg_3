@@ -419,7 +419,7 @@
                   <li>
                     <dl class="ttl_box">
                       <dd class="total_result">合計金額：
-                        {{number_format($reservation->bills->first()->master_total)}}
+                        {{number_format($reservation->bills->first()->master_total)}}円
                       </dd>
                     </dl>
                     <dl class="ttl_box">
@@ -670,7 +670,7 @@
   </section>
   <!-- ステータスが予約承認まちのときに表示 -->
   @if ($reservation->bills->first()->reservation_status==2)
-  <div class="confirm-box text-center mt-5">
+  <div class="confirm-box text-center">
     <p>上記、予約内容で間違いないでしょうか。問題なければ、予約の承認をお願い致します。</p>
     <p class="text-center mt-3">
       {{ Form::model($reservation, ['method'=>'PUT', 'route'=> ['user.home.updatestatus',$reservation->id],'class'=>"text-center"])}}
@@ -931,7 +931,7 @@
                 </tr>
               </tbody>
               <tbody class="others_main">
-                @foreach ($other_bill->breakdowns->where("unit_type",4) as $o_o)
+                @foreach ($other_bill->breakdowns->where("unit_type",5) as $o_o)
                 <tr>
                   <td>{{$o_o->unit_item}}</td>
                   <td>{{number_format($o_o->unit_cost)}}</td>
@@ -1260,6 +1260,25 @@
   </section>
   @endforeach
 
+  <!-- 工藤さん！！キャンセルが承認まちの時に表示です！！！ -->
+@if ($reservation->cxls->pluck("cxl_status")->contains(1))
+<div class="confirm-box text-center">
+  <p>上記、予約内容をキャンセルしてもよろしいでしょうか。問題なければ、承認をお願い致します。</p>
+  <p class="text-center mt-3">
+    @foreach ($reservation->cxls->where("cxl_status",1) as $cfm_selected_cxl)
+    {{ Form::open(['url' => "user/home/cfm_cxl", 'method'=>'post', 'class'=>'']) }}
+    @csrf
+    {{ Form::hidden('cxl_id', $cfm_selected_cxl->id)}}
+    {{ Form::submit('キャンセルを承認する',['class' => 'btn more_btn4_lg']) }}
+    {{ Form::close() }}
+    @endforeach
+  </p>
+  <p class="notion">※ご要望に相違がある場合は、下記連絡先までご連絡ください。<br>
+    TEL：06-1234-5678<br>
+    mail：test@gmail.com</p>
+</div>
+@endif
+
   <!-- 工藤さん！！キャンセル料合計請求額------------------------------------------------------------------- -->
 
   @if ($reservation->cxls->count()!=0)
@@ -1351,24 +1370,7 @@
 
 
 
-<!-- 工藤さん！！キャンセルが承認まちの時に表示です！！！ -->
-@if ($reservation->cxls->pluck("cxl_status")->contains(1))
-<div class="confirm-box text-center mt-5">
-  <p>上記、予約内容をキャンセルしてもよろしいでしょうか。問題なければ、承認をお願い致します。</p>
-  <p class="text-center mt-3">
-    @foreach ($reservation->cxls->where("cxl_status",1) as $cfm_selected_cxl)
-    {{ Form::open(['url' => "user/home/cfm_cxl", 'method'=>'post', 'class'=>'']) }}
-    @csrf
-    {{ Form::hidden('cxl_id', $cfm_selected_cxl->id)}}
-    {{ Form::submit('キャンセルを承認する',['class' => 'btn more_btn4_lg']) }}
-    {{ Form::close() }}
-    @endforeach
-  </p>
-  <p class="notion">※ご要望に相違がある場合は、下記連絡先までご連絡ください。<br>
-    TEL：06-1234-5678<br>
-    mail：test@gmail.com</p>
-</div>
-@endif
+
 
 
 <div class="btn_wrapper">

@@ -1640,27 +1640,28 @@ table .master_total_subttl {
 /* キャンセル -----------------------------------------------------*/
 
 .master_total_head2 {
-    background: #ef6243;
+    /* background: #ef6243; */
+    background: rgb(239 135 113);
     color: #fff;
 }
 
 table .master_total_subttl2 {
-    border-bottom: 2px solid #ef6243;
+    border-bottom: 2px solid rgb(239 98 67 / 50%);
 }
 
 .master_totals_cancel {
-    border: 2px solid #ef6243;
+    border: 2px solid rgb(239 98 67 / 50%);
     margin: 3% 0;
 }
 
 
 .bill_head_cancel {
-    background: #ee6243;
+    background: rgb(239 135 113);
     padding: 10px;
 }
 
 .bill_head_cancel .table {
-    background: #ee6243;
+    background: rgb(239 135 113);
     table-layout: fixed;
     padding: 10px;
     box-shadow: none;

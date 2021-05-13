@@ -239,10 +239,10 @@
         <li>
           {{ Form::submit('翌日予約', ['class' => 'btn more_btn','name'=>'day_after','id'=>'day_after']) }}
         </li>
-        <li><a class="more_btn bg-red" href="">予約確認中</a></li>
+        <!-- <li><a class="more_btn bg-red" href="">予約確認中</a></li>
         <li><a class="more_btn bg-red" href="">予約承認待ち</a></li>
         <li><a class="more_btn bg-green" href="">キャンセル申請中</a></li>
-        <li><a class="more_btn bg-black" href="">予約完了</a></li>
+        <li><a class="more_btn bg-black" href="">予約完了</a></li> -->
       </ul>
       {{ Form::close() }}
 
