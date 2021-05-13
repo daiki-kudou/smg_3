@@ -12,7 +12,8 @@ class ReceiptsController extends Controller
 {
   public function show(Request $request)
   {
-    $bill = Bill::with(['reservation.user', 'reservation.agent', 'breakdowns'])->find($request->bill_id);
-    return view('admin.receipts.show', compact('bill'));
+    $bill = Bill::with(['reservation.user', 'reservation.agent', 'breakdowns','cxl'])->find($request->bill_id);
+    $cxl=$bill->cxl;
+    return view('admin.receipts.show', compact('bill','cxl'));
   }
 }

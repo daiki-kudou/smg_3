@@ -75,9 +75,9 @@
                 <td>
                     <p><span>請求書No：</span>
                         @if ($cxl)
-                            {{ $cxl->id }}
+                            {{ $cxl->invoice_number }}
                         @else
-                            {{ $bill->id }}
+                            {{ $bill->invoice_number }}
                         @endif
 
                     </p>

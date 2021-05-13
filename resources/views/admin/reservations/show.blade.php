@@ -965,9 +965,9 @@
             </tbody>
           </table>
         </div>
-        <div class="text-right">
+        <div class="text-right billdetails_content">
           <p>
-            {{Form::submit('更新',['class'=>'bill_edit','disabled'])}}
+            {{Form::submit('更新する',['class'=>'bill_edit btn more_btn','disabled'])}}
           </p>
         </div>
         {{ Form::close() }}
@@ -1026,8 +1026,8 @@
             </tbody>
           </table>
         </div>
-        <p class="text-right">
-          {{Form::submit('更新',['disabled','class'=>'paid_edit'])}}
+        <p class="text-right billdetails_content">
+          {{Form::submit('更新する',['disabled','class'=>'paid_edit btn more_btn'])}}
         </p>
         {{Form::close()}}
       </div>
@@ -1354,9 +1354,9 @@
             </tbody>
           </table>
         </div>
-        <div class="text-right">
+        <div class="text-right billdetails_content">
           <p>
-            {{Form::submit('更新',['class'=>'cxl_bill_edit','disabled'])}}
+            {{Form::submit('更新する',['class'=>'cxl_bill_edit btn more_btn','disabled'])}}
           </p>
         </div>
         {{Form::close()}}
@@ -1415,9 +1415,9 @@
             </tbody>
           </table>
         </div>
-        <div class="text-right">
+        <div class="text-right billdetails_content">
           <p>
-            {{Form::submit('更新',['class'=>'cxl_paid_edit','disabled'])}}
+            {{Form::submit('更新する',['class'=>'cxl_paid_edit bnt more_btn','disabled'])}}
           </p>
         </div>
         {{Form::close()}}
