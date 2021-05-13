@@ -13,8 +13,6 @@ use App\Models\User;
 use App\Models\Reservation;
 
 
-
-
 class CxlController extends Controller
 {
   /**
@@ -22,10 +20,10 @@ class CxlController extends Controller
    *
    * @return \Illuminate\Http\Response
    */
-  public function index()
-  {
-    //
-  }
+  // public function index()
+  // {
+  //   //
+  // }
 
   /**
    * Show the form for creating a new resource.
@@ -189,19 +187,16 @@ class CxlController extends Controller
     return redirect()->route('admin.reservations.show', $reservation_id);
   }
 
-
-
-
   /**
    * Display the specified resource.
    *
    * @param  \App\Models\Cxl  $cxl
    * @return \Illuminate\Http\Response
    */
-  public function show(Cxl $cxl)
-  {
-    //
-  }
+  // public function show(Cxl $cxl)
+  // {
+  //   //
+  // }
 
   /**
    * Show the form for editing the specified resource.
@@ -275,7 +270,6 @@ class CxlController extends Controller
     if ($request->back) {
       return redirect(route('admin.cxl.edit_calc'));
     }
-
     $data = session()->get('cxlCalcInfo');
     $invoice = session()->get('invoice');
     $multiOrSingle = session()->get('multiOrSingle');
@@ -303,8 +297,64 @@ class CxlController extends Controller
    * @param  \App\Models\Cxl  $cxl
    * @return \Illuminate\Http\Response
    */
-  public function destroy(Cxl $cxl)
+  // public function destroy(Cxl $cxl)
+  // {
+  //   //
+  // }
+
+  public function updateCxlBillInfo(Request $request)
   {
-    //
+    $validatedData = $request->validate(
+      [
+        'bill_created_at' => 'required',
+        'payment_limit' => 'required',
+        'bill_company' => 'required',
+        'bill_person' => 'required',
+      ],
+      [
+        'bill_created_at.required' => '[キャンセル請求書情報] ※請求日は必須です',
+        'payment_limit.required' => '[キャンセル請求書情報] ※支払期日は必須です',
+        'bill_company.required' => '[キャンセル請求書情報] ※請求書宛名は必須です',
+        'bill_person.required' => '[キャンセル請求書情報] ※担当者は必須です',
+      ]
+    );
+    $cxl = Cxl::find($request->cxl_id);
+    $cxl->update(
+      [
+        'bill_created_at' => $request->bill_created_at,
+        'payment_limit' => $request->payment_limit,
+        'bill_company' => $request->bill_company,
+        'bill_person' => $request->bill_person,
+        'bill_remark' => $request->bill_remark,
+      ]
+    );
+    return redirect(url('admin/reservations/' . $cxl->reservation_id));
+  }
+
+  public function updateCxlPaidInfo(Request $request)
+  {
+    $validatedData = $request->validate(
+      [
+        'paid' => 'required',
+        'pay_day' => 'date',
+        'payment' => 'integer|min:0',
+      ],
+      [
+        'paid.required' => '[キャンセル入金情報] ※入金状況は必須です',
+        'pay_day.date' => '[キャンセル入金情報] ※入金日は日付で入力してください',
+        'payment.integer' => '[キャンセル入金情報] ※入金額は半角英数字で入力してください',
+        'payment.min' => '[キャンセル入金情報] ※入金額は0以上を入力してください',
+      ]
+    );
+    $cxl = Cxl::find($request->cxl_id);
+    $cxl->update(
+      [
+        'paid' => $request->paid,
+        'pay_day' => $request->pay_day,
+        'pay_person' => $request->pay_person,
+        'payment' => !empty($request->payment) ? $request->payment : 0,
+      ]
+    );
+    return redirect(url('admin/reservations/' . $cxl->reservation->id));
   }
 }
