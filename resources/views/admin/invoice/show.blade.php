@@ -117,7 +117,6 @@
                 </tr>
             </thead>
             <tbody class="bill-wrap">
-
                 @if ($cxl)
                     <tr class="bill-details">
                         <td>
@@ -141,7 +140,6 @@
                             <td>{{number_format($cxl_breakdowns->unit_subtotal)}}<span>円</span></td>
                         </tr>
                     @endforeach
-
                 @else
                     @if ($reservation->user_id > 0)
                         <tr class="bill-details">
@@ -179,19 +177,14 @@
                             <td>
                                 内容
                             </td>
-                            <td>金額</td>
+                            {{-- <td>金額</td> --}}
                         </tr>
                         @foreach ($bill->breakdowns as $item)
                             <tr class="bill-details">
-                                <td>
-                                    {{ $item->unit_item }}
-                                </td>
-                                <td>
+                                <td>{{ $item->unit_item }}</td>
+                                {{-- <td>
                                     {{ number_format($bill->master_subtotal) }}<span>円</span>
-                                </td>
-                                <td>
-                                    {{ $reservation->bills->first()->layout_price }}<span>円</span>
-                                </td>
+                                </td> --}}
                             </tr>
                         @endforeach
                     @endif
