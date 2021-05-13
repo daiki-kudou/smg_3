@@ -27,11 +27,6 @@
                 <td>
                     <dl>
                         <dd>
-                            {{-- @if ($reservation->user_id > 0)
-                                {{ $reservation->user->company }}御中
-                            @else
-                                {{ ReservationHelper::getAgentCompany($reservation->agent_id) }}御中
-                            @endif --}}
                             @if ($cxl)
                                 {{ $cxl->bill_company }}御中
                             @else
