@@ -614,9 +614,9 @@
         {{ Form::open(['url' => 'admin/bills/update_bill_info', 'method'=>'post']) }}
         @csrf
         {{ Form::hidden('bill_id', $reservation->bills->first()->id)}}
-        <p class="text-right">
+        <p class="text-right billdetails_content pb-0">
           <input type="checkbox" id="bill_edit">
-          <label for="bill_edit">編集</label>
+          <label for="bill_edit">編集する</label>
         </p>
         <div class="informations billdetails_content">
           <table class="table">
@@ -648,9 +648,9 @@
             </tbody>
           </table>
         </div>
-        <div class="text-right">
+        <div class="text-right billdetails_content">
           <p>
-            {{Form::submit('更新',['class'=>'bill_edit','disabled'])}}
+            {{Form::submit('更新する',['class'=>'bill_edit btn more_btn','disabled'])}}
           </p>
         </div>
         {{ Form::close() }}
@@ -684,9 +684,9 @@
         {{ Form::open(['url' => 'admin/bills/update_paid_info', 'method'=>'post']) }}
         @csrf
         {{ Form::hidden('bill_id', $reservation->bills->first()->id)}}
-        <div class="text-right">
+        <div class="text-right billdetails_content pb-0">
           <input type="checkbox" id="paid_edit">
-          <label for="paid_edit">編集</label>
+          <label for="paid_edit">編集する</label>
         </div>
         <div class="paids billdetails_content">
           <table class="table">
@@ -712,8 +712,8 @@
             </tbody>
           </table>
         </div>
-        <p class="text-right">
-          {{Form::submit('更新',['disabled','class'=>'paid_edit'])}}
+        <p class="text-right billdetails_content">
+          {{Form::submit('更新する',['disabled','class'=>'paid_edit btn more_btn'])}}
         </p>
         {{Form::close()}}
       </div>

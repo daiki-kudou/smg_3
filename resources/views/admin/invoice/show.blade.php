@@ -83,6 +83,7 @@
         </tr>
       </thead>
       <tbody class="bill-wrap">
+        @if ($reservation->user_id>0)
         <tr class="bill-details">
           <td>
             内容
@@ -98,7 +99,6 @@
           </td>
         </tr>
         @foreach ($bill->breakdowns as $item)
-        @if ($reservation->user_id>0)
         <tr class="bill-details">
           <td>
             {{$item->unit_item}}
@@ -113,21 +113,38 @@
             {{number_format($item->unit_subtotal)}}<span>円</span>
           </td>
         </tr>
+        @endforeach
+
         @else
         <tr class="bill-details">
           <td>
-            {{$item->unit_item}}
+            内容
           </td>
           <td>
-          </td>
-          <td>
-            {{$item->unit_count}}
-          </td>
-          <td>
+            金額
           </td>
         </tr>
+        <tr class="bill-details">
+          <td>
+            会場ご利用料
+          </td>
+          <td>
+          {{number_format($bill->master_subtotal)}}<span>円</span>
+          </td>
+          <!-- <td>
+          {{$reservation->bills->first()->layout_price}}<span>円</span>
+          </td> -->
+        </tr>
+        <!-- @foreach ($reservation->bills->first()->breakdowns as $layout_breakdown)
+        @if ($layout_breakdown->unit_type==4)
+        <tr>
+          <td>{{$layout_breakdown->unit_item}}</td>
+          <td>{{$layout_breakdown->unit_subtotal}}<span>円</span></td>
+        </tr>
         @endif
-        @endforeach
+        @endforeach -->
+
+        @endif
       </tbody>
     </table>
     <div class="pagebreak"></div>
@@ -148,7 +165,7 @@
       <tr>
         <td class="bank-info">
           <p>※申込時の「会社名・団体名」名義でお振込み下さい。別名義でのお振込みの場合は必ず事前にSMGまでご連絡下さい。
-          お振込み手数料は御社ご負担にてお願い致します。
+            お振込み手数料は御社ご負担にてお願い致します。
           </p>
           <p>お振込み先：みずほ銀行　四ツ橋支店　普通 1113739　ｶ)ｴｽｴﾑｼﾞｰ</p>
       </tr>
@@ -179,7 +196,7 @@
 </html>
 
 
-{{-- 請求書情報 --}}
+<!-- {{-- 請求書情報 --}}
 <pre>{{var_dump($bill)}}</pre>
 
 {{-- ユーザー情報 --}}
@@ -190,4 +207,4 @@
 
 
 {{-- 請求書内訳 --}}
-<pre>{{var_dump($bill->breakdowns)}}</pre> 
+<pre>{{var_dump($bill->breakdowns)}}</pre>  -->
