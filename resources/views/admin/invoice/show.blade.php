@@ -98,6 +98,7 @@
           </td>
         </tr>
         @foreach ($bill->breakdowns as $item)
+        @if ($reservation->user_id>0)
         <tr class="bill-details">
           <td>
             {{$item->unit_item}}
@@ -112,6 +113,20 @@
             {{number_format($item->unit_subtotal)}}<span>円</span>
           </td>
         </tr>
+        @else
+        <tr class="bill-details">
+          <td>
+            {{$item->unit_item}}
+          </td>
+          <td>
+          </td>
+          <td>
+            {{$item->unit_count}}
+          </td>
+          <td>
+          </td>
+        </tr>
+        @endif
         @endforeach
       </tbody>
     </table>
@@ -163,5 +178,16 @@
 
 </html>
 
+
+{{-- 請求書情報 --}}
+<pre>{{var_dump($bill)}}</pre>
+
+{{-- ユーザー情報 --}}
+<pre>{{var_dump($bill->reservation->user)}}</pre>
+
 {{-- 仲介会社情報 --}}
 <pre>{{var_dump($bill->reservation->agent)}}</pre>
+
+
+{{-- 請求書内訳 --}}
+<pre>{{var_dump($bill->breakdowns)}}</pre> 
