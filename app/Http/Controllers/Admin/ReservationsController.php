@@ -529,7 +529,7 @@ class ReservationsController extends Controller
         + $layouts_details[2];
     } else {
       $masters =
-        ($price_details[2] ? $price_details[2] : 0)
+        ($price_details[0] ? $price_details[0] : 0)
         + ($item_details[0] + $target['luggage_price'])
         + $layouts_details[2];
     }
