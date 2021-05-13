@@ -529,7 +529,7 @@ class ReservationsController extends Controller
         + $layouts_details[2];
     } else {
       $masters =
-        ($price_details[2] ? $price_details[2] : 0)
+        ($price_details[0] ? $price_details[0] : 0)
         + ($item_details[0] + $target['luggage_price'])
         + $layouts_details[2];
     }
@@ -552,6 +552,7 @@ class ReservationsController extends Controller
     $item_details = $venue->calculate_items_price($s_equipment, $s_services);
     $layouts_details = $venue->getLayoutPrice($basicInfo['layout_prepare'], $basicInfo['layout_clean']);
     $masters = $this->getMasterPrice($price_details, $item_details, $layouts_details, $basicInfo);
+    dump($price_details);
     $user = $reservationEditMaster->reservation->user;
     $pay_limit = $user->getUserPayLimit($request->reserve_date);
     return view(
