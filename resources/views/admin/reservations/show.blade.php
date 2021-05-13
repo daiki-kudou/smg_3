@@ -382,10 +382,10 @@
                 <i class="fas fa-file-alt icon-size"></i>
                 <label for="extraNote">予約内容変更履歴</label>
               </p>
-                <div class="text-right">
-                  <input type="checkbox" id="remark_checkbox">
-                  <label for="remark_checkbox">編集する</label>
-                </div>
+              <div class="text-right">
+                <input type="checkbox" id="remark_checkbox">
+                <label for="remark_checkbox">編集する</label>
+              </div>
             </div>
           </td>
         </tr>
@@ -395,7 +395,8 @@
             @csrf
             {{Form::textarea('remark_textarea', optional($reservation->change_log)->content, ['class' => 'form-control remark_textarea','rows' => '10','readonly'])}}
             {{ Form::hidden('reservation_id', $reservation->id ) }}
-            <p class="mt-2 text-right">{{Form::submit('更新する',['class'=>'remark_textarea_submit btn more_btn','disabled'])}}</p>
+            <p class="mt-2 text-right">
+              {{Form::submit('更新する',['class'=>'remark_textarea_submit btn more_btn','disabled'])}}</p>
             {{Form::close()}}
           </td>
         </tr>
@@ -429,7 +430,8 @@
                 </dl>
                 @if (!empty($reservation->user))
                 @if ($reservation->bills->first()->reservation_status<3) <p>
-                  <a href="{{url('admin/reservations/'.$reservation->bills->first()->id.'/edit')}}" class="btn more_btn">編集</a>
+                  <a href="{{url('admin/reservations/'.$reservation->bills->first()->id.'/edit')}}"
+                    class="btn more_btn">編集</a>
                   </p>
                   @endif
                   @else
@@ -497,7 +499,8 @@
             @endif
             <td class="text-right">
               <div><span>申込日：</span>{{ReservationHelper::formatDate($reservation->bills->first()->created_at)}}</div>
-              <div><span>予約確定日：</span>{{ReservationHelper::formatDate($reservation->bills->first()->approve_send_at)}}</div>
+              <div><span>予約確定日：</span>{{ReservationHelper::formatDate($reservation->bills->first()->approve_send_at)}}
+              </div>
             </td>
           </tr>
         </tbody>
@@ -516,7 +519,7 @@
         {{ Form::hidden('reservation_id', $reservation->id ) }}
         <p class="text-right py-2 mr-2">
           {{ Form::submit('一括キャンセル',['class' => 'btn more_btn4', $judgeMultiDelete!=1?"disabled":"",'name'=>'multi']) }}
-        <div class="text-right"><span>※全ての予約ステータスが「予約完了」か確認してください</span></div>
+          <div class="text-right"><span>※全ての予約ステータスが「予約完了」か確認してください</span></div>
         </p>
         {{ Form::close() }}
         @endif
@@ -670,7 +673,7 @@
               <tr>
                 <td>
                   入金状況：
-                  {{Form::select('paid', ['未入金','入金済み'],$reservation->bills->first()->paid==1?1:0,['class'=>'form-control paid_edit','disabled'])}}
+                  {{Form::select('paid', ['未入金','入金済み','遅延','入金不足','入金過多','次回繰越'],$reservation->bills->first()->paid==1?1:0,['class'=>'form-control paid_edit','disabled'])}}
                 </td>
                 <td>
                   入金日：
@@ -762,7 +765,8 @@
                 </dl>
                 <p>
                   @if ($reservation->user_id>0)
-                  @if ($other_bill->reservation_status < 3) <a href="{{url('admin/bills/'.$other_bill->id.'/edit')}}" class="btn more_btn">追加請求書編集</a>
+                  @if ($other_bill->reservation_status < 3) <a href="{{url('admin/bills/'.$other_bill->id.'/edit')}}"
+                    class="btn more_btn">追加請求書編集</a>
                     @endif
                     @else
                     <a href="{{url('admin/bills/'.$other_bill->id.'/agent_edit')}}" class="btn more_btn">編集</a>
@@ -1008,7 +1012,7 @@
               <tr>
                 <td>
                   入金状況：
-                  {{Form::select('paid', ['未入金','入金済み'],$other_bill->paid==1?1:0,['class'=>'form-control paid_edit','disabled'])}}
+                  {{Form::select('paid', ['未入金','入金済み','遅延','入金不足','入金過多','次回繰越'],$other_bill->paid==1?1:0,['class'=>'form-control paid_edit','disabled'])}}
                 </td>
                 <td>
                   入金日：
@@ -1396,7 +1400,7 @@
             <tbody>
               <tr>
                 <td>入金状況：
-                  {{Form::select('paid', ['未入金','入金済み'],$cxl->paid==1?1:0,['class'=>'form-control cxl_paid_edit','disabled'])}}
+                  {{Form::select('paid', ['未入金','入金済み','遅延','入金不足','入金過多','次回繰越'],$cxl->paid==1?1:0,['class'=>'form-control cxl_paid_edit','disabled'])}}
                 </td>
                 <td>
                   入金日：

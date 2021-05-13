@@ -237,7 +237,8 @@ class CxlController extends Controller
     $reservation = Reservation::with('user')->find($data['reservation_id']);
     $user = $reservation->user;
     $pay_limit = $user->getUserPayLimit($reservation->reserve_date);
-    return view('admin.cxl.edit_calc', compact('info', 'data', 'result', 'user', 'pay_limit'));
+    $cxl = Cxl::find($data['cxl_id']);
+    return view('admin.cxl.edit_calc', compact('info', 'data', 'result', 'user', 'pay_limit', 'cxl'));
   }
 
   public function editCheck(Request $request)

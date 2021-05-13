@@ -275,24 +275,24 @@
             <tbody>
               <tr>
                 <td>請求日：
-                  {{Form::text('bill_created_at', date('Y-m-d',strtotime(\Carbon\Carbon::now())) ,['class'=>'form-control', 'id'=>'datepicker1'])}}
+                  {{Form::text('bill_created_at', date('Y-m-d',strtotime($cxl->bill_created_at)) ,['class'=>'form-control', 'id'=>'datepicker1'])}}
                 </td>
                 <td>支払期日
-                  {{Form::text('payment_limit',$pay_limit,['class'=>'form-control datepicker', 'id'=>''])}}
+                  {{Form::text('payment_limit',$cxl->payment_limit,['class'=>'form-control datepicker', 'id'=>''])}}
                 </td>
               </tr>
               <tr>
                 <td>請求書宛名
-                  {{Form::text('bill_company',$user->company,['class'=>'form-control'])}}
+                  {{Form::text('bill_company',$cxl->bill_company,['class'=>'form-control'])}}
                 </td>
                 <td>
                   担当者
-                  {{Form::text('bill_person',ReservationHelper::getPersonName($user->id),['class'=>'form-control'])}}
+                  {{Form::text('bill_person',($cxl->bill_person),['class'=>'form-control'])}}
                 </td>
               </tr>
               <tr>
                 <td colspan="2">請求書備考
-                  {{Form::textarea('bill_remark','',['class'=>'form-control'])}}
+                  {{Form::textarea('bill_remark',$cxl->bill_remark,['class'=>'form-control'])}}
                 </td>
               </tr>
             </tbody>
