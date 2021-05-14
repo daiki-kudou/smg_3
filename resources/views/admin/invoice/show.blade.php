@@ -63,11 +63,13 @@
                     <dl class="total-billing">
                         <dt>ご請求金額</dt>
                         <dd>
-                            @if ($cxl)
-                                {{number_format($cxl->master_total)}}
-                            @else
-                                {{ number_format($bill->master_total) }}
-                            @endif
+                            <span class="master-total">
+                                @if ($cxl)
+                                    {{number_format($cxl->master_total)}}
+                                @else
+                                    {{ number_format($bill->master_total) }}
+                                @endif
+                            </span>
                             <span>円</span><span class="tax">(税込)</span>
                         </dd>
                     </dl>
@@ -104,9 +106,10 @@
                 <tr class="heading">
                     <td colspan="4">
                         <dl class="bill-heading">
-                            <dd>{{ ReservationHelper::formatDate($reservation->reserve_date) }}<span>ご利用料金</span>
+                            <dd>{{ ReservationHelper::formatDate($reservation->reserve_date) }}
                             </dd>
                             <dd>{{ ReservationHelper::getVenueForUser($reservation->venue_id) }}</dd>
+                            <dd><span>ご利用料金</span></dd>
                         </dl>
                     </td>
                 </tr>
@@ -191,30 +194,35 @@
             <tr class="total">
                 <td>
                     <p class="sub-total"><span>小計：</span>
-                      @if ($cxl)
-                      {{ number_format($cxl->master_subtotal) }}円
-                      @else
-                      {{ number_format($bill->master_subtotal) }}円
-                        @endif
+                      <span class="master-subtotal">
+                          @if ($cxl)
+                          {{ number_format($cxl->master_subtotal) }}円
+                          @else
+                          {{ number_format($bill->master_subtotal) }}円
+                            @endif
+                      </span>
                     </p>
                     <p class="sub-tax"><span>消費税：</span>
-                      @if ($cxl)
-                      {{ number_format($cxl->master_tax) }}円
-                      @else
-                      {{ number_format($bill->master_tax) }}円
-                        @endif
+                      <span class="master-subtotal">
+                          @if ($cxl)
+                          {{ number_format($cxl->master_tax) }}円
+                          @else
+                          {{ number_format($bill->master_tax) }}円
+                            @endif
+                      </span>
                     </p>
                 </td>
             </tr>
             <tr class="total-amount">
                 <td>
                     <span>請求総額：</span>
-                    @if ($cxl)
-                    {{ number_format($cxl->master_total) }}
-                    @else
-                    {{ number_format($bill->master_total) }}
-                      @endif
-                    <span>円</span>
+                    <span class="master-subtotal">
+                        @if ($cxl)
+                        {{ number_format($cxl->master_total) }}円
+                        @else
+                        {{ number_format($bill->master_total) }}円
+                          @endif
+                    </span>
                 </td>
             </tr>
         </table>
@@ -255,10 +263,28 @@
         }
     });
 
+// マイナスの場合の色変更
+    $(function(){
+      $('.master-total, .master-subtotal, .bill-detail-table td').each(function(index, value){
+        var target=$(value).text();
+        if (target.match(/-/)) {
+          $(value).css('color','red');
+        //   var result =target.replace('-','▲');
+        //   $(value).text(result);
+        }
+      });
+    });
 
-
-
-
+    $(function(){
+      $('.bill-detail-table td:last-child').each(function(index, value){
+        var target=$(value).text();
+        if (target.match(/-/)) {
+        //   $(value).css('color','red');
+          var result =target.replace('-','▲');
+          $(value).text(result);
+        }
+      });
+    });
 </script>
 
 </html>
