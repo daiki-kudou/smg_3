@@ -67,9 +67,9 @@
                         <dt>金額</dt>
                         <dd>
                             @if ($cxl)
-                                {{ number_format($cxl->master_total) }}
+                                {{ number_format($cxl->payment) }}
                             @else
-                                {{ number_format($bill->master_total) }}
+                                {{ number_format($bill->payment) }}
                             @endif
                             <span>円</span><span class="tax">(税込)</span>
                         </dd>

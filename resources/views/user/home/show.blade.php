@@ -1411,13 +1411,10 @@
         </div>
     @endif
 
-
-
-
-
-
     <div class="btn_wrapper">
-        <p class="text-center"><a class="more_btn_lg" href="">予約一覧へもどる</a></p>
+        <p class="text-center">
+            <a href="{{url('user/home')}}" class="more_btn_lg">予約一覧へもどる</a>
+        </p>
     </div>
 
 @endsection
