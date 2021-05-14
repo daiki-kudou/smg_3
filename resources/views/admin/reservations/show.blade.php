@@ -673,7 +673,7 @@
               <tr>
                 <td>
                   入金状況：
-                  {{Form::select('paid', ['未入金','入金済み','遅延','入金不足','入金過多','次回繰越'],$reservation->bills->first()->paid==1?1:0,['class'=>'form-control paid_edit','disabled'])}}
+                  {{Form::select('paid', ['未入金','入金済み','遅延','入金不足','入金過多','次回繰越'],$reservation->bills->first()->paid,['class'=>'form-control paid_edit','disabled'])}}
                 </td>
                 <td>
                   入金日：
@@ -1012,7 +1012,7 @@
               <tr>
                 <td>
                   入金状況：
-                  {{Form::select('paid', ['未入金','入金済み','遅延','入金不足','入金過多','次回繰越'],$other_bill->paid==1?1:0,['class'=>'form-control paid_edit','disabled'])}}
+                  {{Form::select('paid', ['未入金','入金済み','遅延','入金不足','入金過多','次回繰越'],$other_bill->paid,['class'=>'form-control paid_edit','disabled'])}}
                 </td>
                 <td>
                   入金日：
