@@ -18,13 +18,13 @@
       <tr>
         <td>・会場料</td>
         <td>
-          {{$agentPriceWithoutLayout}}
+          {{number_format($agentPriceWithoutLayout)}}
           円</td>
       </tr>
       <tr>
         <td>・レイアウト変更料</td>
         <td>
-          {{$agentLayoutPrice}}
+          {{number_format($agentLayoutPrice)}}
           円</td>
       </tr>
     </tbody>
@@ -34,7 +34,7 @@
         <td>
           <div class="d-flex justify-content-end">
             <p>小計：</p>
-            <p>{{$agentPrice}}円</p>
+            <p>{{number_format($agentPrice)}}円</p>
           </div>
         </td>
       </tr>
@@ -43,7 +43,7 @@
         <td>
           <div class="d-flex justify-content-end">
             <p>消費税：</p>
-            <p>{{ReservationHelper::getTax($agentPrice)}}円</p>
+            <p>{{number_format(ReservationHelper::getTax($agentPrice))}}円</p>
           </div>
         </td>
       </tr>
@@ -52,7 +52,7 @@
         <td>
           <div class="d-flex justify-content-end">
             <p>合計金額：</p>
-            <p>{{ReservationHelper::taxAndPrice($agentPrice)}}円</p>
+            <p>{{number_format(ReservationHelper::taxAndPrice($agentPrice))}}円</p>
           </div>
         </td>
       </tr>

@@ -38,14 +38,18 @@ class CxlController extends Controller
     $bill = Bill::find($request->bill_id);
 
     if ($request->multi) { //一括キャンセル押下時
-      $price_result = $reservation->pluckSum(['venue_price', 'equipment_price', 'layout_price', 'others_price'], 3);
+      if ($reservation->user_id > 0) {
+        $price_result = $reservation->pluckSum(['venue_price', 'equipment_price', 'layout_price', 'others_price'], 3);
+      } else { //仲介会社の場合、会場料としてsubtotalを表示
+        $price_result = $reservation->pluckSum(['master_subtotal', 0, 0, 0], 3);
+      }
       $multi = 1;
       $single = 0;
     } elseif ($request->single) { //個別キャンセル押下時
       if ($reservation->user_id > 0) {
         $price_result = [$bill->venue_price, $bill->equipment_price, $bill->layout_price, $bill->others_price];
-      } else {
-        $price_result = [$bill->venue_price, $bill->equipment_price, $bill->layout_price, $bill->others_price];
+      } else { //仲介会社の場合、会場料としてsubtotalを表示
+        $price_result = [($bill->master_subtotal - $bill->layout_price), $bill->equipment_price, $bill->layout_price, $bill->others_price];
       }
       $multi = 0;
       $single = 1;
@@ -70,10 +74,15 @@ class CxlController extends Controller
     $info = session()->get('cxlMaster');
     $data = session()->get('cxlCalcInfo');
     $result = session()->get('cxlResult');
-    $reservation = Reservation::with('user')->find($data['reservation_id']);
+    $reservation = Reservation::with(['user', 'agent'])->find($data['reservation_id']);
     $user = $reservation->user;
-    $pay_limit = $user->getUserPayLimit($reservation->reserve_date);
-    return view('admin.cxl.multi_calculate', compact('info', 'data', 'result', 'user', 'pay_limit'));
+    $agent = $reservation->agent;
+    if ($reservation->user_id > 0) {
+      $pay_limit = $user->getUserPayLimit($reservation->reserve_date);
+    } else {
+      $pay_limit = $agent->getPayDetails($reservation->reserve_date);
+    }
+    return view('admin.cxl.multi_calculate', compact('info', 'data', 'result', 'user', 'agent', 'pay_limit'));
   }
 
   public function multiCheck(Request $request)

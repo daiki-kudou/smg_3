@@ -15,6 +15,10 @@ use Illuminate\Support\Facades\DB; //トランザクション用
 
 use App\Mail\SendUserOtherBillsApprove;
 use Illuminate\Support\Facades\Mail;
+// メール
+use App\Mail\AdminReqAddRes;
+use App\Mail\UserReqAddRes;
+
 
 use Carbon\Carbon;
 
@@ -159,12 +163,15 @@ class BillsController extends Controller
   public function other_send_approve(Request $request)
   {
     DB::transaction(function () use ($request) { //トランザクションさせる
-      $bill = Bill::find($request->bill_id);
+      $bill = Bill::with('reservation.user')->find($request->bill_id);
       $bill->update([
         'reservation_status' => 2, 'approve_send_at' => date('Y-m-d H:i:s')
       ]);
-      $email = $bill->reservation->user->email;
-      Mail::to($email)->send(new SendUserOtherBillsApprove($bill));
+      $admin = config('app.admin_email');
+      Mail::to($admin) //管理者
+        ->send(new AdminReqAddRes());
+      Mail::to($bill->reservation->user->email) //ユーザー
+        ->send(new UserReqAddRes());
     });
     return redirect()->route('admin.reservations.index');
   }

@@ -30,12 +30,6 @@
       @endif
       @endforeach
     </tbody>
-    <!-- <tbody class="venue_result">
-      <tr>
-        <td colspan="3"></td>
-        <td colspan="1" class="">合計：{{number_format($other_bill->venue_price)}}</td>
-      </tr>
-    </tbody> -->
   </table>
 </div>
 @endif
@@ -82,13 +76,6 @@
       @endif
       @endforeach
     </tbody>
-    <!-- <tbody class="equipment_result">
-      <tr>
-        <td colspan="3"></td>
-        <td colspan="1" class="">合計：{{number_format($other_bill->equipment_price)}}</td>
-        </td>
-      </tr>
-    </tbody> -->
   </table>
 </div>
 @endif
