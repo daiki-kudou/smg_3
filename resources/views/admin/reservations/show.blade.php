@@ -34,12 +34,13 @@
   @endif
 
   <div class="mb-3 mt-5 align-items-center d-flex justify-content-between">
-    @if ($reservation->bills->first()->reservation_status<3) <div class="text-left">
+    @if ($reservation->bills->first()->reservation_status<3) 
+    {{-- <div class="text-left">
       {{ Form::model($reservation, ['route' => ['admin.reservations.destroy', $reservation->id], 'method' => 'delete']) }}
       @csrf
       {{ Form::submit('削除', ['class' => 'btn more_btn4']) }}
       {{ Form::close() }}
-  </div>
+  </div> --}}
   @endif
 
   @if ($reservation->user_id>0)

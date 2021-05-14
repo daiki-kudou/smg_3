@@ -15,8 +15,11 @@
     <div class="button-wrap">
         <p><input class="print-btn" type="button" value="このページを印刷する" onclick="window.print();" /></p>
     </div>
-
-    <section class="invoice-box print_pages"> {{-- 打消しのときにクラスcancel_lineを付与する --}}
+        @if ($cxl)
+            <section class="invoice-box print_pages">
+        @else
+            <section class="{{$bill->reservation_status==6?'invoice-box print_pages cancel_line':'invoice-box print_pages'}}">
+        @endif
         <table cellpadding="0" cellspacing="0">
             <tr class="top">
                 <td colspan="4">
@@ -65,7 +68,7 @@
                         <dd>
                             <span class="master-total">
                                 @if ($cxl)
-                                    {{ number_format($cxl->master_total) }}
+                                    {{number_format($cxl->master_total)}}
                                 @else
                                     {{ number_format($bill->master_total) }}
                                 @endif
@@ -130,12 +133,12 @@
                             金額
                         </td>
                     </tr>
-                    @foreach ($cxl->cxl_breakdowns->where('unit_type', 1) as $cxl_breakdowns)
+                    @foreach ($cxl->cxl_breakdowns->where('unit_type',1) as $cxl_breakdowns)
                         <tr class="bill-details">
-                            <td>{{ $cxl_breakdowns->unit_item }}</td>
-                            <td>{{ number_format($cxl_breakdowns->unit_cost) }}</td>
-                            <td>{{ $cxl_breakdowns->unit_count }}</td>
-                            <td>{{ number_format($cxl_breakdowns->unit_subtotal) }}<span>円</span></td>
+                            <td>{{$cxl_breakdowns->unit_item}}</td>
+                            <td>{{number_format($cxl_breakdowns->unit_cost)}}</td>
+                            <td>{{$cxl_breakdowns->unit_count}}</td>
+                            <td>{{number_format($cxl_breakdowns->unit_subtotal)}}<span>円</span></td>
                         </tr>
                     @endforeach
                 @else
@@ -175,10 +178,14 @@
                             <td>
                                 内容
                             </td>
+                            {{-- <td>金額</td> --}}
                         </tr>
                         @foreach ($bill->breakdowns as $item)
                             <tr class="bill-details">
                                 <td>{{ $item->unit_item }}</td>
+                                {{-- <td>
+                                    {{ number_format($bill->master_subtotal) }}<span>円</span>
+                                </td> --}}
                             </tr>
                         @endforeach
                     @endif
@@ -190,22 +197,22 @@
             <tr class="total">
                 <td>
                     <p class="sub-total"><span>小計：</span>
-                        <span class="master-subtotal">
-                            @if ($cxl)
-                                {{ number_format($cxl->master_subtotal) }}円
-                            @else
-                                {{ number_format($bill->master_subtotal) }}円
+                      <span class="master-subtotal">
+                          @if ($cxl)
+                          {{ number_format($cxl->master_subtotal) }}円
+                          @else
+                          {{ number_format($bill->master_subtotal) }}円
                             @endif
-                        </span>
+                      </span>
                     </p>
                     <p class="sub-tax"><span>消費税：</span>
-                        <span class="master-subtotal">
-                            @if ($cxl)
-                                {{ number_format($cxl->master_tax) }}円
-                            @else
-                                {{ number_format($bill->master_tax) }}円
+                      <span class="master-subtotal">
+                          @if ($cxl)
+                          {{ number_format($cxl->master_tax) }}円
+                          @else
+                          {{ number_format($bill->master_tax) }}円
                             @endif
-                        </span>
+                      </span>
                     </p>
                 </td>
             </tr>
@@ -214,10 +221,10 @@
                     <span>請求総額：</span>
                     <span class="master-subtotal">
                         @if ($cxl)
-                            {{ number_format($cxl->master_total) }}円
+                        {{ number_format($cxl->master_total) }}円
                         @else
-                            {{ number_format($bill->master_total) }}円
-                        @endif
+                        {{ number_format($bill->master_total) }}円
+                          @endif
                     </span>
                 </td>
             </tr>
@@ -234,63 +241,88 @@
                 <td class="bill-note">
                     <p>備考</p>
                     <p>
-                        @if ($cxl)
-                            {{ $cxl->bill_remark }}
-                        @else
-                            {{ $bill->bill_remark }}
+                      @if ($cxl)
+                      {{ $cxl->bill_remark }}
+                      @else
+                      {{ $bill->bill_remark }}
                         @endif
                     </p>
                 </td>
             </tr>
         </table>
     </section>
+    <p></p>
+
+    {{-- {{ Form::hidden('reservation_status', $bill->reservation_status ) }} --}}
+
 </body>
 
 <script>
     $(function() {
         var len = $(".bill-details").length;
         console.log(len);
+
         if (len > 17) {
             $(".bill-note-wrap").addClass("break");
+            // $(".total-table").css('margin-top','20mm');
         } else {
             $(".bill-note-wrap").removeClass("break");
         }
     });
 
-    <<
-    << << < HEAD
-    // マイナスの場合の色変更
-    $(function() {
-        $('.master-total, .master-subtotal, .bill-detail-table td').each(function(index, value) {
-            var target = $(value).text();
-            if (target.match(/-/)) {
-                $(value).css('color', 'red');
-                //   var result =target.replace('-','▲');
-                //   $(value).text(result);
-            }
-        });
+// マイナスの場合の色変更
+    $(function(){
+      $('.master-total, .master-subtotal, .bill-detail-table td').each(function(index, value){
+        var target=$(value).text();
+        if (target.match(/-/)) {
+          $(value).css('color','red');
+        //   var result =target.replace('-','▲');
+        //   $(value).text(result);
+        }
+      });
     });
 
-    $(function() {
-                $('.bill-detail-table td:last-child').each(function(index, value) {
-                            var target = $(value).text();
-                            if (target.match(/-/)) {
-                                //   $(value).css('color','red');
-                                var result = target.replace('-', '▲'); ===
-                                === =
-                                $(function() {
-                                    $('.bill-detail-table dd, .bill-detail-table p, .bill-detail-table td')
-                                        .each(function(index, value) {
-                                            var target = $(value).text();
-                                            if (target.match(/-/)) {
-                                                $(value).css('color', 'red');
-                                                var result = target.replace('-', '▲ '); >>>
-                                                >>> > cb4acb9acc1a24e05a41c2e42aa45fdbbb67c2e1
-                                                $(value).text(result);
-                                            }
-                                        });
-                                });
+    $(function(){
+      $('.bill-detail-table td:last-child').each(function(index, value){
+        var target=$(value).text();
+        if (target.match(/-/)) {
+        //   $(value).css('color','red');
+          var result =target.replace('-','▲');
+          $(value).text(result);
+        }
+      });
+    });
 
+
+//     $(function(){
+//         console.log(reservation_status);
+//     $reservation_bills = Reservation::find($id)->bills()->first();
+
+//     if ($request->double_check_status == 0) {
+//       $reservation_bills->update([
+//         'double_check1_name' => $request->double_check1_name,
+//         'double_check_status' => 1
+//       ]);
+//     } elseif ($request->double_check_status == 1) {
+//       $reservation_bills->update([
+//         'double_check2_name' => $request->double_check2_name,
+//         'double_check_status' => 2
+//       ]);
+//     }
+//     return redirect('admin/reservations/' . $id);
+// });
 </script>
 
+
+
+<?php if($reservation->reservation_status == 0) { ?>
+    .invoice-box {
+        background-color: #000;
+        color: red;
+    }
+    <?php } ?>
+
 </html>
+
+
+
