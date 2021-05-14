@@ -1400,7 +1400,7 @@
             <tbody>
               <tr>
                 <td>入金状況：
-                  {{Form::select('paid', ['未入金','入金済み','遅延','入金不足','入金過多','次回繰越'],$cxl->paid==1?1:0,['class'=>'form-control cxl_paid_edit','disabled'])}}
+                  {{Form::select('paid', ['未入金','入金済み','遅延','入金不足','入金過多','次回繰越'],$cxl->paid,['class'=>'form-control cxl_paid_edit','disabled'])}}
                 </td>
                 <td>
                   入金日：
