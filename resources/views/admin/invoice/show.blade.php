@@ -292,35 +292,8 @@
         }
       });
     });
-
-
-//     $(function(){
-//         console.log(reservation_status);
-//     $reservation_bills = Reservation::find($id)->bills()->first();
-
-//     if ($request->double_check_status == 0) {
-//       $reservation_bills->update([
-//         'double_check1_name' => $request->double_check1_name,
-//         'double_check_status' => 1
-//       ]);
-//     } elseif ($request->double_check_status == 1) {
-//       $reservation_bills->update([
-//         'double_check2_name' => $request->double_check2_name,
-//         'double_check_status' => 2
-//       ]);
-//     }
-//     return redirect('admin/reservations/' . $id);
-// });
 </script>
 
-
-
-<?php if($reservation->reservation_status == 0) { ?>
-    .invoice-box {
-        background-color: #000;
-        color: red;
-    }
-    <?php } ?>
 
 </html>
 
