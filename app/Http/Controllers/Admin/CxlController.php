@@ -37,14 +37,16 @@ class CxlController extends Controller
     $reservation = Reservation::with('bills')->find($request->reservation_id);
     $bill = Bill::find($request->bill_id);
 
-    if ($request->multi) {
-      //一括キャンセル押下時
+    if ($request->multi) { //一括キャンセル押下時
       $price_result = $reservation->pluckSum(['venue_price', 'equipment_price', 'layout_price', 'others_price'], 3);
       $multi = 1;
       $single = 0;
-    } elseif ($request->single) {
-      //個別キャンセル押下時
-      $price_result = [$bill->venue_price, $bill->equipment_price, $bill->layout_price, $bill->others_price];
+    } elseif ($request->single) { //個別キャンセル押下時
+      if ($reservation->user_id > 0) {
+        $price_result = [$bill->venue_price, $bill->equipment_price, $bill->layout_price, $bill->others_price];
+      } else {
+        $price_result = [$bill->venue_price, $bill->equipment_price, $bill->layout_price, $bill->others_price];
+      }
       $multi = 0;
       $single = 1;
     }
