@@ -865,7 +865,14 @@
           {{ Form::hidden('user_id', $reservation->user_id ) }}
           {{ Form::hidden('reservation_id', $reservation->id ) }}
 
-          <p class="mr-2">{{ Form::submit('利用者に承認メールを送る',['class' => 'btn more_btn approve_send']) }}</p>
+          @if ($reservation->user_id>0)
+          <p class="mr-2">
+            {{ Form::submit('利用者に承認メールを送る',['class' => 'btn more_btn approve_send']) }}
+          </p>
+          @endif
+
+
+
           {{ Form::close() }}
           {{ Form::open(['url' => 'admin/agents_reservations/confirm', 'method'=>'POST', 'class'=>'']) }}
           @csrf
