@@ -1188,9 +1188,13 @@
           {{ Form::open(['url' => 'admin/cxl/send_email_and_approve', 'method'=>'POST', 'class'=>'']) }}
           @csrf
           {{ Form::hidden('cxl_id', $cxl->id ) }}
+
+          @if ($reservation->user_id>0)
           <p class="mr-2">
             {{ Form::submit('利用者にキャンセル承認メールを送る',['class' => 'btn more_btn approve_send']) }}
           </p>
+          @endif
+
           {{ Form::close() }}
 
           {{ Form::open(['url' => 'admin/cxl/confirm', 'method'=>'POST', 'class'=>'']) }}
@@ -1232,7 +1236,7 @@
             @foreach ($cxl->cxl_breakdowns->where('unit_type',2) as $cxl_calc)
             <tr>
               <td>{{$cxl_calc->unit_item}}円</td>
-              <td>{{($cxl_calc->unit_cost)}}</td>
+              <td>{{(number_format($cxl_calc->unit_cost))}}</td>
               <td>×</td>
               <td>{{$cxl_calc->unit_count}}%</td>
             </tr>
