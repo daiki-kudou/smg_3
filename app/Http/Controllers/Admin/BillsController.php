@@ -167,11 +167,6 @@ class BillsController extends Controller
       $bill->update([
         'reservation_status' => 2, 'approve_send_at' => date('Y-m-d H:i:s')
       ]);
-      // メールここ
-      //aaaaaaaaaaaaaaaaaaaaaaaaaaaa
-      //aaaaaaaaaaaaaaaaaaaaaaaaaaaa
-      //aaaaaaaaaaaaaaaaaaaaaaaaaaaa
-      //aaaaaaaaaaaaaaaaaaaaaaaaaaaa
       $admin = config('app.admin_email');
       Mail::to($admin) //管理者
         ->send(new AdminReqAddRes());
