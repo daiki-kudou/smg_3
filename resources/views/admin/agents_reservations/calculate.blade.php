@@ -620,7 +620,8 @@
               <td>
                 <dl class="ttl_box">
                   <dt>合計金額</dt>
-                  <dd class="total_result">{{number_format(floor($calc_info[0]))}}円</dd>
+                  <dd class="total_result">{{ReservationHelper::taxAndPrice($price)}}円</dd>
+                  {{-- <dd class="total_result">{{ Form::text('master_total',ReservationHelper::taxAndPrice($price) ,['class'=>'form-control text-right', 'readonly'] ) }}円</dd> --}}
                 </dl>
               </td>
               <td>

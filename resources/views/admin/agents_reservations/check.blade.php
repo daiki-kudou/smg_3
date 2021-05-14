@@ -491,7 +491,7 @@
               <dl class="ttl_box">
                 <dt>合計金額</dt>
                 <dd class="total_result">
-                  {{number_format($check_info['master_subtotal'])}}
+                  {{number_format($check_info['master_total'])}}
                   円
                 </dd>
               </dl>
