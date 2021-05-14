@@ -36,7 +36,7 @@
         </dl>
       </td>
       <td>
-        <p><span>領収書No：</span>あとで変数化！！2020092225</p>
+        <p><span>領収書No：</span>{{ $bill->invoice_number }}</p>
         <p><span>発行日：</span>{{ReservationHelper::formatDate($bill->pay_day)}}</p>
       </td>
     </tr>

@@ -524,24 +524,6 @@
         {{ Form::close() }}
         @endif
       </div>
-
-      <!-- <div class="invoice_box d-flex justify-content-end my-3">
-        {{ Form::open(['url' => 'admin/invoice', 'method'=>'post', 'target'=>'_blank','class'=>'']) }}
-        @csrf
-        {{ Form::hidden('reservation_id', $reservation->id ) }}
-        {{ Form::hidden('bill_id', $reservation->bills->first()->id ) }}
-        <p class="mr-2">
-          {{ Form::submit('請求書をみる',['class' => 'btn more_btn']) }}
-        </p>
-        {{ Form::close() }}
-        <p class="mr-2">
-          @if ($reservation->bills->first()->paid==1)
-          <a target='_blank' href="{{url('admin/receipts/'.$reservation->bills->first()->id)}}"
-            class="btn more_btn4">領収書をみる</a>
-          @endif
-        </p>
-      </div> -->
-
     </div>
     <div class="bill_details">
       <div class="head d-flex">
@@ -617,9 +599,9 @@
         {{ Form::open(['url' => 'admin/bills/update_bill_info', 'method'=>'post']) }}
         @csrf
         {{ Form::hidden('bill_id', $reservation->bills->first()->id)}}
-        <p class="text-right">
+        <p class="text-right billdetails_content pb-0">
           <input type="checkbox" class="bill_edit_m" id="{{'bill_edit_m'.$reservation->bills->first()->id}}">
-          <label for="{{'bill_edit_m'.$reservation->bills->first()->id}}">編集</label>
+          <label for="{{'bill_edit_m'.$reservation->bills->first()->id}}">編集する</label>
         </p>
         <div class="informations billdetails_content">
           <table class="table">
@@ -668,12 +650,6 @@
           <h3 class="pl-3">
             入金情報
           </h3>
-          <!-- <p class="mr-2">
-          @if ($reservation->bills->first()->paid==1)
-          <a target='_blank' href="{{url('admin/receipts/'.$reservation->bills->first()->id)}}"
-            class="btn more_btn4">領収書をみる</a>
-          @endif
-        </p> -->
           {{ Form::open(['url' => 'admin/receipts', 'method'=>'post', 'target'=>'_blank', 'class'=>'']) }}
           @csrf
           {{ Form::hidden('bill_id', $reservation->bills->first()->id ) }}
@@ -687,10 +663,9 @@
         {{ Form::open(['url' => 'admin/bills/update_paid_info', 'method'=>'post']) }}
         @csrf
         {{ Form::hidden('bill_id', $reservation->bills->first()->id)}}
-
-        <div class="text-right">
+        <div class="text-right billdetails_content pb-0">
           <input type="checkbox" class="paid_edit_m" id="{{'paid_edit_m'.$reservation->bills->first()->id}}">
-          <label for="{{'paid_edit_m'.$reservation->bills->first()->id}}">編集</label>
+          <label for="{{'paid_edit_m'.$reservation->bills->first()->id}}">編集する</label>
         </div>
         <div class="paids billdetails_content">
           <table class="table">
@@ -698,7 +673,7 @@
               <tr>
                 <td>
                   入金状況：
-                  {{Form::select('paid', ['未入金','入金済み','遅延','入金不足','入金過多','次回繰越'],$reservation->bills->first()->paid==1?1:0,['class'=>'form-control paid_edit','disabled'])}}
+                  {{Form::select('paid', ['未入金','入金済み','遅延','入金不足','入金過多','次回繰越'],$reservation->bills->first()->paid,['class'=>'form-control paid_edit','disabled'])}}
                 </td>
                 <td>
                   入金日：
@@ -894,23 +869,6 @@
         {{ Form::close() }}
         @endif
       </div>
-      <!-- <div class="invoice_box d-flex justify-content-end my-3">
-        {{ Form::open(['url' => 'admin/invoice', 'method'=>'post', 'target'=>'_blank','class'=>'']) }}
-        @csrf
-        {{ Form::hidden('reservation_id', $reservation->id ) }}
-        {{ Form::hidden('bill_id', $other_bill->id ) }}
-        <p class="mr-2">
-          {{ Form::submit('請求書をみる',['class' => 'btn more_btn']) }}
-        </p>
-        {{ Form::close() }}
-
-        <p class="mr-2">
-          @if ($other_bill->paid==1)
-          <a target='_blank' href="{{url('admin/receipts/'.$reservation->bills->first()->id)}}"
-            class="btn more_btn4">領収書をみる</a>
-          @endif
-        </p>
-      </div> -->
     </div>
 
     <div class="bill_details">
@@ -984,9 +942,9 @@
         {{ Form::open(['url' => 'admin/bills/update_bill_info', 'method'=>'post']) }}
         @csrf
         {{ Form::hidden('bill_id', $other_bill->id)}}
-        <p class="text-right">
+        <p class="text-right billdetails_content pb-0">
           <input type="checkbox" class="bill_edit_m" id="{{'bill_edit_m'.$other_bill->id}}">
-          <label for="{{'bill_edit_m'.$other_bill->id}}">編集</label>
+          <label for="{{'bill_edit_m'.$other_bill->id}}">編集する</label>
         </p>
         <div class="informations billdetails_content">
           <table class="table">
@@ -1018,9 +976,9 @@
             </tbody>
           </table>
         </div>
-        <div class="text-right">
+        <div class="text-right billdetails_content">
           <p>
-            {{Form::submit('更新',['class'=>'bill_edit','disabled'])}}
+            {{Form::submit('更新する',['class'=>'bill_edit btn more_btn','disabled'])}}
           </p>
         </div>
         {{ Form::close() }}
@@ -1036,11 +994,6 @@
           <h3 class="pl-3">
             入金情報
           </h3>
-          <!-- <p class="mr-2">
-            @if ($other_bill->paid==1)
-            <a target='_blank' href="{{url('admin/receipts/'.$reservation->bills->first()->id)}}" class="btn more_btn4">領収書をみる</a>
-            @endif
-          </p> -->
           {{ Form::open(['url' => 'admin/receipts', 'method'=>'post', 'target'=>'_blank', 'class'=>'']) }}
           @csrf
           {{ Form::hidden('reservation_id', $reservation->id ) }}
@@ -1056,9 +1009,9 @@
         {{ Form::open(['url' => 'admin/bills/update_paid_info', 'method'=>'post']) }}
         @csrf
         {{ Form::hidden('bill_id', $other_bill->id)}}
-        <div class="text-right">
+        <div class="text-right billdetails_content pb-0">
           <input type="checkbox" class="paid_edit_m" id="{{'paid_edit_m'.$other_bill->id}}">
-          <label for="{{'paid_edit_m'.$other_bill->id}}">編集</label>
+          <label for="{{'paid_edit_m'.$other_bill->id}}">編集する</label>
         </div>
         <div class="paids billdetails_content">
           <table class="table">
@@ -1066,7 +1019,7 @@
               <tr>
                 <td>
                   入金状況：
-                  {{Form::select('paid', ['未入金','入金済み','遅延','入金不足','入金過多','次回繰越'],$other_bill->paid==1?1:0,['class'=>'form-control paid_edit','disabled'])}}
+                  {{Form::select('paid', ['未入金','入金済み','遅延','入金不足','入金過多','次回繰越'],$other_bill->paid,['class'=>'form-control paid_edit','disabled'])}}
                 </td>
                 <td>
                   入金日：
@@ -1084,8 +1037,8 @@
             </tbody>
           </table>
         </div>
-        <p class="text-right">
-          {{Form::submit('更新',['disabled','class'=>'paid_edit'])}}
+        <p class="text-right billdetails_content">
+          {{Form::submit('更新する',['disabled','class'=>'paid_edit btn more_btn'])}}
         </p>
         {{Form::close()}}
       </div>
@@ -1376,9 +1329,9 @@
         {{ Form::open(['url' => 'admin/cxl/update_cxl_bill_info', 'method'=>'post']) }}
         @csrf
         {{ Form::hidden('cxl_id', $cxl->id)}}
-        <p class="text-right">
+        <p class="text-right billdetails_content pb-0">
           <input type="checkbox" class="cxl_bill_edit_m" id="{{'cxl_bill_edit_m'.$cxl->id}}">
-          <label for="{{'cxl_bill_edit_m'.$cxl->id}}">編集</label>
+          <label for="{{'cxl_bill_edit_m'.$cxl->id}}">編集する</label>
         </p>
         <div class="informations billdetails_content">
           <table class="table">
@@ -1412,9 +1365,9 @@
             </tbody>
           </table>
         </div>
-        <div class="text-right">
+        <div class="text-right billdetails_content">
           <p>
-            {{Form::submit('更新',['class'=>'cxl_bill_edit','disabled'])}}
+            {{Form::submit('更新する',['class'=>'cxl_bill_edit btn more_btn','disabled'])}}
           </p>
         </div>
         {{Form::close()}}
@@ -1432,7 +1385,7 @@
           {{ Form::open(['url' => 'admin/receipts', 'method'=>'post', 'target'=>'_blank', 'class'=>'']) }}
           @csrf
           {{ Form::hidden('cxl_id', $cxl->id ) }}
-          @if ($reservation->cxls->first()->paid==1)
+          @if ($cxl->paid==1)
           <p class="mr-2">{{ Form::submit('領収書をみる',['class' => 'more_btn4 btn']) }}</p>
           @endif
           {{ Form::close() }}
@@ -1445,16 +1398,16 @@
         @csrf
         {{ Form::hidden('cxl_id', $cxl->id)}}
 
-        <div class="text-right">
+        <div class="text-right billdetails_content pb-0">
           <input type="checkbox" class="cxl_paid_edit_m" id="{{'cxl_paid_edit_m'.$cxl->id}}">
-          <label for="{{'cxl_paid_edit_m'.$cxl->id}}">編集</label>
+          <label for="{{'cxl_paid_edit_m'.$cxl->id}}">編集する</label>
         </div>
         <div class="paids billdetails_content">
           <table class="table">
             <tbody>
               <tr>
                 <td>入金状況：
-                  {{Form::select('paid', ['未入金','入金済み','遅延','入金不足','入金過多','次回繰越'],$cxl->paid==1?1:0,['class'=>'form-control cxl_paid_edit','disabled'])}}
+                  {{Form::select('paid', ['未入金','入金済み','遅延','入金不足','入金過多','次回繰越'],$cxl->paid,['class'=>'form-control cxl_paid_edit','disabled'])}}
                 </td>
                 <td>
                   入金日：
@@ -1473,9 +1426,9 @@
             </tbody>
           </table>
         </div>
-        <div class="text-right">
+        <div class="text-right billdetails_content">
           <p>
-            {{Form::submit('更新',['class'=>'cxl_paid_edit','disabled'])}}
+            {{Form::submit('更新する',['class'=>'cxl_paid_edit bnt more_btn','disabled'])}}
           </p>
         </div>
         {{Form::close()}}

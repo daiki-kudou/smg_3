@@ -16,7 +16,7 @@
         <p><input class="print-btn" type="button" value="このページを印刷する" onclick="window.print();" /></p>
     </div>
 
-    <section class="invoice-box print_pages "> {{-- 打消しのときにクラスcancel_lineを付与する --}}
+    <section class="invoice-box print_pages"> {{-- 打消しのときにクラスcancel_lineを付与する --}}
         <table cellpadding="0" cellspacing="0">
             <tr class="top">
                 <td colspan="4">
@@ -27,11 +27,6 @@
                 <td>
                     <dl>
                         <dd>
-                            {{-- @if ($reservation->user_id > 0)
-                                {{ $reservation->user->company }}御中
-                            @else
-                                {{ ReservationHelper::getAgentCompany($reservation->agent_id) }}御中
-                            @endif --}}
                             @if ($cxl)
                                 {{ $cxl->bill_company }}御中
                             @else
@@ -80,9 +75,9 @@
                 <td>
                     <p><span>請求書No：</span>
                         @if ($cxl)
-                            {{ $cxl->id }}
+                            {{ $cxl->invoice_number }}
                         @else
-                            {{ $bill->id }}
+                            {{ $bill->invoice_number }}
                         @endif
 
                     </p>
@@ -245,7 +240,6 @@
             </tr>
         </table>
     </section>
-
 </body>
 
 <script>
@@ -260,6 +254,10 @@
             $(".bill-note-wrap").removeClass("break");
         }
     });
+
+
+
+
 
 </script>
 

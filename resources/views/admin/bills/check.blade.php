@@ -327,7 +327,8 @@
             <tbody>
               <tr>
                 <td>入金状況
-                  {{ Form::text('',$data['paid']==0?"未入金":"支払済",['class'=>'form-control', 'readonly'] ) }}
+                  {{-- {{ Form::text('',$data['paid']==0?"未入金":"支払済",['class'=>'form-control', 'readonly'] ) }} --}}
+                  {{Form::text('',ReservationHelper::paidStatus($data['paid']),['class'=>'form-control','readonly'])}}
                   {{ Form::hidden('paid',$data['paid'],['class'=>'form-control', 'readonly'] ) }}
                 </td>
                 <td>

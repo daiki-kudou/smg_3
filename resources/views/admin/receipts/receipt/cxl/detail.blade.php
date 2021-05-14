@@ -36,7 +36,7 @@
         </dl>
       </td>
       <td>
-        <p><span>領収書No：</span>あとで変数化！！2020092225</p>
+        <p><span>領収書No：</span>{{ $cxl->invoice_number }}</p>
         <p><span>発行日：</span>{{ReservationHelper::formatDate($cxl->pay_day)}}</p>
       </td>
     </tr>
@@ -68,20 +68,12 @@
           金額
         </td>
       </tr>
-      @foreach ($cxl->cxl_breakdowns as $item)
+      @foreach ($cxl->cxl_breakdowns->where('unit_type',1) as $cxl_breakdowns)
       <tr class="bill-details">
-        <td>
-          {{$item->unit_item}}
-        </td>
-        <td>
-          {{number_format($item->unit_cost)}}
-        </td>
-        <td>
-          {{$item->unit_count}}
-        </td>
-        <td>
-          {{number_format($item->unit_subtotal)}}<span>円</span>
-        </td>
+        <td>{{$cxl_breakdowns->unit_item}}</td>
+        <td>{{number_format($cxl_breakdowns->unit_cost)}}</td>
+        <td>{{$cxl_breakdowns->unit_count}}</td>
+        <td>{{number_format($cxl_breakdowns->unit_subtotal)}}</td>
       </tr>
       @endforeach
     </tbody>
