@@ -70,7 +70,7 @@
             <th class="btn-cell">領収書</th>
           </tr>
         </thead>
-        @foreach ($user->reservations as $reservation)
+        @foreach ($user->reservations->sortByDesc('id') as $reservation)
         <tbody>
           <tr>
             <td rowspan="{{count($reservation->bills)}}">{{ReservationHelper::fixId($reservation->id)}}
@@ -81,14 +81,16 @@
               {{ReservationHelper::formatTime($reservation->enter_time)}}</td>
             <td rowspan="{{count($reservation->bills)}}">
               {{ReservationHelper::formatTime($reservation->leave_time)}}</td>
-            <td rowspan="{{count($reservation->bills)}}">{{ReservationHelper::getVenueForUser($reservation->venue_id)}}</td>
+            <td rowspan="{{count($reservation->bills)}}">{{ReservationHelper::getVenueForUser($reservation->venue_id)}}
+            </td>
             <td>{{ReservationHelper::judgeStatus($reservation->bills->first()->reservation_status)}}</td>
             <td>会場予約</td>
             <td>{{number_format($reservation->bills->first()->master_total)}}円</td>
             <td>{{ReservationHelper::formatDate($reservation->bills->first()->payment_limit)}}</td>
             <td>{{ReservationHelper::paidStatus($reservation->bills->first()->paid)}}</td>
-            <td rowspan="{{count($reservation->bills)}}"><a href="{{ url('user/home/'.$reservation->id) }}" class="more_btn btn">詳細</a></td>
-            <td> 
+            <td rowspan="{{count($reservation->bills)}}"><a href="{{ url('user/home/'.$reservation->id) }}"
+                class="more_btn btn">詳細</a></td>
+            <td>
               {{ Form::open(['url' => 'admin/invoice', 'method'=>'post', 'target'=>'_blank', 'class'=>'']) }}
               @csrf
               {{ Form::hidden('reservation_id', $reservation->id ) }}
@@ -121,7 +123,7 @@
                 {{ Form::hidden('reservation_id', $reservation->id ) }}
                 {{ Form::hidden('bill_id', $reservation->bills->skip($i+1)->first()->id ) }}
                 <p class="mr-2">{{ Form::submit('請求書をみる',['class' => 'btn more_btn']) }}</p>
-                {{ Form::close() }}  
+                {{ Form::close() }}
               </td>
               <td>
                 {{ Form::open(['url' => 'admin/receipts', 'method'=>'post', 'target'=>'_blank', 'class'=>'']) }}
@@ -136,48 +138,6 @@
             @endfor
         </tbody>
         @endforeach
-
-        {{-- <tbody>
-          <tr>
-            <td class="text-center">00000</td>
-            <td>2020/12/07(月)</td>
-            <td>00：00</td>
-            <td>00：00</td>
-            <td>四ツ橋・サンワールドビル22号室</td>
-            <td class="table_column">
-              <p>ステータス</p>
-              <p>ステータス</p>
-            </td>
-            <td class="table_column">
-              <p>カテゴリー</p>
-              <p>カテゴリー</p>
-            </td>
-            <td class="table_column">
-              <p class="justify-content-center">0円</p>
-              <p class="justify-content-center">0円</p>
-            </td>
-            <td class="table_column">
-              <p>2020/12/07(月)</p>
-              <p>2020/12/07(月)</p>
-            </td>
-            <td class="table_column">
-              <p>ステータス</p>
-              <p>ステータス</p>
-            </td>
-            <td class="table_column">
-              <p class="justify-content-center"><a class="more_btn btn" href="">詳細</a></p>
-              <p class="justify-content-center"><a class="more_btn btn" href="">詳細</a></p>
-            </td>
-            <td class="table_column">
-              <p class="justify-content-center"><a class="more_btn btn" href="">請求書をみる</a></p>
-              <p class="justify-content-center"><a class="more_btn btn" href="">請求書をみる</a></p>
-            </td>
-            <td class="table_column">
-              <p class="justify-content-center"><a class="more_btn btn" href="">領収書をみる</a></p>
-              <p class="justify-content-center"><a class="more_btn btn" href="">領収書をみる</a></p>
-            </td>
-          </tr>
-        </tbody> --}}
       </table>
     </div>
   </div>

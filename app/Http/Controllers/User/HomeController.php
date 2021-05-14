@@ -37,10 +37,10 @@ class HomeController extends Controller
   {
     $user_id = auth()->user()->id;
     $user = User::with("reservations.bills")->find($user_id);
-    $reservation = Reservation::where('user_id', $user_id)->get();
+    // $reservation = Reservation::where('user_id', $user_id)->orderBy('id', 'desc');
     return view('user.home.index', [
       'user' => $user,
-      'reservation' => $reservation
+      // 'reservation' => $reservation
     ]);
   }
 

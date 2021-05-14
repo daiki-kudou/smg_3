@@ -16,11 +16,13 @@ use Illuminate\Support\Facades\DB; //トランザクション用
 use App\Models\Bill;
 
 use App\Traits\PregTrait;
+use App\Traits\InvoiceTrait;
 
 
 class AgentsReservationsController extends Controller
 {
   use PregTrait;
+  use InvoiceTrait;
 
   public function create()
   {
@@ -189,7 +191,8 @@ class AgentsReservationsController extends Controller
         'double_check_status' => 0, //固定で1
         'category' => 2, //1が会場　２が追加請求
         'admin_judge' => 1, //１が管理者　２がユーザー
-        'end_user_charge' => $request->enduser_charge
+        'end_user_charge' => $request->enduser_charge,
+        'invoice_number' => $this->generate_invoice_number(),
       ]);
 
       function storeAndBreakDown($num, $sub, $target, $type)
