@@ -16,7 +16,7 @@
         <p><input class="print-btn" type="button" value="このページを印刷する" onclick="window.print();" /></p>
     </div>
 
-    <section class="invoice-box print_pages "> {{-- 打消しのときにクラスcancel_lineを付与する --}}
+    <section class="invoice-box print_pages"> {{-- 打消しのときにクラスcancel_lineを付与する --}}
         <table cellpadding="0" cellspacing="0">
             <tr class="top">
                 <td colspan="4">
@@ -254,6 +254,10 @@
             $(".bill-note-wrap").removeClass("break");
         }
     });
+
+
+
+
 
 </script>
 

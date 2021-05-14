@@ -1378,7 +1378,7 @@
           {{ Form::open(['url' => 'admin/receipts', 'method'=>'post', 'target'=>'_blank', 'class'=>'']) }}
           @csrf
           {{ Form::hidden('cxl_id', $cxl->id ) }}
-          @if ($reservation->cxls->first()->paid==1)
+          @if ($cxl->paid==1)
           <p class="mr-2">{{ Form::submit('領収書をみる',['class' => 'more_btn4 btn']) }}</p>
           @endif
           {{ Form::close() }}

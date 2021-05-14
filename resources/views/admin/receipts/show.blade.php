@@ -100,7 +100,7 @@
                 <tr class="heading">
                     <td colspan="4">
                         <dl class="bill-heading">
-                            <dd>{{ ReservationHelper::formatDate($bill->reserve_date) }}<span>ご利用料金</span>
+                            <dd>{{ ReservationHelper::formatDate($bill->reservation->reserve_date) }}<span>ご利用料金</span>
                             </dd>
                             <dd>{{ ReservationHelper::getVenueForUser($bill->reservation->venue_id) }}</dd>
                         </dl>
