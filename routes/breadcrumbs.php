@@ -190,8 +190,6 @@ Breadcrumbs::for('admin.multiples.agent_edit', function ($trail, $id, $venue) {
   $trail->push('一括仮押さえ(仲介会社経由) 編集', route('admin.multiples.agent_edit', [$id, $venue]));
 });
 
-
-
 // 顧客管理
 Breadcrumbs::for('admin.clients.index', function ($trail) {
   $trail->parent('admin.home.index');
@@ -208,4 +206,11 @@ Breadcrumbs::for('admin.clients.show', function ($trail, $id) {
 Breadcrumbs::for('admin.clients.edit', function ($trail, $id) {
   $trail->parent('admin.clients.show', $id);
   $trail->push('顧客管理 詳細', route('admin.clients.edit', $id));
+});
+
+// 管理者予約
+
+Breadcrumbs::for('admin.reservations.index', function ($trail) {
+  $trail->parent('admin.home.index');
+  $trail->push('予約 一覧', route('admin.reservations.index'));
 });

@@ -41,7 +41,10 @@ class CxlController extends Controller
       if ($reservation->user_id > 0) {
         $price_result = $reservation->pluckSum(['venue_price', 'equipment_price', 'layout_price', 'others_price'], 3);
       } else { //仲介会社の場合、会場料としてsubtotalを表示
-        $price_result = $reservation->pluckSum(['master_subtotal', 0, 0, 0], 3);
+        // $price_result = $reservation->pluckSum(['master_subtotal', 0, 'layout_price', 0], 3);
+        $master_subtotal = $reservation->bills->where('reservation_status', 3)->pluck('master_subtotal')->sum();
+        $layout = $reservation->bills->where('reservation_status', 3)->pluck('layout_price')->sum();
+        $price_result = [($master_subtotal - $layout), 0, $layout, 0];
       }
       $multi = 1;
       $single = 0;
@@ -221,10 +224,24 @@ class CxlController extends Controller
     $cxl = Cxl::with(['bill', 'reservation.bills', 'cxl_breakdowns'])->find($id);
     if (empty($cxl->bill)) {
       //一括キャンセル押下時
-      $price_result = $cxl->reservation->pluckSum(['venue_price', 'equipment_price', 'layout_price', 'others_price'], 4);
+      if ($cxl->reservation->user_id > 0) {
+        $price_result = $cxl->reservation->pluckSum(['venue_price', 'equipment_price', 'layout_price', 'others_price'], 4);
+      } else { //仲介会社の場合、会場料としてsubtotalを表示
+        // $price_result = $reservation->pluckSum(['master_subtotal', 0, 'layout_price', 0], 3);
+        $master_subtotal = $cxl->reservation->bills->where('reservation_status', '>', 3)->pluck('master_subtotal')->sum();
+        $layout = $cxl->reservation->bills->where('reservation_status', '>', 3)->pluck('layout_price')->sum();
+        $price_result = [($master_subtotal - $layout), 0, $layout, 0];
+      }
     } else {
       //個別キャンセル押下時
-      $price_result = [$cxl->bill->venue_price, $cxl->bill->equipment_price, $cxl->bill->layout_price, $cxl->bill->others_price];
+      if ($cxl->reservation->user_id > 0) {
+        $price_result = [$cxl->bill->venue_price, $cxl->bill->equipment_price, $cxl->bill->layout_price, $cxl->bill->others_price];
+      } else { //仲介会社の場合、会場料としてsubtotalを表示
+        // $price_result = $reservation->pluckSum(['master_subtotal', 0, 'layout_price', 0], 3);
+        $master_subtotal = $cxl->bill->master_subtotal;
+        $layout = $cxl->bill->layout_price;
+        $price_result = [($master_subtotal - $layout), 0, $layout, 0];
+      }
     }
     session()->put('cxlMaster', $price_result);
     return view('admin.cxl.edit', compact('price_result', 'cxl'));
