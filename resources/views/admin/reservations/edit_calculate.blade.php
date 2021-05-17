@@ -32,7 +32,7 @@
   }
 </style>
 
-<div class="float-right">
+<div class="d-flex justify-content-end">
   <nav aria-label="breadcrumb">
     <ol class="breadcrumb">
       <li class="breadcrumb-item active">
