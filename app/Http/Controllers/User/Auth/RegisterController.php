@@ -40,9 +40,38 @@ class RegisterController extends Controller
 
   public function checkRegistrationForm(Request $request)
   {
-    echo "<pre>";
+    // $validatedData = $request->validate([
+    //   'email' => 'required|unique:users|max:255|string|email',
+    //   'company' => 'required|max:255',
+    //   'first_name' => 'max:20|regex:/^[^A-Za-z0-9]+$/u|required',
+    //   'last_name' => 'max:20|regex:/^[^A-Za-z0-9]+$/u|required',
+    //   'first_name_kana' => 'max:20|regex:/^[ァ-ヶ 　]+$/u|required',
+    //   'last_name_kana' => 'max:20|regex:/^[ァ-ヶ 　]+$/u|required',
+    //   'post_code' => 'digits:7|integer',
+    // ]);
 
-    echo "</pre>";
+    $validator = Validator::make($request->all(), [
+      'email' => 'required|unique:users,email|max:255|string|email',
+      'company' => 'required|max:255',
+      'first_name' => 'max:20|regex:/^[^A-Za-z0-9]+$/u|required',
+      'last_name' => 'max:20|regex:/^[^A-Za-z0-9]+$/u|required',
+      'first_name_kana' => 'max:20|regex:/^[ァ-ヶ 　]+$/u|required',
+      'last_name_kana' => 'max:20|regex:/^[ァ-ヶ 　]+$/u|required',
+      'post_code' => '',
+      'tel' => 'nullable|required_without:mobile',
+      'mobile'   => 'nullable|required_without:tel',
+      'password'   => 'required|between:min:6,20|alpha_num|confirmed',
+      'password_confirmation'   => 'required',
+      'q1'   => 'required',
+    ]);
+
+    if ($validator->fails()) {
+      return back()
+        ->withErrors($validator)
+        ->withInput();
+    }
+
+
     return view('user.auth.register_check', compact('request'));
   }
 
@@ -61,7 +90,6 @@ class RegisterController extends Controller
 
   protected function create(array $data)
   {
-
     return User::create([
       'first_name'     => $data['first_name'],
       'last_name'     => $data['last_name'],
@@ -77,6 +105,24 @@ class RegisterController extends Controller
       'status' => 1,
       'admin_or_user' => 2,
       'mobile' => $data['mobile'],
+      'pay_method' => 1,
+      'pay_limit' => 1,
+      'admin_or_user' => 2,
     ]);
+  }
+
+  public function register(Request $request)
+  {
+    $this->validator($request->all())->validate();
+
+    event(new Registered($user = $this->create($request->all())));
+
+    return view('user.auth.register_done');
+
+    // $this->guard()->login($user);
+
+    // return $this->registered($request, $user)
+    //   ?: redirect($this->redirectPath());
+
   }
 }
