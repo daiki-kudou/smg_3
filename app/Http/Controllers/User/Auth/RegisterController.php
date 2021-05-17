@@ -40,9 +40,38 @@ class RegisterController extends Controller
 
   public function checkRegistrationForm(Request $request)
   {
-    echo "<pre>";
+    // $validatedData = $request->validate([
+    //   'email' => 'required|unique:users|max:255|string|email',
+    //   'company' => 'required|max:255',
+    //   'first_name' => 'max:20|regex:/^[^A-Za-z0-9]+$/u|required',
+    //   'last_name' => 'max:20|regex:/^[^A-Za-z0-9]+$/u|required',
+    //   'first_name_kana' => 'max:20|regex:/^[ァ-ヶ 　]+$/u|required',
+    //   'last_name_kana' => 'max:20|regex:/^[ァ-ヶ 　]+$/u|required',
+    //   'post_code' => 'digits:7|integer',
+    // ]);
 
-    echo "</pre>";
+    $validator = Validator::make($request->all(), [
+      'email' => 'required|unique:users|max:255|string|email',
+      'company' => 'required|max:255',
+      'first_name' => 'max:20|regex:/^[^A-Za-z0-9]+$/u|required',
+      'last_name' => 'max:20|regex:/^[^A-Za-z0-9]+$/u|required',
+      'first_name_kana' => 'max:20|regex:/^[ァ-ヶ 　]+$/u|required',
+      'last_name_kana' => 'max:20|regex:/^[ァ-ヶ 　]+$/u|required',
+      'post_code' => 'digits:7|integer',
+      'tel' => 'required_if:mobile,true',
+      'mobile' => 'required_if:tel,true',
+      'tel' => 'nullable|required_without:mobile',
+      'mobile'   => 'nullable|required_without:tel',
+
+    ]);
+
+    if ($validator->fails()) {
+      return back()
+        ->withErrors($validator)
+        ->withInput();
+    }
+
+
     return view('user.auth.register_check', compact('request'));
   }
 
@@ -51,7 +80,7 @@ class RegisterController extends Controller
   {
     // ※注意
     return Validator::make($data, [
-      // 'email'    => ['required', 'string', 'email', 'max:255', 'unique:users'],
+      'email'    => ['required', 'string', 'email', 'max:255', 'unique:users'],
       // 'password' => ['required', 'string', 'min:8', 'confirmed'],
       // 'first_name'     => ['required', 'string', 'max:255'],
       // 'last_name'     => ['required', 'string', 'max:255'],
