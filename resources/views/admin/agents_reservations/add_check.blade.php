@@ -67,8 +67,10 @@
             </tbody>
             <tbody class="venue_head">
               <tr>
-                <td colspan="2">内容</td>
-                <td colspan="2">数量</td>
+                <td>内容</td>
+                <td>単価</td>
+                <td>数量</td>
+                <td>金額</td>
               </tr>
             </tbody>
             <tbody class="venue_main">
@@ -106,8 +108,10 @@
             </tbody>
             <tbody class="equipment_head">
               <tr>
-                <td colspan="2">内容</td>
-                <td colspan="2">数量</td>
+                <td>内容</td>
+                <td>単価</td>
+                <td>数量</td>
+                <td>金額</td>
               </tr>
             </tbody>
             <tbody class="equipment_main">
@@ -195,8 +199,10 @@
             </tbody>
             <tbody class="others_head">
               <tr>
-                <td colspan="2">内容</td>
-                <td colspan="2">数量</td>
+                <td>内容</td>
+                <td>単価</td>
+                <td>数量</td>
+                <td>金額</td>
               </tr>
             </tbody>
             <tbody class="others_main">

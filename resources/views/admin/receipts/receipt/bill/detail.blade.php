@@ -54,36 +54,49 @@
       </tr>
     </thead>
     <tbody class="bill-wrap">
+      @if ($bill->reservation->user_id > 0)
       <tr class="bill-details">
-        <td>
-          内容
-        </td>
-        <td>
-          単価
-        </td>
-        <td>
-          数量
-        </td>
-        <td>
-          金額
-        </td>
+          <td>
+              内容
+          </td>
+          <td>
+              単価
+          </td>
+          <td>
+              数量
+          </td>
+          <td>
+              金額
+          </td>
       </tr>
       @foreach ($bill->breakdowns as $item)
-      <tr class="bill-details">
-        <td>
-          {{$item->unit_item}}
-        </td>
-        <td>
-          {{number_format($item->unit_cost)}}
-        </td>
-        <td>
-          {{$item->unit_count}}
-        </td>
-        <td>
-          {{number_format($item->unit_subtotal)}}<span>円</span>
-        </td>
-      </tr>
+          <tr class="bill-details">
+              <td>
+                  {{ $item->unit_item }}
+              </td>
+              <td>
+                  {{ number_format($item->unit_cost) }}
+              </td>
+              <td>
+                  {{ $item->unit_count }}
+              </td>
+              <td>
+                  {{ number_format($item->unit_subtotal) }}<span>円</span>
+              </td>
+          </tr>
       @endforeach
+  @else
+      <tr class="bill-details">
+          <td>
+              内容
+          </td>
+      </tr>
+      @foreach ($bill->breakdowns as $item)
+          <tr class="bill-details">
+              <td>{{ $item->unit_item }}</td>
+          </tr>
+      @endforeach
+  @endif
     </tbody>
   </table>
   <div class="pagebreak"></div>
