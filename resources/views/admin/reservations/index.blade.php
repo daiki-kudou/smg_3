@@ -22,18 +22,14 @@
 
 <div class="content">
   <div class="container-fluid">
-    <div class="container-field mt-3">
-      <div class="float-right">
-        <nav aria-label="breadcrumb">
-          <ol class="breadcrumb">
-            <li class="breadcrumb-item active">
-              ダミーダミーダミーダミー
-            </li>
-          </ol>
-        </nav>
-      </div>
-      <h2 class="mt-3 mb-3">予約一覧</h2>
-      <hr>
+    <div class="float-right">
+      <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+          <li class="breadcrumb-item active">
+            {{ Breadcrumbs::render(Route::currentRouteName()) }}
+          </li>
+        </ol>
+      </nav>
     </div>
 
     {{ Form::open(['url' => 'admin/reservations', 'method'=>'get', 'id'=>'reserve_search'])}}
