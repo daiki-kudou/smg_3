@@ -510,7 +510,11 @@ class ReservationHelper
 
   public static function fixId($num)
   {
-    return sprintf('%06d', $num);
+    if (!empty($num)) {
+      return sprintf('%06d', $num);
+    } else {
+      return null;
+    }
   }
 
   public static function isEmpty($item)

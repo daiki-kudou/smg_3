@@ -283,7 +283,8 @@
         <tbody class="{{$reservation->cxlGray()? "cxl_gray":""}}">
         <tbody>
           <tr>
-            <td rowspan="{{count($reservation->bills)}}">※後ほど修正
+            <td rowspan="{{count($reservation->bills)}}">
+              {{ReservationHelper::fixId($reservation->multiple_reserve_id)}}
             </td>
             <td class="text-center" rowspan="{{count($reservation->bills)}}">
               {{ReservationHelper::fixId($reservation->id)}}</td>
