@@ -101,12 +101,12 @@
           {{Form::text('fax',$user->fax,['class'=>'form-control'])}}
         </td>
       </tr>
-      <tr>
+      {{-- <tr>
         <th><label for="email">メールアドレス</label></th>
         <td colspan="2">
           {{Form::text('email',$user->email,['class'=>'form-control'])}}
-        </td>
-      </tr>
+      </td>
+      </tr> --}}
     </tbody>
   </table>
 </section>
