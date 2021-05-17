@@ -30,7 +30,7 @@
     display: none;
   }
 </style>
-
+丸岡さん！！！！！！！！！！！！！！！！！！！！！！！！！！！！
 <div class="float-right">
   <nav aria-label="breadcrumb">
     <ol class="breadcrumb">

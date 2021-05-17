@@ -109,20 +109,26 @@
         </ul>
       </li>
 
-      <li class="nav-item has-treeview">
+      <li class="nav-item has-treeview
+      {{ReservationHelper::getController(Route::currentRouteName(),"admin","calendar")}}
+      ">
         <a href="#" class="nav-link">
           <i class="nav-icon fas fa-calendar-week"></i>
           <p>予約状況カレンダー<i class="right fas fa-angle-left"></i></p>
         </a>
         <ul class="nav nav-treeview">
           <li class="nav-item">
-            <a href="{{url('admin/calendar/date_calendar')}}" class="nav-link date_calendar">
+            <a href="{{url('admin/calendar/date_calendar')}}" class="nav-link date_calendar
+            {{ReservationHelper::getRoute(Route::currentRouteName(),'admin.calendar.date_calendar')}}
+            ">
               <i class="far fa-circle nav-icon ml-4"></i>
               <p>利用日時</p>
             </a>
           </li>
           <li class="nav-item">
-            <a href="{{url('admin/calendar/venue_calendar')}}" class="nav-link venue_calendar">
+            <a href="{{url('admin/calendar/venue_calendar')}}" class="nav-link venue_calendar
+            {{ReservationHelper::getRoute(Route::currentRouteName(),'admin.calendar.venue_calendar')}}
+            ">
               <i class="far fa-circle nav-icon ml-4"></i>
               <p>会場別</p>
             </a>

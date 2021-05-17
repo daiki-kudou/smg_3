@@ -40,7 +40,7 @@ class CalendarsController extends Controller
     }
 
     $venues = Venue::all();
-    $reservations = Reservation::where('venue_id', $selected_venue)->get();
+    $reservations = Reservation::with('bills')->where('venue_id', $selected_venue)->get();
     $pre_reservations = PreReservation::where("venue_id", $selected_venue)->get();
 
     return view('admin.calendar.venue_calendar', [

@@ -265,3 +265,14 @@ Breadcrumbs::for('admin.agents_reservations.check', function ($trail) {
   $trail->parent('admin.agents_reservations.calculate');
   $trail->push('(仲介会社)予約 詳細 確認', route('admin.agents_reservations.check'));
 });
+
+// 管理者　カレンダー
+Breadcrumbs::for('admin.calendar.date_calendar', function ($trail) {
+  $trail->parent('admin.home.index');
+  $trail->push('予約状況カレンダー 利用日別', route('admin.calendar.date_calendar'));
+});
+
+Breadcrumbs::for('admin.calendar.venue_calendar', function ($trail) {
+  $trail->parent('admin.home.index');
+  $trail->push('予約状況カレンダー 会場別', route('admin.calendar.venue_calendar'));
+});

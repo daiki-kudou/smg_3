@@ -189,7 +189,7 @@ Route::namespace('Admin')->prefix('admin')->name('admin.')->group(function () {
 
     // 管理者用カレンダーページ
     // 会場別
-    Route::get('calendar/venue_calendar', 'CalendarsController@venue_calendar');
+    Route::get('calendar/venue_calendar', 'CalendarsController@venue_calendar')->name('calendar.venue_calendar');
     // Route::post('calendar/venue_calendar', 'CalendarsController@venue_calendargetData');
     // 日時別
     Route::get('calendar/date_calendar', 'CalendarsController@date_calendar')->name('calendar.date_calendar');
