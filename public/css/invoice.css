@@ -295,6 +295,7 @@ caption, th, td {
 .invoice-box .bill-details td {
   text-align: right;
   border-bottom: 1px solid #ddd;
+  border-right: 1px solid #ddd;
   padding: 5px 10px;
 }
 
