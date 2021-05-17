@@ -303,6 +303,7 @@
   .invoice-box .bill-details td {
     text-align: right;
     border-bottom: 0.5pt solid #ddd;
+    border-right: 1px solid #ddd;
     /* padding: 5mm 10mm; */
   }
   

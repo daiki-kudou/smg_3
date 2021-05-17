@@ -120,7 +120,7 @@
             <tbody class="bill-wrap">
                 @if ($cxl)
                     <tr class="bill-details">
-                        <td>
+                        <td width="60%">
                             内容
                         </td>
                         <td>
@@ -144,7 +144,7 @@
                 @else
                     @if ($reservation->user_id > 0)
                         <tr class="bill-details">
-                            <td>
+                            <td width="60%">
                                 内容
                             </td>
                             <td>
