@@ -36,6 +36,16 @@
   </style>
 
 
+  <div class="float-right">
+    <nav aria-label="breadcrumb">
+      <ol class="breadcrumb">
+        <li class="breadcrumb-item active">
+          {{ Breadcrumbs::render(Route::currentRouteName()) }}
+        </li>
+      </ol>
+    </nav>
+  </div>
+
 
   <div id="fullOverlay">
     <div class="frame_spinner">
@@ -621,7 +631,8 @@
                 <dl class="ttl_box">
                   <dt>合計金額</dt>
                   <dd class="total_result">{{ReservationHelper::taxAndPrice($price)}}円</dd>
-                  {{-- <dd class="total_result">{{ Form::text('master_total',ReservationHelper::taxAndPrice($price) ,['class'=>'form-control text-right', 'readonly'] ) }}円</dd> --}}
+                  {{-- <dd class="total_result">{{ Form::text('master_total',ReservationHelper::taxAndPrice($price) ,['class'=>'form-control text-right', 'readonly'] ) }}円
+                  </dd> --}}
                 </dl>
               </td>
               <td>

@@ -208,8 +208,7 @@ Breadcrumbs::for('admin.clients.edit', function ($trail, $id) {
   $trail->push('顧客管理 詳細', route('admin.clients.edit', $id));
 });
 
-// 管理者予約
-
+// 管理者予約　一覧
 Breadcrumbs::for('admin.reservations.index', function ($trail) {
   $trail->parent('admin.home.index');
   $trail->push('予約 一覧', route('admin.reservations.index'));
@@ -235,7 +234,34 @@ Breadcrumbs::for('admin.reservations.edit_check', function ($trail, $id) {
   $trail->push('予約 編集', route('admin.reservations.edit_check', $id));
 });
 
+// 予約作成
 Breadcrumbs::for('admin.reservations.create', function ($trail) {
   $trail->parent('admin.home.index');
   $trail->push('予約 作成', route('admin.reservations.create'));
+});
+
+Breadcrumbs::for('admin.reservations.calculate', function ($trail) {
+  $trail->parent('admin.reservations.create');
+  $trail->push('予約 作成 詳細入力', route('admin.reservations.calculate'));
+});
+
+Breadcrumbs::for('admin.reservations.check', function ($trail) {
+  $trail->parent('admin.reservations.calculate');
+  $trail->push('予約 詳細 確認', route('admin.reservations.check'));
+});
+
+// 仲介会社 予約作成
+Breadcrumbs::for('admin.agents_reservations.create', function ($trail) {
+  $trail->parent('admin.home.index');
+  $trail->push('(仲介会社)予約 作成', route('admin.agents_reservations.create'));
+});
+
+Breadcrumbs::for('admin.agents_reservations.calculate', function ($trail) {
+  $trail->parent('admin.agents_reservations.create');
+  $trail->push('(仲介会社)予約 詳細入力', route('admin.agents_reservations.calculate'));
+});
+
+Breadcrumbs::for('admin.agents_reservations.check', function ($trail) {
+  $trail->parent('admin.agents_reservations.calculate');
+  $trail->push('(仲介会社)予約 詳細 確認', route('admin.agents_reservations.check'));
 });

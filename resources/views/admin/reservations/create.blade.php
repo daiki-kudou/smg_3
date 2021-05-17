@@ -10,7 +10,6 @@
 <script src="{{ asset('/js/admin/reservation/control_time.js') }}"></script>
 
 
-
 {{-- ajax画面変遷時の待機画面 --}}
 <style>
   #fullOverlay {

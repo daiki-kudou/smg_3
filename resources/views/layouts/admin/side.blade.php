@@ -87,6 +87,8 @@
           <li class="nav-item">
             <a href="{{ url('admin/reservations/create') }}" class="nav-link reservations-create
             {{ReservationHelper::getRoute(Route::currentRouteName(),'admin.reservations.create')}}
+            {{ReservationHelper::getRoute(Route::currentRouteName(),'admin.reservations.calculate')}}
+            {{ReservationHelper::getRoute(Route::currentRouteName(),'admin.reservations.check')}}
             ">
               <i class="far fa-circle nav-icon ml-4"></i>
               <p>新規登録</p>
@@ -95,6 +97,8 @@
           <li class="nav-item">
             <a href="{{ url('admin/agents_reservations/create') }}" class="nav-link agents-reservations-create
             {{ReservationHelper::getRoute(Route::currentRouteName(),'admin.agents_reservations.create')}}
+            {{ReservationHelper::getRoute(Route::currentRouteName(),'admin.agents_reservations.calculate')}}
+            {{ReservationHelper::getRoute(Route::currentRouteName(),'admin.agents_reservations.check')}}
             ">
               <div class="d-flex align-items-center">
                 <i class="far fa-circle nav-icon ml-4"></i>

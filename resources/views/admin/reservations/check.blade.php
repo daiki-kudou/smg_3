@@ -13,6 +13,15 @@
 </div>
 @endif
 
+<div class="float-right">
+  <nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+      <li class="breadcrumb-item active">
+        {{ Breadcrumbs::render(Route::currentRouteName()) }}
+      </li>
+    </ol>
+  </nav>
+</div>
 
 
 {{ Form::open(['url' => 'admin/reservations', 'method'=>'POST', 'id'=>'agents_calculate_form']) }}
