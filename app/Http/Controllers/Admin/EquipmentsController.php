@@ -33,10 +33,7 @@ class EquipmentsController extends Controller
    */
   public function create()
   {
-    // $eqipments = Equipment::query()->orderBy('id', 'desc')->paginate(10);
-    return view('admin.equipments.create', [
-      // 'eqipments' => $eqipments,
-    ]);
+    return view('admin.equipments.create');
   }
 
   /**

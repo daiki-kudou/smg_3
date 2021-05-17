@@ -13,7 +13,7 @@ class SalesController extends Controller
 {
   public function index(Request $request)
   {
-    $reservations = Reservation::with(['bills', 'user', 'agent', 'cxls', 'enduser'])->get();
+    $reservations = Reservation::with(['bills', 'user', 'agent', 'cxls', 'enduser', 'venue'])->get();
     return view('admin.sales.index', compact('reservations'));
   }
 
