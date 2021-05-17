@@ -36,7 +36,7 @@
   </style>
 
 
-  <div class="float-right">
+  <div class="d-flex justify-content-end">
     <nav aria-label="breadcrumb">
       <ol class="breadcrumb">
         <li class="breadcrumb-item active">
@@ -59,7 +59,7 @@
   {{Form::open(['url' => 'admin/agents_reservations/store_session', 'method' => 'POST', 'id'=>'agentReservationCalculateForm'])}}
 
   @csrf
-  <section class="mt-5">
+  <section class="mt-4">
     <div class="row">
       <div class="col">
         <table class="table table-bordered reserve_table">

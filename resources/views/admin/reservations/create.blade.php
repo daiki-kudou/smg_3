@@ -45,7 +45,6 @@
 </div>
 
 
-丸岡さん！！！！！！！！！！！！！！！！！！！！！！！！！！！！
 <div class="container-field">
   <div class="float-right">
     <nav aria-label="breadcrumb">

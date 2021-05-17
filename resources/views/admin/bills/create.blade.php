@@ -339,7 +339,7 @@
                 <tr>
                   <td>小計：</td>
                   <td>
-                    {{ Form::text('master_subtotal', !empty(session('add_bill')['master_subtotal'])?session('add_bill')['master_subtotal']:"", ['class' => 'form-control' , 'readonly'])}}
+                    {{ Form::text('master_subtotal', !empty(session('add_bill')['master_subtotal'])?session('add_bill')['master_subtotal']:"", ['class' => 'form-control master_subtotal' , 'readonly'])}}
                     <p class="is-error-master_subtotal" style="color: red"></p>
                   </td>
                 </tr>
@@ -451,7 +451,7 @@
   {{ Form::close() }}
 
   <script>
-$(function() {
+    $(function() {
   // チェックをされたら、ボタンのdisabledを解除
   if ($("input[type='checkbox']").prop('checked') == false ) {
       $('.submit_btn').prop('disabled', true);
@@ -468,7 +468,22 @@ $(function() {
   });
 });
 
+  // 小計が0以上でボタンのdisabled解除
+$(function() {
+  $(document).on("click", function() {
+  var number = $(".master_subtotal").val();
+  console.log(number);
 
+if (number > 0) {
+    $('.submit_btn').prop('disabled', false);
+  } else {
+    $('.submit_btn').prop('disabled', true);
+  }
+  });
+});
+  </script>
+
+  <script>
     $(function() {
       // プラス・マイナス押下アクション
       $(document).on("click", ".add", function() {

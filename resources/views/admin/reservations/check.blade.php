@@ -13,8 +13,7 @@
 </div>
 @endif
 
-丸岡さん！！！！！！！！！！！！！！！！！！！！！！！！！！！！
-<div class="float-right">
+<div class="d-flex justify-content-end">
   <nav aria-label="breadcrumb">
     <ol class="breadcrumb">
       <li class="breadcrumb-item active">
@@ -27,7 +26,7 @@
 
 {{ Form::open(['url' => 'admin/reservations', 'method'=>'POST', 'id'=>'agents_calculate_form']) }}
 @csrf
-<section class="mt-5">
+<section class="mt-4">
   <div class="row">
     <div class="col">
       <table class="table table-bordered">
