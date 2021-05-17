@@ -244,12 +244,20 @@
             {{!empty($reservation->agent->id)?$reservation->enduser->company:''}}
           </td>
           <td rowspan="{{$reservation->billCount()}}">総額</td>
-          <td>{{number_format($reservation->bills->first()->master_total)}}円</td>
-          <td>売上原価 </td>
-          <td>粗利 </td>
+          <td>
+            売上
+            {{number_format($reservation->bills->first()->master_total)}}円</td>
+          <td>
+            売上原価
+            {{number_format($reservation->venue->getCostForPartner($reservation->venue, $reservation->bills->first()->master_total))}}
+          </td>
+          <td>
+            粗利
+            {{number_format($reservation->venue->getProfitForPartner($reservation->venue, $reservation->bills->first()->master_total))}}
+          </td>
           <td>{{($reservation->bills->first()->category==1?"会場予約":"")}}</td>
           <td> {{ReservationHelper::judgeStatus($reservation->bills->first()->reservation_status)}}</td>
-          <td> {{$reservation->bills->first()->pay_day}}</td>
+          <td> {{ReservationHelper::formatDate($reservation->bills->first()->pay_day)}}</td>
           <td> {{$reservation->bills->first()->paid==0?"未入金":"入金済"}}</td>
           <td class="text-center" rowspan="{{$reservation->billCount()}}">
             <a class="more_btn" href="{{route('admin.reservations.show',$reservation->id)}}">
@@ -261,16 +269,24 @@
             {{!empty($reservation->user_id)?ReservationHelper::getAttr($reservation->user_id):""}}
           </td>
           <td>{{ReservationHelper::formatDate($reservation->bills->first()->payment_limit)}}</td>
-          <td rowspan="{{$reservation->billCount()}}">運営 {{$reservation->venue->alliance_flag==0?"直":"提"}}</td>
+          <td rowspan="{{$reservation->billCount()}}">{{$reservation->venue->alliance_flag==0?"直":"提"}}</td>
         </tr>
         @else
         <tr>
-          <td>{{number_format($reservation->bills->skip($i)->first()->master_total)}}円</td>
-          <td>売上原価 </td>
-          <td>粗利 </td>
+          <td>
+            売上
+            {{number_format($reservation->bills->skip($i)->first()->master_total)}}円</td>
+          <td>
+            売上原価
+            {{number_format($reservation->venue->getCostForPartner($reservation->venue, $reservation->bills->skip($i)->first()->master_total))}}
+          </td>
+          <td>
+            粗利
+            {{number_format($reservation->venue->getProfitForPartner($reservation->venue, $reservation->bills->skip($i)->first()->master_total))}}
+          </td>
           <td> {{($reservation->bills->skip($i)->first()->category==2?"追加請求".$i:"")}}</td>
           <td> {{ReservationHelper::judgeStatus($reservation->bills->skip($i)->first()->reservation_status)}}</td>
-          <td> {{$reservation->bills->skip($i)->first()->pay_day}}</td>
+          <td> {{ReservationHelper::formatDate($reservation->bills->skip($i)->first()->pay_day)}}</td>
           <td> {{$reservation->bills->skip($i)->first()->paid==0?"未入金":"入金済"}}</td>
           <td> {{ReservationHelper::formatDate($reservation->bills->skip($i)->first()->payment_limit)}}</td>
         </tr>

@@ -570,4 +570,24 @@ class Venue extends Model implements PresentableInterface
     }
     return [$frame, $time];
   }
+
+  public function getCostForPartner($venue, $total) //提携会場が選択された際の売上請求情報一覧に表示する原価
+  {
+    if ($venue->alliance_flag == 0) {
+      return 0;
+    } else {
+      $percent = ($venue->cost) * 0.01;
+      return $total * $percent;
+    }
+  }
+
+  public function getProfitForPartner($venue, $total) //提携会場が選択された際の売上請求情報一覧に表示する原価
+  {
+    if ($venue->alliance_flag == 0) {
+      return $total;
+    } else {
+      $cost = $this->getCostForPartner($venue, $total);
+      return $total - $cost;
+    }
+  }
 }
