@@ -422,12 +422,31 @@
     </div>
   </div>
 </section>
-{{ Form::submit('確認する', ['class' => 'btn more_btn_lg mx-auto d-block mt-5']) }}
+{{ Form::submit('確認する', ['class' => 'btn more_btn_lg mx-auto d-block mt-5 submit_btn']) }}
 
 {{ Form::close() }}
 
 
 <script>
+
+$(function() {
+  // チェックをされたら、ボタンのdisabledを解除
+  if ($("input[type='checkbox']").prop('checked') == false ) {
+      $('.submit_btn').prop('disabled', true);
+    } else {
+      $('.submit_btn').prop('disabled', false);
+    }
+
+  $("input[type='checkbox']").on('click', function() {
+    if ( $(this).prop('checked') == false ) {
+      $('.submit_btn').prop('disabled', true);
+    } else {
+      $('.submit_btn').prop('disabled', false);
+    }
+  });
+});
+
+
   $(function() {
     // プラス・マイナス押下アクション
     $(document).on("click", ".add", function() {
