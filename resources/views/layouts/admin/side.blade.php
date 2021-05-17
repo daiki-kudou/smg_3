@@ -75,6 +75,10 @@
           <li class="nav-item">
             <a href="{{ url('admin/reservations') }}" class="nav-link reservations-index
             {{ReservationHelper::getRoute(Route::currentRouteName(),'admin.reservations.index')}}
+            {{ReservationHelper::getRoute(Route::currentRouteName(),'admin.reservations.show')}}
+            {{ReservationHelper::getRoute(Route::currentRouteName(),'admin.reservations.edit')}}
+            {{ReservationHelper::getRoute(Route::currentRouteName(),'admin.reservations.edit_calculate')}}
+            {{ReservationHelper::getRoute(Route::currentRouteName(),'admin.reservations.edit_check')}}
             ">
               <i class="far fa-circle nav-icon ml-4"></i>
               <p>一覧</p>

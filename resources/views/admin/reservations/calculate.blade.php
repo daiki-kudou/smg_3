@@ -31,6 +31,16 @@
   }
 </style>
 
+<div class="float-right">
+  <nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+      <li class="breadcrumb-item active">
+        {{ Breadcrumbs::render(Route::currentRouteName()) }}
+      </li>
+    </ol>
+  </nav>
+</div>
+
 <div id="fullOverlay">
   <div class="frame_spinner">
     <div class="spinner-border text-primary " role="status">
@@ -1094,7 +1104,8 @@
         <div class="paids billdetails_content pt-3">
           <table class="table" style="table-layout: fixed;">
             <tr>
-              <td>入金状況{{Form::select('paid', ['未入金', '入金済み','遅延','入金不足','入金過多','次回繰越'],null,['class'=>'form-control'])}}</td>
+              <td>入金状況{{Form::select('paid', ['未入金', '入金済み','遅延','入金不足','入金過多','次回繰越'],null,['class'=>'form-control'])}}
+              </td>
               <td>
                 入金日{{ Form::text('pay_day', null,['class'=>'form-control', 'id'=>'datepicker7'] ) }}
               </td>

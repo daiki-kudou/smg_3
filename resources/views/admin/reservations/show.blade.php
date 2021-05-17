@@ -11,8 +11,7 @@
     <nav aria-label="breadcrumb">
       <ol class="breadcrumb">
         <li class="breadcrumb-item active">
-          <a href="http://staging-smg2.herokuapp.com/admin/home">ホーム</a>
-          予約 詳細
+          {{ Breadcrumbs::render(Route::currentRouteName(),$reservation->id) }}
         </li>
       </ol>
     </nav>

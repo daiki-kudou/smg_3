@@ -4,6 +4,16 @@
 <link href="{{ asset('/css/template.css') }}" rel="stylesheet">
 <script src="{{ asset('/js/template.js') }}"></script>
 
+<div class="float-right">
+  <nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+      <li class="breadcrumb-item active">
+        {{ Breadcrumbs::render(Route::currentRouteName(),$reservation->id) }}
+      </li>
+    </ol>
+  </nav>
+</div>
+
 {{ Form::open(['url' => 'admin/reservations/'.$reservation->id, 'method'=>'PUT', 'id'=>'']) }}
 @csrf
 <section class="mt-5">

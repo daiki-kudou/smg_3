@@ -214,3 +214,28 @@ Breadcrumbs::for('admin.reservations.index', function ($trail) {
   $trail->parent('admin.home.index');
   $trail->push('予約 一覧', route('admin.reservations.index'));
 });
+
+Breadcrumbs::for('admin.reservations.show', function ($trail, $id) {
+  $trail->parent('admin.reservations.index');
+  $trail->push('予約 詳細', route('admin.reservations.show', $id));
+});
+
+Breadcrumbs::for('admin.reservations.edit', function ($trail, $id) {
+  $trail->parent('admin.reservations.show', $id);
+  $trail->push('予約 編集', route('admin.reservations.edit', $id));
+});
+
+Breadcrumbs::for('admin.reservations.edit_calculate', function ($trail, $id) {
+  $trail->parent('admin.reservations.show', $id);
+  $trail->push('予約 編集', route('admin.reservations.edit_calculate', $id));
+});
+
+Breadcrumbs::for('admin.reservations.edit_check', function ($trail, $id) {
+  $trail->parent('admin.reservations.show', $id);
+  $trail->push('予約 編集', route('admin.reservations.edit_check', $id));
+});
+
+Breadcrumbs::for('admin.reservations.create', function ($trail) {
+  $trail->parent('admin.home.index');
+  $trail->push('予約 作成', route('admin.reservations.create'));
+});

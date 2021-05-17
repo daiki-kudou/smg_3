@@ -52,7 +52,7 @@ Route::namespace('User')->prefix('user')->name('user.')->group(function () {
 
     // 以下、ユーザーからの予約経路
     // 例外でgetリクエスト
-    Route::get('reservations/create', 'ReservationsController@create');
+    Route::get('reservations/create', 'ReservationsController@create')->name('reservations.create');
     Route::post('reservations/check', 'ReservationsController@check');
     Route::post('reservations/store_session', 'ReservationsController@storeSession');
     Route::get('reservations/cart', 'ReservationsController@cart');

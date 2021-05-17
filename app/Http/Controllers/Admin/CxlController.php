@@ -228,8 +228,8 @@ class CxlController extends Controller
         $price_result = $cxl->reservation->pluckSum(['venue_price', 'equipment_price', 'layout_price', 'others_price'], 4);
       } else { //仲介会社の場合、会場料としてsubtotalを表示
         // $price_result = $reservation->pluckSum(['master_subtotal', 0, 'layout_price', 0], 3);
-        $master_subtotal = $cxl->reservation->bills->where('reservation_status', '>', 3)->pluck('master_subtotal')->sum();
-        $layout = $cxl->reservation->bills->where('reservation_status', '>', 3)->pluck('layout_price')->sum();
+        $master_subtotal = $cxl->reservation->bills->where('reservation_status', '>', 3)->where('reservation_status', '<', 6)->pluck('master_subtotal')->sum();
+        $layout = $cxl->reservation->bills->where('reservation_status', '>', 3)->where('reservation_status', '<', 6)->pluck('layout_price')->sum();
         $price_result = [($master_subtotal - $layout), 0, $layout, 0];
       }
     } else {

@@ -41,6 +41,16 @@
   </div>
 </div>
 
+<div class="float-right">
+  <nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+      <li class="breadcrumb-item active">
+        {{ Breadcrumbs::render(Route::currentRouteName(),$reservation->id) }}
+      </li>
+    </ol>
+  </nav>
+</div>
+
 <div class="alert-box d-flex align-items-center mb-0 mt-5">
   <p>
     編集を行う場合は、必ず計算するボタンをクリックしてください。<br>
