@@ -10,6 +10,7 @@ use App\Models\Venue;
 use App\Models\Reservation;
 use App\Models\Bill;
 use App\Models\Cxl;
+use App\Models\EmailReset;
 
 use Illuminate\Support\Facades\Auth;
 
@@ -21,9 +22,12 @@ use App\Mail\ConfirmReservationByUser;
 use App\Mail\ConfirmToAdmin;
 use App\Mail\AdminFinAddRes;
 use App\Mail\UserFinAddRes;
+use App\Mail\ResetEmail;
 use Illuminate\Support\Facades\Mail;
 
+use Illuminate\Support\Str;
 
+use Carbon\Carbon;
 
 
 class HomeController extends Controller
@@ -184,5 +188,64 @@ class HomeController extends Controller
     Mail::to($admin)->send(new AdminFinAddRes()); // 管理者に予約完了メール送信
 
     return redirect('user/home/' . $bill->reservation->id);
+  }
+
+  public function email_reset()
+  {
+    $user_email = auth()->user()->email;
+    return view('user.home.email_reset', compact('user_email'));
+  }
+
+  public function email_reset_create(Request $request)
+  {
+    $request->validate([
+      'new_email' => 'required|unique:users,email|email',
+    ]);
+
+    $token = hash_hmac('sha256', Str::random(40) . $request->new_email, config('app.key'));
+
+    DB::transaction(function () use ($request, $token) {
+      $param = [];
+      $param['user_id'] = Auth::id();
+      $param['new_email'] = $request->new_email;
+      $param['token'] = $token;
+      $email_reset = EmailReset::create($param);
+      Mail::to($request->new_email)->send(new ResetEmail($token));
+    });
+  }
+
+  public function email_reset_confirm($token)
+  {
+    $new_email = EmailReset::where('token', $token)->first();
+    var_dump($new_email);
+
+    if ($new_email && !$this->tokenExpired($new_email->created_at)) {
+      // ユーザーのメールアドレスを更新
+      $user = User::find($new_email->user_id);
+      $user->email = $new_email->new_email;
+      $user->save();
+      // レコードを削除
+      EmailReset::where('token', $token)->delete();
+      // return redirect('/user/login')->with('flash_message', 'メールアドレスを更新しました！');
+      Auth::logout();
+      return redirect(url('email_reset_done'));
+    } else {
+      // レコードが存在していた場合削除
+      if ($new_email) {
+        EmailReset::where('token', $token)->delete();
+      }
+      return redirect('/')->with('flash_message', 'メールアドレスの更新に失敗しました。');
+    }
+  }
+
+  protected function tokenExpired($createdAt)
+  {
+    $expires = 60 * 60;    // トークンの有効期限は60分に設定
+    return Carbon::parse($createdAt)->addSeconds($expires)->isPast(); //isPastは過去かどうか
+  }
+
+  public function email_reset_done()
+  {
+    return view('user.home.email_reset_done');
   }
 }

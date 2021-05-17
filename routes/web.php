@@ -8,6 +8,7 @@ Route::namespace('Home')->prefix('/')->name('home.')->group(function () {
     Route::get('/', 'HomeController@index')->name('home');
     Route::post('slct_date', 'HomeController@slct_date')->name('home.slct_date');
     Route::post('slct_venue', 'HomeController@slct_venue')->name('home.slct_venue');
+    Route::get('email_reset_done', 'HomeController@email_reset_done');
   });
 });
 
@@ -26,12 +27,14 @@ Route::namespace('User')->prefix('user')->name('user.')->group(function () {
 
   Auth::routes(['register' => true, 'confirm' => true, 'reset' => true,]);
 
-  // Route::middleware('verified')->group(function () {  
-  //verfified一旦停止
   Route::middleware('auth')->group(function () {
     Route::get('home/user_info', 'HomeController@user_info')->name('home.user_info');
     Route::post('home/user_edit', 'HomeController@user_edit');
     Route::post('home/user_update', 'HomeController@user_update');
+
+    // メール再設定　認証
+    Route::get('home/email_reset', 'HomeController@email_reset');
+    Route::post('home/email_reset_create', 'HomeController@email_reset_create');
 
     Route::resource('home', 'HomeController');
     Route::put('home/{home}/update_status', 'HomeController@updateStatus')->name('home.updatestatus');
@@ -62,6 +65,9 @@ Route::namespace('User')->prefix('user')->name('user.')->group(function () {
     Route::post('reservations/store', 'ReservationsController@storeReservation');
     Route::get('reservations/complete', 'ReservationsController@complete');
   });
+
+  Route::get('email_reset_confirm/{token}', 'HomeController@email_reset_confirm');
+
 
 
   // メール入力フォーム

@@ -94,14 +94,18 @@
 
 
 　<div class="btn-wrapper">
-  <p class="text-center mb-5"><a href="{{url('user/password/reset')}}">パスワードを変更する</a></p>
+  <p class="text-center mb-5">
+    <a href="{{url('user/password/reset')}}">パスワードを変更する</a>
+  </p>
+  <p class="text-center mb-5">
+    <a href="{{url('user/home/email_reset')}}">メールアドレスを変更する</a>
+  </p>
   {{Form::open(['url' => 'user/home/user_edit', 'method' => 'POST'])}}
   @csrf
   {{Form::hidden('user_id',$user->id)}}
   <p class="text-center">{{Form::submit('編集する',['class'=>'more_btn_lg btn'])}}
     {{Form::close()}}
 </div>
-
 
 
 

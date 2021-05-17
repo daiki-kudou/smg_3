@@ -26,8 +26,12 @@ class HomeController extends Controller
 
   public function slct_venue(Request $request)
   {
-
     $venues = Venue::all();
     return view('home.slct_venue', compact('request', 'venues'));
+  }
+
+  public function email_reset_done()
+  {
+    return view('user.home.email_reset_done');
   }
 }

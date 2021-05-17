@@ -142,7 +142,7 @@
         </li>
       </ul>
       <div>ユーザーID：{{Auth::id()}}</div>
-      <div>メール：</div>
+      <div>メール：{{(Auth::user()->email)}}</div>
       <div>
         <a class="dropdown-item" href="{{ route('user.logout') }}"
           onclick="event.preventDefault();document.getElementById('logout-form').submit();">
