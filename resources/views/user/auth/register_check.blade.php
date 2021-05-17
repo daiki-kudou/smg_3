@@ -426,6 +426,8 @@
         {{ Form::hidden('token', $request->token) }}
         {{ Form::hidden('email', $request->email) }}
         {{ Form::hidden('status', $request->status) }}
+
+
         {{ Form::close() }}
 
 
