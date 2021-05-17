@@ -14,7 +14,7 @@ class AddInvoiceNumberToBillsTable extends Migration
   public function up()
   {
     Schema::table('bills', function (Blueprint $table) {
-      $table->integer('invoice_number')->unique();
+      // $table->integer('invoice_number')->unique();
     });
   }
 
@@ -26,7 +26,7 @@ class AddInvoiceNumberToBillsTable extends Migration
   public function down()
   {
     Schema::table('bills', function (Blueprint $table) {
-      $table->dropColumn('invoice_number');
+      // $table->dropColumn('invoice_number');
     });
   }
 }
