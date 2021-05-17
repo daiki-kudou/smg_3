@@ -6,6 +6,8 @@
 <script src="{{ asset('/js/ajax_agent.js') }}"></script>
 <script src="{{ asset('/js/template.js') }}"></script>
 <script src="{{ asset('/js/admin/validation.js') }}"></script>
+<script src="{{ asset('/js/admin/reservation/control_time.js') }}"></script>
+
 
 <style>
   #fullOverlay {
