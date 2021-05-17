@@ -444,7 +444,7 @@
             <tr>
               <th>パスワード<span class="txtRed">＊</span></th>
               <td>
-                {{Form::password('password', ['class' => 'text2'])}}
+                {{Form::password('password',null, ['class' => 'text2'])}}
                 <a name="a-mail01" class="error-r"></a>
                 <p>※半角英数字6文字以上20文字以内にてご記入お願い致します。</p>
               </td>
@@ -452,7 +452,7 @@
             <tr>
               <th>パスワード確認<span class="txtRed">＊</span></th>
               <td>
-                {{Form::password('password_chk', ['class' => 'text2'])}}
+                {{Form::password('password_confirmation', null,['class' => 'text2'])}}
                 <a name="a-mail01" class="error-r"></a>
                 <p>※確認のため、もう一度パスワードを入力してください。</p>
               </td>
@@ -510,8 +510,11 @@
         </dl>
 
         <div class="page-text">
-          <p class="checkbox-txt "><span class="txtRed">＊</span><input type="checkbox" name="q1" value="">
-            本内容で会員登録をすることに同意する</p>
+          <p class="checkbox-txt ">
+            <span class="txtRed">＊</span>
+            {{Form::checkbox('q1','1',false,['id'=>'last_checkbox'])}}
+            {{Form::label('last_checkbox','本内容で会員登録をすることに同意する')}}
+          </p>
           <p>※WEB予約には会員登録が必須となります。</p>
         </div>
 

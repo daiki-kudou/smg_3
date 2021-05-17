@@ -51,17 +51,19 @@ class RegisterController extends Controller
     // ]);
 
     $validator = Validator::make($request->all(), [
-      'email' => 'required|unique:users|max:255|string|email',
+      'email' => 'required|unique:users,email|max:255|string|email',
       'company' => 'required|max:255',
       'first_name' => 'max:20|regex:/^[^A-Za-z0-9]+$/u|required',
       'last_name' => 'max:20|regex:/^[^A-Za-z0-9]+$/u|required',
       'first_name_kana' => 'max:20|regex:/^[ァ-ヶ 　]+$/u|required',
       'last_name_kana' => 'max:20|regex:/^[ァ-ヶ 　]+$/u|required',
       'post_code' => 'digits:7|integer',
-      'tel' => 'required_if:mobile,true',
-      'mobile' => 'required_if:tel,true',
       'tel' => 'nullable|required_without:mobile',
       'mobile'   => 'nullable|required_without:tel',
+      'fax'   => 'integer',
+      'password'   => 'required|digits_between:6,20|alpha_num|confirmed',
+      'password_confirmation'   => 'required',
+      'q1'   => 'required',
 
     ]);
 
