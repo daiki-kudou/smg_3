@@ -14,7 +14,7 @@
 
 
 <div class="">
-  <div class="float-right">
+  {{-- <div class="float-right">
     <nav aria-label="breadcrumb">
       <ol class="breadcrumb">
         <li class="breadcrumb-item active">
@@ -23,7 +23,7 @@
         </li>
       </ol>
     </nav>
-  </div>
+  </div> --}}
   <h2 class="mt-3 mb-3">仲介会社経由　予約　編集</h2>
   <hr>
 
