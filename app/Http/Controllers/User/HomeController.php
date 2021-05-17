@@ -143,7 +143,7 @@ class HomeController extends Controller
           'tel' => $request->tel,
           'mobile' => $request->mobile,
           'fax' => $request->fax,
-          'email' => $request->email,
+          // 'email' => $request->email,
         ]);
       } catch (\Exception $e) {
         report($e);
