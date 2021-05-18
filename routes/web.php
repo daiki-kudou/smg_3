@@ -35,6 +35,7 @@ Route::namespace('User')->prefix('user')->name('user.')->group(function () {
     // メール再設定　認証
     Route::get('home/email_reset', 'HomeController@email_reset');
     Route::post('home/email_reset_create', 'HomeController@email_reset_create');
+    Route::get('home/email_reset_send', 'HomeController@email_reset_send');
 
     Route::resource('home', 'HomeController');
     Route::put('home/{home}/update_status', 'HomeController@updateStatus')->name('home.updatestatus');

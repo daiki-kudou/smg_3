@@ -201,9 +201,7 @@ class HomeController extends Controller
     $request->validate([
       'new_email' => 'required|unique:users,email|email',
     ]);
-
     $token = hash_hmac('sha256', Str::random(40) . $request->new_email, config('app.key'));
-
     DB::transaction(function () use ($request, $token) {
       $param = [];
       $param['user_id'] = Auth::id();
@@ -212,6 +210,12 @@ class HomeController extends Controller
       $email_reset = EmailReset::create($param);
       Mail::to($request->new_email)->send(new ResetEmail($token));
     });
+    return redirect(url('user/home/email_reset_send'));
+  }
+
+  public function email_reset_send()
+  {
+    return view('user.home.email_reset_send');
   }
 
   public function email_reset_confirm($token)
@@ -240,12 +244,7 @@ class HomeController extends Controller
 
   protected function tokenExpired($createdAt)
   {
-    $expires = 60 * 60;    // トークンの有効期限は60分に設定
+    $expires = 1 * 60;    // トークンの有効期限は60分に設定
     return Carbon::parse($createdAt)->addSeconds($expires)->isPast(); //isPastは過去かどうか
-  }
-
-  public function email_reset_done()
-  {
-    return view('user.home.email_reset_done');
   }
 }
