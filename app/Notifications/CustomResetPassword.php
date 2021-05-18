@@ -12,16 +12,23 @@ use Illuminate\Auth\Notifications\ResetPassword;
 
 class CustomResetPassword extends Notification
 {
+  /**
+   * The password reset token.
+   * 
+   /** @var string */
+  public $token;
+
   use Queueable;
 
   /**
    * Create a new notification instance.
    *
+   * @param  string  $token
    * @return void
    */
-  public function __construct()
+  public function __construct($token)
   {
-    //
+    $this->token = $token;
   }
 
   /**
