@@ -16,7 +16,12 @@ class SalesController extends Controller
   {
     $today = Carbon::today();
     $reservations = Reservation::with(['bills.cxl', 'user', 'agent', 'cxls', 'enduser', 'venue'])
-      ->orderByRaw("CASE WHEN reserve_date > '$today' THEN reserve_date ELSE 9999 END")->paginate(30);
+      ->orderByRaw(
+        "CASE WHEN reserve_date > '$today' 
+        THEN reserve_date 
+        ELSE 9999 
+        END"
+      )->paginate(30);
     return view('admin.sales.index', compact('reservations'));
   }
 
@@ -27,9 +32,9 @@ class SalesController extends Controller
         $stream = fopen('php://output', 'w'); // 出力バッファをopen
         stream_filter_prepend($stream, 'convert.iconv.utf-8/cp932//TRANSLIT'); // 文字コードをShift-JISに変換
         fputcsv($stream, [ // ヘッダー
-          'id',
-          'reserve_date',
-          'reservation_id',
+          'bill_id',
+          '予約日',
+          '予約',
         ]);
         // データ
         // foreach (Reservation::chunk() as $reservation) {
