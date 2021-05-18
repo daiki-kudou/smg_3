@@ -304,7 +304,7 @@
           </td>
           <td>
           </td>
-          <td>{{ReservationHelper::formatDate($reservation->bills->first()->payment_limit)}}</td>
+          <td></td>
         </tr>
         @endif
         @else
