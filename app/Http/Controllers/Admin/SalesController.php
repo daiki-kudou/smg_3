@@ -7,13 +7,24 @@ use App\Http\Controllers\Controller;
 
 use App\Models\Reservation;
 use App\Models\Bill;
+use Carbon\Carbon;
 
 
 class SalesController extends Controller
 {
   public function index(Request $request)
   {
-    $reservations = Reservation::with(['bills.cxl', 'user', 'agent', 'cxls', 'enduser', 'venue'])->get()->sortByDesc('id');
+    $today = date('Y-m-d', strtotime(Carbon::today()));
+    $after_today = Reservation::with(
+      ['bills.cxl', 'user', 'agent', 'cxls', 'enduser', 'venue']
+    )->whereDate('reserve_date', '>=', $today)->get()->sortBy('reserve_date');
+
+    $before_today = Reservation::with(
+      ['bills.cxl', 'user', 'agent', 'cxls', 'enduser', 'venue']
+    )->whereDate('reserve_date', '<', $today)->get()->sortBy('reserve_date');
+
+    $reservations = $after_today->concat($before_today);
+
     return view('admin.sales.index', compact('reservations'));
   }
 
