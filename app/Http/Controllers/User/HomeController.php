@@ -221,7 +221,6 @@ class HomeController extends Controller
   public function email_reset_confirm($token)
   {
     $new_email = EmailReset::where('token', $token)->first();
-    var_dump($new_email);
 
     if ($new_email && !$this->tokenExpired($new_email->created_at)) {
       // ユーザーのメールアドレスを更新
@@ -238,9 +237,15 @@ class HomeController extends Controller
       if ($new_email) {
         EmailReset::where('token', $token)->delete();
       }
-      return redirect('/')->with('flash_message', 'メールアドレスの更新に失敗しました。');
+      return redirect(url('user/email_reset_failed'));
     }
   }
+
+  public function email_reset_failed()
+  {
+    return view('user.home.email_reset_failed');
+  }
+
 
   protected function tokenExpired($createdAt)
   {

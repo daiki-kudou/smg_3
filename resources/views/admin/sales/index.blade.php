@@ -19,6 +19,7 @@
   <hr>
 </div>
 
+
 <!-- 検索--------------------------------------- -->
 <div class="search-wrap">
   <table class="table table-bordered">
@@ -226,65 +227,97 @@
       @for ($i = 0; $i < $reservation->billCount(); $i++)
         @if ($i==0)
         <tr class="table_row">
-          <td rowspan="{{$reservation->billCount()}}">予約一括ID</td>
-          <td rowspan="{{$reservation->billCount()}}">{{$reservation->id}}</td>
-          <td rowspan="{{$reservation->billCount()}}">{{ReservationHelper::formatDate($reservation->reserve_date)}}</td>
-          <td rowspan="{{$reservation->billCount()}}">{{ReservationHelper::getVenue($reservation->venue_id)}}</td>
-          <td rowspan="{{$reservation->billCount()}}">{{!empty($reservation->user_id)?$reservation->user_id:""}}</td>
-          <td rowspan="{{$reservation->billCount()}}">
+          <td rowspan="{{$reservation->billCount()+$reservation->cxlCount()+2}}">予約一括ID</td>
+          <td rowspan="{{$reservation->billCount()+$reservation->cxlCount()+2}}">
+            {{ReservationHelper::IdFormat($reservation->id)}}</td>
+          <td rowspan="{{$reservation->billCount()+$reservation->cxlCount()+2}}">
+            {{ReservationHelper::formatDate($reservation->reserve_date)}}
+          </td>
+          <td rowspan="{{$reservation->billCount()+$reservation->cxlCount()+2}}">
+            {{ReservationHelper::getVenue($reservation->venue_id)}}</td>
+          <td rowspan="{{$reservation->billCount()+$reservation->cxlCount()+2}}">
+            {{!empty($reservation->user_id)?ReservationHelper::IdFormat($reservation->user_id):""}}</td>
+          <td rowspan="{{$reservation->billCount()+$reservation->cxlCount()+2}}">
             {{!empty($reservation->user_id)?ReservationHelper::getCompany($reservation->user_id):""}}
           </td>
-          <td rowspan="{{$reservation->billCount()}}">
+          <td rowspan="{{$reservation->billCount()+$reservation->cxlCount()+2}}">
             {{!empty($reservation->user_id)?ReservationHelper::getPersonName($reservation->user_id):""}}
           </td>
-          <td rowspan="{{$reservation->billCount()}}">
+          <td rowspan="{{$reservation->billCount()+$reservation->cxlCount()+2}}">
             {{!empty($reservation->agent->id)?ReservationHelper::getAgentCompanyName($reservation->agent->id):''}}
           </td>
-          <td rowspan="{{$reservation->billCount()}}">
+          <td rowspan="{{$reservation->billCount()+$reservation->cxlCount()+2}}">
             {{!empty($reservation->agent->id)?$reservation->enduser->company:''}}
           </td>
-          <td rowspan="{{$reservation->billCount()}}">
-            総額
+          <td rowspan="{{$reservation->billCount()+$reservation->cxlCount()+2}}">
+            {{-- 総額 --}}
             {{number_format($reservation->bills->where('reservation_status','<=',3)->pluck('master_total')->sum())}}円
           </td>
           <td>
-            売上
+            {{-- 売上 --}}
             {{number_format($reservation->bills->first()->master_total)}}円</td>
           <td>
-            売上原価
+            {{-- 売上原価 --}}
             {{number_format($reservation->venue->getCostForPartner($reservation->venue, $reservation->bills->first()->master_total, $reservation->bills->first()->layout_price))}}円
           </td>
           <td>
-            粗利
+            {{-- 粗利 --}}
             {{number_format($reservation->venue->getProfitForPartner($reservation->venue, $reservation->bills->first()->master_total, $reservation->bills->first()->layout_price))}}円
           </td>
           <td>{{($reservation->bills->first()->category==1?"会場予約":"")}}</td>
           <td> {{ReservationHelper::judgeStatus($reservation->bills->first()->reservation_status)}}</td>
           <td> {{ReservationHelper::formatDate($reservation->bills->first()->pay_day)}}</td>
           <td> {{$reservation->bills->first()->paid==0?"未入金":"入金済"}}</td>
-          <td class="text-center" rowspan="{{$reservation->billCount()}}">
+          <td class="text-center" rowspan="{{$reservation->billCount()+$reservation->cxlCount()+2}}">
             <a class="more_btn" href="{{route('admin.reservations.show',$reservation->id)}}">
               予約詳細
             </a>
           </td>
-          <td rowspan="{{$reservation->billCount()}}">振込名 </td>
-          <td rowspan="{{$reservation->billCount()}}">
+          <td rowspan="{{$reservation->billCount()+$reservation->cxlCount()+2}}">振込名 </td>
+          <td rowspan="{{$reservation->billCount()+$reservation->cxlCount()+2}}">
             {{!empty($reservation->user_id)?ReservationHelper::getAttr($reservation->user_id):""}}
           </td>
           <td>{{ReservationHelper::formatDate($reservation->bills->first()->payment_limit)}}</td>
-          <td rowspan="{{$reservation->billCount()}}">{{$reservation->venue->alliance_flag==0?"直":"提"}}</td>
+          <td rowspan="{{$reservation->billCount()+$reservation->cxlCount()+2}}">
+            {{$reservation->venue->alliance_flag==0?"直":"提"}}</td>
         </tr>
+        @if ($reservation->cxls->where('bill_id',0)->count()>0)
+        <tr> {{--個別キャンセル分 --}}
+          <td style="color:red">
+            {{-- 売上 --}}
+            {{number_format(-$reservation->bills->first()->master_total)}}円
+          </td>
+          {{-- 売上 --}}
+          <td>
+            {{-- 売上原価 --}}
+          </td>
+          <td>
+            {{-- 粗利 --}}
+          </td>
+          <td>
+            {{"会場予約キャンセル"}}
+          </td>
+          <td>
+            {{ReservationHelper::judgeStatus($reservation->bills->first()->reservation_status)}}
+          </td>
+          <td>
+          </td>
+          <td>
+          </td>
+          <td></td>
+        </tr>
+        @endif
         @else
         <tr>
           <td>
-            売上
+            {{-- 売上 --}}
             {{number_format($reservation->bills->skip($i)->first()->master_total)}}円</td>
           <td>
-            売上原価
+            {{-- 売上原価 --}}
             {{number_format($reservation->venue->getCostForPartner($reservation->venue, $reservation->bills->skip($i)->first()->master_total, $reservation->bills->skip($i)->first()->layout_price))}}円
           </td>
           <td>
-            粗利
+            {{-- 粗利 --}}
             {{number_format($reservation->venue->getProfitForPartner($reservation->venue, $reservation->bills->skip($i)->first()->master_total, $reservation->bills->skip($i)->first()->layout_price))}}円
           </td>
           <td> {{($reservation->bills->skip($i)->first()->category==2?"追加請求".$i:"")}}</td>
@@ -293,8 +326,52 @@
           <td> {{$reservation->bills->skip($i)->first()->paid==0?"未入金":"入金済"}}</td>
           <td> {{ReservationHelper::formatDate($reservation->bills->skip($i)->first()->payment_limit)}}</td>
         </tr>
+        @if ($reservation->bills->skip($i)->first()->cxl)
+        <tr> {{--個別キャンセル分 --}}
+          <td style="color:red">
+            {{-- 売上 --}}
+            {{number_format(-$reservation->bills->skip($i)->first()->master_total)}}円
+          </td>
+          <td>
+            {{-- 売上原価 --}}
+          </td>
+          <td>
+            {{-- 粗利 --}}
+          </td>
+          <td>
+            {{"追加請求".$i."キャンセル"}}
+          </td>
+          <td>
+            {{ReservationHelper::cxlStatus($reservation->bills->skip($i)->first()->cxl->cxl_status)}}
+          </td>
+          <td>
+            {{-- 個別キャンセル分16 --}}
+          </td>
+          <td>
+            {{-- 個別キャンセル分7 --}}
+          </td>
+          <td>
+          </td>
+        </tr>
+        @endif
         @endif
         @endfor
+
+        {{-- キャンセル部分　一番下にくる --}}
+        @if ($reservation->cxls->count()>0)
+        <tr>
+          <td>{{number_format($reservation->cxls->pluck('master_total')->sum())}}円</td>{{--売上--}}
+          <td></td>{{--原価--}}
+          <td></td>{{--粗利--}}
+          <td>キャンセル</td>{{--区分--}}
+          <td>キャンセル</td>{{--状況--}}
+          <td></td>{{--支払--}}
+          <td></td>{{--入金--}}
+          <td></td>{{--期日--}}
+        </tr>
+        @endif
+        {{-- キャンセル部分 --}}
+
     </tbody>
     @endforeach
   </table>

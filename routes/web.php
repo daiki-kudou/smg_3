@@ -68,6 +68,7 @@ Route::namespace('User')->prefix('user')->name('user.')->group(function () {
   });
 
   Route::get('email_reset_confirm/{token}', 'HomeController@email_reset_confirm');
+  Route::get('email_reset_failed', 'HomeController@email_reset_failed');
 
 
 
