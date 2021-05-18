@@ -7,7 +7,7 @@ use Illuminate\Foundation\Auth\SendsPasswordResetEmails;
 
 class ForgotPasswordController extends Controller
 {
-    /*
+  /*
     |--------------------------------------------------------------------------
     | Password Reset Controller
     |--------------------------------------------------------------------------
@@ -18,5 +18,11 @@ class ForgotPasswordController extends Controller
     |
     */
 
-    use SendsPasswordResetEmails;
+  use SendsPasswordResetEmails;
+
+  // オーバーライド
+  public function showLinkRequestForm()
+  {
+    return view('user.auth.passwords.email');
+  }
 }
