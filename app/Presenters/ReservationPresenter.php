@@ -19,4 +19,9 @@ class ReservationPresenter extends Presenter
   {
     return $this->bills->count();
   }
+
+  public function cxlCount()
+  {
+    return $this->cxls->count();
+  }
 }
