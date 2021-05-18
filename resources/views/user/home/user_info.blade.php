@@ -84,22 +84,30 @@
         <td colspan="2">{{$user->fax}}
         </td>
       </tr>
-      {{-- <tr>
+      <tr>
         <th><label for="email">メールアドレス</label></th>
-        <td colspan="2">{{$user->email}}</td>
-      </tr> --}}
+        <td colspan="2">{{$user->email}}
+          <p class="">
+            <a href="{{url('user/home/email_reset')}}">メールアドレスを変更する</a>
+          </p>
+        </td>
+      </tr>
+      <tr>
+        <th><label for="password">パスワード</label></th>
+        <td colspan="2">
+          <p class="">
+            <a href="{{url('user/password/reset')}}">パスワードを変更する</a>
+          </p>
+        </td>
+      </tr>
     </tbody>
   </table>
 </section>
 
 
 　<div class="btn-wrapper">
-  <p class="text-center mb-5">
-    <a href="{{url('user/password/reset')}}">パスワードを変更する</a>
-  </p>
-  <p class="text-center mb-5">
-    <a href="{{url('user/home/email_reset')}}">メールアドレスを変更する</a>
-  </p>
+
+
   {{Form::open(['url' => 'user/home/user_edit', 'method' => 'POST'])}}
   @csrf
   {{Form::hidden('user_id',$user->id)}}
