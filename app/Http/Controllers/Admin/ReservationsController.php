@@ -35,6 +35,7 @@ class ReservationsController extends Controller
    */
   public function index(Request $request)
   {
+    $today = date('Y-m-d', strtotime(Carbon::today()));
     if (!empty($request->all())) {
       $class = new Reservation;
       $result = $class->search_item($request);
@@ -42,8 +43,7 @@ class ReservationsController extends Controller
       $counter = $result->count();
     } else {
       $reservations = Reservation::with(['bills.breakdowns', 'user', 'agent', 'venue', 'endusers'])
-        ->orderBy('id', 'desc')
-        ->paginate(30);
+        ->orderByRaw("CASE WHEN reserve_date > '$today' THEN reserve_date ELSE 9999 END")->paginate(30);
       $counter = 0;
     }
 

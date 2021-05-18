@@ -14,17 +14,9 @@ class SalesController extends Controller
 {
   public function index(Request $request)
   {
-    $today = date('Y-m-d', strtotime(Carbon::today()));
-    $after_today = Reservation::with(
-      ['bills.cxl', 'user', 'agent', 'cxls', 'enduser', 'venue']
-    )->whereDate('reserve_date', '>=', $today)->get()->sortBy('reserve_date');
-
-    $before_today = Reservation::with(
-      ['bills.cxl', 'user', 'agent', 'cxls', 'enduser', 'venue']
-    )->whereDate('reserve_date', '<', $today)->get()->sortBy('reserve_date');
-
-    $reservations = $after_today->concat($before_today);
-
+    $today = Carbon::today();
+    $reservations = Reservation::with(['bills.cxl', 'user', 'agent', 'cxls', 'enduser', 'venue'])
+      ->orderByRaw("CASE WHEN reserve_date > '$today' THEN reserve_date ELSE 9999 END")->paginate(30);
     return view('admin.sales.index', compact('reservations'));
   }
 
