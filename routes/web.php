@@ -92,7 +92,7 @@ Route::namespace('User')->prefix('user')->name('user.')->group(function () {
   // Route::resource('home', 'HomeController');
   // Route::put('home/{home}/update_status', 'HomeController@updateReservationStatus')->name('home.updatestatus');
 
-  Route::get('password/reset/{token}', 'Auth\ResetPasswordController@showResetForm')->name('admin.password.reset');
+  Route::get('password/reset/{token}', 'Auth\ResetPasswordController@showResetForm')->name('password.reset');
 });
 
 
