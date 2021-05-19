@@ -45,7 +45,7 @@ class ReservationPresenter extends Presenter
       return 0;
     } else {
       $percent = ($this->cost) * 0.01;
-      return ($subtotal - ($subtotal * $percent)) * 1.1;
+      return ($subtotal - ($subtotal * $percent));
     }
   }
 
