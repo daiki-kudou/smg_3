@@ -184,7 +184,7 @@ class HomeController extends Controller
     $email = $bill->reservation->user->email;
     Mail::to($email)->send(new UserFinAddRes()); // ユーザーに予約完了メール送信
 
-    $admin = config('app.admin_email');
+    $admin = explode(',', config('app.admin_email'));
     Mail::to($admin)->send(new AdminFinAddRes()); // 管理者に予約完了メール送信
 
     return redirect('user/home/' . $bill->reservation->id);

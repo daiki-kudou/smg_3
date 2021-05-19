@@ -590,7 +590,7 @@ class PreReservationsController extends Controller
     DB::transaction(function () use ($request, $PreReservation) {
       $PreReservation->update(['status' => 1]);
     });
-    $admin = config('app.admin_email');
+    $admin = explode(',', config('app.admin_email'));
 
 
     Mail::to($admin) //管理者
@@ -656,7 +656,7 @@ class PreReservationsController extends Controller
           $pre_reservation = PreReservation::find((int) $value);
           if ($pre_reservation) {
             $pre_reservation->delete();
-            $admin = config('app.admin_email');
+            $admin = explode(',', config('app.admin_email'));
             $user = User::find($pre_reservation->user_id);
 
             try {

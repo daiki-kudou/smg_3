@@ -15,13 +15,15 @@ class SalesController extends Controller
   public function index(Request $request)
   {
     $today = Carbon::today();
-    $reservations = Reservation::with(['bills.cxl', 'user', 'agent', 'cxls', 'enduser', 'venue'])
-      ->orderByRaw(
-        "CASE WHEN reserve_date > '$today' 
-        THEN reserve_date 
-        ELSE 9999 
-        END"
-      )->paginate(30);
+    // $reservations = Reservation::with(['bills.cxl', 'user', 'agent', 'cxls', 'enduser', 'venue'])
+    //   ->orderByRaw(
+    //     "CASE WHEN reserve_date > '$today' 
+    //     THEN reserve_date 
+    //     ELSE 9999 
+    //     END"
+    //   )->paginate(30);
+    $reservations = Reservation::with(['bills', 'user', 'agent', 'cxls', 'enduser', 'venue'])->get()->sortByDesc('id');
+
     return view('admin.sales.index', compact('reservations'));
   }
 
