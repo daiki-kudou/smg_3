@@ -1500,9 +1500,7 @@ $(function () {
       mgmt_email: {
         email: true,
       },
-      cost: {
-        range: [1, 100],
-      },
+      cost: { required:true, range: [1, 100], maxlength: 3 },
       layout_prepare: {
         required: $("#layout").val() == 1,
       },
@@ -1593,7 +1591,9 @@ $(function () {
         required: "※必須項目です",
       },
       cost: {
+        required: "※必須項目です",
         range: "※1から100までの数値を入力してください",
+        maxlength: "※最大桁数は3です",
       },
       layout_prepare: {
         required: "レイアウト変更が【可】の場合、必須項目です",
