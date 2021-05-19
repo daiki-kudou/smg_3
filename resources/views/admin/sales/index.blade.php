@@ -251,7 +251,7 @@
           </td>
           <td rowspan="{{$reservation->billCount()+$reservation->cxlCount()+2}}">
             {{-- 総額 --}}
-            {{number_format($reservation->bills->where('reservation_status','<=',3)->pluck('master_total')->sum())}}円
+            {{number_format($reservation->totalAmountWithCxl())}}円
           </td>
           <td>
             {{-- 売上 --}}
