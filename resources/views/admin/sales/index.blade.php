@@ -251,7 +251,7 @@
           </td>
           <td rowspan="{{$reservation->billCount()+$reservation->cxlCount()+2}}">
             {{-- 総額 --}}
-            {{number_format($reservation->bills->where('reservation_status','<=',3)->pluck('master_total')->sum())}}円
+            {{number_format($reservation->totalAmountWithCxl())}}円
           </td>
           <td>
             {{-- 売上 --}}
@@ -360,9 +360,9 @@
         {{-- キャンセル部分　一番下にくる --}}
         @if ($reservation->cxls->count()>0)
         <tr>
-          <td>{{number_format($reservation->cxls->pluck('master_total')->sum())}}円</td>{{--売上--}}
-          <td></td>{{--原価--}}
-          <td></td>{{--粗利--}}
+          <td>{{number_format($reservation->cxlSubtotal())}}円</td>{{--売上--}}
+          <td>{{number_format($reservation->cxlCost())}}円</td>{{--原価--}}
+          <td>{{number_format($reservation->cxlProfit())}}円</td>{{--粗利--}}
           <td>キャンセル</td>{{--区分--}}
           <td>キャンセル</td>{{--状況--}}
           <td></td>{{--支払--}}
