@@ -117,12 +117,7 @@ class RegisterController extends Controller
 
     event(new Registered($user = $this->create($request->all())));
 
-    return view('user.auth.register_done');
-
-    // $this->guard()->login($user);
-
-    // return $this->registered($request, $user)
-    //   ?: redirect($this->redirectPath());
-
+    // return view('user.auth.register_done');
+    return redirect(url('user/login'))->with('flash_message', '会員登録が完了しました。下記より、ログインしてください。');
   }
 }

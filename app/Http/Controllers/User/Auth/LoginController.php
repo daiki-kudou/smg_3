@@ -32,8 +32,7 @@ class LoginController extends Controller
   public function logout(Request $request)
   {
     Auth::guard('user')->logout();
-
-    return $this->loggedOut($request);
+    return redirect('/');
   }
 
   public function loggedOut(Request $request)

@@ -1,8 +1,4 @@
 <?php
-
-
-
-
 Route::namespace('Home')->prefix('/')->name('home.')->group(function () {
   Route::middleware('basic_auth')->group(function () {
     Route::get('/', 'HomeController@index')->name('home');
@@ -82,16 +78,17 @@ Route::namespace('User')->prefix('user')->name('user.')->group(function () {
   Route::get('preusers/{id}/{token}/{email}', 'PreusersController@show')->name('preusers.show');
   // メール送信完了画面
   Route::get('preusers/complete', 'PreusersController@complete')->name('preusers.complete');
-
   Route::get('preusers/register', 'Auth\RegisterController@showRegistrationForm')->name('preusers.register')->middleware('check_status');
-
   Route::post('preusers/register_check', 'Auth\RegisterController@checkRegistrationForm')->name('preusers.registercheck');
-
   Route::post('preusers/register', 'Auth\RegisterController@register')->name('preusers.store');
-  // Route::get('/home', 'HomeController@index')->name('home');
-  // Route::resource('home', 'HomeController');
-  // Route::put('home/{home}/update_status', 'HomeController@updateReservationStatus')->name('home.updatestatus');
 
+  // ログイン
+  Route::get('login', 'Auth\LoginController@showLoginForm')->name('login');
+  Route::post('login', 'Auth\LoginController@login');
+  Route::post('logout', 'Auth\LoginController@logout')->name('logout');
+
+
+  // パスワードリセット
   Route::get('password/reset', 'Auth\ForgotPasswordController@showLinkRequestForm')->name('password.request');
   Route::post('password/email', 'Auth\ForgotPasswordController@sendResetLinkEmail')->name('password.email');
   Route::get('password/reset/{token}', 'Auth\ResetPasswordController@showResetForm')->name('password.reset');

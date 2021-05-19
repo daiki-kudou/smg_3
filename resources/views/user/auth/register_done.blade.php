@@ -1,4 +1,3 @@
-
 @extends('layouts.user.auth')
 
 @section('content')
@@ -35,7 +34,7 @@
     href="https://ajax.googleapis.com/ajax/libs/jqueryui/1/themes/redmond/jquery-ui.css?ver=20201225">
 
   <!-- システムcss -->
-  
+
 
   <!--[if lt IE 9]>
   <script src="//cdn.jsdelivr.net/html5shiv/3.7.2/html5shiv.min.js"></script>
@@ -156,7 +155,7 @@
   </script>
 
   <style>
-    @media  screen and (max-width:750px) {
+    @media screen and (max-width:750px) {
       .tabBtn li {
         z-index: 1;
         /*5;*/
@@ -288,284 +287,282 @@
         </ol>
       </nav>
 
-<div class="contents">
-    <div class="pagetop-text">
-      <h1 class="page-title oddcolor"><span>会員登録完了</span></h1>
-    </div>
-    <div class="text-box">
-        <p class="text-center">会員登録が完了しました。<br>下記より、ログインしてください。</p>
-      </div>
-  </div>
-  <section class="contents">
-    <form method="POST" action="https://develop2-smg2.herokuapp.com/user/login">
-      <input type="hidden" name="_token" value="sddI1lQ7NvzDN323hgNFpZq8YJTyrVUi39Ghuqtf">
-      <div class="form-group row">
-        <label for="email" class="col-md-4 col-form-label text-md-right">メールアドレス</label>
-
-        <div class="col-md-6">
-          <input id="email" type="email" class="form-control " name="email"
-            value="" required autocomplete="email" autofocus>
-
-                      </div>
-      </div>
-
-      <div class="form-group row">
-        <label for="password" class="col-md-4 col-form-label text-md-right">パスワード</label>
-
-        <div class="col-md-6">
-          <input id="password" type="password" class="form-control "
-            name="password" required autocomplete="current-password">
-
-                      </div>
-      </div>
-
-      <div class="form-group row">
-        <div class="col-md-6 offset-md-4">
-          <div class="form-check">
-            <input class="form-check-input" type="checkbox" name="remember" id="remember"
-              >
-
-            <label class="form-check-label" for="remember">
-              ログイン状態を保持する
-            </label>
-            <p><a href="https://develop2-smg2.herokuapp.com/user/password/reset" target="_blank">パスワードをお忘れの方はこちら</a></p>
-          </div>
+      <div class="contents">
+        <div class="pagetop-text">
+          <h1 class="page-title oddcolor"><span>会員登録完了</span></h1>
+        </div>
+        <div class="text-box">
+          <p class="text-center">会員登録が完了しました。<br>下記より、ログインしてください。</p>
         </div>
       </div>
+      <section class="contents">
+        <form method="POST" action="https://develop2-smg2.herokuapp.com/user/login">
+          <input type="hidden" name="_token" value="sddI1lQ7NvzDN323hgNFpZq8YJTyrVUi39Ghuqtf">
+          <div class="form-group row">
+            <label for="email" class="col-md-4 col-form-label text-md-right">メールアドレス</label>
 
-      <div class="btn-wrapper2">
-        {{-- <button type="submit" class="btn ">
+            <div class="col-md-6">
+              <input id="email" type="email" class="form-control " name="email" value="" required autocomplete="email"
+                autofocus>
+            </div>
+          </div>
+
+          <div class="form-group row">
+            <label for="password" class="col-md-4 col-form-label text-md-right">パスワード</label>
+
+            <div class="col-md-6">
+              <input id="password" type="password" class="form-control " name="password" required
+                autocomplete="current-password">
+
+            </div>
+          </div>
+
+          <div class="form-group row">
+            <div class="col-md-6 offset-md-4">
+              <div class="form-check">
+                <input class="form-check-input" type="checkbox" name="remember" id="remember">
+                <label class="form-check-label" for="remember">
+                  ログイン状態を保持する
+                </label>
+                <p><a href="https://develop2-smg2.herokuapp.com/user/password/reset" target="_blank">パスワードをお忘れの方はこちら</a>
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <div class="btn-wrapper2">
+            {{-- <button type="submit" class="btn ">
           ログイン
         </button> --}}
-        <p class="confirm-btn"><a class="btn" href="{{url('/user/login')}}">ログインする</a></p>
-      </div>
-    </form>
-  </section>
+            <p class="confirm-btn"><a class="btn" href="{{url('/user/login')}}">ログインする</a></p>
+          </div>
+        </form>
+      </section>
 
-  <script>
-    $("form[name='calendar02'] select[name='room04']").val($("form[name='calendar02'] select[name='room04'] option").first().val());
+      <script>
+        $("form[name='calendar02'] select[name='room04']").val($("form[name='calendar02'] select[name='room04'] option").first().val());
 $(function(){
 $("form#form02 select[name='room04'] option").filter(function(){
 return $(this).attr("disabled");
 }).remove();
 });
-  </script>
-  <div class="top contents"><a href="#top"><img src="https://osaka-conference.com/img/pagetop.png" alt="上に戻る"></a>
-  </div>
-</main>
+      </script>
+      <div class="top contents"><a href="#top"><img src="https://osaka-conference.com/img/pagetop.png" alt="上に戻る"></a>
+      </div>
+    </main>
 
-<!-- ここからfooter.html -->
-<div class="banner">
-  <ul class="contents pc">
-    <li><a href="https://osaka-conference.com/characteristic/free-equipment/"><img
-          src="https://osaka-conference.com/img/banner_freegoods02.jpg" alt="無料備品が多数！"></a></li>
-    <li><a href="https://osaka-conference.com/characteristic/night-use/"><img
-          src="https://osaka-conference.com/img/banner_night02.jpg" alt="夜間激安"></a></li>
-    <li><a href="https://osaka-conference.com/characteristic/regular-use/"><img
-          src="https://osaka-conference.com/img/banner_regular02.jpg" alt="定期利用のお客様へ"></a></li>
-    <li><a href="https://osaka-conference.com/characteristic/high-grade/"><img
-          src="https://osaka-conference.com/img/banner_highgre02.jpg" alt="音響ハイグレード"></a></li>
-    <li><a href="https://osaka-conference.com/characteristic/access/"><img
-          src="https://osaka-conference.com/img/banner_access.jpg" alt="駅チカ！アクセス抜群"></a></li>
-    <li><a href="https://osaka-conference.com/catering/"><img
-          src="https://osaka-conference.com/img/banner_catering02.jpg" alt="ケータリングサービスお弁当の手配"></a></li>
-  </ul>
-  <ul class="contents sp">
-    <li><a href="https://osaka-conference.com/characteristic/free-equipment/"><img
-          src="https://osaka-conference.com/img/banner_freegoods02@2x.jpg" alt="無料備品が多数！"></a></li>
-    <li><a href="https://osaka-conference.com/characteristic/night-use/"><img
-          src="https://osaka-conference.com/img/banner_night02@2x.jpg" alt="夜間激安"></a></li>
-    <li><a href="https://osaka-conference.com/characteristic/regular-use/"><img
-          src="https://osaka-conference.com/img/banner_regular02@2x.jpg" alt="定期利用のお客様へ"></a></li>
-    <li><a href="https://osaka-conference.com/characteristic/high-grade/"><img
-          src="https://osaka-conference.com/img/banner_highgre02@2x.jpg" alt="音響ハイグレード"></a></li>
-    <li><a href="https://osaka-conference.com/characteristic/access/"><img
-          src="https://osaka-conference.com/img/banner_access02.jpg" alt="駅チカ！アクセス抜群"></a></li>
-    <li><a href="https://osaka-conference.com/catering/"><img
-          src="https://osaka-conference.com/img/banner_catering02@2x.jpg" alt="ケータリングサービスお弁当の手配"></a></li>
-  </ul>
-</div>
-<footer class="new">
-  <nav class="contents">
-    <div class="footerInfo">
-      <ul class="pc">
-
-        <li class="download">
-          <p>本申込み(フォーム・直接メールに添付・FAX)</p>
-          　　<p class="download_btn3 btnOrange"><a href="https://osaka-conference.com/reservation/"
-              target="_blank"><img src="https://osaka-conference.com/img/ico_form.png" alt="本申込み">フォーム</a></p>
-          <p class="download_btn3 btnOrange"><a href="https://osaka-conference.com/downlord/form.pdf"
-              target="_blank"><img src="https://osaka-conference.com/img/ico_pdf.png" alt="PDF">PDF</a></p>
-          <p class="download_btn3 btnOrange"><a href="https://osaka-conference.com/downlord/form.xlsx"
-              target="_blank"><img src="https://osaka-conference.com/img/ico_excel.png" alt="EXCEL">EXCEL</a></p>
-        </li>
+    <!-- ここからfooter.html -->
+    <div class="banner">
+      <ul class="contents pc">
+        <li><a href="https://osaka-conference.com/characteristic/free-equipment/"><img
+              src="https://osaka-conference.com/img/banner_freegoods02.jpg" alt="無料備品が多数！"></a></li>
+        <li><a href="https://osaka-conference.com/characteristic/night-use/"><img
+              src="https://osaka-conference.com/img/banner_night02.jpg" alt="夜間激安"></a></li>
+        <li><a href="https://osaka-conference.com/characteristic/regular-use/"><img
+              src="https://osaka-conference.com/img/banner_regular02.jpg" alt="定期利用のお客様へ"></a></li>
+        <li><a href="https://osaka-conference.com/characteristic/high-grade/"><img
+              src="https://osaka-conference.com/img/banner_highgre02.jpg" alt="音響ハイグレード"></a></li>
+        <li><a href="https://osaka-conference.com/characteristic/access/"><img
+              src="https://osaka-conference.com/img/banner_access.jpg" alt="駅チカ！アクセス抜群"></a></li>
+        <li><a href="https://osaka-conference.com/catering/"><img
+              src="https://osaka-conference.com/img/banner_catering02.jpg" alt="ケータリングサービスお弁当の手配"></a></li>
       </ul>
-      <ul class="sp">
-
-        <li>本申込みフォームあるいは本申込み書をダウンロード！</li>
-        <li class="foot-btnM"><a href="https://osaka-conference.com/reservation/"><img
-              src="https://osaka-conference.com/img/ico_form02@2x.png" alt="本申込みフォーム">本申込み</a></li>
-        <li class="foot-btnS"><a href="https://osaka-conference.com/downlord/form.pdf" target="_blank"><img
-              src="https://osaka-conference.com/img/ico_pdf01@2x.png" alt="PDF">PDF</a></li>
-        <li class="foot-btnS"><a href="https://osaka-conference.com/downlord/form.xlsx" target="_blank"><img
-              src="https://osaka-conference.com/img/ico_excel01@2x.png" alt="EXCEL">EXCEL</a></li>
+      <ul class="contents sp">
+        <li><a href="https://osaka-conference.com/characteristic/free-equipment/"><img
+              src="https://osaka-conference.com/img/banner_freegoods02@2x.jpg" alt="無料備品が多数！"></a></li>
+        <li><a href="https://osaka-conference.com/characteristic/night-use/"><img
+              src="https://osaka-conference.com/img/banner_night02@2x.jpg" alt="夜間激安"></a></li>
+        <li><a href="https://osaka-conference.com/characteristic/regular-use/"><img
+              src="https://osaka-conference.com/img/banner_regular02@2x.jpg" alt="定期利用のお客様へ"></a></li>
+        <li><a href="https://osaka-conference.com/characteristic/high-grade/"><img
+              src="https://osaka-conference.com/img/banner_highgre02@2x.jpg" alt="音響ハイグレード"></a></li>
+        <li><a href="https://osaka-conference.com/characteristic/access/"><img
+              src="https://osaka-conference.com/img/banner_access02.jpg" alt="駅チカ！アクセス抜群"></a></li>
+        <li><a href="https://osaka-conference.com/catering/"><img
+              src="https://osaka-conference.com/img/banner_catering02@2x.jpg" alt="ケータリングサービスお弁当の手配"></a></li>
       </ul>
+    </div>
+    <footer class="new">
+      <nav class="contents">
+        <div class="footerInfo">
+          <ul class="pc">
 
-      <div class="pc">
-        <div class="tel pc">
-          <p><em>06-6556-6462</em>予約専用：10時～18時</p>
-        </div>
-        <p class="txt">ご予約、お問合せ専用番号となります。<br>会場アクセスやイベント内容についてのお問い合わせはお控え下さい。</p>
-      </div>
-      <div class="mt20 pc">
-        <div class="fax pc">
-          <p><em>06-6538-4315</em>24時間受付</p>
-        </div>
-      </div>
+            <li class="download">
+              <p>本申込み(フォーム・直接メールに添付・FAX)</p>
+              　　<p class="download_btn3 btnOrange"><a href="https://osaka-conference.com/reservation/"
+                  target="_blank"><img src="https://osaka-conference.com/img/ico_form.png" alt="本申込み">フォーム</a></p>
+              <p class="download_btn3 btnOrange"><a href="https://osaka-conference.com/downlord/form.pdf"
+                  target="_blank"><img src="https://osaka-conference.com/img/ico_pdf.png" alt="PDF">PDF</a></p>
+              <p class="download_btn3 btnOrange"><a href="https://osaka-conference.com/downlord/form.xlsx"
+                  target="_blank"><img src="https://osaka-conference.com/img/ico_excel.png" alt="EXCEL">EXCEL</a></p>
+            </li>
+          </ul>
+          <ul class="sp">
 
-      <div class="pc contactBtn_area">
-        <div class="btn"><a href="https://osaka-conference.com/contact/">問い合わせ</a></div>
+            <li>本申込みフォームあるいは本申込み書をダウンロード！</li>
+            <li class="foot-btnM"><a href="https://osaka-conference.com/reservation/"><img
+                  src="https://osaka-conference.com/img/ico_form02@2x.png" alt="本申込みフォーム">本申込み</a></li>
+            <li class="foot-btnS"><a href="https://osaka-conference.com/downlord/form.pdf" target="_blank"><img
+                  src="https://osaka-conference.com/img/ico_pdf01@2x.png" alt="PDF">PDF</a></li>
+            <li class="foot-btnS"><a href="https://osaka-conference.com/downlord/form.xlsx" target="_blank"><img
+                  src="https://osaka-conference.com/img/ico_excel01@2x.png" alt="EXCEL">EXCEL</a></li>
+          </ul>
 
-      </div>
-      <div class="foot-tel-wrap sp">
-        <div class="tel">
-          <div class="sp"><span>お電話でのお問い合わせ(10時～18時)</span></div>
-          <p class="telNo"><em><a href="tel:0665566462"
-                onclick="gtag('event','tel-tap',{'event_category':'click'});">06-6556-6462</a></em></p>
-          <p class="note">ご予約、お問合せ専用番号となります。<br>会場アクセスやイベント内容についてのお問い合わせはお控え下さい。</p>
+          <div class="pc">
+            <div class="tel pc">
+              <p><em>06-6556-6462</em>予約専用：10時～18時</p>
+            </div>
+            <p class="txt">ご予約、お問合せ専用番号となります。<br>会場アクセスやイベント内容についてのお問い合わせはお控え下さい。</p>
+          </div>
+          <div class="mt20 pc">
+            <div class="fax pc">
+              <p><em>06-6538-4315</em>24時間受付</p>
+            </div>
+          </div>
+
+          <div class="pc contactBtn_area">
+            <div class="btn"><a href="https://osaka-conference.com/contact/">問い合わせ</a></div>
+
+          </div>
+          <div class="foot-tel-wrap sp">
+            <div class="tel">
+              <div class="sp"><span>お電話でのお問い合わせ(10時～18時)</span></div>
+              <p class="telNo"><em><a href="tel:0665566462"
+                    onclick="gtag('event','tel-tap',{'event_category':'click'});">06-6556-6462</a></em></p>
+              <p class="note">ご予約、お問合せ専用番号となります。<br>会場アクセスやイベント内容についてのお問い合わせはお控え下さい。</p>
+            </div>
+            <div class="allbtn green"><a href="https://osaka-conference.com/contact/"><img
+                  src="https://osaka-conference.com/img/icon_mail.png" alt="問い合わせ"><span>問い合わせ</span></a></div>
+          </div>
         </div>
-        <div class="allbtn green"><a href="https://osaka-conference.com/contact/"><img
-              src="https://osaka-conference.com/img/icon_mail.png" alt="問い合わせ"><span>問い合わせ</span></a></div>
-      </div>
+
+        <ul class="footerpagelist pc">
+          <li><a href="https://osaka-conference.com/">TOP</a></li>
+          <li><a href="https://osaka-conference.com/rental/">会場一覧</a></li>
+          <li><a href="https://osaka-conference.com/rental/yotsubashi/">四ツ橋エリア</a></li>
+          <li><a href="https://osaka-conference.com/rental/shinsaibashi/">心斎橋エリア</a></li>
+          <li><a href="https://osaka-conference.com/rental/honmachi/">本町エリア</a></li>
+          <li><a href="https://osaka-conference.com/rental/namba/">なんばエリア</a></li>
+          <li><a href="https://osaka-conference.com/rental/shinosaka/">新大阪(江坂)エリア</a></li>
+          <!--<li><a href="https://osaka-conference.com/rental/nagahoribashi/">長堀橋エリア</a></li>-->
+        </ul>
+        <ul class="footerpagelist pc">
+          <li><a href="https://osaka-conference.com/price/">料金表</a></li>
+          <li><a href="https://osaka-conference.com/characteristic/">特徴</a></li>
+          <li><a href="https://osaka-conference.com/flow/">利用の流れ</a></li>
+          <li><a href="https://osaka-conference.com/rental/about/TermsOfService.pdf" target="_blank">利用規約</a></li>
+          <li><a href="https://osaka-conference.com/cancelpolicy/">キャンセルポリシー</a></li>
+          <li><a href="https://osaka-conference.com/faq/">よくある質問</a></li>
+          <li><a href="https://osaka-conference.com/voice/">お客様の声</a></li>
+          <li><a href="https://osaka-conference.com/clients/">取引実績</a></li>
+          <li><a href="https://osaka-conference.com/calendar/">カレンダー</a></li>
+          <li><a href="https://osaka-conference.com/news/">新着ニュース</a></li>
+          <li><a href="https://osaka-conference.com/contact/">問い合わせ</a></li>
+        </ul>
+        <ul class="footerpagelist pc">
+          <li><a href="https://osaka-conference.com/characteristic/free-equipment/">無料備品が多数</a></li>
+          <li><a href="https://osaka-conference.com/characteristic/access/">駅チカ！アクセス抜群！</a></li>
+          <li><a href="https://osaka-conference.com/characteristic/night-use/">夜間激安</a></li>
+          <li><a href="https://osaka-conference.com/characteristic/regular-use/">定期利用のお客様へ</a></li>
+          <li><a href="https://osaka-conference.com/characteristic/high-grade/">音響ハイグレード</a></li>
+          <li><a href="https://osaka-conference.com/characteristic/training/">説明会・面接・研修に最適</a></li>
+          <li><a href="https://osaka-conference.com/catering/">ケータリング</a></li>
+          <li><a href="https://osaka-conference.com/column/">コラム</a></li>
+          <li><a href="https://osaka-conference.com/seminar-manual/">セミナー主催者マニュアル</a></li>
+          <li><a href="https://osaka-conference.com/company/">会社概要</a></li>
+          <li><em class="footerLink"><a href="https://osaka-conference.com/privacypolicy/">プライバシーポリシー</a></em></li>
+        </ul>
+
+        <div class="sp">
+          <ul class="footerpagelist FmenuT">
+            <li><a href="javascript:void(0)" onclick="return false;">MENU</a><img
+                src="https://osaka-conference.com/img/icon_plus.png" alt="MENU" class="cImg fR"></li>
+          </ul>
+          <ul class="footerpagelist">
+            <li><a href="https://osaka-conference.com/">TOP</a></li>
+            <li><a href="https://osaka-conference.com/price/">料金表</a></li>
+            <li><a href="https://osaka-conference.com/characteristic/">特徴</a></li>
+            <li><a href="https://osaka-conference.com/flow/">利用の流れ</a></li>
+            <li><a href="https://osaka-conference.com/rental/about/TermsOfService.pdf" target="_blank">利用規約</a></li>
+            <li><a href="https://osaka-conference.com/cancelpolicy/">キャンセルポリシー</a></li>
+            <li><a href="https://osaka-conference.com/faq/">よくある質問</a></li>
+            <li><a href="https://osaka-conference.com/voice/">お客様の声</a></li>
+            <li><a href="https://osaka-conference.com/clients/">取引実績</a></li>
+            <li><a href="https://osaka-conference.com/calendar/">カレンダー</a></li>
+            <li><a href="https://osaka-conference.com/news/">新着ニュース</a></li>
+            <li><a href="https://osaka-conference.com/contact/">問い合わせ</a></li>
+            <li><a href="https://osaka-conference.com/characteristic/free-equipment/">無料備品が多数</a></li>
+            <li><a href="https://osaka-conference.com/characteristic/access/">駅チカ！アクセス抜群！</a></li>
+            <li><a href="https://osaka-conference.com/characteristic/night-use/">夜間激安</a></li>
+            <li><a href="https://osaka-conference.com/characteristic/regular-use/">定期利用のお客様へ</a></li>
+            <li><a href="https://osaka-conference.com/characteristic/high-grade/">音響ハイグレード</a></li>
+            <li><a href="https://osaka-conference.com/characteristic/training/">説明会・面接・研修に最適</a></li>
+            <li><a href="https://osaka-conference.com/catering/">ケータリング</a></li>
+            <li><a href="https://osaka-conference.com/column/">コラム</a></li>
+            <li><a href="https://osaka-conference.com/seminar-manual/">セミナー主催者マニュアル</a></li>
+            <li><a href="https://osaka-conference.com/company/">会社概要</a></li>
+            <li><em class="footerLink"><a href="https://osaka-conference.com/privacypolicy/">プライバシーポリシー</a></em></li>
+          </ul>
+
+          <ul class="footerpagelist FmenuT">
+            <li><a href="javascript:void(0)" onclick="return false;">会場一覧</a><img
+                src="https://osaka-conference.com/img/icon_plus.png" alt="MENU" class="cImg fR"></li>
+          </ul>
+          <ul class="footerpagelist">
+            <li><a href="https://osaka-conference.com/rental/">すべての会場</a></li>
+            <li><a href="https://osaka-conference.com/rental/yotsubashi/">四ツ橋エリア</a></li>
+            <li><a href="https://osaka-conference.com/rental/shinsaibashi/">心斎橋エリア</a></li>
+            <li><a href="https://osaka-conference.com/rental/honmachi/">本町エリア</a></li>
+            <li><a href="https://osaka-conference.com/rental/namba/">なんばエリア</a></li>
+            <li><a href="https://osaka-conference.com/rental/shinosaka/">新大阪(江坂)エリア</a></li>
+            <li><a href="https://osaka-conference.com/rental/nagahoribashi/">長堀橋エリア</a></li>
+          </ul>
+
+        </div>
+      </nav>
+    </footer>
+    <div class="copyright contents">
+      <address><img src="https://osaka-conference.com/img/footer_logo.png" alt="株式会社SMG" />SMGアクセア貸し会議室　<br
+          class="sp">〒550-0014　大阪市西区北堀江1丁目6番2号 サンワールドビル11階</address>
+      <p>COPY RIGHT © SMGアクセア貸し会議室 ALL RIGHTS RESERVED.</p>
     </div>
 
-    <ul class="footerpagelist pc">
-      <li><a href="https://osaka-conference.com/">TOP</a></li>
-      <li><a href="https://osaka-conference.com/rental/">会場一覧</a></li>
-      <li><a href="https://osaka-conference.com/rental/yotsubashi/">四ツ橋エリア</a></li>
-      <li><a href="https://osaka-conference.com/rental/shinsaibashi/">心斎橋エリア</a></li>
-      <li><a href="https://osaka-conference.com/rental/honmachi/">本町エリア</a></li>
-      <li><a href="https://osaka-conference.com/rental/namba/">なんばエリア</a></li>
-      <li><a href="https://osaka-conference.com/rental/shinosaka/">新大阪(江坂)エリア</a></li>
-      <!--<li><a href="https://osaka-conference.com/rental/nagahoribashi/">長堀橋エリア</a></li>-->
-    </ul>
-    <ul class="footerpagelist pc">
-      <li><a href="https://osaka-conference.com/price/">料金表</a></li>
-      <li><a href="https://osaka-conference.com/characteristic/">特徴</a></li>
-      <li><a href="https://osaka-conference.com/flow/">利用の流れ</a></li>
-      <li><a href="https://osaka-conference.com/rental/about/TermsOfService.pdf" target="_blank">利用規約</a></li>
-      <li><a href="https://osaka-conference.com/cancelpolicy/">キャンセルポリシー</a></li>
-      <li><a href="https://osaka-conference.com/faq/">よくある質問</a></li>
-      <li><a href="https://osaka-conference.com/voice/">お客様の声</a></li>
-      <li><a href="https://osaka-conference.com/clients/">取引実績</a></li>
-      <li><a href="https://osaka-conference.com/calendar/">カレンダー</a></li>
-      <li><a href="https://osaka-conference.com/news/">新着ニュース</a></li>
-      <li><a href="https://osaka-conference.com/contact/">問い合わせ</a></li>
-    </ul>
-    <ul class="footerpagelist pc">
-      <li><a href="https://osaka-conference.com/characteristic/free-equipment/">無料備品が多数</a></li>
-      <li><a href="https://osaka-conference.com/characteristic/access/">駅チカ！アクセス抜群！</a></li>
-      <li><a href="https://osaka-conference.com/characteristic/night-use/">夜間激安</a></li>
-      <li><a href="https://osaka-conference.com/characteristic/regular-use/">定期利用のお客様へ</a></li>
-      <li><a href="https://osaka-conference.com/characteristic/high-grade/">音響ハイグレード</a></li>
-      <li><a href="https://osaka-conference.com/characteristic/training/">説明会・面接・研修に最適</a></li>
-      <li><a href="https://osaka-conference.com/catering/">ケータリング</a></li>
-      <li><a href="https://osaka-conference.com/column/">コラム</a></li>
-      <li><a href="https://osaka-conference.com/seminar-manual/">セミナー主催者マニュアル</a></li>
-      <li><a href="https://osaka-conference.com/company/">会社概要</a></li>
-      <li><em class="footerLink"><a href="https://osaka-conference.com/privacypolicy/">プライバシーポリシー</a></em></li>
-    </ul>
-
-    <div class="sp">
-      <ul class="footerpagelist FmenuT">
-        <li><a href="javascript:void(0)" onclick="return false;">MENU</a><img
-            src="https://osaka-conference.com/img/icon_plus.png" alt="MENU" class="cImg fR"></li>
-      </ul>
-      <ul class="footerpagelist">
-        <li><a href="https://osaka-conference.com/">TOP</a></li>
-        <li><a href="https://osaka-conference.com/price/">料金表</a></li>
-        <li><a href="https://osaka-conference.com/characteristic/">特徴</a></li>
-        <li><a href="https://osaka-conference.com/flow/">利用の流れ</a></li>
-        <li><a href="https://osaka-conference.com/rental/about/TermsOfService.pdf" target="_blank">利用規約</a></li>
-        <li><a href="https://osaka-conference.com/cancelpolicy/">キャンセルポリシー</a></li>
-        <li><a href="https://osaka-conference.com/faq/">よくある質問</a></li>
-        <li><a href="https://osaka-conference.com/voice/">お客様の声</a></li>
-        <li><a href="https://osaka-conference.com/clients/">取引実績</a></li>
-        <li><a href="https://osaka-conference.com/calendar/">カレンダー</a></li>
-        <li><a href="https://osaka-conference.com/news/">新着ニュース</a></li>
-        <li><a href="https://osaka-conference.com/contact/">問い合わせ</a></li>
-        <li><a href="https://osaka-conference.com/characteristic/free-equipment/">無料備品が多数</a></li>
-        <li><a href="https://osaka-conference.com/characteristic/access/">駅チカ！アクセス抜群！</a></li>
-        <li><a href="https://osaka-conference.com/characteristic/night-use/">夜間激安</a></li>
-        <li><a href="https://osaka-conference.com/characteristic/regular-use/">定期利用のお客様へ</a></li>
-        <li><a href="https://osaka-conference.com/characteristic/high-grade/">音響ハイグレード</a></li>
-        <li><a href="https://osaka-conference.com/characteristic/training/">説明会・面接・研修に最適</a></li>
-        <li><a href="https://osaka-conference.com/catering/">ケータリング</a></li>
-        <li><a href="https://osaka-conference.com/column/">コラム</a></li>
-        <li><a href="https://osaka-conference.com/seminar-manual/">セミナー主催者マニュアル</a></li>
-        <li><a href="https://osaka-conference.com/company/">会社概要</a></li>
-        <li><em class="footerLink"><a href="https://osaka-conference.com/privacypolicy/">プライバシーポリシー</a></em></li>
-      </ul>
-
-      <ul class="footerpagelist FmenuT">
-        <li><a href="javascript:void(0)" onclick="return false;">会場一覧</a><img
-            src="https://osaka-conference.com/img/icon_plus.png" alt="MENU" class="cImg fR"></li>
-      </ul>
-      <ul class="footerpagelist">
-        <li><a href="https://osaka-conference.com/rental/">すべての会場</a></li>
-        <li><a href="https://osaka-conference.com/rental/yotsubashi/">四ツ橋エリア</a></li>
-        <li><a href="https://osaka-conference.com/rental/shinsaibashi/">心斎橋エリア</a></li>
-        <li><a href="https://osaka-conference.com/rental/honmachi/">本町エリア</a></li>
-        <li><a href="https://osaka-conference.com/rental/namba/">なんばエリア</a></li>
-        <li><a href="https://osaka-conference.com/rental/shinosaka/">新大阪(江坂)エリア</a></li>
-        <li><a href="https://osaka-conference.com/rental/nagahoribashi/">長堀橋エリア</a></li>
-      </ul>
-
-    </div>
-  </nav>
-</footer>
-<div class="copyright contents">
-  <address><img src="https://osaka-conference.com/img/footer_logo.png" alt="株式会社SMG" />SMGアクセア貸し会議室　<br
-      class="sp">〒550-0014　大阪市西区北堀江1丁目6番2号 サンワールドビル11階</address>
-  <p>COPY RIGHT © SMGアクセア貸し会議室 ALL RIGHTS RESERVED.</p>
-</div>
-
-<div class="pc banner sticky">
-  <div class="block contents">
-    <ul>
-      <li><a href="https://osaka-conference.com/rental/"><img
-            src="https://osaka-conference.com/img/banner_roomlist.jpg" alt="大阪市内主要エリア"></a></li>
-      <li><a href="https://osaka-conference.com/characteristic/"><img
-            src="https://osaka-conference.com/img/banner_kakuyasu.jpg" alt="格安貸し会議室"></a></li>
-      <li><a href="https://osaka-conference.com/characteristic/free-equipment/"><img
-            src="https://osaka-conference.com/img/banner_freegoods_mini.png" alt="無料備品が多数！"></a></li>
-      <li><a href="https://osaka-conference.com/characteristic/night-use/"><img
-            src="https://osaka-conference.com/img/banner_night_mini.png" alt="夜間激安"></a></li>
-      <div class="tel">
-        <dl>
-          <dt><span>予約専用</span>10時～18時</dt>
-          <dd>
-            <div class="telNo">06-6556-6462</div>
-          </dd>
-        </dl>
+    <div class="pc banner sticky">
+      <div class="block contents">
+        <ul>
+          <li><a href="https://osaka-conference.com/rental/"><img
+                src="https://osaka-conference.com/img/banner_roomlist.jpg" alt="大阪市内主要エリア"></a></li>
+          <li><a href="https://osaka-conference.com/characteristic/"><img
+                src="https://osaka-conference.com/img/banner_kakuyasu.jpg" alt="格安貸し会議室"></a></li>
+          <li><a href="https://osaka-conference.com/characteristic/free-equipment/"><img
+                src="https://osaka-conference.com/img/banner_freegoods_mini.png" alt="無料備品が多数！"></a></li>
+          <li><a href="https://osaka-conference.com/characteristic/night-use/"><img
+                src="https://osaka-conference.com/img/banner_night_mini.png" alt="夜間激安"></a></li>
+          <div class="tel">
+            <dl>
+              <dt><span>予約専用</span>10時～18時</dt>
+              <dd>
+                <div class="telNo">06-6556-6462</div>
+              </dd>
+            </dl>
+          </div>
       </div>
+    </div>
   </div>
-</div>
-</div>
 
-<!-- Global site tag (gtag.js) - Google Analytics -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=UA-57423515-1"></script>
-<script>
-window.dataLayer = window.dataLayer || [];
+  <!-- Global site tag (gtag.js) - Google Analytics -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=UA-57423515-1"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
 function gtag(){dataLayer.push(arguments);}
 gtag('js', new Date());
 
 
 gtag('config', 'UA-57423515-1');
-</script>
+  </script>
 
 
-<script type="text/javascript" src="//www.googleadservices.com/pagead/conversion_async.js"></script>
+  <script type="text/javascript" src="//www.googleadservices.com/pagead/conversion_async.js"></script>
 </body>
 
 </html>

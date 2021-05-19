@@ -287,42 +287,25 @@
         </ol>
       </nav>
       <!-- ログイン、会員登録 -->
+      @if (session('flash_message'))
+      <div class="contents">
+        <div class="pagetop-text">
+          <h1 class="page-title oddcolor"><span>会員登録完了</span></h1>
+        </div>
+        <div class="text-box">
+          <p class="text-center">会員登録が完了しました。<br>下記より、ログインしてください。</p>
+        </div>
+      </div>
+      @else
       <div class="contents">
         <div class="pagetop-text">
           <h1 class="page-title oddcolor"><span>ログイン/会員登録</span></h1>
         </div>
       </div>
-      <section class="contents">
+      @endif
 
-        {{-- <form name="form" id="form" action="https://osaka-conference.com/contact/check.php" next="false" method="post">
-          <div class="bgColorGray">
-            <table class="table-box">
-              <tr>
-                <th>メールアドレス</th>
-                <td>
-                  <input name="mail01" id="mail01" class="text1" type="email">
-                  <a name="a-mail01" class="error-r"></a>
-                </td>
-              </tr>
-              <tr>
-                <th>パスワード</th>
-                <td>
-                  <input name="password" id="password" class="text1" type="password">
-                  <a name="a-mail01" class="error-r"></a>
-                </td>
-              </tr>
-              <tr>
-                <th></th>
-                <td>
-                  <div class="form-box">
-                    <p class="checkbox-txt"><input type="checkbox" name="q1" value="ログイン状態を保持する"> ログイン状態を保持する</p>
-                    <p><a href="">パスワードをお忘れの方はこちら</a></span></p>
-                  </div>
-                </td>
-              </tr>
-            </table>
-          </div>
-        </form> --}}
+
+      <section class="contents">
         <form method="POST" action="{{ route('user.login') }}">
           @csrf
 
