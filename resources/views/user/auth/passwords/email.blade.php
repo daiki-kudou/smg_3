@@ -287,7 +287,7 @@
       <!-- ログイン、会員登録 -->
       <div class="contents">
         <div class="pagetop-text">
-          <h1 class="page-title oddcolor"><span>ユーザIDの確認・パスワードの再設定 </span></h1>
+          <h1 class="page-title oddcolor"><span>ユーザIDの確認・パスワードの再設定</span></h1>
           <p>メールアドレスを入力してください。パスワード再設定用のリンクを送信いたします</p>
         </div>
       </div>

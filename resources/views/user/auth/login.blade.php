@@ -371,7 +371,7 @@
           </div>
 
           <div class="btn-wrapper2">
-            <button type="submit" class="btn ">
+            <button type="submit" class="btn">
               ログイン
             </button>
           </div>

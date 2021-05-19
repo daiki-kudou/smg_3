@@ -517,7 +517,6 @@
       </div>
       <section class="contents">
 
-
         {{-- <form method="POST" action="http://127.0.0.1:8000/user/password/email">
           <input type="hidden" name="_token" value="FPufk5E7ofCkabCOdstQeob6ITCxDpDuIb6M0MF3">
           <div class="bgColorGray">
@@ -558,52 +557,54 @@
           @csrf
 
           <input type="hidden" name="token" value="{{ $token }}">
+          <div class="bgColorGray">
+            <table>
+              <tr>
+                <th>
+                  <label for="email">
+                    メールアドレス
+                  </label>
+                </th>
+                <td>
+                    <input id="email" type="email" class="text1 @error('email') is-invalid @enderror" name="email"
+                      value="{{ $email ?? old('email') }}" required autocomplete="email" autofocus>
+                    @error('email')
+                    <span class="invalid-feedback" role="alert">
+                      <strong>{{ $message }}</strong>
+                    </span>
+                    @enderror
+                </td>
+              </tr>
+              <tr>
+                  <th>
+                    <label for="password">
+                      パスワード
+                    </label>
+                  </th>
+                  <td>
+                      <input id="password" type="password" class="text-1 @error('password') is-invalid @enderror"
+                        name="password" required autocomplete="new-password">
+                      @error('password')
+                      <span class="invalid-feedback" role="alert">
+                        <strong>{{ $message }}</strong>
+                      </span>
+                      @enderror
+                  </td>
+              </tr>
 
-          <div class="form-group row">
-            <label for="email" class="col-md-4 col-form-label text-md-right">
-              メールアドレス
-            </label>
-
-            <div class="col-md-6">
-              <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email"
-                value="{{ $email ?? old('email') }}" required autocomplete="email" autofocus>
-
-              @error('email')
-              <span class="invalid-feedback" role="alert">
-                <strong>{{ $message }}</strong>
-              </span>
-              @enderror
-            </div>
+              <tr>
+                  <th>
+                    <label for="password-confirm">
+                      パスワード（確認用）
+                    </label>
+                  </th>
+                  <td>
+                      <input id="password-confirm" type="password" class="text-1" name="password_confirmation" required
+                        autocomplete="new-password">
+                  </td>
+              </tr>
+            </table>
           </div>
-
-          <div class="form-group row">
-            <label for="password" class="col-md-4 col-form-label text-md-right">
-              パスワード
-            </label>
-
-            <div class="col-md-6">
-              <input id="password" type="password" class="form-control @error('password') is-invalid @enderror"
-                name="password" required autocomplete="new-password">
-
-              @error('password')
-              <span class="invalid-feedback" role="alert">
-                <strong>{{ $message }}</strong>
-              </span>
-              @enderror
-            </div>
-          </div>
-
-          <div class="form-group row">
-            <label for="password-confirm" class="col-md-4 col-form-label text-md-right">
-              パスワード（確認用）
-            </label>
-
-            <div class="col-md-6">
-              <input id="password-confirm" type="password" class="form-control" name="password_confirmation" required
-                autocomplete="new-password">
-            </div>
-          </div>
-
           <div class="form-group row mb-0">
             <div class="col-md-6 offset-md-4">
               <button type="submit" class="">
@@ -611,14 +612,9 @@
               </button>
             </div>
           </div>
+
         </form>
-
-
-
-
       </section>
-
-
 
       <script>
         $("form[name='calendar02'] select[name='room04']").val($("form[name='calendar02'] select[name='room04'] option").first().val());
