@@ -45,7 +45,12 @@ class ReservationPresenter extends Presenter
       return 0;
     } else {
       $percent = ($this->cost) * 0.01;
-      return ($subtotal - ($subtotal * $percent));
+      $layout = [];
+      foreach ($this->cxls as $key => $value) {
+        $layout[] = $value->cxl_breakdowns->where('unit_percent_type', 3)->first()->unit_subtotal ?? 0;
+      }
+      $layout = array_sum($layout);
+      return ($subtotal - ($layout * 1.1)) * $percent;
     }
   }
 
