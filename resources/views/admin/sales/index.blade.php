@@ -227,7 +227,8 @@
       @for ($i = 0; $i < $reservation->billCount(); $i++)
         @if ($i==0)
         <tr class="table_row">
-          <td rowspan="{{($reservation->billCount()*2)+$reservation->cxlCount()+2}}">予約一括ID</td>
+          <td rowspan="{{($reservation->billCount()*2)+$reservation->cxlCount()+2}}">
+            {{$reservation->multiple_reserve_id}}</td>
           <td rowspan="{{($reservation->billCount()*2)+$reservation->cxlCount()+2}}">
             {{ReservationHelper::IdFormat($reservation->id)}}</td>
           <td rowspan="{{($reservation->billCount()*2)+$reservation->cxlCount()+2}}">
