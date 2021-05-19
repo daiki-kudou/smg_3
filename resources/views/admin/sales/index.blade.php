@@ -258,11 +258,11 @@
             {{number_format($reservation->bills->first()->master_total)}}円</td>
           <td>
             {{-- 売上原価 --}}
-            {{number_format($reservation->venue->getCostForPartner($reservation->venue, $reservation->bills->first()->master_total, $reservation->bills->first()->layout_price))}}円
+            {{number_format($reservation->venue->getCostForPartner($reservation->venue, $reservation->bills->first()->master_total, $reservation->bills->first()->layout_price,$reservation))}}円
           </td>
           <td>
             {{-- 粗利 --}}
-            {{number_format($reservation->venue->getProfitForPartner($reservation->venue, $reservation->bills->first()->master_total, $reservation->bills->first()->layout_price))}}円
+            {{number_format($reservation->venue->getProfitForPartner($reservation->venue, $reservation->bills->first()->master_total, $reservation->bills->first()->layout_price,$reservation))}}円
           </td>
           <td>{{($reservation->bills->first()->category==1?"会場予約":"")}}</td>
           <td> {{ReservationHelper::judgeStatus($reservation->bills->first()->reservation_status)}}</td>
@@ -314,11 +314,11 @@
             {{number_format($reservation->bills->skip($i)->first()->master_total)}}円</td>
           <td>
             {{-- 売上原価 --}}
-            {{number_format($reservation->venue->getCostForPartner($reservation->venue, $reservation->bills->skip($i)->first()->master_total, $reservation->bills->skip($i)->first()->layout_price))}}円
+            {{number_format($reservation->venue->getCostForPartner($reservation->venue, $reservation->bills->skip($i)->first()->master_total, $reservation->bills->skip($i)->first()->layout_price, $reservation))}}円
           </td>
           <td>
             {{-- 粗利 --}}
-            {{number_format($reservation->venue->getProfitForPartner($reservation->venue, $reservation->bills->skip($i)->first()->master_total, $reservation->bills->skip($i)->first()->layout_price))}}円
+            {{number_format($reservation->venue->getProfitForPartner($reservation->venue, $reservation->bills->skip($i)->first()->master_total, $reservation->bills->skip($i)->first()->layout_price, $reservation))}}円
           </td>
           <td> {{($reservation->bills->skip($i)->first()->category==2?"追加請求".$i:"")}}</td>
           <td> {{ReservationHelper::judgeStatus($reservation->bills->skip($i)->first()->reservation_status)}}</td>

@@ -591,6 +591,7 @@ class PreReservationsController extends Controller
       $PreReservation->update(['status' => 1]);
     });
     $admin = config('app.admin_email');
+    $admin = explode(',', $admin);
 
 
     Mail::to($admin) //管理者
