@@ -45,7 +45,8 @@
 @if (! empty($salutation))
 {{ $salutation }}
 @else
-@lang('Regards'),<br>
+{{-- @lang('Regards'),<br> --}}
+@lang(''),<br>
 {{ config('app.name') }}
 @endif
 
@@ -58,8 +59,9 @@
 // [
 // 'actionText' => $actionText,
 // ]
+""
 )
-<span class="break-all">[{{ $displayableActionUrl }}]({{ $actionUrl }})</span>
+{{-- <span class="break-all">[{{ $displayableActionUrl }}]({{ $actionUrl }})</span> --}}
 @endslot
 @endisset
 @endcomponent
