@@ -217,7 +217,7 @@ class Cxl extends Model
 
   public function sendCxlEmail()
   {
-    $admin = config('app.admin_email');
+    $admin = explode(',', config('app.admin_email'));
 
     $company = $this->reservation->user->company;
     $date = $this->reservation->reserve_date;
