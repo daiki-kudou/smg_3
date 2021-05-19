@@ -274,7 +274,7 @@
               予約詳細
             </a>
           </td>
-          <td rowspan="{{($reservation->billCount()*2)+$reservation->cxlCount()+2}}">振込名 </td>
+          <td>{{$reservation->bills->first()->pay_person}}</td>
           <td rowspan="{{($reservation->billCount()*2)+$reservation->cxlCount()+2}}">
             {{!empty($reservation->user_id)?ReservationHelper::getAttr($reservation->user_id):""}}
           </td>
@@ -302,6 +302,7 @@
           </td>
           <td>-</td>
           <td>-</td>
+          <td>{{--振り込み名　表示必要なし --}}</td>
           <td>-</td>
         </tr>
         @endif
@@ -322,6 +323,7 @@
           <td> {{ReservationHelper::judgeStatus($reservation->bills->skip($i)->first()->reservation_status)}}</td>
           <td> {{ReservationHelper::formatDate($reservation->bills->skip($i)->first()->pay_day)}}</td>
           <td> {{$reservation->bills->skip($i)->first()->paid==0?"未入金":"入金済"}}</td>
+          <td>{{($reservation->bills->skip($i)->first()->pay_person)}}</td>
           <td> {{ReservationHelper::formatDate($reservation->bills->skip($i)->first()->payment_limit)}}</td>
         </tr>
         @if ($reservation->bills->skip($i)->first()->cxl)
@@ -340,6 +342,7 @@
           </td>
           <td>-</td>
           <td>-</td>
+          <td>{{--振り込み名　表示必要なし --}}</td>
           <td>-</td>
         </tr>
         @elseif($reservation->cxls->where('bill_id',0)->count()>0)
@@ -358,6 +361,7 @@
           </td>
           <td>-</td>
           <td>-</td>
+          <td>{{--振り込み名　表示必要なし --}}</td>
           <td>-</td>
         </tr>
         @endif
@@ -374,6 +378,7 @@
           <td>キャンセル</td>{{--状況--}}
           <td></td>{{--支払--}}
           <td></td>{{--入金--}}
+          <td>{{--振り込み名　表示必要なし --}}</td>
           <td></td>{{--期日--}}
         </tr>
         @endif
