@@ -28,8 +28,31 @@ class ReservationPresenter extends Presenter
   public function totalAmountWithCxl()
   {
     // return $this->cxls->count();
-    $main = $this->bills->where('reservation_status', '<=', 3)->pluck('master_total')->sum();
+    $subtotal = $this->bills->where('reservation_status', '<=', 3)->pluck('master_total')->sum();
     $cxl = $this->cxls->pluck('master_total')->sum();
-    return $main + $cxl;
+    return $subtotal + $cxl;
+  }
+
+  public function cxlSubtotal()
+  {
+    return $this->cxls->pluck('master_total')->sum();
+  }
+
+  public function cxlCost()
+  {
+    $subtotal = $this->cxlSubtotal();
+    if ($this->venue->alliance_flag == 0) {
+      return 0;
+    } else {
+      $percent = ($this->cost) * 0.01;
+      return ($subtotal - ($subtotal * $percent)) * 1.1;
+    }
+  }
+
+  public function cxlProfit()
+  {
+    $subtotal = $this->cxlSubtotal();
+    $cost = $this->cxlCost();
+    return $subtotal - $cost;
   }
 }

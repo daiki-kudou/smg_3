@@ -360,9 +360,9 @@
         {{-- キャンセル部分　一番下にくる --}}
         @if ($reservation->cxls->count()>0)
         <tr>
-          <td>{{number_format($reservation->cxls->pluck('master_total')->sum())}}円</td>{{--売上--}}
-          <td></td>{{--原価--}}
-          <td></td>{{--粗利--}}
+          <td>{{number_format($reservation->cxlSubtotal())}}円</td>{{--売上--}}
+          <td>{{number_format($reservation->cxlCost())}}円</td>{{--原価--}}
+          <td>{{number_format($reservation->cxlProfit())}}円</td>{{--粗利--}}
           <td>キャンセル</td>{{--区分--}}
           <td>キャンセル</td>{{--状況--}}
           <td></td>{{--支払--}}
