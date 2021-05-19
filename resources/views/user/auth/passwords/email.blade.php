@@ -288,17 +288,16 @@
       <div class="contents">
         <div class="pagetop-text">
           <h1 class="page-title oddcolor"><span>ユーザIDの確認・パスワードの再設定 </span></h1>
-          <p>メールアドレスを入力してください。パスワード再設定用のリンクを送信いたします</p>
         </div>
       </div>
-      <section class="contents">
 
+      <section class="contents">
         @if (session('status'))
         <div class="alert alert-success" role="alert">
           {{ session('status') }}
         </div>
         @endif
-
+        <p>メールアドレスを入力してください。パスワード再設定用のリンクを送信いたします</p>
         <form method="POST" action="{{ route('user.password.email') }}">
           @csrf
           <div class="bgColorGray">
@@ -323,9 +322,6 @@
               </tr>
             </table>
           </div>
-
-
-
           <div class="form-group row mb-0">
             <div class="col-md-6 offset-md-4">
               <button type="submit" class="btn btn-primary">
@@ -334,14 +330,6 @@
             </div>
           </div>
         </form>
-
-
-        {{-- <div class="btn-wrapper2">
-          <p class="confirm-btn">
-            <button type="submit" id="" name="action" value="send" block="false">送信する</button>
-          </p>
-        </div> --}}
-
       </section>
 
 
