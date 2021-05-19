@@ -496,7 +496,7 @@
           </thead>
           <tbody>
             <tr>
-              <td class="table-active"><label for="cost">支払割合（原価）</label></td>
+              <td class="table-active form_required"><label for="cost">支払割合（原価）</label></td>
               <td>
                 <div class="d-flex align-items-center">
                   {{ Form::text('cost', old('cost'), ['class' => 'form-control']) }}

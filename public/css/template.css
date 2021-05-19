@@ -1127,7 +1127,7 @@ table td.table_column p:last-child {
   }
 
   .sale-body td {
-    border-bottom: 1px solid #6f6f6f;
+    /* border-bottom: 1px solid #6f6f6f; */
   }
 
 /* =============メールテンプレート　一覧================================================ */

@@ -1314,7 +1314,7 @@ $(function () {
       mgmt_emer_tel: { number: true },
       mgmt_person_tel: { number: true },
       mgmt_sec_tel: { number: true },
-      cost: { range: [1, 100], maxlength: 3 },
+      cost: { required:true, range: [1, 100], maxlength: 3 },
       reserver_tel: { number: true },
     },
     messages: {
@@ -1360,6 +1360,7 @@ $(function () {
       mgmt_person_tel: { number: "※半角英数字で入力してください" },
       mgmt_sec_tel: { number: "※半角英数字で入力してください" },
       cost: {
+        required: "※必須項目です",
         range: "※1から100までの数値を入力してください",
         maxlength: "※最大桁数は3です",
       },
