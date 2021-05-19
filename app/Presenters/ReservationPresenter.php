@@ -55,4 +55,14 @@ class ReservationPresenter extends Presenter
     $cost = $this->cxlCost();
     return $subtotal - $cost;
   }
+
+  public function totalPaid()
+  {
+    return $this->bills->pluck('payment')->sum();
+  }
+
+  public function balance($sales)
+  {
+    return $sales - $this->totalPaid();
+  }
 }
