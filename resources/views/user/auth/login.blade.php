@@ -287,12 +287,6 @@
         </ol>
       </nav>
       <!-- ログイン、会員登録 -->
-      <div class="contents">
-        <div class="pagetop-text">
-          <h1 class="page-title oddcolor"><span>ログイン/会員登録</span></h1>
-        </div>
-      </div>
-
       @if (session('flash_message'))
       <div class="contents">
         <div class="pagetop-text">
@@ -300,6 +294,12 @@
         </div>
         <div class="text-box">
           <p class="text-center">会員登録が完了しました。<br>下記より、ログインしてください。</p>
+        </div>
+      </div>
+      @else
+      <div class="contents">
+        <div class="pagetop-text">
+          <h1 class="page-title oddcolor"><span>ログイン/会員登録</span></h1>
         </div>
       </div>
       @endif
