@@ -22,8 +22,7 @@ class SalesController extends Controller
     //     ELSE 9999 
     //     END"
     //   )->paginate(30);
-    $reservations = Reservation::with(['bills', 'user', 'agent', 'cxls', 'enduser', 'venue'])->get()->sortByDesc('id');
-
+    $reservations = Reservation::with(['bills.cxl', 'user', 'agent', 'cxls.cxl_breakdowns', 'enduser', 'venue'])->get()->sortByDesc('id');
     return view('admin.sales.index', compact('reservations'));
   }
 
