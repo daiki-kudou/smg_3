@@ -65,11 +65,11 @@
   <div class="payment_situation">
     <dl>
       <dt>合計入金額</dt>
-      <dd>円</dd>
+      <dd>{{number_format($reservation->totalPaid())}}円</dd>
     </dl>
     <dl>
       <dt>未入金額</dt>
-      <dd>円</dd>
+      <dd>{{number_format($reservation->balance(ReservationHelper::taxAndPrice($master_prices[4])))}}円</dd>
     </dl>
   </div>
 </div>

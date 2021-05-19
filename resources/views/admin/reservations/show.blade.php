@@ -1329,7 +1329,6 @@
           </div>
         </div>
 
-
         <div class="main hide">
           {{ Form::open(['url' => 'admin/cxl/update_cxl_bill_info', 'method'=>'post']) }}
           @csrf
@@ -1397,7 +1396,6 @@
           </div>
         </div>
 
-
         <div class="main">
           {{ Form::open(['url' => 'admin/cxl/update_cxl_paid_info', 'method'=>'post']) }}
           @csrf
@@ -1438,8 +1436,6 @@
           </div>
           {{Form::close()}}
         </div>
-
-
 
       </div>
     </div>

@@ -288,10 +288,10 @@
             {{number_format(-$reservation->bills->first()->master_total)}}円
           </td>
           <td>
-            {{-- 売上原価 --}}
+            -
           </td>
           <td>
-            {{-- 粗利 --}}
+            -
           </td>
           <td>
             {{"会場予約キャンセル"}}
@@ -299,11 +299,9 @@
           <td>
             {{ReservationHelper::judgeStatus($reservation->bills->first()->reservation_status)}}
           </td>
-          <td>
-          </td>
-          <td>
-          </td>
-          <td></td>
+          <td>-</td>
+          <td>-</td>
+          <td>-</td>
         </tr>
         @endif
         @else
@@ -331,26 +329,17 @@
             {{-- 売上 --}}
             {{number_format(-$reservation->bills->skip($i)->first()->master_total)}}円
           </td>
-          <td>
-            {{-- 売上原価 --}}
-          </td>
-          <td>
-            {{-- 粗利 --}}
-          </td>
+          <td>-</td>
+          <td>-</td>
           <td>
             {{"追加請求".$i."キャンセル"}}
           </td>
           <td>
             {{ReservationHelper::cxlStatus($reservation->bills->skip($i)->first()->cxl->cxl_status)}}
           </td>
-          <td>
-            {{-- 個別キャンセル分16 --}}
-          </td>
-          <td>
-            {{-- 個別キャンセル分7 --}}
-          </td>
-          <td>
-          </td>
+          <td>-</td>
+          <td>-</td>
+          <td>-</td>
         </tr>
         @elseif($reservation->cxls->where('bill_id',0)->count()>0)
         <tr> {{--個別キャンセルではなく、メインの予約がキャンセルされた際 --}}
@@ -358,26 +347,17 @@
             {{-- 売上 --}}
             {{number_format(-$reservation->bills->skip($i)->first()->master_total)}}円
           </td>
-          <td>
-            {{-- 売上原価 --}}
-          </td>
-          <td>
-            {{-- 粗利 --}}
-          </td>
+          <td>-</td>
+          <td>-</td>
           <td>
             {{"追加請求".$i."キャンセル"}}
           </td>
           <td>
             {{ReservationHelper::cxlStatus($reservation->bills->skip($i)->first()->cxl_status)}}
           </td>
-          <td>
-            {{-- 個別キャンセル分16 --}}
-          </td>
-          <td>
-            {{-- 個別キャンセル分7 --}}
-          </td>
-          <td>
-          </td>
+          <td>-</td>
+          <td>-</td>
+          <td>-</td>
         </tr>
         @endif
         @endif

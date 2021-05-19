@@ -45,7 +45,7 @@ class ReservationPresenter extends Presenter
       return 0;
     } else {
       $percent = ($this->cost) * 0.01;
-      return ($subtotal - ($subtotal * $percent)) * 1.1;
+      return ($subtotal - ($subtotal * $percent));
     }
   }
 
@@ -54,5 +54,15 @@ class ReservationPresenter extends Presenter
     $subtotal = $this->cxlSubtotal();
     $cost = $this->cxlCost();
     return $subtotal - $cost;
+  }
+
+  public function totalPaid()
+  {
+    return $this->bills->pluck('payment')->sum();
+  }
+
+  public function balance($sales)
+  {
+    return $sales - $this->totalPaid();
   }
 }
