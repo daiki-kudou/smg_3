@@ -36,7 +36,7 @@ class PreusersController extends Controller
     $id = $request->id;
     $token = $request->token;
     $email = $request->email;
-    $link = "https://staging-smg2.herokuapp.com/user/preusers/" . $id . "/" . $token . "/" . $email;
+    $link = url('/') . "/user/preusers/" . $id . "/" . $token . "/" . $email;
     $admin = explode(',', config('app.admin_email'));
     Mail::to($admin)->send(new AdminReqLeg($id, $token, $email, $link));
     Mail::to($email)->send(new UserReqLeg($id, $token, $email, $link));
