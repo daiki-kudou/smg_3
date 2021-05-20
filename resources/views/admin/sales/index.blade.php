@@ -29,19 +29,19 @@
       <tr>
         <th class="search_item_name"><label for="bulkid">予約一括ID</label>
         <td class="text-right">
-          <input type="text" name="bulkid" class="form-control" id="bulkid">
+          {{Form::text('multiple_id',$request->multiple_id,['class'=>'form-control'])}}
         </td>
-        <th class="search_item_name"><label for="id">予約ID OK!!!!!!!!!!!!!!!!!!!</label></th>
+        <th class="search_item_name"><label for="id">予約ID</label></th>
         <td>
           {{Form::text('id',$request->id,['class'=>'form-control'])}}
         </td>
       </tr>
       <tr>
-        <th class="search_item_name"><label for="date">利用日 OK!!!!!!!!!!!!!!!!!!!　</label> </th>
+        <th class="search_item_name"><label for="date">利用日</label> </th>
         <td class="text-right form-group hasDatepicker">
           {{Form::text('reserve_date',$request->reserve_date, ['class'=>'form-control'])}}
         </td>
-        <th class="search_item_name"><label for="venue">利用会場 OK!!!!!!!!!!!!!!!!!!!　</label></th>
+        <th class="search_item_name"><label for="venue">利用会場</label></th>
         <td class="text-right">
           <dd>
             <select class="form-control select2" name="venue">
@@ -57,13 +57,13 @@
       </tr>
       <tr>
         <th class="search_item_name">
-          <label for="customer">顧客ID OK!!!!!!!!!!!!!!!!!!! </label>
+          <label for="customer">顧客ID</label>
         </th>
         <td>
           {{Form::text('user_id',$request->user_id,['class'=>'form-control'])}}
         </td>
         <th class="search_item_name">
-          <label for="company">会社名・団体名 OK!!!!!!!!!!!!!!!!!!! </label>
+          <label for="company">会社名・団体名</label>
         </th>
         <td class="text-right">
           {{Form::text('company',$request->company,['class'=>'form-control'])}}
@@ -71,12 +71,12 @@
       </tr>
       <tr>
         <th class="search_item_name">
-          <label for="person">担当者氏名 OK!!!!!!!!!!!!!!!!!!! </label>
+          <label for="person">担当者氏名</label>
         </th>
         <td class="text-right">
           {{Form::text('person',$request->person,['class'=>'form-control'])}}
         </td>
-        <th class="search_item_name"><label for="agent">仲介会社 OK!!!!!!!!!!!!!!!!!!! </label></th>
+        <th class="search_item_name"><label for="agent">仲介会社</label></th>
         <td class="text-right">
           <select class="form-control select2" name="agent">
             <option value=""></option>
@@ -90,17 +90,17 @@
         </td>
       </tr>
       <tr>
-        <th class="search_item_name"><label for="enduser">エンドユーザー OK!!!!!!!!!!!!!!!!!!! </label></th>
+        <th class="search_item_name"><label for="enduser">エンドユーザー</label></th>
         <td class="text-right">
           {{Form::text('enduser',$request->enduser,['class'=>'form-control'])}}
         </td>
-        <th class="search_item_name"><label for="sum">総額　 OK!!!!!!!!!!!!!!!!!!! 　</label></th>
+        <th class="search_item_name"><label for="sum">総額</label></th>
         <td>
           {{Form::text('amount',$request->amount,['class'=>'form-control'])}}
         </td>
       </tr>
       <tr>
-        <th class="search_item_name"><label for="paydue">支払期日　 OK!!!!!!!!!!!!!!!!!!! 　</label></th>
+        <th class="search_item_name"><label for="paydue">支払期日</label></th>
         <td class="text-right form-group">
           {{Form::text('payment_limit',$request->payment_limit, ['class'=>'form-control'])}}
         </td>
@@ -123,7 +123,7 @@
         </td>
       </tr>
       <tr>
-        <th class="search_item_name"><label for="billStatus">予約状況 OK！！！！！！！！！！！！！！！！！</label></th>
+        <th class="search_item_name"><label for="billStatus">予約状況</label></th>
         <td>
           <ul class="search_category">
             <li>
@@ -136,7 +136,7 @@
             </li>
           </ul>
         </td>
-        <th class="search_item_name"><label for="payStatus">入金状況　OK！！！！！！！！！！！！！！！！！　</label></th>
+        <th class="search_item_name"><label for="payStatus">入金状況</label></th>
         <td class="text-right">
           <ul class="search_category">
             <li>
@@ -247,7 +247,7 @@
         @if ($i==0)
         <tr class="table_row">
           <td rowspan="{{($reservation->billCount()*2)+$reservation->cxlCount()+2}}">
-            {{$reservation->multiple_reserve_id}}</td>
+            {{ReservationHelper::IdFormat($reservation->multiple_reserve_id)}}</td>
           <td rowspan="{{($reservation->billCount()*2)+$reservation->cxlCount()+2}}">
             {{ReservationHelper::IdFormat($reservation->id)}}</td>
           <td rowspan="{{($reservation->billCount()*2)+$reservation->cxlCount()+2}}">

@@ -61,14 +61,13 @@ class SalesController extends Controller
 
   public function search($target, $request)
   {
-    // 総額検索用の総額抽出部分
-    $sequence = $target->get()->map(function ($item) {
-      return (["amount" => $item->totalAmountWithCxl(), "id" => $item->id]);
-    });
-    $amounts_array = $sequence->pluck("amount", "id")->toArray();
-    // 総額検索用の総額抽出部分
+    // 総額検索用
+    $amounts_array = $this->getTotalAmountForSearch($target);
 
     $result = $target->where(function ($query) use ($request, $amounts_array) {
+      if ($request->multiple_reserve_id) {
+        $query->where('multiple_reserve_id', 'like', "%{$request->multiple_reserve_id}%");
+      }
       if ($request->id) {
         $query->where('id', 'like', "%{$request->id}%");
       }
@@ -138,6 +137,14 @@ class SalesController extends Controller
       }
     }
     return $empty;
+  }
+
+  public function getTotalAmountForSearch($target)
+  {
+    $sequence = $target->get()->map(function ($item) {
+      return (["amount" => $item->totalAmountWithCxl(), "id" => $item->id]);
+    });
+    return $amounts_array = $sequence->pluck("amount", "id")->toArray();
   }
 
   public function download_csv(Request $request)
