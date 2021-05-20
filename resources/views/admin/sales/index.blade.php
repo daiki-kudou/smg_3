@@ -188,7 +188,9 @@
     <dd>00000<span>円</span></dd>
   </dl>
 
-  <p class="ml-1 text-right"><a class="more_btn4_lg" href="">表示結果ダウンロード(CSV)</a></p>
+  <p class="ml-1 text-right">
+    <a class="more_btn4_lg" href="{{url('admin/csv')}}">表示結果ダウンロード(CSV)</a>
+  </p>
 </div>
 <div class="mt-3">
   <p class="text-right font-weight-bold"><span class="count-color">10</span>件</p>
