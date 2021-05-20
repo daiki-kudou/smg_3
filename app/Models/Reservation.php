@@ -866,4 +866,11 @@ class Reservation extends Model implements PresentableInterface
       });
     }
   }
+
+  public function totalAmountWithCxl()
+  {
+    $subtotal = $this->bills->where('reservation_status', '<=', 3)->pluck('master_total')->sum();
+    $cxl = $this->cxls->pluck('master_total')->sum();
+    return $subtotal + $cxl;
+  }
 }

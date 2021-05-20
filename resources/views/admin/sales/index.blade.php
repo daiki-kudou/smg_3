@@ -21,6 +21,8 @@
 
 
 <!-- 検索--------------------------------------- -->
+{{ Form::open(['url' => 'admin/sales', 'method'=>'GET']) }}
+@csrf
 <div class="search-wrap">
   <table class="table table-bordered">
     <tbody>
@@ -29,54 +31,68 @@
         <td class="text-right">
           <input type="text" name="bulkid" class="form-control" id="bulkid">
         </td>
-        <th class="search_item_name"><label for="id">予約ID</label></th>
+        <th class="search_item_name"><label for="id">予約ID OK!!!!!!!!!!!!!!!!!!!</label></th>
         <td>
-          <input type="text" name="id" class="form-control" id="id">
+          {{Form::text('id',$request->id,['class'=>'form-control'])}}
         </td>
       </tr>
       <tr>
-        <th class="search_item_name"><label for="date">利用日</label></th>
+        <th class="search_item_name"><label for="date">利用日 OK!!!!!!!!!!!!!!!!!!!　</label> </th>
         <td class="text-right form-group hasDatepicker">
-          <input type="date" class="form-control hasDatepicker" id="">
+          {{Form::text('reserve_date',$request->reserve_date, ['class'=>'form-control'])}}
         </td>
-        <th class="search_item_name"><label for="venue">利用会場</label></th>
+        <th class="search_item_name"><label for="venue">利用会場 OK!!!!!!!!!!!!!!!!!!!　</label></th>
         <td class="text-right">
           <dd>
             <select class="form-control select2" name="venue">
-              <option>テスト会場A</option>
-              <option>テスト会場B</option>
-              <option>テスト会場C</option>
+              <option value=""></option>
+              @foreach ($venues as $venue)
+              @if ($request->venue==$venue)
+              <option value="{{$venue}}" selected>{{ReservationHelper::getVenue($venue)}}</option>
+              @endif
+              <option value="{{$venue}}">{{ReservationHelper::getVenue($venue)}}</option>
+              @endforeach
             </select>
         </td>
       </tr>
       <tr>
-        <th class="search_item_name"><label for="customer">顧客ID</label></th>
+        <th class="search_item_name">
+          <label for="customer">顧客ID OK!!!!!!!!!!!!!!!!!!! </label>
+        </th>
         <td>
-          <input type="text" name="customer" class="form-control">
+          {{Form::text('user_id',$request->user_id,['class'=>'form-control'])}}
         </td>
-        <th class="search_item_name"><label for="company">会社名・団体名</label></th>
+        <th class="search_item_name">
+          <label for="company">会社名・団体名 OK!!!!!!!!!!!!!!!!!!! </label>
+        </th>
         <td class="text-right">
-          <input type="text" name="company" class="form-control" id="company">
+          {{Form::text('company',$request->company,['class'=>'form-control'])}}
         </td>
       </tr>
       <tr>
-        <th class="search_item_name"><label for="person">担当者氏名</label></th>
+        <th class="search_item_name">
+          <label for="person">担当者氏名 OK!!!!!!!!!!!!!!!!!!! </label>
+        </th>
         <td class="text-right">
-          <input type="text" name="person" class="form-control" id="person">
+          {{Form::text('person',$request->person,['class'=>'form-control'])}}
         </td>
-        <th class="search_item_name"><label for="agent">仲介会社</label></th>
+        <th class="search_item_name"><label for="agent">仲介会社 OK!!!!!!!!!!!!!!!!!!! </label></th>
         <td class="text-right">
           <select class="form-control select2" name="agent">
-            <option>スペースマーケット</option>
-            <option>スペースマーケット</option>
-            <option>スペースマーケット</option>
+            <option value=""></option>
+            @foreach ($agents as $key=>$value)
+            @if ($request->agent==$key)
+            <option value="{{$key}}" selected>{{$value}}</option>
+            @endif
+            <option value="{{$key}}">{{$value}}</option>
+            @endforeach
           </select>
         </td>
       </tr>
       <tr>
-        <th class="search_item_name"><label for="enduser">エンドユーザー</label></th>
+        <th class="search_item_name"><label for="enduser">エンドユーザー　 OK!!!!!!!!!!!!!!!!!!! </label></th>
         <td class="text-right">
-          <input type="text" name="enduser" class="form-control" id="enduser">
+          {{Form::text('enduser',$request->enduser,['class'=>'form-control'])}}
         </td>
         <th class="search_item_name"><label for="sum">総額</label></th>
         <td>
@@ -172,13 +188,14 @@
     </tbody>
   </table>
   <p class="text-right">※フリーワード検索は本画面表記の項目のみ対象となります</p>
-
   <div class="btn_box d-flex justify-content-center">
-    <input type="reset" value="リセット" class="btn reset_btn">
-    <input type="submit" value="検索" class="btn search_btn">
+    <a href="{{url('admin/sales')}}" class="btn reset_btn">リセット</a>
+    {{Form::submit('検索',['class'=>'btn search_btn'])}}
   </div>
-
 </div>
+{{Form::close()}}
+
+
 
 <!-- 検索　終わり------------------------------------------------ -->
 
@@ -188,7 +205,9 @@
     <dd>00000<span>円</span></dd>
   </dl>
 
-  <p class="ml-1 text-right"><a class="more_btn4_lg" href="">表示結果ダウンロード(CSV)</a></p>
+  <p class="ml-1 text-right">
+    <a class="more_btn4_lg" href="{{url('admin/csv')}}">表示結果ダウンロード(CSV)</a>
+  </p>
 </div>
 <div class="mt-3">
   <p class="text-right font-weight-bold"><span class="count-color">10</span>件</p>
@@ -383,7 +402,6 @@
         </tr>
         @endif
         {{-- キャンセル部分 --}}
-
     </tbody>
     @endforeach
   </table>
@@ -392,5 +410,38 @@
 
 
 
+{{-- {{ $reservations->links() }} --}}
+{{$reservations->appends(request()->input())->render()}}
+
+
+<script>
+  $(function() {
+    function ActiveDateRangePicker($target) {
+      $("input[name='" + $target + "']").daterangepicker({
+        "locale": {
+          "format": "YYYY/MM/DD",
+          "separator": " ~ ",
+          "applyLabel": "反映",
+          "cancelLabel": "初期化",
+          "weekLabel": "W",
+          "daysOfWeek": ["Su", "Mo", "Tu", "We", "Th", "Fr", "Sa"],
+          "monthNames": ["1月", "2月", "3月", "4月", "5月", "6月", "7月", "8月", "9月", "10月", "11月", "12月"],
+          "firstDay": 1,
+        },
+        autoUpdateInput: false
+      });
+      $("input[name='" + $target + "']").on('apply.daterangepicker', function(ev, picker) {
+        $(this).val(picker.startDate.format('YYYY/MM/DD') + ' - ' + picker.endDate.format('YYYY/MM/DD'));
+      });
+      $("input[name='" + $target + "']").on('cancel.daterangepicker', function(ev, picker) {
+        $(this).val('');
+      });
+    }
+    ActiveDateRangePicker('reserve_date');
+  })
+</script>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
+<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
 
 @endsection
