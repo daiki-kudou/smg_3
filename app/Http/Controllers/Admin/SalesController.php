@@ -66,17 +66,20 @@ class SalesController extends Controller
 
     $result = $target->where(function ($query) use ($request, $amounts_array) {
       if ($request->multiple_id) {
-        $query->where('multiple_reserve_id', 'like', "%{$request->multiple_reserve_id}%");
+        $val = $this->formatInputInteger($request->multiple_id);
+        $query->where('multiple_reserve_id', 'like', "%{$val}%");
       }
       if ($request->id) {
-        $query->where('id', 'like', "%{$request->id}%");
+        $val = $this->formatInputInteger($request->id);
+        $query->where('id', 'like', "%{$val}%");
       }
       if ($request->reserve_date) {
         $targetDate = str_replace(" ", "", str_replace('/', '-', explode('-', $request->reserve_date)));
         $query->whereBetween("reserve_date", $targetDate);
       }
       if ($request->user_id) {
-        $query->where('user_id', 'like', "%{$request->user_id}%");
+        $val = $this->formatInputInteger($request->user_id);
+        $query->where('user_id', 'like', "%{$val}%");
       }
       if ($request->company) {
         $user = User::where("company", "like", "%{$request->company}%")->pluck("id")->toArray();
