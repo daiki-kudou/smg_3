@@ -65,7 +65,7 @@ class SalesController extends Controller
     $amounts_array = $this->getTotalAmountForSearch($target);
 
     $result = $target->where(function ($query) use ($request, $amounts_array) {
-      if ($request->multiple_reserve_id) {
+      if ($request->multiple_id) {
         $query->where('multiple_reserve_id', 'like', "%{$request->multiple_reserve_id}%");
       }
       if ($request->id) {

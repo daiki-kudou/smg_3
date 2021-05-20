@@ -27,11 +27,15 @@
   <table class="table table-bordered">
     <tbody>
       <tr>
-        <th class="search_item_name"><label for="bulkid">予約一括ID</label>
+        <th class="search_item_name">
+          <label for="bulkid">予約一括ID</label>
+        </th>
         <td class="text-right">
           {{Form::text('multiple_id',$request->multiple_id,['class'=>'form-control'])}}
         </td>
-        <th class="search_item_name"><label for="id">予約ID</label></th>
+        <th class="search_item_name">
+          <label for="id">予約ID</label>
+        </th>
         <td>
           {{Form::text('id',$request->id,['class'=>'form-control'])}}
         </td>

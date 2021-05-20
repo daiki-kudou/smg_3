@@ -272,7 +272,9 @@ class ReservationHelper
 
   public static function IdFormat($num)
   {
-    return sprintf('%05d', $num);
+    if (!empty($num)) {
+      return sprintf('%05d', $num);
+    }
   }
 
   public static function judgeArrayEmpty($array)
