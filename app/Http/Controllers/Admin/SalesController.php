@@ -7,38 +7,94 @@ use App\Http\Controllers\Controller;
 
 use App\Models\Reservation;
 use App\Models\Bill;
+use App\Models\User;
+use App\Models\Agent;
+use App\Models\Venue;
+use App\Models\Enduser;
 use Carbon\Carbon;
 
-// 参照　https://qiita.com/t_n/items/1c9a239da4cf938ae0a8
-use Illuminate\Pagination\LengthAwarePaginator; //カスタムページャー
-
+use App\Traits\PaginatorTrait;
 
 class SalesController extends Controller
 {
+
+  use PaginatorTrait;
+
   public function index(Request $request)
   {
+    $agents = Agent::pluck("company", "id")->toArray();
+    $venues = Venue::pluck("id")->toArray();
+    if (!empty($request->all())) {
+      $merge = $this->withRequest($request);
+    } else {
+      $merge = $this->noRequest();
+    }
+    $reservations = $this->customPaginate($merge, 3, $request);
+    return view('admin.sales.index', compact('reservations', 'request', 'agents', 'venues'));
+  }
+
+  public function noRequest()
+  {
     $today = Carbon::today();
-    // $reservations = Reservation::with(['bills.cxl', 'user', 'agent', 'cxls', 'enduser', 'venue'])
-    //   ->orderByRaw(
-    //     "CASE WHEN reserve_date > '$today' 
-    //     THEN reserve_date 
-    //     ELSE 9999 
-    //     END"
-    //   )->paginate(30);
-    $reservations = Reservation::with(['bills.cxl', 'user', 'agent', 'cxls.cxl_breakdowns', 'enduser', 'venue'])->get()->sortByDesc('id');
+    $after = Reservation::with(['bills.cxl', 'user', 'agent', 'cxls.cxl_breakdowns', 'enduser', 'venue'])->where('reserve_date', '>=', $today)->get()->sortBy('reserve_date');
+    $before = Reservation::with(['bills.cxl', 'user', 'agent', 'cxls.cxl_breakdowns', 'enduser', 'venue'])->where('reserve_date', '<', $today)->get()->sortByDesc('reserve_date');
+    $merge = $after->concat($before);
+    return $merge;
+  }
 
+  public function withRequest($request)
+  {
+    $today = Carbon::today();
+    $after = Reservation::with(['bills.cxl', 'user', 'agent', 'cxls.cxl_breakdowns', 'enduser', 'venue'])
+      ->where('reserve_date', '>=', $today);
+    $result_after = $this->search($after, $request)
+      ->get()
+      ->sortBy('reserve_date');
+    $before = Reservation::with(['bills.cxl', 'user', 'agent', 'cxls.cxl_breakdowns', 'enduser', 'venue'])
+      ->where('reserve_date', '<', $today);
+    $result_before = $this->search($before, $request)
+      ->get()
+      ->sortByDesc('reserve_date');
+    $merge = $result_after->concat($result_before);
+    return $merge;
+  }
 
-    $reservations = Reservation::all();
-    $clients = new LengthAwarePaginator(
-      $reservations->forPage(2, 5),
-      count($reservations),
-      5,
-      1,
-      array('path' => $request->url())
-    );
+  public function search($target, $request)
+  {
+    $result = $target->where(function ($query) use ($request) {
+      if ($request->id) {
+        $query->where('id', 'like', "%{$request->id}%");
+      }
+      if ($request->reserve_date) {
+        $targetDate = str_replace(" ", "", str_replace('/', '-', explode('-', $request->reserve_date)));
+        $query->whereBetween("reserve_date", $targetDate);
+      }
+      if ($request->user_id) {
+        $query->where('user_id', 'like', "%{$request->user_id}%");
+      }
+      if ($request->company) {
+        $user = User::where("company", "like", "%{$request->company}%")->pluck("id")->toArray();
+        $query->whereIn("user_id", $user);
+      }
+      if ($request->person) {
+        $user = User::where(\DB::raw('CONCAT(first_name, last_name)'), 'like', "%{$request->person}%")
+          ->pluck('id')
+          ->toArray();
+        $query->whereIn("user_id", $user);
+      }
+      if ($request->agent) {
+        $query->where('agent_id', 'like', "%{$request->agent}%");
+      }
+      if ($request->venue) {
+        $query->where('venue_id', 'like', "%{$request->venue}%");
+      }
+      if ($request->enduser) {
+        $end_user = Enduser::where("company", "like", "%{$request->enduser}%")->pluck("reservation_id")->toArray();
+        $query->whereIn("id", $end_user);
+      }
+    });
 
-
-    return view('admin.sales.index', compact('reservations', 'clients'));
+    return $result;
   }
 
   public function download_csv(Request $request)
