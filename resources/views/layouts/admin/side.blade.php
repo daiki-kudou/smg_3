@@ -245,9 +245,9 @@
         </a>
         <ul class="nav nav-treeview">
           <li class="nav-item">
-            <a href="#" class="nav-link">
+            <a href="{{url('admin/sales')}}" class="nav-link">
               <i class="far fa-circle nav-icon ml-4"></i>
-              <p>########</p>
+              <p>一覧</p>
             </a>
           </li>
         </ul>
