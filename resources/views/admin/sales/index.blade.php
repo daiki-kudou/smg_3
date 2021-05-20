@@ -90,78 +90,78 @@
         </td>
       </tr>
       <tr>
-        <th class="search_item_name"><label for="enduser">エンドユーザー　 OK!!!!!!!!!!!!!!!!!!! </label></th>
+        <th class="search_item_name"><label for="enduser">エンドユーザー OK!!!!!!!!!!!!!!!!!!! </label></th>
         <td class="text-right">
           {{Form::text('enduser',$request->enduser,['class'=>'form-control'])}}
         </td>
-        <th class="search_item_name"><label for="sum">総額</label></th>
+        <th class="search_item_name"><label for="sum">総額　 OK!!!!!!!!!!!!!!!!!!! 　</label></th>
         <td>
-          <input type="text" name="sum" class="form-control">
+          {{Form::text('amount',$request->amount,['class'=>'form-control'])}}
         </td>
       </tr>
       <tr>
-        <th class="search_item_name"><label for="paydue">支払期日</label></th>
+        <th class="search_item_name"><label for="paydue">支払期日　 OK!!!!!!!!!!!!!!!!!!! 　</label></th>
         <td class="text-right form-group">
-          <input type="date" class="form-control float-right" id="paydue">
+          {{Form::text('payment_limit',$request->payment_limit, ['class'=>'form-control'])}}
         </td>
         <th class="search_item_name"><label for="billStatus">売上区分</label></th>
         <td>
           <ul class="search_category">
             <li>
-              <input type="checkbox">
-              <label for="checkboxPrimary1">会場</label>
+              {{ Form::checkbox('sales1', '1',false,['id'=>'sales1']) }}
+              {{ Form::label('sales1', '会場') }}
             </li>
             <li>
-              <input type="checkbox">
-              <label for="checkboxPrimary1">キャンセル</label>
+              {{ Form::checkbox('sales2', '2',false,['id'=>'sales2']) }}
+              {{ Form::label('sales2', 'キャンセル') }}
             </li>
             <li>
-              <input type="checkbox">
-              <label for="checkboxPrimary1">追加請求</label>
+              {{ Form::checkbox('sales3', '3',false,['id'=>'sales3']) }}
+              {{ Form::label('sales3', '追加請求') }}
             </li>
           </ul>
         </td>
       </tr>
       <tr>
-        <th class="search_item_name"><label for="billStatus">予約状況</label></th>
+        <th class="search_item_name"><label for="billStatus">予約状況 OK！！！！！！！！！！！！！！！！！</label></th>
         <td>
           <ul class="search_category">
             <li>
-              <input type="checkbox">
-              <label for="checkboxPrimary1">予約完了</label>
+              {{ Form::checkbox('status3', '3',$request->status3?true:false,['id'=>'status1']) }}
+              {{ Form::label('status1', '予約完了') }}
             </li>
             <li>
-              <input type="checkbox">
-              <label for="checkboxPrimary1">キャンセル</label>
+              {{ Form::checkbox('status6', '6',$request->status6?true:false,['id'=>'status2']) }}
+              {{ Form::label('status2', 'キャンセル') }}
             </li>
           </ul>
         </td>
-        <th class="search_item_name"><label for="payStatus">入金状況</label></th>
+        <th class="search_item_name"><label for="payStatus">入金状況　OK！！！！！！！！！！！！！！！！！　</label></th>
         <td class="text-right">
           <ul class="search_category">
             <li>
-              <input type="checkbox">
-              <label for="payStatus">未入金</label>
+              {{ Form::checkbox('payment_status0', '0',$request->payment_status0!=""?true:false,['id'=>'payment_status0']) }}
+              {{ Form::label('payment_status0', '未入金') }}
             </li>
             <li>
-              <input type="checkbox">
-              <label for="payStatus">入金済</label>
+              {{ Form::checkbox('payment_status1', '1',$request->payment_status1?true:false,['id'=>'payment_status1']) }}
+              {{ Form::label('payment_status1', '入金済') }}
             </li>
             <li>
-              <input type="checkbox">
-              <label for="payStatus">遅延</label>
+              {{ Form::checkbox('payment_status2', '2',$request->payment_status2?true:false,['id'=>'payment_status2']) }}
+              {{ Form::label('payment_status2', '遅延') }}
             </li>
             <li>
-              <input type="checkbox">
-              <label for="payStatus">入金不足</label>
+              {{ Form::checkbox('payment_status3', '3',$request->payment_status3?true:false,['id'=>'payment_status3']) }}
+              {{ Form::label('payment_status3', '入金不足') }}
             </li>
             <li>
-              <input type="checkbox">
-              <label for="payStatus">入金過多</label>
+              {{ Form::checkbox('payment_status4', '4',$request->payment_status4?true:false,['id'=>'payment_status4']) }}
+              {{ Form::label('payment_status4', '入金過多') }}
             </li>
             <li>
-              <input type="checkbox">
-              <label for="payStatus">次回繰越</label>
+              {{ Form::checkbox('payment_status5', '5',$request->payment_status5?true:false,['id'=>'payment_status5']) }}
+              {{ Form::label('payment_status5', '次回繰越') }}
             </li>
           </ul>
         </td>
@@ -171,12 +171,12 @@
         <td class="text-left">
           <ul class="search_category">
             <li>
-              <input type="checkbox" id="">
-              <label for="venuetype">直営</label>
+              {{ Form::checkbox('alliance0', '0',false,['id'=>'alliance0']) }}
+              {{ Form::label('alliance0', '直営') }}
             </li>
             <li>
-              <input type="checkbox" id="">
-              <label for="venuetype">提携</label>
+              {{ Form::checkbox('alliance1', '1',false,['id'=>'alliance1']) }}
+              {{ Form::label('alliance1', '提携') }}
             </li>
           </ul>
         </td>
@@ -287,7 +287,7 @@
           <td>{{($reservation->bills->first()->category==1?"会場予約":"")}}</td>
           <td> {{ReservationHelper::judgeStatus($reservation->bills->first()->reservation_status)}}</td>
           <td> {{ReservationHelper::formatDate($reservation->bills->first()->pay_day)}}</td>
-          <td> {{$reservation->bills->first()->paid==0?"未入金":"入金済"}}</td>
+          <td> {{ReservationHelper::paidStatus($reservation->bills->first()->paid)}}</td>
           <td class="text-center" rowspan="{{($reservation->billCount()*2)+$reservation->cxlCount()+2}}">
             <a class="more_btn" href="{{route('admin.reservations.show',$reservation->id)}}">
               予約詳細
@@ -438,6 +438,7 @@
       });
     }
     ActiveDateRangePicker('reserve_date');
+    ActiveDateRangePicker('payment_limit');
   })
 </script>
 <script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>

@@ -29,7 +29,7 @@ class SalesController extends Controller
     } else {
       $merge = $this->noRequest();
     }
-    $reservations = $this->customPaginate($merge, 3, $request);
+    $reservations = $this->customPaginate($merge, 10, $request);
     return view('admin.sales.index', compact('reservations', 'request', 'agents', 'venues'));
   }
 
@@ -61,7 +61,14 @@ class SalesController extends Controller
 
   public function search($target, $request)
   {
-    $result = $target->where(function ($query) use ($request) {
+    // 総額検索用の総額抽出部分
+    $sequence = $target->get()->map(function ($item) {
+      return (["amount" => $item->totalAmountWithCxl(), "id" => $item->id]);
+    });
+    $amounts_array = $sequence->pluck("amount", "id")->toArray();
+    // 総額検索用の総額抽出部分
+
+    $result = $target->where(function ($query) use ($request, $amounts_array) {
       if ($request->id) {
         $query->where('id', 'like', "%{$request->id}%");
       }
@@ -92,9 +99,45 @@ class SalesController extends Controller
         $end_user = Enduser::where("company", "like", "%{$request->enduser}%")->pluck("reservation_id")->toArray();
         $query->whereIn("id", $end_user);
       }
+      if ($request->amount) {
+        $array_result = $this->amountSearch($amounts_array, $request->amount);
+        $query->whereIn("id", $array_result);
+      }
+      if ($request->payment_limit) {
+        $targetDate = str_replace(" ", "", str_replace('/', '-', explode('-', $request->payment_limit)));
+        $bill = Bill::whereBetween("payment_limit", $targetDate)->distinct()->pluck("reservation_id");
+        $query->whereIn("id", $bill);
+      }
+      for ($i = 0; $i < 9; $i++) {
+        $query->orWhere(function ($query2) use ($request, $i) {
+          if ($request->{"status" . $i}) {
+            $bill = Bill::where('reservation_status', $request->{"status" . $i})->distinct()->pluck("reservation_id")->toArray();
+            $query2->whereIn("id", $bill);
+          };
+          if ($request->{"payment_status" . $i}) {
+            $paid = Bill::where('paid', $request->{"payment_status" . $i})->pluck("reservation_id")->toArray();
+            $query2->whereIn("id", $paid);
+          };
+          if ($request->{"alliance" . $i} != "") {
+            $venue = Venue::where('alliance_flag', $request->{"alliance" . $i})->pluck("id")->toArray();
+            $query2->whereIn("venue_id", $venue);
+          };
+        });
+      }
     });
 
     return $result;
+  }
+
+  public function amountSearch($amounts_array, $input)
+  {
+    $empty = [];
+    foreach ($amounts_array as $key => $value) {
+      if ($value == $input) {
+        $empty[] = $key;
+      }
+    }
+    return $empty;
   }
 
   public function download_csv(Request $request)
