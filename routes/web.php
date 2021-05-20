@@ -387,7 +387,7 @@ Route::namespace('Admin')->prefix('admin')->name('admin.')->group(function () {
     Route::get('note/delete/{note}', 'NoteController@destroy');
     Route::post('note/update', 'NoteController@update');
 
-    Route::get('csv', 'SalesController@download_csv');
+    Route::post('csv', 'SalesController@download_csv');
 
     Route::get('sales', 'SalesController@index');
 

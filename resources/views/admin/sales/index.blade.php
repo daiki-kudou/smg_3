@@ -175,11 +175,11 @@
         <td class="text-left">
           <ul class="search_category">
             <li>
-              {{ Form::checkbox('alliance0', '0',false,['id'=>'alliance0']) }}
+              {{ Form::checkbox('alliance0', '0',$request->alliance0!=""?true:false,['id'=>'alliance0']) }}
               {{ Form::label('alliance0', '直営') }}
             </li>
             <li>
-              {{ Form::checkbox('alliance1', '1',false,['id'=>'alliance1']) }}
+              {{ Form::checkbox('alliance1', '1',$request->alliance1?true:false,['id'=>'alliance1']) }}
               {{ Form::label('alliance1', '提携') }}
             </li>
           </ul>
@@ -209,8 +209,18 @@
     <dd>00000<span>円</span></dd>
   </dl>
 
+
   <p class="ml-1 text-right">
-    <a class="more_btn4_lg" href="{{url('admin/csv')}}">表示結果ダウンロード(CSV)</a>
+    {{ Form::open(['url' => 'admin/csv', 'method'=>'post']) }}
+    @csrf
+    {{Form::hidden('csv_arrays',json_encode($for_csv))}}
+
+    {{Form::submit('表示結果ダウンロード(CSV)',['class'=>'btn more_btn4_lg'])}}
+    {{Form::close()}}
+
+    {{-- <a class="more_btn4_lg" href="{{url('admin/csv')}}">
+    表示結果ダウンロード(CSV)
+    </a> --}}
   </p>
 </div>
 <div class="mt-3">
