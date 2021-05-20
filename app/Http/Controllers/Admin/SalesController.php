@@ -9,6 +9,9 @@ use App\Models\Reservation;
 use App\Models\Bill;
 use Carbon\Carbon;
 
+// 参照　https://qiita.com/t_n/items/1c9a239da4cf938ae0a8
+use Illuminate\Pagination\LengthAwarePaginator; //カスタムページャー
+
 
 class SalesController extends Controller
 {
@@ -23,7 +26,19 @@ class SalesController extends Controller
     //     END"
     //   )->paginate(30);
     $reservations = Reservation::with(['bills.cxl', 'user', 'agent', 'cxls.cxl_breakdowns', 'enduser', 'venue'])->get()->sortByDesc('id');
-    return view('admin.sales.index', compact('reservations'));
+
+
+    $reservations = Reservation::all();
+    $clients = new LengthAwarePaginator(
+      $reservations->forPage(2, 5),
+      count($reservations),
+      5,
+      1,
+      array('path' => $request->url())
+    );
+
+
+    return view('admin.sales.index', compact('reservations', 'clients'));
   }
 
   public function download_csv(Request $request)
