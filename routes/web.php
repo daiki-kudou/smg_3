@@ -265,8 +265,6 @@ Route::namespace('Admin')->prefix('admin')->name('admin.')->group(function () {
     Route::get('agents_reservations/edit_check', 'AgentsReservationsController@editCheck')->name('agents_reservations.edit_check');
     Route::post('agents_reservations/update', 'AgentsReservationsController@update');
 
-
-
     //********************** */
     //***仮抑え */
     //********************** */
@@ -396,5 +394,8 @@ Route::namespace('Admin')->prefix('admin')->name('admin.')->group(function () {
     Route::post('control_time', 'ControltimeController@getInformation');
 
     Route::post('change_log', 'ChangeLogsController@update');
+
+    // FAKE TEST
+    Route::get('fake_test', 'FakeTestController@index');
   });
 });

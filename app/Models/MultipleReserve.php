@@ -39,7 +39,7 @@ class MultipleReserve extends Model implements PresentableInterface //プレゼ�
 
   public function calculateVenue($venue_id, $all_requests)
   {
-    $venue = Venue::find($venue_id);
+    $venue = Venue::with('frame_prices')->find($venue_id);
     $pre_reservations = $this->pre_reservations()->where('venue_id', $venue_id)->orderBy('id')->get();
 
     $venue_price_result = []; //予約の個数分の会場の料金

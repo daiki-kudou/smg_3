@@ -101,9 +101,6 @@ class Venue extends Model implements PresentableInterface
     return true;
   }
 
-
-
-
   /*
 |--------------------------------------------------------------------------
 | 会場とサービスの中間テーブル
@@ -188,16 +185,6 @@ class Venue extends Model implements PresentableInterface
     return $this->hasMany(PreReservation::class);
   }
 
-  /*
-|--------------------------------------------------------------------------
-| 会場と仲介会社の多対多
-|--------------------------------------------------------------------------|
-*/
-  // public function agents()
-  // {
-  //   return $this->belongsToMany('App\Models\Agent')->withTimestamps();
-  // }
-
 
   /*
 |--------------------------------------------------------------------------
@@ -207,94 +194,37 @@ class Venue extends Model implements PresentableInterface
   public function calculate_price($status_id, $start_time, $finish_time)
   {
     if ($status_id == 1) {
-      if ($start_time < '08:00:00' || $finish_time > '23:00:00') {
-        return 0;
-      }
+      // 時間外を除外
+      $this->rejectTime($start_time, $finish_time);
 
-      //料金計算に使う開始時間を計算用に変更
       // 開始時間
-      if ($start_time >= '10:00:00' && $start_time <= '19:00:00') {
-        $generate_start_time = $start_time;
-      } elseif ($start_time == '08:00:00' || $start_time == '08:30:00' || $start_time == '09:00:00' || $start_time == '09:30:00') {
-        $generate_start_time = '10:00:00';
-      }
+      $generate_start_time = $this->generateStartTime($start_time);
 
-      //料金計算に使う開始時間を計算用に変更
-      // 開始時間
-      if ($start_time == '17:00:00' || $start_time == '17:30:00') {
-        $generate_start_time = '18:00:00';
-      } elseif ($start_time == '12:00:00' || $start_time == '12:30:00') {
-        $generate_start_time = '13:00:00';
-      }
-
-      //料金計算に使う開始時間を計算用に変更
       // 終了時間
-      if ($finish_time <= '22:00:00') {
-        $generate_finish_time = $finish_time;
-      } elseif ($finish_time == '22:30:00' || $finish_time == '23:00:00') {
-        $generate_finish_time = '22:00:00';
-      }
+      $generate_finish_time = $this->generateFinishTime($finish_time);
 
-      $price_arrays = $this->frame_prices()->get(); //料金体系判別　and　料金抽出
-      $start_array = [];
-      $finish_array = [];
-      foreach ($price_arrays as $price_array) {
-        $start_array[] = $price_array->start;
-        $finish_array[] = $price_array->finish;
-      }
+      // 各料金体系の営業開始・終了時間の範囲取得
+      $price_arrays = $this->frame_prices;
+      $between_time_list = $this->getEachSalesHours($price_arrays);
 
-      $between_time = [];
-      for ($i = 0; $i < count($start_array); $i++) {
-        $between_time[] = [$start_array[$i], $finish_array[$i]];
-      }
-
-      $between_time_list = []; //全料金パターンの時間配列が入ってる
-      $temporary = []; //一時的にパターン毎の料金配列が入ってる
-
-      for ($pushes = 0; $pushes < count($between_time); $pushes++) { //0から6
-        $get_event_time_start = intval($between_time[$pushes][0]);
-        $get_event_time_end = intval($between_time[$pushes][1]);
-
-        for ($lists = $get_event_time_start * 2; $lists <= $get_event_time_end * 2; $lists++) {
-          $temporary[] = date("H:i:s", strtotime("00:00 +" . $lists * 30 . " minute"));
-        }
-        $between_time_list[] = $temporary;
-        $temporary = []; //temporaryに配列挿入後、一旦初期化
-      }
-
-      /*|--------------------------------------------------------------------------
-      |↓↓↓ 一旦ここで、網羅できる料金体系を抽出完了↓↓↓
-      |--------------------------------------------------------------------------|*/
+      // ↓↓ 一旦ここで、網羅できる料金体系を抽出完了↓↓↓
       $cover_price_result = []; //網羅できる料金体系が格納される
-      for ($price_results = 0; $price_results < count($price_arrays); $price_results++) {
-        // 以下、枠が開始・終了をカバーできるか判定
-        $judge_start = in_array($generate_start_time, $between_time_list[$price_results]); //開始がカバーできてるか
-        $judge_finish = in_array($generate_finish_time, $between_time_list[$price_results]); //終了がカバーできてるか
-        if ($judge_start && $judge_finish) {
-          $cover_price_result[] = $price_arrays[$price_results];
-        } else {
-          $cover_price_result[] = 'false';
-        }
-      }
-      /*|--------------------------------------------------------------------------
-      | ↑↑↑一旦ここで、網羅できる料金体系を抽出完了↑↑↑
-      |--------------------------------------------------------------------------|*/
-
-      // 延長料金を適応して、料金算出できるか判定
       $extend_lists = []; //延長可能な料金体系のindexと実際に延長する時間が配列で入ってる
-      for ($judge_extend = 0; $judge_extend < count($price_arrays); $judge_extend++) {
-        // 以下、枠に延長を足したらカバーできるか判定
-        $judge_start_extend = in_array($generate_start_time, $between_time_list[$judge_extend]); //開始がカバーできてるか
-        $judge_finish_extend = in_array($generate_finish_time, $between_time_list[$judge_extend]); //終了がカバーできてるか
-        if ($judge_start_extend && !$judge_finish_extend) {
-          // return "開始はカバーOK,終了は無理";
-          $selected_finish = strtotime($generate_finish_time);
-          $specific_finish = strtotime($price_arrays[$judge_extend]->finish);
-          $extend_lists[] = ($selected_finish - $specific_finish) / 60 / 60;
+      for ($i = 0; $i < count($price_arrays); $i++) {
+        // ↓　cover_price_result用
+        if (in_array($generate_start_time, $between_time_list[$i]) && in_array($generate_finish_time, $between_time_list[$i])) {
+          $cover_price_result[] = $price_arrays[$i];
+        } else {
+          $cover_price_result[] = "false";
+        }
+        // ↓　extend_lists用
+        if (in_array($generate_start_time, $between_time_list[$i]) && !in_array($generate_finish_time, $between_time_list[$i])) {
+          $extend_lists[] = Carbon::parse($generate_finish_time)->diffInMinutes(Carbon::parse($price_arrays[$i]->finish)) / 60;
         } else {
           $extend_lists[] = 'false';
         }
       }
+
       $extend_prices = []; //1時間もしくは30分の延長料金が入ってる
       foreach ($extend_lists as $extend_list_index => $extend_list_price) {
         if ($extend_list_price == 1) {
@@ -483,6 +413,60 @@ class Venue extends Model implements PresentableInterface
       }
     }
   }
+
+
+  public function rejectTime($start_time, $finish_time)
+  {
+    if ($start_time < '08:00:00' || $finish_time > '23:00:00') {
+      return 0;
+    }
+  }
+
+  public function generateStartTime($start_time)
+  {
+    if ($start_time == '17:00:00' || $start_time == '17:30:00') {
+      return '18:00:00';
+    } elseif ($start_time == '12:00:00' || $start_time == '12:30:00') {
+      return  '13:00:00';
+    } elseif ($start_time == '08:00:00' || $start_time == '08:30:00' || $start_time == '09:00:00' || $start_time == '09:30:00') {
+      return '10:00:00';
+    } elseif ($start_time >= '10:00:00' && $start_time <= '19:00:00') {
+      return $start_time;
+    }
+  }
+
+  public function generateFinishTime($finish_time)
+  {
+    if ($finish_time == '22:30:00' || $finish_time == '23:00:00') {
+      return '22:00:00';
+    } elseif ($finish_time <= '22:00:00') {
+      return $finish_time;
+    }
+  }
+
+  public function getEachSalesHours($master_array)
+  {
+    $result = [];
+    foreach ($master_array as $price_array) {
+      $diff = (Carbon::parse($price_array->start)->diffInMinutes(Carbon::parse($price_array->finish))) / 30;
+      $temporary = [];
+      for ($i = 0; $i <= $diff; $i++) {
+        $temporary[] = date('H:i:s', strtotime(Carbon::parse($price_array->start)->addMinutes($i * 30)));
+      }
+      // dump($TESTARRAY);
+      $result[] = $temporary;
+    }
+    return $result;
+  }
+
+  public function judgeCanCoverFramePrice()
+  {
+  }
+
+
+
+
+
 
   public function calculate_items_price($selected_equipments, $selected_services)
   {
