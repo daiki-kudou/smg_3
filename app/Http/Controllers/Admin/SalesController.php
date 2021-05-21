@@ -140,7 +140,6 @@ class SalesController extends Controller
           $query2->orWhere('id', 'like', "%{$val}%");
           $query2->orWhere('multiple_reserve_id', 'like', "%{$val}%");
           $query2->orWhere('multiple_reserve_id', 'like', "%{$val}%");
-          $query2->orWhereDate("reserve_date", $request->free_word);
           $venue = Venue::where(\DB::raw('CONCAT(name_area, name_bldg, name_venue)'), 'like', "%{$request->free_word}%")
             ->pluck('id')
             ->toArray();
@@ -158,8 +157,11 @@ class SalesController extends Controller
           $query2->orWhereIn("id", $end_user); //エンドユーザー
           $array_result = $this->amountSearch($amounts_array, $request->free_word);
           $query2->orWhereIn("id", $array_result); //総額
-          $bill = Bill::where("payment_limit", $request->free_word)->pluck("reservation_id");
-          $query2->orWhereIn("id", $bill);
+          if (date('Y-m-d', strtotime($request->free_word)) != "1970-01-01") {
+            $query2->orWhereDate("reserve_date", $request->free_word);
+            $bill = Bill::where("payment_limit", $request->free_word)->pluck("reservation_id");
+            $query2->orWhereIn("id", $bill);
+          }
         });
       }
     });
