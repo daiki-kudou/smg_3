@@ -135,7 +135,7 @@ class SalesController extends Controller
       }
       if ($request->free_word) {
         $query->where(function ($query2) use ($request, $amounts_array) {
-          // $val = $this->formatInputInteger($request->free_word);
+          $val = $this->formatInputInteger($request->free_word);
           $val = $request->free_word;
           $query2->orWhere('id', 'like', "%{$val}%");
           $query2->orWhere('multiple_reserve_id', 'like', "%{$val}%");
@@ -158,10 +158,8 @@ class SalesController extends Controller
           $query2->orWhereIn("id", $end_user); //エンドユーザー
           $array_result = $this->amountSearch($amounts_array, $request->free_word);
           $query2->orWhereIn("id", $array_result); //総額
-          if (date("Y-m-d", strtotime($request->free_word) != "1970-01-01")) {
-            $bill = Bill::whereDate("payment_limit", $request->free_word)->pluck("reservation_id");
-            $query2->orWhereIn("id", $bill);
-          }
+          $bill = Bill::where("payment_limit", $request->free_word)->pluck("reservation_id");
+          $query2->orWhereIn("id", $bill);
         });
       }
     });
