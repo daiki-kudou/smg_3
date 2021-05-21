@@ -135,7 +135,8 @@ class SalesController extends Controller
       }
       if ($request->free_word) {
         $query->where(function ($query2) use ($request, $amounts_array) {
-          $val = $this->formatInputInteger($request->free_word);
+          // $val = $this->formatInputInteger($request->free_word);
+          $val = $request->free_word;
           $query2->orWhere('id', 'like', "%{$val}%");
           $query2->orWhere('multiple_reserve_id', 'like', "%{$val}%");
           $query2->orWhere('multiple_reserve_id', 'like', "%{$val}%");
