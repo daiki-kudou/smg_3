@@ -47,7 +47,6 @@ class ReservationsController extends Controller
       $reservations = Reservation::with(['bills.breakdowns', 'user', 'agent', 'venue', 'endusers'])
         ->orderBy('id', 'desc')
         ->paginate(30);
-
       $counter = 0;
     }
 

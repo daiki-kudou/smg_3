@@ -26,4 +26,21 @@ trait PaginatorTrait
     );
     return $paginator;
   }
+
+  public function formatInputInteger($num)
+  {
+    if ($num) {
+      $editId = $num;
+      if (substr($num, 0, 5) == "00000") {
+        $editId = str_replace("00000", "", $num);
+      } elseif (substr($num, 0, 4) == "0000") {
+        $editId = str_replace("0000", "", $num);
+      } elseif (substr($num, 0, 3) == "000") {
+        $editId = str_replace("000", "", $num);
+      } elseif (substr($num, 0, 2) == "00") {
+        $editId = str_replace("00", "", $num);
+      }
+      return $editId;
+    }
+  }
 }
