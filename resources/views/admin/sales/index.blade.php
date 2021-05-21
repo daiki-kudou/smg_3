@@ -206,7 +206,14 @@
 <div class="d-flex justify-content-between">
   <dl class="count-sum d-flex">
     <dt>売上総額</dt>
-    <dd>00000<span>円</span></dd>
+    <dd>
+      @foreach ($request->except('_token') as $item)
+      @if (($item!=""))
+      {{number_format($all_total_amount)}}
+      @break
+      @endif
+      @endforeach
+      <span>円</span></dd>
   </dl>
 
 

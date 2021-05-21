@@ -27,14 +27,17 @@ class SalesController extends Controller
     if (!empty($request->all())) {
       $merge = $this->withRequest($request);
       $count = $merge->count();
+      $all_total_amount = $merge->map(function ($res, $key) {
+        return $res->totalAmountWithCxl();
+      })->sum();
     } else {
       $merge = $this->noRequest();
       $count = "";
+      $all_total_amount = "";
     }
     $for_csv = $this->forCsv($merge); //csv抽出用
-
     $reservations = $this->customPaginate($merge, 10, $request);
-    return view('admin.sales.index', compact('reservations', 'request', 'agents', 'venues', 'for_csv', 'count'));
+    return view('admin.sales.index', compact('reservations', 'request', 'agents', 'venues', 'for_csv', 'count', 'all_total_amount'));
   }
 
   public function noRequest()
@@ -263,7 +266,6 @@ class SalesController extends Controller
           '予約状況',
           '支払日',
           '入金状況',
-          '予約詳細',
           '振込名',
           '顧客属性',
           '支払期日',
