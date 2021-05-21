@@ -159,11 +159,8 @@ class SalesController extends Controller
           $query2->orWhereIn("id", $array_result); //総額
           if (date('Y-m-d', strtotime($request->free_word)) != "1970-01-01") {
             $query2->orWhereDate("reserve_date", $request->free_word);
-
             $bill = Bill::where("payment_limit", $request->free_word)->pluck("reservation_id");
             $query2->orWhereIn("id", $bill);
-          } else {
-            // var_dump("日付じゃない");
           }
         });
       }

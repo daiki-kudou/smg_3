@@ -7,6 +7,10 @@ use Tests\TestCase;
 use Illuminate\Support\Facades\Schema;
 
 use App\Models\Venue;
+use App\Models\Admin;
+use Auth;
+use RefreshDatabase;
+
 
 
 class VenueTest extends TestCase
@@ -15,7 +19,6 @@ class VenueTest extends TestCase
   {
     $this->assertTrue(
       Schema::hasColumns('venues', [
-
         "id",
         "alliance_flag",
         "name_area",
@@ -69,7 +72,48 @@ class VenueTest extends TestCase
     );
   }
 
-  public function testCreateDatabase()
+  public function test_ログインしていれば投稿出来る()
   {
+    $admin = factory(Admin::class)->create();
+    $this->assertFalse(Auth::check());
+    $response = $this->actingAs($admin)->get(route('admin.venues.index'));
+    $this->assertTrue(Auth::check());
+    $response->assertRedirect('admin/login');
+
+
+    // $response->assertViewIs('items.create');
+
+    // $itemdata = [
+    //   'title' => '$fakertext_example',
+    //   'content' => '$faker->nameeee',
+    // ];
+
+    // $url = route('items.store');
+    // $response = $this->post($url, $itemdata);
+
+    // $response->assertSessionHasNoErrors(); // エラーメッセージがないこと
+
+    // $response->assertStatus(302); // リダイレクト
+
+    // $response->assertRedirect('/');
+
+    // // 保存したitemがデータベースに存在するか確認。
+    // $this->assertDatabaseHas('items', ['title' => '$fakertext_example']);
+
+    // $response = $this->get('/');
+
+    // $response->assertStatus(200);
+
+    // $response->assertSeeText('一覧');
+
+    // // 一覧ページに移動
+    // $response = $this->get(route('items.index'));
+
+    // $response->assertStatus(200);
+
+    // $response->assertViewIs('items.index');
+
+    // // 先ほど投稿したitemのtitleと一致するものが表示されているか
+    // $response->assertSeeText($itemdata['title']);
   }
 }

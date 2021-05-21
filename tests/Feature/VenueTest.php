@@ -25,10 +25,13 @@ class VenueTest extends TestCase
 
   use RefreshDatabase;
 
-  public function test_add()
-  {
-    $venue = Venue::find(1);
-    $test = $venue->calculate_price(1, "08:00:00", "12:00:00");
-    $this->assertEquals(25000, $test);
-  }
+
+
+  // public function testVenueCreate()
+  // {
+  //   $response = $this->from("/")
+  //     ->post('/admin/login', ['email' => 'admin@example.com', 'password' => 'REGUUilg0aQt']);
+
+  //   $response->assertRedirect('http://127.0.0.1:8000/admin/home');
+  // }
 }
