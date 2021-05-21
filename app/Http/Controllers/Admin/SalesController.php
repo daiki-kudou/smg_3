@@ -158,8 +158,12 @@ class SalesController extends Controller
           $query2->orWhereIn("id", $end_user); //エンドユーザー
           $array_result = $this->amountSearch($amounts_array, $request->free_word);
           $query2->orWhereIn("id", $array_result); //総額
-          $bill = Bill::where("payment_limit", $request->free_word)->pluck("reservation_id");
-          $query2->orWhereIn("id", $bill);
+          if (date('Y-m-d', strtotime($request->free_word)) != "1970-01-01") {
+            $bill = Bill::where("payment_limit", $request->free_word)->pluck("reservation_id");
+            $query2->orWhereIn("id", $bill);
+          } else {
+            // var_dump("日付じゃない");
+          }
         });
       }
     });
