@@ -12,7 +12,7 @@
 
   <link rel="canonical" href="https://osaka-conference.com/calendar/">
   <link rel="shortcut icon" href="https://osaka-conference.com/img/favicon.ico?ver=20201225" />
-  <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+  {{-- <link href="{{ asset('css/app.css') }}" rel="stylesheet"> --}}
 
   <link rel="stylesheet" media="all" type="text/css"
     href="https://osaka-conference.com/css/ress.min.css?ver=20201225" />

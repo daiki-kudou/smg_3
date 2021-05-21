@@ -192,7 +192,7 @@
       </div>
       <div class="btn-wrapper2">
         <p class="confirm-btn">
-          {{ Form::submit('日時を選択する', ['class' => 'btn btn-primary']) }}
+          {{ Form::submit('日時を選択する', ['class' => 'btn']) }}
         </p>
       </div>
       {{Form::close()}}
