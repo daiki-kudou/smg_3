@@ -1219,6 +1219,8 @@ $(function () {
         cost: { required: true, range: [1, 100], maxlength: 3 },
         cxl_url: { url: true },
         payment_limit: { required: true },
+        person_firstname: { required: true },
+        person_lastname: { required: true },
         firstname_kana: { katakana: true },
         lastname_kana: { katakana: true },
         person_mobile: { minlength: 10, number: true },
@@ -1256,6 +1258,8 @@ $(function () {
           range: "※1から100までの半角英数字を入力してください",
           maxlength: "※最大桁数は3です",
         },
+        person_firstname: { required: "※必須項目です" },
+        person_lastname: { required: "※必須項目です" },
         firstname_kana: { katakana: "※全角カタカナで入力してください" },
         lastname_kana: { katakana: "※全角カタカナで入力してください" },
         person_mobile: {

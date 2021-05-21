@@ -110,13 +110,14 @@
                 </td>
               </tr>
               <tr>
-                <td class="table-active"><label for="person_firstname">担当者氏名</label></td>
+                <td class="table-active form_required"><label for="person_firstname">担当者氏名</label></td>
                 <td>姓：
                   {{ Form::text('person_firstname', old('person_firstname'), ['class' => 'form-control']) }}
                   <p class="is-error-person_firstname" style="color: red"></p>
                 </td>
                 <td>名：
                   {{ Form::text('person_lastname', old('person_lastname'), ['class' => 'form-control']) }}
+                  <p class="is-error-person_lastname" style="color: red"></p>
                 </td>
               </tr>
               <tr>
