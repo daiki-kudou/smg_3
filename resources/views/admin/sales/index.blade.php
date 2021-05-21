@@ -186,7 +186,7 @@
         </td>
         <th class="search_item_name"><label for="freeword">フリーワード検索</label>
         <td class="text-right">
-          <input type="text" name="freeword" class="form-control" id="freeword">
+          {{Form::text('free_word',$request->free_word, ['class'=>'form-control'])}}
         </td>
       </tr>
     </tbody>
@@ -218,9 +218,6 @@
     {{Form::submit('表示結果ダウンロード(CSV)',['class'=>'btn more_btn4_lg'])}}
     {{Form::close()}}
 
-    {{-- <a class="more_btn4_lg" href="{{url('admin/csv')}}">
-    表示結果ダウンロード(CSV)
-    </a> --}}
   </p>
 </div>
 <div class="mt-3">

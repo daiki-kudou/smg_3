@@ -128,6 +128,34 @@ class SalesController extends Controller
           };
         });
       }
+      if ($request->free_word) {
+        $query->where(function ($query2) use ($request, $amounts_array) {
+          $val = $this->formatInputInteger($request->free_word);
+          $query2->orWhere('id', 'like', "%{$val}%");
+          $query2->orWhere('multiple_reserve_id', 'like', "%{$val}%");
+          $query2->orWhere('multiple_reserve_id', 'like', "%{$val}%");
+          $query2->orWhereDate("reserve_date", $request->free_word);
+          $venue = Venue::where(\DB::raw('CONCAT(name_area, name_bldg, name_venue)'), 'like', "%{$request->free_word}%")
+            ->pluck('id')
+            ->toArray();
+          $query2->orWhereIn("venue_id", $venue);
+          $query2->orWhere('user_id', 'like', "%{$val}%"); //顧客ID
+          $company = User::where("company", "like", "%{$request->free_word}%")->pluck("id")->toArray();
+          $query2->orWhereIn("user_id", $company); //会社名・団体名
+          $user = User::where(\DB::raw('CONCAT(first_name, last_name)'), 'like', "%{$request->free_word}%")
+            ->pluck('id')
+            ->toArray();
+          $query2->orWhereIn("user_id", $user); //担当者氏名
+          $agent = Agent::where("company", "like", "%{$request->free_word}%")->pluck("id")->toArray();
+          $query2->orWhereIn("agent_id", $agent); //仲介会社
+          $end_user = Enduser::where("company", "like", "%{$request->free_word}%")->pluck("reservation_id")->toArray();
+          $query2->orWhereIn("id", $end_user); //エンドユーザー
+          $array_result = $this->amountSearch($amounts_array, $request->free_word);
+          $query2->orWhereIn("id", $array_result); //総額
+          $bill = Bill::whereDate("payment_limit", $request->free_word)->distinct()->pluck("reservation_id");
+          $query2->orWhereIn("id", $bill);
+        });
+      }
     });
     return $result;
   }
