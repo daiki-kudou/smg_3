@@ -1,5 +1,6 @@
 @charset "utf-8";
 
+
 ul.tagBtn li a {
     letter-spacing: 0.15em;
     writing-mode: vertical-lr;
@@ -334,6 +335,13 @@ form table td textarea {
 
 @media screen and (max-width: 750px) {
 
+    
+.wrapper {
+    position: relative;
+    overflow: inherit;
+    margin-top: 230px;
+}
+
     .page-text {
         text-align: left;
     }
@@ -407,6 +415,10 @@ form table td textarea {
 
     .head-login a {
         color: #3E4B5B;
+    }
+
+    .btn-wrapper2 {
+        width: 100%;
     }
 
 

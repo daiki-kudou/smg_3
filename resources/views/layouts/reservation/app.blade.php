@@ -12,6 +12,8 @@
 
   <link rel="canonical" href="https://osaka-conference.com/calendar/">
   <link rel="shortcut icon" href="https://osaka-conference.com/img/favicon.ico?ver=20201225" />
+  <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+
   <link rel="stylesheet" media="all" type="text/css"
     href="https://osaka-conference.com/css/ress.min.css?ver=20201225" />
   <link rel="stylesheet" media="all" type="text/css" href="https://osaka-conference.com/css/style.css?ver=20201225" />
@@ -25,9 +27,6 @@
   <link rel="stylesheet" href="https://osaka-conference.com/css/validationEngine.jquery.css?ver=20201225">
   <link rel="stylesheet"
     href="https://ajax.googleapis.com/ajax/libs/jqueryui/1/themes/redmond/jquery-ui.css?ver=20201225">
-
-  <!-- システムcss -->
-  {{-- <link rel="stylesheet" href="../css/style.css"> --}}
 
 
   <!--[if lt IE 9]>
@@ -163,11 +162,9 @@
   <script src="https://cdn.jsdelivr.net/npm/jquery-validation@1.19.2/dist/jquery.validate.min.js"></script>
   {{-- numeric --}}
   <script src="{{ asset('/js/numeric.js') }}"></script>
-
   <link href="{{ asset('/css/homepage/style.css') }}" rel="stylesheet">
 
 </head>
-
 <body id="top" class="calender contactpage tentative vacancy">
   <div class="wrapper">
 
@@ -461,7 +458,6 @@
           } else {
             $(this).parent().parent().next().hide();
           }
-          
         });
           
           // 時間セレクトループ
@@ -514,7 +510,6 @@
           })
           });
         })
-      
         });
   </script>
 

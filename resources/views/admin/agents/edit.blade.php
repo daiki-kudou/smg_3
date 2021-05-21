@@ -117,7 +117,7 @@
             </td>
           </tr>
           <tr>
-            <td class="table-active">
+            <td class="table-active form_required">
               <label for="person_firstname">担当者氏名</label>
             </td>
             <td>姓：
@@ -126,6 +126,7 @@
             </td>
             <td>名：
               {{ Form::text('person_lastname', $agent->person_lastname, ['class' => 'form-control', 'id'=>'company']) }}
+              <p class="is-error-person_lastname" style="color: red"></p>
             </td>
           </tr>
           <tr>
