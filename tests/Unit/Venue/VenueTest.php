@@ -71,9 +71,5 @@ class VenueTest extends TestCase
 
   public function testCreateDatabase()
   {
-    $book = new Venue();
-    $bool->create(["test" => "",]);
-
-    $this->assertTrue($saveBook);
   }
 }

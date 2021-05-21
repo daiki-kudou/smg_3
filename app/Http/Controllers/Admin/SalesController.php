@@ -158,7 +158,7 @@ class SalesController extends Controller
           $query2->orWhereIn("id", $end_user); //エンドユーザー
           $array_result = $this->amountSearch($amounts_array, $request->free_word);
           $query2->orWhereIn("id", $array_result); //総額
-          $bill = Bill::whereDate("payment_limit", $request->free_word)->distinct()->pluck("reservation_id");
+          $bill = Bill::whereDate("payment_limit", $request->free_word)->pluck("reservation_id");
           $query2->orWhereIn("id", $bill);
         });
       }
