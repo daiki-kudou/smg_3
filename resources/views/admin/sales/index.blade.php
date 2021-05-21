@@ -221,7 +221,11 @@
   </p>
 </div>
 <div class="mt-3">
-  <p class="text-right font-weight-bold"><span class="count-color">10</span>件</p>
+  <p class="text-right font-weight-bold">
+    @if ($request)
+    <span class="count-color">{{$count}}</span>件
+    @endif
+  </p>
 </div>
 <!-- 一覧　　------------------------------------------------ -->
 <div class="table-wrap">

@@ -26,13 +26,15 @@ class SalesController extends Controller
     $venues = Venue::pluck("id")->toArray();
     if (!empty($request->all())) {
       $merge = $this->withRequest($request);
+      $count = $merge->count();
     } else {
       $merge = $this->noRequest();
+      $count = "";
     }
     $for_csv = $this->forCsv($merge); //csv抽出用
 
     $reservations = $this->customPaginate($merge, 10, $request);
-    return view('admin.sales.index', compact('reservations', 'request', 'agents', 'venues', 'for_csv'));
+    return view('admin.sales.index', compact('reservations', 'request', 'agents', 'venues', 'for_csv', 'count'));
   }
 
   public function noRequest()
