@@ -29,23 +29,32 @@ use Illuminate\Support\Str;
 
 use Carbon\Carbon;
 
+use App\Traits\PaginatorTrait;
+
 
 class HomeController extends Controller
 {
+  use PaginatorTrait;
   public function __construct()
   {
     $this->middleware(['auth']);
   }
 
-  public function index()
+  public function index(Request $request)
   {
+    $today = Carbon::now();
     $user_id = auth()->user()->id;
     $user = User::with("reservations.bills")->find($user_id);
-    // $reservation = Reservation::where('user_id', $user_id)->orderBy('id', 'desc');
-    return view('user.home.index', [
-      'user' => $user,
-      // 'reservation' => $reservation
-    ]);
+
+    if ($request->past) {
+      $reservations = $user->reservations->where('reserve_date', '<', $today)->sortByDesc('reserve_date');
+      dump(count($reservations));
+    } else {
+      $reservations = $user->reservations->where('reserve_date', '>=', $today)->sortBy('reserve_date');
+      dump(count($reservations));
+    }
+    $reservations = $this->customPaginate($reservations, 2, $request);
+    return view('user.home.index', compact('user', 'reservations', 'request'));
   }
 
   public function show($id)

@@ -42,7 +42,7 @@
       </li>
 
       <li class="nav-item has-treeview">
-        <a href="#" class="nav-link venues">
+        <a href="{{url('/')}}" class="nav-link venues">
           <i class="nav-icon fas fa-link" style=""></i>
           <p>予約する</p>
         </a>
