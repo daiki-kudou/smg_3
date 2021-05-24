@@ -12,26 +12,36 @@ use App\Models\Venue;
 use App\Models\User;
 use App\Models\Equipment;
 use App\Models\Service;
-
+use Carbon\Carbon;
 use Illuminate\Support\Facades\DB;
 
+use App\Traits\PaginatorTrait;
 
 
 class PreReservationsController extends Controller
 {
+
+  use PaginatorTrait;
+
   public function __construct()
   {
     $this->middleware(['auth']);
   }
 
 
-  public function index()
+  public function index(Request $request)
   {
     $user_id = auth()->user()->id;
-    $pre_reservations = PreReservation::where('user_id', $user_id)->where('status', 1)->get();
-    return view('user.pre_reservations.index', [
-      'pre_reservations' => $pre_reservations
-    ]);
+    // $pre_reservations = PreReservation::where('user_id', $user_id)->where('status', 1)->get();
+
+    $today = Carbon::today();
+    $after = PreReservation::where('reserve_date', '>=', $today)->get()->sortBy('reserve_date');
+    $before = PreReservation::where('reserve_date', '<', $today)->get()->sortByDesc('reserve_date');
+    $merge = $after->concat($before);
+    $pre_reservations = $this->customPaginate($merge, 10, $request);
+    $counter = count($pre_reservations);
+
+    return view('user.pre_reservations.index', compact('pre_reservations', 'counter'));
   }
 
   public function show($id)
