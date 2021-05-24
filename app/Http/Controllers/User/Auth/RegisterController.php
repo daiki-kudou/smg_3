@@ -40,18 +40,10 @@ class RegisterController extends Controller
 
   public function checkRegistrationForm(Request $request)
   {
-    // $validatedData = $request->validate([
-    //   'email' => 'required|unique:users|max:255|string|email',
-    //   'company' => 'required|max:255',
-    //   'first_name' => 'max:20|regex:/^[^A-Za-z0-9]+$/u|required',
-    //   'last_name' => 'max:20|regex:/^[^A-Za-z0-9]+$/u|required',
-    //   'first_name_kana' => 'max:20|regex:/^[ァ-ヶ 　]+$/u|required',
-    //   'last_name_kana' => 'max:20|regex:/^[ァ-ヶ 　]+$/u|required',
-    //   'post_code' => 'digits:7|integer',
-    // ]);
 
     $validator = Validator::make($request->all(), [
-      'email' => 'required|unique:users,email|max:255|string|email',
+      'email' => 'required|string|email|max:255|unique:users,email,NULL,id,deleted_at,NULL',
+      // 'email' => 'required|unique:users,email|max:255|string|email',
       'company' => 'required|max:255',
       'first_name' => 'max:20|regex:/^[^A-Za-z0-9]+$/u|required',
       'last_name' => 'max:20|regex:/^[^A-Za-z0-9]+$/u|required',
@@ -70,7 +62,6 @@ class RegisterController extends Controller
         ->withErrors($validator)
         ->withInput();
     }
-
 
     return view('user.auth.register_check', compact('request'));
   }

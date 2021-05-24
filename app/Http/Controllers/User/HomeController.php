@@ -266,10 +266,56 @@ class HomeController extends Controller
     return view('user.home.email_reset_failed');
   }
 
-
   protected function tokenExpired($createdAt)
   {
     $expires = 1 * 60;    // トークンの有効期限は60分に設定
     return Carbon::parse($createdAt)->addSeconds($expires)->isPast(); //isPastは過去かどうか
+  }
+
+  public function cxlMemberShipIndex()
+  {
+    $user_id = auth()->user()->id;
+    $user = User::with("reservations.bills")->find($user_id);
+    $check_cxl_member_ship = $this->checkCxlMemberShip($user_id);
+    // 0=退会許可、1=退会不可
+    if ($check_cxl_member_ship === 0) {
+      return view('user.home.cxl_membership.index', compact('user'));
+    } else {
+      return view('user.home.cxl_membership.reject', compact('user'));
+    }
+  }
+
+  public function destroy($id)
+  {
+    $user_id = auth()->user()->id;
+    if ($id != $user_id) {
+      return redirect(url('user/home'));
+    }
+    $user = User::with("reservations.bills")->find($id);
+    $user->delete();
+    return redirect(url('/'));
+  }
+
+  public function checkCxlMemberShip($user_id)
+  {
+    // 0=退会許可、1=退会不可
+    $today = date('Y-m-d', strtotime(Carbon::now()));
+    $user = User::with('reservations')->find($user_id);
+    $reservation_count = $user->reservations->where('reserve_date', '>=', $today)->count(); //今日以降の予約
+
+    foreach ($user->reservations as $key => $reservation) {
+      foreach ($reservation->bills as $key2 => $bill) {
+        $paid = $bill->pluck('paid');
+      }
+    };
+    $paid_check = $paid->every(function ($value, $key) {
+      return ($value == 1);
+    });
+
+    if ($paid_check && $reservation_count === 0) {
+      return 0;
+    } else {
+      return 1;
+    }
   }
 }
