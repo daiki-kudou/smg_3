@@ -261,7 +261,12 @@ class Venue extends Model implements PresentableInterface
           $min_results[] = $extend_final_price;
         }
       }
-      $min_result = min($min_results);
+      // dd($min_results);
+      if (!empty($min_results)) {
+        $min_result = min($min_results);
+      } else {
+        return 0;
+      }
 
       // 延長料金抽出
       $exted_specific_price = $extend_prices[array_search($min_result, $extend_final_prices)];

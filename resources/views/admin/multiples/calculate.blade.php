@@ -1196,16 +1196,16 @@
                           <tbody class="{{'venue_main'.$key}}">
                             <tr>
                               <td>
-                                {{ Form::text('venue_breakdown_item0_copied'.$key, '',['class'=>'form-control'] ) }}
+                                {{ Form::text('venue_breakdown_item0_copied'.$key, '会場利用(仮)',['class'=>'form-control'] ) }}
                               </td>
                               <td>
-                                {{ Form::text('venue_breakdown_cost0_copied'.$key, '',['class'=>'form-control'] ) }}
+                                {{ Form::text('venue_breakdown_cost0_copied'.$key, 0,['class'=>'form-control'] ) }}
                               </td>
                               <td>
-                                {{ Form::text('venue_breakdown_count0_copied'.$key, '',['class'=>'form-control'] ) }}
+                                {{ Form::text('venue_breakdown_count0_copied'.$key, 0,['class'=>'form-control'] ) }}
                               </td>
                               <td>
-                                {{ Form::text('venue_breakdown_subtotal0_copied'.$key, '',['class'=>'form-control'] ) }}
+                                {{ Form::text('venue_breakdown_subtotal0_copied'.$key, 0,['class'=>'form-control'] ) }}
                               </td>
                               <td>
                                 <input type="button" value="＋" class="add pluralBtn">
