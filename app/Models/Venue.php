@@ -271,20 +271,31 @@ class Venue extends Model implements PresentableInterface
         $exted_specific_price = 0;
       }
       // 延長料金抽出
-
-      // 8時例外：8時から10時を選択すると時間に応じて延長料金適応
-      if ($start_time == '08:00:00') {
-        $min_result = $min_result + ($price_arrays[0]->extend) * 2;
-        $exted_specific_price = $exted_specific_price + ($price_arrays[0]->extend) * 2;
-      } elseif ($start_time == '08:30:00') {
-        $min_result = $min_result + ($price_arrays[0]->extend) * 1.5;
-        $exted_specific_price = $exted_specific_price + ($price_arrays[0]->extend) * 1.5;
-      } elseif ($start_time == '09:00:00') {
-        $min_result = $min_result + ($price_arrays[0]->extend) * 1.0;
-        $exted_specific_price = $exted_specific_price + ($price_arrays[0]->extend) * 1.0;
-      } elseif ($start_time == '09:30:00') {
-        $min_result = $min_result + ($price_arrays[0]->extend) * 0.5;
-        $exted_specific_price = $exted_specific_price + ($price_arrays[0]->extend) * 0.5;
+      switch ($start_time) {
+        case '08:00:00':
+          $min_result = $min_result + ($price_arrays[0]->extend) * 2;
+          $exted_specific_price = $exted_specific_price + ($price_arrays[0]->extend) * 2;
+          break;
+        case '08:30:00':
+          $min_result = $min_result + ($price_arrays[0]->extend) * 1.5;
+          $exted_specific_price = $exted_specific_price + ($price_arrays[0]->extend) * 1.5;
+          break;
+        case '09:00:00':
+          $min_result = $min_result + ($price_arrays[0]->extend) * 1.0;
+          $exted_specific_price = $exted_specific_price + ($price_arrays[0]->extend) * 1.0;
+          break;
+        case '09:30:00':
+          $min_result = $min_result + ($price_arrays[0]->extend) * 0.5;
+          $exted_specific_price = $exted_specific_price + ($price_arrays[0]->extend) * 0.5;
+          break;
+        case '12:00:00':
+          $min_result = $min_result + ($price_arrays[0]->extend) * 1;
+          $exted_specific_price = $exted_specific_price + ($price_arrays[0]->extend) * 1;
+          break;
+        case '12:30:00':
+          $min_result = $min_result + ($price_arrays[0]->extend) * 0.5;
+          $exted_specific_price = $exted_specific_price + ($price_arrays[0]->extend) * 0.5;
+          break;
       }
 
       // // 23時例外：22時から23時を選択すると時間に応じて延長料金適応
@@ -293,14 +304,6 @@ class Venue extends Model implements PresentableInterface
         $min_result = $min_result + ($price_arrays[0]->extend) * 1;
         $exted_specific_price = $exted_specific_price + ($price_arrays[0]->extend) * 1;
       } elseif ($finish_time == '22:30:00' && $start_time < '17:00:00') {
-        $min_result = $min_result + ($price_arrays[0]->extend) * 0.5;
-        $exted_specific_price = $exted_specific_price + ($price_arrays[0]->extend) * 0.5;
-      }
-
-      if ($start_time == '12:00:00') {
-        $min_result = $min_result + ($price_arrays[0]->extend) * 1;
-        $exted_specific_price = $exted_specific_price + ($price_arrays[0]->extend) * 1;
-      } elseif ($start_time == '12:30:00') {
         $min_result = $min_result + ($price_arrays[0]->extend) * 0.5;
         $exted_specific_price = $exted_specific_price + ($price_arrays[0]->extend) * 0.5;
       }
@@ -459,9 +462,6 @@ class Venue extends Model implements PresentableInterface
     return $result;
   }
 
-  public function judgeCanCoverFramePrice()
-  {
-  }
 
 
 
