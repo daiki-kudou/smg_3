@@ -20,22 +20,28 @@
 </div>
 
 <div class="col-12">
+  {{ Form::open(['url' => 'user/home', 'method'=>'get', 'id'=>'']) }}
+  @csrf
   <dl class="d-flex col-12 justify-content-end align-items-center statuscheck">
     <dt><label for="">支払状況</label></dt>
     <dd class="mr-1">
-      <select class="form-control select2" name="">
-        <option>未入金</option>
-        <option>入金済</option>
-      </select>
+      {{Form::select('paid', ['','未入金', '入金済み','遅延','入金不足','入金過多','次回繰越'],$request->paid,['class'=>'form-control'])}}
+      @if ($request->past)
+      {{Form::hidden('past',1)}}
+      @endif
     </dd>
     <dd>
-      <p class="text-right"><a class="more_btn" href="">検索</a></p>
+      <p class="text-right">
+        {{-- <a class="more_btn" href="">検索</a> --}}
+        {{Form::submit('検索')}}
+      </p>
     </dd>
   </dl>
+  {{Form::close()}}
 
 </div>
 <div class="col-12">
-  <p class="text-right font-weight-bold"><span class="count-color">10</span>件</p>
+  <p class="text-right font-weight-bold"><span class="count-color">{{$counter}}</span>件</p>
 </div>
 
 <!-- 一覧　　------------------------------------------------ -->

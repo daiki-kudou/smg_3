@@ -47,14 +47,25 @@ class HomeController extends Controller
     $user = User::with("reservations.bills")->find($user_id);
 
     if ($request->past) {
-      $reservations = $user->reservations->where('reserve_date', '<', $today)->sortByDesc('reserve_date');
-      dump(count($reservations));
+      if ($request->paid) {
+        $bill = Bill::where('paid', $request->paid)->pluck('reservation_id')->toArray();
+        $reservations = $user->reservations->where('reserve_date', '<', $today)->whereIn('id', $bill)->sortByDesc('reserve_date');
+      } else {
+        $reservations = $user->reservations->where('reserve_date', '<', $today)->sortByDesc('reserve_date');
+      }
+      $counter = count($reservations);
     } else {
-      $reservations = $user->reservations->where('reserve_date', '>=', $today)->sortBy('reserve_date');
-      dump(count($reservations));
+      if ($request->paid) {
+        $bill = Bill::where('paid', $request->paid)->pluck('reservation_id')->toArray();
+        $reservations = $user->reservations->where('reserve_date', '>=', $today)->whereIn('id', $bill)->sortBy('reserve_date');
+      } else {
+        $reservations = $user->reservations->where('reserve_date', '>=', $today)->sortBy('reserve_date');
+      }
+
+      $counter = count($reservations);
     }
     $reservations = $this->customPaginate($reservations, 2, $request);
-    return view('user.home.index', compact('user', 'reservations', 'request'));
+    return view('user.home.index', compact('user', 'reservations', 'request', 'counter'));
   }
 
   public function show($id)
