@@ -13,8 +13,8 @@ Route::namespace('Home')->prefix('/')->name('home.')->group(function () {
 
 
 // 一般ユーザー用カレンダー
-// Route::get('calender/date_calendar', 'CalendarsController@date_calendar');
-Route::get('calender/venue_calendar', 'CalendarsController@venue_calendar');
+Route::get('calendar/venue_calendar', 'CalendarsController@venue_calendar');
+Route::get('calendar/date_calendar', 'CalendarsController@date_calendar');
 
 /*
 |--------------------------------------------------------------------------
