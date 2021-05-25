@@ -45,34 +45,39 @@ class LoginController extends Controller
 
 
   // オーバーライド
-  public function login(Request $request)
-  {
-    $user_auth = Auth::guard('user')->check();
-    if ($user_auth) {
-      return $this->sendFailedLoginResponse($request);
-    }
+  // ユーザーがログインしていたら管理者にはログインできないように。
+  // これは本番UPしてから実装
+  // public function login(Request $request)
+  // {
+  //   $user_auth = Auth::guard('user')->check();
+  //   if ($user_auth) {
+  //     return $this->sendFailedLoginResponse($request);
+  //   }
 
-    $this->validateLogin($request);
+  //   $this->validateLogin($request);
 
-    if (method_exists($this, 'hasTooManyLoginAttempts') && $this->hasTooManyLoginAttempts($request)) {
-      $this->fireLockoutEvent($request);
-      return $this->sendLockoutResponse($request);
-    }
+  //   if (method_exists($this, 'hasTooManyLoginAttempts') && $this->hasTooManyLoginAttempts($request)) {
+  //     $this->fireLockoutEvent($request);
+  //     return $this->sendLockoutResponse($request);
+  //   }
 
-    if ($this->attemptLogin($request)) {
-      return $this->sendLoginResponse($request);
-    }
+  //   if ($this->attemptLogin($request)) {
+  //     return $this->sendLoginResponse($request);
+  //   }
 
-    $this->incrementLoginAttempts($request);
+  //   $this->incrementLoginAttempts($request);
 
-    return $this->sendFailedLoginResponse($request);
-  }
+  //   return $this->sendFailedLoginResponse($request);
+  // }
 
   // オーバーライド
-  protected function sendFailedLoginResponse(Request $request)
-  {
-    throw ValidationException::withMessages([
-      $this->username() => ["ユーザー権限でログイン中は管理者権限でログインできません。ユーザー権限からログアウトしてください"],
-    ]);
-  }
+  // ユーザーがログインしていたら管理者にはログインできないように。
+  // これは本番UPしてから実装
+
+  // protected function sendFailedLoginResponse(Request $request)
+  // {
+  //   throw ValidationException::withMessages([
+  //     $this->username() => ["ユーザー権限でログイン中は管理者権限でログインできません。ユーザー権限からログアウトしてください"],
+  //   ]);
+  // }
 }

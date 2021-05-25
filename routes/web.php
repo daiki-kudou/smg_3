@@ -113,8 +113,14 @@ Route::namespace('Admin')->prefix('admin')->name('admin.')->group(function () {
     'reset'    => false
   ]);
 
+
   // ログイン認証後
-  Route::middleware('auth:admin', 'check_user_or_admin')->group(function () {
+  Route::middleware(
+    'auth:admin',
+    // ★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★
+    // 'check_user_or_admin'　// middlewareの check_user_or_adminは本番運用開始後にUP予定
+    // ★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★
+  )->group(function () {
     // TOPページ
     Route::resource('home', 'ReservationsController', ['only' => 'index']);
     // 会場登録
