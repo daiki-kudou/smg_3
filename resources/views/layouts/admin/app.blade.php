@@ -112,7 +112,7 @@
 
 
     <!-- Main Sidebar Container -->
-    <aside class="main-sidebar sidebar-dark-primary elevation-4">
+    <aside class="main-sidebar sidebar-dark-primary elevation-4" style="{{Auth::user()->id===8?'background: teal':""}}">
       <!-- Brand Logo -->
       <a href="/admin/home" class="brand-link">
         <span class="brand-text font-weight-light">SMGアクセア貸し会議室<br>管理者画面</span>

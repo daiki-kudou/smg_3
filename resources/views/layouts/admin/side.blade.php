@@ -1,8 +1,21 @@
-<div class="sidebar">
+@if (Auth::user()->id===8)
 
+<style>
+  .sidebar a {
+    color: white !important;
+  }
+
+  .nav-treeview>.nav-item>.nav-link.active {
+    background-color: #999999 !important;
+  }
+</style>
+@endif
+
+<div class="sidebar">
   <!-- Sidebar Menu -->
   <nav class="mt-2">
     <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
+      @if (Auth::user()->id!==8)　{{--提携会場用の制御 --}}
       <li class="nav-item has-treeview 
         {{ReservationHelper::getController(Route::currentRouteName(),"admin","pre_reservations")}}
         {{ReservationHelper::getController(Route::currentRouteName(),"admin","multiples")}}
@@ -62,6 +75,7 @@
           </li>
         </ul>
       </li>
+      @endif
 
       <li class="nav-item has-treeview 
       {{ReservationHelper::getController(Route::currentRouteName(),"admin","reservations")}}
@@ -294,12 +308,6 @@
               <p>一覧</p>
             </a>
           </li>
-          {{-- <li class="nav-item">
-            <a href="#" class="nav-link">
-              <i class="far fa-circle nav-icon ml-4"></i>
-              <p>新規登録</p>
-            </a>
-          </li> --}}
         </ul>
       </li>
 

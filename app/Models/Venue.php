@@ -468,11 +468,6 @@ class Venue extends Model implements PresentableInterface
   }
 
 
-
-
-
-
-
   public function calculate_items_price($selected_equipments, $selected_services)
   {
     // 

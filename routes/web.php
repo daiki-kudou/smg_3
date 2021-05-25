@@ -114,7 +114,7 @@ Route::namespace('Admin')->prefix('admin')->name('admin.')->group(function () {
   ]);
 
   // ログイン認証後
-  Route::middleware('auth:admin')->group(function () {
+  Route::middleware('auth:admin', 'check_user_or_admin')->group(function () {
     // TOPページ
     Route::resource('home', 'ReservationsController', ['only' => 'index']);
     // 会場登録

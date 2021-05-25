@@ -15,8 +15,8 @@
       </ol>
     </nav>
   </div>
-  
-  
+
+
   <h2 class="mt-3 mb-3">予約状況カレンダー 会場別</h2>
   <hr>
   @foreach ($days as $key=>$day)
@@ -34,8 +34,8 @@
   {{Form::hidden('reservation_id', $reservation->id)}}
   @endif
   @endforeach
-  
-  
+
+
   @foreach ($pre_reservations as $pre_reservation)
   @if ($pre_reservation->reserve_date==$day)
   {{Form::hidden('pre_start', date('Y-m-d',strtotime($pre_reservation->reserve_date)).' '.$pre_reservation->enter_time,['id'=>date('Y-m-d',strtotime($day)).'start'])}}
@@ -49,9 +49,9 @@
   {{Form::hidden('pre_reservation_id', $pre_reservation->id)}}
   @endif
   @endforeach
-  
+
   @endforeach
-  
+
   <section class="mt-5 bg-white">
     <div class="calender-ttl">
       {{ Form::open(['url' => '/admin/calendar/venue_calendar', 'method' => 'get']) }}
@@ -78,7 +78,7 @@
         {{Form::submit('予約状況を確認する', ['class' => 'btn more_btn'])}}
       </div>
       {{ Form::close() }}
-  
+
     </div>
     <ul class="calender-color">
       <li class="li-bg-reserve">予約済み</li>
@@ -86,11 +86,11 @@
       <li class="li-bg-empty">空室</li>
       <li class="li-bg-closed">休業日</li>
     </ul>
-  
+
     <table class="table table-bordered calender-flame">
       <thead>
         <tr class="calender-head">
-          <td class="field-title">タイトル</td>
+          <td class="field-title">日付</td>
           <td colspan="2">10:00</td>
           <td colspan="2">11:00</td>
           <td colspan="2">12:00</td>

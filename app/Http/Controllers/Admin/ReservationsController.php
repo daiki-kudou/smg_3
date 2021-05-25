@@ -22,6 +22,7 @@ use App\Mail\SendUserApprove;
 use Illuminate\Support\Facades\Mail;
 
 use App\Traits\PregTrait;
+use Illuminate\Support\Facades\Auth;
 
 
 class ReservationsController extends Controller
@@ -35,6 +36,10 @@ class ReservationsController extends Controller
    */
   public function index(Request $request)
   {
+
+    // dump(Auth::guard('user')->check());
+    dump(Auth::guard('admin'));
+
     $today = date('Y-m-d', strtotime(Carbon::today()));
     if (!empty($request->all())) {
       $class = new Reservation;

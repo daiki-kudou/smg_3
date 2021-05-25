@@ -26,33 +26,6 @@ $(document).on("change", "#venue_id", function () {
           }
         })
       })
-
-
-      // $('#enter_time').find('option').each(function (key, value) {
-      // if ($result[0] == $(value).val()) {
-      //   $(value).prop("disabled", true);
-      // } else if ($result[1] == $(value).val()) {
-      //   $(value).prop("disabled", true);
-      // } else if ($(value).prev("option").prop("disabled")) {
-      //   $(value).prop("disabled", true);
-      // } else if ($result[2] == $(value).val()) {
-      //   $(value).prop("disabled", true);
-      // } else if ($result[3] == $(value).val()) {
-      //   $(value).prop("disabled", true);
-      // } else if ($(value).prev("option").prop("disabled")) {
-      //   $(value).prop("disabled", true);
-      //   return false;
-      // };
-
-      // if ($result[2] == $(value).val()) {
-      //   $(value).prop("disabled", true);
-      // } else if ($result[3] == $(value).val()) {
-      //   $(value).prop("disabled", true);
-      //   return false;
-      // } else if ($(value).prev("option").prop("disabled")) {
-      //   $(value).prop("disabled", true);
-      // }
-      // })
     })
     .fail(function ($result) {
       $('#fullOverlay').css('display', 'none');
