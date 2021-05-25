@@ -154,11 +154,9 @@
         </div>
       </article>
       <div class="calenderframe">
-        <iframe src="{{url('').'/admin/calendar/date_calendar'}}" width="100%" height="400px"></iframe>
+        <iframe src="{{url('calendar/date_calendar')}}" width="100%" height="800px"></iframe>
       </div>
 
-      {{-- <form name="form" id="form" action="https://osaka-conference.com/contact/check.php" next="false"
-            method="post"> --}}
       {{Form::open(['url' => 'user/reservations/create', 'method' => 'get', 'class'=>'search','id'=>'slct_date_form'])}}
       @csrf
       <h2 class="sub-ttl">選択した日程</h2>
@@ -261,6 +259,17 @@
                         return $(this).attr("disabled");
                     }).remove();
                 });
+
+                $(window).on('load', function() {
+                  var origin_date=$('input[name="date"]').val();
+                  var target =origin_date.replaceAll('/','-');
+                  const iframe = $('iframe').contents();
+                  iframe.find('input[name="date"]').val(target);
+                  iframe.find('#datepicker8').val(target);
+                  iframe.find('#s_calendar').submit();
+                  });
+
+
   </script>
   <div class="top contents"><a href="#top"><img src="https://osaka-conference.com/img/pagetop.png" alt="上に戻る"></a>
   </div>
