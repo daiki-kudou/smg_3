@@ -42,7 +42,7 @@
       </li>
 
       <li class="nav-item has-treeview">
-        <a href="#" class="nav-link venues">
+        <a href="{{url('/')}}" class="nav-link venues">
           <i class="nav-icon fas fa-link" style=""></i>
           <p>予約する</p>
         </a>
@@ -56,19 +56,11 @@
       </li>
 
       <li class="nav-item has-treeview">
-        <a href="#" class="nav-link">
+        <a href="{{url('user/home/cxl_membership')}}" class="nav-link">
           <i class="nav-icon fas fa-sign-out-alt" style=""></i>
           <p>退会</p>
         </a>
       </li>
-
-
-
-
-
-
-
-
 
     </ul>
   </nav>

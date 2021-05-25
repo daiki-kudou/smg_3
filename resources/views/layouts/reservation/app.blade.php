@@ -9,6 +9,7 @@
   <meta name="keywords" content="" />
   <meta name="description"
     content="SMGアクセア貸し会議室のカレンダー一覧（空室確認）ページです。会場は大阪市内の各主要駅から徒歩0～2分。JR大阪/新大阪/地下鉄梅田駅からアクセス抜群。知名度が高いエリアの視認性の良いビル内に5～200名収容の豊富なバリエーション会場を多数ご用意しています。格安料金体系＆プロジェクター・スクリーンなどの備品無料多数。説明会・セミナー・研修・勉強会・懇親会などに最適です。また音響設備・プロジェクターがグレードアップした講演や説明会等に最適な臨場感溢れる「音響グレードアップ会場」もございます。" />
+  <meta name="csrf-token" content="{{ csrf_token() }}">
 
   <link rel="canonical" href="https://osaka-conference.com/calendar/">
   <link rel="shortcut icon" href="https://osaka-conference.com/img/favicon.ico?ver=20201225" />
@@ -165,6 +166,7 @@
   <link href="{{ asset('/css/homepage/style.css') }}" rel="stylesheet">
 
 </head>
+
 <body id="top" class="calender contactpage tentative vacancy">
   <div class="wrapper">
 
@@ -461,55 +463,55 @@
         });
           
           // 時間セレクトループ
-        $(function(){
-          $(document).on("change", "#enter_time", function() {
-          var enter_time=$('[name=enter_time] option:selected').val();
-          $('[name=leave_time] option').each(function(index, element){
-          var target_val=$(element).val();
-          if (enter_time=="08:00:00") {
-            switch (target_val) {
-              case "08:00:00":
-                $(element).prop("disabled","true");
-                break;
-              case "08:30:00":
-                $(element).prop("disabled","true");
-                break;
-              case "09:00:00":
-                $(element).prop("disabled","true");
-                break;
-              case "09:30:00":
-                $(element).prop("disabled","true");
-                break;
-              case "10:00:00":
-                $(element).prop("disabled","true");
-                break;
-              default:
-                break;
-            }
-          }else if(enter_time=="08:30:00"){
-            switch (target_val) {
-              case "08:00:00":
-                $(element).prop("disabled","true");
-                break;
-              case "08:30:00":
-                $(element).prop("disabled","true");
-                break;
-              case "09:00:00":
-                $(element).prop("disabled","true");
-                break;
-              case "09:30:00":
-                $(element).prop("disabled","true");
-                break;
-              case "10:00:00":
-                $(element).prop("disabled","true");
-                break;
-              default:
-                break;
-            }
-          }
-          })
-          });
-        })
+        // $(function(){
+        //   $(document).on("change", "#enter_time", function() {
+        //   var enter_time=$('[name=enter_time] option:selected').val();
+        //   $('[name=leave_time] option').each(function(index, element){
+        //   var target_val=$(element).val();
+        //   if (enter_time=="08:00:00") {
+        //     switch (target_val) {
+        //       case "08:00:00":
+        //         $(element).prop("disabled","true");
+        //         break;
+        //       case "08:30:00":
+        //         $(element).prop("disabled","true");
+        //         break;
+        //       case "09:00:00":
+        //         $(element).prop("disabled","true");
+        //         break;
+        //       case "09:30:00":
+        //         $(element).prop("disabled","true");
+        //         break;
+        //       case "10:00:00":
+        //         $(element).prop("disabled","true");
+        //         break;
+        //       default:
+        //         break;
+        //     }
+        //   }else if(enter_time=="08:30:00"){
+        //     switch (target_val) {
+        //       case "08:00:00":
+        //         $(element).prop("disabled","true");
+        //         break;
+        //       case "08:30:00":
+        //         $(element).prop("disabled","true");
+        //         break;
+        //       case "09:00:00":
+        //         $(element).prop("disabled","true");
+        //         break;
+        //       case "09:30:00":
+        //         $(element).prop("disabled","true");
+        //         break;
+        //       case "10:00:00":
+        //         $(element).prop("disabled","true");
+        //         break;
+        //       default:
+        //         break;
+        //     }
+        //   }
+        //   })
+        //   });
+        // })
         });
   </script>
 

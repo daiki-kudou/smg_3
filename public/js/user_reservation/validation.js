@@ -6,7 +6,6 @@ jQuery.validator.addMethod("katakana", function (value, element) {
 );
 
 
-
 $(function () {
   $("#slct_date_form").validate({
     rules: {
@@ -240,22 +239,22 @@ $(function () {
 
 
 
-$(function () {
-  function ExceptString($target) {
-    $target.numeric({ negative: false, });
-    $target.on('change', function () {
-      charactersChange($(this));
-    })
-    charactersChange = function (ele) {
-      var val = ele.val();
-      var han = val.replace(/[Ａ-Ｚａ-ｚ０-９]/g, function (s) { return String.fromCharCode(s.charCodeAt(0) - 0xFEE0) });
-      if (val.match(/[Ａ-Ｚａ-ｚ０-９]/g)) {
-        $(ele).val(han);
-      }
-    }
-  }
-  var tel = $("input[name^='tel']");
-  var equ = $("input[name^='equipment_breakdown']");
-  ExceptString(tel);
-  ExceptString(equ);
-})
+// $(function () {
+//   function ExceptString($target) {
+//     $target.numeric({ negative: false, });
+//     $target.on('change', function () {
+//       charactersChange($(this));
+//     })
+//     charactersChange = function (ele) {
+//       var val = ele.val();
+//       var han = val.replace(/[Ａ-Ｚａ-ｚ０-９]/g, function (s) { return String.fromCharCode(s.charCodeAt(0) - 0xFEE0) });
+//       if (val.match(/[Ａ-Ｚａ-ｚ０-９]/g)) {
+//         $(ele).val(han);
+//       }
+//     }
+//   }
+//   var tel = $("input[name^='tel']");
+//   var equ = $("input[name^='equipment_breakdown']");
+//   ExceptString(tel);
+//   ExceptString(equ);
+// })

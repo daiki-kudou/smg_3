@@ -5,14 +5,16 @@ Route::namespace('Home')->prefix('/')->name('home.')->group(function () {
     Route::post('slct_date', 'HomeController@slct_date')->name('home.slct_date');
     Route::post('slct_venue', 'HomeController@slct_venue')->name('home.slct_venue');
     Route::get('email_reset_done', 'HomeController@email_reset_done');
+    // 予約時の時間制御用ajax
+    Route::post('control_time', 'HomeController@control_time');
   });
 });
 
 
 
 // 一般ユーザー用カレンダー
-// Route::get('calender/date_calendar', 'CalendarsController@date_calendar');
-Route::get('calender/venue_calendar', 'CalendarsController@venue_calendar');
+Route::get('calendar/venue_calendar', 'CalendarsController@venue_calendar');
+Route::get('calendar/date_calendar', 'CalendarsController@date_calendar');
 
 /*
 |--------------------------------------------------------------------------
@@ -32,6 +34,8 @@ Route::namespace('User')->prefix('user')->name('user.')->group(function () {
     Route::get('home/email_reset', 'HomeController@email_reset');
     Route::post('home/email_reset_create', 'HomeController@email_reset_create');
     Route::get('home/email_reset_send', 'HomeController@email_reset_send');
+    // 退会
+    Route::get('home/cxl_membership', 'HomeController@cxlMemberShipIndex');
 
     Route::resource('home', 'HomeController');
     Route::put('home/{home}/update_status', 'HomeController@updateStatus')->name('home.updatestatus');
@@ -110,7 +114,7 @@ Route::namespace('Admin')->prefix('admin')->name('admin.')->group(function () {
   ]);
 
   // ログイン認証後
-  Route::middleware('auth:admin')->group(function () {
+  Route::middleware('auth:admin', 'check_user_or_admin')->group(function () {
     // TOPページ
     Route::resource('home', 'ReservationsController', ['only' => 'index']);
     // 会場登録
@@ -265,8 +269,6 @@ Route::namespace('Admin')->prefix('admin')->name('admin.')->group(function () {
     Route::get('agents_reservations/edit_check', 'AgentsReservationsController@editCheck')->name('agents_reservations.edit_check');
     Route::post('agents_reservations/update', 'AgentsReservationsController@update');
 
-
-
     //********************** */
     //***仮抑え */
     //********************** */
@@ -396,5 +398,8 @@ Route::namespace('Admin')->prefix('admin')->name('admin.')->group(function () {
     Route::post('control_time', 'ControltimeController@getInformation');
 
     Route::post('change_log', 'ChangeLogsController@update');
+
+    // FAKE TEST
+    Route::get('fake_test', 'FakeTestController@index');
   });
 });

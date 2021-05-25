@@ -7,6 +7,8 @@ use App\Providers\RouteServiceProvider;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Validation\ValidationException;
+
 
 class LoginController extends Controller
 {
@@ -39,5 +41,38 @@ class LoginController extends Controller
   public function loggedOut(Request $request)
   {
     return redirect(route('admin.login'));
+  }
+
+
+  // オーバーライド
+  public function login(Request $request)
+  {
+    $user_auth = Auth::guard('user')->check();
+    if ($user_auth) {
+      return $this->sendFailedLoginResponse($request);
+    }
+
+    $this->validateLogin($request);
+
+    if (method_exists($this, 'hasTooManyLoginAttempts') && $this->hasTooManyLoginAttempts($request)) {
+      $this->fireLockoutEvent($request);
+      return $this->sendLockoutResponse($request);
+    }
+
+    if ($this->attemptLogin($request)) {
+      return $this->sendLoginResponse($request);
+    }
+
+    $this->incrementLoginAttempts($request);
+
+    return $this->sendFailedLoginResponse($request);
+  }
+
+  // オーバーライド
+  protected function sendFailedLoginResponse(Request $request)
+  {
+    throw ValidationException::withMessages([
+      $this->username() => ["ユーザー権限でログイン中は管理者権限でログインできません。ユーザー権限からログアウトしてください"],
+    ]);
   }
 }

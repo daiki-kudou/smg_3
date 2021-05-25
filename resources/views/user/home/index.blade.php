@@ -20,34 +20,62 @@
 </div>
 
 <div class="col-12">
+  {{ Form::open(['url' => 'user/home', 'method'=>'get', 'id'=>'']) }}
+  @csrf
   <dl class="d-flex col-12 justify-content-end align-items-center statuscheck">
     <dt><label for="">支払状況</label></dt>
     <dd class="mr-1">
-      <select class="form-control select2" name="">
-        <option>未入金</option>
-        <option>入金済</option>
-      </select>
+      {{Form::select('paid', ['','未入金', '入金済み','遅延','入金不足','入金過多','次回繰越'],$request->paid,['class'=>'form-control'])}}
+      @if ($request->past)
+      {{Form::hidden('past',1)}}
+      @endif
     </dd>
     <dd>
-      <p class="text-right"><a class="more_btn" href="">検索</a></p>
+      <p class="text-right">
+        {{-- <a class="more_btn" href="">検索</a> --}}
+        {{Form::submit('検索')}}
+      </p>
     </dd>
   </dl>
+  {{Form::close()}}
 
 </div>
 <div class="col-12">
-  <p class="text-right font-weight-bold"><span class="count-color">10</span>件</p>
+  <p class="text-right font-weight-bold"><span class="count-color">{{$counter}}</span>件</p>
 </div>
 
 <!-- 一覧　　------------------------------------------------ -->
 
 <ul class="nav nav-tabs">
   <li class="nav-item">
-    <a href="#reserve-list" class="nav-link active" data-toggle="tab">予約一覧</a>
+    <a href="#reserve-list" class="nav-link {{empty($request->past)?"active":""}}" data-toggle="tab"
+      id="future_link">予約一覧</a>
   </li>
   <li class="nav-item">
-    <a href="#used-list" class="nav-link" data-toggle="tab">過去履歴</a>
+    <a href="#used-list" class="nav-link {{!empty($request->past)?"active":""}}" data-toggle="tab"
+      id="past_link">過去履歴</a>
   </li>
 </ul>
+
+{{Form::open(['url' => 'user/home', 'method' => 'get', 'id'=>'future'])}}
+@csrf
+{{Form::close()}}
+<script>
+  $('#future_link').on('click',function(){
+    $('#future').submit();
+  })
+</script>
+
+{{Form::open(['url' => 'user/home', 'method' => 'get', 'id'=>'past'])}}
+@csrf
+{{Form::hidden('past',1)}}
+{{Form::close()}}
+<script>
+  $('#past_link').on('click',function(){
+    $('#past').submit();
+  })
+</script>
+
 
 <div class="tab-content">
   <div id="reserve-list" class="tab-pane active">
@@ -70,7 +98,7 @@
             <th class="btn-cell">領収書</th>
           </tr>
         </thead>
-        @foreach ($user->reservations->sortByDesc('id') as $reservation)
+        @foreach ($reservations as $reservation)
         <tbody>
           <tr>
             <td rowspan="{{count($reservation->bills)}}">{{ReservationHelper::fixId($reservation->id)}}
@@ -145,20 +173,8 @@
 
 <!-- 一覧　　終わり------------------------------------------------ -->
 
-<ul class="pagination justify-content-center">
-  <li class="page-item disabled" aria-disabled="true" aria-label="&laquo; 前">
-    <span class="page-link" aria-hidden="true">&lsaquo;</span>
-  </li>
-  <li class="page-item active" aria-current="page"><span class="page-link">1</span></li>
-  <li class="page-item"><a class="page-link" href="">2</a>
-  </li>
-  <li class="page-item"><a class="page-link" href="">3</a>
-  </li>
-  <li class="page-item">
-    <a class="page-link" href="http://staging-smg2.herokuapp.com/admin/clients?page=2" rel="next"
-      aria-label="次 &raquo">&rsaquo;</a>
-  </li>
-</ul>
+{{$reservations->appends(request()->input())->render()}}
+
 </div>
 
 

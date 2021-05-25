@@ -786,16 +786,16 @@
               <tbody class="venue_main">
                 <tr>
                   <td>
-                    {{ Form::text('venue_breakdown_item0', '',['class'=>'form-control'] ) }}
+                    {{ Form::text('venue_breakdown_item0', '会場利用（仮）',['class'=>'form-control'] ) }}
                   </td>
                   <td>
-                    {{ Form::text('venue_breakdown_cost0', '',['class'=>'form-control'] ) }}
+                    {{ Form::text('venue_breakdown_cost0', 0,['class'=>'form-control'] ) }}
                   </td>
                   <td>
-                    {{ Form::text('venue_breakdown_count0', '',['class'=>'form-control'] ) }}
+                    {{ Form::text('venue_breakdown_count0', 0,['class'=>'form-control'] ) }}
                   </td>
                   <td>
-                    {{ Form::text('venue_breakdown_subtotal0', '',['class'=>'form-control'] ) }}
+                    {{ Form::text('venue_breakdown_subtotal0', 0,['class'=>'form-control'] ) }}
                   </td>
                   <td>
                     <input type="button" value="＋" class="add pluralBtn">

@@ -22,6 +22,7 @@ use App\Mail\SendUserApprove;
 use Illuminate\Support\Facades\Mail;
 
 use App\Traits\PregTrait;
+use Illuminate\Support\Facades\Auth;
 
 
 class ReservationsController extends Controller
@@ -35,6 +36,10 @@ class ReservationsController extends Controller
    */
   public function index(Request $request)
   {
+
+    // dump(Auth::guard('user')->check());
+    // dump(Auth::guard('admin'));
+
     $today = date('Y-m-d', strtotime(Carbon::today()));
     if (!empty($request->all())) {
       $class = new Reservation;
@@ -105,7 +110,7 @@ class ReservationsController extends Controller
   /**** ajax 料金取得****/
   public function getpricedetails(Request $request)
   {
-    $venue = Venue::find($request->venue_id);
+    $venue = Venue::with('frame_prices')->find($request->venue_id);
     $status = $request->status;
     $start = $request->start;
     $finish = $request->finish;
@@ -235,7 +240,7 @@ class ReservationsController extends Controller
 
   public function calcSession($data)
   {
-    $spVenue = Venue::find($data->venue_id);
+    $spVenue = Venue::with('frame_prices')->find($data->venue_id);
     // //[0]は合計料金, [1]は延長料金, [2]は合計＋延長、 [3]は利用時間, [4]は延長時間
     $price_details = $spVenue->calculate_price($data->price_system, $data->enter_time, $data->leave_time);
     $s_equipment = Equipment::getSessionArrays($data);

@@ -149,7 +149,7 @@ class PreReservation extends Model
 
   public function reCalculateVenue($requests, $venue_id)
   {
-    $venue = Venue::find($venue_id);
+    $venue = Venue::with('frame_prices')->find($venue_id);
     $venue_price_result = $venue->calculate_price(
       $requests->{'price_system_copied' . $requests->split_keys},
       $requests->{'enter_time' . $requests->split_keys},

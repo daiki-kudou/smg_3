@@ -2,7 +2,41 @@
 @section('content')
 
 <script src="{{ asset('/js/user_reservation/validation.js') }}"></script>
+<script src="{{ asset('/js/user_reservation/control_time.js') }}"></script>
 
+<style>
+  #fullOverlay {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(100, 100, 100, .5);
+    z-index: 2147483647;
+    display: none;
+  }
+
+  .frame_spinner {
+    max-width: 100%;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: fixed;
+  }
+
+  .hide {
+    display: none;
+  }
+</style>
+<div id="fullOverlay">
+  <div class="frame_spinner w-100">
+    <div class="spinner-border text-white text-center " role="status"
+      style="width: 5rem; height: 5rem; font-weight:30px;">
+      <span class="sr-only hide">Loading...</span>
+    </div>
+  </div>
+</div>
 
 <main>
   <!--コロナ対策中お知らせ非表示-->
@@ -142,6 +176,7 @@
             <td>
               <div class="selectWrap long">
                 <select name="venue_id" id="venue_id">
+                  <option value=""></option>
                   @foreach ($venues as $venue)
                   <option value="{{$venue->id}}">{{ReservationHelper::getVenue($venue->id)}}</option>
                   @endforeach
@@ -158,7 +193,7 @@
               <div class="selectWrap">
                 <select name="enter_time" class="timeScale" id="enter_time">
                   <option value=""></option>
-                  {{!!ReservationHelper::timeOptionsWithDefault()!!}}
+                  {!!ReservationHelper::timeOptionsWithDefault()!!}
                 </select>
               </div>
               <p class="is-error-enter_time" style="color: red"></p>
@@ -169,8 +204,7 @@
               </p>
               <p class="checkbox-txt">
                 <span class="txtRed">＊</span>
-                {{-- <input type="checkbox" name="q1" value="確認しました" id="checkbox"> --}}
-                {{Form::checkbox('q1', 1, false, ['class'=>'custom-control-input','id'=>'checkbox'])}}
+                {{Form::checkbox('q1', 1, false, ['class'=>'','id'=>'checkbox'])}}
                 <label for="checkbox">確認しました</label>
               </p>
               <p class="is-error-q1" style="color: red"></p>
@@ -182,7 +216,7 @@
               <div class="selectWrap">
                 <select name="leave_time" class="timeScale" id="leave_time">
                   <option value=""></option>
-                  {{!!ReservationHelper::timeOptionsWithDefault()!!}}
+                  {!!ReservationHelper::timeOptionsWithDefault()!!}
                 </select>
               </div>
               <p class="is-error-leave_time" style="color: red"></p>

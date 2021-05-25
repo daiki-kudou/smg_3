@@ -1223,16 +1223,16 @@
                       <tbody class="{{'venue_main'.$key}}">
                         <tr>
                           <td>
-                            {{ Form::text('venue_breakdown_item0_copied'.$key, '',['class'=>'form-control'] ) }}
+                            {{ Form::text('venue_breakdown_item0_copied'.$key, '会場利用（仮）',['class'=>'form-control'] ) }}
                           </td>
                           <td>
-                            {{ Form::text('venue_breakdown_cost0_copied'.$key, '',['class'=>'form-control'] ) }}
+                            {{ Form::text('venue_breakdown_cost0_copied'.$key, 0,['class'=>'form-control'] ) }}
                           </td>
                           <td>
-                            {{ Form::text('venue_breakdown_count0_copied'.$key, '',['class'=>'form-control'] ) }}
+                            {{ Form::text('venue_breakdown_count0_copied'.$key, 0,['class'=>'form-control'] ) }}
                           </td>
                           <td>
-                            {{ Form::text('venue_breakdown_subtotal0_copied'.$key, '',['class'=>'form-control'] ) }}
+                            {{ Form::text('venue_breakdown_subtotal0_copied'.$key, 0,['class'=>'form-control'] ) }}
                           </td>
                           <td>
                             <input type="button" value="＋" class="add pluralBtn">
@@ -1244,7 +1244,7 @@
                         <tr>
                           <td colspan="3"></td>
                           <td colspan="1">
-                          <p class="text-left">合計</p>
+                            <p class="text-left">合計</p>
                             {{ Form::text('venue_price'.$key,'',['class'=>'form-control col-xs-3', 'readonly'] ) }}
                           </td>
                         </tr>
@@ -1280,7 +1280,7 @@
                         <tr>
                           <td colspan="3"></td>
                           <td colspan="1">
-                          <p class="text-left">合計</p>
+                            <p class="text-left">合計</p>
                             {{ Form::text('venue_price'.$key,$pre_reservation->pre_bill->venue_price,['class'=>'form-control col-xs-3', 'readonly'] ) }}
                           </td>
                         </tr>
@@ -1354,7 +1354,7 @@
                         <tr>
                           <td colspan="3"></td>
                           <td colspan="1">
-                          <p class="text-left">合計</p>
+                            <p class="text-left">合計</p>
                             {{ Form::text('equipment_price'.$key, $pre_reservation->pre_bill->equipment_price,['class'=>'form-control', 'readonly'] ) }}
                           </td>
                         </tr>
@@ -1406,7 +1406,7 @@
                         <tr>
                           <td colspan="3"></td>
                           <td colspan="1">
-                          <p class="text-left">合計</p>
+                            <p class="text-left">合計</p>
                             {{ Form::text('layout_price'.$key, $pre_reservation->pre_bill->layout_price,['class'=>'form-control', 'readonly'] ) }}
                           </td>
                         </tr>

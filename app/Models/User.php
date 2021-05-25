@@ -13,18 +13,22 @@ use Carbon\Carbon;
 
 use Illuminate\Support\Facades\DB; //トランザクション用
 
+use Illuminate\Database\Eloquent\SoftDeletes; //追記
 
 
 // implements MustVerifyEmailを削除した
 class User extends Authenticatable
 {
   use Notifiable;
+  use SoftDeletes;
+
 
   // 自作パスワードリセット
   public function sendPasswordResetNotification($token)
   {
     $this->notify(new CustomResetPassword($token));
   }
+  protected $dates = ['deleted_at']; //追記
 
 
   /**

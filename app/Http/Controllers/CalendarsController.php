@@ -6,39 +6,63 @@ use Illuminate\Http\Request;
 
 use App\Models\Venue;
 use App\Models\Reservation;
+use App\Models\PreReservation;
 
 use Carbon\Carbon;
+
+use App\Traits\CalendarTrait;
 
 
 class CalendarsController extends Controller
 {
+  use CalendarTrait;
+
   public function venue_calendar(Request $request)
   {
-    $venues = Venue::select('id', 'name_area', 'name_bldg', 'name_venue')->get();
-    if ($request->venue_id) {
-      $selected_venue = $request->venue_id;
-    } else {
-      $selected_venue = 1;
-    }
-
-    $days = [];
-    $start_of_month = Carbon::now()->firstOfMonth();
-    $end_of_month = Carbon::now()->endOfMonth();
-    $diff = $start_of_month->diffInDays($end_of_month);
-    for ($i = 0; $i < $diff; $i++) {
-      $dt = Carbon::now()->firstOfMonth();
-      $days[] = $dt->addDays($i);
-    }
-
-    $reservations = Reservation::select('id', 'reserve_date', 'enter_time', 'leave_time', 'reservation_status', 'venue_id', 'user_id')->get();
-    $find_venues = $reservations->where('venue_id', $selected_venue);
-
-
+    $selected_venue = $request->venue_id ? $request->venue_id : 1;
+    $fix_input_dates = date('Y-m', strtotime($request->selected_year . '-' . $request->selected_month));
+    $start_of_month = $request->all() ? (Carbon::parse($fix_input_dates)->firstOfMonth()) : Carbon::now()->firstOfMonth();
+    $end_of_month = $request->all() ? (Carbon::parse($fix_input_dates)->endOfMonth()) : Carbon::now()->endOfMonth();
+    $days = $this->venueCalendar($start_of_month, $end_of_month);
+    $venues = Venue::all();
+    $reservations = Reservation::with('bills')->where('venue_id', $selected_venue)->get();
+    $pre_reservations = PreReservation::where("venue_id", $selected_venue)->get();
     return view('calendar.venue_calendar', [
       'days' => $days,
       'venues' => $venues,
       'selected_venue' => $selected_venue,
-      'find_venues' => $find_venues,
+      'reservations' => $reservations,
+      'pre_reservations' => $pre_reservations,
+      'selected_year' => !empty($request->selected_year) ? $request->selected_year : Carbon::now()->year,
+      'selected_month' => !empty($request->selected_month) ? $request->selected_month : Carbon::now()->month,
     ]);
+  }
+
+  public function date_calendar(Request $request)
+  {
+    $today = $request->all() ? Carbon::parse($request->date)->toDateString() : Carbon::now()->toDateString();
+    $tomorrow = $request->all() ? Carbon::parse($request->date)->addDay()->toDateString() : Carbon::now()->addDay()->toDateString();
+    $yesterday = $request->all() ? Carbon::parse($request->date)->addDays(-1)->toDateString() : Carbon::now()->addDays(-1)->toDateString();
+
+    $reservations = Reservation::with('bills')->where('reserve_date', $today)->get();
+    $pre_reservations = PreReservation::where('reserve_date', $today)->get();
+    $venues = Venue::all();
+
+    $json_result = $this->dateCalendar($reservations);
+    $pre_json_result = $this->dateCalendar($pre_reservations);
+
+    return view(
+      'calendar.date_calendar',
+      compact(
+        'reservations',
+        'pre_reservations',
+        'venues',
+        'today',
+        'tomorrow',
+        'yesterday',
+        'json_result',
+        'pre_json_result',
+      )
+    );
   }
 }
