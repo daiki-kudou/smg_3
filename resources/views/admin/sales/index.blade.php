@@ -112,15 +112,15 @@
         <td>
           <ul class="search_category">
             <li>
-              {{ Form::checkbox('sales1', '1',false,['id'=>'sales1']) }}
+              {{ Form::checkbox('sales1', '1',$request->sales1==1?true:false,['id'=>'sales1']) }}
               {{ Form::label('sales1', '会場') }}
             </li>
             <li>
-              {{ Form::checkbox('sales2', '2',false,['id'=>'sales2']) }}
+              {{ Form::checkbox('sales2', '2',$request->sales2==2?true:false,['id'=>'sales2']) }}
               {{ Form::label('sales2', 'キャンセル') }}
             </li>
             <li>
-              {{ Form::checkbox('sales3', '3',false,['id'=>'sales3']) }}
+              {{ Form::checkbox('sales3', '3',$request->sales3==3?true:false,['id'=>'sales3']) }}
               {{ Form::label('sales3', '追加請求') }}
             </li>
           </ul>
