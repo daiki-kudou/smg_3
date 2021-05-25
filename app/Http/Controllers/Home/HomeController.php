@@ -39,19 +39,32 @@ class HomeController extends Controller
 
   public function control_time(Request $request)
   {
-    $reservation = Reservation::with("bills")->where("reserve_date", date('Y-m-d', strtotime($request->date)))
+    $reservations = Reservation::with("bills")->where("reserve_date", date('Y-m-d', strtotime($request->date)))
       ->where("venue_id", $request->venue_id)
       ->get();
 
-    $pre_reservation = PreReservation::where('reserve_date', date('Y-m-d', strtotime($request->date)))
+    $pre_reservations = PreReservation::where('reserve_date', date('Y-m-d', strtotime($request->date)))
       ->where("venue_id", $request->venue_id)
       ->get();
 
-    return [
-      optional($reservation->first())->enter_time,
-      optional($reservation->first())->leave_time,
-      optional($pre_reservation->first())->enter_time,
-      optional($pre_reservation->first())->leave_time
-    ];
+    $result = [];
+    foreach ($reservations as $reservation) {
+      $diff = (Carbon::parse($reservation->enter_time)->diffInMinutes(Carbon::parse($reservation->leave_time))) / 30;
+      $temporary = [];
+      for ($i = 0; $i <= $diff; $i++) {
+        $temporary[] = date('H:i:00', strtotime(Carbon::parse($reservation->enter_time)->addMinutes($i * 30)));
+      }
+      $result[] = $temporary;
+    }
+    foreach ($pre_reservations as $pre_reservation) {
+      $diff = (Carbon::parse($pre_reservation->enter_time)->diffInMinutes(Carbon::parse($pre_reservation->leave_time))) / 30;
+      $temporary = [];
+      for ($i = 0; $i <= $diff; $i++) {
+        $temporary[] = date('H:i:00', strtotime(Carbon::parse($pre_reservation->enter_time)->addMinutes($i * 30)));
+      }
+      $result[] = $temporary;
+    }
+
+    return array_merge($result[0], $result[1]);
   }
 }
