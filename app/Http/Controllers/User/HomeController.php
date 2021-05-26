@@ -311,8 +311,13 @@ class HomeController extends Controller
       return 0;
     }
 
-    $this->haveReservation($user);
-    $this->haveCxl($user);
+    $have_reservation = $this->haveReservation($user);
+    $have_cxl = $this->haveCxl($user);
+    if ($have_reservation && $have_cxl) {
+      return 0;
+    } else {
+      return 1;
+    }
   }
 
   public function haveReservation($user)
@@ -320,6 +325,12 @@ class HomeController extends Controller
     $finish_reservation_or_not = $this->finishReservationOrNot($user);
     $paid_or_not = $this->paidOrNot($user);
     $future_reservations = $this->haveFutureReservationOrNot($user);
+
+    if ($finish_reservation_or_not && $paid_or_not && $future_reservations) {
+      return TRUE;
+    } else {
+      return FALSE;
+    }
   }
 
   public function finishReservationOrNot($user)
