@@ -366,7 +366,15 @@ class HomeController extends Controller
   public function haveFutureReservationOrNot($user)
   {
     $today = date('Y-m-d', strtotime(Carbon::now()));
-    $counter = $user->reservations->where("reserve_date", ">=", $today)->count();
+    $reservations = $user->reservations->where("reserve_date", ">=", $today);
+    $counter = 0;
+    foreach ($reservations as $key => $reservation) {
+      foreach ($reservation->bills as $key => $bill) {
+        if ($bill->reservation_status <= 3) {
+          $counter++;
+        }
+      }
+    }
     if ($counter == 0) {
       return TRUE;
     } else {
