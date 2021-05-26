@@ -22,8 +22,11 @@ class HomeController extends Controller
   public function slct_date(Request $request)
   {
     $venues = Venue::all();
-    return view('home.slct_date', compact('request', 'venues'));
+    $today = date("Y/m/d", strtotime(Carbon::now()));
+
+    return view('home.slct_date', compact('request', 'venues', 'today'));
   }
+
 
   public function slct_venue(Request $request)
   {
