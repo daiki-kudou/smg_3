@@ -1,53 +1,6 @@
 @extends('layouts.reservation.app')
 @section('content')
 <main>
-
-  <!-- パンくずなど.html -->
-  <!-- <ul class="tagBtn sticky">
-    <li><a href ="https://osaka-conference.com/contact/"><span><img src="https://osaka-conference.com/img/link_conact.png" alt="問い合わせ"></span></a></li>
-    <li><a href ="https://osaka-conference.com/reservation/"><img src="https://osaka-conference.com/img/link_entry.png" alt="本申込"></a></li>
-</ul> -->
-
-  <ul class="tagBtn sticky">
-    <li><a class="contact_btn" href="https://osaka-conference.com/contact/">問合わせ</a></li>
-    <li><a class="reserve_btn" href="https://osaka-conference.com/reservation/">会場予約</a></li>
-    <li><a class="login_btn" href="https://osaka-conference.com/reservation/">ログイン</a></li>
-  </ul>
-
-  <!--コロナ対策中お知らせ非表示-->
-  <section class="contents news pc">
-    <dl class="information contents">
-      <dt>重要なお知らせ</dt>
-      <dd><a href="https://osaka-conference.com/corona/">新型コロナウィルスに対する取り組みについて</a></dd>
-    </dl>
-  </section>
-  <section class="contents news sp">
-    <dl class="information indexNews">
-      <dt>重要なお知らせ</dt>
-      <dd><a href="https://osaka-conference.com/corona/">新型コロナウィルスに対する取り組みについて</a></dd>
-    </dl>
-  </section>
-  <!--コロナ対策中お知らせ非表示-->
-
-
-
-  <!------パンクズ-------->
-  <nav class="contents">
-    <ol class="bread" itemscope itemtype="http://schema.org/BreadcrumbList">
-      <li itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
-        <a itemscope itemtype="http://schema.org/Thing" itemprop="item" href="https://osaka-conference.com/">
-          <span itemprop="name"><img src="https://osaka-conference.com/img/icon_bread.png" alt="HOME"></span></a>
-        <meta itemprop="position" content="1">
-      </li>
-      <li itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
-        <a itemscope itemtype="http://schema.org/Thing" itemprop="item" href="https://osaka-conference.com/calendar/">
-          <span itemprop="name"><span class="changeTtl">カレンダー（空室確認）</span></span></a>
-        <meta itemprop="position" content="2">
-      </li>
-    </ol>
-  </nav>
-
-
   <!-- ログイン、会員登録 -->
   <div class="contents">
     <div class="pagetop-text">
@@ -178,12 +131,11 @@
                 @endforeach
 
                 <li>
-                  <p>
+                  {{-- <p>
                     荷物預り/返送
-                  </p>
-
+                  </p> --}}
                   <dl class="form-cell2">
-                    <dt>荷物個数：</dt>
+                    <dt>事前荷物の個数：</dt>
                     <dd>
                       {{$slctSession[0]['luggage_count']}}<span>個</span>
                     </dd>
@@ -195,13 +147,13 @@
                     </dd>
                   </dl>
                   <dl class="form-cell2">
-                    <dt>事後返送する荷物：</dt>
+                    <dt>事後返送する荷物の個数：</dt>
+                    <dd>
+                      工藤さん！こちらお願いします。<span>個</span>
+                    </dd>
                   </dl>
                 </li>
                 <li>
-                  <p>
-                    レイアウト変更
-                  </p>
                   <dl class="form-cell2">
                     <dt>レイアウト準備：</dt>
                     <dd>
@@ -209,7 +161,7 @@
                     </dd>
                   </dl>
                   <dl class="form-cell2">
-                    <dt>片付：</dt>
+                    <dt>レイアウト片付：</dt>
                     <dd>
                       {{!empty($slctSession[0]['layout_clean'])?"あり":"なし"}}
                     </dd>
