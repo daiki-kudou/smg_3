@@ -133,6 +133,7 @@ ul.tagBtn li a {
     margin: 0 auto;
 }
 
+
 .link-btn {
     background: #3E4B5B;
     /* padding: .5em; */
@@ -295,6 +296,13 @@ form table td textarea {
 .table-sum .totalsum-ttl {
     background-color: #35A7A7;
     font-size: 1.2rem;
+}
+
+.form-input {
+    padding: 5px 10px;
+    background: #fff;
+    border-radius: 0;
+    box-shadow: 0 0 3px #cacaca;
 }
 
 

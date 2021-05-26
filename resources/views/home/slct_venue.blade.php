@@ -1,49 +1,10 @@
 @extends('layouts.reservation.app')
 @section('content')
+
+<script src="{{ asset('/js/user_reservation/validation.js') }}"></script>
+<script src="{{ asset('/js/user_reservation/control_time.js') }}"></script>
+
 <main>
-  <!-- <ul class="tagBtn sticky">
-    <li><a href ="https://osaka-conference.com/contact/"><span><img src="https://osaka-conference.com/img/link_conact.png" alt="問い合わせ"></span></a></li>
-    <li><a href ="https://osaka-conference.com/reservation/"><img src="https://osaka-conference.com/img/link_entry.png" alt="本申込"></a></li>
-</ul> -->
-
-  <ul class="tagBtn sticky">
-    <li><a class="contact_btn" href="https://osaka-conference.com/contact/">問合わせ</a></li>
-    <li><a class="reserve_btn" href="https://osaka-conference.com/reservation/">会場予約</a></li>
-    <li><a class="login_btn" href="https://osaka-conference.com/reservation/">ログイン</a></li>
-  </ul>
-
-  <!--コロナ対策中お知らせ非表示-->
-  <section class="contents news pc">
-    <dl class="information contents">
-      <dt>重要なお知らせ</dt>
-      <dd><a href="https://osaka-conference.com/corona/">新型コロナウィルスに対する取り組みについて</a></dd>
-    </dl>
-  </section>
-  <section class="contents news sp">
-    <dl class="information indexNews">
-      <dt>重要なお知らせ</dt>
-      <dd><a href="https://osaka-conference.com/corona/">新型コロナウィルスに対する取り組みについて</a></dd>
-    </dl>
-  </section>
-  <!--コロナ対策中お知らせ非表示-->
-
-
-
-  <!------パンクズ-------->
-  <nav class="contents">
-    <ol class="bread" itemscope itemtype="http://schema.org/BreadcrumbList">
-      <li itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
-        <a itemscope itemtype="http://schema.org/Thing" itemprop="item" href="https://osaka-conference.com/">
-          <span itemprop="name"><img src="https://osaka-conference.com/img/icon_bread.png" alt="HOME"></span></a>
-        <meta itemprop="position" content="1">
-      </li>
-      <li itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
-        <a itemscope itemtype="http://schema.org/Thing" itemprop="item" href="https://osaka-conference.com/calendar/">
-          <span itemprop="name"><span class="changeTtl">カレンダー（空室確認）</span></span></a>
-        <meta itemprop="position" content="2">
-      </li>
-    </ol>
-  </nav>
   <!-- 会場予約 -->
   <div class="contents">
     <div class="pagetop-text">
@@ -141,54 +102,93 @@
 
       <h2 class="sub-ttl">選択した日程</h2>
       <div class="bgColorGray first">
-        <table>
-          <tr>
-            <th>利用会場</th>
-            <td>
-              四ツ橋・サンワールドビル2号室
-            </td>
-          </tr>
-          <tr>
-            <th>年月日 <span class="txtRed">＊</span></th>
-            <td>
-              <div class="riyoubi">
-                <input type="text" name="date" id="datepicker" readonly>
-                <img class="ui-datepicker-trigger" src="https://osaka-conference.com/img/icon_calender.png" alt="..."
-                  title="...">
-              </div>
-              <a name="a-date" class="error-r"></a>
-              <p><span class="txt-indent">翌々日以降の利用日から受付可能です。</span></p>
-              <p><span>直近の日程は選択できません。お電話にて問い合わせ下さい。</span></p>
-            </td>
-          </tr>
-          <tr>
-            <th>入室時間 <span class="txtRed">＊</span></th>
-            <td>
-              <div class="selectWrap">
-                <select name="" class="timeScale"></select>
-              </div>
-              <a name="a-time01" class="error-r"></a>
-              <p><span>入室時間より以前に入室はできません。<br>確認の上、チェックボックスをクリックしてください。</span></p>
-              <p class="checkbox-txt"><span class="txtRed">＊</span><input type="checkbox" name="q1" value="確認しました">
-                確認しました</p>
-            </td>
-          </tr>
-
-          <tr>
-            <th>退室時間 <span class="txtRed">＊</span></th>
-            <td>
-              <div class="selectWrap">
-                <select name="" class="timeScale"></select>
-              </div>
-              <a name="a-time03" class="error-r"></a>
-            </td>
-          </tr>
-        </table>
+        <form action="">
+          <table class="">
+            <tr>
+              <th>利用会場</th>
+              <td>
+                <p>工藤さん！こちら選択した会場の表示お願いします。</p>
+              </td>
+            </tr>
+            <tr>
+              <th>年月日<span class="txtRed">＊</span></th>
+              <td>
+                <p>
+                  <div class="riyoubi">
+                    <input type="text" name="date" id="datepicker" class="form-input">
+                    <img class="ui-datepicker-trigger" src="https://osaka-conference.com/img/icon_calender.png" alt=""
+                      title="">
+                  </div>
+                  <p><span class="txt-indent">翌々日以降の利用日から受付可能です。</span></p>
+                  <p><span>直近の日程は選択できません。お電話にて問い合わせ下さい。</span></p>
+                </p>
+              </td>
+            </tr>
+            <tr>
+              <th>入室時間
+                <span class="txtRed">＊</span>
+              </th>
+              <td>
+                <div class="selectWrap">
+                  <select name="enter_time" class="timeScale" id="enter_time">
+                    <option value=""></option>
+                    {!!ReservationHelper::timeOptionsWithDefault()!!}
+                  </select>
+                </div>
+                <p class="is-error-enter_time" style="color: red"></p>
+                <p>
+                  <span>入室時間より以前に入室はできません。
+                    <br>
+                    確認の上、チェックボックスをクリックしてください。</span>
+                </p>
+                <p class="checkbox-txt">
+                  <span class="txtRed">＊</span>
+                  {{Form::checkbox('q1', 1, false, ['class'=>'','id'=>'checkbox'])}}
+                  <label for="checkbox">確認しました</label>
+                </p>
+                <p class="is-error-q1" style="color: red"></p>
+              </td>
+            </tr>
+            <tr>
+              <th>退室時間 <span class="txtRed">＊</span></th>
+              <td>
+                <div class="selectWrap">
+                  <select name="leave_time" class="timeScale" id="leave_time">
+                    <option value=""></option>
+                    {!!ReservationHelper::timeOptionsWithDefault()!!}
+                  </select>
+                </div>
+                <p class="is-error-leave_time" style="color: red"></p>
+              </td>
+            </tr>
+            {{-- <tr>
+              <th>入室時間 <span class="txtRed">＊</span></th>
+              <td>
+                <div class="selectWrap">
+                  <select name="" class="timeScale"></select>
+                </div>
+                <a name="a-time01" class="error-r"></a>
+                <p><span>入室時間より以前に入室はできません。<br>確認の上、チェックボックスをクリックしてください。</span></p>
+                <p class="checkbox-txt"><span class="txtRed">＊</span><input type="checkbox" name="q1" value="確認しました">
+                  確認しました</p>
+              </td>
+            </tr>
+            <tr>
+              <th>退室時間 <span class="txtRed">＊</span></th>
+              <td>
+                <div class="selectWrap">
+                  <select name="" class="timeScale"></select>
+                </div>
+                <a name="a-time03" class="error-r"></a>
+              </td>
+            </tr> --}}
+          </table>
+        </form>
       </div>
       </form>
 
       <div class="btn-wrapper2">
-        <p class="confirm-btn"><a href="">日時を選択する</a></p>
+        <p class="confirm-btn"><a href="">日時を選択する工藤さん！！！ここの実装お願いします。</a></p>
       </div>
 
     </div>
