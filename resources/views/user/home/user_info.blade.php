@@ -106,8 +106,6 @@
 
 
 　<div class="btn-wrapper">
-
-
   {{Form::open(['url' => 'user/home/user_edit', 'method' => 'POST'])}}
   @csrf
   {{Form::hidden('user_id',$user->id)}}
