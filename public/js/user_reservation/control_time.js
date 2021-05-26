@@ -1,7 +1,7 @@
 $(document).on("change", "#venue_id", function () {
   var date = $('input[name="date"]').val();
   var venue_id = $(this).val();
-  $('#enter_time').find('option').each(function ($key, $value) {
+  $('#enter_time,#leave_time').find('option').each(function ($key, $value) {
     $($value).prop('disabled', false);
   })
   $.ajax({

@@ -323,9 +323,7 @@
                 overflow: hidden;
                 white-space: nowrap;
                 text-overflow: ellipsis;
-                /* text-overflow: ellipsis clip; */
                 width: 60px;
-
               }
             </style>
           </td>

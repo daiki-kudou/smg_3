@@ -260,14 +260,14 @@
                     }).remove();
                 });
 
-                $(window).on('load', function() {
-                  var origin_date=$('input[name="date"]').val();
-                  var target =origin_date.replaceAll('/','-');
-                  const iframe = $('iframe').contents();
-                  iframe.find('input[name="date"]').val(target);
-                  iframe.find('#datepicker8').val(target);
-                  iframe.find('#s_calendar').submit();
-                  });
+    $(window).on('load', function() {
+      var origin_date=$('input[name="date"]').val();
+      var target =origin_date.replaceAll('/','-');
+      const iframe = $('iframe').contents();
+      iframe.find('input[name="date"]').val(target);
+      iframe.find('#datepicker8').val(target);
+      iframe.find('#s_calendar').submit();
+      });
 
 
   </script>
