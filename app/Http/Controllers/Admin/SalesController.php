@@ -11,6 +11,7 @@ use App\Models\User;
 use App\Models\Agent;
 use App\Models\Venue;
 use App\Models\Enduser;
+use App\Models\Cxl;
 use Carbon\Carbon;
 
 use App\Traits\PaginatorTrait;
@@ -133,6 +134,22 @@ class SalesController extends Controller
           };
         });
       }
+      if ($request->sales2) {
+        $cxl = Cxl::pluck('reservation_id')->toArray();
+        $query->orWhereIn("id", $cxl);
+      }
+      if ($request->sales3) {
+        $bill = Bill::pluck("reservation_id")->toArray();
+        $duplicate = array_count_values($bill);
+        $check = [];
+        foreach ($duplicate as $key => $value) {
+          if ($value > 1) {
+            $check[] = $key;
+          }
+        }
+        $query->orWhereIn("id", $check);
+      }
+
       if ($request->free_word) {
         $query->where(function ($query2) use ($request, $amounts_array) {
           $val = $this->formatInputInteger($request->free_word);
