@@ -32,7 +32,7 @@
       </nav>
     </div>
 
-    <p>テスト投稿！！！！！</p>
+    <p>テスト投稿です。。。。</p>
 
     {{ Form::open(['url' => 'admin/reservations', 'method'=>'get', 'id'=>'reserve_search'])}}
     @csrf
