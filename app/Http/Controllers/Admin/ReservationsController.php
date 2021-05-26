@@ -36,10 +36,8 @@ class ReservationsController extends Controller
    */
   public function index(Request $request)
   {
-
     // dump(Auth::guard('user')->check());
     // dump(Auth::guard('admin'));
-
     $today = date('Y-m-d', strtotime(Carbon::today()));
     if (!empty($request->all())) {
       $class = new Reservation;
@@ -47,8 +45,6 @@ class ReservationsController extends Controller
       $reservations = $result->orderBy('id', 'desc')->paginate(30);
       $counter = $result->count();
     } else {
-      // $reservations = Reservation::with(['bills.breakdowns', 'user', 'agent', 'venue', 'endusers'])
-      //   ->orderByRaw("CASE WHEN reserve_date >z '$today' THEN reserve_date ELSE 9999 END")->paginate(30);
       $reservations = Reservation::with(['bills.breakdowns', 'user', 'agent', 'venue', 'endusers'])
         ->orderBy('id', 'desc')
         ->paginate(30);
@@ -57,7 +53,6 @@ class ReservationsController extends Controller
 
     $venue = Venue::all();
     $agents = Agent::all();
-
     return view('admin.reservations.index', compact('reservations', 'venue', 'agents', "counter"));
   }
 

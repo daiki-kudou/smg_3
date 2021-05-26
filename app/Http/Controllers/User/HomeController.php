@@ -46,22 +46,6 @@ class HomeController extends Controller
     $user_id = auth()->user()->id;
     $user = User::with("reservations.bills")->find($user_id);
 
-    // if ($request->past) {
-    //   if ($request->paid) {
-    //     $bill = Bill::where('paid', $request->paid)->pluck('reservation_id')->toArray();
-    //     $reservations = $user->reservations->where('reserve_date', '<', $today)->whereIn('id', $bill)->sortByDesc('reserve_date');
-    //   } else {
-    //     $reservations = $user->reservations->where('reserve_date', '<', $today)->sortByDesc('reserve_date');
-    //   }
-    // } else {
-    //   if ($request->paid) {
-    //     $bill = Bill::where('paid', $request->paid)->pluck('reservation_id')->toArray();
-    //     $reservations = Reservation::whereIn("id", $bill)->where("user_id", $user->id)->get();
-    //   } else {
-    //     $reservations = $user->reservations->where('reserve_date', '>=', $today)->sortBy('reserve_date');
-    //   }
-    // }
-
     $reservations = $user->reservations;
     if ($request->past == 1) { //過去履歴
       if ($request->paid != "") {
@@ -78,11 +62,6 @@ class HomeController extends Controller
         $reservations = $user->reservations->where("reserve_date", ">=", $today)->sortBy("reserve_date");
       }
     }
-
-
-
-
-
 
     $counter = count($reservations);
     $reservations = $this->customPaginate($reservations, 2, $request);

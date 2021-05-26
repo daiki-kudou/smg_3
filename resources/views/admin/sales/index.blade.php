@@ -291,7 +291,8 @@
           <td rowspan="{{($reservation->billCount()*2)+$reservation->cxlCount()+2}}">
             {{!empty($reservation->user_id)?ReservationHelper::getCompany($reservation->user_id):""}}
           </td>
-          <td rowspan="{{($reservation->billCount()*2)+$reservation->cxlCount()+2}}">
+          <td rowspan="{{($reservation->billCount()*2)+$reservation->cxlCount()+2}}"
+            class="{{$reservation->user->trashed()?"not_member":""}}">
             {{!empty($reservation->user_id)?ReservationHelper::getPersonName($reservation->user_id):""}}
           </td>
           <td rowspan="{{($reservation->billCount()*2)+$reservation->cxlCount()+2}}">
