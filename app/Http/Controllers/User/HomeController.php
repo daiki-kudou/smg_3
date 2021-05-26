@@ -275,14 +275,14 @@ class HomeController extends Controller
   public function cxlMemberShipIndex()
   {
     $user_id = auth()->user()->id;
-    $user = User::with("reservations.bills")->find($user_id);
+    $user = User::with(["reservations.bills", "reservations.cxls"])->find($user_id);
     $check_cxl_member_ship = $this->checkCxlMemberShip($user_id);
     // 0=退会許可、1=退会不可
-    // if ($check_cxl_member_ship === 0) {
-    //   return view('user.home.cxl_membership.index', compact('user'));
-    // } else {
-    //   return view('user.home.cxl_membership.reject', compact('user'));
-    // }
+    if ($check_cxl_member_ship === 0) {
+      return view('user.home.cxl_membership.index', compact('user'));
+    } else {
+      return view('user.home.cxl_membership.reject', compact('user'));
+    }
   }
 
   public function destroy($id)
@@ -291,7 +291,7 @@ class HomeController extends Controller
     if ($id != $user_id) {
       return redirect(url('user/home'));
     }
-    $user = User::with("reservations.bills")->find($id);
+    $user = User::with(["reservations.bills", "pre_reservations"])->find($id);
     $user->delete();
     return redirect(url('/'));
   }
@@ -299,32 +299,108 @@ class HomeController extends Controller
   public function checkCxlMemberShip($user_id)
   {
     // ★★★★★★★★★★★★★★★退会できる人★★★★★★★★★★★★★★★
-    //予約完了＆＆入金済み＆＆利用日が今日以前
-    //キャンセル完了＆＆入金済み
     //予約がない
     //仮抑えがない
+    //予約完了＆＆入金済み＆＆利用日が今日以前
+    //キャンセル完了＆＆入金済み
     // 0=退会許可、1=退会不可
     $today = date('Y-m-d', strtotime(Carbon::now()));
-    $user = User::with('reservations')->find($user_id);
-    $reservation_count = $user->reservations->where('reserve_date', '>=', $today)->count(); //今日以降の予約
+    $user = User::with(['reservations.bills', 'reservations.cxls'])->find($user_id);
 
-    $user->reservations->map(function ($item, $key) {
-      dd($item);
-    });
-
-    foreach ($user->reservations as $key => $reservation) {
-      foreach ($reservation->bills as $key2 => $bill) {
-        $paid = $bill->pluck('paid');
-      }
-    };
-    $paid_check = $paid->every(function ($value, $key) {
-      return ($value == 1);
-    });
-
-    if ($paid_check && $reservation_count === 0) {
+    if ($user->reservations->count() == 0 && $user->pre_reservations->count() == 0) {
       return 0;
-    } else {
-      return 1;
     }
+
+    $this->haveReservation($user);
+    $this->haveCxl($user);
+  }
+
+  public function haveReservation($user)
+  {
+    $finish_reservation_or_not = $this->finishReservationOrNot($user);
+    $paid_or_not = $this->paidOrNot($user);
+    $future_reservations = $this->haveFutureReservationOrNot($user);
+  }
+
+  public function finishReservationOrNot($user)
+  {
+    foreach ($user->reservations as $key => $reservation) {
+      foreach ($reservation->bills as $key => $bill) {
+        if ($bill->reservation_status == 1 || $bill->reservation_status == 2) {
+          return FALSE;
+          break;
+        } else {
+          continue;
+        }
+      }
+    }
+    return TRUE;
+  }
+
+  public function paidOrNot($user)
+  {
+    foreach ($user->reservations as $key => $reservation) {
+      foreach ($reservation->bills->where("reservation_status", "<=", 3) as $key => $bill) {
+        if ($bill->paid == 1) {
+          continue;
+        } else {
+          return FALSE;
+          break;
+        }
+      }
+    }
+    return TRUE;
+  }
+
+  public function haveFutureReservationOrNot($user)
+  {
+    $today = date('Y-m-d', strtotime(Carbon::now()));
+    $counter = $user->reservations->where("reserve_date", ">=", $today)->count();
+    if ($counter == 0) {
+      return TRUE;
+    } else {
+      return FALSE;
+    }
+  }
+
+  public function haveCxl($user)
+  {
+    $finish_cxl_or_not = $this->finishCxlOrNot($user);
+    $cxl_paid_or_not = $this->cxlPaidOrNot($user);
+    if ($finish_cxl_or_not && $cxl_paid_or_not) {
+      return TRUE;
+    } else {
+      return FALSE;
+    }
+  }
+
+  public function finishCxlOrNot($user)
+  {
+    foreach ($user->reservations as $key => $reservation) {
+      foreach ($reservation->bills as $key => $bill) {
+        if ($bill->reservation_status == 4 || $bill->reservation_status == 5) {
+          return FALSE;
+          break;
+        } else {
+          continue;
+        }
+      }
+    }
+    return TRUE;
+  }
+
+  public function cxlPaidOrNot($user)
+  {
+    foreach ($user->reservations as $key => $reservation) {
+      foreach ($reservation->cxls as $key => $cxl) {
+        if ($cxl->paid == 1) {
+          continue;
+        } else {
+          return FALSE;
+          break;
+        }
+      }
+    }
+    return TRUE;
   }
 }

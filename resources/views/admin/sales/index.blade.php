@@ -2,7 +2,15 @@
 @section('content')
 
 <link href="{{ asset('/css/template.css') }}" rel="stylesheet">
-
+<style>
+  .remark_limit {
+    height: 100%;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    width: 60px;
+  }
+</style>
 
 <div class="container-field mt-3">
   <div class="float-right">
@@ -317,15 +325,6 @@
           </td>
           <td>
             <p class="remark_limit">{{$reservation->bills->first()->pay_person}}</p>
-            <style>
-              .remark_limit {
-                height: 100%;
-                overflow: hidden;
-                white-space: nowrap;
-                text-overflow: ellipsis;
-                width: 60px;
-              }
-            </style>
           </td>
           <td rowspan="{{($reservation->billCount()*2)+$reservation->cxlCount()+2}}">
             {{!empty($reservation->user_id)?ReservationHelper::getAttr($reservation->user_id):""}}
@@ -376,7 +375,9 @@
           <td> {{ReservationHelper::judgeStatus($reservation->bills->skip($i)->first()->reservation_status)}}</td>
           <td> {{ReservationHelper::formatDate($reservation->bills->skip($i)->first()->pay_day)}}</td>
           <td> {{$reservation->bills->skip($i)->first()->paid==0?"未入金":"入金済"}}</td>
-          <td>{{($reservation->bills->skip($i)->first()->pay_person)}}</td>
+          <td>
+            <p class="remark_limit">{{($reservation->bills->skip($i)->first()->pay_person)}}</p>
+          </td>
           <td> {{ReservationHelper::formatDate($reservation->bills->skip($i)->first()->payment_limit)}}</td>
         </tr>
         @if ($reservation->bills->skip($i)->first()->cxl)
@@ -410,7 +411,7 @@
             {{"追加請求".$i."キャンセル"}}
           </td>
           <td>
-            {{ReservationHelper::cxlStatus($reservation->bills->skip($i)->first()->cxl_status)}}
+            {{ReservationHelper::judgeStatus($reservation->bills->skip($i)->first()->reservation_status)}}
           </td>
           <td>-</td>
           <td>-</td>
