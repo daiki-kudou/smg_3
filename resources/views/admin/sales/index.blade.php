@@ -315,7 +315,20 @@
               予約詳細
             </a>
           </td>
-          <td>{{$reservation->bills->first()->pay_person}}</td>
+          <td>
+            <p class="remark_limit">{{$reservation->bills->first()->pay_person}}</p>
+            <style>
+              .remark_limit {
+                height: 100%;
+                overflow: hidden;
+                white-space: nowrap;
+                text-overflow: ellipsis;
+                /* text-overflow: ellipsis clip; */
+                width: 60px;
+
+              }
+            </style>
+          </td>
           <td rowspan="{{($reservation->billCount()*2)+$reservation->cxlCount()+2}}">
             {{!empty($reservation->user_id)?ReservationHelper::getAttr($reservation->user_id):""}}
           </td>
