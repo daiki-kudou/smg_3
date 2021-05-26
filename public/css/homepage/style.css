@@ -1,5 +1,10 @@
 @charset "utf-8";
 
+option:disabled {
+    background: #d0d0d0;
+  }
+
+
 
 ul.tagBtn li a {
     letter-spacing: 0.15em;
