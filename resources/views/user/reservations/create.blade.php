@@ -3,21 +3,6 @@
 
 <script src="{{ asset('/js/user_reservation/validation.js') }}"></script>
 
-<!--コロナ対策中お知らせ非表示-->
-<section class="contents news pc">
-  <dl class="information contents">
-    <dt>重要なお知らせ</dt>
-    <dd><a href="https://osaka-conference.com/corona/">新型コロナウィルスに対する取り組みについて</a></dd>
-  </dl>
-</section>
-<section class="contents news sp">
-  <dl class="information indexNews">
-    <dt>重要なお知らせ</dt>
-    <dd><a href="https://osaka-conference.com/corona/">新型コロナウィルスに対する取り組みについて</a></dd>
-  </dl>
-</section>
-<!--コロナ対策中お知らせ非表示-->
-
 
 <div class="contents">
   <div class="pagetop-text">
