@@ -39,5 +39,12 @@ class AdminsTableSeeder extends Seeder
       'password'          => Hash::make('B4LwMd9kzrFy'),
       'remember_token'    => Str::random(10),
     ]);
+    DB::table('admins')->insert([
+      'id'              => 8,
+      'name'              => '提携',
+      'email'             => 'teikei@s-mg.co.jp',
+      'password'          => Hash::make('BHP5cbIk4FDL'),
+      'remember_token'    => Str::random(10),
+    ]);
   }
 }
