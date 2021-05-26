@@ -25,7 +25,7 @@
   <dl class="d-flex col-12 justify-content-end align-items-center statuscheck">
     <dt><label for="">支払状況</label></dt>
     <dd class="mr-1">
-      {{Form::select('paid', ['','未入金', '入金済み','遅延','入金不足','入金過多','次回繰越'],$request->paid,['class'=>'form-control'])}}
+      {{Form::select('paid', [""=>"",0=>'未入金', 1=>'入金済み',2=>'遅延',3=>'入金不足',4=>'入金過多',5=>'次回繰越'],$request->paid,['class'=>'form-control'])}}
       @if ($request->past)
       {{Form::hidden('past',1)}}
       @endif

@@ -42,28 +42,49 @@ class HomeController extends Controller
 
   public function index(Request $request)
   {
-    $today = Carbon::now();
+    $today = date('Y-m-d', strtotime(Carbon::now()));
     $user_id = auth()->user()->id;
     $user = User::with("reservations.bills")->find($user_id);
 
-    if ($request->past) {
-      if ($request->paid) {
-        $bill = Bill::where('paid', $request->paid)->pluck('reservation_id')->toArray();
-        $reservations = $user->reservations->where('reserve_date', '<', $today)->whereIn('id', $bill)->sortByDesc('reserve_date');
-      } else {
-        $reservations = $user->reservations->where('reserve_date', '<', $today)->sortByDesc('reserve_date');
-      }
-      $counter = count($reservations);
-    } else {
-      if ($request->paid) {
-        $bill = Bill::where('paid', $request->paid)->pluck('reservation_id')->toArray();
-        $reservations = $user->reservations->where('reserve_date', '>=', $today)->whereIn('id', $bill)->sortBy('reserve_date');
-      } else {
-        $reservations = $user->reservations->where('reserve_date', '>=', $today)->sortBy('reserve_date');
-      }
+    // if ($request->past) {
+    //   if ($request->paid) {
+    //     $bill = Bill::where('paid', $request->paid)->pluck('reservation_id')->toArray();
+    //     $reservations = $user->reservations->where('reserve_date', '<', $today)->whereIn('id', $bill)->sortByDesc('reserve_date');
+    //   } else {
+    //     $reservations = $user->reservations->where('reserve_date', '<', $today)->sortByDesc('reserve_date');
+    //   }
+    // } else {
+    //   if ($request->paid) {
+    //     $bill = Bill::where('paid', $request->paid)->pluck('reservation_id')->toArray();
+    //     $reservations = Reservation::whereIn("id", $bill)->where("user_id", $user->id)->get();
+    //   } else {
+    //     $reservations = $user->reservations->where('reserve_date', '>=', $today)->sortBy('reserve_date');
+    //   }
+    // }
 
-      $counter = count($reservations);
+    $reservations = $user->reservations;
+    if ($request->past == 1) { //過去履歴
+      if ($request->paid != "") {
+        $bill = Bill::where("paid", $request->paid)->pluck("reservation_id")->toArray();
+        $reservations = $user->reservations->whereIn("id", $bill)->where("reserve_date", "<", $today)->sortByDesc("reserve_date");
+      } else {
+        $reservations = $user->reservations->where("reserve_date", "<", $today)->sortByDesc("reserve_date");
+      }
+    } else { //予約一覧（現在＆未来）
+      if ($request->paid != "") {
+        $bill = Bill::where("paid", $request->paid)->pluck("reservation_id")->toArray();
+        $reservations = $user->reservations->whereIn("id", $bill)->where("reserve_date", ">=", $today)->sortByDesc("reserve_date");
+      } else {
+        $reservations = $user->reservations->where("reserve_date", ">=", $today)->sortBy("reserve_date");
+      }
     }
+
+
+
+
+
+
+    $counter = count($reservations);
     $reservations = $this->customPaginate($reservations, 2, $request);
     return view('user.home.index', compact('user', 'reservations', 'request', 'counter'));
   }
@@ -366,7 +387,15 @@ class HomeController extends Controller
   public function haveFutureReservationOrNot($user)
   {
     $today = date('Y-m-d', strtotime(Carbon::now()));
-    $counter = $user->reservations->where("reserve_date", ">=", $today)->count();
+    $reservations = $user->reservations->where("reserve_date", ">=", $today);
+    $counter = 0;
+    foreach ($reservations as $key => $reservation) {
+      foreach ($reservation->bills as $key => $bill) {
+        if ($bill->reservation_status <= 3) {
+          $counter++;
+        }
+      }
+    }
     if ($counter == 0) {
       return TRUE;
     } else {
