@@ -278,11 +278,11 @@ class HomeController extends Controller
     $user = User::with("reservations.bills")->find($user_id);
     $check_cxl_member_ship = $this->checkCxlMemberShip($user_id);
     // 0=退会許可、1=退会不可
-    if ($check_cxl_member_ship === 0) {
-      return view('user.home.cxl_membership.index', compact('user'));
-    } else {
-      return view('user.home.cxl_membership.reject', compact('user'));
-    }
+    // if ($check_cxl_member_ship === 0) {
+    //   return view('user.home.cxl_membership.index', compact('user'));
+    // } else {
+    //   return view('user.home.cxl_membership.reject', compact('user'));
+    // }
   }
 
   public function destroy($id)
@@ -298,10 +298,19 @@ class HomeController extends Controller
 
   public function checkCxlMemberShip($user_id)
   {
+    // ★★★★★★★★★★★★★★★退会できる人★★★★★★★★★★★★★★★
+    //予約完了＆＆入金済み＆＆利用日が今日以前
+    //キャンセル完了＆＆入金済み
+    //予約がない
+    //仮抑えがない
     // 0=退会許可、1=退会不可
     $today = date('Y-m-d', strtotime(Carbon::now()));
     $user = User::with('reservations')->find($user_id);
     $reservation_count = $user->reservations->where('reserve_date', '>=', $today)->count(); //今日以降の予約
+
+    $user->reservations->map(function ($item, $key) {
+      dd($item);
+    });
 
     foreach ($user->reservations as $key => $reservation) {
       foreach ($reservation->bills as $key2 => $bill) {

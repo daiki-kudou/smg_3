@@ -91,9 +91,9 @@
                   <select name="room04" id="changeSelect">
                     @foreach ($venues as $venue)
                     @if ($request->room04==$venue->id)
-                    <option value="{{$venue->id}}" selected>{{ReservationHelper::getVenue($venue->id)}}</option>
+                    <option value="{{$venue->id}}" selected>{{ReservationHelper::getVenueForUser($venue->id)}}</option>
                     @else
-                    <option value="{{$venue->id}}">{{ReservationHelper::getVenue($venue->id)}}</option>
+                    <option value="{{$venue->id}}">{{ReservationHelper::getVenueForUser($venue->id)}}</option>
                     @endif
                     @endforeach
                   </select>
@@ -222,8 +222,21 @@
                         return $(this).attr("disabled");
                     }).remove();
                 });
+
+    $(window).on('load', function() {
+    var origin_venue=$('select[name="room04"] option:selected').val();
+    console.log(origin_month);
+    // var target =origin_date.replaceAll('/','-');
+    // const iframe = $('iframe').contents();
+    // iframe.find('input[name="date"]').val(target);
+    // iframe.find('#datepicker8').val(target);
+    // iframe.find('#s_calendar').submit();
+    });
+
   </script>
   <div class="top contents"><a href="#top"><img src="https://osaka-conference.com/img/pagetop.png" alt="上に戻る"></a>
   </div>
 </main>
+
+
 @endsection
