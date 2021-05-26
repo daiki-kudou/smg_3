@@ -13,7 +13,7 @@
 
   <link rel="canonical" href="https://osaka-conference.com/calendar/">
   <link rel="shortcut icon" href="https://osaka-conference.com/img/favicon.ico?ver=20201225" />
-  <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+  {{-- <link href="{{ asset('css/app.css') }}" rel="stylesheet"> --}}
 
   <link rel="stylesheet" media="all" type="text/css"
     href="https://osaka-conference.com/css/ress.min.css?ver=20201225" />
@@ -244,6 +244,37 @@
         <li><a class="login_btn" href="https://osaka-conference.com/reservation/">ログイン</a></li>
       </ul>
     </header>
+  <!--コロナ対策中お知らせ非表示-->
+  <section class="contents news pc">
+    <dl class="information contents">
+      <dt>重要なお知らせ</dt>
+      <dd><a href="https://osaka-conference.com/corona/">新型コロナウィルスに対する取り組みについて</a></dd>
+    </dl>
+  </section>
+  <section class="contents news sp">
+    <dl class="information indexNews">
+      <dt>重要なお知らせ</dt>
+      <dd><a href="https://osaka-conference.com/corona/">新型コロナウィルスに対する取り組みについて</a></dd>
+    </dl>
+  </section>
+  <!--コロナ対策中お知らせ非表示-->
+
+
+  <!------パンクズ-------->
+  <nav class="contents">
+    <ol class="bread" itemscope itemtype="http://schema.org/BreadcrumbList">
+      <li itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
+        <a itemscope itemtype="http://schema.org/Thing" itemprop="item" href="https://osaka-conference.com/">
+          <span itemprop="name"><img src="https://osaka-conference.com/img/icon_bread.png" alt="HOME"></span></a>
+        <meta itemprop="position" content="1">
+      </li>
+      <li itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
+        <a itemscope itemtype="http://schema.org/Thing" itemprop="item" href="https://osaka-conference.com/calendar/">
+          <span itemprop="name"><span class="changeTtl">カレンダー（空室確認）</span></span></a>
+        <meta itemprop="position" content="2">
+      </li>
+    </ol>
+  </nav>
 
     @yield('content')
 
@@ -443,6 +474,8 @@
           </div>
       </div>
     </div>
+
+
   </div>
 
 

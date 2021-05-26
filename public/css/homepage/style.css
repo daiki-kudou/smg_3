@@ -31,6 +31,10 @@ ul.tagBtn li a {
   background: pink;
 }
 
+.page-title {
+    margin-top: 50px;
+}
+
 .page-text {
     text-align: center;
 }
@@ -123,6 +127,12 @@ ul.tagBtn li a {
 .form-cell li {
     margin-right: 1em;
 }
+
+.form-layout {
+    width: 70%;
+    margin: 0 auto;
+}
+
 
 .link-btn {
     background: #3E4B5B;
@@ -286,6 +296,13 @@ form table td textarea {
 .table-sum .totalsum-ttl {
     background-color: #35A7A7;
     font-size: 1.2rem;
+}
+
+.form-input {
+    padding: 5px 10px;
+    background: #fff;
+    border-radius: 0;
+    box-shadow: 0 0 3px #cacaca;
 }
 
 
