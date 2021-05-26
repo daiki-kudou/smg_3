@@ -24,7 +24,7 @@
         <form method="POST" action="{{ route('user.login') }}">
           @csrf
 
-          <div class="form-layout">
+          <div class="bgColorGray">
           <table>
             <tr>
               <th><label for="email" class="col-md-4 col-form-label text-md-right">メールアドレス</label></th>
@@ -71,8 +71,6 @@
 
           </table>
         </div>
-
-
           <div class="btn-wrapper2">
             <button type="submit" class="btn">
               ログインする
