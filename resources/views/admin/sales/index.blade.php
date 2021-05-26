@@ -234,6 +234,7 @@
     @endif
   </p>
 </div>
+
 <!-- 一覧　　------------------------------------------------ -->
 <div class="table-wrap">
   <table class="table table-bordered table-scroll">
