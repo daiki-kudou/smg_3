@@ -113,7 +113,7 @@ class ReservationHelper
 
   public static function getCompany($user_id)
   {
-    $user = User::find($user_id);
+    $user = User::withTrashed()->find($user_id);
     return $user->company;
   }
 
@@ -200,7 +200,7 @@ class ReservationHelper
 
   public static function getAttr($user_id)
   {
-    $user = User::find($user_id);
+    $user = User::withTrashed()->find($user_id);
     switch ($user->attr) {
       case 1:
         return "一般企業";
