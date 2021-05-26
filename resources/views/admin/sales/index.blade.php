@@ -320,7 +320,8 @@
             {{!empty($reservation->user_id)?ReservationHelper::getAttr($reservation->user_id):""}}
           </td>
           <td>{{ReservationHelper::formatDate($reservation->bills->first()->payment_limit)}}</td>
-          <td rowspan="{{($reservation->billCount()*2)+$reservation->cxlCount()+2}}">
+          <td rowspan="{{($reservation->billCount()*2)+$reservation->cxlCount()+2}}"
+            style="{{$reservation->venue->alliance_flag==1?"color:red":""}}">
             {{$reservation->venue->alliance_flag==0?"直":"提"}}</td>
         </tr>
         @if ($reservation->cxls->where('bill_id',0)->count()>0)

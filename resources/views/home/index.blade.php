@@ -116,7 +116,7 @@
               </dl>
               <div class="btnOrange"><button type="submit" class="smit">空室状況検索<img
                     src="https://osaka-conference.com/img/icon_serch.png" alt="検索"></button>
-                <a href="https://osaka-conference.com/contact/" class="cContactBtn">問い合わせ</a></div>
+                <a href="https://osaka-conference.com/contact/" class="cContactBtn" target="_blank">問い合わせ</a></div>
               {{Form::close()}}
             </div>
           </div>

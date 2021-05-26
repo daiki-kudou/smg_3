@@ -133,7 +133,7 @@
         </div>
       </article>
       <div class="calenderframe">
-        <iframe src="{{url('').'/admin/calendar/venue_calendar'}}" width="100%" height="400px"></iframe>
+        <iframe src="{{url('/calendar/venue_calendar')}}" width="100%" height="800px"></iframe>
 
       </div>
 
