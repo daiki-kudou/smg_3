@@ -34,7 +34,6 @@
 
     <p>テスト投稿</p>
 
-
     {{ Form::open(['url' => 'admin/reservations', 'method'=>'get', 'id'=>'reserve_search'])}}
     @csrf
     <div class="search-wrap">
@@ -306,7 +305,7 @@
               {{$reservation->user->company}}
               @endif
             </td>
-            <td rowspan="{{count($reservation->bills)}}">
+            <td rowspan="{{count($reservation->bills)}}" class="{{$reservation->user->trashed()?"not_member":""}}">
               @if ($reservation->user_id>0)
               {{ReservationHelper::getPersonName($reservation->user_id)}}
               @elseif($reservation->user_id==0)

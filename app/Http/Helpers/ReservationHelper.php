@@ -119,7 +119,7 @@ class ReservationHelper
 
   public static function getPersonName($user_id)
   {
-    $user = User::find($user_id);
+    $user = User::withTrashed()->find($user_id);
     return $user->first_name . $user->last_name;
   }
 

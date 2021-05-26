@@ -8,7 +8,8 @@
               <i class="far fa-address-card icon-size"></i>
               顧客情報
             </p>
-            <p><a class="more_btn" target="_blank" rel="noopener" href="{{url('admin/clients/'.$reservation->user_id)}}">顧客詳細</a></p>
+            <p><a class="more_btn" target="_blank" rel="noopener"
+                href="{{url('admin/clients/'.$reservation->user_id)}}">顧客詳細</a></p>
           </div>
         </td>
       </tr>
@@ -20,7 +21,7 @@
       </tr>
       <tr>
         <td class="table-active"><label for="name">担当者氏名</label></td>
-        <td>
+        <td class="{{$user->trashed()?"not_member":""}}">
           {{ReservationHelper::getPersonName($user->id)}}
         </td>
       </tr>
