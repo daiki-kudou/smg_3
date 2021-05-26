@@ -119,6 +119,14 @@ ul.tagBtn li a {
     display: flex;
 }
 
+.form-counter {
+    display: flex;
+    align-items: flex-end;
+}
+.form-counter span {
+    margin-left: 5px;
+}
+
 .form-cell2 {
     display: flex;
     margin-bottom: 10px;
