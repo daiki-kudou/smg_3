@@ -56,7 +56,7 @@
           <div class="flexBetween">
             <div class="grayBox spmt20">
               <p class="txtCenter"><em>利用日から選ぶ</em></p>
-              {{Form::open(['url' => 'slct_date', 'method' => 'post', 'id'=>'form01', 'class'=>'search'])}}
+              {{Form::open(['url' => 'slct_date', 'method' => 'get', 'id'=>'form01', 'class'=>'search'])}}
               @csrf
               <dl>
                 <dt><label>利用日</label></dt>
@@ -79,7 +79,7 @@
             </div>
             <div class="grayBox btn-row">
               <p class="txtCenter"><em>会場から選ぶ</em></p>
-              {{Form::open(['url' => 'slct_venue', 'method' => 'post', 'id'=>'form02', 'class'=>'search'])}}
+              {{Form::open(['url' => 'slct_venue', 'method' => 'get', 'id'=>'form02', 'class'=>'search'])}}
               @csrf
               <dl>
                 <dt><label>会場</label></dt>
@@ -155,8 +155,6 @@
     <div class="top contents"><a href="#top"><img src="https://osaka-conference.com/img/pagetop.png" alt="上に戻る"></a>
     </div>
   </main>
-
-
 </div>
 
 @endsection

@@ -91,13 +91,13 @@
         <div class="flexBetween">
           <div class="grayBox spmt20">
             <p class="txtCenter"><em>利用日から選ぶ</em></p>
-            {{Form::open(['url' => 'slct_date', 'method' => 'post', 'id'=>'form01', 'class'=>'search'])}}
+            {{Form::open(['url' => 'slct_date', 'method' => 'get', 'id'=>'form01', 'class'=>'search'])}}
             @csrf
             <dl>
               <dt><label>利用日</label></dt>
               <dd>
                 <div class="riyoubi">
-                  {{ Form::text('date', $request->date,['class'=>'form-control text6', 'readonly', 'id'=>'datepicker'] ) }}
+                  {{ Form::text('date', $request->date?$request->date:$today,['class'=>'form-control text6', 'readonly', 'id'=>'datepicker'] ) }}
                 </div>
                 <p class="space5"><span class="txt-indent">※複数日程検索は出来ません。</span>
                   <span class="txt-indent">※一部検索対応をしていない会場があります。</span></p>
@@ -110,7 +110,7 @@
           </div>
           <div class="grayBox btn-row">
             <p class="txtCenter"><em>会場から選ぶ</em></p>
-            {{Form::open(['url' => 'slct_venue', 'method' => 'post', 'id'=>'form02', 'class'=>'search'])}}
+            {{Form::open(['url' => 'slct_venue', 'method' => 'get', 'id'=>'form02', 'class'=>'search'])}}
             @csrf
             <dl>
               <dt><label>会場</label></dt>
@@ -136,7 +136,6 @@
                     @endforeach
                   </select>
                 </div>
-
               </dd>
             </dl>
             <dl>
@@ -165,8 +164,8 @@
           <tr>
             <th>利用日</th>
             <td>
-              {{ReservationHelper::formatDate($request->date)}}
-              {{ Form::hidden('date', date('Y-m-d',strtotime($request->date))) }}
+              {{ReservationHelper::formatDate($request->date?$request->date:$today)}}
+              {{ Form::hidden('date', date('Y-m-d',strtotime($request->date?$request->date:$today))) }}
             </td>
           </tr>
           <tr>

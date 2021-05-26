@@ -2,8 +2,8 @@
 Route::namespace('Home')->prefix('/')->name('home.')->group(function () {
   Route::middleware('basic_auth')->group(function () {
     Route::get('/', 'HomeController@index')->name('home');
-    Route::post('slct_date', 'HomeController@slct_date')->name('home.slct_date');
-    Route::post('slct_venue', 'HomeController@slct_venue')->name('home.slct_venue');
+    Route::get('slct_date', 'HomeController@slct_date');
+    Route::get('slct_venue', 'HomeController@slct_venue');
     Route::get('email_reset_done', 'HomeController@email_reset_done');
     // 予約時の時間制御用ajax
     Route::post('control_time', 'HomeController@control_time');
