@@ -7,7 +7,7 @@ Route::namespace('Home')->prefix('/')->name('home.')->group(function () {
     Route::get('email_reset_done', 'HomeController@email_reset_done');
     // 予約時の時間制御用ajax
     Route::post('control_time', 'HomeController@control_time');
-    Route::get('cxl_membership_done', 'HomeController@cxl_membership_done');
+    Route::get('cxl_member_ship_done', 'HomeController@cxl_member_ship_done');
   });
 });
 

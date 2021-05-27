@@ -31,6 +31,10 @@ use Carbon\Carbon;
 
 use App\Traits\PaginatorTrait;
 
+use Session;
+
+use Artisan;
+
 
 class HomeController extends Controller
 {
@@ -287,18 +291,19 @@ class HomeController extends Controller
 
   public function destroy($id)
   {
+
     $user_id = auth()->user()->id;
     if ($id != $user_id) {
       return redirect(url('user/home'));
     }
     $user = User::with(["reservations.bills", "pre_reservations"])->find($id);
     $user->delete();
-    return redirect(url('home/cxl_membership_done'));
+    // Artisan::call('cache:clear');
+    // Session::flush();
+    return redirect(url('/cxl_member_ship_done'));
   }
 
-  public function cxl_membership_done (){
-    return view('home.cxl_membership_done');
-  }
+
 
   public function checkCxlMemberShip($user_id)
   {

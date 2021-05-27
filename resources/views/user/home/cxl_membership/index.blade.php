@@ -78,11 +78,12 @@
       </tbody>
     </table>
   </div>
-  
+
   <div class="d-flex mt-5 justify-content-between user-profile">
     <p><a class="more_btn_lg btn" href="{{url('user/home')}}">退会しない</a></p>
     {{ Form::open(['url' => 'user/home/'.$user->id, 'method'=>'delete', 'id'=>'']) }}
     @csrf
+    {{Form::hidden('user_id',$user->id)}}
     <p>{{Form::submit('退会する',['class'=>'more_btn_lg btn'])}}</p>
   </div>
 </section>
