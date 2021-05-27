@@ -90,7 +90,7 @@ class PreReservationsController extends Controller
       }
     }
     if (count($judge_count) == 1) {
-      $venue = Venue::with(['equipments', 'services'])->find($request->pre_venue0);
+      $venue = Venue::with(['equipments', 'services', 'frame_prices', 'time_prices'])->find($request->pre_venue0);
       $layouts = [];
       $layouts[] = $venue->layout_prepare == 0 ? 0 : $venue->layout_prepare;
       $layouts[] = $venue->layout_clean == 0 ? 0 : $venue->layout_clean;
@@ -107,7 +107,7 @@ class PreReservationsController extends Controller
   {
     if ($request->judge_count == 1) { //単発仮押えの計算
 
-      $SpVenue = Venue::with(['equipments', 'services', 'frame_prices'])->find($request->venue_id);
+      $SpVenue = Venue::with(['equipments', 'services', 'frame_prices', 'time_prices'])->find($request->venue_id);
       $price_details = $SpVenue->calculate_price( //[0]は合計料金, [1]は延長料金, [2]は合計＋延長、 [3]は利用時間, [4]は延長時間
         $request->price_system,
         $request->enter_time,

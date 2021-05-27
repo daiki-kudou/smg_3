@@ -16,12 +16,11 @@ class ReservationsController extends Controller
   {
     $oldSession = $request->session()->get('_old_input');
     if ($oldSession) {
-
       $request = (object)$oldSession;
-      $venue = Venue::find($oldSession['venue_id']);
+      $venue = Venue::with(["frame_prices", "time_prices"])->find($oldSession['venue_id']);
       return view('user.reservations.create', compact('request', 'venue'));
     } else {
-      $venue = Venue::find($request->venue_id);
+      $venue = Venue::with(["frame_prices", "time_prices"])->find($request->venue_id);
       return view('user.reservations.create', compact('request', 'venue'));
     }
   }
@@ -43,7 +42,6 @@ class ReservationsController extends Controller
         $s_service[] = $value;
       }
     }
-    // 
 
     $items_results = $venue->calculate_items_price($s_equipment, $s_service);
 

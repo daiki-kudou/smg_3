@@ -74,6 +74,8 @@
           <p class="is-error-tel" style="color: red"></p>
         </td>
       </tr>
+
+      {{dump($venue->time_prices->count())}}
       <tr>
         <th>音響ハイグレード<span class="txtRed c-block">＊</span></th>
         <td class="">
@@ -91,6 +93,9 @@
           <a name="a-selectTime1" class="error-r"></a>
         </td>
       </tr>
+
+
+
       <tr>
         <th>案内板<span class="txtRed c-block">＊</span></th>
         <td class="">
@@ -123,7 +128,8 @@
               </div>
               <div class="m-b10">
                 <p>主催者名</p>
-                <div class="form-counter">{{ Form::text('event_owner','',['class'=>'form-input text2', 'placeholder'=>'入力してください', 'id'=>'eventownerCount'] ) }}
+                <div class="form-counter">
+                  {{ Form::text('event_owner','',['class'=>'form-input text2', 'placeholder'=>'入力してください', 'id'=>'eventownerCount'] ) }}
                   <span class="count_num3"></span>
                 </div>
                 <p class="is-error-event_owner" style="color: red"></p>
