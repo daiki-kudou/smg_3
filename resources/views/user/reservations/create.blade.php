@@ -377,22 +377,19 @@
     })
   })
 
-  // $(function() {
-
-  //     $(document).on("click", "input:radio[name='board_flag']", function() {
-  //      var no_board_flag = $('input:radio[name="board_flag"]:checked').val();
-  //       if (no_board_flag == 0) {
-  //         $('board_info').addClass("d-none");
-  //       } else {
-  //         $('board_info').removeClass("d-none");
-  //       }
-  //     });
-  //   });
+  // 案内板のラジオボタン選択の表示、非表示
+  $(function() {
+    var no_board_flag = $('#no_board_flag').val();
+    if (no_board_flag == 0) {
+          $(".board_info").addClass("d-none");
+        } else {
+          $(".board_info").removeClass("d-none");
+         }
+    });
 
     $(function() {
-     $("input[type='board_flag']").change(function() {
+     $("input[name='board_flag']").change(function() {
        var no_board_flag = $('#no_board_flag').prop('checked');
-       console.log(no_board_flag);
         if (no_board_flag) {
           $(".board_info").addClass("d-none");
         } else {
@@ -400,8 +397,6 @@
          }
       });
     });
-
-
 </script>
 
 @endsection
