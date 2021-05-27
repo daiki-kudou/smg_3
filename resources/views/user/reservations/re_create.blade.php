@@ -2,41 +2,7 @@
 @section('content')
 
 <script src="{{ asset('/js/user_reservation/validation.js') }}"></script>
-
-
-
-<!--コロナ対策中お知らせ非表示-->
-<section class="contents news pc">
-  <dl class="information contents">
-    <dt>重要なお知らせ</dt>
-    <dd><a href="https://osaka-conference.com/corona/">新型コロナウィルスに対する取り組みについて</a></dd>
-  </dl>
-</section>
-<section class="contents news sp">
-  <dl class="information indexNews">
-    <dt>重要なお知らせ</dt>
-    <dd><a href="https://osaka-conference.com/corona/">新型コロナウィルスに対する取り組みについて</a></dd>
-  </dl>
-</section>
-<!--コロナ対策中お知らせ非表示-->
-
-
-
-<!------パンクズ-------->
-<nav class="contents">
-  <ol class="bread" itemscope itemtype="http://schema.org/BreadcrumbList">
-    <li itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
-      <a itemscope itemtype="http://schema.org/Thing" itemprop="item" href="https://osaka-conference.com/">
-        <span itemprop="name"><img src="https://osaka-conference.com/img/icon_bread.png" alt="HOME"></span></a>
-      <meta itemprop="position" content="1">
-    </li>
-    <li itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
-      <a itemscope itemtype="http://schema.org/Thing" itemprop="item" href="https://osaka-conference.com/calendar/">
-        <span itemprop="name"><span class="changeTtl">カレンダー（空室確認）</span></span></a>
-      <meta itemprop="position" content="2">
-    </li>
-  </ol>
-</nav>
+<script src="{{ asset('/js/lettercounter.js') }}"></script>
 
 
 <div class="contents">
@@ -139,23 +105,29 @@
             <li class="cell-margin">
               <div class="m-b10">
                 <p><span class="txtRed c-block">＊</span>イベント名称1行目</p>
-                {{ Form::text('event_name1',$fix->event_name1,['class'=>'form-control text2', 'placeholder'=>'入力してください'] ) }}
+                <div class="form-counter">
+                  {{ Form::text('event_name1',$fix->event_name1,['class'=>'form-control text2', 'placeholder'=>'入力してください', 'id'=>'eventname1Count'] ) }}
+                  <span class="count_num1"></span>
+                </div>
                 <p class="is-error-event_name1" style="color: red"></p>
-                <p>※16文字以内</p>
               </div>
               <div class="m-b10">
                 <p>イベント名称2行目</p>
-                {{ Form::text('event_name2',$fix->event_name2,['class'=>'form-control text2', 'placeholder'=>'入力してください'] ) }}
+                <div class="form-counter">
+                  {{ Form::text('event_name2',$fix->event_name2,['class'=>'form-control text2', 'placeholder'=>'入力してください', 'id'=>'eventname2Count'] ) }}
+                  <span class="count_num2"></span>
+                </div>
                 <p class="is-error-event_name2" style="color: red"></p>
-                <p>※16文字以内</p>
               </div>
               <div class="m-b10">
                 <p>主催者名</p>
-                {{ Form::text('event_owner',$fix->event_owner,['class'=>'form-control text2', 'placeholder'=>'入力してください'] ) }}
+                <div class="form-counter">
+                  {{ Form::text('event_owner',$fix->event_owner,['class'=>'form-control text2', 'placeholder'=>'入力してください', 'id'=>'eventownerCount'] ) }}
+                  <span class="count_num3"></span>
+                </div>
                 <p class="is-error-event_owner" style="color: red"></p>
-                <p>※30文字以内</p>
               </div>
-              <div class="m-b10">
+              {{-- <div class="m-b10">
                 <p><span class="txtRed c-block">＊</span>イベント時間の記載</p>
                 <div class="selectTime">
                   <input type="radio" id="eventTime" name="eventTime" value="あり" class="radio-input">
@@ -163,7 +135,7 @@
                   <input type="radio" id="eventTimeNone" name="eventTime" value="なし" class="radio-input">
                   <label for="eventTimeNone"><span>なし</span></label>
                 </div>
-              </div>
+              </div> --}}
               <ul class="form-cell">
                 <li>
                   <p>イベント開始時間</p>
@@ -313,7 +285,7 @@
           </div>
           @if ($venue->getLayouts()[1])
           <div class="m-b10">
-            <p>片付</p>
+            <p>レイアウト片付</p>
             <div class="selectTime">
               @if (!empty($fix->layout_clean))
               {{Form::radio('layout_clean', 1, true, ['id' => 'layout_clean', 'class' => 'radio-input'])}}

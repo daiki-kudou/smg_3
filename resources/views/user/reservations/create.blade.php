@@ -2,21 +2,7 @@
 @section('content')
 
 <script src="{{ asset('/js/user_reservation/validation.js') }}"></script>
-
-<!--コロナ対策中お知らせ非表示-->
-<section class="contents news pc">
-  <dl class="information contents">
-    <dt>重要なお知らせ</dt>
-    <dd><a href="https://osaka-conference.com/corona/">新型コロナウィルスに対する取り組みについて</a></dd>
-  </dl>
-</section>
-<section class="contents news sp">
-  <dl class="information indexNews">
-    <dt>重要なお知らせ</dt>
-    <dd><a href="https://osaka-conference.com/corona/">新型コロナウィルスに対する取り組みについて</a></dd>
-  </dl>
-</section>
-<!--コロナ対策中お知らせ非表示-->
+<script src="{{ asset('/js/lettercounter.js') }}"></script>
 
 
 <div class="contents">
@@ -75,7 +61,7 @@
       <tr>
         <th>当日の担当者 <span class="txtRed c-block">＊</span></th>
         <td>
-          {{ Form::text('in_charge', old('in_charge'),['class'=>'form-control text2', 'placeholder'=>'入力してください'] ) }}
+          {{ Form::text('in_charge', old('in_charge'),['class'=>'form-input text2', 'placeholder'=>'入力してください'] ) }}
           <br class="spOnlyunder">
           <p class="is-error-in_charge" style="color: red"></p>
         </td>
@@ -83,7 +69,7 @@
       <tr>
         <th>当日の担当者連絡先 <span class="txtRed c-block">＊</span></th>
         <td>
-          {{ Form::text('tel', old('tel'),['class'=>'form-control text2', 'placeholder'=>'入力してください'] ) }}
+          {{ Form::text('tel', old('tel'),['class'=>'form-input text2', 'placeholder'=>'入力してください'] ) }}
           <br class="spOnlyunder">
           <p class="is-error-tel" style="color: red"></p>
         </td>
@@ -121,21 +107,26 @@
             <li class="cell-margin">
               <div class="m-b10">
                 <p><span class="txtRed c-block">＊</span>イベント名称1行目</p>
-                {{ Form::text('event_name1','',['class'=>'form-control text2', 'placeholder'=>'入力してください'] ) }}
+                <div class="form-counter">
+                  {{ Form::text('event_name1','',['class'=>'form-input text2', 'placeholder'=>'入力してください', 'id'=>'eventname1Count'] ) }}
+                  <span class="count_num1"></span>
+                </div>
                 <p class="is-error-event_name1" style="color: red"></p>
-                <p>※16文字以内</p>
               </div>
               <div class="m-b10">
                 <p>イベント名称2行目</p>
-                {{ Form::text('event_name2','',['class'=>'form-control text2', 'placeholder'=>'入力してください'] ) }}
+                <div class="form-counter">
+                  {{ Form::text('event_name2','',['class'=>'form-input text2', 'placeholder'=>'入力してください', 'id'=>'eventname2Count'] ) }}
+                  <span class="count_num2"></span>
+                </div>
                 <p class="is-error-event_name2" style="color: red"></p>
-                <p>※16文字以内</p>
               </div>
               <div class="m-b10">
                 <p>主催者名</p>
-                {{ Form::text('event_owner','',['class'=>'form-control text2', 'placeholder'=>'入力してください'] ) }}
+                <div class="form-counter">{{ Form::text('event_owner','',['class'=>'form-input text2', 'placeholder'=>'入力してください', 'id'=>'eventownerCount'] ) }}
+                  <span class="count_num3"></span>
+                </div>
                 <p class="is-error-event_owner" style="color: red"></p>
-                <p>※30文字以内</p>
               </div>
               {{-- <div class="m-b10">
                 <p><span class="txtRed c-block">＊</span>イベント時間の記載</p>
@@ -150,7 +141,7 @@
                 <li>
                   <p>イベント開始時間</p>
                   <div class="selectWrap">
-                    <select name="event_start" id="event_start" class="form-control timeScale">
+                    <select name="event_start" id="event_start" class="timeScale">
                       <option disabled>選択してください</option>
                       @for ($start = 8*2; $start <=23*2; $start++) <option
                         value="{{date("H:i:s", strtotime("00:00 +". $start * 30 ." minute"))}}" @if(($request->
@@ -165,7 +156,7 @@
                 <li>
                   <p>イベント終了時間</p>
                   <div class="selectWrap">
-                    <select name="event_finish" id="event_finish" class="form-control timeScale">
+                    <select name="event_finish" id="event_finish" class="timeScale">
                       <option disabled>選択してください</option>
                       @for ($start = 8*2; $start <=23*2; $start++) <option
                         value="{{date("H:i:s", strtotime("00:00 +". $start * 30 ." minute"))}}" @if(($request->
@@ -258,7 +249,7 @@
           @endif
           @if ($venue->getLayouts()[1])
           <div class="m-b10">
-            <p>片付</p>
+            <p>レイアウト片付</p>
             <div class="selectTime">
               {{Form::radio('layout_clean', 1, false, ['id' => 'layout_clean', 'class' => 'radio-input'])}}
               {{Form::label('layout_clean','あり')}}

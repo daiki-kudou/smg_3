@@ -1,5 +1,10 @@
 @charset "utf-8";
 
+option:disabled {
+    background: #d0d0d0;
+  }
+
+
 
 ul.tagBtn li a {
     letter-spacing: 0.15em;
@@ -117,6 +122,14 @@ ul.tagBtn li a {
 
 .form-cell {
     display: flex;
+}
+
+.form-counter {
+    display: flex;
+    align-items: flex-end;
+}
+.form-counter span {
+    margin-left: 5px;
 }
 
 .form-cell2 {

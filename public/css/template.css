@@ -1141,9 +1141,9 @@ table td.table_column p:last-child {
 /* 管理者管理----------------------------------------------------------------- */
 
 .user-profile {
-    width: 60%;
+    width: 80%;
     margin: 0 auto;
-    padding: 3%;
+    /* padding: 3%; */
 }
 
 .user-profile thead {

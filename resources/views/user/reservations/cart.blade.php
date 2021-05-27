@@ -1,59 +1,14 @@
 @extends('layouts.reservation.app')
 @section('content')
 <main>
-
-  <!-- パンくずなど.html -->
-  <!-- <ul class="tagBtn sticky">
-    <li><a href ="https://osaka-conference.com/contact/"><span><img src="https://osaka-conference.com/img/link_conact.png" alt="問い合わせ"></span></a></li>
-    <li><a href ="https://osaka-conference.com/reservation/"><img src="https://osaka-conference.com/img/link_entry.png" alt="本申込"></a></li>
-</ul> -->
-
-  <ul class="tagBtn sticky">
-    <li><a class="contact_btn" href="https://osaka-conference.com/contact/">問合わせ</a></li>
-    <li><a class="reserve_btn" href="https://osaka-conference.com/reservation/">会場予約</a></li>
-    <li><a class="login_btn" href="https://osaka-conference.com/reservation/">ログイン</a></li>
-  </ul>
-
-  <!--コロナ対策中お知らせ非表示-->
-  <section class="contents news pc">
-    <dl class="information contents">
-      <dt>重要なお知らせ</dt>
-      <dd><a href="https://osaka-conference.com/corona/">新型コロナウィルスに対する取り組みについて</a></dd>
-    </dl>
-  </section>
-  <section class="contents news sp">
-    <dl class="information indexNews">
-      <dt>重要なお知らせ</dt>
-      <dd><a href="https://osaka-conference.com/corona/">新型コロナウィルスに対する取り組みについて</a></dd>
-    </dl>
-  </section>
-  <!--コロナ対策中お知らせ非表示-->
-
-
-
-  <!------パンクズ-------->
-  <nav class="contents">
-    <ol class="bread" itemscope itemtype="http://schema.org/BreadcrumbList">
-      <li itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
-        <a itemscope itemtype="http://schema.org/Thing" itemprop="item" href="https://osaka-conference.com/">
-          <span itemprop="name"><img src="https://osaka-conference.com/img/icon_bread.png" alt="HOME"></span></a>
-        <meta itemprop="position" content="1">
-      </li>
-      <li itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
-        <a itemscope itemtype="http://schema.org/Thing" itemprop="item" href="https://osaka-conference.com/calendar/">
-          <span itemprop="name"><span class="changeTtl">カレンダー（空室確認）</span></span></a>
-        <meta itemprop="position" content="2">
-      </li>
-    </ol>
-  </nav>
   <!-- カート一覧 -->
   <div class="contents">
-    <p class="txtRight">ようこそ<span>まるまる</span>さん</p>
+    {{-- <p class="txtRight">ようこそ<span>まるまる</span>さん</p>
     <div class="cart-box">
       <p class="link-btn3"><a href="">
           <i class="fas fa-user form-icon"></i>
           マイページ</a></p>
-    </div>
+    </div> --}}
 
 
     <div class="pagetop-text">

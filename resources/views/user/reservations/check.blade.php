@@ -1,52 +1,6 @@
 @extends('layouts.reservation.app')
 @section('content')
 <main>
-  <!-- パンくずなど.html -->
-  <!-- <ul class="tagBtn sticky">
-    <li><a href ="https://osaka-conference.com/contact/"><span><img src="https://osaka-conference.com/img/link_conact.png" alt="問い合わせ"></span></a></li>
-    <li><a href ="https://osaka-conference.com/reservation/"><img src="https://osaka-conference.com/img/link_entry.png" alt="本申込"></a></li>
-</ul> -->
-
-  <ul class="tagBtn sticky">
-    <li><a class="contact_btn" href="https://osaka-conference.com/contact/">問合わせ</a></li>
-    <li><a class="reserve_btn" href="https://osaka-conference.com/reservation/">会場予約</a></li>
-    <li><a class="login_btn" href="https://osaka-conference.com/reservation/">ログイン</a></li>
-  </ul>
-
-  <!--コロナ対策中お知らせ非表示-->
-  <section class="contents news pc">
-    <dl class="information contents">
-      <dt>重要なお知らせ</dt>
-      <dd><a href="https://osaka-conference.com/corona/">新型コロナウィルスに対する取り組みについて</a></dd>
-    </dl>
-  </section>
-  <section class="contents news sp">
-    <dl class="information indexNews">
-      <dt>重要なお知らせ</dt>
-      <dd><a href="https://osaka-conference.com/corona/">新型コロナウィルスに対する取り組みについて</a></dd>
-    </dl>
-  </section>
-  <!--コロナ対策中お知らせ非表示-->
-
-
-
-  <!------パンクズ-------->
-  <nav class="contents">
-    <ol class="bread" itemscope itemtype="http://schema.org/BreadcrumbList">
-      <li itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
-        <a itemscope itemtype="http://schema.org/Thing" itemprop="item" href="https://osaka-conference.com/">
-          <span itemprop="name"><img src="https://osaka-conference.com/img/icon_bread.png" alt="HOME"></span></a>
-        <meta itemprop="position" content="1">
-      </li>
-      <li itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
-        <a itemscope itemtype="http://schema.org/Thing" itemprop="item" href="https://osaka-conference.com/calendar/">
-          <span itemprop="name"><span class="changeTtl">カレンダー（空室確認）</span></span></a>
-        <meta itemprop="position" content="2">
-      </li>
-    </ol>
-  </nav>
-
-
   <div class="contents">
     <div class="pagetop-text">
       <h1 class="page-title oddcolor"><span>会場予約 料金確認画面</span></h1>
@@ -86,7 +40,6 @@
                   <p class="checkbox-txt"><span class="txtRed">＊</span><input type="checkbox" name="q1" value="確認しました">
                     確認しました</p>
                 </div> --}}
-            <p><a class="link-btn2" href="/">日程を変更する</a></p>
           </td>
         </tr>
         <tr>
@@ -122,7 +75,7 @@
                 {{$request->price_system==1?'しない':'する'}}
                 {{ Form::hidden('price_system', $request->price_system) }}
               </li>
-              <li><a href=""><i class="fas fa-question-circle form-icon"></i>音響ハイグレードとは？</a></li>
+              {{-- <li><a href=""><i class="fas fa-question-circle form-icon"></i>音響ハイグレードとは？</a></li> --}}
             </ul>
             <a name="a-selectTime1" class="error-r"></a>
           </td>
@@ -135,7 +88,7 @@
                 {{$request->board_flag==1?'しない':'する'}}
                 {{ Form::hidden('board_flag', $request->board_flag) }}
               </li>
-              <li><a href=""><i class="fas fa-external-link-alt form-icon"></i>案内板サンプルはこちら</a></li>
+              {{-- <li><a href=""><i class="fas fa-external-link-alt form-icon"></i>案内板サンプルはこちら</a></li> --}}
               <li class="cell-margin">
                 <div class="m-b10">
                   <p><span class="txtRed c-block">＊</span>イベント名称1行目</p>
@@ -152,17 +105,8 @@
                   {{$request->event_owner}}
                   {{ Form::hidden('event_owner', $request->event_owner) }}
                 </div>
-                <div class="m-b10">
-                  <p><span class="txtRed c-block">＊</span>イベント時間の記載</p>
-                  <div class="selectTime">
-                    <input type="radio" id="eventTime" name="eventTime" value="あり" class="radio-input">
-                    <label for="eventTime"><span>あり</span></label>
-                    <input type="radio" id="eventTimeNone" name="eventTime" value="なし" class="radio-input">
-                    <label for="eventTimeNone"><span>なし</span></label>
-                  </div>
-                </div>
-                <ul class="form-cell">
-                  <li>
+                <ul class="">
+                  <li class="m-b10">
                     <p>イベント開始時間</p>
                     {{$request->event_start}}
                     {{ Form::hidden('event_start', $request->event_start) }}
@@ -185,7 +129,10 @@
         <tr>
           <th>室内飲食 <span class="txtRed c-block">＊</span></th>
           <td>
-            <input type="radio" id="cataring01_1" class="radio-input" name="cataring01" value="あり">
+            <p>あり：<span>手配済み</span></p>
+            {{-- 工藤さん！なしの場合はこちら！！ <p>なし</p>--}}
+
+            {{-- <input type="radio" id="cataring01_1" class="radio-input" name="cataring01" value="あり">
             <label for="cataring01_1"><span>あり</span></label>
             ( <label><input type="checkbox" id="cataring02_1" name="cataring02[]" value="手配済" class="checkbox-input">
               <span class="checkbox-parts">手配済</span></label> /
@@ -194,8 +141,7 @@
             )<br>
             <input type="radio" id="cataring01_2" class="radio-input" name="cataring01" value="なし">
             <label for="cataring01_2"><span>なし</span></label>
-            <a name="a-cataring01" class="error-r"></a>
-            <p><span class="txt-indent">※ケータリングは弊社にてご予算に合ったものをご提供可能です。 お気軽に問い合わせ下さい。</span></p>
+            <a name="a-cataring01" class="error-r"></a> --}}
           </td>
         </tr>
 
@@ -278,18 +224,18 @@
               <div class="selectTime">
                 <p class="">{{$request->luggage_arrive}}</p>
                 {{ Form::hidden('luggage_arrive', $request->luggage_arrive ) }}
-                <p>午前指定</p>
+                {{-- <p>午前指定</p> --}}
               </div>
             </div>
             <a name="a-baggagedate" class="error-r"></a>
-            <div class="m-b10">
+            {{-- <div class="m-b10">
               <p>利用日3日前～前日（平日のみ）を到着日に指定下さい</p>
               <p><span class="txt-indent">※送付詳細 / 伝票記載方法は該当会場詳細ページ「備品 / サービス」タブの「荷物預り / 返送
                   PDF」をご確認下さい。</span>
                 <span class="txt-indent">※発送伝票（元払）/ 返送伝票（着払）は各自ご用意下さい。</span>
                 <span class="txt-indent">※貴重品等のお預りはできかねます。</span>
                 <span class="txt-indent">※事前荷物は入室時間迄に弊社が会場搬入します。</span></p>
-            </div>
+            </div> --}}
             <div class="m-b10">
               <p>【事後返送する荷物】</p>
               <div class="selectTime">
@@ -300,7 +246,7 @@
               </div>
             </div>
             <a name="a-baggagedate" class="error-r"></a>
-            <div class="m-b10">
+            {{-- <div class="m-b10">
               <p>6個以上は要相談。まずは事前にお問合わせ下さい。<br>
                 [荷物外寸合計(縦・横・奥行)120cm以下/個]</p>
               <p>
@@ -308,7 +254,7 @@
                   ※返送に関して、発送伝票（元払）、返送伝票（着払）は会場内に用意しているものを必ず使用して下さい。
                 </span>
               </p>
-            </div>
+            </div> --}}
           </td>
         </tr>
 
