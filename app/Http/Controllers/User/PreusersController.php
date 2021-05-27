@@ -63,6 +63,7 @@ class PreusersController extends Controller
     $preuser = new Preuser;
     $preuser->email = $request->email;
     $preuser->token = Str::random(250);
+    // 丸岡さん！！！！！！！　ここでメールの有効期限を１分にしてます
     $preuser->expiration_datetime = now()->addMinutes(1);
 
     $preuser->save();
