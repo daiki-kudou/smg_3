@@ -35,11 +35,13 @@ class RegisterController extends Controller
 
   public function showRegistrationForm(Request $request)
   {
-    return view('user.auth.register', compact('request'));
+    $session = $request->session()->pull('request');
+    return view('user.auth.register', compact('request', 'session'));
   }
 
   public function checkRegistrationForm(Request $request)
   {
+
     $validator = Validator::make($request->all(), [
       'email' => 'required|string|email|max:255|unique:users,email,NULL,id,deleted_at,NULL',
       // 'email' => 'required|unique:users,email|max:255|string|email',
@@ -103,6 +105,18 @@ class RegisterController extends Controller
 
   public function register(Request $request)
   {
+    $request->session()->put('request', $request->all());
+
+    if ($request->back) {
+      return redirect(route(
+        'user.preusers.show',
+        [
+          'id' => $request->id,
+          'token' => $request->token,
+          'email' => $request->email,
+        ]
+      ));
+    }
     $this->validator($request->all())->validate();
 
     event(new Registered($user = $this->create($request->all())));

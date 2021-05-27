@@ -85,7 +85,7 @@ Route::namespace('User')->prefix('user')->name('user.')->group(function () {
   Route::get('preusers/complete', 'PreusersController@complete')->name('preusers.complete');
   Route::get('preusers/register', 'Auth\RegisterController@showRegistrationForm')->name('preusers.register')->middleware('check_status');
   Route::post('preusers/register_check', 'Auth\RegisterController@checkRegistrationForm')->name('preusers.registercheck');
-  Route::post('preusers/register', 'Auth\RegisterController@register')->name('preusers.store');
+  Route::post('preusers/register', 'Auth\RegisterController@register')->name('preusers.store')->middleware('check_status');
 
   // ログイン
   Route::get('login', 'Auth\LoginController@showLoginForm')->name('login');
