@@ -274,6 +274,7 @@
               {{ Form::text('luggage_count', '',['class'=>'text6 baggage_bn', 'style'=>'width:20%;'] ) }}
               <p class="baggage_bn">個</p>
             </div>
+          <p class="is-error-luggage_count" style="color: red"></p>
           </div>
           <div class="m-b10">
             <p>事前荷物の到着日</p>
@@ -282,8 +283,8 @@
               <p>午前指定</p>
             </div>
           </div>
-          <a name="a-baggagedate" class="error-r"></a>
-          <div class="m-b10">
+
+          <div class="m-b30">
             <p>利用日3日前～前日（平日のみ）を到着日に指定下さい</p>
             <p><span class="txt-indent">※送付詳細 / 伝票記載方法は該当会場詳細ページ「備品 / サービス」タブの「荷物預り / 返送
                 PDF」をご確認下さい。</span>
@@ -299,8 +300,9 @@
               <p class="baggage_an">個</p>
             </div>
           </div>
-          <a name="a-baggagedate" class="error-r"></a>
-          <div class="m-b10">
+          <p class="is-error-luggage_return" style="color: red"></p>
+
+          <div class="m-b30">
             <p>6個以上は要相談。まずは事前にお問合わせ下さい。<br>
               [荷物外寸合計(縦・横・奥行)120cm以下/個]</p>
             <p>
@@ -321,7 +323,6 @@
               ※入力に際し旧漢字・機種依存文字などはご使用になれません。
             </span>
           </p>
-          <a name="a-nam" class="error-r"></a>
         </td>
       </tr>
     </table>
@@ -351,5 +352,4 @@
     <img src="https://osaka-conference.com/img/pagetop.png" alt="上に戻る">
   </a>
 </div>
-
 @endsection

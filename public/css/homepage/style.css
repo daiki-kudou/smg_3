@@ -451,5 +451,13 @@ form table td textarea {
         width: 100%;
     }
 
+    .radio-input + label::before {
+        left: 0;
+    }
+
+    .radio-input:checked + label::after {
+        left: 3px;
+    }
+
 
 }

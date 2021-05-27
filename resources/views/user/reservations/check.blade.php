@@ -4,8 +4,6 @@
   <div class="contents">
     <div class="pagetop-text">
       <h1 class="page-title oddcolor"><span>会場予約 料金確認画面</span></h1>
-      {{-- <p>下記フォームに必要事項を入力してください。(＊は必須項目です)</p>
-          <p class="txtRed">複数日程を希望の場合は予約日毎に予約入力してください。</p> --}}
     </div>
   </div>
   <section class="contents">
@@ -35,11 +33,6 @@
                 <p>{{ReservationHelper::formatTime($request->leave_time)}}</p>
               </li>
             </ul>
-            {{-- <div class="borderAttention">
-                  <p><span>入室時間より以前に入室はできません。<br>確認の上、チェックボックスをクリックしてください。</span></p>
-                  <p class="checkbox-txt"><span class="txtRed">＊</span><input type="checkbox" name="q1" value="確認しました">
-                    確認しました</p>
-                </div> --}}
           </td>
         </tr>
         <tr>
@@ -50,7 +43,7 @@
           </td>
         </tr>
         <tr>
-          <th>当日の担当者 <span class="txtRed c-block">＊</span></th>
+          <th>当日の担当者</th>
           <td>
             {{$request->in_charge}}
             {{ Form::hidden('in_charge', $request->in_charge) }}
@@ -59,7 +52,7 @@
           </td>
         </tr>
         <tr>
-          <th>当日の担当者連絡先 <span class="txtRed c-block">＊</span></th>
+          <th>当日の担当者連絡先</th>
           <td>
             {{$request->tel}}
             {{ Form::hidden('tel', $request->tel) }}
@@ -68,7 +61,7 @@
           </td>
         </tr>
         <tr>
-          <th>音響ハイグレード<span class="txtRed c-block">＊</span></th>
+          <th>音響ハイグレード</th>
           <td class="">
             <ul>
               <li>
@@ -81,38 +74,37 @@
           </td>
         </tr>
         <tr>
-          <th>案内板<span class="txtRed c-block">＊</span></th>
+          <th>案内板</th>
           <td class="">
             <ul>
               <li>
                 {{$request->board_flag==1?'しない':'する'}}
                 {{ Form::hidden('board_flag', $request->board_flag) }}
               </li>
-              {{-- <li><a href=""><i class="fas fa-external-link-alt form-icon"></i>案内板サンプルはこちら</a></li> --}}
               <li class="cell-margin">
                 <div class="m-b10">
-                  <p><span class="txtRed c-block">＊</span>イベント名称1行目</p>
+                  <p>【イベント名称1行目】</p>
                   {{$request->event_name1}}
                   {{ Form::hidden('event_name1', $request->event_name1) }}
                 </div>
                 <div class="m-b10">
-                  <p>イベント名称2行目</p>
+                  <p>【イベント名称2行目】</p>
                   {{$request->event_name2}}
                   {{ Form::hidden('event_name2', $request->event_name2) }}
                 </div>
                 <div class="m-b10">
-                  <p>主催者名</p>
+                  <p>【主催者名】</p>
                   {{$request->event_owner}}
                   {{ Form::hidden('event_owner', $request->event_owner) }}
                 </div>
                 <ul class="">
                   <li class="m-b10">
-                    <p>イベント開始時間</p>
+                    <p>【イベント開始時間】</p>
                     {{$request->event_start}}
                     {{ Form::hidden('event_start', $request->event_start) }}
                   </li>
                   <li>
-                    <p>イベント終了時間</p>
+                    <p>【イベント終了時間】</p>
                     {{$request->event_finish}}
                     {{ Form::hidden('event_finish', $request->event_finish) }}
                   </li>
@@ -122,26 +114,14 @@
           </td>
           </li>
           </ul>
-          <a name="a-selectTime1" class="error-r"></a>
           </td>
         </tr>
 
         <tr>
-          <th>室内飲食 <span class="txtRed c-block">＊</span></th>
+          <th>室内飲食</th>
           <td>
             <p>あり：<span>手配済み</span></p>
             {{-- 工藤さん！なしの場合はこちら！！ <p>なし</p>--}}
-
-            {{-- <input type="radio" id="cataring01_1" class="radio-input" name="cataring01" value="あり">
-            <label for="cataring01_1"><span>あり</span></label>
-            ( <label><input type="checkbox" id="cataring02_1" name="cataring02[]" value="手配済" class="checkbox-input">
-              <span class="checkbox-parts">手配済</span></label> /
-            <label><input type="checkbox" id="cataring02_2" name="cataring02[]" value="検討中" class="checkbox-input">
-              <span class="checkbox-parts">検討中</span></label>
-            )<br>
-            <input type="radio" id="cataring01_2" class="radio-input" name="cataring01" value="なし">
-            <label for="cataring01_2"><span>なし</span></label>
-            <a name="a-cataring01" class="error-r"></a> --}}
           </td>
         </tr>
 
@@ -174,10 +154,8 @@
               @foreach ($venue->getServices() as $s_key=>$serv)
               @if ($request->{'services_breakdown'.$s_key}!=0)
               <li class="form-cell2">
-                <label>
                   <span class="">{{$serv->item}} {{$serv->price}}円</span>
                   {{ Form::hidden('services_breakdown'.$s_key, ($request->{'services_breakdown'.$e_key}) ) }}
-                </label>
               </li>
               @endif
               @endforeach
@@ -211,7 +189,7 @@
           <th>荷物預り/返送</th>
           <td class="spec-space">
             <div class="m-b10">
-              <p>【事前に預かる荷物】</p>
+              <p>事前に預かる荷物</p>
               <div class="selectTime">
                 <p class="baggage_bn">目安</p>
                 <p class="">{{$request->luggage_count}}</p>
@@ -220,12 +198,10 @@
               </div>
             </div>
             <div class="m-b10">
-              <p>事前荷物の到着日</p>
-              <div class="selectTime">
+              <p>【事前荷物の到着日</p>
                 <p class="">{{$request->luggage_arrive}}</p>
                 {{ Form::hidden('luggage_arrive', $request->luggage_arrive ) }}
                 {{-- <p>午前指定</p> --}}
-              </div>
             </div>
             <a name="a-baggagedate" class="error-r"></a>
             {{-- <div class="m-b10">
@@ -237,7 +213,7 @@
                 <span class="txt-indent">※事前荷物は入室時間迄に弊社が会場搬入します。</span></p>
             </div> --}}
             <div class="m-b10">
-              <p>【事後返送する荷物】</p>
+              <p>事後返送する荷物】</p>
               <div class="selectTime">
                 <p class="baggage_an">目安</p>
                 <p class="">{{$request->luggage_return}}</p>
