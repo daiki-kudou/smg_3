@@ -190,6 +190,10 @@
             <p><em>06-6556-6462</em><br>
               予約専用：10時～18時</p>
           </div>
+          <a class="cart_area">
+            <p><i class="fas fa-cart-arrow-down cart_btn"></i><span>カート一覧へ</span></p>
+            {{-- <p>保存している会場</p> --}}
+          </a>
         </div>
       </div>
 

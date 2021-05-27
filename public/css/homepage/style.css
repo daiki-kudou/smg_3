@@ -76,6 +76,37 @@ ul.tagBtn li a {
     margin-bottom: 80px;
 }
 
+header div.contents {
+    position: relative;
+}
+
+.contents {
+    max-width: 1000px;
+    /* margin: 0 auto; */
+}
+
+.cart_area {
+    /* background-color: #EF6243; */
+    /* text-align: center; */
+    color: #EF6243;
+    border: 1px solid #EF6243;
+    padding: 1em 1.5em 1em 1em;
+    position: absolute;
+    top: 20px;
+    right: -160px;
+}
+
+.cart_btn {
+    /* background: url(/img/cart_icon.svg);
+    width: 35px;
+    height: 35px;
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center; */
+    font-size: 25px;
+    margin-right: 5px;
+}
+
 
 .sub-ttl {
     font-size: 1.6rem;
