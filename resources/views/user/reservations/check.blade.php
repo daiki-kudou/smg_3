@@ -4,14 +4,11 @@
   <div class="contents">
     <div class="pagetop-text">
       <h1 class="page-title oddcolor"><span>会場予約 料金確認画面</span></h1>
-      {{-- <p>下記フォームに必要事項を入力してください。(＊は必須項目です)</p>
-          <p class="txtRed">複数日程を希望の場合は予約日毎に予約入力してください。</p> --}}
     </div>
   </div>
   <section class="contents">
     <h2>予約1</h2>
 
-    {{-- <form name="form" id="form" action="https://osaka-conference.com/contact/check.php" next="false" method="post"> --}}
     {{ Form::open(['url' => 'user/reservations/store_session', 'method'=>'POST', 'id'=>'']) }}
     <div class="bgColorGray first">
       <table>
@@ -35,11 +32,6 @@
                 <p>{{ReservationHelper::formatTime($request->leave_time)}}</p>
               </li>
             </ul>
-            {{-- <div class="borderAttention">
-                  <p><span>入室時間より以前に入室はできません。<br>確認の上、チェックボックスをクリックしてください。</span></p>
-                  <p class="checkbox-txt"><span class="txtRed">＊</span><input type="checkbox" name="q1" value="確認しました">
-                    確認しました</p>
-                </div> --}}
           </td>
         </tr>
         <tr>
@@ -75,7 +67,6 @@
                 {{$request->price_system==1?'しない':'する'}}
                 {{ Form::hidden('price_system', $request->price_system) }}
               </li>
-              {{-- <li><a href=""><i class="fas fa-question-circle form-icon"></i>音響ハイグレードとは？</a></li> --}}
             </ul>
             <a name="a-selectTime1" class="error-r"></a>
           </td>
@@ -88,7 +79,6 @@
                 {{$request->board_flag==1?'しない':'する'}}
                 {{ Form::hidden('board_flag', $request->board_flag) }}
               </li>
-              {{-- <li><a href=""><i class="fas fa-external-link-alt form-icon"></i>案内板サンプルはこちら</a></li> --}}
               <li class="cell-margin">
                 <div class="m-b10">
                   <p><span class="txtRed c-block">＊</span>イベント名称1行目</p>
@@ -117,7 +107,6 @@
                     {{ Form::hidden('event_finish', $request->event_finish) }}
                   </li>
                 </ul>
-                {{-- <p class="txtRed">※入力した時間より前に会場に入ることはできません。</p> --}}
               </li>
           </td>
           </li>
@@ -126,26 +115,32 @@
           </td>
         </tr>
 
+        @if ($venue->eat_in_flag!=0)
         <tr>
           <th>室内飲食 <span class="txtRed c-block">＊</span></th>
           <td>
-            <p>あり：<span>手配済み</span></p>
-            {{-- 工藤さん！なしの場合はこちら！！ <p>なし</p>--}}
-
-            {{-- <input type="radio" id="cataring01_1" class="radio-input" name="cataring01" value="あり">
-            <label for="cataring01_1"><span>あり</span></label>
-            ( <label><input type="checkbox" id="cataring02_1" name="cataring02[]" value="手配済" class="checkbox-input">
-              <span class="checkbox-parts">手配済</span></label> /
-            <label><input type="checkbox" id="cataring02_2" name="cataring02[]" value="検討中" class="checkbox-input">
-              <span class="checkbox-parts">検討中</span></label>
-            )<br>
-            <input type="radio" id="cataring01_2" class="radio-input" name="cataring01" value="なし">
-            <label for="cataring01_2"><span>なし</span></label>
-            <a name="a-cataring01" class="error-r"></a> --}}
+            <p>
+              {{$request->eat_in==1?"あり：":"なし"}}
+              {{Form::hidden('eat_in',$request->eat_in)}}
+              <span>
+                @if ($request->eat_in==1)
+                @if ($request->eat_in_prepare==1)
+                手配済み
+                {{Form::hidden('eat_in_prepare',$request->eat_in_prepare)}}
+                @else
+                検討中
+                {{Form::hidden('eat_in_prepare',$request->eat_in_prepare)}}
+                @endif
+                @endif
+              </span>
+            </p>
           </td>
         </tr>
+        @endif
 
 
+
+        @if ($venue->getEquipments()->count()!=0)
         <tr>
           <th>有料備品</th>
           <td class="spec-space">
@@ -166,7 +161,9 @@
             </ul>
           </td>
         </tr>
+        @endif
 
+        @if ($venue->getServices()->count()!=0)
         <tr>
           <th>有料サービス</th>
           <td class="spec-space">
@@ -184,6 +181,8 @@
             </ul>
           </td>
         </tr>
+        @endif
+
 
         <tr>
           @if ($request->layout_prepare==1)
