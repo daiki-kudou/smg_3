@@ -7,7 +7,7 @@ Route::namespace('Home')->prefix('/')->name('home.')->group(function () {
     Route::get('email_reset_done', 'HomeController@email_reset_done');
     // 予約時の時間制御用ajax
     Route::post('control_time', 'HomeController@control_time');
-    Route::get('cxl_membership_done', 'HomeController@cxl_membership_done');
+    Route::get('cxl_member_ship_done', 'HomeController@cxl_member_ship_done');
   });
 });
 
@@ -85,7 +85,7 @@ Route::namespace('User')->prefix('user')->name('user.')->group(function () {
   Route::get('preusers/complete', 'PreusersController@complete')->name('preusers.complete');
   Route::get('preusers/register', 'Auth\RegisterController@showRegistrationForm')->name('preusers.register')->middleware('check_status');
   Route::post('preusers/register_check', 'Auth\RegisterController@checkRegistrationForm')->name('preusers.registercheck');
-  Route::post('preusers/register', 'Auth\RegisterController@register')->name('preusers.store');
+  Route::post('preusers/register', 'Auth\RegisterController@register')->name('preusers.store')->middleware('check_status');
 
   // ログイン
   Route::get('login', 'Auth\LoginController@showLoginForm')->name('login');

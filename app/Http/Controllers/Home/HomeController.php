@@ -72,4 +72,9 @@ class HomeController extends Controller
       return array_merge($result[0], $result[1]);
     }
   }
+
+  public function cxl_member_ship_done()
+  {
+    return view('home.cxl_membership_done');
+  }
 }
