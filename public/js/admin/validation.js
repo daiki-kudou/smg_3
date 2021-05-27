@@ -1342,7 +1342,7 @@ $(function () {
       post_code: {
         required: "※必須項目です",
         maxlength: "７桁で入力してください",
-        number: "※半角英数字で入力してください",
+        number: "※半角数字で入力してください",
       },
       address1: { required: "※必須項目です" },
       address2: { required: "※必須項目です" },
@@ -1350,7 +1350,7 @@ $(function () {
       luggage_flag: { required: "※必須項目です" },
       luggage_post_code: {
         maxlength: "７桁で入力してください",
-        number: "※半角英数字で入力してください",
+        number: "※半角数字で入力してください",
       },
       person_tel: { number: "※半角英数字で入力してください" },
       eat_in_flag: { required: "※必須項目です" },

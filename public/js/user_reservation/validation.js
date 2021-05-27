@@ -7,6 +7,118 @@ jQuery.validator.addMethod("katakana", function (value, element) {
 
 
 $(function () {
+  $("#user_register").validate({
+    rules: {
+      company: {
+        required: true,
+      },
+      first_name: {
+        required: true,
+      },
+      last_name: {
+        required: true,
+      },
+      first_name_kana: {
+        required: true,
+        katakana: true,
+      },
+      last_name_kana: {
+        required: true,
+        katakana: true,
+      },
+      post_code: {
+        maxlength: 7,
+        number: true,
+      },
+      tel: {
+        number: true, 
+        minlength: 10
+      },
+      mobile: {
+        number: true, 
+        minlength: 11
+      },
+      fax: {
+        number: true,
+      },
+      password: {
+        minlength: 6,
+        maxlength: 20,
+        required: true,
+      },
+      password_confirmation: {
+        equalTo: '[name=password]'
+      },
+      q1: {
+        required: true,
+      },
+    },
+    messages: {
+      company: {
+        required: "※必須項目です",
+      },
+      first_name: {
+        required: "※必須項目です",
+      },
+      last_name: {
+        required: "※必須項目です",
+      },
+      first_name_kana: {
+        required: "※必須項目です",
+        katakana: "※全角カタカナで入力してください",
+      },
+      last_name_kana: {
+        required: "※必須項目です",
+        katakana: "※全角カタカナで入力してください",
+      },
+      post_code: {
+        maxlength: "７桁で入力してください",
+        number: "※半角数字で入力してください",
+      },
+      tel: {
+        minlength: "※最低桁数は10桁です",
+        number: "※半角数字で入力してください",
+      },
+      mobile: {
+        minlength: "※最低桁数は10桁です",
+        number: "※半角数字で入力してください",
+      },
+      fax: {
+        number: "※半角数字で入力してください",
+      },
+      password: {
+        required: "※必須項目です",
+        minlength: "※6文字以上で入力してください",
+        maxlength: "※20文字以内で入力してください",
+      },
+      password_confirmation: {
+        equalTo: "一致しません"
+      },
+      q1: {
+        required: "※必須項目です"
+      }
+    },
+    errorPlacement: function (error, element) {
+      var name = element.attr('name');
+      if (element.attr('name') === 'category[]') {
+        error.appendTo($('.is-error-category'));
+      } else if (element.attr('name') === name) {
+        error.appendTo($('.is-error-' + name));
+      }
+    },
+    errorElement: "span",
+    errorClass: "is-error",
+  });
+  $('input').on('blur', function () {
+    $(this).valid();
+    // if ($('span').hasClass('is-error')) {
+    //   $('span').css('background', 'white');
+    // }
+  });
+});
+
+
+$(function () {
   $("#slct_date_form").validate({
     rules: {
       venue_id: {
