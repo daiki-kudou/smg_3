@@ -115,9 +115,7 @@
               <td>
                 <p>
                   <div class="riyoubi">
-                    <input type="text" name="date" id="datepicker" class="form-input">
-                    <img class="ui-datepicker-trigger" src="https://osaka-conference.com/img/icon_calender.png" alt=""
-                      title="">
+                    <input type="text" name="date" id="datepicker2" class="form-input">
                   </div>
                   <p><span class="txt-indent">翌々日以降の利用日から受付可能です。</span></p>
                   <p><span>直近の日程は選択できません。お電話にて問い合わせ下さい。</span></p>
@@ -234,6 +232,43 @@
     });
 
   </script>
+
+<script type="text/javascript">
+  $(function () {
+          var today = new Date();
+          var dd = today.getDate();
+          $("#datepicker2").datepicker({
+              showOn: "both",
+              buttonImage: "https://osaka-conference.com/img/icon_calender.png",
+              buttonImageOnly: true,
+              minDate: "+3",
+              maxDate: "+3M -" + dd,
+              beforeShow: function (input, inst) { // カレンダーを必ず下側へ表示させるための表示位置計算function
+                  var top = $(this).offset().top + $(this).outerHeight();
+                  var left = $(this).offset().left;
+                  setTimeout(function () {
+                      inst.dpDiv.css({
+                          'top': top,
+                          'left': left
+                      });
+                  }, 10) // 10msec
+              }
+          });
+          $("ul.tabBtn li").mouseover(function () {
+              if (/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator
+                      .userAgent)) {
+                  $(this).click();
+              }
+          });
+          $(".hasDatepicker, .ui-datepicker, .ui-datepicker-trigger").click(function (event) {
+              event.stopPropagation();
+          });
+          $(".contents").bind("click touchstart, touchmove", function (event) {
+              $('.ui-datepicker').hide();
+              $('.hasDatepicker').blur();
+          });
+      });
+</script>
   <div class="top contents"><a href="#top"><img src="https://osaka-conference.com/img/pagetop.png" alt="上に戻る"></a>
   </div>
 </main>

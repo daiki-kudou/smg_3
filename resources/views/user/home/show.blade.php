@@ -23,7 +23,7 @@
 @if ($reservation->bills->first()->reservation_status == 2)
 <div class="confirm-box text-center">
   <p>下記、予約内容で承認される場合は、承認ボタンを押してください。</p>
-  <p>※承認ボタンは、画面一番下にあります。</p>
+  {{-- <p>※承認ボタンは、画面一番下にあります。</p> --}}
 </div>
 @endif
 
@@ -31,7 +31,7 @@
 @if ($reservation->cxls->pluck('cxl_status')->contains(1))
 <div class="confirm-box text-center">
   <p>下記、予約内容のキャンセルを承認される場合は、承認ボタンを押してください。</p>
-  <p>※承認ボタンは、画面一番下にあります。</p>
+  {{-- <p>※承認ボタンは、画面一番下にあります。</p> --}}
 </div>
 @endif
 
