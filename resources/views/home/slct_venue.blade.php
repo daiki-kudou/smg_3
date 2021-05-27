@@ -215,22 +215,24 @@
 
 
   <script>
-    $("form[name='calendar02'] select[name='room04']").val($(
-                    "form[name='calendar02'] select[name='room04'] option").first().val());
-                $(function () {
-                    $("form#form02 select[name='room04'] option").filter(function () {
-                        return $(this).attr("disabled");
-                    }).remove();
-                });
+    $("form[name='calendar02'] select[name='room04']").val($("form[name='calendar02'] select[name='room04'] option").first().val());
+    $(function () {
+        $("form#form02 select[name='room04'] option").filter(function () {
+            return $(this).attr("disabled");
+        }).remove();
+    });
 
     $(window).on('load', function() {
+    var origin_date=$('select[name="mon"] option:selected').val();
     var origin_venue=$('select[name="room04"] option:selected').val();
-    console.log(origin_month);
-    // var target =origin_date.replaceAll('/','-');
-    // const iframe = $('iframe').contents();
-    // iframe.find('input[name="date"]').val(target);
-    // iframe.find('#datepicker8').val(target);
-    // iframe.find('#s_calendar').submit();
+    var origin_yer=origin_date.substr(0,4);
+    var origin_mon=origin_date.substr(4,2);
+
+    const iframe = $('iframe').contents();
+    iframe.find('input[name="venue_id"]').val(origin_venue);
+    iframe.find('input[name="selected_year"]').val(origin_yer);
+    iframe.find('input[name="selected_month"]').val(origin_mon);
+    iframe.find('#v_calendar').submit();
     });
 
   </script>

@@ -1,5 +1,4 @@
 <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
-
 <link href="{{ asset('/css/app.css') }}" rel="stylesheet">
 <link href="{{ asset('/css/template.css') }}" rel="stylesheet">
 <script src="{{ asset('/js/date_calendar.js') }}"></script>

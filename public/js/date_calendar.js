@@ -32,9 +32,9 @@ $(function () {
           $("." + venue_id + "cal" + json_result[index][index2]).addClass('bg-reserve');
         }
         if ($("." + venue_id + "cal" + json_result[index][index2]).prev().hasClass('gray')) {
-          $("." + venue_id + "cal" + json_result[index][index2]).html(
-            "<a href='/admin/reservations/" + reservation_id + "'>" + company + "</a>"
-          )
+          // $("." + venue_id + "cal" + json_result[index][index2]).html(
+          //   "<a href='/admin/reservations/" + reservation_id + "'>" + company + "</a>"
+          // )
         };
 
       } else if (status < 3) {
