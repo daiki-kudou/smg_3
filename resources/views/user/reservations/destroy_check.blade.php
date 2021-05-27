@@ -96,7 +96,15 @@
           <tr>
             <th>室内飲食</th>
             <td>
-              あり
+              {{$slctSession[0]['eat_in']==1?"あり：":"なし"}}
+              @if ($slctSession[0]['eat_in']==1)
+              @if ($slctSession[0]['eat_in_prepare']==1)
+              手配済み
+              @else
+              検討中
+              @endif
+              @endif
+
             </td>
           </tr>
 

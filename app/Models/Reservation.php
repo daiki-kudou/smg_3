@@ -363,6 +363,8 @@ class Reservation extends Model implements PresentableInterface
         'attention' => "",
         'user_details' => "",
         'admin_details' => "",
+        'eat_in' => !empty($value->eat_in) ? $value->eat_in : 0,
+        'eat_in_prepare' => !empty($value->eat_in_prepare) ? $value->eat_in_prepare : 0,
       ]);
 
       $layout_prepare = !empty($value->layout_prepare) ? $venue->layout_prepare : 0;
@@ -390,7 +392,6 @@ class Reservation extends Model implements PresentableInterface
         'category' => 1, //デフォで１。　新規以外だと　2:その他有料備品　3:レイアウト　4:その他
         'admin_judge' => 2, //管理者作成なら1 ユーザー作成なら2
         'invoice_number' => $this->generate_invoice_number(),
-
       ]);
 
       // 料金内訳

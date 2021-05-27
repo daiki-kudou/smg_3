@@ -102,7 +102,6 @@
       @endif
 
 
-
       <tr>
         <th>案内板<span class="txtRed c-block">＊</span></th>
         <td class="">
@@ -141,15 +140,6 @@
                 </div>
                 <p class="is-error-event_owner" style="color: red"></p>
               </div>
-              {{-- <div class="m-b10">
-                <p><span class="txtRed c-block">＊</span>イベント時間の記載</p>
-                <div class="selectTime">
-                  <input type="radio" id="eventTime" name="eventTime" value="あり" class="radio-input">
-                  <label for="eventTime"><span>あり</span></label>
-                  <input type="radio" id="eventTimeNone" name="eventTime" value="なし" class="radio-input">
-                  <label for="eventTimeNone"><span>なし</span></label>
-                </div>
-              </div> --}}
               <ul class="form-cell">
                 <li>
                   <p>イベント開始時間</p>
