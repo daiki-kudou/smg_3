@@ -5,6 +5,11 @@ option:disabled {
   }
 
 
+  .d-none {
+      display: none;
+  }
+
+
 
 ul.tagBtn li a {
     letter-spacing: 0.15em;

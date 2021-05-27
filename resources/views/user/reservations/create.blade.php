@@ -49,7 +49,7 @@
 
             </p>
           </div>
-          <p><a class="link-btn2" href="/">日程を変更する</a></p>
+          {{-- <p><a class="link-btn2" href="/">日程を変更する</a></p> --}}
         </td>
       </tr>
       <tr>
@@ -115,7 +115,7 @@
               </div>
             </li>
             <li><a href=""><i class="fas fa-external-link-alt form-icon"></i>案内板サンプルはこちら</a></li>
-            <li class="cell-margin">
+            <li class="cell-margin board_info">
               <div class="m-b10">
                 <p><span class="txtRed c-block">＊</span>イベント名称1行目</p>
                 <div class="form-counter">
@@ -340,17 +340,9 @@
       </tr>
     </table>
   </div>
-  <style>
-    .btn-wrapper {
-      display: flex;
-      justify-content: center;
-      margin-bottom: 80px;
-    }
-  </style>
   <ul class="btn-wrapper">
     <li>
-      丸岡さん!!!!!!!!!!!!!
-      <a href="{{url('/')}}" style="color: black">会場・日程選択に戻る</a>
+      <a class="link-btn" href="{{url('/')}}">会場・日程選択に戻る</a>
     </li>
     <li>
       {{Form::submit('料金を確認する',['class'=>'confirm-btn','style'=>'width:100%;'])}}
@@ -384,6 +376,27 @@
       }
     })
   })
+
+  // 案内板のラジオボタン選択の表示、非表示
+  $(function() {
+    var no_board_flag = $('#no_board_flag').val();
+    if (no_board_flag == 0) {
+          $(".board_info").addClass("d-none");
+        } else {
+          $(".board_info").removeClass("d-none");
+         }
+    });
+
+    $(function() {
+     $("input[name='board_flag']").change(function() {
+       var no_board_flag = $('#no_board_flag').prop('checked');
+        if (no_board_flag) {
+          $(".board_info").addClass("d-none");
+        } else {
+          $(".board_info").removeClass("d-none");
+         }
+      });
+    });
 </script>
 
 @endsection
