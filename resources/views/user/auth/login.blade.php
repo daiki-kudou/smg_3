@@ -9,7 +9,7 @@
           <h1 class="page-title oddcolor"><span>会員登録完了</span></h1>
         </div>
         <div class="text-box">
-          <p class="text-center">会員登録が完了しました。<br>下記より、ログインしてください。</p>
+          <p class="txtCenter">会員登録が完了しました。<br>下記より、ログインしてください。</p>
         </div>
       </div>
       @else

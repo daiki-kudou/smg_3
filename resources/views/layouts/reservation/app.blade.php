@@ -190,6 +190,10 @@
             <p><em>06-6556-6462</em><br>
               予約専用：10時～18時</p>
           </div>
+          <a class="cart_area">
+            <p><i class="fas fa-cart-arrow-down cart_btn"></i><span>カート一覧へ</span></p>
+            {{-- <p>保存している会場</p> --}}
+          </a>
         </div>
       </div>
 
@@ -239,9 +243,9 @@
         </ul>
       </div>
       <ul class="tagBtn sticky">
-        <li><a class="contact_btn" href="https://osaka-conference.com/contact/">問合わせ</a></li>
+        <li><a class="contact_btn" href="https://osaka-conference.com/contact/">お問合わせ</a></li>
         <li><a class="reserve_btn" href="https://osaka-conference.com/reservation/">会場予約</a></li>
-        <li><a class="login_btn" href="https://osaka-conference.com/reservation/">ログイン</a></li>
+        <li><a class="login_btn" href="">マイページへ</a></li>
       </ul>
     </header>
   <!--コロナ対策中お知らせ非表示-->
@@ -477,7 +481,8 @@
 
 
   </div>
-
+      <!-- 住所検索 -->
+      <script src="https://ajaxzip3.github.io/ajaxzip3.js" charset="UTF-8"></script>
 
   <script>
     // チェックボックス表示、非表示
@@ -547,6 +552,7 @@
         // })
         });
   </script>
+
 
 
 

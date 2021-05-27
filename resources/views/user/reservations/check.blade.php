@@ -42,7 +42,7 @@
           </td>
         </tr>
         <tr>
-          <th>当日の担当者 <span class="txtRed c-block">＊</span></th>
+          <th>当日の担当者</th>
           <td>
             {{$request->in_charge}}
             {{ Form::hidden('in_charge', $request->in_charge) }}
@@ -51,7 +51,7 @@
           </td>
         </tr>
         <tr>
-          <th>当日の担当者連絡先 <span class="txtRed c-block">＊</span></th>
+          <th>当日の担当者連絡先</th>
           <td>
             {{$request->tel}}
             {{ Form::hidden('tel', $request->tel) }}
@@ -60,7 +60,7 @@
           </td>
         </tr>
         <tr>
-          <th>音響ハイグレード<span class="txtRed c-block">＊</span></th>
+          <th>音響ハイグレード</th>
           <td class="">
             <ul>
               <li>
@@ -72,7 +72,7 @@
           </td>
         </tr>
         <tr>
-          <th>案内板<span class="txtRed c-block">＊</span></th>
+          <th>案内板</th>
           <td class="">
             <ul>
               <li>
@@ -81,28 +81,28 @@
               </li>
               <li class="cell-margin">
                 <div class="m-b10">
-                  <p><span class="txtRed c-block">＊</span>イベント名称1行目</p>
+                  <p>【イベント名称1行目】</p>
                   {{$request->event_name1}}
                   {{ Form::hidden('event_name1', $request->event_name1) }}
                 </div>
                 <div class="m-b10">
-                  <p>イベント名称2行目</p>
+                  <p>【イベント名称2行目】</p>
                   {{$request->event_name2}}
                   {{ Form::hidden('event_name2', $request->event_name2) }}
                 </div>
                 <div class="m-b10">
-                  <p>主催者名</p>
+                  <p>【主催者名】</p>
                   {{$request->event_owner}}
                   {{ Form::hidden('event_owner', $request->event_owner) }}
                 </div>
                 <ul class="">
                   <li class="m-b10">
-                    <p>イベント開始時間</p>
+                    <p>【イベント開始時間】</p>
                     {{$request->event_start}}
                     {{ Form::hidden('event_start', $request->event_start) }}
                   </li>
                   <li>
-                    <p>イベント終了時間</p>
+                    <p>【イベント終了時間】</p>
                     {{$request->event_finish}}
                     {{ Form::hidden('event_finish', $request->event_finish) }}
                   </li>
@@ -111,13 +111,12 @@
           </td>
           </li>
           </ul>
-          <a name="a-selectTime1" class="error-r"></a>
           </td>
         </tr>
 
         @if ($venue->eat_in_flag!=0)
         <tr>
-          <th>室内飲食 <span class="txtRed c-block">＊</span></th>
+          <th>室内飲食</th>
           <td>
             <p>
               {{$request->eat_in==1?"あり：":"なし"}}
@@ -171,10 +170,8 @@
               @foreach ($venue->getServices() as $s_key=>$serv)
               @if ($request->{'services_breakdown'.$s_key}!=0)
               <li class="form-cell2">
-                <label>
                   <span class="">{{$serv->item}} {{$serv->price}}円</span>
                   {{ Form::hidden('services_breakdown'.$s_key, ($request->{'services_breakdown'.$e_key}) ) }}
-                </label>
               </li>
               @endif
               @endforeach
@@ -210,7 +207,7 @@
           <th>荷物預り/返送</th>
           <td class="spec-space">
             <div class="m-b10">
-              <p>【事前に預かる荷物】</p>
+              <p>事前に預かる荷物</p>
               <div class="selectTime">
                 <p class="baggage_bn">目安</p>
                 <p class="">{{$request->luggage_count}}</p>
@@ -219,12 +216,10 @@
               </div>
             </div>
             <div class="m-b10">
-              <p>事前荷物の到着日</p>
-              <div class="selectTime">
+              <p>【事前荷物の到着日</p>
                 <p class="">{{$request->luggage_arrive}}</p>
                 {{ Form::hidden('luggage_arrive', $request->luggage_arrive ) }}
                 {{-- <p>午前指定</p> --}}
-              </div>
             </div>
             <a name="a-baggagedate" class="error-r"></a>
             {{-- <div class="m-b10">
@@ -236,7 +231,7 @@
                 <span class="txt-indent">※事前荷物は入室時間迄に弊社が会場搬入します。</span></p>
             </div> --}}
             <div class="m-b10">
-              <p>【事後返送する荷物】</p>
+              <p>事後返送する荷物】</p>
               <div class="selectTime">
                 <p class="baggage_an">目安</p>
                 <p class="">{{$request->luggage_return}}</p>

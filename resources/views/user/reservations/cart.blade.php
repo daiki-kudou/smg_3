@@ -19,7 +19,7 @@
   <section class="contents">
 
     <div class="cart-box">
-      <p class="confirm-btn"><a href="">予約確認画面へ</a></p>
+      <p ><a class="confirm-btn" href="">予約確認画面へ</a></p>
       </p>
     </div>
 
@@ -166,14 +166,14 @@
         <li>
           {{ Form::open(['url' => 'user/reservations/destroy_check', 'method'=>'POST', 'id'=>'']) }}
           {{ Form::hidden("session_reservation_id",$key )}}
-          <p class="confirm-btn">{{Form::submit('予約を取り消す')}}</p>
+          <p>{{Form::submit('予約を取り消す', ['class' => 'confirm-btn'])}}</p>
           {{Form::close()}}
 
         </li>
         <li>
           {{ Form::open(['url' => 'user/reservations/re_create', 'method'=>'POST', 'id'=>'']) }}
           {{ Form::hidden("session_reservation_id",$key )}}
-          <p class="link-btn">{{Form::submit('予約内容を変更する')}}</p>
+          <p>{{Form::submit('予約内容を変更する', ['class' => 'link-btn'])}}</p>
           {{Form::close()}}
 
           {{-- <p class="link-btn"><a href="">予約内容を変更する</a></p> --}}
@@ -237,11 +237,11 @@
 
       <ul class="btn-wrapper">
         <li>
-          <p class="link-btn3"><a href="/">他の日程を予約する</a></p>
+          <p ><a class="link-btn3" href="/">他の日程を予約する</a></p>
         </li>
         <li>
           {{ Form::open(['url' => 'user/reservations/store', 'method'=>'POST', 'id'=>'']) }}
-          <p class="confirm-btn">{{Form::submit('予約を確定する')}}</p>
+          <p>{{Form::submit('予約を確定する', ['class' => 'confirm-btn'])}}</p>
           {{Form::close()}}
         </li>
       </ul>

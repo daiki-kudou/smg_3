@@ -13,8 +13,20 @@ ul.tagBtn li a {
     color: #fff;
     font-weight: bold;
     display: block;
-    height: 95px;
+    /* height: 125px; */
     padding: 15px 20px 15px 10px;
+    line-height: 1;
+}
+
+ul.tagBtn li:nth-child(1) a {
+    height: 110px;
+}
+
+ul.tagBtn li:nth-child(2) a {
+    height: 100px;
+}
+ul.tagBtn li:nth-child(3) a {
+    height: 125px;
 }
 
 .contact_btn {
@@ -64,9 +76,14 @@ ul.tagBtn li a {
     margin-top: 1em;
 }
 
+.txtCenter {
+    text-align: center;
+}
+
 .txtRight {
     text-align: right;
 }
+
 
 .txtLeft {
     text-align: left;
@@ -74,6 +91,38 @@ ul.tagBtn li a {
 
 .section-wrap {
     margin-bottom: 80px;
+}
+
+header div.contents {
+    position: relative;
+}
+
+.contents {
+    max-width: 1000px;
+    /* margin: 0 auto; */
+}
+
+.cart_area {
+    /* background-color: #EF6243; */
+    /* text-align: center; */
+    color: #EF6243;
+    border: 1px solid #EF6243;
+    padding: 1em 1.5em 1em 1em;
+    position: absolute;
+    top: 20px;
+    right: -160px;
+    font-weight: bold;
+}
+
+.cart_btn {
+    /* background: url(/img/cart_icon.svg);
+    width: 35px;
+    height: 35px;
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center; */
+    font-size: 25px;
+    margin-right: 5px;
 }
 
 
@@ -100,13 +149,13 @@ ul.tagBtn li a {
 .confirm-btn {
     background: #EF6243;
     /* padding: .5em; */
-    padding: 0.3em 1.5em;
+    padding: 0.3em 5em;
     color: #fff;
     box-shadow: 0 3px 0 #BE483C;
     text-align: center;
     border-radius: 2px;
     font-size: 1.4rem;
-    display: block;
+    /* display: block; */
     cursor: pointer;
 }
 
@@ -149,8 +198,8 @@ ul.tagBtn li a {
 
 .link-btn {
     background: #3E4B5B;
-    /* padding: .5em; */
-    padding: 0.3em 1.5em;
+    /* padding: 0.3em 1.5em; */
+    padding: 0.3em 5em;
     color: #fff;
     box-shadow: 0 3px 0 #282828;
     text-align: center;
@@ -166,7 +215,8 @@ ul.tagBtn li a {
 
 .link-btn2 {
     background: #EF6243;
-    padding: 0.3em 2em;
+    padding: 0.3em 5em;
+    /* padding: 0.3em 2em; */
     color: #fff;
     box-shadow: 0 3px 0 #BE483C;
 }
@@ -177,8 +227,8 @@ ul.tagBtn li a {
 
 .link-btn3 {
     background: #35A7A7;
-    /* padding: .5em; */
-    padding: 0.3em 1.5em;
+    /* padding: 0.3em 1.5em; */
+    padding: 0.3em 5em;
     color: #fff;
     box-shadow: 0 3px 0 #288282;
     text-align: center;
@@ -260,7 +310,7 @@ form table td textarea {
 }
 
 .btn-wrapper li {
-    width: 45%;
+    /* width: 45%; */
 }
 
 
@@ -449,6 +499,14 @@ form table td textarea {
 
     .btn-wrapper2 {
         width: 100%;
+    }
+
+    .radio-input + label::before {
+        left: 0;
+    }
+
+    .radio-input:checked + label::after {
+        left: 3px;
     }
 
 

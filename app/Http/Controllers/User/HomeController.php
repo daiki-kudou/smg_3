@@ -293,7 +293,11 @@ class HomeController extends Controller
     }
     $user = User::with(["reservations.bills", "pre_reservations"])->find($id);
     $user->delete();
-    return redirect(url('/'));
+    return redirect(url('home/cxl_membership_done'));
+  }
+
+  public function cxl_membership_done (){
+    return view('home.cxl_membership_done');
   }
 
   public function checkCxlMemberShip($user_id)
