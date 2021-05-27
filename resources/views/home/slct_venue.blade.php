@@ -194,11 +194,9 @@
           </tr>
         </table>
       </div>
-      <div class="btn-wrapper2">
-        <p class="confirm-btn">
-          {{ Form::submit('日時を選択する', ['class' => 'btn']) }}
+        <p class="txtCenter">
+          {{ Form::submit('日時を選択する', ['class' => 'btn confirm-btn']) }}
         </p>
-      </div>
       {{Form::close()}}
     </div>
   </section>
