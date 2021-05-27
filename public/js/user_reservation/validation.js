@@ -117,6 +117,70 @@ $(function () {
   });
 });
 
+$(function () {
+  var target = ["#slct_date_form", "#slct_venue_form"];
+  $.each(target, function (index, value) {
+    $(value).validate({
+      rules: {
+        venue_id: {
+          required: true,
+        },
+        date: {
+          required: true,
+        },
+        enter_time: {
+          required: true,
+        },
+        leave_time: {
+          required: true,
+        },
+        q1: {
+          required: true,
+        },
+  
+      },
+      messages: {
+        venue_id: {
+          required: "※必須項目です",
+        },
+        date: {
+          required: "※必須項目です",
+        },
+        enter_time: {
+          required: "※必須項目です",
+          date: "true"
+        },
+        leave_time: {
+          required: "※必須項目です",
+          date: "true"
+        },
+        q1: {
+          required: "※必須項目です",
+        },
+      },
+      errorPlacement: function (error, element) {
+        var name = element.attr("name");
+        if (element.attr("name") === "category[]") {
+          error.appendTo($(".is-error-category"));
+        } else if (element.attr("name") === name) {
+          error.appendTo($(".is-error-" + name));
+        }
+      },
+      errorElement: "span",
+      errorClass: "is-error",
+      //送信前にLoadingを表示
+      submitHandler: function (form) {
+        $(".approval").addClass("hide");
+        $(".loading").removeClass("hide");
+        form.submit();
+      },
+    });
+    $("input").on("blur", function () {
+      $(this).valid();
+    });
+  });
+});
+
 
 $(function () {
   $("#slct_date_form").validate({
@@ -169,9 +233,6 @@ $(function () {
     // }
   });
 });
-
-
-
 
 $(function () {
   $("#user_reservation_create").validate({
