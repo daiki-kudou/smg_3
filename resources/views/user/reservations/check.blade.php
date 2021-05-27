@@ -9,7 +9,6 @@
   <section class="contents">
     <h2>予約1</h2>
 
-    {{-- <form name="form" id="form" action="https://osaka-conference.com/contact/check.php" next="false" method="post"> --}}
     {{ Form::open(['url' => 'user/reservations/store_session', 'method'=>'POST', 'id'=>'']) }}
     <div class="bgColorGray first">
       <table>
@@ -68,7 +67,6 @@
                 {{$request->price_system==1?'しない':'する'}}
                 {{ Form::hidden('price_system', $request->price_system) }}
               </li>
-              {{-- <li><a href=""><i class="fas fa-question-circle form-icon"></i>音響ハイグレードとは？</a></li> --}}
             </ul>
             <a name="a-selectTime1" class="error-r"></a>
           </td>
@@ -109,7 +107,6 @@
                     {{ Form::hidden('event_finish', $request->event_finish) }}
                   </li>
                 </ul>
-                {{-- <p class="txtRed">※入力した時間より前に会場に入ることはできません。</p> --}}
               </li>
           </td>
           </li>
@@ -117,15 +114,32 @@
           </td>
         </tr>
 
+        @if ($venue->eat_in_flag!=0)
         <tr>
           <th>室内飲食</th>
           <td>
-            <p>あり：<span>手配済み</span></p>
-            {{-- 工藤さん！なしの場合はこちら！！ <p>なし</p>--}}
+            <p>
+              {{$request->eat_in==1?"あり：":"なし"}}
+              {{Form::hidden('eat_in',$request->eat_in)}}
+              <span>
+                @if ($request->eat_in==1)
+                @if ($request->eat_in_prepare==1)
+                手配済み
+                {{Form::hidden('eat_in_prepare',$request->eat_in_prepare)}}
+                @else
+                検討中
+                {{Form::hidden('eat_in_prepare',$request->eat_in_prepare)}}
+                @endif
+                @endif
+              </span>
+            </p>
           </td>
         </tr>
+        @endif
 
 
+
+        @if ($venue->getEquipments()->count()!=0)
         <tr>
           <th>有料備品</th>
           <td class="spec-space">
@@ -146,7 +160,9 @@
             </ul>
           </td>
         </tr>
+        @endif
 
+        @if ($venue->getServices()->count()!=0)
         <tr>
           <th>有料サービス</th>
           <td class="spec-space">
@@ -162,6 +178,8 @@
             </ul>
           </td>
         </tr>
+        @endif
+
 
         <tr>
           @if ($request->layout_prepare==1)

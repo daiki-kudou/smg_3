@@ -102,7 +102,6 @@
       @endif
 
 
-
       <tr>
         <th>案内板<span class="txtRed c-block">＊</span></th>
         <td class="">
@@ -141,15 +140,6 @@
                 </div>
                 <p class="is-error-event_owner" style="color: red"></p>
               </div>
-              {{-- <div class="m-b10">
-                <p><span class="txtRed c-block">＊</span>イベント時間の記載</p>
-                <div class="selectTime">
-                  <input type="radio" id="eventTime" name="eventTime" value="あり" class="radio-input">
-                  <label for="eventTime"><span>あり</span></label>
-                  <input type="radio" id="eventTimeNone" name="eventTime" value="なし" class="radio-input">
-                  <label for="eventTimeNone"><span>なし</span></label>
-                </div>
-              </div> --}}
               <ul class="form-cell">
                 <li>
                   <p>イベント開始時間</p>
@@ -192,26 +182,30 @@
         </td>
       </tr>
 
+      @if ($venue->eat_in_flag!=0)
       <tr>
         <th>室内飲食 <span class="txtRed c-block">＊</span></th>
         <td>
-          <input type="radio" id="cataring1" class="radio-input" name="cataring" value="1">
-          <label for="cataring1"><span>あり</span></label>
+          {{Form::radio('eat_in', 1, old('eat_in')==1?true:false , ['id' => 'eat_in','class'=>'radio-input'])}}
+          {{Form::label('eat_in',"あり")}}
           (
-          <input type="radio" id="cataring_prepare1" class="radio-input" name="cataring_prepare" value="1">
-          <label for="cataring_prepare1"><span>手配済み</span></label>
+          {{Form::radio('eat_in_prepare', 1, false , ['class'=>'radio-input','id' => 'eat_in_prepare',old('eat_in')==0?'disabled':''])}}
+          {{Form::label('eat_in_prepare',"手配済み",['style'=>'margin-right: 20px;'])}}
           /
-          <input type="radio" id="cataring_prepare2" class="radio-input" name="cataring_prepare" value="0">
-          <label for="cataring_prepare2"><span>検討中</span></label>
+          {{Form::radio('eat_in_prepare', 2, false , ['class'=>'radio-input','id' => 'eat_in_consider', old('eat_in')==0?'disabled':''])}}
+          {{Form::label('eat_in_consider',"検討中",['style'=>'margin-right: 20px;'])}}
           )
           <br>
-          <input type="radio" id="cataring2" class="radio-input" name="cataring" value="0" checked>
-          <label for="cataring2"><span>なし</span></label>
+          {{Form::radio('eat_in', 0, old('eat_in')==0?true:false , ['id' => 'no_eat_in','class'=>'radio-input'])}}
+          {{Form::label('no_eat_in',"なし")}}
           <a name="a-cataring01" class="error-r"></a>
           <p><span class="txt-indent">※ケータリングは弊社にてご予算に合ったものをご提供可能です。 お気軽に問い合わせ下さい。</span></p>
         </td>
       </tr>
+      @endif
 
+
+      @if ($venue->getEquipments()->count()!=0)
       <tr>
         <th>有料備品</th>
         <td class="spec-space">
@@ -227,6 +221,10 @@
           </ul>
         </td>
       </tr>
+      @endif
+
+
+      @if ($venue->getServices()->count()!=0)
       <tr>
         <th>有料サービス</th>
         <td class="spec-space">
@@ -243,6 +241,8 @@
           </ul>
         </td>
       </tr>
+      @endif
+
 
       @if ($venue->getLayouts()!=0)
       <tr>
@@ -349,6 +349,10 @@
   </style>
   <ul class="btn-wrapper">
     <li>
+      丸岡さん!!!!!!!!!!!!!
+      <a href="{{url('/')}}" style="color: black">会場・日程選択に戻る</a>
+    </li>
+    <li>
       {{Form::submit('料金を確認する',['class'=>'confirm-btn','style'=>'width:100%;'])}}
     </li>
   </ul>
@@ -365,4 +369,21 @@
     <img src="https://osaka-conference.com/img/pagetop.png" alt="上に戻る">
   </a>
 </div>
+
+<script>
+  $(function() {
+    $(document).on("click", "input:radio[name='eat_in']", function() {
+      var radioTarget = $('input:radio[name="eat_in"]:checked').val();
+      if (radioTarget == 1) {
+        $('input:radio[name="eat_in_prepare"]').prop('disabled', false);
+        $('input:radio[name="eat_in_prepare"]').addClass("radio-input");
+      } else {
+        $('input:radio[name="eat_in_prepare"]').prop('disabled', true);
+        $('input:radio[name="eat_in_prepare"]').removeClass("radio-input");
+        $('input:radio[name="eat_in_prepare"]').val("");
+      }
+    })
+  })
+</script>
+
 @endsection
