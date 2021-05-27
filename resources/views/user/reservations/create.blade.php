@@ -348,6 +348,10 @@
   </style>
   <ul class="btn-wrapper">
     <li>
+      丸岡さん!!!!!!!!!!!!!
+      <a href="{{url('/')}}" style="color: black">会場・日程選択に戻る</a>
+    </li>
+    <li>
       {{Form::submit('料金を確認する',['class'=>'confirm-btn','style'=>'width:100%;'])}}
     </li>
   </ul>
