@@ -75,7 +75,7 @@
         </td>
       </tr>
 
-      {{dump($venue->time_prices->count())}}
+      @if ($venue->frame_prices->count()!=0&&$venue->time_prices->count()!=0)
       <tr>
         <th>音響ハイグレード<span class="txtRed c-block">＊</span></th>
         <td class="">
@@ -93,6 +93,13 @@
           <a name="a-selectTime1" class="error-r"></a>
         </td>
       </tr>
+      @else
+      @if ($venue->frame_prices->count()!=0)
+      {{Form::hidden('price_system',1)}}
+      @else
+      {{Form::hidden('price_system',2)}}
+      @endif
+      @endif
 
 
 
