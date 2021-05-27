@@ -31,7 +31,8 @@ class HomeController extends Controller
   public function slct_venue(Request $request)
   {
     $venues = Venue::all();
-    return view('home.slct_venue', compact('request', 'venues'));
+    $selected_venue = $request->room04 ? $request->room04 : 1;
+    return view('home.slct_venue', compact('request', 'venues', 'selected_venue'));
   }
 
   public function email_reset_done()
