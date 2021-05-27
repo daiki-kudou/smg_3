@@ -105,11 +105,13 @@ class PreusersController extends Controller
         return redirect(route('user.register', ['id' => $id, 'token' => $token, 'status' => 1, 'email' => $email]));
       } else {
         // トークンなど合致しなければルートへ
-        return redirect('/');
+        // return redirect('/');
+        return redirect(url('user/preusers'));
       };
     } else {
       // 時間が経過していたらルートへ
-      return redirect('/');
+      // return redirect('/');
+      return redirect(url('user/preusers'));
     }
   }
 
