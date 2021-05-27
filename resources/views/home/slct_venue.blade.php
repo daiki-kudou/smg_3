@@ -1,8 +1,41 @@
 @extends('layouts.reservation.app')
 @section('content')
 
-<script src="{{ asset('/js/user_reservation/validation.js') }}"></script>
+{{-- <script src="{{ asset('/js/user_reservation/validation.js') }}"></script> --}}
 <script src="{{ asset('/js/user_reservation/control_time.js') }}"></script>
+<style>
+  #fullOverlay {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(100, 100, 100, .5);
+    z-index: 2147483647;
+    display: none;
+  }
+
+  .frame_spinner {
+    max-width: 100%;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: fixed;
+  }
+
+  .hide {
+    display: none;
+  }
+</style>
+<div id="fullOverlay">
+  <div class="frame_spinner w-100">
+    <div class="spinner-border text-white text-center " role="status"
+      style="width: 5rem; height: 5rem; font-weight:30px;">
+      <span class="sr-only hide">Loading...</span>
+    </div>
+  </div>
+</div>
 
 <main>
   <!-- 会場予約 -->
@@ -51,8 +84,9 @@
                 <div class="selectWrap">
                   <select name="room04" id="changeSelect">
                     @foreach ($venues as $venue)
-                    @if ($request->room04==$venue->id)
-                    <option value="{{$venue->id}}" selected>{{ReservationHelper::getVenueForUser($venue->id)}}</option>
+                    @if ($selected_venue==$venue->id)
+                    <option value="{{$venue->id}}" selected>{{ReservationHelper::getVenueForUser($venue->id)}}
+                    </option>
                     @else
                     <option value="{{$venue->id}}">{{ReservationHelper::getVenueForUser($venue->id)}}</option>
                     @endif
@@ -89,106 +123,83 @@
                   src="https://osaka-conference.com/img/icon_serch.png" alt="検索"></button>
               <a href="https://osaka-conference.com/contact/" class="cContactBtn">問い合わせ</a>
             </div>
-            </form>
+            {{Form::close()}}
           </div>
         </div>
       </article>
       <div class="calenderframe">
         <iframe src="{{url('/calendar/venue_calendar')}}" width="100%" height="800px"></iframe>
-
       </div>
 
-      {{Form::close()}}
-
+      {{Form::open(['url' => 'user/reservations/create', 'method' => 'get', 'class'=>'search','id'=>''])}}
+      @csrf
       <h2 class="sub-ttl">選択した日程</h2>
       <div class="bgColorGray first">
-        <form action="">
-          <table class="">
-            <tr>
-              <th>利用会場</th>
-              <td>
-                <p>工藤さん！こちら選択した会場の表示お願いします。</p>
-              </td>
-            </tr>
-            <tr>
-              <th>年月日<span class="txtRed">＊</span></th>
-              <td>
-                <p>
-                  <div class="riyoubi">
-                    <input type="text" name="date" id="datepicker2" class="form-input">
-                  </div>
-                  <p><span class="txt-indent">翌々日以降の利用日から受付可能です。</span></p>
-                  <p><span>直近の日程は選択できません。お電話にて問い合わせ下さい。</span></p>
-                </p>
-              </td>
-            </tr>
-            <tr>
-              <th>入室時間
+        <table class="">
+          <tr>
+            <th>利用会場</th>
+            <td>
+              <p>{{ReservationHelper::getVenueForUser($selected_venue)}}</p>
+              {{Form::hidden('venue_id',$selected_venue)}}
+            </td>
+          </tr>
+          <tr>
+            <th>年月日<span class="txtRed">＊</span></th>
+            <td>
+              <p>
+                <div class="riyoubi">
+                  <input type="text" name="date" id="datepicker2" class="form-input">
+                </div>
+                <p><span class="txt-indent">翌々日以降の利用日から受付可能です。</span></p>
+                <p><span>直近の日程は選択できません。お電話にて問い合わせ下さい。</span></p>
+              </p>
+            </td>
+          </tr>
+          <tr>
+            <th>入室時間
+              <span class="txtRed">＊</span>
+            </th>
+            <td>
+              <div class="selectWrap">
+                <select name="enter_time" class="timeScale" id="enter_time">
+                  <option value=""></option>
+                  {!!ReservationHelper::timeOptionsWithDefault()!!}
+                </select>
+              </div>
+              <p class="is-error-enter_time" style="color: red"></p>
+              <p>
+                <span>入室時間より以前に入室はできません。
+                  <br>
+                  確認の上、チェックボックスをクリックしてください。</span>
+              </p>
+              <p class="checkbox-txt">
                 <span class="txtRed">＊</span>
-              </th>
-              <td>
-                <div class="selectWrap">
-                  <select name="enter_time" class="timeScale" id="enter_time">
-                    <option value=""></option>
-                    {!!ReservationHelper::timeOptionsWithDefault()!!}
-                  </select>
-                </div>
-                <p class="is-error-enter_time" style="color: red"></p>
-                <p>
-                  <span>入室時間より以前に入室はできません。
-                    <br>
-                    確認の上、チェックボックスをクリックしてください。</span>
-                </p>
-                <p class="checkbox-txt">
-                  <span class="txtRed">＊</span>
-                  {{Form::checkbox('q1', 1, false, ['class'=>'','id'=>'checkbox'])}}
-                  <label for="checkbox">確認しました</label>
-                </p>
-                <p class="is-error-q1" style="color: red"></p>
-              </td>
-            </tr>
-            <tr>
-              <th>退室時間 <span class="txtRed">＊</span></th>
-              <td>
-                <div class="selectWrap">
-                  <select name="leave_time" class="timeScale" id="leave_time">
-                    <option value=""></option>
-                    {!!ReservationHelper::timeOptionsWithDefault()!!}
-                  </select>
-                </div>
-                <p class="is-error-leave_time" style="color: red"></p>
-              </td>
-            </tr>
-            {{-- <tr>
-              <th>入室時間 <span class="txtRed">＊</span></th>
-              <td>
-                <div class="selectWrap">
-                  <select name="" class="timeScale"></select>
-                </div>
-                <a name="a-time01" class="error-r"></a>
-                <p><span>入室時間より以前に入室はできません。<br>確認の上、チェックボックスをクリックしてください。</span></p>
-                <p class="checkbox-txt"><span class="txtRed">＊</span><input type="checkbox" name="q1" value="確認しました">
-                  確認しました</p>
-              </td>
-            </tr>
-            <tr>
-              <th>退室時間 <span class="txtRed">＊</span></th>
-              <td>
-                <div class="selectWrap">
-                  <select name="" class="timeScale"></select>
-                </div>
-                <a name="a-time03" class="error-r"></a>
-              </td>
-            </tr> --}}
-          </table>
-        </form>
+                {{Form::checkbox('q1', 1, false, ['class'=>'','id'=>'checkbox'])}}
+                <label for="checkbox">確認しました</label>
+              </p>
+              <p class="is-error-q1" style="color: red"></p>
+            </td>
+          </tr>
+          <tr>
+            <th>退室時間 <span class="txtRed">＊</span></th>
+            <td>
+              <div class="selectWrap">
+                <select name="leave_time" class="timeScale" id="leave_time">
+                  <option value=""></option>
+                  {!!ReservationHelper::timeOptionsWithDefault()!!}
+                </select>
+              </div>
+              <p class="is-error-leave_time" style="color: red"></p>
+            </td>
+          </tr>
+        </table>
       </div>
-      </form>
-
       <div class="btn-wrapper2">
-        <p class="confirm-btn"><a href="">日時を選択する工藤さん！！！ここの実装お願いします。</a></p>
+        <p class="confirm-btn">
+          {{ Form::submit('日時を選択する', ['class' => 'btn']) }}
+        </p>
       </div>
-
+      {{Form::close()}}
     </div>
   </section>
 
@@ -235,8 +246,8 @@
 
   </script>
 
-<script type="text/javascript">
-  $(function () {
+  <script type="text/javascript">
+    $(function () {
           var today = new Date();
           var dd = today.getDate();
           $("#datepicker2").datepicker({
@@ -270,7 +281,7 @@
               $('.hasDatepicker').blur();
           });
       });
-</script>
+  </script>
   <div class="top contents"><a href="#top"><img src="https://osaka-conference.com/img/pagetop.png" alt="上に戻る"></a>
   </div>
 </main>
