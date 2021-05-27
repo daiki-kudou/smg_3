@@ -216,13 +216,12 @@
 
 
   <script>
-    $("form[name='calendar02'] select[name='room04']").val($(
-                    "form[name='calendar02'] select[name='room04'] option").first().val());
-                $(function () {
-                    $("form#form02 select[name='room04'] option").filter(function () {
-                        return $(this).attr("disabled");
-                    }).remove();
-                });
+    $("form[name='calendar02'] select[name='room04']").val($("form[name='calendar02'] select[name='room04'] option").first().val());
+    $(function () {
+        $("form#form02 select[name='room04'] option").filter(function () {
+            return $(this).attr("disabled");
+        }).remove();
+    });
 
     $(window).on('load', function() {
       var origin_date=$('input[name="date"]').val();

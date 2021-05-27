@@ -31,11 +31,11 @@ $(function () {
           $("." + s_date + "cal" + result).addClass('bg-reserve');
         }
 
-        if ($("." + s_date + "cal" + result).prev().hasClass('gray')) {
-          $("." + s_date + "cal" + result).html(
-            "<a href='/admin/reservations/" + reservation_id + "'>" + company + "</a>"
-          );
-        }
+        // if ($("." + s_date + "cal" + result).prev().hasClass('gray')) {
+        //   $("." + s_date + "cal" + result).html(
+        //     "<a href='/admin/reservations/" + reservation_id + "'>" + company + "</a>"
+        //   );
+        // }
       } else if (status < 3) {
         if (index == 0) {
           $("." + s_date + "cal" + result).addClass('gray');
