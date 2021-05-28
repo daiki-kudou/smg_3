@@ -76,9 +76,10 @@
           <td class="">
             <ul>
               <li>
-                {{$request->board_flag==1?'しない':'する'}}
+                {{$request->board_flag==1?'する':'しない'}}
                 {{ Form::hidden('board_flag', $request->board_flag) }}
               </li>
+              @if ($request->board_flag==1)
               <li class="cell-margin">
                 <div class="m-b10">
                   <p>【イベント名称1行目】</p>
@@ -108,6 +109,8 @@
                   </li>
                 </ul>
               </li>
+              @endif
+
           </td>
           </li>
           </ul>

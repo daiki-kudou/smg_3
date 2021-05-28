@@ -1,3 +1,4 @@
+// 会場選択トリガー。該当会場の入退室時間制御
 $(document).on("change", "#venue_id", function () {
   var date = $('input[name="date"]').val();
   var venue_id = $(this).val();
@@ -33,6 +34,15 @@ $(document).on("change", "#venue_id", function () {
       console.log($result);
     });
 });
+
+// 入室時間トリガー、08:00~10:00は最低利用時間3時間
+$(document).on("change", "#enter_time", function () {
+  for (let index = 1; index <= 5; index++) { //時間selectの08:00から10:00までのkeyに一旦クラスをあてる
+    $('#leave_time').find('option').eq(index).prop("disabled", true)
+  }
+});
+
+
 
 $(document).on("change", "#datepicker2", function () {
   var date = $(this).val();
