@@ -81,10 +81,10 @@
                 <p><span class="txt-indent">※選択不可の日程につきましては、直接お問い合わせ下さい。</span></p>
               </dd>
             </dl>
-            <div class="btnOrange"><button type="submit" class="smit">空室状況検索<img
+            <p class="txtCenter"><button type="submit" class="smit search_btn">空室状況検索<img
                   src="https://osaka-conference.com/img/icon_serch.png" alt="検索"></button>
-              <a href="https://osaka-conference.com/contact/" class="cContactBtn">問い合わせ</a>
-            </div>
+              {{-- <a href="https://osaka-conference.com/contact/" class="cContactBtn">問い合わせ</a> --}}
+            </p>
             {{Form::close()}}
           </div>
         </div>
@@ -158,7 +158,8 @@
           </tr>
         </table>
       </div>
-      <p class="txtCenter">{{ Form::submit('日時を選択する', ['class' => 'btn confirm-btn']) }}</p>
+
+      <p class="txtCenter">{{ Form::submit('日時を選択する', ['class' => 'btn confirm-btn margin-auto']) }}</p>
       {{Form::close()}}
     </div>
   </section>
