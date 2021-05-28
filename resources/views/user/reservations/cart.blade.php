@@ -1,29 +1,53 @@
 @extends('layouts.reservation.app')
 @section('content')
+
+<style>
+  #fullOverlay {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(100, 100, 100, .5);
+    z-index: 2147483647;
+    display: none;
+  }
+
+  .frame_spinner {
+    max-width: 100%;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: fixed;
+  }
+
+  .hide {
+    display: none;
+  }
+</style>
+<div id="fullOverlay">
+  <div class="frame_spinner w-100">
+    <div class="spinner-border" style="width: 3rem; height: 3rem;" role="status">
+      <span class="sr-only">Loading...</span>
+    </div>
+  </div>
+</div>
+
+
 <main>
   <!-- カート一覧 -->
   <div class="contents">
-    {{-- <p class="txtRight">ようこそ<span>まるまる</span>さん</p>
-    <div class="cart-box">
-      <p class="link-btn3"><a href="">
-          <i class="fas fa-user form-icon"></i>
-          マイページ</a></p>
-    </div> --}}
-
-
     <div class="pagetop-text">
       <h1 class="page-title oddcolor"><span>予約一覧</span></h1>
     </div>
   </div>
 
   <section class="contents">
-
     <div class="cart-box">
-      <p ><a class="confirm-btn" href="">予約確認画面へ</a></p>
+      <p><a class="confirm-btn" href="">予約確認画面へ</a></p>
       </p>
     </div>
-
-
     <!-- 予約内容 -------------------------------------------->
     @if (empty($sessions))
     <div style="margin-top:100px;margin-bottom:200px;">
@@ -237,11 +261,11 @@
 
       <ul class="btn-wrapper">
         <li>
-          <p ><a class="link-btn3" href="/">他の日程を予約する</a></p>
+          <p><a class="link-btn3" href="/">他の日程を予約する</a></p>
         </li>
         <li>
           {{ Form::open(['url' => 'user/reservations/store', 'method'=>'POST', 'id'=>'']) }}
-          <p>{{Form::submit('予約を確定する', ['class' => 'confirm-btn'])}}</p>
+          <p>{{Form::submit('予約を確定する', ['class' => 'confirm-btn','id'=>'master_submit'])}}</p>
           {{Form::close()}}
         </li>
       </ul>
@@ -252,4 +276,16 @@
   <div class="top contents"><a href="#top"><img src="https://osaka-conference.com/img/pagetop.png" alt="上に戻る"></a>
   </div>
 </main>
+
+<script>
+  $(function(){
+    $('#master_submit').on('click',function(){
+      if(!confirm('予約を確定しますか？')){
+        return false;
+    }else{
+        $('#fullOverlay').css('display', 'block');
+      }
+    })
+  })
+</script>
 @endsection
