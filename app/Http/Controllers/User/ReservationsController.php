@@ -10,6 +10,11 @@ use App\Models\Reservation;
 
 use Session;
 
+use Illuminate\Support\Facades\Mail;
+use App\Mail\AdminReqRes;
+use App\Mail\UserReqRes;
+
+
 class ReservationsController extends Controller
 {
   public function create(Request $request)
@@ -131,10 +136,14 @@ class ReservationsController extends Controller
   {
     $sessions = $request->session()->get('session_reservations');
     foreach ($sessions as $key => $value) {
-      $reservation = new Reservation();
-      $reservation->ReserveFromUser(((object)$value[0]), $value[1]);
+      $new_reservation = new Reservation();
+      $reservation = $new_reservation->ReserveFromUser(((object)$value[0]), $value[1]);
+      $reservation->with(['user', 'venue']);
+      $admin = explode(',', config('app.admin_email'));
+      $user = $reservation->user->email;
+      Mail::to($admin)->send(new AdminReqRes($reservation));
+      Mail::to($user)->send(new UserReqRes($reservation));
     }
-
     $request->session()->forget('session_reservations');
     $request->session()->regenerate();
     return redirect('user/reservations/complete');

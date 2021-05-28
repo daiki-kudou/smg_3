@@ -3,21 +3,21 @@
 
 <script src="{{ asset('/js/user_reservation/validation.js') }}"></script>
 
-    <!-- ログイン、会員登録 -->
-    <div class="contents mt-5">
-        <div class="pagetop-text">
-            <h1 class="page-title oddcolor"><span>会員登録</span></h1>
-            <p>下記フォームの入力をお願いします。</p>
-        </div>
-    </div>
-    <section class="contents">
-        <style>
-            .alert {
-                padding: 15px;
-                margin-bottom: 20px;
-                border: 1px solid transparent;
-                border-radius: 4px;
-            }
+<!-- ログイン、会員登録 -->
+<div class="contents mt-5">
+  <div class="pagetop-text">
+    <h1 class="page-title oddcolor"><span>会員登録</span></h1>
+    <p>下記フォームの入力をお願いします。</p>
+  </div>
+</div>
+<section class="contents">
+  <style>
+    .alert {
+      padding: 15px;
+      margin-bottom: 20px;
+      border: 1px solid transparent;
+      border-radius: 4px;
+    }
 
     .alert h4 {
       margin-top: 0;
@@ -126,8 +126,8 @@
         <td>
           {{ Form::text('company', $session['company']??old('company'), ['class' => 'form-control text3', 'id' => 'company', 'placeholder' => '入力してください']) }}
           {{-- <br class="spOnlyunder"> --}}
-                        <p><span>法人・団体ではない方は、お名前をご記入ください。</span></p>
-                       <p class="is-error-company" style="color: red"></p>
+          <p><span>法人・団体ではない方は、お名前をご記入ください。</span></p>
+          <p class="is-error-company" style="color: red"></p>
         </td>
       </tr>
       <tr>
@@ -140,13 +140,13 @@
               <p>姓</p>
               {{ Form::text('first_name', $session['first_name']??old('first_name'), ['class' => 'form-control text1', 'id' => 'nam', 'placeholder' => '入力してください']) }}
               <br class="spOnlyunder">
-                                <p class="is-error-first_name" style="color: red"></p>
+              <p class="is-error-first_name" style="color: red"></p>
             </li>
             <li>
               <p>名</p>
               {{ Form::text('last_name', $session['last_name']??old('last_name'), ['class' => 'form-control text1', 'id' => 'nam', 'placeholder' => '入力してください']) }}
               <br class="spOnlyunder">
-                                <p class="is-error-last_name" style="color: red"></p>
+              <p class="is-error-last_name" style="color: red"></p>
             </li>
           </ul>
         </td>
@@ -159,13 +159,13 @@
               <p>セイ</p>
               {{ Form::text('first_name_kana', $session['first_name_kana']??old('first_name_kana'), ['class' => 'form-control text1', 'id' => 'nam', 'placeholder' => '入力してください']) }}
               <br class="spOnlyunder">
-                                <p class="is-error-first_name_kana" style="color: red"></p>
+              <p class="is-error-first_name_kana" style="color: red"></p>
             </li>
             <li>
               <p>メイ</p>
               {{ Form::text('last_name_kana', $session['last_name_kana']??old('last_name_kana'), ['class' => 'form-control text1', 'id' => 'nam', 'placeholder' => '入力してください']) }}
               <br class="spOnlyunder">
-                                <p class="is-error-last_name_kana" style="color: red"></p>
+              <p class="is-error-last_name_kana" style="color: red"></p>
             </li>
           </ul>
         </td>
@@ -177,7 +177,7 @@
           <input onKeyUp="AjaxZip3.zip2addr(this,&#039;&#039;,&#039;address1&#039;,&#039;address2&#039;);"
             autocomplete="off" name="post_code" type="text" value="{{ $session['post_code']??old('post_code') }}"
             id="post_code">
-                                        <p class="is-error-post_code" style="color: red"></p>
+          <p class="is-error-post_code" style="color: red"></p>
 
         </td>
       </tr>
@@ -222,7 +222,7 @@
           {{ Form::text('tel', $session['tel']??old('tel'), ['class' => 'form-control text2', 'id' => 'tel', 'placeholder' => '入力してください']) }}
           <p style="display:inline-block">11文字</p>
           <a name="a-tel01" class="error-r"></a>
-                                  <p class="is-error-tel" style="color: red"></p>
+          <p class="is-error-tel" style="color: red"></p>
 
           <p>※半角数字、ハイフンなしで入力してください。</p>
         </td>
@@ -238,7 +238,7 @@
           <p style="display:inline-block">10文字</p>
           <a name="a-tel02" class="error-r"></a>
           <p>※半角数字、ハイフンなしで入力してください。</p>
-                                  <p class="is-error-mobile" style="color: red"></p>
+          <p class="is-error-mobile" style="color: red"></p>
 
         </td>
       </tr>
@@ -247,7 +247,7 @@
         <td>
           {{-- <input name="fax1" id="fax1" class="text2" type="tel"> --}}
           {{ Form::text('fax', $session['fax']??old('fax'), ['class' => 'form-control text2', 'id' => 'fax', 'placeholder' => '入力してください']) }}
-                        <p class="is-error-fax" style="color: red"></p>
+          <p class="is-error-fax" style="color: red"></p>
 
 
           <p>※半角数字、ハイフンなしで入力してください。</p>
@@ -264,7 +264,7 @@
         <th>パスワード<span class="txtRed">＊</span></th>
         <td>
           {{ Form::password('password', null, ['class' => 'text2']) }}
-                        <p class="is-error-password" style="color: red"></p>
+          <p class="is-error-password" style="color: red"></p>
           <p>※半角英数字6文字以上20文字以内にてご記入お願い致します。</p>
         </td>
       </tr>
@@ -272,7 +272,7 @@
         <th>パスワード確認<span class="txtRed">＊</span></th>
         <td>
           {{ Form::password('password_confirmation', null, ['class' => 'text2']) }}
-                        <p class="is-error-password_confirmation" style="color: red"></p>
+          <p class="is-error-password_confirmation" style="color: red"></p>
           <p>※確認のため、もう一度パスワードを入力してください。</p>
         </td>
       </tr>
@@ -311,7 +311,6 @@
               </label>
               <label for="other"></label>
               <input name="othertext" type="text" class="" id="" placeholder="入力してください">
-
             </li>
           </ul>
         </td>

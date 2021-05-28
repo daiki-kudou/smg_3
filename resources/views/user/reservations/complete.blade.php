@@ -62,7 +62,7 @@
       </div>
     </div>
     <div class="btn-wrapper2">
-      <p class="confirm-btn"><a href="">予約内容・予約履歴を確認する</a></p>
+      <p class="confirm-btn"><a href="{{url('user/home')}}">予約内容・予約履歴を確認する</a></p>
     </div>
 
   </div>

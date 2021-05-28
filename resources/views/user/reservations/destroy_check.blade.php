@@ -93,6 +93,7 @@
             </td>
           </tr>
 
+          @if (!empty($slctSession[0]['eat_in']))
           <tr>
             <th>室内飲食</th>
             <td>
@@ -104,9 +105,10 @@
               検討中
               @endif
               @endif
-
             </td>
           </tr>
+          @endif
+
 
 
           @if (json_decode($slctSession[0]["items_results"])[0]!=0)

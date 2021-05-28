@@ -148,7 +148,8 @@
             <td>
               <p>
                 <div class="riyoubi">
-                  <input type="text" name="date" id="datepicker2" class="form-input">
+                  <input type="text" name="" id="datepicker2" class="form-input date_input">
+                  {{Form::hidden('date',"")}}
                 </div>
                 <p><span class="txt-indent">翌々日以降の利用日から受付可能です。</span></p>
                 <p><span>直近の日程は選択できません。お電話にて問い合わせ下さい。</span></p>
@@ -194,9 +195,9 @@
           </tr>
         </table>
       </div>
-        <p class="txtCenter">
-          {{ Form::submit('日時を選択する', ['class' => 'btn confirm-btn']) }}
-        </p>
+      <p class="txtCenter">
+        {{ Form::submit('日時を選択する', ['class' => 'btn confirm-btn']) }}
+      </p>
       {{Form::close()}}
     </div>
   </section>
@@ -241,6 +242,14 @@
     iframe.find('input[name="selected_month"]').val(origin_mon);
     iframe.find('#v_calendar').submit();
     });
+
+    $(function(){
+      $('.date_input').on('change',function(){
+        $input=$(this).val();
+        $fix_input=$input.replace(/\//g,'-');
+        $('input[name="date"]').val($fix_input);
+      })
+    })
 
   </script>
 
