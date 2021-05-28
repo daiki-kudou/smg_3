@@ -385,7 +385,7 @@
         {{Form::hidden('items_results',json_encode($items_results))}}
         {{Form::hidden('master',$master)}}
         {{Form::hidden('select_id',$request->select_id)}}
-        {{Form::submit('カートに追加する',['class'=>'confirm-btn','style'=>'width:100%;', 'name'=>'store'])}}
+        {{Form::submit('予約一覧に追加する',['class'=>'confirm-btn','style'=>'width:100%;', 'name'=>'store'])}}
       </li>
     </ul>
     {{Form::close()}}
