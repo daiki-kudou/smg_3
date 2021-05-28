@@ -46,10 +46,8 @@
               {{Form::checkbox('q1', 1, false, ['class'=>'custom-control-input','id'=>'checkbox'])}}
               <label for="checkbox">確認しました</label>
               <p class="is-error-q1" style="color: red"></p>
-
             </p>
           </div>
-          {{-- <p><a class="link-btn2" href="/">日程を変更する</a></p> --}}
         </td>
       </tr>
       <tr>
@@ -287,7 +285,7 @@
               {{ Form::text('luggage_count', '',['class'=>'text6 baggage_bn', 'style'=>'width:20%;'] ) }}
               <p class="baggage_bn">個</p>
             </div>
-          <p class="is-error-luggage_count" style="color: red"></p>
+            <p class="is-error-luggage_count" style="color: red"></p>
           </div>
           <div class="m-b10">
             <p>事前荷物の到着日</p>

@@ -9,25 +9,26 @@ use Illuminate\Queue\SerializesModels;
 
 class UserReqRes extends Mailable
 {
-    use Queueable, SerializesModels;
+  use Queueable, SerializesModels;
 
-    /**
-     * Create a new message instance.
-     *
-     * @return void
-     */
-    public function __construct()
-    {
-        //
-    }
+  /**
+   * Create a new message instance.
+   *
+   * @return void
+   */
+  public function __construct($reservation)
+  {
+    $this->reservation = $reservation;
+  }
 
-    /**
-     * Build the message.
-     *
-     * @return $this
-     */
-    public function build()
-    {
-        return $this->view('view.name');
-    }
+  /**
+   * Build the message.
+   *
+   * @return $this
+   */
+  public function build()
+  {
+    return $this->view('maileclipse::templates.userReqRes')
+      ->subject('【SMGアクセア貸し会議室】　予約申込受付のお知らせ')->with(['reservation' => $this->reservation]);
+  }
 }

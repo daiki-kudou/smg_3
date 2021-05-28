@@ -337,7 +337,7 @@ class Reservation extends Model implements PresentableInterface
     $venue = Venue::find($value->venue_id);
     $s_user = User::find($user);
     $payment_limit = $s_user->getUserPayLimit($value->date);
-    DB::transaction(function () use ($value, $user, $s_user, $venue, $payment_limit) {
+    $reservation = DB::transaction(function () use ($value, $user, $s_user, $venue, $payment_limit) {
       $reservation = $this->create([
         'venue_id' => $value->venue_id,
         'user_id' => $user,
@@ -470,7 +470,9 @@ class Reservation extends Model implements PresentableInterface
           'unit_type' => 4,
         ]);
       }
+      return $reservation;
     });
+    return $reservation;
   }
 
   // 仲介会社からの予約
