@@ -176,10 +176,10 @@
           {{Form::radio('eat_in', 1, $fix->eat_in==1?true:false , ['id' => 'eat_in','class'=>'radio-input'])}}
           {{Form::label('eat_in',"あり")}}
           (
-          {{Form::radio('eat_in_prepare', 1, $fix->eat_in_prepare==1?true:false , ['class'=>'radio-input','id' => 'eat_in_prepare',$fix->eat_in==0?'disabled':''])}}
+          {{Form::radio('eat_in_prepare', 1, !empty($fix->eat_in_prepare)?($fix->eat_in_prepare==1?true:false):false  , ['class'=>'radio-input','id' => 'eat_in_prepare',$fix->eat_in==0?'disabled':''])}}
           {{Form::label('eat_in_prepare',"手配済み",['style'=>'margin-right: 20px;'])}}
           /
-          {{Form::radio('eat_in_prepare', 2, $fix->eat_in_prepare==2?true:false , ['class'=>'radio-input','id' => 'eat_in_consider', $fix->eat_in==0?'disabled':''])}}
+          {{Form::radio('eat_in_prepare', 2, !empty($fix->eat_in_prepare)?($fix->eat_in_prepare==2?true:false):false , ['class'=>'radio-input','id' => 'eat_in_consider', $fix->eat_in==0?'disabled':''])}}
           {{Form::label('eat_in_consider',"検討中",['style'=>'margin-right: 20px;'])}}
           )
           <br>
@@ -190,7 +190,6 @@
         </td>
       </tr>
       @endif
-
 
       <tr>
         <th>有料備品</th>
@@ -307,9 +306,9 @@
           <div class="m-b10">
             <p>【事前に預かる荷物】</p>
             <div class="selectTime">
-              <p class="baggage_bn">目安</p>
-              {{ Form::text('luggage_count', $fix->luggage_count,['class'=>'text6 baggage_bn', 'style'=>'width:20%;'] ) }}
-              <p class="baggage_bn">個</p>
+              <p class="">目安</p>
+              {{ Form::text('luggage_count', $fix->luggage_count,['class'=>'text6 ', 'style'=>'width:20%;'] ) }}
+              <p class="">個</p>
             </div>
           </div>
           <div class="m-b10">
@@ -331,9 +330,9 @@
           <div class="m-b10">
             <p>【事後返送する荷物】</p>
             <div class="selectTime">
-              <p class="baggage_an">目安</p>
-              {{ Form::text('luggage_return', $fix->luggage_return,['class'=>'text6 baggage_an', 'style'=>'width: 20%;'] ) }}
-              <p class="baggage_an">個</p>
+              <p class="">目安</p>
+              {{ Form::text('luggage_return', $fix->luggage_return,['class'=>'text6 ', 'style'=>'width: 20%;'] ) }}
+              <p class="">個</p>
             </div>
           </div>
           <a name="a-baggagedate" class="error-r"></a>

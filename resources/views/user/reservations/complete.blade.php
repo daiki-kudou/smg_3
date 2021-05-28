@@ -17,7 +17,7 @@
           お手数ですが迷惑フォルダもご確認いただけましたら幸いです。その場合は【@s-mg.co.jp】を受信設定していただきますようお願いいたします。</p>
       </div>
     </div>
-      <p class="page-text m-b80"><a href="" class="confirm-btn">マイページで予約内容を確認する</a></p>
+    <p class="page-text m-b80"><a href="{{url("user/home")}}" class="confirm-btn">マイページで予約内容を確認する</a></p>
 
 
   </div>
