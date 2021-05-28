@@ -170,8 +170,8 @@
           </tr>
         </table>
       </div>
-      <p class="txtCenter m-t10">
-        {{ Form::submit('日時を選択する', ['class' => 'btn confirm-btn']) }}
+      <p class="m-t10">
+        {{ Form::submit('日時を選択する', ['class' => 'btn confirm-btn margin-auto']) }}
       </p>
       {{Form::close()}}
     </div>
