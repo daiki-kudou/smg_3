@@ -118,6 +118,10 @@ header div.contents {
     line-height: 1.4;
 }
 
+.wrapper {
+    overflow: inherit;
+}
+
 .contents {
     max-width: 1000px;
     /* margin: 0 auto; */
@@ -133,6 +137,11 @@ header div.contents {
     top: 20px;
     right: -160px;
     font-weight: bold;
+}
+
+.cart_area p {
+    display: flex;
+    align-items: center;
 }
 
 .cart_btn {
