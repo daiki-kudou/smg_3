@@ -313,6 +313,14 @@ form table td textarea {
     margin-left: 8px;
 }
 
+.annotation {
+    font-size: 0.5rem;
+}
+
+.calender label {
+    font-weight: normal;
+}
+
 
 .btn-wrapper {
     display: flex;
