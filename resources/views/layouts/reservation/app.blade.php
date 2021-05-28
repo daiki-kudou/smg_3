@@ -191,7 +191,10 @@
               予約専用：10時～18時</p>
           </div>
           <a class="cart_area">
-            <p><i class="fas fa-cart-arrow-down cart_btn"></i><span>カート一覧へ</span></p>
+            <p>
+              <i class="fas fa-clipboard-list cart_btn"></i>
+              {{-- <i class="fas fa-cart-arrow-down cart_btn"></i> --}}
+              <span>予約一覧へ</span></p>
             {{-- <p>保存している会場</p> --}}
           </a>
         </div>
