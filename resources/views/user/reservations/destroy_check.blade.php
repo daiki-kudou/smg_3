@@ -42,7 +42,7 @@
           <tr>
             <th>利用会場</th>
             <td>
-              {{$slctSession[0]['venue_id']}}
+              {{ReservationHelper::getVenueForUser($slctSession[0]['venue_id'])}}
             </td>
           </tr>
           <tr>
@@ -60,7 +60,7 @@
           <tr>
             <th>音響ハイグレード</th>
             <td class="">
-              {{$slctSession[0]['price_system']}}
+              {{$slctSession[0]['price_system']==2?"する":"しない"}}
             </td>
           </tr>
           <tr>
@@ -68,7 +68,7 @@
             <td>
               <ul class="from-list">
                 <li>
-                  {{$slctSession[0]['board_flag']}}
+                  {{$slctSession[0]['board_flag']==1?"する":"しない"}}
                 </li>
                 <li>
                   <p>イベント名称1行目</p>
@@ -159,7 +159,8 @@
                   <dl class="form-cell2">
                     <dt>事後返送する荷物の個数：</dt>
                     <dd>
-                      工藤さん！こちらお願いします。<span>個</span>
+                      {{$slctSession[0]['luggage_return']}}
+                      <span>個</span>
                     </dd>
                   </dl>
                 </li>
