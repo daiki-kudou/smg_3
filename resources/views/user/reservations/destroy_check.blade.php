@@ -84,11 +84,11 @@
                 </li>
                 <li>
                   <p>イベント開始時間</p>
-                  <p>{{$slctSession[0]['event_start']??""}}</p>
+                  <p>{{ReservationHelper::formatTime($slctSession[0]['event_start']??"")}}</p>
                 </li>
                 <li>
                   <p>イベント終了時間</p>
-                  <p>{{$slctSession[0]['event_finish']??""}}</p>
+                  <p>{{ReservationHelper::formatTime($slctSession[0]['event_finish']??"")}}</p>
                 </li>
             </td>
           </tr>

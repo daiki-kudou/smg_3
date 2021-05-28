@@ -4,6 +4,11 @@
 <script src="{{ asset('/js/user_reservation/validation.js') }}"></script>
 <script src="{{ asset('/js/lettercounter.js') }}"></script>
 
+<style>
+  .hide {
+    display: none;
+  }
+</style>
 
 <div class="contents">
   <div class="pagetop-text">
@@ -102,7 +107,7 @@
               </div>
             </li>
             <li><a href=""><i class="fas fa-external-link-alt form-icon"></i>案内板サンプルはこちら</a></li>
-            <li class="cell-margin board_info">
+            <li class="{{$fix->board_flag==0?'cell-margin d-none':"cell-margin"}}">
               <div class="m-b10">
                 <p><span class="txtRed c-block">＊</span>イベント名称1行目</p>
                 <div class="form-counter">
@@ -421,6 +426,17 @@
          }
       });
     });
+    
+  $(function(){
+    $('input[name="board_flag"]').on('click',function(){
+      if ($(this).val()==1) {
+        $('.cell-margin').removeClass("d-none");
+      }else{
+        $('.cell-margin').addClass("d-none");
+      }
+    })
+    // cell-margin
+  })
 </script>
 
 @endsection
