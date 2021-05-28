@@ -1,5 +1,6 @@
 @extends('layouts.reservation.app')
 @section('content')
+
 <main>
   <div class="contents">
     <div class="pagetop-text">
