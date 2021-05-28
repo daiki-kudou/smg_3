@@ -106,7 +106,7 @@
               <div class="m-b10">
                 <p><span class="txtRed c-block">＊</span>イベント名称1行目</p>
                 <div class="form-counter">
-                  {{ Form::text('event_name1',$fix->event_name1,['class'=>'form-control text2', 'placeholder'=>'入力してください', 'id'=>'eventname1Count'] ) }}
+                  {{ Form::text('event_name1',$fix->event_name1??"",['class'=>'form-control text2', 'placeholder'=>'入力してください', 'id'=>'eventname1Count'] ) }}
                   <span class="count_num1"></span>
                 </div>
                 <p class="is-error-event_name1" style="color: red"></p>
@@ -114,7 +114,7 @@
               <div class="m-b10">
                 <p>イベント名称2行目</p>
                 <div class="form-counter">
-                  {{ Form::text('event_name2',$fix->event_name2,['class'=>'form-control text2', 'placeholder'=>'入力してください', 'id'=>'eventname2Count'] ) }}
+                  {{ Form::text('event_name2',$fix->event_name2??"",['class'=>'form-control text2', 'placeholder'=>'入力してください', 'id'=>'eventname2Count'] ) }}
                   <span class="count_num2"></span>
                 </div>
                 <p class="is-error-event_name2" style="color: red"></p>
@@ -122,7 +122,7 @@
               <div class="m-b10">
                 <p>主催者名</p>
                 <div class="form-counter">
-                  {{ Form::text('event_owner',$fix->event_owner,['class'=>'form-control text2', 'placeholder'=>'入力してください', 'id'=>'eventownerCount'] ) }}
+                  {{ Form::text('event_owner',$fix->event_owner??"",['class'=>'form-control text2', 'placeholder'=>'入力してください', 'id'=>'eventownerCount'] ) }}
                   <span class="count_num3"></span>
                 </div>
                 <p class="is-error-event_owner" style="color: red"></p>

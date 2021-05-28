@@ -72,23 +72,23 @@
                 </li>
                 <li>
                   <p>イベント名称1行目</p>
-                  <p>{{$slctSession[0]['event_name1']}}</p>
+                  <p>{{$slctSession[0]['event_name1']??""}}</p>
                 </li>
                 <li>
                   <p>イベント名称2行目</p>
-                  <p>{{$slctSession[0]['event_name2']}}</p>
+                  <p>{{$slctSession[0]['event_name2']??""}}</p>
                 </li>
                 <li>
                   <p>主催者名</p>
-                  <p>{{$slctSession[0]['event_owner']}}</p>
+                  <p>{{$slctSession[0]['event_owner']??""}}</p>
                 </li>
                 <li>
                   <p>イベント開始時間</p>
-                  <p>{{$slctSession[0]['event_start']}}</p>
+                  <p>{{$slctSession[0]['event_start']??""}}</p>
                 </li>
                 <li>
                   <p>イベント終了時間</p>
-                  <p>{{$slctSession[0]['event_finish']}}</p>
+                  <p>{{$slctSession[0]['event_finish']??""}}</p>
                 </li>
             </td>
           </tr>
