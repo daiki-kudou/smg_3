@@ -137,7 +137,7 @@ class ReservationsController extends Controller
     $select_id = $request->session_reservation_id;
     $slctSession = $sessions[$select_id];
     $fix = (object)$slctSession[0];
-    $venue = Venue::find($fix->venue_id);
+    $venue = Venue::with(['frame_prices', 'time_prices'])->find($fix->venue_id);
     return view('user.reservations.re_create', compact('fix', 'venue', 'select_id'));
   }
 

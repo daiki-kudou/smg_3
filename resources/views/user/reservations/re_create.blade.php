@@ -77,23 +77,43 @@
           <p class="is-error-tel" style="color: red"></p>
         </td>
       </tr>
+
+
+
+      @if ($venue->frame_prices->count()!=0&&$venue->time_prices->count()!=0)
       <tr>
         <th>音響ハイグレード<span class="txtRed c-block">＊</span></th>
         <td class="">
           <ul>
             <li>
               <div class="selectTime">
-                {{ Form::radio('price_system', 2, $fix->price_system==2?true:false, ['class'=>'radio-input','id'=>'price_system_radio2']) }}
+                {{ Form::radio('price_system', 2, false, ['class'=>'radio-input','id'=>'price_system_radio2']) }}
                 {{Form::label('price_system_radio2','する')}}
-                {{ Form::radio('price_system', 1, $fix->price_system==1?true:false, ['class'=>'radio-input', 'id'=>'price_system_radio1']) }}
+                {{ Form::radio('price_system', 1, true, ['class'=>'radio-input', 'id'=>'price_system_radio1']) }}
                 {{Form::label('price_system_radio1','しない')}}
               </div>
             </li>
-            <li><a target="_blank" rel="noopener noreferrer" href="https://osaka-conference.com/characteristic/high-grade/"><i class="fas fa-question-circle form-icon"></i>音響ハイグレードとは？</a></li>
+            <li>
+              <a target="_blank" rel="noopener noreferrer"
+                href="https://osaka-conference.com/characteristic/high-grade/">
+                <i class="fas fa-question-circle form-icon"></i>音響ハイグレードとは？</a></li>
           </ul>
           <a name="a-selectTime1" class="error-r"></a>
         </td>
       </tr>
+      @else
+      @if ($venue->frame_prices->count()!=0)
+      {{Form::hidden('price_system',1)}}
+      @else
+      {{Form::hidden('price_system',2)}}
+      @endif
+      @endif
+
+
+
+
+
+
       <tr>
         <th>案内板の作成<span class="txtRed c-block">＊</span></th>
         <td class="">
@@ -196,6 +216,7 @@
       </tr>
       @endif
 
+      @if ($venue->getEquipments()->count()!=0)
       <tr>
         <th>有料備品</th>
         <td class="spec-space">
@@ -220,7 +241,9 @@
           </ul>
         </td>
       </tr>
+      @endif
 
+      @if ($venue->getServices()->count()!=0)
       <tr>
         <th>有料サービス</th>
         <td class="spec-space">
@@ -257,6 +280,8 @@
           </ul>
         </td>
       </tr>
+      @endif
+
 
 
       @if ($venue->getLayouts()!=0)
