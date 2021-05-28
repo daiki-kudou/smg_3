@@ -407,25 +407,25 @@
   })
 
     // 案内板のラジオボタン選択の表示、非表示
-    $(function() {
-    var no_board_flag = $('#no_board_flag').val();
-    if (no_board_flag == 0) {
-          $(".board_info").addClass("d-none");
-        } else {
-          $(".board_info").removeClass("d-none");
-         }
-    });
+    // $(function() {
+    // var no_board_flag = $('#no_board_flag').val();
+    // if (no_board_flag == 0) {
+    //       $(".board_info").addClass("d-none");
+    //     } else {
+    //       $(".board_info").removeClass("d-none");
+    //      }
+    // });
 
-    $(function() {
-     $("input[name='board_flag']").change(function() {
-       var no_board_flag = $('#no_board_flag').prop('checked');
-        if (no_board_flag) {
-          $(".board_info").addClass("d-none");
-        } else {
-          $(".board_info").removeClass("d-none");
-         }
-      });
-    });
+    // $(function() {
+    //  $("input[name='board_flag']").change(function() {
+    //    var no_board_flag = $('#no_board_flag').prop('checked');
+    //     if (no_board_flag) {
+    //       $(".board_info").addClass("d-none");
+    //     } else {
+    //       $(".board_info").removeClass("d-none");
+    //      }
+    //   });
+    // });
     
   $(function(){
     $('input[name="board_flag"]').on('click',function(){
