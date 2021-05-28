@@ -148,9 +148,12 @@
                         value="{{date("H:i:s", strtotime("00:00 +". $start * 30 ." minute"))}}" @if(($request->
                         enter_time==date("H:i:s", strtotime("00:00 +". $start * 30 ." minute"))))
                         selected
-                        @endif>
-                        {{date("H時i分", strtotime("00:00 +". $start * 30 ." minute"))}}</option>
-                        @endfor
+                        @elseif($request->enter_time>date("H:i:s", strtotime("00:00 +". $start * 30 ." minute")))
+                        disabled
+                        @elseif($request->leave_time<date("H:i:s", strtotime("00:00 +". $start * 30 ." minute")))
+                          disabled @endif>
+                          {{date("H時i分", strtotime("00:00 +". $start * 30 ." minute"))}}</option>
+                          @endfor
                     </select>
                   </div>
                 </li>
@@ -163,9 +166,12 @@
                         value="{{date("H:i:s", strtotime("00:00 +". $start * 30 ." minute"))}}" @if(($request->
                         leave_time==date("H:i:s", strtotime("00:00 +". $start * 30 ." minute"))))
                         selected
-                        @endif>
-                        {{date("H時i分", strtotime("00:00 +". $start * 30 ." minute"))}}</option>
-                        @endfor
+                        @elseif($request->enter_time>date("H:i:s", strtotime("00:00 +". $start * 30 ." minute")))
+                        disabled
+                        @elseif($request->leave_time<date("H:i:s", strtotime("00:00 +". $start * 30 ." minute")))
+                          disabled @endif>
+                          {{date("H時i分", strtotime("00:00 +". $start * 30 ." minute"))}}</option>
+                          @endfor
                     </select>
                   </div>
                 </li>
