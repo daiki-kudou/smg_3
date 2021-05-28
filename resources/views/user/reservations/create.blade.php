@@ -86,7 +86,7 @@
                 {{Form::label('price_system_radio1','しない')}}
               </div>
             </li>
-            <li><a href=""><i class="fas fa-question-circle form-icon"></i>音響ハイグレードとは？</a></li>
+            <li><a target="_blank" rel="noopener noreferrer" href="https://osaka-conference.com/characteristic/high-grade/"><i class="fas fa-question-circle form-icon"></i>音響ハイグレードとは？</a></li>
           </ul>
           <a name="a-selectTime1" class="error-r"></a>
         </td>
