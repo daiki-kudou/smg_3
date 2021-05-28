@@ -68,7 +68,7 @@ class HomeController extends Controller
     }
 
     $counter = count($reservations);
-    $reservations = $this->customPaginate($reservations, 2, $request);
+    $reservations = $this->customPaginate($reservations, 30, $request);
     return view('user.home.index', compact('user', 'reservations', 'request', 'counter'));
   }
 

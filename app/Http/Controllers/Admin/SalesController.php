@@ -37,7 +37,7 @@ class SalesController extends Controller
       $all_total_amount = "";
     }
     $for_csv = $this->forCsv($merge); //csv抽出用
-    $reservations = $this->customPaginate($merge, 10, $request);
+    $reservations = $this->customPaginate($merge, 30, $request);
     return view('admin.sales.index', compact('reservations', 'request', 'agents', 'venues', 'for_csv', 'count', 'all_total_amount'));
   }
 

@@ -38,7 +38,7 @@ class PreReservationsController extends Controller
     $after = PreReservation::where('reserve_date', '>=', $today)->get()->sortBy('reserve_date');
     $before = PreReservation::where('reserve_date', '<', $today)->get()->sortByDesc('reserve_date');
     $merge = $after->concat($before);
-    $pre_reservations = $this->customPaginate($merge, 10, $request);
+    $pre_reservations = $this->customPaginate($merge, 30, $request);
     $counter = count($pre_reservations);
 
     return view('user.pre_reservations.index', compact('pre_reservations', 'counter'));
