@@ -57,12 +57,27 @@
               {{$slctSession[0]['tel']}}
             </td>
           </tr>
+
+
+
+
+          @if ($venue->frame_prices->count()!=0&&$venue->time_prices->count()!=0)
           <tr>
             <th>音響ハイグレード</th>
             <td class="">
               {{$slctSession[0]['price_system']==2?"する":"しない"}}
             </td>
           </tr>
+          @else
+          @if ($venue->frame_prices->count()!=0)
+          {{Form::hidden('price_system',1)}}
+          @else
+          {{Form::hidden('price_system',2)}}
+          @endif
+          @endif
+
+
+
           <tr>
             <th>案内板</th>
             <td>
@@ -70,6 +85,8 @@
                 <li>
                   {{$slctSession[0]['board_flag']==1?"する":"しない"}}
                 </li>
+                @if ($slctSession[0]['board_flag']==1)
+
                 <li>
                   <p>イベント名称1行目</p>
                   <p>{{$slctSession[0]['event_name1']??""}}</p>
@@ -90,8 +107,10 @@
                   <p>イベント終了時間</p>
                   <p>{{ReservationHelper::formatTime($slctSession[0]['event_finish']??"")}}</p>
                 </li>
+                @endif
             </td>
           </tr>
+
 
           @if (!empty($slctSession[0]['eat_in']))
           <tr>
