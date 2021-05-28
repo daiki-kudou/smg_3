@@ -87,9 +87,14 @@ class ReservationsController extends Controller
         ->action("User\ReservationsController@create")
         ->withInput($arrays);
     } else {
-      if ($request->select_id) {
-        Session::forget('session_reservations.' . $request->select_id);
-        Session::get('session_reservations');
+      if ($request->select_id != "") {
+        // Session::forget('session_reservations.' . $request->select_id);
+        // Session::get('session_reservations');
+        $data = $request->all();
+        $user = auth()->user()->id;
+        $all_data = [$data, $user];
+        $request->session()->put('session_reservations.' . $request->select_id, $all_data);
+        return redirect('user/reservations/cart');
       }
       $data = $request->all();
       $user = auth()->user()->id;
@@ -122,6 +127,10 @@ class ReservationsController extends Controller
     return redirect('user/reservations/cart');
   }
 
+  /**     
+   *  
+   *@var int $request->session_reservation_id
+   */
   public function re_create(Request $request)
   {
     $sessions = $request->session()->get('session_reservations');
