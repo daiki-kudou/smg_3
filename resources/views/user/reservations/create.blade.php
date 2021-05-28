@@ -216,7 +216,7 @@
           <ul>
             @foreach ($venue->getEquipments() as $e_key=>$eqpt)
             <li class="form-cell2">
-              <p class="text6">{{$eqpt->item}}({{$eqpt->price}}円)</p>
+              <p class="text6">{{$eqpt->item}} {{$eqpt->price}}円<span class="annotation">(税抜)</span></p>
               <p>
                 {{ Form::text('equipment_breakdown'.$e_key, '',['class'=>'text4 mL0'] ) }}個
               </p>
@@ -238,7 +238,7 @@
               <label>
                 {{ Form::hidden('services_breakdown'.$s_key, 0 ) }}
                 <input type="checkbox" id="" name="{{'services_breakdown'.$s_key}}" value="1" class="checkbox-input">
-                <span class="checkbox-parts">{{$serv->item}} {{$serv->price}}円</span>
+                <span class="checkbox-parts">{{$serv->item}} {{$serv->price}}円<span class="annotation">(税抜)</span></span>
               </label>
             </li>
             @endforeach

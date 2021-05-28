@@ -223,7 +223,7 @@
           <ul>
             @foreach ($venue->getEquipments() as $e_key=>$eqpt)
             <li class="form-cell2">
-              <p class="text6">{{$eqpt->item}}({{$eqpt->price}}円)</p>
+              <p class="text6">{{$eqpt->item}} {{$eqpt->price}}円<span class="annotation">(税抜)</span></p>
               @if (empty(json_decode($fix->items_results)[1]))
               <p>{{ Form::text('equipment_breakdown'.$e_key, "",['class'=>'text4 mL0'] ) }}個</p>
               @else
@@ -254,7 +254,7 @@
               <label>
                 {{ Form::hidden('services_breakdown'.$s_key, 0 ) }}
                 <input type="checkbox" id="" name="{{'services_breakdown'.$s_key}}" value="1" class="checkbox-input">
-                <span class="checkbox-parts">{{$serv->item}} {{$serv->price}}円</span>
+                <span class="checkbox-parts">{{$serv->item}} {{$serv->price}}円<span class="annotation">(税抜)</span></span>
               </label>
               @else
               @foreach (json_decode($fix->items_results)[2] as $b_ser)
@@ -432,25 +432,36 @@
   })
 
     // 案内板のラジオボタン選択の表示、非表示
-    $(function() {
-    var no_board_flag = $('#no_board_flag').val();
-    if (no_board_flag == 0) {
-          $(".board_info").addClass("d-none");
-        } else {
-          $(".board_info").removeClass("d-none");
-         }
-    });
+    // $(function() {
+    // var no_board_flag = $('#no_board_flag').val();
+    // if (no_board_flag == 0) {
+    //       $(".board_info").addClass("d-none");
+    //     } else {
+    //       $(".board_info").removeClass("d-none");
+    //      }
+    // });
 
-    $(function() {
-     $("input[name='board_flag']").change(function() {
-       var no_board_flag = $('#no_board_flag').prop('checked');
-        if (no_board_flag) {
-          $(".board_info").addClass("d-none");
-        } else {
-          $(".board_info").removeClass("d-none");
-         }
-      });
-    });
+    // $(function() {
+    //  $("input[name='board_flag']").change(function() {
+    //    var no_board_flag = $('#no_board_flag').prop('checked');
+    //     if (no_board_flag) {
+    //       $(".board_info").addClass("d-none");
+    //     } else {
+    //       $(".board_info").removeClass("d-none");
+    //      }
+    //   });
+    // });
+    
+  $(function(){
+    $('input[name="board_flag"]').on('click',function(){
+      if ($(this).val()==1) {
+        $('.cell-margin').removeClass("d-none");
+      }else{
+        $('.cell-margin').addClass("d-none");
+      }
+    })
+    // cell-margin
+  })
 </script>
 
 @endsection
