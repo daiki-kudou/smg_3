@@ -109,6 +109,19 @@ header div.contents {
     position: relative;
 }
 
+.search_btn {
+    background-color: #EF6243;
+    border-radius: 2px;
+    box-shadow: 0 3px 0 #be483c;
+    color: #fff;
+    padding: 10px 40px;
+    line-height: 1.4;
+}
+
+.wrapper {
+    overflow: inherit;
+}
+
 .contents {
     max-width: 1000px;
     /* margin: 0 auto; */
@@ -124,6 +137,11 @@ header div.contents {
     top: 20px;
     right: -160px;
     font-weight: bold;
+}
+
+.cart_area p {
+    display: flex;
+    align-items: center;
 }
 
 .cart_btn {
@@ -289,6 +307,10 @@ form table td textarea {
 
 .table-box th {
     width: 45%;
+}
+
+.luggage_space {
+    margin-left: 8px;
 }
 
 

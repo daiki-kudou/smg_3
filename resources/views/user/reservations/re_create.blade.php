@@ -52,7 +52,7 @@
               <p class="is-error-q1" style="color: red"></p>
 
           </div>
-          <p><a class="link-btn2" href="/">日程を変更する</a></p>
+          {{-- <p><a class="link-btn2" href="/">日程を変更する</a></p> --}}
         </td>
       </tr>
       <tr>
@@ -89,13 +89,13 @@
                 {{Form::label('price_system_radio1','しない')}}
               </div>
             </li>
-            <li><a href=""><i class="fas fa-question-circle form-icon"></i>音響ハイグレードとは？</a></li>
+            <li><a target="_blank" rel="noopener noreferrer" href="https://osaka-conference.com/characteristic/high-grade/"><i class="fas fa-question-circle form-icon"></i>音響ハイグレードとは？</a></li>
           </ul>
           <a name="a-selectTime1" class="error-r"></a>
         </td>
       </tr>
       <tr>
-        <th>案内板<span class="txtRed c-block">＊</span></th>
+        <th>案内板の作成<span class="txtRed c-block">＊</span></th>
         <td class="">
           <ul>
             <li>
@@ -202,7 +202,7 @@
           <ul>
             @foreach ($venue->getEquipments() as $e_key=>$eqpt)
             <li class="form-cell2">
-              <p class="text6">{{$eqpt->item}}</p>
+              <p class="text6">{{$eqpt->item}}({{$eqpt->price}}円)</p>
               @if (empty(json_decode($fix->items_results)[1]))
               <p>{{ Form::text('equipment_breakdown'.$e_key, "",['class'=>'text4 mL0'] ) }}個</p>
               @else
@@ -406,16 +406,26 @@
     })
   })
 
-  $(function(){
-    $('input[name="board_flag"]').on('click',function(){
-      if ($(this).val()==1) {
-        $('.cell-margin').removeClass("d-none");
-      }else{
-        $('.cell-margin').addClass("d-none");
-      }
-    })
-    // cell-margin
-  })
+    // 案内板のラジオボタン選択の表示、非表示
+    $(function() {
+    var no_board_flag = $('#no_board_flag').val();
+    if (no_board_flag == 0) {
+          $(".board_info").addClass("d-none");
+        } else {
+          $(".board_info").removeClass("d-none");
+         }
+    });
+
+    $(function() {
+     $("input[name='board_flag']").change(function() {
+       var no_board_flag = $('#no_board_flag').prop('checked');
+        if (no_board_flag) {
+          $(".board_info").addClass("d-none");
+        } else {
+          $(".board_info").removeClass("d-none");
+         }
+      });
+    });
 </script>
 
 @endsection

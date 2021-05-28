@@ -86,7 +86,7 @@
                 {{Form::label('price_system_radio1','しない')}}
               </div>
             </li>
-            <li><a href=""><i class="fas fa-question-circle form-icon"></i>音響ハイグレードとは？</a></li>
+            <li><a target="_blank" rel="noopener noreferrer" href="https://osaka-conference.com/characteristic/high-grade/"><i class="fas fa-question-circle form-icon"></i>音響ハイグレードとは？</a></li>
           </ul>
           <a name="a-selectTime1" class="error-r"></a>
         </td>
@@ -216,7 +216,7 @@
           <ul>
             @foreach ($venue->getEquipments() as $e_key=>$eqpt)
             <li class="form-cell2">
-              <p class="text6">{{$eqpt->item}}</p>
+              <p class="text6">{{$eqpt->item}}({{$eqpt->price}}円)</p>
               <p>
                 {{ Form::text('equipment_breakdown'.$e_key, '',['class'=>'text4 mL0'] ) }}個
               </p>
