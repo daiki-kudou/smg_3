@@ -211,27 +211,22 @@
           <th>荷物預り/返送</th>
           <td class="spec-space">
             <div class="m-b10">
-              <p>事前に預かる荷物</p>
-              <div class="selectTime">
-                <p class="">目安</p>
-                <p class="">{{$request->luggage_count}}</p>
+              <p>【事前に預かる荷物】</p>
+              <div class="">
+                <p class="luggage_space">目安：{{$request->luggage_count}}個</p>
                 {{ Form::hidden('luggage_count', $request->luggage_count ) }}
-                <p class="">個</p>
               </div>
             </div>
             <div class="m-b10">
-              <p>【事前荷物の到着日</p>
-              <p class="">{{$request->luggage_arrive}}</p>
+              <p>【事前荷物の到着日】</p>
+              <p class="luggage_space">{{$request->luggage_arrive}}</p>
               {{ Form::hidden('luggage_arrive', $request->luggage_arrive ) }}
             </div>
-            <a name="a-baggagedate" class="error-r"></a>
             <div class="m-b10">
-              <p>事後返送する荷物】</p>
-              <div class="selectTime">
-                <p class="">目安</p>
-                <p class="">{{$request->luggage_return}}</p>
+              <p>【事後返送する荷物】</p>
+              <div class="">
+                <p class="luggage_space">目安：{{$request->luggage_return}}個</p>
                 {{ Form::hidden('luggage_return', $request->luggage_return ) }}
-                <p class="">個</p>
               </div>
             </div>
             <a name="a-baggagedate" class="error-r"></a>

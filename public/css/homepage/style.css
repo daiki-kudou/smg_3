@@ -309,6 +309,10 @@ form table td textarea {
     width: 45%;
 }
 
+.luggage_space {
+    margin-left: 8px;
+}
+
 
 .btn-wrapper {
     display: flex;
