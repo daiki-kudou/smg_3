@@ -99,12 +99,12 @@
                 <ul class="">
                   <li class="m-b10">
                     <p>【イベント開始時間】</p>
-                    {{$request->event_start}}
+                    {{ReservationHelper::formatTime($request->event_start)}}
                     {{ Form::hidden('event_start', $request->event_start) }}
                   </li>
                   <li>
                     <p>【イベント終了時間】</p>
-                    {{$request->event_finish}}
+                    {{ReservationHelper::formatTime($request->event_finish)}}
                     {{ Form::hidden('event_finish', $request->event_finish) }}
                   </li>
                 </ul>
