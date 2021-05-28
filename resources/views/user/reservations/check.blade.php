@@ -206,6 +206,7 @@
           </td>
         </tr>
 
+        @if ($venue->getLuggage()!=0)
         <tr>
           <th>荷物預り/返送</th>
           <td class="spec-space">
@@ -236,6 +237,8 @@
             <a name="a-baggagedate" class="error-r"></a>
           </td>
         </tr>
+        @endif
+
 
         <tr>
           <th>備考</th>
