@@ -101,7 +101,7 @@
 
 
       <tr>
-        <th>案内板<span class="txtRed c-block">＊</span></th>
+        <th>案内板の作成<span class="txtRed c-block">＊</span></th>
         <td class="">
           <ul>
             <li>

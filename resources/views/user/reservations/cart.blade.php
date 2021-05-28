@@ -44,10 +44,13 @@
   </div>
 
   <section class="contents">
-    <div class="cart-box">
-      <p><a class="confirm-btn" href="">予約確認画面へ</a></p>
+
+    {{-- <div class="cart-box">
+      <p ><a class="confirm-btn" href="">予約確認画面へ</a></p>
       </p>
-    </div>
+    </div> --}}
+
+
     <!-- 予約内容 -------------------------------------------->
     @if (empty($sessions))
     <div style="margin-top:100px;margin-bottom:200px;">

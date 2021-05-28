@@ -1,7 +1,7 @@
 @extends('layouts.reservation.app')
 @section('content')
 
-{{-- <script src="{{ asset('/js/user_reservation/validation.js') }}"></script> --}}
+<script src="{{ asset('/js/user_reservation/validation.js') }}"></script>
 <script src="{{ asset('/js/user_reservation/control_time.js') }}"></script>
 <style>
   #fullOverlay {
@@ -131,7 +131,7 @@
         <iframe src="{{url('/calendar/venue_calendar')}}" width="100%" height="800px"></iframe>
       </div>
 
-      {{Form::open(['url' => 'user/reservations/create', 'method' => 'get', 'class'=>'search','id'=>''])}}
+      {{Form::open(['url' => 'user/reservations/create', 'method' => 'get', 'class'=>'search','id'=>'slct_venue_form'])}}
       @csrf
       <h2 class="sub-ttl">選択した日程</h2>
       <div class="bgColorGray first">
@@ -151,6 +151,7 @@
                   <input type="text" name="" id="datepicker2" class="form-input date_input">
                   {{Form::hidden('date',"")}}
                 </div>
+              <p class="is-error-date" style="color: red"></p>
                 <p><span class="txt-indent">翌々日以降の利用日から受付可能です。</span></p>
                 <p><span>直近の日程は選択できません。お電話にて問い合わせ下さい。</span></p>
               </p>

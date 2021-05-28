@@ -137,16 +137,20 @@
         <td>
           <ul class="form-cell">
             <li>
-              <p>姓</p>
-              {{ Form::text('first_name', $session['first_name']??old('first_name'), ['class' => 'form-control text1', 'id' => 'nam', 'placeholder' => '入力してください']) }}
-              <br class="spOnlyunder">
-              <p class="is-error-first_name" style="color: red"></p>
+              <div>
+                <p>姓</p>
+                {{ Form::text('first_name', $session['first_name']??old('first_name'), ['class' => 'form-control text1', 'id' => 'first_nam', 'placeholder' => '入力してください']) }}
+                <br class="spOnlyunder">
+                <p class="is-error-first_name" style="color: red"></p>
+              </div>
             </li>
             <li>
-              <p>名</p>
-              {{ Form::text('last_name', $session['last_name']??old('last_name'), ['class' => 'form-control text1', 'id' => 'nam', 'placeholder' => '入力してください']) }}
-              <br class="spOnlyunder">
-              <p class="is-error-last_name" style="color: red"></p>
+              <div>
+                <p>名</p>
+                {{ Form::text('last_name', $session['last_name']??old('last_name'), ['class' => 'form-control text1', 'id' => 'last_nam', 'placeholder' => '入力してください']) }}
+                <br class="spOnlyunder">
+                <p class="is-error-last_name" style="color: red"></p>
+              </div>
             </li>
           </ul>
         </td>
@@ -156,16 +160,20 @@
         <td>
           <ul class="form-cell">
             <li>
-              <p>セイ</p>
-              {{ Form::text('first_name_kana', $session['first_name_kana']??old('first_name_kana'), ['class' => 'form-control text1', 'id' => 'nam', 'placeholder' => '入力してください']) }}
-              <br class="spOnlyunder">
-              <p class="is-error-first_name_kana" style="color: red"></p>
+              <div>
+                <p>セイ</p>
+                {{ Form::text('first_name_kana', $session['first_name_kana']??old('first_name_kana'), ['class' => 'form-control text1', 'id' => 'firstkana_nam', 'placeholder' => '入力してください']) }}
+                <br class="spOnlyunder">
+                <p class="is-error-first_name_kana" style="color: red"></p>
+              </div>
             </li>
             <li>
-              <p>メイ</p>
-              {{ Form::text('last_name_kana', $session['last_name_kana']??old('last_name_kana'), ['class' => 'form-control text1', 'id' => 'nam', 'placeholder' => '入力してください']) }}
-              <br class="spOnlyunder">
-              <p class="is-error-last_name_kana" style="color: red"></p>
+              <div>
+                <p>メイ</p>
+                {{ Form::text('last_name_kana', $session['last_name_kana']??old('last_name_kana'), ['class' => 'form-control text1', 'id' => 'lastkana_nam', 'placeholder' => '入力してください']) }}
+                <br class="spOnlyunder">
+                 <p class="is-error-last_name_kana" style="color: red"></p>
+              </div>
             </li>
           </ul>
         </td>
@@ -177,7 +185,7 @@
           <input onKeyUp="AjaxZip3.zip2addr(this,&#039;&#039;,&#039;address1&#039;,&#039;address2&#039;);"
             autocomplete="off" name="post_code" type="text" value="{{ $session['post_code']??old('post_code') }}"
             id="post_code">
-          <p class="is-error-post_code" style="color: red"></p>
+            <p class="is-error-post_code" style="color: red"></p>
 
         </td>
       </tr>
@@ -221,9 +229,7 @@
           {{-- <input name="tel01_1" id="tel01_1" class="text2" type="tel"> --}}
           {{ Form::text('tel', $session['tel']??old('tel'), ['class' => 'form-control text2', 'id' => 'tel', 'placeholder' => '入力してください']) }}
           <p style="display:inline-block">11文字</p>
-          <a name="a-tel01" class="error-r"></a>
           <p class="is-error-tel" style="color: red"></p>
-
           <p>※半角数字、ハイフンなしで入力してください。</p>
         </td>
       </tr>
@@ -236,7 +242,6 @@
           {{-- <input name="tel02_1" id="tel1" class="text2" type="tel"> --}}
           {{ Form::text('mobile', $session['mobile']??old('mobile'), ['class' => 'form-control text2', 'id' => 'mobile', 'placeholder' => '入力してください']) }}
           <p style="display:inline-block">10文字</p>
-          <a name="a-tel02" class="error-r"></a>
           <p>※半角数字、ハイフンなしで入力してください。</p>
           <p class="is-error-mobile" style="color: red"></p>
 
@@ -247,9 +252,7 @@
         <td>
           {{-- <input name="fax1" id="fax1" class="text2" type="tel"> --}}
           {{ Form::text('fax', $session['fax']??old('fax'), ['class' => 'form-control text2', 'id' => 'fax', 'placeholder' => '入力してください']) }}
-          <p class="is-error-fax" style="color: red"></p>
-
-
+           <p class="is-error-fax" style="color: red"></p>
           <p>※半角数字、ハイフンなしで入力してください。</p>
         </td>
       </tr>

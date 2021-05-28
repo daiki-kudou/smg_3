@@ -115,8 +115,8 @@
 
   <ul class="btn-wrapper">
     <li>
-      <p class="link-btn">
-        {{ Form::submit('戻る', ['name'=>'back']) }}
+      <p>
+        {{ Form::submit('内容を修正する', ['name'=>'back','class' => 'link-btn']) }}
         {{-- <a href="">戻る</a> --}}
       </p>
     </li>
