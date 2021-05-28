@@ -212,10 +212,10 @@
             <div class="m-b10">
               <p>事前に預かる荷物</p>
               <div class="selectTime">
-                <p class="baggage_bn">目安</p>
+                <p class="">目安</p>
                 <p class="">{{$request->luggage_count}}</p>
                 {{ Form::hidden('luggage_count', $request->luggage_count ) }}
-                <p class="baggage_bn">個</p>
+                <p class="">個</p>
               </div>
             </div>
             <div class="m-b10">
@@ -227,10 +227,10 @@
             <div class="m-b10">
               <p>事後返送する荷物】</p>
               <div class="selectTime">
-                <p class="baggage_an">目安</p>
+                <p class="">目安</p>
                 <p class="">{{$request->luggage_return}}</p>
                 {{ Form::hidden('luggage_return', $request->luggage_return ) }}
-                <p class="baggage_an">個</p>
+                <p class="">個</p>
               </div>
             </div>
             <a name="a-baggagedate" class="error-r"></a>

@@ -281,9 +281,9 @@
           <div class="m-b10">
             <p>【事前に預かる荷物】</p>
             <div class="selectTime">
-              <p class="baggage_bn">目安</p>
-              {{ Form::text('luggage_count', '',['class'=>'text6 baggage_bn', 'style'=>'width:20%;'] ) }}
-              <p class="baggage_bn">個</p>
+              <p class="">目安</p>
+              {{ Form::text('luggage_count', '',['class'=>'text6 ', 'style'=>'width:20%;'] ) }}
+              <p class="">個</p>
             </div>
             <p class="is-error-luggage_count" style="color: red"></p>
           </div>
@@ -306,9 +306,9 @@
           <div class="m-b10">
             <p>【事後返送する荷物】</p>
             <div class="selectTime">
-              <p class="baggage_an">目安</p>
-              {{ Form::text('luggage_return', '',['class'=>'text6 baggage_an', 'style'=>'width: 20%;'] ) }}
-              <p class="baggage_an">個</p>
+              <p class="">目安</p>
+              {{ Form::text('luggage_return', '',['class'=>'text6 ', 'style'=>'width: 20%;'] ) }}
+              <p class="">個</p>
             </div>
           </div>
           <p class="is-error-luggage_return" style="color: red"></p>
