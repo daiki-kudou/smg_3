@@ -170,8 +170,8 @@
               @foreach ($venue->getServices() as $s_key=>$serv)
               @if ($request->{'services_breakdown'.$s_key}!=0)
               <li class="form-cell2">
-                  <span class="">{{$serv->item}} {{$serv->price}}円</span>
-                  {{ Form::hidden('services_breakdown'.$s_key, ($request->{'services_breakdown'.$e_key}) ) }}
+                <span class="">{{$serv->item}} {{$serv->price}}円</span>
+                {{ Form::hidden('services_breakdown'.$s_key, ($request->{'services_breakdown'.$e_key}) ) }}
               </li>
               @endif
               @endforeach
@@ -217,19 +217,10 @@
             </div>
             <div class="m-b10">
               <p>【事前荷物の到着日</p>
-                <p class="">{{$request->luggage_arrive}}</p>
-                {{ Form::hidden('luggage_arrive', $request->luggage_arrive ) }}
-                {{-- <p>午前指定</p> --}}
+              <p class="">{{$request->luggage_arrive}}</p>
+              {{ Form::hidden('luggage_arrive', $request->luggage_arrive ) }}
             </div>
             <a name="a-baggagedate" class="error-r"></a>
-            {{-- <div class="m-b10">
-              <p>利用日3日前～前日（平日のみ）を到着日に指定下さい</p>
-              <p><span class="txt-indent">※送付詳細 / 伝票記載方法は該当会場詳細ページ「備品 / サービス」タブの「荷物預り / 返送
-                  PDF」をご確認下さい。</span>
-                <span class="txt-indent">※発送伝票（元払）/ 返送伝票（着払）は各自ご用意下さい。</span>
-                <span class="txt-indent">※貴重品等のお預りはできかねます。</span>
-                <span class="txt-indent">※事前荷物は入室時間迄に弊社が会場搬入します。</span></p>
-            </div> --}}
             <div class="m-b10">
               <p>事後返送する荷物】</p>
               <div class="selectTime">
@@ -240,15 +231,6 @@
               </div>
             </div>
             <a name="a-baggagedate" class="error-r"></a>
-            {{-- <div class="m-b10">
-              <p>6個以上は要相談。まずは事前にお問合わせ下さい。<br>
-                [荷物外寸合計(縦・横・奥行)120cm以下/個]</p>
-              <p>
-                <span class="txt-indent">
-                  ※返送に関して、発送伝票（元払）、返送伝票（着払）は会場内に用意しているものを必ず使用して下さい。
-                </span>
-              </p>
-            </div> --}}
           </td>
         </tr>
 
@@ -279,7 +261,7 @@
               <ul class="sum-list">
                 <li>
                   <p>{{ReservationHelper::formatDate($request->date)}}</p>
-                  {{ Form::hidden('date', $request->date ) }}
+                  {{ Form::hidden('date', date('Y-m-d',strtotime($request->date)) ) }}
                 </li>
               </ul>
             </td>

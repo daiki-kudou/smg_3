@@ -190,7 +190,7 @@
             <p><em>06-6556-6462</em><br>
               予約専用：10時～18時</p>
           </div>
-          <a class="cart_area">
+          <a class="cart_area" href="{{url('user/reservations/cart')}}">
             <p>
               <i class="fas fa-clipboard-list cart_btn"></i>
               {{-- <i class="fas fa-cart-arrow-down cart_btn"></i> --}}
@@ -246,42 +246,42 @@
         </ul>
       </div>
       <ul class="tagBtn sticky">
-        <li><a class="contact_btn" href="https://osaka-conference.com/contact/">お問合わせ</a></li>
-        <li><a class="reserve_btn" href="https://osaka-conference.com/reservation/">会場予約</a></li>
-        <li><a class="login_btn" href="">マイページへ</a></li>
+        <li><a class="contact_btn" href="https://osaka-conference.com/contact/" target="_blank">お問合わせ</a></li>
+        <li><a class="reserve_btn" href="{{url('/')}}">会場予約</a></li>
+        <li><a class="login_btn" href="{{url('user/home')}}">マイページへ</a></li>
       </ul>
     </header>
-  <!--コロナ対策中お知らせ非表示-->
-  <section class="contents news pc">
-    <dl class="information contents">
-      <dt>重要なお知らせ</dt>
-      <dd><a href="https://osaka-conference.com/corona/">新型コロナウィルスに対する取り組みについて</a></dd>
-    </dl>
-  </section>
-  <section class="contents news sp">
-    <dl class="information indexNews">
-      <dt>重要なお知らせ</dt>
-      <dd><a href="https://osaka-conference.com/corona/">新型コロナウィルスに対する取り組みについて</a></dd>
-    </dl>
-  </section>
-  <!--コロナ対策中お知らせ非表示-->
+    <!--コロナ対策中お知らせ非表示-->
+    <section class="contents news pc">
+      <dl class="information contents">
+        <dt>重要なお知らせ</dt>
+        <dd><a href="https://osaka-conference.com/corona/">新型コロナウィルスに対する取り組みについて</a></dd>
+      </dl>
+    </section>
+    <section class="contents news sp">
+      <dl class="information indexNews">
+        <dt>重要なお知らせ</dt>
+        <dd><a href="https://osaka-conference.com/corona/">新型コロナウィルスに対する取り組みについて</a></dd>
+      </dl>
+    </section>
+    <!--コロナ対策中お知らせ非表示-->
 
 
-  <!------パンクズ-------->
-  <nav class="contents">
-    <ol class="bread" itemscope itemtype="http://schema.org/BreadcrumbList">
-      <li itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
-        <a itemscope itemtype="http://schema.org/Thing" itemprop="item" href="https://osaka-conference.com/">
-          <span itemprop="name"><img src="https://osaka-conference.com/img/icon_bread.png" alt="HOME"></span></a>
-        <meta itemprop="position" content="1">
-      </li>
-      <li itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
-        <a itemscope itemtype="http://schema.org/Thing" itemprop="item" href="https://osaka-conference.com/calendar/">
-          <span itemprop="name"><span class="changeTtl">カレンダー（空室確認）</span></span></a>
-        <meta itemprop="position" content="2">
-      </li>
-    </ol>
-  </nav>
+    <!------パンクズ-------->
+    <nav class="contents">
+      <ol class="bread" itemscope itemtype="http://schema.org/BreadcrumbList">
+        <li itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
+          <a itemscope itemtype="http://schema.org/Thing" itemprop="item" href="https://osaka-conference.com/">
+            <span itemprop="name"><img src="https://osaka-conference.com/img/icon_bread.png" alt="HOME"></span></a>
+          <meta itemprop="position" content="1">
+        </li>
+        <li itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
+          <a itemscope itemtype="http://schema.org/Thing" itemprop="item" href="https://osaka-conference.com/calendar/">
+            <span itemprop="name"><span class="changeTtl">カレンダー（空室確認）</span></span></a>
+          <meta itemprop="position" content="2">
+        </li>
+      </ol>
+    </nav>
 
     @yield('content')
 
@@ -484,8 +484,8 @@
 
 
   </div>
-      <!-- 住所検索 -->
-      <script src="https://ajaxzip3.github.io/ajaxzip3.js" charset="UTF-8"></script>
+  <!-- 住所検索 -->
+  <script src="https://ajaxzip3.github.io/ajaxzip3.js" charset="UTF-8"></script>
 
   <script>
     // チェックボックス表示、非表示

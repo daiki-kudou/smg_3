@@ -19,6 +19,7 @@
     </div>
       <p class="page-text m-b80"><a href="" class="confirm-btn">マイページで予約内容を確認する</a></p>
 
+
   </div>
   </div>
 

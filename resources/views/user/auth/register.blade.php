@@ -3,21 +3,21 @@
 
 <script src="{{ asset('/js/user_reservation/validation.js') }}"></script>
 
-    <!-- ログイン、会員登録 -->
-    <div class="contents mt-5">
-        <div class="pagetop-text">
-            <h1 class="page-title oddcolor"><span>会員登録</span></h1>
-            <p>下記フォームの入力をお願いします。</p>
-        </div>
-    </div>
-    <section class="contents">
-        <style>
-            .alert {
-                padding: 15px;
-                margin-bottom: 20px;
-                border: 1px solid transparent;
-                border-radius: 4px;
-            }
+<!-- ログイン、会員登録 -->
+<div class="contents mt-5">
+  <div class="pagetop-text">
+    <h1 class="page-title oddcolor"><span>会員登録</span></h1>
+    <p>下記フォームの入力をお願いします。</p>
+  </div>
+</div>
+<section class="contents">
+  <style>
+    .alert {
+      padding: 15px;
+      margin-bottom: 20px;
+      border: 1px solid transparent;
+      border-radius: 4px;
+    }
 
     .alert h4 {
       margin-top: 0;
@@ -126,8 +126,8 @@
         <td>
           {{ Form::text('company', $session['company']??old('company'), ['class' => 'form-control text3', 'id' => 'company', 'placeholder' => '入力してください']) }}
           {{-- <br class="spOnlyunder"> --}}
-                        <p><span>法人・団体ではない方は、お名前をご記入ください。</span></p>
-                       <p class="is-error-company" style="color: red"></p>
+          <p><span>法人・団体ではない方は、お名前をご記入ください。</span></p>
+          <p class="is-error-company" style="color: red"></p>
         </td>
       </tr>
       <tr>
@@ -314,7 +314,6 @@
               </label>
               <label for="other"></label>
               <input name="othertext" type="text" class="" id="" placeholder="入力してください">
-
             </li>
           </ul>
         </td>
