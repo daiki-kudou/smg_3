@@ -5,6 +5,8 @@
 
 <link href="{{ asset('/css/template.css') }}" rel="stylesheet">
 <script src="{{ asset('/js/template.js') }}"></script>
+<script src="{{ asset('/js/admin/validation.js') }}"></script>
+
 
 <div class="">
   <div class="float-right">
@@ -655,7 +657,7 @@
           </div>
         </div>
         <div class="main">
-          {{ Form::open(['url' => 'admin/bills/update_paid_info', 'method'=>'post']) }}
+          {{ Form::open(['url' => 'admin/bills/update_paid_info', 'method'=>'post', 'id'=>'payment_info']) }}
           @csrf
           {{ Form::hidden('bill_id', $reservation->bills->first()->id)}}
           <div class="text-right billdetails_content pb-0">
@@ -678,9 +680,11 @@
                 <tr>
                   <td>振込人名：
                     {{Form::text('pay_person',$reservation->bills->first()->pay_person,['class'=>'form-control paid_edit', 'disabled'])}}
+                    <p class="is-error-pay_person" style="color: red"></p>
                   </td>
                   <td>入金額：
-                    {{Form::text('payment',$reservation->bills->first()->payment,['class'=>'form-control paid_edit', 'disabled','min'=>0])}}
+                    {{Form::text('payment',$reservation->bills->first()->payment,['class'=>'form-control paid_edit', 'disabled'])}}
+                    <p class="is-error-payment" style="color: red"></p>
                   </td>
                 </tr>
               </tbody>
@@ -1003,7 +1007,7 @@
         </div>
 
         <div class="main">
-          {{ Form::open(['url' => 'admin/bills/update_paid_info', 'method'=>'post']) }}
+          {{ Form::open(['url' => 'admin/bills/update_paid_info', 'method'=>'post', 'id'=>'payment_info2']) }}
           @csrf
           {{ Form::hidden('bill_id', $other_bill->id)}}
           <div class="text-right billdetails_content pb-0">
@@ -1026,9 +1030,11 @@
                 <tr>
                   <td>振込人名：
                     {{Form::text('pay_person',$other_bill->pay_person,['class'=>'form-control paid_edit', 'disabled'])}}
+                  <p class="is-error-pay_person" style="color: red"></p>
                   </td>
                   <td>入金額：
-                    {{Form::text('payment',$other_bill->payment,['class'=>'form-control paid_edit', 'disabled','min'=>0])}}
+                    {{Form::text('payment',$other_bill->payment,['class'=>'form-control paid_edit', 'disabled'])}}
+                    <p class="is-error-payment" style="color: red"></p>
                   </td>
                 </tr>
               </tbody>
@@ -1397,7 +1403,7 @@
         </div>
 
         <div class="main">
-          {{ Form::open(['url' => 'admin/cxl/update_cxl_paid_info', 'method'=>'post']) }}
+          {{ Form::open(['url' => 'admin/cxl/update_cxl_paid_info', 'method'=>'post', 'id'=>'payment_info3']) }}
           @csrf
           {{ Form::hidden('cxl_id', $cxl->id)}}
 
@@ -1420,10 +1426,12 @@
                 <tr>
                   <td>振込人名：
                     {{Form::text('pay_person',$cxl->pay_person,['class'=>'form-control cxl_paid_edit', 'disabled'])}}
+                    <p class="is-error-pay_person" style="color: red"></p>
                   </td>
                   <td>
                     入金額：
-                    {{Form::text('payment',$cxl->payment,['class'=>'form-control cxl_paid_edit', 'disabled','min'=>0])}}
+                    {{Form::text('payment',$cxl->payment,['class'=>'form-control cxl_paid_edit', 'disabled'])}}
+                    <p class="is-error-payment" style="color: red"></p>
                   </td>
                 </tr>
               </tbody>
