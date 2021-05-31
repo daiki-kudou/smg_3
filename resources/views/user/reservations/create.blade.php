@@ -112,7 +112,7 @@
                 {{Form::label('no_board_flag','しない')}}
               </div>
             </li>
-            <li><a href=""><i class="fas fa-external-link-alt form-icon"></i>案内板サンプルはこちら</a></li>
+            <li><a target="_blank"  rel="noopener noreferrer" href="https://osaka-conference.com/welcomboard/"><i class="fas fa-external-link-alt form-icon"></i>案内板サンプルはこちら</a></li>
             <li class="cell-margin board_info">
               <div class="m-b10">
                 <p><span class="txtRed c-block">＊</span>イベント名称1行目</p>
@@ -218,7 +218,7 @@
             <li class="form-cell2">
               <p class="text6">{{$eqpt->item}} {{$eqpt->price}}円<span class="annotation">(税抜)</span></p>
               <p>
-                {{ Form::text('equipment_breakdown'.$e_key, '',['class'=>'text4 mL0'] ) }}個
+                {{ Form::text('equipment_breakdown'.$e_key, '',['class'=>'text4 mL0 number_validation'] ) }}個
               </p>
             </li>
             @endforeach

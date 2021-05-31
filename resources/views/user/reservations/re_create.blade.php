@@ -109,11 +109,6 @@
       @endif
       @endif
 
-
-
-
-
-
       <tr>
         <th>案内板の作成<span class="txtRed c-block">＊</span></th>
         <td class="">
@@ -126,7 +121,7 @@
                 {{Form::label('no_board_flag','しない')}}
               </div>
             </li>
-            <li><a href=""><i class="fas fa-external-link-alt form-icon"></i>案内板サンプルはこちら</a></li>
+            <li><a target="_blank"  rel="noopener noreferrer" href="https://osaka-conference.com/welcomboard/"><i class="fas fa-external-link-alt form-icon"></i>案内板サンプルはこちら</a></li>
             <li class="{{$fix->board_flag==0?'cell-margin d-none':"cell-margin"}}">
               <div class="m-b10">
                 <p><span class="txtRed c-block">＊</span>イベント名称1行目</p>
@@ -340,6 +335,7 @@
               {{ Form::text('luggage_count', $fix->luggage_count,['class'=>'text6 ', 'style'=>'width:20%;'] ) }}
               <p class="">個</p>
             </div>
+            <p class="is-error-luggage_count" style="color: red"></p>
           </div>
           <div class="m-b10">
             <p>事前荷物の到着日</p>
@@ -364,8 +360,8 @@
               {{ Form::text('luggage_return', $fix->luggage_return,['class'=>'text6 ', 'style'=>'width: 20%;'] ) }}
               <p class="">個</p>
             </div>
+            <p class="is-error-luggage_return" style="color: red"></p>
           </div>
-          <a name="a-baggagedate" class="error-r"></a>
           <div class="m-b10">
             <p>6個以上は要相談。まずは事前にお問合わせ下さい。<br>
               [荷物外寸合計(縦・横・奥行)120cm以下/個]</p>
