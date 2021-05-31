@@ -27,26 +27,24 @@ Route::namespace('User')->prefix('user')->name('user.')->group(function () {
   Auth::routes(['register' => true, 'confirm' => true, 'reset' => true,]);
 
   Route::middleware('auth')->group(function () {
+    Route::post('home/invoice', 'HomeController@invoice');
+    Route::post('home/receipt', 'HomeController@receipt');
     Route::get('home/user_info', 'HomeController@user_info')->name('home.user_info');
     Route::post('home/user_edit', 'HomeController@user_edit');
     Route::post('home/user_update', 'HomeController@user_update');
-
     // メール再設定　認証
     Route::get('home/email_reset', 'HomeController@email_reset');
     Route::post('home/email_reset_create', 'HomeController@email_reset_create');
     Route::get('home/email_reset_send', 'HomeController@email_reset_send');
     // 退会
     Route::get('home/cxl_membership', 'HomeController@cxlMemberShipIndex');
-
+    // リソース
     Route::resource('home', 'HomeController');
     Route::put('home/{home}/update_status', 'HomeController@updateStatus')->name('home.updatestatus');
     Route::get('home/generate_invoice/{home}', 'HomeController@generate_invoice')->name('home.generate_invoice');
     Route::put('home/{home}/update_other_bills', 'HomeController@updateOtherBillsStatus');
     Route::post('home/cfm_cxl', 'HomeController@cxl_cfm_by_user');
-
     Route::post('home/approve_user_additional_cfm', 'HomeController@approve_user_additional_cfm');
-
-
 
     Route::post('pre_reservations/{pre_reservation}/calculate', 'PreReservationsController@calculate');
     Route::post('pre_reservations/{pre_reservation}/cfm', 'PreReservationsController@cfm');
