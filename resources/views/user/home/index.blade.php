@@ -32,7 +32,6 @@
     </dd>
     <dd>
       <p class="text-right">
-        {{-- <a class="more_btn" href="">検索</a> --}}
         {{Form::submit('検索')}}
       </p>
     </dd>
@@ -98,74 +97,175 @@
             <th class="btn-cell">領収書</th>
           </tr>
         </thead>
+        {{-- ここに追加 --}}
         @foreach ($reservations as $reservation)
-        <tbody>
-          <tr>
-            <td rowspan="{{count($reservation->bills)}}">{{ReservationHelper::fixId($reservation->id)}}
-            </td>
-            <td rowspan="{{count($reservation->bills)}}">
-              {{ReservationHelper::formatDate($reservation->reserve_date)}}</td>
-            <td rowspan="{{count($reservation->bills)}}">
-              {{ReservationHelper::formatTime($reservation->enter_time)}}</td>
-            <td rowspan="{{count($reservation->bills)}}">
-              {{ReservationHelper::formatTime($reservation->leave_time)}}</td>
-            <td rowspan="{{count($reservation->bills)}}">{{ReservationHelper::getVenueForUser($reservation->venue_id)}}
-            </td>
-            <td>{{ReservationHelper::judgeStatus($reservation->bills->first()->reservation_status)}}</td>
-            <td>会場予約</td>
-            <td>{{number_format($reservation->bills->first()->master_total)}}円</td>
-            <td>{{ReservationHelper::formatDate($reservation->bills->first()->payment_limit)}}</td>
-            <td>{{ReservationHelper::paidStatus($reservation->bills->first()->paid)}}</td>
-            <td rowspan="{{count($reservation->bills)}}"><a href="{{ url('user/home/'.$reservation->id) }}"
-                class="more_btn btn">詳細</a></td>
-            <td>
-              {{ Form::open(['url' => 'admin/invoice', 'method'=>'post', 'target'=>'_blank', 'class'=>'']) }}
-              @csrf
-              {{ Form::hidden('reservation_id', $reservation->id ) }}
-              {{ Form::hidden('bill_id', $reservation->bills->first()->id ) }}
-              <p class="mr-2">{{ Form::submit('請求書をみる',['class' => 'btn more_btn']) }}</p>
-              {{ Form::close() }}
-            </td>
-            <td>
-              {{ Form::open(['url' => 'admin/receipts', 'method'=>'post', 'target'=>'_blank', 'class'=>'']) }}
-              @csrf
-              {{ Form::hidden('bill_id', $reservation->bills->first()->id ) }}
-              @if ($reservation->bills->first()->paid==1)
-              <p class="mr-2">{{ Form::submit('領収書をみる',['class' => 'more_btn btn']) }}</p>
-              @endif
-              {{ Form::close() }}
-            </td>
-          </tr>
-          @for ($i = 0; $i < count($reservation->bills)-1; $i++)
-            <tr>
-              <td>
-                {{ReservationHelper::judgeStatus($reservation->bills->skip($i+1)->first()->reservation_status)}}
+        <tbody class="sale-body">
+          @for ($i = 0; $i < $reservation->billCount(); $i++)
+            @if ($i==0)
+            <tr class="table_row">
+              <td rowspan="{{($reservation->billCount()*2)+$reservation->cxlCount()+2}}">
+                {{ReservationHelper::IdFormat($reservation->id)}}
               </td>
-              <td>追加請求</td>
-              <td>{{number_format($reservation->bills->skip($i+1)->first()->master_total)}}円</td>
-              <td>{{ReservationHelper::formatDate($reservation->bills->skip($i+1)->first()->payment_limit)}}</td>
-              <td>{{ReservationHelper::paidStatus($reservation->bills->skip($i+1)->first()->paid)}}</td>
+              <td rowspan="{{($reservation->billCount()*2)+$reservation->cxlCount()+2}}">
+                {{ReservationHelper::formatDate($reservation->reserve_date)}}
+              </td>
+              <td rowspan="{{($reservation->billCount()*2)+$reservation->cxlCount()+2}}">
+                {{ReservationHelper::formatTime($reservation->enter_time)}}
+              </td>
+              <td rowspan="{{($reservation->billCount()*2)+$reservation->cxlCount()+2}}">
+                {{ReservationHelper::formatTime($reservation->leave_time)}}
+              </td>
+              <td rowspan="{{($reservation->billCount()*2)+$reservation->cxlCount()+2}}">
+                {{ReservationHelper::getVenue($reservation->venue_id)}}
+              </td>
+              <td> {{ReservationHelper::judgeStatus($reservation->bills->first()->reservation_status)}}</td>
+              <td>{{($reservation->bills->first()->category==1?"会場予約":"")}}</td>
               <td>
-                {{ Form::open(['url' => 'admin/invoice', 'method'=>'post', 'target'=>'_blank', 'class'=>'']) }}
-                @csrf
-                {{ Form::hidden('reservation_id', $reservation->id ) }}
-                {{ Form::hidden('bill_id', $reservation->bills->skip($i+1)->first()->id ) }}
-                <p class="mr-2">{{ Form::submit('請求書をみる',['class' => 'btn more_btn']) }}</p>
-                {{ Form::close() }}
+                {{-- 売上 --}}
+                {{number_format($reservation->bills->first()->master_total)}}円
+              </td>
+              <td>{{ReservationHelper::formatDate($reservation->bills->first()->payment_limit)}}</td>
+              <td> {{ReservationHelper::paidStatus($reservation->bills->first()->paid)}}</td>
+              <td class="text-center" rowspan="{{($reservation->billCount()*2)+$reservation->cxlCount()+2}}">
+                <a class="more_btn" href="{{route('admin.reservations.show',$reservation->id)}}">
+                  予約詳細
+                </a>
               </td>
               <td>
-                {{ Form::open(['url' => 'admin/receipts', 'method'=>'post', 'target'=>'_blank', 'class'=>'']) }}
-                @csrf
-                {{ Form::hidden('bill_id', $reservation->bills->skip($i+1)->first()->id)}}
-                @if ($reservation->bills->skip($i+1)->first()->paid==1)
-                <p class="mr-2">{{ Form::submit('領収書をみる',['class' => 'more_btn btn']) }}</p>
-                @endif
-                {{ Form::close() }}
-              </td>
+                請求書</td>
+              <td>領収書</td>
             </tr>
+            @if ($reservation->cxls->where('bill_id',0)->count()>0)
+            <tr> {{--個別キャンセル分 --}}
+              <td>予約状況</td>
+              <td>カテゴリ</td>
+              <td>利用料金</td>
+              <td>支払期日</td>
+              <td>支払状況</td>
+              <td>請求書</td>
+              <td>領収書</td>
+              {{-- <td style="color:red">
+                {{number_format(-$reservation->bills->first()->master_total)}}円
+              </td>
+              <td>
+                -
+              </td>
+              <td>
+                -
+              </td>
+              <td>
+                {{"会場予約キャンセル"}}
+              </td>
+              <td>
+                {{ReservationHelper::judgeStatus($reservation->bills->first()->reservation_status)}}
+              </td>
+              <td>-</td>
+              <td>-</td> --}}
+              {{-- <td>振り込み名　表示必要なし</td> --}}
+              {{-- <td>-</td> --}}
+            </tr>
+            @endif
+            @else
+            <tr>
+              <td>予約状況2</td>
+              <td>カテゴリ2</td>
+              <td>利用料金2</td>
+              <td>支払期日2</td>
+              <td>支払状況2</td>
+              <td>請求書2</td>
+              <td>領収書2</td>
+              {{-- <td>
+                {{number_format($reservation->bills->skip($i)->first()->master_total)}}円
+              </td> --}}
+              {{-- <td> {{($reservation->bills->skip($i)->first()->category==2?"追加請求".$i:"")}}</td>
+              <td> {{ReservationHelper::judgeStatus($reservation->bills->skip($i)->first()->reservation_status)}}</td>
+              <td> {{ReservationHelper::formatDate($reservation->bills->skip($i)->first()->pay_day)}}</td>
+              <td> {{$reservation->bills->skip($i)->first()->paid==0?"未入金":"入金済"}}</td>
+              <td>
+                <p class="remark_limit">{{($reservation->bills->skip($i)->first()->pay_person)}}</p>
+              </td>
+              <td> {{ReservationHelper::formatDate($reservation->bills->skip($i)->first()->payment_limit)}}</td> --}}
+            </tr>
+            @if ($reservation->bills->skip($i)->first()->cxl)
+            <tr> {{--個別キャンセル分 --}}
+              <td>予約状況3</td>
+              <td>カテゴリ3</td>
+              <td>利用料金3</td>
+              <td>支払期日3</td>
+              <td>支払状況3</td>
+              <td>請求書3</td>
+              <td>領収書3</td>
+              {{-- <td style="color:red">
+                {{number_format(-$reservation->bills->skip($i)->first()->master_total)}}円
+              </td>
+              <td>-</td>
+              <td>-</td> --}}
+              {{-- <td>
+                {{"追加請求".$i."キャンセル"}}
+              </td>
+              <td>
+                {{ReservationHelper::cxlStatus($reservation->bills->skip($i)->first()->cxl->cxl_status)}}
+              </td>
+              <td>-</td>
+              <td>-</td>
+              <td>振り込み名　表示必要なし</td>
+              <td>-</td> --}}
+            </tr>
+            @elseif($reservation->cxls->where('bill_id',0)->count()>0)
+            <tr> {{--個別キャンセルではなく、メインの予約がキャンセルされた際 --}}
+              <td>予約状況4</td>
+              <td>カテゴリ4</td>
+              <td>利用料金4</td>
+              <td>支払期日4</td>
+              <td>支払状況4</td>
+              <td>請求書4</td>
+              <td>領収書4</td>
+              {{-- <td style="color:red">
+                {{number_format(-$reservation->bills->skip($i)->first()->master_total)}}円
+              </td>
+              <td>-</td>
+              <td>-</td> --}}
+              {{-- <td>
+                {{"追加請求".$i."キャンセル"}}
+              </td>
+              <td>
+                {{ReservationHelper::judgeStatus($reservation->bills->skip($i)->first()->reservation_status)}}
+              </td>
+              <td>-</td>
+              <td>-</td>
+              <td>振り込み名　表示必要なし</td>
+              <td>-</td> --}}
+            </tr>
+            @endif
+            @endif
             @endfor
+
+            {{-- キャンセル部分　一番下にくる --}}
+            @if ($reservation->cxls->count()>0)
+            <tr>
+              <td>予約状況5</td>
+              <td>カテゴリ5</td>
+              <td>利用料金5</td>
+              <td>支払期日5</td>
+              <td>支払状況5</td>
+              <td>請求書5</td>
+              <td>領収書5</td>
+              {{-- <td>{{number_format($reservation->cxlSubtotal())}}円</td>
+              <td>{{number_format($reservation->cxlCost())}}円</td>
+              <td>{{number_format($reservation->cxlProfit())}}円</td>粗利 --}}
+              {{-- <td>キャンセル</td>
+              <td>キャンセル</td>
+              <td></td>
+              <td></td>
+              <td>振り込み名　表示必要なし</td>
+              <td></td> --}}
+            </tr>
+            @endif
+            {{-- キャンセル部分 --}}
         </tbody>
         @endforeach
+        {{-- ここに追加 --}}
+
       </table>
     </div>
   </div>

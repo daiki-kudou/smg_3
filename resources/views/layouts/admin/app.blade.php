@@ -75,7 +75,6 @@
 
 <body class="hold-transition sidebar-mini">
 
-
   <div class="wrapper pc_wrapper">
     <!-- Navbar -->
     <nav class="main-header navbar navbar-expand navbar-white navbar-light d-flex justify-content-between">
@@ -152,6 +151,8 @@
             }
         });
     });
+// 更新時、確認用アラート
+
 
   </script>
 </body>
