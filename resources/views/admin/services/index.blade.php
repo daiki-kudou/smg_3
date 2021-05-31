@@ -89,7 +89,15 @@
 
 <script>
   $(function() {
-    $("#service_sort").tablesorter();
+    // $("#service_sort").tablesorter();
+    $('#service_sort').tablesorter({
+    headers: {
+      // 0: { sorter: "text"}, /// => テキストとしてソート
+      // 1: { sorter: "text"}, /// => テキストとしてソート
+      3: { sorter: "digit"} /// => 数値としてソート
+    }
+  });
+
   })
 
   $(function () {
