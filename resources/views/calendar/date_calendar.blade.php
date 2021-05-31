@@ -65,62 +65,64 @@
   <li class="li-bg-closed">休業日</li>
 </ul>
 
-<table class="table table-bordered calender-flame">
-  <thead>
-    <tr class="calender-head">
-      <td class="field-title">会議室</td>
-      <td colspan="2">10:00</td>
-      <td colspan="2">11:00</td>
-      <td colspan="2">12:00</td>
-      <td colspan="2">13:00</td>
-      <td colspan="2">14:00</td>
-      <td colspan="2">15:00</td>
-      <td colspan="2">16:00</td>
-      <td colspan="2">17:00</td>
-      <td colspan="2">18:00</td>
-      <td colspan="2">19:00</td>
-      <td colspan="2">20:00</td>
-      <td colspan="2">21:00</td>
-      <td colspan="2">22:00</td>
-      <td colspan="2">23:00</td>
-    </tr>
-  </thead>
-  <tbody>
-    @foreach ($venues as $venue)
-    <tr class="calender-data">
-      <td class="field-title">{{ReservationHelper::getVenue($venue->id)}}</td>
-      <td class="{{($venue->id)}}cal1000 calhalf no_wrap"></td>
-      <td class="{{($venue->id)}}cal1030 no_wrap"></td>
-      <td class="{{($venue->id)}}cal1100 calhalf no_wrap"></td>
-      <td class="{{($venue->id)}}cal1130 no_wrap"></td>
-      <td class="{{($venue->id)}}cal1200 calhalf no_wrap"></td>
-      <td class="{{($venue->id)}}cal1230 no_wrap"></td>
-      <td class="{{($venue->id)}}cal1300 calhalf no_wrap"></td>
-      <td class="{{($venue->id)}}cal1330 no_wrap"></td>
-      <td class="{{($venue->id)}}cal1400 calhalf no_wrap"></td>
-      <td class="{{($venue->id)}}cal1430 no_wrap"></td>
-      <td class="{{($venue->id)}}cal1500 calhalf no_wrap"></td>
-      <td class="{{($venue->id)}}cal1530 no_wrap"></td>
-      <td class="{{($venue->id)}}cal1600 calhalf no_wrap"></td>
-      <td class="{{($venue->id)}}cal1630 no_wrap"></td>
-      <td class="{{($venue->id)}}cal1700 calhalf no_wrap"></td>
-      <td class="{{($venue->id)}}cal1730 no_wrap"></td>
-      <td class="{{($venue->id)}}cal1800 calhalf no_wrap"></td>
-      <td class="{{($venue->id)}}cal1830 no_wrap"></td>
-      <td class="{{($venue->id)}}cal1900 calhalf no_wrap"></td>
-      <td class="{{($venue->id)}}cal1930 no_wrap"></td>
-      <td class="{{($venue->id)}}cal2000 calhalf no_wrap"></td>
-      <td class="{{($venue->id)}}cal2030 no_wrap"></td>
-      <td class="{{($venue->id)}}cal2100 calhalf no_wrap"></td>
-      <td class="{{($venue->id)}}cal2130 no_wrap"></td>
-      <td class="{{($venue->id)}}cal2200 calhalf no_wrap"></td>
-      <td class="{{($venue->id)}}cal2230 no_wrap"></td>
-      <td class="{{($venue->id)}}cal2300 calhalf no_wrap"></td>
-      <td class="{{($venue->id)}}cal2330 no_wrap"></td>
-    </tr>
-    @endforeach
-  </tbody>
-</table>
+<div class="calender-wrap">
+  <table class="table table-bordered calender-flame">
+    <thead>
+      <tr class="calender-head">
+        <td class="field-title">会議室</td>
+        <td colspan="2">10:00</td>
+        <td colspan="2">11:00</td>
+        <td colspan="2">12:00</td>
+        <td colspan="2">13:00</td>
+        <td colspan="2">14:00</td>
+        <td colspan="2">15:00</td>
+        <td colspan="2">16:00</td>
+        <td colspan="2">17:00</td>
+        <td colspan="2">18:00</td>
+        <td colspan="2">19:00</td>
+        <td colspan="2">20:00</td>
+        <td colspan="2">21:00</td>
+        <td colspan="2">22:00</td>
+        <td colspan="2">23:00</td>
+      </tr>
+    </thead>
+    <tbody>
+      @foreach ($venues as $venue)
+      <tr class="calender-data">
+        <td class="field-title">{{ReservationHelper::getVenue($venue->id)}}</td>
+        <td class="{{($venue->id)}}cal1000 calhalf no_wrap"></td>
+        <td class="{{($venue->id)}}cal1030 no_wrap"></td>
+        <td class="{{($venue->id)}}cal1100 calhalf no_wrap"></td>
+        <td class="{{($venue->id)}}cal1130 no_wrap"></td>
+        <td class="{{($venue->id)}}cal1200 calhalf no_wrap"></td>
+        <td class="{{($venue->id)}}cal1230 no_wrap"></td>
+        <td class="{{($venue->id)}}cal1300 calhalf no_wrap"></td>
+        <td class="{{($venue->id)}}cal1330 no_wrap"></td>
+        <td class="{{($venue->id)}}cal1400 calhalf no_wrap"></td>
+        <td class="{{($venue->id)}}cal1430 no_wrap"></td>
+        <td class="{{($venue->id)}}cal1500 calhalf no_wrap"></td>
+        <td class="{{($venue->id)}}cal1530 no_wrap"></td>
+        <td class="{{($venue->id)}}cal1600 calhalf no_wrap"></td>
+        <td class="{{($venue->id)}}cal1630 no_wrap"></td>
+        <td class="{{($venue->id)}}cal1700 calhalf no_wrap"></td>
+        <td class="{{($venue->id)}}cal1730 no_wrap"></td>
+        <td class="{{($venue->id)}}cal1800 calhalf no_wrap"></td>
+        <td class="{{($venue->id)}}cal1830 no_wrap"></td>
+        <td class="{{($venue->id)}}cal1900 calhalf no_wrap"></td>
+        <td class="{{($venue->id)}}cal1930 no_wrap"></td>
+        <td class="{{($venue->id)}}cal2000 calhalf no_wrap"></td>
+        <td class="{{($venue->id)}}cal2030 no_wrap"></td>
+        <td class="{{($venue->id)}}cal2100 calhalf no_wrap"></td>
+        <td class="{{($venue->id)}}cal2130 no_wrap"></td>
+        <td class="{{($venue->id)}}cal2200 calhalf no_wrap"></td>
+        <td class="{{($venue->id)}}cal2230 no_wrap"></td>
+        <td class="{{($venue->id)}}cal2300 calhalf no_wrap"></td>
+        <td class="{{($venue->id)}}cal2330 no_wrap"></td>
+      </tr>
+      @endforeach
+    </tbody>
+  </table>
+</div>
 </div>
 </section>
 

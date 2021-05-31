@@ -943,11 +943,6 @@ table td.table_column p:last-child {
     border: 1px solid #dee2e6;
 }
 
-/* 
-.calender-wrap {
-    margin-bottom: 50px;
-    border: 1px solid #dbdbdb;
-} */
 
 .choose-table tr td:last-child {
     width: 200px;
@@ -1024,6 +1019,8 @@ table td.table_column p:last-child {
 /* =============予約状況カレンダー　================================================ */
 .calenderframe {
     margin-top: 40px;
+    width: 100%;
+    overflow-x: scroll;
 }
 
 #sortableArea {
@@ -1165,11 +1162,7 @@ h3 {
     margin-bottom: 0;
 }
 
-.calender-wrap {
-    min-width: 1200px;
-    margin: 0px auto;
-    overflow-y: scroll;
-}
+
 
 .calender-ttl {
     font-size: 18px;
@@ -1232,9 +1225,14 @@ h3 {
 }
 
 /* カレンダー */
+
+.calender-wrap {
+    overflow-x: scroll;
+}
+
 .calender-flame {
-    width: 100%;
-    table-layout: fixed;
+    min-width: 800px;
+    /* table-layout: fixed; */
     border: 2px solid #c5c5c5;
 }
 
@@ -1262,6 +1260,8 @@ h3 {
 
 .calender-flame .field-title {
     border-right: 2px solid #c5c5c5;
+    width: 20%;
+    white-space: normal;
 }
 
 .calender-flame .calender-data .calhalf {
@@ -1916,6 +1916,21 @@ h4 {
 
 .ttl_box2 dt {
     margin-right: 1em;
+}
+
+
+@media screen and (max-width: 480px) {
+    .user_info {
+        display: none;
+    }
+
+    .calender-color {
+        flex-wrap: wrap;
+    }
+
+    .calender-color li {
+        min-width: 120px;
+    }
 }
 
 /* 工藤追加 */

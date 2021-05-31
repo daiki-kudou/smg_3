@@ -45,7 +45,7 @@
               <p class="txtCenter"><em>会場から選ぶ</em></p>
               {{Form::open(['url' => 'slct_venue', 'method' => 'get', 'id'=>'form02', 'class'=>'search'])}}
               @csrf
-              <dl>
+              <dl class="m-b20">
                 <dt><label>会場</label></dt>
                 <dd>
                   <div class="selectWrap">
@@ -72,7 +72,7 @@
                   </div>
                 </dd>
               </dl>
-              <dl>
+              <dl class="m-b20">
                 <dt></dt>
                 <dd>
                   <p><span class="txt-indent">※選択不可の日程につきましては、直接お問い合わせ下さい。</span></p>
