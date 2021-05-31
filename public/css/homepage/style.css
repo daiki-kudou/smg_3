@@ -84,6 +84,17 @@ ul.tagBtn li:nth-child(3) a {
     margin: 3% 0;
 }
 
+.date_calender_wrapper {
+    width: 100%;
+    overflow-x: scroll;
+}
+
+.table-scroll {
+    /* overflow-x: scroll; */
+    white-space: nowrap;
+}
+
+
 .margin-auto {
     margin: 0 auto;
 }
@@ -582,6 +593,7 @@ form table td textarea {
 
 
 
+
 @media screen and (max-width: 750px) {
 
     
@@ -686,5 +698,7 @@ form table td textarea {
         min-width: 100%;
     }
 
-
+    #top main {
+        max-width: 100%;
+    }
 }

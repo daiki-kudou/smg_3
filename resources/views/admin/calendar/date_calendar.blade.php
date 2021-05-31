@@ -74,7 +74,7 @@
         <li class="li-bg-closed">休業日</li>
       </ul>
   
-      <table class="table table-bordered calender-flame">
+      <table class="table table-bordered calender-flame table-scroll">
         <thead>
           <tr class="calender-head">
             <td class="field-title">会議室</td>
