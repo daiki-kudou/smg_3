@@ -234,84 +234,161 @@ $(function () {
   });
 });
 
+
 $(function () {
-  $("#user_reservation_create").validate({
-
-
-
-    rules: {
-      in_charge: {
-        required: true,
+  var target = ["#user_reservation_create","#user_reservation_re_calculate"];
+  $.each(target, function (index, value) {
+    $(value).validate({
+      rules: {
+        in_charge: {
+          required: true,
+        },
+        tel: {
+          required: true,
+          minlength: 10,
+        },
+        price_system: {
+          required: true,
+        },
+        board_flag: {
+          required: true,
+        },
+        q1: {
+          required: true,
+        },
+        cataring: {
+          required: true,
+        },
+        luggage_count: {
+          number: true,
+        },
+        luggage_return: {
+          number: true,
+        },
       },
-      tel: {
-        required: true,
-        minlength: 10,
+      messages: {
+        in_charge: {
+          required: "※必須項目です",
+        },
+        tel: {
+          required: "※必須項目です",
+          minlength: '※最低桁数は10桁です',
+        },
+        price_system: {
+          required: "※必須項目です",
+          date: "true"
+        },
+        board_flag: {
+          required: "※必須項目です",
+        },
+        q1: {
+          required: "※必須項目です",
+        },
+        cataring: {
+          required: "※必須項目です",
+        },
+        luggage_count: {
+          number: "※半角数字を入力してください",
+        },
+        luggage_return: {
+          number: "※半角数字を入力してください",
+        },
       },
-      price_system: {
-        required: true,
+      errorPlacement: function (error, element) {
+        var name = element.attr('name');
+        if (element.attr('name') === 'category[]') {
+          error.appendTo($('.is-error-category'));
+        } else if (element.attr('name') === name) {
+          error.appendTo($('.is-error-' + name));
+        }
       },
-      board_flag: {
-        required: true,
-      },
-      q1: {
-        required: true,
-      },
-      cataring: {
-        required: true,
-      },
-      luggage_count: {
-        number: true,
-      },
-      luggage_return: {
-        number: true,
-      },
-    },
-    messages: {
-      in_charge: {
-        required: "※必須項目です",
-      },
-      tel: {
-        required: "※必須項目です",
-        minlength: '※最低桁数は10桁です',
-      },
-      price_system: {
-        required: "※必須項目です",
-        date: "true"
-      },
-      board_flag: {
-        required: "※必須項目です",
-      },
-      q1: {
-        required: "※必須項目です",
-      },
-      cataring: {
-        required: "※必須項目です",
-      },
-      luggage_count: {
-        number: "※半角数字を入力してください",
-      },
-      luggage_return: {
-        number: "※半角数字を入力してください",
-      },
-    },
-    errorPlacement: function (error, element) {
-      var name = element.attr('name');
-      if (element.attr('name') === 'category[]') {
-        error.appendTo($('.is-error-category'));
-      } else if (element.attr('name') === name) {
-        error.appendTo($('.is-error-' + name));
-      }
-    },
-    errorElement: "span",
-    errorClass: "is-error",
-  });
-  $('input').on('blur', function () {
-    $(this).valid();
-    // if ($('span').hasClass('is-error')) {
-    //   $('span .is-error').css('background', 'white');
-    // }
+      errorElement: "span",
+      errorClass: "is-error",
+    });
+    $('input').on('blur', function () {
+      $(this).valid();
+      // if ($('span').hasClass('is-error')) {
+      //   $('span .is-error').css('background', 'white');
+      // }
+    });
   });
 });
+
+// $(function () {
+//   $("#user_reservation_create").validate({
+//     rules: {
+//       in_charge: {
+//         required: true,
+//       },
+//       tel: {
+//         required: true,
+//         minlength: 10,
+//       },
+//       price_system: {
+//         required: true,
+//       },
+//       board_flag: {
+//         required: true,
+//       },
+//       q1: {
+//         required: true,
+//       },
+//       cataring: {
+//         required: true,
+//       },
+//       luggage_count: {
+//         number: true,
+//       },
+//       luggage_return: {
+//         number: true,
+//       },
+//     },
+//     messages: {
+//       in_charge: {
+//         required: "※必須項目です",
+//       },
+//       tel: {
+//         required: "※必須項目です",
+//         minlength: '※最低桁数は10桁です',
+//       },
+//       price_system: {
+//         required: "※必須項目です",
+//         date: "true"
+//       },
+//       board_flag: {
+//         required: "※必須項目です",
+//       },
+//       q1: {
+//         required: "※必須項目です",
+//       },
+//       cataring: {
+//         required: "※必須項目です",
+//       },
+//       luggage_count: {
+//         number: "※半角数字を入力してください",
+//       },
+//       luggage_return: {
+//         number: "※半角数字を入力してください",
+//       },
+//     },
+//     errorPlacement: function (error, element) {
+//       var name = element.attr('name');
+//       if (element.attr('name') === 'category[]') {
+//         error.appendTo($('.is-error-category'));
+//       } else if (element.attr('name') === name) {
+//         error.appendTo($('.is-error-' + name));
+//       }
+//     },
+//     errorElement: "span",
+//     errorClass: "is-error",
+//   });
+//   $('input').on('blur', function () {
+//     $(this).valid();
+//     // if ($('span').hasClass('is-error')) {
+//     //   $('span .is-error').css('background', 'white');
+//     // }
+//   });
+// });
 
 
 
