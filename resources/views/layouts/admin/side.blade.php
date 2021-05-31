@@ -311,7 +311,8 @@
         </ul>
       </li>
 
-      <li class="nav-item has-treeview">
+      {{-- 一旦非表示 --}}
+      {{-- <li class="nav-item has-treeview">
         <a href="#" class="nav-link">
           <i class="nav-icon fas fa-user-shield"></i>
           <p>管理者管理<i class="right fas fa-angle-left"></i></p>
@@ -330,7 +331,7 @@
             </a>
           </li>
         </ul>
-      </li>
+      </li> --}}
 
 
 

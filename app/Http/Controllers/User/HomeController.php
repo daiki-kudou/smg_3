@@ -48,7 +48,7 @@ class HomeController extends Controller
   {
     $today = date('Y-m-d', strtotime(Carbon::now()));
     $user_id = auth()->user()->id;
-    $user = User::with("reservations.bills")->find($user_id);
+    $user = User::with(["reservations.bills.cxl", "reservations.cxls"])->find($user_id);
 
     $reservations = $user->reservations;
     if ($request->past == 1) { //過去履歴
@@ -430,5 +430,26 @@ class HomeController extends Controller
       }
     }
     return TRUE;
+  }
+
+  public function  invoice(Request $request)
+  {
+    $reservation = Reservation::with(['user', 'bills.breakdowns', 'agent', 'cxls'])->find($request->reservation_id);
+    $bill = $reservation->bills->find($request->bill_id);
+    $cxl = $reservation->cxls->find($request->cxl_id);
+    return view('admin.invoice.show', compact('reservation', 'bill', 'cxl'));
+  }
+
+  public function receipt(Request $request)
+  {
+    if ($request->bill_id) {
+      $bill = Bill::with(['reservation.user', 'reservation.agent', 'breakdowns'])->find($request->bill_id);
+      $cxl = "";
+      return view('admin.receipts.show', compact('bill', 'cxl'));
+    } else {
+      $bill = "";
+      $cxl = Cxl::with('cxl_breakdowns')->find($request->cxl_id);
+      return view('admin.receipts.show', compact('cxl', 'bill'));
+    }
   }
 }
