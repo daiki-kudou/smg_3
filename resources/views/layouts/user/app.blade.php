@@ -141,8 +141,8 @@
           <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
         </li>
       </ul>
-      <div>ユーザーID：{{Auth::id()}}</div>
-      <div>メール：{{(Auth::user()->email)}}</div>
+      <div class="user_info">ユーザーID：{{Auth::id()}}</div>
+      <div class="user_info">メール：{{(Auth::user()->email)}}</div>
       <div>
         <a class="dropdown-item" href="{{ route('user.logout') }}"
           onclick="event.preventDefault();document.getElementById('logout-form').submit();">
