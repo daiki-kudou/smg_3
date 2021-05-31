@@ -112,7 +112,7 @@
                 {{Form::label('no_board_flag','しない')}}
               </div>
             </li>
-            <li><a href=""><i class="fas fa-external-link-alt form-icon"></i>案内板サンプルはこちら</a></li>
+            <li><a target="_blank"  rel="noopener noreferrer" href="https://osaka-conference.com/welcomboard/"><i class="fas fa-external-link-alt form-icon"></i>案内板サンプルはこちら</a></li>
             <li class="cell-margin board_info">
               <div class="m-b10">
                 <p><span class="txtRed c-block">＊</span>イベント名称1行目</p>
