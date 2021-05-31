@@ -55,7 +55,7 @@
   </script>
   <script src="https://code.jquery.com/jquery-1.10.2.js"></script>
   <script src="https://osaka-conference.com/js/jquery.heightLine.js?ver=20201225"></script>
-  <script>
+  {{-- <script>
     $(window).load(function () {
             $(".box0>li").heightLine();
             //$(".box01>li").heightLine();
@@ -74,7 +74,7 @@
                 }, 10);
             }
         });
-  </script>
+  </script> --}}
   <script>
     if ($().Stickyfill) {
             $('.sticky').Stickyfill();

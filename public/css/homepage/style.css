@@ -600,7 +600,7 @@ form table td textarea {
 .wrapper {
     position: relative;
     overflow: inherit;
-    margin-top: 230px;
+    /* margin-top: 230px; */
 }
 
     .page-text {
