@@ -236,13 +236,16 @@ $(function () {
 
 $(function () {
   $("#user_reservation_create").validate({
+
+
+
     rules: {
       in_charge: {
         required: true,
       },
       tel: {
         required: true,
-        minlength: 9,
+        minlength: 10,
       },
       price_system: {
         required: true,
@@ -256,16 +259,12 @@ $(function () {
       cataring: {
         required: true,
       },
-      event_name1: {
-        maxlength: 16,
+      luggage_count: {
+        number: true,
       },
-      event_name2: {
-        maxlength: 16,
+      luggage_return: {
+        number: true,
       },
-      event_owner: {
-        maxlength: 30,
-      },
-
     },
     messages: {
       in_charge: {
@@ -288,16 +287,12 @@ $(function () {
       cataring: {
         required: "※必須項目です",
       },
-      event_name1: {
-        maxlength: '※最大文字数は16文字です',
+      luggage_count: {
+        number: "※半角数字を入力してください",
       },
-      event_name2: {
-        maxlength: '※最大文字数は16文字です',
+      luggage_return: {
+        number: "※半角数字を入力してください",
       },
-      event_owner: {
-        maxlength: '※最大文字数は30文字です',
-      },
-
     },
     errorPlacement: function (error, element) {
       var name = element.attr('name');
@@ -403,6 +398,20 @@ $(function () {
     // if ($('span').hasClass('is-error')) {
     //   $('span .is-error').css('background', 'white');
     // }
+  });
+});
+
+
+// 数字の入力制限
+$(function () {
+  $("input[name*='equipment_breakdown']").on("input", function (e) {
+    let value = $(e.currentTarget).val();
+    value = value
+      .replace(/[０-９]/g, function (s) {
+        return String.fromCharCode(s.charCodeAt(0) - 65248);
+      })
+      .replace(/[^0-9]/g, "");
+    $(e.currentTarget).val(value);
   });
 });
 

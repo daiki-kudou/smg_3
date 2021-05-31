@@ -218,7 +218,7 @@
             <li class="form-cell2">
               <p class="text6">{{$eqpt->item}} {{$eqpt->price}}円<span class="annotation">(税抜)</span></p>
               <p>
-                {{ Form::text('equipment_breakdown'.$e_key, '',['class'=>'text4 mL0'] ) }}個
+                {{ Form::text('equipment_breakdown'.$e_key, '',['class'=>'text4 mL0 number_validation'] ) }}個
               </p>
             </li>
             @endforeach
