@@ -18,11 +18,14 @@ use App\Presenters\ReservationPresenter;
 use Robbo\Presenter\PresentableInterface; //プレゼンターの追加
 
 use App\Traits\InvoiceTrait;
+use App\Traits\SearchTrait;
 
 
 class Reservation extends Model implements PresentableInterface
 {
   use InvoiceTrait;
+  use SearchTrait;
+
 
   public function getPresenter() //実装したプレゼンタを利用
   {
@@ -582,17 +585,12 @@ class Reservation extends Model implements PresentableInterface
   {
     $class = $this->where(function ($query) use ($request) {
 
+      if ($request->multiple_id) {
+        $query->whereDate("multiple_reserve_id", 'LIKE', "%{$request->company}%");
+      }
+
       if ($request->search_id) {
-        $editId = $request->search_id;
-        if (substr($request->search_id, 0, 5) == "00000") {
-          $editId = str_replace("00000", "", $request->search_id);
-        } elseif (substr($request->search_id, 0, 4) == "0000") {
-          $editId = str_replace("0000", "", $request->search_id);
-        } elseif (substr($request->search_id, 0, 3) == "000") {
-          $editId = str_replace("000", "", $request->search_id);
-        } elseif (substr($request->search_id, 0, 2) == "00") {
-          $editId = str_replace("00", "", $request->search_id);
-        }
+        $editId = $this->idFormatForSearch($request->search_id);
         $query->where("id", "LIKE", "%" . $editId . "%");
       }
 
@@ -613,11 +611,13 @@ class Reservation extends Model implements PresentableInterface
       }
 
       if ($request->company) {
-        $query->whereHas('user', function ($query) use ($request) {
-          $query->where('company', 'LIKE', "%{$request->company}%");
-        })->orWhereHas('agent', function ($query) use ($request) {
-          $query->where('company', 'LIKE', "%{$request->company}%");
-        });
+        // $query->whereHas('user', function ($query) use ($request) {
+        //   $query->where('company', 'LIKE', "%{$request->company}%");
+        // })->orWhereHas('agent', function ($query) use ($request) {
+        //   $query->where('company', 'LIKE', "%{$request->company}%");
+        // });
+        $user = User::where('company', 'LIKE', "%{$request->company}%")->pluck('id')->toArray();
+        $query->whereIn("user_id", $user);
       }
 
       if ($request->person_name) {
@@ -709,7 +709,7 @@ class Reservation extends Model implements PresentableInterface
       }
     });
 
-    return $class;
+    return $class->get();
   }
 
   // reservations show 各請求書合計額
