@@ -303,10 +303,11 @@
               {{$reservation->user->company}}
               @endif
             </td>
+            @if ($reservation->user_id>0)
             <td rowspan="{{count($reservation->bills)}}" class="{{$reservation->user->trashed()?"not_member":""}}">
-              @if ($reservation->user_id>0)
               {{ReservationHelper::getPersonName($reservation->user_id)}}
               @elseif($reservation->user_id==0)
+            <td rowspan="{{count($reservation->bills)}}">
               {{ReservationHelper::getAgentPerson($reservation->agent_id)}}
               @endif
             </td>
