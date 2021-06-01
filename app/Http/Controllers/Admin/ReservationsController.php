@@ -38,7 +38,7 @@ class ReservationsController extends Controller
    */
   public function index(Request $request)
   {
-    // dump(Auth::guard('user')->check());
+    // dump(Auth::guard('user')->check() );
     // dump(Auth::guard('admin'));
     $today = date('Y-m-d', strtotime(Carbon::today()));
     if (!empty($request->all())) {
