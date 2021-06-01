@@ -294,10 +294,9 @@
             <p class="is-error-luggage_count" style="color: red"></p>
           </div>
           <div class="m-b10">
-            <p>事前荷物の到着日</p>
+            <p>事前荷物の到着日(午前指定)</p>
             <div class="selectTime">
-              {{ Form::date('luggage_arrive', '',['class'=>'text6'] ) }}
-              <p>午前指定</p>
+              {{ Form::text('luggage_arrive', '',['class'=>'text6','id'=>'datepicker2'] ) }}
             </div>
           </div>
 
@@ -400,6 +399,43 @@
           $(".board_info").removeClass("d-none");
          }
       });
+    });
+</script>
+
+<script type="text/javascript">
+  $(function () {
+        var today = new Date();
+        var dd = today.getDate();
+        $("#datepicker2").datepicker({
+            showOn: "both",
+            buttonImage: "https://osaka-conference.com/img/icon_calender.png",
+            buttonImageOnly: true,
+            minDate: "+3",
+            maxDate: "+3M -" + dd,
+            beforeShow: function (input, inst) { // カレンダーを必ず下側へ表示させるための表示位置計算function
+                var top = $(this).offset().top + $(this).outerHeight();
+                var left = $(this).offset().left;
+                setTimeout(function () {
+                    inst.dpDiv.css({
+                        'top': top,
+                        'left': left
+                    });
+                }, 10) // 10msec
+            }
+        });
+        $("ul.tabBtn li").mouseover(function () {
+            if (/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator
+                    .userAgent)) {
+                $(this).click();
+            }
+        });
+        $(".hasDatepicker, .ui-datepicker, .ui-datepicker-trigger").click(function (event) {
+            event.stopPropagation();
+        });
+        $(".contents").bind("click touchstart, touchmove", function (event) {
+            $('.ui-datepicker').hide();
+            $('.hasDatepicker').blur();
+        });
     });
 </script>
 
