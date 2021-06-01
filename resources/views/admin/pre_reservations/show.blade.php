@@ -517,22 +517,22 @@
                   </tr>
                 </thead>
                 <tbody>
-                  <tr>
+                  {{-- <tr>
                     <td class="table-active"><label for="Delivery">荷物預り/返送</label>
                     </td>
                     <td>
                       {{$pre_reservation->luggage_count?"あり":"なし"}}
                     </td>
-                  </tr>
+                  </tr> --}}
                   <tr>
                     <td class="table-active"><label for="preDelivery">事前に預かる荷物</label></td>
                     <td>
                       <ul class="table-cell-box">
-                        <li>
+                        {{-- <li>
                           <p>
                             {{$pre_reservation->luggage_arrive?"あり":"なし"}}
                           </p>
-                        </li>
+                        </li> --}}
                         <li class="d-flex justify-content-between">
                           <p>荷物個数：{{$pre_reservation->luggage_count?$pre_reservation->luggage_count:0}}個</p>
                         </li>
@@ -549,11 +549,11 @@
                     <td class="table-active"><label for="postDelivery">事後返送する荷物</label></td>
                     <td>
                       <ul class="table-cell-box">
-                        <li>
+                        {{-- <li>
                           <p>
                             {{$pre_reservation->luggage_return?"あり":"なし"}}
                           </p>
-                        </li>
+                        </li> --}}
                         <li class="d-flex justify-content-between">
                           <p>荷物個数：{{$pre_reservation->luggage_return?$pre_reservation->luggage_return:0}}個</p>
                         </li>

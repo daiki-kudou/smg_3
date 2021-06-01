@@ -6,7 +6,7 @@
   <div class="contents">
     <div class="pagetop-text">
       <h1 class="page-title oddcolor"><span>予約申し込み完了</span></h1>
-      <p class="page-ttl">ご予約ありがとうございました。</p>
+      <div class="page-ttl">ご予約ありがとうございました。</div>
       <div class="text-box">
         <p>
           送信が完了しました。内容を確認後、改めて担当者よりご連絡を差し上げます。
