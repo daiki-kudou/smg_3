@@ -57,7 +57,7 @@
               <label for="date">利用日</label>
             </th>
             <td class="text-right form-group">
-              {{ Form::text('reserve_date', $request->reserve_date, ['class' => 'form-control', 'id'=>'datepicker1']) }}
+              {{ Form::text('reserve_date', $request->reserve_date, ['class' => 'form-control', 'id'=>'']) }}
             </td>
 
             <th class="search_item_name"><label for="time">入室・退室</label></th>
@@ -406,7 +406,38 @@
       })
     })
   })
+
+  $(function() {
+    function ActiveDateRangePicker($target) {
+      $("input[name='" + $target + "']").daterangepicker({
+        "locale": {
+          "format": "YYYY-MM-DD",
+          "separator": " ~ ",
+          "applyLabel": "反映",
+          "cancelLabel": "初期化",
+          "weekLabel": "W",
+          "daysOfWeek": ["Su", "Mo", "Tu", "We", "Th", "Fr", "Sa"],
+          "monthNames": ["1月", "2月", "3月", "4月", "5月", "6月", "7月", "8月", "9月", "10月", "11月", "12月"],
+          "firstDay": 1,
+        },
+        autoUpdateInput: false
+      });
+      $("input[name='" + $target + "']").on('apply.daterangepicker', function(ev, picker) {
+        $(this).val(picker.startDate.format('YYYY-MM-DD') + ' ~ ' + picker.endDate.format('YYYY-MM-DD'));
+      });
+      $("input[name='" + $target + "']").on('cancel.daterangepicker', function(ev, picker) {
+        $(this).val('');
+      });
+    }
+    ActiveDateRangePicker('reserve_date');
+  })
+
 </script>
 
+
+
+<script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
+<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
 
 @endsection

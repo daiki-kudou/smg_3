@@ -83,7 +83,10 @@
                 <select name="search_venue" id="search_venue" class="form-control">
                   <option value=""></option>
                   @foreach ($venues as $s_v)
-                  <option value="{{$s_v->id}}">{{ReservationHelper::getVenue($s_v->id)}}</option>
+                  <option value="{{$s_v->id}}" @if ($s_v->id==$request->search_venue)
+                    selected
+                    @endif
+                    >{{ReservationHelper::getVenue($s_v->id)}}</option>
                   @endforeach
                 </select>
             </td>
@@ -121,7 +124,10 @@
               <select name="search_agent" id="search_agent" class="form-control">
                 <option value=""></option>
                 @foreach ($agents as $s_a)
-                <option value="{{$s_a->id}}">{{ReservationHelper::getAgentCompanyName($s_a->id)}}</option>
+                <option value="{{$s_a->id}}" @if ($s_a->id==$request->search_agent)
+                  selected
+                  @endif
+                  >{{ReservationHelper::getAgentCompanyName($s_a->id)}}</option>
                 @endforeach
               </select>
             </td>

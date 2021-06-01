@@ -26,13 +26,15 @@ use App\Mail\UserFinPreRes;
 use App\Mail\AdminPreResCxl;
 use App\Mail\UserPreResCxl;
 
-
 use App\Traits\SearchTrait;
 
+use App\Traits\PaginatorTrait;
 
 class PreReservationsController extends Controller
 {
   use SearchTrait; //検索用トレイト
+  use PaginatorTrait;
+
 
   /**
    * Display a listing of the resource.
@@ -41,6 +43,7 @@ class PreReservationsController extends Controller
    */
   public function index(Request $request)
   {
+    $today = date('Y-m-d', strtotime(Carbon::today()));
 
     if (!empty($request->time_over)) {
       $today = Carbon::now();
@@ -54,7 +57,12 @@ class PreReservationsController extends Controller
       $pre_reservations = $result[0];
       $counter = $result[1];
     } else {
-      $pre_reservations = PreReservation::with(["unknown_user", "pre_enduser"])->where('multiple_reserve_id', '=', 0)->orderBy('id', 'desc')->paginate(30);
+      // $pre_reservations = PreReservation::with(["unknown_user", "pre_enduser"])->where('multiple_reserve_id', '=', 0)->orderBy('id', 'desc')->paginate(30);
+      // $counter = 0;
+      $after = PreReservation::with(["unknown_user", "pre_enduser"])->where('multiple_reserve_id', '=', 0)->where('reserve_date', '>=', $today)->get()->sortBy('reserve_date');
+      $before = PreReservation::with(["unknown_user", "pre_enduser"])->where('multiple_reserve_id', '=', 0)->where('reserve_date', '<', $today)->get()->sortByDesc('reserve_date');
+      $pre_reservations = $after->concat($before);
+      $pre_reservations = $this->customPaginate($pre_reservations, 30, $request);
       $counter = 0;
     }
 
