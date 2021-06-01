@@ -57,8 +57,6 @@ class PreReservationsController extends Controller
       $pre_reservations = $result[0];
       $counter = $result[1];
     } else {
-      // $pre_reservations = PreReservation::with(["unknown_user", "pre_enduser"])->where('multiple_reserve_id', '=', 0)->orderBy('id', 'desc')->paginate(30);
-      // $counter = 0;
       $after = PreReservation::with(["unknown_user", "pre_enduser"])->where('multiple_reserve_id', '=', 0)->where('reserve_date', '>=', $today)->get()->sortBy('reserve_date');
       $before = PreReservation::with(["unknown_user", "pre_enduser"])->where('multiple_reserve_id', '=', 0)->where('reserve_date', '<', $today)->get()->sortByDesc('reserve_date');
       $pre_reservations = $after->concat($before);

@@ -44,22 +44,62 @@ class ReservationsController extends Controller
     if (!empty($request->all())) {
       $class = new Reservation;
       $result = $class->search_item($request);
-      $after = $result->where('reserve_date', '>=', $today)->sortBy('reserve_date');
-      $before = $result->where('reserve_date', '<', $today)->sortByDesc('reserve_date');
-      $reservations = $after->concat($before);
+      $m_after = $result->where('reserve_date', '>=', $today)->sortBy('reserve_date');
+      $m_before = $result->where('reserve_date', '<', $today)->sortByDesc('reserve_date');
+      $reservations = $this->customOrderList($m_after, $m_before);
       $reservations = $this->customPaginate($reservations, 30, $request);
       $counter = $result->count();
     } else {
-      $after = Reservation::with(['bills.cxl', 'user', 'agent', 'cxls.cxl_breakdowns', 'enduser', 'venue'])->where('reserve_date', '>=', $today)->get()->sortBy('reserve_date');
-      $before = Reservation::with(['bills.cxl', 'user', 'agent', 'cxls.cxl_breakdowns', 'enduser', 'venue'])->where('reserve_date', '<', $today)->get()->sortByDesc('reserve_date');
-      $reservations = $after->concat($before);
-      $reservations = $this->customPaginate($reservations, 30, $request);
+      $m_after = Reservation::with(['bills.cxl', 'user', 'agent', 'cxls.cxl_breakdowns', 'enduser', 'venue'])->where('reserve_date', '>=', $today)->get()->sortBy('reserve_date');
+      $m_before = Reservation::with(['bills.cxl', 'user', 'agent', 'cxls.cxl_breakdowns', 'enduser', 'venue'])->where('reserve_date', '<', $today)->get()->sortByDesc('reserve_date');
+      $reservations = $this->customOrderList($m_after, $m_before);
+      $reservations = $this->customPaginate($reservations, 90, $request);
       $counter = 0;
     }
-
     $venue = Venue::all();
     $agents = Agent::all();
     return view('admin.reservations.index', compact('reservations', 'venue', 'agents', 'counter', 'request'));
+  }
+
+  /**
+   * reservationが持つbillsでステータスが3以上を抽出
+   * 
+   * @param object $reservations
+   * @return array
+   */
+  public function rejectCxl($reservations)
+  {
+    $array = [];
+    foreach ($reservations as $key => $value) {
+      $judge = $value->bills->every(function ($value, $key) {
+        return ($value->reservation_status > 3);
+      });
+      if ($judge) {
+        $array[] = $value->id;
+      }
+    }
+    return $array;
+  }
+
+  /**
+   * reservationが持つbillsでステータスが3以上を抽出
+   * 
+   * @param object $m_after
+   * @param object $m_before
+   * @return object
+   */
+  public function customOrderList($m_after, $m_before)
+  {
+    $m_after_reject_cxl = $this->rejectCxl($m_after);
+    $m_before_reject_cxl = $this->rejectCxl($m_before);
+    $after = $m_after->whereNotIn("id", $m_after_reject_cxl);
+    $before = $m_before->whereNotIn("id", $m_before_reject_cxl);
+    $reservations = $after->concat($before);
+    $after_cxl = $m_after->whereIn("id", $m_after_reject_cxl);
+    $before_cxl = $m_before->whereIn("id", $m_before_reject_cxl);
+    $cxl = $after_cxl->concat($before_cxl);
+    $reservations = $reservations->concat($cxl);
+    return $reservations;
   }
 
   /** ajax 備品orサービス取得*/
