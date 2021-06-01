@@ -90,7 +90,7 @@
         </div>
       </article>
       <div class="calenderframe">
-        <iframe src="{{url('calendar/date_calendar')}}" width="100%" height="800px"></iframe>
+        <iframe src="{{url('calendar/date_calendar')}}" width="100%"></iframe>
       </div>
 
       {{Form::open(['url' => 'user/reservations/create', 'method' => 'get', 'class'=>'search','id'=>'slct_date_form'])}}
