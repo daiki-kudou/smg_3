@@ -614,6 +614,10 @@ form table td textarea {
         /* margin-top: 230px; */
     }
 
+    .page-title {
+        margin-top: 160px;
+    }
+
     .page-text {
         text-align: left;
     }
@@ -629,7 +633,7 @@ form table td textarea {
 
 
     .form-cell {
-        display: block;
+        /* display: block; */
     }
 
     form table td .text4 {
