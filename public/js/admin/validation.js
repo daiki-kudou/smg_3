@@ -1036,14 +1036,21 @@ $(function () {
         pay_person: { hankaku: "※半角で入力してください" },
         payment: { number: "※半角数字を入力してください" },
       },
-      errorPlacement: function (error, element) {
-        var name = element.attr("name");
-        if (element.attr("name") === "category[]") {
-          error.appendTo($(".is-error-category"));
-        } else if (element.attr("name") === name) {
-          error.appendTo($(".is-error-" + name));
-        }
-      },
+
+      errorPlacement: function(error, element){
+        // data-error_placementで指定された要素に追加
+        error.appendTo(element.data('error_placement'));
+    },
+
+
+      // errorPlacement: function (error, element) {
+      //   var name = element.attr("name");
+      //   if (element.attr("name") === "category[]") {
+      //     error.appendTo($(".is-error-category"));
+      //   } else if (element.attr("name") === name) {
+      //     error.appendTo($(".is-error-" + name));
+      //   }
+      // },
       errorElement: "span",
       errorClass: "is-error",
       //送信前にLoadingを表示
