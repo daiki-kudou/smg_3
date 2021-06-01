@@ -193,9 +193,7 @@
           <a class="cart_area" href="{{url('user/reservations/cart')}}">
             <p>
               <i class="fas fa-clipboard-list cart_btn"></i>
-              {{-- <i class="fas fa-cart-arrow-down cart_btn"></i> --}}
               <span>予約一覧へ</span></p>
-            {{-- <p>保存している会場</p> --}}
           </a>
         </div>
       </div>
@@ -244,6 +242,11 @@
           <li><a href="https://osaka-conference.com/characteristic/">8つの特徴</a></li>
           <li><a href="https://osaka-conference.com/reservation/">本申込み</a></li>
         </ul>
+        <a class="cart_area" href="{{url('user/reservations/cart')}}">
+          <p>
+            <i class="fas fa-clipboard-list cart_btn"></i>
+            <span>予約一覧へ</span></p>
+        </a>
       </div>
       <ul class="tagBtn sticky">
         <li><a class="contact_btn" href="https://osaka-conference.com/contact/" target="_blank">お問合わせ</a></li>
