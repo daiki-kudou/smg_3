@@ -44,8 +44,10 @@ class ReservationsController extends Controller
     if (!empty($request->all())) {
       $class = new Reservation;
       $result = $class->search_item($request);
-      // $reservations = $result->orderBy('id', 'desc')->paginate(30);
-      $reservations = $this->customPaginate($result, 30, $request);
+      $after = $result->where('reserve_date', '>=', $today)->sortBy('reserve_date');
+      $before = $result->where('reserve_date', '<', $today)->sortByDesc('reserve_date');
+      $reservations = $after->concat($before);
+      $reservations = $this->customPaginate($reservations, 30, $request);
       $counter = $result->count();
     } else {
       $after = Reservation::with(['bills.cxl', 'user', 'agent', 'cxls.cxl_breakdowns', 'enduser', 'venue'])->where('reserve_date', '>=', $today)->get()->sortBy('reserve_date');
