@@ -41,7 +41,6 @@ class PreReservationsController extends Controller
    */
   public function index(Request $request)
   {
-
     if (!empty($request->time_over)) {
       $today = Carbon::now();
       $threeDaysBefore = date('Y-m-d H:i:s', strtotime($today->subHours(72)));

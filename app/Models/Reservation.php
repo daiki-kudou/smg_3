@@ -596,7 +596,9 @@ class Reservation extends Model implements PresentableInterface
         }
 
         if ($request->reserve_date) {
-          $query->whereDate("reserve_date", $request->reserve_date);
+          // $query->whereDate("reserve_date", $request->reserve_date);
+          $dates = explode(' ~ ', $request->reserve_date);
+          $query->whereBetween("reserve_date", [$dates[0], $dates[1]]);
         }
 
         if ($request->enter_time) {
