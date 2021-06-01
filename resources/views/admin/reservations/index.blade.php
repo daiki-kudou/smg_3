@@ -41,14 +41,14 @@
             <th class="search_item_name">
               <label for="multiple_id">予約一括ID</label>
             <td class="text-right">
-              {{ Form::text('multiple_id', '', ['class' => 'form-control', 'id'=>'multiple_id']) }}
+              {{ Form::text('multiple_id', $request->multiple_id, ['class' => 'form-control', 'id'=>'multiple_id']) }}
               <p class="is-error-multiple_id" style="color: red"></p>
             </td>
             <th class="search_item_name">
               <label for="search_id">予約ID</label>
             </th>
             <td>
-              {{ Form::text('search_id', '', ['class' => 'form-control', 'id'=>'']) }}
+              {{ Form::text('search_id', $request->search_id, ['class' => 'form-control', 'id'=>'']) }}
               <p class="is-error-search_id" style="color: red"></p>
             </td>
           </tr>
@@ -57,17 +57,20 @@
               <label for="date">利用日</label>
             </th>
             <td class="text-right form-group">
-              {{ Form::text('reserve_date', '', ['class' => 'form-control', 'id'=>'datepicker1']) }}
+              {{ Form::text('reserve_date', $request->reserve_date, ['class' => 'form-control', 'id'=>'datepicker1']) }}
             </td>
 
             <th class="search_item_name"><label for="time">入室・退室</label></th>
             <td class="text-right">
-
               <div class="d-flex align-items-center">
                 <select class="form-control select2" name="enter_time">
                   <option value=""></option>
                   @for ($start = 0*2; $start <=23*2; $start++) <option
-                    value="{{date("H:i:s", strtotime("00:00 +". $start * 30 ." minute"))}}">
+                    value="{{date("H:i:s", strtotime("00:00 +". $start * 30 ." minute"))}}" @if (date("H:i:s",
+                    strtotime("00:00 +". $start * 30 ." minute"))==$request->enter_time)
+                    selected
+                    @endif
+                    >
                     {{date("H時i分", strtotime("00:00 +". $start * 30 ." minute"))}}
                     </option>
                     @endfor
@@ -76,7 +79,11 @@
                 <select class="form-control select2" name="leave_time">
                   <option value=""></option>
                   @for ($start = 0*2; $start <=23*2; $start++) <option
-                    value="{{date("H:i:s", strtotime("00:00 +". $start * 30 ." minute"))}}">
+                    value="{{date("H:i:s", strtotime("00:00 +". $start * 30 ." minute"))}}" @if (date("H:i:s",
+                    strtotime("00:00 +". $start * 30 ." minute"))==$request->leave_time)
+                    selected
+                    @endif
+                    >
                     {{date("H時i分", strtotime("00:00 +". $start * 30 ." minute"))}}
                     </option>
                     @endfor
@@ -92,7 +99,7 @@
               <select class="form-control select2" name="venue_id">
                 <option value=""></option>
                 @foreach (App\Models\Venue::cursor() as $venues)
-                <option value="{{$venues->id}}">
+                <option value="{{$venues->id}}" {{$venues->id==$request->venue_id?"selected":""}}>
                   {{ReservationHelper::getVenue($venues->id)}}
                 </option>
                 @endforeach
@@ -103,7 +110,7 @@
               <label for="company">会社・団体名</label>
             </th>
             <td class="text-right">
-              {{ Form::text('company', '', ['class' => 'form-control', 'id'=>'']) }}
+              {{ Form::text('company', $request->company, ['class' => 'form-control', 'id'=>'']) }}
             </td>
           </tr>
           <tr>
@@ -111,13 +118,13 @@
               <label for="person_name">担当者氏名</label>
             </th>
             <td class="text-right">
-              {{ Form::text('person_name', '', ['class' => 'form-control', 'id'=>'']) }}
+              {{ Form::text('person_name', $request->person_name, ['class' => 'form-control', 'id'=>'']) }}
             </td>
             <th class="search_item_name">
               <label for="search_mobile">携帯電話</label>
             </th>
             <td>
-              {{ Form::text('search_mobile', '', ['class' => 'form-control', 'id'=>'']) }}
+              {{ Form::text('search_mobile', $request->search_mobile, ['class' => 'form-control', 'id'=>'']) }}
               <p class="is-error-search_mobile" style="color: red"></p>
             </td>
           </tr>
@@ -126,7 +133,7 @@
               <label for="search_tel">固定電話</label>
             </th>
             <td>
-              {{ Form::text('search_tel', '', ['class' => 'form-control', 'id'=>'']) }}
+              {{ Form::text('search_tel', $request->search_tel, ['class' => 'form-control', 'id'=>'']) }}
               <p class="is-error-search_tel" style="color: red"></p>
             </td>
             <th class="search_item_name">
@@ -137,7 +144,7 @@
                 <option value=""></option>
                 @foreach ($agents->chunk(1000) as $agent_e)
                 @foreach ($agent_e as $agent)
-                <option value="{{$agent->id}}">
+                <option value="{{$agent->id}}" {{$agent->id==$request->agent?"selected":""}}>
                   {{ReservationHelper::getAgentCompanyName($agent->id)}}
                 </option>
                 @endforeach
@@ -150,7 +157,7 @@
               <label for="enduser_person">エンドユーザー</label>
             </th>
             <td class="text-right">
-              {{ Form::text('enduser_person', '', ['class' => 'form-control', 'id'=>'']) }}
+              {{ Form::text('enduser_person', $request->enduser_person, ['class' => 'form-control', 'id'=>'']) }}
             </td>
             <th class="search_item_name">
               <label for="category">アイコン</label>
@@ -158,19 +165,19 @@
             <td class="text-right">
               <ul class="search_category">
                 <li>
-                  {{Form::checkbox('check_icon1', 2, false,['id'=>'checkboxPrimary1'])}}
+                  {{Form::checkbox('check_icon1', 2, $request->check_icon1?true:false,['id'=>'checkboxPrimary1'])}}
                   {{Form::label("checkboxPrimary1","有料備品")}}
                 </li>
                 <li>
-                  {{Form::checkbox('check_icon2', 3, false,['id'=>'checkboxPrimary2'])}}
+                  {{Form::checkbox('check_icon2', 3, $request->check_icon2?true:false,['id'=>'checkboxPrimary2'])}}
                   {{Form::label("checkboxPrimary2","有料サービス")}}
                 </li>
                 <li>
-                  {{Form::checkbox('check_icon3', 4, false,['id'=>'checkboxPrimary3'])}}
+                  {{Form::checkbox('check_icon3', 4, $request->check_icon3?true:false,['id'=>'checkboxPrimary3'])}}
                   {{Form::label("checkboxPrimary3","レイアウト")}}
                 </li>
                 <li>
-                  {{Form::checkbox('check_icon4', 0, false,['id'=>'checkboxPrimary4'])}}
+                  {{Form::checkbox('check_icon4', 0, $request->check_icon4!=""?true:false,['id'=>'checkboxPrimary4'])}}
                   {{Form::label("checkboxPrimary4","ケータリング")}}
                 </li>
               </ul>
@@ -181,27 +188,27 @@
             <td colspan="3">
               <ul class="search_category">
                 <li>
-                  {{Form::checkbox('check_status1', 1, false,['id'=>'check_status1'])}}
+                  {{Form::checkbox('check_status1', 1, $request->check_status1?true:false,['id'=>'check_status1'])}}
                   {{Form::label("check_status1","予約確認中")}}
                 </li>
                 <li>
-                  {{Form::checkbox('check_status2', 2, false,['id'=>'check_status2'])}}
+                  {{Form::checkbox('check_status2', 2, $request->check_status2?true:false,['id'=>'check_status2'])}}
                   {{Form::label("check_status2","予約承認待ち")}}
                 </li>
                 <li>
-                  {{Form::checkbox('check_status3', 3, false,['id'=>'check_status3'])}}
+                  {{Form::checkbox('check_status3', 3, $request->check_status3?true:false,['id'=>'check_status3'])}}
                   {{Form::label("check_status3","予約完了")}}
                 </li>
                 <li>
-                  {{Form::checkbox('check_status4', 4, false,['id'=>'check_status4'])}}
+                  {{Form::checkbox('check_status4', 4, $request->check_status4?true:false,['id'=>'check_status4'])}}
                   {{Form::label("check_status4","キャンセル申請中")}}
                 </li>
                 <li>
-                  {{Form::checkbox('check_status5', 5, false,['id'=>'check_status5'])}}
+                  {{Form::checkbox('check_status5', 5, $request->check_status5?true:false,['id'=>'check_status5'])}}
                   {{Form::label("check_status5","キャンセル承認待ち")}}
                 </li>
                 <li>
-                  {{Form::checkbox('check_status6', 6, false,['id'=>'check_status6'])}}
+                  {{Form::checkbox('check_status6', 6, $request->check_status6?true:false,['id'=>'check_status6'])}}
                   {{Form::label("check_status6","キャンセル")}}
                 </li>
               </ul>

@@ -38,7 +38,7 @@ class ReservationsController extends Controller
    */
   public function index(Request $request)
   {
-    // dump(Auth::guard('user')->check() );
+    // dump(Auth::guard('user')->check());
     // dump(Auth::guard('admin'));
     $today = date('Y-m-d', strtotime(Carbon::today()));
     if (!empty($request->all())) {
@@ -57,7 +57,7 @@ class ReservationsController extends Controller
 
     $venue = Venue::all();
     $agents = Agent::all();
-    return view('admin.reservations.index', compact('reservations', 'venue', 'agents', "counter"));
+    return view('admin.reservations.index', compact('reservations', 'venue', 'agents', 'counter', 'request'));
   }
 
   /** ajax 備品orサービス取得*/
