@@ -3,6 +3,7 @@
 @section('content')
 <script src="{{ asset('/js/template.js') }}"></script>
 <script src="{{ asset('/js/admin/validation.js') }}"></script>
+<script src="{{ asset('/js/lettercounter.js') }}"></script>
 <link href="{{ asset('/css/template.css') }}" rel="stylesheet">
 
 <h2 class="mt-3 mb-3">仲介会社　仮押え 計算</h2>
