@@ -245,40 +245,19 @@ trait SearchTrait
       }
     }
   }
+
+  public function idFormatForSearch($num)
+  {
+    $result = $num;
+    if (substr($num, 0, 5) == "00000") {
+      $result = str_replace("00000", "", $num);
+    } elseif (substr($num, 0, 4) == "0000") {
+      $result = str_replace("0000", "", $num);
+    } elseif (substr($num, 0, 3) == "000") {
+      $result = str_replace("000", "", $num);
+    } elseif (substr($num, 0, 2) == "00") {
+      $result = str_replace("00", "", $num);
+    }
+    return $result;
+  }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-    // フリーワード検索
-    // 以下参照
-    // https://qiita.com/Hwoa/items/542456b63e51895f9a55
-
-
-    // $andSearch->where(function ($query) use ($request) {
-    //   $query->orWhere('id', 'LIKE', "%$request->search_free%")
-    //     ->orWhereDate('created_at', 'LIKE', "%$request->search_free%")
-    //     ->orWhere('enter_time', 'LIKE', "%$request->search_free%")
-    //     ->orWhere('leave_time', 'LIKE', "%$request->search_free%")
-    //     ->orWhere('in_charge', 'LIKE', "%$request->search_free%")
-    //     ->orWhere('tel', 'LIKE', "%$request->search_free%")
-    //     ->orWhereHas('user', function ($query) use ($request) {
-    //       $query->where('first_name', 'LIKE', "%$request->search_free%");
-    //       $query->orWhere('last_name', 'LIKE', "%$request->search_free%");
-    //       $query->orWhere(DB::raw('CONCAT(first_name, last_name)'), 'LIKE', "%$request->search_person%");
-    //     })->orWhereHas('agent', function ($query) use ($request) {
-    //       $query->where('person_firstname', 'LIKE', "%$request->search_free%");
-    //       $query->orWhere('person_lastname', 'LIKE', "%$request->search_free%");
-    //       $query->orWhere(DB::raw('CONCAT(person_firstname, person_lastname)'), 'LIKE', "%$request->search_person%");
-    //     });
-    // });
-    // dd($andSearch->toSql(), $andSearch->getBindings());

@@ -44,7 +44,10 @@ class ReservationsController extends Controller
     if (!empty($request->all())) {
       $class = new Reservation;
       $result = $class->search_item($request);
-      $reservations = $result->orderBy('id', 'desc')->paginate(30);
+      $after = $result->where('reserve_date', '>=', $today)->sortBy('reserve_date');
+      $before = $result->where('reserve_date', '<', $today)->sortByDesc('reserve_date');
+      $reservations = $after->concat($before);
+      $reservations = $this->customPaginate($reservations, 30, $request);
       $counter = $result->count();
     } else {
       $after = Reservation::with(['bills.cxl', 'user', 'agent', 'cxls.cxl_breakdowns', 'enduser', 'venue'])->where('reserve_date', '>=', $today)->get()->sortBy('reserve_date');
@@ -56,7 +59,7 @@ class ReservationsController extends Controller
 
     $venue = Venue::all();
     $agents = Agent::all();
-    return view('admin.reservations.index', compact('reservations', 'venue', 'agents', "counter"));
+    return view('admin.reservations.index', compact('reservations', 'venue', 'agents', 'counter', 'request'));
   }
 
   /** ajax 備品orサービス取得*/

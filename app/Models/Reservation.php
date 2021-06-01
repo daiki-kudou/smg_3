@@ -18,11 +18,14 @@ use App\Presenters\ReservationPresenter;
 use Robbo\Presenter\PresentableInterface; //プレゼンターの追加
 
 use App\Traits\InvoiceTrait;
+use App\Traits\SearchTrait;
 
 
 class Reservation extends Model implements PresentableInterface
 {
   use InvoiceTrait;
+  use SearchTrait;
+
 
   public function getPresenter() //実装したプレゼンタを利用
   {
@@ -580,136 +583,144 @@ class Reservation extends Model implements PresentableInterface
 
   public function search_item($request)
   {
-    $class = $this->where(function ($query) use ($request) {
-
-      if ($request->search_id) {
-        $editId = $request->search_id;
-        if (substr($request->search_id, 0, 5) == "00000") {
-          $editId = str_replace("00000", "", $request->search_id);
-        } elseif (substr($request->search_id, 0, 4) == "0000") {
-          $editId = str_replace("0000", "", $request->search_id);
-        } elseif (substr($request->search_id, 0, 3) == "000") {
-          $editId = str_replace("000", "", $request->search_id);
-        } elseif (substr($request->search_id, 0, 2) == "00") {
-          $editId = str_replace("00", "", $request->search_id);
+    $class = $this->with(['bills.cxl', 'user', 'agent', 'cxls.cxl_breakdowns', 'enduser', 'venue'])
+      ->where(function ($query) use ($request) {
+        $query = $query->with(["bills, venue", "user"]);
+        if ($request->multiple_id) {
+          $query->where("multiple_reserve_id", 'LIKE', "%{$request->company}%");
         }
-        $query->where("id", "LIKE", "%" . $editId . "%");
-      }
 
-      if ($request->reserve_date) {
-        $query->whereDate("reserve_date", $request->reserve_date);
-      }
+        if ($request->search_id) {
+          $editId = $this->idFormatForSearch($request->search_id);
+          $query->where("id", "LIKE", "%" . $editId . "%");
+        }
 
-      if ($request->enter_time) {
-        $query->whereTime("enter_time", '>=', $request->enter_time);
-      }
+        if ($request->reserve_date) {
+          $query->whereDate("reserve_date", $request->reserve_date);
+        }
 
-      if ($request->leave_time) {
-        $query->whereTime("leave_time", '<=', $request->leave_time);
-      }
+        if ($request->enter_time) {
+          $query->whereTime("enter_time", '>=', $request->enter_time);
+        }
 
-      if ($request->venue_id) {
-        $query->where("venue_id",  $request->venue_id);
-      }
+        if ($request->leave_time) {
+          $query->whereTime("leave_time", '<=', $request->leave_time);
+        }
 
-      if ($request->company) {
-        $query->whereHas('user', function ($query) use ($request) {
-          $query->where('company', 'LIKE', "%{$request->company}%");
-        })->orWhereHas('agent', function ($query) use ($request) {
-          $query->where('company', 'LIKE', "%{$request->company}%");
-        });
-      }
+        if ($request->venue_id) {
+          $query->where("venue_id",  $request->venue_id);
+        }
 
-      if ($request->person_name) {
-        $query->whereHas('user', function ($query) use ($request) {
-          $query->where('first_name', 'LIKE', "%{$request->person_name}%");
-          $query->orWhere('last_name', 'LIKE', "%{$request->person_name}%");
-          $query->orWhere(DB::raw('CONCAT(first_name, last_name)'), 'like', '%' . $request->person_name . '%');
-        })->orWhereHas('agent', function ($query) use ($request) {
-          $query->where('person_firstname', 'LIKE', "%{$request->person_name}%");
-          $query->orWhere('person_lastname', 'LIKE', "%{$request->person_name}%");
-          $query->orWhere(DB::raw('CONCAT(person_firstname, person_lastname)'), 'like', '%' . $request->person_name . '%');
-        });
-      }
+        if ($request->company) {
+          $user = User::where('company', 'LIKE', "%{$request->company}%")->pluck('id')->toArray();
+          $query->whereIn("user_id", $user);
+        }
 
-      if ($request->search_mobile) {
-        $query->whereHas('user', function ($query) use ($request) {
-          $query->where('mobile', 'LIKE', "%{$request->search_mobile}%");
-        })->orWhereHas('agent', function ($query) use ($request) {
-          $query->where('person_mobile', 'LIKE', "%{$request->search_mobile}%");
-        });
-      }
+        if ($request->person_name) {
+          $user = User::where(\DB::raw('CONCAT(first_name, last_name)'), 'like', "%{$request->person_name}%")
+            ->pluck('id')
+            ->toArray();
+          $query->whereIn("user_id", $user);
+        }
 
-      if ($request->search_tel) {
-        $query->whereHas('user', function ($query) use ($request) {
-          $query->where('tel', 'LIKE', "%{$request->search_tel}%");
-        })->orWhereHas('agent', function ($query) use ($request) {
-          $query->where('person_tel', 'LIKE', "%{$request->search_tel}%");
-        });
-      }
+        if ($request->search_mobile) {
+          $user = User::where('mobile', 'LIKE', "%{$request->search_mobile}%")->pluck('id')->toArray();
+          $query->whereIn("user_id", $user);
+        }
 
-      if ($request->agent) {
-        $query->where("agent_id",  $request->agent);
-      }
+        if ($request->search_tel) {
+          $user = User::where('tel', 'LIKE', "%{$request->search_tel}%")->pluck('id')->toArray();
+          $query->whereIn("user_id", $user);
+        }
 
-      if ($request->enduser_person) {
-        $query->whereHas('enduser', function ($query) use ($request) {
-          $query->where('company', 'LIKE', "%{$request->enduser_person}%");
-        });
-      }
+        if ($request->agent) {
+          $query->where("agent_id",  $request->agent);
+        }
 
-      // アイコン（備品。サービス、レイアウト、ケータリング検索）
-      $query->where(function ($query) use ($request) {
-        for ($i = 1; $i <= 4; $i++) {
-          if (!empty($request->{"check_icon" . $i})) {
-            $query->orWhereHas('breakdowns', function ($query) use ($request, $i) {
-              $query->where('unit_type', $request->{'check_icon' . $i});
-            });
+        if ($request->enduser_person) {
+          $enduser = Enduser::where('company', 'LIKE', "%{$request->enduser_person}%")->pluck('reservation_id')->toArray();
+          $query->whereIn("id", $enduser);
+        }
+
+        // アイコン（備品。サービス、レイアウト、ケータリング検索）
+        $query->where(function ($query) use ($request) {
+          for ($i = 1; $i <= 4; $i++) {
+            if (!empty($request->{"check_icon" . $i})) {
+              $query->orWhereHas('breakdowns', function ($query) use ($request, $i) {
+                $query->where('unit_type', $request->{'check_icon' . $i});
+              });
+            }
           }
+        });
+
+        // 予約状況検索
+        $query->where(function ($query) use ($request) {
+          for ($i = 1; $i <= 6; $i++) {
+            if (!empty($request->{"check_status" . $i})) {
+              $query->orWhereHas('bills', function ($query) use ($request, $i) {
+                $query->where('reservation_status', $request->{'check_status' . $i});
+              });
+            }
+          }
+        });
+
+        if ($request->freeword) {
+          $query->where(function ($query2) use ($request) {
+            if (preg_match("/^[0-9]+$/", $request->freeword)) { //数字のみ
+              $editId = $this->idFormatForSearch($request->freeword);
+              $query2->orWhere('id', 'like', "%{$editId}%"); //予約ID
+              $query2->orWhere('multiple_reserve_id', 'like', "%{$editId}%"); //予約一括ID
+
+              $mobile = User::where('mobile', 'like', "%{$request->freeword}%")->pluck('id')->toArray();
+              $query2->orWhereIn("user_id", $mobile); //携帯電話
+
+              $tel = User::where('tel', 'like', "%{$request->freeword}%")->pluck('id')->toArray();
+              $query2->orWhereIn("user_id", $tel); //固定電話
+
+            } elseif (preg_match("/^[0-9-_:.]+$/", $request->freeword)) { //日時のみ
+              $query2->orWhere("reserve_date", $request->freeword);
+              $query2->orWhere("enter_time", $request->freeword);
+              $query2->orWhere("leave_time", $request->freeword);
+            } else { //文字列
+              $venue = Venue::where(\DB::raw('CONCAT(name_area, name_bldg, name_venue)'), 'like', "%{$request->freeword}%")->pluck('id')->toArray();
+              $query2->orWhereIn("venue_id", $venue); //会場名
+
+              $company = User::where("company", "like", "%{$request->freeword}%")->pluck("id")->toArray();
+              $query2->orWhereIn("user_id", $company); //会社名・団体名
+
+              $user = User::where(\DB::raw('CONCAT(first_name, last_name)'), 'like', "%{$request->freeword}%")->pluck('id')->toArray();
+              $query2->orWhereIn("user_id", $user); //担当者氏名
+
+              $agent = Agent::where("company", "like", "%{$request->freeword}%")->pluck("id")->toArray();
+              $query2->orWhereIn("agent_id", $agent); //仲介会社
+
+              $end_user = Enduser::where("company", "like", "%{$request->freeword}%")->pluck("reservation_id")->toArray();
+              $query2->orWhereIn("id", $end_user); //エンドユーザー
+            }
+          });
+        }
+
+
+
+        // 前日予約
+        if ($request->day_before) {
+          $today = Carbon::now();
+          $yesterday = $today->subDay();
+          $query->whereDate('reserve_date', date('Y-m-d', strtotime($yesterday)));
+        }
+        // 当日予約
+        if ($request->today) {
+          $today = Carbon::now();
+          $query->whereDate('reserve_date', date('Y-m-d', strtotime($today)));
+        }
+        // 翌日予約
+        if ($request->day_after) {
+          $tomorrow = Carbon::tomorrow();
+          $query->whereDate('reserve_date', date('Y-m-d', strtotime($tomorrow)));
         }
       });
 
-      // 予約状況検索
-      $query->where(function ($query) use ($request) {
-        for ($i = 1; $i <= 6; $i++) {
-          if (!empty($request->{"check_status" . $i})) {
-            $query->orWhereHas('bills', function ($query) use ($request, $i) {
-              $query->where('reservation_status', $request->{'check_status' . $i});
-            });
-          }
-        }
-      });
-
-      if ($request->freeword) {
-        $query->where('id', 'LIKE', "%{$request->freeword}%")
-          ->orWhere("company", "LIKE", "%{$request->freeword}%")
-          ->orWhere("first_name", "LIKE", "%{$request->freeword}%")
-          ->orWhere("last_name", "LIKE", "%{$request->freeword}%")
-          ->orWhere(DB::raw('CONCAT(first_name, last_name)'), 'like', '%' . $request->freeword . '%')
-          ->orWhere("mobile", "LIKE", "%{$request->freeword}%")
-          ->orWhere("tel", "LIKE", "%{$request->freeword}%")
-          ->orWhere("email", "LIKE", "%{$request->freeword}%");
-      }
-
-      // 前日予約
-      if ($request->day_before) {
-        $today = Carbon::now();
-        $yesterday = $today->subDay();
-        $query->whereDate('reserve_date', date('Y-m-d', strtotime($yesterday)));
-      }
-      // 当日予約
-      if ($request->today) {
-        $today = Carbon::now();
-        $query->whereDate('reserve_date', date('Y-m-d', strtotime($today)));
-      }
-      // 翌日予約
-      if ($request->day_after) {
-        $tomorrow = Carbon::tomorrow();
-        $query->whereDate('reserve_date', date('Y-m-d', strtotime($tomorrow)));
-      }
-    });
-
-    return $class;
+    return $class->get();
   }
 
   // reservations show 各請求書合計額
