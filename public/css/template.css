@@ -1407,10 +1407,10 @@ h3 {
     border-right: solid 1px #dee2e6 !important;
 }
 
-.venue_main td:nth-of-type(n+2) .form-control,
-.equipment_main td:nth-of-type(n+2) .form-control,
-.layout_main td:nth-of-type(n+2) .form-control,
-.others_main td:nth-of-type(n+2) .form-control {
+[class^="venue_main"] td:nth-of-type(n+2) .form-control,
+[class^="equipment_main"] td:nth-of-type(n+2) .form-control,
+[class^="layout_main"] td:nth-of-type(n+2) .form-control,
+[class^="others_main"] td:nth-of-type(n+2) .form-control {
     text-align: right;
 }
 
@@ -1471,11 +1471,10 @@ h3 {
     text-align: right;
 }
 
-.venue_result td:nth-of-type(n+2) .form-control,
-.equipment_result td:nth-of-type(n+2) .form-control,
-.layout_result td:nth-of-type(n+2) .form-control,
-.layouts_result td:nth-of-type(n+2) .form-control,
-.others_result td:nth-of-type(n+2) .form-control {
+[class^="venue_result"] td:nth-of-type(n+2) .form-control,
+[class^="equipment_result"] td:nth-of-type(n+2) .form-control,
+[class^="layout_result"] td:nth-of-type(n+2) .form-control,
+[class^="others_result"] td:nth-of-type(n+2) .form-control{
     text-align: right;
 }
 
