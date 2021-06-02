@@ -78,7 +78,6 @@
 
 
 {{-- 1降順　2昇順 --}}
-
 {{ Form::open(['url' => 'admin/equipments', 'method'=>'get', 'id'=>'sort_form']) }}
 @csrf
 {{Form::hidden("id", $request->id?($request->id==1?2:1):1)}}

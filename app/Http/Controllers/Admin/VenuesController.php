@@ -13,25 +13,28 @@ use Carbon\Carbon;
 
 use Illuminate\Support\Facades\DB;
 
+use App\Traits\PaginatorTrait;
+use App\Traits\SortTrait;
 
 
 
 class VenuesController extends Controller
 {
+  use PaginatorTrait;
+  use SortTrait;
 
   /**
    * Display a listing of the resource.
    *
    * @return \Illuminate\Http\Response
    */
-  public function index()
+  public function index(Request $request)
   {
-
-    $venues = Venue::orderBy('id', 'desc')->paginate(30);
-
-    return view('admin.venues.index', [
-      'venues' => $venues,
-    ]);
+    // dump($request->except("page"));
+    $m_venues = Venue::get()->sortByDesc("id");
+    $sort = $this->customSort($m_venues, $request->except("page")) ?? $m_venues;
+    $venues = $this->customPaginate($sort, 30, $request);
+    return view('admin.venues.index', compact("venues", "request"));
   }
 
 
