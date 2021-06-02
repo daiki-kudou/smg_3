@@ -753,8 +753,6 @@ class PreReservation extends Model
     $reservation->ReserveStore($request);
   }
 
-
-
   /*
 |--------------------------------------------------------------------------
 | 削除用

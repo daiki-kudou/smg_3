@@ -9,19 +9,26 @@ use App\Models\Service;
 
 use Illuminate\Support\Facades\DB; //トランザクション用
 
+use App\Traits\PaginatorTrait;
+use App\Traits\SortTrait;
+
 
 class ServicesController extends Controller
 {
+  use PaginatorTrait;
+  use SortTrait;
+
   /**
    * Display a listing of the resource.
    *
    * @return \Illuminate\Http\Response
    */
-  public function index()
+  public function index(Request $request)
   {
-
-    $querys = Service::orderBy('id', 'desc')->paginate(30);
-    return view('admin.services.index', compact("querys"));
+    $m_services = Service::get()->sortByDesc("id");
+    $sort = $this->customSort($m_services, $request->except("page")) ?? $m_services;
+    $services = $this->customPaginate($sort, 30, $request);
+    return view('admin.services.index', compact("services", 'request'));
   }
 
   /**

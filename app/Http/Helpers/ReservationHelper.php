@@ -566,4 +566,15 @@ class ReservationHelper
         break;
     }
   }
+
+  public static function sortIcon($num)
+  {
+    if (empty($num)) {
+      return "<i class='fas fa-sort'></i>";
+    } elseif ($num == 1) {
+      return "<i class='fas fa-sort-amount-up' style='color:darkcyan;'></i>";
+    } elseif ($num == 2) {
+      return "<i class='fas fa-sort-amount-down-alt' style='color:darkcyan;'></i>";
+    }
+  }
 }
