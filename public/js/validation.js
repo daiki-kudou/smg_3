@@ -18,7 +18,8 @@ $(function () {
       price: {
         required: true,
         number: true,
-        min: 1
+        min: 1,
+        maxlength: 6,
       },
       // stock: {
       //   required: true,
@@ -34,7 +35,8 @@ $(function () {
       price: {
         required: "※必須項目です",
         number: "※半角英数字で入力してください",
-        min: "※1以上を入力してください"
+        min: "※1以上を入力してください",
+        maxlength: "※100,000円以内で入力してください"
       },
       // stock: {
       //   required: "※必須項目です",
@@ -129,6 +131,7 @@ $(function () {
         required: true,
         number: true,
         min: 1,
+        maxlength: 6
       },
       stock: {
         required: true,
@@ -144,6 +147,7 @@ $(function () {
         required: "※必須項目です",
         number: '※半角英数字で入力してください',
         min: '1以上を入力してください',
+        maxlength: '100,000円以内で入力してください',
       },
       stock: {
         required: "※必須項目です",
