@@ -30,7 +30,6 @@ class VenuesController extends Controller
    */
   public function index(Request $request)
   {
-    // dump($request->except("page"));
     $m_venues = Venue::get()->sortByDesc("id");
     $sort = $this->customSort($m_venues, $request->except("page")) ?? $m_venues;
     $venues = $this->customPaginate($sort, 30, $request);

@@ -249,10 +249,6 @@
 
 
 <script>
-  $(function(){
-    $(".sort_table").tablesorter();
-  })
-
   $(function() {
     $('.flash_message').fadeOut(3000);
   })

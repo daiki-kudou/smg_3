@@ -260,10 +260,6 @@
 
 
 <script>
-  $(function(){
-    $(".sort_table").tablesorter();
-  })
-
   $(function() {
     function ActiveDateRangePicker($target) {
       $("input[name='" + $target + "']").daterangepicker({
