@@ -1446,6 +1446,7 @@
               </div>
             </div>
           </section>
+            <p class="more_btn_lg m-5 accordion-innbtn text-center">閉じる</p>
         </dt>
       </dl>
     </div>
