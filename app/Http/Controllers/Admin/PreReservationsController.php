@@ -27,14 +27,12 @@ use App\Mail\AdminPreResCxl;
 use App\Mail\UserPreResCxl;
 
 use App\Traits\SearchTrait;
-
 use App\Traits\PaginatorTrait;
 
 class PreReservationsController extends Controller
 {
   use SearchTrait; //検索用トレイト
   use PaginatorTrait;
-
 
   /**
    * Display a listing of the resource.
@@ -45,24 +43,24 @@ class PreReservationsController extends Controller
   {
     $today = date('Y-m-d', strtotime(Carbon::today()));
 
-    if (!empty($request->time_over)) {
-      $today = Carbon::now();
-      $threeDaysBefore = date('Y-m-d H:i:s', strtotime($today->subHours(72)));
-      $result = PreReservation::where('status', 1)->where('updated_at', '<', $threeDaysBefore);
-      $pre_reservations = $result->orderBy('id', 'desc')->paginate(30);
-      $counter = $result->count();
-    } elseif (count($request->all()) != 0) {
-      $class = new PreReservation;
-      $result = $this->BasicSearch($class->with(["unknown_user", "pre_enduser"]), $request);
-      $pre_reservations = $result[0];
-      $counter = $result[1];
-    } else {
-      $after = PreReservation::with(["unknown_user", "pre_enduser"])->where('multiple_reserve_id', '=', 0)->where('reserve_date', '>=', $today)->get()->sortBy('reserve_date');
-      $before = PreReservation::with(["unknown_user", "pre_enduser"])->where('multiple_reserve_id', '=', 0)->where('reserve_date', '<', $today)->get()->sortByDesc('reserve_date');
-      $pre_reservations = $after->concat($before);
-      $pre_reservations = $this->customPaginate($pre_reservations, 30, $request);
-      $counter = 0;
-    }
+    // if (!empty($request->time_over)) {
+    //   $today = Carbon::now();
+    //   $threeDaysBefore = date('Y-m-d H:i:s', strtotime($today->subHours(72)));
+    //   $result = PreReservation::where('status', 1)->where('updated_at', '<', $threeDaysBefore);
+    //   $pre_reservations = $result->orderBy('id', 'desc')->paginate(30);
+    //   $counter = $result->count();
+    // } elseif (count($request->all()) != 0) {
+    //   $class = new PreReservation;
+    //   $result = $this->BasicSearch($class->with(["unknown_user", "pre_enduser"]), $request);
+    //   $pre_reservations = $result[0];
+    //   $counter = $result[1];
+    // } else {
+    $after = PreReservation::with(["unknown_user", "pre_enduser"])->where('multiple_reserve_id', '=', 0)->where('reserve_date', '>=', $today)->get()->sortBy('reserve_date');
+    $before = PreReservation::with(["unknown_user", "pre_enduser"])->where('multiple_reserve_id', '=', 0)->where('reserve_date', '<', $today)->get()->sortByDesc('reserve_date');
+    $pre_reservations = $after->concat($before);
+    $pre_reservations = $this->customPaginate($pre_reservations, 8, $request);
+    $counter = 0;
+    // }
 
     $venues = Venue::all();
     $agents = Agent::all();

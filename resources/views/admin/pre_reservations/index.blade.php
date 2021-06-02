@@ -186,8 +186,7 @@
         <thead>
           <tr class="table_row">
             <th>
-              <p class="annotation">すべて</p>
-              <input type="checkbox" name="all_check" id="all_check" />
+              <p class="annotation">すべて</p><input type="checkbox" name="all_check" id="all_check" />
             </th>
             <th>仮押えID</th>
             <th>作成日</th>

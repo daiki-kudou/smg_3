@@ -31,7 +31,7 @@
           <th id="id">ID {!!ReservationHelper::sortIcon($request->id)!!}</th>
           <th id="created_at">登録日 {!!ReservationHelper::sortIcon($request->created_at)!!}</th>
           <th id="alliance_flag">直/携 {!!ReservationHelper::sortIcon($request->alliance_flag)!!}</th>
-          <th id="name_area">会場 {!!ReservationHelper::sortIcon($request->name_area)!!}</th>
+          <th id="name_bldg">会場 {!!ReservationHelper::sortIcon($request->name_bldg)!!}</th>
           <th id="size1">広さ（坪） {!!ReservationHelper::sortIcon($request->size1)!!}</th>
           <th id="size2">広さ（㎡） {!!ReservationHelper::sortIcon($request->size2)!!}</th>
           <th id="capacity">収容人数 {!!ReservationHelper::sortIcon($request->capacity)!!}</th>
@@ -87,7 +87,7 @@
 {{Form::hidden("id", $request->id?($request->id==1?2:1):1)}}
 {{Form::hidden("created_at", $request->created_at?($request->created_at==1?2:1):1)}}
 {{Form::hidden("alliance_flag", $request->alliance_flag?($request->alliance_flag==1?2:1):1)}}
-{{Form::hidden("name_area", $request->name_area?($request->name_area==1?2:1):1)}}
+{{Form::hidden("name_bldg", $request->name_bldg?($request->name_bldg==1?2:1):1)}}
 {{Form::hidden("size1", $request->size1?($request->size1==1?2:1):1)}}
 {{Form::hidden("size2", $request->size2?($request->size2==1?2:1):1)}}
 {{Form::hidden("capacity", $request->capacity?($request->capacity==1?2:1):1)}}
