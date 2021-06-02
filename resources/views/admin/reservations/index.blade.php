@@ -225,11 +225,9 @@
       <p class="text-right">※フリーワード検索は本画面表記の項目のみ対象となります</p>
       <div class="btn_box d-flex justify-content-center">
         <a href="{{url('admin/reservations')}}" class="btn reset_btn">リセット</a>
-        {{ Form::submit('検索', ['class' => 'btn search_btn']) }}
+        {{ Form::submit('検索', ['class' => 'btn search_btn', "id"=>"m_submit"]) }}
       </div>
     </div>
-
-
 
     <div class="d-flex justify-content-between">
       <ul class="d-flex reservation_list">
@@ -243,6 +241,19 @@
           {{ Form::submit('翌日予約', ['class' => 'btn more_btn','name'=>'day_after','id'=>'day_after']) }}
         </li>
       </ul>
+
+      {{-- ソート用hidden --}}
+      {{Form::hidden("sort_multiple_reserve_id", $request->sort_multiple_reserve_id?($request->sort_multiple_reserve_id==1?2:1):1)}}
+      {{Form::hidden("sort_id", $request->sort_id?($request->sort_id==1?2:1):1)}}
+      {{Form::hidden("sort_reserve_date", $request->sort_reserve_date?($request->sort_reserve_date==1?2:1):1)}}
+      {{Form::hidden("sort_enter_time", $request->sort_enter_time?($request->sort_enter_time==1?2:1):1)}}
+      {{Form::hidden("sort_leave_time", $request->sort_leave_time?($request->sort_leave_time==1?2:1):1)}}
+      {{Form::hidden("sort_venue", $request->sort_venue?($request->sort_venue==1?2:1):1)}}
+      {{Form::hidden("sort_user_company", $request->sort_user_company?($request->sort_user_company==1?2:1):1)}}
+      {{Form::hidden("sort_user_name", $request->sort_user_name?($request->sort_user_name==1?2:1):1)}}
+      {{Form::hidden("sort_user_mobile", $request->sort_user_mobile?($request->sort_user_mobile==1?2:1):1)}}
+      {{Form::hidden("sort_user_tel", $request->sort_user_tel?($request->sort_user_tel==1?2:1):1)}}
+      {{-- ソート用hidden --}}
       {{ Form::close() }}
 
 
@@ -257,16 +268,17 @@
       <table class="table table-bordered table-scroll">
         <thead>
           <tr class="table_row">
-            <th>予約一括ID</th>
-            <th>予約ID</th>
-            <th>利用日</th>
-            <th>入室</th>
-            <th>退室</th>
-            <th>利用会場</th>
-            <th>会社名団体名</th>
-            <th>担当者氏名</th>
-            <th>携帯電話</th>
-            <th>固定電話</th>
+            <th id="sort_multiple_reserve_id">予約一括ID
+              {!!ReservationHelper::sortIcon($request->sort_multiple_reserve_id)!!}</th>
+            <th id="sort_id">予約ID {!!ReservationHelper::sortIcon($request->sort_id)!!}</th>
+            <th id="sort_reserve_date">利用日 {!!ReservationHelper::sortIcon($request->sort_reserve_date)!!}</th>
+            <th id="sort_enter_time">入室 {!!ReservationHelper::sortIcon($request->sort_enter_time)!!}</th>
+            <th id="sort_leave_time">退室 {!!ReservationHelper::sortIcon($request->sort_leave_time)!!}</th>
+            <th id="sort_venue">利用会場 {!!ReservationHelper::sortIcon($request->sort_venue)!!}</th>
+            <th id="sort_user_company">会社名団体名 {!!ReservationHelper::sortIcon($request->sort_user_company)!!}</th>
+            <th id="sort_user_name">担当者氏名 {!!ReservationHelper::sortIcon($request->sort_user_name)!!}</th>
+            <th id="sort_user_mobile">携帯電話 {!!ReservationHelper::sortIcon($request->sort_user_mobile)!!}</th>
+            <th id="sort_user_tel">固定電話 {!!ReservationHelper::sortIcon($request->sort_user_tel)!!}</th>
             <th>仲介会社</th>
             <th>エンドユーザー</th>
             <th>アイコン</th>
@@ -276,7 +288,6 @@
             <th class="text-center">案内板</th>
           </tr>
         </thead>
-
         <style>
           .cxl_gray {
             background: gray;
@@ -311,21 +322,24 @@
               {{ReservationHelper::getPersonName($reservation->user_id)}}
               @elseif($reservation->user_id==0)
             <td rowspan="{{count($reservation->bills)}}">
-              {{ReservationHelper::getAgentPerson($reservation->agent_id)}}
+              {{-- 仲介会社の担当名は出さない --}}
+              {{-- {{ReservationHelper::getAgentPerson($reservation->agent_id)}} --}}
               @endif
             </td>
             <td rowspan="{{count($reservation->bills)}}">
               @if ($reservation->user_id>0)
               {{$reservation->user->mobile}}
               @else
-              {{$reservation->agent->mobile}}
+              {{-- 仲介会社関連は出さない --}}
+              {{-- {{$reservation->agent->mobile}} --}}
               @endif
             </td>
             <td rowspan="{{count($reservation->bills)}}">
               @if ($reservation->user_id>0)
               {{$reservation->user->tel}}
               @else
-              {{$reservation->agent->person_tel}}
+              {{-- 仲介会社関連は出さない --}}
+              {{-- {{$reservation->agent->person_tel}} --}}
               @endif
             </td>
             <td rowspan="{{count($reservation->bills)}}">
@@ -382,19 +396,33 @@
     </div>
 
   </div>
-
   {{$reservations->appends(request()->input())->links()}}
-
-
-
 </div>
 
 
 
 
-
-
 <script>
+  $(document).on("click", ".table-scroll th", function() {
+    var click_th_id=$(this).attr("id");
+    $('input[name^="sort_"]').each(function(key, item){
+      if ($(item).attr("name")!=click_th_id) {
+        $(item).val("");
+      }
+    })
+    $("#reserve_search").submit();
+    })
+
+    $(function() {
+      $("#m_submit").on("click",function(){
+        $('input[name^="sort_"]').each(function(key, item){
+        $(item).val("");
+        })
+      })
+    })
+
+
+
   $(function() {
     $('.flash_message').fadeOut(3000);
   })
