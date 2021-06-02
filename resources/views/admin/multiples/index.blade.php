@@ -100,7 +100,10 @@
               <select name="search_agent" id="search_agent" class="form-control">
                 <option value=""></option>
                 @foreach ($agents as $s_a)
-                <option value="{{$s_a->id}}">{{ReservationHelper::getAgentCompanyName($s_a->id)}}</option>
+                <option value="{{$s_a->id}}" @if ($s_a->id==$request->search_agent)
+                  selected
+                  @endif
+                  >{{ReservationHelper::getAgentCompanyName($s_a->id)}}</option>
                 @endforeach
               </select>
             </td>

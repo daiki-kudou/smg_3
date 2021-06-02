@@ -578,9 +578,6 @@ class Reservation extends Model implements PresentableInterface
     return $this->hasOne(Enduser::class);
   }
 
-
-  // 検索マスタ
-
   public function search_item($request)
   {
     $class = $this->with(['bills.cxl', 'user', 'agent', 'cxls.cxl_breakdowns', 'enduser', 'venue'])
