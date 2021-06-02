@@ -26,7 +26,6 @@ class EquipmentsController extends Controller
   public function index(Request $request)
   {
     $m_equipments = Equipment::get()->sortByDesc("id");
-
     $sort = $this->customSort($m_equipments, $request->all()) ?? $m_equipments;
     $equipments = $this->customPaginate($sort, 30, $request);
 

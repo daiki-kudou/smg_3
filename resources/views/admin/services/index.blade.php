@@ -37,17 +37,20 @@
   <table class="table table-bordered" id="service_sort">
     <thead>
       <tr class="table_row">
-        <th>ID</th>
-        <th>登録日</th>
-        <th>有料サービス名</th>
-        <th>料金<span class="ml-1 annotation">※税抜</span></th>
-        <th>備考</th>
+
+
+        <th id="id">ID {!!ReservationHelper::sortIcon($request->id)!!}</th>
+        <th id="created_at">登録日 {!!ReservationHelper::sortIcon($request->created_at)!!}</th>
+        <th id="item">有料サービス名 {!!ReservationHelper::sortIcon($request->item)!!}</th>
+        <th id="price">料金<span class="ml-1 annotation">※税抜 </span>{!!ReservationHelper::sortIcon($request->price)!!}
+        </th>
+        <th id="remark">備考 {!!ReservationHelper::sortIcon($request->remark)!!}</th>
         <th class="btn-cell">編集</th>
         <th class="btn-cell">削除</th>
       </tr>
     </thead>
     <tbody>
-      @foreach ($querys as $query)
+      @foreach ($services as $query)
       <tr role="row" class="even">
         <td>{{ ReservationHelper::fixId($query->id) }}</td>
         <td>{{ ReservationHelper::formatDate($query->created_at) }}</td>
@@ -66,7 +69,7 @@
         <td class="text-center">
           {{ Form::open(['url' => 'admin/services/'.$query->id."/edit", 'method'=>'GET', 'id'=>'']) }}
           @csrf
-          {{Form::hidden('current_p',$querys->currentPage() )}}
+          {{Form::hidden('current_p',$services->currentPage() )}}
           {{ Form::submit('編集', ['class' => 'btn more_btn']) }}
           {{ Form::close() }}
         </td>
@@ -76,7 +79,7 @@
 
           {{ Form::model($query, ['route' => ['admin.services.destroy', $query->id], 'method' => 'delete']) }}
           @csrf
-          {{Form::hidden("page",$querys->currentPage())}}
+          {{Form::hidden("page",$services->currentPage())}}
           {{ Form::submit('削除', ['class' => 'btn more_btn4 del_btn']) }}
           {{ Form::close() }}
         </td>
@@ -84,21 +87,36 @@
       @endforeach
     </tbody>
   </table>
-  {{ $querys->links() }}
+  {{ $services->appends(request()->input())->links() }}
 </div>
 
-<script>
-  $(function() {
-    // $("#service_sort").tablesorter();
-    $('#service_sort').tablesorter({
-    headers: {
-      // 0: { sorter: "text"}, /// => テキストとしてソート
-      // 1: { sorter: "text"}, /// => テキストとしてソート
-      3: { sorter: "digit"} /// => 数値としてソート
-    }
-  });
 
-  })
+{{-- 1降順　2昇順 --}}
+
+{{ Form::open(['url' => 'admin/services', 'method'=>'get', 'id'=>'sort_form']) }}
+@csrf
+{{Form::hidden("id", $request->id?($request->id==1?2:1):1)}}
+{{Form::hidden("created_at", $request->created_at?($request->created_at==1?2:1):1)}}
+{{Form::hidden("item", $request->item?($request->item==1?2:1):1)}}
+{{Form::hidden("price", $request->price?($request->price==1?2:1):1)}}
+{{Form::hidden("stock", $request->stock?($request->stock==1?2:1):1)}}
+{{Form::hidden("remark", $request->remark?($request->remark==1?2:1):1)}}
+{{Form::close()}}
+
+
+<script>
+  $(function(){
+  $(document).on("click", "th", function() {
+    var click_th_id=$(this).attr("id");
+    $("#sort_form input").each(function(key, item){
+      if ($(item).attr("name")!=click_th_id) {
+        $(item).val("");
+      }
+    })
+    $("#sort_form").submit();
+    })
+
+})
 
   $(function () {
   $('.del_btn').on('click', function () {

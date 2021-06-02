@@ -87,7 +87,6 @@
 {{Form::hidden("price", $request->price?($request->price==1?2:1):1)}}
 {{Form::hidden("stock", $request->stock?($request->stock==1?2:1):1)}}
 {{Form::hidden("remark", $request->remark?($request->remark==1?2:1):1)}}
-{{Form::submit()}}
 {{Form::close()}}
 
 
