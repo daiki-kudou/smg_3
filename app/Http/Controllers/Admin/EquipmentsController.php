@@ -9,21 +9,28 @@ use App\Models\Equipment;
 
 use Illuminate\Support\Facades\DB;
 
+use App\Traits\PaginatorTrait;
+use App\Traits\SortTrait;
+
 
 class EquipmentsController extends Controller
 {
+  use PaginatorTrait;
+  use SortTrait;
+
   /**
    * Display a listing of the resource.
    *
    * @return \Illuminate\Http\Response
    */
-  public function index()
+  public function index(Request $request)
   {
-    $equipments = Equipment::orderBy('id', 'desc')->paginate(30);
+    $m_equipments = Equipment::get()->sortByDesc("id");
 
-    return view('admin.equipments.index', [
-      'equipments' => $equipments,
-    ]);
+    $sort = $this->customSort($m_equipments, $request->all()) ?? $m_equipments;
+    $equipments = $this->customPaginate($sort, 30, $request);
+
+    return view('admin.equipments.index', compact("equipments", "request"));
   }
 
   /**

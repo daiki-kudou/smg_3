@@ -27,12 +27,12 @@
 <table class="table table-bordered mt-4" id="equipments_sort">
   <thead>
     <tr class="table_row">
-      <th>ID</th>
-      <th>登録日</th>
-      <th>有料備品名</th>
-      <th>料金<span class="ml-1 annotation">※税抜</span></th>
-      <th>数量</th>
-      <th>備考</th>
+      <th id="id">ID {!!ReservationHelper::sortIcon($request->id)!!}</th>
+      <th id="created_at">登録日 {!!ReservationHelper::sortIcon($request->created_at)!!}</th>
+      <th id="item">有料備品名 {!!ReservationHelper::sortIcon($request->item)!!}</th>
+      <th id="price">料金<span class="ml-1 annotation">※税抜 </span>{!!ReservationHelper::sortIcon($request->price)!!}</th>
+      <th id="stock">数量 {!!ReservationHelper::sortIcon($request->stock)!!}</th>
+      <th id="remark">備考 {!!ReservationHelper::sortIcon($request->remark)!!}</th>
       <th class="btn-cell">編集</th>
       <th class="btn-cell">削除</th>
     </tr>
@@ -73,21 +73,37 @@
     @endforeach
   </tbody>
 </table>
-{{ $equipments->links() }}
+{{ $equipments->appends(request()->input())->links() }}
+
+
+
+{{-- 1降順　2昇順 --}}
+
+{{ Form::open(['url' => 'admin/equipments', 'method'=>'get', 'id'=>'sort_form']) }}
+@csrf
+{{Form::hidden("id", $request->id?($request->id==1?2:1):1)}}
+{{Form::hidden("created_at", $request->created_at?($request->created_at==1?2:1):1)}}
+{{Form::hidden("item", $request->item?($request->item==1?2:1):1)}}
+{{Form::hidden("price", $request->price?($request->price==1?2:1):1)}}
+{{Form::hidden("stock", $request->stock?($request->stock==1?2:1):1)}}
+{{Form::hidden("remark", $request->remark?($request->remark==1?2:1):1)}}
+{{Form::submit()}}
+{{Form::close()}}
+
 
 
 <script>
-  $(function(){
-    // $("#equipments_sort").tablesorter();
-    $('#equipments_sort').tablesorter({
-    headers: {
-      // 0: { sorter: "text"}, /// => テキストとしてソート
-      // 1: { sorter: "text"}, /// => テキストとしてソート
-      3: { sorter: "digit"} /// => 数値としてソート
-    }
-  });
+  $(document).on("click", "th", function() {
+    var click_th_id=$(this).attr("id");
+    $("#sort_form input").each(function(key, item){
+      if ($(item).attr("name")!=click_th_id) {
+        $(item).val("");
+      }
+    })
+    $("#sort_form").submit();
+    })
 
-  })
+
 
   $(function () {
   $('.del_btn').on('click', function () {
