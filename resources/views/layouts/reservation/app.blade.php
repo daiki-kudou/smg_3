@@ -169,7 +169,8 @@
     <!-- ここからheader.html -->
     <header>
       　<span class="head-login sp"><a href="{{url('user/home')}}">マイページへ</a></span>
-      <span class="head-mail sp"><a href="https://osaka-conference.com/contact/">お問合わせ</a></span>
+      {{-- <span class="head-mail sp"><a href="https://osaka-conference.com/contact/">お問合わせ</a></span> --}}
+      <span class="head-mail sp"><a href="{{url('/')}}">会場を予約する</a></span>
       <span class="btn"><span></span></span>
       <div class="contents">
         <p class="logo">
@@ -208,11 +209,11 @@
           <li><a href="https://osaka-conference.com/contact/">問い合わせ</a></li>
           <li>
             <ul class="sp formBtnBlock">
-              <li><a href="https://osaka-conference.com/contact/#book"><img
+              {{-- <li><a href="https://osaka-conference.com/contact/#book"><img
                     src="https://osaka-conference.com/img/ico_file01@2x.png" alt="仮予約">仮予約</a></li>
 
               <li><a href="https://osaka-conference.com/reservation/"><img
-                    src="https://osaka-conference.com/img/ico_form02@2x.png" alt="本申込み">本申込み</a></li>
+                    src="https://osaka-conference.com/img/ico_form02@2x.png" alt="本申込み">本申込み</a></li> --}}
             </ul>
             <div class="sp contactBlock">
               <div class="tel">

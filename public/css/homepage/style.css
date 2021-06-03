@@ -223,6 +223,16 @@ header div.contents {
     display: flex;
 }
 
+.luggage-cell {
+    display: flex;
+    align-items: center;
+}
+
+.luggage-cell input {
+    margin: 0 5px;
+}
+
+
 .form-counter {
     display: flex;
     align-items: flex-end;
@@ -598,6 +608,11 @@ form table td textarea {
 }
 
 @media screen and (max-width: 750px) {
+
+    header {
+        position: absolute;
+    }
+
     .subNavi {
         position: relative;
     }
@@ -629,11 +644,6 @@ form table td textarea {
 
     .table-box th {
         width: 100%;
-    }
-
-
-    .form-cell {
-        /* display: block; */
     }
 
     form table td .text4 {
@@ -682,10 +692,13 @@ form table td textarea {
         left: 15px;
         padding: 0;
     }
+    header nav {
+        top: 85px;
+    }
 
     .head-login {
         position: absolute;
-        right: 170px;
+        right: 190px;
         top: 48px;
         z-index: 550;
         text-align: center;
