@@ -53,12 +53,12 @@ class PreReservationsController extends Controller
       $counter = $result->count();
     } elseif (count($request->all()) != 0) {
       $class = new PreReservation;
-      $result = $this->BasicSearch($class->with(["unknown_user", "pre_enduser"]), $request);
+      $result = $this->BasicSearch($class->with(["unknown_user", "pre_enduser", "user"]), $request);
       $pre_reservations = $result[0];
       $counter = $result[1];
     } else {
-      $after = PreReservation::with(["unknown_user", "pre_enduser"])->where('multiple_reserve_id', '=', 0)->where('reserve_date', '>=', $today)->get()->sortBy('reserve_date');
-      $before = PreReservation::with(["unknown_user", "pre_enduser"])->where('multiple_reserve_id', '=', 0)->where('reserve_date', '<', $today)->get()->sortByDesc('reserve_date');
+      $after = PreReservation::with(["unknown_user", "pre_enduser", 'user'])->where('multiple_reserve_id', '=', 0)->where('reserve_date', '>=', $today)->get()->sortBy('reserve_date');
+      $before = PreReservation::with(["unknown_user", "pre_enduser", "user"])->where('multiple_reserve_id', '=', 0)->where('reserve_date', '<', $today)->get()->sortByDesc('reserve_date');
       $pre_reservations = $after->concat($before);
       $pre_reservations = $this->customPaginate($pre_reservations, 30, $request);
       $counter = 0;

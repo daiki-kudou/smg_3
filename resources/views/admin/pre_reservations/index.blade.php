@@ -146,7 +146,7 @@
       </table>
       <p class="text-left">
         ※フリーワード検索は本画面表記の項目のみ対象となります<br>
-        ※日付検索時は「2021-04-12」のように年と月と日付を-で分けてください<br>
+        <br>
         ※担当者氏名の検索時は、フルネーム時はスペース禁止
       </p>
       <div class="btn_box d-flex justify-content-center">
@@ -156,8 +156,6 @@
     </div>
     {{Form::close()}}
     <!-- 検索　終わり------------------------------------------------ -->
-
-
     <ul class="d-flex reservation_list mb-2 justify-content-between">
       <li>
         {{-- 削除ボタン --}}
@@ -210,7 +208,7 @@
         </thead>
         <tbody>
           @foreach ($pre_reservations as $pre_reservation)
-          <tr>
+          <tr style="{{$pre_reservation->user_id>0?($pre_reservation->user->attention?"background:pink;":""):""}}">
             <td class="text-center">
               <input type="checkbox" name="{{'delete_check'.$pre_reservation->id}}" value="{{$pre_reservation->id}}"
                 class="checkbox" />
