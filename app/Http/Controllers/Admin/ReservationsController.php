@@ -25,11 +25,13 @@ use App\Traits\PregTrait;
 use Illuminate\Support\Facades\Auth;
 
 use App\Traits\PaginatorTrait;
+use App\Traits\SortTrait;
 
 class ReservationsController extends Controller
 {
   use PregTrait;
   use PaginatorTrait;
+  use SortTrait;
 
   /**
    * Display a listing of the resource.
@@ -47,15 +49,19 @@ class ReservationsController extends Controller
       $m_after = $result->where('reserve_date', '>=', $today)->sortBy('reserve_date');
       $m_before = $result->where('reserve_date', '<', $today)->sortByDesc('reserve_date');
       $reservations = $this->customOrderList($m_after, $m_before);
-      $reservations = $this->customPaginate($reservations, 30, $request);
       $counter = $result->count();
     } else {
       $m_after = Reservation::with(['bills.cxl', 'user', 'agent', 'cxls.cxl_breakdowns', 'enduser', 'venue'])->where('reserve_date', '>=', $today)->get()->sortBy('reserve_date');
       $m_before = Reservation::with(['bills.cxl', 'user', 'agent', 'cxls.cxl_breakdowns', 'enduser', 'venue'])->where('reserve_date', '<', $today)->get()->sortByDesc('reserve_date');
       $reservations = $this->customOrderList($m_after, $m_before);
-      $reservations = $this->customPaginate($reservations, 90, $request);
       $counter = 0;
     }
+    // ソートのリクエストがあれば
+    $reservations = $this->customSearchAndSort($reservations, $request);
+    // 最後のページャー
+    $reservations = $this->customPaginate($reservations, 30, $request);
+
+
     $venue = Venue::all();
     $agents = Agent::all();
     return view('admin.reservations.index', compact('reservations', 'venue', 'agents', 'counter', 'request'));
@@ -100,6 +106,80 @@ class ReservationsController extends Controller
     $cxl = $after_cxl->concat($before_cxl);
     $reservations = $reservations->concat($cxl);
     return $reservations;
+  }
+
+  /**
+   * 検索の抽出結果をさらに特定の条件でソート
+   * 
+   * @param object $request
+   * @param object $model
+   * @return object
+   */
+  public function customSearchAndSort($model, $request)
+  {
+    if ($request->sort_multiple_reserve_id) {
+      if ($request->sort_multiple_reserve_id == 1) {
+        return $model->sortByDesc("multiple_reserve_id");
+      } else {
+        return $model->sortBy("multiple_reserve_id");
+      }
+    } elseif ($request->sort_id) {
+      if ($request->sort_id == 1) {
+        return $model->sortByDesc("id");
+      } else {
+        return $model->sortBy("id");
+      }
+    } elseif ($request->sort_reserve_date) {
+      if ($request->sort_reserve_date == 1) {
+        return $model->sortByDesc("reserve_date");
+      } else {
+        return $model->sortBy("reserve_date");
+      }
+    } elseif ($request->sort_enter_time) {
+      if ($request->sort_enter_time == 1) {
+        return $model->sortByDesc("enter_time");
+      } else {
+        return $model->sortBy("enter_time");
+      }
+    } elseif ($request->sort_leave_time) {
+      if ($request->sort_leave_time == 1) {
+        return $model->sortByDesc("leave_time");
+      } else {
+        return $model->sortBy("leave_time");
+      }
+    } elseif ($request->sort_venue) {
+      if ($request->sort_venue == 1) {
+        return $model->sortByDesc("venue.name_bldg");
+      } else {
+        return $model->sortBy("venue.name_bldg");
+      }
+    } elseif ($request->sort_user_company) {
+      if ($request->sort_user_company == 1) {
+        return $model->sortByDesc("user.company");
+      } else {
+        return $model->sortBy("user.company");
+      }
+    } elseif ($request->sort_user_name) {
+      if ($request->sort_user_name == 1) {
+        return $model->sortByDesc("user.first_name_kana");
+      } else {
+        return $model->sortBy("user.first_name_kana");
+      }
+    } elseif ($request->sort_user_mobile) {
+      if ($request->sort_user_mobile == 1) {
+        return $model->sortByDesc("user.mobile");
+      } else {
+        return $model->sortBy("user.mobile");
+      }
+    } elseif ($request->sort_user_tel) {
+      if ($request->sort_user_tel == 1) {
+        return $model->sortByDesc("user.tel");
+      } else {
+        return $model->sortBy("user.tel");
+      }
+    }
+
+    return $model;
   }
 
   /** ajax 備品orサービス取得*/

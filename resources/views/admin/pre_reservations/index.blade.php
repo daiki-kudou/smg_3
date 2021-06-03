@@ -222,11 +222,23 @@
             <td>{{ReservationHelper::formatTime($pre_reservation->leave_time)}}</td>
             <td>{{ReservationHelper::getVenue($pre_reservation->venue_id)}}</td>
             <td>{{$pre_reservation->user_id>0?ReservationHelper::getCompany($pre_reservation->user_id):""}}</td>
-
-            <td>{{ReservationHelper::checkAgentOrUserName($pre_reservation->user_id, $pre_reservation->agent_id)}}</td>
-            <td>{{ReservationHelper::checkAgentOrUserMobile($pre_reservation->user_id, $pre_reservation->agent_id)}}
+            <td>
+              @if ($pre_reservation->user_id>0)
+              {{ReservationHelper::getPersonName($pre_reservation->user_id)}}
+              @endif
             </td>
-            <td>{{ReservationHelper::checkAgentOrUserTel($pre_reservation->user_id, $pre_reservation->agent_id)}}</td>
+            <td>
+              @if ($pre_reservation->user_id>0)
+              {{ReservationHelper::getPersonMobile($pre_reservation->user_id)}}
+              @endif
+            </td>
+            <td>
+              {{-- {{ReservationHelper::checkAgentOrUserTel($pre_reservation->user_id, $pre_reservation->agent_id)}}
+              --}}
+              @if ($pre_reservation->user_id>0)
+              {{ReservationHelper::getPersonTel($pre_reservation->user_id)}}
+              @endif
+            </td>
             <td>{{!empty($pre_reservation->unknown_user)?$pre_reservation->unknown_user->unknown_user_company:""}}</td>
             <td>
               {{$pre_reservation->agent_id==0?"":(ReservationHelper::getAgentCompanyName($pre_reservation->agent_id))}}
@@ -243,14 +255,17 @@
       </table>
     </div>
   </div>
-
+  {{-- 
   @if ($counter)
   {{ $pre_reservations->appends(request()->input())->appends(['counter'=>$counter])->links() }}
   @elseif($request->counter)
   {{ $pre_reservations->appends(request()->input())->appends(['counter'=>$request->counter])->links() }}
   @else
   {{ $pre_reservations->links() }}
-  @endif
+  @endif --}}
+
+
+  {{$pre_reservations->appends(request()->input())->links()}}
 
 
 
