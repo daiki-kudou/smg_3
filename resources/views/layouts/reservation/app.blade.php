@@ -105,10 +105,6 @@
   </script>
   <script src="https://osaka-conference.com/js/search.js"></script>
   <script src="https://osaka-conference.com/js/searchTpl.js"></script>
-
-
-
-
   <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1/jquery-ui.min.js"></script>
   <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1/i18n/jquery.ui.datepicker-ja.min.js"></script>
   <script src="https://osaka-conference.com/js/jquery.validationEngine-ja.js"></script>
@@ -172,8 +168,8 @@
 
     <!-- ここからheader.html -->
     <header>
-      　<span class="head-login sp"><a href="">ログイン</a></span>
-      <span class="head-mail sp"><a href="https://osaka-conference.com/contact/">問合せ</a></span>
+      　<span class="head-login sp"><a href="{{url('user/home')}}">マイページへ</a></span>
+      <span class="head-mail sp"><a href="https://osaka-conference.com/contact/">お問合わせ</a></span>
       <span class="btn"><span></span></span>
       <div class="contents">
         <p class="logo">
