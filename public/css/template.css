@@ -1775,6 +1775,10 @@ table .master_total_subttl2 {
     margin-left: auto;
 }
 
+.result_sum .form-control {
+    text-align: right;
+}
+
 .user_wrapper .venue_result td, .user_wrapper .equipment_result td,
 .user_wrapper .layout_result td, .user_wrapper .layouts_result td,
 .user_wrapper .others_result td {

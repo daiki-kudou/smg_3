@@ -562,7 +562,7 @@
             </tr>
             <tr>
               <td class="table-active">
-                <label for="ondayName" class=" form_required">氏名</label>
+                <label for="ondayName" class="">氏名</label>
               </td>
               <td>
                 {{ Form::text('in_charge', $request->in_charge,['class'=>'form-control'] ) }}
@@ -570,7 +570,7 @@
               </td>
             </tr>
             <tr>
-              <td class="table-active"><label for="mobilePhone" class=" form_required">携帯番号</label></td>
+              <td class="table-active"><label for="mobilePhone" class="">携帯番号</label></td>
               <td>
                 {{ Form::text('tel', $request->tel,['class'=>'form-control','placeholder' => '半角数字、ハイフンなしで入力してください'] ) }}
                 <p class="is-error-tel" style="color: red"></p>
