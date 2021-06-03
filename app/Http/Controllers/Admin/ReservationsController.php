@@ -51,8 +51,8 @@ class ReservationsController extends Controller
       $reservations = $this->customOrderList($m_after, $m_before);
       $counter = $result->count();
     } else {
-      $m_after = Reservation::with(['bills.cxl', 'user', 'agent', 'cxls.cxl_breakdowns', 'enduser', 'venue'])->where('reserve_date', '>=', $today)->get()->sortBy('reserve_date');
-      $m_before = Reservation::with(['bills.cxl', 'user', 'agent', 'cxls.cxl_breakdowns', 'enduser', 'venue'])->where('reserve_date', '<', $today)->get()->sortByDesc('reserve_date');
+      $m_after = Reservation::with(['bills.cxl', 'user', 'agent', 'cxls.cxl_breakdowns', 'endusers', 'venue'])->where('reserve_date', '>=', $today)->get()->sortBy('reserve_date');
+      $m_before = Reservation::with(['bills.cxl', 'user', 'agent', 'cxls.cxl_breakdowns', 'endusers', 'venue'])->where('reserve_date', '<', $today)->get()->sortByDesc('reserve_date');
       $reservations = $this->customOrderList($m_after, $m_before);
       $counter = 0;
     }
@@ -176,6 +176,18 @@ class ReservationsController extends Controller
         return $model->sortByDesc("user.tel");
       } else {
         return $model->sortBy("user.tel");
+      }
+    } elseif ($request->sort_agent) {
+      if ($request->sort_agent == 1) {
+        return $model->sortByDesc("agent.company");
+      } else {
+        return $model->sortBy("agent.company");
+      }
+    } elseif ($request->sort_enduser) {
+      if ($request->sort_enduser == 1) {
+        return $model->sortByDesc("endusers.company");
+      } else {
+        return $model->sortBy("endusers.company");
       }
     }
 
