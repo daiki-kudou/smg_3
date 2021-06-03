@@ -1396,6 +1396,7 @@ h3 {
 .others_head td {
     font-weight: bold;
     padding-left: 1.5em;
+    border-right: solid 1px #dee2e6 !important;
 }
 
 .venue_main td,
@@ -1403,7 +1404,24 @@ h3 {
 .layout_main td,
 .others_main td {
     padding-left: 1.5em;
+    border-right: solid 1px #dee2e6 !important;
 }
+
+[class^="venue_main"] td:nth-of-type(n+2) .form-control,
+[class^="equipment_main"] td:nth-of-type(n+2) .form-control,
+[class^="layout_main"] td:nth-of-type(n+2) .form-control,
+[class^="others_main"] td:nth-of-type(n+2) .form-control {
+    text-align: right;
+}
+
+.venue_main td:nth-of-type(n+2),
+.equipment_main td:nth-of-type(n+2),
+.layout_main td:nth-of-type(n+2),
+.others_main td:nth-of-type(n+2) {
+    text-align: right;
+}
+
+
 .venue_main td:last-child,
 .equipment_main td:last-child,
 .layout_main td:last-child,
@@ -1450,6 +1468,13 @@ h3 {
     padding-bottom: 1em;
     padding-right: 1.5em;
     padding-left: 1.5em;
+    text-align: right;
+}
+
+[class^="venue_result"] td:nth-of-type(n+2) .form-control,
+[class^="equipment_result"] td:nth-of-type(n+2) .form-control,
+[class^="layout_result"] td:nth-of-type(n+2) .form-control,
+[class^="others_result"] td:nth-of-type(n+2) .form-control{
     text-align: right;
 }
 
@@ -1748,6 +1773,10 @@ table .master_total_subttl2 {
 .result_sum {
     width: 25%;
     margin-left: auto;
+}
+
+.result_sum .form-control {
+    text-align: right;
 }
 
 .user_wrapper .venue_result td, .user_wrapper .equipment_result td,

@@ -105,10 +105,6 @@
   </script>
   <script src="https://osaka-conference.com/js/search.js"></script>
   <script src="https://osaka-conference.com/js/searchTpl.js"></script>
-
-
-
-
   <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1/jquery-ui.min.js"></script>
   <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1/i18n/jquery.ui.datepicker-ja.min.js"></script>
   <script src="https://osaka-conference.com/js/jquery.validationEngine-ja.js"></script>
@@ -172,8 +168,9 @@
 
     <!-- ここからheader.html -->
     <header>
-      　<span class="head-login sp"><a href="">ログイン</a></span>
-      <span class="head-mail sp"><a href="https://osaka-conference.com/contact/">問合せ</a></span>
+      　<span class="head-login sp"><a href="{{url('user/home')}}">マイページへ</a></span>
+      {{-- <span class="head-mail sp"><a href="https://osaka-conference.com/contact/">お問合わせ</a></span> --}}
+      <span class="head-mail sp"><a href="{{url('/')}}">会場を予約する</a></span>
       <span class="btn"><span></span></span>
       <div class="contents">
         <p class="logo">
@@ -193,9 +190,7 @@
           <a class="cart_area" href="{{url('user/reservations/cart')}}">
             <p>
               <i class="fas fa-clipboard-list cart_btn"></i>
-              {{-- <i class="fas fa-cart-arrow-down cart_btn"></i> --}}
               <span>予約一覧へ</span></p>
-            {{-- <p>保存している会場</p> --}}
           </a>
         </div>
       </div>
@@ -214,11 +209,11 @@
           <li><a href="https://osaka-conference.com/contact/">問い合わせ</a></li>
           <li>
             <ul class="sp formBtnBlock">
-              <li><a href="https://osaka-conference.com/contact/#book"><img
+              {{-- <li><a href="https://osaka-conference.com/contact/#book"><img
                     src="https://osaka-conference.com/img/ico_file01@2x.png" alt="仮予約">仮予約</a></li>
 
               <li><a href="https://osaka-conference.com/reservation/"><img
-                    src="https://osaka-conference.com/img/ico_form02@2x.png" alt="本申込み">本申込み</a></li>
+                    src="https://osaka-conference.com/img/ico_form02@2x.png" alt="本申込み">本申込み</a></li> --}}
             </ul>
             <div class="sp contactBlock">
               <div class="tel">
@@ -244,6 +239,11 @@
           <li><a href="https://osaka-conference.com/characteristic/">8つの特徴</a></li>
           <li><a href="https://osaka-conference.com/reservation/">本申込み</a></li>
         </ul>
+        <a class="cart_area" href="{{url('user/reservations/cart')}}">
+          <p>
+            <i class="fas fa-clipboard-list cart_btn"></i>
+            <span>予約一覧へ</span></p>
+        </a>
       </div>
       <ul class="tagBtn sticky">
         <li><a class="contact_btn" href="https://osaka-conference.com/contact/" target="_blank">お問合わせ</a></li>

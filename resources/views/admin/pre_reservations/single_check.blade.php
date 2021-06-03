@@ -2,6 +2,7 @@
 @section('content')
 <script src="{{ asset('/js/template.js') }}"></script>
 <script src="{{ asset('/js/admin/validation.js') }}"></script>
+<script src="{{ asset('/js/lettercounter.js') }}"></script>
 <link href="{{ asset('/css/template.css') }}" rel="stylesheet">
 
 <div class="container-field mt-3">
@@ -506,14 +507,14 @@
                 </td>
               </tr>
               <tr>
-                <td class="table-active"><label for="ondayName" class=" form_required">氏名</label></td>
+                <td class="table-active"><label for="ondayName" class="">氏名</label></td>
                 <td>
                   {{ Form::text('in_charge', '',['class'=>'form-control'] ) }}
                   <p class="is-error-in_charge" style="color: red"></p>
                 </td>
               </tr>
               <tr>
-                <td class="table-active"><label for="mobilePhone" class=" form_required">携帯番号</label></td>
+                <td class="table-active"><label for="mobilePhone" class="">携帯番号</label></td>
                 <td>
                   {{ Form::text('tel', '',['class'=>'form-control','placeholder' => '半角数字、ハイフンなしで入力してください'] ) }}
                   <p class="is-error-tel" style="color: red"></p>

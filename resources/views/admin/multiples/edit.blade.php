@@ -2,6 +2,7 @@
 @section('content')
 <link href="{{ asset('/css/template.css') }}" rel="stylesheet">
 <script src="{{ asset('/js/template.js') }}"></script>
+<script src="{{ asset('/js/lettercounter.js') }}"></script>
 <script src="{{ asset('/js/multiples/calculate.js') }}"></script>
 <script src="{{ asset('/js/admin/validation.js') }}"></script>
 
@@ -1445,6 +1446,7 @@
               </div>
             </div>
           </section>
+            <p class="more_btn_lg m-5 accordion-innbtn text-center">閉じる</p>
         </dt>
       </dl>
     </div>
@@ -1473,15 +1475,15 @@
     <tbody class="master_total_body">
       <tr>
         <td>・会場料</td>
-        <td>{{$multiple->sumVenues($venue->id)}}円</td>
+        <td>{{number_format($multiple->sumVenues($venue->id))}}円</td>
       </tr>
       <tr>
         <td>・有料備品　サービス</td>
-        <td>{{$multiple->sumEquips($venue->id)}}円</td>
+        <td>{{number_format($multiple->sumEquips($venue->id))}}円</td>
       </tr>
       <tr>
         <td>・レイアウト変更料</td>
-        <td>{{$multiple->sumLayouts($venue->id)}}円</td>
+        <td>{{number_format($multiple->sumLayouts($venue->id))}}円</td>
       </tr>
     </tbody>
     <tbody class="master_total_bottom">
@@ -1489,21 +1491,21 @@
         <td></td>
         <td class="d-flex justify-content-end" colspan="2">
           <p>小計：</p>
-          <p>{{$multiple->sumMasterSubs($venue->id)}}円</p>
+          <p>{{number_format($multiple->sumMasterSubs($venue->id))}}円</p>
         </td>
       </tr>
       <tr>
         <td></td>
         <td class="d-flex justify-content-end" colspan="2">
           <p>消費税：</p>
-          <p>{{$multiple->sumMasterTax($venue->id)}}円</p>
+          <p>{{number_format($multiple->sumMasterTax($venue->id))}}円</p>
         </td>
       </tr>
       <tr>
         <td></td>
         <td class="d-flex justify-content-end" colspan="2">
           <p>合計金額：</p>
-          <p>{{$multiple->sumMasterTotal($venue->id)}}円</p>
+          <p>{{number_format($multiple->sumMasterTotal($venue->id))}}円</p>
         </td>
       </tr>
     </tbody>
