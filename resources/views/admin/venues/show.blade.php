@@ -36,7 +36,7 @@
     <tbody>
       <tr>
         <th class="table-active w-25"> <label for="smg_url">会場SMG URL</label></th>
-        <td class="word_break">{{$venue->smg_url}}</td>
+        <td class="word_break"> <a href="{{$venue->smg_url}}" target="_blank">{{$venue->smg_url}}</a></td>
       </tr>
     </tbody>
   </table>

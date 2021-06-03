@@ -578,4 +578,10 @@
     @include('layouts.admin.loading')
   </div>
   {{ Form::close() }}
+
+  <script>
+    $('input[name="post_code"]').on('blur',function(){
+      $('input[name="address1"]').click();
+    })
+  </script>
   @endsection

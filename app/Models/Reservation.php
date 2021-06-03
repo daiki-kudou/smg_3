@@ -580,7 +580,7 @@ class Reservation extends Model implements PresentableInterface
 
   public function search_item($request)
   {
-    $class = $this->with(['bills.cxl', 'user', 'agent', 'cxls.cxl_breakdowns', 'enduser', 'venue'])
+    $class = $this->with(['bills.cxl', 'user', 'agent', 'cxls.cxl_breakdowns', 'endusers', 'venue'])
       ->where(function ($query) use ($request) {
         if ($request->multiple_id) {
           $query->where("multiple_reserve_id", 'LIKE', "%{$request->company}%");
@@ -696,8 +696,6 @@ class Reservation extends Model implements PresentableInterface
             }
           });
         }
-
-
 
         // 前日予約
         if ($request->day_before) {

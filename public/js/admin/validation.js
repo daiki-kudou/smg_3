@@ -1034,10 +1034,10 @@ $(function () {
         payment: { number: "※半角数字を入力してください" },
       },
 
-      errorPlacement: function(error, element){
+      errorPlacement: function (error, element) {
         // data-error_placementで指定された要素に追加
         error.appendTo(element.data('error_placement'));
-    },
+      },
 
 
       // errorPlacement: function (error, element) {
@@ -1364,7 +1364,7 @@ $(function () {
       mgmt_emer_tel: { number: true },
       mgmt_person_tel: { number: true },
       mgmt_sec_tel: { number: true },
-      cost: { required:true, range: [1, 100], maxlength: 3 },
+      cost: { required: true, range: [1, 100], maxlength: 3 },
       reserver_tel: { number: true },
     },
     messages: {
@@ -1433,9 +1433,10 @@ $(function () {
       form.submit();
     },
   });
-  $("input").on("blur", function () {
+  $("input").on("click blur change", function () {
     $(this).valid();
   });
+
   // https://qiita.com/konnma/items/eb26651576e625b72805
   $(document).on("change", "#layout", function () {
     if ($('select[name="layout"] option:selected').val() == 1) {
@@ -1550,7 +1551,7 @@ $(function () {
       mgmt_email: {
         email: true,
       },
-      cost: { required:true, range: [1, 100], maxlength: 3 },
+      cost: { required: true, range: [1, 100], maxlength: 3 },
       layout_prepare: {
         required: $("#layout").val() == 1,
       },
