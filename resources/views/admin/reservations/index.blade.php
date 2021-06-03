@@ -59,7 +59,6 @@
             <td class="text-right form-group">
               {{ Form::text('reserve_date', $request->reserve_date, ['class' => 'form-control', 'id'=>'']) }}
             </td>
-
             <th class="search_item_name"><label for="time">入室・退室</label></th>
             <td class="text-right">
               <div class="d-flex align-items-center">
@@ -253,6 +252,8 @@
       {{Form::hidden("sort_user_name", $request->sort_user_name?($request->sort_user_name==1?2:1):1)}}
       {{Form::hidden("sort_user_mobile", $request->sort_user_mobile?($request->sort_user_mobile==1?2:1):1)}}
       {{Form::hidden("sort_user_tel", $request->sort_user_tel?($request->sort_user_tel==1?2:1):1)}}
+      {{Form::hidden("sort_agent", $request->sort_agent?($request->sort_agent==1?2:1):1)}}
+      {{Form::hidden("sort_enduser", $request->sort_enduser?($request->sort_enduser==1?2:1):1)}}
       {{-- ソート用hidden --}}
       {{ Form::close() }}
 
@@ -279,8 +280,8 @@
             <th id="sort_user_name">担当者氏名 {!!ReservationHelper::sortIcon($request->sort_user_name)!!}</th>
             <th id="sort_user_mobile">携帯電話 {!!ReservationHelper::sortIcon($request->sort_user_mobile)!!}</th>
             <th id="sort_user_tel">固定電話 {!!ReservationHelper::sortIcon($request->sort_user_tel)!!}</th>
-            <th>仲介会社</th>
-            <th>エンドユーザー</th>
+            <th id="sort_agent">仲介会社 {!!ReservationHelper::sortIcon($request->sort_agent)!!}</th>
+            <th id="sort_enduser">エンドユーザー {!!ReservationHelper::sortIcon($request->sort_enduser)!!}</th>
             <th>アイコン</th>
             <th width="120">売上区分</th>
             <th width="120">予約状況</th>
