@@ -70,7 +70,8 @@
             </td>
             <td colspan="2">
               <input class="form-control" onkeyup="AjaxZip3.zip2addr(this,'','address1','address2');" autocomplete="off"
-                name="post_code" type="text" value="{{$agent->post_code}}" id="post_code">
+                name="post_code" type="text" value="{{$agent->post_code}}" id="post_code" onpaste="return false"
+                oncontextmenu="return false">
               <p class="is-error-post_code" style="color: red"></p>
             </td>
           </tr>
