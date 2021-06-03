@@ -1108,9 +1108,6 @@
             </section>
         @endforeach
 
-
-
-
         <!-- 合計請求額------------------------------------------------------------------- -->
         @if ($reservation->user_id > 0)
             @include('admin.reservations.show.user.total')
