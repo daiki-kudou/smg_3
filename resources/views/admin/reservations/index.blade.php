@@ -433,6 +433,9 @@
       $('input[type="text"]').each(function($key,$value){
         $($value).val('');
       })
+      $('input[name^="sort_"]').each(function($key,$value){
+        $($value).val('');
+      })
     })
   })
 

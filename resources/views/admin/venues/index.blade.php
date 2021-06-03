@@ -59,7 +59,7 @@
         </tr>
         @else
         <tr role="row" class="even">
-          <td class="sorting_1">{{ ReservationHelper::IdFormat($venue->id)}}</td>
+          <td class="sorting_1">{{ ReservationHelper::fixId($venue->id)}}</td>
           <td>{{ ReservationHelper::formatDate($venue->created_at)}}</td>
           <td class="text-center">{{$venue->alliance_flag==0?'直':'提'}}</td>
           <td>{{ $venue->name_bldg }}{{ $venue->name_venue }}</td>

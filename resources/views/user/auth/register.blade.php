@@ -172,7 +172,7 @@
                 <p>メイ</p>
                 {{ Form::text('last_name_kana', $session['last_name_kana']??old('last_name_kana'), ['class' => 'form-control text1', 'id' => 'lastkana_nam', 'placeholder' => '入力してください']) }}
                 <br class="spOnlyunder">
-                 <p class="is-error-last_name_kana" style="color: red"></p>
+                <p class="is-error-last_name_kana" style="color: red"></p>
               </div>
             </li>
           </ul>
@@ -184,8 +184,8 @@
           <p class="postal-p">〒</p>
           <input onKeyUp="AjaxZip3.zip2addr(this,&#039;&#039;,&#039;address1&#039;,&#039;address2&#039;);"
             autocomplete="off" name="post_code" type="text" value="{{ $session['post_code']??old('post_code') }}"
-            id="post_code">
-            <p class="is-error-post_code" style="color: red"></p>
+            id="post_code" onpaste="return false" oncontextmenu="return false">
+          <p class="is-error-post_code" style="color: red"></p>
 
         </td>
       </tr>
@@ -252,7 +252,7 @@
         <td>
           {{-- <input name="fax1" id="fax1" class="text2" type="tel"> --}}
           {{ Form::text('fax', $session['fax']??old('fax'), ['class' => 'form-control text2', 'id' => 'fax', 'placeholder' => '入力してください']) }}
-           <p class="is-error-fax" style="color: red"></p>
+          <p class="is-error-fax" style="color: red"></p>
           <p>※半角数字、ハイフンなしで入力してください。</p>
         </td>
       </tr>

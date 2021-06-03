@@ -48,7 +48,7 @@
   <tbody>
     <tr>
       <td>{{ ReservationHelper::fixId($service->id) }}</td>
-      <td>{{ ($service->created_at) }}</td>
+      <td>{{ ReservationHelper::formatDate($service->created_at) }}</td>
       <td>
         {{ Form::text('item', $service->item, ['class' => 'form-control']) }}
         <p class="is-error-item" style="color: red"></p>

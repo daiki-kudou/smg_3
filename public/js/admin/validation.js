@@ -1034,10 +1034,10 @@ $(function () {
         payment: { number: "※半角数字を入力してください" },
       },
 
-      errorPlacement: function(error, element){
+      errorPlacement: function (error, element) {
         // data-error_placementで指定された要素に追加
         error.appendTo(element.data('error_placement'));
-    },
+      },
 
 
       // errorPlacement: function (error, element) {
@@ -1347,7 +1347,7 @@ $(function () {
       size1: { required: true, number: true, min: 0, max: 1000 },
       size2: { required: true, number: true, min: 0, max: 1000 },
       capacity: { required: true },
-      post_code: { required: true, maxlength: 7, number: true },
+      post_code: { required: true, maxlength: 7, minlength: 7, number: true },
       address1: { required: true },
       address2: { required: true },
       address3: { required: true },
@@ -1364,7 +1364,7 @@ $(function () {
       mgmt_emer_tel: { number: true },
       mgmt_person_tel: { number: true },
       mgmt_sec_tel: { number: true },
-      cost: { required:true, range: [1, 100], maxlength: 3 },
+      cost: { required: true, range: [1, 100], maxlength: 3 },
       reserver_tel: { number: true },
     },
     messages: {
@@ -1389,6 +1389,7 @@ $(function () {
         required: "※必須項目です",
         maxlength: "７桁で入力してください",
         number: "※半角数字で入力してください",
+        minlength: "７桁で入力してください",
       },
       address1: { required: "※必須項目です" },
       address2: { required: "※必須項目です" },
@@ -1433,9 +1434,10 @@ $(function () {
       form.submit();
     },
   });
-  $("input").on("blur", function () {
+  $("input").on("click blur change", function () {
     $(this).valid();
   });
+
   // https://qiita.com/konnma/items/eb26651576e625b72805
   $(document).on("change", "#layout", function () {
     if ($('select[name="layout"] option:selected').val() == 1) {
@@ -1550,7 +1552,7 @@ $(function () {
       mgmt_email: {
         email: true,
       },
-      cost: { required:true, range: [1, 100], maxlength: 3 },
+      cost: { required: true, range: [1, 100], maxlength: 3 },
       layout_prepare: {
         required: $("#layout").val() == 1,
       },

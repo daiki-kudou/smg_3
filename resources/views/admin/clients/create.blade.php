@@ -64,6 +64,8 @@
                                 'class' => 'form-control',
                                 'onKeyUp'=>"AjaxZip3.zip2addr(this,'','address1','address2');",
                                 'autocomplete'=>'off',
+                                'onpaste'=>"return false",
+                                'oncontextmenu'=>"return false" 
                                 ]) }}
               <p class="is-error-post_code" style="color: red"></p>
             </td>

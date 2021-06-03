@@ -135,13 +135,15 @@
               </td>
             </tr>
             <tr>
-              <td class="table-active"><label for="post_code" class="form_required">郵便番号</label></td>
+              <td class="table-active"><label for="post_code" class="form_required">郵便番号</label><br>※コピー＆ペースト不可</td>
               <td>
                 {{ Form::text('post_code', old('post_code'), [
                   'class' => 'form-control',
                   'onKeyUp'=>"AjaxZip3.zip2addr(this,'','address1','address2');",
                   'autocomplete'=>'off',
-                  'placeholder' => '半角英数字で入力してください'
+                  'placeholder' => '半角英数字で入力してください',
+                  'onpaste'=>"return false",
+                  'oncontextmenu'=>"return false" 
                   ]) }}
                 <p class="is-error-post_code" style="color: red"></p>
               </td>
@@ -578,4 +580,6 @@
     @include('layouts.admin.loading')
   </div>
   {{ Form::close() }}
+
+
   @endsection

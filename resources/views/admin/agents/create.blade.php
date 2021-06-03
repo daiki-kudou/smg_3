@@ -74,7 +74,8 @@
                 <td class="table-active"><label for="post_code">郵便番号</label></td>
                 <td colspan="2">
                   <input class="search_address1 form-control" type="text" name="post_code" maxlength="8"
-                    onKeyUp="AjaxZip3.zip2addr(this,'','address1','address2');">
+                    onKeyUp="AjaxZip3.zip2addr(this,'','address1','address2');" onpaste="return false"
+                    oncontextmenu="return false">
                   <p class="is-error-post_code" style="color: red"></p>
                 </td>
               </tr>
