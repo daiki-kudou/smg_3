@@ -349,7 +349,7 @@ class ReservationsController extends Controller
     $request->session()->forget('master_info'); //予約作成TOPに来るとsession初期化
     $request->session()->forget('calc_info'); //予約作成TOPに来るとsession初期化
     $request->session()->forget('discount_info'); //予約作成TOPに来るとsession初期化
-    $venues = Venue::select('name_area', 'name_bldg', 'name_venue', 'id')->get();
+    $venues = Venue::all();
     $users = User::all();
     $target = $request->all_requests;
     $target = json_decode($target);
