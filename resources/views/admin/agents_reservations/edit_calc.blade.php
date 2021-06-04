@@ -230,18 +230,44 @@
   @endslot
 
   {{-- スロット --}}
-  @slot('luggage_count')
-  {{ Form::text('luggage_count', $inputs['luggage_count'],['class'=>'form-control'] ) }}
-  @endslot
-
-  {{-- スロット --}}
-  @slot('luggage_arrive')
-  {{ Form::text('luggage_arrive', $inputs['luggage_arrive'],['class'=>'form-control limited_datepicker'] ) }}
-  @endslot
-
-  {{-- スロット --}}
-  @slot('luggage_return')
-  {{ Form::text('luggage_return', $inputs['luggage_return'],['class'=>'form-control'] ) }}
+  @slot('m_luggage')
+  @if ($reservation->venue->luggage_flag!=0)
+  <div class='luggage'>
+    <table class='table table-bordered' style="table-layout:fixed;">
+      <thead>
+        <tr>
+          <th colspan='2'>
+            <p class="title-icon">
+              <i class="fas fa-suitcase-rolling icon-size fa-fw"></i>荷物預り
+            </p>
+          </th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td class="table-active">事前に預かる荷物<br>（個数）</td>
+          <td>
+            {{ Form::text('luggage_count', $reservation->luggage_count,['class'=>'form-control'] ) }}
+            <p class="is-error-luggage_count" style="color: red"></p>
+          </td>
+        </tr>
+        <tr>
+          <td class="table-active">事前荷物の到着日<br>午前指定のみ</td>
+          <td>
+            {{ Form::text('luggage_arrive', $reservation->luggage_arrive,['class'=>'form-control limited_datepicker'] ) }}
+          </td>
+        </tr>
+        <tr>
+          <td class="table-active">事後返送する荷物</td>
+          <td>
+            {{ Form::text('luggage_return', $reservation->luggage_return,['class'=>'form-control'] ) }}
+            <p class="is-error-luggage_return" style="color: red"></p>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  @endif
   @endslot
 
   {{-- スロット --}}
@@ -373,7 +399,7 @@
 
   {{-- スロット --}}
   @slot('layout_breakdown_loop')
-  @if ($inputs['layout_prepare']!=0)
+  @if (!empty($inputs['layout_prepare']))
   <tr>
     <td>{{ Form::text('layout_prepare_item', "レイアウト準備料金",['class'=>'form-control', 'readonly'] ) }}</td>
     <td>
@@ -385,7 +411,7 @@
     </td>
   </tr>
   @endif
-  @if ($inputs['layout_clean']!=0)
+  @if (!empty($inputs['layout_clean']))
   <tr>
     <td>{{ Form::text('layout_clean_item', "レイアウト片付料金",['class'=>'form-control', 'readonly'] ) }}</td>
     <td>
@@ -402,7 +428,7 @@
 
   {{-- スロット --}}
   @slot('layout_price')
-  {{ Form::text('layout_price',$layoutPrice[2] ,['class'=>'form-control', 'readonly'] ) }}
+  {{ Form::text('layout_price',$layoutPrice[2]??null ,['class'=>'form-control', 'readonly'] ) }}
   @endslot
 
   {{-- スロット --}}

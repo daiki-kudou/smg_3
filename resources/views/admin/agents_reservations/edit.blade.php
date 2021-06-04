@@ -253,107 +253,148 @@
 
   {{-- スロット --}}
   @slot('m_layout_loop')
-  @if ($reservation->venue->layout_prepare)
-  <tr>
-    <td class="table-active">準備</td>
-    <td>
-      <div class="radio-box">
-        @if ($reservation->bills->first()->breakdowns->count()!=0)
-        @foreach ($reservation->bills->first()->breakdowns as $key=>$l_break)
-        @if ($l_break->unit_item=="レイアウト準備料金")
-        <p>
-          {{Form::radio('layout_prepare', 1, true, ['id' => 'layout_prepare'])}}
-          {{Form::label('layout_prepare',"有り")}}
-        </p>
-        <p>
-          {{Form::radio('layout_prepare', 0, false, ['id' => 'no_layout_prepare'])}}
-          {{Form::label('no_layout_prepare',"無し")}}
-        </p>
-        @break
-        @elseif($loop->last)
-        <p>
-          {{Form::radio('layout_prepare', 1, false, ['id' => 'layout_prepare'])}}
-          {{Form::label('layout_prepare',"有り")}}
-        </p>
-        <p>
-          {{Form::radio('layout_prepare', 0, true, ['id' => 'no_layout_prepare'])}}
-          {{Form::label('no_layout_prepare',"無し")}}
-        </p>
+  @if ($reservation->venue->layout!=0)
+  <div class='layouts'>
+    <table class='table table-bordered' style="table-layout:fixed;">
+      <thead>
+        <tr>
+          <th colspan='2'>
+            <p class="title-icon py-1">
+              <i class="fas fa-th icon-size fa-fw"></i>レイアウト
+            </p>
+          </th>
+        </tr>
+      </thead>
+      <tbody>
+        @if ($reservation->venue->layout_prepare)
+        <tr>
+          <td class="table-active">準備</td>
+          <td>
+            <div class="radio-box">
+              @if ($reservation->bills->first()->breakdowns->count()!=0)
+              @foreach ($reservation->bills->first()->breakdowns as $key=>$l_break)
+              @if ($l_break->unit_item=="レイアウト準備料金")
+              <p>
+                {{Form::radio('layout_prepare', 1, true, ['id' => 'layout_prepare'])}}
+                {{Form::label('layout_prepare',"有り")}}
+              </p>
+              <p>
+                {{Form::radio('layout_prepare', 0, false, ['id' => 'no_layout_prepare'])}}
+                {{Form::label('no_layout_prepare',"無し")}}
+              </p>
+              @break
+              @elseif($loop->last)
+              <p>
+                {{Form::radio('layout_prepare', 1, false, ['id' => 'layout_prepare'])}}
+                {{Form::label('layout_prepare',"有り")}}
+              </p>
+              <p>
+                {{Form::radio('layout_prepare', 0, true, ['id' => 'no_layout_prepare'])}}
+                {{Form::label('no_layout_prepare',"無し")}}
+              </p>
+              @endif
+              @endforeach
+              @else
+              <p>
+                {{Form::radio('layout_prepare', 1, false, ['id' => 'layout_prepare'])}}
+                {{Form::label('layout_prepare',"有り")}}
+              </p>
+              <p>
+                {{Form::radio('layout_prepare', 0, true, ['id' => 'no_layout_prepare'])}}
+                {{Form::label('no_layout_prepare',"無し")}}
+              </p>
+              @endif
+            </div>
+          </td>
+        </tr>
         @endif
-        @endforeach
-        @else
-        <p>
-          {{Form::radio('layout_prepare', 1, false, ['id' => 'layout_prepare'])}}
-          {{Form::label('layout_prepare',"有り")}}
-        </p>
-        <p>
-          {{Form::radio('layout_prepare', 0, true, ['id' => 'no_layout_prepare'])}}
-          {{Form::label('no_layout_prepare',"無し")}}
-        </p>
+        @if ($reservation->venue->layout_clean)
+        <tr>
+          <td class="table-active">準備</td>
+          <td>
+            <div class="radio-box">
+              @if ($reservation->bills->first()->breakdowns->count()!=0)
+              @foreach ($reservation->bills->first()->breakdowns as $key=>$lc_break)
+              @if ($lc_break->unit_item=="レイアウト片付料金")
+              <p>
+                {{Form::radio('layout_clean', 1, true, ['id' => 'layout_clean'])}}
+                {{Form::label('layout_clean',"有り")}}
+              </p>
+              <p>
+                {{Form::radio('layout_clean', 0, false, ['id' => 'no_layout_clean'])}}
+                {{Form::label('no_layout_clean',"無し")}}
+              </p>
+              @break
+              @elseif($loop->last)
+              <p>
+                {{Form::radio('layout_clean', 1, false, ['id' => 'layout_clean'])}}
+                {{Form::label('layout_clean',"有り")}}
+              </p>
+              <p>
+                {{Form::radio('layout_clean', 0, true, ['id' => 'no_layout_clean'])}}
+                {{Form::label('no_layout_clean',"無し")}}
+              </p>
+              @endif
+              @endforeach
+              @else
+              <p>
+                {{Form::radio('layout_clean', 1, false, ['id' => 'layout_clean'])}}
+                {{Form::label('layout_clean',"有り")}}
+              </p>
+              <p>
+                {{Form::radio('layout_clean', 0, true, ['id' => 'no_layout_clean'])}}
+                {{Form::label('no_layout_clean',"無し")}}
+              </p>
+              @endif
+            </div>
+          </td>
+        </tr>
         @endif
-      </div>
-    </td>
-  </tr>
+      </tbody>
+    </table>
+  </div>
   @endif
-  @if ($reservation->venue->layout_clean)
-  <tr>
-    <td class="table-active">準備</td>
-    <td>
-      <div class="radio-box">
-        @if ($reservation->bills->first()->breakdowns->count()!=0)
-        @foreach ($reservation->bills->first()->breakdowns as $key=>$lc_break)
-        @if ($lc_break->unit_item=="レイアウト片付料金")
-        <p>
-          {{Form::radio('layout_clean', 1, true, ['id' => 'layout_clean'])}}
-          {{Form::label('layout_clean',"有り")}}
-        </p>
-        <p>
-          {{Form::radio('layout_clean', 0, false, ['id' => 'no_layout_clean'])}}
-          {{Form::label('no_layout_clean',"無し")}}
-        </p>
-        @break
-        @elseif($loop->last)
-        <p>
-          {{Form::radio('layout_clean', 1, false, ['id' => 'layout_clean'])}}
-          {{Form::label('layout_clean',"有り")}}
-        </p>
-        <p>
-          {{Form::radio('layout_clean', 0, true, ['id' => 'no_layout_clean'])}}
-          {{Form::label('no_layout_clean',"無し")}}
-        </p>
-        @endif
-        @endforeach
-        @else
-        <p>
-          {{Form::radio('layout_clean', 1, false, ['id' => 'layout_clean'])}}
-          {{Form::label('layout_clean',"有り")}}
-        </p>
-        <p>
-          {{Form::radio('layout_clean', 0, true, ['id' => 'no_layout_clean'])}}
-          {{Form::label('no_layout_clean',"無し")}}
-        </p>
+  @endslot
 
-        @endif
-
-      </div>
-    </td>
-  </tr>
+  {{-- スロット --}}
+  @slot('m_luggage')
+  @if ($reservation->venue->luggage_flag!=0)
+  <div class='luggage'>
+    <table class='table table-bordered' style="table-layout:fixed;">
+      <thead>
+        <tr>
+          <th colspan='2'>
+            <p class="title-icon">
+              <i class="fas fa-suitcase-rolling icon-size fa-fw"></i>荷物預り
+            </p>
+          </th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td class="table-active">事前に預かる荷物<br>（個数）</td>
+          <td>
+            {{ Form::text('luggage_count', $reservation->luggage_count,['class'=>'form-control'] ) }}
+            <p class="is-error-luggage_count" style="color: red"></p>
+          </td>
+        </tr>
+        <tr>
+          <td class="table-active">事前荷物の到着日<br>午前指定のみ</td>
+          <td>
+            {{ Form::text('luggage_arrive', $reservation->luggage_arrive,['class'=>'form-control limited_datepicker'] ) }}
+          </td>
+        </tr>
+        <tr>
+          <td class="table-active">事後返送する荷物</td>
+          <td>
+            {{ Form::text('luggage_return', $reservation->luggage_return,['class'=>'form-control'] ) }}
+            <p class="is-error-luggage_return" style="color: red"></p>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
   @endif
-  @endslot
-
-  {{-- スロット --}}
-  @slot('luggage_count')
-  {{ Form::text('luggage_count', $reservation->luggage_count,['class'=>'form-control'] ) }}
-  @endslot
-
-  {{-- スロット --}}
-  @slot('luggage_arrive')
-  {{ Form::text('luggage_arrive', $reservation->luggage_arrive,['class'=>'form-control limited_datepicker'] ) }}
-  @endslot
-
-  {{-- スロット --}}
-  @slot('luggage_return')
-  {{ Form::text('luggage_return', $reservation->luggage_return,['class'=>'form-control'] ) }}
   @endslot
 
   {{-- スロット --}}

@@ -453,22 +453,22 @@ class ReservationHelper
   public static function getEndUser($enduser)
   {
     switch ($enduser) {
-      case 0:
+      case 1:
         return "一般企業";
         break;
-      case 1:
+      case 2:
         return "上場企業";
         break;
-      case 2:
+      case 3:
         return "近隣利用";
         break;
-      case 3:
+      case 4:
         return "個人講師";
         break;
-      case 4:
+      case 5:
         return "MLM";
         break;
-      case 5:
+      case 6:
         return "その他";
         break;
     }

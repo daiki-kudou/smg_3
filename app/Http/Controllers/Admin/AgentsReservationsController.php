@@ -259,7 +259,9 @@ class AgentsReservationsController extends Controller
     $breakdown = $request->session()->get('breakdown');
     $venue = $reservation->venue;
     $agents = Agent::all();
-    return view('admin.agents_reservations.edit', compact('reservation', 'bill', 'breakdown', 'venue', 'agents'));
+
+    $selected_venue = Venue::find($reservation->venue_id);
+    return view('admin.agents_reservations.edit', compact('reservation', 'bill', 'breakdown', 'venue', 'agents', 'selected_venue'));
   }
 
   public function addSessionInput(Request $request)
@@ -286,8 +288,12 @@ class AgentsReservationsController extends Controller
 
     $_equipment = $this->preg($inputs, 'equipment_breakdown');
     $_service = $this->preg($inputs, 'services_breakdown');
-    $layoutPrice = $venue->getLayoutPrice($inputs['layout_prepare'], $inputs['layout_clean']);
-    $price = ($layoutPrice[2]) + (floor($price));
+    if (!empty($inputs['layout_prepare']) || !empty($inputs['layout_clean'])) {
+      $layoutPrice = $venue->getLayoutPrice($inputs['layout_prepare'], $inputs['layout_clean']);
+    } else {
+      $layoutPrice = [0, 0];
+    }
+    $price = ($layoutPrice[2] ?? 0) + (floor($price));
 
     return view('admin.agents_reservations.edit_calc', compact(
       'inputs',
@@ -323,7 +329,11 @@ class AgentsReservationsController extends Controller
     $carbon1 = new Carbon($inputs['enter_time']);
     $carbon2 = new Carbon($inputs['leave_time']);
     $usage_hours = ($carbon1->diffInMinutes($carbon2)) / 60;
-    $layoutPrice = $venue->getLayoutPrice($inputs['layout_prepare'], $inputs['layout_clean']);
+    if (!empty($inputs['layout_prepare']) == !empty($inputs['layout_clean'])) {
+      $layoutPrice = $venue->getLayoutPrice($inputs['layout_prepare'], $inputs['layout_clean']);
+    } else {
+      $layoutPrice = [0, 0];
+    }
     $price = ($layoutPrice[2]) + (floor($price));
 
     $bill = $request->session()->get('bill');

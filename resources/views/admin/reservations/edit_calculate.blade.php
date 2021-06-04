@@ -274,6 +274,8 @@
           </tbody>
         </table>
       </div>
+
+      @if ($venue->layout!=0)
       <div class='layouts'>
         <table class='table table-bordered' style="table-layout:fixed;">
           <thead>
@@ -341,6 +343,9 @@
           </tbody>
         </table>
       </div>
+      @endif
+
+      @if ($venue->luggage_flag!=0)
       <div class='luggage'>
         <table class='table table-bordered' style="table-layout:fixed;">
           <thead>
@@ -386,7 +391,9 @@
           </tbody>
         </table>
       </div>
+      @endif
 
+      @if ($venue->eat_in_flag!=0)
       <div class="eat_in">
         <table class="table table-bordered">
           <thead>
@@ -421,6 +428,8 @@
           </tbody>
         </table>
       </div>
+      @endif
+
 
     </div>
     {{-- 右側 --}}
@@ -775,7 +784,7 @@
         </div>
 
         {{-- 以下備品 --}}
-        @if(ReservationHelper::judgeArrayEmpty($item_details)==1||$basicInfo['luggage_price'])
+        @if(ReservationHelper::judgeArrayEmpty($item_details)==1||!empty($basicInfo['luggage_price']))
         <div class="equipment billdetails_content">
           <table class="table table-borderless">
             <tr>

@@ -10,7 +10,7 @@
     <nav aria-label="breadcrumb">
       <ol class="breadcrumb">
         <li class="breadcrumb-item active">
-          ダミーダミーダミー
+          {{ Breadcrumbs::render(Route::currentRouteName(),$reservation->id) }}
         </li>
       </ol>
     </nav>

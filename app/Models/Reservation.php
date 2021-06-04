@@ -763,16 +763,16 @@ class Reservation extends Model implements PresentableInterface
         'event_name1' => $basicInfo['event_name1'],
         'event_name2' => $basicInfo['event_name2'],
         'event_owner' => $basicInfo['event_owner'],
-        'luggage_count' => $basicInfo['luggage_count'],
-        'luggage_arrive' => $basicInfo['luggage_arrive'],
-        'luggage_return' => $basicInfo['luggage_return'],
+        'luggage_count' => $basicInfo['luggage_count'] ?? NULL,
+        'luggage_arrive' => $basicInfo['luggage_arrive'] ?? NULL,
+        'luggage_return' => $basicInfo['luggage_return'] ?? NULL,
         'email_flag' => $basicInfo['email_flag'],
         'in_charge' => $basicInfo['in_charge'],
         'tel' => $basicInfo['tel'],
         'cost' => !empty($basicInfo['cost']) ? $basicInfo['cost'] : 0,
         'admin_details' => $basicInfo['admin_details'],
-        'eat_in' => !empty($basicInfo['eat_in']) ? $basicInfo['eat_in'] : 0,
-        'eat_in_prepare' => !empty($basicInfo['eat_in_prepare']) ? $basicInfo['eat_in_prepare'] : 0,
+        'eat_in' =>  $basicInfo['eat_in'] ?? 0,
+        'eat_in_prepare' =>  $basicInfo['eat_in_prepare'] ?? 0,
       ]);
     });
   }

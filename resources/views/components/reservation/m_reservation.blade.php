@@ -218,61 +218,11 @@
           </tbody>
         </table>
       </div>
-      <div class='layouts'>
-        <table class='table table-bordered' style="table-layout:fixed;">
-          <thead>
-            <tr>
-              <th colspan='2'>
-                <p class="title-icon py-1">
-                  <i class="fas fa-th icon-size fa-fw"></i>レイアウト
-                </p>
-              </th>
-            </tr>
-          </thead>
-          <tbody>
-            {{$m_layout_loop}}
-          </tbody>
-        </table>
-      </div>
-      <div class='luggage'>
-        <table class='table table-bordered' style="table-layout:fixed;">
-          <thead>
-            <tr>
-              <th colspan='2'>
-                <p class="title-icon">
-                  <i class="fas fa-suitcase-rolling icon-size fa-fw"></i>荷物預り
-                </p>
-              </th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td class="table-active">事前に預かる荷物<br>（個数）</td>
-              <td>
-                {{$luggage_count}}
-                {{-- {{ Form::text('luggage_count', $reservation->luggage_count,['class'=>'form-control'] ) }} --}}
-                <p class="is-error-luggage_count" style="color: red"></p>
-              </td>
-            </tr>
-            <tr>
-              <td class="table-active">事前荷物の到着日<br>午前指定のみ</td>
-              <td>
-                {{$luggage_arrive}}
-                {{-- {{ Form::text('luggage_arrive', $reservation->luggage_arrive,['class'=>'form-control'] ) }} --}}
-              </td>
-            </tr>
-            <tr>
-              <td class="table-active">事後返送する荷物</td>
-              <td>
-                {{$luggage_return}}
-                {{-- {{ Form::text('luggage_return', $reservation->luggage_return,['class'=>'form-control'] ) }} --}}
-                <p class="is-error-luggage_return" style="color: red"></p>
-              </td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
 
+
+      {{$m_layout_loop}}
+
+      {{$m_luggage}}
 
       {{$eat_in1}}
 
