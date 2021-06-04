@@ -1553,11 +1553,15 @@
     <div class="payment_situation">
       <dl>
         <dt>合計入金額</dt>
-        <dd>円</dd>
+        <dd>
+          {{number_format($reservation->cxls->pluck('payment')->sum())}}
+          円</dd>
       </dl>
       <dl>
         <dt>未入金額</dt>
-        <dd>円</dd>
+        <dd>
+          {{number_format(($reservation->cxls->pluck('master_total')->sum()-$reservation->cxls->pluck('payment')->sum()))}}
+          円</dd>
       </dl>
     </div>
   </div>
