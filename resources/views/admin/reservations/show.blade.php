@@ -291,7 +291,6 @@
                       <p>
                         事前荷物の到着日：
                         {{ !empty($reservation->luggage_arrive) ? ReservationHelper::formatDate($reservation->luggage_arrive) : '' }}
-
                       </p>
                     </li>
                   </ul>
