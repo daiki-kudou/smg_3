@@ -507,6 +507,8 @@
             </table>
           </div>
 
+          @if ($reservation->bills->first()->breakdowns->contains("unit_type",2)
+          ||$reservation->bills->first()->breakdowns->contains("unit_type",3))
           <div class="equipment billdetails_content">
             <table class="table table-bordered">
               <tbody>
@@ -557,7 +559,9 @@
               </tbody>
             </table>
           </div>
+          @endif
 
+          @if ($reservation->bills->first()->breakdowns->contains("unit_type",4))
           <div class="layout billdetails_content">
             <table class="table table-bordered">
               <tbody>
@@ -600,7 +604,9 @@
               </tbody>
             </table>
           </div>
+          @endif
 
+          @if ($reservation->bills->first()->breakdowns->contains("unit_type",5))
           <div class="others billdetails_content">
             <table class="table table-bordered">
               <tbody>
@@ -643,6 +649,8 @@
               </tbody>
             </table>
           </div>
+          @endif
+
           <div class="bill_total">
             <table class="table text-right">
               <tbody>
@@ -1035,9 +1043,7 @@
           <td>会場料</td>
           <td>
             <p>
-              {{ number_format(
-    $reservation->bills()->where('reservation_status', '<=', 3)->pluck('venue_price')->sum(),
-) }}円
+              {{ number_format($reservation->bills->where('reservation_status', '<=', 3)->pluck('venue_price')->sum()) }}円
             </p>
           </td>
         </tr>
@@ -1045,9 +1051,7 @@
           <td>有料備品　サービス</td>
           <td>
             <p>
-              {{ number_format(
-    $reservation->bills()->where('reservation_status', '<=', 3)->pluck('equipment_price')->sum(),
-) }}円
+              {{ number_format($reservation->bills->where('reservation_status', '<=', 3)->pluck('equipment_price')->sum(),) }}円
             </p>
           </td>
         </tr>
@@ -1055,9 +1059,7 @@
           <td>レイアウト変更料</td>
           <td>
             <p>
-              {{ number_format(
-    $reservation->bills()->where('reservation_status', '<=', 3)->pluck('layout_price')->sum(),
-) }}円
+              {{ number_format($reservation->bills->where('reservation_status', '<=', 3)->pluck('layout_price')->sum()) }}円
             </p>
           </td>
         </tr>
@@ -1065,9 +1067,7 @@
           <td>その他</td>
           <td>
             <p>
-              {{ number_format(
-    $reservation->bills()->where('reservation_status', '<=', 3)->pluck('others_price')->sum(),
-) }}円
+              {{ number_format($reservation->bills->where('reservation_status', '<=', 3)->pluck('others_price')->sum()) }}円
             </p>
           </td>
         </tr>
@@ -1078,9 +1078,7 @@
             <div class="d-flex justify-content-end">
               <p>小計：</p>
               <p>
-                {{ number_format(
-    $reservation->bills()->where('reservation_status', '<=', 3)->pluck('master_subtotal')->sum(),
-) }}円
+                {{ number_format($reservation->bills->where('reservation_status', '<=', 3)->pluck('master_subtotal')->sum()) }}円
               </p>
             </div>
           </td>
@@ -1090,11 +1088,7 @@
             <div class="d-flex justify-content-end">
               <p>消費税：</p>
               <p>
-                {{ number_format(
-    ReservationHelper::getTax(
-        $reservation->bills()->where('reservation_status', '<=', 3)->pluck('master_subtotal')->sum(),
-    ),
-) }}円
+                {{ number_format(ReservationHelper::getTax($reservation->bills->where('reservation_status', '<=', 3)->pluck('master_subtotal')->sum(),)) }}円
               </p>
             </div>
           </td>
@@ -1104,11 +1098,7 @@
             <div class="d-flex justify-content-end">
               <p>合計金額：</p>
               <p>
-                {{ number_format(
-    ReservationHelper::taxAndPrice(
-        $reservation->bills()->where('reservation_status', '<=', 3)->pluck('master_subtotal')->sum(),
-    ),
-) }}円
+                {{ number_format(ReservationHelper::taxAndPrice($reservation->bills->where('reservation_status', '<=', 3)->pluck('master_subtotal')->sum(),)) }}円
               </p>
             </div>
           </td>
