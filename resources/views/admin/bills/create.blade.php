@@ -455,21 +455,6 @@
   ['class' => 'btn more_btn_lg mx-auto d-block mt-5 submit_btn', (empty(session('add_bill'))?"disabled":"")]) }}
   {{ Form::close() }}
 
-  <script>
-    // 小計が0以上でボタンのdisabled解除
-// $(function() {
-//   $(document).on("click", function() {
-//   var number = $(".master_subtotal").val();
-//   console.log(number);
-
-// if (number > 0) {
-//     $('.submit_btn').prop('disabled', false);
-//   } else {
-//     $('.submit_btn').prop('disabled', true);
-//   }
-//   });
-// });
-  </script>
 
   <script>
     $(function() {
