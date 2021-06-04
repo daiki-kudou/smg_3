@@ -456,31 +456,7 @@
   {{ Form::close() }}
 
   <script>
-    // チェックをされたら、ボタンのdisabledを解除
-    $(function(){
-      $('input[type="checkbox"]').on("change",function(){
-        $('input[type="checkbox"]').each(function(index, element){
-          if ($(element).prop('checked')) {
-            $('.submit_btn').prop('disabled', false);
-            return false;
-          }
-          $('.submit_btn').prop('disabled', true);
-        })
-
-        if ($(this).prop('checked')) {
-          $(this).parent().parent().parent().parent().parent().parent().find('input[type="text"]').each(function(key, value){
-            $(value).prop('disabled',false);
-          })
-        }else{
-          $(this).parent().parent().parent().parent().parent().parent().find('input[type="text"]').each(function(key, value){
-            $(value).prop('disabled',true);
-          })
-        }
-      })
-    })
-
-
-  // 小計が0以上でボタンのdisabled解除
+    // 小計が0以上でボタンのdisabled解除
 // $(function() {
 //   $(document).on("click", function() {
 //   var number = $(".master_subtotal").val();
