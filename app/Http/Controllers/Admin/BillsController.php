@@ -87,7 +87,6 @@ class BillsController extends Controller
    * ajax 請求書追加 レイアウト取得
    ***********************
    */
-
   public function ajaxaddbillslaytout(Request $request)
   {
     $reservation = Reservation::find($request->reservation_id);

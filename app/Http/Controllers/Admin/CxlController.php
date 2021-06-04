@@ -182,7 +182,6 @@ class CxlController extends Controller
     } catch (\Exception $e) {
       report($e);
     }
-
     $request->session()->regenerate();
     return redirect()->route('admin.reservations.show', $reservation_id);
   }
@@ -227,7 +226,6 @@ class CxlController extends Controller
       if ($cxl->reservation->user_id > 0) {
         $price_result = $cxl->reservation->pluckSum(['venue_price', 'equipment_price', 'layout_price', 'others_price'], 4);
       } else { //仲介会社の場合、会場料としてsubtotalを表示
-        // $price_result = $reservation->pluckSum(['master_subtotal', 0, 'layout_price', 0], 3);
         $master_subtotal = $cxl->reservation->bills->where('reservation_status', '>', 3)->where('reservation_status', '<', 6)->pluck('master_subtotal')->sum();
         $layout = $cxl->reservation->bills->where('reservation_status', '>', 3)->where('reservation_status', '<', 6)->pluck('layout_price')->sum();
         $price_result = [($master_subtotal - $layout), 0, $layout, 0];
@@ -237,7 +235,6 @@ class CxlController extends Controller
       if ($cxl->reservation->user_id > 0) {
         $price_result = [$cxl->bill->venue_price, $cxl->bill->equipment_price, $cxl->bill->layout_price, $cxl->bill->others_price];
       } else { //仲介会社の場合、会場料としてsubtotalを表示
-        // $price_result = $reservation->pluckSum(['master_subtotal', 0, 'layout_price', 0], 3);
         $master_subtotal = $cxl->bill->master_subtotal;
         $layout = $cxl->bill->layout_price;
         $price_result = [($master_subtotal - $layout), 0, $layout, 0];

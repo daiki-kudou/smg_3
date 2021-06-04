@@ -20,8 +20,9 @@ class PreAgentReservationsController extends Controller
 {
   public function create()
   {
-    $agents = Agent::all();
-    $venues = Venue::all();
+    $agents = Agent::orderBy("id", "desc")->get();
+    $venues = Venue::orderBy("id", "desc")->get();
+
     return view('admin.pre_agent_reservations.create', [
       'agents' => $agents,
       'venues' => $venues,
@@ -94,7 +95,8 @@ class PreAgentReservationsController extends Controller
   public function edit($pre_reservation)
   {
     $PreReservation = PreReservation::find($pre_reservation);
-    $agents = Agent::all();
+    $agents = Agent::orderBy("id", "desc")->get();
+
     $SPVenue = Venue::with(["frame_prices", "time_prices"])->find($PreReservation->venue_id);
     return view('admin.pre_agent_reservations.edit', compact('PreReservation', 'agents', 'SPVenue'));
   }
@@ -130,7 +132,6 @@ class PreAgentReservationsController extends Controller
       'layout_clean' => $layout_clean,
       "id" => $id,
       "layout_total" => $layout_total,
-
     ]);
   }
 

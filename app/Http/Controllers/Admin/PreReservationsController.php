@@ -64,8 +64,9 @@ class PreReservationsController extends Controller
       $counter = 0;
     }
 
-    $venues = Venue::all();
-    $agents = Agent::all();
+    $venues = Venue::orderBy("id", "desc")->get();
+    $agents = Agent::orderBy("id", "desc")->get();
+
     return view(
       'admin.pre_reservations.index',
       compact('pre_reservations', 'venues', 'agents', "counter", 'request')
@@ -79,8 +80,8 @@ class PreReservationsController extends Controller
    */
   public function create()
   {
-    $users = User::all();
-    $venues = Venue::all();
+    $users = User::orderBy("id", "desc")->get();
+    $venues = Venue::orderBy("id", "desc")->get();
     return view('admin.pre_reservations.create', [
       'users' => $users,
       'venues' => $venues,
@@ -112,7 +113,6 @@ class PreReservationsController extends Controller
   public function calculate(Request $request)
   {
     if ($request->judge_count == 1) { //単発仮押えの計算
-
       $SpVenue = Venue::with(['equipments', 'services', 'frame_prices', 'time_prices'])->find($request->venue_id);
       $price_details = $SpVenue->calculate_price( //[0]は合計料金, [1]は延長料金, [2]は合計＋延長、 [3]は利用時間, [4]は延長時間
         $request->price_system,
@@ -160,7 +160,8 @@ class PreReservationsController extends Controller
   public function re_calculate(Request $request)
   {
     if ($request->judge_count == 1) { //単発仮押えの計算
-      $users = User::all();
+      $users = User::orderBy("id", "desc")->get();
+
       $SPVenue = Venue::with(['equipments', 'services', 'frame_prices'])->find($request->venue_id);
       $price_details = $SPVenue->calculate_price( //[0]は合計料金, [1]は延長料金, [2]は合計＋延長、 [3]は利用時間, [4]は延長時間
         $request->price_system,
@@ -404,7 +405,8 @@ class PreReservationsController extends Controller
   public function edit($id)
   {
     $PreReservation = PreReservation::with("pre_bill")->find($id);
-    $users = User::all();
+    $users = User::orderBy("id", "desc")->get();
+
     $venues = Venue::with(["frame_prices", "time_prices"])->get();
     $SPVenue = $venues->find($PreReservation->venue_id);
 
@@ -501,7 +503,6 @@ class PreReservationsController extends Controller
         'master_subtotal' => $request->master_subtotal,
         'master_tax' => $request->master_tax,
         'master_total' => $request->master_total,
-
         'reservation_status' => 0, //デフォで1、仮押えのデフォは0
         'category' => 1, //デフォで１。　新規以外だと　2:その他有料備品　3:レイアウト　4:その他
         'admin_judge' => 1, //管理者作成なら1 ユーザー作成なら2
@@ -598,7 +599,6 @@ class PreReservationsController extends Controller
     });
     $admin = explode(',', config('app.admin_email'));
 
-
     Mail::to($admin) //管理者
       ->send(new AdminFinPreRes(
         $PreReservation->user->company,
@@ -624,7 +624,6 @@ class PreReservationsController extends Controller
         url('/') . '/user/pre_reservations'
       ));
 
-
     $request->session()->regenerate();
     return redirect()->route('admin.pre_reservations.show', $request->pre_reservation_id);
   }
@@ -640,7 +639,6 @@ class PreReservationsController extends Controller
       $target =
         $arrays[] = $target;
     }
-
     return [$diff, $request->targetEnter, $request->targetLeave];
   }
 
@@ -672,7 +670,6 @@ class PreReservationsController extends Controller
               echo 'failed';
               return redirect()->route('admin.pre_reservations.index')->with('flash_message_error', '一部ユーザーのメールアドレスに誤りがあり送信できませんでした');
             }
-
             Mail::to($admin) //管理者
               ->send(new AdminPreResCxl($pre_reservation, $user));
             Mail::to($user->email) //ユーザ

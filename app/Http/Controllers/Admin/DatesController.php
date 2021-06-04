@@ -18,7 +18,8 @@ class DatesController extends Controller
    */
   public function index()
   {
-    $venues = Venue::all();
+    $venues = Venue::orderBy("id", "desc")->get();
+
     return view('admin.dates.index', [
       'venues' => $venues,
     ]);
@@ -55,9 +56,7 @@ class DatesController extends Controller
     $weekday_id = $request->weekday_id;
     $start = $request->start;
     $finish = $request->finish;
-
     Date::dateUpdates($venue_id, $weekday_id, $start, $finish);
-
     return redirect('admin/dates/' . $request->venue_id);
   }
 

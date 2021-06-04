@@ -23,19 +23,12 @@ class ClientsController extends Controller
    */
   public function index(Request $request)
   {
-
-
     if (count($request->except('token')) != 0) {
       $class = new User;
       $querys = $class->search($request)->orderBy('id', 'desc')->paginate(30);
     } else {
       $querys = User::orderBy('id', 'desc')->paginate(30);
     }
-
-
-
-
-    // $querys->orderBy('id', 'desc')->paginate(30);
     return view('admin.clients.index', compact('querys', 'request'));
   }
 
@@ -60,7 +53,6 @@ class ClientsController extends Controller
     $validatedData = $request->validate([
       'email' => 'required|unique:App\Models\User,email',
     ]);
-
 
     $user = new User;
     $user->company = $request->company;

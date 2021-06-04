@@ -40,7 +40,7 @@ class MultiplesController extends Controller
     }
 
     // $user = User::find(1);
-    $agents = Agent::all();
+    $agents = Agent::orderBy("id", "desc")->get();
 
     return view('admin.multiples.index', compact('multiples', "counter", "request", "agents"));
   }
@@ -64,7 +64,7 @@ class MultiplesController extends Controller
     $multiple = MultipleReserve::find($id);
     $venues = $multiple->pre_reservations()->distinct()->select('venue_id')->get();
     $venue_count = $venues->count('venue_id');
-    $users = User::all();
+    $users = User::orderBy("id", "desc")->get();
 
     return view('admin.multiples.switch', [
       'multiple' => $multiple,
@@ -80,7 +80,7 @@ class MultiplesController extends Controller
     $venues = $multiple->pre_reservations()->distinct()->select('venue_id')->get();
     $venue_count = $venues->count('venue_id');
     $pre_enduser = $multiple->pre_reservations()->first()->pre_enduser;
-    $agents = Agent::all();
+    $agents = Agent::orderBy("id", "desc")->get();
 
     return view('admin.multiples.switch_agent', compact('multiple', 'venue_count', 'venues', 'agents', 'pre_enduser'));
   }
@@ -220,7 +220,6 @@ class MultiplesController extends Controller
   public function allUpdates(Request $request, $multiples_id, $venues_id)
   {
     $masterData = json_decode($request->master_data);
-
     $test = [];
     foreach ($masterData as $key => $value) {
       if (preg_match('/venue_breakdown/', $key)) {
@@ -295,7 +294,8 @@ class MultiplesController extends Controller
     $multiple = MultipleReserve::find($multiple_id);
     $venues = $multiple->pre_reservations()->distinct()->select('venue_id')->get();
     $venue_count = $venues->count('venue_id');
-    $_venues = Venue::all();
+    $_venues = Venue::orderBy("id", "desc")->get();
+
     return view('admin.multiples.agent_show', compact('multiple', 'venues', 'venue_count', '_venues'));
   }
 
