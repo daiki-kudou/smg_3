@@ -364,7 +364,7 @@ class Reservation extends Model implements PresentableInterface
         'cost' => 0,
         'discount_condition' => NULL,
         'attention' => NULL,
-        'user_details' => NULL,
+        'user_details' => $value->remark ?? NULL,
         'admin_details' => NULL,
         'eat_in' => !empty($value->eat_in) ? $value->eat_in : 0,
         'eat_in_prepare' => !empty($value->eat_in_prepare) ? $value->eat_in_prepare : 0,

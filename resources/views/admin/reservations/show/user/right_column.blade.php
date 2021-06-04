@@ -117,7 +117,9 @@
     <tr>
       <td>
         <p>申し込みフォーム備考</p>
-        <p>{{isset($reservation->user_details)?$reservation->user_details:'なし'}}</p>
+        <p>
+          {!! nl2br(e($reservation->user_details??"なし")) !!}
+        </p>
       </td>
     </tr>
     <tr>

@@ -388,7 +388,9 @@
               </td>
             </tr>
             <tr>
-              <td>{{ $reservation->remark }}</td>
+              <td>
+                {!! nl2br(e($reservation->user_details)) !!}
+              </td>
             </tr>
           </tbody>
         </table>
