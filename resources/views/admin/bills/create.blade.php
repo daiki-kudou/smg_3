@@ -452,7 +452,7 @@
     </div>
   </section>
   {{ Form::submit('確認する', 
-  ['class' => 'btn more_btn_lg mx-auto d-block mt-5 submit_btn', (empty(session('add_bill'))?"disabled":"")]) }}
+  ['class' => 'btn more_btn_lg mx-auto d-block mt-5 submit_btn', empty(session('add_bill'))?"disabled":""]) }}
   {{ Form::close() }}
 
 

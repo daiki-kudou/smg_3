@@ -35,8 +35,8 @@ class PreReservationsController extends Controller
     // $pre_reservations = PreReservation::where('user_id', $user_id)->where('status', 1)->get();
 
     $today = Carbon::today();
-    $after = PreReservation::where('reserve_date', '>=', $today)->get()->sortBy('reserve_date');
-    $before = PreReservation::where('reserve_date', '<', $today)->get()->sortByDesc('reserve_date');
+    $after = PreReservation::where('reserve_date', '>=', $today)->where('user_id', $user_id)->get()->sortBy('reserve_date');
+    $before = PreReservation::where('reserve_date', '<', $today)->where('user_id', $user_id)->get()->sortByDesc('reserve_date');
     $merge = $after->concat($before);
     $pre_reservations = $this->customPaginate($merge, 30, $request);
     $counter = count($pre_reservations);
