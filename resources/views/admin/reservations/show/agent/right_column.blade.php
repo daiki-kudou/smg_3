@@ -90,7 +90,7 @@
           <label for="enduser_attr" class="">利用者属性</label>
         </td>
         <td>
-          {{optional($reservation->enduser)->attr}}
+          {{ReservationHelper::getEndUser(optional($reservation->enduser)->attr)}}
         </td>
       </tr>
     </table>

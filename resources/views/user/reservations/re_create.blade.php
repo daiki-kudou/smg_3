@@ -121,7 +121,8 @@
                 {{Form::label('no_board_flag','しない')}}
               </div>
             </li>
-            <li><a target="_blank"  rel="noopener noreferrer" href="https://osaka-conference.com/welcomboard/"><i class="fas fa-external-link-alt form-icon"></i>案内板サンプルはこちら</a></li>
+            <li><a target="_blank" rel="noopener noreferrer" href="https://osaka-conference.com/welcomboard/"><i
+                  class="fas fa-external-link-alt form-icon"></i>案内板サンプルはこちら</a></li>
             <li class="{{$fix->board_flag==0?'cell-margin d-none':"cell-margin"}}">
               <div class="m-b10">
                 <p><span class="txtRed c-block">＊</span>イベント名称1行目</p>
@@ -249,7 +250,8 @@
               <label>
                 {{ Form::hidden('services_breakdown'.$s_key, 0 ) }}
                 <input type="checkbox" id="" name="{{'services_breakdown'.$s_key}}" value="1" class="checkbox-input">
-                <span class="checkbox-parts">{{$serv->item}} {{$serv->price}}円<span class="annotation">(税抜)</span></span>
+                <span class="checkbox-parts">{{$serv->item}} {{$serv->price}}円<span
+                    class="annotation">(税抜)</span></span>
               </label>
               @else
               @foreach (json_decode($fix->items_results)[2] as $b_ser)
@@ -461,14 +463,16 @@
 
 <script type="text/javascript">
   $(function () {
+        var target_day=$('input[name="date"]').val();
         var today = new Date();
         var dd = today.getDate();
         $("#datepicker2").datepicker({
+          dateFormat: 'yy-mm-dd',
             showOn: "both",
             buttonImage: "https://osaka-conference.com/img/icon_calender.png",
             buttonImageOnly: true,
             minDate: "+3",
-            maxDate: "+3M -" + dd,
+            maxDate: target_day,
             beforeShow: function (input, inst) { // カレンダーを必ず下側へ表示させるための表示位置計算function
                 var top = $(this).offset().top + $(this).outerHeight();
                 var left = $(this).offset().left;

@@ -40,6 +40,7 @@ class ReservationsController extends Controller
    */
   public function index(Request $request)
   {
+
     // dump(Auth::guard('user')->check());
     // dump(Auth::guard('admin'));
     $today = date('Y-m-d', strtotime(Carbon::today()));
@@ -348,7 +349,7 @@ class ReservationsController extends Controller
     $request->session()->forget('master_info'); //予約作成TOPに来るとsession初期化
     $request->session()->forget('calc_info'); //予約作成TOPに来るとsession初期化
     $request->session()->forget('discount_info'); //予約作成TOPに来るとsession初期化
-    $venues = Venue::select('name_area', 'name_bldg', 'name_venue', 'id')->get();
+    $venues = Venue::orderBy("id", "desc")->get();
     $users = User::all();
     $target = $request->all_requests;
     $target = json_decode($target);
@@ -666,13 +667,13 @@ class ReservationsController extends Controller
     //枠がなく会場料金を手打ちするパターン
     if ($price_details == 0) {
       $masters =
-        ($item_details[0] + $target['luggage_price'])
-        + $layouts_details[2];
+        ($item_details[0] + ($target['luggage_price'] ?? 0))
+        + ($layouts_details[2] ?? 0);
     } else {
       $masters =
         ($price_details[0] ? $price_details[0] : 0)
-        + ($item_details[0] + $target['luggage_price'])
-        + $layouts_details[2];
+        + ($item_details[0] + ($target['luggage_price'] ?? 0))
+        + ($layouts_details[2] ?? 0);
     }
     return $masters;
   }
@@ -691,7 +692,12 @@ class ReservationsController extends Controller
     $s_equipment = $this->searchPreg($basicInfo, 'equipment_breakdown');
     $s_services = $this->searchPreg($basicInfo, 'services_breakdown');
     $item_details = $venue->calculate_items_price($s_equipment, $s_services);
-    $layouts_details = $venue->getLayoutPrice($basicInfo['layout_prepare'], $basicInfo['layout_clean']);
+    if (!empty($basicInfo['layout_prepare']) || !empty($basicInfo['layout_clean'])) {
+      $layouts_details = $venue->getLayoutPrice($basicInfo['layout_prepare'], $basicInfo['layout_clean']);
+    } else {
+      $layouts_details = [0, 0];
+    }
+
     $masters = $this->getMasterPrice($price_details, $item_details, $layouts_details, $basicInfo);
     $user = $reservationEditMaster->reservation->user;
     $pay_limit = $user->getUserPayLimit($request->reserve_date);

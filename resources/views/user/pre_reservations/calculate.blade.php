@@ -10,7 +10,7 @@
     <nav aria-label="breadcrumb">
       <ol class="breadcrumb">
         <li class="breadcrumb-item active">
-          ダミーダミーダミーダミー
+          {{ Breadcrumbs::render(Route::currentRouteName(),$pre_reservation->id) }}
         </li>
       </ol>
     </nav>
@@ -354,39 +354,39 @@
           </table>
         </div>
         <div class="eat_in">
-            <table class="table table-bordered">
-              <thead>
-                <tr>
-                  <th colspan='2'>
-                    <p class="title-icon">
-                      <i class="fas fa-utensils icon-size fa-fw"></i>室内飲食
-                    </p>
-                  </th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr>
-                  <td>
-                    <input id="eat_in" name="eat_in" type="radio" value="1">
-                    <label for="eat_in">あり</label>
-                  </td>
-                  <td>
-                    <input id="eat_in_prepare" disabled name="eat_in_prepare" type="radio" value="1">
-                    <label for="eat_in_prepare">手配済み</label>
-                    <input id="eat_in_consider" disabled name="eat_in_prepare" type="radio" value="2">
-                    <label for="eat_in_consider">検討中</label>
-                  </td>
-                </tr>
-                <tr>
-                  <td>
-                    <input id="no_eat_in" checked="checked" name="eat_in" type="radio" value="0">
-                    <label for="no_eat_in">なし</label>
-                  </td>
-                  <td></td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
+          <table class="table table-bordered">
+            <thead>
+              <tr>
+                <th colspan='2'>
+                  <p class="title-icon">
+                    <i class="fas fa-utensils icon-size fa-fw"></i>室内飲食
+                  </p>
+                </th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>
+                  <input id="eat_in" name="eat_in" type="radio" value="1">
+                  <label for="eat_in">あり</label>
+                </td>
+                <td>
+                  <input id="eat_in_prepare" disabled name="eat_in_prepare" type="radio" value="1">
+                  <label for="eat_in_prepare">手配済み</label>
+                  <input id="eat_in_consider" disabled name="eat_in_prepare" type="radio" value="2">
+                  <label for="eat_in_consider">検討中</label>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <input id="no_eat_in" checked="checked" name="eat_in" type="radio" value="0">
+                  <label for="no_eat_in">なし</label>
+                </td>
+                <td></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
 
 
         <table class="table table-bordered note-table">
@@ -670,8 +670,8 @@
 <div class="confirm-box mt-5">
   <div class="confirm_inner">
     <p class="mb-4">上記、内容で予約を申し込んでもよろしいでしょうか。よろしければ、予約の申し込みをお願いします。<br>
-    予約内容を変更したい場合は、仮押えお申込み内容を変更後、再計算するボタンをクリックしてください。
-  </p>
+      予約内容を変更したい場合は、仮押えお申込み内容を変更後、再計算するボタンをクリックしてください。
+    </p>
     <p class="text-center mb-5 mt-3">
       {{ Form::submit('予約を申し込む', ['class' => 'btn more_btn4_lg confirm','name'=>'cfm']) }}
     </p>

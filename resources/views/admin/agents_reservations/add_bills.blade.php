@@ -560,9 +560,6 @@
     })
 
     function MaterCalc() {
-      // var tar3 = Number($('input[name="layout_price"]').val());
-      // var tar5 = Number($('input[name="enduser_charge_result"]').val());
-
 
       var tar3 = $('input[name="layout_price"]');
       var tar5 = $('input[name="enduser_charge_result"]');

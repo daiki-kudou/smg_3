@@ -27,486 +27,737 @@
   <h2 class="mt-3 mb-3">仲介会社経由　予約　編集</h2>
   <hr>
 
-
-
-  @component('components.reservation.m_reservation')
-  {{-- スロット --}}
-  @slot('form_open1')
   {{ Form::open(['url' => 'admin/agents_reservations/update', 'method'=>'post', 'class'=>'']) }}
   @csrf
-  @endslot
+  <section class="mt-5">
+    <div class="row">
+      <div class="col">
+        <table class="table table-bordered">
+          <tr>
+            <td colspan="2">
+              <p class="title-icon">
+                <i class="fas fa-info-circle icon-size"></i>
+                予約情報
+              </p>
+            </td>
+          </tr>
+          <tr>
+            <td class="table-active form_required">利用日</td>
+            <td>
+              {{ Form::text('reserve_date', date('Y-m-d', strtotime($inputs['reserve_date'])) ,['class'=>'form-control',  'readonly'] ) }}
+              <p class="is-error-reserve_date" style="color: red"></p>
+            </td>
+          </tr>
+          <tr>
+            <td class="table-active form_required">会場</td>
+            <td>
+              {{ Form::text('',  ReservationHelper::getVenue($inputs['venue_id']),['class'=>'form-control',  'readonly'] ) }}
+              {{ Form::hidden('venue_id',  $inputs['venue_id'],['class'=>'form-control',  'readonly'] ) }}
+              <p class="is-error-venue_id" style="color: red"></p>
+            </td>
+          </tr>
+          <tr>
+            <td class="table-active">料金体系</td>
+            <td>
+              <div class='price_radio_selector'>
+                <div class="d-flex justfy-content-start align-items-center">
+                  {{Form::text("",$inputs['price_system']==1?"通常(枠貸)":"アクセア(時間貸)",['class'=>'form-control','readonly'])}}
+                </div>
+                {{-- <div class="d-flex justfy-content-start align-items-center">
+                  {{$price_system2}}
+              </div> --}}
+            </td>
+          </tr>
+          <tr>
+            <td class="table-active form_required">入室時間</td>
+            <td>
+              {{Form::text("",$inputs['enter_time'],['class'=>'form-control','readonly'])}}
+            </td>
+          </tr>
+          <tr>
+            <td class="table-active form_required">退室時間</td>
+            <td>
+              {{Form::text("",$inputs['leave_time'],['class'=>'form-control','readonly'])}}
+            </td>
+          </tr>
+        </table>
+        <table class="table table-bordered board-table">
+          <tr>
+            <td colspan="2">
+              <div class="d-flex align-items-center justify-content-between">
+                <p class="title-icon">
+                  <i class="fas fa-clipboard icon-size"></i>案内版
+                </p>
+              </div>
+            </td>
+          </tr>
+          <tr>
+            <td class="table-active">案内板</td>
+            <td>
+              {{Form::text('',$inputs['board_flag']==1?"あり":"なし",['class'=>'form-control', 'readonly'])}}
+            </td>
+          </tr>
+          <tr>
+            <td class="table-active">イベント開始時間</td>
+            <td>
+              {{Form::text("",$inputs['event_start'],['class'=>'form-control','readonly'])}}
+            </td>
+          </tr>
+          <tr>
+            <td class="table-active">イベント終了時間</td>
+            <td>
+              {{Form::text("",$inputs['event_finish'],['class'=>'form-control','readonly'])}}
+            </td>
+          </tr>
+          <tr>
+            <td class="table-active">イベント名称1</td>
+            <td>
+              <div class="align-items-end d-flex">
+                {{ Form::text('event_name1', $inputs['event_name1'],['class'=>'form-control','readonly', 'id'=>'eventname1Count'] ) }}
+                <span class="ml-1 annotation count_num1"></span>
+              </div>
+              <p class="is-error-event_name1" style="color: red"></p>
+            </td>
+          </tr>
+          <tr>
+            <td class="table-active">イベント名称2</td>
+            <td>
+              <div class="align-items-end d-flex">
+                {{ Form::text('event_name2', $inputs['event_name2'],['class'=>'form-control', 'id'=>'eventname2Count','readonly'] ) }}
+                <span class="ml-1 annotation count_num2"></span>
+              </div>
+              <p class="is-error-event_name2" style="color: red"></p>
+            </td>
+          </tr>
+          <tr>
+            <td class="table-active">主催者名</td>
+            <td>
+              <div class="align-items-end d-flex">
+                {{ Form::text('event_owner', $inputs['event_owner'],['class'=>'form-control', 'id'=>'eventownerCount','readonly'] ) }}
+                <span class="ml-1 annotation count_num3"></span>
+              </div>
+              <p class="is-error-event_owner" style="color: red"></p>
+            </td>
+          </tr>
+        </table>
+        <div class="equipemnts">
+          <table class="table table-bordered" style="table-layout: fixed;">
+            <thead class="accordion-ttl">
+              <tr>
+                <th colspan="2">
+                  <p class="title-icon fw-bolder">
+                    <i class="fas fa-wrench icon-size" aria-hidden="true"></i>有料備品
+                  </p>
+                </th>
+              </tr>
+            </thead>
+            <tbody class="accordion-wrap">
+              @foreach ($venue->getEquipments() as $key=>$equ)
+              <tr>
+                <td class="table-active">
+                  {{$equ->item}}
+                </td>
+                <td>
+                  {{Form::text('equipment_breakdown'.$key,$inputs['equipment_breakdown'.$key],['class'=>'form-control','readonly'])}}
+                </td>
+              </tr>
+              @endforeach
+            </tbody>
+          </table>
+        </div>
 
-  {{-- スロット --}}
-  @slot('reserve_date')
-  {{ Form::text('reserve_date', date('Y-m-d', strtotime($inputs['reserve_date'])) ,['class'=>'form-control',  'readonly'] ) }}
-  @endslot
+        <div class="services">
+          <table class="table table-bordered" style="table-layout: fixed;">
+            <thead class="accordion-ttl">
+              <tr>
+                <th colspan="2">
+                  <p class="title-icon fw-bolder">
+                    <i class="fas fa-hand-holding-heart icon-size" aria-hidden="true"></i>有料サービス
+                  </p>
+                </th>
+              </tr>
+            </thead>
+            <tbody class="accordion-wrap">
+              @foreach ($venue->getServices() as $key=>$service)
+              <tr>
+                <td class="table-active">{{$service->item}}</td>
+                <td>
+                  {{Form::text('',$inputs['services_breakdown'.$key]==1?"あり":"なし",['class'=>'form-control','readonly'])}}
+                </td>
+              </tr>
+              @endforeach
+            </tbody>
+          </table>
+        </div>
 
-  {{-- スロット --}}
-  @slot('venue')
-  {{ Form::text('',  ReservationHelper::getVenue($inputs['venue_id']),['class'=>'form-control',  'readonly'] ) }}
-  @endslot
 
-  {{-- スロット --}}
-  @slot('venue_hidden')
-  {{ Form::hidden('venue_id',  $inputs['venue_id'],['class'=>'form-control',  'readonly'] ) }}
-  @endslot
-
-  {{-- スロット --}}
-  @slot('price_system1')
-  {{Form::text("",$inputs['price_system']==1?"通常(枠貸)":"アクセア(時間貸)",['class'=>'form-control','readonly'])}}
-  @endslot
-
-  {{-- スロット --}}
-  @slot('price_system2')
-  @endslot
-
-  {{-- スロット --}}
-  @slot('price_system2')
-  @endslot
-
-  {{-- スロット --}}
-  @slot('enter_time_loop')
-  {{Form::text("",$inputs['enter_time'],['class'=>'form-control','readonly'])}}
-  @endslot
-
-  {{-- スロット --}}
-  @slot('leave_time_loop')
-  {{Form::text("",$inputs['leave_time'],['class'=>'form-control','readonly'])}}
-  @endslot
-
-  {{-- スロット --}}
-  @slot('board_flag')
-  {{Form::text('',$inputs['board_flag']==1?"あり":"なし",['class'=>'form-control', 'readonly'])}}
-  @endslot
-
-  {{-- スロット --}}
-  @slot('event_start_loop')
-  {{Form::text("",$inputs['event_start'],['class'=>'form-control','readonly'])}}
-  @endslot
-
-  {{-- スロット --}}
-  @slot('event_finish_loop')
-  {{Form::text("",$inputs['event_finish'],['class'=>'form-control','readonly'])}}
-  @endslot
-
-  {{-- スロット --}}
-  @slot('event_name1')
-  {{ Form::text('event_name1', $inputs['event_name1'],['class'=>'form-control','readonly', 'id'=>'eventname1Count'] ) }}
-  @endslot
-
-  {{-- スロット --}}
-  @slot('event_name2')
-  {{ Form::text('event_name2', $inputs['event_name2'],['class'=>'form-control', 'id'=>'eventname2Count','readonly'] ) }}
-  @endslot
-
-  {{-- スロット --}}
-  @slot('event_owner')
-  {{ Form::text('event_owner', $inputs['event_owner'],['class'=>'form-control', 'id'=>'eventownerCount','readonly'] ) }}
-  @endslot
-
-  {{-- スロット --}}
-  @slot('m_equipment_loop')
-  @foreach ($venue->getEquipments() as $key=>$equ)
-  <tr>
-    <td class="table-active">
-      {{$equ->item}}
-    </td>
-    <td>
-      {{Form::text('equipment_breakdown'.$key,$inputs['equipment_breakdown'.$key],['class'=>'form-control','readonly'])}}
-    </td>
-  </tr>
-  @endforeach
-  @endslot
-
-  {{-- スロット --}}
-  @slot('m_service_loop')
-  @foreach ($venue->getServices() as $key=>$service)
-  <tr>
-    <td class="table-active">{{$service->item}}</td>
-    <td>
-      {{Form::text('',$inputs['services_breakdown'.$key]==1?"あり":"なし",['class'=>'form-control','readonly'])}}
-    </td>
-  </tr>
-  @endforeach
-  @endslot
-
-  {{-- スロット --}}
-  @slot('m_layout_loop')
-  @if ($venue->layout_prepare)
-  <tr>
-    <td class="table-active">準備</td>
-    <td>
-      {{Form::text('',$inputs['layout_prepare']==1?"あり":"なし",['class'=>'form-control','readonly'])}}
-    </td>
-  </tr>
-  @endif
-  @if ($venue->layout_clean)
-  <tr>
-    <td class="table-active">準備</td>
-    <td>
-      {{Form::text('',$inputs['layout_clean']==1?"あり":"なし",['class'=>'form-control','readonly'])}}
-    </td>
-  </tr>
-  @endif
-  @endslot
-
-  {{-- スロット --}}
-  @slot('luggage_count')
-  {{ Form::text('luggage_count', $inputs['luggage_count'],['class'=>'form-control','readonly'] ) }}
-  @endslot
-
-  {{-- スロット --}}
-  @slot('luggage_arrive')
-  {{ Form::text('luggage_arrive', $inputs['luggage_arrive'],['class'=>'form-control','readonly'] ) }}
-  @endslot
-
-  {{-- スロット --}}
-  @slot('luggage_return')
-  {{ Form::text('luggage_return', $inputs['luggage_return'],['class'=>'form-control','readonly'] ) }}
-  @endslot
-
-  {{-- スロット --}}
-  @slot('eat_in1')
-  @if ($venue->eat_in_flag!=0)
-  <div class="eat_in">
-    <table class="table table-bordered">
-      <thead>
+        @if ($venue->layout_prepare)
         <tr>
-          <th colspan='2'>
-            <p class="title-icon">
-              <i class="fas fa-utensils icon-size fa-fw"></i>室内飲食
-            </p>
-          </th>
+          <td class="table-active">準備</td>
+          <td>
+            {{Form::text('',$inputs['layout_prepare']==1?"あり":"なし",['class'=>'form-control','readonly'])}}
+          </td>
         </tr>
-      </thead>
-      <tbody>
+        @endif
+        @if ($venue->layout_clean)
         <tr>
+          <td class="table-active">準備</td>
           <td>
-            {{$inputs['eat_in']==1?"あり":"なし"}}
-            {{ Form::hidden('eat_in', $inputs['eat_in']) }}
-          </td>
-          <td>
-            @if ($inputs['eat_in']==1)
-            @if ($inputs['eat_in_prepare']==1)
-            手配済み
-            {{ Form::hidden('eat_in_prepare', $inputs['eat_in_prepare']) }}
-            @else
-            検討中
-            {{ Form::hidden('eat_in_prepare', $inputs['eat_in_prepare']) }}
-            @endif
-            @endif
+            {{Form::text('',$inputs['layout_clean']==1?"あり":"なし",['class'=>'form-control','readonly'])}}
           </td>
         </tr>
-      </tbody>
-    </table>
-  </div>
-  @endif
-  @endslot
+        @endif
 
-  {{-- スロット --}}
-  @slot('client_link')
-  {{-- <a class="more_btn" href="{{url('admin/clients/'.$reservation->user_id)}}">顧客詳細</a> --}}
-  @endslot
+        {{-- {{$m_luggage}} --}}
 
-  {{-- スロット --}}
-  @slot('form_submit1')
-  {{-- {{Form::submit('再計算する', ['class'=>'btn more_btn4_lg mx-auto d-block mt-5 mb-5', 'id'=>'check_submit'])}} --}}
-  @endslot
+        @if ($venue->eat_in_flag!=0)
+        <div class="eat_in">
+          <table class="table table-bordered">
+            <thead>
+              <tr>
+                <th colspan='2'>
+                  <p class="title-icon">
+                    <i class="fas fa-utensils icon-size fa-fw"></i>室内飲食
+                  </p>
+                </th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>
+                  {{$inputs['eat_in']==1?"あり":"なし"}}
+                  {{ Form::hidden('eat_in', $inputs['eat_in']) }}
+                </td>
+                <td>
+                  @if ($inputs['eat_in']==1)
+                  @if ($inputs['eat_in_prepare']==1)
+                  手配済み
+                  {{ Form::hidden('eat_in_prepare', $inputs['eat_in_prepare']) }}
+                  @else
+                  検討中
+                  {{ Form::hidden('eat_in_prepare', $inputs['eat_in_prepare']) }}
+                  @endif
+                  @endif
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        @endif
 
-  {{-- スロット --}}
-  @slot('form_close1')
-  {{-- {{Form::close()}} --}}
-  @endslot
+      </div>
+      <div class="col">
+        <div class="client_mater">
+          <table class="table table-bordered name-table">
+            <tr>
+              <td colspan="2">
+                <div class="d-flex align-items-center justify-content-between">
+                  <p class="title-icon">
+                    <i class="far fa-id-card icon-size"></i>仲介会社情報
+                  </p>
+                  <p>???????????????????????????????/
+                  </p>
+                </div>
+              </td>
+            </tr>
+            <tr>
+              <td class="table-active">
+                <label for="agent_id">サービス名称</label>
+              </td>
+              <td>
+                {{ Form::text('', $agents->find($inputs['agent_id'])->company,['class'=>'form-control','readonly'] ) }}
+                <p class="is-error-user_id" style="color: red"></p>
+              </td>
+            </tr>
+            <tr>
+              <td class="table-active"><label for="name">担当者氏名<br></label></td>
+              <td>
+                {{ Form::text('', ReservationHelper::getAgentPerson($inputs['agent_id']),['class'=>'form-control','readonly'] ) }}
+                <p class="selected_person"></p>
+              </td>
+            </tr>
+          </table>
+          <table class="table table-bordered oneday-table">
+            <tr>
+              <td colspan="2">
+                <p class="title-icon">
+                  <i class="fas fa-user-check icon-size"></i>エンドユーザー情報
+                </p>
+              </td>
+            </tr>
+            <tr>
+              <td class="table-active">
+                <label for="enduser_company" class="">エンドユーザー</label>
+              </td>
+              <td>
+                {{ Form::text('enduser_company', $inputs['enduser_company'],['class'=>'form-control', 'placeholder'=>'入力してください','id'=>'enduser_company','readonly'] ) }}
+              </td>
+            </tr>
+            <tr>
+              <td class="table-active">
+                <label for="enduser_address" class=" ">住所</label>
+              </td>
+              <td>
+                {{ Form::text('enduser_address', $inputs['enduser_address'],['class'=>'form-control', 'placeholder'=>'入力してください','id'=>'enduser_address','readonly'] ) }}
+              </td>
+            </tr>
+            <tr>
+              <td class="table-active">
+                <label for="enduser_tel" class="">連絡先</label>
+              </td>
+              <td>
+                {{ Form::text('enduser_tel', $inputs['enduser_tel'],['class'=>'form-control', 'placeholder'=>'入力してください', 'id'=>'enduser_tel','readonly']) }}
+              </td>
+            </tr>
+            <tr>
+              <td class="table-active">
+                <label for="enduser_mail" class=" ">メールアドレス</label>
+              </td>
+              <td>
+                {{ Form::text('enduser_mail', $inputs['enduser_mail'],['class'=>'form-control', 'placeholder'=>'入力してください', 'id'=>'enduser_mail','readonly'] ) }}
+              </td>
+            </tr>
+            <tr>
+              <td class="table-active">
+                <label for="enduser_incharge" class="">当日担当者</label>
+              </td>
+              <td>
+                {{ Form::text('enduser_incharge', $inputs['enduser_incharge'],['class'=>'form-control', 'placeholder'=>'入力してください', 'id'=>'enduser_incharge','readonly'] ) }}
+              </td>
+            </tr>
+            <tr>
+              <td class="table-active">
+                <label for="" class="">当日連絡先</label>
+              </td>
+              <td>
+                {{ Form::text('enduser_mobile', $inputs['enduser_mobile'],['class'=>'form-control', 'placeholder'=>'入力してください', 'id'=>'enduser_mobile','readonly'] ) }}
+              </td>
+            </tr>
+            <tr>
+              <td class="table-active">
+                <label for="enduser_attr" class="">利用者属性</label>
+              </td>
+              <td>
+                {{ Form::text('enduser_attr', ReservationHelper::getAttr($inputs['enduser_attr']),['class'=>'form-control', 'placeholder'=>'入力してください', 'id'=>'enduser_mobile','readonly'] ) }}
+              </td>
+            </tr>
+          </table>
+        </div>
+        <table class="table table-bordered sale-table">
+          <tr>
+            <td colspan="2">
+              <p class="title-icon">
+                <i class="fas fa-yen-sign icon-size"></i>エンドユーザーへの支払い料
+              </p>
+            </td>
+          </tr>
+          <tr>
+            <td class="table-active form_required">
+              <label for="enduser_charge">支払い料</label>
+            </td>
+            <td class="d-flex align-items-center">
+              {{ Form::text('enduser_charge', $inputs['enduser_charge'],['class'=>'form-control ', 'placeholder'=>'入力してください','readonly'] ) }}
+              円
+              <p class="is-error-end_user_charge" style="color: red"></p>
+            </td>
+          </tr>
+        </table>
 
-  {{-- スロット --}}
-  @slot('form_open2')
-  {{-- {{ Form::open(['url' => 'admin/agents_reservations/update', 'method'=>'post', 'class'=>'']) }} --}}
-  {{-- @csrf --}}
-  @endslot
+        @if ($venue->alliance_flag!=0)
+        <table class="table table-bordered sale-table" id="user_cost">
+          <tbody>
+            <tr>
+              <td colspan="2">
+                <p class="title-icon">
+                  <i class="fas fa-yen-sign icon-size" aria-hidden="true"></i>売上原価<span
+                    class="annotation">（提携会場を選択した場合、提携会場で設定した原価率が適応されます）</span>
+                </p>
+              </td>
+            </tr>
+            <tr>
+              <td class="table-active"><label for="cost">原価率</label></td>
+              <td class="d-flex align-items-center">
+                {{Form::text('cost',$inputs['cost'],['class'=>'form-control sales_percentage','readonly'])}}
+                <span class="ml-1">%</span>
+                <p class="is-error-cost" style="color: red"></p>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+        @endif
 
 
-  {{-- スロット --}}
-  @slot('payment_limit')
-  {{$payment_limit}}
-  @endslot
-
-  {{-- スロット --}}
-  @slot('venue_breakdown_loop')
-  <tr>
-    <td>
-      {{ Form::text('venue_breakdown_item0', "会場料金",['class'=>'form-control', 'readonly'] ) }}
-    </td>
-    <td><input class="form-control" readonly></td>
-    <td>
-      {{ Form::text('venue_breakdown_count0', $usage_hours."h",['class'=>'form-control', 'readonly'] ) }}
-    </td>
-    <td><input class="form-control" readonly></td>
-  </tr>
-  @endslot
 
 
-  {{-- スロット --}}
-  @slot('equipment_breakdown_loop')
-  @foreach ($venue->getEquipments() as $key=>$equipment)
-  @if (!empty($inputs['equipment_breakdown'.$key]))
-  <tr>
-    <td>
-      {{ Form::text('equipment_breakdown_item'.$key, $equipment->item,['class'=>'form-control', 'readonly'] ) }}
-    </td>
-    <td><input class="form-control" readonly></td>
-    <td>
-      {{ Form::text('equipment_breakdown_count'.$key, $inputs['equipment_breakdown'.$key],['class'=>'form-control', 'readonly'] ) }}
-    </td>
-    <td><input class="form-control" readonly></td>
-  </tr>
-  @endif
-  @endforeach
-  @endslot
 
-  {{-- スロット --}}
-  @slot('service_breakdown_loop')
-  @foreach ($venue->getServices() as $key=>$service)
-  @if (!empty($inputs['services_breakdown'.$key]))
-  <tr>
-    <td>
-      {{ Form::text('service_breakdown_item'.$key, $service->item,['class'=>'form-control', 'readonly'] ) }}
-    </td>
-    <td><input class="form-control" readonly></td>
-    <td>
-      {{ Form::text('service_breakdown_count'.$key, $inputs['services_breakdown'.$key],['class'=>'form-control', 'readonly'] ) }}
-    </td>
-    <td><input class="form-control" readonly></td>
-  </tr>
-  @endif
-  @endforeach
-  @endslot
-
-  {{-- スロット --}}
-  @slot('equipment_price')
-  {{-- {{ Form::text('equipment_price', $reservation->bills->first()->equipment_price,['class'=>'form-control', 'readonly'] ) }}
-  --}}
-  @endslot
-
-
-  {{-- スロット --}}
-  @slot('layout_breakdown_loop')
-  @if ($inputs['layout_prepare']!=0)
-  <tr>
-    <td>{{ Form::text('layout_prepare_item', "レイアウト準備料金",['class'=>'form-control', 'readonly'] ) }}</td>
-    <td>
-      {{ Form::text('layout_prepare_cost', $layoutPrice[0],['class'=>'form-control', 'readonly'] ) }}
-    </td>
-    <td>{{ Form::text('layout_prepare_count', 1,['class'=>'form-control', 'readonly'] )}}</td>
-    <td>
-      {{ Form::text('layout_prepare_subtotal', $venue->getLayouts()[0],['class'=>'form-control', 'readonly'] ) }}
-    </td>
-  </tr>
-  @endif
-  @if ($inputs['layout_clean']!=0)
-  <tr>
-    <td>{{ Form::text('layout_clean_item', "レイアウト片付料金",['class'=>'form-control', 'readonly'] ) }}</td>
-    <td>
-      {{ Form::text('layout_clean_cost', $layoutPrice[1],['class'=>'form-control', 'readonly'] ) }}
-    </td>
-    <td>{{ Form::text('layout_clean_count', 1,['class'=>'form-control', 'readonly'] )}}</td>
-    <td>
-      {{ Form::text('layout_clean_subtotal', $venue->getLayouts()[1],['class'=>'form-control', 'readonly'] ) }}
-    </td>
-  </tr>
-  @endif
-  @endslot
-
-
-  {{-- スロット --}}
-  @slot('layout_price')
-  {{ Form::text('layout_price',$layoutPrice[2] ,['class'=>'form-control', 'readonly'] ) }}
-  @endslot
-
-  {{-- スロット --}}
-  @slot('others_breakdown_loop')
-  @for ($i = 0; $i < $o_count; $i++) <tr>
-    <td>
-      {{ Form::text('others_breakdown_item'.$i, $result['others_breakdown_item'.$i],['class'=>'form-control','readonly'] ) }}
-    </td>
-    <td>
-      <input class="form-control" readonly></td>
-    <td>
-      {{ Form::text('others_breakdown_count'.$i, $result['others_breakdown_count'.$i],['class'=>'form-control','readonly'] ) }}
-    </td>
-    <td>
-      <input class="form-control" readonly></td>
-    </tr>
-    @endfor
-    @endslot
-
-    {{-- スロット --}}
-    @slot('others_price')
-    {{-- {{ Form::text('others_price', $reservation->bills->first()->others_price,['class'=>'form-control', 'readonly'] ) }}
-    --}}
-    @endslot
-
-    {{-- スロット --}}
-    @slot('master_subtotal')
-    {{ Form::text('master_subtotal', ($price),['class'=>'form-control', 'readonly'] ) }}
-    @endslot
-
-    {{-- スロット --}}
-    @slot('master_tax')
-    {{ Form::text('master_tax', (ReservationHelper::getTax($price)),['class'=>'form-control', 'readonly'] ) }}
-    @endslot
-
-    {{-- スロット --}}
-    @slot('master_total1')
-    {{number_format(ReservationHelper::taxAndPrice($price))}}
-    @endslot
-
-    {{-- スロット --}}
-    @slot('master_total2')
-    {{ Form::text('master_total', (ReservationHelper::taxAndPrice($price)),['class'=>'form-control', 'readonly'] ) }}
-    @endslot
-
-    {{-- スロット --}}
-    @slot('bill_created_at')
-    {{ Form::text('bill_created_at', $bill->bill_created_at,['class'=>'form-control', 'id'=>'datepicker6','readonly'] ) }}
-    @endslot
-
-    {{-- スロット --}}
-    @slot('pay_limit')
-    {{ Form::text('pay_limit', $payment_limit,['class'=>'form-control', 'id'=>'datepicker6','readonly'] ) }}
-    @endslot
-
-    {{-- スロット --}}
-    @slot('pay_company')
-    {{ Form::text('pay_company', ReservationHelper::getAgentCompanyName($inputs['agent_id']),['class'=>'form-control','readonly'] ) }}
-    @endslot
-
-    {{-- スロット --}}
-    @slot('bill_person')
-    {{ Form::text('bill_person', ReservationHelper::getAgentPerson($inputs['agent_id']),['class'=>'form-control','readonly'] ) }}
-    @endslot
-
-    {{-- スロット --}}
-    @slot('bill_remark')
-    {{ Form::textarea('bill_remark', $result['bill_remark'],['class'=>'form-control','readonly'] ) }}
-    @endslot
-
-    {{-- スロット --}}
-    @slot('paid_select')
-    {{ Form::text('', $bill->paid==0?"未入金":"入金済",['class'=>'form-control','readonly'] ) }}
-    @endslot
-
-    {{-- スロット --}}
-    @slot('pay_day')
-    {{ Form::text('pay_day', date('Y-m-d',strtotime($bill->pay_day)),['class'=>'form-control', 'id'=>'datepicker7','readonly'] ) }}
-    @endslot
-
-    {{-- スロット --}}
-    @slot('pay_person')
-    {{ Form::text('pay_person', $bill->pay_person,['class'=>'form-control','readonly'] ) }}
-    @endslot
-    {{-- スロット --}}
-    @slot('payment')
-    {{ Form::text('payment', $bill->payment,['class'=>'form-control','readonly'] ) }}
-    @endslot
-
-    {{-- スロット --}}
-    @slot('form_submit2')
-    <div class="container-field d-flex justify-content-center mt-5">
-      {{Form::submit('請求内訳を修正する', ['class'=>'btn more_btn4_lg d-block btn-lg mr-3 mt-5 mb-5', 'name'=>'back'])}}
-      {{Form::submit('編集を確定する', ['class'=>'btn more_btn_lg d-block btn-lg mt-5 mb-5', 'id'=>'check_submit'])}}
+        <table class="table table-bordered note-table">
+          <tr>
+            <td colspan="2">
+              <p class="title-icon">
+                <i class="fas fa-envelope icon-size"></i>備考
+              </p>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <label for="adminNote">管理者備考</label>
+              <div>
+                {{ Form::textarea('admin_details', $inputs['admin_details'],['class'=>'form-control ', 'placeholder'=>'入力してください','readonly'] ) }}
+              </div>
+            </td>
+          </tr>
+        </table>
+      </div>
     </div>
-    @endslot
-    {{-- スロット --}}
+  </section>
 
-    @slot('form_close2')
-    {{Form::close()}}
-    @endslot
+  <section class="mt-5">
+    <div class="bill">
+      <div class="bill_head">
+        <table class="table bill_table">
+          <tr>
+            <td>
+              <h2 class="text-white">
+                請求書No
+              </h2>
+            </td>
+            <td>
+              <dl class="ttl_box">
+                <dt>合計金額</dt>
+                <dd class="total_result">
+                  {{number_format(ReservationHelper::taxAndPrice($price))}}
+                  円</dd>
+              </dl>
+            </td>
+            <td>
+              <dl class="ttl_box">
+                <dt>支払い期日</dt>
+                <dd class="total_result">
+                  {{$payment_limit}}
+                </dd>
+              </dl>
+            </td>
+          </tr>
+        </table>
+      </div>
+      <div class="bill_details">
+        <div class="head d-flex">
+          <div class="accordion_btn">
+            <i class="fas fa-plus bill_icon_size hide" aria-hidden="true"></i>
+            <i class="fas fa-minus bill_icon_size" aria-hidden="true"></i>
+          </div>
+          <div class="billdetails_ttl">
+            <h3>
+              請求内訳
+            </h3>
+          </div>
+        </div>
+        <div class="main">
+          <div class="venues billdetails_content">
+            <table class="table table-borderless">
+              <tr>
+                <td>
+                  <h4 class="billdetails_content_ttl">
+                    会場料
+                  </h4>
+                </td>
+              </tr>
+              <tbody class="venue_head">
+                <tr>
+                  <td>内容</td>
+                  <td>単価</td>
+                  <td>数量</td>
+                  <td>金額</td>
+                </tr>
+              </tbody>
+              <tbody class="venue_main">
+                <tr>
+                  <td>
+                    {{ Form::text('venue_breakdown_item0', "会場料金",['class'=>'form-control', 'readonly'] ) }}
+                  </td>
+                  <td><input class="form-control" readonly></td>
+                  <td>
+                    {{ Form::text('venue_breakdown_count0', $usage_hours."h",['class'=>'form-control', 'readonly'] ) }}
+                  </td>
+                  <td><input class="form-control" readonly></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
 
-    {{-- スロット --}}
-    @slot('agent_select')
-    {{ Form::text('', $agents->find($inputs['agent_id'])->company,['class'=>'form-control','readonly'] ) }}
-    @endslot
+          <div class="equipment billdetails_content">
+            <table class="table table-borderless">
+              <tr>
+                <td colspan="4">
+                  <h4 class="billdetails_content_ttl">
+                    有料備品・サービス
+                  </h4>
+                </td>
+              </tr>
+              <tbody class="equipment_head">
+                <tr>
+                  <td>内容</td>
+                  <td>単価</td>
+                  <td>数量</td>
+                  <td>金額</td>
+                </tr>
+              </tbody>
+              <tbody class="equipment_main">
+                @foreach ($venue->getEquipments() as $key=>$equipment)
+                @if (!empty($inputs['equipment_breakdown'.$key]))
+                <tr>
+                  <td>
+                    {{ Form::text('equipment_breakdown_item'.$key, $equipment->item,['class'=>'form-control', 'readonly'] ) }}
+                  </td>
+                  <td><input class="form-control" readonly></td>
+                  <td>
+                    {{ Form::text('equipment_breakdown_count'.$key, $inputs['equipment_breakdown'.$key],['class'=>'form-control', 'readonly'] ) }}
+                  </td>
+                  <td><input class="form-control" readonly></td>
+                </tr>
+                @endif
+                @endforeach
+                @foreach ($venue->getServices() as $key=>$service)
+                @if (!empty($inputs['services_breakdown'.$key]))
+                <tr>
+                  <td>
+                    {{ Form::text('service_breakdown_item'.$key, $service->item,['class'=>'form-control', 'readonly'] ) }}
+                  </td>
+                  <td><input class="form-control" readonly></td>
+                  <td>
+                    {{ Form::text('service_breakdown_count'.$key, $inputs['services_breakdown'.$key],['class'=>'form-control', 'readonly'] ) }}
+                  </td>
+                  <td><input class="form-control" readonly></td>
+                </tr>
+                @endif
+                @endforeach
+              </tbody>
+            </table>
+          </div>
 
-    {{-- スロット --}}
-    @slot('agent_person')
-    {{ Form::text('', ReservationHelper::getAgentPerson($inputs['agent_id']),['class'=>'form-control','readonly'] ) }}
+          @if ($venue->layout!=0)
+          <div class="layout billdetails_content">
+            <table class="table table-borderless">
+              <tr>
+                <td>
+                  <h4 class="billdetails_content_ttl">
+                    レイアウト
+                  </h4>
+                </td>
+              </tr>
+              <tbody class="layout_head">
+                <tr>
+                  <td>内容</td>
+                  <td>単価</td>
+                  <td>数量</td>
+                  <td>金額</td>
+                </tr>
+              </tbody>
+              <tbody class="layout_main">
+                @if (!empty($inputs['layout_prepare']))
+                <tr>
+                  <td>{{ Form::text('layout_prepare_item', "レイアウト準備料金",['class'=>'form-control', 'readonly'] ) }}</td>
+                  <td>
+                    {{ Form::text('layout_prepare_cost', $layoutPrice[0],['class'=>'form-control', 'readonly'] ) }}
+                  </td>
+                  <td>{{ Form::text('layout_prepare_count', 1,['class'=>'form-control', 'readonly'] )}}</td>
+                  <td>
+                    {{ Form::text('layout_prepare_subtotal', $venue->getLayouts()[0],['class'=>'form-control', 'readonly'] ) }}
+                  </td>
+                </tr>
+                @endif
+                @if (!empty($inputs['layout_clean']))
+                <tr>
+                  <td>{{ Form::text('layout_clean_item', "レイアウト片付料金",['class'=>'form-control', 'readonly'] ) }}</td>
+                  <td>
+                    {{ Form::text('layout_clean_cost', $layoutPrice[1],['class'=>'form-control', 'readonly'] ) }}
+                  </td>
+                  <td>{{ Form::text('layout_clean_count', 1,['class'=>'form-control', 'readonly'] )}}</td>
+                  <td>
+                    {{ Form::text('layout_clean_subtotal', $venue->getLayouts()[1],['class'=>'form-control', 'readonly'] ) }}
+                  </td>
+                </tr>
+                @endif
+              </tbody>
+              <tbody class="layout_result">
+                <tr>
+                  <td colspan="3"></td>
+                  <td colspan="1">
+                    <p class="text-left">合計</p>
+                    {{ Form::text('layout_price',$layoutPrice[2]??0 ,['class'=>'form-control', 'readonly'] ) }}
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          @endif
 
-    @endslot
+          <div class="others billdetails_content">
+            <table class="table table-borderless">
+              <tr>
+                <td colspan="5">
+                  <h4 class="billdetails_content_ttl">
+                    その他
+                  </h4>
+                </td>
+              </tr>
+              <tbody class="others_head">
+                <tr>
+                  <td>内容</td>
+                  <td>単価</td>
+                  <td>数量</td>
+                  <td>金額</td>
+                  {!!empty(preg_match('/edit_check/',url()->current()))?"<td>追加/削除</td>":""!!}
+                </tr>
+              </tbody>
+              <tbody class="others_main">
+                @for ($i = 0; $i < $o_count; $i++) <tr>
+                  <td>
+                    {{ Form::text('others_breakdown_item'.$i, $result['others_breakdown_item'.$i],['class'=>'form-control','readonly'] ) }}
+                  </td>
+                  <td>
+                    <input class="form-control" readonly></td>
+                  <td>
+                    {{ Form::text('others_breakdown_count'.$i, $result['others_breakdown_count'.$i],['class'=>'form-control','readonly'] ) }}
+                  </td>
+                  <td>
+                    <input class="form-control" readonly></td>
+                  </tr>
+                  @endfor
+              </tbody>
+            </table>
+          </div>
+          <div class="bill_total">
+            <table class="table text-right">
+              <tr>
+                <td>小計：</td>
+                <td>
+                  {{ Form::text('master_subtotal', ($price),['class'=>'form-control', 'readonly'] ) }}
+                </td>
+              </tr>
+              <tr>
+                <td>消費税：</td>
+                <td>
+                  {{ Form::text('master_tax', (ReservationHelper::getTax($price)),['class'=>'form-control', 'readonly'] ) }}
+                </td>
+              </tr>
+              <tr>
+                <td class="font-weight-bold">合計金額</td>
+                <td>
+                  {{ Form::text('master_total', (ReservationHelper::taxAndPrice($price)),['class'=>'form-control', 'readonly'] ) }}
+                </td>
+              </tr>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
 
-    {{-- スロット --}}
-    @slot('end_user')
-    {{ Form::text('enduser_company', $inputs['enduser_company'],['class'=>'form-control', 'placeholder'=>'入力してください','id'=>'enduser_company','readonly'] ) }}
-    @endslot
+    <div class="information">
+      <div class="information_details">
+        <div class="head d-flex">
+          <div class="accordion_btn">
+            <i class="fas fa-plus bill_icon_size hide" aria-hidden="true"></i>
+            <i class="fas fa-minus bill_icon_size" aria-hidden="true"></i>
+          </div>
+          <div class="billdetails_ttl">
+            <h3>
+              請求書情報
+            </h3>
+          </div>
+        </div>
+        <div class="main">
+          <div class="informations billdetails_content py-3">
+            <table class="table">
+              <tr>
+                <td>請求日
+                  {{ Form::text('bill_created_at', $bill->bill_created_at,['class'=>'form-control', 'id'=>'datepicker6','readonly'] ) }}
+                </td>
+                <td>支払期日
+                  {{ Form::text('pay_limit', $payment_limit,['class'=>'form-control', 'id'=>'datepicker6','readonly'] ) }}
+                </td>
+              </tr>
+              <tr>
+                <td>請求書宛名
+                  {{ Form::text('pay_company', ReservationHelper::getAgentCompanyName($inputs['agent_id']),['class'=>'form-control','readonly'] ) }}
+                </td>
+                <td>
+                  担当者
+                  {{ Form::text('bill_person', ReservationHelper::getAgentPerson($inputs['agent_id']),['class'=>'form-control','readonly'] ) }}
+                </td>
+              </tr>
+              <tr>
+                <td colspan="2">請求書備考
+                  {{ Form::textarea('bill_remark', $result['bill_remark'],['class'=>'form-control','readonly'] ) }}
+                </td>
+              </tr>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
 
-    {{-- スロット --}}
-    @slot('end_user_address')
-    {{ Form::text('enduser_address', $inputs['enduser_address'],['class'=>'form-control', 'placeholder'=>'入力してください','id'=>'enduser_address','readonly'] ) }}
-    @endslot
+    <div class="paid">
+      <div class="paid_details">
+        <div class="head d-flex">
+          <div class="d-flex align-items-center">
+            <h3 class="pl-3">
+              入金情報
+            </h3>
+          </div>
+        </div>
+        <div class="main">
+          <div class="paids billdetails_content pt-3">
+            <table class="table" style="table-layout: fixed;">
+              <tr>
+                <td>入金状況
+                  {{ Form::text('', $bill->paid==0?"未入金":"入金済",['class'=>'form-control','readonly'] ) }}
+                </td>
+                <td>
+                  入金日
+                  {{ Form::text('pay_day', date('Y-m-d',strtotime($bill->pay_day)),['class'=>'form-control', 'id'=>'datepicker7','readonly'] ) }}
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  振込人名
+                  {{ Form::text('pay_person', $bill->pay_person,['class'=>'form-control','readonly'] ) }}
+                  <p class="is-error-pay_person" style="color: red"></p>
+                </td>
+                <td>入金額
+                  {{ Form::text('payment', $bill->payment,['class'=>'form-control','readonly'] ) }}
+                  <p class="is-error-payment" style="color: red"></p>
+                </td>
+              </tr>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
 
-    {{-- スロット --}}
-    @slot('end_user_tel')
-    {{ Form::text('enduser_tel', $inputs['enduser_tel'],['class'=>'form-control', 'placeholder'=>'入力してください', 'id'=>'enduser_tel','readonly']) }}
-    @endslot
-
-    {{-- スロット --}}
-    @slot('end_user_email')
-    {{ Form::text('enduser_mail', $inputs['enduser_mail'],['class'=>'form-control', 'placeholder'=>'入力してください', 'id'=>'enduser_mail','readonly'] ) }}
-    @endslot
-
-    {{-- スロット --}}
-    @slot('end_user_person')
-    {{ Form::text('enduser_incharge', $inputs['enduser_incharge'],['class'=>'form-control', 'placeholder'=>'入力してください', 'id'=>'enduser_incharge','readonly'] ) }}
-    @endslot
-
-    {{-- スロット --}}
-    @slot('end_user_mobile')
-    {{ Form::text('enduser_mobile', $inputs['enduser_mobile'],['class'=>'form-control', 'placeholder'=>'入力してください', 'id'=>'enduser_mobile','readonly'] ) }}
-    @endslot
-
-    {{-- スロット --}}
-    @slot('end_user_attr')
-    {{ Form::text('enduser_attr', ReservationHelper::getAttr($inputs['enduser_attr']),['class'=>'form-control', 'placeholder'=>'入力してください', 'id'=>'enduser_mobile','readonly'] ) }}
-    @endslot
-
-    {{-- スロット --}}
-    @slot('end_user_charge')
-    {{ Form::text('enduser_charge', $inputs['enduser_charge'],['class'=>'form-control ', 'placeholder'=>'入力してください','readonly'] ) }}
-    @endslot
-
-
-    @slot('user_cost')
-    @if ($venue->alliance_flag!=0)
-    <table class="table table-bordered sale-table" id="user_cost">
-      <tbody>
-        <tr>
-          <td colspan="2">
-            <p class="title-icon">
-              <i class="fas fa-yen-sign icon-size" aria-hidden="true"></i>売上原価<span
-                class="annotation">（提携会場を選択した場合、提携会場で設定した原価率が適応されます）</span>
-            </p>
-          </td>
-        </tr>
-        <tr>
-          <td class="table-active"><label for="cost">原価率</label></td>
-          <td class="d-flex align-items-center">
-            {{Form::text('cost',$inputs['cost'],['class'=>'form-control sales_percentage','readonly'])}}
-            <span class="ml-1">%</span>
-            <p class="is-error-cost" style="color: red"></p>
-          </td>
-        </tr>
-      </tbody>
-    </table>
-    @endif
-    @endslot
+  <div class="container-field d-flex justify-content-center mt-5">
+    {{Form::submit('請求内訳を修正する', ['class'=>'btn more_btn4_lg d-block btn-lg mr-3 mt-5 mb-5', 'name'=>'back'])}}
+    {{Form::submit('編集を確定する', ['class'=>'btn more_btn_lg d-block btn-lg mt-5 mb-5', 'id'=>'check_submit'])}}
+  </div>
+  {{Form::close()}}
 
 
-    {{-- スロット --}}
-    @slot('admin_details')
-    {{ Form::textarea('admin_details', $inputs['admin_details'],['class'=>'form-control ', 'placeholder'=>'入力してください','readonly'] ) }}
-    @endslot
+  <script>
+    $(function() {
+      $(document).on("click", "input:radio[name='eat_in']", function() {
+        var radioTarget = $('input:radio[name="eat_in"]:checked').val();
+        if (radioTarget == 1) {
+          $('input:radio[name="eat_in_prepare"]').prop('disabled', false);
+          $('input:radio[name="eat_in_prepare"]:first-child').prop('checked', true);
+        } else {
+          $('input:radio[name="eat_in_prepare"]').prop('disabled', true);
+          $('input:radio[name="eat_in_prepare"]').val("");
+        }
+      })
+    })
+  </script>
 
 
 
-    @endcomponent
-
-    @endsection
+  @endsection

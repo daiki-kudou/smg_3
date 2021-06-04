@@ -310,6 +310,8 @@
           </tbody>
         </table>
       </div>
+
+      @if ($venue->layout!=0)
       <div class='layouts'>
         <table class='table table-bordered' style="table-layout:fixed;">
           <thead>
@@ -348,7 +350,6 @@
               </td>
             </tr>
             @endif
-
             <tr>
               <td class="table-active">片付({{number_format($venue->layout_clean)}}円)</td>
               <td>
@@ -378,7 +379,10 @@
           </tbody>
         </table>
       </div>
+      @endif
 
+
+      @if ($venue->luggage_flag!=0)
       <div class='luggage'>
         <table class='table table-bordered' style="table-layout:fixed;">
           <thead>
@@ -431,7 +435,9 @@
           </tbody>
         </table>
       </div>
+      @endif
 
+      @if ($venue->eat_in_flag!=0)
       <div class="eat_in">
         <table class="table table-bordered">
           <thead>
@@ -466,6 +472,8 @@
           </tbody>
         </table>
       </div>
+      @endif
+
 
     </div>
     <div class="col">

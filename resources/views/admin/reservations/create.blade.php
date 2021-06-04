@@ -89,9 +89,9 @@
                 <select id="venues_selector" class=" form-control" name='venue_id'>
                   <option value='#' selected>選択してください</option>
                   @foreach ($venues as $venue)
-                  <option value="{{$venue->id}}" @if (isset($request->venue_id))
-                    @endif
-                    >{{$venue->name_area}}{{$venue->name_bldg}}{{$venue->name_venue}}</option>
+                  <option value="{{$venue->id}}">
+                    {{$venue->name_area}}{{$venue->name_bldg}}{{$venue->name_venue}}
+                  </option>
                   @endforeach
                 </select>
                 <p class="is-error-venue_id" style="color: red"></p>

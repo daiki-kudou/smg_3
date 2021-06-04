@@ -15,8 +15,6 @@
           <td class="table-active form_required">利用日</td>
           <td>
             {{$reserve_date}}
-            {{-- {{ Form::text('reserve_date', date('Y-m-d', strtotime($reservation->reserve_date)) ,['class'=>'form-control',  'readonly'] ) }}
-            --}}
             <p class="is-error-reserve_date" style="color: red"></p>
           </td>
         </tr>
@@ -86,8 +84,6 @@
           <td>
             <div class="align-items-end d-flex">
               {{$event_name1}}
-              {{-- {{ Form::text('event_name1', $reservation->event_name1,['class'=>'form-control', 'id'=>'eventname1Count'] ) }}
-              --}}
               <span class="ml-1 annotation count_num1"></span>
             </div>
             <p class="is-error-event_name1" style="color: red"></p>
@@ -98,8 +94,6 @@
           <td>
             <div class="align-items-end d-flex">
               {{$event_name2}}
-              {{-- {{ Form::text('event_name2', $reservation->event_name2,['class'=>'form-control', 'id'=>'eventname2Count'] ) }}
-              --}}
               <span class="ml-1 annotation count_num2"></span>
             </div>
             <p class="is-error-event_name2" style="color: red"></p>
@@ -110,8 +104,6 @@
           <td>
             <div class="align-items-end d-flex">
               {{$event_owner}}
-              {{-- {{ Form::text('event_owner', $reservation->event_owner,['class'=>'form-control', 'id'=>'eventownerCount'] ) }}
-              --}}
               <span class="ml-1 annotation count_num3"></span>
             </div>
             <p class="is-error-event_owner" style="color: red"></p>
@@ -131,22 +123,6 @@
           </thead>
           <tbody class="accordion-wrap">
             {{$m_equipment_loop}}
-            {{-- @foreach ($venue->getEquipments() as $key=>$equ)
-            <tr>
-              <td class="table-active">
-                {{$equ->item}}
-            </td>
-            <td>
-              <input type="text" class="form-control equipment_breakdown" name="{{'equipment_breakdown'.$key}}"
-                @foreach($bill->breakdowns()->where('unit_type',2)->get() as $e_break)
-              @if ($e_break->unit_item==$equ->item)
-              value="{{$e_break->unit_count}}"
-              @endif
-              @endforeach --}}
-              {{-- >
-            </td>
-            </tr> --}}
-              {{-- @endforeach --}}
           </tbody>
         </table>
       </div>
@@ -164,115 +140,14 @@
           </thead>
           <tbody class="accordion-wrap">
             {{$m_service_loop}}
-            {{-- @if ($checkItem[0][1]>0)
-            @foreach ($venue->getServices() as $key=>$ser)
-            <tr>
-              <td class="table-active">{{$ser->item}}</td>
-            <td>
-              <div class="radio-box">
-                @foreach ($bill->breakdowns()->where('unit_type',3)->get() as $s_break)
-                @if ($s_break->unit_item==$ser->item)
-                <p>
-                  {{Form::radio('services_breakdown'.$key, 1, true , ['id' => 'service'.$key.'on'])}}
-                  {{Form::label('service'.$key.'on',"有り")}}
-                </p>
-                <p>
-                  {{Form::radio('services_breakdown'.$key, 0, false, ['id' => 'service'.$key.'off'])}}
-                  {{Form::label('service'.$key.'off',"無し")}}
-                </p>
-                @break
-                @elseif($loop->last)
-                <p>
-                  {{Form::radio('services_breakdown'.$key, 1, false , ['id' => 'service'.$key.'on'])}}
-                  {{Form::label('service'.$key.'on',"有り")}}
-                </p>
-                <p>
-                  {{Form::radio('services_breakdown'.$key, 0, true, ['id' => 'service'.$key.'off'])}}
-                  {{Form::label('service'.$key.'off',"無し")}}
-                </p>
-                @endif
-                @endforeach
-              </div>
-            </td>
-            </tr>
-            @endforeach
-            @else
-            @foreach ($venue->getServices() as $key=>$ser)
-            <tr>
-              <td>{{$ser->item}}</td>
-              <td>
-                <div class="radio-box">
-                  <p>
-                    {{Form::radio('services_breakdown'.$key, 1, false , ['id' => 'service'.$key.'on'])}}
-                    {{Form::label('service'.$key.'on',"有り")}}
-                  </p>
-                  <p>
-                    {{Form::radio('services_breakdown'.$key, 0, true, ['id' => 'service'.$key.'off'])}}
-                    {{Form::label('service'.$key.'off',"無し")}}
-                  </p>
-                </div>
-              </td>
-            </tr>
-            @endforeach
-            @endif --}}
-          </tbody>
-        </table>
-      </div>
-      <div class='layouts'>
-        <table class='table table-bordered' style="table-layout:fixed;">
-          <thead>
-            <tr>
-              <th colspan='2'>
-                <p class="title-icon py-1">
-                  <i class="fas fa-th icon-size fa-fw"></i>レイアウト
-                </p>
-              </th>
-            </tr>
-          </thead>
-          <tbody>
-            {{$m_layout_loop}}
-          </tbody>
-        </table>
-      </div>
-      <div class='luggage'>
-        <table class='table table-bordered' style="table-layout:fixed;">
-          <thead>
-            <tr>
-              <th colspan='2'>
-                <p class="title-icon">
-                  <i class="fas fa-suitcase-rolling icon-size fa-fw"></i>荷物預り
-                </p>
-              </th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td class="table-active">事前に預かる荷物<br>（個数）</td>
-              <td>
-                {{$luggage_count}}
-                {{-- {{ Form::text('luggage_count', $reservation->luggage_count,['class'=>'form-control'] ) }} --}}
-                <p class="is-error-luggage_count" style="color: red"></p>
-              </td>
-            </tr>
-            <tr>
-              <td class="table-active">事前荷物の到着日<br>午前指定のみ</td>
-              <td>
-                {{$luggage_arrive}}
-                {{-- {{ Form::text('luggage_arrive', $reservation->luggage_arrive,['class'=>'form-control'] ) }} --}}
-              </td>
-            </tr>
-            <tr>
-              <td class="table-active">事後返送する荷物</td>
-              <td>
-                {{$luggage_return}}
-                {{-- {{ Form::text('luggage_return', $reservation->luggage_return,['class'=>'form-control'] ) }} --}}
-                <p class="is-error-luggage_return" style="color: red"></p>
-              </td>
-            </tr>
           </tbody>
         </table>
       </div>
 
+
+      {{$m_layout_loop}}
+
+      {{$m_luggage}}
 
       {{$eat_in1}}
 
@@ -323,7 +198,6 @@
               <label for="enduser_company" class="">エンドユーザー</label>
             </td>
             <td>
-              {{-- {{$reservation->enduser->company}} --}}
               {{$end_user}}
             </td>
           </tr>
@@ -333,7 +207,6 @@
             </td>
             <td>
               {{$end_user_address}}
-              {{-- {{$reservation->enduser->address}} --}}
             </td>
           </tr>
           <tr>
@@ -342,7 +215,6 @@
             </td>
             <td>
               {{$end_user_tel}}
-              {{-- {{$reservation->enduser->tel}} --}}
             </td>
           </tr>
           <tr>
@@ -351,7 +223,6 @@
             </td>
             <td>
               {{$end_user_email}}
-              {{-- {{$reservation->enduser->email}} --}}
             </td>
           </tr>
           <tr>
@@ -360,7 +231,6 @@
             </td>
             <td>
               {{$end_user_person}}
-              {{-- {{$reservation->enduser->person}} --}}
             </td>
           </tr>
           <tr>
@@ -369,7 +239,6 @@
             </td>
             <td>
               {{$end_user_mobile}}
-              {{-- {{$reservation->enduser->mobile}} --}}
             </td>
           </tr>
           <tr>
@@ -378,7 +247,6 @@
             </td>
             <td>
               {{$end_user_attr}}
-              {{-- {{$reservation->enduser->attr}} --}}
             </td>
           </tr>
         </table>
@@ -416,35 +284,22 @@
             </p>
           </td>
         </tr>
-        {{-- <tr>
+        <tr>
           <td>
-            <label for="userNote">申し込みフォーム備考</label>
+            <label for="adminNote">管理者備考</label>
             <div>
-              {{$user_details}}
+              {{$admin_details}}
+            </div>
+          </td>
+        </tr>
+      </table>
     </div>
-    </td>
-    </tr> --}}
-    <tr>
-      <td>
-        <label for="adminNote">管理者備考</label>
-        <div>
-          {{$admin_details}}
-          {{-- {{$reservation->admin_details}} --}}
-        </div>
-      </td>
-    </tr>
-    </table>
-  </div>
   </div>
 </section>
 {{$form_submit1}}
 {{$form_close1}}
-{{-- {{Form::submit('再計算する', ['class'=>'btn more_btn4_lg mx-auto d-block mt-5 mb-5', 'id'=>'check_submit'])}} --}}
-{{-- {{Form::close()}} --}}
 
 {{$form_open2}}
-{{-- {{ Form::open(['url' => '###################', 'method'=>'POST', 'id'=>'reservations_calculate_form']) }} --}}
-{{-- @csrf --}}
 <section class="mt-5">
   <div class="bill">
     <div class="bill_head">
@@ -460,7 +315,6 @@
               <dt>合計金額</dt>
               <dd class="total_result">
                 {{$master_total1}}
-                {{-- {{number_format($reservation->bills()->first()->master_total)}} --}}
                 円</dd>
             </dl>
           </td>
@@ -469,7 +323,6 @@
               <dt>支払い期日</dt>
               <dd class="total_result">
                 {{$payment_limit}}
-                {{-- {{ReservationHelper::formatDate($bill->payment_limit)}} --}}
               </dd>
             </dl>
           </td>
@@ -509,14 +362,6 @@
             <tbody class="venue_main">
               {{$venue_breakdown_loop}}
             </tbody>
-            {{-- <tbody class="venue_result">
-              <tr>
-                <td colspan="3"></td>
-                <td colspan="1">
-                  <p class="text-left">合計</p>
-                </td>
-              </tr>
-            </tbody> --}}
           </table>
         </div>
 
@@ -540,38 +385,6 @@
             <tbody class="equipment_main">
               {{$equipment_breakdown_loop}}
               {{$service_breakdown_loop}}
-              {{-- @foreach ($checkItem[1][1] as $key=>$equipment_price)
-              <tr>
-                <td>
-                  {{ Form::text('equipment_breakdown_item'.$key, $equipment_price->unit_item,['class'=>'form-control', 'readonly'] ) }}
-              </td>
-              <td>
-                {{ Form::text('equipment_breakdown_cost'.$key, $equipment_price->unit_cost,['class'=>'form-control', 'readonly'] ) }}
-              </td>
-              <td>
-                {{ Form::text('equipment_breakdown_count'.$key, $equipment_price->unit_count,['class'=>'form-control', 'readonly'] ) }}
-              </td>
-              <td>
-                {{ Form::text('equipment_breakdown_subtotal'.$key, $equipment_price->unit_subtotal,['class'=>'form-control', 'readonly'] ) }}
-              </td>
-              </tr>
-              @endforeach
-              @foreach ($checkItem[1][2] as $key=>$service_price)
-              <tr>
-                <td>
-                  {{ Form::text('equipment_breakdown_item'.$key, $service_price->unit_item,['class'=>'form-control', 'readonly'] ) }}
-                </td>
-                <td>
-                  {{ Form::text('equipment_breakdown_cost'.$key, $service_price->unit_cost,['class'=>'form-control', 'readonly'] ) }}
-                </td>
-                <td>
-                  {{ Form::text('equipment_breakdown_count'.$key, $service_price->unit_count,['class'=>'form-control', 'readonly'] ) }}
-                </td>
-                <td>
-                  {{ Form::text('equipment_breakdown_subtotal'.$key, $service_price->unit_subtotal,['class'=>'form-control', 'readonly'] ) }}
-                </td>
-              </tr>
-              @endforeach --}}
             </tbody>
           </table>
         </div>
@@ -677,30 +490,23 @@
             <tr>
               <td>請求日
                 {{$bill_created_at}}
-                {{-- {{ Form::text('bill_created_at', $bill->bill_created_at,['class'=>'form-control', 'id'=>'datepicker6'] ) }}
-                --}}
               </td>
               <td>支払期日
                 {{$pay_limit}}
-                {{-- {{ Form::text('pay_limit', $bill->pay_limit,['class'=>'form-control', 'id'=>'datepicker6'] ) }}
-                --}}
               </td>
             </tr>
             <tr>
               <td>請求書宛名
                 {{$pay_company}}
-                {{-- {{ Form::text('pay_company', $user->company,['class'=>'form-control'] ) }} --}}
               </td>
               <td>
                 担当者
                 {{$bill_person}}
-                {{-- {{ Form::text('bill_person', $bill->pay_person,['class'=>'form-control'] ) }} --}}
               </td>
             </tr>
             <tr>
               <td colspan="2">請求書備考
                 {{$bill_remark}}
-                {{-- {{ Form::textarea('bill_remark', '',['class'=>'form-control'] ) }} --}}
               </td>
             </tr>
           </table>
@@ -733,13 +539,11 @@
             <tr>
               <td>
                 振込人名
-                {{-- {{ Form::text('pay_person', $bill->pay_person,['class'=>'form-control'] ) }} --}}
                 {{$pay_person}}
                 <p class="is-error-pay_person" style="color: red"></p>
               </td>
               <td>入金額
                 {{$payment}}
-                {{-- {{ Form::text('payment', $bill->payment,['class'=>'form-control'] ) }} --}}
                 <p class="is-error-payment" style="color: red"></p>
               </td>
             </tr>

@@ -276,3 +276,35 @@ Breadcrumbs::for('admin.calendar.venue_calendar', function ($trail) {
   $trail->parent('admin.home.index');
   $trail->push('予約状況カレンダー 会場別', route('admin.calendar.venue_calendar'));
 });
+//////////////////////////ユーザー///////////////////////////////////
+
+// ユーザーホーム（予約）
+Breadcrumbs::for('user.home.index', function ($trail) {
+  $trail->push('Home', route('user.home.index'));
+});
+
+Breadcrumbs::for('user.home.show', function ($trail, $id) {
+  $trail->parent('user.home.index');
+  $trail->push('予約 詳細', route('user.home.show', $id));
+});
+
+// 仮抑え
+Breadcrumbs::for('user.pre_reservations.index', function ($trail) {
+  $trail->parent('user.home.index');
+  $trail->push('仮抑え　一覧', route('user.pre_reservations.index'));
+});
+
+Breadcrumbs::for('user.pre_reservations.show', function ($trail, $id) {
+  $trail->parent('user.pre_reservations.index');
+  $trail->push('仮抑え　申し込み', route('user.pre_reservations.show', $id));
+});
+
+Breadcrumbs::for('user.pre_reservations.show_calc', function ($trail, $id) {
+  $trail->parent('user.pre_reservations.index');
+  $trail->push('仮抑え　申し込み', route('user.pre_reservations.show_calc', $id));
+});
+
+Breadcrumbs::for('user.pre_reservations.show_cfm', function ($trail) {
+  $trail->parent('user.pre_reservations.index');
+  $trail->push('仮抑え　申し込み', route('user.pre_reservations.show_cfm'));
+});

@@ -46,11 +46,11 @@ Route::namespace('User')->prefix('user')->name('user.')->group(function () {
     Route::post('home/cfm_cxl', 'HomeController@cxl_cfm_by_user');
     Route::post('home/approve_user_additional_cfm', 'HomeController@approve_user_additional_cfm');
 
-    Route::post('pre_reservations/{pre_reservation}/calculate', 'PreReservationsController@calculate');
+    Route::post('pre_reservations/{pre_reservation}/calculate', 'PreReservationsController@calculate')->name('pre_reservations.show_calc');
     Route::post('pre_reservations/{pre_reservation}/cfm', 'PreReservationsController@cfm');
     Route::get('pre_reservations', 'PreReservationsController@index')->name('pre_reservations.index');
     Route::get('pre_reservations/cfm', 'PreReservationsController@showCfm')->name('pre_reservations.show_cfm');
-    Route::get('pre_reservations/{pre_reservation}', 'PreReservationsController@show');
+    Route::get('pre_reservations/{pre_reservation}', 'PreReservationsController@show')->name('pre_reservations.show');
     // Route::resource('pre_reservations', 'PreReservationsController')->except('show');
 
     // 以下、ユーザーからの予約経路

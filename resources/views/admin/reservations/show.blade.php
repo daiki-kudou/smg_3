@@ -1553,11 +1553,15 @@
     <div class="payment_situation">
       <dl>
         <dt>合計入金額</dt>
-        <dd>円</dd>
+        <dd>
+          {{number_format($reservation->cxls->pluck('payment')->sum())}}
+          円</dd>
       </dl>
       <dl>
         <dt>未入金額</dt>
-        <dd>円</dd>
+        <dd>
+          {{number_format(($reservation->cxls->pluck('master_total')->sum()-$reservation->cxls->pluck('payment')->sum()))}}
+          円</dd>
       </dl>
     </div>
   </div>
@@ -1566,91 +1570,91 @@
 
   <script>
     $(function() {
-                $('#double_check1_submit,#double_check2_submit').on('click', function() {
-                    if (!confirm('チェック完了しますか？')) {
-                        return false;
-                    }
-                });
-                $('#send_confirm').on('click', function() {
-                    if (!confirm('利用者に承認メールを送付しますか？')) {
-                        return false;
-                    }
-                });
-                $('#reservation_confirm').on('click', function() {
-                    if (!confirm('予約を確定しますか？')) {
-                        return false;
-                    }
-                });
-                $('.approve_send').on('click', function() {
-                    if (!confirm('利用者に承認メールを送付しますか？')) {
-                        return false;
-                    }
-                });
-                $('.confirm_btn').on('click', function() {
-                    if (!confirm('予約を確定しますか？')) {
-                        return false;
-                    }
-                });
-            });
+        $('#double_check1_submit,#double_check2_submit').on('click', function() {
+            if (!confirm('チェック完了しますか？')) {
+                return false;
+            }
+        });
+        $('#send_confirm').on('click', function() {
+            if (!confirm('利用者に承認メールを送付しますか？')) {
+                return false;
+            }
+        });
+        $('#reservation_confirm').on('click', function() {
+            if (!confirm('予約を確定しますか？')) {
+                return false;
+            }
+        });
+        $('.approve_send').on('click', function() {
+            if (!confirm('利用者に承認メールを送付しますか？')) {
+                return false;
+            }
+        });
+        $('.confirm_btn').on('click', function() {
+            if (!confirm('予約を確定しますか？')) {
+                return false;
+            }
+        });
+    });
 
-            $(function() {
-                $('#remark_checkbox').on('click', function() {
-                    if ($('.remark_textarea').prop('readonly')) {
-                        $('.remark_textarea').prop('readonly', false);
-                        $('.remark_textarea_submit').prop('disabled', false);
-                    } else {
-                        $('.remark_textarea').prop('readonly', true);
-                        $('.remark_textarea_submit').prop('disabled', true);
-                    }
-                })
-            })
+    $(function() {
+        $('#remark_checkbox').on('click', function() {
+            if ($('.remark_textarea').prop('readonly')) {
+                $('.remark_textarea').prop('readonly', false);
+                $('.remark_textarea_submit').prop('disabled', false);
+            } else {
+                $('.remark_textarea').prop('readonly', true);
+                $('.remark_textarea_submit').prop('disabled', true);
+            }
+        })
+    })
 
-            $(function() {
-                $('.bill_edit_m').on('click', function() {
-                    if ($('.bill_edit', $(this).parent().parent()).prop('disabled')) {
-                        $('.bill_edit', $(this).parent().parent()).prop('disabled', false);
-                    } else {
-                        $('.bill_edit', $(this).parent().parent()).prop('disabled', true);
-                    }
-                })
-            })
+    $(function() {
+        $('.bill_edit_m').on('click', function() {
+            if ($('.bill_edit', $(this).parent().parent()).prop('disabled')) {
+                $('.bill_edit', $(this).parent().parent()).prop('disabled', false);
+            } else {
+                $('.bill_edit', $(this).parent().parent()).prop('disabled', true);
+            }
+        })
+    })
 
-            $(function() {
-                $('.paid_edit_m').on('click', function() {
-                    console.log($(this));
-                    if ($('.paid_edit', $(this).parent().next()).prop('disabled')) {
-                        $('.paid_edit', $(this).parent().next()).prop('disabled', false);
-                        $('.paid_edit', $(this).parent().next().next()).prop('disabled', false);
-                    } else {
-                        $('.paid_edit', $(this).parent().next()).prop('disabled', true);
-                        $('.paid_edit', $(this).parent().next().next()).prop('disabled', true);
-                    }
-                })
-            })
+    $(function() {
+        $('.paid_edit_m').on('click', function() {
+            console.log($(this));
+            if ($('.paid_edit', $(this).parent().next()).prop('disabled')) {
+                $('.paid_edit', $(this).parent().next()).prop('disabled', false);
+                $('.paid_edit', $(this).parent().next().next()).prop('disabled', false);
+            } else {
+                $('.paid_edit', $(this).parent().next()).prop('disabled', true);
+                $('.paid_edit', $(this).parent().next().next()).prop('disabled', true);
+            }
+        })
+    })
 
-            $(function() {
-                $('.cxl_bill_edit_m').on('click', function() {
-                    if ($('.cxl_bill_edit', $(this).parent().next()).prop('disabled')) {
-                        $('.cxl_bill_edit', $(this).parent().next()).prop('disabled', false);
-                        $('.cxl_bill_edit', $(this).parent().next().next()).prop('disabled', false);
-                    } else {
-                        $('.cxl_bill_edit', $(this).parent().next()).prop('disabled', true);
-                        $('.cxl_bill_edit', $(this).parent().next().next()).prop('disabled', true);
-                    }
-                })
-            })
+    $(function() {
+        $('.cxl_bill_edit_m').on('click', function() {
+            if ($('.cxl_bill_edit', $(this).parent().next()).prop('disabled')) {
+                $('.cxl_bill_edit', $(this).parent().next()).prop('disabled', false);
+                $('.cxl_bill_edit', $(this).parent().next().next()).prop('disabled', false);
+            } else {
+                $('.cxl_bill_edit', $(this).parent().next()).prop('disabled', true);
+                $('.cxl_bill_edit', $(this).parent().next().next()).prop('disabled', true);
+            }
+        })
+    })
 
-            $(function() {
-                $('.cxl_paid_edit_m').on('click', function() {
-                    if ($('.cxl_paid_edit', $(this).parent().next()).prop('disabled')) {
-                        $('.cxl_paid_edit', $(this).parent().next()).prop('disabled', false);
-                        $('.cxl_paid_edit', $(this).parent().next().next()).prop('disabled', false);
-                    } else {
-                        $('.cxl_paid_edit', $(this).parent().next()).prop('disabled', true);
-                        $('.cxl_paid_edit', $(this).parent().next().next()).prop('disabled', true);
-                    }
-                })
-            })
+    $(function() {
+        $('.cxl_paid_edit_m').on('click', function() {
+            if ($('.cxl_paid_edit', $(this).parent().next()).prop('disabled')) {
+                $('.cxl_paid_edit', $(this).parent().next()).prop('disabled', false);
+                $('.cxl_paid_edit', $(this).parent().next().next()).prop('disabled', false);
+            } else {
+                $('.cxl_paid_edit', $(this).parent().next()).prop('disabled', true);
+                $('.cxl_paid_edit', $(this).parent().next().next()).prop('disabled', true);
+            }
+        })
+    })
 
   </script>
 

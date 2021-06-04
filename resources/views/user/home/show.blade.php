@@ -10,7 +10,7 @@
     <nav aria-label="breadcrumb">
       <ol class="breadcrumb">
         <li class="breadcrumb-item active">
-          ダミーダミーダミー
+          {{ Breadcrumbs::render(Route::currentRouteName(),$reservation->id) }}
         </li>
       </ol>
     </nav>
@@ -388,7 +388,9 @@
               </td>
             </tr>
             <tr>
-              <td>{{ $reservation->remark }}</td>
+              <td>
+                {!! nl2br(e($reservation->user_details)) !!}
+              </td>
             </tr>
           </tbody>
         </table>
