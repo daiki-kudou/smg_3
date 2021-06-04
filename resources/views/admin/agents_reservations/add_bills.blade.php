@@ -126,7 +126,7 @@
             </tbody>
             <tbody class="equipment_head {{empty($equipments)?"hide":""}}">
               <tr>
-              <td colspan="2">内容</td>
+                <td colspan="2">内容</td>
                 <td>単価</td>
                 <td>数量</td>
                 <td>金額</td>
@@ -185,7 +185,7 @@
             </tbody>
             <tbody class="layout_head {{empty($layouts)?"hide":""}}">
               <tr>
-              <td>内容</td>
+                <td>内容</td>
                 <td>単価</td>
                 <td>数量</td>
                 <td>金額</td>
@@ -205,7 +205,7 @@
                   {{ Form::text('layout_breakdown_count'.$i, $data['layout_breakdown_count'.$i], ['class' => 'form-control'])}}
                 </td>
                 <td>
-                  {{ Form::text('layout_breakdown_subtotal'.$i, $data['layout_breakdown_subtotal'.$i], ['class' => 'form-control',''])}}
+                  {{ Form::text('layout_breakdown_subtotal'.$i, $data['layout_breakdown_subtotal'.$i], ['class' => 'form-control','readonly'])}}
                 </td>
                 <td>
                   <input type="button" value="＋" class="add pluralBtn">
@@ -218,7 +218,7 @@
                   <td>{{ Form::text('layout_breakdown_item0', '', ['class' => 'form-control'])}}</td>
                   <td>{{ Form::text('layout_breakdown_cost0', '', ['class' => 'form-control',''])}}</td>
                   <td>{{ Form::text('layout_breakdown_count0', '', ['class' => 'form-control'])}}</td>
-                  <td>{{ Form::text('layout_breakdown_subtotal0', '', ['class' => 'form-control', ''])}}</td>
+                  <td>{{ Form::text('layout_breakdown_subtotal0', '', ['class' => 'form-control', 'readonly'])}}</td>
                   <td>
                     <input type="button" value="＋" class="add pluralBtn">
                     <input type="button" value="ー" class="del pluralBtn">
@@ -253,7 +253,7 @@
             </tbody>
             <tbody class="others_head {{empty($others)?"hide":""}}">
               <tr>
-              <td colspan="2">内容</td>
+                <td colspan="2">内容</td>
                 <td>単価</td>
                 <td>数量</td>
                 <td>金額</td>
@@ -422,29 +422,28 @@
     </div>
   </div>
 </section>
-{{ Form::submit('確認する', ['class' => 'btn more_btn_lg mx-auto d-block mt-5 submit_btn']) }}
+
+{{ Form::submit('確認する', ['class' => 'btn more_btn_lg mx-auto d-block mt-5 submit_btn', empty($data)?"disabled":""]) }}
 
 {{ Form::close() }}
 
-
 <script>
-
-$(function() {
+  // $(function() {
   // チェックをされたら、ボタンのdisabledを解除
-  if ($("input[type='checkbox']").prop('checked') == false ) {
-      $('.submit_btn').prop('disabled', true);
-    } else {
-      $('.submit_btn').prop('disabled', false);
-    }
+  // if ($("input[type='checkbox']").prop('checked') == false ) {
+  //     $('.submit_btn').prop('disabled', true);
+  //   } else {
+  //     $('.submit_btn').prop('disabled', false);
+  //   }
 
-  $("input[type='checkbox']").on('click', function() {
-    if ( $(this).prop('checked') == false ) {
-      $('.submit_btn').prop('disabled', true);
-    } else {
-      $('.submit_btn').prop('disabled', false);
-    }
-  });
-});
+  // $("input[type='checkbox']").on('click', function() {
+  //   if ( $(this).prop('checked') == false ) {
+  //     $('.submit_btn').prop('disabled', true);
+  //   } else {
+  //     $('.submit_btn').prop('disabled', false);
+  //   }
+  // });
+// });
 
 
   $(function() {
@@ -561,15 +560,43 @@ $(function() {
     })
 
     function MaterCalc() {
-      var tar3 = Number($('input[name="layout_price"]').val());
-      var tar5 = Number($('input[name="enduser_charge_result"]').val());
-      var master_sub = tar3 + tar5;
+      // var tar3 = Number($('input[name="layout_price"]').val());
+      // var tar5 = Number($('input[name="enduser_charge_result"]').val());
+
+
+      var tar3 = $('input[name="layout_price"]');
+      var tar5 = $('input[name="enduser_charge_result"]');
+      var tar3_val=tar3.prop('disabled')?0:Number(tar3.val());
+      var tar5_val=tar5.prop('disabled')?0:Number(tar5.val());
+
+      var master_sub = tar3_val + tar5_val;
       var master_tax = Math.floor(Number((master_sub) * 0.1));
       $('input[name="master_subtotal"]').val(master_sub);
       $('input[name="master_tax"]').val(master_tax);
       $('input[name="master_total"]').val(master_sub + master_tax);
       console.log(tar5);
     }
+
+    $('input[type="checkbox"]').on("change",function(){
+        $('input[type="checkbox"]').each(function(index, element){
+          if ($(element).prop('checked')) {
+            $('.submit_btn').prop('disabled', false);
+            return false;
+          }
+          $('.submit_btn').prop('disabled', true);
+        })
+        if ($(this).prop('checked')) {
+          $(this).parent().parent().parent().parent().parent().parent().find('input[type="text"]').each(function(key, value){
+            $(value).prop('disabled',false);
+          })
+        }else{
+          $(this).parent().parent().parent().parent().parent().parent().find('input[type="text"]').each(function(key, value){
+            $(value).prop('disabled',true);
+          })
+        }
+        MaterCalc();
+      })
+
   })
 
   $(window).on('load',function(){

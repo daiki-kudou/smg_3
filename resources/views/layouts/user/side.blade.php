@@ -16,7 +16,6 @@
 </script>
 
 <div class="sidebar">
-
   <!-- Sidebar Menu -->
   <nav class="mt-2">
     <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
@@ -42,7 +41,7 @@
       </li>
 
       <li class="nav-item has-treeview">
-        <a href="{{url('/')}}" class="nav-link venues">
+        <a href="{{url('/')}}" target="_blank" class="nav-link venues">
           <i class="nav-icon fas fa-link" style=""></i>
           <p>予約する</p>
         </a>

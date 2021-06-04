@@ -531,8 +531,12 @@
           <tr>
             <td class="table-active"><label for="email_flag">送信メール</label></td>
             <td>
-              {{ Form::text('', $value['email_flag']==1?"有り":"無し",['class'=>'form-control'] ) }}
-              {{ Form::hidden('email_flag', $value['email_flag'],['class'=>'form-control'] ) }}
+              {{-- {{ Form::text('', $value['email_flag']==1?"有り":"無し",['class'=>'form-control'] ) }}
+              {{ Form::hidden('email_flag', $value['email_flag'],['class'=>'form-control'] ) }} --}}
+              {{Form::radio('email_flag', 1, $value['email_flag']==1?true:false, ['class'=>'','id'=>'email_flag1'])}}
+              {{Form::label("email_flag1","有り")}}
+              {{Form::radio('email_flag', 0, $value['email_flag']==0?true:false, ['class'=>'','id'=>'email_flag2'])}}
+              {{Form::label("email_flag2","無し")}}
             </td>
           </tr>
         </tbody>
