@@ -463,6 +463,7 @@
 
 <script type="text/javascript">
   $(function () {
+        var target_day=$('input[name="date"]').val();
         var today = new Date();
         var dd = today.getDate();
         $("#datepicker2").datepicker({
@@ -471,7 +472,7 @@
             buttonImage: "https://osaka-conference.com/img/icon_calender.png",
             buttonImageOnly: true,
             minDate: "+3",
-            maxDate: "+3M -" + dd,
+            maxDate: target_day,
             beforeShow: function (input, inst) { // カレンダーを必ず下側へ表示させるための表示位置計算function
                 var top = $(this).offset().top + $(this).outerHeight();
                 var left = $(this).offset().left;
