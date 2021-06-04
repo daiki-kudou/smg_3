@@ -329,12 +329,12 @@ class AgentsReservationsController extends Controller
     $carbon1 = new Carbon($inputs['enter_time']);
     $carbon2 = new Carbon($inputs['leave_time']);
     $usage_hours = ($carbon1->diffInMinutes($carbon2)) / 60;
-    if (!empty($inputs['layout_prepare']) == !empty($inputs['layout_clean'])) {
+    if (!empty($inputs['layout_prepare']) || !empty($inputs['layout_clean'])) {
       $layoutPrice = $venue->getLayoutPrice($inputs['layout_prepare'], $inputs['layout_clean']);
     } else {
       $layoutPrice = [0, 0];
     }
-    $price = ($layoutPrice[2]) + (floor($price));
+    $price = ($layoutPrice[2] ?? 0) + (floor($price));
 
     $bill = $request->session()->get('bill');
     $reservation = $request->session()->get('reservation');

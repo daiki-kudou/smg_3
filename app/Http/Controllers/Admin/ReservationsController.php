@@ -40,7 +40,6 @@ class ReservationsController extends Controller
    */
   public function index(Request $request)
   {
-    // abort(404);
 
     // dump(Auth::guard('user')->check());
     // dump(Auth::guard('admin'));

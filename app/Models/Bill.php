@@ -582,7 +582,7 @@ class Bill extends Model
   {
     DB::transaction(function () use ($result) {
       $this->update([
-        'layout_price' => $result['layout_price'] ? $result['layout_price'] : 0,
+        'layout_price' => $result['layout_price'] ?? 0,
         'master_subtotal' => $result['master_subtotal'],
         'master_tax' => $result['master_tax'],
         'master_total' => $result['master_total'],
