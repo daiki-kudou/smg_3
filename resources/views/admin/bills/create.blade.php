@@ -33,6 +33,8 @@
   }
 </style>
 
+
+
 <div id="fullOverlay">
   <div class="frame_spinner">
     <div class="spinner-border text-primary " role="status">
@@ -71,13 +73,14 @@
                 <tr>
                   <td colspan="5">
                     <div class="venue_chkbox">
-                      <input type="checkbox" id="venue" name="venue" value="1" {{ !empty(session('add_bill')['venue_price'])?"checked":"" }}>
+                      <input type="checkbox" id="venue" name="venue" value="1"
+                        {{ !empty(session('add_bill')['venue_price'])?"checked":"" }}>
                       <label for="venue">会場料</label>
                     </div>
                   </td>
                 </tr>
               </tbody>
-              <tbody class="venue_head {{ empty(session('add_bill')['venue_price'])?"hide":"" }}">
+              <tbody class="venue_head {{empty(session('add_bill')['venue_price'])?"hide":"" }}">
                 <tr>
                   <td>内容</td>
                   <td>単価</td>
@@ -137,7 +140,8 @@
                 <tr>
                   <td colspan="5">
                     <div class="equipment_chkbox">
-                      <input type="checkbox" id="equipment" name="equipment" value="1" {{ !empty(session('add_bill')['equipment_price'])?"checked":"" }}>
+                      <input type="checkbox" id="equipment" name="equipment" value="1"
+                        {{ !empty(session('add_bill')['equipment_price'])?"checked":"" }}>
                       <label for="equipment">有料備品・サービス料</label>
                     </div>
                   </td>
@@ -157,7 +161,8 @@
                 <tr>
                   <td>{{ Form::text('equipment_breakdown_item0', '', ['class' => 'form-control'])}}</td>
                   <td>{{ Form::text('equipment_breakdown_cost0', '', ['class' => 'form-control'])}}</td>
-                  <td>{{ Form::text('equipment_breakdown_count0', '', ['class' => 'form-control number_validation'])}}</td>
+                  <td>{{ Form::text('equipment_breakdown_count0', '', ['class' => 'form-control number_validation'])}}
+                  </td>
                   <td>{{ Form::text('equipment_breakdown_subtotal0', '', ['class' => 'form-control', 'readonly'])}}</td>
                   <td>
                     <input type="button" value="＋" class="add pluralBtn">
@@ -204,7 +209,8 @@
                 <tr>
                   <td colspan="5">
                     <div class="layout_chkbox">
-                      <input type="checkbox" id="layout" name="layout" value="1" {{ !empty(session('add_bill')['layout_price'])?"checked":"" }}>
+                      <input type="checkbox" id="layout" name="layout" value="1"
+                        {{ !empty(session('add_bill')['layout_price'])?"checked":"" }}>
                       <label for="layout">レイアウト変更料</label>
                     </div>
                   </td>
@@ -265,14 +271,14 @@
             </table>
           </div>
 
-
           <div class="others billdetails_content">
             <table class="table table-borderless">
               <tbody>
                 <tr>
                   <td colspan="5">
                     <div class="others_chkbox">
-                      <input type="checkbox" id="others" name="others" value="1" {{ !empty(session('add_bill')['others_price'])?"checked":"" }}>
+                      <input type="checkbox" id="others" name="others" value="1"
+                        {{ !empty(session('add_bill')['others_price'])?"checked":"" }}>
                       <label for="others">その他</label>
                     </div>
                   </td>
@@ -445,42 +451,48 @@
       </div>
     </div>
   </section>
-
-  {{ Form::submit('確認する', ['class' => 'btn more_btn_lg mx-auto d-block mt-5 submit_btn']) }}
-
+  {{ Form::submit('確認する', 
+  ['class' => 'btn more_btn_lg mx-auto d-block mt-5 submit_btn', (empty(session('add_bill'))?"disabled":"")]) }}
   {{ Form::close() }}
 
   <script>
-    $(function() {
-  // チェックをされたら、ボタンのdisabledを解除
-  if ($("input[type='checkbox']").prop('checked') == false ) {
-      $('.submit_btn').prop('disabled', true);
-    } else {
-      $('.submit_btn').prop('disabled', false);
-    }
+    // チェックをされたら、ボタンのdisabledを解除
+    $(function(){
+      $('input[type="checkbox"]').on("change",function(){
+        $('input[type="checkbox"]').each(function(index, element){
+          if ($(element).prop('checked')) {
+            $('.submit_btn').prop('disabled', false);
+            return false;
+          }
+          $('.submit_btn').prop('disabled', true);
+        })
 
-  $("input[type='checkbox']").on('click', function() {
-    if ( $(this).prop('checked') == false ) {
-      $('.submit_btn').prop('disabled', true);
-    } else {
-      $('.submit_btn').prop('disabled', false);
-    }
-  });
-});
+        if ($(this).prop('checked')) {
+          $(this).parent().parent().parent().parent().parent().parent().find('input[type="text"]').each(function(key, value){
+            $(value).prop('disabled',false);
+          })
+        }else{
+          $(this).parent().parent().parent().parent().parent().parent().find('input[type="text"]').each(function(key, value){
+            $(value).prop('disabled',true);
+          })
+        }
+      })
+    })
+
 
   // 小計が0以上でボタンのdisabled解除
-$(function() {
-  $(document).on("click", function() {
-  var number = $(".master_subtotal").val();
-  console.log(number);
+// $(function() {
+//   $(document).on("click", function() {
+//   var number = $(".master_subtotal").val();
+//   console.log(number);
 
-if (number > 0) {
-    $('.submit_btn').prop('disabled', false);
-  } else {
-    $('.submit_btn').prop('disabled', true);
-  }
-  });
-});
+// if (number > 0) {
+//     $('.submit_btn').prop('disabled', false);
+//   } else {
+//     $('.submit_btn').prop('disabled', true);
+//   }
+//   });
+// });
   </script>
 
   <script>
@@ -608,18 +620,44 @@ if (number > 0) {
       })
 
       function MaterCalc() {
-        var tar1 = Number($('input[name="venue_price"]').val());
-        var tar2 = Number($('input[name="equipment_price"]').val());
-        var tar3 = Number($('input[name="layout_price"]').val());
-        var tar4 = Number($('input[name="others_price"]').val());
-        var master_sub = tar1 + tar2 + tar3 + tar4;
-        var master_tax = Math.floor(Number((tar1 + tar2 + tar3 + tar4) * 0.1));
+        var tar1 = ($('input[name="venue_price"]'));
+        var tar2 = ($('input[name="equipment_price"]'));
+        var tar3 = ($('input[name="layout_price"]'));
+        var tar4 = ($('input[name="others_price"]'));
+
+        var tar1_val = tar1.prop('disabled')?0:Number(tar1.val());
+        var tar2_val = tar2.prop('disabled')?0:Number(tar2.val());
+        var tar3_val = tar3.prop('disabled')?0:Number(tar3.val());
+        var tar4_val = tar4.prop('disabled')?0:Number(tar4.val());
+
+        var master_sub = tar1_val + tar2_val + tar3_val + tar4_val;
+        var master_tax = Math.floor(master_sub * 0.1);
 
         $('input[name="master_subtotal"]').val(master_sub);
         $('input[name="master_tax"]').val(master_tax);
         $('input[name="master_total"]').val(master_sub + master_tax);
-
       }
+
+      $('input[type="checkbox"]').on("change",function(){
+        $('input[type="checkbox"]').each(function(index, element){
+          if ($(element).prop('checked')) {
+            $('.submit_btn').prop('disabled', false);
+            return false;
+          }
+          $('.submit_btn').prop('disabled', true);
+        })
+        if ($(this).prop('checked')) {
+          $(this).parent().parent().parent().parent().parent().parent().find('input[type="text"]').each(function(key, value){
+            $(value).prop('disabled',false);
+          })
+        }else{
+          $(this).parent().parent().parent().parent().parent().parent().find('input[type="text"]').each(function(key, value){
+            $(value).prop('disabled',true);
+          })
+        }
+        MaterCalc();
+      })
+
     })
   </script>
 
