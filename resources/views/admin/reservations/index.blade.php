@@ -395,7 +395,6 @@
         @endforeach
       </table>
     </div>
-
   </div>
   {{$reservations->appends(request()->input())->links()}}
 </div>
