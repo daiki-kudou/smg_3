@@ -89,8 +89,8 @@ $(document).ready(function () {
       $("#eventname1Count").prop("readonly", true);
       $("#eventname2Count").prop("readonly", true);
       $("#eventownerCount").prop("readonly", true);
-      $("#event_start").prop("disabled", true);
-      $("#event_finish").prop("disabled", true);
+      // $("#event_start").prop("disabled", true);
+      // $("#event_finish").prop("disabled", true);
       // $(".board-table input[type='text']").val("");
       $(".board-table option:selected").val("");
     }
@@ -107,8 +107,8 @@ $(function () {
       $("#eventname1Count").prop("readonly", true);
       $("#eventname2Count").prop("readonly", true);
       $("#eventownerCount").prop("readonly", true);
-      $("#event_start").prop("disabled", true);
-      $("#event_finish").prop("disabled", true);
+      // $("#event_start").prop("disabled", true);
+      // $("#event_finish").prop("disabled", true);
       $(".board-table input[type='text']").val("");
     } else {
       $("#event_start").prop("readonly", false);
@@ -116,8 +116,8 @@ $(function () {
       $("#eventname1Count").prop("readonly", false);
       $("#eventname2Count").prop("readonly", false);
       $("#eventownerCount").prop("readonly", false);
-      $("#event_start").prop("disabled", false);
-      $("#event_finish").prop("disabled", false);
+      // $("#event_start").prop("disabled", false);
+      // $("#event_finish").prop("disabled", false);
     }
   });
 });
