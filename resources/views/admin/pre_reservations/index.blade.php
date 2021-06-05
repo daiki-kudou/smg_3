@@ -298,6 +298,15 @@
     $("#preserve_search").submit();
     })
 
+    $(function() {
+      $(".search_btn").on("click",function(){
+        $('input[name^="sort_"]').each(function(key, item){
+        $(item).val("");
+        })
+      })
+    })
+
+
 
 
     

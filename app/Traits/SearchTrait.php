@@ -56,7 +56,13 @@ trait SearchTrait
       });
     }
 
-    $this->SimpleWhereLike($request, "search_id", $andSearch, "id"); // id検索
+    // $this->SimpleWhereLike($request, "search_id", $andSearch, "id"); // id検索
+    if (!empty($request->search_id)) {
+      $fixId = $this->idFormatForSearch($request->search_id);
+      $andSearch->where('id', 'LIKE', "%" . $fixId . "%");
+    }
+
+
 
     if (!empty($request->search_date)) { // 利用日
       $splitDate = explode(' - ', $request->search_date);
@@ -102,6 +108,7 @@ trait SearchTrait
 
   public function MultipleSearch($class, $request)
   {
+    $result = $class;
     if (!empty($request->search_free)) {
       $result = $class->where("id", "LIKE", "%{$request->search_free}%")
         ->orWhereDate("created_at", date('Y-m-d', strtotime($request->search_free)))
@@ -190,7 +197,7 @@ trait SearchTrait
     }
 
 
-    return $result->orderBy('id', 'desc')->paginate(30);
+    return $result->orderBy('id', 'desc')->get();
   }
 
 

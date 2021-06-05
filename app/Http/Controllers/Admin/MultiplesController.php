@@ -15,17 +15,22 @@ use Illuminate\Support\Facades\DB; //トランザクション用
 
 use App\Traits\SearchTrait;
 
+use App\Traits\PaginatorTrait;
 
 
 class MultiplesController extends Controller
 {
   use SearchTrait; //検索用トレイト
+  use PaginatorTrait;
+
 
   public function index(Request $request)
   {
     if (count($request->all()) != 0) {
       $class = new MultipleReserve;
-      $multiples = $this->MultipleSearch($class->with(["pre_reservations.unknown_user", "pre_reservations.pre_enduser"]), $request);
+      $multiples = $this->MultipleSearch($class->with(
+        ["pre_reservations.unknown_user", "pre_reservations.pre_enduser", "pre_reservations.user"]
+      )->withCount("pre_reservations"), $request);
       $counter = count($multiples);
     } else {
       $multiples = MultipleReserve::with(
@@ -35,14 +40,46 @@ class MultiplesController extends Controller
           "pre_reservations.pre_enduser",
           'pre_reservations.agent'
         ]
-      )->orderBy('id', 'desc')->paginate(30);
-      $counter = count($multiples);
+      )->orderBy('id', 'desc')->get();
+      $counter = 0;
     }
 
-    // $user = User::find(1);
+    $multiples = $this->customSearchAndSort($multiples, $request);
+    $multiples = $this->customPaginate($multiples, 3, $request);
     $agents = Agent::orderBy("id", "desc")->get();
 
     return view('admin.multiples.index', compact('multiples', "counter", "request", "agents"));
+  }
+
+  public function customSearchAndSort($model, $request)
+  {
+    if ($request->sort_multiple_id) {
+      if ($request->sort_multiple_id == 1) {
+        return $model->sortByDesc("id");
+      } else {
+        return $model->sortBy("id");
+      }
+    } elseif ($request->sort_created_at) {
+      if ($request->sort_created_at == 1) {
+        return $model->sortByDesc("created_at");
+      } else {
+        return $model->sortBy("created_at");
+      }
+    } elseif ($request->sort_count) {
+      if ($request->sort_count == 1) {
+        return $model->sortByDesc("pre_reservations_count");
+      } else {
+        return $model->sortBy("pre_reservations_count");
+      }
+    } elseif ($request->sort_company) {
+      if ($request->sort_company == 1) {
+        return $model->sortByDesc("pre_reservations.user.company");
+      } else {
+        return $model->sortBy("pre_reservations.user.company");
+      }
+    }
+
+    return $model;
   }
 
   public function show($id)

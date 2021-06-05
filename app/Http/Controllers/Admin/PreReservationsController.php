@@ -53,14 +53,14 @@ class PreReservationsController extends Controller
       $counter = $result->count();
     } elseif (count($request->all()) != 0) {
       $class = new PreReservation;
-      $result = $this->BasicSearch($class->with(["unknown_user", "pre_enduser", "user"]), $request);
+      $result = $this->BasicSearch($class->with(["unknown_user", "pre_enduser", "user", 'agent', 'venue']), $request);
       $pre_reservations = $result[0];
       $counter = $result[1];
     } else {
-      $after = PreReservation::with(["unknown_user", "pre_enduser", 'user'])->where('multiple_reserve_id', '=', 0)->where('reserve_date', '>=', $today)->get()->sortBy('reserve_date');
-      $before = PreReservation::with(["unknown_user", "pre_enduser", "user"])->where('multiple_reserve_id', '=', 0)->where('reserve_date', '<', $today)->get()->sortByDesc('reserve_date');
+      $after = PreReservation::with(["unknown_user", "pre_enduser", 'user', 'agent', 'venue'])->where('multiple_reserve_id', '=', 0)->where('reserve_date', '>=', $today)->get()->sortBy('reserve_date');
+      $before = PreReservation::with(["unknown_user", "pre_enduser", "user", 'agent', 'venue'])->where('multiple_reserve_id', '=', 0)->where('reserve_date', '<', $today)->get()->sortByDesc('reserve_date');
       $pre_reservations = $after->concat($before);
-      dump($pre_reservations);
+      $counter = 0;
     }
 
     $pre_reservations = $this->customSearchAndSort($pre_reservations, $request);

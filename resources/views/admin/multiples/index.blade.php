@@ -128,6 +128,20 @@
 
       <div class="btn_box d-flex justify-content-center">
         <a href="{{url('admin/multiples')}}" class="btn reset_btn">リセット</a>
+        {{-- ソート用hidden --}}
+        {{Form::hidden("sort_multiple_id", $request->sort_multiple_id?($request->sort_multiple_id==1?2:1):1)}}
+        {{Form::hidden("sort_created_at", $request->sort_created_at?($request->sort_created_at==1?2:1):1)}}
+        {{Form::hidden("sort_count", $request->sort_count?($request->sort_count==1?2:1):1)}}
+        {{Form::hidden("sort_company", $request->sort_company?($request->sort_company==1?2:1):1)}}
+        {{Form::hidden("sort_person", $request->sort_person?($request->sort_person==1?2:1):1)}}
+        {{Form::hidden("sort_mobile", $request->sort_mobile?($request->sort_mobile==1?2:1):1)}}
+        {{Form::hidden("sort_tel", $request->sort_tel?($request->sort_tel==1?2:1):1)}}
+        {{Form::hidden("sort_unknown", $request->sort_unknown?($request->sort_unknown==1?2:1):1)}}
+        {{Form::hidden("sort_agent", $request->sort_agent?($request->sort_agent==1?2:1):1)}}
+        {{Form::hidden("sort_enduser", $request->sort_enduser?($request->sort_enduser==1?2:1):1)}}
+        {{Form::hidden("page", $request->page??"")}}
+        {{-- ソート用hidden --}}
+
         {{Form::submit('検索', ['class'=>'btn search_btn', 'id'=>''])}}
       </div>
     </div>
@@ -157,6 +171,7 @@
         </li>
       </ul>
 
+
       <div class="table-wrap">
         <table class="table table-bordered table-scroll sort_table">
           <thead>
@@ -165,16 +180,16 @@
                 <p class="annotation">すべて</p>
                 <input type="checkbox" name="all_check" id="all_check" />
               </th>
-              <th>一括仮押えID</th>
-              <th>作成日</th>
-              <th>件数</th>
-              <th>会社・団体名</th>
-              <th>担当者氏名</th>
-              <th>携帯電話</th>
-              <th>固定電話</th>
-              <th>会社・団体名(仮)</th>
-              <th>仲介会社</th>
-              <th>エンドユーザー</th>
+              <th id="sort_multiple_id">一括仮押えID {!!ReservationHelper::sortIcon($request->sort_multiple_id)!!}</th>
+              <th id="sort_created_at">作成日 {!!ReservationHelper::sortIcon($request->sort_created_at)!!}</th>
+              <th id="sort_count">件数 {!!ReservationHelper::sortIcon($request->sort_count)!!}</th>
+              <th id="sort_company">会社・団体名 {!!ReservationHelper::sortIcon($request->sort_company)!!}</th>
+              <th id="sort_person">担当者氏名 {!!ReservationHelper::sortIcon($request->sort_person)!!}</th>
+              <th id="sort_mobile">携帯電話 {!!ReservationHelper::sortIcon($request->sort_mobile)!!}</th>
+              <th id="sort_tel">固定電話 {!!ReservationHelper::sortIcon($request->sort_tel)!!}</th>
+              <th id="sort_unknown">会社・団体名(仮) {!!ReservationHelper::sortIcon($request->sort_unknown)!!}</th>
+              <th id="sort_agent">仲介会社 {!!ReservationHelper::sortIcon($request->sort_agent)!!}</th>
+              <th id="sort_enduser">エンドユーザー {!!ReservationHelper::sortIcon($request->sort_enduser)!!}</th>
               <th>仮押え詳細</th>
             </tr>
           </thead>
@@ -198,21 +213,21 @@
                 @if (!empty($multiple->pre_reservations->first()->user))
                 {{ReservationHelper::getPersonName($multiple->pre_reservations->first()->user->id)}}
                 @else
-                {{ReservationHelper::getAgentPerson($multiple->pre_reservations->first()->agent->id)}}
+                {{-- {{ReservationHelper::getAgentPerson($multiple->pre_reservations->first()->agent->id)}} --}}
                 @endif
               </td>
               <td>
                 @if (!empty($multiple->pre_reservations->first()->user))
                 {{ReservationHelper::getPersonMobile($multiple->pre_reservations->first()->user->id)}}
                 @else
-                {{ReservationHelper::getAgentMobile($multiple->pre_reservations->first()->agent->id)}}
+                {{-- {{ReservationHelper::getAgentMobile($multiple->pre_reservations->first()->agent->id)}} --}}
                 @endif
               </td>
               <td>
                 @if (!empty($multiple->pre_reservations->first()->user))
                 {{ReservationHelper::getPersonTel($multiple->pre_reservations->first()->user->id)}}
                 @else
-                {{ReservationHelper::getAgentTel($multiple->pre_reservations->first()->agent->id)}}
+                {{-- {{ReservationHelper::getAgentTel($multiple->pre_reservations->first()->agent->id)}} --}}
                 @endif
               </td>
               <td>
@@ -252,6 +267,17 @@
 
 
 <script>
+  $(document).on("click", ".sort_table th", function() {
+    var click_th_id=$(this).attr("id");
+    $('input[name^="sort_"]').each(function(key, item){
+      if ($(item).attr("name")!=click_th_id) {
+        $(item).val("");
+      }
+    })
+    $("#searchMultiple").submit();
+  })
+
+
   $(function() {
     $('.flash_message').fadeOut(3000);
   })
