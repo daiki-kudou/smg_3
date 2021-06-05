@@ -71,12 +71,6 @@ class MultiplesController extends Controller
       } else {
         return $model->sortBy("pre_reservations_count");
       }
-    } elseif ($request->sort_company) {
-      if ($request->sort_company == 1) {
-        return $model->sortByDesc("pre_reservations.user.company");
-      } else {
-        return $model->sortBy("pre_reservations.user.company");
-      }
     }
 
     return $model;
