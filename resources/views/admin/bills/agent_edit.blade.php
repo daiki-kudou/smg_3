@@ -439,7 +439,7 @@
       </div>
     </div>
   </section>
-  {{Form::submit('保存する', ['class'=>'btn d-block more_btn_lg mx-auto my-5', 'id'=>''])}}
+  {{Form::submit('保存する', ['class'=>'btn d-block more_btn_lg mx-auto my-5', 'id'=>'submit_btn'])}}
   {{Form::close()}}
 </div>
 <script>
@@ -557,15 +557,46 @@
     })
 
     function MaterCalc() {
-      var tar3 = Number($('input[name="layout_price"]').val());
-      var tar5 = Number($('input[name="enduser_charge_result"]').val());
-      var master_sub = tar3 + tar5;
+      var tar3 = $('input[name="layout_price"]');
+      var tar5 = $('input[name="enduser_charge_result"]');
+
+      var tar3_val = tar3.prop('disabled')?0:Number(tar3.val());
+      var tar5_val = tar5.prop('disabled')?0:Number(tar5.val());
+
+      var master_sub = tar3_val + tar5_val;
       var master_tax = Math.floor(Number((master_sub) * 0.1));
       $('input[name="master_subtotal"]').val(master_sub);
       $('input[name="master_tax"]').val(master_tax);
       $('input[name="master_total"]').val(master_sub + master_tax);
-      console.log(tar5);
+
+      var val = $('input[name="enduser_charge"]').val();
+      
+      var target_percent = Number($('#percent').text()) / 100;
+      var result = Math.floor(val - (val * target_percent));
+      $('input[name="enduser_charge_result"]').val(result);
+
     }
+
+    $('input[type="checkbox"]').on("change",function(){
+        $('input[type="checkbox"]').each(function(index, element){
+          if ($(element).prop('checked')) {
+            $('#submit_btn').prop('disabled', false);
+            return false;
+          }
+          $('#submit_btn').prop('disabled', true);
+        })
+        if ($(this).prop('checked')) {
+          $(this).parent().parent().parent().parent().parent().parent().find('input[type="text"]').each(function(key, value){
+            $(value).prop('disabled',false);
+          })
+        }else{
+          $(this).parent().parent().parent().parent().parent().parent().find('input[type="text"]').each(function(key, value){
+            $(value).prop('disabled',true);
+          })
+        }
+        MaterCalc();
+      })
+
   })
 
   $(window).on('load', function() {
