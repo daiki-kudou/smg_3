@@ -97,7 +97,7 @@ trait SearchTrait
     $this->SimpleWhereHas($request->search_end_user, $andSearch, "pre_enduser", "company"); // エンドユーザー
 
     // 最終return
-    return [$andSearch->orderBy('id', 'desc')->paginate(30), $andSearch->count()];
+    return [$andSearch->orderBy('id', 'desc')->get(), $andSearch->count()];
   }
 
   public function MultipleSearch($class, $request)

@@ -273,7 +273,7 @@
           $('#fullOverlay').css('display', 'none');
           console.log("失敗");
           $('.client_info p').text('');
-          swal('顧客情報取得に失敗しました。リロードして再度取得してください');
+          // swal('顧客情報取得に失敗しました。リロードして再度取得してください');
         });
     })
   })

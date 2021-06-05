@@ -570,7 +570,6 @@
       $('input[name="master_total"]').val(master_sub + master_tax);
 
       var val = $('input[name="enduser_charge"]').val();
-      
       var target_percent = Number($('#percent').text()) / 100;
       var result = Math.floor(val - (val * target_percent));
       $('input[name="enduser_charge_result"]').val(result);
