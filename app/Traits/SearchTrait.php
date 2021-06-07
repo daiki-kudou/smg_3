@@ -6,6 +6,9 @@ use Illuminate\Http\Request;
 use Carbon\Carbon;
 
 use App\Models\User;
+use App\Models\UnknownUser;
+use App\Models\Agent;
+use App\Models\PreEndUser;
 
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\DB; //トランザクション用
@@ -20,39 +23,47 @@ trait SearchTrait
     // フリーワード
     if (!empty($request->search_free)) {
       $andSearch->where(function ($query) use ($request) {
-        $query->whereHas('user', function ($query) use ($request) {
-          $query->where('first_name', 'LIKE', "%{$request->search_free}%");
-          $query->orWhere('last_name', 'LIKE', "%{$request->search_free}%");
-          $query->orWhere(DB::raw('CONCAT(first_name, last_name)'), 'like', '%' . $request->search_free . '%');
-          $query->orWhere('company', 'LIKE', "%{$request->search_free}%");
-          $query->orWhere('mobile', 'LIKE', "%{$request->search_free}%");
-          $query->orWhere('tel', 'LIKE', "%{$request->search_free}%");
-        });
-        $query->orWhereHas('venue', function ($query) use ($request) {
-          $query->where('name_bldg', 'LIKE', "%{$request->search_free}%");
-          $query->orWhere('name_venue', 'LIKE', "%{$request->search_free}%");
-          $query->orWhere(DB::raw('CONCAT(name_bldg, name_venue)'), 'like', "%{$request->search_free}%");
-        });
-        $query->orWhereHas('agent', function ($query) use ($request) {
-          $query->where('person_firstname', 'LIKE', "%{$request->search_free}%");
-          $query->orWhere('person_lastname', 'LIKE', "%{$request->search_free}%");
-          $query->orWhere(DB::raw('CONCAT(person_firstname, person_lastname)'), 'like', '%' . $request->search_free . '%');
-          $query->orWhere('company', 'LIKE', "%{$request->search_free}%");
-          $query->orWhere('person_mobile', 'LIKE', "%{$request->search_free}%");
-          $query->orWhere('person_tel', 'LIKE', "%{$request->search_free}%");
-        });
-        $query->orWhereHas('unknown_user', function ($query) use ($request) {
-          $query->where('unknown_user_company', 'LIKE', "%{$request->search_free}%");
-        });
-        $query->orWhereHas('pre_enduser', function ($query) use ($request) {
-          $query->where('company', 'LIKE', "%{$request->search_free}%");
-        });
-        $query->orWhere("id", "LIKE", "%{$request->search_free}%"); //id
-        $query->orWhere("enter_time", "LIKE", "%{$request->search_free}%");
-        $query->orWhere("leave_time", "LIKE", "%{$request->search_free}%");
+        // $query->whereHas('user', function ($query) use ($request) {
+        //   $query->where('first_name', 'LIKE', "%{$request->search_free}%");
+        //   $query->orWhere('last_name', 'LIKE', "%{$request->search_free}%");
+        //   $query->orWhere(DB::raw('CONCAT(first_name, last_name)'), 'like', '%' . $request->search_free . '%');
+        //   $query->orWhere('company', 'LIKE', "%{$request->search_free}%");
+        //   $query->orWhere('mobile', 'LIKE', "%{$request->search_free}%");
+        //   $query->orWhere('tel', 'LIKE', "%{$request->search_free}%");
+        // });
+        // $query->orWhereHas('venue', function ($query) use ($request) {
+        //   $query->where('name_bldg', 'LIKE', "%{$request->search_free}%");
+        //   $query->orWhere('name_venue', 'LIKE', "%{$request->search_free}%");
+        //   $query->orWhere(DB::raw('CONCAT(name_bldg, name_venue)'), 'like', "%{$request->search_free}%");
+        // });
+        // $query->orWhereHas('agent', function ($query) use ($request) {
+        //   $query->where('person_firstname', 'LIKE', "%{$request->search_free}%");
+        //   $query->orWhere('person_lastname', 'LIKE', "%{$request->search_free}%");
+        //   $query->orWhere(DB::raw('CONCAT(person_firstname, person_lastname)'), 'like', '%' . $request->search_free . '%');
+        //   $query->orWhere('company', 'LIKE', "%{$request->search_free}%");
+        //   $query->orWhere('person_mobile', 'LIKE', "%{$request->search_free}%");
+        //   $query->orWhere('person_tel', 'LIKE', "%{$request->search_free}%");
+        // });
+        // $query->orWhereHas('unknown_user', function ($query) use ($request) {
+        //   $query->where('unknown_user_company', 'LIKE', "%{$request->search_free}%");
+        // });
+        // $query->orWhereHas('pre_enduser', function ($query) use ($request) {
+        //   $query->where('company', 'LIKE', "%{$request->search_free}%");
+        // });
+        // $query->orWhere("id", "LIKE", "%{$request->search_free}%"); //id
+        // $query->orWhere("enter_time", "LIKE", "%{$request->search_free}%");
+        // $query->orWhere("leave_time", "LIKE", "%{$request->search_free}%");
 
-        $query->orWhereDate("reserve_date", date('Y-m-d', strtotime($request->search_free)));
-        $query->orWhereDate("created_at",  date('Y-m-d', strtotime($request->search_free)));
+        if (preg_match("/^[0-9]+$/", $request->search_free)) { //数字のみ
+          $fixId = $this->idFormatForSearch($request->search_free);
+          $query->orWhere('id', 'like', "%{$fixId}%");
+          $mobile = User::where("mobile", "LIKE", "%{$request->search_free}%")->pluck("id")->toArray();
+          $query->orWhereIn("user_id", $mobile);
+          $tel = User::where("tel", "LIKE", "%{$request->search_free}%")->pluck("id")->toArray();
+          $query->orWhereIn("user_id", $tel);
+        } elseif (preg_match("/^[0-9-_:.]+$/", $request->search_free)) { //日時のみ
+        } else { //文字列
+        }
       });
     }
 
@@ -62,7 +73,12 @@ trait SearchTrait
       $andSearch->where('id', 'LIKE', "%" . $fixId . "%");
     }
 
-
+    if (!empty($request->search_created_at)) { // 作成日の検索
+      $splitDate = explode(' - ', $request->search_created_at);
+      $s_carbon = Carbon::parse($splitDate[1]);
+      $add_day = $s_carbon->addDays(1);
+      $andSearch->whereBetween("created_at", [$splitDate[0], date('Y-m-d', strtotime($add_day))])->get();
+    }
 
     if (!empty($request->search_date)) { // 利用日
       $splitDate = explode(' - ', $request->search_date);
@@ -73,34 +89,44 @@ trait SearchTrait
       $andSearch->whereBetween("reserve_date", [$f_start, $f_finish])->get();
     }
 
-    if (!empty($request->search_created_at)) { // 作成日の検索
-      $splitDate = explode(' - ', $request->search_created_at);
-      $s_carbon = Carbon::parse($splitDate[1]);
-      $add_day = $s_carbon->addDays(1);
-      $andSearch->whereBetween("created_at", [$splitDate[0], date('Y-m-d', strtotime($add_day))])->get();
+    if (!empty($request->search_venue)) { // 利用会場の検索
+      $andSearch->where('venue_id', $request->search_venue);
     }
 
-    $this->SimpleWhere($request, "search_venue", $andSearch, "venue_id"); // 利用会場の検索
-    $this->SimpleWhereHas($request->search_user, $andSearch, "user", "company"); // 会社名団体名
+    if (!empty($request->search_user)) { // 会社名団体名
+      $user = User::where("company", "LIKE", "%{$request->search_user}%")->pluck("id")->toArray();
+      $andSearch->whereIn("user_id", $user);
+    }
 
     if (!empty($request->search_person)) { // 担当者氏名
-      $andSearch->whereHas('user', function ($query) use ($request) {
-        $query->where('first_name', 'LIKE', "%{$request->search_person}%");
-        $query->orWhere('last_name', 'LIKE', "%{$request->search_person}%");
-        $query->orWhere(DB::raw('CONCAT(first_name, last_name)'), 'like', '%' . $request->search_person . '%'); //https://qiita.com/tkek321/items/cb807751943ab5f873cd
-      });
+      $user = User::where(\DB::raw('CONCAT(first_name, last_name)'), 'like', "%{$request->search_person}%")->pluck('id')->toArray();
+      $andSearch->whereIn("user_id", $user);
     }
 
-    $this->SimpleWhereHas($request->search_mobile, $andSearch, "user", "mobile"); // 携帯
-    $this->SimpleWhereHas($request->search_tel, $andSearch, "user", "tel"); // 電話
-    if (!empty($request->search_tel)) {
-      $andSearch->orWhereHas('agent', function ($query) use ($request) {
-        $query->where('person_tel', 'LIKE', "%{$request->search_tel}%");
-      });
+    if (!empty($request->search_mobile)) { // 携帯
+      $user = User::where("mobile", "LIKE", "%{$request->search_mobile}%")->pluck("id")->toArray();
+      $andSearch->whereIn("user_id", $user);
     }
-    $this->SimpleWhereHas($request->search_unkown_user, $andSearch, "unknown_user", "unknown_user_company"); // 会社名・団体名（仮）unknown_user
-    $this->SimpleWhere($request, "search_agent", $andSearch, "agent_id"); // 仲介会社
-    $this->SimpleWhereHas($request->search_end_user, $andSearch, "pre_enduser", "company"); // エンドユーザー
+
+    if (!empty($request->search_tel)) { // 固定電話	
+      $user = User::where("tel", "LIKE", "%{$request->search_tel}%")->pluck("id")->toArray();
+      $andSearch->whereIn("user_id", $user);
+    }
+
+    if (!empty($request->search_unkown_user)) { // 会社名・団体名（仮）unknown_user
+      $unknown_user = UnknownUser::where("unknown_user_company", "LIKE", "%{$request->search_unkown_user}%")->pluck("pre_reservation_id")->toArray();
+      $andSearch->whereIn("id", $unknown_user);
+    }
+
+    if (!empty($request->search_agent)) { // 仲介会社
+      $andSearch->where('agent_id', $request->search_agent);
+    }
+
+    // エンドユーザー
+    if (!empty($request->search_end_user)) { // 仲介会社
+      $end_user = PreEndUser::where("company", "LIKE", "%{$request->search_end_user}%")->pluck("pre_reservation_id")->toArray();
+      $andSearch->whereIn("id", $end_user);
+    }
 
     // 最終return
     return [$andSearch->orderBy('id', 'desc')->get(), $andSearch->count()];

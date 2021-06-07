@@ -35,6 +35,6 @@ class ServicesTableSeeder extends Seeder
         'created_at' => Carbon::now(),
       ],
     ]);
-    factory(\App\Models\Service::class, 20)->create();
+    factory(\App\Models\Service::class, 200)->create();
   }
 }
