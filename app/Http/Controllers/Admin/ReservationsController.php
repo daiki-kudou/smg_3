@@ -517,7 +517,7 @@ class ReservationsController extends Controller
     $judgeMultiDelete = $reservation->checkBillsStatus();
     $judgeSingleDelete = $reservation->checkSingleBillsStatus();
 
-    $cxl_subtotal = $reservation->cxls->pluck('master_subtotal')->sum();
+    $cxl_subtotal = floor($reservation->cxls->pluck('master_subtotal')->sum());
     $agentLayoutPrice = $reservation->bills->where('reservation_status', '<=', 3)->pluck('layout_price')->sum();
     $agentPrice = $reservation->bills->where('reservation_status', '<=', 3)->pluck('master_subtotal')->sum();
     $agentPriceWithoutLayout = $agentPrice - $agentLayoutPrice;

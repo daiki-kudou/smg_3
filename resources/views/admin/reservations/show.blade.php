@@ -1200,13 +1200,11 @@
             {{ Form::open(['url' => 'admin/cxl/send_email_and_approve', 'method' => 'POST', 'class' => '']) }}
             @csrf
             {{ Form::hidden('cxl_id', $cxl->id) }}
-
             @if ($reservation->user_id > 0)
             <p class="mr-2">
               {{ Form::submit('利用者にキャンセル承認メールを送る', ['class' => 'btn more_btn approve_send']) }}
             </p>
             @endif
-
             {{ Form::close() }}
 
             {{ Form::open(['url' => 'admin/cxl/confirm', 'method' => 'POST', 'class' => '']) }}
