@@ -43,6 +43,22 @@ class HomeController extends Controller
   // 時間制御
   public function control_time(Request $request)
   {
+    // 営業時間抽出
+    $venue = Venue::with("dates")->find($request->venue_id);
+    $weekday = Carbon::parse($request->date)->dayOfWeek;
+    $venue_date = $venue->dates->where("week_day", $weekday)->first();
+    $start = $venue_date->start;
+    $finish = $venue_date->finish;
+
+    $diff = (Carbon::parse($start)->diffInMinutes(Carbon::parse($finish))) / 30;
+    $temporary = [];
+    for ($i = 0; $i <= $diff; $i++) {
+      $temporary[] = ['active' => date('H:i:00', strtotime(Carbon::parse($start)->addMinutes($i * 30)))];
+    }
+    $times[] = $temporary;
+
+
+    // 該当日時の予約・仮抑え　抽出
     $reservations = Reservation::with("bills")->where("reserve_date", date('Y-m-d', strtotime($request->date)))
       ->where("venue_id", $request->venue_id)
       ->get();
@@ -66,11 +82,37 @@ class HomeController extends Controller
       }
       $result[] = $temporary;
     }
+
     if (count($result) === 1) {
-      return $result[0];
+      $reservations_array = $result[0];
     } elseif (count($result) === 2) {
-      return array_merge($result[0], $result[1]);
+      $reservations_array = array_merge($result[0], $result[1]);
+    } else {
+      $reservations_array = "";
     }
+
+
+    if ($reservations_array) {
+      return "ある";
+    } else {
+      return "ない";
+    }
+
+    // if (!empty($reservations_array)) {
+    //   foreach ($times[0] as $key => $value) {
+    //     foreach ($reservations_array as $key2 => $value2) {
+    //       if ($value == $value2) {
+    //         $key = "inactive";
+    //       }
+    //     }
+    //   }
+    // } else {
+    //   return $times[0];
+    // }
+
+
+
+    // return $times[0];
   }
 
   public function cxl_member_ship_done()

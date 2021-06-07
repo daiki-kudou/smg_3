@@ -18,15 +18,15 @@ $(document).on("change", "#venue_id", function () {
     },
   })
     .done(function ($result) {
-      $('#fullOverlay').css('display', 'none');
       console.log($result);
-      $.each($result, function ($index, $value) {
-        $('#enter_time, #leave_time').find('option').each(function ($key2, $value2) {
-          if ($value == $($value2).val()) {
-            $($value2).prop("disabled", true);
-          }
-        })
-      })
+      $('#fullOverlay').css('display', 'none');
+      // $.each($result, function ($index, $value) {
+      //   $('#enter_time, #leave_time').find('option').each(function ($key2, $value2) {
+      //     if ($value == $($value2).val()) {
+      //       $($value2).prop("disabled", true);
+      //     }
+      //   })
+      // })
     })
     .fail(function ($result) {
       $('#fullOverlay').css('display', 'none');

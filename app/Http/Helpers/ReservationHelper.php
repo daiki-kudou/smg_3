@@ -259,14 +259,14 @@ class ReservationHelper
 
   public static function getTax($num)
   {
-    return floor($num * 0.1);
+    $target = $num * 0.1;
+    return $target;
   }
 
   public static function taxAndPrice($num)
   {
-    $tax = 0;
-    $tax = floor($num * 0.1);
-    return floor($num + $tax);
+    $tax = ($num * 0.1);
+    return ($num + $tax);
   }
 
 
