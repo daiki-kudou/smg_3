@@ -296,7 +296,7 @@
       }
     })
     $("#preserve_search").submit();
-    })
+  })
 
     $(function() {
       $(".search_btn").on("click",function(){
@@ -305,9 +305,6 @@
         })
       })
     })
-
-
-
 
     
   $(function() {
