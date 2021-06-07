@@ -507,10 +507,6 @@ class ReservationsController extends Controller
     $venue = $reservation->venue;
     $user = $reservation->user;
     $master_prices = $reservation->TotalAmount();
-    // $other_bills = [];
-    // for ($i = 0; $i < count($reservation->bills) - 1; $i++) {
-    //   $other_bills[] = $reservation->bills->skip($i + 1)->first();
-    // }
     $other_bills = $reservation->bills->sortBy("id")->skip(1);
     $admin = Admin::all()->sortBy('name', SORT_NATURAL | SORT_FLAG_CASE)->pluck('name', 'name');
     //付随する追加予約のステータスが予約完了になってるか判別
@@ -518,6 +514,8 @@ class ReservationsController extends Controller
     $judgeSingleDelete = $reservation->checkSingleBillsStatus();
 
     $cxl_subtotal = floor($reservation->cxls->pluck('master_subtotal')->sum());
+    $cxl_tax = floor($reservation->cxls->pluck('master_tax')->sum());
+    $cxl_master_total = floor($reservation->cxls->pluck('master_total')->sum());
     $agentLayoutPrice = $reservation->bills->where('reservation_status', '<=', 3)->pluck('layout_price')->sum();
     $agentPrice = $reservation->bills->where('reservation_status', '<=', 3)->pluck('master_subtotal')->sum();
     $agentPriceWithoutLayout = $agentPrice - $agentLayoutPrice;
@@ -533,6 +531,8 @@ class ReservationsController extends Controller
         'judgeMultiDelete',
         'judgeSingleDelete',
         'cxl_subtotal',
+        'cxl_tax',
+        'cxl_master_total',
         'agentLayoutPrice',
         'agentPrice',
         'agentPriceWithoutLayout',

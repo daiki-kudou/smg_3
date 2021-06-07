@@ -1535,7 +1535,7 @@
           <td>
             <div class="d-flex justify-content-end" colspan="2">
               <p>消費税：</p>
-              <p>{{ number_format(ReservationHelper::getTax($cxl_subtotal)) }}円</p>
+              <p>{{ number_format(($cxl_tax)) }}円</p>
             </div>
           </td>
         </tr>
@@ -1544,7 +1544,7 @@
           <td>
             <div class="d-flex justify-content-end" colspan="2">
               <p>合計金額：</p>
-              <p>{{ number_format(ReservationHelper::taxAndPrice($cxl_subtotal)) }}円</p>
+              <p>{{ number_format(($cxl_master_total)) }}円</p>
             </div>
           </td>
         </tr>
