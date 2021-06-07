@@ -545,13 +545,13 @@
                 <tr>
                   <td></td>
                   <td>
-                    小計：{{ number_format($reservation->bills->first()->master_subtotal) }}
+                    小計：{{ number_format($reservation->bills->sortBy("id")->first()->master_subtotal) }}
                   </td>
                 </tr>
                 <tr>
                   <td></td>
                   <td>
-                    消費税：{{ number_format($reservation->bills->first()->master_tax) }}
+                    消費税：{{ number_format($reservation->bills->sortBy("id")->first()->master_tax) }}
                   </td>
                 </tr>
                 <tr>
@@ -559,7 +559,7 @@
                   <td>
                     <span　class="font-weight-bold">
                       合計金額：
-                    </span>{{ number_format($reservation->bills->first()->master_total) }}
+                    </span>{{ number_format($reservation->bills->sortBy("id")->first()->master_total) }}
                   </td>
                 </tr>
               </tbody>
