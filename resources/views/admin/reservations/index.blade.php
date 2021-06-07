@@ -104,7 +104,6 @@
                 @endforeach
               </select>
             </td>
-
             <th class="search_item_name">
               <label for="company">会社・団体名</label>
             </th>
@@ -361,7 +360,7 @@
             </td>
             <td>会場予約</td>
             <td>
-              {{ReservationHelper::judgeStatus($reservation->bills->first()->reservation_status)}}
+              {{ReservationHelper::judgeStatus($reservation->bills->sortBy("id")->first()->reservation_status)}}
             </td>
             <td class="text-center" rowspan="{{count($reservation->bills)}}"><a
                 href="{{ url('admin/reservations', $reservation->id) }}" class="more_btn btn">詳細</a></td>
@@ -378,16 +377,18 @@
           @for ($i = 0; $i < count($reservation->bills)-1; $i++)
             <tr>
               <td>
-                @foreach (ImageHelper::addBillsShow($reservation->bills->skip($i+1)->first()->id) as $icon)
+                @foreach (ImageHelper::addBillsShow($reservation->bills->sortBy("id")->skip($i+1)->first()->id) as
+                $icon)
                 {!!$icon!!}
                 @endforeach
               </td>
               <td>
-                @if ($reservation->bills->skip($i+1)->first()->category==2)
+                @if ($reservation->bills->sortBy("id")->skip($i+1)->first()->category==2)
                 追加請求
                 @endif
               </td>
-              <td>{{ReservationHelper::judgeStatus($reservation->bills->skip($i+1)->first()->reservation_status)}}
+              <td>
+                {{ReservationHelper::judgeStatus($reservation->bills->sortBy("id")->skip($i+1)->first()->reservation_status)}}
               </td>
             </tr>
             @endfor
