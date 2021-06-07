@@ -10,6 +10,7 @@ use App\Models\UnknownUser;
 use App\Models\Agent;
 use App\Models\PreEndUser;
 use App\Models\Venue;
+use App\Models\PreReservation;
 
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\DB; //トランザクション用
@@ -24,37 +25,6 @@ trait SearchTrait
     // フリーワード
     if (!empty($request->search_free)) {
       $andSearch->where(function ($query) use ($request) {
-        // $query->whereHas('user', function ($query) use ($request) {
-        //   $query->where('first_name', 'LIKE', "%{$request->search_free}%");
-        //   $query->orWhere('last_name', 'LIKE', "%{$request->search_free}%");
-        //   $query->orWhere(DB::raw('CONCAT(first_name, last_name)'), 'like', '%' . $request->search_free . '%');
-        //   $query->orWhere('company', 'LIKE', "%{$request->search_free}%");
-        //   $query->orWhere('mobile', 'LIKE', "%{$request->search_free}%");
-        //   $query->orWhere('tel', 'LIKE', "%{$request->search_free}%");
-        // });
-        // $query->orWhereHas('venue', function ($query) use ($request) {
-        //   $query->where('name_bldg', 'LIKE', "%{$request->search_free}%");
-        //   $query->orWhere('name_venue', 'LIKE', "%{$request->search_free}%");
-        //   $query->orWhere(DB::raw('CONCAT(name_bldg, name_venue)'), 'like', "%{$request->search_free}%");
-        // });
-        // $query->orWhereHas('agent', function ($query) use ($request) {
-        //   $query->where('person_firstname', 'LIKE', "%{$request->search_free}%");
-        //   $query->orWhere('person_lastname', 'LIKE', "%{$request->search_free}%");
-        //   $query->orWhere(DB::raw('CONCAT(person_firstname, person_lastname)'), 'like', '%' . $request->search_free . '%');
-        //   $query->orWhere('company', 'LIKE', "%{$request->search_free}%");
-        //   $query->orWhere('person_mobile', 'LIKE', "%{$request->search_free}%");
-        //   $query->orWhere('person_tel', 'LIKE', "%{$request->search_free}%");
-        // });
-        // $query->orWhereHas('unknown_user', function ($query) use ($request) {
-        //   $query->where('unknown_user_company', 'LIKE', "%{$request->search_free}%");
-        // });
-        // $query->orWhereHas('pre_enduser', function ($query) use ($request) {
-        //   $query->where('company', 'LIKE', "%{$request->search_free}%");
-        // });
-        // $query->orWhere("id", "LIKE", "%{$request->search_free}%"); //id
-        // $query->orWhere("enter_time", "LIKE", "%{$request->search_free}%");
-        // $query->orWhere("leave_time", "LIKE", "%{$request->search_free}%");
-
         if (preg_match("/^[0-9]+$/", $request->search_free)) { //数字のみ
           $fixId = $this->idFormatForSearch($request->search_free);
           $query->orWhere('id', 'like', "%{$fixId}%");
@@ -146,92 +116,103 @@ trait SearchTrait
   {
     $result = $class;
     if (!empty($request->search_free)) {
-      $result = $class->where("id", "LIKE", "%{$request->search_free}%")
-        ->orWhereDate("created_at", date('Y-m-d', strtotime($request->search_free)))
-        ->orWhereHas('pre_reservations.user', function ($query) use ($request) {
-          $query->where('first_name', 'LIKE', "%{$request->search_free}%");
-          $query->orWhere('last_name', 'LIKE', "%{$request->search_free}%");
-          $query->orWhere(DB::raw('CONCAT(first_name, last_name)'), 'like', '%' . $request->search_free . '%');
-          $query->orWhere('company', 'LIKE', "%{$request->search_free}%");
-          $query->orWhere('mobile', 'LIKE', "%{$request->search_free}%");
-          $query->orWhere('tel', 'LIKE', "%{$request->search_free}%");
-        })->orWhereHas('pre_reservations.agent', function ($query) use ($request) {
-          $query->where('person_firstname', 'LIKE', "%{$request->search_free}%");
-          $query->orWhere('person_lastname', 'LIKE', "%{$request->search_free}%");
-          $query->orWhere(DB::raw('CONCAT(person_firstname, person_lastname)'), 'like', '%' . $request->search_free . '%');
-          $query->orWhere('company', 'LIKE', "%{$request->search_free}%");
-          $query->orWhere('person_mobile', 'LIKE', "%{$request->search_free}%");
-          $query->orWhere('person_tel', 'LIKE', "%{$request->search_free}%");
-        })->orWhereHas('pre_reservations.unknown_user', function ($query) use ($request) {
-          $query->where('unknown_user_company', 'LIKE', "%{$request->search_free}%");
-        })->orWhereHas('pre_reservations.pre_enduser', function ($query) use ($request) {
-          $query->where('company', 'LIKE', "%{$request->search_free}%");
-        });
+      // $result = $class->where("id", "LIKE", "%{$request->search_free}%")
+      //   ->orWhereDate("created_at", date('Y-m-d', strtotime($request->search_free)))
+      //   ->orWhereHas('pre_reservations.user', function ($query) use ($request) {
+      //     $query->where('first_name', 'LIKE', "%{$request->search_free}%");
+      //     $query->orWhere('last_name', 'LIKE', "%{$request->search_free}%");
+      //     $query->orWhere(DB::raw('CONCAT(first_name, last_name)'), 'like', '%' . $request->search_free . '%');
+      //     $query->orWhere('company', 'LIKE', "%{$request->search_free}%");
+      //     $query->orWhere('mobile', 'LIKE', "%{$request->search_free}%");
+      //     $query->orWhere('tel', 'LIKE', "%{$request->search_free}%");
+      //   })->orWhereHas('pre_reservations.agent', function ($query) use ($request) {
+      //     $query->where('person_firstname', 'LIKE', "%{$request->search_free}%");
+      //     $query->orWhere('person_lastname', 'LIKE', "%{$request->search_free}%");
+      //     $query->orWhere(DB::raw('CONCAT(person_firstname, person_lastname)'), 'like', '%' . $request->search_free . '%');
+      //     $query->orWhere('company', 'LIKE', "%{$request->search_free}%");
+      //     $query->orWhere('person_mobile', 'LIKE', "%{$request->search_free}%");
+      //     $query->orWhere('person_tel', 'LIKE', "%{$request->search_free}%");
+      //   })->orWhereHas('pre_reservations.unknown_user', function ($query) use ($request) {
+      //     $query->where('unknown_user_company', 'LIKE', "%{$request->search_free}%");
+      //   })->orWhereHas('pre_reservations.pre_enduser', function ($query) use ($request) {
+      //     $query->where('company', 'LIKE', "%{$request->search_free}%");
+      //   });
+      if (preg_match("/^[0-9]+$/", $request->search_free)) { //数字のみ
+        $fixId = $this->idFormatForSearch($request->search_free);
+        $result = $class->orWhere('id', 'like', "%{$fixId}%");
+
+        $mobile = User::where("mobile", "LIKE", "%{$request->search_free}%")->pluck("id")->toArray();
+        $pre_res = PreReservation::whereIn("user_id", $mobile)->pluck("multiple_reserve_id")->toArray();
+        $result = $class->orWhereIn("id", $pre_res);
+
+        $tel = User::where("tel", "LIKE", "%{$request->search_free}%")->pluck("id")->toArray();
+        $pre_res = PreReservation::whereIn("user_id", $tel)->pluck("multiple_reserve_id")->toArray();
+        $result = $class->orWhereIn("id", $pre_res);
+      } elseif (preg_match("/^[0-9-_:.]+$/", $request->search_free)) { //日時のみ
+        $created = PreReservation::where("created_at", "LIKE", "%{$request->search_free}%")->pluck("multiple_reserve_id")->toArray();
+        $result = $class->orWhereIn("id", $created);
+      } else { //文字列
+        $user = User::where("company", "LIKE", "%{$request->search_free}%")->pluck("id")->toArray();
+        $pre_res = PreReservation::whereIn("user_id", $user)->pluck("multiple_reserve_id")->toArray();
+        $result = $class->orWhereIn("id", $pre_res);
+
+        $user_name = User::where(\DB::raw('CONCAT(first_name, last_name)'), 'like', "%{$request->search_person}%")->pluck('id')->toArray();
+        $pre_res = PreReservation::whereIn("user_id", $user_name)->pluck("multiple_reserve_id")->toArray();
+        $result = $class->orWhereIn("id", $pre_res);
+      }
     }
 
     if (!empty($request->search_id)) {
-      $result = $class->where("id", "LIKE", "%{$request->search_id}%");
+      $fixId = $this->idFormatForSearch($request->search_id);
+      $result = $class->where("id", "LIKE", "%{$fixId}%");
     }
 
     if (!empty($request->search_created_at)) { // 作成日の検索
-      $splitDate = explode(' - ', $request->search_created_at);
-      $s_carbon = Carbon::parse($splitDate[1]);
-      $add_day = $s_carbon->addDays(1);
-      $result = $class->whereBetween("created_at", [$splitDate[0], date('Y-m-d', strtotime($add_day))]);
+      $splitDate = explode(' ~ ', $request->search_created_at);
+      $result = $class->whereBetween("created_at", [$splitDate[0], date('Y-m-d', strtotime(Carbon::parse($splitDate[1])->addDays(1)))]);
     }
 
-    if (!empty($request->search_company)) { // 担当者氏名
-      $result = $class->whereHas('pre_reservations.user', function ($query) use ($request) {
-        $query->where('company', 'LIKE', "%{$request->search_company}%");
-      });
+    if (!empty($request->search_company)) { // 会社名
+      $user = User::where("company", "LIKE", "%{$request->search_company}%")->pluck("id")->toArray();
+      $pre_res = PreReservation::whereIn("user_id", $user)->pluck("multiple_reserve_id")->toArray();
+      $result = $class->whereIn("id", $pre_res);
     }
 
     if (!empty($request->search_person)) { // 担当者氏名
-      $result = $class->whereHas('pre_reservations.user', function ($query) use ($request) {
-        $query->where('first_name', 'LIKE', "%{$request->search_person}%");
-        $query->orWhere('last_name', 'LIKE', "%{$request->search_person}%");
-        $query->orWhere(DB::raw('CONCAT(first_name, last_name)'), 'like', '%' . $request->search_person . '%');
-      })->orWhereHas('pre_reservations.agent', function ($query) use ($request) {
-        $query->where('person_firstname', 'LIKE', "%{$request->search_person}%");
-        $query->orWhere('person_lastname', 'LIKE', "%{$request->search_person}%");
-        $query->orWhere(DB::raw('CONCAT(person_firstname, person_lastname)'), 'like', '%' . $request->search_person . '%');
-      });
+      $user = User::where(\DB::raw('CONCAT(first_name, last_name)'), 'like', "%{$request->search_person}%")->pluck('id')->toArray();
+      $pre_res = PreReservation::whereIn("user_id", $user)->pluck("multiple_reserve_id")->toArray();
+      $result = $class->whereIn("id", $pre_res);
     }
 
     if (!empty($request->search_mobile)) { // 携帯
-      $result = $class->whereHas('pre_reservations.user', function ($query) use ($request) {
-        $query->where('mobile', 'LIKE', "%{$request->search_mobile}%");
-      })->orWhereHas('pre_reservations.agent', function ($query) use ($request) {
-        $query->where('person_mobile', 'LIKE', "%{$request->search_mobile}%");
-      });
+      $user = User::where("mobile", "LIKE", "%{$request->search_mobile}%")->pluck("id")->toArray();
+      $pre_res = PreReservation::whereIn("user_id", $user)->pluck("multiple_reserve_id")->toArray();
+      $result = $class->whereIn("id", $pre_res);
     }
 
-    if (!empty($request->search_tel)) { // 固定電話
-      $result = $class->whereHas('pre_reservations.user', function ($query) use ($request) {
-        $query->where('tel', 'LIKE', "%{$request->search_tel}%");
-      })->orWhereHas('pre_reservations.agent', function ($query) use ($request) {
-        $query->where('person_tel', 'LIKE', "%{$request->search_tel}%");
-      });
+    if (!empty($request->search_tel)) {
+      $user = User::where("tel", "LIKE", "%{$request->search_tel}%")->pluck("id")->toArray();
+      $pre_res = PreReservation::whereIn("user_id", $user)->pluck("multiple_reserve_id")->toArray();
+      $result = $class->whereIn("id", $pre_res);
     }
 
-    if (!empty($request->search_unkown_user)) { // 固定電話
-      $result = $class->whereHas('pre_reservations.unknown_user', function ($query) use ($request) {
-        $query->where('unknown_user_company', 'LIKE', "%{$request->search_unkown_user}%");
-      });
+    if (!empty($request->search_unkown_user)) {
+      $unknown_user = UnknownUser::where("unknown_user_company", "LIKE", "%{$request->search_unkown_user}%")->pluck("pre_reservation_id")->toArray();
+      $pre_res = PreReservation::whereIn("id", $unknown_user)->pluck("multiple_reserve_id")->toArray();
+      $result = $class->whereIn("id", $pre_res);
     }
 
-    if (!empty($request->search_agent)) { // 固定電話
-      $result = $class->whereHas('pre_reservations.agent', function ($query) use ($request) {
-        $query->where('id', 'LIKE', "%{$request->search_agent}%");
-      });
+    if (!empty($request->search_agent)) { // 
+      $agent = Agent::where("id", "LIKE", "%{$request->search_agent}%")->pluck("id")->toArray();
+      $pre_res = PreReservation::whereIn("agent_id", $agent)->pluck("multiple_reserve_id")->toArray();
+      $result = $class->whereIn("id", $pre_res);
     }
 
-    if (!empty($request->search_end_user)) { // 固定電話
-      $result = $class->whereHas('pre_reservations.pre_enduser', function ($query) use ($request) {
-        $query->where('company', 'LIKE', "%{$request->search_end_user}%");
-      });
+    if (!empty($request->search_end_user)) {
+      $end_user = PreEndUser::where("company", "LIKE", "%{$request->search_end_user}%")->pluck("pre_reservation_id")->toArray();
+      $pre_res = PreReservation::whereIn("id", $end_user)->pluck("multiple_reserve_id")->toArray();
+      $result = $class->whereIn("id", $pre_res);
     }
-
 
     return $result->orderBy('id', 'desc')->get();
   }

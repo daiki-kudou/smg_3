@@ -43,7 +43,6 @@ class MultiplesController extends Controller
       )->orderBy('id', 'desc')->get();
       $counter = 0;
     }
-    dump($multiples);
     $multiples = $this->customSearchAndSort($multiples, $request);
     $multiples = $this->customPaginate($multiples, 3, $request);
     $agents = Agent::orderBy("id", "desc")->get();
