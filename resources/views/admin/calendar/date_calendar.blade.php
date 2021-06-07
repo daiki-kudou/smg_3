@@ -33,7 +33,7 @@
   </div>
   <h2 class="mt-3 mb-3">予約状況カレンダー 利用日別</h2>
   <hr>
-  
+
   <section class="mt-5 bg-white">
     <div class="date_calender_wrapper" id="date_calender_wrapper">
       <div class="calender-ttl">
@@ -65,7 +65,7 @@
             </div>
           </div>
         </div>
-  
+
       </div>
       <ul class="calender-color">
         <li class="li-bg-reserve">予約済み</li>
@@ -73,7 +73,7 @@
         <li class="li-bg-empty">空室</li>
         <li class="li-bg-closed">休業日</li>
       </ul>
-  
+
       <table class="table table-bordered calender-flame table-scroll">
         <thead>
           <tr class="calender-head">
@@ -132,20 +132,20 @@
       </table>
     </div>
   </section>
-  
+
   <iframe class="mt-5" src="/admin/note" frameborder="0" width="100%" height="500px;" scrolling="no"></iframe>
-  
+
   @foreach ($reservations as $reservation)
   <input type="hidden" name="venue_id" value="{{($reservation->venue_id)}}">
   <input type="hidden" name="start" value="{{date('H:i',strtotime($reservation->enter_time))}}">
-  <input type="hidden" name="status" value="{{$reservation->bills->first()->reservation_status }}">
+  <input type="hidden" name="status" value="{{$reservation->bills->sortBy("id")->first()->reservation_status }}">
   <input type="hidden" name="company"
     value="{{ ReservationHelper::checkAgentOrUserCompany($reservation->user_id,$reservation->agent_id)}}">
   <input type="hidden" name="reservation_id" value="{{$reservation->id }}">
   @endforeach
   <input type="hidden" name="json" value="{{$json_result}}">
-  
-  
+
+
   @foreach ($pre_reservations as $pre_reservation)
   <input type="hidden" name="pre_reservation_venue_id" value="{{($pre_reservation->venue_id)}}">
   <input type="hidden" name="pre_reservation_start" value="{{date('H:i',strtotime($pre_reservation->enter_time))}}">

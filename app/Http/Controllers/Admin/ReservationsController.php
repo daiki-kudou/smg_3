@@ -769,7 +769,7 @@ class ReservationsController extends Controller
     try {
       $reservation = $reservationEditMaster->reservation;
       $reservation->UpdateReservation($basicInfo, $result);
-      $bill = $reservation->bills->first();
+      $bill = $reservation->bills->sortBy("id")->first();
       $bill->UpdateBillSession($result);
       $bill->ReserveStoreSessionBreakdown($request, 'result');
     } catch (\Exception $e) {

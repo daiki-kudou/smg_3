@@ -28,7 +28,7 @@ class ControltimeController extends Controller
   {
     $timeArray = [];
     foreach ($reservations as $key => $value) {
-      if ($value->bills->first()->reservation_status <= 3) { //キャンセルプロセスにあるものは除外
+      if ($value->bills->sortBy("id")->first()->reservation_status <= 3) { //キャンセルプロセスにあるものは除外
         $f_start = Carbon::createFromTimeString($value->enter_time, 'Asia/Tokyo');
         $f_finish = Carbon::createFromTimeString($value->leave_time, 'Asia/Tokyo');
         $diff = ($f_finish->diffInMinutes($f_start) / 30);

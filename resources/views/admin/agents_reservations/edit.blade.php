@@ -222,7 +222,7 @@
                 </td>
                 <td>
                   <input type="text" class="form-control equipment_breakdown" name="{{'equipment_breakdown'.$key}}"
-                    @foreach($reservation->bills->first()->breakdowns->where('unit_type',2) as $e_break)
+                    @foreach($reservation->bills->sortBy("id")->first()->breakdowns->where('unit_type',2) as $e_break)
                   @if ($e_break->unit_item==$equ->item)
                   value="{{$e_break->unit_count}}"
                   @endif
@@ -251,8 +251,8 @@
               <tr>
                 <td class="table-active">{{$service->item}}</td>
                 <td>
-                  @if ($reservation->bills->first()->breakdowns->count()!=0)
-                  @foreach ($reservation->bills->first()->breakdowns as $s_break)
+                  @if ($reservation->bills->sortBy("id")->first()->breakdowns->count()!=0)
+                  @foreach ($reservation->bills->sortBy("id")->first()->breakdowns as $s_break)
                   @if ($s_break->unit_item==$service->item)
                   <div class="radio-box">
                     <p>
@@ -327,8 +327,8 @@
                 <td class="table-active">準備</td>
                 <td>
                   <div class="radio-box">
-                    @if ($reservation->bills->first()->breakdowns->count()!=0)
-                    @foreach ($reservation->bills->first()->breakdowns as $key=>$l_break)
+                    @if ($reservation->bills->sortBy("id")->first()->breakdowns->count()!=0)
+                    @foreach ($reservation->bills->sortBy("id")->first()->breakdowns as $key=>$l_break)
                     @if ($l_break->unit_item=="レイアウト準備料金")
                     <p>
                       {{Form::radio('layout_prepare', 1, true, ['id' => 'layout_prepare'])}}
@@ -369,8 +369,8 @@
                 <td class="table-active">準備</td>
                 <td>
                   <div class="radio-box">
-                    @if ($reservation->bills->first()->breakdowns->count()!=0)
-                    @foreach ($reservation->bills->first()->breakdowns as $key=>$lc_break)
+                    @if ($reservation->bills->sortBy("id")->first()->breakdowns->count()!=0)
+                    @foreach ($reservation->bills->sortBy("id")->first()->breakdowns as $key=>$lc_break)
                     @if ($lc_break->unit_item=="レイアウト片付料金")
                     <p>
                       {{Form::radio('layout_clean', 1, true, ['id' => 'layout_clean'])}}
@@ -688,7 +688,7 @@
               <dl class="ttl_box">
                 <dt>合計金額</dt>
                 <dd class="total_result">
-                  {{$reservation->bills->first()->master_total}}
+                  {{$reservation->bills->sortBy("id")->first()->master_total}}
                   円</dd>
               </dl>
             </td>
@@ -696,7 +696,7 @@
               <dl class="ttl_box">
                 <dt>支払い期日</dt>
                 <dd class="total_result">
-                  {{ReservationHelper::formatDate($reservation->bills->first()->payment_limit)}}
+                  {{ReservationHelper::formatDate($reservation->bills->sortBy("id")->first()->payment_limit)}}
                 </dd>
               </dl>
             </td>
@@ -734,7 +734,8 @@
                 </tr>
               </tbody>
               <tbody class="venue_main">
-                @foreach ($reservation->bills->first()->breakdowns->where('unit_type',1) as $v_key=>$venue_break)
+                @foreach ($reservation->bills->sortBy("id")->first()->breakdowns->where('unit_type',1) as
+                $v_key=>$venue_break)
                 <tr>
                   <td>
                     {{ Form::text('venue_breakdown_item'.$v_key, $venue_break->unit_item,['class'=>'form-control', 'readonly'] ) }}
@@ -772,7 +773,8 @@
                 </tr>
               </tbody>
               <tbody class="equipment_main">
-                @foreach ($reservation->bills->first()->breakdowns->where('unit_type',2) as $e_key=>$equipment_break)
+                @foreach ($reservation->bills->sortBy("id")->first()->breakdowns->where('unit_type',2) as
+                $e_key=>$equipment_break)
                 <tr>
                   <td>
                     {{ Form::text('equipment_breakdown_item'.$e_key, $equipment_break->unit_item,['class'=>'form-control', 'readonly'] ) }}
@@ -788,7 +790,8 @@
                   </td>
                 </tr>
                 @endforeach
-                @foreach ($reservation->bills->first()->breakdowns->where('unit_type',3) as $s_key=>$service_break)
+                @foreach ($reservation->bills->sortBy("id")->first()->breakdowns->where('unit_type',3) as
+                $s_key=>$service_break)
                 <tr>
                   <td>
                     {{ Form::text('service_breakdown_cost'.$s_key, $service_break->unit_item,['class'=>'form-control', 'readonly'] ) }}
@@ -826,7 +829,8 @@
                 </tr>
               </tbody>
               <tbody class="layout_main">
-                @foreach ($reservation->bills->first()->breakdowns->where('unit_type',4) as $l_key=>$layout_break)
+                @foreach ($reservation->bills->sortBy("id")->first()->breakdowns->where('unit_type',4) as
+                $l_key=>$layout_break)
                 <tr>
                   <td>
                     {{ Form::text('layout_breakdown_item'.$l_key, $layout_break->unit_item,['class'=>'form-control', 'readonly'] ) }}
@@ -848,7 +852,7 @@
                   <td colspan="3"></td>
                   <td colspan="1">
                     <p class="text-left">合計</p>
-                    {{ Form::text('layout_price',$reservation->bills->first()->layout_price ,['class'=>'form-control', 'readonly'] ) }}
+                    {{ Form::text('layout_price',$reservation->bills->sortBy("id")->first()->layout_price ,['class'=>'form-control', 'readonly'] ) }}
                   </td>
                 </tr>
               </tbody>
@@ -874,7 +878,8 @@
                 </tr>
               </tbody>
               <tbody class="others_main">
-                @foreach ($reservation->bills->first()->breakdowns->where('unit_type',5) as $o_key=>$other_break)
+                @foreach ($reservation->bills->sortBy("id")->first()->breakdowns->where('unit_type',5) as
+                $o_key=>$other_break)
                 <tr>
                   <td>
                     {{ Form::text('others_input_item'.$o_key, $other_break->unit_item,['class'=>'form-control', 'readonly'] ) }}
@@ -899,19 +904,19 @@
               <tr>
                 <td>小計：</td>
                 <td>
-                  {{ Form::text('master_subtotal', $reservation->bills->first()->master_subtotal,['class'=>'form-control', 'readonly'] ) }}
+                  {{ Form::text('master_subtotal', $reservation->bills->sortBy("id")->first()->master_subtotal,['class'=>'form-control', 'readonly'] ) }}
                 </td>
               </tr>
               <tr>
                 <td>消費税：</td>
                 <td>
-                  {{ Form::text('master_tax', $reservation->bills->first()->master_tax,['class'=>'form-control', 'readonly'] ) }}
+                  {{ Form::text('master_tax', $reservation->bills->sortBy("id")->first()->master_tax,['class'=>'form-control', 'readonly'] ) }}
                 </td>
               </tr>
               <tr>
                 <td class="font-weight-bold">合計金額</td>
                 <td>
-                  {{ Form::text('master_total', $reservation->bills->first()->master_total,['class'=>'form-control', 'readonly'] ) }}
+                  {{ Form::text('master_total', $reservation->bills->sortBy("id")->first()->master_total,['class'=>'form-control', 'readonly'] ) }}
                 </td>
               </tr>
             </table>
@@ -938,10 +943,10 @@
             <table class="table">
               <tr>
                 <td>請求日
-                  {{ Form::text('bill_created_at', $reservation->bills->first()->bill_created_at,['class'=>'form-control', 'id'=>'datepicker6'] ) }}
+                  {{ Form::text('bill_created_at', $reservation->bills->sortBy("id")->first()->bill_created_at,['class'=>'form-control', 'id'=>'datepicker6'] ) }}
                 </td>
                 <td>支払期日
-                  {{ Form::text('pay_limit', ReservationHelper::formatDate($reservation->bills->first()->pay_limit),['class'=>'form-control', 'id'=>'datepicker6'] ) }}
+                  {{ Form::text('pay_limit', ReservationHelper::formatDate($reservation->bills->sortBy("id")->first()->pay_limit),['class'=>'form-control', 'id'=>'datepicker6'] ) }}
                 </td>
               </tr>
               <tr>
@@ -980,22 +985,23 @@
                 <td>入金状況
                   <select name="paid" class="form-control">
                     <option value="#" disabled>選択してください</option>
-                    <option value="0" {{$reservation->bills->first()->paid==0?'selected':''}}>未入金</option>
-                    <option value="1" {{$reservation->bills->first()->paid==1?'selected':''}}>入金済み</option>
+                    <option value="0" {{$reservation->bills->sortBy("id")->first()->paid==0?'selected':''}}>未入金</option>
+                    <option value="1" {{$reservation->bills->sortBy("id")->first()->paid==1?'selected':''}}>入金済み
+                    </option>
                   </select> </td>
                 <td>
                   入金日
-                  {{ Form::text('pay_day', $reservation->bills->first()->pay_day,['class'=>'form-control', 'id'=>'datepicker7'] ) }}
+                  {{ Form::text('pay_day', $reservation->bills->sortBy("id")->first()->pay_day,['class'=>'form-control', 'id'=>'datepicker7'] ) }}
                 </td>
               </tr>
               <tr>
                 <td>
                   振込人名
-                  {{ Form::text('pay_person', $reservation->bills->first()->pay_person,['class'=>'form-control'] ) }}
+                  {{ Form::text('pay_person', $reservation->bills->sortBy("id")->first()->pay_person,['class'=>'form-control'] ) }}
                   <p class="is-error-pay_person" style="color: red"></p>
                 </td>
                 <td>入金額
-                  {{ Form::text('payment', $reservation->bills->first()->payment,['class'=>'form-control'] ) }}
+                  {{ Form::text('payment', $reservation->bills->sortBy("id")->first()->payment,['class'=>'form-control'] ) }}
                   <p class="is-error-payment" style="color: red"></p>
                 </td>
               </tr>

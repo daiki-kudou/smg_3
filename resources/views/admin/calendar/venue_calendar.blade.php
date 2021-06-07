@@ -25,7 +25,7 @@
   {{Form::hidden('start', date('Y-m-d',strtotime($reservation->reserve_date)).' '.$reservation->enter_time,['id'=>date('Y-m-d',strtotime($day)).'start'])}}
   {{Form::hidden('finish', date('Y-m-d',strtotime($reservation->reserve_date)).' '.$reservation->leave_time,['id'=>date('Y-m-d',strtotime($day)).'finish'])}}
   {{Form::hidden('date', date('Y-m-d',strtotime($reservation->reserve_date)))}}
-  {{Form::hidden('status', $reservation->bills->first()->reservation_status)}}
+  {{Form::hidden('status', $reservation->bills->sortBy("id")->first()->reservation_status)}}
   @if ($reservation->user_id>0)
   {{Form::hidden('company', ReservationHelper::getCompany($reservation->user_id))}}
   @else
