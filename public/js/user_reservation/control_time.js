@@ -19,14 +19,22 @@ $(document).on("change", "#venue_id", function () {
   })
     .done(function ($result) {
       console.log($result);
+      $('#enter_time, #leave_time').html("<option value=''></option>");
       $('#fullOverlay').css('display', 'none');
-      // $.each($result, function ($index, $value) {
-      //   $('#enter_time, #leave_time').find('option').each(function ($key2, $value2) {
-      //     if ($value == $($value2).val()) {
-      //       $($value2).prop("disabled", true);
-      //     }
-      //   })
-      // })
+      $.each($result, function ($index, $value) {
+        console.log($value);
+        if ($value['active'] === 0) {
+          var html1 = "<option value='" + $value['time'] + "' disabled>";
+          var html2 = $value['value'];
+          var html3 = "</option>";
+          $('#enter_time, #leave_time').append(html1 + html2 + html3);
+        } else {
+          var html1 = "<option value='" + $value['time'] + "'>";
+          var html2 = $value['value'];
+          var html3 = "</option>";
+          $('#enter_time, #leave_time').append(html1 + html2 + html3);
+        }
+      })
     })
     .fail(function ($result) {
       $('#fullOverlay').css('display', 'none');

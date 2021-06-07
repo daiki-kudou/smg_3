@@ -44,21 +44,45 @@ class HomeController extends Controller
   public function control_time(Request $request)
   {
     // 営業時間抽出
+    $salesHours = $this->getSalesHours($request);
+    // 該当日時の予約・仮抑え　抽出
+    $reservations_or_pre_reservations = $this->getReservations($request);
+    // return array_unique($reservations_or_pre_reservations);
+    if ($reservations_or_pre_reservations) {
+      foreach ($salesHours[0] as $key => $value) { //元の時間08~23時
+        if (in_array($value['time'], $reservations_or_pre_reservations)) {
+          // return $value['time'];
+          $salesHours[0][$key]['active'] = 0;
+        }
+      }
+      return $salesHours[0];
+    } else {
+      return $salesHours[0];
+    }
+  }
+
+  public function getSalesHours($request)
+  {
     $venue = Venue::with("dates")->find($request->venue_id);
     $weekday = Carbon::parse($request->date)->dayOfWeek;
     $venue_date = $venue->dates->where("week_day", $weekday)->first();
     $start = $venue_date->start;
     $finish = $venue_date->finish;
-
     $diff = (Carbon::parse($start)->diffInMinutes(Carbon::parse($finish))) / 30;
     $temporary = [];
     for ($i = 0; $i <= $diff; $i++) {
-      $temporary[] = ['active' => date('H:i:00', strtotime(Carbon::parse($start)->addMinutes($i * 30)))];
+      $temporary[] =  [
+        'active' => 1,
+        "time" => date('H:i:00', strtotime(Carbon::parse($start)->addMinutes($i * 30))),
+        "value" => date('H:i', strtotime(Carbon::parse($start)->addMinutes($i * 30)))
+      ];
     }
     $times[] = $temporary;
+    return $times;
+  }
 
-
-    // 該当日時の予約・仮抑え　抽出
+  public function getReservations($request)
+  {
     $reservations = Reservation::with("bills")->where("reserve_date", date('Y-m-d', strtotime($request->date)))
       ->where("venue_id", $request->venue_id)
       ->get();
@@ -82,37 +106,13 @@ class HomeController extends Controller
       }
       $result[] = $temporary;
     }
-
     if (count($result) === 1) {
-      $reservations_array = $result[0];
+      return $result[0];
     } elseif (count($result) === 2) {
-      $reservations_array = array_merge($result[0], $result[1]);
+      return array_merge($result[0], $result[1]);
     } else {
-      $reservations_array = "";
+      return  [];
     }
-
-
-    if ($reservations_array) {
-      return "ある";
-    } else {
-      return "ない";
-    }
-
-    // if (!empty($reservations_array)) {
-    //   foreach ($times[0] as $key => $value) {
-    //     foreach ($reservations_array as $key2 => $value2) {
-    //       if ($value == $value2) {
-    //         $key = "inactive";
-    //       }
-    //     }
-    //   }
-    // } else {
-    //   return $times[0];
-    // }
-
-
-
-    // return $times[0];
   }
 
   public function cxl_member_ship_done()
