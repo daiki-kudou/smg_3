@@ -1106,7 +1106,7 @@
 
 
   {{-- キャンセル詳細 --}}
-  @foreach ($reservation->cxls as $key => $cxl)
+  @foreach ($reservation->cxls->sortBy("id") as $key => $cxl)
   <section class="mt-5 p-0">
     <div class="bill">
       <div class="bill_head_cancel">

@@ -500,15 +500,18 @@ class ReservationsController extends Controller
    */
   public function show($id)
   {
+
     session()->forget(['add_bill', 'cxlCalcInfo', 'cxlMaster', 'cxlResult', 'invoice', 'multiOrSingle', 'discount_info', 'calc_info', 'master_info', 'check_info', 'basicInfo', 'reservationEditMaster']);
     $reservation = Reservation::with(['bills.breakdowns', 'cxls.cxl_breakdowns', 'user', 'agent', 'venue', 'change_log'])->find($id);
+
     $venue = $reservation->venue;
     $user = $reservation->user;
     $master_prices = $reservation->TotalAmount();
-    $other_bills = [];
-    for ($i = 0; $i < count($reservation->bills) - 1; $i++) {
-      $other_bills[] = $reservation->bills->skip($i + 1)->first();
-    }
+    // $other_bills = [];
+    // for ($i = 0; $i < count($reservation->bills) - 1; $i++) {
+    //   $other_bills[] = $reservation->bills->skip($i + 1)->first();
+    // }
+    $other_bills = $reservation->bills->sortBy("id")->skip(1);
     $admin = Admin::all()->sortBy('name', SORT_NATURAL | SORT_FLAG_CASE)->pluck('name', 'name');
     //付随する追加予約のステータスが予約完了になってるか判別
     $judgeMultiDelete = $reservation->checkBillsStatus();
