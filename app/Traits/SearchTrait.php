@@ -9,6 +9,7 @@ use App\Models\User;
 use App\Models\UnknownUser;
 use App\Models\Agent;
 use App\Models\PreEndUser;
+use App\Models\Venue;
 
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\DB; //トランザクション用
@@ -62,31 +63,40 @@ trait SearchTrait
           $tel = User::where("tel", "LIKE", "%{$request->search_free}%")->pluck("id")->toArray();
           $query->orWhereIn("user_id", $tel);
         } elseif (preg_match("/^[0-9-_:.]+$/", $request->search_free)) { //日時のみ
+          $query->orWhere("reserve_date", "LIKE", $request->search_free);
+          $query->orWhere("created_at", "LIKE", $request->search_free);
         } else { //文字列
+          $fixId = $this->idFormatForSearch($request->search_free);
+          $query->orWhere('id', 'LIKE', "%" . $fixId . "%");
+          $venue = Venue::where("name_bldg", "LIKE", "%{$request->search_free}%")->pluck("id")->toArray();
+          $query->orWhereIn("venue_id", $venue);
+          $user = User::where("company", "LIKE", "%{$request->search_free}%")->pluck("id")->toArray();
+          $query->orWhereIn("user_id", $user);
+          $user_name = User::where(\DB::raw('CONCAT(first_name, last_name)'), 'like', "%{$request->search_free}%")->pluck('id')->toArray();
+          $query->orWhereIn("user_id", $user_name);
+          $unknown_user = UnknownUser::where("unknown_user_company", "LIKE", "%{$request->search_free}%")->pluck("pre_reservation_id")->toArray();
+          $query->orWhereIn("id", $unknown_user);
+          $agent = Agent::where("company", "LIKE", "%{$request->search_free}%")->pluck("id")->toArray();
+          $query->orWhereIn("agent_id", $agent);
+          $end_user = PreEndUser::where("company", "LIKE", "%{$request->search_free}%")->pluck("pre_reservation_id")->toArray();
+          $query->orWhereIn("id", $end_user);
         }
       });
     }
 
-    // $this->SimpleWhereLike($request, "search_id", $andSearch, "id"); // id検索
     if (!empty($request->search_id)) {
       $fixId = $this->idFormatForSearch($request->search_id);
       $andSearch->where('id', 'LIKE', "%" . $fixId . "%");
     }
 
     if (!empty($request->search_created_at)) { // 作成日の検索
-      $splitDate = explode(' - ', $request->search_created_at);
-      $s_carbon = Carbon::parse($splitDate[1]);
-      $add_day = $s_carbon->addDays(1);
-      $andSearch->whereBetween("created_at", [$splitDate[0], date('Y-m-d', strtotime($add_day))])->get();
+      $splitDate = explode(' ~ ', $request->search_created_at);
+      $andSearch->whereBetween("created_at", [$splitDate[0], date('Y-m-d', strtotime(Carbon::parse($splitDate[1])->addDays(1)))])->get();
     }
 
     if (!empty($request->search_date)) { // 利用日
-      $splitDate = explode(' - ', $request->search_date);
-      $s_carbon = Carbon::parse($splitDate[1]);
-      $add_day = $s_carbon->addDays(1);
-      $f_start = date(('Y-m-d'), strtotime($splitDate[0]));
-      $f_finish = date(('Y-m-d'), strtotime($splitDate[1]));
-      $andSearch->whereBetween("reserve_date", [$f_start, $f_finish])->get();
+      $splitDate = explode(' ~ ', $request->search_date);
+      $andSearch->whereBetween("reserve_date", [$splitDate[0], $splitDate[1]])->get();
     }
 
     if (!empty($request->search_venue)) { // 利用会場の検索

@@ -326,7 +326,7 @@
         autoUpdateInput: false
       });
       $("input[name='" + $target + "']").on('apply.daterangepicker', function(ev, picker) {
-        $(this).val(picker.startDate.format('YYYY/MM/DD') + ' - ' + picker.endDate.format('YYYY/MM/DD'));
+        $(this).val(picker.startDate.format('YYYY-MM-DD') + ' ~ ' + picker.endDate.format('YYYY-MM-DD'));
       });
       $("input[name='" + $target + "']").on('cancel.daterangepicker', function(ev, picker) {
         $(this).val('');
