@@ -851,7 +851,7 @@
                   <td><input class="form-control" readonly></td>
                   <td>{{ Form::text('others_input_count[]', '',['class'=>'form-control'] ) }}</td>
                   <td><input class="form-control" readonly></td>
-                  <td>
+                  <td class="text-left">
                     <input type="button" value="＋" class="add pluralBtn">
                     <input type="button" value="ー" class="del pluralBtn">
                   </td>

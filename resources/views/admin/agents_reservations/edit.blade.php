@@ -366,7 +366,7 @@
               @endif
               @if ($reservation->venue->layout_clean)
               <tr>
-                <td class="table-active">準備</td>
+                <td class="table-active">片付</td>
                 <td>
                   <div class="radio-box">
                     @if ($reservation->bills->sortBy("id")->first()->breakdowns->count()!=0)
