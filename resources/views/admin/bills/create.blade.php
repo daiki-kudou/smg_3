@@ -96,7 +96,7 @@
                   <td>{{ Form::text('venue_breakdown_cost0', '', ['class' => 'form-control'])}}</td>
                   <td>{{ Form::text('venue_breakdown_count0', '', ['class' => 'form-control number_validation'])}}</td>
                   <td>{{ Form::text('venue_breakdown_subtotal0', '', ['class' => 'form-control', 'readonly'])}}</td>
-                  <td>
+                  <td class="text-left">
                     <input type="button" value="＋" class="add pluralBtn">
                     <input type="button" value="ー" class="del pluralBtn">
                   </td>
@@ -115,7 +115,7 @@
                   <td>
                     {{ Form::text('venue_breakdown_subtotal'.$i, $data['venue_breakdown_subtotal'.$i], ['class' => 'form-control', 'readonly'])}}
                   </td>
-                  <td>
+                  <td class="text-left">
                     <input type="button" value="＋" class="add pluralBtn">
                     <input type="button" value="ー" class="del pluralBtn">
                   </td>
@@ -164,7 +164,7 @@
                   <td>{{ Form::text('equipment_breakdown_count0', '', ['class' => 'form-control number_validation'])}}
                   </td>
                   <td>{{ Form::text('equipment_breakdown_subtotal0', '', ['class' => 'form-control', 'readonly'])}}</td>
-                  <td>
+                  <td class="text-left">
                     <input type="button" value="＋" class="add pluralBtn">
                     <input type="button" value="ー" class="del pluralBtn">
                   </td>
@@ -183,7 +183,7 @@
                   <td>
                     {{ Form::text('equipment_breakdown_subtotal'.$i, $data['equipment_breakdown_subtotal'.$i], ['class' => 'form-control', 'readonly'])}}
                   </td>
-                  <td>
+                  <td class="text-left">
                     <input type="button" value="＋" class="add pluralBtn">
                     <input type="button" value="ー" class="del pluralBtn">
                   </td>
@@ -232,7 +232,7 @@
                   <td>{{ Form::text('layout_breakdown_cost0', '', ['class' => 'form-control'])}}</td>
                   <td>{{ Form::text('layout_breakdown_count0', '', ['class' => 'form-control number_validation'])}}</td>
                   <td>{{ Form::text('layout_breakdown_subtotal0', '', ['class' => 'form-control', 'readonly'])}}</td>
-                  <td>
+                  <td class="text-left">
                     <input type="button" value="＋" class="add pluralBtn">
                     <input type="button" value="ー" class="del pluralBtn">
                   </td>
@@ -251,7 +251,7 @@
                   <td>
                     {{ Form::text('layout_breakdown_subtotal'.$i, $data['layout_breakdown_subtotal'.$i], ['class' => 'form-control', 'readonly'])}}
                   </td>
-                  <td>
+                  <td class="text-left">
                     <input type="button" value="＋" class="add pluralBtn">
                     <input type="button" value="ー" class="del pluralBtn">
                   </td>
@@ -300,7 +300,7 @@
                   <td>{{ Form::text('others_breakdown_cost0', '', ['class' => 'form-control'])}}</td>
                   <td>{{ Form::text('others_breakdown_count0', '', ['class' => 'form-control number_validation'])}}</td>
                   <td>{{ Form::text('others_breakdown_subtotal0', '', ['class' => 'form-control', 'readonly'])}}</td>
-                  <td>
+                  <td class="text-left">
                     <input type="button" value="＋" class="add pluralBtn">
                     <input type="button" value="ー" class="del pluralBtn">
                   </td>
@@ -319,7 +319,7 @@
                   <td>
                     {{ Form::text('others_breakdown_subtotal'.$i, $data['others_breakdown_subtotal'.$i], ['class' => 'form-control', 'readonly'])}}
                   </td>
-                  <td>
+                  <td class="text-left">
                     <input type="button" value="＋" class="add pluralBtn">
                     <input type="button" value="ー" class="del pluralBtn">
                   </td>

@@ -15,7 +15,7 @@
 
 <div class="container-fluid">
 
-  <h2 class="mt-3 mb-3">追加請求書　編集aaaaaaaaa</h2>
+  <h2 class="mt-3 mb-3">追加請求書　編集</h2>
   <hr>
 
   {{ Form::open(['url' => 'admin/bills/'.$bill->id, 'method'=>'PUT', 'id'=>'billsEditForm']) }}
@@ -74,7 +74,7 @@
                   <td>
                     {{Form::text('venue_breakdown_subtotal'.$key,$venue->unit_subtotal,['class'=>'form-control','readonly'])}}
                   </td>
-                  <td>
+                  <td class="text-left">
                     <input type="button" value="＋" class="add pluralBtn bg-blue">
                     <input type="button" value="ー" class="del pluralBtn bg-red">
                   </td>
@@ -94,7 +94,7 @@
                   <td>
                     {{Form::text('venue_breakdown_subtotal0','',['class'=>'form-control','readonly'])}}
                   </td>
-                  <td>
+                  <td class="text-left">
                     <input type="button" value="＋" class="add pluralBtn bg-blue">
                     <input type="button" value="ー" class="del pluralBtn bg-red">
                   </td>
@@ -151,7 +151,7 @@
                   <td>
                     {{Form::text('equipment_breakdown_subtotal'.$key,$equ->unit_subtotal,['class'=>'form-control','readonly'])}}
                   </td>
-                  <td>
+                  <td class="text-left">
                     <input type="button" value="＋" class="add pluralBtn bg-blue">
                     <input type="button" value="ー" class="del pluralBtn bg-red">
                   </td>
@@ -171,7 +171,7 @@
                   <td>
                     {{Form::text('equipment_breakdown_subtotal0','',['class'=>'form-control','readonly'])}}
                   </td>
-                  <td>
+                  <td class="text-left">
                     <input type="button" value="＋" class="add pluralBtn bg-blue">
                     <input type="button" value="ー" class="del pluralBtn bg-red">
                   </td>
@@ -229,7 +229,7 @@
                   <td>
                     {{Form::text('layout_breakdown_subtotal'.$key,$lay->unit_subtotal,['class'=>'form-control','readonly'])}}
                   </td>
-                  <td>
+                  <td class="text-left">
                     <input type="button" value="＋" class="add pluralBtn bg-blue">
                     <input type="button" value="ー" class="del pluralBtn bg-red">
                   </td>
@@ -249,7 +249,7 @@
                   <td>
                     {{Form::text('layout_breakdown_subtotal0','',['class'=>'form-control','readonly'])}}
                   </td>
-                  <td>
+                  <td class="text-left">
                     <input type="button" value="＋" class="add pluralBtn bg-blue">
                     <input type="button" value="ー" class="del pluralBtn bg-red">
                   </td>
@@ -307,7 +307,7 @@
                   <td>
                     {{Form::text('others_breakdown_subtotal'.$key,$other->unit_subtotal,['class'=>'form-control','readonly'])}}
                   </td>
-                  <td>
+                  <td class="text-left">
                     <input type="button" value="＋" class="add pluralBtn bg-blue">
                     <input type="button" value="ー" class="del pluralBtn bg-red">
                   </td>
@@ -327,7 +327,7 @@
                   <td>
                     {{Form::text('others_breakdown_subtotal0', '',['class'=>'form-control','readonly'])}}
                   </td>
-                  <td>
+                  <td class="text-left">
                     <input type="button" value="＋" class="add pluralBtn bg-blue">
                     <input type="button" value="ー" class="del pluralBtn bg-red">
                   </td>

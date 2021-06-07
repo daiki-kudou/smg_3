@@ -1002,7 +1002,7 @@
                 <td>{{ Form::text('others_breakdown_cost0', '',['class'=>'form-control'] ) }}</td>
                 <td>{{ Form::text('others_breakdown_count0', '',['class'=>'form-control'] ) }}</td>
                 <td>{{ Form::text('others_breakdown_subtotal0', '',['class'=>'form-control', 'readonly'] ) }}</td>
-                <td>
+                <td class="text-left">
                   <input type="button" value="＋" class="add pluralBtn bg-blue">
                   <input type="button" value="ー" class="del pluralBtn bg-red">
                 </td>
