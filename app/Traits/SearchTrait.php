@@ -152,12 +152,20 @@ trait SearchTrait
         $created = PreReservation::where("created_at", "LIKE", "%{$request->search_free}%")->pluck("multiple_reserve_id")->toArray();
         $result = $class->orWhereIn("id", $created);
       } else { //文字列
-        $user = User::where("company", "LIKE", "%{$request->search_free}%")->pluck("id")->toArray();
-        $pre_res = PreReservation::whereIn("user_id", $user)->pluck("multiple_reserve_id")->toArray();
+        $company = User::where("company", "LIKE", "%{$request->search_free}%")->orWhere(\DB::raw('CONCAT(first_name, last_name)'), 'like', "%{$request->search_free}%")->pluck("id")->toArray();
+        $pre_res_c = PreReservation::whereIn("user_id", $company)->pluck("multiple_reserve_id")->toArray();
+        $result = $class->orWhereIn("id", $pre_res_c);
+
+        $unknown_user = UnknownUser::where("unknown_user_company", "LIKE", "%{$request->search_free}%")->pluck("pre_reservation_id")->toArray();
+        $pre_res = PreReservation::whereIn("id", $unknown_user)->pluck("multiple_reserve_id")->toArray();
         $result = $class->orWhereIn("id", $pre_res);
 
-        $user_name = User::where(\DB::raw('CONCAT(first_name, last_name)'), 'like', "%{$request->search_person}%")->pluck('id')->toArray();
-        $pre_res = PreReservation::whereIn("user_id", $user_name)->pluck("multiple_reserve_id")->toArray();
+        $agent = Agent::where("company", "LIKE", "%{$request->search_free}%")->pluck("id")->toArray();
+        $pre_res = PreReservation::whereIn("agent_id", $agent)->pluck("multiple_reserve_id")->toArray();
+        $result = $class->orWhereIn("id", $pre_res);
+
+        $end_user = PreEndUser::where("company", "LIKE", "%{$request->search_free}%")->pluck("pre_reservation_id")->toArray();
+        $pre_res = PreReservation::whereIn("id", $end_user)->pluck("multiple_reserve_id")->toArray();
         $result = $class->orWhereIn("id", $pre_res);
       }
     }
