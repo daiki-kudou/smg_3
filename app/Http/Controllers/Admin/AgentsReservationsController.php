@@ -27,9 +27,10 @@ class AgentsReservationsController extends Controller
   public function create()
   {
     session()->forget(['master_info', 'calc_info', 'reservation', 'bill', 'breakdown']);
+    $venues = Venue::orderBy("id", "desc")->get();
 
-    $venues = Venue::all();
-    $agents = Agent::all();
+    $agents = Agent::orderBy("id", "desc")->get();
+
     return view('admin.agents_reservations.create', compact('venues', 'agents'));
   }
 
@@ -277,7 +278,7 @@ class AgentsReservationsController extends Controller
     $bill = $request->session()->get('bill');
     $reservation = $request->session()->get('reservation');
     $breakdown = $request->session()->get('breakdown');
-    $agents = Agent::all();
+    $agents = Agent::orderBy("id", "desc")->get();
     $venue = Venue::find($inputs['venue_id']);
 
     $price = $agents->find($inputs['agent_id'])->agentPriceCalculate($inputs['enduser_charge']);
@@ -322,7 +323,7 @@ class AgentsReservationsController extends Controller
     $result = $request->session()->get('result');
     $inputs = $request->session()->get('inputs');
     $venue = Venue::find($inputs['venue_id']);
-    $agents = Agent::all();
+    $agents = Agent::orderBy("id", "desc")->get();
 
     $price = $agents->find($inputs['agent_id'])->agentPriceCalculate($inputs['enduser_charge']);
     $payment_limit = $agents->find($inputs['agent_id'])->getAgentPayLimit($inputs['reserve_date']);
@@ -339,7 +340,6 @@ class AgentsReservationsController extends Controller
     $bill = $request->session()->get('bill');
     $reservation = $request->session()->get('reservation');
     $breakdown = $request->session()->get('breakdown');
-
     $o_count = $this->preg($result, 'others_breakdown_item');
 
     return view(

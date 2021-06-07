@@ -53,23 +53,111 @@ class PreReservationsController extends Controller
       $counter = $result->count();
     } elseif (count($request->all()) != 0) {
       $class = new PreReservation;
-      $result = $this->BasicSearch($class->with(["unknown_user", "pre_enduser", "user"]), $request);
+      $result = $this->BasicSearch($class->with(["unknown_user", "pre_enduser", "user", 'agent', 'venue']), $request);
       $pre_reservations = $result[0];
       $counter = $result[1];
     } else {
-      $after = PreReservation::with(["unknown_user", "pre_enduser", 'user'])->where('multiple_reserve_id', '=', 0)->where('reserve_date', '>=', $today)->get()->sortBy('reserve_date');
-      $before = PreReservation::with(["unknown_user", "pre_enduser", "user"])->where('multiple_reserve_id', '=', 0)->where('reserve_date', '<', $today)->get()->sortByDesc('reserve_date');
+      $after = PreReservation::with(["unknown_user", "pre_enduser", 'user', 'agent', 'venue'])->where('multiple_reserve_id', '=', 0)->where('reserve_date', '>=', $today)->get()->sortBy('reserve_date');
+      $before = PreReservation::with(["unknown_user", "pre_enduser", "user", 'agent', 'venue'])->where('multiple_reserve_id', '=', 0)->where('reserve_date', '<', $today)->get()->sortByDesc('reserve_date');
       $pre_reservations = $after->concat($before);
-      $pre_reservations = $this->customPaginate($pre_reservations, 30, $request);
       $counter = 0;
     }
 
-    $venues = Venue::all();
-    $agents = Agent::all();
+    $pre_reservations = $this->customSearchAndSort($pre_reservations, $request);
+    $pre_reservations = $this->customPaginate($pre_reservations, 30, $request);
+
+    $venues = Venue::orderBy("id", "desc")->get();
+    $agents = Agent::orderBy("id", "desc")->get();
+
     return view(
       'admin.pre_reservations.index',
       compact('pre_reservations', 'venues', 'agents', "counter", 'request')
     );
+  }
+
+  public function customSearchAndSort($model, $request)
+  {
+    if ($request->sort_id) {
+      if ($request->sort_id == 1) {
+        return $model->sortByDesc("id");
+      } else {
+        return $model->sortBy("id");
+      }
+    } elseif ($request->sort_created_at) {
+      if ($request->sort_created_at == 1) {
+        return $model->sortByDesc("created_at");
+      } else {
+        return $model->sortBy("created_at");
+      }
+    } elseif ($request->sort_reserve_date) {
+      if ($request->sort_reserve_date == 1) {
+        return $model->sortByDesc("reserve_date");
+      } else {
+        return $model->sortBy("reserve_date");
+      }
+    } elseif ($request->sort_enter_time) {
+      if ($request->sort_enter_time == 1) {
+        return $model->sortByDesc("enter_time");
+      } else {
+        return $model->sortBy("enter_time");
+      }
+    } elseif ($request->sort_leave_time) {
+      if ($request->sort_leave_time == 1) {
+        return $model->sortByDesc("leave_time");
+      } else {
+        return $model->sortBy("leave_time");
+      }
+    } elseif ($request->sort_venue) {
+      if ($request->sort_venue == 1) {
+        return $model->sortByDesc("venue.name_bldg");
+      } else {
+        return $model->sortBy("venue.name_bldg");
+      }
+    } elseif ($request->sort_user_company) {
+      if ($request->sort_user_company == 1) {
+        return $model->sortByDesc("user.company");
+      } else {
+        return $model->sortBy("user.company");
+      }
+    } elseif ($request->sort_user_name) {
+      if ($request->sort_user_name == 1) {
+        return $model->sortByDesc("user.first_name_kana");
+      } else {
+        return $model->sortBy("user.first_name_kana");
+      }
+    } elseif ($request->sort_user_mobile) {
+      if ($request->sort_user_mobile == 1) {
+        return $model->sortByDesc("user.mobile");
+      } else {
+        return $model->sortBy("user.mobile");
+      }
+    } elseif ($request->sort_user_tel) {
+      if ($request->sort_user_tel == 1) {
+        return $model->sortByDesc("user.tel");
+      } else {
+        return $model->sortBy("user.tel");
+      }
+    } elseif ($request->sort_unknown) {
+      if ($request->sort_unknown == 1) {
+        return $model->sortByDesc("unknown_users.unknown_user_company");
+      } else {
+        return $model->sortBy("unknown_users.unknown_user_company");
+      }
+    } elseif ($request->sort_agent) {
+      if ($request->sort_agent == 1) {
+        return $model->sortByDesc("agent.company");
+      } else {
+        return $model->sortBy("agent.company");
+      }
+    } elseif ($request->sort_enduser) {
+      if ($request->sort_enduser == 1) {
+        return $model->sortByDesc("pre_endusers.company");
+      } else {
+        return $model->sortBy("pre_endusers.company");
+      }
+    }
+
+    return $model;
   }
 
   /**
@@ -79,8 +167,8 @@ class PreReservationsController extends Controller
    */
   public function create()
   {
-    $users = User::all();
-    $venues = Venue::all();
+    $users = User::orderBy("id", "desc")->get();
+    $venues = Venue::orderBy("id", "desc")->get();
     return view('admin.pre_reservations.create', [
       'users' => $users,
       'venues' => $venues,
@@ -112,7 +200,6 @@ class PreReservationsController extends Controller
   public function calculate(Request $request)
   {
     if ($request->judge_count == 1) { //単発仮押えの計算
-
       $SpVenue = Venue::with(['equipments', 'services', 'frame_prices', 'time_prices'])->find($request->venue_id);
       $price_details = $SpVenue->calculate_price( //[0]は合計料金, [1]は延長料金, [2]は合計＋延長、 [3]は利用時間, [4]は延長時間
         $request->price_system,
@@ -160,7 +247,8 @@ class PreReservationsController extends Controller
   public function re_calculate(Request $request)
   {
     if ($request->judge_count == 1) { //単発仮押えの計算
-      $users = User::all();
+      $users = User::orderBy("id", "desc")->get();
+
       $SPVenue = Venue::with(['equipments', 'services', 'frame_prices'])->find($request->venue_id);
       $price_details = $SPVenue->calculate_price( //[0]は合計料金, [1]は延長料金, [2]は合計＋延長、 [3]は利用時間, [4]は延長時間
         $request->price_system,
@@ -404,7 +492,8 @@ class PreReservationsController extends Controller
   public function edit($id)
   {
     $PreReservation = PreReservation::with("pre_bill")->find($id);
-    $users = User::all();
+    $users = User::orderBy("id", "desc")->get();
+
     $venues = Venue::with(["frame_prices", "time_prices"])->get();
     $SPVenue = $venues->find($PreReservation->venue_id);
 
@@ -501,7 +590,6 @@ class PreReservationsController extends Controller
         'master_subtotal' => $request->master_subtotal,
         'master_tax' => $request->master_tax,
         'master_total' => $request->master_total,
-
         'reservation_status' => 0, //デフォで1、仮押えのデフォは0
         'category' => 1, //デフォで１。　新規以外だと　2:その他有料備品　3:レイアウト　4:その他
         'admin_judge' => 1, //管理者作成なら1 ユーザー作成なら2
@@ -598,7 +686,6 @@ class PreReservationsController extends Controller
     });
     $admin = explode(',', config('app.admin_email'));
 
-
     Mail::to($admin) //管理者
       ->send(new AdminFinPreRes(
         $PreReservation->user->company,
@@ -624,7 +711,6 @@ class PreReservationsController extends Controller
         url('/') . '/user/pre_reservations'
       ));
 
-
     $request->session()->regenerate();
     return redirect()->route('admin.pre_reservations.show', $request->pre_reservation_id);
   }
@@ -640,7 +726,6 @@ class PreReservationsController extends Controller
       $target =
         $arrays[] = $target;
     }
-
     return [$diff, $request->targetEnter, $request->targetLeave];
   }
 
@@ -672,7 +757,6 @@ class PreReservationsController extends Controller
               echo 'failed';
               return redirect()->route('admin.pre_reservations.index')->with('flash_message_error', '一部ユーザーのメールアドレスに誤りがあり送信できませんでした');
             }
-
             Mail::to($admin) //管理者
               ->send(new AdminPreResCxl($pre_reservation, $user));
             Mail::to($user->email) //ユーザ

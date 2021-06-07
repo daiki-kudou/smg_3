@@ -18,7 +18,8 @@ class FramePricesController extends Controller
    */
   public function index()
   {
-    $venues = Venue::all();
+    $venues = Venue::orderBy("id", "desc")->get();
+
     return view('admin.frame_prices.index', [
       'venues' => $venues,
     ]);
@@ -58,32 +59,6 @@ class FramePricesController extends Controller
 
     //createからくるフォームのrequestが何列かにわかれてくるため何列かわかるための計算
     $count_request = (count($request->all()) - 3) / 4;
-
-    // バリデーションは後日対応予定、現時点で未着手
-    // if ($count_request == 1) {
-    //     $request->validate([
-    //         'frame' => 'required',
-    //         'start' => 'required',
-    //         'finish' => 'required',
-    //         'price' => 'required|integer|min:1',
-    //         'extend' => 'required',
-    //     ]);
-    // }
-    // else {
-    //     for ($i = 0; $i < $count_request; $i++) {
-    //         $v_frame = 'frame' . $i;
-    //         $v_start = 'start' . $i;
-    //         $v_finish = 'finish' . $i;
-    //         $v_price = 'price' . $i;
-    //         $request->validate([
-    //             $v_frame => 'required',
-    //             $v_start => 'required',
-    //             $v_finish => 'required',
-    //             $v_price => 'required',
-    //             'extend' => 'required',
-    //         ]);
-    //     }
-    // }
 
     if ($count_request == 1) { //$requestの中身が１列の場合
       FramePrice::create([
@@ -157,30 +132,6 @@ class FramePricesController extends Controller
   {
 
     $count_request = ((count($request->all())) - 4) / 4;
-
-    // if ($count_request == 1) {
-    //   $request->validate([
-    //     'frame0' => 'required',
-    //     'start0' => 'required',
-    //     'finish0' => 'required',
-    //     'price0' => 'required',
-    //     'extend' => 'required',
-    //   ]);
-    // } else {
-    //   for ($i = 0; $i < $count_request; $i++) {
-    //     $v_frame = 'frame' . $i;
-    //     $v_start = 'start' . $i;
-    //     $v_finish = 'finish' . $i;
-    //     $v_price = 'price' . $i;
-    //     $request->validate([
-    //       $v_frame => 'required',
-    //       $v_start => 'required',
-    //       $v_finish => 'required',
-    //       $v_price => 'required',
-    //       'extend' => 'required',
-    //     ]);
-    //   }
-    // }
 
     $frame_prices = FramePrice::where('venue_id', $id);
     $frame_prices->delete();

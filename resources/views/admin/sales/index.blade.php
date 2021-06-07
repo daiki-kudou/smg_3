@@ -313,31 +313,31 @@
           </td>
           <td>
             {{-- 売上 --}}
-            {{number_format($reservation->bills->first()->master_total)}}円</td>
+            {{number_format($reservation->bills->sortBy("id")->first()->master_total)}}円</td>
           <td>
             {{-- 売上原価 --}}
-            {{number_format($reservation->venue->getCostForPartner($reservation->venue, $reservation->bills->first()->master_total, $reservation->bills->first()->layout_price,$reservation))}}円
+            {{number_format($reservation->venue->getCostForPartner($reservation->venue, $reservation->bills->sortBy("id")->first()->master_total, $reservation->bills->sortBy("id")->first()->layout_price,$reservation))}}円
           </td>
           <td>
             {{-- 粗利 --}}
-            {{number_format($reservation->venue->getProfitForPartner($reservation->venue, $reservation->bills->first()->master_total, $reservation->bills->first()->layout_price,$reservation))}}円
+            {{number_format($reservation->venue->getProfitForPartner($reservation->venue, $reservation->bills->sortBy("id")->first()->master_total, $reservation->bills->sortBy("id")->first()->layout_price,$reservation))}}円
           </td>
-          <td>{{($reservation->bills->first()->category==1?"会場予約":"")}}</td>
-          <td> {{ReservationHelper::judgeStatus($reservation->bills->first()->reservation_status)}}</td>
-          <td> {{ReservationHelper::formatDate($reservation->bills->first()->pay_day)}}</td>
-          <td> {{ReservationHelper::paidStatus($reservation->bills->first()->paid)}}</td>
+          <td>{{($reservation->bills->sortBy("id")->first()->category==1?"会場予約":"")}}</td>
+          <td> {{ReservationHelper::judgeStatus($reservation->bills->sortBy("id")->first()->reservation_status)}}</td>
+          <td> {{ReservationHelper::formatDate($reservation->bills->sortBy("id")->first()->pay_day)}}</td>
+          <td> {{ReservationHelper::paidStatus($reservation->bills->sortBy("id")->first()->paid)}}</td>
           <td class="text-center" rowspan="{{($reservation->billCount()*2)+$reservation->cxlCount()+2}}">
             <a class="more_btn" href="{{route('admin.reservations.show',$reservation->id)}}">
               予約詳細
             </a>
           </td>
           <td>
-            <p class="remark_limit">{{$reservation->bills->first()->pay_person}}</p>
+            <p class="remark_limit">{{$reservation->bills->sortBy("id")->first()->pay_person}}</p>
           </td>
           <td rowspan="{{($reservation->billCount()*2)+$reservation->cxlCount()+2}}">
             {{!empty($reservation->user_id)?ReservationHelper::getAttr($reservation->user_id):""}}
           </td>
-          <td>{{ReservationHelper::formatDate($reservation->bills->first()->payment_limit)}}</td>
+          <td>{{ReservationHelper::formatDate($reservation->bills->sortBy("id")->first()->payment_limit)}}</td>
           <td rowspan="{{($reservation->billCount()*2)+$reservation->cxlCount()+2}}"
             style="{{$reservation->venue->alliance_flag==1?"color:red":""}}">
             {{$reservation->venue->alliance_flag==0?"直":"提"}}</td>
@@ -346,7 +346,7 @@
         <tr> {{--個別キャンセル分 --}}
           <td style="color:red">
             {{-- 売上 --}}
-            {{number_format(-$reservation->bills->first()->master_total)}}円
+            {{number_format(-$reservation->bills->sortBy("id")->first()->master_total)}}円
           </td>
           <td>
             -
@@ -358,7 +358,7 @@
             {{"会場予約キャンセル"}}
           </td>
           <td>
-            {{ReservationHelper::judgeStatus($reservation->bills->first()->reservation_status)}}
+            {{ReservationHelper::judgeStatus($reservation->bills->sortBy("id")->first()->reservation_status)}}
           </td>
           <td>-</td>
           <td>-</td>

@@ -116,14 +116,15 @@
               <td rowspan="{{($reservation->billCount()*2)+$reservation->cxlCount()+2}}">
                 {{ReservationHelper::getVenue($reservation->venue_id)}}
               </td>
-              <td> {{ReservationHelper::judgeStatus($reservation->bills->first()->reservation_status)}}</td>
-              <td>{{($reservation->bills->first()->category==1?"会場予約":"")}}</td>
+              <td> {{ReservationHelper::judgeStatus($reservation->bills->sortBy("id")->first()->reservation_status)}}
+              </td>
+              <td>{{($reservation->bills->sortBy("id")->first()->category==1?"会場予約":"")}}</td>
               <td>
                 {{-- 売上 --}}
-                {{number_format($reservation->bills->first()->master_total)}}円
+                {{number_format($reservation->bills->sortBy("id")->first()->master_total)}}円
               </td>
-              <td>{{ReservationHelper::formatDate($reservation->bills->first()->payment_limit)}}</td>
-              <td> {{ReservationHelper::paidStatus($reservation->bills->first()->paid)}}</td>
+              <td>{{ReservationHelper::formatDate($reservation->bills->sortBy("id")->first()->payment_limit)}}</td>
+              <td> {{ReservationHelper::paidStatus($reservation->bills->sortBy("id")->first()->paid)}}</td>
               <td class="text-center" rowspan="{{($reservation->billCount()*2)+$reservation->cxlCount()+2}}">
                 <a class="more_btn" href="{{route('user.home.show',$reservation->id)}}">
                   予約詳細
@@ -134,7 +135,7 @@
                 {{ Form::open(['url' => 'user/home/invoice', 'method'=>'post', 'target'=>'_blank', 'class'=>'']) }}
                 @csrf
                 {{ Form::hidden('reservation_id', $reservation->id ) }}
-                {{ Form::hidden('bill_id', $reservation->bills->first()->id ) }}
+                {{ Form::hidden('bill_id', $reservation->bills->sortBy("id")->first()->id ) }}
                 <p class="mr-2">{{ Form::submit('請求書をみる',['class' => 'btn more_btn']) }}</p>
                 {{ Form::close() }}
               </td>
@@ -142,8 +143,8 @@
                 {{-- 領収書 --}}
                 {{ Form::open(['url' => 'user/home/receipt', 'method'=>'post', 'target'=>'_blank', 'class'=>'']) }}
                 @csrf
-                {{ Form::hidden('bill_id', $reservation->bills->first()->id ) }}
-                @if ($reservation->bills->first()->paid==1)
+                {{ Form::hidden('bill_id', $reservation->bills->sortBy("id")->first()->id ) }}
+                @if ($reservation->bills->sortBy("id")->first()->paid==1)
                 <p class="mr-2">{{ Form::submit('領収書をみる',['class' => 'more_btn btn']) }}</p>
                 @endif
                 {{ Form::close() }}
@@ -153,10 +154,10 @@
             <tr> {{--個別キャンセル分 --}}
               <td>
                 {{-- 予約状況<br> --}}
-                {{ReservationHelper::judgeStatus($reservation->bills->first()->reservation_status)}}</td>
+                {{ReservationHelper::judgeStatus($reservation->bills->sortBy("id")->first()->reservation_status)}}</td>
               <td>カテゴリ<br>会場予約キャンセル</td>
               <td style="color:red">
-                {{number_format(-$reservation->bills->first()->master_total)}}円
+                {{number_format(-$reservation->bills->sortBy("id")->first()->master_total)}}円
               </td>
               <td>
                 {{-- 支払期日<br> --}}

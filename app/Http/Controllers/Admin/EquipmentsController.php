@@ -25,7 +25,8 @@ class EquipmentsController extends Controller
    */
   public function index(Request $request)
   {
-    $m_equipments = Equipment::get()->sortByDesc("id");
+    $m_equipments = Equipment::orderBy("id", "desc")->get();
+
     $sort = $this->customSort($m_equipments, $request->except("page")) ?? $m_equipments;
     $equipments = $this->customPaginate($sort, 30, $request);
 
@@ -119,7 +120,6 @@ class EquipmentsController extends Controller
       $eqipment->remark = $request->remark;
       $eqipment->save();
     });
-
 
     $current_page = $request->session()->pull('current_page');
     // 複数タブ生成時、postする際tokenの不一致がおこるためregenerateはしない

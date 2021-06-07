@@ -18,7 +18,7 @@
       </tr>
     </tbody>
     <tbody class="venue_main">
-      @foreach ($reservation->bills->first()->breakdowns as $venue_breakdown)
+      @foreach ($reservation->bills->sortBy("id")->first()->breakdowns as $venue_breakdown)
       @if ($venue_breakdown->unit_type==1)
       <tr>
         <td>{{$venue_breakdown->unit_item}}</td>
@@ -32,14 +32,14 @@
     <tbody class="venue_result">
       <tr>
         <td colspan="3"></td>
-        <td colspan="1" class="">合計：{{number_format($reservation->bills->first()->venue_price)}}</td>
+        <td colspan="1" class="">合計：{{number_format($reservation->bills->sortBy("id")->first()->venue_price)}}</td>
       </tr>
     </tbody>
   </table>
 </div>
 
 
-@if ($reservation->bills->first()->equipment_price!=0||$reservation->bills->first()->equipment_price)
+@if($reservation->bills->sortBy("id")->first()->equipment_price!=0||$reservation->bills->sortBy("id")->first()->equipment_price)
 <div class="equipment billdetails_content">
   <table class="table table-borderless">
     <tbody>
@@ -60,7 +60,7 @@
       </tr>
     </tbody>
     <tbody class="equipment_main">
-      @foreach ($reservation->bills->first()->breakdowns as $equipment_breakdown)
+      @foreach ($reservation->bills->sortBy("id")->first()->breakdowns as $equipment_breakdown)
       @if ($equipment_breakdown->unit_type==2)
       <tr>
         <td>{{$equipment_breakdown->unit_item}}</td>
@@ -70,7 +70,7 @@
       </tr>
       @endif
       @endforeach
-      @foreach ($reservation->bills->first()->breakdowns as $service_breakdown)
+      @foreach ($reservation->bills->sortBy("id")->first()->breakdowns as $service_breakdown)
       @if ($service_breakdown->unit_type==3)
       <tr>
         <td>{{$service_breakdown->unit_item}}</td>
@@ -84,7 +84,7 @@
     <tbody class="equipment_result">
       <tr>
         <td colspan="3"></td>
-        <td colspan="1" class="">合計：{{number_format($reservation->bills->first()->equipment_price)}}</td>
+        <td colspan="1" class="">合計：{{number_format($reservation->bills->sortBy("id")->first()->equipment_price)}}</td>
         </td>
       </tr>
     </tbody>
@@ -93,7 +93,7 @@
 @endif
 
 
-@if ($reservation->bills->first()->layout_price!=0||$reservation->bills->first()->layout_price)
+@if($reservation->bills->sortBy("id")->first()->layout_price!=0||$reservation->bills->sortBy("id")->first()->layout_price)
 <div class="layout billdetails_content">
   <table class="table table-borderless">
     <tbody>
@@ -114,7 +114,7 @@
       </tr>
     </tbody>
     <tbody class="layout_main">
-      @foreach ($reservation->bills->first()->breakdowns as $layout_breakdown)
+      @foreach ($reservation->bills->sortBy("id")->first()->breakdowns as $layout_breakdown)
       @if ($layout_breakdown->unit_type==4)
       <tr>
         <td>{{$layout_breakdown->unit_item}}</td>
@@ -128,7 +128,7 @@
     <tbody class="layout_result">
       <tr>
         <td colspan="3"></td>
-        <td colspan="1">合計：{{number_format($reservation->bills->first()->layout_price)}}
+        <td colspan="1">合計：{{number_format($reservation->bills->sortBy("id")->first()->layout_price)}}
         </td>
       </tr>
     </tbody>
@@ -137,7 +137,7 @@
 @endif
 
 
-@if ($reservation->bills->first()->others_price!=0||$reservation->bills->first()->others_price)
+@if($reservation->bills->sortBy("id")->first()->others_price!=0||$reservation->bills->sortBy("id")->first()->others_price)
 <div class="others billdetails_content">
   <table class="table table-borderless">
     <tbody>
@@ -158,7 +158,7 @@
       </tr>
     </tbody>
     <tbody class="others_main">
-      @foreach ($reservation->bills->first()->breakdowns as $others_breakdown)
+      @foreach ($reservation->bills->sortBy("id")->first()->breakdowns as $others_breakdown)
       @if ($others_breakdown->unit_type==5)
       <tr>
         <td>{{$others_breakdown->unit_item}}</td>
@@ -172,7 +172,7 @@
     <tbody class="others_result">
       <tr>
         <td colspan="3"></td>
-        <td colspan="1">合計：{{$reservation->bills->first()->others_price}}
+        <td colspan="1">合計：{{$reservation->bills->sortBy("id")->first()->others_price}}
       </tr>
     </tbody>
   </table>

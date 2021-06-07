@@ -2,7 +2,7 @@
 
 @section('content')
 <link href="{{ asset('/css/template.css') }}" rel="stylesheet">
-<script src="{{ asset('/js/template.js') }}"></script> 
+<script src="{{ asset('/js/template.js') }}"></script>
 {{-- <script src="{{ asset('/js/admin/template.js') }}"></script> --}}
 <script src="{{ asset('/js/admin/reservation.js') }}"></script>
 <script src="{{ asset('/js/admin/validation.js') }}"></script>
@@ -15,7 +15,7 @@
 
 <div class="container-fluid">
 
-  <h2 class="mt-3 mb-3">追加請求書　編集</h2>
+  <h2 class="mt-3 mb-3">追加請求書　編集aaaaaaaaa</h2>
   <hr>
 
   {{ Form::open(['url' => 'admin/bills/'.$bill->id, 'method'=>'PUT', 'id'=>'billsEditForm']) }}
@@ -460,7 +460,7 @@
       </div>
     </div>
   </section>
-  {{Form::submit('保存する', ['class'=>'btn d-block more_btn_lg mx-auto my-5', 'id'=>''])}}
+  {{Form::submit('保存する', ['class'=>'btn d-block more_btn_lg mx-auto my-5', 'id'=>'submit_btn'])}}
   {{Form::close()}}
 </div>
 
@@ -595,18 +595,46 @@
     })
 
     function MaterCalc() {
-      var tar1 = Number($('input[name="venue_price"]').val());
-      var tar2 = Number($('input[name="equipment_price"]').val());
-      var tar3 = Number($('input[name="layout_price"]').val());
-      var tar4 = Number($('input[name="others_price"]').val());
-      var master_sub = tar1 + tar2 + tar3 + tar4;
-      var master_tax = Math.floor(Number((tar1 + tar2 + tar3 + tar4) * 0.1));
+      var tar1 = $('input[name="venue_price"]');
+      var tar2 = $('input[name="equipment_price"]');
+      var tar3 = $('input[name="layout_price"]');
+      var tar4 = $('input[name="others_price"]');
+
+      var tar1_val = tar1.prop('disabled')?0:Number(tar1.val());
+      var tar2_val = tar2.prop('disabled')?0:Number(tar2.val());
+      var tar3_val = tar3.prop('disabled')?0:Number(tar3.val());
+      var tar4_val = tar4.prop('disabled')?0:Number(tar4.val());
+
+
+      var master_sub = tar1_val + tar2_val + tar3_val + tar4_val;
+      var master_tax = Math.floor(master_sub * 0.1);
 
       $('input[name="master_subtotal"]').val(master_sub);
       $('input[name="master_tax"]').val(master_tax);
       $('input[name="master_total"]').val(master_sub + master_tax);
-
     }
+
+    $('input[type="checkbox"]').on("change",function(){
+        $('input[type="checkbox"]').each(function(index, element){
+          if ($(element).prop('checked')) {
+            $('#submit_btn').prop('disabled', false);
+            return false;
+          }
+          $('#submit_btn').prop('disabled', true);
+        })
+        if ($(this).prop('checked')) {
+          $(this).parent().parent().parent().parent().parent().parent().find('input[type="text"]').each(function(key, value){
+            $(value).prop('disabled',false);
+          })
+        }else{
+          $(this).parent().parent().parent().parent().parent().parent().find('input[type="text"]').each(function(key, value){
+            $(value).prop('disabled',true);
+          })
+        }
+        MaterCalc();
+      })
+
+
   })
 </script>
 @endsection

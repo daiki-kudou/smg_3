@@ -25,7 +25,8 @@ class ServicesController extends Controller
    */
   public function index(Request $request)
   {
-    $m_services = Service::get()->sortByDesc("id");
+    $m_services = Service::orderBy("id", "desc")->get();
+
     $sort = $this->customSort($m_services, $request->except("page")) ?? $m_services;
     $services = $this->customPaginate($sort, 30, $request);
     return view('admin.services.index', compact("services", 'request'));

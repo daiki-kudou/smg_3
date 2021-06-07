@@ -130,7 +130,7 @@
 @foreach ($reservations as $reservation)
 <input type="hidden" name="venue_id" value="{{($reservation->venue_id)}}">
 <input type="hidden" name="start" value="{{date('H:i',strtotime($reservation->enter_time))}}">
-<input type="hidden" name="status" value="{{$reservation->bills->first()->reservation_status }}">
+<input type="hidden" name="status" value="{{$reservation->bills->sortBy("id")->first()->reservation_status }}">
 <input type="hidden" name="company"
   value="{{ ReservationHelper::checkAgentOrUserCompany($reservation->user_id,$reservation->agent_id)}}">
 <input type="hidden" name="reservation_id" value="{{$reservation->id }}">

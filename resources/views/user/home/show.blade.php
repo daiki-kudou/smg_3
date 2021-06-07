@@ -20,7 +20,7 @@
 </div>
 
 {{-- ステータス承認待ち --}}
-@if ($reservation->bills->first()->reservation_status == 2)
+@if ($reservation->bills->sortBy("id")->first()->reservation_status == 2)
 <div class="confirm-box text-center">
   <p>下記、予約内容で承認される場合は、承認ボタンを押してください。</p>
   {{-- <p>※承認ボタンは、画面一番下にあります。</p> --}}
@@ -65,7 +65,7 @@
                 <li class="d-flex align-items-center mb-2">
                   <p class="bg-status p-2">予約状況</p>
                   <p class="border p-2">
-                    {{ ReservationHelper::judgeStatus($reservation->bills->first()->reservation_status) }}
+                    {{ ReservationHelper::judgeStatus($reservation->bills->sortBy("id")->first()->reservation_status) }}
                   </p>
                 </li>
                 <li>
@@ -218,7 +218,7 @@
           </thead>
           <tbody class="accordion-wrap">
             @foreach ($venue->equipments()->get() as $equipment)
-            @foreach ($reservation->bills->first()->breakdowns as $breakdown)
+            @foreach ($reservation->bills->sortBy("id")->first()->breakdowns as $breakdown)
             @if ($equipment->item == $breakdown->unit_item)
             <tr>
               <td class="justify-content-between d-flex">
@@ -243,7 +243,7 @@
           </thead>
           <tbody class="accordion-wrap">
             @foreach ($venue->services()->get() as $service)
-            @foreach ($reservation->bills->first()->breakdowns as $breakdown)
+            @foreach ($reservation->bills->sortBy("id")->first()->breakdowns as $breakdown)
             @if ($service->item == $breakdown->unit_item)
             <tr>
               <td colspan="2">
@@ -271,13 +271,13 @@
               <tr>
                 <td class="table-active"><label for="prelayout">準備</label></td>
                 <td>
-                  {{$reservation->bills->first()->breakdowns->where('unit_item', 'レイアウト準備料金')->contains('unit_item','レイアウト準備料金')?"有り":"無し"}}
+                  {{$reservation->bills->sortBy("id")->first()->breakdowns->where('unit_item', 'レイアウト準備料金')->contains('unit_item','レイアウト準備料金')?"有り":"無し"}}
                 </td>
               </tr>
               <tr>
                 <td class="table-active"><label for="postlayout">片付</label></td>
                 <td>
-                  {{$reservation->bills->first()->breakdowns->where('unit_item', 'レイアウト片付料金')->contains('unit_item','レイアウト片付料金')?"有り":"無し"}}
+                  {{$reservation->bills->sortBy("id")->first()->breakdowns->where('unit_item', 'レイアウト片付料金')->contains('unit_item','レイアウト片付料金')?"有り":"無し"}}
                 </td>
               </tr>
             </tbody>
@@ -299,7 +299,7 @@
               <!-- <tr>
                     <td class="table-active"><label for="Delivery"> お荷物預り/返送</label></td>
                     <td>
-                      @foreach ($reservation->bills->first()->breakdowns as $item)
+                      @foreach ($reservation->bills->sortBy("id")->first()->breakdowns as $item)
                       @if ($item->unit_item == '荷物預り/返送')
                       有り
                       @endif
@@ -418,12 +418,12 @@
                   <li>
                     <dl class="ttl_box">
                       <dd class="total_result">合計金額：
-                        {{ number_format($reservation->bills->first()->master_total) }}円
+                        {{ number_format($reservation->bills->sortBy("id")->first()->master_total) }}円
                       </dd>
                     </dl>
                     <dl class="ttl_box">
                       <dd class="total_result">支払い期日：
-                        {{ ReservationHelper::formatDate($reservation->bills->first()->payment_limit) }}
+                        {{ ReservationHelper::formatDate($reservation->bills->sortBy("id")->first()->payment_limit) }}
 
                       </dd>
                     </dl>
@@ -431,15 +431,15 @@
                       {{ Form::open(['url' => 'admin/invoice', 'method' => 'post', 'target' => '_blank', 'class' => '']) }}
                       @csrf
                       {{ Form::hidden('reservation_id', $reservation->id) }}
-                      {{ Form::hidden('bill_id', $reservation->bills->first()->id) }}
+                      {{ Form::hidden('bill_id', $reservation->bills->sortBy("id")->first()->id) }}
                       <p class="mr-2 mb-1">
                         {{ Form::submit('請求書をみる', ['class' => 'btn more_btn']) }}</p>
                       {{ Form::close() }}
 
                       {{ Form::open(['url' => 'admin/receipts', 'method' => 'post', 'target' => '_blank', 'class' => '']) }}
                       @csrf
-                      {{ Form::hidden('bill_id', $reservation->bills->first()->id) }}
-                      @if ($reservation->bills->first()->paid == 1)
+                      {{ Form::hidden('bill_id', $reservation->bills->sortBy("id")->first()->id) }}
+                      @if ($reservation->bills->sortBy("id")->first()->paid == 1)
                       <p class="mr-2">
                         {{ Form::submit('領収書をみる', ['class' => 'more_btn4 btn']) }}</p>
                       @endif
@@ -486,7 +486,7 @@
                 </tr>
               </tbody>
               <tbody class="venue_main">
-                @foreach ($reservation->bills->first()->breakdowns->where('unit_type', 1) as $v)
+                @foreach ($reservation->bills->sortBy("id")->first()->breakdowns->where('unit_type', 1) as $v)
                 <tr>
                   <td>{{ $v->unit_item }}</td>
                   <td>{{ number_format($v->unit_cost) }}</td>
@@ -500,7 +500,7 @@
                   <td colspan="4">
                     <div class="result_sum">
                       <p class="text-right">合計金額：
-                        {{ number_format($reservation->bills->first()->venue_price) }}
+                        {{ number_format($reservation->bills->sortBy("id")->first()->venue_price) }}
                       </p>
                     </div>
                   </td>
@@ -509,8 +509,8 @@
             </table>
           </div>
 
-          @if ($reservation->bills->first()->breakdowns->contains("unit_type",2)
-          ||$reservation->bills->first()->breakdowns->contains("unit_type",3))
+          @if ($reservation->bills->sortBy("id")->first()->breakdowns->contains("unit_type",2)
+          ||$reservation->bills->sortBy("id")->first()->breakdowns->contains("unit_type",3))
           <div class="equipment billdetails_content">
             <table class="table table-bordered">
               <tbody>
@@ -531,7 +531,7 @@
                 </tr>
               </tbody>
               <tbody class="equipment_main">
-                @foreach ($reservation->bills->first()->breakdowns->where('unit_type', 2) as $e)
+                @foreach ($reservation->bills->sortBy("id")->first()->breakdowns->where('unit_type', 2) as $e)
                 <tr>
                   <td>{{ $e->unit_item }}</td>
                   <td>{{ number_format($e->unit_cost) }}</td>
@@ -539,7 +539,7 @@
                   <td>{{ number_format($e->unit_subtotal) }}</td>
                 </tr>
                 @endforeach
-                @foreach ($reservation->bills->first()->breakdowns->where('unit_type', 3) as $s)
+                @foreach ($reservation->bills->sortBy("id")->first()->breakdowns->where('unit_type', 3) as $s)
                 <tr>
                   <td>{{ $s->unit_item }}</td>
                   <td>{{ number_format($s->unit_cost) }}</td>
@@ -553,7 +553,7 @@
                   <td colspan="4">
                     <div class="result_sum">
                       <p class="text-right">合計金額：
-                        {{ number_format($reservation->bills->first()->equipment_price) }}
+                        {{ number_format($reservation->bills->sortBy("id")->first()->equipment_price) }}
                       </p>
                     </div>
                   </td>
@@ -563,7 +563,7 @@
           </div>
           @endif
 
-          @if ($reservation->bills->first()->breakdowns->contains("unit_type",4))
+          @if ($reservation->bills->sortBy("id")->first()->breakdowns->contains("unit_type",4))
           <div class="layout billdetails_content">
             <table class="table table-bordered">
               <tbody>
@@ -584,7 +584,7 @@
                 </tr>
               </tbody>
               <tbody class="layout_main">
-                @foreach ($reservation->bills->first()->breakdowns->where('unit_type', 4) as $l)
+                @foreach ($reservation->bills->sortBy("id")->first()->breakdowns->where('unit_type', 4) as $l)
                 <tr>
                   <td>{{ $l->unit_item }}</td>
                   <td>{{ number_format($l->unit_cost) }}</td>
@@ -598,7 +598,7 @@
                   <td colspan="4">
                     <div class="result_sum">
                       <p class="text-right">合計金額：
-                        {{ number_format($reservation->bills->first()->layout_price) }}
+                        {{ number_format($reservation->bills->sortBy("id")->first()->layout_price) }}
                       </p>
                     </div>
                   </td>
@@ -608,7 +608,7 @@
           </div>
           @endif
 
-          @if ($reservation->bills->first()->breakdowns->contains("unit_type",5))
+          @if ($reservation->bills->sortBy("id")->first()->breakdowns->contains("unit_type",5))
           <div class="others billdetails_content">
             <table class="table table-bordered">
               <tbody>
@@ -629,7 +629,7 @@
                 </tr>
               </tbody>
               <tbody class="others_main">
-                @foreach ($reservation->bills->first()->breakdowns->where('unit_type', 5) as $o)
+                @foreach ($reservation->bills->sortBy("id")->first()->breakdowns->where('unit_type', 5) as $o)
                 <tr>
                   <td>{{ $o->unit_item }}</td>
                   <td>{{ $o->unit_cost }}</td>
@@ -643,7 +643,7 @@
                   <td colspan="4">
                     <div class="result_sum">
                       <p class="text-right">合計金額：
-                        {{ number_format($reservation->bills->first()->others_price) }}
+                        {{ number_format($reservation->bills->sortBy("id")->first()->others_price) }}
                       </p>
                     </div>
                   </td>
@@ -659,19 +659,19 @@
                 <tr>
                   <td>小計：</td>
                   <td>
-                    {{ number_format($reservation->bills->first()->master_subtotal) }}
+                    {{ number_format($reservation->bills->sortBy("id")->first()->master_subtotal) }}
                   </td>
                 </tr>
                 <tr>
                   <td>消費税：</td>
                   <td>
-                    {{ number_format($reservation->bills->first()->master_tax) }}
+                    {{ number_format($reservation->bills->sortBy("id")->first()->master_tax) }}
                   </td>
                 </tr>
                 <tr>
                   <td class="font-weight-bold">合計金額</td>
                   <td>
-                    {{ number_format($reservation->bills->first()->master_total) }}
+                    {{ number_format($reservation->bills->sortBy("id")->first()->master_total) }}
                   </td>
                 </tr>
               </tbody>
@@ -682,7 +682,7 @@
     </div>
   </section>
   <!-- ステータスが予約承認まちのときに表示 -->
-  @if ($reservation->bills->first()->reservation_status == 2)
+  @if ($reservation->bills->sortBy("id")->first()->reservation_status == 2)
   <div class="confirm-box text-center">
     <p>上記、予約内容で間違いないでしょうか。問題なければ、予約の承認をお願い致します。</p>
     <p class="text-center mt-3">
@@ -791,7 +791,10 @@
             </h3>
           </div>
         </div>
+
         <div class="main ">
+
+          @if ($other_bill->breakdowns->contains('unit_type',1))
           <div class="venues billdetails_content">
             <table class="table table-bordered">
               <tbody>
@@ -834,7 +837,9 @@
               </tbody>
             </table>
           </div>
+          @endif
 
+          @if ($other_bill->breakdowns->contains('unit_type',2)||$other_bill->breakdowns->contains('unit_type',3))
           <div class="equipment billdetails_content">
             <table class="table table-bordered">
               <tbody>
@@ -885,7 +890,9 @@
               </tbody>
             </table>
           </div>
+          @endif
 
+          @if ($other_bill->breakdowns->contains('unit_type',4))
           <div class="layout billdetails_content">
             <table class="table table-bordered">
               <tbody>
@@ -928,7 +935,9 @@
               </tbody>
             </table>
           </div>
+          @endif
 
+          @if ($other_bill->breakdowns->contains('unit_type',5))
           <div class="others billdetails_content">
             <table class="table table-bordered">
               <tbody>
@@ -971,6 +980,8 @@
               </tbody>
             </table>
           </div>
+          @endif
+
           <div class="bill_total">
             <table class="table text-right">
               <tbody>
@@ -1384,7 +1395,7 @@
 
 
 <!-- ステータスが予約完了のときに表示 -->
-@if ($reservation->bills->first()->reservation_status > 2)
+@if ($reservation->bills->sortBy("id")->first()->reservation_status > 2)
 <div class="confirm-box mt-5">
   <h3 class="caution_color mb-2 font-weight-bold">振込先案内</h3>
   <p class="p-3 border-wrap2 mb-2">

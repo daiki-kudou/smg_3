@@ -30,7 +30,8 @@ class VenuesController extends Controller
    */
   public function index(Request $request)
   {
-    $m_venues = Venue::get()->sortByDesc("id");
+    $m_venues = Venue::orderBy("id", "desc")->get();
+
     $sort = $this->customSort($m_venues, $request->except("page")) ?? $m_venues;
     $venues = $this->customPaginate($sort, 30, $request);
     return view('admin.venues.index', compact("venues", "request"));
@@ -45,7 +46,8 @@ class VenuesController extends Controller
   public function create()
   {
     // $venues = new Venue;
-    $equipments = Equipment::all();
+    $equipments = Equipment::orderBy("id", "desc")->get();
+
     // $s_equipments = [];
     // $i_equipments = [];
     // foreach ($equipments as $equipment) {
@@ -53,7 +55,8 @@ class VenuesController extends Controller
     //   $i_equipments[] = $equipment->id;
     // }
 
-    $services = Service::all();
+    $services = Service::orderBy("id", "desc")->get();
+
     // $s_services = [];
     // $i_services = [];
     // foreach ($services as $service) {
@@ -204,14 +207,16 @@ class VenuesController extends Controller
   public function edit($id)
   {
     $venue = Venue::find($id);
-    $m_equipments = Equipment::all();
+    $m_equipments = Equipment::orderBy("id", "desc")->get();
+
     $equipments = $venue->equipments()->get();
     $r_emptys = [];
     foreach ($equipments as $equipment) {
       $r_emptys[] = $equipment;
     }
 
-    $m_services = Service::all();
+    $m_services = Service::orderBy("id", "desc")->get();
+
     $services = $venue->services()->get();
     $s_emptys = [];
     foreach ($services as $service) {

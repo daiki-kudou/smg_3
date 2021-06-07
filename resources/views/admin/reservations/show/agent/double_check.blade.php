@@ -1,7 +1,8 @@
-@if ($reservation->bills->first()->double_check_status==2)
+@if ($reservation->bills->sortBy("id")->first()->double_check_status==2)
 <!-- 利用者に承認メールを送る確認ボタン-ダブルチェック後に表示------ -->
 {{-- 予約完了後、非表示 --}}
-@if ($reservation->bills->first()->reservation_status<=2) <div class="d-flex justify-content-end mt-2 mb-2">
+@if ($reservation->bills->sortBy("id")->first()->reservation_status<=2) <div
+  class="d-flex justify-content-end mt-2 mb-2">
   {{-- <a class="more_btn4" href="">予約を確定する</a> --}}
   {{ Form::open(['url' => 'admin/reservations/'.$reservation->id.'/confirm_reservation', 'method'=>'POST', 'class'=>'']) }}
   @csrf

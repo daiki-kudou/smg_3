@@ -151,6 +151,22 @@
       </p>
       <div class="btn_box d-flex justify-content-center">
         <a href="{{url('admin/pre_reservations')}}" class="btn reset_btn">リセット</a>
+        {{-- ソート用hidden --}}
+        {{Form::hidden("sort_id", $request->sort_id?($request->sort_id==1?2:1):1)}}
+        {{Form::hidden("sort_created_at", $request->sort_created_at?($request->sort_created_at==1?2:1):1)}}
+        {{Form::hidden("sort_reserve_date", $request->sort_reserve_date?($request->sort_reserve_date==1?2:1):1)}}
+        {{Form::hidden("sort_enter_time", $request->sort_enter_time?($request->sort_enter_time==1?2:1):1)}}
+        {{Form::hidden("sort_leave_time", $request->sort_leave_time?($request->sort_leave_time==1?2:1):1)}}
+        {{Form::hidden("sort_venue", $request->sort_venue?($request->sort_venue==1?2:1):1)}}
+        {{Form::hidden("sort_user_company", $request->sort_user_company?($request->sort_user_company==1?2:1):1)}}
+        {{Form::hidden("sort_user_name", $request->sort_user_name?($request->sort_user_name==1?2:1):1)}}
+        {{Form::hidden("sort_user_mobile", $request->sort_user_mobile?($request->sort_user_mobile==1?2:1):1)}}
+        {{Form::hidden("sort_user_tel", $request->sort_user_tel?($request->sort_user_tel==1?2:1):1)}}
+        {{Form::hidden("sort_unknown", $request->sort_unknown?($request->sort_unknown==1?2:1):1)}}
+        {{Form::hidden("sort_agent", $request->sort_agent?($request->sort_agent==1?2:1):1)}}
+        {{Form::hidden("sort_enduser", $request->sort_enduser?($request->sort_enduser==1?2:1):1)}}
+        {{-- ソート用hidden --}}
+
         {{Form::submit('検索', ['class'=>'btn search_btn', 'id'=>''])}}
       </div>
     </div>
@@ -190,19 +206,19 @@
             <th>
               <p class="annotation">すべて</p><input type="checkbox" name="all_check" id="all_check" />
             </th>
-            <th>仮押えID</th>
-            <th>作成日</th>
-            <th>利用日</th>
-            <th>入室</th>
-            <th>退室</th>
-            <th>利用会場</th>
-            <th>会社・団体名</th>
-            <th>担当者氏名</th>
-            <th>携帯電話</th>
-            <th>固定電話</th>
-            <th>会社・団体名(仮)</th>
-            <th>仲介会社</th>
-            <th>エンドユーザー</th>
+            <th id="sort_id">仮押えID {!!ReservationHelper::sortIcon($request->sort_id)!!}</th>
+            <th id="sort_created_at">作成日 {!!ReservationHelper::sortIcon($request->sort_created_at)!!}</th>
+            <th id="sort_reserve_date">利用日 {!!ReservationHelper::sortIcon($request->sort_reserve_date)!!}</th>
+            <th id="sort_enter_time">入室 {!!ReservationHelper::sortIcon($request->sort_enter_time)!!}</th>
+            <th id="sort_leave_time">退室 {!!ReservationHelper::sortIcon($request->sort_leave_time)!!}</th>
+            <th id="sort_venue">利用会場 {!!ReservationHelper::sortIcon($request->sort_venue)!!}</th>
+            <th id="sort_user_company">会社・団体名 {!!ReservationHelper::sortIcon($request->sort_user_company)!!}</th>
+            <th id="sort_user_name">担当者氏名 {!!ReservationHelper::sortIcon($request->sort_user_name)!!}</th>
+            <th id="sort_user_mobile">携帯電話 {!!ReservationHelper::sortIcon($request->sort_user_mobile)!!}</th>
+            <th id="sort_user_tel">固定電話 {!!ReservationHelper::sortIcon($request->sort_user_tel)!!}</th>
+            <th id="sort_unknown">会社・団体名(仮) {!!ReservationHelper::sortIcon($request->sort_unknown)!!}</th>
+            <th id="sort_agent">仲介会社 {!!ReservationHelper::sortIcon($request->sort_agent)!!}</th>
+            <th id="sort_enduser">エンドユーザー {!!ReservationHelper::sortIcon($request->sort_enduser)!!}</th>
             <th>仮押え詳細</th>
           </tr>
         </thead>
@@ -267,15 +283,30 @@
 
 
 
-
-
-
-
 </div>
 
 
 
 <script>
+  $(document).on("click", ".table-scroll th", function() {
+    var click_th_id=$(this).attr("id");
+    $('input[name^="sort_"]').each(function(key, item){
+      if ($(item).attr("name")!=click_th_id) {
+        $(item).val("");
+      }
+    })
+    $("#preserve_search").submit();
+  })
+
+    $(function() {
+      $(".search_btn").on("click",function(){
+        $('input[name^="sort_"]').each(function(key, item){
+        $(item).val("");
+        })
+      })
+    })
+
+    
   $(function() {
     function ActiveDateRangePicker($target) {
       $("input[name='" + $target + "']").daterangepicker({
@@ -292,7 +323,7 @@
         autoUpdateInput: false
       });
       $("input[name='" + $target + "']").on('apply.daterangepicker', function(ev, picker) {
-        $(this).val(picker.startDate.format('YYYY/MM/DD') + ' - ' + picker.endDate.format('YYYY/MM/DD'));
+        $(this).val(picker.startDate.format('YYYY-MM-DD') + ' ~ ' + picker.endDate.format('YYYY-MM-DD'));
       });
       $("input[name='" + $target + "']").on('cancel.daterangepicker', function(ev, picker) {
         $(this).val('');

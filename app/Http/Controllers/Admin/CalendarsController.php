@@ -47,7 +47,6 @@ class CalendarsController extends Controller
     $today = $request->all() ? Carbon::parse($request->date)->toDateString() : Carbon::now()->toDateString();
     $tomorrow = $request->all() ? Carbon::parse($request->date)->addDay()->toDateString() : Carbon::now()->addDay()->toDateString();
     $yesterday = $request->all() ? Carbon::parse($request->date)->addDays(-1)->toDateString() : Carbon::now()->addDays(-1)->toDateString();
-
     $reservations = Reservation::with('bills')->where('reserve_date', $today)->get();
     $pre_reservations = PreReservation::where('reserve_date', $today)->get();
     $venues = Venue::all();

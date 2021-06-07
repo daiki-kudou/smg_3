@@ -350,7 +350,7 @@ class ReservationsController extends Controller
     $request->session()->forget('calc_info'); //予約作成TOPに来るとsession初期化
     $request->session()->forget('discount_info'); //予約作成TOPに来るとsession初期化
     $venues = Venue::orderBy("id", "desc")->get();
-    $users = User::all();
+    $users = User::orderBy("id", "desc")->get();
     $target = $request->all_requests;
     $target = json_decode($target);
     return view('admin.reservations.create', [
@@ -401,8 +401,9 @@ class ReservationsController extends Controller
     $priceResult = $request->session()->get('calc_info');
     $checkInfo = $request->session()->get('discount_info');
 
-    $users = User::all();
-    $venues = Venue::all();
+    $users = User::orderBy("id", "desc")->get();
+    $venues = Venue::orderBy("id", "desc")->get();
+
     $spVenue = $venues->find($value['venue_id']);
     return view(
       'admin.reservations.calculate',
@@ -499,21 +500,22 @@ class ReservationsController extends Controller
    */
   public function show($id)
   {
+
     session()->forget(['add_bill', 'cxlCalcInfo', 'cxlMaster', 'cxlResult', 'invoice', 'multiOrSingle', 'discount_info', 'calc_info', 'master_info', 'check_info', 'basicInfo', 'reservationEditMaster']);
     $reservation = Reservation::with(['bills.breakdowns', 'cxls.cxl_breakdowns', 'user', 'agent', 'venue', 'change_log'])->find($id);
+
     $venue = $reservation->venue;
     $user = $reservation->user;
     $master_prices = $reservation->TotalAmount();
-    $other_bills = [];
-    for ($i = 0; $i < count($reservation->bills) - 1; $i++) {
-      $other_bills[] = $reservation->bills->skip($i + 1)->first();
-    }
+    $other_bills = $reservation->bills->sortBy("id")->skip(1);
     $admin = Admin::all()->sortBy('name', SORT_NATURAL | SORT_FLAG_CASE)->pluck('name', 'name');
     //付随する追加予約のステータスが予約完了になってるか判別
     $judgeMultiDelete = $reservation->checkBillsStatus();
     $judgeSingleDelete = $reservation->checkSingleBillsStatus();
 
-    $cxl_subtotal = $reservation->cxls->pluck('master_subtotal')->sum();
+    $cxl_subtotal = floor($reservation->cxls->pluck('master_subtotal')->sum());
+    $cxl_tax = floor($reservation->cxls->pluck('master_tax')->sum());
+    $cxl_master_total = floor($reservation->cxls->pluck('master_total')->sum());
     $agentLayoutPrice = $reservation->bills->where('reservation_status', '<=', 3)->pluck('layout_price')->sum();
     $agentPrice = $reservation->bills->where('reservation_status', '<=', 3)->pluck('master_subtotal')->sum();
     $agentPriceWithoutLayout = $agentPrice - $agentLayoutPrice;
@@ -529,6 +531,8 @@ class ReservationsController extends Controller
         'judgeMultiDelete',
         'judgeSingleDelete',
         'cxl_subtotal',
+        'cxl_tax',
+        'cxl_master_total',
         'agentLayoutPrice',
         'agentPrice',
         'agentPriceWithoutLayout',
@@ -600,7 +604,8 @@ class ReservationsController extends Controller
     $bill = Bill::with(['reservation.user', 'reservation.venue.equipments', 'reservation.venue.services', 'breakdowns'])->find($id);
     $reservation = $bill->reservation;
     $venue = $bill->reservation->venue;
-    $users = User::all();
+    $users = User::orderBy("id", "desc")->get();
+
     session()->put('reservationEditMaster', $bill);
     return view('admin.reservations.edit', [
       'reservation' => $reservation,
@@ -617,7 +622,7 @@ class ReservationsController extends Controller
     $bill = $reservationEditMaster;
     $reservation = $bill->reservation;
     $venue = $bill->reservation->venue;
-    $users = User::all();
+    $users = User::orderBy("id", "desc")->get();
     session()->put('reservationEditMaster', $bill);
 
     $data = $request->all();
@@ -627,9 +632,6 @@ class ReservationsController extends Controller
     $e_cnt = $this->preg($result, "equipment_breakdown_item");
     $s_cnt = $this->preg($result, "services_breakdown_item");
     $o_cnt = $this->preg($result, "others_input_item");
-
-
-
     return view('admin.reservations.edit_without_calc', [
       'reservation' => $reservation,
       'venue' => $venue,
@@ -683,7 +685,7 @@ class ReservationsController extends Controller
     $basicInfo = $request->session()->get('basicInfo');
     $reservationEditMaster = $request->session()->get('reservationEditMaster');
     $venue = $reservationEditMaster->reservation->venue;
-    $users = User::all();
+    $users = User::orderBy("id", "desc")->get();
     $price_details = $venue->calculate_price(
       $basicInfo['price_system'],
       $basicInfo['enter_time'],
@@ -767,7 +769,7 @@ class ReservationsController extends Controller
     try {
       $reservation = $reservationEditMaster->reservation;
       $reservation->UpdateReservation($basicInfo, $result);
-      $bill = $reservation->bills->first();
+      $bill = $reservation->bills->sortBy("id")->first();
       $bill->UpdateBillSession($result);
       $bill->ReserveStoreSessionBreakdown($request, 'result');
     } catch (\Exception $e) {
