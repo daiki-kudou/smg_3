@@ -144,7 +144,7 @@
             <td class="table-active">イベント開始時間</td>
             <td>
               <select name="event_start" id="event_start" class="form-control">
-                <option disabled>選択してください</option>
+                <option></option>
                 @for ($start = 0*2; $start <=23*2; $start++) <option
                   value="{{date("H:i:s", strtotime("00:00 +". $start * 30 ." minute"))}}" @if (date("H:i:s",
                   strtotime("00:00 +". $start * 30 ." minute"))==$reservation->event_start)
@@ -160,7 +160,7 @@
             <td class="table-active">イベント終了時間</td>
             <td>
               <select name="event_finish" id="event_finish" class="form-control">
-                <option disabled>選択してください</option>
+                <option></option>
                 @for ($start = 0*2; $start <=23*2; $start++) <option
                   value="{{date("H:i:s", strtotime("00:00 +". $start * 30 ." minute"))}}" @if (date("H:i:s",
                   strtotime("00:00 +". $start * 30 ." minute"))==$reservation->event_finish)

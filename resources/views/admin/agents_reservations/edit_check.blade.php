@@ -100,13 +100,13 @@
           <tr>
             <td class="table-active">イベント開始時間</td>
             <td>
-              {{Form::text("",$inputs['event_start'],['class'=>'form-control','readonly'])}}
+              {{Form::text("",$inputs['event_start']??"",['class'=>'form-control','readonly'])}}
             </td>
           </tr>
           <tr>
             <td class="table-active">イベント終了時間</td>
             <td>
-              {{Form::text("",$inputs['event_finish'],['class'=>'form-control','readonly'])}}
+              {{Form::text("",$inputs['event_finish']??"",['class'=>'form-control','readonly'])}}
             </td>
           </tr>
           <tr>
