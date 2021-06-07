@@ -791,7 +791,10 @@
             </h3>
           </div>
         </div>
+
         <div class="main ">
+
+          @if ($other_bill->breakdowns->contains('unit_type',1))
           <div class="venues billdetails_content">
             <table class="table table-bordered">
               <tbody>
@@ -834,7 +837,9 @@
               </tbody>
             </table>
           </div>
+          @endif
 
+          @if ($other_bill->breakdowns->contains('unit_type',2)||$other_bill->breakdowns->contains('unit_type',3))
           <div class="equipment billdetails_content">
             <table class="table table-bordered">
               <tbody>
@@ -885,7 +890,9 @@
               </tbody>
             </table>
           </div>
+          @endif
 
+          @if ($other_bill->breakdowns->contains('unit_type',4))
           <div class="layout billdetails_content">
             <table class="table table-bordered">
               <tbody>
@@ -928,7 +935,9 @@
               </tbody>
             </table>
           </div>
+          @endif
 
+          @if ($other_bill->breakdowns->contains('unit_type',5))
           <div class="others billdetails_content">
             <table class="table table-bordered">
               <tbody>
@@ -971,6 +980,8 @@
               </tbody>
             </table>
           </div>
+          @endif
+
           <div class="bill_total">
             <table class="table text-right">
               <tbody>

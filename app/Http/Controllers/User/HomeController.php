@@ -77,10 +77,8 @@ class HomeController extends Controller
     $reservation = Reservation::with(["bills.breakdowns", "cxls"])->find($id);
     if (Auth::id() == $reservation->user_id) {
       $venue = Venue::find($reservation->venue_id);
-      $other_bills = [];
-      for ($i = 0; $i < count($reservation->bills) - 1; $i++) {
-        $other_bills[] = $reservation->bills->skip($i + 1)->first();
-      }
+      $other_bills = $reservation->bills->sortBy("id")->skip(1);
+
       return view('user.home.show', compact("reservation", "venue", "other_bills"));
     } else {
       return redirect('user/login');
