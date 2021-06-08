@@ -17,7 +17,7 @@ class Kernel extends ConsoleKernel
   protected $commands = [
     //
     Commands\ReSendApproveEmail::Class,
-
+    Commands\SendCronTest::Class,
   ];
 
   /**
@@ -30,8 +30,8 @@ class Kernel extends ConsoleKernel
   {
     // 以下に定期実行したい処理を記述
     // 以下は動いているけど、一旦止めておく
-    // $schedule->command('command:re_send_approve_email')
-    //   ->everyMinute();
+    // $schedule->command('command:re_send_approve_email')->everyMinute();
+    // $schedule->command('app:send_notification_mail')->everyMinute();
   }
 
   /**

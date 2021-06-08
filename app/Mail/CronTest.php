@@ -28,9 +28,8 @@ class CronTest extends Mailable
    */
   public function build()
   {
+
     return $this->view('maileclipse::templates.cronTest')
-      ->subject('クーロンのテスト')
-      // ->with(['token' => $this->token,])
-    ;
+      ->subject('クーロンテスト');
   }
 }
