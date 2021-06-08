@@ -18,10 +18,10 @@ use Illuminate\Support\Facades\Mail;
 // メール
 use App\Mail\AdminReqAddRes;
 use App\Mail\UserReqAddRes;
-
+use App\Mail\AdminPaid;
+use App\Mail\UserPaid;
 
 use Carbon\Carbon;
-
 use App\Traits\PregTrait;
 
 
@@ -289,7 +289,7 @@ class BillsController extends Controller
         'payment.min' => '[入金情報] ※入金額は0以上を入力してください',
       ]
     );
-    $bill = Bill::with('reservation')->find($request->bill_id);
+    $bill = Bill::with('reservation.user')->find($request->bill_id);
     $bill->update(
       [
         'paid' => $request->paid,
@@ -298,6 +298,26 @@ class BillsController extends Controller
         'payment' => !empty($request->payment) ? $request->payment : 0,
       ]
     );
+
+    $this->judgePaymentStatusAndSendEmail($request->paid, $bill->reservation->user);
+
     return redirect(url('admin/reservations/' . $bill->reservation->id));
+  }
+
+  /**
+   * ユーザIDをキーにキャッシュから本の配列を取得する。
+   * 取得出来ない場合はfalseを返す。
+   *
+   * @param int $status
+   * @param object $user
+   */
+
+  public function judgePaymentStatusAndSendEmail($status, $user)
+  {
+    if ($status == 1) {
+      $admin = explode(',', config('app.admin_email'));
+      Mail::to($admin)->send(new AdminPaid($user));
+      Mail::to($user->email)->send(new UserPaid($user));
+    }
   }
 }

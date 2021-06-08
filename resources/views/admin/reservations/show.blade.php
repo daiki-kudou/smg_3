@@ -692,7 +692,7 @@
             </table>
           </div>
           <p class="text-right billdetails_content">
-            {{ Form::submit('更新する', ['disabled', 'class' => 'paid_edit btn more_btn']) }}
+            {{ Form::submit('更新する', ['disabled', 'class' => 'paid_edit btn more_btn paid_edit_submit']) }}
           </p>
           {{ Form::close() }}
         </div>
@@ -1593,6 +1593,15 @@
         $('.confirm_btn').on('click', function() {
             if (!confirm('予約を確定しますか？')) {
                 return false;
+            }
+        });
+        $('.paid_edit_submit').on('click', function() {
+            if (!confirm('入金情報を更新しますか？')) {
+                return false;
+            }else{
+              if (!confirm('入金情報が【入金済み】の場合、ユーザーに入金完了メールが送付されますが、よろしいですか？')) {
+                return false;
+            }
             }
         });
     });
