@@ -9,7 +9,7 @@ use App\Models\User;
 use Illuminate\Support\Facades\DB;
 
 // メール送信用
-use App\Mail\SendUserAprove;
+use App\Mail\CronTest;
 use Illuminate\Support\Facades\Mail;
 
 
@@ -49,12 +49,7 @@ class ReSendApproveEmail extends Command
   public function handle()
   {
     // 以下の内容は成功
-    // $select_targets = Reservation::where('reservation_status', 2)->whereNotNull('approve_send_at')->get();
-    // foreach ($select_targets as $key => $value) {
-    //   $user = User::find($value->user_id);
-    //   $email = $user->email;
-    //   Mail::to($email)->send(new SendUserAprove($value->id));
-    //   logger('メール自動送信テスト' . $key);
-    // }
+    Mail::to('kudou@web-trickster.com')->send(new CronTest());
+    logger('メール自動送信テスト');
   }
 }
