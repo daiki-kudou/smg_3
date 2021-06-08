@@ -126,8 +126,8 @@
             <td>
               <div class="selectWrap">
                 <select name="enter_time" class="timeScale" id="enter_time">
-                  <option value=""></option>
-                  {!!ReservationHelper::timeOptionsWithDefault()!!}
+                  {{-- <option value=""></option> --}}
+                  {{-- {!!ReservationHelper::timeOptionsWithDefault()!!} --}}
                 </select>
               </div>
               <p class="is-error-enter_time" style="color: red"></p>
@@ -149,8 +149,8 @@
             <td>
               <div class="selectWrap">
                 <select name="leave_time" class="timeScale" id="leave_time">
-                  <option value=""></option>
-                  {!!ReservationHelper::timeOptionsWithDefault()!!}
+                  {{-- <option value=""></option> --}}
+                  {{-- {!!ReservationHelper::timeOptionsWithDefault()!!} --}}
                 </select>
               </div>
               <p class="is-error-leave_time" style="color: red"></p>

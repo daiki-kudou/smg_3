@@ -15,13 +15,11 @@ use App\Models\PreReservation;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\DB; //トランザクション用
 
-
-
 trait SearchTrait
 {
   public function BasicSearch($class, $request)
   {
-    $andSearch = $class->where('multiple_reserve_id', 0); // マスタのクエリ 
+    $andSearch = $class->where('multiple_reserve_id', 0)->where('status', '<', 2); // マスタのクエリ 
     // フリーワード
     if (!empty($request->search_free)) {
       $andSearch->where(function ($query) use ($request) {
@@ -116,27 +114,6 @@ trait SearchTrait
   {
     $result = $class;
     if (!empty($request->search_free)) {
-      // $result = $class->where("id", "LIKE", "%{$request->search_free}%")
-      //   ->orWhereDate("created_at", date('Y-m-d', strtotime($request->search_free)))
-      //   ->orWhereHas('pre_reservations.user', function ($query) use ($request) {
-      //     $query->where('first_name', 'LIKE', "%{$request->search_free}%");
-      //     $query->orWhere('last_name', 'LIKE', "%{$request->search_free}%");
-      //     $query->orWhere(DB::raw('CONCAT(first_name, last_name)'), 'like', '%' . $request->search_free . '%');
-      //     $query->orWhere('company', 'LIKE', "%{$request->search_free}%");
-      //     $query->orWhere('mobile', 'LIKE', "%{$request->search_free}%");
-      //     $query->orWhere('tel', 'LIKE', "%{$request->search_free}%");
-      //   })->orWhereHas('pre_reservations.agent', function ($query) use ($request) {
-      //     $query->where('person_firstname', 'LIKE', "%{$request->search_free}%");
-      //     $query->orWhere('person_lastname', 'LIKE', "%{$request->search_free}%");
-      //     $query->orWhere(DB::raw('CONCAT(person_firstname, person_lastname)'), 'like', '%' . $request->search_free . '%');
-      //     $query->orWhere('company', 'LIKE', "%{$request->search_free}%");
-      //     $query->orWhere('person_mobile', 'LIKE', "%{$request->search_free}%");
-      //     $query->orWhere('person_tel', 'LIKE', "%{$request->search_free}%");
-      //   })->orWhereHas('pre_reservations.unknown_user', function ($query) use ($request) {
-      //     $query->where('unknown_user_company', 'LIKE', "%{$request->search_free}%");
-      //   })->orWhereHas('pre_reservations.pre_enduser', function ($query) use ($request) {
-      //     $query->where('company', 'LIKE', "%{$request->search_free}%");
-      //   });
       if (preg_match("/^[0-9]+$/", $request->search_free)) { //数字のみ
         $fixId = $this->idFormatForSearch($request->search_free);
         $result = $class->orWhere('id', 'like', "%{$fixId}%");

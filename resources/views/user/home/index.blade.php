@@ -173,27 +173,27 @@
             <tr>
               <td>
                 {{-- 予約状況2<br> --}}
-                {{ReservationHelper::judgeStatus($reservation->bills->skip($i)->first()->reservation_status)}}
+                {{ReservationHelper::judgeStatus($reservation->bills->sortBy("id")->skip($i)->first()->reservation_status)}}
               </td>
               <td>
                 {{-- カテゴリ2<br> --}}
-                {{($reservation->bills->skip($i)->first()->category==2?"追加請求".$i:"")}}</td>
+                {{($reservation->bills->sortBy("id")->skip($i)->first()->category==2?"追加請求".$i:"")}}</td>
               <td>
                 {{-- 利用料金2<br> --}}
-                {{number_format($reservation->bills->skip($i)->first()->master_total)}}円</td>
+                {{number_format($reservation->bills->sortBy("id")->skip($i)->first()->master_total)}}円</td>
               <td>
                 {{-- 支払期日2<br> --}}
-                {{ReservationHelper::formatDate($reservation->bills->skip($i)->first()->payment_limit)}}
+                {{ReservationHelper::formatDate($reservation->bills->sortBy("id")->skip($i)->first()->payment_limit)}}
               </td>
               <td>
                 {{-- 支払状況2<br> --}}
-                {{$reservation->bills->skip($i)->first()->paid==0?"未入金":"入金済"}}</td>
+                {{$reservation->bills->sortBy("id")->skip($i)->first()->paid==0?"未入金":"入金済"}}</td>
               {{-- <td>請求書2</td> --}}
               <td>
                 {{ Form::open(['url' => 'user/home/invoice', 'method'=>'post', 'target'=>'_blank', 'class'=>'']) }}
                 @csrf
                 {{ Form::hidden('reservation_id', $reservation->id ) }}
-                {{ Form::hidden('bill_id', $reservation->bills->skip($i)->first()->id ) }}
+                {{ Form::hidden('bill_id', $reservation->bills->sortBy("id")->skip($i)->first()->id ) }}
                 <p class="mr-2">{{ Form::submit('請求書をみる',['class' => 'btn more_btn']) }}</p>
                 {{ Form::close() }}
               </td>
@@ -201,32 +201,32 @@
                 {{-- 領収書2 --}}
                 {{ Form::open(['url' => 'user/home/receipt', 'method'=>'post', 'target'=>'_blank', 'class'=>'']) }}
                 @csrf
-                {{ Form::hidden('bill_id', $reservation->bills->skip($i)->first()->id)}}
-                @if ($reservation->bills->skip($i)->first()->paid==1)
+                {{ Form::hidden('bill_id', $reservation->bills->sortBy("id")->skip($i)->first()->id)}}
+                @if ($reservation->bills->sortBy("id")->skip($i)->first()->paid==1)
                 <p class="mr-2">{{ Form::submit('領収書をみる',['class' => 'more_btn btn']) }}</p>
                 @endif
                 {{ Form::close() }}
               </td>
             </tr>
-            @if ($reservation->bills->skip($i)->first()->cxl)
+            @if ($reservation->bills->sortBy("id")->skip($i)->first()->cxl)
             <tr> {{--個別キャンセル分 --}}
               <td>
                 {{-- 予約状況3<br> --}}
-                {{ReservationHelper::cxlStatus($reservation->bills->skip($i)->first()->cxl->cxl_status)}}
+                {{ReservationHelper::cxlStatus($reservation->bills->sortBy("id")->skip($i)->first()->cxl->cxl_status)}}
               </td>
               <td>
                 {{-- カテゴリ3<br> --}}
                 {{"追加請求".$i."キャンセル"}}</td>
               <td>
                 {{-- 利用料金3<br> --}}
-                {{number_format(-$reservation->bills->skip($i)->first()->master_total)}}円</td>
+                {{number_format(-$reservation->bills->sortBy("id")->skip($i)->first()->master_total)}}円</td>
               <td>
                 {{-- 支払期日3<br> --}}
-                {{ReservationHelper::formatDate($reservation->bills->skip($i)->first()->cxl->payment_limit)}}
+                {{ReservationHelper::formatDate($reservation->bills->sortBy("id")->skip($i)->first()->cxl->payment_limit)}}
               </td>
               <td>
                 {{-- 支払状況3<br> --}}
-                {{($reservation->bills->skip($i)->first()->cxl->paid==0?"未入金":"入金済")}}
+                {{($reservation->bills->sortBy("id")->skip($i)->first()->cxl->paid==0?"未入金":"入金済")}}
               </td>
               <td>請求書3</td>
               <td>領収書3</td>
@@ -235,23 +235,24 @@
             <tr> {{--個別キャンセルではなく、メインの予約がキャンセルされた際 --}}
               <td>
                 {{-- 予約状況4<br> --}}
-                {{ReservationHelper::judgeStatus($reservation->bills->skip($i)->first()->reservation_status)}}
+                {{ReservationHelper::judgeStatus($reservation->bills->sortBy("id")->skip($i)->first()->reservation_status)}}
               </td>
               <td>
                 {{-- カテゴリ4<br> --}}
                 {{"追加請求".$i."キャンセル"}}</td>
               <td style="color:red">
                 {{-- 利用料金4<br> --}}
-                {{number_format(-$reservation->bills->skip($i)->first()->master_total)}}円
+                {{number_format(-$reservation->bills->sortBy("id")->skip($i)->first()->master_total)}}円
               </td>
               <td>
                 {{-- 支払期日4<br> --}}
-                {{-- {{ReservationHelper::formatDate($reservation->bills->skip($i)->first()->payment_limit)}} --}}
+                {{-- {{ReservationHelper::formatDate($reservation->bills->sortBy("id")->skip($i)->first()->payment_limit)}}
+                --}}
                 -
               </td>
               <td>
                 {{-- 支払状況4<br> --}}
-                {{-- {{$reservation->bills->skip($i)->first()->paid==0?"未入金":"入金済"}} --}}
+                {{-- {{$reservation->bills->sortBy("id")->skip($i)->first()->paid==0?"未入金":"入金済"}} --}}
                 -
               </td>
               <td>請求書4</td>

@@ -48,7 +48,7 @@ class PreReservationsController extends Controller
     if (!empty($request->time_over)) {
       $today = Carbon::now();
       $threeDaysBefore = date('Y-m-d H:i:s', strtotime($today->subHours(72)));
-      $result = PreReservation::where('status', 1)->where('updated_at', '<', $threeDaysBefore);
+      $result = PreReservation::where('status', '<', 2)->where('updated_at', '<', $threeDaysBefore);
       $pre_reservations = $result->orderBy('id', 'desc')->paginate(30);
       $counter = $result->count();
     } elseif (count($request->all()) != 0) {
@@ -57,8 +57,8 @@ class PreReservationsController extends Controller
       $pre_reservations = $result[0];
       $counter = $result[1];
     } else {
-      $after = PreReservation::with(["unknown_user", "pre_enduser", 'user', 'agent', 'venue'])->where('multiple_reserve_id', '=', 0)->where('reserve_date', '>=', $today)->get()->sortBy('reserve_date');
-      $before = PreReservation::with(["unknown_user", "pre_enduser", "user", 'agent', 'venue'])->where('multiple_reserve_id', '=', 0)->where('reserve_date', '<', $today)->get()->sortByDesc('reserve_date');
+      $after = PreReservation::with(["unknown_user", "pre_enduser", 'user', 'agent', 'venue'])->where('multiple_reserve_id', '=', 0)->where('reserve_date', '>=', $today)->where('status', '<', 2)->get()->sortBy('reserve_date');
+      $before = PreReservation::with(["unknown_user", "pre_enduser", "user", 'agent', 'venue'])->where('multiple_reserve_id', '=', 0)->where('reserve_date', '<', $today)->where('status', '<', 2)->get()->sortByDesc('reserve_date');
       $pre_reservations = $after->concat($before);
       $counter = 0;
     }
