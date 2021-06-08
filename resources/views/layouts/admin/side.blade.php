@@ -311,28 +311,26 @@
         </ul>
       </li>
 
-      {{-- 一旦非表示 --}}
-      {{-- <li class="nav-item has-treeview">
+      <li class="nav-item has-treeview">
         <a href="#" class="nav-link">
           <i class="nav-icon fas fa-user-shield"></i>
           <p>管理者管理<i class="right fas fa-angle-left"></i></p>
         </a>
         <ul class="nav nav-treeview">
           <li class="nav-item">
-            <a href="#" class="nav-link">
+            <a href="{{url('admin/administer')}}" class="nav-link">
               <i class="far fa-circle nav-icon ml-4"></i>
               <p>一覧</p>
             </a>
           </li>
           <li class="nav-item">
-            <a href="#" class="nav-link">
+            <a href="{{url('admin/administer/create')}}" class="nav-link">
               <i class="far fa-circle nav-icon ml-4"></i>
               <p>新規登録</p>
             </a>
           </li>
         </ul>
-      </li> --}}
-
+      </li>
     </ul>
   </nav>
   <!-- /.sidebar-menu -->

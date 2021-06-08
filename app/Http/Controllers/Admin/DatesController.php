@@ -68,12 +68,8 @@ class DatesController extends Controller
    */
   public function show($id)
   {
-
-    // $venue_id = Venue::find($id);
     $venues = Venue::find($id);
-
-    // $date_venues = $venue_id->dates()->get();
-    $date_venues = $venues->dates()->get();
+    $date_venues = $venues->dates()->orderBy('id')->get();
 
     return view('admin.dates.show', [
       // 'venue_id' => $venue_id,
