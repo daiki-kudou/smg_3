@@ -1048,7 +1048,7 @@
             </table>
           </div>
           <p class="text-right billdetails_content">
-            {{ Form::submit('更新する', ['disabled', 'class' => 'paid_edit btn more_btn']) }}
+            {{ Form::submit('更新する', ['disabled', 'class' => 'paid_edit btn more_btn paid_edit_submit']) }}
           </p>
           {{ Form::close() }}
         </div>
@@ -1444,7 +1444,7 @@
           </div>
           <div class="text-right billdetails_content">
             <p>
-              {{ Form::submit('更新する', ['class' => 'cxl_paid_edit btn more_btn', 'disabled']) }}
+              {{ Form::submit('更新する', ['class' => 'cxl_paid_edit btn more_btn cxl_paid_edit_submit', 'disabled']) }}
             </p>
           </div>
           {{ Form::close() }}
@@ -1596,6 +1596,15 @@
             }
         });
         $('.paid_edit_submit').on('click', function() {
+            if (!confirm('入金情報を更新しますか？')) {
+                return false;
+            }else{
+              if (!confirm('入金情報が【入金済み】の場合、ユーザーに入金完了メールが送付されますが、よろしいですか？')) {
+                return false;
+            }
+            }
+        });
+        $('.cxl_paid_edit_submit').on('click', function() {
             if (!confirm('入金情報を更新しますか？')) {
                 return false;
             }else{

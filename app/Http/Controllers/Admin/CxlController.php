@@ -12,6 +12,10 @@ use App\Models\Bill;
 use App\Models\User;
 use App\Models\Reservation;
 
+use Illuminate\Support\Facades\Mail;
+use App\Mail\AdminCxlPaid;
+use App\Mail\UserCxlPaid;
+
 
 class CxlController extends Controller
 {
@@ -377,7 +381,7 @@ class CxlController extends Controller
         'payment.min' => '[キャンセル入金情報] ※入金額は0以上を入力してください',
       ]
     );
-    $cxl = Cxl::find($request->cxl_id);
+    $cxl = Cxl::with('reservation.user')->find($request->cxl_id);
     $cxl->update(
       [
         'paid' => $request->paid,
@@ -386,6 +390,16 @@ class CxlController extends Controller
         'payment' => !empty($request->payment) ? $request->payment : 0,
       ]
     );
+    $this->judgePaymentStatusAndSendEmail($request->paid, $cxl->reservation->user);
     return redirect(url('admin/reservations/' . $cxl->reservation->id));
+  }
+
+  public function judgePaymentStatusAndSendEmail($status, $user)
+  {
+    if ($status == 1) {
+      $admin = explode(',', config('app.admin_email'));
+      Mail::to($admin)->send(new AdminCxlPaid($user));
+      Mail::to($user->email)->send(new UserCxlPaid($user));
+    }
   }
 }
