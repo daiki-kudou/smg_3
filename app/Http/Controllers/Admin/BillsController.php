@@ -305,8 +305,7 @@ class BillsController extends Controller
   }
 
   /**
-   * ユーザIDをキーにキャッシュから本の配列を取得する。
-   * 取得出来ない場合はfalseを返す。
+   * 入金ステータスが1なら入金完了メールを送る
    *
    * @param int $status
    * @param object $user
