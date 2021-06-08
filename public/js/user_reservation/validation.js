@@ -70,6 +70,7 @@ $(function () {
         katakana: true,
       },
       post_code: {
+        minlength: 7,
         maxlength: 7,
         number: true,
       },
@@ -115,6 +116,7 @@ $(function () {
         katakana: "※全角カタカナで入力してください",
       },
       post_code: {
+        minlength: "７桁で入力してください",
         maxlength: "７桁で入力してください",
         number: "※半角数字で入力してください",
       },
