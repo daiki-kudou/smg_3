@@ -262,7 +262,7 @@ header div.contents {
     background: #3E4B5B;
     /* padding: 0.3em 1.5em; */
     /* padding: 0.3em 5em; */
-    padding: 0.3em 0em;
+    padding: 0.4em 0em;
     color: #fff;
     box-shadow: 0 3px 0 #282828;
     text-align: center;
@@ -270,6 +270,7 @@ header div.contents {
     font-size: 1.4rem;
     display: block;
     cursor: pointer;
+    line-height: 1.5;
 }
 
 .link-btn:hover {
@@ -733,7 +734,7 @@ form table td textarea {
         min-width: 100%;
     }
 
-    .link-btn .link-btn3 {
+    .link-btn, .link-btn3 {
         min-width: 100%;
     }
 

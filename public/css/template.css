@@ -1515,6 +1515,10 @@ h3 {
     margin-left: auto;
 }
 
+.bill_total .table td .form-control {
+    text-align: right;
+}
+
 .bill {
     border: solid 1px #ced4da;
 }

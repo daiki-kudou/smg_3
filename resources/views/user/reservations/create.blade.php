@@ -405,7 +405,6 @@
       });
     });
 </script>
-
 <script type="text/javascript">
   $(function () {
         var target_day=$('input[name="date"]').val();

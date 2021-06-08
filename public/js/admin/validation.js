@@ -89,6 +89,8 @@ $(document).ready(function () {
       $("#eventname1Count").prop("readonly", true);
       $("#eventname2Count").prop("readonly", true);
       $("#eventownerCount").prop("readonly", true);
+      // $("#event_start").prop("disabled", true);
+      // $("#event_finish").prop("disabled", true);
       // $(".board-table input[type='text']").val("");
       $(".board-table option:selected").val("");
     }
@@ -105,6 +107,8 @@ $(function () {
       $("#eventname1Count").prop("readonly", true);
       $("#eventname2Count").prop("readonly", true);
       $("#eventownerCount").prop("readonly", true);
+      // $("#event_start").prop("disabled", true);
+      // $("#event_finish").prop("disabled", true);
       $(".board-table input[type='text']").val("");
     } else {
       $("#event_start").prop("readonly", false);
@@ -112,6 +116,8 @@ $(function () {
       $("#eventname1Count").prop("readonly", false);
       $("#eventname2Count").prop("readonly", false);
       $("#eventownerCount").prop("readonly", false);
+      // $("#event_start").prop("disabled", false);
+      // $("#event_finish").prop("disabled", false);
     }
   });
 });
@@ -1747,6 +1753,7 @@ $(function () {
         required: true,
         number: true,
         min: 1,
+        maxlength: 6
       },
       stock: {
         required: true,
@@ -1762,6 +1769,7 @@ $(function () {
         required: "※必須項目です",
         number: "※半角英数字で入力してください",
         min: "※1以上を入力してください",
+        maxlength: '100,000円以内で入力してください',
       },
       stock: {
         required: "※必須項目です",
