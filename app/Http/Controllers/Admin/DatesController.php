@@ -34,7 +34,7 @@ class DatesController extends Controller
   {
     $venue_id = $request->id;
     $venue = Venue::find($venue_id);
-    $date_venues = $venue->dates()->get();
+    $date_venues = $venue->dates()->orderBy('id')->get();
     $weekday_id = $request->weekday_id;
     return view('admin.dates.create', [
       'venue_id' => $venue_id,
