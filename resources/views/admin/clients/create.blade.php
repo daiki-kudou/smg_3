@@ -1,6 +1,7 @@
 @extends('layouts.admin.app')
 @section('content')
 <link href="{{ asset('/css/template.css') }}" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/jquery.validation/1.16.0/additional-methods.min.js"></script>
 <script src="{{ asset('/js/admin/validation.js') }}"></script>
 <script src="{{ asset('/js/ctrl_form.js') }}"></script>
 
@@ -142,16 +143,21 @@
             </td>
           </tr>
           <tr>
-            <td class="table-active form_required">{{ Form::label('mobile', '携帯番号') }}</td>
+            <td class="table-active">
+              {{ Form::label('mobile', '携帯番号') }}
+              <p class="annotation">※携帯番号、電話番号のどちらか一方は必須</p>
+            </td>
             <td colspan="2">
-              {{ Form::text('mobile', old('mobile'), ['class' => 'form-control', 'placeholder' => '半角数字、ハイフンなしで入力してください']) }}
+              {{ Form::text('mobile', old('mobile'), ['class' => 'form-control phone_number', 'placeholder' => '半角数字、ハイフンなしで入力してください']) }}
               <p class="is-error-mobile" style="color: red"></p>
             </td>
           </tr>
           <tr>
-            <td class="table-active">{{ Form::label('tel', '固定電話') }}</td>
+            <td class="table-active">{{ Form::label('tel', '固定電話') }}
+              <p class="annotation">※携帯番号、電話番号のどちらか一方は必須</p>
+            </td>
             <td colspan="2">
-              {{ Form::text('tel', old('tel'), ['class' => 'form-control', 'placeholder' => '半角数字、ハイフンなしで入力してください']) }}
+              {{ Form::text('tel', old('tel'), ['class' => 'form-control phone_number', 'placeholder' => '半角数字、ハイフンなしで入力してください']) }}
               <p class="is-error-tel" style="color: red"></p>
             </td>
           </tr>
@@ -280,8 +286,9 @@
     $('.discount').on('click', function() {
       $('#condition').toggleClass('checkon');
     })
+  });
 
-  })
+
 </script>
 
 @endsection
