@@ -1261,7 +1261,7 @@ $(function () {
     $(value).validate({
       rules: {
         name: { required: true },
-        post_code: { maxlength: 7, number: true },
+        post_code: { maxlength: 7, number: true, minlength: 7},
         person_tel: { minlength: 10, number: true },
         fax: { minlength: 10, number: true },
         firstname_kana: { katakana: true },
@@ -1280,8 +1280,9 @@ $(function () {
       messages: {
         name: { required: "※必須項目です" },
         post_code: {
-          maxlength: "７桁で入力してください",
-          number: "半角英数字で入力してください",
+          maxlength: "※7桁で入力してください",
+          minlength: "※7桁で入力してください",
+          number: "半角数字で入力してください",
         },
         person_tel: {
           minlength: "最低桁数は10です",
@@ -1358,7 +1359,7 @@ $(function () {
       address2: { required: true },
       address3: { required: true },
       luggage_flag: { required: true },
-      luggage_post_code: { maxlength: 7, number: true },
+      luggage_post_code: { maxlength: 7, minlength: 7, number: true },
       person_tel: { number: true },
       eat_in_flag: { required: true },
       layout: { required: true },
@@ -1393,16 +1394,17 @@ $(function () {
       capacity: { required: "※必須項目です" },
       post_code: {
         required: "※必須項目です",
-        maxlength: "７桁で入力してください",
+        maxlength: "※7桁で入力してください",
         number: "※半角数字で入力してください",
-        minlength: "７桁で入力してください",
+        minlength: "※7桁で入力してください",
       },
       address1: { required: "※必須項目です" },
       address2: { required: "※必須項目です" },
       address3: { required: "※必須項目です" },
       luggage_flag: { required: "※必須項目です" },
       luggage_post_code: {
-        maxlength: "７桁で入力してください",
+        minlength: "※7桁で入力してください",
+        maxlength: "※7桁で入力してください",
         number: "※半角数字で入力してください",
       },
       person_tel: { number: "※半角英数字で入力してください" },
@@ -1521,6 +1523,8 @@ $(function () {
       post_code: {
         required: true,
         number: true,
+        maxlength: 7,
+        minlength: 7,
       },
       address1: {
         required: true,
@@ -1582,6 +1586,8 @@ $(function () {
       },
       luggage_post_code: {
         number: true,
+        maxlength: 7,
+        minlength: 7,
       },
     },
     messages: {
@@ -1617,6 +1623,8 @@ $(function () {
       post_code: {
         required: "※必須項目です",
         number: "※半角数字で入力してください",
+        minlength: "※7桁で入力してください",
+        maxlength: "※7桁で入力してください",
       },
       address1: {
         required: "※必須項目です",
@@ -1678,7 +1686,9 @@ $(function () {
         number: "※半角数字で入力してください",
       },
       luggage_post_code: {
-        number: "※半角英数字で入力してください",
+        number: "※半角数字で入力してください",
+        minlength: "※7桁で入力してください",
+        maxlength: "※7桁で入力してください",
       },
     },
     errorPlacement: function (error, element) {
@@ -1814,6 +1824,8 @@ $(function () {
         },
         post_code: {
           number: true,
+          maxlength: 7,
+          minlength: 7,
         },
         url: {
           url: true,
@@ -1851,6 +1863,8 @@ $(function () {
         },
         pay_post_code: {
           number: true,
+          maxlength: 7,
+          minlength: 7,
         },
       },
       messages: {
@@ -1859,6 +1873,8 @@ $(function () {
         },
         post_code: {
           number: "※半角数字で入力してください",
+          minlength: "※7桁で入力してください",
+          maxlength: "※7桁で入力してください",
         },
         url: {
           url:
@@ -1897,6 +1913,8 @@ $(function () {
         },
         pay_post_code: {
           number: "※半角数字で入力してください",
+          minlength: "※7桁で入力してください",
+          maxlength: "※7桁で入力してください",
         },
       },
       errorPlacement: function (error, element) {

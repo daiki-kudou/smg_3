@@ -165,8 +165,8 @@
               <td>
                 {{-- 支払状況<br> --}}
                 -</td>
-              <td>請求書</td>
-              <td>領収書</td>
+              <td>-</td>
+              <td>-</td>
             </tr>
             @endif
             @else
@@ -228,8 +228,8 @@
                 {{-- 支払状況3<br> --}}
                 {{($reservation->bills->sortBy("id")->skip($i)->first()->cxl->paid==0?"未入金":"入金済")}}
               </td>
-              <td>請求書3</td>
-              <td>領収書3</td>
+              <td>-</td>
+              <td>-</td>
             </tr>
             @elseif($reservation->cxls->where('bill_id',0)->count()>0)
             <tr> {{--個別キャンセルではなく、メインの予約がキャンセルされた際 --}}
@@ -255,8 +255,8 @@
                 {{-- {{$reservation->bills->sortBy("id")->skip($i)->first()->paid==0?"未入金":"入金済"}} --}}
                 -
               </td>
-              <td>請求書4</td>
-              <td>領収書4</td>
+              <td>-</td>
+              <td>-</td>
             </tr>
             @endif
             @endif

@@ -1444,7 +1444,7 @@
           </div>
           <div class="text-right billdetails_content">
             <p>
-              {{ Form::submit('更新する', ['class' => 'cxl_paid_edit bnt more_btn', 'disabled']) }}
+              {{ Form::submit('更新する', ['class' => 'cxl_paid_edit btn more_btn', 'disabled']) }}
             </p>
           </div>
           {{ Form::close() }}

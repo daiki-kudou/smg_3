@@ -1,28 +1,44 @@
 @extends('layouts.admin.app')
 @section('content')
+<link href="{{ asset('/css/template.css') }}" rel="stylesheet">
 
-
-
+<div class="container-field mt-3">
+  <h2 class="mt-3 mb-3">管理者 編集</h2>
+  <hr>
+</div>
 
 
 {{ Form::open(['url' => 'admin/administer/'.$auth['id'], 'method'=>'PUT', 'id'=>'admin_update']) }}
 @csrf
 
-<div>
-  {{Form::label("name","名前")}}
-  {{Form::text('name',$auth['name'],['id'=>'name'])}}
-  <p class="is-error-name" style="color: red"></p>
+<section class="section-bg mt-5">
+  <table class="table user-profile table-bordered">
+    <tbody>
+      <tr>
+        <th class="form_required w-25">{{Form::label("name","名前")}}</th>
+        <td>
+          {{Form::text('name',$auth['name'],['id'=>'name','class'=>'form-control'])}}
+          <p class="is-error-name" style="color: red"></p>
+        </td>
+      </tr>
+      <tr>
+        <th class="form_required">{{Form::label("email","メールアドレス")}}</th>
+        <td>
+          {{Form::text('email',$auth['email'],['id'=>'email','class'=>'form-control'])}}
+          <p class="is-error-email" style="color: red"></p>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</section>
+
+　<div class="btn-wrapper mt-5">
+  <p class="text-center">
+    {{Form::submit('更新する',['id'=>"form_submit",'class'=>'more_btn_lg btn'])}}
+  </p>
 </div>
 
-<div>
-  {{Form::label("email","メールアドレス")}}
-  {{Form::text('email',$auth['email'],['id'=>'email'])}}
-  <p class="is-error-email" style="color: red"></p>
-</div>
 
-<div>
-  {{Form::submit('更新する',['id'=>"form_submit"])}}
-</div>
 
 {{Form::close()}}
 

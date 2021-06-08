@@ -1,5 +1,11 @@
 @extends('layouts.admin.app')
 @section('content')
+<link href="{{ asset('/css/template.css') }}" rel="stylesheet">
+
+<div class="container-field mt-3">
+  <h2 class="mt-3 mb-3">管理者 新規登録</h2>
+  <hr>
+</div>
 
 
 @if ($errors->any())
@@ -16,26 +22,39 @@
 
 {{ Form::open(['url' => 'admin/administer/', 'method'=>'POST', 'id'=>'admin_create']) }}
 @csrf
-<div>
-  {{Form::label("name","名前")}}
-  {{Form::text('name',"",['id'=>'name'])}}
-  <p class="is-error-name" style="color: red"></p>
-</div>
 
-<div>
-  {{Form::label("email","メールアドレス")}}
-  {{Form::text('email',"",['id'=>'email'])}}
-  <p class="is-error-email" style="color: red"></p>
-</div>
+<section class="section-bg mt-5">
+  <table class="table user-profile table-bordered">
+    <tbody>
+      <tr>
+        <th class="form_required w-25">{{Form::label("name","名前")}}</th>
+        <td>
+          {{Form::text('name',"",['id'=>'name','class'=>'form-control'])}}
+          <p class="is-error-name" style="color: red"></p>
+        </td>
+      </tr>
+      <tr>
+        <th class="form_required w-25">{{Form::label("email","メールアドレス")}}</th>
+        <td>
+          {{Form::text('email',"",['id'=>'email','class'=>'form-control'])}}
+          <p class="is-error-email" style="color: red"></p>
+        </td>
+      </tr>
+      <tr>
+        <th class="form_required w-25">{{Form::label("password","パスワード")}}</th>
+        <td>
+          {{Form::password('password',['id'=>'password','class'=>'form-control'])}}
+        <p class="is-error-password" style="color: red"></p>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</section>
 
-<div>
-  {{Form::label("password","パスワード")}}
-  {{Form::password('password',['id'=>'password'])}}
-  <p class="is-error-password" style="color: red"></p>
-</div>
-
-<div>
-  {{Form::submit('保存する',['id'=>"form_submit"])}}
+　<div class="btn-wrapper mt-5">
+  <p class="text-center">
+    {{Form::submit('保存する',['id'=>"form_submit",'class'=>'more_btn_lg btn'])}}
+  </p>
 </div>
 
 {{Form::close()}}

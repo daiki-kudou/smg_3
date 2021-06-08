@@ -1,6 +1,9 @@
 @extends('layouts.user.app')
 @section('content')
 <link href="{{ asset('/css/template.css') }}" rel="stylesheet">
+<script src="{{ asset('/js/user_reservation/validation.js') }}"></script>
+<script src="{{ asset('/js/ctrl_form.js') }}"></script>
+
 
 <div class="container-field mt-3">
   <div class="float-right">
@@ -16,7 +19,7 @@
   <hr>
 </div>
 
-{{Form::open(['url' => 'user/home/user_update', 'method' => 'POST'])}}
+{{Form::open(['url' => 'user/home/user_update', 'method' => 'POST', 'id'=>'register_edit'])}}
 @csrf
 
 <section class="section-bg mt-5">
@@ -33,36 +36,60 @@
     </thead>
     <tbody>
       <tr>
-        <th><label for="company">会社・団体名</label></th>
+        <th class="form_required"><label for="company">会社・団体名</label></th>
         {{-- <td colspan="2">{{$user->company}}</td> --}}
         <td colspan="2">
           {{Form::text('company',$user->company,['class'=>'form-control'])}}
+          <p class="is-error-company" style="color: red"></p>
         </td>
       </tr>
       <tr>
-        <th><label for="first_name">担当者氏名</label></th>
+        <th class="form_required"><label for="first_name">担当者氏名</label></th>
         <td>
           <div class="d-flex">
-            {{Form::text('first_name',$user->first_name,['class'=>'form-control'])}}
-            {{Form::text('last_name',$user->last_name,['class'=>'form-control'])}}
+            <p class="w-50 mr-1">
+              {{Form::text('first_name',$user->first_name,['class'=>'form-control'])}}
+            <span class="is-error-first_name" style="color: red"></span>
+            </p>
+            <p class="w-50">
+              {{Form::text('last_name',$user->last_name,['class'=>'form-control'])}}
+            <span class="is-error-last_name" style="color: red"></span>
+            </p>
           </div>
         </td>
       </tr>
       <tr>
-        <th><label for="first_name_kana">担当者氏名（フリガナ）</label></th>
+        <th class="form_required"><label for="first_name_kana">担当者氏名（フリガナ）</label></th>
         <td>
           <div class="d-flex">
-            {{Form::text('first_name_kana',$user->first_name_kana,['class'=>'form-control'])}}
-            {{Form::text('last_name_kana',$user->last_name_kana,['class'=>'form-control'])}}
+            <p class="w-50 mr-1">
+              {{Form::text('first_name_kana',$user->first_name_kana,['class'=>'form-control'])}}
+            <span class="is-error-first_name_kana" style="color: red"></span>
+            </p>
+            <p class="w-50">
+              {{Form::text('last_name_kana',$user->last_name_kana,['class'=>'form-control'])}}
+            <span class="is-error-last_name_kana" style="color: red"></span>
+            </p>
           </div>
         </td>
       </tr>
       <tr>
         <th>郵便番号</th>
-        <td class="d-flex align-items-center">
+        {{-- <td class="d-flex align-items-center">
           <p>
             {{Form::text('post_code',$user->post_code,['class'=>'form-control'])}}
           </p>
+        </td> --}}
+        <td>
+          {{ Form::text('post_code', old('post_code'), [
+            'class' => 'form-control',
+            'onKeyUp'=>"AjaxZip3.zip2addr(this,'','address1','address2');",
+            'autocomplete'=>'off',
+            'placeholder' => '半角数字で入力してください',
+            'onpaste'=>"return false",
+            'oncontextmenu'=>"return false" 
+            ]) }}
+          <p class="is-error-post_code" style="color: red"></p>
         </td>
       </tr>
       <tr>
@@ -87,18 +114,21 @@
         <th><label for="tel">電話番号</label></th>
         <td colspan="2">
           {{Form::text('tel',$user->tel,['class'=>'form-control'])}}
+          <p class="is-error-tel" style="color: red"></p>
         </td>
       </tr>
       <tr>
         <th><label for="mobile">携帯番号</label></th>
         <td colspan="2">
           {{Form::text('mobile',$user->mobile,['class'=>'form-control'])}}
+          <p class="is-error-mobile" style="color: red"></p>
         </td>
       </tr>
       <tr>
         <th><label for="fax">FAX</label></th>
         <td colspan="2">
           {{Form::text('fax',$user->fax,['class'=>'form-control'])}}
+          <p class="is-error-fax" style="color: red"></p>
         </td>
       </tr>
       {{-- <tr>

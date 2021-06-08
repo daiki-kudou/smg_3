@@ -7,6 +7,49 @@ jQuery.validator.addMethod("katakana", function (value, element) {
 
 
 $(function () {
+  $("#preuser_index").validate({
+    rules: {
+      email: {
+        required: true,
+        email: true,
+        
+      },
+      email2: {
+        equalTo: '[name=email]',
+        required: true,
+      },
+    },
+    messages: {
+      email: {
+        required: "※必須項目です",
+        email: "※Emailの形式で入力してください",
+      },
+      email2: {
+        required: "※必須項目です",
+        equalTo: "一致しません"
+      },
+    },
+    errorPlacement: function (error, element) {
+      var name = element.attr('name');
+      if (element.attr('name') === 'category[]') {
+        error.appendTo($('.is-error-category'));
+      } else if (element.attr('name') === name) {
+        error.appendTo($('.is-error-' + name));
+      }
+    },
+    errorElement: "span",
+    errorClass: "is-error",
+  });
+  $('input').on('blur', function () {
+    $(this).valid();
+    // if ($('span').hasClass('is-error')) {
+    //   $('span').css('background', 'white');
+    // }
+  });
+});
+
+
+$(function () {
   $("#user_register").validate({
     rules: {
       company: {
@@ -27,6 +70,7 @@ $(function () {
         katakana: true,
       },
       post_code: {
+        minlength: 7,
         maxlength: 7,
         number: true,
       },
@@ -72,6 +116,7 @@ $(function () {
         katakana: "※全角カタカナで入力してください",
       },
       post_code: {
+        minlength: "７桁で入力してください",
         maxlength: "７桁で入力してください",
         number: "※半角数字で入力してください",
       },
@@ -261,9 +306,11 @@ $(function () {
         },
         luggage_count: {
           number: true,
+          range: [1, 49],
         },
         luggage_return: {
           number: true,
+          range: [1, 49],
         },
       },
       messages: {
@@ -289,9 +336,11 @@ $(function () {
         },
         luggage_count: {
           number: "※半角数字を入力してください",
+          range: "※最大値は49です",
         },
         luggage_return: {
           number: "※半角数字を入力してください",
+          range: "※最大値は49です",
         },
       },
       errorPlacement: function (error, element) {
@@ -517,3 +566,130 @@ $(function () {
 //   ExceptString(tel);
 //   ExceptString(equ);
 // })
+
+
+// マイページ登録者情報
+$(function () {
+  $("#register_edit").validate({
+    rules: {
+      company: {
+        required: true,
+      },
+      first_name: {
+        required: true,
+      },
+      last_name: {
+        required: true,
+      },
+      first_name_kana: {
+        required: true,
+        katakana: true,
+      },
+      last_name_kana: {
+        required: true,
+        katakana: true,
+      },
+      post_code: {
+        number: true,
+        maxlength: 7,
+        minlength: 7,
+      },
+      tel: {
+        number: true, 
+        minlength: 10
+      },
+      mobile: {
+        number: true, 
+        minlength: 11
+      },
+      fax: {
+        number: true,
+      },
+    },
+    messages: {
+      company: {
+        required: "※必須項目です",
+      },
+      first_name: {
+        required: "※必須項目です",
+      },
+      last_name: {
+        required: "※必須項目です",
+      },
+      first_name_kana: {
+        required: "※必須項目です",
+        katakana: "※全角カタカナで入力してください",
+      },
+      last_name_kana: {
+        required: "※必須項目です",
+        katakana: "※全角カタカナで入力してください",
+      },
+      post_code: {
+        number: "※半角数字で入力してください",
+        maxlength: "※7桁で入力してください",
+        minlength: "※7桁で入力してください",
+      },
+      tel: {
+        minlength: "※最低桁数は10桁です",
+        number: "※半角数字で入力してください",
+      },
+      mobile: {
+        minlength: "※最低桁数は10桁です",
+        number: "※半角数字で入力してください",
+      },
+      fax: {
+        number: "※半角数字で入力してください",
+      },
+    },
+    errorPlacement: function (error, element) {
+      var name = element.attr('name');
+      if (element.attr('name') === 'category[]') {
+        error.appendTo($('.is-error-category'));
+      } else if (element.attr('name') === name) {
+        error.appendTo($('.is-error-' + name));
+      }
+    },
+    errorElement: "span",
+    errorClass: "is-error",
+  });
+  $('input').on('blur', function () {
+    $(this).valid();
+    // if ($('span').hasClass('is-error')) {
+    //   $('span').css('background', 'white');
+    // }
+  });
+});
+
+
+// マイページ メールアドレス変更
+$(function () {
+  $("#email_reset").validate({
+    rules: {
+      new_email: {
+        email: true,
+      },
+    },
+    messages: {
+      new_email: {
+        email: "※メールアドレスの形式で入力してください",
+      },
+    },
+    errorPlacement: function (error, element) {
+      var name = element.attr('name');
+      if (element.attr('name') === 'category[]') {
+        error.appendTo($('.is-error-category'));
+      } else if (element.attr('name') === name) {
+        error.appendTo($('.is-error-' + name));
+      }
+    },
+    errorElement: "span",
+    errorClass: "is-error",
+  });
+  $('input').on('blur', function () {
+    $(this).valid();
+  });
+});
+
+
+
+

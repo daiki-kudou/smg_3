@@ -13,7 +13,7 @@
           {{ session('status') }}
         </div>
         @else
-        <p class="">メールアドレスを入力してください。パスワード再設定用のリンクを送信いたします</p>
+        <p class="txtCenter">メールアドレスを入力してください。パスワード再設定用のリンクを送信いたします</p>
         @endif
         <form method="POST" action="{{ route('user.password.email') }}">
           @csrf
