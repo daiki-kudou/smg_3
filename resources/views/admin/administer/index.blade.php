@@ -3,17 +3,6 @@
 <link href="{{ asset('/css/template.css') }}" rel="stylesheet">
 
 <div class="container-field mt-3">
-  <div class="float-right">
-    <nav aria-label="breadcrumb">
-      <ol class="breadcrumb">
-        <li class="breadcrumb-item active">
-          工藤さん！！！パンくずお願いします。
-          {{-- {{ Breadcrumbs::render(Route::currentRouteName()) }} --}}
-        </li>
-      </ol>
-    </nav>
-  </div>
-
   <h2 class="mt-3 mb-3">管理者一覧</h2>
   <hr>
 </div>
