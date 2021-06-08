@@ -1,6 +1,7 @@
 @extends('layouts.user.app')
 @section('content')
 <link href="{{ asset('/css/template.css') }}" rel="stylesheet">
+<script src="{{ asset('/js/user_reservation/validation.js') }}"></script>
 
 @if ($errors->any())
 <div class="alert alert-danger">
@@ -33,15 +34,14 @@
   
   <div class="mt-5">
     <p class="mb-2">新しいメールアドレスを入力してください</p>
-    {{ Form::open(['url' => 'user/home/email_reset_create', 'method'=>'POST']) }}
+    {{ Form::open(['url' => 'user/home/email_reset_create', 'method'=>'POST', 'id'=>'email_reset']) }}
     @csrf
     <div class="d-flex w-50">
       {{Form::text('new_email',old('new_email'),['class' => 'form-control'])}}
       {{Form::submit('送信する',['class' => 'btn more_btn'])}}
     </div>
+    <p class="is-error-new_email" style="color: red"></p>
     {{Form::close()}}
   </div>
 </section>
-
-
 @endsection

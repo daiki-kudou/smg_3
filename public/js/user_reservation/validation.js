@@ -657,3 +657,37 @@ $(function () {
     // }
   });
 });
+
+
+// マイページ メールアドレス変更
+$(function () {
+  $("#email_reset").validate({
+    rules: {
+      new_email: {
+        email: true,
+      },
+    },
+    messages: {
+      new_email: {
+        email: "※メールアドレスの形式で入力してください",
+      },
+    },
+    errorPlacement: function (error, element) {
+      var name = element.attr('name');
+      if (element.attr('name') === 'category[]') {
+        error.appendTo($('.is-error-category'));
+      } else if (element.attr('name') === name) {
+        error.appendTo($('.is-error-' + name));
+      }
+    },
+    errorElement: "span",
+    errorClass: "is-error",
+  });
+  $('input').on('blur', function () {
+    $(this).valid();
+  });
+});
+
+
+
+
