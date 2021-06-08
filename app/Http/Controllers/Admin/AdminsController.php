@@ -4,11 +4,10 @@ namespace App\Http\Controllers\Admin;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Hash;
+use App\Models\Admin;
 
-use App\Models\Agent;
-
-
-class AgentsController extends Controller
+class AdminsController extends Controller
 {
   /**
    * Display a listing of the resource.
@@ -17,10 +16,9 @@ class AgentsController extends Controller
    */
   public function index()
   {
-    // 検索ロジックはモデルに移行
-    $agents = Agent::orderBy('id', 'desc')->paginate(30);
-    // 画面表示
-    return view('admin.agents.index', compact("agents"));
+    $auth = auth('admin')->user()->toArray();
+    $admins = Admin::orderBy("id")->get()->toArray();
+    return view('admin.administer.index', compact('admins', 'auth'));
   }
 
   /**
@@ -30,7 +28,7 @@ class AgentsController extends Controller
    */
   public function create()
   {
-    return view('admin.agents.create');
+    return view('admin.administer.create');
   }
 
   /**
@@ -41,26 +39,23 @@ class AgentsController extends Controller
    */
   public function store(Request $request)
   {
-    $agent = new Agent;
-    $agent->StoreAgent($request);
-
-    $request->session()->regenerate();
-    return redirect('admin/agents');
-  }
-
-  /**
-   * Display the specified resource.
-   *
-   * @param  int  $id
-   * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Http\Response|\Illuminate\View\View
-   */
-  public function show($id)
-  {
-    $agent = Agent::find($id);
-    return view('admin.agents.show', [
-      'agent' => $agent,
+    $validatedData = $request->validate([
+      'name' => 'required',
+      'email' => 'required|email|unique:admins,email',
+      'password' => 'required',
     ]);
+
+    $admin = new Admin;
+    $admin->create([
+      'name' => $request->name,
+      'email' => $request->email,
+      'password' => Hash::make($request->password),
+    ]);
+
+    return redirect(route('admin.administer.index'));
   }
+
+
 
   /**
    * Show the form for editing the specified resource.
@@ -70,10 +65,11 @@ class AgentsController extends Controller
    */
   public function edit($id)
   {
-    $agent = Agent::find($id);
-    return view('admin.agents.edit', [
-      'agent' => $agent,
-    ]);
+    $auth = auth('admin')->user()->toArray();
+    if ($auth['id'] != $id) {
+      return redirect(route('admin.administer.index'));
+    }
+    return view('admin.administer.edit', compact('auth'));
   }
 
   /**
@@ -85,28 +81,14 @@ class AgentsController extends Controller
    */
   public function update(Request $request, $id)
   {
-    $agent = Agent::find($id);
-    $agent->updateAgent($request);
-
-    return redirect('admin/agents');
-  }
-
-  /**
-   * Remove the specified resource from storage.
-   *
-   * @param  int  $id
-   * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Http\RedirectResponse|\Illuminate\Http\Response|\Illuminate\Routing\Redirector
-   */
-  public function destroy($id)
-  {
-    $agent = Agent::find($id);
-    $agent->delete();
-
-    return redirect('admin/agents');
-  }
-
-  public function getAgent(Request $request)
-  {
-    return Agent::find($request->agent_id);
+    $auth = auth('admin')->user()->toArray();
+    if ($auth['id'] != $id) {
+      return redirect(route('admin.administer.index'));
+    }
+    $admin = Admin::find($id);
+    $admin->update(
+      ['name' => $request->name, 'email' => $request->email]
+    );
+    return redirect(route('admin.administer.index'));
   }
 }
