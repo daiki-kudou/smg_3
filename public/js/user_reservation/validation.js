@@ -564,3 +564,96 @@ $(function () {
 //   ExceptString(tel);
 //   ExceptString(equ);
 // })
+
+
+// マイページ登録者情報
+$(function () {
+  $("#register_edit").validate({
+    rules: {
+      company: {
+        required: true,
+      },
+      first_name: {
+        required: true,
+      },
+      last_name: {
+        required: true,
+      },
+      first_name_kana: {
+        required: true,
+        katakana: true,
+      },
+      last_name_kana: {
+        required: true,
+        katakana: true,
+      },
+      post_code: {
+        number: true,
+        maxlength: 7,
+        minlength: 7,
+      },
+      tel: {
+        number: true, 
+        minlength: 10
+      },
+      mobile: {
+        number: true, 
+        minlength: 11
+      },
+      fax: {
+        number: true,
+      },
+    },
+    messages: {
+      company: {
+        required: "※必須項目です",
+      },
+      first_name: {
+        required: "※必須項目です",
+      },
+      last_name: {
+        required: "※必須項目です",
+      },
+      first_name_kana: {
+        required: "※必須項目です",
+        katakana: "※全角カタカナで入力してください",
+      },
+      last_name_kana: {
+        required: "※必須項目です",
+        katakana: "※全角カタカナで入力してください",
+      },
+      post_code: {
+        number: "※半角数字で入力してください",
+        maxlength: "※7桁で入力してください",
+        minlength: "※7桁で入力してください",
+      },
+      tel: {
+        minlength: "※最低桁数は10桁です",
+        number: "※半角数字で入力してください",
+      },
+      mobile: {
+        minlength: "※最低桁数は10桁です",
+        number: "※半角数字で入力してください",
+      },
+      fax: {
+        number: "※半角数字で入力してください",
+      },
+    },
+    errorPlacement: function (error, element) {
+      var name = element.attr('name');
+      if (element.attr('name') === 'category[]') {
+        error.appendTo($('.is-error-category'));
+      } else if (element.attr('name') === name) {
+        error.appendTo($('.is-error-' + name));
+      }
+    },
+    errorElement: "span",
+    errorClass: "is-error",
+  });
+  $('input').on('blur', function () {
+    $(this).valid();
+    // if ($('span').hasClass('is-error')) {
+    //   $('span').css('background', 'white');
+    // }
+  });
+});
