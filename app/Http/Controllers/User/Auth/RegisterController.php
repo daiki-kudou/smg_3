@@ -12,6 +12,11 @@ use Illuminate\Auth\Events\Registered;
 use Illuminate\Support\Facades\Auth;
 use App\Models\User;
 
+use Illuminate\Support\Facades\Mail;
+use App\Mail\AdminFinLeg;
+use App\Mail\UserFinLeg;
+
+
 class RegisterController extends Controller
 {
   use RegistersUsers;
@@ -118,10 +123,13 @@ class RegisterController extends Controller
       ));
     }
     $this->validator($request->all())->validate();
-
     event(new Registered($user = $this->create($request->all())));
 
-    // return view('user.auth.register_done');
+    $admin = explode(',', config('app.admin_email'));
+    $user_email = $user->email;
+    Mail::to($admin)->send(new AdminFinLeg($user));
+    Mail::to($user_email)->send(new UserFinLeg($user));
+
     return redirect(url('user/login'))->with('flash_message', '会員登録が完了しました。下記より、ログインしてください。');
   }
 }
