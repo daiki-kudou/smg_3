@@ -1107,10 +1107,11 @@ table td.table_column p:last-child {
     padding: 0.5em 2em;
     background: #3E4B5B;
     color: #fff;
+    border: 1px solid #3E4B5B;
 }
 
 .count-sum dd {
-    padding: 0.5em 5em;
+    padding: 0.5em 0.5em 0.5em 5em;
     border: 1px solid #3E4B5B;
 }
 .cancel-color {

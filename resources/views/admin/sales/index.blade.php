@@ -212,7 +212,7 @@
 <!-- 検索　終わり------------------------------------------------ -->
 
 <div class="d-flex justify-content-between">
-  <dl class="count-sum d-flex">
+  <dl class="count-sum d-flex align-items-center">
     <dt>売上総額</dt>
     <dd>
       @foreach ($request->except('_token') as $item)
@@ -225,15 +225,15 @@
   </dl>
 
 
-  <p class="ml-1 text-right">
+  
     {{ Form::open(['url' => 'admin/csv', 'method'=>'post']) }}
     @csrf
     {{Form::hidden('csv_arrays',json_encode($for_csv))}}
 
-    {{Form::submit('表示結果ダウンロード(CSV)',['class'=>'btn more_btn4_lg'])}}
+    <p class="ml-1 text-right">{{Form::submit('表示結果ダウンロード(CSV)',['class'=>'btn more_btn4_lg'])}}</p>
     {{Form::close()}}
 
-  </p>
+  
 </div>
 <div class="mt-3">
   <p class="text-right font-weight-bold">
