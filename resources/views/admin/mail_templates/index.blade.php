@@ -80,7 +80,7 @@
 
     <tbody>
       <tr>
-        <td rowspan="2">管理者主導仮押えから本予約切り替え</td>
+        <td rowspan="2">管理者主導仮押えから本予約切り替え（ユーザー承認）</td>
         <td>【管理者通知】SMGアクセア貸し会議室　予約完了のお知らせ</td>
         <td>管理者</td>
         <td><a href="{{url('/admin/maileclipse/templates/edit/adminPreResToRes')}}" class="more_btn"
@@ -155,14 +155,14 @@
         <td rowspan="2">Web予約</td>
         <td>【管理者通知】SMGアクセア貸し会議室　予約申込受付のお知らせ</td>
         <td>管理者</td>
-        <td><a href="http://staging-smg2.herokuapp.com/admin/maileclipse/templates/edit/adminReqRes" class="more_btn"
-            target="_blank">編集</a></td>
+        <td><a href="{{url('/admin/maileclipse/templates/edit/adminReqRes')}}" class="more_btn" target="_blank">編集</a>
+        </td>
       </tr>
       <tr>
         <td>SMGアクセア貸し会議室　予約申込受付のお知らせ</td>
         <td>ユーザー</td>
-        <td><a href="http://staging-smg2.herokuapp.com/admin/maileclipse/templates/edit/userReqRes" class="more_btn"
-            target="_blank">編集</a></td>
+        <td><a href="{{url('/admin/maileclipse/templates/edit/userReqRes')}}" class="more_btn" target="_blank">編集</a>
+        </td>
       </tr>
     </tbody>
 

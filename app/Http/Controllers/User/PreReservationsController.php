@@ -14,8 +14,10 @@ use App\Models\Equipment;
 use App\Models\Service;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\DB;
-
 use App\Traits\PaginatorTrait;
+use Illuminate\Support\Facades\Mail;
+use App\Mail\AdminPreResToRes;
+use App\Mail\UserPreResToRes;
 
 
 class PreReservationsController extends Controller
@@ -114,6 +116,12 @@ class PreReservationsController extends Controller
       $pre_breakdowns = new PreBreakdown;
       $pre_breakdowns->PreBreakdownCreate($request, $pre_reservation);
       $pre_reservation->MoveToReservation($request);
+
+      $admin = explode(',', config('app.admin_email'));
+      Mail::to($admin) //管理者
+        ->send(new AdminPreResToRes($pre_reservation));
+      Mail::to($pre_reservation->user->email) //ユーザー
+        ->send(new UserPreResToRes($pre_reservation));
     });
     return redirect(route('user.pre_reservations.show_cfm'));
   }

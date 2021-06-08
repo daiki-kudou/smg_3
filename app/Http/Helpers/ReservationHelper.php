@@ -111,6 +111,12 @@ class ReservationHelper
     return [$venue->post_code, $venue->address1, $venue->address2, $venue->address3, $venue->remark];
   }
 
+  public static function getVenueFullAddress($venue_id)
+  {
+    $venue = Venue::find($venue_id);
+    return $venue->post_code . ' ' . $venue->address1 . $venue->address2 . $venue->address3;
+  }
+
   public static function getCompany($user_id)
   {
     $user = User::withTrashed()->find($user_id);
