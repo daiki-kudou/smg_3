@@ -7,6 +7,49 @@ jQuery.validator.addMethod("katakana", function (value, element) {
 
 
 $(function () {
+  $("#preuser_index").validate({
+    rules: {
+      email: {
+        required: true,
+        email: true,
+        
+      },
+      email2: {
+        equalTo: '[name=email]',
+        required: true,
+      },
+    },
+    messages: {
+      email: {
+        required: "※必須項目です",
+        email: "※Emailの形式で入力してください",
+      },
+      email2: {
+        required: "※必須項目です",
+        equalTo: "一致しません"
+      },
+    },
+    errorPlacement: function (error, element) {
+      var name = element.attr('name');
+      if (element.attr('name') === 'category[]') {
+        error.appendTo($('.is-error-category'));
+      } else if (element.attr('name') === name) {
+        error.appendTo($('.is-error-' + name));
+      }
+    },
+    errorElement: "span",
+    errorClass: "is-error",
+  });
+  $('input').on('blur', function () {
+    $(this).valid();
+    // if ($('span').hasClass('is-error')) {
+    //   $('span').css('background', 'white');
+    // }
+  });
+});
+
+
+$(function () {
   $("#user_register").validate({
     rules: {
       company: {

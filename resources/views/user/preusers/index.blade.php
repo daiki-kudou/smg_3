@@ -1,6 +1,8 @@
 @extends('layouts.reservation.app')
 @section('content')
 
+<script src="{{ asset('/js/user_reservation/validation.js') }}"></script>
+
 <div class="contents mt-5">
   <div class="pagetop-text">
     <h1 class="page-title oddcolor"><span>会員登録</span></h1>
@@ -8,7 +10,7 @@
   </div>
 </div>
 <section class="contents">
-  <form action="/user/preusers/create" method="POST">
+  <form action="/user/preusers/create" method="POST" id="preuser_index">
     @csrf
     <div class="bgColorGray">
       <table>
@@ -17,7 +19,7 @@
           <td>
             <input type="email" class="form-control text1 " id="email" aria-describedby="emailHelp"
               placeholder="sample@sample.com" name="email">
-            <a name="a-mail01" class="error-r"></a>
+              <p class="is-error-email" style="color: red"></p>
           </td>
         </tr>
         <tr>
@@ -25,7 +27,7 @@
           <td>
             <input type="email2" class="form-control text1" id="email2" aria-describedby="emailHelp"
               placeholder="sample@sample.com" name="email2">
-            <a name="a-mail02" class="error-r"></a>
+            <p class="is-error-email2" style="color: red"></p>
           </td>
         </tr>
       </table>
