@@ -304,9 +304,11 @@ $(function () {
         },
         luggage_count: {
           number: true,
+          range: [1, 49],
         },
         luggage_return: {
           number: true,
+          range: [1, 49],
         },
       },
       messages: {
@@ -332,9 +334,11 @@ $(function () {
         },
         luggage_count: {
           number: "※半角数字を入力してください",
+          range: "※最大値は49です",
         },
         luggage_return: {
           number: "※半角数字を入力してください",
+          range: "※最大値は49です",
         },
       },
       errorPlacement: function (error, element) {
