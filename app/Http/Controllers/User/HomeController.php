@@ -11,11 +11,8 @@ use App\Models\Reservation;
 use App\Models\Bill;
 use App\Models\Cxl;
 use App\Models\EmailReset;
-
 use Illuminate\Support\Facades\Auth;
-
 use PDF;
-
 use Illuminate\Support\Facades\DB; //トランザクション用
 
 use App\Mail\ConfirmReservationByUser;
@@ -23,16 +20,14 @@ use App\Mail\ConfirmToAdmin;
 use App\Mail\AdminFinAddRes;
 use App\Mail\UserFinAddRes;
 use App\Mail\ResetEmail;
+use App\Mail\AdminUnSub;
+use App\Mail\UserUnSub;
 use Illuminate\Support\Facades\Mail;
 
 use Illuminate\Support\Str;
-
 use Carbon\Carbon;
-
 use App\Traits\PaginatorTrait;
-
 use Session;
-
 use Artisan;
 
 
@@ -295,9 +290,14 @@ class HomeController extends Controller
       return redirect(url('user/home'));
     }
     $user = User::with(["reservations.bills", "pre_reservations"])->find($id);
+    $user_email = $user->email;
+    $user_company = $user->company;
     $user->delete();
-    // Artisan::call('cache:clear');
-    // Session::flush();
+
+    $admin = explode(',', config('app.admin_email'));
+    Mail::to($admin)->send(new AdminUnSub($user_company)); // 管理者に予約完了メール送信
+    Mail::to($user_email)->send(new UserUnSub($user_company)); // ユーザーに予約完了メール送信
+
     return redirect(url('/cxl_member_ship_done'));
   }
 
