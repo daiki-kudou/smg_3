@@ -7,7 +7,7 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
 
-class UserPreResToRes extends Mailable
+class CronTest extends Mailable
 {
   use Queueable, SerializesModels;
 
@@ -16,9 +16,9 @@ class UserPreResToRes extends Mailable
    *
    * @return void
    */
-  public function __construct($pre_reservation)
+  public function __construct()
   {
-    $this->pre_reservation = $pre_reservation;
+    //
   }
 
   /**
@@ -28,7 +28,9 @@ class UserPreResToRes extends Mailable
    */
   public function build()
   {
-    return $this->view('maileclipse::templates.userPreResToRes')
-      ->subject('【SMGアクセア貸し会議室】　予約申込受付のお知らせ')->with(['pre_reservation' => $this->pre_reservation]);
+    return $this->view('maileclipse::templates.cronTest')
+      ->subject('クーロンのテスト')
+      // ->with(['token' => $this->token,])
+    ;
   }
 }

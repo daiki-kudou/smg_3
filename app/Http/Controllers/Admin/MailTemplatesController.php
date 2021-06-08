@@ -11,4 +11,8 @@ class MailTemplatesController extends Controller
   {
     return view('admin.mail_templates.index');
   }
+  public function cron()
+  {
+    return view('admin.mail_templates.cron');
+  }
 }

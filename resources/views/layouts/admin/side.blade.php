@@ -309,6 +309,14 @@
             </a>
           </li>
         </ul>
+        <ul class="nav nav-treeview">
+          <li class="nav-item">
+            <a href="{{ url('admin/cron_templates') }}" class="nav-link mail_templates">
+              <i class="far fa-circle nav-icon ml-4"></i>
+              <p>一覧（定期実行）</p>
+            </a>
+          </li>
+        </ul>
       </li>
 
       <li class="nav-item has-treeview">

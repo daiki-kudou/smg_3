@@ -80,7 +80,7 @@
 
     <tbody>
       <tr>
-        <td rowspan="2">管理者主導仮押えから本予約切り替え</td>
+        <td rowspan="2">管理者主導仮押えから本予約切り替え（ユーザー承認）</td>
         <td>【管理者通知】SMGアクセア貸し会議室　予約完了のお知らせ</td>
         <td>管理者</td>
         <td><a href="{{url('/admin/maileclipse/templates/edit/adminPreResToRes')}}" class="more_btn"
@@ -155,14 +155,14 @@
         <td rowspan="2">Web予約</td>
         <td>【管理者通知】SMGアクセア貸し会議室　予約申込受付のお知らせ</td>
         <td>管理者</td>
-        <td><a href="http://staging-smg2.herokuapp.com/admin/maileclipse/templates/edit/adminReqRes" class="more_btn"
-            target="_blank">編集</a></td>
+        <td><a href="{{url('/admin/maileclipse/templates/edit/adminReqRes')}}" class="more_btn" target="_blank">編集</a>
+        </td>
       </tr>
       <tr>
         <td>SMGアクセア貸し会議室　予約申込受付のお知らせ</td>
         <td>ユーザー</td>
-        <td><a href="http://staging-smg2.herokuapp.com/admin/maileclipse/templates/edit/userReqRes" class="more_btn"
-            target="_blank">編集</a></td>
+        <td><a href="{{url('/admin/maileclipse/templates/edit/userReqRes')}}" class="more_btn" target="_blank">編集</a>
+        </td>
       </tr>
     </tbody>
 
@@ -200,42 +200,40 @@
     </tbody>
 
 
-    <tbody>
+    {{-- <tbody>
       <tr>
         <td rowspan="2">未入金時、催促(5営業日前)</td>
         <td>【管理者通知】SMGアクセア貸し会議室　ご入金のお願い</td>
         <td>管理者</td>
         <td><a href="{{url('/admin/maileclipse/templates/edit/adminRemindPaid')}}" class="more_btn"
-            target="_blank">編集</a>
-        </td>
-      </tr>
-      <tr>
-        <td>SMGアクセア貸し会議室　ご入金のお願い</td>
-        <td>ユーザー</td>
-        <td><a href="{{url('/admin/maileclipse/templates/edit/userRemindPaid')}}" class="more_btn"
-            target="_blank">編集</a>
-        </td>
-      </tr>
-    </tbody>
+    target="_blank">編集</a>
+    </td>
+    </tr>
+    <tr>
+      <td>SMGアクセア貸し会議室　ご入金のお願い</td>
+      <td>ユーザー</td>
+      <td><a href="{{url('/admin/maileclipse/templates/edit/userRemindPaid')}}" class="more_btn" target="_blank">編集</a>
+      </td>
+    </tr>
+    </tbody> --}}
 
 
-    <tbody>
+    {{-- <tbody>
       <tr>
         <td rowspan="2">未入金時、催促(2営業日前)</td>
         <td>【管理者通知】SMGアクセア貸し会議室　ご入金のお願い(お支払いの督促) </td>
         <td>管理者</td>
         <td><a href="{{url('/admin/maileclipse/templates/edit/adminRemindPaid2')}}" class="more_btn"
-            target="_blank">編集</a>
-        </td>
-      </tr>
-      <tr>
-        <td>SMGアクセア貸し会議室　ご入金のお願い(お支払いの督促) </td>
-        <td>ユーザー</td>
-        <td><a href="{{url('/admin/maileclipse/templates/edit/userRemindPaid2')}}" class="more_btn"
-            target="_blank">編集</a>
-        </td>
-      </tr>
-    </tbody>
+    target="_blank">編集</a>
+    </td>
+    </tr>
+    <tr>
+      <td>SMGアクセア貸し会議室　ご入金のお願い(お支払いの督促) </td>
+      <td>ユーザー</td>
+      <td><a href="{{url('/admin/maileclipse/templates/edit/userRemindPaid2')}}" class="more_btn" target="_blank">編集</a>
+      </td>
+    </tr>
+    </tbody> --}}
 
 
     <tbody>
@@ -255,22 +253,22 @@
     </tbody>
 
 
-    <tbody>
+    {{-- <tbody>
       <tr>
-        <td rowspan="2">管理者ダブルチェック完了、ユーザーキャンセル承認送付(72時間経過後)</td>
+        <td rowspan="2">管理者ダブルチェック完了、ユーザーキャンセル承認送付催促(72時間経過後)</td>
         <td>【管理者通知】SMGアクセア貸し会議室　キャンセル承認のお願い(再送)</td>
         <td>管理者</td>
         <td><a href="{{url('/admin/maileclipse/templates/edit/adminRemindCxlChck')}}" class="more_btn"
-            target="_blank">編集</a></td>
-      </tr>
-      <tr>
-        <td>SMGアクセア貸し会議室　キャンセル承認のお願い(再送)</td>
-        <td>ユーザー</td>
-        <td><a href="{{url('/admin/maileclipse/templates/edit/userRemindCxlChck')}}" class="more_btn"
-            target="_blank">編集</a>
-        </td>
-      </tr>
-    </tbody>
+    target="_blank">編集</a></td>
+    </tr>
+    <tr>
+      <td>SMGアクセア貸し会議室　キャンセル承認のお願い(再送)</td>
+      <td>ユーザー</td>
+      <td><a href="{{url('/admin/maileclipse/templates/edit/userRemindCxlChck')}}" class="more_btn"
+          target="_blank">編集</a>
+      </td>
+    </tr>
+    </tbody> --}}
 
 
     <tbody>
@@ -307,7 +305,7 @@
     </tbody>
 
 
-    <tbody>
+    {{-- <tbody>
       <tr>
         <td rowspan="2">キャンセル料入金催促(5営業日前)</td>
         <td>【管理者通知】SMGアクセア貸し会議室　ご入金のお願い</td>
@@ -321,26 +319,25 @@
         <td><a href="" class="more_btn">未　編集</a>
         </td>
       </tr>
-    </tbody>
+    </tbody> --}}
 
 
-    <tbody>
+    {{-- <tbody>
       <tr>
         <td rowspan="2">キャンセル料入金催促(2営業日前)</td>
         <td>【管理者通知】SMGアクセア貸し会議室　ご入金のお願い(お支払いの督促)</td>
         <td>管理者</td>
         <td><a href="{{url('/admin/maileclipse/templates/edit/adminRemindCxl2')}}" class="more_btn"
-            target="_blank">編集</a>
-        </td>
-      </tr>
-      <tr>
-        <td>SMGアクセア貸し会議室　ご入金のお願い(お支払いの督促)</td>
-        <td>ユーザー</td>
-        <td><a href="{{url('/admin/maileclipse/templates/edit/userRemindCxl2')}}" class="more_btn"
-            target="_blank">編集</a>
-        </td>
-      </tr>
-    </tbody>
+    target="_blank">編集</a>
+    </td>
+    </tr>
+    <tr>
+      <td>SMGアクセア貸し会議室　ご入金のお願い(お支払いの督促)</td>
+      <td>ユーザー</td>
+      <td><a href="{{url('/admin/maileclipse/templates/edit/userRemindCxl2')}}" class="more_btn" target="_blank">編集</a>
+      </td>
+    </tr>
+    </tbody> --}}
 
 
     <tbody>
@@ -360,7 +357,7 @@
     </tbody>
 
 
-    <tbody>
+    {{-- <tbody>
       <tr>
         <td rowspan="2">パスワード再発行</td>
         <td>【管理者通知】SMGアクセア貸し会議室　パスワードの再発行について</td>
@@ -372,7 +369,7 @@
         <td>ユーザー</td>
         <td><a href="" class="more_btn" target="_blank">編集</a></td>
       </tr>
-    </tbody>
+    </tbody> --}}
 
 
   </table>

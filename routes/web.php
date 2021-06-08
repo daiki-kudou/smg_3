@@ -383,6 +383,7 @@ Route::namespace('Admin')->prefix('admin')->name('admin.')->group(function () {
 
     // メールてんぷれ
     Route::get('mail_templates', 'MailTemplatesController@index');
+    Route::get('cron_templates', 'MailTemplatesController@cron');
 
     Route::post('invoice', 'InvoiceController@show');
     Route::post('board', 'BoardController@show');
