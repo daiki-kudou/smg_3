@@ -1941,7 +1941,7 @@ $(function () {
         form.submit();
       },
     });
-    $("input").on("blur", function () {
+    $("input").on("blur input change", function () {
       $(this).valid();
     });
   });
