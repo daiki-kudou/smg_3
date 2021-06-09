@@ -43,6 +43,8 @@ class PreReservationsController extends Controller
    */
   public function index(Request $request)
   {
+
+
     $today = date('Y-m-d', strtotime(Carbon::today()));
 
     if (!empty($request->time_over)) {
@@ -738,34 +740,24 @@ class PreReservationsController extends Controller
    */
   public function destroy(Request $request)
   {
-    if (count($request->all()) == 1) {
-      $request->session()->regenerate();
-      return redirect()->route('admin.pre_reservations.index')->with('flash_message_error', '仮押えが選択されていません');
-    } else {
+    if ($request->except('_token')) {
       DB::transaction(function () use ($request) { //トランザクションさせる
-        foreach ($request->all() as $key => $value) {
+        foreach ($request->except('_token') as $key => $value) {
           $pre_reservation = PreReservation::find((int) $value);
-          if ($pre_reservation) {
-            $pre_reservation->delete();
+          $pre_reservation->delete();
+          if ($pre_reservation->user_id > 0) {
             $admin = explode(',', config('app.admin_email'));
             $user = User::find($pre_reservation->user_id);
-
-            try {
-              $user->email;
-            } catch (\Exception $e) {
-              DB::rollBack();
-              echo 'failed';
-              return redirect()->route('admin.pre_reservations.index')->with('flash_message_error', '一部ユーザーのメールアドレスに誤りがあり送信できませんでした');
-            }
-            Mail::to($admin) //管理者
-              ->send(new AdminPreResCxl($pre_reservation, $user));
-            Mail::to($user->email) //ユーザ
-              ->send(new UserPreResCxl($pre_reservation, $user));
+            Mail::to($admin)->send(new AdminPreResCxl($pre_reservation, $user));
+            Mail::to($user->email)->send(new UserPreResCxl($pre_reservation, $user));
           }
         }
       });
       $request->session()->regenerate();
-      return redirect()->route('admin.pre_reservations.index');
+      return redirect()->route('admin.pre_reservations.index')->with('flash_message', '仮抑え削除が成功しました');
+    } else {
+      $request->session()->regenerate();
+      return redirect()->route('admin.pre_reservations.index')->with('flash_message_error', '仮押えが選択されていません');
     }
   }
 }

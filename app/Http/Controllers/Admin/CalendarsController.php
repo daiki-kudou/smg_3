@@ -40,7 +40,6 @@ class CalendarsController extends Controller
     ]);
   }
 
-
   public function date_calendar(Request $request)
   {
     $note = Note::all();
@@ -50,10 +49,8 @@ class CalendarsController extends Controller
     $reservations = Reservation::with('bills')->where('reserve_date', $today)->get();
     $pre_reservations = PreReservation::where('reserve_date', $today)->get();
     $venues = Venue::all();
-
     $json_result = $this->dateCalendar($reservations);
     $pre_json_result = $this->dateCalendar($pre_reservations);
-
     return view(
       'admin.calendar.date_calendar',
       compact(

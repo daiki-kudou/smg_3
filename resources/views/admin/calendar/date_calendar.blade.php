@@ -136,25 +136,28 @@
   <iframe class="mt-5" src="/admin/note" frameborder="0" width="100%" height="500px;" scrolling="no"></iframe>
 
   @foreach ($reservations as $reservation)
-  <input type="hidden" name="venue_id" value="{{($reservation->venue_id)}}">
-  <input type="hidden" name="start" value="{{date('H:i',strtotime($reservation->enter_time))}}">
-  <input type="hidden" name="status" value="{{$reservation->bills->sortBy("id")->first()->reservation_status }}">
-  <input type="hidden" name="company"
+  予約<br>
+  <input type="text" name="venue_id" value="{{($reservation->venue_id)}}">
+  <input type="text" name="start" value="{{date('H:i',strtotime($reservation->enter_time))}}">
+  <input type="text" name="status" value="{{$reservation->bills->sortBy("id")->first()->reservation_status }}">
+  <input type="text" name="company"
     value="{{ ReservationHelper::checkAgentOrUserCompany($reservation->user_id,$reservation->agent_id)}}">
-  <input type="hidden" name="reservation_id" value="{{$reservation->id }}">
+  <input type="text" name="reservation_id" value="{{$reservation->id }}">
   @endforeach
-  <input type="hidden" name="json" value="{{$json_result}}">
+  <input type="text" name="json" value="{{$json_result}}">
 
+  <br>
 
   @foreach ($pre_reservations as $pre_reservation)
-  <input type="hidden" name="pre_reservation_venue_id" value="{{($pre_reservation->venue_id)}}">
-  <input type="hidden" name="pre_reservation_start" value="{{date('H:i',strtotime($pre_reservation->enter_time))}}">
-  <input type="hidden" name="pre_reservation_finish" value="{{date('H:i',strtotime($pre_reservation->leave_time)) }}">
-  <input type="hidden" name="pre_company"
+  仮抑え<br>
+  <input type="text" name="pre_reservation_venue_id" value="{{($pre_reservation->venue_id)}}">
+  <input type="text" name="pre_reservation_start" value="{{date('H:i',strtotime($pre_reservation->enter_time))}}">
+  <input type="text" name="pre_reservation_finish" value="{{date('H:i',strtotime($pre_reservation->leave_time)) }}">
+  <input type="text" name="pre_company"
     value="{{ReservationHelper::checkAgentOrUserCompany($pre_reservation->user_id,$pre_reservation->agent_id) }}">
-  <input type="hidden" name="pre_reservation_id" value="{{$pre_reservation->id }}">
+  <input type="text" name="pre_reservation_id" value="{{$pre_reservation->id }}">
   @endforeach
-  <input type="hidden" name="pre_json" value="{{$pre_json_result}}">
+  <input type="text" name="pre_json" value="{{$pre_json_result}}">
 </div>
 
 
