@@ -1451,16 +1451,20 @@ $(function () {
     if ($('select[name="layout"] option:selected').val() == 1) {
       $("input[name='layout_prepare']").rules("add", {
         required: true,
+        min: 1,
         messages: {
           required: "レイアウト変更が【可】の場合、必須項目です",
+          min: "0以上を入力してください",
         },
       });
       $("input[name='layout_prepare']").prop("readonly", false);
 
       $("input[name='layout_clean']").rules("add", {
         required: true,
+        min: 1,
         messages: {
           required: "レイアウト変更が【可】の場合、必須項目です",
+          min: "0以上を入力してください",
         },
       });
       $("input[name='layout_clean']").prop("readonly", false);
@@ -1565,9 +1569,11 @@ $(function () {
       cost: { required: true, range: [1, 100], maxlength: 3 },
       layout_prepare: {
         required: $("#layout").val() == 1,
+        min: $("#layout").val() == 1,
       },
       layout_clean: {
         required: $("#layout").val() == 1,
+        min: $("#layout").val() == 1,
       },
       reserver_tel: {
         number: true,
@@ -1663,9 +1669,11 @@ $(function () {
       },
       layout_prepare: {
         required: "レイアウト変更が【可】の場合、必須項目です",
+        min: "0以上を入力してください",
       },
       layout_clean: {
         required: "レイアウト変更が【可】の場合、必須項目です",
+        min: "0以上を入力してください",
       },
       reserver_tel: {
         number: "※半角数字で入力してください",
