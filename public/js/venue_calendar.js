@@ -1,89 +1,90 @@
+// 予約カレンダー
 $(function () {
-  var name = $('input[name="start"]');
-  for (let nums = 0; nums < name.length; nums++) {
-    var start = $('input[name="start"]').eq(nums).val();
-    var finish = $('input[name="finish"]').eq(nums).val();
-    var s_date = $('input[name="date"]').eq(nums).val();
-    var status = $('input[name="status"]').eq(nums).val();
-    var company = $('input[name="company"]').eq(nums).val();
-    var reservation_id = $('input[name="reservation_id"]').eq(nums).val();
-    var ds = new Date(start);
-    ds.setMinutes(ds.getMinutes() - (60));
-    var df = new Date(finish);
-    var diffTime = df.getTime() - ds.getTime();
-    var diffTime = Math.floor(diffTime / (1000 * 60));
-    var target = diffTime / 30;
+  var json = JSON.parse($('input[name=each_json]').val());
+  for (let index = 0; index < json.length; index++) {
+    var status = $('input[name="status"]').eq(index).val();
+    var date = $('input[name="date"]').eq(index).val();
+    var reservation_id = $('input[name="reservation_id"]').eq(index).val();
+    var company = $('input[name="company"]').eq(index).val();
+    var data = "<a  target='_blank' href='/admin/reservations/" + reservation_id + "'>" + company + "</a>";
 
-    function zeroPadding(num) {
-      return ('0' + num).slice(-2);
-    }
-    for (let index = 0; index < target; index++) {
-      ds.setMinutes(ds.getMinutes() + (30));
-      var hours = ds.getHours();
-      hours = zeroPadding(hours);
-      var minutes = ds.getMinutes();
-      minutes = zeroPadding(minutes);
-      var result = hours + minutes;
-      if (status == 3) {
-        if (index == 0) {
-          $("." + s_date + "cal" + result).addClass('gray');
-        } else {
-          $("." + s_date + "cal" + result).addClass('bg-reserve');
+    if (status < 3) {
+      $.each(json[index], function ($index, $value) {
+        $('.' + date + 'cal' + $value).addClass('bg-prereserve');
+        if ($index == 0) { //会社名挿入 10時以上の予約
+          $('.' + date + 'cal' + $value).html(data);
+        } else if ($value == "1000") {
+          $('.' + date + 'cal' + $value).html(data);
         }
-
-        // if ($("." + s_date + "cal" + result).prev().hasClass('gray')) {
-        //   $("." + s_date + "cal" + result).html(
-        //     "<a href='/admin/reservations/" + reservation_id + "'>" + company + "</a>"
-        //   );
-        // }
-      } else if (status < 3) {
-        if (index == 0) {
-          $("." + s_date + "cal" + result).addClass('gray');
-        } else {
-          $("." + s_date + "cal" + result).addClass('bg-prereserve');
+      })
+    } else if (status == 3) {
+      $.each(json[index], function ($index, $value) {
+        $('.' + date + 'cal' + $value).addClass('bg-reserve');
+        if ($index == 0) { //会社名挿入 10時以上の予約
+          $('.' + date + 'cal' + $value).html(data);
+        } else if ($value == "1000") {
+          $('.' + date + 'cal' + $value).html(data);
         }
-      }
+      })
     }
-    // 最後に灰色
-    $('.bg-reserve:last').addClass('gray');
-    $('.bg-prereserve:last').addClass('gray');
   }
 })
 
-$(function () {
-  var name = $('input[name="pre_start"]');
-  for (let nums = 0; nums < name.length; nums++) {
-    var start = $('input[name="pre_start"]').eq(nums).val();
-    var finish = $('input[name="pre_finish"]').eq(nums).val();
-    var s_date = $('input[name="pre_date"]').eq(nums).val();
-    // var status = $('input[name="status"]').eq(nums).val();
-    var company = $('input[name="pre_company"]').eq(nums).val();
-    var reservation_id = $('input[name="pre_reservation_id"]').eq(nums).val();
-    var ds = new Date(start);
-    ds.setMinutes(ds.getMinutes() - (60));
-    var df = new Date(finish);
-    var diffTime = df.getTime() - ds.getTime();
-    var diffTime = Math.floor(diffTime / (1000 * 60));
-    var target = diffTime / 30;
 
-    function zeroPadding(num) {
-      return ('0' + num).slice(-2);
-    }
-    for (let index = 0; index < target; index++) {
-      ds.setMinutes(ds.getMinutes() + (30));
-      var hours = ds.getHours();
-      hours = zeroPadding(hours);
-      var minutes = ds.getMinutes();
-      minutes = zeroPadding(minutes);
-      var result = hours + minutes;
-      if (index == 0) {
-        $("." + s_date + "cal" + result).addClass('gray');
-      } else {
-        $("." + s_date + "cal" + result).addClass('bg-prereserve');
+// 仮抑えカレンダー
+$(function () {
+  var pre_json = JSON.parse($('input[name=pre_each_json]').val());
+  console.log(pre_json);
+  for (let index = 0; index < pre_json.length; index++) {
+    var pre_date = $('input[name="pre_date"]').eq(index).val();
+    var pre_reservation_id = $('input[name="pre_reservation_id"]').eq(index).val();
+    var pre_company = $('input[name="pre_company"]').eq(index).val();
+    var pre_agent_id = $('input[name="pre_agent_id"]').eq(index).val();
+    var multiple_id = $('input[name="multiple_id"]').eq(index).val();
+    $.each(pre_json[index], function ($index, $value) {
+      $('.' + pre_date + 'cal' + $value).addClass('bg-prereserve');
+      if ($index == 0) {
+        if (multiple_id != 0) {
+          if (pre_agent_id > 0) { //仲介会社の場合の一括詳細
+            var data = "<a target='_blank' href='/admin/multiples/agent/" + multiple_id + "'>" + pre_company + "</a>";
+            $('.' + pre_date + 'cal' + $value).html(data);
+          } else {　//ユーザーの場合の一括詳細
+            var data = "<a target='_blank' href='/admin/multiples/" + multiple_id + "'>" + pre_company + "</a>";
+            $('.' + pre_date + 'cal' + $value).html(data);
+          }
+        } else {　//ユーザー||仲介会社の仮押さえ詳細
+          var data = "<a target='_blank' href='/admin/pre_reservations/" + pre_reservation_id + "'>" + pre_company + "</a>";
+          $('.' + pre_date + 'cal' + $value).html(data);
+        }
       }
-    }
-    // 最後に灰色
-    $('.bg-reserve:last').addClass('gray');
-    $('.bg-prereserve:last').addClass('gray');
+      else if ($value == "1000") {
+        if (multiple_id != 0) {
+          if (pre_agent_id > 0) { //仲介会社の場合の一括詳細
+            var data = "<a target='_blank' href='/admin/multiples/agent/" + multiple_id + "'>" + pre_company + "</a>";
+            $('.' + pre_date + 'cal' + $value).html(data);
+          } else {　//ユーザーの場合の一括詳細
+            var data = "<a target='_blank' href='/admin/multiples/" + multiple_id + "'>" + pre_company + "</a>";
+            $('.' + pre_date + 'cal' + $value).html(data);
+          }
+        } else {　//ユーザー||仲介会社の仮押さえ詳細
+          var data = "<a target='_blank' href='/admin/pre_reservations/" + pre_reservation_id + "'>" + pre_company + "</a>";
+          $('.' + pre_date + 'cal' + $value).html(data);
+        }
+      }
+    })
+
   }
 })
+
+
+
+
+
+
+
+
+
+
+
+
+
