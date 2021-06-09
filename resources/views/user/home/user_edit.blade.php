@@ -1,6 +1,7 @@
 @extends('layouts.user.app')
 @section('content')
 <link href="{{ asset('/css/template.css') }}" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/jquery.validation/1.16.0/additional-methods.min.js"></script>
 <script src="{{ asset('/js/user_reservation/validation.js') }}"></script>
 <script src="{{ asset('/js/ctrl_form.js') }}"></script>
 
@@ -111,16 +112,20 @@
         </td>
       </tr>
       <tr>
-        <th><label for="tel">電話番号</label></th>
+        <th><label for="tel">電話番号</label>
+          <p class="annotation">※携帯番号、電話番号のどちらか一方は必須</p>
+        </th>
         <td colspan="2">
-          {{Form::text('tel',$user->tel,['class'=>'form-control'])}}
+          {{Form::text('tel',$user->tel,['class'=>'form-control phone_number'])}}
           <p class="is-error-tel" style="color: red"></p>
         </td>
       </tr>
       <tr>
-        <th><label for="mobile">携帯番号</label></th>
+        <th><label for="mobile">携帯番号</label>
+          <p class="annotation">※携帯番号、電話番号のどちらか一方は必須</p>
+        </th>
         <td colspan="2">
-          {{Form::text('mobile',$user->mobile,['class'=>'form-control'])}}
+          {{Form::text('mobile',$user->mobile,['class'=>'form-control phone_number'])}}
           <p class="is-error-mobile" style="color: red"></p>
         </td>
       </tr>

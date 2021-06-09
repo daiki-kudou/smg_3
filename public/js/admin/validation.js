@@ -1818,6 +1818,9 @@ $(function () {
 
   $.each(target, function (index, value) {
     $(value).validate({
+      // groups: {
+      //   nameGroup : "mobile tel"
+      // },
       rules: {
         company: {
           required: true,
@@ -1845,14 +1848,16 @@ $(function () {
           katakana: true,
         },
         mobile: {
-          required: true,
           number: true,
           minlength: 10,
+          require_from_group : [1, ".phone_number"] 
         },
         tel: {
           number: true,
           minlength: 10,
+         require_from_group : [1, ".phone_number"] 
         },
+
         fax: {
           number: true,
           minlength: 10,
@@ -1898,10 +1903,12 @@ $(function () {
           required: "※必須項目です",
           number: "※半角数字で入力してください",
           minlength: "※10桁以上で入力してください",
+          require_from_group: "携帯番号、電話番号のどちらか一方は必須です",
         },
         tel: {
           number: "※半角数字で入力してください",
           minlength: "※10桁以上で入力してください",
+          require_from_group: "携帯番号、電話番号のどちらか一方は必須です",
         },
         fax: {
           number: "※半角数字で入力してください",
@@ -1934,7 +1941,7 @@ $(function () {
         form.submit();
       },
     });
-    $("input").on("blur", function () {
+    $("input").on("blur input change", function () {
       $(this).valid();
     });
   });

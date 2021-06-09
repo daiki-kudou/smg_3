@@ -596,11 +596,13 @@ $(function () {
       },
       tel: {
         number: true, 
-        minlength: 10
+        minlength: 10,
+        require_from_group : [1, ".phone_number"] 
       },
       mobile: {
         number: true, 
-        minlength: 11
+        minlength: 11,
+        require_from_group : [1, ".phone_number"] 
       },
       fax: {
         number: true,
@@ -632,10 +634,12 @@ $(function () {
       tel: {
         minlength: "※最低桁数は10桁です",
         number: "※半角数字で入力してください",
+        require_from_group: "携帯番号、電話番号のどちらか一方は必須です",
       },
       mobile: {
         minlength: "※最低桁数は10桁です",
         number: "※半角数字で入力してください",
+        require_from_group: "携帯番号、電話番号のどちらか一方は必須です",
       },
       fax: {
         number: "※半角数字で入力してください",
