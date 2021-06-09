@@ -74,7 +74,7 @@
         <li class="li-bg-closed">休業日</li>
       </ul>
 
-      <table class="table table-bordered calender-flame table-scroll">
+      <table class="table table-bordered calender-flame table-scroll" style="table-layout: fixed">
         <thead>
           <tr class="calender-head">
             <td class="field-title">会議室</td>
@@ -156,6 +156,9 @@
   <input type="text" name="pre_company"
     value="{{ReservationHelper::checkAgentOrUserCompany($pre_reservation->user_id,$pre_reservation->agent_id) }}">
   <input type="text" name="pre_reservation_id" value="{{$pre_reservation->id }}">
+  <input type="text" name="pre_multiple_id" value="{{$pre_reservation->multiple_reserve_id }}">
+  <input type="text" name="pre_user_id" value="{{$pre_reservation->user_id }}">
+  <input type="text" name="pre_agent_id" value="{{$pre_reservation->agent_id }}">
   @endforeach
   <input type="text" name="pre_json" value="{{$pre_json_result}}">
 </div>
