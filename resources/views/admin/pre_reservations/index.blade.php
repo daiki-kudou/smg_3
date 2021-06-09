@@ -4,10 +4,9 @@
 
 <link href="{{ asset('/css/template.css') }}" rel="stylesheet">
 <script src="{{ asset('/js/template.js') }}"></script>
-<script src="{{ asset('/js/admin/validation.js') }}"></script>
-
-<script src="{{ asset('/js/tablesorter/jquery.tablesorter.js') }}"></script>
-<link href="{{ asset('/css/tablesorter/theme.default.min.css') }}" rel="stylesheet">
+{{-- <script src="{{ asset('/js/admin/validation.js') }}"></script> --}}
+{{-- <script src="{{ asset('/js/tablesorter/jquery.tablesorter.js') }}"></script>
+<link href="{{ asset('/css/tablesorter/theme.default.min.css') }}" rel="stylesheet"> --}}
 
 
 <script>
@@ -19,8 +18,7 @@
 <div class="flash_message bg-success text-center py-3 my-0">
   {{ session('flash_message') }}
 </div>
-@endif
-@if (session('flash_message_error'))
+@elseif(session('flash_message_error'))
 <div class="flash_message bg-danger text-center py-3 my-0">
   {{ session('flash_message_error') }}
 </div>
@@ -36,6 +34,7 @@
     transform: scale(1.4);
   }
 </style>
+
 
 <div class="content">
   <div class="container-fluid">
@@ -174,9 +173,11 @@
     <ul class="d-flex reservation_list mb-2 justify-content-between">
       <li>
         {{-- 削除ボタン --}}
-        {{Form::open(['url' => 'admin/pre_reservations/destroy', 'method' => 'POST', 'id'=>'for_destroy'])}}
+        {{Form::open(['url' => 'admin/pre_reservations/destroy', 'method' => 'POST', 'id'=>''])}}
         @csrf
+        <div id="for_destroy"></div>
         {{ Form::submit('削除', ['class' => 'btn more_btn4','id'=>'confirm_destroy']) }}
+        <span class="d-block">※メールアドレスが正しくないと削除されません。</span>
         {{ Form::close() }}
       </li>
       <li>
@@ -289,12 +290,15 @@
 <script>
   $(document).on("click", ".table-scroll th", function() {
     var click_th_id=$(this).attr("id");
-    $('input[name^="sort_"]').each(function(key, item){
-      if ($(item).attr("name")!=click_th_id) {
-        $(item).val("");
-      }
-    })
-    $("#preserve_search").submit();
+    var index = $('.table-scroll th').index(this);
+    if (index!=0&&index!=14) {
+      $('input[name^="sort_"]').each(function(key, item){
+        if ($(item).attr("name")!=click_th_id) {
+          $(item).val("");
+        }
+      })
+      $("#preserve_search").submit();
+    }
   })
 
     $(function() {
@@ -331,6 +335,7 @@
     ActiveDateRangePicker('search_created_at');
     ActiveDateRangePicker('search_date');
   })
+
   $(function() {
     // 全選択アクション
     $('#all_check').on('change', function() {
@@ -343,22 +348,23 @@
       }
     })
   })
-  $(function() {
-    $("input[type='checkbox']").on('change', function() {
+
+
+    $(document).on("change", "input[type='checkbox']", function () {
+      $('#for_destroy').html("");
       checked = $('[class="checkbox"]:checked').map(function() {
         return $(this).val();
       }).get();
-      console.log(checked.length);
       for (let index = 0; index < checked.length; index++) {
         var ap_data = "<input type='hidden' name='destroy" + checked[index] + "' value='" + checked[index] + "'>"
         $('#for_destroy').append(ap_data);
       }
-    })
-  })
+  });
 
-  
 
 </script>
+
+
 
 
 
