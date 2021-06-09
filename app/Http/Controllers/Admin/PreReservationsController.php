@@ -51,7 +51,7 @@ class PreReservationsController extends Controller
       $today = Carbon::now();
       $threeDaysBefore = date('Y-m-d H:i:s', strtotime($today->subHours(72)));
       $result = PreReservation::where('status', '<', 2)->where('updated_at', '<', $threeDaysBefore);
-      $pre_reservations = $result->orderBy('id', 'desc')->paginate(30);
+      $pre_reservations = $result->orderBy('id', 'desc')->get();
       $counter = $result->count();
     } elseif (count($request->all()) != 0) {
       $class = new PreReservation;

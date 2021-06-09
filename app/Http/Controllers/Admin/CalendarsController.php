@@ -28,7 +28,10 @@ class CalendarsController extends Controller
     $days = $this->venueCalendar($start_of_month, $end_of_month);
     $venues = Venue::all();
     $reservations = Reservation::with('bills')->where('venue_id', $selected_venue)->get();
-    $pre_reservations = PreReservation::where("venue_id", $selected_venue)->get();
+    $pre_reservations = PreReservation::with('user')->where("venue_id", $selected_venue)->where('status', '<', 2)->get();
+    $json_result = $this->dateCalendar($reservations);
+    $pre_json_result = $this->dateCalendar($pre_reservations);
+
     return view('admin.calendar.venue_calendar', [
       'days' => $days,
       'venues' => $venues,
@@ -37,6 +40,8 @@ class CalendarsController extends Controller
       'pre_reservations' => $pre_reservations,
       'selected_year' => !empty($request->selected_year) ? $request->selected_year : Carbon::now()->year,
       'selected_month' => !empty($request->selected_month) ? $request->selected_month : Carbon::now()->month,
+      'json_result' => $json_result,
+      'pre_json_result' => $pre_json_result,
     ]);
   }
 
