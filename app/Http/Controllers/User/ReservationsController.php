@@ -65,7 +65,7 @@ class ReservationsController extends Controller
       $luggage_price += 500;
     }
 
-    $master = $price_result[2] + $items_results[0] + $layout_price + $luggage_price;
+    $master = $price_result[0] + $items_results[0] + $layout_price + $luggage_price;
 
     return view(
       'user.reservations.check',

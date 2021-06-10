@@ -279,7 +279,7 @@
                     {{ReservationHelper::formatTime($request->leave_time)}}
                     {{Form::hidden('leave_time',$request->leave_time)}}
                   </p>
-                  <p>{{number_format($price_result[0])}}<span>円</span></p>
+                  <p>{{number_format($price_result[0]-$price_result[1])}}<span>円</span></p>
                 </li>
                 @if ($price_result[1]!=0)
                 <li>
@@ -290,8 +290,6 @@
               </ul>
             </td>
           </tr>
-
-
 
           @if (ReservationHelper::checkEquipmentBreakdowns($request->all())!=0)
           <tr>
