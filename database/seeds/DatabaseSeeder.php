@@ -25,8 +25,6 @@ class DatabaseSeeder extends Seeder
       Time_priceTableSeeder::class,
       // ReservationTableSeeder::class,
       // PreReservationsTableSeeder::class,
-
-
     ]);
   }
 }
