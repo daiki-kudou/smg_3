@@ -66,7 +66,7 @@
 </ul>
 
 <div class="calender-wrap">
-  <table class="table table-bordered calender-flame">
+  <table class="table table-bordered calender-flame" style="table-layout: fixed">
     <thead>
       <tr class="calender-head">
         <td class="field-title">会議室</td>
