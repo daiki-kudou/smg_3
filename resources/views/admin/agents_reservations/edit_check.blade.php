@@ -339,7 +339,8 @@
                 <label for="enduser_attr" class="">利用者属性</label>
               </td>
               <td>
-                {{ Form::text('enduser_attr', ReservationHelper::getAttr($inputs['enduser_attr']),['class'=>'form-control', 'placeholder'=>'入力してください', 'id'=>'enduser_mobile','readonly'] ) }}
+                {{ Form::text('', ReservationHelper::PreEndUserGetAttr($inputs['enduser_attr']),['class'=>'form-control', 'placeholder'=>'入力してください', 'id'=>'enduser_mobile','readonly'] ) }}
+                {{ Form::hidden('enduser_attr', ($inputs['enduser_attr']),['class'=>'form-control', 'placeholder'=>'入力してください', 'id'=>'enduser_mobile','readonly'] ) }}
               </td>
             </tr>
           </table>
