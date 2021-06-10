@@ -29,7 +29,7 @@ class ResetEmail extends Mailable
   public function build()
   {
     return $this->view('maileclipse::templates.resetEmail')
-      ->subject('〇△×貸し会議室 メールアドレス変更')
+      ->subject('【SMG貸し会議室】 メールアドレス変更')
       ->with([
         'token' => $this->token,
       ]);

@@ -29,6 +29,6 @@ class UserPaid extends Mailable
   public function build()
   {
     return $this->view('maileclipse::templates.userPaid')
-      ->subject('〇△×貸し会議室　ご入金完了のお知らせ')->with(['user' => $this->user]);
+      ->subject('SMGアクセア貸し会議室　ご入金完了のお知らせ')->with(['user' => $this->user]);
   }
 }

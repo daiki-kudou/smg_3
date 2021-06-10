@@ -29,6 +29,6 @@ class UserReqRes extends Mailable
   public function build()
   {
     return $this->view('maileclipse::templates.userReqRes')
-      ->subject('【〇△×貸し会議室】　予約申込受付のお知らせ')->with(['reservation' => $this->reservation]);
+      ->subject('【SMGアクセア貸し会議室】　予約申込受付のお知らせ')->with(['reservation' => $this->reservation]);
   }
 }

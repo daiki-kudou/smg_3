@@ -34,7 +34,7 @@ class AdminReqAddRes extends Mailable
   public function build()
   {
     return $this->view('maileclipse::templates.adminReqAddRes')
-      ->subject('【管理者通知】〇△×貸し会議室　追加の備品・サービス（その他）を受け付けました')
+      ->subject('【管理者通知】追加の備品・サービス（その他）を受け付けました')
       ->with([
         // 'id' => $this->id,
         // 'token' => $this->token,

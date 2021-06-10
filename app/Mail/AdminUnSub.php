@@ -29,6 +29,6 @@ class AdminUnSub extends Mailable
   public function build()
   {
     return $this->view('maileclipse::templates.admiUnSub')
-      ->subject('【管理者通知】〇△×貸し会議室　退会完了について')->with(['user_company' => $this->user_company]);
+      ->subject('【管理者通知】SMGアクセア貸し会議室　退会完了について')->with(['user_company' => $this->user_company]);
   }
 }
