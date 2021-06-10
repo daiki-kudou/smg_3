@@ -13,8 +13,9 @@
 </div>
 @endif
 
-<div class="container-field mt-3">
-  <div class="float-right">
+<div class="container-field mt-3 d-md-flex justify-content-md-between">
+  <h2 class="mt-3 mb-md-5">メールアドレス変更</h2>
+  <div class="">
     <nav aria-label="breadcrumb">
       <ol class="breadcrumb">
         <li class="breadcrumb-item active"><a href="http://staging-smg2.herokuapp.com/admin/home">ホーム</a> &gt;
@@ -23,9 +24,8 @@
       </ol>
     </nav>
   </div>
-  <h2 class="mt-3 mb-3">メールアドレス変更</h2>
-  <hr>
 </div>
+<hr>
 
 <section class="mt-5">
   <p>
@@ -36,7 +36,7 @@
     <p class="mb-2">新しいメールアドレスを入力してください</p>
     {{ Form::open(['url' => 'user/home/email_reset_create', 'method'=>'POST', 'id'=>'email_reset']) }}
     @csrf
-    <div class="d-flex w-50">
+    <div class="d-flex w-md-50">
       {{Form::text('new_email',old('new_email'),['class' => 'form-control'])}}
       {{Form::submit('送信する',['class' => 'btn more_btn'])}}
     </div>
