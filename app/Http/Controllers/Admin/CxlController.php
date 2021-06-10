@@ -390,7 +390,10 @@ class CxlController extends Controller
         'payment' => !empty($request->payment) ? $request->payment : 0,
       ]
     );
-    $this->judgePaymentStatusAndSendEmail($request->paid, $cxl->reservation->user);
+    if ($cxl->reservation->agent_id == 0) {
+      $this->judgePaymentStatusAndSendEmail($request->paid, $cxl->reservation->user);
+    }
+
     return redirect(url('admin/reservations/' . $cxl->reservation->id));
   }
 

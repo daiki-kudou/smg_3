@@ -45,7 +45,7 @@ class ReservationHelper
 
   public static function formatDate($num)
   {
-    if (empty($num)) {
+    if (empty($num) || $num == "1970-01-01 00:00:00") {
       return null;
     }
     $weekday = date('w', strtotime($num));
