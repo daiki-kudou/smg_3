@@ -361,7 +361,7 @@ class Reservation extends Model implements PresentableInterface
         'email_flag' => 0,
         'in_charge' => $value->in_charge,
         'tel' => $value->tel,
-        'cost' => 0,
+        'cost' => $value->cost ?? 0,
         'discount_condition' => NULL,
         'attention' => NULL,
         'user_details' => $value->remark ?? NULL,

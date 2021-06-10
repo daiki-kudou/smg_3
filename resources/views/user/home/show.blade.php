@@ -256,6 +256,7 @@
           </tbody>
         </table>
 
+        @if ($reservation->bills->sortBy("id")->first()->breakdowns->where('unit_type', 4)->isNotEmpty())
         <div class='layouts'>
           <table class='table table-bordered' style="table-layout:fixed;">
             <thead>
@@ -283,7 +284,9 @@
             </tbody>
           </table>
         </div>
+        @endif
 
+        @if($reservation->luggage_count||ReservationHelper::formatDate($reservation->luggage_arrive)||$reservation->luggage_return)
         <div class='luggage'>
           <table class='table table-bordered' style="table-layout:fixed;">
             <thead>
@@ -296,16 +299,6 @@
               </tr>
             </thead>
             <tbody>
-              <!-- <tr>
-                    <td class="table-active"><label for="Delivery"> お荷物預り/返送</label></td>
-                    <td>
-                      @foreach ($reservation->bills->sortBy("id")->first()->breakdowns as $item)
-                      @if ($item->unit_item == '荷物預り/返送')
-                      有り
-                      @endif
-                      @endforeach
-                    </td>
-                  </tr> -->
               <tr>
                 <td class="table-active"><label for="preDelivery">事前にお預りする荷物</label></td>
                 <td>
@@ -320,7 +313,6 @@
                         荷物個数：{{ $reservation->luggage_count }}個
                       </p>
                     </li>
-
                     <li>
                       <p>事前荷物の到着日</p>
                       <p>
@@ -350,7 +342,10 @@
             </tbody>
           </table>
         </div>
+        @endif
 
+
+        @if ($reservation->eat_in!=0)
         <table class="table table-bordered eating-table">
           <tbody>
             <tr>
@@ -374,6 +369,7 @@
             </tr>
           </tbody>
         </table>
+        @endif
 
 
 

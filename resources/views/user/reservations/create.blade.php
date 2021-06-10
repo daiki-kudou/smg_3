@@ -100,8 +100,6 @@
       {{Form::hidden('price_system',2)}}
       @endif
       @endif
-
-
       <tr>
         <th>案内板の作成<span class="txtRed c-block">＊</span></th>
         <td class="">
@@ -352,13 +350,14 @@
       <a class="link-btn" href="{{url('/')}}">会場・日程選択に戻る</a>
     </li>
     <li>
+      {{Form::hidden('venue_id',$request->venue_id)}}
+      {{Form::hidden('date',$request->date)}}
+      {{Form::hidden('enter_time',$request->enter_time)}}
+      {{Form::hidden('leave_time',$request->leave_time)}}
+      {{Form::hidden('cost',$venue->cost??0)}}
       {{Form::submit('料金を確認する',['class'=>'confirm-btn','style'=>'width:100%;'])}}
     </li>
   </ul>
-  {{Form::hidden('venue_id',$request->venue_id)}}
-  {{Form::hidden('date',$request->date)}}
-  {{Form::hidden('enter_time',$request->enter_time)}}
-  {{Form::hidden('leave_time',$request->leave_time)}}
   {{Form::close()}}
 
 </section>
