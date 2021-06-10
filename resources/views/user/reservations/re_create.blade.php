@@ -408,7 +408,6 @@
   {{Form::hidden('select_id',$select_id)}}
   {{Form::hidden('cost',$fix->cost)}}
   {{Form::close()}}
-
 </section>
 
 <div class="top contents"><a href="#top"><img src="https://osaka-conference.com/img/pagetop.png" alt="上に戻る"></a>
