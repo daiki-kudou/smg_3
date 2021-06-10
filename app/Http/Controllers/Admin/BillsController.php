@@ -298,7 +298,9 @@ class BillsController extends Controller
         'payment' => !empty($request->payment) ? $request->payment : 0,
       ]
     );
-    $this->judgePaymentStatusAndSendEmail($request->paid, $bill->reservation->user);
+    if ($bill->reservation->agent_id == 0) {
+      $this->judgePaymentStatusAndSendEmail($request->paid, $bill->reservation->user);
+    }
     return redirect(url('admin/reservations/' . $bill->reservation->id));
   }
 

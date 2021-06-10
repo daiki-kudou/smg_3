@@ -1,7 +1,5 @@
 @extends('layouts.admin.app')
-
 @section('content')
-
 <link href="{{ asset('/css/template.css') }}" rel="stylesheet">
 <script src="{{ asset('/js/template.js') }}"></script>
 <script src="{{ asset('/js/date_calendar.js') }}"></script>
@@ -136,7 +134,6 @@
   <iframe class="mt-5" src="/admin/note" frameborder="0" width="100%" height="500px;" scrolling="no"></iframe>
 
   @foreach ($reservations as $reservation)
-  予約<br>
   <input type="hidden" name="venue_id" value="{{($reservation->venue_id)}}">
   <input type="hidden" name="start" value="{{date('H:i',strtotime($reservation->enter_time))}}">
   <input type="hidden" name="status" value="{{$reservation->bills->sortBy("id")->first()->reservation_status }}">
@@ -149,7 +146,6 @@
   <br>
 
   @foreach ($pre_reservations as $pre_reservation)
-  仮抑え<br>
   <input type="hidden" name="pre_reservation_venue_id" value="{{($pre_reservation->venue_id)}}">
   <input type="hidden" name="pre_reservation_start" value="{{date('H:i',strtotime($pre_reservation->enter_time))}}">
   <input type="hidden" name="pre_reservation_finish" value="{{date('H:i',strtotime($pre_reservation->leave_time)) }}">
