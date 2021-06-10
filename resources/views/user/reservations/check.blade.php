@@ -315,8 +315,6 @@
           </tr>
           @endif
 
-
-
           @if (ReservationHelper::checkServiceBreakdowns($request->all())!=0)
           <tr>
             <th class=""><label for="service">有料サービス</label></th>
@@ -338,7 +336,6 @@
             </td>
           </tr>
           @endif
-
 
           @if ($request->layout_prepare!=0||$request->layout_clean!=0)
           <tr>
