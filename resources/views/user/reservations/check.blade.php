@@ -60,18 +60,23 @@
             <a name="a-nam" class="error-r"></a>
           </td>
         </tr>
+
+        @if ($request->price_system==2)
         <tr>
           <th>音響ハイグレード</th>
           <td class="">
             <ul>
               <li>
                 {{$request->price_system==1?'しない':'する'}}
-                {{ Form::hidden('price_system', $request->price_system) }}
               </li>
             </ul>
             <a name="a-selectTime1" class="error-r"></a>
           </td>
         </tr>
+        @endif
+        {{ Form::hidden('price_system', $request->price_system) }}
+
+
         <tr>
           <th>案内板</th>
           <td class="">
