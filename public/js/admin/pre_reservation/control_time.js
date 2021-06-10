@@ -29,6 +29,7 @@ $(function () {
         $.each($result, function ($resultIndex, $resultValue) { //ajax結果
           if ($($element).val() == $resultValue) {
             $($element).prop('disabled', true);
+            console.log($element);
           }
         })
       })

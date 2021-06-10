@@ -47,11 +47,9 @@ class HomeController extends Controller
     $salesHours = $this->getSalesHours($request);
     // 該当日時の予約・仮抑え　抽出
     $reservations_or_pre_reservations = $this->getReservations($request);
-    // return array_unique($reservations_or_pre_reservations);
     if ($reservations_or_pre_reservations) {
       foreach ($salesHours[0] as $key => $value) { //元の時間08~23時
         if (in_array($value['time'], $reservations_or_pre_reservations)) {
-          // return $value['time'];
           $salesHours[0][$key]['active'] = 0;
         }
       }
@@ -64,7 +62,7 @@ class HomeController extends Controller
   public function getSalesHours($request)
   {
     $venue = Venue::with("dates")->find($request->venue_id);
-    $weekday = Carbon::parse($request->date)->dayOfWeek;
+    $weekday = Carbon::parse($request->date)->dayOfWeek == 0 ? 7 : Carbon::parse($request->date)->dayOfWeek;
     $venue_date = $venue->dates->where("week_day", $weekday)->first();
     $start = $venue_date->start;
     $finish = $venue_date->finish;

@@ -583,7 +583,8 @@ class Reservation extends Model implements PresentableInterface
     $class = $this->with(['bills.cxl', 'user', 'agent', 'cxls.cxl_breakdowns', 'endusers', 'venue'])
       ->where(function ($query) use ($request) {
         if ($request->multiple_id) {
-          $query->where("multiple_reserve_id", 'LIKE', "%{$request->multiple_id}%");
+          $editId = $this->idFormatForSearch($request->multiple_id);
+          $query->where("multiple_reserve_id", 'LIKE', "%{$editId}%");
         }
 
         if ($request->search_id) {
