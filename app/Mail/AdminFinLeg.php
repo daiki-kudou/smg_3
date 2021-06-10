@@ -29,6 +29,6 @@ class AdminFinLeg extends Mailable
   public function build()
   {
     return $this->view('maileclipse::templates.adminFinLeg')
-      ->subject('【管理者通知】SMGアクセア貸し会議室　会員登録完了')->with(['user' => $this->user]);
+      ->subject('【管理者通知】〇△×貸し会議室　会員登録完了')->with(['user' => $this->user]);
   }
 }

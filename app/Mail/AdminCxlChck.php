@@ -34,7 +34,7 @@ class AdminCxlChck extends Mailable
   public function build()
   {
     return $this->view('maileclipse::templates.adminCxlChck')
-      ->subject('管理者通知　SMGアクセア貸し会議室　キャンセル承認のお願い')
+      ->subject('管理者通知　〇△×貸し会議室SMGアクセア貸し会議室　キャンセル承認のお願い')
       ->with([
         'company' => $this->company,
         'date' => $this->date,

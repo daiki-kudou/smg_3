@@ -29,6 +29,6 @@ class AdminCxlPaid extends Mailable
   public function build()
   {
     return $this->view('maileclipse::templates.adminCxlPaid')
-      ->subject('【管理者通知】SMGアクセア貸し会議室　キャンセル料ご入金完了のお知らせ')->with(['user' => $this->user]);
+      ->subject('【管理者通知】〇△×貸し会議室　キャンセル料ご入金完了のお知らせ')->with(['user' => $this->user]);
   }
 }

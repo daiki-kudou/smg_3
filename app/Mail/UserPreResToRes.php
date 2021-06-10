@@ -29,6 +29,6 @@ class UserPreResToRes extends Mailable
   public function build()
   {
     return $this->view('maileclipse::templates.userPreResToRes')
-      ->subject('【SMGアクセア貸し会議室】　予約申込受付のお知らせ')->with(['pre_reservation' => $this->pre_reservation]);
+      ->subject('【〇△×貸し会議室】　予約申込受付のお知らせ')->with(['pre_reservation' => $this->pre_reservation]);
   }
 }

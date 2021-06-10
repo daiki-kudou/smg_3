@@ -34,7 +34,7 @@ class UserCxlChck extends Mailable
   public function build()
   {
     return $this->view('maileclipse::templates.userCxlChck')
-      ->subject('SMGアクセア貸し会議室　キャンセル承認のお願い')
+      ->subject('〇△×貸し会議室　キャンセル承認のお願い')
       ->with([
         'company' => $this->company,
         'date' => $this->date,

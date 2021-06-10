@@ -32,7 +32,7 @@ class AdminReqLeg extends Mailable
   public function build()
   {
     return $this->view('maileclipse::templates.adminReqLeg')
-      ->subject('管理者通知　会員登録について')
+      ->subject('管理者通知　〇△×貸し会議室　会員登録について')
       ->with([
         'id' => $this->id,
         'token' => $this->token,

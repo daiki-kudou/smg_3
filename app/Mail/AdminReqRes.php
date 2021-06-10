@@ -29,6 +29,6 @@ class AdminReqRes extends Mailable
   public function build()
   {
     return $this->view('maileclipse::templates.adminReqRes')
-      ->subject('【管理者通知】　予約申込受付のお知らせ')->with(['reservation' => $this->reservation]);
+      ->subject('【管理者通知】〇△×貸し会議室　予約申込受付のお知らせ')->with(['reservation' => $this->reservation]);
   }
 }

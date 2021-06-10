@@ -34,7 +34,7 @@ class AdminFinAddRes extends Mailable
   public function build()
   {
     return $this->view('maileclipse::templates.adminFinAddRes')
-      ->subject('管理者通知　追加予約受付完了')
+      ->subject('管理者通知　〇△×貸し会議室追加予約受付完了')
       ->with([
         // 'id' => $this->id,
         // 'token' => $this->token,
