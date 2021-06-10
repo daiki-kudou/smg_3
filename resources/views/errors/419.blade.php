@@ -4,7 +4,7 @@
     <main>
       <div class="contents">
         <div class="pagetop-text">
-          <h1 class="page-title oddcolor"><span>419エラー</span></h1>
+          <h1 class="page-title oddcolor"><span>419 Page Expired</span></h1>
         </div>
       </div>
 
