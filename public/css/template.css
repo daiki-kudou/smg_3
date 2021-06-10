@@ -1233,7 +1233,7 @@ h3 {
 
 .calender-flame {
     min-width: 800px;
-    /* table-layout: fixed; */
+    table-layout: fixed;
     border: 2px solid #c5c5c5;
 }
 
