@@ -9,11 +9,10 @@
       </div>
 
       <section class="contents block">
-        {{-- <div class="block">
-            <p>大変申し訳ございませんが、ご指定のアドレス(URL)は、ページ閲覧権限がないため閲覧できません。</p>
-            <p>閲覧権限がある・閲覧が可能なアドレス(URL)へ移動いただくか、トップページへお戻りください。</p>
-            <p>恐れ入りますが、以下ページ一覧よりご覧になりたいページをお探しください。</p>
-        </div> --}}
+        <div class="block">
+            <p>想定していないフォームの操作により処理を中断しました。
+              再度お試し頂くか、システム管理者までご連絡ください</p>
+        </div>
         <div class="sitemaplist">
           <ul>
             <li><a href="https://osaka-conference.com/">TOP</a></li>
