@@ -27,6 +27,10 @@ $(function () {
       $('#fullOverlay').css('display', 'none');
       target.find('option').each(function ($index, $element) { //メイン時間
         $.each($result, function ($resultIndex, $resultValue) { //ajax結果
+          if ($result.length == $resultIndex + 1) {
+            return false; //最後はdisabledしない。管理者は たとえば10~12:00で予約が入ってたら12:00から予約がとれる
+          }
+
           if ($($element).val() == $resultValue) {
             $($element).prop('disabled', true);
             console.log($element);

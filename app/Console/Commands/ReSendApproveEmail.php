@@ -8,10 +8,6 @@ use App\Models\Reservation;
 use App\Models\User;
 use Illuminate\Support\Facades\DB;
 
-// メール送信用
-use App\Mail\CronTest;
-use Illuminate\Support\Facades\Mail;
-
 
 
 

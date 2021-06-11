@@ -8,6 +8,7 @@ use App\Models\Venue;
 use App\Models\User;
 use App\Models\Agent;
 use Faker\Generator as Faker;
+use Carbon\Carbon;
 
 
 class ReservationTableSeeder extends Seeder
@@ -21,39 +22,19 @@ class ReservationTableSeeder extends Seeder
   {
     DB::table('reservations')->truncate();
 
-    for ($i = 1; $i < 20000; $i++) {
-
+    for ($i = 1; $i < 100; $i++) {
       $venues = Venue::all()->pluck("id");
       $users = User::all()->pluck("id");
       $agents = Agent::all()->pluck("id");
       $enter = ['10:00:00', '11:00:00', '12:00:00', '13:00:00', '14:00:00'];
       $leave = ['16:00:00', '17:00:00', '18:00:00', '19:00:00', '20:00:00', '21:00:00', '22:00:00'];
-      $date = [
-        "2020-04-01",
-        "2020-04-03",
-        "2020-04-05",
-        "2020-04-07",
-        "2020-04-09",
-        "2020-04-11",
-        "2020-04-12",
-        "2020-04-18",
-        "2020-04-19",
-        "2020-04-20",
-        "2020-04-21",
-        "2020-04-29",
-        "2020-05-01",
-        "2020-05-03",
-        "2020-05-05",
-        "2020-05-07",
-        "2020-05-09",
-        "2020-05-11",
-        "2020-05-12",
-        "2020-05-18",
-        "2020-05-19",
-        "2020-05-20",
-        "2020-05-21",
-        "2020-05-29"
-      ];
+
+      $start = Carbon::create("2021", "5", "1");
+      $end = Carbon::create("2021", "8", "31");
+      $min = strtotime($start);
+      $max = strtotime($end);
+      $date = rand($min, $max);
+      $date = date('Y-m-d', $date);
 
       $randUser = $users[array_rand($users->all(), 1)];
       $randAgent = $agents[array_rand($agents->all(), 1)];
@@ -65,10 +46,10 @@ class ReservationTableSeeder extends Seeder
 
       $reservation = Reservation::create([
         'multiple_reserve_id' => 0,
-        'venue_id' => $venues[array_rand($venues->all(), 1)],
+        'venue_id' => $venues[mt_rand(1, 3)],
         'user_id' => $randUser,
         'agent_id' => $randAgent,
-        'reserve_date' => $faker->dateTimeThisYear,
+        'reserve_date' => $date,
         'price_system' => rand(1, 2),
         'enter_time' => $enter[array_rand($enter, 1)],
         'leave_time' => $leave[array_rand($leave, 1)],
@@ -79,7 +60,7 @@ class ReservationTableSeeder extends Seeder
         'event_name2' => NULL,
         'event_owner' => NULL,
         'luggage_count' => rand(1, 9),
-        'luggage_arrive' => $date[array_rand($date, 1)],
+        'luggage_arrive' => "",
         'luggage_return' => rand(1, 9),
         'email_flag' => 0,
         'in_charge' => $faker->lastName . $faker->firstName,
@@ -102,7 +83,7 @@ class ReservationTableSeeder extends Seeder
         'master_subtotal' => mt_rand(1000, 20000),
         'master_tax' => mt_rand(1000, 20000),
         'master_total' => mt_rand(1000, 20000),
-        'payment_limit' => '2020-12-12',
+        'payment_limit' => $date,
         'bill_company' => 'test',
         'bill_person' => 'test',
         'bill_created_at' => '2020-12-12',
@@ -111,6 +92,8 @@ class ReservationTableSeeder extends Seeder
         'double_check_status' => 0,
         'category' => 0,
         'admin_judge' => 0,
+        'approve_send_at' => $i % 2 == 0 ? $date . " 12:30:31" : NULL,
+        'invoice_number' => mt_rand(1, 2000000000),
       ]);
       $bill->breakdowns()->create([
         'bill_id' => $bill->id,

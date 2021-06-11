@@ -62,10 +62,9 @@ class ReservationsController extends Controller
     // 最後のページャー
     $reservations = $this->customPaginate($reservations, 30, $request);
 
-
-    $venue = Venue::all();
-    $agents = Agent::all();
-    return view('admin.reservations.index', compact('reservations', 'venue', 'agents', 'counter', 'request'));
+    $venues = Venue::all()->toArray();
+    $agents = Agent::all()->toArray();
+    return view('admin.reservations.index', compact('reservations', 'venues', 'agents', 'counter', 'request'));
   }
 
   /**

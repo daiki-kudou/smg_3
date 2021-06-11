@@ -13,7 +13,7 @@ $(function () {
         $('.' + date + 'cal' + $value).addClass('bg-prereserve');
         if ($index == 0) { //会社名挿入 10時以上の予約
           $('.' + date + 'cal' + $value).html(data);
-        } else if ($value == "1000") {
+        } else if ($value == "0800") {
           $('.' + date + 'cal' + $value).html(data);
         }
       })
@@ -22,7 +22,7 @@ $(function () {
         $('.' + date + 'cal' + $value).addClass('bg-reserve');
         if ($index == 0) { //会社名挿入 10時以上の予約
           $('.' + date + 'cal' + $value).html(data);
-        } else if ($value == "1000") {
+        } else if ($value == "0800") {
           $('.' + date + 'cal' + $value).html(data);
         }
       })
@@ -57,7 +57,7 @@ $(function () {
           $('.' + pre_date + 'cal' + $value).html(data);
         }
       }
-      else if ($value == "1000") {
+      else if ($value == "0800") {
         if (multiple_id != 0) {
           if (pre_agent_id > 0) { //仲介会社の場合の一括詳細
             var data = "<a target='_blank' href='/admin/multiples/agent/" + multiple_id + "'>" + pre_company + "</a>";
