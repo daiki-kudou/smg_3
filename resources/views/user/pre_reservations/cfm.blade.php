@@ -20,7 +20,7 @@
   <hr>
 
   <div class="notion_wrap mt-5">
-    <h3 class="text-center">
+    <h3 class="text-md-center mt-3">
       本予約にお申込みいただき、ありがとうございました。
     </h3>
     <div class="notion_inner">
