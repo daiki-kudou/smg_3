@@ -1153,10 +1153,15 @@ table td.table_column p:last-child {
 .attention-box {
     color: #333;
     margin: 0 auto;
-    width: 600px;
+    width: 70%;
     padding: 2em;
     border: 1px solid #333;
     margin-bottom: 50px;
+}
+
+.attention-box .section-ttl {
+    font-weight: bold;
+    margin-bottom: 0.5em;
 }
 
 h3 {
@@ -1875,6 +1880,13 @@ table .master_total_subttl2 {
         width: 100%;
     }
 
+    .cancel-profile p {
+        text-align: center;
+    }
+    .cancel-profile p:first-child {
+        margin-bottom: 2em;
+    }
+
 } 
 
 @media screen and (max-width: 480px) { 
@@ -1982,7 +1994,7 @@ h4 {
 }
 
 
-@media screen and (max-width: 480px) {
+@media screen and (max-width: 540px) {
     .user_info {
         display: none;
     }
@@ -1995,8 +2007,6 @@ h4 {
         min-width: 120px;
     }
 
-
-
     .notion_inner {
         width: 100%;
     }
@@ -2004,6 +2014,12 @@ h4 {
     .bill_head .table {
         margin-bottom: 0;
     }
+
+    .attention-box {
+        width: 100%;
+    }
+
+
 }
 
 /* 工藤追加 */
