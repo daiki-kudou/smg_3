@@ -1,7 +1,7 @@
 <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
 <link href="{{ asset('/css/app.css') }}" rel="stylesheet">
 <link href="{{ asset('/css/template.css') }}" rel="stylesheet">
-<script src="{{ asset('/js/venue_calendar.js') }}"></script>
+<script src="{{ asset('/js/venue_calendar_for_user.js') }}"></script>
 
 
 <div class="container-field">
