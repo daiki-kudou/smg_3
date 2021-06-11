@@ -14,6 +14,8 @@
 
     <!-- 予約内容 -------------------------------------------->
     <h2>予約1</h2>
+    {{ Form::open(['url' => 'user/reservations/session_destroy', 'method'=>'POST', 'id'=>'']) }}
+
     <div class="bgColorGray">
       <table class="table-box">
         <tr>
@@ -334,7 +336,6 @@
           <p><a class="link-btn" href="{{url('user/reservations/cart')}}">予約一覧にもどる</a></p>
         </li>
         <li>
-          {{ Form::open(['url' => 'user/reservations/session_destroy', 'method'=>'POST', 'id'=>'']) }}
           {{ Form::hidden("session_reservation_id",$session_id )}}
           <p>{{Form::submit('予約を取り消す', ['class' => 'btn confirm-btn'])}}</p>
           {{Form::close()}}

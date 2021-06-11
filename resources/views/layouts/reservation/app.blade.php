@@ -237,7 +237,7 @@
           <li><a href="https://osaka-conference.com/rental/">会場一覧</a></li>
           <li><a href="https://osaka-conference.com/price/">料金表</a></li>
           <li><a href="https://osaka-conference.com/characteristic/">8つの特徴</a></li>
-          <li><a href="https://osaka-conference.com/reservation/">本申込み</a></li>
+          {{-- <li><a href="https://osaka-conference.com/reservation/">本申込み</a></li> --}}
         </ul>
         <a class="cart_area" href="{{url('user/reservations/cart')}}">
           <p>
@@ -318,7 +318,7 @@
     <footer class="new">
       <nav class="contents">
         <div class="footerInfo">
-          <ul class="pc">
+          {{-- <ul class="pc">
 
             <li class="download">
               <p>本申込み(フォーム・直接メールに添付・FAX)</p>
@@ -329,8 +329,8 @@
               <p class="download_btn3 btnOrange"><a href="https://osaka-conference.com/downlord/form.xlsx"
                   target="_blank"><img src="https://osaka-conference.com/img/ico_excel.png" alt="EXCEL">EXCEL</a></p>
             </li>
-          </ul>
-          <ul class="sp">
+          </ul> --}}
+          {{-- <ul class="sp">
 
             <li>本申込みフォームあるいは本申込み書をダウンロード！</li>
             <li class="foot-btnM"><a href="https://osaka-conference.com/reservation/"><img
@@ -339,7 +339,7 @@
                   src="https://osaka-conference.com/img/ico_pdf01@2x.png" alt="PDF">PDF</a></li>
             <li class="foot-btnS"><a href="https://osaka-conference.com/downlord/form.xlsx" target="_blank"><img
                   src="https://osaka-conference.com/img/ico_excel01@2x.png" alt="EXCEL">EXCEL</a></li>
-          </ul>
+          </ul> --}}
 
           <div class="pc">
             <div class="tel pc">
