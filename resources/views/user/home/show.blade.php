@@ -21,7 +21,7 @@
 
 {{-- ステータス承認待ち --}}
 @if ($reservation->bills->sortBy("id")->first()->reservation_status == 2)
-<div class="confirm-box text-center">
+<div class="confirm-box text-sm-center">
   <p>下記、予約内容で承認される場合は、承認ボタンを押してください。</p>
   {{-- <p>※承認ボタンは、画面一番下にあります。</p> --}}
 </div>
@@ -29,7 +29,7 @@
 
 <!-- 工藤さん！！！キャンセル承認まちのときの文言です。 -->
 @if ($reservation->cxls->pluck('cxl_status')->contains(1))
-<div class="confirm-box text-center">
+<div class="confirm-box text-sm-center">
   <p>下記、予約内容のキャンセルを承認される場合は、承認ボタンを押してください。</p>
   {{-- <p>※承認ボタンは、画面一番下にあります。</p> --}}
 </div>
@@ -428,7 +428,7 @@
                       @csrf
                       {{ Form::hidden('reservation_id', $reservation->id) }}
                       {{ Form::hidden('bill_id', $reservation->bills->sortBy("id")->first()->id) }}
-                      <p class="mr-2 mb-1">
+                      <p class="mb-1 ml-2">
                         {{ Form::submit('請求書をみる', ['class' => 'btn more_btn']) }}</p>
                       {{ Form::close() }}
 
@@ -436,7 +436,7 @@
                       @csrf
                       {{ Form::hidden('bill_id', $reservation->bills->sortBy("id")->first()->id) }}
                       @if ($reservation->bills->sortBy("id")->first()->paid == 1)
-                      <p class="mr-2">
+                      <p class="ml-2">
                         {{ Form::submit('領収書をみる', ['class' => 'more_btn4 btn']) }}</p>
                       @endif
                       {{ Form::close() }}
@@ -679,7 +679,7 @@
   </section>
   <!-- ステータスが予約承認まちのときに表示 -->
   @if ($reservation->bills->sortBy("id")->first()->reservation_status == 2)
-  <div class="confirm-box text-center">
+  <div class="confirm-box text-sm-center">
     <p>上記、予約内容で間違いないでしょうか。問題なければ、予約の承認をお願い致します。</p>
     <p class="text-center mt-3">
       {{ Form::model($reservation, ['method' => 'PUT', 'route' => ['user.home.updatestatus', $reservation->id], 'class' => 'text-center']) }}
@@ -728,7 +728,7 @@
                       @csrf
                       {{ Form::hidden('reservation_id', $reservation->id) }}
                       {{ Form::hidden('bill_id', $other_bill->id) }}
-                      <p class="mr-2 mb-1">
+                      <p class="ml-2 mb-1">
                         {{ Form::submit('請求書をみる', ['class' => 'btn more_btn']) }}</p>
                       {{ Form::close() }}
 
@@ -737,7 +737,7 @@
                       {{ Form::hidden('reservation_id', $reservation->id) }}
                       {{ Form::hidden('bill_id', $other_bill->id) }}
                       @if ($other_bill->paid == 1)
-                      <p class="mr-2">
+                      <p class="ml-2">
                         {{ Form::submit('領収書をみる', ['class' => 'more_btn4 btn']) }}</p>
                       @endif
                       {{ Form::close() }}
@@ -1008,7 +1008,7 @@
   </section>
   @if ($other_bill->reservation_status == 2)
   <!-- 工藤さん！！！！追加請求のステータスが予約承認まちのときに表示 -->
-  <div class="confirm-box text-center">
+  <div class="confirm-box text-sm-center">
     <p>上記、追加請求の内容で間違いないでしょうか。問題なければ、予約の承認をお願い致します。</p>
     <p class="text-center mt-3">
       {{-- <input class="btn more_btn4_lg" type="submit" value="追加請求の内容を承認する"> --}}
@@ -1150,7 +1150,7 @@
                       @csrf
                       {{ Form::hidden('reservation_id', $reservation->id) }}
                       {{ Form::hidden('cxl_id', $cxl->id) }}
-                      <p class="mr-2 mb-1">
+                      <p class="ml-2 mb-1">
                         {{ Form::submit('請求書をみる', ['class' => 'btn more_btn']) }}
                       </p>
                       {{ Form::close() }}
@@ -1159,7 +1159,7 @@
                       @csrf
                       {{ Form::hidden('cxl_id', $cxl->id ) }}
                       @if ($reservation->cxls->first()->paid==1)
-                      <p class="mr-2">{{ Form::submit('領収書をみる',['class' => 'more_btn4 btn']) }}</p>
+                      <p class="ml-2">{{ Form::submit('領収書をみる',['class' => 'more_btn4 btn']) }}</p>
                       @endif
                       {{ Form::close() }}
                     </div>
@@ -1300,17 +1300,16 @@
 
   <!-- 工藤さん！！キャンセルが承認まちの時に表示です！！！ -->
   @if ($reservation->cxls->pluck('cxl_status')->contains(1))
-  <div class="confirm-box text-center">
+  <div class="confirm-box text-sm-center">
     <p>上記、予約内容をキャンセルしてもよろしいでしょうか。問題なければ、承認をお願い致します。</p>
-    <p class="text-center mt-3">
+    
       @foreach ($reservation->cxls->where('cxl_status', 1) as $cfm_selected_cxl)
       {{ Form::open(['url' => 'user/home/cfm_cxl', 'method' => 'post', 'class' => '']) }}
       @csrf
       {{ Form::hidden('cxl_id', $cfm_selected_cxl->id) }}
-      {{ Form::submit('キャンセルを承認する', ['class' => 'btn more_btn4_lg']) }}
+      <p class="text-center mt-3">{{ Form::submit('キャンセルを承認する', ['class' => 'btn more_btn4_lg']) }}</p>
       {{ Form::close() }}
       @endforeach
-    </p>
     <p class="notion">※ご要望に相違がある場合は、下記連絡先までご連絡ください。<br>
       TEL：06-1234-5678<br>
       mail：test@gmail.com</p>

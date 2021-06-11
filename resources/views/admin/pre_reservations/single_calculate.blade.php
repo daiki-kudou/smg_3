@@ -114,7 +114,7 @@
   <div class="container-field mt-5 mb-5">
     <div class="row">
       <div class="col">
-        <table class="table table-bordered preserve_table">
+        <table class="table table-bordered table_fixed">
           <tbody>
             <tr>
               <td colspan="2">

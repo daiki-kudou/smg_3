@@ -332,7 +332,7 @@
         <td class="spec-space">
           <div class="m-b10">
             <p>【事前に預かる荷物】</p>
-            <div class="selectTime">
+            <div class="luggage-cell">
               <p class="">目安</p>
               {{ Form::text('luggage_count', $fix->luggage_count,['class'=>'text6 ', 'style'=>'width:20%;'] ) }}
               <p class="">個</p>
@@ -341,7 +341,7 @@
           </div>
           <div class="m-b10">
             <p>事前荷物の到着日(午前指定)</p>
-            <div class="selectTime">
+            <div class="luggage-cell">
               {{ Form::text('luggage_arrive', $fix->luggage_arrive,['class'=>'text6','id'=>'datepicker2'] ) }}
             </div>
           </div>
@@ -356,7 +356,7 @@
           </div>
           <div class="m-b10">
             <p>【事後返送する荷物】</p>
-            <div class="selectTime">
+            <div class="luggage-cell">
               <p class="">目安</p>
               {{ Form::text('luggage_return', $fix->luggage_return,['class'=>'text6 ', 'style'=>'width: 20%;'] ) }}
               <p class="">個</p>

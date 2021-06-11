@@ -18,7 +18,6 @@
 </div>
 
 <section class="container-field mt-5">
-  <div>
     <table class="table user-profile table-bordered">
       <thead>
         <tr>
@@ -32,54 +31,53 @@
       </thead>
       <tbody>
         <tr>
-          <td>会社・団体名</td>
+          <th>会社・団体名</th>
           <td>{{$user->company}}</td>
         </tr>
         <tr>
-          <td>担当者氏名</td>
+          <th>担当者氏名</th>
           <td>{{ReservationHelper::getPersonName($user->id)}}</td>
         </tr>
         <tr>
-          <td>担当者氏名（フリガナ）</td>
+          <th>担当者氏名（フリガナ）</th>
           <td>{{ReservationHelper::getPersonNameKANA($user->id)}}</td>
         </tr>
         <tr>
-          <td>郵便番号</td>
+          <th>郵便番号</th>
           <td>{{$user->post_code}}</td>
         </tr>
         <tr>
-          <td>都道府県</td>
+          <th>都道府県</th>
           <td>{{$user->address1}}</td>
         </tr>
         <tr>
-          <td>市町村番地</td>
+          <th>市町村番地</th>
           <td>{{$user->address2}}</td>
         </tr>
         <tr>
-          <td>建物名</td>
+          <th>建物名</th>
           <td>{{$user->address3}}</td>
         </tr>
         <tr>
-          <td>携帯電話</td>
+          <th>携帯電話</th>
           <td>{{$user->mobile}}</td>
         </tr>
         <tr>
-          <td>固定電話</td>
+          <th>固定電話</th>
           <td>{{$user->tel}}</td>
         </tr>
         <tr>
-          <td>FAX</td>
+          <th>FAX</th>
           <td>{{$user->fax}}</td>
         </tr>
         <tr>
-          <td>メールアドレス</td>
+          <th>メールアドレス</th>
           <td>{{$user->email}}</td>
         </tr>
       </tbody>
     </table>
-  </div>
 
-  <div class="d-flex mt-5 justify-content-between user-profile">
+  <div class="d-sm-flex mt-5 justify-content-between cancel-profile">
     <p><a class="more_btn_lg btn" href="{{url('user/home')}}">退会しない</a></p>
     {{ Form::open(['url' => 'user/home/'.$user->id, 'method'=>'delete', 'id'=>'']) }}
     @csrf

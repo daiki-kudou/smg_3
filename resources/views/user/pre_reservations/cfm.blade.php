@@ -5,8 +5,9 @@
 <script src="{{ asset('/js/template.js') }}"></script>
 
 <div class="container-fluid">
-  <div class="container-field mt-3">
-    <div class="float-right">
+  <div class="container-field mt-3 d-md-flex justify-content-md-between">
+    <h2 class="mt-3 mb-md-5">本予約 申込み　完了</h2>
+    <div class="">
       <nav aria-label="breadcrumb">
         <ol class="breadcrumb">
           <li class="breadcrumb-item active">
@@ -15,12 +16,11 @@
         </ol>
       </nav>
     </div>
-    <h2 class="mt-3 mb-5">本予約 申込み　完了</h2>
-    <hr>
   </div>
+  <hr>
 
   <div class="notion_wrap mt-5">
-    <h3 class="text-center">
+    <h3 class="text-md-center mt-3">
       本予約にお申込みいただき、ありがとうございました。
     </h3>
     <div class="notion_inner">

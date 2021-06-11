@@ -5,8 +5,9 @@
 <script src="{{ asset('/js/template.js') }}"></script>
 <script src="{{ asset('/js/admin/validation.js') }}"></script>
 
-<div class="container-field mt-3">
-  <div class="float-right">
+<div class="container-field mt-3 d-md-flex justify-content-md-between">
+  <h2 class="mt-3 mb-md-5">仮押え 申込み</h2>
+  <div class="">
     <nav aria-label="breadcrumb">
       <ol class="breadcrumb">
         <li class="breadcrumb-item active">
@@ -15,12 +16,11 @@
       </ol>
     </nav>
   </div>
-  <h2 class="mt-3 mb-5">仮押え 申込み</h2>
-  <hr>
 </div>
+<hr>
 
 @if ($pre_reservation->status==1)
-<div class="confirm-box text-center mt-5">
+<div class="confirm-box text-md-center mt-5">
   <p>下記の日程にて、会場を仮押えしています。
     本予約に申し込む場合は、詳細を入力してお申込みください。</p>
 </div>

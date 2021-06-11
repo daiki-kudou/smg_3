@@ -11,6 +11,7 @@
     </div>
   </div>
   <section class="contents">
+    {{ Form::open(['url' => 'user/reservations/session_destroy', 'method'=>'POST', 'id'=>'']) }}
 
     <!-- 予約内容 -------------------------------------------->
     <h2>予約1</h2>
@@ -325,8 +326,6 @@
       </table>
     </div>
     <!-- 予約内容 終わり------------------------------------------->
-
-
     <!-- 総合計金額 --------------------------------------------------------->
     <div class="section-wrap">
       <ul class="btn-wrapper">
@@ -334,14 +333,12 @@
           <p><a class="link-btn" href="{{url('user/reservations/cart')}}">予約一覧にもどる</a></p>
         </li>
         <li>
-          {{ Form::open(['url' => 'user/reservations/session_destroy', 'method'=>'POST', 'id'=>'']) }}
           {{ Form::hidden("session_reservation_id",$session_id )}}
           <p>{{Form::submit('予約を取り消す', ['class' => 'btn confirm-btn'])}}</p>
-          {{Form::close()}}
         </li>
       </ul>
-
     </div>
+    {{Form::close()}}
   </section>
   <div class="top contents"><a href="#top"><img src="https://osaka-conference.com/img/pagetop.png" alt="上に戻る"></a>
   </div>

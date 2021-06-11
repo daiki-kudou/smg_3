@@ -308,11 +308,6 @@ form {
     color: #333;
 }
 
-.table-striped tbody tr:nth-of-type(odd) {
-    background-color: rgba(255, 255, 255, 0.05);
-}
-
-
 
 .btn_wrapper {
     margin: 50px 0;
@@ -616,22 +611,6 @@ option:disabled {
     width: 300px;
 }
 
-/* .search_box .form-group {
-    display: flex;
-    margin-bottom: 1px;
-    align-items: center;
-    border-radius: 0;
-    width: 50%;
-} */
-
-/* .search_box.table td {
-    padding: 0.02em;
-} */
-
-.search_box .form-control {
-    padding: 0;
-}
-
 .table th.search_item_name {
     width: 140px;
     /* background:rgb(53 167 167 / 80%); */
@@ -642,9 +621,6 @@ option:disabled {
     padding: 0.5em;
 }
 
-.search_box ul li {
-    width: 100%;
-}
 
 .search_category {
     display: flex;
@@ -923,15 +899,6 @@ table td.table_column p:last-child {
     border: 1px solid rgb(53 167 167 / 30%);
 }
 
-.preserve_table {
-    table-layout: fixed;
-}
-
-
-
-
-
-
 .border-inwrap {
     border: 1px solid rgb(53 167 167 / 40%);
     padding: 3%;
@@ -941,11 +908,6 @@ table td.table_column p:last-child {
 .calendar {
     padding: 2% 0;
     border: 1px solid #dee2e6;
-}
-
-
-.choose-table tr td:last-child {
-    width: 200px;
 }
 
 .register-list-header {
@@ -999,11 +961,6 @@ table td.table_column p:last-child {
 .btn-cell {
     min-width: 89px;
     text-align: center;
-}
-
-.prereserve-table .table_column .more_btn {
-    padding: 0 0.7em;
-
 }
 
 .checkbox,
@@ -1153,10 +1110,15 @@ table td.table_column p:last-child {
 .attention-box {
     color: #333;
     margin: 0 auto;
-    width: 600px;
+    width: 70%;
     padding: 2em;
     border: 1px solid #333;
     margin-bottom: 50px;
+}
+
+.attention-box .section-ttl {
+    font-weight: bold;
+    margin-bottom: 0.5em;
 }
 
 h3 {
@@ -1233,7 +1195,7 @@ h3 {
 
 .calender-flame {
     min-width: 800px;
-    /* table-layout: fixed; */
+    table-layout: fixed;
     border: 2px solid #c5c5c5;
 }
 
@@ -1273,18 +1235,20 @@ h3 {
 
 .calender-flame .calender-data .calhalf.bg-reserve {
     border-left: 1px solid #35a7a7;
+    border-left: none;
 }
 
 .table-bordered td.bg-reserve {
-    border: 1px solid #35a7a7;
+    border: none;
     border-bottom: 2px solid #c5c5c5;
 }
 .calender-flame .calender-data .calhalf.bg-prereserve {
     border-left: 1px solid #ffff4d;
+    border-left: none;
 }
 
 .table-bordered td.bg-prereserve {
-    border: 1px solid #ffff4d;
+    border: none;
     border-bottom: 2px solid #c5c5c5;
 }
 
@@ -1295,14 +1259,15 @@ h3 {
 
 .bill_head {
     /* background: #35a7a7; */
-    background: rgb(53 167 167 / 80%);
+    background: rgb(53 167 167 / 65%);
     table-layout: fixed;
     padding: 10px;
     /* border: solid 1px #ced4da; */
 }
 
 .bill_head2 {
-    background: #144c58;
+    /* background: #144c58; */
+    background: rgb(9 64 76 / 80%);
     table-layout: fixed;
     padding: 10px;
     /* border: solid 1px #ced4da; */
@@ -1846,7 +1811,7 @@ table .master_total_subttl2 {
         margin-left: 0;
         margin-top: 10px;
         display: flex;
-        justify-content: center;
+        justify-content: flex-end;
     }
 
     .bill_btn_wrap p:first-child {
@@ -1857,12 +1822,26 @@ table .master_total_subttl2 {
         padding-left: 0.5rem;
     }
 
+    .master_total_bottom td {
+        padding-right: 0.5rem;
+    }
+
     .master_total_body tr td:last-child {
         padding-right: 0.5rem;
     }
 
     .user-profile {
         width: 100%;
+    }
+    .notion {
+        width: 100%;
+    }
+
+    .cancel-profile p {
+        text-align: center;
+    }
+    .cancel-profile p:first-child {
+        margin-bottom: 2em;
     }
 
 } 
@@ -1972,7 +1951,7 @@ h4 {
 }
 
 
-@media screen and (max-width: 480px) {
+@media screen and (max-width: 540px) {
     .user_info {
         display: none;
     }
@@ -1984,6 +1963,20 @@ h4 {
     .calender-color li {
         min-width: 120px;
     }
+
+    .notion_inner {
+        width: 100%;
+    }
+
+    .bill_head .table {
+        margin-bottom: 0;
+    }
+
+    .attention-box {
+        width: 100%;
+    }
+
+
 }
 
 /* 工藤追加 */

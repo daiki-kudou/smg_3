@@ -9,8 +9,6 @@ option:disabled {
     display: none;
 }
 
-
-
 ul.tagBtn li a {
     letter-spacing: 0.15em;
     writing-mode: vertical-lr;
@@ -163,12 +161,6 @@ header div.contents {
 }
 
 .cart_btn {
-    /* background: url(/img/cart_icon.svg);
-    width: 35px;
-    height: 35px;
-    background-size: cover;
-    background-repeat: no-repeat;
-    background-position: center; */
     font-size: 25px;
     margin-right: 5px;
 }
@@ -668,15 +660,6 @@ form table td textarea {
         text-align: left;
     }
 
-    .table-box {
-        width: 100%;
-        margin: 0 auto;
-    }
-
-    .table-box th {
-        width: 100%;
-    }
-
     .btn-wrapper {
         display: block;
         justify-content: space-between;
@@ -744,5 +727,17 @@ form table td textarea {
 
     .calenderframe iframe {
         height: 500px;
+    }
+
+    .riyoubi input {
+        width: 100%;
+    }
+
+    .subNavi ul li {
+        width: 33%;
+    }
+
+    .sum-list li {
+        display: block;
     }
 }
