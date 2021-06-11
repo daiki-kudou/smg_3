@@ -14,8 +14,8 @@
 </div>
 @endif
 
-<div class="container-field mt-3">
-  <div class="float-right">
+<div class="container-field mt-3 d-md-flex justify-content-md-between">
+  <h2 class="mt-3 mb-md-5">メールアドレス送信完了</h2>
     <nav aria-label="breadcrumb">
       <ol class="breadcrumb">
         <li class="breadcrumb-item active"><a href="http://staging-smg2.herokuapp.com/admin/home">ホーム</a> &gt;
@@ -24,9 +24,7 @@
       </ol>
     </nav>
   </div>
-  <h2 class="mt-3 mb-3">メールアドレス送信完了</h2>
   <hr>
-</div>
 
 <section class="mt-5">
   <div class="text-box">
