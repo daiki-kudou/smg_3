@@ -30,7 +30,7 @@ class UserPreResCxl extends Mailable
   public function build()
   {
     return $this->view('maileclipse::templates.userPreResCxl')
-      ->subject('SMGアクセア貸し会議室 仮押さえ キャンセル')
+      ->subject('◯☓△貸し会議室 仮押さえ キャンセル')
       ->with([
         'pre_reservation' => $this->pre_reservation,
         'user' => $this->user,
