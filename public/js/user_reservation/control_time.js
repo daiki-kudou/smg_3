@@ -18,11 +18,9 @@ $(document).on("change", "#venue_id", function () {
     },
   })
     .done(function ($result) {
-      console.log($result);
       $('#enter_time, #leave_time').html("<option value=''></option>");
       $('#fullOverlay').css('display', 'none');
       $.each($result, function ($index, $value) {
-        console.log($value);
         if ($value['active'] === 0) {
           var html1 = "<option value='" + $value['time'] + "' disabled>";
           var html2 = $value['value'];
@@ -35,6 +33,7 @@ $(document).on("change", "#venue_id", function () {
           $('#enter_time, #leave_time').append(html1 + html2 + html3);
         }
       })
+
     })
     .fail(function ($result) {
       $('#fullOverlay').css('display', 'none');

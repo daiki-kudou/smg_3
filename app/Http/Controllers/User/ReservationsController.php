@@ -60,10 +60,11 @@ class ReservationsController extends Controller
       }
     }
 
+    // 荷物はユーザーから依頼があったタイミングでは0円の固定
     $luggage_price = 0;
-    if ($request->luggage_count || $request->luggage_arrive || $request->luggage_return) {
-      $luggage_price += 500;
-    }
+    // if ($request->luggage_count || $request->luggage_arrive || $request->luggage_return) {
+    //   $luggage_price += 500;
+    // }
 
     $master = $price_result[0] + $items_results[0] + $layout_price + $luggage_price;
 

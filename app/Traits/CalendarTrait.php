@@ -27,7 +27,7 @@ trait CalendarTrait
       $finish = Carbon::parse($reservation->leave_time);
       $diff = (($start->diffInMinutes($finish)) / 30);
       $pre[] = date('Hi', strtotime($start));
-      for ($i = 0; $i < $diff; $i++) {
+      for ($i = 0; $i < $diff - 1; $i++) { //-1する理由はカレンダーの表記上必要なため
         $pre[] = date('Hi', strtotime($start->addMinutes(30)));
       }
       $result[] = $pre;

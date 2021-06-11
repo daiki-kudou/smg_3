@@ -43,10 +43,8 @@ class HomeController extends Controller
   // 時間制御
   public function control_time(Request $request)
   {
-    // 営業時間抽出
-    $salesHours = $this->getSalesHours($request);
-    // 該当日時の予約・仮抑え　抽出
-    $reservations_or_pre_reservations = $this->getReservations($request);
+    $salesHours = $this->getSalesHours($request); // 営業時間抽出
+    $reservations_or_pre_reservations = $this->getReservations($request); // 該当日時の予約・仮抑え　抽出
     if ($reservations_or_pre_reservations) {
       foreach ($salesHours[0] as $key => $value) { //元の時間08~23時
         if (in_array($value['time'], $reservations_or_pre_reservations)) {
@@ -87,15 +85,21 @@ class HomeController extends Controller
     $pre_reservations = PreReservation::where('reserve_date', date('Y-m-d', strtotime($request->date)))
       ->where("venue_id", $request->venue_id)
       ->get();
+
     $result = [];
     foreach ($reservations as $reservation) {
       $diff = (Carbon::parse($reservation->enter_time)->diffInMinutes(Carbon::parse($reservation->leave_time))) / 30;
       $temporary = [];
       for ($i = 0; $i <= $diff; $i++) {
+        // 1回目のループは該当予約時間の30分前も追加
+        $i === 0 ? $temporary[] = date('H:i:00', strtotime(Carbon::parse($reservation->enter_time)->subMinutes(30))) : "";
         $temporary[] = date('H:i:00', strtotime(Carbon::parse($reservation->enter_time)->addMinutes($i * 30)));
+        // 最後のループは該当予約時間の30分後も追加
+        $i === $diff ? $temporary[] = date('H:i:00', strtotime(Carbon::parse($reservation->enter_time)->addMinutes($i * 30)->addMinutes(30))) : "";
       }
       $result[] = $temporary;
     }
+
     foreach ($pre_reservations as $pre_reservation) {
       $diff = (Carbon::parse($pre_reservation->enter_time)->diffInMinutes(Carbon::parse($pre_reservation->leave_time))) / 30;
       $temporary = [];
@@ -104,6 +108,7 @@ class HomeController extends Controller
       }
       $result[] = $temporary;
     }
+
     if (count($result) === 1) {
       return $result[0];
     } elseif (count($result) === 2) {
