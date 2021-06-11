@@ -1297,14 +1297,15 @@ h3 {
 
 .bill_head {
     /* background: #35a7a7; */
-    background: rgb(53 167 167 / 80%);
+    background: rgb(53 167 167 / 65%);
     table-layout: fixed;
     padding: 10px;
     /* border: solid 1px #ced4da; */
 }
 
 .bill_head2 {
-    background: #144c58;
+    /* background: #144c58; */
+    background: rgb(9 64 76 / 80%);
     table-layout: fixed;
     padding: 10px;
     /* border: solid 1px #ced4da; */
@@ -1848,7 +1849,7 @@ table .master_total_subttl2 {
         margin-left: 0;
         margin-top: 10px;
         display: flex;
-        justify-content: center;
+        justify-content: flex-end;
     }
 
     .bill_btn_wrap p:first-child {
@@ -1859,11 +1860,18 @@ table .master_total_subttl2 {
         padding-left: 0.5rem;
     }
 
+    .master_total_bottom td {
+        padding-right: 0.5rem;
+    }
+
     .master_total_body tr td:last-child {
         padding-right: 0.5rem;
     }
 
     .user-profile {
+        width: 100%;
+    }
+    .notion {
         width: 100%;
     }
 
@@ -1986,6 +1994,8 @@ h4 {
     .calender-color li {
         min-width: 120px;
     }
+
+
 
     .notion_inner {
         width: 100%;
