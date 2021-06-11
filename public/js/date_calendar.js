@@ -16,10 +16,11 @@ $(function () {
     $.each(json[index], function ($index, $value) {
       if (status < 3) {// 3以下が黄色
         $('.' + venue_id + 'cal' + $value).addClass('bg-prereserve');
+        console.log($value);
         if ($index == 0) { //会社名挿入 10時以上の予約
           var data = "<a  target='_blank' href='/admin/reservations/" + reservation_id + "'>" + company + "</a>";
           $('.' + venue_id + 'cal' + $value).html(data);
-        } else if ($value === "1000") {
+        } else if ($value === "0800") {
           var data = "<a  target='_blank' href='/admin/reservations/" + reservation_id + "'>" + company + "</a>";
           $('.' + venue_id + 'cal' + $value).html(data);
         }
@@ -28,7 +29,7 @@ $(function () {
         if ($index == 0) { //会社名挿入 10時以上の予約
           var data = "<a  target='_blank' href='/admin/reservations/" + reservation_id + "'>" + company + "</a>";
           $('.' + venue_id + 'cal' + $value).html(data);
-        } else if ($value === "1000") {
+        } else if ($value === "0800") {
           var data = "<a  target='_blank' href='/admin/reservations/" + reservation_id + "'>" + company + "</a>";
           $('.' + venue_id + 'cal' + $value).html(data);
         }
@@ -62,7 +63,7 @@ $(function () {
           var data = "<a target='_blank' href='/admin/pre_reservations/" + pre_reservation_id + "'>" + company + "</a>";
           $('.' + venue_id + 'cal' + $value).html(data);
         }
-      } else if ($value == "1000") {
+      } else if ($value == "0800") {
         if (multiple_id != 0) {
           if (agent_id > 0) { //仲介会社の場合の一括詳細
             var data = "<a target='_blank' href='/admin/multiples/agent/" + multiple_id + "'>" + company + "</a>";

@@ -76,6 +76,8 @@
         <thead>
           <tr class="calender-head">
             <td class="field-title">会議室</td>
+            <td colspan="2">08:00</td>
+            <td colspan="2">09:00</td>
             <td colspan="2">10:00</td>
             <td colspan="2">11:00</td>
             <td colspan="2">12:00</td>
@@ -96,6 +98,10 @@
           @foreach ($venues as $venue)
           <tr class="calender-data">
             <td class="field-title">{{ReservationHelper::getVenue($venue->id)}}</td>
+            <td class="{{($venue->id)}}cal0800 calhalf no_wrap"></td>
+            <td class="{{($venue->id)}}cal0830 no_wrap"></td>
+            <td class="{{($venue->id)}}cal0900 calhalf no_wrap"></td>
+            <td class="{{($venue->id)}}cal0930 no_wrap"></td>
             <td class="{{($venue->id)}}cal1000 calhalf no_wrap"></td>
             <td class="{{($venue->id)}}cal1030 no_wrap"></td>
             <td class="{{($venue->id)}}cal1100 calhalf no_wrap"></td>

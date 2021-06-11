@@ -760,4 +760,6 @@ class Bill extends Model
       $this->breakdowns()->delete();
     });
   }
+
+  // クーロン
 }

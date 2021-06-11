@@ -2,6 +2,8 @@
 @section('content')
 <script src="{{ asset('/js/template.js') }}"></script>
 <script src="{{ asset('/js/admin/validation.js') }}"></script>
+<script src="{{ asset('/js/admin/pre_reservation/control_time.js') }}"></script>
+
 <link href="{{ asset('/css/template.css') }}" rel="stylesheet">
 
 <div id="fullOverlay">
@@ -25,16 +27,13 @@
   <hr>
 </div>
 
-
 <section class="mt-5">
   <div class="calendar">
     <iframe frameborder="0" src="{{url('admin/calendar/date_calendar')}}" width="100%" height="500">Your browser isn't
       compatible</iframe>
   </div>
-
   {{Form::open(['url' => 'admin/pre_agent_reservations/check', 'method' => 'POST', 'id'=>'pre_agent_reservationsCreateForm'])}}
   @csrf
-
   <div class="user_selector mt-5">
     <h3 class="mb-2 form_required">仲介会社情報</h3>
     <select name="agent_id" id="agent_id">
