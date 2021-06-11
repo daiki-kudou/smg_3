@@ -8,7 +8,7 @@
 <body>
   <p>&nbsp;</p>
   <p>{{$reservation_id->user->company}}<br />{{ReservationHelper::getPersonName($reservation_id->user->id)}}
-    様<br /><br />この度は、SMG貸し会議室のご予約をいただきありがとうございます。<br />下記の内容で、予約が完了しました。</p>
+    様<br /><br />この度は、◯☓△貸し会議室のご予約をいただきありがとうございます。<br />下記の内容で、予約が完了しました。</p>
   <p>
     <br /><br />ご予約内容<br />======================================<br />日時：{{ReservationHelper::formatDate($reservation_id->reserve_date)}}　{{$reservation_id->enter_time}}
     - {{$reservation_id->leave_time}}<br />会場： {{ReservationHelper::getVenue($reservation_id->venue_id)}}<br />住所：
