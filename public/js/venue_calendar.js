@@ -7,12 +7,12 @@ $(function () {
     var reservation_id = $('input[name="reservation_id"]').eq(index).val();
     var company = $('input[name="company"]').eq(index).val();
     var data = "<a  target='_blank' href='/admin/reservations/" + reservation_id + "'>" + company + "</a>";
-
     if (status < 3) {
       $.each(json[index], function ($index, $value) {
         $('.' + date + 'cal' + $value).addClass('bg-prereserve');
         if ($index == 0) { //会社名挿入 10時以上の予約
           $('.' + date + 'cal' + $value).html(data);
+          console.log($('.' + date + 'cal' + $value).prev());
         } else if ($value == "0800") {
           $('.' + date + 'cal' + $value).html(data);
         }
@@ -34,7 +34,6 @@ $(function () {
 // 仮抑えカレンダー
 $(function () {
   var pre_json = JSON.parse($('input[name=pre_each_json]').val());
-  console.log(pre_json);
   for (let index = 0; index < pre_json.length; index++) {
     var pre_date = $('input[name="pre_date"]').eq(index).val();
     var pre_reservation_id = $('input[name="pre_reservation_id"]').eq(index).val();
