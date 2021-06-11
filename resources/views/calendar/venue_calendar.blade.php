@@ -7,38 +7,33 @@
 <div class="container-field">
   <h2 class="mt-3 mb-3">予約状況カレンダー 会場別</h2>
   <hr>
-  @foreach ($days as $key=>$day)
-  @foreach ($reservations as $reservation)
-  @if ($reservation->reserve_date==$day)
-  {{Form::hidden('start', date('Y-m-d',strtotime($reservation->reserve_date)).' '.$reservation->enter_time,['id'=>date('Y-m-d',strtotime($day)).'start'])}}
-  {{Form::hidden('finish', date('Y-m-d',strtotime($reservation->reserve_date)).' '.$reservation->leave_time,['id'=>date('Y-m-d',strtotime($day)).'finish'])}}
+
+
+  @foreach ($reservations as $key=>$reservation)
+  {{Form::hidden('reservation_id', $reservation->id)}}
+  {{Form::hidden('start', date('Hi',strtotime($reservation->enter_time)))}}
+  {{Form::hidden('finish', date('Hi',strtotime($reservation->leave_time)))}}
   {{Form::hidden('date', date('Y-m-d',strtotime($reservation->reserve_date)))}}
   {{Form::hidden('status', $reservation->bills->sortBy("id")->first()->reservation_status)}}
-  @if ($reservation->user_id>0)
-  {{Form::hidden('company', ReservationHelper::getCompany($reservation->user_id))}}
-  @else
-  {{Form::hidden('company', ReservationHelper::getAgentCompany($reservation->agent_id))}}
-  @endif
-  {{Form::hidden('reservation_id', $reservation->id)}}
-  @endif
+  {{Form::hidden('user_id', $reservation->user_id)}}
+  {{Form::hidden('agent_id', $reservation->agent_id)}}
+  {{Form::hidden('company', ReservationHelper::checkAgentOrUserCompany($reservation->user_id,$reservation->agent_id))}}
   @endforeach
+  {{Form::hidden('each_json', ($json_result))}}<br>
 
-
-  @foreach ($pre_reservations as $pre_reservation)
-  @if ($pre_reservation->reserve_date==$day)
-  {{Form::hidden('pre_start', date('Y-m-d',strtotime($pre_reservation->reserve_date)).' '.$pre_reservation->enter_time,['id'=>date('Y-m-d',strtotime($day)).'start'])}}
-  {{Form::hidden('pre_finish', date('Y-m-d',strtotime($pre_reservation->reserve_date)).' '.$pre_reservation->leave_time,['id'=>date('Y-m-d',strtotime($day)).'finish'])}}
-  {{Form::hidden('pre_date', date('Y-m-d',strtotime($pre_reservation->reserve_date)))}}
-  @if ($pre_reservation->user_id>0)
-  {{Form::hidden('pre_company', ReservationHelper::getCompany($pre_reservation->user_id))}}
-  @else
-  {{Form::hidden('pre_company', ReservationHelper::getAgentCompany($pre_reservation->agent_id))}}
-  @endif
+  @foreach ($pre_reservations as $key=>$pre_reservation)
   {{Form::hidden('pre_reservation_id', $pre_reservation->id)}}
-  @endif
+  {{Form::hidden('pre_start', date('Hi',strtotime($pre_reservation->enter_time)))}}
+  {{Form::hidden('pre_finish', date('Hi',strtotime($pre_reservation->leave_time)))}}
+  {{Form::hidden('pre_date', date('Y-m-d',strtotime($pre_reservation->reserve_date)))}}
+  {{Form::hidden('pre_user_id', $pre_reservation->user_id)}}
+  {{Form::hidden('pre_agent_id', $pre_reservation->agent_id)}}
+  {{Form::hidden('pre_status', $pre_reservation->status)}}
+  {{Form::hidden('pre_company', ReservationHelper::checkAgentOrUserCompany($pre_reservation->user_id,$pre_reservation->agent_id))}}
+  {{Form::hidden('multiple_id', $pre_reservation->multiple_reserve_id)}}
   @endforeach
+  {{Form::hidden('pre_each_json', ($pre_json_result))}}<br>
 
-  @endforeach
 
   <section class="mt-5 bg-white">
     <div class="calender-ttl">

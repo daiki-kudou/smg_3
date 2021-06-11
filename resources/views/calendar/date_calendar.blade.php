@@ -119,6 +119,7 @@
   @endforeach
   <input type="hidden" name="json" value="{{$json_result}}">
 
+  <br>
 
   @foreach ($pre_reservations as $pre_reservation)
   <input type="hidden" name="pre_reservation_venue_id" value="{{($pre_reservation->venue_id)}}">
@@ -127,6 +128,13 @@
   <input type="hidden" name="pre_company"
     value="{{ReservationHelper::checkAgentOrUserCompany($pre_reservation->user_id,$pre_reservation->agent_id) }}">
   <input type="hidden" name="pre_reservation_id" value="{{$pre_reservation->id }}">
+  <input type="hidden" name="pre_multiple_id" value="{{$pre_reservation->multiple_reserve_id }}">
+  <input type="hidden" name="pre_user_id" value="{{$pre_reservation->user_id }}">
+  <input type="hidden" name="pre_agent_id" value="{{$pre_reservation->agent_id }}">
   @endforeach
   <input type="hidden" name="pre_json" value="{{$pre_json_result}}">
+
+
+
+
 </div>
