@@ -14,201 +14,196 @@
 
     <!-- 予約内容 -------------------------------------------->
     <h2>予約1</h2>
-    <form name="form" id="form" action="https://osaka-conference.com/contact/check.php" next="false" method="post">
-      <div class="bgColorGray">
-        <table class="table-box">
-          <tr>
-            <th>利用日</th>
-            <td>
-              {{$slctSession[0]['date']}}
-            </td>
-          </tr>
-          <tr>
-            <th>利用時間</th>
-            <td>
-              <ul class="form-cell">
-                <li class="form-cell">
-                  <p>入室</p>
-                  <p> {{$slctSession[0]['enter_time']}} </p>
-                </li>
-                <li>～</li>
-                <li class="form-cell">
-                  <p>退室</p>
-                  <p> {{$slctSession[0]['leave_time']}} </p>
-                </li>
-              </ul>
-            </td>
-          </tr>
-          <tr>
-            <th>利用会場</th>
-            <td>
-              {{ReservationHelper::getVenueForUser($slctSession[0]['venue_id'])}}
-            </td>
-          </tr>
-          <tr>
-            <th>当日の担当者</th>
-            <td>
-              {{$slctSession[0]['in_charge']}}
-            </td>
-          </tr>
-          <tr>
-            <th>当日の担当者連絡先</th>
-            <td>
-              {{$slctSession[0]['tel']}}
-            </td>
-          </tr>
+    <div class="bgColorGray">
+      <table class="table-box">
+        <tr>
+          <th>利用日</th>
+          <td>
+            {{$slctSession[0]['date']}}
+          </td>
+        </tr>
+        <tr>
+          <th>利用時間</th>
+          <td>
+            <ul class="form-cell">
+              <li class="form-cell">
+                <p>入室</p>
+                <p> {{$slctSession[0]['enter_time']}} </p>
+              </li>
+              <li>～</li>
+              <li class="form-cell">
+                <p>退室</p>
+                <p> {{$slctSession[0]['leave_time']}} </p>
+              </li>
+            </ul>
+          </td>
+        </tr>
+        <tr>
+          <th>利用会場</th>
+          <td>
+            {{ReservationHelper::getVenueForUser($slctSession[0]['venue_id'])}}
+          </td>
+        </tr>
+        <tr>
+          <th>当日の担当者</th>
+          <td>
+            {{$slctSession[0]['in_charge']}}
+          </td>
+        </tr>
+        <tr>
+          <th>当日の担当者連絡先</th>
+          <td>
+            {{$slctSession[0]['tel']}}
+          </td>
+        </tr>
 
+        @if ($venue->frame_prices->count()!=0&&$venue->time_prices->count()!=0)
+        <tr>
+          <th>音響ハイグレード</th>
+          <td class="">
+            {{$slctSession[0]['price_system']==2?"する":"しない"}}
+          </td>
+        </tr>
+        @else
+        @if ($venue->frame_prices->count()!=0)
+        {{Form::hidden('price_system',1)}}
+        @else
+        {{Form::hidden('price_system',2)}}
+        @endif
+        @endif
+        <tr>
+          <th>案内板</th>
+          <td>
+            <ul class="from-list">
+              <li>
+                {{$slctSession[0]['board_flag']==1?"する":"しない"}}
+              </li>
+              @if ($slctSession[0]['board_flag']==1)
 
-
-
-          @if ($venue->frame_prices->count()!=0&&$venue->time_prices->count()!=0)
-          <tr>
-            <th>音響ハイグレード</th>
-            <td class="">
-              {{$slctSession[0]['price_system']==2?"する":"しない"}}
-            </td>
-          </tr>
-          @else
-          @if ($venue->frame_prices->count()!=0)
-          {{Form::hidden('price_system',1)}}
-          @else
-          {{Form::hidden('price_system',2)}}
-          @endif
-          @endif
-
-
-
-          <tr>
-            <th>案内板</th>
-            <td>
-              <ul class="from-list">
-                <li>
-                  {{$slctSession[0]['board_flag']==1?"する":"しない"}}
-                </li>
-                @if ($slctSession[0]['board_flag']==1)
-
-                <li>
-                  <p>イベント名称1行目</p>
-                  <p>{{$slctSession[0]['event_name1']??""}}</p>
-                </li>
-                <li>
-                  <p>イベント名称2行目</p>
-                  <p>{{$slctSession[0]['event_name2']??""}}</p>
-                </li>
-                <li>
-                  <p>主催者名</p>
-                  <p>{{$slctSession[0]['event_owner']??""}}</p>
-                </li>
-                <li>
-                  <p>イベント開始時間</p>
-                  <p>{{ReservationHelper::formatTime($slctSession[0]['event_start']??"")}}</p>
-                </li>
-                <li>
-                  <p>イベント終了時間</p>
-                  <p>{{ReservationHelper::formatTime($slctSession[0]['event_finish']??"")}}</p>
-                </li>
-                @endif
-            </td>
-          </tr>
-
-
-          @if (!empty($slctSession[0]['eat_in']))
-          <tr>
-            <th>室内飲食</th>
-            <td>
-              {{$slctSession[0]['eat_in']==1?"あり：":"なし"}}
-              @if ($slctSession[0]['eat_in']==1)
-              @if ($slctSession[0]['eat_in_prepare']==1)
-              手配済み
-              @else
-              検討中
+              <li>
+                <p>イベント名称1行目</p>
+                <p>{{$slctSession[0]['event_name1']??""}}</p>
+              </li>
+              <li>
+                <p>イベント名称2行目</p>
+                <p>{{$slctSession[0]['event_name2']??""}}</p>
+              </li>
+              <li>
+                <p>主催者名</p>
+                <p>{{$slctSession[0]['event_owner']??""}}</p>
+              </li>
+              <li>
+                <p>イベント開始時間</p>
+                <p>{{ReservationHelper::formatTime($slctSession[0]['event_start']??"")}}</p>
+              </li>
+              <li>
+                <p>イベント終了時間</p>
+                <p>{{ReservationHelper::formatTime($slctSession[0]['event_finish']??"")}}</p>
+              </li>
               @endif
+          </td>
+        </tr>
+
+
+        @if (!empty($slctSession[0]['eat_in']))
+        <tr>
+          <th>室内飲食</th>
+          <td>
+            {{$slctSession[0]['eat_in']==1?"あり：":"なし"}}
+            @if ($slctSession[0]['eat_in']==1)
+            @if ($slctSession[0]['eat_in_prepare']==1)
+            手配済み
+            @else
+            検討中
+            @endif
+            @endif
+          </td>
+        </tr>
+        @endif
+
+
+
+        @if (json_decode($slctSession[0]["items_results"])[0]!=0)
+        <tr>
+          <th>有料備品</th>
+          <td class="spec-space">
+            <ul class="option-list">
+              @foreach (json_decode($slctSession[0]['items_results'])[1] as $equ)
+              <li class="form-cell2">
+                <p>{{$equ[0]}}<span>×</span><span>{{$equ[2]}}</span></p>
+                <p>
+                  {{number_format(ReservationHelper::numTimesNum($equ[1], $equ[2]))}}
+                  <span>円</span>
+                </p>
+              </li>
+              @endforeach
+            </ul>
+          </td>
+        </tr>
+        @endif
+
+        <tr>
+          <th>有料サービス</th>
+          <td class="spec-space">
+            <ul class="option-list">
+              @foreach (json_decode($slctSession[0]['items_results'])[2] as $ser)
+              <li>
+                {{$ser[0]}} {{$ser[1]}}円
+              </li>
+              @endforeach
+
+              @if ($venue->luggage_flag!=0)
+
+              <li>
+                <dl class="form-cell2">
+                  <dt>事前荷物の個数：</dt>
+                  <dd>
+                    {{$slctSession[0]['luggage_count']??""}}<span>個</span>
+                  </dd>
+                </dl>
+                <dl class="form-cell2">
+                  <dt>事前荷物の到着日：</dt>
+                  <dd>
+                    {{$slctSession[0]['luggage_arrive']??""}}
+                  </dd>
+                </dl>
+                <dl class="form-cell2">
+                  <dt>事後返送する荷物の個数：</dt>
+                  <dd>
+                    {{$slctSession[0]['luggage_return']??""}}
+                    <span>個</span>
+                  </dd>
+                </dl>
+              </li>
               @endif
-            </td>
-          </tr>
-          @endif
 
-
-
-          @if (json_decode($slctSession[0]["items_results"])[0]!=0)
-          <tr>
-            <th>有料備品</th>
-            <td class="spec-space">
-              <ul class="option-list">
-                @foreach (json_decode($slctSession[0]['items_results'])[1] as $equ)
-                <li class="form-cell2">
-                  <p>{{$equ[0]}}<span>×</span><span>{{$equ[2]}}</span></p>
-                  <p>
-                    {{number_format(ReservationHelper::numTimesNum($equ[1], $equ[2]))}}
-                    <span>円</span>
-                  </p>
-                </li>
-                @endforeach
-              </ul>
-            </td>
-          </tr>
-          @endif
-
-          <tr>
-            <th>有料サービス</th>
-            <td class="spec-space">
-              <ul class="option-list">
-                @foreach (json_decode($slctSession[0]['items_results'])[2] as $ser)
-                <li>
-                  {{$ser[0]}} {{$ser[1]}}円
-                </li>
-                @endforeach
-
-                <li>
-                  {{-- <p>
-                    荷物預り/返送
-                  </p> --}}
-                  <dl class="form-cell2">
-                    <dt>事前荷物の個数：</dt>
-                    <dd>
-                      {{$slctSession[0]['luggage_count']}}<span>個</span>
-                    </dd>
-                  </dl>
-                  <dl class="form-cell2">
-                    <dt>事前荷物の到着日：</dt>
-                    <dd>
-                      {{$slctSession[0]['luggage_arrive']}}
-                    </dd>
-                  </dl>
-                  <dl class="form-cell2">
-                    <dt>事後返送する荷物の個数：</dt>
-                    <dd>
-                      {{$slctSession[0]['luggage_return']}}
-                      <span>個</span>
-                    </dd>
-                  </dl>
-                </li>
-                <li>
-                  <dl class="form-cell2">
-                    <dt>レイアウト準備：</dt>
-                    <dd>
-                      {{!empty($slctSession[0]['layout_prepare'])?"あり":"なし"}}
-                    </dd>
-                  </dl>
-                  <dl class="form-cell2">
-                    <dt>レイアウト片付：</dt>
-                    <dd>
-                      {{!empty($slctSession[0]['layout_clean'])?"あり":"なし"}}
-                    </dd>
-                  </dl>
-                </li>
-              </ul>
-            </td>
-          </tr>
-          <tr>
-            <th>備考</th>
-            <td>
-              {{$slctSession[0]['remark']}}
-            </td>
-          </tr>
-        </table>
-      </div>
-    </form>
+              @if ($venue->layout!=0)
+              <li>
+                <dl class="form-cell2">
+                  <dt>レイアウト準備：</dt>
+                  <dd>
+                    {{!empty($slctSession[0]['layout_prepare'])?"あり":"なし"}}
+                  </dd>
+                </dl>
+                <dl class="form-cell2">
+                  <dt>レイアウト片付：</dt>
+                  <dd>
+                    {{!empty($slctSession[0]['layout_clean'])?"あり":"なし"}}
+                  </dd>
+                </dl>
+              </li>
+              @endif
+            </ul>
+          </td>
+        </tr>
+        <tr>
+          <th>備考</th>
+          <td>
+            {{$slctSession[0]['remark']}}
+          </td>
+        </tr>
+      </table>
+    </div>
 
     <div class="section-wrap">
       <table class="table-sum">
@@ -225,7 +220,7 @@
             <td>
               <ul class="sum-list">
                 <li>
-                  <p> {{$slctSession[0]['luggage_arrive']}}
+                  <p> {{$slctSession[0]['luggage_arrive']??""}}
                   </p>
                   <p>{{ReservationHelper::getVenueForUser($slctSession[0]['venue_id'])}}</p>
                 </li>
@@ -288,6 +283,7 @@
             </td>
           </tr>
 
+          @if ($venue->layout!=0)
           <tr>
             <th class=""><label for="service">レイアウト</label></th>
             <td>
@@ -307,6 +303,7 @@
               </ul>
             </td>
           </tr>
+          @endif
 
           <tr>
             <td colspan="2" class="text-right">
