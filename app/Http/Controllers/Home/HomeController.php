@@ -73,6 +73,7 @@ class HomeController extends Controller
         "value" => date('H:i', strtotime(Carbon::parse($start)->addMinutes($i * 30)))
       ];
     }
+
     $times[] = $temporary;
     return $times;
   }
