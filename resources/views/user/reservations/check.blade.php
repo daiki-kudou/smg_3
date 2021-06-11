@@ -60,18 +60,23 @@
             <a name="a-nam" class="error-r"></a>
           </td>
         </tr>
+
+        @if ($request->price_system==2)
         <tr>
           <th>音響ハイグレード</th>
           <td class="">
             <ul>
               <li>
                 {{$request->price_system==1?'しない':'する'}}
-                {{ Form::hidden('price_system', $request->price_system) }}
               </li>
             </ul>
             <a name="a-selectTime1" class="error-r"></a>
           </td>
         </tr>
+        @endif
+        {{ Form::hidden('price_system', $request->price_system) }}
+
+
         <tr>
           <th>案内板</th>
           <td class="">
@@ -279,7 +284,7 @@
                     {{ReservationHelper::formatTime($request->leave_time)}}
                     {{Form::hidden('leave_time',$request->leave_time)}}
                   </p>
-                  <p>{{number_format($price_result[0])}}<span>円</span></p>
+                  <p>{{number_format($price_result[0]-$price_result[1])}}<span>円</span></p>
                 </li>
                 @if ($price_result[1]!=0)
                 <li>
@@ -290,8 +295,6 @@
               </ul>
             </td>
           </tr>
-
-
 
           @if (ReservationHelper::checkEquipmentBreakdowns($request->all())!=0)
           <tr>
@@ -311,8 +314,6 @@
             </td>
           </tr>
           @endif
-
-
 
           @if (ReservationHelper::checkServiceBreakdowns($request->all())!=0)
           <tr>
@@ -335,7 +336,6 @@
             </td>
           </tr>
           @endif
-
 
           @if ($request->layout_prepare!=0||$request->layout_clean!=0)
           <tr>

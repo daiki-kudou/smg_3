@@ -24,7 +24,7 @@
         <td>{{$venue_breakdown->unit_item}}</td>
         <td>{{number_format($venue_breakdown->unit_cost)}}</td>
         <td>{{$venue_breakdown->unit_count}}</td>
-        <td>{{number_format($venue_breakdown->unit_subtotal)}}</td>
+        <td>{{number_format($venue_breakdown->unit_cost)}}</td>
       </tr>
       @endif
       @endforeach

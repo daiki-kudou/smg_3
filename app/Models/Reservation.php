@@ -383,7 +383,6 @@ class Reservation extends Model implements PresentableInterface
         'master_subtotal' => $value->master,
         'master_tax' => floor($value->master * 0.1),
         'master_total' => floor(($value->master * 0.1) + $value->master),
-
         'payment_limit' => $payment_limit,
         'bill_company' => $s_user->getCompany(),
         'bill_person' => $s_user->getPerson(),
@@ -409,7 +408,7 @@ class Reservation extends Model implements PresentableInterface
       } else {
         $bills->breakdowns()->create([
           'unit_item' => "会場料金",
-          'unit_cost' => json_decode($value->price_result)[0],
+          'unit_cost' => json_decode($value->price_result)[0] - json_decode($value->price_result)[1],
           'unit_count' => json_decode($value->price_result)[3] - json_decode($value->price_result)[4],
           'unit_subtotal' => json_decode($value->price_result)[0],
           'unit_type' => 1,
@@ -444,15 +443,15 @@ class Reservation extends Model implements PresentableInterface
         ]);
       }
       // 荷物
-      if (!empty($value->luggage_count) || !empty($value->luggage_arrive) || !empty($value->luggage_return)) {
-        $bills->breakdowns()->create([
-          'unit_item' => "荷物預り/返送",
-          'unit_cost' => 500,
-          'unit_count' => 3,
-          'unit_subtotal' => 500,
-          'unit_type' => 3,
-        ]);
-      }
+      // if (!empty($value->luggage_count) || !empty($value->luggage_arrive) || !empty($value->luggage_return)) {
+      //   $bills->breakdowns()->create([
+      //     'unit_item' => "荷物預り/返送",
+      //     'unit_cost' => 500,
+      //     'unit_count' => 3,
+      //     'unit_subtotal' => 500,
+      //     'unit_type' => 3,
+      //   ]);
+      // }
       // レイアウト準備
       if (!empty($value->layout_prepare)) {
         $bills->breakdowns()->create([
