@@ -96,7 +96,7 @@ class HomeController extends Controller
         $i === 0 ? $temporary[] = date('H:i:00', strtotime(Carbon::parse($reservation->enter_time)->subMinutes(30))) : "";
         $temporary[] = date('H:i:00', strtotime(Carbon::parse($reservation->enter_time)->addMinutes($i * 30)));
         // 最後のループは該当予約時間の30分後も追加
-        $i === $diff ? $temporary[] = date('H:i:00', strtotime(Carbon::parse($reservation->enter_time)->addMinutes($i * 30)->addMinutes(30))) : "";
+        // $i === $diff ? $temporary[] = date('H:i:00', strtotime(Carbon::parse($reservation->enter_time)->addMinutes($i * 30)->addMinutes(30))) : "";
       }
       $result[] = $temporary;
     }
