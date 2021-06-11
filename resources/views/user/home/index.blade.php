@@ -32,7 +32,7 @@
     </dd>
     <dd>
       <p class="text-right">
-        {{Form::submit('検索')}}
+        {{Form::submit('検索', ['class'=>'btn more_btn'])}}
       </p>
     </dd>
   </dl>

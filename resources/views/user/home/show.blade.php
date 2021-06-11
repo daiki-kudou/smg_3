@@ -424,7 +424,7 @@
                       </dd>
                     </dl>
                     <div class="bill_btn_wrap">
-                      {{ Form::open(['url' => 'admin/invoice', 'method' => 'post', 'target' => '_blank', 'class' => '']) }}
+                      {{ Form::open(['url' => 'user/home/invoice', 'method' => 'post', 'target' => '_blank', 'class' => '']) }}
                       @csrf
                       {{ Form::hidden('reservation_id', $reservation->id) }}
                       {{ Form::hidden('bill_id', $reservation->bills->sortBy("id")->first()->id) }}
@@ -432,7 +432,7 @@
                         {{ Form::submit('請求書をみる', ['class' => 'btn more_btn']) }}</p>
                       {{ Form::close() }}
 
-                      {{ Form::open(['url' => 'admin/receipts', 'method' => 'post', 'target' => '_blank', 'class' => '']) }}
+                      {{ Form::open(['url' => 'user/home/receipt', 'method' => 'post', 'target' => '_blank', 'class' => '']) }}
                       @csrf
                       {{ Form::hidden('bill_id', $reservation->bills->sortBy("id")->first()->id) }}
                       @if ($reservation->bills->sortBy("id")->first()->paid == 1)
@@ -724,7 +724,7 @@
                       </dd>
                     </dl>
                     <div class="bill_btn_wrap">
-                      {{ Form::open(['url' => 'admin/invoice', 'method' => 'post', 'target' => '_blank', 'class' => '']) }}
+                      {{ Form::open(['url' => 'user/home/invoice', 'method' => 'post', 'target' => '_blank', 'class' => '']) }}
                       @csrf
                       {{ Form::hidden('reservation_id', $reservation->id) }}
                       {{ Form::hidden('bill_id', $other_bill->id) }}
@@ -732,7 +732,7 @@
                         {{ Form::submit('請求書をみる', ['class' => 'btn more_btn']) }}</p>
                       {{ Form::close() }}
 
-                      {{ Form::open(['url' => 'admin/receipts', 'method' => 'post', 'target' => '_blank', 'class' => '']) }}
+                      {{ Form::open(['url' => 'user/home/receipt', 'method' => 'post', 'target' => '_blank', 'class' => '']) }}
                       @csrf
                       {{ Form::hidden('reservation_id', $reservation->id) }}
                       {{ Form::hidden('bill_id', $other_bill->id) }}
@@ -1146,7 +1146,7 @@
                       </dd>
                     </dl>
                     <div class="bill_btn_wrap">
-                      {{ Form::open(['url' => 'admin/invoice', 'method' => 'post', 'target' => '_blank', 'class' => '']) }}
+                      {{ Form::open(['url' => 'user/home/invoice', 'method' => 'post', 'target' => '_blank', 'class' => '']) }}
                       @csrf
                       {{ Form::hidden('reservation_id', $reservation->id) }}
                       {{ Form::hidden('cxl_id', $cxl->id) }}
@@ -1155,7 +1155,7 @@
                       </p>
                       {{ Form::close() }}
 
-                      {{ Form::open(['url' => 'admin/receipts', 'method'=>'post', 'target'=>'_blank', 'class'=>'']) }}
+                      {{ Form::open(['url' => 'user/home/receipt', 'method'=>'post', 'target'=>'_blank', 'class'=>'']) }}
                       @csrf
                       {{ Form::hidden('cxl_id', $cxl->id ) }}
                       @if ($reservation->cxls->first()->paid==1)
