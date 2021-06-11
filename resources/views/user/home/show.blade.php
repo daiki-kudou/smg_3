@@ -1010,14 +1010,14 @@
   <!-- 工藤さん！！！！追加請求のステータスが予約承認まちのときに表示 -->
   <div class="confirm-box text-sm-center">
     <p>上記、追加請求の内容で間違いないでしょうか。問題なければ、予約の承認をお願い致します。</p>
-    <p class="text-center mt-3">
+    
       {{-- <input class="btn more_btn4_lg" type="submit" value="追加請求の内容を承認する"> --}}
       {{ Form::open(['url' => 'user/home/approve_user_additional_cfm', 'method' => 'post', 'class' => '']) }}
       @csrf
       {{ Form::hidden('bill_id', $other_bill->id) }}
-      {{ Form::submit('追加請求の内容を承認する', ['class' => 'btn more_btn4_lg']) }}
+      <p class="text-center mt-3">{{ Form::submit('追加請求の内容を承認する', ['class' => 'btn more_btn4_lg']) }}</p>
       {{ Form::close() }}
-    </p>
+    
     <p class="notion">※ご要望に相違がある場合は、下記連絡先までご連絡ください。<br>
       TEL：06-1234-5678<br>
       mail：test@gmail.com</p>
