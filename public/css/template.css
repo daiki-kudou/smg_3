@@ -308,11 +308,6 @@ form {
     color: #333;
 }
 
-.table-striped tbody tr:nth-of-type(odd) {
-    background-color: rgba(255, 255, 255, 0.05);
-}
-
-
 
 .btn_wrapper {
     margin: 50px 0;
@@ -616,22 +611,6 @@ option:disabled {
     width: 300px;
 }
 
-/* .search_box .form-group {
-    display: flex;
-    margin-bottom: 1px;
-    align-items: center;
-    border-radius: 0;
-    width: 50%;
-} */
-
-/* .search_box.table td {
-    padding: 0.02em;
-} */
-
-.search_box .form-control {
-    padding: 0;
-}
-
 .table th.search_item_name {
     width: 140px;
     /* background:rgb(53 167 167 / 80%); */
@@ -642,9 +621,6 @@ option:disabled {
     padding: 0.5em;
 }
 
-.search_box ul li {
-    width: 100%;
-}
 
 .search_category {
     display: flex;
@@ -923,15 +899,6 @@ table td.table_column p:last-child {
     border: 1px solid rgb(53 167 167 / 30%);
 }
 
-.preserve_table {
-    table-layout: fixed;
-}
-
-
-
-
-
-
 .border-inwrap {
     border: 1px solid rgb(53 167 167 / 40%);
     padding: 3%;
@@ -941,11 +908,6 @@ table td.table_column p:last-child {
 .calendar {
     padding: 2% 0;
     border: 1px solid #dee2e6;
-}
-
-
-.choose-table tr td:last-child {
-    width: 200px;
 }
 
 .register-list-header {
@@ -999,11 +961,6 @@ table td.table_column p:last-child {
 .btn-cell {
     min-width: 89px;
     text-align: center;
-}
-
-.prereserve-table .table_column .more_btn {
-    padding: 0 0.7em;
-
 }
 
 .checkbox,

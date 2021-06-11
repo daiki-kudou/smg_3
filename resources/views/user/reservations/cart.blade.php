@@ -204,7 +204,7 @@
           </tr>
           @endforeach
           <tr>
-            <td colspan="2" class="text-right">
+            <td colspan="2">
               <p class="checkbox-txt">
                 <span>小計</span>
                 {{number_format(ReservationHelper::numTimesNumArrays($sessions, "master"))}}円
@@ -216,13 +216,13 @@
             </td>
           </tr>
           <tr>
-            <td colspan="2" class="text-right checkbox-txt">
+            <td colspan="2" class="checkbox-txt">
               <span>合計総額</span>
               <span class="sumText">
                 {{number_format(ReservationHelper::taxAndPrice(ReservationHelper::numTimesNumArrays($sessions, "master")))}}
               </span>
               <span>円</span>
-              <p class="txtRight">※上記合計金額にケータリングは入っておりません。<br>
+              <p>※上記合計金額にケータリングは入っておりません。<br>
                 ※お申込み内容によっては、弊社からご連絡の上で、合計金額が変更となる場合がございます</p>
             </td>
           </tr>

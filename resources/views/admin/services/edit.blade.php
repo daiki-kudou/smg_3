@@ -34,7 +34,7 @@
 @csrf
 
 <p class="text-right mt-5">※金額は税抜で入力してください。</p>
-<table class="table table-striped table-bordered ">
+<table class="table table-bordered ">
   <thead>
     <tr>
       <th>ID</th>
