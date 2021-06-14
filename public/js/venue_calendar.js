@@ -37,8 +37,7 @@ $(function () {
           }
         } else if ($value == "0800") {
           $('.' + date + 'cal' + $value).html(data);
-        }
-        else if ($index + 1 === json[index].length) {
+        } else if ($index + 1 === json[index].length) {
           if (!$('.' + date + 'cal' + $value).next().hasClass('bg-reserve')) {
             $('.' + date + 'cal' + $value).next().css('background', 'gray'); //前後30分灰色
           }
