@@ -50,7 +50,6 @@ $(function () {
           }
         }
         $('.' + venue_id + 'cal' + $value).addClass('bg-reserve');
-
       }
     })
   }
