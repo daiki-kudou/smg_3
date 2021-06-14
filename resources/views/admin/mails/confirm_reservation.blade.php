@@ -12,6 +12,6 @@
   会場： {{ReservationHelper::getVenue($reservation->venue_id)}}<br>
   <br>
   管理画面より確認する"<br>
-  <a href="{{'https://staging-smg2.herokuapp.com/admin/reservations/'.$reservation->id}}">マイページより確認する</a><br>
+  <a href="{{'https://alliance-smg.herokuapp.com/admin/reservations/'.$reservation->id}}">マイページより確認する</a><br>
   <br>
 </p>
