@@ -208,28 +208,16 @@ class Venue extends Model implements PresentableInterface
       $between_time_list = $this->getEachSalesHours($price_arrays);
 
       // ↓↓ 一旦ここで、網羅できる料金体系を抽出完了↓↓↓
-      $cover_price_result = []; //網羅できる料金体系が格納される
-      $extend_lists = []; //延長可能な料金体系のindexと実際に延長する時間が配列で入ってる
-      for ($i = 0; $i < count($price_arrays); $i++) {
-        // ↓　cover_price_result用
-        if (in_array($generate_start_time, $between_time_list[$i]) && in_array($generate_finish_time, $between_time_list[$i])) {
-          $cover_price_result[] = $price_arrays[$i];
-        } else {
-          $cover_price_result[] = "false";
-        }
-        // ↓　extend_lists用
-        if (in_array($generate_start_time, $between_time_list[$i]) && !in_array($generate_finish_time, $between_time_list[$i])) {
-          $extend_lists[] = Carbon::parse($generate_finish_time)->diffInMinutes(Carbon::parse($price_arrays[$i]->finish)) / 60;
-        } else {
-          $extend_lists[] = 'false';
-        }
-      }
+      $cover_price_result = $this->coverPriceResultOrNot($price_arrays, $generate_start_time, $between_time_list, $generate_finish_time);
+
+      //延長可能な料金体系のindexと実際に延長する時間が配列で入ってる
+      $extend_lists = $this->canExtendOrNot($price_arrays, $generate_start_time, $between_time_list, $generate_finish_time);
 
       $extend_prices = []; //1時間もしくは30分の延長料金が入ってる
-      foreach ($extend_lists as $extend_list_index => $extend_list_price) {
-        if ($extend_list_price == 1) {
+      foreach ($extend_lists as $e_l) {
+        if ($e_l == 1) {
           $extend_prices[] = $price_arrays[0]->extend;
-        } elseif ($extend_list_price == 0.5) {
+        } elseif ($e_l == 0.5) {
           $extend_prices[] = ($price_arrays[0]->extend) / 2;
         } else {
           $extend_prices[] = "false";
@@ -256,12 +244,11 @@ class Venue extends Model implements PresentableInterface
       |--------------------------------------------------------------------------|*/
 
       $min_results = []; //抽出された料金から最小を取得
-      foreach ($extend_final_prices as $extend_final_price) {
-        if ($extend_final_price > 0) {
-          $min_results[] = $extend_final_price;
+      foreach ($extend_final_prices as $price) {
+        if ($price > 0) {
+          $min_results[] = $price;
         }
       }
-      // dd($min_results);
       if (!empty($min_results)) {
         $min_result = min($min_results);
       } else {
@@ -275,33 +262,11 @@ class Venue extends Model implements PresentableInterface
       } elseif ($exted_specific_price == 'false') {
         $exted_specific_price = 0;
       }
-      // 延長料金抽出
-      switch ($start_time) {
-        case '08:00:00':
-          $min_result = $min_result + ($price_arrays[0]->extend) * 2;
-          $exted_specific_price = $exted_specific_price + ($price_arrays[0]->extend) * 2;
-          break;
-        case '08:30:00':
-          $min_result = $min_result + ($price_arrays[0]->extend) * 1.5;
-          $exted_specific_price = $exted_specific_price + ($price_arrays[0]->extend) * 1.5;
-          break;
-        case '09:00:00':
-          $min_result = $min_result + ($price_arrays[0]->extend) * 1.0;
-          $exted_specific_price = $exted_specific_price + ($price_arrays[0]->extend) * 1.0;
-          break;
-        case '09:30:00':
-          $min_result = $min_result + ($price_arrays[0]->extend) * 0.5;
-          $exted_specific_price = $exted_specific_price + ($price_arrays[0]->extend) * 0.5;
-          break;
-        case '12:00:00':
-          $min_result = $min_result + ($price_arrays[0]->extend) * 1;
-          $exted_specific_price = $exted_specific_price + ($price_arrays[0]->extend) * 1;
-          break;
-        case '12:30:00':
-          $min_result = $min_result + ($price_arrays[0]->extend) * 0.5;
-          $exted_specific_price = $exted_specific_price + ($price_arrays[0]->extend) * 0.5;
-          break;
-      }
+      // 延長料金抽出（夜間以外の延長料金を加算した会場料金算出）
+      $min_result = $this->getTotalResult($start_time, $min_result, $price_arrays);
+      // 延長料金抽出（最終）
+      $exted_specific_price = $this->getExtendPrice($start_time, $exted_specific_price, $price_arrays);
+
 
       // // 23時例外：22時から23時を選択すると時間に応じて延長料金適応
       //17時以降は無条件で夜間料金適応
@@ -312,9 +277,6 @@ class Venue extends Model implements PresentableInterface
         $min_result = $min_result + ($price_arrays[0]->extend) * 0.5;
         $exted_specific_price = $exted_specific_price + ($price_arrays[0]->extend) * 0.5;
       }
-
-      // return $min_result; //延長含む最終料金抽出
-      // return $extend_prices;
 
       // 選択した時間取得
       $f_start = Carbon::createFromTimeString($start_time, 'Asia/Tokyo');
@@ -387,7 +349,6 @@ class Venue extends Model implements PresentableInterface
       $usage_time /= 60; //分に変換
 
       if ($usage_time <= 15) {
-
         $target_time_index_in_array = array_search($usage_time, $times_arrays); //配列のどこに該当があるか
         $empty_arrays3 = [];
         for ($results_lists = 0; $results_lists < count($time_price); $results_lists++) { //⑤回ループ
@@ -461,11 +422,96 @@ class Venue extends Model implements PresentableInterface
       for ($i = 0; $i <= $diff; $i++) {
         $temporary[] = date('H:i:s', strtotime(Carbon::parse($price_array->start)->addMinutes($i * 30)));
       }
-      // dump($TESTARRAY);
       $result[] = $temporary;
     }
     return $result;
   }
+
+  public function coverPriceResultOrNot($price_arrays, $generate_start_time, $between_time_list, $generate_finish_time)
+  {
+    $cover_price = [];
+    for ($i = 0; $i < count($price_arrays); $i++) {
+      // ↓　cover_price_result用
+      if (in_array($generate_start_time, $between_time_list[$i]) && in_array($generate_finish_time, $between_time_list[$i])) {
+        $cover_price[] = $price_arrays[$i];
+      } else {
+        $cover_price[] = "false";
+      }
+    }
+    return $cover_price;
+  }
+
+  public function canExtendOrNot($price_arrays, $generate_start_time, $between_time_list, $generate_finish_time)
+  {
+    $extend_lists = [];
+    for ($i = 0; $i < count($price_arrays); $i++) {
+      if (in_array($generate_start_time, $between_time_list[$i]) && !in_array($generate_finish_time, $between_time_list[$i])) {
+        $extend_lists[] = Carbon::parse($generate_finish_time)->diffInMinutes(Carbon::parse($price_arrays[$i]->finish)) / 60;
+      } else {
+        $extend_lists[] = 'false';
+      }
+    }
+    return $extend_lists;
+  }
+
+  public function getTotalResult($start_time, $min_result, $price_arrays)
+  {
+    switch ($start_time) {
+      case '08:00:00':
+        return  $min_result + ($price_arrays[0]->extend) * 2;
+        break;
+      case '08:30:00':
+        return  $min_result + ($price_arrays[0]->extend) * 1.5;
+        break;
+      case '09:00:00':
+        return  $min_result + ($price_arrays[0]->extend) * 1.0;
+        break;
+      case '09:30:00':
+        return  $min_result + ($price_arrays[0]->extend) * 0.5;
+        break;
+      case '12:00:00':
+        return  $min_result + ($price_arrays[0]->extend) * 1;
+        break;
+      case '12:30:00':
+        return  $min_result + ($price_arrays[0]->extend) * 0.5;
+        break;
+      default:
+        return $min_result;
+    }
+  }
+
+  public function getExtendPrice($start_time, $exted_specific_price, $price_arrays)
+  {
+    switch ($start_time) {
+      case '08:00:00':
+        return $exted_specific_price + ($price_arrays[0]->extend) * 2;
+        break;
+      case '08:30:00':
+        return $exted_specific_price + ($price_arrays[0]->extend) * 1.5;
+        break;
+      case '09:00:00':
+        return $exted_specific_price + ($price_arrays[0]->extend) * 1.0;
+        break;
+      case '09:30:00':
+        return $exted_specific_price + ($price_arrays[0]->extend) * 0.5;
+        break;
+      case '12:00:00':
+        return $exted_specific_price + ($price_arrays[0]->extend) * 1;
+        break;
+      case '12:30:00':
+        return $exted_specific_price + ($price_arrays[0]->extend) * 0.5;
+        break;
+      default:
+        return $exted_specific_price;
+    }
+  }
+
+
+
+
+
+
+
 
 
   public function calculate_items_price($selected_equipments, $selected_services)
@@ -561,9 +607,6 @@ class Venue extends Model implements PresentableInterface
       return 0;
     } else {
       $percent = ($reservation->cost) * 0.01;
-      // dump('total', $total);
-      // dump('percent', $percent);
-      // dump('layout', $layout);
       return ($total - ($layout * 1.1)) * $percent;
     }
   }
