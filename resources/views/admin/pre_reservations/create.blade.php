@@ -43,7 +43,8 @@
       <option value="">選択してください</option>
       @foreach ($users as $user)
       <option value="{{$user->id}}">
-        {{$user->id}} | {{ReservationHelper::getCompany($user->id)}} | {{ReservationHelper::getPersonName($user->id)}} |
+        {{ReservationHelper::fixId($user->id)}} | {{ReservationHelper::getCompany($user->id)}} |
+        {{ReservationHelper::getPersonName($user->id)}} |
         {{$user->email}} | {{$user->tel}} | {{$user->mobile}}
       </option>
       @endforeach
