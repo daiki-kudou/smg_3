@@ -1180,8 +1180,9 @@ h3 {
     background-color: #ffff4d!important;
 }
 
+/* 工藤　追加　Important */
 .bg-reserve {
-    background-color: #35a7a7;
+    background-color: #35a7a7!important;
 }
 
 .bg-closed {

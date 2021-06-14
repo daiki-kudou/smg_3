@@ -34,14 +34,24 @@ $(function () {
         $('.' + venue_id + 'cal' + $value).addClass('bg-prereserve');
 
       } else if (status == 3) {// 3なら緑
-        $('.' + venue_id + 'cal' + $value).addClass('bg-reserve');
         if ($index == 0) { //会社名挿入 10時以上の予約
           var data = "<a  target='_blank' href='/admin/reservations/" + reservation_id + "'>" + company + "</a>";
           $('.' + venue_id + 'cal' + $value).html(data);
+          if ($value !== "0800") {
+            if (!$('.' + venue_id + 'cal' + $value).prev().hasClass('bg-reserve')) {
+              $('.' + venue_id + 'cal' + $value).prev().css('background', 'gray'); //前後30分灰色
+            }
+          }
         } else if ($value === "0800") {
           var data = "<a  target='_blank' href='/admin/reservations/" + reservation_id + "'>" + company + "</a>";
           $('.' + venue_id + 'cal' + $value).html(data);
+        } else if ($index + 1 === json[index].length) {
+          if (!$('.' + venue_id + 'cal' + $value).next().hasClass('bg-reserve')) {
+            $('.' + venue_id + 'cal' + $value).next().addClass('gray');//前後30分灰色
+          }
         }
+        $('.' + venue_id + 'cal' + $value).addClass('bg-reserve');
+
       }
     })
   }
