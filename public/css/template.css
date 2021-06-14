@@ -1175,8 +1175,9 @@ h3 {
 }
 
 /* カレンダー色 */
+/* 工藤　追加　Important */
 .bg-prereserve {
-    background-color: #ffff4d;
+    background-color: #ffff4d!important;
 }
 
 .bg-reserve {
