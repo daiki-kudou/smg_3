@@ -13,7 +13,7 @@
                         <p>
                             メールアドレスの変更が完了しました。以下から再度ログインをお願いします。
                         </p>
-                        <p class="btn-wrapper2"><a class="link-btn2" href="{{ url('user/login') }}">ログインする</a></p>
+                        <p class="txtCenter cell-margin"><a class="link-btn2" href="{{ url('user/login') }}">ログインする</a></p>
                     </div>
 
                 </section>

@@ -3,6 +3,7 @@
 
 <link href="{{ asset('/css/template.css') }}" rel="stylesheet">
 <script src="{{ asset('/js/template.js') }}"></script>
+<script src="{{ asset('/js/lettercounter.js') }}"></script>
 <script src="{{ asset('/js/admin/validation.js') }}"></script>
 
 <div class="container-field mt-3 d-md-flex justify-content-md-between">
@@ -695,5 +696,42 @@
       autoclose: true,
     });
   })
+
+    // ロード時の、案内板入力制御
+    $(document).ready(function() {
+    $("#no_board_flag:checked").each(function() {
+      var flag = $(this);
+      if ($(flag).is(":checked") != null) {
+        $("#event_start").prop("disabled", true);
+        $("#event_finish").prop("disabled", true);
+        $("#eventname1Count").prop("disabled", true);
+        $("#eventname2Count").prop("disabled", true);
+        $("#eventownerCount").prop("disabled", true);
+        // $(".board-table input[type='text']").val("");
+        $(".board-table option:selected").val("");
+      }
+    });
+  });
+
+  // ラジオボタンクリック時の案内板入力制御
+  $(function() {
+    $('input[name="board_flag"]').change(function() {
+      var prop = $("#no_board_flag").prop("checked");
+      if (prop) {
+        $("#event_start").prop("disabled", true);
+        $("#event_finish").prop("disabled", true);
+        $("#eventname1Count").prop("disabled", true);
+        $("#eventname2Count").prop("disabled", true);
+        $("#eventownerCount").prop("disabled", true);
+        // $(".board-table input[type='text']").val("");
+      } else {
+        $("#event_start").prop("disabled", false);
+        $("#event_finish").prop("disabled", false);
+        $("#eventname1Count").prop("disabled", false);
+        $("#eventname2Count").prop("disabled", false);
+        $("#eventownerCount").prop("disabled", false);
+      }
+    });
+  });
 </script>
 @endsection
