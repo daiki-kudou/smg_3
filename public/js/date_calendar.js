@@ -32,7 +32,6 @@ $(function () {
           }
         }
         $('.' + venue_id + 'cal' + $value).addClass('bg-prereserve');
-
       } else if (status == 3) {// 3なら緑
         if ($index == 0) { //会社名挿入 10時以上の予約
           var data = "<a  target='_blank' href='/admin/reservations/" + reservation_id + "'>" + company + "</a>";
