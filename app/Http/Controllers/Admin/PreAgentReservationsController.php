@@ -94,7 +94,7 @@ class PreAgentReservationsController extends Controller
 
   public function edit($pre_reservation)
   {
-    $PreReservation = PreReservation::find($pre_reservation);
+    $PreReservation = PreReservation::with('pre_bill')->find($pre_reservation);
     $agents = Agent::orderBy("id", "desc")->get();
 
     $SPVenue = Venue::with(["frame_prices", "time_prices"])->find($PreReservation->venue_id);
