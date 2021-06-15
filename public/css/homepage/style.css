@@ -738,6 +738,6 @@ form table td textarea {
     }
 
     .sum-list li {
-        display: block;
+        /* display: block; */
     }
 }

@@ -1736,6 +1736,7 @@ table .master_total_subttl2 {
 /* マイページ =============================================================*/
 
 
+
 .user_wrapper .ttl_box {
     margin-right: 0;
 }
@@ -1784,6 +1785,10 @@ table .master_total_subttl2 {
   .user_wrapper .bill_status ul li:last-child p {
       text-align: right;
   }
+
+  .user-profile th, .user-profile td {
+    font-weight: normal;
+}
 
 @media screen and (max-width: 767px) {
 
@@ -1900,6 +1905,7 @@ h4 {
 
 .user-profile th, .user-profile td {
     display: block;
+    font-weight: normal;
 }
 
 

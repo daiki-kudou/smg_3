@@ -196,7 +196,7 @@
             <td>
               <ul class="sum-list">
                 <li>
-                  <p>{{ReservationHelper::formatDateJA($t_reservation[0]["date"])}}会場ご利用料</p>
+                  <p>{{ReservationHelper::formatDateJA($t_reservation[0]["date"])}}<br class="sp">会場ご利用料</p>
                   <p>{{number_format($t_reservation[0]['master'])}}<span>円</span></p>
                 </li>
               </ul>
