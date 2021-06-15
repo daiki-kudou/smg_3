@@ -146,33 +146,62 @@
         <tr class="table_row">
           <th>一括仮押さえID</th>
           <th>作成日</th>
+          <th>利用日</th>
           <th>利用会場</th>
           <th>総件数</th>
           <th>件数</th>
         </tr>
       </thead>
-      <tbody>
-        @for ($i = 0; $i < $venue_count; $i++) @if ($i==0) <tr>
-          <td rowspan="{{$venue_count}}">{{$multiple->id}}</td>
-          <td rowspan="{{$venue_count}}">{{ReservationHelper::formatDate($multiple->created_at)}}</td>
-          <td>{{ReservationHelper::getVenue($venues[$i]->venue_id)}}</td>
-          <td rowspan="{{$venue_count}}">
-            {{$multiple->pre_reservations->count()}}
-          </td>
-          <td>
-            {{$multiple->pre_reservations->where('venue_id',$venues[$i]->venue_id)->count()}}
-          </td>
-          </tr>
-          @else
-          <tr>
-            <td>{{ReservationHelper::getVenue($venues[$i]->venue_id)}}</td>
-            <td>
-              {{$multiple->pre_reservations->where('venue_id',$venues[$i]->venue_id)->get()->count()}}
-            </td>
-          </tr>
-          @endif
-          @endfor
-      </tbody>
+
+
+      @foreach ($pre_reservations as $pre_reservation)
+      @if ($loop->first)
+      <tr>
+        <td rowspan="{{$venue_count}}">{{$pre_reservation->id}}</td>
+        <td rowspan="{{$venue_count}}">{{ReservationHelper::formatDate($pre_reservation->created_at)}}</td>
+        <td>
+          @foreach ($multiple->pre_reservations->where('venue_id',$pre_reservation->venue_id)->sortBy('reserve_date') as
+          $f_l)
+          <p>
+            {{ReservationHelper::formatDate($f_l->reserve_date)}}
+            {{ReservationHelper::formatTime($f_l->enter_time)}}
+            ~
+            {{ReservationHelper::formatTime($f_l->leave_time)}}
+          </p>
+          @endforeach
+        </td>
+        <td>{{ReservationHelper::getVenue($pre_reservation->venue_id)}}</td>
+        <td rowspan="{{$venue_count}}">
+          {{$multiple->pre_reservations->count()}}
+        </td>
+        <td>
+          {{$multiple->pre_reservations->where('venue_id',$pre_reservation->venue_id)->count()}}
+        </td>
+      </tr>
+      @else
+      <tr>
+        <td>
+          @foreach ($multiple->pre_reservations->where('venue_id',$pre_reservation->venue_id)->sortBy('reserve_date') as
+          $f_l)
+          <p>
+            {{ReservationHelper::formatDate($f_l->reserve_date)}}
+            {{ReservationHelper::formatTime($f_l->enter_time)}}
+            ~
+            {{ReservationHelper::formatTime($f_l->leave_time)}}
+          </p>
+          @endforeach
+        </td>
+        <td>
+          {{ReservationHelper::getVenue($pre_reservation->venue_id)}}
+        </td>
+        <td>
+          {{$multiple->pre_reservations->where('venue_id',$pre_reservation->venue_id)->count()}}
+        </td>
+      </tr>
+      @endif
+      @endforeach
+
+
     </table>
   </div>
 

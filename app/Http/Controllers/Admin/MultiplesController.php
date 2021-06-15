@@ -291,7 +291,8 @@ class MultiplesController extends Controller
     $venues = $multiple->pre_reservations->unique('venue_id');
     $venue_count = $venues->count('venue_id');
     $_venues = Venue::all();
-    return view('admin.multiples.add_venue', compact('multiple', 'venues', 'venue_count', '_venues'));
+    $pre_reservations = $multiple->pre_reservations->unique('venue_id');
+    return view('admin.multiples.add_venue', compact('multiple', 'venues', 'venue_count', '_venues', 'pre_reservations'));
   }
 
   public function add_venue_store(Request $request)
