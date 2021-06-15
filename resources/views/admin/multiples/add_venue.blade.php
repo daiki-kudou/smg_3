@@ -4,6 +4,26 @@
 <link href="{{ asset('/css/template.css') }}" rel="stylesheet">
 <script src="{{ asset('/js/template.js') }}"></script>
 <script src="{{ asset('/js/multiples/calculate.js') }}"></script>
+<script src="{{ asset('/js/admin/pre_reservation/control_time.js') }}"></script>
+
+<div id="fullOverlay">
+  <div class="frame_spinner">
+    <div class="spinner-border text-primary " role="status">
+      <span class="sr-only hide">Loading...</span>
+    </div>
+  </div>
+</div>
+
+@if ($errors->any())
+<div class="alert alert-danger">
+  <ul>
+    {{-- @foreach ($errors->all() as $error) --}}
+    <li>追加する日付・会場・入退室時間は必須です</li>
+    {{-- @endforeach --}}
+  </ul>
+</div>
+@endif
+
 
 <div class="container-field mt-3">
   <div class="float-right">
@@ -47,28 +67,28 @@
         <tr>
           <th class="table-active" width="25%"><label for="company">会社名・団体名</label></th>
           <td>
-            {{ReservationHelper::getCompany($multiple->pre_reservations()->first()->user_id)}}
+            {{ReservationHelper::getCompany($multiple->pre_reservations->first()->user_id)}}
           </td>
           <td class="table-active"><label for="name">担当者氏名</label></td>
           <td>
-            {{ReservationHelper::getPersonName($multiple->pre_reservations()->first()->user_id)}}
+            {{ReservationHelper::getPersonName($multiple->pre_reservations->first()->user_id)}}
           </td>
         </tr>
         <tr>
           <td class="table-active" scope="row"><label for="email">担当者メールアドレス</label></td>
           <td>
-            {{ReservationHelper::getPersonEmail($multiple->pre_reservations()->first()->user_id)}}
+            {{ReservationHelper::getPersonEmail($multiple->pre_reservations->first()->user_id)}}
           </td>
           <td class="table-active" scope="row"><label for="mobile">携帯番号</label></td>
           <td>
-            {{ReservationHelper::getPersonMobile($multiple->pre_reservations()->first()->user_id)}}
+            {{ReservationHelper::getPersonMobile($multiple->pre_reservations->first()->user_id)}}
           </td>
         </tr>
         <tr>
           <td class="table-active" scope="row"><label for="tel">固定電話</label>
           </td>
           <td>
-            {{ReservationHelper::getPersonTel($multiple->pre_reservations()->first()->user_id)}}
+            {{ReservationHelper::getPersonTel($multiple->pre_reservations->first()->user_id)}}
           </td>
         </tr>
       </tbody>
@@ -86,36 +106,36 @@
         <tr>
           <td class="table-active" width="25%"><label for="onedayCompany">会社・団体名(仮)</label></td>
           <td>
-            @if (!empty($multiple->pre_reservations()->first()->unknown_user->unknown_user_company))
-            {{$multiple->pre_reservations()->first()->unknown_user->unknown_user_company}}
+            @if (!empty($multiple->pre_reservations->first()->unknown_user->unknown_user_company))
+            {{$multiple->pre_reservations->first()->unknown_user->unknown_user_company}}
             @endif
           </td>
           <td class="table-active"><label for="onedayName">担当者名(仮)</label></td>
           <td>
-            @if (!empty($multiple->pre_reservations()->first()->unknown_user->unknown_user_name))
-            {{$multiple->pre_reservations()->first()->unknown_user->unknown_user_name}}
+            @if (!empty($multiple->pre_reservations->first()->unknown_user->unknown_user_name))
+            {{$multiple->pre_reservations->first()->unknown_user->unknown_user_name}}
             @endif
           </td>
         </tr>
         <tr>
           <td class="table-active" scope="row"><label for="onedayTel">固定電話</label></td>
           <td>
-            @if (!empty($multiple->pre_reservations()->first()->unknown_user->unknown_user_tel))
-            {{$multiple->pre_reservations()->first()->unknown_user->unknown_user_tel}}
+            @if (!empty($multiple->pre_reservations->first()->unknown_user->unknown_user_tel))
+            {{$multiple->pre_reservations->first()->unknown_user->unknown_user_tel}}
             @endif
           </td>
           <td class="table-active" scope="row"><label for="onedayMobile">携帯番号</label></td>
           <td>
-            @if (!empty($multiple->pre_reservations()->first()->unknown_user->unknown_user_mobile))
-            {{$multiple->pre_reservations()->first()->unknown_user->unknown_user_mobile}}
+            @if (!empty($multiple->pre_reservations->first()->unknown_user->unknown_user_mobile))
+            {{$multiple->pre_reservations->first()->unknown_user->unknown_user_mobile}}
             @endif
           </td>
         </tr>
         <tr>
           <td class="table-active" scope="row"><label for="onedayEmail">メールアドレス</label></td>
           <td>
-            @if (!empty($multiple->pre_reservations()->first()->unknown_user->unknown_user_email))
-            {{$multiple->pre_reservations()->first()->unknown_user->unknown_user_email}}
+            @if (!empty($multiple->pre_reservations->first()->unknown_user->unknown_user_email))
+            {{$multiple->pre_reservations->first()->unknown_user->unknown_user_email}}
             @endif
           </td>
         </tr>
@@ -137,17 +157,17 @@
           <td rowspan="{{$venue_count}}">{{ReservationHelper::formatDate($multiple->created_at)}}</td>
           <td>{{ReservationHelper::getVenue($venues[$i]->venue_id)}}</td>
           <td rowspan="{{$venue_count}}">
-            {{$multiple->pre_reservations()->get()->count()}}
+            {{$multiple->pre_reservations->count()}}
           </td>
           <td>
-            {{$multiple->pre_reservations()->where('venue_id',$venues[$i]->venue_id)->get()->count()}}
+            {{$multiple->pre_reservations->where('venue_id',$venues[$i]->venue_id)->count()}}
           </td>
           </tr>
           @else
           <tr>
             <td>{{ReservationHelper::getVenue($venues[$i]->venue_id)}}</td>
             <td>
-              {{$multiple->pre_reservations()->where('venue_id',$venues[$i]->venue_id)->get()->count()}}
+              {{$multiple->pre_reservations->where('venue_id',$venues[$i]->venue_id)->get()->count()}}
             </td>
           </tr>
           @endif
@@ -187,7 +207,7 @@
             </select>
           </td>
           <td>
-            <select name="pre_enter0" id="pre_enter0" class="form-control">
+            <select name="pre_enter0" id="pre_enter0" class="enter_control_pre_reservation0 form-control">
               <option value=""></option>
               @for ($start = 0*2; $start <=23*2; $start++) <option
                 value="{{date("H:i:s", strtotime("00:00 +". $start * 30 ." minute"))}}">
@@ -197,7 +217,7 @@
             </select>
           </td>
           <td>
-            <select name="pre_leave0" id="pre_leave0" class="form-control">
+            <select name="pre_leave0" id="pre_leave0" class="leave_control_pre_reservation0 form-control">
               <option value=""></option>
               @for ($start = 0*2; $start <=23*2; $start++) <option
                 value="{{date("H:i:s", strtotime("00:00 +". $start * 30 ." minute"))}}">
@@ -217,7 +237,7 @@
 
   <div class="submit_btn mt-5">
     {{Form::hidden('multiple_id',$multiple->id)}}
-    {{Form::hidden('user_id',$multiple->pre_reservations()->first()->user_id)}}
+    {{Form::hidden('user_id',$multiple->pre_reservations->first()->user_id)}}
     {{ Form::submit('登録する', ['class' => 'btn more_btn_lg mx-auto d-block']) }}
   </div>
   {{ Form::close() }}
@@ -354,95 +374,7 @@
       }
     })
   })
-  // 入室時間選択トリガー
-  // $(function() {
-  //   $(document).on("click", "select", function() {
-  //     var this_tr = $(this).parent().parent();
-  //     var target = $(this).parent().index();
-  //     if (target == 2) {
-  //       var date = this_tr.find('td').eq(0).find('input').val();
-  //       var venue = this_tr.find('td').eq(1).find('select').val();
-  //       if (date.length && venue.length) {
-  //         $(this).find('option').prop('disabled', false);
-  //         var options = $(this).find('option');
-  //         $.ajax({
-  //           headers: {
-  //             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-  //           },
-  //           url: '/admin/reservations/getsaleshours',
-  //           type: 'POST',
-  //           data: {
-  //             'venue_id': venue,
-  //             'dates': date
-  //           },
-  //           dataType: 'json',
-  //           beforeSend: function() {
-  //             $('#fullOverlay').css('display', 'block');
-  //           },
-  //         }).done(function($times) {
-  //           $('#fullOverlay').css('display', 'none');
-  //           for (let index = 0; index < $times[0].length; index++) {
-  //             options.each(function($result) {
-  //               if ($times[0][index] == options.eq($result).val()) {
-  //                 options.eq($result).prop('disabled', true);
-  //               }
-  //             });
-  //           };
-  //         }).fail(function($times) {
-  //           $('#fullOverlay').css('display', 'none');
-  //         });
-  //       } else {
-  //         $(this).find('option').prop('disabled', true);
-  //       }
-  //       var masterTr = $('.date_selector tbody tr').length;
-  //       for (let trs = 0; trs < masterTr; trs++) {
-  //         var targetDate = $('.date_selector tbody tr').eq(trs).find('td').eq(0).find('input').val();
-  //         var targetVenue = $('.date_selector tbody tr').eq(trs).find('td').eq(1).find('select').val();
-  //         var targetEnter = $('.date_selector tbody tr').eq(trs).find('td').eq(2).find('select').val();
-  //         var targetLeave = $('.date_selector tbody tr').eq(trs).find('td').eq(3).find('select').val();
-  //         // console.log(['日付だよ',targetDate], ['会場だよ',targetVenue], ['入室だよ',targetEnter],['退室だよ',targetLeave]);
-  //         var cmpTargetDate = $(this).parent().parent().find('td').eq(0).find('input').val();
-  //         var cmpTargetVenue = $(this).parent().parent().find('td').eq(1).find('select').val();
-  //         // console.log(['target日付',cmpTargetDate], ['cmpTarget会場',cmpTargetVenue]);
-  //         if (cmpTargetDate == targetDate && cmpTargetVenue == targetVenue) {
-  //           var thisoption = $(this).find('option');
-  //           $.ajax({
-  //             headers: {
-  //               'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-  //             },
-  //             url: '/admin/pre_reservations/reject_same_time',
-  //             type: 'POST',
-  //             data: {
-  //               'targetEnter': targetEnter,
-  //               'targetLeave': targetLeave
-  //             },
-  //             dataType: 'json',
-  //             beforeSend: function() {
-  //               $('#fullOverlay').css('display', 'block');
-  //             },
-  //           }).done(function($targettimes) {
-  //             $('#fullOverlay').css('display', 'none');
-  //             var arrays = [];
-  //             thisoption.each(function($index, $value) {
-  //               if ($($value).val() == $targettimes[1]) {
-  //                 $($value).prop('disabled', true);
-  //                 for (let counts = $index; counts < $index + ($targettimes[0] + 1); counts++) {
-  //                   arrays.push(counts);
-  //                 }
-  //               }
-  //             });
-  //             $.each(arrays, function($i, $v) {
-  //               thisoption.eq($v).prop('disabled', true);
-  //             });
-  //           }).fail(function($targettimes) {
-  //             $('#fullOverlay').css('display', 'none');
-  //             console.log($targettimes);
-  //           });
-  //         }
-  //       }
-  //     } else if (target == 3) {}
-  //   })
-  // })
+
 </script>
 
 @endsection
