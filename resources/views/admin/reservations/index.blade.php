@@ -31,7 +31,6 @@
         </ol>
       </nav>
     </div>
-    <p>テスト！！！</p>
 
     {{ Form::open(['url' => 'admin/reservations', 'method'=>'get', 'id'=>'reserve_search'])}}
     @csrf
