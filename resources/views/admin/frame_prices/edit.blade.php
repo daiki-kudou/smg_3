@@ -122,7 +122,6 @@
                     '22:00:00'=>'22:00',
                     '22:30:00'=>'22:30',
                     '23:00:00'=>'23:00',
-                    '23:30:00'=>'23:30',
                 ],old('finish', $frame_price->finish),['class'=>'form-control col-sm-12'])}}</td>
             <td>
               <div class="d-flex align-items-end">

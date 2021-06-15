@@ -20,7 +20,7 @@ $(function () {
           $('.' + venue_id + 'cal' + $value).html(data); //リンク挿入
           if ($value !== "0800") {
             if (!$('.' + venue_id + 'cal' + $value).prev().hasClass('bg-prereserve') && !$('.' + venue_id + 'cal' + $value).prev().hasClass('bg-reserve')) {
-              $('.' + venue_id + 'cal' + $value).prev().css('background', 'gray'); //前後30分灰色
+              $('.' + venue_id + 'cal' + $value).prev().addClass('gray'); //前後30分灰色
             }
           }
         } else if ($value === "0800") {
@@ -38,7 +38,7 @@ $(function () {
           $('.' + venue_id + 'cal' + $value).html(data);
           if ($value !== "0800") {
             if (!$('.' + venue_id + 'cal' + $value).prev().hasClass('bg-reserve')) {
-              $('.' + venue_id + 'cal' + $value).prev().css('background', 'gray'); //前後30分灰色
+              $('.' + venue_id + 'cal' + $value).prev().addClass('gray'); //前後30分灰色
             }
           }
         } else if ($value === "0800") {
@@ -79,6 +79,11 @@ $(function () {
           var data = "<a target='_blank' href='/admin/pre_reservations/" + pre_reservation_id + "'>" + company + "</a>";
           $('.' + venue_id + 'cal' + $value).html(data);
         }
+        if ($value !== "0800") {
+          if (!$('.' + venue_id + 'cal' + $value).prev().hasClass('bg-prereserve') && !$('.' + venue_id + 'cal' + $value).prev().hasClass('bg-reserve')) {
+            $('.' + venue_id + 'cal' + $value).prev().addClass('gray'); //前後30分灰色
+          }
+        }
       } else if ($value == "0800") {
         if (multiple_id != 0) {
           if (agent_id > 0) { //仲介会社の場合の一括詳細
@@ -91,6 +96,10 @@ $(function () {
         } else {　//ユーザー||仲介会社の仮押さえ詳細
           var data = "<a target='_blank' href='/admin/pre_reservations/" + pre_reservation_id + "'>" + company + "</a>";
           $('.' + venue_id + 'cal' + $value).html(data);
+        }
+      } else if ($index + 1 === json[index].length) {
+        if (!$('.' + venue_id + 'cal' + $value).next().hasClass('bg-prereserve') && !$('.' + venue_id + 'cal' + $value).next().hasClass('bg-reserve')) {
+          $('.' + venue_id + 'cal' + $value).next().addClass('gray');//前後30分灰色
         }
       }
     })

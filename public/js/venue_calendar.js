@@ -11,10 +11,18 @@ $(function () {
       $.each(json[index], function ($index, $value) {
         $('.' + date + 'cal' + $value).addClass('bg-prereserve');
         if ($index == 0) { //会社名挿入 10時以上の予約
-          $('.' + date + 'cal' + $value).html(data);
-          console.log($('.' + date + 'cal' + $value).prev());
+          $('.' + date + 'cal' + $value).html(data);//リンク挿入
+          if ($value !== "0800") {
+            if (!$('.' + date + 'cal' + $value).prev().hasClass('bg-reserve')) {
+              $('.' + date + 'cal' + $value).prev().css('background', 'gray'); //前後30分灰色
+            }
+          }
         } else if ($value == "0800") {
-          $('.' + date + 'cal' + $value).html(data);
+          $('.' + date + 'cal' + $value).html(data);//リンク挿入
+        } else if ($index + 1 === json[index].length) {
+          if (!$('.' + date + 'cal' + $value).next().hasClass('bg-reserve')) {
+            $('.' + date + 'cal' + $value).next().css('background', 'gray'); //前後30分灰色
+          }
         }
       })
     } else if (status == 3) {
@@ -22,14 +30,22 @@ $(function () {
         $('.' + date + 'cal' + $value).addClass('bg-reserve');
         if ($index == 0) { //会社名挿入 10時以上の予約
           $('.' + date + 'cal' + $value).html(data);
+          if ($value !== "0800") {
+            if (!$('.' + date + 'cal' + $value).prev().hasClass('bg-reserve')) {
+              $('.' + date + 'cal' + $value).prev().css('background', 'gray'); //前後30分灰色
+            }
+          }
         } else if ($value == "0800") {
           $('.' + date + 'cal' + $value).html(data);
+        } else if ($index + 1 === json[index].length) {
+          if (!$('.' + date + 'cal' + $value).next().hasClass('bg-reserve')) {
+            $('.' + date + 'cal' + $value).next().css('background', 'gray'); //前後30分灰色
+          }
         }
       })
     }
   }
 })
-
 
 // 仮抑えカレンダー
 $(function () {
@@ -55,6 +71,11 @@ $(function () {
           var data = "<a target='_blank' href='/admin/pre_reservations/" + pre_reservation_id + "'>" + pre_company + "</a>";
           $('.' + pre_date + 'cal' + $value).html(data);
         }
+        if ($value !== "0800") {
+          if (!$('.' + pre_date + 'cal' + $value).prev().hasClass('bg-prereserve')) {
+            $('.' + pre_date + 'cal' + $value).prev().addClass('gray'); //前後30分灰色
+          }
+        }
       }
       else if ($value == "0800") {
         if (multiple_id != 0) {
@@ -68,6 +89,10 @@ $(function () {
         } else {　//ユーザー||仲介会社の仮押さえ詳細
           var data = "<a target='_blank' href='/admin/pre_reservations/" + pre_reservation_id + "'>" + pre_company + "</a>";
           $('.' + pre_date + 'cal' + $value).html(data);
+        }
+      } else if ($index + 1 === pre_json[index].length) {
+        if (!$('.' + pre_date + 'cal' + $value).next().hasClass('bg-prereserve')) {
+          $('.' + pre_date + 'cal' + $value).next().addClass('gray');//前後30分灰色
         }
       }
     })

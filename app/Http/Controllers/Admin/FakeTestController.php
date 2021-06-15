@@ -11,6 +11,8 @@ class FakeTestController extends Controller
 {
   public function index()
   {
+    $this->calc(1, 1, "01:00:00", "04:00:00", 0);
+    $this->calc(1, 1, "12:00:00", "23:30:00", 0);
     $this->calc(1, 1, "08:00:00", "12:00:00", 25000);
     $this->calc(1, 1, "08:00:00", "21:30:00", 54500);
     $this->calc(1, 1, "08:00:00", "15:30:00", 46000);
@@ -31,11 +33,22 @@ class FakeTestController extends Controller
   {
     $venue = Venue::with('frame_prices')->find($venueId);
     $result = $venue->calculate_price($priceSystem, $enter, $leave);
-    $expect = $expectValue;
-    if ($result[0] == $expect) {
-      dump($result[0]);
+    if ($result === 0) {
+      echo "";
+      echo "会場ID: " . $venueId . ' / ' . '料金体系' . $priceSystem . ' / ' . '入室: ' . $enter . ' / ' . '退室 :' . $leave . ' / ' . '期待する結果: ' . $expectValue . '<br>';
+      echo "↓　システム算出結果<br><div style='background:black; color:#56DB3A;font-weight:bold;'>";
+      dump(0);
+      echo "</div><br>";
+    } elseif ($result[0] == $expectValue) {
+      echo "";
+      echo "会場ID: " . $venueId . ' / ' . '料金体系' . $priceSystem . ' / ' . '入室: ' . $enter . ' / ' . '退室 :' . $leave . ' / ' . '期待する結果: ' . $expectValue . '<br>';
+      echo "↓　システム算出結果<br><div style='background:black; color:#56DB3A;font-weight:bold;'>";
+      echo "会場料金: " . ($result[0] - $result[1]) . '<br>';
+      echo "延長料金: " . $result[1] . '<br>';
+      echo "合計料金: " . $result[0] . '<br>';
+      echo "</div><br>";
     } else {
-      dump("失敗");
+      dd("失敗");
     }
   }
 }

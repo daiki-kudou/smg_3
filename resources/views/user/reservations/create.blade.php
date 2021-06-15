@@ -249,7 +249,6 @@
       </tr>
       @endif
 
-
       @if ($venue->getLayouts()!=0)
       <tr>
         @if ($venue->getLayouts()[0])

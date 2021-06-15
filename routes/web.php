@@ -406,7 +406,8 @@ Route::namespace('Admin')->prefix('admin')->name('admin.')->group(function () {
     Route::post('change_log', 'ChangeLogsController@update');
 
     // FAKE TEST
-    // Route::get('fake_test', 'FakeTestController@index');
+    Route::get('fake_test', 'FakeTestController@index');
+
     Route::resource('administer', 'AdminsController');
   });
 });
