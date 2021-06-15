@@ -274,6 +274,17 @@
               @endif
             </li>
             @endforeach
+
+            <li>
+              <p>工藤さん！！こちら 100000円<span
+                class="annotation">(税抜)</span></p>
+              <div class="selectTime">
+                <input id="services_breakdown" class="radio-input" name="services_breakdown" type="radio">
+                <label for="services_breakdown">あり</label>
+                <input id="no_services_breakdown" class="radio-input" name="services_breakdown" type="radio">
+                <label for="no_services_breakdown">なし</label>
+              </div>
+          </li>
           </ul>
         </td>
       </tr>
