@@ -179,7 +179,7 @@ class MultiplesController extends Controller
 
   public function edit($multiple_id, $venue_id)
   {
-    $multiple = MultipleReserve::find($multiple_id);
+    $multiple = MultipleReserve::with(['pre_reservations.pre_bill.pre_breakdowns', 'pre_reservations.pre_breakdowns'])->find($multiple_id);
     $venue = Venue::find($venue_id);
     return view('admin.multiples.edit', [
       'multiple' => $multiple,
@@ -340,6 +340,7 @@ class MultiplesController extends Controller
   public function destroy(Request $request)
   {
     $shapeRequest = $request->except(['_method', '_token']);
+    dump($shapeRequest);
     if (count($shapeRequest) == 0) {
       $request->session()->regenerate();
       return redirect()->route('admin.multiples.index')->with('flash_message_error', '仮押えが選択されていません');
@@ -367,6 +368,18 @@ class MultiplesController extends Controller
 
   public function SPDestroy(Request $request)
   {
-    $shapeRequest = $request->except(['_method', '_token']);
+    $shapeRequest = $request->except(['_method', '_token', 'multi_id']);
+    foreach ($shapeRequest as $value) {
+      $pre_reservation = PreReservation::find($value);
+      $pre_reservation->delete();
+    }
+    $multiple = MultipleReserve::with('pre_reservations')->find($request->multi_id);
+    if (!empty($multiple->pre_reservations->toArray())) {
+      //まだ仮押さえがあるなら
+      dump('ある');
+    } else {
+      //仮押さえがない
+      dump('ない');
+    }
   }
 }

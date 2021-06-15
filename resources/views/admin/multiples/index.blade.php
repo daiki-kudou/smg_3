@@ -5,7 +5,7 @@
 
 <link href="{{ asset('/css/template.css') }}" rel="stylesheet">
 <script src="{{ asset('/js/template.js') }}"></script>
-<script src="{{ asset('/js/admin/validation.js') }}"></script>
+{{-- <script src="{{ asset('/js/admin/validation.js') }}"></script> --}}
 
 <script src="{{ asset('/js/tablesorter/jquery.tablesorter.js') }}"></script>
 <link href="{{ asset('/css/tablesorter/theme.default.min.css') }}" rel="stylesheet">
@@ -158,8 +158,9 @@
       <ul class="d-flex reservation_list mb-2 justify-content-between">
         <li>
           {{-- 削除ボタン --}}
-          {{Form::open(['url' => 'admin/multiples/destroy', 'method' => 'delete', 'id'=>'for_destroy'])}}
+          {{Form::open(['url' => 'admin/multiples/destroy', 'method' => 'delete', 'id'=>''])}}
           @csrf
+          <div id="for_destroy"></div>
           {{ Form::submit('削除', ['class' => 'btn more_btn4','id'=>'confirm_destroy']) }}
           {{ Form::close() }}
         </li>
@@ -198,9 +199,8 @@
             <tr>
               <td class="text-center">
                 <input type="checkbox" name="{{'delete_check'.$multiple->id}}" value="{{$multiple->id}}"
-                  class="checkbox" />
+                  class="checkbox">
               </td>
-
               <td>{{ReservationHelper::fixId($multiple->id)}}</td>
               <td>{{ReservationHelper::formatDate($multiple->created_at)}}</td>
               <td>{{$multiple->pre_reservations->count()}}</td>
@@ -269,12 +269,15 @@
 <script>
   $(document).on("click", ".sort_table th", function() {
     var click_th_id=$(this).attr("id");
-    $('input[name^="sort_"]').each(function(key, item){
-      if ($(item).attr("name")!=click_th_id) {
-        $(item).val("");
-      }
-    })
-    $("#searchMultiple").submit();
+    var index = $('.table-scroll th').index(this);
+    if (index!=0) {
+      $('input[name^="sort_"]').each(function(key, item){
+        if ($(item).attr("name")!=click_th_id) {
+          $(item).val("");
+        }
+      })
+      $("#searchMultiple").submit();
+    }
   })
 
 
@@ -287,6 +290,7 @@
     $('#all_check').on('change', function() {
       $('.checkbox').prop('checked', $(this).is(':checked'));
     })
+
     // 削除確認コンファーム
     $('#confirm_destroy').on('click', function() {
       if (!confirm('削除してもよろしいですか？\n一括仮押さえに関連する仮押さえの内容がすべて削除されます')) {
@@ -294,17 +298,8 @@
       }
     })
   })
-  $(function() {
-    $("input[type='checkbox']").on('change', function() {
-      checked = $('[class="checkbox"]:checked').map(function() {
-        return $(this).val();
-      }).get();
-      for (let index = 0; index < checked.length; index++) {
-        var ap_data = "<input type='hidden' name='destroy" + checked[index] + "' value='" + checked[index] + "'>"
-        $('#for_destroy').append(ap_data);
-      }
-    })
-  })
+
+
   $(function() {
     function ActiveDateRangePicker($target) {
       $("input[name='" + $target + "']").daterangepicker({
@@ -330,6 +325,18 @@
     ActiveDateRangePicker('search_created_at');
     ActiveDateRangePicker('search_date');
   })
+
+  $(document).on("change", "input[type='checkbox']", function () {
+      $('#for_destroy').html("");
+      checked = $('[class="checkbox"]:checked').map(function() {
+        return $(this).val();
+      }).get();
+      for (let index = 0; index < checked.length; index++) {
+        var ap_data = "<input type='hidden' name='destroy" + checked[index] + "' value='" + checked[index] + "'>"
+        $('#for_destroy').append(ap_data);
+      }
+  });
+
 
 
 </script>

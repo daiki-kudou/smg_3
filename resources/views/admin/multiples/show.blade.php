@@ -20,7 +20,13 @@
 </div>
 
 <section class="mt-5">
-  <div class="mb-2"><a class="more_btn4" href="">削除</a></div>
+  <div class="mb-2">
+    {{Form::open(['url' => 'admin/multiples/destroy', 'method' => 'delete', 'id'=>'for_destroy'])}}
+    @csrf
+    {{Form::hidden('destroy'.$multiple->id, $multiple->id)}}
+    {{ Form::submit('削除', ['class' => 'btn more_btn4','id'=>'confirm_destroy']) }}
+    {{ Form::close() }}
+  </div>
 
   <table class="table ttl_head mb-0">
     <tbody>
@@ -199,7 +205,12 @@
 <script>
   $(function() {
     $(".confirm_prereserve").on('click', function() {
-      if (!confirm('押すなって言ったじゃないか！！')) {
+      if (!confirm('確定しますか？')) {
+        return false;
+      }
+    })
+    $("#for_destroy").on('click', function() {
+      if (!confirm('削除しますか？')) {
         return false;
       }
     })

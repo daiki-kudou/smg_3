@@ -4,7 +4,7 @@
 <script src="{{ asset('/js/template.js') }}"></script>
 <script src="{{ asset('/js/lettercounter.js') }}"></script>
 <script src="{{ asset('/js/multiples/calculate.js') }}"></script>
-<script src="{{ asset('/js/admin/validation.js') }}"></script>
+{{-- <script src="{{ asset('/js/admin/validation.js') }}"></script> --}}
 
 
 <div class="container-field mt-3">
@@ -31,7 +31,6 @@
 
 <!-- 詳細選択画面--------------------------------------------------　 -->
 <p class="font-weight-bold">日程ごとに、詳細を編集できます。</p>
-
 
 <section class="border-wrap2 pb-5">
   <table class="table ttl_head">
@@ -219,7 +218,6 @@
                 </td>
               </tr>
             </table>
-
             <table class="table table-bordered equipment-table">
               <thead class="accordion-ttl">
                 <tr>
@@ -362,7 +360,6 @@
                   <td class="table-active">荷物預り/返送<br>料金</td>
                   <td>
                     <p class="annotation">※仮押え時点では、料金の設定ができません。<br>予約へ切り替え後に料金の設定が可能です。</p>
-
                   </td>
                 </tr>
                 @endif
@@ -493,7 +490,6 @@
             @endif
 
 
-
             <table class="table table-bordered note-table">
               <tbody>
                 <tr>
@@ -553,7 +549,6 @@
   </div>
   @endif
 
-
   <ul class="register-list-header">
     <li class="from-group">
       <div class="form-check">
@@ -563,12 +558,17 @@
     </li>
     <li>
       <p>
-        <p class="more_btn4 destroy_link" href="">削除</p>
-        {{-- 削除用 --}}
+        <p class="more_btn4 destroy_link" href="">
+          {{Form::open(['url' => 'admin/multiples/'.$multiple->id.'/sp_destroy/'.$venue->id, 'method' => 'post', 'id'=>''])}}
+          @csrf
+          <div id="for_destroy"></div>
+          {{ Form::hidden('multi_id', $multiple->id) }}
+          {{ Form::submit('削除', ['class' => 'btn more_btn4','id'=>'']) }}
+          {{ Form::close() }}
+        </p>
       </p>
     </li>
   </ul>
-
   @if (session("error"))
   <div class="alert alert-danger">
     <ul>
@@ -578,25 +578,21 @@
   </div>
   @endif
 
-
   {{-- jsで仮押えの件数判別のためのhidden --}}
-  {{ Form::hidden('', $multiple->pre_reservations()->where('venue_id',$venue->id)->get()->count(),['id'=>'counts_reserve']) }}
+  {{ Form::hidden('', $multiple->pre_reservations->where('venue_id',$venue->id)->count(),['id'=>'counts_reserve']) }}
 
   {{-- 以下、pre_reservationの数分　ループ --}}
-  @foreach ($multiple->pre_reservations()->where('venue_id',$venue->id)->get() as $key=>$pre_reservation)
+  @foreach ($multiple->pre_reservations->where('venue_id',$venue->id) as $key=>$pre_reservation)
   {{ Form::open(['url' => 'admin/multiples/'.$multiple->id."/edit/".$venue->id.'/calculate/'.$pre_reservation->id.'/specific_update', 'method'=>'POST', 'id'=>'multipleSpecificUpdateForm' .$key]) }}
   @csrf
   {{ Form::hidden('split_keys', $key) }}
 
   <section class="register-list col">
-
     <!-- 仮押え一括 タブ-->
     <div class="register-list-item">
       <div class="from-group list_checkbox">
         <div class="form-check">
-          <input type="checkbox" name="{{'delete_check'.$pre_reservation->id}}" value="{{$pre_reservation->id}}"
-            class="checkbox mr-1" />
-          <label class="form-check-label"></label>
+          {{Form::checkbox('delete_check'.$pre_reservation->id, $pre_reservation->id, false, ['class'=>'checkbox mr-1'])}}
         </div>
       </div>
       <dl class="card">
@@ -662,7 +658,6 @@
                       </div>
                     </td>
                   </tr>
-
                 </tbody>
               </table>
 
@@ -759,7 +754,6 @@
               </table>
 
 
-
               <table class="table table-bordered equipment-table">
                 <thead class="accordion-ttl">
                   <tr>
@@ -777,7 +771,7 @@
                     <td class="table-active">{{$equipment->item}}</td>
                     <td>
                       @if ($pre_reservation->pre_breakdowns)
-                      @foreach ($pre_reservation->pre_breakdowns()->get() as $pre_re)
+                      @foreach ($pre_reservation->pre_breakdowns as $pre_re)
                       @if ($pre_re->unit_item==$equipment->item)
                       {{Form::text('equipment_breakdown' . $e_key.'_copied'.$key , $pre_re->unit_count, ['class' => 'form-control equipment_validation'])}}
                       @break
@@ -809,7 +803,7 @@
                     <td class="table-active">{{$service->item}}</td>
                     <td>
                       @if ($pre_reservation->pre_breakdowns)
-                      @foreach ($pre_reservation->pre_breakdowns()->get() as $pre_re)
+                      @foreach ($pre_reservation->pre_breakdowns as $pre_re)
                       @if ($pre_re->unit_item==$service->item)
                       <div class="radio-box">
                         <p>
@@ -1385,7 +1379,7 @@
                         </tr>
                       </tbody>
                       <tbody class="{{'layout_main'.$key}}">
-                        @foreach ($pre_reservation->pre_breakdowns()->where('unit_type',4)->get() as
+                        @foreach ($pre_reservation->pre_breakdowns->where('unit_type',4) as
                         $slp_key=>$each_play)
                         <tr>
                           <td>
@@ -1446,7 +1440,7 @@
               </div>
             </div>
           </section>
-            <p class="more_btn_lg m-5 accordion-innbtn text-center">閉じる</p>
+          <p class="more_btn_lg m-5 accordion-innbtn text-center">閉じる</p>
         </dt>
       </dl>
     </div>
@@ -1462,7 +1456,7 @@
         <td colspan="2">
           <h3>
             合計請求額
-            <span>({{$multiple->pre_reservations()->where('venue_id',$venue->id)->get()->count()}}件分)</span>
+            <span>({{$multiple->pre_reservations->where('venue_id',$venue->id)->count()}}件分)</span>
           </h3>
         </td>
       </tr>
@@ -1531,11 +1525,11 @@
 {{ Form::hidden('master_data', '',['class' => 'btn btn-primary more_btn_lg', 'id'=>'master_data'])}}
 {{ Form::close() }}
 
-{{ Form::open(['url' => 'admin/multiples/'.$multiple->id."/sp_destroy/".$venue->id, 'method'=>'POST', 'id'=>'for_destroy']) }}
+{{-- {{ Form::open(['url' => 'admin/multiples/'.$multiple->id."/sp_destroy/".$venue->id, 'method'=>'POST', 'id'=>'for_destroy']) }}
 @csrf
 {{ Form::hidden('multiple_id', $multiple->id)}}
 {{ Form::hidden('venue_id', $venue->id)}}
-{{ Form::close() }}
+{{ Form::close() }} --}}
 
 
 
@@ -1575,40 +1569,91 @@
     });
   })
 
+
+
+  // $(function() {
+  //   // 全選択アクション
+  //   $('#all_check').on('change', function() {
+  //     $('.checkbox').prop('checked', $(this).is(':checked'));
+  //   })
+
+  //   // 削除確認コンファーム
+  //   $('#confirm_destroy').on('click', function() {
+  //     if (!confirm('削除してもよろしいですか？')) {
+  //       return false;
+  //     }
+  //   })
+
+  //   $(document).on("change", "input[type='checkbox']", function () {
+  //     $('#for_destroy').html("");
+  //     checked = $('[class="checkbox"]:checked').map(function() {
+  //       return $(this).val();
+  //     }).get();
+  //     for (let index = 0; index < checked.length; index++) {
+  //       var ap_data = "<input type='hidden' name='destroy" + checked[index] + "' value='" + checked[index] + "'>"
+  //       $('#for_destroy').append(ap_data);
+  //     }
+  // });
+
+  // })
+  // $(function() {
+  //   $("input[type='checkbox']").on('change', function() {
+  //     // console.log($(".checkbox").val());
+  //     var checked = [];
+  //     $('.checkbox:checked').each(function(index, value) {
+  //       // console.log(Number($(value).val()));
+  //       checked.push(Number($(value).val()));
+  //     });
+
+  //     $('.sp_destroy').remove();
+
+  //     for (let index = 0; index < checked.length; index++) {
+  //       var ap_data = "<input type='hidden' class='sp_destroy' name='destroy" + checked[index] + "' value='" + checked[index] + "'>"
+  //       $('#for_destroy').append(ap_data);
+  //     }
+  //   })
+  // })
+  // $(function() {
+  //   $('.destroy_link').on('click', function() {
+  //     $('#for_destroy').submit();
+  //   })
+  // })
+
+  // $(document).on("change", "input[type='checkbox']", function () {
+  //     $('#for_destroy').html("");
+  //     checked = $('[class="checkbox"]:checked').map(function() {
+  //       return $(this).val();
+  //     }).get();
+  //     for (let index = 0; index < checked.length; index++) {
+  //       var ap_data = "<input type='hidden' name='destroy" + checked[index] + "' value='" + checked[index] + "'>"
+  //       $('#for_destroy').append(ap_data);
+  //     }
+  // });
   $(function() {
     // 全選択アクション
     $('#all_check').on('change', function() {
       $('.checkbox').prop('checked', $(this).is(':checked'));
     })
+
     // 削除確認コンファーム
     $('#confirm_destroy').on('click', function() {
-      if (!confirm('削除してもよろしいですか？')) {
+      if (!confirm('削除してもよろしいですか？\n一括仮押さえに関連する仮押さえの内容がすべて削除されます')) {
         return false;
       }
     })
   })
-  $(function() {
-    $("input[type='checkbox']").on('change', function() {
-      // console.log($(".checkbox").val());
-      var checked = [];
-      $('.checkbox:checked').each(function(index, value) {
-        // console.log(Number($(value).val()));
-        checked.push(Number($(value).val()));
-      });
 
-      $('.sp_destroy').remove();
-
-      for (let index = 0; index < checked.length; index++) {
-        var ap_data = "<input type='hidden' class='sp_destroy' name='destroy" + checked[index] + "' value='" + checked[index] + "'>"
+  $(document).on("change", "input[type='checkbox']", function () {
+      $('#for_destroy').html("");
+      $('input[type="checkbox"]').each(function($key, $value){
+        if ($($value).prop('checked')&&$($value).val()!="on") {
+        var ap_data = "<input type='hidden' name='destroy" + $($value).val() + "' value='" + $($value).val() + "'>"
         $('#for_destroy').append(ap_data);
-      }
-    })
-  })
-  $(function() {
-    $('.destroy_link').on('click', function() {
-      $('#for_destroy').submit();
-    })
-  })
+        }
+      })
+  });
+
+
 </script>
 
 
