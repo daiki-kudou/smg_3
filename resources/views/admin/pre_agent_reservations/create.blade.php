@@ -133,13 +133,13 @@
             </select>
           </td>
           <td>
-            <select name="pre_enter0" id="pre_enter0" class="form-control">
+            <select name="pre_enter0" id="pre_enter0" class="enter_control_pre_reservation0 form-control">
               <option value=""></option>
               {!!ReservationHelper::timeOptions()!!}
             </select>
           </td>
           <td>
-            <select name="pre_leave0" id="pre_leave0" class="form-control">
+            <select name="pre_leave0" id="pre_leave0" class="leave_control_pre_reservation0 form-control">
               <option value=""></option>
               {!!ReservationHelper::timeOptions()!!}
             </select>
