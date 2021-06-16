@@ -522,7 +522,7 @@
                     </td>
                     <td>
                       {{$pre_reservation->luggage_count?"あり":"なし"}}
-                    </td>
+                  </td>
                   </tr> --}}
                   <tr>
                     <td class="table-active"><label for="preDelivery">事前に預かる荷物</label></td>
@@ -531,7 +531,7 @@
                         {{-- <li>
                           <p>
                             {{$pre_reservation->luggage_arrive?"あり":"なし"}}
-                          </p>
+                        </p>
                         </li> --}}
                         <li class="d-flex justify-content-between">
                           <p>荷物個数：{{$pre_reservation->luggage_count?$pre_reservation->luggage_count:0}}個</p>
@@ -552,7 +552,7 @@
                         {{-- <li>
                           <p>
                             {{$pre_reservation->luggage_return?"あり":"なし"}}
-                          </p>
+                        </p>
                         </li> --}}
                         <li class="d-flex justify-content-between">
                           <p>荷物個数：{{$pre_reservation->luggage_return?$pre_reservation->luggage_return:0}}個</p>
@@ -783,7 +783,7 @@
             <tr>
               <td colspan="3"></td>
               <td colspan="1">
-              合計：{{number_format($pre_reservation->pre_bill->venue_price)}}
+                合計：{{number_format($pre_reservation->pre_bill->venue_price)}}
               </td>
             </tr>
           </tbody>
@@ -867,7 +867,7 @@
             <tr>
               <td colspan="3"></td>
               <td colspan="1">
-              合計：{{number_format($pre_reservation->pre_bill->equipment_price)}}
+                合計：{{number_format($pre_reservation->pre_bill->equipment_price)}}
               </td>
               </td>
             </tr>
@@ -955,7 +955,7 @@
             <tr>
               <td colspan="3"></td>
               <td colspan="1">
-              合計：{{number_format($pre_reservation->pre_bill->layout_price)}}
+                合計：{{number_format($pre_reservation->pre_bill->layout_price)}}
               </td>
             </tr>
           </tbody>
@@ -1006,12 +1006,12 @@
           <tbody>
             <tr>
               <td>
-              小計：{{number_format($pre_reservation->pre_bill->master_subtotal)}}
+                小計：{{number_format($pre_reservation->pre_bill->master_subtotal)}}
               </td>
             </tr>
             <tr>
               <td>
-              消費税：{{number_format($pre_reservation->pre_bill->master_tax)}}
+                消費税：{{number_format($pre_reservation->pre_bill->master_tax)}}
               </td>
             </tr>
             <tr>

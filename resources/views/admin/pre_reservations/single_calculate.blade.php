@@ -83,27 +83,27 @@
         <tr>
           <td class="table-active">会社名・団体名</td>
           <td colspan="3">
-            {{ Form::text('unknown_user_company', ($request->unknown_user_company),['class'=>'form-control', 'readonly'] ) }}
+            {{ Form::text('unknown_user_company', ($request->unknown_user_company),['class'=>'form-control', ''] ) }}
           </td>
         </tr>
         <tr>
           <td class="table-active">担当者氏名</td>
           <td>
-            {{ Form::text('unknown_user_name', ($request->unknown_user_name),['class'=>'form-control', 'readonly'] ) }}
+            {{ Form::text('unknown_user_name', ($request->unknown_user_name),['class'=>'form-control', ''] ) }}
           </td>
           <td class="table-active">メールアドレス</td>
           <td>
-            {{ Form::text('unknown_user_email', ($request->unknown_user_email),['class'=>'form-control', 'readonly'] ) }}
+            {{ Form::text('unknown_user_email', ($request->unknown_user_email),['class'=>'form-control', ''] ) }}
           </td>
         </tr>
         <tr>
           <td class="table-active">携帯番号</td>
           <td>
-            {{ Form::text('unknown_user_mobile', ($request->unknown_user_mobile),['class'=>'form-control', 'readonly'] ) }}
+            {{ Form::text('unknown_user_mobile', ($request->unknown_user_mobile),['class'=>'form-control', ''] ) }}
           </td>
           <td class="table-active">固定電話</td>
           <td>
-            {{ Form::text('unknown_user_tel', ($request->unknown_user_tel),['class'=>'form-control', 'readonly'] ) }}
+            {{ Form::text('unknown_user_tel', ($request->unknown_user_tel),['class'=>'form-control', ''] ) }}
           </td>
         </tr>
       </tbody>
@@ -211,9 +211,13 @@
             <td class="table-active">イベント開始時間</td>
             <td>
               <select name="event_start" id="event_start" class="form-control">
-                <option disabled>選択してください</option>
+                @if ($request->board_flag==1)
+                <option value="" disabled>選択してください</option>
                 {!!ReservationHelper::timeOptionsWithRequestAndLimit($request->event_start,$request->enter_time,$request->leave_time)!!}
-
+                @else
+                <option value="" selected></option>
+                {!!ReservationHelper::timeOptionsWithRequestAndLimit("",$request->enter_time,$request->leave_time)!!}
+                @endif
               </select>
             </td>
           </tr>
@@ -221,8 +225,14 @@
             <td class="table-active">イベント終了時間</td>
             <td>
               <select name="event_finish" id="event_finish" class="form-control">
+                @if ($request->board_flag==1)
                 <option disabled>選択してください</option>
                 {!!ReservationHelper::timeOptionsWithRequestAndLimit($request->event_finish,$request->enter_time,$request->leave_time)!!}
+                @else
+                <option value="" selected></option>
+                {!!ReservationHelper::timeOptionsWithRequestAndLimit($request->event_finish,$request->enter_time,$request->leave_time)!!}
+                @endif
+
               </select>
             </td>
           </tr>

@@ -319,14 +319,6 @@ class PreReservationsController extends Controller
   public function store(Request $request)
   {
     if ($request->judge_count == 1) { //単発仮押えの保存
-      // $request->validate([
-      //   'venue_id' => 'required',
-      //   'start' => 'required',
-      //   'user_id' => 'required',
-      //   'agent_id' => 'required',
-      //   'reserve_date' => 'required',
-      //   'price_system' => 'required',
-      // ]);
 
       $new_preReserve = DB::transaction(function () use ($request) { //トランザクションさせる
         $pre_reservation = PreReservation::create([
@@ -339,11 +331,11 @@ class PreReservationsController extends Controller
           'enter_time' => $request->enter_time,
           'leave_time' => $request->leave_time,
           'board_flag' => $request->board_flag,
-          'event_start' => $request->event_start,
-          'event_finish' => $request->event_finish,
-          'event_name1' => $request->event_name1,
-          'event_name2' => $request->event_name2,
-          'event_owner' => $request->event_owner,
+          'event_start' => $request->event_start ?? NULL,
+          'event_finish' => $request->event_finish ?? NULL,
+          'event_name1' => $request->event_name1 ?? NULL,
+          'event_name2' => $request->event_name2 ?? NULL,
+          'event_owner' => $request->event_owner ?? NULL,
           'luggage_count' => $request->luggage_count,
           'luggage_arrive' => $request->luggage_arrive,
           'luggage_return' => $request->luggage_return,

@@ -87,38 +87,44 @@
         <tr>
           <td class="table-active">エンドユーザー</td>
           <td>
-            {{ Form::text('pre_enduser_company', ($request->pre_enduser_company),['class'=>'form-control', 'readonly'] ) }}
+            {{ Form::text('pre_enduser_company', ($request->pre_enduser_company),['class'=>'form-control', ''] ) }}
           </td>
           <td class="table-active">住所</td>
           <td>
-            {{ Form::text('pre_enduser_address', ($request->pre_enduser_address),['class'=>'form-control', 'readonly'] ) }}
+            {{ Form::text('pre_enduser_address', ($request->pre_enduser_address),['class'=>'form-control', ''] ) }}
           </td>
         </tr>
         <tr>
           <td class="table-active">連絡先</td>
           <td>
-            {{ Form::text('pre_enduser_tel', ($request->pre_enduser_tel),['class'=>'form-control', 'readonly'] ) }}
+            {{ Form::text('pre_enduser_tel', ($request->pre_enduser_tel),['class'=>'form-control', ''] ) }}
           </td>
           <td class="table-active">メールアドレス</td>
           <td>
-            {{ Form::text('pre_enduser_email', ($request->pre_enduser_email),['class'=>'form-control', 'readonly'] ) }}
+            {{ Form::text('pre_enduser_email', ($request->pre_enduser_email),['class'=>'form-control', ''] ) }}
           </td>
         </tr>
         <tr>
           <td class="table-active">当日担当者</td>
           <td>
-            {{ Form::text('pre_enduser_name', ($request->pre_enduser_name),['class'=>'form-control', 'readonly'] ) }}
+            {{ Form::text('pre_enduser_name', ($request->pre_enduser_name),['class'=>'form-control', ''] ) }}
           </td>
           <td class="table-active">当日連絡先</td>
           <td>
-            {{ Form::text('pre_enduser_mobile', ($request->pre_enduser_mobile),['class'=>'form-control', 'readonly'] ) }}
+            {{ Form::text('pre_enduser_mobile', ($request->pre_enduser_mobile),['class'=>'form-control', ''] ) }}
           </td>
         </tr>
         <tr>
           <td class="table-active">利用者属性</td>
           <td>
-            {{ Form::text('', ReservationHelper::getEndUser($request->pre_enduser_attr),['class'=>'form-control', 'readonly'] ) }}
-            {{ Form::hidden('pre_enduser_attr', ($request->pre_enduser_attr),['class'=>'form-control', 'readonly'] ) }}
+            <select name="pre_enduser_attr" class="form-control">
+              <option value="1" {{$request->pre_enduser_attr==1?"selected":""}}>一般企業</option>
+              <option value="2" {{$request->pre_enduser_attr==2?"selected":""}}>上場企業</option>
+              <option value="3" {{$request->pre_enduser_attr==3?"selected":""}}>近隣利用</option>
+              <option value="4" {{$request->pre_enduser_attr==4?"selected":""}}>個人講師</option>
+              <option value="5" {{$request->pre_enduser_attr==5?"selected":""}}>MLM</option>
+              <option value="6" {{$request->pre_enduser_attr==6?"selected":""}}>その他</option>
+            </select>
           </td>
         </tr>
       </tbody>

@@ -89,8 +89,8 @@ $(document).ready(function () {
       $("#eventname1Count").prop("readonly", true);
       $("#eventname2Count").prop("readonly", true);
       $("#eventownerCount").prop("readonly", true);
-      // $("#event_start").prop("disabled", true);
-      // $("#event_finish").prop("disabled", true);
+      $("#event_start").prop("disabled", true);
+      $("#event_finish").prop("disabled", true);
       // $(".board-table input[type='text']").val("");
       $(".board-table option:selected").val("");
     }
@@ -107,8 +107,8 @@ $(function () {
       $("#eventname1Count").prop("readonly", true);
       $("#eventname2Count").prop("readonly", true);
       $("#eventownerCount").prop("readonly", true);
-      // $("#event_start").prop("disabled", true);
-      // $("#event_finish").prop("disabled", true);
+      $("#event_start").prop("disabled", true);
+      $("#event_finish").prop("disabled", true);
       $(".board-table input[type='text']").val("");
     } else {
       $("#event_start").prop("readonly", false);
@@ -116,8 +116,8 @@ $(function () {
       $("#eventname1Count").prop("readonly", false);
       $("#eventname2Count").prop("readonly", false);
       $("#eventownerCount").prop("readonly", false);
-      // $("#event_start").prop("disabled", false);
-      // $("#event_finish").prop("disabled", false);
+      $("#event_start").prop("disabled", false);
+      $("#event_finish").prop("disabled", false);
     }
   });
 });
@@ -1261,7 +1261,7 @@ $(function () {
     $(value).validate({
       rules: {
         name: { required: true },
-        post_code: { maxlength: 7, number: true, minlength: 7},
+        post_code: { maxlength: 7, number: true, minlength: 7 },
         person_tel: { minlength: 10, number: true },
         fax: { minlength: 10, number: true },
         firstname_kana: { katakana: true },
@@ -1858,12 +1858,12 @@ $(function () {
         mobile: {
           number: true,
           minlength: 10,
-          require_from_group : [1, ".phone_number"] 
+          require_from_group: [1, ".phone_number"]
         },
         tel: {
           number: true,
           minlength: 10,
-         require_from_group : [1, ".phone_number"] 
+          require_from_group: [1, ".phone_number"]
         },
 
         fax: {

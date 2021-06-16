@@ -83,27 +83,27 @@
           <tr>
             <td class="table-active">会社・団体名(仮)</td>
             <td>
-              {{ Form::text('unknown_user_company', ($request->unknown_user_company),['class'=>'form-control', 'readonly'] ) }}
+              {{ Form::text('unknown_user_company', ($request->unknown_user_company),['class'=>'form-control', ''] ) }}
             </td>
             <td class="table-active">担当者名(仮)</td>
             <td>
-              {{ Form::text('unknown_user_name', ($request->unknown_user_name),['class'=>'form-control', 'readonly'] ) }}
+              {{ Form::text('unknown_user_name', ($request->unknown_user_name),['class'=>'form-control', ''] ) }}
             </td>
           </tr>
           <tr>
             <td class="table-active">携帯番号</td>
             <td>
-              {{ Form::text('unknown_user_mobile', ($request->unknown_user_mobile),['class'=>'form-control', 'readonly'] ) }}
+              {{ Form::text('unknown_user_mobile', ($request->unknown_user_mobile),['class'=>'form-control', ''] ) }}
             </td>
             <td class="table-active">固定電話</td>
             <td>
-              {{ Form::text('unknown_user_tel', ($request->unknown_user_tel),['class'=>'form-control', 'readonly'] ) }}
+              {{ Form::text('unknown_user_tel', ($request->unknown_user_tel),['class'=>'form-control', ''] ) }}
             </td>
           </tr>
           <tr>
             <td class="table-active">メールアドレス</td>
             <td>
-              {{ Form::text('unknown_user_email', ($request->unknown_user_email),['class'=>'form-control', 'readonly'] ) }}
+              {{ Form::text('unknown_user_email', ($request->unknown_user_email),['class'=>'form-control', ''] ) }}
             </td>
           </tr>
         </tbody>
@@ -236,7 +236,6 @@
                   <select name="event_finish" id="event_finish" class="form-control">
                     <option disabled>選択してください</option>
                     {!!ReservationHelper::timeOptionsWithRequestAndLimit($request->pre_leave0,$request->pre_enter0,$request->pre_leave0)!!}
-
                   </select>
                 </div>
               </td>
