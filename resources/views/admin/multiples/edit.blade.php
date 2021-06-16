@@ -608,24 +608,24 @@
                 {{ Form::hidden('reserve_date'.$key, $pre_reservation->reserve_date ,['class'=>'form-control', 'readonly'] ) }}
               </div>
             </li>
+            <li class="col-5">
+              <div class="input-group">
+                <label for=""></label>
+                <input class="form-control" readonly name="" type="text" value="工藤さん！！！！こちら会場名です！！！">
+              </div>
+            </li>
             <li class="col-3 d-flex align-items-center">
-              <p>
-              </p>
               <div class="input-group">
                 <label for="start"></label>
                 {{ Form::text('', ReservationHelper::formatTime($pre_reservation->enter_time) ,['class'=>'form-control', 'readonly'] ) }}
                 {{ Form::hidden('enter_time'.$key, $pre_reservation->enter_time ,['class'=>'form-control', 'readonly'] ) }}
               </div>
-              <p></p>
               <p class="mx-1">～</p>
-              <p>
-              </p>
               <div class="input-group">
                 <label for="finish"></label>
                 {{ Form::text('', ReservationHelper::formatTime($pre_reservation->leave_time) ,['class'=>'form-control', 'readonly'] ) }}
                 {{ Form::hidden('leave_time'.$key, $pre_reservation->leave_time ,['class'=>'form-control', 'readonly'] ) }}
               </div>
-              <p></p>
             </li>
           </ul>
         </dt>
