@@ -379,24 +379,24 @@ class MultiplesController extends Controller
       return redirect()->route('admin.multiples.show', $multiple->id)->with('flash_message_error', '仮押さえが選択されていません');
     }
 
-    // DB::transaction(function () use ($shapeRequest) {
-    //   foreach ($shapeRequest as $value) {
-    //     $pre_reservation = PreReservation::find($value);
-    //     $pre_reservation->delete();
-    //   }
-    // });
+    DB::transaction(function () use ($shapeRequest) {
+      foreach ($shapeRequest as $value) {
+        $pre_reservation = PreReservation::find($value);
+        $pre_reservation->delete();
+      }
+    });
 
-    // $multiple = MultipleReserve::with('pre_reservations')->find($request->multi_id);
-    // if (!empty($multiple->pre_reservations->toArray())) {
-    //   //まだ仮押さえがあるなら
-    //   return redirect()->route('admin.multiples.show', $multiple->id)->with('flash_message', '仮押さえの削除に成功しました。');
-    // } else {
-    //   //仮押さえがない
-    //   DB::transaction(function () use ($multiple) {
-    //     $multiple->delete();
-    //   });
-    //   return redirect()->route('admin.multiples.index')->with('flash_message', '仮押さえの削除に成功しました。');
-    // }
+    $multiple = MultipleReserve::with('pre_reservations')->find($request->multi_id);
+    if (!empty($multiple->pre_reservations->toArray())) {
+      //まだ仮押さえがあるなら
+      return redirect()->route('admin.multiples.show', $multiple->id)->with('flash_message', '仮押さえの削除に成功しました。');
+    } else {
+      //仮押さえがない
+      DB::transaction(function () use ($multiple) {
+        $multiple->delete();
+      });
+      return redirect()->route('admin.multiples.index')->with('flash_message', '仮押さえの削除に成功しました。');
+    }
   }
 
   public function destroy_from_agent($request)
