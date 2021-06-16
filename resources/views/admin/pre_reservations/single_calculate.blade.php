@@ -94,16 +94,19 @@
           <td class="table-active">メールアドレス</td>
           <td>
             {{ Form::text('unknown_user_email', ($request->unknown_user_email),['class'=>'form-control', ''] ) }}
+            <p class="is-error-unknown_user_email" style="color: red"></p>
           </td>
         </tr>
         <tr>
           <td class="table-active">携帯番号</td>
           <td>
             {{ Form::text('unknown_user_mobile', ($request->unknown_user_mobile),['class'=>'form-control', ''] ) }}
+            <p class="is-error-unknown_user_mobile" style="color: red"></p>
           </td>
           <td class="table-active">固定電話</td>
           <td>
             {{ Form::text('unknown_user_tel', ($request->unknown_user_tel),['class'=>'form-control', ''] ) }}
+            <p class="is-error-unknown_user_tel" style="color: red"></p>
           </td>
         </tr>
       </tbody>
