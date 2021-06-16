@@ -610,7 +610,6 @@ $(function () {
             "</td>" +
             "</tr>" +
             "<script>$('#datepicker3').datepicker({dateFormat: 'yy-mm-dd', minDate: 0, maxDate:'" + maxDate + "' });</script>";
-
           $('.luggage table tbody').append(data);
           // ***********マイナス、全角制御用
           function ExceptString($target) {
