@@ -558,7 +558,7 @@
     </li>
     <li>
       <p>
-        <p class="more_btn4 destroy_link" href="">
+        <p class="more_btn4 destroy_link">
           {{Form::open(['url' => 'admin/multiples/'.$multiple->id.'/sp_destroy/'.$venue->id, 'method' => 'post', 'id'=>''])}}
           @csrf
           <div id="for_destroy"></div>
@@ -1572,7 +1572,6 @@
 
 
   $(function() {
-
     // 削除確認コンファーム
     $('#confirm_destroy').on('click', function() {
       if (!confirm('削除してもよろしいですか？')) {
@@ -1581,40 +1580,6 @@
     })
   });
 
-  // })
-  // $(function() {
-  //   $("input[type='checkbox']").on('change', function() {
-  //     // console.log($(".checkbox").val());
-  //     var checked = [];
-  //     $('.checkbox:checked').each(function(index, value) {
-  //       // console.log(Number($(value).val()));
-  //       checked.push(Number($(value).val()));
-  //     });
-
-  //     $('.sp_destroy').remove();
-
-  //     for (let index = 0; index < checked.length; index++) {
-  //       var ap_data = "<input type='hidden' class='sp_destroy' name='destroy" + checked[index] + "' value='" + checked[index] + "'>"
-  //       $('#for_destroy').append(ap_data);
-  //     }
-  //   })
-  // })
-  // $(function() {
-  //   $('.destroy_link').on('click', function() {
-  //     $('#for_destroy').submit();
-  //   })
-  // })
-
-  // $(document).on("change", "input[type='checkbox']", function () {
-  //     $('#for_destroy').html("");
-  //     checked = $('[class="checkbox"]:checked').map(function() {
-  //       return $(this).val();
-  //     }).get();
-  //     for (let index = 0; index < checked.length; index++) {
-  //       var ap_data = "<input type='hidden' name='destroy" + checked[index] + "' value='" + checked[index] + "'>"
-  //       $('#for_destroy').append(ap_data);
-  //     }
-  // });
   $(function() {
     // 全選択アクション
     $('#all_check').on('change', function() {

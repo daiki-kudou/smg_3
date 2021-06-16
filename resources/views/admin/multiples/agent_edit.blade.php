@@ -4,7 +4,7 @@
 <script src="{{ asset('/js/template.js') }}"></script>
 <script src="{{ asset('/js/lettercounter.js') }}"></script>
 <script src="{{ asset('/js/multiples/calculate.js') }}"></script>
-<script src="{{ asset('/js/admin/validation.js') }}"></script>
+{{-- <script src="{{ asset('/js/admin/validation.js') }}"></script> --}}
 
 <div class="content">
   <div class="container-fluid">
@@ -63,27 +63,27 @@
             <tr>
               <th class="table-active" width="25%"><label for="company">会社名・団体名</label></th>
               <td>
-                {{ReservationHelper::getAgentCompany($multiple->pre_reservations()->first()->agent_id)}}
+                {{ReservationHelper::getAgentCompany($multiple->pre_reservations->first()->agent_id)}}
               </td>
               <td class="table-active"><label for="name">担当者氏名</label></td>
               <td>
-                {{ReservationHelper::getAgentPerson($multiple->pre_reservations()->first()->agent_id)}}
+                {{ReservationHelper::getAgentPerson($multiple->pre_reservations->first()->agent_id)}}
               </td>
             </tr>
             <tr>
               <td class="table-active" scope="row"><label for="email">担当者メールアドレス</label></td>
               <td>
-                {{ReservationHelper::getAgentEmail($multiple->pre_reservations()->first()->agent_id)}}
+                {{ReservationHelper::getAgentEmail($multiple->pre_reservations->first()->agent_id)}}
               </td>
               <td class="table-active" scope="row"><label for="mobile">携帯番号</label></td>
               <td>
-                {{ReservationHelper::getAgentMobile($multiple->pre_reservations()->first()->agent_id)}}
+                {{ReservationHelper::getAgentMobile($multiple->pre_reservations->first()->agent_id)}}
               </td>
             </tr>
             <tr>
               <td class="table-active" scope="row"><label for="tel">固定電話</label></td>
               <td>
-                {{ReservationHelper::getAgentTel($multiple->pre_reservations()->first()->agent_id)}}
+                {{ReservationHelper::getAgentTel($multiple->pre_reservations->first()->agent_id)}}
               </td>
             </tr>
           </tbody>
@@ -475,7 +475,7 @@
         </dl>
         <!-- コピー作成用フィールド   終わり--------------------------------------------------　 -->
         <p class="text-center">
-          {{Form::hidden('agent_id',$multiple->pre_reservations()->first()->agent_id)}}
+          {{Form::hidden('agent_id',$multiple->pre_reservations->first()->agent_id)}}
           @if (count($venue->frame_prices)==0&&count($venue->time_prices)==0)
           <div class="d-flex justify-content-center">
             <div class="">
@@ -504,19 +504,30 @@
       <ul class="register-list-header mt-5">
         <li class="from-group">
           <div class="form-check">
-            <input class="mr-1" type="checkbox" name="all_check" id="all_check" />
+            <input class="mr-1" type="checkbox" name="all_check" id="all_check">
             <label class="form-check-label">すべてチェックする</label>
           </div>
         </li>
         <li>
-          <p><a class="more_btn4" href="">削除</a></p>
+          <p>
+            {{-- <a class="more_btn4" href="">削除</a> --}}
+            {{Form::open(['url' => 'admin/multiples/'.$multiple->id.'/sp_destroy/'.$venue->id, 'method' => 'post', 'id'=>''])}}
+            @csrf
+            <div id="for_destroy"></div>
+            {{ Form::hidden('multi_id', $multiple->id) }}
+            {{ Form::hidden('destroy_from_agent', 1) }}
+
+            {{ Form::submit('削除', ['class' => 'btn more_btn4','id'=>'confirm_destroy']) }}
+            {{ Form::close() }}
+
+          </p>
         </li>
       </ul>
 
       {{-- jsで仮押えの件数判別のためのhidden --}}
-      {{ Form::hidden('', $multiple->pre_reservations()->where('venue_id',$venue->id)->get()->count(),['id'=>'counts_reserve']) }}
+      {{ Form::hidden('', $multiple->pre_reservations->where('venue_id',$venue->id)->count(),['id'=>'counts_reserve']) }}
       {{-- 以下、pre_reservationの数分　ループ --}}
-      @foreach ($multiple->pre_reservations()->where('venue_id',$venue->id)->get() as $key=>$pre_reservation)
+      @foreach ($multiple->pre_reservations->where('venue_id',$venue->id) as $key=>$pre_reservation)
       {{ Form::open(['url' => 'admin/multiples/agent/'.$multiple->id."/edit/".$venue->id.'/calculate/'.$pre_reservation->id.'/specific_update', 'method'=>'POST', 'id'=>'multiplesAgentSpecificUpdateEdit' .$key]) }}
       @csrf
       {{ Form::hidden('split_keys', $key) }}
@@ -1257,7 +1268,7 @@
             <td colspan="2">
               <h3>
                 合計請求額
-                <span>({{$multiple->pre_reservations()->where('venue_id',$venue->id)->get()->count()}}件分)</span>
+                <span>({{$multiple->pre_reservations->where('venue_id',$venue->id)->count()}}件分)</span>
               </h3>
             </td>
           </tr>
@@ -1359,6 +1370,32 @@
       autoclose: true,
     });
   })
+
+  $(function() {
+    // 削除確認コンファーム
+    $('#confirm_destroy').on('click', function() {
+      if (!confirm('削除してもよろしいですか？')) {
+        return false;
+      }
+    })
+
+    $('#all_check').on('change', function() {
+      $('.checkbox').prop('checked', $(this).is(':checked'));
+    })
+
+  });
+
+  $(document).on("change", "input[type='checkbox']", function () {
+      $('#for_destroy').html("");
+      $('input[type="checkbox"]').each(function($key, $value){
+        if ($($value).prop('checked')&&$($value).val()!="on") {
+        var ap_data = "<input type='hidden' name='destroy" + $($value).val() + "' value='" + $($value).val() + "'>"
+        $('#for_destroy').append(ap_data);
+        }
+      })
+  });
+
+
 </script>
 
 
