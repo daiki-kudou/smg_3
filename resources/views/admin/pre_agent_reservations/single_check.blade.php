@@ -98,10 +98,13 @@
           <td class="table-active">連絡先</td>
           <td>
             {{ Form::text('pre_enduser_tel', ($request->pre_enduser_tel),['class'=>'form-control', ''] ) }}
+            <p class="is-error-pre_enduser_tel" style="color: red"></p>
+
           </td>
           <td class="table-active">メールアドレス</td>
           <td>
             {{ Form::text('pre_enduser_email', ($request->pre_enduser_email),['class'=>'form-control', ''] ) }}
+            <p class="is-error-pre_enduser_email" style="color: red"></p>
           </td>
         </tr>
         <tr>
@@ -112,6 +115,7 @@
           <td class="table-active">当日連絡先</td>
           <td>
             {{ Form::text('pre_enduser_mobile', ($request->pre_enduser_mobile),['class'=>'form-control', ''] ) }}
+            <p class="is-error-pre_enduser_mobile" style="color: red"></p>
           </td>
         </tr>
         <tr>
