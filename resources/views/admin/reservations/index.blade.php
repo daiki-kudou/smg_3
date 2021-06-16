@@ -64,28 +64,12 @@
               <div class="d-flex align-items-center">
                 <select class="form-control select2" name="enter_time">
                   <option value=""></option>
-                  @for ($start = 0*2; $start <=23*2; $start++) <option
-                    value="{{date("H:i:s", strtotime("00:00 +". $start * 30 ." minute"))}}" @if (date("H:i:s",
-                    strtotime("00:00 +". $start * 30 ." minute"))==$request->enter_time)
-                    selected
-                    @endif
-                    >
-                    {{date("H時i分", strtotime("00:00 +". $start * 30 ." minute"))}}
-                    </option>
-                    @endfor
+                  {!!ReservationHelper::timeOptionsWithRequest($request->enter_time)!!}
                 </select>
                 <span>～</span>
                 <select class="form-control select2" name="leave_time">
                   <option value=""></option>
-                  @for ($start = 0*2; $start <=23*2; $start++) <option
-                    value="{{date("H:i:s", strtotime("00:00 +". $start * 30 ." minute"))}}" @if (date("H:i:s",
-                    strtotime("00:00 +". $start * 30 ." minute"))==$request->leave_time)
-                    selected
-                    @endif
-                    >
-                    {{date("H時i分", strtotime("00:00 +". $start * 30 ." minute"))}}
-                    </option>
-                    @endfor
+                  {!!ReservationHelper::timeOptionsWithRequest($request->leave_time)!!}
                 </select>
               </div>
             </td>

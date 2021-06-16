@@ -243,20 +243,8 @@
               <div>
                 <select name="event_start" id="event_start" class="form-control">
                   <option disabled>選択してください</option>
-                  @for ($start = 0*2; $start <=23*2; $start++) <option
-                    value="{{date("H:i:s", strtotime("00:00 +". $start * 30 ." minute"))}}" @if (date("H:i:s",
-                    strtotime("00:00 +". $start * 30 ." minute"))<$request->pre_enter0)
-                    disabled
-                    @elseif(date("H:i:s", strtotime("00:00 +". $start * 30 ." minute"))>$request->pre_leave0)
-                    disabled
-                    @endif
-                    >
-                    {{date("H時i分", strtotime("00:00 +". $start * 30 ." minute"))}}</option>
-                    @endfor
+                  {!!ReservationHelper::timeOptionsWithRequestAndLimit($request->pre_enter0,$request->pre_enter0,$request->pre_leave0)!!}
                 </select>
-                {{-- <select name="event_start" id="event_start" class="form-control">
-                  {!!ReservationHelper::timeOptions()!!}
-                </select> --}}
               </div>
             </td>
           </tr>
@@ -266,20 +254,8 @@
               <div>
                 <select name="event_finish" id="event_finish" class="form-control">
                   <option disabled>選択してください</option>
-                  @for ($start = 0*2; $start <=23*2; $start++) <option
-                    value="{{date("H:i:s", strtotime("00:00 +". $start * 30 ." minute"))}}" @if (date("H:i:s",
-                    strtotime("00:00 +". $start * 30 ." minute"))>$request->pre_leave0)
-                    disabled
-                    @elseif(date("H:i:s",strtotime("00:00 +". $start * 30 ." minute"))<$request->pre_enter0)
-                      disabled
-                      @endif
-                      >
-                      {{date("H時i分", strtotime("00:00 +". $start * 30 ." minute"))}}</option>
-                      @endfor
+                  {!!ReservationHelper::timeOptionsWithRequestAndLimit($request->pre_leave0,$request->pre_enter0,$request->pre_leave0)!!}
                 </select>
-                {{-- <select name="event_finish" id="event_finish" class="form-control">
-                  {!!ReservationHelper::timeOptions()!!}
-                </select> --}}
               </div>
             </td>
           </tr>

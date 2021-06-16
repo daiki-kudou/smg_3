@@ -298,15 +298,55 @@ class ReservationHelper
   public static function timeOptions()
   {
     $arrays = [];
-    for ($i = 0 * 2; $i <= 23 * 2; $i++) {
+    for ($i = 0 * 2; $i <= 24 * 2; $i++) {
+      if ($i == 48) {
+        break;
+      }
       $html1 = "<option value=" . date('H:i:s', strtotime('00:00 +' . $i * 30 . ' minute')) . " >";
-      $html2 = date('H:i', strtotime('00:00 +' . $i * 30 . ' minute'));
+      $html2 = date('H時i分', strtotime('00:00 +' . $i * 30 . ' minute'));
       $html3 = "</option>";
       $arrays[] = $html1 . $html2 . $html3;
     }
     $result =  implode('', $arrays);
     return str_replace('"', '', $result);
   }
+  public static function timeOptionsWithRequest($time)
+  {
+    $arrays = [];
+    for ($i = 0 * 2; $i <= 24 * 2; $i++) {
+      if ($i == 48) {
+        break;
+      }
+      $selected = $time == date('H:i:s', strtotime('00:00 +' . $i * 30 . ' minute')) ? "selected" : "";
+      $html1 = "<option value=" . date('H:i:s', strtotime('00:00 +' . $i * 30 . ' minute')) . " " . $selected . ">";
+      $html2 = date('H時i分', strtotime('00:00 +' . $i * 30 . ' minute'));
+      $html3 = "</option>";
+      $arrays[] = $html1 . $html2 . $html3;
+    }
+    $result =  implode('', $arrays);
+    return str_replace('"', '', $result);
+  }
+  public static function timeOptionsWithRequestAndLimit($time, $limit_start, $limit_finish)
+  {
+    $arrays = [];
+    for ($i = 0 * 2; $i <= 24 * 2; $i++) {
+      if ($i == 48) {
+        break;
+      }
+      $selected = $time == date('H:i:s', strtotime('00:00 +' . $i * 30 . ' minute')) ? "selected" : "";
+      $limit1 = $limit_start > date('H:i:s', strtotime('00:00 +' . $i * 30 . ' minute')) ? "disabled" : "";
+      $limit2 = $limit_finish < date('H:i:s', strtotime('00:00 +' . $i * 30 . ' minute')) ? "disabled" : "";
+      $html1 = "<option value=" . date('H:i:s', strtotime('00:00 +' . $i * 30 . ' minute')) . " " . $selected . $limit1 . $limit2 . ">";
+      $html2 = date('H時i分', strtotime('00:00 +' . $i * 30 . ' minute'));
+      $html3 = "</option>";
+      $arrays[] = $html1 . $html2 . $html3;
+    }
+    $result =  implode('', $arrays);
+    return str_replace('"', '', $result);
+  }
+
+
+
   public static function timeOptionsWithDefault()
   {
     $arrays = [];

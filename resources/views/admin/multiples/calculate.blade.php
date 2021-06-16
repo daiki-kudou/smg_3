@@ -685,34 +685,13 @@
                         </div>
                       </td>
                     </tr>
-                    <!-- <tr>
-                        <td class="table-active"><label for="eventTime">イベント時間記載</label></td>
-                        <td>
-                          <div class="radio-box">
-                            <p>
-                              {{ Form::radio('event_copied'.$key, 1, $request->cp_master_event==1?true:false, ['id'=>'event_copied'.$key]) }}
-                              {{Form::label('event1','あり')}}
-                            </p>
-                            <p>
-                              {{ Form::radio('event_copied'.$key, 0, $request->cp_master_event==0?true:false, ['id'=>'event_copied_off'.$key]) }}
-                              {{Form::label('event_copied_off'.$key,'なし')}}
-                            </p>
-                          </div>
-                        </td>
-                      </tr> -->
+
                     <tr>
                       <td class="table-active"><label for="eventStart">イベント開始時間</label></td>
                       <td>
                         <select name="{{'event_start_copied'.$key}}" class="form-control">
                           <option disabled>選択してください</option>
-                          @for ($start = 0*2; $start <=23*2; $start++) <option
-                            value="{{date("H:i:s", strtotime("00:00 +". $start * 30 ." minute"))}}" @if($request->
-                            cp_master_event_start==date("H:i:s", strtotime("00:00 +". $start * 30 ." minute")))
-                            selected
-                            @endif
-                            >
-                            {{date("H時i分", strtotime("00:00 +". $start * 30 ." minute"))}}</option>
-                            @endfor
+                          {!!ReservationHelper::timeOptionsWithRequest($request->cp_master_event_start)!!}
                         </select>
                       </td>
                     </tr>
@@ -721,14 +700,8 @@
                       <td>
                         <select name="{{'event_finish_copied'.$key}}" class="form-control">
                           <option disabled>選択してください</option>
-                          @for ($start = 0*2; $start <=23*2; $start++) <option
-                            value="{{date("H:i:s", strtotime("00:00 +". $start * 30 ." minute"))}}" @if($request->
-                            cp_master_event_finish==date("H:i:s", strtotime("00:00 +". $start * 30 ." minute")))
-                            selected
-                            @endif
-                            >
-                            {{date("H時i分", strtotime("00:00 +". $start * 30 ." minute"))}}</option>
-                            @endfor
+                          {!!ReservationHelper::timeOptionsWithRequest($request->cp_master_event_finish)!!}
+
                         </select>
                       </td>
                     </tr>

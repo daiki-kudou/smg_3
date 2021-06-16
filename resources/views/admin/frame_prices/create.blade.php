@@ -57,21 +57,12 @@
             </td>
             <td>
               <select name="start0" id="start" class="form-control col-sm-12">
-                @for ($start = 8*2; $start <=23*2; $start++) <option
-                  value="{{date("H:i:s", strtotime("00:00 +". $start * 30 ." minute"))}}">
-                  {{date("H時i分", strtotime("00:00 +". $start * 30 ." minute"))}}
-                  </option>
-                  @endfor
+                {!!ReservationHelper::timeOptions()!!}
               </select>
             </td>
             <td>
               <select name="finish0" id="finish" class="form-control col-sm-12">
-                @for ($start = 8*2; $start <=23*2; $start++) <option
-                  value="{{date("H:i:s", strtotime("00:00 +". $start * 30 ." minute"))}}" @if (date("H:i:s",
-                  strtotime("00:00 +". $start * 30 ." minute"))=="12:00:00" ) selected @endif>
-                  {{date("H時i分", strtotime("00:00 +". $start * 30 ." minute"))}}
-                  </option>
-                  @endfor
+                {!!ReservationHelper::timeOptionsWithRequest('12:00:00')!!}
               </select>
             </td>
             <td>
