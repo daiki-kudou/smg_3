@@ -340,7 +340,6 @@ class MultiplesController extends Controller
   public function destroy(Request $request)
   {
     $shapeRequest = $request->except(['_method', '_token']);
-    dump($shapeRequest);
     if (count($shapeRequest) == 0) {
       $request->session()->regenerate();
       return redirect()->route('admin.multiples.index')->with('flash_message_error', '仮押えが選択されていません');
