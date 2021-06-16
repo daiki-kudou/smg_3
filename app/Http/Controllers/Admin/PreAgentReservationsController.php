@@ -47,7 +47,11 @@ class PreAgentReservationsController extends Controller
       $multiple = MultipleReserve::create(); //一括IDを作成
       $multiple->MultipleStoreForAgent($request);
       $request->session()->regenerate();
-      return redirect('admin/multiples');
+      if ($multiple->pre_reservations->first()->user_id > 0) {
+        return redirect(route('admin.multiples.show', $multiple->id));
+      } else {
+        return redirect(route('admin.multiples.agent_show', $multiple->id));
+      }
     }
   }
 
