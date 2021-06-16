@@ -518,12 +518,12 @@
                 <td>
                   <div class="radio-box">
                     <p>
-                      {{Form::radio('email_flag', 1, false , ['id' => 'email_flag'])}}
-                      <label for="{{'email_flag'}}" class="form-check-label">有り</label>
+                      {{Form::radio('email_flag', 1, true , ['id' => 'email_flag'])}}
+                      {{Form::label('email_flag','有り')}}
                     </p>
                     <p>
-                      {{Form::radio('email_flag', 0, true, ['id' => 'no_email_flag'])}}
-                      <label for="{{'no_email_flag'}}" class="form-check-label">無し</label>
+                      {{Form::radio('email_flag', 0, false, ['id' => 'no_email_flag'])}}
+                      {{Form::label('no_email_flag','無し')}}
                   </div>
                   </p>
                 </td>

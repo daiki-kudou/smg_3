@@ -450,11 +450,11 @@
                   <td>
                     <div class="radio-box">
                       <p>
-                        {{Form::radio('cp_master_email_flag', 1, false, ['id' => 'cp_master_email_flag'])}}
+                        {{Form::radio('cp_master_email_flag', 1, true, ['id' => 'cp_master_email_flag'])}}
                         {{Form::label('cp_master_email_flag','有り')}}
                       </p>
                       <p>
-                        {{Form::radio('cp_master_email_flag', 0, true, ['id' => 'cp_master_no_email_flag'])}}
+                        {{Form::radio('cp_master_email_flag', 0, false, ['id' => 'cp_master_no_email_flag'])}}
                         {{Form::label('cp_master_no_email_flag','無し')}}
                       </p>
                     </div>
