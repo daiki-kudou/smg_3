@@ -300,8 +300,17 @@
         $('.date_selector tbody tr').eq(destroy).find('td').eq(1).find('select').select2("destroy");
       }
       var base_venue = $(this).parent().parent().find('td').eq(1).find('select').val();
+      var base_date = $(this).parent().parent().find('td').eq(0).find('input').val().split('-');
+      var dt = new Date(base_date);
+      dt.setDate(dt.getDate() + 1);
+      var next_day=dt.getFullYear()+'-'+(dt.getMonth() + 1)+'-'+dt.getDate();
       $(this).parent().parent().clone(true).insertAfter($(this).parent().parent());
       $(this).parent().parent().next().find("td").eq(1).find("select option[value=" + base_venue + "]").prop('selected', true);
+      if (base_date=="") {
+        $(this).parent().parent().next().find("td").eq(0).find('input').val('');
+      }else{
+        $(this).parent().parent().next().find("td").eq(0).find('input').val(next_day);
+      }
       var count = $(this).parent().parent().parent().find('tr').length;
       var target = $(this).parent().parent().parent().find('tr');
       for (let index = 0; index < count; index++) {
@@ -329,10 +338,11 @@
           width: '100%'
         });
         // 時間の入力を初期化
-        if (index == count - 1) {
-          $(target).eq(index).find('td').eq(2).find('input, select').val('');
-          $(target).eq(index).find('td').eq(3).find('input, select').val('');
-        }
+        // 意図しない一番最後がクリアされるため一旦、コメントアウト
+        // if (index == count - 1) {
+        //   $(target).eq(index).find('td').eq(2).find('input, select').val('');
+        //   $(target).eq(index).find('td').eq(3).find('input, select').val('');
+        // }
         $(target).eq(index).find('td').eq(0).find('p').remove();
         $(target).eq(index).find('td').eq(2).find('p').remove();
         $(target).eq(index).find('td').eq(3).find('p').remove();
