@@ -713,7 +713,7 @@
               <dl class="ttl_box">
                 <dt>合計金額</dt>
                 <dd class="total_result">
-                  {{number_format($PreReservation->pre_bill->first()->master_total)}}
+                  {{number_format($PreReservation->pre_bill->master_total)}}
                   円
                 </dd>
               </dl>
@@ -769,7 +769,7 @@
                 </tr>
                 @endforeach
               </tbody>
-              <tbody class="venue_result">
+              {{-- <tbody class="venue_result">
                 <tr>
                   <td colspan="3"></td>
                   <td colspan="1">
@@ -777,7 +777,7 @@
                     {{ Form::text('venue_price', $PreReservation->pre_bill->venue_price,['class'=>'form-control col-xs-3', 'readonly'] ) }}
                   </td>
                 </tr>
-              </tbody>
+              </tbody> --}}
             </table>
           </div>
 
@@ -832,7 +832,7 @@
                 </tr>
                 @endforeach
               </tbody>
-              <tbody class="equipment_result">
+              {{-- <tbody class="equipment_result">
                 <tr>
                   <td colspan="3"></td>
                   <td colspan="1">
@@ -840,7 +840,7 @@
                     {{ Form::text('equipment_price',$PreReservation->pre_bill->first()->equipment_price  ,['class'=>'form-control', 'readonly'] ) }}
                   </td>
                 </tr>
-              </tbody>
+              </tbody> --}}
 
             </table>
           </div>
