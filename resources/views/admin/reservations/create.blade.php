@@ -8,6 +8,7 @@
 <script src="{{ asset('/js/lettercounter.js') }}"></script>
 <script src="{{ asset('/js/admin/validation.js') }}"></script>
 <script src="{{ asset('/js/admin/reservation/control_time.js') }}"></script>
+<script src="{{ asset('/js/holidays.js') }}"></script>
 
 
 {{-- ajax画面変遷時の待機画面 --}}
