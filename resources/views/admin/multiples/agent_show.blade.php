@@ -68,27 +68,27 @@
         <tr>
           <th class="table-active" width="25%"><label for="company">会社名・団体名</label></th>
           <td>
-            {{ReservationHelper::getAgentCompany($multiple->pre_reservations()->first()->agent_id)}}
+            {{ReservationHelper::getAgentCompany($multiple->pre_reservations->first()->agent_id)}}
           </td>
           <td class="table-active"><label for="name">担当者氏名</label></td>
           <td>
-            {{ReservationHelper::getAgentPerson($multiple->pre_reservations()->first()->agent_id)}}
+            {{ReservationHelper::getAgentPerson($multiple->pre_reservations->first()->agent_id)}}
           </td>
         </tr>
         <tr>
           <td class="table-active" scope="row"><label for="email">担当者メールアドレス</label></td>
           <td>
-            {{ReservationHelper::getAgentEmail($multiple->pre_reservations()->first()->agent_id)}}
+            {{ReservationHelper::getAgentEmail($multiple->pre_reservations->first()->agent_id)}}
           </td>
           <td class="table-active" scope="row"><label for="mobile">携帯番号</label></td>
           <td>
-            {{ReservationHelper::getAgentMobile($multiple->pre_reservations()->first()->agent_id)}}
+            {{ReservationHelper::getAgentMobile($multiple->pre_reservations->first()->agent_id)}}
           </td>
         </tr>
         <tr>
           <td class="table-active" scope="row"><label for="tel">固定電話</label></td>
           <td>
-            {{ReservationHelper::getAgentTel($multiple->pre_reservations()->first()->agent_id)}}
+            {{ReservationHelper::getAgentTel($multiple->pre_reservations->first()->agent_id)}}
           </td>
         </tr>
       </tbody>
@@ -106,50 +106,50 @@
         <tr>
           <td class="table-active" width="25%"><label for="onedayCompany">会社名・団体名</label></td>
           <td>
-            @if (!empty($multiple->pre_reservations()->first()->pre_enduser->company))
-            {{$multiple->pre_reservations()->first()->pre_enduser->company}}
+            @if (!empty($multiple->pre_reservations->first()->pre_enduser->company))
+            {{$multiple->pre_reservations->first()->pre_enduser->company}}
             @endif
           </td>
           <td class="table-active"><label for="onedayName">担当者氏名</label></td>
           <td>
-            @if (!empty($multiple->pre_reservations()->first()->pre_enduser->person))
-            {{$multiple->pre_reservations()->first()->pre_enduser->person}}
+            @if (!empty($multiple->pre_reservations->first()->pre_enduser->person))
+            {{$multiple->pre_reservations->first()->pre_enduser->person}}
             @endif
           </td>
         </tr>
         <tr>
           <td class="table-active" scope="row"><label for="onedayEmail">担当者メールアドレス</label></td>
           <td>
-            @if (!empty($multiple->pre_reservations()->first()->pre_enduser->email))
-            {{$multiple->pre_reservations()->first()->pre_enduser->email}}
+            @if (!empty($multiple->pre_reservations->first()->pre_enduser->email))
+            {{$multiple->pre_reservations->first()->pre_enduser->email}}
             @endif
           </td>
           <td class="table-active" scope="row"><label for="onedayMobile">携帯番号</label></td>
           <td>
-            @if (!empty($multiple->pre_reservations()->first()->pre_enduser->mobile))
-            {{$multiple->pre_reservations()->first()->pre_enduser->mobile}}
+            @if (!empty($multiple->pre_reservations->first()->pre_enduser->mobile))
+            {{$multiple->pre_reservations->first()->pre_enduser->mobile}}
             @endif
           </td>
         </tr>
         <tr>
           <td class="table-active" scope="row"><label for="onedayTel">固定電話</label></td>
           <td>
-            @if (!empty($multiple->pre_reservations()->first()->pre_enduser->tel))
-            {{$multiple->pre_reservations()->first()->pre_enduser->tel}}
+            @if (!empty($multiple->pre_reservations->first()->pre_enduser->tel))
+            {{$multiple->pre_reservations->first()->pre_enduser->tel}}
             @endif
           </td>
           <td class="table-active" scope="row"><label for="onedayTel">住所</label></td>
           <td>
-            @if (!empty($multiple->pre_reservations()->first()->pre_enduser->address))
-            {{$multiple->pre_reservations()->first()->pre_enduser->address}}
+            @if (!empty($multiple->pre_reservations->first()->pre_enduser->address))
+            {{$multiple->pre_reservations->first()->pre_enduser->address}}
             @endif
           </td>
         </tr>
         <tr>
           <td class="table-active" scope="row"><label for="onedayTel">利用者属性</label></td>
           <td>
-            @if (!empty($multiple->pre_reservations()->first()->pre_enduser->attr))
-            {{ReservationHelper::PreEndUserGetAttr($multiple->pre_reservations()->first()->pre_enduser->attr)}}
+            @if (!empty($multiple->pre_reservations->first()->pre_enduser->attr))
+            {{ReservationHelper::PreEndUserGetAttr($multiple->pre_reservations->first()->pre_enduser->attr)}}
             @endif
           </td>
         </tr>
@@ -179,10 +179,10 @@
           <td rowspan="{{$venue_count}}">{{ReservationHelper::formatDate($multiple->created_at)}}</td>{{--作成日--}}
           <td>{{ReservationHelper::getVenue($venues[$i]->venue_id)}}</td>{{--利用会場--}}
           <td class="text-center" rowspan="{{$venue_count}}">
-            {{$multiple->pre_reservations()->get()->count()}}
+            {{$multiple->pre_reservations->count()}}
           </td>{{--総件数--}}
           <td class="text-center">
-            {{$multiple->pre_reservations()->where('venue_id',$venues[$i]->venue_id)->get()->count()}}
+            {{$multiple->pre_reservations->where('venue_id',$venues[$i]->venue_id)->count()}}
           </td>
           <td class="text-center">
             <a class="more_btn"
@@ -193,7 +193,7 @@
           <tr>
             <td>{{ReservationHelper::getVenue($venues[$i]->venue_id)}}</td>
             <td class="text-center">
-              {{$multiple->pre_reservations()->where('venue_id',$venues[$i]->venue_id)->get()->count()}}
+              {{$multiple->pre_reservations->where('venue_id',$venues[$i]->venue_id)->count()}}
             </td>
             <td class="text-center">
               {{-- <a class="more_btn"
