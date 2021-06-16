@@ -369,17 +369,29 @@ class MultiplesController extends Controller
   public function SPDestroy(Request $request)
   {
     $shapeRequest = $request->except(['_method', '_token', 'multi_id']);
-    foreach ($shapeRequest as $value) {
-      $pre_reservation = PreReservation::find($value);
-      $pre_reservation->delete();
+    $multiple = MultipleReserve::with('pre_reservations')->find($request->multi_id);
+
+    if (empty($shapeRequest)) {
+      return redirect()->route('admin.multiples.show', $multiple->id)->with('flash_message_error', '仮押さえが選択されていません');
     }
+
+    DB::transaction(function () use ($shapeRequest) {
+      foreach ($shapeRequest as $value) {
+        $pre_reservation = PreReservation::find($value);
+        $pre_reservation->delete();
+      }
+    });
+
     $multiple = MultipleReserve::with('pre_reservations')->find($request->multi_id);
     if (!empty($multiple->pre_reservations->toArray())) {
       //まだ仮押さえがあるなら
-      dump('ある');
+      return redirect()->route('admin.multiples.show', $multiple->id)->with('flash_message', '仮押さえの削除に成功しました。');
     } else {
       //仮押さえがない
-      dump('ない');
+      DB::transaction(function () use ($multiple) {
+        $multiple->delete();
+      });
+      return redirect()->route('admin.multiples.index')->with('flash_message', '仮押さえの削除に成功しました。');
     }
   }
 }

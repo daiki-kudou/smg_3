@@ -5,6 +5,18 @@
 <link href="{{ asset('/css/template.css') }}" rel="stylesheet">
 <script src="{{ asset('/js/template.js') }}"></script>
 
+
+@if (session('flash_message'))
+<div class="flash_message bg-success text-center py-3 my-0">
+  {{ session('flash_message') }}
+</div>
+@elseif (session('flash_message_error'))
+<div class="flash_message bg-danger text-center py-3 my-0">
+  {{ session('flash_message_error') }}
+</div>
+@endif
+
+
 <div class="container-field mt-3">
   <div class="float-right">
     <nav aria-label="breadcrumb">

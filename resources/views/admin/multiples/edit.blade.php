@@ -563,7 +563,7 @@
           @csrf
           <div id="for_destroy"></div>
           {{ Form::hidden('multi_id', $multiple->id) }}
-          {{ Form::submit('削除', ['class' => 'btn more_btn4','id'=>'']) }}
+          {{ Form::submit('削除', ['class' => 'btn more_btn4','id'=>'confirm_destroy']) }}
           {{ Form::close() }}
         </p>
       </p>
@@ -1571,29 +1571,15 @@
 
 
 
-  // $(function() {
-  //   // 全選択アクション
-  //   $('#all_check').on('change', function() {
-  //     $('.checkbox').prop('checked', $(this).is(':checked'));
-  //   })
+  $(function() {
 
-  //   // 削除確認コンファーム
-  //   $('#confirm_destroy').on('click', function() {
-  //     if (!confirm('削除してもよろしいですか？')) {
-  //       return false;
-  //     }
-  //   })
-
-  //   $(document).on("change", "input[type='checkbox']", function () {
-  //     $('#for_destroy').html("");
-  //     checked = $('[class="checkbox"]:checked').map(function() {
-  //       return $(this).val();
-  //     }).get();
-  //     for (let index = 0; index < checked.length; index++) {
-  //       var ap_data = "<input type='hidden' name='destroy" + checked[index] + "' value='" + checked[index] + "'>"
-  //       $('#for_destroy').append(ap_data);
-  //     }
-  // });
+    // 削除確認コンファーム
+    $('#confirm_destroy').on('click', function() {
+      if (!confirm('削除してもよろしいですか？')) {
+        return false;
+      }
+    })
+  });
 
   // })
   // $(function() {
