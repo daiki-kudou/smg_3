@@ -329,10 +329,11 @@
           width: '100%'
         });
         // 時間の入力を初期化
-        if (index == count - 1) {
-          $(target).eq(index).find('td').eq(2).find('input, select').val('');
-          $(target).eq(index).find('td').eq(3).find('input, select').val('');
-        }
+        // 意図しない一番最後がクリアされるため一旦、コメントアウト
+        // if (index == count - 1) {
+        //   $(target).eq(index).find('td').eq(2).find('input, select').val('');
+        //   $(target).eq(index).find('td').eq(3).find('input, select').val('');
+        // }
         $(target).eq(index).find('td').eq(0).find('p').remove();
         $(target).eq(index).find('td').eq(2).find('p').remove();
         $(target).eq(index).find('td').eq(3).find('p').remove();

@@ -135,13 +135,21 @@
           <td>
             <select name="pre_enter0" id="pre_enter0" class="enter_control_pre_reservation0 form-control">
               <option value=""></option>
-              {!!ReservationHelper::timeOptions()!!}
+              @for ($start = 0*2; $start <=23*2; $start++) <option
+                value="{{date("H:i:s", strtotime("00:00 +". $start * 30 ." minute"))}}">
+                {{date("H時i分", strtotime("00:00 +". $start * 30 ." minute"))}}
+                </option>
+                @endfor
             </select>
           </td>
           <td>
             <select name="pre_leave0" id="pre_leave0" class="leave_control_pre_reservation0 form-control">
               <option value=""></option>
-              {!!ReservationHelper::timeOptions()!!}
+              @for ($start = 0*2; $start <=23*2; $start++) <option
+                value="{{date("H:i:s", strtotime("00:00 +". $start * 30 ." minute"))}}">
+                {{date("H時i分", strtotime("00:00 +". $start * 30 ." minute"))}}
+                </option>
+                @endfor
             </select>
           </td>
           <td>
@@ -227,10 +235,10 @@
           width: '100%'
         });
 
-        if (index == count - 1) {
-          $(target).eq(index).find('td').eq(2).find('input, select').val('');
-          $(target).eq(index).find('td').eq(3).find('input, select').val('');
-        }
+        // if (index == count - 1) {
+        //   $(target).eq(index).find('td').eq(2).find('input, select').val('');
+        //   $(target).eq(index).find('td').eq(3).find('input, select').val('');
+        // }
       }
     })
     // マイナスボタン
@@ -261,77 +269,6 @@
       }
     })
   })
-  // 入室時間選択トリガー
-  // $(function () {
-  //   $(document).on("click", "select", function () {
-  //     var this_tr = $(this).parent().parent();
-  //     var target = $(this).parent().index();
-  //     if (target == 2) {
-  //       var date = this_tr.find('td').eq(0).find('input').val();
-  //       var venue = this_tr.find('td').eq(1).find('select').val();
-  //       if (date.length && venue.length) {
-  //         $(this).find('option').prop('disabled', false);
-  //         var options = $(this).find('option');
-  //         $.ajax({
-  //           headers: {
-  //             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-  //           },
-  //           url: '/admin/reservations/getsaleshours',
-  //           type: 'POST',
-  //           data: { 'venue_id': venue, 'dates': date },
-  //           dataType: 'json',
-  //           beforeSend: function () {
-  //             $('#fullOverlay').css('display', 'block');
-  //           },
-  //         }).done(function ($times) {
-  //           $('#fullOverlay').css('display', 'none');
-  //           for (let index = 0; index < $times[0].length; index++) {
-  //             options.each(function ($result) {
-  //               if ($times[0][index] == options.eq($result).val()) {
-  //                 options.eq($result).prop('disabled', true);
-  //               }
-  //             });
-  //           };
-  //         }).fail(function ($times) {
-  //           $('#fullOverlay').css('display', 'none');
-  //         });
-  //       } else {
-  //         $(this).find('option').prop('disabled', true);
-  //       }
-  //     }else if(target == 3){
-  //       var date = this_tr.find('td').eq(0).find('input').val();
-  //       var venue = this_tr.find('td').eq(1).find('select').val();
-  //       if (date.length && venue.length) {
-  //         $(this).find('option').prop('disabled', false);
-  //         var options = $(this).find('option');
-  //         $.ajax({
-  //           headers: {
-  //             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-  //           },
-  //           url: '/admin/reservations/getsaleshours',
-  //           type: 'POST',
-  //           data: { 'venue_id': venue, 'dates': date },
-  //           dataType: 'json',
-  //           beforeSend: function () {
-  //             $('#fullOverlay').css('display', 'block');
-  //           },
-  //         }).done(function ($times) {
-  //           $('#fullOverlay').css('display', 'none');
-  //           for (let index = 0; index < $times[0].length; index++) {
-  //             options.each(function ($result) {
-  //               if ($times[0][index] == options.eq($result).val()) {
-  //                 options.eq($result).prop('disabled', true);
-  //               }
-  //             });
-  //           };
-  //         }).fail(function ($times) {
-  //           $('#fullOverlay').css('display', 'none');
-  //         });
-  //       } else {
-  //         $(this).find('option').prop('disabled', true);
-  //       }
-  //     }
-  //   })
-  // })
+
 </script>
 @endsection
