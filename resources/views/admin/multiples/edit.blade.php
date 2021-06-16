@@ -693,14 +693,7 @@
                     <select name="{{'event_start_copied'.$key}}" id="{{'event_start_copied'.$key}}"
                       class="form-control">
                       <option disabled>選択してください</option>
-                      @for ($start = 0*2; $start <=23*2; $start++) <option
-                        value="{{date("H:i:s", strtotime("00:00 +". $start * 30 ." minute"))}}" @if(date("H:i:s",
-                        strtotime("00:00 +". $start * 30 ." minute"))==$pre_reservation->enter_time)
-                        selected
-                        @endif
-                        >
-                        {{date("H時i分", strtotime("00:00 +". $start * 30 ." minute"))}}</option>
-                        @endfor
+                      {!!ReservationHelper::timeOptionsWithRequest($pre_reservation->enter_time)!!}
                     </select>
                   </td>
                 </tr>
@@ -710,14 +703,7 @@
                     <select name="{{'event_finish_copied'.$key}}" id="{{'event_finish_copied'.$key}}"
                       class="form-control">
                       <option disabled>選択してください</option>
-                      @for ($start = 0*2; $start <=23*2; $start++) <option
-                        value="{{date("H:i:s", strtotime("00:00 +". $start * 30 ." minute"))}}" @if (date("H:i:s",
-                        strtotime("00:00 +". $start * 30 ." minute"))==$pre_reservation->leave_time)
-                        selected
-                        @endif
-                        >
-                        {{date("H時i分", strtotime("00:00 +". $start * 30 ." minute"))}}</option>
-                        @endfor
+                      {!!ReservationHelper::timeOptionsWithRequest($pre_reservation->leave_time)!!}
                     </select>
                   </td>
                 </tr>

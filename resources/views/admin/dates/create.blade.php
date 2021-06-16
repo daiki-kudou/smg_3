@@ -60,25 +60,11 @@
         <td>
           <div class="form-inline">
             <select name="start" id="start" class="form-control">
-              @for ($start = 8*2; $start <=23*2; $start++) <option value="{{date("H:i:s", strtotime("00:00 +". $start * 30 ." minute"))}}" @if (date("H:i:s", strtotime("00:00 +". $start * 30 ." minute"))==$date_venues->
-                where('week_day',$weekday_id)->first()->start)
-                selected
-                @endif
-                >
-                {{date("H時i分", strtotime("00:00 +". $start * 30 ." minute"))}}
-                </option>
-                @endfor
+              {!!ReservationHelper::timeOptionsWithRequest($date_venues->where('week_day',$weekday_id)->first()->start)!!}
             </select>
             ~
             <select name="finish" id="finish" class="form-control col-sm-2">
-              @for ($start = 8*2; $start <=23*2; $start++) <option value="{{date("H:i:s", strtotime("00:00 +". $start * 30 ." minute"))}}" @if(date("H:i:s",strtotime("00:00 +". $start * 30 ." minute"))==$date_venues->
-                where('week_day',$weekday_id)->first()->finish)
-                selected
-                @endif
-                >
-                {{date("H時i分", strtotime("00:00 +". $start * 30 ." minute"))}}
-                </option>
-                @endfor
+              {!!ReservationHelper::timeOptionsWithRequest($date_venues->where('week_day',$weekday_id)->first()->finish)!!}
             </select>
           </div>
         </td>

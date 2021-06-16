@@ -272,18 +272,7 @@
             <td>
               <select name="event_start" id="event_start" class="form-control">
                 <option disabled>選択してください</option>
-                @for ($start = 0*2; $start <=23*2; $start++) <option
-                  value="{{date("H:i:s", strtotime("00:00 +". $start * 30 ." minute"))}}"
-                  @if(date("H:i:s",strtotime("00:00 +". $start * 30 ." minute")) < $PreReservation->enter_time)
-                  disabled
-                  @elseif(date("H:i:s", strtotime("00:00 +". $start * 30 ." minute"))>$PreReservation->leave_time)
-                  disabled
-                  @elseif(date("H:i:s", strtotime("00:00 +". $start * 30 ." minute"))==$PreReservation->enter_time)
-                  selected
-                  @endif
-                  >
-                  {{date("H時i分", strtotime("00:00 +". $start * 30 ." minute"))}}</option>
-                  @endfor
+                {!!ReservationHelper::timeOptionsWithRequestAndLimit($PreReservation->enter_time,$PreReservation->enter_time,$PreReservation->leave_time)!!}
               </select>
             </td>
           </tr>
@@ -292,18 +281,7 @@
             <td>
               <select name="event_finish" id="event_finish" class="form-control">
                 <option disabled>選択してください</option>
-                @for ($start = 0*2; $start <=23*2; $start++) <option
-                  value="{{date("H:i:s", strtotime("00:00 +". $start * 30 ." minute"))}}" @if (date("H:i:s",
-                  strtotime("00:00 +". $start * 30 ." minute"))<$PreReservation->enter_time)
-                  disabled
-                  @elseif(date("H:i:s", strtotime("00:00 +". $start * 30 ." minute"))>$PreReservation->leave_time)
-                  disabled
-                  @elseif(date("H:i:s", strtotime("00:00 +". $start * 30 ." minute"))==$PreReservation->leave_time)
-                  selected
-                  @endif
-                  >
-                  {{date("H時i分", strtotime("00:00 +". $start * 30 ." minute"))}}</option>
-                  @endfor
+                {!!ReservationHelper::timeOptionsWithRequestAndLimit($PreReservation->leave_time,$PreReservation->enter_time,$PreReservation->leave_time)!!}
               </select>
             </td>
           </tr>
@@ -742,7 +720,8 @@
           <td>
             <dl class="ttl_box">
               <dt>合計金額</dt>
-              {{-- <dd class="total_result">{{number_format($PreReservation->pre_bill->first()->master_total)}}円</dd> --}}
+              {{-- <dd class="total_result">{{number_format($PreReservation->pre_bill->first()->master_total)}}円</dd>
+              --}}
               <dd class="total_result">{{number_format($PreReservation->pre_bill->master_total)}}円</dd>
             </dl>
           </td>

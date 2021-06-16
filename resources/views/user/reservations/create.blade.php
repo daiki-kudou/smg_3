@@ -145,16 +145,7 @@
                   <div class="selectWrap">
                     <select name="event_start" id="event_start" class="timeScale">
                       <option disabled>選択してください</option>
-                      @for ($start = 8*2; $start <=23*2; $start++) <option
-                        value="{{date("H:i:s", strtotime("00:00 +". $start * 30 ." minute"))}}" @if(($request->
-                        enter_time==date("H:i:s", strtotime("00:00 +". $start * 30 ." minute"))))
-                        selected
-                        @elseif($request->enter_time>date("H:i:s", strtotime("00:00 +". $start * 30 ." minute")))
-                        disabled
-                        @elseif($request->leave_time<date("H:i:s", strtotime("00:00 +". $start * 30 ." minute")))
-                          disabled @endif>
-                          {{date("H時i分", strtotime("00:00 +". $start * 30 ." minute"))}}</option>
-                          @endfor
+                      {!!ReservationHelper::timeOptionsWithRequestAndLimit($request->enter_time,$request->enter_time,$request->leave_time)!!}
                     </select>
                   </div>
                 </li>
@@ -163,16 +154,7 @@
                   <div class="selectWrap">
                     <select name="event_finish" id="event_finish" class="timeScale">
                       <option disabled>選択してください</option>
-                      @for ($start = 8*2; $start <=23*2; $start++) <option
-                        value="{{date("H:i:s", strtotime("00:00 +". $start * 30 ." minute"))}}" @if(($request->
-                        leave_time==date("H:i:s", strtotime("00:00 +". $start * 30 ." minute"))))
-                        selected
-                        @elseif($request->enter_time>date("H:i:s", strtotime("00:00 +". $start * 30 ." minute")))
-                        disabled
-                        @elseif($request->leave_time<date("H:i:s", strtotime("00:00 +". $start * 30 ." minute")))
-                          disabled @endif>
-                          {{date("H時i分", strtotime("00:00 +". $start * 30 ." minute"))}}</option>
-                          @endfor
+                      {!!ReservationHelper::timeOptionsWithRequestAndLimit($request->leave_time,$request->enter_time,$request->leave_time)!!}
                     </select>
                   </div>
                 </li>
@@ -246,15 +228,14 @@
             @endforeach
 
             <li>
-              <p>工藤さん！！こちら 100000円<span
-                class="annotation">(税抜)</span></p>
+              <p>工藤さん！！こちら 100000円<span class="annotation">(税抜)</span></p>
               <div class="selectTime">
                 <input id="services_breakdown" class="radio-input" name="services_breakdown" type="radio">
                 <label for="services_breakdown">あり</label>
                 <input id="no_services_breakdown" class="radio-input" name="services_breakdown" type="radio">
                 <label for="no_services_breakdown">なし</label>
               </div>
-          </li>
+            </li>
           </ul>
         </td>
       </tr>

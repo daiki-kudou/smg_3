@@ -212,18 +212,8 @@
             <td>
               <select name="event_start" id="event_start" class="form-control">
                 <option disabled>選択してください</option>
-                @for ($start = 0*2; $start <=23*2; $start++) <option
-                  value="{{date("H:i:s", strtotime("00:00 +". $start * 30 ." minute"))}}"
-                  @if(date("H:i:s",strtotime("00:00 +". $start * 30 ." minute"))<$request->enter_time)
-                  disabled
-                  @elseif(date("H:i:s", strtotime("00:00 +". $start * 30 ." minute"))>$request->leave_time)
-                  disabled
-                  @elseif(date("H:i:s",strtotime("00:00 +". $start * 30 ." minute"))==$request->event_start)
-                  selected
-                  @endif
-                  >
-                  {{date("H時i分", strtotime("00:00 +". $start * 30 ." minute"))}}</option>
-                  @endfor
+                {!!ReservationHelper::timeOptionsWithRequestAndLimit($request->event_start,$request->enter_time,$request->leave_time)!!}
+
               </select>
             </td>
           </tr>
@@ -232,18 +222,7 @@
             <td>
               <select name="event_finish" id="event_finish" class="form-control">
                 <option disabled>選択してください</option>
-                @for ($start = 0*2; $start <=23*2; $start++) <option
-                  value="{{date("H:i:s", strtotime("00:00 +". $start * 30 ." minute"))}}"
-                  @if(date("H:i:s",strtotime("00:00 +". $start * 30 ." minute"))<$request->enter_time)
-                  disabled
-                  @elseif(date("H:i:s", strtotime("00:00 +". $start * 30 ." minute"))>$request->leave_time)
-                  disabled
-                  @elseif(date("H:i:s",strtotime("00:00 +". $start * 30 ." minute"))==$request->event_finish)
-                  selected
-                  @endif
-                  >
-                  {{date("H時i分", strtotime("00:00 +". $start * 30 ." minute"))}}</option>
-                  @endfor
+                {!!ReservationHelper::timeOptionsWithRequestAndLimit($request->event_finish,$request->enter_time,$request->leave_time)!!}
               </select>
             </td>
           </tr>

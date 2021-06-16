@@ -120,12 +120,12 @@
                 <div>
                   <select name="enter_time" id="sales_start" class="form-control">
                     <option selected></option>
-                    @for ($start = 0*2; $start <=23*2; $start++) <option
-                      value="{{date("H:i:s", strtotime("00:00 +". $start * 30 ." minute"))}}" @if (isset($request))
-                      @endif>
-                      {{date("H時i分", strtotime("00:00 +". $start * 30 ." minute"))}}
-                      </option>
-                      @endfor
+                    {!!ReservationHelper::timeOptions()!!}
+                    {{-- @for ($start = 0*2; $start <=24*2; $start++) <option
+                      value="{{date("H:i:s", strtotime("00:00 +". $start * 30 ." minute"))}}">
+                    {{date("H時i分", strtotime("00:00 +". $start * 30 ." minute"))}}
+                    </option>
+                    @endfor --}}
                   </select>
                   <p class="is-error-enter_time" style="color: red"></p>
                 </div>
@@ -137,11 +137,8 @@
                 <div>
                   <select name="leave_time" id="sales_finish" class="form-control">
                     <option disabled selected></option>
-                    @for ($start = 0*2; $start <=23*2; $start++) <option
-                      value="{{date("H:i:s", strtotime("00:00 +". $start * 30 ." minute"))}}" @if (isset($request))
-                      @endif>
-                      {{date("H時i分", strtotime("00:00 +". $start * 30 ." minute"))}}</option>
-                      @endfor
+                    {!!ReservationHelper::timeOptions()!!}
+
                   </select>
                   <p class="is-error-leave_time" style="color: red"></p>
                 </div>
@@ -183,11 +180,7 @@
                 <div>
                   <select name="event_start" id="event_start" class="form-control">
                     <option disabled>選択してください</option>
-                    @for ($start = 0*2; $start <=23*2; $start++) <option
-                      value="{{date("H:i:s", strtotime("00:00 +". $start * 30 ." minute"))}}" @if (isset($request))
-                      @endif>
-                      {{date("H時i分", strtotime("00:00 +". $start * 30 ." minute"))}}</option>
-                      @endfor
+                    {!!ReservationHelper::timeOptions()!!}
                   </select>
                 </div>
               </td>
@@ -198,11 +191,8 @@
                 <div>
                   <select name="event_finish" id="event_finish" class="form-control">
                     <option disabled>選択してください</option>
-                    @for ($start = 0*2; $start <=23*2; $start++) <option
-                      value="{{date("H:i:s", strtotime("00:00 +". $start * 30 ." minute"))}}" @if (isset($request))
-                      @endif>
-                      {{date("H時i分", strtotime("00:00 +". $start * 30 ." minute"))}}</option>
-                      @endfor
+                    {!!ReservationHelper::timeOptions()!!}
+
                   </select>
                 </div>
               </td>
