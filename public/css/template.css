@@ -1397,7 +1397,10 @@ h3 {
 [class^="venue_main"] td:nth-of-type(n+2) .form-control,
 [class^="equipment_main"] td:nth-of-type(n+2) .form-control,
 [class^="layout_main"] td:nth-of-type(n+2) .form-control,
-[class^="others_main"] td:nth-of-type(n+2) .form-control {
+[class^="others_main"] td:nth-of-type(n+2) .form-control,
+[class^="equipment_cancel"] td:nth-of-type(n+2) .form-control, 
+[class^="layout_cancel"] td:nth-of-type(n+2) .form-control, 
+[class^="others_cancel"] td:nth-of-type(n+2) .form-control {
     text-align: right;
 }
 
