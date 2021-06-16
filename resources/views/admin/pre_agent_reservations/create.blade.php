@@ -209,8 +209,17 @@
       for (let destroy = 0; destroy < $('.date_selector tbody tr').length; destroy++) {
         console.log($('.date_selector tbody tr').eq(destroy).find('td').eq(1).find('select').select2("destroy"));
       }
-
+      var base_date = $(this).parent().parent().find('td').eq(0).find('input').val().split('-');
+      var dt = new Date(base_date);
+      dt.setDate(dt.getDate() + 1);
+      var next_day=dt.getFullYear()+'-'+(dt.getMonth() + 1)+'-'+dt.getDate();
       $(this).parent().parent().clone(true).insertAfter($(this).parent().parent());
+      if (base_date=="") {
+        $(this).parent().parent().next().find("td").eq(0).find('input').val('');
+      }else{
+        $(this).parent().parent().next().find("td").eq(0).find('input').val(next_day);
+      }
+
       var count = $(this).parent().parent().parent().find('tr').length;
       var target = $(this).parent().parent().parent().find('tr');
 
