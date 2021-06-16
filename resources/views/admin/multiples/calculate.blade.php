@@ -18,7 +18,7 @@
           </ol>
         </nav>
       </div>
-      <h2 class="mt-3 mb-3">一括仮押え　編集</h2>
+      <h2 class="mt-3 mb-3">一括仮押え　編集（一括反映　計算）</h2>
       <hr>
     </div>
 
@@ -559,12 +559,12 @@
       <ul class="register-list-header mt-5">
         <li class="from-group">
           <div class="form-check">
-            <input class="mr-1" type="checkbox" name="all_check" id="all_check" />
-            <label class="form-check-label">すべてチェックする</label>
+            {{-- <input class="mr-1" type="checkbox" name="all_check" id="all_check" />
+            <label class="form-check-label">すべてチェックする</label> --}}
           </div>
         </li>
         <li>
-          <p><a class="more_btn4" href="">削除</a></p>
+          {{-- <p><a class="more_btn4" href="">削除</a></p> --}}
         </li>
       </ul>
 
@@ -572,17 +572,17 @@
       {{ Form::hidden('', $multiple->pre_reservations()->where('venue_id',$venue->id)->get()->count(),['id'=>'counts_reserve']) }}
       {{-- 以下、pre_reservationの数分　ループ --}}
       @foreach ($multiple->getPreReservations($venue->id) as $key=>$pre_reservation)
+
       {{ Form::open(['url' => 'admin/multiples/'.$multiple->id."/edit/".$venue->id.'/calculate/'.$pre_reservation->id.'/specific_update', 'method'=>'POST', 'id'=>'multipleCalculateSpecificUpdateForm'.$key]) }}
       @csrf
       {{ Form::hidden('split_keys', $key) }}
-
       <section class="register-list col">
         <!-- 仮押え一括 タブ-->
         <div class="register-list-item">
           <div class="from-group list_checkbox">
             <div class="form-check">
-              <input class="form-check-input checkbox" type="checkbox">
-              <label class="form-check-label"></label>
+              {{-- <input class="form-check-input checkbox" type="checkbox">
+              <label class="form-check-label"></label> --}}
             </div>
           </div>
           <dl class="card">
