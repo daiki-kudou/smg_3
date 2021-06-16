@@ -90,7 +90,11 @@ class ReservationHelper
 
   public static function formatTime($num)
   {
-    return date('H:i', strtotime($num));
+    if (!empty($num)) {
+      return date('H:i', strtotime($num));
+    } else {
+      return "";
+    }
   }
 
   public static function getVenue($venue_id)

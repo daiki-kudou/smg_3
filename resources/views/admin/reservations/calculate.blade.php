@@ -93,6 +93,12 @@
               <select name="enter_time" id="sales_start" class="form-control">
                 <option disabled selected></option>
                 {!!ReservationHelper::timeOptionsWithRequest($value['enter_time'])!!}
+                {{-- @for ($start = 0*2; $start <=23*2; $start++) <option
+                  value="{{date("H:i:s", strtotime("00:00 +". $start * 30 ." minute"))}}" @if (date("H:i:s",
+                strtotime("00:00 +". $start * 30 ." minute"))==$value['enter_time']) selected @endif>
+                {{date("H時i分", strtotime("00:00 +". $start * 30 ." minute"))}}
+                </option>
+                @endfor --}}
               </select>
             </td>
           </tr>
@@ -102,6 +108,11 @@
               <select name="leave_time" id="sales_finish" class="form-control">
                 <option disabled selected></option>
                 {!!ReservationHelper::timeOptionsWithRequest($value['leave_time'])!!}
+                {{-- @for ($start = 0*2; $start <=23*2; $start++) <option
+                  value="{{date("H:i:s", strtotime("00:00 +". $start * 30 ." minute"))}}" @if (date("H:i:s",
+                strtotime("00:00 +". $start * 30 ." minute"))==$value['leave_time']) selected @endif>
+                {{date("H時i分", strtotime("00:00 +". $start * 30 ." minute"))}}</option>
+                @endfor --}}
               </select>
             </td>
           </tr>
@@ -142,6 +153,13 @@
               <select name="event_start" id="event_start" class="form-control">
                 <option disabled>選択してください</option>
                 {!!ReservationHelper::timeOptionsWithRequest($value['event_start'])!!}
+                {{-- @for ($start = 0*2; $start <=23*2; $start++) <option
+                  value="{{date("H:i:s", strtotime("00:00 +". $start * 30 ." minute"))}}"
+                @if(!empty($value['event_start'])) @if(date("H:i:s",strtotime("00:00 +".$start * 30
+                ."minute"))==$value['event_start']) selected @endif @endif>
+                {{date("H時i分", strtotime("00:00 +". $start * 30 ." minute"))}}
+                </option>
+                @endfor --}}
               </select>
             </td>
           </tr>
@@ -153,6 +171,13 @@
                 <option disabled>選択してください</option>
                 {!!ReservationHelper::timeOptionsWithRequest($value['event_finish'])!!}
 
+                {{-- @for ($start = 0*2; $start <=23*2; $start++) <option
+                  value="{{date("H:i:s", strtotime("00:00 +". $start * 30 ." minute"))}}"
+                @if(!empty($value['event_finish'])) @if (date("H:i:s", strtotime("00:00 +". $start * 30
+                ."minute"))==$value['event_finish']) selected @endif @endif>
+                {{date("H時i分", strtotime("00:00 +". $start * 30 ." minute"))}}
+                </option>
+                @endfor --}}
               </select>
             </td>
           </tr>
