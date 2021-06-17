@@ -86,15 +86,25 @@
           <tr>
             <td class="table-active">イベント開始時間</td>
             <td>
+              @if ($basicInfo['board_flag']==1)
               {{ Form::text('', date('H:i',strtotime($basicInfo['event_start'])),['class'=>'form-control', 'readonly'] ) }}
               {{ Form::hidden('event_start', $basicInfo['event_start'],['class'=>'form-control', 'readonly'] ) }}
+              @else
+              {{ Form::text('', '',['class'=>'form-control', 'readonly'] ) }}
+              {{ Form::hidden('event_start', '',['class'=>'form-control', 'readonly'] ) }}
+              @endif
             </td>
           </tr>
           <tr>
             <td class="table-active">イベント終了時間</td>
             <td>
+              @if ($basicInfo['board_flag']==1)
               {{ Form::text('', date('H:i',strtotime($basicInfo['event_finish'])),['class'=>'form-control', 'readonly'] ) }}
-              {{ Form::hidden('event_finish', $basicInfo['event_finish'],['class'=>'form-control', 'readonly'] ) }}
+              {{ Form::hidden('event_finish', $basicInfo['event_start'],['class'=>'form-control', 'readonly'] ) }}
+              @else
+              {{ Form::text('', '',['class'=>'form-control', 'readonly'] ) }}
+              {{ Form::hidden('event_finish', '',['class'=>'form-control', 'readonly'] ) }}
+              @endif
             </td>
           </tr>
           <tr>
@@ -896,9 +906,7 @@
 </section>
 
 <div class="container-field d-flex justify-content-center mt-5">
-  {{-- <a href="javascript:$('#back').submit()" class="btn more_btn4_lg d-block mr-5">請求内訳を修正する</a> --}}
   {{Form::submit('請求内訳を修正する', ['class'=>'btn more_btn4_lg d-block mr-5', 'name'=>'back'])}}
-
   {{Form::submit('保存する', ['class'=>'btn more_btn_lg d-block', 'id'=>'check_submit'])}}
   {{Form::close()}}
 

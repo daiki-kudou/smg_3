@@ -140,10 +140,13 @@
           <td class="table-active">案内板</td>
           <td>
             <div class="radio-box">
-              <p><input type="radio" name="board_flag" value="1" id="board_flag"
-                  {{isset($basicInfo['board_flag'])?$basicInfo['board_flag']==1?'checked':'':'',}}><span>有り</span></p>
-              <p><input type="radio" name="board_flag" value="0" id="no_board_flag"
-                  {{isset($basicInfo['board_flag'])?$basicInfo['board_flag']==0?'checked':'':'checked',}}><span>無し</span>
+              <p>
+                {{Form::radio('board_flag', 1, $basicInfo['board_flag']==1?'checked':'', ['class'=>'','id'=>'board_flag'])}}
+                {{Form::label('board_flag','有り')}}
+              </p>
+              <p>
+                {{Form::radio('board_flag', 0, $basicInfo['board_flag']==0?'checked':'', ['class'=>'','id'=>'no_board_flag'])}}
+                {{Form::label('no_board_flag','無し')}}
               </p>
             </div>
           </td>
@@ -152,8 +155,13 @@
           <td class="table-active">イベント開始時間</td>
           <td>
             <select name="event_start" id="event_start" class="form-control">
-              <option disabled>選択してください</option>
-              {!!ReservationHelper::timeOptionsWithRequest($basicInfo['event_start'])!!}
+              @if ($basicInfo['board_flag']==1)
+              <option value="" disabled>選択してください</option>
+              {!!ReservationHelper::timeOptionsWithRequestAndLimit($basicInfo['event_start'],$basicInfo['enter_time'],$basicInfo['leave_time'])!!}
+              @else
+              <option value="" selected></option>
+              {!!ReservationHelper::timeOptionsWithRequestAndLimit('',$basicInfo['enter_time'],$basicInfo['leave_time'])!!}
+              @endif
             </select>
           </td>
         </tr>
@@ -161,8 +169,13 @@
           <td class="table-active">イベント終了時間</td>
           <td>
             <select name="event_finish" id="event_finish" class="form-control">
-              <option disabled>選択してください</option>
-              {!!ReservationHelper::timeOptionsWithRequest($basicInfo['event_finish'])!!}
+              @if ($basicInfo['board_flag']==1)
+              <option value="" disabled>選択してください</option>
+              {!!ReservationHelper::timeOptionsWithRequestAndLimit($basicInfo['event_finish'],$basicInfo['enter_time'],$basicInfo['leave_time'])!!}
+              @else
+              <option value="" selected></option>
+              {!!ReservationHelper::timeOptionsWithRequestAndLimit('',$basicInfo['enter_time'],$basicInfo['leave_time'])!!}
+              @endif
             </select>
           </td>
         </tr>
