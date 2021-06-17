@@ -38,6 +38,19 @@ jQuery.validator.addMethod(
 );
 
 
+// 有料備品の数字入力制限
+$(function () {
+  $(".equipment_validation").on("input", function (e) {
+    let value = $(e.currentTarget).val();
+    value = value
+      .replace(/[０-９]/g, function (s) {
+        return String.fromCharCode(s.charCodeAt(0) - 65248);
+      })
+      .replace(/[^0-9]/g, "");
+    $(e.currentTarget).val(value);
+  });
+});
+
 // その他の数字入力制限
 $(function () {
   $("input[name*='others_input_cost']").on("input", function (e) {
@@ -113,49 +126,3 @@ $(function () {
   });
 });
 
-// 一括仮押さえ一覧　検索
-$(function () {
-  $("#searchMultiple").validate({
-    rules: {
-      search_id: { number: true, min: 1 },
-      search_mobile: { number: true, minlength: 11 },
-      search_tel: { number: true, minlength: 10 },
-    },
-    messages: {
-      search_id: {
-        number: "※半角英数字で入力してください",
-        min: "※0以上を入力してください",
-      },
-      search_mobile: {
-        number: "※半角英数字で入力してください",
-        minlength: "11桁で入力してください",
-      },
-      search_tel: {
-        number: "※半角英数字で入力してください",
-        minlength: "10桁で入力してください",
-      },
-    },
-    errorPlacement: function (error, element) {
-      var name = element.attr("name");
-      if (element.attr("name") === "category[]") {
-        error.appendTo($(".is-error-category"));
-      } else if (element.attr("name") === name) {
-        error.appendTo($(".is-error-" + name));
-      }
-    },
-    errorElement: "span",
-    errorClass: "is-error",
-    //送信前にLoadingを表示
-    submitHandler: function (form) {
-      $(".approval").addClass("hide");
-      $(".loading").removeClass("hide");
-      form.submit();
-    },
-  });
-  $("input").on("blur", function () {
-    $(this).valid();
-    // if ($('span').hasClass('is-error')) {
-    //   $('span').css('background', 'white');
-    // }
-  });
-});
