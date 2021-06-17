@@ -127,8 +127,11 @@ $(document).ready(function () {
   $("#cp_master_board_no_board_flag:checked").each(function () {
     var flag = $(this);
     if ($(flag).is(":checked") != null) {
-      $("#cp_master_event_start").prop("readonly", true);
-      $("#cp_master_event_finish").prop("readonly", true);
+      console.log("#cp_master_event_start");
+      // $("#cp_master_event_start").prop("readonly", true);
+      // $("#cp_master_event_finish").prop("readonly", true);
+      $("#cp_master_event_start").prop("disabled", true);
+      $("#cp_master_event_finish").prop("disabled", true);
       $("#eventname1Count").prop("readonly", true);
       $("#eventname2Count").prop("readonly", true);
       $("#eventownerCount").prop("readonly", true);
@@ -142,15 +145,19 @@ $(function () {
   $('input[name="cp_master_board_flag"]').change(function () {
     var prop = $("#cp_master_board_no_board_flag").prop("checked");
     if (prop) {
-      $("#cp_master_event_start").prop("readonly", true);
-      $("#cp_master_event_finish").prop("readonly", true);
+      // $("#cp_master_event_start").prop("readonly", true);
+      // $("#cp_master_event_finish").prop("readonly", true);
+      $("#cp_master_event_start").prop("disabled", true);
+      $("#cp_master_event_finish").prop("disabled", true);
       $("#eventname1Count").prop("readonly", true);
       $("#eventname2Count").prop("readonly", true);
       $("#eventownerCount").prop("readonly", true);
       // $(".board-table input[type='text']").val("");
     } else {
-      $("#cp_master_event_start").prop("readonly", false);
-      $("#cp_master_event_finish").prop("readonly", false);
+      // $("#cp_master_event_start").prop("readonly", false);
+      // $("#cp_master_event_finish").prop("readonly", false);
+      $("#cp_master_event_start").prop("disabled", false);
+      $("#cp_master_event_finish").prop("disabled", false);
       $("#eventname1Count").prop("readonly", false);
       $("#eventname2Count").prop("readonly", false);
       $("#eventownerCount").prop("readonly", false);
