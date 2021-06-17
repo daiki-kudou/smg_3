@@ -48,7 +48,7 @@
           </h3>
         </td>
         <td class="text-right">
-          <a class="more_btn4" href="">予約の編集・承認権限を顧客に移行</a>
+          <a class="more_btn4" href="">本予約へ切り替える</a>
         </td>
     </tbody>
   </table>
