@@ -301,34 +301,26 @@
             <td rowspan="{{count($reservation->bills)}}">
               {{ReservationHelper::getVenue($reservation->venue->id)}}
             </td>
-            <td rowspan="{{count($reservation->bills)}}" class="{{$reservation->user->trashed()?"not_member":""}}">
+            <td rowspan="{{count($reservation->bills)}}" class="{{ClassHelper::addNotMemberClass($reservation)}}">
               @if ($reservation->user_id>0)
               {{$reservation->user->company}}
               @endif
             </td>
             @if ($reservation->user_id>0)
-            <td rowspan="{{count($reservation->bills)}}" class="{{$reservation->user->trashed()?"not_member":""}}">
+            <td rowspan="{{count($reservation->bills)}}" class="{{ClassHelper::addNotMemberClass($reservation)}}">
               {{ReservationHelper::getPersonName($reservation->user_id)}}
               @elseif($reservation->user_id==0)
             <td rowspan="{{count($reservation->bills)}}">
-              {{-- 仲介会社の担当名は出さない --}}
-              {{-- {{ReservationHelper::getAgentPerson($reservation->agent_id)}} --}}
               @endif
             </td>
-            <td rowspan="{{count($reservation->bills)}}" class="{{$reservation->user->trashed()?"not_member":""}}">
+            <td rowspan="{{count($reservation->bills)}}" class="{{ClassHelper::addNotMemberClass($reservation)}}">
               @if ($reservation->user_id>0)
               {{$reservation->user->mobile}}
-              @else
-              {{-- 仲介会社関連は出さない --}}
-              {{-- {{$reservation->agent->mobile}} --}}
               @endif
             </td>
-            <td rowspan="{{count($reservation->bills)}}" class="{{$reservation->user->trashed()?"not_member":""}}">
+            <td rowspan="{{count($reservation->bills)}}" class="{{ClassHelper::addNotMemberClass($reservation)}}">
               @if ($reservation->user_id>0)
               {{$reservation->user->tel}}
-              @else
-              {{-- 仲介会社関連は出さない --}}
-              {{-- {{$reservation->agent->person_tel}} --}}
               @endif
             </td>
             <td rowspan="{{count($reservation->bills)}}">

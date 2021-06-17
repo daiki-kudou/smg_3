@@ -242,6 +242,7 @@ return [
     'ReservationHelper' => App\Http\Helpers\ReservationHelper::class,
     'HomeHelper' => App\Http\Helpers\HomeHelper::class,
     'ImageHelper' => App\Http\Helpers\ImageHelper::class,
+    'ClassHelper' => App\Http\Helpers\ClassHelper::class,
     'PDF' => Barryvdh\DomPDF\Facade::class,
 
   ],
