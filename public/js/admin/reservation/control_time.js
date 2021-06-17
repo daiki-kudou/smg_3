@@ -15,6 +15,9 @@ $(function () {
       initializeTimeOption(target);
       var date = $('input[name="reserve_date"]').val();
       var venue_id = $('select[name="venue_id"]').val();
+      if (venue_id == undefined) {
+        venue_id = $('input[name="venue_id"]').val();
+      }
       resultGetTimeAjax(date, venue_id, target);
     });
   }
@@ -39,6 +42,7 @@ $(function () {
   }
 
   function getTimeAjax($date, $venue_id) {
+    console.log($date, $venue_id);
     return $.ajax({
       headers: {
         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')

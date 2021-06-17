@@ -596,7 +596,7 @@ $(function () {
             "</tr>" +
             "<tr>" +
             "<td class='table-active'>事前荷物の到着日<br>午前指定のみ</td>" +
-            "<td class=''> <input id='datepicker3' type='text' class='form-control' placeholder='年-月-日' name='luggage_arrive'>" +
+            "<td class=''> <input id='' type='text' class='form-control holidays' placeholder='年-月-日' name='luggage_arrive'>" +
             "</td>" +
             "</tr>" +
             "<tr> " +
@@ -604,8 +604,7 @@ $(function () {
             "<td class=''><input type='text' class='form-control luggage_return' placeholder='個数入力' name='luggage_return'>" +
             "<p class='is-error-luggage_return' style='color: red'></p>" +
             "</td>" +
-            "</tr>" +
-            "<script>$('#datepicker3').datepicker({dateFormat: 'yy-mm-dd', minDate: 0, maxDate:'" + maxDate + "' });</script>";
+            "</tr>";
 
           $('.luggage table tbody').append(data);
           // ***********マイナス、全角制御用
