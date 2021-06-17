@@ -34,6 +34,7 @@
     <iframe frameborder="0" src="{{url('admin/calendar/date_calendar')}}" width="100%" height="500"></iframe>
   </div>
 
+
   {{Form::open(['url' => 'admin/pre_reservations/check', 'method' => 'POST', 'id'=>'pre_reservationCreateForm'])}}
   @csrf
 
@@ -213,6 +214,7 @@
 <script defer="defer">
   // 初期カレンダーのside var 非表示
   $(function() {
+    
     $("iframe").on("load", function() {
       $("iframe").contents().find('.main-sidebar').css("display", "none");
       $("iframe").contents().find('.content-wrapper').css("margin-left", "0px");

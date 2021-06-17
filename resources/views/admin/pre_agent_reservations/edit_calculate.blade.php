@@ -843,9 +843,6 @@
 
 <script>
   $(function() {
-    $("html,body").animate({
-      scrollTop: $('.bill').offset().top
-    });
 
     $(function() {
       // プラスボタンクリック

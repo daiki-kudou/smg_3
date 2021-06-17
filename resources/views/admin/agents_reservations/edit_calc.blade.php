@@ -119,13 +119,11 @@
             <td>
               <div class="radio-box">
                 <p>
-                  <input type="radio" name="board_flag" value="1" id="board_flag"
-                    {{isset($inputs['board_flag'])?$inputs['board_flag']==1?'checked':'':'',}}>
-                  {{Form::label('board_flag','あり')}}
+                  {{Form::radio('board_flag', 1, $inputs['board_flag']==1?'checked':'', ['class'=>'','id'=>'board_flag'])}}
+                  {{Form::label('board_flag','有り')}}
                 </p>
                 <p>
-                  <input type="radio" name="board_flag" value="0" id="no_board_flag"
-                    {{isset($inputs['board_flag'])?$inputs['board_flag']==0?'checked':'':'checked',}}>
+                  {{Form::radio('board_flag', 0, $inputs['board_flag']==0?'checked':'', ['class'=>'','id'=>'no_board_flag'])}}
                   {{Form::label('no_board_flag','無し')}}
                 </p>
               </div>
@@ -135,8 +133,13 @@
             <td class="table-active">イベント開始時間</td>
             <td>
               <select name="event_start" id="event_start" class="form-control">
-                <option></option>
-                {!!ReservationHelper::timeOptionsWithRequest($inputs['event_start'])!!}
+                @if ($inputs['board_flag']==1)
+                <option value="" disabled>選択してください</option>
+                {!!ReservationHelper::timeOptionsWithRequestAndLimit($inputs['event_start'],$inputs['enter_time'],$inputs['leave_time'])!!}
+                @else
+                <option value="" selected></option>
+                {!!ReservationHelper::timeOptionsWithRequestAndLimit('',$inputs['enter_time'],$inputs['leave_time'])!!}
+                @endif
               </select>
             </td>
           </tr>
@@ -144,8 +147,14 @@
             <td class="table-active">イベント終了時間</td>
             <td>
               <select name="event_finish" id="event_finish" class="form-control">
-                <option></option>
-                {!!ReservationHelper::timeOptionsWithRequest($inputs['event_finish'])!!}
+                @if ($inputs['board_flag']==1)
+                <option value="" disabled>選択してください</option>
+                {!!ReservationHelper::timeOptionsWithRequestAndLimit($inputs['event_finish'],$inputs['enter_time'],$inputs['leave_time'])!!}
+                @else
+                <option value="" selected></option>
+                {!!ReservationHelper::timeOptionsWithRequestAndLimit('',$inputs['enter_time'],$inputs['leave_time'])!!}
+                @endif
+
               </select>
             </td>
           </tr>
@@ -895,9 +904,6 @@
 
   <script>
     $(function() {
-              $("html,body").animate({
-                scrollTop: $('.bill').offset().top
-              });
           
               $(function() {
                 // プラスボタンクリック

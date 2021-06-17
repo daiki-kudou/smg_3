@@ -170,12 +170,12 @@ $(function () {
 
 // submit確認
 $(function () {
-  $('.first_double_check').on('click', function () {
-    $("html,body").animate({ scrollTop: $('.double_check1_name').offset().top });
-  })
-  $('.second_double_check').on('click', function () {
-    $("html,body").animate({ scrollTop: $('.double_check2_name').offset().top });
-  })
+  // $('.first_double_check').on('click', function () {
+  //   $("html,body").animate({ scrollTop: $('.double_check1_name').offset().top });
+  // })
+  // $('.second_double_check').on('click', function () {
+  //   $("html,body").animate({ scrollTop: $('.double_check2_name').offset().top });
+  // })
 })
 
 
