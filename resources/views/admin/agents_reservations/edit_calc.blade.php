@@ -12,7 +12,7 @@
 <link href="{{ asset('/css/template.css') }}" rel="stylesheet">
 <script src="{{ asset('/js/template.js') }}"></script>
 <script src="{{ asset('/js/lettercounter.js') }}"></script>
-<script src="{{ asset('/js/admin/validation.js') }}"></script>
+<script src="{{ asset('/js/admin/agents_reservation/validation.js') }}"></script>
 
 
 <div class="">
@@ -198,7 +198,7 @@
                   {{$equ->item}}
                 </td>
                 <td>
-                  {{Form::text('equipment_breakdown'.$key,$inputs['equipment_breakdown'.$key],['class'=>'form-control'])}}
+                  {{Form::text('equipment_breakdown'.$key,$inputs['equipment_breakdown'.$key],['class'=>'form-control equipment_validation'])}}
                 </td>
               </tr>
               @endforeach
@@ -423,6 +423,7 @@
               </td>
               <td>
                 {{ Form::text('enduser_tel', $inputs['enduser_tel'],['class'=>'form-control', 'placeholder'=>'入力してください', 'id'=>'enduser_tel'] ) }}
+                <p class="is-error-enduser_tel" style="color: red"></p>
               </td>
             </tr>
             <tr>
@@ -431,6 +432,7 @@
               </td>
               <td>
                 {{ Form::text('enduser_mail', $inputs['enduser_mail'],['class'=>'form-control', 'placeholder'=>'入力してください', 'id'=>'enduser_mail'] ) }}
+                <p class="is-error-enduser_mail" style="color: red"></p>
               </td>
             </tr>
             <tr>
@@ -447,6 +449,7 @@
               </td>
               <td>
                 {{ Form::text('enduser_mobile', $inputs['enduser_mobile'],['class'=>'form-control', 'placeholder'=>'入力してください', 'id'=>'enduser_mobile'] ) }}
+                <p class="is-error-enduser_mobile" style="color: red"></p>
               </td>
             </tr>
             <tr>
@@ -478,10 +481,12 @@
             <td class="table-active form_required">
               <label for="enduser_charge">支払い料</label>
             </td>
-            <td class="d-flex align-items-center">
-              {{ Form::text('enduser_charge', $inputs['enduser_charge'],['class'=>'form-control ', 'placeholder'=>'入力してください'] ) }}
-              円
-              <p class="is-error-end_user_charge" style="color: red"></p>
+            <td>
+              <div class="d-flex align-items-center">
+                {{ Form::text('enduser_charge', $inputs['enduser_charge'],['class'=>'form-control ', 'placeholder'=>'入力してください'] ) }}
+                <span class="ml-1">円</span>
+              </div>
+              <p class="is-error-enduser_charge" style="color: red"></p>
             </td>
           </tr>
         </table>
