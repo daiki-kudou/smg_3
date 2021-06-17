@@ -5,7 +5,7 @@
 
 <link href="{{ asset('/css/template.css') }}" rel="stylesheet">
 <script src="{{ asset('/js/template.js') }}"></script>
-<script src="{{ asset('/js/admin/validation.js') }}"></script>
+<script src="{{ asset('/js/admin/cxl/validation.js') }}"></script>
 
 <h2 class="mt-3 mb-3">キャンセル請求書 作成</h2>
 <hr>
