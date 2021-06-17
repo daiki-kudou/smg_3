@@ -13,7 +13,7 @@
   </div>
 </div>
 <section class="contents">
-  <h2>予約1</h2>
+  <h2>予約</h2>
 
   {{ Form::open(['url' => 'user/reservations/check', 'method'=>'POST', 'id'=>'user_reservation_create']) }}
   <div class="bgColorGray first">
@@ -217,25 +217,18 @@
         <td class="spec-space">
           <ul>
             @foreach ($venue->getServices() as $s_key=>$serv)
-            <li class="form-cell2">
-              <label>
-                {{ Form::hidden('services_breakdown'.$s_key, 0 ) }}
-                <input type="checkbox" id="" name="{{'services_breakdown'.$s_key}}" value="1" class="checkbox-input">
-                <span class="checkbox-parts">{{$serv->item}} {{$serv->price}}円<span
-                    class="annotation">(税抜)</span></span>
-              </label>
+            <li>
+              <p>{{$serv->item}} {{$serv->price}}円<span class="annotation">(税抜)</span></p>
+              <div class="selectTime">
+                {{Form::radio('services_breakdown'.$s_key, 1, false, ['id' => 'services_breakdown_on'.$s_key, 'class' => 'radio-input'])}}
+                {{Form::label('services_breakdown_on'.$s_key,'あり')}}
+                {{Form::radio('services_breakdown'.$s_key, 0, true, ['id' => 'services_breakdown_off'.$s_key, 'class' => 'radio-input'])}}
+                {{Form::label('services_breakdown_off'.$s_key, 'なし')}}
+              </div>
             </li>
             @endforeach
 
-            <li>
-              <p>工藤さん！！こちら 100000円<span class="annotation">(税抜)</span></p>
-              <div class="selectTime">
-                <input id="services_breakdown" class="radio-input" name="services_breakdown" type="radio">
-                <label for="services_breakdown">あり</label>
-                <input id="no_services_breakdown" class="radio-input" name="services_breakdown" type="radio">
-                <label for="no_services_breakdown">なし</label>
-              </div>
-            </li>
+
           </ul>
         </td>
       </tr>
