@@ -3,7 +3,9 @@
 <script src="{{ asset('/js/template.js') }}"></script>
 <script src="{{ asset('/js/admin/validation.js') }}"></script>
 <script src="{{ asset('/js/lettercounter.js') }}"></script>
+<script src="{{ asset('/js/holidays.js') }}"></script>
 <link href="{{ asset('/css/template.css') }}" rel="stylesheet">
+
 
 <div class="container-field mt-3">
   <div class="float-right">
@@ -412,7 +414,7 @@
                 <tr>
                   <td class="table-active">事前荷物の到着日<br>午前指定のみ</td>
                   <td>
-                    {{ Form::text('luggage_arrive', '',['class'=>'form-control', 'id'=>'datepicker9'] ) }}
+                    {{ Form::text('luggage_arrive', '',['class'=>'form-control holidays'] ) }}
                   </td>
                 </tr>
                 <tr>
@@ -426,11 +428,6 @@
                   <td class="table-active">荷物預り/返送<br>料金</td>
                   <td>
                     <p class="annotation">※仮押え時点では、料金の設定ができません。<br>予約へ切り替え後に料金の設定が可能です。</p>
-                    <!-- <div class="d-flex align-items-end">
-                    {{ Form::text('luggage_price', '',['class'=>'form-control'] ) }}
-                    <span class="ml-1">円</span>
-                  </div>
-                  <p class='is-error-luggage_price' style=' color: red'></p> -->
                   </td>
                 </tr>
                 @endif
@@ -607,6 +604,11 @@
 
 
   <script>
+    $(document).on(' click', '.holidays', function () {
+  getHolidayCalendar($('.holidays'), $('input[name="reserve_date"]'));
+});
+
+
     $(function() {
     var maxTarget = $('input[name="reserve_date"]').val();
     $('#datepicker9').datepicker({

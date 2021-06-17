@@ -4,6 +4,7 @@
 <script src="{{ asset('/js/template.js') }}"></script>
 <script src="{{ asset('/js/admin/validation.js') }}"></script>
 <script src="{{ asset('/js/lettercounter.js') }}"></script>
+<script src="{{ asset('/js/holidays.js') }}"></script>
 <link href="{{ asset('/css/template.css') }}" rel="stylesheet">
 
 
@@ -130,8 +131,6 @@
       </tbody>
     </table>
   </div>
-
-
   {{-- 以下、詳細入力 --}}
   <div class="container-field mt-5">
     <div class="row">
@@ -231,12 +230,10 @@
             <td>
               <div class="radio-box">
                 <p>
-                  {{-- <input type="radio" name="board_flag" value="1"><span>有り</span> --}}
                   {{Form::radio('board_flag', 1, true , ['id' => 'board_flag'])}}
                   {{Form::label('board_flag','有り')}}
                 </p>
                 <p>
-                  {{-- <input type="radio" name="board_flag" value="0" checked=""><span>無し</span> --}}
                   {{Form::radio('board_flag', 0, false , ['id' => 'no_board_flag'])}}
                   {{Form::label('no_board_flag','無し')}}
                 </p>
@@ -296,7 +293,6 @@
             </td>
           </tr>
         </table>
-
 
         <div class="equipemnts">
           <table class="table table-bordered">
@@ -435,7 +431,7 @@
               <tr>
                 <td class="table-active">事前荷物の到着日<br>午前指定のみ</td>
                 <td>
-                  {{ Form::text('luggage_arrive', '',['class'=>'form-control', 'id'=>'datepicker9'] ) }}
+                  {{ Form::text('luggage_arrive', '',['class'=>'form-control holidays'] ) }}
                 </td>
               </tr>
               <tr>
@@ -445,20 +441,12 @@
                   <p class='is-error-luggage_return' style=' color: red'></p>
                 </td>
               </tr>
-              <!-- <tr>
-                <td class="table-active">荷物預り/返送<br>料金</td>
-                <td>
-                  {{ Form::text('luggage_price', '',['class'=>'form-control'] ) }}
-                </td>
-              </tr> -->
               @endif
-
             </tbody>
           </table>
         </div>
 
         @if ($venue->eat_in_flag==1)
-
         <div class="eat_in">
           <table class="table table-bordered">
             <thead>
@@ -552,18 +540,6 @@
                 </p>
               </td>
             </tr>
-            <!-- <tr class="caution">
-              <td>
-                <label for="caution">注意事項</label>
-                {{ Form::textarea('attention', '',['class'=>'form-control', 'placeholder'=>'入力してください'] ) }}
-              </td>
-            </tr> -->
-            <!-- <tr>
-              <td>
-                <label for="userNote">申し込みフォーム備考</label>
-                {{ Form::textarea('user_details', '',['class'=>'form-control', 'placeholder'=>'入力してください'] ) }}
-              </td>
-            </tr> -->
             <tr>
               <td>
                 <label for="adminNote">管理者備考</label>
@@ -583,8 +559,6 @@
     {{ Form::hidden('judge_count', 1 ) }}
     {{-- ユーザー --}}
     {{ Form::hidden('agent_id', $request->agent_id ) }}
-
-
     @if ($venue->getPriceSystems()==0)
     <div class="">
       <p class="d-block">選択された会場は料金が設定されていません。会場管理/料金管理に戻り設定してください</p>
@@ -593,7 +567,6 @@
     @else
     {{Form::submit('計算する', ['class'=>'btn more_btn_lg mx-auto d-block', 'id'=>'check_submit'])}}
     @endif
-
   </div>
 </div>
 
@@ -609,12 +582,12 @@
 {{Form::close()}}
 
 
-
-
-{{Form::close()}}
-
-
 <script>
+  $(document).on(' click', '.holidays', function () {
+  getHolidayCalendar($('.holidays'), $('input[name="reserve_date"]'));
+});
+
+
   $(function() {
     var maxTarget = $('input[name="reserve_date"]').val();
     $('#datepicker9').datepicker({
