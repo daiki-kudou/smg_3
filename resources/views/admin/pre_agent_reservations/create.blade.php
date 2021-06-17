@@ -1,7 +1,7 @@
 @extends('layouts.admin.app')
 @section('content')
 <script src="{{ asset('/js/template.js') }}"></script>
-<script src="{{ asset('/js/admin/validation.js') }}"></script>
+<script src="{{ asset('/js/admin/pre_agent_reservation/validation.js') }}"></script>
 <script src="{{ asset('/js/admin/pre_reservation/control_time.js') }}"></script>
 
 <link href="{{ asset('/css/template.css') }}" rel="stylesheet">
@@ -124,7 +124,10 @@
       </thead>
       <tbody>
         <tr>
-          <td>{{ Form::text('pre_date0', '',['class'=>'form-control', 'id'=>"pre_datepicker"] ) }}</td>
+          <td>
+            {{ Form::text('pre_date0', '',['class'=>'form-control', 'id'=>"pre_datepicker"] ) }}
+            <p class="is-error-pre_date0" style="color: red"></p>
+          </td>
           <td>
             <select name="pre_venue0" id="pre_venue">
               @foreach ($venues as $venue)
@@ -137,12 +140,14 @@
               <option value=""></option>
               {!!ReservationHelper::timeOptions()!!}
             </select>
+            <p class="is-error-pre_enter0" style="color: red"></p>
           </td>
           <td>
             <select name="pre_leave0" id="pre_leave0" class="leave_control_pre_reservation0 form-control">
               <option value=""></option>
               {!!ReservationHelper::timeOptions()!!}
             </select>
+            <p class="is-error-pre_enter0" style="color: red"></p>
           </td>
           <td>
             <input type="button" value="＋" class="add pluralBtn">

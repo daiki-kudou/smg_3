@@ -5,7 +5,6 @@
 <script src="{{ asset('/js/lettercounter.js') }}"></script>
 <script src="{{ asset('/js/admin/multiples/validation.js') }}"></script>
 <script src="{{ asset('/js/multiples/calculate.js') }}"></script>
-{{--<script src="{{ asset('/js/admin/validation.js') }}"></script>--}}
 
 
 <div class="container-field mt-3">

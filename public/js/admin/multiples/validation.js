@@ -78,6 +78,68 @@ $(function () {
 });
 
 
+// 顧客 一括仮押え切り替え
+$(function () {
+  $("#multiple_switch").validate({
+    rules: {
+      unknown_user_email: { email: true },
+      unknown_user_mobile: { number: true, minlength: 11 },
+      unknown_user_tel: { number: true, minlength: 10 },
+      tel: { number: true, minlength: 11 },
+      luggage_count: { number: true, range: [1, 49] },
+      luggage_return: { number: true, range: [1, 49] },
+      cost: { number: true, range: [1, 100] },
+    },
+    messages: {
+      unknown_user_email: { email: "※Emailの形式で入力してください" },
+      unknown_user_mobile: {
+        number: "※半角数字を入力してください",
+        minlength: "※最低桁数は11です",
+      },
+      unknown_user_tel: {
+        number: "※半角数字を入力してください",
+        minlength: "※最低桁数は10です",
+      },
+      tel: {
+        number: "※半角数字を入力してください",
+        minlength: "※最低桁数は11です",
+      },
+      luggage_count: {
+        number: "半角数字で入力してください",
+        range: "※最大値は49です",
+      },
+      luggage_return: {
+        number: "半角数字で入力してください",
+        range: "※最大値は49です",
+      },
+      cost: {
+        number: "半角数字で入力してください",
+        range: "※1から100までの半角英数字を入力してください",
+      },
+    },
+    errorPlacement: function (error, element) {
+      var name = element.attr("name");
+      if (element.attr("name") === "category[]") {
+        error.appendTo($(".is-error-category"));
+      } else if (element.attr("name") === name) {
+        error.appendTo($(".is-error-" + name));
+      }
+    },
+    errorElement: "span",
+    errorClass: "is-error",
+    //送信前にLoadingを表示
+    submitHandler: function (form) {
+      $(".spin_btn").removeClass("hide");
+      $(".submit_btn").addClass("hide");
+      form.submit();
+    },
+  });
+  $("input").on("blur", function () {
+    $(this).valid();
+  });
+});
+
+
 // 仲介会社 一括仮押え切り替え
 $(function () {
   $("#multipleagent_switch").validate({
@@ -138,7 +200,7 @@ $(function () {
 
 // 一括仮押さえ　編集＆再計算
 $(function () {
-  var target = ["#multipleEditForm", "multipleCalculateForm"];
+  var target = ["#multipleEditForm", "#multipleCalculateForm"];
   $.each(target, function (index, value) {
     $(value).validate({
       rules: {
@@ -298,11 +360,11 @@ $(function () {
         },
         [luggagecountcopied]: {
           number: "※半角数字で入力してください",
-          max: "※最大値は49です",
+          range: "※最大値は49です",
         },
         [luggagereturncopied]: {
           number: "※半角数字で入力してください",
-          max: "※最大値は49です",
+          range: "※最大値は49です",
         },
         [luggagepricecopied]: {
           number: "※半角数字で入力してください",

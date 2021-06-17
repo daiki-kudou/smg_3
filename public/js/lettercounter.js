@@ -243,7 +243,6 @@ $(document).ready(function () {
   $("#cp_master_board_no_board_flag:checked").each(function () {
     var flag = $(this);
     if ($(flag).is(":checked") != null) {
-      console.log("#cp_master_event_start");
       // $("#cp_master_event_start").prop("readonly", true);
       // $("#cp_master_event_finish").prop("readonly", true);
       $("#cp_master_event_start").prop("disabled", true);
