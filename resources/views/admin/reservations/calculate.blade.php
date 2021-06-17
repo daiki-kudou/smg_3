@@ -5,6 +5,7 @@
 <script src="{{ asset('/js/template.js') }}"></script>
 <script src="{{ asset('/js/lettercounter.js') }}"></script>
 <script src="{{ asset('/js/admin/validation.js') }}"></script>
+<script src="{{ asset('/js/admin/reservation/control_time.js') }}"></script>
 <script src="{{ asset('/js/holidays.js') }}"></script>
 
 
