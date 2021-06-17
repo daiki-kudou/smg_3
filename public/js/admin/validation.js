@@ -79,9 +79,6 @@ $(function () {
 
 
 
-
-
-
 // 備品のカウントイッタン非表示
 // $(function () {
 //   var items = $(".equipment_breakdown");

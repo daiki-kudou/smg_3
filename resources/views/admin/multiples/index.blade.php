@@ -5,7 +5,7 @@
 
 <link href="{{ asset('/css/template.css') }}" rel="stylesheet">
 <script src="{{ asset('/js/template.js') }}"></script>
-<script src="{{ asset('/js/admin/multiples/validation.js') }}"></script>
+<script src="{{ asset('/js/admin/seacrh/validation.js') }}"></script>
 <script src="{{ asset('/js/tablesorter/jquery.tablesorter.js') }}"></script>
 <link href="{{ asset('/css/tablesorter/theme.default.min.css') }}" rel="stylesheet">
 
