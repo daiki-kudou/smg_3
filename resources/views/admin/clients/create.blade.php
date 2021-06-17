@@ -2,7 +2,7 @@
 @section('content')
 <link href="{{ asset('/css/template.css') }}" rel="stylesheet">
 <script src="https://cdn.jsdelivr.net/jquery.validation/1.16.0/additional-methods.min.js"></script>
-<script src="{{ asset('/js/admin/validation.js') }}"></script>
+<script src="{{ asset('/js/admin/clients/validation.js') }}"></script>
 <script src="{{ asset('/js/ctrl_form.js') }}"></script>
 
 <style>
