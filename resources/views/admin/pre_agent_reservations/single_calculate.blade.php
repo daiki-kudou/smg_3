@@ -4,6 +4,7 @@
 <script src="{{ asset('/js/template.js') }}"></script>
 <script src="{{ asset('/js/admin/validation.js') }}"></script>
 <script src="{{ asset('/js/lettercounter.js') }}"></script>
+<script src="{{ asset('/js/holidays.js') }}"></script>
 <link href="{{ asset('/css/template.css') }}" rel="stylesheet">
 
 <div class="container-field">
@@ -450,7 +451,7 @@
               <tr>
                 <td class="table-active">事前荷物の到着日<br>午前指定のみ</td>
                 <td>
-                  {{ Form::text('luggage_arrive', $request->luggage_arrive,['class'=>'form-control', 'id'=>'datepicker9'] ) }}
+                  {{ Form::text('luggage_arrive', $request->luggage_arrive,['class'=>'form-control holidays'] ) }}
                 </td>
               </tr>
               <tr>
@@ -850,6 +851,11 @@
 
 
 <script>
+  $(document).on(' click', '.holidays', function () {
+  getHolidayCalendar($('.holidays'), $('input[name="reserve_date"]'));
+});
+
+
   $(function() {
     $("html,body").animate({
       scrollTop: $('.bill').offset().top

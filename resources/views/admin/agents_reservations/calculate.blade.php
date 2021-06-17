@@ -8,6 +8,9 @@
 <script src="{{ asset('/js/template.js') }}"></script>
 <script src="{{ asset('/js/lettercounter.js') }}"></script>
 <script src="{{ asset('/js/admin/validation.js') }}"></script>
+<script src="{{ asset('/js/admin/reservation/control_time.js') }}"></script>
+<script src="{{ asset('/js/holidays.js') }}"></script>
+
 
 
 <div class="container-fluid">
@@ -75,40 +78,23 @@
             <tr>
               <td class="table-active form_required">利用日</td>
               <td>
-                {{ Form::text('reserve_date', $master_info['reserve_date'] ,['class'=>'form-control', 'id'=>'datepicker1', 'placeholder'=>'入力してください'] ) }}
+                {{ Form::text('reserve_date', $master_info['reserve_date'] ,['class'=>'form-control',  'placeholder'=>'入力してください','readonly'] ) }}
                 <p class="is-error-reserve_date" style="color: red"></p>
               </td>
             </tr>
             <tr>
               <td class="table-active form_required">会場</td>
               <td>
-                <select id="venues_selector" class=" form-control" name='venue_id'>
-                  <option value='#' disabled selected>選択してください</option>
-                  @foreach ($venues as $venue)
-                  <option value="{{$venue->id}}" @if ($master_info['venue_id']==$venue->id)
-                    selected
-                    @endif
-                    >
-                    {{ReservationHelper::getVenue($venue->id)}}
-                  </option>
-                  @endforeach
-                </select>
+                {{ Form::text('', ReservationHelper::getVenue($master_info['venue_id']) ,['class'=>'form-control',  'placeholder'=>'入力してください','readonly'] ) }}
+                {{ Form::hidden('venue_id', $master_info['venue_id'] ,['class'=>'form-control',  'placeholder'=>'入力してください','readonly'] ) }}
                 <p class="is-error-venue_id" style="color: red"></p>
-                <div class="price_selector">
-                  <div>
-                    <small>※料金体系を選択してください</small>
-                  </div>
-                  <div class="price_radio_selector">
-                    <div class="d-flex justfy-content-start align-items-center">
-                      {{ Form::radio('price_system', 1, $master_info['price_system']==1?true:false, ['class'=>'mr-2', 'id'=>'price_system_radio1']) }}
-                      {{Form::label('price_system_radio1','通常（枠貸）')}}
-                    </div>
-                    <div class="d-flex justfy-content-start align-items-center">
-                      {{ Form::radio('price_system', 2, $master_info['price_system']==2?true:false, ['class'=>'mr-2','id'=>'price_system_radio2']) }}
-                      {{Form::label('price_system_radio2','アクセア（時間貸）')}}
-                    </div>
-                  </div>
-                </div>
+              </td>
+            </tr>
+            <tr>
+              <td class="table-active form_required">料金体系</td>
+              <td>
+                {{ Form::text('', $master_info['price_system']==1?"通常（枠貸）":"アクセア（時間貸）" ,['class'=>'form-control',  'placeholder'=>'入力してください','readonly'] ) }}
+                {{ Form::hidden('price_system', $master_info['price_system'],['class'=>'form-control',  'placeholder'=>'入力してください','readonly'] ) }}
               </td>
             </tr>
             <tr>
@@ -357,7 +343,7 @@
               <tr>
                 <td class="table-active">事前荷物の到着日<br>午前指定のみ</td>
                 <td>
-                  {{ Form::text('luggage_arrive', $master_info['luggage_arrive'],['class'=>'form-control','id'=>'datepicker'] ) }}
+                  {{ Form::text('luggage_arrive', $master_info['luggage_arrive'],['class'=>'form-control holidays'] ) }}
                 </td>
               </tr>
 
@@ -972,6 +958,11 @@
 </div>
 
 <script>
+  $(document).on(' click', '.holidays', function () {
+  getHolidayCalendar($('.holidays'), $('input[name="reserve_date"]'));
+});
+
+
   $(function() {
     $(document).on("click", "input:radio[name='eat_in']", function() {
       var radioTarget = $('input:radio[name="eat_in"]:checked').val();

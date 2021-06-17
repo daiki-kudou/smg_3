@@ -5,6 +5,8 @@
 <script src="{{ asset('/js/template.js') }}"></script>
 <script src="{{ asset('/js/lettercounter.js') }}"></script>
 <script src="{{ asset('/js/admin/validation.js') }}"></script>
+<script src="{{ asset('/js/admin/reservation/control_time.js') }}"></script>
+<script src="{{ asset('/js/holidays.js') }}"></script>
 
 
 <style>
@@ -68,7 +70,7 @@
             <td class="table-active form_required">利用日</td>
             <td>
               {{ Form::text('reserve_date', $value["reserve_date"] ,['class'=>'form-control',
-                  'id'=>'datepicker1', 'placeholder'=>'入力してください','readonly'] ) }}
+                  'id'=>'', 'placeholder'=>'入力してください','readonly'] ) }}
               <p class="is-error-reserve_date" style="color: red"></p>
             </td>
           </tr>
@@ -370,7 +372,7 @@
             <tr>
               <td class="table-active">事前荷物の到着日<br>午前指定のみ</td>
               <td>
-                {{ Form::text('luggage_arrive', !empty($value['luggage_arrive'])?$value['luggage_arrive']:"",['class'=>'form-control','id'=>'datepicker3'] ) }}
+                {{ Form::text('luggage_arrive', !empty($value['luggage_arrive'])?$value['luggage_arrive']:"",['class'=>'form-control holidays','id'=>''] ) }}
               </td>
             </tr>
             <tr>
@@ -1151,6 +1153,11 @@
 {{Form::close()}}
 
 <script>
+  $(document).on(' click', '.holidays', function () {
+  getHolidayCalendar($('.holidays'), $('input[name="reserve_date"]'));
+});
+
+
   $(function() {
     $(document).on("click", "input:radio[name='eat_in']", function() {
       var radioTarget = $('input:radio[name="eat_in"]:checked').val();

@@ -8,6 +8,7 @@
 <script src="{{ asset('/js/lettercounter.js') }}"></script>
 <script src="{{ asset('/js/admin/validation.js') }}"></script>
 <script src="{{ asset('/js/admin/reservation/control_time.js') }}"></script>
+<script src="{{ asset('/js/holidays.js') }}"></script>
 
 
 <style>
@@ -501,6 +502,16 @@
 
 {{Form::close()}}
 <script>
+  $(document).on(' click', '.holidays', function () {
+  getHolidayCalendar($('.holidays'), $('input[name="reserve_date"]'));
+});
+
+// 日付を変更されたら、再度荷物の到着日の再計算
+$(document).on('change', 'input[name="reserve_date"]', function () {
+  getHolidayCalendar($('.holidays'), $('input[name="reserve_date"]'), 0);
+});
+
+
   $(function() {
     $(document).on("click", "input:radio[name='eat_in']", function() {
       var radioTarget = $('input:radio[name="eat_in"]:checked').val();

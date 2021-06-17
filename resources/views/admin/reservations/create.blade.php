@@ -528,5 +528,16 @@
       }
     })
   })
+
+  $(document).on(' click', '.holidays', function () {
+  getHolidayCalendar($('.holidays'), $('input[name="reserve_date"]'));
+});
+
+// 日付を変更されたら、再度荷物の到着日の再計算
+$(document).on('change', 'input[name="reserve_date"]', function () {
+  getHolidayCalendar($('.holidays'), $('input[name="reserve_date"]'), 0);
+});
+
+
 </script>
 @endsection
