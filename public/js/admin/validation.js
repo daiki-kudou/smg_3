@@ -129,13 +129,6 @@ $(function () {
 });
 
 
-
-
-
-
-
-
-
 // 備品のカウントイッタン非表示
 // $(function () {
 //   var items = $(".equipment_breakdown");
@@ -158,113 +151,6 @@ $(function () {
 
 
 // });
-
-// 追加請求書
-$(function () {
-  var target = [
-    "#billsCreateForm", "#billsEditForm",
-  ];
-
-  $.each(target, function (index, value) {
-    $(value).validate({
-      rules: {
-        // venue_number_discount: { number: true },
-        // venue_percent_discount: { number: true },
-        // equipment_number_discount: { number: true },
-        // equipment_percent_discount: { number: true },
-        // layout_number_discount: { number: true },
-        // layout_percent_discount: { number: true },
-        // others_number_discount: { number: true },
-        // others_percent_discount: { number: true },
-        master_subtotal: { required: true },
-        master_tax: { required: true },
-        master_total: { required: true },
-        pay_person: { hankaku: true },
-        payment: { number: true },
-        enduser_charge: { required: true },
-      },
-      messages: {
-        // venue_number_discount: { number: "※半角数字を入力してください" },
-        // venue_percent_discount: { number: "※半角数字を入力してください" },
-        // equipment_number_discount: { number: "※半角数字を入力してください" },
-        // equipment_percent_discount: { number: "※半角数字を入力してください" },
-        // layout_number_discount: { number: "※半角数字を入力してください" },
-        // layout_percent_discount: { number: "※半角数字を入力してください" },
-        // others_number_discount: { number: "※半角数字を入力してください" },
-        // others_percent_discount: { number: "※半角数字を入力してください" },
-        master_subtotal: { required: "※金額を入力してください" },
-        master_tax: { required: "※金額を入力してください" },
-        master_total: { required: "※金額を入力してください" },
-        pay_person: { hankaku: "※半角ｶﾀｶﾅを入力してください" },
-        payment: { number: "※半角数字を入力してください" },
-        enduser_charge: { required: "※金額を入力してください" },
-      },
-      errorPlacement: function (error, element) {
-        var name = element.attr("name");
-        if (element.attr("name") === "category[]") {
-          error.appendTo($(".is-error-category"));
-        } else if (element.attr("name") === name) {
-          error.appendTo($(".is-error-" + name));
-        }
-      },
-      errorElement: "span",
-      errorClass: "is-error",
-      //送信前にLoadingを表示
-      submitHandler: function (form) {
-        $(".approval").addClass("hide");
-        $(".loading").removeClass("hide");
-        form.submit();
-      },
-    });
-    $("input").on("blur", function () {
-      $(this).valid();
-    });
-  });
-});
-
-// 仲介会社追加請求書
-$(function () {
-  var target = [
-    "#agentsbillsCreateForm"
-  ];
-
-  $.each(target, function (index, value) {
-    $(value).validate({
-      rules: {
-        pay_person: { hankaku: true },
-        payment: { number: true },
-        enduser_charge: { required: true },
-      },
-      messages: {
-        pay_person: { hankaku: "※半角ｶﾀｶﾅを入力してください" },
-        payment: { number: "※半角数字を入力してください" },
-        enduser_charge: { required: "※金額を入力してください" },
-      },
-      errorPlacement: function (error, element) {
-        var name = element.attr("name");
-        if (element.attr("name") === "category[]") {
-          error.appendTo($(".is-error-category"));
-        } else if (element.attr("name") === name) {
-          error.appendTo($(".is-error-" + name));
-        }
-      },
-      errorElement: "span",
-      errorClass: "is-error",
-      //送信前にLoadingを表示
-      submitHandler: function (form) {
-        $(".approval").addClass("hide");
-        $(".loading").removeClass("hide");
-        form.submit();
-      },
-    });
-    $("input").on("blur", function () {
-      $(this).valid();
-    });
-  });
-});
-
-
-
 
 
 // キャンセル請求書

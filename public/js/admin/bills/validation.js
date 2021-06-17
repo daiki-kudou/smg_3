@@ -143,20 +143,26 @@ $(function () {
 // 仲介会社追加請求書
 $(function () {
   var target = [
-    "#agentsbillsCreateForm"
+    "#agentsbillsCreateForm",
+    "#agentsbillsEditForm",
   ];
 
   $.each(target, function (index, value) {
     $(value).validate({
       rules: {
+        venue_breakdown_count: { number: true },
         pay_person: { hankaku: true },
         payment: { number: true },
-        enduser_charge: { required: true },
+        enduser_charge: { required: true, number: true },
       },
       messages: {
+        venue_breakdown_count: { number: "※半角数字を入力してください" },
         pay_person: { hankaku: "※半角ｶﾀｶﾅを入力してください" },
         payment: { number: "※半角数字を入力してください" },
-        enduser_charge: { required: "※金額を入力してください" },
+        enduser_charge: { 
+          required: "※金額を入力してください",
+          number: "※半角数字を入力してください" 
+        },
       },
       errorPlacement: function (error, element) {
         var name = element.attr("name");

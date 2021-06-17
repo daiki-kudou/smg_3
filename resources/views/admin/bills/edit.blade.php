@@ -5,7 +5,7 @@
 <script src="{{ asset('/js/template.js') }}"></script>
 {{-- <script src="{{ asset('/js/admin/template.js') }}"></script> --}}
 <script src="{{ asset('/js/admin/reservation.js') }}"></script>
-<script src="{{ asset('/js/admin/validation.js') }}"></script>
+<script src="{{ asset('/js/admin/bills/validation.js') }}"></script>
 
 <style>
   .hide {
