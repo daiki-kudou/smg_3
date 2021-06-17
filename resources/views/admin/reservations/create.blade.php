@@ -8,6 +8,7 @@
 <script src="{{ asset('/js/lettercounter.js') }}"></script>
 <script src="{{ asset('/js/admin/validation.js') }}"></script>
 <script src="{{ asset('/js/admin/reservation/control_time.js') }}"></script>
+<script src="{{ asset('/js/holidays.js') }}"></script>
 
 
 {{-- ajax画面変遷時の待機画面 --}}
@@ -438,11 +439,11 @@
               <td>
                 <div class="radio-box">
                   <p>
-                    {{Form::radio('email_flag', '1', false, ['id' => 'no_email_flag', 'class' => ''])}}
+                    {{Form::radio('email_flag', '1', true, ['id' => 'no_email_flag', 'class' => ''])}}
                     {{Form::label('no_email_flag',"有り")}}
                   </p>
                   <p>
-                    {{Form::radio('email_flag', '0', true, ['id' => 'email_flag', 'class' => ''])}}
+                    {{Form::radio('email_flag', '0', false, ['id' => 'email_flag', 'class' => ''])}}
                     {{Form::label('email_flag', "無し")}}
                   </p>
                 </div>
