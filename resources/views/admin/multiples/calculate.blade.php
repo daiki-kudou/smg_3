@@ -598,6 +598,12 @@
                     {{ Form::hidden('reserve_date'.$key, $pre_reservation->reserve_date ,['class'=>'form-control', 'readonly'] ) }}
                   </div>
                 </li>
+                <li class="col-5">
+                  <div class="input-group">
+                    <label for=""></label>
+                    <input class="form-control" readonly name="" type="text" value="工藤さん！！！！こちら会場名です！！！">
+                  </div>
+                </li>
                 <li class="col-3 d-flex align-items-center">
                   <p>
                   </p>

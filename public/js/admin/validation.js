@@ -127,8 +127,11 @@ $(document).ready(function () {
   $("#cp_master_board_no_board_flag:checked").each(function () {
     var flag = $(this);
     if ($(flag).is(":checked") != null) {
-      $("#cp_master_event_start").prop("readonly", true);
-      $("#cp_master_event_finish").prop("readonly", true);
+      console.log("#cp_master_event_start");
+      // $("#cp_master_event_start").prop("readonly", true);
+      // $("#cp_master_event_finish").prop("readonly", true);
+      $("#cp_master_event_start").prop("disabled", true);
+      $("#cp_master_event_finish").prop("disabled", true);
       $("#eventname1Count").prop("readonly", true);
       $("#eventname2Count").prop("readonly", true);
       $("#eventownerCount").prop("readonly", true);
@@ -142,15 +145,19 @@ $(function () {
   $('input[name="cp_master_board_flag"]').change(function () {
     var prop = $("#cp_master_board_no_board_flag").prop("checked");
     if (prop) {
-      $("#cp_master_event_start").prop("readonly", true);
-      $("#cp_master_event_finish").prop("readonly", true);
+      // $("#cp_master_event_start").prop("readonly", true);
+      // $("#cp_master_event_finish").prop("readonly", true);
+      $("#cp_master_event_start").prop("disabled", true);
+      $("#cp_master_event_finish").prop("disabled", true);
       $("#eventname1Count").prop("readonly", true);
       $("#eventname2Count").prop("readonly", true);
       $("#eventownerCount").prop("readonly", true);
       // $(".board-table input[type='text']").val("");
     } else {
-      $("#cp_master_event_start").prop("readonly", false);
-      $("#cp_master_event_finish").prop("readonly", false);
+      // $("#cp_master_event_start").prop("readonly", false);
+      // $("#cp_master_event_finish").prop("readonly", false);
+      $("#cp_master_event_start").prop("disabled", false);
+      $("#cp_master_event_finish").prop("disabled", false);
       $("#eventname1Count").prop("readonly", false);
       $("#eventname2Count").prop("readonly", false);
       $("#eventownerCount").prop("readonly", false);
@@ -527,6 +534,10 @@ $(function () {
         enduser_charge: { required: true, number: true },
         luggage_count: { number: true, range: [1, 49] },
         luggage_return: { number: true, range: [1, 49] },
+        pre_enduser_tel: { number: true, minlength: 10 },
+        pre_enduser_mobile: { number: true, minlength: 11 },
+        pre_enduser_email: { email: true },
+        pre_enduser_attr: { required: true },
         pre_endusers_tel: { number: true, minlength: 10 },
         pre_endusers_mobile: { number: true, minlength: 11 },
         pre_endusers_email: { email: true },
@@ -546,6 +557,16 @@ $(function () {
           number: "半角数字で入力してください",
           range: "※最大値は49です",
         },
+        pre_enduser_tel: {
+          minlength: "※最低桁数は10です",
+          number: "※半角数字を入力してください",
+        },
+        pre_enduser_mobile: {
+          minlength: "※最低桁数は11です",
+          number: "※半角数字を入力してください",
+        },
+        pre_enduser_email: { email: "※Emailの形式で入力してください" },
+        pre_enduser_attr: { required: "※必須項目です" },
         pre_endusers_tel: {
           minlength: "※最低桁数は10です",
           number: "※半角数字を入力してください",

@@ -556,6 +556,12 @@
                     {{ Form::hidden('reserve_date'.$key, $pre_reservation->reserve_date ,['class'=>'form-control', 'readonly'] ) }}
                   </div>
                 </li>
+                <li class="col-5">
+                  <div class="input-group">
+                    <label for=""></label>
+                    <input class="form-control" readonly name="" type="text" value="工藤さん！！！！こちら会場名です！！！">
+                  </div>
+                </li>
                 <li class="col-3 d-flex align-items-center">
                   <p>
                   </p>
@@ -1268,14 +1274,14 @@
           <tr>
             <td>・会場利用料</td>
             <td>
-              {{$multiple->sumMasterSubs($venue->id)}}
+              {{number_format($multiple->sumMasterSubs($venue->id))}}
               円
             </td>
           </tr>
           @if ($venue->layout==1)
           <tr>
             <td>・レイアウト変更料</td>
-            <td>{{$multiple->sumLayouts($venue->id)}}円</td>
+            <td>{{number_format($multiple->sumLayouts($venue->id))}}円</td>
           </tr>
           @endif
         </tbody>
@@ -1284,21 +1290,21 @@
             <td></td>
             <td class="d-flex justify-content-end" colspan="2">
               <p>小計：</p>
-              <p>{{$multiple->sumMasterSubs($venue->id)}}円</p>
+              <p>{{number_format($multiple->sumMasterSubs($venue->id))}}円</p>
             </td>
           </tr>
           <tr>
             <td></td>
             <td class="d-flex justify-content-end" colspan="2">
               <p>消費税：</p>
-              <p>{{$multiple->sumMasterTax($venue->id)}}円</p>
+              <p>{{number_format($multiple->sumMasterTax($venue->id))}}円</p>
             </td>
           </tr>
           <tr>
             <td></td>
             <td class="d-flex justify-content-end" colspan="2">
               <p>合計金額：</p>
-              <p>{{$multiple->sumMasterTotal($venue->id)}}円</p>
+              <p>{{number_format($multiple->sumMasterTotal($venue->id))}}円</p>
             </td>
           </tr>
         </tbody>

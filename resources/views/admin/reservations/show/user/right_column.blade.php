@@ -4,7 +4,7 @@
       <tr>
         <td colspan="2">
           <div class="d-flex align-items-center justify-content-between">
-            <p class="title-icon">
+            <p class="title-icon {{$user->trashed()?"not_member":""}}">
               <i class="far fa-address-card icon-size"></i>
               顧客情報
             </p>
@@ -21,7 +21,7 @@
       </tr>
       <tr>
         <td class="table-active"><label for="name">担当者氏名</label></td>
-        <td class="{{$user->trashed()?"not_member":""}}">
+        <td>
           {{ReservationHelper::getPersonName($user->id)}}
         </td>
       </tr>

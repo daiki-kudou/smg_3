@@ -301,7 +301,7 @@
             <td rowspan="{{count($reservation->bills)}}">
               {{ReservationHelper::getVenue($reservation->venue->id)}}
             </td>
-            <td rowspan="{{count($reservation->bills)}}">
+            <td rowspan="{{count($reservation->bills)}}" class="{{$reservation->user->trashed()?"not_member":""}}">
               @if ($reservation->user_id>0)
               {{$reservation->user->company}}
               @endif
@@ -315,7 +315,7 @@
               {{-- {{ReservationHelper::getAgentPerson($reservation->agent_id)}} --}}
               @endif
             </td>
-            <td rowspan="{{count($reservation->bills)}}">
+            <td rowspan="{{count($reservation->bills)}}" class="{{$reservation->user->trashed()?"not_member":""}}">
               @if ($reservation->user_id>0)
               {{$reservation->user->mobile}}
               @else
@@ -323,7 +323,7 @@
               {{-- {{$reservation->agent->mobile}} --}}
               @endif
             </td>
-            <td rowspan="{{count($reservation->bills)}}">
+            <td rowspan="{{count($reservation->bills)}}" class="{{$reservation->user->trashed()?"not_member":""}}">
               @if ($reservation->user_id>0)
               {{$reservation->user->tel}}
               @else
