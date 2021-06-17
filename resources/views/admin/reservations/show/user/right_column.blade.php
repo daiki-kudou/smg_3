@@ -4,7 +4,7 @@
       <tr>
         <td colspan="2">
           <div class="d-flex align-items-center justify-content-between">
-            <p class="title-icon {{$user->trashed()?"not_member":""}}">
+            <p class="title-icon {{ClassHelper::addNotMemberClass($reservation)}}">
               <i class="far fa-address-card icon-size"></i>
               顧客情報
             </p>
