@@ -53,7 +53,8 @@
     "files": [
       "app/Http/Helpers/ReservationHelper.php",
       "app/Http/Helpers/HomeHelper.php",
-      "app/Http/Helpers/ImageHelper.php"
+      "app/Http/Helpers/ImageHelper.php",
+      "app/Http/Helpers/ClassHelper.php"
     ]
   },
   "autoload-dev": {
