@@ -397,6 +397,7 @@
         var dt = new Date(target_day);
         dt.setDate(dt.getDate() - 1);
         var max_date = dt.getFullYear() + '-' + (dt.getMonth() + 1) + '-' + dt.getDate();
+        console.log(max_date);
         $("#datepicker2").datepicker({
           dateFormat: 'yy-mm-dd',
             showOn: "both",
@@ -431,6 +432,7 @@
               return [true, ''];
             }
           },
+
 
         });
         $("ul.tabBtn li").mouseover(function () {

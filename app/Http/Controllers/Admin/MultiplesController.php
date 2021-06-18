@@ -266,7 +266,7 @@ class MultiplesController extends Controller
 
     $multiple = MultipleReserve::find($multiples_id);
     $multiple->UpdateAndReCreateAll($masterData, $venues_id);
-    return redirect('admin/multiples/' . $multiples_id . '/edit/' . $venues_id);
+    return redirect('admin/multiples/' . $multiples_id);
   }
 
   public function add_date($multiple_id, $venue_id)

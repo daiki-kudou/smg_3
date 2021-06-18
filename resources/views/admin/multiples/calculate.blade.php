@@ -1512,10 +1512,6 @@
             <td>・レイアウト変更料</td>
             <td>{{number_format($multiple->sumLayouts($venue->id))}}円</td>
           </tr>
-          <!-- <tr>
-            <td>・その他</td>
-            <td>ダミー円</td>
-          </tr> -->
         </tbody>
         <tbody class="master_total_bottom">
           <tr>
@@ -1584,7 +1580,6 @@
         var value = $(elem).val();
         data[key] = value;
       })
-      console.log(data);
       var encodes = JSON.stringify(data);
       $('#master_data').val(encodes);
       $('#master_form').submit();

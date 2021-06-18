@@ -262,13 +262,13 @@ class Reservation extends Model implements PresentableInterface
     return $bill;
   }
 
-  public function ReserveStore($request)
+  public function ReserveStore($request, $agent_id = 0)
   {
-    DB::transaction(function () use ($request) { //トランザクションさせる
+    DB::transaction(function () use ($request, $agent_id) { //トランザクションさせる
       $reservation = $this->create([
         'venue_id' => $request->venue_id,
         'user_id' => $request->user_id,
-        'agent_id' => 0, //デフォで0
+        'agent_id' => $agent_id,
         'reserve_date' => $request->reserve_date,
         'price_system' => $request->price_system,
         'enter_time' => $request->enter_time,

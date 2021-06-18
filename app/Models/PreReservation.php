@@ -110,6 +110,15 @@ class PreReservation extends Model
     );
   }
 
+  // public function pre_breakdowns()
+  // {
+  //   return $this->hasManyThrough(
+  //     'App\Models\PreBreakdown',
+  //     'App\Models\PreBill',
+  //   );
+  // }
+
+
 
   /*
 |--------------------------------------------------------------------------
@@ -645,6 +654,7 @@ class PreReservation extends Model
   {
     $this->user_id != 0 ? $user = User::find($this->user_id) : $user = 0;
     $this->agent_id != 0 ? $agent = Agent::find($this->agent_id) : $agent = 0;
+
     // 支払期日
     if (is_object($user)) $payment_limit = $user->getUserPayLimit($request->reserve_date);
     if (is_object($agent)) $payment_limit = $agent->getPayDetails($request->reserve_date);
@@ -654,13 +664,12 @@ class PreReservation extends Model
     // bill person
     if (is_object($user)) $bill_person = $user->first_name . $user->last_name;
     if (is_object($agent)) $bill_person = $agent->person_firstname . $agent->person_lastname;
-
     $reservation = new Reservation();
     //reservationのReserveStoreに持たせるためのrequestを作成
     $request->merge([
       'venue_id' => $this->venue_id,
       'user_id' => $this->user_id,
-      'agent_id' => 0, //デフォで0
+      'agent_id' => $agent,
       'reserve_date' => $this->reserve_date,
       'price_system' => $this->price_system,
       'enter_time' => $this->enter_time,
@@ -750,7 +759,7 @@ class PreReservation extends Model
         ]);
       }
     }
-    $reservation->ReserveStore($request);
+    $reservation->ReserveStore($request, $agent->id ?? 0);
   }
 
   /*
