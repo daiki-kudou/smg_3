@@ -236,7 +236,6 @@
                 <option value="" selected></option>
                 {!!ReservationHelper::timeOptionsWithRequestAndLimit($request->event_finish,$request->enter_time,$request->leave_time)!!}
                 @endif
-
               </select>
             </td>
           </tr>

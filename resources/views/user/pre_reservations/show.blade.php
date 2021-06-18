@@ -20,6 +20,8 @@
 </div>
 <hr>
 
+
+
 @if ($pre_reservation->status==1)
 <div class="confirm-box text-md-center mt-5">
   <p>下記の日程にて、会場を仮押えしています。

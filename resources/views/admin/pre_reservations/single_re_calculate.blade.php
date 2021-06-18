@@ -242,8 +242,13 @@
             <td class="table-active">イベント開始時間</td>
             <td>
               <select name="event_start" id="event_start" class="form-control">
+                @if ($request->board_flag==1)
                 <option disabled>選択してください</option>
                 {!!ReservationHelper::timeOptionsWithRequestAndLimit($request->event_start,$request->enter_time,$request->leave_time)!!}
+                @else
+                <option value="" selected></option>
+                {!!ReservationHelper::timeOptionsWithRequestAndLimit('',$request->enter_time,$request->leave_time)!!}
+                @endif
               </select>
             </td>
           </tr>
@@ -251,8 +256,14 @@
             <td class="table-active">イベント終了時間</td>
             <td>
               <select name="event_finish" id="event_finish" class="form-control">
+                @if ($request->board_flag==1)
                 <option disabled>選択してください</option>
                 {!!ReservationHelper::timeOptionsWithRequestAndLimit($request->event_finish,$request->enter_time,$request->leave_time)!!}
+                @else
+                <option value="" selected></option>
+                {!!ReservationHelper::timeOptionsWithRequestAndLimit('',$request->enter_time,$request->leave_time)!!}
+                @endif
+
               </select>
             </td>
           </tr>
