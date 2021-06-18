@@ -49,9 +49,13 @@
                 {{ Form::open(['url' => 'admin/pre_reservations/switch_status', 'method'=>'POST','id'=>'confirm_prereserve']) }}
                 @csrf
                 @if ($pre_reservation->status==0)
+                @if ($pre_reservation->user_id>0)
                 {{ Form::hidden('pre_reservation_id', $pre_reservation->id)}}
                 {{ Form::submit('予約の編集・承認権限を顧客に移行', ['class' => 'btn more_btn4']) }}
                 {{ Form::close() }}
+                @else
+                <input class="btn more_btn4" type="" value="本予約に切り替える工藤さん！！！こちら">
+                @endif
                 @endif
               </div>
             </td>
