@@ -90,7 +90,7 @@ class PreReservationsController extends Controller
   public function cfm(Request $request, $id)
   {
     $user_id = auth()->user()->id;
-    $pre_reservation = PreReservation::find($id);
+    $pre_reservation = PreReservation::with('pre_bill.pre_breakdowns')->find($id);
     if ($pre_reservation->user_id != $user_id) { //別ユーザーのページ制限
       return redirect(route('user.pre_reservations.index'));
     }

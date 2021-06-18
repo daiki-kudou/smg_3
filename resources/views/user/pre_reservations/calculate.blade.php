@@ -517,16 +517,16 @@
               @foreach ($item_details[2] as $key=>$item)
               <tr>
                 <td>
-                  {{ Form::text('services_breakdown_item'.$key, $item[0],['class'=>'form-control', 'readonly'] ) }}
+                  {{ Form::text('service_breakdown_item'.$key, $item[0],['class'=>'form-control', 'readonly'] ) }}
                 </td>
                 <td>
-                  {{ Form::text('services_breakdown_cost'.$key, $item[1],['class'=>'form-control', 'readonly'] ) }}
+                  {{ Form::text('service_breakdown_cost'.$key, $item[1],['class'=>'form-control', 'readonly'] ) }}
                 </td>
                 <td>
-                  {{ Form::text('services_breakdown_count'.$key, $item[2],['class'=>'form-control', 'readonly'] ) }}
+                  {{ Form::text('service_breakdown_count'.$key, $item[2],['class'=>'form-control', 'readonly'] ) }}
                 </td>
                 <td>
-                  {{ Form::text('services_breakdown_subtotal'.$key, $item[1]*$item[2],['class'=>'form-control', 'readonly'] ) }}
+                  {{ Form::text('service_breakdown_subtotal'.$key, $item[1]*$item[2],['class'=>'form-control', 'readonly'] ) }}
                 </td>
               </tr>
               @endforeach
