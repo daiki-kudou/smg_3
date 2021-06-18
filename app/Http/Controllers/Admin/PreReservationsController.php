@@ -679,39 +679,68 @@ class PreReservationsController extends Controller
 
   public function switchStatus(Request $request)
   {
-    $PreReservation = PreReservation::find($request->pre_reservation_id);
-    DB::transaction(function () use ($request, $PreReservation) {
-      $PreReservation->update(['status' => 1]);
+    $PreReservation = PreReservation::with('pre_bill.pre_breakdowns')->find($request->pre_reservation_id);
+
+    if ($PreReservation->user_id > 0) {
+      DB::transaction(function () use ($request, $PreReservation) {
+        $PreReservation->update(['status' => 1]);
+      });
+
+      $admin = explode(',', config('app.admin_email'));
+      Mail::to($admin) //管理者
+        ->send(new AdminFinPreRes(
+          $PreReservation->user->company,
+          $PreReservation->id,
+          $PreReservation->reserve_date,
+          $PreReservation->enter_time,
+          $PreReservation->leave_time,
+          $PreReservation->venue->name_area . $PreReservation->venue->name_bldg . $PreReservation->venue->name_venue,
+          $PreReservation->venue->post_code,
+          $PreReservation->venue->address1 . $PreReservation->venue->address2 . $PreReservation->venue->address3,
+          url('/') . '/user/pre_reservations'
+        ));
+      Mail::to($PreReservation->user->email) //ユーザー
+        ->send(new UserFinPreRes(
+          $PreReservation->user->company,
+          $PreReservation->id,
+          $PreReservation->reserve_date,
+          $PreReservation->enter_time,
+          $PreReservation->leave_time,
+          $PreReservation->venue->name_area . $PreReservation->venue->name_bldg . $PreReservation->venue->name_venue,
+          $PreReservation->venue->post_code,
+          $PreReservation->venue->address1 . $PreReservation->venue->address2 . $PreReservation->venue->address3,
+          url('/') . '/user/pre_reservations'
+        ));
+      $flash_message = "顧客に承認権限メールを送りました";
+      $request->session()->regenerate();
+      return redirect()->route('admin.pre_reservations.show', $request->pre_reservation_id)->with('flash_message', $flash_message);
+    } else {
+      try {
+        // $this->moveToReserveFromAgent($PreReservation, $request);
+        // $this->moveToReserveFromAgent();
+        empty($PreReservation);
+      } catch (\Exception $e) {
+        // session()->flash('flash_message', '更新に失敗しました。<br>フォーム内の空欄や全角など確認した上でもう一度お試しください。');
+        // return redirect(route('admin.home'));
+        dump('test');
+      }
+    }
+  }
+
+  public function moveToReserveFromAgent($pre_reservation, $request)
+  {
+    $request = $request->merge([
+      'user_id' => 0,
+      'enter_time' => $pre_reservation->enter_time,
+      'leave_time' => $pre_reservation->leave_time,
+      'status' => 2,
+      'price_system' => $pre_reservation->price_system,
+      'multiple_reserve_id' => $pre_reservation->multiple_reserve_id,
+    ]);
+
+    return DB::transaction(function () use ($pre_reservation, $request) {
+      $pre_reservation->MoveToReservation($request);
     });
-    $admin = explode(',', config('app.admin_email'));
-
-    Mail::to($admin) //管理者
-      ->send(new AdminFinPreRes(
-        $PreReservation->user->company,
-        $PreReservation->id,
-        $PreReservation->reserve_date,
-        $PreReservation->enter_time,
-        $PreReservation->leave_time,
-        $PreReservation->venue->name_area . $PreReservation->venue->name_bldg . $PreReservation->venue->name_venue,
-        $PreReservation->venue->post_code,
-        $PreReservation->venue->address1 . $PreReservation->venue->address2 . $PreReservation->venue->address3,
-        url('/') . '/user/pre_reservations'
-      ));
-    Mail::to($PreReservation->user->email) //ユーザー
-      ->send(new UserFinPreRes(
-        $PreReservation->user->company,
-        $PreReservation->id,
-        $PreReservation->reserve_date,
-        $PreReservation->enter_time,
-        $PreReservation->leave_time,
-        $PreReservation->venue->name_area . $PreReservation->venue->name_bldg . $PreReservation->venue->name_venue,
-        $PreReservation->venue->post_code,
-        $PreReservation->venue->address1 . $PreReservation->venue->address2 . $PreReservation->venue->address3,
-        url('/') . '/user/pre_reservations'
-      ));
-
-    $request->session()->regenerate();
-    return redirect()->route('admin.pre_reservations.show', $request->pre_reservation_id)->with('flash_message', '顧客に承認権限メールを送りました');
   }
 
   public function rejectSameTime(Request $request)

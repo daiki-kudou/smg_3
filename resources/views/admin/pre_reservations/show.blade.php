@@ -46,13 +46,15 @@
             </td>
             <td>
               <div class="d-flex justify-content-end align-items-center">
-
-
-                {{ Form::open(['url' => 'admin/pre_reservations/switch_status', 'method'=>'POST','id'=>'confirm_prereserve']) }}
+                {{ Form::open(['url' => 'admin/pre_reservations/switch_status', 'method'=>'POST','id'=>$pre_reservation->user_id>0?"pre_reservation_for_user":"pre_reservation_for_agent"]) }}
                 @csrf
                 @if ($pre_reservation->status==0)
                 {{ Form::hidden('pre_reservation_id', $pre_reservation->id)}}
-                {{ Form::submit('予約の編集・承認権限を顧客に移行', ['class' => 'btn more_btn4']) }}
+                @if ($pre_reservation->user_id>0)
+                {{ Form::submit('仮押さえの編集・承認権限を顧客に移行', ['class' => 'btn more_btn4']) }}
+                @else
+                {{ Form::submit('予約に移行する', ['class' => 'btn more_btn4']) }}
+                @endif
                 {{ Form::close() }}
                 @endif
               </div>
@@ -346,7 +348,6 @@
                     {{ReservationHelper::formatTime($pre_reservation->leave_time)}}
                   </td>
                 </tr>
-
               </tbody>
             </table>
 
@@ -465,7 +466,6 @@
                       </ul>
                     </td>
                   </tr>
-
                 </tbody>
               </table>
             </div>
@@ -523,22 +523,10 @@
                   </tr>
                 </thead>
                 <tbody>
-                  {{-- <tr>
-                    <td class="table-active"><label for="Delivery">荷物預り/返送</label>
-                    </td>
-                    <td>
-                      {{$pre_reservation->luggage_count?"あり":"なし"}}
-                  </td>
-                  </tr> --}}
                   <tr>
                     <td class="table-active"><label for="preDelivery">事前に預かる荷物</label></td>
                     <td>
                       <ul class="table-cell-box">
-                        {{-- <li>
-                          <p>
-                            {{$pre_reservation->luggage_arrive?"あり":"なし"}}
-                        </p>
-                        </li> --}}
                         <li class="d-flex justify-content-between">
                           <p>荷物個数：{{$pre_reservation->luggage_count?$pre_reservation->luggage_count:0}}個</p>
                         </li>
@@ -555,11 +543,6 @@
                     <td class="table-active"><label for="postDelivery">事後返送する荷物</label></td>
                     <td>
                       <ul class="table-cell-box">
-                        {{-- <li>
-                          <p>
-                            {{$pre_reservation->luggage_return?"あり":"なし"}}
-                        </p>
-                        </li> --}}
                         <li class="d-flex justify-content-between">
                           <p>荷物個数：{{$pre_reservation->luggage_return?$pre_reservation->luggage_return:0}}個</p>
                         </li>
@@ -696,7 +679,6 @@
               </tbody>
             </table>
             @endif
-
 
             <table class="table table-bordered note-table">
               <tbody>
@@ -1036,8 +1018,13 @@
 
 <script>
   $(function() {
-    $("#confirm_prereserve").on('click', function() {
+    $("#pre_reservation_for_user").on('click', function() {
       if (!confirm('仮押さえの内容を確定し、ユーザーにメールを送付しますか？')) {
+        return false;
+      }
+    })
+    $("#pre_reservation_for_agent").on('click', function() {
+      if (!confirm('仮押さえを予約に移行しますか？')) {
         return false;
       }
     })
