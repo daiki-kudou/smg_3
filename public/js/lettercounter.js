@@ -191,4 +191,153 @@ const eventname1 = function () {
     }
     return len;
   }
+
+
+
+  
+// ロード時の、案内板入力制御
+$(document).ready(function () {
+  $("#no_board_flag:checked").each(function () {
+    var flag = $(this);
+    if ($(flag).is(":checked") != null) {
+      $("#event_start").prop("readonly", true);
+      $("#event_finish").prop("readonly", true);
+      $("#eventname1Count").prop("readonly", true);
+      $("#eventname2Count").prop("readonly", true);
+      $("#eventownerCount").prop("readonly", true);
+      $("#event_start").prop("disabled", true);
+      $("#event_finish").prop("disabled", true);
+      // $(".board-table input[type='text']").val("");
+      $(".board-table option:selected").val("");
+    }
+  });
+});
+
+// ラジオボタンクリック時の案内板入力制御
+$(function () {
+  $('input[name="board_flag"]').change(function () {
+    var prop = $("#no_board_flag").prop("checked");
+    if (prop) {
+      $("#event_start").prop("readonly", true);
+      $("#event_finish").prop("readonly", true);
+      $("#eventname1Count").prop("readonly", true);
+      $("#eventname2Count").prop("readonly", true);
+      $("#eventownerCount").prop("readonly", true);
+      $("#event_start").prop("disabled", true);
+      $("#event_finish").prop("disabled", true);
+      $(".board-table input[type='text']").val("");
+    } else {
+      $("#event_start").prop("readonly", false);
+      $("#event_finish").prop("readonly", false);
+      $("#eventname1Count").prop("readonly", false);
+      $("#eventname2Count").prop("readonly", false);
+      $("#eventownerCount").prop("readonly", false);
+      $("#event_start").prop("disabled", false);
+      $("#event_finish").prop("disabled", false);
+    }
+  });
+});
+
+// 一括ロード時の、案内板入力制御
+$(document).ready(function () {
+  $("#cp_master_board_no_board_flag:checked").each(function () {
+    var flag = $(this);
+    if ($(flag).is(":checked") != null) {
+      // $("#cp_master_event_start").prop("readonly", true);
+      // $("#cp_master_event_finish").prop("readonly", true);
+      $("#cp_master_event_start").prop("disabled", true);
+      $("#cp_master_event_finish").prop("disabled", true);
+      $("#eventname1Count").prop("readonly", true);
+      $("#eventname2Count").prop("readonly", true);
+      $("#eventownerCount").prop("readonly", true);
+      // $(".board-table input[type='text']").val("");
+    }
+  });
+});
+
+// 一括ラジオボタンクリック時の入力制御
+$(function () {
+  $('input[name="cp_master_board_flag"]').change(function () {
+    var prop = $("#cp_master_board_no_board_flag").prop("checked");
+    if (prop) {
+      // $("#cp_master_event_start").prop("readonly", true);
+      // $("#cp_master_event_finish").prop("readonly", true);
+      $("#cp_master_event_start").prop("disabled", true);
+      $("#cp_master_event_finish").prop("disabled", true);
+      $("#eventname1Count").prop("readonly", true);
+      $("#eventname2Count").prop("readonly", true);
+      $("#eventownerCount").prop("readonly", true);
+      // $(".board-table input[type='text']").val("");
+    } else {
+      // $("#cp_master_event_start").prop("readonly", false);
+      // $("#cp_master_event_finish").prop("readonly", false);
+      $("#cp_master_event_start").prop("disabled", false);
+      $("#cp_master_event_finish").prop("disabled", false);
+      $("#eventname1Count").prop("readonly", false);
+      $("#eventname2Count").prop("readonly", false);
+      $("#eventownerCount").prop("readonly", false);
+    }
+  });
+});
+
+// 一括仮押さえ 日程ごとのタブ
+// $(function () {
+//     var target = $('[id^="board_flag_copied_off"]');
+//     console.log(target);
+//     for (let index = 0; index < target.length; index++) {
+//         var board_flag_copied_off = "#board_flag_copied_off" + index;
+//         var event_start_copied = "#event_start_copied" + index;
+//         var event_finish_copied = "#event_finish_copied" + index;
+//         var copiedeventname1Count = "#copiedeventname1Count" + index;
+//         var copiedeventname2Count = "#copiedeventname2Count" + index;
+//         var copiedeventOwnerCount = "#copiedeventOwnerCount" + index;
+
+//     $(board_flag_copied_off).ready(function () {
+//         var flag = $(this);
+//         if ($(flag).is(":checked") != null) {
+//             $(event_start_copied).prop("disabled", true);
+//             $(event_finish_copied).prop("disabled", true);
+//             $(copiedeventname1Count).prop("disabled", true);
+//             $(copiedeventname2Count).prop("disabled", true);
+//             $(copiedeventOwnerCount).prop("disabled", true);
+//         }
+//     });
+// }
+// });
+
+// $(function () {
+//     var target = $('[id^="board_flag_copied_off"]');
+//     console.log(target);
+//     for (let index = 0; index < target.length; index++) {
+//         var board_flag_copied = "board_flag_copied" + index;
+//         var board_flag_copied_off = "#board_flag_copied_off" + index;
+//         var event_start_copied = "#event_start_copied" + index;
+//         var event_finish_copied = "#event_finish_copied" + index;
+//         var copiedeventname1Count = "#copiedeventname1Count" + index;
+//         var copiedeventname2Count = "#copiedeventname2Count" + index;
+//         var copiedeventOwnerCount = "#copiedeventOwnerCount" + index;
+//         console.log(board_flag_copied_off);
+//         console.log(event_start_copied);
+//         console.log(board_flag_copied);
+
+//         $("input[name='board_flag_copied']" + index).change(function () {
+//             var prop = $(board_flag_copied_off).prop("checked");
+//             console.log(board_flag_copied_off);
+//             if (prop) {
+//                 $(event_start_copied).prop("disabled", true);
+//                 $(event_finish_copied).prop("disabled", true);
+//                 $(copiedeventname1Count).prop("disabled", true);
+//                 $(copiedeventname2Count).prop("disabled", true);
+//                 $(copiedeventOwnerCount).prop("disabled", true);
+//                 $(board_flag_copied_off).val("");
+//             } else {
+//                 $(event_start_copied).prop("disabled", false);
+//                 $(event_finish_copied).prop("disabled", false);
+//                 $(copiedeventname1Count).prop("disabled", false);
+//                 $(copiedeventname2Count).prop("disabled", false);
+//                 $(copiedeventOwnerCount).prop("disabled", false);
+//             }
+//         });
+//     }
+// });
   

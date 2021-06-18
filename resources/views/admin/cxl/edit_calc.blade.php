@@ -1,11 +1,10 @@
 @extends('layouts.admin.app')
-
 @section('content')
 
 
 <link href="{{ asset('/css/template.css') }}" rel="stylesheet">
 <script src="{{ asset('/js/template.js') }}"></script>
-<script src="{{ asset('/js/admin/validation.js') }}"></script>
+<script src="{{ asset('/js/admin/cxl/validation.js') }}"></script>
 
 <div class="">
   <h2 class="mt-3 mb-3">一括キャンセル請求書 作成</h2>

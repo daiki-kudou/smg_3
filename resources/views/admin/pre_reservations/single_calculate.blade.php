@@ -1,7 +1,7 @@
 @extends('layouts.admin.app')
 @section('content')
 <script src="{{ asset('/js/template.js') }}"></script>
-<script src="{{ asset('/js/admin/validation.js') }}"></script>
+<script src="{{ asset('/js/admin/pre_reservation/validation.js') }}"></script>
 <script src="{{ asset('/js/lettercounter.js') }}"></script>
 <script src="{{ asset('/js/holidays.js') }}"></script>
 <link href="{{ asset('/css/template.css') }}" rel="stylesheet">

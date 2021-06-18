@@ -288,12 +288,12 @@
             {{ReservationHelper::getVenue($reservation->venue_id)}}</td>
           <td rowspan="{{($reservation->billCount()*2)+$reservation->cxlCount()+2}}">
             {{!empty($reservation->user_id)?ReservationHelper::IdFormat($reservation->user_id):""}}</td>
-          <td rowspan="{{($reservation->billCount()*2)+$reservation->cxlCount()+2}}" class="{{$reservation->user->trashed()?"not_member":""}}">
+          <td rowspan="{{($reservation->billCount()*2)+$reservation->cxlCount()+2}}" class="{{ClassHelper::addNotMemberClass($reservation)}}">
             {{!empty($reservation->user_id)?ReservationHelper::getCompany($reservation->user_id):""}}
           </td>
           @if ($reservation->user_id>0)
           <td rowspan="{{($reservation->billCount()*2)+$reservation->cxlCount()+2}}"
-            class="{{$reservation->user->trashed()?"not_member":""}}">
+            class="{{ClassHelper::addNotMemberClass($reservation)}}">
             {{!empty($reservation->user_id)?ReservationHelper::getPersonName($reservation->user_id):""}}
           </td>
           @else

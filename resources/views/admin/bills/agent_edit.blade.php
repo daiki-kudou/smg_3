@@ -2,7 +2,7 @@
 
 @section('content')
 <link href="{{ asset('/css/template.css') }}" rel="stylesheet">
-<script src="{{ asset('/js/admin/validation.js') }}"></script>
+<script src="{{ asset('/js/admin/bills/validation.js') }}"></script>
 <script src="{{ asset('/js/template.js') }}"></script>
 
 <style>
@@ -15,7 +15,7 @@
   <h2 class="mt-3 mb-3">追加請求書　編集</h2>
   <hr>
 
-  {{ Form::open(['url' => 'admin/bills/'.$bill->id.'/agent_edit_update', 'method'=>'psot', 'id'=>'']) }}
+  {{ Form::open(['url' => 'admin/bills/'.$bill->id.'/agent_edit_update', 'method'=>'psot', 'id'=>'agentsbillsEditForm']) }}
   @csrf
   <section class="mt-5">
     <div class="bill">
@@ -327,6 +327,7 @@
                   <td>
                     {{ Form::text('enduser_charge', $bill->end_user_charge, ['class' => 'form-control','placeholder'=>"入力してください" ])}}
                     {{ Form::hidden('enduser_charge_result', '', ['class' => 'form-control','placeholder'=>"入力してください" ])}}
+                    <p class="is-error-enduser_charge" style="color: red"></p>
                   </td>
                 </tr>
                 <tr>

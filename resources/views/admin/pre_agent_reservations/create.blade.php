@@ -1,7 +1,7 @@
 @extends('layouts.admin.app')
 @section('content')
 <script src="{{ asset('/js/template.js') }}"></script>
-<script src="{{ asset('/js/admin/validation.js') }}"></script>
+<script src="{{ asset('/js/admin/pre_agent_reservation/validation.js') }}"></script>
 <script src="{{ asset('/js/admin/pre_reservation/control_time.js') }}"></script>
 
 <link href="{{ asset('/css/template.css') }}" rel="stylesheet">
@@ -140,12 +140,14 @@
               <option value=""></option>
               {!!ReservationHelper::timeOptions()!!}
             </select>
+            <p class="is-error-pre_enter0" style="color: red"></p>
           </td>
           <td>
             <select name="pre_leave0" id="pre_leave0" class="leave_control_pre_reservation0 form-control">
               <option value=""></option>
               {!!ReservationHelper::timeOptions()!!}
             </select>
+            <p class="is-error-pre_enter0" style="color: red"></p>
           </td>
           <td>
             <input type="button" value="＋" class="add pluralBtn">

@@ -12,7 +12,7 @@
 <link href="{{ asset('/css/template.css') }}" rel="stylesheet">
 <script src="{{ asset('/js/template.js') }}"></script>
 <script src="{{ asset('/js/lettercounter.js') }}"></script>
-<script src="{{ asset('/js/admin/validation.js') }}"></script>
+<script src="{{ asset('/js/admin/agents_reservation/validation.js') }}"></script>
 
 
 <div class="">
@@ -194,7 +194,7 @@
                   {{$equ->item}}
                 </td>
                 <td>
-                  <input type="text" class="form-control equipment_breakdown" name="{{'equipment_breakdown'.$key}}"
+                  <input type="text" class="form-control equipment_breakdown equipment_validation" name="{{'equipment_breakdown'.$key}}"
                     @foreach($reservation->bills->sortBy("id")->first()->breakdowns->where('unit_type',2) as $e_break)
                   @if ($e_break->unit_item==$equ->item)
                   value="{{$e_break->unit_count}}"
@@ -535,6 +535,7 @@
               </td>
               <td>
                 {{ Form::text('enduser_tel', $reservation->enduser->tel,['class'=>'form-control', 'placeholder'=>'入力してください', 'id'=>'enduser_tel'] ) }}
+                <p class="is-error-enduser_tel" style="color: red"></p>
               </td>
             </tr>
             <tr>
@@ -543,6 +544,7 @@
               </td>
               <td>
                 {{ Form::text('enduser_mail', $reservation->enduser->email,['class'=>'form-control', 'placeholder'=>'入力してください', 'id'=>'enduser_mail'] ) }}
+                <p class="is-error-enduser_mail" style="color: red"></p>
               </td>
             </tr>
             <tr>
@@ -559,6 +561,7 @@
               </td>
               <td>
                 {{ Form::text('enduser_mobile', $reservation->enduser->mobile,['class'=>'form-control', 'placeholder'=>'入力してください', 'id'=>'enduser_mobile'] ) }}
+                <p class="is-error-enduser_mobile" style="color: red"></p>
               </td>
             </tr>
             <tr>
@@ -590,10 +593,12 @@
             <td class="table-active form_required">
               <label for="enduser_charge">支払い料</label>
             </td>
-            <td class="d-flex align-items-center">
-              {{ Form::text('enduser_charge', $reservation->enduser->charge,['class'=>'form-control ', 'placeholder'=>'入力してください'] ) }}
-              円
-              <p class="is-error-end_user_charge" style="color: red"></p>
+            <td>
+              <div class="d-flex align-items-center">
+                {{ Form::text('enduser_charge', $reservation->enduser->charge,['class'=>'form-control ', 'placeholder'=>'入力してください'] ) }}
+                <span class="ml-1">円</span>
+              </div>
+              <p class="is-error-enduser_charge" style="color: red"></p>
             </td>
           </tr>
         </table>
@@ -620,9 +625,6 @@
           </tbody>
         </table>
         @endif
-
-
-
 
         <table class="table table-bordered note-table">
           <tr>

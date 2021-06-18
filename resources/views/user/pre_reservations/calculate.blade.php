@@ -3,7 +3,7 @@
 
 <link href="{{ asset('/css/template.css') }}" rel="stylesheet">
 <script src="{{ asset('/js/template.js') }}"></script>
-<script src="{{ asset('/js/admin/validation.js') }}"></script>
+<script src="{{ asset('/js/user/validation.js') }}"></script>
 
 <div class="container-field mt-3 d-md-flex justify-content-md-between">
   <h2 class="mt-3 mb-md-5">仮押え 申込み</h2>
