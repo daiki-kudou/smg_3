@@ -457,7 +457,7 @@ class PreReservationsController extends Controller
 
       // 戻って再度送信してもエラーになるように設定
       $request->session()->regenerate();
-      return redirect()->route('admin.pre_reservations.show', $new_preReserve->id)->with('flash_message', '単発仮押えの登録が完了しました');
+      return redirect()->route('admin.pre_reservations.show', $new_preReserve->id)->with('flash_message', '仮押えの登録が完了しました');
     } else {
       //複数仮押えの保存
     }
@@ -711,7 +711,7 @@ class PreReservationsController extends Controller
       ));
 
     $request->session()->regenerate();
-    return redirect()->route('admin.pre_reservations.show', $request->pre_reservation_id);
+    return redirect()->route('admin.pre_reservations.show', $request->pre_reservation_id)->with('flash_message', '顧客に承認権限メールを送りました');
   }
 
   public function rejectSameTime(Request $request)

@@ -14,10 +14,16 @@
       </ol>
     </nav>
   </div>
-
   <h2 class="mt-3 mb-3">仮押え　詳細</h2>
   <hr>
 </div>
+
+@if (session('flash_message'))
+<div class="flash_message bg-success text-center py-3 my-0">
+  {{ session('flash_message') }}
+</div>
+@endif
+
 
 <section class="mt-5">
   <div class="row">

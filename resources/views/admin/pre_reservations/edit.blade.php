@@ -112,13 +112,13 @@
           </td>
           <td class="table-active" scope="row"><label for="">割引条件</label></td>
           <td>
-            {!!nl2br(e($PreReservation->user->condition))!!}
+            <p class="condition">{!!nl2br(e($PreReservation->user->condition))!!}</p>
           </td>
         </tr>
         <tr>
           <td class="table-active caution" scope="row"><label for="">注意事項</label></td>
           <td class="caution" colspan="3">
-            {!!nl2br(e($PreReservation->user->attention))!!}
+            <p class="attention">{!!nl2br(e($PreReservation->user->attention))!!}</p>
           </td>
         </tr>
       </tbody>
@@ -271,8 +271,13 @@
             <td class="table-active">イベント開始時間</td>
             <td>
               <select name="event_start" id="event_start" class="form-control">
+                @if ($PreReservation->board_flag==1)
                 <option disabled>選択してください</option>
-                {!!ReservationHelper::timeOptionsWithRequestAndLimit($PreReservation->enter_time,$PreReservation->enter_time,$PreReservation->leave_time)!!}
+                {!!ReservationHelper::timeOptionsWithRequestAndLimit($PreReservation->event_start,$PreReservation->enter_time,$PreReservation->leave_time)!!}
+                @else
+                <option value="" selected></option>
+                {!!ReservationHelper::timeOptionsWithRequestAndLimit('',$PreReservation->enter_time,$PreReservation->leave_time)!!}
+                @endif
               </select>
             </td>
           </tr>
@@ -280,8 +285,14 @@
             <td class="table-active">イベント終了時間</td>
             <td>
               <select name="event_finish" id="event_finish" class="form-control">
+                @if ($PreReservation->board_flag==1)
                 <option disabled>選択してください</option>
-                {!!ReservationHelper::timeOptionsWithRequestAndLimit($PreReservation->leave_time,$PreReservation->enter_time,$PreReservation->leave_time)!!}
+                {!!ReservationHelper::timeOptionsWithRequestAndLimit($PreReservation->event_finish,$PreReservation->enter_time,$PreReservation->leave_time)!!}
+                @else
+                <option value="" selected></option>
+                {!!ReservationHelper::timeOptionsWithRequestAndLimit('',$PreReservation->enter_time,$PreReservation->leave_time)!!}
+                @endif
+
               </select>
             </td>
           </tr>
@@ -666,12 +677,6 @@
                 </p>
               </td>
             </tr>
-            <!-- <tr>
-              <td>
-                <label for="userNote">申し込みフォーム備考</label>
-                {{ Form::textarea('user_details', $PreReservation->user_details,['class'=>'form-control', 'placeholder'=>'入力してください'] ) }}
-              </td>
-            </tr> -->
             <tr>
               <td>
                 <label for="adminNote">管理者備考</label>
@@ -720,8 +725,6 @@
           <td>
             <dl class="ttl_box">
               <dt>合計金額</dt>
-              {{-- <dd class="total_result">{{number_format($PreReservation->pre_bill->first()->master_total)}}円</dd>
-              --}}
               <dd class="total_result">{{number_format($PreReservation->pre_bill->master_total)}}円</dd>
             </dl>
           </td>
@@ -955,9 +958,6 @@
   {{Form::hidden('unknown_user_tel', $PreReservation->unknown_user_tel)}}
   {{Form::hidden('unknown_user_mobile', $PreReservation->unknown_user_mobile)}}
 
-
-  {{-- {{Form::submit('保存する', ['class'=>'btn more_btn_lg mx-auto d-block my-5', 'id'=>'check_submit'])}} --}}
-
 </section>
 {{Form::close()}}
 
@@ -1084,11 +1084,11 @@
         // $('input[name=unknown_user_email]').prop('readonly', true);
         // $('input[name=unknown_user_mobile]').prop('readonly', true);
         // $('input[name=unknown_user_tel]').prop('readonly', true);
-        $('input[name=unknown_user_company]').val("");
-        $('input[name=unknown_user_name]').val("");
-        $('input[name=unknown_user_email]').val("");
-        $('input[name=unknown_user_mobile]').val("");
-        $('input[name=unknown_user_tel]').val("");
+        // $('input[name=unknown_user_company]').val("");
+        // $('input[name=unknown_user_name]').val("");
+        // $('input[name=unknown_user_email]').val("");
+        // $('input[name=unknown_user_mobile]').val("");
+        // $('input[name=unknown_user_tel]').val("");
       }
     });
 
@@ -1110,16 +1110,13 @@
         .done(function($user) {
           $('#fullOverlay').css('display', 'none');
           console.log($user);
-          $(".user_info").find('tr').eq(0).find('td').eq(1).text("");
-          $(".user_info").find('tr').eq(0).find('td').eq(1).text($user[0]);
-          $(".user_info").find('tr').eq(1).find('td').eq(1).text("");
-          $(".user_info").find('tr').eq(1).find('td').eq(1).text($user[1] + $user[2]);
-          $(".user_info").find('tr').eq(1).find('td').eq(3).text("");
-          $(".user_info").find('tr').eq(1).find('td').eq(3).text($user[3]);
-          $(".user_info").find('tr').eq(2).find('td').eq(1).text("");
-          $(".user_info").find('tr').eq(2).find('td').eq(1).text($user[4]);
-          $(".user_info").find('tr').eq(2).find('td').eq(3).text("");
-          $(".user_info").find('tr').eq(2).find('td').eq(3).text($user[5]);
+          $(".company").text($user[0]);
+          $(".person").text($user[1]+$user[2]);
+          $(".email").text($user[3]);
+          $(".mobile").text($user[4]);
+          $(".tel").text($user[5]);
+          $(".condition").text($user[7]);
+          $(".attention").text($user[8]);
           $('input[name="user_id"]').val($user[6]);
         })
         .fail(function($user) {
