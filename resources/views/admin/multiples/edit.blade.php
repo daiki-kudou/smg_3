@@ -754,6 +754,7 @@
                   <tr>
                     <td class="table-active">{{$equipment->item}}</td>
                     <td>
+                      @if ($pre_reservation->pre_bill)
                       @foreach ($pre_reservation->pre_bill->pre_breakdowns as $eq)
                       @if ($eq->unit_item==$equipment->item)
                       {{Form::text('equipment_breakdown'.$e_key.'_copied'.$key , $eq->unit_count, ['class' => 'form-control equipment_validation'])}}
@@ -762,6 +763,9 @@
                       {{Form::text('equipment_breakdown'.$e_key.'_copied'.$key , "", ['class' => 'form-control equipment_validation'])}}
                       @endif
                       @endforeach
+                      @else
+                      {{Form::text('equipment_breakdown'.$e_key.'_copied'.$key , "", ['class' => 'form-control equipment_validation'])}}
+                      @endif
                     </td>
                   </tr>
                   @endforeach
@@ -786,6 +790,7 @@
                   <tr>
                     <td class="table-active">{{$service->item}}</td>
                     <td>
+                      @if ($pre_reservation->pre_bill)
                       @foreach ($pre_reservation->pre_bill->pre_breakdowns as $se)
                       @if ($se->unit_item==$service->item)
                       {{Form::radio('services_breakdown'.$s_key.'_copied'.$key, 1, true , ['id' => 'services_breakdown'.$s_key.'_copied'.$key])}}
@@ -800,6 +805,12 @@
                       {{Form::label('services_breakdown'.$s_key.'_copied'.$key."off",'無し')}}
                       @endif
                       @endforeach
+                      @else
+                      {{Form::radio('services_breakdown'.$s_key.'_copied'.$key, 1, false , ['id' => 'services_breakdown'.$s_key.'_copied'.$key])}}
+                      {{Form::label('services_breakdown'.$s_key.'_copied'.$key,'有り')}}
+                      {{Form::radio('services_breakdown'.$s_key.'_copied'.$key, 0, true, ['id' => 'services_breakdown'.$s_key.'_copied'.$key."off"])}}
+                      {{Form::label('services_breakdown'.$s_key.'_copied'.$key."off",'無し')}}
+                      @endif
                     </td>
                   </tr>
                   @endforeach
@@ -823,6 +834,7 @@
                     <td class="table-active">準備</td>
                     <td>
                       <div class="radio-box">
+                        @if ($pre_reservation->pre_bill)
                         @foreach ($pre_reservation->pre_bill->pre_breakdowns as $la)
                         @if ($la->unit_item=="レイアウト準備料金")
                         <p>
@@ -845,6 +857,16 @@
                         </p>
                         @endif
                         @endforeach
+                        @else
+                        <p>
+                          {{Form::radio('layout_prepare_copied'.$key, 1, false, ['id' => 'layout_prepare_copied'.$key])}}
+                          {{Form::label('layout_prepare_copied'.$key,'有り')}}
+                        </p>
+                        <p>
+                          {{Form::radio('layout_prepare_copied'.$key, 0, true, ['id' => 'no_layout_prepare_copied'.$key])}}
+                          {{Form::label('no_layout_prepare_copied'.$key,'無し')}}
+                        </p>
+                        @endif
                       </div>
                     </td>
                   </tr>
@@ -852,6 +874,7 @@
                     <td class="table-active">片付</td>
                     <td>
                       <div class="radio-box">
+                        @if ($pre_reservation->pre_bill)
                         @foreach ($pre_reservation->pre_bill->pre_breakdowns as $la2)
                         @if ($la2->unit_item=="レイアウト片付料金")
                         <p>
@@ -874,6 +897,17 @@
                         </p>
                         @endif
                         @endforeach
+                        @else
+                        <p>
+                          {{Form::radio('layout_clean_copied'.$key, 1, false, ['id' => 'layout_clean_copied'.$key])}}
+                          {{Form::label('layout_clean_copied'.$key,'有り')}}
+                        </p>
+                        <p>
+                          {{Form::radio('layout_clean_copied'.$key, 0, true, ['id' => 'no_layout_clean_copied'.$key])}}
+                          {{Form::label('no_layout_clean_copied'.$key,'無し')}}
+                        </p>
+                        @endif
+
                       </div>
                     </td>
                   </tr>
