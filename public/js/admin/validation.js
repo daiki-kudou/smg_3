@@ -420,6 +420,10 @@ $(function () {
       pre_enduser_attr: {
         required: true,
       },
+      pre_date0: { required: true },
+      pre_venue0: { required: true },
+      pre_enter0: { required: true },
+      pre_leave0: { required: true },
     },
     messages: {
       agent_id: {
@@ -439,6 +443,11 @@ $(function () {
       pre_enduser_attr: {
         required: "※必須項目です",
       },
+      pre_date0: { required: "※必須項目です" },
+      pre_venue0: { required: "※必須項目です" },
+      pre_enter0: { required: "※必須項目です" },
+      pre_leave0: { required: "※必須項目です" },
+
     },
     errorPlacement: function (error, element) {
       var name = element.attr("name");

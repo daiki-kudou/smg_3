@@ -124,7 +124,10 @@
       </thead>
       <tbody>
         <tr>
-          <td>{{ Form::text('pre_date0', '',['class'=>'form-control', 'id'=>"pre_datepicker"] ) }}</td>
+          <td>
+            {{ Form::text('pre_date0', '',['class'=>'form-control', 'id'=>"pre_datepicker"] ) }}
+            <p class="is-error-pre_date0" style="color: red"></p>
+          </td>
           <td>
             <select name="pre_venue0" id="pre_venue">
               @foreach ($venues as $venue)
@@ -195,17 +198,98 @@
   })
   // 入退室初期時間選択desabled設定
   //プラスマイナスボタン
+  // $(function() {
+  //   $(document).on("click", ".add", function() {
+  //     // すべてのselect2初期化
+  //     for (let destroy = 0; destroy < $('.date_selector tbody tr').length; destroy++) {
+  //       console.log($('.date_selector tbody tr').eq(destroy).find('td').eq(1).find('select').select2("destroy"));
+  //     }
+  //     var base_date = $(this).parent().parent().find('td').eq(0).find('input').val().split('-');
+  //     var dt = new Date(base_date);
+  //     dt.setDate(dt.getDate() + 1);
+  //     var next_day=dt.getFullYear()+'-'+(dt.getMonth() + 1)+'-'+dt.getDate();
+  //     $(this).parent().parent().clone(true).insertAfter($(this).parent().parent());
+  //     if (base_date=="") {
+  //       $(this).parent().parent().next().find("td").eq(0).find('input').val('');
+  //     }else{
+  //       $(this).parent().parent().next().find("td").eq(0).find('input').val(next_day);
+  //     }
+
+  //     var count = $(this).parent().parent().parent().find('tr').length;
+  //     var target = $(this).parent().parent().parent().find('tr');
+
+  //     for (let index = 0; index < count; index++) {
+  //       // name属性
+  //       $(target).eq(index).find('td').eq(0).find('input, select').attr('name', "pre_date" + index);
+  //       $(target).eq(index).find('td').eq(1).find('input, select').attr('name', "pre_venue" + index);
+  //       $(target).eq(index).find('td').eq(2).find('input, select').attr('name', "pre_enter" + index);
+  //       $(target).eq(index).find('td').eq(3).find('input, select').attr('name', "pre_leave" + index);
+  //       // id属性
+  //       $(target).eq(index).find('td').eq(0).find('input, select').attr('id', "pre_datepicker" + index);
+  //       $(target).eq(index).find('td').eq(1).find('input, select').attr('id', "pre_venue" + index);
+  //       $(target).eq(index).find('td').eq(2).find('input, select').attr('id', "pre_enter" + index);
+  //       $(target).eq(index).find('td').eq(3).find('input, select').attr('id', "pre_leave" + index);
+  //       // dapicker付与
+  //       $('#pre_datepicker' + index).removeClass('hasDatepicker').datepicker({
+  //         dateFormat: 'yy-mm-dd',
+  //         minDate: 0,
+  //       });
+  //       // select2付与
+  //       $(target).eq(index).find('td').eq(1).find('select').select2({
+  //         width: '100%'
+  //       });
+
+  //       // if (index == count - 1) {
+  //       //   $(target).eq(index).find('td').eq(2).find('input, select').val('');
+  //       //   $(target).eq(index).find('td').eq(3).find('input, select').val('');
+  //       // }
+  //     }
+  //   })
+  //   // マイナスボタン
+  //   $(document).on("click", ".del", function() {
+  //     var master = $(this).parent().parent().parent().find('tr').length;
+  //     var target = $(this).parent().parent();
+  //     var re_target = target.parent();
+  //     if (master > 1) {
+  //       target.remove();
+  //     }
+
+  //     var count2 = $('.date_selector tbody tr').length;
+  //     console.log(count2);
+  //     for (let index = 0; index < count2; index++) {
+  //       $('.date_selector tbody tr').eq(index).find('td').eq(0).find('input, select').attr('name', "pre_date" + index);
+  //       $('.date_selector tbody tr').eq(index).find('td').eq(1).find('input, select').attr('name', "pre_venue" + index);
+  //       $('.date_selector tbody tr').eq(index).find('td').eq(2).find('input, select').attr('name', "pre_enter" + index);
+  //       $('.date_selector tbody tr').eq(index).find('td').eq(3).find('input, select').attr('name', "pre_leave" + index);
+  //       // id属性
+  //       $('.date_selector tbody tr').eq(index).find('td').eq(0).find('input, select').attr('id', "pre_datepicker" + index);
+  //       $('.date_selector tbody tr').eq(index).find('td').eq(1).find('input, select').attr('id', "pre_venue" + index);
+  //       $('.date_selector tbody tr').eq(index).find('td').eq(2).find('input, select').attr('id', "pre_enter" + index);
+  //       $('.date_selector tbody tr').eq(index).find('td').eq(3).find('input, select').attr('id', "pre_leave" + index);
+  //       $('#pre_datepicker' + index).removeClass('hasDatepicker').datepicker({
+  //         dateFormat: 'yy-mm-dd',
+  //         minDate: 0,
+  //       });
+  //     }
+  //   })
+  // })
+
   $(function() {
     $(document).on("click", ".add", function() {
+      var valid=$("#pre_agent_reservationsCreateForm").validate();
+      valid.destroy();
       // すべてのselect2初期化
       for (let destroy = 0; destroy < $('.date_selector tbody tr').length; destroy++) {
-        console.log($('.date_selector tbody tr').eq(destroy).find('td').eq(1).find('select').select2("destroy"));
+        $('.date_selector tbody tr').eq(destroy).find('td').eq(1).find('select').select2("destroy");
       }
+      var base_venue = $(this).parent().parent().find('td').eq(1).find('select').val();
       var base_date = $(this).parent().parent().find('td').eq(0).find('input').val().split('-');
       var dt = new Date(base_date);
       dt.setDate(dt.getDate() + 1);
       var next_day=dt.getFullYear()+'-'+(dt.getMonth() + 1)+'-'+dt.getDate();
+
       $(this).parent().parent().clone(true).insertAfter($(this).parent().parent());
+      $(this).parent().parent().next().find("td").eq(1).find("select option[value=" + base_venue + "]").prop('selected', true);
       if (base_date=="") {
         $(this).parent().parent().next().find("td").eq(0).find('input').val('');
       }else{
@@ -214,18 +298,21 @@
 
       var count = $(this).parent().parent().parent().find('tr').length;
       var target = $(this).parent().parent().parent().find('tr');
-
       for (let index = 0; index < count; index++) {
         // name属性
-        $(target).eq(index).find('td').eq(0).find('input, select').attr('name', "pre_date" + index);
-        $(target).eq(index).find('td').eq(1).find('input, select').attr('name', "pre_venue" + index);
-        $(target).eq(index).find('td').eq(2).find('input, select').attr('name', "pre_enter" + index);
-        $(target).eq(index).find('td').eq(3).find('input, select').attr('name', "pre_leave" + index);
+        $(target).eq(index).find('td').eq(0).find('input').attr('name', "pre_date" + index);
+        $(target).eq(index).find('td').eq(1).find('select').attr('name', "pre_venue" + index);
+        $(target).eq(index).find('td').eq(2).find('select').attr('name', "pre_enter" + index);
+        $(target).eq(index).find('td').eq(3).find('select').attr('name', "pre_leave" + index);
         // id属性
-        $(target).eq(index).find('td').eq(0).find('input, select').attr('id', "pre_datepicker" + index);
-        $(target).eq(index).find('td').eq(1).find('input, select').attr('id', "pre_venue" + index);
-        $(target).eq(index).find('td').eq(2).find('input, select').attr('id', "pre_enter" + index);
-        $(target).eq(index).find('td').eq(3).find('input, select').attr('id', "pre_leave" + index);
+        $(target).eq(index).find('td').eq(0).find('input').attr('id', "pre_datepicker" + index);
+        $(target).eq(index).find('td').eq(1).find('select').attr('id', "pre_venue" + index);
+        $(target).eq(index).find('td').eq(2).find('select').attr('id', "pre_enter" + index);
+        $(target).eq(index).find('td').eq(3).find('select').attr('id', "pre_leave" + index);
+        // class属性
+        $(target).eq(index).find('td').eq(2).find('select').attr('class', "enter_control_pre_reservation" + index+" form-control");
+        $(target).eq(index).find('td').eq(3).find('select').attr('class', "leave_control_pre_reservation" + index+" form-control ");
+
         // dapicker付与
         $('#pre_datepicker' + index).removeClass('hasDatepicker').datepicker({
           dateFormat: 'yy-mm-dd',
@@ -235,24 +322,85 @@
         $(target).eq(index).find('td').eq(1).find('select').select2({
           width: '100%'
         });
-
-        // if (index == count - 1) {
-        //   $(target).eq(index).find('td').eq(2).find('input, select').val('');
-        //   $(target).eq(index).find('td').eq(3).find('input, select').val('');
-        // }
+        // 時間の入力を初期化
+        // 意図しない一番最後がクリアされるため一旦、コメントアウト
+        //if (index == count - 1) {
+        //  $(target).eq(index).find('td').eq(2).find('input, select').val('');
+        //  $(target).eq(index).find('td').eq(3).find('input, select').val('');
+        //}
+        $(target).eq(index).find('td').eq(0).find('p').remove();
+        $(target).eq(index).find('td').eq(2).find('p').remove();
+        $(target).eq(index).find('td').eq(3).find('p').remove();
+        $(target).eq(index).find('td').eq(0).find('span').remove();
+        $(target).eq(index).find('td').eq(2).find('span').remove();
+        $(target).eq(index).find('td').eq(3).find('span').remove();
+        $("input").removeClass('is-error');
+        $("input").attr('aria-describedby',"");
+        $("select").removeClass('is-error');
+        $("select").attr('aria-describedby',"");
+        $(target).eq(index).find('td').eq(0).append("<p class='is-error-pre_date"+index+"' style='color: red'></p>");
+        $(target).eq(index).find('td').eq(2).append("<p class='is-error-pre_enter"+index+"' style='color: red'></p>");
+        $(target).eq(index).find('td').eq(3).append("<p class='is-error-pre_leave"+index+"' style='color: red'></p>");
       }
+        $("#pre_agent_reservationsCreateForm").validate({
+          rules: {
+            user_id: { required: true },
+            unknown_user_email: { email: true },
+            unknown_user_mobile: { number: true, minlength: 11 },
+            unknown_user_tel: { number: true, minlength: 10 },
+          },
+          messages: {
+            user_id: { required: "※必須項目です" },
+            unknown_user_email: { email: '※Emailの形式で入力してください', },
+            unknown_user_mobile: { number: '※半角英数字を入力してください', minlength: '※最低桁数は11です', },
+            unknown_user_tel: { number: '※半角英数字を入力してください', minlength: '※最低桁数は10です', },
+          },
+          errorPlacement: function (error, element) {
+            var name = element.attr('name');
+            if (element.attr('name') === 'category[]') {
+              error.appendTo($('.is-error-category'));
+            } else if (element.attr('name') === name) {
+              error.appendTo($('.is-error-' + name));
+            }
+          },
+          errorElement: "span",
+          errorClass: "is-error",
+          //送信前にLoadingを表示
+          submitHandler: function (form) {
+            $('.spin_btn').removeClass('hide');
+            $('.submit_btn').addClass('hide');
+            form.submit();
+          }
+        });
+        $('input').on('blur', function () {
+          $(this).valid();
+        });
+        for (let index_a = 0; index_a < count; index_a++) {
+          $("input[name='pre_date"+index_a+"']").rules("add", {
+          required: true,
+          messages: { required: "※必須項目です" },
+          });
+          $("select[name='pre_enter"+index_a+"']").rules("add", {
+          required: true,
+          messages: { required: "※必須項目です" },
+          });
+          $("select[name='pre_leave"+index_a+"']").rules("add", {
+          required: true,
+          messages: { required: "※必須項目です" },
+          });
+        }
     })
     // マイナスボタン
     $(document).on("click", ".del", function() {
+      var valid=$("#pre_agent_reservationsCreateForm").validate();
+      valid.destroy();
       var master = $(this).parent().parent().parent().find('tr').length;
       var target = $(this).parent().parent();
       var re_target = target.parent();
       if (master > 1) {
         target.remove();
       }
-
       var count2 = $('.date_selector tbody tr').length;
-      console.log(count2);
       for (let index = 0; index < count2; index++) {
         $('.date_selector tbody tr').eq(index).find('td').eq(0).find('input, select').attr('name', "pre_date" + index);
         $('.date_selector tbody tr').eq(index).find('td').eq(1).find('input, select').attr('name', "pre_venue" + index);
@@ -267,7 +415,67 @@
           dateFormat: 'yy-mm-dd',
           minDate: 0,
         });
+        $('.date_selector tbody tr').eq(index).find('td').eq(0).find('p').remove();
+        $('.date_selector tbody tr').eq(index).find('td').eq(2).find('p').remove();
+        $('.date_selector tbody tr').eq(index).find('td').eq(3).find('p').remove();
+        $("input").removeClass('is-error');
+        $("input").attr('aria-describedby',"");
+        $("select").removeClass('is-error');
+        $("select").attr('aria-describedby',"");
+        $('.date_selector tbody tr').eq(index).find('td').eq(0).find('span').remove();
+        $('.date_selector tbody tr').eq(index).find('td').eq(2).find('span').remove();
+        $('.date_selector tbody tr').eq(index).find('td').eq(3).find('span').remove();
+        $('.date_selector tbody tr').eq(index).find('td').eq(0).append("<p class='is-error-pre_date"+index+"' style='color: red'></p>");
+        $('.date_selector tbody tr').eq(index).find('td').eq(2).append("<p class='is-error-pre_enter"+index+"' style='color: red'></p>");
+        $('.date_selector tbody tr').eq(index).find('td').eq(3).append("<p class='is-error-pre_leave"+index+"' style='color: red'></p>");
       }
+      $("#pre_agent_reservationsCreateForm").validate({
+          rules: {
+            user_id: { required: true },
+            unknown_user_email: { email: true },
+            unknown_user_mobile: { number: true, minlength: 11 },
+            unknown_user_tel: { number: true, minlength: 10 },
+          },
+          messages: {
+            user_id: { required: "※必須項目です" },
+            unknown_user_email: { email: '※Emailの形式で入力してください', },
+            unknown_user_mobile: { number: '※半角英数字を入力してください', minlength: '※最低桁数は11です', },
+            unknown_user_tel: { number: '※半角英数字を入力してください', minlength: '※最低桁数は10です', },
+          },
+          errorPlacement: function (error, element) {
+            var name = element.attr('name');
+            if (element.attr('name') === 'category[]') {
+              error.appendTo($('.is-error-category'));
+            } else if (element.attr('name') === name) {
+              error.appendTo($('.is-error-' + name));
+            }
+          },
+          errorElement: "span",
+          errorClass: "is-error",
+          //送信前にLoadingを表示
+          submitHandler: function (form) {
+            $('.spin_btn').removeClass('hide');
+            $('.submit_btn').addClass('hide');
+            form.submit();
+          }
+        });
+        $('input').on('blur', function () {
+          $(this).valid();
+        });
+        for (let index_b = 0; index_b < count2; index_b++) {
+          $("input[name='pre_date"+index_b+"']").rules("add", {
+          required: true,
+          messages: { required: "※必須項目です" },
+          });
+          $("select[name='pre_enter"+index_b+"']").rules("add", {
+          required: true,
+          messages: { required: "※必須項目です" },
+          });
+          $("select[name='pre_leave"+index_b+"']").rules("add", {
+          required: true,
+          messages: { required: "※必須項目です" },
+          });
+        }
     })
   })
 

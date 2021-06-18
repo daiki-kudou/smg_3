@@ -214,7 +214,6 @@
 <script defer="defer">
   // 初期カレンダーのside var 非表示
   $(function() {
-    
     $("iframe").on("load", function() {
       $("iframe").contents().find('.main-sidebar').css("display", "none");
       $("iframe").contents().find('.content-wrapper').css("margin-left", "0px");
@@ -222,7 +221,7 @@
     });
   })
   
-  // 顧客検索F
+  // 顧客検索
   $(function() {
     $('#user_id').on('input', function() {
       var user_id = $(this).val();
