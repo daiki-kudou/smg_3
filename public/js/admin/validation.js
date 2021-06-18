@@ -79,82 +79,10 @@ $(function () {
 
 
 
+
 // 備品のカウントイッタン非表示
 // $(function () {
 //   var items = $(".equipment_breakdown");
-
-// 仲介会社 仮押え登録
-$(function () {
-  $("#pre_agent_reservationsCreateForm").validate({
-    rules: {
-      agent_id: {
-        required: true,
-      },
-      pre_enduser_tel: {
-        number: true,
-        minlength: 10,
-      },
-      pre_enduser_mobile: {
-        number: true,
-        minlength: 11,
-      },
-      pre_enduser_email: {
-        email: true,
-      },
-      pre_enduser_attr: {
-        required: true,
-      },
-      pre_date0: { required: true },
-      pre_venue0: { required: true },
-      pre_enter0: { required: true },
-      pre_leave0: { required: true },
-    },
-    messages: {
-      agent_id: {
-        required: "※必須項目です",
-      },
-      pre_enduser_tel: {
-        minlength: "※最低桁数は10です",
-        number: "※半角数字を入力してください",
-      },
-      pre_enduser_mobile: {
-        minlength: "※最低桁数は11です",
-        number: "※半角数字を入力してください",
-      },
-      pre_enduser_email: {
-        email: "※Emailの形式で入力してください",
-      },
-      pre_enduser_attr: {
-        required: "※必須項目です",
-      },
-      pre_date0: { required: "※必須項目です" },
-      pre_venue0: { required: "※必須項目です" },
-      pre_enter0: { required: "※必須項目です" },
-      pre_leave0: { required: "※必須項目です" },
-
-    },
-    errorPlacement: function (error, element) {
-      var name = element.attr("name");
-      if (element.attr("name") === "category[]") {
-        error.appendTo($(".is-error-category"));
-      } else if (element.attr("name") === name) {
-        error.appendTo($(".is-error-" + name));
-      }
-    },
-    errorElement: "span",
-    errorClass: "is-error",
-    //送信前にLoadingを表示
-    submitHandler: function (form) {
-      $(".spin_btn").removeClass("hide");
-      $(".submit_btn").addClass("hide");
-      form.submit();
-    },
-  });
-  $("input").on("blur", function () {
-    $(this).valid();
-  });
-});
-
 //     var equipment_breakdown = "equipment_breakdown" + i;
 //     $("input[name='equipment_breakdown']").on("input", function (e) {
 //       let value = $(e.currentTarget).val();
