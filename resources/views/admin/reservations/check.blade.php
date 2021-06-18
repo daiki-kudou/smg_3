@@ -3,7 +3,6 @@
 
 <link href="{{ asset('/css/template.css') }}" rel="stylesheet">
 <script src="{{ asset('/js/template.js') }}"></script>
-<script src="{{ asset('/js/admin/validation.js') }}"></script>
 
 @if (session('flash_message'))
 <div class="alert alert-danger">
