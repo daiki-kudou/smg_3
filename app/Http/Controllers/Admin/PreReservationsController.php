@@ -715,15 +715,13 @@ class PreReservationsController extends Controller
       $request->session()->regenerate();
       return redirect()->route('admin.pre_reservations.show', $request->pre_reservation_id)->with('flash_message', $flash_message);
     } else {
-      try {
-        // $this->moveToReserveFromAgent($PreReservation, $request);
-        // $this->moveToReserveFromAgent();
-        empty($PreReservation);
-      } catch (\Exception $e) {
-        // session()->flash('flash_message', '更新に失敗しました。<br>フォーム内の空欄や全角など確認した上でもう一度お試しください。');
-        // return redirect(route('admin.home'));
-        dump('test');
-      }
+      DB::transaction(function () use ($request, $PreReservation) {
+        $PreReservation->update(['status' => 1]);
+      });
+      $this->moveToReserveFromAgent($PreReservation, $request);
+      $flash_message = "予約に移行しました";
+      $request->session()->regenerate();
+      return redirect()->route('admin.pre_reservations.show', $request->pre_reservation_id)->with('flash_message', $flash_message);
     }
   }
 
@@ -738,7 +736,7 @@ class PreReservationsController extends Controller
       'multiple_reserve_id' => $pre_reservation->multiple_reserve_id,
     ]);
 
-    return DB::transaction(function () use ($pre_reservation, $request) {
+    DB::transaction(function () use ($pre_reservation, $request) {
       $pre_reservation->MoveToReservation($request);
     });
   }
