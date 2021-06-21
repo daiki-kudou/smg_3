@@ -792,4 +792,15 @@ class MultipleReserve extends Model implements PresentableInterface //プレゼ�
     }
     return in_array(0, $judge);
   }
+
+  public function checkEachBills()
+  {
+    foreach ($this->pre_reservations as $pre_reservation) {
+      if (is_null($pre_reservation->pre_bill)) {
+        return FALSE;
+        break;
+      }
+      return TRUE;
+    }
+  }
 }

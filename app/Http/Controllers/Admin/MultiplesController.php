@@ -172,7 +172,6 @@ class MultiplesController extends Controller
         $value->update(['status' => 1]);
       }
     });
-
     $request->session()->regenerate();
     return redirect()->route('admin.multiples.show', $request->multiple_id);
   }
@@ -329,12 +328,41 @@ class MultiplesController extends Controller
 
   public function agent_show($multiple_id)
   {
-    $multiple = MultipleReserve::with('pre_reservations')->find($multiple_id);
+    $multiple = MultipleReserve::with('pre_reservations.pre_bill')->find($multiple_id);
     $venues = $multiple->pre_reservations->unique('venue_id');
     $venue_count = $venues->count('venue_id');
     $_venues = Venue::orderBy("id", "desc")->get();
+    $checkEachBills = $multiple->checkEachBills();
+    dump($checkEachBills);
 
-    return view('admin.multiples.agent_show', compact('multiple', 'venues', 'venue_count', '_venues'));
+    return view('admin.multiples.agent_show', compact('multiple', 'venues', 'venue_count', '_venues', 'checkEachBills'));
+  }
+
+  public function agentMoveToReservation(Request $request)
+  {
+    // dump($request->except('_token'));
+    // ここから着手必要
+    // ここから着手必要
+    // ここから着手必要
+    // ここから着手必要
+    // ここから着手必要
+    // ここから着手必要
+    // ここから着手必要
+    // ここから着手必要
+    // ここから着手必要
+    // ここから着手必要
+    // ここから着手必要
+    // ここから着手必要
+    // ここから着手必要
+    // ここから着手必要
+    // ここから着手必要
+    // ここから着手必要
+    // ここから着手必要
+    // ここから着手必要
+    // ここから着手必要
+    // ここから着手必要
+    // ここから着手必要
+    // ここから着手必要
   }
 
   public function destroy(Request $request)

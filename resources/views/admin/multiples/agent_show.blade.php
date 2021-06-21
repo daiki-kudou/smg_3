@@ -32,7 +32,6 @@
 
 <section class="mt-5">
   <div class="mb-2">
-    {{-- <a class="more_btn4" href="">削除</a> --}}
     {{Form::open(['url' => 'admin/multiples/destroy', 'method' => 'delete', 'id'=>'for_destroy'])}}
     @csrf
     {{Form::hidden('destroy'.$multiple->id, $multiple->id)}}
@@ -48,7 +47,11 @@
           </h3>
         </td>
         <td class="text-right">
-          <a class="more_btn4" href="">本予約へ切り替える</a>
+          {{ Form::open(['url' => 'admin/multiples/agent/agentMoveToReservation', 'method'=>'POST','id'=>'']) }}
+          @csrf
+          {{ Form::hidden('multiple_id', $multiple->id)}}
+          {{ Form::submit('本予約へ切り替える', ['class' => 'btn more_btn4',!$checkEachBills?'disabled':'']) }}
+          {{ Form::close() }}
         </td>
     </tbody>
   </table>
