@@ -342,6 +342,9 @@ Route::namespace('Admin')->prefix('admin')->name('admin.')->group(function () {
     Route::get('multiples/agent_switch/{multiple}', 'MultiplesController@switchAgent')->name("multiples.agent_switch");
     // 一括　仲介会社　更新
     Route::post('multiples/agent_switch_cfm/{multiple}', 'MultiplesController@switchAgent_cfm');
+    // 一括仮押さえ、仲介会社から予約へ移行
+    Route::post('multiples/agent/agentMoveToReservation', 'MultiplesController@agentMoveToReservation');
+
     //********************** */
     //***仲介会社　仮抑え */
     //********************** */
