@@ -392,9 +392,9 @@
                         {{Form::label('eat_in',"あり")}}
                       </td>
                       <td>
-                        {{Form::radio('cp_master_eat_in_prepare', 1, "" , ['id' => 'eat_in_prepare' ])}}
+                        {{Form::radio('cp_master_eat_in_prepare', 1, "" , ['id' => 'eat_in_prepare','disabled' ])}}
                         {{Form::label('eat_in_prepare',"手配済み")}}
-                        {{Form::radio('cp_master_eat_in_prepare', 2, "" , ['id' => 'eat_in_consider'])}}
+                        {{Form::radio('cp_master_eat_in_prepare', 2, "" , ['id' => 'eat_in_consider','disabled'])}}
                         {{Form::label('eat_in_consider',"検討中")}}
                       </td>
                     </tr>
@@ -619,11 +619,11 @@
                           <div>
                             @if ($venue->time_prices->count()!=0&&$venue->frame_prices->count()!=0)
                             <div class="">
-                              {{ Form::radio('price_system_copied'.$key, 1, $pre_reservation->price_system==1?true:false, ['id'=>'price_system_copied'.$key]) }}
+                              {{ Form::radio('price_system_copied'.$key, 1, $pre_reservation->price_system?($pre_reservation->price_system==1?true:false):true, ['id'=>'price_system_copied'.$key]) }}
                               {{Form::label('price_system_copied'.$key,'通常（枠貸）')}}
                             </div>
                             <div>
-                              {{ Form::radio('price_system_copied'.$key, 2, $pre_reservation->price_system==2?true:false, ['id'=>'price_system_copied_off'.$key]) }}
+                              {{ Form::radio('price_system_copied'.$key, 2, $pre_reservation->price_system?($pre_reservation->price_system==2?true:false):false, ['id'=>'price_system_copied_off'.$key]) }}
                               {{Form::label('price_system_copied_off'.$key,'アクセア（時間貸）')}}
                             </div>
                             @elseif($venue->frame_prices->count()!=0&&$venue->time_prices->count()==0)
@@ -939,19 +939,19 @@
                     <tbody>
                       <tr>
                         <td>
-                          {{Form::radio('eat_in_copied'.$key, 1, $pre_reservation->eat_in==1?true:false , ['id' => 'eat_in_copied'.$key])}}
+                          {{Form::radio('eat_in_copied'.$key, 1, $pre_reservation->eat_in?($pre_reservation->eat_in==1?true:false):false , ['id' => 'eat_in_copied'.$key])}}
                           {{Form::label('eat_in_copied'.$key,"あり")}}
                         </td>
                         <td>
-                          {{Form::radio('eat_in_prepare_copied'.$key, 1, $pre_reservation->eat_in_prepare==1?true:false, ['id' => 'eat_in_prepare_copied'.$key])}}
+                          {{Form::radio('eat_in_prepare_copied'.$key, 1, $pre_reservation->eat_in_prepare?($pre_reservation->eat_in_prepare==1?true:false):false , ['id' => 'eat_in_prepare_copied'.$key,$pre_reservation->eat_in!=1?'disabled':''])}}
                           {{Form::label('eat_in_prepare_copied'.$key,"手配済み")}}
-                          {{Form::radio('eat_in_prepare_copied'.$key, 2, "" , ['id' => 'eat_in_consider_copied'.$key])}}
+                          {{Form::radio('eat_in_prepare_copied'.$key, 2, $pre_reservation->eat_in_prepare?($pre_reservation->eat_in_prepare==2?true:false):false , ['id' => 'eat_in_consider_copied'.$key, $pre_reservation->eat_in!=1?'disabled':''])}}
                           {{Form::label('eat_in_consider_copied'.$key,"検討中")}}
                         </td>
                       </tr>
                       <tr>
                         <td>
-                          {{Form::radio('eat_in_copied'.$key, 0, $pre_reservation->eat_in==0?true:false , ['id' => 'no_eat_in'.$key])}}
+                          {{Form::radio('eat_in_copied'.$key, 0, $pre_reservation->eat_in?($pre_reservation->eat_in==0?true:false):true , ['id' => 'no_eat_in'.$key])}}
                           {{Form::label('no_eat_in'.$key,"なし")}}
                         </td>
                         <td></td>
@@ -1357,6 +1357,36 @@
 
 
 <script>
+  // 室内飲食マスタ
+    $(function() {
+    $(document).on("click", "input:radio[name='cp_master_eat_in']", function() {
+      var radioTarget = $('input:radio[name="cp_master_eat_in"]:checked').val();
+      if (radioTarget == 1) {
+        $('input:radio[name="cp_master_eat_in_prepare"]').prop('disabled', false);
+      } else {
+        $('input:radio[name="cp_master_eat_in_prepare"]').prop('disabled', true);
+        $('input:radio[name="cp_master_eat_in_prepare"]').val("");
+      }
+    })
+  })
+    // 室内飲食個別
+    $(function(){
+      var target = $('input[name^="eat_in_copied"]').length/2;
+      for (let index = 0; index < target; index++) {
+        $(document).on("click", 'input:radio[name="eat_in_copied'+index+'"]', function() {
+          var radioTarget = $('input:radio[name="eat_in_copied'+index+'"]:checked').val();
+          console.log(radioTarget);
+          if (radioTarget == 1) {
+            $('input:radio[name="eat_in_prepare_copied'+index+'"]').prop('disabled', false);
+          } else {
+            $('input:radio[name="eat_in_prepare_copied'+index+'"]').prop('disabled', true);
+            $('input:radio[name="eat_in_prepare_copied'+index+'"]').val("");
+          }
+        })
+      }
+    })
+
+
   $(function() {
     $(document).on("click", "#master_submit", function() {
       var data = {};
