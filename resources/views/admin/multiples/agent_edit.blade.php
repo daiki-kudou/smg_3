@@ -121,19 +121,33 @@
                     <tr>
                       <td class="table-active"><label for="direction">料金体系</label></td>
                       <td>
-                        <div class="">
+
+                        <div>
+                          @if ($venue->time_prices->count()!=0&&$venue->frame_prices->count()!=0)
+                          <div>
+                            <p>
+                              {{ Form::radio('cp_master_price_system', 1, true, ['id'=>'cp_master_price_system_radio1']) }}
+                              {{Form::label('cp_master_price_system_radio1','通常（枠貸）')}}
+                            </p>
+                            <p>
+                              {{ Form::radio('cp_master_price_system', 2, false, ['id'=>'cp_master_price_system_radio2']) }}
+                              {{Form::label('cp_master_price_system_radio2','アクセア（時間貸）')}}
+                            </p>
+                          </div>
+                          @elseif($venue->frame_prices->count()!=0&&$venue->time_prices->count()==0)
                           <p>
                             {{ Form::radio('cp_master_price_system', 1, true, ['id'=>'cp_master_price_system_radio1']) }}
                             {{Form::label('cp_master_price_system_radio1','通常（枠貸）')}}
                           </p>
+                          @elseif($venue->frame_prices->count()==0&&$venue->time_prices->count()!=0)
                           <p>
-                            {{ Form::radio('cp_master_price_system', 2, false, ['id'=>'cp_master_price_system_radio2']) }}
+                            {{ Form::radio('cp_master_price_system', 2, true, ['id'=>'cp_master_price_system_radio2']) }}
                             {{Form::label('cp_master_price_system_radio2','アクセア（時間貸）')}}
                           </p>
+                          @endif
                         </div>
                       </td>
                     </tr>
-
                   </tbody>
                 </table>
 
@@ -599,16 +613,30 @@
                       </tr>
                       <tr>
                         <td class="table-active">
-                          <label for="direction">料金体系</label>
+                          <label for="direction">料金体系 </label>
                         </td>
                         <td>
-                          <div class="">
-                            {{ Form::radio('price_system_copied'.$key, 1, $pre_reservation->price_system==1?true:false, ['id'=>'price_system_copied'.$key]) }}
-                            {{Form::label('price_system_copied'.$key,'通常（枠貸）')}}
-                          </div>
                           <div>
-                            {{ Form::radio('price_system_copied'.$key, 2, $pre_reservation->price_system==2?true:false, ['id'=>'price_system_copied_off'.$key]) }}
-                            {{Form::label('price_system_copied_off'.$key,'アクセア（時間貸）')}}
+                            @if ($venue->time_prices->count()!=0&&$venue->frame_prices->count()!=0)
+                            <div class="">
+                              {{ Form::radio('price_system_copied'.$key, 1, $pre_reservation->price_system==1?true:false, ['id'=>'price_system_copied'.$key]) }}
+                              {{Form::label('price_system_copied'.$key,'通常（枠貸）')}}
+                            </div>
+                            <div>
+                              {{ Form::radio('price_system_copied'.$key, 2, $pre_reservation->price_system==2?true:false, ['id'=>'price_system_copied_off'.$key]) }}
+                              {{Form::label('price_system_copied_off'.$key,'アクセア（時間貸）')}}
+                            </div>
+                            @elseif($venue->frame_prices->count()!=0&&$venue->time_prices->count()==0)
+                            <div class="">
+                              {{ Form::radio('price_system_copied'.$key, 1, true, ['id'=>'price_system_copied'.$key]) }}
+                              {{Form::label('price_system_copied'.$key,'通常（枠貸）')}}
+                            </div>
+                            @elseif($venue->frame_prices->count()==0&&$venue->time_prices->count()!=0)
+                            <div>
+                              {{ Form::radio('price_system_copied'.$key, 2, true, ['id'=>'price_system_copied_off'.$key]) }}
+                              {{Form::label('price_system_copied_off'.$key,'アクセア（時間貸）')}}
+                            </div>
+                            @endif
                           </div>
                         </td>
                       </tr>
