@@ -8,6 +8,8 @@ use Illuminate\Http\Request;
 use Carbon\Carbon;
 
 use App\Models\Venue;
+use App\Models\Bill;
+use App\Models\PreBill;
 use App\Models\Reservation;
 use App\Models\PreReservation;
 
@@ -83,9 +85,15 @@ class HomeController extends Controller
     $reservations = Reservation::with("bills")->where("reserve_date", date('Y-m-d', strtotime($request->date)))
       ->where("venue_id", $request->venue_id)
       ->get();
+    $bills = Bill::where("reservation_status", "<=", 3)->pluck('reservation_id')->toArray();
+    $reservations = $reservations->whereIn('id', $bills);
+
     $pre_reservations = PreReservation::where('reserve_date', date('Y-m-d', strtotime($request->date)))
       ->where("venue_id", $request->venue_id)
+      ->where("status", "<=", 1)
       ->get();
+    $reservations = $reservations->whereIn('id', $bills);
+
 
     $result = [];
     foreach ($reservations as $reservation) {
@@ -96,7 +104,6 @@ class HomeController extends Controller
         $i === 0 ? $temporary[] = date('H:i:00', strtotime(Carbon::parse($reservation->enter_time)->subMinutes(30))) : "";
         $temporary[] = date('H:i:00', strtotime(Carbon::parse($reservation->enter_time)->addMinutes($i * 30)));
         // 最後のループは該当予約時間の30分後も追加
-        // $i === $diff ? $temporary[] = date('H:i:00', strtotime(Carbon::parse($reservation->enter_time)->addMinutes($i * 30)->addMinutes(30))) : "";
       }
       $result[] = $temporary;
     }
