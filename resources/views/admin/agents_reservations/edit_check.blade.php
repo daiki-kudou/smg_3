@@ -191,11 +191,7 @@
         </div>
 
 
-
-
-
-
-
+        @if ($venue->layout==1)
         <table class="table table-bordered layout-table">
           <thead>
             <tr>
@@ -222,6 +218,7 @@
                 {{Form::text('',$inputs['layout_clean']==1?"あり":"なし",['class'=>'form-control','readonly'])}}
               </td>
             </tr>
+            @endif
           </tbody>
         </table>
         @endif
