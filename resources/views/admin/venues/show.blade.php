@@ -484,7 +484,7 @@
               </td>
               <td>{{ReservationHelper::formatTime($frame_price->start)}}
                 ~
-                {{ReservationHelper::formatTime($date_venue->finish)}}
+                {{ReservationHelper::formatTime($frame_price->finish)}}
               </td>
               <td>{{number_format($frame_price->price)}}
               </td>
