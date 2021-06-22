@@ -191,21 +191,39 @@
         </div>
 
 
-        @if ($venue->layout_prepare)
-        <tr>
-          <td class="table-active">準備</td>
-          <td>
-            {{Form::text('',$inputs['layout_prepare']==1?"あり":"なし",['class'=>'form-control','readonly'])}}
-          </td>
-        </tr>
-        @endif
-        @if ($venue->layout_clean)
-        <tr>
-          <td class="table-active">準備</td>
-          <td>
-            {{Form::text('',$inputs['layout_clean']==1?"あり":"なし",['class'=>'form-control','readonly'])}}
-          </td>
-        </tr>
+
+
+
+
+
+        <table class="table table-bordered layout-table">
+          <thead>
+            <tr>
+              <th colspan='2'>
+                <p class="title-icon py-1">
+                  <i class="fas fa-th icon-size fa-fw"></i>レイアウト
+                </p>
+              </th>
+            </tr>
+          </thead>
+          <tbody>
+            @if ($venue->layout_prepare)
+            <tr>
+              <td class="table-active">準備</td>
+              <td>
+                {{Form::text('',$inputs['layout_prepare']==1?"あり":"なし",['class'=>'form-control','readonly'])}}
+              </td>
+            </tr>
+            @endif
+            @if ($venue->layout_clean)
+            <tr>
+              <td class="table-active">準備</td>
+              <td>
+                {{Form::text('',$inputs['layout_clean']==1?"あり":"なし",['class'=>'form-control','readonly'])}}
+              </td>
+            </tr>
+          </tbody>
+        </table>
         @endif
 
         {{-- {{$m_luggage}} --}}

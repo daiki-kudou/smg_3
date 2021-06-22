@@ -248,41 +248,56 @@
           </table>
         </div>
 
+        @if ($venue->layout==1)
+        <table class="table table-bordered layout-table">
+          <thead>
+            <tr>
+              <th colspan='2'>
+                <p class="title-icon py-1">
+                  <i class="fas fa-th icon-size fa-fw"></i>レイアウト
+                </p>
+              </th>
+            </tr>
+          </thead>
+          <tbody>
+            @if ($venue->layout_prepare)
+            <tr>
+              <td class="table-active">準備</td>
+              <td>
+                <div class="radio-box">
+                  <p>
+                    {{Form::radio('layout_prepare', 1, $inputs['layout_prepare']==1?true:false, ['id' => 'layout_prepare'])}}
+                    {{Form::label('layout_prepare',"有り")}}
+                  </p>
+                  <p>
+                    {{Form::radio('layout_prepare', 0, $inputs['layout_prepare']==0?true:false, ['id' => 'no_layout_prepare'])}}
+                    {{Form::label('no_layout_prepare',"無し")}}
+                  </p>
+                </div>
+              </td>
+            </tr>
+            @endif
+            @if ($venue->layout_clean)
+            <tr>
+              <td class="table-active">片付</td>
+              <td>
+                <div class="radio-box">
+                  <p>
+                    {{Form::radio('layout_clean', 1, $inputs['layout_clean']==1?true:false, ['id' => 'layout_clean'])}}
+                    {{Form::label('layout_clean',"有り")}}
+                  </p>
+                  <p>
+                    {{Form::radio('layout_clean', 0, $inputs['layout_clean']==0?true:false, ['id' => 'no_layout_clean'])}}
+                    {{Form::label('no_layout_clean',"無し")}}
+                  </p>
+                </div>
+              </td>
+            </tr>
+            @endif
+          </tbody>
+        </table>
+        @endif
 
-        @if ($venue->layout_prepare)
-        <tr>
-          <td class="table-active">準備</td>
-          <td>
-            <div class="radio-box">
-              <p>
-                {{Form::radio('layout_prepare', 1, $inputs['layout_prepare']==1?true:false, ['id' => 'layout_prepare'])}}
-                {{Form::label('layout_prepare',"有り")}}
-              </p>
-              <p>
-                {{Form::radio('layout_prepare', 0, $inputs['layout_prepare']==0?true:false, ['id' => 'no_layout_prepare'])}}
-                {{Form::label('no_layout_prepare',"無し")}}
-              </p>
-            </div>
-          </td>
-        </tr>
-        @endif
-        @if ($venue->layout_clean)
-        <tr>
-          <td class="table-active">準備</td>
-          <td>
-            <div class="radio-box">
-              <p>
-                {{Form::radio('layout_clean', 1, $inputs['layout_clean']==1?true:false, ['id' => 'layout_clean'])}}
-                {{Form::label('layout_clean',"有り")}}
-              </p>
-              <p>
-                {{Form::radio('layout_clean', 0, $inputs['layout_clean']==0?true:false, ['id' => 'no_layout_clean'])}}
-                {{Form::label('no_layout_clean',"無し")}}
-              </p>
-            </div>
-          </td>
-        </tr>
-        @endif
 
         @if ($reservation->venue->luggage_flag!=0)
         <div class='luggage'>
