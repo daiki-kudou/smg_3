@@ -1,11 +1,11 @@
 @extends('layouts.admin.app')
 @section('content')
 
-
 <link href="{{ asset('/css/template.css') }}" rel="stylesheet">
 <script src="{{ asset('/js/template.js') }}"></script>
 <script src="{{ asset('/js/ajax.js') }}"></script>
 <script src="{{ asset('/js/lettercounter.js') }}"></script>
+<script src="{{ asset('/js/holidays.js') }}"></script>
 <script src="{{ asset('/js/admin/reservation/validation.js') }}"></script>
 
 
@@ -366,7 +366,7 @@
             <tr>
               <td class="table-active">事前荷物の到着日<br>午前指定のみ</td>
               <td>
-                {{ Form::text('luggage_arrive', $basicInfo['luggage_arrive'],['class'=>'form-control limited_datepicker'] ) }}
+                {{ Form::text('luggage_arrive', $basicInfo['luggage_arrive'],['class'=>'form-control holidays'] ) }}
               </td>
             </tr>
             <tr>
@@ -1131,6 +1131,10 @@
 {{Form::close()}}
 
 <script>
+  $(document).on('click', '.holidays', function () {
+  getHolidayCalendar($('.holidays'), $('input[name="reserve_date"]'));
+});
+
   $(function() {
     $(document).on("click", "input:radio[name='eat_in']", function() {
       var radioTarget = $('input:radio[name="eat_in"]:checked').val();

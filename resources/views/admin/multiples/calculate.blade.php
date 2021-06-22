@@ -615,7 +615,7 @@
                 <li class="col-5">
                   <div class="input-group">
                     <label for=""></label>
-                    <input class="form-control" readonly name="" type="text" value="工藤さん！！！！こちら会場名です！！！">
+                    {{ Form::text('', ReservationHelper::getVenue($pre_reservation->venue_id) ,['class'=>'form-control', 'readonly'] ) }}
                   </div>
                 </li>
                 <li class="col-3 d-flex align-items-center">
@@ -1117,8 +1117,8 @@
                     </div>
                     <div class="main">
                       <div class="venues billdetails_content">
-                     {{-- 工藤さん！！！！！下記、注釈追加です。 --}}
-                   <p class="mb-2">※営業時間外の予約の為、管理者側にて料金設定を行います。</p>
+                        {{-- 工藤さん！！！！！下記、注釈追加です。 --}}
+                        <p class="mb-2">※営業時間外の予約の為、管理者側にて料金設定を行います。</p>
                         <table class="table table-borderless">
                           <tr>
                             <td>

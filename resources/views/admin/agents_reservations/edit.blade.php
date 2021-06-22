@@ -12,6 +12,7 @@
 <link href="{{ asset('/css/template.css') }}" rel="stylesheet">
 <script src="{{ asset('/js/template.js') }}"></script>
 <script src="{{ asset('/js/lettercounter.js') }}"></script>
+<script src="{{ asset('/js/holidays.js') }}"></script>
 <script src="{{ asset('/js/admin/agents_reservation/validation.js') }}"></script>
 
 
@@ -194,7 +195,8 @@
                   {{$equ->item}}
                 </td>
                 <td>
-                  <input type="text" class="form-control equipment_breakdown equipment_validation" name="{{'equipment_breakdown'.$key}}"
+                  <input type="text" class="form-control equipment_breakdown equipment_validation"
+                    name="{{'equipment_breakdown'.$key}}"
                     @foreach($reservation->bills->sortBy("id")->first()->breakdowns->where('unit_type',2) as $e_break)
                   @if ($e_break->unit_item==$equ->item)
                   value="{{$e_break->unit_count}}"
@@ -409,7 +411,7 @@
               <tr>
                 <td class="table-active">事前荷物の到着日<br>午前指定のみ</td>
                 <td>
-                  {{ Form::text('luggage_arrive', $reservation->luggage_arrive,['class'=>'form-control limited_datepicker'] ) }}
+                  {{ Form::text('luggage_arrive', $reservation->luggage_arrive,['class'=>'form-control holidays'] ) }}
                 </td>
               </tr>
               <tr>
@@ -518,7 +520,7 @@
                 <label for="enduser_company" class="">エンドユーザー</label>
               </td>
               <td>
-                {{ Form::text('enduser_company', $reservation->enduser->company,['class'=>'form-control', 'placeholder'=>'入力してください','id'=>'enduser_company'] ) }}
+                {{ Form::text('enduser_company', optional($reservation->enduser)->company,['class'=>'form-control', 'placeholder'=>'入力してください','id'=>'enduser_company'] ) }}
               </td>
             </tr>
             <tr>
@@ -526,7 +528,7 @@
                 <label for="enduser_address" class=" ">住所</label>
               </td>
               <td>
-                {{ Form::text('enduser_address', $reservation->enduser->address,['class'=>'form-control', 'placeholder'=>'入力してください','id'=>'enduser_address'] ) }}
+                {{ Form::text('enduser_address', optional($reservation->enduser)->address,['class'=>'form-control', 'placeholder'=>'入力してください','id'=>'enduser_address'] ) }}
               </td>
             </tr>
             <tr>
@@ -534,7 +536,7 @@
                 <label for="enduser_tel" class="">連絡先</label>
               </td>
               <td>
-                {{ Form::text('enduser_tel', $reservation->enduser->tel,['class'=>'form-control', 'placeholder'=>'入力してください', 'id'=>'enduser_tel'] ) }}
+                {{ Form::text('enduser_tel', optional($reservation->enduser)->tel,['class'=>'form-control', 'placeholder'=>'入力してください', 'id'=>'enduser_tel'] ) }}
                 <p class="is-error-enduser_tel" style="color: red"></p>
               </td>
             </tr>
@@ -543,7 +545,7 @@
                 <label for="enduser_mail" class=" ">メールアドレス</label>
               </td>
               <td>
-                {{ Form::text('enduser_mail', $reservation->enduser->email,['class'=>'form-control', 'placeholder'=>'入力してください', 'id'=>'enduser_mail'] ) }}
+                {{ Form::text('enduser_mail', optional($reservation->enduser)->email,['class'=>'form-control', 'placeholder'=>'入力してください', 'id'=>'enduser_mail'] ) }}
                 <p class="is-error-enduser_mail" style="color: red"></p>
               </td>
             </tr>
@@ -552,7 +554,7 @@
                 <label for="enduser_incharge" class="">当日担当者</label>
               </td>
               <td>
-                {{ Form::text('enduser_incharge', $reservation->enduser->person,['class'=>'form-control', 'placeholder'=>'入力してください', 'id'=>'enduser_incharge'] ) }}
+                {{ Form::text('enduser_incharge', optional($reservation->enduser)->person,['class'=>'form-control', 'placeholder'=>'入力してください', 'id'=>'enduser_incharge'] ) }}
               </td>
             </tr>
             <tr>
@@ -560,7 +562,7 @@
                 <label for="" class="">当日連絡先</label>
               </td>
               <td>
-                {{ Form::text('enduser_mobile', $reservation->enduser->mobile,['class'=>'form-control', 'placeholder'=>'入力してください', 'id'=>'enduser_mobile'] ) }}
+                {{ Form::text('enduser_mobile', optional($reservation->enduser)->mobile,['class'=>'form-control', 'placeholder'=>'入力してください', 'id'=>'enduser_mobile'] ) }}
                 <p class="is-error-enduser_mobile" style="color: red"></p>
               </td>
             </tr>
@@ -570,12 +572,12 @@
               </td>
               <td>
                 <select name="enduser_attr" class="form-control">
-                  <option value="1" {{$reservation->enduser->attr==1?"selected":""}}>一般企業</option>
-                  <option value="2" {{$reservation->enduser->attr==2?"selected":""}}>上場企業</option>
-                  <option value="3" {{$reservation->enduser->attr==3?"selected":""}}>近隣利用</option>
-                  <option value="4" {{$reservation->enduser->attr==4?"selected":""}}>個人講師</option>
-                  <option value="5" {{$reservation->enduser->attr==5?"selected":""}}>MLM</option>
-                  <option value="6" {{$reservation->enduser->attr==6?"selected":""}}>その他</option>
+                  <option value="1" {{optional($reservation->enduser)->attr==1?"selected":""}}>一般企業</option>
+                  <option value="2" {{optional($reservation->enduser)->attr==2?"selected":""}}>上場企業</option>
+                  <option value="3" {{optional($reservation->enduser)->attr==3?"selected":""}}>近隣利用</option>
+                  <option value="4" {{optional($reservation->enduser)->attr==4?"selected":""}}>個人講師</option>
+                  <option value="5" {{optional($reservation->enduser)->attr==5?"selected":""}}>MLM</option>
+                  <option value="6" {{optional($reservation->enduser)->attr==6?"selected":""}}>その他</option>
                 </select>
               </td>
             </tr>
@@ -595,7 +597,7 @@
             </td>
             <td>
               <div class="d-flex align-items-center">
-                {{ Form::text('enduser_charge', $reservation->enduser->charge,['class'=>'form-control ', 'placeholder'=>'入力してください'] ) }}
+                {{ Form::text('enduser_charge', optional($reservation->enduser)->charge,['class'=>'form-control ', 'placeholder'=>'入力してください'] ) }}
                 <span class="ml-1">円</span>
               </div>
               <p class="is-error-enduser_charge" style="color: red"></p>
@@ -990,6 +992,10 @@
 
 
   <script>
+    $(document).on('click', '.holidays', function () {
+  getHolidayCalendar($('.holidays'), $('input[name="reserve_date"]'));
+});
+
     $(function() {
     $(document).on("click", "input:radio[name='eat_in']", function() {
       var radioTarget = $('input:radio[name="eat_in"]:checked').val();

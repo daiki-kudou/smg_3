@@ -573,7 +573,7 @@
                 <li class="col-5">
                   <div class="input-group">
                     <label for=""></label>
-                    <input class="form-control" readonly name="" type="text" value="工藤さん！！！！こちら会場名です！！！">
+                    {{ Form::text('', ReservationHelper::getVenue($pre_reservation->venue_id) ,['class'=>'form-control', 'readonly'] ) }}
                   </div>
                 </li>
                 <li class="col-3 d-flex align-items-center">
