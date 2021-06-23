@@ -581,7 +581,6 @@
             <td>
               <div class="d-flex align-items-end">
                 {{ Form::text('cost', $value['cost'],['class'=>'form-control'] ) }}
-                {{ Form::hidden('cost', $value['cost'],['class'=>'form-control'] ) }}
                 <span class="ml-1 annotation">%</span>
               </div>
               <p class="is-error-cost" style="color: red"></p>
