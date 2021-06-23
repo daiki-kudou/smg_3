@@ -146,7 +146,7 @@
   <div class="wrapper">
 
     <!-- ここからheader.html -->
-    <header>
+    <header style="display: block;">
       　<span class="head-login sp"><a href="{{url('user/home')}}">マイページへ</a></span>
       <span class="head-mail sp"><a href="{{url('/')}}">会場を予約する</a></span>
       <span class="btn"><span></span></span>
@@ -211,11 +211,7 @@
           <li><a href="https://osaka-conference.com/price/">料金表</a></li>
           <li><a href="https://osaka-conference.com/characteristic/">8つの特徴</a></li>
         </ul>
-        <a class="cart_area" href="{{url('user/reservations/cart')}}">
-          <p>
-            <i class="fas fa-clipboard-list cart_btn"></i>
-            <span>予約一覧へ</span></p>
-        </a>
+
       </div>
       <ul class="tagBtn sticky">
         <li><a class="contact_btn" href="https://osaka-conference.com/contact/" target="_blank">お問合わせ</a></li>
@@ -223,20 +219,7 @@
         <li><a class="login_btn" href="{{url('user/home')}}">マイページへ</a></li>
       </ul>
     </header>
-    <!--コロナ対策中お知らせ非表示-->
-    <section class="contents news pc">
-      <dl class="information contents">
-        <dt>重要なお知らせ</dt>
-        <dd><a href="https://osaka-conference.com/corona/">新型コロナウィルスに対する取り組みについて</a></dd>
-      </dl>
-    </section>
-    <section class="contents news sp">
-      <dl class="information indexNews">
-        <dt>重要なお知らせ</dt>
-        <dd><a href="https://osaka-conference.com/corona/">新型コロナウィルスに対する取り組みについて</a></dd>
-      </dl>
-    </section>
-    <!--コロナ対策中お知らせ非表示-->
+
 
 
     <!------パンクズ-------->
@@ -254,8 +237,16 @@
         </li>
       </ol>
     </nav>
+    <main>
+      <a class="cart_area sp" href="{{url('user/reservations/cart')}}">
+        <p>
+          <i class="fas fa-clipboard-list cart_btn"></i>
+          <span>予約一覧へ</span></p>
+      </a>
 
     @yield('content')
+  </main>
+
 
     <div class="banner">
       <ul class="contents pc">

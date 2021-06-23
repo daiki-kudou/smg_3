@@ -119,9 +119,6 @@ ul.tagBtn li:nth-child(3) a {
     margin-bottom: 80px;
 }
 
-header div.contents {
-    position: relative;
-}
 
 .search_btn {
     background-color: #EF6243;
@@ -142,16 +139,12 @@ header div.contents {
 }
 
 .cart_area {
-    /* background-color: #EF6243; */
-    /* text-align: center; */
     color: #EF6243;
     border: 1px solid #EF6243;
     padding: 1em;
     position: absolute;
-    /* top: 20px;
-    right: -160px; */
     top: 130px;
-    right: 20px;
+    right: 0;
     font-weight: bold;
 }
 
@@ -480,6 +473,10 @@ form table td textarea {
     color: #fff;
 }
 
+header div.contents {
+    position: relative;
+}
+
 /* スピナー -------------------------------*/
 
 #fullOverlay {
@@ -602,28 +599,26 @@ form table td textarea {
 
 @media screen and (max-width: 750px) {
 
-    header {
+    /* header {
         position: absolute;
-    }
+    } */
 
-    .subNavi {
+    /* .subNavi {
         position: relative;
-    }
+    } */
 
-    .subNavi .cart_area {
-        position: absolute;
-        top: 70px;
+    .cart_area {
+        top: 190px;
         right: 10px;
     }
 
     .wrapper {
         position: relative;
         overflow: inherit;
-        /* margin-top: 230px; */
     }
 
     .page-title {
-        margin-top: 160px;
+        margin-top: 240px;
     }
 
     .page-text {

@@ -1,7 +1,6 @@
 @extends('layouts.reservation.app')
 @section('content')
 
-<main>
   <div class="contents">
     <div class="pagetop-text">
       <h1 class="page-title oddcolor"><span>会場予約 料金確認画面</span></h1>
@@ -396,5 +395,4 @@
 
   <div class="top contents"><a href="#top"><img src="https://osaka-conference.com/img/pagetop.png" alt="上に戻る"></a>
   </div>
-</main>
 @endsection

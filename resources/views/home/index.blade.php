@@ -1,8 +1,7 @@
 @extends('layouts.reservation.app')
 @section('content')
-<div class="wrapper">
 
-  <main>
+
     <!-- 会場予約 -->
     <div class="contents">
       <div class="pagetop-text">
@@ -119,7 +118,5 @@
     </script>
     <div class="top contents"><a href="#top"><img src="https://osaka-conference.com/img/pagetop.png" alt="上に戻る"></a>
     </div>
-  </main>
-</div>
 
 @endsection
