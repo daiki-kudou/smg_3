@@ -54,15 +54,18 @@ $(document).on(" change", "#enter_time", function () {
         if ($('#enter_time option').eq(index).prop('disabled')) {
           return false; //disabledがあれば処理中止
         }
-        var html1 = "<option value='" + $('#enter_time option').eq(index).val() + "'>";
+        if ($('#enter_time option').eq(index).val() === "08:00:00" || $('#enter_time option').eq(index).val() === "08:30:00" || $('#enter_time option').eq(index).val() === "09:00:00" || $('#enter_time option').eq(index).val() === "09:30:00" || $('#enter_time option').eq(index).val() === "10:00:00") {
+          // 08~10ならならdisabled
+          var html1 = "<option value='" + $('#enter_time option').eq(index).val() + "' disabled>";
+        } else {
+          var html1 = "<option value='" + $('#enter_time option').eq(index).val() + "'>";
+        }
         var html2 = $('#enter_time option').eq(index).text();
         var html3 = "</option>";
         $('#leave_time').append(html1 + html2 + html3);
       }
     }
   })
-  // 以下、08:00~10:00を選択されたら退室時間制御開始
-  console.log();
 });
 
 
