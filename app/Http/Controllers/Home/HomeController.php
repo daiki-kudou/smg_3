@@ -85,6 +85,7 @@ class HomeController extends Controller
     $reservations = Reservation::with("bills")->where("reserve_date", date('Y-m-d', strtotime($request->date)))
       ->where("venue_id", $request->venue_id)
       ->get();
+
     $bills = Bill::where("reservation_status", "<=", 3)->pluck('reservation_id')->toArray();
     $reservations = $reservations->whereIn('id', $bills);
 
@@ -92,8 +93,6 @@ class HomeController extends Controller
       ->where("venue_id", $request->venue_id)
       ->where("status", "<=", 1)
       ->get();
-    $reservations = $reservations->whereIn('id', $bills);
-
 
     $result = [];
     foreach ($reservations as $reservation) {
@@ -117,10 +116,15 @@ class HomeController extends Controller
       $result[] = $temporary;
     }
 
+    // return count($result);
+
     if (count($result) === 1) {
       return $result[0];
-    } elseif (count($result) === 2) {
-      return array_merge($result[0], $result[1]);
+    } elseif (count($result) > 1) {
+      for ($i = 1; $i < count($result); $i++) {
+        $temp = array_merge($result[0], $result[$i]);
+      }
+      return $temp;
     } else {
       return  [];
     }

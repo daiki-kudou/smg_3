@@ -13,7 +13,6 @@
 
   <link rel="canonical" href="https://osaka-conference.com/calendar/">
   <link rel="shortcut icon" href="https://osaka-conference.com/img/favicon.ico?ver=20201225" />
-  {{-- <link href="{{ asset('css/app.css') }}" rel="stylesheet"> --}}
 
   <link rel="stylesheet" media="all" type="text/css"
     href="https://osaka-conference.com/css/ress.min.css?ver=20201225" />
@@ -55,26 +54,6 @@
   </script>
   <script src="https://code.jquery.com/jquery-1.10.2.js"></script>
   <script src="https://osaka-conference.com/js/jquery.heightLine.js?ver=20201225"></script>
-  {{-- <script>
-    $(window).load(function () {
-            $(".box0>li").heightLine();
-            //$(".box01>li").heightLine();
-            if (window.matchMedia('(min-width: 751px)').matches) {
-                $(".room-data").heightLine();
-                $(".conference-roominner>.conference-roomdata").heightLine();
-                $(".top-characteristic-index .contents .featurelist .three dl>dt").heightLine();
-            }
-        });
-        $(function () {
-            if (window.matchMedia('(min-width: 751px)').matches) {
-                setTimeout(function () {
-                    $('#tablist .r-tabs-tab a.r-tabs-anchor').on('click', function () {
-                        $('.other-servicelist>.item-block').heightLine();
-                    });
-                }, 10);
-            }
-        });
-  </script> --}}
   <script>
     if ($().Stickyfill) {
             $('.sticky').Stickyfill();
@@ -169,7 +148,6 @@
     <!-- ここからheader.html -->
     <header>
       　<span class="head-login sp"><a href="{{url('user/home')}}">マイページへ</a></span>
-      {{-- <span class="head-mail sp"><a href="https://osaka-conference.com/contact/">お問合わせ</a></span> --}}
       <span class="head-mail sp"><a href="{{url('/')}}">会場を予約する</a></span>
       <span class="btn"><span></span></span>
       <div class="contents">
@@ -209,11 +187,6 @@
           <li><a href="https://osaka-conference.com/contact/">問い合わせ</a></li>
           <li>
             <ul class="sp formBtnBlock">
-              {{-- <li><a href="https://osaka-conference.com/contact/#book"><img
-                    src="https://osaka-conference.com/img/ico_file01@2x.png" alt="仮予約">仮予約</a></li>
-
-              <li><a href="https://osaka-conference.com/reservation/"><img
-                    src="https://osaka-conference.com/img/ico_form02@2x.png" alt="本申込み">本申込み</a></li> --}}
             </ul>
             <div class="sp contactBlock">
               <div class="tel">
@@ -237,7 +210,6 @@
           <li><a href="https://osaka-conference.com/rental/">会場一覧</a></li>
           <li><a href="https://osaka-conference.com/price/">料金表</a></li>
           <li><a href="https://osaka-conference.com/characteristic/">8つの特徴</a></li>
-          {{-- <li><a href="https://osaka-conference.com/reservation/">本申込み</a></li> --}}
         </ul>
         <a class="cart_area" href="{{url('user/reservations/cart')}}">
           <p>
@@ -318,29 +290,6 @@
     <footer class="new">
       <nav class="contents">
         <div class="footerInfo">
-          {{-- <ul class="pc">
-
-            <li class="download">
-              <p>本申込み(フォーム・直接メールに添付・FAX)</p>
-              　　<p class="download_btn3 btnOrange"><a href="https://osaka-conference.com/reservation/"
-                  target="_blank"><img src="https://osaka-conference.com/img/ico_form.png" alt="本申込み">フォーム</a></p>
-              <p class="download_btn3 btnOrange"><a href="https://osaka-conference.com/downlord/form.pdf"
-                  target="_blank"><img src="https://osaka-conference.com/img/ico_pdf.png" alt="PDF">PDF</a></p>
-              <p class="download_btn3 btnOrange"><a href="https://osaka-conference.com/downlord/form.xlsx"
-                  target="_blank"><img src="https://osaka-conference.com/img/ico_excel.png" alt="EXCEL">EXCEL</a></p>
-            </li>
-          </ul> --}}
-          {{-- <ul class="sp">
-
-            <li>本申込みフォームあるいは本申込み書をダウンロード！</li>
-            <li class="foot-btnM"><a href="https://osaka-conference.com/reservation/"><img
-                  src="https://osaka-conference.com/img/ico_form02@2x.png" alt="本申込みフォーム">本申込み</a></li>
-            <li class="foot-btnS"><a href="https://osaka-conference.com/downlord/form.pdf" target="_blank"><img
-                  src="https://osaka-conference.com/img/ico_pdf01@2x.png" alt="PDF">PDF</a></li>
-            <li class="foot-btnS"><a href="https://osaka-conference.com/downlord/form.xlsx" target="_blank"><img
-                  src="https://osaka-conference.com/img/ico_excel01@2x.png" alt="EXCEL">EXCEL</a></li>
-          </ul> --}}
-
           <div class="pc">
             <div class="tel pc">
               <p><em>06-6556-6462</em>予約専用：10時～18時</p>
@@ -502,57 +451,6 @@
             $(this).parent().parent().next().hide();
           }
         });
-          
-          // 時間セレクトループ
-        // $(function(){
-        //   $(document).on("change", "#enter_time", function() {
-        //   var enter_time=$('[name=enter_time] option:selected').val();
-        //   $('[name=leave_time] option').each(function(index, element){
-        //   var target_val=$(element).val();
-        //   if (enter_time=="08:00:00") {
-        //     switch (target_val) {
-        //       case "08:00:00":
-        //         $(element).prop("disabled","true");
-        //         break;
-        //       case "08:30:00":
-        //         $(element).prop("disabled","true");
-        //         break;
-        //       case "09:00:00":
-        //         $(element).prop("disabled","true");
-        //         break;
-        //       case "09:30:00":
-        //         $(element).prop("disabled","true");
-        //         break;
-        //       case "10:00:00":
-        //         $(element).prop("disabled","true");
-        //         break;
-        //       default:
-        //         break;
-        //     }
-        //   }else if(enter_time=="08:30:00"){
-        //     switch (target_val) {
-        //       case "08:00:00":
-        //         $(element).prop("disabled","true");
-        //         break;
-        //       case "08:30:00":
-        //         $(element).prop("disabled","true");
-        //         break;
-        //       case "09:00:00":
-        //         $(element).prop("disabled","true");
-        //         break;
-        //       case "09:30:00":
-        //         $(element).prop("disabled","true");
-        //         break;
-        //       case "10:00:00":
-        //         $(element).prop("disabled","true");
-        //         break;
-        //       default:
-        //         break;
-        //     }
-        //   }
-        //   })
-        //   });
-        // })
         });
   </script>
 
