@@ -213,7 +213,6 @@ class MultiplesController extends Controller
   public function agent_calculate(Request $request, $multiple_id, $venue_id)
   {
     $multiple = MultipleReserve::find($multiple_id);
-    // $venue = Venue::find($venue_id);
     $agent = Agent::find($request->agent_id);
     $result = $agent->agentPriceCalculate($request->cp_master_enduser_charge);
     $multiple->AgentPreStore($venue_id, $request, $result);

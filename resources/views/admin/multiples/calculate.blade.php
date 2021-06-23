@@ -900,8 +900,7 @@
                         <td class="table-active">荷物預り/返送<br>料金</td>
                         <td>
                           <p class="annotation">※仮押え時点では、料金の設定ができません。<br>予約へ切り替え後に料金の設定が可能です。</p>
-                          <!-- {{ Form::text('luggage_price_copied'.$key, $request->cp_master_luggage_price,['class'=>'form-control'] ) }}
-                          <p class="{{"is-error-luggage_price_copied".$key}}" style="color: red"></p> -->
+
                         </td>
                       </tr>
                       @endif
@@ -1048,21 +1047,6 @@
                           </p>
                         </td>
                       </tr>
-                      <!-- <tr>
-                        <td>
-                          <p>
-                            <input type="checkbox" id="discount" checked="">
-                            <label for="discount">割引条件</label>
-                          </p>
-                          {{ Form::textarea('discount_condition_copied'.$key, $request->cp_master_discount_condition,['class'=>'form-control'] ) }}
-                        </td>
-                      </tr>
-                      <tr class="caution">
-                        <td>
-                          <label for="caution">注意事項</label>
-                          {{ Form::textarea('attention_copied'.$key, $request->cp_master_attention,['class'=>'form-control'] ) }}
-                        </td>
-                      </tr> -->
                       <tr>
                         <td>
                           <label for="adminNote">管理者備考</label>
@@ -1118,7 +1102,6 @@
                     <div class="main">
                       <div class="venues billdetails_content">
                         {{-- 工藤さん！！！！！下記、注釈追加です。 --}}
-                        <p class="mb-2">※営業時間外の予約の為、管理者側にて料金設定を行います。</p>
                         <table class="table table-borderless">
                           <tr>
                             <td>
@@ -1163,35 +1146,9 @@
                               </td>
                             </tr>
                           </tbody>
-                          <!-- <tbody class="{{'venue_discount'.$key}}">
-                            <tr>
-                              <td>割引計算欄</td>
-                              <td>
-                                <p>
-                                  割引金額
-                                </p>
-                                <div class="d-flex align-items-end">
-                                  {{ Form::text('venue_number_discount'.$key, '',['class'=>'form-control'] ) }}
-                                  <p class="ml-1">円</p>
-                                </div>
-                              </td>
-                              <td>
-                                <p>
-                                  割引率
-                                </p>
-                                <div class="d-flex align-items-end">
-                                  {{ Form::text('venue_percent_discount'.$key, '',['class'=>'form-control'] ) }}
-                                  <p class="ml-1">%</p>
-                                </div>
-                              </td>
-                              <td>
-                                <input class="{{'btn more_btn venue_discount_btn'.$key}}" type="button" value="計算する">
-                              </td>
-                            </tr>
-                          </tbody> -->
 
                           @else{{--料金体系無し、手打ち--}}
-                          <span>※料金体系がないため、手打ちで会場料を入力してください</span>
+                          <p class="mb-2">※営業時間外の予約の為、管理者側にて料金設定を行います。</p>
                           <tbody class="venue_head">
                             <tr>
                               <td>内容</td>
@@ -1297,38 +1254,10 @@
                             <tr>
                               <td colspan="3"></td>
                               <td colspan="1">合計
-                                {{-- {{ Form::text('equipment_price'.$key, $pre_reservation->pre_bill->equipment_price+((int)$request->cp_master_luggage_price),['class'=>'form-control', 'readonly'] ) }}
-                                --}}
                                 {{ Form::text('equipment_price'.$key, $pre_reservation->pre_bill->equipment_price,['class'=>'form-control', 'readonly'] ) }}
                               </td>
                             </tr>
                           </tbody>
-                          <!-- <tbody class="{{'equipment_discount'.$key}}">
-                            <tr>
-                              <td>割引計算欄</td>
-                              <td>
-                                <p>
-                                  割引金額
-                                </p>
-                                <div class="d-flex align-items-end">
-                                  {{ Form::text('equipment_number_discount'.$key,'',['class'=>'form-control'] ) }}
-                                  <p class="ml-1">円</p>
-                                </div>
-                              </td>
-                              <td>
-                                <p>
-                                  割引率
-                                </p>
-                                <div class="d-flex align-items-end">
-                                  {{ Form::text('equipment_percent_discount'.$key, '',['class'=>'form-control'] ) }}
-                                  <p class="ml-1">%</p>
-                                </div>
-                              </td>
-                              <td>
-                                <input class="btn more_btn {{'equipment_discount_btn'.$key}}" type="button" value="計算する">
-                              </td>
-                            </tr>
-                          </tbody> -->
                         </table>
                       </div>
                       @endif
@@ -1382,86 +1311,13 @@
                               </td>
                             </tr>
                           </tbody>
-                          <!-- <tbody class="{{'layout_discount'.$key}}">
-                            <tr>
-                              <td>割引計算欄</td>
-                              <td>
-                                <p>
-                                  割引金額
-                                </p>
-                                <div class="d-flex align-items-end">
-                                  {{ Form::text('layout_number_discount'.$key, '',['class'=>'form-control'] ) }}
-                                  <p class="ml-1">円</p>
-                                </div>
-                              </td>
-                              <td>
-                                <p>
-                                  割引率
-                                </p>
-                                <div class="d-flex align-items-end">
-                                  {{ Form::text('layout_percent_discount'.$key, '',['class'=>'form-control'] ) }}
-                                  <p class="ml-1">%</p>
-                                </div>
-                              </td>
-                              <td>
-                                <input class="btn more_btn {{'layout_discount_btn'.$key}}" type="button" value="計算する">
-                              </td>
-                            </tr>
-                          </tbody> -->
                         </table>
                       </div>
                       @endif
 
 
                       {{-- 以下、その他 --}}
-                      <!-- <div class="others billdetails_content">
-                        <table class="table table-borderless">
-                          <tr>
-                            <td colspan="5">
-                              　<h4 class="billdetails_content_ttl">
-                                その他
-                              </h4>
-                            </td>
-                          </tr>
-                          <tbody class="others_head">
-                            <tr>
-                              <td>内容</td>
-                              <td>単価</td>
-                              <td>数量</td>
-                              <td>金額</td>
-                              <td>追加/削除</td>
-                            </tr>
-                          </tbody>
-                          <tbody class="{{'others_main'.$key}}">
-                            <tr>
-                              <td>
-                                {{ Form::text('others_input_item0_copied'.$key, '',['class'=>'form-control'] ) }}
-                              </td>
-                              <td>
-                                {{ Form::text('others_input_cost0_copied'.$key, '',['class'=>'form-control'] ) }}
-                              </td>
-                              <td>
-                                {{ Form::text('others_input_count0_copied'.$key, '',['class'=>'form-control'] ) }}
-                              </td>
-                              <td>
-                                {{ Form::text('others_input_subtotal0_copied'.$key, '',['class'=>'form-control', 'readonly'] ) }}
-                              </td>
-                              <td>
-                                <input type="button" value="＋" class="add pluralBtn bg-blue">
-                                <input type="button" value="ー" class="del pluralBtn bg-red">
-                              </td>
-                            </tr>
-                          </tbody>
-                          <tbody class="others_result">
-                            <tr>
-                              <td colspan="2"></td>
-                              <td colspan="3">合計
-                                {{ Form::text('others_price'.$key, '',['class'=>'form-control', 'readonly'] ) }}
-                              </td>
-                            </tr>
-                          </tbody>
-                        </table>
-                      </div> -->
+
                       {{-- 以下、総合計 --}}
                       <div class="bill_total">
                         <table class="table">

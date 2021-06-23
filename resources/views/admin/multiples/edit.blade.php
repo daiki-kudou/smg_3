@@ -1180,7 +1180,6 @@
                 <div class="main">
                   <div class="venues billdetails_content">
                     {{-- 工藤さん！！！！！下記、注釈追加です。 --}}
-                    <p class="mb-2">※営業時間外の予約の為、管理者側にて料金設定を行います。</p>
                     <table class="table table-borderless">
                       <tr>
                         <td>
@@ -1195,7 +1194,7 @@
 
 
                       @if (empty($pre_reservation->pre_bill))
-                      <span>※料金体系がないため、手打ちで会場料を入力してください</span>
+                      <p class="mb-2">※営業時間外の予約の為、管理者側にて料金設定を行います。</p>
                       <tbody class="venue_head">
                         <tr>
                           <td>内容</td>
