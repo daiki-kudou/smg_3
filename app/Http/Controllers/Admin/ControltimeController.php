@@ -19,7 +19,10 @@ class ControltimeController extends Controller
     $date = $request->date;
     $venue_id = $request->venue_id;
     $reservations = Reservation::with('bills')->whereDate('reserve_date', $date)->where('venue_id', $venue_id)->get();
-    $pre_reservations = PreReservation::whereDate('reserve_date', $date)->where('venue_id', $venue_id)->get();
+    $pre_reservations = PreReservation::whereDate('reserve_date', $date)
+      ->where('venue_id', $venue_id)
+      ->where('status', '<', 2)
+      ->get();
     $result = $this->getTimes($reservations, $pre_reservations);
     return $result;
   }
