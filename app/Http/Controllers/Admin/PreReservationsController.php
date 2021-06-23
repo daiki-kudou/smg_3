@@ -197,7 +197,7 @@ class PreReservationsController extends Controller
       $request->session()->regenerate();
 
       if ($multiple->pre_reservations->first()->user_id > 0) {
-        return redirect(route('admin.multiples.show', $multiple->id));
+        return redirect(route('admin.multiples.show', $multiple->id))->with('flash_message', '仮押さえは完了しました');
       } else {
         return redirect(route('admin.multiples.agent_show', $multiple->id));
       }

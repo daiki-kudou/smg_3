@@ -210,7 +210,6 @@
       </tr>
       @endif
 
-
       @if ($venue->getServices()->count()!=0)
       <tr>
         <th>有料サービス</th>
@@ -220,15 +219,13 @@
             <li>
               <p>{{$serv->item}} {{$serv->price}}円<span class="annotation">(税抜)</span></p>
               <div class="selectTime">
-                {{Form::radio('services_breakdown'.$s_key, 1, false, ['id' => 'services_breakdown_on'.$s_key, 'class' => 'radio-input'])}}
+                {{Form::radio('services_breakdown'.$s_key, 1, old('services_breakdown'.$s_key)==1?true:false, ['id' => 'services_breakdown_on'.$s_key, 'class' => 'radio-input'])}}
                 {{Form::label('services_breakdown_on'.$s_key,'あり')}}
-                {{Form::radio('services_breakdown'.$s_key, 0, true, ['id' => 'services_breakdown_off'.$s_key, 'class' => 'radio-input'])}}
+                {{Form::radio('services_breakdown'.$s_key, 0, old('services_breakdown'.$s_key)==0?true:false, ['id' => 'services_breakdown_off'.$s_key, 'class' => 'radio-input'])}}
                 {{Form::label('services_breakdown_off'.$s_key, 'なし')}}
               </div>
             </li>
             @endforeach
-
-
           </ul>
         </td>
       </tr>

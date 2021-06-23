@@ -333,7 +333,6 @@ class MultiplesController extends Controller
     $venue_count = $venues->count('venue_id');
     $_venues = Venue::orderBy("id", "desc")->get();
     $checkEachBills = $multiple->checkEachBills();
-    dump($checkEachBills);
 
     return view('admin.multiples.agent_show', compact('multiple', 'venues', 'venue_count', '_venues', 'checkEachBills'));
   }

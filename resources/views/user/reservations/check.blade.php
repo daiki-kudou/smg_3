@@ -74,8 +74,6 @@
         </tr>
         @endif
         {{ Form::hidden('price_system', $request->price_system) }}
-
-
         <tr>
           <th>案内板</th>
           <td class="">
@@ -178,7 +176,7 @@
               @if ($request->{'services_breakdown'.$s_key}!=0)
               <li class="form-cell2">
                 <span class="">{{$serv->item}} {{$serv->price}}円<span class="annotation">(税抜)</span></span>
-                {{ Form::hidden('services_breakdown'.$s_key, ($request->{'services_breakdown'.$e_key}) ) }}
+                {{ Form::hidden('services_breakdown'.$s_key, ($request->{'services_breakdown'.$s_key}) ) }}
               </li>
               @endif
               @endforeach
