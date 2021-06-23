@@ -2,6 +2,7 @@
 $(document).on("change", "#venue_id", function () {
   var date = $('input[name="date"]').val();
   var venue_id = $(this).val();
+  console.log("date", date, "venue_id", venue_id);
   $('#enter_time,#leave_time').find('option').each(function ($key, $value) {
     $($value).prop('disabled', false);
   })
@@ -18,6 +19,7 @@ $(document).on("change", "#venue_id", function () {
     },
   })
     .done(function ($result) {
+      console.log($result);
       $('#enter_time, #leave_time').html("<option value=''></option>");
       $('#fullOverlay').css('display', 'none');
       $.each($result, function ($index, $value) {
