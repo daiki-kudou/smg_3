@@ -2,7 +2,6 @@
 $(document).on("change", "#venue_id", function () {
   var date = $('input[name="date"]').val();
   var venue_id = $(this).val();
-  console.log("date", date, "venue_id", venue_id);
   $('#enter_time,#leave_time').find('option').each(function ($key, $value) {
     $($value).prop('disabled', false);
   })
@@ -19,23 +18,21 @@ $(document).on("change", "#venue_id", function () {
     },
   })
     .done(function ($result) {
-      console.log($result);
-      $('#enter_time, #leave_time').html("<option value=''></option>");
+      $('#enter_time').html("<option value=''></option>");
       $('#fullOverlay').css('display', 'none');
       $.each($result, function ($index, $value) {
         if ($value['active'] === 0) {
           var html1 = "<option value='" + $value['time'] + "' disabled>";
           var html2 = $value['value'];
           var html3 = "</option>";
-          $('#enter_time, #leave_time').append(html1 + html2 + html3);
+          $('#enter_time').append(html1 + html2 + html3);
         } else {
           var html1 = "<option value='" + $value['time'] + "'>";
           var html2 = $value['value'];
           var html3 = "</option>";
-          $('#enter_time, #leave_time').append(html1 + html2 + html3);
+          $('#enter_time').append(html1 + html2 + html3);
         }
       })
-
     })
     .fail(function ($result) {
       $('#fullOverlay').css('display', 'none');
@@ -45,10 +42,25 @@ $(document).on("change", "#venue_id", function () {
 });
 
 // 入室時間トリガー、08:00~10:00は最低利用時間3時間
-$(document).on("change", "#enter_time", function () {
-  for (let index = 1; index <= 5; index++) { //時間selectの08:00から10:00までのkeyに一旦クラスをあてる
-    $('#leave_time').find('option').eq(index).prop("disabled", true)
-  }
+$(document).on(" change", "#enter_time", function () {
+  $('#fullOverlay').css('display', 'block'); //cssで画面一旦ストップ
+  $('#leave_time').html("<option value=''></option>");
+  $('#fullOverlay').css('display', 'none');//cssで画面ストップ解除
+  var enter_time = $(this).val();
+  $('#enter_time option').each(function ($key, $value) {
+    if (enter_time === $($value).val()) {
+      for (let index = $key; index < $('#enter_time option').length; index++) {
+        if ($('#enter_time option').eq(index).prop('disabled')) {
+          return false;
+        }
+        var html1 = "<option value='" + $('#enter_time option').eq(index).val() + "'>";
+        var html2 = $('#enter_time option').eq(index).text();
+        var html3 = "</option>";
+        $('#leave_time').append(html1 + html2 + html3);
+      }
+    }
+  })
+
 });
 
 
