@@ -46,12 +46,13 @@ $(document).on(" change", "#enter_time", function () {
   $('#fullOverlay').css('display', 'block'); //cssで画面一旦ストップ
   $('#leave_time').html("<option value=''></option>");
   $('#fullOverlay').css('display', 'none');//cssで画面ストップ解除
+  // 以下、入室時間以前と予約（仮押さえ）がある時間の除外開始
   var enter_time = $(this).val();
   $('#enter_time option').each(function ($key, $value) {
     if (enter_time === $($value).val()) {
       for (let index = $key; index < $('#enter_time option').length; index++) {
         if ($('#enter_time option').eq(index).prop('disabled')) {
-          return false;
+          return false; //disabledがあれば処理中止
         }
         var html1 = "<option value='" + $('#enter_time option').eq(index).val() + "'>";
         var html2 = $('#enter_time option').eq(index).text();
@@ -60,7 +61,8 @@ $(document).on(" change", "#enter_time", function () {
       }
     }
   })
-
+  // 以下、08:00~10:00を選択されたら退室時間制御開始
+  console.log();
 });
 
 
