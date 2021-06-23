@@ -403,8 +403,6 @@
       </table>
 
 
-
-
       @if (!empty($value['cost']))
       <table class="table table-bordered sale-table" style="table-layout:fixed;">
         <tbody>
