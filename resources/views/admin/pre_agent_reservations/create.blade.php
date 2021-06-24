@@ -129,11 +129,13 @@
             <p class="is-error-pre_date0" style="color: red"></p>
           </td>
           <td>
-            <select name="pre_venue0" id="pre_venue">
+            <select name="pre_venue0" id="pre_venue" class="form-control">
+              <option value=""></option>
               @foreach ($venues as $venue)
               <option value="{{$venue->id}}">{{ReservationHelper::getVenue($venue->id)}}</option>
               @endforeach
             </select>
+            <p class="is-error-pre_venue0" style="color: red"></p>
           </td>
           <td>
             <select name="pre_enter0" id="pre_enter0" class="enter_control_pre_reservation0 form-control">
@@ -189,9 +191,9 @@
 
   // select2, datepicker 初期表示用
   $(function() {
-    $('#pre_venue').select2({
-      width: '100%'
-    });
+    // $('#pre_venue').select2({
+    //   width: '100%'
+    // });
     $('#pre_datepicker').datepicker({
       dateFormat: 'yy-mm-dd',
       autoclose: true,
@@ -204,9 +206,9 @@
       var valid=$("#pre_agent_reservationsCreateForm").validate();
       valid.destroy();
       // すべてのselect2初期化
-      for (let destroy = 0; destroy < $('.date_selector tbody tr').length; destroy++) {
-        $('.date_selector tbody tr').eq(destroy).find('td').eq(1).find('select').select2("destroy");
-      }
+      // for (let destroy = 0; destroy < $('.date_selector tbody tr').length; destroy++) {
+      //   $('.date_selector tbody tr').eq(destroy).find('td').eq(1).find('select').select2("destroy");
+      // }
       var base_venue = $(this).parent().parent().find('td').eq(1).find('select').val();
       var base_date = $(this).parent().parent().find('td').eq(0).find('input').val().split('-');
       var dt = new Date(base_date);
@@ -215,7 +217,12 @@
 
 
       $(this).parent().parent().clone(true).insertAfter($(this).parent().parent());
-      $(this).parent().parent().next().find("td").eq(1).find("select option[value=" + base_venue + "]").prop('selected', true);
+      if (base_venue=="") {
+        $(this).parent().parent().next().find("td").eq(1).find("select option[value='']").prop('selected', true);
+      }else{
+        $(this).parent().parent().next().find("td").eq(1).find("select option[value=" + base_venue + "]").prop('selected', true);
+      }
+
       if (base_date=="") {
         $(this).parent().parent().next().find("td").eq(0).find('input').val('');
       }else{
@@ -245,9 +252,9 @@
           minDate: 0,
         });
         // select2付与
-        $(target).eq(index).find('td').eq(1).find('select').select2({
-          width: '100%'
-        });
+        // $(target).eq(index).find('td').eq(1).find('select').select2({
+        //   width: '100%'
+        // });
         // 時間の入力を初期化
         // 意図しない一番最後がクリアされるため一旦、コメントアウト
         //if (index == count - 1) {
@@ -255,9 +262,11 @@
         //  $(target).eq(index).find('td').eq(3).find('input, select').val('');
         //}
         $(target).eq(index).find('td').eq(0).find('p').remove();
+        $(target).eq(index).find('td').eq(1).find('p').remove();
         $(target).eq(index).find('td').eq(2).find('p').remove();
         $(target).eq(index).find('td').eq(3).find('p').remove();
         $(target).eq(index).find('td').eq(0).find('span').remove();
+        $(target).eq(index).find('td').eq(1).find('span').remove();
         $(target).eq(index).find('td').eq(2).find('span').remove();
         $(target).eq(index).find('td').eq(3).find('span').remove();
         $("input").removeClass('is-error');
@@ -265,6 +274,7 @@
         $("select").removeClass('is-error');
         $("select").attr('aria-describedby',"");
         $(target).eq(index).find('td').eq(0).append("<p class='is-error-pre_date"+index+"' style='color: red'></p>");
+        $(target).eq(index).find('td').eq(1).append("<p class='is-error-pre_venue"+index+"' style='color: red'></p>");
         $(target).eq(index).find('td').eq(2).append("<p class='is-error-pre_enter"+index+"' style='color: red'></p>");
         $(target).eq(index).find('td').eq(3).append("<p class='is-error-pre_leave"+index+"' style='color: red'></p>");
       }
@@ -306,6 +316,10 @@
           required: true,
           messages: { required: "※必須項目です" },
           });
+          $("select[name='pre_venue"+index_a+"']").rules("add", {
+          required: true,
+          messages: { required: "※必須項目です" },
+          });
           $("select[name='pre_enter"+index_a+"']").rules("add", {
           required: true,
           messages: { required: "※必須項目です" },
@@ -342,6 +356,7 @@
           minDate: 0,
         });
         $('.date_selector tbody tr').eq(index).find('td').eq(0).find('p').remove();
+        $('.date_selector tbody tr').eq(index).find('td').eq(1).find('p').remove();
         $('.date_selector tbody tr').eq(index).find('td').eq(2).find('p').remove();
         $('.date_selector tbody tr').eq(index).find('td').eq(3).find('p').remove();
         $("input").removeClass('is-error');
@@ -349,9 +364,11 @@
         $("select").removeClass('is-error');
         $("select").attr('aria-describedby',"");
         $('.date_selector tbody tr').eq(index).find('td').eq(0).find('span').remove();
+        $('.date_selector tbody tr').eq(index).find('td').eq(1).find('span').remove();
         $('.date_selector tbody tr').eq(index).find('td').eq(2).find('span').remove();
         $('.date_selector tbody tr').eq(index).find('td').eq(3).find('span').remove();
         $('.date_selector tbody tr').eq(index).find('td').eq(0).append("<p class='is-error-pre_date"+index+"' style='color: red'></p>");
+        $('.date_selector tbody tr').eq(index).find('td').eq(1).append("<p class='is-error-pre_venue"+index+"' style='color: red'></p>");
         $('.date_selector tbody tr').eq(index).find('td').eq(2).append("<p class='is-error-pre_enter"+index+"' style='color: red'></p>");
         $('.date_selector tbody tr').eq(index).find('td').eq(3).append("<p class='is-error-pre_leave"+index+"' style='color: red'></p>");
       }
@@ -390,6 +407,10 @@
         });
         for (let index_b = 0; index_b < count2; index_b++) {
           $("input[name='pre_date"+index_b+"']").rules("add", {
+          required: true,
+          messages: { required: "※必須項目です" },
+          });
+          $("select[name='pre_venue"+index_b+"']").rules("add", {
           required: true,
           messages: { required: "※必須項目です" },
           });
