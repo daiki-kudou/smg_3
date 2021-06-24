@@ -22,7 +22,6 @@ class ReservationsController extends Controller
     $oldSession = $request->session()->get('_old_input');
     dump($oldSession);
     if ($oldSession) {
-      dump('old sessionだよ！！！！！！！！！！！！！！！！！１');
       $request = (object)$oldSession;
       $venue = Venue::with(["frame_prices", "time_prices"])->find($oldSession['venue_id']);
       return view('user.reservations.create', compact('request', 'venue'));
@@ -37,6 +36,7 @@ class ReservationsController extends Controller
     dump($request->all());
     $venue = Venue::with('frame_prices')->find($request->venue_id);
     $price_result = $venue->calculate_price($request->price_system, $request->enter_time, $request->leave_time);
+
     $s_equipment = [];
     foreach ($request->all() as $key => $value) {
       if (preg_match('/equipment_breakdown/', $key)) {

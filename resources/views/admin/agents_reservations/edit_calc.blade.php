@@ -12,6 +12,7 @@
 <link href="{{ asset('/css/template.css') }}" rel="stylesheet">
 <script src="{{ asset('/js/template.js') }}"></script>
 <script src="{{ asset('/js/lettercounter.js') }}"></script>
+<script src="{{ asset('/js/holidays.js') }}"></script>
 <script src="{{ asset('/js/admin/agents_reservation/validation.js') }}"></script>
 
 
@@ -322,7 +323,7 @@
               <tr>
                 <td class="table-active">事前荷物の到着日<br>午前指定のみ</td>
                 <td>
-                  {{ Form::text('luggage_arrive', $reservation->luggage_arrive,['class'=>'form-control limited_datepicker'] ) }}
+                  {{ Form::text('luggage_arrive', date('Y-m-d',strtotime($reservation->luggage_arrive)),['class'=>'form-control holidays'] ) }}
                 </td>
               </tr>
               <tr>
@@ -923,8 +924,11 @@
 
 
   <script>
+    $(document).on('click', '.holidays', function () {
+  getHolidayCalendar($('.holidays'), $('input[name="reserve_date"]'));
+});
+
     $(function() {
-          
               $(function() {
                 // プラスボタンクリック
                 $(document).on("click", ".add", function() {

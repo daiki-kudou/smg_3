@@ -8,7 +8,6 @@
 
 <div class="content">
   <div class="container-fluid">
-
     <div class="container-field mt-3">
       <div class="float-right">
         <nav aria-label="breadcrumb">
@@ -30,6 +29,17 @@
         保存しないまま画面遷移をすると、データが反映されません。
       </p>
     </div>　
+
+    @if ($errors->any())
+    <div class="alert alert-danger">
+      <ul>
+        @foreach ($errors->all() as $error)
+        <li>{{ $error }}</li>
+        @endforeach
+      </ul>
+    </div>
+    @endif
+
 
     <!-- 詳細選択画面--------------------------------------------------　 -->
     <p class="font-weight-bold">日程ごとに、詳細を編集できます。</p>
