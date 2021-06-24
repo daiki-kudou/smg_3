@@ -25,10 +25,12 @@ use App\Mail\UserFinPreRes;
 // キャンセル
 use App\Mail\AdminPreResCxl;
 use App\Mail\UserPreResCxl;
-
 use App\Traits\SearchTrait;
-
 use App\Traits\PaginatorTrait;
+
+// バリデーションロジック
+use App\Http\Requests\Admin\PreReservations\Common\VenuePriceRequiredRequest;
+
 
 class PreReservationsController extends Controller
 {
@@ -318,8 +320,8 @@ class PreReservationsController extends Controller
    */
   public function store(Request $request)
   {
-    if ($request->judge_count == 1) { //単発仮押えの保存
 
+    if ($request->judge_count == 1) { //単発仮押えの保存
       $new_preReserve = DB::transaction(function () use ($request) { //トランザクションさせる
         $pre_reservation = PreReservation::create([
           'multiple_reserve_id' => 0, //単発はデフォで0
@@ -458,8 +460,6 @@ class PreReservationsController extends Controller
       // 戻って再度送信してもエラーになるように設定
       $request->session()->regenerate();
       return redirect()->route('admin.pre_reservations.show', $new_preReserve->id)->with('flash_message', '仮押えの登録が完了しました');
-    } else {
-      //複数仮押えの保存
     }
   }
 
