@@ -56,6 +56,7 @@ $(document).on(" change", "#enter_time", function () {
         }
         if (
           $('#enter_time option').eq(index).val() === "08:00:00" ||
+
           $('#enter_time option').eq(index).val() === "08:30:00" ||
           $('#enter_time option').eq(index).val() === "09:00:00" ||
           $('#enter_time option').eq(index).val() === "09:30:00" ||
