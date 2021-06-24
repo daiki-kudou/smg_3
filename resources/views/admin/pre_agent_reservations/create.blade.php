@@ -198,83 +198,6 @@
       minDate:0
     });
   })
-  // 入退室初期時間選択desabled設定
-  //プラスマイナスボタン
-  // $(function() {
-  //   $(document).on("click", ".add", function() {
-  //     // すべてのselect2初期化
-  //     for (let destroy = 0; destroy < $('.date_selector tbody tr').length; destroy++) {
-  //       console.log($('.date_selector tbody tr').eq(destroy).find('td').eq(1).find('select').select2("destroy"));
-  //     }
-  //     var base_date = $(this).parent().parent().find('td').eq(0).find('input').val().split('-');
-  //     var dt = new Date(base_date);
-  //     dt.setDate(dt.getDate() + 1);
-  //     var next_day=dt.getFullYear()+'-'+(dt.getMonth() + 1)+'-'+dt.getDate();
-  //     $(this).parent().parent().clone(true).insertAfter($(this).parent().parent());
-  //     if (base_date=="") {
-  //       $(this).parent().parent().next().find("td").eq(0).find('input').val('');
-  //     }else{
-  //       $(this).parent().parent().next().find("td").eq(0).find('input').val(next_day);
-  //     }
-
-  //     var count = $(this).parent().parent().parent().find('tr').length;
-  //     var target = $(this).parent().parent().parent().find('tr');
-
-  //     for (let index = 0; index < count; index++) {
-  //       // name属性
-  //       $(target).eq(index).find('td').eq(0).find('input, select').attr('name', "pre_date" + index);
-  //       $(target).eq(index).find('td').eq(1).find('input, select').attr('name', "pre_venue" + index);
-  //       $(target).eq(index).find('td').eq(2).find('input, select').attr('name', "pre_enter" + index);
-  //       $(target).eq(index).find('td').eq(3).find('input, select').attr('name', "pre_leave" + index);
-  //       // id属性
-  //       $(target).eq(index).find('td').eq(0).find('input, select').attr('id', "pre_datepicker" + index);
-  //       $(target).eq(index).find('td').eq(1).find('input, select').attr('id', "pre_venue" + index);
-  //       $(target).eq(index).find('td').eq(2).find('input, select').attr('id', "pre_enter" + index);
-  //       $(target).eq(index).find('td').eq(3).find('input, select').attr('id', "pre_leave" + index);
-  //       // dapicker付与
-  //       $('#pre_datepicker' + index).removeClass('hasDatepicker').datepicker({
-  //         dateFormat: 'yy-mm-dd',
-  //         minDate: 0,
-  //       });
-  //       // select2付与
-  //       $(target).eq(index).find('td').eq(1).find('select').select2({
-  //         width: '100%'
-  //       });
-
-  //       // if (index == count - 1) {
-  //       //   $(target).eq(index).find('td').eq(2).find('input, select').val('');
-  //       //   $(target).eq(index).find('td').eq(3).find('input, select').val('');
-  //       // }
-  //     }
-  //   })
-  //   // マイナスボタン
-  //   $(document).on("click", ".del", function() {
-  //     var master = $(this).parent().parent().parent().find('tr').length;
-  //     var target = $(this).parent().parent();
-  //     var re_target = target.parent();
-  //     if (master > 1) {
-  //       target.remove();
-  //     }
-
-  //     var count2 = $('.date_selector tbody tr').length;
-  //     console.log(count2);
-  //     for (let index = 0; index < count2; index++) {
-  //       $('.date_selector tbody tr').eq(index).find('td').eq(0).find('input, select').attr('name', "pre_date" + index);
-  //       $('.date_selector tbody tr').eq(index).find('td').eq(1).find('input, select').attr('name', "pre_venue" + index);
-  //       $('.date_selector tbody tr').eq(index).find('td').eq(2).find('input, select').attr('name', "pre_enter" + index);
-  //       $('.date_selector tbody tr').eq(index).find('td').eq(3).find('input, select').attr('name', "pre_leave" + index);
-  //       // id属性
-  //       $('.date_selector tbody tr').eq(index).find('td').eq(0).find('input, select').attr('id', "pre_datepicker" + index);
-  //       $('.date_selector tbody tr').eq(index).find('td').eq(1).find('input, select').attr('id', "pre_venue" + index);
-  //       $('.date_selector tbody tr').eq(index).find('td').eq(2).find('input, select').attr('id', "pre_enter" + index);
-  //       $('.date_selector tbody tr').eq(index).find('td').eq(3).find('input, select').attr('id', "pre_leave" + index);
-  //       $('#pre_datepicker' + index).removeClass('hasDatepicker').datepicker({
-  //         dateFormat: 'yy-mm-dd',
-  //         minDate: 0,
-  //       });
-  //     }
-  //   })
-  // })
 
   $(function() {
     $(document).on("click", ".add", function() {
@@ -288,7 +211,8 @@
       var base_date = $(this).parent().parent().find('td').eq(0).find('input').val().split('-');
       var dt = new Date(base_date);
       dt.setDate(dt.getDate() + 1);
-      var next_day=dt.getFullYear()+'-'+(dt.getMonth() + 1)+'-'+dt.getDate();
+      var next_day=dt.getFullYear()+'-'+(( '00' + (dt.getMonth() + 1) ).slice( -2 ))+'-'+dt.getDate();
+
 
       $(this).parent().parent().clone(true).insertAfter($(this).parent().parent());
       $(this).parent().parent().next().find("td").eq(1).find("select option[value=" + base_venue + "]").prop('selected', true);
