@@ -231,7 +231,7 @@
               </td>
               <td>
                 @if (!empty($multiple->pre_reservations->first()->user))
-                {{($multiple->pre_reservations->first()->unknown_user->unknown_user_company)}}
+                {{(optional($multiple->pre_reservations->first()->unknown_user)->unknown_user_company)}}
                 @endif
               </td>
               <td>

@@ -23,7 +23,7 @@
       <tr>
         <td>{{$venue_breakdown->unit_item}}</td>
         <td></td>
-        <td>{{$venue_breakdown->unit_count}}</td>
+        <td>1</td>
         <td></td>
       </tr>
       @endif

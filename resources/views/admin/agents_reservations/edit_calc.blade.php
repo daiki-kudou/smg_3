@@ -633,7 +633,7 @@
                   </td>
                   <td><input class="form-control" readonly></td>
                   <td>
-                    {{ Form::text('venue_breakdown_count0', $usage_hours."h",['class'=>'form-control', 'readonly'] ) }}
+                    {{ Form::text('venue_breakdown_count0', 1,['class'=>'form-control', 'readonly'] ) }}
                   </td>
                   <td><input class="form-control" readonly></td>
                 </tr>

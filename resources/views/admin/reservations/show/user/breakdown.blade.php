@@ -23,7 +23,7 @@
       <tr>
         <td>{{$venue_breakdown->unit_item}}</td>
         <td>{{number_format($venue_breakdown->unit_cost)}}</td>
-        <td>{{$venue_breakdown->unit_count}}</td>
+        <td>1</td>
         <td>{{number_format($venue_breakdown->unit_cost)}}</td>
       </tr>
       @endif

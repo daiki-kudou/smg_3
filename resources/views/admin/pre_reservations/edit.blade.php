@@ -772,7 +772,7 @@
                   {{ Form::text('venue_breakdown_cost'.$key, $v_break->unit_cost,['class'=>'form-control col-xs-3', 'readonly'] ) }}
                 </td>
                 <td>
-                  {{ Form::text('venue_breakdown_count'.$key, $v_break->unit_count,['class'=>'form-control col-xs-3', 'readonly'] ) }}
+                  {{ Form::text('venue_breakdown_count'.$key, 1,['class'=>'form-control col-xs-3', 'readonly'] ) }}
                 </td>
                 <td>
                   {{ Form::text('venue_breakdown_subtotal'.$key, $v_break->unit_subtotal,['class'=>'form-control col-xs-3', 'readonly'] ) }}

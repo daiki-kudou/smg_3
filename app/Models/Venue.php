@@ -293,8 +293,8 @@ class Venue extends Model implements PresentableInterface
         $min_result,
         $exted_specific_price,
         $venue_equipments_subtotal,
-        $time_diff,
-        $extend_diff
+        1,
+        1
       ];
 
       //＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊

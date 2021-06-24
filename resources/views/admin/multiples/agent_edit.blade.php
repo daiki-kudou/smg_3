@@ -1126,7 +1126,7 @@
                                 {{ Form::text('venue_breakdown_cost0_copied'.$key, $each_venue->unit_cost,['class'=>'form-control', 'readonly'] ) }}
                               </td>
                               <td>
-                                {{ Form::text('venue_breakdown_count0_copied'.$key, $each_venue->unit_count,['class'=>'form-control', 'readonly'] ) }}
+                                {{ Form::text('venue_breakdown_count0_copied'.$key, 1,['class'=>'form-control', 'readonly'] ) }}
                               </td>
                               <td>
                                 {{ Form::text('venue_breakdown_subtotal0_copied'.$key, $each_venue->unit_subtotal,['class'=>'form-control', 'readonly'] ) }}

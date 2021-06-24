@@ -227,51 +227,41 @@
       </tr>
       @endif
 
+      <pre>
+      {{var_dump(json_decode($fix->items_results)[2])}}
+    </pre>
+
       @if ($venue->getServices()->count()!=0)
       <tr>
         <th>有料サービス</th>
         <td class="spec-space">
           <ul>
             @foreach ($venue->getServices() as $s_key=>$serv)
-            <li class="form-cell2">
-              @if (empty(json_decode($fix->items_results)[2]))
-              <label>
-                {{ Form::hidden('services_breakdown'.$s_key, 0 ) }}
-                <input type="checkbox" id="" name="{{'services_breakdown'.$s_key}}" value="1" class="checkbox-input">
-                <span class="checkbox-parts">{{$serv->item}} {{$serv->price}}円<span
-                    class="annotation">(税抜)</span></span>
-              </label>
-              @else
-              @foreach (json_decode($fix->items_results)[2] as $b_ser)
-              @if ($serv->item==$b_ser[0])
-              <label>
-                {{ Form::hidden('services_breakdown'.$s_key, 0 ) }}
-                <input type="checkbox" id="" name="{{'services_breakdown'.$s_key}}" value="1" class="checkbox-input"
-                  checked>
-                <span class="checkbox-parts">{{$serv->item}} {{$serv->price}}円</span>
-              </label>
-              @break
-              @elseif($loop->last)
-              <label>
-                {{ Form::hidden('services_breakdown'.$s_key, 0 ) }}
-                <input type="checkbox" id="" name="{{'services_breakdown'.$s_key}}" value="1" class="checkbox-input">
-                <span class="checkbox-parts">{{$serv->item}} {{$serv->price}}円</span>
-              </label>
-              @endif
-              @endforeach
-              @endif
-            </li>
-            @endforeach
-
+            @foreach (json_decode($fix->items_results)[2] as $s_item_key=>$s_item_val)
+            @if ($s_item_val[0]==$serv->item)
             <li>
-              <p>工藤さん！！こちら 100000円<span class="annotation">(税抜)</span></p>
+              <p>{{$serv->item}} {{$serv->price}}円<span class="annotation">(税抜)</span></p>
               <div class="selectTime">
-                <input id="services_breakdown" class="radio-input" name="services_breakdown" type="radio">
-                <label for="services_breakdown">あり</label>
-                <input id="no_services_breakdown" class="radio-input" name="services_breakdown" type="radio">
-                <label for="no_services_breakdown">なし</label>
+                {{Form::radio('services_breakdown'.$s_key, 1, true, ['id' => 'services_breakdown_on'.$s_key, 'class' => 'radio-input'])}}
+                {{Form::label('services_breakdown_on'.$s_key,'あり')}}
+                {{Form::radio('services_breakdown'.$s_key, 0, false, ['id' => 'services_breakdown_off'.$s_key, 'class' => 'radio-input'])}}
+                {{Form::label('services_breakdown_off'.$s_key, 'なし')}}
               </div>
             </li>
+            @break
+            @elseif($loop->last)
+            <li>
+              <p>{{$serv->item}} {{$serv->price}}円<span class="annotation">(税抜)</span></p>
+              <div class="selectTime">
+                {{Form::radio('services_breakdown'.$s_key, 1, false, ['id' => 'services_breakdown_on'.$s_key, 'class' => 'radio-input'])}}
+                {{Form::label('services_breakdown_on'.$s_key,'あり')}}
+                {{Form::radio('services_breakdown'.$s_key, 0, true, ['id' => 'services_breakdown_off'.$s_key, 'class' => 'radio-input'])}}
+                {{Form::label('services_breakdown_off'.$s_key, 'なし')}}
+              </div>
+            </li>
+            @endif
+            @endforeach
+            @endforeach
           </ul>
         </td>
       </tr>
