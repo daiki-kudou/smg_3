@@ -1,6 +1,5 @@
 @extends('layouts.reservation.app')
 @section('content')
-<main>
   <!-- ログイン、会員登録 -->
   <div class="contents">
     <div class="pagetop-text">
@@ -342,5 +341,4 @@
   </section>
   <div class="top contents"><a href="#top"><img src="https://osaka-conference.com/img/pagetop.png" alt="上に戻る"></a>
   </div>
-</main>
 @endsection
