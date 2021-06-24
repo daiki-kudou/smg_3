@@ -40,7 +40,7 @@
       <option value="">選択してください</option>
       @foreach ($agents as $agent)
       <option value="{{$agent->id}}">
-        {{$agent->id}} | {{$agent->name}} | {{$agent->getName()}}
+        {{ReservationHelper::fixId($agent->id)}} | {{$agent->name}} | {{$agent->getName()}}
         |
         {{$agent->email}} | {{$agent->person_tel}} | {{$agent->person_mobile}}
       </option>
