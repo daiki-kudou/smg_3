@@ -54,7 +54,13 @@ $(document).on(" change", "#enter_time", function () {
         if ($('#enter_time option').eq(index).prop('disabled')) {
           return false; //disabledがあれば処理中止
         }
-        if ($('#enter_time option').eq(index).val() === "08:00:00" || $('#enter_time option').eq(index).val() === "08:30:00" || $('#enter_time option').eq(index).val() === "09:00:00" || $('#enter_time option').eq(index).val() === "09:30:00" || $('#enter_time option').eq(index).val() === "10:00:00") {
+        if (
+          $('#enter_time option').eq(index).val() === "08:00:00" ||
+          $('#enter_time option').eq(index).val() === "08:30:00" ||
+          $('#enter_time option').eq(index).val() === "09:00:00" ||
+          $('#enter_time option').eq(index).val() === "09:30:00" ||
+          $('#enter_time option').eq(index).val() === "10:00:00"
+        ) {
           // 08~10ならならdisabled
           var html1 = "<option value='" + $('#enter_time option').eq(index).val() + "' disabled>";
         } else {
@@ -90,19 +96,9 @@ $(document).on("change", "#datepicker2", function () {
   })
     .done(function ($result) {
       $('#fullOverlay').css('display', 'none');
-      // console.log($result);
-      // $.each($result, function ($index, $value) {
-      //   $('#enter_time, #leave_time').find('option').each(function ($key2, $value2) {
-      //     if ($value == $($value2).val()) {
-      //       $($value2).prop("disabled", true);
-      //     }
-      //   })
-      // })
-      console.log($result);
       $('#enter_time, #leave_time').html("<option value=''></option>");
       $('#fullOverlay').css('display', 'none');
       $.each($result, function ($index, $value) {
-        console.log($value);
         if ($value['active'] === 0) {
           var html1 = "<option value='" + $value['time'] + "' disabled>";
           var html2 = $value['value'];
