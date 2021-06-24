@@ -211,22 +211,16 @@
               <td>
                 @if (!empty($multiple->pre_reservations->first()->user))
                 {{ReservationHelper::getPersonName($multiple->pre_reservations->first()->user->id)}}
-                @else
-                {{-- {{ReservationHelper::getAgentPerson($multiple->pre_reservations->first()->agent->id)}} --}}
                 @endif
               </td>
               <td>
                 @if (!empty($multiple->pre_reservations->first()->user))
                 {{ReservationHelper::getPersonMobile($multiple->pre_reservations->first()->user->id)}}
-                @else
-                {{-- {{ReservationHelper::getAgentMobile($multiple->pre_reservations->first()->agent->id)}} --}}
                 @endif
               </td>
               <td>
                 @if (!empty($multiple->pre_reservations->first()->user))
                 {{ReservationHelper::getPersonTel($multiple->pre_reservations->first()->user->id)}}
-                @else
-                {{-- {{ReservationHelper::getAgentTel($multiple->pre_reservations->first()->agent->id)}} --}}
                 @endif
               </td>
               <td>

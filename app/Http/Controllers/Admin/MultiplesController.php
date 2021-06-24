@@ -31,7 +31,7 @@ class MultiplesController extends Controller
     if (count($request->all()) != 0) {
       $class = new MultipleReserve;
       $multiples = $this->MultipleSearch($class->with(
-        ["pre_reservations.unknown_user", "pre_reservations.pre_enduser", "pre_reservations.user"]
+        ["pre_reservations.unknown_user", "pre_reservations.pre_enduser", "pre_reservations.user", "pre_reservations.agent"]
       )->withCount("pre_reservations"), $request);
       $counter = count($multiples);
     } else {
