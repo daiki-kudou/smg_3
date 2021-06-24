@@ -20,7 +20,6 @@ class ReservationsController extends Controller
   public function create(Request $request)
   {
     $oldSession = $request->session()->get('_old_input');
-    dump($oldSession);
     if ($oldSession) {
       $request = (object)$oldSession;
       $venue = Venue::with(["frame_prices", "time_prices"])->find($oldSession['venue_id']);
@@ -33,7 +32,6 @@ class ReservationsController extends Controller
 
   public function check(Request $request)
   {
-    dump($request->all());
     $venue = Venue::with('frame_prices')->find($request->venue_id);
     $price_result = $venue->calculate_price($request->price_system, $request->enter_time, $request->leave_time);
 

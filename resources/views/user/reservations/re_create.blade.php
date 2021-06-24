@@ -228,7 +228,6 @@
       @endif
 
       <pre>
-      {{var_dump(json_decode($fix->items_results)[2])}}
     </pre>
 
       @if ($venue->getServices()->count()!=0)
@@ -237,6 +236,7 @@
         <td class="spec-space">
           <ul>
             @foreach ($venue->getServices() as $s_key=>$serv)
+            @if (json_decode($fix->items_results)[2])
             @foreach (json_decode($fix->items_results)[2] as $s_item_key=>$s_item_val)
             @if ($s_item_val[0]==$serv->item)
             <li>
@@ -261,6 +261,17 @@
             </li>
             @endif
             @endforeach
+            @else
+            <li>
+              <p>{{$serv->item}} {{$serv->price}}円<span class="annotation">(税抜)</span></p>
+              <div class="selectTime">
+                {{Form::radio('services_breakdown'.$s_key, 1, false, ['id' => 'services_breakdown_on'.$s_key, 'class' => 'radio-input'])}}
+                {{Form::label('services_breakdown_on'.$s_key,'あり')}}
+                {{Form::radio('services_breakdown'.$s_key, 0, true, ['id' => 'services_breakdown_off'.$s_key, 'class' => 'radio-input'])}}
+                {{Form::label('services_breakdown_off'.$s_key, 'なし')}}
+              </div>
+            </li>
+            @endif
             @endforeach
           </ul>
         </td>
