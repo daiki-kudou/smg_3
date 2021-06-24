@@ -199,3 +199,40 @@ $(function () {
     });
   });
 });
+
+
+
+// 仮押え計算後
+$(function () {
+  $("#pre_reservationCalcresult").validate({
+    rules: {
+      venue_price: { 
+        required: true 
+      },
+    },
+    messages: {
+      venue_price: { 
+        required: "※金額を入力してください" 
+    },
+    },
+    errorPlacement: function (error, element) {
+      var name = element.attr("name");
+      if (element.attr("name") === "category[]") {
+        error.appendTo($(".is-error-category"));
+      } else if (element.attr("name") === name) {
+        error.appendTo($(".is-error-" + name));
+      }
+    },
+    errorElement: "span",
+    errorClass: "is-error",
+    //送信前にLoadingを表示
+    submitHandler: function (form) {
+      $(".spin_btn").removeClass("hide");
+      $(".submit_btn").addClass("hide");
+      form.submit();
+    },
+  });
+  $("input").on("blur", function () {
+    $(this).valid();
+  });
+});
