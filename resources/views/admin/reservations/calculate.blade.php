@@ -699,7 +699,7 @@
                   {{ Form::text('venue_breakdown_cost0', $priceResult['price_details'][0]-$priceResult['price_details'][1],['class'=>'form-control', 'readonly'] ) }}
                 </td>
                 <td>
-                  {{ Form::text('venue_breakdown_count0', $priceResult['price_details'][3]-$priceResult['price_details'][4],['class'=>'form-control', 'readonly'] ) }}
+                  {{ Form::text('venue_breakdown_count0', 1,['class'=>'form-control', 'readonly'] ) }}
                 </td>
                 <td>
                   {{ Form::text('venue_breakdown_subtotal0', $priceResult['price_details'][0]-$priceResult['price_details'][1],['class'=>'form-control', 'readonly'] ) }}
@@ -711,7 +711,7 @@
                   {{ Form::text('venue_breakdown_cost1', $priceResult['price_details'][1],['class'=>'form-control', 'readonly'] ) }}
                 </td>
                 <td>
-                  {{ Form::text('venue_breakdown_count1', $priceResult['price_details'][4],['class'=>'form-control', 'readonly'] ) }}
+                  {{ Form::text('venue_breakdown_count1', 1,['class'=>'form-control', 'readonly'] ) }}
                 </td>
                 <td>
                   {{ Form::text('venue_breakdown_subtotal1', $priceResult['price_details'][1],['class'=>'form-control', 'readonly'] ) }}
@@ -724,7 +724,7 @@
                   {{ Form::text('venue_breakdown_cost0', $priceResult['price_details'][0],['class'=>'form-control', 'readonly'] ) }}
                 </td>
                 <td>
-                  {{ Form::text('venue_breakdown_count0', $priceResult['price_details'][3],['class'=>'form-control', 'readonly'] ) }}
+                  {{ Form::text('venue_breakdown_count0', 1,['class'=>'form-control', 'readonly'] ) }}
                 </td>
                 <td>
                   {{ Form::text('venue_breakdown_subtotal0', $priceResult['price_details'][0],['class'=>'form-control', 'readonly'] ) }}
@@ -780,7 +780,7 @@
                   {{ Form::text('venue_breakdown_cost0', 0,['class'=>'form-control'] ) }}
                 </td>
                 <td>
-                  {{ Form::text('venue_breakdown_count0', 0,['class'=>'form-control'] ) }}
+                  {{ Form::text('venue_breakdown_count0', 1,['class'=>'form-control'] ) }}
                 </td>
                 <td>
                   {{ Form::text('venue_breakdown_subtotal0', 0,['class'=>'form-control'] ) }}

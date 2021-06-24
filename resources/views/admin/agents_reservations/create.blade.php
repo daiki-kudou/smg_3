@@ -32,7 +32,7 @@
   }
 
   .hide {
-    display: none;
+    display: none !important;
   }
 </style>
 
@@ -98,11 +98,11 @@
                   <small>※料金体系を選択してください</small>
                 </div>
                 <div class="price_radio_selector">
-                  <div class="d-flex justfy-content-start align-items-center">
+                  <div class="d-flex justfy-content-start align-items-center" id="price_system1">
                     {{ Form::radio('price_system', 1, isset($request->price_system)?$request->price_system==1?true:false:'', ['class'=>'mr-2', 'id'=>'price_system_radio1']) }}
                     {{Form::label('price_system_radio1','通常（枠貸）')}}
                   </div>
-                  <div class="d-flex justfy-content-start align-items-center">
+                  <div class="d-flex justfy-content-start align-items-center" id="price_system2">
                     {{ Form::radio('price_system', 2, isset($request->price_system)?$request->price_system==2?true:false:'', ['class'=>'mr-2','id'=>'price_system_radio2']) }}
                     {{Form::label('price_system_radio2','アクセア（時間貸）')}}
                   </div>

@@ -250,6 +250,7 @@ $(function () {
       },
     })
       .done(function ($prices) {
+        console.log($prices);
         // $('#fullOverlay').css('display', 'none');
         $('#price_system_radio1').prop('checked', false).prop('disabled', false); //初期化
         $('#price_system1').removeClass("hide");
@@ -258,14 +259,17 @@ $(function () {
         if ($prices[0].length > 0 && $prices[1].length > 0) { //配列の空チェック
           //どちらも配列ある
           $('#price_system_radio1').prop('checked', true);
+          console.log("どちらもある");
         } else if ($prices[0].length > 0 && $prices[1].length == 0) {
           //時間枠がある・アクセアがない
           $('#price_system_radio1').prop('checked', true);
           $('#price_system2').addClass("hide");
+          console.log("時間枠がある・アクセアがない");
         } else if ($prices[0].length == 0 && $prices[1].length > 0) {
           //時間枠がない・アクセアがある
           $('#price_system_radio2').prop('checked', true);
           $('#price_system1').addClass("hide");
+          console.log("時間枠がない・アクセアがある");
         } else {
           // どちらも配列がない
           $('#price_system1').addClass("hide");
