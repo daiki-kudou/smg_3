@@ -15,7 +15,6 @@ class FakeTestController extends Controller
   {
     // 丸岡さんここです
     // スプレットシートの201行目から
-
   }
 
   public function calc($venueId, $priceSystem, $enter, $leave, $expectValue)
