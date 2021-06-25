@@ -53,26 +53,37 @@ $(document).on(" change", "#enter_time", function () {
       for (let index = $key; index < $('#enter_time option').length; index++) {
         if ($('#enter_time option').eq(index).prop('disabled')) {
           return false; //disabledがあれば処理中止
-        }
-        if (
-          $('#enter_time option').eq(index).val() === "08:00:00" ||
+        };
 
-          $('#enter_time option').eq(index).val() === "08:30:00" ||
-          $('#enter_time option').eq(index).val() === "09:00:00" ||
-          $('#enter_time option').eq(index).val() === "09:30:00" ||
-          $('#enter_time option').eq(index).val() === "10:00:00"
-        ) {
-          // 08~10ならならdisabled
-          var html1 = "<option value='" + $('#enter_time option').eq(index).val() + "' disabled>";
+        if ($('#enter_time option').eq(index).val() === "08:00:00" || $('#enter_time option').eq(index).val() === "08:30:00" || $('#enter_time option').eq(index).val() === "09:00:00" || $('#enter_time option').eq(index).val() === "09:30:00" || $('#enter_time option').eq(index).val() === "10:00:00") {
+          var html1 = "<option value='" + $('#enter_time option').eq(index).val() + "' disabled>";  // 08~10ならならdisabled
+        } else if ($('#enter_time option').eq(index).val() == enter_time) {
+          var html1 = "<option value='" + $('#enter_time option').eq(index).val() + "' disabled>";  // 08~10ならならdisabled
         } else {
           var html1 = "<option value='" + $('#enter_time option').eq(index).val() + "'>";
         }
+
         var html2 = $('#enter_time option').eq(index).text();
         var html3 = "</option>";
         $('#leave_time').append(html1 + html2 + html3);
       }
     }
   })
+
+  if (enter_time == "12:00:00" || enter_time == "12:30:00") {
+    $('#leave_time option').each(function ($key, $value) {
+      if ($($value).val() == '12:00:00' || $($value).val() == '12:30:00' || $($value).val() == '13:00:00') {
+        $('#leave_time option').eq($key).prop('disabled', true);
+      }
+    });
+  } else if (enter_time == "17:00:00" || enter_time == "17:30:00") {
+    $('#leave_time option').each(function ($key, $value) {
+      if ($($value).val() == '17:00:00' || $($value).val() == '17:30:00' || $($value).val() == '18:00:00') {
+        $('#leave_time option').eq($key).prop('disabled', true);
+      }
+    });
+  }
+
 });
 
 
