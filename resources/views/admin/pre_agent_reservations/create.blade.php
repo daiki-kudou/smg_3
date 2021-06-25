@@ -48,8 +48,6 @@
     </select>
     <p class="is-error-agent_id" style="color: red"></p>
   </div>
-
-
   <div class="unknown_user mt-3">
     <table class="table table-bordered" style="table-layout: fixed;">
       <thead>
