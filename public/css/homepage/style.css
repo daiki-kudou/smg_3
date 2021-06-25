@@ -735,4 +735,10 @@ header div.contents {
     .sum-list li {
         /* display: block; */
     }
+
+    .contents.news {
+        margin-top: 175px;
+    }
+
+    
 }

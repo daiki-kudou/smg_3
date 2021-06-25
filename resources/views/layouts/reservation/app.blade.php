@@ -220,7 +220,12 @@
       </ul>
     </header>
 
-
+    <section class="contents news pc"><dl class="information contents">
+      <dt>重要なお知らせ</dt><dd><a href="https://osaka-conference.com/corona/">新型コロナウィルスに対する取り組みについて</a></dd></dl>
+    </section>
+    <section class="contents news sp"><dl class="information indexNews">
+      <dt>重要なお知らせ</dt><dd><a href="https://osaka-conference.com/corona/">新型コロナウィルスに対する取り組みについて</a></dd></dl>
+    </section>
 
     <!------パンクズ-------->
     <nav class="contents">
