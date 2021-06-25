@@ -664,7 +664,7 @@
   {{Form::close()}}
 
 
-  {{ Form::open(['url' => 'admin/pre_reservations', 'method'=>'POST', 'id'=>'']) }}
+  {{ Form::open(['url' => 'admin/pre_reservations', 'method'=>'POST', 'id'=>'pre_reservationCalcresult']) }}
   @csrf
 
   {{-- 以下、計算結果 --}}
@@ -794,9 +794,10 @@
               <tbody class="venue_result">
                 <tr>
                   <td colspan="3"></td>
-                  <td colspan="1">
+                  <td colspan="2">
                     <p class="text-left">合計</p>
                     {{ Form::text('venue_price', '',['class'=>'form-control col-xs-3', 'readonly'] ) }}
+                    <p class="is-error-venue_price" style="color: red"></p>
                   </td>
                 </tr>
               </tbody>
@@ -1138,6 +1139,8 @@
       autoclose: true,
     });
   })
+
+
 </script>
 
 @endsection

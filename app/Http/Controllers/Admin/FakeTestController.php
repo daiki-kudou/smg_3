@@ -13,9 +13,7 @@ class FakeTestController extends Controller
 {
   public function index()
   {
-    // $test = new CalculateService(1, "12:00:00", "22:00:00");
-    // dump($test->calc());
-
+    //なんかコンフリクトおこってたので、全部削除しておきました
   }
 
   public function calc($venueId, $priceSystem, $enter, $leave, $expectValue)
