@@ -608,17 +608,13 @@ header div.contents {
     } */
 
     .cart_area {
-        top: 190px;
+        top: 120px;
         right: 10px;
     }
 
     .wrapper {
         position: relative;
         overflow: inherit;
-    }
-
-    .page-title {
-        margin-top: 240px;
     }
 
     .page-text {
