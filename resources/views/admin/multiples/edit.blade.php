@@ -591,7 +591,6 @@
 
   {{-- jsで仮押えの件数判別のためのhidden --}}
   {{ Form::hidden('', $multiple->pre_reservations->where('venue_id',$venue->id)->count(),['id'=>'counts_reserve']) }}
-
   {{-- 以下、pre_reservationの数分　ループ --}}
   @foreach ($multiple->pre_reservations->where('venue_id',$venue->id) as $key=>$pre_reservation)
   {{ Form::open(['url' => 'admin/multiples/'.$multiple->id."/edit/".$venue->id.'/calculate/'.$pre_reservation->id.'/specific_update', 'method'=>'POST', 'id'=>'multipleSpecificUpdateForm' .$key]) }}

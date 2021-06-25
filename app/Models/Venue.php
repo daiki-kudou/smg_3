@@ -417,18 +417,13 @@ class Venue extends Model implements PresentableInterface
       return  '13:00:00';
     } elseif ($start_time == '08:00:00' || $start_time == '08:30:00' || $start_time == '09:00:00' || $start_time == '09:30:00') {
       return '10:00:00';
-    } elseif ($start_time >= '10:00:00' && $start_time <= '19:00:00') {
+    } elseif ($start_time >= '10:00:00') {
       return $start_time;
     }
   }
 
   public function generateFinishTime($finish_time)
   {
-    // if ($finish_time == '22:30:00' || $finish_time == '23:00:00') {
-    //   return '22:00:00';
-    // } elseif ($finish_time <= '22:00:00') {
-    //   return $finish_time;
-    // }
     if ($finish_time == '21:30:00' || $finish_time == '22:00:00' || $finish_time == '22:30:00' || $finish_time == '23:00:00') {
       return '21:00:00';
     } elseif ($finish_time <= '21:00:00') {
