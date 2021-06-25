@@ -424,11 +424,6 @@ class Venue extends Model implements PresentableInterface
 
   public function generateFinishTime($finish_time)
   {
-    // if ($finish_time == '22:30:00' || $finish_time == '23:00:00') {
-    //   return '22:00:00';
-    // } elseif ($finish_time <= '22:00:00') {
-    //   return $finish_time;
-    // }
     if ($finish_time == '21:30:00' || $finish_time == '22:00:00' || $finish_time == '22:30:00' || $finish_time == '23:00:00') {
       return '21:00:00';
     } elseif ($finish_time <= '21:00:00') {
