@@ -191,11 +191,14 @@ class Venue extends Model implements PresentableInterface
 | 会場の料金計算
 |--------------------------------------------------------------------------|
 */
-  public function calculate_price($status_id, $start_time, $finish_time)
+  public function calculate_price($status_id, $start_time, $finish_time, $reserve_weekday = 1)
   {
     if ($status_id == 1) {
       // 時間外を除外
-      $this->rejectTime($start_time, $finish_time);
+      $reject = $this->rejectTime($start_time, $finish_time, $reserve_weekday);
+      if ($reject) {
+        return 0;
+      }
 
       // 開始時間
       $generate_start_time = $this->generateStartTime($start_time);
@@ -270,12 +273,19 @@ class Venue extends Model implements PresentableInterface
 
       // // 23時例外：22時から23時を選択すると時間に応じて延長料金適応
       //17時以降は無条件で夜間料金適応
-      if ($finish_time == '23:00:00' && $start_time < '17:00:00') {
+      // if (
+      //   $finish_time == '23:00:00' && $start_time < '17:00:00'
+      // ) {
+      //   $min_result = $min_result + ($price_arrays[0]->extend) * 1;
+      //   $exted_specific_price = $exted_specific_price + ($price_arrays[0]->extend) * 1;
+      // } elseif ($finish_time == '22:30:00' && $start_time < '17:00:00') {
+      //   $min_result = $min_result + ($price_arrays[0]->extend) * 0.5;
+      //   $exted_specific_price = $exted_specific_price + ($price_arrays[0]->extend) * 0.5;
+      // }
+      if ($start_time == '17:00:00') {
         $min_result = $min_result + ($price_arrays[0]->extend) * 1;
-        $exted_specific_price = $exted_specific_price + ($price_arrays[0]->extend) * 1;
-      } elseif ($finish_time == '22:30:00' && $start_time < '17:00:00') {
+      } elseif ($start_time == '17:30:00') {
         $min_result = $min_result + ($price_arrays[0]->extend) * 0.5;
-        $exted_specific_price = $exted_specific_price + ($price_arrays[0]->extend) * 0.5;
       }
 
       // 選択した時間取得
@@ -384,10 +394,18 @@ class Venue extends Model implements PresentableInterface
   }
 
 
-  public function rejectTime($start_time, $finish_time)
+  public function rejectTime($start_time, $finish_time, $reserve_weekday)
   {
-    if ($start_time < '08:00:00' || $finish_time > '23:00:00') {
-      return 0;
+    $week_day = $this['dates']->where('week_day', $reserve_weekday)->first();
+
+    if ($start_time >= "08:00:00" && $finish_time <= "10:00:00") {
+      return TRUE;
+    } elseif ($start_time >= "12:00:00" && $finish_time <= "13:00:00") {
+      return TRUE;
+    } else if ($start_time >= "17:00:00" && $finish_time <= "18:00:00") {
+      return TRUE;
+    } else if ($start_time < $week_day->start || $finish_time > $week_day->finish) {
+      return TRUE;
     }
   }
 
@@ -406,9 +424,14 @@ class Venue extends Model implements PresentableInterface
 
   public function generateFinishTime($finish_time)
   {
-    if ($finish_time == '22:30:00' || $finish_time == '23:00:00') {
-      return '22:00:00';
-    } elseif ($finish_time <= '22:00:00') {
+    // if ($finish_time == '22:30:00' || $finish_time == '23:00:00') {
+    //   return '22:00:00';
+    // } elseif ($finish_time <= '22:00:00') {
+    //   return $finish_time;
+    // }
+    if ($finish_time == '21:30:00' || $finish_time == '22:00:00' || $finish_time == '22:30:00' || $finish_time == '23:00:00') {
+      return '21:00:00';
+    } elseif ($finish_time <= '21:00:00') {
       return $finish_time;
     }
   }
