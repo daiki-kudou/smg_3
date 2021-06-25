@@ -112,6 +112,7 @@ $(function () {
         others_percent_discount: { number: true },
         pay_person: { hankaku: true },
         payment: { number: true },
+        venue_price: { required: true },
       },
       messages: {
         reserve_date: { required: "※必須項目です" },
@@ -151,6 +152,7 @@ $(function () {
         others_percent_discount: { number: "※半角数字を入力してください" },
         pay_person: { hankaku: "※半角ｶﾀｶﾅを入力してください" },
         payment: { number: "※半角数字を入力してください" },
+        venue_price: { required: "※料金を入力してください" },
       },
       errorPlacement: function (error, element) {
         var name = element.attr("name");
