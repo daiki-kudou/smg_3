@@ -13,7 +13,9 @@ class FakeTestController extends Controller
 {
   public function index()
   {
-    $this->calc(1, 1, '00:00:00', '0:30:00', 0);
+    // 丸岡さんここです
+    // スプレットシートの201行目から
+
   }
 
   public function calc($venueId, $priceSystem, $enter, $leave, $expectValue)
