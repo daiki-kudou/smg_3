@@ -20,7 +20,7 @@
   <hr>
 </div>
 
-{{ Form::open(['url' => 'admin/pre_reservations/'.$request->id.'/re_calculate', 'method'=>'POST', 'id'=>'pre_reservationSingleRecalculateForm']) }}
+{{ Form::open(['url' => 'admin/pre_reservations/'.$request->id.'/re_calculate', 'method'=>'POST','id'=>'pre_reservationSingleRecalculateForm']) }}
 @csrf
 <section class="mt-5">
   <div class="selected_user">
@@ -693,7 +693,7 @@
 
 
 
-{{ Form::open(['url' => 'admin/pre_reservations/'.$request->id.'/edit_update', 'method'=>'PUT']) }}
+{{ Form::open(['url' => 'admin/pre_reservations/'.$request->id.'/edit_update', 'method'=>'PUT','id'=>'pre_reservationRecalculateResult']) }}
 @csrf
 {{-- 以下、計算結果 --}}
 <div class="container-fluid">
@@ -816,10 +816,11 @@
             </tbody>
             <tbody class="venue_result">
               <tr>
-                <td colspan="3"></td>
+                <td colspan="4"></td>
                 <td colspan="1">
                   <p class="text-left">合計</p>
                   {{ Form::text('venue_price', '',['class'=>'form-control col-xs-3', 'readonly'] ) }}
+                <p class="is-error-venue_price" style="color: red"></p>
                 </td>
               </tr>
             </tbody>

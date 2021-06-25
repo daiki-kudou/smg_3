@@ -614,7 +614,7 @@
 
 
 
-{{ Form::open(['url' => 'admin/reservations/session_for_edit_check', 'method'=>'POST', 'id'=>'']) }}
+{{ Form::open(['url' => 'admin/reservations/session_for_edit_check', 'method'=>'POST', 'id'=>'reservations_edit_result']) }}
 @csrf
 <section class="mt-5 pt-5">
   <div class="bill">
@@ -770,10 +770,11 @@
             </tbody>
             <tbody class="venue_result">
               <tr>
-                <td colspan="3"></td>
+                <td colspan="4"></td>
                 <td colspan="1">
                   <p class="text-left">合計</p>
                   {{ Form::text('venue_price', '',['class'=>'form-control col-xs-3', 'readonly'] ) }}
+              <p class="is-error-venue_price" style="color: red"></p>
                 </td>
               </tr>
             </tbody>
