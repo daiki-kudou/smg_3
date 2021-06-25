@@ -417,7 +417,7 @@ class Venue extends Model implements PresentableInterface
       return  '13:00:00';
     } elseif ($start_time == '08:00:00' || $start_time == '08:30:00' || $start_time == '09:00:00' || $start_time == '09:30:00') {
       return '10:00:00';
-    } elseif ($start_time >= '10:00:00' && $start_time <= '19:00:00') {
+    } elseif ($start_time >= '10:00:00') {
       return $start_time;
     }
   }
