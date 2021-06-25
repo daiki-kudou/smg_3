@@ -609,11 +609,6 @@
 {{Form::close()}}
 
 
-
-
-
-
-
 {{ Form::open(['url' => 'admin/reservations/session_for_edit_check', 'method'=>'POST', 'id'=>'reservations_edit_result']) }}
 @csrf
 <section class="mt-5 pt-5">
