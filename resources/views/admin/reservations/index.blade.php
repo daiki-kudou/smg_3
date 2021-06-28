@@ -123,13 +123,6 @@
             <td class="text-right">
               <select class="form-control select2" style="width: 100%;" name="agent">
                 <option value=""></option>
-                {{-- @foreach ($agents->chunk(1000) as $agent_e)
-                @foreach ($agent_e as $agent)
-                <option value="{{$agent->id}}" {{$agent->id==$request->agent?"selected":""}}>
-                {{ReservationHelper::getAgentCompanyName($agent->id)}}
-                </option>
-                @endforeach
-                @endforeach --}}
                 @foreach ($agents as $agent)
                 <option value="{{$agent['id']}}" {{$agent['id']==$request->agent?"selected":""}}>
                   {{ReservationHelper::getAgentCompanyName($agent['id'])}}

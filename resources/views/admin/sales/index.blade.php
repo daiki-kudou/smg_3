@@ -29,7 +29,7 @@
 
 
 <!-- 検索--------------------------------------- -->
-{{ Form::open(['url' => 'admin/sales', 'method'=>'GET']) }}
+{{ Form::open(['url' => 'admin/sales', 'method'=>'GET','id'=>'sales_search']) }}
 @csrf
 <div class="search-wrap">
   <table class="table table-bordered">
@@ -202,9 +202,23 @@
   <p class="text-right">※フリーワード検索は本画面表記の項目のみ対象となります</p>
   <div class="btn_box d-flex justify-content-center">
     <a href="{{url('admin/sales')}}" class="btn reset_btn">リセット</a>
-    {{Form::submit('検索',['class'=>'btn search_btn'])}}
+    {{Form::submit('検索',['class'=>'btn search_btn','id'=>'m_submit'])}}
   </div>
 </div>
+{{-- ソート用hidden --}}
+{{Form::hidden("sort_multiple_reserve_id", $request->sort_multiple_reserve_id?($request->sort_multiple_reserve_id==1?2:1):1)}}
+{{Form::hidden("sort_id", $request->sort_id?($request->sort_id==1?2:1):1)}}
+{{Form::hidden("sort_reserve_date", $request->sort_reserve_date?($request->sort_reserve_date==1?2:1):1)}}
+{{Form::hidden("sort_venue", $request->sort_venue?($request->sort_venue==1?2:1):1)}}
+{{Form::hidden("sort_user_id", $request->sort_user_id?($request->sort_user_id==1?2:1):1)}}
+{{Form::hidden("sort_user_company", $request->sort_user_company?($request->sort_user_company==1?2:1):1)}}
+{{Form::hidden("sort_user_name", $request->sort_user_name?($request->sort_user_name==1?2:1):1)}}
+{{Form::hidden("sort_agent", $request->sort_agent?($request->sort_agent==1?2:1):1)}}
+{{Form::hidden("sort_enduser", $request->sort_enduser?($request->sort_enduser==1?2:1):1)}}
+{{Form::hidden("sort_user_attr", $request->sort_user_attr?($request->sort_user_attr==1?2:1):1)}}
+{{Form::hidden("sort_alliance", $request->sort_alliance?($request->sort_alliance==1?2:1):1)}}
+{{-- ソート用hidden --}}
+
 {{Form::close()}}
 
 
@@ -225,15 +239,13 @@
   </dl>
 
 
-  
-    {{ Form::open(['url' => 'admin/csv', 'method'=>'post']) }}
-    @csrf
-    {{Form::hidden('csv_arrays',json_encode($for_csv))}}
+  {{ Form::open(['url' => 'admin/csv', 'method'=>'post']) }}
+  @csrf
+  {{Form::hidden('csv_arrays',json_encode($for_csv))}}
+  <p class="ml-1 text-right">{{Form::submit('表示結果ダウンロード(CSV)',['class'=>'btn more_btn4_lg'])}}</p>
+  {{Form::close()}}
 
-    <p class="ml-1 text-right">{{Form::submit('表示結果ダウンロード(CSV)',['class'=>'btn more_btn4_lg'])}}</p>
-    {{Form::close()}}
 
-  
 </div>
 <div class="mt-3">
   <p class="text-right font-weight-bold">
@@ -248,15 +260,16 @@
   <table class="table table-bordered table-scroll">
     <thead>
       <tr class="table_row">
-        <th>予約一括ID</th>
-        <th>予約ID</th>
-        <th>利用日</th>
-        <th>利用会場</th>
-        <th>顧客ID</th>
-        <th>会社・団体名</th>
-        <th>担当者氏名</th>
-        <th>仲介会社</th>
-        <th>エンドユーザー</th>
+        <th id="sort_multiple_reserve_id">予約一括ID
+          {!!ReservationHelper::sortIcon($request->sort_multiple_reserve_id)!!}</th>
+        <th id="sort_id">予約ID {!!ReservationHelper::sortIcon($request->sort_id)!!}</th>
+        <th id="sort_reserve_date">利用日 {!!ReservationHelper::sortIcon($request->sort_reserve_date)!!}</th>
+        <th id="sort_venue">利用会場 {!!ReservationHelper::sortIcon($request->sort_venue)!!}</th>
+        <th id="sort_user_id">顧客ID {!!ReservationHelper::sortIcon($request->sort_user_id)!!}</th>
+        <th id="sort_user_company">会社名団体名 {!!ReservationHelper::sortIcon($request->sort_user_company)!!}</th>
+        <th id="sort_user_name">担当者氏名 {!!ReservationHelper::sortIcon($request->sort_user_name)!!}</th>
+        <th id="sort_agent">仲介会社 {!!ReservationHelper::sortIcon($request->sort_agent)!!}</th>
+        <th id="sort_enduser">エンドユーザー {!!ReservationHelper::sortIcon($request->sort_enduser)!!}</th>
         <th>総額</th>
         <th>売上</th>
         <th>売上原価</th>
@@ -267,9 +280,10 @@
         <th>入金状況</th>
         <th class="btn-cell">予約詳細</th>
         <th>振込名</th>
-        <th>顧客属性</th>
+        <th id="sort_user_attr">顧客属性 {!!ReservationHelper::sortIcon($request->sort_user_attr)!!}</th>
         <th>支払期日</th>
-        <th>運営</th>
+        <th id="sort_alliance">運営 {!!ReservationHelper::sortIcon($request->sort_alliance)!!}</th>
+
       </tr>
     </thead>
     @foreach ($reservations as $reservation)
@@ -288,7 +302,8 @@
             {{ReservationHelper::getVenue($reservation->venue_id)}}</td>
           <td rowspan="{{($reservation->billCount()*2)+$reservation->cxlCount()+2}}">
             {{!empty($reservation->user_id)?ReservationHelper::IdFormat($reservation->user_id):""}}</td>
-          <td rowspan="{{($reservation->billCount()*2)+$reservation->cxlCount()+2}}" class="{{ClassHelper::addNotMemberClass($reservation)}}">
+          <td rowspan="{{($reservation->billCount()*2)+$reservation->cxlCount()+2}}"
+            class="{{ClassHelper::addNotMemberClass($reservation)}}">
             {{!empty($reservation->user_id)?ReservationHelper::getCompany($reservation->user_id):""}}
           </td>
           @if ($reservation->user_id>0)
@@ -454,10 +469,31 @@
 
 
 {{-- {{ $reservations->links() }} --}}
-{{$reservations->appends(request()->input())->render()}}
+{{-- {{$reservations->appends(request()->input())->render()}} --}}
+{{$reservations->appends(request()->input())->links()}}
+
 
 
 <script>
+  $(document).on("click", ".table-scroll th", function() {
+    var click_th_id=$(this).attr("id");
+    $('input[name^="sort_"]').each(function(key, item){
+      if ($(item).attr("name")!=click_th_id) {
+        $(item).val("");
+      }
+    })
+    $("#sales_search").submit();
+    }) 
+
+    $(function() {
+      $("#m_submit").on("click",function(){
+        $('input[name^="sort_"]').each(function(key, item){
+        $(item).val("");
+        })
+      })
+    })
+
+
   $(function() {
     function ActiveDateRangePicker($target) {
       $("input[name='" + $target + "']").daterangepicker({
