@@ -29,7 +29,11 @@ class ReservationsController extends Controller
       $venue = Venue::with(["frame_prices", "time_prices"])->find($request->venue_id);
       // SMGから依頼があれば、以下で対応利用時間3時間以下は音響ハイグレードさせない
       // $diffMinutes = (Carbon::parse($request->enter_time)->diffInMinutes(Carbon::parse($request->leave_time)));
-      return view('user.reservations.create', compact('request', 'venue', 'diffMinutes'));
+      return view('user.reservations.create', compact(
+        'request',
+        'venue',
+        // 'diffMinutes'
+      ));
     }
   }
 
