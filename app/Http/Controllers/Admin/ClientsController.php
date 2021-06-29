@@ -37,7 +37,7 @@ class ClientsController extends Controller
     // ソートのリクエストがあれば
     $querys = $this->customSearchAndSort($querys, $request);
     // 最後のページャー
-    $querys = $this->customPaginate($querys, 15, $request);
+    $querys = $this->customPaginate($querys, 30, $request);
 
     return view('admin.clients.index', compact('querys', 'request'));
   }
