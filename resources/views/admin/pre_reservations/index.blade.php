@@ -163,6 +163,8 @@
         {{Form::hidden("sort_agent", $request->sort_agent?($request->sort_agent==1?2:1):1)}}
         {{Form::hidden("sort_enduser", $request->sort_enduser?($request->sort_enduser==1?2:1):1)}}
         {{-- ソート用hidden --}}
+        {{-- 超過用hidden --}}
+        {{Form::hidden("time_over", $request->time_over)}}
 
         {{Form::submit('検索', ['class'=>'btn search_btn', 'id'=>''])}}
       </div>
@@ -182,10 +184,8 @@
       <li>
         <div class="d-flex">
           {{-- 仮押さえ超過ボタン --}}
-          {{Form::open(['url' => 'admin/pre_reservations', 'method' => 'GET', 'id'=>''])}}
-          @csrf
-          {{ Form::submit('仮押え期間超過', ['class' => 'btn more_btn bg-red','name'=>'time_over']) }}
-          {{ Form::close() }}
+
+          <button id="time_over" class="btn more_btn {{$request->time_over?"bg-red":""}}">仮押え期間超過</button>
           <p class="ml-3 font-weight-bold">
             @if ($counter!=0)
             <span class="count-color">{{$counter}}</span>件
@@ -287,6 +287,18 @@
 
 
 <script>
+  $(document).on("click", "#time_over", function() {
+    if ($('input[name="time_over"]').val()==0) {
+      $('input[name="time_over"]').val(1);
+    }else{
+      $('input[name="time_over"]').val(0);
+    }
+    $('input[name^="sort_"]').each(function(key, item){
+        $(item).val("");
+        });
+    $('#preserve_search').submit();
+  })
+
   $(document).on("click", ".table-scroll th", function() {
     var click_th_id=$(this).attr("id");
     var index = $('.table-scroll th').index(this);

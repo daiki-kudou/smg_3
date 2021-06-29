@@ -51,7 +51,7 @@ $factory->define(PreReservation::class, function (Faker $faker) {
     'venue_id' => $venues[array_rand($venues->all(), 1)],
     'user_id' => $randUser,
     'agent_id' => $randAgent,
-    'reserve_date' => $faker->dateTimeThisYear,
+    'reserve_date' => $faker->dateTimeBetween($startDate = '-7 day', $endDate = '+15 day'),
     'price_system' => rand(1, 2),
     'enter_time' => $enter[array_rand($enter, 1)],
     'leave_time' => $leave[array_rand($leave, 1)],
