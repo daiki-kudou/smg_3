@@ -1,5 +1,5 @@
 // 会場選択トリガー。該当会場の入退室時間制御
-$(document).on("change", "#venue_id", function () {
+$(document).on("change ", "#venue_id", function () {
   var date = $('input[name="date"]').val();
   var venue_id = $(this).val();
   $('#enter_time,#leave_time').find('option').each(function ($key, $value) {
@@ -42,7 +42,7 @@ $(document).on("change", "#venue_id", function () {
 });
 
 // 入室時間トリガー、08:00~10:00は最低利用時間3時間
-$(document).on(" change", "#enter_time", function () {
+$(document).on("change", "#enter_time", function () {
   $('#fullOverlay').css('display', 'block'); //cssで画面一旦ストップ
   $('#leave_time').html("<option value=''></option>");
   $('#fullOverlay').css('display', 'none');//cssで画面ストップ解除
@@ -84,6 +84,24 @@ $(document).on(" change", "#enter_time", function () {
     });
   }
 
+  var venue_id = $('#venue_id').val();
+  ajaxCheckPriceSystem(venue_id).done(function ($prices) {
+    console.log('成功', $prices);
+    console.log('枠', $prices[0].length);
+    console.log('時間', $prices[1].length);
+    if ($prices[0].length === 0 && $prices[1].length > 0) {
+      $('#leave_time option').each(function ($key, $value) {
+        if (enter_time === $($value).val()) {
+          for (let index = $key; index <= ($key + 5); index++) {
+            $('#leave_time option').eq(index).prop('disabled', true);
+          }
+        }
+      })
+    }
+  })
+    .fail(function ($prices) {
+      console.log('失敗', $prices);
+    });
 });
 
 
@@ -130,3 +148,17 @@ $(document).on("change", "#datepicker2", function () {
       console.log($result);
     });
 });
+
+function ajaxCheckPriceSystem($venue_id) {
+  return $.ajax({
+    headers: {
+      'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+    },
+    url: '/admin/reservations/getpricesystem',
+    type: 'POST',
+    data: { 'venue_id': $venue_id },
+    dataType: 'json',
+    beforeSend: function () {
+    },
+  })
+};
