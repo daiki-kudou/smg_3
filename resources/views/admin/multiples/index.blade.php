@@ -140,6 +140,9 @@
         {{Form::hidden("sort_enduser", $request->sort_enduser?($request->sort_enduser==1?2:1):1)}}
         {{Form::hidden("page", $request->page??"")}}
         {{-- ソート用hidden --}}
+        {{-- 超過用hidden --}}
+        {{Form::hidden("time_over", $request->time_over)}}
+
 
         {{Form::submit('検索', ['class'=>'btn search_btn', 'id'=>''])}}
       </div>
@@ -165,7 +168,10 @@
         </li>
         <li>
           <div class="d-flex align-items-center">
-            <p><a class="more_btn bg-red" href="">仮押え期間超過</a></p>
+            <p>
+              {{-- <a class="more_btn bg-red" href="">仮押え期間超過</a> --}}
+              <button id="time_over" class="btn more_btn {{$request->time_over?"bg-red":""}}">仮押え期間超過</button>
+            </p>
             <p class="ml-3 font-weight-bold"><span class="count-color">{{$counter}}</span>件</p>
           </div>
         </li>
@@ -260,10 +266,23 @@
 
 
 <script>
+  $(document).on("click", "#time_over", function() {
+    if ($('input[name="time_over"]').val()==0) {
+      $('input[name="time_over"]').val(1);
+    }else{
+      $('input[name="time_over"]').val(0);
+    }
+    $('input[name^="sort_"]').each(function(key, item){
+        $(item).val("");
+        });
+    $('#searchMultiple').submit();
+  })
+
+
   $(document).on("click", ".sort_table th", function() {
     var click_th_id=$(this).attr("id");
     var index = $('.table-scroll th').index(this);
-    if (index!=0) {
+    if (index!=0&&index!=11) {
       $('input[name^="sort_"]').each(function(key, item){
         if ($(item).attr("name")!=click_th_id) {
           $(item).val("");

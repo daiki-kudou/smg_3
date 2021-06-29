@@ -184,7 +184,6 @@
       <li>
         <div class="d-flex">
           {{-- 仮押さえ超過ボタン --}}
-
           <button id="time_over" class="btn more_btn {{$request->time_over?"bg-red":""}}">仮押え期間超過</button>
           <p class="ml-3 font-weight-bold">
             @if ($counter!=0)
@@ -246,8 +245,6 @@
               @endif
             </td>
             <td>
-              {{-- {{ReservationHelper::checkAgentOrUserTel($pre_reservation->user_id, $pre_reservation->agent_id)}}
-              --}}
               @if ($pre_reservation->user_id>0)
               {{ReservationHelper::getPersonTel($pre_reservation->user_id)}}
               @endif

@@ -18,7 +18,7 @@ use App\Traits\SearchTrait;
 use App\Traits\PaginatorTrait;
 // バリデーションロジック
 use App\Http\Requests\Admin\Multiples\Agent\PostRequest;
-
+use Carbon\Carbon;
 
 class MultiplesController extends Controller
 {
@@ -31,8 +31,30 @@ class MultiplesController extends Controller
     if (count($request->all()) != 0) {
       $class = new MultipleReserve;
       $multiples = $this->MultipleSearch($class->with(
-        ["pre_reservations.unknown_user", "pre_reservations.pre_enduser", "pre_reservations.user", "pre_reservations.agent"]
+        [
+          "pre_reservations.unknown_user",
+          "pre_reservations.pre_enduser",
+          "pre_reservations.user",
+          "pre_reservations.agent"
+        ]
       )->withCount("pre_reservations"), $request);
+
+      if ($request->time_over) {
+        $today = Carbon::now();
+        $threeDaysBefore = date('Y-m-d H:i:s', strtotime($today->subHours(72)));
+        $over_id = [];
+        foreach ($multiples as $key => $multiple) {
+          foreach ($multiple->pre_reservations as $key => $pre_res) {
+            if ($pre_res->status < 2) {
+              if ($pre_res->updated_at < $threeDaysBefore) {
+                $over_id[] = $pre_res->multiple_reserve_id;
+              }
+            }
+          }
+        }
+        $multiples = $multiples->whereIn('id', array_unique($over_id));
+      }
+
       $counter = count($multiples);
     } else {
       $multiples = MultipleReserve::with(
@@ -46,7 +68,7 @@ class MultiplesController extends Controller
       $counter = 0;
     }
     $multiples = $this->customSearchAndSort($multiples, $request);
-    $multiples = $this->customPaginate($multiples, 30, $request);
+    $multiples = $this->customPaginate($multiples, 2, $request);
     $agents = Agent::orderBy("id", "desc")->get();
 
     return view('admin.multiples.index', compact('multiples', "counter", "request", "agents"));
