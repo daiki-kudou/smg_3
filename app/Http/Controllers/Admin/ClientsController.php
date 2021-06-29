@@ -9,11 +9,15 @@ use Illuminate\Support\Facades\DB;
 
 use App\Models\User;
 
+use App\Traits\PaginatorTrait;
+use App\Traits\SortTrait;
 
 
 
 class ClientsController extends Controller
 {
+  use PaginatorTrait;
+  use SortTrait;
 
 
   /**
@@ -25,11 +29,66 @@ class ClientsController extends Controller
   {
     if (count($request->except('token')) != 0) {
       $class = new User;
-      $querys = $class->search($request)->orderBy('id', 'desc')->paginate(30);
+      $querys = $class->search($request)->orderBy('id', 'desc')->get();
     } else {
-      $querys = User::orderBy('id', 'desc')->paginate(30);
+      $querys = User::orderBy('id', 'desc')->get();
     }
+
+    // ソートのリクエストがあれば
+    $querys = $this->customSearchAndSort($querys, $request);
+    // 最後のページャー
+    $querys = $this->customPaginate($querys, 15, $request);
+
     return view('admin.clients.index', compact('querys', 'request'));
+  }
+
+  public function customSearchAndSort($model, $request)
+  {
+    if ($request->sort_id) {
+      if ($request->sort_id == 1) {
+        return $model->sortByDesc("id");
+      } else {
+        return $model->sortBy("id");
+      }
+    } elseif ($request->sort_user_company) {
+      if ($request->sort_user_company == 1) {
+        return $model->sortByDesc("company");
+      } else {
+        return $model->sortBy("company");
+      }
+    } elseif ($request->sort_user_attr) {
+      if ($request->sort_user_attr == 1) {
+        return $model->sortByDesc("attr");
+      } else {
+        return $model->sortBy("attr");
+      }
+    } elseif ($request->sort_user_name) {
+      if ($request->sort_user_name == 1) {
+        return $model->sortByDesc("first_name_kana");
+      } else {
+        return $model->sortBy("first_name_kana");
+      }
+    } elseif ($request->sort_user_mobile) {
+      if ($request->sort_user_mobile == 1) {
+        return $model->sortByDesc("mobile");
+      } else {
+        return $model->sortBy("mobile");
+      }
+    } elseif ($request->sort_user_tel) {
+      if ($request->sort_user_tel == 1) {
+        return $model->sortByDesc("tel");
+      } else {
+        return $model->sortBy("tel");
+      }
+    } elseif ($request->sort_user_email) {
+      if ($request->sort_user_email == 1) {
+        return $model->sortByDesc("email");
+      } else {
+        return $model->sortBy("email");
+      }
+    }
+
+    return $model;
   }
 
   /**
