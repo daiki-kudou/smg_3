@@ -46,7 +46,6 @@ class PreReservationsController extends Controller
   public function index(Request $request)
   {
 
-
     $today = date('Y-m-d', strtotime(Carbon::today()));
 
     if (!empty($request->time_over)) {
