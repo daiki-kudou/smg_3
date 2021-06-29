@@ -74,6 +74,7 @@
       </tr>
 
       @if ($venue->frame_prices->count()!=0&&$venue->time_prices->count()!=0)
+      @if (Carbon\Carbon::parse($request->enter_time)->diffInMinutes(Carbon\Carbon::parse($request->leave_time))>=180)
       <tr>
         <th>音響ハイグレード<span class="txtRed c-block">＊</span></th>
         <td class="">
@@ -93,6 +94,9 @@
           <a name="a-selectTime1" class="error-r"></a>
         </td>
       </tr>
+      @else
+      {{Form::hidden('price_system',1)}}
+      @endif
       @else
       @if ($venue->frame_prices->count()!=0)
       {{Form::hidden('price_system',1)}}
