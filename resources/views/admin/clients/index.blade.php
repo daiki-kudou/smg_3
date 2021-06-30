@@ -168,6 +168,18 @@
   <!-- 検索　終わり------------------------------------------------ -->
 
 
+  {{-- 件数表示 --}}
+  @if ($counter!=0)
+  <div class="d-flex w-100">
+    <p class="font-weight-bold d-block w-100 text-right">
+      <span class="count-color">
+        {{$counter}}
+      </span>件
+    </p>
+  </div>
+  @endif
+
+
 
   <div class="table-wrap">
     <table class="table table-bordered table-scroll" id="client_sort">

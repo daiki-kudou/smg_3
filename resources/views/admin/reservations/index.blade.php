@@ -237,7 +237,6 @@
       {{-- ソート用hidden --}}
       {{ Form::close() }}
 
-
       @if ($counter!=0)
       <p class="font-weight-bold">
         <span class="count-color">

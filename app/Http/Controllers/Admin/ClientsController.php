@@ -11,6 +11,7 @@ use App\Models\User;
 
 use App\Traits\PaginatorTrait;
 use App\Traits\SortTrait;
+use App\Traits\SearchTrait;
 
 
 
@@ -18,7 +19,7 @@ class ClientsController extends Controller
 {
   use PaginatorTrait;
   use SortTrait;
-
+  use SearchTrait;
 
   /**
    * Display a listing of the resource.
@@ -30,8 +31,10 @@ class ClientsController extends Controller
     if (count($request->except('token')) != 0) {
       $class = new User;
       $querys = $class->search($request)->orderBy('id', 'desc')->get();
+      $counter = $this->exceptSortCount($request->except('_token'), $querys);
     } else {
       $querys = User::orderBy('id', 'desc')->get();
+      $counter = 0;
     }
 
     // ソートのリクエストがあれば
@@ -39,7 +42,7 @@ class ClientsController extends Controller
     // 最後のページャー
     $querys = $this->customPaginate($querys, 30, $request);
 
-    return view('admin.clients.index', compact('querys', 'request'));
+    return view('admin.clients.index', compact('querys', 'request', 'counter'));
   }
 
   public function customSearchAndSort($model, $request)
