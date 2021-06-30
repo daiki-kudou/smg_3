@@ -172,7 +172,13 @@
               {{-- <a class="more_btn bg-red" href="">仮押え期間超過</a> --}}
               <button id="time_over" class="btn more_btn {{$request->time_over?"bg-red":""}}">仮押え期間超過</button>
             </p>
-            <p class="ml-3 font-weight-bold"><span class="count-color">{{$counter}}</span>件</p>
+            <p class="ml-3 font-weight-bold">
+              @if ($counter!=0)
+              <span class="count-color">{{$counter}}</span>件
+              @elseif($request->counter!=0)
+              <span class="count-color">{{$request->counter}}</span>件
+              @endif
+            </p>
           </div>
         </li>
       </ul>
@@ -291,6 +297,15 @@
       $("#searchMultiple").submit();
     }
   })
+
+  $(function() {
+      $(".search_btn").on("click",function(){
+        $('input[name^="sort_"]').each(function(key, item){
+        $(item).val("");
+        })
+      })
+    })
+
 
 
   $(function() {

@@ -270,7 +270,7 @@ trait SearchTrait
     return $result;
   }
 
-  public function exceptSortCount($request_array)
+  public function exceptSortCount($request_array, $count_target)
   {
     $except_sort_array = [];
     foreach ($request_array as $key => $value) {
@@ -278,6 +278,14 @@ trait SearchTrait
         $except_sort_array[$key] = $value;
       }
     }
-    return $except_sort_array;
+    foreach ($except_sort_array as $key => $value) {
+      if (!is_null($value)) {
+        return count($count_target);
+        break;
+      } else {
+        continue;
+      }
+    }
+    return 0;
   }
 }

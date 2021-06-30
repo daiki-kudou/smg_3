@@ -38,6 +38,8 @@ class MultiplesController extends Controller
           "pre_reservations.agent"
         ]
       )->withCount("pre_reservations"), $request);
+      $counter = $this->exceptSortCount($request->except('_token'), $multiples);
+
 
       if ($request->time_over) {
         $today = Carbon::now();
@@ -53,9 +55,8 @@ class MultiplesController extends Controller
           }
         }
         $multiples = $multiples->whereIn('id', array_unique($over_id));
+        $counter = count($multiples);
       }
-
-      $counter = count($multiples);
     } else {
       $multiples = MultipleReserve::with(
         [
