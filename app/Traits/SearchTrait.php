@@ -269,4 +269,15 @@ trait SearchTrait
     }
     return $result;
   }
+
+  public function exceptSortCount($request_array)
+  {
+    $except_sort_array = [];
+    foreach ($request_array as $key => $value) {
+      if (!preg_match('/^sort_/', $key)) {
+        $except_sort_array[$key] = $value;
+      }
+    }
+    return $except_sort_array;
+  }
 }

@@ -68,7 +68,7 @@ class MultiplesController extends Controller
       $counter = 0;
     }
     $multiples = $this->customSearchAndSort($multiples, $request);
-    $multiples = $this->customPaginate($multiples, 2, $request);
+    $multiples = $this->customPaginate($multiples, 30, $request);
     $agents = Agent::orderBy("id", "desc")->get();
 
     return view('admin.multiples.index', compact('multiples', "counter", "request", "agents"));

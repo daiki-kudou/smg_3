@@ -47,26 +47,34 @@ class PreReservationsController extends Controller
   {
     $today = date('Y-m-d', strtotime(Carbon::today()));
 
-    // if (!empty($request->time_over)) {
-    //   $today = Carbon::now();
-    //   $threeDaysBefore = date('Y-m-d H:i:s', strtotime($today->subHours(72)));
-    //   $result = PreReservation::where('status', '<', 2)->where('updated_at', '<', $threeDaysBefore);
-    //   $pre_reservations = $result->orderBy('id', 'desc')->get();
-    //   $counter = $result->count();
-    // } 
-    if (count($request->all()) != 0) {
+    if (count($request->except("_token")) != 0) {
       $class = new PreReservation;
       $result = $this->BasicSearch($class->with(["unknown_user", "pre_enduser", "user", 'agent', 'venue']), $request);
       $pre_reservations = $result[0];
       $after = $pre_reservations->where('multiple_reserve_id', '=', 0)->where('reserve_date', '>=', $today)->where('status', '<', 2)->sortBy('reserve_date');
       $before = $pre_reservations->where('multiple_reserve_id', '=', 0)->where('reserve_date', '<', $today)->where('status', '<', 2)->sortByDesc('reserve_date');
       $pre_reservations = $after->concat($before);
+      foreach (collect($this->exceptSortCount($request->except('_token'))) as $key => $value) {
+        if ($value != NULL) {
+          $counter = $result[1];
+          break;
+        } else {
+          $counter = 0;
+        }
+      }
       if ($request->time_over) {
         $today = Carbon::now();
         $threeDaysBefore = date('Y-m-d H:i:s', strtotime($today->subHours(72)));
         $pre_reservations = $pre_reservations->where('status', '<', 2)->where('updated_at', '<', $threeDaysBefore);
+        foreach (collect($this->exceptSortCount($request->except('_token'))) as $key => $value) {
+          if ($value != NULL) {
+            $counter = count($pre_reservations);
+            break;
+          } else {
+            $counter = 0;
+          }
+        }
       }
-      $counter = $result[1];
     } else {
       $after = PreReservation::with(["unknown_user", "pre_enduser", 'user', 'agent', 'venue'])->where('multiple_reserve_id', '=', 0)->where('reserve_date', '>=', $today)->where('status', '<', 2)->get()->sortBy('reserve_date');
       $before = PreReservation::with(["unknown_user", "pre_enduser", "user", 'agent', 'venue'])->where('multiple_reserve_id', '=', 0)->where('reserve_date', '<', $today)->where('status', '<', 2)->get()->sortByDesc('reserve_date');

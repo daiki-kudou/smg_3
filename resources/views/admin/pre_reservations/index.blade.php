@@ -185,6 +185,7 @@
         <div class="d-flex">
           {{-- 仮押さえ超過ボタン --}}
           <button id="time_over" class="btn more_btn {{$request->time_over?"bg-red":""}}">仮押え期間超過</button>
+          {{-- 件数 --}}
           <p class="ml-3 font-weight-bold">
             @if ($counter!=0)
             <span class="count-color">{{$counter}}</span>件
@@ -265,14 +266,6 @@
       </table>
     </div>
   </div>
-  {{-- 
-  @if ($counter)
-  {{ $pre_reservations->appends(request()->input())->appends(['counter'=>$counter])->links() }}
-  @elseif($request->counter)
-  {{ $pre_reservations->appends(request()->input())->appends(['counter'=>$request->counter])->links() }}
-  @else
-  {{ $pre_reservations->links() }}
-  @endif --}}
 
 
   {{$pre_reservations->appends(request()->input())->links()}}
