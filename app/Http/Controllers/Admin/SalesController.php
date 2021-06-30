@@ -15,11 +15,13 @@ use App\Models\Cxl;
 use Carbon\Carbon;
 
 use App\Traits\PaginatorTrait;
+use App\Traits\SearchTrait;
 
 class SalesController extends Controller
 {
 
   use PaginatorTrait;
+  use SearchTrait;
 
   public function index(Request $request)
   {
@@ -27,13 +29,13 @@ class SalesController extends Controller
     $venues = Venue::pluck("id")->toArray();
     if (!empty($request->all())) {
       $reservations = $this->withRequest($request);
-      $count = $reservations->count();
+      $counter = $this->exceptSortCount($request->except('_token'), $reservations);
       $all_total_amount = $reservations->map(function ($res, $key) {
         return $res->totalAmountWithCxl();
       })->sum();
     } else {
       $reservations = $this->noRequest();
-      $count = "";
+      $counter = "";
       $all_total_amount = "";
     }
     $for_csv = $this->forCsv($reservations); //csv抽出用
@@ -41,14 +43,14 @@ class SalesController extends Controller
     $reservations = $this->customSearchAndSort($reservations, $request);
     $reservations = $this->customPaginate($reservations, 30, $request);
 
-    return view('admin.sales.index', compact('reservations', 'request', 'agents', 'venues', 'for_csv', 'count', 'all_total_amount'));
+    return view('admin.sales.index', compact('reservations', 'request', 'agents', 'venues', 'for_csv', 'counter', 'all_total_amount'));
   }
 
   public function noRequest()
   {
     $today = Carbon::today();
-    $after = Reservation::with(['bills.cxl', 'user', 'agent', 'cxls.cxl_breakdowns', 'endusers', 'venue'])->where('reserve_date', '>=', $today)->get()->sortBy('reserve_date');
-    $before = Reservation::with(['bills.cxl', 'user', 'agent', 'cxls.cxl_breakdowns', 'endusers', 'venue'])->where('reserve_date', '<', $today)->get()->sortByDesc('reserve_date');
+    $after = Reservation::with(['bills.cxl', 'user', 'agent', 'cxls.cxl_breakdowns', 'enduser', 'venue'])->where('reserve_date', '>=', $today)->get()->sortBy('reserve_date');
+    $before = Reservation::with(['bills.cxl', 'user', 'agent', 'cxls.cxl_breakdowns', 'enduser', 'venue'])->where('reserve_date', '<', $today)->get()->sortByDesc('reserve_date');
     $merge = $after->concat($before);
     return $merge;
   }
@@ -56,12 +58,12 @@ class SalesController extends Controller
   public function withRequest($request)
   {
     $today = Carbon::today();
-    $after = Reservation::with(['bills.cxl', 'user', 'agent', 'cxls.cxl_breakdowns', 'endusers', 'venue'])
+    $after = Reservation::with(['bills.cxl', 'user', 'agent', 'cxls.cxl_breakdowns', 'enduser', 'venue'])
       ->where('reserve_date', '>=', $today);
     $result_after = $this->search($after, $request)
       ->get()
       ->sortBy('reserve_date');
-    $before = Reservation::with(['bills.cxl', 'user', 'agent', 'cxls.cxl_breakdowns', 'endusers', 'venue'])
+    $before = Reservation::with(['bills.cxl', 'user', 'agent', 'cxls.cxl_breakdowns', 'enduser', 'venue'])
       ->where('reserve_date', '<', $today);
     $result_before = $this->search($before, $request)
       ->get()

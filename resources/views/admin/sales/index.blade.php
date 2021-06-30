@@ -249,8 +249,10 @@
 </div>
 <div class="mt-3">
   <p class="text-right font-weight-bold">
-    @if ($request)
-    <span class="count-color">{{$count}}</span>件
+    @if ($counter!=0)
+    <span class="count-color">
+      {{$counter}}
+    </span>件
     @endif
   </p>
 </div>
@@ -320,7 +322,7 @@
             {{!empty($reservation->agent->id)?ReservationHelper::getAgentCompanyName($reservation->agent->id):''}}
           </td>
           <td rowspan="{{($reservation->billCount()*2)+$reservation->cxlCount()+2}}">
-            {{!empty($reservation->agent->id)?$reservation->enduser->company:''}}
+            {{!empty($reservation->agent_id>0)?optional($reservation->enduser)->company:''}}
           </td>
           <td rowspan="{{($reservation->billCount()*2)+$reservation->cxlCount()+2}}">
             {{-- 総額 --}}

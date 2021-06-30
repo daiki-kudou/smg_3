@@ -165,8 +165,9 @@
     </div>
   </div>
   {{Form::close()}}
-
   <!-- 検索　終わり------------------------------------------------ -->
+
+
 
   <div class="table-wrap">
     <table class="table table-bordered table-scroll" id="client_sort">
