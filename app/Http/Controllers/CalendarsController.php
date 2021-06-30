@@ -19,7 +19,7 @@ class CalendarsController extends Controller
 
   public function venue_calendar(Request $request)
   {
-    $selected_venue = $request->venue_id ? $request->venue_id : 1;
+    $selected_venue = $request->venue_id ? $request->venue_id : Venue::first()->id;
     $fix_input_dates = date('Y-m', strtotime($request->selected_year . '-' . $request->selected_month));
     $start_of_month = $request->all() ? (Carbon::parse($fix_input_dates)->firstOfMonth()) : Carbon::now()->firstOfMonth();
     $end_of_month = $request->all() ? (Carbon::parse($fix_input_dates)->endOfMonth()) : Carbon::now()->endOfMonth();
