@@ -125,7 +125,7 @@
                 <option value=""></option>
                 @foreach ($agents as $agent)
                 <option value="{{$agent['id']}}" {{$agent['id']==$request->agent?"selected":""}}>
-                  {{ReservationHelper::getAgentCompanyName($agent['id'])}}
+                  {{ReservationHelper::getAgentCompany($agent['id'])}}
                 </option>
                 @endforeach
               </select>
@@ -316,7 +316,7 @@
             </td>
             <td rowspan="{{count($reservation->bills)}}">
               @if ($reservation->agent_id>0)
-              {{ReservationHelper::getAgentCompanyName($reservation->agent_id)}}
+              {{ReservationHelper::getAgentCompany($reservation->agent_id)}}
               @endif
             </td>
             <td rowspan="{{count($reservation->bills)}}">

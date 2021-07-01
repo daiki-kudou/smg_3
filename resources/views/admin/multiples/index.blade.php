@@ -102,7 +102,7 @@
                 <option value="{{$s_a->id}}" @if ($s_a->id==$request->search_agent)
                   selected
                   @endif
-                  >{{ReservationHelper::getAgentCompanyName($s_a->id)}}</option>
+                  >{{ReservationHelper::getAgentCompany($s_a->id)}}</option>
                 @endforeach
               </select>
             </td>

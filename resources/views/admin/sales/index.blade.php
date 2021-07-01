@@ -319,7 +319,7 @@
           </td>
           @endif
           <td rowspan="{{($reservation->billCount()*2)+$reservation->cxlCount()+2}}">
-            {{!empty($reservation->agent->id)?ReservationHelper::getAgentCompanyName($reservation->agent->id):''}}
+            {{!empty($reservation->agent->id)?ReservationHelper::getAgentCompany($reservation->agent->id):''}}
           </td>
           <td rowspan="{{($reservation->billCount()*2)+$reservation->cxlCount()+2}}">
             {{!empty($reservation->agent_id>0)?optional($reservation->enduser)->company:''}}
