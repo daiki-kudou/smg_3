@@ -26,12 +26,14 @@ use Illuminate\Support\Facades\Auth;
 
 use App\Traits\PaginatorTrait;
 use App\Traits\SortTrait;
+use App\Traits\SearchTrait;
 
 class ReservationsController extends Controller
 {
   use PregTrait;
   use PaginatorTrait;
   use SortTrait;
+  use SearchTrait;
 
   /**
    * Display a listing of the resource.
@@ -40,9 +42,6 @@ class ReservationsController extends Controller
    */
   public function index(Request $request)
   {
-
-    // dump(Auth::guard('user')->check());
-    // dump(Auth::guard('admin'));
     $today = date('Y-m-d', strtotime(Carbon::today()));
     if (!empty($request->all())) {
       $class = new Reservation;
@@ -50,7 +49,7 @@ class ReservationsController extends Controller
       $m_after = $result->where('reserve_date', '>=', $today)->sortBy('reserve_date');
       $m_before = $result->where('reserve_date', '<', $today)->sortByDesc('reserve_date');
       $reservations = $this->customOrderList($m_after, $m_before);
-      $counter = $result->count();
+      $counter = $this->exceptSortCount($request->except('_token'), $result);
     } else {
       $m_after = Reservation::with(['bills.cxl', 'user', 'agent', 'cxls.cxl_breakdowns', 'endusers', 'venue'])->where('reserve_date', '>=', $today)->get()->sortBy('reserve_date');
       $m_before = Reservation::with(['bills.cxl', 'user', 'agent', 'cxls.cxl_breakdowns', 'endusers', 'venue'])->where('reserve_date', '<', $today)->get()->sortByDesc('reserve_date');

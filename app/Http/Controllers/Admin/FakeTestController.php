@@ -13,36 +13,28 @@ class FakeTestController extends Controller
 {
   public function index()
   {
-    //なんかコンフリクトおこってたので、全部削除しておきました
+    $this->calc(17, 2, '08:00:00', '23:00:00', 74500);
   }
 
   public function calc($venueId, $priceSystem, $enter, $leave, $expectValue)
   {
     $venue = Venue::with(['frame_prices', 'dates'])->find($venueId);
     $result = $venue->calculate_price($priceSystem, $enter, $leave);
+
     if ($result === 0) {
-      if ($result == $expectValue) {
-        echo "";
-        echo "会場ID: " . $venueId . ' / ' . '料金体系' . $priceSystem . ' / ' . '入室: ' . $enter . ' / ' . '退室 :' . $leave . ' / ' . '期待する結果: ' . $expectValue . '<br>';
-        echo "↓　システム算出結果<br><div style='background:black; color:#56DB3A;font-weight:bold;'>";
-        dump(0);
-        echo "</div><br>";
-      } else {
-        echo "会場ID: " . $venueId . ' / ' . '料金体系' . $priceSystem . ' / ' . '入室: ' . $enter . ' / ' . '退室 :' . $leave . ' / ' . '期待する結果: ' . $expectValue . '<br>';
-        echo "↓　システム算出結果<br><div style='background:black; color:red;font-weight:bold;'>";
-        echo "会場料金: " . 0 . '<br>';
-        echo "延長料金: " . 0 . '<br>';
-        echo "合計料金: " . 0 . '<br>';
-        echo "</div><br>";
-      }
+      echo "";
+      echo "会場ID: " . $venueId . ' / ' . '料金体系' . $priceSystem . ' / ' . '入室: ' . $enter . ' / ' . '退室 :' . $leave . ' / ' . '期待する結果: ' . $expectValue . '<br>';
+      echo "↓　システム算出結果<br><div style='background:black; color:#56DB3A;font-weight:bold;'>";
+      dump(0);
+      echo "</div><br>";
     } elseif ($result[0] == $expectValue) {
-      // echo "";
-      // echo "会場ID: " . $venueId . ' / ' . '料金体系' . $priceSystem . ' / ' . '入室: ' . $enter . ' / ' . '退室 :' . $leave . ' / ' . '期待する結果: ' . $expectValue . '<br>';
-      // echo "↓　システム算出結果<br><div style='background:black; color:#56DB3A;font-weight:bold;'>";
-      // echo "会場料金: " . ($result[0] - $result[1]) . '<br>';
-      // echo "延長料金: " . $result[1] . '<br>';
-      // echo "合計料金: " . $result[0] . '<br>';
-      // echo "</div><br>";
+      echo "";
+      echo "会場ID: " . $venueId . ' / ' . '料金体系' . $priceSystem . ' / ' . '入室: ' . $enter . ' / ' . '退室 :' . $leave . ' / ' . '期待する結果: ' . $expectValue . '<br>';
+      echo "↓　システム算出結果<br><div style='background:black; color:#56DB3A;font-weight:bold;'>";
+      echo "会場料金: " . ($result[0] - $result[1]) . '<br>';
+      echo "延長料金: " . $result[1] . '<br>';
+      echo "合計料金: " . $result[0] . '<br>';
+      echo "</div><br>";
     } else {
       echo "会場ID: " . $venueId . ' / ' . '料金体系' . $priceSystem . ' / ' . '入室: ' . $enter . ' / ' . '退室 :' . $leave . ' / ' . '期待する結果: ' . $expectValue . '<br>';
       echo "↓　システム算出結果<br><div style='background:black; color:red;font-weight:bold;'>";
@@ -50,14 +42,6 @@ class FakeTestController extends Controller
       echo "延長料金: " . $result[1] . '<br>';
       echo "合計料金: " . $result[0] . '<br>';
       echo "</div><br>";
-
-      // echo "";
-      // echo "会場ID: " . $venueId . ' / ' . '料金体系' . $priceSystem . ' / ' . '入室: ' . $enter . ' / ' . '退室 :' . $leave . ' / ' . '期待する結果: ' . $expectValue . '<br>';
-      // echo "↓　システム算出結果<br><div style='background:black; color:#56DB3A;font-weight:bold;'>";
-      // echo "会場料金: " . ($result[0] - $result[1]) . '<br>';
-      // echo "延長料金: " . $result[1] . '<br>';
-      // echo "合計料金: " . $result[0] . '<br>';
-      // echo "</div><br>";
     }
   }
 

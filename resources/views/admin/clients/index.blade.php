@@ -151,25 +151,48 @@
 
     <div class="btn_box d-flex justify-content-center">
       <a href="{{url("admin/clients")}}" class="btn reset_btn">リセット</a>
-      {{Form::submit('検索', ['class'=>'btn btn-info search_btn', 'id'=>''])}}
+      {{-- ソート用hidden --}}
+      {{Form::hidden("sort_id", $request->sort_id?($request->sort_id==1?2:1):1)}}
+      {{Form::hidden("sort_user_company", $request->sort_user_company?($request->sort_user_company==1?2:1):1)}}
+      {{Form::hidden("sort_user_attr", $request->sort_user_attr?($request->sort_user_attr==1?2:1):1)}}
+      {{Form::hidden("sort_user_name", $request->sort_user_name?($request->sort_user_name==1?2:1):1)}}
+      {{Form::hidden("sort_user_mobile", $request->sort_user_mobile?($request->sort_user_mobile==1?2:1):1)}}
+      {{Form::hidden("sort_user_tel", $request->sort_user_tel?($request->sort_user_tel==1?2:1):1)}}
+      {{Form::hidden("sort_user_email", $request->sort_user_email?($request->sort_user_email==1?2:1):1)}}
+      {{-- ソート用hidden --}}
+
+      {{Form::submit('検索', ['class'=>'btn btn-info search_btn', 'id'=>'m_submit'])}}
     </div>
   </div>
   {{Form::close()}}
-
   <!-- 検索　終わり------------------------------------------------ -->
+
+
+  {{-- 件数表示 --}}
+  @if ($counter!=0)
+  <div class="d-flex w-100">
+    <p class="font-weight-bold d-block w-100 text-right">
+      <span class="count-color">
+        {{$counter}}
+      </span>件
+    </p>
+  </div>
+  @endif
+
+
 
   <div class="table-wrap">
     <table class="table table-bordered table-scroll" id="client_sort">
       <thead>
         <tr class="table_row">
           <th>注意事項</th>
-          <th>顧客ID</th>
-          <th>会社名・団体名</th>
-          <th>顧客属性</th>
-          <th>担当者</th>
-          <th>携帯電話</th>
-          <th>固定電話</th>
-          <th>担当者メールアドレス</th>
+          <th id="sort_id">顧客ID {!!ReservationHelper::sortIcon($request->sort_id)!!}</th>
+          <th id="sort_user_company">会社名・団体名 {!!ReservationHelper::sortIcon($request->sort_user_company)!!}</th>
+          <th id="sort_user_attr">顧客属性 {!!ReservationHelper::sortIcon($request->sort_user_attr)!!}</th>
+          <th id="sort_user_name">担当者 {!!ReservationHelper::sortIcon($request->sort_user_name)!!}</th>
+          <th id="sort_user_mobile">携帯電話 {!!ReservationHelper::sortIcon($request->sort_user_mobile)!!}</th>
+          <th id="sort_user_tel">固定電話 {!!ReservationHelper::sortIcon($request->sort_user_tel)!!}</th>
+          <th id="sort_user_email">担当者メールアドレス {!!ReservationHelper::sortIcon($request->sort_user_email)!!}</th>
           <th>詳細</th>
         </tr>
       </thead>
@@ -201,10 +224,8 @@
           <td>{{$query->tel}}</td>
           <td>{{$query->email}}</td>
           <td class="text-center">
-            {{-- <a class="more_btn" href="{{ url('/admin/clients/'. $query->id) }}">詳細</a> --}}
             {{ Form::open(['url' => 'admin/clients/'.$query->id, 'method'=>'get']) }}
             @csrf
-            {{Form::hidden("page",$querys->currentPage())}}
             {{ Form::submit('詳細', ['class' => 'btn more_btn']) }}
             {{ Form::close() }}
           </td>
@@ -216,12 +237,31 @@
 
 
 </div>
-{{ $querys->links() }}
-
+{{$querys->appends(request()->input())->links()}}
 
 <script>
-  $(function(){
-    $("#client_sort").tablesorter();
-  })
+  $(document).on("click", ".table-scroll th", function() {
+    var click_th_id=$(this).attr("id");
+    var index = $('.table-scroll th').index(this);
+    console.log(index);
+    if (index!=0&&index!=8) {
+          $('input[name^="sort_"]').each(function(key, item){
+      if ($(item).attr("name")!=click_th_id) {
+        $(item).val("");
+      }
+    })
+    $("#clients_search").submit();
+    }
+    }) 
+
+    $(function() {
+      $("#m_submit").on("click",function(){
+        $('input[name^="sort_"]').each(function(key, item){
+        $(item).val("");
+        })
+      })
+    })
+
 </script>
+
 @endsection

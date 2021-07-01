@@ -15,30 +15,35 @@ use App\Models\Cxl;
 use Carbon\Carbon;
 
 use App\Traits\PaginatorTrait;
+use App\Traits\SearchTrait;
 
 class SalesController extends Controller
 {
 
   use PaginatorTrait;
+  use SearchTrait;
 
   public function index(Request $request)
   {
     $agents = Agent::pluck("company", "id")->toArray();
     $venues = Venue::pluck("id")->toArray();
     if (!empty($request->all())) {
-      $merge = $this->withRequest($request);
-      $count = $merge->count();
-      $all_total_amount = $merge->map(function ($res, $key) {
+      $reservations = $this->withRequest($request);
+      $counter = $this->exceptSortCount($request->except('_token'), $reservations);
+      $all_total_amount = $reservations->map(function ($res, $key) {
         return $res->totalAmountWithCxl();
       })->sum();
     } else {
-      $merge = $this->noRequest();
-      $count = "";
+      $reservations = $this->noRequest();
+      $counter = "";
       $all_total_amount = "";
     }
-    $for_csv = $this->forCsv($merge); //csv抽出用
-    $reservations = $this->customPaginate($merge, 30, $request);
-    return view('admin.sales.index', compact('reservations', 'request', 'agents', 'venues', 'for_csv', 'count', 'all_total_amount'));
+    $for_csv = $this->forCsv($reservations); //csv抽出用
+    // ソートのリクエストがあれば
+    $reservations = $this->customSearchAndSort($reservations, $request);
+    $reservations = $this->customPaginate($reservations, 30, $request);
+
+    return view('admin.sales.index', compact('reservations', 'request', 'agents', 'venues', 'for_csv', 'counter', 'all_total_amount'));
   }
 
   public function noRequest()
@@ -187,6 +192,8 @@ class SalesController extends Controller
 
   public function amountSearch($amounts_array, $input)
   {
+    $input = (str_replace(',', '', $input));
+    $input = (str_replace('円', '', $input));
     $empty = [];
     foreach ($amounts_array as $key => $value) {
       if ($value == $input) {
@@ -338,5 +345,90 @@ class SalesController extends Controller
       }
     }
     return $array;
+  }
+
+  public function customSearchAndSort($model, $request)
+  {
+    if ($request->sort_multiple_reserve_id) {
+      if ($request->sort_multiple_reserve_id == 1) {
+        return $model->sortByDesc("multiple_reserve_id");
+      } else {
+        return $model->sortBy("multiple_reserve_id");
+      }
+    } elseif ($request->sort_id) {
+      if ($request->sort_id == 1) {
+        return $model->sortByDesc("id");
+      } else {
+        return $model->sortBy("id");
+      }
+    } elseif ($request->sort_reserve_date) {
+      if ($request->sort_reserve_date == 1) {
+        return $model->sortByDesc("reserve_date");
+      } else {
+        return $model->sortBy("reserve_date");
+      }
+    } elseif ($request->sort_enter_time) {
+      if ($request->sort_enter_time == 1) {
+        return $model->sortByDesc("enter_time");
+      } else {
+        return $model->sortBy("enter_time");
+      }
+    } elseif ($request->sort_leave_time) {
+      if ($request->sort_leave_time == 1) {
+        return $model->sortByDesc("leave_time");
+      } else {
+        return $model->sortBy("leave_time");
+      }
+    } elseif ($request->sort_venue) {
+      if ($request->sort_venue == 1) {
+        return $model->sortByDesc("venue.name_bldg");
+      } else {
+        return $model->sortBy("venue.name_bldg");
+      }
+    } elseif ($request->sort_user_company) {
+      if ($request->sort_user_company == 1) {
+        return $model->sortByDesc("user.company");
+      } else {
+        return $model->sortBy("user.company");
+      }
+    } elseif ($request->sort_user_name) {
+      if ($request->sort_user_name == 1) {
+        return $model->sortByDesc("user.first_name_kana");
+      } else {
+        return $model->sortBy("user.first_name_kana");
+      }
+    } elseif ($request->sort_agent) {
+      if ($request->sort_agent == 1) {
+        return $model->sortByDesc("agent.company");
+      } else {
+        return $model->sortBy("agent.company");
+      }
+    } elseif ($request->sort_enduser) {
+      if ($request->sort_enduser == 1) {
+        return $model->sortByDesc("endusers.company");
+      } else {
+        return $model->sortBy("endusers.company");
+      }
+    } elseif ($request->sort_user_id) {
+      if ($request->sort_user_id == 1) {
+        return $model->sortByDesc("user.id");
+      } else {
+        return $model->sortBy("user.id");
+      }
+    } elseif ($request->sort_user_attr) {
+      if ($request->sort_user_attr == 1) {
+        return $model->sortByDesc("user.attr");
+      } else {
+        return $model->sortBy("user.attr");
+      }
+    } elseif ($request->sort_alliance) {
+      if ($request->sort_alliance == 1) {
+        return $model->sortByDesc("venue.alliance_flag");
+      } else {
+        return $model->sortBy("venue.alliance_flag");
+      }
+    }
+
+    return $model;
   }
 }

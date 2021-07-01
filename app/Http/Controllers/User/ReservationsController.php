@@ -13,6 +13,7 @@ use Session;
 use Illuminate\Support\Facades\Mail;
 use App\Mail\AdminReqRes;
 use App\Mail\UserReqRes;
+use Carbon\Carbon;
 
 
 class ReservationsController extends Controller
@@ -26,7 +27,13 @@ class ReservationsController extends Controller
       return view('user.reservations.create', compact('request', 'venue'));
     } else {
       $venue = Venue::with(["frame_prices", "time_prices"])->find($request->venue_id);
-      return view('user.reservations.create', compact('request', 'venue'));
+      // SMGから依頼があれば、以下で対応利用時間3時間以下は音響ハイグレードさせない
+      // $diffMinutes = (Carbon::parse($request->enter_time)->diffInMinutes(Carbon::parse($request->leave_time)));
+      return view('user.reservations.create', compact(
+        'request',
+        'venue',
+        // 'diffMinutes'
+      ));
     }
   }
 

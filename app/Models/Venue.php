@@ -12,7 +12,6 @@ use Robbo\Presenter\PresentableInterface; //プレゼンターの追加
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 
-
 class Venue extends Model implements PresentableInterface
 {
 
@@ -195,7 +194,7 @@ class Venue extends Model implements PresentableInterface
   {
     if ($status_id == 1) {
       // 時間外を除外
-      $reject = $this->rejectTime($start_time, $finish_time, $reserve_weekday);
+      $reject = $this->rejectFrame($start_time, $finish_time, $reserve_weekday);
       if ($reject) {
         return 0;
       }
@@ -273,15 +272,6 @@ class Venue extends Model implements PresentableInterface
 
       // // 23時例外：22時から23時を選択すると時間に応じて延長料金適応
       //17時以降は無条件で夜間料金適応
-      // if (
-      //   $finish_time == '23:00:00' && $start_time < '17:00:00'
-      // ) {
-      //   $min_result = $min_result + ($price_arrays[0]->extend) * 1;
-      //   $exted_specific_price = $exted_specific_price + ($price_arrays[0]->extend) * 1;
-      // } elseif ($finish_time == '22:30:00' && $start_time < '17:00:00') {
-      //   $min_result = $min_result + ($price_arrays[0]->extend) * 0.5;
-      //   $exted_specific_price = $exted_specific_price + ($price_arrays[0]->extend) * 0.5;
-      // }
       if ($start_time == '17:00:00') {
         $min_result = $min_result + ($price_arrays[0]->extend) * 1;
       } elseif ($start_time == '17:30:00') {
@@ -311,90 +301,86 @@ class Venue extends Model implements PresentableInterface
       //＊＊会場のステータスが2のとき（アクセア仕様のとき）
       //＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊
     } elseif ($status_id == 2) {
-      // 時間のベース
-      $times_arrays = [
-        '3.0', '3.5', '4.0',
-        '4.5', '5.0', '5.5',
-        '6.0', '6.5', '7.0',
-        '7.5', '8.0', '8.5',
-        '9.0', '9.5', '10.0',
-        '10.5', '11.0', '11.5',
-        '12.0', '12.5', '13.0',
-        '13.5', '14.0', '14.5', '15.0'
-      ];
-      $time_price = $this->time_prices()->get();
-      // return [$time_price];
-
-      $diff_time_arrays = []; //時差の配列 ここに時差だけ入ってる 
-      for ($lists = 0; $lists < count($time_price); $lists++) {
-        $target_time = $time_price[$lists]->time;
-        $empty_arrays = []; //連想配列pushするための空
-        foreach ($times_arrays as $times_array) {
-          $empty_arrays[] = [$times_array - $target_time];
-        }
-        $diff_time_arrays[] = $empty_arrays;
+      $reject = $this->rejectTime($start_time, $finish_time, $reserve_weekday);
+      if ($reject) {
+        return 0;
       }
 
-      // すべてのパターンの延長を含む料金の一覧が格納
-      $time_price_results = [];
-      foreach ($time_price as $keys => $values) {
-        $target_time_price = $values->price;
-        $target_time_extend = $values->extend;
-        $empty_arrays2 = [];
-        for ($time_lists = 0; $time_lists < count($times_arrays); $time_lists++) {
-          if ($diff_time_arrays[$keys][$time_lists][0] >= 0) {
-            $empty_arrays2[] = $target_time_price + ($diff_time_arrays[$keys][$time_lists][0] * $target_time_extend);
+      $times = $this->time_prices->toArray();
+      $fix_times = [];
+      foreach ($times as $key => $value) {
+        $fix_times[] = ['time' => $value['time'], 'price' => $value['price'], 'extend' => $value['extend'],];
+      }
+      $diff = Carbon::parse($start_time)->diffInMinutes(Carbon::parse($finish_time)) / 60;
+      // dump($diff);
+      if ($diff < 3) {
+        return 0;
+      }
+
+      $diff_hour = 100;
+      $base_price = [];
+      foreach ($fix_times as $key => $value) {
+        if ($value['time'] <= $diff) { //12時間以内の抽出
+          if ($diff - $value['time'] < $diff_hour) {
+            $diff_hour = $diff - $value['time'];
+            $base_price['time'] = $value['time'];
+            $base_price['price'] = $value['price'];
+            $base_price['extend'] = $value['extend'];
+          }
+        }
+      }
+      // dump($diff_hour);
+      // dump($base_price);
+
+      // 抽出した料金と次の時間枠を比較
+      $compare = [];
+      foreach ($times as $key => $value) {
+        if ($value['time'] === $base_price['time']) {
+          if (!empty($times[$key + 1])) {
+            $compare['time'] = $times[$key + 1]['time'];
+            $compare['price'] = $times[$key + 1]['price'];
+            $compare['extend'] = $times[$key + 1]['extend'];
+            break;
           } else {
-            $empty_arrays2[] =  'false';
+            continue;
           }
+        } else {
+          continue;
         }
-        $time_price_results[] = $empty_arrays2;
       }
 
-      // return $time_price_results;
-      $f_start2 = Carbon::createFromTimeString($start_time, 'Asia/Tokyo');
-      $f_finish2 = Carbon::createFromTimeString($finish_time, 'Asia/Tokyo');
-
-      $usage_time = $f_start2->diffInMinutes($f_finish2); //時差
-      $usage_time /= 60; //分に変換
-
-      if ($usage_time <= 15) {
-        $target_time_index_in_array = array_search($usage_time, $times_arrays); //配列のどこに該当があるか
-        $empty_arrays3 = [];
-        for ($results_lists = 0; $results_lists < count($time_price); $results_lists++) { //⑤回ループ
-          $empty_arrays3[] = $time_price_results[$results_lists][$target_time_index_in_array];
+      if (!empty($compare['price'])) {
+        if ($compare['price'] < ($base_price['price'] + ($base_price['extend'] * $diff_hour))) {
+          return [
+            $compare['price'],
+            $base_price['extend'] * $diff_hour, //延長料金
+            $compare['price'],
+            1, //合計＋延長
+            1
+          ];
+        } else {
+          return [
+            ($base_price['price'] + ($base_price['extend'] * $diff_hour)),
+            $base_price['extend'] * $diff_hour, //延長料金
+            ($base_price['price'] + ($base_price['extend'] * $diff_hour)),
+            1, //合計＋延長
+            1
+          ];
         }
-        $empty_arrays3result = [];
-        foreach ($empty_arrays3 as $empty_array3key => $empty_array3value) {
-          if ($empty_array3value > 0) {
-            $empty_arrays3result[] = $empty_array3value;
-          }
-        }
-        $time_min_result = min($empty_arrays3result); //■■■■■■■算出した会場＋延長料金■■■■■■■
-
-        $witch_array_in_result = array_search($time_min_result, $empty_arrays3); //どのパターンの結果を参照したのか？ここではパターン１（3H利用）
-        $base_result_price = $time_price[$witch_array_in_result]->price; //料金パターン
-
-        $specific_extend_timeprice = $time_min_result - $base_result_price; //specificな延長料金
-
-        $specific_extend_time = $specific_extend_timeprice / ($time_price[$witch_array_in_result]->extend); //speficな延長　時間
-
-        //[0]は合計料金, [1]は延長料金, [2]は合計＋延長、 [3]は利用時間, [4]は延長時間
-        return [
-          $time_min_result - $specific_extend_timeprice,
-          $specific_extend_timeprice, //延長料金
-          $time_min_result, //合計
-          $usage_time - $specific_extend_time, //合計＋延長
-          $specific_extend_time
-        ];
       } else {
-        return FALSE;
+        return [
+          ($base_price['price'] + ($base_price['extend'] * $diff_hour)),
+          $base_price['extend'] * $diff_hour, //延長料金
+          ($base_price['price'] + ($base_price['extend'] * $diff_hour)),
+          1, //合計＋延長
+          1
+        ];
       }
     }
   }
 
 
-  public function rejectTime($start_time, $finish_time, $reserve_weekday)
+  public function rejectFrame($start_time, $finish_time, $reserve_weekday)
   {
     $week_day = $this['dates']->where('week_day', $reserve_weekday)->first();
 
@@ -405,6 +391,15 @@ class Venue extends Model implements PresentableInterface
     } else if ($start_time >= "17:00:00" && $finish_time <= "18:00:00") {
       return TRUE;
     } else if ($start_time < $week_day->start || $finish_time > $week_day->finish) {
+      return TRUE;
+    }
+  }
+
+  public function rejectTime($start_time, $finish_time, $reserve_weekday)
+  {
+    $week_day = $this['dates']->where('week_day', $reserve_weekday)->first();
+
+    if ($start_time < $week_day->start || $finish_time > $week_day->finish) {
       return TRUE;
     }
   }
