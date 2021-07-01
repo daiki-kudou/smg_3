@@ -343,6 +343,7 @@ class ReservationsController extends Controller
    */
   public function create(Request $request)
   {
+    dump($request->all());
     $request->session()->forget(['master_info', 'calc_info', 'reservation', 'bill', 'breakdown']);
     $request->session()->forget('master_info'); //予約作成TOPに来るとsession初期化
     $request->session()->forget('calc_info'); //予約作成TOPに来るとsession初期化
@@ -351,11 +352,13 @@ class ReservationsController extends Controller
     $users = User::orderBy("id", "desc")->get();
     $target = $request->all_requests;
     $target = json_decode($target);
-    return view('admin.reservations.create', [
-      'venues' => $venues,
-      'users' => $users,
-      'target' => $target,
-    ]);
+    $user_id_from_client_show = $request->user_id_from_client_show;
+    return view('admin.reservations.create', compact(
+      'venues',
+      'users',
+      'target',
+      'user_id_from_client_show'
+    ));
   }
 
   public function storeSession(Request $request)

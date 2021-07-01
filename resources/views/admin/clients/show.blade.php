@@ -49,8 +49,12 @@
         </thead>
         <tbody>
           <tr>
-            <th class="table-active">{{ Form::label('id', '利用者ID') }}</th>
+            <th class="table-active">{{ Form::label('id', '顧客ID') }}</th>
             <td>{{ReservationHelper::fixId($user->id)}}</td>
+          </tr>
+          <tr>
+            <th class="table-active">{{ Form::label('id', '登録日') }}</th>
+            <td>{{ReservationHelper::formatDate($user->created_at)}}</td>
           </tr>
           <tr>
             <th class="table-active">{{ Form::label('company', '会社・団体名') }}</th>
@@ -265,10 +269,19 @@
 
     <ul class="d-flex justify-content-end mt-5">
       <li class="mr-3">
-        <a href="{{url('admin/pre_reservations/create')}}" class="more_btn3">仮押えをする</a>
+        {{-- <a href="{{url('admin/pre_reservations/create')}}" class="more_btn3">仮押えをする</a> --}}
+        {{ Form::open(['url' => 'admin/pre_reservations/create', 'method'=>'get', 'id'=>'']) }}
+        @csrf
+        {{Form::hidden('user_id_from_client_show',$user->id)}}
+        {{Form::submit('仮押さえをする',['id'=>"form_submit",'class'=>'more_btn3'])}}
+        {{Form::close()}}
       </li>
       <li>
-        <a href="{{url('admin/reservations/create')}}" class="more_btn3">予約をする</a>
+        {{ Form::open(['url' => 'admin/reservations/create', 'method'=>'get', 'id'=>'']) }}
+        @csrf
+        {{Form::hidden('user_id_from_client_show',$user->id)}}
+        {{Form::submit('予約をする',['id'=>"form_submit",'class'=>'more_btn3'])}}
+        {{Form::close()}}
       </li>
     </ul>
 
@@ -297,7 +310,8 @@
         @foreach ($reservations as $reservation)
         <tbody>
           <tr>
-            <td rowspan="{{count($reservation->bills()->get())}}">※後ほど修正</td>
+            <td rowspan="{{count($reservation->bills()->get())}}">
+              {{$reservation->multiple_reserve_id!=0?$reservation->multiple_reserve_id:""}}</td>
             <td rowspan="{{count($reservation->bills()->get())}}">{{$reservation->id}}</td>
             <td rowspan="{{count($reservation->bills()->get())}}">
               {{ReservationHelper::formatDate($reservation->reserve_date)}}
@@ -310,29 +324,21 @@
             <td rowspan="{{count($reservation->bills()->get())}}">
               @if ($reservation->user_id>0)
               {{$reservation->user->company}}
-              @elseif($reservation->user_id==0)
-              {{ReservationHelper::getAgentCompany($reservation->agent_id)}}
               @endif
             </td>
             <td rowspan="{{count($reservation->bills()->get())}}">
               @if ($reservation->user_id>0)
               {{ReservationHelper::getPersonName($reservation->user_id)}}
-              @elseif($reservation->user_id==0)
-              {{ReservationHelper::getAgentPerson($reservation->agent_id)}}
               @endif
             </td>
             <td rowspan="{{count($reservation->bills()->get())}}">
               @if ($reservation->user_id>0)
               {{$reservation->user->mobile}}
-              @else
-              {{$reservation->agent->mobile}}
               @endif
             </td>
             <td rowspan="{{count($reservation->bills()->get())}}">
               @if ($reservation->user_id>0)
               {{$reservation->user->tel}}
-              @else
-              {{$reservation->agent->person_tel}}
               @endif
             </td>
             <td rowspan="{{count($reservation->bills()->get())}}">
@@ -340,15 +346,17 @@
               {{ReservationHelper::getAgentCompany($reservation->agent_id)}}
               @endif
             </td>
-            <td>ダミーダミーダミー</td>
+            <td>
+              @if ($reservation->agent_id>0)
+              {{optional($reservation->agent->enduser->company)}}
+              @endif
+            </td>
             <td>会場予約</td>　
             <td>
               {{ReservationHelper::judgeStatus($reservation->bills()->first()->reservation_status)}}
             </td>
             <td rowspan="{{count($reservation->bills()->get())}}"><a
                 href="{{ url('admin/reservations', $reservation->id) }}" class="more_btn">詳細</a></td>
-            {{-- <td rowspan="{{count($reservation->bills()->get())}}"><a
-              href="{{ url('admin/reservations/generate_pdf/'.$reservation->id) }}" class="more_btn">表示</a></td> --}}
           </tr>
           @for ($i = 0; $i < count($reservation->bills()->get())-1; $i++)
             <tr>
@@ -357,8 +365,6 @@
                 追加請求
                 @endif
               </td>
-              {{-- <td>{{ReservationHelper::judgeStatus($reservation->bills()->skip($i+1)->first()->reservation_status)}}
-              </td> --}}
             </tr>
             @endfor
         </tbody>

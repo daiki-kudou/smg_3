@@ -352,7 +352,9 @@
                 <select class="form-control" name="user_id" id="user_select">
                   <option disabled selected>選択してください</option>
                   @foreach ($users as $user)
-                  <option value="{{$user->id}}" @if (isset($request)) @endif>{{$user->company}} |
+                  <option value="{{$user->id}}" {{$user_id_from_client_show==$user->id?'selected':""}}>
+                    {{$user->company}}
+                    |
                     {{$user->first_name}}{{$user->last_name}} | {{$user->email}}
                   </option>
                   @endforeach
@@ -363,38 +365,53 @@
             <tr>
               <td class="table-active"><label for="name">担当者氏名</label></td>
               <td>
-                <p class="person"></p>
+                <p class="person">
+                  {{$user_id_from_client_show?ReservationHelper::getPersonName($user_id_from_client_show):""}}
+                </p>
               </td>
             </tr>
             <tr>
               <td class="table-active">メールアドレス</td>
               <td>
-                <p class="email"></p>
+                <p class="email">
+                  {{$user_id_from_client_show?ReservationHelper::getPersonEmail($user_id_from_client_show):""}}
+                </p>
               </td>
             </tr>
             <tr>
               <td class="table-active">携帯番号</td>
               <td>
-                <p class="mobile"></p>
+                <p class="mobile">
+                  {{$user_id_from_client_show?ReservationHelper::getPersonMobile($user_id_from_client_show):""}}
+                </p>
               </td>
             </tr>
             <tr>
               <td class="table-active">固定電話</td>
               <td>
-                <p class="tel"></p>
+                <p class="tel">
+                  {{$user_id_from_client_show?ReservationHelper::getPersonTel($user_id_from_client_show):""}}
+                </p>
               </td>
             </tr>
             <tr>
               <td class="table-active">割引条件</td>
               <td>
                 <p class="condition">
+                  @if ($user_id_from_client_show)
+                  {!!nl2br(e(ReservationHelper::getPersonCondition($user_id_from_client_show)))!!}
+                  @endif
                 </p>
               </td>
             </tr>
             <tr>
               <td class="table-active caution">注意事項</td>
               <td class="caution">
-                <p class="attention"></p>
+                <p class="attention">
+                  @if ($user_id_from_client_show)
+                  {!!nl2br(e(ReservationHelper::getPersonAttention($user_id_from_client_show)))!!}
+                  @endif
+                </p>
               </td>
             </tr>
           </tbody>
