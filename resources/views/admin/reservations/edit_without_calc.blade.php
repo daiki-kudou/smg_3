@@ -896,7 +896,7 @@
                 <td>
                   {{ Form::text('others_input_subtotal'.$key, $others_price->unit_subtotal,['class'=>'form-control', 'readonly'] ) }}
                 </td>
-                <td>工藤さん！！！追加と削除のボタンの実装</td>
+                {{-- <td>工藤さん！！！追加と削除のボタンの実装</td> --}}
               </tr>
               @endforeach
             </tbody>

@@ -429,7 +429,6 @@
       </div>
       <div class="main">
         <div class="venues billdetails_content">
-          {{-- 工藤さん！！！！！下記、注釈追加です。 --}}
           {{-- <p class="mb-2">※営業時間外の予約の為、管理者側にて料金設定を行います。</p> --}}
           <table class="table table-borderless">
             <tbody>

@@ -27,7 +27,7 @@
 </div>
 @endif
 
-<!-- 工藤さん！！！キャンセル承認まちのときの文言です。 -->
+<!-- キャンセル承認まち -->
 @if ($reservation->cxls->pluck('cxl_status')->contains(1))
 <div class="confirm-box text-sm-center">
   <p>下記、予約内容のキャンセルを承認される場合は、承認ボタンを押してください。</p>
@@ -1007,7 +1007,7 @@
     </div>
   </section>
   @if ($other_bill->reservation_status == 2)
-  <!-- 工藤さん！！！！追加請求のステータスが予約承認まちのときに表示 -->
+  <!--追加請求のステータスが予約承認まちのときに表示 -->
   <div class="confirm-box text-sm-center">
     <p>上記、追加請求の内容で間違いないでしょうか。問題なければ、予約の承認をお願い致します。</p>
     
@@ -1185,7 +1185,7 @@
                   <li>
                     <p><span>申込日：</span>{{ ReservationHelper::formatDate($reservation->created_at) }}
                     </p>
-                    {{-- <p><span>予約確定日：</span>工藤さん！！！！</p> --}}
+                    {{-- <p><span>予約確定日：</span></p> --}}
                   </li>
                 </ul>
               </td>
@@ -1298,7 +1298,7 @@
   </section>
   @endforeach
 
-  <!-- 工藤さん！！キャンセルが承認まちの時に表示です！！！ -->
+  <!-- キャンセルが承認まちの時に表示 -->
   @if ($reservation->cxls->pluck('cxl_status')->contains(1))
   <div class="confirm-box text-sm-center">
     <p>上記、予約内容をキャンセルしてもよろしいでしょうか。問題なければ、承認をお願い致します。</p>
@@ -1316,7 +1316,7 @@
   </div>
   @endif
 
-  <!-- 工藤さん！！キャンセル料合計請求額------------------------------------------------------------------- -->
+  <!-- キャンセル料合計請求額------------------------------------------------------------------- -->
 
   @if ($reservation->cxls->count() != 0)
 
