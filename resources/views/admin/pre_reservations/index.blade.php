@@ -124,7 +124,7 @@
                 <option value="{{$s_a->id}}" @if ($s_a->id==$request->search_agent)
                   selected
                   @endif
-                  >{{ReservationHelper::getAgentCompanyName($s_a->id)}}</option>
+                  >{{ReservationHelper::getAgentCompany($s_a->id)}}</option>
                 @endforeach
               </select>
             </td>
@@ -252,7 +252,7 @@
             </td>
             <td>{{!empty($pre_reservation->unknown_user)?$pre_reservation->unknown_user->unknown_user_company:""}}</td>
             <td>
-              {{$pre_reservation->agent_id==0?"":(ReservationHelper::getAgentCompanyName($pre_reservation->agent_id))}}
+              {{$pre_reservation->agent_id==0?"":(ReservationHelper::getAgentCompany($pre_reservation->agent_id))}}
             </td>
             <td>
               {{!empty($pre_reservation->pre_enduser)?$pre_reservation->pre_enduser->company:""}}

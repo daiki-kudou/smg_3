@@ -35,7 +35,6 @@
   <section class="mt-5 bg-white">
     <div class="date_calender_wrapper" id="date_calender_wrapper">
       <div class="calender-ttl">
-        <!-- <h3>予約状況</h3> -->
         <div class="d-flex align-items-center">
           <div class="row w-100">
             <div class="col text-right">

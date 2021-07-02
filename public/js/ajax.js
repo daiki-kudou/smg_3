@@ -25,16 +25,12 @@ $(function () {
     ajaxGetSalesHours(venue_id, dates);
   });
 
-
   $(document).on("change", "#user_select", function () {
     var user_id = $('#user_select').val();
     $('.user_link').html('');
     $('.user_link').append("<a class='more_btn' target='_blank' rel='noopener' href='/admin/clients/" + user_id + "'>顧客詳細</a>")
     getUserDetails(user_id);
   });
-
-
-
 
   /*--------------------------------------------------
   // 計算するボタン押下トリガー
@@ -684,21 +680,22 @@ $(function () {
       },
       dataType: 'json',
       beforeSend: function () {
-        // $('#fullOverlay').css('display', 'block');
+        $('#fullOverlay').css('display', 'block');
       },
     })
       .done(function ($user_results) {
-        // $('#fullOverlay').css('display', 'none');
+        $('#fullOverlay').css('display', 'none');
         $('.person').text('').text($user_results[0]);
         $('.email').text('').text($user_results[1]);
         $('.mobile').text('').text($user_results[2]);
         $('.tel').text('').text($user_results[3]);
-        $('.condition').html('').html($user_results[4].replace(/\n/g, "<br>"));
-        $('.attention').html('').html($user_results[5].replace(/\n/g, "<br>"));
-        console.log($user_results);
+        var condition = $user_results[4];
+        var attention = $user_results[5];
+        $('.condition').html($('<dummy>').text(condition).html().replace(/\n/g, '<br>'));
+        $('.attention').html($('<dummy>').text(attention).html().replace(/\n/g, '<br>'));
       })
       .fail(function ($user_results) {
-        // $('#fullOverlay').css('display', 'none');
+        $('#fullOverlay').css('display', 'none');
         console.log('ajaxGetClients 失敗', $user_results)
       });
   }

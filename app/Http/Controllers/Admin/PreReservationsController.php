@@ -170,14 +170,19 @@ class PreReservationsController extends Controller
    *
    * @return \Illuminate\Http\Response
    */
-  public function create()
+  public function create(Request $request)
   {
     $users = User::orderBy("id", "desc")->get();
     $venues = Venue::orderBy("id", "desc")->get();
-    return view('admin.pre_reservations.create', [
-      'users' => $users,
-      'venues' => $venues,
-    ]);
+    $user_id_from_client_show = $request->user_id_from_client_show;
+    return view(
+      'admin.pre_reservations.create',
+      compact(
+        'users',
+        'venues',
+        'user_id_from_client_show'
+      )
+    );
   }
 
   public function check(Request $request)

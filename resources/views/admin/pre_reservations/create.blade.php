@@ -43,7 +43,7 @@
     <select name="user_id" id="user_id">
       <option value="">選択してください</option>
       @foreach ($users as $user)
-      <option value="{{$user->id}}">
+      <option value="{{$user->id}}" {{$user_id_from_client_show==$user->id?"selected":""}}>
         {{ReservationHelper::fixId($user->id)}} | {{ReservationHelper::getCompany($user->id)}} |
         {{ReservationHelper::getPersonName($user->id)}} |
         {{$user->email}} | {{$user->tel}} | {{$user->mobile}}
@@ -58,7 +58,10 @@
       <thead>
         <tr>
           <th>顧客情報</th>
-          <th colspan="3">顧客ID：<p class="user_id d-inline"></p>
+          <th colspan="3">顧客ID：
+            <p class="user_id d-inline">
+              {{$user_id_from_client_show?ReservationHelper::fixId($user_id_from_client_show):""}}
+            </p>
           </th>
         </tr>
       </thead>
@@ -66,39 +69,56 @@
         <tr>
           <td class="table-active">会社名・団体名</td>
           <td>
-            <p class="company"></p>
+            <p class="company">
+              {{$user_id_from_client_show?ReservationHelper::getCompany($user_id_from_client_show):""}}
+            </p>
           </td>
           <td class="table-active">担当者氏名</td>
           <td>
-            <p class="person"></p>
+            <p class="person">
+              {{$user_id_from_client_show?ReservationHelper::getPersonName($user_id_from_client_show):""}}
+            </p>
           </td>
         </tr>
         <tr>
           <td class="table-active">メールアドレス</td>
           <td>
-            <p class="email"></p>
+            <p class="email">
+              {{$user_id_from_client_show?ReservationHelper::getPersonEmail($user_id_from_client_show):""}}
+            </p>
           </td>
           <td class="table-active">携帯番号</td>
           <td>
-            <p class="mobile"></p>
+            <p class="mobile">
+              {{$user_id_from_client_show?ReservationHelper::getPersonMobile($user_id_from_client_show):""}}
+            </p>
           </td>
         </tr>
         <tr>
           <td class="table-active">固定電話</td>
           <td>
-            <p class="tel"></p>
+            <p class="tel">
+              {{$user_id_from_client_show?ReservationHelper::getPersonTel($user_id_from_client_show):""}}
+            </p>
           </td>
           <td class="table-active">割引条件</td>
           <td>
             <p class="condition">
-
+              @if ($user_id_from_client_show)
+              {!!nl2br(e(ReservationHelper::getPersonCondition($user_id_from_client_show)))!!}
+              @endif
             </p>
           </td>
         </tr>
         <tr>
           <td class="table-active caution">注意事項</td>
           <td colspan="3" class="caution">
-            <p class="attention"></p>
+            <p class="attention">
+              @if ($user_id_from_client_show)
+              {!!nl2br(e(ReservationHelper::getPersonAttention($user_id_from_client_show)))!!}
+              @endif
+
+            </p>
           </td>
         </tr>
       </tbody>
