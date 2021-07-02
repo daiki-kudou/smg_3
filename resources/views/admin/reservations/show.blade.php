@@ -273,6 +273,14 @@
             </thead>
             <tbody>
               <tr>
+                <td class="table-active"><label for="preDelivery">荷物預かり　工藤さん！！！</label></td>
+                <td>なし</td>
+              </tr>
+              <tr>
+                <td class="table-active"><label for="preDelivery">事前に預かる荷物(目安)</label></td>
+                <td>{{ isset($reservation->luggage_count) ? $reservation->luggage_count : '' }}個</td>
+              </tr>
+              <tr>
                 <td class="table-active"><label for="preDelivery">事前に預かる荷物</label></td>
                 <td>
                   <ul class="table-cell-box">
@@ -313,6 +321,7 @@
                   </ul>
                 </td>
               </tr>
+
             </tbody>
           </table>
         </div>
