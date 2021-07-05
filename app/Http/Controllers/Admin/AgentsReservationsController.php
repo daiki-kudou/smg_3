@@ -109,7 +109,11 @@ class AgentsReservationsController extends Controller
   public function store(Request $request)
   {
     $reservation = new Reservation();
-    $reservation->ReserveFromAgent($request);
+    $created_reservations = $reservation->ReserveFromAgent($request);
+    $created_reservations->CreateEndUser($request);
+    $created_bill = $created_reservations->ReserveFromAgentBill($request);
+    $created_bill->ReserveFromAgentBreakdown($request);
+
     $request->session()->regenerate();
     return redirect()->route('admin.reservations.index');
   }

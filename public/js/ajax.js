@@ -9,7 +9,7 @@ $(function () {
     $('#sales_finish').val();
     ajaxGetItems(venue_id);
     ajaxGetSalesHours(venue_id, dates);
-    ajaxGetPriceStstem(venue_id);
+    ajaxGetPriceSystem(venue_id);
     ajaxGetLayout(venue_id); //レイアウトが存在するかしないか、　"0"か"1"でreturn
     ajaxGetLuggage(venue_id); //会場に荷物預りが存在するかしないか、　"0"か"1"でreturn
     ajaxGetOperatinSystem(venue_id); //会場形態の判別 直営 or　提携
@@ -137,7 +137,7 @@ $(function () {
       headers: {
         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
       },
-      url: '/admin/reservations/geteitems',
+      url: '/admin/ajax/reservation/get_item',
       type: 'POST',
       data: { 'venue_id': $venue_id, 'text': 'Ajax成功' },
       dataType: 'json',
@@ -150,30 +150,30 @@ $(function () {
         $('.equipemnts table tbody').html(''); //一旦初期会
         $.each($items[0], function (index, value) {
           // ココで備品取得
-          $('.equipemnts table tbody').append("<tr><td class='table-active'>" + value['item'] + "(" + (Number(value['price'])).toLocaleString() + "円)" + "</td>" + "<td><input type='text' value='0' min=0 name='equipment_breakdown" + index + "' class='form-control equipment_breakdown'></td></tr>");
+          $('.equipemnts table tbody').append("<tr><td class='table-active'>" + value['item'] + "(" + (Number(value['price'])).toLocaleString() + "円)" + "</td>" + "<td><input type='text' value='0' min=0 name='equipment_breakdown[]" + '' + "' class='form-control equipment_breakdown'></td></tr>");
         });
         // ***********マイナス、全角制御用
-        function ExceptString($target) {
-          $target.numeric({ negative: false, });
-          $target.on('change', function () {
-            charactersChange($(this));
-          })
-          charactersChange = function (ele) {
-            var val = ele.val();
-            var han = val.replace(/[Ａ-Ｚａ-ｚ０-９]/g, function (s) { return String.fromCharCode(s.charCodeAt(0) - 0xFEE0) });
-            if (val.match(/[Ａ-Ｚａ-ｚ０-９]/g)) {
-              $(ele).val(han);
-            }
-          }
-        }
-        ExceptString($(".equipemnts table tbody input[name^='equipemnt']"));
+        // function ExceptString($target) {
+        //   $target.numeric({ negative: false, });
+        //   $target.on('change', function () {
+        //     charactersChange($(this));
+        //   })
+        //   charactersChange = function (ele) {
+        //     var val = ele.val();
+        //     var han = val.replace(/[Ａ-Ｚａ-ｚ０-９]/g, function (s) { return String.fromCharCode(s.charCodeAt(0) - 0xFEE0) });
+        //     if (val.match(/[Ａ-Ｚａ-ｚ０-９]/g)) {
+        //       $(ele).val(han);
+        //     }
+        //   }
+        // }
+        // ExceptString($(".equipemnts table tbody input[name^='equipemnt']"));
         // ***********マイナス、全角制御用
 
         $('.services table tbody').html('');
         $.each($items[1], function (index, value) {
           // ココでサービス取得
           // 有り・無しに変更するため以下コメントアウト
-          $('.services table tbody').append("<tr><td class='table-active'>" + value['item'] + "(" + (Number(value['price'])).toLocaleString() + "円)" + "</td>" + "<td><input type='radio' value='1' name='services_breakdown" + index + "' id='service" + index + "on'><label class='mr-3 ml-1' for='service" + index + "on'>有り</label><input type='radio' value='0' id='service" + index + "off' name='services_breakdown" + index + "' checked><label for='service" + index + "off' class='ml-1'>無し</label></td></tr>");
+          $('.services table tbody').append("<tr><td class='table-active'>" + value['item'] + "(" + (Number(value['price'])).toLocaleString() + "円)" + "</td>" + "<td><input type='radio' value='1' name='services_breakdown[" + index + "]" + '' + "' id='service" + index + "on'><label class='mr-3 ml-1' for='service" + index + "on'>有り</label><input type='radio' value='0' id='service" + index + "off' name='services_breakdown[" + index + "]" + '' + "' checked><label for='service" + index + "off' class='ml-1'>無し</label></td></tr>");
         });
       })
       .fail(function (data) {
@@ -232,12 +232,12 @@ $(function () {
   };
 
   // 料金体系取得
-  function ajaxGetPriceStstem($venue_id) {
+  function ajaxGetPriceSystem($venue_id) {
     $.ajax({
       headers: {
         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
       },
-      url: '/admin/reservations/getpricesystem',
+      url: '/admin/ajax/reservation/get_price_system',
       type: 'POST',
       data: { 'venue_id': $venue_id },
       dataType: 'json',
@@ -273,217 +273,217 @@ $(function () {
         // $('#fullOverlay').css('display', 'none');
         $('#price_system1').addClass("hide");
         $('#price_system2').addClass("hide");
-
+        console.log($prices);
       });
   };
 
   // 料金詳細　取得
-  function ajaxGetPriceDetails($venue_id, $status, $start, $finish) {
-    $.ajax({
-      headers: {
-        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-      },
-      url: '/admin/reservations/getpricedetails',
-      type: 'POST',
-      data: {
-        'venue_id': $venue_id,
-        'status': $status,
-        'start': $start,
-        'finish': $finish,
-      },
-      dataType: 'json',
-      beforeSend: function () {
-        // $('#fullOverlay').css('display', 'block');
-      },
-    })
-      .done(function ($details) {
-        // $('#fullOverlay').css('display', 'none');
-        // 手入力部分は初期化
-        $('#handinput_venue').val('');
-        $('#handinput_extend').val('');
-        $('#handinput_discount').val('');
-        $('#handinput_subtotal').text('');
-        $('#handinput_tax').text('');
-        $('#handinput_total').text('');
-        $('.hand_input').hasClass('hide') ? '' : $('.hand_input').addClass('hide');
-        $('.bill-bg').hasClass('hide') ? $('.bill-bg').removeClass('hide') : '';
-        //[0]は合計料金, [1]は延長料金, [2]は利用時間, [3]は延長時間
-        var venue_extend_price = ($details[0][0]);
-        var extend_price = ($details[0][1]);
-        var usage = ($details[0][2]);
-        var extend_time = ($details[0][3]);
-        // console.log($details);
-        $('.extend').val('');
-        $('.venue_price').val('');
-        $('.after_discount_price').text('');
-        $('.after_discount_price').val('');
-        $('.venue_subtotal').val(''); //小計
-        $('.venue_tax').val(''); //消費税
-        $('.venue_total').val(''); //会場合計料金
-        $('.venue_extend').val(venue_extend_price);
-        $('.extend').val(extend_price);
-        $('.venue_price').val(venue_extend_price - extend_price);
-        $('.after_discount_price').text(venue_extend_price);
-        $('.after_discount_price').val(venue_extend_price);
-        if ((extend_price) == 0) {
-          $('.venue_price_details table tbody').html('');
-          $('.venue_price_details table tbody').append("<tr><td>" + '会場料金' + "</td><td>" + venue_extend_price + "</td><td>" + '1' + "</td><td>" + venue_extend_price + "</td></tr>").trigger('create');
-          $('.after_discount_price').text(venue_extend_price);
-          $('.after_discount_price').val(venue_extend_price);
-          $('.venue_subtotal').val(venue_extend_price); //小計
-          $('.venue_tax').val(Math.floor(Number((venue_extend_price)) * 0.1)); //消費税
-          $('.venue_total').val(Number((venue_extend_price)) + (Math.floor(Number(venue_extend_price * 0.1)))); //会場合計料金
-        } else {
-          $('.venue_price_details table tbody').html('');
-          $('.venue_price_details table tbody').append("<tr><td>" + '会場料金' + "</td><td>" + ((venue_extend_price) - (extend_price)) + "</td><td>" + '1' + "</td><td>" + ((venue_extend_price) - (extend_price)) + "</td></tr>").trigger('create');
-          $('.venue_price_details table tbody').append("<tr><td>" + '延長料金' + "</td><td>" + extend_price + "</td><td>" + extend_time + "H</td><td>" + extend_price + "</td></tr>").trigger('create');
-          $('.after_discount_price').text(venue_extend_price);
-          $('.after_discount_price').val(venue_extend_price);
-          $('.venue_subtotal').val(venue_extend_price); //小計
-          $('.venue_tax').val(Math.floor(Number(venue_extend_price) * 0.1)); //消費税
-          $('.venue_total').val(Number(venue_extend_price) + (Math.floor(Number(venue_extend_price * 0.1)))); //会場合計料金
-        }
-      })
-      .fail(function ($details) {
-        // $('#fullOverlay').css('display', 'none');
-        swal("料金の取得に失敗しました.", '枠料金にて入退室時間が08:00~23:00で入力した場合はページをリロードし再度条件を変え再計算してください。もし08:00~23:00以外で入力した場合は、そのまま進み会場料金を手入力してください')
-          .then((value) => {
-            swal(`アクセア料金を選択し利用時間が15時間を超過した場合、そのまま進み会場料金を手入力してください`);
-          });
-        $('.extend').val('');
-        $('.venue_price').val('');
-        $('.after_discount_price').text('');
-        $('.after_discount_price').val('');
-        $('.venue_subtotal').val(''); //小計
-        $('.venue_tax').val(''); //消費税
-        $('.venue_total').val(''); //会場合計料金
-        $('.venue_price_details table tbody').html('');
+  // function ajaxGetPriceDetails($venue_id, $status, $start, $finish) {
+  //   $.ajax({
+  //     headers: {
+  //       'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+  //     },
+  //     url: '/admin/ajax/reservation/get_price_details',
+  //     type: 'POST',
+  //     data: {
+  //       'venue_id': $venue_id,
+  //       'status': $status,
+  //       'start': $start,
+  //       'finish': $finish,
+  //     },
+  //     dataType: 'json',
+  //     beforeSend: function () {
+  //       // $('#fullOverlay').css('display', 'block');
+  //     },
+  //   })
+  //     .done(function ($details) {
+  //       // $('#fullOverlay').css('display', 'none');
+  //       // 手入力部分は初期化
+  //       $('#handinput_venue').val('');
+  //       $('#handinput_extend').val('');
+  //       $('#handinput_discount').val('');
+  //       $('#handinput_subtotal').text('');
+  //       $('#handinput_tax').text('');
+  //       $('#handinput_total').text('');
+  //       $('.hand_input').hasClass('hide') ? '' : $('.hand_input').addClass('hide');
+  //       $('.bill-bg').hasClass('hide') ? $('.bill-bg').removeClass('hide') : '';
+  //       //[0]は合計料金, [1]は延長料金, [2]は利用時間, [3]は延長時間
+  //       var venue_extend_price = ($details[0][0]);
+  //       var extend_price = ($details[0][1]);
+  //       var usage = ($details[0][2]);
+  //       var extend_time = ($details[0][3]);
+  //       // console.log($details);
+  //       $('.extend').val('');
+  //       $('.venue_price').val('');
+  //       $('.after_discount_price').text('');
+  //       $('.after_discount_price').val('');
+  //       $('.venue_subtotal').val(''); //小計
+  //       $('.venue_tax').val(''); //消費税
+  //       $('.venue_total').val(''); //会場合計料金
+  //       $('.venue_extend').val(venue_extend_price);
+  //       $('.extend').val(extend_price);
+  //       $('.venue_price').val(venue_extend_price - extend_price);
+  //       $('.after_discount_price').text(venue_extend_price);
+  //       $('.after_discount_price').val(venue_extend_price);
+  //       if ((extend_price) == 0) {
+  //         $('.venue_price_details table tbody').html('');
+  //         $('.venue_price_details table tbody').append("<tr><td>" + '会場料金' + "</td><td>" + venue_extend_price + "</td><td>" + '1' + "</td><td>" + venue_extend_price + "</td></tr>").trigger('create');
+  //         $('.after_discount_price').text(venue_extend_price);
+  //         $('.after_discount_price').val(venue_extend_price);
+  //         $('.venue_subtotal').val(venue_extend_price); //小計
+  //         $('.venue_tax').val(Math.floor(Number((venue_extend_price)) * 0.1)); //消費税
+  //         $('.venue_total').val(Number((venue_extend_price)) + (Math.floor(Number(venue_extend_price * 0.1)))); //会場合計料金
+  //       } else {
+  //         $('.venue_price_details table tbody').html('');
+  //         $('.venue_price_details table tbody').append("<tr><td>" + '会場料金' + "</td><td>" + ((venue_extend_price) - (extend_price)) + "</td><td>" + '1' + "</td><td>" + ((venue_extend_price) - (extend_price)) + "</td></tr>").trigger('create');
+  //         $('.venue_price_details table tbody').append("<tr><td>" + '延長料金' + "</td><td>" + extend_price + "</td><td>" + extend_time + "H</td><td>" + extend_price + "</td></tr>").trigger('create');
+  //         $('.after_discount_price').text(venue_extend_price);
+  //         $('.after_discount_price').val(venue_extend_price);
+  //         $('.venue_subtotal').val(venue_extend_price); //小計
+  //         $('.venue_tax').val(Math.floor(Number(venue_extend_price) * 0.1)); //消費税
+  //         $('.venue_total').val(Number(venue_extend_price) + (Math.floor(Number(venue_extend_price * 0.1)))); //会場合計料金
+  //       }
+  //     })
+  //     .fail(function ($details) {
+  //       // $('#fullOverlay').css('display', 'none');
+  //       swal("料金の取得に失敗しました.", '枠料金にて入退室時間が08:00~23:00で入力した場合はページをリロードし再度条件を変え再計算してください。もし08:00~23:00以外で入力した場合は、そのまま進み会場料金を手入力してください')
+  //         .then((value) => {
+  //           swal(`アクセア料金を選択し利用時間が15時間を超過した場合、そのまま進み会場料金を手入力してください`);
+  //         });
+  //       $('.extend').val('');
+  //       $('.venue_price').val('');
+  //       $('.after_discount_price').text('');
+  //       $('.after_discount_price').val('');
+  //       $('.venue_subtotal').val(''); //小計
+  //       $('.venue_tax').val(''); //消費税
+  //       $('.venue_total').val(''); //会場合計料金
+  //       $('.venue_price_details table tbody').html('');
 
-        // $('.bill-bg .bill-box:first-child').addClass('hide');
-        $('.hand_input').removeClass('hide');
-        $('#handinput_venue').val('');
-        $('#handinput_extend').val('');
-        $('#handinput_discount').val('');
-        $('#handinput_subtotal').text('');
-        $('#handinput_tax').text('');
-        $('#handinput_total').text('');
-      });
-  };
+  //       // $('.bill-bg .bill-box:first-child').addClass('hide');
+  //       $('.hand_input').removeClass('hide');
+  //       $('#handinput_venue').val('');
+  //       $('#handinput_extend').val('');
+  //       $('#handinput_discount').val('');
+  //       $('#handinput_subtotal').text('');
+  //       $('#handinput_tax').text('');
+  //       $('#handinput_total').text('');
+  //     });
+  // };
 
   // 備品＆サービス　料金取得
-  function ajaxGetItemsDetails($venue_id, $equipemnts, $services) {
-    $.ajax({
-      headers: {
-        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-      },
-      url: '/admin/reservations/geteitemsprices',
-      type: 'POST',
-      data: {
-        'venue_id': $venue_id,
-        'equipemnts': $equipemnts,
-        'services': $services,
-      },
-      dataType: 'json',
-      beforeSend: function () {
-        // $('#fullOverlay').css('display', 'block');
-      },
-    })
-      .done(function ($each) {
-        // $('#fullOverlay').css('display', 'none');
-        // ※$eachの[0][0]には備品とサービスの合計料金
-        // ※$eachの[0][1]には連想配列で選択された備品の個数、単価、備品名
-        // ※$eachの[0][2]には連想配列で選択されたサービスの個数、単価、備品名
-        // ※$eachの[0][3]には備品の合計金額
-        // ※$eachの[0][4]にはサービスの合計金額
-        var count_equipments = ($each[0][1]).length;
-        $('.items_equipments table tbody').html(''); //テーブル初期化
-        $('.selected_equipments_price').val(''); //有料備品料金初期化
-        $('.selected_services_price').val(''); //有料サービス料金初期化
-        $('.selected_items_total').val(''); //有料備品＆有料サービス合計初期化
-        $('.items_discount_price').val(''); //割引後 会場料金合計初期化
-        $('.items_subtotal').val(''); //小計初期化
-        $('.items_tax').val(''); //消費税初期化
-        $('.all_items_total').val('');　//請求総額初期化
-        $('.selected_luggage_price').val('');　//請求総額初期化
-        for (let counter = 0; counter < count_equipments; counter++) {
-          var data1 = "<tr><td>"
-            + $each[0][1][counter][0]
-            + "</td><td>"
-            + $each[0][1][counter][1]
-            + "</td><td>"
-            + $each[0][1][counter][2]
-            + "</td><td>"
-            + (($each[0][1][counter][1]) * ($each[0][1][counter][2]))
-            + "</td></tr>";
-          $('.items_equipments table tbody').append(data1);
-        }
-        var count_services = ($each[0][2]).length;
-        for (let counter_s = 0; counter_s < count_services; counter_s++) {
-          var data2 = "<tr><td>"
-            + $each[0][2][counter_s][0]
-            + "</td><td>"
-            + $each[0][2][counter_s][1]
-            + "</td><td>"
-            + $each[0][2][counter_s][2]
-            + "</td><td>"
-            + (($each[0][2][counter_s][1]) * ($each[0][2][counter_s][2]))
-            + "</td></tr>";
-          $('.items_equipments table tbody').append(data2);
-        }
-        //荷物の金額が入力したら反映
-        var luggage_target = $('.luggage_price').val();
-        // luggage_target == 0 || luggage_target == '' ? 0 : luggage_target;
-        if (luggage_target != 0 || luggage_target != '') {
-          if ($('.items_equipments table tbody').hasClass('luggage_input_price')) {
-            $('.luggage_input_price').remove();
-            var data3 = "<tr class='luggage_input_price'><td>"
-              + '荷物預り/返送'
-              + "</td><td>"
-              + luggage_target
-              + "</td><td>"
-              + '1' + "</td><td>"
-              + luggage_target
-              + "</td></tr>";
-            $('.items_equipments table tbody').append(data3);
-          }
-          // else {
-          //   var data4 = "<tr class='luggage_input_price'><td>"
-          //     + '荷物預り/返送'
-          //     + "</td><td>"
-          //     + luggage_target
-          //     + "</td><td>"
-          //     + '1' + "</td><td>"
-          //     + luggage_target
-          //     + "</td></tr>";
-          //   $('.items_equipments table tbody').append(data4);
-          // }
-        } else {
-          $('.luggage_input_price').remove();
-        }
-        luggage_target = luggage_target ? Number(luggage_target) : 0;
-        $('.selected_equipments_price').val($each[0][3]);
-        $('.selected_services_price').val($each[0][4]);
-        $('.selected_luggage_price').val(luggage_target);
-        $('.selected_items_total').val(Number($each[0][0]) + Number(luggage_target));
-        $('.items_discount_price').val(Number($each[0][0]) + Number(luggage_target));
-        $('.items_subtotal').val(Number($each[0][0]) + Number(luggage_target));
-        $('.items_tax').val(Math.floor((Number($each[0][0]) + Number(luggage_target)) * 0.1));
-        $('.all_items_total').val((Math.floor((Number($each[0][0]) + Number(luggage_target)) * 0.1)) + (Number($each[0][0]) + Number(luggage_target)));
-      })
-      .fail(function ($each) {
-        // $('#fullOverlay').css('display', 'none');
-        // console.log('備品又はサービスの料金取得に失敗しました。ページをリロードし再度試して下さい');
-        // console.log('備品エラー', $each);
-        $('.items_equipments table tbody').html(''); //テーブル初期化
-        $('.selected_equipments_price').val(''); //有料備品料金初期化
-        $('.selected_services_price').val(''); //有料サービス料金初期化
-        $('.selected_items_total').val(''); //有料備品＆有料サービス合計初期化
-        $('.items_discount_price').val(''); //割引後 会場料金合計初期化
-        $('.items_subtotal').val(''); //小計初期化
-        $('.items_tax').val(''); //消費税初期化
-        $('.selected_luggage_price').val('');　//荷物アヅカリ
-      });
-  };
+  // function ajaxGetItemsDetails($venue_id, $equipemnts, $services) {
+  //   $.ajax({
+  //     headers: {
+  //       'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+  //     },
+  //     url: '/admin/reservations/geteitemsprices',
+  //     type: 'POST',
+  //     data: {
+  //       'venue_id': $venue_id,
+  //       'equipemnts': $equipemnts,
+  //       'services': $services,
+  //     },
+  //     dataType: 'json',
+  //     beforeSend: function () {
+  //       // $('#fullOverlay').css('display', 'block');
+  //     },
+  //   })
+  //     .done(function ($each) {
+  //       // $('#fullOverlay').css('display', 'none');
+  //       // ※$eachの[0][0]には備品とサービスの合計料金
+  //       // ※$eachの[0][1]には連想配列で選択された備品の個数、単価、備品名
+  //       // ※$eachの[0][2]には連想配列で選択されたサービスの個数、単価、備品名
+  //       // ※$eachの[0][3]には備品の合計金額
+  //       // ※$eachの[0][4]にはサービスの合計金額
+  //       var count_equipments = ($each[0][1]).length;
+  //       $('.items_equipments table tbody').html(''); //テーブル初期化
+  //       $('.selected_equipments_price').val(''); //有料備品料金初期化
+  //       $('.selected_services_price').val(''); //有料サービス料金初期化
+  //       $('.selected_items_total').val(''); //有料備品＆有料サービス合計初期化
+  //       $('.items_discount_price').val(''); //割引後 会場料金合計初期化
+  //       $('.items_subtotal').val(''); //小計初期化
+  //       $('.items_tax').val(''); //消費税初期化
+  //       $('.all_items_total').val('');　//請求総額初期化
+  //       $('.selected_luggage_price').val('');　//請求総額初期化
+  //       for (let counter = 0; counter < count_equipments; counter++) {
+  //         var data1 = "<tr><td>"
+  //           + $each[0][1][counter][0]
+  //           + "</td><td>"
+  //           + $each[0][1][counter][1]
+  //           + "</td><td>"
+  //           + $each[0][1][counter][2]
+  //           + "</td><td>"
+  //           + (($each[0][1][counter][1]) * ($each[0][1][counter][2]))
+  //           + "</td></tr>";
+  //         $('.items_equipments table tbody').append(data1);
+  //       }
+  //       var count_services = ($each[0][2]).length;
+  //       for (let counter_s = 0; counter_s < count_services; counter_s++) {
+  //         var data2 = "<tr><td>"
+  //           + $each[0][2][counter_s][0]
+  //           + "</td><td>"
+  //           + $each[0][2][counter_s][1]
+  //           + "</td><td>"
+  //           + $each[0][2][counter_s][2]
+  //           + "</td><td>"
+  //           + (($each[0][2][counter_s][1]) * ($each[0][2][counter_s][2]))
+  //           + "</td></tr>";
+  //         $('.items_equipments table tbody').append(data2);
+  //       }
+  //       //荷物の金額が入力したら反映
+  //       var luggage_target = $('.luggage_price').val();
+  //       // luggage_target == 0 || luggage_target == '' ? 0 : luggage_target;
+  //       if (luggage_target != 0 || luggage_target != '') {
+  //         if ($('.items_equipments table tbody').hasClass('luggage_input_price')) {
+  //           $('.luggage_input_price').remove();
+  //           var data3 = "<tr class='luggage_input_price'><td>"
+  //             + '荷物預り/返送'
+  //             + "</td><td>"
+  //             + luggage_target
+  //             + "</td><td>"
+  //             + '1' + "</td><td>"
+  //             + luggage_target
+  //             + "</td></tr>";
+  //           $('.items_equipments table tbody').append(data3);
+  //         }
+  //         // else {
+  //         //   var data4 = "<tr class='luggage_input_price'><td>"
+  //         //     + '荷物預り/返送'
+  //         //     + "</td><td>"
+  //         //     + luggage_target
+  //         //     + "</td><td>"
+  //         //     + '1' + "</td><td>"
+  //         //     + luggage_target
+  //         //     + "</td></tr>";
+  //         //   $('.items_equipments table tbody').append(data4);
+  //         // }
+  //       } else {
+  //         $('.luggage_input_price').remove();
+  //       }
+  //       luggage_target = luggage_target ? Number(luggage_target) : 0;
+  //       $('.selected_equipments_price').val($each[0][3]);
+  //       $('.selected_services_price').val($each[0][4]);
+  //       $('.selected_luggage_price').val(luggage_target);
+  //       $('.selected_items_total').val(Number($each[0][0]) + Number(luggage_target));
+  //       $('.items_discount_price').val(Number($each[0][0]) + Number(luggage_target));
+  //       $('.items_subtotal').val(Number($each[0][0]) + Number(luggage_target));
+  //       $('.items_tax').val(Math.floor((Number($each[0][0]) + Number(luggage_target)) * 0.1));
+  //       $('.all_items_total').val((Math.floor((Number($each[0][0]) + Number(luggage_target)) * 0.1)) + (Number($each[0][0]) + Number(luggage_target)));
+  //     })
+  //     .fail(function ($each) {
+  //       // $('#fullOverlay').css('display', 'none');
+  //       // console.log('備品又はサービスの料金取得に失敗しました。ページをリロードし再度試して下さい');
+  //       // console.log('備品エラー', $each);
+  //       $('.items_equipments table tbody').html(''); //テーブル初期化
+  //       $('.selected_equipments_price').val(''); //有料備品料金初期化
+  //       $('.selected_services_price').val(''); //有料サービス料金初期化
+  //       $('.selected_items_total').val(''); //有料備品＆有料サービス合計初期化
+  //       $('.items_discount_price').val(''); //割引後 会場料金合計初期化
+  //       $('.items_subtotal').val(''); //小計初期化
+  //       $('.items_tax').val(''); //消費税初期化
+  //       $('.selected_luggage_price').val('');　//荷物アヅカリ
+  //     });
+  // };
 
   // レイアウト有りなし判別
   function ajaxGetLayout($venue_id) {
@@ -491,7 +491,7 @@ $(function () {
       headers: {
         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
       },
-      url: '/admin/reservations/getlayout',
+      url: '/admin/ajax/reservation/get_layout',
       type: 'POST',
       data: {
         'venue_id': $venue_id

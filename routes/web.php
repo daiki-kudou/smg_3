@@ -112,7 +112,6 @@ Route::namespace('Admin')->prefix('admin')->name('admin.')->group(function () {
     'reset'    => false
   ]);
 
-
   // ログイン認証後
   Route::middleware(
     'auth:admin',
@@ -171,20 +170,27 @@ Route::namespace('Admin')->prefix('admin')->name('admin.')->group(function () {
     // 予約　show
     Route::get('reservations/{reservation}', 'ReservationsController@show')->name('reservations.show');
 
+    // ajax ▼
+    Route::post('ajax/reservation/get_item', 'Ajax\AjaxReservationsController@get_items');
+    Route::post('ajax/reservation/get_price_system', 'Ajax\AjaxReservationsController@get_price_system');
+    Route::post('ajax/reservation/get_price_details', 'Ajax\AjaxReservationsController@get_price_details');
+    Route::post('ajax/reservation/get_layout', 'Ajax\AjaxReservationsController@get_layout');
+    Route::post('ajax/reservation/get_luggage', 'Ajax\AjaxReservationsController@get_luggage');
+    // ajax ▲
+
+
     // ajax アイテム
-    Route::post('reservations/geteitems', 'ReservationsController@geteitems');
+    // Route::post('reservations/geteitems', 'ReservationsController@geteitems');
     // ajax 料金体系
-    Route::post('reservations/getpricesystem', 'ReservationsController@getpricesystem');
-    // ajax 営業時間
-    Route::post('reservations/getsaleshours', 'ReservationsController@getsaleshours');
+    // Route::post('reservations/getpricesystem', 'ReservationsController@getpricesystem');
     // ajax 料金詳細所得
-    Route::post('reservations/getpricedetails', 'ReservationsController@getpricedetails');
+    // Route::post('reservations/getpricedetails', 'ReservationsController@getpricedetails');
     // ajax 備品＆サービス　料金取得
-    Route::post('reservations/geteitemsprices', 'ReservationsController@geteitemsprices');
+    // Route::post('reservations/geteitemsprices', 'ReservationsController@geteitemsprices');
     // ajax レイアウト取得
-    Route::post('reservations/getlayout', 'ReservationsController@getlayout');
+    // Route::post('reservations/getlayout', 'ReservationsController@getlayout');
     // ajax レイアウト金額取得
-    Route::post('reservations/getlayoutprice', 'ReservationsController@getlayoutprice');
+    // Route::post('reservations/getlayoutprice', 'ReservationsController@getlayoutprice');
     // ajax 荷物有り、無し　判別
     Route::post('reservations/getluggage', 'ReservationsController@getluggage');
     // ajax 会場　直営 or 提携　判別
@@ -193,6 +199,13 @@ Route::namespace('Admin')->prefix('admin')->name('admin.')->group(function () {
     Route::post('clients/getclients', 'ClientsController@getclients');
     // ajax ケータリング
     Route::post('reservations/get_eat_in', 'ReservationsController@getEatIn');
+
+
+
+
+
+
+
     //予約に対するダブルチェック
     Route::post('reservations/{reservation}/double_check', 'ReservationsController@double_check')->name('reservations.double_check');
 

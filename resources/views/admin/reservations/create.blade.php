@@ -122,11 +122,6 @@
                   <select name="enter_time" id="sales_start" class="form-control">
                     <option selected></option>
                     {!!ReservationHelper::timeOptions()!!}
-                    {{-- @for ($start = 0*2; $start <=24*2; $start++) <option
-                      value="{{date("H:i:s", strtotime("00:00 +". $start * 30 ." minute"))}}">
-                    {{date("H時i分", strtotime("00:00 +". $start * 30 ." minute"))}}
-                    </option>
-                    @endfor --}}
                   </select>
                   <p class="is-error-enter_time" style="color: red"></p>
                 </div>
@@ -193,7 +188,6 @@
                   <select name="event_finish" id="event_finish" class="form-control">
                     <option disabled>選択してください</option>
                     {!!ReservationHelper::timeOptions()!!}
-
                   </select>
                 </div>
               </td>

@@ -26,7 +26,6 @@ class Reservation extends Model implements PresentableInterface
   use InvoiceTrait;
   use SearchTrait;
 
-
   public function getPresenter() //実装したプレゼンタを利用
   {
     return new ReservationPresenter($this);
@@ -480,7 +479,7 @@ class Reservation extends Model implements PresentableInterface
   // 仲介会社からの予約
   public function ReserveFromAgent($request)
   {
-    DB::transaction(function () use ($request) {
+    $reservation = DB::transaction(function () use ($request) {
       $reservation = $this->create([
         'venue_id' => $request->venue_id,
         'user_id' => 0, //デフォで0
@@ -505,9 +504,11 @@ class Reservation extends Model implements PresentableInterface
         'eat_in' => !empty($request->eat_in) ? $request->eat_in : 0,
         'eat_in_prepare' => !empty($request->eat_in_prepare) ? $request->eat_in_prepare : 0,
       ]);
-      $reservation->CreateEndUser($request);
-      $reservation->ReserveFromAgentBill($request);
+      return $reservation;
+      // $reservation->CreateEndUser($request);
+      // $reservation->ReserveFromAgentBill($request);
     });
+    return $reservation;
   }
 
   public function CreateEndUser($request)
@@ -540,7 +541,7 @@ class Reservation extends Model implements PresentableInterface
 
   public function ReserveFromAgentBill($request)
   {
-    DB::transaction(function () use ($request) {
+    $bill = DB::transaction(function () use ($request) {
       $bill = $this->bills()->create([
         'reservation_id' => $this->id,
         'venue_price' => 0, //デフォで0
@@ -565,8 +566,10 @@ class Reservation extends Model implements PresentableInterface
         'admin_judge' => 1, //管理者作成なら1 ユーザー作成なら2
         'invoice_number' => $this->generate_invoice_number(),
       ]);
-      $bill->ReserveFromAgentBreakdown($request);
+      // $bill->ReserveFromAgentBreakdown($request);
+      return $bill;
     });
+    return $bill;
   }
 
 

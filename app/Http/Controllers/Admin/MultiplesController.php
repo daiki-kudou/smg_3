@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 
 use App\Models\MultipleReserve;
 use App\Models\PreReservation;
+use App\Models\Reservation;
 use App\Models\Venue;
 use App\Models\User;
 use App\Models\Agent;
@@ -367,7 +368,69 @@ class MultiplesController extends Controller
 
   public function agentMoveToReservation(Request $request)
   {
-    // dump($request->except('_token'));
+    // 未完了
+    // 未完了
+    // 未完了
+    // 未完了
+    // 未完了
+    // 未完了
+    // 未完了
+    // 未完了
+    // 未完了
+    // 未完了
+    // 未完了
+    // 未完了
+    // 未完了
+    // 未完了
+    // 未完了
+    // 未完了
+    // 未完了
+    // 未完了
+    // 未完了
+    // 未完了
+    // 未完了
+    // 未完了
+    // 未完了
+    // 未完了
+    // 未完了
+    // 未完了
+
+    $value = $request->except('_token');
+    // dump($value);
+    $multiple = MultipleReserve::with(['pre_reservations.pre_bill.pre_breakdowns', 'pre_reservations.pre_enduser', 'pre_reservations.agent'])->find($value['multiple_id']);
+    // dump($multiple);
+
+    foreach ($multiple->pre_reservations as $key => $pre_reservation) {
+      // dump($pre_reservation);
+      $reservation = new Reservation();
+      $created_reservations = $reservation->ReserveFromAgent($pre_reservation);
+      $created_reservations->CreateEndUser($pre_reservation->pre_enduser);
+      $bill_object = $pre_reservation->pre_bill->first();
+      $bill_object['pay_limit'] = Agent::find($pre_reservation->agent_id)->getAgentPayLimit($pre_reservation->reserve_date);
+      $bill_object['pay_company'] = $pre_reservation->agent->company;
+      $bill_object['bill_person'] = $pre_reservation->agent->person_firstname . $pre_reservation->agent->person_lastname;
+      $bill_object['paid'] = 0;
+      $created_bill = $created_reservations->ReserveFromAgentBill($bill_object);
+      // $breakdowns = [];
+
+      // foreach ($pre_reservation->pre_bill->first()->pre_breakdowns as $key => $value) {
+      //   dump($value);
+      // }
+      // dump($breakdowns);
+
+      // $created_bill->ReserveFromAgentBreakdown($request);
+    }
+
+
+
+    // $reservation = new Reservation();
+    // $created_reservations = $reservation->ReserveFromAgent($request);
+    // $created_reservations->CreateEndUser($request);
+    // $created_bill = $created_reservations->ReserveFromAgentBill($request);
+    // $created_bill->ReserveFromAgentBreakdown($request);
+
+
+
     // ここから着手必要
     // ここから着手必要
     // ここから着手必要

@@ -193,91 +193,82 @@ class ReservationsController extends Controller
     return $model;
   }
 
-  /** ajax 備品orサービス取得*/
-  public function geteitems(Request $request)
-  {
-    $id = $request->venue_id;
-    $venue = Venue::find($id);
-    $venue_equipments = $venue->equipments()->get();
-    $venue_services = $venue->services()->get();
-    return [$venue_equipments, $venue_services];
-  }
 
   /** ajax */
-  public function getpricesystem(Request $request)
-  {
-    $id = $request->venue_id; //会場ID
-    $dates = Carbon::parse($request->dates); //日付取得
-    $week_day = $dates->dayOfWeekIso; //曜日取得
+  // public function getpricesystem(Request $request)
+  // {
+  //   $id = $request->venue_id; //会場ID
+  //   $dates = Carbon::parse($request->dates); //日付取得
+  //   $week_day = $dates->dayOfWeekIso; //曜日取得
 
-    $venue = Venue::find($id);
+  //   $venue = Venue::find($id);
 
-    $date = $venue->dates()->where('week_day', $week_day)->get();
+  //   $date = $venue->dates()->where('week_day', $week_day)->get();
 
-    $frame_price = $venue->frame_prices()->get();
-    $time_price = $venue->time_prices()->get();
+  //   $frame_price = $venue->frame_prices()->get();
+  //   $time_price = $venue->time_prices()->get();
 
-    return [$frame_price, $time_price, $date];
-  }
+  //   return [$frame_price, $time_price, $date];
+  // }
 
   /*** ajax 営業時間取得*/
-  public function getsaleshours(Request $request)
-  {
-    $venue_id = $request->venue_id;
-    $dates = $request->dates;
+  // public function getsaleshours(Request $request)
+  // {
+  //   $venue_id = $request->venue_id;
+  //   $dates = $request->dates;
 
-    $reject_targets = [];
-    $reservations = Reservation::where('reserve_date', $dates)->where('venue_id', $venue_id)->get();
-    foreach ($reservations as $key => $value) {
-      $f_start = Carbon::createFromTimeString($value->enter_time, 'Asia/Tokyo');
-      $f_finish = Carbon::createFromTimeString($value->leave_time, 'Asia/Tokyo');
-      $diff = ($f_finish->diffInMinutes($f_start) / 30);
-      for ($i = 0; $i <= $diff; $i++) {
-        $reject_targets[] = date('H:i:s', strtotime($f_start . "+ " . (30 * $i) . " min"));
-      }
-    }
-    return [$reject_targets];
-  }
+  //   $reject_targets = [];
+  //   $reservations = Reservation::where('reserve_date', $dates)->where('venue_id', $venue_id)->get();
+  //   foreach ($reservations as $key => $value) {
+  //     $f_start = Carbon::createFromTimeString($value->enter_time, 'Asia/Tokyo');
+  //     $f_finish = Carbon::createFromTimeString($value->leave_time, 'Asia/Tokyo');
+  //     $diff = ($f_finish->diffInMinutes($f_start) / 30);
+  //     for ($i = 0; $i <= $diff; $i++) {
+  //       $reject_targets[] = date('H:i:s', strtotime($f_start . "+ " . (30 * $i) . " min"));
+  //     }
+  //   }
+  //   return [$reject_targets];
+  // }
 
   /**** ajax 料金取得****/
-  public function getpricedetails(Request $request)
-  {
-    $venue = Venue::with('frame_prices')->find($request->venue_id);
-    $status = $request->status;
-    $start = $request->start;
-    $finish = $request->finish;
+  // public function getpricedetails(Request $request)
+  // {
+  //   $venue = Venue::with('frame_prices')->find($request->venue_id);
+  //   $status = $request->status;
+  //   $start = $request->start;
+  //   $finish = $request->finish;
 
-    // $statusは時間枠料金orアクセア料金か判別
-    $result = $venue->calculate_price($status, $start, $finish);
+  //   // $statusは時間枠料金orアクセア料金か判別
+  //   $result = $venue->calculate_price($status, $start, $finish);
 
-    return [$result];
-  }
+  //   return [$result];
+  // }
 
   /*** ajax 備品＆サービス　料金取得   **/
-  public function geteitemsprices(Request $request)
-  {
-    $venue = Venue::find($request->venue_id);
-    $selected_equipments = $request->equipemnts;
-    $selected_services = $request->services;
+  // public function geteitemsprices(Request $request)
+  // {
+  //   $venue = Venue::find($request->venue_id);
+  //   $selected_equipments = $request->equipemnts;
+  //   $selected_services = $request->services;
 
-    $result = $venue->calculate_items_price($selected_equipments, $selected_services);
+  //   $result = $venue->calculate_items_price($selected_equipments, $selected_services);
 
-    // return [$result];
-    if (is_null($selected_equipments) && is_null($selected_services)) {
-      return fail;
-    } else {
-      return [$result];
-    }
-  }
+  //   // return [$result];
+  //   if (is_null($selected_equipments) && is_null($selected_services)) {
+  //     return fail;
+  //   } else {
+  //     return [$result];
+  //   }
+  // }
 
   /**** ajax レイアウト有り無し判別取得****/
-  public function getlayout(Request $request)
-  {
-    $venue = Venue::find($request->venue_id);
-    $result = $venue->layout;
+  // public function getlayout(Request $request)
+  // {
+  //   $venue = Venue::find($request->venue_id);
+  //   $result = $venue->layout;
 
-    return [$result];
-  }
+  //   return [$result];
+  // }
 
   /*** ajax レイアウト金額***/
   public function getlayoutprice(Request $request)
@@ -363,6 +354,7 @@ class ReservationsController extends Controller
 
   public function storeSession(Request $request)
   {
+    dump($request->all());
     $request->session()->forget('master_info'); //一度あったものを削除
     $request->session()->forget('calc_info'); //一度あったものを削除
     $request->session()->forget('discount_info'); //一度あったものを削除
