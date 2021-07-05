@@ -342,7 +342,7 @@
                       <label for="" class="form-check-label">有り</label>
                     </p>
                     <p>
-                      <input id="no_luggage_flag" name="luggage_flag" type="radio" value="0" checked>
+                      <input id="no_luggage_flag" name="luggage_flag" type="radio" value="0">
                       <label for="" class="form-check-label">無し</label>
                     </p>
                   </div>
@@ -365,7 +365,7 @@
               <tr>
                 <td class="table-active">事後返送する荷物</td>
                 <td>
-                  {{ Form::text('luggage_return', $master_info['luggage_return'],['class'=>'form-control','id'=>'luggage_return'] ) }}
+                  {{ Form::text('luggage_return', $master_info['luggage_return'],['class'=>'form-control' ,'id'=>'luggage_return'] ) }}
                   <p class="is-error-luggage_return" style="color: red"></p>
                 </td>
               </tr>

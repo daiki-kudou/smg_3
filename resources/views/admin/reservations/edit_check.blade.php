@@ -232,7 +232,7 @@
             <tr>
               <td class="table-active">荷物預かり　工藤さん！！</td>
               <td>
-               工藤さん！ありかなしを表示
+                <input class="form-control" type="text" value="工藤さん！ありかなしを表示" readonly>
               </td>
             </tr>
             @if ($basicInfo['luggage_count'])
