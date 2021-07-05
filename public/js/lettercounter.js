@@ -340,4 +340,37 @@ $(function () {
 //         });
 //     }
 // });
+
+
+// ロード時の、荷物預かり入力制御
+$(document).ready(function () {
   
+  $("#no_luggage_flag:checked").each(function () {
+    var flag = $(this);
+    console.log(this);
+    if ($(flag).is(":checked") != null) {
+      $("#luggage_count").prop("readonly", true);
+      $("#luggage_arrive").prop("readonly", true);
+      $("#luggage_return").prop("readonly", true);
+      $("#luggage_price").prop("readonly", true);
+    }
+  });
+});
+
+// ラジオボタンクリック時の荷物預かり入力制御
+$(function () {
+  $('input[name="luggage_flag"]').change(function () {
+    var prop = $("#no_luggage_flag").prop("checked");
+    if (prop) {
+      $("#luggage_count").prop("readonly", true);
+      $("#luggage_arrive").prop("readonly", true);
+      $("#luggage_return").prop("readonly", true);
+      $("#luggage_price").prop("readonly", true);
+    } else {
+      $("#luggage_count").prop("readonly", false);
+      $("#luggage_arrive").prop("readonly", false);
+      $("#luggage_return").prop("readonly", false);
+      $("#luggage_price").prop("readonly", false);
+    }
+  });
+});

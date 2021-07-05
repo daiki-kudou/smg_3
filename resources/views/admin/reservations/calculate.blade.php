@@ -367,11 +367,11 @@
                 <td>
                   <div class="radio-box">
                     <p>
-                      <input id="" name="luggage" type="radio" value="1">
+                      <input id="luggage_flag" name="luggage_flag" type="radio" value="1">
                       <label for="" class="form-check-label">有り</label>
                     </p>
                     <p>
-                      <input id="" name="luggage" type="radio" value="0">
+                      <input id="no_luggage_flag" name="luggage_flag" type="radio" value="0" checked>
                       <label for="" class="form-check-label">無し</label>
                     </p>
                   </div>
@@ -380,20 +380,20 @@
               <tr>
                 <td class="table-active">事前に預かる荷物<br>（個数）</td>
                 <td>
-                  {{ Form::text('luggage_count', !empty($value['luggage_count'])?$value['luggage_count']:"",['class'=>'form-control'] ) }}
+                  {{ Form::text('luggage_count', !empty($value['luggage_count'])?$value['luggage_count']:"",['class'=>'form-control','id'=>'luggage_count'] ) }}
                   <p class="is-error-luggage_count" style="color: red"></p>
                 </td>
               </tr>
             <tr>
               <td class="table-active">事前荷物の到着日<br>午前指定のみ</td>
               <td>
-                {{ Form::text('luggage_arrive', !empty($value['luggage_arrive'])?$value['luggage_arrive']:"",['class'=>'form-control holidays','id'=>''] ) }}
+                {{ Form::text('luggage_arrive', !empty($value['luggage_arrive'])?$value['luggage_arrive']:"",['class'=>'form-control holidays','id'=>'luggage_arrive'] ) }}
               </td>
             </tr>
             <tr>
               <td class="table-active">事後返送する荷物</td>
               <td>
-                {{ Form::text('luggage_return', !empty($value['luggage_return'])?$value['luggage_return']:"",['class'=>'form-control'] ) }}
+                {{ Form::text('luggage_return', !empty($value['luggage_return'])?$value['luggage_return']:"",['class'=>'form-control','id'=>'luggage_return'] ) }}
                 <p class="is-error-luggage_return" style="color: red"></p>
               </td>
             </tr>
@@ -401,7 +401,7 @@
               <td class="table-active">荷物預かり/返送<br>料金</td>
               <td>
                 <div class="d-flex align-items-end">
-                  {{ Form::text('luggage_price', !empty($value['luggage_price'])?$value['luggage_price']:"",['class'=>'form-control'] ) }}
+                  {{ Form::text('luggage_price', !empty($value['luggage_price'])?$value['luggage_price']:"",['class'=>'form-control','id'=>'luggage_price'] ) }}
                   <span class="ml-1 annotation">円</span>
                 </div>
                 <p class="is-error-luggage_price" style="color: red"></p>
