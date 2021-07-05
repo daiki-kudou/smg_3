@@ -261,6 +261,12 @@
           </thead>
           <tbody>
             <tr>
+              <td class="table-active">荷物預かり 工藤さん！！こちら</td>
+              <td>
+                <input class="form-control" type="text" value="工藤さん！こちら、ありかなしの表示をお願いします" readonly>
+              </td>
+            </tr>
+            <tr>
               <td class="table-active">事前に預かる荷物<br>（個数）</td>
               <td>
                 {{ Form::text('luggage_count', $master_info['luggage_count'],['class'=>'form-control', 'readonly'] ) }}

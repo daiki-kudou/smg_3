@@ -292,7 +292,7 @@
                 <td class="table-active"><label for="">荷物預り料金(税抜)</label></td>
                 <td>工藤さん！荷物預かり料金の表示お願いします！円</td>
               </tr>
-              {{-- <tr>
+              <tr>
                 <td class="table-active"><label for="preDelivery">事前に預かる荷物</label></td>
                 <td>
                   <ul class="table-cell-box">
@@ -332,7 +332,7 @@
                     </li>
                   </ul>
                 </td>
-              </tr> --}}
+              </tr>
             </tbody>
           </table>
         </div>
