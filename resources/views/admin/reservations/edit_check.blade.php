@@ -229,6 +229,12 @@
             </tr>
           </thead>
           <tbody>
+            <tr>
+              <td class="table-active">荷物預かり　工藤さん！！</td>
+              <td>
+               工藤さん！ありかなしを表示
+              </td>
+            </tr>
             @if ($basicInfo['luggage_count'])
             <tr>
               <td class="table-active">事前に預かる荷物<br>（個数）</td>

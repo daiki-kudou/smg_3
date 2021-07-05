@@ -274,13 +274,25 @@
             <tbody>
               <tr>
                 <td class="table-active"><label for="preDelivery">荷物預かり　工藤さん！！！</label></td>
-                <td>なし</td>
+                <td>工藤さん！なしかありを表示でお願いします</td>
               </tr>
               <tr>
                 <td class="table-active"><label for="preDelivery">事前に預かる荷物(目安)</label></td>
                 <td>{{ isset($reservation->luggage_count) ? $reservation->luggage_count : '' }}個</td>
               </tr>
               <tr>
+                <td class="table-active"><label for="preDelivery">事前荷物の到着日</label></td>
+                <td>{{ !empty($reservation->luggage_arrive) ? ReservationHelper::formatDate($reservation->luggage_arrive) : '' }}</td>
+              </tr>
+              <tr>
+                <td class="table-active"><label for="preDelivery">事後返送する荷物</label></td>
+                <td>{{ isset($reservation->luggage_return) ? $reservation->luggage_return : '' }}個</td>
+              </tr>
+              <tr>
+                <td class="table-active"><label for="">荷物預り料金(税抜)</label></td>
+                <td>工藤さん！荷物預かり料金の表示お願いします！円</td>
+              </tr>
+              {{-- <tr>
                 <td class="table-active"><label for="preDelivery">事前に預かる荷物</label></td>
                 <td>
                   <ul class="table-cell-box">
@@ -320,8 +332,7 @@
                     </li>
                   </ul>
                 </td>
-              </tr>
-
+              </tr> --}}
             </tbody>
           </table>
         </div>
