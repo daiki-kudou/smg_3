@@ -8,7 +8,7 @@ $(function () {
     $('#sales_start').val();
     $('#sales_finish').val();
     ajaxGetItems(venue_id);
-    ajaxGetSalesHours(venue_id, dates);
+    // ajaxGetSalesHours(venue_id, dates);
     ajaxGetPriceSystem(venue_id);
     ajaxGetLayout(venue_id); //レイアウトが存在するかしないか、　"0"か"1"でreturn
     ajaxGetLuggage(venue_id); //会場に荷物預りが存在するかしないか、　"0"か"1"でreturn
@@ -22,7 +22,7 @@ $(function () {
     var dates = $('#datepicker1').val();
     var venue_id = $('#venues_selector').val();
     // ajaxGetItems(venue_id);
-    ajaxGetSalesHours(venue_id, dates);
+    // ajaxGetSalesHours(venue_id, dates);
   });
 
   $(document).on("change", "#user_select", function () {
@@ -187,49 +187,49 @@ $(function () {
 
   // 新規予約時の入退室時間の制御
   // 管理者は24時間予約登録可能。そのため一旦、本機能停止
-  function ajaxGetSalesHours($venue_id, $dates) {
-    $.ajax({
-      headers: {
-        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-      },
-      url: '/admin/reservations/getsaleshours',
-      type: 'POST',
-      data: { 'venue_id': $venue_id, 'dates': $dates },
-      dataType: 'json',
-      beforeSend: function () {
-        // $('#fullOverlay').css('display', 'block');
-      },
-    })
-      .done(function ($times) {
-        // $('#fullOverlay').css('display', 'none');
-        // 初期化
-        $("#sales_start option").each(function ($result) {
-          $('#sales_start option').eq($result).prop('disabled', false);
-        });
-        $("#sales_finish option").each(function ($result) {
-          $('#sales_finish option').eq($result).prop('disabled', false);
-        });
+  // function ajaxGetSalesHours($venue_id, $dates) {
+  //   $.ajax({
+  //     headers: {
+  //       'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+  //     },
+  //     url: '/admin/reservations/getsaleshours',
+  //     type: 'POST',
+  //     data: { 'venue_id': $venue_id, 'dates': $dates },
+  //     dataType: 'json',
+  //     beforeSend: function () {
+  //       // $('#fullOverlay').css('display', 'block');
+  //     },
+  //   })
+  //     .done(function ($times) {
+  //       // $('#fullOverlay').css('display', 'none');
+  //       // 初期化
+  //       $("#sales_start option").each(function ($result) {
+  //         $('#sales_start option').eq($result).prop('disabled', false);
+  //       });
+  //       $("#sales_finish option").each(function ($result) {
+  //         $('#sales_finish option').eq($result).prop('disabled', false);
+  //       });
 
-        for (let index = 0; index < $times[0].length; index++) {
-          $("#sales_start option").each(function ($result) {
-            if ($times[0][index] == $('#sales_start option').eq($result).val()) {
-              $('#sales_start option').eq($result).prop('disabled', true);
-            }
-          });
-        };
+  //       for (let index = 0; index < $times[0].length; index++) {
+  //         $("#sales_start option").each(function ($result) {
+  //           if ($times[0][index] == $('#sales_start option').eq($result).val()) {
+  //             $('#sales_start option').eq($result).prop('disabled', true);
+  //           }
+  //         });
+  //       };
 
-        for (let index = 0; index < $times[0].length; index++) {
-          $("#sales_finish option").each(function ($result) {
-            if ($times[0][index] == $('#sales_finish option').eq($result).val()) {
-              $('#sales_finish option').eq($result).prop('disabled', true);
-            }
-          });
-        }
-      })
-      .fail(function ($times) {
-        // $('#fullOverlay').css('display', 'none');
-      });
-  };
+  //       for (let index = 0; index < $times[0].length; index++) {
+  //         $("#sales_finish option").each(function ($result) {
+  //           if ($times[0][index] == $('#sales_finish option').eq($result).val()) {
+  //             $('#sales_finish option').eq($result).prop('disabled', true);
+  //           }
+  //         });
+  //       }
+  //     })
+  //     .fail(function ($times) {
+  //       // $('#fullOverlay').css('display', 'none');
+  //     });
+  // };
 
   // 料金体系取得
   function ajaxGetPriceSystem($venue_id) {
