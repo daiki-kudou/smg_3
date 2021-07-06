@@ -289,7 +289,7 @@
               {{-- <p class="m-b10">【事前に預かる荷物】</p> --}}
               <div class="luggage-cell">
                 <p>事前に預かる荷物<br>(目安)</p>
-                {{ Form::number('luggage_count', '',['class'=>'text6 ', 'style'=>'width:20%;'] ) }}
+                {{ Form::text('luggage_count', '',['class'=>'text6 ', 'style'=>'width:20%;'] ) }}
                 <p class="">個</p>
               </div>
               <p class="is-error-luggage_count" style="color: red"></p>
@@ -311,7 +311,7 @@
             <li class="m-b10 luggage-border">
               <div class="luggage-cell">
               <p>事後返送する荷物</p>
-                {{ Form::number('luggage_return', '',['class'=>'text6 ', 'style'=>'width: 20%;'] ) }}
+                {{ Form::text('luggage_return', '',['class'=>'text6 ', 'style'=>'width: 20%;'] ) }}
                 <p class="">個</p>
               </div>
             </li>

@@ -384,7 +384,7 @@
               <tr>
                 <td class="table-active">事前にお預りする荷物</td>
                 <td>
-                  {{Form::number('luggage_count',$pre_reservation->luggage_count,['class'=>'form-control','id' => 'luggage_count'])}}
+                  {{Form::text('luggage_count',$pre_reservation->luggage_count,['class'=>'form-control','id' => 'luggage_count'])}}
                   <p class="is-error-luggage_count" style="color: red"></p>
                 </td>
               </tr>
@@ -397,7 +397,7 @@
               <tr>
                 <td class="table-active">事後返送するお荷物</td>
                 <td>
-                  {{Form::number('luggage_return',$pre_reservation->luggage_return,['class'=>'form-control luggage_return','id' => 'luggage_return'])}}
+                  {{Form::text('luggage_return',$pre_reservation->luggage_return,['class'=>'form-control luggage_return','id' => 'luggage_return'])}}
                   <p class="is-error-luggage_return" style="color: red"></p>
                 </td>
               </tr>
