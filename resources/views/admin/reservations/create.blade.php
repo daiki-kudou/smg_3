@@ -435,7 +435,7 @@
             <tr>
               <td class="table-active"><label for="mobilePhone" class=" form_required">携帯番号</label></td>
               <td>
-                {{ Form::text('tel', old('tel'),['class'=>'form-control', 'placeholder'=>'入力してください', 'maxlength'=>13] ) }}
+                {{ Form::text('tel', old('tel'),['class'=>'form-control', 'placeholder'=>'入力してください'] ) }}
                 <p class="is-error-tel" style="color: red"></p>
               </td>
             </tr>
