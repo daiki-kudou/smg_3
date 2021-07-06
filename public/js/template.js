@@ -396,17 +396,17 @@ $(function () {
 
 
 //アコーディオン
-$(function () {
-  $(".accordion-wrap").hide();
-  $(".accordion-ttl").on("click", function () {
-    $(this).next().slideToggle("fast");
-    $(this).find(".title-icon").toggleClass("active");
-  });
+// $(function () {
+//   $(".accordion-wrap").hide();
+//   $(".accordion-ttl").on("click", function () {
+//     $(this).next().slideToggle("fast");
+//     $(this).find(".title-icon").toggleClass("active");
+//   });
 
-  $(".accordion-innbtn").on("click", function () {
-    $(this).parent().slideToggle("");
-  });
-});
+//   $(".accordion-innbtn").on("click", function () {
+//     $(this).parent().slideToggle("");
+//   });
+// });
 
 
 

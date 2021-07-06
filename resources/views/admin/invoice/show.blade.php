@@ -3,7 +3,7 @@
 
 <head>
   <meta charset="UTF-8">
-  <title>請求書</title>
+  <title>御請求書</title>
 
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
   <link href="{{ asset('/css/invoice.css') }}" rel="stylesheet" media="screen">
@@ -23,17 +23,17 @@
       <table cellpadding="0" cellspacing="0">
         <tr class="top">
           <td colspan="4">
-            <h1 class="top-title">請求書</h1>
+            <h1 class="top-title">御請求書</h1>
           </td>
         </tr>
         <tr class="information">
           <td>
-            <dl>
+            <dl class="company-name">
               <dd>
                 @if ($cxl)
-                {{ $cxl->bill_company }}御中
+                {{ $cxl->bill_company }} 御中
                 @else
-                {{ $bill->bill_company }}御中
+                {{ $bill->bill_company }} 御中
                 @endif
               </dd>
               <dd>
@@ -46,8 +46,8 @@
             </dl>
           </td>
           <td>
-            <dl>
-              <dd>SMGアクセア貸し会議室</dd>
+            <dl class="stamp-area">
+              <dd>株式会社SMG</dd>
               <dd>〒550-0014</dd>
               <dd>大阪市西区北堀江1丁目6番2号</dd>
               <dd>サンワールドビル11階</dd>
@@ -64,7 +64,7 @@
         <tr>
           <td>
             <dl class="total-billing">
-              <dt>ご請求金額</dt>
+              <dt>御請求書金額</dt>
               <dd>
                 <span class="master-total">
                   @if ($cxl)
@@ -77,7 +77,7 @@
               </dd>
             </dl>
           </td>
-          <td>
+          <td class="billing-information">
             <p><span>請求書No：</span>
               @if ($cxl)
               {{ $cxl->invoice_number }}
@@ -229,13 +229,18 @@
           </td>
         </tr>
       </table>
-      <table cellpadding="0" cellspacing="0" class="bill-note-wrap">
+      <table cellpadding="0" cellspacing="0" >
+        <tr>
+          <td class="bill-note-wrap">
+            <p>お振込み先：みずほ銀行　四ツ橋支店　普通 1113739　ｶ)ｴｽｴﾑｼﾞｰ</p>
+          </td>
+        </tr>
         <tr>
           <td class="bank-info">
-            <p>※申込時の「会社名・団体名」名義でお振込み下さい。別名義でのお振込みの場合は必ず事前にSMGまでご連絡下さい。
+            <p>申込時の「会社名・団体名」名義でお振込み下さい。<br>別名義でのお振込みの場合は必ず事前にSMGまでご連絡下さい。<br>
               お振込み手数料は御社ご負担にてお願い致します。
             </p>
-            <p>お振込み先：みずほ銀行　四ツ橋支店　普通 1113739　ｶ)ｴｽｴﾑｼﾞｰ</p>
+          </td>
         </tr>
         <tr>
           <td class="bill-note">
@@ -283,7 +288,7 @@
     });
 
     $(function(){
-      $('.bill-detail-table td:last-child').each(function(index, value){
+      $('.bill-detail-table td:nth-child(2n)').each(function(index, value){
         var target=$(value).text();
         if (target.match(/-/)) {
         //   $(value).css('color','red');

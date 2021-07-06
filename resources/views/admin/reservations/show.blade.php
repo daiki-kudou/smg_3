@@ -3,7 +3,7 @@
 
 
 <link href="{{ asset('/css/template.css') }}" rel="stylesheet">
-{{-- <script src="{{ asset('/js/template.js') }}"></script> --}}
+<script src="{{ asset('/js/template.js') }}"></script>
 <script src="{{ asset('/js/admin/reservation/validation.js') }}"></script>
 
 
@@ -1733,7 +1733,7 @@ $(function () {
 });
 
 
-//アコーディオン
+アコーディオン
 $(function () {
   $(".accordion-wrap").show();
   $(".accordion-ttl").on("click", function () {
@@ -1745,31 +1745,7 @@ $(function () {
     $(this).parent().slideToggle("");
   });
 });
-
-// 請求内容のプラスマイナスボタン　開閉
-$(function () {
-  function OpenClose($target) {
-    $($target).on('click', function () {
-      var minus = $(this).children().find('.fa-minus');
-      var plus = $(this).children().find('.fa-plus');
-      var main = $(this).next();
-      $(minus).toggleClass('hide');
-      $(plus).toggleClass('hide');
-      $(minus).addClass('fa-spin');
-      $(plus).addClass('fa-spin');
-      setTimeout(function () {
-        $(minus).removeClass('fa-spin');
-        $(plus).removeClass('fa-spin');
-      }, 300);
-      $(main).slideToggle();
-    })
-  }
-  OpenClose('.bill_details .head');
-  OpenClose('.information_details .head');
-
-})
-
-  </script>
+</script>
 
 
 
