@@ -366,22 +366,38 @@
             </thead>
             <tbody>
               <tr>
+                <td class="table-active">お荷物預り 工藤さん！！こちら</td>
+                <td>
+                  <div class="radio-box">
+                    <p>
+                      <input id="luggage_flag" name="luggage_flag" type="radio" value="1">
+                      <label for="" class="form-check-label">あり</label>
+                    </p>
+                    <p>
+                      <input id="no_luggage_flag" name="luggage_flag" type="radio" value="0">
+                      <label for="" class="form-check-label">なし</label>
+                    </p>
+                  </div>
+                  <p class="is-error-luggage_flag" style="color: red"></p>
+                </td>
+              </tr>
+              <tr>
                 <td class="table-active">事前にお預りする荷物</td>
                 <td>
-                  {{Form::text('luggage_count',$pre_reservation->luggage_count,['class'=>'form-control'])}}
+                  {{Form::number('luggage_count',$pre_reservation->luggage_count,['class'=>'form-control','id' => 'luggage_count'])}}
                   <p class="is-error-luggage_count" style="color: red"></p>
                 </td>
               </tr>
               <tr>
                 <td class="table-active">事前荷物の到着日<br>午前指定のみ</td>
                 <td>
-                  {{Form::text('luggage_arrive',date('Y-m-d',strtotime($pre_reservation->luggage_arrive)),['class'=>'form-control','id'=>'datepicker9'])}}
+                  {{Form::text('luggage_arrive',date('Y-m-d',strtotime($pre_reservation->luggage_arrive)),['class'=>'form-control luggage_arrive','id'=>'datepicker9'])}}
                 </td>
               </tr>
               <tr>
                 <td class="table-active">事後返送するお荷物</td>
                 <td>
-                  {{Form::text('luggage_return',$pre_reservation->luggage_return,['class'=>'form-control'])}}
+                  {{Form::number('luggage_return',$pre_reservation->luggage_return,['class'=>'form-control luggage_return','id' => 'luggage_return'])}}
                   <p class="is-error-luggage_return" style="color: red"></p>
                 </td>
               </tr>
@@ -713,5 +729,26 @@
       }
     });
   });
+
+      // 荷物預かりのラジオボタン選択の表示、非表示
+      $(function() {
+    var no_luggage_flag = $('#no_luggage_flag').val();
+    if (no_luggage_flag == 0) {
+          $(".luggage_info").addClass("d-none");
+        } else {
+          $(".luggage_info").removeClass("d-none");
+         }
+    });
+
+    $(function() {
+     $("input[name='luggage_flag']").change(function() {
+       var no_luggage_flag = $('#no_luggage_flag').prop('checked');
+        if (no_luggage_flag) {
+          $(".luggage_info").addClass("d-none");
+        } else {
+          $(".luggage_info").removeClass("d-none");
+         }
+      });
+    });
 </script>
 @endsection

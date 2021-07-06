@@ -3,6 +3,7 @@
 
 <link href="{{ asset('/css/template.css') }}" rel="stylesheet">
 <script src="{{ asset('/js/template.js') }}"></script>
+<script src="{{ asset('/js/lettercounter.js') }}"></script>
 <script src="{{ asset('/js/user/validation.js') }}"></script>
 
 <div class="container-field mt-3 d-md-flex justify-content-md-between">
@@ -309,22 +310,38 @@
             </thead>
             <tbody>
               <tr>
+                <td class="table-active">お荷物預り 工藤さん！！こちら</td>
+                <td>
+                  <div class="radio-box">
+                    <p>
+                      <input id="luggage_flag" name="luggage_flag" type="radio" value="1">
+                      <label for="" class="form-check-label">あり</label>
+                    </p>
+                    <p>
+                      <input id="no_luggage_flag" name="luggage_flag" type="radio" value="0">
+                      <label for="" class="form-check-label">なし</label>
+                    </p>
+                  </div>
+                  <p class="is-error-luggage_flag" style="color: red"></p>
+                </td>
+              </tr>
+              <tr>
                 <td class="table-active">事前にお預りする荷物</td>
                 <td>
-                  {{Form::text('luggage_count',$request->luggage_count,['class'=>'form-control'])}}
+                  {{Form::text('luggage_count',$request->luggage_count,['class'=>'form-control','id'=>'luggage_count'])}}
                   <p class="is-error-luggage_count" style="color: red"></p>
                 </td>
               </tr>
               <tr>
                 <td class="table-active">事前荷物の到着日<br>午前指定のみ</td>
                 <td>
-                  {{Form::text('luggage_arrive',date('Y-m-d',strtotime($request->luggage_arrive)),['class'=>'form-control','id'=>'datepicker9'])}}
+                  {{Form::text('luggage_arrive',date('Y-m-d',strtotime($request->luggage_arrive)),['class'=>'form-control luggage_arrive','id'=>'datepicker9'])}}
                 </td>
               </tr>
               <tr>
                 <td class="table-active">事後返送するお荷物</td>
                 <td>
-                  {{Form::text('luggage_return',$request->luggage_return,['class'=>'form-control'])}}
+                  {{Form::text('luggage_return',$request->luggage_return,['class'=>'form-control','id'=>'luggage_return'])}}
                   <p class="is-error-luggage_return" style="color: red"></p>
                 </td>
               </tr>

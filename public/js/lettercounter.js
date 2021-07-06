@@ -364,11 +364,13 @@ $(function () {
     if (prop) {
       $("#luggage_count").prop("readonly", true);
       $("#luggage_arrive").prop("readonly", true);
+      $(".luggage_arrive").prop("readonly", true);
       $("#luggage_return").prop("readonly", true);
       $("#luggage_price").prop("readonly", true);
     } else {
       $("#luggage_count").prop("readonly", false);
       $("#luggage_arrive").prop("readonly", false);
+      $(".luggage_arrive").prop("readonly", false);
       $("#luggage_return").prop("readonly", false);
       $("#luggage_price").prop("readonly", false);
     }
