@@ -176,6 +176,8 @@ Route::namespace('Admin')->prefix('admin')->name('admin.')->group(function () {
     Route::post('ajax/reservation/get_price_details', 'Ajax\AjaxReservationsController@get_price_details');
     Route::post('ajax/reservation/get_layout', 'Ajax\AjaxReservationsController@get_layout');
     Route::post('ajax/reservation/get_luggage', 'Ajax\AjaxReservationsController@get_luggage');
+    Route::post('ajax/reservation/get_eat_in', 'Ajax\AjaxReservationsController@get_eat_in');
+    Route::post('ajax/reservation/get_operation_system', 'Ajax\AjaxReservationsController@get_operation_system');
     // ajax ▲
 
 

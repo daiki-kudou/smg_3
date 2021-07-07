@@ -45,4 +45,23 @@ class AjaxReservationsController extends Controller
     $result = $venue->luggage_flag;
     return [$result];
   }
+
+  public function get_eat_in(Request $request)
+  {
+    $venue = Venue::find($request->venue_id);
+    $eatIn = $venue->eat_in_flag;
+    return $eatIn;
+  }
+
+  public function get_operation_system(Request $request)
+  {
+    $venue = Venue::find($request->venue_id);
+    $flag = $venue->alliance_flag;
+    $percentage = $venue->cost;
+    if ($flag == 0) {
+      return [0, ''];
+    } else {
+      return [1, $percentage];
+    }
+  }
 }

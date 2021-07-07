@@ -12,7 +12,7 @@ $(function () {
     ajaxGetPriceSystem(venue_id);
     ajaxGetLayout(venue_id); //レイアウトが存在するかしないか、　"0"か"1"でreturn
     ajaxGetLuggage(venue_id); //会場に荷物預りが存在するかしないか、　"0"か"1"でreturn
-    ajaxGetOperatinSystem(venue_id); //会場形態の判別 直営 or　提携
+    ajaxGetOperationSystem(venue_id); //会場形態の判別 直営 or　提携
     ajaxGetEatIn(venue_id); //会場形態の判別 直営 or　提携
 
   });
@@ -636,12 +636,12 @@ $(function () {
   };
 
   // 直営 or 提携会場　判別
-  function ajaxGetOperatinSystem($venue_id) {
+  function ajaxGetOperationSystem($venue_id) {
     $.ajax({
       headers: {
         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
       },
-      url: '/admin/reservations/getoperation',
+      url: '/admin/ajax/reservation/get_operation_system',
       type: 'POST',
       data: {
         'venue_id': $venue_id
@@ -705,7 +705,7 @@ $(function () {
       headers: {
         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
       },
-      url: '/admin/reservations/get_eat_in',
+      url: '/admin/ajax/reservation/get_eat_in',
       type: 'POST',
       data: {
         'venue_id': venue_id

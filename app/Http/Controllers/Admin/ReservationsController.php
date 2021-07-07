@@ -306,25 +306,25 @@ class ReservationsController extends Controller
   }
 
   /**** ajax 直営　or　提携　判別****/
-  public function getoperation(Request $request)
-  {
-    $venue = Venue::find($request->venue_id);
-    $flag = $venue->alliance_flag;
-    $percentage = $venue->cost;
-    if ($flag == 0) {
-      return [0, ''];
-    } else {
-      return [1, $percentage];
-    }
-  }
+  // public function getoperation(Request $request)
+  // {
+  //   $venue = Venue::find($request->venue_id);
+  //   $flag = $venue->alliance_flag;
+  //   $percentage = $venue->cost;
+  //   if ($flag == 0) {
+  //     return [0, ''];
+  //   } else {
+  //     return [1, $percentage];
+  //   }
+  // }
 
   /**** ケータリング取得****/
-  public function getEatIn(Request $request)
-  {
-    $venue = Venue::find($request->venue_id);
-    $eatIn = $venue->eat_in_flag;
-    return $eatIn;
-  }
+  // public function getEatIn(Request $request)
+  // {
+  //   $venue = Venue::find($request->venue_id);
+  //   $eatIn = $venue->eat_in_flag;
+  //   return $eatIn;
+  // }
 
 
   /**
