@@ -1,5 +1,6 @@
- <link href="{{ asset('css/adminlte.min.css')}}" rel="stylesheet">
+<link href="{{ asset('css/adminlte.min.css')}}" rel="stylesheet">
 <link href="{{ asset('/css/template.css') }}" rel="stylesheet">
+
 
 <section class="mt-5 px-5">
   <p class="text-right"><a class="btn more_btn3" href="{{url('admin/note/create')}}">メモを追加する</a></p>

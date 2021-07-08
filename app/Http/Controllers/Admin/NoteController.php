@@ -10,9 +10,9 @@ use App\Models\Note;
 
 class NoteController extends Controller
 {
-  public function index()
+  public function index(Request $request)
   {
-    $notes = Note::all();
+    $notes = Note::where('date', $request->date);
     return view('admin.note.index', compact('notes'));
   }
 

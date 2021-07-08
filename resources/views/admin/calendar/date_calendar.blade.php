@@ -136,7 +136,8 @@
     </div>
   </section>
 
-  <iframe class="mt-5" src="/admin/note" frameborder="0" width="100%" height="500px;" scrolling="no"></iframe>
+  <iframe class="mt-5" src="/admin/note?date={{$today}}" frameborder="0" width="100%" height="500px;"
+    scrolling="no"></iframe>
 
   @foreach ($reservations as $reservation)
   <input type="hidden" name="venue_id" value="{{($reservation->venue_id)}}">
@@ -161,10 +162,11 @@
   <input type="hidden" name="pre_user_id" value="{{$pre_reservation->user_id }}">
   <input type="hidden" name="pre_agent_id" value="{{$pre_reservation->agent_id }}">
   @endforeach
-  <input type="hidden" name="pre_json" value="{{$pre_json_result}}">
+  <input type="text" name="pre_json" value="{{$pre_json_result}}">
 </div>
 
 
 
 <script type="text/javascript" src="https://code.jquery.com/ui/1.12.0/jquery-ui.min.js"></script>
+
 @endsection

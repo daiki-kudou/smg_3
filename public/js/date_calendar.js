@@ -32,6 +32,12 @@ $(function () {
           }
         }
         $('.' + venue_id + 'cal' + $value).addClass('bg-prereserve');
+        if (json[index].length === 1) { //30分利用の時のみ、次のマスをグレー
+          $('.' + venue_id + 'cal' + $value).next().addClass('gray');
+        }
+        if (json[index].slice(-1)[0] == "0800") { //かなりイレギュラー、02:00~08:30などの特定の時間を利用した上で30分だけカレンダーにかかる場合の後の30分のGray
+          $('.' + venue_id + 'cal' + $value).next().addClass('gray');
+        }
       } else if (status == 3) {// 3なら緑
         if ($index == 0) { //会社名挿入 10時以上の予約
           var data = "<a target='_blank' href='/admin/reservations/" + reservation_id + "'>" + company + "</a>";
@@ -50,6 +56,12 @@ $(function () {
           }
         }
         $('.' + venue_id + 'cal' + $value).addClass('bg-reserve');
+        if (json[index].length === 1) { //30分利用の時のみ、次のマスをグレー
+          $('.' + venue_id + 'cal' + $value).next().addClass('gray');
+        }
+        if (json[index].slice(-1)[0] == "0800") { //かなりイレギュラー、02:00~08:30などの特定の時間を利用した上で30分だけカレンダーにかかる場合の後の30分のGray
+          $('.' + venue_id + 'cal' + $value).next().addClass('gray');
+        }
       }
     })
   }
@@ -65,7 +77,13 @@ $(function () {
     var company = $('input[name="pre_company"]').eq(index).val();
     var pre_reservation_id = $('input[name="pre_reservation_id"]').eq(index).val();
     $.each(json[index], function ($index, $value) {
+      if (json[index].slice(-1)[0] == "0800") { //かなりイレギュラー、02:00~08:30などの特定の時間を利用した上で30分だけカレンダーにかかる場合の後の30分のGray
+        $('.' + venue_id + 'cal' + $value).next().addClass('gray');
+      }
       $('.' + venue_id + 'cal' + $value).addClass('bg-prereserve');
+      if (json[index].length === 1) {//30分利用の時のみ、次のマスをグレー
+        $('.' + venue_id + 'cal' + $value).next().addClass('gray');
+      }
       if ($index == 0) {
         if (multiple_id != 0) {
           if (agent_id > 0) { //仲介会社の場合の一括詳細
