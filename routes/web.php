@@ -393,9 +393,10 @@ Route::namespace('Admin')->prefix('admin')->name('admin.')->group(function () {
     Route::get('note', 'NoteController@index')->name('note');
     Route::get('note/create', 'NoteController@create');
     Route::post('note/store', 'NoteController@store');
-    Route::get('note/edit/{note}', 'NoteController@edit');
-    Route::get('note/delete/{note}', 'NoteController@destroy');
+    Route::get('note/edit/{date}/{note}', 'NoteController@edit');
+    Route::get('note/delete/{note}/{date}', 'NoteController@destroy');
     Route::post('note/update', 'NoteController@update');
+    Route::post('note/sort_no_update', 'NoteController@sortNoUpdate');
 
     Route::post('csv', 'SalesController@download_csv');
 
