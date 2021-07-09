@@ -179,7 +179,7 @@
           <td>追加・削除</td>
         </tr>
       </thead>
-      <tbody>
+      <tbody id="pre_reservation_select_dates">
         <tr>
           <td>{{ Form::text('pre_date0', '',['class'=>'form-control', 'id'=>"pre_datepicker", ""] ) }}
             <p class="is-error-pre_date0" style="color: red"></p>
