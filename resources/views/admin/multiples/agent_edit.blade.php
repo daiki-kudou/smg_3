@@ -251,7 +251,7 @@
                     <tr>
                       <td class="table-active">{{$equipment->item}}</td>
                       <td>
-                        {{Form::text('cp_master_equipment_breakdown' . $key , '', ['class' => 'form-control equipment_validation'])}}
+                        {{Form::number('cp_master_equipment_breakdown' . $key , '', ['class' => 'form-control equipment_validation'])}}
                       </td>
                     </tr>
                     @endforeach
@@ -749,14 +749,14 @@
                           @if ($pre_reservation->pre_breakdowns)
                           @foreach ($pre_reservation->pre_breakdowns()->get() as $pre_re)
                           @if ($pre_re->unit_item==$equipment->item)
-                          {{Form::text('equipment_breakdown' . $e_key.'_copied'.$key , $pre_re->unit_count, ['class' => 'form-control equipment_validation'])}}
+                          {{Form::number('equipment_breakdown' . $e_key.'_copied'.$key , $pre_re->unit_count, ['class' => 'form-control equipment_validation'])}}
                           @break
                           @elseif($loop->last)
-                          {{Form::text('equipment_breakdown' . $e_key.'_copied'.$key , '', ['class' => 'form-control equipment_validation'])}}
+                          {{Form::number('equipment_breakdown' . $e_key.'_copied'.$key , '', ['class' => 'form-control equipment_validation'])}}
                           @endif
                           @endforeach
                           @else
-                          {{Form::text('equipment_breakdown' . $e_key.'_copied'.$key , '', ['class' => 'form-control equipment_validation'])}}
+                          {{Form::number('equipment_breakdown' . $e_key.'_copied'.$key , '', ['class' => 'form-control equipment_validation'])}}
                           @endif
                         </td>
                       </tr>

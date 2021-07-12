@@ -322,7 +322,7 @@
                   {{$equipment->item}}
                 </td>
                 <td>
-                  {{ Form::text('equipment_breakdown'.$e_key, $request->{'equipment_breakdown'.$e_key},['class'=>'form-control equipment_validation'] ) }}
+                  {{ Form::number('equipment_breakdown'.$e_key, $request->{'equipment_breakdown'.$e_key},['class'=>'form-control equipment_validation'] ) }}
                 </td>
               </tr>
               @endforeach
