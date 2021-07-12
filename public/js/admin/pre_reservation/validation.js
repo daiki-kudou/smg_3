@@ -124,7 +124,7 @@ $(function () {
       form.submit();
     },
   });
-  $("input").on("blur", function () {
+  $("input").on("blur change", function () {
     $(this).valid();
   });
 });
@@ -210,13 +210,13 @@ $(function () {
   $.each(target, function (index, value) {
     $(value).validate({
       rules: {
-        venue_price: { 
-          required: true 
+        venue_price: {
+          required: true
         },
       },
       messages: {
-        venue_price: { 
-          required: "※金額を入力してください" 
+        venue_price: {
+          required: "※金額を入力してください"
         }
       },
       errorPlacement: function (error, element) {

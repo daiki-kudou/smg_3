@@ -4,7 +4,7 @@
 
 <link href="{{ asset('/css/template.css') }}" rel="stylesheet">
 {{-- <script src="{{ asset('/js/admin/reservation.js') }}"></script> --}}
-<script src="{{ asset('/js/ajax.js') }}"></script>
+<script src="{{ asset('/js/ajax_agent.js') }}"></script>
 <script src="{{ asset('/js/template.js') }}"></script>
 <script src="{{ asset('/js/lettercounter.js') }}"></script>
 <script src="{{ asset('/js/admin/agents_reservation/validation.js') }}"></script>
@@ -232,7 +232,7 @@
               <tr>
                 <td class="table-active">{{$equipment->item}}</td>
                 <td>
-                  {{ Form::text('equipment_breakdown'.$key, $master_info['equipment_breakdown'.$key],['class'=>'form-control equipment_validation', 'placeholder'=>'入力してください'] ) }}
+                  {{ Form::number('equipment_breakdown'.$key, $master_info['equipment_breakdown'.$key],['class'=>'form-control equipment_validation', 'placeholder'=>'入力してください'] ) }}
                 </td>
               </tr>
               @endforeach
@@ -958,6 +958,14 @@
 </div>
 
 <script>
+  function checkForm($this) {
+          var str = $this.value;
+          while (str.match(/[^A-Z^a-z\d\-]/)) {
+            str = str.replace(/[^A-Z^a-z\d\-]/, "");
+          }
+          $this.value = str;
+        }
+
   $(document).on(' click', '.holidays', function () {
   getHolidayCalendar($('.holidays'), $('input[name="reserve_date"]'));
 });

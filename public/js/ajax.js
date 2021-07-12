@@ -150,23 +150,30 @@ $(function () {
         $('.equipemnts table tbody').html(''); //一旦初期会
         $.each($items[0], function (index, value) {
           // ココで備品取得
-          $('.equipemnts table tbody').append("<tr><td class='table-active'>" + value['item'] + "(" + (Number(value['price'])).toLocaleString() + "円)" + "</td>" + "<td><input type='text' value='0' min=0 name='equipment_breakdown" + index + "' class='form-control equipment_breakdown'></td></tr>");
+          var data = "<tr><td class='table-active'>" +
+            value['item'] +
+            "(" + (Number(value['price'])).toLocaleString() +
+            "円)" + "</td>" +
+            "<td><input type='number' value='0' min=0 name='equipment_breakdown" +
+            index + "' class='form-control equipment_breakdown' onInput='checkForm(this)'></td></tr>";
+          $('.equipemnts table tbody').append(data);
         });
         // ***********マイナス、全角制御用
-        function ExceptString($target) {
-          $target.numeric({ negative: false, });
-          $target.on('change', function () {
-            charactersChange($(this));
-          })
-          charactersChange = function (ele) {
-            var val = ele.val();
-            var han = val.replace(/[Ａ-Ｚａ-ｚ０-９]/g, function (s) { return String.fromCharCode(s.charCodeAt(0) - 0xFEE0) });
-            if (val.match(/[Ａ-Ｚａ-ｚ０-９]/g)) {
-              $(ele).val(han);
-            }
-          }
-        }
-        ExceptString($(".equipemnts table tbody input[name^='equipemnt']"));
+
+        // function ExceptString($target) {
+        //   $target.numeric({ negative: false, });
+        //   $target.on('change', function () {
+        //     charactersChange($(this));
+        //   })
+        //   charactersChange = function (ele) {
+        //     var val = ele.val();
+        //     var han = val.replace(/[Ａ-Ｚａ-ｚ０-９]/g, function (s) { return String.fromCharCode(s.charCodeAt(0) - 0xFEE0) });
+        //     if (val.match(/[Ａ-Ｚａ-ｚ０-９]/g)) {
+        //       $(ele).val(han);
+        //     }
+        //   }
+        // }
+        // ExceptString($(".equipemnts table tbody input[name^='equipemnt']"));
         // ***********マイナス、全角制御用
 
         $('.services table tbody').html('');

@@ -413,7 +413,7 @@
             form.submit();
           }
         });
-        $('input').on('blur', function () {
+        $('input').on('blur change', function () {
           $(this).valid();
         });
         for (let index_a = 0; index_a < count; index_a++) {
@@ -507,7 +507,7 @@
             form.submit();
           }
         });
-        $('input').on('blur', function () {
+        $('input').on('blur change', function () {
           $(this).valid();
         });
         for (let index_b = 0; index_b < count2; index_b++) {

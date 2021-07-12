@@ -259,7 +259,7 @@
             <tr>
               <td class="table-active">{{$equipment->item}}({{$equipment->price}}円)</td>
               <td>
-                {{ Form::text('equipment_breakdown'.$key, $value['equipment_breakdown'.$key],['class'=>'form-control equipment_breakdown equipment_validation'] ) }}
+                {{ Form::number('equipment_breakdown'.$key, $value['equipment_breakdown'.$key],['class'=>'form-control equipment_breakdown equipment_validation'] ) }}
               </td>
             </tr>
             @endforeach
@@ -1153,10 +1153,17 @@
 {{Form::close()}}
 
 <script>
+  function checkForm($this) {
+          var str = $this.value;
+          while (str.match(/[^A-Z^a-z\d\-]/)) {
+            str = str.replace(/[^A-Z^a-z\d\-]/, "");
+          }
+          $this.value = str;
+        }
+
   $(document).on(' click', '.holidays', function () {
   getHolidayCalendar($('.holidays'), $('input[name="reserve_date"]'));
 });
-
 
   $(function() {
     $(document).on("click", "input:radio[name='eat_in']", function() {

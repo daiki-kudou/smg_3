@@ -30,7 +30,7 @@ $(function () {
     var agent_id = $('#agent_select').val();
     $('.agent_link').html('');
     $('.agent_link').append("<a class='more_btn' target='_blank' rel='noopener' href='/admin/agents/" + agent_id + "'>仲介会社詳細</a>")
-    getUserDetails(agent_id);
+    getAgentDetails(agent_id);
   });
 
 
@@ -154,7 +154,10 @@ $(function () {
         $('.equipemnts table tbody').html(''); //一旦初期会
         $.each($items[0], function (index, value) {
           // ココで備品取得
-          $('.equipemnts table tbody').append("<tr><td class='table-active'>" + value['item'] + "</td>" + "<td><input type='text' value='0' min=0 name='equipment_breakdown" + index + "' class='form-control equipment_breakdown'></td></tr>");
+          var data = "<tr><td class='table-active'>" + value['item'] +
+            "</td>" + "<td><input type='number' value='0' min=0 name='equipment_breakdown" +
+            index + "' class='form-control equipment_breakdown' onInput='checkForm(this)'></td></tr>"
+          $('.equipemnts table tbody').append(data);
         });
         // ***********マイナス、全角制御用
         function ExceptString($target) {
@@ -672,34 +675,28 @@ $(function () {
   };
 
 
-  function getUserDetails(user_id) {
+  function getAgentDetails(agent_id) {
     $.ajax({
       headers: {
         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
       },
-      url: '/admin/clients/getclients',
+      url: '/admin/agents/get_agent_person_name',
       type: 'POST',
       data: {
-        'user_id': user_id
+        'agent_id': agent_id
       },
-      dataType: 'json',
+      dataType: 'text',
       beforeSend: function () {
         // $('#fullOverlay').css('display', 'block');
       },
     })
-      .done(function ($user_results) {
-        // $('#fullOverlay').css('display', 'none');
-        $('.person').text('').text($user_results[0]);
-        $('.email').text('').text($user_results[1]);
-        $('.mobile').text('').text($user_results[2]);
-        $('.tel').text('').text($user_results[3]);
-        $('.condition').html('').html($user_results[4].replace(/\n/g, "<br>"));
-        $('.attention').html('').html($user_results[5].replace(/\n/g, "<br>"));
-        console.log($user_results);
+      .done(function ($agent_result) {
+        console.log($agent_result);
+        $('.selected_person').text($agent_result);
       })
-      .fail(function ($user_results) {
+      .fail(function ($agent_result) {
         // $('#fullOverlay').css('display', 'none');
-        console.log('ajaxGetClients 失敗', $user_results)
+        console.log('ajaxGetClients 失敗', $agent_result)
       });
   }
 

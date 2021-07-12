@@ -141,6 +141,7 @@ Route::namespace('Admin')->prefix('admin')->name('admin.')->group(function () {
     // 紹介会社
     Route::resource('agents', 'AgentsController');
     Route::post('agents/get_agent', 'AgentsController@getAgent');
+    Route::post('agents/get_agent_person_name', 'AgentsController@getAgentPersonName');
     // 管理者側からUser登録
     Route::resource('clients', 'ClientsController');
     // 予約　session

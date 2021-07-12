@@ -534,6 +534,19 @@
 </div>
 
 <script>
+  function checkForm($this) {
+          var str = $this.value;
+          while (str.match(/[^A-Z^a-z\d\-]/)) {
+            str = str.replace(/[^A-Z^a-z\d\-]/, "");
+          }
+          $this.value = str;
+        }
+
+  $(function(){
+    $('.equipment_breakdown').on('keydown keyup keypress',function(){
+      return false;
+    })
+  })
   $(function() {
     $(document).on("click", "input:radio[name='eat_in']", function() {
       var radioTarget = $('input:radio[name="eat_in"]:checked').val();
