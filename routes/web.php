@@ -264,54 +264,52 @@ Route::namespace('Admin')->prefix('admin')->name('admin.')->group(function () {
       Route::put('{pre_reservation}/update', 'PreAgentReservationsController@update');
     });
 
+    // cxl
+    Route::group(['prefix' => 'cxl', 'as' => 'cxl.'], function () {
+      Route::post('multi_calc', 'CxlController@multiCalc');
+      Route::get('multi_calc', 'CxlController@multiCalcShow')->name('multi_calc');
+      Route::get('multi_create', 'CxlController@multiCreate')->name('multi_create');
+      Route::post('multi_check', 'CxlController@multiCheck')->name('multi_check');
+      Route::post('store', 'CxlController@store');
+      Route::post('double_check', 'CxlController@doubleCheck');
+      Route::post('send_email_and_approve', 'CxlController@send_email_and_approve');
+      Route::post('confirm', 'CxlController@confirm_cxl');
+      Route::get('edit/{cxl}', 'CxlController@edit')->name('edit');
+      Route::post('edit_calc', 'CxlController@editCalc');
+      Route::get('edit_calc', 'CxlController@editCalcShow')->name('edit_calc');
+      Route::post('edit_check', 'CxlController@editCheck');
+      Route::post('update', 'CxlController@update');
+      Route::post('update_cxl_bill_info', 'CxlController@updateCxlBillInfo');
+      Route::post('update_cxl_paid_info', 'CxlController@updateCxlPaidInfo');
+    });
 
-
-
-
-
-
-
-
-
-
-
-    Route::post('cxl/multi_calc', 'CxlController@multiCalc');
-    Route::get('cxl/multi_calc', 'CxlController@multiCalcShow')->name('cxl.multi_calc');
-    Route::get('cxl/multi_create', 'CxlController@multiCreate')->name('cxl.multi_create');
-    Route::post('cxl/multi_check', 'CxlController@multiCheck')->name('cxl.multi_check');
-    Route::post('cxl/store', 'CxlController@store');
-    Route::post('cxl/double_check', 'CxlController@doubleCheck');
-    Route::post('cxl/send_email_and_approve', 'CxlController@send_email_and_approve');
-    Route::post('cxl/confirm', 'CxlController@confirm_cxl');
-
-    Route::get('cxl/edit/{cxl}', 'CxlController@edit')->name('cxl.edit');
-    Route::post('cxl/edit_calc', 'CxlController@editCalc');
-    Route::get('cxl/edit_calc', 'CxlController@editCalcShow')->name('cxl.edit_calc');
-    Route::post('cxl/edit_check', 'CxlController@editCheck');
-    Route::post('cxl/update', 'CxlController@update');
-    Route::post('cxl/update_cxl_bill_info', 'CxlController@updateCxlBillInfo');
-    Route::post('cxl/update_cxl_paid_info', 'CxlController@updateCxlPaidInfo');
-
-
-    // メールてんぷれ
+    // メールテンプレ
     Route::get('mail_templates', 'MailTemplatesController@index');
+    // クーロン設定
     Route::get('cron_templates', 'MailTemplatesController@cron');
-
+    // 請求書発行
     Route::post('invoice', 'InvoiceController@show');
+
     Route::post('board', 'BoardController@show');
+
     // note
     Route::get('note', 'NoteController@index')->name('note');
-    Route::get('note/create', 'NoteController@create');
-    Route::post('note/store', 'NoteController@store');
-    Route::get('note/edit/{date}/{note}', 'NoteController@edit');
-    Route::get('note/delete/{note}/{date}', 'NoteController@destroy');
-    Route::post('note/update', 'NoteController@update');
-    Route::post('note/sort_no_update', 'NoteController@sortNoUpdate');
+    Route::group(['prefix' => 'note', 'as' => 'note.'], function () {
+      Route::get('create', 'NoteController@create');
+      Route::post('store', 'NoteController@store');
+      Route::get('edit/{date}/{note}', 'NoteController@edit');
+      Route::get('delete/{note}/{date}', 'NoteController@destroy');
+      Route::post('update', 'NoteController@update');
+      Route::post('sort_no_update', 'NoteController@sortNoUpdate');
+    });
 
+    // cxv
     Route::post('csv', 'SalesController@download_csv');
 
+    // 売上請求一覧
     Route::get('sales', 'SalesController@index');
 
+    // 領収書
     Route::post('receipts', 'ReceiptsController@show');
 
     Route::post('control_time', 'ControltimeController@getInformation');
