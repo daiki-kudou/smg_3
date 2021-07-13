@@ -179,34 +179,8 @@ Route::namespace('Admin')->prefix('admin')->name('admin.')->group(function () {
     Route::post('ajax/reservation/get_luggage', 'Ajax\AjaxReservationsController@get_luggage');
     Route::post('ajax/reservation/get_eat_in', 'Ajax\AjaxReservationsController@get_eat_in');
     Route::post('ajax/reservation/get_operation_system', 'Ajax\AjaxReservationsController@get_operation_system');
+    Route::post('ajax/clients/get_clients', 'Ajax\AjaxClientsController@get_clients');
     // ajax ▲
-
-
-    // ajax アイテム
-    // Route::post('reservations/geteitems', 'ReservationsController@geteitems');
-    // ajax 料金体系
-    // Route::post('reservations/getpricesystem', 'ReservationsController@getpricesystem');
-    // ajax 料金詳細所得
-    // Route::post('reservations/getpricedetails', 'ReservationsController@getpricedetails');
-    // ajax 備品＆サービス　料金取得
-    // Route::post('reservations/geteitemsprices', 'ReservationsController@geteitemsprices');
-    // ajax レイアウト取得
-    // Route::post('reservations/getlayout', 'ReservationsController@getlayout');
-    // ajax レイアウト金額取得
-    // Route::post('reservations/getlayoutprice', 'ReservationsController@getlayoutprice');
-    // ajax 荷物有り、無し　判別
-    Route::post('reservations/getluggage', 'ReservationsController@getluggage');
-    // ajax 会場　直営 or 提携　判別
-    Route::post('reservations/getoperation', 'ReservationsController@getoperation');
-    // ajax 会場　直営 or 提携　判別
-    Route::post('clients/getclients', 'ClientsController@getclients');
-    // ajax ケータリング
-    Route::post('reservations/get_eat_in', 'ReservationsController@getEatIn');
-
-
-
-
-
 
 
     //予約に対するダブルチェック

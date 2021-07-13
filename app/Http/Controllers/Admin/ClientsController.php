@@ -241,21 +241,4 @@ class ClientsController extends Controller
       return redirect(url("admin/clients?page=" . $request->page));
     }
   }
-
-  /***********************
-   * ajax 顧客情報　取得
-   **********************
-   */
-  public function getclients(Request $request)
-  {
-    $user = User::find($request->user_id);
-    $person = $user->first_name . $user->last_name;
-    $email = $user->email;
-    $mobile = $user->mobile;
-    $tel = $user->tel;
-    $condition = $user->condition;
-    $attention = $user->attention;
-
-    return [$person, $email, $mobile, $tel, $condition, $attention, $request->user_id];
-  }
 }

@@ -8,11 +8,10 @@ $(function () {
     $('#sales_start').val();
     $('#sales_finish').val();
     ajaxGetItems(venue_id);
-    ajaxGetSalesHours(venue_id, dates);
-    ajaxGetPriceStstem(venue_id);
+    ajaxGetPriceSystem(venue_id);
     ajaxGetLayout(venue_id); //レイアウトが存在するかしないか、　"0"か"1"でreturn
     ajaxGetLuggage(venue_id); //会場に荷物預りが存在するかしないか、　"0"か"1"でreturn
-    ajaxGetOperatinSystem(venue_id); //会場形態の判別 直営 or　提携
+    ajaxGetOperationSystem(venue_id); //会場形態の判別 直営 or　提携
     ajaxGetEatIn(venue_id); //会場形態の判別 直営 or　提携
 
   });
@@ -21,8 +20,6 @@ $(function () {
   $('#datepicker1').on('change', function () {
     var dates = $('#datepicker1').val();
     var venue_id = $('#venues_selector').val();
-    // ajaxGetItems(venue_id);
-    ajaxGetSalesHours(venue_id, dates);
   });
 
 
@@ -80,59 +77,6 @@ $(function () {
     $('input[name^="hand_input"]').each(function (index, elem) {
       $(elem).val('');
     })
-
-
-    // 関数処理の順番にばらつきがあるので、１秒後に実行
-    setTimeout(function () {
-      // 総請求額反映用
-      var all_total_venue = Number($('.venue_extend').val()); //会場料　税抜　料金　（割引反映前）
-      var all_total_items = Number($('.selected_items_total').val()); //備品　その他　税抜　料金　（割引反映前）
-      var all_total_layouts = Number($('.layout_total').val()); //備品　その他　税抜　料金　（割引反映前）
-      var all_totals = all_total_venue + all_total_items + all_total_layouts;
-      var only_tax = Math.floor(Number(all_totals) * 0.1);
-      $('.all-total-without-tax').text(all_totals);
-      $('.all-total-without-tax').val(all_totals);
-      $('.all-total-tax').text(only_tax);
-      $('.all-total-tax').val(only_tax);
-      $('.all-total-amout').text(Number(all_totals) + Number(only_tax));
-      $('.all-total-amout').val(Number(all_totals) + Number(only_tax));
-      // 以下hidden
-      $('#sub_total').val(all_totals);
-      $('#tax').val(only_tax);
-      $('#total').val(Number(all_totals) + Number(only_tax));
-      //詳細内訳初期化
-      $('input[name^="venue_breakdowns"]').remove();
-      $('input[name^="equipment_breakdowns"]').remove();
-      $('input[name^="layout_breakdowns"]').remove();
-      // 以下、料金詳細内訳
-      var target_v = $('.venue_price_details tbody tr').length;
-      for (let c_v = 0; c_v < target_v; c_v++) {
-        // 内訳に入るtdは固定で4つ（内容、単価、数量、金額）
-        for (let counter = 0; counter < 4; counter++) {
-          var unit_venue = $('.venue_price_details tbody tr').eq(c_v).find('td').eq(counter).text();
-          $('form').append("<input type='text' name='venue_breakdowns" + c_v + "_" + counter + "' value='" + unit_venue + "'>");
-        }
-      }
-      // 以下、備品・サービス詳細内訳
-      var target_e = $('.items_equipments tbody tr').length;
-      for (let c_e = 0; c_e < target_e; c_e++) {
-        // 内訳に入るtdは固定で4つ（内容、単価、数量、金額）
-        for (let counter = 0; counter < 4; counter++) {
-          var unit_equipment = $('.items_equipments tbody tr').eq(c_e).find('td').eq(counter).text();
-          $('form').append("<input type='text' name='equipment_breakdowns" + c_e + "_" + counter + "' value='" + unit_equipment + "'>");
-        }
-      }
-      // 以下、レイアウト詳細内訳
-      var target_l = $('.selected_layouts tbody tr').length;
-      for (let c_l = 0; c_l < target_l; c_l++) {
-        // 内訳に入るtdは固定で4つ（内容、単価、数量、金額）
-        for (let counter = 0; counter < 4; counter++) {
-          var unit_layout = $('.selected_layouts tbody tr').eq(c_l).find('td').eq(counter).text();
-          $('form').append("<input type='text' name='layout_breakdowns" + c_l + "_" + counter + "' value='" + unit_layout + "'>");
-        }
-      }
-
-    }, 1000);
   });
 
   // 備品とサービス取得ajax
@@ -141,7 +85,7 @@ $(function () {
       headers: {
         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
       },
-      url: '/admin/reservations/geteitems',
+      url: '/admin/ajax/reservation/get_item',
       type: 'POST',
       data: { 'venue_id': $venue_id, 'text': 'Ajax成功' },
       dataType: 'json',
@@ -192,59 +136,15 @@ $(function () {
   };
 
 
-  // 新規予約時の入退室時間の制御
-  // 管理者は24時間予約登録可能。そのため一旦、本機能停止
-  function ajaxGetSalesHours($venue_id, $dates) {
-    $.ajax({
-      headers: {
-        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-      },
-      url: '/admin/reservations/getsaleshours',
-      type: 'POST',
-      data: { 'venue_id': $venue_id, 'dates': $dates },
-      dataType: 'json',
-      beforeSend: function () {
-        // $('#fullOverlay').css('display', 'block');
-      },
-    })
-      .done(function ($times) {
-        // $('#fullOverlay').css('display', 'none');
-        // 初期化
-        $("#sales_start option").each(function ($result) {
-          $('#sales_start option').eq($result).prop('disabled', false);
-        });
-        $("#sales_finish option").each(function ($result) {
-          $('#sales_finish option').eq($result).prop('disabled', false);
-        });
 
-        for (let index = 0; index < $times[0].length; index++) {
-          $("#sales_start option").each(function ($result) {
-            if ($times[0][index] == $('#sales_start option').eq($result).val()) {
-              $('#sales_start option').eq($result).prop('disabled', true);
-            }
-          });
-        };
-
-        for (let index = 0; index < $times[0].length; index++) {
-          $("#sales_finish option").each(function ($result) {
-            if ($times[0][index] == $('#sales_finish option').eq($result).val()) {
-              $('#sales_finish option').eq($result).prop('disabled', true);
-            }
-          });
-        }
-      })
-      .fail(function ($times) {
-        // $('#fullOverlay').css('display', 'none');
-      });
-  };
 
   // 料金体系取得
-  function ajaxGetPriceStstem($venue_id) {
+  function ajaxGetPriceSystem($venue_id) {
     $.ajax({
       headers: {
         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
       },
-      url: '/admin/reservations/getpricesystem',
+      url: '/admin/ajax/reservation/get_price_system',
       type: 'POST',
       data: { 'venue_id': $venue_id },
       dataType: 'json',
@@ -502,7 +402,7 @@ $(function () {
       headers: {
         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
       },
-      url: '/admin/reservations/getlayout',
+      url: '/admin/ajax/reservation/get_layout',
       type: 'POST',
       data: {
         'venue_id': $venue_id
@@ -579,7 +479,7 @@ $(function () {
       headers: {
         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
       },
-      url: '/admin/reservations/getluggage',
+      url: '/admin/ajax/reservation/get_luggage',
       type: 'POST',
       data: {
         'venue_id': $venue_id
@@ -643,12 +543,12 @@ $(function () {
   };
 
   // 直営 or 提携会場　判別
-  function ajaxGetOperatinSystem($venue_id) {
+  function ajaxGetOperationSystem($venue_id) {
     $.ajax({
       headers: {
         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
       },
-      url: '/admin/reservations/getoperation',
+      url: '/admin/ajax/reservation/get_operation_system',
       type: 'POST',
       data: {
         'venue_id': $venue_id
@@ -705,7 +605,7 @@ $(function () {
       headers: {
         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
       },
-      url: '/admin/reservations/get_eat_in',
+      url: '/admin/ajax/reservation/get_eat_in',
       type: 'POST',
       data: {
         'venue_id': venue_id
