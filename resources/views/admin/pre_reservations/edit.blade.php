@@ -269,35 +269,6 @@
             </td>
           </tr>
           <tr>
-            <td class="table-active">イベント開始時間</td>
-            <td>
-              <select name="event_start" id="event_start" class="form-control">
-                @if ($PreReservation->board_flag==1)
-                <option disabled>選択してください</option>
-                {!!ReservationHelper::timeOptionsWithRequestAndLimit($PreReservation->event_start,$PreReservation->enter_time,$PreReservation->leave_time)!!}
-                @else
-                <option value="" selected></option>
-                {!!ReservationHelper::timeOptionsWithRequestAndLimit('',$PreReservation->enter_time,$PreReservation->leave_time)!!}
-                @endif
-              </select>
-            </td>
-          </tr>
-          <tr>
-            <td class="table-active">イベント終了時間</td>
-            <td>
-              <select name="event_finish" id="event_finish" class="form-control">
-                @if ($PreReservation->board_flag==1)
-                <option disabled>選択してください</option>
-                {!!ReservationHelper::timeOptionsWithRequestAndLimit($PreReservation->event_finish,$PreReservation->enter_time,$PreReservation->leave_time)!!}
-                @else
-                <option value="" selected></option>
-                {!!ReservationHelper::timeOptionsWithRequestAndLimit('',$PreReservation->enter_time,$PreReservation->leave_time)!!}
-                @endif
-
-              </select>
-            </td>
-          </tr>
-          <tr>
             <td class="table-active">イベント名称1</td>
             <td>
               <div class="align-items-end d-flex">
@@ -325,6 +296,35 @@
                 <span class="ml-1 annotation count_num3"></span>
               </div>
               <p class="is-error-event_owner" style="color: red"></p>
+            </td>
+          </tr>
+          <tr>
+            <td class="table-active">イベント開始時間</td>
+            <td>
+              <select name="event_start" id="event_start" class="form-control">
+                @if ($PreReservation->board_flag==1)
+                <option disabled>選択してください</option>
+                {!!ReservationHelper::timeOptionsWithRequestAndLimit($PreReservation->event_start,$PreReservation->enter_time,$PreReservation->leave_time)!!}
+                @else
+                <option value="" selected></option>
+                {!!ReservationHelper::timeOptionsWithRequestAndLimit('',$PreReservation->enter_time,$PreReservation->leave_time)!!}
+                @endif
+              </select>
+            </td>
+          </tr>
+          <tr>
+            <td class="table-active">イベント終了時間</td>
+            <td>
+              <select name="event_finish" id="event_finish" class="form-control">
+                @if ($PreReservation->board_flag==1)
+                <option disabled>選択してください</option>
+                {!!ReservationHelper::timeOptionsWithRequestAndLimit($PreReservation->event_finish,$PreReservation->enter_time,$PreReservation->leave_time)!!}
+                @else
+                <option value="" selected></option>
+                {!!ReservationHelper::timeOptionsWithRequestAndLimit('',$PreReservation->enter_time,$PreReservation->leave_time)!!}
+                @endif
+
+              </select>
             </td>
           </tr>
         </table>

@@ -241,24 +241,6 @@
             </td>
           </tr>
           <tr>
-            <td class="table-active">イベント開始時間</td>
-            <td>
-              <select name="event_start" id="event_start" class="form-control">
-                <option disabled></option>
-                {!!ReservationHelper::timeOptionsWithRequestAndLimit($request->event_start,$request->enter_time,$request->leave_time)!!}
-              </select>
-            </td>
-          </tr>
-          <tr>
-            <td class="table-active">イベント終了時間</td>
-            <td>
-              <select name="event_finish" id="event_finish" class="form-control">
-                <option disabled></option>
-                {!!ReservationHelper::timeOptionsWithRequestAndLimit($request->event_finish,$request->enter_time,$request->leave_time)!!}
-              </select>
-            </td>
-          </tr>
-          <tr>
             <td class="table-active">イベント名称1</td>
             <td>
               <div class="align-items-end d-flex">
@@ -286,6 +268,24 @@
                 <span class="ml-1 annotation count_num3"></span>
               </div>
               <p class="is-error-event_owner" style="color: red"></p>
+            </td>
+          </tr>
+          <tr>
+            <td class="table-active">イベント開始時間</td>
+            <td>
+              <select name="event_start" id="event_start" class="form-control">
+                <option disabled></option>
+                {!!ReservationHelper::timeOptionsWithRequestAndLimit($request->event_start,$request->enter_time,$request->leave_time)!!}
+              </select>
+            </td>
+          </tr>
+          <tr>
+            <td class="table-active">イベント終了時間</td>
+            <td>
+              <select name="event_finish" id="event_finish" class="form-control">
+                <option disabled></option>
+                {!!ReservationHelper::timeOptionsWithRequestAndLimit($request->event_finish,$request->enter_time,$request->leave_time)!!}
+              </select>
             </td>
           </tr>
         </table>
