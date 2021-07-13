@@ -183,7 +183,10 @@
             <tr>
               <td class="table-active">{{$equ->item}}</td>
               <td>
-                {{ Form::text('equipment_breakdown'.$key, $master_info['equipment_breakdown'.$key],['class'=>'form-control','readonly'] ) }}
+                <div class="d-flex align-items-end">
+                  {{ Form::text('equipment_breakdown'.$key, $master_info['equipment_breakdown'.$key],['class'=>'form-control','readonly'] ) }}
+                <span class="ml-1">個</span>
+                </div>
               </td>
             </tr>
             @endforeach

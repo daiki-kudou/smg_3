@@ -232,7 +232,10 @@
               <tr>
                 <td class="table-active">{{$equipment->item}}</td>
                 <td>
-                  {{ Form::number('equipment_breakdown'.$key, $master_info['equipment_breakdown'.$key],['class'=>'form-control equipment_validation', 'placeholder'=>'入力してください'] ) }}
+                  <div class="d-flex align-items-end">
+                    {{ Form::number('equipment_breakdown'.$key, $master_info['equipment_breakdown'.$key],['class'=>'form-control equipment_validation', 'placeholder'=>'入力してください'] ) }}
+                    <span class="ml-1">個</span>
+                  </div>
                 </td>
               </tr>
               @endforeach

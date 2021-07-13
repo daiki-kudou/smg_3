@@ -259,7 +259,10 @@
             <tr>
               <td class="table-active">{{$equipment->item}}({{$equipment->price}}円)</td>
               <td>
-                {{ Form::number('equipment_breakdown'.$key, $value['equipment_breakdown'.$key],['class'=>'form-control equipment_breakdown equipment_validation'] ) }}
+                <div class="d-flex align-items-end">
+                  {{ Form::number('equipment_breakdown'.$key, $value['equipment_breakdown'.$key],['class'=>'form-control equipment_breakdown equipment_validation'] ) }}
+                  <span class="ml-1">個</span>
+                </div>
               </td>
             </tr>
             @endforeach

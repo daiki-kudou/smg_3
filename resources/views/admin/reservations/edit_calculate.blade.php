@@ -227,11 +227,14 @@
             <tr>
               <td class="table-active">{{$equipment->item}}({{$equipment->price}}円)</td>
               <td>
-                @if (!empty($basicInfo['equipment_breakdown'.$key]))
-                {{ Form::text('equipment_breakdown'.$key, $basicInfo['equipment_breakdown'.$key],['class'=>'form-control equipment_breakdown'] ) }}
-                @else
-                {{ Form::text('equipment_breakdown'.$key, null,['class'=>'form-control equipment_breakdown'] ) }}
-                @endif
+                <div class="d-flex align-items-end">
+                  @if (!empty($basicInfo['equipment_breakdown'.$key]))
+                  {{ Form::text('equipment_breakdown'.$key, $basicInfo['equipment_breakdown'.$key],['class'=>'form-control equipment_breakdown'] ) }}
+                  @else
+                  {{ Form::text('equipment_breakdown'.$key, null,['class'=>'form-control equipment_breakdown'] ) }}
+                  @endif
+                  <span class="ml-1">個</span>
+                </div>
               </td>
             </tr>
             @endforeach

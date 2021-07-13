@@ -208,7 +208,10 @@
                   {{$equ->item}}
                 </td>
                 <td>
-                  {{Form::text('equipment_breakdown'.$key,$inputs['equipment_breakdown'.$key],['class'=>'form-control equipment_validation'])}}
+                  <div class="d-flex align-items-end">
+                    {{Form::text('equipment_breakdown'.$key,$inputs['equipment_breakdown'.$key],['class'=>'form-control equipment_validation'])}}
+                    <span class="ml-1">個</span>
+                  </div>
                 </td>
               </tr>
               @endforeach

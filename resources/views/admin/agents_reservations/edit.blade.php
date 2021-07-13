@@ -195,14 +195,17 @@
                   {{$equ->item}}
                 </td>
                 <td>
-                  <input type="text" class="form-control equipment_breakdown equipment_validation"
-                    name="{{'equipment_breakdown'.$key}}"
-                    @foreach($reservation->bills->sortBy("id")->first()->breakdowns->where('unit_type',2) as $e_break)
-                  @if ($e_break->unit_item==$equ->item)
-                  value="{{$e_break->unit_count}}"
-                  @endif
-                  @endforeach
-                  >
+                  <div class="d-flex align-items-end">
+                    <input type="text" class="form-control equipment_breakdown equipment_validation"
+                      name="{{'equipment_breakdown'.$key}}"
+                      @foreach($reservation->bills->sortBy("id")->first()->breakdowns->where('unit_type',2) as $e_break)
+                    @if ($e_break->unit_item==$equ->item)
+                    value="{{$e_break->unit_count}}"
+                    @endif
+                    @endforeach
+                    >
+                    <span class="ml-1">個</span>
+                  </div>
                 </td>
               </tr>
               @endforeach
