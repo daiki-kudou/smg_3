@@ -289,7 +289,10 @@
                   {{$equipment->item}}
                 </td>
                 <td>
-                  {{ Form::number('equipment_breakdown'.$key, $request->{'equipment_breakdown'.$key},['class'=>'form-control equipment_validation'] ) }}
+                  <div class="d-flex align-items-end">
+                    {{ Form::number('equipment_breakdown'.$key, $request->{'equipment_breakdown'.$key},['class'=>'form-control equipment_validation'] ) }}
+                    <span class="ml-1">個</span>
+                  </div>
                   <p class='{{'is-error-equipment_breakdown'.$key}}' style='color: red'></p>
                 </td>
               </tr>
@@ -789,7 +792,7 @@
               <tbody class="venue_main">
                 <tr>
                   <td>
-                    {{ Form::text('venue_breakdown_item0', '会場利用（仮）',['class'=>'form-control'] ) }}
+                    {{ Form::text('venue_breakdown_item0', '会場料金',['class'=>'form-control'] ) }}
                   </td>
                   <td>
                     {{ Form::text('venue_breakdown_cost0', 0,['class'=>'form-control'] ) }}

@@ -308,7 +308,10 @@
                   {{$equipment->item}}
                 </td>
                 <td>
-                  {{ Form::text('equipment_breakdown'.$e_key, $request->{'equipment_breakdown'.$e_key},['class'=>'form-control equipment_validation'] ) }}
+                  <div class="d-flex align-items-end">
+                    {{ Form::text('equipment_breakdown'.$e_key, $request->{'equipment_breakdown'.$e_key},['class'=>'form-control equipment_validation'] ) }}
+                  <span class="ml-1">個</span>
+                  </div>
                 </td>
               </tr>
               @endforeach
