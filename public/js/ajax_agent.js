@@ -155,8 +155,8 @@ $(function () {
         $.each($items[0], function (index, value) {
           // ココで備品取得
           var data = "<tr><td class='table-active'>" + value['item'] +
-            "</td>" + "<td><input type='number' value='0' min=0 name='equipment_breakdown" +
-            index + "' class='form-control equipment_breakdown' onInput='checkForm(this)'></td></tr>"
+            "</td>" + "<td><div class='d-flex align-items-end'><input type='number' value='' min=0 name='equipment_breakdown" +
+            index + "' class='form-control equipment_breakdown' onInput='checkForm(this)'><span class='ml-1'>個</span></div></td></tr>"
           $('.equipemnts table tbody').append(data);
         });
         // ***********マイナス、全角制御用
