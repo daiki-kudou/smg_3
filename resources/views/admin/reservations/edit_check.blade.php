@@ -128,7 +128,7 @@
         </tbody>
       </table>
       <div class="equipemnts">
-        <table class="table table-bordered" style="table-layout: fixed;">
+        <table class="table table-bordered"
           <thead class="accordion-ttl">
             <tr>
               <th colspan="2">

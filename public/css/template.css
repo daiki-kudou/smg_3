@@ -155,6 +155,10 @@ table.dataTable thead .sorting_desc:after {
     word-break: break-all;
 }
 
+.equipemnts .accordion-wrap .table-active {
+    width: 65%;
+}
+
 
 
 .border-info {
