@@ -32,6 +32,7 @@ class AjaxReservationsController extends Controller
     return [$frame_price, $time_price, $date];
   }
 
+
   public function get_layout(Request $request)
   {
     $venue = Venue::find($request->venue_id);
