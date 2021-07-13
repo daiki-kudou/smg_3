@@ -11,6 +11,7 @@ class Note extends Model
     'venue',
     'company',
     'content',
+    'date',
+    'sort_no',
   ];
-
 }

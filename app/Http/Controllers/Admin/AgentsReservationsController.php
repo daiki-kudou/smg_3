@@ -28,9 +28,7 @@ class AgentsReservationsController extends Controller
   {
     session()->forget(['master_info', 'calc_info', 'reservation', 'bill', 'breakdown']);
     $venues = Venue::orderBy("id", "desc")->get();
-
     $agents = Agent::orderBy("id", "desc")->get();
-
     return view('admin.agents_reservations.create', compact('venues', 'agents'));
   }
 

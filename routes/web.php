@@ -141,6 +141,7 @@ Route::namespace('Admin')->prefix('admin')->name('admin.')->group(function () {
     // 紹介会社
     Route::resource('agents', 'AgentsController');
     Route::post('agents/get_agent', 'AgentsController@getAgent');
+    Route::post('agents/get_agent_person_name', 'AgentsController@getAgentPersonName');
     // 管理者側からUser登録
     Route::resource('clients', 'ClientsController');
     // 予約　session
@@ -393,9 +394,10 @@ Route::namespace('Admin')->prefix('admin')->name('admin.')->group(function () {
     Route::get('note', 'NoteController@index')->name('note');
     Route::get('note/create', 'NoteController@create');
     Route::post('note/store', 'NoteController@store');
-    Route::get('note/edit/{note}', 'NoteController@edit');
-    Route::get('note/delete/{note}', 'NoteController@destroy');
+    Route::get('note/edit/{date}/{note}', 'NoteController@edit');
+    Route::get('note/delete/{note}/{date}', 'NoteController@destroy');
     Route::post('note/update', 'NoteController@update');
+    Route::post('note/sort_no_update', 'NoteController@sortNoUpdate');
 
     Route::post('csv', 'SalesController@download_csv');
 
