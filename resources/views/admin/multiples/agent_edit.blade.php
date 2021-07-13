@@ -251,7 +251,7 @@
                     <tr>
                       <td class="table-active">{{$equipment->item}}</td>
                       <td>
-                        {{Form::text('cp_master_equipment_breakdown' . $key , '', ['class' => 'form-control equipment_validation'])}}
+                        {{Form::number('cp_master_equipment_breakdown' . $key , '', ['class' => 'form-control equipment_validation'])}}
                       </td>
                     </tr>
                     @endforeach
@@ -353,22 +353,37 @@
                   <tbody>
                     @if ($venue->getLuggage()===1)
                     <tr>
+                      <td class="table-active">荷物預かり 工藤さん！！こちら</td>
+                      <td>
+                        <div class="radio-box">
+                          <p>
+                            <input id="cp_master_luggage_flag" name="luggage_flag" type="radio" value="1">
+                            <label for="" class="form-check-label">有り</label>
+                          </p>
+                          <p>
+                            <input id="cp_master_no_luggage_flag" name="luggage_flag" type="radio" value="0">
+                            <label for="" class="form-check-label">無し</label>
+                          </p>
+                        </div>
+                      </td>
+                    </tr>
+                    <tr>
                       <td class="table-active">事前に預かる荷物<br>（個数）</td>
                       <td>
-                        {{ Form::text('cp_master_luggage_count', '',['class'=>'form-control'] ) }}
+                        {{ Form::text('cp_master_luggage_count', '',['class'=>'form-control','id'=>'cp_master_luggage_count'] ) }}
                         <p class="is-error-cp_master_luggage_count" style="color: red"></p>
                       </td>
                     </tr>
                     <tr>
                       <td class="table-active">事前荷物の到着日<br>午前指定のみ</td>
                       <td>
-                        {{ Form::text('cp_master_luggage_arrive', '',['class'=>'form-control datepicker9','id'=>''] ) }}
+                        {{ Form::text('cp_master_luggage_arrive', '',['class'=>'form-control datepicker9','id'=>'cp_master_luggage_arrive'] ) }}
                       </td>
                     </tr>
                     <tr>
                       <td class="table-active">事後返送する荷物</td>
                       <td>
-                        {{ Form::text('cp_master_luggage_return', '',['class'=>'form-control'] ) }}
+                        {{ Form::text('cp_master_luggage_return', '',['class'=>'form-control','id'=>'cp_master_luggage_return'] ) }}
                         <p class="is-error-cp_master_luggage_return" style="color: red"></p>
                       </td>
                     </tr>
@@ -749,14 +764,14 @@
                           @if ($pre_reservation->pre_breakdowns)
                           @foreach ($pre_reservation->pre_breakdowns()->get() as $pre_re)
                           @if ($pre_re->unit_item==$equipment->item)
-                          {{Form::text('equipment_breakdown' . $e_key.'_copied'.$key , $pre_re->unit_count, ['class' => 'form-control equipment_validation'])}}
+                          {{Form::number('equipment_breakdown' . $e_key.'_copied'.$key , $pre_re->unit_count, ['class' => 'form-control equipment_validation'])}}
                           @break
                           @elseif($loop->last)
-                          {{Form::text('equipment_breakdown' . $e_key.'_copied'.$key , '', ['class' => 'form-control equipment_validation'])}}
+                          {{Form::number('equipment_breakdown' . $e_key.'_copied'.$key , '', ['class' => 'form-control equipment_validation'])}}
                           @endif
                           @endforeach
                           @else
-                          {{Form::text('equipment_breakdown' . $e_key.'_copied'.$key , '', ['class' => 'form-control equipment_validation'])}}
+                          {{Form::number('equipment_breakdown' . $e_key.'_copied'.$key , '', ['class' => 'form-control equipment_validation'])}}
                           @endif
                         </td>
                       </tr>
@@ -909,6 +924,21 @@
                       </tr>
                     </thead>
                     <tbody>
+                      <tr>
+                        <td class="table-active">荷物預かり 工藤さん！！こちら</td>
+                        <td>
+                          <div class="radio-box">
+                            <p>
+                              <input id="cp_master_luggage_flag" name="luggage_flag" type="radio" value="1">
+                              <label for="" class="form-check-label">有り</label>
+                            </p>
+                            <p>
+                              <input id="cp_master_no_luggage_flag" name="luggage_flag" type="radio" value="0">
+                              <label for="" class="form-check-label">無し</label>
+                            </p>
+                          </div>
+                        </td>
+                      </tr>
                       <tr>
                         <td class="table-active">事前に預かる荷物<br>（個数）</td>
                         <td>

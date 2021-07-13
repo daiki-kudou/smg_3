@@ -97,7 +97,7 @@ $(function () {
         user_id: { required: true },
         agent_id: { required: true },
         in_charge: { required: true },
-        tel: { required: true, number: true, minlength: 10 },
+        tel: { required: true, number: true, maxlength: 11 },
         luggage_count: { number: true, range: [0, 49] },
         luggage_return: { number: true, range: [0, 49] },
         luggage_price: { number: true },
@@ -125,7 +125,7 @@ $(function () {
         tel: {
           required: "※必須項目です",
           number: "※半角数字を入力してください",
-          minlength: "※最低桁数は10です",
+          maxlength: "※最低桁数は10です",
         },
         luggage_count: {
           number: "半角数字で入力してください",
@@ -171,7 +171,7 @@ $(function () {
         form.submit();
       },
     });
-    $("input").on("blur", function () {
+    $("input").on("blur change", function () {
       $(this).valid();
     });
   });
@@ -251,13 +251,13 @@ $(function () {
   $.each(target, function (index, value) {
     $(value).validate({
       rules: {
-        venue_price: { 
-          required: true 
+        venue_price: {
+          required: true
         },
       },
       messages: {
-        venue_price: { 
-          required: "※金額を入力してください" 
+        venue_price: {
+          required: "※金額を入力してください"
         }
       },
       errorPlacement: function (error, element) {

@@ -109,4 +109,9 @@ class AgentsController extends Controller
   {
     return Agent::find($request->agent_id);
   }
+  public function getAgentPersonName(Request $request)
+  {
+    $agent = Agent::find($request->agent_id);
+    return $agent->person_firstname . $agent->person_lastname;
+  }
 }

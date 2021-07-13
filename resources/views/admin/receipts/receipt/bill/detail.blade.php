@@ -7,14 +7,14 @@
     </tr>
     <tr class="information">
       <td>
-        <dl>
-          <dd>{{$bill->bill_company}}御中</dd>
-          <dd>{{$bill->bill_person}}様</dd>
+        <dl class="company-name">
+          <dd>{{$bill->bill_company}} 御中</dd>
+          {{-- <dd>{{$bill->bill_person}}様</dd> --}}
         </dl>
       </td>
       <td>
-        <dl>
-          <dd>SMGアクセア貸し会議室</dd>
+        <dl class="stamp-area">
+          <dd>株式会社SMG</dd>
           <dd>〒550-0014</dd>
           <dd>大阪市西区北堀江1丁目6番2号</dd>
           <dd>サンワールドビル11階</dd>
@@ -25,7 +25,7 @@
     <tr>
       <td colspan="4" class="title">
         <p>但し、<span>{{ReservationHelper::formatDate($bill->reservation->reserve_date)}}</span>の会場利用料として</p>
-        <p>下記の通り、領収いたしました。</p>
+        <p>{{ReservationHelper::formatDate($bill->pay_day)}}、下記の通り、領収いたしました。</p>
       </td>
     </tr>
     <tr>
@@ -37,7 +37,7 @@
       </td>
       <td>
         <p><span>領収書No：</span>{{ $bill->invoice_number }}</p>
-        <p><span>発行日：</span>{{ReservationHelper::formatDate($bill->pay_day)}}</p>
+        {{-- <p><span>発行日：</span>{{ReservationHelper::formatDate($bill->pay_day)}}</p> --}}
       </td>
     </tr>
   </table>
@@ -113,12 +113,12 @@
       </td>
     </tr>
   </table>
-  <table cellpadding="0" cellspacing="0" class="bill-note-wrap">
+  {{-- <table cellpadding="0" cellspacing="0" class="bill-note-wrap">
     <tr>
       <td class="bill-note">
         <p>備考</p>
         <p>{{$bill->bill_remark}}</p>
       </td>
     </tr>
-  </table>
+  </table> --}}
 </section>

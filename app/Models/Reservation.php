@@ -33,7 +33,6 @@ class Reservation extends Model implements PresentableInterface
 
   use SoftDeletes; //reservation大事なのでソフトデリートする
 
-
   protected $fillable = [
     'venue_id',
     'user_id',

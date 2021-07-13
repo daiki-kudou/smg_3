@@ -171,7 +171,6 @@
                   </div>
                 </li>
               </ul>
-              <p class="txtRed">※入力した時間より前に会場に入ることはできません。</p>
             </li>
         </td>
 
@@ -332,48 +331,61 @@
       <tr>
         <th>荷物預り/返送</th>
         <td class="spec-space">
-          <div class="m-b10">
-            <p>【事前に預かる荷物】</p>
-            <div class="luggage-cell">
-              <p class="">目安</p>
-              {{ Form::text('luggage_count', $fix->luggage_count,['class'=>'text6 ', 'style'=>'width:20%;'] ) }}
-              <p class="">個</p>
-            </div>
-            <p class="is-error-luggage_count" style="color: red"></p>
+          <div class="selectTime m-b10">
+            <input class="radio-input" id="luggage_flag" name="luggage_flag" type="radio" value="1">
+            <label for="luggage_flag">あり</label>
+            <input class="radio-input" id="no_luggage_flag" name="luggage_flag" type="radio" value="0">
+            <label for="no_luggage_flag">なし</label>
           </div>
-          <div class="m-b10">
-            <p>事前荷物の到着日(午前指定)</p>
-            <div class="luggage-cell">
-              {{ Form::text('luggage_arrive', $fix->luggage_arrive,['class'=>'text6','id'=>'datepicker2'] ) }}
-            </div>
-          </div>
-          <a name="a-baggagedate" class="error-r"></a>
-          <div class="m-b10">
-            <p>利用日3日前～前日（平日のみ）を到着日に指定下さい</p>
-            <p><span class="txt-indent">※送付詳細 / 伝票記載方法は該当会場詳細ページ「備品 / サービス」タブの「荷物預り / 返送
-                PDF」をご確認下さい。</span>
-              <span class="txt-indent">※発送伝票（元払）/ 返送伝票（着払）は各自ご用意下さい。</span>
-              <span class="txt-indent">※貴重品等のお預りはできかねます。</span>
-              <span class="txt-indent">※事前荷物は入室時間迄に弊社が会場搬入します。</span></p>
-          </div>
-          <div class="m-b10">
-            <p>【事後返送する荷物】</p>
-            <div class="luggage-cell">
-              <p class="">目安</p>
-              {{ Form::text('luggage_return', $fix->luggage_return,['class'=>'text6 ', 'style'=>'width: 20%;'] ) }}
-              <p class="">個</p>
-            </div>
-            <p class="is-error-luggage_return" style="color: red"></p>
-          </div>
-          <div class="m-b10">
-            <p>6個以上は要相談。まずは事前にお問合わせ下さい。<br>
-              [荷物外寸合計(縦・横・奥行)120cm以下/個]</p>
-            <p>
-              <span class="txt-indent">
-                ※返送に関して、発送伝票（元払）、返送伝票（着払）は会場内に用意しているものを必ず使用して下さい。
-              </span>
-            </p>
-          </div>
+          <ul class="luggage_info">
+            <li class="m-b10">
+              <p>後日テキストを追加</p>
+              <p>
+                <span class="txt-indent">
+                  ※注釈が追加予定注釈が追加予定注釈が追加予定注釈が追加予定
+                </span>
+              </p>
+            </li>
+            <li class="m-b10">
+              <div class="luggage-cell">
+                <p>事前に預かる荷物<br>(目安)</p>
+                {{ Form::text('luggage_count', $fix->luggage_count,['class'=>'text6 ', 'style'=>'width:20%;'] ) }}
+                <p class="">個</p>
+              </div>
+              <p class="is-error-luggage_count" style="color: red"></p>
+            </li>
+            <li class="m-b10">
+              <div class="luggage-cell">
+              <p>事前荷物の到着日(午前指定)</p>
+                {{ Form::text('luggage_arrive', $fix->luggage_arrive,['class'=>'text6','id'=>'datepicker2'] ) }}
+              </div>
+            </li>
+            <li class="m-b20">
+              <p>利用日3日前～前日（平日のみ）を到着日に指定下さい</p>
+              <p><span class="txt-indent">※送付詳細 / 伝票記載方法は該当会場詳細ページ「備品 / サービス」タブの「荷物預り / 返送
+                  PDF」をご確認下さい。</span>
+                <span class="txt-indent">※発送伝票（元払）/ 返送伝票（着払）は各自ご用意下さい。</span>
+                <span class="txt-indent">※貴重品等のお預りはできかねます。</span>
+                <span class="txt-indent">※事前荷物は入室時間迄に弊社が会場搬入します。</span></p>
+            </li>
+            <li class="m-b10 luggage-border">
+              <div class="luggage-cell">
+              <p>事後返送する荷物</p>
+                {{ Form::text('luggage_return', $fix->luggage_return,['class'=>'text6 ', 'style'=>'width: 20%;'] ) }}
+                <p class="">個</p>
+              </div>
+              <p class="is-error-luggage_return" style="color: red"></p>
+            </li>
+            <li class="m-b10">
+              <p>6個以上は要相談。まずは事前にお問合わせ下さい。<br>
+                [荷物外寸合計(縦・横・奥行)120cm以下/個]</p>
+              <p>
+                <span class="txt-indent">
+                  ※返送に関して、発送伝票（元払）、返送伝票（着払）は会場内に用意しているものを必ず使用して下さい。
+                </span>
+              </p>
+            </li>
+          </ul>
         </td>
       </tr>
       @endif
@@ -461,6 +473,27 @@
     })
     // cell-margin
   })
+
+    // 荷物預かりのラジオボタン選択の表示、非表示
+    $(function() {
+    var no_luggage_flag = $('#no_luggage_flag').val();
+    if (no_luggage_flag == 0) {
+          $(".luggage_info").addClass("d-none");
+        } else {
+          $(".luggage_info").removeClass("d-none");
+         }
+    });
+
+    $(function() {
+     $("input[name='luggage_flag']").change(function() {
+       var no_luggage_flag = $('#no_luggage_flag').prop('checked');
+        if (no_luggage_flag) {
+          $(".luggage_info").addClass("d-none");
+        } else {
+          $(".luggage_info").removeClass("d-none");
+         }
+      });
+    });
 </script>
 
 <script type="text/javascript">

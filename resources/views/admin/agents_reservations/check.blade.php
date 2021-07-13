@@ -183,7 +183,10 @@
             <tr>
               <td class="table-active">{{$equ->item}}</td>
               <td>
-                {{ Form::text('equipment_breakdown'.$key, $master_info['equipment_breakdown'.$key],['class'=>'form-control','readonly'] ) }}
+                <div class="d-flex align-items-end">
+                  {{ Form::text('equipment_breakdown'.$key, $master_info['equipment_breakdown'.$key],['class'=>'form-control','readonly'] ) }}
+                <span class="ml-1">個</span>
+                </div>
               </td>
             </tr>
             @endforeach
@@ -260,6 +263,12 @@
             </tr>
           </thead>
           <tbody>
+            <tr>
+              <td class="table-active">荷物預かり 工藤さん！！こちら</td>
+              <td>
+                <input class="form-control" type="text" value="工藤さん！こちら、ありかなしの表示をお願いします" readonly>
+              </td>
+            </tr>
             <tr>
               <td class="table-active">事前に預かる荷物<br>（個数）</td>
               <td>

@@ -522,49 +522,30 @@
                   </tr>
                 </thead>
                 <tbody>
+                  <tr>
+                    <td class="table-active"><label for="preDelivery">荷物預かり　工藤さん！！！</label></td>
+                    <td>工藤さん！なしかありを表示でお願いします</td>
+                  </tr>
                   {{-- <tr>
-                    <td class="table-active"><label for="Delivery">荷物預り/返送</label>
+                    <td class="table-active"><label for="Delivery">荷物預かり</label>
                     </td>
                     <td>
                       {{$pre_reservation->luggage_count?"あり":"なし"}}
                   </td>
                   </tr> --}}
                   <tr>
-                    <td class="table-active"><label for="preDelivery">事前に預かる荷物</label></td>
-                    <td>
-                      <ul class="table-cell-box">
-                        {{-- <li>
-                          <p>
-                            {{$pre_reservation->luggage_arrive?"あり":"なし"}}
-                        </p>
-                        </li> --}}
-                        <li class="d-flex justify-content-between">
-                          <p>荷物個数：{{$pre_reservation->luggage_count?$pre_reservation->luggage_count:0}}個</p>
-                        </li>
-
-                        <li class="d-flex justify-content-between">
-                          <p>
-                            事前荷物の到着日：{{$pre_reservation->luggage_arrive?ReservationHelper::formatDate($pre_reservation->luggage_arrive):""}}
-                          </p>
-                        </li>
-                      </ul>
-                    </td>
+                    <td class="table-active"><label for="preDelivery">事前に預かる荷物(目安)</label></td>
+                    <td>{{$pre_reservation->luggage_count?$pre_reservation->luggage_count:0}}個</td>
                   </tr>
                   <tr>
-                    <td class="table-active"><label for="postDelivery">事後返送する荷物</label></td>
-                    <td>
-                      <ul class="table-cell-box">
-                        {{-- <li>
-                          <p>
-                            {{$pre_reservation->luggage_return?"あり":"なし"}}
-                        </p>
-                        </li> --}}
-                        <li class="d-flex justify-content-between">
-                          <p>荷物個数：{{$pre_reservation->luggage_return?$pre_reservation->luggage_return:0}}個</p>
-                        </li>
-                      </ul>
-                    </td>
+                    <td class="table-active"><label for="preDelivery">事前荷物の到着日</label></td>
+                    <td>{{$pre_reservation->luggage_arrive?ReservationHelper::formatDate($pre_reservation->luggage_arrive):""}}</td>
                   </tr>
+                  <tr>
+                    <td class="table-active"><label for="preDelivery">事後返送する荷物</label></td>
+                    <td>{{$pre_reservation->luggage_return?$pre_reservation->luggage_return:0}}個</td>
+                  </tr>
+
                 </tbody>
               </table>
             </div>

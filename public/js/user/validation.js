@@ -90,10 +90,10 @@ $(function () {
       rules: {
         in_charge: { required: true },
         tel: { required: true, number: true, minlength: 11 },
+        luggage_flag: { required: true },
         luggage_count: { number: true, range: [0, 49] },
         luggage_return: { number: true, range: [0, 49] },
         luggage_price: { number: true },
-
       },
       messages: {
         in_charge: { required: "※必須項目です" },
@@ -101,6 +101,9 @@ $(function () {
           required: "※必須項目です",
           number: "※半角数字を入力してください",
           minlength: "※最低桁数は11です",
+        },
+        luggage_flag: {
+          required: "※必須項目です",
         },
         luggage_count: {
           number: "半角数字で入力してください",

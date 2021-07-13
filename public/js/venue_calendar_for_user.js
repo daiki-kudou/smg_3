@@ -15,6 +15,12 @@ $(function () {
             $('.' + date + 'cal' + $value).next().css('background', 'gray'); //前後30分灰色
           };
         }
+        if (json[index].length === 1) { //30分利用の時のみ、次のマスをグレー
+          $('.' + date + 'cal' + $value).next().addClass('gray');
+        }
+        if (json[index].slice(-1)[0] == "0800") { //かなりイレギュラー、02:00~08:30などの特定の時間を利用した上で30分だけカレンダーにかかる場合の後の30分のGray
+          $('.' + date + 'cal' + $value).next().addClass('gray');
+        }
       })
     } else if (status == 3) {
       $.each(json[index], function ($index, $value) {
@@ -26,6 +32,12 @@ $(function () {
           if (!$('.' + date + 'cal' + $value).next().hasClass('bg-reserve')) {
             $('.' + date + 'cal' + $value).next().css('background', 'gray'); //前後30分灰色
           };
+        }
+        if (json[index].length === 1) { //30分利用の時のみ、次のマスをグレー
+          $('.' + date + 'cal' + $value).next().addClass('gray');
+        }
+        if (json[index].slice(-1)[0] == "0800") { //かなりイレギュラー、02:00~08:30などの特定の時間を利用した上で30分だけカレンダーにかかる場合の後の30分のGray
+          $('.' + date + 'cal' + $value).next().addClass('gray');
         }
       })
     }
@@ -41,6 +53,12 @@ $(function () {
     var pre_date = $('input[name="pre_date"]').eq(index).val();
     $.each(pre_json[index], function ($index, $value) {
       $('.' + pre_date + 'cal' + $value).addClass('bg-prereserve');
+      if (pre_json[index].slice(-1)[0] == "0800") { //かなりイレギュラー、02:00~08:30などの特定の時間を利用した上で30分だけカレンダーにかかる場合の後の30分のGray
+        $('.' + pre_date + 'cal' + $value).next().addClass('gray');
+      }
+      if (pre_json[index].length === 1) {//30分利用の時のみ、次のマスをグレー
+        $('.' + pre_date + 'cal' + $value).next().addClass('gray');
+      }
       if ($value !== "0800") {
         if (!$('.' + pre_date + 'cal' + $value).prev().hasClass('bg-prereserve')) {
           $('.' + pre_date + 'cal' + $value).prev().addClass('gray'); //前後30分灰色

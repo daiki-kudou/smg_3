@@ -429,7 +429,7 @@
             <tr>
               <td class="table-active"><label for="mobilePhone" class=" form_required">携帯番号</label></td>
               <td>
-                {{ Form::text('tel', old('tel'),['class'=>'form-control', 'placeholder'=>'入力してください', 'maxlength'=>13] ) }}
+                {{ Form::text('tel', old('tel'),['class'=>'form-control', 'placeholder'=>'入力してください'] ) }}
                 <p class="is-error-tel" style="color: red"></p>
               </td>
             </tr>
@@ -528,6 +528,19 @@
 </div>
 
 <script>
+  function checkForm($this) {
+          var str = $this.value;
+          while (str.match(/[^A-Z^a-z\d\-]/)) {
+            str = str.replace(/[^A-Z^a-z\d\-]/, "");
+          }
+          $this.value = str;
+        }
+
+  $(function(){
+    $('.equipment_breakdown').on('keydown keyup keypress',function(){
+      return false;
+    })
+  })
   $(function() {
     $(document).on("click", "input:radio[name='eat_in']", function() {
       var radioTarget = $('input:radio[name="eat_in"]:checked').val();

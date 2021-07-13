@@ -39,7 +39,7 @@ $(function () {
     dateFormat: 'yy-mm-dd',
     numberOfMonths: 3,
     showCurrentAtPos: 0,   // 表示位置は左から2番目 (真ん中)
-    stepMonths: 0,         // 月の移動を3ヶ月単位とする
+    stepMonths: 1,         // 月の移動を3ヶ月単位とする
     autoclose: true
   });
   $('.datepicker').datepicker({
@@ -396,17 +396,17 @@ $(function () {
 
 
 //アコーディオン
-$(function () {
-  $(".accordion-wrap").hide();
-  $(".accordion-ttl").on("click", function () {
-    $(this).next().slideToggle("fast");
-    $(this).find(".title-icon").toggleClass("active");
-  });
+// $(function () {
+//   $(".accordion-wrap").hide();
+//   $(".accordion-ttl").on("click", function () {
+//     $(this).next().slideToggle("fast");
+//     $(this).find(".title-icon").toggleClass("active");
+//   });
 
-  $(".accordion-innbtn").on("click", function () {
-    $(this).parent().slideToggle("");
-  });
-});
+//   $(".accordion-innbtn").on("click", function () {
+//     $(this).parent().slideToggle("");
+//   });
+// });
 
 
 

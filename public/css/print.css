@@ -354,5 +354,58 @@
   .button-wrap {
     display: none;
   }
+
+  .bill-wrap .bill-details:first-child td {
+    text-align: center;
+  }
+
+  .invoice-box .total-table {
+    margin-top: 20px;
+    margin-bottom: 30px;
+  }
+  
+
+  .stamp-area {
+    position: relative;
+    z-index: 1;
+    text-align: left;
+  }
+  
+  .stamp-area::after {
+    display: block;
+    content: "";
+    width: 100px;
+    height: 100px;
+    background: url(../img/stamp.png);
+    position: absolute;
+    background-repeat: no-repeat;
+    background-size: cover;
+    bottom: 0;
+    right: 0;
+    z-index: 0;
+  }
+  
+  
+  .company-name {
+    font-size: 15pt;
+    font-weight: bold;
+  }
+
+  .invoice-box .bill-note-wrap {
+    border-top: 2px solid #35A7A7;
+    border-bottom: 2px solid #35A7A7;
+    font-weight: bold;
+    /* font-size: 15pt; */
+    padding: 5pt 0;
+  }
+  
+  .invoice-box .bill-note-wrap .bank-info {
+    padding-top: 15px;
+  }
+
+  .billing-information p:last-child{
+    font-size: 18px;
+    font-weight: bold;
+  }
   
   

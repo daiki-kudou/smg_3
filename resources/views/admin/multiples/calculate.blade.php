@@ -1101,7 +1101,6 @@
                     </div>
                     <div class="main">
                       <div class="venues billdetails_content">
-                        {{-- 工藤さん！！！！！下記、注釈追加です。 --}}
                         <table class="table table-borderless">
                           <tr>
                             <td>

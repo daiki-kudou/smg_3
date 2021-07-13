@@ -3,36 +3,59 @@
 namespace Tests\Feature;
 
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Tests\TestCase;
 use App\Models\Admin;
 use App\Models\Venue;
+use App\Http\Controllers\Admin\ReservationsController;
+use Illuminate\Http\Request;
 
 
 class ExampleTest extends TestCase
 {
-  /**
-   * A basic test example.
-   *
-   * @return void
-   */
 
-  public function testLoginView()
+  public function test_管理者としてログイン後、一旦予約一覧のページにリダイレクトに()
   {
-    $response = $this->get('admin/login');
+    $admin = factory(\App\Models\Admin::class)->create();
+    $this->actingAs($admin, 'admin');
+    // 一覧へ移動
+    $response = $this->get(action('Admin\ReservationsController@index'));
     $response->assertStatus(200);
-    // 認証されていないことを確認
-    $this->assertGuest();
+    // 予約新作成へ移動
+    $response = $this->get(action('Admin\ReservationsController@create'));
+    $response->assertStatus(200);
+
+    // $data = [ # 登録用のデータ
+    //   'reserve_date' => '2021-12-01',
+    //   'venue_id' => '1',
+    //   'price_system' => '1',
+    //   'enter_time' => '08:00:00',
+    //   'leave_time' => '23:00:00',
+    //   'in_charge' => '工藤大輝',
+    //   'tel' => '09075142676',
+    // ];
+
+    // // POST リクエスト
+    // $response = $this->post('/admin/reservations/store_session', $data);
+    // $response->assertViewHas('reserve_date', '2021-12-01');
   }
 
-  public function testNonloginAccess()
+  public function test_予約作成()
   {
-    $this->visit('/signup')
-      ->type('dup@gmail.com', 'email')
-      ->type('testtest', 'password')
-      ->type('testtest', 'password_confirmation')
-      ->type('山田', 'last_name')
-      ->type('太郎', 'first_name')
-      ->press('保存')
-      ->dontSee('会員登録完了');
+    // $request = [ # 登録用のデータ
+    //   'reserve_date' => '2021-12-01',
+    //   'venue_id' => '1',
+    //   'price_system' => '1',
+    //   'enter_time' => '08:00:00',
+    //   'leave_time' => '23:00:00',
+    //   'in_charge' => '工藤大輝',
+    //   'tel' => '09075142676',
+    // ];
+
+    // $BookController = new ReservationsController;
+    // $books = $BookController->storeSession($request);
+
+    // $this->post('/admin/reservations/calculate', $books)->assertOk();
+
   }
 }

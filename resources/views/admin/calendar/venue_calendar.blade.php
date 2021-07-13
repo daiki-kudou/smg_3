@@ -59,7 +59,8 @@
           @endforeach
         </select>
         <select name="selected_year" id="selected_year" class="form-control w-25 ml-2">
-          @for ($i = 2021; $i < 2031; $i++) <option value="{{$i}}" @if ($selected_year==$i) selected @endif>{{$i}}
+          @for ($i = Carbon\Carbon::today()->year; $i < Carbon\Carbon::today()->addYears(3)->year; $i++) <option
+              value="{{$i}}" @if ($selected_year==$i) selected @endif>{{$i}}
             </option>
             @endfor
         </select>

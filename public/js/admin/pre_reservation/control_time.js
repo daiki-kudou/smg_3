@@ -2,12 +2,15 @@ $(function () {
 
   $(function () {
     $('select').on('click', function () {
+      var this_index = $('#pre_reservation_select_dates tr').index($(this).parent().parent());
       var target = $("[class^='enter_control_pre_reservation']").length;
       for (let index = 0; index < target; index++) {
-        // 仮抑え入室時間クリック制御開始
-        preReservationControlTime(".enter_control_pre_reservation" + index, $(".enter_control_pre_reservation" + index));
-        // 仮抑え退室時間クリック制御開始
-        preReservationControlTime(".leave_control_pre_reservation" + index, $(".leave_control_pre_reservation" + index));
+        if (this_index == index) {
+          // 仮抑え入室時間クリック制御開始
+          preReservationControlTime(".enter_control_pre_reservation" + index, $(".enter_control_pre_reservation" + index));
+          // 仮抑え退室時間クリック制御開始
+          preReservationControlTime(".leave_control_pre_reservation" + index, $(".leave_control_pre_reservation" + index));
+        }
       }
     })
   })

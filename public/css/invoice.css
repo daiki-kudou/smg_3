@@ -299,6 +299,12 @@ caption, th, td {
   padding: 5px 10px;
 }
 
+.bill-wrap .bill-details:first-child td {
+  text-align: center;
+}
+
+
+
 .bill-details td:first-child{
   text-align: left;
 }
@@ -314,9 +320,9 @@ caption, th, td {
   font-size: 0.8rem;
 }
 
-.total-table {
+.invoice-box .total-table {
   margin-top: 20px;
-
+  margin-bottom: 60px;
 }
 
 
@@ -326,9 +332,12 @@ caption, th, td {
   font-weight: bold;
 }
 
-.bill-note-wrap {
+.invoice-box .bill-note-wrap {
   border-top: 3px solid #35A7A7;
-  margin-top: 60px;
+  border-bottom: 3px solid #35A7A7;
+  font-weight: bold;
+  font-size: 18px;
+  padding: 10px 0;
 }
 
 .invoice-box .bill-note-wrap .bank-info {
@@ -342,6 +351,39 @@ caption, th, td {
 .bill-note p:first-child {
   font-weight: bold;
 }
+
+.stamp-area {
+  position: relative;
+  z-index: 1;
+  text-align: left;
+}
+
+.stamp-area::after {
+  display: block;
+  content: "";
+  width: 100px;
+  height: 100px;
+  background: url(../img/stamp.png);
+  position: absolute;
+  background-repeat: no-repeat;
+  background-size: cover;
+  bottom: 0;
+  right: 0;
+  z-index: 0;
+}
+
+
+.company-name {
+  font-size: 20px;
+  font-weight: bold;
+}
+
+.billing-information p:last-child{
+  font-size: 18px;
+  font-weight: bold;
+}
+
+
 
 
 @media only screen and (max-width: 600px) {

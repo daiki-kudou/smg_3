@@ -24,6 +24,12 @@ $(function () {
             $('.' + date + 'cal' + $value).next().css('background', 'gray'); //前後30分灰色
           }
         }
+        if (json[index].length === 1) { //30分利用の時のみ、次のマスをグレー
+          $('.' + date + 'cal' + $value).next().addClass('gray');
+        }
+        if (json[index].slice(-1)[0] == "0800") { //かなりイレギュラー、02:00~08:30などの特定の時間を利用した上で30分だけカレンダーにかかる場合の後の30分のGray
+          $('.' + date + 'cal' + $value).next().addClass('gray');
+        }
       })
     } else if (status == 3) {
       $.each(json[index], function ($index, $value) {
@@ -42,6 +48,12 @@ $(function () {
             $('.' + date + 'cal' + $value).next().css('background', 'gray'); //前後30分灰色
           }
         }
+        if (json[index].length === 1) { //30分利用の時のみ、次のマスをグレー
+          $('.' + date + 'cal' + $value).next().addClass('gray');
+        }
+        if (json[index].slice(-1)[0] == "0800") { //かなりイレギュラー、02:00~08:30などの特定の時間を利用した上で30分だけカレンダーにかかる場合の後の30分のGray
+          $('.' + date + 'cal' + $value).next().addClass('gray');
+        }
       })
     }
   }
@@ -57,7 +69,16 @@ $(function () {
     var pre_agent_id = $('input[name="pre_agent_id"]').eq(index).val();
     var multiple_id = $('input[name="multiple_id"]').eq(index).val();
     $.each(pre_json[index], function ($index, $value) {
+      if (pre_json[index].slice(-1)[0] == "0800") { //かなりイレギュラー、02:00~08:30などの特定の時間を利用した上で30分だけカレンダーにかかる場合の後の30分のGray
+        $('.' + pre_date + 'cal' + $value).next().addClass('gray');
+      }
+
       $('.' + pre_date + 'cal' + $value).addClass('bg-prereserve');
+
+      if (pre_json[index].length === 1) {//30分利用の時のみ、次のマスをグレー
+        $('.' + pre_date + 'cal' + $value).next().addClass('gray');
+      }
+
       if ($index == 0) {
         if (multiple_id != 0) {
           if (pre_agent_id > 0) { //仲介会社の場合の一括詳細

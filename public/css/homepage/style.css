@@ -213,6 +213,15 @@ ul.tagBtn li:nth-child(3) a {
     align-items: center;
 }
 
+.luggage-cell p:first-child {
+    margin-right: 20px;
+}
+
+.luggage-border {
+    border-top: 1px solid #ddd;
+    padding-top: 20px;
+}
+
 .luggage-cell input {
     margin: 0 5px;
 }

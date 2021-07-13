@@ -326,7 +326,7 @@
                   <i class="far fa-id-card icon-size" aria-hidden="true"></i>仲介会社情報
                 </p>
                 <p class="agent_link">
-                  {{-- <a class="more_btn" href="">仲介会社詳細工藤さん！リンク</a> --}}
+                  {{-- <a class="more_btn" href="">仲介会社詳細リンク</a> --}}
                 </p>
               </div>
             </td>
@@ -501,7 +501,17 @@
 {{Form::submit('計算する', ['class'=>'btn more_btn_lg mx-auto d-block btn-lg', 'id'=>'check_submit'])}}
 
 {{Form::close()}}
+
 <script>
+  function checkForm($this) {
+          var str = $this.value;
+          while (str.match(/[^A-Z^a-z\d\-]/)) {
+            str = str.replace(/[^A-Z^a-z\d\-]/, "");
+          }
+          $this.value = str;
+        }
+
+        
   $(document).on(' click', '.holidays', function () {
   getHolidayCalendar($('.holidays'), $('input[name="reserve_date"]'));
 });

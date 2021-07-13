@@ -188,7 +188,7 @@ $(function () {
         form.submit();
       },
     });
-    $("input").on("blur", function () {
+    $("input").on("blur change", function () {
       $(this).valid();
     });
   });
