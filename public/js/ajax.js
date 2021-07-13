@@ -444,7 +444,7 @@ $(function () {
           if ($('.items_equipments table tbody').hasClass('luggage_input_price')) {
             $('.luggage_input_price').remove();
             var data3 = "<tr class='luggage_input_price'><td>"
-              + '荷物預り/返送'
+              + '荷物預かり'
               + "</td><td>"
               + luggage_target
               + "</td><td>"
@@ -455,7 +455,7 @@ $(function () {
           }
           // else {
           //   var data4 = "<tr class='luggage_input_price'><td>"
-          //     + '荷物預り/返送'
+          //     + '荷物預かり'
           //     + "</td><td>"
           //     + luggage_target
           //     + "</td><td>"
@@ -606,7 +606,7 @@ $(function () {
             "</td>" +
             "</tr>" +
             "<tr>" +
-            "<td class='table-active'>荷物預り/返送　料金</td>" +
+            "<td class='table-active'>荷物預かり　料金</td>" +
             "<td class=''>" +
             "<input type='text' class='form-control luggage_price' placeholder='金額入力' name='luggage_price'>" +
             "<p class='is-error-luggage_price' style='color: red'></p>" +

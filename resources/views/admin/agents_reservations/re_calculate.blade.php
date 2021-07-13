@@ -452,7 +452,7 @@
               </td>
             </tr>
             <tr>
-              <td>荷物預り/返送<br>料金</td>
+              <td>荷物預かり<br>料金</td>
               <td>
                 {{ Form::text('luggage_price', empty($all_requests['luggage_price'])?"":$all_requests['luggage_price'],['class'=>'form-control'] ) }}
               </td>

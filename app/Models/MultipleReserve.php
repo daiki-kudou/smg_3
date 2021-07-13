@@ -195,7 +195,7 @@ class MultipleReserve extends Model implements PresentableInterface //プレゼ�
 
         if ($requests->cp_master_luggage_price) {
           $pre_bill->pre_breakdowns()->create([
-            'unit_item' => '荷物預り/返送',
+            'unit_item' => '荷物預かり',
             'unit_cost' => $requests->cp_master_luggage_price,
             'unit_count' => 1,
             'unit_subtotal' => $requests->cp_master_luggage_price,
@@ -731,7 +731,7 @@ class MultipleReserve extends Model implements PresentableInterface //プレゼ�
 
         if ($requests->cp_master_luggage_price) {
           $pre_bill->pre_breakdowns()->create([
-            'unit_item' => '荷物預り/返送',
+            'unit_item' => '荷物預かり',
             // 'unit_cost' => $requests->cp_master_luggage_price,
             'unit_cost' => 0,
             'unit_count' => 1,

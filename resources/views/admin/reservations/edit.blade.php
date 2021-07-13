@@ -170,26 +170,6 @@
           </td>
         </tr>
         <tr>
-          <td class="table-active">イベント開始時間</td>
-          <td>
-            <select name="event_start" id="event_start" class="form-control">
-              <option disabled>選択してください</option>
-              {!!ReservationHelper::timeOptionsWithRequest($reservation->event_start)!!}
-            </select>
-          </td>
-        </tr>
-        <tr>
-          <td class="table-active">イベント終了時間</td>
-          <td>
-
-            <select name="event_finish" id="event_finish" class="form-control">
-              <option disabled>選択してください</option>
-              {!!ReservationHelper::timeOptionsWithRequest($reservation->event_finish)!!}
-
-            </select>
-          </td>
-        </tr>
-        <tr>
           <td class="table-active">イベント名称1</td>
           <td>
             <div class="align-items-end d-flex">
@@ -219,9 +199,29 @@
             <p class="is-error-event_owner" style="color: red"></p>
           </td>
         </tr>
+        <tr>
+          <td class="table-active">イベント開始時間</td>
+          <td>
+            <select name="event_start" id="event_start" class="form-control">
+              <option disabled>選択してください</option>
+              {!!ReservationHelper::timeOptionsWithRequest($reservation->event_start)!!}
+            </select>
+          </td>
+        </tr>
+        <tr>
+          <td class="table-active">イベント終了時間</td>
+          <td>
+
+            <select name="event_finish" id="event_finish" class="form-control">
+              <option disabled>選択してください</option>
+              {!!ReservationHelper::timeOptionsWithRequest($reservation->event_finish)!!}
+
+            </select>
+          </td>
+        </tr>
       </table>
       <div class="equipemnts">
-        <table class="table table-bordered" style="table-layout: fixed;">
+        <table class="table table-bordered">
           <thead class="accordion-ttl">
             <tr>
               <th colspan="2">
@@ -407,10 +407,10 @@
               </td>
             </tr>
             <tr>
-              <td class="table-active">荷物預り/返送<br>料金</td>
+              <td class="table-active">荷物預かり<br>料金</td>
               <td>
                 @foreach ($bill->breakdowns()->get() as $l_prices)
-                @if ($l_prices->unit_item=="荷物預り/返送")
+                @if ($l_prices->unit_item=="荷物預かり")
                 <div class="d-flex align-items-end">
                   {{ Form::text('luggage_price', $l_prices->unit_cost,['class'=>'form-control','id'=>'luggage_price'] ) }}
                   <span class="ml-1 annotation">円</span>

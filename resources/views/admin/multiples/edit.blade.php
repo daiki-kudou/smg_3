@@ -183,22 +183,6 @@
                 </td>
               </tr>
               <tr>
-                <td class="table-active"><label for="eventStart">イベント開始時間</label></td>
-                <td>
-                  <select name="cp_master_event_start" id="cp_master_event_start" class="form-control">
-                    {!!ReservationHelper::timeOptions()!!}
-                  </select>
-                </td>
-              </tr>
-              <tr>
-                <td class="table-active"><label for="eventFinish">イベント終了時間</label></td>
-                <td>
-                  <select name="cp_master_event_finish" id="cp_master_event_finish" class="form-control">
-                    {!!ReservationHelper::timeOptions()!!}
-                  </select>
-                </td>
-              </tr>
-              <tr>
                 <td class="table-active"><label for="eventName1">イベント名称1</label></td>
                 <td>
                   <div class="align-items-end d-flex">
@@ -226,6 +210,22 @@
                     <span class="ml-1 annotation count_num3"></span>
                   </div>
                   <p class="is-error-event_owner" style="color: red"></p>
+                </td>
+              </tr>
+              <tr>
+                <td class="table-active"><label for="eventStart">イベント開始時間</label></td>
+                <td>
+                  <select name="cp_master_event_start" id="cp_master_event_start" class="form-control">
+                    {!!ReservationHelper::timeOptions()!!}
+                  </select>
+                </td>
+              </tr>
+              <tr>
+                <td class="table-active"><label for="eventFinish">イベント終了時間</label></td>
+                <td>
+                  <select name="cp_master_event_finish" id="cp_master_event_finish" class="form-control">
+                    {!!ReservationHelper::timeOptions()!!}
+                  </select>
                 </td>
               </tr>
             </table>
@@ -383,7 +383,7 @@
                   </td>
                 </tr>
                 <tr>
-                  <td class="table-active">荷物預り/返送<br>料金</td>
+                  <td class="table-active">荷物預かり<br>料金</td>
                   <td>
                     <p class="annotation">※仮押え時点では、料金の設定ができません。<br>予約へ切り替え後に料金の設定が可能です。</p>
                   </td>
@@ -727,26 +727,6 @@
                   </td>
                 </tr>
                 <tr>
-                  <td class="table-active"><label for="eventStart">イベント開始時間</label></td>
-                  <td>
-                    <select name="{{'event_start_copied'.$key}}" id="{{'event_start_copied'.$key}}"
-                      class="form-control">
-                      <option disabled>選択してください</option>
-                      {!!ReservationHelper::timeOptionsWithRequest($pre_reservation->enter_time)!!}
-                    </select>
-                  </td>
-                </tr>
-                <tr>
-                  <td class="table-active"><label for="eventFinish">イベント終了時間</label></td>
-                  <td>
-                    <select name="{{'event_finish_copied'.$key}}" id="{{'event_finish_copied'.$key}}"
-                      class="form-control">
-                      <option disabled>選択してください</option>
-                      {!!ReservationHelper::timeOptionsWithRequest($pre_reservation->leave_time)!!}
-                    </select>
-                  </td>
-                </tr>
-                <tr>
                   <td class="table-active"><label for="eventName1">イベント名称1</label></td>
                   <td>
                     <div class="align-items-end d-flex">
@@ -774,6 +754,26 @@
                       <span class="ml-1 annotation {{'count_num3_copied'.$key}}"></span>
                     </div>
                     <p class="{{'eventowner_error'.$key}}" style="color: red"></p>
+                  </td>
+                </tr>
+                <tr>
+                  <td class="table-active"><label for="eventStart">イベント開始時間</label></td>
+                  <td>
+                    <select name="{{'event_start_copied'.$key}}" id="{{'event_start_copied'.$key}}"
+                      class="form-control">
+                      <option disabled>選択してください</option>
+                      {!!ReservationHelper::timeOptionsWithRequest($pre_reservation->enter_time)!!}
+                    </select>
+                  </td>
+                </tr>
+                <tr>
+                  <td class="table-active"><label for="eventFinish">イベント終了時間</label></td>
+                  <td>
+                    <select name="{{'event_finish_copied'.$key}}" id="{{'event_finish_copied'.$key}}"
+                      class="form-control">
+                      <option disabled>選択してください</option>
+                      {!!ReservationHelper::timeOptionsWithRequest($pre_reservation->leave_time)!!}
+                    </select>
                   </td>
                 </tr>
               </table>
@@ -988,7 +988,7 @@
                   </tr>
 
                   <tr>
-                    <td class="table-active">荷物預り/返送<br>料金</td>
+                    <td class="table-active">荷物預かり<br>料金</td>
                     <td>
                       <p class="annotation">※仮押え時点では、料金の設定ができません。<br>予約へ切り替え後に料金の設定が可能です。</p>
                     </td>
@@ -1217,7 +1217,7 @@
                       <tbody class="{{'venue_main'.$key}}">
                         <tr>
                           <td>
-                            {{ Form::text('venue_breakdown_item0_copied'.$key, '会場利用（仮）',['class'=>'form-control'] ) }}
+                            {{ Form::text('venue_breakdown_item0_copied'.$key, '会場料金',['class'=>'form-control'] ) }}
                           </td>
                           <td>
                             {{ Form::text('venue_breakdown_cost0_copied'.$key, 0,['class'=>'form-control'] ) }}

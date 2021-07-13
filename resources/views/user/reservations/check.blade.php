@@ -210,7 +210,7 @@
 
         @if ($venue->getLuggage()!=0)
         <tr>
-          <th>荷物預り/返送</th>
+          <th>荷物預かり</th>
           <td class="spec-space">
             <div class="m-b10">
               <p>【事前に預かる荷物】</p>
@@ -325,7 +325,7 @@
                 @endforeach
                 @if ($request->luggage_count||$request->luggage_arrive||$request->luggage_return)
                 <li>
-                  <p>荷物預り/返送</p>
+                  <p>荷物預かり</p>
                   <p>500<span>円</span></p>
                 </li>
                 @endif

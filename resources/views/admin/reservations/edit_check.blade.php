@@ -84,6 +84,24 @@
             </td>
           </tr>
           <tr>
+            <td class="table-active">イベント名称1</td>
+            <td>
+              {{ Form::text('event_name1', $basicInfo['event_name1'],['class'=>'form-control', 'readonly'] ) }}
+            </td>
+          </tr>
+          <tr>
+            <td class="table-active">イベント名称2</td>
+            <td>
+              {{ Form::text('event_name2', $basicInfo['event_name2'],['class'=>'form-control', 'readonly'] ) }}
+            </td>
+          </tr>
+          <tr>
+            <td class="table-active">主催者名</td>
+            <td>
+              {{ Form::text('event_owner', $basicInfo['event_owner'],['class'=>'form-control', 'readonly'] ) }}
+            </td>
+          </tr>
+          <tr>
             <td class="table-active">イベント開始時間</td>
             <td>
               @if ($basicInfo['board_flag']==1)
@@ -107,28 +125,10 @@
               @endif
             </td>
           </tr>
-          <tr>
-            <td class="table-active">イベント名称1</td>
-            <td>
-              {{ Form::text('event_name1', $basicInfo['event_name1'],['class'=>'form-control', 'readonly'] ) }}
-            </td>
-          </tr>
-          <tr>
-            <td class="table-active">イベント名称2</td>
-            <td>
-              {{ Form::text('event_name2', $basicInfo['event_name2'],['class'=>'form-control', 'readonly'] ) }}
-            </td>
-          </tr>
-          <tr>
-            <td class="table-active">主催者名</td>
-            <td>
-              {{ Form::text('event_owner', $basicInfo['event_owner'],['class'=>'form-control', 'readonly'] ) }}
-            </td>
-          </tr>
         </tbody>
       </table>
       <div class="equipemnts">
-        <table class="table table-bordered" style="table-layout: fixed;">
+        <table class="table table-bordered"
           <thead class="accordion-ttl">
             <tr>
               <th colspan="2">
@@ -264,7 +264,7 @@
             @endif
             @if ($basicInfo['luggage_price'])
             <tr>
-              <td class="table-active">荷物預り/返送<br>料金</td>
+              <td class="table-active">荷物預かり<br>料金</td>
               <td>
                 <div class="d-flex align-items-end">
                   {{ Form::text('luggage_price', $basicInfo['luggage_price'],['class'=>'form-control', 'readonly'] ) }}

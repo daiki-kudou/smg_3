@@ -282,24 +282,6 @@
             </td>
           </tr>
           <tr>
-            <td class="table-active">イベント開始時間</td>
-            <td>
-              <select name="event_start" id="event_start" class="form-control">
-                <option value=""></option>
-                {!!ReservationHelper::timeOptionsWithRequestAndLimit($PreReservation->event_start,$PreReservation->enter_time,$PreReservation->leave_time)!!}
-              </select>
-            </td>
-          </tr>
-          <tr>
-            <td class="table-active">イベント終了時間</td>
-            <td>
-              <select name="event_finish" id="event_finish" class="form-control">
-                <option value=""></option>
-                {!!ReservationHelper::timeOptionsWithRequestAndLimit($PreReservation->event_finish,$PreReservation->enter_time,$PreReservation->leave_time)!!}
-              </select>
-            </td>
-          </tr>
-          <tr>
             <td class="table-active">イベント名称1</td>
             <td>
               <div class="align-items-end d-flex">
@@ -329,6 +311,24 @@
               <p class="is-error-event_owner" style="color: red"></p>
             </td>
           </tr>
+          <tr>
+            <td class="table-active">イベント開始時間</td>
+            <td>
+              <select name="event_start" id="event_start" class="form-control">
+                <option value=""></option>
+                {!!ReservationHelper::timeOptionsWithRequestAndLimit($PreReservation->event_start,$PreReservation->enter_time,$PreReservation->leave_time)!!}
+              </select>
+            </td>
+          </tr>
+          <tr>
+            <td class="table-active">イベント終了時間</td>
+            <td>
+              <select name="event_finish" id="event_finish" class="form-control">
+                <option value=""></option>
+                {!!ReservationHelper::timeOptionsWithRequestAndLimit($PreReservation->event_finish,$PreReservation->enter_time,$PreReservation->leave_time)!!}
+              </select>
+            </td>
+          </tr>
         </table>
 
         <div class="equipemnts">
@@ -349,14 +349,17 @@
                   {{$equ->item}}
                 </td>
                 <td>
-                  @foreach ($PreReservation->pre_breakdowns()->get() as $s_equ)
-                  @if ($s_equ->unit_item==$equ->item)
-                  {{ Form::text('equipment_breakdown'.$key,$s_equ->unit_count,['class'=>'form-control equipment_validation'] ) }}
-                  @break
-                  @elseif($loop->last)
-                  {{ Form::text('equipment_breakdown'.$key,"",['class'=>'form-control equipment_validation'] ) }}
-                  @endif
-                  @endforeach
+                  <div class="d-flex align-items-end">
+                    @foreach ($PreReservation->pre_breakdowns()->get() as $s_equ)
+                    @if ($s_equ->unit_item==$equ->item)
+                    {{ Form::text('equipment_breakdown'.$key,$s_equ->unit_count,['class'=>'form-control equipment_validation'] ) }}
+                    @break
+                    @elseif($loop->last)
+                    {{ Form::text('equipment_breakdown'.$key,"",['class'=>'form-control equipment_validation'] ) }}
+                    @endif
+                    @endforeach
+                    <span class="ml-1">個</span>
+                  </div>
                 </td>
               </tr>
               @endforeach
@@ -536,10 +539,10 @@
                 </td>
               </tr>
               <!-- <tr>
-                <td class="table-active">荷物預り/返送<br>料金</td>
+                <td class="table-active">荷物預かり<br>料金</td>
                 <td>
                   @foreach ($PreReservation->pre_breakdowns()->get() as $lug_chk)
-                  @if ($lug_chk->unit_item=="荷物預り/返送")
+                  @if ($lug_chk->unit_item=="荷物預かり")
                   {{ Form::text('luggage_price', $lug_chk->unit_cost,['class'=>'form-control'] ) }}
                   @break
                   @elseif($loop->last)

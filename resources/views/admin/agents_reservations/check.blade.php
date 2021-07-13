@@ -130,22 +130,6 @@
             </td>
           </tr>
           <tr>
-            <td class="table-active">イベント開始時間</td>
-            <td>
-              <div>
-                {{ Form::text('', !empty($master_info['event_start'])?ReservationHelper::formatTime($master_info['event_start']):"" ,['class'=>'form-control','readonly'] ) }}
-                {{ Form::hidden('event_start', !empty($master_info['event_start'])?$master_info['event_start']:"" ,['class'=>'form-control','readonly'] ) }}
-              </div>
-            </td>
-          </tr>
-          <tr>
-            <td class="table-active">イベント終了時間</td>
-            <td>
-              {{ Form::text('', !empty($master_info['event_finish'])?ReservationHelper::formatTime($master_info['event_finish']):"" ,['class'=>'form-control','readonly'] ) }}
-              {{ Form::hidden('event_finish', !empty($master_info['event_finish'])?$master_info['event_finish']:"" ,['class'=>'form-control','readonly'] ) }}
-            </td>
-          </tr>
-          <tr>
             <td class="table-active">イベント名称1</td>
             <td>
               {{ Form::text('event_name1', !empty($master_info['event_name1'])?$master_info['event_name1']:"" ,['class'=>'form-control','readonly'] ) }}
@@ -161,6 +145,22 @@
             <td class="table-active">主催者名</td>
             <td>
               {{ Form::text('event_owner', !empty($master_info['event_owner'])?$master_info['event_owner']:"" ,['class'=>'form-control','readonly'] ) }}
+            </td>
+          </tr>
+          <tr>
+            <td class="table-active">イベント開始時間</td>
+            <td>
+              <div>
+                {{ Form::text('', !empty($master_info['event_start'])?ReservationHelper::formatTime($master_info['event_start']):"" ,['class'=>'form-control','readonly'] ) }}
+                {{ Form::hidden('event_start', !empty($master_info['event_start'])?$master_info['event_start']:"" ,['class'=>'form-control','readonly'] ) }}
+              </div>
+            </td>
+          </tr>
+          <tr>
+            <td class="table-active">イベント終了時間</td>
+            <td>
+              {{ Form::text('', !empty($master_info['event_finish'])?ReservationHelper::formatTime($master_info['event_finish']):"" ,['class'=>'form-control','readonly'] ) }}
+              {{ Form::hidden('event_finish', !empty($master_info['event_finish'])?$master_info['event_finish']:"" ,['class'=>'form-control','readonly'] ) }}
             </td>
           </tr>
         </tbody>

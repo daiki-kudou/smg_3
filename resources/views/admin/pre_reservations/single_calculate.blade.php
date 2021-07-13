@@ -212,34 +212,6 @@
             </td>
           </tr>
           <tr>
-            <td class="table-active">イベント開始時間</td>
-            <td>
-              <select name="event_start" id="event_start" class="form-control">
-                @if ($request->board_flag==1)
-                <option value="" disabled>選択してください</option>
-                {!!ReservationHelper::timeOptionsWithRequestAndLimit($request->event_start,$request->enter_time,$request->leave_time)!!}
-                @else
-                <option value="" selected></option>
-                {!!ReservationHelper::timeOptionsWithRequestAndLimit("",$request->enter_time,$request->leave_time)!!}
-                @endif
-              </select>
-            </td>
-          </tr>
-          <tr>
-            <td class="table-active">イベント終了時間</td>
-            <td>
-              <select name="event_finish" id="event_finish" class="form-control">
-                @if ($request->board_flag==1)
-                <option disabled>選択してください</option>
-                {!!ReservationHelper::timeOptionsWithRequestAndLimit($request->event_finish,$request->enter_time,$request->leave_time)!!}
-                @else
-                <option value="" selected></option>
-                {!!ReservationHelper::timeOptionsWithRequestAndLimit($request->event_finish,$request->enter_time,$request->leave_time)!!}
-                @endif
-              </select>
-            </td>
-          </tr>
-          <tr>
             <td class="table-active">イベント名称1</td>
             <td>
               <div class="align-items-end d-flex">
@@ -269,6 +241,34 @@
               <p class="is-error-event_owner" style="color: red"></p>
             </td>
           </tr>
+          <tr>
+            <td class="table-active">イベント開始時間</td>
+            <td>
+              <select name="event_start" id="event_start" class="form-control">
+                @if ($request->board_flag==1)
+                <option value="" disabled>選択してください</option>
+                {!!ReservationHelper::timeOptionsWithRequestAndLimit($request->event_start,$request->enter_time,$request->leave_time)!!}
+                @else
+                <option value="" selected></option>
+                {!!ReservationHelper::timeOptionsWithRequestAndLimit("",$request->enter_time,$request->leave_time)!!}
+                @endif
+              </select>
+            </td>
+          </tr>
+          <tr>
+            <td class="table-active">イベント終了時間</td>
+            <td>
+              <select name="event_finish" id="event_finish" class="form-control">
+                @if ($request->board_flag==1)
+                <option disabled>選択してください</option>
+                {!!ReservationHelper::timeOptionsWithRequestAndLimit($request->event_finish,$request->enter_time,$request->leave_time)!!}
+                @else
+                <option value="" selected></option>
+                {!!ReservationHelper::timeOptionsWithRequestAndLimit($request->event_finish,$request->enter_time,$request->leave_time)!!}
+                @endif
+              </select>
+            </td>
+          </tr>
         </table>
 
         <div class="equipemnts">
@@ -289,7 +289,10 @@
                   {{$equipment->item}}
                 </td>
                 <td>
-                  {{ Form::number('equipment_breakdown'.$key, $request->{'equipment_breakdown'.$key},['class'=>'form-control equipment_validation'] ) }}
+                  <div class="d-flex align-items-end">
+                    {{ Form::number('equipment_breakdown'.$key, $request->{'equipment_breakdown'.$key},['class'=>'form-control equipment_validation'] ) }}
+                    <span class="ml-1">個</span>
+                  </div>
                   <p class='{{'is-error-equipment_breakdown'.$key}}' style='color: red'></p>
                 </td>
               </tr>
@@ -475,7 +478,7 @@
                 </td>
               </tr>
               <tr>
-                <td class="table-active">荷物預り/返送<br>料金</td>
+                <td class="table-active">荷物預かり<br>料金</td>
                 <td>
                   <p class="annotation">※仮押え時点では、料金の設定ができません。<br>予約へ切り替え後に料金の設定が可能です。</p>
                 </td>
@@ -789,7 +792,7 @@
               <tbody class="venue_main">
                 <tr>
                   <td>
-                    {{ Form::text('venue_breakdown_item0', '会場利用（仮）',['class'=>'form-control'] ) }}
+                    {{ Form::text('venue_breakdown_item0', '会場料金',['class'=>'form-control'] ) }}
                   </td>
                   <td>
                     {{ Form::text('venue_breakdown_cost0', 0,['class'=>'form-control'] ) }}
@@ -874,7 +877,7 @@
                 @if ($request->luggage_price)
                 <tr>
                   <td>
-                    {{ Form::text('luggage_item', '荷物預り/返送',['class'=>'form-control', 'readonly'] ) }}
+                    {{ Form::text('luggage_item', '荷物預かり',['class'=>'form-control', 'readonly'] ) }}
                   </td>
                   <td>
                     {{ Form::text('luggage_cost', $request->luggage_price,['class'=>'form-control', 'readonly'] ) }}

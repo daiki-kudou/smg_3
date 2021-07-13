@@ -411,9 +411,9 @@ function ajaxGetItemsDetails($venue_id, $equipemnts, $services) {
       if (luggage_target != 0 || luggage_target != '') {
         if ($('.items_equipments table tbody').hasClass('luggage_input_price')) {
           $('.luggage_input_price').remove();
-          $('.items_equipments table tbody').append("<tr class='luggage_input_price'><td>" + '荷物預り/返送' + "</td><td>" + luggage_target + "</td><td>" + '1' + "</td><td>" + luggage_target + "</td></tr>");
+          $('.items_equipments table tbody').append("<tr class='luggage_input_price'><td>" + '荷物預かり' + "</td><td>" + luggage_target + "</td><td>" + '1' + "</td><td>" + luggage_target + "</td></tr>");
         } else {
-          $('.items_equipments table tbody').append("<tr class='luggage_input_price'><td>" + '荷物預り/返送' + "</td><td>" + luggage_target + "</td><td>" + '1' + "</td><td>" + luggage_target + "</td></tr>");
+          $('.items_equipments table tbody').append("<tr class='luggage_input_price'><td>" + '荷物預かり' + "</td><td>" + luggage_target + "</td><td>" + '1' + "</td><td>" + luggage_target + "</td></tr>");
         }
       } else {
         // $('.luggage_input_price').remove();
@@ -653,7 +653,7 @@ function ajaxGetLuggage($venue_id) {
     .done(function ($luggage) {
       if ($luggage == 1) {
         $('.luggage table tbody').html('');
-        $('.luggage table tbody').append("<tr> <td>事前に預かる荷物<br>（個数）</td> <td class=''><input type='text' class='form-control luggage_count' placeholder='個数入力' name='luggage_count'></td> </tr> <tr> <td>事前荷物の到着日<br>午前指定のみ</td> <td class=''> <input id='datepicker3' type='text' class='form-control' placeholder='年-月-日' name='luggage_arrive'> </td> </tr> <tr> <td>事後返送する荷物</td> <td class=''><input type='text' class='form-control luggage_return' placeholder='個数入力' name='luggage_return'></td> </tr> <tr><td>荷物預り/返送　料金</td><td class=''><input type='text' class='form-control luggage_price' placeholder='金額入力' name='luggage_price'></td></tr><script>$('#datepicker3').datepicker({ dateFormat: 'yy-mm-dd', minDate: 0, });</script>");
+        $('.luggage table tbody').append("<tr> <td>事前に預かる荷物<br>（個数）</td> <td class=''><input type='text' class='form-control luggage_count' placeholder='個数入力' name='luggage_count'></td> </tr> <tr> <td>事前荷物の到着日<br>午前指定のみ</td> <td class=''> <input id='datepicker3' type='text' class='form-control' placeholder='年-月-日' name='luggage_arrive'> </td> </tr> <tr> <td>事後返送する荷物</td> <td class=''><input type='text' class='form-control luggage_return' placeholder='個数入力' name='luggage_return'></td> </tr> <tr><td>荷物預かり　料金</td><td class=''><input type='text' class='form-control luggage_price' placeholder='金額入力' name='luggage_price'></td></tr><script>$('#datepicker3').datepicker({ dateFormat: 'yy-mm-dd', minDate: 0, });</script>");
         // ***********マイナス、全角制御用
         // $(".luggage_count, .luggage_return").numeric({ negative: false, });
         $(".luggage_count, .luggage_return, .luggage_price").on('change', function () {

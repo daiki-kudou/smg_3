@@ -244,35 +244,6 @@
             </td>
           </tr>
           <tr>
-            <td class="table-active">イベント開始時間</td>
-            <td>
-              <select name="event_start" id="event_start" class="form-control">
-                @if ($request->board_flag==1)
-                <option value="" disabled>選択してください</option>
-                {!!ReservationHelper::timeOptionsWithRequestAndLimit($request->event_start,$request->enter_time,$request->leave_time)!!}
-                @else
-                <option value="" selected></option>
-                {!!ReservationHelper::timeOptionsWithRequestAndLimit("",$request->enter_time,$request->leave_time)!!}
-                @endif
-              </select>
-            </td>
-          </tr>
-          <tr>
-            <td class="table-active">イベント終了時間</td>
-            <td>
-              <select name="event_finish" id="event_finish" class="form-control">
-                @if ($request->board_flag==1)
-                <option value="" disabled>選択してください</option>
-                {!!ReservationHelper::timeOptionsWithRequestAndLimit($request->event_finish,$request->enter_time,$request->leave_time)!!}
-                @else
-                <option value="" selected></option>
-                {!!ReservationHelper::timeOptionsWithRequestAndLimit("",$request->enter_time,$request->leave_time)!!}
-                @endif
-
-              </select>
-            </td>
-          </tr>
-          <tr>
             <td class="table-active">イベント名称1</td>
             <td>
               <div class="align-items-end d-flex">
@@ -302,6 +273,35 @@
               <p class="is-error-event_owner" style="color: red"></p>
             </td>
           </tr>
+          <tr>
+            <td class="table-active">イベント開始時間</td>
+            <td>
+              <select name="event_start" id="event_start" class="form-control">
+                @if ($request->board_flag==1)
+                <option value="" disabled>選択してください</option>
+                {!!ReservationHelper::timeOptionsWithRequestAndLimit($request->event_start,$request->enter_time,$request->leave_time)!!}
+                @else
+                <option value="" selected></option>
+                {!!ReservationHelper::timeOptionsWithRequestAndLimit("",$request->enter_time,$request->leave_time)!!}
+                @endif
+              </select>
+            </td>
+          </tr>
+          <tr>
+            <td class="table-active">イベント終了時間</td>
+            <td>
+              <select name="event_finish" id="event_finish" class="form-control">
+                @if ($request->board_flag==1)
+                <option value="" disabled>選択してください</option>
+                {!!ReservationHelper::timeOptionsWithRequestAndLimit($request->event_finish,$request->enter_time,$request->leave_time)!!}
+                @else
+                <option value="" selected></option>
+                {!!ReservationHelper::timeOptionsWithRequestAndLimit("",$request->enter_time,$request->leave_time)!!}
+                @endif
+
+              </select>
+            </td>
+          </tr>
         </table>
 
         <div class="equipemnts">
@@ -322,7 +322,10 @@
                   {{$equipment->item}}
                 </td>
                 <td>
-                  {{ Form::number('equipment_breakdown'.$e_key, $request->{'equipment_breakdown'.$e_key},['class'=>'form-control equipment_validation'] ) }}
+                  <div class="d-flex align-items-end">
+                    {{ Form::number('equipment_breakdown'.$e_key, $request->{'equipment_breakdown'.$e_key},['class'=>'form-control equipment_validation'] ) }}
+                  <span class="ml-1">個</span>
+                  </div>
                 </td>
               </tr>
               @endforeach
@@ -717,7 +720,7 @@
               @if ($request->luggage_price)
               <tr>
                 <td>
-                  {{ Form::text('luggage_item', '荷物預り/返送',['class'=>'form-control', 'readonly'] ) }}
+                  {{ Form::text('luggage_item', '荷物預かり',['class'=>'form-control', 'readonly'] ) }}
                 </td>
                 <td><input class="form-control" readonly></td>
                 <td>
