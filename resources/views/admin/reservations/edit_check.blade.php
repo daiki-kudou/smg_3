@@ -84,6 +84,24 @@
             </td>
           </tr>
           <tr>
+            <td class="table-active">イベント名称1</td>
+            <td>
+              {{ Form::text('event_name1', $basicInfo['event_name1'],['class'=>'form-control', 'readonly'] ) }}
+            </td>
+          </tr>
+          <tr>
+            <td class="table-active">イベント名称2</td>
+            <td>
+              {{ Form::text('event_name2', $basicInfo['event_name2'],['class'=>'form-control', 'readonly'] ) }}
+            </td>
+          </tr>
+          <tr>
+            <td class="table-active">主催者名</td>
+            <td>
+              {{ Form::text('event_owner', $basicInfo['event_owner'],['class'=>'form-control', 'readonly'] ) }}
+            </td>
+          </tr>
+          <tr>
             <td class="table-active">イベント開始時間</td>
             <td>
               @if ($basicInfo['board_flag']==1)
@@ -105,24 +123,6 @@
               {{ Form::text('', '',['class'=>'form-control', 'readonly'] ) }}
               {{ Form::hidden('event_finish', '',['class'=>'form-control', 'readonly'] ) }}
               @endif
-            </td>
-          </tr>
-          <tr>
-            <td class="table-active">イベント名称1</td>
-            <td>
-              {{ Form::text('event_name1', $basicInfo['event_name1'],['class'=>'form-control', 'readonly'] ) }}
-            </td>
-          </tr>
-          <tr>
-            <td class="table-active">イベント名称2</td>
-            <td>
-              {{ Form::text('event_name2', $basicInfo['event_name2'],['class'=>'form-control', 'readonly'] ) }}
-            </td>
-          </tr>
-          <tr>
-            <td class="table-active">主催者名</td>
-            <td>
-              {{ Form::text('event_owner', $basicInfo['event_owner'],['class'=>'form-control', 'readonly'] ) }}
             </td>
           </tr>
         </tbody>

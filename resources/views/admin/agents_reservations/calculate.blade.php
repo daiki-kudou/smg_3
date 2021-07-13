@@ -151,6 +151,36 @@
               </td>
             </tr>
             <tr>
+              <td class="table-active">イベント名称1</td>
+              <td>
+                <div class="align-items-end d-flex">
+                  {{ Form::text('event_name1',!empty($master_info['event_name1'])?$master_info['event_name1']:"",['class'=>'form-control', 'placeholder'=>'入力してください', 'id'=>'eventname1Count'] ) }}
+                  <span class="ml-1 annotation count_num1"></span>
+                </div>
+                <p class="is-error-event_name1" style="color: red"></p>
+              </td>
+            </tr>
+            <tr>
+              <td class="table-active">イベント名称2</td>
+              <td>
+                <div class="align-items-end d-flex">
+                  {{ Form::text('event_name2',!empty($master_info['event_name2'])?$master_info['event_name2']:"",['class'=>'form-control', 'placeholder'=>'入力してください', 'id'=>'eventname2Count'] ) }}
+                  <span class="ml-1 annotation count_num2"></span>
+                </div>
+                <p class="is-error-event_name2" style="color: red"></p>
+              </td>
+            </tr>
+            <tr>
+              <td class="table-active">主催者名</td>
+              <td>
+                <div class="align-items-end d-flex">
+                  {{ Form::text('event_owner',!empty($master_info['event_owner'])?$master_info['event_owner']:"",['class'=>'form-control', 'placeholder'=>'入力してください', 'id'=>'eventownerCount'] ) }}
+                  <span class="ml-1 annotation count_num3"></span>
+                </div>
+                <p class="is-error-event_owner" style="color: red"></p>
+              </td>
+            </tr>
+            <tr>
               <td class="table-active">イベント開始時間</td>
               <td>
                 <div>
@@ -182,36 +212,6 @@
 
                   </select>
                 </div>
-              </td>
-            </tr>
-            <tr>
-              <td class="table-active">イベント名称1</td>
-              <td>
-                <div class="align-items-end d-flex">
-                  {{ Form::text('event_name1',!empty($master_info['event_name1'])?$master_info['event_name1']:"",['class'=>'form-control', 'placeholder'=>'入力してください', 'id'=>'eventname1Count'] ) }}
-                  <span class="ml-1 annotation count_num1"></span>
-                </div>
-                <p class="is-error-event_name1" style="color: red"></p>
-              </td>
-            </tr>
-            <tr>
-              <td class="table-active">イベント名称2</td>
-              <td>
-                <div class="align-items-end d-flex">
-                  {{ Form::text('event_name2',!empty($master_info['event_name2'])?$master_info['event_name2']:"",['class'=>'form-control', 'placeholder'=>'入力してください', 'id'=>'eventname2Count'] ) }}
-                  <span class="ml-1 annotation count_num2"></span>
-                </div>
-                <p class="is-error-event_name2" style="color: red"></p>
-              </td>
-            </tr>
-            <tr>
-              <td class="table-active">主催者名</td>
-              <td>
-                <div class="align-items-end d-flex">
-                  {{ Form::text('event_owner',!empty($master_info['event_owner'])?$master_info['event_owner']:"",['class'=>'form-control', 'placeholder'=>'入力してください', 'id'=>'eventownerCount'] ) }}
-                  <span class="ml-1 annotation count_num3"></span>
-                </div>
-                <p class="is-error-event_owner" style="color: red"></p>
               </td>
             </tr>
           </tbody>

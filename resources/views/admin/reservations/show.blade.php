@@ -138,6 +138,18 @@
             </td>
           </tr>
           <tr>
+            <td class="table-active"><label for="eventName1">イベント名称1</label></td>
+            <td>{{ $reservation->event_name1 }}</td>
+          </tr>
+          <tr>
+            <td class="table-active"><label for="eventName2">イベント名称2</label></td>
+            <td>{{ $reservation->event_name2 }}</td>
+          </tr>
+          <tr>
+            <td class="table-active"><label for="organizer">主催者名</label></td>
+            <td>{{ $reservation->event_owner }}</td>
+          </tr>
+          <tr>
             <td class="table-active"><label for="eventStart">イベント開始時間</label></td>
             <td>
               @if (!empty($reservation->board_flag))
@@ -152,18 +164,6 @@
               {{ ReservationHelper::formatTime($reservation->event_finish) }}
               @endif
             </td>
-          </tr>
-          <tr>
-            <td class="table-active"><label for="eventName1">イベント名称1</label></td>
-            <td>{{ $reservation->event_name1 }}</td>
-          </tr>
-          <tr>
-            <td class="table-active"><label for="eventName2">イベント名称2</label></td>
-            <td>{{ $reservation->event_name2 }}</td>
-          </tr>
-          <tr>
-            <td class="table-active"><label for="organizer">主催者名</label></td>
-            <td>{{ $reservation->event_owner }}</td>
           </tr>
         </table>
 
