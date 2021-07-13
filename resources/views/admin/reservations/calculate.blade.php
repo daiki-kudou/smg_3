@@ -392,7 +392,7 @@
               </td>
             </tr>
             <tr>
-              <td class="table-active">荷物預かり/返送<br>料金</td>
+              <td class="table-active">荷物預かり<br>料金</td>
               <td>
                 <div class="d-flex align-items-end">
                   {{ Form::text('luggage_price', !empty($value['luggage_price'])?$value['luggage_price']:"",['class'=>'form-control','id'=>'luggage_price'] ) }}
@@ -868,7 +868,7 @@
               @if (!empty($value['luggage_price']))
               <tr>
                 <td>
-                  {{ Form::text('luggage_item', '荷物預り/返送',['class'=>'form-control', 'readonly'] ) }}
+                  {{ Form::text('luggage_item', '荷物預かり',['class'=>'form-control', 'readonly'] ) }}
                 </td>
                 <td>
                   {{ Form::text('luggage_cost', $value['luggage_price'],['class'=>'form-control', 'readonly'] ) }}

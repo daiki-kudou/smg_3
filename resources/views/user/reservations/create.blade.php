@@ -268,7 +268,7 @@
 
       @if ($venue->getLuggage()!=0)
       <tr>
-        <th>荷物預り/返送</th>
+        <th>荷物預かり</th>
         <td class="spec-space">
           <div class="selectTime m-b10">
             <input class="radio-input" id="luggage_flag" name="luggage_flag" type="radio" value="1">

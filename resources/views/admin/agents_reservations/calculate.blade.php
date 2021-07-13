@@ -742,7 +742,7 @@
                 @if (!empty($master_info['luggage_count']))
                 <tr>
                   <td>
-                    {{ Form::text('luggage_item', '荷物預り/返送',['class'=>'form-control', 'readonly'] ) }}
+                    {{ Form::text('luggage_item', '荷物預かり',['class'=>'form-control', 'readonly'] ) }}
                   </td>
                   <td><input class="form-control" readonly></td>
                   <td>

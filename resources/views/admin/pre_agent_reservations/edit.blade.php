@@ -539,10 +539,10 @@
                 </td>
               </tr>
               <!-- <tr>
-                <td class="table-active">荷物預り/返送<br>料金</td>
+                <td class="table-active">荷物預かり<br>料金</td>
                 <td>
                   @foreach ($PreReservation->pre_breakdowns()->get() as $lug_chk)
-                  @if ($lug_chk->unit_item=="荷物預り/返送")
+                  @if ($lug_chk->unit_item=="荷物預かり")
                   {{ Form::text('luggage_price', $lug_chk->unit_cost,['class'=>'form-control'] ) }}
                   @break
                   @elseif($loop->last)

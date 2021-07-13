@@ -387,7 +387,7 @@
                       </td>
                     </tr>
                     {{-- <tr>
-                  <td class="table-active">荷物預り/返送<br>料金</td>
+                  <td class="table-active">荷物預かり<br>料金</td>
                   <td>
                     {{ Form::text('cp_master_luggage_price', '',['class'=>'form-control'] ) }}
                     </td>

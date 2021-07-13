@@ -264,7 +264,7 @@
             @endif
             @if ($basicInfo['luggage_price'])
             <tr>
-              <td class="table-active">荷物預り/返送<br>料金</td>
+              <td class="table-active">荷物預かり<br>料金</td>
               <td>
                 <div class="d-flex align-items-end">
                   {{ Form::text('luggage_price', $basicInfo['luggage_price'],['class'=>'form-control', 'readonly'] ) }}

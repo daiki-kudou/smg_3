@@ -383,7 +383,7 @@
                   </td>
                 </tr>
                 <tr>
-                  <td class="table-active">荷物預り/返送<br>料金</td>
+                  <td class="table-active">荷物預かり<br>料金</td>
                   <td>
                     <p class="annotation">※仮押え時点では、料金の設定ができません。<br>予約へ切り替え後に料金の設定が可能です。</p>
                   </td>
@@ -988,7 +988,7 @@
                   </tr>
 
                   <tr>
-                    <td class="table-active">荷物預り/返送<br>料金</td>
+                    <td class="table-active">荷物預かり<br>料金</td>
                     <td>
                       <p class="annotation">※仮押え時点では、料金の設定ができません。<br>予約へ切り替え後に料金の設定が可能です。</p>
                     </td>
