@@ -154,8 +154,8 @@ $(function () {
             value['item'] +
             "(" + (Number(value['price'])).toLocaleString() +
             "円)" + "</td>" +
-            "<td><input type='number' value='0' min=0 name='equipment_breakdown" +
-            index + "' class='form-control equipment_breakdown' onInput='checkForm(this)'></td></tr>";
+            "<td><div class='d-flex align-items-end'><input type='number' value='' min=0 name='equipment_breakdown" +
+            index + "' class='form-control equipment_breakdown' onInput='checkForm(this)'><span class='ml-1'>個</span></div></td></tr>";
           $('.equipemnts table tbody').append(data);
         });
         // ***********マイナス、全角制御用
