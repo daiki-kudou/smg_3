@@ -37,6 +37,29 @@
         }
     });
 
+    // マイナスの場合の色変更
+    $(function(){
+      $('.master-total, .master-subtotal, .bill-detail-table td').each(function(index, value){
+        var target=$(value).text();
+        if (target.match(/-/)) {
+          $(value).css('color','red');
+        //   var result =target.replace('-','▲');
+        //   $(value).text(result);
+        }
+      });
+    });
+
+    $(function(){
+      $('.bill-detail-table td:nth-child(2n)').each(function(index, value){
+        var target=$(value).text();
+        if (target.match(/-/)) {
+        //   $(value).css('color','red');
+          var result =target.replace('-','▲');
+          $(value).text(result);
+        }
+      });
+    });
+
 </script>
 
 </html>

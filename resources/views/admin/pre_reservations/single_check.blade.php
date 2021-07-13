@@ -408,22 +408,37 @@
               <tbody>
                 @if ($venue->luggage_flag==1)
                 <tr>
+                  <td class="table-active">荷物預かり 工藤さん！！こちら</td>
+                  <td>
+                    <div class="radio-box">
+                      <p>
+                        <input id="luggage_flag" name="luggage_flag" type="radio" value="1">
+                        <label for="" class="form-check-label">有り</label>
+                      </p>
+                      <p>
+                        <input id="no_luggage_flag" name="luggage_flag" type="radio" value="0">
+                        <label for="" class="form-check-label">無し</label>
+                      </p>
+                    </div>
+                  </td>
+                </tr>
+                <tr>
                   <td class="table-active">事前に預かる荷物<br>（個数）</td>
                   <td>
-                    {{ Form::text('luggage_count', '',['class'=>'form-control'] ) }}
+                    {{ Form::text('luggage_count', '',['class'=>'form-control','id'=>'luggage_count'] ) }}
                     <p class='is-error-luggage_count' style=' color: red'></p>
                   </td>
                 </tr>
                 <tr>
                   <td class="table-active">事前荷物の到着日<br>午前指定のみ</td>
                   <td>
-                    {{ Form::text('luggage_arrive', '',['class'=>'form-control holidays'] ) }}
+                    {{ Form::text('luggage_arrive', '',['class'=>'form-control holidays','id'=>'luggage_arrive'] ) }}
                   </td>
                 </tr>
                 <tr>
                   <td class="table-active">事後返送する荷物</td>
                   <td>
-                    {{ Form::text('luggage_return', '',['class'=>'form-control'] ) }}
+                    {{ Form::text('luggage_return', '',['class'=>'form-control','id'=>'luggage_return'] ) }}
                     <p class='is-error-luggage_return' style=' color: red'></p>
                   </td>
                 </tr>

@@ -259,7 +259,10 @@
             <tr>
               <td class="table-active">{{$equipment->item}}({{$equipment->price}}円)</td>
               <td>
-                {{ Form::number('equipment_breakdown'.$key, $value['equipment_breakdown'.$key],['class'=>'form-control equipment_breakdown equipment_validation'] ) }}
+                <div class="d-flex align-items-end">
+                  {{ Form::number('equipment_breakdown'.$key, $value['equipment_breakdown'.$key],['class'=>'form-control equipment_breakdown equipment_validation'] ) }}
+                  <span class="ml-1">個</span>
+                </div>
               </td>
             </tr>
             @endforeach
@@ -356,37 +359,52 @@
             <tr>
               <th colspan="2">
                 <p class="title-icon">
-                  <i class="fas fa-suitcase-rolling icon-size fa-fw" aria-hidden="true"></i>荷物預り
+                  <i class="fas fa-suitcase-rolling icon-size fa-fw" aria-hidden="true"></i>荷物預かり
                 </p>
               </th>
             </tr>
           </thead>
           <tbody>
-            <tr>
-              <td class="table-active">事前に預かる荷物<br>（個数）</td>
-              <td>
-                {{ Form::text('luggage_count', !empty($value['luggage_count'])?$value['luggage_count']:"",['class'=>'form-control'] ) }}
-                <p class="is-error-luggage_count" style="color: red"></p>
-              </td>
-            </tr>
+              <tr>
+                <td class="table-active">荷物預かり 工藤さん！！こちら</td>
+                <td>
+                  <div class="radio-box">
+                    <p>
+                      <input id="luggage_flag" name="luggage_flag" type="radio" value="1">
+                      <label for="" class="form-check-label">有り</label>
+                    </p>
+                    <p>
+                      <input id="no_luggage_flag" name="luggage_flag" type="radio" value="0" checked>
+                      <label for="" class="form-check-label">無し</label>
+                    </p>
+                  </div>
+                </td>
+              </tr>
+              <tr>
+                <td class="table-active">事前に預かる荷物<br>（個数）</td>
+                <td>
+                  {{ Form::text('luggage_count', !empty($value['luggage_count'])?$value['luggage_count']:"",['class'=>'form-control','id'=>'luggage_count'] ) }}
+                  <p class="is-error-luggage_count" style="color: red"></p>
+                </td>
+              </tr>
             <tr>
               <td class="table-active">事前荷物の到着日<br>午前指定のみ</td>
               <td>
-                {{ Form::text('luggage_arrive', !empty($value['luggage_arrive'])?$value['luggage_arrive']:"",['class'=>'form-control holidays','id'=>''] ) }}
+                {{ Form::text('luggage_arrive', !empty($value['luggage_arrive'])?$value['luggage_arrive']:"",['class'=>'form-control holidays','id'=>'luggage_arrive'] ) }}
               </td>
             </tr>
             <tr>
               <td class="table-active">事後返送する荷物</td>
               <td>
-                {{ Form::text('luggage_return', !empty($value['luggage_return'])?$value['luggage_return']:"",['class'=>'form-control'] ) }}
+                {{ Form::text('luggage_return', !empty($value['luggage_return'])?$value['luggage_return']:"",['class'=>'form-control','id'=>'luggage_return'] ) }}
                 <p class="is-error-luggage_return" style="color: red"></p>
               </td>
             </tr>
             <tr>
-              <td class="table-active">荷物預り/返送<br>料金</td>
+              <td class="table-active">荷物預かり/返送<br>料金</td>
               <td>
                 <div class="d-flex align-items-end">
-                  {{ Form::text('luggage_price', !empty($value['luggage_price'])?$value['luggage_price']:"",['class'=>'form-control'] ) }}
+                  {{ Form::text('luggage_price', !empty($value['luggage_price'])?$value['luggage_price']:"",['class'=>'form-control','id'=>'luggage_price'] ) }}
                   <span class="ml-1 annotation">円</span>
                 </div>
                 <p class="is-error-luggage_price" style="color: red"></p>

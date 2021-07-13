@@ -34,8 +34,8 @@
 
       <tr class="event-owner">
         <td>
-          <span>主催：</span>
-          <span>{{$reservation->event_owner}}</span>
+          <span class="evet-owner-ttl">主催：</span>
+          <span class="evet-owner-name">{{$reservation->event_owner}}</span>
           <p class="border-line"></p>
         </td>
       </tr>
@@ -47,6 +47,21 @@
       </tr>
     </table>
   </div>
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+<script>
+$(function() {
+    var owner = $(".evet-owner-name").text();
+    console.log(owner);
+    if (owner.length>0) {
+      $(".evet-owner-ttl").css("display","inline-block");
+    } else {
+      $(".evet-owner-ttl").css("display","none");
+    }
+  });
+  </script>
+
 </body>
+
 
 </html>

@@ -154,8 +154,8 @@ $(function () {
             value['item'] +
             "(" + (Number(value['price'])).toLocaleString() +
             "円)" + "</td>" +
-            "<td><input type='number' value='0' min=0 name='equipment_breakdown" +
-            index + "' class='form-control equipment_breakdown' onInput='checkForm(this)'></td></tr>";
+            "<td><div class='d-flex align-items-end'><input type='number' value='' min=0 name='equipment_breakdown" +
+            index + "' class='form-control equipment_breakdown' onInput='checkForm(this)'><span class='ml-1'>個</span></div></td></tr>";
           $('.equipemnts table tbody').append(data);
         });
         // ***********マイナス、全角制御用
@@ -588,7 +588,7 @@ $(function () {
           $('.luggage table tbody').html('');
           var data =
             "<tr>" +
-            "<td class='table-active'>事前に預かる荷物<br>（個数）</td>" +
+            "<td class='table-active'>事前に預かる荷物<br>（目安）</td>" +
             "<td class=''>" +
             "<input type='text' class='form-control luggage_count' placeholder='個数入力' name='luggage_count'>" +
             "<p class='is-error-luggage_count' style='color: red'></p>" +

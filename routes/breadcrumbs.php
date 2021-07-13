@@ -103,38 +103,38 @@ Breadcrumbs::for('admin.agents.create', function ($trail) {
 // 仮押さえ 一覧
 Breadcrumbs::for('admin.pre_reservations.index', function ($trail) {
   $trail->parent('admin.home.index');
-  $trail->push('仮抑え 一覧', route('admin.pre_reservations.index'));
+  $trail->push('仮押え 一覧', route('admin.pre_reservations.index'));
 });
 Breadcrumbs::for('admin.pre_reservations.show', function ($trail, $id) {
   $trail->parent('admin.pre_reservations.index', $id);
-  $trail->push('仮抑え 詳細', route('admin.pre_reservations.show', $id));
+  $trail->push('仮押え 詳細', route('admin.pre_reservations.show', $id));
 });
 Breadcrumbs::for('admin.pre_reservations.edit', function ($trail, $id) {
   $trail->parent('admin.pre_reservations.show', $id);
-  $trail->push('仮抑え 編集', route('admin.pre_reservations.edit', $id));
+  $trail->push('仮押え 編集', route('admin.pre_reservations.edit', $id));
 });
 Breadcrumbs::for('admin.pre_agent_reservations.edit', function ($trail, $id) {
   $trail->parent('admin.pre_reservations.show', $id);
-  $trail->push('仮抑え(仲介会社経由) 編集', route('admin.pre_agent_reservations.edit', $id));
+  $trail->push('仮押え(仲介会社経由) 編集', route('admin.pre_agent_reservations.edit', $id));
 });
 Breadcrumbs::for('admin.pre_reservations.re_calculate', function ($trail, $id) {
   $trail->parent('admin.pre_reservations.edit', $id);
-  $trail->push('仮抑え 編集 再計算', route('admin.pre_reservations.re_calculate', $id));
+  $trail->push('仮押え 編集 再計算', route('admin.pre_reservations.re_calculate', $id));
 });
 // 仮押さえ 作成
 Breadcrumbs::for('admin.pre_reservations.create', function ($trail) {
   $trail->parent('admin.home.index');
-  $trail->push('仮抑え 新規登録', route('admin.pre_reservations.create'));
+  $trail->push('仮押え 新規登録', route('admin.pre_reservations.create'));
 });
 Breadcrumbs::for('admin.pre_reservations.check', function ($trail) {
   $trail->parent('admin.pre_reservations.create');
-  $trail->push('仮抑え 詳細入力', route('admin.pre_reservations.check'));
+  $trail->push('仮押え 詳細入力', route('admin.pre_reservations.check'));
 });
 Breadcrumbs::for('admin.pre_reservations.calculate', function ($trail) {
   $trail->parent('admin.pre_reservations.check');
-  $trail->push('仮抑え 詳細計算', route('admin.pre_reservations.calculate'));
+  $trail->push('仮押え 詳細計算', route('admin.pre_reservations.calculate'));
 });
-// 仲介会社経由　仮抑え　新規登録
+// 仲介会社経由　仮押え　新規登録
 Breadcrumbs::for('admin.pre_agent_reservations.create', function ($trail) {
   $trail->parent('admin.home.index');
   $trail->push('仲介会社 仮押え 新規登録', route('admin.pre_agent_reservations.create'));
@@ -158,7 +158,7 @@ Breadcrumbs::for('admin.multiples.show', function ($trail, $id) {
 });
 Breadcrumbs::for('admin.multiples.add_venue', function ($trail, $id) {
   $trail->parent('admin.multiples.show', $id);
-  $trail->push('一括仮押さえ 日程の追加', route('admin.multiples.add_venue', $id));
+  $trail->push('一括仮押え 日程の追加', route('admin.multiples.add_venue', $id));
 });
 Breadcrumbs::for('admin.multiples.switch', function ($trail, $id) {
   $trail->parent('admin.multiples.show', $id);
@@ -183,11 +183,11 @@ Breadcrumbs::for('admin.multiples.agent_switch', function ($trail, $id) {
 });
 Breadcrumbs::for('admin.multiples.agent_add_venue', function ($trail, $id) {
   $trail->parent('admin.multiples.agent_show', $id);
-  $trail->push('一括仮押さえ(仲介会社経由) 日程追加', route('admin.multiples.agent_add_venue', $id));
+  $trail->push('一括仮押え(仲介会社経由) 日程追加', route('admin.multiples.agent_add_venue', $id));
 });
 Breadcrumbs::for('admin.multiples.agent_edit', function ($trail, $id, $venue) {
   $trail->parent('admin.multiples.agent_show', $id);
-  $trail->push('一括仮押さえ(仲介会社経由) 編集', route('admin.multiples.agent_edit', [$id, $venue]));
+  $trail->push('一括仮押え(仲介会社経由) 編集', route('admin.multiples.agent_edit', [$id, $venue]));
 });
 
 // 顧客管理
@@ -237,12 +237,12 @@ Breadcrumbs::for('admin.reservations.edit_check', function ($trail, $id) {
 // 予約作成
 Breadcrumbs::for('admin.reservations.create', function ($trail) {
   $trail->parent('admin.home.index');
-  $trail->push('予約 作成', route('admin.reservations.create'));
+  $trail->push('予約 新規登録', route('admin.reservations.create'));
 });
 
 Breadcrumbs::for('admin.reservations.calculate', function ($trail) {
   $trail->parent('admin.reservations.create');
-  $trail->push('予約 作成 詳細入力', route('admin.reservations.calculate'));
+  $trail->push('予約 新規登録 詳細入力', route('admin.reservations.calculate'));
 });
 
 Breadcrumbs::for('admin.reservations.check', function ($trail) {
@@ -253,7 +253,7 @@ Breadcrumbs::for('admin.reservations.check', function ($trail) {
 // 仲介会社 予約作成
 Breadcrumbs::for('admin.agents_reservations.create', function ($trail) {
   $trail->parent('admin.home.index');
-  $trail->push('(仲介会社)予約 作成', route('admin.agents_reservations.create'));
+  $trail->push('(仲介会社)予約 新規登録', route('admin.agents_reservations.create'));
 });
 
 Breadcrumbs::for('admin.agents_reservations.calculate', function ($trail) {
@@ -288,23 +288,23 @@ Breadcrumbs::for('user.home.show', function ($trail, $id) {
   $trail->push('予約 詳細', route('user.home.show', $id));
 });
 
-// 仮抑え
+// 仮押え
 Breadcrumbs::for('user.pre_reservations.index', function ($trail) {
   $trail->parent('user.home.index');
-  $trail->push('仮抑え　一覧', route('user.pre_reservations.index'));
+  $trail->push('仮押え　一覧', route('user.pre_reservations.index'));
 });
 
 Breadcrumbs::for('user.pre_reservations.show', function ($trail, $id) {
   $trail->parent('user.pre_reservations.index');
-  $trail->push('仮抑え　申し込み', route('user.pre_reservations.show', $id));
+  $trail->push('仮押え　申し込み', route('user.pre_reservations.show', $id));
 });
 
 Breadcrumbs::for('user.pre_reservations.show_calc', function ($trail, $id) {
   $trail->parent('user.pre_reservations.index');
-  $trail->push('仮抑え　申し込み', route('user.pre_reservations.show_calc', $id));
+  $trail->push('仮押え　申し込み', route('user.pre_reservations.show_calc', $id));
 });
 
 Breadcrumbs::for('user.pre_reservations.show_cfm', function ($trail) {
   $trail->parent('user.pre_reservations.index');
-  $trail->push('仮抑え　申し込み', route('user.pre_reservations.show_cfm'));
+  $trail->push('仮押え　申し込み', route('user.pre_reservations.show_cfm'));
 });

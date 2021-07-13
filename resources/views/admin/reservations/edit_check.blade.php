@@ -143,11 +143,14 @@
             <tr>
               <td class="table-active">{{$equipment->item}}({{$equipment->price}}円)</td>
               <td>
-                @if (!empty($basicInfo['equipment_breakdown'.$key]))
-                {{ Form::text('equipment_breakdown'.$key, $basicInfo['equipment_breakdown'.$key],['class'=>'form-control equipment_breakdown','readonly'] ) }}
-                @else
-                {{ Form::text('equipment_breakdown'.$key, null,['class'=>'form-control equipment_breakdown','readonly'] ) }}
-                @endif
+                <div class="d-flex align-items-end">
+                  @if (!empty($basicInfo['equipment_breakdown'.$key]))
+                  {{ Form::text('equipment_breakdown'.$key, $basicInfo['equipment_breakdown'.$key],['class'=>'form-control equipment_breakdown','readonly'] ) }}
+                  @else
+                  {{ Form::text('equipment_breakdown'.$key, null,['class'=>'form-control equipment_breakdown','readonly'] ) }}
+                  @endif
+                  <span class="ml-1">個</span>
+                </div>
               </td>
             </tr>
             @endforeach
@@ -229,6 +232,12 @@
             </tr>
           </thead>
           <tbody>
+            <tr>
+              <td class="table-active">荷物預かり　工藤さん！！</td>
+              <td>
+                <input class="form-control" type="text" value="工藤さん！ありかなしを表示" readonly>
+              </td>
+            </tr>
             @if ($basicInfo['luggage_count'])
             <tr>
               <td class="table-active">事前に預かる荷物<br>（個数）</td>
