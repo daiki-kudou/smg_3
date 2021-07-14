@@ -365,7 +365,7 @@
                       <label for="" class="form-check-label">有り</label>
                     </p>
                     <p>
-                      <input id="no_luggage_flag" name="luggage_flag" type="radio" value="0" checked>
+                      <input id="no_luggage_flag" name="luggage_flag" type="radio" value="0">
                       <label for="" class="form-check-label">無し</label>
                     </p>
                   </div>
@@ -374,7 +374,7 @@
               <tr>
                 <td class="table-active">事前に預かる荷物<br>（個数）</td>
                 <td>
-                  {{ Form::text('luggage_count', !empty($value['luggage_count'])?$value['luggage_count']:"",['class'=>'form-control','id'=>'luggage_count'] ) }}
+                  {{ Form::number('luggage_count', !empty($value['luggage_count'])?$value['luggage_count']:"",['class'=>'form-control','id'=>'luggage_count'] ) }}
                   <p class="is-error-luggage_count" style="color: red"></p>
                 </td>
               </tr>
@@ -387,7 +387,7 @@
             <tr>
               <td class="table-active">事後返送する荷物</td>
               <td>
-                {{ Form::text('luggage_return', !empty($value['luggage_return'])?$value['luggage_return']:"",['class'=>'form-control','id'=>'luggage_return'] ) }}
+                {{ Form::number('luggage_return', !empty($value['luggage_return'])?$value['luggage_return']:"",['class'=>'form-control','id'=>'luggage_return'] ) }}
                 <p class="is-error-luggage_return" style="color: red"></p>
               </td>
             </tr>
