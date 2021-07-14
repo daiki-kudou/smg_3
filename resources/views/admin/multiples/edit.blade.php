@@ -365,7 +365,7 @@
                 <tr>
                   <td class="table-active">事前に預かる荷物<br>（個数）</td>
                   <td>
-                    {{ Form::text('cp_master_luggage_count', '',['class'=>'form-control','id'=>'cp_master_luggage_count'] ) }}
+                    {{ Form::number('cp_master_luggage_count', '',['class'=>'form-control','id'=>'cp_master_luggage_count'] ) }}
                     <p class="is-error-cp_master_luggage_count" style="color: red"></p>
                   </td>
                 </tr>
@@ -378,7 +378,7 @@
                 <tr>
                   <td class="table-active">事後返送する荷物</td>
                   <td>
-                    {{ Form::text('cp_master_luggage_return', '',['class'=>'form-control','id'=>'cp_master_luggage_return'] ) }}
+                    {{ Form::number('cp_master_luggage_return', '',['class'=>'form-control','id'=>'cp_master_luggage_return'] ) }}
                     <p class="is-error-cp_master_luggage_return" style="color: red"></p>
                   </td>
                 </tr>
@@ -969,7 +969,7 @@
                   <tr>
                     <td class="table-active">事前に預かる荷物<br>（個数）</td>
                     <td>
-                      {{ Form::text('luggage_count_copied'.$key, $pre_reservation->luggage_count,['class'=>'form-control'] ) }}
+                      {{ Form::number('luggage_count_copied'.$key, $pre_reservation->luggage_count,['class'=>'form-control'] ) }}
                       <p class="{{"is-error-luggage_count_copied".$key}}" style="color: red"></p>
                     </td>
                   </tr>
@@ -982,7 +982,7 @@
                   <tr>
                     <td class="table-active">事後返送する荷物</td>
                     <td>
-                      {{ Form::text('luggage_return_copied'.$key, $pre_reservation->luggage_return,['class'=>'form-control'] ) }}
+                      {{ Form::number('luggage_return_copied'.$key, $pre_reservation->luggage_return,['class'=>'form-control'] ) }}
                       <p class="{{"is-error-luggage_return_copied".$key}}" style="color: red"></p>
                     </td>
                   </tr>
