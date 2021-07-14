@@ -329,6 +329,10 @@ form table td textarea {
     box-shadow: 0 0 0 #CACACA;
 }
 
+form table td .text6 {
+    width: 65%;
+}
+
 .table-box {
     width: 90%;
     margin: 0 auto;
@@ -641,6 +645,10 @@ header div.contents {
 
     form table td .text4 {
         width: 60%;
+    }
+
+    form table td .text6 {
+        width: 100%;
     }
 
     .selectTime select {
