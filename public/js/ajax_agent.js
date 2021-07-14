@@ -597,7 +597,7 @@ $(function () {
             "<tr>" +
             "<td class='table-active'>事前に預かる荷物<br>（個数）</td>" +
             "<td class=''>" +
-            "<input type='text' class='form-control luggage_count' placeholder='個数入力' name='luggage_count'>" +
+            "<input type='number' class='form-control luggage_count' placeholder='個数入力' name='luggage_count'>" +
             "<p class='is-error-luggage_count' style='color: red'></p>" +
             "</td>" +
             "</tr>" +
@@ -608,7 +608,7 @@ $(function () {
             "</tr>" +
             "<tr> " +
             "<td class='table-active'>事後返送する荷物</td>" +
-            "<td class=''><input type='text' class='form-control luggage_return' placeholder='個数入力' name='luggage_return'>" +
+            "<td class=''><input type='number' class='form-control luggage_return' placeholder='個数入力' name='luggage_return'>" +
             "<p class='is-error-luggage_return' style='color: red'></p>" +
             "</td>" +
             "</tr>";
