@@ -269,35 +269,6 @@
             </td>
           </tr>
           <tr>
-            <td class="table-active">イベント開始時間</td>
-            <td>
-              <select name="event_start" id="event_start" class="form-control">
-                @if ($PreReservation->board_flag==1)
-                <option disabled>選択してください</option>
-                {!!ReservationHelper::timeOptionsWithRequestAndLimit($PreReservation->event_start,$PreReservation->enter_time,$PreReservation->leave_time)!!}
-                @else
-                <option value="" selected></option>
-                {!!ReservationHelper::timeOptionsWithRequestAndLimit('',$PreReservation->enter_time,$PreReservation->leave_time)!!}
-                @endif
-              </select>
-            </td>
-          </tr>
-          <tr>
-            <td class="table-active">イベント終了時間</td>
-            <td>
-              <select name="event_finish" id="event_finish" class="form-control">
-                @if ($PreReservation->board_flag==1)
-                <option disabled>選択してください</option>
-                {!!ReservationHelper::timeOptionsWithRequestAndLimit($PreReservation->event_finish,$PreReservation->enter_time,$PreReservation->leave_time)!!}
-                @else
-                <option value="" selected></option>
-                {!!ReservationHelper::timeOptionsWithRequestAndLimit('',$PreReservation->enter_time,$PreReservation->leave_time)!!}
-                @endif
-
-              </select>
-            </td>
-          </tr>
-          <tr>
             <td class="table-active">イベント名称1</td>
             <td>
               <div class="align-items-end d-flex">
@@ -327,6 +298,35 @@
               <p class="is-error-event_owner" style="color: red"></p>
             </td>
           </tr>
+          <tr>
+            <td class="table-active">イベント開始時間</td>
+            <td>
+              <select name="event_start" id="event_start" class="form-control">
+                @if ($PreReservation->board_flag==1)
+                <option disabled>選択してください</option>
+                {!!ReservationHelper::timeOptionsWithRequestAndLimit($PreReservation->event_start,$PreReservation->enter_time,$PreReservation->leave_time)!!}
+                @else
+                <option value="" selected></option>
+                {!!ReservationHelper::timeOptionsWithRequestAndLimit('',$PreReservation->enter_time,$PreReservation->leave_time)!!}
+                @endif
+              </select>
+            </td>
+          </tr>
+          <tr>
+            <td class="table-active">イベント終了時間</td>
+            <td>
+              <select name="event_finish" id="event_finish" class="form-control">
+                @if ($PreReservation->board_flag==1)
+                <option disabled>選択してください</option>
+                {!!ReservationHelper::timeOptionsWithRequestAndLimit($PreReservation->event_finish,$PreReservation->enter_time,$PreReservation->leave_time)!!}
+                @else
+                <option value="" selected></option>
+                {!!ReservationHelper::timeOptionsWithRequestAndLimit('',$PreReservation->enter_time,$PreReservation->leave_time)!!}
+                @endif
+
+              </select>
+            </td>
+          </tr>
         </table>
 
         <div class="equipemnts">
@@ -347,14 +347,17 @@
                   {{$equ->item}}
                 </td>
                 <td>
-                  @foreach ($PreReservation->pre_breakdowns()->get() as $s_equ)
-                  @if ($s_equ->unit_item==$equ->item)
-                  {{ Form::text('equipment_breakdown'.$key,$s_equ->unit_count,['class'=>'form-control equipment_breakdowns equipment_validation'] ) }}
-                  @break
-                  @elseif($loop->last)
-                  {{ Form::text('equipment_breakdown'.$key,"",['class'=>'form-control equipment_breakdowns equipment_validation'] ) }}
-                  @endif
-                  @endforeach
+                  <div class="d-flex align-items-end">
+                    @foreach ($PreReservation->pre_breakdowns()->get() as $s_equ)
+                    @if ($s_equ->unit_item==$equ->item)
+                    {{ Form::text('equipment_breakdown'.$key,$s_equ->unit_count,['class'=>'form-control equipment_breakdowns equipment_validation'] ) }}
+                    @break
+                    @elseif($loop->last)
+                    {{ Form::text('equipment_breakdown'.$key,"",['class'=>'form-control equipment_breakdowns equipment_validation'] ) }}
+                    @endif
+                    @endforeach
+                    <span class="ml-1">個</span>
+                  </div>
                   <p class='{{'is-error-equipment_breakdown'.$key}}' style='color: red'></p>
                 </td>
               </tr>
@@ -535,7 +538,7 @@
                 </td>
               </tr>
               <tr>
-                <td class="table-active">荷物預り/返送<br>料金</td>
+                <td class="table-active">荷物預かり<br>料金</td>
                 <td>
                   <p class="annotation">※仮押え時点では、料金の設定ができません。<br>予約へ切り替え後に料金の設定が可能です。</p>
 

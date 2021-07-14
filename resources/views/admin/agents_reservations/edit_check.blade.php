@@ -98,18 +98,6 @@
             </td>
           </tr>
           <tr>
-            <td class="table-active">イベント開始時間</td>
-            <td>
-              {{Form::text("",$inputs['event_start']??"",['class'=>'form-control','readonly'])}}
-            </td>
-          </tr>
-          <tr>
-            <td class="table-active">イベント終了時間</td>
-            <td>
-              {{Form::text("",$inputs['event_finish']??"",['class'=>'form-control','readonly'])}}
-            </td>
-          </tr>
-          <tr>
             <td class="table-active">イベント名称1</td>
             <td>
               <div class="align-items-end d-flex">
@@ -139,9 +127,21 @@
               <p class="is-error-event_owner" style="color: red"></p>
             </td>
           </tr>
+          <tr>
+            <td class="table-active">イベント開始時間</td>
+            <td>
+              {{Form::text("",$inputs['event_start']??"",['class'=>'form-control','readonly'])}}
+            </td>
+          </tr>
+          <tr>
+            <td class="table-active">イベント終了時間</td>
+            <td>
+              {{Form::text("",$inputs['event_finish']??"",['class'=>'form-control','readonly'])}}
+            </td>
+          </tr>
         </table>
         <div class="equipemnts">
-          <table class="table table-bordered" style="table-layout: fixed;">
+          <table class="table table-bordered">
             <thead class="accordion-ttl">
               <tr>
                 <th colspan="2">

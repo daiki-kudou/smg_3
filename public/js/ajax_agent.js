@@ -448,7 +448,7 @@ $(function () {
           if ($('.items_equipments table tbody').hasClass('luggage_input_price')) {
             $('.luggage_input_price').remove();
             var data3 = "<tr class='luggage_input_price'><td>"
-              + '荷物預り/返送'
+              + '荷物預かり'
               + "</td><td>"
               + luggage_target
               + "</td><td>"
@@ -459,7 +459,7 @@ $(function () {
           }
           // else {
           //   var data4 = "<tr class='luggage_input_price'><td>"
-          //     + '荷物預り/返送'
+          //     + '荷物預かり'
           //     + "</td><td>"
           //     + luggage_target
           //     + "</td><td>"

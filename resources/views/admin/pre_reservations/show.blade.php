@@ -368,20 +368,6 @@
                 </td>
               </tr>
               <tr>
-                <td class="table-active"><label for="eventStart">イベント開始時間</label>
-                </td>
-                <td>
-                  {{ReservationHelper::formatTime($pre_reservation->event_start)}}
-                </td>
-              </tr>
-              <tr>
-                <td class="table-active"><label for="eventFinish">イベント終了時間</label>
-                </td>
-                <td>
-                  {{ReservationHelper::formatTime($pre_reservation->event_finish)}}
-                </td>
-              </tr>
-              <tr>
                 <td class="table-active"><label for="eventName1">イベント名称1</label>
                 </td>
                 <td>
@@ -399,6 +385,20 @@
                 <td class="table-active"><label for="organizer">主催者名</label></td>
                 <td>
                   {{$pre_reservation->event_owner}}
+                </td>
+              </tr>
+              <tr>
+                <td class="table-active"><label for="eventStart">イベント開始時間</label>
+                </td>
+                <td>
+                  {{ReservationHelper::formatTime($pre_reservation->event_start)}}
+                </td>
+              </tr>
+              <tr>
+                <td class="table-active"><label for="eventFinish">イベント終了時間</label>
+                </td>
+                <td>
+                  {{ReservationHelper::formatTime($pre_reservation->event_finish)}}
                 </td>
               </tr>
             </table>

@@ -121,7 +121,7 @@
           <td>
             <p>
               <div class="riyoubi">
-                <input type="text" name="" id="datepicker2" class="form-input date_input">
+                <input type="text" name="" id="datepicker2" class="form-input date_input" autocomplete="off">
                 {{Form::hidden('date',"")}}
               </div>
               <p class="is-error-date" style="color: red"></p>

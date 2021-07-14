@@ -224,28 +224,6 @@
               </td>
             </tr>
             <tr>
-              <td class="table-active">イベント開始時間</td>
-              <td>
-                <div>
-                  <select name="event_start" id="event_start" class="form-control">
-                    <option disabled>選択してください</option>
-                    {!!ReservationHelper::timeOptionsWithRequestAndLimit($request->pre_enter0,$request->pre_enter0,$request->pre_leave0)!!}
-                  </select>
-                </div>
-              </td>
-            </tr>
-            <tr>
-              <td class="table-active">イベント終了時間</td>
-              <td>
-                <div>
-                  <select name="event_finish" id="event_finish" class="form-control">
-                    <option disabled>選択してください</option>
-                    {!!ReservationHelper::timeOptionsWithRequestAndLimit($request->pre_leave0,$request->pre_enter0,$request->pre_leave0)!!}
-                  </select>
-                </div>
-              </td>
-            </tr>
-            <tr>
               <td class="table-active">イベント名称1</td>
               <td>
                 <div class="align-items-end d-flex">
@@ -275,6 +253,28 @@
                 <p class="is-error-event_owner" style="color: red"></p>
               </td>
             </tr>
+            <tr>
+              <td class="table-active">イベント開始時間</td>
+              <td>
+                <div>
+                  <select name="event_start" id="event_start" class="form-control">
+                    <option disabled>選択してください</option>
+                    {!!ReservationHelper::timeOptionsWithRequestAndLimit($request->pre_enter0,$request->pre_enter0,$request->pre_leave0)!!}
+                  </select>
+                </div>
+              </td>
+            </tr>
+            <tr>
+              <td class="table-active">イベント終了時間</td>
+              <td>
+                <div>
+                  <select name="event_finish" id="event_finish" class="form-control">
+                    <option disabled>選択してください</option>
+                    {!!ReservationHelper::timeOptionsWithRequestAndLimit($request->pre_leave0,$request->pre_enter0,$request->pre_leave0)!!}
+                  </select>
+                </div>
+              </td>
+            </tr>
           </table>
           <div class="equipemnts">
             <table class="table table-bordered" style="table-layout: fixed;">
@@ -294,7 +294,10 @@
                     {{$equ->item}}
                   </td>
                   <td>
-                    {{ Form::number('equipment_breakdown'.$key, '',['class'=>'form-control equipment_validation'] ) }}
+                    <div class="d-flex align-items-end">
+                      {{ Form::number('equipment_breakdown'.$key, '',['class'=>'form-control equipment_validation'] ) }}
+                      <span class="ml-1">個</span>
+                    </div>
                     <p class='{{'is-error-equipment_breakdown'.$key}}' style='color: red'></p>
                   </td>
                 </tr>
@@ -443,7 +446,7 @@
                   </td>
                 </tr>
                 <tr>
-                  <td class="table-active">荷物預り/返送<br>料金</td>
+                  <td class="table-active">荷物預かり<br>料金</td>
                   <td>
                     <p class="annotation">※仮押え時点では、料金の設定ができません。<br>予約へ切り替え後に料金の設定が可能です。</p>
                   </td>

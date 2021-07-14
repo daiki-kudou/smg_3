@@ -88,22 +88,6 @@
             </td>
           </tr>
           <tr>
-            <td class="table-active">イベント開始時間</td>
-            <td>
-              @if (!empty($value['event_start']))
-              {{date('H:i',strtotime($value['event_start']))}}
-              @endif
-            </td>
-          </tr>
-          <tr>
-            <td class="table-active">イベント終了時間</td>
-            <td>
-              @if (!empty($value['event_finish']))
-              {{date('H:i',strtotime($value['event_finish']))}}
-              @endif
-            </td>
-          </tr>
-          <tr>
             <td class="table-active">イベント名称1</td>
             <td>
               @if (!empty($value['event_name1']))
@@ -124,6 +108,22 @@
             <td>
               @if (!empty($value['event_owner']))
               {{$value['event_owner']}}
+              @endif
+            </td>
+          </tr>
+          <tr>
+            <td class="table-active">イベント開始時間</td>
+            <td>
+              @if (!empty($value['event_start']))
+              {{date('H:i',strtotime($value['event_start']))}}
+              @endif
+            </td>
+          </tr>
+          <tr>
+            <td class="table-active">イベント終了時間</td>
+            <td>
+              @if (!empty($value['event_finish']))
+              {{date('H:i',strtotime($value['event_finish']))}}
               @endif
             </td>
           </tr>
@@ -251,7 +251,7 @@
             @endif
             @if ($value['luggage_price'])
             <tr>
-              <td class="table-active">荷物預り/返送<br>料金</td>
+              <td class="table-active">荷物預かり<br>料金</td>
               <td>
                 <div class="d-flex align-items-end">
                   {{$value['luggage_price']}}

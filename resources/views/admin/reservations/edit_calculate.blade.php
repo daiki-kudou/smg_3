@@ -152,34 +152,6 @@
           </td>
         </tr>
         <tr>
-          <td class="table-active">イベント開始時間</td>
-          <td>
-            <select name="event_start" id="event_start" class="form-control">
-              @if ($basicInfo['board_flag']==1)
-              <option value="" disabled>選択してください</option>
-              {!!ReservationHelper::timeOptionsWithRequestAndLimit($basicInfo['event_start'],$basicInfo['enter_time'],$basicInfo['leave_time'])!!}
-              @else
-              <option value="" selected></option>
-              {!!ReservationHelper::timeOptionsWithRequestAndLimit('',$basicInfo['enter_time'],$basicInfo['leave_time'])!!}
-              @endif
-            </select>
-          </td>
-        </tr>
-        <tr>
-          <td class="table-active">イベント終了時間</td>
-          <td>
-            <select name="event_finish" id="event_finish" class="form-control">
-              @if ($basicInfo['board_flag']==1)
-              <option value="" disabled>選択してください</option>
-              {!!ReservationHelper::timeOptionsWithRequestAndLimit($basicInfo['event_finish'],$basicInfo['enter_time'],$basicInfo['leave_time'])!!}
-              @else
-              <option value="" selected></option>
-              {!!ReservationHelper::timeOptionsWithRequestAndLimit('',$basicInfo['enter_time'],$basicInfo['leave_time'])!!}
-              @endif
-            </select>
-          </td>
-        </tr>
-        <tr>
           <td class="table-active">イベント名称1</td>
           <td>
             <div class="align-items-end d-flex">
@@ -209,10 +181,38 @@
             <p class="is-error-event_owner" style="color: red"></p>
           </td>
         </tr>
+        <tr>
+          <td class="table-active">イベント開始時間</td>
+          <td>
+            <select name="event_start" id="event_start" class="form-control">
+              @if ($basicInfo['board_flag']==1)
+              <option value="" disabled>選択してください</option>
+              {!!ReservationHelper::timeOptionsWithRequestAndLimit($basicInfo['event_start'],$basicInfo['enter_time'],$basicInfo['leave_time'])!!}
+              @else
+              <option value="" selected></option>
+              {!!ReservationHelper::timeOptionsWithRequestAndLimit('',$basicInfo['enter_time'],$basicInfo['leave_time'])!!}
+              @endif
+            </select>
+          </td>
+        </tr>
+        <tr>
+          <td class="table-active">イベント終了時間</td>
+          <td>
+            <select name="event_finish" id="event_finish" class="form-control">
+              @if ($basicInfo['board_flag']==1)
+              <option value="" disabled>選択してください</option>
+              {!!ReservationHelper::timeOptionsWithRequestAndLimit($basicInfo['event_finish'],$basicInfo['enter_time'],$basicInfo['leave_time'])!!}
+              @else
+              <option value="" selected></option>
+              {!!ReservationHelper::timeOptionsWithRequestAndLimit('',$basicInfo['enter_time'],$basicInfo['leave_time'])!!}
+              @endif
+            </select>
+          </td>
+        </tr>
       </table>
 
       <div class="equipemnts">
-        <table class="table table-bordered" style="table-layout: fixed;">
+        <table class="table table-bordered">
           <thead class="accordion-ttl">
             <tr>
               <th colspan="2">
@@ -395,7 +395,7 @@
               </td>
             </tr>
             <tr>
-              <td class="table-active">荷物預り/返送<br>料金</td>
+              <td class="table-active">荷物預かり<br>料金</td>
               <td>
                 <div class="d-flex align-items-end">
                   {{ Form::text('luggage_price', $basicInfo['luggage_price'],['class'=>'form-control','id'=>'luggage_price'] ) }}
@@ -850,7 +850,7 @@
               @if ($basicInfo['luggage_price'])
               <tr>
                 <td>
-                  {{ Form::text('luggage_item', '荷物預り/返送',['class'=>'form-control', 'readonly'] ) }}
+                  {{ Form::text('luggage_item', '荷物預かり',['class'=>'form-control', 'readonly'] ) }}
                 </td>
                 <td>
                   {{ Form::text('luggage_cost', $basicInfo['luggage_price'],['class'=>'form-control', 'readonly'] ) }}
