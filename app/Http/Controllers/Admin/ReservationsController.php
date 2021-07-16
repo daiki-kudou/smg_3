@@ -5,7 +5,6 @@ namespace App\Http\Controllers\Admin;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
-
 use App\Models\Reservation;
 use App\Models\Venue;
 use App\Models\User;
@@ -27,6 +26,10 @@ use Illuminate\Support\Facades\Auth;
 use App\Traits\PaginatorTrait;
 use App\Traits\SortTrait;
 use App\Traits\SearchTrait;
+
+// ふぉーむリクエスト
+use App\Http\Requests\Admin\Reservations\ReservationsStore;
+
 
 class ReservationsController extends Controller
 {
@@ -485,18 +488,18 @@ class ReservationsController extends Controller
     $reservation = new Reservation;
     $bill = new Bill;
     $breakdowns = new Breakdown;
-    DB::beginTransaction();
-    try {
-      $result_reservation = $reservation->ReservationStore($data);
-      $result_bill = $bill->BillStore($result_reservation->id, $data);
-      $result_breakdowns = $breakdowns->BreakdownStore($result_bill->id, $data);
-      DB::commit();
-    } catch (\Exception $e) {
-      DB::rollback();
-      return back()->withInput()->withErrors($e->getMessage());
-    }
-    $request->session()->regenerate();
-    return redirect()->route('admin.reservations.show', $result_reservation->id);
+    // DB::beginTransaction();
+    // try {
+    $result_reservation = $reservation->ReservationStore($data);
+    // $result_bill = $bill->BillStore($result_reservation->id, $data);
+    // $result_breakdowns = $breakdowns->BreakdownStore($result_bill->id, $data);
+    //   DB::commit();
+    // } catch (\Exception $e) {
+    //   DB::rollback();
+    //   return back()->withInput()->withErrors($e->getMessage());
+    // }
+    // $request->session()->regenerate();
+    // return redirect()->route('admin.reservations.show', $result_reservation->id);
   }
 
   /**

@@ -12,10 +12,14 @@
 </div>
 @endif
 
-@if (session('errors'))
-<div class="alert alert-danger">{{ session('errors') }}</div>
-@endif
+@foreach ($errors->all() as $error)
+<div class="alert alert-danger">
+  <ul>
+    <li>{{$error}}</li>
+  </ul>
+</div>
 
+@endforeach
 
 <div class="d-flex justify-content-end">
   <nav aria-label="breadcrumb">

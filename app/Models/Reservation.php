@@ -19,12 +19,14 @@ use Robbo\Presenter\PresentableInterface; //プレゼンターの追加
 
 use App\Traits\InvoiceTrait;
 use App\Traits\SearchTrait;
+use App\Traits\TransactionTrait;
 
 
 class Reservation extends Model implements PresentableInterface
 {
   use InvoiceTrait;
   use SearchTrait;
+  use TransactionTrait;
 
 
   public function getPresenter() //実装したプレゼンタを利用
@@ -180,6 +182,8 @@ class Reservation extends Model implements PresentableInterface
   //  管理者　予約　保存
   public function ReservationStore($data)
   {
+    $this->checkReservationsTransaction($data['reserve_date'], $data['enter_time'], $data['leave_time']);
+    $this->checkPreReservationsTransaction($data['reserve_date'], $data['enter_time'], $data['leave_time']);
     $result = $this->create([
       'venue_id' => $data['venue_id'],
       'user_id' => !empty($data['user_id']) ?: 0,
