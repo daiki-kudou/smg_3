@@ -204,7 +204,7 @@
             <li class="form-cell2">
               <p class="text6">{{$eqpt->item}} {{$eqpt->price}}円<span class="annotation">(税抜)</span></p>
               <p>
-                {{ Form::text('equipment_breakdown'.$e_key, '',['class'=>'text4 mL0 number_validation'] ) }}個
+                {{ Form::number('equipment_breakdown'.$e_key, '',['class'=>'text4 mL0 number_validation','autocomplete="off"'] ) }}個
               </p>
             </li>
             @endforeach
@@ -289,7 +289,7 @@
               {{-- <p class="m-b10">【事前に預かる荷物】</p> --}}
               <div class="luggage-cell">
                 <p>事前に預かる荷物<br>(目安)</p>
-                {{ Form::text('luggage_count', '',['class'=>'text6 ', 'style'=>'width:20%;'] ) }}
+                {{ Form::number('luggage_count', '',['class'=>'text6 ', 'style'=>'width:20%;','autocomplete="off"'] ) }}
                 <p class="">個</p>
               </div>
               <p class="is-error-luggage_count" style="color: red"></p>
@@ -297,7 +297,7 @@
             <li class="m-b10">
               <div class="luggage-cell">
               <p>事前荷物の到着日(午前指定)</p>
-                {{ Form::text('luggage_arrive', '',['class'=>'text6','id'=>'datepicker2'] ) }}
+                {{ Form::text('luggage_arrive', '',['class'=>'','id'=>'datepicker2','autocomplete="off"'] ) }}
               </div>
             </li>
             <li class="m-b30">
@@ -311,7 +311,7 @@
             <li class="m-b10 luggage-border">
               <div class="luggage-cell">
               <p>事後返送する荷物</p>
-                {{ Form::text('luggage_return', '',['class'=>'text6 ', 'style'=>'width: 20%;'] ) }}
+                {{ Form::number('luggage_return', '',['class'=>'text6 ', 'style'=>'width: 20%;','autocomplete="off"'] ) }}
                 <p class="">個</p>
               </div>
             </li>

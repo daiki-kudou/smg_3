@@ -211,14 +211,14 @@
             <li class="form-cell2">
               <p class="text6">{{$eqpt->item}} {{$eqpt->price}}円<span class="annotation">(税抜)</span></p>
               @if (empty(json_decode($fix->items_results)[1]))
-              <p>{{ Form::text('equipment_breakdown'.$e_key, "",['class'=>'text4 mL0'] ) }}個</p>
+              <p>{{ Form::number('equipment_breakdown'.$e_key, "",['class'=>'text4 mL0','autocomplete="off"'] ) }}個</p>
               @else
               @foreach (json_decode($fix->items_results)[1] as $b_equ)
               @if ($b_equ[0]==$eqpt->item)
-              <p>{{ Form::text('equipment_breakdown'.$e_key, $b_equ[2],['class'=>'text4 mL0'] ) }}個</p>
+              <p>{{ Form::number('equipment_breakdown'.$e_key, $b_equ[2],['class'=>'text4 mL0','autocomplete="off"'] ) }}個</p>
               @break
               @elseif($loop->last)
-              <p>{{ Form::text('equipment_breakdown'.$e_key, "",['class'=>'text4 mL0'] ) }}個</p>
+              <p>{{ Form::number('equipment_breakdown'.$e_key, "",['class'=>'text4 mL0','autocomplete="off"'] ) }}個</p>
               @endif
               @endforeach
               @endif
@@ -349,7 +349,7 @@
             <li class="m-b10">
               <div class="luggage-cell">
                 <p>事前に預かる荷物<br>(目安)</p>
-                {{ Form::text('luggage_count', $fix->luggage_count,['class'=>'text6 ', 'style'=>'width:20%;'] ) }}
+                {{ Form::number('luggage_count', $fix->luggage_count,['class'=>'text6 ', 'style'=>'width:20%;','autocomplete="off"'] ) }}
                 <p class="">個</p>
               </div>
               <p class="is-error-luggage_count" style="color: red"></p>
@@ -357,7 +357,7 @@
             <li class="m-b10">
               <div class="luggage-cell">
               <p>事前荷物の到着日(午前指定)</p>
-                {{ Form::text('luggage_arrive', $fix->luggage_arrive,['class'=>'text6','id'=>'datepicker2'] ) }}
+                {{ Form::text('luggage_arrive', $fix->luggage_arrive,['class'=>'','id'=>'datepicker2','autocomplete="off"'] ) }}
               </div>
             </li>
             <li class="m-b20">
@@ -371,7 +371,7 @@
             <li class="m-b10 luggage-border">
               <div class="luggage-cell">
               <p>事後返送する荷物</p>
-                {{ Form::text('luggage_return', $fix->luggage_return,['class'=>'text6 ', 'style'=>'width: 20%;'] ) }}
+                {{ Form::number('luggage_return', $fix->luggage_return,['class'=>'text6 ', 'style'=>'width: 20%;','autocomplete="off"'] ) }}
                 <p class="">個</p>
               </div>
               <p class="is-error-luggage_return" style="color: red"></p>

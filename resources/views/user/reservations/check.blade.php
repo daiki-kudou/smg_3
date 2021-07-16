@@ -154,7 +154,7 @@
               @continue
               @else
               <li class="form-cell2">
-                <p class="text6">{{$eqpt->item}} {{$eqpt->price}}円<span class="annotation">(税抜)</span></p>
+                <p class="text5">{{$eqpt->item}} {{$eqpt->price}}円<span class="annotation">(税抜)</span></p>
                 <p>
                   <p class="text4" style="margin-left: 20px;">{{($request->{'equipment_breakdown'.$e_key})}}個</p>
                   {{ Form::hidden('equipment_breakdown'.$e_key, ($request->{'equipment_breakdown'.$e_key}),['class'=>'text4 mL0'] ) }}

@@ -296,11 +296,11 @@ $(function () {
         },
         [luggagecountcopied]: {
           number: "※半角数字で入力してください",
-          max: "※最大値は49です",
+          range: "※最大値は49です",
         },
         [luggagereturncopied]: {
           number: "※半角数字で入力してください",
-          max: "※最大値は49です",
+          range: "※最大値は49です",
         },
       },
       errorPlacement: function (error, element) {
@@ -482,11 +482,11 @@ $(function () {
         },
         [luggagecountcopied]: {
           number: "※半角数字で入力してください",
-          max: "※最大値は49です",
+          range: "※最大値は49です",
         },
         [luggagereturncopied]: {
           number: "※半角数字で入力してください",
-          max: "※最大値は49です",
+          range: "※最大値は49です",
         },
         [luggagepricecopied]: {
           number: "※半角数字で入力してください",

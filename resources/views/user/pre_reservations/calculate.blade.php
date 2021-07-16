@@ -209,7 +209,7 @@
                   {{$equ->item}}
                 </td>
                 <td>
-                  {{Form::text('equipment_breakdown'.$key,$request->{'equipment_breakdown'.$key},['class'=>'form-control equipment_validation'])}}
+                  {{Form::number('equipment_breakdown'.$key,$request->{'equipment_breakdown'.$key},['class'=>'form-control equipment_validation', 'autocomplete="off"'])}}
                 </td>
               </tr>
               @endforeach
@@ -328,7 +328,7 @@
               <tr>
                 <td class="table-active">事前にお預りする荷物</td>
                 <td>
-                  {{Form::text('luggage_count',$request->luggage_count,['class'=>'form-control','id'=>'luggage_count'])}}
+                  {{Form::number('luggage_count',$request->luggage_count,['class'=>'form-control','id'=>'luggage_count', 'autocomplete="off"'])}}
                   <p class="is-error-luggage_count" style="color: red"></p>
                 </td>
               </tr>
@@ -341,7 +341,7 @@
               <tr>
                 <td class="table-active">事後返送するお荷物</td>
                 <td>
-                  {{Form::text('luggage_return',$request->luggage_return,['class'=>'form-control','id'=>'luggage_return'])}}
+                  {{Form::number('luggage_return',$request->luggage_return,['class'=>'form-control','id'=>'luggage_return', 'autocomplete="off"'])}}
                   <p class="is-error-luggage_return" style="color: red"></p>
                 </td>
               </tr>
