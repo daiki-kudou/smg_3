@@ -498,19 +498,6 @@ class ReservationsController extends Controller
     }
     $request->session()->regenerate();
     return redirect()->route('admin.reservations.show', $result_reservation->id);
-
-
-    // $reservation = new Reservation();
-    // try {
-    //   $reservation_store = $reservation->ReserveStoreSession($request, 'master_info', 'discount_info');
-    //   $bill = $reservation_store->ReserveStoreSessionBill($request, "discount_info", 'discount_info');
-    //   $bill->ReserveStoreSessionBreakdown($request, 'discount_info');
-    // } catch (\Exception $e) {
-    //   session()->flash('flash_message', '更新に失敗しました。<br>フォーム内の空欄や全角など確認した上でもう一度お試しください。');
-    //   return redirect(route('admin.reservations.check'));
-    // }
-    // $request->session()->regenerate();
-    // return redirect()->route('admin.reservations.show', $reservation_store->id);
   }
 
   /**
