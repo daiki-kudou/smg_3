@@ -158,6 +158,7 @@ class ReservationsController extends Controller
   {
     $sessions = $request->session()->get('session_reservations');
     foreach ($sessions as $key => $value) {
+      dump($value);
       $new_reservation = new Reservation();
       $reservation = $new_reservation->ReserveFromUser(((object)$value[0]), $value[1]);
       $reservation->with(['user', 'venue']);
