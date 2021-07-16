@@ -59,16 +59,16 @@
             <tbody class="venue_main">
               @for ($i = 0; $i < $venues; $i++) <tr>
                 <td>
-                  {{ Form::text('venue_breakdown_item'.$i, $data['venue_breakdown_item'.$i],['class'=>'form-control', 'readonly'] ) }}
+                  {{ Form::text('venue_breakdown_item[]', $data['venue_breakdown_item'.$i],['class'=>'form-control', 'readonly'] ) }}
                 </td>
                 <td>
-                  {{ Form::text('venue_breakdown_cost'.$i, $data['venue_breakdown_cost'.$i],['class'=>'form-control', 'readonly'] ) }}
+                  {{ Form::text('venue_breakdown_cost[]', $data['venue_breakdown_cost'.$i],['class'=>'form-control', 'readonly'] ) }}
                 </td>
                 <td>
-                  {{ Form::text('venue_breakdown_count'.$i, $data['venue_breakdown_count'.$i],['class'=>'form-control', 'readonly'] ) }}
+                  {{ Form::text('venue_breakdown_count[]', $data['venue_breakdown_count'.$i],['class'=>'form-control', 'readonly'] ) }}
                 </td>
                 <td>
-                  {{ Form::text('venue_breakdown_subtotal'.$i, $data['venue_breakdown_subtotal'.$i],['class'=>'form-control', 'readonly'] ) }}
+                  {{ Form::text('venue_breakdown_subtotal[]', $data['venue_breakdown_subtotal'.$i],['class'=>'form-control', 'readonly'] ) }}
                 </td>
                 </tr>
                 @endfor
@@ -110,16 +110,16 @@
             <tbody class="equipment_main">
               @for ($i = 0; $i < $equipments; $i++) <tr>
                 <td>
-                  {{ Form::text('equipment_breakdown_item'.$i,$data['equipment_breakdown_item'.$i] ,['class'=>'form-control', 'readonly'] ) }}
+                  {{ Form::text('equipment_breakdown_item[]',$data['equipment_breakdown_item'.$i] ,['class'=>'form-control', 'readonly'] ) }}
                 </td>
                 <td>
-                  {{ Form::text('equipment_breakdown_cost'.$i,$data['equipment_breakdown_cost'.$i] ,['class'=>'form-control', 'readonly'] ) }}
+                  {{ Form::text('equipment_breakdown_cost[]',$data['equipment_breakdown_cost'.$i] ,['class'=>'form-control', 'readonly'] ) }}
                 </td>
                 <td>
-                  {{ Form::text('equipment_breakdown_count'.$i,$data['equipment_breakdown_count'.$i] ,['class'=>'form-control', 'readonly'] ) }}
+                  {{ Form::text('equipment_breakdown_count[]',$data['equipment_breakdown_count'.$i] ,['class'=>'form-control', 'readonly'] ) }}
                 </td>
                 <td>
-                  {{ Form::text('equipment_breakdown_subtotal'.$i,$data['equipment_breakdown_subtotal'.$i] ,['class'=>'form-control', 'readonly'] ) }}
+                  {{ Form::text('equipment_breakdown_subtotal[]',$data['equipment_breakdown_subtotal'.$i] ,['class'=>'form-control', 'readonly'] ) }}
                 </td>
                 </tr>
                 @endfor
@@ -160,16 +160,16 @@
             <tbody class="layout_main">
               @for ($i = 0; $i < $layouts; $i++) <tr>
                 <td>
-                  {{ Form::text('layout_breakdown_item'.$i,$data['layout_breakdown_item'.$i],['class'=>'form-control', 'readonly'] ) }}
+                  {{ Form::text('layout_breakdown_item[]',$data['layout_breakdown_item'.$i],['class'=>'form-control', 'readonly'] ) }}
                 </td>
                 <td>
-                  {{ Form::text('layout_breakdown_cost'.$i,$data['layout_breakdown_cost'.$i],['class'=>'form-control', 'readonly'] ) }}
+                  {{ Form::text('layout_breakdown_cost[]',$data['layout_breakdown_cost'.$i],['class'=>'form-control', 'readonly'] ) }}
                 </td>
                 <td>
-                  {{ Form::text('layout_breakdown_count'.$i,$data['layout_breakdown_count'.$i],['class'=>'form-control', 'readonly'] ) }}
+                  {{ Form::text('layout_breakdown_count[]',$data['layout_breakdown_count'.$i],['class'=>'form-control', 'readonly'] ) }}
                 </td>
                 <td>
-                  {{ Form::text('layout_breakdown_subtotal'.$i,$data['layout_breakdown_subtotal'.$i],['class'=>'form-control', 'readonly'] ) }}
+                  {{ Form::text('layout_breakdown_subtotal[]',$data['layout_breakdown_subtotal'.$i],['class'=>'form-control', 'readonly'] ) }}
                 </td>
                 </tr>
                 @endfor
@@ -210,16 +210,16 @@
             <tbody class="others_main">
               @for ($i = 0; $i < $others; $i++) <tr>
                 <td>
-                  {{ Form::text('others_breakdown_item'.$i,$data['others_breakdown_item'.$i],['class'=>'form-control', 'readonly'] ) }}
+                  {{ Form::text('others_breakdown_item[]',$data['others_breakdown_item'.$i],['class'=>'form-control', 'readonly'] ) }}
                 </td>
                 <td>
-                  {{ Form::text('others_breakdown_cost'.$i,$data['others_breakdown_cost'.$i],['class'=>'form-control', 'readonly'] ) }}
+                  {{ Form::text('others_breakdown_cost[]',$data['others_breakdown_cost'.$i],['class'=>'form-control', 'readonly'] ) }}
                 </td>
                 <td>
-                  {{ Form::text('others_breakdown_count'.$i,$data['others_breakdown_count'.$i],['class'=>'form-control', 'readonly'] ) }}
+                  {{ Form::text('others_breakdown_count[]',$data['others_breakdown_count'.$i],['class'=>'form-control', 'readonly'] ) }}
                 </td>
                 <td>
-                  {{ Form::text('others_breakdown_subtotal'.$i,$data['others_breakdown_subtotal'.$i],['class'=>'form-control', 'readonly'] ) }}
+                  {{ Form::text('others_breakdown_subtotal[]',$data['others_breakdown_subtotal'.$i],['class'=>'form-control', 'readonly'] ) }}
                 </td>
                 </tr>
                 @endfor
@@ -236,9 +236,6 @@
           </table>
         </div>
         @endif
-
-
-
         <div class="bill_total">
           <table class="table text-right">
             <tbody>
@@ -353,8 +350,8 @@
 </section>
 
 <div class="container-field d-flex justify-content-center mt-5">
-{{ Form::submit('請求内容を修正する', ['class' => 'btn more_btn4_lg d-block mr-5','name'=>'back']) }}
-{{ Form::submit('追加請求書を確定する', ['class' => 'd-block btn more_btn_lg']) }}
+  {{ Form::submit('請求内容を修正する', ['class' => 'btn more_btn4_lg d-block mr-5','name'=>'back']) }}
+  {{ Form::submit('追加請求書を確定する', ['class' => 'd-block btn more_btn_lg']) }}
 </div>
 
 {{ Form::close() }}
