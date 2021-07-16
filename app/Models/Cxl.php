@@ -107,7 +107,7 @@ class Cxl extends Model
         'double_check_status' => 0,
         // ダブルチェックのフラグ 0:未　1:一人済　2:二人済
         'category' => 0,
-        'invoice_number' => $this->generate_invoice_number(),
+        'invoice_number' => $this->generateInvoiceNum(),
       ]);
       return $cxlBill;
     });

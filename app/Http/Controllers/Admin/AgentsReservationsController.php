@@ -191,7 +191,7 @@ class AgentsReservationsController extends Controller
         'category' => 2, //1が会場　２が追加請求
         'admin_judge' => 1, //１が管理者　２がユーザー
         'end_user_charge' => $request->enduser_charge,
-        'invoice_number' => $this->generate_invoice_number(),
+        'invoice_number' => $this->generateInvoiceNum(),
       ]);
 
       function storeAndBreakDown($num, $sub, $target, $type)

@@ -479,17 +479,38 @@ class ReservationsController extends Controller
    */
   public function store(Request $request)
   {
-    $reservation = new Reservation();
+    $request_data = $request->all();
+    $master_data = $request->session()->get('master_info');
+    $data = $request_data + $master_data;
+    $reservation = new Reservation;
+    $bill = new Bill;
+    $breakdowns = new Breakdown;
+
+    DB::beginTransaction();
     try {
-      $reservation_store = $reservation->ReserveStoreSession($request, 'master_info', 'discount_info');
-      $bill = $reservation_store->ReserveStoreSessionBill($request, "discount_info", 'discount_info');
-      $bill->ReserveStoreSessionBreakdown($request, 'discount_info');
+      $result_reservation = $reservation->ReservationStore($data);
+      $result_bill = $bill->BillStore($result_reservation->id, $data);
+      $result_breakdowns = $breakdowns->BreakdownStore($result_bill->id, $data);
+      DB::commit();
     } catch (\Exception $e) {
-      session()->flash('flash_message', '更新に失敗しました。<br>フォーム内の空欄や全角など確認した上でもう一度お試しください。');
-      return redirect(route('admin.reservations.check'));
+      DB::rollback();
+      return back()->withInput()->withErrors($e->getMessage());
     }
     $request->session()->regenerate();
-    return redirect()->route('admin.reservations.show', $reservation_store->id);
+    return redirect()->route('admin.reservations.show', $result_reservation->id);
+
+
+    // $reservation = new Reservation();
+    // try {
+    //   $reservation_store = $reservation->ReserveStoreSession($request, 'master_info', 'discount_info');
+    //   $bill = $reservation_store->ReserveStoreSessionBill($request, "discount_info", 'discount_info');
+    //   $bill->ReserveStoreSessionBreakdown($request, 'discount_info');
+    // } catch (\Exception $e) {
+    //   session()->flash('flash_message', '更新に失敗しました。<br>フォーム内の空欄や全角など確認した上でもう一度お試しください。');
+    //   return redirect(route('admin.reservations.check'));
+    // }
+    // $request->session()->regenerate();
+    // return redirect()->route('admin.reservations.show', $reservation_store->id);
   }
 
   /**
