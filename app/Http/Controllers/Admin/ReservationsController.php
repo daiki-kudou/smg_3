@@ -485,7 +485,6 @@ class ReservationsController extends Controller
     $reservation = new Reservation;
     $bill = new Bill;
     $breakdowns = new Breakdown;
-
     DB::beginTransaction();
     try {
       $result_reservation = $reservation->ReservationStore($data);

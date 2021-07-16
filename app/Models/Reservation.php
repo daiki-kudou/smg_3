@@ -203,7 +203,7 @@ class Reservation extends Model implements PresentableInterface
       'cost' => !empty($data['cost']) ?: 0,
       'discount_condition' => $data['discount_condition'] ?? "",
       'attention' => $data['attention'] ?? "",
-      'user_details' => $data['user_details'],
+      'user_details' => $data['user_details'] ?? "",
       'admin_details' => $data['admin_details'],
       'eat_in' => $data['eat_in'],
       'eat_in_prepare' => !empty($data['eat_in_prepare']) ?: 0,
@@ -329,37 +329,37 @@ class Reservation extends Model implements PresentableInterface
   //   });
   // }
 
-  public function ReserveStoreBill($request)
-  {
-    DB::transaction(function () use ($request) {
-      $bill = $this->bills()->create([
-        'reservation_id' => $this->id,
-        'venue_price' => $request->venue_price,
-        'equipment_price' => $request->equipment_price ? $request->equipment_price : 0, //備品・サービス・荷物
-        'layout_price' => $request->layout_price ? $request->layout_price : 0,
-        'others_price' => $request->others_price ? $request->others_price : 0,
-        'master_subtotal' => $request->master_subtotal,
-        'master_tax' => $request->master_tax,
-        'master_total' => $request->master_total,
-        'payment_limit' => $request->payment_limit,
-        'bill_company' => $request->bill_company,
-        'bill_person' => $request->bill_person,
-        'bill_created_at' => Carbon::now(),
-        'bill_remark' => $request->bill_remark,
-        'paid' => $request->paid,
-        'pay_day' => $request->pay_day,
-        'pay_person' => $request->pay_person,
-        'payment' => $request->payment,
-        'reservation_status' => 1, //デフォで1、仮押えのデフォは0
-        'double_check_status' => 0, //デフォで0
-        'category' => 1, //デフォで１。　新規以外だと　2:その他有料備品　3:レイアウト　4:その他
-        'admin_judge' => 1, //管理者作成なら1 ユーザー作成なら2
-        'invoice_number' => $this->generateInvoiceNum(),
+  // public function ReserveStoreBill($request)
+  // {
+  //   DB::transaction(function () use ($request) {
+  //     $bill = $this->bills()->create([
+  //       'reservation_id' => $this->id,
+  //       'venue_price' => $request->venue_price,
+  //       'equipment_price' => $request->equipment_price ? $request->equipment_price : 0, //備品・サービス・荷物
+  //       'layout_price' => $request->layout_price ? $request->layout_price : 0,
+  //       'others_price' => $request->others_price ? $request->others_price : 0,
+  //       'master_subtotal' => $request->master_subtotal,
+  //       'master_tax' => $request->master_tax,
+  //       'master_total' => $request->master_total,
+  //       'payment_limit' => $request->payment_limit,
+  //       'bill_company' => $request->bill_company,
+  //       'bill_person' => $request->bill_person,
+  //       'bill_created_at' => Carbon::now(),
+  //       'bill_remark' => $request->bill_remark,
+  //       'paid' => $request->paid,
+  //       'pay_day' => $request->pay_day,
+  //       'pay_person' => $request->pay_person,
+  //       'payment' => $request->payment,
+  //       'reservation_status' => 1, //デフォで1、仮押えのデフォは0
+  //       'double_check_status' => 0, //デフォで0
+  //       'category' => 1, //デフォで１。　新規以外だと　2:その他有料備品　3:レイアウト　4:その他
+  //       'admin_judge' => 1, //管理者作成なら1 ユーザー作成なら2
+  //       'invoice_number' => $this->generateInvoiceNum(),
 
-      ]);
-      $bill->ReserveStoreBreakdown($request);
-    });
-  }
+  //     ]);
+  //     $bill->ReserveStoreBreakdown($request);
+  //   });
+  // }
 
   /*
 |--------------------------------------------------------------------------

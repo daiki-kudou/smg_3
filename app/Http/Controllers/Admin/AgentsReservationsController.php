@@ -6,6 +6,8 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
 use App\Models\Reservation;
+use App\Models\Bill;
+use App\Models\Breakdown;
 use App\Models\Venue;
 use App\Models\Agent;
 
@@ -13,7 +15,6 @@ use Carbon\Carbon;
 
 use Illuminate\Support\Facades\DB; //トランザクション用
 
-use App\Models\Bill;
 
 use App\Traits\PregTrait;
 use App\Traits\InvoiceTrait;
@@ -106,8 +107,21 @@ class AgentsReservationsController extends Controller
 
   public function store(Request $request)
   {
-    $reservation = new Reservation();
-    $reservation->ReserveFromAgent($request);
+    $data = $request->all();
+    $reservation = new Reservation;
+    $bill = new Bill;
+    $breakdowns = new Breakdown;
+    DB::beginTransaction();
+    try {
+      $result_reservation = $reservation->ReservationStore($data);
+      $result_bill = $bill->BillStore($result_reservation->id, $data);
+      $result_breakdowns = $breakdowns->BreakdownStore($result_bill->id, $data);
+      DB::commit();
+    } catch (\Exception $e) {
+      DB::rollback();
+      return back()->withInput()->withErrors($e->getMessage());
+    }
+
     $request->session()->regenerate();
     return redirect()->route('admin.reservations.index');
   }

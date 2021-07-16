@@ -95,8 +95,6 @@ class Bill extends Model
 
   public function BillStore($reservation_id, $data, $reservation_status = 1, $double_check_status = 0, $category = 1, $admin_judge = 1)
   {
-    // dump($reservation_id);
-    // dump($data);
     $result = $this->create([
       'reservation_id' => $reservation_id,
       'venue_price' => $data['venue_price'],
