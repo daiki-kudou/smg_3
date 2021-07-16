@@ -38,8 +38,7 @@
   </table>
 </div>
 
-
-@if($reservation->bills->sortBy("id")->first()->equipment_price!=0||$reservation->bills->sortBy("id")->first()->equipment_price)
+@if($reservation->bills->first()->breakdowns->contains('unit_type',2)||$reservation->bills->first()->breakdowns->contains('unit_type',3))
 <div class="equipment billdetails_content">
   <table class="table table-borderless">
     <tbody>
@@ -93,7 +92,7 @@
 @endif
 
 
-@if($reservation->bills->sortBy("id")->first()->layout_price!=0||$reservation->bills->sortBy("id")->first()->layout_price)
+@if($reservation->bills->first()->breakdowns->contains('unit_type',4))
 <div class="layout billdetails_content">
   <table class="table table-borderless">
     <tbody>
@@ -137,7 +136,7 @@
 @endif
 
 
-@if($reservation->bills->sortBy("id")->first()->others_price!=0||$reservation->bills->sortBy("id")->first()->others_price)
+@if($reservation->bills->first()->breakdowns->contains('unit_type',5))
 <div class="others billdetails_content">
   <table class="table table-borderless">
     <tbody>
