@@ -1197,7 +1197,7 @@ h3 {
 /* カレンダー */
 
 .calender-wrap {
-    overflow-x: scroll;
+    /* overflow-x: scroll; */
 }
 
 .calender-flame {

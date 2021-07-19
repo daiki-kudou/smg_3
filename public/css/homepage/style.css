@@ -9,6 +9,11 @@ option:disabled {
     background: #d0d0d0;
 }
 
+.f-s90 {
+    font-size: 0.9rem;
+
+}
+
 
 .d-none {
     display: none;
@@ -86,6 +91,7 @@ ul.tagBtn li:nth-child(3) a {
 
 .calenderframe {
     margin: 3% 0;
+    overflow-x: scroll;
 }
 
 .date_calender_wrapper {
@@ -337,6 +343,7 @@ form table td textarea {
 form table td .text6 {
     width: 65%;
 }
+
 
 .table-box {
     width: 90%;
