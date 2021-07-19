@@ -118,7 +118,6 @@ class BillsController extends Controller
       dump($e->getMessage());
       return $this->createSession($request)->withErrors($e->getMessage());
     }
-
     $request->session()->regenerate();
     return redirect()->route('admin.reservations.show', $data['reservation_id']);
   }

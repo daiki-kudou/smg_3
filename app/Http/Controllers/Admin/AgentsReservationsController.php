@@ -128,33 +128,41 @@ class AgentsReservationsController extends Controller
 
   public function add_bills(Request $request)
   {
+    $data = $request->all();
     $reservation = Reservation::with(['agent'])->find($request->reservation_id);
-    $pay_limit = $reservation->agent->getAgentPayLimit($reservation->reserve_date);
-    $percent = $reservation->agent->cost;
-    $data = $request->session()->get('add_bill');
-    if (!empty($data)) {
-      $venues = $this->preg($data, 'venue_breakdown_item');
-      $equipments = $this->preg($data, 'equipment_breakdown_item');
-      $layouts = $this->preg($data, 'layout_breakdown_item');
-      $others = $this->preg($data, 'others_breakdown_item');
-      return view(
-        'admin.agents_reservations.add_bills',
-        compact('reservation', 'pay_limit', 'data', 'venues', 'equipments', 'layouts', 'others', 'percent')
-      );
-    } else {
-      return view(
-        'admin.agents_reservations.add_bills',
-        compact('request', 'percent', 'pay_limit', 'reservation',)
-      );
-    }
+    $agent = $reservation->agent;
+    $percent = $agent->cost;
+    $payment_limit = $reservation->agent->getAgentPayLimit($reservation->reserve_date);
+    $reservation = $reservation->toArray();
+    dump($data);
+    // $reservation->toArray();
+    // $pay_limit = $reservation->agent->getAgentPayLimit($reservation->reserve_date);
+    // $data = $request->session()->get('add_bill');
+    // if (!empty($data)) {
+    //   $venues = $this->preg($data, 'venue_breakdown_item');
+    //   $equipments = $this->preg($data, 'equipment_breakdown_item');
+    //   $layouts = $this->preg($data, 'layout_breakdown_item');
+    //   $others = $this->preg($data, 'others_breakdown_item');
+    //   return view(
+    //     'admin.agents_reservations.add_bills',
+    //     compact('reservation', 'pay_limit', 'data', 'venues', 'equipments', 'layouts', 'others', 'percent')
+    //   );
+    // } else {
+    return view('admin.agents_reservations.add_bills', compact(['data', 'reservation', 'percent', 'payment_limit', 'agent']));
+    // }
   }
 
   public function createSession(Request $request)
   {
-    $request->session()->forget('add_bill');
     $data = $request->all();
-    $request->session()->put('add_bill', $data);
-    return redirect(route("admin.agents_reservations.add_check"));
+    $reservation = Reservation::with('agent')->find($data['reservation_id']);
+    $reservation = $reservation->toArray();
+    dump($data);
+    // $request->session()->forget('add_bill');
+    // $data = $request->all();
+    // $request->session()->put('add_bill', $data);
+    // return redirect(route("admin.agents_reservations.add_check"));
+    return view('admin.agents_reservations.add_check', compact('data', 'reservation'));
   }
 
   public function add_check(Request $request)
@@ -174,64 +182,25 @@ class AgentsReservationsController extends Controller
   }
   public function add_store(Request $request)
   {
-    $data = $request->session()->get('add_bill');
+    $data = $request->all();
     if ($request->back) {
-      return redirect(route('admin.agents_reservations.add_bills', [
-        'reservation_id' => $data['reservation_id'],
-        'reserve_date' => $data['reserve_date'],
-      ]));
+      return $this->add_bills($request);
     }
-    DB::transaction(function () use ($request) { //トランザクションさせる
-      $bill = Bill::create([
-        'reservation_id' => $request->reservation_id,
-        'venue_price' => 0, //仲介会社の追加請求なのでデフォで0
-        'equipment_price' => 0, //仲介会社の追加請求なのでデフォで0
-        'layout_price' => $request->layout_price ? $request->layout_price : 0,
-        'others_price' => 0, //仲介会社の追加請求なのでデフォで0
-        'master_subtotal' => $request->master_subtotal,
-        'master_tax' => $request->master_tax,
-        'master_total' => $request->master_total,
-        'payment_limit' => $request->pay_limit,
-        'bill_company' => $request->pay_company,
-        'bill_person' => $request->bill_person,
-        'bill_created_at' => Carbon::now(),
-        'bill_remark' => $request->bill_remark,
-        'paid' => $request->paid,
-        'pay_day' => $request->pay_day,
-        'pay_person' => $request->pay_person,
-        'payment' => $request->payment,
-        'reservation_status' => 1, //固定で1
-        'double_check_status' => 0, //固定で1
-        'category' => 2, //1が会場　２が追加請求
-        'admin_judge' => 1, //１が管理者　２がユーザー
-        'end_user_charge' => $request->enduser_charge,
-        'invoice_number' => $this->generateInvoiceNum(),
-      ]);
+    $bill = new Bill;
+    $breakdowns = new Breakdown;
 
-      function storeAndBreakDown($num, $sub, $target, $type)
-      {
-        $s_arrays = [];
-        foreach ($num as $key => $value) {
-          if (preg_match("/" . $sub . "/", $key)) {
-            $s_arrays[] = $value;
-          }
-        }
-        $counts = (count($s_arrays) / 4);
-        for ($i = 0; $i < $counts; $i++) {
-          $target->breakdowns()->create([
-            'unit_item' => $s_arrays[($i * 4)],
-            'unit_cost' => $s_arrays[($i * 4) + 1],
-            'unit_count' => $s_arrays[($i * 4) + 2],
-            'unit_subtotal' => $s_arrays[($i * 4) + 3],
-            'unit_type' => $type,
-          ]);
-        }
-      }
-      storeAndBreakDown($request->all(), 'venue_breakdown', $bill, 1);
-      storeAndBreakDown($request->all(), 'equipment_breakdown', $bill, 2);
-      storeAndBreakDown($request->all(), 'layout_breakdown_', $bill, 4);
-      storeAndBreakDown($request->all(), 'others_breakdown', $bill, 5);
-    });
+    DB::beginTransaction();
+    try {
+      $result_bill = $bill->BillStore($data['reservation_id'], $data);
+      $result_breakdowns = $breakdowns->BreakdownStore($result_bill->id, $data);
+      DB::commit();
+    } catch (\Exception $e) {
+      DB::rollback();
+      dump($data);
+      dump($e->getMessage());
+      return $this->createSession($request)->withErrors($e->getMessage());
+    }
+
     $request->session()->regenerate();
     return redirect()->route('admin.reservations.show', $request->reservation_id);
   }

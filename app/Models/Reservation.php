@@ -186,8 +186,8 @@ class Reservation extends Model implements PresentableInterface
     $this->checkPreReservationsTransaction($data['reserve_date'], $data['enter_time'], $data['leave_time']);
     $result = $this->create([
       'venue_id' => $data['venue_id'],
-      'user_id' => !empty($data['user_id']) ?: 0,
-      'agent_id' => !empty($data['agent_id']) ?: 0,
+      'user_id' => !empty($data['user_id']) ? $data['user_id'] : 0,
+      'agent_id' => !empty($data['agent_id']) ? $data['agent_id'] : 0,
       'reserve_date' => $data['reserve_date'],
       'price_system' => $data['price_system'],
       'enter_time' => $data['enter_time'],
@@ -204,15 +204,15 @@ class Reservation extends Model implements PresentableInterface
       'email_flag' => $data['email_flag'],
       'in_charge' => $data['in_charge'],
       'tel' => $data['tel'],
-      'cost' => !empty($data['cost']) ?: 0,
+      'cost' => !empty($data['cost']) ? $data['cost'] : 0,
       'discount_condition' => $data['discount_condition'] ?? "",
       'attention' => $data['attention'] ?? "",
       'user_details' => $data['user_details'] ?? "",
       'admin_details' => $data['admin_details'],
       'eat_in' => $data['eat_in'],
-      'eat_in_prepare' => !empty($data['eat_in_prepare']) ?: 0,
-      'multiple_reserve_id' => !empty($data['multiple_reserve_id']) ?: 0,
-      'luggage_flag' => !empty($data['luggage_flag']) ?: 0,
+      'eat_in_prepare' => !empty($data['eat_in_prepare']) ? $data['eat_in_prepare'] : 0,
+      'multiple_reserve_id' => !empty($data['multiple_reserve_id']) ? $data['multiple_reserve_id'] : 0,
+      'luggage_flag' => !empty($data['luggage_flag']) ? $data['luggage_flag'] : 0,
     ]);
     return $result;
   }

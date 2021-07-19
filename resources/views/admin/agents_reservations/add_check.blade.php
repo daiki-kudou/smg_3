@@ -53,7 +53,7 @@
         </div>
       </div>
       <div class="main">
-        @if (!empty($venues))
+        @if (!empty($data['venue_breakdown_item'][0]))
         <div class="venues billdetails_content">
           <table class="table table-borderless">
             <tbody>
@@ -74,27 +74,28 @@
               </tr>
             </tbody>
             <tbody class="venue_main">
-              @for ($i = 0; $i < $venues; $i++) <tr>
+              @foreach ($data['venue_breakdown_item'] as $key=>$v)
+              <tr>
                 <td>
-                  {{ Form::text('venue_breakdown_item'.$i, $data['venue_breakdown_item'.$i], ['class' => 'form-control','readonly'])}}
+                  {{ Form::text('venue_breakdown_item[]', $data['venue_breakdown_item'][$key], ['class' => 'form-control','readonly'])}}
                 </td>
                 <td>
-                  {{ Form::text('venue_breakdown_cost'.$i, $data['venue_breakdown_cost'.$i], ['class' => 'form-control','readonly'])}}
+                  {{ Form::text('venue_breakdown_cost[]', $data['venue_breakdown_cost'][$key], ['class' => 'form-control','readonly'])}}
                 </td>
                 <td>
-                  {{ Form::text('venue_breakdown_count'.$i, $data['venue_breakdown_count'.$i], ['class' => 'form-control','readonly'])}}
+                  {{ Form::text('venue_breakdown_count[]', $data['venue_breakdown_count'][$key], ['class' => 'form-control','readonly'])}}
                 </td>
                 <td>
-                  {{ Form::text('venue_breakdown_subtotal'.$i, $data['venue_breakdown_subtotal'.$i], ['class' => 'form-control','readonly'])}}
+                  {{ Form::text('venue_breakdown_subtotal[]', $data['venue_breakdown_subtotal'][$key], ['class' => 'form-control','readonly'])}}
                 </td>
-                </tr>
-                @endfor
+              </tr>
+              @endforeach
             </tbody>
           </table>
         </div>
         @endif
 
-        @if (!empty($equipments))
+        @if (!empty($data['equipment_breakdown_item'][0]))
         <div class="equipment billdetails_content">
           <table class="table table-borderless">
             <tbody>
@@ -115,27 +116,28 @@
               </tr>
             </tbody>
             <tbody class="equipment_main">
-              @for ($i = 0; $i < $equipments; $i++) <tr>
+              @foreach ($data['equipment_breakdown_item'] as $key=>$e)
+              <tr>
                 <td>
-                  {{ Form::text('equipment_breakdown_item'.$i, $data['equipment_breakdown_item'.$i], ['class' => 'form-control','readonly'])}}
+                  {{ Form::text('equipment_breakdown_item[]', $data['equipment_breakdown_item'][$key], ['class' => 'form-control','readonly'])}}
                 </td>
                 <td>
-                  {{ Form::hidden('equipment_breakdown_cost'.$i, $data['equipment_breakdown_cost'.$i], ['class' => 'form-control','readonly'])}}
+                  {{ Form::text('equipment_breakdown_cost[]', $data['equipment_breakdown_cost'][$key], ['class' => 'form-control','readonly'])}}
                 </td>
                 <td>
-                  {{ Form::text('equipment_breakdown_count'.$i, $data['equipment_breakdown_count'.$i], ['class' => 'form-control','readonly'])}}
+                  {{ Form::text('equipment_breakdown_count[]', $data['equipment_breakdown_count'][$key], ['class' => 'form-control','readonly'])}}
                 </td>
                 <td>
-                  {{ Form::hidden('equipment_breakdown_subtotal'.$i, $data['equipment_breakdown_subtotal'.$i], ['class' => 'form-control','readonly'])}}
+                  {{ Form::text('equipment_breakdown_subtotal[]', $data['equipment_breakdown_subtotal'][$key], ['class' => 'form-control','readonly'])}}
                 </td>
-                </tr>
-                @endfor
+              </tr>
+              @endforeach
             </tbody>
           </table>
         </div>
         @endif
 
-        @if (!empty($layouts))
+        @if (!empty($data['layout_breakdown_item'][0]))
         <div class="layout billdetails_content">
           <table class="table table-borderless">
             <tbody>
@@ -156,21 +158,22 @@
               </tr>
             </tbody>
             <tbody class="layout_main">
-              @for ($i = 0; $i < $layouts; $i++) <tr>
+              @foreach ($data['layout_breakdown_item'] as $key=>$l)
+              <tr>
                 <td>
-                  {{ Form::text('layout_breakdown_item'.$i, $data['layout_breakdown_item'.$i], ['class' => 'form-control','readonly'])}}
+                  {{ Form::text('layout_breakdown_item[]', $data['layout_breakdown_item'][$key], ['class' => 'form-control','readonly'])}}
                 </td>
                 <td>
-                  {{ Form::text('layout_breakdown_cost'.$i, $data['layout_breakdown_cost'.$i], ['class' => 'form-control','readonly'])}}
+                  {{ Form::text('layout_breakdown_cost[]', $data['layout_breakdown_cost'][$key], ['class' => 'form-control','readonly'])}}
                 </td>
                 <td>
-                  {{ Form::text('layout_breakdown_count'.$i, $data['layout_breakdown_count'.$i], ['class' => 'form-control','readonly'])}}
+                  {{ Form::text('layout_breakdown_count[]', $data['layout_breakdown_count'][$key], ['class' => 'form-control','readonly'])}}
                 </td>
                 <td>
-                  {{ Form::text('layout_breakdown_subtotal'.$i, $data['layout_breakdown_subtotal'.$i], ['class' => 'form-control','readonly'])}}
+                  {{ Form::text('layout_breakdown_subtotal[]', $data['layout_breakdown_subtotal'][$key], ['class' => 'form-control','readonly'])}}
                 </td>
-                </tr>
-                @endfor
+              </tr>
+              @endforeach
             </tbody>
             <tbody class="layout_result">
               <tr>
@@ -185,7 +188,7 @@
         </div>
         @endif
 
-        @if (!empty($others))
+        @if (!empty($data['others_breakdown_item'][0]))
         <div class="others billdetails_content">
           <table class="table table-borderless">
             <tbody>
@@ -206,21 +209,22 @@
               </tr>
             </tbody>
             <tbody class="others_main">
-              @for ($i = 0; $i < $others; $i++) <tr>
+              @foreach ($data['others_breakdown_item'] as $key=>$l)
+              <tr>
                 <td>
-                  {{ Form::text('others_breakdown_item'.$i, $data['others_breakdown_item'.$i], ['class' => 'form-control','readonly'])}}
+                  {{ Form::text('others_breakdown_item[]', $data['others_breakdown_item'][$key], ['class' => 'form-control','readonly'])}}
                 </td>
                 <td>
-                  {{ Form::hidden('others_breakdown_cost'.$i, $data['others_breakdown_cost'.$i], ['class' => 'form-control','readonly'])}}
+                  {{ Form::text('others_breakdown_cost[]', $data['others_breakdown_cost'][$key], ['class' => 'form-control','readonly'])}}
                 </td>
                 <td>
-                  {{ Form::text('others_breakdown_count'.$i, $data['others_breakdown_count'.$i], ['class' => 'form-control','readonly'])}}
+                  {{ Form::text('others_breakdown_count[]', $data['others_breakdown_count'][$key], ['class' => 'form-control','readonly'])}}
                 </td>
                 <td>
-                  {{ Form::hidden('others_breakdown_subtotal'.$i, $data['others_breakdown_subtotal'.$i], ['class' => 'form-control','readonly'])}}
+                  {{ Form::text('others_breakdown_subtotal[]', $data['others_breakdown_subtotal'][$key], ['class' => 'form-control','readonly'])}}
                 </td>
-                </tr>
-                @endfor
+              </tr>
+              @endforeach
             </tbody>
           </table>
         </div>
@@ -236,6 +240,7 @@
                 </td>
                 <td>
                   {{ Form::text('enduser_charge', $data['enduser_charge'], ['class' => 'form-control',"readonly" ])}}
+                  {{ Form::hidden('enduser_charge_result', $data['enduser_charge_result'], ['class' => 'form-control','placeholder'=>"入力してください" ])}}
                 </td>
               </tr>
               <tr>
@@ -285,12 +290,12 @@
                   {{ Form::text('bill_created_at', $data['bill_created_at'], ['class' => 'form-control' ,"readonly"])}}
                 </td>
                 <td>支払期日
-                  {{ Form::text('pay_limit', $data['pay_limit'], ['class' => 'form-control' ,"readonly"])}}
+                  {{ Form::text('payment_limit', $data['payment_limit'], ['class' => 'form-control' ,"readonly"])}}
                 </td>
               </tr>
               <tr>
                 <td>請求書宛名
-                  {{ Form::text('pay_company', $data['pay_company'], ['class' => 'form-control',"readonly"])}}
+                  {{ Form::text('bill_company', $data['bill_company'], ['class' => 'form-control',"readonly"])}}
                 </td>
                 <td>
                   担当者
@@ -324,7 +329,7 @@
             <tbody>
               <tr>
                 <td>入金状況
-                  {{Form::text('', $data['paid']==0?"未入金":"入金済",['class'=>'form-control', 'readonly'])}}
+                  {{Form::text('', ReservationHelper::paidStatus($data['paid']),['class'=>'form-control', 'readonly'])}}
                   {{Form::hidden('paid', $data['paid'],['class'=>'form-control'])}}
                 </td>
                 <td>
