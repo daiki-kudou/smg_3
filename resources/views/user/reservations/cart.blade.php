@@ -234,7 +234,7 @@
         </li>
         <li>
           {{ Form::open(['url' => 'user/reservations/store', 'method'=>'POST', 'id'=>'']) }}
-          <p>{{Form::submit('予約を確定する', ['class' => 'confirm-btn','id'=>'master_submit'])}}</p>
+          <p>{{Form::submit('予約申込をする', ['class' => 'confirm-btn','id'=>'master_submit'])}}</p>
           {{Form::close()}}
         </li>
       </ul>
