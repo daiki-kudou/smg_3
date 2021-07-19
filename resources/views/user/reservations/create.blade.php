@@ -202,8 +202,8 @@
           <ul>
             @foreach ($venue->getEquipments() as $e_key=>$eqpt)
             <li class="form-cell2">
-              <p class="text6">{{$eqpt->item}} {{$eqpt->price}}円<span class="annotation">(税抜)</span></p>
-              <p>
+              <p class="text6"><span class="f-wb m-r10">{{$eqpt->item}}</span>{{$eqpt->price}}円<span class="annotation">(税抜)</span></p>
+              <p class="m-l20">
                 {{ Form::number('equipment_breakdown'.$e_key, '',['class'=>'text4 mL0 number_validation','autocomplete="off"'] ) }}個
               </p>
             </li>

@@ -11,7 +11,18 @@ option:disabled {
 
 .f-s90 {
     font-size: 0.9rem;
+}
 
+.f-wb {
+    font-weight: bold;
+}
+
+.m-l20 {
+    margin-left: 20px;
+}
+
+.m-r10 {
+    margin-right: 10px;
 }
 
 
@@ -407,7 +418,7 @@ form table td .text6 {
     border-collapse: collapse;
     border: 1px solid #ccc;
     margin-bottom: 50px;
-
+    table-layout: initial;
 }
 
 .table-sum th {
@@ -446,6 +457,14 @@ form table td .text6 {
 .table-sum .totalsum-ttl {
     background-color: #35A7A7;
     font-size: 1.2rem;
+}
+
+.table-sum .checkbox-txt {
+    font-size: 1.8rem;
+}
+.table-sum .checkbox-txt span {
+    font-size: 0.7em;
+    margin: 0 5px;
 }
 
 .form-input {

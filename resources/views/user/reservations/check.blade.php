@@ -355,18 +355,21 @@
             </td>
           </tr>
           @endif
-
           <tr>
             <td colspan="2" class="text-right">
-              <p class="checkbox-txt"><span>小計</span>{{number_format($master)}}円</p>
-              <p class="checkbox-txt"><span>消費税</span>{{number_format(ReservationHelper::getTax($master))}}円</p>
+              <p class="checkbox-txt"><span class="annotaion">小計(税込)</span>{{number_format($master)}}<span>円</span></p>
+              <p class="checkbox-txt"><span>消費税</span>{{number_format(ReservationHelper::getTax($master))}}<span>円</span></p>
             </td>
           </tr>
           <tr>
-            <td colspan="2" class="text-right checkbox-txt"><span>合計金額</span>
-              <span class="sumText">{{number_format(ReservationHelper::taxAndPrice($master))}}</span><span>円</span>
-              <p class="txtRight">※上記合計金額にケータリングは入っておりません。<br>
-                ※お申込み内容によっては、弊社からご連絡の上で、合計金額が変更となる場合がございます</p>
+            <td colspan="2" class="text-right">
+              <span class="checkbox-txt">合計金額(税込)</span>
+              <span class="sumText">{{number_format(ReservationHelper::taxAndPrice($master))}}</span>
+              <span class="checkbox-txt">円</span>
+              <p class="txtRight txtRed">
+                ※上記「総額」は確定金額ではありません。<br>
+                変更が生じる場合は弊社にて金額を修正し、改めて確認のご連絡をさせて頂きます。</p>
+              <p class="txtRight txtRed">※荷物預かりサービスをご利用の場合、上記「総額」に既定のサービス料金が加算されます。</p>
             </td>
           </tr>
         </tbody>
@@ -384,7 +387,7 @@
         {{Form::hidden('master',$master)}}
         {{Form::hidden('select_id',$request->select_id)}}
         {{Form::hidden('cost',$request->cost??0)}}
-        {{Form::submit('予約一覧に追加する',['class'=>'confirm-btn','style'=>'width:100%;', 'name'=>'store'])}}
+        {{Form::submit('カートに入れる',['class'=>'confirm-btn','style'=>'width:100%;', 'name'=>'store'])}}
       </li>
     </ul>
     {{Form::close()}}
