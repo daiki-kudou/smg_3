@@ -7,7 +7,7 @@
 <div class="contents mt-5">
   <div class="pagetop-text">
     <h1 class="page-title oddcolor"><span>会員登録</span></h1>
-    <p>下記フォームの入力をお願いします。</p>
+    <p>WEB予約には会員登録が必須となります。<br>下記フォームの入力をお願いします。<span class="txtRed">＊</span>は必須です。</p>
   </div>
 </div>
 <section class="contents">
@@ -124,9 +124,9 @@
       <tr>
         <th>会社・団体名 <span class="txtRed c-block">＊</span></th>
         <td>
-          {{ Form::text('company', $session['company']??old('company'), ['class' => 'form-control text3', 'id' => 'company', 'placeholder' => '入力してください']) }}
+          {{ Form::text('company', $session['company']??old('company'), ['class' => 'text3', 'id' => 'company', 'placeholder' => '入力してください']) }}
           {{-- <br class="spOnlyunder"> --}}
-          <p><span>法人・団体ではない方は、お名前をご記入ください。</span></p>
+          <p><span>法人・団体ではない方は、担当者氏名を入力下さい。</span></p>
           <p class="is-error-company" style="color: red"></p>
         </td>
       </tr>
@@ -139,7 +139,7 @@
             <li>
               <div>
                 <p>姓</p>
-                {{ Form::text('first_name', $session['first_name']??old('first_name'), ['class' => 'form-control text1', 'id' => 'first_nam', 'placeholder' => '入力してください']) }}
+                {{ Form::text('first_name', $session['first_name']??old('first_name'), ['class' => 'text1', 'id' => 'first_nam', 'placeholder' => '入力してください']) }}
                 <br class="spOnlyunder">
                 <p class="is-error-first_name" style="color: red"></p>
               </div>
@@ -147,7 +147,7 @@
             <li>
               <div>
                 <p>名</p>
-                {{ Form::text('last_name', $session['last_name']??old('last_name'), ['class' => 'form-control text1', 'id' => 'last_nam', 'placeholder' => '入力してください']) }}
+                {{ Form::text('last_name', $session['last_name']??old('last_name'), ['class' => 'text1', 'id' => 'last_nam', 'placeholder' => '入力してください']) }}
                 <br class="spOnlyunder">
                 <p class="is-error-last_name" style="color: red"></p>
               </div>
@@ -162,7 +162,7 @@
             <li>
               <div>
                 <p>セイ</p>
-                {{ Form::text('first_name_kana', $session['first_name_kana']??old('first_name_kana'), ['class' => 'form-control text1', 'id' => 'firstkana_nam', 'placeholder' => '入力してください']) }}
+                {{ Form::text('first_name_kana', $session['first_name_kana']??old('first_name_kana'), ['class' => 'text1', 'id' => 'firstkana_nam', 'placeholder' => '入力してください']) }}
                 <br class="spOnlyunder">
                 <p class="is-error-first_name_kana" style="color: red"></p>
               </div>
@@ -170,12 +170,13 @@
             <li>
               <div>
                 <p>メイ</p>
-                {{ Form::text('last_name_kana', $session['last_name_kana']??old('last_name_kana'), ['class' => 'form-control text1', 'id' => 'lastkana_nam', 'placeholder' => '入力してください']) }}
+                {{ Form::text('last_name_kana', $session['last_name_kana']??old('last_name_kana'), ['class' => 'text1', 'id' => 'lastkana_nam', 'placeholder' => '入力してください']) }}
                 <br class="spOnlyunder">
                 <p class="is-error-last_name_kana" style="color: red"></p>
               </div>
             </li>
           </ul>
+          <p>※全角カタカナで入力下さい。</p>
         </td>
       </tr>
       <tr>
@@ -185,8 +186,8 @@
           <input onKeyUp="AjaxZip3.zip2addr(this,&#039;&#039;,&#039;address1&#039;,&#039;address2&#039;);"
             autocomplete="off" name="post_code" type="text" value="{{ $session['post_code']??old('post_code') }}"
             id="post_code" onpaste="return false" oncontextmenu="return false">
+          <p>※半角数字、ハイフンなしで入力下さい。</p>
           <p class="is-error-post_code" style="color: red"></p>
-
         </td>
       </tr>
       <tr>
@@ -195,14 +196,14 @@
         </th>
         <td>
           {{-- <input class="text3" name="address1" type="text" value="" id="address1"> --}}
-          {{ Form::text('address1', $session['address1']??old('address1'), ['class' => 'form-control ', 'id' => 'address1', 'placeholder' => '入力してください']) }}
+          {{ Form::text('address1', $session['address1']??old('address1'), ['class' => 'text2', 'id' => 'address1', 'placeholder' => '入力してください']) }}
         </td>
       </tr>
       <tr>
         <th><label for="address2">住所2（市町村番地）</label></th>
         <td>
           {{-- <input class="text3" name="address2" type="text" value="" id="address2"> --}}
-          {{ Form::text('address2', $session['address2']??old('address2'), ['class' => 'form-control ', 'id' => 'address2', 'placeholder' => '入力してください']) }}
+          {{ Form::text('address2', $session['address2']??old('address2'), ['class' => 'text2', 'id' => 'address2', 'placeholder' => '入力してください']) }}
 
         </td>
       </tr>
@@ -210,7 +211,7 @@
         <th><label for="address3">住所3（建物名）</label></th>
         <td>
           {{-- <input class="text3" name="address3" type="text" value="" id="address3"> --}}
-          {{ Form::text('address3', $session['address3']??old('address3'), ['class' => 'form-control ', 'id' => 'address3', 'placeholder' => '入力してください']) }}
+          {{ Form::text('address3', $session['address3']??old('address3'), ['class' => 'text2', 'id' => 'address3', 'placeholder' => '入力してください']) }}
         </td>
       </tr>
       <tr class="tr-tel-0">
@@ -227,10 +228,10 @@
         <td>
           <p class="checkbox-txt">固定電話</p>
           {{-- <input name="tel01_1" id="tel01_1" class="text2" type="tel"> --}}
-          {{ Form::text('tel', $session['tel']??old('tel'), ['class' => 'form-control text2', 'id' => 'tel', 'placeholder' => '入力してください']) }}
-          <p style="display:inline-block">11文字</p>
+          {{ Form::text('tel', $session['tel']??old('tel'), ['class' => 'text2', 'id' => 'tel', 'placeholder' => '入力してください']) }}
+          <p style="display:inline-block">10文字</p>
           <p class="is-error-tel" style="color: red"></p>
-          <p>※半角数字、ハイフンなしで入力してください。</p>
+          <p>※半角数字、ハイフンなしで入力下さい。</p>
         </td>
       </tr>
       <tr class="tr-tel-2">
@@ -240,9 +241,9 @@
         <td>
           <p class="checkbox-txt">携帯電話</p>
           {{-- <input name="tel02_1" id="tel1" class="text2" type="tel"> --}}
-          {{ Form::text('mobile', $session['mobile']??old('mobile'), ['class' => 'form-control text2', 'id' => 'mobile', 'placeholder' => '入力してください']) }}
-          <p style="display:inline-block">10文字</p>
-          <p>※半角数字、ハイフンなしで入力してください。</p>
+          {{ Form::text('mobile', $session['mobile']??old('mobile'), ['class' => 'text2', 'id' => 'mobile', 'placeholder' => '入力してください']) }}
+          <p style="display:inline-block">11文字</p>
+          <p>※半角数字、ハイフンなしで入力下さい。</p>
           <p class="is-error-mobile" style="color: red"></p>
 
         </td>
@@ -251,9 +252,9 @@
         <th>FAX</th>
         <td>
           {{-- <input name="fax1" id="fax1" class="text2" type="tel"> --}}
-          {{ Form::text('fax', $session['fax']??old('fax'), ['class' => 'form-control text2', 'id' => 'fax', 'placeholder' => '入力してください']) }}
+          {{ Form::text('fax', $session['fax']??old('fax'), ['class' => 'text2', 'id' => 'fax', 'placeholder' => '入力してください']) }}
           <p class="is-error-fax" style="color: red"></p>
-          <p>※半角数字、ハイフンなしで入力してください。</p>
+          <p>※半角数字、ハイフンなしで入力下さい。</p>
         </td>
       </tr>
       <tr>
@@ -321,31 +322,29 @@
     </table>
   </div>
   <dl class="attention-txt">
-    <dt>【個人情報の利用目的】</dt>
+    <dt>【個人情報の取り扱いについて】</dt>
     <dd>当フォームにご入力いただく内容は、弊社が責任を持って保管し、その他の目的に使用いたしません。また、許可なく第三者に提供することはございません。個人情報の取り扱いに関しては、<a
         href="https://osaka-conference.com/privacypolicy/">プライバシーポリシー</a>をご確認下さい。</dd>
   </dl>
 
-  <dl class="attention-txt">
+  {{-- <dl class="attention-txt">
     <dt>【利用規約】</dt>
     <dd>当フォームにご入力いただく内容は、弊社が責任を持って保管し、その他の目的に使用いたしません。また、許可なく第三者に提供することはございません。個人情報の取り扱いに関しては、<a
         href="https://osaka-conference.com/privacypolicy/">プライバシーポリシー</a>をご確認下さい。</dd>
-  </dl>
+  </dl> --}}
 
   <div class="page-text">
     <p class="checkbox-txt ">
-      <span class="txtRed">＊</span>
       {{ Form::checkbox('q1', '1', false, ['id' => 'last_checkbox']) }}
-      {{ Form::label('last_checkbox', '本内容で会員登録をすることに同意する') }}
+      {{ Form::label('last_checkbox', '【個人情報の取り扱いについて】に同意します。') }}
       <p class="is-error-q1" style="color: red"></p>
 
     </p>
-    <p>※WEB予約には会員登録が必須となります。</p>
   </div>
 
   <div class="btn-wrapper2">
     <p>
-      <button type="submit" id="" name="action" block="false">確認して進む</button>
+      <button type="submit" id="" name="action" block="false">確認画面へ</button>
     </p>
   </div>
   {{ Form::hidden('id', $request->id) }}
