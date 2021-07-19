@@ -97,10 +97,10 @@ class Bill extends Model
   {
     $result = $this->create([
       'reservation_id' => $reservation_id,
-      'venue_price' => $data['venue_price'],
-      'equipment_price' => !empty($data['equipment_price']) ?: 0,
-      'layout_price' => !empty($data['layout_price']) ?: 0,
-      'others_price' => !empty($data['others_price']) ?: 0,
+      'venue_price' => !empty($data['venue_price']) ? $data['venue_price'] : 0,
+      'equipment_price' => !empty($data['equipment_price']) ? $data['equipment_price'] : 0,
+      'layout_price' => !empty($data['layout_price']) ? $data['layout_price'] : 0,
+      'others_price' => !empty($data['others_price']) ? $data['others_price'] : 0,
       'master_subtotal' => $data['master_subtotal'],
       'master_tax' => $data['master_tax'],
       'master_total' => $data['master_total'],
@@ -115,12 +115,12 @@ class Bill extends Model
       'payment' => $data['payment'],
       'reservation_status' => $reservation_status,
       'double_check_status' => $double_check_status,
-      'double_check1_name' => !empty($data['double_check1_name']) ?: "",
-      'double_check2_name' => !empty($data['double_check2_name']) ?: "",
-      'approve_send_at' => !empty($data['approve_send_at']) ?: NULL,
+      'double_check1_name' => !empty($data['double_check1_name']) ? $data['double_check1_name'] : "",
+      'double_check2_name' => !empty($data['double_check2_name']) ? $data['double_check2_name'] : "",
+      'approve_send_at' => !empty($data['approve_send_at']) ? $data['approve_send_at'] : NULL,
       'category' => $category,
       'admin_judge' => $admin_judge,
-      'end_user_charge' => !empty($data['end_user_charge']) ?: NULL,
+      'end_user_charge' => !empty($data['end_user_charge']) ? $data['end_user_charge'] : NULL,
       'invoice_number' => $this->generateInvoiceNum(),
     ]);
     return $result;

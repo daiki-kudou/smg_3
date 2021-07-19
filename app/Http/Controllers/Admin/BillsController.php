@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
 use App\Models\Bill;
+use App\Models\Breakdown;
 use App\Models\Venue;
 
 use App\Models\Reservation;
@@ -49,30 +50,18 @@ class BillsController extends Controller
   public function create(Request $request)
   {
     $data = $request->all();
-    $reservation = Reservation::with('bills')->find($data['reservation_id'])->toArray();
-    dump($reservation);
-    return view('admin/bills/create', compact('reservation'));
-
-    // $user = User::find($reservation->user_id);
-    // $pay_limit = $user->getUserPayLimit($reservation->reserve_date);
-    // $data = $request->session()->get('add_bill');
-    // if (!empty($data)) {
-    //   $venues = $this->preg($data, 'venue_breakdown_item');
-    //   $equipments = $this->preg($data, 'equipment_breakdown_item');
-    //   $layouts = $this->preg($data, 'layout_breakdown_item');
-    //   $others = $this->preg($data, 'others_breakdown_item');
-    //   return view('admin/bills/create', compact('reservation', 'pay_limit', 'data', 'venues', 'equipments', 'layouts', 'others'));
-    // } else {
-    //   return view('admin/bills/create', compact('reservation', 'pay_limit'));
-    // }
+    $reservation = Reservation::with(['bills', 'user'])->find($data['reservation_id']);
+    $payment_limit = $reservation->user->getUserPayLimit($reservation['reserve_date']);
+    $reservation->toArray();
+    return view('admin/bills/create', compact('reservation', 'data', 'payment_limit'));
   }
 
   public function createSession(Request $request)
   {
     $data = $request->all();
-    dump($data);
-    // $request->session()->put('add_bill', $data);
-    // return redirect(route("admin.bills.check"));
+    return view('admin.bills.check', compact(
+      'data',
+    ));
   }
 
   /***********************
@@ -101,19 +90,6 @@ class BillsController extends Controller
 
   public function check(Request $request)
   {
-    $data = $request->session()->get('add_bill');
-    dump($data);
-    $venues = $this->preg($data, 'venue_breakdown_item');
-    $equipments = $this->preg($data, 'equipment_breakdown_item');
-    $layouts = $this->preg($data, 'layout_breakdown_item');
-    $others = $this->preg($data, 'others_breakdown_item');
-    return view('admin.bills.check', compact(
-      'data',
-      'venues',
-      'equipments',
-      'layouts',
-      'others',
-    ));
   }
 
   /**
@@ -124,38 +100,27 @@ class BillsController extends Controller
    */
   public function store(Request $request)
   {
-    $data = $request->session()->get('add_bill');
+    $data = $request->all();
     if ($request->back) {
-      return redirect(route('admin.bills.create', [
-        'reservation_id' => $data['reservation_id']
-      ]));
+      return $this->create($request);
+    }
+    $bill = new Bill;
+    $breakdowns = new Breakdown;
+
+    DB::beginTransaction();
+    try {
+      $result_bill = $bill->BillStore($data['reservation_id'], $data);
+      $result_breakdowns = $breakdowns->BreakdownStore($result_bill->id, $data);
+      DB::commit();
+    } catch (\Exception $e) {
+      DB::rollback();
+      dump($data);
+      dump($e->getMessage());
+      return $this->createSession($request)->withErrors($e->getMessage());
     }
 
-    dump($data);
-    // $reservation = Reservation::find($data["reservation_id"]);
-    // $bill = new Bill;
-    // dump($reservation);
-    // DB::beginTransaction();
-    // try {
-    //   $result_bill = $bill->BillStore($reservation->id, $data);
-    //   // $result_breakdowns = $breakdowns->BreakdownStore($result_bill->id, $data);
-    //   DB::commit();
-    // } catch (\Exception $e) {
-    //   DB::rollback();
-    //   return back()->withInput()->withErrors($e->getMessage());
-    // }
-
-
-    // try {
-    //   $bill = $reservation->ReserveStoreSessionBill($request, 'add_bill', 'add_bill', "add"); //引数4番は追加請求時のみ発動、デフォはnormal
-    //   $bill->ReserveStoreSessionBreakdown($request, 'add_bill');
-    // } catch (\Exception $e) {
-    //   report($e);
-    //   session()->flash('flash_message', '更新に失敗しました。<br>フォーム内の空欄や全角など確認した上でもう一度お試しください。');
-    //   return redirect(route('admin.bills.check', $request->reservation_id));
-    // }
-    // $request->session()->regenerate();
-    // return redirect()->route('admin.reservations.show', $data['reservation_id']);
+    $request->session()->regenerate();
+    return redirect()->route('admin.reservations.show', $data['reservation_id']);
   }
 
   public function OtherDoubleCheck(Request $request)

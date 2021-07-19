@@ -18,7 +18,6 @@
     <li>{{$error}}</li>
   </ul>
 </div>
-
 @endforeach
 
 <div class="d-flex justify-content-end">
