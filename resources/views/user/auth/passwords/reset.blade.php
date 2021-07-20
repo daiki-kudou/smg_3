@@ -4,7 +4,7 @@
       <!-- ログイン、会員登録 -->
       <div class="contents mt-5">
         <div class="pagetop-text">
-          <h1 class="page-title oddcolor"><span>ユーザIDの確認・パスワードの再設定 </span></h1>
+          <h1 class="page-title oddcolor"><span>パスワードの再設定</span></h1>
           <p>新しいパスワードを設定してください</p>
         </div>
       </div>
@@ -34,7 +34,7 @@
               <tr>
                   <th>
                     <label for="password">
-                      パスワード
+                      新しいパスワード
                     </label>
                   </th>
                   <td>
@@ -45,13 +45,14 @@
                         <strong>{{ $message }}</strong>
                       </span>
                       @enderror
+                      <p class="f-s90 m-t10">※半角英数字6文字以上20文字以内にてご記入お願い致します。</p>
                   </td>
               </tr>
 
               <tr>
                   <th>
                     <label for="password-confirm">
-                      パスワード（確認用）
+                      新しいパスワード<br>（確認用）
                     </label>
                   </th>
                   <td>
