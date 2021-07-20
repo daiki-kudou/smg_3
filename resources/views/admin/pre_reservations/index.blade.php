@@ -63,7 +63,7 @@
               {{Form::text("search_id", $request->search_id?:'', ['class'=>'form-control'])}}
               <p class="is-error-search_id" style="color: red"></p>
             </td>
-            <th class="search_item_name"><label for="">作成日</label></th>
+            <th class="search_item_name"><label for="">受付日</label></th>
             <td class="text-right form-group">
               {{Form::text("search_created_at",$request->search_created_at?:'', ['class'=>'form-control','id'=>'datepicker1'])}}
             </td>
@@ -206,7 +206,7 @@
               <p class="annotation">すべて</p><input type="checkbox" name="all_check" id="all_check" />
             </th>
             <th id="sort_id">仮押えID {!!ReservationHelper::sortIcon($request->sort_id)!!}</th>
-            <th id="sort_created_at">作成日 {!!ReservationHelper::sortIcon($request->sort_created_at)!!}</th>
+            <th id="sort_created_at">受付日 {!!ReservationHelper::sortIcon($request->sort_created_at)!!}</th>
             <th id="sort_reserve_date">利用日 {!!ReservationHelper::sortIcon($request->sort_reserve_date)!!}</th>
             <th id="sort_enter_time">入室 {!!ReservationHelper::sortIcon($request->sort_enter_time)!!}</th>
             <th id="sort_leave_time">退室 {!!ReservationHelper::sortIcon($request->sort_leave_time)!!}</th>

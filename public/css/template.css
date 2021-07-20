@@ -1742,7 +1742,13 @@ table .master_total_subttl2 {
 
 
 /* マイページ =============================================================*/
+.f-wb {
+    font-weight: bold;
+}
 
+.f-s15 {
+    font-size: 1.5rem;
+}
 
 
 .user_wrapper .ttl_box {

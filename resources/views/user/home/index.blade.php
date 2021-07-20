@@ -84,7 +84,7 @@
             <th>利用日</th>
             <th>入室</th>
             <th>退室</th>
-            <th>会場</th>
+            <th>利用会場</th>
             <th width="120">予約状況</th>
             <th width="120">カテゴリー</th>
             <th>利用料金（税込）</th>
@@ -114,7 +114,7 @@
                 {{ReservationHelper::formatTime($reservation->leave_time)}}
               </td>
               <td rowspan="{{($reservation->billCount()*2)+$reservation->cxlCount()+2}}">
-                {{ReservationHelper::getVenue($reservation->venue_id)}}
+                {{ReservationHelper::getVenueForUser($reservation->venue_id)}}
               </td>
               <td> {{ReservationHelper::judgeStatus($reservation->bills->sortBy("id")->first()->reservation_status)}}
               </td>
