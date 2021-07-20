@@ -155,7 +155,7 @@
               <td>
                 {{-- 予約状況<br> --}}
                 {{ReservationHelper::judgeStatus($reservation->bills->sortBy("id")->first()->reservation_status)}}</td>
-              <td>カテゴリ<br>会場予約キャンセル</td>
+              <td>会場予約キャンセル</td>
               <td style="color:red">
                 {{number_format(-$reservation->bills->sortBy("id")->first()->master_total)}}円
               </td>
