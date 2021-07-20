@@ -1798,6 +1798,30 @@ table .master_total_subttl2 {
     font-weight: normal;
 }
 
+.company-info {
+    color: #fff;
+    padding: 1em;
+    border: 1px solid #c2c7d0;
+    position: absolute;
+    bottom: 1%;
+    left: 2.5%;
+    width: 95%;
+}
+
+.company-info a {
+    color: #2d2d2d;
+    padding: 0.5em;
+    background: #f4f6f9;
+    border-radius: 0.25rem;
+    margin-top: 1em;
+    position: relative;
+}
+
+.company-info a span {
+    position: absolute;
+    right: 0.5em;
+}
+
 @media screen and (max-width: 767px) {
 
     .accordion_btn {
