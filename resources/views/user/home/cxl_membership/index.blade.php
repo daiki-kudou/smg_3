@@ -24,7 +24,7 @@
           <td colspan="2">
             <div class="d-flex align-items-center">
               <i class="fas fa-info-circle icon-size" aria-hidden="true"></i>
-              <p class="section-ttl">登録者情報</p>
+              <p class="section-ttl">会員情報</p>
             </div>
           </td>
         </tr>

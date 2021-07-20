@@ -572,7 +572,7 @@ $(function () {
 // })
 
 
-// マイページ登録者情報
+// マイページ会員情報
 $(function () {
   $("#register_edit").validate({
     rules: {
