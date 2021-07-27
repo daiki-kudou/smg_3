@@ -92,6 +92,7 @@ $(function () {
       pre_enduser_mobile: {
         number: true,
         minlength: 11,
+        maxlength: 11,
       },
       pre_enduser_email: {
         email: true,
@@ -113,7 +114,8 @@ $(function () {
         number: "※半角数字を入力してください",
       },
       pre_enduser_mobile: {
-        minlength: "※最低桁数は11です",
+        minlength: "※11桁で入力してください",
+        maxlength: "※11桁で入力してください",
         number: "※半角数字を入力してください",
       },
       pre_enduser_email: {
@@ -166,11 +168,11 @@ $(function () {
         luggage_count: { number: true, range: [1, 49] },
         luggage_return: { number: true, range: [1, 49] },
         pre_enduser_tel: { number: true, minlength: 10 },
-        pre_enduser_mobile: { number: true, minlength: 11 },
+        pre_enduser_mobile: { number: true, minlength: 11, maxlength: 11 },
         pre_enduser_email: { email: true },
         pre_enduser_attr: { required: true },
         pre_endusers_tel: { number: true, minlength: 10 },
-        pre_endusers_mobile: { number: true, minlength: 11 },
+        pre_endusers_mobile: { number: true, minlength: 11, maxlength: 11 },
         pre_endusers_email: { email: true },
         pre_endusers_attr: { required: true },
         cost: { number: true, range: [1, 100] },
@@ -193,7 +195,8 @@ $(function () {
           number: "※半角数字を入力してください",
         },
         pre_enduser_mobile: {
-          minlength: "※最低桁数は11です",
+          minlength: "※11桁で入力してください",
+          maxlength: "※11桁で入力してください",
           number: "※半角数字を入力してください",
         },
         pre_enduser_email: { email: "※Emailの形式で入力してください" },
@@ -203,7 +206,8 @@ $(function () {
           number: "※半角数字を入力してください",
         },
         pre_endusers_mobile: {
-          minlength: "※最低桁数は11です",
+          minlength: "※11桁で入力してください",
+          maxlength: "※11桁で入力してください",
           number: "※半角数字を入力してください",
         },
         pre_endusers_email: { email: "※Emailの形式で入力してください" },
