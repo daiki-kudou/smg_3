@@ -342,7 +342,7 @@
           <td>{{($reservation->bills->sortBy("id")->first()->category==1?"会場予約":"")}}</td>
           <td> {{ReservationHelper::judgeStatus($reservation->bills->sortBy("id")->first()->reservation_status)}}</td>
           <td> {{ReservationHelper::formatDate($reservation->bills->sortBy("id")->first()->pay_day)}}</td>
-          <td> {{ReservationHelper::paidStatus($reservation->bills->sortBy("id")->first()->paid)}}</td>
+          <td class="payment-status"> {{ReservationHelper::paidStatus($reservation->bills->sortBy("id")->first()->paid)}}</td>
           <td class="text-center" rowspan="{{($reservation->billCount()*2)+$reservation->cxlCount()+2}}">
             <a class="more_btn" href="{{route('admin.reservations.show',$reservation->id)}}">
               予約詳細
@@ -399,7 +399,7 @@
           <td> {{($reservation->bills->skip($i)->first()->category==2?"追加請求".$i:"")}}</td>
           <td> {{ReservationHelper::judgeStatus($reservation->bills->skip($i)->first()->reservation_status)}}</td>
           <td> {{ReservationHelper::formatDate($reservation->bills->skip($i)->first()->pay_day)}}</td>
-          <td> {{$reservation->bills->skip($i)->first()->paid==0?"未入金":"入金済"}}</td>
+          <td class="payment-status"> {{$reservation->bills->skip($i)->first()->paid==0?"未入金":"入金済"}}</td>
           <td>
             <p class="remark_limit">{{($reservation->bills->skip($i)->first()->pay_person)}}</p>
           </td>
@@ -521,6 +521,26 @@
     ActiveDateRangePicker('reserve_date');
     ActiveDateRangePicker('payment_limit');
   })
+//   $(function(){
+//     var target=$('.payment-status').text();
+//     console.log(target);
+//     if (target.match(/^未入金$/)) {
+//       $('.payment-status').css('color','red');
+//     }
+// });
+
+$(function(){
+  $('.payment-status').each(function(index, value){
+    var target=$(value).text();
+    console.log(target);
+    if (target.match(/未入金/)) {
+      $(value).css('font-weight','bold');
+    //   var result =target.replace('-','▲');
+    //   $(value).text(result);
+    }
+  });
+});
+
 </script>
 <script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
 <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
