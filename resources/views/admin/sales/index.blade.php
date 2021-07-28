@@ -285,7 +285,6 @@
         <th id="sort_user_attr">顧客属性 {!!ReservationHelper::sortIcon($request->sort_user_attr)!!}</th>
         <th>支払期日</th>
         <th id="sort_alliance">運営 {!!ReservationHelper::sortIcon($request->sort_alliance)!!}</th>
-
       </tr>
     </thead>
     @foreach ($reservations as $reservation)
