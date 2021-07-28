@@ -172,13 +172,13 @@
           <thead class="accordion-ttl">
             <tr>
               <th colspan="2">
-                <p class="title-icon fw-bolder">
+                <p class="title-icon fw-bolder active">
                   <i class="fas fa-wrench icon-size" aria-hidden="true"></i>有料備品
                 </p>
               </th>
             </tr>
           </thead>
-          <tbody class="accordion-wrap">
+          <tbody class="accordion-wrap2">
             @foreach ($venue->getEquipments() as $key=>$equ)
             <tr>
               <td class="table-active">{{$equ->item}}</td>
@@ -199,13 +199,13 @@
           <thead class="accordion-ttl">
             <tr>
               <th colspan="2">
-                <p class="title-icon fw-bolder">
+                <p class="title-icon fw-bolder active">
                   <i class="fas fa-hand-holding-heart icon-size" aria-hidden="true"></i>有料サービス
                 </p>
               </th>
             </tr>
           </thead>
-          <tbody class="accordion-wrap">
+          <tbody class="accordion-wrap2">
             @foreach ($venue->getServices() as $key=>$ser)
             <tr>
               <td class="table-active">{{$ser->item}}</td>

@@ -416,6 +416,51 @@ $(function () {
 });
 
 
+// マイナスの場合の色変更
+$(function(){
+  $('.venue_main td:nth-child(2n) input').each(function(index, value){
+    var target=$(value).val();
+    console.log(target);
+    if (target.match(/-/)) {
+      $(value).css('color','red');
+    }
+  });
+  $('.equipment_main td:nth-child(2n) input').each(function(index, value){
+    var target=$(value).val();
+    console.log(target);
+    if (target.match(/-/)) {
+      $(value).css('color','red');
+    }
+  });
+  $('.layout_main td:nth-child(2n) input').each(function(index, value){
+    var target=$(value).val();
+    console.log(target);
+    if (target.match(/-/)) {
+      $(value).css('color','red');
+    }
+  });
+  $('.others_main td:nth-child(2n) input').each(function(index, value){
+    var target=$(value).val();
+    // console.log(target);
+    if (target.match(/-/)) {
+      $(value).css('color','red');
+    }
+  });
+});
+
+$(function(){
+  $('.venue_main td:nth-child(2n), .equipment_main td:nth-child(2n), .layout_main td:nth-child(2n), .others_main td:nth-child(2n)').each(function(index, value){
+    var target=$(value).text();
+    // console.log(target);
+    if (target.match(/-/)) {
+      $(value).css('color','red');
+    //   var result =target.replace('-','▲');
+    //   $(value).text(result);
+    }
+  });
+});
+
+
 
 
 
