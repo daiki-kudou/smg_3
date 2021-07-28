@@ -239,13 +239,13 @@
           <thead class="accordion-ttl">
             <tr>
               <th colspan="2">
-                <p class="title-icon fw-bolder py-1">
+                <p class="title-icon fw-bolder py-1 active">
                   <i class="fas fa-wrench icon-size fa-fw"></i>有料備品
                 </p>
               </th>
             </tr>
           </thead>
-          <tbody class="accordion-wrap">
+          <tbody class="accordion-wrap2">
             @foreach ($spVenue->getEquipments() as $key=>$equipment)
             <tr>
               <td class="table-active">{{$equipment->item}}({{$equipment->price}}円)</td>
@@ -265,13 +265,13 @@
           <thead class="accordion-ttl">
             <tr>
               <th colspan="2">
-                <p class="title-icon fw-bolder py-1">
+                <p class="title-icon fw-bolder py-1 active">
                   <i class="fas fa-hand-holding-heart icon-size fa-fw"></i>有料サービス
                 </p>
               </th>
             </tr>
           </thead>
-          <tbody class="accordion-wrap">
+          <tbody class="accordion-wrap2">
             @foreach ($spVenue->getServices() as $key=>$service)
             <tr>
               <td class="table-active">
@@ -646,7 +646,7 @@
             <td>
               <dl class="ttl_box">
                 <dt>合計金額</dt>
-                <dd class="total_result">{{number_format($priceResult['masters'])}}円</dd>
+                <dd class="total_result">{{ number_format($priceResult['masters'])}}円</dd>
               </dl>
             </td>
             <td>

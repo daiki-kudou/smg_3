@@ -1745,6 +1745,19 @@ $(function () {
     $(this).parent().slideToggle("");
   });
 });
+
+
+// マイナスの場合の色変更
+$(function(){
+      $('.venue_main td:nth-child(2n), .equipment_main td:nth-child(2n), .bill-detail-table td').each(function(index, value){
+        var target=$(value).text();
+        if (target.match(/-/)) {
+          $(value).css('color','red');
+        //   var result =target.replace('-','▲');
+        //   $(value).text(result);
+        }
+      });
+    });
 </script>
 
 

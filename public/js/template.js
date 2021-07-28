@@ -403,6 +403,13 @@ $(function () {
     $(this).find(".title-icon").toggleClass("active");
   });
 
+
+  $(".accordion-wrap2").show();
+  $(".accordion-ttl").on("click", function () {
+    $(this).next().slideToggle("fast");
+    $(this).find(".title-icon").toggleClass("active");
+  });
+
   $(".accordion-innbtn").on("click", function () {
     $(this).parent().slideToggle("");
   });
