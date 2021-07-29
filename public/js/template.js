@@ -398,12 +398,6 @@ $(function () {
 // アコーディオン
 $(function () {
   $(".accordion-wrap").hide();
-  $(".accordion-ttl").on("click", function () {
-    $(this).next().slideToggle("fast");
-    $(this).find(".title-icon").toggleClass("active");
-  });
-
-
   $(".accordion-wrap2").show();
   $(".accordion-ttl").on("click", function () {
     $(this).next().slideToggle("fast");
@@ -414,6 +408,18 @@ $(function () {
     $(this).parent().slideToggle("");
   });
 });
+
+// $(function () {
+//   $(".accordion-wrap2").show();
+//   $(".accordion-ttl2").on("click", function () {
+//     $(this).next().slideToggle("fast");
+//     $(this).find(".title-icon").toggleClass("active");
+//   });
+
+//   $(".accordion-innbtn").on("click", function () {
+//     $(this).parent().slideToggle("");
+//   });
+// });
 
 
 // マイナスの場合の色変更

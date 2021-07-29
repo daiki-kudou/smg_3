@@ -206,7 +206,7 @@
                 </th>
               </tr>
             </thead>
-            <tbody class="accordion-wrap" style="display: none;">
+            <tbody class="accordion-wrap">
               @foreach ($venue->getEquipments() as $key=>$equ)
               <tr>
                 <td class="table-active">
@@ -238,7 +238,7 @@
                 </th>
               </tr>
             </thead>
-            <tbody class="accordion-wrap" style="display: none;">
+            <tbody class="accordion-wrap">
               @foreach ($venue->getServices() as $key=>$ser)
               <tr>
                 <td class="table-active">

@@ -324,10 +324,6 @@
             </tbody>
           </table>
         </div>
-
-
-
-
         <div class="price_details">
         </div>
 
