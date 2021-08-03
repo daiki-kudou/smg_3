@@ -284,9 +284,11 @@
             <tr>
               <td>
                 {{$data['eat_in']==1?'あり':'なし'}}
+                {{ Form::hidden('eat_in', $data['eat_in'])}}
               </td>
               <td>
                 {{!empty($data['eat_in_prepare'])?($data['eat_in_prepare']==1?'手配済み':'検討中'):"なし"}}
+                {{ Form::hidden('eat_in_prepare', !empty($data['eat_in_prepare'])?$data['eat_in_prepare']:"")}}
               </td>
             </tr>
           </tbody>

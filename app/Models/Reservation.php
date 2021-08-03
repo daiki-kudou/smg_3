@@ -227,27 +227,27 @@ class Reservation extends Model implements PresentableInterface
     $this->enter_time = $data['enter_time'];
     $this->leave_time = $data['leave_time'];
     $this->board_flag = $data['board_flag'];
-    $this->event_start = $data['event_start'];
-    $this->event_finish = $data['event_finish'];
-    $this->event_name1 = $data['event_name1'];
-    $this->event_name2 = $data['event_name2'];
-    $this->event_owner = $data['event_owner'];
+    $this->event_start = !empty($data['event_start']) ? $data['event_start'] : "";
+    $this->event_finish = !empty($data['event_finish']) ? $data['event_finish'] : "";
+    $this->event_name1 = !empty($data['event_name1']) ? $data['event_name1'] : "";
+    $this->event_name2 = !empty($data['event_name2']) ? $data['event_name2'] : "";
+    $this->event_owner = !empty($data['event_owner']) ? $data['event_owner'] : "";
     $this->luggage_count = $data['luggage_count'];
     $this->luggage_arrive = $data['luggage_arrive'];
     $this->luggage_return = $data['luggage_return'];
     $this->email_flag = $data['email_flag'];
     $this->in_charge = $data['in_charge'];
     $this->tel = $data['tel'];
-    $this->cost = $data['cost'];
-    $this->discount_condition = $data['discount_condition'];
-    $this->attention = $data['attention'];
-    $this->user_details = $data['user_details'];
-    $this->admin_details = $data['admin_details'];
+    $this->cost = !empty($data['cost']) ? $data['cost'] : 0;
+    $this->discount_condition = $data['discount_condition'] ?? "";
+    $this->attention = $data['attention'] ?? "";
+    $this->user_details = $data['user_details'] ?? "";
+    $this->admin_details = $data['admin_details'] ?? "";
     $this->eat_in = $data['eat_in'];
-    $this->eat_in_prepare = $data['eat_in_prepare'];
-    $this->multiple_reserve_id = $data['multiple_reserve_id'];
-    $this->luggage_flag = $data['luggage_flag'];
-    $this->save();
+    $this->eat_in_prepare = $data['eat_in_prepare'] ?? "";
+    $this->multiple_reserve_id = $data['multiple_reserve_id'] ?? 0;
+    $this->luggage_flag = !empty($data['luggage_flag']) ? $data['luggage_flag'] : 0;
+    return $this->save();
   }
   // session利用
   // public function ReserveStoreSession($request, $sessionName, $sessionName2)

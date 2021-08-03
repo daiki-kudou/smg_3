@@ -766,9 +766,21 @@ class ReservationsController extends Controller
   public function update(Request $request)
   {
     $data = $request->all();
-    dump($data);
     $reservation = Reservation::find($data['reservation_id']);
-    $reservation->ReservationUpdate($data);
+
+    DB::beginTransaction();
+    try {
+      $result_reservation = $reservation->ReservationUpdate($data);
+      dump($result_reservation);
+      // $result_bill = $bill->BillStore($result_reservation->id, $data);
+      // $result_breakdowns = $breakdowns->BreakdownStore($result_bill->id, $data);
+      DB::commit();
+    } catch (\Exception $e) {
+      DB::rollback();
+      dd($e);
+      // return back()->withInput()->withErrors($e->getMessage());
+    }
+
     // if ($request->back) {
     //   return redirect(route('admin.reservations.edit_calculate'));
     // }
