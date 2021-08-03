@@ -219,6 +219,35 @@ class Reservation extends Model implements PresentableInterface
 
   public function ReservationUpdate($data)
   {
+    $this->venue_id = $data['venue_id'];
+    $this->user_id = !empty($data['venue_id']) ? $data['venue_id'] : 0;
+    $this->agent_id = !empty($data['agent_id']) ? $data['agent_id'] : 0;
+    $this->reserve_date = $data['reserve_date'];
+    $this->price_system = $data['price_system'];
+    $this->enter_time = $data['enter_time'];
+    $this->leave_time = $data['leave_time'];
+    $this->board_flag = $data['board_flag'];
+    $this->event_start = $data['event_start'];
+    $this->event_finish = $data['event_finish'];
+    $this->event_name1 = $data['event_name1'];
+    $this->event_name2 = $data['event_name2'];
+    $this->event_owner = $data['event_owner'];
+    $this->luggage_count = $data['luggage_count'];
+    $this->luggage_arrive = $data['luggage_arrive'];
+    $this->luggage_return = $data['luggage_return'];
+    $this->email_flag = $data['email_flag'];
+    $this->in_charge = $data['in_charge'];
+    $this->tel = $data['tel'];
+    $this->cost = $data['cost'];
+    $this->discount_condition = $data['discount_condition'];
+    $this->attention = $data['attention'];
+    $this->user_details = $data['user_details'];
+    $this->admin_details = $data['admin_details'];
+    $this->eat_in = $data['eat_in'];
+    $this->eat_in_prepare = $data['eat_in_prepare'];
+    $this->multiple_reserve_id = $data['multiple_reserve_id'];
+    $this->luggage_flag = $data['luggage_flag'];
+    $this->save();
   }
   // session利用
   // public function ReserveStoreSession($request, $sessionName, $sessionName2)

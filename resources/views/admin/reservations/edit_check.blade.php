@@ -16,6 +16,8 @@
 
 {{ Form::open(['url' => 'admin/reservations/'.$data['reservation_id'], 'method'=>'PUT', 'id'=>'']) }}
 @csrf
+{{ Form::hidden('reservation_id', $data['reservation_id'] ,['class'=>'form-control', 'readonly'] ) }}
+
 <section class="mt-5">
   <div class="row">
     <div class="col">

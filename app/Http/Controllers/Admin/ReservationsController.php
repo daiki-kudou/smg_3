@@ -765,7 +765,10 @@ class ReservationsController extends Controller
    */
   public function update(Request $request)
   {
-    dump($request->all());
+    $data = $request->all();
+    dump($data);
+    $reservation = Reservation::find($data['reservation_id']);
+    $reservation->ReservationUpdate($data);
     // if ($request->back) {
     //   return redirect(route('admin.reservations.edit_calculate'));
     // }
