@@ -324,7 +324,7 @@
                 <td>
                   <div class="d-flex align-items-end">
                     {{ Form::number('equipment_breakdown'.$e_key, $request->{'equipment_breakdown'.$e_key},['class'=>'form-control equipment_validation'] ) }}
-                  <span class="ml-1">個</span>
+                    <span class="ml-1">個</span>
                   </div>
                 </td>
               </tr>
@@ -658,12 +658,14 @@
             </tbody>
             <tbody class="venue_main">
               <tr>
-                <td>{{ Form::text('venue_breakdown_item0', "会場料金",['class'=>'form-control', 'readonly'] ) }} </td>
-                <td><input class="form-control" readonly></td>
+                <td>{{ Form::text('venue_breakdown_item[]', "会場料金",['class'=>'form-control', 'readonly'] ) }} </td>
+                <td>{{ Form::text('venue_breakdown_cost[]', 0,['class'=>'form-control', 'readonly'] ) }}</td>
                 <td>
-                  {{ Form::text('venue_breakdown_count0', 1,['class'=>'form-control', 'readonly'] ) }}
+                  {{ Form::text('venue_breakdown_count[]', 1,['class'=>'form-control', 'readonly'] ) }}
                 </td>
-                <td><input class="form-control" readonly></td>
+                <td>
+                  {{ Form::text('venue_breakdown_subtotal[]', 0,['class'=>'form-control', 'readonly'] ) }}
+                </td>
               </tr>
             </tbody>
           </table>
@@ -693,13 +695,17 @@
               @if ($request->{'equipment_breakdown'.$e_key}>0)
               <tr>
                 <td>
-                  {{ Form::text('equipment_breakdown_item'.$e_key, $equipment->item,['class'=>'form-control', 'readonly'] ) }}
+                  {{ Form::text('equipment_breakdown_item[]', $equipment->item,['class'=>'form-control', 'readonly'] ) }}
                 </td>
-                <td><input class="form-control" readonly></td>
                 <td>
-                  {{ Form::text('equipment_breakdown_count'.$e_key, $request->{'equipment_breakdown'.$e_key},['class'=>'form-control', 'readonly'] ) }}
+                  {{ Form::text('equipment_breakdown_cost[]', 0,['class'=>'form-control', 'readonly'] ) }}
                 </td>
-                <td><input class="form-control" readonly></td>
+                <td>
+                  {{ Form::text('equipment_breakdown_count[]', $request->{'equipment_breakdown'.$e_key},['class'=>'form-control', 'readonly'] ) }}
+                </td>
+                <td>
+                  {{ Form::text('equipment_breakdown_subtotal[]', 0,['class'=>'form-control', 'readonly'] ) }}
+                </td>
               </tr>
               @endif
               @endforeach
@@ -707,26 +713,34 @@
               @if ($request->{'services_breakdown'.$s_key}>0)
               <tr>
                 <td>
-                  {{ Form::text('service_breakdown_item'.$s_key, $service->item,['class'=>'form-control', 'readonly'] ) }}
+                  {{ Form::text('service_breakdown_item[]', $service->item,['class'=>'form-control', 'readonly'] ) }}
                 </td>
-                <td><input class="form-control" readonly></td>
                 <td>
-                  {{ Form::text('service_breakdown_count'.$s_key, $request->{'services_breakdown'.$s_key},['class'=>'form-control', 'readonly'] ) }}
+                  {{ Form::text('service_breakdown_cost[]', 0,['class'=>'form-control', 'readonly'] ) }}
                 </td>
-                <td><input class="form-control" readonly></td>
+                <td>
+                  {{ Form::text('service_breakdown_count[]', $request->{'services_breakdown'.$s_key},['class'=>'form-control', 'readonly'] ) }}
+                </td>
+                <td>
+                  {{ Form::text('service_breakdown_subtotal[]', 0,['class'=>'form-control', 'readonly'] ) }}
+                </td>
               </tr>
               @endif
               @endforeach
               @if ($request->luggage_price)
               <tr>
                 <td>
-                  {{ Form::text('luggage_item', '荷物預かり',['class'=>'form-control', 'readonly'] ) }}
+                  {{ Form::text('service_breakdown_item[]', '荷物預かり',['class'=>'form-control', 'readonly'] ) }}
                 </td>
-                <td><input class="form-control" readonly></td>
                 <td>
-                  {{ Form::text('luggage_count', $request->luggage_price,['class'=>'form-control', 'readonly'] ) }}
+                  {{ Form::text('service_breakdown_cost[]', 0,['class'=>'form-control', 'readonly'] ) }}
                 </td>
-                <td><input class="form-control" readonly></td>
+                <td>
+                  {{ Form::text('service_breakdown_count[]', $request->luggage_price,['class'=>'form-control', 'readonly'] ) }}
+                </td>
+                <td>
+                  {{ Form::text('service_breakdown_subtotal[]', 0,['class'=>'form-control', 'readonly'] ) }}
+                </td>
               </tr>
               @endif
             </tbody>
@@ -756,25 +770,25 @@
             <tbody class="layout_main">
               @if ($request->layout_prepare==1)
               <tr>
-                <td>{{ Form::text('layout_prepare_item', "レイアウト準備料金",['class'=>'form-control', 'readonly'] ) }}</td>
+                <td>{{ Form::text('layout_breakdown_item[]', "レイアウト準備料金",['class'=>'form-control', 'readonly'] ) }}</td>
                 <td>
-                  {{ Form::text('layout_prepare_cost', $venue->getLayouts()[0],['class'=>'form-control', 'readonly'] ) }}
+                  {{ Form::text('layout_breakdown_cost[]', $venue->getLayouts()[0],['class'=>'form-control', 'readonly'] ) }}
                 </td>
-                <td>{{ Form::text('layout_prepare_count', 1,['class'=>'form-control', 'readonly'] )}}</td>
+                <td>{{ Form::text('layout_breakdown_count[]', 1,['class'=>'form-control', 'readonly'] )}}</td>
                 <td>
-                  {{ Form::text('layout_prepare_subtotal', $venue->getLayouts()[0],['class'=>'form-control', 'readonly'] ) }}
+                  {{ Form::text('layout_breakdown_subtotal[]', $venue->getLayouts()[0],['class'=>'form-control', 'readonly'] ) }}
                 </td>
               </tr>
               @endif
               @if ($request->layout_clean==1)
               <tr>
-                <td>{{ Form::text('layout_clean_item', "レイアウト片付料金",['class'=>'form-control', 'readonly'] ) }}</td>
+                <td>{{ Form::text('layout_breakdown_item[]', "レイアウト片付料金",['class'=>'form-control', 'readonly'] ) }}</td>
                 <td>
-                  {{ Form::text('layout_clean_cost', $venue->getLayouts()[1],['class'=>'form-control', 'readonly'] ) }}
+                  {{ Form::text('layout_breakdown_cost[]', $venue->getLayouts()[1],['class'=>'form-control', 'readonly'] ) }}
                 </td>
-                <td>{{ Form::text('layout_clean_count', 1,['class'=>'form-control', 'readonly'] )}}</td>
+                <td>{{ Form::text('layout_breakdown_count[]', 1,['class'=>'form-control', 'readonly'] )}}</td>
                 <td>
-                  {{ Form::text('layout_clean_subtotal', $venue->getLayouts()[1],['class'=>'form-control', 'readonly'] ) }}
+                  {{ Form::text('layout_breakdown_subtotal[]', $venue->getLayouts()[1],['class'=>'form-control', 'readonly'] ) }}
                 </td>
               </tr>
               @endif

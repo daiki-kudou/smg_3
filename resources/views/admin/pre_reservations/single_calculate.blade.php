@@ -861,32 +861,32 @@
                 @foreach ($item_details[2] as $key=>$item)
                 <tr>
                   <td>
-                    {{ Form::text('services_breakdown_item[]', $item[0],['class'=>'form-control', 'readonly'] ) }}
+                    {{ Form::text('service_breakdown_item[]', $item[0],['class'=>'form-control', 'readonly'] ) }}
                   </td>
                   <td>
-                    {{ Form::text('services_breakdown_cost[]', $item[1],['class'=>'form-control', 'readonly'] ) }}
+                    {{ Form::text('service_breakdown_cost[]', $item[1],['class'=>'form-control', 'readonly'] ) }}
                   </td>
                   <td>
-                    {{ Form::text('services_breakdown_count[]', $item[2],['class'=>'form-control', 'readonly'] ) }}
+                    {{ Form::text('service_breakdown_count[]', $item[2],['class'=>'form-control', 'readonly'] ) }}
                   </td>
                   <td>
-                    {{ Form::text('services_breakdown_subtotal[]', $item[1]*$item[2],['class'=>'form-control', 'readonly'] ) }}
+                    {{ Form::text('service_breakdown_subtotal[]', $item[1]*$item[2],['class'=>'form-control', 'readonly'] ) }}
                   </td>
                 </tr>
                 @endforeach
                 @if ($request->luggage_price)
                 <tr>
                   <td>
-                    {{ Form::text('services_breakdown_item[]', '荷物預かり',['class'=>'form-control', 'readonly'] ) }}
+                    {{ Form::text('service_breakdown_item[]', '荷物預かり',['class'=>'form-control', 'readonly'] ) }}
                   </td>
                   <td>
-                    {{ Form::text('services_breakdown_cost[]', $request->luggage_price,['class'=>'form-control', 'readonly'] ) }}
+                    {{ Form::text('service_breakdown_cost[]', $request->luggage_price,['class'=>'form-control', 'readonly'] ) }}
                   </td>
                   <td>
-                    {{ Form::text('services_breakdown_count[]', 1,['class'=>'form-control', 'readonly'] ) }}
+                    {{ Form::text('service_breakdown_count[]', 1,['class'=>'form-control', 'readonly'] ) }}
                   </td>
                   <td>
-                    {{ Form::text('services_breakdown_subtotal[]', $request->luggage_price,['class'=>'form-control', 'readonly'] ) }}
+                    {{ Form::text('service_breakdown_subtotal[]', $request->luggage_price,['class'=>'form-control', 'readonly'] ) }}
                   </td>
                 </tr>
                 @endif
@@ -929,8 +929,10 @@
               <tbody class="layout_main">
                 @if ($layouts_details[0])
                 <tr>
-                  <td>{{ Form::text('layout_breakdown_item[]', "レイアウト準備料金",['class'=>'form-control', 'readonly'] ) }}</td>
-                  <td>{{ Form::text('layout_breakdown_cost[]', $layouts_details[0],['class'=>'form-control', 'readonly'] )}}
+                  <td>{{ Form::text('layout_breakdown_item[]', "レイアウト準備料金",['class'=>'form-control', 'readonly'] ) }}
+                  </td>
+                  <td>
+                    {{ Form::text('layout_breakdown_cost[]', $layouts_details[0],['class'=>'form-control', 'readonly'] )}}
                   </td>
                   <td>{{ Form::text('layout_breakdown_count[]', 1,['class'=>'form-control', 'readonly'] )}}</td>
                   <td>
@@ -940,8 +942,10 @@
                 @endif
                 @if ($layouts_details[1])
                 <tr>
-                  <td>{{ Form::text('layout_breakdown_item[]', "レイアウト片付料金",['class'=>'form-control', 'readonly'] ) }}</td>
-                  <td>{{ Form::text('layout_breakdown_cost[]', $layouts_details[1],['class'=>'form-control', 'readonly'] )}}
+                  <td>{{ Form::text('layout_breakdown_item[]', "レイアウト片付料金",['class'=>'form-control', 'readonly'] ) }}
+                  </td>
+                  <td>
+                    {{ Form::text('layout_breakdown_cost[]', $layouts_details[1],['class'=>'form-control', 'readonly'] )}}
                   </td>
                   <td>{{ Form::text('layout_breakdown_count[]', 1,['class'=>'form-control', 'readonly'] )}}</td>
                   <td>

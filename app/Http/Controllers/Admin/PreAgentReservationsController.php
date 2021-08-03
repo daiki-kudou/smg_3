@@ -12,6 +12,7 @@ use App\Models\Venue;
 use App\Models\Agent;
 use App\Models\PreBill;
 use App\Models\PreBreakdown;
+use App\Models\PreEndUser;
 
 
 use Illuminate\Support\Facades\DB; //トランザクション用
@@ -86,14 +87,30 @@ class PreAgentReservationsController extends Controller
 
   public function store(Request $request)
   {
-    $agent = Agent::find($request->agent_id);
-    $venue = Venue::find($request->venue_id);
+    $data = $request->all();
+    $data['email_flag'] = 0; //仲介会社はメール送付不要
+    $data['in_charge'] = NULL; //仲介会社の当日の担当者は不要
+    $data['tel'] = NULL; //仲介会社の当日の連絡先は不要
 
     $pre_reservation = new PreReservation;
-    $pre_reservation->AgentSingleStore($request, $agent, $venue);
+    $pre_enduser = new PreEndUser;
+    $pre_bill = new PreBill;
+    $pre_breakdown = new PreBreakdown;
 
+    DB::beginTransaction();
+    try {
+      $result_pre_reservation = $pre_reservation->PreReservationStore($data);
+      $pre_enduser->PreEndUserStore($result_pre_reservation->id, $data);
+      $result_pre_bill = $pre_bill->PreBillStore($result_pre_reservation->id, $data);
+      $result_breakdowns = $pre_breakdown->PreBreakdownStore($result_pre_bill->id, $data);
+      DB::commit();
+    } catch (\Exception $e) {
+      DB::rollback();
+      dd($e);
+      return back()->withInput()->withErrors($e->getMessage());
+    }
     $request->session()->regenerate();
-    return redirect('admin/pre_reservations');
+    return redirect()->route('admin.pre_reservations.show', $result_pre_reservation->id);
   }
 
   public function edit($pre_reservation)

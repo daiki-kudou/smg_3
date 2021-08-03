@@ -177,7 +177,6 @@ class PreReservation extends Model
 
   public function PreReservationStore($data, $status = 0)
   {
-    // var_dump($data);
     $result = $this->create([
       'multiple_reserve_id' => !empty($data['multiple_reserve_id']) ? $data['multiple_reserve_id'] : 0,
       'venue_id' => $data['venue_id'],
