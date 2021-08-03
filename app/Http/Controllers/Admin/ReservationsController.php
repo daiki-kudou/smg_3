@@ -609,158 +609,153 @@ class ReservationsController extends Controller
    * @param  int  $id
    * @return \Illuminate\Http\Response
    */
+  // public function edit($id)
+  // {
+  //   $bill = Bill::with(['reservation.user', 'reservation.venue.equipments', 'reservation.venue.services', 'breakdowns'])->find($id);
+  //   $reservation = $bill->reservation;
+  //   $venue = $bill->reservation->venue;
+  //   $users = User::orderBy("id", "desc")->get();
+
+  //   session()->put('reservationEditMaster', $bill);
+  //   return view('admin.reservations.edit', [
+  //     'reservation' => $reservation,
+  //     'venue' => $venue,
+  //     'bill' => $bill,
+  //     'users' => $users,
+  //   ]);
+  // }
+
+  // public function editWithoutCalc(Request $request)
+  // {
+  //   $reservationEditMaster = $request->session()->get('reservationEditMaster');
+
+  //   $bill = $reservationEditMaster;
+  //   $reservation = $bill->reservation;
+  //   $venue = $bill->reservation->venue;
+  //   $users = User::orderBy("id", "desc")->get();
+  //   session()->put('reservationEditMaster', $bill);
+
+  //   $data = $request->all();
+  //   $request->session()->put('result', $data);
+  //   $result = $request->session()->get('result');
+  //   $v_cnt = $this->preg($result, "venue_breakdown_item");
+  //   $e_cnt = $this->preg($result, "equipment_breakdown_item");
+  //   $s_cnt = $this->preg($result, "services_breakdown_item");
+  //   $o_cnt = $this->preg($result, "others_input_item");
+  //   return view('admin.reservations.edit_without_calc', [
+  //     'reservation' => $reservation,
+  //     'venue' => $venue,
+  //     'bill' => $bill,
+  //     'users' => $users,
+  //     'v_cnt' => $v_cnt,
+  //     'e_cnt' => $e_cnt,
+  //     's_cnt' => $s_cnt,
+  //     'o_cnt' => $o_cnt,
+  //     'result' => $result,
+  //   ]);
+  // }
+
+
+  // public function sessionForEditCalculate(Request $request)
+  // {
+  //   $data = $request->all();
+  //   $request->session()->put('basicInfo', $data);
+  //   return redirect(route('admin.reservations.edit_calculate'));
+  // }
+
+  // public function searchPreg($array, $target)
+  // {
+  //   $result = [];
+  //   foreach ($array as $key => $value) {
+  //     if (preg_match('/' . $target . '/', $key)) {
+  //       $result[] = $value;
+  //     }
+  //   }
+  //   return $result;
+  // }
+
+  // public function getMasterPrice($price_details, $item_details, $layouts_details, $target)
+  // {
+  //   //枠がなく会場料金を手打ちするパターン
+  //   if ($price_details == 0) {
+  //     $masters =
+  //       ($item_details[0] + ($target['luggage_price'] ?? 0))
+  //       + ($layouts_details[2] ?? 0);
+  //   } else {
+  //     $masters =
+  //       ($price_details[0] ? $price_details[0] : 0)
+  //       + ($item_details[0] + ($target['luggage_price'] ?? 0))
+  //       + ($layouts_details[2] ?? 0);
+  //   }
+  //   return $masters;
+  // }
+
   public function edit($id)
   {
-    $bill = Bill::with(['reservation.user', 'reservation.venue.equipments', 'reservation.venue.services', 'breakdowns'])->find($id);
-    $reservation = $bill->reservation;
-    $venue = $bill->reservation->venue;
+    $reservation = Reservation::with(['bills', 'bills.breakdowns'])->find($id)->toArray();
+    $venue = Venue::find($reservation['venue_id']);
     $users = User::orderBy("id", "desc")->get();
-
-    session()->put('reservationEditMaster', $bill);
-    return view('admin.reservations.edit', [
-      'reservation' => $reservation,
-      'venue' => $venue,
-      'bill' => $bill,
-      'users' => $users,
-    ]);
-  }
-
-  public function editWithoutCalc(Request $request)
-  {
-    $reservationEditMaster = $request->session()->get('reservationEditMaster');
-
-    $bill = $reservationEditMaster;
-    $reservation = $bill->reservation;
-    $venue = $bill->reservation->venue;
-    $users = User::orderBy("id", "desc")->get();
-    session()->put('reservationEditMaster', $bill);
-
-    $data = $request->all();
-    $request->session()->put('result', $data);
-    $result = $request->session()->get('result');
-    $v_cnt = $this->preg($result, "venue_breakdown_item");
-    $e_cnt = $this->preg($result, "equipment_breakdown_item");
-    $s_cnt = $this->preg($result, "services_breakdown_item");
-    $o_cnt = $this->preg($result, "others_input_item");
-    return view('admin.reservations.edit_without_calc', [
-      'reservation' => $reservation,
-      'venue' => $venue,
-      'bill' => $bill,
-      'users' => $users,
-      'v_cnt' => $v_cnt,
-      'e_cnt' => $e_cnt,
-      's_cnt' => $s_cnt,
-      'o_cnt' => $o_cnt,
-      'result' => $result,
-    ]);
-  }
-
-
-  public function sessionForEditCalculate(Request $request)
-  {
-    $data = $request->all();
-    $request->session()->put('basicInfo', $data);
-    return redirect(route('admin.reservations.edit_calculate'));
-  }
-
-  public function searchPreg($array, $target)
-  {
-    $result = [];
-    foreach ($array as $key => $value) {
-      if (preg_match('/' . $target . '/', $key)) {
-        $result[] = $value;
+    $discounts = collect($reservation['bills'][0]['breakdowns'])->filter(function ($value, $key) {
+      if (strpos($value['unit_item'], '割引料金') !== false) {
+        return $value['unit_cost'];
       }
-    }
-    return $result;
-  }
-
-  public function getMasterPrice($price_details, $item_details, $layouts_details, $target)
-  {
-    //枠がなく会場料金を手打ちするパターン
-    if ($price_details == 0) {
-      $masters =
-        ($item_details[0] + ($target['luggage_price'] ?? 0))
-        + ($layouts_details[2] ?? 0);
-    } else {
-      $masters =
-        ($price_details[0] ? $price_details[0] : 0)
-        + ($item_details[0] + ($target['luggage_price'] ?? 0))
-        + ($layouts_details[2] ?? 0);
-    }
-    return $masters;
-  }
-
-  public function edit_calculate(Request $request)
-  {
-    $basicInfo = $request->session()->get('basicInfo');
-    $reservationEditMaster = $request->session()->get('reservationEditMaster');
-    $venue = $reservationEditMaster->reservation->venue;
-    $users = User::orderBy("id", "desc")->get();
-    $price_details = $venue->calculate_price(
-      $basicInfo['price_system'],
-      $basicInfo['enter_time'],
-      $basicInfo['leave_time']
-    );
-    $s_equipment = $this->searchPreg($basicInfo, 'equipment_breakdown');
-    $s_services = $this->searchPreg($basicInfo, 'services_breakdown');
-    $item_details = $venue->calculate_items_price($s_equipment, $s_services);
-    if (!empty($basicInfo['layout_prepare']) || !empty($basicInfo['layout_clean'])) {
-      $layouts_details = $venue->getLayoutPrice($basicInfo['layout_prepare'], $basicInfo['layout_clean']);
-    } else {
-      $layouts_details = [0, 0];
-    }
-
-    $masters = $this->getMasterPrice($price_details, $item_details, $layouts_details, $basicInfo);
-    $user = $reservationEditMaster->reservation->user;
-    $pay_limit = $user->getUserPayLimit($request->reserve_date);
+    });
+    $discounts = - ($discounts->pluck('unit_cost')->sum());
     return view(
-      'admin.reservations.edit_calculate',
+      'admin.reservations.edit',
       compact(
-        'basicInfo',
-        'reservationEditMaster',
+        'reservation',
         'venue',
         'users',
-        'price_details',
-        'masters',
-        'pay_limit',
-        'item_details',
-        'layouts_details',
+        'discounts',
       )
     );
-  }
-
-  public function sessionForEditCheck(Request $request)
-  {
-    $data = $request->all();
-    $request->session()->put('result', $data);
-    return redirect(route('admin.reservations.edit_check'));
   }
 
   public function edit_check(Request $request)
   {
-    $reservationEditMaster = $request->session()->get('reservationEditMaster');
-    $venue = $reservationEditMaster->reservation->venue;
-    $reservation = $reservationEditMaster->reservation;
-    $basicInfo = $request->session()->get('basicInfo');
-    $result = $request->session()->get('result');
-    $v_cnt = $this->preg($result, "venue_breakdown_item");
-    $e_cnt = $this->preg($result, "equipment_breakdown_item");
-    $s_cnt = $this->preg($result, "services_breakdown_item");
-    $o_cnt = $this->preg($result, "others_breakdown_item");
-    return view(
-      'admin.reservations.edit_check',
-      compact(
-        'basicInfo',
-        'result',
-        'venue',
-        'v_cnt',
-        'e_cnt',
-        's_cnt',
-        'o_cnt',
-        'reservation',
-      )
-    );
+    $data = $request->all();
+    $venue = Venue::find($data['venue_id']);
+    dump($data);
+
+    return view('admin.reservations.edit_check', compact(
+      'data',
+      'venue',
+    ));
   }
+
+  // public function sessionForEditCheck(Request $request)
+  // {
+  //   $data = $request->all();
+  //   $request->session()->put('result', $data);
+  //   return redirect(route('admin.reservations.edit_check'));
+  // }
+
+  // public function edit_check(Request $request)
+  // {
+  //   $reservationEditMaster = $request->session()->get('reservationEditMaster');
+  //   $venue = $reservationEditMaster->reservation->venue;
+  //   $reservation = $reservationEditMaster->reservation;
+  //   $basicInfo = $request->session()->get('basicInfo');
+  //   $result = $request->session()->get('result');
+  //   $v_cnt = $this->preg($result, "venue_breakdown_item");
+  //   $e_cnt = $this->preg($result, "equipment_breakdown_item");
+  //   $s_cnt = $this->preg($result, "services_breakdown_item");
+  //   $o_cnt = $this->preg($result, "others_breakdown_item");
+  //   return view(
+  //     'admin.reservations.edit_check',
+  //     compact(
+  //       'basicInfo',
+  //       'result',
+  //       'venue',
+  //       'v_cnt',
+  //       'e_cnt',
+  //       's_cnt',
+  //       'o_cnt',
+  //       'reservation',
+  //     )
+  //   );
+  // }
   /**
    * Update the specified resource in storage.
    *

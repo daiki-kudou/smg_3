@@ -155,16 +155,14 @@ Route::namespace('Admin')->prefix('admin')->name('admin.')->group(function () {
     // 予約　（確認）
     Route::get('reservations/check', 'ReservationsController@check')->name('reservations.check');
 
-
-
-    // calculate前のセッション保存
-    Route::post('reservations/session_for_edit_calculate', 'ReservationsController@sessionForEditCalculate');
-    // 予約　編集
-    Route::get('reservations/edit_calculate', 'ReservationsController@edit_calculate')->name('reservations.edit_calculate');
-    // check前のセッション保存
-    Route::post('reservations/session_for_edit_check', 'ReservationsController@sessionForEditCheck');
+    // // calculate前のセッション保存
+    // Route::post('reservations/session_for_edit_calculate', 'ReservationsController@sessionForEditCalculate');
+    // // 予約　編集
+    // Route::get('reservations/edit_calculate/{reservation}', 'ReservationsController@edit_calculate')->name('reservations.edit_calculate');
+    // // check前のセッション保存
+    // Route::post('reservations/session_for_edit_check', 'ReservationsController@sessionForEditCheck');
     // 予約　編集確認
-    Route::get('reservations/edit_check', 'ReservationsController@edit_check')->name('reservations.edit_check');
+    Route::post('reservations/edit_check', 'ReservationsController@edit_check')->name('reservations.edit_check');
 
     Route::post('reservations/edit_without_calc', 'ReservationsController@editWithoutCalc');
 

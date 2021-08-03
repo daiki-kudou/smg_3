@@ -282,7 +282,9 @@
               </tr>
               <tr>
                 <td class="table-active"><label for="preDelivery">事前荷物の到着日</label></td>
-                <td>{{ !empty($reservation->luggage_arrive) ? ReservationHelper::formatDate($reservation->luggage_arrive) : '' }}</td>
+                <td>
+                  {{ !empty($reservation->luggage_arrive) ? ReservationHelper::formatDate($reservation->luggage_arrive) : '' }}
+                </td>
               </tr>
               <tr>
                 <td class="table-active"><label for="preDelivery">事後返送する荷物</label></td>
@@ -299,22 +301,22 @@
                     <li>
                       <p>
                         {{ isset($reservation->luggage_count) ? 'あり' : 'なし' }}
-                      </p>
-                    </li>
-                    <li>
-                      <p>
-                        荷物個数：{{ isset($reservation->luggage_count) ? $reservation->luggage_count : '' }}個
-                      </p>
-                    </li>
+              </p>
+              </li>
+              <li>
+                <p>
+                  荷物個数：{{ isset($reservation->luggage_count) ? $reservation->luggage_count : '' }}個
+                </p>
+              </li>
 
-                    <li>
-                      <p>
-                        事前荷物の到着日：
-                        {{ !empty($reservation->luggage_arrive) ? ReservationHelper::formatDate($reservation->luggage_arrive) : '' }}
-                      </p>
-                    </li>
-                  </ul>
-                </td>
+              <li>
+                <p>
+                  事前荷物の到着日：
+                  {{ !empty($reservation->luggage_arrive) ? ReservationHelper::formatDate($reservation->luggage_arrive) : '' }}
+                </p>
+              </li>
+              </ul>
+              </td>
               </tr>
               <tr>
                 <td class="table-active"><label for="postDelivery">事後返送する荷物</label></td>
@@ -439,8 +441,7 @@
                   </dl>
                   @if (!empty($reservation->user))
                   @if ($reservation->bills->sortBy("id")->first()->reservation_status < 3) <p>
-                    <a href="{{ url('admin/reservations/' . $reservation->bills->sortBy("id")->first()->id . '/edit') }}"
-                      class="btn more_btn">編集</a>
+                    <a href="{{ url('admin/reservations/' . $reservation->id.'/edit' ) }}" class="btn more_btn">編集</a>
                     </p>
                     @endif
                     @else
@@ -1745,7 +1746,7 @@ $(function () {
     $(this).parent().slideToggle("");
   });
 });
-</script>
+  </script>
 
 
 

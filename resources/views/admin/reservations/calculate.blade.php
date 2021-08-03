@@ -95,12 +95,6 @@
               <select name="enter_time" id="sales_start" class="form-control">
                 <option disabled selected></option>
                 {!!ReservationHelper::timeOptionsWithRequest($value['enter_time'])!!}
-                {{-- @for ($start = 0*2; $start <=23*2; $start++) <option
-                  value="{{date("H:i:s", strtotime("00:00 +". $start * 30 ." minute"))}}" @if (date("H:i:s",
-                strtotime("00:00 +". $start * 30 ." minute"))==$value['enter_time']) selected @endif>
-                {{date("H時i分", strtotime("00:00 +". $start * 30 ." minute"))}}
-                </option>
-                @endfor --}}
               </select>
             </td>
           </tr>
@@ -110,11 +104,6 @@
               <select name="leave_time" id="sales_finish" class="form-control">
                 <option disabled selected></option>
                 {!!ReservationHelper::timeOptionsWithRequest($value['leave_time'])!!}
-                {{-- @for ($start = 0*2; $start <=23*2; $start++) <option
-                  value="{{date("H:i:s", strtotime("00:00 +". $start * 30 ." minute"))}}" @if (date("H:i:s",
-                strtotime("00:00 +". $start * 30 ." minute"))==$value['leave_time']) selected @endif>
-                {{date("H時i分", strtotime("00:00 +". $start * 30 ." minute"))}}</option>
-                @endfor --}}
               </select>
             </td>
           </tr>
@@ -221,13 +210,6 @@
                 <option value="" selected></option>
                 {!!ReservationHelper::timeOptionsWithRequestAndLimit("",$value['enter_time'],$value['leave_time'])!!}
                 @endif
-                {{-- @for ($start = 0*2; $start <=23*2; $start++) <option
-                  value="{{date("H:i:s", strtotime("00:00 +". $start * 30 ." minute"))}}"
-                @if(!empty($value['event_finish'])) @if (date("H:i:s", strtotime("00:00 +". $start * 30
-                ."minute"))==$value['event_finish']) selected @endif @endif>
-                {{date("H時i分", strtotime("00:00 +". $start * 30 ." minute"))}}
-                </option>
-                @endfor --}}
               </select>
             </td>
           </tr>
@@ -356,28 +338,28 @@
             </tr>
           </thead>
           <tbody>
-              <tr>
-                <td class="table-active">荷物預かり 工藤さん！！こちら</td>
-                <td>
-                  <div class="radio-box">
-                    <p>
-                      <input id="luggage_flag" name="luggage_flag" type="radio" value="1">
-                      <label for="" class="form-check-label">有り</label>
-                    </p>
-                    <p>
-                      <input id="no_luggage_flag" name="luggage_flag" type="radio" value="0">
-                      <label for="" class="form-check-label">無し</label>
-                    </p>
-                  </div>
-                </td>
-              </tr>
-              <tr>
-                <td class="table-active">事前に預かる荷物<br>（個数）</td>
-                <td>
-                  {{ Form::number('luggage_count', !empty($value['luggage_count'])?$value['luggage_count']:"",['class'=>'form-control','id'=>'luggage_count'] ) }}
-                  <p class="is-error-luggage_count" style="color: red"></p>
-                </td>
-              </tr>
+            <tr>
+              <td class="table-active">荷物預かり 工藤さん！！こちら</td>
+              <td>
+                <div class="radio-box">
+                  <p>
+                    <input id="luggage_flag" name="luggage_flag" type="radio" value="1">
+                    <label for="" class="form-check-label">有り</label>
+                  </p>
+                  <p>
+                    <input id="no_luggage_flag" name="luggage_flag" type="radio" value="0">
+                    <label for="" class="form-check-label">無し</label>
+                  </p>
+                </div>
+              </td>
+            </tr>
+            <tr>
+              <td class="table-active">事前に預かる荷物<br>（個数）</td>
+              <td>
+                {{ Form::number('luggage_count', !empty($value['luggage_count'])?$value['luggage_count']:"",['class'=>'form-control','id'=>'luggage_count'] ) }}
+                <p class="is-error-luggage_count" style="color: red"></p>
+              </td>
+            </tr>
             <tr>
               <td class="table-active">事前荷物の到着日<br>午前指定のみ</td>
               <td>
@@ -562,8 +544,6 @@
           <tr>
             <td class="table-active"><label for="email_flag">送信メール</label></td>
             <td>
-              {{-- {{ Form::text('', $value['email_flag']==1?"有り":"無し",['class'=>'form-control'] ) }}
-              {{ Form::hidden('email_flag', $value['email_flag'],['class'=>'form-control'] ) }} --}}
               {{Form::radio('email_flag', 1, $value['email_flag']==1?true:false, ['class'=>'','id'=>'email_flag1'])}}
               {{Form::label("email_flag1","有り")}}
               {{Form::radio('email_flag', 0, $value['email_flag']==0?true:false, ['class'=>'','id'=>'email_flag2'])}}
@@ -610,7 +590,6 @@
           </tr>
           <tr>
             <td>
-              <!-- <label for="userNote">申し込みフォーム備考</label> -->
               {{ Form::hidden('user_details', $value['user_details'],['class'=>'form-control'] ) }}
             </td>
           </tr>
