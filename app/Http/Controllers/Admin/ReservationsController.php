@@ -765,26 +765,27 @@ class ReservationsController extends Controller
    */
   public function update(Request $request)
   {
-    if ($request->back) {
-      return redirect(route('admin.reservations.edit_calculate'));
-    }
-    $reservationEditMaster = $request->session()->get('reservationEditMaster');
-    $basicInfo = $request->session()->get('basicInfo');
-    $result = $request->session()->get('result');
-    try {
-      $reservation = $reservationEditMaster->reservation;
-      $reservation->UpdateReservation($basicInfo, $result);
-      $bill = $reservation->bills->sortBy("id")->first();
-      $bill->UpdateBillSession($result);
-      $bill->ReserveStoreSessionBreakdown($request, 'result');
-    } catch (\Exception $e) {
-      report($e);
-      session()->flash('flash_message', '更新に失敗しました。<br>フォーム内の空欄や全角など確認した上でもう一度お試しください。');
-      return redirect(route('admin.reservations.edit_calculate'));
-    }
+    dump($request->all());
+    // if ($request->back) {
+    //   return redirect(route('admin.reservations.edit_calculate'));
+    // }
+    // $reservationEditMaster = $request->session()->get('reservationEditMaster');
+    // $basicInfo = $request->session()->get('basicInfo');
+    // $result = $request->session()->get('result');
+    // try {
+    //   $reservation = $reservationEditMaster->reservation;
+    //   $reservation->UpdateReservation($basicInfo, $result);
+    //   $bill = $reservation->bills->sortBy("id")->first();
+    //   $bill->UpdateBillSession($result);
+    //   $bill->ReserveStoreSessionBreakdown($request, 'result');
+    // } catch (\Exception $e) {
+    //   report($e);
+    //   session()->flash('flash_message', '更新に失敗しました。<br>フォーム内の空欄や全角など確認した上でもう一度お試しください。');
+    //   return redirect(route('admin.reservations.edit_calculate'));
+    // }
 
-    $request->session()->regenerate();
-    return redirect(route('admin.reservations.show', $reservation->id));
+    // $request->session()->regenerate();
+    // return redirect(route('admin.reservations.show', $reservation->id));
   }
 
   /**

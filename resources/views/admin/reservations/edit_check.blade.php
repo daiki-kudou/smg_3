@@ -665,7 +665,7 @@
         </div>
         @endif
 
-        {{-- @if (!empty($o_cnt)) --}}
+        @if (!empty($data['others_breakdown_item']))
         <div class="others billdetails_content">
           <table class="table table-borderless">
             <tr>
@@ -684,40 +684,35 @@
               </tr>
             </tbody>
             <tbody class="others_main">
-              {{-- @for ($other = 0; $other < $o_cnt; $other++)  --}}
+              @foreach ($data['others_breakdown_item'] as $key=>$value)
               <tr>
                 <td>
-                  {{-- {{ Form::text('others_breakdown_item'.$other, $result['others_breakdown_item'.$other],['class'=>'form-control', 'readonly'] ) }}
-                  --}}
+                  {{ Form::text('others_breakdown_item[]', $data['others_breakdown_item'][$key],['class'=>'form-control', 'readonly'] ) }}
                 </td>
                 <td>
-                  {{-- {{ Form::text('others_breakdown_cost'.$other, $result['others_breakdown_cost'.$other],['class'=>'form-control', 'readonly'] ) }}
-                  --}}
+                  {{ Form::text('others_breakdown_cost[]', $data['others_breakdown_cost'][$key],['class'=>'form-control', 'readonly'] ) }}
                 </td>
                 <td>
-                  {{-- {{ Form::text('others_breakdown_count'.$other, $result['others_breakdown_count'.$other],['class'=>'form-control', 'readonly'] ) }}
-                  --}}
+                  {{ Form::text('others_breakdown_count[]', $data['others_breakdown_count'][$key],['class'=>'form-control', 'readonly'] ) }}
                 </td>
                 <td>
-                  {{-- {{ Form::text('others_breakdown_subtotal'.$other, $result['others_breakdown_subtotal'.$other],['class'=>'form-control', 'readonly'] ) }}
-                  --}}
+                  {{ Form::text('others_breakdown_subtotal[]', $data['others_breakdown_subtotal'][$key],['class'=>'form-control', 'readonly'] ) }}
                 </td>
               </tr>
-              {{-- @endfor --}}
+              @endforeach
             </tbody>
             <tbody class="others_result">
               <tr>
                 <td colspan="3"></td>
                 <td colspan="1">
                   <p class="text-left">合計</p>
-                  {{-- {{ Form::text('others_price', $result['others_price'],['class'=>'form-control', 'readonly'] ) }}
-                  --}}
+                  {{ Form::text('others_price', $data['others_price'],['class'=>'form-control', 'readonly'] ) }}
                 </td>
               </tr>
             </tbody>
           </table>
         </div>
-        {{-- @endif --}}
+        @endif
 
         <div class="bill_total">
           <table class="table">
@@ -725,21 +720,19 @@
               <tr>
                 <td>小計：</td>
                 <td>
-                  {{-- {{ Form::text('master_subtotal', $result['master_subtotal'],['class'=>'form-control', 'readonly'] ) }}
-                  --}}
+                  {{ Form::text('master_subtotal', $data['master_subtotal'],['class'=>'form-control', 'readonly'] ) }}
                 </td>
               </tr>
               <tr>
                 <td>消費税：</td>
                 <td>
-                  {{-- {{ Form::text('master_tax', $result['master_tax'],['class'=>'form-control', 'readonly'] ) }} --}}
+                  {{ Form::text('master_tax', $data['master_tax'],['class'=>'form-control', 'readonly'] ) }}
                 </td>
               </tr>
               <tr>
                 <td class="font-weight-bold">合計金額</td>
                 <td>
-                  {{-- {{ Form::text('master_total', $result['master_total'],['class'=>'form-control', 'readonly'] ) }}
-                  --}}
+                  {{ Form::text('master_total', $data['master_total'],['class'=>'form-control', 'readonly'] ) }}
                 </td>
               </tr>
             </tbody>
@@ -769,29 +762,24 @@
             <tbody>
               <tr>
                 <td>請求日：
-                  {{-- {{ Form::text('bill_created_at', $result['bill_created_at'],['class'=>'form-control', 'readonly'] ) }}
-                  --}}
+                  {{ Form::text('bill_created_at', $data['bill_created_at'],['class'=>'form-control', 'readonly'] ) }}
                 </td>
                 <td>支払期日
-                  {{-- {{ Form::text('payment_limit', $result['pay_limit'],['class'=>'form-control', 'readonly'] ) }}
-                  --}}
+                  {{ Form::text('payment_limit', $data['payment_limit'],['class'=>'form-control', 'readonly'] ) }}
                 </td>
               </tr>
               <tr>
                 <td>請求書宛名
-                  {{-- {{ Form::text('bill_company', $result['pay_company'],['class'=>'form-control', 'readonly'] ) }}
-                  --}}
+                  {{ Form::text('bill_company', $data['bill_company'],['class'=>'form-control', 'readonly'] ) }}
                 </td>
                 <td>
                   担当者
-                  {{-- {{ Form::text('bill_person', $result['bill_person'],['class'=>'form-control', 'readonly'] ) }}
-                  --}}
+                  {{ Form::text('bill_person', $data['bill_person'],['class'=>'form-control', 'readonly'] ) }}
                 </td>
               </tr>
               <tr>
                 <td colspan="2">請求書備考
-                  {{-- {{ Form::textarea('bill_remark', $result['bill_remark'],['class'=>'form-control', 'readonly'] ) }}
-                  --}}
+                  {{ Form::textarea('bill_remark', $data['bill_remark'],['class'=>'form-control', 'readonly'] ) }}
                 </td>
               </tr>
             </tbody>
@@ -816,20 +804,20 @@
             <tbody>
               <tr>
                 <td>入金状況
-                  {{-- {{Form::text('',ReservationHelper::paidStatus($result['paid']),['class'=>'form-control','readonly'])}}
-                  {{Form::hidden('paid',$result['paid'],['class'=>'form-control','readonly'])}} --}}
+                  {{Form::text('',ReservationHelper::paidStatus($data['paid']),['class'=>'form-control','readonly'])}}
+                  {{Form::hidden('paid',$data['paid'],['class'=>'form-control','readonly'])}}
                 </td>
                 <td>
                   入金日
-                  {{-- {{ Form::text('pay_day', $result['pay_day'],['class'=>'form-control', 'readonly'] ) }} --}}
+                  {{ Form::text('pay_day', $data['pay_day'],['class'=>'form-control', 'readonly'] ) }}
                 </td>
               </tr>
               <tr>
                 <td>振込人名
-                  {{-- {{ Form::text('pay_person', $result['pay_person'],['class'=>'form-control','readonly'] ) }} --}}
+                  {{ Form::text('pay_person', $data['pay_person'],['class'=>'form-control','readonly'] ) }}
                 </td>
                 <td>入金額
-                  {{-- {{ Form::text('payment', $result['payment'],['class'=>'form-control','readonly'])}} --}}
+                  {{ Form::text('payment', $data['payment'],['class'=>'form-control','readonly'])}}
                 </td>
               </tr>
             </tbody>

@@ -216,6 +216,10 @@ class Reservation extends Model implements PresentableInterface
     ]);
     return $result;
   }
+
+  public function ReservationUpdate($data)
+  {
+  }
   // session利用
   // public function ReserveStoreSession($request, $sessionName, $sessionName2)
   // {
