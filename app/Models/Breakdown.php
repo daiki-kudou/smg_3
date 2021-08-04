@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Breakdown extends Model
 {
-  use SoftDeletes;
+  // use SoftDeletes;
 
   protected $fillable = [
     'bill_id',

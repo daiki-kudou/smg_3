@@ -126,6 +126,40 @@ class Bill extends Model
     return $result;
   }
 
+  public function BillUpdate($data, $reservation_status = 1, $double_check_status = 0, $category = 1, $admin_judge = 1)
+  {
+    $this->update([
+      'venue_price' => !empty($data['venue_price']) ? $data['venue_price'] : 0,
+      'equipment_price' => !empty($data['equipment_price']) ? $data['equipment_price'] : 0,
+      'layout_price' => !empty($data['layout_price']) ? $data['layout_price'] : 0,
+      'others_price' => !empty($data['others_price']) ? $data['others_price'] : 0,
+      'master_subtotal' => $data['master_subtotal'],
+      'master_tax' => $data['master_tax'],
+      'master_total' => $data['master_total'],
+      'payment_limit' => $data['payment_limit'],
+      'bill_company' => $data['bill_company'],
+      'bill_person' => $data['bill_person'],
+      'bill_created_at' => $data['bill_created_at'],
+      'bill_remark' => $data['bill_remark'],
+      'paid' => $data['paid'],
+      'pay_day' => $data['pay_day'],
+      'pay_person' => $data['pay_person'],
+      'payment' => $data['payment'],
+      'reservation_status' => $reservation_status,
+      'double_check_status' => $double_check_status,
+      'double_check1_name' => !empty($data['double_check1_name']) ? $data['double_check1_name'] : "",
+      'double_check2_name' => !empty($data['double_check2_name']) ? $data['double_check2_name'] : "",
+      'approve_send_at' => !empty($data['approve_send_at']) ? $data['approve_send_at'] : NULL,
+      'category' => $category,
+      'admin_judge' => $admin_judge,
+      'end_user_charge' => !empty($data['end_user_charge']) ? $data['end_user_charge'] : NULL,
+      'invoice_number' => $this->generateInvoiceNum(),
+    ]);
+    return $this;
+  }
+
+
+
   // public function ReserveStoreSessionBreakdown($request, $sessionName)
   // {
   //   $discount_info = $request->session()->get($sessionName);

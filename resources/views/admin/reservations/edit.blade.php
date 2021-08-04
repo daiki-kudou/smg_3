@@ -57,6 +57,7 @@
 {{Form::open(['url' => 'admin/reservations/edit_check', 'method' => 'POST', 'id'=>'reservations_edit'])}}
 @csrf
 {{ Form::hidden('reservation_id', $reservation['id'] ,['class'=>'form-control', 'readonly'] ) }}
+{{ Form::hidden('bill_id', $reservation['bills'][0]['id'] ,['class'=>'form-control', 'readonly'] ) }}
 
 
 @if (session('flash_message'))

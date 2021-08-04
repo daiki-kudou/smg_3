@@ -767,40 +767,25 @@ class ReservationsController extends Controller
   {
     $data = $request->all();
     $reservation = Reservation::find($data['reservation_id']);
+    $bill = Bill::with('breakdowns')->find($data['bill_id']);
+    $breakdown = new Breakdown;
 
     DB::beginTransaction();
     try {
-      $result_reservation = $reservation->ReservationUpdate($data);
-      dump($result_reservation);
-      // $result_bill = $bill->BillStore($result_reservation->id, $data);
-      // $result_breakdowns = $breakdowns->BreakdownStore($result_bill->id, $data);
+      $reservation->ReservationUpdate($data);
+      $bill->BillUpdate($data);
+      $bill->breakdowns->map(function ($item) {
+        return $item->delete();
+      });
+      $breakdown->BreakdownStore($data['bill_id'], $data);
       DB::commit();
     } catch (\Exception $e) {
       DB::rollback();
       dd($e);
       // return back()->withInput()->withErrors($e->getMessage());
     }
-
-    // if ($request->back) {
-    //   return redirect(route('admin.reservations.edit_calculate'));
-    // }
-    // $reservationEditMaster = $request->session()->get('reservationEditMaster');
-    // $basicInfo = $request->session()->get('basicInfo');
-    // $result = $request->session()->get('result');
-    // try {
-    //   $reservation = $reservationEditMaster->reservation;
-    //   $reservation->UpdateReservation($basicInfo, $result);
-    //   $bill = $reservation->bills->sortBy("id")->first();
-    //   $bill->UpdateBillSession($result);
-    //   $bill->ReserveStoreSessionBreakdown($request, 'result');
-    // } catch (\Exception $e) {
-    //   report($e);
-    //   session()->flash('flash_message', '更新に失敗しました。<br>フォーム内の空欄や全角など確認した上でもう一度お試しください。');
-    //   return redirect(route('admin.reservations.edit_calculate'));
-    // }
-
-    // $request->session()->regenerate();
-    // return redirect(route('admin.reservations.show', $reservation->id));
+    $request->session()->regenerate();
+    return redirect(route('admin.reservations.show', $reservation->id));
   }
 
   /**
