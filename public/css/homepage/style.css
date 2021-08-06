@@ -25,6 +25,10 @@ option:disabled {
     margin-right: 10px;
 }
 
+.f-c1 {
+    color: #EF6243;
+}
+
 
 .d-none {
     display: none;
@@ -134,7 +138,7 @@ ul.tagBtn li:nth-child(3) a {
 
 
 .txtLeft {
-    text-align: left;
+    text-align: left !important;
 }
 
 .section-wrap {
@@ -221,7 +225,7 @@ ul.tagBtn li:nth-child(3) a {
 }
 
 .checkbox-txt {
-    font-size: 1.1rem;
+    font-size: 1.15rem;
     font-weight: bold;
     margin-right: 0.2em;
 }
@@ -474,6 +478,11 @@ form table td .text6 {
     box-shadow: 0 0 3px #cacaca;
 }
 
+.totalsum-table {
+    border: 2px solid #3E4B5B;
+
+}
+
 
 
 /* 確認画面 */
@@ -503,6 +512,34 @@ form table td .text6 {
 }
 
 /* カート一覧------------------------------------------------ */
+.cart-wrap {
+    margin: 0 auto 80px;
+    width: 85%;
+}
+
+.cart-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.cart-header .confirm-btn,
+.cart-header .link-btn3 {
+    min-width: 170px;
+}
+
+.cart-header .link-btn3 {
+    margin-left: 0.5em;
+}
+
+.cart-header h3 {
+    font-size: 1.5rem;
+}
+
+.cart-header ul {
+    display: flex;
+}
+
 .cart-box {
     display: flex;
     justify-content: flex-end;
@@ -519,6 +556,23 @@ form table td .text6 {
 
 header div.contents {
     position: relative;
+}
+
+.caution-area {
+    background-color: #ffe5e0;
+    padding: 1em 0;
+}
+
+.cart-addbtn {
+    position: fixed;
+    bottom: 190px;
+    right: 0;
+
+}
+
+.cart-addbtn .link-btn3 {
+    min-width: 150px;
+
 }
 
 /* スピナー -------------------------------*/
