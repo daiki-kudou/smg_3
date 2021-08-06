@@ -39,13 +39,13 @@
                   <li>
                     {{ Form::open(['url' => 'user/reservations/destroy_check', 'method'=>'POST', 'id'=>'']) }}
                     {{ Form::hidden("session_reservation_id",$key )}}
-                    <p>{{Form::submit('取消', ['class' => 'confirm-btn'])}}</p>
+                    {{Form::submit('取消', ['class' => 'confirm-btn'])}}
                     {{Form::close()}}
                   </li>
                   <li>
                     {{ Form::open(['url' => 'user/reservations/re_create', 'method'=>'POST', 'id'=>'']) }}
                     {{ Form::hidden("session_reservation_id",$key )}}
-                    <p>{{Form::submit('編集', ['class' => 'link-btn3'])}}</p>
+                    {{Form::submit('編集', ['class' => 'link-btn3'])}}
                     {{Form::close()}}
                   </li>
                 </ul>
@@ -203,7 +203,7 @@
             <td>
               <ul class="sum-list">
                 <li>
-                  <p><span class="f-wb">{{ReservationHelper::formatDateJA($t_reservation[0]["date"])}}</span> {{ReservationHelper::getVenueForUser($t_reservation[0]["venue_id"])}} <br class="sp">会場ご利用料</p>
+                  <p><span class="f-wb">{{ReservationHelper::formatDateJA($t_reservation[0]["date"])}}</span> <br class="sp">{{ReservationHelper::getVenueForUser($t_reservation[0]["venue_id"])}} 会場ご利用料</p>
                   <p>{{number_format($t_reservation[0]['master'])}}<span>円</span></p>
                 </li>
               </ul>

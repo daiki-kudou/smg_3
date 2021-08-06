@@ -217,7 +217,6 @@ ul.tagBtn li:nth-child(3) a {
     font-size: 1.4rem;
     display: block;
     cursor: pointer;
-    line-height: 1.5;
 }
 
 .confirm-btn:hover {
@@ -558,9 +557,13 @@ header div.contents {
     position: relative;
 }
 
+.cart-wrap {
+    width: 95%;
+}
+
 .caution-area {
     background-color: #ffe5e0;
-    padding: 1em 0;
+    padding: 1em;
 }
 
 .cart-addbtn {
@@ -709,6 +712,18 @@ header div.contents {
         top: 120px;
         right: 10px;
     }
+    .cart-header {
+        display: block;
+    }
+
+    .cart-header ul {
+        margin: 0.5em 0;
+    }
+
+    .cart-addbtn .link-btn3 {
+        min-width: 110px;
+        font-size: 1rem;
+    }
 
     .wrapper {
         position: relative;
@@ -831,7 +846,8 @@ header div.contents {
     }
 
     .sum-list li {
-        /* display: block; */
+        display: block;
+        text-align: left;
     }
 
     .contents.news {
