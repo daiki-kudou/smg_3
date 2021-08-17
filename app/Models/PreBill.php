@@ -46,7 +46,7 @@ class PreBill extends Model
   {
     $result = $this->create([
       'pre_reservation_id' => $pre_reservation_id,
-      'venue_price' => !empty($data['venue_id']) ? $data['venue_id'] : 0,
+      'venue_price' => !empty($data['venue_price']) ? $data['venue_price'] : 0,
       'equipment_price' => !empty($data['equipment_price']) ? $data['equipment_price'] : 0,
       'layout_price' => !empty($data['layout_price']) ? $data['layout_price'] : 0,
       'others_price' => !empty($data['others_price']) ? $data['others_price'] : 0,
