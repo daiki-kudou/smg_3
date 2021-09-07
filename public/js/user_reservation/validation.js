@@ -76,11 +76,13 @@ $(function () {
       },
       tel: {
         number: true, 
-        minlength: 10
+        minlength: 10,
+        maxlength: 10,
       },
       mobile: {
         number: true, 
-        minlength: 11
+        minlength: 11,
+        maxlength: 11,
       },
       fax: {
         number: true,
@@ -122,10 +124,12 @@ $(function () {
       },
       tel: {
         minlength: "※最低桁数は10桁です",
+        maxlength: "※最大桁数は10桁です",
         number: "※半角数字で入力してください",
       },
       mobile: {
-        minlength: "※最低桁数は10桁です",
+        minlength: "※最低桁数は11桁です",
+        maxlength: "※最大桁数は11桁です",
         number: "※半角数字で入力してください",
       },
       fax: {
@@ -568,7 +572,7 @@ $(function () {
 // })
 
 
-// マイページ登録者情報
+// マイページ会員情報
 $(function () {
   $("#register_edit").validate({
     rules: {

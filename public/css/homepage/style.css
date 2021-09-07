@@ -1,7 +1,32 @@
 @charset "utf-8";
 
+html {
+    font-size: 90%;
+}
+
+
 option:disabled {
     background: #d0d0d0;
+}
+
+.f-s90 {
+    font-size: 0.9rem;
+}
+
+.f-wb {
+    font-weight: bold;
+}
+
+.m-l20 {
+    margin-left: 20px;
+}
+
+.m-r10 {
+    margin-right: 10px;
+}
+
+.f-c1 {
+    color: #EF6243;
 }
 
 
@@ -16,13 +41,13 @@ ul.tagBtn li a {
     color: #fff;
     font-weight: bold;
     display: block;
-    /* height: 125px; */
+    height: 125px;
     padding: 15px 20px 15px 10px;
     line-height: 1;
 }
 
 ul.tagBtn li:nth-child(1) a {
-    height: 110px;
+    /* height: 110px; */
 }
 
 ul.tagBtn li:nth-child(2) a {
@@ -30,7 +55,7 @@ ul.tagBtn li:nth-child(2) a {
 }
 
 ul.tagBtn li:nth-child(3) a {
-    height: 125px;
+    height: 135px;
 }
 
 .contact_btn {
@@ -81,6 +106,7 @@ ul.tagBtn li:nth-child(3) a {
 
 .calenderframe {
     margin: 3% 0;
+    overflow-x: scroll;
 }
 
 .date_calender_wrapper {
@@ -112,7 +138,7 @@ ul.tagBtn li:nth-child(3) a {
 
 
 .txtLeft {
-    text-align: left;
+    text-align: left !important;
 }
 
 .section-wrap {
@@ -191,7 +217,6 @@ ul.tagBtn li:nth-child(3) a {
     font-size: 1.4rem;
     display: block;
     cursor: pointer;
-    line-height: 1.5;
 }
 
 .confirm-btn:hover {
@@ -199,7 +224,7 @@ ul.tagBtn li:nth-child(3) a {
 }
 
 .checkbox-txt {
-    font-size: 1.1rem;
+    font-size: 1.15rem;
     font-weight: bold;
     margin-right: 0.2em;
 }
@@ -333,6 +358,7 @@ form table td .text6 {
     width: 65%;
 }
 
+
 .table-box {
     width: 90%;
     margin: 0 auto;
@@ -350,9 +376,9 @@ form table td .text6 {
     font-size: 0.5rem;
 }
 
-.calender label {
+/* .calender label {
     font-weight: normal;
-}
+} */
 
 
 .btn-wrapper {
@@ -395,7 +421,7 @@ form table td .text6 {
     border-collapse: collapse;
     border: 1px solid #ccc;
     margin-bottom: 50px;
-
+    table-layout: initial;
 }
 
 .table-sum th {
@@ -436,11 +462,24 @@ form table td .text6 {
     font-size: 1.2rem;
 }
 
+.table-sum .checkbox-txt {
+    font-size: 1.8rem;
+}
+.table-sum .checkbox-txt span {
+    font-size: 0.7em;
+    margin: 0 5px;
+}
+
 .form-input {
     padding: 5px 10px;
     background: #fff;
     border-radius: 0;
     box-shadow: 0 0 3px #cacaca;
+}
+
+.totalsum-table {
+    border: 2px solid #3E4B5B;
+
 }
 
 
@@ -472,6 +511,34 @@ form table td .text6 {
 }
 
 /* カート一覧------------------------------------------------ */
+.cart-wrap {
+    margin: 0 auto 80px;
+    width: 85%;
+}
+
+.cart-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.cart-header .confirm-btn,
+.cart-header .link-btn3 {
+    min-width: 170px;
+}
+
+.cart-header .link-btn3 {
+    margin-left: 0.5em;
+}
+
+.cart-header h3 {
+    font-size: 1.5rem;
+}
+
+.cart-header ul {
+    display: flex;
+}
+
 .cart-box {
     display: flex;
     justify-content: flex-end;
@@ -488,6 +555,27 @@ form table td .text6 {
 
 header div.contents {
     position: relative;
+}
+
+.cart-wrap {
+    width: 95%;
+}
+
+.caution-area {
+    background-color: #ffe5e0;
+    padding: 1em;
+}
+
+.cart-addbtn {
+    position: fixed;
+    bottom: 190px;
+    right: 0;
+
+}
+
+.cart-addbtn .link-btn3 {
+    min-width: 150px;
+
 }
 
 /* スピナー -------------------------------*/
@@ -624,6 +712,18 @@ header div.contents {
         top: 120px;
         right: 10px;
     }
+    .cart-header {
+        display: block;
+    }
+
+    .cart-header ul {
+        margin: 0.5em 0;
+    }
+
+    .cart-addbtn .link-btn3 {
+        min-width: 110px;
+        font-size: 1rem;
+    }
 
     .wrapper {
         position: relative;
@@ -746,7 +846,8 @@ header div.contents {
     }
 
     .sum-list li {
-        /* display: block; */
+        display: block;
+        text-align: left;
     }
 
     .contents.news {

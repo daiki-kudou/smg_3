@@ -11,12 +11,12 @@
     <nav aria-label="breadcrumb">
       <ol class="breadcrumb">
         <li class="breadcrumb-item active"><a href="http://staging-smg2.herokuapp.com/admin/home">ホーム</a> &gt;
-          登録者情報
+          会員情報
         </li>
       </ol>
     </nav>
   </div>
-  <h2 class="mt-3 mb-3">登録者情報</h2>
+  <h2 class="mt-3 mb-3">会員情報</h2>
   <hr>
 </div>
 
@@ -30,7 +30,7 @@
         <td colspan="2">
           <div class="d-flex align-items-center">
             <i class="fas fa-info-circle icon-size" aria-hidden="true"></i>
-            <p class="section-ttl">登録者情報</p>
+            <p class="section-ttl">会員情報</p>
           </div>
         </td>
       </tr>

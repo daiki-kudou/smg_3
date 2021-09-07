@@ -11,7 +11,8 @@
       <section class="contents block">
         <div class="block">
             <p>想定していないフォームの操作により処理を中断しました。
-              再度お試し頂くか、システム管理者までご連絡ください</p>
+              再度お試し頂くかお電話にてお問い合わせ下さい。</p>
+              <p>SMG貸し会議室<br>06-6556-6462（平日10～18時）</p>
         </div>
         <div class="sitemaplist">
           <ul>

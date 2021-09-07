@@ -61,7 +61,7 @@
               {{Form::text("search_id",$request->search_id, ['class'=>'form-control'])}}
               <p class="is-error-search_id text-left" style="color: red"></p>
             </td>
-            <th class="search_item_name"><label for="">作成日</label></th>
+            <th class="search_item_name"><label for="">受付日</label></th>
             <td class="text-right form-group">
               {{Form::text("search_created_at",$request->search_created_at, ['class'=>'form-control','id'=>''])}}
             </td>
@@ -193,7 +193,7 @@
                 <input type="checkbox" name="all_check" id="all_check" />
               </th>
               <th id="sort_multiple_id">一括仮押えID {!!ReservationHelper::sortIcon($request->sort_multiple_id)!!}</th>
-              <th id="sort_created_at">作成日 {!!ReservationHelper::sortIcon($request->sort_created_at)!!}</th>
+              <th id="sort_created_at">受付日 {!!ReservationHelper::sortIcon($request->sort_created_at)!!}</th>
               <th id="sort_count">件数 {!!ReservationHelper::sortIcon($request->sort_count)!!}</th>
               <th id="sort_company">会社・団体名 {!!ReservationHelper::sortIcon($request->sort_company)!!}</th>
               <th id="sort_person">担当者氏名 {!!ReservationHelper::sortIcon($request->sort_person)!!}</th>

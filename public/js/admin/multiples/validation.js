@@ -204,7 +204,7 @@ $(function () {
   $.each(target, function (index, value) {
     $(value).validate({
       rules: {
-        cp_master_tel: { number: true, minlength: 11 },
+        cp_master_tel: { number: true, minlength: 11, maxlength: 11 },
         tel: { required: true, number: true, minlength: 11 },
         cp_master_luggage_count: { number: true, range: [0, 49] },
         cp_master_luggage_return: { number: true, range: [0, 49] },
@@ -214,7 +214,8 @@ $(function () {
       messages: {
         cp_master_tel: {
           number: "※半角数字を入力してください",
-          minlength: "※最低桁数は11です",
+          minlength: "※11桁で入力してください",
+          maxlength: "※11桁で入力してください",
         },
         unknown_user_tel: {
           number: "※半角数字を入力してください",

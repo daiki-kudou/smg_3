@@ -141,7 +141,7 @@
           <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
         </li>
       </ul>
-      <div class="user_info">ユーザーID：{{Auth::id()}}</div>
+      <div class="user_info">会員ID：{{Auth::id()}}</div>
       <div class="user_info">メール：{{(Auth::user()->email)}}</div>
       <div>
         <a class="dropdown-item" href="{{ route('user.logout') }}"
@@ -156,10 +156,19 @@
 
     <aside class="main-sidebar sidebar-dark-primary elevation-4">
       <a href="/user/home" class="brand-link">
-        <span class="brand-text font-weight-light">SMGアクセア貸会議室</span>
+        <span class="brand-text font-weight-light">SMGアクセア貸し会議室</span>
       </a>
 
       @include('layouts.user.side')
+
+      <div class="company-info">
+        <p>SMGアクセア貸し会議室</p>
+        <p>06-6556-6462</p>
+        <p>平日10時～18時</p>
+        <p>kaigi@s-mg.co.jp</p>
+          <a href="{{url('https://osaka-conference.com/')}}" target="_blank"  rel="noopener noreferrer" class="nav-link">
+            WEBサイトを見る<span><i class="fas fa-chevron-right"></i></span></a>
+      </div>
 
 
     </aside>

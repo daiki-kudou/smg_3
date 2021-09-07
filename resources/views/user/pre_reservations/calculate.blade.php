@@ -22,8 +22,11 @@
 
 @if ($pre_reservation->status==1)
 <div class="confirm-box text-md-center mt-5">
-  <p>下記の日程にて、会場を仮押えしています。
-    本予約に申し込む場合は、詳細を入力してお申込みください。</p>
+  <p class="f-wb">
+    内容と金額をご確認下さい。<br>
+    問題なければ下部「予約を申し込む」ボタンをクリックして下さい。<br>
+    ※内容を変更したい場合は「仮押え内容」を変更後、改めて「再計算する」ボタンをクリックして下さい。
+  </p>
 </div>
 @endif
 
@@ -36,7 +39,7 @@
       <tr>
         <td>
           <h3 class="text-white p-2">
-            仮押えお申込み内容
+            仮押え内容
           </h3>
         </td>
       </tr>
@@ -670,10 +673,6 @@
     </p>
     <p class="text-center mb-5 mt-3">
       {{ Form::submit('予約を申し込む', ['class' => 'btn more_btn4_lg confirm','name'=>'cfm']) }}
-    </p>
-    <p>※ご要望に相違がある場合は、下記連絡先までご連絡ください。<br>
-      TEL：06-1234-5678<br>
-      mail：test@gmail.com
     </p>
   </div>
 </div>
