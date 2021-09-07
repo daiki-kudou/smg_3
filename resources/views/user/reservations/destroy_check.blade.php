@@ -3,10 +3,7 @@
   <!-- ログイン、会員登録 -->
   <div class="contents">
     <div class="pagetop-text">
-      <h1 class="page-title oddcolor"><span>予約の取り消し</span></h1>
-      <p>
-        下記の予約を取り消してもよろしいでしょうか。
-      </p>
+      <h1 class="page-title oddcolor"><span>下記内容を取り消してもよろしいでしょうか。</span></h1>
     </div>
   </div>
   <section class="contents">
@@ -307,18 +304,21 @@
 
           <tr>
             <td colspan="2" class="text-right">
-              <p class="checkbox-txt"><span>小計</span>{{number_format($slctSession[0]['master'])}}円</p>
+              <p class="checkbox-txt"><span>小計(税抜)</span>{{number_format($slctSession[0]['master'])}}<span>円</span></p>
               <p class="checkbox-txt"><span>消費税</span>
-                {{number_format(ReservationHelper::getTax($slctSession[0]['master']))}}円</p>
+                {{number_format(ReservationHelper::getTax($slctSession[0]['master']))}}<span>円</span></p>
             </td>
           </tr>
           <tr>
-            <td colspan="2" class="text-right checkbox-txt"><span>合計金額</span>
+            <td colspan="2" class="text-right">
+              <span class="checkbox-txt">合計金額(税込)</span>
               <span class="sumText">
-                {{number_format(ReservationHelper::taxAndPrice($slctSession[0]['master']))}}
-              </span><span>円</span>
-              <p class="txtRight">※上記合計金額にケータリングは入っておりません。<br>
-                ※お申込み内容によっては、弊社からご連絡の上で、合計金額が変更となる場合がございます</p>
+                {{number_format(ReservationHelper::taxAndPrice($slctSession[0]['master']))}}</span>
+              <span class="checkbox-txt">円</span>
+              <p class="txtRight txtRed">
+                ※上記「総額」は確定金額ではありません。<br>
+                変更が生じる場合は弊社にて金額を修正し、改めて確認のご連絡をさせて頂きます。</p>
+              <p class="txtRight txtRed">※荷物預かりサービスをご利用の場合、上記「総額」に既定のサービス料金が加算されます。</p>
             </td>
           </tr>
         </tbody>
@@ -329,11 +329,11 @@
     <div class="section-wrap">
       <ul class="btn-wrapper">
         <li>
-          <p><a class="link-btn" href="{{url('user/reservations/cart')}}">予約一覧にもどる</a></p>
+          <p><a class="link-btn" href="{{url('user/reservations/cart')}}">カートに戻る</a></p>
         </li>
         <li>
           {{ Form::hidden("session_reservation_id",$session_id )}}
-          <p>{{Form::submit('予約を取り消す', ['class' => 'btn confirm-btn'])}}</p>
+          <p>{{Form::submit('取り消す', ['class' => 'btn confirm-btn'])}}</p>
         </li>
       </ul>
     </div>

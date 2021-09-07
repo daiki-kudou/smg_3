@@ -31,12 +31,12 @@
                   @enderror
                 </td>
               </tr>
-              <tr>
+              {{-- <tr>
                 <th>メールアドレス（確認）<span class="txtRed c-block">＊</span></th>
                 <td>
                   <input type="text" class="text1">
                 </td>
-              </tr>
+              </tr> --}}
             </table>
           </div>
           <div class="form-group row mb-0">

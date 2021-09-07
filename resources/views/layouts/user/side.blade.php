@@ -36,7 +36,7 @@
       <li class="nav-item has-treeview">
         <a href="{{route('user.home.user_info')}}" class="nav-link ">
           <i class="nav-icon fas fa-user-shield" style=""></i>
-          <p>登録情報</p>
+          <p>会員情報</p>
         </a>
       </li>
 
@@ -54,15 +54,15 @@
         </a>
       </li>
 
-      <li class="nav-item has-treeview">
+      {{-- <li class="nav-item has-treeview">
         <a href="{{url('user/home/cxl_membership')}}" class="nav-link">
           <i class="nav-icon fas fa-sign-out-alt" style=""></i>
           <p>退会</p>
         </a>
-      </li>
-
+      </li> --}}
     </ul>
   </nav>
   <!-- /.sidebar-menu -->
+
 </div>
 <!-- /.sidebar -->

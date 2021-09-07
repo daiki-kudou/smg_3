@@ -9,12 +9,12 @@
     <nav aria-label="breadcrumb">
       <ol class="breadcrumb">
         <li class="breadcrumb-item active"><a href="http://staging-smg2.herokuapp.com/admin/home">ホーム</a> &gt;
-          登録者情報
+          会員情報
         </li>
       </ol>
     </nav>
   </div>
-  <h2 class="mt-3 mb-3">登録者情報</h2>
+  <h2 class="mt-3 mb-3">会員情報</h2>
   <hr>
 </div>
 
@@ -33,7 +33,7 @@
         <td colspan="2">
           <div class="d-flex align-items-center">
             <i class="fas fa-info-circle icon-size" aria-hidden="true"></i>
-            <p class="section-ttl">登録者情報</p>
+            <p class="section-ttl">会員情報</p>
           </div>
         </td>
       </tr>
@@ -105,12 +105,19 @@
 </section>
 
 
-　<div class="btn-wrapper">
+<div class="btn_wrapper ">
   {{Form::open(['url' => 'user/home/user_edit', 'method' => 'POST'])}}
   @csrf
   {{Form::hidden('user_id',$user->id)}}
   <p class="text-center">{{Form::submit('編集する',['class'=>'more_btn_lg btn'])}}
     {{Form::close()}}
+  </p>
+  <hr class="my-5 user-profile">
+  <p class="user-profile text-right">
+    <a href="{{url('user/home/cxl_membership')}}">退会を希望する</a>
+  </p>
 </div>
+
+
 
 @endsection

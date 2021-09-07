@@ -35,8 +35,8 @@
               <div class="riyoubi">
                 {{ Form::text('date', HomeHelper::now(),['class'=>'form-control text6', 'readonly', 'id'=>'datepicker'] ) }}
               </div>
-              <span class="txt-indent">※選択不可の日程につきましては、直接お問い合わせ下さい。</span>
-              <span class="txt-indent">※一部検索対応をしていない会場があります。</span></p>
+              <span class="txt-indent f-s90">※選択不可の日程につきましては、直接お問い合わせ下さい。</span>
+              <span class="txt-indent f-s90">※一部検索対応をしていない会場があります。</span></p>
             </dd>
           </dl>
           <div class="btnOrange">
@@ -65,7 +65,7 @@
                   @endforeach
                 </select>
               </div>
-              <p><span class="txt-indent">※検索対応をしていない会場や、利用月プルダウン外の日程に関しましては直接お問い合わせ下さい。</span>
+              <p><span class="txt-indent f-s90">※検索対応をしていない会場や、利用月プルダウン外の日程に関しましては直接お問い合わせ下さい。</span>
               </p>
             </dd>
           </dl>
@@ -88,7 +88,7 @@
           <dl class="m-b20">
             <dt></dt>
             <dd>
-              <p><span class="txt-indent">※選択不可の日程につきましては、直接お問い合わせ下さい。</span></p>
+              <p><span class="txt-indent f-s90">※選択不可の日程につきましては、直接お問い合わせ下さい。</span></p>
             </dd>
           </dl>
           <p class="txtCenter">
@@ -106,7 +106,7 @@
 
     {{Form::open(['url' => 'user/reservations/create', 'method' => 'get', 'class'=>'search','id'=>'slct_venue_form'])}}
     @csrf
-    <h2 class="sub-ttl">選択した日程</h2>
+    <h2 class="sub-ttl">日程を選択</h2>
     <div class="bgColorGray first">
       <table class="">
         <tr>
@@ -142,12 +142,12 @@
               </select>
             </div>
             <p class="is-error-enter_time" style="color: red"></p>
-            <p>
+            <p class="txtRed">
               <span>入室時間より以前に入室はできません。
                 <br>
                 確認の上、チェックボックスをクリックしてください。</span>
             </p>
-            <p class="checkbox-txt">
+            <p class="checkbox-txt txtRed">
               <span class="txtRed">＊</span>
               {{Form::checkbox('q1', 1, false, ['class'=>'','id'=>'checkbox'])}}
               <label for="checkbox">確認しました</label>
@@ -170,7 +170,7 @@
       </table>
     </div>
     <p class="m-t10">
-      {{ Form::submit('日時を選択する', ['class' => 'btn confirm-btn margin-auto']) }}
+      {{ Form::submit('次画面で詳細を入力', ['class' => 'btn confirm-btn margin-auto']) }}
     </p>
     {{Form::close()}}
   </div>

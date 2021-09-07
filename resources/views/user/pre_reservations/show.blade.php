@@ -24,8 +24,11 @@
 
 @if ($pre_reservation->status==1)
 <div class="confirm-box text-md-center mt-5">
-  <p>下記の日程にて、会場を仮押えしています。
-    本予約に申し込む場合は、詳細を入力してお申込みください。</p>
+  <p>
+    下記日程で会場を仮押えしています。<br>
+    予約に関する詳細情報を入力し、<span class="f-wb f-s15">下部の「金額を確認する」ボタンをクリック</span>してお申込み手続きを進めて下さい。<br>
+    なお、取消しの際はSMGまでご連絡下さい。
+  </p>
 </div>
 @endif
 
@@ -35,7 +38,7 @@
       <tr>
         <td>
           <h3 class="text-white p-2">
-            仮押えお申込み内容
+            仮押え内容
           </h3>
         </td>
       </tr>
@@ -203,7 +206,7 @@
                 </th>
               </tr>
             </thead>
-            <tbody class="accordion-wrap" style="display: none;">
+            <tbody class="accordion-wrap">
               @foreach ($venue->getEquipments() as $key=>$equ)
               <tr>
                 <td class="table-active">
@@ -235,7 +238,7 @@
                 </th>
               </tr>
             </thead>
-            <tbody class="accordion-wrap" style="display: none;">
+            <tbody class="accordion-wrap">
               @foreach ($venue->getServices() as $key=>$ser)
               <tr>
                 <td class="table-active">

@@ -28,6 +28,7 @@
       <tr>
         <th>一括仮押えID</th>
         <th>仮押えID</th>
+        <th>受付日</th>
         <th>利用日</th>
         <th>入室時間</th>
         <th>退室時間</th>
@@ -40,12 +41,13 @@
       <tr>
         <td>{{$pre_reservation->multiple_reserve_id==0?"":$pre_reservation->multiple_reserve_id}}</td>
         <td>{{ReservationHelper::fixId($pre_reservation->id)}}</td>
+        <td>{{ReservationHelper::formatDate($pre_reservation->created_at)}}</td>
         <td>{{ReservationHelper::formatDate($pre_reservation->reserve_date)}}</td>
         <td>{{ReservationHelper::formatTime($pre_reservation->enter_time)}}</td>
         <td>{{ReservationHelper::formatTime($pre_reservation->leave_time)}}</td>
         <td>{{ReservationHelper::getVenueForUser($pre_reservation->venue_id)}}</td>
         <td>
-          <a href="{{url('user/pre_reservations/'.$pre_reservation->id)}}" class="more_btn">本予約を申込む</a>
+          <a href="{{url('user/pre_reservations/'.$pre_reservation->id)}}" class="more_btn">詳細</a>
         </td>
       </tr>
       @endforeach

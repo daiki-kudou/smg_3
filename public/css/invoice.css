@@ -351,6 +351,9 @@ caption, th, td {
 .bill-note p:first-child {
   font-weight: bold;
 }
+.bill-note p:last-child {
+  white-space: pre-wrap;
+}
 
 .stamp-area {
   position: relative;

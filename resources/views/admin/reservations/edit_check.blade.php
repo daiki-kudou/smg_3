@@ -141,7 +141,7 @@
               </th>
             </tr>
           </thead>
-          <tbody class="accordion-wrap">
+          <tbody class="accordion-wrap2">
             @foreach ($venue->getEquipments() as $key=>$equipment)
             <tr>
               <td class="table-active">{{$equipment->item}}({{$equipment->price}}円)</td>
@@ -167,7 +167,7 @@
               </th>
             </tr>
           </thead>
-          <tbody class="accordion-wrap">
+          <tbody class="accordion-wrap2">
             @foreach ($venue->getServices() as $key=>$service)
             <tr>
               <td class="table-active">

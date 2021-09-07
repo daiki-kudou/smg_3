@@ -1197,7 +1197,7 @@ h3 {
 /* カレンダー */
 
 .calender-wrap {
-    overflow-x: scroll;
+    /* overflow-x: scroll; */
 }
 
 .calender-flame {
@@ -1742,7 +1742,13 @@ table .master_total_subttl2 {
 
 
 /* マイページ =============================================================*/
+.f-wb {
+    font-weight: bold;
+}
 
+.f-s15 {
+    font-size: 1.5rem;
+}
 
 
 .user_wrapper .ttl_box {
@@ -1796,6 +1802,30 @@ table .master_total_subttl2 {
 
   .user-profile th, .user-profile td {
     font-weight: normal;
+}
+
+.company-info {
+    color: #fff;
+    padding: 1em;
+    border: 1px solid #c2c7d0;
+    position: absolute;
+    bottom: 1%;
+    left: 2.5%;
+    width: 95%;
+}
+
+.company-info a {
+    color: #2d2d2d;
+    padding: 0.5em;
+    background: #f4f6f9;
+    border-radius: 0.25rem;
+    margin-top: 1em;
+    position: relative;
+}
+
+.company-info a span {
+    position: absolute;
+    right: 0.5em;
 }
 
 @media screen and (max-width: 767px) {

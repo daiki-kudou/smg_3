@@ -145,7 +145,7 @@ $(function () {
         unknown_user_email: { email: true },
         unknown_user_mobile: { number: true, minlength: 11 },
         unknown_user_tel: { number: true, minlength: 10 },
-        tel: { number: true, minlength: 11 },
+        tel: { number: true, minlength: 11, maxlength: 11 },
         luggage_count: { number: true, range: [1, 49] },
         luggage_return: { number: true, range: [1, 49] },
         cost: { number: true, range: [1, 100] },
@@ -162,7 +162,8 @@ $(function () {
         },
         tel: {
           number: "※半角数字を入力してください",
-          minlength: "※最低桁数は11です",
+          minlength: "※11桁で入力してください",
+          maxlength: "※11桁で入力してください"
         },
         luggage_count: {
           number: "半角数字で入力してください",

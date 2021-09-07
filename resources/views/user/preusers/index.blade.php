@@ -18,7 +18,7 @@
           <th>メールアドレス<span class="txtRed c-block">＊</span></th>
           <td>
             <input type="email" class="form-control text1 " id="email" aria-describedby="emailHelp"
-              placeholder="sample@sample.com" name="email">
+              placeholder="" name="email">
               <p class="is-error-email" style="color: red"></p>
           </td>
         </tr>
@@ -26,7 +26,7 @@
           <th>メールアドレス（確認）<span class="txtRed c-block">＊</span></th>
           <td>
             <input type="email2" class="form-control text1" id="email2" aria-describedby="emailHelp"
-              placeholder="sample@sample.com" name="email2">
+              placeholder="" name="email2">
             <p class="is-error-email2" style="color: red"></p>
           </td>
         </tr>

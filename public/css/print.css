@@ -350,6 +350,10 @@
   .bill-note p:first-child {
     font-weight: bold;
   }
+
+  .bill-note p:last-child {
+    white-space: pre-wrap;
+  }
   
   .button-wrap {
     display: none;

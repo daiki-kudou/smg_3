@@ -13,19 +13,19 @@
   <div class="bgColorGray first">
     <table class="table-box">
       <tr>
-        <th>会社・団体名</th>
+        <th>会社・団体名 <span class="txtRed c-block">＊</span></th>
         <td>
           {{$request->company}}
         </td>
       </tr>
       <tr>
-        <th>担当者氏名</th>
+        <th>担当者氏名 <span class="txtRed c-block">＊</span></th>
         <td>
           {{$request->first_name}} {{$request->last_name}}
         </td>
       </tr>
       <tr>
-        <th>担当者氏名(フリガナ)</th>
+        <th>担当者氏名(フリガナ) <span class="txtRed c-block">＊</span></th>
         <td>
           {{$request->first_name_kana}} {{$request->last_name_kana}}
         </td>
@@ -57,7 +57,7 @@
       </tr>
       <tr class="tr-tel-1">
         <th>
-          連絡先
+          連絡先 <span class="txtRed c-block">＊</span>
         </th>
         <td>
           <p class="checkbox-txt">携帯電話</p>
@@ -109,9 +109,9 @@
       </tr>
     </table>
   </div>
-  <div class="borderBox page-text">
+  {{-- <div class="borderBox page-text">
     <p>プライバシーポリシー、利用規約に合意しました。</p>
-  </div>
+  </div> --}}
 
   <ul class="btn-wrapper">
     <li>
@@ -122,7 +122,7 @@
     </li>
     <li>
       <p>
-        {{ Form::submit('登録する', ['name'=>'register','class' => 'btn confirm-btn']) }}
+        {{ Form::submit('会員登録する', ['name'=>'register','class' => 'btn confirm-btn']) }}
       </p>
     </li>
   </ul>
