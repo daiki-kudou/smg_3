@@ -219,7 +219,7 @@
           headers: {
             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
           },
-          url: '/admin/agents/get_agent',
+          url: rootPath+'/admin/agents/get_agent',
           type: 'POST',
           data: {
             'agent_id': $agent_id,

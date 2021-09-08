@@ -18,7 +18,7 @@ $(function () {
       headers: {
         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
       },
-      url: '/admin/agents_reservations/get_agent',
+      url: rootPath + '/admin/agents_reservations/get_agent',
       type: 'POST',
       data: {
         'agent_id': $agent_id,
@@ -83,7 +83,7 @@ function ajaxGetItems($venue_id) {
     headers: {
       'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
     },
-    url: '/admin/reservations/geteitems',
+    url: rootPath + '/admin/reservations/geteitems',
     type: 'POST',
     data: { 'venue_id': $venue_id },
     dataType: 'json',
@@ -151,7 +151,7 @@ function ajaxGetSalesHours($venue_id, $dates) {
     headers: {
       'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
     },
-    url: '/admin/reservations/getsaleshours',
+    url: rootPath + '/admin/reservations/getsaleshours',
     type: 'POST',
     data: { 'venue_id': $venue_id, 'dates': $dates },
     dataType: 'json',
@@ -199,7 +199,7 @@ function ajaxGetPriceStstem($venue_id) {
     headers: {
       'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
     },
-    url: '/admin/reservations/getpricesystem',
+    url: rootPath + '/admin/reservations/getpricesystem',
     type: 'POST',
     data: { 'venue_id': $venue_id },
     dataType: 'json',
@@ -247,7 +247,7 @@ function ajaxGetLayout($venue_id) {
     headers: {
       'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
     },
-    url: '/admin/reservations/getlayout',
+    url: rootPath + '/admin/reservations/getlayout',
     type: 'POST',
     data: {
       'venue_id': $venue_id
@@ -275,7 +275,7 @@ function ajaxGetLuggage($venue_id) {
     headers: {
       'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
     },
-    url: '/admin/reservations/getluggage',
+    url: rootPath + '/admin/reservations/getluggage',
     type: 'POST',
     data: {
       'venue_id': $venue_id
@@ -366,7 +366,7 @@ function ajaxGetLayoutPrice($venue_id, $layout_prepare, $layout_clean) {
     headers: {
       'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
     },
-    url: '/admin/reservations/getlayoutprice',
+    url: rootPath + '/admin/reservations/getlayoutprice',
     type: 'POST',
     data: {
       'venue_id': $venue_id,
@@ -429,7 +429,7 @@ function ajaxGetSalesHours($venue_id, $dates) {
     headers: {
       'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
     },
-    url: '/admin/reservations/getsaleshours',
+    url: rootPath + '/admin/reservations/getsaleshours',
     type: 'POST',
     data: { 'venue_id': $venue_id, 'dates': $dates },
     dataType: 'json',
@@ -479,7 +479,7 @@ function ajaxGetAgentPayDetails($agent_id, $date) {
     headers: {
       'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
     },
-    url: '/admin/agents_reservations/pay_limits',
+    url: rootPath + '/admin/agents_reservations/pay_limits',
     type: 'POST',
     data: {
       'agent_id': $agent_id, 'date': $date

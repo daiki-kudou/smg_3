@@ -1171,7 +1171,7 @@
       headers: {
         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
       },
-      url: '/admin/clients/getclients',
+      url: rootPath+'/admin/clients/getclients',
       type: 'POST',
       data: {
         'user_id': user_id

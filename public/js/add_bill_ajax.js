@@ -104,7 +104,7 @@ function ajaxAddBillsEquipments($reservation_id) {
     headers: {
       'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
     },
-    url: '/admin/bills/ajaxaddbillsequipments',
+    url: rootPath + '/admin/bills/ajaxaddbillsequipments',
     type: 'POST',
     data: {
       'reservation_id': $reservation_id,
@@ -139,7 +139,7 @@ function ajaxAddBillsLayout($reservation_id) {
     headers: {
       'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
     },
-    url: '/admin/bills/ajaxaddbillslaytout',
+    url: rootPath + '/admin/bills/ajaxaddbillslaytout',
     type: 'POST',
     data: {
       'reservation_id': $reservation_id,

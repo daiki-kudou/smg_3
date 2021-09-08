@@ -1119,7 +1119,7 @@
           headers: {
             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
           },
-          url: '/admin/pre_reservations/get_user',
+          url: rootPath+'/admin/pre_reservations/get_user',
           type: 'POST',
           data: {
             'user_id': $user_id,

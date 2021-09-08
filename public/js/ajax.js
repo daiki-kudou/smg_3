@@ -137,7 +137,7 @@ $(function () {
       headers: {
         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
       },
-      url: '/admin/reservations/geteitems',
+      url: rootPath + '/admin/reservations/geteitems',
       type: 'POST',
       data: { 'venue_id': $venue_id, 'text': 'Ajax成功' },
       dataType: 'json',
@@ -199,7 +199,7 @@ $(function () {
       headers: {
         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
       },
-      url: '/admin/reservations/getsaleshours',
+      url: rootPath + '/admin/reservations/getsaleshours',
       type: 'POST',
       data: { 'venue_id': $venue_id, 'dates': $dates },
       dataType: 'json',
@@ -244,7 +244,7 @@ $(function () {
       headers: {
         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
       },
-      url: '/admin/reservations/getpricesystem',
+      url: rootPath + '/admin/reservations/getpricesystem',
       type: 'POST',
       data: { 'venue_id': $venue_id },
       dataType: 'json',
@@ -290,7 +290,7 @@ $(function () {
       headers: {
         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
       },
-      url: '/admin/reservations/getpricedetails',
+      url: rootPath + '/admin/reservations/getpricedetails',
       type: 'POST',
       data: {
         'venue_id': $venue_id,
@@ -383,7 +383,7 @@ $(function () {
       headers: {
         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
       },
-      url: '/admin/reservations/geteitemsprices',
+      url: rootPath + '/admin/reservations/geteitemsprices',
       type: 'POST',
       data: {
         'venue_id': $venue_id,
@@ -498,7 +498,7 @@ $(function () {
       headers: {
         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
       },
-      url: '/admin/reservations/getlayout',
+      url: rootPath + '/admin/reservations/getlayout',
       type: 'POST',
       data: {
         'venue_id': $venue_id
@@ -524,7 +524,7 @@ $(function () {
       headers: {
         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
       },
-      url: '/admin/reservations/getlayoutprice',
+      url: rootPath + '/admin/reservations/getlayoutprice',
       type: 'POST',
       data: {
         'venue_id': $venue_id,
@@ -572,7 +572,7 @@ $(function () {
       headers: {
         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
       },
-      url: '/admin/reservations/getluggage',
+      url: rootPath + '/admin/reservations/getluggage',
       type: 'POST',
       data: {
         'venue_id': $venue_id
@@ -648,7 +648,7 @@ $(function () {
       headers: {
         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
       },
-      url: '/admin/reservations/getoperation',
+      url: rootPath + '/admin/reservations/getoperation',
       type: 'POST',
       data: {
         'venue_id': $venue_id
@@ -680,7 +680,7 @@ $(function () {
       headers: {
         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
       },
-      url: '/admin/clients/getclients',
+      url: rootPath + '/admin/clients/getclients',
       type: 'POST',
       data: {
         'user_id': user_id
@@ -712,7 +712,7 @@ $(function () {
       headers: {
         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
       },
-      url: '/admin/reservations/get_eat_in',
+      url: rootPath + '/admin/reservations/get_eat_in',
       type: 'POST',
       data: {
         'venue_id': venue_id

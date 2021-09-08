@@ -122,7 +122,8 @@
             }
         });
     });
-// 更新時、確認用アラート
+    var rootPath="{{url('/')}}";
+    console.log(rootPath);
   </script>
 </body>
 

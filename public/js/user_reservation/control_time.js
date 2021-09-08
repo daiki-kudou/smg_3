@@ -9,7 +9,7 @@ $(document).on("change ", "#venue_id", function () {
     headers: {
       'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
     },
-    url: 'control_time',
+    url: rootPath + '/control_time',
     type: 'post',
     data: { 'date': date, 'venue_id': venue_id },
     dataType: 'json',
@@ -116,7 +116,7 @@ $(document).on("change", "#datepicker2", function () {
     headers: {
       'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
     },
-    url: 'control_time',
+    url: rootPath + '/control_time',
     type: 'post',
     data: { 'date': date, 'venue_id': venue_id },
     dataType: 'json',
@@ -154,7 +154,7 @@ function ajaxCheckPriceSystem($venue_id) {
     headers: {
       'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
     },
-    url: '/admin/reservations/getpricesystem',
+    url: rootPath + '/admin/reservations/getpricesystem',
     type: 'POST',
     data: { 'venue_id': $venue_id },
     dataType: 'json',

@@ -1077,7 +1077,7 @@
           headers: {
             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
           },
-          url: '/admin/pre_agent_reservations/get_agent',
+          url: rootPath+'/admin/pre_agent_reservations/get_agent',
           type: 'POST',
           data: {
             'agent_id': agent_id

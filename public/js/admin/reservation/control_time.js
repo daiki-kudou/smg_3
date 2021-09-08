@@ -47,7 +47,7 @@ $(function () {
       headers: {
         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
       },
-      url: '/admin/control_time',
+      url: rootPath + '/admin/control_time',
       type: 'POST',
       data: { 'date': $date, 'venue_id': $venue_id },
       dataType: 'json',

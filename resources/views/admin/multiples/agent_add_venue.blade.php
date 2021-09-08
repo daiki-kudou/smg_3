@@ -239,7 +239,7 @@
           headers: {
             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
           },
-          url: '/admin/pre_reservations/getuser',
+          url: rootPath+'/admin/pre_reservations/getuser',
           type: 'POST',
           data: {
             'user_id': user_id
@@ -362,7 +362,7 @@
   //           headers: {
   //             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
   //           },
-  //           url: '/admin/reservations/getsaleshours',
+  //           url: rootPath+'/admin/reservations/getsaleshours',
   //           type: 'POST',
   //           data: {
   //             'venue_id': venue,
@@ -403,7 +403,7 @@
   //             headers: {
   //               'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
   //             },
-  //             url: '/admin/pre_reservations/reject_same_time',
+  //             url: rootPath+'/admin/pre_reservations/reject_same_time',
   //             type: 'POST',
   //             data: {
   //               'targetEnter': targetEnter,
