@@ -182,8 +182,11 @@ class Reservation extends Model implements PresentableInterface
   //  管理者　予約　保存
   public function ReservationStore($data)
   {
-    $this->checkReservationsTransaction($data['reserve_date'], $data['enter_time'], $data['leave_time']);
-    $this->checkPreReservationsTransaction($data['reserve_date'], $data['enter_time'], $data['leave_time']);
+    $chkReservation = ($this->checkReservationsTransaction($data['reserve_date'], $data['enter_time'], $data['leave_time']));
+    $chkPreReservation = ($this->checkPreReservationsTransaction($data['reserve_date'], $data['enter_time'], $data['leave_time']));
+    if (!$chkReservation || !$chkPreReservation) {
+      return "重複";
+    }
     $result = $this->create([
       'venue_id' => $data['venue_id'],
       'user_id' => !empty($data['user_id']) ? $data['user_id'] : 0,
@@ -212,7 +215,7 @@ class Reservation extends Model implements PresentableInterface
       'eat_in' => $data['eat_in'],
       'eat_in_prepare' => !empty($data['eat_in_prepare']) ? $data['eat_in_prepare'] : 0,
       'multiple_reserve_id' => !empty($data['multiple_reserve_id']) ? $data['multiple_reserve_id'] : 0,
-      'luggage_flag' => !empty($data['luggage_flag']) ? $data['luggage_flag'] : 0,
+      // 'luggage_flag' => !empty($data['luggage_flag']) ? $data['luggage_flag'] : 0,
     ]);
     return $result;
   }
@@ -236,7 +239,7 @@ class Reservation extends Model implements PresentableInterface
       'luggage_count' => $data['luggage_count'],
       'luggage_arrive' => $data['luggage_arrive'],
       'luggage_return' => $data['luggage_return'],
-      'email_flag' => $data['email_flag'],
+      'email_flag' => !empty($data['email_flag']) ? $data['email_flag'] : 1,
       'in_charge' => $data['in_charge'],
       'tel' => $data['tel'],
       'cost' => !empty($data['cost']) ? $data['cost'] : 0,
@@ -247,7 +250,7 @@ class Reservation extends Model implements PresentableInterface
       'eat_in' => $data['eat_in'],
       'eat_in_prepare' => !empty($data['eat_in_prepare']) ? $data['eat_in_prepare'] :  0,
       'multiple_reserve_id' => $data['multiple_reserve_id'] ?? 0,
-      'luggage_flag' => !empty($data['luggage_flag']) ? $data['luggage_flag'] : 0,
+      // 'luggage_flag' => !empty($data['luggage_flag']) ? $data['luggage_flag'] : 0,
     ]);
     return $this;
   }

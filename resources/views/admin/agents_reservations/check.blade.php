@@ -52,10 +52,13 @@
   </div>
 </div>
 
-@if (session('errors'))
-<div class="alert alert-danger">{{ session('errors') }}</div>
-@endif
-
+@foreach ($errors->all() as $error)
+<div class="alert alert-danger">
+  <ul>
+    <li>{{$error}}</li>
+  </ul>
+</div>
+@endforeach
 
 {{Form::open(['url' => 'admin/agents_reservations', 'method' => 'POST', 'id'=>'agentReservationCreateForm'])}}
 @csrf
