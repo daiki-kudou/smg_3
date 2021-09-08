@@ -47,6 +47,7 @@ $(function () {
       headers: {
         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
       },
+      //rootPathを付与
       url: rootPath + '/admin/control_time',
       type: 'POST',
       data: { 'date': $date, 'venue_id': $venue_id },
