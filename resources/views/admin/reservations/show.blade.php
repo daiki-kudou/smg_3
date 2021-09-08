@@ -1734,7 +1734,7 @@ $(function () {
 });
 
 
-アコーディオン
+// アコーディオン
 $(function () {
   $(".accordion-wrap").show();
   $(".accordion-ttl").on("click", function () {
