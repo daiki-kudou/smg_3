@@ -1,14 +1,14 @@
 <?php
 Route::namespace('Home')->prefix('/')->name('home.')->group(function () {
-  Route::middleware('basic_auth')->group(function () {
-    Route::get('/', 'HomeController@index')->name('home');
-    Route::get('slct_date', 'HomeController@slct_date');
-    Route::get('slct_venue', 'HomeController@slct_venue');
-    Route::get('email_reset_done', 'HomeController@email_reset_done');
-    // 予約時の時間制御用ajax
-    Route::post('control_time', 'HomeController@control_time');
-    Route::get('cxl_member_ship_done', 'HomeController@cxl_member_ship_done');
-  });
+  // Route::middleware('basic_auth')->group(function () {
+  Route::get('/', 'HomeController@index')->name('home');
+  Route::get('slct_date', 'HomeController@slct_date');
+  Route::get('slct_venue', 'HomeController@slct_venue');
+  Route::get('email_reset_done', 'HomeController@email_reset_done');
+  // 予約時の時間制御用ajax
+  Route::post('control_time', 'HomeController@control_time');
+  Route::get('cxl_member_ship_done', 'HomeController@cxl_member_ship_done');
+  // });
 });
 
 
@@ -163,8 +163,9 @@ Route::namespace('Admin')->prefix('admin')->name('admin.')->group(function () {
     // Route::post('reservations/session_for_edit_check', 'ReservationsController@sessionForEditCheck');
     // 予約　編集確認
     Route::post('reservations/edit_check', 'ReservationsController@edit_check')->name('reservations.edit_check');
+    // Route::post('reservations/edit_calc', 'ReservationsController@edit_calc')->name('reservations.edit_calc');
 
-    Route::post('reservations/edit_without_calc', 'ReservationsController@editWithoutCalc');
+    // Route::post('reservations/edit_without_calc', 'ReservationsController@editWithoutCalc');
 
 
     // 予約　show

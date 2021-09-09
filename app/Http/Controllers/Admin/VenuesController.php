@@ -134,8 +134,6 @@ class VenuesController extends Controller
       'layout' => $request->layout,
     ]);
 
-
-
     // 備品保存
     $e_selects = $request->equipment_id;
     if (isset($e_selects)) {

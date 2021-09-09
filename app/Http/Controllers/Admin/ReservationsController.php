@@ -719,12 +719,45 @@ class ReservationsController extends Controller
   public function edit_check(Request $request)
   {
     $data = $request->all();
+    if ($request->edit_calc) { //再計算ボタン押下
+      return $this->edit_calc($data);
+    }
+
     $venue = Venue::find($data['venue_id']);
-    dump($data);
 
     return view('admin.reservations.edit_check', compact(
       'data',
       'venue',
+    ));
+  }
+
+  public function edit_calc($array)
+  {
+    $data = $array;
+    $venue = Venue::find($data['venue_id']);
+    $users = User::all();
+    dump($data);
+    $price_details = $venue->calculate_price($data['price_system'], $data['enter_time'], $data['leave_time']);
+    $s_equipment = Equipment::getSessionArrays(collect($data))[0];
+    $s_services = Service::getSessionArrays(collect($data))[0];
+    $item_details = $venue->calculate_items_price($s_equipment, $s_services);
+    $layouts_details = $venue->getLayoutPrice($data['layout_prepare'], $data['layout_clean']);
+    if ($price_details === 0) {
+      $masters = ($item_details[0] + $data['luggage_price']) + $layouts_details[2] + $data['others_price'];
+    } else {
+      $masters = ($price_details[0]) + ($item_details[0] + $data['luggage_price']) + $layouts_details[2] + $data['others_price'];
+    }
+    dump($masters);
+    return view('admin.reservations.edit_calc', compact(
+      'data',
+      'venue',
+      'users',
+      'price_details',
+      'item_details',
+      'layouts_details',
+      's_equipment',
+      's_services',
+      'masters',
     ));
   }
 

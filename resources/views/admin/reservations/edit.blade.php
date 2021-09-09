@@ -631,9 +631,8 @@
     </div>
   </div>
 </section>
-<button type="button" class="btn more_btn4_lg mx-auto my-5 d-block">再計算する</button>
-{{-- {{Form::submit('再計算する', ['class'=>'btn more_btn4_lg mx-auto my-5 d-block', 'id'=>'check_submit'])}}
-{{Form::close()}} --}}
+{{-- <button type="button" class="btn more_btn4_lg mx-auto my-5 d-block">再計算する</button> --}}
+{{Form::submit('再計算する', ['class'=>'btn more_btn4_lg mx-auto my-5 d-block', 'id'=>'check_submit','name'=>"edit_calc"])}}
 
 
 {{-- {{ Form::open(['url' => 'admin/reservations/session_for_edit_check', 'method'=>'POST', 'id'=>'reservations_edit_result']) }}
