@@ -442,7 +442,7 @@
               <dl class="ttl_box">
                 <dt>支払い期日</dt>
                 <dd class="total_result">
-                  {{-- {{$payment_limit}} --}}
+                  {{ReservationHelper::formatDate($data['payment_limit'])}}
                 </dd>
               </dl>
             </td>
@@ -480,16 +480,24 @@
                 </tr>
               </tbody>
               <tbody class="venue_main">
+                @foreach ($data['venue_breakdown_item'] as $key=>$item)
                 <tr>
                   <td>
-                    {{ Form::text('venue_breakdown_item0', "会場料金",['class'=>'form-control', 'readonly'] ) }}
+                    {{ Form::text('venue_breakdown_item[]', $data['venue_breakdown_item'][$key],['class'=>'form-control', 'readonly'] ) }}
                   </td>
-                  <td><input class="form-control" readonly></td>
                   <td>
-                    {{ Form::text('venue_breakdown_count0', 1,['class'=>'form-control', 'readonly'] ) }}
+                    <input type="" class="form-control" readonly>
+                    {{ Form::hidden('venue_breakdown_cost[]', '',['class'=>'form-control', 'readonly'] ) }}
                   </td>
-                  <td><input class="form-control" readonly></td>
+                  <td>
+                    {{ Form::text('venue_breakdown_count[]', $data['venue_breakdown_count'][$key],['class'=>'form-control', 'readonly'] ) }}
+                  </td>
+                  <td>
+                    <input class="form-control" readonly>
+                    {{ Form::hidden('venue_breakdown_subtotal[]', '',['class'=>'form-control', 'readonly'] ) }}
+                  </td>
                 </tr>
+                @endforeach
               </tbody>
             </table>
           </div>
