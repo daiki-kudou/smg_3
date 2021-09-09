@@ -996,8 +996,7 @@
         @endif
 
         {{-- 以下、その他 --}}
-        {{-- @if (collect($data['bills'][0]['breakdowns'])->contains('unit_type',5)) --}}
-        @if ((int)array_sum($data['others_breakdown_subtotal'])!==0)
+        @if (!empty($data['others_breakdown_subtotal'])?(int)array_sum($data['others_breakdown_subtotal']):0!==0)
         <div class="others billdetails_content">
           <table class="table table-borderless">
             <tr>

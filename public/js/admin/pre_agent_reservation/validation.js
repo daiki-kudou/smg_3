@@ -164,7 +164,7 @@ $(function () {
   $.each(target, function (index, value) {
     $(value).validate({
       rules: {
-        enduser_charge: { required: true, number: true },
+        end_user_charge: { required: true, number: true },
         luggage_count: { number: true, range: [1, 49] },
         luggage_return: { number: true, range: [1, 49] },
         pre_enduser_tel: { number: true, minlength: 10 },
@@ -178,7 +178,7 @@ $(function () {
         cost: { number: true, range: [1, 100] },
       },
       messages: {
-        enduser_charge: {
+        end_user_charge: {
           required: "※必須項目です",
           number: "※半角数字を入力してください",
         },

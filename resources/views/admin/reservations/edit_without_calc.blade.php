@@ -806,19 +806,19 @@
               </tr>
             </tbody>
             <tbody class="layout_main">
-              @foreach ($bill->breakdowns->where('unit_type',4) as $key=>$layouts_price)
+              @foreach ($bill->breakdowns->where('unit_type',4) as $key=>$layout_price)
               <tr>
                 <td>
-                  {{ Form::text('layout_breakdown_item'.$key, $layouts_price->unit_item,['class'=>'form-control', 'readonly'] ) }}
+                  {{ Form::text('layout_breakdown_item'.$key, $layout_price->unit_item,['class'=>'form-control', 'readonly'] ) }}
                 </td>
                 <td>
-                  {{ Form::text('layout_breakdown_cost'.$key, $layouts_price->unit_cost,['class'=>'form-control', 'readonly'] ) }}
+                  {{ Form::text('layout_breakdown_cost'.$key, $layout_price->unit_cost,['class'=>'form-control', 'readonly'] ) }}
                 </td>
                 <td>
-                  {{ Form::text('layout_breakdown_count'.$key, $layouts_price->unit_count,['class'=>'form-control', 'readonly'] ) }}
+                  {{ Form::text('layout_breakdown_count'.$key, $layout_price->unit_count,['class'=>'form-control', 'readonly'] ) }}
                 </td>
                 <td>
-                  {{ Form::text('layout_breakdown_subtotal'.$key, $layouts_price->unit_subtotal,['class'=>'form-control', 'readonly'] ) }}
+                  {{ Form::text('layout_breakdown_subtotal'.$key, $layout_price->unit_subtotal,['class'=>'form-control', 'readonly'] ) }}
                 </td>
               </tr>
               @endforeach

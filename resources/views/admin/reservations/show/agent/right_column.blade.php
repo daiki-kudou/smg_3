@@ -105,7 +105,7 @@
     </tr>
     <tr>
       <td class="table-active">
-        <label for="enduser_charge ">支払い料</label>
+        <label for="end_user_charge ">支払い料</label>
       </td>
       <td class="d-flex align-items-center">
         {{number_format(optional($reservation->enduser)->charge)}}円

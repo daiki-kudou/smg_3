@@ -400,13 +400,13 @@ $(function () {
   $.each(target, function (index, value) {
     $(value).validate({
       rules: {
-        cp_master_enduser_charge: { required: true, number: true },
+        cp_master_end_user_charge: { required: true, number: true },
         cp_master_luggage_count: { number: true, range: [0, 49] },
         cp_master_luggage_return: { number: true, range: [0, 49] },
         cp_master_cost: { number: true, range: [1, 100] },
       },
       messages: {
-        cp_master_enduser_charge: {
+        cp_master_end_user_charge: {
           required: "※必須項目です",
           number: "半角数字で入力してください",
         },
@@ -448,10 +448,10 @@ $(function () {
 
 // 一括仮押さえ　仲介会社 編集　タブ内
 $(function () {
-  var target = $("input[name^='enduser_charge_copied']");
+  var target = $("input[name^='end_user_charge_copied']");
 
   for (let index = 0; index < target.length; index++) {
-    var enduserchargecopied = "enduser_charge_copied" + index;
+    var enduserchargecopied = "end_user_charge_copied" + index;
     var luggagecountcopied = "luggage_count_copied" + index;
     var luggagereturncopied = "luggage_return_copied" + index;
     var luggagepricecopied = "luggage_price_copied" + index;

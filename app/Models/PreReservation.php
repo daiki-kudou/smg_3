@@ -390,7 +390,7 @@ class PreReservation extends Model
   //     ]);
 
   //     $this->pre_enduser()->update([
-  //       'charge' => $request->{'enduser_charge_copied' . $splitKey},
+  //       'charge' => $request->{'end_user_charge_copied' . $splitKey},
   //     ]);
 
   //     $venue_price = 0;
@@ -526,7 +526,7 @@ class PreReservation extends Model
   //     $pre_bill = $pre_reservation->pre_bill()->create([
   //       'venue_price' => 0,
   //       'equipment_price' => 0,
-  //       'layout_price' => $request->layouts_price ? $request->layouts_price : 0,
+  //       'layout_price' => $request->layout_price ? $request->layout_price : 0,
   //       'others_price' => 0,
   //       'master_subtotal' => $request->master_subtotal,
   //       'master_tax' => $request->master_tax,
@@ -638,7 +638,7 @@ class PreReservation extends Model
   //       "tel" => $request->pre_enduser_tel,
   //       "address" => $request->pre_enduser_address,
   //       "attr" => $request->pre_enduser_attr,
-  //       'charge' => $request->enduser_charge
+  //       'charge' => $request->end_user_charge
   //     ]);
   //   });
   // }

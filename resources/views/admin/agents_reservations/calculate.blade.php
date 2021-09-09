@@ -548,14 +548,14 @@
             </tr>
             <tr>
               <td class="table-active form_required">
-                <label for="enduser_charge ">支払い料</label>
+                <label for="end_user_charge ">支払い料</label>
               </td>
               <td>
                 <div class="d-flex align-items-center">
-                  {{ Form::text('enduser_charge', $master_info['enduser_charge'],['class'=>'form-control sales_percentage', 'placeholder'=>'入力してください'] ) }}
+                  {{ Form::text('end_user_charge', $master_info['end_user_charge'],['class'=>'form-control sales_percentage', 'placeholder'=>'入力してください'] ) }}
                   <span class="ml-1">円</span>
                 </div>
-                <p class="is-error-enduser_charge" style="color: red"></p>
+                <p class="is-error-end_user_charge" style="color: red"></p>
               </td>
             </tr>
           </tbody>
@@ -811,7 +811,7 @@
                   <td colspan="3"></td>
                   <td colspan="1">
                     <p class="text-left">合計</p>
-                    {{ Form::text('layouts_price', $layoutPrice[2],['class'=>'form-control', 'readonly'] ) }}
+                    {{ Form::text('layout_price', $layoutPrice[2],['class'=>'form-control', 'readonly'] ) }}
                   </td>
                 </tr>
               </tbody>

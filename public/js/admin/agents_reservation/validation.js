@@ -101,7 +101,7 @@ $(function () {
         enduser_tel: { number: true, minlength: 10 },
         enduser_mail: { email: true },
         enduser_mobile: { number: true, minlength: 11, maxlength: 11 },
-        enduser_charge: { required: true, number: true },
+        end_user_charge: { required: true, number: true },
         luggage_count: { number: true, range: [0, 49] },
         luggage_return: { number: true, range: [0, 49] },
         luggage_price: { number: true },
@@ -142,7 +142,7 @@ $(function () {
           minlength: "※11桁で入力してください",
           maxlength: "※11桁で入力してください"
         },
-        enduser_charge: {
+        end_user_charge: {
           required: "※必須項目です",
           number: "※半角数字を入力してください",
         },

@@ -447,10 +447,10 @@
           </tr>
           <tr>
             <td class="table-active form_required">
-              <label for="enduser_charge ">支払い料</label>
+              <label for="end_user_charge ">支払い料</label>
             </td>
             <td class="d-flex align-items-center">
-              {{ Form::text('enduser_charge', $master_info['enduser_charge'],['class'=>'form-control', 'readonly'] ) }}
+              {{ Form::text('end_user_charge', $master_info['end_user_charge'],['class'=>'form-control', 'readonly'] ) }}
             </td>
           </tr>
         </tbody>
@@ -669,7 +669,7 @@
         @endif
 
 
-        @if (!empty($check_info['layouts_price']))
+        @if (!empty($check_info['layout_price']))
         <div class="layout billdetails_content">
           <table class="table table-borderless">
             <tbody>
@@ -729,7 +729,7 @@
                 <td colspan="3"></td>
                 <td colspan="1">
                   <p class="text-left">合計</p>
-                  {{ Form::text('layouts_price', $check_info['layouts_price'],['class'=>'form-control', 'readonly'] ) }}
+                  {{ Form::text('layout_price', $check_info['layout_price'],['class'=>'form-control', 'readonly'] ) }}
                 </td>
               </tr>
             </tbody>

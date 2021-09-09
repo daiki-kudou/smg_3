@@ -201,7 +201,7 @@ $(function () {
         master_total: { required: true },
         pay_person: { hankaku: true },
         payment: { number: true },
-        enduser_charge: { required: true },
+        end_user_charge: { required: true },
       },
       messages: {
         // venue_number_discount: { number: "※半角数字を入力してください" },
@@ -217,7 +217,7 @@ $(function () {
         master_total: { required: "※金額を入力してください" },
         pay_person: { hankaku: "※半角ｶﾀｶﾅを入力してください" },
         payment: { number: "※半角数字を入力してください" },
-        enduser_charge: { required: "※金額を入力してください" },
+        end_user_charge: { required: "※金額を入力してください" },
       },
       errorPlacement: function (error, element) {
         var name = element.attr("name");

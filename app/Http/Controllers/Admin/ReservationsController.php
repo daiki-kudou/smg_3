@@ -736,7 +736,6 @@ class ReservationsController extends Controller
     $data = $array;
     $venue = Venue::find($data['venue_id']);
     $users = User::all();
-    dump($data);
     $price_details = $venue->calculate_price($data['price_system'], $data['enter_time'], $data['leave_time']);
     $s_equipment = Equipment::getSessionArrays(collect($data))[0];
     $s_services = Service::getSessionArrays(collect($data))[0];
@@ -745,9 +744,8 @@ class ReservationsController extends Controller
     if ($price_details === 0) {
       $masters = ($item_details[0] + $data['luggage_price']) + $layouts_details[2] + $data['others_price'];
     } else {
-      $masters = ($price_details[0]) + ($item_details[0] + $data['luggage_price']) + $layouts_details[2] + $data['others_price'];
+      $masters = ($price_details[0]) + ($item_details[0] + $data['luggage_price']) + $layouts_details[2] + (!empty($data['others_price']) ? $data['others_price'] : 0);
     }
-    dump($masters);
     return view('admin.reservations.edit_calc', compact(
       'data',
       'venue',
@@ -761,38 +759,6 @@ class ReservationsController extends Controller
     ));
   }
 
-  // public function sessionForEditCheck(Request $request)
-  // {
-  //   $data = $request->all();
-  //   $request->session()->put('result', $data);
-  //   return redirect(route('admin.reservations.edit_check'));
-  // }
-
-  // public function edit_check(Request $request)
-  // {
-  //   $reservationEditMaster = $request->session()->get('reservationEditMaster');
-  //   $venue = $reservationEditMaster->reservation->venue;
-  //   $reservation = $reservationEditMaster->reservation;
-  //   $basicInfo = $request->session()->get('basicInfo');
-  //   $result = $request->session()->get('result');
-  //   $v_cnt = $this->preg($result, "venue_breakdown_item");
-  //   $e_cnt = $this->preg($result, "equipment_breakdown_item");
-  //   $s_cnt = $this->preg($result, "services_breakdown_item");
-  //   $o_cnt = $this->preg($result, "others_breakdown_item");
-  //   return view(
-  //     'admin.reservations.edit_check',
-  //     compact(
-  //       'basicInfo',
-  //       'result',
-  //       'venue',
-  //       'v_cnt',
-  //       'e_cnt',
-  //       's_cnt',
-  //       'o_cnt',
-  //       'reservation',
-  //     )
-  //   );
-  // }
   /**
    * Update the specified resource in storage.
    *
@@ -803,6 +769,9 @@ class ReservationsController extends Controller
   public function update(Request $request)
   {
     $data = $request->all();
+    if ($data['back']) {
+      return redirect(route('admin.reservations.edit', $data['reservation_id']));
+    }
     $reservation = Reservation::find($data['reservation_id']);
     $bill = Bill::with('breakdowns')->find($data['bill_id']);
     $breakdown = new Breakdown;

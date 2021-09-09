@@ -36,7 +36,7 @@ class PreEndUser extends Model
       "tel" => $data['pre_enduser_tel'],
       "address" => $data['pre_enduser_address'],
       "attr" => $data['pre_enduser_attr'],
-      'charge' => $data['enduser_charge'],
+      'charge' => $data['end_user_charge'],
     ]);
     return $result;
   }

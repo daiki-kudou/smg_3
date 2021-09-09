@@ -326,9 +326,9 @@
                   %）
                 </td>
                 <td>
-                  {{ Form::text('enduser_charge', !empty($data['enduser_charge'])?$data['enduser_charge']:"", ['class' => 'form-control','placeholder'=>"入力してください" ])}}
-                  {{ Form::hidden('enduser_charge_result', !empty($data['enduser_charge_result'])?$data['enduser_charge_result']:"", ['class' => 'form-control','placeholder'=>"入力してください" ])}}
-                  <p class="is-error-enduser_charge" style="color: red"></p>
+                  {{ Form::text('end_user_charge', !empty($data['end_user_charge'])?$data['end_user_charge']:"", ['class' => 'form-control','placeholder'=>"入力してください" ])}}
+                  {{ Form::hidden('end_user_charge_result', !empty($data['end_user_charge_result'])?$data['end_user_charge_result']:"", ['class' => 'form-control','placeholder'=>"入力してください" ])}}
+                  <p class="is-error-end_user_charge" style="color: red"></p>
                 </td>
               </tr>
               <tr>
@@ -552,11 +552,11 @@
       })
     };
 
-    $('input[name="enduser_charge"]').on('input', function() {
+    $('input[name="end_user_charge"]').on('input', function() {
       var val = Number($(this).val());
       var target_percent = Number($('#percent').text()) / 100;
       var result = Math.floor(val - (val * target_percent));
-      $('input[name="enduser_charge_result"]').val(result);
+      $('input[name="end_user_charge_result"]').val(result);
     })
 
     // 総合計額抽出
@@ -567,7 +567,7 @@
     function MaterCalc() {
 
       var tar3 = $('input[name="layout_price"]');
-      var tar5 = $('input[name="enduser_charge_result"]');
+      var tar5 = $('input[name="end_user_charge_result"]');
       var tar3_val=tar3.prop('disabled')?0:Number(tar3.val());
       var tar5_val=tar5.prop('disabled')?0:Number(tar5.val());
 
@@ -603,7 +603,7 @@
 
   $(window).on('load',function(){
     $('input[name="layout_breakdown_count0"]').change();
-    $('input[name="enduser_charge"]').change();
+    $('input[name="end_user_charge"]').change();
   });
 
 </script>

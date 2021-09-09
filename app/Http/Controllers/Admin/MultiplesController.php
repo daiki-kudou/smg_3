@@ -243,7 +243,7 @@ class MultiplesController extends Controller
 
     $multiple = MultipleReserve::find($multiple_id);
     $agent = Agent::find($request->agent_id);
-    $result = $agent->agentPriceCalculate($request->cp_master_enduser_charge);
+    $result = $agent->agentPriceCalculate($request->cp_master_end_user_charge);
     $multiple->AgentPreStore($venue_id, $request, $result);
 
     return redirect(url('admin/multiples/agent/' . $multiple_id . '/edit/' . $venue_id));
@@ -261,15 +261,15 @@ class MultiplesController extends Controller
   {
     $pre_reservation = PreReservation::find($pre_reservation_id);
     $agent = Agent::find($request->agent_id);
-    $enduser_charge = [];
+    $end_user_charge = [];
     foreach ($request->all() as $key => $value) {
-      if (preg_match('/enduser_charge_copied/', $key)) {
+      if (preg_match('/end_user_charge_copied/', $key)) {
         if (!empty($value)) {
-          $enduser_charge[] = $value;
+          $end_user_charge[] = $value;
         }
       }
     }
-    $result = $agent->agentPriceCalculate($enduser_charge[0]);
+    $result = $agent->agentPriceCalculate($end_user_charge[0]);
     $pre_reservation->AgentSpecificUpdate($request, $result, $venue_id, $pre_reservation_id);
     return redirect(url('admin/multiples/agent/' . $multiple_id . '/edit/' . $venue_id));
   }

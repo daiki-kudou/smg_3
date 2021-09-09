@@ -27,6 +27,25 @@ class ControltimeController extends Controller
     return $result;
   }
 
+  //予約編集用の時間制御・自分自身の時間は除く処理
+  public function getInformationWithoutSelf(Request $request)
+  {
+    $date = $request->date;
+    $venue_id = $request->venue_id;
+    $reservation_id = $request->reservation_id;
+    $reservations = Reservation::with('bills')
+      ->whereDate('reserve_date', $date)
+      ->where('venue_id', $venue_id)
+      ->where('id', '!=', $reservation_id)
+      ->get();
+    $pre_reservations = PreReservation::whereDate('reserve_date', $date)
+      ->where('venue_id', $venue_id)
+      ->where('status', '<', 2)
+      ->get();
+    $result = $this->getTimes($reservations, $pre_reservations);
+    return $result;
+  }
+
   public function getTimes($reservations, $pre_reservations)
   {
     $timeArray = [];

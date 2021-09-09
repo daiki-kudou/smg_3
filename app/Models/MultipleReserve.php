@@ -632,11 +632,11 @@ class MultipleReserve extends Model implements PresentableInterface //プレゼ�
 
         if ($pre_reservation->pre_enduser()->count() == 1) {
           $pre_reservation->pre_enduser()->update([
-            "charge" => $requests->cp_master_enduser_charge,
+            "charge" => $requests->cp_master_end_user_charge,
           ]);
         } else {
           $pre_reservation->pre_enduser()->create([
-            "charge" => $requests->cp_master_enduser_charge,
+            "charge" => $requests->cp_master_end_user_charge,
           ]);
         }
 

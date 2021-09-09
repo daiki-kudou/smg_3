@@ -60,7 +60,7 @@ class PreAgentReservationsController extends Controller
   {
     $agent = Agent::find($request->agent_id);
     $venue = Venue::with(["frame_prices", "time_prices"])->find($request->venue_id);
-    $price = $agent->agentPriceCalculate($request->enduser_charge);
+    $price = $agent->agentPriceCalculate($request->end_user_charge);
     if ($request->layout_prepare == 1) {
       $layout_prepare = $venue->getLayoutPrice($request->layout_prepare, $request->layout_clean)[0];
     } else {
@@ -132,7 +132,7 @@ class PreAgentReservationsController extends Controller
   {
     $agent = Agent::find($request->agent_id);
     $venue = Venue::with(["frame_prices", "time_prices"])->find($request->venue_id);
-    $price = $agent->agentPriceCalculate($request->enduser_charge);
+    $price = $agent->agentPriceCalculate($request->end_user_charge);
     if ($request->layout_prepare == 1) {
       $layout_prepare = $venue->getLayoutPrice($request->layout_prepare, $request->layout_clean)[0];
     } else {
@@ -200,7 +200,7 @@ class PreAgentReservationsController extends Controller
         'email' => $request->pre_endusers_email,
         'mobile' =>  $request->pre_endusers_mobile,
         'tel' =>  $request->pre_endusers_tel,
-        'charge' =>  $request->enduser_charge,
+        'charge' =>  $request->end_user_charge,
         "attr" => $request->pre_enduser_attr,
       ]);
     });

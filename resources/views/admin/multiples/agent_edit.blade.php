@@ -452,8 +452,8 @@
                       <tr>
                         <td class="table-active form_required"><label for="ondayName">支払い料 </label></td>
                         <td>
-                          {{ Form::text('cp_master_enduser_charge', '',['class'=>'form-control'] ) }}
-                          <p class="is-error-cp_master_enduser_charge" style="color: red"></p>
+                          {{ Form::text('cp_master_end_user_charge', '',['class'=>'form-control'] ) }}
+                          <p class="is-error-cp_master_end_user_charge" style="color: red"></p>
                         </td>
                       </tr>
                     </tbody>
@@ -1018,8 +1018,8 @@
                         <tr>
                           <td class="table-active form_required"><label for="ondayName">支払い料</label></td>
                           <td>
-                            {{ Form::text('enduser_charge_copied'.$key, empty($pre_reservation->pre_enduser->charge)?0:$pre_reservation->pre_enduser->charge,['class'=>'form-control'] ) }}
-                            <p class="{{"is-error-enduser_charge_copied".$key}}" style="color: red"></p>
+                            {{ Form::text('end_user_charge_copied'.$key, empty($pre_reservation->pre_enduser->charge)?0:$pre_reservation->pre_enduser->charge,['class'=>'form-control'] ) }}
+                            <p class="{{"is-error-end_user_charge_copied".$key}}" style="color: red"></p>
                           </td>
                         </tr>
                       </tbody>

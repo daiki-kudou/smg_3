@@ -25,7 +25,7 @@ class PostRequest extends FormRequest
   public function rules()
   {
     $rules = [];
-    $rules['cp_master_enduser_charge'] = 'required';
+    $rules['cp_master_end_user_charge'] = 'required';
 
     return $rules;
   }
@@ -37,7 +37,7 @@ class PostRequest extends FormRequest
   public function messages()
   {
     return [
-      'cp_master_enduser_charge.required' => 'コピー機能内エンドユーザーからの入金額は必須です',
+      'cp_master_end_user_charge.required' => 'コピー機能内エンドユーザーからの入金額は必須です',
     ];
   }
 }

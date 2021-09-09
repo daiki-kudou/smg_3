@@ -266,12 +266,13 @@ Route::namespace('Admin')->prefix('admin')->name('admin.')->group(function () {
     Route::post('agents_reservations/confirm', 'AgentsReservationsController@add_confirm')->name('agents_reservations.add_confirm');
     // 仲介会社予約編集
     Route::post('agents_reservations/edit', 'AgentsReservationsController@edit');
-    Route::get('agents_reservations/edit_show', 'AgentsReservationsController@editShow')->name('agents_reservations.edit_show');
-    Route::post('agents_reservations/session_input', 'AgentsReservationsController@addSessionInput');
-    Route::get('agents_reservations/show_input', 'AgentsReservationsController@showInput')->name('agents_reservations.show_input');
-    Route::post('agents_reservations/session_check', 'AgentsReservationsController@editCheckSession');
-    Route::get('agents_reservations/edit_check', 'AgentsReservationsController@editCheck')->name('agents_reservations.edit_check');
-    Route::post('agents_reservations/update', 'AgentsReservationsController@update');
+    Route::post('agents_reservations/edit_check', 'AgentsReservationsController@editCheck');
+    // Route::get('agents_reservations/edit_show', 'AgentsReservationsController@editShow')->name('agents_reservations.edit_show');
+    // Route::post('agents_reservations/session_input', 'AgentsReservationsController@addSessionInput');
+    // Route::get('agents_reservations/show_input', 'AgentsReservationsController@showInput')->name('agents_reservations.show_input');
+    // Route::post('agents_reservations/session_check', 'AgentsReservationsController@editCheckSession');
+    // Route::get('agents_reservations/edit_check', 'AgentsReservationsController@editCheck')->name('agents_reservations.edit_check');
+    // Route::post('agents_reservations/update', 'AgentsReservationsController@update');
 
     //********************** */
     //***仮抑え */
@@ -405,6 +406,8 @@ Route::namespace('Admin')->prefix('admin')->name('admin.')->group(function () {
     Route::post('receipts', 'ReceiptsController@show');
 
     Route::post('control_time', 'ControltimeController@getInformation');
+
+    Route::post('control_time_reject_self', 'ControltimeController@getInformationWithoutSelf');
 
     Route::post('change_log', 'ChangeLogsController@update');
 

@@ -182,8 +182,8 @@ class Reservation extends Model implements PresentableInterface
   //  管理者　予約　保存
   public function ReservationStore($data)
   {
-    $chkReservation = ($this->checkReservationsTransaction($data['reserve_date'], $data['enter_time'], $data['leave_time']));
-    $chkPreReservation = ($this->checkPreReservationsTransaction($data['reserve_date'], $data['enter_time'], $data['leave_time']));
+    $chkReservation = ($this->checkReservationsTransaction($data['reserve_date'], $data['enter_time'], $data['leave_time'], $data['venue_id']));
+    $chkPreReservation = ($this->checkPreReservationsTransaction($data['reserve_date'], $data['enter_time'], $data['leave_time'], $data['venue_id']));
     if (!$chkReservation || !$chkPreReservation) {
       return "重複";
     }
@@ -212,7 +212,7 @@ class Reservation extends Model implements PresentableInterface
       'attention' => $data['attention'] ?? "",
       'user_details' => $data['user_details'] ?? "",
       'admin_details' => $data['admin_details'],
-      'eat_in' => $data['eat_in'],
+      'eat_in' => !empty($data['eat_in']) ? $data['eat_in'] : 0,
       'eat_in_prepare' => !empty($data['eat_in_prepare']) ? $data['eat_in_prepare'] : 0,
       'multiple_reserve_id' => !empty($data['multiple_reserve_id']) ? $data['multiple_reserve_id'] : 0,
       // 'luggage_flag' => !empty($data['luggage_flag']) ? $data['luggage_flag'] : 0,
@@ -592,7 +592,7 @@ class Reservation extends Model implements PresentableInterface
       !empty($request->enduser_tel) ||
       !empty($request->enduser_mail) ||
       !empty($request->enduser_attr) ||
-      !empty($request->enduser_charge) ||
+      !empty($request->end_user_charge) ||
       !empty($request->enduser_mobile)
     ) {
       DB::transaction(function () use ($request) {
@@ -604,7 +604,7 @@ class Reservation extends Model implements PresentableInterface
           'tel' => $request->enduser_tel,
           'email' => $request->enduser_mail,
           'attr' => $request->enduser_attr,
-          'charge' => $request->enduser_charge,
+          'charge' => $request->end_user_charge,
           'mobile' => $request->enduser_mobile,
         ]);
       });
@@ -618,7 +618,7 @@ class Reservation extends Model implements PresentableInterface
   //       'reservation_id' => $this->id,
   //       'venue_price' => 0, //デフォで0
   //       'equipment_price' => 0, //デフォで0
-  //       'layout_price' =>  $request->layouts_price ? $request->layouts_price : 0, //デフォで0
+  //       'layout_price' =>  $request->layout_price ? $request->layout_price : 0, //デフォで0
   //       'others_price' => 0, //デフォで0
   //       'master_subtotal' => $request->master_subtotal,
   //       'master_tax' => $request->master_tax,
@@ -930,7 +930,7 @@ class Reservation extends Model implements PresentableInterface
       !empty($inputs['enduser_tel']) ||
       !empty($inputs['enduser_mail']) ||
       !empty($inputs['enduser_attr']) ||
-      !empty($inputs['enduser_charge']) ||
+      !empty($inputs['end_user_charge']) ||
       !empty($inputs['enduser_mobile'])
     ) {
       DB::transaction(function () use ($inputs) {
@@ -942,7 +942,7 @@ class Reservation extends Model implements PresentableInterface
           'tel' => $inputs['enduser_tel'],
           'email' => $inputs['enduser_mail'],
           'attr' => $inputs['enduser_attr'],
-          'charge' => $inputs['enduser_charge'],
+          'charge' => $inputs['end_user_charge'],
           'mobile' => $inputs['enduser_mobile'],
         ]);
       });

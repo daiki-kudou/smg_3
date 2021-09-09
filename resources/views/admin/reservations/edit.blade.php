@@ -7,7 +7,7 @@
 <script src="{{ asset('/js/lettercounter.js') }}"></script>
 <script src="{{ asset('/js/holidays.js') }}"></script>
 <script src="{{ asset('/js/admin/reservation/validation.js') }}"></script>
-
+<script src="{{ asset('/js/admin/reservation/control_time_reject_self.js') }}"></script>
 
 <style>
   #fullOverlay {
@@ -287,7 +287,6 @@
                   </p>
                   @endif
                   @endforeach
-
                 </div>
               </td>
             </tr>

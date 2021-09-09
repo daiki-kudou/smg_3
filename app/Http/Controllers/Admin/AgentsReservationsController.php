@@ -25,6 +25,14 @@ class AgentsReservationsController extends Controller
   use PregTrait;
   use InvoiceTrait;
 
+  public function __construct()
+  {
+    $venues = Venue::all();
+    $this->venues = $venues;
+    $agents = Agent::all();
+    $this->agents = $agents;
+  }
+
   public function create()
   {
     session()->forget(['master_info', 'calc_info', 'reservation', 'bill', 'breakdown']);
@@ -45,7 +53,7 @@ class AgentsReservationsController extends Controller
   public function calcSession($request)
   {
     $agent = Agent::find($request->agent_id);
-    $price = $agent->agentPriceCalculate($request->enduser_charge);
+    $price = $agent->agentPriceCalculate($request->end_user_charge);
     $payment_limit = $agent->getAgentPayLimit($request->reserve_date);
     $carbon1 = new Carbon($request->enter_time);
     $carbon2 = new Carbon($request->leave_time);
@@ -136,22 +144,7 @@ class AgentsReservationsController extends Controller
     $percent = $agent->cost;
     $payment_limit = $reservation->agent->getAgentPayLimit($reservation->reserve_date);
     $reservation = $reservation->toArray();
-    dump($data);
-    // $reservation->toArray();
-    // $pay_limit = $reservation->agent->getAgentPayLimit($reservation->reserve_date);
-    // $data = $request->session()->get('add_bill');
-    // if (!empty($data)) {
-    //   $venues = $this->preg($data, 'venue_breakdown_item');
-    //   $equipments = $this->preg($data, 'equipment_breakdown_item');
-    //   $layouts = $this->preg($data, 'layout_breakdown_item');
-    //   $others = $this->preg($data, 'others_breakdown_item');
-    //   return view(
-    //     'admin.agents_reservations.add_bills',
-    //     compact('reservation', 'pay_limit', 'data', 'venues', 'equipments', 'layouts', 'others', 'percent')
-    //   );
-    // } else {
     return view('admin.agents_reservations.add_bills', compact(['data', 'reservation', 'percent', 'payment_limit', 'agent']));
-    // }
   }
 
   public function createSession(Request $request)
@@ -159,11 +152,6 @@ class AgentsReservationsController extends Controller
     $data = $request->all();
     $reservation = Reservation::with('agent')->find($data['reservation_id']);
     $reservation = $reservation->toArray();
-    dump($data);
-    // $request->session()->forget('add_bill');
-    // $data = $request->all();
-    // $request->session()->put('add_bill', $data);
-    // return redirect(route("admin.agents_reservations.add_check"));
     return view('admin.agents_reservations.add_check', compact('data', 'reservation'));
   }
 
@@ -226,144 +214,161 @@ class AgentsReservationsController extends Controller
 
   public function edit(Request $request)
   {
-    $request->session()->forget(['master_info', 'calc_info', 'reservation', 'bill', 'breakdown']);
-    $reservation = Reservation::with(['bills.breakdowns', 'venue', 'user', 'agent', 'enduser'])->find($request->reservation_id);
-    $bill = $reservation->bills->find($request->bill_id);
-    $breakdown = $bill->breakdowns;
-    $request->session()->put('reservation', $reservation);
-    $request->session()->put('bill', $bill);
-    $request->session()->put('breakdown', $breakdown);
-    return redirect(route('admin.agents_reservations.edit_show'));
-  }
-
-  public function editShow(Request $request)
-  {
-    $reservation = $request->session()->get('reservation');
-    $bill = $request->session()->get('bill');
-    $breakdown = $request->session()->get('breakdown');
-    $venue = $reservation->venue;
+    $data = $request->all();
+    $reservation = Reservation::with('bills.breakdowns')->find($data['reservation_id']);
+    $venues = Venue::all();
+    $venue = $venues->find($reservation['venue_id']);
     $agents = Agent::all();
 
-    $selected_venue = Venue::find($reservation->venue_id);
-    return view('admin.agents_reservations.edit', compact('reservation', 'bill', 'breakdown', 'venue', 'agents', 'selected_venue'));
-  }
-
-  public function addSessionInput(Request $request)
-  {
-    $data = $request->all();
-    $request->session()->put('inputs', $data);
-    return redirect(route('admin.agents_reservations.show_input'));
-  }
-
-  public function showInput(Request $request)
-  {
-    $inputs = $request->session()->get('inputs');
-    $bill = $request->session()->get('bill');
-    $reservation = $request->session()->get('reservation');
-    $breakdown = $request->session()->get('breakdown');
-    $agents = Agent::orderBy("id", "desc")->get();
-    $venue = Venue::find($inputs['venue_id']);
-
-    $price = $agents->find($inputs['agent_id'])->agentPriceCalculate($inputs['enduser_charge']);
-    $payment_limit = $agents->find($inputs['agent_id'])->getAgentPayLimit($inputs['reserve_date']);
-    $carbon1 = new Carbon($inputs['enter_time']);
-    $carbon2 = new Carbon($inputs['leave_time']);
-    $usage_hours = ($carbon1->diffInMinutes($carbon2)) / 60;
-
-    $_equipment = $this->preg($inputs, 'equipment_breakdown');
-    $_service = $this->preg($inputs, 'services_breakdown');
-    if (!empty($inputs['layout_prepare']) || !empty($inputs['layout_clean'])) {
-      $layoutPrice = $venue->getLayoutPrice($inputs['layout_prepare'], $inputs['layout_clean']);
-    } else {
-      $layoutPrice = [0, 0];
-    }
-    $price = ($layoutPrice[2] ?? 0) + (floor($price));
-
-    return view('admin.agents_reservations.edit_calc', compact(
-      'inputs',
-      'venue',
-      'breakdown',
-      'agents',
-      'usage_hours',
-      'layoutPrice',
-      'layoutPrice',
-      "price",
-      "payment_limit",
-      "reservation",
-      "bill",
-    ));
-  }
-
-  public function editCheckSession(Request $request)
-  {
-    $data = $request->all();
-    $request->session()->put('result', $data);
-    return redirect(route("admin.agents_reservations.edit_check"));
+    return view(
+      'admin.agents_reservations.edit',
+      compact('reservation', 'venues', 'venue', 'agents')
+    );
   }
 
   public function editCheck(Request $request)
   {
-    $result = $request->session()->get('result');
-    $inputs = $request->session()->get('inputs');
-    $venue = Venue::find($inputs['venue_id']);
-    $agents = Agent::orderBy("id", "desc")->get();
+    $data = $request->all();
+    dump($data);
+    $venues = $this->venues;
+    $venue = $venues->find($data['venue_id']);
+    $agents = $this->agents;
 
-    $price = $agents->find($inputs['agent_id'])->agentPriceCalculate($inputs['enduser_charge']);
-    $payment_limit = $agents->find($inputs['agent_id'])->getAgentPayLimit($inputs['reserve_date']);
-    $carbon1 = new Carbon($inputs['enter_time']);
-    $carbon2 = new Carbon($inputs['leave_time']);
-    $usage_hours = ($carbon1->diffInMinutes($carbon2)) / 60;
-    if (!empty($inputs['layout_prepare']) || !empty($inputs['layout_clean'])) {
-      $layoutPrice = $venue->getLayoutPrice($inputs['layout_prepare'], $inputs['layout_clean']);
-    } else {
-      $layoutPrice = [0, 0];
-    }
-    $price = ($layoutPrice[2] ?? 0) + (floor($price));
+    return view("admin.agents_reservations.edit_check", compact('data', 'venues', 'venue', 'agents'));
 
-    $bill = $request->session()->get('bill');
-    $reservation = $request->session()->get('reservation');
-    $breakdown = $request->session()->get('breakdown');
-    $o_count = $this->preg($result, 'others_breakdown_item');
 
-    return view(
-      "admin.agents_reservations.edit_check",
-      compact(
-        "result",
-        "inputs",
-        "venue",
-        "payment_limit",
-        "usage_hours",
-        "layoutPrice",
-        "price",
-        "bill",
-        "agents",
-        "o_count",
-      )
-    );
+
+    dump($data);
   }
 
-  public function update(Request $request)
-  {
-    if ($request->back) {
-      return redirect(route('admin.agents_reservations.edit_show'));
-    }
+  // public function editShow(Request $request)
+  // {
+  //   $reservation = $request->session()->get('reservation');
+  //   $bill = $request->session()->get('bill');
+  //   $breakdown = $request->session()->get('breakdown');
+  //   $venue = $reservation->venue;
+  //   $agents = Agent::all();
 
-    $reservation = $request->session()->get('reservation');
-    $bill = $request->session()->get('bill');
-    $breakdown = $request->session()->get('breakdown');
-    $inputs = $request->session()->get('inputs');
-    $result = $request->session()->get('result');
-    try {
-      $reservation->updateAgentReservation($inputs);
-      $reservation->UpdateAgentEndUser($inputs);
-      $bill->updateAgentBill($result);
-      $bill->updateAgentBreakdown($result, $inputs);
-    } catch (\Exception $e) {
-      report($e);
-      session()->flash('flash_message', '更新に失敗しました。<br>フォーム内の空欄や全角など確認した上でもう一度お試しください。');
-      return redirect(route('admin.agents_reservations.show_input'));
-    }
-    $request->session()->regenerate();
-    return redirect()->route('admin.reservations.show', $reservation->id);
-  }
+  //   $selected_venue = Venue::find($reservation->venue_id);
+  //   return view('admin.agents_reservations.edit', compact('reservation', 'bill', 'breakdown', 'venue', 'agents', 'selected_venue'));
+  // }
+
+  // public function addSessionInput(Request $request)
+  // {
+  //   $data = $request->all();
+  //   $request->session()->put('inputs', $data);
+  //   return redirect(route('admin.agents_reservations.show_input'));
+  // }
+
+  // public function showInput(Request $request)
+  // {
+  //   $inputs = $request->session()->get('inputs');
+  //   $bill = $request->session()->get('bill');
+  //   $reservation = $request->session()->get('reservation');
+  //   $breakdown = $request->session()->get('breakdown');
+  //   $agents = Agent::orderBy("id", "desc")->get();
+  //   $venue = Venue::find($inputs['venue_id']);
+
+  //   $price = $agents->find($inputs['agent_id'])->agentPriceCalculate($inputs['end_user_charge']);
+  //   $payment_limit = $agents->find($inputs['agent_id'])->getAgentPayLimit($inputs['reserve_date']);
+  //   $carbon1 = new Carbon($inputs['enter_time']);
+  //   $carbon2 = new Carbon($inputs['leave_time']);
+  //   $usage_hours = ($carbon1->diffInMinutes($carbon2)) / 60;
+
+  //   $_equipment = $this->preg($inputs, 'equipment_breakdown');
+  //   $_service = $this->preg($inputs, 'services_breakdown');
+  //   if (!empty($inputs['layout_prepare']) || !empty($inputs['layout_clean'])) {
+  //     $layoutPrice = $venue->getLayoutPrice($inputs['layout_prepare'], $inputs['layout_clean']);
+  //   } else {
+  //     $layoutPrice = [0, 0];
+  //   }
+  //   $price = ($layoutPrice[2] ?? 0) + (floor($price));
+
+  //   return view('admin.agents_reservations.edit_calc', compact(
+  //     'inputs',
+  //     'venue',
+  //     'breakdown',
+  //     'agents',
+  //     'usage_hours',
+  //     'layoutPrice',
+  //     'layoutPrice',
+  //     "price",
+  //     "payment_limit",
+  //     "reservation",
+  //     "bill",
+  //   ));
+  // }
+
+  // public function editCheckSession(Request $request)
+  // {
+  //   $data = $request->all();
+  //   $request->session()->put('result', $data);
+  //   return redirect(route("admin.agents_reservations.edit_check"));
+  // }
+
+  // public function editCheck(Request $request)
+  // {
+  //   $result = $request->session()->get('result');
+  //   $inputs = $request->session()->get('inputs');
+  //   $venue = Venue::find($inputs['venue_id']);
+  //   $agents = Agent::orderBy("id", "desc")->get();
+
+  //   $price = $agents->find($inputs['agent_id'])->agentPriceCalculate($inputs['end_user_charge']);
+  //   $payment_limit = $agents->find($inputs['agent_id'])->getAgentPayLimit($inputs['reserve_date']);
+  //   $carbon1 = new Carbon($inputs['enter_time']);
+  //   $carbon2 = new Carbon($inputs['leave_time']);
+  //   $usage_hours = ($carbon1->diffInMinutes($carbon2)) / 60;
+  //   if (!empty($inputs['layout_prepare']) || !empty($inputs['layout_clean'])) {
+  //     $layoutPrice = $venue->getLayoutPrice($inputs['layout_prepare'], $inputs['layout_clean']);
+  //   } else {
+  //     $layoutPrice = [0, 0];
+  //   }
+  //   $price = ($layoutPrice[2] ?? 0) + (floor($price));
+
+  //   $bill = $request->session()->get('bill');
+  //   $reservation = $request->session()->get('reservation');
+  //   $breakdown = $request->session()->get('breakdown');
+  //   $o_count = $this->preg($result, 'others_breakdown_item');
+
+  //   return view(
+  //     "admin.agents_reservations.edit_check",
+  //     compact(
+  //       "result",
+  //       "inputs",
+  //       "venue",
+  //       "payment_limit",
+  //       "usage_hours",
+  //       "layoutPrice",
+  //       "price",
+  //       "bill",
+  //       "agents",
+  //       "o_count",
+  //     )
+  //   );
+  // }
+
+  // public function update(Request $request)
+  // {
+  //   if ($request->back) {
+  //     return redirect(route('admin.agents_reservations.edit_show'));
+  //   }
+
+  //   $reservation = $request->session()->get('reservation');
+  //   $bill = $request->session()->get('bill');
+  //   $breakdown = $request->session()->get('breakdown');
+  //   $inputs = $request->session()->get('inputs');
+  //   $result = $request->session()->get('result');
+  //   try {
+  //     $reservation->updateAgentReservation($inputs);
+  //     $reservation->UpdateAgentEndUser($inputs);
+  //     $bill->updateAgentBill($result);
+  //     $bill->updateAgentBreakdown($result, $inputs);
+  //   } catch (\Exception $e) {
+  //     report($e);
+  //     session()->flash('flash_message', '更新に失敗しました。<br>フォーム内の空欄や全角など確認した上でもう一度お試しください。');
+  //     return redirect(route('admin.agents_reservations.show_input'));
+  //   }
+  //   $request->session()->regenerate();
+  //   return redirect()->route('admin.reservations.show', $reservation->id);
+  // }
 }

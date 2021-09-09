@@ -318,7 +318,7 @@
                 <td>
                   <div class="d-flex align-items-end">
                     {{ Form::number('equipment_breakdown'.$key, '',['class'=>'form-control equipment_validation'] ) }}
-                  <span class="ml-1">個</span>
+                    <span class="ml-1">個</span>
                   </div>
                 </td>
               </tr>
@@ -519,14 +519,14 @@
             </tr>
             <tr>
               <td class="table-active form_required">
-                <label for="enduser_charge ">支払い料</label>
+                <label for="end_user_charge ">支払い料</label>
               </td>
               <td>
                 <div class="d-flex align-items-end">
-                  {{ Form::text('enduser_charge', '',['class'=>'form-control'] ) }}
+                  {{ Form::text('end_user_charge', '',['class'=>'form-control'] ) }}
                   <span class="ml-1">円</span>
                 </div>
-                <p class="is-error-enduser_charge" style="color: red"></p>
+                <p class="is-error-end_user_charge" style="color: red"></p>
               </td>
             </tr>
           </tbody>

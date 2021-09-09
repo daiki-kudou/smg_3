@@ -239,8 +239,8 @@
                   支払い料（支払割合 %）
                 </td>
                 <td>
-                  {{ Form::text('enduser_charge', $data['enduser_charge'], ['class' => 'form-control',"readonly" ])}}
-                  {{ Form::hidden('enduser_charge_result', $data['enduser_charge_result'], ['class' => 'form-control','placeholder'=>"入力してください" ])}}
+                  {{ Form::text('end_user_charge', $data['end_user_charge'], ['class' => 'form-control',"readonly" ])}}
+                  {{ Form::hidden('end_user_charge_result', $data['end_user_charge_result'], ['class' => 'form-control','placeholder'=>"入力してください" ])}}
                 </td>
               </tr>
               <tr>
@@ -468,12 +468,12 @@
       })
     };
 
-    $('input[name="enduser_charge"]').on('input',function(){
+    $('input[name="end_user_charge"]').on('input',function(){
       
       var val=Number($(this).val());
       var target_percent=Number($('#percent').text())/100;
       var result = Math.floor(val-(val*target_percent));
-      $('input[name="enduser_charge_result"]').val(result);
+      $('input[name="end_user_charge_result"]').val(result);
     })
 
     // 総合計額抽出
@@ -483,7 +483,7 @@
 
     function MaterCalc() {
       var tar3 = Number($('input[name="layout_price"]').val());
-      var tar5 = Number($('input[name="enduser_charge_result"]').val());
+      var tar5 = Number($('input[name="end_user_charge_result"]').val());
       var master_sub = tar3+tar5;
       var master_tax = Math.floor(Number(( master_sub ) * 0.1));
 

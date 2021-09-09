@@ -569,10 +569,10 @@
         </tr>
         <tr>
           <td class="table-active form_required">
-            <label for="enduser_charge ">支払い料</label>
+            <label for="end_user_charge ">支払い料</label>
           </td>
           <td class="d-flex align-items-center">
-            {{ Form::text('enduser_charge', $all_requests['enduser_charge'],['class'=>'form-control sales_percentage', 'placeholder'=>'入力してください'] ) }}円
+            {{ Form::text('end_user_charge', $all_requests['end_user_charge'],['class'=>'form-control sales_percentage', 'placeholder'=>'入力してください'] ) }}円
 
           </td>
         </tr>
@@ -768,7 +768,7 @@
               <tr>
                 <td colspan="2"></td>
                 <td colspan="2">合計
-                  {{ Form::text('layout_price',$all_requests['layouts_price'] ,['class'=>'form-control', 'readonly'] ) }}
+                  {{ Form::text('layout_price',$all_requests['layout_price'] ,['class'=>'form-control', 'readonly'] ) }}
                 </td>
               </tr>
             </tbody>

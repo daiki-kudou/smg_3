@@ -617,10 +617,10 @@
               </td>
               <td>
                 <div class="d-flex align-items-end">
-                  {{ Form::text('enduser_charge', $PreReservation->pre_enduser->charge,['class'=>'form-control'] ) }}
+                  {{ Form::text('end_user_charge', $PreReservation->pre_enduser->charge,['class'=>'form-control'] ) }}
                   <span class="ml-1">円</span>
                 </div>
-                <p class="is-error-enduser_charge" style="color: red"></p>
+                <p class="is-error-end_user_charge" style="color: red"></p>
               </td>
             </tr>
           </tbody>
@@ -949,7 +949,7 @@
   {{Form::hidden('unknown_user_tel', $PreReservation->unknown_user_tel)}}
   {{Form::hidden('unknown_user_mobile', $PreReservation->unknown_user_mobile)}}
 
-  {{Form::hidden('enduser_charge', $PreReservation->pre_enduser->charge)}}
+  {{Form::hidden('end_user_charge', $PreReservation->pre_enduser->charge)}}
 
   {{Form::hidden('pre_endusers_company',$PreReservation->pre_enduser->company)}}
   {{Form::hidden('pre_endusers_person',$PreReservation->pre_enduser->person)}}

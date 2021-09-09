@@ -539,7 +539,9 @@
                   </tr>
                   <tr>
                     <td class="table-active"><label for="preDelivery">事前荷物の到着日</label></td>
-                    <td>{{$pre_reservation->luggage_arrive?ReservationHelper::formatDate($pre_reservation->luggage_arrive):""}}</td>
+                    <td>
+                      {{$pre_reservation->luggage_arrive?ReservationHelper::formatDate($pre_reservation->luggage_arrive):""}}
+                    </td>
                   </tr>
                   <tr>
                     <td class="table-active"><label for="preDelivery">事後返送する荷物</label></td>
@@ -620,7 +622,7 @@
                 </tr>
                 <tr>
                   <td class="table-active ">
-                    <label for="enduser_charge ">支払い料</label>
+                    <label for="end_user_charge ">支払い料</label>
                   </td>
                   <td>
                     <div class="d-flex align-items-center">

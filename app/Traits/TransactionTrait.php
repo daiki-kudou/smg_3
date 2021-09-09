@@ -18,11 +18,12 @@ trait TransactionTrait
    * @param string $leave_time   
    * @return boolean
    */
-  public function checkReservationsTransaction($reserve_date, $enter_time, $leave_time)
+  public function checkReservationsTransaction($reserve_date, $enter_time, $leave_time, $venue_id)
   {
     $ary = [];
     $reservations = Reservation::with('bills')
       ->whereDate('reserve_date', $reserve_date)
+      ->where('venue_id', $venue_id)
       ->get();
     foreach ($reservations as $key => $value) {
       $temp = [];
@@ -54,10 +55,12 @@ trait TransactionTrait
    * @param string $leave_time   
    * @return boolean
    */
-  public function checkPreReservationsTransaction($reserve_date, $enter_time, $leave_time)
+  public function checkPreReservationsTransaction($reserve_date, $enter_time, $leave_time, $venue_id)
   {
     $ary = [];
-    $pre_reservations = PreReservation::whereDate('reserve_date', $reserve_date)->get();
+    $pre_reservations = PreReservation::whereDate('reserve_date', $reserve_date)
+      ->where('venue_id', $venue_id)
+      ->get();
     foreach ($pre_reservations as $key => $value) {
       $temp = [];
       $temp['enter_time'] = $value->enter_time;

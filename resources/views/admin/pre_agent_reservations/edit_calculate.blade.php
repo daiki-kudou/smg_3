@@ -310,7 +310,7 @@
                 <td>
                   <div class="d-flex align-items-end">
                     {{ Form::text('equipment_breakdown'.$e_key, $request->{'equipment_breakdown'.$e_key},['class'=>'form-control equipment_validation'] ) }}
-                  <span class="ml-1">個</span>
+                    <span class="ml-1">個</span>
                   </div>
                 </td>
               </tr>
@@ -514,14 +514,14 @@
             </tr>
             <tr>
               <td class="table-active form_required">
-                <label for="enduser_charge ">支払い料</label>
+                <label for="end_user_charge ">支払い料</label>
               </td>
               <td>
                 <div class="d-flex align-items-end">
-                  {{ Form::text('enduser_charge', $request->enduser_charge,['class'=>'form-control'] ) }}
+                  {{ Form::text('end_user_charge', $request->end_user_charge,['class'=>'form-control'] ) }}
                   <span class="ml-1">円</span>
                 </div>
-                <p class="is-error-enduser_charge" style="color: red"></p>
+                <p class="is-error-end_user_charge" style="color: red"></p>
               </td>
             </tr>
           </tbody>
@@ -766,7 +766,7 @@
                   <td colspan="3"></td>
                   <td colspan="1">
                     <p class="text-left">合計</p>
-                    {{ Form::text('layouts_price', $layout_total,['class'=>'form-control', 'readonly'] ) }}
+                    {{ Form::text('layout_price', $layout_total,['class'=>'form-control', 'readonly'] ) }}
                   </td>
                 </tr>
               </tbody>
@@ -830,7 +830,7 @@
 {{ Form::hidden('pre_enduser_email', $request->pre_enduser_email) }}
 {{ Form::hidden('pre_enduser_mobile', $request->pre_enduser_mobile) }}
 {{ Form::hidden('pre_enduser_tel', $request->pre_enduser_tel) }}
-{{ Form::hidden('enduser_charge', $request->enduser_charge) }}
+{{ Form::hidden('end_user_charge', $request->end_user_charge) }}
 {{ Form::hidden('attention', $request->attention) }}
 {{ Form::hidden('user_details', $request->user_details) }}
 {{ Form::hidden('admin_details', $request->admin_details) }}
@@ -842,7 +842,7 @@
 {{Form::hidden('eat_in', $request->eat_in)}}
 {{Form::hidden('cost', $request->cost)}}
 
-{{Form::hidden('enduser_charge', $request->enduser_charge)}}
+{{Form::hidden('end_user_charge', $request->end_user_charge)}}
 
 {{Form::hidden('pre_endusers_company',$request->pre_endusers_company)}}
 {{Form::hidden('pre_endusers_person',$request->pre_endusers_person)}}
