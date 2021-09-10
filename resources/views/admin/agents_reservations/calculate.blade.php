@@ -5,7 +5,7 @@
 <link href="{{ asset('/css/template.css') }}" rel="stylesheet">
 {{-- <script src="{{ asset('/js/admin/reservation.js') }}"></script> --}}
 <script src="{{ asset('/js/ajax_agent.js') }}"></script>
-<script src="{{ asset('/js/template.js') }}"></script>
+{{-- <script src="{{ asset('/js/template.js') }}"></script> --}}
 <script src="{{ asset('/js/lettercounter.js') }}"></script>
 <script src="{{ asset('/js/admin/agents_reservation/validation.js') }}"></script>
 <script src="{{ asset('/js/admin/reservation/control_time.js') }}"></script>
@@ -680,11 +680,11 @@
                   <td>
                     {{ Form::text('venue_breakdown_item0', "会場料金",['class'=>'form-control', 'readonly'] ) }}
                   </td>
-                  <td><input class="form-control" readonly></td>
+                  <td><input class="form-control" readonly value="0"></td>
                   <td>
                     {{ Form::text('venue_breakdown_count0', 1,['class'=>'form-control', 'readonly'] ) }}
                   </td>
-                  <td><input class="form-control" readonly></td>
+                  <td><input class="form-control" readonly value="0"></td>
                 </tr>
               </tbody>
             </table>
@@ -717,11 +717,11 @@
                   <td>
                     {{ Form::text('equipment_breakdown_item'.$key, $equipment->item,['class'=>'form-control', 'readonly'] ) }}
                   </td>
-                  <td><input class="form-control" readonly></td>
+                  <td><input class="form-control" readonly value="0"></td>
                   <td>
                     {{ Form::text('equipment_breakdown_count'.$key, $master_info['equipment_breakdown'.$key],['class'=>'form-control', 'readonly'] ) }}
                   </td>
-                  <td><input class="form-control" readonly></td>
+                  <td><input class="form-control" readonly value="0"></td>
                 </tr>
                 @endif
                 @endforeach
@@ -731,11 +731,11 @@
                   <td>
                     {{ Form::text('service_breakdown_item'.$key, $service->item,['class'=>'form-control', 'readonly'] ) }}
                   </td>
-                  <td><input class="form-control" readonly></td>
+                  <td><input class="form-control" readonly value="0"></td>
                   <td>
                     {{ Form::text('service_breakdown_count'.$key, $master_info['services_breakdown'.$key],['class'=>'form-control', 'readonly'] ) }}
                   </td>
-                  <td><input class="form-control" readonly></td>
+                  <td><input class="form-control" readonly value="0"></td>
                 </tr>
                 @endif
                 @endforeach
@@ -744,11 +744,11 @@
                   <td>
                     {{ Form::text('luggage_item', '荷物預かり',['class'=>'form-control', 'readonly'] ) }}
                   </td>
-                  <td><input class="form-control" readonly></td>
+                  <td><input class="form-control" readonly value="0"></td>
                   <td>
                     {{ Form::text('luggage_count', $master_info['luggage_count'],['class'=>'form-control', 'readonly'] ) }}
                   </td>
-                  <td><input class="form-control" readonly></td>
+                  <td><input class="form-control" readonly value="0"></td>
                 </tr>
                 @endif
               </tbody>
@@ -844,9 +844,9 @@
               <tbody class="others_main">
                 <tr>
                   <td>{{ Form::text('others_input_item[]', '',['class'=>'form-control'] ) }}</td>
-                  <td><input class="form-control" readonly></td>
+                  <td><input class="form-control" readonly value="0"></td>
                   <td>{{ Form::text('others_input_count[]', '',['class'=>'form-control'] ) }}</td>
-                  <td><input class="form-control" readonly></td>
+                  <td><input class="form-control" readonly value="0"></td>
                   <td class="text-left">
                     <input type="button" value="＋" class="add pluralBtn">
                     <input type="button" value="ー" class="del pluralBtn">
@@ -983,12 +983,9 @@
           }
           $this.value = str;
         }
-
   $(document).on(' click', '.holidays', function () {
   getHolidayCalendar($('.holidays'), $('input[name="reserve_date"]'));
 });
-
-
   $(function() {
     $(document).on("click", "input:radio[name='eat_in']", function() {
       var radioTarget = $('input:radio[name="eat_in"]:checked').val();
@@ -1000,9 +997,7 @@
       }
     })
   })
-
   $(function() {
-
     $(function() {
       // プラスボタンクリック
       $(document).on("click", ".add", function() {
@@ -1012,17 +1007,6 @@
         $(this).parent().parent().next().find('td').find('input, select').eq(0).val('');
         $(this).parent().parent().next().find('td').find('input, select').eq(1).val('');
       });
-
-      // function addThisTr($targetTr, $TItem, $TCost, $TCount, $TSubtotal) {
-      //   var count = $($targetTr).length;
-      //   for (let index = 0; index < count; index++) {
-      //     $($targetTr).eq(index).find('td').eq(0).find('input').attr('name', $TItem + index);
-      //     $($targetTr).eq(index).find('td').eq(1).find('input').attr('name', $TCount + index);
-      //     // $($targetTr).eq(index).find('td').eq(2).find('input').attr('name', $TCount + index);
-      //     // $($targetTr).eq(index).find('td').eq(3).find('input').attr('name', $TSubtotal + index);
-      //   }
-      // }
-
       // マイナスボタンクリック
       $(document).on("click", ".del", function() {
         if ($(this).parent().parent().parent().attr('class') == "others_main") {
@@ -1031,11 +1015,6 @@
           if (target.parent().children().length > 1) {
             target.remove();
           }
-          // for (let index = 0; index < count; index++) {
-          //   // console.log(index);
-          //   $('.others_main tr').eq(index).find('td').eq(0).find('input').attr('name', 'others_input_item' + index);
-          //   $('.others_main tr').eq(index).find('td').eq(1).find('input').attr('name', 'others_input_count' + index);
-          // }
         }
       });
     });

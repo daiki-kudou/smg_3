@@ -687,15 +687,16 @@ $(function () {
       },
       dataType: 'text',
       beforeSend: function () {
-        // $('#fullOverlay').css('display', 'block');
+        $('#fullOverlay').css('display', 'block');
       },
     })
       .done(function ($agent_result) {
         console.log($agent_result);
         $('.selected_person').text($agent_result);
+        $('#fullOverlay').css('display', 'none');
       })
       .fail(function ($agent_result) {
-        // $('#fullOverlay').css('display', 'none');
+        $('#fullOverlay').css('display', 'none');
         console.log('ajaxGetClients 失敗', $agent_result)
       });
   }

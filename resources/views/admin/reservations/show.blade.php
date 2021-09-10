@@ -446,13 +446,15 @@
                     @endif
                     @else
                     @if ($reservation->bills->sortBy("id")->first()->reservation_status < 3) <p>
-                      {{ Form::open(['url' => 'admin/agents_reservations/edit', 'method' => 'post', 'class' => '']) }}
+                      {{ Form::open(['url' => route('admin.agents_reservations.edit',$reservation->id), 'method' => 'post', 'class' => '']) }}
                       @csrf
                       {{ Form::hidden('reservation_id', $reservation->id) }}
                       {{ Form::hidden('bill_id', $reservation->bills->sortBy("id")->first()->id) }}
                       {{ Form::submit('編集', ['class' => 'btn more_btn']) }}
                       {{ Form::close() }}
                       @endif
+                      {{-- <a href="{{url('admin/agents_reservations/'.$reservation->id.'/edit')}}" class="btn
+                      more_btn">編集</a> --}}
                       @endif
                 </div>
               </td>

@@ -16,14 +16,17 @@ trait TransactionTrait
    * @param string $reserve_date   
    * @param string $enter_time   
    * @param string $leave_time   
+   * @param integer $venue_id   
+   * @param integer $self updateのときは自分自身を除外するため。デフォは""   
    * @return boolean
    */
-  public function checkReservationsTransaction($reserve_date, $enter_time, $leave_time, $venue_id)
+  public function checkReservationsTransaction($reserve_date, $enter_time, $leave_time, $venue_id, $self = "")
   {
     $ary = [];
     $reservations = Reservation::with('bills')
       ->whereDate('reserve_date', $reserve_date)
       ->where('venue_id', $venue_id)
+      ->where('id', '!=', $self)
       ->get();
     foreach ($reservations as $key => $value) {
       $temp = [];

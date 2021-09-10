@@ -222,10 +222,14 @@ class Reservation extends Model implements PresentableInterface
 
   public function ReservationUpdate($data)
   {
-
+    $chkReservation = ($this->checkReservationsTransaction($data['reserve_date'], $data['enter_time'], $data['leave_time'], $data['venue_id'], $data['reservation_id']));
+    $chkPreReservation = ($this->checkPreReservationsTransaction($data['reserve_date'], $data['enter_time'], $data['leave_time'], $data['venue_id']));
+    if (!$chkReservation || !$chkPreReservation) {
+      return "重複";
+    }
     $this->update([
       'venue_id' => $data['venue_id'],
-      'user_id' => !empty($data['venue_id']) ? $data['venue_id'] : 0,
+      'user_id' => !empty($data['user_id']) ? $data['user_id'] : 0,
       'agent_id' => !empty($data['agent_id']) ? $data['agent_id'] : 0,
       'reserve_date' => $data['reserve_date'],
       'price_system' => $data['price_system'],
