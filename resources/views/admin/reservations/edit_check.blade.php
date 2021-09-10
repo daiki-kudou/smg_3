@@ -575,6 +575,7 @@
               </tr>
             </tbody>
             <tbody class="equipment_main">
+              @if (!empty($data['equipment_breakdown_item']))
               @foreach ($data['equipment_breakdown_item'] as $key=>$value)
               <tr>
                 <td>
@@ -591,6 +592,8 @@
                 </td>
               </tr>
               @endforeach
+              @endif
+              @if (!empty($data['service_breakdown_item']))
               @foreach ($data['service_breakdown_item'] as $key=>$value)
               <tr>
                 <td>
@@ -607,6 +610,7 @@
                 </td>
               </tr>
               @endforeach
+              @endif
             </tbody>
             <tbody class="equipment_result">
               <tr>

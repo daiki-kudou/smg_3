@@ -235,10 +235,58 @@ class AgentsReservationsController extends Controller
     $agents = $this->agents;
 
     return view("admin.agents_reservations.edit_check", compact('data', 'venues', 'venue', 'agents'));
+  }
 
+  public function update(Request $request)
+  {
+    $data = $request->all();
+    if (!empty($data['back'])) {
+      return $this->edit($request);
+    }
+    $reservation = Reservation::with('bills')->find($data['reservation_id']);
+    $bill = Bill::find($data['bill_id']);
+    $breakdown = new Breakdown;
 
+    $data['reserve_date'] = "aa";
+    DB::beginTransaction();
+    try {
+      $result_reservation = $reservation->ReservationUpdate($data);
+      if ($result_reservation === "重複") {
+        throw new \Exception("選択された会場・日付・利用時間は既に利用済みです。");
+      }
+      // $bill->BillUpdate($data);
+      // $bill->breakdowns->map(function ($item) {
+      //   return $item->delete();
+      // });
+      // $breakdown->BreakdownStore($data['bill_id'], $data);
+      DB::commit();
+    } catch (\Exception $e) {
+      DB::rollback();
+      dd($e);
+      return back()->withInput()->withErrors($e->getMessage());
+    }
+    $request->session()->regenerate();
+    return redirect(route('admin.reservations.show', $reservation->id));
+    // /////////////////
+    // $reservation = new Reservation;
+    // $bill = new Bill;
+    // $breakdowns = new Breakdown;
+    // DB::beginTransaction();
+    // try {
+    //   $result_reservation = $reservation->ReservationStore($data);
+    //   if ($result_reservation === "重複") {
+    //     throw new \Exception("選択された会場・日付・利用時間は既に利用済みです。");
+    //   }
+    //   $result_bill = $bill->BillStore($result_reservation->id, $data);
+    //   $result_breakdowns = $breakdowns->BreakdownStore($result_bill->id, $data);
+    //   DB::commit();
+    // } catch (\Exception $e) {
+    //   DB::rollback();
 
-    dump($data);
+    //   return back()->withInput()->withErrors($e->getMessage());
+    // }
+    // $request->session()->regenerate();
+    // return redirect()->route('admin.reservations.show', $result_reservation->id);
   }
 
   // public function editShow(Request $request)

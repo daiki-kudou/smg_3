@@ -222,6 +222,7 @@ class Reservation extends Model implements PresentableInterface
 
   public function ReservationUpdate($data)
   {
+
     $this->update([
       'venue_id' => $data['venue_id'],
       'user_id' => !empty($data['venue_id']) ? $data['venue_id'] : 0,
@@ -240,8 +241,8 @@ class Reservation extends Model implements PresentableInterface
       'luggage_arrive' => $data['luggage_arrive'],
       'luggage_return' => $data['luggage_return'],
       'email_flag' => !empty($data['email_flag']) ? $data['email_flag'] : 1,
-      'in_charge' => $data['in_charge'],
-      'tel' => $data['tel'],
+      'in_charge' => !empty($data['in_charge']) ? $data['in_charge'] : "",
+      'tel' => !empty($data['tel']) ? $data['tel'] : "",
       'cost' => !empty($data['cost']) ? $data['cost'] : 0,
       'discount_condition' => $data['discount_condition'] ?? "",
       'attention' => $data['attention'] ?? "",

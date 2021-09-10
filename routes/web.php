@@ -272,7 +272,7 @@ Route::namespace('Admin')->prefix('admin')->name('admin.')->group(function () {
     // Route::get('agents_reservations/show_input', 'AgentsReservationsController@showInput')->name('agents_reservations.show_input');
     // Route::post('agents_reservations/session_check', 'AgentsReservationsController@editCheckSession');
     // Route::get('agents_reservations/edit_check', 'AgentsReservationsController@editCheck')->name('agents_reservations.edit_check');
-    // Route::post('agents_reservations/update', 'AgentsReservationsController@update');
+    Route::post('agents_reservations/update', 'AgentsReservationsController@update');
 
     //********************** */
     //***仮抑え */

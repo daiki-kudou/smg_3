@@ -59,7 +59,8 @@
 
   {{Form::open(['url' => 'admin/agents_reservations/edit_check', 'method' => 'POST', 'id'=>'agentReservationCalculateForm'])}}
   @csrf
-  {{ Form::hidden('reservation_id', $reservation['id'] ) }}
+  {{ Form::hidden('reservation_id', $reservation['id'])}}
+  {{ Form::hidden('bill_id', $reservation->bills[0]['id'])}}
   <section class="mt-4">
     <div class="row">
       <div class="col">
