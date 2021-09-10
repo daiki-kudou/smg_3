@@ -997,15 +997,15 @@
       }
     })
   })
-  $(function() {
     $(function() {
       // プラスボタンクリック
       $(document).on("click", ".add", function() {
         $(this).parent().parent().clone(true).insertAfter($(this).parent().parent());
-        // addThisTr('.others .others_main tr', 'others_input_item', 'others_input_cost', 'others_input_count', 'others_input_subtotal');
         // 追加時内容クリア
         $(this).parent().parent().next().find('td').find('input, select').eq(0).val('');
-        $(this).parent().parent().next().find('td').find('input, select').eq(1).val('');
+        $(this).parent().parent().next().find('td').find('input, select').eq(1).val(0);
+        $(this).parent().parent().next().find('td').find('input, select').eq(2).val('');
+        $(this).parent().parent().next().find('td').find('input, select').eq(3).val(0);
       });
       // マイナスボタンクリック
       $(document).on("click", ".del", function() {
@@ -1018,6 +1018,18 @@
         }
       });
     });
-  })
+    // アコーディオン
+    $(function () {
+    $(".accordion-wrap").hide();
+    $(".accordion-wrap2").show();
+    $(".accordion-ttl").on("click", function () {
+    $(this).next().slideToggle("fast");
+    $(this).find(".title-icon").toggleClass("active");
+    });
+    
+    $(".accordion-innbtn").on("click", function () {
+    $(this).parent().slideToggle("");
+    });
+    });
 </script>
 @endsection

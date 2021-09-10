@@ -255,15 +255,7 @@
                 {{ Form::text('luggage_return', $data['luggage_return'],['class'=>'form-control', 'readonly'] ) }}
               </td>
             </tr>
-            <tr>
-              <td class="table-active">荷物預かり<br>料金</td>
-              <td>
-                <div class="d-flex align-items-end">
-                  {{ Form::text('luggage_price', $data['luggage_price'],['class'=>'form-control', 'readonly'] ) }}
-                  <span class="ml-1">円</span>
-                </div>
-              </td>
-            </tr>
+
           </tbody>
         </table>
       </div>

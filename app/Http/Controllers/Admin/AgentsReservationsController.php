@@ -11,6 +11,8 @@ use App\Models\Breakdown;
 use App\Models\Venue;
 use App\Models\Agent;
 use App\Models\Enduser;
+use App\Models\Equipment;
+use App\Models\Service;
 
 use Carbon\Carbon;
 
@@ -256,14 +258,17 @@ class AgentsReservationsController extends Controller
   public function edit_calc($array)
   {
     $data = $array;
-    dd($data);
+    // dd($data);
     $venue = Venue::find($data['venue_id']);
     $agents = Agent::all();
-    // $price_details = $venue->calculate_price($data['price_system'], $data['enter_time'], $data['leave_time']);
-    // $s_equipment = Equipment::getSessionArrays(collect($data))[0];
-    // $s_services = Service::getSessionArrays(collect($data))[0];
-    // $item_details = $venue->calculate_items_price($s_equipment, $s_services);
-    // $layouts_details = $venue->getLayoutPrice($data['layout_prepare'], $data['layout_clean']);
+    $agent = $agents->find($data['agent_id']);
+    $master_subtotal = $agent->agentPriceCalculate($data['enduser_charge']) + $venue->getLayoutPrice((int)$data['layout_prepare'], (int)$data['layout_clean'])[2];
+    $payment_limit = $agent->getAgentPayLimit($data['reserve_date']);
+
+    $s_equipment = Equipment::getSessionArrays(collect($data))[0];
+    $s_services = Service::getSessionArrays(collect($data))[0];
+    $item_details = $venue->calculate_items_price($s_equipment, $s_services);
+    $layouts_details = $venue->getLayoutPrice($data['layout_prepare'], $data['layout_clean']);
     // if ($price_details === 0) {
     //   $masters = ($item_details[0] + $data['luggage_price']) + $layouts_details[2] + $data['others_price'];
     // } else {
@@ -274,6 +279,12 @@ class AgentsReservationsController extends Controller
       'data',
       'venue',
       'agents',
+      'master_subtotal',
+      'payment_limit',
+      's_equipment',
+      's_services',
+      'item_details',
+      'layouts_details',
     ));
   }
 

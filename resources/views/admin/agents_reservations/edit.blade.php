@@ -836,41 +836,6 @@
                 </td>
               </tr>
             </tbody>
-            <tbody class="layout_discount">
-              <tr>
-                <td>割引計算欄</td>
-                <td>
-                  <p>
-                    割引金額
-                  </p>
-                  <div class="d-flex align-items-end">
-                    @foreach (collect($reservation['bills'][0]['breakdowns'])->where('unit_type',4) as $key=>$value)
-                    @if (strpos($value['unit_item'],'割引料金')!==false)
-                    {{ Form::text('layout_number_discount', ($value['unit_cost']*-1),['class'=>'form-control'] ) }}
-                    @break
-                    @elseif($loop->last)
-                    {{ Form::text('layout_number_discount','',['class'=>'form-control'] ) }}
-                    @endif
-                    @endforeach
-                    <p class="ml-1">円</p>
-                  </div>
-                  <p class="is-error-layout_number_discount" style="color: red"></p>
-                </td>
-                <td>
-                  <p>
-                    割引率
-                  </p>
-                  <div class="d-flex align-items-end">
-                    {{ Form::text('layout_percent_discount', '',['class'=>'form-control'] ) }}
-                    <p class="ml-1">%</p>
-                  </div>
-                  <p class="is-error-layout_percent_discount" style="color: red"></p>
-                </td>
-                <td>
-                  <input class="btn more_btn layout_discount_btn" type="button" value="計算する">
-                </td>
-              </tr>
-            </tbody>
           </table>
         </div>
         @endif
