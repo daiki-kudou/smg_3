@@ -262,7 +262,7 @@ class AgentsReservationsController extends Controller
     $venue = Venue::find($data['venue_id']);
     $agents = Agent::all();
     $agent = $agents->find($data['agent_id']);
-    $master_subtotal = $agent->agentPriceCalculate($data['enduser_charge']) + $venue->getLayoutPrice((int)$data['layout_prepare'], (int)$data['layout_clean'])[2];
+    $master_subtotal = $agent->agentPriceCalculate($data['end_user_charge']) + $venue->getLayoutPrice((int)$data['layout_prepare'], (int)$data['layout_clean'])[2];
     $payment_limit = $agent->getAgentPayLimit($data['reserve_date']);
 
     $s_equipment = Equipment::getSessionArrays(collect($data))[0];
@@ -299,8 +299,9 @@ class AgentsReservationsController extends Controller
   {
     $data = $request->all();
     if (!empty($data['back'])) {
-      return redirect(route('admin.reservations.edit', $data['reservation_id']));
+      return redirect(route('admin.agents_reservations.edit', $data['reservation_id']));
     }
+    // dd($data);
 
     $reservation = Reservation::find($data['reservation_id']);
     $bill = Bill::with('breakdowns')->find($data['bill_id']);
@@ -321,8 +322,8 @@ class AgentsReservationsController extends Controller
       DB::commit();
     } catch (\Exception $e) {
       DB::rollback();
-      // dd($e->getMessage());
-      return back()->withInput()->withErrors($e->getMessage());
+      dd($e->getMessage());
+      // return back()->withInput()->withErrors($e->getMessage());
     }
     $request->session()->regenerate();
     return redirect()->route('admin.reservations.show', $reservation->id);

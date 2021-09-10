@@ -446,7 +446,7 @@
                     @endif
                     @else
                     @if ($reservation->bills->sortBy("id")->first()->reservation_status < 3) <p>
-                      {{ Form::open(['url' => route('admin.agents_reservations.edit',$reservation->id), 'method' => 'post', 'class' => '']) }}
+                      {{ Form::open(['url' => route('admin.agents_reservations.edit',$reservation->id), 'method' => 'get', 'class' => '']) }}
                       @csrf
                       {{ Form::hidden('reservation_id', $reservation->id) }}
                       {{ Form::hidden('bill_id', $reservation->bills->sortBy("id")->first()->id) }}

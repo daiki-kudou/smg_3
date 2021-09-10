@@ -406,14 +406,14 @@
         </tr>
         <tr>
           <td class="table-active form_required">
-            <label for="enduser_charge">支払い料</label>
+            <label for="end_user_charge">支払い料</label>
           </td>
           <td>
             <div class="d-flex align-items-center">
-              {{ Form::text('end_user_charge', $data['enduser_charge'],['class'=>'form-control ', 'placeholder'=>'入力してください','readonly'] ) }}
+              {{ Form::text('end_user_charge', $data['end_user_charge'],['class'=>'form-control ', 'placeholder'=>'入力してください','readonly'] ) }}
               <span class="ml-1">円</span>
             </div>
-            <p class="is-error-enduser_charge" style="color: red"></p>
+            <p class="is-error-end_user_charge" style="color: red"></p>
           </td>
         </tr>
       </table>
