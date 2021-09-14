@@ -105,7 +105,7 @@ class Bill extends Model
       'master_tax' => $data['master_tax'],
       'master_total' => $data['master_total'],
       'payment_limit' => $data['payment_limit'],
-      'bill_company' => $data['bill_company'],
+      'bill_company' => !empty($data['bill_company']) ? $data['bill_company'] : "",
       'bill_person' => $data['bill_person'],
       'bill_created_at' => $data['bill_created_at'],
       'bill_remark' => $data['bill_remark'],

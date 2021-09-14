@@ -431,7 +431,7 @@
             {{ReservationHelper::formatDate($reservation->cxls->first()->pay_day)}}
           </td>
           <td class="payment-status">
-            {{$reservation->cxls->first()->paid===0?"未入金":"入金済"}}
+            {{ReservationHelper::paidStatus($reservation->cxls->first()->paid)}}
           </td>
           <td>
             {{$reservation->cxls->first()->pay_person}}

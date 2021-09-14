@@ -94,7 +94,7 @@ class Cxl extends Model
         'master_tax' => $invoice['master_tax'],
         'master_total' => $invoice['master_total'],
         'payment_limit' => $invoice['payment_limit'],
-        'bill_company' => $invoice['bill_company'],
+        'bill_company' => !empty($invoice['bill_company']) ? $invoice['bill_company'] : "",
         'bill_person' => $invoice['bill_person'],
         'bill_created_at' => Carbon::now(),
         'bill_remark' => $invoice['bill_remark'],
