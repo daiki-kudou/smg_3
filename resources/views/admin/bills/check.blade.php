@@ -31,6 +31,7 @@
 {{ Form::open(['route' => 'admin.bills.store', 'method'=>'POST']) }}
 @csrf
 {{Form::hidden('reservation_id',$data['reservation_id'])}}
+{{Form::hidden('category',2)}}
 <section class="mt-5">
   <div class="bill">
     <div class="bill_details">

@@ -118,7 +118,7 @@ class Bill extends Model
       'double_check1_name' => !empty($data['double_check1_name']) ? $data['double_check1_name'] : "",
       'double_check2_name' => !empty($data['double_check2_name']) ? $data['double_check2_name'] : "",
       'approve_send_at' => !empty($data['approve_send_at']) ? $data['approve_send_at'] : NULL,
-      'category' => $category,
+      'category' => !empty($data['category']) ? $data['category'] : $category,
       'admin_judge' => $admin_judge,
       'end_user_charge' => !empty($data['end_user_charge']) ? $data['end_user_charge'] : NULL,
       'invoice_number' => $this->generateInvoiceNum(),
