@@ -681,7 +681,7 @@ class ReservationsController extends Controller
   public function update(Request $request)
   {
     $data = $request->all();
-    if ($data['back']) {
+    if (!empty($data['back'])) {
       return redirect(route('admin.reservations.edit', $data['reservation_id']));
     }
     $reservation = Reservation::find($data['reservation_id']);

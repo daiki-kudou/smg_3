@@ -83,11 +83,6 @@
             <td class="table-active">{{ Form::label('address3', '住所3（建物名）') }}</td>
             <td>{{ Form::text('address3', old('address3'), ['class' => 'form-control']) }}</td>
           </tr>
-          <!-- <tr>
-                <td class="table-active">{{ Form::label('address_remark', '住所備考') }}</td>
-                <td>{{ Form::textarea('address_remark', old('address_remark'), ['class' => 'form-control']) }}
-                </td>
-              </tr> -->
           <tr>
             <td class="table-active">{{ Form::label('url', '会社・団体名URL') }}</td>
             <td>{{ Form::text('url', old('url'), ['class' => 'form-control']) }}
