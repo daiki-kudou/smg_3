@@ -565,13 +565,12 @@
           var trTarget = $($targetTr).length;
           var result_add = 0;
           for (let calc = 0; calc < trTarget; calc++) {
-            console.log('calc',trTarget);
             var multiple1 = Number($($targetTr).eq(calc).find('td').eq(1).find('input').val());
             var multiple2 = Number($($targetTr).eq(calc).find('td').eq(2).find('input').val());
             $($targetTr).eq(calc).find('td').eq(3).find('input').val(multiple1 * multiple2);
             result_add += (multiple1 * multiple2);
           }
-          $($targetSum).val(multiple1 * multiple2);
+          $($targetSum).val(result_add);
         })
       };
 
@@ -590,8 +589,6 @@
         var tar2_val = tar2.prop('disabled')?0:Number(tar2.val());
         var tar3_val = tar3.prop('disabled')?0:Number(tar3.val());
         var tar4_val = tar4.prop('disabled')?0:Number(tar4.val());
-
-        // console.log(tar1_val,tar2_val, tar3_val, tar4_val);
 
         var master_sub = tar1_val + tar2_val + tar3_val + tar4_val;
         var master_tax = Math.floor(master_sub * 0.1);
@@ -620,7 +617,6 @@
         }
         MaterCalc();
       })
-
     })
   </script>
 
