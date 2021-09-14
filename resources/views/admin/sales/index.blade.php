@@ -324,24 +324,24 @@
             {{!empty($reservation->agent_id>0)?optional($reservation->enduser)->company:''}}
           </td>
           <td rowspan="{{($reservation->billCount()*2)+$reservation->cxlCount()+2}}">
-            {{-- 総額 --}}
             {{number_format($reservation->totalAmountWithCxl())}}円
           </td>
           <td>
-            {{-- 売上 --}}
             {{number_format($reservation->bills->sortBy("id")->first()->master_total)}}円</td>
-          <td>
-            {{-- 売上原価 --}}
+          <td> {{--売上原価--}}
             {{number_format($reservation->venue->getCostForPartner($reservation->venue, $reservation->bills->sortBy("id")->first()->master_total, $reservation->bills->sortBy("id")->first()->layout_price,$reservation))}}円
           </td>
-          <td>
-            {{-- 粗利 --}}
+          <td>{{--粗利--}}
             {{number_format($reservation->venue->getProfitForPartner($reservation->venue, $reservation->bills->sortBy("id")->first()->master_total, $reservation->bills->sortBy("id")->first()->layout_price,$reservation))}}円
           </td>
-          <td>{{($reservation->bills->sortBy("id")->first()->category==1?"会場予約":"")}}</td>
-          <td> {{ReservationHelper::judgeStatus($reservation->bills->sortBy("id")->first()->reservation_status)}}</td>
+          <td> {{--売上区分--}}
+            {{($reservation->bills->sortBy("id")->first()->category==1?"会場予約":"")}}
+          </td>
+          <td>{{--予約状況--}}
+            {{ReservationHelper::judgeStatus($reservation->bills->sortBy("id")->first()->reservation_status)}}</td>
           <td> {{ReservationHelper::formatDate($reservation->bills->sortBy("id")->first()->pay_day)}}</td>
-          <td class="payment-status"> {{ReservationHelper::paidStatus($reservation->bills->sortBy("id")->first()->paid)}}</td>
+          <td class="payment-status">
+            {{ReservationHelper::paidStatus($reservation->bills->sortBy("id")->first()->paid)}}</td>
           <td class="text-center" rowspan="{{($reservation->billCount()*2)+$reservation->cxlCount()+2}}">
             <a class="more_btn" href="{{route('admin.reservations.show',$reservation->id)}}">
               予約詳細
@@ -358,45 +358,21 @@
             style="{{$reservation->venue->alliance_flag==1?"color:red":""}}">
             {{$reservation->venue->alliance_flag==0?"直":"提"}}</td>
         </tr>
-        @if ($reservation->cxls->where('bill_id',0)->count()>0)
-        <tr> {{--個別キャンセル分 --}}
-          <td style="color:red">
-            {{-- 売上 --}}
-            {{number_format(-$reservation->bills->sortBy("id")->first()->master_total)}}円
-          </td>
-          <td>
-            -
-          </td>
-          <td>
-            -
-          </td>
-          <td>
-            {{"会場予約キャンセル"}}
-          </td>
-          <td>
-            {{ReservationHelper::judgeStatus($reservation->bills->sortBy("id")->first()->reservation_status)}}
-          </td>
-          <td>-</td>
-          <td>-</td>
-          <td>{{--振り込み名　表示必要なし --}}</td>
-          <td>-</td>
-        </tr>
-        @endif
         @else
         <tr>
           <td>
-            {{-- 売上 --}}
             {{number_format($reservation->bills->skip($i)->first()->master_total)}}円</td>
           <td>
-            {{-- 売上原価 --}}
             {{number_format($reservation->venue->getCostForPartner($reservation->venue, $reservation->bills->skip($i)->first()->master_total, $reservation->bills->skip($i)->first()->layout_price, $reservation))}}円
           </td>
           <td>
-            {{-- 粗利 --}}
             {{number_format($reservation->venue->getProfitForPartner($reservation->venue, $reservation->bills->skip($i)->first()->master_total, $reservation->bills->skip($i)->first()->layout_price, $reservation))}}円
           </td>
-          <td> {{($reservation->bills->skip($i)->first()->category==2?"追加請求".$i:"")}}</td>
-          <td> {{ReservationHelper::judgeStatus($reservation->bills->skip($i)->first()->reservation_status)}}</td>
+          <td>{{--売上区分--}}
+            {{'追加'.$i}}
+          </td>
+          <td>{{--予約状況--}}
+            {{ReservationHelper::judgeStatus($reservation->bills->skip($i)->first()->reservation_status)}}</td>
           <td> {{ReservationHelper::formatDate($reservation->bills->skip($i)->first()->pay_day)}}</td>
           <td class="payment-status"> {{$reservation->bills->skip($i)->first()->paid==0?"未入金":"入金済"}}</td>
           <td>
@@ -404,63 +380,66 @@
           </td>
           <td> {{ReservationHelper::formatDate($reservation->bills->skip($i)->first()->payment_limit)}}</td>
         </tr>
-        @if ($reservation->bills->skip($i)->first()->cxl)
-        <tr> {{--個別キャンセル分 --}}
-          <td style="color:red">
-            {{-- 売上 --}}
-            {{number_format(-$reservation->bills->skip($i)->first()->master_total)}}円
-          </td>
-          <td>-</td>
-          <td>-</td>
-          <td>
-            {{"追加請求".$i."キャンセル"}}
-          </td>
-          <td>
-            {{ReservationHelper::cxlStatus($reservation->bills->skip($i)->first()->cxl->cxl_status)}}
-          </td>
-          <td>-</td>
-          <td>-</td>
-          <td>{{--振り込み名　表示必要なし --}}</td>
-          <td>-</td>
-        </tr>
-        @elseif($reservation->cxls->where('bill_id',0)->count()>0)
-        <tr> {{--個別キャンセルではなく、メインの予約がキャンセルされた際 --}}
-          <td style="color:red">
-            {{-- 売上 --}}
-            {{number_format(-$reservation->bills->skip($i)->first()->master_total)}}円
-          </td>
-          <td>-</td>
-          <td>-</td>
-          <td>
-            {{"追加請求".$i."キャンセル"}}
-          </td>
-          <td>
-            {{ReservationHelper::judgeStatus($reservation->bills->skip($i)->first()->reservation_status)}}
-          </td>
-          <td>-</td>
-          <td>-</td>
-          <td>{{--振り込み名　表示必要なし --}}</td>
-          <td>-</td>
-        </tr>
-        @endif
         @endif
         @endfor
-
-        {{-- キャンセル部分　一番下にくる --}}
+        {{-- キャンセルがあれば無条件で打ち消しとキャンセルを出す --}}
         @if ($reservation->cxls->count()>0)
+        {{-- 打ち消し --}}
         <tr>
-          <td>{{number_format($reservation->cxlSubtotal())}}円</td>{{--売上--}}
-          <td>{{number_format($reservation->cxlCost())}}円</td>{{--原価--}}
-          <td>{{number_format($reservation->cxlProfit())}}円</td>{{--粗利--}}
-          <td>キャンセル</td>{{--区分--}}
-          <td>キャンセル</td>{{--状況--}}
-          <td></td>{{--支払--}}
-          <td></td>{{--入金--}}
-          <td>{{--振り込み名　表示必要なし --}}</td>
-          <td></td>{{--期日--}}
+          <td> {{--売上--}}
+            {{number_format(($reservation->totalAmountWithCxl())*-1)}}円
+          </td>
+          <td>{{--売上原価--}}
+            {{number_format(($reservation->venue->sumCostForPartner($reservation))*-1)}}円
+          </td>
+          <td>{{--粗利--}}
+            {{number_format((($reservation->totalAmountWithCxl())*-1)-(($reservation->venue->sumCostForPartner($reservation))*-1))}}
+          </td>
+          <td>{{--売上区分--}}
+            打ち消し
+          </td>
+          <td>{{--予約状況--}}
+            -
+          </td>
+          <td>
+            tset
+          </td>
+          <td class="payment-status">
+            test
+          </td>
+          <td>
+            tet
+          </td>
+          <td>
+            test
+          </td>
+        </tr>
+        <tr>
+          <td>{{number_format($reservation->cxlSubtotal())}}円</td>
+          {{--売上--}}
+          <td>{{number_format($reservation->cxlCost())}}円</td>
+          {{--原価--}}
+          <td>{{number_format($reservation->cxlProfit())}}円</td>
+          <td>{{--売上区分--}}
+            キャンセル料
+          </td>
+          <td>{{--予約状況--}}
+            {{ReservationHelper::cxlStatus($reservation->cxls->first()->cxl_status)}}
+          </td>
+          <td>
+            tset
+          </td>
+          <td class="payment-status">
+            test
+          </td>
+          <td>
+            tet
+          </td>
+          <td>
+            test
+          </td>
         </tr>
         @endif
-        {{-- キャンセル部分 --}}
     </tbody>
     @endforeach
   </table>
@@ -520,13 +499,6 @@
     ActiveDateRangePicker('reserve_date');
     ActiveDateRangePicker('payment_limit');
   })
-//   $(function(){
-//     var target=$('.payment-status').text();
-//     console.log(target);
-//     if (target.match(/^未入金$/)) {
-//       $('.payment-status').css('color','red');
-//     }
-// });
 
 $(function(){
   $('.payment-status').each(function(index, value){
@@ -534,10 +506,14 @@ $(function(){
     console.log(target);
     if (target.match(/未入金/)) {
       $(value).css('font-weight','bold');
-    //   var result =target.replace('-','▲');
-    //   $(value).text(result);
     }
   });
+  $('td').each(function(index, value){
+    var target=$(value).text();
+    if (target.match(/-/)) {
+    $(value).css('color','red');
+    }
+    });
 });
 
 </script>
