@@ -374,7 +374,8 @@
           <td>{{--予約状況--}}
             {{ReservationHelper::judgeStatus($reservation->bills->skip($i)->first()->reservation_status)}}</td>
           <td> {{ReservationHelper::formatDate($reservation->bills->skip($i)->first()->pay_day)}}</td>
-          <td class="payment-status"> {{$reservation->bills->skip($i)->first()->paid==0?"未入金":"入金済"}}</td>
+          <td class="payment-status">
+            {{$reservation->bills->skip($i)->first()->paid==0?"未入金":"入金済"}}</td>
           <td>
             <p class="remark_limit">{{($reservation->bills->skip($i)->first()->pay_person)}}</p>
           </td>
@@ -402,16 +403,16 @@
             -
           </td>
           <td>
-            tset
+            -
           </td>
           <td class="payment-status">
-            test
+            -
           </td>
           <td>
-            tet
+            -
           </td>
           <td>
-            test
+            -
           </td>
         </tr>
         <tr>
@@ -426,17 +427,17 @@
           <td>{{--予約状況--}}
             {{ReservationHelper::cxlStatus($reservation->cxls->first()->cxl_status)}}
           </td>
-          <td>
-            tset
+          <td>{{--支払い日--}}
+            {{ReservationHelper::formatDate($reservation->cxls->first()->pay_day)}}
           </td>
           <td class="payment-status">
-            test
+            {{$reservation->cxls->first()->paid===0?"未入金":"入金済"}}
           </td>
           <td>
-            tet
+            {{$reservation->cxls->first()->pay_person}}
           </td>
           <td>
-            test
+            {{ReservationHelper::formatDate($reservation->cxls->first()->payment_limit)}}
           </td>
         </tr>
         @endif
