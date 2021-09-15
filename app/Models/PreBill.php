@@ -60,24 +60,24 @@ class PreBill extends Model
     return $result;
   }
 
-  // public function PreBillCreate($request, $pre_reservation)
-  // {
-  //   DB::transaction(function () use ($request, $pre_reservation) { //トランザクションさせる
-  //     $pre_bill = $this->create([
-  //       'pre_reservation_id' => $pre_reservation->id,
-  //       'venue_price' => !empty($request->venue_price) ? $request->venue_price : 0,
-  //       'equipment_price' => !empty($request->equipment_price) ? $request->equipment_price : 0, //備品・サービス・荷物
-  //       'layout_price' => !empty($request->layout_price) ? $request->layout_price : 0,
-  //       'others_price' => !empty($request->others_price) ? $request->others_price : 0,
-  //       // 該当billの合計額関連
-  //       'master_subtotal' => $request->master_subtotal,
-  //       'master_tax' => $request->master_tax,
-  //       'master_total' => $request->master_total,
-  //       'reservation_status' => 0,
-  //       'category' => 0,
-  //     ]);
-  //   });
-  // }
+  public function PreBillCreate($request, $pre_reservation)
+  {
+    DB::transaction(function () use ($request, $pre_reservation) { //トランザクションさせる
+      $pre_bill = $this->create([
+        'pre_reservation_id' => $pre_reservation->id,
+        'venue_price' => !empty($request->venue_price) ? $request->venue_price : 0,
+        'equipment_price' => !empty($request->equipment_price) ? $request->equipment_price : 0, //備品・サービス・荷物
+        'layout_price' => !empty($request->layout_price) ? $request->layout_price : 0,
+        'others_price' => !empty($request->others_price) ? $request->others_price : 0,
+        // 該当billの合計額関連
+        'master_subtotal' => $request->master_subtotal,
+        'master_tax' => $request->master_tax,
+        'master_total' => $request->master_total,
+        'reservation_status' => 0,
+        'category' => 0,
+      ]);
+    });
+  }
 
 
 

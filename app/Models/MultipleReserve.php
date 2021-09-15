@@ -537,7 +537,8 @@ class MultipleReserve extends Model implements PresentableInterface //プレゼ�
           'reserve_date' => $request->{'pre_date' . $i},
           'enter_time' => $request->{'pre_enter' . $i},
           'leave_time' => $request->{'pre_leave' . $i},
-          'status' => 0
+          'status' => 0,
+          'luggage_flag' => 0
         ]);
 
         $unknown = $pre_reservations->unknown_user()->count();
@@ -581,7 +582,8 @@ class MultipleReserve extends Model implements PresentableInterface //プレゼ�
           'reserve_date' => $request->{'pre_date' . $i},
           'enter_time' => $request->{'pre_enter' . $i},
           'leave_time' => $request->{'pre_leave' . $i},
-          'status' => 0
+          'status' => 0,
+          'luggage_flag' => 0
         ]);
 
         if ($request->pre_enduser_company || $request->pre_enduser_name || $request->pre_enduser_address || $request->pre_enduser_tel || $request->pre_enduser_mobile || $request->pre_enduser_email || $request->pre_enduser_attr) {
