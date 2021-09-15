@@ -3,8 +3,9 @@
 <link href="{{ asset('/css/template.css') }}" rel="stylesheet">
 
 
+
 <section class="mt-5 px-5">
-  <p class="text-right"><a class="btn more_btn3" href="/admin/note/create?date={{$date}}">メモを追加する</a></p>
+  <p class="text-right"><a class="btn more_btn3" href="{{url('/').'/admin/note/create?date='.$date}}">メモを追加する</a></p>
   <table width="100%" class="table table-bordered mt-3">
     <tbody>
       <tr>
@@ -24,11 +25,10 @@
         <td>{{$note['company']}}</td>
         <td>{!!nl2br(e($note['content']))!!}</td>
         <td class="text-center">
-          <a class="edit btn more_btn" href="{{url('/')}}{{'/admin/note/edit/'.$note['date'].'/'.$note['id']}}">編集</a>
+          <a class="edit btn more_btn" href="{{url('/').'/admin/note/edit/'.$note['date'].'/'.$note['id']}}">編集</a>
         </td>
         <td class="text-center">
-          <a class="delete btn more_btn4"
-            href="{{url('/')}}{{'/admin/note/delete/'.$note['id'].'/'.$note['date']}}">削除</a>
+          <a class="delete btn more_btn4" href="{{url('/').'/admin/note/delete/'.$note['id'].'/'.$note['date']}}">削除</a>
         </td>
       </tr>
       @endforeach
@@ -61,7 +61,7 @@
       headers: {
         'X-CSRF-TOKEN': $('input[name="_token"]').val()
       },
-      url: '/admin/note/sort_no_update',
+      url: rootPath+'/admin/note/sort_no_update',
       type: 'POST',
       data: { 'ary': $ary },
       dataType: 'json',
