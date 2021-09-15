@@ -232,9 +232,10 @@
           </thead>
           <tbody>
             <tr>
-              <td class="table-active">荷物預かり　工藤さん！！</td>
+              <td class="table-active">荷物預かり</td>
               <td>
-                <input class="form-control" type="text" value="工藤さん！ありかなしを表示" readonly>
+                {{ Form::text('', (int)$data['luggage_flag']===1?"有り":"無し",['class'=>'form-control', 'readonly'] ) }}
+                {{ Form::hidden('luggage_flag', $data['luggage_flag'],['class'=>'form-control', 'readonly'] ) }}
               </td>
             </tr>
             <tr>
@@ -657,7 +658,7 @@
         </div>
         @endif
 
-        @if (!empty($data['others_breakdown_item']))
+        @if (!empty($data['others_breakdown_item'][0]))
         <div class="others billdetails_content">
           <table class="table table-borderless">
             <tr>

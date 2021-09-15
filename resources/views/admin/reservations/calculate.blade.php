@@ -343,12 +343,12 @@
               <td>
                 <div class="radio-box">
                   <p>
-                    <input id="luggage_flag" name="luggage_flag" type="radio" value="1">
-                    <label for="" class="form-check-label">有り</label>
+                    {{Form::radio('luggage_flag', 1, (int)$value['luggage_flag']===1?true:false, ['id'=>'luggage_flag'])}}
+                    {{Form::label('luggage_flag','有り')}}
                   </p>
                   <p>
-                    <input id="no_luggage_flag" name="luggage_flag" type="radio" value="0">
-                    <label for="" class="form-check-label">無し</label>
+                    {{Form::radio('luggage_flag', 0, (int)$value['luggage_flag']===0?true:false, ['id'=>'no_luggage_flag'])}}
+                    {{Form::label('no_luggage_flag','無し')}}
                   </p>
                 </div>
               </td>

@@ -50,9 +50,11 @@ class Reservation extends Model implements PresentableInterface
     'event_name1',
     'event_name2',
     'event_owner',
+    'luggage_flag',
     'luggage_count',
     'luggage_arrive',
     'luggage_return',
+    'luggage_price',
     'email_flag',
     'in_charge',
     'tel',
@@ -75,7 +77,7 @@ class Reservation extends Model implements PresentableInterface
     'eat_in',
     'eat_in_prepare',
     'multiple_reserve_id',
-    'luggage_flag'
+
   ];
   protected $dates = [
     'reserve_date',
@@ -201,6 +203,8 @@ class Reservation extends Model implements PresentableInterface
       'event_name1' => $data['event_name1'] ?? "",
       'event_name2' => $data['event_name2'] ?? "",
       'event_owner' => $data['event_owner'] ?? "",
+      'luggage_flag' => !empty($data['luggage_flag']) ? $data['luggage_flag'] : 0,
+      'luggage_price' => !empty($data['luggage_price']) ? $data['luggage_price'] : 0,
       'luggage_count' => $data['luggage_count'],
       'luggage_arrive' => $data['luggage_arrive'],
       'luggage_return' => $data['luggage_return'],
@@ -215,7 +219,7 @@ class Reservation extends Model implements PresentableInterface
       'eat_in' => !empty($data['eat_in']) ? $data['eat_in'] : 0,
       'eat_in_prepare' => !empty($data['eat_in_prepare']) ? $data['eat_in_prepare'] : 0,
       'multiple_reserve_id' => !empty($data['multiple_reserve_id']) ? $data['multiple_reserve_id'] : 0,
-      // 'luggage_flag' => !empty($data['luggage_flag']) ? $data['luggage_flag'] : 0,
+
     ]);
     return $result;
   }
@@ -241,6 +245,8 @@ class Reservation extends Model implements PresentableInterface
       'event_name1' => !empty($data['event_name1']) ? $data['event_name1'] : "",
       'event_name2' => !empty($data['event_name2']) ? $data['event_name2'] : "",
       'event_owner' => !empty($data['event_owner']) ? $data['event_owner'] : "",
+      'luggage_flag' => !empty($data['luggage_flag']) ? $data['luggage_flag'] : 0,
+      'luggage_price' => !empty($data['luggage_price']) ? $data['luggage_price'] : 0,
       'luggage_count' => $data['luggage_count'],
       'luggage_arrive' => $data['luggage_arrive'],
       'luggage_return' => $data['luggage_return'],
@@ -255,7 +261,6 @@ class Reservation extends Model implements PresentableInterface
       'eat_in' => $data['eat_in'],
       'eat_in_prepare' => !empty($data['eat_in_prepare']) ? $data['eat_in_prepare'] :  0,
       'multiple_reserve_id' => $data['multiple_reserve_id'] ?? 0,
-      // 'luggage_flag' => !empty($data['luggage_flag']) ? $data['luggage_flag'] : 0,
     ]);
     return $this;
   }

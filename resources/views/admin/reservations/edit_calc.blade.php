@@ -340,16 +340,16 @@
           </thead>
           <tbody>
             <tr>
-              <td class="table-active">荷物預かり 工藤さん！！こちら</td>
+              <td class="table-active">荷物預かり</td>
               <td>
                 <div class="radio-box">
                   <p>
-                    <input id="luggage_flag" name="luggage_flag" type="radio" value="1">
-                    <label for="" class="form-check-label">有り</label>
+                    {{Form::radio('luggage_flag', 1, (int)$data['luggage_flag']===1?true:false, ['id'=>'luggage_flag'])}}
+                    {{Form::label('luggage_flag','有り')}}
                   </p>
                   <p>
-                    <input id="no_luggage_flag" name="luggage_flag" type="radio" value="0">
-                    <label for="" class="form-check-label">無し</label>
+                    {{Form::radio('luggage_flag', 0, (int)$data['luggage_flag']===0?true:false, ['id'=>'no_luggage_flag'])}}
+                    {{Form::label('no_luggage_flag','無し')}}
                   </p>
                 </div>
               </td>
@@ -357,20 +357,20 @@
             <tr>
               <td class="table-active">事前に預かる荷物<br>（個数）</td>
               <td>
-                {{ Form::number('luggage_count', $data['luggage_count'],['class'=>'form-control','id'=>'luggage_count'] ) }}
+                {{ Form::number('luggage_count', (int)$data['luggage_flag']===1?$data['luggage_count']:"",['class'=>'form-control','id'=>'luggage_count'] ) }}
                 <p class="is-error-luggage_count" style="color: red"></p>
               </td>
             </tr>
             <tr>
               <td class="table-active">事前荷物の到着日<br>午前指定のみ</td>
               <td>
-                {{ Form::text('luggage_arrive', !empty($data['luggage_arrive'])?date('Y-m-d',strtotime($data['luggage_arrive'])):"",['class'=>'form-control holidays','id'=>'luggage_arrive'] ) }}
+                {{ Form::text('luggage_arrive', (int)$data['luggage_flag']===1?(!empty($data['luggage_arrive'])?date('Y-m-d',strtotime($data['luggage_arrive'])):""):"",['class'=>'form-control holidays','id'=>'luggage_arrive'] ) }}
               </td>
             </tr>
             <tr>
               <td class="table-active">事後返送する荷物</td>
               <td>
-                {{ Form::number('luggage_return', $data['luggage_return'],['class'=>'form-control','id'=>'luggage_return'] ) }}
+                {{ Form::number('luggage_return', (int)$data['luggage_flag']===1?$data['luggage_return']:"",['class'=>'form-control','id'=>'luggage_return'] ) }}
                 <p class="is-error-luggage_return" style="color: red"></p>
               </td>
             </tr>
@@ -378,7 +378,7 @@
               <td class="table-active">荷物預かり<br>料金</td>
               <td>
                 <div class="d-flex align-items-end">
-                  {{ Form::text('luggage_price', $data['luggage_price'],['class'=>'form-control','id'=>'luggage_price'] ) }}
+                  {{ Form::text('luggage_price', (int)$data['luggage_flag']===1?$data['luggage_price']:"",['class'=>'form-control','id'=>'luggage_price'] ) }}
                   <span class="ml-1">円</span>
                 </div>
                 <p class='is-error-luggage_price' style=' color: red'></p>

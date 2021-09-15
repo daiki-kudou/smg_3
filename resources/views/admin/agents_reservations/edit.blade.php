@@ -361,16 +361,16 @@
           </thead>
           <tbody>
             <tr>
-              <td class="table-active">荷物預かり 工藤さん！！こちら</td>
+              <td class="table-active">荷物預かり</td>
               <td>
                 <div class="radio-box">
                   <p>
-                    <input id="luggage_flag" name="luggage_flag" type="radio" value="1">
-                    <label for="" class="form-check-label">有り</label>
+                    {{Form::radio('luggage_flag', 1, (int)$reservation['luggage_flag']===1?true:false, ['id'=>'luggage_flag'])}}
+                    {{Form::label('luggage_flag','有り')}}
                   </p>
                   <p>
-                    <input id="no_luggage_flag" name="luggage_flag" type="radio" value="0">
-                    <label for="" class="form-check-label">無し</label>
+                    {{Form::radio('luggage_flag', 0, (int)$reservation['luggage_flag']===0?true:false, ['id'=>'no_luggage_flag'])}}
+                    {{Form::label('no_luggage_flag','無し')}}
                   </p>
                 </div>
               </td>
@@ -393,23 +393,6 @@
               <td>
                 {{ Form::number('luggage_return', $reservation['luggage_return'],['class'=>'form-control','id'=>'luggage_return'] ) }}
                 <p class="is-error-luggage_return" style="color: red"></p>
-              </td>
-            </tr>
-            <tr>
-              <td class="table-active">荷物預かり<br>料金</td>
-              <td>
-                <div class="d-flex align-items-end">
-                  @foreach ($reservation['bills'][0]['breakdowns'] as $key=>$value)
-                  @if ($value['unit_item']==="荷物預かり")
-                  {{ Form::text('luggage_price', $value['unit_cost'],['class'=>'form-control','id'=>'luggage_price'] ) }}
-                  @break
-                  @elseif($loop->last)
-                  {{ Form::text('luggage_price', '',['class'=>'form-control','id'=>'luggage_price'] ) }}
-                  @endif
-                  @endforeach
-                  <span class="ml-1">円</span>
-                </div>
-                <p class='is-error-luggage_price' style=' color: red'></p>
               </td>
             </tr>
           </tbody>

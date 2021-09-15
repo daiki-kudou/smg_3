@@ -588,6 +588,22 @@ $(function () {
           $('.luggage table tbody').html('');
           var data =
             "<tr>" +
+            "<td class='table-active'>荷物預かり</td>" +
+            "<td>" +
+            "<div class='radio-box'>" +
+            "<p>" +
+            "<input id='luggage_flag' name='luggage_flag' type='radio' value='1'>" +
+            "<label for='luggage_flag' class ='form-check-label'>有り</label>" +
+            "</p>" +
+            "<p>" +
+            "<input id='no_luggage_flag' name='luggage_flag' type='radio' value='0' checked>" +
+            "<label for='no_luggage_flag' class ='form-check-label'>無し</label>" +
+            "</p>" +
+            "</div>" +
+            "</td>" +
+            "</tr>" +
+            "<tr>" +
+            "<tr>" +
             "<td class='table-active'>事前に預かる荷物<br>（目安）</td>" +
             "<td class=''>" +
             "<input type='number' class='form-control luggage_count' placeholder='個数入力' name='luggage_count'>" +
