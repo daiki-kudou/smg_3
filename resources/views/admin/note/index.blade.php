@@ -24,10 +24,10 @@
         <td>{{$note['company']}}</td>
         <td>{!!nl2br(e($note['content']))!!}</td>
         <td class="text-center">
-          <a class="edit btn more_btn" href="{{url('admin/note/edit/'.$note['date'].'/'.$note['id'])}}">編集</a>
+          <a class="edit btn more_btn" href="{{url('/admin/note/edit/'.$note['date'].'/'.$note['id'])}}">編集</a>
         </td>
         <td class="text-center">
-          <a class="delete btn more_btn4" href="{{url('admin/note/delete/'.$note['id'].'/'.$note['date'])}}">削除</a>
+          <a class="delete btn more_btn4" href="{{url('/admin/note/delete/'.$note['id'].'/'.$note['date'])}}">削除</a>
         </td>
       </tr>
       @endforeach
