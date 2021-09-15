@@ -37,9 +37,9 @@ trait TransactionTrait
     }
     foreach ($ary as $key => $value) {
       if ($value['status'] <= 3) {
-        if ($enter_time < $value['enter_time'] && $leave_time < $value['enter_time']) {
+        if ($enter_time <= $value['enter_time'] && $leave_time <= $value['enter_time']) {
           return TRUE; //入力された開始と終了時間が両方、すでにある予約の開始時間より前
-        } elseif ($enter_time > $value['leave_time'] && $leave_time > $value['leave_time']) {
+        } elseif ($enter_time >= $value['leave_time'] && $leave_time >= $value['leave_time']) {
           return TRUE; //入力された開始と終了時間が両方、すでにある予約の開始時間より後
         } else {
           return FALSE;
@@ -73,9 +73,9 @@ trait TransactionTrait
     }
     foreach ($ary as $key => $value) {
       if ($value['status'] < 2) {
-        if ($enter_time < $value['enter_time'] && $leave_time < $value['enter_time']) {
+        if ($enter_time <= $value['enter_time'] && $leave_time <= $value['enter_time']) {
           return TRUE; //入力された開始と終了時間が両方、すでにある予約の開始時間より前
-        } elseif ($enter_time > $value['leave_time'] && $leave_time > $value['leave_time']) {
+        } elseif ($enter_time >= $value['leave_time'] && $leave_time >= $value['leave_time']) {
           return TRUE; //入力された開始と終了時間が両方、すでにある予約の開始時間より後
         } else {
           return FALSE;
