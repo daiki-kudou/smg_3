@@ -49,6 +49,7 @@
   })
   //ドラッグアンドドロップ
   $(function() {
+    var rootPath="{{url('/')}}";
     $("#sortableArea").sortable({
       update: function(){
       var ary = $(this).sortable("toArray");
