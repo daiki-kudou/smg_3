@@ -849,711 +849,711 @@
             @endif
             @endif
         </div>
-        <div class="cancel">
+        {{-- <div class="cancel">
           @if ($other_bill->reservation_status == 3)
           {{ Form::open(['url' => 'admin/cxl/multi_create', 'method' => 'get', 'class' => '']) }}
-          @csrf
-          {{ Form::hidden('reservation_id', $reservation->id) }}
-          {{ Form::hidden('bill_id', $other_bill->id) }}
-          <p class="text-right py-2 mr-2">
-            {{ Form::submit('個別キャンセル', ['class' => 'btn more_btn4', $judgeSingleDelete != 1 ? 'disabled' : '', 'name' => 'single']) }}
-          </p>
-          {{ Form::close() }}
-          @endif
+        @csrf
+        {{ Form::hidden('reservation_id', $reservation->id) }}
+        {{ Form::hidden('bill_id', $other_bill->id) }}
+        <p class="text-right py-2 mr-2">
+          {{ Form::submit('個別キャンセル', ['class' => 'btn more_btn4', $judgeSingleDelete != 1 ? 'disabled' : '', 'name' => 'single']) }}
+        </p>
+        {{ Form::close() }}
+        @endif
+      </div> --}}
+    </div>
+
+    <div class="bill_details">
+      <div class="head d-flex">
+        <div class="accordion_btn">
+          <i class="fas fa-plus bill_icon_size hide" aria-hidden="true"></i>
+          <i class="fas fa-minus bill_icon_size" aria-hidden="true"></i>
+        </div>
+        <div class="billdetails_ttl">
+          <h3>
+            請求内訳
+          </h3>
+        </div>
+      </div>
+      <div class="main hide">
+        @if ($reservation->user_id > 0)
+        @include('admin.reservations.show.user.additional_breakdown')
+        @else
+        @include('admin.reservations.show.agent.additional_breakdown')
+        @endif
+
+
+        <div class="bill_total">
+          <table class="table text-right">
+            <tbody>
+              <tr>
+                <td>
+                  小計：{{ number_format($other_bill->master_subtotal) }}
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  消費税：{{ number_format($other_bill->master_tax) }}
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <span class="font-weight-bold">合計金額：</span>{{ number_format($other_bill->master_total) }}
+                </td>
+              </tr>
+            </tbody>
+          </table>
         </div>
       </div>
 
-      <div class="bill_details">
-        <div class="head d-flex">
-          <div class="accordion_btn">
-            <i class="fas fa-plus bill_icon_size hide" aria-hidden="true"></i>
-            <i class="fas fa-minus bill_icon_size" aria-hidden="true"></i>
-          </div>
-          <div class="billdetails_ttl">
-            <h3>
-              請求内訳
-            </h3>
-          </div>
-        </div>
-        <div class="main hide">
-          @if ($reservation->user_id > 0)
-          @include('admin.reservations.show.user.additional_breakdown')
-          @else
-          @include('admin.reservations.show.agent.additional_breakdown')
-          @endif
-
-
-          <div class="bill_total">
-            <table class="table text-right">
-              <tbody>
-                <tr>
-                  <td>
-                    小計：{{ number_format($other_bill->master_subtotal) }}
-                  </td>
-                </tr>
-                <tr>
-                  <td>
-                    消費税：{{ number_format($other_bill->master_tax) }}
-                  </td>
-                </tr>
-                <tr>
-                  <td>
-                    <span class="font-weight-bold">合計金額：</span>{{ number_format($other_bill->master_total) }}
-                  </td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
-        </div>
-
-      </div>
     </div>
-    <div class="information">
-      <div class="information_details">
-        <div class="head d-flex">
-          <div class="accordion_btn">
-            <i class="fas fa-plus bill_icon_size hide" aria-hidden="true"></i>
-            <i class="fas fa-minus bill_icon_size" aria-hidden="true"></i>
-          </div>
-          <div class="billdetails_ttl">
-            <h3>
-              請求書情報
-            </h3>
-            {{ Form::open(['url' => 'admin/invoice', 'method' => 'post', 'target' => '_blank', 'class' => '']) }}
-            @csrf
-            {{ Form::hidden('reservation_id', $reservation->id) }}
-            {{ Form::hidden('bill_id', $other_bill->id) }}
-            <p class="mr-2">
-              {{ Form::submit('請求書をみる', ['class' => 'btn more_btn']) }}
-            </p>
-            {{ Form::close() }}
-          </div>
-        </div>
-
-        <div class="main hide">
-          {{ Form::open(['url' => 'admin/bills/update_bill_info', 'method' => 'post']) }}
-          @csrf
-          {{ Form::hidden('bill_id', $other_bill->id) }}
-          <p class="text-right billdetails_content pb-0">
-            <input type="checkbox" class="bill_edit_m" id="{{ 'bill_edit_m' . $other_bill->id }}">
-            <label for="{{ 'bill_edit_m' . $other_bill->id }}">編集する</label>
-          </p>
-          <div class="informations billdetails_content">
-            <table class="table">
-              <tbody>
-                <tr>
-                  <td>
-                    請求日：{{ Form::text('bill_created_at', $other_bill->bill_created_at, ['class' => 'form-control bill_edit datepicker_no_min_date', 'disabled']) }}
-                  </td>
-                  <td>
-                    支払期日：{{ Form::text('payment_limit', date('Y-m-d', strtotime($other_bill->payment_limit)), ['class' => 'form-control bill_edit datepicker_no_min_date', 'disabled']) }}
-                  </td>
-                </tr>
-                <tr>
-                  <td>
-                    請求書宛名：{{ Form::text('bill_company', $other_bill->bill_company, ['class' => 'form-control bill_edit', 'disabled']) }}
-                  </td>
-                  <td>
-                    担当者：{{ Form::text('bill_person', $other_bill->bill_person, ['class' => 'form-control bill_edit', 'disabled']) }}
-                  </td>
-                </tr>
-                <tr>
-                  <td colspan="2">
-                    <p>請求書備考</p>
-                    <p>
-                      {{ Form::textarea('bill_remark', $other_bill->bill_remark, ['class' => 'form-control bill_edit', 'disabled']) }}
-                    </p>
-                  </td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
-          <div class="text-right billdetails_content">
-            <p>
-              {{ Form::submit('更新する', ['class' => 'bill_edit btn more_btn', 'disabled']) }}
-            </p>
-          </div>
-          {{ Form::close() }}
-        </div>
-
+</div>
+<div class="information">
+  <div class="information_details">
+    <div class="head d-flex">
+      <div class="accordion_btn">
+        <i class="fas fa-plus bill_icon_size hide" aria-hidden="true"></i>
+        <i class="fas fa-minus bill_icon_size" aria-hidden="true"></i>
+      </div>
+      <div class="billdetails_ttl">
+        <h3>
+          請求書情報
+        </h3>
+        {{ Form::open(['url' => 'admin/invoice', 'method' => 'post', 'target' => '_blank', 'class' => '']) }}
+        @csrf
+        {{ Form::hidden('reservation_id', $reservation->id) }}
+        {{ Form::hidden('bill_id', $other_bill->id) }}
+        <p class="mr-2">
+          {{ Form::submit('請求書をみる', ['class' => 'btn more_btn']) }}
+        </p>
+        {{ Form::close() }}
       </div>
     </div>
 
-    <div class="paid">
-      <div class="paid_details">
-        <div class="head d-flex">
-          <div class="d-flex align-items-center justify-content-between w-100">
-            <h3 class="pl-3">
-              入金情報
-            </h3>
-            {{ Form::open(['url' => 'admin/receipts', 'method' => 'post', 'target' => '_blank', 'class' => '']) }}
-            @csrf
-            {{ Form::hidden('reservation_id', $reservation->id) }}
-            {{ Form::hidden('bill_id', $other_bill->id) }}
-            @if ($other_bill->paid == 1)
-            <p class="mr-2">{{ Form::submit('領収書をみる', ['class' => 'more_btn4 btn']) }}</p>
-            @endif
-            {{ Form::close() }}
-          </div>
-        </div>
-
-        <div class="main">
-          {{ Form::open(['url' => 'admin/bills/update_paid_info', 'method' => 'post', 'id' => 'payment_info2']) }}
-          @csrf
-          {{ Form::hidden('bill_id', $other_bill->id) }}
-          <div class="text-right billdetails_content pb-0">
-            <input type="checkbox" class="paid_edit_m" id="{{ 'paid_edit_m' . $other_bill->id }}">
-            <label for="{{ 'paid_edit_m' . $other_bill->id }}">編集する</label>
-          </div>
-          <div class="paids billdetails_content">
-            <table class="table">
-              <tbody>
-                <tr>
-                  <td>
-                    入金状況：
-                    {{ Form::select('paid', ['未入金', '入金済み', '遅延', '入金不足', '入金過多', '次回繰越'], $other_bill->paid, ['class' => 'form-control paid_edit', 'disabled']) }}
-                  </td>
-                  <td>
-                    入金日：
-                    {{ Form::text('pay_day', !empty($other_bill->pay_day) ? date('Y-m-d', strtotime($other_bill->pay_day)) : '', ['class' => 'form-control paid_edit datepicker_no_min_date', 'disabled']) }}
-                  </td>
-                </tr>
-                <tr>
-                  <td>振込人名：
-                    {{ Form::text('pay_person', $other_bill->pay_person, ['class' => 'form-control paid_edit', 'disabled','data-error_placement=".pay_person2"']) }}
-                    <p class="pay_person2" style="color: red"></p>
-                  </td>
-                  <td>入金額：
-                    {{ Form::text('payment', $other_bill->payment, ['class' => 'form-control paid_edit', 'disabled','data-error_placement=".payment2"']) }}
-                    <p class="payment2" style="color: red"></p>
-                  </td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
-          <p class="text-right billdetails_content">
-            {{ Form::submit('更新する', ['disabled', 'class' => 'paid_edit btn more_btn paid_edit_submit']) }}
-          </p>
-          {{ Form::close() }}
-        </div>
-      </div>
-    </div>
-    @if ($other_bill->double_check_status == 0)
-    <div class="double_checkbox section-wrap">
-      <dl class="d-flex col-12 justify-content-end align-items-center">
-        <dt><label for="checkname">一人目チェック者</label></dt>
-        <dd>
-          {{ Form::open(['url' => 'admin/bills/other_doublecheck', 'method' => 'POST']) }}
-          @csrf
-          {{ Form::select('double_check1_name', $admin, null, ['class' => 'form-control double_check1_name']) }}
-          {{ Form::hidden('double_check_status', $other_bill->double_check_status) }}
-          {{ Form::hidden('bills_id', $other_bill->id) }}
-        </dd>
-        <dd>
-          <p class="text-right">
-            {{ Form::submit('チェック完了', ['class' => 'btn more_btn', 'id' => 'double_check1_submit']) }}
-            {{ Form::close() }}
-          </p>
-        </dd>
-      </dl>
-    </div>
-    @elseif($other_bill->double_check_status==1)
-    <div class="double_checkbox section-wrap">
-      <dl class="d-flex col-12 justify-content-end align-items-center">
-        <dt><label for="checkname">二人目チェック者</label></dt>
-        <dd>
-          {{ Form::open(['url' => 'admin/bills/other_doublecheck', 'method' => 'POST']) }}
-          @csrf
-          {{ Form::select('double_check2_name', $admin, null, ['class' => 'form-control double_check2_name']) }}
-          {{ Form::hidden('double_check_status', $other_bill->double_check_status) }}
-          {{ Form::hidden('bills_id', $other_bill->id) }}
-        </dd>
-        <dd>
-          <p class="text-right">
-            {{ Form::submit('チェック完了', ['class' => 'btn more_btn', 'id' => 'double_check2_submit']) }}
-            {{ Form::close() }}
-          </p>
-        </dd>
-      </dl>
-    </div>
-    @endif
-  </section>
-  @endforeach
-
-
-
-
-  <!-- 合計請求額------------------------------------------------------------------- -->
-  @if ($reservation->user_id > 0)
-  @include('admin.reservations.show.user.total')
-  @else
-  @include('admin.reservations.show.agent.total')
-  @endif
-
-
-  {{-- キャンセル詳細 --}}
-  @foreach ($reservation->cxls->sortBy("id") as $key => $cxl)
-  <section class="mt-5 p-0">
-    <div class="bill">
-      <div class="bill_head_cancel">
-        <table class="table bill_table pt-2 bill_head_cancel">
-          <tbody>
-            <tr>
-              <td>
-                <h2 class="text-white">
-                  請求書No
-                </h2>
-              </td>
-              <td style="width: 70%;">
-                <div class="d-flex align-items-center justify-content-end">
-                  <dl class="ttl_box">
-                    <dt>合計金額：</dt>
-                    <dd class="total_result">{{ number_format($cxl->master_total) }} 円</dd>
-                  </dl>
-                  <dl class="ttl_box">
-                    <dt>支払い期日：</dt>
-                    <dd class="total_result">
-                      {{ ReservationHelper::formatDate($cxl->payment_limit) }}</dd>
-                  </dl>
-                  <p>
-                    @if ($cxl->cxl_status != 2)
-                    <a href="{{ url('admin/cxl/edit/' . $cxl->id) }}" class="btn more_btn">キャンセル編集</a>
-                    @endif
-                  </p>
-                </div>
-              </td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
-      <div class="bill_status2">
+    <div class="main hide">
+      {{ Form::open(['url' => 'admin/bills/update_bill_info', 'method' => 'post']) }}
+      @csrf
+      {{ Form::hidden('bill_id', $other_bill->id) }}
+      <p class="text-right billdetails_content pb-0">
+        <input type="checkbox" class="bill_edit_m" id="{{ 'bill_edit_m' . $other_bill->id }}">
+        <label for="{{ 'bill_edit_m' . $other_bill->id }}">編集する</label>
+      </p>
+      <div class="informations billdetails_content">
         <table class="table">
           <tbody>
             <tr>
               <td>
-                <div class="d-flex">
-                  <p class="bg-status p-2">予約状況</p>
-                  <p class="border p-2">{{ ReservationHelper::cxlStatus($cxl->cxl_status) }}
-                  </p>
-                </div>
-              </td>
-              @if ($cxl->double_check_status == 0)
-              <td>
-                <div class="d-flex">
-                  <p class="bg-status p-2">一人目チェック</p>
-                  <p class="border p-2">未
-                  </p>
-                </div>
-              </td>
-              @elseif ($cxl->double_check_status==1)
-              <td>
-                <div class="d-flex">
-                  <p class="bg-status p-2">一人目チェック</p>
-                  <p class="border p-2">{{ $cxl->double_check1_name }}</p>
-                </div>
+                請求日：{{ Form::text('bill_created_at', $other_bill->bill_created_at, ['class' => 'form-control bill_edit datepicker_no_min_date', 'disabled']) }}
               </td>
               <td>
-                <div class="d-flex">
-                  <p class="bg-status p-2">二人目チェック</p>
-                  <p class="border p-2">未
-                  </p>
-                </div>
+                支払期日：{{ Form::text('payment_limit', date('Y-m-d', strtotime($other_bill->payment_limit)), ['class' => 'form-control bill_edit datepicker_no_min_date', 'disabled']) }}
               </td>
-              @elseif ($cxl->double_check_status==2)
+            </tr>
+            <tr>
               <td>
-                <div class="d-flex">
-                  <p class="bg-status p-2">一人目チェック</p>
-                  <p class="border p-2">{{ $cxl->double_check1_name }}</p>
-                </div>
+                請求書宛名：{{ Form::text('bill_company', $other_bill->bill_company, ['class' => 'form-control bill_edit', 'disabled']) }}
               </td>
               <td>
-                <div class="d-flex">
-                  <p class="bg-status p-2">二人目チェック</p>
-                  <p class="border p-2">{{ $cxl->double_check2_name }}</p>
-                </div>
+                担当者：{{ Form::text('bill_person', $other_bill->bill_person, ['class' => 'form-control bill_edit', 'disabled']) }}
               </td>
-              @endif
-              <td>
-                <div><span>申込日：</span>{{ $cxl->created_at }}</div>
-                <div><span>予約確定日：</span>{{ $cxl->approve_send_at }}</div>
+            </tr>
+            <tr>
+              <td colspan="2">
+                <p>請求書備考</p>
+                <p>
+                  {{ Form::textarea('bill_remark', $other_bill->bill_remark, ['class' => 'form-control bill_edit', 'disabled']) }}
+                </p>
               </td>
             </tr>
           </tbody>
         </table>
-        <div class="approve_or_confirm">
-          @if ($cxl->double_check_status == 2)
-          @if ($cxl->cxl_status < 2) <div class="d-flex justify-content-end mt-2 mb-2">
-            {{ Form::open(['url' => 'admin/cxl/send_email_and_approve', 'method' => 'POST', 'class' => '']) }}
-            @csrf
-            {{ Form::hidden('cxl_id', $cxl->id) }}
-            @if ($reservation->user_id > 0)
-            <p class="mr-2">
-              {{ Form::submit('利用者にキャンセル承認メールを送る', ['class' => 'btn more_btn approve_send']) }}
-            </p>
-            @endif
-            {{ Form::close() }}
-
-            {{ Form::open(['url' => 'admin/cxl/confirm', 'method' => 'POST', 'class' => '']) }}
-            @csrf
-            {{ Form::hidden('cxl_id', $cxl->id) }}
-            <p>
-              {{ Form::submit('キャンセルを確定する', ['class' => 'btn more_btn4']) }}
-            </p>
-            {{ Form::close() }}
-            @endif
-            @endif
-        </div>
       </div>
-
-      <div class="bill_details">
-        <div class="head d-flex">
-          <div class="accordion_btn">
-            <i class="fas fa-plus bill_icon_size hide" aria-hidden="true"></i>
-            <i class="fas fa-minus bill_icon_size" aria-hidden="true"></i>
-          </div>
-          <div class="billdetails_ttl">
-            <h3>
-              請求内訳
-            </h3>
-          </div>
-        </div>
-        <div class="main hide">
-          <div class="billdetails_content">
-            <h4 class="cancel_ttl">キャンセル料計算</h4>
-            <table class="table table-borderless">
-              <thead class="head_cancel">
-                <tr>
-                  <td>内容</td>
-                  <td>申込み金額</td>
-                  <td></td>
-                  <td>キャンセル料率</td>
-                </tr>
-              </thead>
-              @foreach ($cxl->cxl_breakdowns->where('unit_type', 2) as $cxl_calc)
-              <tr>
-                <td>{{ $cxl_calc->unit_item }}円</td>
-                <td>{{ number_format($cxl_calc->unit_cost) }}</td>
-                <td>×</td>
-                <td>{{ $cxl_calc->unit_count }}%</td>
-              </tr>
-              @endforeach
-            </table>
-          </div>
-
-          <div class="billdetails_content">
-            <table class="table table-borderless">
-              <tbody>
-                <tr>
-                  <td>
-                    <h4 class="billdetails_content_ttl">
-                      キャンセル料
-                    </h4>
-                  </td>
-                </tr>
-              </tbody>
-              <tbody class="venue_head">
-                <tr>
-                  <td>内容</td>
-                  <td>単価</td>
-                  <td>数量</td>
-                  <td>金額</td>
-                </tr>
-              </tbody>
-              <tbody class="venue_main">
-                @foreach ($cxl->cxl_breakdowns->where('unit_type', 1) as $cxl_breakdowns)
-                <tr>
-                  <td>{{ $cxl_breakdowns->unit_item }}</td>
-                  <td>{{ number_format($cxl_breakdowns->unit_cost) }}</td>
-                  <td>{{ $cxl_breakdowns->unit_count }}</td>
-                  <td>{{ number_format($cxl_breakdowns->unit_subtotal) }}</td>
-                </tr>
-                @endforeach
-              </tbody>
-              <tbody class="venue_result">
-                <tr>
-                  <td colspan="3"></td>
-                  <td colspan="1" class="">合計：{{ number_format($cxl->master_subtotal) }}</td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
-          <div class="bill_total">
-            <table class="table text-right">
-              <tbody>
-                <tr>
-                  <td>
-                    小計：{{ number_format($cxl->master_subtotal) }}
-                  </td>
-                </tr>
-                <tr>
-                  <td>
-                    消費税：{{ number_format($cxl->master_tax) }}
-                  </td>
-                </tr>
-                <tr>
-                  <td>
-                    <span class="font-weight-bold">合計金額：</span>
-                    {{ number_format($cxl->master_total) }}
-                  </td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
-        </div>
+      <div class="text-right billdetails_content">
+        <p>
+          {{ Form::submit('更新する', ['class' => 'bill_edit btn more_btn', 'disabled']) }}
+        </p>
       </div>
+      {{ Form::close() }}
     </div>
-    <div class="information">
-      <div class="information_details">
-        <div class="head d-flex">
-          <div class="accordion_btn">
-            <i class="fas fa-plus bill_icon_size hide" aria-hidden="true"></i>
-            <i class="fas fa-minus bill_icon_size" aria-hidden="true"></i>
-          </div>
-          <div class="billdetails_ttl">
-            <h3>
-              請求書情報
-            </h3>
-            {{ Form::open(['url' => 'admin/invoice', 'method' => 'post', 'target' => '_blank', 'class' => '']) }}
-            @csrf
-            {{ Form::hidden('reservation_id', $reservation->id) }}
-            {{ Form::hidden('cxl_id', $cxl->id) }}
-            <p class="mr-2">
-              {{ Form::submit('請求書をみる', ['class' => 'btn more_btn']) }}
-            </p>
-            {{ Form::close() }}
-          </div>
-        </div>
 
-        <div class="main hide">
-          {{ Form::open(['url' => 'admin/cxl/update_cxl_bill_info', 'method' => 'post']) }}
-          @csrf
-          {{ Form::hidden('cxl_id', $cxl->id) }}
-          <p class="text-right billdetails_content pb-0">
-            <input type="checkbox" class="cxl_bill_edit_m" id="{{ 'cxl_bill_edit_m' . $cxl->id }}">
-            <label for="{{ 'cxl_bill_edit_m' . $cxl->id }}">編集する</label>
-          </p>
-          <div class="informations billdetails_content">
-            <table class="table">
-              <tbody>
-                <tr>
-                  <td>
-                    請求日：
-                    {{ Form::text('bill_created_at', $cxl->bill_created_at, ['class' => 'form-control datepicker_no_min_date cxl_bill_edit', 'disabled']) }}
-                  </td>
-                  <td>支払期日：
-                    {{ Form::text('payment_limit', $cxl->payment_limit, ['class' => 'form-control datepicker_no_min_date cxl_bill_edit', 'disabled']) }}
-                  </td>
-                </tr>
-                <tr>
-                  <td>請求書宛名：
-                    {{ Form::text('bill_company', $cxl->bill_company, ['class' => 'form-control cxl_bill_edit', 'disabled']) }}
-                  </td>
-                  <td>
-                    担当者：
-                    {{ Form::text('bill_person', $cxl->bill_person, ['class' => 'form-control cxl_bill_edit', 'disabled']) }}
-                  </td>
-                </tr>
-                <tr>
-                  <td colspan="2">
-                    <p>請求書備考</p>
-                    <p>
-                      {{ Form::textarea('bill_remark', $cxl->bill_remark, ['class' => 'form-control cxl_bill_edit', 'disabled']) }}
-                    </p>
-                  </td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
-          <div class="text-right billdetails_content">
-            <p>
-              {{ Form::submit('更新する', ['class' => 'cxl_bill_edit btn more_btn', 'disabled']) }}
-            </p>
-          </div>
-          {{ Form::close() }}
-        </div>
+  </div>
+</div>
+
+<div class="paid">
+  <div class="paid_details">
+    <div class="head d-flex">
+      <div class="d-flex align-items-center justify-content-between w-100">
+        <h3 class="pl-3">
+          入金情報
+        </h3>
+        {{ Form::open(['url' => 'admin/receipts', 'method' => 'post', 'target' => '_blank', 'class' => '']) }}
+        @csrf
+        {{ Form::hidden('reservation_id', $reservation->id) }}
+        {{ Form::hidden('bill_id', $other_bill->id) }}
+        @if ($other_bill->paid == 1)
+        <p class="mr-2">{{ Form::submit('領収書をみる', ['class' => 'more_btn4 btn']) }}</p>
+        @endif
+        {{ Form::close() }}
       </div>
     </div>
 
-    <div class="paid">
-      <div class="paid_details">
-        <div class="head d-flex">
-          <div class="d-flex align-items-center justify-content-between w-100">
-            <h3 class="pl-3">
-              入金情報
-            </h3>
-            {{ Form::open(['url' => 'admin/receipts', 'method' => 'post', 'target' => '_blank', 'class' => '']) }}
-            @csrf
-            {{ Form::hidden('cxl_id', $cxl->id) }}
-            @if ($cxl->paid == 1)
-            <p class="mr-2">{{ Form::submit('領収書をみる', ['class' => 'more_btn4 btn']) }}</p>
-            @endif
-            {{ Form::close() }}
-          </div>
-        </div>
-
-        <div class="main">
-          {{ Form::open(['url' => 'admin/cxl/update_cxl_paid_info', 'method' => 'post', 'id' => 'payment_info3']) }}
-          @csrf
-          {{ Form::hidden('cxl_id', $cxl->id) }}
-
-          <div class="text-right billdetails_content pb-0">
-            <input type="checkbox" class="cxl_paid_edit_m" id="{{ 'cxl_paid_edit_m' . $cxl->id }}">
-            <label for="{{ 'cxl_paid_edit_m' . $cxl->id }}">編集する</label>
-          </div>
-          <div class="paids billdetails_content">
-            <table class="table">
-              <tbody>
-                <tr>
-                  <td>入金状況：
-                    {{ Form::select('paid', ['未入金', '入金済み', '遅延', '入金不足', '入金過多', '次回繰越'], $cxl->paid, ['class' => 'form-control cxl_paid_edit', 'disabled']) }}
-                  </td>
-                  <td>
-                    入金日：
-                    {{ Form::text('pay_day', !empty($cxl->pay_day) ? date('Y-m-d', strtotime($cxl->pay_day)) : '', ['class' => 'form-control cxl_paid_edit datepicker_no_min_date', 'disabled']) }}
-                  </td>
-                </tr>
-                <tr>
-                  <td>振込人名：
-                    {{ Form::text('pay_person', $cxl->pay_person, ['class' => 'form-control cxl_paid_edit', 'disabled','data-error_placement=".pay_person3"']) }}
-                    <p class="pay_person3" style="color: red"></p>
-                  </td>
-                  <td>
-                    入金額：
-                    {{ Form::text('payment', $cxl->payment, ['class' => 'form-control cxl_paid_edit', 'disabled','data-error_placement=".payment3"']) }}
-                    <p class="payment3" style="color: red"></p>
-                  </td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
-          <div class="text-right billdetails_content">
-            <p>
-              {{ Form::submit('更新する', ['class' => 'cxl_paid_edit btn more_btn cxl_paid_edit_submit', 'disabled']) }}
-            </p>
-          </div>
-          {{ Form::close() }}
-        </div>
-
+    <div class="main">
+      {{ Form::open(['url' => 'admin/bills/update_paid_info', 'method' => 'post', 'id' => 'payment_info2']) }}
+      @csrf
+      {{ Form::hidden('bill_id', $other_bill->id) }}
+      <div class="text-right billdetails_content pb-0">
+        <input type="checkbox" class="paid_edit_m" id="{{ 'paid_edit_m' . $other_bill->id }}">
+        <label for="{{ 'paid_edit_m' . $other_bill->id }}">編集する</label>
       </div>
-    </div>
-    @if ($cxl->double_check_status == 0)
-    <div class="double_checkbox section-wrap">
-      <dl class="d-flex col-12 justify-content-end align-items-center">
-        <dt><label for="checkname">一人目チェック者</label></dt>
-        <dd>
-          {{ Form::open(['url' => 'admin/cxl/double_check', 'method' => 'POST']) }}
-          @csrf
-          {{ Form::select('double_check1_name', $admin, null, ['class' => 'form-control double_check1_name']) }}
-          {{ Form::hidden('double_check_status', $cxl->double_check_status) }}
-          {{ Form::hidden('reservation_id', $reservation->id) }}
-          {{ Form::hidden('cxl_id', $cxl->id) }}
-        </dd>
-        <dd>
-          <p class="text-right">
-            {{ Form::submit('チェック完了', ['class' => 'btn more_btn', 'id' => 'double_check1_submit']) }}
-            {{ Form::close() }}
-          </p>
-        </dd>
-      </dl>
-    </div>
-    @elseif($cxl->double_check_status==1)
-    <div class="double_checkbox section-wrap">
-      <dl class="d-flex col-12 justify-content-end align-items-center">
-        <dt><label for="checkname">二人目チェック者</label></dt>
-        <dd>
-          {{ Form::open(['url' => 'admin/cxl/double_check', 'method' => 'POST']) }}
-          @csrf
-          {{ Form::select('double_check2_name', $admin, null, ['class' => 'form-control double_check2_name']) }}
-          {{ Form::hidden('double_check_status', $cxl->double_check_status) }}
-          {{ Form::hidden('cxl_id', $cxl->id) }}
-        </dd>
-        <dd>
-          <p class="text-right">
-            {{ Form::submit('チェック完了', ['class' => 'btn more_btn', 'id' => 'double_check2_submit']) }}
-            {{ Form::close() }}
-          </p>
-        </dd>
-      </dl>
-    </div>
-    @endif
-  </section>
-
-  @endforeach
-
-  {{-- キャンセル総合計請求額 --}}
-  @if ($reservation->cxls->count() != 0)
-  <div class="master_totals_cancel">
-    <table class="table">
-      <tbody class="master_total_head2">
-        <tr>
-          <td colspan="2">
-            <h3>
-              キャンセル料　合計請求額
-            </h3>
-          </td>
-        </tr>
-      </tbody>
-      <tr>
-        <td colspan="2" class="master_total_subttl2">
-          <h4>内訳</h4>
-        </td>
-      </tr>
-      <tbody class="master_total_body">
-        <tr>
-          <td>・キャンセル料</td>
-          <td>{{ number_format($cxl_subtotal) }}円</td>
-        </tr>
-      </tbody>
-      <tbody class="master_total_bottom mb-0">
-        <tr>
-          <td></td>
-          <td>
-            <div class="d-flex justify-content-end" colspan="2">
-              <p>小計：</p>
-              <p>{{ number_format($cxl_subtotal) }}円</p>
-            </div>
-          </td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>
-            <div class="d-flex justify-content-end" colspan="2">
-              <p>消費税：</p>
-              <p>{{ number_format(($cxl_tax)) }}円</p>
-            </div>
-          </td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>
-            <div class="d-flex justify-content-end" colspan="2">
-              <p>合計金額：</p>
-              <p>{{ number_format(($cxl_master_total)) }}円</p>
-            </div>
-          </td>
-        </tr>
-      </tbody>
-    </table>
-    <div class="payment_situation">
-      <dl>
-        <dt>合計入金額</dt>
-        <dd>
-          {{number_format($reservation->cxls->pluck('payment')->sum())}}
-          円</dd>
-      </dl>
-      <dl>
-        <dt>未入金額</dt>
-        <dd>
-          {{number_format(($reservation->cxls->pluck('master_total')->sum()-$reservation->cxls->pluck('payment')->sum()))}}
-          円</dd>
-      </dl>
+      <div class="paids billdetails_content">
+        <table class="table">
+          <tbody>
+            <tr>
+              <td>
+                入金状況：
+                {{ Form::select('paid', ['未入金', '入金済み', '遅延', '入金不足', '入金過多', '次回繰越'], $other_bill->paid, ['class' => 'form-control paid_edit', 'disabled']) }}
+              </td>
+              <td>
+                入金日：
+                {{ Form::text('pay_day', !empty($other_bill->pay_day) ? date('Y-m-d', strtotime($other_bill->pay_day)) : '', ['class' => 'form-control paid_edit datepicker_no_min_date', 'disabled']) }}
+              </td>
+            </tr>
+            <tr>
+              <td>振込人名：
+                {{ Form::text('pay_person', $other_bill->pay_person, ['class' => 'form-control paid_edit', 'disabled','data-error_placement=".pay_person2"']) }}
+                <p class="pay_person2" style="color: red"></p>
+              </td>
+              <td>入金額：
+                {{ Form::text('payment', $other_bill->payment, ['class' => 'form-control paid_edit', 'disabled','data-error_placement=".payment2"']) }}
+                <p class="payment2" style="color: red"></p>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="text-right billdetails_content">
+        {{ Form::submit('更新する', ['disabled', 'class' => 'paid_edit btn more_btn paid_edit_submit']) }}
+      </p>
+      {{ Form::close() }}
     </div>
   </div>
+</div>
+@if ($other_bill->double_check_status == 0)
+<div class="double_checkbox section-wrap">
+  <dl class="d-flex col-12 justify-content-end align-items-center">
+    <dt><label for="checkname">一人目チェック者</label></dt>
+    <dd>
+      {{ Form::open(['url' => 'admin/bills/other_doublecheck', 'method' => 'POST']) }}
+      @csrf
+      {{ Form::select('double_check1_name', $admin, null, ['class' => 'form-control double_check1_name']) }}
+      {{ Form::hidden('double_check_status', $other_bill->double_check_status) }}
+      {{ Form::hidden('bills_id', $other_bill->id) }}
+    </dd>
+    <dd>
+      <p class="text-right">
+        {{ Form::submit('チェック完了', ['class' => 'btn more_btn', 'id' => 'double_check1_submit']) }}
+        {{ Form::close() }}
+      </p>
+    </dd>
+  </dl>
+</div>
+@elseif($other_bill->double_check_status==1)
+<div class="double_checkbox section-wrap">
+  <dl class="d-flex col-12 justify-content-end align-items-center">
+    <dt><label for="checkname">二人目チェック者</label></dt>
+    <dd>
+      {{ Form::open(['url' => 'admin/bills/other_doublecheck', 'method' => 'POST']) }}
+      @csrf
+      {{ Form::select('double_check2_name', $admin, null, ['class' => 'form-control double_check2_name']) }}
+      {{ Form::hidden('double_check_status', $other_bill->double_check_status) }}
+      {{ Form::hidden('bills_id', $other_bill->id) }}
+    </dd>
+    <dd>
+      <p class="text-right">
+        {{ Form::submit('チェック完了', ['class' => 'btn more_btn', 'id' => 'double_check2_submit']) }}
+        {{ Form::close() }}
+      </p>
+    </dd>
+  </dl>
+</div>
+@endif
+</section>
+@endforeach
+
+
+
+
+<!-- 合計請求額------------------------------------------------------------------- -->
+@if ($reservation->user_id > 0)
+@include('admin.reservations.show.user.total')
+@else
+@include('admin.reservations.show.agent.total')
+@endif
+
+
+{{-- キャンセル詳細 --}}
+@foreach ($reservation->cxls->sortBy("id") as $key => $cxl)
+<section class="mt-5 p-0">
+  <div class="bill">
+    <div class="bill_head_cancel">
+      <table class="table bill_table pt-2 bill_head_cancel">
+        <tbody>
+          <tr>
+            <td>
+              <h2 class="text-white">
+                請求書No
+              </h2>
+            </td>
+            <td style="width: 70%;">
+              <div class="d-flex align-items-center justify-content-end">
+                <dl class="ttl_box">
+                  <dt>合計金額：</dt>
+                  <dd class="total_result">{{ number_format($cxl->master_total) }} 円</dd>
+                </dl>
+                <dl class="ttl_box">
+                  <dt>支払い期日：</dt>
+                  <dd class="total_result">
+                    {{ ReservationHelper::formatDate($cxl->payment_limit) }}</dd>
+                </dl>
+                <p>
+                  @if ($cxl->cxl_status != 2)
+                  <a href="{{ url('admin/cxl/edit/' . $cxl->id) }}" class="btn more_btn">キャンセル編集</a>
+                  @endif
+                </p>
+              </div>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="bill_status2">
+      <table class="table">
+        <tbody>
+          <tr>
+            <td>
+              <div class="d-flex">
+                <p class="bg-status p-2">予約状況</p>
+                <p class="border p-2">{{ ReservationHelper::cxlStatus($cxl->cxl_status) }}
+                </p>
+              </div>
+            </td>
+            @if ($cxl->double_check_status == 0)
+            <td>
+              <div class="d-flex">
+                <p class="bg-status p-2">一人目チェック</p>
+                <p class="border p-2">未
+                </p>
+              </div>
+            </td>
+            @elseif ($cxl->double_check_status==1)
+            <td>
+              <div class="d-flex">
+                <p class="bg-status p-2">一人目チェック</p>
+                <p class="border p-2">{{ $cxl->double_check1_name }}</p>
+              </div>
+            </td>
+            <td>
+              <div class="d-flex">
+                <p class="bg-status p-2">二人目チェック</p>
+                <p class="border p-2">未
+                </p>
+              </div>
+            </td>
+            @elseif ($cxl->double_check_status==2)
+            <td>
+              <div class="d-flex">
+                <p class="bg-status p-2">一人目チェック</p>
+                <p class="border p-2">{{ $cxl->double_check1_name }}</p>
+              </div>
+            </td>
+            <td>
+              <div class="d-flex">
+                <p class="bg-status p-2">二人目チェック</p>
+                <p class="border p-2">{{ $cxl->double_check2_name }}</p>
+              </div>
+            </td>
+            @endif
+            <td>
+              <div><span>申込日：</span>{{ $cxl->created_at }}</div>
+              <div><span>予約確定日：</span>{{ $cxl->approve_send_at }}</div>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+      <div class="approve_or_confirm">
+        @if ($cxl->double_check_status == 2)
+        @if ($cxl->cxl_status < 2) <div class="d-flex justify-content-end mt-2 mb-2">
+          {{ Form::open(['url' => 'admin/cxl/send_email_and_approve', 'method' => 'POST', 'class' => '']) }}
+          @csrf
+          {{ Form::hidden('cxl_id', $cxl->id) }}
+          @if ($reservation->user_id > 0)
+          <p class="mr-2">
+            {{ Form::submit('利用者にキャンセル承認メールを送る', ['class' => 'btn more_btn approve_send']) }}
+          </p>
+          @endif
+          {{ Form::close() }}
+
+          {{ Form::open(['url' => 'admin/cxl/confirm', 'method' => 'POST', 'class' => '']) }}
+          @csrf
+          {{ Form::hidden('cxl_id', $cxl->id) }}
+          <p>
+            {{ Form::submit('キャンセルを確定する', ['class' => 'btn more_btn4']) }}
+          </p>
+          {{ Form::close() }}
+          @endif
+          @endif
+      </div>
+    </div>
+
+    <div class="bill_details">
+      <div class="head d-flex">
+        <div class="accordion_btn">
+          <i class="fas fa-plus bill_icon_size hide" aria-hidden="true"></i>
+          <i class="fas fa-minus bill_icon_size" aria-hidden="true"></i>
+        </div>
+        <div class="billdetails_ttl">
+          <h3>
+            請求内訳
+          </h3>
+        </div>
+      </div>
+      <div class="main hide">
+        <div class="billdetails_content">
+          <h4 class="cancel_ttl">キャンセル料計算</h4>
+          <table class="table table-borderless">
+            <thead class="head_cancel">
+              <tr>
+                <td>内容</td>
+                <td>申込み金額</td>
+                <td></td>
+                <td>キャンセル料率</td>
+              </tr>
+            </thead>
+            @foreach ($cxl->cxl_breakdowns->where('unit_type', 2) as $cxl_calc)
+            <tr>
+              <td>{{ $cxl_calc->unit_item }}円</td>
+              <td>{{ number_format($cxl_calc->unit_cost) }}</td>
+              <td>×</td>
+              <td>{{ $cxl_calc->unit_count }}%</td>
+            </tr>
+            @endforeach
+          </table>
+        </div>
+
+        <div class="billdetails_content">
+          <table class="table table-borderless">
+            <tbody>
+              <tr>
+                <td>
+                  <h4 class="billdetails_content_ttl">
+                    キャンセル料
+                  </h4>
+                </td>
+              </tr>
+            </tbody>
+            <tbody class="venue_head">
+              <tr>
+                <td>内容</td>
+                <td>単価</td>
+                <td>数量</td>
+                <td>金額</td>
+              </tr>
+            </tbody>
+            <tbody class="venue_main">
+              @foreach ($cxl->cxl_breakdowns->where('unit_type', 1) as $cxl_breakdowns)
+              <tr>
+                <td>{{ $cxl_breakdowns->unit_item }}</td>
+                <td>{{ number_format($cxl_breakdowns->unit_cost) }}</td>
+                <td>{{ $cxl_breakdowns->unit_count }}</td>
+                <td>{{ number_format($cxl_breakdowns->unit_subtotal) }}</td>
+              </tr>
+              @endforeach
+            </tbody>
+            <tbody class="venue_result">
+              <tr>
+                <td colspan="3"></td>
+                <td colspan="1" class="">合計：{{ number_format($cxl->master_subtotal) }}</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="bill_total">
+          <table class="table text-right">
+            <tbody>
+              <tr>
+                <td>
+                  小計：{{ number_format($cxl->master_subtotal) }}
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  消費税：{{ number_format($cxl->master_tax) }}
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <span class="font-weight-bold">合計金額：</span>
+                  {{ number_format($cxl->master_total) }}
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="information">
+    <div class="information_details">
+      <div class="head d-flex">
+        <div class="accordion_btn">
+          <i class="fas fa-plus bill_icon_size hide" aria-hidden="true"></i>
+          <i class="fas fa-minus bill_icon_size" aria-hidden="true"></i>
+        </div>
+        <div class="billdetails_ttl">
+          <h3>
+            請求書情報
+          </h3>
+          {{ Form::open(['url' => 'admin/invoice', 'method' => 'post', 'target' => '_blank', 'class' => '']) }}
+          @csrf
+          {{ Form::hidden('reservation_id', $reservation->id) }}
+          {{ Form::hidden('cxl_id', $cxl->id) }}
+          <p class="mr-2">
+            {{ Form::submit('請求書をみる', ['class' => 'btn more_btn']) }}
+          </p>
+          {{ Form::close() }}
+        </div>
+      </div>
+
+      <div class="main hide">
+        {{ Form::open(['url' => 'admin/cxl/update_cxl_bill_info', 'method' => 'post']) }}
+        @csrf
+        {{ Form::hidden('cxl_id', $cxl->id) }}
+        <p class="text-right billdetails_content pb-0">
+          <input type="checkbox" class="cxl_bill_edit_m" id="{{ 'cxl_bill_edit_m' . $cxl->id }}">
+          <label for="{{ 'cxl_bill_edit_m' . $cxl->id }}">編集する</label>
+        </p>
+        <div class="informations billdetails_content">
+          <table class="table">
+            <tbody>
+              <tr>
+                <td>
+                  請求日：
+                  {{ Form::text('bill_created_at', $cxl->bill_created_at, ['class' => 'form-control datepicker_no_min_date cxl_bill_edit', 'disabled']) }}
+                </td>
+                <td>支払期日：
+                  {{ Form::text('payment_limit', $cxl->payment_limit, ['class' => 'form-control datepicker_no_min_date cxl_bill_edit', 'disabled']) }}
+                </td>
+              </tr>
+              <tr>
+                <td>請求書宛名：
+                  {{ Form::text('bill_company', $cxl->bill_company, ['class' => 'form-control cxl_bill_edit', 'disabled']) }}
+                </td>
+                <td>
+                  担当者：
+                  {{ Form::text('bill_person', $cxl->bill_person, ['class' => 'form-control cxl_bill_edit', 'disabled']) }}
+                </td>
+              </tr>
+              <tr>
+                <td colspan="2">
+                  <p>請求書備考</p>
+                  <p>
+                    {{ Form::textarea('bill_remark', $cxl->bill_remark, ['class' => 'form-control cxl_bill_edit', 'disabled']) }}
+                  </p>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="text-right billdetails_content">
+          <p>
+            {{ Form::submit('更新する', ['class' => 'cxl_bill_edit btn more_btn', 'disabled']) }}
+          </p>
+        </div>
+        {{ Form::close() }}
+      </div>
+    </div>
+  </div>
+
+  <div class="paid">
+    <div class="paid_details">
+      <div class="head d-flex">
+        <div class="d-flex align-items-center justify-content-between w-100">
+          <h3 class="pl-3">
+            入金情報
+          </h3>
+          {{ Form::open(['url' => 'admin/receipts', 'method' => 'post', 'target' => '_blank', 'class' => '']) }}
+          @csrf
+          {{ Form::hidden('cxl_id', $cxl->id) }}
+          @if ($cxl->paid == 1)
+          <p class="mr-2">{{ Form::submit('領収書をみる', ['class' => 'more_btn4 btn']) }}</p>
+          @endif
+          {{ Form::close() }}
+        </div>
+      </div>
+
+      <div class="main">
+        {{ Form::open(['url' => 'admin/cxl/update_cxl_paid_info', 'method' => 'post', 'id' => 'payment_info3']) }}
+        @csrf
+        {{ Form::hidden('cxl_id', $cxl->id) }}
+
+        <div class="text-right billdetails_content pb-0">
+          <input type="checkbox" class="cxl_paid_edit_m" id="{{ 'cxl_paid_edit_m' . $cxl->id }}">
+          <label for="{{ 'cxl_paid_edit_m' . $cxl->id }}">編集する</label>
+        </div>
+        <div class="paids billdetails_content">
+          <table class="table">
+            <tbody>
+              <tr>
+                <td>入金状況：
+                  {{ Form::select('paid', ['未入金', '入金済み', '遅延', '入金不足', '入金過多', '次回繰越'], $cxl->paid, ['class' => 'form-control cxl_paid_edit', 'disabled']) }}
+                </td>
+                <td>
+                  入金日：
+                  {{ Form::text('pay_day', !empty($cxl->pay_day) ? date('Y-m-d', strtotime($cxl->pay_day)) : '', ['class' => 'form-control cxl_paid_edit datepicker_no_min_date', 'disabled']) }}
+                </td>
+              </tr>
+              <tr>
+                <td>振込人名：
+                  {{ Form::text('pay_person', $cxl->pay_person, ['class' => 'form-control cxl_paid_edit', 'disabled','data-error_placement=".pay_person3"']) }}
+                  <p class="pay_person3" style="color: red"></p>
+                </td>
+                <td>
+                  入金額：
+                  {{ Form::text('payment', $cxl->payment, ['class' => 'form-control cxl_paid_edit', 'disabled','data-error_placement=".payment3"']) }}
+                  <p class="payment3" style="color: red"></p>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="text-right billdetails_content">
+          <p>
+            {{ Form::submit('更新する', ['class' => 'cxl_paid_edit btn more_btn cxl_paid_edit_submit', 'disabled']) }}
+          </p>
+        </div>
+        {{ Form::close() }}
+      </div>
+
+    </div>
+  </div>
+  @if ($cxl->double_check_status == 0)
+  <div class="double_checkbox section-wrap">
+    <dl class="d-flex col-12 justify-content-end align-items-center">
+      <dt><label for="checkname">一人目チェック者</label></dt>
+      <dd>
+        {{ Form::open(['url' => 'admin/cxl/double_check', 'method' => 'POST']) }}
+        @csrf
+        {{ Form::select('double_check1_name', $admin, null, ['class' => 'form-control double_check1_name']) }}
+        {{ Form::hidden('double_check_status', $cxl->double_check_status) }}
+        {{ Form::hidden('reservation_id', $reservation->id) }}
+        {{ Form::hidden('cxl_id', $cxl->id) }}
+      </dd>
+      <dd>
+        <p class="text-right">
+          {{ Form::submit('チェック完了', ['class' => 'btn more_btn', 'id' => 'double_check1_submit']) }}
+          {{ Form::close() }}
+        </p>
+      </dd>
+    </dl>
+  </div>
+  @elseif($cxl->double_check_status==1)
+  <div class="double_checkbox section-wrap">
+    <dl class="d-flex col-12 justify-content-end align-items-center">
+      <dt><label for="checkname">二人目チェック者</label></dt>
+      <dd>
+        {{ Form::open(['url' => 'admin/cxl/double_check', 'method' => 'POST']) }}
+        @csrf
+        {{ Form::select('double_check2_name', $admin, null, ['class' => 'form-control double_check2_name']) }}
+        {{ Form::hidden('double_check_status', $cxl->double_check_status) }}
+        {{ Form::hidden('cxl_id', $cxl->id) }}
+      </dd>
+      <dd>
+        <p class="text-right">
+          {{ Form::submit('チェック完了', ['class' => 'btn more_btn', 'id' => 'double_check2_submit']) }}
+          {{ Form::close() }}
+        </p>
+      </dd>
+    </dl>
+  </div>
   @endif
+</section>
+
+@endforeach
+
+{{-- キャンセル総合計請求額 --}}
+@if ($reservation->cxls->count() != 0)
+<div class="master_totals_cancel">
+  <table class="table">
+    <tbody class="master_total_head2">
+      <tr>
+        <td colspan="2">
+          <h3>
+            キャンセル料　合計請求額
+          </h3>
+        </td>
+      </tr>
+    </tbody>
+    <tr>
+      <td colspan="2" class="master_total_subttl2">
+        <h4>内訳</h4>
+      </td>
+    </tr>
+    <tbody class="master_total_body">
+      <tr>
+        <td>・キャンセル料</td>
+        <td>{{ number_format($cxl_subtotal) }}円</td>
+      </tr>
+    </tbody>
+    <tbody class="master_total_bottom mb-0">
+      <tr>
+        <td></td>
+        <td>
+          <div class="d-flex justify-content-end" colspan="2">
+            <p>小計：</p>
+            <p>{{ number_format($cxl_subtotal) }}円</p>
+          </div>
+        </td>
+      </tr>
+      <tr>
+        <td></td>
+        <td>
+          <div class="d-flex justify-content-end" colspan="2">
+            <p>消費税：</p>
+            <p>{{ number_format(($cxl_tax)) }}円</p>
+          </div>
+        </td>
+      </tr>
+      <tr>
+        <td></td>
+        <td>
+          <div class="d-flex justify-content-end" colspan="2">
+            <p>合計金額：</p>
+            <p>{{ number_format(($cxl_master_total)) }}円</p>
+          </div>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+  <div class="payment_situation">
+    <dl>
+      <dt>合計入金額</dt>
+      <dd>
+        {{number_format($reservation->cxls->pluck('payment')->sum())}}
+        円</dd>
+    </dl>
+    <dl>
+      <dt>未入金額</dt>
+      <dd>
+        {{number_format(($reservation->cxls->pluck('master_total')->sum()-$reservation->cxls->pluck('payment')->sum()))}}
+        円</dd>
+    </dl>
+  </div>
+</div>
+@endif
 
 
-  <script>
-    $(function() {
+<script>
+  $(function() {
         $('#double_check1_submit,#double_check2_submit').on('click', function() {
             if (!confirm('チェック完了しますか？')) {
                 return false;
@@ -1709,7 +1709,7 @@ $(function () {
     $(this).parent().slideToggle("");
   });
 });
-  </script>
+</script>
 
 
 
@@ -1717,4 +1717,4 @@ $(function () {
 
 
 
-  @endsection
+@endsection
