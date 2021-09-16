@@ -52,7 +52,6 @@ class FramePricesController extends Controller
     $origin = url('/');
     $origin = $origin . '/admin/frame_prices/create/' . $request->venue_id;
 
-    dd($previous, $origin);
 
     // 別ルートからきたstoreは拒絶
     if ($previous !== $origin) {
