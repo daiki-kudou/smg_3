@@ -93,11 +93,11 @@
           <td class="text-left">
             <ul class="search_category">
               <li>
-                {{Form::radio('attention', 1, $request->attention==1?true:false,['id'=>'chk_atten'])}}
+                {{Form::radio('attention', 1, (int)$request->attention===1?true:false,['id'=>'chk_atten'])}}
                 {{Form::label("chk_atten","あり")}}
               </li>
               <li>
-                {{Form::radio('attention', 2, $request->attention==2?true:false,['id'=>'chk_atten_no'])}}
+                {{Form::radio('attention', 2, (int)$request->attention===2?true:($request->attention===1?false:true),['id'=>'chk_atten_no'])}}
                 {{Form::label("chk_atten_no","なし")}}
               </li>
             </ul>
