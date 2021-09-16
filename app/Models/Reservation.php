@@ -215,7 +215,7 @@ class Reservation extends Model implements PresentableInterface
       'discount_condition' => $data['discount_condition'] ?? "",
       'attention' => $data['attention'] ?? "",
       'user_details' => $data['user_details'] ?? "",
-      'admin_details' => $data['admin_details'],
+      'admin_details' => $data['admin_details'] ?? "",
       'eat_in' => !empty($data['eat_in']) ? $data['eat_in'] : 0,
       'eat_in_prepare' => !empty($data['eat_in_prepare']) ? $data['eat_in_prepare'] : 0,
       'multiple_reserve_id' => !empty($data['multiple_reserve_id']) ? $data['multiple_reserve_id'] : 0,

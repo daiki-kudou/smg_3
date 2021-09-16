@@ -645,153 +645,180 @@ class PreReservation extends Model
   //   });
   // }
 
-  // public function Updates($request)
-  // {
-  //   DB::transaction(function () use ($request) { //トランザクションさせる
-  //     // breakdowns削除
-  //     foreach ($this->pre_breakdowns()->get() as $key => $value) {
-  //       $value->delete();
-  //     }
-  //     // pre bill削除
-  //     $this->pre_bill()->delete();
-  //     // 再作成
-  //     $this->update([
-  //       'user_id' => $request->user_id,
-  //       'price_system' => $request->price_system,
-  //       'enter_time' => $request->enter_time,
-  //       'leave_time' => $request->leave_time,
-  //       'board_flag' => $request->board_flag,
-  //       'event_start' => $request->event_start,
-  //       'event_finish' => $request->event_finish,
-  //       'event_name1' => $request->event_name1,
-  //       'event_name2' => $request->event_name2,
-  //       'event_owner' => $request->event_owner,
-  //       'luggage_count' => $request->luggage_count,
-  //       'luggage_arrive' => $request->luggage_arrive,
-  //       'luggage_return' => $request->luggage_return,
-  //       'email_flag' => $request->email_flag,
-  //       'in_charge' => $request->in_charge,
-  //       'tel' => $request->tel,
-  //       'discount_condition' => $request->discount_condition,
-  //       'attention' => $request->attention,
-  //       'user_details' => $request->user_details,
-  //       'admin_details' => $request->admin_details,
-  //       'status' => $request->status,
-  //     ]);
-  //   });
-  // }
+  public function Updates($request)
+  {
+    DB::transaction(function () use ($request) { //トランザクションさせる
+      // breakdowns削除
+      foreach ($this->pre_breakdowns()->get() as $key => $value) {
+        $value->delete();
+      }
+      // pre bill削除
+      $this->pre_bill()->delete();
+      // 再作成
+      $this->update([
+        'user_id' => $request->user_id,
+        'price_system' => $request->price_system,
+        'enter_time' => $request->enter_time,
+        'leave_time' => $request->leave_time,
+        'board_flag' => $request->board_flag,
+        'event_start' => $request->event_start,
+        'event_finish' => $request->event_finish,
+        'event_name1' => $request->event_name1,
+        'event_name2' => $request->event_name2,
+        'event_owner' => $request->event_owner,
+        'luggage_count' => $request->luggage_count,
+        'luggage_arrive' => $request->luggage_arrive,
+        'luggage_return' => $request->luggage_return,
+        'email_flag' => $request->email_flag,
+        'in_charge' => $request->in_charge,
+        'tel' => $request->tel,
+        'discount_condition' => $request->discount_condition,
+        'attention' => $request->attention,
+        'user_details' => $request->user_details,
+        'admin_details' => $request->admin_details,
+        'status' => $request->status,
+      ]);
+    });
+  }
 
-  // public function MoveToReservation(Request $request)
-  // {
-  //   $this->user_id != 0 ? $user = User::find($this->user_id) : $user = 0;
-  //   $this->agent_id != 0 ? $agent = Agent::find($this->agent_id) : $agent = 0;
+  public function MoveToReservation(Request $request)
+  {
+    $request_data = $request->all();
+    dd($request_data);
+    // $master_data = $request->session()->get('master_info');
+    // $data = $request_data + $master_data;
+    // $reservation = new Reservation;
+    // $bill = new Bill;
+    // $breakdowns = new Breakdown;
+    // DB::beginTransaction();
+    // try {
+    //   $result_reservation = $reservation->ReservationStore($data);
+    //   if ($result_reservation === "重複") {
+    //     throw new \Exception("選択された会場・日付・利用時間は既に利用済みです。");
+    //   }
+    //   $result_bill = $bill->BillStore($result_reservation->id, $data);
+    //   $result_breakdowns = $breakdowns->BreakdownStore($result_bill->id, $data);
+    //   DB::commit();
+    // } catch (\Exception $e) {
+    //   DB::rollback();
 
-  //   // 支払期日
-  //   if (is_object($user)) $payment_limit = $user->getUserPayLimit($request->reserve_date);
-  //   if (is_object($agent)) $payment_limit = $agent->getPayDetails($request->reserve_date);
-  //   // bill company
-  //   if (is_object($user)) $bill_company = $user->company;
-  //   if (is_object($agent)) $bill_company = $agent->company;
-  //   // bill person
-  //   if (is_object($user)) $bill_person = $user->first_name . $user->last_name;
-  //   if (is_object($agent)) $bill_person = $agent->person_firstname . $agent->person_lastname;
-  //   $reservation = new Reservation();
-  //   //reservationのReserveStoreに持たせるためのrequestを作成
-  //   $request->merge([
-  //     'venue_id' => $this->venue_id,
-  //     'user_id' => $this->user_id,
-  //     'agent_id' => $agent,
-  //     'reserve_date' => $this->reserve_date,
-  //     'price_system' => $this->price_system,
-  //     'enter_time' => $this->enter_time,
-  //     'leave_time' => $this->leave_time,
-  //     'board_flag' => $this->board_flag,
-  //     'event_start' => $this->event_start,
-  //     'event_finish' => $this->event_finish,
-  //     'event_name1' => $this->event_name1,
-  //     'event_name2' => $this->event_name2,
-  //     'event_owner' => $this->event_owner,
-  //     'luggage_count' => $this->luggage_count,
-  //     'luggage_arrive' => $this->luggage_arrive,
-  //     'luggage_return' => $this->luggage_return,
-  //     'email_flag' => 0, //デフォで0(利用後の送信メール無し)を選択
-  //     'in_charge' => $this->in_charge,
-  //     'tel' => $this->tel,
-  //     'cost' => $this->cost,
-  //     'discount_condition' => $this->discount_condition,
-  //     'attention' => $this->attention,
-  //     'user_details' => $this->user_details,
-  //     'admin_details' => $this->admin_details,
-  //     'eat_in' => !empty($this->eat_in) ? $this->eat_in : 0,
-  //     'eat_in_prepare' => !empty($this->eat_in_prepare) ? $this->eat_in_prepare : 0,
-  //     "multiple_reserve_id" => $this->multiple_reserve_id,
-  //   ]);
-  //   //reservationのReserveStoreBillに持たせるためのrequestを作成
-  //   $request->merge([
-  //     'venue_price' => $this->pre_bill->venue_price,
-  //     'equipment_price' => $this->pre_bill->equipment_price ? $this->pre_bill->equipment_price : 0, //備品・サービス・荷物
-  //     'layout_price' => $this->pre_bill->layout_price ? $this->pre_bill->layout_price : 0,
-  //     'others_price' => $this->pre_bill->others_price ? $this->pre_bill->others_price : 0,
-  //     'master_subtotal' => $this->pre_bill->master_subtotal,
-  //     'master_tax' => $this->pre_bill->master_tax,
-  //     'master_total' => $this->pre_bill->master_total,
-  //     'payment_limit' => $payment_limit,
-  //     'bill_company' => $bill_company,
-  //     'bill_person' => $bill_person,
-  //     'bill_created_at' => Carbon::now(),
-  //     'bill_remark' => '',
-  //     'paid' => 0, //デフォで0、仮押さえから本予約切り替え時点では未入金のため
-  //     'pay_day' => NULL,
-  //     'pay_person' => '',
-  //     'payment' => NULL,
-  //     'reservation_status' => 1, //デフォで1、仮押えのデフォは0
-  //     'double_check_status' => 0, //デフォで0
-  //     'category' => 1, //デフォで１。　新規以外だと　2:その他有料備品　3:レイアウト　4:その他
-  //     'admin_judge' => 1, //管理者作成なら1 ユーザー作成なら2
-  //   ]);
-  //   // breakdown保存用に、requestに現時点のpre_breakdownsの詳細を格納
-  //   foreach ($this->pre_breakdowns()->where('unit_type', 1)->get() as $v_key => $v_breakdown) {
-  //     $request->merge([
-  //       'venue_breakdown_item' . $v_key => $v_breakdown->unit_item,
-  //       'venue_breakdown_cost' . $v_key => $v_breakdown->unit_cost,
-  //       'venue_breakdown_count' . $v_key => $v_breakdown->unit_count,
-  //       'venue_breakdown_subtotal' . $v_key => $v_breakdown->unit_subtotal,
-  //     ]);
-  //   }
-  //   foreach ($this->pre_breakdowns()->where('unit_type', 2)->get() as $e_key => $e_breakdown) {
-  //     $request->merge([
-  //       'equipment_breakdown_item' . $e_key => $e_breakdown->unit_item,
-  //       'equipment_breakdown_cost' . $e_key => $e_breakdown->unit_cost,
-  //       'equipment_breakdown_count' . $e_key => $e_breakdown->unit_count,
-  //       'equipment_breakdown_subtotal' . $e_key => $e_breakdown->unit_subtotal,
-  //     ]);
-  //   }
-  //   foreach ($this->pre_breakdowns()->where('unit_type', 3)->get() as $s_key => $s_breakdown) {
-  //     $request->merge([
-  //       'service_breakdown_item' . $s_key => $s_breakdown->unit_item,
-  //       'service_breakdown_cost' . $s_key => $s_breakdown->unit_cost,
-  //       'service_breakdown_count' . $s_key => $s_breakdown->unit_count,
-  //       'service_breakdown_subtotal' . $s_key => $s_breakdown->unit_subtotal,
-  //     ]);
-  //   }
-  //   foreach ($this->pre_breakdowns()->where('unit_type', 4)->get() as $l_key => $l_breakdown) {
-  //     if ($l_breakdown->unit_item == 'レイアウト準備料金') {
-  //       $request->merge([
-  //         'layout_prepare_item' => $l_breakdown->unit_item,
-  //         'layout_prepare_cost' => $l_breakdown->unit_cost,
-  //         'layout_prepare_subtotal' => $l_breakdown->unit_subtotal,
-  //       ]);
-  //     }
-  //     if ($l_breakdown->unit_item == 'レイアウト片付料金') {
-  //       $request->merge([
-  //         'layout_clean_item' => $l_breakdown->unit_item,
-  //         'layout_clean_cost' => $l_breakdown->unit_cost,
-  //         'layout_clean_subtotal' => $l_breakdown->unit_subtotal,
-  //       ]);
-  //     }
-  //   }
-  //   $reservation->ReserveStore($request, $agent->id ?? 0);
-  // }
+    //   return back()->withInput()->withErrors($e->getMessage());
+    // }
+
+
+
+
+
+
+    // $this->user_id != 0 ? $user = User::find($this->user_id) : $user = 0;
+    // $this->agent_id != 0 ? $agent = Agent::find($this->agent_id) : $agent = 0;
+
+    // // 支払期日
+    // if (is_object($user)) $payment_limit = $user->getUserPayLimit($request->reserve_date);
+    // if (is_object($agent)) $payment_limit = $agent->getPayDetails($request->reserve_date);
+    // // bill company
+    // if (is_object($user)) $bill_company = $user->company;
+    // if (is_object($agent)) $bill_company = $agent->company;
+    // // bill person
+    // if (is_object($user)) $bill_person = $user->first_name . $user->last_name;
+    // if (is_object($agent)) $bill_person = $agent->person_firstname . $agent->person_lastname;
+    // $reservation = new Reservation();
+    // //reservationのReserveStoreに持たせるためのrequestを作成
+    // $request->merge([
+    //   'venue_id' => $this->venue_id,
+    //   'user_id' => $this->user_id,
+    //   'agent_id' => $agent,
+    //   'reserve_date' => $this->reserve_date,
+    //   'price_system' => $this->price_system,
+    //   'enter_time' => $this->enter_time,
+    //   'leave_time' => $this->leave_time,
+    //   'board_flag' => $this->board_flag,
+    //   'event_start' => $this->event_start,
+    //   'event_finish' => $this->event_finish,
+    //   'event_name1' => $this->event_name1,
+    //   'event_name2' => $this->event_name2,
+    //   'event_owner' => $this->event_owner,
+    //   'luggage_count' => $this->luggage_count,
+    //   'luggage_arrive' => $this->luggage_arrive,
+    //   'luggage_return' => $this->luggage_return,
+    //   'email_flag' => 0, //デフォで0(利用後の送信メール無し)を選択
+    //   'in_charge' => $this->in_charge,
+    //   'tel' => $this->tel,
+    //   'cost' => $this->cost,
+    //   'discount_condition' => $this->discount_condition,
+    //   'attention' => $this->attention,
+    //   'user_details' => $this->user_details,
+    //   'admin_details' => $this->admin_details,
+    //   'eat_in' => !empty($this->eat_in) ? $this->eat_in : 0,
+    //   'eat_in_prepare' => !empty($this->eat_in_prepare) ? $this->eat_in_prepare : 0,
+    //   "multiple_reserve_id" => $this->multiple_reserve_id,
+    // ]);
+    // //reservationのReserveStoreBillに持たせるためのrequestを作成
+    // $request->merge([
+    //   'venue_price' => $this->pre_bill->venue_price,
+    //   'equipment_price' => $this->pre_bill->equipment_price ? $this->pre_bill->equipment_price : 0, //備品・サービス・荷物
+    //   'layout_price' => $this->pre_bill->layout_price ? $this->pre_bill->layout_price : 0,
+    //   'others_price' => $this->pre_bill->others_price ? $this->pre_bill->others_price : 0,
+    //   'master_subtotal' => $this->pre_bill->master_subtotal,
+    //   'master_tax' => $this->pre_bill->master_tax,
+    //   'master_total' => $this->pre_bill->master_total,
+    //   'payment_limit' => $payment_limit,
+    //   'bill_company' => $bill_company,
+    //   'bill_person' => $bill_person,
+    //   'bill_created_at' => Carbon::now(),
+    //   'bill_remark' => '',
+    //   'paid' => 0, //デフォで0、仮押さえから本予約切り替え時点では未入金のため
+    //   'pay_day' => NULL,
+    //   'pay_person' => '',
+    //   'payment' => NULL,
+    //   'reservation_status' => 1, //デフォで1、仮押えのデフォは0
+    //   'double_check_status' => 0, //デフォで0
+    //   'category' => 1, //デフォで１。　新規以外だと　2:その他有料備品　3:レイアウト　4:その他
+    //   'admin_judge' => 1, //管理者作成なら1 ユーザー作成なら2
+    // ]);
+    // // breakdown保存用に、requestに現時点のpre_breakdownsの詳細を格納
+    // foreach ($this->pre_breakdowns()->where('unit_type', 1)->get() as $v_key => $v_breakdown) {
+    //   $request->merge([
+    //     'venue_breakdown_item' . $v_key => $v_breakdown->unit_item,
+    //     'venue_breakdown_cost' . $v_key => $v_breakdown->unit_cost,
+    //     'venue_breakdown_count' . $v_key => $v_breakdown->unit_count,
+    //     'venue_breakdown_subtotal' . $v_key => $v_breakdown->unit_subtotal,
+    //   ]);
+    // }
+    // foreach ($this->pre_breakdowns()->where('unit_type', 2)->get() as $e_key => $e_breakdown) {
+    //   $request->merge([
+    //     'equipment_breakdown_item' . $e_key => $e_breakdown->unit_item,
+    //     'equipment_breakdown_cost' . $e_key => $e_breakdown->unit_cost,
+    //     'equipment_breakdown_count' . $e_key => $e_breakdown->unit_count,
+    //     'equipment_breakdown_subtotal' . $e_key => $e_breakdown->unit_subtotal,
+    //   ]);
+    // }
+    // foreach ($this->pre_breakdowns()->where('unit_type', 3)->get() as $s_key => $s_breakdown) {
+    //   $request->merge([
+    //     'service_breakdown_item' . $s_key => $s_breakdown->unit_item,
+    //     'service_breakdown_cost' . $s_key => $s_breakdown->unit_cost,
+    //     'service_breakdown_count' . $s_key => $s_breakdown->unit_count,
+    //     'service_breakdown_subtotal' . $s_key => $s_breakdown->unit_subtotal,
+    //   ]);
+    // }
+    // foreach ($this->pre_breakdowns()->where('unit_type', 4)->get() as $l_key => $l_breakdown) {
+    //   if ($l_breakdown->unit_item == 'レイアウト準備料金') {
+    //     $request->merge([
+    //       'layout_prepare_item' => $l_breakdown->unit_item,
+    //       'layout_prepare_cost' => $l_breakdown->unit_cost,
+    //       'layout_prepare_subtotal' => $l_breakdown->unit_subtotal,
+    //     ]);
+    //   }
+    //   if ($l_breakdown->unit_item == 'レイアウト片付料金') {
+    //     $request->merge([
+    //       'layout_clean_item' => $l_breakdown->unit_item,
+    //       'layout_clean_cost' => $l_breakdown->unit_cost,
+    //       'layout_clean_subtotal' => $l_breakdown->unit_subtotal,
+    //     ]);
+    //   }
+    // }
+    // $reservation->ReserveStore($request, $agent->id ?? 0);
+  }
 
   /*
 |--------------------------------------------------------------------------

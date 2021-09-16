@@ -108,7 +108,7 @@ class Bill extends Model
       'bill_company' => $data['bill_company'],
       'bill_person' => $data['bill_person'],
       'bill_created_at' => $data['bill_created_at'],
-      'bill_remark' => $data['bill_remark'],
+      'bill_remark' => !empty($data['bill_remark']) ? $data['bill_remark'] : "",
       'paid' => $data['paid'],
       'pay_day' => $data['pay_day'],
       'pay_person' => $data['pay_person'],

@@ -21,7 +21,6 @@
 <hr>
 
 
-
 @if ($pre_reservation->status==1)
 <div class="confirm-box text-md-center mt-5">
   <p>
@@ -215,10 +214,10 @@
                 <td>
                   @foreach ($pre_reservation->pre_breakdowns()->get() as $s_equ)
                   @if ($s_equ->unit_item==$equ->item)
-                  {{Form::number('equipment_breakdown'.$key,$s_equ->unit_count,['class'=>'form-control equipment_validation', 'autocomplete="off"'])}}
+                  {{Form::number('equipment_breakdown[]',$s_equ->unit_count,['class'=>'form-control equipment_validation', 'autocomplete="off"'])}}
                   @break
                   @elseif($loop->last)
-                  {{Form::number('equipment_breakdown'.$key,'',['class'=>'form-control equipment_validation', 'autocomplete="off"'])}}
+                  {{Form::number('equipment_breakdown[]','',['class'=>'form-control equipment_validation', 'autocomplete="off"'])}}
                   @endif
                   @endforeach
                 </td>
@@ -249,11 +248,11 @@
                   @if ($s_ser->unit_item==$ser->item)
                   <div class="radio-box">
                     <p>
-                      {{Form::radio('services_breakdown'.$key, 1, true , ['id' => 'service'.$key.'on', 'class' => ''])}}
+                      {{Form::radio("services_breakdown[$key]", 1, true , ['id' => 'service'.$key.'on', 'class' => ''])}}
                       {{Form::label('service'.$key.'on','あり')}}
                     </p>
                     <p>
-                      {{Form::radio('services_breakdown'.$key, 0, false, ['id' => 'services_breakdown'.$key.'off', 'class' => ''])}}
+                      {{Form::radio("services_breakdown[$key]", 0, false, ['id' => 'services_breakdown'.$key.'off', 'class' => ''])}}
                       {{Form::label('services_breakdown'.$key.'off','なし')}}
                     </p>
                   </div>
@@ -261,11 +260,11 @@
                   @elseif($loop->last)
                   <div class="radio-box">
                     <p>
-                      {{Form::radio('services_breakdown'.$key, 1, false , ['id' => 'service'.$key.'on', 'class' => ''])}}
+                      {{Form::radio("services_breakdown[$key]", 1, false , ['id' => 'service'.$key.'on', 'class' => ''])}}
                       {{Form::label('service'.$key.'on','あり')}}
                     </p>
                     <p>
-                      {{Form::radio('services_breakdown'.$key, 0, true, ['id' => 'services_breakdown'.$key.'off', 'class' => ''])}}
+                      {{Form::radio("services_breakdown[$key]", 0, true, ['id' => 'services_breakdown'.$key.'off', 'class' => ''])}}
                       {{Form::label('services_breakdown'.$key.'off','なし')}}
                     </p>
                   </div>
