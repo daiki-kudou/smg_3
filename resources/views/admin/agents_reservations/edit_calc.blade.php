@@ -475,7 +475,7 @@
               <label for="enduser_company" class="">エンドユーザー</label>
             </td>
             <td>
-              {{ Form::text('enduser_company', !empty($data['enduser'])?$data['enduser']['company']:NULL,['class'=>'form-control', 'placeholder'=>'入力してください','id'=>'enduser_company'] ) }}
+              {{ Form::text('enduser_company', !empty($data['enduser_company'])?$data['enduser_company']:NULL,['class'=>'form-control', 'placeholder'=>'入力してください','id'=>'enduser_company'] ) }}
             </td>
           </tr>
           <tr>
@@ -483,7 +483,7 @@
               <label for="enduser_address" class=" ">住所</label>
             </td>
             <td>
-              {{ Form::text('enduser_address', !empty($data['enduser'])?$data['enduser']['address']:NULL,['class'=>'form-control', 'placeholder'=>'入力してください','id'=>'enduser_address'] ) }}
+              {{ Form::text('enduser_address', !empty($data['enduser_address'])?$data['enduser_address']:NULL,['class'=>'form-control', 'placeholder'=>'入力してください','id'=>'enduser_address'] ) }}
             </td>
           </tr>
           <tr>
@@ -491,7 +491,7 @@
               <label for="enduser_tel" class="">連絡先</label>
             </td>
             <td>
-              {{ Form::text('enduser_tel', !empty($data['enduser'])?$data['enduser']['address']:NULL,['class'=>'form-control', 'placeholder'=>'入力してください', 'id'=>'enduser_tel'] ) }}
+              {{ Form::text('enduser_tel', !empty($data['enduser_tel'])?$data['enduser_tel']:NULL,['class'=>'form-control', 'placeholder'=>'入力してください', 'id'=>'enduser_tel'] ) }}
               <p class="is-error-enduser_tel" style="color: red"></p>
             </td>
           </tr>
@@ -500,7 +500,7 @@
               <label for="enduser_mail" class=" ">メールアドレス</label>
             </td>
             <td>
-              {{ Form::text('enduser_mail', !empty($data['enduser'])?$data['enduser']['email']:NULL,['class'=>'form-control', 'placeholder'=>'入力してください', 'id'=>'enduser_mail'] ) }}
+              {{ Form::text('enduser_mail', !empty($data['enduser_mail'])?$data['enduser_mail']:NULL,['class'=>'form-control', 'placeholder'=>'入力してください', 'id'=>'enduser_mail'] ) }}
 
               <p class="is-error-enduser_mail" style="color: red"></p>
             </td>
@@ -510,7 +510,7 @@
               <label for="enduser_incharge" class="">当日担当者</label>
             </td>
             <td>
-              {{ Form::text('enduser_incharge', !empty($data['enduser'])?$data['enduser']['person']:NULL,['class'=>'form-control', 'placeholder'=>'入力してください', 'id'=>'enduser_incharge'] ) }}
+              {{ Form::text('enduser_incharge', !empty($data['enduser_incharge'])?$data['enduser_incharge']:NULL,['class'=>'form-control', 'placeholder'=>'入力してください', 'id'=>'enduser_incharge'] ) }}
             </td>
           </tr>
           <tr>
@@ -518,7 +518,7 @@
               <label for="" class="">当日連絡先</label>
             </td>
             <td>
-              {{ Form::text('enduser_mobile', !empty($data['enduser'])?$data['enduser']['mobile']:NULL,['class'=>'form-control', 'placeholder'=>'入力してください', 'id'=>'enduser_mobile'] ) }}
+              {{ Form::text('enduser_mobile', !empty($data['enduser_mobile'])?$data['enduser_mobile']:NULL,['class'=>'form-control', 'placeholder'=>'入力してください', 'id'=>'enduser_mobile'] ) }}
               <p class="is-error-enduser_mobile" style="color: red"></p>
             </td>
           </tr>
