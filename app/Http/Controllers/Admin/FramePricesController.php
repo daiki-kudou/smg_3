@@ -49,11 +49,13 @@ class FramePricesController extends Controller
     // 直前のセッション取得
     $previous = $request->session()->get('_previous');
     $previous = $previous['url'];
-    $origin = request()->server->get('HTTP_ORIGIN');
+    $origin = url('/');
     $origin = $origin . '/admin/frame_prices/create/' . $request->venue_id;
 
+    dd($previous, $origin);
+
     // 別ルートからきたstoreは拒絶
-    if ($previous != $origin) {
+    if ($previous !== $origin) {
       return abort(404);
     }
 
