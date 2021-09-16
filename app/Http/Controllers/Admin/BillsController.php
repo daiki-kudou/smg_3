@@ -199,9 +199,23 @@ class BillsController extends Controller
    */
   public function update(Request $request, $id)
   {
-    $bill = Bill::with('reservation')->find($id);
-    $bill->UpdateBill($request);
-    $bill->ReserveStoreBreakdown($request);
+    $data = $request->all();
+
+    DB::beginTransaction();
+    try {
+      $bill = Bill::with('reservation', 'breakdowns')->find($id);
+      $bill->BillUpdate($data, $bill->reservation_status, $bill->double_check_status, $bill->category);
+      $bill->breakdowns->map(function ($item) {
+        return $item->delete();
+      });
+      $breakdowns = new Breakdown;
+      $result_breakdowns = $breakdowns->BreakdownStore($bill->id, $data);
+      DB::commit();
+    } catch (\Exception $e) {
+      DB::rollback();
+      // return back()->withInput()->withErrors($e->getMessage());
+      return back()->withInput()->withErrors("内容・単価・数量・金額は必須です");
+    }
     $request->session()->regenerate();
     return redirect(route('admin.reservations.show', $bill->reservation->id));
   }
