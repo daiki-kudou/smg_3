@@ -1,28 +1,27 @@
 $(function () {
 
   $(function () {
-    $('select').on('click', function () {
-      var this_index = $('#pre_reservation_select_dates tr').index($(this).parent().parent());
-      var target = $("[class^='enter_control_pre_reservation']").length;
-      for (let index = 0; index < target; index++) {
-        if (this_index == index) {
-          // 仮抑え入室時間クリック制御開始
-          preReservationControlTime(".enter_control_pre_reservation" + index, $(".enter_control_pre_reservation" + index));
-          // 仮抑え退室時間クリック制御開始
-          preReservationControlTime(".leave_control_pre_reservation" + index, $(".leave_control_pre_reservation" + index));
-        }
+    $('.PreResCre select,.PreResCre input').on('change', function () {
+      var this_tr = $(this).parent().parent();
+      var this_date = this_tr.find('td').eq(0).find('input').val();
+      var this_venue = this_tr.find('td').eq(1).find('select').val();
+      var this_enter = this_tr.find('td').eq(2).find('select');
+      var this_leave = this_tr.find('td').eq(3).find('select');
+      initializeTimeOption(this_enter);
+      initializeTimeOption(this_leave);
+      if (this_date !== "" && this_venue !== "") {
+        resultGetTimeAjax(this_date, this_venue, this_enter);
+        resultGetTimeAjax(this_date, this_venue, this_leave);
       }
     })
   })
 
-  function preReservationControlTime(targetClass, targetElement) {
-    $(document).on('click', targetClass, function () {
-      var target = targetElement;
-      initializeTimeOption(target);
-      var date = $(this).parent().parent().find('td').eq(0).find('input').val();
-      var venue_id = $(this).parent().parent().find('td').eq(1).find('select option:selected').val();
-      resultGetTimeAjax(date, venue_id, target);
-    });
+  function preReservationControlTime(targetElement) {
+    var target = targetElement;
+    initializeTimeOption(target);
+    var date = $(this).parent().parent().find('td').eq(0).find('input').val();
+    var venue_id = $(this).parent().parent().find('td').eq(1).find('select option:selected').val();
+    resultGetTimeAjax(date, venue_id, target);
   }
 
   function resultGetTimeAjax(date, venue_id, target) {
@@ -36,7 +35,6 @@ $(function () {
 
           if ($($element).val() == $resultValue) {
             $($element).prop('disabled', true);
-            console.log($element);
           }
         })
       })

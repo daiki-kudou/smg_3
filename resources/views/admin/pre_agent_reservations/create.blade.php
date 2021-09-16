@@ -110,7 +110,7 @@
 
   <div class="date_selector mt-5">
     <h3 class="mb-2 pt-3">日程選択</h3>
-    <table class="table table-bordered" style="table-layout: fixed;">
+    <table class="table table-bordered PreResCre" style="table-layout: fixed;">
       <thead>
         <tr>
           <td>日付</td>
