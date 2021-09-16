@@ -402,7 +402,6 @@
                 <tr>
                   <td>請求日：
                     {{Form::text('bill_created_at', $bill->bill_created_at,['class'=>'form-control datepicker'])}}
-
                   </td>
                   <td>支払期日
                     {{Form::text('payment_limit', date('Y-m-d',strtotime($bill->payment_limit)),['class'=>'form-control datepicker'])}}
