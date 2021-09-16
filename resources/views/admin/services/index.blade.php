@@ -21,7 +21,7 @@
   <hr>
 
   <div class="text-right">
-    <a href="/admin/services/create" class="btn more_btn3">新規登録</a>
+    <a href="{{url('/').'/admin/services/create'}}" class="btn more_btn3">新規登録</a>
   </div>
   <div class="d-flex justify-content-between my-3">
 
