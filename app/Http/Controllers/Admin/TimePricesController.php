@@ -47,7 +47,7 @@ class TimePricesController extends Controller
   {
     $previous = $request->session()->get('_previous');
     $previous = $previous['url'];
-    $origin = request()->server->get('HTTP_ORIGIN');
+    $origin = url('/');
     $origin = $origin . '/admin/time_prices/create/' . $request->venue_id;
 
     // 別ルートからきたstoreは拒絶
