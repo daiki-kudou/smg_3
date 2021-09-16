@@ -71,7 +71,7 @@
                 @foreach ($bill->breakdowns()->where('unit_type',1)->get() as $key=>$venue)
                 <tr>
                   <td>
-                    {{Form::text('venue_breakdown_item[]',$venue->unit_item,['class'=>'form-control'])}}
+                    {{Form::text('venue_breakdown_item[]',$venue->unit_item,['class'=>'form-control',])}}
                   </td>
                   <td>
                     {{Form::text('venue_breakdown_cost[]',$venue->unit_cost,['class'=>'form-control'])}}
@@ -91,16 +91,16 @@
                 @else
                 <tr>
                   <td>
-                    {{Form::text('venue_breakdown_item[]','',['class'=>'form-control'])}}
+                    {{Form::text('venue_breakdown_item[]','',['class'=>'form-control','disabled'])}}
                   </td>
                   <td>
-                    {{Form::text('venue_breakdown_cost[]','',['class'=>'form-control'])}}
+                    {{Form::text('venue_breakdown_cost[]','',['class'=>'form-control','disabled'])}}
                   </td>
                   <td>
-                    {{Form::text('venue_breakdown_count[]','',['class'=>'form-control number_validation'])}}
+                    {{Form::text('venue_breakdown_count[]','',['class'=>'form-control number_validation','disabled'])}}
                   </td>
                   <td>
-                    {{Form::text('venue_breakdown_subtotal[]','',['class'=>'form-control','readonly'])}}
+                    {{Form::text('venue_breakdown_subtotal[]','',['class'=>'form-control','readonly','disabled'])}}
                   </td>
                   <td class="text-left">
                     <input type="button" value="＋" class="add pluralBtn bg-blue">
@@ -168,16 +168,16 @@
                 @else
                 <tr>
                   <td>
-                    {{Form::text('equipment_breakdown_item[]','',['class'=>'form-control'])}}
+                    {{Form::text('equipment_breakdown_item[]','',['class'=>'form-control','disabled'])}}
                   </td>
                   <td>
-                    {{Form::text('equipment_breakdown_cost[]','',['class'=>'form-control'])}}
+                    {{Form::text('equipment_breakdown_cost[]','',['class'=>'form-control','disabled'])}}
                   </td>
                   <td>
-                    {{Form::text('equipment_breakdown_count[]','',['class'=>'form-control number_validation'])}}
+                    {{Form::text('equipment_breakdown_count[]','',['class'=>'form-control number_validation','disabled'])}}
                   </td>
                   <td>
-                    {{Form::text('equipment_breakdown_subtotal[]','',['class'=>'form-control','readonly'])}}
+                    {{Form::text('equipment_breakdown_subtotal[]','',['class'=>'form-control','readonly','disabled'])}}
                   </td>
                   <td class="text-left">
                     <input type="button" value="＋" class="add pluralBtn bg-blue">
@@ -246,16 +246,16 @@
                 @else
                 <tr>
                   <td>
-                    {{Form::text('layout_breakdown_item[]','',['class'=>'form-control'])}}
+                    {{Form::text('layout_breakdown_item[]','',['class'=>'form-control','disabled'])}}
                   </td>
                   <td>
-                    {{Form::text('layout_breakdown_cost[]','',['class'=>'form-control'])}}
+                    {{Form::text('layout_breakdown_cost[]','',['class'=>'form-control','disabled'])}}
                   </td>
                   <td>
-                    {{Form::text('layout_breakdown_count[]','',['class'=>'form-control number_validation'])}}
+                    {{Form::text('layout_breakdown_count[]','',['class'=>'form-control number_validation','disabled'])}}
                   </td>
                   <td>
-                    {{Form::text('layout_breakdown_subtotal[]','',['class'=>'form-control','readonly'])}}
+                    {{Form::text('layout_breakdown_subtotal[]','',['class'=>'form-control','readonly','disabled'])}}
                   </td>
                   <td class="text-left">
                     <input type="button" value="＋" class="add pluralBtn bg-blue">
@@ -324,16 +324,16 @@
                 @else
                 <tr>
                   <td>
-                    {{Form::text('others_breakdown_item[]', '',['class'=>'form-control'])}}
+                    {{Form::text('others_breakdown_item[]', '',['class'=>'form-control','disabled'])}}
                   </td>
                   <td>
-                    {{Form::text('others_breakdown_cost[]', '',['class'=>'form-control'])}}
+                    {{Form::text('others_breakdown_cost[]', '',['class'=>'form-control','disabled'])}}
                   </td>
                   <td>
-                    {{Form::text('others_breakdown_count[]', '',['class'=>'form-control number_validation'])}}
+                    {{Form::text('others_breakdown_count[]', '',['class'=>'form-control number_validation','disabled'])}}
                   </td>
                   <td>
-                    {{Form::text('others_breakdown_subtotal[]', '',['class'=>'form-control','readonly'])}}
+                    {{Form::text('others_breakdown_subtotal[]', '',['class'=>'form-control','readonly','disabled'])}}
                   </td>
                   <td class="text-left">
                     <input type="button" value="＋" class="add pluralBtn bg-blue">
