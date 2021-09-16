@@ -262,29 +262,26 @@ $(function () {
         if ($prices[0].length > 0 && $prices[1].length > 0) { //配列の空チェック
           //どちらも配列ある
           $('#price_system_radio1').prop('checked', true);
-          console.log("どちらもある");
         } else if ($prices[0].length > 0 && $prices[1].length == 0) {
           //時間枠がある・アクセアがない
           $('#price_system_radio1').prop('checked', true);
           $('#price_system2').addClass("hide");
-          console.log("時間枠がある・アクセアがない");
         } else if ($prices[0].length == 0 && $prices[1].length > 0) {
           //時間枠がない・アクセアがある
           $('#price_system_radio2').prop('checked', true);
           $('#price_system1').addClass("hide");
-          console.log("時間枠がない・アクセアがある");
         } else {
           // どちらも配列がない
           $('#price_system1').addClass("hide");
           $('#price_system2').addClass("hide");
-          // swal('選択した会場は登録された料金体系がありません。会場管理/料金管理 にて作成してください');
+          $('input[name="submit"]').prop('disabled', true);
+          return false;
         }
+        $('input[name="submit"]').prop('disabled', false);
       })
       .fail(function ($prices) {
-        // $('#fullOverlay').css('display', 'none');
         $('#price_system1').addClass("hide");
         $('#price_system2').addClass("hide");
-
       });
   };
 

@@ -498,7 +498,7 @@
   </div>
 </section>
 
-{{Form::submit('計算する', ['class'=>'btn more_btn_lg mx-auto d-block btn-lg', 'id'=>'check_submit'])}}
+{{Form::submit('計算する', ['class'=>'btn more_btn_lg mx-auto d-block btn-lg',"name"=>'submit', 'id'=>'check_submit'])}}
 
 {{Form::close()}}
 
