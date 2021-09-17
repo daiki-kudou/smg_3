@@ -88,10 +88,6 @@ class BillsController extends Controller
     return [$layout_prepare, $layout_clean];
   }
 
-  public function check(Request $request)
-  {
-  }
-
   /**
    * Store a newly created resource in storage.
    *
@@ -114,7 +110,6 @@ class BillsController extends Controller
       DB::commit();
     } catch (\Exception $e) {
       DB::rollback();
-      dump($data);
       dump($e->getMessage());
       return $this->createSession($request)->withErrors($e->getMessage());
     }
@@ -157,17 +152,6 @@ class BillsController extends Controller
     });
     return redirect()->route('admin.reservations.index');
   }
-
-  /**
-   * Display the specified resource.
-   *
-   * @param  int  $id
-   * @return \Illuminate\Http\Response
-   */
-  // public function show($id)
-  // {
-  //   //
-  // }
 
   /**
    * Show the form for editing the specified resource.

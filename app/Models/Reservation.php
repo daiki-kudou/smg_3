@@ -210,7 +210,7 @@ class Reservation extends Model implements PresentableInterface
       'luggage_return' => !empty($data['luggage_return']) ? $data['luggage_return'] : NULL,
       'email_flag' => $data['email_flag'],
       'in_charge' => $data['in_charge'],
-      'tel' => $data['tel'],
+      'tel' => !empty($data['tel']) ? $data['tel'] : "",
       'cost' => !empty($data['cost']) ? $data['cost'] : 0,
       'discount_condition' => $data['discount_condition'] ?? "",
       'attention' => $data['attention'] ?? "",
