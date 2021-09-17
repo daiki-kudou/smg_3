@@ -123,7 +123,6 @@
         });
     });
     var rootPath="{{url('/')}}";
-    console.log(rootPath);
   </script>
 </body>
 

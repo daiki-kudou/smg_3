@@ -229,9 +229,9 @@
           </thead>
           <tbody>
             <tr>
-              <td class="table-active">荷物預かり　工藤さん！！</td>
+              <td class="table-active">荷物預かり</td>
               <td>
-                工藤さん！こちら、ありかなしの表示をお願いします
+                {{(int)$value['luggage_flag']===1?"有り":"無し"}}
               </td>
             </tr>
             @if ($value['luggage_count'])
@@ -264,6 +264,7 @@
               <td>
                 <div class="d-flex align-items-end">
                   {{$value['luggage_price']}}
+                  {{Form::hidden('luggage_price',$value['luggage_price'] )}}
                   <span class="ml-1 annotation">円</span>
                 </div>
               </td>

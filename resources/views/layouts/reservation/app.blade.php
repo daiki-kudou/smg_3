@@ -168,7 +168,7 @@
           <a class="cart_area" href="{{url('user/reservations/cart')}}">
             <p>
               {{-- <i class="fas fa-clipboard-list cart_btn"></i> --}}
-          <i class="fas fa-calendar-alt cart_btn"></i>
+              <i class="fas fa-calendar-alt cart_btn"></i>
               <span>カート</span></p>
           </a>
         </div>
@@ -221,11 +221,17 @@
       </ul>
     </header>
 
-    <section class="contents news pc"><dl class="information contents">
-      <dt>重要なお知らせ</dt><dd><a href="https://osaka-conference.com/corona/">新型コロナウィルスに対する取り組みについて</a></dd></dl>
+    <section class="contents news pc">
+      <dl class="information contents">
+        <dt>重要なお知らせ</dt>
+        <dd><a href="https://osaka-conference.com/corona/">新型コロナウィルスに対する取り組みについて</a></dd>
+      </dl>
     </section>
-    <section class="contents news sp"><dl class="information indexNews">
-      <dt>重要なお知らせ</dt><dd><a href="https://osaka-conference.com/corona/">新型コロナウィルスに対する取り組みについて</a></dd></dl>
+    <section class="contents news sp">
+      <dl class="information indexNews">
+        <dt>重要なお知らせ</dt>
+        <dd><a href="https://osaka-conference.com/corona/">新型コロナウィルスに対する取り組みについて</a></dd>
+      </dl>
     </section>
 
     <!------パンクズ-------->
@@ -251,8 +257,8 @@
           <span>カート</span></p>
       </a>
 
-    @yield('content')
-  </main>
+      @yield('content')
+    </main>
 
 
     <div class="banner">
@@ -450,6 +456,7 @@
           }
         });
         });
+        var rootPath="{{url('/')}}";
   </script>
 
 

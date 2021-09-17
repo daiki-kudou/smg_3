@@ -446,12 +446,12 @@
                 <td>
                   <div class="radio-box">
                     <p>
-                      <input id="luggage_flag" name="luggage_flag" type="radio" value="1">
-                      <label for="" class="form-check-label">有り</label>
+                      {{Form::radio('luggage_flag', 1, (int)$request->luggage_flag===1?true:false, ['id'=>'luggage_flag'])}}
+                      {{Form::label('luggage_flag','有り')}}
                     </p>
                     <p>
-                      <input id="no_luggage_flag" name="luggage_flag" type="radio" value="0">
-                      <label for="" class="form-check-label">無し</label>
+                      {{Form::radio('luggage_flag', 0, (int)$request->luggage_flag===0?true:false, ['id'=>'no_luggage_flag'])}}
+                      {{Form::label('no_luggage_flag','無し')}}
                     </p>
                   </div>
                 </td>
@@ -459,21 +459,21 @@
               <tr>
                 <td class="table-active">事前に預かる荷物<br>（個数）</td>
                 <td>
-                  {{ Form::number('luggage_count', $request->luggage_count,['class'=>'form-control','id'=>'luggage_count'] ) }}
+                  {{ Form::number('luggage_count', (int)$request->luggage_flag===1?($request->luggage_count):"",['class'=>'form-control','id'=>'luggage_count'] ) }}
                   <p class='is-error-luggage_count' style=' color: red'></p>
                 </td>
               </tr>
               <tr>
                 <td class="table-active">事前荷物の到着日<br>午前指定のみ</td>
                 <td>
-                  {{ Form::text('luggage_arrive', $request->luggage_arrive,['class'=>'form-control holidays','id'=>'luggage_arrive'] ) }}
+                  {{ Form::text('luggage_arrive', (int)$request->luggage_flag===1?$request->luggage_arrive:"",['class'=>'form-control holidays','id'=>'luggage_arrive'] ) }}
                   <p class='is-error-luggage_arrive' style=' color: red'></p>
                 </td>
               </tr>
               <tr>
                 <td class="table-active">事後返送する荷物</td>
                 <td>
-                  {{ Form::number('luggage_return', $request->luggage_return,['class'=>'form-control','id'=>'luggage_return'] ) }}
+                  {{ Form::number('luggage_return', (int)$request->luggage_flag===1?$request->luggage_return:"",['class'=>'form-control','id'=>'luggage_return'] ) }}
                   <p class='is-error-luggage_return' style=' color: red'></p>
                 </td>
               </tr>
@@ -1009,12 +1009,12 @@
 {{Form::hidden('email_flag', $request->email_flag)}}
 {{Form::hidden('in_charge', $request->in_charge)}}
 {{Form::hidden('tel', $request->tel)}}
-
 {{Form::hidden('event_start', $request->event_start)}}
 {{Form::hidden('event_finish', $request->event_finish)}}
 {{Form::hidden('event_name1', $request->event_name1)}}
 {{Form::hidden('event_name2', $request->event_name2)}}
 {{Form::hidden('event_owner', $request->event_owner)}}
+{{Form::hidden('luggage_flag', $request->luggage_flag)}}
 {{Form::hidden('luggage_count', $request->luggage_count)}}
 {{Form::hidden('luggage_arrive', $request->luggage_arrive)}}
 {{Form::hidden('luggage_return', $request->luggage_return)}}
@@ -1022,19 +1022,14 @@
 {{Form::hidden('attention', $request->attention)}}
 {{Form::hidden('user_details', $request->user_details)}}
 {{Form::hidden('admin_details', $request->admin_details)}}
-
 {{Form::hidden('eat_in', $request->eat_in)}}
 {{Form::hidden('eat_in_prepare', $request->eat_in_prepare)}}
-
 {{Form::hidden('unknown_user_company', $request->unknown_user_company)}}
 {{Form::hidden('unknown_user_name', $request->unknown_user_name)}}
 {{Form::hidden('unknown_user_email', $request->unknown_user_email)}}
 {{Form::hidden('unknown_user_tel', $request->unknown_user_tel)}}
 {{Form::hidden('unknown_user_mobile', $request->unknown_user_mobile)}}
-
 {{ Form::hidden('cost', $request->cost ) }}
-
-
 
 {{Form::submit('登録する', ['class'=>'btn more_btn_lg d-block btn-lg mx-auto my-5', 'id'=>'check_submit'])}}
 {{Form::close()}}

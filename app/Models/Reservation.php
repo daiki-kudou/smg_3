@@ -50,9 +50,11 @@ class Reservation extends Model implements PresentableInterface
     'event_name1',
     'event_name2',
     'event_owner',
+    'luggage_flag',
     'luggage_count',
     'luggage_arrive',
     'luggage_return',
+    'luggage_price',
     'email_flag',
     'in_charge',
     'tel',
@@ -75,7 +77,7 @@ class Reservation extends Model implements PresentableInterface
     'eat_in',
     'eat_in_prepare',
     'multiple_reserve_id',
-    'luggage_flag'
+
   ];
   protected $dates = [
     'reserve_date',
@@ -201,6 +203,8 @@ class Reservation extends Model implements PresentableInterface
       'event_name1' => $data['event_name1'] ?? "",
       'event_name2' => $data['event_name2'] ?? "",
       'event_owner' => $data['event_owner'] ?? "",
+      'luggage_flag' => !empty($data['luggage_flag']) ? $data['luggage_flag'] : 0,
+      'luggage_price' => !empty($data['luggage_price']) ? $data['luggage_price'] : 0,
       'luggage_count' => $data['luggage_count'],
       'luggage_arrive' => $data['luggage_arrive'],
       'luggage_return' => $data['luggage_return'],
@@ -211,21 +215,25 @@ class Reservation extends Model implements PresentableInterface
       'discount_condition' => $data['discount_condition'] ?? "",
       'attention' => $data['attention'] ?? "",
       'user_details' => $data['user_details'] ?? "",
-      'admin_details' => $data['admin_details'],
+      'admin_details' => $data['admin_details'] ?? "",
       'eat_in' => !empty($data['eat_in']) ? $data['eat_in'] : 0,
       'eat_in_prepare' => !empty($data['eat_in_prepare']) ? $data['eat_in_prepare'] : 0,
       'multiple_reserve_id' => !empty($data['multiple_reserve_id']) ? $data['multiple_reserve_id'] : 0,
-      // 'luggage_flag' => !empty($data['luggage_flag']) ? $data['luggage_flag'] : 0,
+
     ]);
     return $result;
   }
 
   public function ReservationUpdate($data)
   {
-
+    $chkReservation = ($this->checkReservationsTransaction($data['reserve_date'], $data['enter_time'], $data['leave_time'], $data['venue_id'], $data['reservation_id']));
+    $chkPreReservation = ($this->checkPreReservationsTransaction($data['reserve_date'], $data['enter_time'], $data['leave_time'], $data['venue_id']));
+    if (!$chkReservation || !$chkPreReservation) {
+      return "重複";
+    }
     $this->update([
       'venue_id' => $data['venue_id'],
-      'user_id' => !empty($data['venue_id']) ? $data['venue_id'] : 0,
+      'user_id' => !empty($data['user_id']) ? $data['user_id'] : 0,
       'agent_id' => !empty($data['agent_id']) ? $data['agent_id'] : 0,
       'reserve_date' => $data['reserve_date'],
       'price_system' => $data['price_system'],
@@ -237,6 +245,8 @@ class Reservation extends Model implements PresentableInterface
       'event_name1' => !empty($data['event_name1']) ? $data['event_name1'] : "",
       'event_name2' => !empty($data['event_name2']) ? $data['event_name2'] : "",
       'event_owner' => !empty($data['event_owner']) ? $data['event_owner'] : "",
+      'luggage_flag' => !empty($data['luggage_flag']) ? $data['luggage_flag'] : 0,
+      'luggage_price' => !empty($data['luggage_price']) ? $data['luggage_price'] : 0,
       'luggage_count' => $data['luggage_count'],
       'luggage_arrive' => $data['luggage_arrive'],
       'luggage_return' => $data['luggage_return'],
@@ -251,7 +261,6 @@ class Reservation extends Model implements PresentableInterface
       'eat_in' => $data['eat_in'],
       'eat_in_prepare' => !empty($data['eat_in_prepare']) ? $data['eat_in_prepare'] :  0,
       'multiple_reserve_id' => $data['multiple_reserve_id'] ?? 0,
-      // 'luggage_flag' => !empty($data['luggage_flag']) ? $data['luggage_flag'] : 0,
     ]);
     return $this;
   }

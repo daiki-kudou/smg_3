@@ -270,9 +270,10 @@
           </thead>
           <tbody>
             <tr>
-              <td class="table-active">荷物預かり 工藤さん！！こちら</td>
+              <td class="table-active">荷物預かり</td>
               <td>
-                <input class="form-control" type="text" value="工藤さん！こちら、ありかなしの表示をお願いします" readonly>
+                {{ Form::text('', (int)$master_info['luggage_flag']===1?"有り":"無し",['class'=>'form-control', 'readonly'] ) }}
+                {{ Form::hidden('luggage_flag', $master_info['luggage_flag'],['class'=>'form-control', 'readonly'] ) }}
               </td>
             </tr>
             <tr>

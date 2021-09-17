@@ -606,94 +606,6 @@ class ReservationsController extends Controller
     return redirect()->route('admin.reservations.index');
   }
 
-
-  /**
-   * Show the form for editing the specified resource.
-   *
-   * @param  int  $id
-   * @return \Illuminate\Http\Response
-   */
-  // public function edit($id)
-  // {
-  //   $bill = Bill::with(['reservation.user', 'reservation.venue.equipments', 'reservation.venue.services', 'breakdowns'])->find($id);
-  //   $reservation = $bill->reservation;
-  //   $venue = $bill->reservation->venue;
-  //   $users = User::orderBy("id", "desc")->get();
-
-  //   session()->put('reservationEditMaster', $bill);
-  //   return view('admin.reservations.edit', [
-  //     'reservation' => $reservation,
-  //     'venue' => $venue,
-  //     'bill' => $bill,
-  //     'users' => $users,
-  //   ]);
-  // }
-
-  // public function editWithoutCalc(Request $request)
-  // {
-  //   $reservationEditMaster = $request->session()->get('reservationEditMaster');
-
-  //   $bill = $reservationEditMaster;
-  //   $reservation = $bill->reservation;
-  //   $venue = $bill->reservation->venue;
-  //   $users = User::orderBy("id", "desc")->get();
-  //   session()->put('reservationEditMaster', $bill);
-
-  //   $data = $request->all();
-  //   $request->session()->put('result', $data);
-  //   $result = $request->session()->get('result');
-  //   $v_cnt = $this->preg($result, "venue_breakdown_item");
-  //   $e_cnt = $this->preg($result, "equipment_breakdown_item");
-  //   $s_cnt = $this->preg($result, "services_breakdown_item");
-  //   $o_cnt = $this->preg($result, "others_input_item");
-  //   return view('admin.reservations.edit_without_calc', [
-  //     'reservation' => $reservation,
-  //     'venue' => $venue,
-  //     'bill' => $bill,
-  //     'users' => $users,
-  //     'v_cnt' => $v_cnt,
-  //     'e_cnt' => $e_cnt,
-  //     's_cnt' => $s_cnt,
-  //     'o_cnt' => $o_cnt,
-  //     'result' => $result,
-  //   ]);
-  // }
-
-
-  // public function sessionForEditCalculate(Request $request)
-  // {
-  //   $data = $request->all();
-  //   $request->session()->put('basicInfo', $data);
-  //   return redirect(route('admin.reservations.edit_calculate'));
-  // }
-
-  // public function searchPreg($array, $target)
-  // {
-  //   $result = [];
-  //   foreach ($array as $key => $value) {
-  //     if (preg_match('/' . $target . '/', $key)) {
-  //       $result[] = $value;
-  //     }
-  //   }
-  //   return $result;
-  // }
-
-  // public function getMasterPrice($price_details, $item_details, $layouts_details, $target)
-  // {
-  //   //枠がなく会場料金を手打ちするパターン
-  //   if ($price_details == 0) {
-  //     $masters =
-  //       ($item_details[0] + ($target['luggage_price'] ?? 0))
-  //       + ($layouts_details[2] ?? 0);
-  //   } else {
-  //     $masters =
-  //       ($price_details[0] ? $price_details[0] : 0)
-  //       + ($item_details[0] + ($target['luggage_price'] ?? 0))
-  //       + ($layouts_details[2] ?? 0);
-  //   }
-  //   return $masters;
-  // }
-
   public function edit($id)
   {
     $reservation = Reservation::with(['bills', 'bills.breakdowns'])->find($id)->toArray();
@@ -769,7 +681,7 @@ class ReservationsController extends Controller
   public function update(Request $request)
   {
     $data = $request->all();
-    if ($data['back']) {
+    if (!empty($data['back'])) {
       return redirect(route('admin.reservations.edit', $data['reservation_id']));
     }
     $reservation = Reservation::find($data['reservation_id']);

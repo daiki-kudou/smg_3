@@ -595,6 +595,21 @@ $(function () {
           $('.luggage table tbody').html('');
           var data =
             "<tr>" +
+            "<td class='table-active'>荷物預かり</td>" +
+            "<td>" +
+            "<div class='radio-box'>" +
+            "<p>" +
+            "<input id='luggage_flag' name='luggage_flag' type='radio' value='1'>" +
+            "<label for='luggage_flag' class ='form-check-label'>有り</label>" +
+            "</p>" +
+            "<p>" +
+            "<input id='no_luggage_flag' name='luggage_flag' type='radio' value='0' checked>" +
+            "<label for='no_luggage_flag' class ='form-check-label'>無し</label>" +
+            "</p>" +
+            "</div>" +
+            "</td>" +
+            "</tr>" +
+            "<tr>" +
             "<td class='table-active'>事前に預かる荷物<br>（個数）</td>" +
             "<td class=''>" +
             "<input type='number' class='form-control luggage_count' placeholder='個数入力' name='luggage_count'>" +
@@ -687,15 +702,16 @@ $(function () {
       },
       dataType: 'text',
       beforeSend: function () {
-        // $('#fullOverlay').css('display', 'block');
+        $('#fullOverlay').css('display', 'block');
       },
     })
       .done(function ($agent_result) {
         console.log($agent_result);
         $('.selected_person').text($agent_result);
+        $('#fullOverlay').css('display', 'none');
       })
       .fail(function ($agent_result) {
-        // $('#fullOverlay').css('display', 'none');
+        $('#fullOverlay').css('display', 'none');
         console.log('ajaxGetClients 失敗', $agent_result)
       });
   }

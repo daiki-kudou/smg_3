@@ -523,19 +523,12 @@
                 </thead>
                 <tbody>
                   <tr>
-                    <td class="table-active"><label for="preDelivery">荷物預かり　工藤さん！！！</label></td>
-                    <td>工藤さん！なしかありを表示でお願いします</td>
+                    <td class="table-active"><label for="preDelivery">荷物預かり</label></td>
+                    <td>{{(int)$pre_reservation->luggage_flag===1?"有り":"無し"}}</td>
                   </tr>
-                  {{-- <tr>
-                    <td class="table-active"><label for="Delivery">荷物預かり</label>
-                    </td>
-                    <td>
-                      {{$pre_reservation->luggage_count?"あり":"なし"}}
-                  </td>
-                  </tr> --}}
                   <tr>
                     <td class="table-active"><label for="preDelivery">事前に預かる荷物(目安)</label></td>
-                    <td>{{$pre_reservation->luggage_count?$pre_reservation->luggage_count:0}}個</td>
+                    <td>{{$pre_reservation->luggage_count?$pre_reservation->luggage_count."個":""}}</td>
                   </tr>
                   <tr>
                     <td class="table-active"><label for="preDelivery">事前荷物の到着日</label></td>
@@ -545,9 +538,8 @@
                   </tr>
                   <tr>
                     <td class="table-active"><label for="preDelivery">事後返送する荷物</label></td>
-                    <td>{{$pre_reservation->luggage_return?$pre_reservation->luggage_return:0}}個</td>
+                    <td>{{$pre_reservation->luggage_return?$pre_reservation->luggage_return."個":""}}</td>
                   </tr>
-
                 </tbody>
               </table>
             </div>

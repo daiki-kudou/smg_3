@@ -136,7 +136,7 @@
     </div>
   </section>
 
-  <iframe class="mt-5" src="/admin/note?date={{$today}}" frameborder="0" width="100%" height="500px;"
+  <iframe class="mt-5" src="{{url('/')}}/admin/note?date={{$today}}" frameborder="0" width="100%" height="500px;"
     scrolling="yes"></iframe>
 
   @foreach ($reservations as $reservation)

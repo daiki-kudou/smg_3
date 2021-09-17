@@ -36,31 +36,6 @@
       </tr>
       @endif
       @endforeach
-      {{-- @foreach ($notes as $note)
-      @if ($id==$note->id)
-      {{ Form::open(['url' => 'admin/note/update', 'method' => 'post','id'=>'add_note_form']) }}
-      @csrf
-      <tr>
-        <td>{{Form::text('hour',$note->hour, ['class' => 'form-control'])}}</td>
-        <td>{{Form::text('venue',$note->venue, ['class' => 'form-control'])}}</td>
-        <td>{{Form::text('company',$note->company, ['class' => 'form-control'])}}</td>
-        <td>{{Form::textarea('content',$note->content, ['class' => 'form-control'])}}</td>
-        <td>
-          {{Form::hidden('note_id',$note->id)}}
-          {{ Form::submit('更新する', ['class' => 'btn more_btn']) }}
-        </td>
-      </tr>
-      {{ Form::close() }}
-      @else
-      <tr>
-        <td>{{$note->hour}}</td>
-        <td>{{$note->venue}}</td>
-        <td>{{$note->company}}</td>
-        <td>{{$note->content}}</td>
-        <td>
-      </tr>
-      @endif
-      @endforeach --}}
     </tbody>
   </table>
 

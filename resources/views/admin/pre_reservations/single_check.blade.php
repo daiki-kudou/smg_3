@@ -411,16 +411,16 @@
               <tbody>
                 @if ($venue->luggage_flag==1)
                 <tr>
-                  <td class="table-active">荷物預かり 工藤さん！！こちら</td>
+                  <td class="table-active">荷物預かり</td>
                   <td>
                     <div class="radio-box">
                       <p>
-                        <input id="luggage_flag" name="luggage_flag" type="radio" value="1">
-                        <label for="" class="form-check-label">有り</label>
+                        {{Form::radio('luggage_flag', 1, false, ['id'=>'luggage_flag'])}}
+                        {{Form::label('luggage_flag','有り')}}
                       </p>
                       <p>
-                        <input id="no_luggage_flag" name="luggage_flag" type="radio" value="0">
-                        <label for="" class="form-check-label">無し</label>
+                        {{Form::radio('luggage_flag', 0, true, ['id'=>'no_luggage_flag'])}}
+                        {{Form::label('no_luggage_flag','無し')}}
                       </p>
                     </div>
                   </td>
