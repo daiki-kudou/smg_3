@@ -273,8 +273,11 @@ $(function () {
           // どちらも配列がない
           $('#price_system1').addClass("hide");
           $('#price_system2').addClass("hide");
-          // swal('選択した会場は登録された料金体系がありません。会場管理/料金管理 にて作成してください');
+          $('input[name="submit"]').prop('disabled', true);
+          return false;
         }
+        $('input[name="submit"]').prop('disabled', false);
+
       })
       .fail(function ($prices) {
         // $('#fullOverlay').css('display', 'none');

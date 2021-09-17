@@ -20,7 +20,7 @@
   <h2 class="mt-3 mb-3">有料備品管理</h2>
   <hr>
   <div class="text-right">
-    <a href="/admin/equipments/create" class="btn more_btn3">新規登録</a>
+    <a href="{{url('/').'/admin/equipments/create'}}" class="btn more_btn3">新規登録</a>
   </div>
 </div>
 

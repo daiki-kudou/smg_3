@@ -68,7 +68,7 @@
             </tbody>
             <tbody class="venue_head {{empty($data['venue_breakdown_item'][0])?"hide":""}}">
               <tr>
-                <td colspan="2">内容</td>
+                <td>内容</td>
                 <td>単価</td>
                 <td>数量</td>
                 <td>金額</td>
@@ -79,7 +79,7 @@
               @if (!empty($data['venue_breakdown_item'][0]))
               @foreach ($data['venue_breakdown_item'] as $key=>$v)
               <tr>
-                <td colspan="2">
+                <td>
                   {{ Form::text('venue_breakdown_item[]', $data['venue_breakdown_item'][$key], ['class' => 'form-control'])}}
                 </td>
                 <td>
@@ -130,7 +130,7 @@
             {{empty($data['equipment_breakdown_item'][0])?"hide":""}}
             ">
               <tr>
-                <td colspan="2">内容</td>
+                <td>内容</td>
                 <td>単価</td>
                 <td>数量</td>
                 <td>金額</td>
@@ -261,7 +261,7 @@
             </tbody>
             <tbody class="others_head {{empty($data['others_breakdown_item'][0])?"hide":""}}">
               <tr>
-                <td colspan="2">内容</td>
+                <td>内容</td>
                 <td>単価</td>
                 <td>数量</td>
                 <td>金額</td>
@@ -272,7 +272,7 @@
               @if (!empty($data['others_breakdown_item'][0]))
               @foreach ($data['others_breakdown_item'] as $key=>$o)
               <tr>
-                <td colspan="2">
+                <td>
                   {{ Form::text('others_breakdown_item[]', $data['others_breakdown_item'][$key], ['class' => 'form-control'])}}
                 </td>
                 <td>
@@ -292,7 +292,7 @@
               @endforeach
               @else
               <tr>
-                <td colspan="2">
+                <td>
                   {{ Form::text('others_breakdown_item[]', '', ['class' => 'form-control'])}}
                 </td>
                 <td>
@@ -394,7 +394,7 @@
                 </td>
               </tr>
               <tr>
-                <td colspan="2">請求書備考
+                <td>請求書備考
                   {{ Form::textarea('bill_remark', !empty($data['bill_remark'])?$data['bill_remark']:"", ['class' => 'form-control'])}}
                 </td>
               </tr>
@@ -539,7 +539,7 @@
     calc('.layout input', '.layout_main tr', 'input[name="layout_price"]');
 
     function calc($targetClass, $targetTr, $targetSum) {
-      $($targetClass).on('change', function() {
+      $($targetClass).on('input', function() {
         var trTarget = $($targetTr).length;
         var result_add = 0;
         for (let calc = 0; calc < trTarget; calc++) {
@@ -560,7 +560,7 @@
     })
 
     // 総合計額抽出
-    $('input').on('change', function() {
+    $('input').on('input', function() {
       MaterCalc();
     })
 

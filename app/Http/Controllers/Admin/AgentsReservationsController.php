@@ -242,6 +242,7 @@ class AgentsReservationsController extends Controller
   public function editCheck(Request $request)
   {
     $data = $request->all();
+    // dd($data);
     if ($request->edit_calc) { //再計算ボタン押下
       return $this->edit_calc($data);
     }

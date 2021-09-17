@@ -278,12 +278,14 @@
               </tr>
               <tr>
                 <td class="table-active"><label for="preDelivery">事前に預かる荷物(目安)</label></td>
-                <td>{{ isset($reservation->luggage_count) ? $reservation->luggage_count."個" : '' }}</td>
+                <td>
+                  {{ isset($reservation->luggage_count) ?((int)$reservation->luggage_count===0?"":$reservation->luggage_count."個") : '' }}
+                </td>
               </tr>
               <tr>
                 <td class="table-active"><label for="preDelivery">事前荷物の到着日</label></td>
                 <td>
-                  {{ !empty($reservation->luggage_arrive) ? ReservationHelper::formatDate($reservation->luggage_arrive) : '' }}
+                  {{ ($reservation->luggage_arrive) ? ReservationHelper::formatDate($reservation->luggage_arrive) : '' }}
                 </td>
               </tr>
               <tr>

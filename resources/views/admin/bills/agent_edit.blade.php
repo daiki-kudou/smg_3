@@ -15,6 +15,16 @@
   <h2 class="mt-3 mb-3">追加請求書　編集</h2>
   <hr>
 
+  @if ($errors->any())
+  <div class="alert alert-danger">
+    <ul>
+      @foreach ($errors->all() as $error)
+      <li>{{ $error }}</li>
+      @endforeach
+    </ul>
+  </div>
+  @endif
+
   {{ Form::open(['url' => 'admin/bills/'.$bill->id.'/agent_edit_update', 'method'=>'psot', 'id'=>'agentsbillsEditForm']) }}
   @csrf
   <section class="mt-5">
@@ -59,16 +69,16 @@
                 @foreach ($bill->breakdowns->where('unit_type',1) as $key=>$value)
                 <tr>
                   <td>
-                    {{Form::text('venue_breakdown_item'.$loop->index,$value->unit_item,['class'=>'form-control'])}}
+                    {{Form::text('venue_breakdown_item[]',$value->unit_item,['class'=>'form-control'])}}
                   </td>
                   <td>
-                    {{Form::text('','',['class'=>'form-control','readonly'])}}
+                    {{Form::text('venue_breakdown_cost[]','0',['class'=>'form-control','readonly'])}}
                   </td>
                   <td>
-                    {{Form::text('venue_breakdown_count'.$loop->index,$value->unit_count,['class'=>'form-control'])}}
+                    {{Form::text('venue_breakdown_count[]',$value->unit_count,['class'=>'form-control'])}}
                   </td>
                   <td>
-                    {{Form::text('','',['class'=>'form-control','readonly'])}}
+                    {{Form::text('venue_breakdown_subtotal[]','0',['class'=>'form-control','readonly'])}}
                   </td>
                   <td class="text-left">
                     <input type="button" value="＋" class="add pluralBtn bg-blue">
@@ -79,16 +89,16 @@
                 @else
                 <tr>
                   <td>
-                    {{Form::text('venue_breakdown_item0','',['class'=>'form-control'])}}
+                    {{Form::text('venue_breakdown_item[]','',['class'=>'form-control','disabled'])}}
                   </td>
                   <td>
-                    {{Form::text('','',['class'=>'form-control','readonly'])}}
+                    {{Form::text('venue_breakdown_cost[]','0',['class'=>'form-control','readonly','disabled'])}}
                   </td>
                   <td>
-                    {{Form::text('venue_breakdown_count0','',['class'=>'form-control'])}}
+                    {{Form::text('venue_breakdown_count[]','',['class'=>'form-control','disabled'])}}
                   </td>
                   <td>
-                    {{Form::text('','',['class'=>'form-control','readonly'])}}
+                    {{Form::text('venue_breakdown_subtotal[]','0',['class'=>'form-control','readonly','disabled'])}}
                   </td>
                   <td class="text-left">
                     <input type="button" value="＋" class="add pluralBtn bg-blue">
@@ -127,16 +137,16 @@
                 @foreach ($bill->breakdowns->where('unit_type',2) as $key=>$equ)
                 <tr>
                   <td>
-                    {{Form::text('equipment_breakdown_item'.$loop->index,$equ->unit_item,['class'=>'form-control'])}}
+                    {{Form::text('equipment_breakdown_item[]',$equ->unit_item,['class'=>'form-control'])}}
                   </td>
                   <td>
-                    {{Form::text('','',['class'=>'form-control','readonly'])}}
+                    {{Form::text('equipment_breakdown_cost[]','0',['class'=>'form-control','readonly'])}}
                   </td>
                   <td>
-                    {{Form::text('equipment_breakdown_count'.$loop->index,$equ->unit_count,['class'=>'form-control'])}}
+                    {{Form::text('equipment_breakdown_count[]',$equ->unit_count,['class'=>'form-control'])}}
                   </td>
                   <td>
-                    {{Form::text('','',['class'=>'form-control','readonly'])}}
+                    {{Form::text('equipment_breakdown_subtotal[]','0',['class'=>'form-control','readonly'])}}
                   </td>
                   <td class="text-left">
                     <input type="button" value="＋" class="add pluralBtn bg-blue">
@@ -147,16 +157,16 @@
                 @else
                 <tr>
                   <td>
-                    {{Form::text('equipment_breakdown_item0','',['class'=>'form-control'])}}
+                    {{Form::text('equipment_breakdown_item[]','',['class'=>'form-control','disabled'])}}
                   </td>
                   <td>
-                    {{Form::text('','',['class'=>'form-control','readonly'])}}
+                    {{Form::text('equipment_breakdown_cost[]','0',['class'=>'form-control','readonly','disabled'])}}
                   </td>
                   <td>
-                    {{Form::text('equipment_breakdown_count0','',['class'=>'form-control'])}}
+                    {{Form::text('equipment_breakdown_count[]','',['class'=>'form-control','disabled'])}}
                   </td>
                   <td>
-                    {{Form::text('','',['class'=>'form-control','readonly'])}}
+                    {{Form::text('equipment_breakdown_subtotal[]','0',['class'=>'form-control','readonly','disabled'])}}
                   </td>
                   <td class="text-left">
                     <input type="button" value="＋" class="add pluralBtn bg-blue">
@@ -195,16 +205,16 @@
                 @foreach ($bill->breakdowns->where('unit_type',4) as $key=>$lay)
                 <tr>
                   <td>
-                    {{Form::text('layout_breakdown_item'.$key,$lay->unit_item,['class'=>'form-control'])}}
+                    {{Form::text('layout_breakdown_item[]',$lay->unit_item,['class'=>'form-control'])}}
                   </td>
                   <td>
-                    {{Form::text('layout_breakdown_cost'.$key,$lay->unit_cost,['class'=>'form-control'])}}
+                    {{Form::text('layout_breakdown_cost[]',$lay->unit_cost,['class'=>'form-control'])}}
                   </td>
                   <td>
-                    {{Form::text('layout_breakdown_count'.$key,$lay->unit_count,['class'=>'form-control'])}}
+                    {{Form::text('layout_breakdown_count[]',$lay->unit_count,['class'=>'form-control'])}}
                   </td>
                   <td>
-                    {{Form::text('layout_breakdown_subtotal'.$key,$lay->unit_subtotal,['class'=>'form-control','readonly'])}}
+                    {{Form::text('layout_breakdown_subtotal[]',$lay->unit_subtotal,['class'=>'form-control','readonly'])}}
                   </td>
                   <td class="text-left">
                     <input type="button" value="＋" class="add pluralBtn bg-blue">
@@ -215,16 +225,16 @@
                 @else
                 <tr>
                   <td>
-                    {{Form::text('layout_breakdown_item0','',['class'=>'form-control'])}}
+                    {{Form::text('layout_breakdown_item[]','',['class'=>'form-control','disabled'])}}
                   </td>
                   <td>
-                    {{Form::text('layout_breakdown_cost0','',['class'=>'form-control'])}}
+                    {{Form::text('layout_breakdown_cost[]','',['class'=>'form-control','disabled'])}}
                   </td>
                   <td>
-                    {{Form::text('layout_breakdown_count0','',['class'=>'form-control'])}}
+                    {{Form::text('layout_breakdown_count[]','',['class'=>'form-control','disabled'])}}
                   </td>
                   <td>
-                    {{Form::text('layout_breakdown_subtotal0','',['class'=>'form-control','readonly'])}}
+                    {{Form::text('layout_breakdown_subtotal[]','',['class'=>'form-control','readonly','disabled'])}}
                   </td>
                   <td class="text-left">
                     <input type="button" value="＋" class="add pluralBtn bg-blue">
@@ -273,16 +283,16 @@
                 @foreach ($bill->breakdowns->where('unit_type',5) as $key=>$other)
                 <tr>
                   <td>
-                    {{Form::text('others_breakdown_item'.$loop->index,$other->unit_item,['class'=>'form-control'])}}
+                    {{Form::text('others_breakdown_item[]',$other->unit_item,['class'=>'form-control'])}}
                   </td>
                   <td>
-                    {{Form::text('','',['class'=>'form-control','readonly'])}}
+                    {{Form::text('others_breakdown_cost[]','0',['class'=>'form-control','readonly'])}}
                   </td>
                   <td>
-                    {{Form::text('others_breakdown_count'.$loop->index,$other->unit_count,['class'=>'form-control'])}}
+                    {{Form::text('others_breakdown_count[]',$other->unit_count,['class'=>'form-control'])}}
                   </td>
                   <td>
-                    {{Form::text('','',['class'=>'form-control','readonly'])}}
+                    {{Form::text('others_breakdown_subtotal[]','0',['class'=>'form-control','readonly'])}}
                   </td>
                   <td class="text-left">
                     <input type="button" value="＋" class="add pluralBtn bg-blue">
@@ -293,16 +303,16 @@
                 @else
                 <tr>
                   <td>
-                    {{Form::text('others_breakdown_item0', '',['class'=>'form-control'])}}
+                    {{Form::text('others_breakdown_item[]', '',['class'=>'form-control','disabled'])}}
                   </td>
                   <td>
-                    {{Form::text('', '',['class'=>'form-control','readonly'])}}
+                    {{Form::text('others_breakdown_cost[]', '0',['class'=>'form-control','readonly','disabled'])}}
                   </td>
                   <td>
-                    {{Form::text('others_breakdown_count0', '',['class'=>'form-control'])}}
+                    {{Form::text('others_breakdown_count[]', '',['class'=>'form-control','disabled'])}}
                   </td>
                   <td>
-                    {{Form::text('', '',['class'=>'form-control','readonly'])}}
+                    {{Form::text('others_breakdown_subtotal[]', '0',['class'=>'form-control','readonly','disabled'])}}
                   </td>
                   <td class="text-left">
                     <input type="button" value="＋" class="add pluralBtn bg-blue">
@@ -449,27 +459,27 @@
     $(document).on("click", ".add", function() {
       var target = $(this).parent().parent();
       target.clone(true).insertAfter(target);
-      AddTr(target, 'venue_main', 'venue_breakdown');
-      AddTr(target, 'equipment_main', 'equipment_breakdown');
-      AddTr(target, 'layout_main', 'layout_breakdown');
-      AddTr(target, 'others_main', 'others_breakdown');
+      // AddTr(target, 'venue_main', 'venue_breakdown');
+      // AddTr(target, 'equipment_main', 'equipment_breakdown');
+      // AddTr(target, 'layout_main', 'layout_breakdown');
+      // AddTr(target, 'others_main', 'others_breakdown');
       target.parent().find('tr').last().find('td').eq(0).find('input').val('');
       target.parent().find('tr').last().find('td').eq(1).find('input').val(0);
       target.parent().find('tr').last().find('td').eq(2).find('input').val('');
       target.parent().find('tr').last().find('td').eq(3).find('input').val(0);
     })
 
-    function AddTr($target, $targetClass, $targetName) {
-      if ($target.parent().hasClass($targetClass)) {
-        var target_length = $target.parent().find('tr').length;
-        for (let index = 0; index < target_length; index++) {
-          $target.parent().find('tr').eq(index).find('td').eq(0).find('input').attr('name', $targetName + '_item' + index)
-          $target.parent().find('tr').eq(index).find('td').eq(1).find('input').attr('name', $targetName + '_cost' + index)
-          $target.parent().find('tr').eq(index).find('td').eq(2).find('input').attr('name', $targetName + '_count' + index)
-          $target.parent().find('tr').eq(index).find('td').eq(3).find('input').attr('name', $targetName + '_subtotal' + index)
-        }
-      }
-    }
+    // function AddTr($target, $targetClass, $targetName) {
+    //   if ($target.parent().hasClass($targetClass)) {
+    //     var target_length = $target.parent().find('tr').length;
+    //     for (let index = 0; index < target_length; index++) {
+    //       $target.parent().find('tr').eq(index).find('td').eq(0).find('input').attr('name', $targetName + '_item' + index)
+    //       $target.parent().find('tr').eq(index).find('td').eq(1).find('input').attr('name', $targetName + '_cost' + index)
+    //       $target.parent().find('tr').eq(index).find('td').eq(2).find('input').attr('name', $targetName + '_count' + index)
+    //       $target.parent().find('tr').eq(index).find('td').eq(3).find('input').attr('name', $targetName + '_subtotal' + index)
+    //     }
+    //   }
+    // }
     // マイナス押下
     $(document).on("click", ".del", function() {
       var master = $(this).parent().parent().parent().find('tr').length;
