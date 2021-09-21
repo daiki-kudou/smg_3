@@ -754,13 +754,6 @@ class Reservation extends Model implements PresentableInterface
       }
     });
 
-
-
-
-
-
-
-
     return $searchTarget;
   }
 
@@ -791,7 +784,11 @@ class Reservation extends Model implements PresentableInterface
       breakdowns4.unit_type as unit_type4,
       reservations.eat_in as eat_in,
       reservations.multiple_reserve_id as multiple_reserve_id,
-      concat(venues.name_area,venues.name_bldg,venues.name_venue) as venue_name
+      concat(venues.name_area,venues.name_bldg,venues.name_venue) as venue_name,
+      case when bills.reservation_status <= 3 then 0 else 1 end as 予約中かキャンセルか,
+      case when reservations.reserve_date >= CURRENT_DATE then 0 else 1 end as 今日以降かどうか,
+      case when reservations.reserve_date >= CURRENT_DATE then reserve_date end as 今日以降日付,
+      case when reservations.reserve_date < CURRENT_DATE then reserve_date end as 今日未満日付
       '
       ))
       ->leftJoin('reservations', 'bills.reservation_id', '=', 'reservations.id')
@@ -801,44 +798,13 @@ class Reservation extends Model implements PresentableInterface
       ->leftJoin(DB::raw('(select bill_id, unit_type, unit_item from breakdowns where unit_type = 2) as breakdowns2'), 'bills.id', '=', 'breakdowns2.bill_id')
       ->leftJoin(DB::raw('(select bill_id, unit_type, unit_item from breakdowns where unit_type = 3) as breakdowns3'), 'bills.id', '=', 'breakdowns3.bill_id')
       ->leftJoin(DB::raw('(select bill_id, unit_type, unit_item from breakdowns where unit_type = 4) as breakdowns4'), 'bills.id', '=', 'breakdowns4.bill_id')
-      ->leftJoin('venues', 'reservations.venue_id', '=', 'venues.id');
+      ->leftJoin('venues', 'reservations.venue_id', '=', 'venues.id')
+      ->orderByRaw('予約中かキャンセルか,今日以降かどうか,今日以降日付,今日未満日付 desc');
+
+
     return $searchTarget;
   }
 
-  public function searchFilter($MODE, $records, $key, $val, $COMPTYPE = "")
-  {
-    switch ($MODE) {
-      case 'LIKEMODE':
-        $filtered = $records->filter(function ($record) use ($key, $val) {
-          return strpos($record->$key, $val) !== false;
-        });
-        break;
-      case 'COMPMODE':
-        if ($COMPTYPE === "moreThan") {
-          $filtered = $records->filter(function ($record) use ($key, $val) {
-            return $this->moreThan($record->$key, $val);
-          });
-        } elseif ($COMPTYPE === "lessThan") {
-          $filtered = $records->filter(function ($record) use ($key, $val) {
-            return $this->lessThan($record->$key, $val);
-          });
-        }
-        break;
-      default:
-        break;
-    }
-    return $filtered;
-  }
-
-  public function moreThan($a, $b)
-  {
-    return $a >= $b;
-  }
-
-  public function lessThan($a, $b)
-  {
-    return $a <= $b;
-  }
 
 
   // reservations show 各請求書合計額
@@ -869,6 +835,8 @@ class Reservation extends Model implements PresentableInterface
       $all_master_subtotal
     ];
   }
+
+
 
   // reservations update
   // public function UpdateReservation($basicInfo, $result)

@@ -48,7 +48,7 @@ class ReservationsController extends Controller
 
 
     $counter = 0;
-    $reservations = Reservation::all();
+    // $reservations = Reservation::all();
     $venues = Venue::all()->toArray();
     $agents = Agent::all()->toArray();
 
@@ -56,11 +56,16 @@ class ReservationsController extends Controller
     if (count(array_filter($data)) !== 0) {
       // 検索あり
       $reservations = new Reservation;
-      $reservations = $reservations->search_item($data);
-      $uniqueReservationId = $reservations->get()->unique('reservation_id')->pluck('reservation_id')->toArray();
-      $reservations = Reservation::whereIn('id', $uniqueReservationId)->get();
+      // $reservations = $reservations->search_item($data);
+      $reservationsWithOrder = array_unique($reservations->search_item($data)->pluck('reservation_id')->toArray());
+      $ids_order = implode(',', array_values($reservationsWithOrder));
+      $reservations = Reservation::whereIn("id", $reservationsWithOrder)->orderByRaw("FIELD(id, $ids_order)")->get();
     } else {
       // 検索なし
+      $reservations = new Reservation;
+      $reservationsWithOrder = array_unique($reservations->ReservationSearchTarget()->pluck('reservation_id')->toArray());
+      $ids_order = implode(',', array_values($reservationsWithOrder));
+      $reservations = Reservation::whereIn("id", $reservationsWithOrder)->orderByRaw("FIELD(id, $ids_order)")->get();
     }
 
     return view('admin.reservations.index', compact('reservations', 'venues', 'agents', 'request', 'counter'));
