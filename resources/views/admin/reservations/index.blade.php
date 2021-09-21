@@ -373,7 +373,7 @@
       </table>
     </div>
   </div>
-  {{-- {{$reservations->appends(request()->input())->links()}} --}}
+  {{$reservations->appends(request()->input())->links()}}
 </div>
 
 
