@@ -200,7 +200,7 @@
           <tr>
             <th class="search_item_name"><label for="freeword">フリーワード検索</label></th>
             <td colspan="3">
-              {{ Form::text('freeword', '', ['class' => 'form-control', 'id'=>'']) }}
+              {{ Form::text('freeword', $request->freeword, ['class' => 'form-control', 'id'=>'']) }}
             </td>
           </tr>
         </tbody>

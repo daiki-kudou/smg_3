@@ -634,12 +634,24 @@ class Reservation extends Model implements PresentableInterface
   {
     $searchTarget = $this->ReservationSearchTarget();
 
-    if ($data['multiple_id']) {
-      $searchTarget->whereRaw('reservations.multiple_reserve_id = ? ', [$data['multiple_id']]);
+    if (!empty($data['multiple_id']) && (int)$data['multiple_id'] > 0) {
+      for ($i = 0; $i < strlen($data['multiple_id']); $i++) {
+        if ((int)$data['multiple_id'][$i] !== 0) {
+          $id = strstr($data['multiple_id'], $data['multiple_id'][$i]);
+          break;
+        }
+      }
+
+      $searchTarget->whereRaw('reservations.multiple_reserve_id = ? ', [$id]);
     }
 
-    if ($data['search_id']) {
-      $id = $data['search_id'];
+    if (!empty($data['search_id']) && (int)$data['search_id'] > 0) {
+      for ($i = 0; $i < strlen($data['search_id']); $i++) {
+        if ((int)$data['search_id'][$i] !== 0) {
+          $id = strstr($data['search_id'], $data['search_id'][$i]);
+          break;
+        }
+      }
       $searchTarget->whereRaw('reservations.id LIKE ? ',  ['%' . $id . '%']);
     }
 
@@ -718,6 +730,33 @@ class Reservation extends Model implements PresentableInterface
       }
     });
 
+    $searchTarget = $searchTarget->where(function ($query) use ($data) {
+      if (!empty($data['freeword'])) {
+        for ($i = 0; $i < strlen($data['freeword']); $i++) {
+          if ((int)$data['freeword'][$i] !== 0) {
+            $id = strstr($data['freeword'], $data['freeword'][$i]);
+            $query->orWhereRaw('reservations.id LIKE ? ', ['%' . $id . '%']);
+            $query->orWhereRaw('reservations.multiple_reserve_id LIKE ? ', ['%' . $id . '%']);
+            $query->orWhereRaw('users.mobile LIKE ? ', ['%' . $id . '%']);
+            $query->orWhereRaw('users.tel LIKE ? ', ['%' . $id . '%']);
+            $query->orWhereRaw('reservations.reserve_date LIKE ? ', ['%' . $id . '%']);
+            $query->orWhereRaw('reservations.enter_time LIKE ? ', ['%' . $id . '%']);
+            $query->orWhereRaw('reservations.leave_time LIKE ? ', ['%' . $id . '%']);
+            break;
+          }
+        }
+        $query->orWhereRaw('concat(venues.name_area,venues.name_bldg,venues.name_venue) LIKE ? ',  ['%' . $data['freeword'] . '%']);
+        $query->orWhereRaw('concat(users.first_name,users.last_name) LIKE ? ',  ['%' . $data['freeword'] . '%']);
+        $query->orWhereRaw('users.company LIKE ? ',  ['%' . $data['freeword'] . '%']);
+        $query->orWhereRaw('concat(agents.person_firstname,agents.person_lastname) LIKE ? ',  ['%' . $data['freeword'] . '%']);
+        $query->orWhereRaw('agents.name LIKE ? ',  ['%' . $data['freeword'] . '%']);
+        $query->orWhereRaw('endusers.company LIKE ? ',  ['%' . $data['freeword'] . '%']);
+      }
+    });
+
+
+
+
 
 
 
@@ -751,7 +790,9 @@ class Reservation extends Model implements PresentableInterface
       breakdowns3.unit_type as unit_type3,
       breakdowns4.unit_type as unit_type4,
       reservations.eat_in as eat_in,
-      reservations.multiple_reserve_id as multiple_reserve_id'
+      reservations.multiple_reserve_id as multiple_reserve_id,
+      concat(venues.name_area,venues.name_bldg,venues.name_venue) as venue_name
+      '
       ))
       ->leftJoin('reservations', 'bills.reservation_id', '=', 'reservations.id')
       ->leftJoin('users', 'reservations.user_id', '=', 'users.id')
@@ -759,7 +800,8 @@ class Reservation extends Model implements PresentableInterface
       ->leftJoin('endusers', 'bills.reservation_id', '=', 'endusers.reservation_id')
       ->leftJoin(DB::raw('(select bill_id, unit_type, unit_item from breakdowns where unit_type = 2) as breakdowns2'), 'bills.id', '=', 'breakdowns2.bill_id')
       ->leftJoin(DB::raw('(select bill_id, unit_type, unit_item from breakdowns where unit_type = 3) as breakdowns3'), 'bills.id', '=', 'breakdowns3.bill_id')
-      ->leftJoin(DB::raw('(select bill_id, unit_type, unit_item from breakdowns where unit_type = 4) as breakdowns4'), 'bills.id', '=', 'breakdowns4.bill_id');
+      ->leftJoin(DB::raw('(select bill_id, unit_type, unit_item from breakdowns where unit_type = 4) as breakdowns4'), 'bills.id', '=', 'breakdowns4.bill_id')
+      ->leftJoin('venues', 'reservations.venue_id', '=', 'venues.id');
     return $searchTarget;
   }
 
