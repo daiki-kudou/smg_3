@@ -45,28 +45,25 @@ class ReservationsController extends Controller
    */
   public function index(Request $request)
   {
-    $today = date('Y-m-d', strtotime(Carbon::today()));
-    if (!empty($request->all())) {
-      $class = new Reservation;
-      $result = $class->search_item($request);
-      $m_after = $result->where('reserve_date', '>=', $today)->sortBy('reserve_date');
-      $m_before = $result->where('reserve_date', '<', $today)->sortByDesc('reserve_date');
-      $reservations = $this->customOrderList($m_after, $m_before);
-      $counter = $this->exceptSortCount($request->except('_token'), $result);
-    } else {
-      $m_after = Reservation::with(['bills.cxl', 'user', 'agent', 'cxls.cxl_breakdowns', 'endusers', 'venue'])->where('reserve_date', '>=', $today)->get()->sortBy('reserve_date');
-      $m_before = Reservation::with(['bills.cxl', 'user', 'agent', 'cxls.cxl_breakdowns', 'endusers', 'venue'])->where('reserve_date', '<', $today)->get()->sortByDesc('reserve_date');
-      $reservations = $this->customOrderList($m_after, $m_before);
-      $counter = 0;
-    }
-    // ソートのリクエストがあれば
-    $reservations = $this->customSearchAndSort($reservations, $request);
-    // 最後のページャー
-    $reservations = $this->customPaginate($reservations, 30, $request);
 
+
+    $counter = 0;
+    $reservations = Reservation::all();
     $venues = Venue::all()->toArray();
     $agents = Agent::all()->toArray();
-    return view('admin.reservations.index', compact('reservations', 'venues', 'agents', 'counter', 'request'));
+
+    $data = $request->except('_token');
+    if (count(array_filter($data)) !== 0) {
+      // 検索あり
+      $reservations = new Reservation;
+      $reservations = $reservations->search_item($data);
+      $uniqueReservationId = $reservations->get()->unique('reservation_id')->pluck('reservation_id')->toArray();
+      $reservations = Reservation::whereIn('id', $uniqueReservationId)->get();
+    } else {
+      // 検索なし
+    }
+
+    return view('admin.reservations.index', compact('reservations', 'venues', 'agents', 'request', 'counter'));
   }
 
   /**

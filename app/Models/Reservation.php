@@ -11,6 +11,7 @@ use App\Models\Venue;
 use App\Models\User;
 use App\Models\Cxl;
 use App\Models\Enduser;
+use Illuminate\Support\Collection;
 
 use Carbon\Carbon;
 
@@ -181,7 +182,7 @@ class Reservation extends Model implements PresentableInterface
     return $result_subtotal;
   }
 
-  //  管理者　予約　保存
+  //  管理者予約保存
   public function ReservationStore($data)
   {
     $chkReservation = ($this->checkReservationsTransaction($data['reserve_date'], $data['enter_time'], $data['leave_time'], $data['venue_id']));
@@ -335,7 +336,7 @@ class Reservation extends Model implements PresentableInterface
   //       'payment' => $discount_info['payment'],
   //       'reservation_status' => 1, //デフォで1、仮押えのデフォは0
   //       'double_check_status' => 0, //デフォで0
-  //       'category' => $category, //デフォで１。　新規以外だと　2:その他有料備品　3:レイアウト　4:その他
+  //       'category' => $category, //デフォで１。新規以外だと2:その他有料備品3:レイアウト4:その他
   //       'admin_judge' => 1, //管理者作成なら1 ユーザー作成なら2
   //       'invoice_number' => $this->generateInvoiceNum(),
   //     ]);
@@ -404,7 +405,7 @@ class Reservation extends Model implements PresentableInterface
   //       'payment' => $request->payment,
   //       'reservation_status' => 1, //デフォで1、仮押えのデフォは0
   //       'double_check_status' => 0, //デフォで0
-  //       'category' => 1, //デフォで１。　新規以外だと　2:その他有料備品　3:レイアウト　4:その他
+  //       'category' => 1, //デフォで１。新規以外だと2:その他有料備品3:レイアウト4:その他
   //       'admin_judge' => 1, //管理者作成なら1 ユーザー作成なら2
   //       'invoice_number' => $this->generateInvoiceNum(),
 
@@ -474,7 +475,7 @@ class Reservation extends Model implements PresentableInterface
   //       'paid' => 0,
   //       'reservation_status' => 1, //デフォで1、仮押えのデフォは0
   //       'double_check_status' => 0, //デフォで0
-  //       'category' => 1, //デフォで１。　新規以外だと　2:その他有料備品　3:レイアウト　4:その他
+  //       'category' => 1, //デフォで１。新規以外だと2:その他有料備品3:レイアウト4:その他
   //       'admin_judge' => 2, //管理者作成なら1 ユーザー作成なら2
   //       'invoice_number' => $this->generateInvoiceNum(),
   //     ]);
@@ -621,37 +622,6 @@ class Reservation extends Model implements PresentableInterface
     }
   }
 
-  // public function ReserveFromAgentBill($request)
-  // {
-  //   DB::transaction(function () use ($request) {
-  //     $bill = $this->bills()->create([
-  //       'reservation_id' => $this->id,
-  //       'venue_price' => 0, //デフォで0
-  //       'equipment_price' => 0, //デフォで0
-  //       'layout_price' =>  $request->layout_price ? $request->layout_price : 0, //デフォで0
-  //       'others_price' => 0, //デフォで0
-  //       'master_subtotal' => $request->master_subtotal,
-  //       'master_tax' => $request->master_tax,
-  //       'master_total' => $request->master_total,
-  //       'payment_limit' => $request->pay_limit,
-  //       'bill_company' => $request->pay_company,
-  //       'bill_person' => $request->bill_person,
-  //       'bill_created_at' => Carbon::now(),
-  //       'bill_remark' => $request->bill_remark,
-  //       'paid' => $request->paid,
-  //       'pay_day' => $request->pay_day,
-  //       'pay_person' => $request->pay_person,
-  //       'payment' => $request->payment,
-  //       'reservation_status' => 1, //デフォで1、仮押えのデフォは0
-  //       'double_check_status' => 0, //デフォで0
-  //       'category' => 1, //デフォで１。　新規以外だと　2:その他有料備品　3:レイアウト　4:その他
-  //       'admin_judge' => 1, //管理者作成なら1 ユーザー作成なら2
-  //       'invoice_number' => $this->generateInvoiceNum(),
-  //     ]);
-  //     $bill->ReserveFromAgentBreakdown($request);
-  //   });
-  // }
-
 
   // 仲介会社選択の場合のみ、エンドユーザーとの一対一
 
@@ -660,146 +630,174 @@ class Reservation extends Model implements PresentableInterface
     return $this->hasOne(Enduser::class);
   }
 
-  public function search_item($request)
+  public function search_item($data)
   {
-    $class = $this->with(['bills.cxl', 'user', 'agent', 'cxls.cxl_breakdowns', 'endusers', 'venue'])
-      ->where(function ($query) use ($request) {
-        if ($request->multiple_id) {
-          $editId = $this->idFormatForSearch($request->multiple_id);
-          $query->where("multiple_reserve_id", 'LIKE', "%{$editId}%");
-        }
+    $searchTarget = $this->ReservationSearchTarget();
 
-        if ($request->search_id) {
-          $editId = $this->idFormatForSearch($request->search_id);
-          $query->where("id", "LIKE", "%" . $editId . "%");
-        }
+    if ($data['multiple_id']) {
+      $searchTarget->whereRaw('reservations.multiple_reserve_id = ? ', [$data['multiple_id']]);
+    }
 
-        if ($request->reserve_date) {
-          $dates = explode(' ~ ', $request->reserve_date);
-          $query->whereBetween("reserve_date", [$dates[0], $dates[1]]);
-        }
+    if ($data['search_id']) {
+      $id = $data['search_id'];
+      $searchTarget->whereRaw('reservations.id LIKE ? ',  ['%' . $id . '%']);
+    }
 
-        if ($request->enter_time) {
-          $query->whereTime("enter_time", '>=', $request->enter_time);
-        }
+    if ($data['reserve_date']) {
+      $targetData = explode(" ~ ", $data['reserve_date']);
+      $searchTarget->whereRaw('reservations.reserve_date between ? AND ? ',  $targetData);
+    }
 
-        if ($request->leave_time) {
-          $query->whereTime("leave_time", '<=', $request->leave_time);
-        }
+    if ($data['enter_time']) {
+      $searchTarget->whereRaw('reservations.enter_time >= ? ',  $data['enter_time']);
+    }
 
-        if ($request->venue_id) {
-          $query->where("venue_id",  $request->venue_id);
-        }
+    if ($data['leave_time']) {
+      $searchTarget->whereRaw('reservations.leave_time <= ? ',  $data['leave_time']);
+    }
 
-        if ($request->company) {
-          $user = User::where('company', 'LIKE', "%{$request->company}%")->pluck('id')->toArray();
-          $query->whereIn("user_id", $user);
-        }
+    if ($data['venue_id']) {
+      $searchTarget->whereRaw('reservations.venue_id = ? ',  [$data['venue_id']]);
+    }
 
-        if ($request->person_name) {
-          $user = User::where(\DB::raw('CONCAT(first_name, last_name)'), 'like', "%{$request->person_name}%")
-            ->pluck('id')
-            ->toArray();
-          $query->whereIn("user_id", $user);
-        }
+    if ($data['company']) {
+      $searchTarget->whereRaw('users.company LIKE ? ',  ['%' . $data['company'] . '%']);
+    }
 
-        if ($request->search_mobile) {
-          $user = User::where('mobile', 'LIKE', "%{$request->search_mobile}%")->pluck('id')->toArray();
-          $query->whereIn("user_id", $user);
-        }
+    if ($data['person_name']) {
+      $searchTarget->whereRaw('concat(users.first_name,users.last_name) LIKE ? ',  ['%' . $data['person_name'] . '%']);
+    }
 
-        if ($request->search_tel) {
-          $user = User::where('tel', 'LIKE', "%{$request->search_tel}%")->pluck('id')->toArray();
-          $query->whereIn("user_id", $user);
-        }
+    if ($data['search_mobile']) {
+      $searchTarget->whereRaw('users.mobile LIKE ? ',  ['%' . $data['search_mobile'] . '%']);
+    }
 
-        if ($request->agent) {
-          $query->where("agent_id",  $request->agent);
-        }
+    if ($data['search_tel']) {
+      $searchTarget->whereRaw('users.tel LIKE ? ',  ['%' . $data['search_tel'] . '%']);
+    }
 
-        if ($request->enduser_person) {
-          $enduser = Enduser::where('company', 'LIKE', "%{$request->enduser_person}%")->pluck('reservation_id')->toArray();
-          $query->whereIn("id", $enduser);
-        }
+    if ($data['agent']) {
+      $searchTarget->whereRaw('agents.id = ? ',  [$data['agent']]);
+    }
 
-        // アイコン（備品。サービス、レイアウト、ケータリング検索）
-        $query->where(function ($query) use ($request) {
-          for ($i = 1; $i <= 4; $i++) {
-            if (!empty($request->{"check_icon" . $i})) {
-              $query->orWhereHas('breakdowns', function ($query) use ($request, $i) {
-                $query->where('unit_type', $request->{'check_icon' . $i});
-              });
-            }
-          }
+    if ($data['enduser_person']) {
+      $searchTarget->whereRaw('endusers.company LIKE ? ',  ['%' . $data['enduser_person'] . '%']);
+    }
+
+    if (!empty($data['check_icon1'])) {
+      $searchTarget->orWhereRaw('breakdowns2.unit_type = ? ',  [$data['check_icon1']]);
+    }
+    if (!empty($data['check_icon2'])) {
+      $searchTarget->orWhereRaw('breakdowns3.unit_type = ? ',  [$data['check_icon2']]);
+    }
+    if (!empty($data['check_icon3'])) {
+      $searchTarget->orWhereRaw('breakdowns4.unit_type = ? ',  [$data['check_icon3']]);
+    }
+    if (!empty($data['check_icon4'])) {
+      $searchTarget->orWhereRaw('reservations.eat_in = ? ',  [1]);
+    }
+
+    $searchTarget = $searchTarget->where(function ($query) use ($data) {
+      if (!empty($data['check_status1'])) {
+        $query->orWhereRaw('bills.reservation_status = ? ', [1]);
+      }
+      if (!empty($data['check_status2'])) {
+        $query->orWhereRaw('bills.reservation_status = ? ',  [2]);
+      }
+      if (!empty($data['check_status3'])) {
+        $query->orWhereRaw('bills.reservation_status = ? ',  [3]);
+      }
+      if (!empty($data['check_status4'])) {
+        $query->orWhereRaw('bills.reservation_status = ? ',  [4]);
+      }
+      if (!empty($data['check_status5'])) {
+        $query->orWhereRaw('bills.reservation_status = ? ',  [5]);
+      }
+      if (!empty($data['check_status6'])) {
+        $query->orWhereRaw('bills.reservation_status = ? ',  [6]);
+      }
+    });
+
+
+
+
+
+    return $searchTarget;
+  }
+
+  /**   
+   * 予約一覧の検索対象マスタ
+   * @return object collectionで返る
+   */
+  public function ReservationSearchTarget()
+  {
+    $searchTarget = DB::table('bills')
+      ->select(DB::raw(
+        'bills.id as bill_id,
+      bills.reservation_status as bill_reserve_status,
+      reservations.id as reservation_id,
+      reservations.reserve_date as reserve_date,
+      reservations.enter_time as enter_time,
+      reservations.leave_time as leave_time,
+      reservations.venue_id as venue_id,
+      users.id as user_id,
+      concat(users.first_name,users.last_name) as user_name,
+      users.company as company,
+      users.mobile as mobile,
+      users.tel as tel,
+      agents.id as agent_id,
+      endusers.company as enduser,
+      breakdowns2.unit_type as unit_type2,
+      breakdowns3.unit_type as unit_type3,
+      breakdowns4.unit_type as unit_type4,
+      reservations.eat_in as eat_in,
+      reservations.multiple_reserve_id as multiple_reserve_id'
+      ))
+      ->leftJoin('reservations', 'bills.reservation_id', '=', 'reservations.id')
+      ->leftJoin('users', 'reservations.user_id', '=', 'users.id')
+      ->leftJoin('agents', 'reservations.agent_id', '=', 'agents.id')
+      ->leftJoin('endusers', 'bills.reservation_id', '=', 'endusers.reservation_id')
+      ->leftJoin(DB::raw('(select bill_id, unit_type, unit_item from breakdowns where unit_type = 2) as breakdowns2'), 'bills.id', '=', 'breakdowns2.bill_id')
+      ->leftJoin(DB::raw('(select bill_id, unit_type, unit_item from breakdowns where unit_type = 3) as breakdowns3'), 'bills.id', '=', 'breakdowns3.bill_id')
+      ->leftJoin(DB::raw('(select bill_id, unit_type, unit_item from breakdowns where unit_type = 4) as breakdowns4'), 'bills.id', '=', 'breakdowns4.bill_id');
+    return $searchTarget;
+  }
+
+  public function searchFilter($MODE, $records, $key, $val, $COMPTYPE = "")
+  {
+    switch ($MODE) {
+      case 'LIKEMODE':
+        $filtered = $records->filter(function ($record) use ($key, $val) {
+          return strpos($record->$key, $val) !== false;
         });
-
-        // 予約状況検索
-        $query->where(function ($query) use ($request) {
-          for ($i = 1; $i <= 6; $i++) {
-            if (!empty($request->{"check_status" . $i})) {
-              $query->orWhereHas('bills', function ($query) use ($request, $i) {
-                $query->where('reservation_status', $request->{'check_status' . $i});
-              });
-            }
-          }
-        });
-
-        if ($request->freeword) {
-          $query->where(function ($query2) use ($request) {
-            if (preg_match("/^[0-9]+$/", $request->freeword)) { //数字のみ
-              $editId = $this->idFormatForSearch($request->freeword);
-              $query2->orWhere('id', 'like', "%{$editId}%"); //予約ID
-              $query2->orWhere('multiple_reserve_id', 'like', "%{$editId}%"); //予約一括ID
-
-              $mobile = User::where('mobile', 'like', "%{$request->freeword}%")->pluck('id')->toArray();
-              $query2->orWhereIn("user_id", $mobile); //携帯電話
-
-              $tel = User::where('tel', 'like', "%{$request->freeword}%")->pluck('id')->toArray();
-              $query2->orWhereIn("user_id", $tel); //固定電話
-
-            } elseif (preg_match("/^[0-9-_:.]+$/", $request->freeword)) { //日時のみ
-              $query2->orWhere("reserve_date", $request->freeword);
-              $query2->orWhere("enter_time", $request->freeword);
-              $query2->orWhere("leave_time", $request->freeword);
-            } else { //文字列
-              $venue = Venue::where(\DB::raw('CONCAT(name_area, name_bldg, name_venue)'), 'like', "%{$request->freeword}%")->pluck('id')->toArray();
-              $query2->orWhereIn("venue_id", $venue); //会場名
-
-              $company = User::where("company", "like", "%{$request->freeword}%")->pluck("id")->toArray();
-              $query2->orWhereIn("user_id", $company); //会社名・団体名
-
-              $user = User::where(\DB::raw('CONCAT(first_name, last_name)'), 'like', "%{$request->freeword}%")->pluck('id')->toArray();
-              $query2->orWhereIn("user_id", $user); //担当者氏名
-
-              $agent = Agent::where("company", "like", "%{$request->freeword}%")->pluck("id")->toArray();
-              $query2->orWhereIn("agent_id", $agent); //仲介会社
-
-              $end_user = Enduser::where("company", "like", "%{$request->freeword}%")->pluck("reservation_id")->toArray();
-              $query2->orWhereIn("id", $end_user); //エンドユーザー
-            }
+        break;
+      case 'COMPMODE':
+        if ($COMPTYPE === "moreThan") {
+          $filtered = $records->filter(function ($record) use ($key, $val) {
+            return $this->moreThan($record->$key, $val);
+          });
+        } elseif ($COMPTYPE === "lessThan") {
+          $filtered = $records->filter(function ($record) use ($key, $val) {
+            return $this->lessThan($record->$key, $val);
           });
         }
-
-        // 前日予約
-        if ($request->day_before) {
-          $today = Carbon::now();
-          $yesterday = $today->subDay();
-          $query->whereDate('reserve_date', date('Y-m-d', strtotime($yesterday)));
-        }
-        // 当日予約
-        if ($request->today) {
-          $today = Carbon::now();
-          $query->whereDate('reserve_date', date('Y-m-d', strtotime($today)));
-        }
-        // 翌日予約
-        if ($request->day_after) {
-          $tomorrow = Carbon::tomorrow();
-          $query->whereDate('reserve_date', date('Y-m-d', strtotime($tomorrow)));
-        }
-      });
-
-    return $class->get();
+        break;
+      default:
+        break;
+    }
+    return $filtered;
   }
+
+  public function moreThan($a, $b)
+  {
+    return $a >= $b;
+  }
+
+  public function lessThan($a, $b)
+  {
+    return $a <= $b;
+  }
+
 
   // reservations show 各請求書合計額
   public function TotalAmount()
@@ -865,7 +863,7 @@ class Reservation extends Model implements PresentableInterface
     $collection = $this->bills->pluck('reservation_status');
     foreach ($collection as $key => $value) {
       if ($value < 3) {
-        //ステータスが予約完了　もしくは　キャンセル完了していないキャンセルプロセスがあれば
+        //ステータスが予約完了もしくはキャンセル完了していないキャンセルプロセスがあれば
         return 0;
         break;
       } elseif ($value > 3 && $value < 6) {
@@ -880,7 +878,7 @@ class Reservation extends Model implements PresentableInterface
     $collection = $this->bills->pluck('reservation_status');
     foreach ($collection as $key => $value) {
       if ($value > 3 && $value != 6) {
-        //ステータスが予約完了　もしくは　キャンセル完了していないキャンセルプロセスがあれば
+        //ステータスが予約完了もしくはキャンセル完了していないキャンセルプロセスがあれば
         return 0;
         break;
       }

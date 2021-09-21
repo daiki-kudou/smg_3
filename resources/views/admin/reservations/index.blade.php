@@ -160,7 +160,7 @@
                   {{Form::label("checkboxPrimary3","レイアウト")}}
                 </li>
                 <li>
-                  {{Form::checkbox('check_icon4', 0, $request->check_icon4!=""?true:false,['id'=>'checkboxPrimary4'])}}
+                  {{Form::checkbox('check_icon4', 5, $request->check_icon4!=""?true:false,['id'=>'checkboxPrimary4'])}}
                   {{Form::label("checkboxPrimary4","ケータリング")}}
                 </li>
               </ul>
@@ -373,7 +373,7 @@
       </table>
     </div>
   </div>
-  {{$reservations->appends(request()->input())->links()}}
+  {{-- {{$reservations->appends(request()->input())->links()}} --}}
 </div>
 
 
