@@ -45,158 +45,33 @@ class ReservationsController extends Controller
    */
   public function index(Request $request)
   {
-
-
     $counter = 0;
-    // $reservations = Reservation::all();
     $venues = Venue::all()->toArray();
     $agents = Agent::all()->toArray();
-
     $data = $request->except('_token');
+    // 検索と初期並び設定
     if (count(array_filter($data)) !== 0) {
       // 検索あり
       $reservations = new Reservation;
-      // $reservations = $reservations->search_item($data);
       $reservationsWithOrder = array_unique($reservations->search_item($data)->pluck('reservation_id')->toArray());
       $ids_order = implode(',', array_values($reservationsWithOrder));
       $reservations = Reservation::whereIn("id", $reservationsWithOrder)->orderByRaw("FIELD(id, $ids_order)")->get();
     } else {
       // 検索なし
       $reservations = new Reservation;
-      $reservationsWithOrder = array_unique($reservations->ReservationSearchTarget()->pluck('reservation_id')->toArray());
+      $reservationsWithOrder = array_unique($reservations
+        ->search_item($data)
+        ->orderByRaw('予約中かキャンセルか,今日以降かどうか,今日以降日付,今日未満日付 desc')
+        ->pluck('reservation_id')
+        ->toArray());
       $ids_order = implode(',', array_values($reservationsWithOrder));
       $reservations = Reservation::whereIn("id", $reservationsWithOrder)->orderByRaw("FIELD(id, $ids_order)")->get();
     }
 
+
     return view('admin.reservations.index', compact('reservations', 'venues', 'agents', 'request', 'counter'));
   }
 
-  /**
-   * reservationが持つbillsでステータスが3以上を抽出
-   * 
-   * @param object $reservations
-   * @return array
-   */
-  public function rejectCxl($reservations)
-  {
-    $array = [];
-    foreach ($reservations as $key => $value) {
-      $judge = $value->bills->every(function ($value, $key) {
-        return ($value->reservation_status > 3);
-      });
-      if ($judge) {
-        $array[] = $value->id;
-      }
-    }
-    return $array;
-  }
-
-  /**
-   * reservationが持つbillsでステータスが3以上を抽出
-   * 
-   * @param object $m_after
-   * @param object $m_before
-   * @return object
-   */
-  public function customOrderList($m_after, $m_before)
-  {
-    $m_after_reject_cxl = $this->rejectCxl($m_after);
-    $m_before_reject_cxl = $this->rejectCxl($m_before);
-    $after = $m_after->whereNotIn("id", $m_after_reject_cxl);
-    $before = $m_before->whereNotIn("id", $m_before_reject_cxl);
-    $reservations = $after->concat($before);
-    $after_cxl = $m_after->whereIn("id", $m_after_reject_cxl);
-    $before_cxl = $m_before->whereIn("id", $m_before_reject_cxl);
-    $cxl = $after_cxl->concat($before_cxl);
-    $reservations = $reservations->concat($cxl);
-    return $reservations;
-  }
-
-  /**
-   * 検索の抽出結果をさらに特定の条件でソート
-   * 
-   * @param object $request
-   * @param object $model
-   * @return object
-   */
-  public function customSearchAndSort($model, $request)
-  {
-    if ($request->sort_multiple_reserve_id) {
-      if ($request->sort_multiple_reserve_id == 1) {
-        return $model->sortByDesc("multiple_reserve_id");
-      } else {
-        return $model->sortBy("multiple_reserve_id");
-      }
-    } elseif ($request->sort_id) {
-      if ($request->sort_id == 1) {
-        return $model->sortByDesc("id");
-      } else {
-        return $model->sortBy("id");
-      }
-    } elseif ($request->sort_reserve_date) {
-      if ($request->sort_reserve_date == 1) {
-        return $model->sortByDesc("reserve_date");
-      } else {
-        return $model->sortBy("reserve_date");
-      }
-    } elseif ($request->sort_enter_time) {
-      if ($request->sort_enter_time == 1) {
-        return $model->sortByDesc("enter_time");
-      } else {
-        return $model->sortBy("enter_time");
-      }
-    } elseif ($request->sort_leave_time) {
-      if ($request->sort_leave_time == 1) {
-        return $model->sortByDesc("leave_time");
-      } else {
-        return $model->sortBy("leave_time");
-      }
-    } elseif ($request->sort_venue) {
-      if ($request->sort_venue == 1) {
-        return $model->sortByDesc("venue.name_bldg");
-      } else {
-        return $model->sortBy("venue.name_bldg");
-      }
-    } elseif ($request->sort_user_company) {
-      if ($request->sort_user_company == 1) {
-        return $model->sortByDesc("user.company");
-      } else {
-        return $model->sortBy("user.company");
-      }
-    } elseif ($request->sort_user_name) {
-      if ($request->sort_user_name == 1) {
-        return $model->sortByDesc("user.first_name_kana");
-      } else {
-        return $model->sortBy("user.first_name_kana");
-      }
-    } elseif ($request->sort_user_mobile) {
-      if ($request->sort_user_mobile == 1) {
-        return $model->sortByDesc("user.mobile");
-      } else {
-        return $model->sortBy("user.mobile");
-      }
-    } elseif ($request->sort_user_tel) {
-      if ($request->sort_user_tel == 1) {
-        return $model->sortByDesc("user.tel");
-      } else {
-        return $model->sortBy("user.tel");
-      }
-    } elseif ($request->sort_agent) {
-      if ($request->sort_agent == 1) {
-        return $model->sortByDesc("agent.company");
-      } else {
-        return $model->sortBy("agent.company");
-      }
-    } elseif ($request->sort_enduser) {
-      if ($request->sort_enduser == 1) {
-        return $model->sortByDesc("endusers.company");
-      } else {
-        return $model->sortBy("endusers.company");
-      }
-    }
-
-    return $model;
-  }
 
   /** ajax 備品orサービス取得*/
   public function geteitems(Request $request)

@@ -641,7 +641,6 @@ class Reservation extends Model implements PresentableInterface
           break;
         }
       }
-
       $searchTarget->whereRaw('reservations.multiple_reserve_id = ? ', [$id]);
     }
 
@@ -655,44 +654,44 @@ class Reservation extends Model implements PresentableInterface
       $searchTarget->whereRaw('reservations.id LIKE ? ',  ['%' . $id . '%']);
     }
 
-    if ($data['reserve_date']) {
+    if (!empty($data['reserve_date'])) {
       $targetData = explode(" ~ ", $data['reserve_date']);
       $searchTarget->whereRaw('reservations.reserve_date between ? AND ? ',  $targetData);
     }
 
-    if ($data['enter_time']) {
+    if (!empty($data['enter_time'])) {
       $searchTarget->whereRaw('reservations.enter_time >= ? ',  $data['enter_time']);
     }
 
-    if ($data['leave_time']) {
+    if (!empty($data['leave_time'])) {
       $searchTarget->whereRaw('reservations.leave_time <= ? ',  $data['leave_time']);
     }
 
-    if ($data['venue_id']) {
+    if (!empty($data['venue_id'])) {
       $searchTarget->whereRaw('reservations.venue_id = ? ',  [$data['venue_id']]);
     }
 
-    if ($data['company']) {
+    if (!empty($data['company'])) {
       $searchTarget->whereRaw('users.company LIKE ? ',  ['%' . $data['company'] . '%']);
     }
 
-    if ($data['person_name']) {
+    if (!empty($data['person_name'])) {
       $searchTarget->whereRaw('concat(users.first_name,users.last_name) LIKE ? ',  ['%' . $data['person_name'] . '%']);
     }
 
-    if ($data['search_mobile']) {
+    if (!empty($data['search_mobile'])) {
       $searchTarget->whereRaw('users.mobile LIKE ? ',  ['%' . $data['search_mobile'] . '%']);
     }
 
-    if ($data['search_tel']) {
+    if (!empty($data['search_tel'])) {
       $searchTarget->whereRaw('users.tel LIKE ? ',  ['%' . $data['search_tel'] . '%']);
     }
 
-    if ($data['agent']) {
+    if (!empty($data['agent'])) {
       $searchTarget->whereRaw('agents.id = ? ',  [$data['agent']]);
     }
 
-    if ($data['enduser_person']) {
+    if (!empty($data['enduser_person'])) {
       $searchTarget->whereRaw('endusers.company LIKE ? ',  ['%' . $data['enduser_person'] . '%']);
     }
 
@@ -754,6 +753,57 @@ class Reservation extends Model implements PresentableInterface
       }
     });
 
+    if (!empty($data['sort_id']) && (int)$data['sort_id'] === 1) {
+      $searchTarget->orderByRaw('reservations.id asc');
+    } elseif (!empty($data['sort_id']) && (int)$data['sort_id'] === 2) {
+      $searchTarget->orderByRaw('reservations.id desc');
+    } elseif (!empty($data['sort_reserve_date']) && (int)$data['sort_reserve_date'] === 1) {
+      $searchTarget->orderByRaw('reservations.reserve_date asc');
+    } elseif (!empty($data['sort_reserve_date']) && (int)$data['sort_reserve_date'] === 2) {
+      $searchTarget->orderByRaw('reservations.reserve_date desc');
+    } elseif (!empty($data['sort_enter_time']) && (int)$data['sort_enter_time'] === 1) {
+      $searchTarget->orderByRaw('reservations.enter_time asc');
+    } elseif (!empty($data['sort_enter_time']) && (int)$data['sort_enter_time'] === 2) {
+      $searchTarget->orderByRaw('reservations.enter_time desc');
+    } elseif (!empty($data['sort_leave_time']) && (int)$data['sort_leave_time'] === 1) {
+      $searchTarget->orderByRaw('reservations.leave_time asc');
+    } elseif (!empty($data['sort_leave_time']) && (int)$data['sort_leave_time'] === 2) {
+      $searchTarget->orderByRaw('reservations.leave_time desc');
+    } elseif (!empty($data['sort_venue']) && (int)$data['sort_venue'] === 1) {
+      $searchTarget->orderByRaw('concat(venues.name_area,venues.name_bldg,venues.name_venue) asc');
+    } elseif (!empty($data['sort_venue']) && (int)$data['sort_venue'] === 2) {
+      $searchTarget->orderByRaw('concat(venues.name_area,venues.name_bldg,venues.name_venue) desc');
+    } elseif (!empty($data['sort_user_company']) && (int)$data['sort_user_company'] === 1) {
+      $searchTarget->orderByRaw('users.company asc');
+    } elseif (!empty($data['sort_user_company']) && (int)$data['sort_user_company'] === 2) {
+      $searchTarget->orderByRaw('users.company desc');
+    } elseif (!empty($data['sort_user_name']) && (int)$data['sort_user_name'] === 1) {
+      $searchTarget->orderByRaw('concat(users.first_name,users.last_name) asc');
+    } elseif (!empty($data['sort_user_name']) && (int)$data['sort_user_name'] === 2) {
+      $searchTarget->orderByRaw('concat(users.first_name,users.last_name) desc');
+    } elseif (!empty($data['sort_user_mobile']) && (int)$data['sort_user_mobile'] === 1) {
+      $searchTarget->orderByRaw('users.mobile asc');
+    } elseif (!empty($data['sort_user_mobile']) && (int)$data['sort_user_mobile'] === 2) {
+      $searchTarget->orderByRaw('users.mobile desc');
+    } elseif (!empty($data['sort_user_tel']) && (int)$data['sort_user_tel'] === 1) {
+      $searchTarget->orderByRaw('users.tel asc');
+    } elseif (!empty($data['sort_user_tel']) && (int)$data['sort_user_tel'] === 2) {
+      $searchTarget->orderByRaw('users.tel desc');
+    } elseif (!empty($data['sort_agent']) && (int)$data['sort_agent'] === 1) {
+      $searchTarget->orderByRaw('agents.name asc');
+    } elseif (!empty($data['sort_agent']) && (int)$data['sort_agent'] === 2) {
+      $searchTarget->orderByRaw('agents.name desc');
+    } elseif (!empty($data['sort_enduser']) && (int)$data['sort_enduser'] === 1) {
+      $searchTarget->orderByRaw('endusers.company asc');
+    } elseif (!empty($data['sort_enduser']) && (int)$data['sort_enduser'] === 2) {
+      $searchTarget->orderByRaw('endusers.company desc');
+    } else {
+      $searchTarget->orderByRaw('予約中かキャンセルか,今日以降かどうか,今日以降日付,今日未満日付 desc');
+    }
+
+
+
+
     return $searchTarget;
   }
 
@@ -798,12 +848,13 @@ class Reservation extends Model implements PresentableInterface
       ->leftJoin(DB::raw('(select bill_id, unit_type, unit_item from breakdowns where unit_type = 2) as breakdowns2'), 'bills.id', '=', 'breakdowns2.bill_id')
       ->leftJoin(DB::raw('(select bill_id, unit_type, unit_item from breakdowns where unit_type = 3) as breakdowns3'), 'bills.id', '=', 'breakdowns3.bill_id')
       ->leftJoin(DB::raw('(select bill_id, unit_type, unit_item from breakdowns where unit_type = 4) as breakdowns4'), 'bills.id', '=', 'breakdowns4.bill_id')
-      ->leftJoin('venues', 'reservations.venue_id', '=', 'venues.id')
-      ->orderByRaw('予約中かキャンセルか,今日以降かどうか,今日以降日付,今日未満日付 desc');
-
+      ->leftJoin('venues', 'reservations.venue_id', '=', 'venues.id');
+    // ->orderByRaw('予約中かキャンセルか,今日以降かどうか,今日以降日付,今日未満日付 desc');
 
     return $searchTarget;
   }
+
+
 
 
 
