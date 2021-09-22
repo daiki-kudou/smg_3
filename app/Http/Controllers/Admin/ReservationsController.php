@@ -54,7 +54,7 @@ class ReservationsController extends Controller
       // 検索あり
       $reservations = new Reservation;
       $reservationsWithOrder = array_unique($reservations->search_item($data)->pluck('reservation_id')->toArray());
-      $ids_order = implode(',', array_values($reservationsWithOrder));
+      $ids_order = !empty(array_values($reservationsWithOrder)) ? implode(',', array_values($reservationsWithOrder)) : "''";
       $reservations = Reservation::whereIn("id", $reservationsWithOrder)->orderByRaw("FIELD(id, $ids_order)")->get();
     } else {
       // 検索なし
