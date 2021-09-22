@@ -797,7 +797,7 @@
         </div>
 
         {{-- 以下備品 --}}
-        @if (array_sum($s_equipment)!==0||array_sum($s_services)!==0||(int)$data['luggage_count']!==0)
+        @if (array_sum($s_equipment)!==0||array_sum($s_services)!==0||!empty($data['luggage_count']))
         <div class="equipment billdetails_content">
           <table class="table table-borderless">
             <tr>
@@ -870,7 +870,8 @@
                 <td colspan="3"></td>
                 <td colspan="1">
                   <p class="text-left">合計</p>
-                  {{ Form::text('equipment_price', ((int)$item_details[0]+(int)$data['luggage_price'])??0,['class'=>'form-control col-xs-3', 'readonly'] ) }}
+                  {{ Form::text('equipment_price', (
+                    (int)$item_details[0]+(!empty($data['luggage_price'])?$data['luggage_price']:0)),['class'=>'form-control col-xs-3', 'readonly'] ) }}
                 </td>
               </tr>
             </tbody>

@@ -32,6 +32,12 @@ class ReservationPresenter extends Presenter
     return $subtotal + $cxl;
   }
 
+  public function totalBillAmount()
+  {
+    $subtotal = $this->bills->where('reservation_status', '<=', 6)->pluck('master_total')->sum();
+    return $subtotal;
+  }
+
   public function cxlSubtotal()
   {
     return $this->cxls->pluck('master_total')->sum();

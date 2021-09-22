@@ -529,11 +529,24 @@ class ReservationsController extends Controller
     $s_equipment = Equipment::getSessionArrays(collect($data))[0];
     $s_services = Service::getSessionArrays(collect($data))[0];
     $item_details = $venue->calculate_items_price($s_equipment, $s_services);
-    $layouts_details = $venue->getLayoutPrice($data['layout_prepare'], $data['layout_clean']);
-    if ($price_details === 0) {
-      $masters = ($item_details[0] + $data['luggage_price']) + $layouts_details[2] + $data['others_price'];
+    if (!empty($data['layout_prepare']) || !empty($data['layout_clean'])) {
+      $layouts_details = $venue->getLayoutPrice($data['layout_prepare'], $data['layout_clean']);
     } else {
-      $masters = ($price_details[0]) + ($item_details[0] + $data['luggage_price']) + $layouts_details[2] + (!empty($data['others_price']) ? $data['others_price'] : 0);
+      $layouts_details = [0, 0, 0];
+    }
+    if ($price_details === 0) {
+      $masters =
+        ($item_details[0] +
+          $data['luggage_price']) +
+        $layouts_details[2] +
+        $data['others_price'];
+    } else {
+      $masters =
+        ($price_details[0]) +
+        ($item_details[0] +
+          (!empty($data['luggage_price']) ? $data['luggage_price'] : 0)) +
+        $layouts_details[2] +
+        (!empty($data['others_price']) ? $data['others_price'] : 0);
     }
     return view('admin.reservations.edit_calc', compact(
       'data',
@@ -576,8 +589,8 @@ class ReservationsController extends Controller
       DB::commit();
     } catch (\Exception $e) {
       DB::rollback();
-      dd($e);
-      // return back()->withInput()->withErrors($e->getMessage());
+      // dd($e);
+      return back()->withInput()->withErrors($e->getMessage());
     }
     $request->session()->regenerate();
     return redirect(route('admin.reservations.show', $reservation->id));

@@ -388,13 +388,13 @@
         {{-- 打ち消し --}}
         <tr>
           <td> {{--売上--}}
-            {{number_format(($reservation->totalAmountWithCxl())*-1)}}円
+            {{number_format(($reservation->totalBillAmount())*-1)}}円
           </td>
           <td>{{--売上原価--}}
             {{number_format(($reservation->venue->sumCostForPartner($reservation))*-1)}}円
           </td>
           <td>{{--粗利--}}
-            {{number_format((($reservation->totalAmountWithCxl())*-1)-(($reservation->venue->sumCostForPartner($reservation))*-1))}}
+            {{number_format((($reservation->totalBillAmount())*-1)-(($reservation->venue->sumCostForPartner($reservation))*-1))}}
           </td>
           <td>{{--売上区分--}}
             打ち消し
