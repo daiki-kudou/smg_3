@@ -68,7 +68,7 @@ class ReservationsController extends Controller
       $reservations = Reservation::whereIn("id", $reservationsWithOrder)->orderByRaw("FIELD(id, $ids_order)")->get();
     }
 
-    $reservations = $this->customPaginate($reservations, 10, $request);
+    $reservations = $this->customPaginate($reservations, 30, $request);
     return view('admin.reservations.index', compact('reservations', 'venues', 'agents', 'request', 'counter'));
   }
 
