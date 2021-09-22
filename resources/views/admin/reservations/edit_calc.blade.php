@@ -7,7 +7,7 @@
 <script src="{{ asset('/js/lettercounter.js') }}"></script>
 <script src="{{ asset('/js/holidays.js') }}"></script>
 <script src="{{ asset('/js/admin/reservation/validation.js') }}"></script>
-
+<script src="{{ asset('/js/admin/reservation/control_time_reject_self.js') }}"></script>
 
 <style>
   #fullOverlay {
@@ -750,7 +750,7 @@
                     割引金額
                   </p>
                   <div class="d-flex align-items-end">
-                    {{ Form::text('venue_number_discount', $data['venue_number_discount'],['class'=>'form-control'] ) }}
+                    {{ Form::text('venue_number_discount', !empty($data['venue_number_discount'])?$data['venue_number_discount']:"",['class'=>'form-control'] ) }}
                     <p class="ml-1">円</p>
                   </div>
                   <p class="is-error-venue_number_discount" style="color: red"></p>
@@ -784,7 +784,7 @@
                   {{ Form::text('venue_breakdown_count[]', 1,['class'=>'form-control'] ) }}
                 </td>
                 <td>
-                  {{ Form::text('venue_breakdown_subtotal[]', 0,['class'=>'form-control'] ) }}
+                  {{ Form::text('venue_breakdown_subtotal[]', 0,['class'=>'form-control','readonly'] ) }}
                 </td>
                 <td>
                   <input type="button" value="＋" class="add pluralBtn">
@@ -1254,8 +1254,8 @@
       // プラスボタンクリック
       $(document).on("click", ".add", function() {
         $(this).parent().parent().clone(true).insertAfter($(this).parent().parent());
-        addThisTr('.others .others_main tr', 'others_breakdown_item', 'others_breakdown_cost', 'others_breakdown_count', 'others_breakdown_subtotal');
-        addThisTr('.venue_main tr', 'venue_breakdown_item', 'venue_breakdown_cost', 'venue_breakdown_count', 'venue_breakdown_subtotal');
+        // addThisTr('.others .others_main tr', 'others_breakdown_item', 'others_breakdown_cost', 'others_breakdown_count', 'others_breakdown_subtotal');
+        // addThisTr('.venue_main tr', 'venue_breakdown_item', 'venue_breakdown_cost', 'venue_breakdown_count', 'venue_breakdown_subtotal');
         // 追加時内容クリア
         $(this).parent().parent().next().find('td').find('input, select').eq(0).val('');
         $(this).parent().parent().next().find('td').find('input, select').eq(1).val('');
@@ -1263,15 +1263,15 @@
         $(this).parent().parent().next().find('td').find('input, select').eq(3).val('');
       });
 
-      function addThisTr($targetTr, $TItem, $TCost, $TCount, $TSubtotal) {
-        var count = $($targetTr).length;
-        for (let index = 0; index < count; index++) {
-          $($targetTr).eq(index).find('td').eq(0).find('input').attr('name', $TItem + index);
-          $($targetTr).eq(index).find('td').eq(1).find('input').attr('name', $TCost + index);
-          $($targetTr).eq(index).find('td').eq(2).find('input').attr('name', $TCount + index);
-          $($targetTr).eq(index).find('td').eq(3).find('input').attr('name', $TSubtotal + index);
-        }
-      }
+      // function addThisTr($targetTr, $TItem, $TCost, $TCount, $TSubtotal) {
+      //   var count = $($targetTr).length;
+      //   for (let index = 0; index < count; index++) {
+      //     $($targetTr).eq(index).find('td').eq(0).find('input').attr('name', $TItem + index);
+      //     $($targetTr).eq(index).find('td').eq(1).find('input').attr('name', $TCost + index);
+      //     $($targetTr).eq(index).find('td').eq(2).find('input').attr('name', $TCount + index);
+      //     $($targetTr).eq(index).find('td').eq(3).find('input').attr('name', $TSubtotal + index);
+      //   }
+      // }
 
       // マイナスボタンクリック
       $(document).on("click", ".del", function() {

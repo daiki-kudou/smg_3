@@ -526,8 +526,8 @@ class ReservationsController extends Controller
     $venue = Venue::find($data['venue_id']);
     $users = User::all();
     $price_details = $venue->calculate_price($data['price_system'], $data['enter_time'], $data['leave_time']);
-    $s_equipment = Equipment::getSessionArrays(collect($data))[0];
-    $s_services = Service::getSessionArrays(collect($data))[0];
+    $s_equipment = !empty(Equipment::getSessionArrays(collect($data))) ? Equipment::getSessionArrays(collect($data))[0] : [];
+    $s_services = !empty(Service::getSessionArrays(collect($data))) ? Service::getSessionArrays(collect($data))[0] : [];
     $item_details = $venue->calculate_items_price($s_equipment, $s_services);
     if (!empty($data['layout_prepare']) || !empty($data['layout_clean'])) {
       $layouts_details = $venue->getLayoutPrice($data['layout_prepare'], $data['layout_clean']);
@@ -537,9 +537,9 @@ class ReservationsController extends Controller
     if ($price_details === 0) {
       $masters =
         ($item_details[0] +
-          $data['luggage_price']) +
+          (!empty($data['luggage_price']) ? $data['luggage_price'] : 0)) +
         $layouts_details[2] +
-        $data['others_price'];
+        (!empty($data['others_price']) ? $data['others_price'] : 0);
     } else {
       $masters =
         ($price_details[0]) +
