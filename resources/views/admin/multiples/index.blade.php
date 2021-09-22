@@ -208,8 +208,6 @@
           <tbody>
             @foreach ($multiples as $multiple)
             @if (!empty($multiple->pre_reservations->toArray()))
-
-
             <tr>
               <td class="text-center">
                 <input type="checkbox" name="{{'delete_check'.$multiple->id}}" value="{{$multiple->id}}"
@@ -221,7 +219,7 @@
               <td>
                 @if (!empty($multiple->pre_reservations->first()->user))
                 {{(ReservationHelper::getCompany($multiple->pre_reservations->first()->user->id))}}
-
+                @endif
               </td>
               <td>
                 @if (!empty($multiple->pre_reservations->first()->user))
@@ -245,7 +243,7 @@
               </td>
               <td>
                 @if (empty($multiple->pre_reservations->first()->user))
-                {{$multiple->pre_reservations->first()->agent->company}}
+                {{$multiple->pre_reservations->first()->agent->name}}
                 @endif
               </td>
               <td>
@@ -261,7 +259,6 @@
                 @endif
               </td>
             </tr>
-            @endif
             @endif
             @endforeach
           </tbody>

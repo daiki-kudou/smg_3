@@ -205,8 +205,6 @@
               {{$multiple->pre_reservations->where('venue_id',$venues[$i]->venue_id)->count()}}
             </td>
             <td class="text-center">
-              {{-- <a class="more_btn"
-                    href="{{url('admin/multiples/'.$multiple->id.'/edit'.'/'.$venues[$i]->venue_id)}}">編集</a> --}}
               <a class="more_btn"
                 href="{{url('admin/multiples/agent/'.$multiple->id.'/edit'.'/'.$venues[$i]->venue_id)}}">編集</a>
             </td>

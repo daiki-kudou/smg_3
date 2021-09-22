@@ -64,7 +64,7 @@ class ReservationsController extends Controller
         ->orderByRaw('予約中かキャンセルか,今日以降かどうか,今日以降日付,今日未満日付 desc')
         ->pluck('reservation_id')
         ->toArray());
-      $ids_order = implode(',', array_values($reservationsWithOrder));
+      $ids_order = !empty(array_values($reservationsWithOrder)) ? implode(',', array_values($reservationsWithOrder)) : "''";
       $reservations = Reservation::whereIn("id", $reservationsWithOrder)->orderByRaw("FIELD(id, $ids_order)")->get();
     }
 
