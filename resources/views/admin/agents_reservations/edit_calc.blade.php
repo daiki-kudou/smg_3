@@ -681,7 +681,7 @@
         </div>
 
         {{-- 以下備品 --}}
-        @if(array_sum($s_equipment)!==0||array_sum($s_services)!==0||$data['layout_prepare']||$data['luggage_flag'])
+        @if(array_sum($s_equipment)!==0||array_sum($s_services)!==0||!empty($data['layout_prepare'])||!empty($data['luggage_flag']))
         <div class="equipment billdetails_content">
           <table class="table table-borderless">
             <tr>

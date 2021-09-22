@@ -52,6 +52,17 @@
   </div>
 </div>
 
+@if ($errors->any())
+<div class="alert alert-danger">
+  <ul>
+    @foreach ($errors->all() as $error)
+    <li>{{ $error }}</li>
+    <li>一部データに不整合があり保存に失敗しました。再度更新してください</li>
+    @endforeach
+  </ul>
+</div>
+@endif
+
 
 
 {{Form::open(['url' => 'admin/agents_reservations/edit_check', 'method' => 'POST', 'id'=>'agents_reservations_edit'])}}
@@ -512,7 +523,7 @@
               <label for="enduser_tel" class="">連絡先</label>
             </td>
             <td>
-              {{ Form::text('enduser_tel', !empty($reservation['enduser'])?$reservation['enduser']['address']:NULL,['class'=>'form-control', 'placeholder'=>'入力してください', 'id'=>'enduser_tel'] ) }}
+              {{ Form::text('enduser_tel', !empty($reservation['enduser'])?$reservation['enduser']['tel']:NULL,['class'=>'form-control', 'placeholder'=>'入力してください', 'id'=>'enduser_tel'] ) }}
               <p class="is-error-enduser_tel" style="color: red"></p>
             </td>
           </tr>
@@ -945,7 +956,7 @@
             </tr>
             <tr>
               <td>
-                請求書宛名{{ Form::text('bill_company', $reservation['bills'][0]['bill_company'],['class'=>'form-control'] ) }}
+                請求書宛名{{ Form::text('bill_company', !empty($reservation['bills'][0]['bill_company'])?$reservation['bills'][0]['bill_company']:'担当者なし',['class'=>'form-control'] ) }}
               </td>
               <td>
                 担当者{{ Form::text('bill_person', $reservation['bills'][0]['bill_person'],['class'=>'form-control'] ) }}

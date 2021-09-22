@@ -52,6 +52,17 @@
   </div>
 </div>
 
+@if ($errors->any())
+<div class="alert alert-danger">
+  <ul>
+    @foreach ($errors->all() as $error)
+    <li>{{ $error }}</li>
+    <li>一部データに不整合があり保存に失敗しました。再度更新してください</li>
+    @endforeach
+  </ul>
+</div>
+@endif
+
 
 
 {{Form::open(['url' => 'admin/reservations/edit_check', 'method' => 'POST', 'id'=>'reservations_edit'])}}

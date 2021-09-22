@@ -285,8 +285,7 @@
               <tr>
                 <td class="table-active"><label for="preDelivery">事前荷物の到着日</label></td>
                 <td>
-                  {{-- {{ !empty($reservation->luggage_arrive) ? ReservationHelper::formatDate($reservation->luggage_arrive) : '' }}
-                  --}}
+                  {{ !empty($reservation->luggage_arrive) ? ReservationHelper::formatDate($reservation->luggage_arrive) : '' }}
                 </td>
               </tr>
               <tr>

@@ -589,8 +589,8 @@ class ReservationsController extends Controller
       DB::commit();
     } catch (\Exception $e) {
       DB::rollback();
-      // dd($e);
-      return back()->withInput()->withErrors($e->getMessage());
+      // return back()->withInput()->withErrors($e->getMessage());
+      return $this->edit($reservation->id)->withErrors($e->getMessage());
     }
     $request->session()->regenerate();
     return redirect(route('admin.reservations.show', $reservation->id));

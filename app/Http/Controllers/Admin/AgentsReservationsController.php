@@ -263,13 +263,18 @@ class AgentsReservationsController extends Controller
     $venue = Venue::find($data['venue_id']);
     $agents = Agent::all();
     $agent = $agents->find($data['agent_id']);
-    $master_subtotal = $agent->agentPriceCalculate($data['end_user_charge']) + $venue->getLayoutPrice((int)$data['layout_prepare'], (int)$data['layout_clean'])[2];
+    if (!empty($data['layout_prepare']) || !empty($data['layout_clean'])) {
+      $layout_price = $venue->getLayoutPrice(!empty($data['layout_prepare']) ? $data['layout_prepare'] : 0, !empty($data['layout_clean']) ? $data['layout_clean'] : 0);
+    } else {
+      $layout_price = [0, 0, 0];
+    }
+    $master_subtotal = $agent->agentPriceCalculate($data['end_user_charge']) + $layout_price[2];
     $payment_limit = $agent->getAgentPayLimit($data['reserve_date']);
 
     $s_equipment = Equipment::getSessionArrays(collect($data))[0];
     $s_services = Service::getSessionArrays(collect($data))[0];
     $item_details = $venue->calculate_items_price($s_equipment, $s_services);
-    $layouts_details = $venue->getLayoutPrice($data['layout_prepare'], $data['layout_clean']);
+    $layouts_details = $layout_price;
     // if ($price_details === 0) {
     //   $masters = ($item_details[0] + $data['luggage_price']) + $layouts_details[2] + $data['others_price'];
     // } else {
@@ -323,7 +328,8 @@ class AgentsReservationsController extends Controller
       DB::commit();
     } catch (\Exception $e) {
       DB::rollback();
-      dd($e->getMessage());
+      // dd($e->getMessage());
+      return $this->edit($reservation->id)->withErrors($e->getMessage());
       // return back()->withInput()->withErrors($e->getMessage());
     }
     $request->session()->regenerate();
