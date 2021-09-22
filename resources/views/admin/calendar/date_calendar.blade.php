@@ -38,8 +38,9 @@
         <div class="d-flex align-items-center">
           <div class="row w-100">
             <div class="col text-right">
-              <a href="javascript:$('#yesterday').submit()" class="text-white"><i
-                  class="fas fa-chevron-left fa-2x"></i></a>
+              <a href="javascript:$('#yesterday').submit()" class="text-white">
+                <i class="fas fa-chevron-left fa-2x"></i>
+              </a>
               {{ Form::open(['url' => 'admin/calendar/date_calendar', 'method' => 'get','id'=>'yesterday']) }}
               @csrf
               {{ Form::hidden('date', $yesterday) }}
