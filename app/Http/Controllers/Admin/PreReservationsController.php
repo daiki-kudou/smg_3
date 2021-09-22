@@ -338,7 +338,6 @@ class PreReservationsController extends Controller
       DB::commit();
     } catch (\Exception $e) {
       DB::rollback();
-      var_dump($e);
       return back()->withInput()->withErrors($e->getMessage());
     }
     $request->session()->regenerate();

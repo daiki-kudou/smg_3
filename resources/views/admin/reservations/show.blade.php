@@ -1233,7 +1233,7 @@
             </thead>
             @foreach ($cxl->cxl_breakdowns->where('unit_type', 2) as $cxl_calc)
             <tr>
-              <td>{{ $cxl_calc->unit_item }}円</td>
+              <td>{{ $cxl_calc->unit_item }}</td>
               <td>{{ number_format($cxl_calc->unit_cost) }}</td>
               <td>×</td>
               <td>{{ $cxl_calc->unit_count }}%</td>

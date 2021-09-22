@@ -35,7 +35,7 @@
         @endif
         <div class="cancel_content cancel_border bg-white">
           <h4 class="cancel_ttl">キャンセル料計算</h4>
-          <table class="table table-borderless">
+          <table class="table table-borderless cxl_master">
             <thead class="head_cancel">
               <tr>
                 <td>内容</td>
@@ -48,7 +48,9 @@
             <tbody class="venue_main_cancel">
               <tr>
                 <td>会場料</td>
-                <td>{{number_format($price_result[0])}}円</td>
+                <td>{{number_format($price_result[0])}}円
+                  {{Form::hidden('venue_price',$price_result[0])}}
+                </td>
                 <td class="multiple">×</td>
                 <td>
                   <div class="d-flex align-items-center">
@@ -64,7 +66,9 @@
             <tbody class="equipment_cancel">
               <tr>
                 <td>有料備品・有料サービス料</td>
-                <td>{{number_format($price_result[1])}}円</td>
+                <td>{{number_format($price_result[1])}}円
+                  {{Form::hidden('venue_price',$price_result[1])}}
+                </td>
                 <td class="multiple">×</td>
                 <td>
                   <div class="d-flex align-items-center">
@@ -80,7 +84,9 @@
             <tbody class="layout_cancel">
               <tr>
                 <td>レイアウト変更料</td>
-                <td>{{number_format($price_result[2])}}円</td>
+                <td>{{number_format($price_result[2])}}円
+                  {{Form::hidden('venue_price',$price_result[2])}}
+                </td>
                 <td class="multiple">×</td>
                 <td>
                   <div class="d-flex align-items-center">
@@ -96,7 +102,9 @@
             <tbody class="others_cancel">
               <tr>
                 <td>その他</td>
-                <td>{{number_format($price_result[3])}}円</td>
+                <td>{{number_format($price_result[3])}}円
+                  {{Form::hidden('venue_price',$price_result[3])}}
+                </td>
                 <td class="multiple">×</td>
                 <td>
                   <div class="d-flex align-items-center">
@@ -109,6 +117,11 @@
             </tbody>
             @endif
           </table>
+          <div class="w-50 text-right mr-0 ml-auto">
+            <div>概算キャンセル料{{Form::text('temp_cxl_price',0,['class'=>'form-control','readonly'])}}</div>
+            <div>調整費{{Form::text('adjust',0,['class'=>'form-control'])}}</div>
+            <div>概算キャンセル料調整結果{{Form::text('adjust_result',0,['class'=>'form-control','readonly'])}}</div>
+          </div>
           {{ Form::submit('計算する', ['class' => 'btn more_btn_lg mx-auto d-block my-5']) }}
           {{ Form::close() }}
         </div>
@@ -119,25 +132,25 @@
 
 
 <script>
-  $(function() {
-
-    // チェックボックス開閉
-    checkToggle('.venue_chkbox #venue', ['.venue_head', '.venue_main', '.venue_result']);
-    checkToggle('.equipment_chkbox #equipment', ['.equipment_head', '.equipment_main',
-      '.equipment_result'
-    ]);
-    checkToggle('.layout_chkbox #layout', ['.layout_head', '.layout_main', '.layout_result']);
-    checkToggle('.others_chkbox #others', ['.others_head', '.others_main', '.others_result']);
-
-    function checkToggle($target, $items) {
-      $($target).on('click', function() {
-        $.each($items, function(index, value) {
-          $(value).toggleClass('hide');
-        });
-      });
+  $(function(){
+  $('.cxl_master input').on('input',function(){
+    var result = 0;
+    var tr_length=$('.cxl_master tbody tr').length;
+    for (let index = 0; index < tr_length; index++) {
+    var cost =$('.cxl_master tbody tr').eq(index).find('td').eq(1).find('input').val();
+    var percent = $('.cxl_master tbody tr').eq(index).find('td').eq(3).find('input').val();    
+    result+=Number(cost)*Number((percent/100));
     }
-
+    $('input[name="temp_cxl_price"]').val(result);
   })
+
+  $('input[name="adjust"]').on('input',function(){
+    var target_cxl=Number($('input[name="temp_cxl_price"]').val());
+    var this_val=Number($(this).val());
+    var result = Number(target_cxl)+Number(this_val);
+    $('input[name="adjust_result"]').val(result);
+  })
+})
 </script>
 </section>
 
