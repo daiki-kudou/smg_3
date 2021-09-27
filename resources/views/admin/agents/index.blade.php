@@ -39,7 +39,7 @@
         </thead>
         <tbody>
           @foreach ($agents as $agent)
-          <tr role="row" class="even">
+          <tr>
             <td>{{ReservationHelper::fixId($agent->id)}}</td>
             <td>{{$agent->name}}</td>
             <td class="text-center">
@@ -58,9 +58,20 @@
   {{ $agents->links() }}
 </div>
 <script>
-  $(function(){
-    $("#agent_sort").tablesorter();
-  })
-
+  $(document).ready(function(){
+    $.extend($.fn.dataTable.defaults, {
+        language: {
+            url: "http://cdn.datatables.net/plug-ins/9dcbecd42ad/i18n/Japanese.json"
+        }
+    });
+    $('#agent_sort').DataTable({
+      searching: false,
+      info: false,
+      autowidth: false,
+      "order": [[ 0, "desc" ]], //初期ソートソート条件
+      "columnDefs": [{ "orderable": false, "targets": [2,6] }],
+      "stripeClasses": [],
+     });
+    });
 </script>
 @endsection
