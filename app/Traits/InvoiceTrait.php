@@ -10,7 +10,7 @@ trait InvoiceTrait
 {
   public function generateInvoiceNum()
   {
-    $invoice_number = date('ymdHis');
+    $invoice_number = date('ymdHi');
     $checkUniqueArray = Bill::pluck('invoice_number')->toArray();
     foreach ($checkUniqueArray as $key => $value) {
       if ((int)$invoice_number !== (int)$value) {

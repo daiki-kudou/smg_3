@@ -140,7 +140,6 @@ class CxlController extends Controller
         $this->singleStore($data, $invoice, $bill_id, $reservation_id);
       }
     } catch (\Exception $e) {
-      dd($e);
       report($e);
       session()->flash('flash_message', '作成に失敗しました。<br>フォーム内の空欄や全角など確認した上でもう一度お試しください。');
       return redirect(route('admin.cxl.multi_calc'));
