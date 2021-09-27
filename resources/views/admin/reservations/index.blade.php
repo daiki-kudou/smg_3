@@ -17,16 +17,6 @@
     width: 20px;
     height: 20px;
   }
-
-  table.dataTable thead th,
-  table.dataTable thead td {
-    padding: 10px 18px;
-    border-bottom: 1px solid #dee2e6;
-  }
-
-  table.dataTable.no-footer {
-    border-bottom: 1px solid #dee2e6;
-  }
 </style>
 
 <div class="content">
