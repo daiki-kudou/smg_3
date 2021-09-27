@@ -110,7 +110,7 @@
                   <div class="d-flex align-items-center">
                     {{$data['cxl_layout_PC']}}
                     {{Form::hidden('cxl_target_percent[]',$data['cxl_layout_PC'])}}
-                    {{Form::hidden('cxl_target_type[]',3)}}
+                    {{Form::hidden('cxl_target_type[]',4)}}
                     <span>%</span>
                 </td>
                 <p class="is-error-cxl_layout_PC" style="color: red"></p>
@@ -132,7 +132,29 @@
                   <div class="d-flex align-items-center">
                     {{$data['cxl_other_PC']}}
                     {{Form::hidden('cxl_target_percent[]',$data['cxl_other_PC'])}}
-                    {{Form::hidden('cxl_target_type[]',4)}}
+                    {{Form::hidden('cxl_target_type[]',5)}}
+                    <span>%</span>
+                </td>
+                <p class="is-error-cxl_layout_PC" style="color: red"></p>
+              </tr>
+            </tbody>
+            @endif
+
+            @if (!empty($data['adjust'])&&$data['adjust']!==0)
+            <tbody class="others_cancel">
+              <tr>
+                <td>調整費
+                  {{Form::hidden('cxl_target_item[]',"調整費")}}
+                </td>
+                <td>{{number_format($data['adjust'])}}円
+                  {{Form::hidden('cxl_target_cost[]',$data['adjust'])}}
+                </td>
+                <td class="multiple">×</td>
+                <td class="">
+                  <div class="d-flex align-items-center">
+                    100
+                    {{Form::hidden('cxl_target_percent[]',100)}}
+                    {{Form::hidden('cxl_target_type[]',5)}}
                     <span>%</span>
                 </td>
                 <p class="is-error-cxl_layout_PC" style="color: red"></p>
@@ -230,6 +252,23 @@
                 </td>
               </tr>
               @endif
+              @if (!empty($data['adjust'])&&$data['adjust']!==0)
+              <tr>
+                <td>調整料 (<span>その他</span>・<span>100%</span>)
+                  {{Form::hidden('cxl_unit_item[]',"調整料(その他・100%)")}}
+                </td>
+                <td>{{number_format(round($data['adjust']))}}
+                  {{Form::hidden('cxl_unit_cost[]',round($data['adjust']))}}
+                </td>
+                <td>1
+                  {{Form::hidden('cxl_unit_count[]',1)}}
+                </td>
+                <td>{{number_format(round($data['adjust']))}}円
+                  {{Form::hidden('cxl_unit_subtotal[]',round($data['adjust']))}}
+                  {{Form::hidden('cxl_unit_percent[]',100)}}
+                </td>
+              </tr>
+              @endif
             </tbody>
           </table>
         </div>
@@ -240,22 +279,22 @@
               <tr>
                 <td>小計：</td>
                 <td>
-                  {{Form::text('',number_format(round($result[4])),['class'=>'form-control','readonly'])}}
-                  {{Form::hidden('master_subtotal',round($result[4]),['class'=>'form-control','readonly'])}}
+                  {{Form::text('',number_format(round($data['adjust_result'])),['class'=>'form-control','readonly'])}}
+                  {{Form::hidden('master_subtotal',round($data['adjust_result']),['class'=>'form-control','readonly'])}}
                 </td>
               </tr>
               <tr>
                 <td>消費税：</td>
                 <td>
-                  {{Form::text('',number_format(round(ReservationHelper::getTax($result[4]))),['class'=>'form-control','readonly'])}}
-                  {{Form::hidden('master_tax',round(ReservationHelper::getTax($result[4])),['class'=>'form-control','readonly'])}}
+                  {{Form::text('',number_format(round(ReservationHelper::getTax($data['adjust_result']))),['class'=>'form-control','readonly'])}}
+                  {{Form::hidden('master_tax',round(ReservationHelper::getTax($data['adjust_result'])),['class'=>'form-control','readonly'])}}
                 </td>
               </tr>
               <tr>
                 <td class="font-weight-bold">合計金額</td>
                 <td>
-                  {{Form::text('',number_format(round(ReservationHelper::taxAndPrice($result[4]))),['class'=>'form-control','readonly'])}}
-                  {{Form::hidden('master_total',round(ReservationHelper::taxAndPrice($result[4])),['class'=>'form-control','readonly'])}}
+                  {{Form::text('',number_format(round(ReservationHelper::taxAndPrice($data['adjust_result']))),['class'=>'form-control','readonly'])}}
+                  {{Form::hidden('master_total',round(ReservationHelper::taxAndPrice($data['adjust_result'])),['class'=>'form-control','readonly'])}}
                 </td>
               </tr>
             </tbody>

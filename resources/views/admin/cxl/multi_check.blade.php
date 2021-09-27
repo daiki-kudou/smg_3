@@ -100,6 +100,22 @@
               </tr>
             </tbody>
             @endif
+
+            @if (!empty($data['adjust'])&&$data['adjust']!==0)
+            <tbody class="others_cancel">
+              <tr>
+                <td>調整費 </td>
+                <td>{{number_format($data['adjust'])}}円</td>
+                <td class="multiple">×</td>
+                <td class="">
+                  <div class="d-flex align-items-center">
+                    100
+                    <span>%</span>
+                </td>
+                <p class="is-error-cxl_layout_PC" style="color: red"></p>
+              </tr>
+            </tbody>
+            @endif
           </table>
         </div>
 
@@ -153,6 +169,18 @@
                 <td>{{number_format($result[3])}}</td>
                 <td>1</td>
                 <td>{{number_format($result[3])}}円</td>
+              </tr>
+              @endif
+              @if (!empty($data['adjust'])&&$data['adjust']!==0)
+              <tr>
+                <td>調整料 (<span>その他</span>・<span>100%</span>)
+                </td>
+                <td>{{number_format(round($data['adjust']))}}
+                </td>
+                <td>1
+                </td>
+                <td>{{number_format(round($data['adjust']))}}円
+                </td>
               </tr>
               @endif
             </tbody>
@@ -277,7 +305,7 @@
     {{ Form::submit('内容を修正する', ['class' => 'btn more_btn4_lg d-block mr-5','name'=>'back']) }}
     {{ Form::submit('キャンセル請求書を作成する', ['class' => 'btn more_btn_lg d-block']) }}
   </div>
-  
+
   {{ Form::close() }}
 </section>
 
