@@ -17,6 +17,18 @@
     width: 20px;
     height: 20px;
   }
+
+  /* table {
+    height: 100%;
+
+    td {
+      height: 100%;
+
+      div {
+        height: 100%;
+      }
+    }
+  } */
 </style>
 
 <div class="content">
@@ -234,7 +246,7 @@
       @endif
     </div>
     <div class="table-wrap">
-      <table class="table table-bordered table-scroll" id="reservation_sort">
+      <table class="table table-bordered " id="reservation_sort" style="height: 100%;">
         <thead>
           <tr class="table_row">
             <th>予約一括ID</th>
@@ -261,9 +273,9 @@
             background: gray;
           }
         </style>
-        @foreach ($reservations as $reservation)
-        <tbody class="{{$reservation->cxlGray()? "cxl_gray":""}}">
-          <tr>
+        <tbody>
+          @foreach ($reservations as $reservation)
+          <tr class="{{$reservation->cxlGray()? "cxl_gray":""}}">
             <td>
               {{ReservationHelper::fixId($reservation->multiple_reserve_id)}}
             </td>
@@ -312,30 +324,45 @@
               @endif
             </td>
             <td class="p-0">
-              @foreach ($reservation->bills as $bill)
-              <div
-                style="padding: 0.5rem; vertical-align: middle; border-top: 0px solid; border-bottom:solid 1px #dee2e6; min-height:37px;">
-                @foreach (ImageHelper::addBillsShow($bill->id) as $icon)
-                {!!$icon!!}
+              <div style="display: table; height:100%; vertical-align: middle; width:100%">
+                @foreach ($reservation->bills as $bill)
+                <div style="display: table-row;">
+                  <div
+                    style="display: table-cell; width:100%; vertical-align: middle; {{$loop->first?"border-bottom:solid 1px #dee2e6;":($loop->last?"":"border-bottom:solid 1px #dee2e6;")}} padding:5px;">
+                    @foreach (ImageHelper::addBillsShow($bill->id) as $icon)
+                    {!!$icon!!}
+                    @endforeach
+                    <span style="color: white">{{$bill->id}}</span>
+                  </div>
+                </div>
                 @endforeach
               </div>
-              @endforeach
+            </td>
+            <td class=" p-0">
+              <div style="display: table; height:100%; vertical-align: middle; width:100%">
+                @foreach ($reservation->bills as $bill)
+                <div style="display: table-row;">
+                  <div
+                    style="display: table-cell; width:100%; vertical-align: middle; {{$loop->first?"border-bottom:solid 1px #dee2e6;":($loop->last?"":"border-bottom:solid 1px #dee2e6;")}} padding:5px;">
+                    {{((int)$bill->category===1?"会場予約":"追加請求")}}
+                    <span style="color: white">{{$bill->id}}</span>
+                  </div>
+                </div>
+                @endforeach
+              </div>
             </td>
             <td class="p-0">
-              @foreach ($reservation->bills as $bill)
-              <div
-                style="padding: 0.5rem; vertical-align: middle; border-top: 0px solid; border-bottom:solid 1px #dee2e6; min-height:37px;">
-                {{((int)$bill->category===1?"会場予約":"追加請求")}}
+              <div style="display: table; height:100%; vertical-align: middle; width:100%">
+                @foreach ($reservation->bills as $bill)
+                <div style="display: table-row;">
+                  <div
+                    style="display: table-cell; width:100%; vertical-align: middle; {{$loop->first?"border-bottom:solid 1px #dee2e6;":($loop->last?"":"border-bottom:solid 1px #dee2e6;")}} padding:5px;">
+                    {{ReservationHelper::judgeStatus($bill->reservation_status)}}
+                    <span style="color: white">{{$bill->id}}</span>
+                  </div>
+                </div>
+                @endforeach
               </div>
-              @endforeach
-            </td>
-            <td class="p-0">
-              @foreach ($reservation->bills as $bill)
-              <div
-                style="padding: 0.5rem; vertical-align: middle; border-top: 0px solid; border-bottom:solid 1px #dee2e6; min-height:37px;">
-                {{ReservationHelper::judgeStatus($bill->reservation_status)}}
-              </div>
-              @endforeach
             </td>
             <td class="text-center"><a href="{{ url('admin/reservations', $reservation->id) }}"
                 class="more_btn btn">詳細</a></td>
@@ -349,8 +376,8 @@
               @endif
             </td>
           </tr>
+          @endforeach
         </tbody>
-        @endforeach
       </table>
     </div>
   </div>
@@ -434,7 +461,8 @@
       info: false,
       autowidth: false,
       // "order": [[ 0, "desc" ]], //初期ソートソート条件
-      "columnDefs": [{ "orderable": false, "targets": [12,13,14,15,16] }]
+      "columnDefs": [{ "orderable": false, "targets": [12,13,14,15,16] }],
+      "stripeClasses": [],
      });
     });
 </script>
