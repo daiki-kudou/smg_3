@@ -369,33 +369,12 @@
       </table>
     </div>
   </div>
-  {{-- {{$reservations->appends(request()->input())->links()}} --}}
 </div>
 
 
 
 
 <script>
-  // $(document).on("click", ".table-scroll th", function() {
-  //   var click_th_id=$(this).attr("id");
-  //   $('input[name^="sort_"]').each(function(key, item){
-  //     if ($(item).attr("name")!=click_th_id) {
-  //       $(item).val("");
-  //     }
-  //   })
-  //   $("#reserve_search").submit();
-  //   }) 
-
-  //   $(function() {
-  //     $("#m_submit").on("click",function(){
-  //       $('input[name^="sort_"]').each(function(key, item){
-  //       $(item).val("");
-  //       })
-  //     })
-  //   })
-
-
-
   $(function() {
     $('.flash_message').fadeOut(3000);
   })
@@ -405,9 +384,6 @@
       $('input[type="text"]').each(function($key,$value){
         $($value).val('');
       })
-      // $('input[name^="sort_"]').each(function($key,$value){
-      //   $($value).val('');
-      // })
     })
   })
 

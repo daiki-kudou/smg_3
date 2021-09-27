@@ -67,8 +67,6 @@ class ReservationsController extends Controller
       $ids_order = !empty(array_values($reservationsWithOrder)) ? implode(',', array_values($reservationsWithOrder)) : "''";
       $reservations = Reservation::whereIn("id", $reservationsWithOrder)->with(['bills', 'venue', 'user'])->orderByRaw("FIELD(id, $ids_order)")->get();
     }
-
-    $reservations = $this->customPaginate($reservations, 30, $request);
     return view('admin.reservations.index', compact('reservations', 'venues', 'agents', 'request', 'counter'));
   }
 
