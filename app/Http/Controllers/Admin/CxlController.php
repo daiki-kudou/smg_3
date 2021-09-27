@@ -20,24 +20,12 @@ use App\Mail\UserCxlPaid;
 class CxlController extends Controller
 {
   /**
-   * Display a listing of the resource.
-   *
-   * @return \Illuminate\Http\Response
-   */
-  // public function index()
-  // {
-  //   //
-  // }
-
-  /**
    * Show the form for creating a new resource.
    *
    * @return \Illuminate\Http\Response
    */
   public function multiCreate(Request $request)
   {
-    $request->session()->forget(['invoice', 'cxlMaster', 'cxlResult']);
-
     $reservation = Reservation::with('bills')->find($request->reservation_id);
     $bill = Bill::find($request->bill_id);
 
@@ -61,26 +49,12 @@ class CxlController extends Controller
       $multi = 0;
       $single = 1;
     }
-    session()->put('cxlMaster', $price_result);
-    session()->put('multiOrSingle', ['multi' => $multi, 'single' => $single]);
     return view('admin.cxl.multi_create', compact('price_result', 'reservation', 'bill'));
   }
 
   public function multiCalc(Request $request)
   {
-    $request->session()->forget('invoice');
-    $request->session()->put('cxlCalcInfo', $request->all());
-    $cxl = new Cxl;
-    $result = $cxl->calcCxlAmount();
-    $request->session()->put('cxlResult', $result);
-    return redirect(route('admin.cxl.multi_calc'));
-  }
-
-  public function multiCalcShow(Request $request)
-  {
-    $info = session()->get('cxlMaster');
-    $data = session()->get('cxlCalcInfo');
-    $result = session()->get('cxlResult');
+    $data = $request->all();
     $reservation = Reservation::with(['user', 'agent'])->find($data['reservation_id']);
     $user = $reservation->user;
     $agent = $reservation->agent;
@@ -89,32 +63,47 @@ class CxlController extends Controller
     } else {
       $pay_limit = $agent->getPayDetails($reservation->reserve_date);
     }
-    return view('admin.cxl.multi_calculate', compact('info', 'data', 'result', 'user', 'agent', 'pay_limit'));
+    return view('admin.cxl.multi_calculate', compact('data', 'user', 'agent', 'pay_limit'));
   }
+
+  // public function multiCalcShow(Request $request)
+  // {
+  //   $info = session()->get('cxlMaster');
+  //   $data = session()->get('cxlCalcInfo');
+  //   $result = session()->get('cxlResult');
+  //   $reservation = Reservation::with(['user', 'agent'])->find($data['reservation_id']);
+  //   $user = $reservation->user;
+  //   $agent = $reservation->agent;
+  //   if ($reservation->user_id > 0) {
+  //     $pay_limit = $user->getUserPayLimit($reservation->reserve_date);
+  //   } else {
+  //     $pay_limit = $agent->getPayDetails($reservation->reserve_date);
+  //   }
+  //   return view('admin.cxl.multi_calculate', compact('info', 'data', 'result', 'user', 'agent', 'pay_limit'));
+  // }
 
   public function multiCheck(Request $request)
   {
-    $info = session()->get('cxlMaster');
-    $data = session()->get('cxlCalcInfo');
-    $result = session()->get('cxlResult');
-    $request->session()->put('invoice', $request->all());
-    $invoice = session()->get('invoice');
-    $multiOrSingle = session()->get('multiOrSingle');
-    $judge = $multiOrSingle['multi'] == 1 ? 'multi' : 'single';
-    if ($request->back) {
-      return redirect(route(
-        'admin.cxl.multi_create',
-        [
-          'reservation_id' => $data['reservation_id'],
-          'bill_id' => $data['bill_id'],
-          $judge => $judge,
-        ]
-      ));
-    }
-    return view(
-      'admin.cxl.multi_check',
-      compact('info', 'data', 'result', 'invoice')
-    );
+    // if ($request->back) {
+    //   return redirect(route(
+    //     'admin.cxl.multi_create',
+    //     [
+    //       'reservation_id' => $data['reservation_id'],
+    //       'bill_id' => $data['bill_id'],
+    //       $judge => $judge,
+    //     ]
+    //   ));
+    // }
+
+    // $data = $request->all();
+    // echo "<pre>";
+    // var_dump($data);
+    // echo "</pre>";
+
+    // return view(
+    //   'admin.cxl.multi_check',
+    //   compact('data')
+    // );
   }
 
   /**
@@ -125,27 +114,27 @@ class CxlController extends Controller
    */
   public function store(Request $request)
   {
+    $data = $request->all();
     if ($request->back) {
-      return redirect(route('admin.cxl.multi_calc'));
+      return redirect()->route('admin.cxl.multi_create', $data)->withInput();
     }
-    $data = session()->get('cxlCalcInfo');
-    $invoice = session()->get('invoice');
-    $multiOrSingle = session()->get('multiOrSingle');
-    $reservation_id = $data['reservation_id'];
-    $bill_id = $data['bill_id'];
+
+    dd($data);
+    $reservation = new Reservation;
+    $bill = new Bill;
+    $breakdowns = new Breakdown;
+    DB::beginTransaction();
     try {
-      if ($multiOrSingle['multi'] === 1) {
-        $this->multiStore($data, $invoice, $bill_id, $reservation_id);
-      } elseif ($multiOrSingle['single'] === 1) {
-        $this->singleStore($data, $invoice, $bill_id, $reservation_id);
-      }
+      $result_reservation = $reservation->ReservationStore($data);
+      $result_bill = $bill->BillStore($result_reservation->id, $data);
+      $result_breakdowns = $breakdowns->BreakdownStore($result_bill->id, $data);
+      DB::commit();
     } catch (\Exception $e) {
-      report($e);
-      session()->flash('flash_message', '作成に失敗しました。<br>フォーム内の空欄や全角など確認した上でもう一度お試しください。');
-      return redirect(route('admin.cxl.multi_calc'));
+      DB::rollback();
+      return redirect()->route('admin.cxl.multi_create', $data)->withInput()->withErrors($e->getMessage());
     }
     $request->session()->regenerate();
-    return redirect()->route('admin.reservations.show', $reservation_id);
+    return redirect()->route('admin.reservations.show', $result_reservation->id);
   }
 
   public function multiStore($data, $invoice, $bill_id, $reservation_id)
@@ -203,17 +192,6 @@ class CxlController extends Controller
     $request->session()->regenerate();
     return redirect()->route('admin.reservations.show', $reservation_id);
   }
-
-  /**
-   * Display the specified resource.
-   *
-   * @param  \App\Models\Cxl  $cxl
-   * @return \Illuminate\Http\Response
-   */
-  // public function show(Cxl $cxl)
-  // {
-  //   //
-  // }
 
   /**
    * Show the form for editing the specified resource.

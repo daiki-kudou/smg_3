@@ -20,16 +20,18 @@
 </div>
 @endif
 
-{{ Form::open(['url' => 'admin/cxl/multi_check', 'method'=>'POST', 'class'=>'' ,'id'=>'cxl_multicalc']) }}
+{{ Form::open(['url' => 'admin/cxl/store', 'method'=>'post', 'class'=>'' ,'id'=>'cxl_multicalc']) }}
 @csrf
-
+{{Form::hidden('reservation_id',!empty($data['reservation_id'])?$data['reservation_id']:0)}}
+{{Form::hidden('user_id',!empty($data['user_id'])?$data['user_id']:0)}}
+{{Form::hidden('agent_id',!empty($data['agent_id'])?$data['agent_id']:0)}}
 <section class="mt-5">
   <div class="bill">
     <div class="bill_details">
       <div class="head d-flex">
         <div class="accordion_btn">
-          <i class="fas fa-plus bill_icon_size hide" aria-hidden="true"></i>
-          <i class="fas fa-minus bill_icon_size" aria-hidden="true"></i>
+          <i class="fas fa-plus bill_icon_size hide" aria-text="true"></i>
+          <i class="fas fa-minus bill_icon_size" aria-text="true"></i>
         </div>
         <div class="billdetails_ttl">
           <h3>
@@ -50,20 +52,21 @@
               </tr>
             </thead>
 
-            @if (!empty($info[0]))
+            @if (!empty($data['venue_price']))
             <tbody class="venue_main_cancel">
               <tr>
                 <td>会場料
                   {{Form::hidden('cxl_target_item[]',"会場料")}}
                 </td>
-                <td>{{number_format($info[0])}}円
-                  {{Form::hidden('cxl_target_cost[]',$info[0])}}
+                <td>{{number_format($data['venue_price'])}}円
+                  {{Form::hidden('cxl_target_cost[]',$data['venue_price'])}}
                 </td>
                 <td class="multiple">×</td>
                 <td class="">
                   <div class="d-flex align-items-center">
                     {{$data['cxl_venue_PC']}}
                     {{Form::hidden('cxl_target_percent[]',$data['cxl_venue_PC'])}}
+                    {{Form::hidden('cxl_venue_PC',$data['cxl_venue_PC'])}}
                     {{Form::hidden('cxl_target_type[]',1)}}
                     <span>%</span>
                   </div>
@@ -74,20 +77,21 @@
             @endif
 
 
-            @if (!empty($info[1]))
+            @if (!empty($data['equipment_price']))
             <tbody class="equipment_cancel">
               <tr>
                 <td>有料備品・有料サービス料
                   {{Form::hidden('cxl_target_item[]',"有料備品・有料サービス料")}}
                 </td>
-                <td>{{number_format($info[1])}}円
-                  {{Form::hidden('cxl_target_cost[]',$info[1])}}
+                <td>{{number_format($data['equipment_price'])}}円
+                  {{Form::hidden('cxl_target_cost[]',$data['equipment_price'])}}
                 </td>
                 <td class="multiple">×</td>
                 <td class="">
                   <div class="d-flex align-items-center">
                     {{$data['cxl_equipment_PC']}}
                     {{Form::hidden('cxl_target_percent[]',$data['cxl_equipment_PC'])}}
+                    {{Form::hidden('cxl_equipment_PC',$data['cxl_equipment_PC'])}}
                     {{Form::hidden('cxl_target_type[]',2)}}
                     <span>%</span>
                   </div>
@@ -96,20 +100,21 @@
             </tbody>
             @endif
 
-            @if (!empty($info[2]))
+            @if (!empty($data['layout_price']))
             <tbody class="layout_cancel">
               <tr>
                 <td>レイアウト変更料
                   {{Form::hidden('cxl_target_item[]',"レイアウト変更料")}}
                 </td>
-                <td>{{number_format($info[2])}}円
-                  {{Form::hidden('cxl_target_cost[]',$info[2])}}
+                <td>{{number_format($data['layout_price'])}}円
+                  {{Form::hidden('cxl_target_cost[]',$data['layout_price'])}}
                 </td>
                 <td class="multiple">×</td>
                 <td class="">
                   <div class="d-flex align-items-center">
                     {{$data['cxl_layout_PC']}}
                     {{Form::hidden('cxl_target_percent[]',$data['cxl_layout_PC'])}}
+                    {{Form::hidden('cxl_layout_PC',$data['cxl_layout_PC'])}}
                     {{Form::hidden('cxl_target_type[]',4)}}
                     <span>%</span>
                 </td>
@@ -118,20 +123,21 @@
             </tbody>
             @endif
 
-            @if (!empty($info[3]))
+            @if (!empty($data['other_price']))
             <tbody class="others_cancel">
               <tr>
                 <td>その他
                   {{Form::hidden('cxl_target_item[]',"その他")}}
                 </td>
-                <td>{{number_format($info[3])}}円
-                  {{Form::hidden('cxl_target_cost[]',$info[3])}}
+                <td>{{number_format($data['other_price'])}}円
+                  {{Form::hidden('cxl_target_cost[]',$data['other_price'])}}
                 </td>
                 <td class="multiple">×</td>
                 <td class="">
                   <div class="d-flex align-items-center">
                     {{$data['cxl_other_PC']}}
                     {{Form::hidden('cxl_target_percent[]',$data['cxl_other_PC'])}}
+                    {{Form::hidden('cxl_other_PC',$data['cxl_other_PC'])}}
                     {{Form::hidden('cxl_target_type[]',5)}}
                     <span>%</span>
                 </td>
@@ -155,6 +161,7 @@
                     100
                     {{Form::hidden('cxl_target_percent[]',100)}}
                     {{Form::hidden('cxl_target_type[]',5)}}
+                    {{Form::hidden('adjust',$data['adjust'])}}
                     <span>%</span>
                 </td>
                 <p class="is-error-cxl_layout_PC" style="color: red"></p>
@@ -184,70 +191,71 @@
               </tr>
             </tbody>
             <tbody class="">
-              @if (!empty($info[0]))
+              @if (!empty($data['venue_price']))
               <tr>
                 <td>キャンセル料 (<span>会場料</span>・<span>{{$data['cxl_venue_PC']}}%</span>)
                   {{Form::hidden('cxl_unit_item[]',"キャンセル料(会場料・".$data['cxl_venue_PC']."%)")}}
                 </td>
-                <td>{{number_format(round($result[0]))}}
-                  {{Form::hidden('cxl_unit_cost[]',round($result[0]))}}
+                <td>{{number_format(round($data['cxl_venue']))}}
+                  {{Form::hidden('cxl_unit_cost[]',round($data['cxl_venue']))}}
                 </td>
                 <td>1
                   {{Form::hidden('cxl_unit_count[]',1)}}
                 </td>
-                <td>{{number_format(round($result[0]))}}円
-                  {{Form::hidden('cxl_unit_subtotal[]',round($result[0]))}}
+                <td>
+                  {{number_format(round($data['cxl_venue']))}}円
+                  {{Form::hidden('cxl_unit_subtotal[]',round($data['cxl_venue']))}}
                   {{Form::hidden('cxl_unit_percent[]',($data['cxl_venue_PC']))}}
                 </td>
               </tr>
               @endif
-              @if (!empty($info[1]))
+              @if (!empty($data['equipment_price']))
               <tr>
                 <td>キャンセル料 (<span>有料備品・サービス料</span>・<span>{{$data['cxl_equipment_PC']}}%</span>)
                   {{Form::hidden('cxl_unit_item[]',"キャンセル料(有料備品・サービス料・".$data['cxl_equipment_PC']."%)")}}
                 </td>
-                <td>{{number_format(round($result[1]))}}
-                  {{Form::hidden('cxl_unit_cost[]',round($result[1]))}}
+                <td>{{number_format(round($data['cxl_equipment']))}}
+                  {{Form::hidden('cxl_unit_cost[]',round($data['cxl_equipment']))}}
                 </td>
                 <td>1
                   {{Form::hidden('cxl_unit_count[]',1)}}
                 </td>
-                <td>{{number_format(round($result[1]))}}円
-                  {{Form::hidden('cxl_unit_subtotal[]',round($result[1]))}}
+                <td>{{number_format(round($data['cxl_equipment']))}}円
+                  {{Form::hidden('cxl_unit_subtotal[]',round($data['cxl_equipment']))}}
                   {{Form::hidden('cxl_unit_percent[]',($data['cxl_equipment_PC']))}}
                 </td>
               </tr>
               @endif
-              @if (!empty($info[2]))
+              @if (!empty($data['layout_price']))
               <tr>
                 <td>キャンセル料 (<span>レイアウト変更料</span>・<span>{{$data['cxl_layout_PC']}}%</span>)
                   {{Form::hidden('cxl_unit_item[]',"キャンセル料(レイアウト変更料・".$data['cxl_layout_PC']."%)")}}
                 </td>
-                <td>{{number_format(round($result[2]))}}
-                  {{Form::hidden('cxl_unit_cost[]',round($result[2]))}}
+                <td>{{number_format(round($data['cxl_layout']))}}
+                  {{Form::hidden('cxl_unit_cost[]',round($data['cxl_layout']))}}
                 </td>
                 <td>1
                   {{Form::hidden('cxl_unit_count[]',1)}}
                 </td>
-                <td>{{number_format(round($result[2]))}}円
-                  {{Form::hidden('cxl_unit_subtotal[]',round($result[2]))}}
+                <td>{{number_format(round($data['cxl_layout']))}}円
+                  {{Form::hidden('cxl_unit_subtotal[]',round($data['cxl_layout']))}}
                   {{Form::hidden('cxl_unit_percent[]',($data['cxl_layout_PC']))}}
                 </td>
               </tr>
               @endif
-              @if (!empty($info[3]))
+              @if (!empty($data['other_price']))
               <tr>
                 <td>キャンセル料 (<span>その他</span>・<span>{{$data['cxl_other_PC']}}%</span>)
                   {{Form::hidden('cxl_unit_item[]',"キャンセル料(その他・".$data['cxl_other_PC']."%)")}}
                 </td>
-                <td>{{number_format(round($result[3]))}}
-                  {{Form::hidden('cxl_unit_cost[]',round($result[3]))}}
+                <td>{{number_format(round($data['cxl_other']))}}
+                  {{Form::hidden('cxl_unit_cost[]',round($data['cxl_other']))}}
                 </td>
                 <td>1
                   {{Form::hidden('cxl_unit_count[]',1)}}
                 </td>
-                <td>{{number_format(round($result[3]))}}円
-                  {{Form::hidden('cxl_unit_subtotal[]',round($result[3]))}}
+                <td>{{number_format(round($data['cxl_other']))}}円
+                  {{Form::hidden('cxl_unit_subtotal[]',round($data['cxl_other']))}}
                   {{Form::hidden('cxl_unit_percent[]',($data['cxl_other_PC']))}}
                 </td>
               </tr>
@@ -309,8 +317,8 @@
     <div class="information_details">
       <div class="head d-flex">
         <div class="accordion_btn">
-          <i class="fas fa-plus bill_icon_size hide" aria-hidden="true"></i>
-          <i class="fas fa-minus bill_icon_size" aria-hidden="true"></i>
+          <i class="fas fa-plus bill_icon_size hide" aria-text="true"></i>
+          <i class="fas fa-minus bill_icon_size" aria-text="true"></i>
         </div>
         <div class="billdetails_ttl">
           <h3>
@@ -399,8 +407,9 @@
   </div>
 
   <div class="container-field d-flex justify-content-center mt-5">
+    {{Form::hidden('multi',1)}}
     {{ Form::submit('修正する', ['class' => 'btn more_btn4_lg d-block mr-5','name'=>'back']) }}
-    {{ Form::submit('確認する', ['class' => 'btn more_btn_lg d-block']) }}
+    {{ Form::submit('保存する', ['class' => 'btn more_btn_lg d-block']) }}
   </div>
   {{ Form::close() }}
 </section>
@@ -427,9 +436,4 @@
   })
 </script>
 </section>
-
-
-
-
-
 @endsection
