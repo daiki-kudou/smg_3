@@ -65,7 +65,7 @@ class ReservationsController extends Controller
         ->pluck('reservation_id')
         ->toArray());
       $ids_order = !empty(array_values($reservationsWithOrder)) ? implode(',', array_values($reservationsWithOrder)) : "''";
-      $reservations = Reservation::whereIn("id", $reservationsWithOrder)->orderByRaw("FIELD(id, $ids_order)")->get();
+      $reservations = Reservation::whereIn("id", $reservationsWithOrder)->with(['bills', 'venue', 'user'])->orderByRaw("FIELD(id, $ids_order)")->get();
     }
 
     $reservations = $this->customPaginate($reservations, 30, $request);

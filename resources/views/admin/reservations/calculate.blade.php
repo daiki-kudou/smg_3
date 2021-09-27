@@ -792,8 +792,7 @@
             @endif
           </table>
         </div>
-
-        @if(!empty($priceResult['item_details'])||$request->luggage_price)
+        @if(!empty($priceResult['item_details'][0])||$request->luggage_price)
         <div class="equipment billdetails_content">
           <table class="table table-borderless">
             <tr>

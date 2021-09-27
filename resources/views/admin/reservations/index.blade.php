@@ -224,21 +224,6 @@
           {{ Form::submit('翌日予約', ['class' => 'btn more_btn','name'=>'day_after','id'=>'day_after']) }}
         </li>
       </ul>
-
-      {{-- ソート用hidden --}}
-      {{Form::hidden("sort_multiple_reserve_id", $request->sort_multiple_reserve_id?($request->sort_multiple_reserve_id==1?2:1):1)}}
-      {{Form::hidden("sort_id", $request->sort_id?($request->sort_id==1?2:1):1)}}
-      {{Form::hidden("sort_reserve_date", $request->sort_reserve_date?($request->sort_reserve_date==1?2:1):1)}}
-      {{Form::hidden("sort_enter_time", $request->sort_enter_time?($request->sort_enter_time==1?2:1):1)}}
-      {{Form::hidden("sort_leave_time", $request->sort_leave_time?($request->sort_leave_time==1?2:1):1)}}
-      {{Form::hidden("sort_venue", $request->sort_venue?($request->sort_venue==1?2:1):1)}}
-      {{Form::hidden("sort_user_company", $request->sort_user_company?($request->sort_user_company==1?2:1):1)}}
-      {{Form::hidden("sort_user_name", $request->sort_user_name?($request->sort_user_name==1?2:1):1)}}
-      {{Form::hidden("sort_user_mobile", $request->sort_user_mobile?($request->sort_user_mobile==1?2:1):1)}}
-      {{Form::hidden("sort_user_tel", $request->sort_user_tel?($request->sort_user_tel==1?2:1):1)}}
-      {{Form::hidden("sort_agent", $request->sort_agent?($request->sort_agent==1?2:1):1)}}
-      {{Form::hidden("sort_enduser", $request->sort_enduser?($request->sort_enduser==1?2:1):1)}}
-      {{-- ソート用hidden --}}
       {{ Form::close() }}
 
       @if ($counter!=0)
@@ -252,19 +237,18 @@
       <table class="table table-bordered table-scroll">
         <thead>
           <tr class="table_row">
-            <th id="sort_multiple_reserve_id">予約一括ID
-              {!!ReservationHelper::sortIcon($request->sort_multiple_reserve_id)!!}</th>
-            <th id="sort_id">予約ID {!!ReservationHelper::sortIcon($request->sort_id)!!}</th>
-            <th id="sort_reserve_date">利用日 {!!ReservationHelper::sortIcon($request->sort_reserve_date)!!}</th>
-            <th id="sort_enter_time">入室 {!!ReservationHelper::sortIcon($request->sort_enter_time)!!}</th>
-            <th id="sort_leave_time">退室 {!!ReservationHelper::sortIcon($request->sort_leave_time)!!}</th>
-            <th id="sort_venue">利用会場 {!!ReservationHelper::sortIcon($request->sort_venue)!!}</th>
-            <th id="sort_user_company">会社名団体名 {!!ReservationHelper::sortIcon($request->sort_user_company)!!}</th>
-            <th id="sort_user_name">担当者氏名 {!!ReservationHelper::sortIcon($request->sort_user_name)!!}</th>
-            <th id="sort_user_mobile">携帯電話 {!!ReservationHelper::sortIcon($request->sort_user_mobile)!!}</th>
-            <th id="sort_user_tel">固定電話 {!!ReservationHelper::sortIcon($request->sort_user_tel)!!}</th>
-            <th id="sort_agent">仲介会社 {!!ReservationHelper::sortIcon($request->sort_agent)!!}</th>
-            <th id="sort_enduser">エンドユーザー {!!ReservationHelper::sortIcon($request->sort_enduser)!!}</th>
+            <th id="sort_multiple_reserve_id">予約一括ID</th>
+            <th id="sort_id">予約ID </th>
+            <th id="sort_reserve_date">利用日 </th>
+            <th id="sort_enter_time">入室 </th>
+            <th id="sort_leave_time">退室 </th>
+            <th id="sort_venue">利用会場 </th>
+            <th id="sort_user_company">会社名団体名 </th>
+            <th id="sort_user_name">担当者氏名 </th>
+            <th id="sort_user_mobile">携帯電話 </th>
+            <th id="sort_user_tel">固定電話 </th>
+            <th id="sort_agent">仲介会社 </th>
+            <th id="sort_enduser">エンドユーザー </th>
             <th>アイコン</th>
             <th width="120">売上区分</th>
             <th width="120">予約状況</th>
@@ -328,15 +312,31 @@
               {{!empty($reservation->endusers->company)?$reservation->endusers->company:""}}
               @endif
             </td>
-            <td>
-              @foreach (ImageHelper::show($reservation->id) as $icon)
-              {!!$icon!!}
+            <td class="p-0">
+              @foreach ($reservation->bills as $bill)
+              <div
+                style="padding: 0.5rem; vertical-align: middle; border-top: 0px solid; border-bottom:solid 1px #dee2e6; min-height:37px;">
+                @foreach (ImageHelper::addBillsShow($bill->id) as $icon)
+                {!!$icon!!}
+                @endforeach
+              </div>
               @endforeach
-              {!!ImageHelper::newUser($reservation->user_id,$reservation->id)!!}
             </td>
-            <td>会場予約</td>
-            <td>
-              {{ReservationHelper::judgeStatus($reservation->bills->sortBy("id")->first()->reservation_status)}}
+            <td class="p-0">
+              @foreach ($reservation->bills as $bill)
+              <div
+                style="padding: 0.5rem; vertical-align: middle; border-top: 0px solid; border-bottom:solid 1px #dee2e6; min-height:37px;">
+                {{((int)$bill->category===1?"会場予約":"追加請求")}}
+              </div>
+              @endforeach
+            </td>
+            <td class="p-0">
+              @foreach ($reservation->bills as $bill)
+              <div
+                style="padding: 0.5rem; vertical-align: middle; border-top: 0px solid; border-bottom:solid 1px #dee2e6; min-height:37px;">
+                {{ReservationHelper::judgeStatus($bill->reservation_status)}}
+              </div>
+              @endforeach
             </td>
             <td class="text-center" rowspan="{{count($reservation->bills)}}"><a
                 href="{{ url('admin/reservations', $reservation->id) }}" class="more_btn btn">詳細</a></td>
@@ -350,30 +350,12 @@
               @endif
             </td>
           </tr>
-          @for ($i = 0; $i < count($reservation->bills)-1; $i++)
-            <tr>
-              <td>
-                @foreach (ImageHelper::addBillsShow($reservation->bills->sortBy("id")->skip($i+1)->first()->id) as
-                $icon)
-                {!!$icon!!}
-                @endforeach
-              </td>
-              <td>
-                @if ($reservation->bills->sortBy("id")->skip($i+1)->first()->category==2)
-                追加請求
-                @endif
-              </td>
-              <td>
-                {{ReservationHelper::judgeStatus($reservation->bills->sortBy("id")->skip($i+1)->first()->reservation_status)}}
-              </td>
-            </tr>
-            @endfor
         </tbody>
         @endforeach
       </table>
     </div>
   </div>
-  {{$reservations->appends(request()->input())->links()}}
+  {{-- {{$reservations->appends(request()->input())->links()}} --}}
 </div>
 
 
