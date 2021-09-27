@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use Illuminate\Database\Eloquent\Model;
 use App\Models\Cxl;
+use App\Models\CxlBreakdown;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Carbon\Carbon;
@@ -15,6 +16,9 @@ use App\Models\Reservation;
 use Illuminate\Support\Facades\Mail;
 use App\Mail\AdminCxlPaid;
 use App\Mail\UserCxlPaid;
+
+use Illuminate\Support\Facades\DB;
+
 
 
 class CxlController extends Controller
@@ -119,22 +123,19 @@ class CxlController extends Controller
       return redirect()->route('admin.cxl.multi_create', $data)->withInput();
     }
 
-    dd($data);
-    $reservation = new Reservation;
-    $bill = new Bill;
-    $breakdowns = new Breakdown;
+    $cxl = new Cxl;
+    $cxl_breakdown = new CxlBreakdown;
     DB::beginTransaction();
     try {
-      $result_reservation = $reservation->ReservationStore($data);
-      $result_bill = $bill->BillStore($result_reservation->id, $data);
-      $result_breakdowns = $breakdowns->BreakdownStore($result_bill->id, $data);
+      $result_cxl = $cxl->CxlStore($data);
+      $result_breakdown = $cxl_breakdown->BreakdownStore($result_cxl->id, $data);
       DB::commit();
     } catch (\Exception $e) {
       DB::rollback();
       return redirect()->route('admin.cxl.multi_create', $data)->withInput()->withErrors($e->getMessage());
     }
     $request->session()->regenerate();
-    return redirect()->route('admin.reservations.show', $result_reservation->id);
+    return redirect()->route('admin.reservations.show', $result_cxl->reservation_id);
   }
 
   public function multiStore($data, $invoice, $bill_id, $reservation_id)
