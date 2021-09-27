@@ -267,7 +267,7 @@
             <td>
               {{ReservationHelper::fixId($reservation->multiple_reserve_id)}}
             </td>
-            <td class="text-center">
+            <td class="text-center" data-order="{{$reservation->id}}">
               {{ReservationHelper::fixId($reservation->id)}}</td>
             <td>
               {{ReservationHelper::formatDate($reservation->reserve_date)}}
@@ -434,7 +434,7 @@
       info: false,
       autowidth: false,
       // "order": [[ 0, "desc" ]], //初期ソートソート条件
-      // "columnDefs": [{ "orderable": false, "targets": [10] }]
+      "columnDefs": [{ "orderable": false, "targets": [12,13,14,15,16] }]
      });
     });
 </script>
