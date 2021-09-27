@@ -17,18 +17,6 @@
     width: 20px;
     height: 20px;
   }
-
-  /* table {
-    height: 100%;
-
-    td {
-      height: 100%;
-
-      div {
-        height: 100%;
-      }
-    }
-  } */
 </style>
 
 <div class="content">
@@ -324,7 +312,7 @@
               @endif
             </td>
             <td class="p-0">
-              <div style="display: table; height:100%; vertical-align: middle; width:100%">
+              <div style="display: table; height:100%; vertical-align: middle; width:110px">
                 @foreach ($reservation->bills as $bill)
                 <div style="display: table-row;">
                   <div
@@ -332,14 +320,14 @@
                     @foreach (ImageHelper::addBillsShow($bill->id) as $icon)
                     {!!$icon!!}
                     @endforeach
-                    <span style="color: white">{{$bill->id}}</span>
+                    <span style="color: white; width:1px;">{{$bill->id}}</span>
                   </div>
                 </div>
                 @endforeach
               </div>
             </td>
             <td class=" p-0">
-              <div style="display: table; height:100%; vertical-align: middle; width:100%">
+              <div style="display: table; height:100%; vertical-align: middle; width:110px">
                 @foreach ($reservation->bills as $bill)
                 <div style="display: table-row;">
                   <div
@@ -352,7 +340,7 @@
               </div>
             </td>
             <td class="p-0">
-              <div style="display: table; height:100%; vertical-align: middle; width:100%">
+              <div style="display: table; height:100%; vertical-align: middle; width:110px">
                 @foreach ($reservation->bills as $bill)
                 <div style="display: table-row;">
                   <div
