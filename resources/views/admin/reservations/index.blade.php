@@ -234,21 +234,21 @@
       @endif
     </div>
     <div class="table-wrap">
-      <table class="table table-bordered table-scroll">
+      <table class="table table-bordered table-scroll" id="reservation_sort">
         <thead>
           <tr class="table_row">
-            <th id="sort_multiple_reserve_id">予約一括ID</th>
-            <th id="sort_id">予約ID </th>
-            <th id="sort_reserve_date">利用日 </th>
-            <th id="sort_enter_time">入室 </th>
-            <th id="sort_leave_time">退室 </th>
-            <th id="sort_venue">利用会場 </th>
-            <th id="sort_user_company">会社名団体名 </th>
-            <th id="sort_user_name">担当者氏名 </th>
-            <th id="sort_user_mobile">携帯電話 </th>
-            <th id="sort_user_tel">固定電話 </th>
-            <th id="sort_agent">仲介会社 </th>
-            <th id="sort_enduser">エンドユーザー </th>
+            <th>予約一括ID</th>
+            <th>予約ID </th>
+            <th>利用日 </th>
+            <th>入室 </th>
+            <th>退室 </th>
+            <th>利用会場 </th>
+            <th>会社名団体名 </th>
+            <th>担当者氏名 </th>
+            <th>携帯電話 </th>
+            <th>固定電話 </th>
+            <th>仲介会社 </th>
+            <th>エンドユーザー </th>
             <th>アイコン</th>
             <th width="120">売上区分</th>
             <th width="120">予約状況</th>
@@ -263,51 +263,50 @@
         </style>
         @foreach ($reservations as $reservation)
         <tbody class="{{$reservation->cxlGray()? "cxl_gray":""}}">
-        <tbody>
           <tr>
-            <td rowspan="{{count($reservation->bills)}}">
+            <td>
               {{ReservationHelper::fixId($reservation->multiple_reserve_id)}}
             </td>
-            <td class="text-center" rowspan="{{count($reservation->bills)}}">
+            <td class="text-center">
               {{ReservationHelper::fixId($reservation->id)}}</td>
-            <td rowspan="{{count($reservation->bills)}}">
+            <td>
               {{ReservationHelper::formatDate($reservation->reserve_date)}}
             </td>
-            <td rowspan="{{count($reservation->bills)}}">{{ReservationHelper::formatTime($reservation->enter_time)}}
+            <td>{{ReservationHelper::formatTime($reservation->enter_time)}}
             </td>
-            <td rowspan="{{count($reservation->bills)}}">{{ReservationHelper::formatTime($reservation->leave_time)}}
+            <td>{{ReservationHelper::formatTime($reservation->leave_time)}}
             </td>
-            <td rowspan="{{count($reservation->bills)}}">
+            <td>
               {{ReservationHelper::getVenue($reservation->venue->id)}}
             </td>
-            <td rowspan="{{count($reservation->bills)}}" class="{{ClassHelper::addNotMemberClass($reservation)}}">
+            <td>
               @if ($reservation->user_id>0)
               {{$reservation->user->company}}
               @endif
             </td>
             @if ($reservation->user_id>0)
-            <td rowspan="{{count($reservation->bills)}}" class="{{ClassHelper::addNotMemberClass($reservation)}}">
+            <td>
               {{ReservationHelper::getPersonName($reservation->user_id)}}
               @elseif($reservation->user_id==0)
-            <td rowspan="{{count($reservation->bills)}}">
+            <td>
               @endif
             </td>
-            <td rowspan="{{count($reservation->bills)}}" class="{{ClassHelper::addNotMemberClass($reservation)}}">
+            <td>
               @if ($reservation->user_id>0)
               {{$reservation->user->mobile}}
               @endif
             </td>
-            <td rowspan="{{count($reservation->bills)}}" class="{{ClassHelper::addNotMemberClass($reservation)}}">
+            <td>
               @if ($reservation->user_id>0)
               {{$reservation->user->tel}}
               @endif
             </td>
-            <td rowspan="{{count($reservation->bills)}}">
+            <td>
               @if ($reservation->agent_id>0)
               {{ReservationHelper::getAgentCompany($reservation->agent_id)}}
               @endif
             </td>
-            <td rowspan="{{count($reservation->bills)}}">
+            <td>
               @if ($reservation->agent_id>0)
               {{!empty($reservation->endusers->company)?$reservation->endusers->company:""}}
               @endif
@@ -338,9 +337,9 @@
               </div>
               @endforeach
             </td>
-            <td class="text-center" rowspan="{{count($reservation->bills)}}"><a
-                href="{{ url('admin/reservations', $reservation->id) }}" class="more_btn btn">詳細</a></td>
-            <td class="text-center" rowspan="{{count($reservation->bills)}}">
+            <td class="text-center"><a href="{{ url('admin/reservations', $reservation->id) }}"
+                class="more_btn btn">詳細</a></td>
+            <td class="text-center">
               @if ($reservation->board_flag!=0)
               {{ Form::open(['url' => 'admin/board', 'method'=>'post', 'id'=>'', 'target'=>'_blank'])}}
               @csrf
@@ -362,23 +361,23 @@
 
 
 <script>
-  $(document).on("click", ".table-scroll th", function() {
-    var click_th_id=$(this).attr("id");
-    $('input[name^="sort_"]').each(function(key, item){
-      if ($(item).attr("name")!=click_th_id) {
-        $(item).val("");
-      }
-    })
-    $("#reserve_search").submit();
-    }) 
+  // $(document).on("click", ".table-scroll th", function() {
+  //   var click_th_id=$(this).attr("id");
+  //   $('input[name^="sort_"]').each(function(key, item){
+  //     if ($(item).attr("name")!=click_th_id) {
+  //       $(item).val("");
+  //     }
+  //   })
+  //   $("#reserve_search").submit();
+  //   }) 
 
-    $(function() {
-      $("#m_submit").on("click",function(){
-        $('input[name^="sort_"]').each(function(key, item){
-        $(item).val("");
-        })
-      })
-    })
+  //   $(function() {
+  //     $("#m_submit").on("click",function(){
+  //       $('input[name^="sort_"]').each(function(key, item){
+  //       $(item).val("");
+  //       })
+  //     })
+  //   })
 
 
 
@@ -391,9 +390,9 @@
       $('input[type="text"]').each(function($key,$value){
         $($value).val('');
       })
-      $('input[name^="sort_"]').each(function($key,$value){
-        $($value).val('');
-      })
+      // $('input[name^="sort_"]').each(function($key,$value){
+      //   $($value).val('');
+      // })
     })
   })
 
@@ -421,7 +420,23 @@
     }
     ActiveDateRangePicker('reserve_date');
   })
+</script>
 
+<script>
+  $(document).ready(function(){
+    $.extend($.fn.dataTable.defaults, {
+        language: {
+            url: "http://cdn.datatables.net/plug-ins/9dcbecd42ad/i18n/Japanese.json"
+        }
+    });
+    $('#reservation_sort').DataTable({
+      searching: false,
+      info: false,
+      autowidth: false,
+      // "order": [[ 0, "desc" ]], //初期ソートソート条件
+      // "columnDefs": [{ "orderable": false, "targets": [10] }]
+     });
+    });
 </script>
 
 
