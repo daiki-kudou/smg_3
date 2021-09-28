@@ -125,10 +125,12 @@ class CxlController extends Controller
 
     $cxl = new Cxl;
     $cxl_breakdown = new CxlBreakdown;
+    $bill = new Bill;
     DB::beginTransaction();
     try {
       $result_cxl = $cxl->CxlStore($data);
       $result_breakdown = $cxl_breakdown->BreakdownStore($result_cxl->id, $data);
+      $bill->BillUpdateCxlStatus($result_cxl->reservation_id);
       DB::commit();
     } catch (\Exception $e) {
       DB::rollback();

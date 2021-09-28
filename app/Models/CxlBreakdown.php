@@ -31,7 +31,7 @@ class CxlBreakdown extends Model
 
   public function BreakdownStore($cxl_id, $data)
   {
-    foreach ($data['cxl_target_item'] as $key => $value) {
+    foreach ($data['cxl_unit_subtotal'] as $key => $value) {
       $this->create([
         'cxl_id' => $cxl_id,
         'unit_item' => $data['cxl_unit_item'][$key],
@@ -41,6 +41,18 @@ class CxlBreakdown extends Model
         'unit_type' => 1, //1が計算結果　2が計算対象
         'unit_percent' => $data['cxl_target_percent'][$key],
         'unit_percent_type' => $data['cxl_target_type'][$key],
+      ]);
+    }
+    foreach ($data['cxl_target_percent'] as $key => $value) {
+      $this->create([
+        'cxl_id' => $cxl_id,
+        'unit_item' => $data['cxl_unit_item'][$key],
+        'unit_count' => $data['cxl_target_percent'][$key],
+        'unit_cost' => $data['cxl_target_cost'][$key],
+        'unit_subtotal' => 0, //計算対象は合計金額がない
+        'unit_type' => 2, //1が計算結果　2が計算対象
+        'unit_percent' => 0, //計算結果のため、キャンセル料率の表示は不要
+        'unit_percent_type' => 0 //計算結果のため、タイプは不要
       ]);
     }
   }

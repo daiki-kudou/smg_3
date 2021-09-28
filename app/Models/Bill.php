@@ -158,6 +158,14 @@ class Bill extends Model
     return $this;
   }
 
+  public function BillUpdateCxlStatus($reservation_id)
+  {
+    $bills = $this->where('reservation_id', $reservation_id)->where('reservation_status', 3)->get();
+    foreach ($bills as $key => $value) {
+      $value->updateStatusByCxl();
+    }
+  }
+
 
 
   // public function ReserveStoreSessionBreakdown($request, $sessionName)

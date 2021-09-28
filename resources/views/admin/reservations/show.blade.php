@@ -496,6 +496,7 @@
         </div>
         <div class="cancel">
           @if ($reservation->bills->sortBy("id")->first()->reservation_status == 3)
+          @if ($reservation->cxls->count()===0)
           {{ Form::open(['url' => 'admin/cxl/multi_create', 'method' => 'get', 'class' => '']) }}
           @csrf
           {{ Form::hidden('reservation_id', $reservation->id) }}
@@ -504,6 +505,7 @@
             <div class="text-right"><span>※全ての予約ステータスが「予約完了」か確認してください</span></div>
           </p>
           {{ Form::close() }}
+          @endif
           @endif
         </div>
       </div>
