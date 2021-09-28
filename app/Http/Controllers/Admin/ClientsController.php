@@ -36,8 +36,6 @@ class ClientsController extends Controller
       $querys = User::orderBy('id', 'desc')->get();
       $counter = 0;
     }
-
-
     return view('admin.clients.index', compact('querys', 'request', 'counter'));
   }
 

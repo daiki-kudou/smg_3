@@ -204,74 +204,79 @@ class CxlController extends Controller
    */
   public function edit($id)
   {
-    session()->forget(['invoice', 'cxlMaster', 'cxlResult', 'cxlCalcInfo']);
     $cxl = Cxl::with(['bill', 'reservation.bills', 'cxl_breakdowns'])->find($id);
-    if (empty($cxl->bill)) {
-      //一括キャンセル押下時
-      if ($cxl->reservation->user_id > 0) {
-        $price_result = $cxl->reservation->pluckSum(['venue_price', 'equipment_price', 'layout_price', 'others_price'], 4);
-      } else { //仲介会社の場合、会場料としてsubtotalを表示
-        $master_subtotal = $cxl->reservation->bills->where('reservation_status', '>', 3)->where('reservation_status', '<', 6)->pluck('master_subtotal')->sum();
-        $layout = $cxl->reservation->bills->where('reservation_status', '>', 3)->where('reservation_status', '<', 6)->pluck('layout_price')->sum();
-        $price_result = [($master_subtotal - $layout), 0, $layout, 0];
-      }
-    } else {
-      //個別キャンセル押下時
-      if ($cxl->reservation->user_id > 0) {
-        $price_result = [$cxl->bill->venue_price, $cxl->bill->equipment_price, $cxl->bill->layout_price, $cxl->bill->others_price];
-      } else { //仲介会社の場合、会場料としてsubtotalを表示
-        $master_subtotal = $cxl->bill->master_subtotal;
-        $layout = $cxl->bill->layout_price;
-        $price_result = [($master_subtotal - $layout), 0, $layout, 0];
-      }
-    }
-    session()->put('cxlMaster', $price_result);
-    return view('admin.cxl.edit', compact('price_result', 'cxl'));
+    $reservation = Reservation::find($cxl->reservation_id);
+    // dd($cxl);
+    // if (empty($cxl->bill)) {
+    //   //一括キャンセル押下時
+    //   if ($cxl->reservation->user_id > 0) {
+    //     $price_result = $cxl->reservation->pluckSum(['venue_price', 'equipment_price', 'layout_price', 'others_price'], 4);
+    //   } else { //仲介会社の場合、会場料としてsubtotalを表示
+    //     $master_subtotal = $cxl->reservation->bills->where('reservation_status', '>', 3)->where('reservation_status', '<', 6)->pluck('master_subtotal')->sum();
+    //     $layout = $cxl->reservation->bills->where('reservation_status', '>', 3)->where('reservation_status', '<', 6)->pluck('layout_price')->sum();
+    //     $price_result = [($master_subtotal - $layout), 0, $layout, 0];
+    //   }
+    // } else {
+    //   //個別キャンセル押下時
+    //   if ($cxl->reservation->user_id > 0) {
+    //     $price_result = [$cxl->bill->venue_price, $cxl->bill->equipment_price, $cxl->bill->layout_price, $cxl->bill->others_price];
+    //   } else { //仲介会社の場合、会場料としてsubtotalを表示
+    //     $master_subtotal = $cxl->bill->master_subtotal;
+    //     $layout = $cxl->bill->layout_price;
+    //     $price_result = [($master_subtotal - $layout), 0, $layout, 0];
+    //   }
+    // }
+    return view('admin.cxl.edit', compact('cxl', 'reservation'));
   }
 
   public function editCalc(Request $request)
   {
-    $request->session()->forget('invoice');
-    $request->session()->put('cxlCalcInfo', $request->all());
-    $cxl = new Cxl;
-    $result = $cxl->calcCxlAmount();
-    $request->session()->put('cxlResult', $result);
-    return redirect(route('admin.cxl.edit_calc'));
-  }
-
-  public function editCalcShow(Request $request)
-  {
-    $info = session()->get('cxlMaster');
-    $data = session()->get('cxlCalcInfo');
-    $result = session()->get('cxlResult');
+    $data = $request->all();
     $reservation = Reservation::with(['user', 'agent'])->find($data['reservation_id']);
     $user = $reservation->user;
     $agent = $reservation->agent;
-    if (!empty($user)) {
+    if ($reservation->user_id > 0) {
       $pay_limit = $user->getUserPayLimit($reservation->reserve_date);
     } else {
-      $pay_limit = $agent->getAgentPayLimit($reservation->reserve_date);
+      $pay_limit = $agent->getPayDetails($reservation->reserve_date);
     }
-    $cxl = Cxl::find($data['cxl_id']);
-    return view('admin.cxl.edit_calc', compact('info', 'data', 'result', 'user', 'pay_limit', 'cxl'));
+
+    return view('admin.cxl.edit_calc', compact('data', 'reservation', 'pay_limit', 'agent', 'user'));
   }
 
-  public function editCheck(Request $request)
-  {
-    $info = session()->get('cxlMaster');
-    $data = session()->get('cxlCalcInfo');
-    $result = session()->get('cxlResult');
-    $request->session()->put('invoice', $request->all());
-    $invoice = session()->get('invoice');
-    $multiOrSingle = session()->get('multiOrSingle');
-    if ($request->back) {
-      return redirect(route('admin.cxl.edit', $data['cxl_id']));
-    }
-    return view(
-      'admin.cxl.edit_check',
-      compact('info', 'data', 'result', 'invoice')
-    );
-  }
+  // public function editCalcShow(Request $request)
+  // {
+  //   $info = session()->get('cxlMaster');
+  //   $data = session()->get('cxlCalcInfo');
+  //   $result = session()->get('cxlResult');
+  //   $reservation = Reservation::with(['user', 'agent'])->find($data['reservation_id']);
+  //   $user = $reservation->user;
+  //   $agent = $reservation->agent;
+  //   if (!empty($user)) {
+  //     $pay_limit = $user->getUserPayLimit($reservation->reserve_date);
+  //   } else {
+  //     $pay_limit = $agent->getAgentPayLimit($reservation->reserve_date);
+  //   }
+  //   $cxl = Cxl::find($data['cxl_id']);
+  //   return view('admin.cxl.edit_calc', compact('info', 'data', 'result', 'user', 'pay_limit', 'cxl'));
+  // }
+
+  // public function editCheck(Request $request)
+  // {
+  //   $info = session()->get('cxlMaster');
+  //   $data = session()->get('cxlCalcInfo');
+  //   $result = session()->get('cxlResult');
+  //   $request->session()->put('invoice', $request->all());
+  //   $invoice = session()->get('invoice');
+  //   $multiOrSingle = session()->get('multiOrSingle');
+  //   if ($request->back) {
+  //     return redirect(route('admin.cxl.edit', $data['cxl_id']));
+  //   }
+  //   return view(
+  //     'admin.cxl.edit_check',
+  //     compact('info', 'data', 'result', 'invoice')
+  //   );
+  // }
 
 
   /**
@@ -283,28 +288,44 @@ class CxlController extends Controller
    */
   public function update(Request $request)
   {
+    $data = $request->all();
+    $r = Reservation::with('cxls')->find($data['reservation_id']);
+    $cxl = $r->cxls->first();
     if ($request->back) {
-      return redirect(route('admin.cxl.edit_calc'));
+      return redirect()->route('admin.cxl.edit', $cxl->id)->withInput();
     }
-    $data = session()->get('cxlCalcInfo');
-    $invoice = session()->get('invoice');
-    $multiOrSingle = session()->get('multiOrSingle');
-    $reservation_id = $data['reservation_id'];
-    $bill_id = $data['bill_id'];
+
+    // $reservation_id = $data['reservation_id'];
+    // $bill_id = $data['bill_id'];
+    // try {
+    //   $cxl = Cxl::with('cxl_breakdowns')->find($data['cxl_id']);
+    //   $cxl->updateCxl($data, $invoice);
+    //   foreach ($cxl->cxl_breakdowns as $key => $value) {
+    //     $value->delete();
+    //   }
+    //   $cxl->updateCxlBreakdowns($data, $invoice);
+    // } catch (\Exception $e) {
+    //   report($e);
+    //   session()->flash('flash_message', '作成に失敗しました。<br>フォーム内の空欄や全角など確認した上でもう一度お試しください。');
+    //   return redirect(route('admin.cxl.edit_calc'));
+    // }
+    // $request->session()->regenerate();
+    // return redirect()->route('admin.reservations.show', $reservation_id);
+
+    $cxl_breakdown = new CxlBreakdown;
+    $bill = new Bill;
+    DB::beginTransaction();
     try {
-      $cxl = Cxl::with('cxl_breakdowns')->find($data['cxl_id']);
-      $cxl->updateCxl($data, $invoice);
-      foreach ($cxl->cxl_breakdowns as $key => $value) {
-        $value->delete();
-      }
-      $cxl->updateCxlBreakdowns($data, $invoice);
+      $result_cxl = $cxl->CxlUpdate($data);
+      $cxl_breakdown->BreakdownDelete($cxl->id);
+      $cxl_breakdown->BreakdownStore($cxl->id, $data);
+      DB::commit();
     } catch (\Exception $e) {
-      report($e);
-      session()->flash('flash_message', '作成に失敗しました。<br>フォーム内の空欄や全角など確認した上でもう一度お試しください。');
-      return redirect(route('admin.cxl.edit_calc'));
+      DB::rollback();
+      return redirect()->route('admin.cxl.edit', $cxl->id)->withInput()->withErrors($e->getMessage());
     }
     $request->session()->regenerate();
-    return redirect()->route('admin.reservations.show', $reservation_id);
+    return redirect()->route('admin.reservations.show', $result_cxl->reservation_id);
   }
 
   /**

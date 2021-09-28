@@ -378,9 +378,9 @@ Route::namespace('Admin')->prefix('admin')->name('admin.')->group(function () {
     // Route::post('cxl/confirm', 'CxlController@confirm_cxl');
 
     Route::get('cxl/edit/{cxl}', 'CxlController@edit')->name('cxl.edit');
-    Route::post('cxl/edit_calc', 'CxlController@editCalc');
-    Route::get('cxl/edit_calc', 'CxlController@editCalcShow')->name('cxl.edit_calc');
-    Route::post('cxl/edit_check', 'CxlController@editCheck');
+    // Route::post('cxl/edit_calc', 'CxlController@editCalc');
+    Route::get('cxl/edit_calc', 'CxlController@editCalc')->name('cxl.edit_calc');
+    // Route::post('cxl/edit_check', 'CxlController@editCheck');
     Route::post('cxl/update', 'CxlController@update');
     Route::post('cxl/update_cxl_bill_info', 'CxlController@updateCxlBillInfo');
     Route::post('cxl/update_cxl_paid_info', 'CxlController@updateCxlPaidInfo');
