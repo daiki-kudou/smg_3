@@ -197,6 +197,8 @@ class Cxl extends Model
     return $this;
   }
 
+
+
   // public function updateCxlBreakdowns($data, $invoice)
   // {
   //   DB::transaction(function () use ($data, $invoice) {

@@ -322,7 +322,8 @@
             @foreach ($reservation['bills'] as $bill) {{--売上--}}
             <div style="display: table-row;">
               <div
-                style="display: table-cell; width:100%; vertical-align: middle; {{$loop->first?"border-bottom:solid 1px #dee2e6;":($loop->last?"":"border-bottom:solid 1px #dee2e6;")}} padding:5px;">
+                style="display: table-cell; width:100%; vertical-align: middle; {{$loop->first?"border-bottom:solid 1px #dee2e6;":($loop->last?"":"border-bottom:solid 1px #dee2e6;")}} padding:5px;"
+                class="text-center">
                 <span>{{number_format($bill['master_total'])}}</span>
                 <span style="color: white">{{$bill['id']}}</span>
               </div>
@@ -331,14 +332,16 @@
             @if (count($reservation['cxls'])>0) {{--打ち消し--}}
             <div style="display: table-row;">
               <div
-                style="display: table-cell; width:100%; vertical-align: middle; padding:5px; border-top:solid 1px #dee2e6">
+                style="display: table-cell; width:100%; vertical-align: middle; padding:5px; border-top:solid 1px #dee2e6"
+                class="text-center">
                 <span>{{number_format($reservation['master_total']*-1)}}</span>
                 <span style="color: white">{{$bill['id']}}</span>
               </div>
             </div>
             <div style="display: table-row;"> {{--キャンセル--}}
               <div
-                style="display: table-cell; width:100%; vertical-align: middle; padding:5px; border-top:solid 1px #dee2e6">
+                style="display: table-cell; width:100%; vertical-align: middle; padding:5px; border-top:solid 1px #dee2e6"
+                class="text-center">
                 <span>{{number_format($reservation['cxls_master_total'])}}</span>
                 <span style="color: white">{{$bill['id']}}</span>
               </div>
@@ -351,7 +354,8 @@
             @foreach ($reservation['bills'] as $bill) {{--売上--}}
             <div style="display: table-row;">
               <div
-                style="display: table-cell; width:100%; vertical-align: middle; {{$loop->first?"border-bottom:solid 1px #dee2e6;":($loop->last?"":"border-bottom:solid 1px #dee2e6;")}} padding:5px;">
+                style="display: table-cell; width:100%; vertical-align: middle; {{$loop->first?"border-bottom:solid 1px #dee2e6;":($loop->last?"":"border-bottom:solid 1px #dee2e6;")}} padding:5px;"
+                class="text-center">
                 <span>{{number_format($bill['cost_for_partner'])}}</span>
                 <span style="color: white">{{$bill['id']}}</span>
               </div>
@@ -360,15 +364,17 @@
             @if (count($reservation['cxls'])>0) {{--打ち消し--}}
             <div style="display: table-row;">
               <div
-                style="display: table-cell; width:100%; vertical-align: middle; padding:5px; border-top:solid 1px #dee2e6">
+                style="display: table-cell; width:100%; vertical-align: middle; padding:5px; border-top:solid 1px #dee2e6"
+                class="text-center">
                 <span>{{number_format($reservation['sum_cost_for_partner']*-1)}}</span>
                 <span style="color: white">{{$bill['id']}}</span>
               </div>
             </div>
             <div style="display: table-row;"> {{--キャンセル--}}
               <div
-                style="display: table-cell; width:100%; vertical-align: middle; padding:5px; border-top:solid 1px #dee2e6">
-                <span>{{number_format($reservationsObject->find($reservation['id'])->cxlProfit())}}</span>
+                style="display: table-cell; width:100%; vertical-align: middle; padding:5px; border-top:solid 1px #dee2e6"
+                class="text-center">
+                <span>{{number_format($reservation['sum_cxl_cost_for_partner'])}}</span>
                 <span style="color: white">{{$bill['id']}}</span>
               </div>
             </div>
@@ -380,7 +386,8 @@
             @foreach ($reservation['bills'] as $bill) {{--売上--}}
             <div style="display: table-row;">
               <div
-                style="display: table-cell; width:100%; vertical-align: middle; {{$loop->first?"border-bottom:solid 1px #dee2e6;":($loop->last?"":"border-bottom:solid 1px #dee2e6;")}} padding:5px;">
+                style="display: table-cell; width:100%; vertical-align: middle; {{$loop->first?"border-bottom:solid 1px #dee2e6;":($loop->last?"":"border-bottom:solid 1px #dee2e6;")}} padding:5px;"
+                class="text-center">
                 <span>{{number_format($bill['master_total']-$bill['cost_for_partner'])}}</span>
                 <span style="color: white">{{$bill['id']}}</span>
               </div>
@@ -389,15 +396,17 @@
             @if (count($reservation['cxls'])>0) {{--打ち消し--}}
             <div style="display: table-row;">
               <div
-                style="display: table-cell; width:100%; vertical-align: middle; padding:5px; border-top:solid 1px #dee2e6">
+                style="display: table-cell; width:100%; vertical-align: middle; padding:5px; border-top:solid 1px #dee2e6"
+                class="text-center">
                 <span>{{number_format($reservation['master_total']*-1-($reservation['sum_cost_for_partner']*-1))}}</span>
                 <span style="color: white">{{$bill['id']}}</span>
               </div>
             </div>
             <div style="display: table-row;"> {{--キャンセル--}}
               <div
-                style="display: table-cell; width:100%; vertical-align: middle; padding:5px; border-top:solid 1px #dee2e6">
-                <span>{{number_format($reservationsObject->find($reservation['id'])->cxlProfit())}}</span>
+                style="display: table-cell; width:100%; vertical-align: middle; padding:5px; border-top:solid 1px #dee2e6"
+                class="text-center">
+                <span>{{number_format((int)$reservation['cxls_master_total']-(int)$reservation['sum_cxl_cost_for_partner'])}}</span>
                 <span style="color: white">{{$bill['id']}}</span>
               </div>
             </div>
@@ -409,7 +418,8 @@
             @foreach ($reservation['bills'] as $key =>$bill) {{--売上--}}
             <div style="display: table-row;">
               <div
-                style="display: table-cell; width:100%; vertical-align: middle; {{$loop->first?"border-bottom:solid 1px #dee2e6;":($loop->last?"":"border-bottom:solid 1px #dee2e6;")}} padding:5px;">
+                style="display: table-cell; width:100%; vertical-align: middle; {{$loop->first?"border-bottom:solid 1px #dee2e6;":($loop->last?"":"border-bottom:solid 1px #dee2e6;")}} padding:5px;"
+                class="text-center">
                 <span>{{(int)$bill['category']===1?"会場予約":"追加".$key}}</span>
                 <span style="color: white">{{$bill['id']}}</span>
               </div>
@@ -418,14 +428,16 @@
             @if (count($reservation['cxls'])>0) {{--打ち消し--}}
             <div style="display: table-row;">
               <div
-                style="display: table-cell; width:100%; vertical-align: middle; padding:5px; border-top:solid 1px #dee2e6">
+                style="display: table-cell; width:100%; vertical-align: middle; padding:5px; border-top:solid 1px #dee2e6"
+                class="text-center">
                 <span>打ち消し</span>
                 <span style="color: white">{{$bill['id']}}</span>
               </div>
             </div>
             <div style="display: table-row;"> {{--キャンセル--}}
               <div
-                style="display: table-cell; width:100%; vertical-align: middle; padding:5px; border-top:solid 1px #dee2e6">
+                style="display: table-cell; width:100%; vertical-align: middle; padding:5px; border-top:solid 1px #dee2e6"
+                class="text-center">
                 <span>キャンセル料</span>
                 <span style="color: white">{{$bill['id']}}</span>
               </div>
@@ -438,7 +450,8 @@
             @foreach ($reservation['bills'] as $key =>$bill) {{--売上--}}
             <div style="display: table-row;">
               <div
-                style="display: table-cell; width:100%; vertical-align: middle; {{$loop->first?"border-bottom:solid 1px #dee2e6;":($loop->last?"":"border-bottom:solid 1px #dee2e6;")}} padding:5px;">
+                style="display: table-cell; width:100%; vertical-align: middle; {{$loop->first?"border-bottom:solid 1px #dee2e6;":($loop->last?"":"border-bottom:solid 1px #dee2e6;")}} padding:5px;"
+                class="text-center">
                 <span>{{ReservationHelper::judgeStatus((int)$bill['reservation_status'])}}</span>
                 <span style="color: white">{{$bill['id']}}</span>
               </div>
@@ -447,14 +460,16 @@
             @if (count($reservation['cxls'])>0) {{--打ち消し--}}
             <div style="display: table-row;">
               <div
-                style="display: table-cell; width:100%; vertical-align: middle; padding:5px; border-top:solid 1px #dee2e6">
+                style="display: table-cell; width:100%; vertical-align: middle; padding:5px; border-top:solid 1px #dee2e6"
+                class="text-center">
                 <span>-</span>
                 <span style="color: white">{{$bill['id']}}</span>
               </div>
             </div>
             <div style="display: table-row;"> {{--キャンセル--}}
               <div
-                style="display: table-cell; width:100%; vertical-align: middle; padding:5px; border-top:solid 1px #dee2e6">
+                style="display: table-cell; width:100%; vertical-align: middle; padding:5px; border-top:solid 1px #dee2e6"
+                class="text-center">
                 <span>{{ReservationHelper::cxlStatus($reservation['cxls'][0]['cxl_status'])}}</span>
                 <span style="color: white">{{$bill['id']}}</span>
               </div>
@@ -467,7 +482,8 @@
             @foreach ($reservation['bills'] as $key =>$bill) {{--売上--}}
             <div style="display: table-row;">
               <div
-                style="display: table-cell; width:100%; vertical-align: middle; {{$loop->first?"border-bottom:solid 1px #dee2e6;":($loop->last?"":"border-bottom:solid 1px #dee2e6;")}} padding:5px;">
+                style="display: table-cell; width:100%; vertical-align: middle; {{$loop->first?"border-bottom:solid 1px #dee2e6;":($loop->last?"":"border-bottom:solid 1px #dee2e6;")}} padding:5px;"
+                class="text-center">
                 <span>{{(ReservationHelper::formatDate($bill['pay_day']))}}</span>
                 <span style="color: white">{{$bill['id']}}</span>
               </div>
@@ -476,14 +492,16 @@
             @if (count($reservation['cxls'])>0) {{--打ち消し--}}
             <div style="display: table-row;">
               <div
-                style="display: table-cell; width:100%; vertical-align: middle; padding:5px; border-top:solid 1px #dee2e6">
+                style="display: table-cell; width:100%; vertical-align: middle; padding:5px; border-top:solid 1px #dee2e6"
+                class="text-center">
                 <span>-</span>
                 <span style="color: white">{{$bill['id']}}</span>
               </div>
             </div>
             <div style="display: table-row;"> {{--キャンセル--}}
               <div
-                style="display: table-cell; width:100%; vertical-align: middle; padding:5px; border-top:solid 1px #dee2e6">
+                style="display: table-cell; width:100%; vertical-align: middle; padding:5px; border-top:solid 1px #dee2e6"
+                class="text-center">
                 <span>{{ReservationHelper::formatDate($reservation['cxls'][0]['pay_day'])}}</span>
                 <span style="color: white">{{$bill['id']}}</span>
               </div>
@@ -496,8 +514,9 @@
             @foreach ($reservation['bills'] as $key =>$bill) {{--売上--}}
             <div style="display: table-row;">
               <div
-                style="display: table-cell; width:100%; vertical-align: middle; {{$loop->first?"border-bottom:solid 1px #dee2e6;":($loop->last?"":"border-bottom:solid 1px #dee2e6;")}} padding:5px;">
-                <span>{{(ReservationHelper::paidStatus($bill['paid']))}}</span>
+                style="display: table-cell; width:100%; vertical-align: middle; {{$loop->first?"border-bottom:solid 1px #dee2e6;":($loop->last?"":"border-bottom:solid 1px #dee2e6;")}} padding:5px;"
+                class="text-center">
+                <span class="payment-status">{{(ReservationHelper::paidStatus($bill['paid']))}}</span>
                 <span style="color: white">{{$bill['id']}}</span>
               </div>
             </div>
@@ -505,15 +524,17 @@
             @if (count($reservation['cxls'])>0) {{--打ち消し--}}
             <div style="display: table-row;">
               <div
-                style="display: table-cell; width:100%; vertical-align: middle; padding:5px; border-top:solid 1px #dee2e6">
+                style="display: table-cell; width:100%; vertical-align: middle; padding:5px; border-top:solid 1px #dee2e6"
+                class="text-center">
                 <span>-</span>
                 <span style="color: white">{{$bill['id']}}</span>
               </div>
             </div>
             <div style="display: table-row;"> {{--キャンセル--}}
               <div
-                style="display: table-cell; width:100%; vertical-align: middle; padding:5px; border-top:solid 1px #dee2e6">
-                <span>{{ReservationHelper::paidStatus($reservation['cxls'][0]['paid'])}}</span>
+                style="display: table-cell; width:100%; vertical-align: middle; padding:5px; border-top:solid 1px #dee2e6"
+                class="text-center">
+                <span class="payment-status">{{ReservationHelper::paidStatus($reservation['cxls'][0]['paid'])}}</span>
                 <span style="color: white">{{$bill['id']}}</span>
               </div>
             </div>
@@ -530,7 +551,8 @@
             @foreach ($reservation['bills'] as $key =>$bill) {{--売上--}}
             <div style="display: table-row;">
               <div
-                style="display: table-cell; width:100%; vertical-align: middle; {{$loop->first?"border-bottom:solid 1px #dee2e6;":($loop->last?"":"border-bottom:solid 1px #dee2e6;")}} padding:5px;">
+                style="display: table-cell; width:100%; vertical-align: middle; {{$loop->first?"border-bottom:solid 1px #dee2e6;":($loop->last?"":"border-bottom:solid 1px #dee2e6;")}} padding:5px;"
+                class="text-center">
                 <span>{{(($bill['pay_person']))}}</span>
                 <span style="color: white">{{$bill['id']}}</span>
               </div>
@@ -539,14 +561,16 @@
             @if (count($reservation['cxls'])>0) {{--打ち消し--}}
             <div style="display: table-row;">
               <div
-                style="display: table-cell; width:100%; vertical-align: middle; padding:5px; border-top:solid 1px #dee2e6">
+                style="display: table-cell; width:100%; vertical-align: middle; padding:5px; border-top:solid 1px #dee2e6"
+                class="text-center">
                 <span>-</span>
                 <span style="color: white">{{$bill['id']}}</span>
               </div>
             </div>
             <div style="display: table-row;"> {{--キャンセル--}}
               <div
-                style="display: table-cell; width:100%; vertical-align: middle; padding:5px; border-top:solid 1px #dee2e6">
+                style="display: table-cell; width:100%; vertical-align: middle; padding:5px; border-top:solid 1px #dee2e6"
+                class="text-center">
                 <span>{{($reservation['cxls'][0]['pay_person'])}}</span>
                 <span style="color: white">{{$bill['id']}}</span>
               </div>
@@ -562,7 +586,8 @@
             @foreach ($reservation['bills'] as $key =>$bill) {{--売上--}}
             <div style="display: table-row;">
               <div
-                style="display: table-cell; width:100%; vertical-align: middle; {{$loop->first?"border-bottom:solid 1px #dee2e6;":($loop->last?"":"border-bottom:solid 1px #dee2e6;")}} padding:5px;">
+                style="display: table-cell; width:100%; vertical-align: middle; {{$loop->first?"border-bottom:solid 1px #dee2e6;":($loop->last?"":"border-bottom:solid 1px #dee2e6;")}} padding:5px;"
+                class="text-center">
                 <span>{{((ReservationHelper::formatDate($bill['payment_limit'])))}}</span>
                 <span style="color: white">{{$bill['id']}}</span>
               </div>
@@ -571,14 +596,16 @@
             @if (count($reservation['cxls'])>0) {{--打ち消し--}}
             <div style="display: table-row;">
               <div
-                style="display: table-cell; width:100%; vertical-align: middle; padding:5px; border-top:solid 1px #dee2e6">
+                style="display: table-cell; width:100%; vertical-align: middle; padding:5px; border-top:solid 1px #dee2e6"
+                class="text-center">
                 <span>-</span>
                 <span style="color: white">{{$bill['id']}}</span>
               </div>
             </div>
             <div style="display: table-row;"> {{--キャンセル--}}
               <div
-                style="display: table-cell; width:100%; vertical-align: middle; padding:5px; border-top:solid 1px #dee2e6">
+                style="display: table-cell; width:100%; vertical-align: middle; padding:5px; border-top:solid 1px #dee2e6"
+                class="text-center">
                 <span>{{ReservationHelper::formatDate($reservation['cxls'][0]['payment_limit'])}}</span>
                 <span style="color: white">{{$bill['id']}}</span>
               </div>
@@ -586,7 +613,7 @@
             @endif
           </div>
         </td>
-        <td class="text-center">
+        <td class="text-center" style="{{(int)$reservation['venue']['alliance_flag']===1?"color:red;":""}}">
           {{(int)$reservation['venue']['alliance_flag']===0?"直":"提"}}
         </td>
         {{-- <td class=" p-0">
@@ -594,7 +621,7 @@
             @foreach ($reservation['bills'] as $bill)
             <div style="display: table-row;">
               <div
-                style="display: table-cell; width:100%; vertical-align: middle; {{$loop->first?"border-bottom:solid 1px #dee2e6;":($loop->last?"":"border-bottom:solid 1px #dee2e6;")}}
+                style="display: table-cell; width:100%; vertical-align: middle; {{$loop->first?"border-bottom:solid 1px #dee2e6;":($loop->last?"":"border-bottom:solid 1px #dee2e6;")}class="text-center"}
         padding:5px;">
         <span style="color: white">{{$bill['id']}}</span>
 </div>
@@ -607,7 +634,7 @@
             @foreach ($reservation['bills'] as $bill)
             <div style="display: table-row;">
               <div
-                style="display: table-cell; width:100%; vertical-align: middle; {{$loop->first?"border-bottom:solid 1px #dee2e6;":($loop->last?"":"border-bottom:solid 1px #dee2e6;")}}
+                style="display: table-cell; width:100%; vertical-align: middle; {{$loop->first?"border-bottom:solid 1px #dee2e6;":($loop->last?"":"border-bottom:solid 1px #dee2e6;")}class="text-center"}
 padding:5px;">
 test
 <span style="color: white">{{$bill['id']}}</span>
@@ -621,7 +648,7 @@ test
             @foreach ($reservation['bills'] as $bill)
             <div style="display: table-row;">
               <div
-                style="display: table-cell; width:100%; vertical-align: middle; {{$loop->first?"border-bottom:solid 1px #dee2e6;":($loop->last?"":"border-bottom:solid 1px #dee2e6;")}}
+                style="display: table-cell; width:100%; vertical-align: middle; {{$loop->first?"border-bottom:solid 1px #dee2e6;":($loop->last?"":"border-bottom:solid 1px #dee2e6;")}class="text-center"}
 padding:5px;">
 test
 <span style="color: white">{{$bill['id']}}</span>
@@ -635,7 +662,7 @@ test
             @foreach ($reservation['bills'] as $bill)
             <div style="display: table-row;">
               <div
-                style="display: table-cell; width:100%; vertical-align: middle; {{$loop->first?"border-bottom:solid 1px #dee2e6;":($loop->last?"":"border-bottom:solid 1px #dee2e6;")}}
+                style="display: table-cell; width:100%; vertical-align: middle; {{$loop->first?"border-bottom:solid 1px #dee2e6;":($loop->last?"":"border-bottom:solid 1px #dee2e6;")}class="text-center"}
 padding:5px;">
 test
 <span style="color: white">{{$bill['id']}}</span>
@@ -649,7 +676,7 @@ test
     @foreach ($reservation['bills'] as $bill)
     <div style="display: table-row;">
       <div
-        style="display: table-cell; width:100%; vertical-align: middle; {{$loop->first?"border-bottom:solid 1px #dee2e6;":($loop->last?"":"border-bottom:solid 1px #dee2e6;")}}
+        style="display: table-cell; width:100%; vertical-align: middle; {{$loop->first?"border-bottom:solid 1px #dee2e6;":($loop->last?"":"border-bottom:solid 1px #dee2e6;")}class="text-center"}
 padding:5px;">
 test
 <span style="color: white">{{$bill['id']}}</span>
@@ -664,7 +691,8 @@ test
     @foreach ($reservation['bills'] as $bill)
     <div style="display: table-row;">
       <div
-        style="display: table-cell; width:100%; vertical-align: middle; {{$loop->first?"border-bottom:solid 1px #dee2e6;":($loop->last?"":"border-bottom:solid 1px #dee2e6;")}} padding:5px;">
+        style="display: table-cell; width:100%; vertical-align: middle; {{$loop->first?"border-bottom:solid 1px #dee2e6;":($loop->last?"":"border-bottom:solid 1px #dee2e6;")}} padding:5px;"
+        class="text-center">
         test
         <span style="color: white">{{$bill['id']}}</span>
       </div>
@@ -678,7 +706,8 @@ test
     @foreach ($reservation['bills'] as $bill)
     <div style="display: table-row;">
       <div
-        style="display: table-cell; width:100%; vertical-align: middle; {{$loop->first?"border-bottom:solid 1px #dee2e6;":($loop->last?"":"border-bottom:solid 1px #dee2e6;")}} padding:5px;">
+        style="display: table-cell; width:100%; vertical-align: middle; {{$loop->first?"border-bottom:solid 1px #dee2e6;":($loop->last?"":"border-bottom:solid 1px #dee2e6;")}} padding:5px;"
+        class="text-center">
         test
         <span style="color: white">{{$bill['id']}}</span>
       </div>

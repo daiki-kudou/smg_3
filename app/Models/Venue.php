@@ -628,7 +628,6 @@ class Venue extends Model implements PresentableInterface
   public function sumCostForPartner($reservation)
   //提携会場が選択された際の売上請求情報一覧に表示する原価
   {
-    // return $reservation->venue->alliance_flag;
     $result = 0;
     if ($reservation->venue->alliance_flag === 0) {
       return 0;
@@ -652,6 +651,22 @@ class Venue extends Model implements PresentableInterface
     } else {
       $cost = $this->getCostForPartner($venue, $total, $layout, $reservation);
       return $total - $cost;
+    }
+  }
+
+  public function getCxlCostForPartner($reservation)
+  {
+    if ((int)$reservation->venue->alliance_flag === 0) {
+      return 0;
+    } else {
+      $percent = ($reservation->cost) * 0.01;
+      $total = 0;
+      foreach ($reservation->cxls->first()->cxl_breakdowns->where('unit_type', 1)->where('unit_percent_type', '<>', 4) as $key => $value) {
+        //レイアウト以外
+        $total += (int)$value->unit_subtotal;
+      }
+
+      return floor($total * $percent);
     }
   }
 }

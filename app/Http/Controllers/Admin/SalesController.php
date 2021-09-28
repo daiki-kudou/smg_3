@@ -82,6 +82,8 @@ class SalesController extends Controller
       }
 
       $value['sum_cost_for_partner'] = $venue->sumCostForPartner($value);
+      $value['sum_cxl_cost_for_partner'] = $venue->getCxlCostForPartner($value);
+
 
       foreach ($value->bills as $key2 => $bill) {
         $bill['cost_for_partner'] = $venue->getCostForPartner($venue, $bill->master_total, $bill->layout_price, $value);

@@ -61,9 +61,14 @@ class ReservationPresenter extends Presenter
 
   public function cxlProfit()
   {
-    $subtotal = $this->cxlSubtotal();
-    $cost = $this->cxlCost();
-    return $subtotal - $cost;
+
+    if ($this->venue->alliance_flag === 0) {
+      return 0;
+    } else {
+      $subtotal = $this->cxlSubtotal();
+      $cost = $this->cxlCost();
+      return $subtotal - $cost;
+    }
   }
 
   public function totalPaid()
