@@ -382,6 +382,7 @@
           </div>
         </td>
         <td class=" p-0">
+
           <div style="display: table; height:100%; vertical-align: middle; width:110px;">
             @foreach ($reservation['bills'] as $bill) {{--売上--}}
             <div style="display: table-row;">
