@@ -151,15 +151,6 @@
 
     <div class="btn_box d-flex justify-content-center">
       <a href="{{url("admin/clients")}}" class="btn reset_btn">リセット</a>
-      {{-- ソート用hidden --}}
-      {{Form::hidden("sort_id", $request->sort_id?($request->sort_id==1?2:1):1)}}
-      {{Form::hidden("sort_user_company", $request->sort_user_company?($request->sort_user_company==1?2:1):1)}}
-      {{Form::hidden("sort_user_attr", $request->sort_user_attr?($request->sort_user_attr==1?2:1):1)}}
-      {{Form::hidden("sort_user_name", $request->sort_user_name?($request->sort_user_name==1?2:1):1)}}
-      {{Form::hidden("sort_user_mobile", $request->sort_user_mobile?($request->sort_user_mobile==1?2:1):1)}}
-      {{Form::hidden("sort_user_tel", $request->sort_user_tel?($request->sort_user_tel==1?2:1):1)}}
-      {{Form::hidden("sort_user_email", $request->sort_user_email?($request->sort_user_email==1?2:1):1)}}
-      {{-- ソート用hidden --}}
 
       {{Form::submit('検索', ['class'=>'btn btn-info search_btn', 'id'=>'m_submit'])}}
     </div>
@@ -186,13 +177,13 @@
       <thead>
         <tr class="table_row">
           <th>注意事項</th>
-          <th id="sort_id">顧客ID {!!ReservationHelper::sortIcon($request->sort_id)!!}</th>
-          <th id="sort_user_company">会社名・団体名 {!!ReservationHelper::sortIcon($request->sort_user_company)!!}</th>
-          <th id="sort_user_attr">顧客属性 {!!ReservationHelper::sortIcon($request->sort_user_attr)!!}</th>
-          <th id="sort_user_name">担当者 {!!ReservationHelper::sortIcon($request->sort_user_name)!!}</th>
-          <th id="sort_user_mobile">携帯電話 {!!ReservationHelper::sortIcon($request->sort_user_mobile)!!}</th>
-          <th id="sort_user_tel">固定電話 {!!ReservationHelper::sortIcon($request->sort_user_tel)!!}</th>
-          <th id="sort_user_email">担当者メールアドレス {!!ReservationHelper::sortIcon($request->sort_user_email)!!}</th>
+          <th id="sort_id">顧客ID </th>
+          <th id="sort_user_company">会社名・団体名 </th>
+          <th id="sort_user_attr">顧客属性 </th>
+          <th id="sort_user_name">担当者 </th>
+          <th id="sort_user_mobile">携帯電話 </th>
+          <th id="sort_user_tel">固定電話 </th>
+          <th id="sort_user_email">担当者メールアドレス </th>
           <th>詳細</th>
         </tr>
       </thead>
@@ -237,31 +228,23 @@
 
 
 </div>
-{{$querys->appends(request()->input())->links()}}
 
 <script>
-  $(document).on("click", ".table-scroll th", function() {
-    var click_th_id=$(this).attr("id");
-    var index = $('.table-scroll th').index(this);
-    console.log(index);
-    if (index!=0&&index!=8) {
-          $('input[name^="sort_"]').each(function(key, item){
-      if ($(item).attr("name")!=click_th_id) {
-        $(item).val("");
-      }
-    })
-    $("#clients_search").submit();
-    }
-    }) 
-
-    $(function() {
-      $("#m_submit").on("click",function(){
-        $('input[name^="sort_"]').each(function(key, item){
-        $(item).val("");
-        })
-      })
-    })
-
+  $(document).ready(function(){
+    $.extend($.fn.dataTable.defaults, {
+        language: {
+            url: "http://cdn.datatables.net/plug-ins/9dcbecd42ad/i18n/Japanese.json"
+        }
+    });
+    $('#client_sort').DataTable({
+      searching: false,
+      info: false,
+      autowidth: false,
+      "order": [[ 0, "desc" ]], //初期ソートソート条件
+      "columnDefs": [{ "orderable": false, "targets": [8] }],
+      "stripeClasses": [],
+     });
+    });
 </script>
 
 @endsection

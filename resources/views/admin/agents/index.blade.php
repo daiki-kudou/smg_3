@@ -55,7 +55,6 @@
       </table>
     </div>
   </div>
-  {{ $agents->links() }}
 </div>
 <script>
   $(document).ready(function(){
