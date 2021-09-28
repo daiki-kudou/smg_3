@@ -621,7 +621,7 @@ class Venue extends Model implements PresentableInterface
       return 0;
     } else {
       $percent = ($reservation->cost) * 0.01;
-      return ($total - ($layout * 1.1)) * $percent;
+      return floor(($total - ($layout * 1.1)) * $percent);
     }
   }
 

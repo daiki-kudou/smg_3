@@ -308,7 +308,7 @@
                   {{Form::label('eat_in',"あり")}}
                 </td>
                 <td>
-                  {{Form::radio('eat_in_prepare', 1, false , ['id' => 'eat_in_prepare', 'disabled'])}}
+                  {{Form::radio('eat_in_prepare', 1, true , ['id' => 'eat_in_prepare', 'disabled'])}}
                   {{Form::label('eat_in_prepare',"手配済み")}}
                   {{Form::radio('eat_in_prepare', 2, false , ['id' => 'eat_in_consider','disabled'])}}
                   {{Form::label('eat_in_consider',"検討中")}}
@@ -548,6 +548,7 @@
       var radioTarget = $('input:radio[name="eat_in"]:checked').val();
       if (radioTarget == 1) {
         $('input:radio[name="eat_in_prepare"]').prop('disabled', false);
+        $('input[name=eat_in_prepare]:eq(0)').prop('checked', true);
       } else {
         $('input:radio[name="eat_in_prepare"]').prop('disabled', true);
         $('input:radio[name="eat_in_prepare"]').val("");
@@ -555,7 +556,7 @@
     })
   })
 
-  $(document).on(' click', '.holidays', function () {
+  $(document).on('click', '.holidays', function () {
   getHolidayCalendar($('.holidays'), $('input[name="reserve_date"]'));
 });
 

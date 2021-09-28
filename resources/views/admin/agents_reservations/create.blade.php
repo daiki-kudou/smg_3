@@ -527,6 +527,7 @@ $(document).on('change', 'input[name="reserve_date"]', function () {
       var radioTarget = $('input:radio[name="eat_in"]:checked').val();
       if (radioTarget == 1) {
         $('input:radio[name="eat_in_prepare"]').prop('disabled', false);
+        $('input[name=eat_in_prepare]:eq(0)').prop('checked', true);
       } else {
         $('input:radio[name="eat_in_prepare"]').prop('disabled', true);
         $('input:radio[name="eat_in_prepare"]').val("");

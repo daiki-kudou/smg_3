@@ -90,40 +90,24 @@ class Reservation extends Model implements PresentableInterface
   //formatで使用できるようにするため 参考https://readouble.com/laravel/6.x/ja/eloquent-mutators.html
 
 
-  /*
-|--------------------------------------------------------------------------
-| 顧客との一対多
-|--------------------------------------------------------------------------|
-*/
+  // | 顧客との一対多
   public function user()
   {
     return $this->belongsTo(User::class)->withTrashed();
   }
 
-  /*
-|--------------------------------------------------------------------------
-| 会場との一対多
-|--------------------------------------------------------------------------|
-*/
+  // | 会場との一対多
   public function venue()
   {
     return $this->belongsTo(Venue::class);
   }
 
-  /*
-|--------------------------------------------------------------------------
-| Billsとの一対多
-|--------------------------------------------------------------------------|
-*/
+  // | Billsとの一対多
   public function bills()
   {
     return $this->hasMany(Bill::class);
   }
-  /*
-|--------------------------------------------------------------------------
-| Billsを経由してbreakdowns
-|--------------------------------------------------------------------------|
-*/
+  // | Billsを経由してbreakdowns
   public function breakdowns()
   {
     return $this->hasManyThrough(
@@ -132,11 +116,7 @@ class Reservation extends Model implements PresentableInterface
     );
   }
 
-  /*
-|--------------------------------------------------------------------------
-| 仲介会社との一対多
-|--------------------------------------------------------------------------|
-*/
+  // | 仲介会社との一対多
   public function agent()
   {
     return $this->belongsTo(Agent::class);
@@ -158,7 +138,6 @@ class Reservation extends Model implements PresentableInterface
     return $this->hasOne('App\Models\ChangeLog');
   }
 
-
   // bills 削除用
   protected static function boot()
   {
@@ -169,8 +148,6 @@ class Reservation extends Model implements PresentableInterface
       }
     });
   }
-
-
 
   public function addAllBills()
   {
@@ -265,334 +242,6 @@ class Reservation extends Model implements PresentableInterface
     ]);
     return $this;
   }
-  // session利用
-  // public function ReserveStoreSession($request, $sessionName, $sessionName2)
-  // {
-  //   $master_info = $request->session()->get($sessionName);
-  //   $reservation = DB::transaction(function () use ($master_info, $request, $sessionName2) { //トランザクションさせる
-  //     $reservation = $this->create([
-  //       'venue_id' => $master_info['venue_id'],
-  //       'user_id' => $master_info['user_id'],
-  //       'agent_id' => 0, //デフォで0
-  //       'reserve_date' => $master_info['reserve_date'],
-  //       'price_system' => $master_info['price_system'],
-  //       'enter_time' => $master_info['enter_time'],
-  //       'leave_time' => $master_info['leave_time'],
-  //       'board_flag' => $master_info['board_flag'],
-  //       'event_start' => !empty($master_info['event_start']) ? $master_info['event_start'] : null,
-  //       'event_finish' => !empty($master_info['event_finish']) ? $master_info['event_finish'] : null,
-  //       'event_name1' => !empty($master_info['event_name1']) ? $master_info['event_name1'] : null,
-  //       'event_name2' => !empty($master_info['event_name2']) ? $master_info['event_name2'] : null,
-  //       'event_owner' => !empty($master_info['event_owner']) ? $master_info['event_owner'] : null,
-  //       'luggage_count' => !empty($master_info['luggage_count']) ? $master_info['luggage_count'] : null,
-  //       'luggage_arrive' => !empty($master_info['luggage_arrive']) ? $master_info['luggage_arrive'] : null,
-  //       'luggage_return' => !empty($master_info['luggage_return']) ? $master_info['luggage_return'] : null,
-  //       'email_flag' => $master_info['email_flag'],
-  //       'in_charge' => $master_info['in_charge'],
-  //       'tel' => $master_info['tel'],
-  //       'cost' => !empty($master_info['cost']) ? $master_info['cost'] : 0,
-  //       'discount_condition' => "",
-  //       'attention' => "",
-  //       'user_details' => $master_info['user_details'],
-  //       'admin_details' => $master_info['admin_details'],
-  //       'eat_in' => !empty($master_info['eat_in']) ? $master_info['eat_in'] : 0,
-  //       'eat_in_prepare' => !empty($master_info['eat_in_prepare']) ? $master_info['eat_in_prepare'] : 0,
-  //     ]);
-  //     // $reservation->ReserveStoreSessionBill($request, $sessionName2, $sessionName2);
-  //     return $reservation;
-  //   });
-  //   return $reservation;
-  // }
-  // session利用
-  // public function ReserveStoreSessionBill($request, $sessionName, $sessionName2, $attr = "normal")
-  // {
-  //   $discount_info = $request->session()->get($sessionName);
-  //   if ($attr == "add") {
-  //     $venue_price = !empty($discount_info['venue_price']) ? $discount_info['venue_price'] : 0;
-  //     $category = 2;
-  //   } else {
-  //     $venue_price = $discount_info['venue_price'];
-  //     $category = 1;
-  //   }
-  //   // 以下、請求書No作成用
-  //   $bill = DB::transaction(function () use ($discount_info, $request, $sessionName2, $attr, $venue_price, $category) {
-  //     $bill = $this->bills()->create([
-  //       'reservation_id' => $this->id,
-  //       'venue_price' => $venue_price,
-  //       'equipment_price' => !empty($discount_info['equipment_price']) ? $discount_info['equipment_price'] : 0, //備品・サービス・荷物
-  //       'layout_price' => !empty($discount_info['layout_price']) ? $discount_info['layout_price'] : 0,
-  //       'others_price' => !empty($discount_info['others_price']) ? $discount_info['others_price'] : 0,
-  //       'master_subtotal' => $discount_info['master_subtotal'],
-  //       'master_tax' => $discount_info['master_tax'],
-  //       'master_total' => $discount_info['master_total'],
-  //       'payment_limit' => $discount_info['pay_limit'],
-  //       'bill_company' => $discount_info['pay_company'],
-  //       'bill_person' => $discount_info['bill_person'],
-  //       'bill_created_at' => Carbon::now(),
-  //       'bill_remark' => $discount_info['bill_remark'],
-  //       'paid' => $discount_info['paid'],
-  //       'pay_day' => $discount_info['pay_day'],
-  //       'pay_person' => $discount_info['pay_person'],
-  //       'payment' => $discount_info['payment'],
-  //       'reservation_status' => 1, //デフォで1、仮押えのデフォは0
-  //       'double_check_status' => 0, //デフォで0
-  //       'category' => $category, //デフォで１。新規以外だと2:その他有料備品3:レイアウト4:その他
-  //       'admin_judge' => 1, //管理者作成なら1 ユーザー作成なら2
-  //       'invoice_number' => $this->generateInvoiceNum(),
-  //     ]);
-  //     // $bill->ReserveStoreSessionBreakdown($request, $sessionName2);
-  //     return $bill;
-  //   });
-  //   return $bill;
-  // }
-
-  // public function ReserveStore($request, $agent_id = 0)
-  // {
-  //   DB::transaction(function () use ($request, $agent_id) { //トランザクションさせる
-  //     $reservation = $this->create([
-  //       'venue_id' => $request->venue_id,
-  //       'user_id' => $request->user_id,
-  //       'agent_id' => $agent_id,
-  //       'reserve_date' => $request->reserve_date,
-  //       'price_system' => $request->price_system,
-  //       'enter_time' => $request->enter_time,
-  //       'leave_time' => $request->leave_time,
-  //       'board_flag' => $request->board_flag,
-  //       'event_start' => $request->event_start,
-  //       'event_finish' => $request->event_finish,
-  //       'event_name1' => $request->event_name1,
-  //       'event_name2' => $request->event_name2,
-  //       'event_owner' => $request->event_owner,
-  //       'luggage_count' => $request->luggage_count,
-  //       'luggage_arrive' => $request->luggage_arrive,
-  //       'luggage_return' => $request->luggage_return,
-  //       'email_flag' => $request->email_flag,
-  //       'in_charge' => $request->in_charge,
-  //       'tel' => $request->tel,
-  //       'cost' => !empty($request->cost) ? $request->cost : 0,
-  //       'discount_condition' => $request->discount_condition,
-  //       'attention' => $request->attention,
-  //       'user_details' => $request->user_details,
-  //       'admin_details' => $request->admin_details,
-  //       'eat_in' => !empty($request->eat_in) ? $request->eat_in : 0,
-  //       'eat_in_prepare' => !empty($request->eat_in_prepare) ? $request->eat_in_prepare : 0,
-  //       'multiple_reserve_id' => ($request->multiple_reserve_id)
-  //     ]);
-  //     $reservation->ReserveStoreBill($request);
-  //   });
-  // }
-
-  // public function ReserveStoreBill($request)
-  // {
-  //   DB::transaction(function () use ($request) {
-  //     $bill = $this->bills()->create([
-  //       'reservation_id' => $this->id,
-  //       'venue_price' => $request->venue_price,
-  //       'equipment_price' => $request->equipment_price ? $request->equipment_price : 0, //備品・サービス・荷物
-  //       'layout_price' => $request->layout_price ? $request->layout_price : 0,
-  //       'others_price' => $request->others_price ? $request->others_price : 0,
-  //       'master_subtotal' => $request->master_subtotal,
-  //       'master_tax' => $request->master_tax,
-  //       'master_total' => $request->master_total,
-  //       'payment_limit' => $request->payment_limit,
-  //       'bill_company' => $request->bill_company,
-  //       'bill_person' => $request->bill_person,
-  //       'bill_created_at' => Carbon::now(),
-  //       'bill_remark' => $request->bill_remark,
-  //       'paid' => $request->paid,
-  //       'pay_day' => $request->pay_day,
-  //       'pay_person' => $request->pay_person,
-  //       'payment' => $request->payment,
-  //       'reservation_status' => 1, //デフォで1、仮押えのデフォは0
-  //       'double_check_status' => 0, //デフォで0
-  //       'category' => 1, //デフォで１。新規以外だと2:その他有料備品3:レイアウト4:その他
-  //       'admin_judge' => 1, //管理者作成なら1 ユーザー作成なら2
-  //       'invoice_number' => $this->generateInvoiceNum(),
-
-  //     ]);
-  //     $bill->ReserveStoreBreakdown($request);
-  //   });
-  // }
-
-  /*
-|--------------------------------------------------------------------------
-| ユーザーからの予約
-|--------------------------------------------------------------------------|
-*/
-  // public function ReserveFromUser($value, $user)
-  // {
-  //   $venue = Venue::find($value->venue_id);
-  //   $s_user = User::find($user);
-  //   $payment_limit = $s_user->getUserPayLimit($value->date);
-  //   $reservation = DB::transaction(function () use ($value, $user, $s_user, $venue, $payment_limit) {
-  //     $reservation = $this->create([
-  //       'venue_id' => $value->venue_id,
-  //       'user_id' => $user,
-  //       'agent_id' => 0, //デフォで0
-  //       'reserve_date' => $value->date,
-  //       'price_system' => $value->price_system,
-  //       'enter_time' => $value->enter_time,
-  //       'leave_time' => $value->leave_time,
-  //       'board_flag' => $value->board_flag,
-  //       'event_start' => $value->event_start ?? NULL,
-  //       'event_finish' => $value->event_finish ?? NULL,
-  //       'event_name1' => $value->event_name1 ?? NULL,
-  //       'event_name2' => $value->event_name2 ?? NULL,
-  //       'event_owner' => $value->event_owner ?? NULL,
-  //       'luggage_count' => $value->luggage_count ?? NULL,
-  //       'luggage_arrive' => $value->luggage_arrive ?? NULL,
-  //       'luggage_return' => $value->luggage_return ?? NULL,
-  //       'email_flag' => 0,
-  //       'in_charge' => $value->in_charge,
-  //       'tel' => $value->tel,
-  //       'cost' => $value->cost ?? 0,
-  //       'discount_condition' => NULL,
-  //       'attention' => NULL,
-  //       'user_details' => $value->remark ?? NULL,
-  //       'admin_details' => NULL,
-  //       'eat_in' => !empty($value->eat_in) ? $value->eat_in : 0,
-  //       'eat_in_prepare' => !empty($value->eat_in_prepare) ? $value->eat_in_prepare : 0,
-  //     ]);
-
-  //     $layout_prepare = !empty($value->layout_prepare) ? $venue->layout_prepare : 0;
-  //     $layout_clean = !empty($value->layout_clean) ? $venue->layout_clean : 0;
-  //     $layout_sum = $layout_prepare + $layout_clean;
-  //     $bills = $reservation->bills()->create([
-  //       'reservation_id' => $reservation->id,
-  //       'venue_price' => json_decode($value->price_result)[0],
-  //       'equipment_price' => json_decode($value->items_results)[0] ? json_decode($value->items_results)[0] : 0, //備品・サービス・荷物
-  //       'layout_price' => $layout_sum,
-  //       'others_price' => 0,
-  //       // 該当billの合計額関連
-  //       'master_subtotal' => $value->master,
-  //       'master_tax' => floor($value->master * 0.1),
-  //       'master_total' => floor(($value->master * 0.1) + $value->master),
-  //       'payment_limit' => $payment_limit,
-  //       'bill_company' => $s_user->getCompany(),
-  //       'bill_person' => $s_user->getPerson(),
-  //       'bill_created_at' => Carbon::now(),
-  //       'bill_remark' => "",
-  //       'paid' => 0,
-  //       'reservation_status' => 1, //デフォで1、仮押えのデフォは0
-  //       'double_check_status' => 0, //デフォで0
-  //       'category' => 1, //デフォで１。新規以外だと2:その他有料備品3:レイアウト4:その他
-  //       'admin_judge' => 2, //管理者作成なら1 ユーザー作成なら2
-  //       'invoice_number' => $this->generateInvoiceNum(),
-  //     ]);
-
-  //     // 料金内訳
-  //     if (json_decode($value->price_result)[1] == 0) {
-  //       $bills->breakdowns()->create([
-  //         'unit_item' => "会場料金",
-  //         'unit_cost' => json_decode($value->price_result)[0],
-  //         'unit_count' => json_decode($value->price_result)[3] - json_decode($value->price_result)[4],
-  //         'unit_subtotal' => json_decode($value->price_result)[0],
-  //         'unit_type' => 1,
-  //       ]);
-  //     } else {
-  //       $bills->breakdowns()->create([
-  //         'unit_item' => "会場料金",
-  //         'unit_cost' => json_decode($value->price_result)[0] - json_decode($value->price_result)[1],
-  //         'unit_count' => json_decode($value->price_result)[3] - json_decode($value->price_result)[4],
-  //         'unit_subtotal' => json_decode($value->price_result)[0],
-  //         'unit_type' => 1,
-  //       ]);
-  //       $bills->breakdowns()->create([
-  //         'unit_item' => "延長料金",
-  //         'unit_cost' => json_decode($value->price_result)[1],
-  //         'unit_count' => json_decode($value->price_result)[4],
-  //         'unit_subtotal' => json_decode($value->price_result)[1],
-  //         'unit_type' => 1,
-  //       ]);
-  //     }
-
-  //     // 備品
-  //     foreach (json_decode($value->items_results)[1] as $e_key => $equ) {
-  //       $bills->breakdowns()->create([
-  //         'unit_item' => $equ[0],
-  //         'unit_cost' => $equ[1],
-  //         'unit_count' => $equ[2],
-  //         'unit_subtotal' => $equ[1] * $equ[2],
-  //         'unit_type' => 2,
-  //       ]);
-  //     }
-  //     // サービス
-  //     foreach (json_decode($value->items_results)[2] as $s_key => $ser) {
-  //       $bills->breakdowns()->create([
-  //         'unit_item' => $ser[0],
-  //         'unit_cost' => $ser[1],
-  //         'unit_count' => 1,
-  //         'unit_subtotal' => $ser[1],
-  //         'unit_type' => 3,
-  //       ]);
-  //     }
-  //     // 荷物
-  //     // if (!empty($value->luggage_count) || !empty($value->luggage_arrive) || !empty($value->luggage_return)) {
-  //     //   $bills->breakdowns()->create([
-  //     //     'unit_item' => "荷物預かり",
-  //     //     'unit_cost' => 500,
-  //     //     'unit_count' => 3,
-  //     //     'unit_subtotal' => 500,
-  //     //     'unit_type' => 3,
-  //     //   ]);
-  //     // }
-  //     // レイアウト準備
-  //     if (!empty($value->layout_prepare)) {
-  //       $bills->breakdowns()->create([
-  //         'unit_item' => "レイアウト準備料金",
-  //         'unit_cost' => $layout_prepare,
-  //         'unit_count' => 1,
-  //         'unit_subtotal' => $layout_prepare,
-  //         'unit_type' => 4,
-  //       ]);
-  //     }
-  //     // 片付
-  //     if (!empty($value->layout_clean)) {
-  //       $bills->breakdowns()->create([
-  //         'unit_item' => "レイアウト片付料金",
-  //         'unit_cost' => $layout_clean,
-  //         'unit_count' => 1,
-  //         'unit_subtotal' => $layout_clean,
-  //         'unit_type' => 4,
-  //       ]);
-  //     }
-  //     return $reservation;
-  //   });
-  //   return $reservation;
-  // }
-
-  // 仲介会社からの予約
-  // public function ReserveFromAgent($request)
-  // {
-  //   DB::transaction(function () use ($request) {
-  //     $reservation = $this->create([
-  //       'venue_id' => $request->venue_id,
-  //       'user_id' => 0, //デフォで0
-  //       'agent_id' => $request->agent_id,
-  //       'reserve_date' => $request->reserve_date,
-  //       'price_system' => $request->price_system,
-  //       'enter_time' => $request->enter_time,
-  //       'leave_time' => $request->leave_time,
-  //       'board_flag' => $request->board_flag,
-  //       'event_start' => $request->event_start,
-  //       'event_finish' => $request->event_finish,
-  //       'event_name1' => $request->event_name1,
-  //       'event_name2' => $request->event_name2,
-  //       'event_owner' => $request->event_owner,
-  //       'luggage_count' => $request->luggage_count,
-  //       'luggage_arrive' => $request->luggage_arrive,
-  //       'luggage_return' => $request->luggage_return,
-  //       'email_flag' => 0,
-  //       'in_charge' => '',
-  //       'tel' => '',
-  //       'cost' => !empty($request->cost) ? $request->cost : 0,
-  //       'eat_in' => !empty($request->eat_in) ? $request->eat_in : 0,
-  //       'eat_in_prepare' => !empty($request->eat_in_prepare) ? $request->eat_in_prepare : 0,
-  //     ]);
-  //     $reservation->CreateEndUser($request);
-  //     $reservation->ReserveFromAgentBill($request);
-  //   });
-  // }
 
   public function CreateEndUser($request)
   {
@@ -621,7 +270,6 @@ class Reservation extends Model implements PresentableInterface
       });
     }
   }
-
 
   // 仲介会社選択の場合のみ、エンドユーザーとの一対一
 
@@ -652,6 +300,16 @@ class Reservation extends Model implements PresentableInterface
         }
       }
       $searchTarget->whereRaw('reservations.id LIKE ? ',  ['%' . $id . '%']);
+    }
+
+    if (!empty($data['user_id']) && (int)$data['user_id'] > 0) {
+      for ($i = 0; $i < strlen($data['user_id']); $i++) {
+        if ((int)$data['user_id'][$i] !== 0) {
+          $id = strstr($data['user_id'], $data['user_id'][$i]);
+          break;
+        }
+      }
+      $searchTarget->whereRaw('users.id = ?', [$id]);
     }
 
     if (!empty($data['reserve_date'])) {
@@ -693,6 +351,15 @@ class Reservation extends Model implements PresentableInterface
 
     if (!empty($data['enduser_person'])) {
       $searchTarget->whereRaw('endusers.company LIKE ? ',  ['%' . $data['enduser_person'] . '%']);
+    }
+
+    if (!empty($data['amount'])) {
+      $searchTarget->havingRaw('総額 = ?', [$data['amount']]);
+    }
+
+    if (!empty($data['payment_limit'])) {
+      $date = explode(' - ', $data['payment_limit']);
+      $searchTarget->whereRaw('bills.payment_limit between ? AND ?', $date);
     }
 
     if (!empty($data['check_icon1'])) {
@@ -753,56 +420,7 @@ class Reservation extends Model implements PresentableInterface
       }
     });
 
-    if (!empty($data['sort_id']) && (int)$data['sort_id'] === 1) {
-      $searchTarget->orderByRaw('reservations.id asc');
-    } elseif (!empty($data['sort_id']) && (int)$data['sort_id'] === 2) {
-      $searchTarget->orderByRaw('reservations.id desc');
-    } elseif (!empty($data['sort_reserve_date']) && (int)$data['sort_reserve_date'] === 1) {
-      $searchTarget->orderByRaw('reservations.reserve_date asc');
-    } elseif (!empty($data['sort_reserve_date']) && (int)$data['sort_reserve_date'] === 2) {
-      $searchTarget->orderByRaw('reservations.reserve_date desc');
-    } elseif (!empty($data['sort_enter_time']) && (int)$data['sort_enter_time'] === 1) {
-      $searchTarget->orderByRaw('reservations.enter_time asc');
-    } elseif (!empty($data['sort_enter_time']) && (int)$data['sort_enter_time'] === 2) {
-      $searchTarget->orderByRaw('reservations.enter_time desc');
-    } elseif (!empty($data['sort_leave_time']) && (int)$data['sort_leave_time'] === 1) {
-      $searchTarget->orderByRaw('reservations.leave_time asc');
-    } elseif (!empty($data['sort_leave_time']) && (int)$data['sort_leave_time'] === 2) {
-      $searchTarget->orderByRaw('reservations.leave_time desc');
-    } elseif (!empty($data['sort_venue']) && (int)$data['sort_venue'] === 1) {
-      $searchTarget->orderByRaw('concat(venues.name_area,venues.name_bldg,venues.name_venue) asc');
-    } elseif (!empty($data['sort_venue']) && (int)$data['sort_venue'] === 2) {
-      $searchTarget->orderByRaw('concat(venues.name_area,venues.name_bldg,venues.name_venue) desc');
-    } elseif (!empty($data['sort_user_company']) && (int)$data['sort_user_company'] === 1) {
-      $searchTarget->orderByRaw('users.company asc');
-    } elseif (!empty($data['sort_user_company']) && (int)$data['sort_user_company'] === 2) {
-      $searchTarget->orderByRaw('users.company desc');
-    } elseif (!empty($data['sort_user_name']) && (int)$data['sort_user_name'] === 1) {
-      $searchTarget->orderByRaw('concat(users.first_name,users.last_name) asc');
-    } elseif (!empty($data['sort_user_name']) && (int)$data['sort_user_name'] === 2) {
-      $searchTarget->orderByRaw('concat(users.first_name,users.last_name) desc');
-    } elseif (!empty($data['sort_user_mobile']) && (int)$data['sort_user_mobile'] === 1) {
-      $searchTarget->orderByRaw('users.mobile asc');
-    } elseif (!empty($data['sort_user_mobile']) && (int)$data['sort_user_mobile'] === 2) {
-      $searchTarget->orderByRaw('users.mobile desc');
-    } elseif (!empty($data['sort_user_tel']) && (int)$data['sort_user_tel'] === 1) {
-      $searchTarget->orderByRaw('users.tel asc');
-    } elseif (!empty($data['sort_user_tel']) && (int)$data['sort_user_tel'] === 2) {
-      $searchTarget->orderByRaw('users.tel desc');
-    } elseif (!empty($data['sort_agent']) && (int)$data['sort_agent'] === 1) {
-      $searchTarget->orderByRaw('agents.name asc');
-    } elseif (!empty($data['sort_agent']) && (int)$data['sort_agent'] === 2) {
-      $searchTarget->orderByRaw('agents.name desc');
-    } elseif (!empty($data['sort_enduser']) && (int)$data['sort_enduser'] === 1) {
-      $searchTarget->orderByRaw('endusers.company asc');
-    } elseif (!empty($data['sort_enduser']) && (int)$data['sort_enduser'] === 2) {
-      $searchTarget->orderByRaw('endusers.company desc');
-    } else {
-      $searchTarget->orderByRaw('予約中かキャンセルか,今日以降かどうか,今日以降日付,今日未満日付 desc');
-    }
-
-
-
+    $searchTarget->orderByRaw('予約中かキャンセルか,今日以降かどうか,今日以降日付,今日未満日付 desc');
 
     return $searchTarget;
   }
@@ -822,6 +440,7 @@ class Reservation extends Model implements PresentableInterface
       reservations.enter_time as enter_time,
       reservations.leave_time as leave_time,
       reservations.venue_id as venue_id,
+      venues.alliance_flag as alliance_flag, 
       users.id as user_id,
       concat(users.first_name,users.last_name) as user_name,
       users.company as company,
@@ -835,6 +454,12 @@ class Reservation extends Model implements PresentableInterface
       reservations.eat_in as eat_in,
       reservations.multiple_reserve_id as multiple_reserve_id,
       concat(venues.name_area,venues.name_bldg,venues.name_venue) as venue_name,
+      bills.payment_limit as payment_limit,
+      bills.paid as paid,
+      bills.master_total as master_total,
+      cxls.master_total as cxls_master_total,
+      master_total.sum as master_total_sum,
+      case when cxls.master_total IS NULL then master_total.sum else cxls.master_total end as 総額,
       case when bills.reservation_status <= 3 then 0 else 1 end as 予約中かキャンセルか,
       case when reservations.reserve_date >= CURRENT_DATE then 0 else 1 end as 今日以降かどうか,
       case when reservations.reserve_date >= CURRENT_DATE then reserve_date end as 今日以降日付,
@@ -848,15 +473,14 @@ class Reservation extends Model implements PresentableInterface
       ->leftJoin(DB::raw('(select bill_id, unit_type, unit_item from breakdowns where unit_type = 2) as breakdowns2'), 'bills.id', '=', 'breakdowns2.bill_id')
       ->leftJoin(DB::raw('(select bill_id, unit_type, unit_item from breakdowns where unit_type = 3) as breakdowns3'), 'bills.id', '=', 'breakdowns3.bill_id')
       ->leftJoin(DB::raw('(select bill_id, unit_type, unit_item from breakdowns where unit_type = 4) as breakdowns4'), 'bills.id', '=', 'breakdowns4.bill_id')
-      ->leftJoin('venues', 'reservations.venue_id', '=', 'venues.id');
+      ->leftJoin('venues', 'reservations.venue_id', '=', 'venues.id')
+      ->leftJoin('cxls', 'reservations.id', '=', 'cxls.reservation_id')
+      ->leftJoin(DB::raw('(select reservation_id, SUM(master_total) as sum FROM bills group by reservation_id) AS master_total'), 'master_total.reservation_id', '=', 'bills.reservation_id');
+
     // ->orderByRaw('予約中かキャンセルか,今日以降かどうか,今日以降日付,今日未満日付 desc');
 
     return $searchTarget;
   }
-
-
-
-
 
   // reservations show 各請求書合計額
   public function TotalAmount()
@@ -886,38 +510,6 @@ class Reservation extends Model implements PresentableInterface
       $all_master_subtotal
     ];
   }
-
-
-
-  // reservations update
-  // public function UpdateReservation($basicInfo, $result)
-  // {
-  //   DB::transaction(function () use ($basicInfo, $result) {
-  //     $this->update([
-  //       'user_id' => $basicInfo['user_id'],
-  //       'agent_id' => 0, //デフォで0
-  //       'price_system' => $basicInfo['price_system'],
-  //       'enter_time' => $basicInfo['enter_time'],
-  //       'leave_time' => $basicInfo['leave_time'],
-  //       'board_flag' => $basicInfo['board_flag'],
-  //       'event_start' => $basicInfo['event_start'] ?? NULL,
-  //       'event_finish' => $basicInfo['event_finish'] ?? NULL,
-  //       'event_name1' => $basicInfo['event_name1'] ?? NULL,
-  //       'event_name2' => $basicInfo['event_name2'] ?? NULL,
-  //       'event_owner' => $basicInfo['event_owner'] ?? NULL,
-  //       'luggage_count' => $basicInfo['luggage_count'] ?? NULL,
-  //       'luggage_arrive' => $basicInfo['luggage_arrive'] ?? NULL,
-  //       'luggage_return' => $basicInfo['luggage_return'] ?? NULL,
-  //       'email_flag' => $basicInfo['email_flag'],
-  //       'in_charge' => $basicInfo['in_charge'],
-  //       'tel' => $basicInfo['tel'],
-  //       'cost' => !empty($basicInfo['cost']) ? $basicInfo['cost'] : 0,
-  //       'admin_details' => $basicInfo['admin_details'],
-  //       'eat_in' =>  $basicInfo['eat_in'] ?? 0,
-  //       'eat_in_prepare' =>  $basicInfo['eat_in_prepare'] ?? 0,
-  //     ]);
-  //   });
-  // }
 
   public function checkBillsStatus()
   {
@@ -955,39 +547,6 @@ class Reservation extends Model implements PresentableInterface
     }
     return $result;
   }
-
-  // public function updateAgentReservation($inputs)
-  // {
-  //   $reservation = DB::transaction(function () use ($inputs) { //トランザクションさせる
-  //     $reservation = $this->update([
-  //       'agent_id' => $inputs['agent_id'],
-  //       'price_system' => $inputs['price_system'],
-  //       'enter_time' => $inputs['enter_time'],
-  //       'leave_time' => $inputs['leave_time'],
-  //       'board_flag' => $inputs['board_flag'],
-  //       'event_start' => $inputs['event_start'] ?? NULL,
-  //       'event_finish' => $inputs['event_finish'] ?? NULL,
-  //       'event_name1' => $inputs['event_name1'] ?? NULL,
-  //       'event_name2' => $inputs['event_name2'] ?? NULL,
-  //       'event_owner' => $inputs['event_owner'] ?? NULL,
-  //       'luggage_count' => $inputs['luggage_count'] ?? NULL,
-  //       'luggage_arrive' => $inputs['luggage_arrive'] ?? NULL,
-  //       'luggage_return' => $inputs['luggage_return'] ?? NULL,
-  //       'email_flag' => 0,
-  //       'in_charge' => '',
-  //       'tel' => '',
-  //       'cost' => !empty($inputs['cost']) ? $inputs['cost'] : 0,
-  //       'discount_condition' => "",
-  //       'attention' => "",
-  //       'user_details' => null,
-  //       'admin_details' => $inputs['admin_details'],
-  //       'eat_in' => !empty($inputs['eat_in']) ? $inputs['eat_in'] : 0,
-  //       'eat_in_prepare' => !empty($inputs['eat_in_prepare']) ? $inputs['eat_in_prepare'] : 0,
-  //     ]);
-  //     return $reservation;
-  //   });
-  //   return $reservation;
-  // }
 
   public function UpdateAgentEndUser($inputs)
   {

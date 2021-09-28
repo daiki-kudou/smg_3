@@ -403,19 +403,19 @@
           <tbody>
             <tr>
               <td>
-                {{Form::radio('eat_in', 1, $value['eat_in']==1?true:false , ['id' => 'eat_in'])}}
+                {{Form::radio('eat_in', 1, (int)$value['eat_in']===1?true:false , ['id' => 'eat_in'])}}
                 {{Form::label('eat_in',"あり")}}
               </td>
               <td>
-                {{Form::radio('eat_in_prepare', 1, $value['eat_in']==1&&$value['eat_in_prepare']==1?true:false , ['id' => 'eat_in_prepare', $value['eat_in']!=1?"disabled":""])}}
+                {{Form::radio('eat_in_prepare', 1, (int)$value['eat_in']===1?true:false , ['id' => 'eat_in_prepare', $value['eat_in']!=1?"disabled":""])}}
                 {{Form::label('eat_in_prepare',"手配済み")}}
-                {{Form::radio('eat_in_prepare', 2, $value['eat_in']==1&&$value['eat_in_prepare']==2?true:false , ['id' => 'eat_in_consider',$value['eat_in']!=1?"disabled":""])}}
+                {{Form::radio('eat_in_prepare', 2, (int)$value['eat_in']===1?true:false , ['id' => 'eat_in_consider',$value['eat_in']!=1?"disabled":""])}}
                 {{Form::label('eat_in_consider',"検討中")}}
               </td>
             </tr>
             <tr>
               <td>
-                {{Form::radio('eat_in', 0, $value['eat_in']==0?true:false , ['id' => 'no_eat_in'])}}
+                {{Form::radio('eat_in', 0, (int)$value['eat_in']===0?true:false , ['id' => 'no_eat_in'])}}
                 {{Form::label('no_eat_in',"なし")}}
               </td>
               <td></td>

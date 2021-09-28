@@ -13,22 +13,6 @@
   .form-inline {
     display: block;
   }
-
-  .row {
-    display: block;
-    display: -ms-flexbox;
-    -ms-flex-wrap: wrap;
-    flex-wrap: wrap;
-    margin-right: 0px;
-    margin-left: 0px;
-  }
-
-  table.dataTable thead .sorting:after,
-  table.dataTable thead .sorting_asc:after,
-  table.dataTable thead .sorting_desc:after {
-    opacity: 0.2;
-    content: "↑↓";
-  }
 </style>
 
 
@@ -177,19 +161,19 @@
       <thead>
         <tr class="table_row">
           <th>注意事項</th>
-          <th id="sort_id">顧客ID </th>
-          <th id="sort_user_company">会社名・団体名 </th>
-          <th id="sort_user_attr">顧客属性 </th>
-          <th id="sort_user_name">担当者 </th>
-          <th id="sort_user_mobile">携帯電話 </th>
-          <th id="sort_user_tel">固定電話 </th>
-          <th id="sort_user_email">担当者メールアドレス </th>
+          <th>顧客ID </th>
+          <th>会社名・団体名 </th>
+          <th>顧客属性 </th>
+          <th>担当者 </th>
+          <th>携帯電話 </th>
+          <th>固定電話 </th>
+          <th>担当者メールアドレス </th>
           <th>詳細</th>
         </tr>
       </thead>
       <tbody>
         @foreach ($querys as $query)
-        <tr role="row" class="even">
+        <tr>
           <td class="text-center">{{$query->attention!=null?'●':''}}</td>
           <td>{{ReservationHelper::fixId($query->id)}}</td>
           <td>{{$query->company}}</td>
