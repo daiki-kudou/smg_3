@@ -153,7 +153,7 @@
         <td class="text-right">
           <ul class="search_category">
             <li>
-              {{ Form::checkbox('payment_status0', '0',optional($data)['payment_status0']!=""?true:false,['id'=>'payment_status0']) }}
+              {{ Form::checkbox('payment_status0', '1',optional($data)['payment_status0']!=""?true:false,['id'=>'payment_status0']) }}
               {{ Form::label('payment_status0', '未入金') }}
             </li>
             <li>

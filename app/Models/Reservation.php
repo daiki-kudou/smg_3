@@ -385,8 +385,6 @@ class Reservation extends Model implements PresentableInterface
       }
     });
 
-
-
     // アイコン
     if (!empty($data['check_icon1'])) {
       $searchTarget->orWhereRaw('breakdowns2.unit_type = ? ',  [$data['check_icon1']]);
@@ -436,6 +434,27 @@ class Reservation extends Model implements PresentableInterface
       }
     });
 
+    // チェックボックス 入金状況
+    $searchTarget = $searchTarget->where(function ($query) use ($data) {
+      if (!empty($data['payment_status0'])) {
+        $query->orWhereRaw('bills.paid = ? ', [0]);
+      }
+      if (!empty($data['payment_status1'])) {
+        $query->orWhereRaw('bills.paid = ? ', [1]);
+      }
+      if (!empty($data['payment_status2'])) {
+        $query->orWhereRaw('bills.paid = ? ', [2]);
+      }
+      if (!empty($data['payment_status3'])) {
+        $query->orWhereRaw('bills.paid = ? ', [3]);
+      }
+      if (!empty($data['payment_status4'])) {
+        $query->orWhereRaw('bills.paid = ? ', [4]);
+      }
+      if (!empty($data['payment_status5'])) {
+        $query->orWhereRaw('bills.paid = ? ', [5]);
+      }
+    });
 
     $searchTarget = $searchTarget->where(function ($query) use ($data) {
       if (!empty($data['freeword'])) {
