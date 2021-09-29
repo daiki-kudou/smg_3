@@ -201,20 +201,18 @@
       <tr>
         <th class="search_item_name"><label for="enduser">支払日</label></th>
         <td class="text-right">
-          date rangeで
-          {{-- {{Form::text('enduser_person',optional($data)['enduser_person'],['class'=>'form-control'])}} --}}
+          {{Form::text('pay_day',optional($data)['pay_day'], ['class'=>'form-control'])}}
         </td>
         <th class="search_item_name"><label for="sum">振込人名</label></th>
         <td>
-          input
-          {{-- {{Form::text('amount',optional($data)['amount'],['class'=>'form-control'])}} --}}
+          {{Form::text('pay_person',optional($data)['pay_person'], ['class'=>'form-control'])}}
         </td>
       </tr>
       <tr>
-        <th class="search_item_name"><label for="enduser">顧客属性</label></th>
+        <th class="search_item_name"><label for="enduser">顧客属性</label>
+        </th>
         <td class="text-right">
-          プルダウン
-          {{-- {{Form::text('enduser_person',optional($data)['enduser_person'],['class'=>'form-control'])}} --}}
+          {{Form::select('attr',[0=>"",1=>"一般企業",2=>"上場企業",3=>"近隣利用",4=>"個人講師",5=>"MLM",6=>"その他"],optional($data)['attr'],['class'=>'form-control'])}}
         </td>
       </tr>
     </tbody>
@@ -902,6 +900,7 @@ test
     }
     ActiveDateRangePicker('reserve_date');
     ActiveDateRangePicker('payment_limit');
+    ActiveDateRangePicker('pay_day');
   })
 
 $(function(){

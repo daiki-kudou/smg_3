@@ -362,6 +362,20 @@ class Reservation extends Model implements PresentableInterface
       $searchTarget->whereRaw('bills.payment_limit between ? AND ?', $date);
     }
 
+    if (!empty($data['pay_day'])) {
+      $date = explode(' - ', $data['pay_day']);
+      $searchTarget->whereRaw('bills.pay_day between ? AND ?', $date);
+    }
+
+    if (!empty($data['pay_person'])) {
+      $searchTarget->whereRaw('bills.pay_person LIKE ?', ['%' . $data['pay_person'] . '%']);
+    }
+
+    if (!empty($data['attr'])) {
+      $searchTarget->whereRaw('users.attr = ?', [$data['attr']]);
+    }
+
+    // アイコン
     if (!empty($data['check_icon1'])) {
       $searchTarget->orWhereRaw('breakdowns2.unit_type = ? ',  [$data['check_icon1']]);
     }
@@ -375,6 +389,7 @@ class Reservation extends Model implements PresentableInterface
       $searchTarget->orWhereRaw('reservations.eat_in = ? ',  [1]);
     }
 
+    // チェックボックス
     $searchTarget = $searchTarget->where(function ($query) use ($data) {
       if (!empty($data['check_status1'])) {
         $query->orWhereRaw('bills.reservation_status = ? ', [1]);
@@ -433,30 +448,34 @@ class Reservation extends Model implements PresentableInterface
   {
     $searchTarget = DB::table('bills')
       ->select(DB::raw(
-        'bills.id as bill_id,
-      bills.reservation_status as bill_reserve_status,
+        '
+      agents.id as agent_id,
+      endusers.company as enduser,
       reservations.id as reservation_id,
       reservations.reserve_date as reserve_date,
       reservations.enter_time as enter_time,
       reservations.leave_time as leave_time,
       reservations.venue_id as venue_id,
+      reservations.eat_in as eat_in,
+      reservations.multiple_reserve_id as multiple_reserve_id,
       venues.alliance_flag as alliance_flag, 
-      users.id as user_id,
       concat(users.first_name,users.last_name) as user_name,
+      users.id as user_id,
       users.company as company,
       users.mobile as mobile,
       users.tel as tel,
-      agents.id as agent_id,
-      endusers.company as enduser,
+      users.attr as attr,
       breakdowns2.unit_type as unit_type2,
       breakdowns3.unit_type as unit_type3,
       breakdowns4.unit_type as unit_type4,
-      reservations.eat_in as eat_in,
-      reservations.multiple_reserve_id as multiple_reserve_id,
       concat(venues.name_area,venues.name_bldg,venues.name_venue) as venue_name,
       bills.payment_limit as payment_limit,
       bills.paid as paid,
+      bills.pay_day as pay_day,
+      bills.pay_person as pay_person,
       bills.master_total as master_total,
+      bills.id as bill_id,
+      bills.reservation_status as bill_reserve_status,
       cxls.master_total as cxls_master_total,
       master_total.sum as master_total_sum,
       case when cxls.master_total IS NULL then master_total.sum else cxls.master_total end as 総額,

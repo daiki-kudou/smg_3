@@ -241,8 +241,8 @@ class ReservationHelper
     if (empty($user_id)) {
       return NULL;
     }
-    $user = User::withTrashed()->find($user_id);
-    switch ($user->attr) {
+    // $user = User::withTrashed()->find($user_id);
+    switch ($user_id) {
       case 1:
         return "一般企業";
         break;
