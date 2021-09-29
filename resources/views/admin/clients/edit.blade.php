@@ -194,7 +194,7 @@
           <tr>
             <th class="table-active form_required">{{ Form::label('pay_limit', '支払期日') }}</th>
             <td>
-              {{Form::select('pay_limit', [1=>'3営業日前', 2=>'当月末締め／当月末支払い',3=>'当月末締め／翌月末支払い',4=>'当月末締め／翌々月末支払い'],$user->pay_limit)}}
+              {{Form::select('pay_limit', [1=>'当日',2=>'3営業日前', 3=>'当月末締め／当月末支払い',4=>'当月末締め／翌月末支払い',5=>'当月末締め／翌々月末支払い'],$user->pay_limit)}}
               <p class="is-error-pay_limit" style="color: red"></p>
             </td>
           </tr>

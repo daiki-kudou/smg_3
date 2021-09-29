@@ -115,11 +115,19 @@ class User extends Authenticatable
       $limit = $date;
     } elseif ($this->pay_limit == 2) {
       $limit = $date->subDays(3);
+      // dd($limit->subDays(1));
+      if (!$limit->isSaturday() && !$limit->isSunday()) {
+        $limit;
+      } else {
+        $limit->subDays(1);
+      }
     } elseif ($this->pay_limit == 3) {
       $limit = $date->endOfMonth();
     } elseif ($this->pay_limit == 4) {
       $limit = $date->addMonthsNoOverflow(1);
     } elseif ($this->pay_limit == 5) {
+      dd("test", $date->subDays(3));
+
       $limit = $date->addMonthsNoOverflow(2);
     }
 

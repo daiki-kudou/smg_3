@@ -183,12 +183,14 @@
             <th class="table-active">{{ Form::label('pay_limit', '支払期日') }}</th>
             <td>
               @if ($user->pay_limit==1)
-              3営業日前
+              当日
               @elseif($user->pay_limit==2)
-              当月末締め／当月末支払い
+              3営業日前
               @elseif($user->pay_limit==3)
-              当月末締め／翌月末支払い
+              当月末締め／当月末支払い
               @elseif($user->pay_limit==4)
+              当月末締め／翌月末支払い
+              @elseif($user->pay_limit==5)
               当月末締め／翌々月末支払い
               @endif
             </td>
