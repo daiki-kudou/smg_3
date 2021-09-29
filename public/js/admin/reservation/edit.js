@@ -316,7 +316,7 @@ $(function () {
 
 // その他の計算用
 $(function () {
-  $(document).on('input', '.others input', function (e) {
+  $(document).on('input', '.others input,.venues input', function (e) {
     var cost = $(this).parent().parent().find('td').eq(1).find('input').val();
     var count = $(this).parent().parent().find('td').eq(2).find('input').val();
     var this_target = $(this).parent().parent().find('td').eq(3).find('input');
@@ -329,69 +329,26 @@ $(function () {
       })
       target_tr.next().find('td').eq(1).find('input').val(result);
     }
-    // var count = $('.others_main tr').length;
-    // var total_val = 0;
-    // for (let index = 0; index < count; index++) {
-    //   var num1 = $('input[name="others_input_cost' + index + '"]').val();
-    //   var num2 = $('input[name="others_input_count' + index + '"]').val();
-    //   var num3 = $('input[name="others_input_subtotal' + index + '"]');
-    //   num3.val(num1 * num2);
-    //   total_val = total_val + Number(num3.val());
-    // }
-    // var total_target = $('input[name="others_price"]');
-    // total_target.val(total_val);
     toRed();
     change_all_totals();
   });
-  $(document).on('input', 'input[name^="venue_breakdown"]', function (e) {
-    var count = $('.venue_main tr').length;
-    var total_val = 0;
-    for (let index = 0; index < count; index++) {
-      var num1 = $('input[name="venue_breakdown_cost' + index + '"]').val();
-      var num2 = $('input[name="venue_breakdown_count' + index + '"]').val();
-      var num3 = $('input[name="venue_breakdown_subtotal' + index + '"]');
-      num3.val(num1 * num2);
-      total_val = total_val + Number(num3.val());
-    }
-    var total_target = $('input[name="venue_price"]');
-    total_target.val(total_val);
-    toRed();
-    change_all_totals();
-  });
+  // $(document).on('input', 'input[name^="venue_breakdown"]', function (e) {
+  //   var count = $('.venue_main tr').length;
+  //   var total_val = 0;
+  //   for (let index = 0; index < count; index++) {
+  //     var num1 = $('input[name="venue_breakdown_cost' + index + '"]').val();
+  //     var num2 = $('input[name="venue_breakdown_count' + index + '"]').val();
+  //     var num3 = $('input[name="venue_breakdown_subtotal' + index + '"]');
+  //     num3.val(num1 * num2);
+  //     total_val = total_val + Number(num3.val());
+  //   }
+  //   var total_target = $('input[name="venue_price"]');
+  //   total_target.val(total_val);
+  //   toRed();
+  //   change_all_totals();
+  // });
 })
 
-// $(function () {
-//   $(document).on('input', 'input[name^="others_breakdown"]', function (e) {
-//     var count = $('.others_main tr').length;
-//     var total_val = 0;
-//     for (let index = 0; index < count; index++) {
-//       var num1 = $('input[name="others_breakdown_cost' + index + '"]').val();
-//       var num2 = $('input[name="others_breakdown_count' + index + '"]').val();
-//       var num3 = $('input[name="others_breakdown_subtotal' + index + '"]');
-//       num3.val(num1 * num2);
-//       total_val = total_val + Number(num3.val());
-//     }
-//     var total_target = $('input[name="others_price"]');
-//     total_target.val(total_val);
-//     toRed();
-//     // change_all_totals();
-//   });
-//   $(document).on('input', 'input[name^="venue_breakdown"]', function (e) {
-//     var count = $('.venue_main tr').length;
-//     var total_val = 0;
-//     for (let index = 0; index < count; index++) {
-//       var num1 = $('input[name="venue_breakdown_cost' + index + '"]').val();
-//       var num2 = $('input[name="venue_breakdown_count' + index + '"]').val();
-//       var num3 = $('input[name="venue_breakdown_subtotal' + index + '"]');
-//       num3.val(num1 * num2);
-//       total_val = total_val + Number(num3.val());
-//     }
-//     var total_target = $('input[name="venue_price"]');
-//     total_target.val(total_val);
-//     toRed();
-//     // change_all_totals();
-//   });
-// })
 
 
 // アコーディオン
