@@ -2,7 +2,8 @@
 @section('content')
 
 <link href="{{ asset('/css/template.css') }}" rel="stylesheet">
-<script src="{{ asset('/js/admin/reservation/template.js') }}"></script>
+{{-- <script src="{{ asset('/js/admin/reservation/template.js') }}"></script> --}}
+<script src="{{ asset('/js/admin/reservation/edit.js') }}"></script>
 <script src="{{ asset('/js/ajax.js') }}"></script>
 <script src="{{ asset('/js/lettercounter.js') }}"></script>
 <script src="{{ asset('/js/holidays.js') }}"></script>
@@ -1183,15 +1184,7 @@
 {{Form::close()}}
 
 <script>
-  function checkForm($this) {
-          var str = $this.value;
-          while (str.match(/[^A-Z^a-z\d\-]/)) {
-            str = str.replace(/[^A-Z^a-z\d\-]/, "");
-          }
-          $this.value = str;
-        }
-
-  $(document).on(' click', '.holidays', function () {
+  $(document).on('click', '.holidays', function () {
   getHolidayCalendar($('.holidays'), $('input[name="reserve_date"]'));
 });
 
@@ -1207,55 +1200,12 @@
     })
   })
 
-  $(document).on("change", '#user_select', function () {
-    var user_id=$('#user_select').val();
-    $.ajax({
-      headers: {
-        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-      },
-      url: rootPath+'/admin/clients/getclients',
-      type: 'POST',
-      data: {
-        'user_id': user_id
-      },
-      dataType: 'json',
-      beforeSend: function () {
-        $('#fullOverlay').css('display', 'block');
-      },
-    })
-      .done(function ($user_results) {
-        $('#fullOverlay').css('display', 'none');
-        $('.person').text('').text($user_results[0]);
-        $('.email').text('').text($user_results[1]);
-        $('.mobile').text('').text($user_results[2]);
-        $('.tel').text('').text($user_results[3]);
-        $user_results[4]?$('.condition').html('').html($user_results[4].replace(/\n/g, "<br>")):"";
-        $user_results[5]?$('.attention').html('').html($user_results[5].replace(/\n/g, "<br>")):"";
-        $('.user_link').html('');
-        $('.user_link').append("<a class='more_btn' target='_blank' rel='noopener' href='/admin/clients/" + $user_results[6] + "'>顧客詳細</a>")
-      })
-      .fail(function ($user_results) {
-        $('#fullOverlay').css('display', 'none');
-        console.log('ajaxGetClients 失敗', $user_results)
-      });
-  });
-
-  $(function(){
-    var $maxDate =$('#datepicker1').val(); 
-    $('#datepicker3').datepicker({
-       dateFormat: 'yy-mm-dd', 
-       minDate: 0, 
-       maxDate: $maxDate
-       });
-    })
   $(function() {
 
     $(function() {
       // プラスボタンクリック
       $(document).on("click", ".add", function() {
         $(this).parent().parent().clone(true).insertAfter($(this).parent().parent());
-        // addThisTr('.others .others_main tr', 'others_breakdown_item', 'others_breakdown_cost', 'others_breakdown_count', 'others_breakdown_subtotal');
-        // addThisTr('.venue_main tr', 'venue_breakdown_item', 'venue_breakdown_cost', 'venue_breakdown_count', 'venue_breakdown_subtotal');
         // 追加時内容クリア
         $(this).parent().parent().next().find('td').find('input, select').eq(0).val('');
         $(this).parent().parent().next().find('td').find('input, select').eq(1).val('');
@@ -1263,92 +1213,36 @@
         $(this).parent().parent().next().find('td').find('input, select').eq(3).val('');
       });
 
-      // function addThisTr($targetTr, $TItem, $TCost, $TCount, $TSubtotal) {
-      //   var count = $($targetTr).length;
-      //   for (let index = 0; index < count; index++) {
-      //     $($targetTr).eq(index).find('td').eq(0).find('input').attr('name', $TItem + index);
-      //     $($targetTr).eq(index).find('td').eq(1).find('input').attr('name', $TCost + index);
-      //     $($targetTr).eq(index).find('td').eq(2).find('input').attr('name', $TCount + index);
-      //     $($targetTr).eq(index).find('td').eq(3).find('input').attr('name', $TSubtotal + index);
-      //   }
-      // }
-
       // マイナスボタンクリック
       $(document).on("click", ".del", function() {
-        if ($(this).parent().parent().parent().attr('class') == "others_main") {
-          var count = $('.others .others_main tr').length;
-          var target = $(this).parent().parent();
-          if (target.parent().children().length > 1) {
-            target.remove();
+        var target_tbody = $(this).parent().parent().parent();
+        if (target_tbody.find('tr').length>1) {
+          $(this).parent().parent().remove();
+        }else{
+          for (let index = 0; index <= 3; index++) {
+            $(this).parent().parent().find('td').eq(index).find('input').val('');            
           }
-          for (let index = 0; index < count; index++) {
-            // console.log(index);
-            $('.others_main tr').eq(index).find('td').eq(0).find('input').attr('name', 'others_breakdown_item' + index);
-            $('.others_main tr').eq(index).find('td').eq(1).find('input').attr('name', 'others_breakdown_cost' + index);
-            $('.others_main tr').eq(index).find('td').eq(2).find('input').attr('name', 'others_breakdown_count' + index);
-            $('.others_main tr').eq(index).find('td').eq(3).find('input').attr('name', 'others_breakdown_subtotal' + index);
-          }
-          var re_count = $('.others .others_main tr').length;
-          var total_val = 0;
-          for (let index2 = 0; index2 < re_count; index2++) {
-            var num1 = $('input[name="others_breakdown_cost' + index2 + '"]').val();
-            var num2 = $('input[name="others_breakdown_count' + index2 + '"]').val();
-            var num3 = $('input[name="others_breakdown_subtotal' + index2 + '"]');
-            num3.val(num1 * num2);
-            total_val = total_val + Number(num3.val());
-          }
-          var total_target = $('input[name="others_price"]');
-          total_target.val(total_val);
-
-          var venue = $('input[name="venue_price"]').val() ? Number($('input[name="venue_price"]').val()) : 0;
-          var equipment = $('input[name="equipment_price"]').val() ? Number($('input[name="equipment_price"]').val()) : 0;
-          var layout = $('input[name="layout_price"]').val() ? Number($('input[name="layout_price"]').val()) : 0;
-          var others = $('input[name="others_price"]').val() == "" ? 0 : Number($('input[name="others_price"]').val());
-          var result = venue + equipment + layout + others;
-          var result_tax = Math.floor(result * 0.1);
-          // $('.total_result').text('').text(result);
-          $('input[name="master_subtotal"]').val(result);
-          $('input[name="master_tax"]').val(result_tax);
-          $('input[name="master_total"]').val(result + result_tax);
-        } else if ($(this).parent().parent().parent().attr('class') == "venue_main") {
-          var count = $('.venue_main tr').length;
-          var target = $(this).parent().parent();
-          if (target.parent().children().length > 1) {
-            target.remove();
-          }
-          for (let index = 0; index < count; index++) {
-            $('.venue_main tr').eq(index).find('td').eq(0).find('input').attr('name', 'venue_breakdown_item' + index);
-            $('.venue_main tr').eq(index).find('td').eq(1).find('input').attr('name', 'venue_breakdown_cost' + index);
-            $('.venue_main tr').eq(index).find('td').eq(2).find('input').attr('name', 'venue_breakdown_count' + index);
-            $('.venue_main tr').eq(index).find('td').eq(3).find('input').attr('name', 'venue_breakdown_subtotal' + index);
-          }
-          var re_count = $(' .venue_main tr').length;
-          var total_val = 0;
-          for (let index2 = 0; index2 < re_count; index2++) {
-            var num1 = $('input[name="venue_breakdown_cost' + index2 + '"]').val();
-            var num2 = $('input[name="venue_breakdown_count' + index2 + '"]').val();
-            var num3 = $('input[name="venue_breakdown_subtotal' + index2 + '"]');
-            num3.val(num1 * num2);
-            total_val = total_val + Number(num3.val());
-          }
-          var total_target = $('input[name="venue_price"]');
-          total_target.val(total_val);
-
-          var venue = $('input[name="venue_price"]').val() ? Number($('input[name="venue_price"]').val()) : 0;
-          var equipment = $('input[name="equipment_price"]').val() ? Number($('input[name="equipment_price"]').val()) : 0;
-          var layout = $('input[name="layout_price"]').val() ? Number($('input[name="layout_price"]').val()) : 0;
-          var others = $('input[name="others_price"]').val() == "" ? 0 : Number($('input[name="others_price"]').val());
-          var result = venue + equipment + layout + others;
-          var result_tax = Math.floor(result * 0.1);
-          // $('.total_result').text('').text(result);
-          $('input[name="master_subtotal"]').val(result);
-          $('input[name="master_tax"]').val(result_tax);
-          $('input[name="master_total"]').val(result + result_tax);
         }
+        var result =0;
+        target_tbody.find('tr').each(function(r){
+          result+=Number(target_tbody.find('tr').eq(r).find('td').eq(3).find('input').val());
+        })
+        console.log(result);
+        target_tbody.next().find('td').eq(1).find('input').val(result);
+
+        var venue = !isNaN($('input[name="venue_price"]').val())?Number($('input[name="venue_price"]').val()):0;
+        var equipment = !isNaN($('input[name="equipment_price"]').val())?Number($('input[name="equipment_price"]').val()):0;
+        var layout = !isNaN($('input[name="layout_price"]').val())?Number($('input[name="layout_price"]').val()):0;
+        var others = !isNaN($('input[name="others_price"]').val())?Number($('input[name="others_price"]').val()):0;
+        var result = venue + equipment + layout + others;
+        var result_tax = Math.floor(result * 0.1);
+        $('.total_result').text('').text((result + result_tax));
+        $('input[name="master_subtotal"]').val(result);
+        $('input[name="master_tax"]').val(result_tax);
+        $('input[name="master_total"]').val(result + result_tax);
       });
     });
   })
-
 </script>
 
 

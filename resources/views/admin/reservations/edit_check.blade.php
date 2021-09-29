@@ -675,7 +675,8 @@
         </div>
         @endif
 
-        @if (!empty($data['others_breakdown_item']))
+
+        @if (!empty($data['others_breakdown_item'][0]))
         <div class="others billdetails_content">
           <table class="table table-borderless">
             <tr>
