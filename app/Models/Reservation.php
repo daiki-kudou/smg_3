@@ -375,6 +375,18 @@ class Reservation extends Model implements PresentableInterface
       $searchTarget->whereRaw('users.attr = ?', [$data['attr']]);
     }
 
+    // チェックボックス
+    $searchTarget = $searchTarget->where(function ($query) use ($data) {
+      if (!empty($data['alliance0'])) {
+        $query->orWhereRaw('venues.alliance_flag = ? ', [0]);
+      }
+      if (!empty($data['alliance1'])) {
+        $query->orWhereRaw('venues.alliance_flag = ? ', [1]);
+      }
+    });
+
+
+
     // アイコン
     if (!empty($data['check_icon1'])) {
       $searchTarget->orWhereRaw('breakdowns2.unit_type = ? ',  [$data['check_icon1']]);
@@ -410,6 +422,20 @@ class Reservation extends Model implements PresentableInterface
         $query->orWhereRaw('bills.reservation_status = ? ',  [6]);
       }
     });
+
+    // チェックボックス 売上区分
+    $searchTarget = $searchTarget->where(function ($query) use ($data) {
+      if (!empty($data['sales1'])) {
+        $query->orWhereRaw('bill_count_m.bill_count = ? ', [1]);
+      }
+      if (!empty($data['sales2'])) {
+        $query->orWhereRaw('cxl_count_m.cxl_count >= ? ', [1]);
+      }
+      if (!empty($data['sales3'])) {
+        $query->orWhereRaw('bill_count_m.bill_count > ? ', [1]);
+      }
+    });
+
 
     $searchTarget = $searchTarget->where(function ($query) use ($data) {
       if (!empty($data['freeword'])) {
@@ -478,6 +504,8 @@ class Reservation extends Model implements PresentableInterface
       bills.reservation_status as bill_reserve_status,
       cxls.master_total as cxls_master_total,
       master_total.sum as master_total_sum,
+      bill_count_m.bill_count,
+      cxl_count_m.cxl_count,
       case when cxls.master_total IS NULL then master_total.sum else cxls.master_total end as 総額,
       case when bills.reservation_status <= 3 then 0 else 1 end as 予約中かキャンセルか,
       case when reservations.reserve_date >= CURRENT_DATE then 0 else 1 end as 今日以降かどうか,
@@ -494,7 +522,10 @@ class Reservation extends Model implements PresentableInterface
       ->leftJoin(DB::raw('(select bill_id, unit_type, unit_item from breakdowns where unit_type = 4) as breakdowns4'), 'bills.id', '=', 'breakdowns4.bill_id')
       ->leftJoin('venues', 'reservations.venue_id', '=', 'venues.id')
       ->leftJoin('cxls', 'reservations.id', '=', 'cxls.reservation_id')
-      ->leftJoin(DB::raw('(select reservation_id, SUM(master_total) as sum FROM bills group by reservation_id) AS master_total'), 'master_total.reservation_id', '=', 'bills.reservation_id');
+      ->leftJoin(DB::raw('(select reservation_id, SUM(master_total) as sum FROM bills group by reservation_id) AS master_total'), 'master_total.reservation_id', '=', 'bills.reservation_id')
+      ->leftJoin(DB::raw('(select reservation_id, count(id) as bill_count from bills group by reservation_id) as bill_count_m'), 'bills.reservation_id', '=', 'bill_count_m.reservation_id')
+      ->leftJoin(DB::raw('(select reservation_id, count(id) as cxl_count from cxls group by reservation_id) as cxl_count_m'), 'bills.reservation_id', '=', 'cxl_count_m.reservation_id');
+
 
     // ->orderByRaw('予約中かキャンセルか,今日以降かどうか,今日以降日付,今日未満日付 desc');
 

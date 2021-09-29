@@ -122,7 +122,7 @@
           <ul class="search_category">
             <li>
               {{ Form::checkbox('sales1', '1',optional($data)['sales1']==1?true:false,['id'=>'sales1']) }}
-              {{ Form::label('sales1', '会場') }}
+              {{ Form::label('sales1', '会場予約') }}
             </li>
             <li>
               {{ Form::checkbox('sales2', '2',optional($data)['sales2']==2?true:false,['id'=>'sales2']) }}
@@ -140,11 +140,11 @@
         <td>
           <ul class="search_category">
             <li>
-              {{ Form::checkbox('status3', '3',optional($data)['status3']?true:false,['id'=>'status1']) }}
+              {{ Form::checkbox('check_status3', '3',optional($data)['check_status3']?true:false,['id'=>'status1']) }}
               {{ Form::label('status1', '予約完了') }}
             </li>
             <li>
-              {{ Form::checkbox('status6', '6',optional($data)['status6']?true:false,['id'=>'status2']) }}
+              {{ Form::checkbox('check_status6', '6',optional($data)['check_status6']?true:false,['id'=>'status2']) }}
               {{ Form::label('status2', 'キャンセル') }}
             </li>
           </ul>
@@ -184,11 +184,11 @@
         <td class="text-left">
           <ul class="search_category">
             <li>
-              {{ Form::checkbox('alliance0', '0',optional($data)['alliance0']!=""?true:false,['id'=>'alliance0']) }}
+              {{ Form::checkbox('alliance0', '1',optional($data)['alliance0']!=""?true:false,['id'=>'alliance0']) }}
               {{ Form::label('alliance0', '直営') }}
             </li>
             <li>
-              {{ Form::checkbox('alliance1', '1',optional($data)['alliance1']?true:false,['id'=>'alliance1']) }}
+              {{ Form::checkbox('alliance1', '1',optional($data)['alliance1']!=""?true:false,['id'=>'alliance1']) }}
               {{ Form::label('alliance1', '提携') }}
             </li>
           </ul>
