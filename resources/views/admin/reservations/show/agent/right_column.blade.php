@@ -8,7 +8,7 @@
               <i class="far fa-id-card icon-size"></i>仲介会社情報
             </p>
             <p><a class="more_btn" target="_blank" rel="noopener"
-                href="{{url('admin/agents/'.$reservation->id)}}">仲介会社詳細</a></p>
+                href="{{url('admin/agents/'.$reservation->agent_id)}}">仲介会社詳細</a></p>
           </div>
         </td>
       </tr>

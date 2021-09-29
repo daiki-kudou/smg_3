@@ -275,6 +275,7 @@
           </table>
         </div>
 
+
         @if ($venues->find($master_info['venue_id'])->layout!=0)
         <div class="layouts">
           <table class="table table-bordered">
@@ -428,7 +429,8 @@
                   <p class="title-icon">
                     <i class="far fa-id-card icon-size" aria-hidden="true"></i>仲介会社情報
                   </p>
-                  <p><a class="more_btn" href="">仲介会社詳細</a></p>
+                  <p><a class="more_btn" href="{{url('/admin/agents/'.$master_info['agent_id'])}}"
+                      target="_blank">仲介会社詳細</a></p>
                 </div>
               </td>
             </tr>
@@ -884,6 +886,10 @@
       </div>
     </div>
 
+    {{-- <pre>
+      {{var_dump($check_info)}}
+    </pre> --}}
+
     <div class="information">
       <div class="information_details">
         <div class="head d-flex">
@@ -903,25 +909,25 @@
               <tbody>
                 <tr>
                   <td>請求日
-                    {{ Form::text('bill_created_at', date('Y-m-d'),['class'=>'form-control', 'id'=>'datepicker6'] ) }}
+                    {{ Form::text('bill_created_at', !empty($check_info['bill_created_at'])?$check_info['bill_created_at']:date('Y-m-d'),['class'=>'form-control datepicker'] ) }}
                   </td>
                   <td>支払期日
-                    {{ Form::text('pay_limit', $calc_info[1],['class'=>'form-control datepicker', 'id'=>''] ) }}
+                    {{ Form::text('pay_limit', !empty($check_info['bill_created_at'])?$check_info['bill_created_at']:calc_info[1],['class'=>'form-control datepicker'] ) }}
                   </td>
                 </tr>
                 <tr>
                   <td>
                     請求書宛名
-                    {{ Form::text('pay_company', ReservationHelper::getAgentCompanyName($master_info['agent_id']),['class'=>'form-control'] ) }}
+                    {{ Form::text('pay_company', !empty($check_info['pay_company'])?$check_info['pay_company']:ReservationHelper::getAgentCompanyName($master_info['agent_id']),['class'=>'form-control'] ) }}
                   </td>
                   <td>
                     担当者
-                    {{ Form::text('bill_person', ReservationHelper::getAgentPerson($master_info['agent_id']),['class'=>'form-control'] ) }}
+                    {{ Form::text('bill_person', !empty($check_info['bill_person'])?$check_info['bill_person']:ReservationHelper::getAgentPerson($master_info['agent_id']),['class'=>'form-control'] ) }}
                   </td>
                 </tr>
                 <tr>
                   <td colspan="2">請求書備考
-                    {{ Form::textarea('bill_remark', '',['class'=>'form-control'] ) }}
+                    {{ Form::textarea('bill_remark', !empty($check_info['bill_remark'])?$check_info['bill_remark']:"",['class'=>'form-control'] ) }}
                   </td>
                 </tr>
               </tbody>
@@ -945,19 +951,21 @@
             <table class="table">
               <tbody>
                 <tr>
-                  <td>入金状況<select class="form-control" name="paid">
-                      <option value="0">未入金</option>
-                      <option value="1">入金済み</option>
-                    </select></td>
+                  <td>入金状況
+                    {{Form::select('paid', ['未入金', '入金済み','遅延','入金不足','入金過多','次回繰越'],!empty($check_info['paid'])?$check_info['paid']:"",['class'=>'form-control'])}}
+                  </td>
                   <td>
-                    入金日<input class="form-control" id="datepicker7" name="pay_day" type="text">
+                    入金日
+                    {{ Form::text('pay_day', !empty($check_info['pay_day'])?$check_info['pay_day']:"",['class'=>'form-control datepicker'] ) }}
                   </td>
                 </tr>
                 <tr>
-                  <td>振込人名<input class="form-control" name="pay_person" type="text">
+                  <td>振込人名
+                    {{ Form::text('pay_person', !empty($check_info['pay_person'])?$check_info['pay_person']:"",['class'=>'form-control '] ) }}
                     <p class="is-error-pay_person" style="color: red"></p>
                   </td>
-                  <td>入金額<input class="form-control" name="payment" type="text">
+                  <td>入金額
+                    {{ Form::text('payment', !empty($check_info['payment'])?$check_info['payment']:"",['class'=>'form-control '] ) }}
                     <p class="is-error-payment" style="color: red"></p>
                   </td>
                 </tr>
@@ -976,6 +984,16 @@
 </div>
 
 <script>
+  $('.datepicker').datepicker({
+    dateFormat: 'yy-mm-dd',
+    minDate: 0,
+    autoclose: true
+    });
+    $('.datepicker_no_min_date').datepicker({
+    dateFormat: 'yy-mm-dd',
+    autoclose: true
+    });
+
   function checkForm($this) {
           var str = $this.value;
           while (str.match(/[^A-Z^a-z\d\-]/)) {

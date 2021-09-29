@@ -69,6 +69,7 @@ class AgentsReservationsController extends Controller
     $master_info = $request->session()->get('master_info');
     $calc_info = $request->session()->get('calc_info');
     $discount_info = $request->session()->get('discount_info');
+    $check_info = $request->session()->get('check_info');
     $venues = Venue::all();
     $agents = Agent::all();
     $_equipment = $this->preg($master_info, 'equipment_breakdown');
@@ -90,7 +91,8 @@ class AgentsReservationsController extends Controller
         'layoutPrice',
         'price',
         '_equipment',
-        '_service'
+        '_service',
+        'check_info'
       )
     );
   }

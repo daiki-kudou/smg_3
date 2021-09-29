@@ -432,7 +432,7 @@
               <label for="enduser_attr" class="">利用者属性</label>
             </td>
             <td>
-              {{ Form::text('enduser_attr', $master_info['enduser_attr'],['class'=>'form-control', 'readonly'] ) }}
+              {{ Form::text('enduser_attr', ReservationHelper::getEndUser($master_info['enduser_attr']),['class'=>'form-control', 'readonly'] ) }}
             </td>
           </tr>
         </tbody>

@@ -429,7 +429,7 @@
                 </p>
                 <p>
                   <a class="more_btn user_link" target="_blank" rel="noopener"
-                    href="{{url('admin/clients/'.$data['agent_id'])}}">顧客詳細</a>
+                    href="{{url('/admin/clients/'.$data['agent_id'])}}">顧客詳細</a>
                 </p>
               </div>
             </td>
