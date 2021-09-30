@@ -1088,26 +1088,41 @@ table td.table_column p:last-child {
 }
 
 .sale-body td {
-    /* border-bottom: 1px solid #6f6f6f; */
+    border-bottom: 1px solid #5c5c5c;
 }
 
-.sale-body .multi-column {
-
+.sale-body tr:last-child td {
+    border-bottom: none;
 }
+
+
+
 
 .multi-column__list {
     display: table;
     height: 100%;
     vertical-align: middle;
-    width: 110px;
+    /* width: 110px; */
+    width: 100%;
 }
 
 .multi-column__list li {
     display: table-row;
+    border-bottom: 1px solid #dee2e6;
 }
 
-.multi-column__list li:nth-last-child(n+2) {
-    border-top: none;
+.multi-column__item {
+    display: table-cell;
+    width: 100%;
+    vertical-align: middle;
+    border-bottom: 1px solid #dee2e6;
+    padding: 0 10px;
+    text-align: center;
+    height: 30px;
+}
+
+.multi-column__list li:last-child .multi-column__item {
+    border-bottom: none;
 }
 
 /* =============メールテンプレート　一覧================================================ */

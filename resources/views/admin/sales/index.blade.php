@@ -320,29 +320,20 @@
           <ul class="multi-column__list">
             @foreach ($reservation['bills'] as $bill) {{--売上--}}
             <li>
-              <div
-                style="display: table-cell; width:100%; vertical-align: middle; {{$loop->first?"border-bottom:solid 1px #dee2e6;":($loop->last?"":"border-bottom:solid 1px #dee2e6;")}} padding:5px;"
-                class="text-center">
+              <div class="multi-column__item">
                 <span>{{number_format($bill['master_total'])}}</span>
-                <span style="color: white">{{$bill['id']}}</span>
               </div>
             </li>
             @endforeach
             @if (count($reservation['cxls'])>0) {{--打ち消し--}}
             <li>
-              <div
-                style="display: table-cell; width:100%; vertical-align: middle; padding:5px; border-top:solid 1px #dee2e6"
-                class="text-center">
+              <div class="multi-column__item">
                 <span>{{number_format($reservation['master_total']*-1)}}</span>
-                <span style="color: white">{{$bill['id']}}</span>
               </div>
             </li>
             <li> {{--キャンセル--}}
-              <div
-                style="display: table-cell; width:100%; vertical-align: middle; padding:5px; border-top:solid 1px #dee2e6"
-                class="text-center">
+              <div class="multi-column__item">
                 <span>{{number_format($reservation['cxls_master_total'])}}</span>
-                <span style="color: white">{{$bill['id']}}</span>
               </div>
             </li>
             @endif
@@ -352,29 +343,20 @@
           <ul class="multi-column__list">
             @foreach ($reservation['bills'] as $bill) {{--売上--}}
             <li>
-              <div
-                style="display: table-cell; width:100%; vertical-align: middle; {{$loop->first?"border-bottom:solid 1px #dee2e6;":($loop->last?"":"border-bottom:solid 1px #dee2e6;")}} padding:5px;"
-                class="text-center">
+              <div class="multi-column__item">
                 <span>{{number_format($bill['cost_for_partner'])}}</span>
-                <span style="color: white">{{$bill['id']}}</span>
               </div>
             </li>
             @endforeach
             @if (count($reservation['cxls'])>0) {{--打ち消し--}}
             <li>
-              <div
-                style="display: table-cell; width:100%; vertical-align: middle; padding:5px; border-top:solid 1px #dee2e6"
-                class="text-center">
+              <div class="multi-column__item">
                 <span>{{number_format($reservation['sum_cost_for_partner']*-1)}}</span>
-                <span style="color: white">{{$bill['id']}}</span>
               </div>
             </li>
             <li> {{--キャンセル--}}
-              <div
-                style="display: table-cell; width:100%; vertical-align: middle; padding:5px; border-top:solid 1px #dee2e6"
-                class="text-center">
+              <div class="multi-column__item">
                 <span>{{number_format($reservation['sum_cxl_cost_for_partner'])}}</span>
-                <span style="color: white">{{$bill['id']}}</span>
               </div>
             </li>
             @endif
@@ -384,29 +366,20 @@
           <ul class="multi-column__list">
             @foreach ($reservation['bills'] as $bill) {{--売上--}}
             <li>
-              <div
-                style="display: table-cell; width:100%; vertical-align: middle; {{$loop->first?"border-bottom:solid 1px #dee2e6;":($loop->last?"":"border-bottom:solid 1px #dee2e6;")}} padding:5px;"
-                class="text-center">
+              <div class="multi-column__item">
                 <span>{{number_format($bill['master_total']-$bill['cost_for_partner'])}}</span>
-                <span style="color: white">{{$bill['id']}}</span>
               </div>
             </li>
             @endforeach
             @if (count($reservation['cxls'])>0) {{--打ち消し--}}
             <li>
-              <div
-                style="display: table-cell; width:100%; vertical-align: middle; padding:5px; border-top:solid 1px #dee2e6"
-                class="text-center">
+              <div class="multi-column__item">
                 <span>{{number_format($reservation['master_total']*-1-($reservation['sum_cost_for_partner']*-1))}}</span>
-                <span style="color: white">{{$bill['id']}}</span>
               </div>
             </li>
             <li> {{--キャンセル--}}
-              <div
-                style="display: table-cell; width:100%; vertical-align: middle; padding:5px; border-top:solid 1px #dee2e6"
-                class="text-center">
+              <div class="multi-column__item">
                 <span>{{number_format((int)$reservation['cxls_master_total']-(int)$reservation['sum_cxl_cost_for_partner'])}}</span>
-                <span style="color: white">{{$bill['id']}}</span>
               </div>
             </li>
             @endif
@@ -416,29 +389,20 @@
           <ul class="multi-column__list">
             @foreach ($reservation['bills'] as $key =>$bill) {{--売上--}}
             <li>
-              <div
-                style="display: table-cell; width:100%; vertical-align: middle; {{$loop->first?"border-bottom:solid 1px #dee2e6;":($loop->last?"":"border-bottom:solid 1px #dee2e6;")}} padding:5px;"
-                class="text-center">
+              <div class="multi-column__item">
                 <span>{{(int)$bill['category']===1?"会場予約":"追加".$key}}</span>
-                <span style="color: white">{{$bill['id']}}</span>
               </div>
             </li>
             @endforeach
             @if (count($reservation['cxls'])>0) {{--打ち消し--}}
             <li>
-              <div
-                style="display: table-cell; width:100%; vertical-align: middle; padding:5px; border-top:solid 1px #dee2e6"
-                class="text-center">
+              <div class="multi-column__item">
                 <span>打ち消し</span>
-                <span style="color: white">{{$bill['id']}}</span>
               </div>
             </li>
             <li> {{--キャンセル--}}
-              <div
-                style="display: table-cell; width:100%; vertical-align: middle; padding:5px; border-top:solid 1px #dee2e6"
-                class="text-center">
+              <div class="multi-column__item">
                 <span>キャンセル料</span>
-                <span style="color: white">{{$bill['id']}}</span>
               </div>
             </li>
             @endif
@@ -448,29 +412,20 @@
           <ul class="multi-column__list">
             @foreach ($reservation['bills'] as $key =>$bill) {{--売上--}}
             <li>
-              <div
-                style="display: table-cell; width:100%; vertical-align: middle; {{$loop->first?"border-bottom:solid 1px #dee2e6;":($loop->last?"":"border-bottom:solid 1px #dee2e6;")}} padding:5px;"
-                class="text-center">
+              <div class="multi-column__item">
                 <span>{{ReservationHelper::judgeStatus((int)$bill['reservation_status'])}}</span>
-                <span style="color: white">{{$bill['id']}}</span>
               </div>
             </li>
             @endforeach
             @if (count($reservation['cxls'])>0) {{--打ち消し--}}
             <li>
-              <div
-                style="display: table-cell; width:100%; vertical-align: middle; padding:5px; border-top:solid 1px #dee2e6"
-                class="text-center">
+              <div class="multi-column__item">
                 <span>-</span>
-                <span style="color: white">{{$bill['id']}}</span>
               </div>
             </li>
             <li> {{--キャンセル--}}
-              <div
-                style="display: table-cell; width:100%; vertical-align: middle; padding:5px; border-top:solid 1px #dee2e6"
-                class="text-center">
+              <div class="multi-column__item">
                 <span>{{ReservationHelper::cxlStatus($reservation['cxls'][0]['cxl_status'])}}</span>
-                <span style="color: white">{{$bill['id']}}</span>
               </div>
             </li>
             @endif
@@ -480,29 +435,20 @@
           <ul class="multi-column__list">
             @foreach ($reservation['bills'] as $key =>$bill) {{--売上--}}
             <li>
-              <div
-                style="display: table-cell; width:100%; vertical-align: middle; {{$loop->first?"border-bottom:solid 1px #dee2e6;":($loop->last?"":"border-bottom:solid 1px #dee2e6;")}} padding:5px;"
-                class="text-center">
+              <div class="multi-column__item">
                 <span>{{(ReservationHelper::formatDate($bill['pay_day']))}}</span>
-                <span style="color: white">{{$bill['id']}}</span>
               </div>
             </li>
             @endforeach
             @if (count($reservation['cxls'])>0) {{--打ち消し--}}
             <li>
-              <div
-                style="display: table-cell; width:100%; vertical-align: middle; padding:5px; border-top:solid 1px #dee2e6"
-                class="text-center">
+              <div class="multi-column__item">
                 <span>-</span>
-                <span style="color: white">{{$bill['id']}}</span>
               </div>
             </li>
             <li> {{--キャンセル--}}
-              <div
-                style="display: table-cell; width:100%; vertical-align: middle; padding:5px; border-top:solid 1px #dee2e6"
-                class="text-center">
+              <div class="multi-column__item">
                 <span>{{ReservationHelper::formatDate($reservation['cxls'][0]['pay_day'])}}</span>
-                <span style="color: white">{{$bill['id']}}</span>
               </div>
             </li>
             @endif
@@ -512,29 +458,20 @@
           <ul class="multi-column__list">
             @foreach ($reservation['bills'] as $key =>$bill) {{--売上--}}
             <li>
-              <div
-                style="display: table-cell; width:100%; vertical-align: middle; {{$loop->first?"border-bottom:solid 1px #dee2e6;":($loop->last?"":"border-bottom:solid 1px #dee2e6;")}} padding:5px;"
-                class="text-center">
+              <div class="multi-column__item">
                 <span class="payment-status">{{(ReservationHelper::paidStatus($bill['paid']))}}</span>
-                <span style="color: white">{{$bill['id']}}</span>
               </div>
             </li>
             @endforeach
             @if (count($reservation['cxls'])>0) {{--打ち消し--}}
             <li>
-              <div
-                style="display: table-cell; width:100%; vertical-align: middle; padding:5px; border-top:solid 1px #dee2e6"
-                class="text-center">
+              <div class="multi-column__item">
                 <span>-</span>
-                <span style="color: white">{{$bill['id']}}</span>
               </div>
             </li>
             <li> {{--キャンセル--}}
-              <div
-                style="display: table-cell; width:100%; vertical-align: middle; padding:5px; border-top:solid 1px #dee2e6"
-                class="text-center">
+              <div class="multi-column__item">
                 <span class="payment-status">{{ReservationHelper::paidStatus($reservation['cxls'][0]['paid'])}}</span>
-                <span style="color: white">{{$bill['id']}}</span>
               </div>
             </li>
             @endif
@@ -549,29 +486,20 @@
           <ul class="multi-column__list">
             @foreach ($reservation['bills'] as $key =>$bill) {{--売上--}}
             <li>
-              <div
-                style="display: table-cell; width:100%; vertical-align: middle; {{$loop->first?"border-bottom:solid 1px #dee2e6;":($loop->last?"":"border-bottom:solid 1px #dee2e6;")}} padding:5px;"
-                class="text-center">
+              <div class="multi-column__item">
                 <span>{{(($bill['pay_person']))}}</span>
-                <span style="color: white">{{$bill['id']}}</span>
               </div>
             </li>
             @endforeach
             @if (count($reservation['cxls'])>0) {{--打ち消し--}}
             <li>
-              <div
-                style="display: table-cell; width:100%; vertical-align: middle; padding:5px; border-top:solid 1px #dee2e6"
-                class="text-center">
+              <div class="multi-column__item">
                 <span>-</span>
-                <span style="color: white">{{$bill['id']}}</span>
               </div>
             </li>
             <li> {{--キャンセル--}}
-              <div
-                style="display: table-cell; width:100%; vertical-align: middle; padding:5px; border-top:solid 1px #dee2e6"
-                class="text-center">
+              <div class="multi-column__item">
                 <span>{{($reservation['cxls'][0]['pay_person'])}}</span>
-                <span style="color: white">{{$bill['id']}}</span>
               </div>
             </li>
             @endif
@@ -584,29 +512,20 @@
           <ul class="multi-column__list">
             @foreach ($reservation['bills'] as $key =>$bill) {{--売上--}}
             <li>
-              <div
-                style="display: table-cell; width:100%; vertical-align: middle; {{$loop->first?"border-bottom:solid 1px #dee2e6;":($loop->last?"":"border-bottom:solid 1px #dee2e6;")}} padding:5px;"
-                class="text-center">
+              <div class="multi-column__item">
                 <span>{{((ReservationHelper::formatDate($bill['payment_limit'])))}}</span>
-                <span style="color: white">{{$bill['id']}}</span>
               </div>
             </li>
             @endforeach
             @if (count($reservation['cxls'])>0) {{--打ち消し--}}
             <li>
-              <div
-                style="display: table-cell; width:100%; vertical-align: middle; padding:5px; border-top:solid 1px #dee2e6"
-                class="text-center">
+              <div class="multi-column__item">
                 <span>-</span>
-                <span style="color: white">{{$bill['id']}}</span>
               </div>
             </li>
             <li> {{--キャンセル--}}
-              <div
-                style="display: table-cell; width:100%; vertical-align: middle; padding:5px; border-top:solid 1px #dee2e6"
-                class="text-center">
+              <div class="multi-column__item">
                 <span>{{ReservationHelper::formatDate($reservation['cxls'][0]['payment_limit'])}}</span>
-                <span style="color: white">{{$bill['id']}}</span>
               </div>
             </li>
             @endif
