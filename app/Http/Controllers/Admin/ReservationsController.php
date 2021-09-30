@@ -30,6 +30,8 @@ use App\Traits\SearchTrait;
 // ふぉーむリクエスト
 use App\Http\Requests\Admin\Reservations\ReservationsStore;
 
+use App\Service\SendSMGEmail;
+
 
 class ReservationsController extends Controller
 {
@@ -464,9 +466,9 @@ class ReservationsController extends Controller
       $reservation = Reservation::find($reservation_id);
       $reservation->bills()->first()->update(['reservation_status' => 2, 'approve_send_at' => date('Y-m-d H:i:s')]);
       $user = User::find($request->user_id);
-      $email = $user->email;
-      // 管理者側のメール本文等は未定　ここメール文章再作成必要
-      Mail::to($email)->send(new SendUserApprove($reservation));
+      $venue = Venue::find($reservation->venue_id);
+      $SendSMGEmail = new SendSMGEmail($user, $reservation, $venue);
+      $SendSMGEmail->send("管理者ダブルチェック完了後、ユーザーへ承認依頼を送付");
     });
     return redirect()->route('admin.reservations.index')->with('flash_message', 'ユーザーに承認メールを送信しました');
   }

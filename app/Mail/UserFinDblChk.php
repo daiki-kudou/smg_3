@@ -16,9 +16,11 @@ class UserFinDblChk extends Mailable
    *
    * @return void
    */
-  public function __construct()
+  public function __construct($user, $reservation, $venue)
   {
-    //
+    $this->user = $user;
+    $this->reservation = $reservation;
+    $this->venue = $venue;
   }
 
   /**
@@ -28,6 +30,12 @@ class UserFinDblChk extends Mailable
    */
   public function build()
   {
-    return $this->view('view.name');
+    return $this->view('maileclipse::templates.userFinDblChk')
+      ->subject('【SMGアクセア貸し会議室　予約承認のお願い】')
+      ->with([
+        'user' => $this->user,
+        'reservation' => $this->reservation,
+        'venue' => $this->venue,
+      ]);
   }
 }

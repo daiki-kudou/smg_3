@@ -13,12 +13,14 @@ class AdminFinDblChk extends Mailable
 
   /**
    * Create a new message instance.
-   *
+   *@param array $data
    * @return void
    */
-  public function __construct()
+  public function __construct($user, $reservation, $venue)
   {
-    //
+    $this->user = $user;
+    $this->reservation = $reservation;
+    $this->venue = $venue;
   }
 
   /**
@@ -28,6 +30,12 @@ class AdminFinDblChk extends Mailable
    */
   public function build()
   {
-    return $this->view('view.name');
+    return $this->view('maileclipse::templates.adminFinDblChk')
+      ->subject('【管理者通知：SMGアクセア貸し会議室　予約承認のお願い】')
+      ->with([
+        'user' => $this->user,
+        'reservation' => $this->reservation,
+        'venue' => $this->venue,
+      ]);
   }
 }
