@@ -39,7 +39,18 @@ class ServicesController extends Controller
    */
   public function create()
   {
-    return view('admin.services.create');
+    DB::beginTransaction();
+    try {
+      $s = new Service;
+      $r = $s->create(['item' => "test", 'price' => 1]);
+      $id = ($r->id) + 1;
+      DB::rollback();
+    } catch (\Exception $e) {
+      DB::rollback();
+      return back()->withInput()->withErrors($e->getMessage());
+    }
+
+    return view('admin.services.create', compact('id'));
   }
 
   /**

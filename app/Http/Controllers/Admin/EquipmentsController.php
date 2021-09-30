@@ -40,7 +40,18 @@ class EquipmentsController extends Controller
    */
   public function create()
   {
-    return view('admin.equipments.create');
+    DB::beginTransaction();
+    try {
+      $e = new Equipment;
+      $r = $e->create(['item' => "test", 'price' => 1, 'stock' => 1]);
+      $id = ($r->id) + 1;
+      DB::rollback();
+    } catch (\Exception $e) {
+      DB::rollback();
+      return back()->withInput()->withErrors($e->getMessage());
+    }
+
+    return view('admin.equipments.create', compact('id'));
   }
 
   /**
