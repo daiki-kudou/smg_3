@@ -236,13 +236,12 @@ class ReservationHelper
     return $agent->person_mobile;
   }
 
-  public static function getAttr($user_id)
+  public static function getAttr($num)
   {
-    if (empty($user_id)) {
+    if (empty($num)) {
       return NULL;
     }
-    // $user = User::withTrashed()->find($user_id);
-    switch ($user_id) {
+    switch ($num) {
       case 1:
         return "一般企業";
         break;

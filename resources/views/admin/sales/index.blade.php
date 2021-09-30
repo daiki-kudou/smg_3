@@ -295,7 +295,9 @@
     </thead>
     <tbody class="sale-body">
       @foreach ($reservations as $masterKey=>$reservation)
-      <tr>
+
+      <tr
+        style="{{count($reservation['cxls'])>0?((int)$reservation['cxls'][0]['cxl_status']===2?"background:gray":""):""}}">
         <td class="text-center">
           {{ReservationHelper::fixId($reservation['multiple_reserve_id'])}}</td>
         <td class="text-center">
@@ -578,7 +580,7 @@
           </div>
         </td>
         <td class="text-center">
-          {{(ReservationHelper::getAttr($reservation['user']['attr']))}}
+          {{(ReservationHelper::getAttr(optional($reservation['user'])['attr']))}}
         </td>
         <td class=" p-0">
           <div style="display: table; height:100%; vertical-align: middle; width:110px;">

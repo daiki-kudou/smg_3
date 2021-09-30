@@ -656,17 +656,21 @@ class Venue extends Model implements PresentableInterface
 
   public function getCxlCostForPartner($reservation)
   {
-    if ((int)$reservation->venue->alliance_flag === 0) {
-      return 0;
-    } else {
-      $percent = ($reservation->cost) * 0.01;
-      $total = 0;
-      foreach ($reservation->cxls->first()->cxl_breakdowns->where('unit_type', 1)->where('unit_percent_type', '<>', 4) as $key => $value) {
-        //レイアウト以外
-        $total += (int)$value->unit_subtotal;
-      }
+    if ($reservation->cxls->count() > 0) {
+      if ((int)$reservation->venue->alliance_flag === 0) {
+        return 0;
+      } else {
+        $percent = ($reservation->cost) * 0.01;
+        $total = 0;
+        foreach ($reservation->cxls->first()->cxl_breakdowns->where('unit_type', 1)->where('unit_percent_type', '<>', 4) as $key => $value) {
+          //レイアウト以外
+          $total += (int)$value->unit_subtotal;
+        }
 
-      return floor($total * $percent);
+        return floor($total * $percent);
+      }
+    } else {
+      return NULL;
     }
   }
 }

@@ -28,15 +28,6 @@ class SalesController extends Controller
     $agents = Agent::get()->sortByDesc('id')->pluck("name", "id")->toArray();
     $venues = Venue::get()->sortByDesc('id')->pluck("id")->toArray();
     $counter = 0;
-    // if (!empty($request->all())) {
-    //   $reservations = Reservation::with('bills')->get();
-    //   $counter = "";
-    //   $all_total_amount = "";
-    // } else {
-    //   $reservations = Reservation::all();
-    //   $counter = "";
-    //   $all_total_amount = "";
-    // }
 
     $reservations = new Reservation;
     $data = $request->all();
@@ -68,6 +59,8 @@ class SalesController extends Controller
     $masterTotalAray = $search_result->get()->pluck(['master_total_sum'], 'reservation_id')->toArray();
     $CxlMasterTotalAray = $search_result->get()->pluck(['cxls_master_total'], 'reservation_id')->toArray();
 
+    // dd($sogakuAray, $masterTotalAray, $CxlMasterTotalAray);
+
     foreach ($reservations as $key => $value) {
       $venue = Venue::find($value['venue_id']);
 
@@ -90,150 +83,6 @@ class SalesController extends Controller
       }
     }
   }
-
-  // public function noRequest()
-  // {
-  //   $today = Carbon::today();
-  //   $after = Reservation::with(['bills.cxl', 'user', 'agent', 'cxls.cxl_breakdowns', 'enduser', 'venue'])->where('reserve_date', '>=', $today)->get()->sortBy('reserve_date');
-  //   $before = Reservation::with(['bills.cxl', 'user', 'agent', 'cxls.cxl_breakdowns', 'enduser', 'venue'])->where('reserve_date', '<', $today)->get()->sortByDesc('reserve_date');
-  //   $merge = $after->concat($before);
-  //   return $merge;
-  // }
-
-  // public function withRequest($request)
-  // {
-  //   $today = Carbon::today();
-  //   $after = Reservation::with(['bills.cxl', 'user', 'agent', 'cxls.cxl_breakdowns', 'enduser', 'venue'])
-  //     ->where('reserve_date', '>=', $today);
-  //   $result_after = $this->search($after, $request)
-  //     ->get()
-  //     ->sortBy('reserve_date');
-  //   $before = Reservation::with(['bills.cxl', 'user', 'agent', 'cxls.cxl_breakdowns', 'enduser', 'venue'])
-  //     ->where('reserve_date', '<', $today);
-  //   $result_before = $this->search($before, $request)
-  //     ->get()
-  //     ->sortByDesc('reserve_date');
-  //   $merge = $result_after->concat($result_before);
-  //   return $merge;
-  // }
-
-  // public function search($target, $request)
-  // {
-  //   // 総額検索用
-  //   $amounts_array = $this->getTotalAmountForSearch($target);
-
-  //   $result = $target->where(function ($query) use ($request, $amounts_array) {
-  //     if ($request->multiple_id) {
-  //       $val = $this->formatInputInteger($request->multiple_id);
-  //       $query->where('multiple_reserve_id', 'like', "%{$val}%");
-  //     }
-  //     if ($request->id) {
-  //       $val = $this->formatInputInteger($request->id);
-  //       $query->where('id', 'like', "%{$val}%");
-  //     }
-  //     if ($request->reserve_date) {
-  //       $targetDate = str_replace(" ", "", str_replace('/', '-', explode('-', $request->reserve_date)));
-  //       $query->whereBetween("reserve_date", $targetDate);
-  //     }
-  //     if ($request->user_id) {
-  //       $val = $this->formatInputInteger($request->user_id);
-  //       $query->where('user_id', 'like', "%{$val}%");
-  //     }
-  //     if ($request->company) {
-  //       $user = User::where("company", "like", "%{$request->company}%")->pluck("id")->toArray();
-  //       $query->whereIn("user_id", $user);
-  //     }
-  //     if ($request->person) {
-  //       $user = User::where(\DB::raw('CONCAT(first_name, last_name)'), 'like', "%{$request->person}%")
-  //         ->pluck('id')
-  //         ->toArray();
-  //       $query->whereIn("user_id", $user);
-  //     }
-  //     if ($request->agent) {
-  //       $query->where('agent_id', 'like', "%{$request->agent}%");
-  //     }
-  //     if ($request->venue) {
-  //       $query->where('venue_id', 'like', "%{$request->venue}%");
-  //     }
-  //     if ($request->enduser) {
-  //       $end_user = Enduser::where("company", "like", "%{$request->enduser}%")->pluck("reservation_id")->toArray();
-  //       $query->whereIn("id", $end_user);
-  //     }
-  //     if ($request->amount) {
-  //       $array_result = $this->amountSearch($amounts_array, $request->amount);
-  //       $query->whereIn("id", $array_result);
-  //     }
-  //     if ($request->payment_limit) {
-  //       $targetDate = str_replace(" ", "", str_replace('/', '-', explode('-', $request->payment_limit)));
-  //       $bill = Bill::whereBetween("payment_limit", $targetDate)->distinct()->pluck("reservation_id");
-  //       $query->whereIn("id", $bill);
-  //     }
-  //     for ($i = 0; $i < 9; $i++) {
-  //       $query->orWhere(function ($query2) use ($request, $i) {
-  //         if ($request->{"status" . $i}) {
-  //           $bill = Bill::where('reservation_status', $request->{"status" . $i})->distinct()->pluck("reservation_id")->toArray();
-  //           $query2->whereIn("id", $bill);
-  //         };
-  //         if ($request->{"payment_status" . $i}) {
-  //           $paid = Bill::where('paid', $request->{"payment_status" . $i})->pluck("reservation_id")->toArray();
-  //           $query2->whereIn("id", $paid);
-  //         };
-  //         if ($request->{"alliance" . $i} != "") {
-  //           $venue = Venue::where('alliance_flag', $request->{"alliance" . $i})->pluck("id")->toArray();
-  //           $query2->whereIn("venue_id", $venue);
-  //         };
-  //       });
-  //     }
-  //     if ($request->sales2) {
-  //       $cxl = Cxl::pluck('reservation_id')->toArray();
-  //       $query->orWhereIn("id", $cxl);
-  //     }
-  //     if ($request->sales3) {
-  //       $bill = Bill::pluck("reservation_id")->toArray();
-  //       $duplicate = array_count_values($bill);
-  //       $check = [];
-  //       foreach ($duplicate as $key => $value) {
-  //         if ($value > 1) {
-  //           $check[] = $key;
-  //         }
-  //       }
-  //       $query->orWhereIn("id", $check);
-  //     }
-
-  //     if ($request->free_word) {
-  //       $query->where(function ($query2) use ($request, $amounts_array) {
-  //         $val = $this->formatInputInteger($request->free_word);
-  //         $val = $request->free_word;
-  //         $query2->orWhere('id', 'like', "%{$val}%");
-  //         $query2->orWhere('multiple_reserve_id', 'like', "%{$val}%");
-  //         $query2->orWhere('multiple_reserve_id', 'like', "%{$val}%");
-  //         $venue = Venue::where(\DB::raw('CONCAT(name_area, name_bldg, name_venue)'), 'like', "%{$request->free_word}%")
-  //           ->pluck('id')
-  //           ->toArray();
-  //         $query2->orWhereIn("venue_id", $venue);
-  //         $query2->orWhere('user_id', 'like', "%{$val}%"); //顧客ID
-  //         $company = User::where("company", "like", "%{$request->free_word}%")->pluck("id")->toArray();
-  //         $query2->orWhereIn("user_id", $company); //会社名・団体名
-  //         $user = User::where(\DB::raw('CONCAT(first_name, last_name)'), 'like', "%{$request->free_word}%")
-  //           ->pluck('id')
-  //           ->toArray();
-  //         $query2->orWhereIn("user_id", $user); //担当者氏名
-  //         $agent = Agent::where("company", "like", "%{$request->free_word}%")->pluck("id")->toArray();
-  //         $query2->orWhereIn("agent_id", $agent); //仲介会社
-  //         $end_user = Enduser::where("company", "like", "%{$request->free_word}%")->pluck("reservation_id")->toArray();
-  //         $query2->orWhereIn("id", $end_user); //エンドユーザー
-  //         $array_result = $this->amountSearch($amounts_array, $request->free_word);
-  //         $query2->orWhereIn("id", $array_result); //総額
-  //         if (date('Y-m-d', strtotime($request->free_word)) != "1970-01-01") {
-  //           $query2->orWhereDate("reserve_date", $request->free_word);
-  //           $bill = Bill::where("payment_limit", $request->free_word)->pluck("reservation_id");
-  //           $query2->orWhereIn("id", $bill);
-  //         }
-  //       });
-  //     }
-  //   });
-  //   return $result;
-  // }
 
   public function amountSearch($amounts_array, $input)
   {
@@ -349,14 +198,14 @@ class SalesController extends Controller
             foreach ($bills as $bill) {
               $total_amount = $bill->reservation->totalAmountWithCxl();
               fputcsv($stream, [
-                $bill->reservation->multiple_reserve_id,
-                $bill->reservation->id,
-                $bill->reservation->reserve_date,
+                sprintf('%06d', $bill->reservation->multiple_reserve_id),
+                sprintf('%06d', $bill->reservation->id),
+                date("Y-m-d", strtotime($bill->reservation->reserve_date)),
                 $bill->reservation->venue->name_area . $bill->reservation->venue->name_bldg . $bill->reservation->venue->name_venue,
-                $bill->reservation->user_id,
+                sprintf('%06d', $bill->reservation->user_id),
                 optional($bill->reservation->user)->company,
                 optional($bill->reservation->user)->first_name . optional($bill->reservation->user)->last_name,
-                optional($bill->reservation->agent)->company,
+                optional($bill->reservation->agent)->name,
                 optional($bill->reservation->endusers)->company,
                 $total_amount,
                 $bill->master_total,
@@ -364,11 +213,11 @@ class SalesController extends Controller
                 $bill->reservation->venue->getProfitForPartner($bill->reservation->venue, $bill->master_total, $bill->layout_price, $bill->reservation),
                 $bill->category == 1 ? "会場予約" : "追加請求",
                 $this->checkStatus($bill->reservation_status),
-                $bill->pay_day,
+                $bill->pay_day === NULL ? NULL : date("Y-m-d", strtotime($bill->pay_day)),
                 $bill->paid == 0 ? "未入金" : "入金済",
                 $bill->pay_person,
                 $this->getAttr($bill->reservation->user_id),
-                $bill->payment_limit,
+                date("Y-m-d", strtotime($bill->payment_limit)),
                 $bill->reservation->venue->alliance_flag == 0 ? "直" : "提"
               ]);
             }
