@@ -31,7 +31,7 @@
           </ol>
         </nav>
       </div>
-      <h2 class="mt-3 mb-3">予約一覧テスト</h2>
+      <h2 class="mt-3 mb-3">予約一覧</h2>
       <hr>
     </div>
 
