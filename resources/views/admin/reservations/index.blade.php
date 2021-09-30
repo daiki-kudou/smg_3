@@ -320,6 +320,11 @@
                     @foreach (ImageHelper::addBillsShow($bill->id) as $icon)
                     {!!$icon!!}
                     @endforeach
+                    {{-- ケータリング --}}
+                    @if ($loop->first)
+                    {!!ImageHelper::catering($reservation->id)!!}
+                    {!!ImageHelper::newUser($reservation->user_id,$reservation->id)!!}
+                    @endif
                     <span style="color: white; width:1px;">{{$bill->id}}</span>
                   </div>
                 </div>
