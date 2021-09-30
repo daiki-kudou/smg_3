@@ -78,8 +78,10 @@
                   予約情報
                 </p>
                 <p class="alliance_color ml-2">
-                  @if ($reservation->user_id > 0)
-                  {{ $reservation->user->admin_or_user == 1 ? '管理者登録' : 'ユーザー登録' }}
+                  @if ((int)$reservation->bills->first()->admin_judge === 2)
+                  ユーザー登録
+                  @else
+                  管理者登録
                   @endif
                 </p>
                 <p class="ml-3">予約ID：{{ ReservationHelper::IdFormat($reservation->id) }}</p>

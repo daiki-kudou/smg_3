@@ -14,7 +14,6 @@ $(function () {
     ajaxGetLuggage(venue_id); //会場に荷物預りが存在するかしないか、　"0"か"1"でreturn
     ajaxGetOperatinSystem(venue_id); //会場形態の判別 直営 or　提携
     ajaxGetEatIn(venue_id); //会場形態の判別 直営 or　提携
-
   });
 
   // 日付選択トリガー
@@ -154,7 +153,12 @@ $(function () {
         $('.equipemnts table tbody').html(''); //一旦初期会
         $.each($items[0], function (index, value) {
           // ココで備品取得
-          var data = "<tr><td class='table-active'>" + value['item'] +
+          var data = "<tr><td class='table-active'>" +
+            value['item'] +
+            "("
+            + (Number(value['price'])).toLocaleString() +
+            "円)"
+            +
             "</td>" + "<td><div class='d-flex align-items-end'><input type='number' value='' min=0 name='equipment_breakdown" +
             index + "' class='form-control equipment_breakdown' onInput='checkForm(this)'><span class='ml-1'>個</span></div></td></tr>"
           $('.equipemnts table tbody').append(data);

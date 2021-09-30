@@ -203,7 +203,7 @@ class ReservationsController extends Controller
         $value[0]['payment'] = 0;
         // データ加工▲
         $result_reservation = $reservation->ReservationStore($value[0]);
-        $result_bill = $bill->BillStore($result_reservation->id, $value[0]);
+        $result_bill = $bill->BillStore($result_reservation->id, $value[0], $reservation_status = 1, $double_check_status = 0, $category = 1, $admin_judge = 2);
         $result_breakdowns = $breakdowns->BreakdownStore($result_bill->id, $value[0]);
         // メール送付
         $admin = explode(',', config('app.admin_email'));
