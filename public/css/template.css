@@ -1095,9 +1095,6 @@ table td.table_column p:last-child {
     border-bottom: none;
 }
 
-
-
-
 .multi-column__list {
     display: table;
     height: 100%;
@@ -1119,6 +1116,12 @@ table td.table_column p:last-child {
     padding: 0 10px;
     text-align: center;
     height: 30px;
+}
+
+.text-limit {
+    overflow: hidden;
+    width: 100px;
+    text-overflow: ellipsis;
 }
 
 .multi-column__list li:last-child .multi-column__item {
