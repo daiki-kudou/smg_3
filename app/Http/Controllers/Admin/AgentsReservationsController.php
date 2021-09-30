@@ -57,7 +57,7 @@ class AgentsReservationsController extends Controller
   {
     $agent = Agent::find($request->agent_id);
     $price = $agent->agentPriceCalculate($request->end_user_charge);
-    $payment_limit = $agent->getAgentPayLimit($request->reserve_date);
+    $payment_limit = $agent->getAgentPayLimit($request->reserve_date, $agent->payment_limit);
     $carbon1 = new Carbon($request->enter_time);
     $carbon2 = new Carbon($request->leave_time);
     $usage_hours = ($carbon1->diffInMinutes($carbon2)) / 60;

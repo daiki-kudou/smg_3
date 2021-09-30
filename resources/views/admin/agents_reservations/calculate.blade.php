@@ -912,7 +912,7 @@
                     {{ Form::text('bill_created_at', !empty($check_info['bill_created_at'])?$check_info['bill_created_at']:date('Y-m-d'),['class'=>'form-control datepicker'] ) }}
                   </td>
                   <td>支払期日
-                    {{ Form::text('pay_limit', !empty($check_info['bill_created_at'])?$check_info['bill_created_at']:calc_info[1],['class'=>'form-control datepicker'] ) }}
+                    {{ Form::text('pay_limit', !empty($check_info['pay_limit'])?$check_info['bill_created_at']:$calc_info[1],['class'=>'form-control datepicker'] ) }}
                   </td>
                 </tr>
                 <tr>

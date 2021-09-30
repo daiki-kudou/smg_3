@@ -591,12 +591,14 @@ class ReservationHelper
 
   public static function payTerm($num)
   {
-    if ($num == 0) {
+    if ($num === 1) {
       return "当月末締め／当月末支払い";
-    } elseif ($num == 1) {
+    } elseif ($num === 2) {
       return "当月末締め／翌月末支払い";
-    } elseif ($num == 2) {
+    } elseif ($num === 3) {
       return "当月末締め／翌々月末支払い";
+    } elseif ($num === 4) {
+      return "当月末締め／翌々々月末支払い";
     }
   }
 

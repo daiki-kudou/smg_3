@@ -319,9 +319,10 @@
             </th>
             <td>
               <select name="payment_limit" id="payment_limit">
-                <option value="1" {{$agent->payment_limit==1?'selected':""}}>当月末締め／当月末支払い</option>
-                <option value="2" {{$agent->payment_limit==2?'selected':""}}>当月末締め／翌月末支払い</option>
-                <option value="3" {{$agent->payment_limit==3?'selected':""}}>当月末締め／翌々月末支払い</option>
+                <option value="1" {{(int)$agent->payment_limit===1?'selected':""}}>当月末締め／当月末支払い</option>
+                <option value="2" {{(int)$agent->payment_limit===2?'selected':""}}>当月末締め／翌月末支払い</option>
+                <option value="3" {{(int)$agent->payment_limit===3?'selected':""}}>当月末締め／翌々月末支払い</option>
+                <option value="3" {{(int)$agent->payment_limit===4?'selected':""}}>当月末締め／翌々々月末支払い</option>
               </select>
             </td>
           </tr>
