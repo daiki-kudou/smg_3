@@ -386,7 +386,7 @@
               </tr>
               <tr>
                 <td>請求書宛名
-                  {{ Form::text('bill_company', !empty($data['bill_company'])?$data['bill_company']:$agent->company, ['class' => 'form-control'])}}
+                  {{ Form::text('bill_company', !empty($data['bill_company'])?$data['bill_company']:$agent->name, ['class' => 'form-control'])}}
                 </td>
                 <td>
                   担当者

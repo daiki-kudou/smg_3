@@ -956,7 +956,7 @@
             </tr>
             <tr>
               <td>
-                請求書宛名{{ Form::text('bill_company', !empty($reservation['bills'][0]['bill_company'])?$reservation['bills'][0]['bill_company']:'担当者なし',['class'=>'form-control'] ) }}
+                請求書宛名{{ Form::text('bill_company', !empty($reservation['bills'][0]['bill_company'])?$reservation['bills'][0]['bill_company']:'',['class'=>'form-control'] ) }}
               </td>
               <td>
                 担当者{{ Form::text('bill_person', $reservation['bills'][0]['bill_person'],['class'=>'form-control'] ) }}

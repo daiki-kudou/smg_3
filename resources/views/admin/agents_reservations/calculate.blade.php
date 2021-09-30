@@ -918,7 +918,7 @@
                 <tr>
                   <td>
                     請求書宛名
-                    {{ Form::text('pay_company', !empty($check_info['pay_company'])?$check_info['pay_company']:ReservationHelper::getAgentCompanyName($master_info['agent_id']),['class'=>'form-control'] ) }}
+                    {{ Form::text('pay_company', !empty($check_info['pay_company'])?$check_info['pay_company']:ReservationHelper::getAgentCompany($master_info['agent_id']),['class'=>'form-control'] ) }}
                   </td>
                   <td>
                     担当者

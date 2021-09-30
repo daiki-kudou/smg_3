@@ -793,7 +793,7 @@
                 </h4>
               </td>
             </tr>
-            <tbody class="equipment_head">
+            <tbody class="equipment_head ">
               <tr>
                 <td>内容</td>
                 <td>単価</td>
@@ -1185,7 +1185,6 @@
   })
 
   $(function() {
-
     $(function() {
       // プラスボタンクリック
       $(document).on("click", ".add", function() {
