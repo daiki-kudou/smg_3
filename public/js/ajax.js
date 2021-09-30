@@ -158,24 +158,6 @@ $(function () {
             index + "' class='form-control equipment_breakdown' onInput='checkForm(this)'><span class='ml-1'>個</span></div></td></tr>";
           $('.equipemnts table tbody').append(data);
         });
-        // ***********マイナス、全角制御用
-
-        // function ExceptString($target) {
-        //   $target.numeric({ negative: false, });
-        //   $target.on('change', function () {
-        //     charactersChange($(this));
-        //   })
-        //   charactersChange = function (ele) {
-        //     var val = ele.val();
-        //     var han = val.replace(/[Ａ-Ｚａ-ｚ０-９]/g, function (s) { return String.fromCharCode(s.charCodeAt(0) - 0xFEE0) });
-        //     if (val.match(/[Ａ-Ｚａ-ｚ０-９]/g)) {
-        //       $(ele).val(han);
-        //     }
-        //   }
-        // }
-        // ExceptString($(".equipemnts table tbody input[name^='equipemnt']"));
-        // ***********マイナス、全角制御用
-
         $('.services table tbody').html('');
         $.each($items[1], function (index, value) {
           // ココでサービス取得
