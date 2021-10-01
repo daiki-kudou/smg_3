@@ -112,7 +112,7 @@ class ReservationsController extends Controller
         $user = auth()->user()->id;
         $all_data = [$data, $user];
         $request->session()->put('session_reservations.' . $request->select_id, $all_data);
-        return redirect('user/reservations/cart');
+        return redirect('/user/reservations/cart');
       }
       $data = $request->all();
       $user = auth()->user()->id;

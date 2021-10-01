@@ -8,6 +8,10 @@
         {{ Breadcrumbs::render(Route::currentRouteName(),$cxl_id,$reservation_id) }}
         @elseif(!empty($id))
         {{ Breadcrumbs::render(Route::currentRouteName(),$id) }}
+        @elseif(!empty($reservation_id))
+        {{ Breadcrumbs::render(Route::currentRouteName(),$reservation_id) }}
+        @elseif(!empty($reservation_id)&&!empty($bill_id)&&!empty($multi))
+        {{ Breadcrumbs::render(Route::currentRouteName(),$reservation_id,$bill_id, $multi ) }}
         @else
         {{ Breadcrumbs::render(Route::currentRouteName()) }}
         @endif

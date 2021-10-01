@@ -348,12 +348,24 @@ Breadcrumbs::for('user.pre_reservations.show_cfm', function ($trail) {
 });
 
 // キャンセル
+
+Breadcrumbs::for('admin.cxl.multi_calc', function ($trail, $reservation_id, $bill_id, $multi) {
+  $trail->parent('admin.cxl.multi_create', $reservation_id, $bill_id, $multi);
+  $trail->push('キャンセル請求書 編集', route('admin.cxl.multi_calc', $reservation_id));
+});
+
 Breadcrumbs::for('admin.cxl.edit', function ($trail, $cxl_id, $reservation_id) {
   $trail->parent('admin.reservations.show', $reservation_id);
   $trail->push('キャンセル請求書 編集', route('admin.cxl.edit', $cxl_id));
 });
 
-Breadcrumbs::for('admin.cxl.edit_calc', function ($trail, $id) {
-  $trail->parent('admin.cxl.edit', $id);
-  $trail->push('キャンセル請求書 編集', route('admin.cxl.edit_calc', $id));
+Breadcrumbs::for('admin.cxl.edit_calc', function ($trail, $cxl_id, $reservation_id) {
+  $trail->parent('admin.cxl.edit', $cxl_id, $reservation_id);
+  $trail->push('キャンセル請求書 作成', route('admin.cxl.edit_calc', $cxl_id));
 });
+
+
+// Breadcrumbs::for('admin.cxl.multi_create', function ($trail, $reservation_id, $bill_id, $multi) {
+//   $trail->parent('admin.reservations.show', $reservation_id);
+//   $trail->push('キャンセル請求書 作成', route('admin.cxl.multi_create', $reservation_id, $bill_id, $multi));
+// });

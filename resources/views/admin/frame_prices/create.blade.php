@@ -51,25 +51,27 @@
         <tbody>
           <tr>
             <td>
-              {{ Form::text('frame0', old('frame'), ['class' => 'form-control', 'required']) }}
-              <p class="is-error-frame0" style="color: red"></p>
+              {{ Form::text('frame[]', old('frame'), ['class' => 'form-control', 'required']) }}
+              <p class="is-error-frame[]" style="color: red"></p>
             </td>
             <td>
-              <select name="start0" id="start" class="form-control col-sm-12">
-                {!!ReservationHelper::timeOptions()!!}
+              <select name="start[]" id="start" class="form-control col-sm-12">
+                <option value=""></option>
+                {!!ReservationHelper::timeOptionsWithRequest('08:00:00')!!}
               </select>
             </td>
             <td>
-              <select name="finish0" id="finish" class="form-control col-sm-12">
+              <select name="finish[]" id="finish" class="form-control col-sm-12">
+                <option value=""></option>
                 {!!ReservationHelper::timeOptionsWithRequest('12:00:00')!!}
               </select>
             </td>
             <td>
               <div class="d-flex align-items-end">
-                {{ Form::text('price0', "", ['class' => 'form-control','required']) }}
+                {{ Form::text('price[]', "", ['class' => 'form-control','required']) }}
                 <span class="ml-1">円</span>
               </div>
-              <p class="is-error-price0" style="color: red"></p>
+              <p class="is-error-price" style="color: red"></p>
             </td>
             <td>
               <input type="button" value="＋" class="add pluralBtn">
@@ -97,7 +99,7 @@
   </div>
 </div>
 
-<script>
+{{-- <script>
   $(function() {
 
     $(document).on("click", ".add", function() {
@@ -159,7 +161,6 @@
     });
 
     validationThis();
-
     function validationThis($index=1){
         $("#FramePriceCreateForm").validate({
           rules: {
@@ -246,5 +247,5 @@
     });
 
   });
-</script>
+</script> --}}
 @endsection
