@@ -52,7 +52,7 @@
         <tbody>
           <tr>
             <td>
-              {{ Form::text('frame[0]', old('frame[0]'), ['class' => 'form-control', 'required']) }}
+              {{ Form::text('frame[0]', old('frame[0]'), ['class' => 'form-control']) }}
               <p class="is-error-frame[0]" style="color: red"></p>
             </td>
             <td>
@@ -69,7 +69,7 @@
             </td>
             <td>
               <div class="d-flex align-items-end">
-                {{ Form::text('price[0]', "", ['class' => 'form-control','required']) }}
+                {{ Form::text('price[0]', "", ['class' => 'form-control']) }}
                 <span class="ml-1">円</span>
               </div>
               <p class="is-error-price[0]" style="color: red"></p>

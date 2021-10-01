@@ -42,18 +42,14 @@ $(function () {
       });
       $("select[name='start[" + index + "]']").rules("add", {
         required: true,
-        number: true,
         messages: {
           required: "※必須項目です",
-          number: "※半角数字を入力してください",
         }
       });
       $("select[name='finish[" + index + "]']").rules("add", {
         required: true,
-        number: true,
         messages: {
           required: "※必須項目です",
-          number: "※半角数字を入力してください",
         }
       });
       $("input[name='price[" + index + "]']").rules("add", {
@@ -111,18 +107,14 @@ $(function () {
       });
       $("select[name='start[" + index + "]']").rules("add", {
         required: true,
-        number: true,
         messages: {
           required: "※必須項目です",
-          number: "※半角数字を入力してください",
         }
       });
       $("select[name='finish[" + index + "]']").rules("add", {
         required: true,
-        number: true,
         messages: {
           required: "※必須項目です",
-          number: "※半角数字を入力してください",
         }
       });
       $("input[name='price[" + index + "]']").rules("add", {
