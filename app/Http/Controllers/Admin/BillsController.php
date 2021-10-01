@@ -288,14 +288,9 @@ class BillsController extends Controller
     $validatedData = $request->validate(
       [
         'paid' => 'required',
-        // 'pay_day' => 'date',
-        // 'payment' => 'integer|min:0',
       ],
       [
         'paid.required' => '[入金情報] ※入金状況は必須です',
-        // 'pay_day.date' => '[入金情報] ※入金日は日付で入力してください',
-        // 'payment.integer' => '[入金情報] ※入金額は半角英数字で入力してください',
-        // 'payment.min' => '[入金情報] ※入金額は0以上を入力してください',
       ]
     );
     $bill = Bill::with('reservation.user')->find($request->bill_id);
@@ -308,7 +303,7 @@ class BillsController extends Controller
       ]
     );
     if ($bill->reservation->agent_id == 0) {
-      $this->judgePaymentStatusAndSendEmail($request->paid, $bill->reservation->user);
+      $this->judgePaymentStatusAndSendEmail($request->paid, $bill->reservation->user, $bill);
     }
     return redirect(url('admin/reservations/' . $bill->reservation->id));
   }
@@ -320,12 +315,14 @@ class BillsController extends Controller
    * @param object $user
    */
 
-  public function judgePaymentStatusAndSendEmail($status, $user)
+  public function judgePaymentStatusAndSendEmail($status, $user, $bill)
   {
     if ((int)$status === 1) {
-      $admin = explode(',', config('app.admin_email'));
-      Mail::to($admin)->send(new AdminPaid($user));
-      Mail::to($user->email)->send(new UserPaid($user));
+      $user = $user;
+      $reservation = $bill;
+      $venue = $bill->reservation->venue;
+      $SendSMGEmail = new SendSMGEmail($user, $reservation, $venue);
+      $SendSMGEmail->send("入金ステータスを入金済みに更新");
     }
   }
 }

@@ -9,6 +9,10 @@ use App\Jobs\Reservation\MailForReservationAfterSwitchedByUser;
 use App\Jobs\Reservation\MailForBillAfterDblCheckAddBill;
 use App\Jobs\Reservation\MailForBillAfterUserApproveAddBill;
 use App\Jobs\Reservation\MailForReservationRequestFromUser;
+use App\Jobs\Reservation\MailForUserAfterCheckPaid;
+use App\Jobs\Reservation\MailForUserCxlAfterDblCheck;
+use App\Jobs\Reservation\MailForCxlAfterUserCheck;
+use App\Jobs\Reservation\MailForUserAfterCheckCxlPaid;
 
 
 class SendSMGEmail
@@ -52,6 +56,22 @@ class SendSMGEmail
 
       case "ユーザーからの予約依頼受付":
         MailForReservationRequestFromUser::dispatch($this->user, $this->reservation, $this->venue);
+        break;
+
+      case "入金ステータスを入金済みに更新":
+        MailForUserAfterCheckPaid::dispatch($this->user, $this->reservation, $this->venue);
+        break;
+
+      case "管理者ダブルチェック完了後、キャンセル承認メールをユーザーへ送付":
+        MailForUserCxlAfterDblCheck::dispatch($this->user, $this->reservation, $this->venue);
+        break;
+
+      case "ユーザーがキャンセルを承認":
+        MailForCxlAfterUserCheck::dispatch($this->user, $this->reservation, $this->venue);
+        break;
+
+      case "キャンセル料入金確認完了":
+        MailForUserAfterCheckCxlPaid::dispatch($this->user, $this->reservation, $this->venue);
         break;
 
       default:

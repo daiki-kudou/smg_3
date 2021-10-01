@@ -374,7 +374,7 @@ Route::namespace('Admin')->prefix('admin')->name('admin.')->group(function () {
     Route::get('cxl/multi_check', 'CxlController@multiCheck')->name('cxl.multi_check');
     Route::post('cxl/store', 'CxlController@store');
     Route::post('cxl/double_check', 'CxlController@doubleCheck');
-    // Route::post('cxl/send_email_and_approve', 'CxlController@send_email_and_approve');
+    Route::post('cxl/send_email_and_approve', 'CxlController@send_email_and_approve');
     Route::post('cxl/confirm', 'CxlController@confirm_cxl');
 
     Route::get('cxl/edit/{cxl}', 'CxlController@edit')->name('cxl.edit');

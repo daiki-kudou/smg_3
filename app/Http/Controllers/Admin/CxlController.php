@@ -169,10 +169,10 @@ class CxlController extends Controller
 
   public function send_email_and_approve(Request $request)
   {
-    $cxl = Cxl::with('reservation.bills')->find($request->cxl_id);
+    $cxl = Cxl::with(['reservation.bills', 'reservation.user', 'reservation.venue'])->find($request->cxl_id);
     $reservation_id = $cxl->reservation->id;
     try {
-      $cxl->sendCxlEmail();
+      $cxl->sendCxlEmail($cxl->reservation->user, $cxl, $cxl->reservation->venue);
       $cxl->updateCxlStatusByEmail(1);
       $cxl->updateReservationStatusByCxl(5);
     } catch (\Exception $e) {
@@ -373,17 +373,17 @@ class CxlController extends Controller
     $validatedData = $request->validate(
       [
         'paid' => 'required',
-        'pay_day' => 'date',
-        'payment' => 'integer|min:0',
+        // 'pay_day' => 'date',
+        // 'payment' => 'integer|min:0',
       ],
       [
         'paid.required' => '[キャンセル入金情報] ※入金状況は必須です',
-        'pay_day.date' => '[キャンセル入金情報] ※入金日は日付で入力してください',
-        'payment.integer' => '[キャンセル入金情報] ※入金額は半角英数字で入力してください',
-        'payment.min' => '[キャンセル入金情報] ※入金額は0以上を入力してください',
+        // 'pay_day.date' => '[キャンセル入金情報] ※入金日は日付で入力してください',
+        // 'payment.integer' => '[キャンセル入金情報] ※入金額は半角英数字で入力してください',
+        // 'payment.min' => '[キャンセル入金情報] ※入金額は0以上を入力してください',
       ]
     );
-    $cxl = Cxl::with('reservation.user')->find($request->cxl_id);
+    $cxl = Cxl::with(['reservation.user', 'reservation.venue'])->find($request->cxl_id);
     $cxl->update(
       [
         'paid' => $request->paid,
@@ -393,18 +393,22 @@ class CxlController extends Controller
       ]
     );
     if ($cxl->reservation->agent_id == 0) {
-      $this->judgePaymentStatusAndSendEmail($request->paid, $cxl->reservation->user);
+      $this->judgePaymentStatusAndSendEmail($request->paid, $cxl->reservation->user, $cxl);
     }
 
     return redirect(url('admin/reservations/' . $cxl->reservation->id));
   }
 
-  public function judgePaymentStatusAndSendEmail($status, $user)
+  public function judgePaymentStatusAndSendEmail($status, $user, $cxl)
   {
     if ($status == 1) {
-      $admin = explode(',', config('app.admin_email'));
-      Mail::to($admin)->send(new AdminCxlPaid($user));
-      Mail::to($user->email)->send(new UserCxlPaid($user));
+      // $admin = explode(',', config('app.admin_email'));
+      // Mail::to($admin)->send(new AdminCxlPaid($user));
+      // Mail::to($user->email)->send(new UserCxlPaid($user));
+      $reservation = $cxl;
+      $venue = $cxl->reservation->venue;
+      $SendSMGEmail = new SendSMGEmail($user, $reservation, $venue);
+      $SendSMGEmail->send("キャンセル料入金確認完了");
     }
   }
 }

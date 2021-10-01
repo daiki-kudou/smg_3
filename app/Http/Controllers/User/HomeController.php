@@ -183,12 +183,18 @@ class HomeController extends Controller
 
   public function cxl_cfm_by_user(Request $request)
   {
-    $cxl = Cxl::with("reservation")->find($request->cxl_id);
+    $cxl = Cxl::with(["reservation.user", "reservation.venue"])->find($request->cxl_id);
     $cxl->update(["cxl_status" => 2]);
     if ($cxl->bill_id == 0) {
       $cxl->reservation->bills->map(function ($item, $key) {
         $item->update(["reservation_status" => 6]);
       });
+
+      $user = $cxl->reservation->user;
+      $reservation = $cxl;
+      $venue = $cxl->reservation->venue;
+      $SendSMGEmail = new SendSMGEmail($user, $reservation, $venue);
+      $SendSMGEmail->send("ユーザーがキャンセルを承認");
     } else {
       $bill = Bill::find($cxl->bill_id);
       $bill->update(["reservation_status" => 6]);

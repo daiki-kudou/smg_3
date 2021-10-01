@@ -16,14 +16,11 @@ class UserReqAddRes extends Mailable
    *
    * @return void
    */
-  public function __construct(
-    // $id, $token, $email, $link
-  )
+  public function __construct($user, $reservation, $venue)
   {
-    // $this->id = $id;
-    // $this->token = $token;
-    // $this->email = $email;
-    // $this->link = $link;
+    $this->user = $user;
+    $this->reservation = $reservation;
+    $this->venue = $venue;
   }
 
   /**
@@ -36,10 +33,9 @@ class UserReqAddRes extends Mailable
     return $this->view('maileclipse::templates.userReqAddRes')
       ->subject('追加の備品・サービス（その他）を受け付けました	')
       ->with([
-        // 'id' => $this->id,
-        // 'token' => $this->token,
-        // 'email' => $this->email,
-        // 'link' => $this->link,
+        'user' => $this->user,
+        'reservation' => $this->reservation,
+        'venue' => $this->venue,
       ]);
   }
 }

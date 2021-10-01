@@ -16,14 +16,11 @@ class UserFinAddRes extends Mailable
    *
    * @return void
    */
-  public function __construct(
-    // $id, $token, $email, $link
-  )
+  public function __construct($user, $reservation, $venue)
   {
-    // $this->id = $id;
-    // $this->token = $token;
-    // $this->email = $email;
-    // $this->link = $link;
+    $this->user = $user;
+    $this->reservation = $reservation;
+    $this->venue = $venue;
   }
 
   /**
@@ -36,10 +33,9 @@ class UserFinAddRes extends Mailable
     return $this->view('maileclipse::templates.userFinAddRes')
       ->subject('追加予約受付完了')
       ->with([
-        // 'id' => $this->id,
-        // 'token' => $this->token,
-        // 'email' => $this->email,
-        // 'link' => $this->link,
+        'user' => $this->user,
+        'reservation' => $this->reservation,
+        'venue' => $this->venue,
       ]);
   }
 }
