@@ -2,6 +2,7 @@
 @section('content')
 <link href="{{ asset('/css/template.css') }}" rel="stylesheet">
 <script src="{{ asset('/js/ctrl_form.js') }}"></script>
+<script src="{{ asset('/js/admin/frame_prices/clone.js') }}"></script>
 
 <!-- フォーム追加 -->
 
@@ -51,27 +52,27 @@
         <tbody>
           <tr>
             <td>
-              {{ Form::text('frame[]', old('frame'), ['class' => 'form-control', 'required']) }}
-              <p class="is-error-frame[]" style="color: red"></p>
+              {{ Form::text('frame[0]', old('frame[0]'), ['class' => 'form-control', 'required']) }}
+              <p class="is-error-frame[0]" style="color: red"></p>
             </td>
             <td>
-              <select name="start[]" id="start" class="form-control col-sm-12">
+              <select name="start[0]" id="start" class="form-control col-sm-12">
                 <option value=""></option>
                 {!!ReservationHelper::timeOptionsWithRequest('08:00:00')!!}
               </select>
             </td>
             <td>
-              <select name="finish[]" id="finish" class="form-control col-sm-12">
+              <select name="finish[0]" id="finish" class="form-control col-sm-12">
                 <option value=""></option>
                 {!!ReservationHelper::timeOptionsWithRequest('12:00:00')!!}
               </select>
             </td>
             <td>
               <div class="d-flex align-items-end">
-                {{ Form::text('price[]', "", ['class' => 'form-control','required']) }}
+                {{ Form::text('price[0]', "", ['class' => 'form-control','required']) }}
                 <span class="ml-1">円</span>
               </div>
-              <p class="is-error-price" style="color: red"></p>
+              <p class="is-error-price[0]" style="color: red"></p>
             </td>
             <td>
               <input type="button" value="＋" class="add pluralBtn">
@@ -91,7 +92,9 @@
       </div>
       <p class="is-error-extend" style="color: red"></p>
       {{Form::hidden('venue_id', $venue->id)}}
-      <div class="mt-5 mx-auto">
+      <div class="mt-5 mx-auto d-flex w-50">
+        <a href="##########"><button type="button"
+            class="btn more_btn4_lg d-block btn-lg mx-auto my-5">すべて削除する</button></a>
         {{ Form::submit('登録する', ['class' => 'btn more_btn_lg d-block btn-lg mx-auto my-5']) }}
       </div>
       {{ Form::close() }}

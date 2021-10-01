@@ -35,7 +35,8 @@
   {{-- <link href="{{ asset('css/all.min.css')}}" rel="stylesheet"> --}}
   <script src="https://kit.fontawesome.com/a98e58f6de.js" crossorigin="anonymous"></script>
   {{-- バリデーション --}}
-  <script src="https://cdn.jsdelivr.net/npm/jquery-validation@1.19.2/dist/jquery.validate.min.js"></script>
+  {{-- <script src="https://cdn.jsdelivr.net/npm/jquery-validation@1.19.2/dist/jquery.validate.min.js"></script> --}}
+  <script src="{{ asset('/js/jquery.validate.min.js') }}"></script>
   <!-- Google Font: Source Sans Pro -->
   <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
   {{-- datepicker --}}
