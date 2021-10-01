@@ -282,10 +282,11 @@ Breadcrumbs::for('admin.agents_reservations.add_bills', function ($trail, $id) {
   $trail->push('(仲介会社)追加請求書　作成', route('admin.agents_reservations.add_bills'));
 });
 
-Breadcrumbs::for('admin.agents_reservations.create_session', function ($trail, $id) {
+Breadcrumbs::for('admin.agents_reservations.add_check', function ($trail, $id) {
   $trail->parent('admin.agents_reservations.add_bills', $id);
-  $trail->push('(仲介会社)追加請求書　確認', route('admin.agents_reservations.create_session'));
+  $trail->push('(仲介会社)追加請求書　確認', route('admin.agents_reservations.add_check'));
 });
+
 
 
 

@@ -30,7 +30,7 @@
   }
 </style>
 
-{{-- @include('layouts.admin.breadcrumbs',['id'=>$data['reservation_id']]) --}}
+@include('layouts.admin.breadcrumbs',['id'=>$data['reservation_id']])
 
 <h2 class="mt-3 mb-3">追加請求書　確認画面</h2>
 <hr>

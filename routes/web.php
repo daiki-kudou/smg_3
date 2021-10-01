@@ -256,8 +256,6 @@ Route::namespace('Admin')->prefix('admin')->name('admin.')->group(function () {
     Route::post('agents_reservations', 'AgentsReservationsController@store');
     // 仲介会社　請求　追加
     Route::get('agents_reservations/add_bills', 'AgentsReservationsController@add_bills')->name('agents_reservations.add_bills');
-    // 仲介会社　session 作成
-    // Route::post('agents_reservations/create_session', 'AgentsReservationsController@createSession')->name('agents_reservations.create_session');
     // 仲介会社　追加請求　確認
     Route::get('agents_reservations/add_bills/check', 'AgentsReservationsController@add_check')->name('agents_reservations.add_check');
     // 仲介会社　追加請求　保存
