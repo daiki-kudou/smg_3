@@ -19,6 +19,16 @@
   <hr>
 </div>
 
+@if (session('flash_message'))
+<div class="flash_message bg-success text-center py-3 my-0">
+  {{ session('flash_message') }}
+</div>
+@elseif(session('flash_message_error'))
+<div class="flash_message bg-danger text-center py-3 my-0">
+  {{ session('flash_message_error') }}
+</div>
+@endif
+
 {{-- ステータス承認待ち --}}
 @if ($reservation->bills->sortBy("id")->first()->reservation_status == 2)
 <div class="confirm-box text-sm-center">
@@ -322,21 +332,21 @@
                     <li>
                       <p>
                         {{ $reservation->luggage_count ? '有り' : '無し' }}
-                      </p>
-                    </li>
-                    <li>
-                      <p>
-                        荷物個数：{{ $reservation->luggage_count }}個
-                      </p>
-                    </li>
-                    <li>
-                      <p>事前荷物の到着日</p>
-                      <p>
-                        {{ ReservationHelper::formatDate($reservation->luggage_arrive) }}
-                      </p>
-                    </li>
-                  </ul>
-                </td>
+              </p>
+              </li>
+              <li>
+                <p>
+                  荷物個数：{{ $reservation->luggage_count }}個
+                </p>
+              </li>
+              <li>
+                <p>事前荷物の到着日</p>
+                <p>
+                  {{ ReservationHelper::formatDate($reservation->luggage_arrive) }}
+                </p>
+              </li>
+              </ul>
+              </td>
               </tr>
               <tr>
                 <td class="table-active"><label for="postDelivery">事後返送するお荷物</label></td>
@@ -1026,14 +1036,14 @@
   <!--追加請求のステータスが予約承認まちのときに表示 -->
   <div class="confirm-box text-sm-center">
     <p>上記、追加請求の内容で間違いないでしょうか。問題なければ、予約の承認をお願い致します。</p>
-    
-      {{-- <input class="btn more_btn4_lg" type="submit" value="追加請求の内容を承認する"> --}}
-      {{ Form::open(['url' => 'user/home/approve_user_additional_cfm', 'method' => 'post', 'class' => '']) }}
-      @csrf
-      {{ Form::hidden('bill_id', $other_bill->id) }}
-      <p class="text-center mt-3">{{ Form::submit('追加請求の内容を承認する', ['class' => 'btn more_btn4_lg']) }}</p>
-      {{ Form::close() }}
-    
+
+    {{-- <input class="btn more_btn4_lg" type="submit" value="追加請求の内容を承認する"> --}}
+    {{ Form::open(['url' => 'user/home/approve_user_additional_cfm', 'method' => 'post', 'class' => '']) }}
+    @csrf
+    {{ Form::hidden('bill_id', $other_bill->id) }}
+    <p class="text-center mt-3">{{ Form::submit('追加請求の内容を承認する', ['class' => 'btn more_btn4_lg']) }}</p>
+    {{ Form::close() }}
+
     <p class="notion">※ご要望に相違がある場合は、下記連絡先までご連絡ください。<br>
       TEL：06-1234-5678<br>
       mail：test@gmail.com</p>
@@ -1318,14 +1328,14 @@
   @if ($reservation->cxls->pluck('cxl_status')->contains(1))
   <div class="confirm-box text-sm-center">
     <p>上記、予約内容をキャンセルしてもよろしいでしょうか。問題なければ、承認をお願い致します。</p>
-    
-      @foreach ($reservation->cxls->where('cxl_status', 1) as $cfm_selected_cxl)
-      {{ Form::open(['url' => 'user/home/cfm_cxl', 'method' => 'post', 'class' => '']) }}
-      @csrf
-      {{ Form::hidden('cxl_id', $cfm_selected_cxl->id) }}
-      <p class="text-center mt-3">{{ Form::submit('キャンセルを承認する', ['class' => 'btn more_btn4_lg']) }}</p>
-      {{ Form::close() }}
-      @endforeach
+
+    @foreach ($reservation->cxls->where('cxl_status', 1) as $cfm_selected_cxl)
+    {{ Form::open(['url' => 'user/home/cfm_cxl', 'method' => 'post', 'class' => '']) }}
+    @csrf
+    {{ Form::hidden('cxl_id', $cfm_selected_cxl->id) }}
+    <p class="text-center mt-3">{{ Form::submit('キャンセルを承認する', ['class' => 'btn more_btn4_lg']) }}</p>
+    {{ Form::close() }}
+    @endforeach
     <p class="notion">※ご要望に相違がある場合は、下記連絡先までご連絡ください。<br>
       TEL：06-1234-5678<br>
       mail：test@gmail.com</p>

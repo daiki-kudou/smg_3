@@ -21,6 +21,8 @@ use App\Traits\PaginatorTrait;
 use Illuminate\Support\Facades\Mail;
 use App\Mail\AdminPreResToRes;
 use App\Mail\UserPreResToRes;
+use App\Service\SendSMGEmail;
+
 
 
 class PreReservationsController extends Controller
@@ -131,11 +133,10 @@ class PreReservationsController extends Controller
       dump($e);
       return back()->withInput()->withErrors($e->getMessage());
     }
-    $admin = explode(',', config('app.admin_email'));
-    Mail::to($admin) //管理者
-      ->send(new AdminPreResToRes($pre_reservation));
-    Mail::to($pre_reservation->user->email) //ユーザー
-      ->send(new UserPreResToRes($pre_reservation));
+
+    $venue = Venue::find($result_reservation->venue_id);
+    $SendSMGEmail = new SendSMGEmail($user, $result_reservation, $venue);
+    $SendSMGEmail->send("管理者主導仮押えから本予約切り替え（ユーザー承認）");
 
     return redirect(route('user.pre_reservations.show_cfm'));
 

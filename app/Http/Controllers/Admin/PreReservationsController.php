@@ -30,7 +30,7 @@ use App\Traits\PaginatorTrait;
 
 // バリデーションロジック
 use App\Http\Requests\Admin\PreReservations\Common\VenuePriceRequiredRequest;
-
+use App\Service\SendSMGEmail;
 
 class PreReservationsController extends Controller
 {
@@ -559,38 +559,19 @@ class PreReservationsController extends Controller
 
   public function switchStatus(Request $request)
   {
-    $PreReservation = PreReservation::with('pre_bill.pre_breakdowns')->find($request->pre_reservation_id);
+    $PreReservation = PreReservation::with(['pre_bill.pre_breakdowns', 'user'])->find($request->pre_reservation_id);
 
     if ($PreReservation->user_id > 0) {
       DB::transaction(function () use ($request, $PreReservation) {
         $PreReservation->update(['status' => 1]);
       });
 
-      $admin = explode(',', config('app.admin_email'));
-      Mail::to($admin) //管理者
-        ->send(new AdminFinPreRes(
-          $PreReservation->user->company,
-          $PreReservation->id,
-          $PreReservation->reserve_date,
-          $PreReservation->enter_time,
-          $PreReservation->leave_time,
-          $PreReservation->venue->name_area . $PreReservation->venue->name_bldg . $PreReservation->venue->name_venue,
-          $PreReservation->venue->post_code,
-          $PreReservation->venue->address1 . $PreReservation->venue->address2 . $PreReservation->venue->address3,
-          url('/') . '/user/pre_reservations'
-        ));
-      Mail::to($PreReservation->user->email) //ユーザー
-        ->send(new UserFinPreRes(
-          $PreReservation->user->company,
-          $PreReservation->id,
-          $PreReservation->reserve_date,
-          $PreReservation->enter_time,
-          $PreReservation->leave_time,
-          $PreReservation->venue->name_area . $PreReservation->venue->name_bldg . $PreReservation->venue->name_venue,
-          $PreReservation->venue->post_code,
-          $PreReservation->venue->address1 . $PreReservation->venue->address2 . $PreReservation->venue->address3,
-          url('/') . '/user/pre_reservations'
-        ));
+      $user = User::find($PreReservation->user->id);
+      $reservation = $PreReservation;
+      $venue = Venue::find($PreReservation->venue_id);
+      $SendSMGEmail = new SendSMGEmail($user, $reservation, $venue);
+      $SendSMGEmail->send("管理者仮押え完了及びユーザーへ編集権限譲渡");
+
       $flash_message = "顧客に承認権限メールを送りました";
       $request->session()->regenerate();
       return redirect()->route('admin.pre_reservations.show', $request->pre_reservation_id)->with('flash_message', $flash_message);

@@ -16,17 +16,11 @@ class UserFinPreRes extends Mailable
    *
    * @return void
    */
-  public function __construct($user, $id, $date, $enter_time, $leave_time, $venue, $post_code, $address, $url)
+  public function __construct($user, $reservation, $venue)
   {
     $this->user = $user;
-    $this->id = $id;
-    $this->date = $date;
-    $this->enter_time = $enter_time;
-    $this->leave_time = $leave_time;
+    $this->reservation = $reservation;
     $this->venue = $venue;
-    $this->post_code = $post_code;
-    $this->address = $address;
-    $this->url = $url;
   }
 
   /**
@@ -40,14 +34,8 @@ class UserFinPreRes extends Mailable
       ->subject('SMGアクセア貸し会議室 仮押えについて')
       ->with([
         'user' => $this->user,
-        'id' => $this->id,
-        'date' => $this->date,
-        'enter_time' => $this->enter_time,
-        'leave_time' => $this->leave_time,
+        'reservation' => $this->reservation,
         'venue' => $this->venue,
-        'post_code' => $this->post_code,
-        'address' => $this->address,
-        'url' => $this->url,
       ]);
   }
 }

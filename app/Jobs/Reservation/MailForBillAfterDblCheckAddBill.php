@@ -1,22 +1,23 @@
 <?php
 
-namespace App\Jobs;
+namespace App\Jobs\Reservation;
 
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\SerializesModels;
-use App\Mail\AdminFinDblChk;
-use App\Mail\UserFinDblChk;
+use App\Mail\AdminReqAddRes;
+use App\Mail\UserReqAddRes;
 use Mail;
 
-
-
-class MailForReservationAfterDblCheck implements ShouldQueue
+class MailForBillAfterDblCheckAddBill implements ShouldQueue
 {
   use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
-  public $data;
+
+  public $user;
+  public $reservation;
+  public $venue;
 
   /**
    * Create a new job instance.
@@ -39,13 +40,13 @@ class MailForReservationAfterDblCheck implements ShouldQueue
   {
     $admin = config('app.admin_email');
     Mail::to($admin)
-      ->send(new AdminFinDblChk(
+      ->send(new AdminReqAddRes(
         $this->user,
         $this->reservation,
         $this->venue
       ));
     Mail::to($this->user->email)
-      ->send(new UserFinDblChk(
+      ->send(new UserReqAddRes(
         $this->user,
         $this->reservation,
         $this->venue
