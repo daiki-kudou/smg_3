@@ -18,15 +18,9 @@
 </div>
 @endif
 
-@foreach ($errors->all() as $error)
-<div class="alert alert-danger">
-  <ul>
-    <li>{{$error}}</li>
-  </ul>
-</div>
-@endforeach
 
-
+@include('layouts.admin.breadcrumbs',['id'=>$data['reservation_id']])
+@include('layouts.admin.errors')
 
 {{ Form::open(['route' => 'admin.bills.store', 'method'=>'POST']) }}
 @csrf

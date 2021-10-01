@@ -2,7 +2,9 @@
   <nav aria-label="breadcrumb">
     <ol class="breadcrumb">
       <li class="breadcrumb-item active">
-        @if (!empty($id))
+        @if (!empty($bill_id)&&!empty($reservation_id))
+        {{ Breadcrumbs::render(Route::currentRouteName(),$bill_id,$reservation_id) }}
+        @elseif(!empty($id))
         {{ Breadcrumbs::render(Route::currentRouteName(),$id) }}
         @else
         {{ Breadcrumbs::render(Route::currentRouteName()) }}

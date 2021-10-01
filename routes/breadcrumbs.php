@@ -287,6 +287,21 @@ Breadcrumbs::for('admin.agents_reservations.add_check', function ($trail, $id) {
   $trail->push('(仲介会社)追加請求書　確認', route('admin.agents_reservations.add_check'));
 });
 
+// 追加請求書
+Breadcrumbs::for('admin.bills.edit', function ($trail, $bill_id, $reservation_id) {
+  $trail->parent('admin.reservations.show', $reservation_id);
+  $trail->push('追加請求書　編集', route('admin.bills.edit', $bill_id));
+});
+
+Breadcrumbs::for('admin.bills.create', function ($trail, $id) {
+  $trail->parent('admin.reservations.show', $id);
+  $trail->push('追加請求書　作成', route('admin.bills.create', ['reservation_id' => $id]));
+});
+
+Breadcrumbs::for('admin.bills.check', function ($trail, $id) {
+  $trail->parent('admin.bills.create', $id);
+  $trail->push('追加請求書　確認', route('admin.bills.check'));
+});
 
 
 

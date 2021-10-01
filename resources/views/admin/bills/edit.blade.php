@@ -11,9 +11,11 @@
   }
 </style>
 
+@include('layouts.admin.breadcrumbs',['bill_id'=>$bill->id,'reservation_id'=>$bill->reservation->id])
+
 <div class="container-fluid">
 
-  <h2 class="mt-3 mb-3">追加請求書　編集</h2>
+  <h2 class="mt-3 mb-3">追加請求書　編集 </h2>
   <hr>
 
   @if ($errors->any())

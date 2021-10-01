@@ -57,7 +57,7 @@ class BillsController extends Controller
     return view('admin/bills/create', compact('reservation', 'data', 'payment_limit'));
   }
 
-  public function createSession(Request $request)
+  public function check(Request $request)
   {
     $data = $request->all();
     return view('admin.bills.check', compact(
@@ -99,11 +99,10 @@ class BillsController extends Controller
   {
     $data = $request->all();
     if ($request->back) {
-      return $this->create($request);
+      return redirect(route('admin.bills.create', $data));
     }
     $bill = new Bill;
     $breakdowns = new Breakdown;
-
     DB::beginTransaction();
     try {
       $result_bill = $bill->BillStore($data['reservation_id'], $data);
@@ -111,8 +110,9 @@ class BillsController extends Controller
       DB::commit();
     } catch (\Exception $e) {
       DB::rollback();
-      dump($e->getMessage());
-      return $this->createSession($request)->withErrors($e->getMessage());
+      // dump($e->getMessage());
+      // return $this->createSession($request)->withErrors($e->getMessage());
+      return redirect(route('admin.bills.create', $data))->withErrors($e->getMessage());
     }
     $request->session()->regenerate();
     return redirect()->route('admin.reservations.show', $data['reservation_id']);

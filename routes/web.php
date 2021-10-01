@@ -217,7 +217,7 @@ Route::namespace('Admin')->prefix('admin')->name('admin.')->group(function () {
     // 追加請求書新規登録
     Route::get('bills/create', 'BillsController@create');
     // session 追加請求書
-    Route::post('bills/create_session', 'BillsController@createSession');
+    // Route::post('bills/create_session', 'BillsController@createSession');
     // // ajax 予約　請求書　追加
     Route::post('bills/ajaxaddbillsequipments', 'BillsController@ajaxaddbillsequipments');
     // // ajax 予約　請求書　追加　レイアウト取得
