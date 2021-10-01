@@ -22,6 +22,7 @@ Breadcrumbs::for('admin.venues.edit', function ($trail, $venue) {
   $trail->parent('admin.venues.show', $venue);
   $trail->push('会場管理 編集', route('admin.venues.edit', $venue));
 });
+
 // 備品
 Breadcrumbs::for('admin.equipments.index', function ($trail) {
   $trail->parent('admin.home.index');
