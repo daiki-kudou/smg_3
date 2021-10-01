@@ -11,14 +11,14 @@ use App\Models\Bill;
 use App\Models\Breakdown;
 use Illuminate\Support\Facades\DB; //トランザクション用
 use Illuminate\Support\Facades\Auth;
-
-
 use Session;
 
 use Illuminate\Support\Facades\Mail;
 use App\Mail\AdminReqRes;
 use App\Mail\UserReqRes;
 use Carbon\Carbon;
+use App\Service\SendSMGEmail;
+
 
 
 class ReservationsController extends Controller
@@ -206,36 +206,24 @@ class ReservationsController extends Controller
         $result_bill = $bill->BillStore($result_reservation->id, $value[0], $reservation_status = 1, $double_check_status = 0, $category = 1, $admin_judge = 2);
         $result_breakdowns = $breakdowns->BreakdownStore($result_bill->id, $value[0]);
         // メール送付
-        $admin = explode(',', config('app.admin_email'));
-        $user = $user->email;
-        Mail::to($admin)->send(new AdminReqRes($result_reservation));
-        Mail::to($user)->send(new UserReqRes($result_reservation));
+        // $admin = explode(',', config('app.admin_email'));
+        // $user = $user->email;
+        // Mail::to($admin)->send(new AdminReqRes($result_reservation));
+        // Mail::to($user)->send(new UserReqRes($result_reservation));
+        $reservation = $result_reservation;
+        $venue = Venue::find($reservation->venue_id);
+        $SendSMGEmail = new SendSMGEmail($user, $reservation, $venue);
+        $SendSMGEmail->send("ユーザーからの予約依頼受付");
       }
       DB::commit();
     } catch (\Exception $e) {
       DB::rollback();
       return back()->withInput()->withErrors($e->getMessage());
     }
-    $request->session()->regenerate();
     $request->session()->forget('session_reservations');
+    $request->session()->regenerate();
 
     return redirect('user/reservations/complete');
-    /////////////////////////////////////////////////////////
-    /////////////////////////////////////////////////////////
-    // $sessions = $request->session()->get('session_reservations');
-    // foreach ($sessions as $key => $value) {
-    //   dump($value);
-    //   $new_reservation = new Reservation();
-    //   $reservation = $new_reservation->ReserveFromUser(((object)$value[0]), $value[1]);
-    //   $reservation->with(['user', 'venue']);
-    //   $admin = explode(',', config('app.admin_email'));
-    //   $user = $reservation->user->email;
-    //   Mail::to($admin)->send(new AdminReqRes($reservation));
-    //   Mail::to($user)->send(new UserReqRes($reservation));
-    // }
-    // $request->session()->forget('session_reservations');
-    // $request->session()->regenerate();
-    // return redirect('user/reservations/complete');
   }
 
   public function complete()

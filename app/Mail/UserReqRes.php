@@ -16,9 +16,11 @@ class UserReqRes extends Mailable
    *
    * @return void
    */
-  public function __construct($reservation)
+  public function __construct($user, $reservation, $venue)
   {
+    $this->user = $user;
     $this->reservation = $reservation;
+    $this->venue = $venue;
   }
 
   /**
@@ -29,6 +31,12 @@ class UserReqRes extends Mailable
   public function build()
   {
     return $this->view('maileclipse::templates.userReqRes')
-      ->subject('【SMGアクセア貸し会議室】　予約申込受付のお知らせ')->with(['reservation' => $this->reservation]);
+      ->subject('【SMGアクセア貸し会議室】　予約申込受付のお知らせ')->with(
+        [
+          'user' => $this->user,
+          'reservation' => $this->reservation,
+          'venue' => $this->venue,
+        ]
+      );
   }
 }

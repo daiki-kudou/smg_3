@@ -8,6 +8,7 @@ use App\Jobs\Reservation\MailForPreReservationAfterAdminEdit;
 use App\Jobs\Reservation\MailForReservationAfterSwitchedByUser;
 use App\Jobs\Reservation\MailForBillAfterDblCheckAddBill;
 use App\Jobs\Reservation\MailForBillAfterUserApproveAddBill;
+use App\Jobs\Reservation\MailForReservationRequestFromUser;
 
 
 class SendSMGEmail
@@ -47,6 +48,10 @@ class SendSMGEmail
 
       case "ユーザーが追加予約の承認完了後、メール送信":
         MailForBillAfterUserApproveAddBill::dispatch($this->user, $this->reservation, $this->venue);
+        break;
+
+      case "ユーザーからの予約依頼受付":
+        MailForReservationRequestFromUser::dispatch($this->user, $this->reservation, $this->venue);
         break;
 
       default:
