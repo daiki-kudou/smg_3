@@ -7,18 +7,12 @@
 <script src="{{ asset('/js/template.js') }}"></script>
 <script src="{{ asset('/js/admin/cxl/validation.js') }}"></script>
 
-<h2 class="mt-3 mb-3">キャンセル請求書 作成</h2>
+@include('layouts.admin.breadcrumbs',['cxl_id'=>$cxl->id,'reservation_id'=>$reservation->id])
+@include('layouts.admin.errors')
+
+<h2 class="mt-3 mb-3">キャンセル請求書 編集</h2>
 <hr>
 
-@if ($errors->any())
-<div class="alert alert-danger">
-  <ul>
-    @foreach ($errors->all() as $error)
-    <li>{{ $error }}</li>
-    @endforeach
-  </ul>
-</div>
-@endif
 
 
 <section class="mt-5">

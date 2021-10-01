@@ -4,6 +4,8 @@
       <li class="breadcrumb-item active">
         @if (!empty($bill_id)&&!empty($reservation_id))
         {{ Breadcrumbs::render(Route::currentRouteName(),$bill_id,$reservation_id) }}
+        @elseif(!empty($cxl_id)&&!empty($reservation_id))
+        {{ Breadcrumbs::render(Route::currentRouteName(),$cxl_id,$reservation_id) }}
         @elseif(!empty($id))
         {{ Breadcrumbs::render(Route::currentRouteName(),$id) }}
         @else

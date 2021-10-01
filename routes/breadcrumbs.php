@@ -304,7 +304,6 @@ Breadcrumbs::for('admin.bills.check', function ($trail, $id) {
 });
 
 
-
 // 管理者　カレンダー
 Breadcrumbs::for('admin.calendar.date_calendar', function ($trail) {
   $trail->parent('admin.home.index');
@@ -346,4 +345,15 @@ Breadcrumbs::for('user.pre_reservations.show_calc', function ($trail, $id) {
 Breadcrumbs::for('user.pre_reservations.show_cfm', function ($trail) {
   $trail->parent('user.pre_reservations.index');
   $trail->push('仮押え　申し込み', route('user.pre_reservations.show_cfm'));
+});
+
+// キャンセル
+Breadcrumbs::for('admin.cxl.edit', function ($trail, $cxl_id, $reservation_id) {
+  $trail->parent('admin.reservations.show', $reservation_id);
+  $trail->push('キャンセル請求書 編集', route('admin.cxl.edit', $cxl_id));
+});
+
+Breadcrumbs::for('admin.cxl.edit_calc', function ($trail, $id) {
+  $trail->parent('admin.cxl.edit', $id);
+  $trail->push('キャンセル請求書 編集', route('admin.cxl.edit_calc', $id));
 });

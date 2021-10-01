@@ -13,22 +13,14 @@
     background: gray;
   }
 
-  a {
+  table a {
     text-decoration: none;
     color: black;
   }
 </style>
 
 <div class="container-field">
-  <div class="float-right">
-    <nav aria-label="breadcrumb">
-      <ol class="breadcrumb">
-        <li class="breadcrumb-item active">
-          {{ Breadcrumbs::render(Route::currentRouteName()) }}
-        </li>
-      </ol>
-    </nav>
-  </div>
+  @include('layouts.admin.breadcrumbs')
   <h2 class="mt-3 mb-3">予約状況カレンダー 利用日別</h2>
   <hr>
 

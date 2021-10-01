@@ -16,13 +16,7 @@
 </style>
 
 <div class="float-right">
-  <nav aria-label="breadcrumb">
-    <ol class="breadcrumb">
-      <li class="breadcrumb-item active">
-        {{ Breadcrumbs::render(Route::currentRouteName()) }}
-      </li>
-    </ol>
-  </nav>
+  @include('layouts.admin.breadcrumbs')
 </div>
 <h2 class="mt-3 mb-3">顧客管理　新規登録</h2>
 <hr>

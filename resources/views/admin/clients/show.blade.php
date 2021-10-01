@@ -5,13 +5,8 @@
 
 <div class="container-field">
   <div class="float-right">
-    <nav aria-label="breadcrumb">
-      <ol class="breadcrumb">
-        <li class="breadcrumb-item active">
-          {{ Breadcrumbs::render(Route::currentRouteName(),$user->id) }}
-        </li>
-      </ol>
-    </nav>
+
+    @include('layouts.admin.breadcrumbs',['id'=>$user->id])
   </div>
   <h2 class="mt-3 mb-3">顧客管理 詳細</h2>
   <hr>
