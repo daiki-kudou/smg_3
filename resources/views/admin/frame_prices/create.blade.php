@@ -3,6 +3,7 @@
 <link href="{{ asset('/css/template.css') }}" rel="stylesheet">
 <script src="{{ asset('/js/ctrl_form.js') }}"></script>
 <script src="{{ asset('/js/admin/frame_prices/clone.js') }}"></script>
+<script src="{{ asset('/js/admin/frame_prices/validation.js') }}"></script>
 
 <!-- フォーム追加 -->
 
