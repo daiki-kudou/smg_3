@@ -109,7 +109,7 @@
   <script>
     // 自動補完無効
     $(function(){
-      $('form').attr('autocomplete', 'off');
+      $('input').attr('autocomplete', 'off');
     })
 
     // enterキー無効
