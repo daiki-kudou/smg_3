@@ -185,9 +185,11 @@ class Agent extends Model implements PresentableInterface
     return $end_user_charge - ($end_user_charge * $percent);
   }
 
-  public function getAgentPayLimit($reserve_date, $payment_limit)
+  public function getAgentPayLimit($reserve_date)
   {
     $date = Carbon::parse($reserve_date);
+
+    $payment_limit = (int)$this['payment_limit'];
 
     switch ($payment_limit) {
       case 1:

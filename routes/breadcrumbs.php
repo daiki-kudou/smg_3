@@ -267,6 +267,28 @@ Breadcrumbs::for('admin.agents_reservations.check', function ($trail) {
   $trail->push('(仲介会社)予約 詳細 確認', route('admin.agents_reservations.check'));
 });
 
+Breadcrumbs::for('admin.agents_reservations.edit', function ($trail, $id) {
+  $trail->parent('admin.reservations.show', $id);
+  $trail->push('(仲介会社)予約 編集', route('admin.agents_reservations.edit', $id));
+});
+
+Breadcrumbs::for('admin.agents_reservations.edit_check', function ($trail, $id) {
+  $trail->parent('admin.agents_reservations.edit', $id);
+  $trail->push('(仲介会社)予約 再計算・確認', route('admin.agents_reservations.edit_check', $id));
+});
+
+Breadcrumbs::for('admin.agents_reservations.add_bills', function ($trail, $id) {
+  $trail->parent('admin.reservations.show', $id);
+  $trail->push('(仲介会社)追加請求書　作成', route('admin.agents_reservations.add_bills'));
+});
+
+Breadcrumbs::for('admin.agents_reservations.create_session', function ($trail, $id) {
+  $trail->parent('admin.agents_reservations.add_bills', $id);
+  $trail->push('(仲介会社)追加請求書　確認', route('admin.agents_reservations.create_session'));
+});
+
+
+
 // 管理者　カレンダー
 Breadcrumbs::for('admin.calendar.date_calendar', function ($trail) {
   $trail->parent('admin.home.index');

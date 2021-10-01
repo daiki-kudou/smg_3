@@ -30,11 +30,15 @@
   }
 </style>
 
+@include('layouts.admin.breadcrumbs',['id'=>$reservation['id']])
+@include('layouts.admin.errors')
+
+
 <h2 class="mt-3 mb-3">仲介会社　追加請求書</h2>
 <hr>
 
 
-{{ Form::open(['url' => 'admin/agents_reservations/create_session', 'method'=>'POST','id'=>'agentsbillsCreateForm']) }}
+{{ Form::open(['url' => 'admin/agents_reservations/add_bills/check', 'method'=>'get','id'=>'agentsbillsCreateForm']) }}
 @csrf
 {{ Form::hidden('reservation_id', $reservation['id'])}}
 {{ Form::hidden('reserve_date', $reservation['reserve_date'])}}
@@ -76,7 +80,7 @@
               </tr>
             </tbody>
             <tbody class="venue_main {{empty($data['venue_breakdown_item'][0])?"hide":""}}">
-              @if (!empty($data['venue_breakdown_item'][0]))
+              @if (!empty($data['venue_breakdown_item']))
               @foreach ($data['venue_breakdown_item'] as $key=>$v)
               <tr>
                 <td>

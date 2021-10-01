@@ -15,15 +15,7 @@
 </style>
 
 <div class="container-field">
-  <div class="float-right">
-    <nav aria-label="breadcrumb">
-      <ol class="breadcrumb">
-        <li class="breadcrumb-item active">
-          {{ Breadcrumbs::render(Route::currentRouteName(),$agent->id) }}
-        </li>
-      </ol>
-    </nav>
-  </div>
+  @include('layouts.admin.breadcrumbs',['id'=>$agent->id])
   <h2 class="mt-3 mb-3">仲介会社 詳細情報(編集)</h2>
   <hr>
 </div>

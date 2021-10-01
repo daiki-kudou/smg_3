@@ -150,21 +150,13 @@ class AgentsReservationsController extends Controller
     $agent = $reservation->agent;
     $percent = $agent->cost;
     $payment_limit = $reservation->agent->getAgentPayLimit($reservation->reserve_date);
-    $reservation = $reservation->toArray();
+    // $reservation = $reservation->toArray();
     return view('admin.agents_reservations.add_bills', compact(['data', 'reservation', 'percent', 'payment_limit', 'agent']));
-  }
-
-  public function createSession(Request $request)
-  {
-    $data = $request->all();
-    $reservation = Reservation::with('agent')->find($data['reservation_id']);
-    $reservation = $reservation->toArray();
-    return view('admin.agents_reservations.add_check', compact('data', 'reservation'));
   }
 
   public function add_check(Request $request)
   {
-    $data = $request->session()->get('add_bill');
+    $data = $request->all();
     $venues = $this->preg($data, 'venue_breakdown_item');
     $equipments = $this->preg($data, 'equipment_breakdown_item');
     $layouts = $this->preg($data, 'layout_breakdown_item');
@@ -180,12 +172,13 @@ class AgentsReservationsController extends Controller
   public function add_store(Request $request)
   {
     $data = $request->all();
+
     if ($request->back) {
-      return $this->add_bills($request);
+      return redirect(route('admin.agents_reservations.add_bills', $data));
     }
+
     $bill = new Bill;
     $breakdowns = new Breakdown;
-
     DB::beginTransaction();
     try {
       $result_bill = $bill->BillStore($data['reservation_id'], $data);
@@ -193,9 +186,7 @@ class AgentsReservationsController extends Controller
       DB::commit();
     } catch (\Exception $e) {
       DB::rollback();
-      dump($data);
-      dump($e->getMessage());
-      return $this->createSession($request)->withErrors($e->getMessage());
+      return redirect(route('admin.agents_reservations.add_bills', $data))->withErrors($e->getMessage());
     }
 
     $request->session()->regenerate();

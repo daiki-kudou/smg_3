@@ -257,7 +257,7 @@ Route::namespace('Admin')->prefix('admin')->name('admin.')->group(function () {
     // 仲介会社　請求　追加
     Route::get('agents_reservations/add_bills', 'AgentsReservationsController@add_bills')->name('agents_reservations.add_bills');
     // 仲介会社　session 作成
-    Route::post('agents_reservations/create_session', 'AgentsReservationsController@createSession');
+    // Route::post('agents_reservations/create_session', 'AgentsReservationsController@createSession')->name('agents_reservations.create_session');
     // 仲介会社　追加請求　確認
     Route::get('agents_reservations/add_bills/check', 'AgentsReservationsController@add_check')->name('agents_reservations.add_check');
     // 仲介会社　追加請求　保存
@@ -265,15 +265,9 @@ Route::namespace('Admin')->prefix('admin')->name('admin.')->group(function () {
     // 仲介会社　メールなしで予約確定ボタン
     Route::post('agents_reservations/confirm', 'AgentsReservationsController@add_confirm')->name('agents_reservations.add_confirm');
     // 仲介会社予約編集
-    Route::post('agents_reservations/edit', 'AgentsReservationsController@edit');
-    Route::post('agents_reservations/edit_check', 'AgentsReservationsController@editCheck');
-    // Route::get('agents_reservations/edit_show', 'AgentsReservationsController@editShow')->name('agents_reservations.edit_show');
-    // Route::post('agents_reservations/session_input', 'AgentsReservationsController@addSessionInput');
-    // Route::get('agents_reservations/show_input', 'AgentsReservationsController@showInput')->name('agents_reservations.show_input');
-    // Route::post('agents_reservations/session_check', 'AgentsReservationsController@editCheckSession');
-    // Route::get('agents_reservations/edit_check', 'AgentsReservationsController@editCheck')->name('agents_reservations.edit_check');
+    // Route::post('agents_reservations/edit', 'AgentsReservationsController@edit')->name('agents_reservations.edit');
     Route::get('agents_reservations/{agents_reservations}/edit', 'AgentsReservationsController@edit')->name('agents_reservations.edit');
-    Route::post('agents_reservations/edit_check', 'AgentsReservationsController@editCheck');
+    Route::post('agents_reservations/edit_check', 'AgentsReservationsController@editCheck')->name('agents_reservations.edit_check');
     Route::PUT('agents_reservations/{agents_reservations}', 'AgentsReservationsController@update');
 
     //********************** */

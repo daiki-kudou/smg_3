@@ -6,15 +6,7 @@
 <script src="{{ asset('/js/template.js') }}"></script>
 
 <div class="container-field">
-  <div class="float-right">
-    <nav aria-label="breadcrumb">
-      <ol class="breadcrumb">
-        <li class="breadcrumb-item active">
-          {{ Breadcrumbs::render(Route::currentRouteName(),$agent->id) }}
-        </li>
-      </ol>
-    </nav>
-  </div>
+  @include('layouts.admin.breadcrumbs',["id"=>$agent->id])
   <h2 class="mt-3 mb-3">仲介会社　詳細</h2>
   <hr>
 </div>
@@ -172,7 +164,7 @@
           <tr>
             <th class="table-active"><label for="cancel">キャンセルポリシー</label></th>
             <td>{{ $agent->cxl==1?"SMGルール":"仲介会社ルール" }}
-            <p><a href="{{$agent->cxl_url}}" target="blank">{{$agent->cxl_url}}</a></p>
+              <p><a href="{{$agent->cxl_url}}" target="blank">{{$agent->cxl_url}}</a></p>
             </td>
           </tr>
           <tr>

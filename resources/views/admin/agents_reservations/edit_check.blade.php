@@ -4,17 +4,9 @@
 <link href="{{ asset('/css/template.css') }}" rel="stylesheet">
 <script src="{{ asset('/js/template.js') }}"></script>
 
-{{-- <div class="d-flex justify-content-end">
-  <nav aria-label="breadcrumb">
-    <ol class="breadcrumb">
-      <li class="breadcrumb-item active">
-        {{ Breadcrumbs::render(Route::currentRouteName(),$data['reservation_id']) }}
-</li>
-</ol>
-</nav>
-</div> --}}
+@include('layouts.admin.breadcrumbs',['id'=>$data['reservation_id']])
 
-{{ Form::open(['url' => 'admin/agents_reservations/'.$data['reservation_id'], 'method'=>'PUT', 'id'=>'']) }}
+{{ Form::open(['url' => '/admin/agents_reservations/'.$data['reservation_id'], 'method'=>'PUT', 'id'=>'']) }}
 @csrf
 {{ Form::hidden('reservation_id', $data['reservation_id'] ,['class'=>'form-control', 'readonly'] ) }}
 {{ Form::hidden('bill_id', $data['bill_id'] ,['class'=>'form-control', 'readonly'] ) }}

@@ -47,15 +47,7 @@
 </div>
 
 <div class="container-field mt-3">
-  <div class="float-right">
-    <nav aria-label="breadcrumb">
-      <ol class="breadcrumb">
-        <li class="breadcrumb-item active">
-          {{ Breadcrumbs::render(Route::currentRouteName()) }}
-        </li>
-      </ol>
-    </nav>
-  </div>
+  @include('layouts.admin.breadcrumbs')
   <h2 class="mt-3 mb-3">予約 新規登録(仲介会社経由)</h2>
   <hr>
 </div>

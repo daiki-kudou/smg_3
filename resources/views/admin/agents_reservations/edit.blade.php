@@ -34,15 +34,7 @@
   }
 </style>
 
-{{-- <div class="d-flex justify-content-end">
-  <nav aria-label="breadcrumb">
-    <ol class="breadcrumb">
-      <li class="breadcrumb-item active">
-        {{ Breadcrumbs::render(Route::currentRouteName(),$reservationEditMaster['reservation_id']) }}
-</li>
-</ol>
-</nav>
-</div> --}}
+@include('layouts.admin.breadcrumbs',['id'=>$reservation['id']])
 
 <div id="fullOverlay">
   <div class="frame_spinner">

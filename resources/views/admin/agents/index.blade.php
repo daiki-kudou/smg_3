@@ -3,20 +3,10 @@
 @section('content')
 <script src="{{ asset('/js/tablesorter/jquery.tablesorter.js') }}"></script>
 <link href="{{ asset('/css/tablesorter/theme.default.min.css') }}" rel="stylesheet">
-
-{{-- <script src="{{ asset('/js/admin/venue.js') }}"></script> --}}
 <link href="{{ asset('/css/template.css') }}" rel="stylesheet">
 
 <div class="container-field">
-  <div class="float-right">
-    <nav aria-label="breadcrumb">
-      <ol class="breadcrumb">
-        <li class="breadcrumb-item active">
-          {{ Breadcrumbs::render(Route::currentRouteName()) }}
-        </li>
-      </ol>
-    </nav>
-  </div>
+  @include('layouts.admin.breadcrumbs')
   <h2 class="mt-3 mb-3">仲介会社　一覧</h2>
   <hr>
   <div class="row">
