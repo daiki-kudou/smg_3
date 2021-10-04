@@ -84,9 +84,15 @@
         </tbody>
       </table>
       {{Form::hidden('venue_id', $venue->id)}}
+      <button type="button" class="btn more_btn4_lg d-block btn-lg mx-auto my-5"
+        onclick="$('#delete').submit()">すべて削除する</button>
       {{ Form::submit('保存する', ['class' => 'btn more_btn_lg d-block btn-lg mx-auto my-5', 'id'=>'submit']) }}
       {{ Form::close() }}
     </div>
+
+    {{Form::open(['url' => 'admin/time_prices/'.$venue->id, 'method' => 'delete', 'id'=>'delete'])}}
+    @csrf
+    {{ Form::close() }}
   </div>
 </div>
 

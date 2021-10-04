@@ -168,8 +168,14 @@ class TimePricesController extends Controller
    * @param  int  $id
    * @return \Illuminate\Http\Response
    */
-  public function destroy($id)
+  public function destroy($id, Request $request)
   {
-    //
+    $time_prices = TimePrice::where('venue_id', $id)->get();
+    foreach ($time_prices as $key => $value) {
+      $value->delete();
+    }
+
+    $request->session()->regenerate();
+    return redirect('/admin/frame_prices/' . $id);
   }
 }

@@ -11,8 +11,8 @@ $(function () {
     tr.clone(true).insertAfter(tr);
     tr.parent().find('tr').each(function (index, element) {
       tr.parent().find('tr').eq(index).find('td').eq(0).find('input').attr('name', "frame[" + index + "]").attr('aria-describedby', "");
-      tr.parent().find('tr').eq(index).find('td').eq(1).find('input').attr('name', "start[" + index + "]").attr('aria-describedby', "");
-      tr.parent().find('tr').eq(index).find('td').eq(2).find('input').attr('name', "finish[" + index + "]").attr('aria-describedby', "");
+      tr.parent().find('tr').eq(index).find('td').eq(1).find('select').attr('name', "start[" + index + "]").attr('aria-describedby', "");
+      tr.parent().find('tr').eq(index).find('td').eq(2).find('select').attr('name', "finish[" + index + "]").attr('aria-describedby', "");
       tr.parent().find('tr').eq(index).find('td').eq(3).find('input').attr('name', "price[" + index + "]").attr('aria-describedby', "");
     })
 

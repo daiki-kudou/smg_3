@@ -7,6 +7,8 @@ use Illuminate\Http\Request;
 
 use App\Models\FramePrice;
 use App\Models\Venue;
+use Illuminate\Support\Facades\DB; //トランザクション用
+
 
 
 class FramePricesController extends Controller
@@ -52,39 +54,54 @@ class FramePricesController extends Controller
     $origin = url('/');
     $origin = $origin . '/admin/frame_prices/create/' . $request->venue_id;
 
-
     // 別ルートからきたstoreは拒絶
     if ($previous !== $origin) {
       return abort(404);
     }
 
-    //createからくるフォームのrequestが何列かにわかれてくるため何列かわかるための計算
-    $count_request = (count($request->all()) - 3) / 4;
+    $data = $request->all();
 
-    if ($count_request == 1) { //$requestの中身が１列の場合
-      FramePrice::create([
-        'frame' => $request->frame0,
-        'start' => $request->start0,
-        'finish' => $request->finish0,
-        'price' => $request->price0,
-        'venue_id' => $request->venue_id,
-        'extend' => $request->extend,
-      ]);
-      //$requestが１列以上の場合
-    } else {
-      for ($i = 0; $i < $count_request; $i++) {
-        FramePrice::create([
-          'frame' => $request->{'frame' . $i},
-          'start' => $request->{'start' . $i},
-          'finish' => $request->{'finish' . $i},
-          'price' => $request->{'price' . $i},
-          'venue_id' => $request->venue_id,
-          'extend' => $request->extend,
-        ]);
-      }
+    $frame_price = new FramePrice;
+    DB::beginTransaction();
+    try {
+      $frame_price->FramePriceStore($data);
+      DB::commit();
+    } catch (\Exception $e) {
+      DB::rollback();
+
+      return back()->withInput()->withErrors($e->getMessage());
     }
+    $request->session()->regenerate();
+    return redirect('/admin/frame_prices/' . $data['venue_id']);
 
-    return redirect('/admin/frame_prices/' . $request->venue_id);
+
+    // //createからくるフォームのrequestが何列かにわかれてくるため何列かわかるための計算
+    // $count_request = (count($request->all()) - 3) / 4;
+
+    // if ($count_request == 1) { //$requestの中身が１列の場合
+    //   FramePrice::create([
+    //     'frame' => $request->frame0,
+    //     'start' => $request->start0,
+    //     'finish' => $request->finish0,
+    //     'price' => $request->price0,
+    //     'venue_id' => $request->venue_id,
+    //     'extend' => $request->extend,
+    //   ]);
+    //   //$requestが１列以上の場合
+    // } else {
+    //   for ($i = 0; $i < $count_request; $i++) {
+    //     FramePrice::create([
+    //       'frame' => $request->{'frame' . $i},
+    //       'start' => $request->{'start' . $i},
+    //       'finish' => $request->{'finish' . $i},
+    //       'price' => $request->{'price' . $i},
+    //       'venue_id' => $request->venue_id,
+    //       'extend' => $request->extend,
+    //     ]);
+    //   }
+    // }
+
+    // return redirect('/admin/frame_prices/' . $request->venue_id);
   }
 
   /**
@@ -172,7 +189,14 @@ class FramePricesController extends Controller
    * @param  int  $id
    * @return \Illuminate\Http\Response
    */
-  public function destroy($id)
+  public function destroy($id, Request $request)
   {
+    $frame_prices = FramePrice::where('venue_id', $id)->get();
+    foreach ($frame_prices as $key => $value) {
+      $value->delete();
+    }
+
+    $request->session()->regenerate();
+    return redirect('/admin/frame_prices/' . $id);
   }
 }

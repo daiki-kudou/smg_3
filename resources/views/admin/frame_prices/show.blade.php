@@ -32,7 +32,7 @@
   </div>
   @else
 
-  <h3 class="d-block mb-3 price_ttl"><span class="mr-3">ID:{{ ReservationHelper::IdFormat($venue->id)}}</span>
+  <h3 class="d-block mb-3 price_ttl"><span class="mr-3">ID:{{ ReservationHelper::Fixid($venue->id)}}</span>
     {{ $venue->name_bldg }}{{ $venue->name_venue }}
   </h3>
   <hr>

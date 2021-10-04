@@ -102,7 +102,7 @@
             @if ($i==0)
             <tr class="table_row">
               <td rowspan="{{($reservation->billCount()*2)+$reservation->cxlCount()+2}}">
-                {{ReservationHelper::IdFormat($reservation->id)}}
+                {{ReservationHelper::Fixid($reservation->id)}}
               </td>
               <td rowspan="{{($reservation->billCount()*2)+$reservation->cxlCount()+2}}">
                 {{ReservationHelper::formatDate($reservation->reserve_date)}}

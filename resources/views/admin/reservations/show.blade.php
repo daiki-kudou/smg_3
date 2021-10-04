@@ -93,9 +93,9 @@
                   管理者登録
                   @endif
                 </p>
-                <p class="ml-3">予約ID：{{ ReservationHelper::IdFormat($reservation->id) }}</p>
+                <p class="ml-3">予約ID：{{ ReservationHelper::Fixid($reservation->id) }}</p>
                 <p class="ml-3">
-                  一括ID：{{ !empty($reservation->multiple_reserve_id) ? ReservationHelper::IdFormat($reservation->multiple_reserve_id) : '' }}
+                  一括ID：{{ !empty($reservation->multiple_reserve_id) ? ReservationHelper::Fixid($reservation->multiple_reserve_id) : '' }}
                 </p>
               </div>
             </td>

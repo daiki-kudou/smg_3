@@ -144,14 +144,21 @@
       <div>
         <div class="d-flex align-items-end">
           {{ Form::text('extend', $frame_price->extend,['class'=>'form-control w-25 mb-2'])}}
-          <span class="ml-1 mb-1">円</span>
+          {{-- <span class="ml-1 mb-1">円</span> --}}
         </div>
         <p class="{{'is-error-extend'}}" style="color: red"></p>
       </div>
       {{Form::hidden('venue_id', $venue->id)}}
-      {{ Form::submit('保存する', ['class' => 'btn more_btn_lg mx-auto d-block my-5']) }}
+      <div class="d-flex">
+        <button type="button" class="btn more_btn4_lg d-block btn-lg mx-auto my-5"
+          onclick="$('#delete').submit()">すべて削除する</button>
+        {{ Form::submit('保存する', ['class' => 'btn more_btn_lg mx-auto d-block my-5']) }}
+      </div>
       {{ Form::close() }}
     </div>
+    {{Form::open(['url' => '/admin/frame_prices/'.$venue->id, 'method' => 'delete', 'id'=>'delete'])}}
+    @csrf
+    {{ Form::close() }}
   </div>
 </div>
 <script>

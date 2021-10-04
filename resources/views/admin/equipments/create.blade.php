@@ -44,7 +44,7 @@
   </thead>
   <tbody>
     <tr>
-      <td>{{ReservationHelper::fixId(ReservationHelper::IdFormat($id))}}</td>
+      <td>{{ReservationHelper::fixId(ReservationHelper::Fixid($id))}}</td>
       <td>{{ReservationHelper::formatDate(Carbon\Carbon::now())}}</td>
       <td>
         {{ Form::text('item', old('item'), ['class' => 'form-control']) }}
