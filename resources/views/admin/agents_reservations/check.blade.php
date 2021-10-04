@@ -52,6 +52,7 @@
 </div>
 @endforeach
 
+
 {{Form::open(['url' => 'admin/agents_reservations', 'method' => 'POST', 'id'=>'agentReservationCreateForm'])}}
 @csrf
 <section class="mt-4">
@@ -179,7 +180,7 @@
           <tbody class="accordion-wrap2">
             @foreach ($venue->getEquipments() as $key=>$equ)
             <tr>
-              <td class="table-active">{{$equ->item}}</td>
+              <td class="table-active">{{$equ->item}}({{number_format($equ->price)."円"}})</td>
               <td>
                 <div class="d-flex align-items-end">
                   {{ Form::text('equipment_breakdown'.$key, $master_info['equipment_breakdown'.$key],['class'=>'form-control','readonly'] ) }}
@@ -206,7 +207,7 @@
           <tbody class="accordion-wrap2">
             @foreach ($venue->getServices() as $key=>$ser)
             <tr>
-              <td class="table-active">{{$ser->item}}</td>
+              <td class="table-active">{{$ser->item}}({{number_format($ser->price)."円"}})</td>
               <td>
                 {{ Form::text('', $master_info['services_breakdown'.$key]==1?"あり":"なし",['class'=>'form-control','readonly'] ) }}
                 {{ Form::hidden('services_breakdown'.$key, $master_info['services_breakdown'.$key],['class'=>'form-control','readonly'] ) }}
