@@ -1,5 +1,5 @@
 $(function () {
-  // 例: cfm(".more_btn", "ほんとにOK????");
+  // 例: cfm(".confirm", "入力した内容を確定しますか？");
 
 
 

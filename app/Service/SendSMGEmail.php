@@ -13,6 +13,7 @@ use App\Jobs\Reservation\MailForUserAfterCheckPaid;
 use App\Jobs\Reservation\MailForUserCxlAfterDblCheck;
 use App\Jobs\Reservation\MailForCxlAfterUserCheck;
 use App\Jobs\Reservation\MailForUserAfterCheckCxlPaid;
+use App\Jobs\Reservation\MailForConfirmReservation;
 
 
 class SendSMGEmail
@@ -48,6 +49,10 @@ class SendSMGEmail
 
       case "予約内容追加。管理者からユーザーへ承認依頼を送付":
         MailForBillAfterDblCheckAddBill::dispatch($this->user, $this->reservation, $this->venue);
+        break;
+
+      case "予約完了":
+        MailForConfirmReservation::dispatch($this->user, $this->reservation, $this->venue);
         break;
 
       case "ユーザーが追加予約の承認完了後、メール送信":

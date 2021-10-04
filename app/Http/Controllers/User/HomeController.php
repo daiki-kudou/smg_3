@@ -86,16 +86,16 @@ class HomeController extends Controller
   public function updateStatus(Request $request, $id)
   {
     return DB::transaction(function () use ($request, $id) {
-      $reservation = Reservation::find($id);
+      $reservation = Reservation::with(['user', 'venue'])->find($id);
       $reservation->bills()->first()->update([
         'reservation_status' => $request->update_status
       ]);
-      // ユーザーに予約完了メール送信
-      $email = $reservation->user->email;
-      Mail::to($email)->send(new ConfirmReservationByUser($reservation));
-      // 管理者に予約完了メール送信
-      $admins = ['kudou@web-trickster.com', 'maruoka@web-trickster.com'];
-      Mail::to($admins)->send(new ConfirmToAdmin($reservation));
+      // // ユーザーに予約完了メール送信
+      $user = $reservation->user;
+      $venue = $reservation->venue;
+      $SendSMGEmail = new SendSMGEmail($user, $reservation, $venue);
+      $SendSMGEmail->send("予約完了");
+
 
       $request->session()->regenerate();
       return redirect()->route('user.home.index');
