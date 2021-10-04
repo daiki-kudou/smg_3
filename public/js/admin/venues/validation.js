@@ -85,11 +85,12 @@ $(function () {
       name_area: { required: true },
       name_bldg: { required: true },
       name_venue: { required: true },
-      size1: { 
-        required: true, 
+      size1: {
+        required: true,
         // number: true, 
-        min: 0, 
-        max: 1000 },
+        min: 0,
+        max: 1000
+      },
       size2: { required: true, number: true, min: 0, max: 1000 },
       capacity: { required: true },
       post_code: { required: true, maxlength: 7, minlength: 7, number: true },
