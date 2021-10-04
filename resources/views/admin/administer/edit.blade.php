@@ -48,9 +48,9 @@
 
 
 <script>
-  $('#form_submit').on('click',function(){
-  if(!confirm('更新しますか？')){return false;}
-  })
+  // $('#form_submit').on('click',function(){
+  // if(!confirm('更新しますか？')){return false;}
+  // })
 
 $(function () {
   $("#admin_update").validate({

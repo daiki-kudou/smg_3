@@ -80,16 +80,16 @@
 
 
 <script>
-  $(function () {
-  $('.del_btn').on('click', function () {
-    var target = $(this).parent().parent().parent().find('td').eq(2).text();
-    console.log(target);
-    if (!confirm(target+'を本当に削除しますか？\n削除した時点で会場情報・顧客側予約フォームからも削除されます')) {
-      return false;
-    } else {
-    }
-  })
-})
+  //   $(function () {
+//   $('.del_btn').on('click', function () {
+//     var target = $(this).parent().parent().parent().find('td').eq(2).text();
+//     console.log(target);
+//     if (!confirm(target+'を本当に削除しますか？\n削除した時点で会場情報・顧客側予約フォームからも削除されます')) {
+//       return false;
+//     } else {
+//     }
+//   })
+// })
 </script>
 
 <script>

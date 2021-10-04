@@ -222,7 +222,7 @@
             <tbody class="accordion-wrap2">
               @foreach ($venues->find($master_info['venue_id'])->getEquipments() as $key=>$equipment)
               <tr>
-                <td class="table-active">{{$equipment->item}}</td>
+                <td class="table-active">{{$equipment->item}}({{number_format($equipment->price)."円"}})</td>
                 <td>
                   <div class="d-flex align-items-end">
                     {{ Form::number('equipment_breakdown'.$key, $master_info['equipment_breakdown'.$key],['class'=>'form-control equipment_validation', 'placeholder'=>'入力してください'] ) }}
@@ -248,7 +248,7 @@
             <tbody class="accordion-wrap2">
               @foreach ($venues->find($master_info['venue_id'])->getServices() as $key=>$service)
               <tr>
-                <td class="table-active">{{$service->item}}</td>
+                <td class="table-active">{{$service->item}}({{number_format($service->price)."円"}})</td>
                 <td>
                   <div class="radio-box">
                     <p>

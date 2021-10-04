@@ -1568,51 +1568,51 @@
 
 
   <script>
-    $(function() {
-        $('#double_check1_submit,#double_check2_submit').on('click', function() {
-            if (!confirm('チェック完了しますか？')) {
-                return false;
-            }
-        });
-        $('#send_confirm').on('click', function() {
-            if (!confirm('利用者に承認メールを送付しますか？')) {
-                return false;
-            }
-        });
-        $('#reservation_confirm').on('click', function() {
-            if (!confirm('予約を確定しますか？')) {
-                return false;
-            }
-        });
-        $('.approve_send').on('click', function() {
-            if (!confirm('利用者に承認メールを送付しますか？')) {
-                return false;
-            }
-        });
-        $('.confirm_btn').on('click', function() {
-            if (!confirm('予約を確定しますか？')) {
-                return false;
-            }
-        });
-        $('.paid_edit_submit').on('click', function() {
-            if (!confirm('入金情報を更新しますか？')) {
-                return false;
-            }else{
-              if (!confirm('入金情報が【入金済み】の場合、ユーザーに入金完了メールが送付されますが、よろしいですか？')) {
-                return false;
-            }
-            }
-        });
-        $('.cxl_paid_edit_submit').on('click', function() {
-            if (!confirm('入金情報を更新しますか？')) {
-                return false;
-            }else{
-              if (!confirm('入金情報が【入金済み】の場合、ユーザーに入金完了メールが送付されますが、よろしいですか？')) {
-                return false;
-            }
-            }
-        });
-    });
+    // $(function() {
+    //     $('#double_check1_submit,#double_check2_submit').on('click', function() {
+    //         if (!confirm('チェック完了しますか？')) {
+    //             return false;
+    //         }
+    //     });
+    //     $('#send_confirm').on('click', function() {
+    //         if (!confirm('利用者に承認メールを送付しますか？')) {
+    //             return false;
+    //         }
+    //     });
+    //     $('#reservation_confirm').on('click', function() {
+    //         if (!confirm('予約を確定しますか？')) {
+    //             return false;
+    //         }
+    //     });
+    //     $('.approve_send').on('click', function() {
+    //         if (!confirm('利用者に承認メールを送付しますか？')) {
+    //             return false;
+    //         }
+    //     });
+    //     $('.confirm_btn').on('click', function() {
+    //         if (!confirm('予約を確定しますか？')) {
+    //             return false;
+    //         }
+    //     });
+    //     $('.paid_edit_submit').on('click', function() {
+    //         if (!confirm('入金情報を更新しますか？')) {
+    //             return false;
+    //         }else{
+    //           if (!confirm('入金情報が【入金済み】の場合、ユーザーに入金完了メールが送付されますが、よろしいですか？')) {
+    //             return false;
+    //         }
+    //         }
+    //     });
+    //     $('.cxl_paid_edit_submit').on('click', function() {
+    //         if (!confirm('入金情報を更新しますか？')) {
+    //             return false;
+    //         }else{
+    //           if (!confirm('入金情報が【入金済み】の場合、ユーザーに入金完了メールが送付されますが、よろしいですか？')) {
+    //             return false;
+    //         }
+    //         }
+    //     });
+    // });
 
     $(function() {
         $('#remark_checkbox').on('click', function() {

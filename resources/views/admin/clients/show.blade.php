@@ -381,12 +381,12 @@
 </section>
 
 <script>
-  $(function(){
-  $('#delete_btn').on('click',function(){
-      if(!confirm('削除しますか？')){
-        return false;
-      }
-  });
-  });
+  // $(function(){
+  // $('#delete_btn').on('click',function(){
+  //     if(!confirm('削除しますか？')){
+  //       return false;
+  //     }
+  // });
+  // });
 </script>
 @endsection

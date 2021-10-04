@@ -40,13 +40,13 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
 <script type="text/javascript" src="https://code.jquery.com/ui/1.12.0/jquery-ui.min.js"></script>
 <script>
-  $(function() {
-    $('.delete').on('click', function() {
-      if (!confirm('削除してもよろしいでしょうか？')) {
-        return false;
-      }
-    })
-  })
+  // $(function() {
+  //   $('.delete').on('click', function() {
+  //     if (!confirm('削除してもよろしいでしょうか？')) {
+  //       return false;
+  //     }
+  //   })
+  // })
   //ドラッグアンドドロップ
   $(function() {
     var rootPath="{{url('/')}}";

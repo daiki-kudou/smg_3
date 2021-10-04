@@ -343,11 +343,11 @@
       $('.checkbox').prop('checked', $(this).is(':checked'));
     })
     // 削除確認コンファーム
-    $('#confirm_destroy').on('click', function() {
-      if (!confirm('削除してもよろしいですか？')) {
-        return false;
-      }
-    })
+    // $('#confirm_destroy').on('click', function() {
+    //   if (!confirm('削除してもよろしいですか？')) {
+    //     return false;
+    //   }
+    // })
   })
 
 

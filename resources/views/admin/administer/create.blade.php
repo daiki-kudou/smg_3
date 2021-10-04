@@ -44,7 +44,7 @@
         <th class="form_required w-25">{{Form::label("password","パスワード")}}</th>
         <td>
           {{Form::password('password',['id'=>'password','class'=>'form-control'])}}
-        <p class="is-error-password" style="color: red"></p>
+          <p class="is-error-password" style="color: red"></p>
         </td>
       </tr>
     </tbody>
@@ -61,9 +61,9 @@
 
 
 <script>
-  $('#form_submit').on('click',function(){
-  if(!confirm('保存しますか？')){return false;}
-  })
+  // $('#form_submit').on('click',function(){
+  // if(!confirm('保存しますか？')){return false;}
+  // })
 
 $(function () {
   $("#admin_create").validate({

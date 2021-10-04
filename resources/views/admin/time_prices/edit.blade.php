@@ -225,13 +225,13 @@
 
 
 
-  $(function() {
-    $(".del").on("click", function() {
-      if (!confirm('本当に削除しますか？\n削除した時点で会場情報・顧客側予約フォームからも削除されます')) {
-        return false;
-      }
-    })
-  })
+  // $(function() {
+  //   $(".del").on("click", function() {
+  //     if (!confirm('本当に削除しますか？\n削除した時点で会場情報・顧客側予約フォームからも削除されます')) {
+  //       return false;
+  //     }
+  //   })
+  // })
 
 </script>
 

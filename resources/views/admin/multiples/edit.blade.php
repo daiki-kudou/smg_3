@@ -1592,28 +1592,28 @@
 
 
 
-  $(function() {
-    // 削除確認コンファーム
-    $('#confirm_destroy').on('click', function() {
-      if (!confirm('削除してもよろしいですか？')) {
-        return false;
-      }
-    })
-  });
+  // $(function() {
+  //   // 削除確認コンファーム
+  //   $('#confirm_destroy').on('click', function() {
+  //     if (!confirm('削除してもよろしいですか？')) {
+  //       return false;
+  //     }
+  //   })
+  // });
 
-  $(function() {
-    // 全選択アクション
-    $('#all_check').on('change', function() {
-      $('.checkbox').prop('checked', $(this).is(':checked'));
-    })
+  // $(function() {
+  //   // 全選択アクション
+  //   $('#all_check').on('change', function() {
+  //     $('.checkbox').prop('checked', $(this).is(':checked'));
+  //   })
 
-    // 削除確認コンファーム
-    $('#confirm_destroy').on('click', function() {
-      if (!confirm('削除してもよろしいですか？\n一括仮押さえに関連する仮押さえの内容がすべて削除されます')) {
-        return false;
-      }
-    })
-  })
+  //   // 削除確認コンファーム
+  //   $('#confirm_destroy').on('click', function() {
+  //     if (!confirm('削除してもよろしいですか？\n一括仮押さえに関連する仮押さえの内容がすべて削除されます')) {
+  //       return false;
+  //     }
+  //   })
+  // })
 
   $(document).on("change", "input[type='checkbox']", function () {
       $('#for_destroy').html("");

@@ -16,7 +16,7 @@ trait InvoiceTrait
 
     $cxls = Cxl::get()->count();
     $bills = Bill::get()->count();
-    $num = (int)$cxls + (int)$bills;
+    $num = (int)$cxls + (int)$bills + 3;
     return (string)$tempNum . sprintf('%04d', $num);
   }
 }

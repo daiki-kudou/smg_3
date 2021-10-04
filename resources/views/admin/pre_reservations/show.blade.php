@@ -1009,19 +1009,19 @@
 </section>
 
 <script>
-  $(function() {
-    $("#confirm_prereserve").on('click', function() {
-      if (!confirm('仮押さえの内容を確定し、ユーザーにメールを送付しますか？')) {
-        return false;
-      }
-    })
+  // $(function() {
+  //   $("#confirm_prereserve").on('click', function() {
+  //     if (!confirm('仮押さえの内容を確定し、ユーザーにメールを送付しますか？')) {
+  //       return false;
+  //     }
+  //   })
 
-    $("#confirm_destroy").on('click', function() {
-      if (!confirm('本当に削除しますか？')) {
-        return false;
-      }
-    })
+  //   $("#confirm_destroy").on('click', function() {
+  //     if (!confirm('本当に削除しますか？')) {
+  //       return false;
+  //     }
+  //   })
 
-  })
+  // })
 </script>
 @endsection

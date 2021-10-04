@@ -320,11 +320,11 @@
     })
 
     // 削除確認コンファーム
-    $('#confirm_destroy').on('click', function() {
-      if (!confirm('削除してもよろしいですか？\n一括仮押さえに関連する仮押さえの内容がすべて削除されます')) {
-        return false;
-      }
-    })
+    // $('#confirm_destroy').on('click', function() {
+    //   if (!confirm('削除してもよろしいですか？\n一括仮押さえに関連する仮押さえの内容がすべて削除されます')) {
+    //     return false;
+    //   }
+    // })
   })
 
 

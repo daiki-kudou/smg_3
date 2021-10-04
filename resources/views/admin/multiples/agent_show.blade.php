@@ -220,18 +220,18 @@
 </div>
 
 <script>
-  $(function() {
-    $(".confirm_prereserve").on('click', function() {
-      if (!confirm('確定しますか？')) {
-        return false;
-      }
-    })
-    $("#for_destroy").on('click', function() {
-      if (!confirm('削除しますか？')) {
-        return false;
-      }
-    })
-  })
+  // $(function() {
+  //   $(".confirm_prereserve").on('click', function() {
+  //     if (!confirm('確定しますか？')) {
+  //       return false;
+  //     }
+  //   })
+  //   $("#for_destroy").on('click', function() {
+  //     if (!confirm('削除しますか？')) {
+  //       return false;
+  //     }
+  //   })
+  // })
 </script>
 
 @endsection

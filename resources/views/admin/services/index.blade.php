@@ -91,7 +91,7 @@
 
 
 
-<script>
+{{-- <script>
   $(function () {
   $('.del_btn').on('click', function () {
     var target = $(this).parent().parent().parent().find('td').eq(2).text();
@@ -100,7 +100,7 @@
     } 
   })
 })
-</script>
+</script> --}}
 
 <script>
   $(document).ready(function(){

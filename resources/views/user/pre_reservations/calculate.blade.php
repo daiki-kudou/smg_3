@@ -712,11 +712,11 @@
   })
 
   $(function() {
-    $('.confirm').on('click', function() {
-      if (!confirm('予約を申し込みますか？')) {
-        return false;
-      }
-    })
+    // $('.confirm').on('click', function() {
+    //   if (!confirm('予約を申し込みますか？')) {
+    //     return false;
+    //   }
+    // })
   })
   // ロード時の、案内板入力制御
   $(document).ready(function() {

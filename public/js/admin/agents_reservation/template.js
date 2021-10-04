@@ -128,14 +128,14 @@ $(function () {
 
 })
 
-$(function () {
-  $('.check_alert').on('click', function () {
-    if (!confirm('入力内容と反映された請求の一致を確認しましたか？')) {
-      return false;
-    } else {
-    }
-  })
-})
+// $(function () {
+//   $('.check_alert').on('click', function () {
+//     if (!confirm('入力内容と反映された請求の一致を確認しましたか？')) {
+//       return false;
+//     } else {
+//     }
+//   })
+// })
 
 
 // 予約新規登録、入退室時間があれば、イベント開始終了の時間制御
