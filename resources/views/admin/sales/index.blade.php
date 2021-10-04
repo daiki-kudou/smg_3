@@ -489,19 +489,19 @@
             @foreach ($reservation['bills'] as $key =>$bill) {{--売上--}}
             <li>
               <div class="multi-column__item">
-                <span>{{(($bill['pay_person']))}}</span>
+                <p class="text-limit">{{(($bill['pay_person']))}}</p>
               </div>
             </li>
             @endforeach
             @if (count($reservation['cxls'])>0) {{--打ち消し--}}
             <li>
               <div class="multi-column__item">
-                <span>-</span>
+                <p class="text-limit">-</p>
               </div>
             </li>
             <li> {{--キャンセル--}}
               <div class="multi-column__item">
-                <span>{{($reservation['cxls'][0]['pay_person'])}}</span>
+                <p class="text-limit">{{($reservation['cxls'][0]['pay_person'])}}</p>
               </div>
             </li>
             @endif
