@@ -14,9 +14,23 @@ trait InvoiceTrait
     $today = Carbon::now();
     $tempNum = date('ym');
 
-    $cxls = Cxl::get()->count();
-    $bills = Bill::get()->count();
-    $num = (int)$cxls + (int)$bills + 3;
-    return (string)$tempNum . sprintf('%04d', $num);
+    $cxls = Cxl::get();
+    $bills = Bill::get();
+    $num = $cxls->count() + $bills->count() + 1;
+    $newNum = (string)$tempNum . sprintf('%04d', $num);
+
+    foreach ($cxls->sortBy('invoice_number') as $key => $value) {
+      if ($value->invoice_number === $newNum) {
+        $num++;
+      }
+    }
+    foreach ($bills->sortBy('invoice_number') as $key => $value) {
+      if ($value->invoice_number === $newNum) {
+        $num++;
+      }
+    }
+    $newNum = (string)$tempNum . sprintf('%04d', $num);
+
+    return $newNum;
   }
 }

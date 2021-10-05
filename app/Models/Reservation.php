@@ -494,22 +494,25 @@ class Reservation extends Model implements PresentableInterface
                   break;
                 }
               }
-              $query->orWhereRaw('reservations.id LIKE ? ', ['%' . $id . '%']);
-              $query->orWhereRaw('reservations.multiple_reserve_id LIKE ? ', ['%' . $id . '%']);
-              $query->orWhereRaw('users.id LIKE ? ', ['%' . $id . '%']);
+              $query->orWhereRaw('reservations.id LIKE ? ', ['%' . $id . '%']); //予約ID
+              $query->orWhereRaw('reservations.multiple_reserve_id LIKE ? ', ['%' . $id . '%']); //一括ID
+              $query->orWhereRaw('users.id LIKE ? ', ['%' . $id . '%']); //顧客ID
             }
           });
         } else {
           //文字列の場合
           $searchTarget = $searchTarget->where(function ($query) use ($data) {
             if (!empty($data['free_word'])) {
-              $query->orWhereRaw('reservations.reserve_date = ? ', [$data['free_word']]);
-              $query->orWhereRaw('users.company LIKE ? ', ['%' . $data['free_word'] . '%']);
-              $query->orWhereRaw('concat(users.first_name,users.last_name) LIKE ? ',  ['%' . $data['free_word'] . '%']);
-              $query->orWhereRaw('endusers.company LIKE ? ',  ['%' . $data['free_word'] . '%']);
-              $query->orWhereRaw('bills.payment_limit = ? ',  [$data['free_word']]);
-              $query->orWhereRaw('bills.pay_day = ? ',  [$data['free_word']]);
-              $query->orWhereRaw('bills.pay_person = ? ',  [$data['free_word']]);
+              $query->orWhereRaw('reservations.reserve_date = ? ', [$data['free_word']]); //利用日
+              $query->orWhereRaw('users.company LIKE ? ', ['%' . $data['free_word'] . '%']); //会社名・団体名
+              $query->orWhereRaw('concat(users.first_name,users.last_name) LIKE ? ',  ['%' . $data['free_word'] . '%']); //担当者氏名
+              $query->orWhereRaw('endusers.company LIKE ? ',  ['%' . $data['free_word'] . '%']); //エンドユーザー
+              $query->orWhereRaw('bills.payment_limit = ? ',  [$data['free_word']]); //支払い期日
+              $query->orWhereRaw('bills.pay_day = ? ',  [$data['free_word']]); //支払い日
+              $query->orWhereRaw('bills.pay_person = ? ',  [$data['free_word']]); //振込人名
+              $query->orWhereRaw('concat(venues.name_area,venues.name_bldg,venues.name_venue) LIKE ? ',  ['%' . $data['free_word'] . '%']);
+              $query->orWhereRaw('agents.name LIKE ? ',  ['%' . $data['free_word'] . '%']); //エンドユーザー
+
             }
           });
         }
