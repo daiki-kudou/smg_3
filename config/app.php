@@ -174,7 +174,6 @@ return [
     Illuminate\Translation\TranslationServiceProvider::class,
     Illuminate\Validation\ValidationServiceProvider::class,
     Illuminate\View\ViewServiceProvider::class,
-
     /*
          * Package Service Providers...
          */
@@ -189,6 +188,7 @@ return [
     App\Providers\RouteServiceProvider::class,
     // 以下追加
     Barryvdh\DomPDF\ServiceProvider::class,
+
 
 
   ],

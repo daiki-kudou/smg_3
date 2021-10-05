@@ -406,5 +406,7 @@ Route::namespace('Admin')->prefix('admin')->name('admin.')->group(function () {
     Route::get('fake_test', 'FakeTestController@index');
 
     Route::resource('administer', 'AdminsController');
+
+    Route::post('sync', 'SyncController@sync');
   });
 });

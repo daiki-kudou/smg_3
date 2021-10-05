@@ -261,90 +261,108 @@
         {{-- <ul class="nav nav-treeview">
           <li class="nav-item">
             <a href="{{url('admin/sales')}}" class="nav-link">
-              <i class="far fa-circle nav-icon ml-4"></i>
-              <p>一覧</p>
-            </a>
-          </li>
-        </ul> --}}
+        <i class="far fa-circle nav-icon ml-4"></i>
+        <p>一覧</p>
+        </a>
       </li>
+    </ul> --}}
+    </li>
 
-      <li class="nav-item has-treeview
+    <li class="nav-item has-treeview
       {{ReservationHelper::getController(Route::currentRouteName(),"admin","agents")}}
       ">
-        <a href="#" class="nav-link">
-          <i class="nav-icon fas fa-building"></i>
-          <p>仲介会社<i class="right fas fa-angle-left"></i></p>
-        </a>
-        <ul class="nav nav-treeview">
-          <li class="nav-item">
-            <a href="{{ url('admin/agents') }}" class="nav-link 
+      <a href="#" class="nav-link">
+        <i class="nav-icon fas fa-building"></i>
+        <p>仲介会社<i class="right fas fa-angle-left"></i></p>
+      </a>
+      <ul class="nav nav-treeview">
+        <li class="nav-item">
+          <a href="{{ url('admin/agents') }}" class="nav-link 
             {{ReservationHelper::getRoute(Route::currentRouteName(),'admin.agents.index')}}
             {{ReservationHelper::getRoute(Route::currentRouteName(),'admin.agents.show')}}
             {{ReservationHelper::getRoute(Route::currentRouteName(),'admin.agents.edit')}}
             ">
-              <i class="far fa-circle nav-icon ml-4"></i>
-              <p>一覧</p>
-            </a>
-          </li>
-          <li class="nav-item">
-            <a href="{{ url('admin/agents/create') }}" class="nav-link 
+            <i class="far fa-circle nav-icon ml-4"></i>
+            <p>一覧</p>
+          </a>
+        </li>
+        <li class="nav-item">
+          <a href="{{ url('admin/agents/create') }}" class="nav-link 
             {{ReservationHelper::getRoute(Route::currentRouteName(),'admin.agents.create')}}
             ">
-              <i class="far fa-circle nav-icon ml-4"></i>
-              <p>新規登録</p>
-            </a>
-          </li>
-        </ul>
-      </li>
+            <i class="far fa-circle nav-icon ml-4"></i>
+            <p>新規登録</p>
+          </a>
+        </li>
+      </ul>
+    </li>
 
-      <li class="nav-item has-treeview">
-        <a href="" class="nav-link">
-          <i class="nav-icon fas fa-mail-bulk"></i>
-          <p>メールテンプレート管理<i class="right fas fa-angle-left"></i></p>
-        </a>
-        <ul class="nav nav-treeview">
-          <li class="nav-item">
-            <a href="{{ url('admin/mail_templates') }}" class="nav-link mail_templates">
-              <i class="far fa-circle nav-icon ml-4"></i>
-              <p>一覧</p>
-            </a>
-          </li>
-        </ul>
-        <ul class="nav nav-treeview">
-          <li class="nav-item">
-            <a href="{{ url('admin/cron_templates') }}" class="nav-link mail_templates">
-              <i class="far fa-circle nav-icon ml-4"></i>
-              <p>一覧（定期実行）</p>
-            </a>
-          </li>
-        </ul>
-      </li>
+    <li class="nav-item has-treeview">
+      <a href="" class="nav-link">
+        <i class="nav-icon fas fa-mail-bulk"></i>
+        <p>メールテンプレート管理<i class="right fas fa-angle-left"></i></p>
+      </a>
+      <ul class="nav nav-treeview">
+        <li class="nav-item">
+          <a href="{{ url('admin/mail_templates') }}" class="nav-link mail_templates">
+            <i class="far fa-circle nav-icon ml-4"></i>
+            <p>一覧</p>
+          </a>
+        </li>
+      </ul>
+      <ul class="nav nav-treeview">
+        <li class="nav-item">
+          <a href="{{ url('admin/cron_templates') }}" class="nav-link mail_templates">
+            <i class="far fa-circle nav-icon ml-4"></i>
+            <p>一覧（定期実行）</p>
+          </a>
+        </li>
+      </ul>
+    </li>
 
-      <li class="nav-item has-treeview">
-        <a href="#" class="nav-link">
-          <i class="nav-icon fas fa-user-shield"></i>
-          <p>管理者管理<i class="right fas fa-angle-left"></i></p>
-        </a>
-        <ul class="nav nav-treeview">
-          <li class="nav-item">
-            <a href="{{url('admin/administer')}}" class="nav-link">
-              <i class="far fa-circle nav-icon ml-4"></i>
-              <p>一覧</p>
-            </a>
-          </li>
-          <li class="nav-item">
-            <a href="{{url('admin/administer/create')}}" class="nav-link">
-              <i class="far fa-circle nav-icon ml-4"></i>
-              <p>新規登録</p>
-            </a>
-          </li>
-        </ul>
-      </li>
+    <li class="nav-item has-treeview">
+      <a href="#" class="nav-link">
+        <i class="nav-icon fas fa-user-shield"></i>
+        <p>管理者管理<i class="right fas fa-angle-left"></i></p>
+      </a>
+      <ul class="nav nav-treeview">
+        <li class="nav-item">
+          <a href="{{url('admin/administer')}}" class="nav-link">
+            <i class="far fa-circle nav-icon ml-4"></i>
+            <p>一覧</p>
+          </a>
+        </li>
+        <li class="nav-item">
+          <a href="{{url('admin/administer/create')}}" class="nav-link">
+            <i class="far fa-circle nav-icon ml-4"></i>
+            <p>新規登録</p>
+          </a>
+        </li>
+      </ul>
+    </li>
+    <li class="nav-item has-treeview">
+      <a class="nav-link" id="sync_btn">
+        <i class="nav-icon fab fa-fedora"></i>
+        <p>MT連携</p>
+      </a>
+    </li>
     </ul>
   </nav>
   <!-- /.sidebar-menu -->
 </div>
 <!-- /.sidebar -->
+
+{{Form::open(['url' => '/admin/sync', 'method' => 'post', 'id'=>'sync'])}}
+@csrf
+{{Form::close()}}
+
+<script>
+  $("#sync_btn").on('click', function () {
+    if (confirm("現在のMT環境をシステムと同期しますか？")) {
+      $('#sync').submit();
+    }
+  })
+</script>
 
 <script>
   $(function() {
