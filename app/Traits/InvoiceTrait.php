@@ -11,26 +11,23 @@ trait InvoiceTrait
 {
   public function generateInvoiceNum()
   {
-    $today = Carbon::now();
-    $tempNum = date('ym');
+    $tempNum = (string)date('ymdHis');
 
     $cxls = Cxl::get();
     $bills = Bill::get();
-    $num = $cxls->count() + $bills->count() + 1;
-    $newNum = (string)$tempNum . sprintf('%04d', $num);
 
     foreach ($cxls->sortBy('invoice_number') as $key => $value) {
-      if ($value->invoice_number === $newNum) {
-        $num++;
+      if ($value->invoice_number === $tempNum) {
+        $tempNum++;
       }
     }
-    foreach ($bills->sortBy('invoice_number') as $key => $value) {
-      if ($value->invoice_number === $newNum) {
-        $num++;
-      }
-    }
-    $newNum = (string)$tempNum . sprintf('%04d', $num);
 
-    return $newNum;
+    foreach ($bills->sortBy('invoice_number') as $key => $value) {
+      if ($value->invoice_number === $tempNum) {
+        $tempNum++;
+      }
+    }
+
+    return $tempNum;
   }
 }
