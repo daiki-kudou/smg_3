@@ -36,19 +36,8 @@ class Sync implements ShouldQueue
   {
     $sync = SSH::run([
       'cd /webtrickster/public_html/osaka-conference.com',
-      'scp -i /webtrickster/public_html/system.osaka-conference.com.pem  test.test system.osaka-conference.com@3.112.120.173:/home/system.osaka-conference.com/public_html'
+      'rsync -avz --exclude="smg_0621.sql" --exclude="SMG" --exclude="MT6" -e "ssh -i /webtrickster/public_html/system.osaka-conference.com.pem" ../osaka-conference.com/ system.osaka-conference.com@3.112.120.173:/home/system.osaka-conference.com/public_html/'
     ]);
-
-
-    // シンクが完了した旨を管理者にメール送信
-    // ↓
-    // $admin = config('app.admin_email');
-    // Mail::to($admin)
-    //   ->send(new AdminReqAddRes(
-    //     $this->user,
-    //     $this->reservation,
-    //     $this->venue
-    //   ));
   }
 
   /**
