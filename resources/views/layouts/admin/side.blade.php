@@ -343,7 +343,7 @@
     <li class="nav-item has-treeview">
       <a class="nav-link" id="sync_btn">
         <i class="nav-icon fab fa-fedora"></i>
-        <p>MT連携</p>
+        <p>MovableTypeを同期する</p>
       </a>
     </li>
     </ul>
