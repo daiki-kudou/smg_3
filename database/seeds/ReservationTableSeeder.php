@@ -59,6 +59,8 @@ class ReservationTableSeeder extends Seeder
         'event_name1' => NULL,
         'event_name2' => NULL,
         'event_owner' => NULL,
+        'luggage_flag' => 1,
+        'luggage_price' => 500,
         'luggage_count' => rand(1, 9),
         'luggage_arrive' => "",
         'luggage_return' => rand(1, 9),
