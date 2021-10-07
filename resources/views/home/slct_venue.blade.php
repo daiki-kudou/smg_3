@@ -143,9 +143,7 @@
             </div>
             <p class="is-error-enter_time" style="color: red"></p>
             <p class="txtRed">
-              <span>入室時間より以前に入室はできません。
-                <br>
-                確認の上、チェックボックスをクリックしてください。</span>
+              <span>入室時間より以前に入室はできません。</span>
             </p>
             <p class="checkbox-txt txtRed">
               <span class="txtRed">＊</span>
