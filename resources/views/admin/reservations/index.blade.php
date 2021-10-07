@@ -229,9 +229,10 @@
       <table class="table table-bordered " id="reservation_sort" style="height: 100%;">
         <thead>
           <tr class="table_row">
-            <th>予約一括ID</th>
+            {{-- <th>予約一括ID</th> --}}
             <th>予約ID </th>
             <th>利用日 </th>
+            {{-- <th>利用日 </th>
             <th>入室 </th>
             <th>退室 </th>
             <th>利用会場 </th>
@@ -245,124 +246,124 @@
             <th width="120">売上区分</th>
             <th width="120">予約状況</th>
             <th class="text-center">予約詳細</th>
-            <th class="text-center">案内板</th>
+            <th class="text-center">案内板</th> --}}
           </tr>
         </thead>
-        <style>
+
+        {{-- <style>
           .cxl_gray {
             background: gray;
           }
-        </style>
-        <tbody>
+        </style> --}}
+        {{-- <tbody>
           @foreach ($reservations as $reservation)
           <tr class="{{$reservation->cxlGray()? "cxl_gray":""}}">
-            <td>
-              {{ReservationHelper::fixId($reservation->multiple_reserve_id)}}
-            </td>
-            <td class="text-center" data-order="{{$reservation->id}}">
-              {{ReservationHelper::fixId($reservation->id)}}</td>
-            <td>
-              {{ReservationHelper::formatDate($reservation->reserve_date)}}
-            </td>
-            <td>{{ReservationHelper::formatTime($reservation->enter_time)}}
-            </td>
-            <td>{{ReservationHelper::formatTime($reservation->leave_time)}}
-            </td>
-            <td>
-              {{ReservationHelper::getVenue($reservation->venue->id)}}
-            </td>
-            <td>
-              @if ($reservation->user_id>0)
-              {{$reservation->user->company}}
-              @endif
-            </td>
-            @if ($reservation->user_id>0)
-            <td>
-              {{ReservationHelper::getPersonName($reservation->user_id)}}
-              @elseif($reservation->user_id==0)
-            <td>
-              @endif
-            </td>
-            <td>
-              @if ($reservation->user_id>0)
-              {{$reservation->user->mobile}}
-              @endif
-            </td>
-            <td>
-              @if ($reservation->user_id>0)
-              {{$reservation->user->tel}}
-              @endif
-            </td>
-            <td>
-              @if ($reservation->agent_id>0)
-              {{ReservationHelper::getAgentCompany($reservation->agent_id)}}
-              @endif
-            </td>
-            <td>
-              @if ($reservation->agent_id>0)
-              {{!empty($reservation->endusers->company)?$reservation->endusers->company:""}}
-              @endif
-            </td>
-            <td class="p-0">
-              <div style="display: table; height:100%; vertical-align: middle; width:110px">
-                @foreach ($reservation->bills as $bill)
-                <div style="display: table-row;">
-                  <div
-                    style="display: table-cell; width:100%; vertical-align: middle; {{$loop->first?"border-bottom:solid 1px #dee2e6;":($loop->last?"":"border-bottom:solid 1px #dee2e6;")}} padding:5px;">
-                    @foreach (ImageHelper::addBillsShow($bill->id) as $icon)
-                    {!!$icon!!}
-                    @endforeach
-                    {{-- ケータリング --}}
-                    @if ($loop->first)
-                    {!!ImageHelper::catering($reservation->id)!!}
-                    {!!ImageHelper::newUser($reservation->user_id,$reservation->id)!!}
-                    @endif
-                    <span style="color: white; width:1px;">{{$bill->id}}</span>
-                  </div>
-                </div>
+        <td>
+          {{ReservationHelper::fixId($reservation->multiple_reserve_id)}}
+        </td>
+        <td class="text-center" data-order="{{$reservation->id}}">
+          {{ReservationHelper::fixId($reservation->id)}}</td>
+        <td>
+          {{ReservationHelper::formatDate($reservation->reserve_date)}}
+        </td>
+        <td>{{ReservationHelper::formatTime($reservation->enter_time)}}
+        </td>
+        <td>{{ReservationHelper::formatTime($reservation->leave_time)}}
+        </td>
+        <td>
+          {{ReservationHelper::getVenue($reservation->venue->id)}}
+        </td>
+        <td>
+          @if ($reservation->user_id>0)
+          {{$reservation->user->company}}
+          @endif
+        </td>
+        @if ($reservation->user_id>0)
+        <td>
+          {{ReservationHelper::getPersonName($reservation->user_id)}}
+          @elseif($reservation->user_id==0)
+        <td>
+          @endif
+        </td>
+        <td>
+          @if ($reservation->user_id>0)
+          {{$reservation->user->mobile}}
+          @endif
+        </td>
+        <td>
+          @if ($reservation->user_id>0)
+          {{$reservation->user->tel}}
+          @endif
+        </td>
+        <td>
+          @if ($reservation->agent_id>0)
+          {{ReservationHelper::getAgentCompany($reservation->agent_id)}}
+          @endif
+        </td>
+        <td>
+          @if ($reservation->agent_id>0)
+          {{!empty($reservation->endusers->company)?$reservation->endusers->company:""}}
+          @endif
+        </td>
+        <td class="p-0">
+          <div style="display: table; height:100%; vertical-align: middle; width:110px">
+            @foreach ($reservation->bills as $bill)
+            <div style="display: table-row;">
+              <div
+                style="display: table-cell; width:100%; vertical-align: middle; {{$loop->first?"border-bottom:solid 1px #dee2e6;":($loop->last?"":"border-bottom:solid 1px #dee2e6;")}} padding:5px;">
+                @foreach (ImageHelper::addBillsShow($bill->id) as $icon)
+                {!!$icon!!}
                 @endforeach
+                @if ($loop->first)
+                {!!ImageHelper::catering($reservation->id)!!}
+                {!!ImageHelper::newUser($reservation->user_id,$reservation->id)!!}
+                @endif
+                <span style="color: white; width:1px;">{{$bill->id}}</span>
               </div>
-            </td>
-            <td class=" p-0">
-              <div style="display: table; height:100%; vertical-align: middle; width:110px">
-                @foreach ($reservation->bills as $bill)
-                <div style="display: table-row;">
-                  <div
-                    style="display: table-cell; width:100%; vertical-align: middle; {{$loop->first?"border-bottom:solid 1px #dee2e6;":($loop->last?"":"border-bottom:solid 1px #dee2e6;")}} padding:5px;">
-                    {{((int)$bill->category===1?"会場予約":"追加請求")}}
-                    <span style="color: white">{{$bill->id}}</span>
-                  </div>
-                </div>
-                @endforeach
+            </div>
+            @endforeach
+          </div>
+        </td>
+        <td class=" p-0">
+          <div style="display: table; height:100%; vertical-align: middle; width:110px">
+            @foreach ($reservation->bills as $bill)
+            <div style="display: table-row;">
+              <div
+                style="display: table-cell; width:100%; vertical-align: middle; {{$loop->first?"border-bottom:solid 1px #dee2e6;":($loop->last?"":"border-bottom:solid 1px #dee2e6;")}} padding:5px;">
+                {{((int)$bill->category===1?"会場予約":"追加請求")}}
+                <span style="color: white">{{$bill->id}}</span>
               </div>
-            </td>
-            <td class="p-0">
-              <div style="display: table; height:100%; vertical-align: middle; width:110px">
-                @foreach ($reservation->bills as $bill)
-                <div style="display: table-row;">
-                  <div
-                    style="display: table-cell; width:100%; vertical-align: middle; {{$loop->first?"border-bottom:solid 1px #dee2e6;":($loop->last?"":"border-bottom:solid 1px #dee2e6;")}} padding:5px;">
-                    {{ReservationHelper::judgeStatus($bill->reservation_status)}}
-                    <span style="color: white">{{$bill->id}}</span>
-                  </div>
-                </div>
-                @endforeach
+            </div>
+            @endforeach
+          </div>
+        </td>
+        <td class="p-0">
+          <div style="display: table; height:100%; vertical-align: middle; width:110px">
+            @foreach ($reservation->bills as $bill)
+            <div style="display: table-row;">
+              <div
+                style="display: table-cell; width:100%; vertical-align: middle; {{$loop->first?"border-bottom:solid 1px #dee2e6;":($loop->last?"":"border-bottom:solid 1px #dee2e6;")}} padding:5px;">
+                {{ReservationHelper::judgeStatus($bill->reservation_status)}}
+                <span style="color: white">{{$bill->id}}</span>
               </div>
-            </td>
-            <td class="text-center"><a href="{{ url('admin/reservations', $reservation->id) }}"
-                class="more_btn btn">詳細</a></td>
-            <td class="text-center">
-              @if ($reservation->board_flag!=0)
-              {{ Form::open(['url' => 'admin/board', 'method'=>'post', 'id'=>'', 'target'=>'_blank'])}}
-              @csrf
-              {{Form::hidden('reservation_id',$reservation->id)}}
-              {{Form::submit('表示', ['class' => 'btn more_btn']) }}
-              {{Form::close()}}
-              @endif
-            </td>
-          </tr>
-          @endforeach
-        </tbody>
+            </div>
+            @endforeach
+          </div>
+        </td>
+        <td class="text-center"><a href="{{ url('admin/reservations', $reservation->id) }}" class="more_btn btn">詳細</a>
+        </td>
+        <td class="text-center">
+          @if ($reservation->board_flag!=0)
+          {{ Form::open(['url' => 'admin/board', 'method'=>'post', 'id'=>'', 'target'=>'_blank'])}}
+          @csrf
+          {{Form::hidden('reservation_id',$reservation->id)}}
+          {{Form::submit('表示', ['class' => 'btn more_btn']) }}
+          {{Form::close()}}
+          @endif
+        </td>
+        </tr>
+        @endforeach
+        </tbody> --}}
       </table>
     </div>
   </div>
@@ -418,12 +419,24 @@
         }
     });
     $('#reservation_sort').DataTable({
+      processing: true,
+      serverSide: true,
       searching: false,
       info: false,
       autowidth: false,
-      // "order": [[ 0, "desc" ]], //初期ソートソート条件
-      "columnDefs": [{ "orderable": false, "targets": [12,13,14,15,16] }],
-      "stripeClasses": [],
+      ajax: { 
+        "url": "{{ url('admin/reservations/datatable') }}", 
+        "type": "GET",
+        "data": function ( d ) {
+            return $.extend( {}, d, {
+            "search_id": 100,
+          } );
+        }
+      },
+      columns: [
+        { data: 'id' },
+        { data: 'reserve_date' },
+      ]
      });
     });
 </script>

@@ -152,6 +152,8 @@ Route::namespace('Admin')->prefix('admin')->name('admin.')->group(function () {
     Route::post('reservations/check_session', 'ReservationsController@checkSession')->name('reservations.checkSession');
     // 予約
     Route::resource('reservations', 'ReservationsController', ['except' => ['show']]);
+    Route::get('reservations/datatable', 'ReservationsController@datatable');
+
     // 予約　（確認）
     Route::get('reservations/check', 'ReservationsController@check')->name('reservations.check');
 
