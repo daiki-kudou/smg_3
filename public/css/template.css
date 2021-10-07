@@ -543,6 +543,12 @@ option:disabled {
 
 }
 
+.warning-text {
+    color: red;
+    font-weight: bold;
+}
+
+
 
 
 /* 備考の長さ制限 -----------------------------*/

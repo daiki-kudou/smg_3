@@ -896,7 +896,7 @@
 
 <div class="container-field d-flex justify-content-center mt-5">
   <a href="{{route('admin.agents_reservations.calculate')}}" class="btn more_btn4_lg d-block mr-5">請求内訳を修正する</a>
-  {{Form::submit('予約を登録する', ['class'=>'d-block btn more_btn_lg', 'id'=>'check_submit'])}}
+  {{Form::submit('予約を登録する', ['class'=>'d-block btn more_btn_lg confirm_submit', 'id'=>'check_submit'])}}
   {{Form::close()}}
 </div>
 
