@@ -353,6 +353,10 @@ $(document).ready(function () {
       $("#luggage_arrive").addClass("readonly");
       $("#luggage_return").addClass("readonly");
       $("#luggage_price").addClass("readonly");
+      // $("#luggage_count").prop("readonly", true);
+      // $("#luggage_arrive").prop("readonly", true);
+      // $("#luggage_return").prop("readonly", true);
+      // $("#luggage_price").prop("readonly", true);
     }
   });
 });
@@ -373,6 +377,11 @@ $(function () {
       $(".luggage_arrive").removeClass("readonly");
       $("#luggage_return").removeClass("readonly");
       $("#luggage_price").removeClass("readonly");
+      $("#luggage_count").addClass("readonly-no-gray");
+      $("#luggage_arrive").addClass("readonly-no-gray");
+      $(".luggage_arrive").addClass("readonly-no-gray");
+      $("#luggage_return").addClass("readonly-no-gray");
+      $("#luggage_price").addClass("readonly-no-gray");
     }
   });
 });
