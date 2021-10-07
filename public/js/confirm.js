@@ -1,5 +1,6 @@
 $(function () {
   // 例: cfm(".confirm", "入力した内容を確定しますか？");
+// cfm("input[type='submit']","いける？？？");
 
 
 

@@ -349,10 +349,10 @@ $(document).ready(function () {
     var flag = $(this);
     console.log(this);
     if ($(flag).is(":checked") != null) {
-      $("#luggage_count").prop("readonly", true);
-      $("#luggage_arrive").prop("readonly", true);
-      $("#luggage_return").prop("readonly", true);
-      $("#luggage_price").prop("readonly", true);
+      $("#luggage_count").addClass("readonly");
+      $("#luggage_arrive").addClass("readonly");
+      $("#luggage_return").addClass("readonly");
+      $("#luggage_price").addClass("readonly");
     }
   });
 });
@@ -362,17 +362,17 @@ $(function () {
   $('input[name="luggage_flag"]').change(function () {
     var prop = $("#no_luggage_flag").prop("checked");
     if (prop) {
-      $("#luggage_count").prop("readonly", true);
-      $("#luggage_arrive").prop("readonly", true);
-      $(".luggage_arrive").prop("readonly", true);
-      $("#luggage_return").prop("readonly", true);
-      $("#luggage_price").prop("readonly", true);
+      $("#luggage_count").addClass("readonly");
+      $("#luggage_arrive").addClass("readonly");
+      $(".luggage_arrive").addClass("readonly");
+      $("#luggage_return").addClass("readonly");
+      $("#luggage_price").addClass("readonly");
     } else {
-      $("#luggage_count").prop("readonly", false);
-      $("#luggage_arrive").prop("readonly", false);
-      $(".luggage_arrive").prop("readonly", false);
-      $("#luggage_return").prop("readonly", false);
-      $("#luggage_price").prop("readonly", false);
+      $("#luggage_count").removeClass("readonly");
+      $("#luggage_arrive").removeClass("readonly");
+      $(".luggage_arrive").removeClass("readonly");
+      $("#luggage_return").removeClass("readonly");
+      $("#luggage_price").removeClass("readonly");
     }
   });
 });
@@ -385,9 +385,9 @@ $(document).ready(function () {
     var flag = $(this);
     console.log(this);
     if ($(flag).is(":checked") != null) {
-      $("#cp_master_luggage_count").prop("readonly", true);
-      $("#cp_master_luggage_arrive").prop("readonly", true);
-      $("#cp_master_luggage_return").prop("readonly", true);
+      $("#cp_master_luggage_count").addClass("readonly");
+      $("#cp_master_luggage_arrive").addClass("readonly");
+      $("#cp_master_luggage_return").addClass("readonly");
     }
   });
 });
@@ -397,13 +397,13 @@ $(function () {
   $('input[name="luggage_flag"]').change(function () {
     var prop = $("#cp_master_no_luggage_flag").prop("checked");
     if (prop) {
-      $("#cp_master_luggage_count").prop("readonly", true);
-      $("#cp_master_luggage_arrive").prop("readonly", true);
-      $("#cp_master_luggage_return").prop("readonly", true);
+      $("#cp_master_luggage_count").addClass("readonly");
+      $("#cp_master_luggage_arrive").addClass("readonly");
+      $("#cp_master_luggage_return").addClass("readonly");
     } else {
-      $("#cp_master_luggage_count").prop("readonly", false);
-      $("#cp_master_luggage_arrive").prop("readonly", false);
-      $("#cp_master_luggage_return").prop("readonly", false);
+      $("#cp_master_luggage_count").removeClass("readonly");
+      $("#cp_master_luggage_arrive").removeClass("readonly");
+      $("#cp_master_luggage_return").removeClass("readonly");
     }
   });
 });

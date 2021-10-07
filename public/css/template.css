@@ -2102,3 +2102,7 @@ table.dataTable.no-footer {
   .readonly-no-gray[readonly] {
     background-color: white!important;
 }
+
+.readonly{
+    background-color: #ccc!important;
+}
