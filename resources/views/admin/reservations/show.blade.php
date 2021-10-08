@@ -94,6 +94,9 @@
       @endforeach
       @endif
 
+      @if ($reservation->cxls->count()>=1)
+
+
       @if ($reservation->cxls->first()->double_check_status <= 1 && (int)$reservation->cxls->first()->cxl_status < 3)
           <div class="alert-box d-flex align-items-center mb-0">
           <p class="w-100 text-center">
@@ -107,6 +110,7 @@
               「利用者に承認メールを送る」もしくは「キャンセル確定」させて下さい。
             </p>
             </div>
+            @endif
             @endif
 
             <section class="register-wrap mt-2">
