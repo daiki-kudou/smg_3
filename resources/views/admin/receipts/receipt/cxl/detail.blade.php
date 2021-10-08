@@ -9,7 +9,6 @@
       <td>
         <dl class="company-name">
           <dd>{{$cxl->bill_company}} 御中</dd>
-          {{-- <dd>{{$cxl->bill_person}}様</dd> --}}
         </dl>
       </td>
       <td>
@@ -37,7 +36,6 @@
       </td>
       <td>
         <p><span>領収書No：</span>{{ $cxl->invoice_number }}</p>
-        {{-- <p><span>発行日：</span>{{ReservationHelper::formatDate($cxl->pay_day)}}</p> --}}
       </td>
     </tr>
   </table>
@@ -92,12 +90,4 @@
       </td>
     </tr>
   </table>
-  {{-- <table cellpadding="0" cellspacing="0" class="bill-note-wrap">
-    <tr>
-      <td class="bill-note">
-        <p>備考</p>
-        <p>{{$cxl->bill_remark}}</p>
-      </td>
-    </tr>
-  </table> --}}
 </section>

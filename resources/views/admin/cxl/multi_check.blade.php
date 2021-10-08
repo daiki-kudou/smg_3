@@ -193,20 +193,16 @@
               <tr>
                 <td>小計：</td>
                 <td>
-                  {{-- {{Form::text('master_subtotal',$invoice['master_subtotal'],['class'=>'form-control','readonly'])}}
-                  --}}
                 </td>
               </tr>
               <tr>
                 <td>消費税：</td>
                 <td>
-                  {{-- {{Form::text('master_tax',$invoice['master_tax'],['class'=>'form-control','readonly'])}} --}}
                 </td>
               </tr>
               <tr>
                 <td class="font-weight-bold">合計金額</td>
                 <td>
-                  {{-- {{Form::text('master_total',$invoice['master_total'],['class'=>'form-control','readonly'])}} --}}
                 </td>
               </tr>
             </tbody>
@@ -236,28 +232,19 @@
             <tbody>
               <tr>
                 <td>請求日：
-                  {{-- {{Form::text('bill_created_at',$invoice['bill_created_at'],['class'=>'form-control', 'readonly'])}}
-                  --}}
                 </td>
                 <td>支払期日
-                  {{-- {{Form::text('payment_limit',$invoice['payment_limit'],['class'=>'form-control', 'readonly'])}}
-                  --}}
                 </td>
               </tr>
               <tr>
                 <td>請求書宛名
-                  {{-- {{Form::text('bill_company',$invoice['bill_company'],['class'=>'form-control', 'readonly'])}}
-                  --}}
                 </td>
                 <td>
                   担当者
-                  {{-- {{Form::text('bill_person',$invoice['bill_person'],['class'=>'form-control', 'readonly'])}} --}}
                 </td>
               </tr>
               <tr>
                 <td colspan="2">請求書備考
-                  {{-- {{Form::textarea('bill_remark',$invoice['bill_remark'],['class'=>'form-control', 'readonly'])}}
-                  --}}
                 </td>
               </tr>
             </tbody>
@@ -283,21 +270,15 @@
             <tbody>
               <tr>
                 <td>入金状況
-                  {{-- {{Form::text('paid',$invoice['paid']==1?"入金済":"未入金",['class'=>'form-control', 'readonly'])}} --}}
-                  {{-- {{Form::text('',ReservationHelper::paidStatus($invoice['paid']),['class'=>'form-control','readonly'])}}
-                  --}}
                 </td>
                 <td>
                   入金日
-                  {{-- {{Form::text('pay_day',$invoice['pay_day'],['class'=>'form-control', 'readonly'])}} --}}
                 </td>
               </tr>
               <tr>
                 <td>振込人名
-                  {{-- {{Form::text('pay_person',$invoice['pay_person'],['class'=>'form-control', 'readonly'])}} --}}
                 </td>
                 <td>入金額
-                  {{-- {{Form::text('payment',$invoice['payment'],['class'=>'form-control', 'readonly'])}} --}}
                 </td>
               </tr>
             </tbody>

@@ -158,14 +158,6 @@
                     <small>料金体系</small>
                   </div>
                   <div class="form-check">
-                    {{-- <p>
-                      {{Form::radio('price_system', 1, $request->price_system==1?true:false , ['id' => 'price_system_radio1', 'class' => 'form-check-input'])}}
-                    <label for="{{'price_system_radio1'}}" class="form-check-label">通常(枠貸)</label>
-                    </p>
-                    <p>
-                      {{Form::radio('price_system', 2, $request->price_system==2?true:false, ['id' => 'price_system_radio2', 'class' => 'form-check-input'])}}
-                      <label for="{{'price_system_radio2'}}" class="form-check-label">アクセア仕様</label>
-                    </p> --}}
                     @if ($SPVenue->getPriceSystem()[0]==1&&$SPVenue->getPriceSystem()[1]==1)
                     <div class="form-check">
                       <p>
@@ -320,7 +312,7 @@
                 <td>
                   <div class="d-flex align-items-end">
                     {{ Form::text('equipment_breakdown'.$key, $request->{'equipment_breakdown'.$key},['class'=>'form-control equipment_validation'] ) }}
-                   <span class="ml-1">個</span>
+                    <span class="ml-1">個</span>
                   </div>
                 </td>
               </tr>
@@ -676,7 +668,6 @@
 
   <div class="submit_btn">
     <div class="d-flex justify-content-center">
-      {{-- {{Form::submit('計算する', ['class'=>'btn btn-primary btn-lg ', 'id'=>'check_submit'])}} --}}
     </div>
   </div>
 
@@ -838,7 +829,7 @@
                 <td colspan="1">
                   <p class="text-left">合計</p>
                   {{ Form::text('venue_price', '',['class'=>'form-control col-xs-3', 'readonly'] ) }}
-                <p class="is-error-venue_price" style="color: red"></p>
+                  <p class="is-error-venue_price" style="color: red"></p>
                 </td>
               </tr>
             </tbody>

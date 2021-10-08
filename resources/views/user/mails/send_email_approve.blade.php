@@ -26,7 +26,6 @@
   ご請求額　{{number_format($reservation_id->bills()->first()->total)}}円<br>
   <br>
   上記内容で問題なければ下記リンク先より承認手続きをお願い致します。<br>
-  {{-- <a href="{{'https://staging-smg2.herokuapp.com/user/home/'.$reservation_id->id}}">請求書を確認する</a><br> --}}
   <a href="{{'https://staging-smg2.herokuapp.com/user/home/'.$reservation_id->id}}">請求書を確認する</a><br>
   <br>
   ご確認お願いします。<br>

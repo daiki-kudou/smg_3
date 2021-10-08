@@ -202,7 +202,6 @@
             <td>
               <select name="event_finish" id="event_finish" class="form-control">
                 <option disabled>選択してください</option>
-                {{-- {!!ReservationHelper::timeOptionsWithRequest($value['event_finish'])!!} --}}
                 @if ($value['board_flag']==1)
                 <option value="" disabled>選択してください</option>
                 {!!ReservationHelper::timeOptionsWithRequestAndLimit($value['event_finish'],$value['enter_time'],$value['leave_time'])!!}

@@ -386,12 +386,6 @@
                         <p class="is-error-cp_master_luggage_return" style="color: red"></p>
                       </td>
                     </tr>
-                    {{-- <tr>
-                  <td class="table-active">荷物預かり<br>料金</td>
-                  <td>
-                    {{ Form::text('cp_master_luggage_price', '',['class'=>'form-control'] ) }}
-                    </td>
-                    </tr> --}}
                     @endif
                   </tbody>
                 </table>
@@ -548,7 +542,6 @@
         </li>
         <li>
           <p>
-            {{-- <a class="more_btn4" href="">削除</a> --}}
             {{Form::open(['url' => 'admin/multiples/'.$multiple->id.'/sp_destroy/'.$venue->id, 'method' => 'post', 'id'=>''])}}
             @csrf
             <div id="for_destroy"></div>
@@ -1381,7 +1374,6 @@
     <ul class="d-flex col-12 justify-content-around mt-5 align-items-center">
       <li>
         <p>
-          {{-- <a class="btn more_btn_lg" href="">詳細にもどる</a> --}}
           <a href="{{url('admin/multiples/agent/'.$multiple->id)}}" class="btn more_btn_lg">詳細にもどる</a>
         </p>
       </li>

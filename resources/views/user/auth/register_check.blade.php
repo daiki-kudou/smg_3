@@ -90,12 +90,6 @@
           {{$request->email}}
         </td>
       </tr>
-      {{-- <tr>
-                <th>パスワード</th>
-                <td>
-                  ●●●●●●●●●●●●●●
-                </td>
-              </tr> --}}
       <tr>
         <th>SMGを何で知りましたか</th>
         <td>
@@ -109,15 +103,11 @@
       </tr>
     </table>
   </div>
-  {{-- <div class="borderBox page-text">
-    <p>プライバシーポリシー、利用規約に合意しました。</p>
-  </div> --}}
 
   <ul class="btn-wrapper">
     <li>
       <p>
         {{ Form::submit('内容を修正する', ['name'=>'back','class' => 'link-btn']) }}
-        {{-- <a href="">戻る</a> --}}
       </p>
     </li>
     <li>

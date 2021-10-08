@@ -3,9 +3,7 @@
 
 
 <link href="{{ asset('/css/template.css') }}" rel="stylesheet">
-{{-- <script src="{{ asset('/js/admin/reservation.js') }}"></script> --}}
 <script src="{{ asset('/js/ajax_agent.js') }}"></script>
-{{-- <script src="{{ asset('/js/template.js') }}"></script> --}}
 <script src="{{ asset('/js/lettercounter.js') }}"></script>
 <script src="{{ asset('/js/admin/agents_reservation/validation.js') }}"></script>
 <script src="{{ asset('/js/admin/reservation/control_time.js') }}"></script>
@@ -621,8 +619,6 @@
                 <dl class="ttl_box">
                   <dt>合計金額</dt>
                   <dd class="total_result">{{ReservationHelper::taxAndPrice($price)}}円</dd>
-                  {{-- <dd class="total_result">{{ Form::text('master_total',ReservationHelper::taxAndPrice($price) ,['class'=>'form-control text-right', 'readonly'] ) }}円
-                  </dd> --}}
                 </dl>
               </td>
               <td>
@@ -878,9 +874,6 @@
       </div>
     </div>
 
-    {{-- <pre>
-      {{var_dump($check_info)}}
-    </pre> --}}
 
     <div class="information">
       <div class="information_details">

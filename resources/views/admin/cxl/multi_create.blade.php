@@ -10,12 +10,6 @@
 <h2 class="mt-3 mb-3">キャンセル請求書 作成</h2>
 <hr>
 
-{{-- 
-@include('layouts.admin.breadcrumbs',[
-'reservation_id'=>$reservation->id,
-'bill_id'=>0, //0で固定
-'multi'=>'一括キャンセル'//1で固定,
-]) --}}
 @include('layouts.admin.errors')
 
 

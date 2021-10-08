@@ -1,10 +1,7 @@
 @extends('layouts.admin.app')
 
 @section('content')
-{{-- <script src="{{ asset('/js/template.js') }}"></script> --}}
-{{-- <script src="{{ asset('/js/validation.js') }}"></script> --}}
 <link href="{{ asset('/css/template.css') }}" rel="stylesheet">
-{{-- <script src="{{ asset('/js/ctrl_form.js') }}"></script> --}}
 
 <div class="float-right">
   <nav aria-label="breadcrumb">
@@ -144,7 +141,6 @@
       <div>
         <div class="d-flex align-items-end">
           {{ Form::text('extend', $frame_price->extend,['class'=>'form-control w-25 mb-2'])}}
-          {{-- <span class="ml-1 mb-1">円</span> --}}
         </div>
         <p class="{{'is-error-extend'}}" style="color: red"></p>
       </div>
@@ -169,8 +165,6 @@
       var count = $('.table tbody tr').length;
       // 追加時内容クリア
       $(this).parent().parent().next().find('td').find('input, select').eq(0).val('');
-      // $(this).parent().parent().next().find('td').find('input, select').eq(1).val('');
-      // $(this).parent().parent().next().find('td').find('input, select').eq(2).val('');
       $(this).parent().parent().next().find('td').find('input, select').eq(3).val('');
       for (let index = 0; index < count; index++) {
         $('.table tbody tr').eq(index).find('td').find('input, select').eq(0).attr('name', "frame" + index);
@@ -271,13 +265,5 @@
   });
 
 
-
-  // $(function() {
-  //   $(".del").on("click", function() {
-  //     if (!confirm('本当に削除しますか？\n削除した時点で会場情報・顧客側予約フォームからも削除されます')) {
-  //       return false;
-  //     }
-  //   })
-  // })
 </script>
 @endsection

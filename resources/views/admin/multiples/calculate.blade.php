@@ -573,12 +573,9 @@
       <ul class="register-list-header mt-5">
         <li class="from-group">
           <div class="form-check">
-            {{-- <input class="mr-1" type="checkbox" name="all_check" id="all_check" />
-            <label class="form-check-label">すべてチェックする</label> --}}
           </div>
         </li>
         <li>
-          {{-- <p><a class="more_btn4" href="">削除</a></p> --}}
         </li>
       </ul>
 
@@ -595,8 +592,6 @@
         <div class="register-list-item">
           <div class="from-group list_checkbox">
             <div class="form-check">
-              {{-- <input class="form-check-input checkbox" type="checkbox">
-              <label class="form-check-label"></label> --}}
             </div>
           </div>
           <dl class="card">

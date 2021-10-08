@@ -1,8 +1,6 @@
 @extends('layouts.user.app')
 @section('content')
 <link href="{{ asset('/css/template.css') }}" rel="stylesheet">
-{{-- <script src="{{ asset('/js/template.js') }}"></script>
-<script src="{{ asset('/js/ajax.js') }}"></script> --}}
 
 <div class="container-field mt-3">
   <div class="float-right">
@@ -245,14 +243,10 @@
                 {{number_format(-$reservation->bills->sortBy("id")->skip($i)->first()->master_total)}}円
               </td>
               <td>
-                {{-- 支払期日4<br> --}}
-                {{-- {{ReservationHelper::formatDate($reservation->bills->sortBy("id")->skip($i)->first()->payment_limit)}}
-                --}}
                 -
               </td>
               <td>
                 {{-- 支払状況4<br> --}}
-                {{-- {{$reservation->bills->sortBy("id")->skip($i)->first()->paid==0?"未入金":"入金済"}} --}}
                 -
               </td>
               <td>-</td>

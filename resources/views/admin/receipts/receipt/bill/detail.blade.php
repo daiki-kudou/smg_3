@@ -9,7 +9,6 @@
       <td>
         <dl class="company-name">
           <dd>{{$bill->bill_company}} 御中</dd>
-          {{-- <dd>{{$bill->bill_person}}様</dd> --}}
         </dl>
       </td>
       <td>
@@ -37,7 +36,6 @@
       </td>
       <td>
         <p><span>領収書No：</span>{{ $bill->invoice_number }}</p>
-        {{-- <p><span>発行日：</span>{{ReservationHelper::formatDate($bill->pay_day)}}</p> --}}
       </td>
     </tr>
   </table>
@@ -56,47 +54,47 @@
     <tbody class="bill-wrap">
       @if ($bill->reservation->user_id > 0)
       <tr class="bill-details">
-          <td>
-              内容
-          </td>
-          <td>
-              単価
-          </td>
-          <td>
-              数量
-          </td>
-          <td>
-              金額
-          </td>
+        <td>
+          内容
+        </td>
+        <td>
+          単価
+        </td>
+        <td>
+          数量
+        </td>
+        <td>
+          金額
+        </td>
       </tr>
       @foreach ($bill->breakdowns as $item)
-          <tr class="bill-details">
-              <td>
-                  {{ $item->unit_item }}
-              </td>
-              <td>
-                  {{ number_format($item->unit_cost) }}
-              </td>
-              <td>
-                  {{ $item->unit_count }}
-              </td>
-              <td>
-                  {{ number_format($item->unit_subtotal) }}<span>円</span>
-              </td>
-          </tr>
-      @endforeach
-  @else
       <tr class="bill-details">
-          <td>
-              内容
-          </td>
+        <td>
+          {{ $item->unit_item }}
+        </td>
+        <td>
+          {{ number_format($item->unit_cost) }}
+        </td>
+        <td>
+          {{ $item->unit_count }}
+        </td>
+        <td>
+          {{ number_format($item->unit_subtotal) }}<span>円</span>
+        </td>
+      </tr>
+      @endforeach
+      @else
+      <tr class="bill-details">
+        <td>
+          内容
+        </td>
       </tr>
       @foreach ($bill->breakdowns as $item)
-          <tr class="bill-details">
-              <td>{{ $item->unit_item }}</td>
-          </tr>
+      <tr class="bill-details">
+        <td>{{ $item->unit_item }}</td>
+      </tr>
       @endforeach
-  @endif
+      @endif
     </tbody>
   </table>
   <div class="pagebreak"></div>
@@ -113,12 +111,4 @@
       </td>
     </tr>
   </table>
-  {{-- <table cellpadding="0" cellspacing="0" class="bill-note-wrap">
-    <tr>
-      <td class="bill-note">
-        <p>備考</p>
-        <p>{{$bill->bill_remark}}</p>
-      </td>
-    </tr>
-  </table> --}}
 </section>

@@ -615,12 +615,9 @@
     </div>
   </div>
 </section>
-{{-- <button type="button" class="btn more_btn4_lg mx-auto my-5 d-block">再計算する</button> --}}
 {{Form::submit('再計算する', ['class'=>'btn more_btn4_lg mx-auto my-5 d-block', 'id'=>'check_submit','name'=>"edit_calc"])}}
 
 
-{{-- {{ Form::open(['url' => 'admin/reservations/session_for_edit_check', 'method'=>'POST', 'id'=>'reservations_edit_result']) }}
-@csrf --}}
 <section class="mt-5 pt-5">
   <div class="bill">
     <div class="bill_head">
@@ -635,8 +632,6 @@
             <dl class="ttl_box">
               <dt>合計金額</dt>
               <dd class="total_result">
-                {{-- {{number_format(ReservationHelper::taxAndPrice((int)$data['bills'][0]['master_subtotal']+(int)$discounts) )}}
-                --}}
                 円</dd>
             </dl>
           </td>
@@ -644,7 +639,6 @@
             <dl class="ttl_box">
               <dt>支払い期日</dt>
               <dd class="total_result">
-                {{-- {{ReservationHelper::formatDate($data['bills'][0]['payment_limit'])}} --}}
               </dd>
             </dl>
           </td>

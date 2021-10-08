@@ -17,9 +17,7 @@
 @if ($errors->any())
 <div class="alert alert-danger">
   <ul>
-    {{-- @foreach ($errors->all() as $error) --}}
     <li>追加する日付・会場・入退室時間は必須です</li>
-    {{-- @endforeach --}}
   </ul>
 </div>
 @endif

@@ -5,7 +5,6 @@
 <link href="{{ asset('/css/template.css') }}" rel="stylesheet">
 <script src="{{ asset('/js/template.js') }}"></script>
 <script src="{{ asset('/js/ajax.js') }}"></script>
-{{-- <script src="{{ asset('/js/validation.js') }}"></script> --}}
 
 
 <style>
@@ -356,7 +355,6 @@
             <td class="table-active"><label for="name">担当者氏名<br></label></td>
             <td>
               {{ Form::text('in_charge', ReservationHelper::getAgentPerson($master_info['agent_id']),['class'=>'form-control', 'readonly'] ) }}
-              {{-- 保存用 --}}
               {{ Form::hidden('tel', ReservationHelper::getAgentTel($master_info['agent_id']),['class'=>'form-control', 'readonly'] ) }}
               {{ Form::hidden('email_flag', 0,['class'=>'form-control', 'readonly'] ) }}
             </td>
@@ -576,7 +574,6 @@
                   {{ Form::text('venue_breakdown_subtotal[]', 0,['class'=>'form-control', 'readonly'] ) }}
                 </td>
               </tr>
-              {{-- 保存用 --}}
               {{ Form::hidden('venue_price', 0,['class'=>'form-control', 'readonly'] ) }}
             </tbody>
           </table>

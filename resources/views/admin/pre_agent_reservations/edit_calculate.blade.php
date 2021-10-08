@@ -108,8 +108,6 @@
         <tr>
           <td class="table-active form_required">利用者属性</td>
           <td>
-            {{-- {{ Form::text('', ReservationHelper::getEndUser($request->pre_endusers_attr),['class'=>'form-control'] ) }}
-            {{ Form::hidden('pre_endusers_attr', ($request->pre_endusers_attr),['class'=>'form-control'] ) }} --}}
             <select name="pre_endusers_attr" class="form-control">
               <option></option>
               <option value="1" {{$request->pre_endusers_attr==1?"selected":""}}>一般企業</option>

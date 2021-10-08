@@ -465,8 +465,6 @@
                                 {{ Form::submit('編集', ['class' => 'btn more_btn']) }}
                                 {{ Form::close() }}
                                 @endif
-                                {{-- <a href="{{url('admin/agents_reservations/'.$reservation->id.'/edit')}}" class="btn
-                                more_btn">編集</a> --}}
                                 @endif
                           </div>
                         </td>
