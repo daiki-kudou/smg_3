@@ -440,6 +440,16 @@
             "search_tel": $('input[name="search_tel"]').val(),
             "agent": $('select[name="agent"]').val(),
             "enduser_person": $('input[name="enduser_person"]').val(),
+            "check_icon1": $('#checkboxPrimary1').prop('checked')?1:0,
+            "check_icon2": $('#checkboxPrimary2').prop('checked')?1:0,
+            "check_icon3": $('#checkboxPrimary3').prop('checked')?1:0,
+            "check_icon4": $('#checkboxPrimary4').prop('checked')?1:0,
+            "check_status1": $('#check_status1').prop('checked')?1:0,
+            "check_status2": $('#check_status2').prop('checked')?1:0,
+            "check_status3": $('#check_status3').prop('checked')?1:0,
+            "check_status4": $('#check_status4').prop('checked')?1:0,
+            "check_status5": $('#check_status5').prop('checked')?1:0,
+            "check_status6": $('#check_status6').prop('checked')?1:0,
           } );
         }
       },

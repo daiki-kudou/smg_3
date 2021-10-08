@@ -386,38 +386,38 @@ class Reservation extends Model implements PresentableInterface
     });
 
     // アイコン
-    if (!empty($data['check_icon1'])) {
-      $searchTarget->orWhereRaw('breakdowns2.unit_type = ? ',  [$data['check_icon1']]);
+    if (!empty($data['check_icon1']) && (int)$data['check_icon1'] === 1) {
+      $searchTarget->orWhereRaw('check_unit_2.master_unit_2 >= ? ', [1]);
     }
-    if (!empty($data['check_icon2'])) {
-      $searchTarget->orWhereRaw('breakdowns3.unit_type = ? ',  [$data['check_icon2']]);
+    if (!empty($data['check_icon2']) && (int)$data['check_icon2'] === 1) {
+      $searchTarget->orWhereRaw('check_unit_3.master_unit_3 >= ? ', [1]);
     }
-    if (!empty($data['check_icon3'])) {
-      $searchTarget->orWhereRaw('breakdowns4.unit_type = ? ',  [$data['check_icon3']]);
+    if (!empty($data['check_icon3']) && (int)$data['check_icon3'] === 1) {
+      $searchTarget->orWhereRaw('check_unit_4.master_unit_4 >= ? ', [1]);
     }
-    if (!empty($data['check_icon4'])) {
+    if (!empty($data['check_icon4']) && (int)$data['check_icon4'] === 1) {
       $searchTarget->orWhereRaw('reservations.eat_in = ? ',  [1]);
     }
 
     // チェックボックス
     $searchTarget = $searchTarget->where(function ($query) use ($data) {
-      if (!empty($data['check_status1'])) {
-        $query->orWhereRaw('bills.reservation_status = ? ', [1]);
+      if (!empty($data['check_status1']) && (int)$data['check_status1'] === 1) {
+        $query->orWhereRaw('check_status1.status1 >= ? ', [1]);
       }
-      if (!empty($data['check_status2'])) {
-        $query->orWhereRaw('bills.reservation_status = ? ',  [2]);
+      if (!empty($data['check_status2']) && (int)$data['check_status2'] === 1) {
+        $query->orWhereRaw('check_status2.status2 >= ? ', [1]);
       }
-      if (!empty($data['check_status3'])) {
-        $query->orWhereRaw('bills.reservation_status = ? ',  [3]);
+      if (!empty($data['check_status3']) && (int)$data['check_status3'] === 1) {
+        $query->orWhereRaw('check_status3.status3 >= ? ', [1]);
       }
-      if (!empty($data['check_status4'])) {
-        $query->orWhereRaw('bills.reservation_status = ? ',  [4]);
+      if (!empty($data['check_status4']) && (int)$data['check_status4'] === 1) {
+        $query->orWhereRaw('check_status4.status4 >= ? ', [1]);
       }
-      if (!empty($data['check_status5'])) {
-        $query->orWhereRaw('bills.reservation_status = ? ',  [5]);
+      if (!empty($data['check_status5']) && (int)$data['check_status5'] === 1) {
+        $query->orWhereRaw('check_status5.status5 >= ? ', [1]);
       }
-      if (!empty($data['check_status6'])) {
-        $query->orWhereRaw('bills.reservation_status = ? ',  [6]);
+      if (!empty($data['check_status6']) && (int)$data['check_status6'] === 1) {
+        $query->orWhereRaw('check_status6.status6 >= ? ', [1]);
       }
     });
 
@@ -539,6 +539,7 @@ class Reservation extends Model implements PresentableInterface
       reservations.leave_time as leave_time,
       reservations.board_flag as board_flag,
       reservations.venue_id as venue_id,
+      reservations.eat_in as eat_in,
       concat(venues.name_area,venues.name_bldg,venues.name_venue) as venue_name, 
       users.company as company_name,
       concat(users.first_name, users.last_name) as user_name, 
@@ -550,7 +551,16 @@ class Reservation extends Model implements PresentableInterface
       case when bills.reservation_status <= 3 then 0 else 1 end as 予約中かキャンセルか,
       case when reservations.reserve_date >= CURRENT_DATE then 0 else 1 end as 今日以降かどうか,
       case when reservations.reserve_date >= CURRENT_DATE then reserve_date end as 今日以降日付,
-      case when reservations.reserve_date < CURRENT_DATE then reserve_date end as 今日未満日付
+      case when reservations.reserve_date < CURRENT_DATE then reserve_date end as 今日未満日付,
+      check_unit_2.master_unit_2 as unit_type2,
+      check_unit_3.master_unit_3 as unit_type3,
+      check_unit_4.master_unit_4 as unit_type4,
+      check_status1.status1 as reservation_status1,
+      check_status2.status2 as reservation_status2,
+      check_status3.status3 as reservation_status3,
+      check_status4.status4 as reservation_status4,
+      check_status5.status5 as reservation_status5,
+      check_status6.status6 as reservation_status6
       '
       ))
       ->leftJoin('bills', 'reservations.id', '=', 'bills.reservation_id')
@@ -558,7 +568,15 @@ class Reservation extends Model implements PresentableInterface
       ->leftJoin('agents', 'reservations.agent_id', '=', 'agents.id')
       ->leftJoin('endusers', 'reservations.id', '=', 'endusers.reservation_id')
       ->leftJoin('venues', 'reservations.venue_id', '=', 'venues.id')
-      ->leftJoin(DB::raw(""));
+      ->leftJoin(DB::raw('(select reservation_id , count(breakdowns.count_unit) as master_unit_2  from bills left join (select bill_id, count(unit_type) as count_unit from breakdowns where unit_type=2 group by bill_id) as breakdowns on bills.id=breakdowns.bill_id group by reservation_id) as check_unit_2'), 'reservations.id', '=', 'check_unit_2.reservation_id')
+      ->leftJoin(DB::raw('(select reservation_id , count(breakdowns.count_unit) as master_unit_3  from bills left join (select bill_id, count(unit_type) as count_unit from breakdowns where unit_type=3 group by bill_id) as breakdowns on bills.id=breakdowns.bill_id group by reservation_id) as check_unit_3'), 'reservations.id', '=', 'check_unit_3.reservation_id')
+      ->leftJoin(DB::raw('(select reservation_id , count(breakdowns.count_unit) as master_unit_4  from bills left join (select bill_id, count(unit_type) as count_unit from breakdowns where unit_type=4 group by bill_id) as breakdowns on bills.id=breakdowns.bill_id group by reservation_id) as check_unit_4'), 'reservations.id', '=', 'check_unit_4.reservation_id')
+      ->leftJoin(DB::raw('(select reservation_id, count(reservation_status) as status1 from bills where reservation_status = 1  group by reservation_id) as check_status1'), 'reservations.id', '=', 'check_status1.reservation_id')
+      ->leftJoin(DB::raw('(select reservation_id, count(reservation_status) as status2 from bills where reservation_status = 2  group by reservation_id) as check_status2'), 'reservations.id', '=', 'check_status2.reservation_id')
+      ->leftJoin(DB::raw('(select reservation_id, count(reservation_status) as status3 from bills where reservation_status = 3  group by reservation_id) as check_status3'), 'reservations.id', '=', 'check_status3.reservation_id')
+      ->leftJoin(DB::raw('(select reservation_id, count(reservation_status) as status4 from bills where reservation_status = 4  group by reservation_id) as check_status4'), 'reservations.id', '=', 'check_status4.reservation_id')
+      ->leftJoin(DB::raw('(select reservation_id, count(reservation_status) as status5 from bills where reservation_status = 5  group by reservation_id) as check_status5'), 'reservations.id', '=', 'check_status5.reservation_id')
+      ->leftJoin(DB::raw('(select reservation_id, count(reservation_status) as status6 from bills where reservation_status = 6  group by reservation_id) as check_status6'), 'reservations.id', '=', 'check_status6.reservation_id');
 
     return $searchTarget;
   }

@@ -104,14 +104,25 @@ class DataTableController extends Controller
     $r = DB::table("bills")->whereRaw('reservation_id = ?', [$id])->get();
     $result = "";
     foreach ($r as $key => $b) {
-      $result .=
-        "<li>" .
-        "<div class='multi-column__item'>" .
-        "<span class='payment-status'>" .
-        str_replace(",", "", implode(",", ImageHelper::addBillsShow($b->id))) .
-        "</span>" .
-        "</div>" .
-        "</li>";
+      if ($key === 0) {
+        $result .=
+          "<li>" .
+          "<div class='multi-column__item'>" .
+          "<span class='payment-status'>" .
+          str_replace(",", "", implode(",", ImageHelper::show($id))) .
+          "</span>" .
+          "</div>" .
+          "</li>";
+      } else {
+        $result .=
+          "<li>" .
+          "<div class='multi-column__item'>" .
+          "<span class='payment-status'>" .
+          str_replace(",", "", implode(",", ImageHelper::addBillsShow($b->id))) .
+          "</span>" .
+          "</div>" .
+          "</li>";
+      }
     }
 
     return "<ul class='multi-column__list'>" . $result . "</ul>";
