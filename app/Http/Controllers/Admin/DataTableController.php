@@ -68,11 +68,11 @@ class DataTableController extends Controller
     foreach ($records as $record) {
       $data_arr[] =
         [
-          'multiple_reserve_id' => "test",
-          'reservation_id' => $record->reservation_id,
-          'reserve_date' => $record->reserve_date,
-          'enter_time' => $record->enter_time,
-          'leave_time' => $record->leave_time,
+          'multiple_reserve_id' => ReservationHelper::fixId($record->multiple_reserve_id),
+          'reservation_id' => ReservationHelper::fixId($record->reservation_id),
+          'reserve_date' => ReservationHelper::formatDate($record->reserve_date),
+          'enter_time' => ReservationHelper::formatTime($record->enter_time),
+          'leave_time' => ReservationHelper::formatTime($record->leave_time),
           'venue_name' => $record->venue_name,
           'company_name' => $record->company_name,
           'user_name' => $record->user_name,
