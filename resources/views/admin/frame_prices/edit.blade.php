@@ -152,7 +152,7 @@
       <div class="d-flex">
         <button type="button" class="btn more_btn4_lg d-block btn-lg mx-auto my-5"
           onclick="$('#delete').submit()">すべて削除する</button>
-        {{ Form::submit('保存する', ['class' => 'btn more_btn_lg mx-auto d-block my-5']) }}
+        {{ Form::submit('保存する', ['class' => 'btn more_btn_lg mx-auto d-block my-5 price_confirm']) }}
       </div>
       {{ Form::close() }}
     </div>

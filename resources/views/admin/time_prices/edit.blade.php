@@ -84,9 +84,13 @@
         </tbody>
       </table>
       {{Form::hidden('venue_id', $venue->id)}}
-      <button type="button" class="btn more_btn4_lg d-block btn-lg mx-auto my-5"
-        onclick="$('#delete').submit()">すべて削除する</button>
-      {{ Form::submit('保存する', ['class' => 'btn more_btn_lg d-block btn-lg mx-auto my-5', 'id'=>'submit']) }}
+<div class="d-flex">
+  <button type="button" class="btn more_btn4_lg d-block btn-lg mx-auto my-5"
+    onclick="$('#delete').submit()">すべて削除する</button>
+  {{ Form::submit('保存する', ['class' => 'btn more_btn_lg d-block btn-lg mx-auto my-5 price_confirm', 'id'=>'submit']) }}
+</div>
+
+
       {{ Form::close() }}
     </div>
 
