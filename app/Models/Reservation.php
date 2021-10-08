@@ -538,12 +538,14 @@ class Reservation extends Model implements PresentableInterface
       reservations.enter_time as enter_time,
       reservations.leave_time as leave_time,
       reservations.board_flag as board_flag,
+      reservations.venue_id as venue_id,
       concat(venues.name_area,venues.name_bldg,venues.name_venue) as venue_name, 
       users.company as company_name,
       concat(users.first_name, users.last_name) as user_name, 
       users.mobile as mobile,
       users.tel as tel,
       agents.name as agent_name,
+      agents.id as agent_id,
       endusers.company as enduser_company,
       case when bills.reservation_status <= 3 then 0 else 1 end as 予約中かキャンセルか,
       case when reservations.reserve_date >= CURRENT_DATE then 0 else 1 end as 今日以降かどうか,
@@ -555,7 +557,8 @@ class Reservation extends Model implements PresentableInterface
       ->leftJoin('users', 'reservations.user_id', '=', 'users.id')
       ->leftJoin('agents', 'reservations.agent_id', '=', 'agents.id')
       ->leftJoin('endusers', 'reservations.id', '=', 'endusers.reservation_id')
-      ->leftJoin('venues', 'reservations.venue_id', '=', 'venues.id');
+      ->leftJoin('venues', 'reservations.venue_id', '=', 'venues.id')
+      ->leftJoin(DB::raw(""));
 
     return $searchTarget;
   }

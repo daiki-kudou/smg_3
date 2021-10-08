@@ -430,8 +430,16 @@
         "data": function ( d ) {
             return $.extend( {}, d, {
             "search_id": $('input[name="search_id"]').val(),
-            "search_i2": "2222!!!!",
-            "search_id3": "3333!!!!",
+            "reserve_date": $('input[name="reserve_date"]').val(),
+            "enter_time": $('select[name="enter_time"]').val(),
+            "leave_time": $('select[name="leave_time"]').val(),
+            "venue_id": $('select[name="venue_id"]').val(),
+            "company": $('input[name="company"]').val(),
+            "person_name": $('input[name="person_name"]').val(),
+            "search_mobile": $('input[name="search_mobile"]').val(),
+            "search_tel": $('input[name="search_tel"]').val(),
+            "agent": $('select[name="agent"]').val(),
+            "enduser_person": $('input[name="enduser_person"]').val(),
           } );
         }
       },
