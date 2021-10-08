@@ -412,5 +412,6 @@ Route::namespace('Admin')->prefix('admin')->name('admin.')->group(function () {
     Route::post('sync', 'SyncController@sync');
 
     Route::get('reservations/datatable', 'DataTableController@reservation');
+    Route::get('sales/datatable', 'DataTableController@sales');
   });
 });
