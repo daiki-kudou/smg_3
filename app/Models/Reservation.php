@@ -278,7 +278,7 @@ class Reservation extends Model implements PresentableInterface
     return $this->hasOne(Enduser::class);
   }
 
-  public function search_item($data)
+  public function SearchReservation($data)
   {
     $searchTarget = $this->ReservationSearchTarget();
 
@@ -293,13 +293,13 @@ class Reservation extends Model implements PresentableInterface
     }
 
     if (!empty($data['search_id']) && (int)$data['search_id'] > 0) {
-      for ($i = 0; $i < strlen($data['search_id']); $i++) {
-        if ((int)$data['search_id'][$i] !== 0) {
-          $id = strstr($data['search_id'], $data['search_id'][$i]);
-          break;
-        }
-      }
-      $searchTarget->whereRaw('reservations.id LIKE ? ',  ['%' . $id . '%']);
+      // for ($i = 0; $i < strlen($data['search_id']); $i++) {
+      //   if ((int)$data['search_id'][$i] !== 0) {
+      //     $id = strstr($data['search_id'], $data['search_id'][$i]);
+      //     break;
+      //   }
+      // }
+      $searchTarget->whereRaw('reservations.id LIKE ? ',  ['%' . $data['search_id'] . '%']);
     }
 
     if (!empty($data['user_id']) && (int)$data['user_id'] > 0) {
@@ -512,14 +512,13 @@ class Reservation extends Model implements PresentableInterface
               $query->orWhereRaw('bills.pay_person = ? ',  [$data['free_word']]); //振込人名
               $query->orWhereRaw('concat(venues.name_area,venues.name_bldg,venues.name_venue) LIKE ? ',  ['%' . $data['free_word'] . '%']);
               $query->orWhereRaw('agents.name LIKE ? ',  ['%' . $data['free_word'] . '%']); //エンドユーザー
-
             }
           });
         }
       }
     }
 
-    $searchTarget->orderByRaw('予約中かキャンセルか,今日以降かどうか,今日以降日付,今日未満日付 desc');
+    // $searchTarget->orderByRaw('予約中かキャンセルか,今日以降かどうか,今日以降日付,今日未満日付 desc');
 
     return $searchTarget;
   }
@@ -530,62 +529,33 @@ class Reservation extends Model implements PresentableInterface
    */
   public function ReservationSearchTarget()
   {
-    $searchTarget = DB::table('bills')
+    $searchTarget = DB::table('reservations')
       ->select(DB::raw(
         '
-      agents.id as agent_id,
-      endusers.company as enduser,
-      reservations.id as reservation_id,
+        distinct reservations.id as reservation_id,
+      reservations.multiple_reserve_id as multiple_reserve_id,
       reservations.reserve_date as reserve_date,
       reservations.enter_time as enter_time,
       reservations.leave_time as leave_time,
-      reservations.venue_id as venue_id,
-      reservations.eat_in as eat_in,
-      reservations.multiple_reserve_id as multiple_reserve_id,
-      venues.alliance_flag as alliance_flag, 
-      concat(users.first_name,users.last_name) as user_name,
-      users.id as user_id,
-      users.company as company,
+      reservations.board_flag as board_flag,
+      concat(venues.name_area,venues.name_bldg,venues.name_venue) as venue_name, 
+      users.company as company_name,
+      concat(users.first_name, users.last_name) as user_name, 
       users.mobile as mobile,
       users.tel as tel,
-      users.attr as attr,
-      breakdowns2.unit_type as unit_type2,
-      breakdowns3.unit_type as unit_type3,
-      breakdowns4.unit_type as unit_type4,
-      concat(venues.name_area,venues.name_bldg,venues.name_venue) as venue_name,
-      bills.payment_limit as payment_limit,
-      bills.paid as paid,
-      bills.pay_day as pay_day,
-      bills.pay_person as pay_person,
-      bills.master_total as master_total,
-      bills.id as bill_id,
-      bills.reservation_status as bill_reserve_status,
-      cxls.master_total as cxls_master_total,
-      master_total.sum as master_total_sum,
-      bill_count_m.bill_count,
-      cxl_count_m.cxl_count,
-      case when cxls.master_total IS NULL then master_total.sum else cxls.master_total end as 総額,
+      agents.name as agent_name,
+      endusers.company as enduser_company,
       case when bills.reservation_status <= 3 then 0 else 1 end as 予約中かキャンセルか,
       case when reservations.reserve_date >= CURRENT_DATE then 0 else 1 end as 今日以降かどうか,
       case when reservations.reserve_date >= CURRENT_DATE then reserve_date end as 今日以降日付,
       case when reservations.reserve_date < CURRENT_DATE then reserve_date end as 今日未満日付
       '
       ))
-      ->leftJoin('reservations', 'bills.reservation_id', '=', 'reservations.id')
+      ->leftJoin('bills', 'reservations.id', '=', 'bills.reservation_id')
       ->leftJoin('users', 'reservations.user_id', '=', 'users.id')
       ->leftJoin('agents', 'reservations.agent_id', '=', 'agents.id')
-      ->leftJoin('endusers', 'bills.reservation_id', '=', 'endusers.reservation_id')
-      ->leftJoin(DB::raw('(select bill_id, unit_type, unit_item from breakdowns where unit_type = 2) as breakdowns2'), 'bills.id', '=', 'breakdowns2.bill_id')
-      ->leftJoin(DB::raw('(select bill_id, unit_type, unit_item from breakdowns where unit_type = 3) as breakdowns3'), 'bills.id', '=', 'breakdowns3.bill_id')
-      ->leftJoin(DB::raw('(select bill_id, unit_type, unit_item from breakdowns where unit_type = 4) as breakdowns4'), 'bills.id', '=', 'breakdowns4.bill_id')
-      ->leftJoin('venues', 'reservations.venue_id', '=', 'venues.id')
-      ->leftJoin('cxls', 'reservations.id', '=', 'cxls.reservation_id')
-      ->leftJoin(DB::raw('(select reservation_id, SUM(master_total) as sum FROM bills group by reservation_id) AS master_total'), 'master_total.reservation_id', '=', 'bills.reservation_id')
-      ->leftJoin(DB::raw('(select reservation_id, count(id) as bill_count from bills group by reservation_id) as bill_count_m'), 'bills.reservation_id', '=', 'bill_count_m.reservation_id')
-      ->leftJoin(DB::raw('(select reservation_id, count(id) as cxl_count from cxls group by reservation_id) as cxl_count_m'), 'bills.reservation_id', '=', 'cxl_count_m.reservation_id');
-
-
-    // ->orderByRaw('予約中かキャンセルか,今日以降かどうか,今日以降日付,今日未満日付 desc');
+      ->leftJoin('endusers', 'reservations.id', '=', 'endusers.reservation_id')
+      ->leftJoin('venues', 'reservations.venue_id', '=', 'venues.id');
 
     return $searchTarget;
   }

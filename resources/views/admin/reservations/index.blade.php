@@ -229,10 +229,9 @@
       <table class="table table-bordered " id="reservation_sort" style="height: 100%;">
         <thead>
           <tr class="table_row">
-            {{-- <th>予約一括ID</th> --}}
+            <th>予約一括ID</th>
             <th>予約ID </th>
             <th>利用日 </th>
-            {{-- <th>利用日 </th>
             <th>入室 </th>
             <th>退室 </th>
             <th>利用会場 </th>
@@ -246,7 +245,7 @@
             <th width="120">売上区分</th>
             <th width="120">予約状況</th>
             <th class="text-center">予約詳細</th>
-            <th class="text-center">案内板</th> --}}
+            <th class="text-center">案内板</th>
           </tr>
         </thead>
 
@@ -419,6 +418,7 @@
         }
     });
     $('#reservation_sort').DataTable({
+      order:[],
       processing: true,
       serverSide: true,
       searching: false,
@@ -429,17 +429,42 @@
         "type": "GET",
         "data": function ( d ) {
             return $.extend( {}, d, {
-            "search_id": 100,
+            "search_id": $('input[name="search_id"]').val(),
+            "search_i2": "2222!!!!",
+            "search_id3": "3333!!!!",
           } );
         }
       },
       columns: [
-        { data: 'id' },
+        { data: 'multiple_reserve_id' },
+        { data: 'reservation_id' },
         { data: 'reserve_date' },
-      ]
+        { data: 'enter_time' },
+        { data: 'leave_time' },
+        { data: 'venue_name' },
+        { data: 'company_name' },
+        { data: 'user_name' },
+        { data: 'mobile' },
+        { data: 'tel' },
+        { data: 'agent_name' },
+        { data: 'enduser_company' },
+        { data: 'icon' },
+        { data: 'category' },
+        { data: 'reservation_status' },
+        { data: 'details' },
+        { data: 'board' },
+      ],
+      columnDefs: [
+        {targets: 12, sortable: false, orderable: false},
+        {targets: 13, sortable: false, orderable: false},
+        {targets: 14, sortable: false, orderable: false},
+        {targets: 15, sortable: false, orderable: false},
+        {targets: 16, sortable: false, orderable: false},
+      ],
      });
     });
 </script>
+
 
 
 <script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>

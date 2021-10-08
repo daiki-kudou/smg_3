@@ -51,6 +51,7 @@ class ReservationsController extends Controller
     $venues = Venue::all()->toArray();
     $agents = Agent::all()->toArray();
     $data = $request->except('_token');
+
     // // 検索と初期並び設定
     // if (count(array_filter($data)) !== 0) {
     //   // 検索あり
@@ -73,54 +74,8 @@ class ReservationsController extends Controller
     return view('admin.reservations.index', compact('venues', 'agents', 'request', 'counter'));
   }
 
-  public function datatable(Request $request)
-  {
-    $draw = $request->get('draw');
-    $start = $request->get("start");
-    $rowperpage = $request->get("length"); // Rows display per page 
-    $columnIndex_arr = $request->get('order');
-    $columnName_arr = $request->get('columns');
-    $order_arr = $request->get('order');
-    $search_arr = $request->get('search');
 
-    $columnIndex = $columnIndex_arr[0]['column']; // Column index 
-    $columnName = $columnName_arr[$columnIndex]['data']; // Column name 
-    $columnSortOrder = $order_arr[0]['dir']; // asc or desc 
-    $searchValue = $search_arr['value']; // Search value 
 
-    // Total records 
-    $totalRecords = Reservation::select('count(*) as allcount')->count();
-    $totalRecordswithFilter = Reservation::select('count(*) as allcount')->where('id', 'like', '%' . $searchValue . '%')->count();
-
-    // Fetch records 
-    $records = Reservation::orderBy($columnName, $columnSortOrder)
-      ->where('id', 'like', '%' . $searchValue . '%')
-      ->skip($start)
-      ->take($rowperpage)
-      ->get();
-
-    $data_arr = array();
-    $sno = $start + 1;
-    foreach ($records as $record) {
-      $id = $record->id;
-      $reserve_date = $record->reserve_date;
-
-      $data_arr[] = array(
-        "id" => $id,
-        "reserve_date" => $reserve_date,
-      );
-    }
-
-    $response = array(
-      "draw" => intval($draw),
-      "iTotalRecords" => $totalRecords,
-      "iTotalDisplayRecords" => $totalRecordswithFilter,
-      "aaData" => $data_arr
-    );
-
-    echo json_encode($response);
-    exit;
-  }
 
 
 
