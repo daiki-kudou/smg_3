@@ -159,12 +159,12 @@
         <td>
           <ul class="search_category">
             <li>
-              {{ Form::checkbox('check_status3', '3',optional($data)['check_status3']?true:false,['id'=>'status1']) }}
-              {{ Form::label('status1', '予約完了') }}
+              {{ Form::checkbox('check_status3', '3',optional($data)['check_status3']?true:false,['id'=>'check_status3']) }}
+              {{ Form::label('check_status3', '予約完了') }}
             </li>
             <li>
-              {{ Form::checkbox('check_status6', '6',optional($data)['check_status6']?true:false,['id'=>'status2']) }}
-              {{ Form::label('status2', 'キャンセル') }}
+              {{ Form::checkbox('check_status6', '6',optional($data)['check_status6']?true:false,['id'=>'check_status6']) }}
+              {{ Form::label('check_status6', 'キャンセル') }}
             </li>
           </ul>
         </td>
@@ -660,16 +660,19 @@ $(function(){
             "pay_day": $('input[name="pay_day"]').val(),
             "pay_person": $('input[name="pay_person"]').val(),
             "attr": $('select[name="attr"]').val(),
-            // "check_icon1": $('#checkboxPrimary1').prop('checked')?1:0,
-            // "check_icon2": $('#checkboxPrimary2').prop('checked')?1:0,
-            // "check_icon3": $('#checkboxPrimary3').prop('checked')?1:0,
-            // "check_icon4": $('#checkboxPrimary4').prop('checked')?1:0,
-            // "check_status1": $('#check_status1').prop('checked')?1:0,
-            // "check_status2": $('#check_status2').prop('checked')?1:0,
-            // "check_status3": $('#check_status3').prop('checked')?1:0,
-            // "check_status4": $('#check_status4').prop('checked')?1:0,
-            // "check_status5": $('#check_status5').prop('checked')?1:0,
-            // "check_status6": $('#check_status6').prop('checked')?1:0,
+            "sales1": $('#sales1').prop('checked')?1:0,
+            "sales2": $('#sales2').prop('checked')?1:0,
+            "sales3": $('#sales3').prop('checked')?1:0,
+            "check_status3": $('#check_status3').prop('checked')?1:0,
+            "check_status6": $('#check_status6').prop('checked')?1:0,
+            "payment_status0": $('#payment_status0').prop('checked')?1:0,
+            "payment_status1": $('#payment_status1').prop('checked')?1:0,
+            "payment_status2": $('#payment_status2').prop('checked')?1:0,
+            "payment_status3": $('#payment_status3').prop('checked')?1:0,
+            "payment_status4": $('#payment_status4').prop('checked')?1:0,
+            "payment_status5": $('#payment_status5').prop('checked')?1:0,
+            "alliance0": $('#alliance0').prop('checked')?1:0,
+            "alliance1": $('#alliance1').prop('checked')?1:0,
           } );
         }
       },

@@ -387,10 +387,10 @@ class Reservation extends Model implements PresentableInterface
     // チェックボックス
     $searchTarget = $searchTarget->where(function ($query) use ($data) {
       if (!empty($data['alliance0'])) {
-        $query->orWhereRaw('venues.alliance_flag = ? ', [0]);
+        $query->orWhereRaw('alliance_flag = ? ', [0]);
       }
       if (!empty($data['alliance1'])) {
-        $query->orWhereRaw('venues.alliance_flag = ? ', [1]);
+        $query->orWhereRaw('alliance_flag = ? ', [1]);
       }
     });
 
@@ -433,35 +433,35 @@ class Reservation extends Model implements PresentableInterface
     // チェックボックス 売上区分
     $searchTarget = $searchTarget->where(function ($query) use ($data) {
       if (!empty($data['sales1'])) {
-        $query->orWhereRaw('bill_count_m.bill_count = ? ', [1]);
+        $query->orWhereIn('reservations.id', DB::table('bills')->select(DB::raw('reservation_id'))->whereRaw('category = ?', [1])->groupBy('reservation_id'));
       }
       if (!empty($data['sales2'])) {
-        $query->orWhereRaw('cxl_count_m.cxl_count >= ? ', [1]);
+        $query->orWhereIn('reservations.id', DB::table('cxls')->select(DB::raw('reservation_id'))->groupBy('reservation_id'));
       }
       if (!empty($data['sales3'])) {
-        $query->orWhereRaw('bill_count_m.bill_count > ? ', [1]);
+        $query->orWhereIn('reservations.id', DB::table('bills')->select(DB::raw('reservation_id'))->whereRaw('category = ?', [2])->groupBy('reservation_id'));
       }
     });
 
     // チェックボックス 入金状況
     $searchTarget = $searchTarget->where(function ($query) use ($data) {
       if (!empty($data['payment_status0'])) {
-        $query->orWhereRaw('bills.paid = ? ', [0]);
+        $query->orWhereIn('reservations.id', DB::table('bills')->select(DB::raw('reservation_id'))->whereRaw('paid = ?', [0])->groupBy('reservation_id'));
       }
       if (!empty($data['payment_status1'])) {
-        $query->orWhereRaw('bills.paid = ? ', [1]);
+        $query->orWhereIn('reservations.id', DB::table('bills')->select(DB::raw('reservation_id'))->whereRaw('paid = ?', [1])->groupBy('reservation_id'));
       }
       if (!empty($data['payment_status2'])) {
-        $query->orWhereRaw('bills.paid = ? ', [2]);
+        $query->orWhereIn('reservations.id', DB::table('bills')->select(DB::raw('reservation_id'))->whereRaw('paid = ?', [2])->groupBy('reservation_id'));
       }
       if (!empty($data['payment_status3'])) {
-        $query->orWhereRaw('bills.paid = ? ', [3]);
+        $query->orWhereIn('reservations.id', DB::table('bills')->select(DB::raw('reservation_id'))->whereRaw('paid = ?', [3])->groupBy('reservation_id'));
       }
       if (!empty($data['payment_status4'])) {
-        $query->orWhereRaw('bills.paid = ? ', [4]);
+        $query->orWhereIn('reservations.id', DB::table('bills')->select(DB::raw('reservation_id'))->whereRaw('paid = ?', [4])->groupBy('reservation_id'));
       }
       if (!empty($data['payment_status5'])) {
-        $query->orWhereRaw('bills.paid = ? ', [5]);
+        $query->orWhereIn('reservations.id', DB::table('bills')->select(DB::raw('reservation_id'))->whereRaw('paid = ?', [5])->groupBy('reservation_id'));
       }
     });
 
