@@ -17,6 +17,12 @@
     width: 20px;
     height: 20px;
   }
+
+  #reservation_sort tbody td:nth-child(13),
+  #reservation_sort tbody td:nth-child(14),
+  #reservation_sort tbody td:nth-child(15) {
+    padding: 0 !important;
+  }
 </style>
 
 <div class="content">
@@ -226,7 +232,7 @@
       @endif
     </div>
     <div class="table-wrap">
-      <table class="table table-bordered " id="reservation_sort" style="height: 100%;">
+      <table class="table table-bordered compact hover order-column" id="reservation_sort" style="height: 100%;">
         <thead>
           <tr class="table_row">
             <th>予約一括ID</th>
