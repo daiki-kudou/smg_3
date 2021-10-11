@@ -384,6 +384,20 @@ class Reservation extends Model implements PresentableInterface
       $searchTarget->whereRaw('users.attr = ?', [$data['attr']]);
     }
 
+    if (!empty($data['day_before'])) {
+      $yesterday = new Carbon('yesterday');
+      $searchTarget->whereRaw('reservations.reserve_date = ?', [date('Y-m-d', strtotime($yesterday))]);
+    }
+    if (!empty($data['today'])) {
+      $yesterday = new Carbon('today');
+      $searchTarget->whereRaw('reservations.reserve_date = ?', [date('Y-m-d', strtotime($yesterday))]);
+    }
+    if (!empty($data['day_after'])) {
+      $yesterday = new Carbon('tomorrow');
+      $searchTarget->whereRaw('reservations.reserve_date = ?', [date('Y-m-d', strtotime($yesterday))]);
+    }
+
+
     // チェックボックス
     $searchTarget = $searchTarget->where(function ($query) use ($data) {
       if (!empty($data['alliance0'])) {

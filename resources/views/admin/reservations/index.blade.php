@@ -213,13 +213,16 @@
     <div class="d-flex justify-content-between">
       <ul class="d-flex reservation_list">
         <li>
-          {{ Form::submit('前日予約', ['class' => 'btn more_btn','name'=>'day_before','id'=>'day_before']) }}
+          <button type="button" class="btn more_btn" id="day_before">前日予約</button>
+          {{ Form::hidden('day_before', $request->day_before) }}
         </li>
         <li>
-          {{ Form::submit('当日予約', ['class' => 'btn more_btn','name'=>'today','id'=>'today']) }}
+          <button type="button" class="btn more_btn" id="today">当日予約</button>
+          {{ Form::hidden('today', $request->today) }}
         </li>
         <li>
-          {{ Form::submit('翌日予約', ['class' => 'btn more_btn','name'=>'day_after','id'=>'day_after']) }}
+          <button type="button" class="btn more_btn" id="day_after">翌日予約</button>
+          {{ Form::hidden('day_after', $request->day_after) }}
         </li>
       </ul>
       {{ Form::close() }}
@@ -383,10 +386,36 @@
   })
 
   $(function(){
-    $('#day_before, #today, #day_after').on('click',function(){
-      $('input[type="text"]').each(function($key,$value){
-        $($value).val('');
-      })
+    function clearInputs(){
+      $('table tbody input,table tbody select').val('');
+      $('table tbody input[type="checkbox"]').prop('checked', false);
+      $('input[name="day_before"]').val('');
+      $('input[name="today"]').val('');
+      $('input[name="day_after"]').val('');
+    }
+
+    $(document).on('click','#day_before',function(){
+      clearInputs();
+      $('input[name="day_before"]').val(1);
+      $('#reserve_search').submit();
+    });
+    $(document).on('click','#today',function(){
+      clearInputs();
+      $('input[name="today"]').val(1);
+      $('#reserve_search').submit();
+    });
+    $(document).on('click','#day_after',function(){
+      clearInputs();
+      $('input[name="day_after"]').val(1);
+      $('#reserve_search').submit();
+    });
+  })
+
+  $(function(){
+    $('#m_submit').on('click',function(){
+      $('input[name="day_before"]').val('');
+      $('input[name="today"]').val('');
+      $('input[name="day_after"]').val('');
     })
   })
 
@@ -456,6 +485,9 @@
             "check_status4": $('#check_status4').prop('checked')?1:0,
             "check_status5": $('#check_status5').prop('checked')?1:0,
             "check_status6": $('#check_status6').prop('checked')?1:0,
+            "day_before": $('input[name="day_before"]').val(),
+            "today": $('input[name="today"]').val(),
+            "day_after": $('input[name="day_after"]').val(),
           } );
         }
       },

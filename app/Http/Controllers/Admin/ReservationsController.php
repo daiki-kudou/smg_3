@@ -52,6 +52,7 @@ class ReservationsController extends Controller
     $agents = Agent::all()->toArray();
     $data = $request->except('_token');
 
+
     // // 検索と初期並び設定
     // if (count(array_filter($data)) !== 0) {
     //   // 検索あり
