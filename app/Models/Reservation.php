@@ -359,7 +359,6 @@ class Reservation extends Model implements PresentableInterface
 
     if (!empty($data['payment_limit'])) {
       $date = explode(' ~ ', $data['payment_limit']);
-      // $searchTarget->whereIn('reservations.id', DB::table('bills')->select(DB::raw('reservation_id'))->whereRaw('payment_limit between ? and ?', $date)->groupBy('reservation_id'));
       $searchTarget = $searchTarget->where(function ($query) use ($date) {
         $query->orWhereIn('reservations.id', DB::table('bills')->select(DB::raw('reservation_id'))->whereRaw('payment_limit between ? and ?', $date)->groupBy('reservation_id'))
           ->orWhereIn('reservations.id', DB::table('cxls')->select(DB::raw('reservation_id'))->whereRaw('payment_limit between ? and ?', $date)->groupBy('reservation_id'));
@@ -367,12 +366,18 @@ class Reservation extends Model implements PresentableInterface
     }
 
     if (!empty($data['pay_day'])) {
-      $date = explode(' - ', $data['pay_day']);
-      $searchTarget->whereRaw('bills.pay_day between ? AND ?', $date);
+      $date = explode(' ~ ', $data['pay_day']);
+      $searchTarget = $searchTarget->where(function ($query) use ($date) {
+        $query->orWhereIn('reservations.id', DB::table('bills')->select(DB::raw('reservation_id'))->whereRaw('pay_day between ? and ?', $date)->groupBy('reservation_id'))
+          ->orWhereIn('reservations.id', DB::table('cxls')->select(DB::raw('reservation_id'))->whereRaw('pay_day between ? and ?', $date)->groupBy('reservation_id'));
+      });
     }
 
     if (!empty($data['pay_person'])) {
-      $searchTarget->whereRaw('bills.pay_person LIKE ?', ['%' . $data['pay_person'] . '%']);
+      $searchTarget = $searchTarget->where(function ($query) use ($data) {
+        $query->orWhereIn('reservations.id', DB::table('bills')->select(DB::raw('reservation_id'))->whereRaw('pay_person LIKE ?', '%' . $data['pay_person'] . '%')->groupBy('reservation_id'))
+          ->orWhereIn('reservations.id', DB::table('cxls')->select(DB::raw('reservation_id'))->whereRaw('pay_person LIKE ?', '%' . $data['pay_person'] . '%')->groupBy('reservation_id'));
+      });
     }
 
     if (!empty($data['attr'])) {
