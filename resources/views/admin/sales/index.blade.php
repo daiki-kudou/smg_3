@@ -10,7 +10,26 @@
     text-overflow: ellipsis;
     width: 60px;
   }
+
+  #sales_sort tbody td:nth-child(11),
+  #sales_sort tbody td:nth-child(12),
+  #sales_sort tbody td:nth-child(13),
+  #sales_sort tbody td:nth-child(14),
+  #sales_sort tbody td:nth-child(15),
+  #sales_sort tbody td:nth-child(16),
+  #sales_sort tbody td:nth-child(17),
+  #sales_sort tbody td:nth-child(18),
+  #sales_sort tbody td:nth-child(19) {
+    padding: 0 !important;
+    white-space: nowrap;
+  }
+
+  #sales_sort tbody td {
+    text-align: center;
+  }
 </style>
+
+
 
 <div class="container-field mt-3">
   <div class="float-right">
@@ -259,7 +278,7 @@
 
 <!-- 一覧　　------------------------------------------------ -->
 <div class="table-wrap">
-  <table class="table table-bordered table-scroll" id="sales_sort" style="height: 100%;">
+  <table class="table table-bordered compact hover order-column" id="sales_sort" style="height: 100%;">
     <thead>
       <tr class="table_row">
         <th>予約一括ID</th>

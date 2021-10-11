@@ -143,7 +143,7 @@ class DataTableController extends Controller
         "</div>" .
         "</li>";
     }
-
+    $reservation = Reservation::with('cxls')->find($id);
     return "<ul class='multi-column__list'>" . $result . "</ul>";
   }
 
@@ -161,9 +161,10 @@ class DataTableController extends Controller
         "</div>" .
         "</li>";
     }
-
     return "<ul class='multi-column__list'>" . $result . "</ul>";
   }
+
+  // 以下売上請求一覧
 
   public function sales(Request $request)
   {
@@ -201,7 +202,6 @@ class DataTableController extends Controller
     // $totalRecordswithFilter = Reservation::select('count(*) as allcount')->where('id', 'like', '%' . $searchValue . '%')->count();
     $totalRecordswithFilter = $_reservatioin->SearchReservation($request->all())->get()->count();
 
-
     // orderリクエストがあれば、orderに沿い、なければ初期並び順指定
     $fix_order_col_name = !empty($request->get('order')) ? $columnName : "予約中かキャンセルか,今日以降かどうか,今日以降日付,今日未満日付";
     $fix_order_sort_order = !empty($request->get('order')) ? $columnSortOrder : "desc";
@@ -223,23 +223,25 @@ class DataTableController extends Controller
           'multiple_reserve_id' => ReservationHelper::fixId($record->multiple_reserve_id),
           'reservation_id' => ReservationHelper::fixId($record->reservation_id),
           'reserve_date' => ReservationHelper::formatDate($record->reserve_date),
-          'enter_time' => ReservationHelper::formatTime($record->enter_time),
-          'leave_time' => ReservationHelper::formatTime($record->leave_time),
-          'venue_name' => $record->venue_name,
-          'company_name' => $record->company_name,
-          'user_name' => $record->user_name,
-          'mobile' => $record->mobile,
-          'tel' => $record->tel,
-          'agent_name' => $record->agent_name,
-          'enduser_company' => $record->enduser_company,
-          'icon' => $this->getReservationIcon($record->reservation_id),
-          'category' => $this->getReservationCategory($record->reservation_id),
-          'reservation_status' => $this->getReservationStatus($record->reservation_id),
-          'details' => "<a href=" . url('admin/reservations', $record->reservation_id) . " class='more_btn btn'>詳細</a>",
-          'board' => $record->board_flag === 1 ? "<a href=" . url('admin/board', $record->reservation_id) . " class='more_btn btn' target='_blank'>詳細</a>" : "",
-          'test' => "test",
-          'test' => "test",
-          'test' => "test",
+          'venue_name' => ReservationHelper::formatTime($record->enter_time),
+          'user_id' => ReservationHelper::formatTime($record->leave_time),
+          'company_name' => $record->venue_name,
+          'person_name' => $record->company_name,
+          'agent_name' => $record->user_name,
+          'enduser_company' => $record->mobile,
+          'sogaku' => number_format($record->sogaku),
+          'sales' => $this->getSales($record->reservation_id, $record->sogaku),
+          'cost' => $this->getCost($record->reservation_id),
+          'profit' => $this->getProfit($record->reservation_id),
+          'category' => $this->getSalesCategory($record->reservation_id),
+          'reservation_status' => $this->getSalesStatus($record->reservation_id),
+          'pay_day' => "<a href=" . url('admin/reservations', $record->reservation_id) . " class='more_btn btn'>詳細</a>",
+          'paid' => $record->board_flag === 1 ? "<a href=" . url('admin/board', $record->reservation_id) . " class='more_btn btn' target='_blank'>詳細</a>" : "",
+          'details' => "test",
+          'pay_person' => "test",
+          'attr' => "test",
+          'payment_limit' => "test",
+          'alliance_flag' => "test",
         ];
     }
 
@@ -252,5 +254,204 @@ class DataTableController extends Controller
 
     echo json_encode($response);
     exit;
+  }
+
+  public function getSales($id, $sogaku = 0)
+  {
+    $r = DB::table("bills")->whereRaw('reservation_id = ?', [$id])->get();
+    $result = "";
+    foreach ($r as $key => $b) {
+      $result .=
+        "<li>" .
+        "<div class='multi-column__item'>" .
+        "<span class='payment-status'>" .
+        number_format(((int)$b->master_total)) .
+        "</span>" .
+        "</div>" .
+        "</li>";
+    }
+    $reservation = Reservation::with('cxls')->find($id);
+    if ($reservation->cxls->count() > 0) {
+      // 打ち消し表示
+      $result .=
+        "<li>" .
+        "<div class='multi-column__item'>" .
+        "<span class='payment-status text-danger'>" .
+        number_format(-$sogaku) .
+        "</span>" .
+        "</div>" .
+        "</li>";
+      // キャンセル料表示
+      $result .=
+        "<li>" .
+        "<div class='multi-column__item'>" .
+        "<span class='payment-status'>" .
+        number_format((int)$reservation->cxls->first()->master_total) .
+        "</span>" .
+        "</div>" .
+        "</li>";
+    }
+
+    return "<ul class='multi-column__list'>" . $result . "</ul>";
+  }
+
+  public function getCost($id)
+  {
+    $reservation = Reservation::with('venue')->find($id);
+    $r = DB::table("bills")->whereRaw('reservation_id = ?', [$id])->get();
+    $result = "";
+    foreach ($r as $key => $b) {
+      $result .=
+        "<li>" .
+        "<div class='multi-column__item'>" .
+        "<span class='payment-status'>" .
+        number_format($reservation->venue->getCostForPartner($reservation->venue, $b->master_total, $b->layout_price, $reservation)) .
+        "</span>" .
+        "</div>" .
+        "</li>";
+    }
+    $reservation = Reservation::with('cxls')->find($id);
+    if ($reservation->cxls->count() > 0) {
+      // 打ち消し表示
+      $result .=
+        "<li>" .
+        "<div class='multi-column__item'>" .
+        "<span class='payment-status text-danger'>" .
+        number_format(- ($reservation->venue->sumCostForPartner($reservation))) .
+        "</span>" .
+        "</div>" .
+        "</li>";
+      // キャンセル料表示
+      $result .=
+        "<li>" .
+        "<div class='multi-column__item'>" .
+        "<span class='payment-status'>" .
+        number_format($reservation->venue->getCxlCostForPartner($reservation)) .
+        "</span>" .
+        "</div>" .
+        "</li>";
+    }
+
+    return "<ul class='multi-column__list'>" . $result . "</ul>";
+  }
+
+  public function getProfit($id, $sogaku = 0)
+  {
+    $reservation = Reservation::with('venue')->find($id);
+    $r = DB::table("bills")->whereRaw('reservation_id = ?', [$id])->get();
+    $result = "";
+    $sumProfit = 0;
+    foreach ($r as $key => $b) {
+      $result .=
+        "<li>" .
+        "<div class='multi-column__item'>" .
+        "<span class='payment-status'>" .
+        number_format($reservation->venue->getProfitForPartner($reservation->venue, $b->master_total, $b->layout_price, $reservation)) .
+        "</span>" .
+        "</div>" .
+        "</li>";
+      $sumProfit += (int)($reservation->venue->getProfitForPartner($reservation->venue, $b->master_total, $b->layout_price, $reservation));
+    }
+    $reservation = Reservation::with('cxls')->find($id);
+    if ($reservation->cxls->count() > 0) {
+      // 打ち消し表示
+      $result .=
+        "<li>" .
+        "<div class='multi-column__item'>" .
+        "<span class='payment-status text-danger'>" .
+        number_format(-$sumProfit) .
+        "</span>" .
+        "</div>" .
+        "</li>";
+
+      // キャンセル料表示
+      $result .=
+        "<li>" .
+        "<div class='multi-column__item'>" .
+        "<span class='payment-status'>" .
+        number_format(((int)$reservation->cxls->first()->master_total) - ($reservation->venue->getCxlCostForPartner($reservation))) .
+        "</span>" .
+        "</div>" .
+        "</li>";
+    }
+
+    return "<ul class='multi-column__list'>" . $result . "</ul>";
+  }
+
+  public function getSalesCategory($id)
+  {
+    $r = DB::table("bills")->whereRaw('reservation_id = ?', [$id])->get();
+    $result = "";
+    foreach ($r as $key => $b) {
+      $result .=
+        "<li>" .
+        "<div class='multi-column__item'>" .
+        "<span class='payment-status'>" .
+        ((int)$b->category === 1 ? "会場予約" : "追加" . $key) .
+        "</span>" .
+        "</div>" .
+        "</li>";
+    }
+    $reservation = Reservation::with('cxls')->find($id);
+    if ($reservation->cxls->count() > 0) {
+      // 打ち消し表示
+      $result .=
+        "<li>" .
+        "<div class='multi-column__item'>" .
+        "<span class='payment-status text-danger'>" .
+        "打消" .
+        "</span>" .
+        "</div>" .
+        "</li>";
+
+      // キャンセル料表示
+      $result .=
+        "<li>" .
+        "<div class='multi-column__item'>" .
+        "<span class='payment-status'>" .
+        "キャンセル料" .
+        "</span>" .
+        "</div>" .
+        "</li>";
+    }
+    return "<ul class='multi-column__list'>" . $result . "</ul>";
+  }
+
+  public function getSalesStatus($id)
+  {
+    $r = DB::table("bills")->whereRaw('reservation_id = ?', [$id])->get();
+    $result = "";
+    foreach ($r as $key => $b) {
+      $result .=
+        "<li>" .
+        "<div class='multi-column__item'>" .
+        "<span class='payment-status'>" .
+        ReservationHelper::judgeStatus($b->reservation_status) .
+        "</span>" .
+        "</div>" .
+        "</li>";
+    }
+    $reservation = Reservation::with('cxls')->find($id);
+    if ($reservation->cxls->count() > 0) {
+      // 打ち消し表示
+      $result .=
+        "<li>" .
+        "<div class='multi-column__item'>" .
+        "<span class='payment-status text-danger'>" .
+        "-" .
+        "</span>" .
+        "</div>" .
+        "</li>";
+      // キャンセル料表示
+      $result .=
+        "<li>" .
+        "<div class='multi-column__item'>" .
+        "<span class='payment-status'>" .
+        (ReservationHelper::cxlStatus($reservation->cxls->first()->cxl_status)) .
+        "</span>" .
+        "</div>" .
+        "</li>";
+    }
+    return "<ul class='multi-column__list'>" . $result . "</ul>";
   }
 }

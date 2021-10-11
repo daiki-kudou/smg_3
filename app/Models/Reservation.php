@@ -560,7 +560,8 @@ class Reservation extends Model implements PresentableInterface
       check_status3.status3 as reservation_status3,
       check_status4.status4 as reservation_status4,
       check_status5.status5 as reservation_status5,
-      check_status6.status6 as reservation_status6
+      check_status6.status6 as reservation_status6,
+      sogaku_master.sogaku
       '
       ))
       ->leftJoin('bills', 'reservations.id', '=', 'bills.reservation_id')
@@ -576,7 +577,8 @@ class Reservation extends Model implements PresentableInterface
       ->leftJoin(DB::raw('(select reservation_id, count(reservation_status) as status3 from bills where reservation_status = 3  group by reservation_id) as check_status3'), 'reservations.id', '=', 'check_status3.reservation_id')
       ->leftJoin(DB::raw('(select reservation_id, count(reservation_status) as status4 from bills where reservation_status = 4  group by reservation_id) as check_status4'), 'reservations.id', '=', 'check_status4.reservation_id')
       ->leftJoin(DB::raw('(select reservation_id, count(reservation_status) as status5 from bills where reservation_status = 5  group by reservation_id) as check_status5'), 'reservations.id', '=', 'check_status5.reservation_id')
-      ->leftJoin(DB::raw('(select reservation_id, count(reservation_status) as status6 from bills where reservation_status = 6  group by reservation_id) as check_status6'), 'reservations.id', '=', 'check_status6.reservation_id');
+      ->leftJoin(DB::raw('(select reservation_id, count(reservation_status) as status6 from bills where reservation_status = 6  group by reservation_id) as check_status6'), 'reservations.id', '=', 'check_status6.reservation_id')
+      ->leftJoin(DB::raw('(select reservation_id, sum(master_total) as sogaku from bills group by reservation_id) as sogaku_master'), 'reservations.id', '=', 'sogaku_master.reservation_id');
 
     return $searchTarget;
   }
