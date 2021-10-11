@@ -40,9 +40,9 @@ class SalesController extends Controller
   public function download_csv(Request $request)
   {
     // Total records 
-    $_reservatioin = new Reservation;
-    $result = $_reservatioin
-      ->SearchReservation($request->all())
+    $_bill = new Bill;
+    $result = $_bill
+      ->CSVSearch($request->all())
       ->orderByRaw("予約中かキャンセルか,今日以降かどうか,今日以降日付,今日未満日付 desc")
       ->get();
 
@@ -89,7 +89,7 @@ class SalesController extends Controller
               $r->agent_name,
               $r->enduser_company,
               $r->sogaku,
-              '売上',
+              $r->bills_master_total,
               '売上原価',
               '粗利',
               '売上区分',
