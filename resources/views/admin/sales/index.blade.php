@@ -128,7 +128,7 @@
         </td>
         <th class="search_item_name"><label for="sum">総額</label></th>
         <td>
-          {{Form::text('amount',optional($data)['amount'],['class'=>'form-control'])}}
+          {{Form::text('sogaku',optional($data)['sogaku'],['class'=>'form-control'])}}
         </td>
       </tr>
       <tr>
@@ -650,12 +650,13 @@ $(function(){
             "search_id": $('input[name="search_id"]').val(),
             "reserve_date": $('input[name="reserve_date"]').val(),
             "venue_id": $('select[name="venue_id"]').val(),
-            // "company": $('input[name="company"]').val(),
-            // "person_name": $('input[name="person_name"]').val(),
-            // "search_mobile": $('input[name="search_mobile"]').val(),
-            // "search_tel": $('input[name="search_tel"]').val(),
-            // "agent": $('select[name="agent"]').val(),
-            // "enduser_person": $('input[name="enduser_person"]').val(),
+            "user_id": $('input[name="user_id"]').val(),
+            "company": $('input[name="company"]').val(),
+            "person_name": $('input[name="person_name"]').val(),
+            "agent": $('select[name="agent"]').val(),
+            "enduser_person": $('input[name="enduser_person"]').val(),
+            "sogaku": $('input[name="sogaku"]').val(),
+            "payment_limit": $('input[name="payment_limit"]').val(),
             // "check_icon1": $('#checkboxPrimary1').prop('checked')?1:0,
             // "check_icon2": $('#checkboxPrimary2').prop('checked')?1:0,
             // "check_icon3": $('#checkboxPrimary3').prop('checked')?1:0,
@@ -674,7 +675,7 @@ $(function(){
         { data: 'reservation_id' },
         { data: 'reserve_date' },
         { data: 'venue_name' },
-        { data: 'user_id' },
+        { data: 'user_id'},
         { data: 'company_name' },
         { data: 'person_name' },
         { data: 'agent_name' },
