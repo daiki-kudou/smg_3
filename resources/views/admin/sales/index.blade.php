@@ -600,7 +600,7 @@
         autoUpdateInput: false
       });
       $("input[name='" + $target + "']").on('apply.daterangepicker', function(ev, picker) {
-        $(this).val(picker.startDate.format('YYYY/MM/DD') + ' - ' + picker.endDate.format('YYYY/MM/DD'));
+        $(this).val(picker.startDate.format('YYYY/MM/DD') + ' ~ ' + picker.endDate.format('YYYY/MM/DD'));
       });
       $("input[name='" + $target + "']").on('cancel.daterangepicker', function(ev, picker) {
         $(this).val('');
@@ -647,11 +647,9 @@ $(function(){
         "type": "GET",
         "data": function ( d ) {
             return $.extend( {}, d, {
-            // "search_id": $('input[name="search_id"]').val(),
-            // "reserve_date": $('input[name="reserve_date"]').val(),
-            // "enter_time": $('select[name="enter_time"]').val(),
-            // "leave_time": $('select[name="leave_time"]').val(),
-            // "venue_id": $('select[name="venue_id"]').val(),
+            "search_id": $('input[name="search_id"]').val(),
+            "reserve_date": $('input[name="reserve_date"]').val(),
+            "venue_id": $('select[name="venue_id"]').val(),
             // "company": $('input[name="company"]').val(),
             // "person_name": $('input[name="person_name"]').val(),
             // "search_mobile": $('input[name="search_mobile"]').val(),

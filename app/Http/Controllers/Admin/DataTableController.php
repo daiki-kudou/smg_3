@@ -199,7 +199,6 @@ class DataTableController extends Controller
     $totalRecords = $_reservatioin->ReservationSearchTarget();
 
     // 検索があった場合の検索結果の件数
-    // $totalRecordswithFilter = Reservation::select('count(*) as allcount')->where('id', 'like', '%' . $searchValue . '%')->count();
     $totalRecordswithFilter = $_reservatioin->SearchReservation($request->all())->get()->count();
 
     // orderリクエストがあれば、orderに沿い、なければ初期並び順指定
@@ -211,7 +210,6 @@ class DataTableController extends Controller
       ->SearchReservation($request->all())
       ->offset($start)
       ->limit($rowperpage)
-      // ->orderByRaw('予約中かキャンセルか,今日以降かどうか,今日以降日付,今日未満日付 desc')
       ->orderByRaw("$fix_order_col_name $fix_order_sort_order")
       ->get();
 
@@ -223,12 +221,12 @@ class DataTableController extends Controller
           'multiple_reserve_id' => ReservationHelper::fixId($record->multiple_reserve_id),
           'reservation_id' => ReservationHelper::fixId($record->reservation_id),
           'reserve_date' => ReservationHelper::formatDate($record->reserve_date),
-          'venue_name' => ReservationHelper::formatTime($record->enter_time),
-          'user_id' => ReservationHelper::formatTime($record->leave_time),
-          'company_name' => $record->venue_name,
-          'person_name' => $record->company_name,
-          'agent_name' => $record->user_name,
-          'enduser_company' => $record->mobile,
+          'venue_name' => ($record->venue_name),
+          'user_id' => ReservationHelper::fixId($record->user_id),
+          'company_name' => $record->company_name,
+          'person_name' => $record->user_name,
+          'agent_name' => $record->agent_name,
+          'enduser_company' => $record->enduser_company,
           'sogaku' => number_format($record->sogaku),
           'sales' => $this->getSales($record->reservation_id, $record->sogaku),
           'cost' => $this->getCost($record->reservation_id),

@@ -482,41 +482,41 @@ class Reservation extends Model implements PresentableInterface
     });
 
     // 売上請求一覧用のフリーワード検索
-    if (!empty($data['sales_search_box'])) {
-      if (!empty($data['free_word'])) {
-        if (preg_match('/^[0-9!,]+$/', $data['free_word'])) {
-          //数字の場合検索
-          $searchTarget = $searchTarget->where(function ($query) use ($data) {
-            if (!empty($data['free_word'])) {
-              for ($i = 0; $i < strlen($data['free_word']); $i++) {
-                if ((int)$data['free_word'][$i] !== 0) {
-                  $id = strstr($data['free_word'], $data['free_word'][$i]);
-                  break;
-                }
-              }
-              $query->orWhereRaw('reservations.id LIKE ? ', ['%' . $id . '%']); //予約ID
-              $query->orWhereRaw('reservations.multiple_reserve_id LIKE ? ', ['%' . $id . '%']); //一括ID
-              $query->orWhereRaw('users.id LIKE ? ', ['%' . $id . '%']); //顧客ID
-            }
-          });
-        } else {
-          //文字列の場合
-          $searchTarget = $searchTarget->where(function ($query) use ($data) {
-            if (!empty($data['free_word'])) {
-              $query->orWhereRaw('reservations.reserve_date = ? ', [$data['free_word']]); //利用日
-              $query->orWhereRaw('users.company LIKE ? ', ['%' . $data['free_word'] . '%']); //会社名・団体名
-              $query->orWhereRaw('concat(users.first_name,users.last_name) LIKE ? ',  ['%' . $data['free_word'] . '%']); //担当者氏名
-              $query->orWhereRaw('endusers.company LIKE ? ',  ['%' . $data['free_word'] . '%']); //エンドユーザー
-              $query->orWhereRaw('bills.payment_limit = ? ',  [$data['free_word']]); //支払い期日
-              $query->orWhereRaw('bills.pay_day = ? ',  [$data['free_word']]); //支払い日
-              $query->orWhereRaw('bills.pay_person = ? ',  [$data['free_word']]); //振込人名
-              $query->orWhereRaw('concat(venues.name_area,venues.name_bldg,venues.name_venue) LIKE ? ',  ['%' . $data['free_word'] . '%']);
-              $query->orWhereRaw('agents.name LIKE ? ',  ['%' . $data['free_word'] . '%']); //エンドユーザー
-            }
-          });
-        }
-      }
-    }
+    // if (!empty($data['sales_search_box'])) {
+    //   if (!empty($data['free_word'])) {
+    //     if (preg_match('/^[0-9!,]+$/', $data['free_word'])) {
+    //       //数字の場合検索
+    //       $searchTarget = $searchTarget->where(function ($query) use ($data) {
+    //         if (!empty($data['free_word'])) {
+    //           for ($i = 0; $i < strlen($data['free_word']); $i++) {
+    //             if ((int)$data['free_word'][$i] !== 0) {
+    //               $id = strstr($data['free_word'], $data['free_word'][$i]);
+    //               break;
+    //             }
+    //           }
+    //           $query->orWhereRaw('reservations.id LIKE ? ', ['%' . $id . '%']); //予約ID
+    //           $query->orWhereRaw('reservations.multiple_reserve_id LIKE ? ', ['%' . $id . '%']); //一括ID
+    //           $query->orWhereRaw('users.id LIKE ? ', ['%' . $id . '%']); //顧客ID
+    //         }
+    //       });
+    //     } else {
+    //       //文字列の場合
+    //       $searchTarget = $searchTarget->where(function ($query) use ($data) {
+    //         if (!empty($data['free_word'])) {
+    //           $query->orWhereRaw('reservations.reserve_date = ? ', [$data['free_word']]); //利用日
+    //           $query->orWhereRaw('users.company LIKE ? ', ['%' . $data['free_word'] . '%']); //会社名・団体名
+    //           $query->orWhereRaw('concat(users.first_name,users.last_name) LIKE ? ',  ['%' . $data['free_word'] . '%']); //担当者氏名
+    //           $query->orWhereRaw('endusers.company LIKE ? ',  ['%' . $data['free_word'] . '%']); //エンドユーザー
+    //           $query->orWhereRaw('bills.payment_limit = ? ',  [$data['free_word']]); //支払い期日
+    //           $query->orWhereRaw('bills.pay_day = ? ',  [$data['free_word']]); //支払い日
+    //           $query->orWhereRaw('bills.pay_person = ? ',  [$data['free_word']]); //振込人名
+    //           $query->orWhereRaw('concat(venues.name_area,venues.name_bldg,venues.name_venue) LIKE ? ',  ['%' . $data['free_word'] . '%']);
+    //           $query->orWhereRaw('agents.name LIKE ? ',  ['%' . $data['free_word'] . '%']); //エンドユーザー
+    //         }
+    //       });
+    //     }
+    //   }
+    // }
 
     // $searchTarget->orderByRaw('予約中かキャンセルか,今日以降かどうか,今日以降日付,今日未満日付 desc');
 
@@ -547,6 +547,7 @@ class Reservation extends Model implements PresentableInterface
       users.mobile as mobile,
       users.tel as tel,
       users.attr as attr,
+      users.id as user_id,
       agents.name as agent_name,
       agents.id as agent_id,
       endusers.company as enduser_company,
