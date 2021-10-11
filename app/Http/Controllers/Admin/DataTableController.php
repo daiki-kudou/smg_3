@@ -164,7 +164,9 @@ class DataTableController extends Controller
     return "<ul class='multi-column__list'>" . $result . "</ul>";
   }
 
+
   // 以下売上請求一覧
+
 
   public function sales(Request $request)
   {

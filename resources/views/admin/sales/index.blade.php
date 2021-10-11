@@ -240,6 +240,8 @@
   <div class="btn_box d-flex justify-content-center">
     <a href="{{url('admin/sales')}}" class="btn reset_btn">リセット</a>
     {{Form::hidden('sales_search_box','sales_search_box', ['class'=>'form-control'])}}
+    {{Form::hidden('csv','')}}
+    <!--csvダウンロード用のinput-->
     {{Form::submit('検索',['class'=>'btn search_btn','id'=>'m_submit'])}}
   </div>
 </div>
@@ -258,11 +260,14 @@
   </dl>
 
 
-  {{ Form::open(['url' => 'admin/csv', 'method'=>'post']) }}
+  {{-- {{ Form::open(['url' => 'admin/csv', 'method'=>'post']) }}
   @csrf
-  {{-- {{Form::hidden('csv_arrays',json_encode($for_csv))}} --}}
   <p class="ml-1 text-right">{{Form::submit('表示結果ダウンロード(CSV)',['class'=>'btn more_btn4_lg'])}}</p>
-  {{Form::close()}}
+  {{Form::close()}} --}}
+
+  <p class="ml-1 text-right">
+    <button type="button" class="btn more_btn4_lg" id="get_csv_btn">表示結果ダウンロード(CSV)</button>
+  </p>
 
 
 </div>
@@ -584,6 +589,17 @@
 
 
 <script>
+  $(function(){
+    $('#get_csv_btn').on('click',function(){
+      $('input[name="csv"]').val(1);
+      $('#sales_search').submit();
+    })
+
+    $('#m_submit').on('click',function(){
+      $('input[name="csv"]').val("");
+    })
+  })
+
   $(function() {
     function ActiveDateRangePicker($target) {
       $("input[name='" + $target + "']").daterangepicker({
