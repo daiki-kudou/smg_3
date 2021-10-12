@@ -625,24 +625,30 @@ class PreReservationsController extends Controller
    */
   public function destroy(Request $request)
   {
-    if ($request->except('_token')) {
-      DB::transaction(function () use ($request) { //トランザクションさせる
-        foreach ($request->except('_token') as $key => $value) {
-          $pre_reservation = PreReservation::find((int) $value);
-          $pre_reservation->delete();
-          if ($pre_reservation->user_id > 0) {
-            $admin = explode(',', config('app.admin_email'));
-            $user = User::find($pre_reservation->user_id);
-            Mail::to($admin)->send(new AdminPreResCxl($pre_reservation, $user));
-            Mail::to($user->email)->send(new UserPreResCxl($pre_reservation, $user));
-          }
-        }
-      });
-      $request->session()->regenerate();
-      return redirect()->route('admin.pre_reservations.index')->with('flash_message', '仮抑え削除が成功しました');
+    $data = $request->all();
+    if (!empty($data['delete_target']) && $data['delete_target'] !== "[]") {
+      # code...
     } else {
-      $request->session()->regenerate();
       return redirect()->route('admin.pre_reservations.index')->with('flash_message_error', '仮押えが選択されていません');
     }
+    // if ($request->except('_token')) {
+    //   DB::transaction(function () use ($request) { //トランザクションさせる
+    //     foreach ($request->except('_token') as $key => $value) {
+    //       $pre_reservation = PreReservation::find((int) $value);
+    //       $pre_reservation->delete();
+    //       if ($pre_reservation->user_id > 0) {
+    //         $admin = explode(',', config('app.admin_email'));
+    //         $user = User::find($pre_reservation->user_id);
+    //         Mail::to($admin)->send(new AdminPreResCxl($pre_reservation, $user));
+    //         Mail::to($user->email)->send(new UserPreResCxl($pre_reservation, $user));
+    //       }
+    //     }
+    //   });
+    //   $request->session()->regenerate();
+    //   return redirect()->route('admin.pre_reservations.index')->with('flash_message', '仮抑え削除が成功しました');
+    // } else {
+    //   $request->session()->regenerate();
+    //   return redirect()->route('admin.pre_reservations.index')->with('flash_message_error', '仮押えが選択されていません');
+    // }
   }
 }

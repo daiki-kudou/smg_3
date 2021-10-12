@@ -145,7 +145,7 @@
         {{-- 削除ボタン --}}
         {{Form::open(['url' => 'admin/pre_reservations/destroy', 'method' => 'POST', 'id'=>''])}}
         @csrf
-        <div id="for_destroy"></div>
+        {{Form::text('delete_target','')}}
         {{ Form::submit('削除', ['class' => 'btn more_btn4','id'=>'confirm_destroy']) }}
         <span class="d-block">※メールアドレスが正しくないと削除されません。</span>
         {{ Form::close() }}
@@ -227,65 +227,95 @@
 
   $(document).on('click', '#all_check', function (){
     var parent_checked = $(this).prop('checked');
+    var array = [];
      $('.checkbox').each(function(index, element){
       $('.checkbox').eq(index).prop('checked',false );
       $('.checkbox').eq(index).prop('checked',parent_checked );
-      })
-    }
+      if (parent_checked===true) {
+        array.push($('.checkbox').eq(index).val());
+      }
+    })
+    console.log(JSON.stringify(array));
+    $('input[name="delete_target"]').val(JSON.stringify(array));
+  }
   );
 
   $(document).on('change', 'select[name="pre_reservation_sort_length"]', function (){
     var parent_checked = $("#all_check").prop('checked');
+    var array = [];
     $('.checkbox').each(function(index, element){
       $('.checkbox').eq(index).prop('checked',false );
       $('.checkbox').eq(index).prop('checked',parent_checked );
+      if (parent_checked===true) {
+        array.push($('.checkbox').eq(index).val());
+      }
     })
-  }
+    console.log(JSON.stringify(array));
+    $('input[name="delete_target"]').val(JSON.stringify(array));
+    }
   );
 
+  $(document).on('click', '.checkbox', function (){
+    var parent_checked = $("#all_check").prop('checked');
+    var array = [];
+    $('.checkbox').each(function(index, element){
+    if ($('.checkbox').eq(index).prop('checked')===true) {
+    array.push($('.checkbox').eq(index).val());
+    }
+    })
+    console.log(JSON.stringify(array));
+    $('input[name="delete_target"]').val(JSON.stringify(array));
+  });
 
+  $(document).on('click', '.sorting', function (){
+    $('.checkbox').each(function(index, element){
+    $('.checkbox').eq(index).prop('checked',false );
+    })
+    $('input[name="delete_target"]').val("");
+    $('#all_check').prop('checked',false);
+  });
 </script>
 
 <script>
   $(function(){
     var pre_reservations = $('#parent_pre_reservations_table').data('prereservations');
-        
-        $.extend( $.fn.dataTable.defaults, {
-        // 日本語化
-        language: {
-        url: "http://cdn.datatables.net/plug-ins/9dcbecd42ad/i18n/Japanese.json"
-        }
-        });
-        
-        $("#pre_reservation_sort").DataTable({
-        // data オプションでデータを定義する
-        data: pre_reservations,
-        searching: false,
-        info: false,
-        autowidth: false,
-        // column オプションで view の th にあたる部分を定義する
-        columns: [
-        { title: "<p class='annotation'>すべて</p> <input type='checkbox' name='all_check' id='all_check'>" },
-        { title: "仮押えID" },
-        { title: "受付日" },
-        { title: "利用日" },
-        { title: "入室" },
-        { title: "退室" },
-        { title: "利用会場" },
-        { title: "会社・団体名" },
-        { title: "担当者氏名" },
-        { title: "携帯電話" },
-        { title: "固定電話" },
-        { title: "会社・団体名（仮）" },
-        { title: "仲介会社" },
-        { title: "エンドユーザー" },
-        { title: "仮押え詳細" }
+      $.extend( $.fn.dataTable.defaults, {
+      // 日本語化
+      language: {
+      url: "http://cdn.datatables.net/plug-ins/9dcbecd42ad/i18n/Japanese.json"
+      }
+      });
+      
+      $("#pre_reservation_sort").DataTable({
+      // data オプションでデータを定義する
+      data: pre_reservations,
+      searching: false,
+      info: false,
+      autowidth: false,
+      // column オプションで view の th にあたる部分を定義する
+      columns: [
+      { title: "<p class='annotation'>すべて</p> <input type='checkbox' name='all_check' id='all_check'>" },
+      { title: "仮押えID" },
+      { title: "受付日" },
+      { title: "利用日" },
+      { title: "入室" },
+      { title: "退室" },
+      { title: "利用会場" },
+      { title: "会社・団体名" },
+      { title: "担当者氏名" },
+      { title: "携帯電話" },
+      { title: "固定電話" },
+      { title: "会社・団体名（仮）" },
+      { title: "仲介会社" },
+      { title: "エンドユーザー" },
+      { title: "仮押え詳細" }
+      ],
+      order: [],
+      columnDefs: [
+        {targets: 0, sortable: false, orderable: false},
+        {targets: 14, sortable: false, orderable: false},
         ],
-        order: [],
-        columnDefs: [
-              {targets: 0, sortable: false, orderable: false},
-              ],
-        });
+      });
   })
 </script>
 
