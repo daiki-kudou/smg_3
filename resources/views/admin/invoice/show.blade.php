@@ -38,9 +38,7 @@
               </dd>
               <dd>
                 @if ($cxl)
-                {{-- {{ $cxl->bill_person }}様 --}}
                 @else
-                {{-- {{ $bill->bill_person }}様 --}}
                 @endif
               </dd>
             </dl>
@@ -178,14 +176,10 @@
             <td>
               内容
             </td>
-            {{-- <td>金額</td> --}}
           </tr>
           @foreach ($bill->breakdowns as $item)
           <tr class="bill-details">
             <td>{{ $item->unit_item }}</td>
-            {{-- <td>
-                                    {{ number_format($bill->master_subtotal) }}<span>円</span>
-            </td> --}}
           </tr>
           @endforeach
           @endif
@@ -229,7 +223,7 @@
           </td>
         </tr>
       </table>
-      <table cellpadding="0" cellspacing="0" >
+      <table cellpadding="0" cellspacing="0">
         <tr>
           <td class="bill-note-wrap">
             <p>お振込み先：みずほ銀行　四ツ橋支店　普通 1113739　ｶ)ｴｽｴﾑｼﾞｰ</p>
@@ -258,7 +252,6 @@
     </section>
     <p></p>
 
-    {{-- {{ Form::hidden('reservation_status', $bill->reservation_status ) }} --}}
 
 </body>
 
@@ -269,7 +262,6 @@
 
         if (len > 17) {
             $(".bill-note-wrap").addClass("break");
-            // $(".total-table").css('margin-top','20mm');
         } else {
             $(".bill-note-wrap").removeClass("break");
         }
@@ -281,8 +273,6 @@
         var target=$(value).text();
         if (target.match(/-/)) {
           $(value).css('color','red');
-        //   var result =target.replace('-','▲');
-        //   $(value).text(result);
         }
       });
     });
@@ -291,7 +281,6 @@
       $('.bill-detail-table td:nth-child(2n)').each(function(index, value){
         var target=$(value).text();
         if (target.match(/-/)) {
-        //   $(value).css('color','red');
           var result =target.replace('-','▲');
           $(value).text(result);
         }

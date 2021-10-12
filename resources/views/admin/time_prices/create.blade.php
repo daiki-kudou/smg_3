@@ -1,7 +1,6 @@
 @extends('layouts.admin.app')
 
 @section('content')
-{{-- @include('layouts.admin.side') --}}
 <link href="{{ asset('/css/template.css') }}" rel="stylesheet">
 <script src="{{ asset('/js/ctrl_form.js') }}"></script>
 

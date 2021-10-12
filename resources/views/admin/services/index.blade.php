@@ -2,8 +2,6 @@
 @section('content')
 <script src="{{ asset('/js/tablesorter/jquery.tablesorter.js') }}"></script>
 <link href="{{ asset('/css/tablesorter/theme.default.min.css') }}" rel="stylesheet">
-
-{{-- <script src="{{ asset('/js/admin/venue.js') }}"></script> --}}
 <link href="{{ asset('/css/template.css') }}" rel="stylesheet">
 
 <div class="container-field mt-3">
@@ -72,8 +70,6 @@
           {{ Form::close() }}
         </td>
         <td class="text-center">
-          {{-- {{ link_to_route('admin.services.edit', '編集', $parameters = $query->id, ['class' => 'btn more_btn']) }}
-          --}}
 
           {{ Form::model($query, ['route' => ['admin.services.destroy', $query->id], 'method' => 'delete']) }}
           @csrf
@@ -89,18 +85,6 @@
 </div>
 
 
-
-
-{{-- <script>
-  $(function () {
-  $('.del_btn').on('click', function () {
-    var target = $(this).parent().parent().parent().find('td').eq(2).text();
-    if (!confirm(target+'を本当に削除しますか？\n削除した時点で会場情報・顧客側予約フォームからも削除されます')) {
-      return false;
-    } 
-  })
-})
-</script> --}}
 
 <script>
   $(document).ready(function(){

@@ -169,7 +169,6 @@
         <li>
           <div class="d-flex align-items-center">
             <p>
-              {{-- <a class="more_btn bg-red" href="">仮押え期間超過</a> --}}
               <button id="time_over" class="btn more_btn {{$request->time_over?"bg-red":""}}">仮押え期間超過</button>
             </p>
             <p class="ml-3 font-weight-bold">

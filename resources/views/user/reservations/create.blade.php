@@ -202,7 +202,8 @@
           <ul>
             @foreach ($venue->getEquipments() as $e_key=>$eqpt)
             <li class="form-cell2">
-              <p class="text6"><span class="f-wb m-r10">{{$eqpt->item}}</span>{{$eqpt->price}}円<span class="annotation">(税抜)</span></p>
+              <p class="text6"><span class="f-wb m-r10">{{$eqpt->item}}</span>{{$eqpt->price}}円<span
+                  class="annotation">(税抜)</span></p>
               <p class="m-l20">
                 {{ Form::number('equipment_breakdown'.$e_key, '',['class'=>'text4 mL0 number_validation','autocomplete="off"'] ) }}個
               </p>
@@ -286,7 +287,6 @@
               </p>
             </li>
             <li class="m-b10">
-              {{-- <p class="m-b10">【事前に預かる荷物】</p> --}}
               <div class="luggage-cell">
                 <p>事前に預かる荷物<br>(目安)</p>
                 {{ Form::number('luggage_count', '',['class'=>'text6 ', 'style'=>'width:20%;','autocomplete="off"'] ) }}
@@ -296,7 +296,7 @@
             </li>
             <li class="m-b10">
               <div class="luggage-cell">
-              <p>事前荷物の到着日(午前指定)</p>
+                <p>事前荷物の到着日(午前指定)</p>
                 {{ Form::text('luggage_arrive', '',['class'=>'','id'=>'datepicker2','autocomplete="off"'] ) }}
               </div>
             </li>
@@ -310,7 +310,7 @@
             </li>
             <li class="m-b10 luggage-border">
               <div class="luggage-cell">
-              <p>事後返送する荷物</p>
+                <p>事後返送する荷物</p>
                 {{ Form::number('luggage_return', '',['class'=>'text6 ', 'style'=>'width: 20%;','autocomplete="off"'] ) }}
                 <p class="">個</p>
               </div>

@@ -1,8 +1,6 @@
 @extends('layouts.user.app')
 @section('content')
 <link href="{{ asset('/css/template.css') }}" rel="stylesheet">
-{{-- <script src="{{ asset('/js/template.js') }}"></script>
-<script src="{{ asset('/js/ajax.js') }}"></script> --}}
 
 <div class="container-field mt-3">
   <div class="float-right">

@@ -764,15 +764,6 @@
                 </tr>
                 @endforeach
               </tbody>
-              {{-- <tbody class="venue_result">
-                <tr>
-                  <td colspan="3"></td>
-                  <td colspan="1">
-                    <p class="text-left">合計</p>
-                    {{ Form::text('venue_price', $PreReservation->pre_bill->venue_price,['class'=>'form-control col-xs-3', 'readonly'] ) }}
-              </td>
-              </tr>
-              </tbody> --}}
             </table>
           </div>
 
@@ -959,7 +950,6 @@
 
 
 
-  {{-- {{Form::submit('保存する', ['class'=>'btn more_btn_lg mx-auto d-block my-5', 'id'=>'check_submit'])}} --}}
 
 </section>
 {{Form::close()}}

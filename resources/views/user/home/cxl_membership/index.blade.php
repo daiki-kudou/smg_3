@@ -88,13 +88,4 @@
 
 
 
-{{-- <script>
-  $(function() {
-    $('#cxl_membership').on('click', function() {
-      if (!confirm('本当に退会しますか？')) {
-        return false;
-      }
-    })
-  })
-</script> --}}
 @endsection

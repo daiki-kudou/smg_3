@@ -36,6 +36,8 @@
     {{ $venue->name_bldg }}{{ $venue->name_venue }}
   </h3>
   <hr>
+  <p class="warning-text">「編集後、保存した時点で会場情報・顧客側予約フォームの料金情報が更新されます」</p>
+
   <!-- 通常料金 -->
   <div class="mb-5">
     <h4 class="mt-5">料金体系：通常(枠貸し料金)</h4>

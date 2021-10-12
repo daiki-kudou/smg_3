@@ -266,7 +266,6 @@
 
     <ul class="d-flex justify-content-end mt-5">
       <li class="mr-3">
-        {{-- <a href="{{url('admin/pre_reservations/create')}}" class="more_btn3">仮押えをする</a> --}}
         {{ Form::open(['url' => 'admin/pre_reservations/create', 'method'=>'get', 'id'=>'']) }}
         @csrf
         {{Form::hidden('user_id_from_client_show',$user->id)}}

@@ -250,7 +250,6 @@
             <tbody>
               <tr>
                 <td>入金状況
-                  {{-- {{Form::text('paid',$invoice['paid']==1?"入金済":"未入金",['class'=>'form-control', 'readonly'])}} --}}
                   {{Form::text('',ReservationHelper::paidStatus($invoice['paid']),['class'=>'form-control','readonly'])}}
                 </td>
                 <td>

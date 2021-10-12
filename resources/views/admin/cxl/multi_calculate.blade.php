@@ -12,7 +12,6 @@
   <hr>
 </div>
 
-{{-- @include('layouts.admin.breadcrumbs',['reservation_id'=>$data['reservation_id']]) --}}
 @include('layouts.admin.errors')
 
 @if (session('flash_message'))

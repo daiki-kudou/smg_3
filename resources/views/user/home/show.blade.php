@@ -2,7 +2,6 @@
 @section('content')
 <link href="{{ asset('/css/template.css') }}" rel="stylesheet">
 <script src="{{ asset('/js/template.js') }}"></script>
-{{-- <script src="{{ asset('/js/ajax.js') }}"></script> --}}
 
 
 <div class="container-field mt-3">
@@ -325,46 +324,6 @@
                 <td class="table-active"><label for="preDelivery">事後返送するお荷物</label></td>
                 <td>{{ $reservation->luggage_return }}個</td>
               </tr>
-              {{-- <tr>
-                <td class="table-active"><label for="preDelivery">事前にお預りする荷物</label></td>
-                <td>
-                  <ul class="table-cell-box">
-                    <li>
-                      <p>
-                        {{ $reservation->luggage_count ? '有り' : '無し' }}
-              </p>
-              </li>
-              <li>
-                <p>
-                  荷物個数：{{ $reservation->luggage_count }}個
-                </p>
-              </li>
-              <li>
-                <p>事前荷物の到着日</p>
-                <p>
-                  {{ ReservationHelper::formatDate($reservation->luggage_arrive) }}
-                </p>
-              </li>
-              </ul>
-              </td>
-              </tr>
-              <tr>
-                <td class="table-active"><label for="postDelivery">事後返送するお荷物</label></td>
-                <td>
-                  <ul class="table-cell-box">
-                    <li>
-                      <p>
-                        {{ $reservation->luggage_return ? '有り' : '無し' }}
-                      </p>
-                    </li>
-                    <li>
-                      <p>
-                        荷物個数：{{ $reservation->luggage_return }}個
-                      </p>
-                    </li>
-                  </ul>
-                </td>
-              </tr> --}}
             </tbody>
           </table>
         </div>
@@ -425,7 +384,6 @@
   <section class="mt-5">
     <div class="bill">
       {{-- ステータス３は予約完了 --}}
-      {{-- @if ($reservation->bills()->first()->reservation_status >= 3) --}}
       <div class="bill_head">
         <table class="table bill_table">
           <tbody>
@@ -1037,7 +995,6 @@
   <div class="confirm-box text-sm-center">
     <p>上記、追加請求の内容で間違いないでしょうか。問題なければ、予約の承認をお願い致します。</p>
 
-    {{-- <input class="btn more_btn4_lg" type="submit" value="追加請求の内容を承認する"> --}}
     {{ Form::open(['url' => 'user/home/approve_user_additional_cfm', 'method' => 'post', 'class' => '']) }}
     @csrf
     {{ Form::hidden('bill_id', $other_bill->id) }}

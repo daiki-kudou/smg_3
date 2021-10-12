@@ -38,7 +38,6 @@
     <tbody>
       <tr>
         <th class="form_required"><label for="company">会社・団体名</label></th>
-        {{-- <td colspan="2">{{$user->company}}</td> --}}
         <td colspan="2">
           {{Form::text('company',$user->company,['class'=>'form-control'])}}
           <p class="is-error-company" style="color: red"></p>
@@ -50,11 +49,11 @@
           <div class="d-flex">
             <p class="w-50 mr-1">
               {{Form::text('first_name',$user->first_name,['class'=>'form-control'])}}
-            <span class="is-error-first_name" style="color: red"></span>
+              <span class="is-error-first_name" style="color: red"></span>
             </p>
             <p class="w-50">
               {{Form::text('last_name',$user->last_name,['class'=>'form-control'])}}
-            <span class="is-error-last_name" style="color: red"></span>
+              <span class="is-error-last_name" style="color: red"></span>
             </p>
           </div>
         </td>
@@ -65,22 +64,17 @@
           <div class="d-flex">
             <p class="w-50 mr-1">
               {{Form::text('first_name_kana',$user->first_name_kana,['class'=>'form-control'])}}
-            <span class="is-error-first_name_kana" style="color: red"></span>
+              <span class="is-error-first_name_kana" style="color: red"></span>
             </p>
             <p class="w-50">
               {{Form::text('last_name_kana',$user->last_name_kana,['class'=>'form-control'])}}
-            <span class="is-error-last_name_kana" style="color: red"></span>
+              <span class="is-error-last_name_kana" style="color: red"></span>
             </p>
           </div>
         </td>
       </tr>
       <tr>
         <th>郵便番号</th>
-        {{-- <td class="d-flex align-items-center">
-          <p>
-            {{Form::text('post_code',$user->post_code,['class'=>'form-control'])}}
-          </p>
-        </td> --}}
         <td>
           {{ Form::text('post_code', old('post_code'), [
             'class' => 'form-control',
@@ -136,12 +130,6 @@
           <p class="is-error-fax" style="color: red"></p>
         </td>
       </tr>
-      {{-- <tr>
-        <th><label for="email">メールアドレス</label></th>
-        <td colspan="2">
-          {{Form::text('email',$user->email,['class'=>'form-control'])}}
-      </td>
-      </tr> --}}
     </tbody>
   </table>
 </section>

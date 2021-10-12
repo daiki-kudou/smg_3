@@ -381,8 +381,6 @@
               <label for="enduser_attr" class="">利用者属性</label>
             </td>
             <td>
-              {{-- {{Form::select('enduser_attr',['一般企業','上場企業','近隣利用','個人講師','MLM','その他'],$data['enduser_attr'],['class'=>'form-control'])}}
-              --}}
               {{ Form::text('', ReservationHelper::PreEndUserGetAttr($data['enduser_attr']),['class'=>'form-control', 'placeholder'=>'入力してください', 'id'=>'enduser_mobile','readonly'] ) }}
               {{ Form::hidden('enduser_attr', $data['enduser_attr'],['class'=>'form-control', 'placeholder'=>'入力してください', 'id'=>'enduser_mobile'] ) }}
             </td>
@@ -806,7 +804,7 @@
 
 <div class="container-field d-flex justify-content-center mt-5">
   {{Form::submit('請求内訳を修正する', ['class'=>'btn more_btn4_lg d-block mr-5', 'name'=>'back'])}}
-  {{Form::submit('保存する', ['class'=>'btn more_btn_lg d-block', 'id'=>'check_submit'])}}
+  {{Form::submit('保存する', ['class'=>'btn more_btn_lg d-block update_submit', 'id'=>'check_submit'])}}
   {{Form::close()}}
 
 </div>
