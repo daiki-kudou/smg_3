@@ -611,7 +611,7 @@ class DataTableController extends Controller
   // 仮抑え
 
 
-  public function pre_reservation(Request $request)
+  public function pre_reservations(Request $request)
   {
     $draw = $request->get('draw');
     $start = $request->get("start");
@@ -645,7 +645,7 @@ class DataTableController extends Controller
 
     // 検索があった場合の検索結果の件数
     // $totalRecordswithFilter = Reservation::select('count(*) as allcount')->where('id', 'like', '%' . $searchValue . '%')->count();
-    $totalRecordswithFilter = $_reservatioin->SearchReservation($request->all())->get()->count();
+    $totalRecordswithFilter = $_pre_reservatioin->SearchPreReservation($request->all())->get()->count();
 
 
     // orderリクエストがあれば、orderに沿い、なければ初期並び順指定
@@ -653,8 +653,8 @@ class DataTableController extends Controller
     $fix_order_sort_order = !empty($request->get('order')) ? $columnSortOrder : "desc";
 
     // 検索があった場合の検索結果のcollection
-    $records = $_reservatioin
-      ->SearchReservation($request->all())
+    $records = $_pre_reservatioin
+      ->SearchPreReservation($request->all())
       ->offset($start)
       ->limit($rowperpage)
       // ->orderByRaw('予約中かキャンセルか,今日以降かどうか,今日以降日付,今日未満日付 desc')
@@ -666,23 +666,21 @@ class DataTableController extends Controller
     foreach ($records as $record) {
       $data_arr[] =
         [
-          'multiple_reserve_id' => ReservationHelper::fixId($record->multiple_reserve_id),
-          'reservation_id' => ReservationHelper::fixId($record->reservation_id),
-          'reserve_date' => ReservationHelper::formatDate($record->reserve_date),
-          'enter_time' => ReservationHelper::formatTime($record->enter_time),
-          'leave_time' => ReservationHelper::formatTime($record->leave_time),
+          'checkbox' => '<input type="checkbox" name="" value="" class="checkbox" >',
+          'pre_reservation_id' => $record->pre_reservation_id,
+          'created_at' => $record->created_at,
+          'reserve_date' => $record->reserve_date,
+          'enter_time' => $record->enter_time,
+          'leave_time' => $record->leave_time,
           'venue_name' => $record->venue_name,
-          'company_name' => $record->company_name,
-          'user_name' => $record->user_name,
+          'company' => $record->company,
+          'person_name' => $record->person_name,
           'mobile' => $record->mobile,
           'tel' => $record->tel,
+          'unknownuser' => $record->unknownuser,
           'agent_name' => $record->agent_name,
-          'enduser_company' => $record->enduser_company,
-          'icon' => $this->getReservationIcon($record->reservation_id),
-          'category' => $this->getReservationCategory($record->reservation_id),
-          'reservation_status' => $this->getReservationStatus($record->reservation_id),
-          'details' => "<a href=" . url('admin/reservations', $record->reservation_id) . " class='more_btn btn'>詳細</a>",
-          'board' => $record->board_flag === 1 ? "<a href=" . url('admin/board', $record->reservation_id) . " class='more_btn btn' target='_blank'>詳細</a>" : "",
+          'enduser' => $record->enduser,
+          'details' => "<a href=" . url('admin/pre_reservations', $record->pre_reservation_id_original) . " class='more_btn btn'>詳細</a>",
         ];
     }
 

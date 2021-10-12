@@ -561,57 +561,175 @@ class PreReservation extends Model
   {
     $searchTarget = DB::table('pre_reservations')
       ->select(DB::raw(
-        '
-        distinct reservations.id as reservation_id,
-      reservations.multiple_reserve_id as multiple_reserve_id,
-      reservations.reserve_date as reserve_date,
-      reservations.enter_time as enter_time,
-      reservations.leave_time as leave_time,
-      reservations.board_flag as board_flag,
-      reservations.venue_id as venue_id,
-      reservations.eat_in as eat_in,
-      concat(venues.name_area,venues.name_bldg,venues.name_venue) as venue_name, 
-      venues.alliance_flag as alliance_flag,
-      users.company as company_name,
-      concat(users.first_name, users.last_name) as user_name, 
-      users.mobile as mobile,
-      users.tel as tel,
-      users.attr as attr,
-      users.id as user_id,
-      agents.name as agent_name,
-      agents.id as agent_id,
-      endusers.company as enduser_company,
-      case when bills.reservation_status <= 3 then 0 else 1 end as 予約中かキャンセルか,
-      case when reservations.reserve_date >= CURRENT_DATE then 0 else 1 end as 今日以降かどうか,
-      case when reservations.reserve_date >= CURRENT_DATE then reserve_date end as 今日以降日付,
-      case when reservations.reserve_date < CURRENT_DATE then reserve_date end as 今日未満日付,
-      check_unit_2.master_unit_2 as unit_type2,
-      check_unit_3.master_unit_3 as unit_type3,
-      check_unit_4.master_unit_4 as unit_type4,
-      check_status1.status1 as reservation_status1,
-      check_status2.status2 as reservation_status2,
-      check_status3.status3 as reservation_status3,
-      check_status4.status4 as reservation_status4,
-      check_status5.status5 as reservation_status5,
-      check_status6.status6 as reservation_status6,
-      sogaku_master.sogaku
-      '
+        "
+        LPAD(pre_reservations.id,6,0) as pre_reservation_id,
+        pre_reservations.id as pre_reservation_id_original,
+        concat(date_format(pre_reservations.created_at, '%Y/%m/%d'),
+        case 
+        when DAYOFWEEK(pre_reservations.created_at) = 1 then '(日)' 
+        when DAYOFWEEK(pre_reservations.created_at) = 2 then '(月)'
+        when DAYOFWEEK(pre_reservations.created_at) = 3 then '(火)'
+        when DAYOFWEEK(pre_reservations.created_at) = 4 then '(水)'
+        when DAYOFWEEK(pre_reservations.created_at) = 5 then '(木)'
+        when DAYOFWEEK(pre_reservations.created_at) = 6 then '(金)'
+        when DAYOFWEEK(pre_reservations.created_at) = 7 then '(土)'
+        end
+        ) as created_at,
+        concat(date_format(pre_reservations.reserve_date, '%Y/%m/%d'),
+        case 
+        when DAYOFWEEK(pre_reservations.reserve_date) = 1 then '(日)' 
+        when DAYOFWEEK(pre_reservations.reserve_date) = 2 then '(月)'
+        when DAYOFWEEK(pre_reservations.reserve_date) = 3 then '(火)'
+        when DAYOFWEEK(pre_reservations.reserve_date) = 4 then '(水)'
+        when DAYOFWEEK(pre_reservations.reserve_date) = 5 then '(木)'
+        when DAYOFWEEK(pre_reservations.reserve_date) = 6 then '(金)'
+        when DAYOFWEEK(pre_reservations.reserve_date) = 7 then '(土)'
+        end
+        ) as reserve_date,
+        time_format(pre_reservations.enter_time, '%H:%i') as enter_time,
+        time_format(pre_reservations.leave_time, '%H:%i') as leave_time,
+        concat(venues.name_area, venues.name_bldg, venues.name_venue) as venue_name,
+        venues.id,
+        users.company as company,
+        concat(users.first_name, users.last_name) as person_name,
+        users.mobile as mobile,
+        users.tel as tel,
+        unknown_users.unknown_user_company as unknownuser,
+        agents.name as agent_name,
+        pre_endusers.company as enduser,
+      case when pre_bills.reservation_status <= 3 then 0 else 1 end as 予約中かキャンセルか,
+      case when pre_reservations.reserve_date >= CURRENT_DATE then 0 else 1 end as 今日以降かどうか,
+      case when pre_reservations.reserve_date >= CURRENT_DATE then reserve_date end as 今日以降日付,
+      case when pre_reservations.reserve_date < CURRENT_DATE then reserve_date end as 今日未満日付
+        "
       ))
-      ->leftJoin('bills', 'reservations.id', '=', 'bills.reservation_id')
-      ->leftJoin('users', 'reservations.user_id', '=', 'users.id')
-      ->leftJoin('agents', 'reservations.agent_id', '=', 'agents.id')
-      ->leftJoin('endusers', 'reservations.id', '=', 'endusers.reservation_id')
-      ->leftJoin('venues', 'reservations.venue_id', '=', 'venues.id')
-      ->leftJoin(DB::raw('(select reservation_id , count(breakdowns.count_unit) as master_unit_2  from bills left join (select bill_id, count(unit_type) as count_unit from breakdowns where unit_type=2 group by bill_id) as breakdowns on bills.id=breakdowns.bill_id group by reservation_id) as check_unit_2'), 'reservations.id', '=', 'check_unit_2.reservation_id')
-      ->leftJoin(DB::raw('(select reservation_id , count(breakdowns.count_unit) as master_unit_3  from bills left join (select bill_id, count(unit_type) as count_unit from breakdowns where unit_type=3 group by bill_id) as breakdowns on bills.id=breakdowns.bill_id group by reservation_id) as check_unit_3'), 'reservations.id', '=', 'check_unit_3.reservation_id')
-      ->leftJoin(DB::raw('(select reservation_id , count(breakdowns.count_unit) as master_unit_4  from bills left join (select bill_id, count(unit_type) as count_unit from breakdowns where unit_type=4 group by bill_id) as breakdowns on bills.id=breakdowns.bill_id group by reservation_id) as check_unit_4'), 'reservations.id', '=', 'check_unit_4.reservation_id')
-      ->leftJoin(DB::raw('(select reservation_id, count(reservation_status) as status1 from bills where reservation_status = 1  group by reservation_id) as check_status1'), 'reservations.id', '=', 'check_status1.reservation_id')
-      ->leftJoin(DB::raw('(select reservation_id, count(reservation_status) as status2 from bills where reservation_status = 2  group by reservation_id) as check_status2'), 'reservations.id', '=', 'check_status2.reservation_id')
-      ->leftJoin(DB::raw('(select reservation_id, count(reservation_status) as status3 from bills where reservation_status = 3  group by reservation_id) as check_status3'), 'reservations.id', '=', 'check_status3.reservation_id')
-      ->leftJoin(DB::raw('(select reservation_id, count(reservation_status) as status4 from bills where reservation_status = 4  group by reservation_id) as check_status4'), 'reservations.id', '=', 'check_status4.reservation_id')
-      ->leftJoin(DB::raw('(select reservation_id, count(reservation_status) as status5 from bills where reservation_status = 5  group by reservation_id) as check_status5'), 'reservations.id', '=', 'check_status5.reservation_id')
-      ->leftJoin(DB::raw('(select reservation_id, count(reservation_status) as status6 from bills where reservation_status = 6  group by reservation_id) as check_status6'), 'reservations.id', '=', 'check_status6.reservation_id')
-      ->leftJoin(DB::raw('(select reservation_id, sum(master_total) as sogaku from bills group by reservation_id) as sogaku_master'), 'reservations.id', '=', 'sogaku_master.reservation_id');
+      ->leftJoin('venues', 'pre_reservations.venue_id', '=', 'venues.id')
+      ->leftJoin('users', 'pre_reservations.user_id', '=', 'users.id')
+      ->leftJoin('unknown_users', 'pre_reservations.id', '=', 'unknown_users.pre_reservation_id')
+      ->leftJoin('agents', 'pre_reservations.agent_id', '=', 'agents.id')
+      ->leftJoin('pre_endusers', 'pre_reservations.id', '=', 'pre_endusers.pre_reservation_id')
+      ->leftJoin('pre_bills', 'pre_reservations.id', '=', 'pre_bills.pre_reservation_id');
+
+
+    return $searchTarget;
+  }
+
+  public function SearchPreReservation($data)
+  {
+    $searchTarget = $this->PreReservationSearchTarget();
+
+    if (!empty($data['search_id']) && (int)$data['search_id'] > 0) {
+      $searchTarget->whereRaw('pre_reservations.id LIKE ? ',  ['%' . $data['search_id'] . '%']);
+    }
+
+    if (!empty($data['search_created_at'])) {
+      $targetData = explode(" ~ ", $data['search_created_at']);
+      $targetData[0] = $targetData[0] . ' 00:00:00';
+      $targetData[1] = $targetData[1] . ' 23:59:59';
+      $searchTarget->whereRaw('pre_reservations.created_at between ? AND ? ',  $targetData);
+    }
+
+    if (!empty($data['search_date'])) {
+      $targetData = explode(" ~ ", $data['search_date']);
+      $targetData[0] = $targetData[0] . ' 00:00:00';
+      $targetData[1] = $targetData[1] . ' 23:59:59';
+      $searchTarget->whereRaw('pre_reservations.reserve_date between ? AND ? ',  $targetData);
+    }
+
+    if (!empty($data['search_venue']) && (int)$data['search_venue'] !== 0) {
+      $searchTarget->whereRaw('venues.id = ? ',  [(int)$data['search_venue']]);
+    }
+
+    if (!empty($data['search_company'])) {
+      $searchTarget->whereRaw('users.company LIKE ? ',  ['%' . $data['search_company'] . '%']);
+    }
+
+    if (!empty($data['search_person'])) {
+      $searchTarget->whereRaw('concat(users.first_name,users.last_name) LIKE ? ',  ['%' . $data['search_person'] . '%']);
+    }
+
+    if (!empty($data['search_mobile'])) {
+      $searchTarget->whereRaw('users.mobile LIKE ? ',  ['%' . $data['search_mobile'] . '%']);
+    }
+
+    if (!empty($data['search_tel'])) {
+      $searchTarget->whereRaw('users.tel LIKE ? ',  ['%' . $data['search_tel'] . '%']);
+    }
+
+    if (!empty($data['search_unkown_user'])) {
+      $searchTarget->whereRaw('unknown_users.unknown_user_company LIKE ? ',  ['%' . $data['search_unkown_user'] . '%']);
+    }
+
+    if (!empty($data['search_agent']) && (int)$data['search_agent'] !== 0) {
+      $searchTarget->whereRaw('agents.id = ? ',  [(int)$data['search_agent']]);
+    }
+
+    if (!empty($data['search_end_user'])) {
+      $searchTarget->whereRaw('pre_endusers.company LIKE ? ',  ['%' . $data['search_end_user'] . '%']);
+    }
+
+
+
+
+
+
+
+
+
+
+    if (!empty($data['agent'])) {
+      $searchTarget->whereRaw('agents.id = ? ',  [$data['agent']]);
+    }
+
+    if (!empty($data['enduser_person'])) {
+      $searchTarget->whereRaw('endusers.company LIKE ? ',  ['%' . $data['enduser_person'] . '%']);
+    }
+
+    if (!empty($data['sogaku'])) {
+      $searchTarget->whereRaw('sogaku = ?', [$data['sogaku']]);
+    }
+
+    if (!empty($data['payment_limit'])) {
+      $date = explode(' ~ ', $data['payment_limit']);
+      $searchTarget = $searchTarget->where(function ($query) use ($date) {
+        $query->orWhereIn('reservations.id', DB::table('bills')->select(DB::raw('reservation_id'))->whereRaw('payment_limit between ? and ?', $date)->groupBy('reservation_id'))
+          ->orWhereIn('reservations.id', DB::table('cxls')->select(DB::raw('reservation_id'))->whereRaw('payment_limit between ? and ?', $date)->groupBy('reservation_id'));
+      });
+    }
+
+    if (!empty($data['pay_day'])) {
+      $date = explode(' ~ ', $data['pay_day']);
+      $searchTarget = $searchTarget->where(function ($query) use ($date) {
+        $query->orWhereIn('reservations.id', DB::table('bills')->select(DB::raw('reservation_id'))->whereRaw('pay_day between ? and ?', $date)->groupBy('reservation_id'))
+          ->orWhereIn('reservations.id', DB::table('cxls')->select(DB::raw('reservation_id'))->whereRaw('pay_day between ? and ?', $date)->groupBy('reservation_id'));
+      });
+    }
+
+    if (!empty($data['pay_person'])) {
+      $searchTarget = $searchTarget->where(function ($query) use ($data) {
+        $query->orWhereIn('reservations.id', DB::table('bills')->select(DB::raw('reservation_id'))->whereRaw('pay_person LIKE ?', '%' . $data['pay_person'] . '%')->groupBy('reservation_id'))
+          ->orWhereIn('reservations.id', DB::table('cxls')->select(DB::raw('reservation_id'))->whereRaw('pay_person LIKE ?', '%' . $data['pay_person'] . '%')->groupBy('reservation_id'));
+      });
+    }
+
+    if (!empty($data['attr'])) {
+      $searchTarget->whereRaw('users.attr = ?', [$data['attr']]);
+    }
+
+    if (!empty($data['day_before'])) {
+      $yesterday = new Carbon('yesterday');
+      $searchTarget->whereRaw('reservations.reserve_date = ?', [date('Y-m-d', strtotime($yesterday))]);
+    }
+    if (!empty($data['today'])) {
+      $yesterday = new Carbon('today');
+      $searchTarget->whereRaw('reservations.reserve_date = ?', [date('Y-m-d', strtotime($yesterday))]);
+    }
+    if (!empty($data['day_after'])) {
+      $yesterday = new Carbon('tomorrow');
+      $searchTarget->whereRaw('reservations.reserve_date = ?', [date('Y-m-d', strtotime($yesterday))]);
+    }
+
+
 
     return $searchTarget;
   }

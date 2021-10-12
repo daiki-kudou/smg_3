@@ -413,6 +413,6 @@ Route::namespace('Admin')->prefix('admin')->name('admin.')->group(function () {
 
     Route::get('reservations/datatable', 'DataTableController@reservation');
     Route::get('sales/datatable', 'DataTableController@sales');
-    Route::get('pre_reservations/datatable', 'DataTableController@pre_reservations');
+    // Route::get('pre_reservation/datatable', 'DataTableController@pre_reservations');
   });
 });
