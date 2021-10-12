@@ -315,14 +315,6 @@ class ReservationHelper
     return ($num + $tax);
   }
 
-
-  public static function IdFormat($num)
-  {
-    if (!empty($num)) {
-      return sprintf('%05d', $num);
-    }
-  }
-
   public static function judgeArrayEmpty($array)
   {
     $judge = array_filter($array);

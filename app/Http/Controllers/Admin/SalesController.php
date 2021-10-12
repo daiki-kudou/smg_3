@@ -17,6 +17,8 @@ use Carbon\Carbon;
 use App\Traits\PaginatorTrait;
 use App\Traits\SearchTrait;
 
+use App\Http\Helpers\ReservationHelper;
+
 class SalesController extends Controller
 {
 
@@ -49,57 +51,59 @@ class SalesController extends Controller
     // // ※参照
     // // https://blog.hrendoh.com/laravel-6-download-csv-with-streamdownload/
 
+    $header = [
+      '予約一括ID',
+      '予約ID',
+      '利用日',
+      '利用会場',
+      '顧客ID',
+      '会社・団体名',
+      '担当者氏名',
+      '仲介会社',
+      'エンドユーザー',
+      '総額',
+      '売上',
+      '売上原価',
+      '粗利',
+      '売上区分',
+      '予約状況',
+      '支払日',
+      '入金状況',
+      '振込名',
+      '顧客属性',
+      '支払期日',
+      '運営'
+    ];
+
     return response()->streamDownload(
-      function () use ($result) {
+      function () use ($result, $header) {
         $stream = fopen('php://output', 'w'); // 出力バッファをopen
         stream_filter_prepend($stream, 'convert.iconv.utf-8/cp932//TRANSLIT'); // 文字コードをShift-JISに変換
-        fputcsv($stream, [ // ヘッダー
-          '予約一括ID',
-          '予約ID',
-          '利用日',
-          '利用会場',
-          '顧客ID',
-          '会社・団体名',
-          '担当者氏名',
-          '仲介会社',
-          'エンドユーザー',
-          '総額',
-          '売上',
-          '売上原価',
-          '粗利',
-          '売上区分',
-          '予約状況',
-          '支払日',
-          '入金状況',
-          '振込名',
-          '顧客属性',
-          '支払期日',
-          '運営'
-        ]);
+        fputcsv($stream, $header);
         foreach ($result->chunk(1000) as $chunk) {
           foreach ($chunk as $r) {
             fputcsv($stream, [
-              $r->multiple_reserve_id,
-              $r->reservation_id,
+              '="' . ($r->multiple_reserve_id) . '"',
+              '="' . ($r->reservation_id) . '"',
               $r->reserve_date,
               $r->venue_name,
-              $r->user_id,
+              '="' . $r->user_id . '"',
               $r->company_name,
               $r->user_name,
               $r->agent_name,
               $r->enduser_company,
               $r->sogaku,
-              $r->bills_master_total,
-              '売上原価',
-              '粗利',
-              '売上区分',
-              '予約状況',
-              '支払日',
-              '入金状況',
-              '振込名',
-              '顧客属性',
-              '支払期日',
-              '運営'
+              $r->master_total,
+              '（売上原価）',
+              '（粗利）',
+              $r->bill_category,
+              $r->reservation_status,
+              $r->pay_day,
+              $r->paid,
+              $r->pay_person,
+              $r->attr,
+              $r->payment_limit,
+              $r->alliance_flag,
             ]);
           }
         }

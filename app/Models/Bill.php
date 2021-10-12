@@ -252,42 +252,119 @@ class Bill extends Model
   {
     $searchTarget = DB::table('reservations')
       ->select(DB::raw(
-        '
-        reservations.id as reservation_id,
-      reservations.multiple_reserve_id as multiple_reserve_id,
-      reservations.reserve_date as reserve_date,
-      reservations.enter_time as enter_time,
-      reservations.leave_time as leave_time,
-      reservations.board_flag as board_flag,
-      reservations.venue_id as venue_id,
-      reservations.eat_in as eat_in,
-      concat(venues.name_area,venues.name_bldg,venues.name_venue) as venue_name, 
-      venues.alliance_flag as alliance_flag,
-      users.company as company_name,
-      concat(users.first_name, users.last_name) as user_name, 
-      users.mobile as mobile,
-      users.tel as tel,
-      users.attr as attr,
-      users.id as user_id,
-      agents.name as agent_name,
-      agents.id as agent_id,
-      endusers.company as enduser_company,
-      bills.master_total as bills_master_total,
-      case when bills.reservation_status <= 3 then 0 else 1 end as 予約中かキャンセルか,
-      case when reservations.reserve_date >= CURRENT_DATE then 0 else 1 end as 今日以降かどうか,
-      case when reservations.reserve_date >= CURRENT_DATE then reserve_date end as 今日以降日付,
-      case when reservations.reserve_date < CURRENT_DATE then reserve_date end as 今日未満日付,
-      check_unit_2.master_unit_2 as unit_type2,
-      check_unit_3.master_unit_3 as unit_type3,
-      check_unit_4.master_unit_4 as unit_type4,
-      check_status1.status1 as reservation_status1,
-      check_status2.status2 as reservation_status2,
-      check_status3.status3 as reservation_status3,
-      check_status4.status4 as reservation_status4,
-      check_status5.status5 as reservation_status5,
-      check_status6.status6 as reservation_status6,
-      sogaku_master.sogaku
-      '
+        "
+        LPAD(reservations.id, 6, 0) as reservation_id,
+        LPAD(reservations.multiple_reserve_id,6,0) as multiple_reserve_id,
+        concat(date_format(reservations.reserve_date, '%Y/%m/%d'),
+        case 
+        when DAYOFWEEK(reservations.reserve_date) = 1 then '(日)' 
+        when DAYOFWEEK(reservations.reserve_date) = 2 then '(月)'
+        when DAYOFWEEK(reservations.reserve_date) = 3 then '(火)'
+        when DAYOFWEEK(reservations.reserve_date) = 4 then '(水)'
+        when DAYOFWEEK(reservations.reserve_date) = 5 then '(木)'
+        when DAYOFWEEK(reservations.reserve_date) = 6 then '(金)'
+        when DAYOFWEEK(reservations.reserve_date) = 7 then '(土)'
+        end
+        ) as reserve_date,
+        time_format(reservations.enter_time, '%H:%i') as enter_time,
+        time_format(reservations.leave_time, '%H:%i') as leave_time,
+        reservations.board_flag,
+        reservations.venue_id as venue_id,
+        reservations.eat_in as eat_in,
+        concat(venues.name_area,venues.name_bldg,venues.name_venue) as venue_name, 
+        case when venues.alliance_flag = 0 then '直' when venues.alliance_flag = 1 then '提' end as alliance_flag,
+        users.company as company_name,
+        concat(users.first_name, users.last_name) as user_name, 
+        users.mobile as mobile,
+        users.tel as tel,
+        case 
+        when users.attr = 1 then '一般企業' 
+        when users.attr = 2 then '上場企業'
+        when users.attr = 3 then '近隣利用'
+        when users.attr = 4 then '個人講師'
+        when users.attr = 5 then 'MLM'
+        when users.attr = 6 then 'その他'
+        end as attr,
+        LPAD(users.id,6,0) as user_id,
+        agents.name as agent_name,
+        agents.id as agent_id,
+        endusers.company as enduser_company,
+        bills.master_total as bills_master_total,
+        case when bills.category = 1 then '会場予約' when bills.category = 2 then '追加' end as bill_category,
+        bills.reservation_status as reservation_status,
+        concat(date_format(bills.pay_day, '%Y/%m/%d'),
+        case 
+        when DAYOFWEEK(reservations.reserve_date) = 1 then '(日)' 
+        when DAYOFWEEK(reservations.reserve_date) = 2 then '(月)'
+        when DAYOFWEEK(reservations.reserve_date) = 3 then '(火)'
+        when DAYOFWEEK(reservations.reserve_date) = 4 then '(水)'
+        when DAYOFWEEK(reservations.reserve_date) = 5 then '(木)'
+        when DAYOFWEEK(reservations.reserve_date) = 6 then '(金)'
+        when DAYOFWEEK(reservations.reserve_date) = 7 then '(土)'
+        end
+        ) as pay_day,
+        bills.pay_person as pay_person,
+        case
+        when bills.paid = 0 then '未入金'
+        when bills.paid = 1 then '入金済'
+        when bills.paid = 2 then '遅延'
+        when bills.paid = 3 then '入金不足'
+        when bills.paid = 4 then '入金過多'
+        when bills.paid = 5 then '次回繰越'
+        end as paid,
+        concat(date_format(bills.payment_limit, '%Y/%m/%d'),
+        case 
+        when DAYOFWEEK(bills.payment_limit) = 1 then '(日)' 
+        when DAYOFWEEK(bills.payment_limit) = 2 then '(月)'
+        when DAYOFWEEK(bills.payment_limit) = 3 then '(火)'
+        when DAYOFWEEK(bills.payment_limit) = 4 then '(水)'
+        when DAYOFWEEK(bills.payment_limit) = 5 then '(木)'
+        when DAYOFWEEK(bills.payment_limit) = 6 then '(金)'
+        when DAYOFWEEK(bills.payment_limit) = 7 then '(土)'
+        end
+        ) as payment_limit,
+        case 
+        when bills.reservation_status <= 3 then 0 else 1 end as 予約中かキャンセルか,
+        case 
+        when reservations.reserve_date >= CURRENT_DATE then 0 else 1 end as 今日以降かどうか,
+        case 
+        when reservations.reserve_date >= CURRENT_DATE then reserve_date end as 今日以降日付,
+        case 
+        when reservations.reserve_date < CURRENT_DATE then reserve_date end as 今日未満日付,
+        check_unit_2.master_unit_2 as unit_type2,
+        check_unit_3.master_unit_3 as unit_type3,
+        check_unit_4.master_unit_4 as unit_type4,
+        check_status1.status1 as reservation_status1,
+        check_status2.status2 as reservation_status2,
+        check_status3.status3 as reservation_status3,
+        check_status4.status4 as reservation_status4,
+        check_status5.status5 as reservation_status5,
+        check_status6.status6 as reservation_status6,
+        format(sogaku_master.sogaku,0) as sogaku,
+        format(bills.master_total,0) as master_total,
+        case 
+        when bills.category = 1 then '会場予約' when bills.category = 2 then '追加' end as category,
+        case 
+        when bills.reservation_status = 0 then '仮抑え'
+        when bills.reservation_status = 1 then '予約確認中'
+        when bills.reservation_status = 2 then '予約承認待ち'
+        when bills.reservation_status = 3 then '予約完了'
+        when bills.reservation_status = 4 then 'キャンセル申請中'
+        when bills.reservation_status = 5 then 'キャンセル承認待ち'
+        when bills.reservation_status = 6 then 'キャンセル'
+        end as reservation_status,
+        concat(date_format(bills.pay_day, '%Y/%m/%d'),
+        case 
+        when DAYOFWEEK(bills.pay_day) = 1 then '(日)' 
+        when DAYOFWEEK(bills.pay_day) = 2 then '(月)'
+        when DAYOFWEEK(bills.pay_day) = 3 then '(火)'
+        when DAYOFWEEK(bills.pay_day) = 4 then '(水)'
+        when DAYOFWEEK(bills.pay_day) = 5 then '(木)'
+        when DAYOFWEEK(bills.pay_day) = 6 then '(金)'
+        when DAYOFWEEK(bills.pay_day) = 7 then '(土)'
+        end
+        ) as pay_day
+      "
       ))
       ->leftJoin('bills', 'reservations.id', '=', 'bills.reservation_id')
       ->leftJoin('users', 'reservations.user_id', '=', 'users.id')
