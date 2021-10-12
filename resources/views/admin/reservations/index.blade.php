@@ -17,6 +17,12 @@
     width: 20px;
     height: 20px;
   }
+
+  #reservation_sort tbody td:nth-child(13),
+  #reservation_sort tbody td:nth-child(14),
+  #reservation_sort tbody td:nth-child(15) {
+    padding: 0 !important;
+  }
 </style>
 
 <div class="content">
@@ -207,13 +213,16 @@
     <div class="d-flex justify-content-between">
       <ul class="d-flex reservation_list">
         <li>
-          {{ Form::submit('前日予約', ['class' => 'btn more_btn','name'=>'day_before','id'=>'day_before']) }}
+          <button type="button" class="btn more_btn" id="day_before">前日予約</button>
+          {{ Form::hidden('day_before', $request->day_before) }}
         </li>
         <li>
-          {{ Form::submit('当日予約', ['class' => 'btn more_btn','name'=>'today','id'=>'today']) }}
+          <button type="button" class="btn more_btn" id="today">当日予約</button>
+          {{ Form::hidden('today', $request->today) }}
         </li>
         <li>
-          {{ Form::submit('翌日予約', ['class' => 'btn more_btn','name'=>'day_after','id'=>'day_after']) }}
+          <button type="button" class="btn more_btn" id="day_after">翌日予約</button>
+          {{ Form::hidden('day_after', $request->day_after) }}
         </li>
       </ul>
       {{ Form::close() }}
@@ -226,7 +235,7 @@
       @endif
     </div>
     <div class="table-wrap">
-      <table class="table table-bordered " id="reservation_sort" style="height: 100%;">
+      <table class="table table-bordered compact hover order-column" id="reservation_sort" style="height: 100%;">
         <thead>
           <tr class="table_row">
             <th>予約一括ID</th>
@@ -248,121 +257,121 @@
             <th class="text-center">案内板</th>
           </tr>
         </thead>
-        <style>
+
+        {{-- <style>
           .cxl_gray {
             background: gray;
           }
-        </style>
-        <tbody>
+        </style> --}}
+        {{-- <tbody>
           @foreach ($reservations as $reservation)
           <tr class="{{$reservation->cxlGray()? "cxl_gray":""}}">
-            <td>
-              {{ReservationHelper::fixId($reservation->multiple_reserve_id)}}
-            </td>
-            <td class="text-center" data-order="{{$reservation->id}}">
-              {{ReservationHelper::fixId($reservation->id)}}</td>
-            <td>
-              {{ReservationHelper::formatDate($reservation->reserve_date)}}
-            </td>
-            <td>{{ReservationHelper::formatTime($reservation->enter_time)}}
-            </td>
-            <td>{{ReservationHelper::formatTime($reservation->leave_time)}}
-            </td>
-            <td>
-              {{ReservationHelper::getVenue($reservation->venue->id)}}
-            </td>
-            <td>
-              @if ($reservation->user_id>0)
-              {{$reservation->user->company}}
-              @endif
-            </td>
-            @if ($reservation->user_id>0)
-            <td>
-              {{ReservationHelper::getPersonName($reservation->user_id)}}
-              @elseif($reservation->user_id==0)
-            <td>
-              @endif
-            </td>
-            <td>
-              @if ($reservation->user_id>0)
-              {{$reservation->user->mobile}}
-              @endif
-            </td>
-            <td>
-              @if ($reservation->user_id>0)
-              {{$reservation->user->tel}}
-              @endif
-            </td>
-            <td>
-              @if ($reservation->agent_id>0)
-              {{ReservationHelper::getAgentCompany($reservation->agent_id)}}
-              @endif
-            </td>
-            <td>
-              @if ($reservation->agent_id>0)
-              {{!empty($reservation->endusers->company)?$reservation->endusers->company:""}}
-              @endif
-            </td>
-            <td class="p-0">
-              <div style="display: table; height:100%; vertical-align: middle; width:110px">
-                @foreach ($reservation->bills as $bill)
-                <div style="display: table-row;">
-                  <div
-                    style="display: table-cell; width:100%; vertical-align: middle; {{$loop->first?"border-bottom:solid 1px #dee2e6;":($loop->last?"":"border-bottom:solid 1px #dee2e6;")}} padding:5px;">
-                    @foreach (ImageHelper::addBillsShow($bill->id) as $icon)
-                    {!!$icon!!}
-                    @endforeach
-                    {{-- ケータリング --}}
-                    @if ($loop->first)
-                    {!!ImageHelper::catering($reservation->id)!!}
-                    {!!ImageHelper::newUser($reservation->user_id,$reservation->id)!!}
-                    @endif
-                    <span style="color: white; width:1px;">{{$bill->id}}</span>
-                  </div>
-                </div>
+        <td>
+          {{ReservationHelper::fixId($reservation->multiple_reserve_id)}}
+        </td>
+        <td class="text-center" data-order="{{$reservation->id}}">
+          {{ReservationHelper::fixId($reservation->id)}}</td>
+        <td>
+          {{ReservationHelper::formatDate($reservation->reserve_date)}}
+        </td>
+        <td>{{ReservationHelper::formatTime($reservation->enter_time)}}
+        </td>
+        <td>{{ReservationHelper::formatTime($reservation->leave_time)}}
+        </td>
+        <td>
+          {{ReservationHelper::getVenue($reservation->venue->id)}}
+        </td>
+        <td>
+          @if ($reservation->user_id>0)
+          {{$reservation->user->company}}
+          @endif
+        </td>
+        @if ($reservation->user_id>0)
+        <td>
+          {{ReservationHelper::getPersonName($reservation->user_id)}}
+          @elseif($reservation->user_id==0)
+        <td>
+          @endif
+        </td>
+        <td>
+          @if ($reservation->user_id>0)
+          {{$reservation->user->mobile}}
+          @endif
+        </td>
+        <td>
+          @if ($reservation->user_id>0)
+          {{$reservation->user->tel}}
+          @endif
+        </td>
+        <td>
+          @if ($reservation->agent_id>0)
+          {{ReservationHelper::getAgentCompany($reservation->agent_id)}}
+          @endif
+        </td>
+        <td>
+          @if ($reservation->agent_id>0)
+          {{!empty($reservation->endusers->company)?$reservation->endusers->company:""}}
+          @endif
+        </td>
+        <td class="p-0">
+          <div style="display: table; height:100%; vertical-align: middle; width:110px">
+            @foreach ($reservation->bills as $bill)
+            <div style="display: table-row;">
+              <div
+                style="display: table-cell; width:100%; vertical-align: middle; {{$loop->first?"border-bottom:solid 1px #dee2e6;":($loop->last?"":"border-bottom:solid 1px #dee2e6;")}} padding:5px;">
+                @foreach (ImageHelper::addBillsShow($bill->id) as $icon)
+                {!!$icon!!}
                 @endforeach
+                @if ($loop->first)
+                {!!ImageHelper::catering($reservation->id)!!}
+                {!!ImageHelper::newUser($reservation->user_id,$reservation->id)!!}
+                @endif
+                <span style="color: white; width:1px;">{{$bill->id}}</span>
               </div>
-            </td>
-            <td class=" p-0">
-              <div style="display: table; height:100%; vertical-align: middle; width:110px">
-                @foreach ($reservation->bills as $bill)
-                <div style="display: table-row;">
-                  <div
-                    style="display: table-cell; width:100%; vertical-align: middle; {{$loop->first?"border-bottom:solid 1px #dee2e6;":($loop->last?"":"border-bottom:solid 1px #dee2e6;")}} padding:5px;">
-                    {{((int)$bill->category===1?"会場予約":"追加請求")}}
-                    <span style="color: white">{{$bill->id}}</span>
-                  </div>
-                </div>
-                @endforeach
+            </div>
+            @endforeach
+          </div>
+        </td>
+        <td class=" p-0">
+          <div style="display: table; height:100%; vertical-align: middle; width:110px">
+            @foreach ($reservation->bills as $bill)
+            <div style="display: table-row;">
+              <div
+                style="display: table-cell; width:100%; vertical-align: middle; {{$loop->first?"border-bottom:solid 1px #dee2e6;":($loop->last?"":"border-bottom:solid 1px #dee2e6;")}} padding:5px;">
+                {{((int)$bill->category===1?"会場予約":"追加請求")}}
+                <span style="color: white">{{$bill->id}}</span>
               </div>
-            </td>
-            <td class="p-0">
-              <div style="display: table; height:100%; vertical-align: middle; width:110px">
-                @foreach ($reservation->bills as $bill)
-                <div style="display: table-row;">
-                  <div
-                    style="display: table-cell; width:100%; vertical-align: middle; {{$loop->first?"border-bottom:solid 1px #dee2e6;":($loop->last?"":"border-bottom:solid 1px #dee2e6;")}} padding:5px;">
-                    {{ReservationHelper::judgeStatus($bill->reservation_status)}}
-                    <span style="color: white">{{$bill->id}}</span>
-                  </div>
-                </div>
-                @endforeach
+            </div>
+            @endforeach
+          </div>
+        </td>
+        <td class="p-0">
+          <div style="display: table; height:100%; vertical-align: middle; width:110px">
+            @foreach ($reservation->bills as $bill)
+            <div style="display: table-row;">
+              <div
+                style="display: table-cell; width:100%; vertical-align: middle; {{$loop->first?"border-bottom:solid 1px #dee2e6;":($loop->last?"":"border-bottom:solid 1px #dee2e6;")}} padding:5px;">
+                {{ReservationHelper::judgeStatus($bill->reservation_status)}}
+                <span style="color: white">{{$bill->id}}</span>
               </div>
-            </td>
-            <td class="text-center"><a href="{{ url('admin/reservations', $reservation->id) }}"
-                class="more_btn btn">詳細</a></td>
-            <td class="text-center">
-              @if ($reservation->board_flag!=0)
-              {{ Form::open(['url' => 'admin/board', 'method'=>'post', 'id'=>'', 'target'=>'_blank'])}}
-              @csrf
-              {{Form::hidden('reservation_id',$reservation->id)}}
-              {{Form::submit('表示', ['class' => 'btn more_btn']) }}
-              {{Form::close()}}
-              @endif
-            </td>
-          </tr>
-          @endforeach
-        </tbody>
+            </div>
+            @endforeach
+          </div>
+        </td>
+        <td class="text-center"><a href="{{ url('admin/reservations', $reservation->id) }}" class="more_btn btn">詳細</a>
+        </td>
+        <td class="text-center">
+          @if ($reservation->board_flag!=0)
+          {{ Form::open(['url' => 'admin/board', 'method'=>'post', 'id'=>'', 'target'=>'_blank'])}}
+          @csrf
+          {{Form::hidden('reservation_id',$reservation->id)}}
+          {{Form::submit('表示', ['class' => 'btn more_btn']) }}
+          {{Form::close()}}
+          @endif
+        </td>
+        </tr>
+        @endforeach
+        </tbody> --}}
       </table>
     </div>
   </div>
@@ -377,10 +386,36 @@
   })
 
   $(function(){
-    $('#day_before, #today, #day_after').on('click',function(){
-      $('input[type="text"]').each(function($key,$value){
-        $($value).val('');
-      })
+    function clearInputs(){
+      $('table tbody input,table tbody select').val('');
+      $('table tbody input[type="checkbox"]').prop('checked', false);
+      $('input[name="day_before"]').val('');
+      $('input[name="today"]').val('');
+      $('input[name="day_after"]').val('');
+    }
+
+    $(document).on('click','#day_before',function(){
+      clearInputs();
+      $('input[name="day_before"]').val(1);
+      $('#reserve_search').submit();
+    });
+    $(document).on('click','#today',function(){
+      clearInputs();
+      $('input[name="today"]').val(1);
+      $('#reserve_search').submit();
+    });
+    $(document).on('click','#day_after',function(){
+      clearInputs();
+      $('input[name="day_after"]').val(1);
+      $('#reserve_search').submit();
+    });
+  })
+
+  $(function(){
+    $('#m_submit').on('click',function(){
+      $('input[name="day_before"]').val('');
+      $('input[name="today"]').val('');
+      $('input[name="day_after"]').val('');
     })
   })
 
@@ -418,15 +453,74 @@
         }
     });
     $('#reservation_sort').DataTable({
+      order:[],
+      processing: true,
+      serverSide: true,
       searching: false,
       info: false,
       autowidth: false,
-      // "order": [[ 0, "desc" ]], //初期ソートソート条件
-      "columnDefs": [{ "orderable": false, "targets": [12,13,14,15,16] }],
-      "stripeClasses": [],
+      ajax: { 
+        "url": "{{ url('admin/reservations/datatable') }}", 
+        "type": "GET",
+        "data": function ( d ) {
+            return $.extend( {}, d, {
+            "search_id": $('input[name="search_id"]').val(),
+            "reserve_date": $('input[name="reserve_date"]').val(),
+            "enter_time": $('select[name="enter_time"]').val(),
+            "leave_time": $('select[name="leave_time"]').val(),
+            "venue_id": $('select[name="venue_id"]').val(),
+            "company": $('input[name="company"]').val(),
+            "person_name": $('input[name="person_name"]').val(),
+            "search_mobile": $('input[name="search_mobile"]').val(),
+            "search_tel": $('input[name="search_tel"]').val(),
+            "agent": $('select[name="agent"]').val(),
+            "enduser_person": $('input[name="enduser_person"]').val(),
+            "check_icon1": $('#checkboxPrimary1').prop('checked')?1:0,
+            "check_icon2": $('#checkboxPrimary2').prop('checked')?1:0,
+            "check_icon3": $('#checkboxPrimary3').prop('checked')?1:0,
+            "check_icon4": $('#checkboxPrimary4').prop('checked')?1:0,
+            "check_status1": $('#check_status1').prop('checked')?1:0,
+            "check_status2": $('#check_status2').prop('checked')?1:0,
+            "check_status3": $('#check_status3').prop('checked')?1:0,
+            "check_status4": $('#check_status4').prop('checked')?1:0,
+            "check_status5": $('#check_status5').prop('checked')?1:0,
+            "check_status6": $('#check_status6').prop('checked')?1:0,
+            "day_before": $('input[name="day_before"]').val(),
+            "today": $('input[name="today"]').val(),
+            "day_after": $('input[name="day_after"]').val(),
+          } );
+        }
+      },
+      columns: [
+        { data: 'multiple_reserve_id' },
+        { data: 'reservation_id' },
+        { data: 'reserve_date' },
+        { data: 'enter_time' },
+        { data: 'leave_time' },
+        { data: 'venue_name' },
+        { data: 'company_name' },
+        { data: 'user_name' },
+        { data: 'mobile' },
+        { data: 'tel' },
+        { data: 'agent_name' },
+        { data: 'enduser_company' },
+        { data: 'icon' },
+        { data: 'category' },
+        { data: 'reservation_status' },
+        { data: 'details' },
+        { data: 'board' },
+      ],
+      columnDefs: [
+        {targets: 12, sortable: false, orderable: false},
+        {targets: 13, sortable: false, orderable: false},
+        {targets: 14, sortable: false, orderable: false},
+        {targets: 15, sortable: false, orderable: false},
+        {targets: 16, sortable: false, orderable: false},
+      ],
      });
     });
 </script>
+
 
 
 <script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>

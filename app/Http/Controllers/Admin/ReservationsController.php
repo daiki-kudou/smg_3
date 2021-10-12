@@ -51,26 +51,33 @@ class ReservationsController extends Controller
     $venues = Venue::all()->toArray();
     $agents = Agent::all()->toArray();
     $data = $request->except('_token');
-    // 検索と初期並び設定
-    if (count(array_filter($data)) !== 0) {
-      // 検索あり
-      $reservations = new Reservation;
-      $reservationsWithOrder = array_unique($reservations->search_item($data)->pluck('reservation_id')->toArray());
-      $ids_order = !empty(array_values($reservationsWithOrder)) ? implode(',', array_values($reservationsWithOrder)) : "''";
-      $reservations = Reservation::whereIn("id", $reservationsWithOrder)->orderByRaw("FIELD(id, $ids_order)")->get();
-    } else {
-      // 検索なし
-      $reservations = new Reservation;
-      $reservationsWithOrder = array_unique($reservations
-        ->search_item($data)
-        ->orderByRaw('予約中かキャンセルか,今日以降かどうか,今日以降日付,今日未満日付 desc')
-        ->pluck('reservation_id')
-        ->toArray());
-      $ids_order = !empty(array_values($reservationsWithOrder)) ? implode(',', array_values($reservationsWithOrder)) : "''";
-      $reservations = Reservation::whereIn("id", $reservationsWithOrder)->with(['bills', 'venue', 'user'])->orderByRaw("FIELD(id, $ids_order)")->get();
-    }
-    return view('admin.reservations.index', compact('reservations', 'venues', 'agents', 'request', 'counter'));
+
+
+    // // 検索と初期並び設定
+    // if (count(array_filter($data)) !== 0) {
+    //   // 検索あり
+    //   $reservations = new Reservation;
+    //   $reservationsWithOrder = array_unique($reservations->search_item($data)->pluck('reservation_id')->toArray());
+    //   $ids_order = !empty(array_values($reservationsWithOrder)) ? implode(',', array_values($reservationsWithOrder)) : "''";
+    //   $reservations = Reservation::whereIn("id", $reservationsWithOrder)->orderByRaw("FIELD(id, $ids_order)")->get();
+    // } else {
+    //   // 検索なし
+    //   $reservations = new Reservation;
+    //   $reservationsWithOrder = array_unique($reservations
+    //     ->search_item($data)
+    //     ->orderByRaw('予約中かキャンセルか,今日以降かどうか,今日以降日付,今日未満日付 desc')
+    //     ->pluck('reservation_id')
+    //     ->toArray());
+    //   $ids_order = !empty(array_values($reservationsWithOrder)) ? implode(',', array_values($reservationsWithOrder)) : "''";
+    //   $reservations = Reservation::whereIn("id", $reservationsWithOrder)->with(['bills', 'venue', 'user'])->orderByRaw("FIELD(id, $ids_order)")->get();
+    // }
+
+    return view('admin.reservations.index', compact('venues', 'agents', 'request', 'counter'));
   }
+
+
+
+
 
 
   /** ajax 備品orサービス取得*/

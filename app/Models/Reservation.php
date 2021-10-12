@@ -278,7 +278,7 @@ class Reservation extends Model implements PresentableInterface
     return $this->hasOne(Enduser::class);
   }
 
-  public function search_item($data)
+  public function SearchReservation($data)
   {
     $searchTarget = $this->ReservationSearchTarget();
 
@@ -293,13 +293,13 @@ class Reservation extends Model implements PresentableInterface
     }
 
     if (!empty($data['search_id']) && (int)$data['search_id'] > 0) {
-      for ($i = 0; $i < strlen($data['search_id']); $i++) {
-        if ((int)$data['search_id'][$i] !== 0) {
-          $id = strstr($data['search_id'], $data['search_id'][$i]);
-          break;
-        }
-      }
-      $searchTarget->whereRaw('reservations.id LIKE ? ',  ['%' . $id . '%']);
+      // for ($i = 0; $i < strlen($data['search_id']); $i++) {
+      //   if ((int)$data['search_id'][$i] !== 0) {
+      //     $id = strstr($data['search_id'], $data['search_id'][$i]);
+      //     break;
+      //   }
+      // }
+      $searchTarget->whereRaw('reservations.id LIKE ? ',  ['%' . $data['search_id'] . '%']);
     }
 
     if (!empty($data['user_id']) && (int)$data['user_id'] > 0) {
@@ -353,106 +353,129 @@ class Reservation extends Model implements PresentableInterface
       $searchTarget->whereRaw('endusers.company LIKE ? ',  ['%' . $data['enduser_person'] . '%']);
     }
 
-    if (!empty($data['amount'])) {
-      $searchTarget->havingRaw('総額 = ?', [$data['amount']]);
+    if (!empty($data['sogaku'])) {
+      $searchTarget->whereRaw('sogaku = ?', [$data['sogaku']]);
     }
 
     if (!empty($data['payment_limit'])) {
-      $date = explode(' - ', $data['payment_limit']);
-      $searchTarget->whereRaw('bills.payment_limit between ? AND ?', $date);
+      $date = explode(' ~ ', $data['payment_limit']);
+      $searchTarget = $searchTarget->where(function ($query) use ($date) {
+        $query->orWhereIn('reservations.id', DB::table('bills')->select(DB::raw('reservation_id'))->whereRaw('payment_limit between ? and ?', $date)->groupBy('reservation_id'))
+          ->orWhereIn('reservations.id', DB::table('cxls')->select(DB::raw('reservation_id'))->whereRaw('payment_limit between ? and ?', $date)->groupBy('reservation_id'));
+      });
     }
 
     if (!empty($data['pay_day'])) {
-      $date = explode(' - ', $data['pay_day']);
-      $searchTarget->whereRaw('bills.pay_day between ? AND ?', $date);
+      $date = explode(' ~ ', $data['pay_day']);
+      $searchTarget = $searchTarget->where(function ($query) use ($date) {
+        $query->orWhereIn('reservations.id', DB::table('bills')->select(DB::raw('reservation_id'))->whereRaw('pay_day between ? and ?', $date)->groupBy('reservation_id'))
+          ->orWhereIn('reservations.id', DB::table('cxls')->select(DB::raw('reservation_id'))->whereRaw('pay_day between ? and ?', $date)->groupBy('reservation_id'));
+      });
     }
 
     if (!empty($data['pay_person'])) {
-      $searchTarget->whereRaw('bills.pay_person LIKE ?', ['%' . $data['pay_person'] . '%']);
+      $searchTarget = $searchTarget->where(function ($query) use ($data) {
+        $query->orWhereIn('reservations.id', DB::table('bills')->select(DB::raw('reservation_id'))->whereRaw('pay_person LIKE ?', '%' . $data['pay_person'] . '%')->groupBy('reservation_id'))
+          ->orWhereIn('reservations.id', DB::table('cxls')->select(DB::raw('reservation_id'))->whereRaw('pay_person LIKE ?', '%' . $data['pay_person'] . '%')->groupBy('reservation_id'));
+      });
     }
 
     if (!empty($data['attr'])) {
       $searchTarget->whereRaw('users.attr = ?', [$data['attr']]);
     }
 
+    if (!empty($data['day_before'])) {
+      $yesterday = new Carbon('yesterday');
+      $searchTarget->whereRaw('reservations.reserve_date = ?', [date('Y-m-d', strtotime($yesterday))]);
+    }
+    if (!empty($data['today'])) {
+      $yesterday = new Carbon('today');
+      $searchTarget->whereRaw('reservations.reserve_date = ?', [date('Y-m-d', strtotime($yesterday))]);
+    }
+    if (!empty($data['day_after'])) {
+      $yesterday = new Carbon('tomorrow');
+      $searchTarget->whereRaw('reservations.reserve_date = ?', [date('Y-m-d', strtotime($yesterday))]);
+    }
+
+
     // チェックボックス
     $searchTarget = $searchTarget->where(function ($query) use ($data) {
       if (!empty($data['alliance0'])) {
-        $query->orWhereRaw('venues.alliance_flag = ? ', [0]);
+        $query->orWhereRaw('alliance_flag = ? ', [0]);
       }
       if (!empty($data['alliance1'])) {
-        $query->orWhereRaw('venues.alliance_flag = ? ', [1]);
+        $query->orWhereRaw('alliance_flag = ? ', [1]);
       }
     });
 
     // アイコン
-    if (!empty($data['check_icon1'])) {
-      $searchTarget->orWhereRaw('breakdowns2.unit_type = ? ',  [$data['check_icon1']]);
+    if (!empty($data['check_icon1']) && (int)$data['check_icon1'] === 1) {
+      $searchTarget->orWhereRaw('check_unit_2.master_unit_2 >= ? ', [1]);
     }
-    if (!empty($data['check_icon2'])) {
-      $searchTarget->orWhereRaw('breakdowns3.unit_type = ? ',  [$data['check_icon2']]);
+    if (!empty($data['check_icon2']) && (int)$data['check_icon2'] === 1) {
+      $searchTarget->orWhereRaw('check_unit_3.master_unit_3 >= ? ', [1]);
     }
-    if (!empty($data['check_icon3'])) {
-      $searchTarget->orWhereRaw('breakdowns4.unit_type = ? ',  [$data['check_icon3']]);
+    if (!empty($data['check_icon3']) && (int)$data['check_icon3'] === 1) {
+      $searchTarget->orWhereRaw('check_unit_4.master_unit_4 >= ? ', [1]);
     }
-    if (!empty($data['check_icon4'])) {
+    if (!empty($data['check_icon4']) && (int)$data['check_icon4'] === 1) {
       $searchTarget->orWhereRaw('reservations.eat_in = ? ',  [1]);
     }
 
     // チェックボックス
     $searchTarget = $searchTarget->where(function ($query) use ($data) {
-      if (!empty($data['check_status1'])) {
-        $query->orWhereRaw('bills.reservation_status = ? ', [1]);
+      if (!empty($data['check_status1']) && (int)$data['check_status1'] === 1) {
+        $query->orWhereRaw('check_status1.status1 >= ? ', [1]);
       }
-      if (!empty($data['check_status2'])) {
-        $query->orWhereRaw('bills.reservation_status = ? ',  [2]);
+      if (!empty($data['check_status2']) && (int)$data['check_status2'] === 1) {
+        $query->orWhereRaw('check_status2.status2 >= ? ', [1]);
       }
-      if (!empty($data['check_status3'])) {
-        $query->orWhereRaw('bills.reservation_status = ? ',  [3]);
+      if (!empty($data['check_status3']) && (int)$data['check_status3'] === 1) {
+        $query->orWhereRaw('check_status3.status3 >= ? ', [1]);
       }
-      if (!empty($data['check_status4'])) {
-        $query->orWhereRaw('bills.reservation_status = ? ',  [4]);
+      if (!empty($data['check_status4']) && (int)$data['check_status4'] === 1) {
+        $query->orWhereRaw('check_status4.status4 >= ? ', [1]);
       }
-      if (!empty($data['check_status5'])) {
-        $query->orWhereRaw('bills.reservation_status = ? ',  [5]);
+      if (!empty($data['check_status5']) && (int)$data['check_status5'] === 1) {
+        $query->orWhereRaw('check_status5.status5 >= ? ', [1]);
       }
-      if (!empty($data['check_status6'])) {
-        $query->orWhereRaw('bills.reservation_status = ? ',  [6]);
+      if (!empty($data['check_status6']) && (int)$data['check_status6'] === 1) {
+        $query->orWhereRaw('check_status6.status6 >= ? ', [1]);
       }
     });
 
     // チェックボックス 売上区分
     $searchTarget = $searchTarget->where(function ($query) use ($data) {
       if (!empty($data['sales1'])) {
-        $query->orWhereRaw('bill_count_m.bill_count = ? ', [1]);
+        $query->orWhereIn('reservations.id', DB::table('bills')->select(DB::raw('reservation_id'))->whereRaw('category = ?', [1])->groupBy('reservation_id'));
       }
       if (!empty($data['sales2'])) {
-        $query->orWhereRaw('cxl_count_m.cxl_count >= ? ', [1]);
+        $query->orWhereIn('reservations.id', DB::table('cxls')->select(DB::raw('reservation_id'))->groupBy('reservation_id'));
       }
       if (!empty($data['sales3'])) {
-        $query->orWhereRaw('bill_count_m.bill_count > ? ', [1]);
+        $query->orWhereIn('reservations.id', DB::table('bills')->select(DB::raw('reservation_id'))->whereRaw('category = ?', [2])->groupBy('reservation_id'));
       }
     });
 
     // チェックボックス 入金状況
     $searchTarget = $searchTarget->where(function ($query) use ($data) {
       if (!empty($data['payment_status0'])) {
-        $query->orWhereRaw('bills.paid = ? ', [0]);
+        $query->orWhereIn('reservations.id', DB::table('bills')->select(DB::raw('reservation_id'))->whereRaw('paid = ?', [0])->groupBy('reservation_id'));
       }
       if (!empty($data['payment_status1'])) {
-        $query->orWhereRaw('bills.paid = ? ', [1]);
+        $query->orWhereIn('reservations.id', DB::table('bills')->select(DB::raw('reservation_id'))->whereRaw('paid = ?', [1])->groupBy('reservation_id'));
       }
       if (!empty($data['payment_status2'])) {
-        $query->orWhereRaw('bills.paid = ? ', [2]);
+        $query->orWhereIn('reservations.id', DB::table('bills')->select(DB::raw('reservation_id'))->whereRaw('paid = ?', [2])->groupBy('reservation_id'));
       }
       if (!empty($data['payment_status3'])) {
-        $query->orWhereRaw('bills.paid = ? ', [3]);
+        $query->orWhereIn('reservations.id', DB::table('bills')->select(DB::raw('reservation_id'))->whereRaw('paid = ?', [3])->groupBy('reservation_id'));
       }
       if (!empty($data['payment_status4'])) {
-        $query->orWhereRaw('bills.paid = ? ', [4]);
+        $query->orWhereIn('reservations.id', DB::table('bills')->select(DB::raw('reservation_id'))->whereRaw('paid = ?', [4])->groupBy('reservation_id'));
       }
       if (!empty($data['payment_status5'])) {
-        $query->orWhereRaw('bills.paid = ? ', [5]);
+        $query->orWhereIn('reservations.id', DB::table('bills')->select(DB::raw('reservation_id'))->whereRaw('paid = ?', [5])->groupBy('reservation_id'));
       }
     });
 
@@ -482,44 +505,43 @@ class Reservation extends Model implements PresentableInterface
     });
 
     // 売上請求一覧用のフリーワード検索
-    if (!empty($data['sales_search_box'])) {
-      if (!empty($data['free_word'])) {
-        if (preg_match('/^[0-9!,]+$/', $data['free_word'])) {
-          //数字の場合検索
-          $searchTarget = $searchTarget->where(function ($query) use ($data) {
-            if (!empty($data['free_word'])) {
-              for ($i = 0; $i < strlen($data['free_word']); $i++) {
-                if ((int)$data['free_word'][$i] !== 0) {
-                  $id = strstr($data['free_word'], $data['free_word'][$i]);
-                  break;
-                }
-              }
-              $query->orWhereRaw('reservations.id LIKE ? ', ['%' . $id . '%']); //予約ID
-              $query->orWhereRaw('reservations.multiple_reserve_id LIKE ? ', ['%' . $id . '%']); //一括ID
-              $query->orWhereRaw('users.id LIKE ? ', ['%' . $id . '%']); //顧客ID
-            }
-          });
-        } else {
-          //文字列の場合
-          $searchTarget = $searchTarget->where(function ($query) use ($data) {
-            if (!empty($data['free_word'])) {
-              $query->orWhereRaw('reservations.reserve_date = ? ', [$data['free_word']]); //利用日
-              $query->orWhereRaw('users.company LIKE ? ', ['%' . $data['free_word'] . '%']); //会社名・団体名
-              $query->orWhereRaw('concat(users.first_name,users.last_name) LIKE ? ',  ['%' . $data['free_word'] . '%']); //担当者氏名
-              $query->orWhereRaw('endusers.company LIKE ? ',  ['%' . $data['free_word'] . '%']); //エンドユーザー
-              $query->orWhereRaw('bills.payment_limit = ? ',  [$data['free_word']]); //支払い期日
-              $query->orWhereRaw('bills.pay_day = ? ',  [$data['free_word']]); //支払い日
-              $query->orWhereRaw('bills.pay_person = ? ',  [$data['free_word']]); //振込人名
-              $query->orWhereRaw('concat(venues.name_area,venues.name_bldg,venues.name_venue) LIKE ? ',  ['%' . $data['free_word'] . '%']);
-              $query->orWhereRaw('agents.name LIKE ? ',  ['%' . $data['free_word'] . '%']); //エンドユーザー
+    // if (!empty($data['sales_search_box'])) {
+    //   if (!empty($data['free_word'])) {
+    //     if (preg_match('/^[0-9!,]+$/', $data['free_word'])) {
+    //       //数字の場合検索
+    //       $searchTarget = $searchTarget->where(function ($query) use ($data) {
+    //         if (!empty($data['free_word'])) {
+    //           for ($i = 0; $i < strlen($data['free_word']); $i++) {
+    //             if ((int)$data['free_word'][$i] !== 0) {
+    //               $id = strstr($data['free_word'], $data['free_word'][$i]);
+    //               break;
+    //             }
+    //           }
+    //           $query->orWhereRaw('reservations.id LIKE ? ', ['%' . $id . '%']); //予約ID
+    //           $query->orWhereRaw('reservations.multiple_reserve_id LIKE ? ', ['%' . $id . '%']); //一括ID
+    //           $query->orWhereRaw('users.id LIKE ? ', ['%' . $id . '%']); //顧客ID
+    //         }
+    //       });
+    //     } else {
+    //       //文字列の場合
+    //       $searchTarget = $searchTarget->where(function ($query) use ($data) {
+    //         if (!empty($data['free_word'])) {
+    //           $query->orWhereRaw('reservations.reserve_date = ? ', [$data['free_word']]); //利用日
+    //           $query->orWhereRaw('users.company LIKE ? ', ['%' . $data['free_word'] . '%']); //会社名・団体名
+    //           $query->orWhereRaw('concat(users.first_name,users.last_name) LIKE ? ',  ['%' . $data['free_word'] . '%']); //担当者氏名
+    //           $query->orWhereRaw('endusers.company LIKE ? ',  ['%' . $data['free_word'] . '%']); //エンドユーザー
+    //           $query->orWhereRaw('bills.payment_limit = ? ',  [$data['free_word']]); //支払い期日
+    //           $query->orWhereRaw('bills.pay_day = ? ',  [$data['free_word']]); //支払い日
+    //           $query->orWhereRaw('bills.pay_person = ? ',  [$data['free_word']]); //振込人名
+    //           $query->orWhereRaw('concat(venues.name_area,venues.name_bldg,venues.name_venue) LIKE ? ',  ['%' . $data['free_word'] . '%']);
+    //           $query->orWhereRaw('agents.name LIKE ? ',  ['%' . $data['free_word'] . '%']); //エンドユーザー
+    //         }
+    //       });
+    //     }
+    //   }
+    // }
 
-            }
-          });
-        }
-      }
-    }
-
-    $searchTarget->orderByRaw('予約中かキャンセルか,今日以降かどうか,今日以降日付,今日未満日付 desc');
+    // $searchTarget->orderByRaw('予約中かキャンセルか,今日以降かどうか,今日以降日付,今日未満日付 desc');
 
     return $searchTarget;
   }
@@ -530,62 +552,59 @@ class Reservation extends Model implements PresentableInterface
    */
   public function ReservationSearchTarget()
   {
-    $searchTarget = DB::table('bills')
+    $searchTarget = DB::table('reservations')
       ->select(DB::raw(
         '
-      agents.id as agent_id,
-      endusers.company as enduser,
-      reservations.id as reservation_id,
+        distinct reservations.id as reservation_id,
+      reservations.multiple_reserve_id as multiple_reserve_id,
       reservations.reserve_date as reserve_date,
       reservations.enter_time as enter_time,
       reservations.leave_time as leave_time,
+      reservations.board_flag as board_flag,
       reservations.venue_id as venue_id,
       reservations.eat_in as eat_in,
-      reservations.multiple_reserve_id as multiple_reserve_id,
-      venues.alliance_flag as alliance_flag, 
-      concat(users.first_name,users.last_name) as user_name,
-      users.id as user_id,
-      users.company as company,
+      concat(venues.name_area,venues.name_bldg,venues.name_venue) as venue_name, 
+      venues.alliance_flag as alliance_flag,
+      users.company as company_name,
+      concat(users.first_name, users.last_name) as user_name, 
       users.mobile as mobile,
       users.tel as tel,
       users.attr as attr,
-      breakdowns2.unit_type as unit_type2,
-      breakdowns3.unit_type as unit_type3,
-      breakdowns4.unit_type as unit_type4,
-      concat(venues.name_area,venues.name_bldg,venues.name_venue) as venue_name,
-      bills.payment_limit as payment_limit,
-      bills.paid as paid,
-      bills.pay_day as pay_day,
-      bills.pay_person as pay_person,
-      bills.master_total as master_total,
-      bills.id as bill_id,
-      bills.reservation_status as bill_reserve_status,
-      cxls.master_total as cxls_master_total,
-      master_total.sum as master_total_sum,
-      bill_count_m.bill_count,
-      cxl_count_m.cxl_count,
-      case when cxls.master_total IS NULL then master_total.sum else cxls.master_total end as 総額,
+      users.id as user_id,
+      agents.name as agent_name,
+      agents.id as agent_id,
+      endusers.company as enduser_company,
       case when bills.reservation_status <= 3 then 0 else 1 end as 予約中かキャンセルか,
       case when reservations.reserve_date >= CURRENT_DATE then 0 else 1 end as 今日以降かどうか,
       case when reservations.reserve_date >= CURRENT_DATE then reserve_date end as 今日以降日付,
-      case when reservations.reserve_date < CURRENT_DATE then reserve_date end as 今日未満日付
+      case when reservations.reserve_date < CURRENT_DATE then reserve_date end as 今日未満日付,
+      check_unit_2.master_unit_2 as unit_type2,
+      check_unit_3.master_unit_3 as unit_type3,
+      check_unit_4.master_unit_4 as unit_type4,
+      check_status1.status1 as reservation_status1,
+      check_status2.status2 as reservation_status2,
+      check_status3.status3 as reservation_status3,
+      check_status4.status4 as reservation_status4,
+      check_status5.status5 as reservation_status5,
+      check_status6.status6 as reservation_status6,
+      sogaku_master.sogaku
       '
       ))
-      ->leftJoin('reservations', 'bills.reservation_id', '=', 'reservations.id')
+      ->leftJoin('bills', 'reservations.id', '=', 'bills.reservation_id')
       ->leftJoin('users', 'reservations.user_id', '=', 'users.id')
       ->leftJoin('agents', 'reservations.agent_id', '=', 'agents.id')
-      ->leftJoin('endusers', 'bills.reservation_id', '=', 'endusers.reservation_id')
-      ->leftJoin(DB::raw('(select bill_id, unit_type, unit_item from breakdowns where unit_type = 2) as breakdowns2'), 'bills.id', '=', 'breakdowns2.bill_id')
-      ->leftJoin(DB::raw('(select bill_id, unit_type, unit_item from breakdowns where unit_type = 3) as breakdowns3'), 'bills.id', '=', 'breakdowns3.bill_id')
-      ->leftJoin(DB::raw('(select bill_id, unit_type, unit_item from breakdowns where unit_type = 4) as breakdowns4'), 'bills.id', '=', 'breakdowns4.bill_id')
+      ->leftJoin('endusers', 'reservations.id', '=', 'endusers.reservation_id')
       ->leftJoin('venues', 'reservations.venue_id', '=', 'venues.id')
-      ->leftJoin('cxls', 'reservations.id', '=', 'cxls.reservation_id')
-      ->leftJoin(DB::raw('(select reservation_id, SUM(master_total) as sum FROM bills group by reservation_id) AS master_total'), 'master_total.reservation_id', '=', 'bills.reservation_id')
-      ->leftJoin(DB::raw('(select reservation_id, count(id) as bill_count from bills group by reservation_id) as bill_count_m'), 'bills.reservation_id', '=', 'bill_count_m.reservation_id')
-      ->leftJoin(DB::raw('(select reservation_id, count(id) as cxl_count from cxls group by reservation_id) as cxl_count_m'), 'bills.reservation_id', '=', 'cxl_count_m.reservation_id');
-
-
-    // ->orderByRaw('予約中かキャンセルか,今日以降かどうか,今日以降日付,今日未満日付 desc');
+      ->leftJoin(DB::raw('(select reservation_id , count(breakdowns.count_unit) as master_unit_2  from bills left join (select bill_id, count(unit_type) as count_unit from breakdowns where unit_type=2 group by bill_id) as breakdowns on bills.id=breakdowns.bill_id group by reservation_id) as check_unit_2'), 'reservations.id', '=', 'check_unit_2.reservation_id')
+      ->leftJoin(DB::raw('(select reservation_id , count(breakdowns.count_unit) as master_unit_3  from bills left join (select bill_id, count(unit_type) as count_unit from breakdowns where unit_type=3 group by bill_id) as breakdowns on bills.id=breakdowns.bill_id group by reservation_id) as check_unit_3'), 'reservations.id', '=', 'check_unit_3.reservation_id')
+      ->leftJoin(DB::raw('(select reservation_id , count(breakdowns.count_unit) as master_unit_4  from bills left join (select bill_id, count(unit_type) as count_unit from breakdowns where unit_type=4 group by bill_id) as breakdowns on bills.id=breakdowns.bill_id group by reservation_id) as check_unit_4'), 'reservations.id', '=', 'check_unit_4.reservation_id')
+      ->leftJoin(DB::raw('(select reservation_id, count(reservation_status) as status1 from bills where reservation_status = 1  group by reservation_id) as check_status1'), 'reservations.id', '=', 'check_status1.reservation_id')
+      ->leftJoin(DB::raw('(select reservation_id, count(reservation_status) as status2 from bills where reservation_status = 2  group by reservation_id) as check_status2'), 'reservations.id', '=', 'check_status2.reservation_id')
+      ->leftJoin(DB::raw('(select reservation_id, count(reservation_status) as status3 from bills where reservation_status = 3  group by reservation_id) as check_status3'), 'reservations.id', '=', 'check_status3.reservation_id')
+      ->leftJoin(DB::raw('(select reservation_id, count(reservation_status) as status4 from bills where reservation_status = 4  group by reservation_id) as check_status4'), 'reservations.id', '=', 'check_status4.reservation_id')
+      ->leftJoin(DB::raw('(select reservation_id, count(reservation_status) as status5 from bills where reservation_status = 5  group by reservation_id) as check_status5'), 'reservations.id', '=', 'check_status5.reservation_id')
+      ->leftJoin(DB::raw('(select reservation_id, count(reservation_status) as status6 from bills where reservation_status = 6  group by reservation_id) as check_status6'), 'reservations.id', '=', 'check_status6.reservation_id')
+      ->leftJoin(DB::raw('(select reservation_id, sum(master_total) as sogaku from bills group by reservation_id) as sogaku_master'), 'reservations.id', '=', 'sogaku_master.reservation_id');
 
     return $searchTarget;
   }

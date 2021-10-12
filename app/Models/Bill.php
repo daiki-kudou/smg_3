@@ -167,387 +167,6 @@ class Bill extends Model
   }
 
 
-
-  // public function ReserveStoreSessionBreakdown($request, $sessionName)
-  // {
-  //   $discount_info = $request->session()->get($sessionName);
-
-  //   DB::transaction(function () use ($request, $discount_info) {
-  //     // 会場料金
-  //     if ($discount_info['venue_price'] != "") {
-  //       $v_cnt = $this->preg($discount_info, "venue_breakdown_item");
-  //       for ($i = 0; $i < $v_cnt; $i++) {
-  //         $this->breakdowns()->create([
-  //           'unit_item' => $discount_info['venue_breakdown_item' . $i],
-  //           'unit_cost' => $discount_info['venue_breakdown_cost' . $i],
-  //           'unit_count' => $discount_info['venue_breakdown_count' . $i],
-  //           'unit_subtotal' => $discount_info['venue_breakdown_subtotal' . $i],
-  //           'unit_type' => 1,
-  //         ]);
-  //       }
-  //     }
-
-  //     // 会場割引
-  //     if (!empty($discount_info['venue_breakdown_discount_item'])) {
-  //       $this->breakdowns()->create([
-  //         'unit_item' => $discount_info['venue_breakdown_discount_item'],
-  //         'unit_cost' => $discount_info['venue_breakdown_discount_cost'],
-  //         'unit_count' => $discount_info['venue_breakdown_discount_count'],
-  //         'unit_subtotal' => $discount_info['venue_breakdown_discount_subtotal'],
-  //         'unit_type' => 1,
-  //       ]);
-  //     }
-
-  //     // 備品等料金
-  //     if (!empty($discount_info['equipment_price'])) {
-  //       $e_cnt = $this->preg($discount_info, "equipment_breakdown_item");
-  //       if ($e_cnt != 0) {
-  //         for ($equ = 0; $equ < $e_cnt; $equ++) {
-  //           $this->breakdowns()->create([
-  //             'unit_item' => $discount_info['equipment_breakdown_item' . $equ],
-  //             'unit_cost' => $discount_info['equipment_breakdown_cost' . $equ],
-  //             'unit_count' => $discount_info['equipment_breakdown_count' . $equ],
-  //             'unit_subtotal' => $discount_info['equipment_breakdown_subtotal' . $equ],
-  //             'unit_type' => 2,
-  //           ]);
-  //         }
-  //       }
-  //     }
-  //     // サービス料金
-  //     $s_cnt = $this->preg($discount_info, "services_breakdown_item");
-  //     if ($s_cnt != 0) {
-  //       for ($ser = 0; $ser < $s_cnt; $ser++) {
-  //         $this->breakdowns()->create([
-  //           'unit_item' => $discount_info['services_breakdown_item' . $ser],
-  //           'unit_cost' => $discount_info['services_breakdown_cost' . $ser],
-  //           'unit_count' => $discount_info['services_breakdown_count' . $ser],
-  //           'unit_subtotal' => $discount_info['services_breakdown_subtotal' . $ser],
-  //           'unit_type' => 3,
-  //         ]);
-  //       }
-  //     }
-
-  //     // 備品＋サービス割引
-  //     if (!empty($discount_info['equipment_breakdown_discount_item'])) {
-  //       $this->breakdowns()->create([
-  //         'unit_item' => $discount_info['equipment_breakdown_discount_item'],
-  //         'unit_cost' => $discount_info['equipment_breakdown_discount_cost'],
-  //         'unit_count' => $discount_info['equipment_breakdown_discount_count'],
-  //         'unit_subtotal' => $discount_info['equipment_breakdown_discount_subtotal'],
-  //         'unit_type' => 3,
-  //       ]);
-  //     }
-  //     // 荷物預かり
-  //     if (!empty($discount_info['luggage_item'])) {
-  //       $this->breakdowns()->create([
-  //         'unit_item' => $discount_info['luggage_item'],
-  //         'unit_cost' => $discount_info['luggage_cost'],
-  //         'unit_count' => 1,
-  //         'unit_subtotal' => $discount_info['luggage_subtotal'],
-  //         'unit_type' => 3,
-  //       ]);
-  //     }
-
-  //     // レイアウト 新規作成時の挙動
-  //     if (!empty($discount_info['layout_prepare_item'])) {
-  //       $this->breakdowns()->create([
-  //         'unit_item' => $discount_info['layout_prepare_item'],
-  //         'unit_cost' => $discount_info['layout_prepare_cost'],
-  //         'unit_count' => 1,
-  //         'unit_subtotal' => $discount_info['layout_prepare_subtotal'],
-  //         'unit_type' => 4,
-  //       ]);
-  //     }
-  //     if (!empty($discount_info['layout_clean_item'])) {
-  //       $this->breakdowns()->create([
-  //         'unit_item' => $discount_info['layout_clean_item'],
-  //         'unit_cost' => $discount_info['layout_clean_cost'],
-  //         'unit_count' => 1,
-  //         'unit_subtotal' => $discount_info['layout_clean_subtotal'],
-  //         'unit_type' => 4,
-  //       ]);
-  //     }
-  //     // レイアウト追加請求書の挙動
-
-  //     if (empty($discount_info['layout_prepare_item']) && empty($discount_info['layout_clean_itemaaaaa'])) {
-  //       if (!empty($discount_info['layout_price'])) {
-  //         $l_cnt = $this->preg($discount_info, "layout_breakdown_item");
-  //         for ($lay = 0; $lay < $l_cnt; $lay++) {
-  //           $this->breakdowns()->create([
-  //             'unit_item' => $discount_info['layout_breakdown_item' . $lay],
-  //             'unit_cost' => $discount_info['layout_breakdown_cost' . $lay],
-  //             'unit_count' => $discount_info['layout_breakdown_count' . $lay],
-  //             'unit_subtotal' => $discount_info['layout_breakdown_subtotal' . $lay],
-  //             'unit_type' => 4,
-  //           ]);
-  //         }
-  //       }
-  //     }
-
-  //     // レイアウト割引
-  //     if (!empty($discount_info['layout_breakdown_discount_item'])) {
-  //       $this->breakdowns()->create([
-  //         'unit_item' => $discount_info['layout_breakdown_discount_item'],
-  //         'unit_cost' => $discount_info['layout_breakdown_discount_cost'],
-  //         'unit_count' => $discount_info['layout_breakdown_discount_count'],
-  //         'unit_subtotal' => $discount_info['layout_breakdown_discount_subtotal'],
-  //         'unit_type' => 4,
-  //       ]);
-  //     }
-
-  //     // その他
-  //     $o_cnt = $this->preg($discount_info, "others_breakdown_item");
-  //     if ($o_cnt != 0) {
-  //       for ($ohr = 0; $ohr < $o_cnt; $ohr++) {
-  //         $this->breakdowns()->create([
-  //           'unit_item' => $discount_info['others_breakdown_item' . $ohr],
-  //           'unit_cost' => $discount_info['others_breakdown_cost' . $ohr],
-  //           'unit_count' => $discount_info['others_breakdown_count' . $ohr],
-  //           'unit_subtotal' => $discount_info['others_breakdown_subtotal' . $ohr],
-  //           'unit_type' => 5,
-  //         ]);
-  //       }
-  //     }
-  //   });
-  // }
-
-  // public function ReserveStoreBreakdown($request)
-  // {
-  //   DB::transaction(function () use ($request) {
-  //     $countVenue = $this->RequestBreakdowns($request, 'venue_breakdown_item');
-
-  //     if ($countVenue != "") {
-  //       for ($i = 0; $i < $countVenue; $i++) {
-  //         $this->breakdowns()->create([
-  //           'unit_item' => $request->{'venue_breakdown_item' . $i},
-  //           'unit_cost' => $request->{'venue_breakdown_cost' . $i},
-  //           'unit_count' => $request->{'venue_breakdown_count' . $i},
-  //           'unit_subtotal' => $request->{'venue_breakdown_subtotal' . $i},
-  //           'unit_type' => 1,
-  //         ]);
-  //       }
-  //     }
-  //     // 会場割引
-  //     if ($request->venue_breakdown_discount_item) {
-  //       $this->breakdowns()->create([
-  //         'unit_item' => $request->venue_breakdown_discount_item,
-  //         'unit_cost' => $request->venue_breakdown_discount_cost,
-  //         'unit_count' => $request->venue_breakdown_discount_count,
-  //         'unit_subtotal' => $request->venue_breakdown_discount_subtotal,
-  //         'unit_type' => 1,
-  //       ]);
-  //     }
-  //     $countEqu = $this->RequestBreakdowns($request, 'equipment_breakdown_item');
-  //     if ($countEqu != "") {
-  //       for ($equ = 0; $equ < $countEqu; $equ++) {
-  //         $this->breakdowns()->create([
-  //           'unit_item' => $request->{'equipment_breakdown_item' . $equ},
-  //           'unit_cost' => $request->{'equipment_breakdown_cost' . $equ},
-  //           'unit_count' => $request->{'equipment_breakdown_count' . $equ},
-  //           'unit_subtotal' => $request->{'equipment_breakdown_subtotal' . $equ},
-  //           'unit_type' => 2,
-  //         ]);
-  //       }
-  //     }
-  //     $countSer = $this->RequestBreakdowns($request, 'service_breakdown_item');
-  //     if ($countSer != "") {
-  //       for ($ser = 0; $ser < $countSer; $ser++) {
-  //         $this->breakdowns()->create([
-  //           'unit_item' => $request->{'service_breakdown_item' . $ser},
-  //           'unit_cost' => $request->{'service_breakdown_cost' . $ser},
-  //           'unit_count' => $request->{'service_breakdown_count' . $ser},
-  //           'unit_subtotal' => $request->{'service_breakdown_subtotal' . $ser},
-  //           'unit_type' => 3,
-  //         ]);
-  //       }
-  //     }
-  //     // 備品割引
-  //     if ($request->equipment_breakdown_discount_item) {
-  //       $this->breakdowns()->create([
-  //         'unit_item' => $request->equipment_breakdown_discount_item,
-  //         'unit_cost' => $request->equipment_breakdown_discount_cost,
-  //         'unit_count' => $request->equipment_breakdown_discount_count,
-  //         'unit_subtotal' => $request->equipment_breakdown_discount_subtotal,
-  //         'unit_type' => 3,
-  //       ]);
-  //     }
-  //     if ($request->luggage_item) {
-  //       $this->breakdowns()->create([
-  //         'unit_item' => $request->luggage_item,
-  //         'unit_cost' => $request->luggage_cost,
-  //         'unit_count' => 1,
-  //         'unit_subtotal' => $request->luggage_subtotal,
-  //         'unit_type' => 3,
-  //       ]);
-  //     }
-  //     // レイアウト
-  //     if ($request->layout_prepare_item) {
-  //       $this->breakdowns()->create([
-  //         'unit_item' => $request->layout_prepare_item,
-  //         'unit_cost' => $request->layout_prepare_cost,
-  //         'unit_count' => 1,
-  //         'unit_subtotal' => $request->layout_prepare_subtotal,
-  //         'unit_type' => 4,
-  //       ]);
-  //     }
-  //     if ($request->layout_clean_item) {
-  //       $this->breakdowns()->create([
-  //         'unit_item' => $request->layout_clean_item,
-  //         'unit_cost' => $request->layout_clean_cost,
-  //         'unit_count' => 1,
-  //         'unit_subtotal' => $request->layout_clean_subtotal,
-  //         'unit_type' => 4,
-  //       ]);
-  //     }
-
-  //     // 請求書追加でレイアウトが発生する場合
-  //     if (empty($request->layout_prepare_item) && empty($request->layout_clean_item)) {
-  //       $countLay = $this->RequestBreakdowns($request, 'layout_breakdown_item');
-  //       if ($countLay != "") {
-  //         for ($lay = 0; $lay < $countLay; $lay++) {
-  //           $this->breakdowns()->create([
-  //             'unit_item' => $request->{'layout_breakdown_item' . $lay},
-  //             'unit_cost' => $request->{'layout_breakdown_cost' . $lay},
-  //             'unit_count' => $request->{'layout_breakdown_count' . $lay},
-  //             'unit_subtotal' => $request->{'layout_breakdown_subtotal' . $lay},
-  //             'unit_type' => 4,
-  //           ]);
-  //         }
-  //       }
-  //     }
-
-  //     if ($request->layout_breakdown_discount_item) {
-  //       $this->breakdowns()->create([
-  //         'unit_item' => $request->layout_breakdown_discount_item,
-  //         'unit_cost' => $request->layout_breakdown_discount_cost,
-  //         'unit_count' => $request->layout_breakdown_discount_count,
-  //         'unit_subtotal' => $request->layout_breakdown_discount_subtotal,
-  //         'unit_type' => 4,
-  //       ]);
-  //     }
-
-  //     $countOth = $this->RequestBreakdowns($request, 'others_breakdown_item');
-  //     if ($countOth != "") {
-  //       for ($oth = 0; $oth < $countOth; $oth++) {
-  //         $this->breakdowns()->create([
-  //           'unit_item' => $request->{'others_breakdown_item' . $oth},
-  //           'unit_cost' => $request->{'others_breakdown_cost' . $oth},
-  //           'unit_count' => $request->{'others_breakdown_count' . $oth},
-  //           'unit_subtotal' => $request->{'others_breakdown_subtotal' . $oth},
-  //           'unit_type' => 5,
-  //         ]);
-  //       }
-  //     }
-  //   });
-  // }
-
-  //追加請求書の編集の際のみ利用。　レイアウトの追加を複数可能
-  // public function LayoutBreakdowns($request)
-  // {
-  //   DB::transaction(function () use ($request) {
-  //     $l_count = $this->preg($request->all(), "equipment_breakdown_item");
-  //     if (!empty($l_count)) {
-  //       for ($i = 0; $i < $l_count; $i++) {
-  //         $this->breakdowns()->create([
-  //           'unit_item' => $request->{'layout_breakdown_item' . $i},
-  //           'unit_cost' => $request->{'layout_breakdown_cost' . $i},
-  //           'unit_count' => $request->{'layout_breakdown_count' . $i},
-  //           'unit_subtotal' => $request->{'layout_breakdown_subtotal' . $i},
-  //           'unit_type' => 4,
-  //         ]);
-  //       }
-  //     }
-  //   });
-  // }
-
-  // public function ReserveFromAgentBreakdown($request)
-  // {
-  //   DB::transaction(function () use ($request) {
-  //     $countVenue = $this->RequestBreakdowns($request, 'venue_breakdown_item');
-  //     if ($countVenue != "") {
-  //       for ($i = 0; $i < $countVenue; $i++) {
-  //         $this->breakdowns()->create([
-  //           'unit_item' => $request->{'venue_breakdown_item' . $i},
-  //           'unit_cost' => 0,
-  //           'unit_count' => $request->{'venue_breakdown_count' . $i},
-  //           'unit_subtotal' => 0,
-  //           'unit_type' => 1,
-  //         ]);
-  //       }
-  //     }
-
-  //     $countEqu = $this->RequestBreakdowns($request, 'equipment_breakdown_item');
-  //     if ($countEqu != "") {
-  //       for ($equ = 0; $equ < $countEqu; $equ++) {
-  //         if (!empty($request->{'equipment_breakdown_item' . $equ})) {
-  //           $this->breakdowns()->create([
-  //             'unit_item' => $request->{'equipment_breakdown_item' . $equ},
-  //             'unit_cost' => 0,
-  //             'unit_count' => $request->{'equipment_breakdown_count' . $equ},
-  //             'unit_subtotal' => 0,
-  //             'unit_type' => 2,
-  //           ]);
-  //         }
-  //       }
-  //     }
-
-  //     $countSer = $this->RequestBreakdowns($request, 'service_breakdown_item');
-  //     if ($countSer != "") {
-  //       for ($ser = 0; $ser < $countSer; $ser++) {
-  //         if (!empty($request->{'service_breakdown_item' . $ser})) {
-  //           $this->breakdowns()->create([
-  //             'unit_item' => $request->{'service_breakdown_item' . $ser},
-  //             'unit_cost' => 0,
-  //             'unit_count' => $request->{'service_breakdown_count' . $ser},
-  //             'unit_subtotal' => 0,
-  //             'unit_type' => 3,
-  //           ]);
-  //         }
-  //       }
-  //     }
-
-  //     if ($request->luggage_item) {
-  //       $this->breakdowns()->create([
-  //         'unit_item' => $request->luggage_item,
-  //         'unit_cost' => 0,
-  //         'unit_count' => 1,
-  //         'unit_subtotal' => 0,
-  //         'unit_type' => 3,
-  //       ]);
-  //     }
-  //     if ($request->layout_prepare_item) {
-  //       $this->breakdowns()->create([
-  //         'unit_item' => $request->layout_prepare_item,
-  //         'unit_cost' => $request->layout_prepare_cost,
-  //         'unit_count' => 1,
-  //         'unit_subtotal' => $request->layout_prepare_subtotal,
-  //         'unit_type' => 4,
-  //       ]);
-  //     }
-  //     if ($request->layout_clean_item) {
-  //       $this->breakdowns()->create([
-  //         'unit_item' => $request->layout_clean_item,
-  //         'unit_cost' => $request->layout_clean_cost,
-  //         'unit_count' => 1,
-  //         'unit_subtotal' => $request->layout_clean_subtotal,
-  //         'unit_type' => 4,
-  //       ]);
-  //     }
-  //     $countOth = $this->RequestBreakdowns($request, 'others_breakdown_item');
-  //     if ($countOth != "") {
-  //       for ($oth = 0; $oth < $countOth; $oth++) {
-  //         $this->breakdowns()->create([
-  //           'unit_item' => $request->{'others_breakdown_item' . $oth},
-  //           'unit_cost' => 0,
-  //           'unit_count' => $request->{'others_breakdown_count' . $oth},
-  //           'unit_subtotal' => 0,
-  //           'unit_type' => 5,
-  //         ]);
-  //       }
-  //     }
-  //   });
-  // }
-
   public function RequestBreakdowns($request, $targetItem)
   {
     $array_details = [];
@@ -564,31 +183,6 @@ class Bill extends Model
       return "";
     }
   }
-
-  // public function UpdateBill($request)
-  // {
-  //   DB::transaction(function () use ($request) {
-  //     $this->update([
-  //       'venue_price' => $request->venue_price ? $request->venue_price : 0,
-  //       'equipment_price' => $request->equipment_price ? $request->equipment_price : 0, //備品・サービス・荷物
-  //       'layout_price' => $request->layout_price ? $request->layout_price : 0,
-  //       'others_price' => $request->others_price ? $request->others_price : 0,
-  //       'master_subtotal' => $request->master_subtotal,
-  //       'master_tax' => $request->master_tax,
-  //       'master_total' => $request->master_total,
-  //       'payment_limit' => $request->payment_limit,
-  //       'bill_company' => $request->bill_company,
-  //       'bill_person' => $request->bill_person,
-  //       'bill_created_at' => Carbon::now(),
-  //       'bill_remark' => $request->bill_remark,
-  //       'paid' => $request->paid,
-  //       'pay_day' => $request->pay_day,
-  //       'pay_person' => $request->pay_person,
-  //       'payment' => $request->payment,
-  //     ]);
-  //     $this->breakdowns()->delete();
-  //   });
-  // }
 
 
   public function checkBreakdowns()
@@ -654,188 +248,408 @@ class Bill extends Model
     $this->update(['reservation_status' => 4]);
   }
 
-  // public function updateAgentBill($result)
-  // {
-  //   DB::transaction(function () use ($result) {
-  //     $this->update([
-  //       'layout_price' => $result['layout_price'] ?? 0,
-  //       'master_subtotal' => $result['master_subtotal'],
-  //       'master_tax' => $result['master_tax'],
-  //       'master_total' => $result['master_total'],
-  //       'payment_limit' => $result['pay_limit'],
-  //       'bill_company' => $result['pay_company'],
-  //       'bill_person' => $result['bill_person'],
-  //       'bill_created_at' => Carbon::now(),
-  //       'bill_remark' => $result['bill_remark'],
-  //       'paid' => $result['paid'],
-  //       'pay_day' => $result['pay_day'],
-  //       'pay_person' => $result['pay_person'],
-  //       'payment' => $result['payment'],
-  //     ]);
-  //     $this->breakdowns()->delete();
-  //   });
-  // }
+  public function CSVSearchTarget()
+  {
+    $searchTarget = DB::table('reservations')
+      ->select(DB::raw(
+        "
+        LPAD(reservations.id, 6, 0) as reservation_id,
+        LPAD(reservations.multiple_reserve_id,6,0) as multiple_reserve_id,
+        concat(date_format(reservations.reserve_date, '%Y/%m/%d'),
+        case 
+        when DAYOFWEEK(reservations.reserve_date) = 1 then '(日)' 
+        when DAYOFWEEK(reservations.reserve_date) = 2 then '(月)'
+        when DAYOFWEEK(reservations.reserve_date) = 3 then '(火)'
+        when DAYOFWEEK(reservations.reserve_date) = 4 then '(水)'
+        when DAYOFWEEK(reservations.reserve_date) = 5 then '(木)'
+        when DAYOFWEEK(reservations.reserve_date) = 6 then '(金)'
+        when DAYOFWEEK(reservations.reserve_date) = 7 then '(土)'
+        end
+        ) as reserve_date,
+        time_format(reservations.enter_time, '%H:%i') as enter_time,
+        time_format(reservations.leave_time, '%H:%i') as leave_time,
+        reservations.board_flag,
+        reservations.venue_id as venue_id,
+        reservations.eat_in as eat_in,
+        concat(venues.name_area,venues.name_bldg,venues.name_venue) as venue_name, 
+        case when venues.alliance_flag = 0 then '直' when venues.alliance_flag = 1 then '提' end as alliance_flag,
+        users.company as company_name,
+        concat(users.first_name, users.last_name) as user_name, 
+        users.mobile as mobile,
+        users.tel as tel,
+        case 
+        when users.attr = 1 then '一般企業' 
+        when users.attr = 2 then '上場企業'
+        when users.attr = 3 then '近隣利用'
+        when users.attr = 4 then '個人講師'
+        when users.attr = 5 then 'MLM'
+        when users.attr = 6 then 'その他'
+        end as attr,
+        LPAD(users.id,6,0) as user_id,
+        agents.name as agent_name,
+        agents.id as agent_id,
+        endusers.company as enduser_company,
+        bills.master_total as bills_master_total,
+        case when bills.category = 1 then '会場予約' when bills.category = 2 then '追加' end as bill_category,
+        bills.reservation_status as reservation_status,
+        concat(date_format(bills.pay_day, '%Y/%m/%d'),
+        case 
+        when DAYOFWEEK(reservations.reserve_date) = 1 then '(日)' 
+        when DAYOFWEEK(reservations.reserve_date) = 2 then '(月)'
+        when DAYOFWEEK(reservations.reserve_date) = 3 then '(火)'
+        when DAYOFWEEK(reservations.reserve_date) = 4 then '(水)'
+        when DAYOFWEEK(reservations.reserve_date) = 5 then '(木)'
+        when DAYOFWEEK(reservations.reserve_date) = 6 then '(金)'
+        when DAYOFWEEK(reservations.reserve_date) = 7 then '(土)'
+        end
+        ) as pay_day,
+        bills.pay_person as pay_person,
+        case
+        when bills.paid = 0 then '未入金'
+        when bills.paid = 1 then '入金済'
+        when bills.paid = 2 then '遅延'
+        when bills.paid = 3 then '入金不足'
+        when bills.paid = 4 then '入金過多'
+        when bills.paid = 5 then '次回繰越'
+        end as paid,
+        concat(date_format(bills.payment_limit, '%Y/%m/%d'),
+        case 
+        when DAYOFWEEK(bills.payment_limit) = 1 then '(日)' 
+        when DAYOFWEEK(bills.payment_limit) = 2 then '(月)'
+        when DAYOFWEEK(bills.payment_limit) = 3 then '(火)'
+        when DAYOFWEEK(bills.payment_limit) = 4 then '(水)'
+        when DAYOFWEEK(bills.payment_limit) = 5 then '(木)'
+        when DAYOFWEEK(bills.payment_limit) = 6 then '(金)'
+        when DAYOFWEEK(bills.payment_limit) = 7 then '(土)'
+        end
+        ) as payment_limit,
+        case 
+        when bills.reservation_status <= 3 then 0 else 1 end as 予約中かキャンセルか,
+        case 
+        when reservations.reserve_date >= CURRENT_DATE then 0 else 1 end as 今日以降かどうか,
+        case 
+        when reservations.reserve_date >= CURRENT_DATE then reserve_date end as 今日以降日付,
+        case 
+        when reservations.reserve_date < CURRENT_DATE then reserve_date end as 今日未満日付,
+        check_unit_2.master_unit_2 as unit_type2,
+        check_unit_3.master_unit_3 as unit_type3,
+        check_unit_4.master_unit_4 as unit_type4,
+        check_status1.status1 as reservation_status1,
+        check_status2.status2 as reservation_status2,
+        check_status3.status3 as reservation_status3,
+        check_status4.status4 as reservation_status4,
+        check_status5.status5 as reservation_status5,
+        check_status6.status6 as reservation_status6,
+        format(sogaku_master.sogaku,0) as sogaku,
+        format(bills.master_total,0) as master_total,
+        case 
+        when bills.category = 1 then '会場予約' when bills.category = 2 then '追加' end as category,
+        case 
+        when bills.reservation_status = 0 then '仮抑え'
+        when bills.reservation_status = 1 then '予約確認中'
+        when bills.reservation_status = 2 then '予約承認待ち'
+        when bills.reservation_status = 3 then '予約完了'
+        when bills.reservation_status = 4 then 'キャンセル申請中'
+        when bills.reservation_status = 5 then 'キャンセル承認待ち'
+        when bills.reservation_status = 6 then 'キャンセル'
+        end as reservation_status,
+        concat(date_format(bills.pay_day, '%Y/%m/%d'),
+        case 
+        when DAYOFWEEK(bills.pay_day) = 1 then '(日)' 
+        when DAYOFWEEK(bills.pay_day) = 2 then '(月)'
+        when DAYOFWEEK(bills.pay_day) = 3 then '(火)'
+        when DAYOFWEEK(bills.pay_day) = 4 then '(水)'
+        when DAYOFWEEK(bills.pay_day) = 5 then '(木)'
+        when DAYOFWEEK(bills.pay_day) = 6 then '(金)'
+        when DAYOFWEEK(bills.pay_day) = 7 then '(土)'
+        end
+        ) as pay_day
+      "
+      ))
+      ->leftJoin('bills', 'reservations.id', '=', 'bills.reservation_id')
+      ->leftJoin('users', 'reservations.user_id', '=', 'users.id')
+      ->leftJoin('agents', 'reservations.agent_id', '=', 'agents.id')
+      ->leftJoin('endusers', 'reservations.id', '=', 'endusers.reservation_id')
+      ->leftJoin('venues', 'reservations.venue_id', '=', 'venues.id')
+      ->leftJoin(DB::raw('(select reservation_id , count(breakdowns.count_unit) as master_unit_2  from bills left join (select bill_id, count(unit_type) as count_unit from breakdowns where unit_type=2 group by bill_id) as breakdowns on bills.id=breakdowns.bill_id group by reservation_id) as check_unit_2'), 'reservations.id', '=', 'check_unit_2.reservation_id')
+      ->leftJoin(DB::raw('(select reservation_id , count(breakdowns.count_unit) as master_unit_3  from bills left join (select bill_id, count(unit_type) as count_unit from breakdowns where unit_type=3 group by bill_id) as breakdowns on bills.id=breakdowns.bill_id group by reservation_id) as check_unit_3'), 'reservations.id', '=', 'check_unit_3.reservation_id')
+      ->leftJoin(DB::raw('(select reservation_id , count(breakdowns.count_unit) as master_unit_4  from bills left join (select bill_id, count(unit_type) as count_unit from breakdowns where unit_type=4 group by bill_id) as breakdowns on bills.id=breakdowns.bill_id group by reservation_id) as check_unit_4'), 'reservations.id', '=', 'check_unit_4.reservation_id')
+      ->leftJoin(DB::raw('(select reservation_id, count(reservation_status) as status1 from bills where reservation_status = 1  group by reservation_id) as check_status1'), 'reservations.id', '=', 'check_status1.reservation_id')
+      ->leftJoin(DB::raw('(select reservation_id, count(reservation_status) as status2 from bills where reservation_status = 2  group by reservation_id) as check_status2'), 'reservations.id', '=', 'check_status2.reservation_id')
+      ->leftJoin(DB::raw('(select reservation_id, count(reservation_status) as status3 from bills where reservation_status = 3  group by reservation_id) as check_status3'), 'reservations.id', '=', 'check_status3.reservation_id')
+      ->leftJoin(DB::raw('(select reservation_id, count(reservation_status) as status4 from bills where reservation_status = 4  group by reservation_id) as check_status4'), 'reservations.id', '=', 'check_status4.reservation_id')
+      ->leftJoin(DB::raw('(select reservation_id, count(reservation_status) as status5 from bills where reservation_status = 5  group by reservation_id) as check_status5'), 'reservations.id', '=', 'check_status5.reservation_id')
+      ->leftJoin(DB::raw('(select reservation_id, count(reservation_status) as status6 from bills where reservation_status = 6  group by reservation_id) as check_status6'), 'reservations.id', '=', 'check_status6.reservation_id')
+      ->leftJoin(DB::raw('(select reservation_id, sum(master_total) as sogaku from bills group by reservation_id) as sogaku_master'), 'reservations.id', '=', 'sogaku_master.reservation_id');
 
-  // public function updateAgentBreakdown($result, $inputs)
-  // {
-  //   DB::transaction(function () use ($result, $inputs) {
-  //     $v_cnt = $this->preg($result, "venue_breakdown_item");
-  //     for ($i = 0; $i < $v_cnt; $i++) {
-  //       $this->breakdowns()->create([
-  //         'unit_item' => $result['venue_breakdown_item' . $i],
-  //         'unit_cost' => 0,
-  //         'unit_count' => $result['venue_breakdown_count' . $i],
-  //         'unit_subtotal' => 0,
-  //         'unit_type' => 1,
-  //       ]);
-  //     }
+    return $searchTarget;
+  }
 
-  //     $e_cnt = $this->preg($result, "equipment_breakdown_item");
-  //     for ($i = 0; $i < $e_cnt; $i++) {
-  //       $this->breakdowns()->create([
-  //         'unit_item' => $result['equipment_breakdown_item' . $i],
-  //         'unit_cost' => 0,
-  //         'unit_count' => $result['equipment_breakdown_count' . $i],
-  //         'unit_subtotal' => 0,
-  //         'unit_type' => 2,
-  //       ]);
-  //     }
+  public function CSVSearch($data)
+  {
+    $searchTarget = $this->CSVSearchTarget();
 
-  //     $s_cnt = $this->preg($result, "service_breakdown_item");
-  //     for ($i = 0; $i < $s_cnt; $i++) {
-  //       $this->breakdowns()->create([
-  //         'unit_item' => $result['service_breakdown_item' . $i],
-  //         'unit_cost' => 0,
-  //         'unit_count' => $result['service_breakdown_count' . $i],
-  //         'unit_subtotal' => 0,
-  //         'unit_type' => 3,
-  //       ]);
-  //     }
+    if (!empty($data['multiple_id']) && (int)$data['multiple_id'] > 0) {
+      for ($i = 0; $i < strlen($data['multiple_id']); $i++) {
+        if ((int)$data['multiple_id'][$i] !== 0) {
+          $id = strstr($data['multiple_id'], $data['multiple_id'][$i]);
+          break;
+        }
+      }
+      $searchTarget->whereRaw('reservations.multiple_reserve_id = ? ', [$id]);
+    }
 
-  //     // if ($inputs['luggage_count']) {
-  //     //   $this->breakdowns->create([
-  //     //     'unit_item' => $inputs['luggage_item'],
-  //     //     'unit_cost' => 0,
-  //     //     'unit_count' => 1,
-  //     //     'unit_subtotal' => 0,
-  //     //     'unit_type' => 3,
-  //     //   ]);
-  //     // }
+    if (!empty($data['search_id']) && (int)$data['search_id'] > 0) {
+      // for ($i = 0; $i < strlen($data['search_id']); $i++) {
+      //   if ((int)$data['search_id'][$i] !== 0) {
+      //     $id = strstr($data['search_id'], $data['search_id'][$i]);
+      //     break;
+      //   }
+      // }
+      $searchTarget->whereRaw('reservations.id LIKE ? ',  ['%' . $data['search_id'] . '%']);
+    }
 
-  //     if (!empty($result['layout_prepare_item'])) {
-  //       $this->breakdowns()->create([
-  //         'unit_item' => $result['layout_prepare_item'],
-  //         'unit_cost' => $result['layout_prepare_cost'],
-  //         'unit_count' => 1,
-  //         'unit_subtotal' => $result['layout_prepare_subtotal'],
-  //         'unit_type' => 4,
-  //       ]);
-  //     }
+    if (!empty($data['user_id']) && (int)$data['user_id'] > 0) {
+      for ($i = 0; $i < strlen($data['user_id']); $i++) {
+        if ((int)$data['user_id'][$i] !== 0) {
+          $id = strstr($data['user_id'], $data['user_id'][$i]);
+          break;
+        }
+      }
+      $searchTarget->whereRaw('users.id = ?', [$id]);
+    }
 
-  //     if (!empty($result['layout_clean_item'])) {
-  //       $this->breakdowns()->create([
-  //         'unit_item' => $result['layout_clean_item'],
-  //         'unit_cost' => $result['layout_clean_cost'],
-  //         'unit_count' => 1,
-  //         'unit_subtotal' => $result['layout_clean_subtotal'],
-  //         'unit_type' => 4,
-  //       ]);
-  //     }
+    if (!empty($data['reserve_date'])) {
+      $targetData = explode(" ~ ", $data['reserve_date']);
+      $searchTarget->whereRaw('reservations.reserve_date between ? AND ? ',  $targetData);
+    }
 
-  //     $o_cnt = $this->preg($result, "others_breakdown_item");
-  //     for ($i = 0; $i < $o_cnt; $i++) {
-  //       $this->breakdowns()->create([
-  //         'unit_item' => $result['others_breakdown_item' . $i],
-  //         'unit_cost' => 0,
-  //         'unit_count' => $result['others_breakdown_count' . $i],
-  //         'unit_subtotal' => 0,
-  //         'unit_type' => 5,
-  //       ]);
-  //     }
-  //   });
-  // }
+    if (!empty($data['enter_time'])) {
+      $searchTarget->whereRaw('reservations.enter_time >= ? ',  $data['enter_time']);
+    }
 
-  // public function agentUpdateBreakdown($data)
-  // {
-  //   DB::transaction(function () use ($data) {
-  //     $v_cnt = $this->preg($data, "venue_breakdown_item");
-  //     if ($v_cnt != 0) {
-  //       for ($i = 0; $i < $v_cnt; $i++) {
-  //         $this->breakdowns()->create([
-  //           'unit_item' => $data['venue_breakdown_item' . $i],
-  //           'unit_cost' => 0,
-  //           'unit_count' => $data['venue_breakdown_count' . $i],
-  //           'unit_subtotal' => 0,
-  //           'unit_type' => 1,
-  //         ]);
-  //       }
-  //     }
+    if (!empty($data['leave_time'])) {
+      $searchTarget->whereRaw('reservations.leave_time <= ? ',  $data['leave_time']);
+    }
 
-  //     $e_cnt = $this->preg($data, "equipment_breakdown_item");
-  //     if ($e_cnt != 0) {
-  //       for ($i = 0; $i < $e_cnt; $i++) {
-  //         $this->breakdowns()->create([
-  //           'unit_item' => $data['equipment_breakdown_item' . $i],
-  //           'unit_cost' => 0,
-  //           'unit_count' => $data['equipment_breakdown_count' . $i],
-  //           'unit_subtotal' => 0,
-  //           'unit_type' => 2,
-  //         ]);
-  //       }
-  //     }
+    if (!empty($data['venue_id'])) {
+      $searchTarget->whereRaw('reservations.venue_id = ? ',  [$data['venue_id']]);
+    }
 
-  //     $l_cnt = $this->preg($data, "layout_breakdown_item");
-  //     if ($l_cnt != 0) {
-  //       for ($i = 0; $i < $l_cnt; $i++) {
-  //         $this->breakdowns()->create([
-  //           'unit_item' => $data['layout_breakdown_item' . $i],
-  //           'unit_cost' => 0,
-  //           'unit_count' => $data['layout_breakdown_cost' . $i],
-  //           'unit_subtotal' => 0,
-  //           'unit_type' => 4,
-  //         ]);
-  //       }
-  //     }
+    if (!empty($data['company'])) {
+      $searchTarget->whereRaw('users.company LIKE ? ',  ['%' . $data['company'] . '%']);
+    }
 
-  //     $o_cnt = $this->preg($data, "others_breakdown_item");
-  //     if ($o_cnt != 0) {
-  //       for ($i = 0; $i < $o_cnt; $i++) {
-  //         $this->breakdowns()->create([
-  //           'unit_item' => $data['others_breakdown_item' . $i],
-  //           'unit_cost' => 0,
-  //           'unit_count' => $data['others_breakdown_count' . $i],
-  //           'unit_subtotal' => 0,
-  //           'unit_type' => 5,
-  //         ]);
-  //       }
-  //     }
-  //   });
-  // }
+    if (!empty($data['person_name'])) {
+      $searchTarget->whereRaw('concat(users.first_name,users.last_name) LIKE ? ',  ['%' . $data['person_name'] . '%']);
+    }
 
-  // public function UpdateBillSession($result)
-  // {
-  //   DB::transaction(function () use ($result) {
-  //     $this->update([
-  //       'venue_price' => !empty($result['venue_price']) ? $result['venue_price'] : 0,
-  //       'equipment_price' => !empty($result['equipment_price']) ? $result['equipment_price'] : 0, //備品・サービス・荷物
-  //       'layout_price' => !empty($result['layout_price']) ? $result['layout_price'] : 0,
-  //       'others_price' => !empty($result['others_price']) ? $result['others_price'] : 0,
-  //       'master_subtotal' => $result['master_subtotal'],
-  //       'master_tax' => $result['master_tax'],
-  //       'master_total' => $result['master_total'],
-  //       'payment_limit' => $result['pay_limit'],
-  //       'bill_company' => $result['pay_company'],
-  //       'bill_person' => $result['bill_person'],
-  //       'bill_created_at' => Carbon::now(),
-  //       'bill_remark' => $result['bill_remark'],
-  //       'paid' => $result['paid'],
-  //       'pay_day' => $result['pay_day'],
-  //       'pay_person' => $result['pay_person'],
-  //       'payment' => $result['payment'],
-  //     ]);
-  //     $this->breakdowns()->delete();
-  //   });
-  // }
+    if (!empty($data['search_mobile'])) {
+      $searchTarget->whereRaw('users.mobile LIKE ? ',  ['%' . $data['search_mobile'] . '%']);
+    }
 
-  // クーロン
+    if (!empty($data['search_tel'])) {
+      $searchTarget->whereRaw('users.tel LIKE ? ',  ['%' . $data['search_tel'] . '%']);
+    }
+
+    if (!empty($data['agent'])) {
+      $searchTarget->whereRaw('agents.id = ? ',  [$data['agent']]);
+    }
+
+    if (!empty($data['enduser_person'])) {
+      $searchTarget->whereRaw('endusers.company LIKE ? ',  ['%' . $data['enduser_person'] . '%']);
+    }
+
+    if (!empty($data['sogaku'])) {
+      $searchTarget->whereRaw('sogaku = ?', [$data['sogaku']]);
+    }
+
+    if (!empty($data['payment_limit'])) {
+      $date = explode(' ~ ', $data['payment_limit']);
+      $searchTarget = $searchTarget->where(function ($query) use ($date) {
+        $query->orWhereIn('reservations.id', DB::table('bills')->select(DB::raw('reservation_id'))->whereRaw('payment_limit between ? and ?', $date)->groupBy('reservation_id'))
+          ->orWhereIn('reservations.id', DB::table('cxls')->select(DB::raw('reservation_id'))->whereRaw('payment_limit between ? and ?', $date)->groupBy('reservation_id'));
+      });
+    }
+
+    if (!empty($data['pay_day'])) {
+      $date = explode(' ~ ', $data['pay_day']);
+      $searchTarget = $searchTarget->where(function ($query) use ($date) {
+        $query->orWhereIn('reservations.id', DB::table('bills')->select(DB::raw('reservation_id'))->whereRaw('pay_day between ? and ?', $date)->groupBy('reservation_id'))
+          ->orWhereIn('reservations.id', DB::table('cxls')->select(DB::raw('reservation_id'))->whereRaw('pay_day between ? and ?', $date)->groupBy('reservation_id'));
+      });
+    }
+
+    if (!empty($data['pay_person'])) {
+      $searchTarget = $searchTarget->where(function ($query) use ($data) {
+        $query->orWhereIn('reservations.id', DB::table('bills')->select(DB::raw('reservation_id'))->whereRaw('pay_person LIKE ?', '%' . $data['pay_person'] . '%')->groupBy('reservation_id'))
+          ->orWhereIn('reservations.id', DB::table('cxls')->select(DB::raw('reservation_id'))->whereRaw('pay_person LIKE ?', '%' . $data['pay_person'] . '%')->groupBy('reservation_id'));
+      });
+    }
+
+    if (!empty($data['attr'])) {
+      $searchTarget->whereRaw('users.attr = ?', [$data['attr']]);
+    }
+
+    if (!empty($data['day_before'])) {
+      $yesterday = new Carbon('yesterday');
+      $searchTarget->whereRaw('reservations.reserve_date = ?', [date('Y-m-d', strtotime($yesterday))]);
+    }
+    if (!empty($data['today'])) {
+      $yesterday = new Carbon('today');
+      $searchTarget->whereRaw('reservations.reserve_date = ?', [date('Y-m-d', strtotime($yesterday))]);
+    }
+    if (!empty($data['day_after'])) {
+      $yesterday = new Carbon('tomorrow');
+      $searchTarget->whereRaw('reservations.reserve_date = ?', [date('Y-m-d', strtotime($yesterday))]);
+    }
+
+
+    // チェックボックス
+    $searchTarget = $searchTarget->where(function ($query) use ($data) {
+      if (!empty($data['alliance0'])) {
+        $query->orWhereRaw('alliance_flag = ? ', [0]);
+      }
+      if (!empty($data['alliance1'])) {
+        $query->orWhereRaw('alliance_flag = ? ', [1]);
+      }
+    });
+
+    // アイコン
+    if (!empty($data['check_icon1']) && (int)$data['check_icon1'] === 1) {
+      $searchTarget->orWhereRaw('check_unit_2.master_unit_2 >= ? ', [1]);
+    }
+    if (!empty($data['check_icon2']) && (int)$data['check_icon2'] === 1) {
+      $searchTarget->orWhereRaw('check_unit_3.master_unit_3 >= ? ', [1]);
+    }
+    if (!empty($data['check_icon3']) && (int)$data['check_icon3'] === 1) {
+      $searchTarget->orWhereRaw('check_unit_4.master_unit_4 >= ? ', [1]);
+    }
+    if (!empty($data['check_icon4']) && (int)$data['check_icon4'] === 1) {
+      $searchTarget->orWhereRaw('reservations.eat_in = ? ',  [1]);
+    }
+
+    // チェックボックス
+    $searchTarget = $searchTarget->where(function ($query) use ($data) {
+      if (!empty($data['check_status1']) && (int)$data['check_status1'] === 1) {
+        $query->orWhereRaw('check_status1.status1 >= ? ', [1]);
+      }
+      if (!empty($data['check_status2']) && (int)$data['check_status2'] === 1) {
+        $query->orWhereRaw('check_status2.status2 >= ? ', [1]);
+      }
+      if (!empty($data['check_status3']) && (int)$data['check_status3'] === 1) {
+        $query->orWhereRaw('check_status3.status3 >= ? ', [1]);
+      }
+      if (!empty($data['check_status4']) && (int)$data['check_status4'] === 1) {
+        $query->orWhereRaw('check_status4.status4 >= ? ', [1]);
+      }
+      if (!empty($data['check_status5']) && (int)$data['check_status5'] === 1) {
+        $query->orWhereRaw('check_status5.status5 >= ? ', [1]);
+      }
+      if (!empty($data['check_status6']) && (int)$data['check_status6'] === 1) {
+        $query->orWhereRaw('check_status6.status6 >= ? ', [1]);
+      }
+    });
+
+    // チェックボックス 売上区分
+    $searchTarget = $searchTarget->where(function ($query) use ($data) {
+      if (!empty($data['sales1'])) {
+        $query->orWhereIn('reservations.id', DB::table('bills')->select(DB::raw('reservation_id'))->whereRaw('category = ?', [1])->groupBy('reservation_id'));
+      }
+      if (!empty($data['sales2'])) {
+        $query->orWhereIn('reservations.id', DB::table('cxls')->select(DB::raw('reservation_id'))->groupBy('reservation_id'));
+      }
+      if (!empty($data['sales3'])) {
+        $query->orWhereIn('reservations.id', DB::table('bills')->select(DB::raw('reservation_id'))->whereRaw('category = ?', [2])->groupBy('reservation_id'));
+      }
+    });
+
+    // チェックボックス 入金状況
+    $searchTarget = $searchTarget->where(function ($query) use ($data) {
+      if (!empty($data['payment_status0'])) {
+        $query->orWhereIn('reservations.id', DB::table('bills')->select(DB::raw('reservation_id'))->whereRaw('paid = ?', [0])->groupBy('reservation_id'));
+      }
+      if (!empty($data['payment_status1'])) {
+        $query->orWhereIn('reservations.id', DB::table('bills')->select(DB::raw('reservation_id'))->whereRaw('paid = ?', [1])->groupBy('reservation_id'));
+      }
+      if (!empty($data['payment_status2'])) {
+        $query->orWhereIn('reservations.id', DB::table('bills')->select(DB::raw('reservation_id'))->whereRaw('paid = ?', [2])->groupBy('reservation_id'));
+      }
+      if (!empty($data['payment_status3'])) {
+        $query->orWhereIn('reservations.id', DB::table('bills')->select(DB::raw('reservation_id'))->whereRaw('paid = ?', [3])->groupBy('reservation_id'));
+      }
+      if (!empty($data['payment_status4'])) {
+        $query->orWhereIn('reservations.id', DB::table('bills')->select(DB::raw('reservation_id'))->whereRaw('paid = ?', [4])->groupBy('reservation_id'));
+      }
+      if (!empty($data['payment_status5'])) {
+        $query->orWhereIn('reservations.id', DB::table('bills')->select(DB::raw('reservation_id'))->whereRaw('paid = ?', [5])->groupBy('reservation_id'));
+      }
+    });
+
+    $searchTarget = $searchTarget->where(function ($query) use ($data) {
+      if (!empty($data['freeword'])) {
+        for ($i = 0; $i < strlen($data['freeword']); $i++) {
+          if ((int)$data['freeword'][$i] !== 0) {
+            $id = strstr($data['freeword'], $data['freeword'][$i]);
+            $query->orWhereRaw('reservations.id LIKE ? ', ['%' . $id . '%']);
+            $query->orWhereRaw('reservations.multiple_reserve_id LIKE ? ', ['%' . $id . '%']);
+            $query->orWhereRaw('users.mobile LIKE ? ', ['%' . $id . '%']);
+            $query->orWhereRaw('users.tel LIKE ? ', ['%' . $id . '%']);
+            $query->orWhereRaw('reservations.reserve_date LIKE ? ', ['%' . $id . '%']);
+            $query->orWhereRaw('reservations.enter_time LIKE ? ', ['%' . $id . '%']);
+            $query->orWhereRaw('reservations.leave_time LIKE ? ', ['%' . $id . '%']);
+            break;
+          }
+        }
+        // 利用会場
+        $query->orWhereRaw('concat(venues.name_area,venues.name_bldg,venues.name_venue) LIKE ? ',  ['%' . $data['freeword'] . '%']);
+        $query->orWhereRaw('concat(users.first_name,users.last_name) LIKE ? ',  ['%' . $data['freeword'] . '%']);
+        $query->orWhereRaw('users.company LIKE ? ',  ['%' . $data['freeword'] . '%']);
+        $query->orWhereRaw('concat(agents.person_firstname,agents.person_lastname) LIKE ? ',  ['%' . $data['freeword'] . '%']);
+        $query->orWhereRaw('agents.name LIKE ? ',  ['%' . $data['freeword'] . '%']);
+        $query->orWhereRaw('endusers.company LIKE ? ',  ['%' . $data['freeword'] . '%']);
+      }
+    });
+
+    // 売上請求一覧用のフリーワード検索
+    // if (!empty($data['sales_search_box'])) {
+    //   if (!empty($data['free_word'])) {
+    //     if (preg_match('/^[0-9!,]+$/', $data['free_word'])) {
+    //       //数字の場合検索
+    //       $searchTarget = $searchTarget->where(function ($query) use ($data) {
+    //         if (!empty($data['free_word'])) {
+    //           for ($i = 0; $i < strlen($data['free_word']); $i++) {
+    //             if ((int)$data['free_word'][$i] !== 0) {
+    //               $id = strstr($data['free_word'], $data['free_word'][$i]);
+    //               break;
+    //             }
+    //           }
+    //           $query->orWhereRaw('reservations.id LIKE ? ', ['%' . $id . '%']); //予約ID
+    //           $query->orWhereRaw('reservations.multiple_reserve_id LIKE ? ', ['%' . $id . '%']); //一括ID
+    //           $query->orWhereRaw('users.id LIKE ? ', ['%' . $id . '%']); //顧客ID
+    //         }
+    //       });
+    //     } else {
+    //       //文字列の場合
+    //       $searchTarget = $searchTarget->where(function ($query) use ($data) {
+    //         if (!empty($data['free_word'])) {
+    //           $query->orWhereRaw('reservations.reserve_date = ? ', [$data['free_word']]); //利用日
+    //           $query->orWhereRaw('users.company LIKE ? ', ['%' . $data['free_word'] . '%']); //会社名・団体名
+    //           $query->orWhereRaw('concat(users.first_name,users.last_name) LIKE ? ',  ['%' . $data['free_word'] . '%']); //担当者氏名
+    //           $query->orWhereRaw('endusers.company LIKE ? ',  ['%' . $data['free_word'] . '%']); //エンドユーザー
+    //           $query->orWhereRaw('bills.payment_limit = ? ',  [$data['free_word']]); //支払い期日
+    //           $query->orWhereRaw('bills.pay_day = ? ',  [$data['free_word']]); //支払い日
+    //           $query->orWhereRaw('bills.pay_person = ? ',  [$data['free_word']]); //振込人名
+    //           $query->orWhereRaw('concat(venues.name_area,venues.name_bldg,venues.name_venue) LIKE ? ',  ['%' . $data['free_word'] . '%']);
+    //           $query->orWhereRaw('agents.name LIKE ? ',  ['%' . $data['free_word'] . '%']); //エンドユーザー
+    //         }
+    //       });
+    //     }
+    //   }
+    // }
+
+    // $searchTarget->orderByRaw('予約中かキャンセルか,今日以降かどうか,今日以降日付,今日未満日付 desc');
+
+    return $searchTarget;
+  }
 }

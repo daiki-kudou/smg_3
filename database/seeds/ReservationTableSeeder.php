@@ -20,9 +20,9 @@ class ReservationTableSeeder extends Seeder
    */
   public function run(Faker $faker)
   {
-    DB::table('reservations')->truncate();
+    // DB::table('reservations')->truncate();
 
-    for ($i = 1; $i < 100; $i++) {
+    for ($i = 1; $i < 20000; $i++) {
       $venues = Venue::all()->pluck("id");
       $users = User::all()->pluck("id");
       $agents = Agent::all()->pluck("id");

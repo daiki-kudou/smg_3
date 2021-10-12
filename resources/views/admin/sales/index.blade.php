@@ -10,7 +10,26 @@
     text-overflow: ellipsis;
     width: 60px;
   }
+
+  #sales_sort tbody td:nth-child(11),
+  #sales_sort tbody td:nth-child(12),
+  #sales_sort tbody td:nth-child(13),
+  #sales_sort tbody td:nth-child(14),
+  #sales_sort tbody td:nth-child(15),
+  #sales_sort tbody td:nth-child(16),
+  #sales_sort tbody td:nth-child(17),
+  #sales_sort tbody td:nth-child(18),
+  #sales_sort tbody td:nth-child(19) {
+    padding: 0 !important;
+    white-space: nowrap;
+  }
+
+  #sales_sort tbody td {
+    text-align: center;
+  }
 </style>
+
+
 
 <div class="container-field mt-3">
   <div class="float-right">
@@ -109,7 +128,7 @@
         </td>
         <th class="search_item_name"><label for="sum">総額</label></th>
         <td>
-          {{Form::text('amount',optional($data)['amount'],['class'=>'form-control'])}}
+          {{Form::text('sogaku',optional($data)['sogaku'],['class'=>'form-control'])}}
         </td>
       </tr>
       <tr>
@@ -140,12 +159,12 @@
         <td>
           <ul class="search_category">
             <li>
-              {{ Form::checkbox('check_status3', '3',optional($data)['check_status3']?true:false,['id'=>'status1']) }}
-              {{ Form::label('status1', '予約完了') }}
+              {{ Form::checkbox('check_status3', '3',optional($data)['check_status3']?true:false,['id'=>'check_status3']) }}
+              {{ Form::label('check_status3', '予約完了') }}
             </li>
             <li>
-              {{ Form::checkbox('check_status6', '6',optional($data)['check_status6']?true:false,['id'=>'status2']) }}
-              {{ Form::label('status2', 'キャンセル') }}
+              {{ Form::checkbox('check_status6', '6',optional($data)['check_status6']?true:false,['id'=>'check_status6']) }}
+              {{ Form::label('check_status6', 'キャンセル') }}
             </li>
           </ul>
         </td>
@@ -221,6 +240,8 @@
   <div class="btn_box d-flex justify-content-center">
     <a href="{{url('admin/sales')}}" class="btn reset_btn">リセット</a>
     {{Form::hidden('sales_search_box','sales_search_box', ['class'=>'form-control'])}}
+    {{Form::hidden('csv','')}}
+    <!--csvダウンロード用のinput-->
     {{Form::submit('検索',['class'=>'btn search_btn','id'=>'m_submit'])}}
   </div>
 </div>
@@ -235,21 +256,18 @@
   <dl class="count-sum d-flex align-items-center">
     <dt>売上総額</dt>
     <dd>
-      {{-- @foreach ($request->except('_token') as $item)
-      @if (($item!=""))
-      {{number_format($all_total_amount)}}
-      @break
-      @endif
-      @endforeach --}}
       <span>円</span></dd>
   </dl>
 
 
-  {{ Form::open(['url' => 'admin/csv', 'method'=>'post']) }}
+  {{-- {{ Form::open(['url' => 'admin/csv', 'method'=>'post']) }}
   @csrf
-  {{Form::hidden('csv_arrays',json_encode($for_csv))}}
   <p class="ml-1 text-right">{{Form::submit('表示結果ダウンロード(CSV)',['class'=>'btn more_btn4_lg'])}}</p>
-  {{Form::close()}}
+  {{Form::close()}} --}}
+
+  <p class="ml-1 text-right">
+    <button type="button" class="btn more_btn4_lg" id="get_csv_btn">表示結果ダウンロード(CSV)</button>
+  </p>
 
 
 </div>
@@ -265,19 +283,18 @@
 
 <!-- 一覧　　------------------------------------------------ -->
 <div class="table-wrap">
-  <table class="table table-bordered table-scroll" id="sales_sort" style="height: 100%;">
+  <table class="table table-bordered compact hover order-column" id="sales_sort" style="height: 100%;">
     <thead>
       <tr class="table_row">
-        <th>予約一括ID
-        </th>
-        <th>予約ID </th>
-        <th>利用日 </th>
-        <th>利用会場 </th>
-        <th>顧客ID </th>
-        <th>会社名団体名 </th>
-        <th>担当者氏名 </th>
-        <th>仲介会社 </th>
-        <th>エンドユーザー </th>
+        <th>予約一括ID</th>
+        <th>予約ID</th>
+        <th>利用日</th>
+        <th>利用会場</th>
+        <th>顧客ID</th>
+        <th>会社名団体名</th>
+        <th>担当者氏名</th>
+        <th>仲介会社</th>
+        <th>エンドユーザー</th>
         <th>総額</th>
         <th>売上</th>
         <th>売上原価</th>
@@ -288,263 +305,302 @@
         <th>入金状況</th>
         <th class="btn-cell">予約詳細</th>
         <th>振込名</th>
-        <th>顧客属性 </th>
+        <th>顧客属性</th>
         <th>支払期日</th>
-        <th>運営 </th>
+        <th>運営</th>
       </tr>
     </thead>
-    <tbody class="sale-body">
+    {{-- <tbody class="sale-body">
       @foreach ($reservations as $masterKey=>$reservation)
 
       <tr
         style="{{count($reservation['cxls'])>0?((int)$reservation['cxls'][0]['cxl_status']===2?"background:gray":""):""}}">
-        <td class="text-center">
-          {{ReservationHelper::fixId($reservation['multiple_reserve_id'])}}</td>
-        <td class="text-center">
-          {{ReservationHelper::fixId($reservation['id'])}}</td>
-        <td class="text-center">
-          {{ReservationHelper::formatDate($reservation['reserve_date'])}}</td>
-        <td class="text-center">
-          {{ReservationHelper::getVenue($reservation['venue_id'])}}</td>
-        <td class="text-center">
-          {{ReservationHelper::fixId($reservation['user_id'])}}</td>
-        <td class="text-center">
-          {{ReservationHelper::getCompany($reservation['user_id'])}}</td>
-        <td class="text-center">
-          {{ReservationHelper::getPersonName($reservation['user_id'])}}</td>
-        <td class="text-center">
-          {{ReservationHelper::getAgentCompany($reservation['agent_id'])}}</td>
-        <td class="text-center">
-          {{(optional($reservation['enduser'])['company'])}}</td>
-        <td class="text-center">
-          {{number_format($reservation['sogaku'])}}</td>
-        <td class="multi-column p-0">
-          <ul class="multi-column__list">
-            @foreach ($reservation['bills'] as $bill) {{--売上--}}
-            <li>
-              <div class="multi-column__item">
-                <span>{{number_format($bill['master_total'])}}</span>
-              </div>
-            </li>
-            @endforeach
-            @if (count($reservation['cxls'])>0) {{--打ち消し--}}
-            <li>
-              <div class="multi-column__item">
-                <span>{{number_format($reservation['master_total']*-1)}}</span>
-              </div>
-            </li>
-            <li> {{--キャンセル--}}
-              <div class="multi-column__item">
-                <span>{{number_format($reservation['cxls_master_total'])}}</span>
-              </div>
-            </li>
-            @endif
-          </ul>
-        </td>
-        <td class="p-0">
-          <ul class="multi-column__list">
-            @foreach ($reservation['bills'] as $bill) {{--売上--}}
-            <li>
-              <div class="multi-column__item">
-                <span>{{number_format($bill['cost_for_partner'])}}</span>
-              </div>
-            </li>
-            @endforeach
-            @if (count($reservation['cxls'])>0) {{--打ち消し--}}
-            <li>
-              <div class="multi-column__item">
-                <span>{{number_format($reservation['sum_cost_for_partner']*-1)}}</span>
-              </div>
-            </li>
-            <li> {{--キャンセル--}}
-              <div class="multi-column__item">
-                <span>{{number_format($reservation['sum_cxl_cost_for_partner'])}}</span>
-              </div>
-            </li>
-            @endif
-          </ul>
-        </td>
-        <td class="p-0">
-          <ul class="multi-column__list">
-            @foreach ($reservation['bills'] as $bill) {{--売上--}}
-            <li>
-              <div class="multi-column__item">
-                <span>{{number_format($bill['master_total']-$bill['cost_for_partner'])}}</span>
-              </div>
-            </li>
-            @endforeach
-            @if (count($reservation['cxls'])>0) {{--打ち消し--}}
-            <li>
-              <div class="multi-column__item">
-                <span>{{number_format($reservation['master_total']*-1-($reservation['sum_cost_for_partner']*-1))}}</span>
-              </div>
-            </li>
-            <li> {{--キャンセル--}}
-              <div class="multi-column__item">
-                <span>{{number_format((int)$reservation['cxls_master_total']-(int)$reservation['sum_cxl_cost_for_partner'])}}</span>
-              </div>
-            </li>
-            @endif
-          </ul>
-        </td>
-        <td class="p-0">
-          <ul class="multi-column__list">
-            @foreach ($reservation['bills'] as $key =>$bill) {{--売上--}}
-            <li>
-              <div class="multi-column__item">
-                <span>{{(int)$bill['category']===1?"会場予約":"追加".$key}}</span>
-              </div>
-            </li>
-            @endforeach
-            @if (count($reservation['cxls'])>0) {{--打ち消し--}}
-            <li>
-              <div class="multi-column__item">
-                <span>打ち消し</span>
-              </div>
-            </li>
-            <li> {{--キャンセル--}}
-              <div class="multi-column__item">
-                <span>キャンセル料</span>
-              </div>
-            </li>
-            @endif
-          </ul>
-        </td>
-        <td class="p-0">
-          <ul class="multi-column__list">
-            @foreach ($reservation['bills'] as $key =>$bill) {{--売上--}}
-            <li>
-              <div class="multi-column__item">
-                <span>{{ReservationHelper::judgeStatus((int)$bill['reservation_status'])}}</span>
-              </div>
-            </li>
-            @endforeach
-            @if (count($reservation['cxls'])>0) {{--打ち消し--}}
-            <li>
-              <div class="multi-column__item">
-                <span>-</span>
-              </div>
-            </li>
-            <li> {{--キャンセル--}}
-              <div class="multi-column__item">
-                <span>{{ReservationHelper::cxlStatus($reservation['cxls'][0]['cxl_status'])}}</span>
-              </div>
-            </li>
-            @endif
-          </ul>
-        </td>
-        <td class=" p-0">
-          <ul class="multi-column__list">
-            @foreach ($reservation['bills'] as $key =>$bill) {{--売上--}}
-            <li>
-              <div class="multi-column__item">
-                <span>{{(ReservationHelper::formatDate($bill['pay_day']))}}</span>
-              </div>
-            </li>
-            @endforeach
-            @if (count($reservation['cxls'])>0) {{--打ち消し--}}
-            <li>
-              <div class="multi-column__item">
-                <span>-</span>
-              </div>
-            </li>
-            <li> {{--キャンセル--}}
-              <div class="multi-column__item">
-                <span>{{ReservationHelper::formatDate($reservation['cxls'][0]['pay_day'])}}</span>
-              </div>
-            </li>
-            @endif
-          </ul>
-        </td>
-        <td class=" p-0">
-          <ul class="multi-column__list">
-            @foreach ($reservation['bills'] as $key =>$bill) {{--売上--}}
-            <li>
-              <div class="multi-column__item">
-                <span class="payment-status">{{(ReservationHelper::paidStatus($bill['paid']))}}</span>
-              </div>
-            </li>
-            @endforeach
-            @if (count($reservation['cxls'])>0) {{--打ち消し--}}
-            <li>
-              <div class="multi-column__item">
-                <span>-</span>
-              </div>
-            </li>
-            <li> {{--キャンセル--}}
-              <div class="multi-column__item">
-                <span class="payment-status">{{ReservationHelper::paidStatus($reservation['cxls'][0]['paid'])}}</span>
-              </div>
-            </li>
-            @endif
-          </ul>
-        </td>
-        <td class="text-center">
-          <a class="more_btn" href="{{route('admin.reservations.show',$reservation['id'])}}">
-            予約詳細
-          </a>
-        </td>
-        <td class=" p-0">
-          <ul class="multi-column__list">
-            @foreach ($reservation['bills'] as $key =>$bill) {{--売上--}}
-            <li>
-              <div class="multi-column__item">
-                <p class="text-limit">{{(($bill['pay_person']))}}</p>
-              </div>
-            </li>
-            @endforeach
-            @if (count($reservation['cxls'])>0) {{--打ち消し--}}
-            <li>
-              <div class="multi-column__item">
-                <p class="text-limit">-</p>
-              </div>
-            </li>
-            <li> {{--キャンセル--}}
-              <div class="multi-column__item">
-                <p class="text-limit">{{($reservation['cxls'][0]['pay_person'])}}</p>
-              </div>
-            </li>
-            @endif
-          </ul>
-        </td>
-        <td class="text-center">
-          {{(ReservationHelper::getAttr(optional($reservation['user'])['attr']))}}
-        </td>
-        <td class=" p-0">
-          <ul class="multi-column__list">
-            @foreach ($reservation['bills'] as $key =>$bill) {{--売上--}}
-            <li>
-              <div class="multi-column__item">
-                <span>{{((ReservationHelper::formatDate($bill['payment_limit'])))}}</span>
-              </div>
-            </li>
-            @endforeach
-            @if (count($reservation['cxls'])>0) {{--打ち消し--}}
-            <li>
-              <div class="multi-column__item">
-                <span>-</span>
-              </div>
-            </li>
-            <li> {{--キャンセル--}}
-              <div class="multi-column__item">
-                <span>{{ReservationHelper::formatDate($reservation['cxls'][0]['payment_limit'])}}</span>
-              </div>
-            </li>
-            @endif
-          </ul>
-        </td>
-        <td class="text-center" style="{{(int)$reservation['venue']['alliance_flag']===1?"color:red;":""}}">
-          {{(int)$reservation['venue']['alliance_flag']===0?"直":"提"}}
-        </td>
-      </tr>
-      @endforeach
-    </tbody>
+    <td class="text-center">
+      {{ReservationHelper::fixId($reservation['multiple_reserve_id'])}}</td>
+    <td class="text-center">
+      {{ReservationHelper::fixId($reservation['id'])}}</td>
+    <td class="text-center">
+      {{ReservationHelper::formatDate($reservation['reserve_date'])}}</td>
+    <td class="text-center">
+      {{ReservationHelper::getVenue($reservation['venue_id'])}}</td>
+    <td class="text-center">
+      {{ReservationHelper::fixId($reservation['user_id'])}}</td>
+    <td class="text-center">
+      {{ReservationHelper::getCompany($reservation['user_id'])}}</td>
+    <td class="text-center">
+      {{ReservationHelper::getPersonName($reservation['user_id'])}}</td>
+    <td class="text-center">
+      {{ReservationHelper::getAgentCompany($reservation['agent_id'])}}</td>
+    <td class="text-center">
+      {{(optional($reservation['enduser'])['company'])}}</td>
+    <td class="text-center">
+      {{number_format($reservation['sogaku'])}}</td>
+    <td class="multi-column p-0">
+      <ul class="multi-column__list">
+        @foreach ($reservation['bills'] as $bill)
+        <!--売上-->
+        <li>
+          <div class="multi-column__item">
+            <span>{{number_format($bill['master_total'])}}</span>
+          </div>
+        </li>
+        @endforeach
+        @if (count($reservation['cxls'])>0)
+        <!--打ち消し-->
+        <li>
+          <div class="multi-column__item">
+            <span>{{number_format($reservation['master_total']*-1)}}</span>
+          </div>
+        </li>
+        <li>
+          <!--キャンセル-->
+          <div class="multi-column__item">
+            <span>{{number_format($reservation['cxls_master_total'])}}</span>
+          </div>
+        </li>
+        @endif
+      </ul>
+    </td>
+    <td class="p-0">
+      <ul class="multi-column__list">
+        @foreach ($reservation['bills'] as $bill)
+        <!--売上-->
+        <li>
+          <div class="multi-column__item">
+            <span>{{number_format($bill['cost_for_partner'])}}</span>
+          </div>
+        </li>
+        @endforeach
+        @if (count($reservation['cxls'])>0)
+        <!--打ち消し-->
+        <li>
+          <div class="multi-column__item">
+            <span>{{number_format($reservation['sum_cost_for_partner']*-1)}}</span>
+          </div>
+        </li>
+        <li>
+          <!--キャンセル-->
+          <div class="multi-column__item">
+            <span>{{number_format($reservation['sum_cxl_cost_for_partner'])}}</span>
+          </div>
+        </li>
+        @endif
+      </ul>
+    </td>
+    <td class="p-0">
+      <ul class="multi-column__list">
+        @foreach ($reservation['bills'] as $bill)
+        <!--売上-->
+        <li>
+          <div class="multi-column__item">
+            <span>{{number_format($bill['master_total']-$bill['cost_for_partner'])}}</span>
+          </div>
+        </li>
+        @endforeach
+        @if (count($reservation['cxls'])>0)
+        <!--打ち消し-->
+        <li>
+          <div class="multi-column__item">
+            <span>{{number_format($reservation['master_total']*-1-($reservation['sum_cost_for_partner']*-1))}}</span>
+          </div>
+        </li>
+        <li>
+          <!--キャンセル-->
+          <div class="multi-column__item">
+            <span>{{number_format((int)$reservation['cxls_master_total']-(int)$reservation['sum_cxl_cost_for_partner'])}}</span>
+          </div>
+        </li>
+        @endif
+      </ul>
+    </td>
+    <td class="p-0">
+      <ul class="multi-column__list">
+        @foreach ($reservation['bills'] as $key =>$bill)
+        <!--売上-->
+        <li>
+          <div class="multi-column__item">
+            <span>{{(int)$bill['category']===1?"会場予約":"追加".$key}}</span>
+          </div>
+        </li>
+        @endforeach
+        @if (count($reservation['cxls'])>0)
+        <!--打ち消し-->
+        <li>
+          <div class="multi-column__item">
+            <span>打ち消し</span>
+          </div>
+        </li>
+        <li>
+          <!--キャンセル-->
+          <div class="multi-column__item">
+            <span>キャンセル料</span>
+          </div>
+        </li>
+        @endif
+      </ul>
+    </td>
+    <td class="p-0">
+      <ul class="multi-column__list">
+        @foreach ($reservation['bills'] as $key =>$bill)
+        <!--売上-->
+        <li>
+          <div class="multi-column__item">
+            <span>{{ReservationHelper::judgeStatus((int)$bill['reservation_status'])}}</span>
+          </div>
+        </li>
+        @endforeach
+        @if (count($reservation['cxls'])>0)
+        <!--打ち消し-->
+        <li>
+          <div class="multi-column__item">
+            <span>-</span>
+          </div>
+        </li>
+        <li>
+          <!--キャンセル-->
+          <div class="multi-column__item">
+            <span>{{ReservationHelper::cxlStatus($reservation['cxls'][0]['cxl_status'])}}</span>
+          </div>
+        </li>
+        @endif
+      </ul>
+    </td>
+    <td class=" p-0">
+      <ul class="multi-column__list">
+        @foreach ($reservation['bills'] as $key =>$bill)
+        <!--売上-->
+        <li>
+          <div class="multi-column__item">
+            <span>{{(ReservationHelper::formatDate($bill['pay_day']))}}</span>
+          </div>
+        </li>
+        @endforeach
+        @if (count($reservation['cxls'])>0)
+        <!--打ち消し-->
+        <li>
+          <div class="multi-column__item">
+            <span>-</span>
+          </div>
+        </li>
+        <li>
+          <!--キャンセル-->
+          <div class="multi-column__item">
+            <span>{{ReservationHelper::formatDate($reservation['cxls'][0]['pay_day'])}}</span>
+          </div>
+        </li>
+        @endif
+      </ul>
+    </td>
+    <td class=" p-0">
+      <ul class="multi-column__list">
+        @foreach ($reservation['bills'] as $key =>$bill)
+        <!--売上-->
+        <li>
+          <div class="multi-column__item">
+            <span class="payment-status">{{(ReservationHelper::paidStatus($bill['paid']))}}</span>
+          </div>
+        </li>
+        @endforeach
+        @if (count($reservation['cxls'])>0)
+        <!--打ち消し-->
+        <li>
+          <div class="multi-column__item">
+            <span>-</span>
+          </div>
+        </li>
+        <li>
+          <!--キャンセル-->
+          <div class="multi-column__item">
+            <span class="payment-status">{{ReservationHelper::paidStatus($reservation['cxls'][0]['paid'])}}</span>
+          </div>
+        </li>
+        @endif
+      </ul>
+    </td>
+    <td class="text-center">
+      <a class="more_btn" href="{{route('admin.reservations.show',$reservation['id'])}}">
+        予約詳細
+      </a>
+    </td>
+    <td class=" p-0">
+      <ul class="multi-column__list">
+        @foreach ($reservation['bills'] as $key =>$bill)
+        <!--売上-->
+        <li>
+          <div class="multi-column__item">
+            <p class="text-limit">{{(($bill['pay_person']))}}</p>
+          </div>
+        </li>
+        @endforeach
+        @if (count($reservation['cxls'])>0)
+        <!--打ち消し-->
+        <li>
+          <div class="multi-column__item">
+            <p class="text-limit">-</p>
+          </div>
+        </li>
+        <li>
+          <!--キャンセル-->
+          <div class="multi-column__item">
+            <p class="text-limit">{{($reservation['cxls'][0]['pay_person'])}}</p>
+          </div>
+        </li>
+        @endif
+      </ul>
+    </td>
+    <td class="text-center">
+      {{(ReservationHelper::getAttr(optional($reservation['user'])['attr']))}}
+    </td>
+    <td class=" p-0">
+      <ul class="multi-column__list">
+        @foreach ($reservation['bills'] as $key =>$bill)
+        <!--売上-->
+        <li>
+          <div class="multi-column__item">
+            <span>{{((ReservationHelper::formatDate($bill['payment_limit'])))}}</span>
+          </div>
+        </li>
+        @endforeach
+        @if (count($reservation['cxls'])>0)
+        <!--打ち消し-->
+        <li>
+          <div class="multi-column__item">
+            <span>-</span>
+          </div>
+        </li>
+        <li>
+          <!--キャンセル-->
+          <div class="multi-column__item">
+            <span>{{ReservationHelper::formatDate($reservation['cxls'][0]['payment_limit'])}}</span>
+          </div>
+        </li>
+        @endif
+      </ul>
+    </td>
+    <td class="text-center" style="{{(int)$reservation['venue']['alliance_flag']===1?"color:red;":""}}">
+      {{(int)$reservation['venue']['alliance_flag']===0?"直":"提"}}
+    </td>
+    </tr>
+    @endforeach
+    </tbody> --}}
+
   </table>
 </div>
 <!-- 一覧　　終わり------------------------------------------------ -->
 
 
 <script>
+  $(function(){
+    $('#get_csv_btn').on('click',function(){
+      $('input[name="csv"]').val(1);
+      $('#sales_search').submit();
+    })
+
+    $('#m_submit').on('click',function(){
+      $('input[name="csv"]').val("");
+    })
+  })
+
   $(function() {
     function ActiveDateRangePicker($target) {
       $("input[name='" + $target + "']").daterangepicker({
@@ -561,7 +617,7 @@
         autoUpdateInput: false
       });
       $("input[name='" + $target + "']").on('apply.daterangepicker', function(ev, picker) {
-        $(this).val(picker.startDate.format('YYYY/MM/DD') + ' - ' + picker.endDate.format('YYYY/MM/DD'));
+        $(this).val(picker.startDate.format('YYYY/MM/DD') + ' ~ ' + picker.endDate.format('YYYY/MM/DD'));
       });
       $("input[name='" + $target + "']").on('cancel.daterangepicker', function(ev, picker) {
         $(this).val('');
@@ -588,6 +644,7 @@ $(function(){
     });
 });
 </script>
+
 <script>
   $(document).ready(function(){
     $.extend($.fn.dataTable.defaults, {
@@ -596,15 +653,88 @@ $(function(){
         }
     });
     $('#sales_sort').DataTable({
+      order:[],
+      processing: true,
+      serverSide: true,
       searching: false,
       info: false,
       autowidth: false,
-      // "order": [[ 1, "desc" ]], //初期ソートソート条件
-      "columnDefs": [{ "orderable": false, "targets": [10,11,12,13,14,15,16,18,20] }],
-      "stripeClasses": [],
+      ajax: { 
+        "url": "{{ url('admin/sales/datatable') }}", 
+        "type": "GET",
+        "data": function ( d ) {
+            return $.extend( {}, d, {
+            "search_id": $('input[name="search_id"]').val(),
+            "reserve_date": $('input[name="reserve_date"]').val(),
+            "venue_id": $('select[name="venue_id"]').val(),
+            "user_id": $('input[name="user_id"]').val(),
+            "company": $('input[name="company"]').val(),
+            "person_name": $('input[name="person_name"]').val(),
+            "agent": $('select[name="agent"]').val(),
+            "enduser_person": $('input[name="enduser_person"]').val(),
+            "sogaku": $('input[name="sogaku"]').val(),
+            "payment_limit": $('input[name="payment_limit"]').val(),
+            "pay_day": $('input[name="pay_day"]').val(),
+            "pay_person": $('input[name="pay_person"]').val(),
+            "attr": $('select[name="attr"]').val(),
+            "sales1": $('#sales1').prop('checked')?1:0,
+            "sales2": $('#sales2').prop('checked')?1:0,
+            "sales3": $('#sales3').prop('checked')?1:0,
+            "check_status3": $('#check_status3').prop('checked')?1:0,
+            "check_status6": $('#check_status6').prop('checked')?1:0,
+            "payment_status0": $('#payment_status0').prop('checked')?1:0,
+            "payment_status1": $('#payment_status1').prop('checked')?1:0,
+            "payment_status2": $('#payment_status2').prop('checked')?1:0,
+            "payment_status3": $('#payment_status3').prop('checked')?1:0,
+            "payment_status4": $('#payment_status4').prop('checked')?1:0,
+            "payment_status5": $('#payment_status5').prop('checked')?1:0,
+            "alliance0": $('#alliance0').prop('checked')?1:0,
+            "alliance1": $('#alliance1').prop('checked')?1:0,
+          } );
+        }
+      },
+      columns: [
+        { data: 'multiple_reserve_id' },
+        { data: 'reservation_id' },
+        { data: 'reserve_date' },
+        { data: 'venue_name' },
+        { data: 'user_id'},
+        { data: 'company_name' },
+        { data: 'person_name' },
+        { data: 'agent_name' },
+        { data: 'enduser_company' },
+        { data: 'sogaku' },
+        { data: 'sales' },
+        { data: 'cost' },
+        { data: 'profit' },
+        { data: 'category' },
+        { data: 'reservation_status' },
+        { data: 'pay_day' },
+        { data: 'paid' },
+        { data: 'details' },
+        { data: 'pay_person' },
+        { data: 'attr' },
+        { data: 'payment_limit' },
+        { data: 'alliance_flag' },
+      ],
+      columnDefs: [
+        {targets: 10, sortable: false, orderable: false},
+        {targets: 11, sortable: false, orderable: false},
+        {targets: 12, sortable: false, orderable: false},
+        {targets: 13, sortable: false, orderable: false},
+        {targets: 14, sortable: false, orderable: false},
+        {targets: 15, sortable: false, orderable: false},
+        {targets: 16, sortable: false, orderable: false},
+        {targets: 17, sortable: false, orderable: false},
+        {targets: 18, sortable: false, orderable: false},
+        {targets: 19, sortable: false, orderable: false},
+        {targets: 20, sortable: false, orderable: false},
+      ],
      });
     });
 </script>
+
+
 <script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
 <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
 <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />

@@ -152,6 +152,8 @@ Route::namespace('Admin')->prefix('admin')->name('admin.')->group(function () {
     Route::post('reservations/check_session', 'ReservationsController@checkSession')->name('reservations.checkSession');
     // 予約
     Route::resource('reservations', 'ReservationsController', ['except' => ['show']]);
+    Route::get('reservations/datatable', 'ReservationsController@datatable');
+
     // 予約　（確認）
     Route::get('reservations/check', 'ReservationsController@check')->name('reservations.check');
 
@@ -380,7 +382,7 @@ Route::namespace('Admin')->prefix('admin')->name('admin.')->group(function () {
     Route::get('cron_templates', 'MailTemplatesController@cron');
 
     Route::post('invoice', 'InvoiceController@show');
-    Route::post('board', 'BoardController@show');
+    Route::get('board/{reservation_id}', 'BoardController@show');
     // note
     Route::get('note', 'NoteController@index')->name('note');
     Route::get('note/create', 'NoteController@create');
@@ -408,5 +410,8 @@ Route::namespace('Admin')->prefix('admin')->name('admin.')->group(function () {
     Route::resource('administer', 'AdminsController');
 
     Route::post('sync', 'SyncController@sync');
+
+    Route::get('reservations/datatable', 'DataTableController@reservation');
+    Route::get('sales/datatable', 'DataTableController@sales');
   });
 });
