@@ -191,58 +191,9 @@
             <th>仮押え詳細</th>
           </tr>
         </thead>
-        {{-- <tbody>
-          @foreach ($pre_reservations as $pre_reservation)
-          <tr style="{{$pre_reservation->user_id>0?($pre_reservation->user->attention?" background:pink;":""):""}}">
-            <td class="text-center">
-              <input type="checkbox" name="{{'delete_check'.$pre_reservation->id}}" value="{{$pre_reservation->id}}"
-                class="checkbox" />
-            </td>
-            <td>{{ReservationHelper::fixId($pre_reservation->id)}}</td>
-            <td>{{ReservationHelper::formatDate($pre_reservation->created_at)}}</td>
-            <td>{{ReservationHelper::formatDate($pre_reservation->reserve_date)}}</td>
-            <td>{{ReservationHelper::formatTime($pre_reservation->enter_time)}}</td>
-            <td>{{ReservationHelper::formatTime($pre_reservation->leave_time)}}</td>
-            <td>{{ReservationHelper::getVenue($pre_reservation->venue_id)}}</td>
-            <td>{{$pre_reservation->user_id>0?ReservationHelper::getCompany($pre_reservation->user_id):""}}</td>
-            <td>
-              @if ($pre_reservation->user_id>0)
-              {{ReservationHelper::getPersonName($pre_reservation->user_id)}}
-              @endif
-            </td>
-            <td>
-              @if ($pre_reservation->user_id>0)
-              {{ReservationHelper::getPersonMobile($pre_reservation->user_id)}}
-              @endif
-            </td>
-            <td>
-              @if ($pre_reservation->user_id>0)
-              {{ReservationHelper::getPersonTel($pre_reservation->user_id)}}
-              @endif
-            </td>
-            <td>{{optional($pre_reservation->unknown_user)?$pre_reservation->unknown_user->unknown_user_company:""}}
-            </td>
-            <td>
-              {{$pre_reservation->agent_id==0?"":(ReservationHelper::getAgentCompany($pre_reservation->agent_id))}}
-            </td>
-            <td>
-              {{optional($pre_reservation->pre_enduser)?$pre_reservation->pre_enduser->company:""}}
-            </td>
-            <td class="text-center">
-              <a class="more_btn" href="{{url('admin/pre_reservations/'.$pre_reservation->id)}}">詳細</a>
-            </td>
-          </tr>
-          @endforeach
-        </tbody> --}}
       </table>
     </div>
   </div>
-
-
-  {{-- {{$pre_reservations->appends(request()->input())->links()}} --}}
-
-
-
 </div>
 
 
@@ -275,21 +226,24 @@
   })
 
   $(document).on('click', '#all_check', function (){
-     alert('aaaaaaaa');
+    var parent_checked = $(this).prop('checked');
+     $('.checkbox').each(function(index, element){
+      $('.checkbox').eq(index).prop('checked',false );
+      $('.checkbox').eq(index).prop('checked',parent_checked );
+      })
     }
   );
 
+  $(document).on('change', 'select[name="pre_reservation_sort_length"]', function (){
+    var parent_checked = $("#all_check").prop('checked');
+    $('.checkbox').each(function(index, element){
+      $('.checkbox').eq(index).prop('checked',false );
+      $('.checkbox').eq(index).prop('checked',parent_checked );
+    })
+  }
+  );
 
-    $(document).on("change", "input[type='checkbox']", function () {
-      $('#for_destroy').html("");
-      checked = $('[class="checkbox"]:checked').map(function() {
-        return $(this).val();
-      }).get();
-      for (let index = 0; index < checked.length; index++) {
-        var ap_data = "<input type='hidden' name='destroy" + checked[index] + "' value='" + checked[index] + "'>"
-        $('#for_destroy').append(ap_data);
-      }
-  });
+
 </script>
 
 <script>
