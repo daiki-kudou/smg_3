@@ -58,83 +58,67 @@
           <tr>
             <th class="search_item_name"><label for="id">仮押えID</label>
             <td class="text-right">
-              {{Form::text("search_id", $request->search_id?:'', ['class'=>'form-control'])}}
+              {{Form::text("search_id", optional($data)['search_id'], ['class'=>'form-control'])}}
               <p class="is-error-search_id" style="color: red"></p>
             </td>
             <th class="search_item_name"><label for="">受付日</label></th>
             <td class="text-right form-group">
-              {{Form::text("search_created_at",$request->search_created_at?:'', ['class'=>'form-control','id'=>'datepicker1'])}}
+              {{Form::text("search_created_at",optional($data)['search_created_at'], ['class'=>'form-control','id'=>'datepicker1'])}}
             </td>
           </tr>
           <tr>
             <th class="search_item_name"><label for="date">利用日</label></th>
             <td class="text-right form-group">
-              {{Form::text("search_date",$request->search_date?:'', ['class'=>'form-control','id'=>'datepicker2'])}}
+              {{Form::text("search_date",optional($data)['search_date'], ['class'=>'form-control','id'=>'datepicker2'])}}
             </td>
 
             <th class="search_item_name"><label for="venue">利用会場</label></th>
             <td class="text-right">
               <dd>
-                <select name="search_venue" id="search_venue" class="form-control">
-                  <option value=""></option>
-                  @foreach ($venues as $s_v)
-                  <option value="{{$s_v->id}}" @if ($s_v->id==$request->search_venue)
-                    selected
-                    @endif
-                    >{{ReservationHelper::getVenue($s_v->id)}}</option>
-                  @endforeach
-                </select>
+                {{Form::select('search_venue',$venues,optional($data)['search_venue'],['class'=>'form-control'])}}
             </td>
           </tr>
           <tr>
             <th class="search_item_name"><label for="company">会社・団体名</label></th>
             <td class="text-right">
-              {{Form::text('search_user',$request->search_user?:'',['class'=>'form-control'])}}
+              {{Form::text('search_user',optional($data)['search_user'],['class'=>'form-control'])}}
             </td>
             <th class="search_item_name"><label for="person_name">担当者氏名</label></th>
             <td class="text-right">
               <dd>
-                {{Form::text('search_person',$request->search_person?:'',['class'=>'form-control'])}}
+                {{Form::text('search_person',optional($data)['search_person'],['class'=>'form-control'])}}
             </td>
           </tr>
           <tr>
             <th class="search_item_name"><label for="mobile">携帯電話</label></th>
             <td>
-              {{Form::text("search_mobile",$request->search_mobile?:'', ['class'=>'form-control','id'=>''])}}
+              {{Form::text("search_mobile",optional($data)['search_mobile'], ['class'=>'form-control','id'=>''])}}
               <p class="is-error-search_mobile" style="color: red"></p>
             </td>
             <th class="search_item_name"><label for="tel">固定電話</label></th>
             <td>
-              {{Form::text("search_tel",$request->search_tel?:'', ['class'=>'form-control','id'=>''])}}
+              {{Form::text("search_tel",optional($data)['search_tel'], ['class'=>'form-control','id'=>''])}}
               <p class="is-error-search_tel" style="color: red"></p>
             </td>
           </tr>
           <tr>
             <th class="search_item_name"><label for="temp_company">会社・団体名(仮)</label></th>
             <td>
-              {{Form::text("search_unkown_user",$request->search_unkown_user?:'', ['class'=>'form-control','id'=>''])}}
+              {{Form::text("search_unkown_user",optional($data)['search_unkown_user'], ['class'=>'form-control','id'=>''])}}
             </td>
             <th class="search_item_name"><label for="agent">仲介会社</label></th>
             <td>
-              <select name="search_agent" id="search_agent" class="form-control">
-                <option value=""></option>
-                @foreach ($agents as $s_a)
-                <option value="{{$s_a->id}}" @if ($s_a->id==$request->search_agent)
-                  selected
-                  @endif
-                  >{{ReservationHelper::getAgentCompany($s_a->id)}}</option>
-                @endforeach
-              </select>
+              {{Form::select('search_agent',$agents,optional($data)['search_agent'],['class'=>'form-control'])}}
             </td>
           </tr>
           <tr>
             <th class="search_item_name"><label for="search_end_user">エンドユーザー</label></th>
             <td>
-              {{Form::text("search_end_user",$request->search_end_user?:'', ['class'=>'form-control','id'=>''])}}
+              {{Form::text("search_end_user",optional($data)['search_end_user'], ['class'=>'form-control','id'=>''])}}
             </td>
             <th class="search_item_name"><label for="freeword">フリーワード検索</label></th>
             <td colspan="3">
-              {{Form::text("search_free",$request->search_free?:'', ['class'=>'form-control','id'=>''])}}
+              {{Form::text("search_free",optional($data)['search_free'], ['class'=>'form-control','id'=>''])}}
             </td>
           </tr>
         </tbody>
@@ -146,23 +130,6 @@
       </p>
       <div class="btn_box d-flex justify-content-center">
         <a href="{{url('admin/pre_reservations')}}" class="btn reset_btn">リセット</a>
-        {{-- ソート用hidden --}}
-        {{Form::hidden("sort_id", $request->sort_id?($request->sort_id==1?2:1):1)}}
-        {{Form::hidden("sort_created_at", $request->sort_created_at?($request->sort_created_at==1?2:1):1)}}
-        {{Form::hidden("sort_reserve_date", $request->sort_reserve_date?($request->sort_reserve_date==1?2:1):1)}}
-        {{Form::hidden("sort_enter_time", $request->sort_enter_time?($request->sort_enter_time==1?2:1):1)}}
-        {{Form::hidden("sort_leave_time", $request->sort_leave_time?($request->sort_leave_time==1?2:1):1)}}
-        {{Form::hidden("sort_venue", $request->sort_venue?($request->sort_venue==1?2:1):1)}}
-        {{Form::hidden("sort_user_company", $request->sort_user_company?($request->sort_user_company==1?2:1):1)}}
-        {{Form::hidden("sort_user_name", $request->sort_user_name?($request->sort_user_name==1?2:1):1)}}
-        {{Form::hidden("sort_user_mobile", $request->sort_user_mobile?($request->sort_user_mobile==1?2:1):1)}}
-        {{Form::hidden("sort_user_tel", $request->sort_user_tel?($request->sort_user_tel==1?2:1):1)}}
-        {{Form::hidden("sort_unknown", $request->sort_unknown?($request->sort_unknown==1?2:1):1)}}
-        {{Form::hidden("sort_agent", $request->sort_agent?($request->sort_agent==1?2:1):1)}}
-        {{Form::hidden("sort_enduser", $request->sort_enduser?($request->sort_enduser==1?2:1):1)}}
-        {{-- ソート用hidden --}}
-        {{-- 超過用hidden --}}
-        {{Form::hidden("time_over", $request->time_over)}}
 
         {{Form::submit('検索', ['class'=>'btn search_btn', 'id'=>''])}}
       </div>
@@ -182,14 +149,14 @@
       <li>
         <div class="d-flex">
           {{-- 仮押さえ超過ボタン --}}
-          <button id="time_over" class="btn more_btn {{$request->time_over?"bg-red":""}}">仮押え期間超過</button>
+          <button id="time_over" class="btn more_btn {{optional($data)['time_over']?"bg-red":""}}">仮押え期間超過</button>
           {{-- 件数 --}}
           <p class="ml-3 font-weight-bold">
-            @if ($counter!=0)
+            {{-- @if ($counter!=0)
             <span class="count-color">{{$counter}}</span>件
-            @elseif($request->counter!=0)
-            <span class="count-color">{{$request->counter}}</span>件
-            @endif
+            @elseif($data!['counter']=0)
+            <span class="count-color">{{$data}['counter']}</span>件
+            @endif --}}
           </p>
         </div>
       </li>
@@ -197,76 +164,76 @@
 
 
     <div class="table-wrap">
-      <table class="table table-bordered table-scroll sort_table">
+      <table class="table table-bordered table-scroll sort_table" id="pre_reservation_sort">
         <thead>
           <tr class="table_row">
             <th>
               <p class="annotation">すべて</p><input type="checkbox" name="all_check" id="all_check" />
             </th>
-            <th id="sort_id">仮押えID {!!ReservationHelper::sortIcon($request->sort_id)!!}</th>
-            <th id="sort_created_at">受付日 {!!ReservationHelper::sortIcon($request->sort_created_at)!!}</th>
-            <th id="sort_reserve_date">利用日 {!!ReservationHelper::sortIcon($request->sort_reserve_date)!!}</th>
-            <th id="sort_enter_time">入室 {!!ReservationHelper::sortIcon($request->sort_enter_time)!!}</th>
-            <th id="sort_leave_time">退室 {!!ReservationHelper::sortIcon($request->sort_leave_time)!!}</th>
-            <th id="sort_venue">利用会場 {!!ReservationHelper::sortIcon($request->sort_venue)!!}</th>
-            <th id="sort_user_company">会社・団体名 {!!ReservationHelper::sortIcon($request->sort_user_company)!!}</th>
-            <th id="sort_user_name">担当者氏名 {!!ReservationHelper::sortIcon($request->sort_user_name)!!}</th>
-            <th id="sort_user_mobile">携帯電話 {!!ReservationHelper::sortIcon($request->sort_user_mobile)!!}</th>
-            <th id="sort_user_tel">固定電話 {!!ReservationHelper::sortIcon($request->sort_user_tel)!!}</th>
-            <th id="sort_unknown">会社・団体名(仮) {!!ReservationHelper::sortIcon($request->sort_unknown)!!}</th>
-            <th id="sort_agent">仲介会社 {!!ReservationHelper::sortIcon($request->sort_agent)!!}</th>
-            <th id="sort_enduser">エンドユーザー {!!ReservationHelper::sortIcon($request->sort_enduser)!!}</th>
+            <th>仮押えID</th>
+            <th>受付日</th>
+            <th>利用日</th>
+            <th>入室</th>
+            <th>退室</th>
+            <th>利用会場</th>
+            <th>会社・団体名</th>
+            <th>担当者氏名</th>
+            <th>携帯電話</th>
+            <th>固定電話</th>
+            <th>会社・団体名（仮）</th>
+            <th>仲介会社</th>
+            <th>エンドユーザー</th>
             <th>仮押え詳細</th>
           </tr>
         </thead>
-        <tbody>
+        {{-- <tbody>
           @foreach ($pre_reservations as $pre_reservation)
           <tr style="{{$pre_reservation->user_id>0?($pre_reservation->user->attention?"background:pink;":""):""}}">
-            <td class="text-center">
-              <input type="checkbox" name="{{'delete_check'.$pre_reservation->id}}" value="{{$pre_reservation->id}}"
-                class="checkbox" />
-            </td>
-            <td>{{ReservationHelper::fixId($pre_reservation->id)}}</td>
-            <td>{{ReservationHelper::formatDate($pre_reservation->created_at)}}</td>
-            <td>{{ReservationHelper::formatDate($pre_reservation->reserve_date)}}</td>
-            <td>{{ReservationHelper::formatTime($pre_reservation->enter_time)}}</td>
-            <td>{{ReservationHelper::formatTime($pre_reservation->leave_time)}}</td>
-            <td>{{ReservationHelper::getVenue($pre_reservation->venue_id)}}</td>
-            <td>{{$pre_reservation->user_id>0?ReservationHelper::getCompany($pre_reservation->user_id):""}}</td>
-            <td>
-              @if ($pre_reservation->user_id>0)
-              {{ReservationHelper::getPersonName($pre_reservation->user_id)}}
-              @endif
-            </td>
-            <td>
-              @if ($pre_reservation->user_id>0)
-              {{ReservationHelper::getPersonMobile($pre_reservation->user_id)}}
-              @endif
-            </td>
-            <td>
-              @if ($pre_reservation->user_id>0)
-              {{ReservationHelper::getPersonTel($pre_reservation->user_id)}}
-              @endif
-            </td>
-            <td>{{!empty($pre_reservation->unknown_user)?$pre_reservation->unknown_user->unknown_user_company:""}}</td>
-            <td>
-              {{$pre_reservation->agent_id==0?"":(ReservationHelper::getAgentCompany($pre_reservation->agent_id))}}
-            </td>
-            <td>
-              {{!empty($pre_reservation->pre_enduser)?$pre_reservation->pre_enduser->company:""}}
-            </td>
-            <td class="text-center">
-              <a class="more_btn" href="{{url('admin/pre_reservations/'.$pre_reservation->id)}}">詳細</a>
-            </td>
-          </tr>
-          @endforeach
-        </tbody>
+        <td class="text-center">
+          <input type="checkbox" name="{{'delete_check'.$pre_reservation->id}}" value="{{$pre_reservation->id}}"
+            class="checkbox" />
+        </td>
+        <td>{{ReservationHelper::fixId($pre_reservation->id)}}</td>
+        <td>{{ReservationHelper::formatDate($pre_reservation->created_at)}}</td>
+        <td>{{ReservationHelper::formatDate($pre_reservation->reserve_date)}}</td>
+        <td>{{ReservationHelper::formatTime($pre_reservation->enter_time)}}</td>
+        <td>{{ReservationHelper::formatTime($pre_reservation->leave_time)}}</td>
+        <td>{{ReservationHelper::getVenue($pre_reservation->venue_id)}}</td>
+        <td>{{$pre_reservation->user_id>0?ReservationHelper::getCompany($pre_reservation->user_id):""}}</td>
+        <td>
+          @if ($pre_reservation->user_id>0)
+          {{ReservationHelper::getPersonName($pre_reservation->user_id)}}
+          @endif
+        </td>
+        <td>
+          @if ($pre_reservation->user_id>0)
+          {{ReservationHelper::getPersonMobile($pre_reservation->user_id)}}
+          @endif
+        </td>
+        <td>
+          @if ($pre_reservation->user_id>0)
+          {{ReservationHelper::getPersonTel($pre_reservation->user_id)}}
+          @endif
+        </td>
+        <td>{{optional($pre_reservation->unknown_user)?$pre_reservation->unknown_user->unknown_user_company:""}}</td>
+        <td>
+          {{$pre_reservation->agent_id==0?"":(ReservationHelper::getAgentCompany($pre_reservation->agent_id))}}
+        </td>
+        <td>
+          {{optional($pre_reservation->pre_enduser)?$pre_reservation->pre_enduser->company:""}}
+        </td>
+        <td class="text-center">
+          <a class="more_btn" href="{{url('admin/pre_reservations/'.$pre_reservation->id)}}">詳細</a>
+        </td>
+        </tr>
+        @endforeach
+        </tbody> --}}
       </table>
     </div>
   </div>
 
 
-  {{$pre_reservations->appends(request()->input())->links()}}
+  {{-- {{$pre_reservations->appends(request()->input())->links()}} --}}
 
 
 
@@ -275,40 +242,6 @@
 
 
 <script>
-  $(document).on("click", "#time_over", function() {
-    if ($('input[name="time_over"]').val()==0) {
-      $('input[name="time_over"]').val(1);
-    }else{
-      $('input[name="time_over"]').val(0);
-    }
-    $('input[name^="sort_"]').each(function(key, item){
-        $(item).val("");
-        });
-    $('#preserve_search').submit();
-  })
-
-  $(document).on("click", ".table-scroll th", function() {
-    var click_th_id=$(this).attr("id");
-    var index = $('.table-scroll th').index(this);
-    if (index!=0&&index!=14) {
-      $('input[name^="sort_"]').each(function(key, item){
-        if ($(item).attr("name")!=click_th_id) {
-          $(item).val("");
-        }
-      })
-      $("#preserve_search").submit();
-    }
-  })
-
-    $(function() {
-      $(".search_btn").on("click",function(){
-        $('input[name^="sort_"]').each(function(key, item){
-        $(item).val("");
-        })
-      })
-    })
-
-    
   $(function() {
     function ActiveDateRangePicker($target) {
       $("input[name='" + $target + "']").daterangepicker({
@@ -340,12 +273,6 @@
     $('#all_check').on('change', function() {
       $('.checkbox').prop('checked', $(this).is(':checked'));
     })
-    // 削除確認コンファーム
-    // $('#confirm_destroy').on('click', function() {
-    //   if (!confirm('削除してもよろしいですか？')) {
-    //     return false;
-    //   }
-    // })
   })
 
 
@@ -359,10 +286,89 @@
         $('#for_destroy').append(ap_data);
       }
   });
-
-
 </script>
 
+<script>
+  $(document).ready(function(){
+    $.extend($.fn.dataTable.defaults, {
+        language: {
+            url: "https://cdn.datatables.net/plug-ins/9dcbecd42ad/i18n/Japanese.json"
+        }
+    });
+    $('#pre_reservation_sort').DataTable({
+      order:[],
+      processing: true,
+      serverSide: true,
+      searching: false,
+      info: false,
+      autowidth: false,
+      ajax: { 
+        "url": "{{ url('admin/pre_reservations/datatable') }}", 
+        "type": "GET",
+        "data": function ( d ) {
+            return $.extend( {}, d, {
+            // "search_id": $('input[name="search_id"]').val(),
+            // "reserve_date": $('input[name="reserve_date"]').val(),
+            // "venue_id": $('select[name="venue_id"]').val(),
+            // "user_id": $('input[name="user_id"]').val(),
+            // "company": $('input[name="company"]').val(),
+            // "person_name": $('input[name="person_name"]').val(),
+            // "agent": $('select[name="agent"]').val(),
+            // "enduser_person": $('input[name="enduser_person"]').val(),
+            // "sogaku": $('input[name="sogaku"]').val(),
+            // "payment_limit": $('input[name="payment_limit"]').val(),
+            // "pay_day": $('input[name="pay_day"]').val(),
+            // "pay_person": $('input[name="pay_person"]').val(),
+            // "attr": $('select[name="attr"]').val(),
+            // "sales1": $('#sales1').prop('checked')?1:0,
+            // "sales2": $('#sales2').prop('checked')?1:0,
+            // "sales3": $('#sales3').prop('checked')?1:0,
+            // "check_status3": $('#check_status3').prop('checked')?1:0,
+            // "check_status6": $('#check_status6').prop('checked')?1:0,
+            // "payment_status0": $('#payment_status0').prop('checked')?1:0,
+            // "payment_status1": $('#payment_status1').prop('checked')?1:0,
+            // "payment_status2": $('#payment_status2').prop('checked')?1:0,
+            // "payment_status3": $('#payment_status3').prop('checked')?1:0,
+            // "payment_status4": $('#payment_status4').prop('checked')?1:0,
+            // "payment_status5": $('#payment_status5').prop('checked')?1:0,
+            // "alliance0": $('#alliance0').prop('checked')?1:0,
+            // "alliance1": $('#alliance1').prop('checked')?1:0,
+          } );
+        }
+      },
+      columns: [
+        { data: '' },
+        { data: 'pre_reservation_id' },
+        { data: 'created_at' },
+        { data: 'reserve_date' },
+        { data: 'enter_time' },
+        { data: 'leave_time'},
+        { data: 'venue_name' },
+        { data: 'company' },
+        { data: 'person_name' },
+        { data: 'mobile' },
+        { data: 'tel' },
+        { data: 'unknownuser' },
+        { data: 'agent_name' },
+        { data: 'enduser' },
+        { data: 'details' },
+      ],
+      columnDefs: [
+        // {targets: 10, sortable: false, orderable: false},
+        // {targets: 11, sortable: false, orderable: false},
+        // {targets: 12, sortable: false, orderable: false},
+        // {targets: 13, sortable: false, orderable: false},
+        // {targets: 14, sortable: false, orderable: false},
+        // {targets: 15, sortable: false, orderable: false},
+        // {targets: 16, sortable: false, orderable: false},
+        // {targets: 17, sortable: false, orderable: false},
+        // {targets: 18, sortable: false, orderable: false},
+        // {targets: 19, sortable: false, orderable: false},
+        // {targets: 20, sortable: false, orderable: false},
+      ],
+     });
+    });
+</script>
 
 
 

@@ -45,38 +45,41 @@ class PreReservationsController extends Controller
    */
   public function index(Request $request)
   {
-    $today = date('Y-m-d', strtotime(Carbon::today()));
+    $data = $request->all();
+    // $today = date('Y-m-d', strtotime(Carbon::today()));
 
-    if (count($request->except("_token")) != 0) {
-      $class = new PreReservation;
-      $result = $this->BasicSearch($class->with(["unknown_user", "pre_enduser", "user", 'agent', 'venue']), $request);
-      $pre_reservations = $result[0];
-      $after = $pre_reservations->where('multiple_reserve_id', '=', 0)->where('reserve_date', '>=', $today)->where('status', '<', 2)->sortBy('reserve_date');
-      $before = $pre_reservations->where('multiple_reserve_id', '=', 0)->where('reserve_date', '<', $today)->where('status', '<', 2)->sortByDesc('reserve_date');
-      $pre_reservations = $after->concat($before);
-      $counter = $this->exceptSortCount($request->except('_token'), $pre_reservations);
-      if ($request->time_over) {
-        $today = Carbon::now();
-        $threeDaysBefore = date('Y-m-d H:i:s', strtotime($today->subHours(72)));
-        $pre_reservations = $pre_reservations->where('status', '<', 2)->where('updated_at', '<', $threeDaysBefore);
-        $counter = $this->exceptSortCount($request->except('_token'), $pre_reservations);
-      }
-    } else {
-      $after = PreReservation::with(["unknown_user", "pre_enduser", 'user', 'agent', 'venue'])->where('multiple_reserve_id', '=', 0)->where('reserve_date', '>=', $today)->where('status', '<', 2)->get()->sortBy('reserve_date');
-      $before = PreReservation::with(["unknown_user", "pre_enduser", "user", 'agent', 'venue'])->where('multiple_reserve_id', '=', 0)->where('reserve_date', '<', $today)->where('status', '<', 2)->get()->sortByDesc('reserve_date');
-      $pre_reservations = $after->concat($before);
-      $counter = 0;
-    }
+    // if (count($request->except("_token")) != 0) {
+    //   $class = new PreReservation;
+    //   $result = $this->BasicSearch($class->with(["unknown_user", "pre_enduser", "user", 'agent', 'venue']), $request);
+    //   $pre_reservations = $result[0];
+    //   $after = $pre_reservations->where('multiple_reserve_id', '=', 0)->where('reserve_date', '>=', $today)->where('status', '<', 2)->sortBy('reserve_date');
+    //   $before = $pre_reservations->where('multiple_reserve_id', '=', 0)->where('reserve_date', '<', $today)->where('status', '<', 2)->sortByDesc('reserve_date');
+    //   $pre_reservations = $after->concat($before);
+    //   $counter = $this->exceptSortCount($request->except('_token'), $pre_reservations);
+    //   if ($request->time_over) {
+    //     $today = Carbon::now();
+    //     $threeDaysBefore = date('Y-m-d H:i:s', strtotime($today->subHours(72)));
+    //     $pre_reservations = $pre_reservations->where('status', '<', 2)->where('updated_at', '<', $threeDaysBefore);
+    //     $counter = $this->exceptSortCount($request->except('_token'), $pre_reservations);
+    //   }
+    // } else {
+    //   $after = PreReservation::with(["unknown_user", "pre_enduser", 'user', 'agent', 'venue'])->where('multiple_reserve_id', '=', 0)->where('reserve_date', '>=', $today)->where('status', '<', 2)->get()->sortBy('reserve_date');
+    //   $before = PreReservation::with(["unknown_user", "pre_enduser", "user", 'agent', 'venue'])->where('multiple_reserve_id', '=', 0)->where('reserve_date', '<', $today)->where('status', '<', 2)->get()->sortByDesc('reserve_date');
+    //   $pre_reservations = $after->concat($before);
+    //   $counter = 0;
+    // }
 
-    $pre_reservations = $this->customSearchAndSort($pre_reservations, $request);
-    $pre_reservations = $this->customPaginate($pre_reservations, 30, $request);
+    // $pre_reservations = $this->customSearchAndSort($pre_reservations, $request);
+    // $pre_reservations = $this->customPaginate($pre_reservations, 30, $request);
 
-    $venues = Venue::orderBy("id", "desc")->get();
-    $agents = Agent::orderBy("id", "desc")->get();
+    $venues = DB::table('venues')->select(DB::raw('id, concat(name_area, name_bldg, name_venue) as venue_name'))->orderByRaw('id desc')->pluck('venue_name', 'id')->toArray();
+    array_unshift($venues, '');
+    $agents = DB::table('agents')->select(DB::raw('id, name'))->orderByRaw('id desc')->pluck('name', 'id')->toArray();
+    array_unshift($agents, '');
 
     return view(
       'admin.pre_reservations.index',
-      compact('pre_reservations', 'venues', 'agents', "counter", 'request')
+      compact('venues', 'agents', 'data')
     );
   }
 
