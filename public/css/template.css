@@ -1268,7 +1268,7 @@ h3 {
     position: relative;
 }
 
-.calender-head td .time {
+.calender-head td .time-item {
     position: absolute;
     left: -16px;
     top: 11px;

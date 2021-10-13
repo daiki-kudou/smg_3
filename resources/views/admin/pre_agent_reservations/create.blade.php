@@ -34,6 +34,57 @@
   </div>
   {{Form::open(['url' => 'admin/pre_agent_reservations/check', 'method' => 'POST', 'id'=>'pre_agent_reservationsCreateForm'])}}
   @csrf
+
+  <div class="date_selector mt-5">
+    <h3 class="mb-2 pt-3">日程選択</h3>
+    <table class="table table-bordered PreResCre" style="table-layout: fixed;">
+      <thead>
+        <tr>
+          <td>日付</td>
+          <td>会場名</td>
+          <td>入室時間</td>
+          <td>退室時間</td>
+          <td>追加・削除</td>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>
+            {{ Form::text('pre_date0', '',['class'=>'form-control', 'id'=>"pre_datepicker"] ) }}
+            <p class="is-error-pre_date0" style="color: red"></p>
+          </td>
+          <td>
+            <select name="pre_venue0" id="pre_venue" class="form-control">
+              <option value=""></option>
+              @foreach ($venues as $venue)
+              <option value="{{$venue->id}}">{{ReservationHelper::getVenue($venue->id)}}</option>
+              @endforeach
+            </select>
+            <p class="is-error-pre_venue0" style="color: red"></p>
+          </td>
+          <td>
+            <select name="pre_enter0" id="pre_enter0" class="enter_control_pre_reservation0 form-control">
+              <option value=""></option>
+              {!!ReservationHelper::timeOptions()!!}
+            </select>
+            <p class="is-error-pre_enter0" style="color: red"></p>
+          </td>
+          <td>
+            <select name="pre_leave0" id="pre_leave0" class="leave_control_pre_reservation0 form-control">
+              <option value=""></option>
+              {!!ReservationHelper::timeOptions()!!}
+            </select>
+            <p class="is-error-pre_enter0" style="color: red"></p>
+          </td>
+          <td>
+            <input type="button" value="＋" class="add pluralBtn">
+            <input type="button" value="ー" class="del pluralBtn">
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
   <div class="user_selector mt-5">
     <h3 class="mb-2 form_required">仲介会社情報</h3>
     <select name="agent_id" id="agent_id">
@@ -108,55 +159,7 @@
     </table>
   </div>
 
-  <div class="date_selector mt-5">
-    <h3 class="mb-2 pt-3">日程選択</h3>
-    <table class="table table-bordered PreResCre" style="table-layout: fixed;">
-      <thead>
-        <tr>
-          <td>日付</td>
-          <td>会場名</td>
-          <td>入室時間</td>
-          <td>退室時間</td>
-          <td>追加・削除</td>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td>
-            {{ Form::text('pre_date0', '',['class'=>'form-control', 'id'=>"pre_datepicker"] ) }}
-            <p class="is-error-pre_date0" style="color: red"></p>
-          </td>
-          <td>
-            <select name="pre_venue0" id="pre_venue" class="form-control">
-              <option value=""></option>
-              @foreach ($venues as $venue)
-              <option value="{{$venue->id}}">{{ReservationHelper::getVenue($venue->id)}}</option>
-              @endforeach
-            </select>
-            <p class="is-error-pre_venue0" style="color: red"></p>
-          </td>
-          <td>
-            <select name="pre_enter0" id="pre_enter0" class="enter_control_pre_reservation0 form-control">
-              <option value=""></option>
-              {!!ReservationHelper::timeOptions()!!}
-            </select>
-            <p class="is-error-pre_enter0" style="color: red"></p>
-          </td>
-          <td>
-            <select name="pre_leave0" id="pre_leave0" class="leave_control_pre_reservation0 form-control">
-              <option value=""></option>
-              {!!ReservationHelper::timeOptions()!!}
-            </select>
-            <p class="is-error-pre_enter0" style="color: red"></p>
-          </td>
-          <td>
-            <input type="button" value="＋" class="add pluralBtn">
-            <input type="button" value="ー" class="del pluralBtn">
-          </td>
-        </tr>
-      </tbody>
-    </table>
-  </div>
+
 
   <div class="submit_btn">
     <div class="d-flex justify-content-center">
