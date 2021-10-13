@@ -21,7 +21,7 @@
   }
 </style>
 
-
+@include('layouts.admin.errors')
 @if (session('flash_message'))
 <div class="flash_message bg-success text-center py-3 my-0">
   {{ session('flash_message') }}
@@ -101,7 +101,6 @@
               {{Form::select('search_agent',$agents,optional($data)['search_agent'],['class'=>'form-control','placeholder'=>''])}}
             </td>
           </tr>
-
           <tr>
             <th class="search_item_name"><label for="search_end_user">エンドユーザー</label></th>
             <td>
@@ -139,9 +138,10 @@
       <ul class="d-flex reservation_list mb-2 justify-content-between">
         <li>
           {{-- 削除ボタン --}}
-          {{Form::open(['url' => 'admin/multiples/destroy', 'method' => 'delete', 'id'=>''])}}
+          {{Form::open(['url' => 'admin/multiples/destroy', 'method' => 'delete'])}}
           @csrf
           <div id="for_destroy"></div>
+          {{Form::hidden("delete_target","")}}
           {{ Form::submit('削除', ['class' => 'btn more_btn4','id'=>'confirm_destroy']) }}
           {{ Form::close() }}
         </li>
@@ -302,6 +302,56 @@
     ActiveDateRangePicker('search_created_at');
     ActiveDateRangePicker('search_date');
   })
+
+  $(document).on('click', '#all_check', function (){
+    var parent_checked = $(this).prop('checked');
+    var array = [];
+    $('.checkbox').each(function(index, element){
+    $('.checkbox').eq(index).prop('checked',false );
+    $('.checkbox').eq(index).prop('checked',parent_checked );
+    if (parent_checked===true) {
+    array.push($('.checkbox').eq(index).val());
+    }
+    })
+    console.log(JSON.stringify(array));
+    $('input[name="delete_target"]').val(JSON.stringify(array));
+    }
+    );
+    
+    $(document).on('change', 'select[name="pre_reservation_sort_length"]', function (){
+    var parent_checked = $("#all_check").prop('checked');
+    var array = [];
+    $('.checkbox').each(function(index, element){
+    $('.checkbox').eq(index).prop('checked',false );
+    $('.checkbox').eq(index).prop('checked',parent_checked );
+    if (parent_checked===true) {
+    array.push($('.checkbox').eq(index).val());
+    }
+    })
+    console.log(JSON.stringify(array));
+    $('input[name="delete_target"]').val(JSON.stringify(array));
+    }
+    );
+    
+    $(document).on('click', '.checkbox', function (){
+    var parent_checked = $("#all_check").prop('checked');
+    var array = [];
+    $('.checkbox').each(function(index, element){
+    if ($('.checkbox').eq(index).prop('checked')===true) {
+    array.push($('.checkbox').eq(index).val());
+    }
+    })
+    console.log(JSON.stringify(array));
+    $('input[name="delete_target"]').val(JSON.stringify(array));
+    });
+    
+    $(document).on('click', '.sorting', function (){
+    $('.checkbox').each(function(index, element){
+    $('.checkbox').eq(index).prop('checked',false );
+    })
+    $('input[name="delete_target"]').val("");
+    $('#all_check').prop('checked',false);
+    });
 </script>
 
 <script>

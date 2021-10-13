@@ -19,6 +19,8 @@ use App\Traits\PaginatorTrait;
 // バリデーションロジック
 use App\Http\Requests\Admin\Multiples\Agent\PostRequest;
 use Carbon\Carbon;
+use App\Service\SendSMGEmail;
+
 
 class MultiplesController extends Controller
 {
@@ -354,91 +356,103 @@ class MultiplesController extends Controller
 
   public function destroy(Request $request)
   {
-    $shapeRequest = $request->except(['_method', '_token']);
-    if (count($shapeRequest) == 0) {
-      $request->session()->regenerate();
-      return redirect()->route('admin.multiples.index')->with('flash_message_error', '仮押えが選択されていません');
-    } else {
-      DB::transaction(function () use ($shapeRequest) {
-        foreach ($shapeRequest as $key => $value) {
-          $multiple = MultipleReserve::find($value);
-          foreach ($multiple->pre_reservations()->get() as $key2 => $value2) {
-            foreach ($value2->pre_breakdowns()->get() as $key3 => $value3) {
-              $value3->delete();
-            }
-            foreach ($value2->pre_bill()->get() as $key4 => $value4) {
-              $value4->delete();
-            }
-            $value2->unknown_user()->delete();
-            $value2->delete();
+    $data = $request->all();
+    if (!empty($data['delete_target']) && $data['delete_target'] !== "[]") { //空配列は弾く
+      $delete_target_array = json_decode($data['delete_target']); //配列
+      DB::beginTransaction();
+      try {
+        foreach ($delete_target_array as $value) {
+          $multipleReserve = MultipleReserve::find($value);
+          if (is_null($multipleReserve)) { //削除対象がなければ
+            throw new \Exception("ID" . $value . "は存在しません");
           }
-          $multiple->delete();
         }
-      });
-      $request->session()->regenerate();
-      return redirect()->route('admin.multiples.index')->with('flash_message', '一括仮押えの削除が完了しました');
+        //問題なければ削除
+        foreach ($delete_target_array as $v) {
+          $multipleReserve = MultipleReserve::find($v);
+          $multipleReserve->delete();
+        }
+        DB::commit();
+      } catch (\Exception $e) {
+        DB::rollback();
+        return back()->withInput()->withErrors($e->getMessage());
+      }
+      return redirect()->route('admin.multiples.index')->with('flash_message', '削除完了');
+    } else {
+      return redirect()->route('admin.multiples.index')->with('flash_message_error', '仮押えが選択されていません');
     }
   }
 
   public function SPDestroy(Request $request)
   {
-    if ($request->destroy_from_agent) {
-      return $this->destroy_from_agent($request);
-    }
-
-    $shapeRequest = $request->except(['_method', '_token', 'multi_id']);
-    $multiple = MultipleReserve::with('pre_reservations')->find($request->multi_id);
-
-    if (empty($shapeRequest)) {
-      return redirect()->route('admin.multiples.show', $multiple->id)->with('flash_message_error', '仮押さえが選択されていません');
-    }
-
-    DB::transaction(function () use ($shapeRequest) {
-      foreach ($shapeRequest as $value) {
-        $pre_reservation = PreReservation::find($value);
-        $pre_reservation->delete();
-      }
-    });
-
-    $multiple = MultipleReserve::with('pre_reservations')->find($request->multi_id);
-    if (!empty($multiple->pre_reservations->toArray())) {
-      //まだ仮押さえがあるなら
-      return redirect()->route('admin.multiples.show', $multiple->id)->with('flash_message', '仮押さえの削除に成功しました。');
-    } else {
-      //仮押さえがない
-      DB::transaction(function () use ($multiple) {
-        $multiple->delete();
-      });
-      return redirect()->route('admin.multiples.index')->with('flash_message', '仮押さえの削除に成功しました。');
-    }
-  }
-
-  public function destroy_from_agent($request)
-  {
-    if ($request->destroy_from_agent == 1) {
-      $shapeRequest = $request->except(['_method', '_token', 'multi_id', 'destroy_from_agent']);
-      $multiple = MultipleReserve::with('pre_reservations')->find($request->multi_id);
-      if (empty($shapeRequest)) {
-        return redirect()->route('admin.multiples.agent_show', $multiple->id)->with('flash_message_error', '仮押さえが選択されていません');
-      }
-      DB::transaction(function () use ($shapeRequest) {
-        foreach ($shapeRequest as $value) {
-          $pre_reservation = PreReservation::find($value);
-          $pre_reservation->delete();
+    $data = $request->all();
+    if (!empty($data['delete_target']) && $data['delete_target'] !== "[]") { //空配列は弾く
+      $delete_target_array = json_decode($data['delete_target']); //配列
+      DB::beginTransaction();
+      try {
+        foreach ($delete_target_array as $value) {
+          $preReservation = PreReservation::with(['user', 'venue'])->find($value);
+          if (is_null($preReservation)) { //削除対象がなければ
+            throw new \Exception("ID" . $value . "は存在しません");
+          }
+          if (($preReservation->user_id > 0)) {
+            if (!filter_var($preReservation->user->email, FILTER_VALIDATE_EMAIL)) { //対象がメールアドレスでなければ
+              throw new \Exception("ID" . $value . "のメールアドレス" . $preReservation->user->email . "は正しくありません");
+            }
+          }
         }
-      });
-
-      $multiple = MultipleReserve::with('pre_reservations')->find($request->multi_id);
-      if (!empty($multiple->pre_reservations->toArray())) {
-        //まだ仮押さえがあるなら
-        return redirect()->route('admin.multiples.agent_show', $multiple->id)->with('flash_message', '仮押さえの削除に成功しました。');
-      } else {
-        //仮押さえがない
-        DB::transaction(function () use ($multiple) {
-          $multiple->delete();
-        });
-        return redirect()->route('admin.multiples.index')->with('flash_message', '仮押さえの削除に成功しました。');
+        // 上のforeachでメールアドレスチェックをし、全て通ったら再度foreachでメール送信処理
+        foreach ($delete_target_array as $v) {
+          $preReservation = PreReservation::with(['user', 'venue'])->find($v);
+          if ($preReservation->user_id > 0) {
+            $user = $preReservation->user;
+            $venue = $preReservation->venue;
+            $SendSMGEmail = new SendSMGEmail($user, "test", $preReservation->venue);
+            $SendSMGEmail->send("管理者が仮抑え一覧よりチェックボックスを選択し削除");
+          }
+        }
+        // 上のメール送信も問題なければ削除
+        foreach ($delete_target_array as $v) {
+          $preReservation = PreReservation::find($v);
+          $preReservation->delete();
+        }
+        DB::commit();
+      } catch (\Exception $e) {
+        DB::rollback();
+        return back()->withInput()->withErrors($e->getMessage());
       }
+      return redirect()->route('admin.multiples.index')->with('flash_message', '削除したよ');
+    } else {
+      return back()->withInput()->with('flash_message_error', '仮押えが選択されていません');
     }
   }
+
+  // public function destroy_from_agent($request)
+  // {
+  //   if ($request->destroy_from_agent == 1) {
+  //     $shapeRequest = $request->except(['_method', '_token', 'multi_id', 'destroy_from_agent']);
+  //     $multiple = MultipleReserve::with('pre_reservations')->find($request->multi_id);
+  //     if (empty($shapeRequest)) {
+  //       return redirect()->route('admin.multiples.agent_show', $multiple->id)->with('flash_message_error', '仮押さえが選択されていません');
+  //     }
+  //     DB::transaction(function () use ($shapeRequest) {
+  //       foreach ($shapeRequest as $value) {
+  //         $pre_reservation = PreReservation::find($value);
+  //         $pre_reservation->delete();
+  //       }
+  //     });
+
+  //     $multiple = MultipleReserve::with('pre_reservations')->find($request->multi_id);
+  //     if (!empty($multiple->pre_reservations->toArray())) {
+  //       //まだ仮押さえがあるなら
+  //       return redirect()->route('admin.multiples.agent_show', $multiple->id)->with('flash_message', '仮押さえの削除に成功しました。');
+  //     } else {
+  //       //仮押さえがない
+  //       DB::transaction(function () use ($multiple) {
+  //         $multiple->delete();
+  //       });
+  //       return redirect()->route('admin.multiples.index')->with('flash_message', '仮押さえの削除に成功しました。');
+  //     }
+  //   }
+  // }
 }
