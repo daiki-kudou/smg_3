@@ -804,4 +804,108 @@ class MultipleReserve extends Model implements PresentableInterface //プレゼ�
       return TRUE;
     }
   }
+
+
+  /**   
+   * 予約一覧の検索対象マスタ
+   * @return object collectionで返る
+   */
+  public function MultipleSearchTarget()
+  {
+    $searchTarget = DB::table('multiple_reserves')
+      ->select(DB::raw(
+        "
+        LPAD(multiple_reserves.id,6,0) as multiple_reserve_id,
+        multiple_reserves.id as multiple_reserve_original_id,
+        concat(date_format(multiple_reserves.created_at, '%Y/%m/%d'),
+        case 
+        when DAYOFWEEK(multiple_reserves.created_at) = 1 then '(日)' 
+        when DAYOFWEEK(multiple_reserves.created_at) = 2 then '(月)'
+        when DAYOFWEEK(multiple_reserves.created_at) = 3 then '(火)'
+        when DAYOFWEEK(multiple_reserves.created_at) = 4 then '(水)'
+        when DAYOFWEEK(multiple_reserves.created_at) = 5 then '(木)'
+        when DAYOFWEEK(multiple_reserves.created_at) = 6 then '(金)'
+        when DAYOFWEEK(multiple_reserves.created_at) = 7 then '(土)'
+        end
+        ) as created_at,
+        count(pre_reservations.id) as pre_reservation_count,
+        min(pre_reservations.id) as pre_reservation_id,
+        min(pre_reservations.user_id) as user_id,
+        users.company as company,
+        concat(users.first_name, users.last_name) as person_name,
+        users.mobile as mobile,
+        users.tel as tel,
+        unknown_users.unknown_user_company as unknown_user_company,
+        agents.name as agent_name,
+        pre_endusers.company as enduser
+        "
+      ))
+      ->leftJoin('pre_reservations', 'multiple_reserves.id', '=', 'pre_reservations.multiple_reserve_id')
+      ->leftJoin('users', 'pre_reservations.user_id', '=', 'users.id')
+      ->leftJoin('unknown_users', 'pre_reservations.id', '=', 'unknown_users.pre_reservation_id')
+      ->leftJoin('agents', 'pre_reservations.agent_id', '=', 'agents.id')
+      ->leftJoin('pre_endusers', 'pre_reservations.id', '=', 'pre_endusers.pre_reservation_id')
+      ->groupByRaw("multiple_reserves.id, users.id, unknown_users.unknown_user_company, agents.name, pre_endusers.company")
+      ->havingRaw('pre_reservation_count > 0');
+    return $searchTarget;
+  }
+
+
+
+  public function SearchMultiple($data)
+  {
+    $searchTarget = $this->MultipleSearchTarget();
+
+    if (!empty($data['search_id']) && (int)$data['search_id'] > 0) {
+      $searchTarget->whereRaw('pre_reservations.id LIKE ? ',  ['%' . $data['search_id'] . '%']);
+    }
+
+    if (!empty($data['search_created_at'])) {
+      $targetData = explode(" ~ ", $data['search_created_at']);
+      $targetData[0] = $targetData[0] . ' 00:00:00';
+      $targetData[1] = $targetData[1] . ' 23:59:59';
+      $searchTarget->whereRaw('pre_reservations.created_at between ? AND ? ',  $targetData);
+    }
+
+    if (!empty($data['search_date'])) {
+      $targetData = explode(" ~ ", $data['search_date']);
+      $targetData[0] = $targetData[0] . ' 00:00:00';
+      $targetData[1] = $targetData[1] . ' 23:59:59';
+      $searchTarget->whereRaw('pre_reservations.reserve_date between ? AND ? ',  $targetData);
+    }
+
+    if (!empty($data['search_venue']) && (int)$data['search_venue'] !== 0) {
+      $searchTarget->whereRaw('venues.id = ? ',  [(int)$data['search_venue']]);
+    }
+
+    if (!empty($data['search_company'])) {
+      $searchTarget->whereRaw('users.company LIKE ? ',  ['%' . $data['search_company'] . '%']);
+    }
+
+    if (!empty($data['search_person'])) {
+      $searchTarget->whereRaw('concat(users.first_name,users.last_name) LIKE ? ',  ['%' . $data['search_person'] . '%']);
+    }
+
+    if (!empty($data['search_mobile'])) {
+      $searchTarget->whereRaw('users.mobile LIKE ? ',  ['%' . $data['search_mobile'] . '%']);
+    }
+
+    if (!empty($data['search_tel'])) {
+      $searchTarget->whereRaw('users.tel LIKE ? ',  ['%' . $data['search_tel'] . '%']);
+    }
+
+    if (!empty($data['search_unkown_user'])) {
+      $searchTarget->whereRaw('unknown_users.unknown_user_company LIKE ? ',  ['%' . $data['search_unkown_user'] . '%']);
+    }
+
+    if (!empty($data['search_agent']) && (int)$data['search_agent'] !== 0) {
+      $searchTarget->whereRaw('agents.id = ? ',  [(int)$data['search_agent']]);
+    }
+
+    if (!empty($data['search_end_user'])) {
+      $searchTarget->whereRaw('pre_endusers.company LIKE ? ',  ['%' . $data['search_end_user'] . '%']);
+    }
+
+    return $searchTarget;
+  }
 }

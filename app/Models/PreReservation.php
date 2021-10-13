@@ -668,69 +668,6 @@ class PreReservation extends Model
       $searchTarget->whereRaw('pre_endusers.company LIKE ? ',  ['%' . $data['search_end_user'] . '%']);
     }
 
-
-
-
-
-
-
-
-
-
-    if (!empty($data['agent'])) {
-      $searchTarget->whereRaw('agents.id = ? ',  [$data['agent']]);
-    }
-
-    if (!empty($data['enduser_person'])) {
-      $searchTarget->whereRaw('endusers.company LIKE ? ',  ['%' . $data['enduser_person'] . '%']);
-    }
-
-    if (!empty($data['sogaku'])) {
-      $searchTarget->whereRaw('sogaku = ?', [$data['sogaku']]);
-    }
-
-    if (!empty($data['payment_limit'])) {
-      $date = explode(' ~ ', $data['payment_limit']);
-      $searchTarget = $searchTarget->where(function ($query) use ($date) {
-        $query->orWhereIn('reservations.id', DB::table('bills')->select(DB::raw('reservation_id'))->whereRaw('payment_limit between ? and ?', $date)->groupBy('reservation_id'))
-          ->orWhereIn('reservations.id', DB::table('cxls')->select(DB::raw('reservation_id'))->whereRaw('payment_limit between ? and ?', $date)->groupBy('reservation_id'));
-      });
-    }
-
-    if (!empty($data['pay_day'])) {
-      $date = explode(' ~ ', $data['pay_day']);
-      $searchTarget = $searchTarget->where(function ($query) use ($date) {
-        $query->orWhereIn('reservations.id', DB::table('bills')->select(DB::raw('reservation_id'))->whereRaw('pay_day between ? and ?', $date)->groupBy('reservation_id'))
-          ->orWhereIn('reservations.id', DB::table('cxls')->select(DB::raw('reservation_id'))->whereRaw('pay_day between ? and ?', $date)->groupBy('reservation_id'));
-      });
-    }
-
-    if (!empty($data['pay_person'])) {
-      $searchTarget = $searchTarget->where(function ($query) use ($data) {
-        $query->orWhereIn('reservations.id', DB::table('bills')->select(DB::raw('reservation_id'))->whereRaw('pay_person LIKE ?', '%' . $data['pay_person'] . '%')->groupBy('reservation_id'))
-          ->orWhereIn('reservations.id', DB::table('cxls')->select(DB::raw('reservation_id'))->whereRaw('pay_person LIKE ?', '%' . $data['pay_person'] . '%')->groupBy('reservation_id'));
-      });
-    }
-
-    if (!empty($data['attr'])) {
-      $searchTarget->whereRaw('users.attr = ?', [$data['attr']]);
-    }
-
-    if (!empty($data['day_before'])) {
-      $yesterday = new Carbon('yesterday');
-      $searchTarget->whereRaw('reservations.reserve_date = ?', [date('Y-m-d', strtotime($yesterday))]);
-    }
-    if (!empty($data['today'])) {
-      $yesterday = new Carbon('today');
-      $searchTarget->whereRaw('reservations.reserve_date = ?', [date('Y-m-d', strtotime($yesterday))]);
-    }
-    if (!empty($data['day_after'])) {
-      $yesterday = new Carbon('tomorrow');
-      $searchTarget->whereRaw('reservations.reserve_date = ?', [date('Y-m-d', strtotime($yesterday))]);
-    }
-
-
-
     return $searchTarget;
   }
 }

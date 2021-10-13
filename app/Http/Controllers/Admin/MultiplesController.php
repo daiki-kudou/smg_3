@@ -28,76 +28,38 @@ class MultiplesController extends Controller
 
   public function index(Request $request)
   {
-    if (count($request->all()) != 0) {
-      $class = new MultipleReserve;
-      $multiples = $this->MultipleSearch($class->with(
-        [
-          "pre_reservations.unknown_user",
-          "pre_reservations.pre_enduser",
-          "pre_reservations.user",
-          "pre_reservations.agent"
-        ]
-      )->withCount("pre_reservations"), $request);
-      $counter = $this->exceptSortCount($request->except('_token'), $multiples);
+    $data = $request->all();
 
-
-      if ($request->time_over) {
-        $today = Carbon::now();
-        $threeDaysBefore = date('Y-m-d H:i:s', strtotime($today->subHours(72)));
-        $over_id = [];
-        foreach ($multiples as $key => $multiple) {
-          foreach ($multiple->pre_reservations as $key => $pre_res) {
-            if ($pre_res->status < 2) {
-              if ($pre_res->updated_at < $threeDaysBefore) {
-                $over_id[] = $pre_res->multiple_reserve_id;
-              }
-            }
-          }
-        }
-        $multiples = $multiples->whereIn('id', array_unique($over_id));
-        $counter = count($multiples);
+    $_multiples = new MultipleReserve;
+    $_multiples = $_multiples->SearchMultiple($data)->orderByRaw('multiple_reserve_id desc')->get()->toArray();
+    $multiples = [];
+    foreach ($_multiples as $p) {
+      if ((int)$p->user_id === 0 || empty($p->user_id)) {
+        $detail_link = "<a href=" . url('admin/multiples/agent', $p->multiple_reserve_original_id) . " class='more_btn btn'>詳細</a>";
+      } else {
+        $detail_link = "<a href=" . url('admin/multiples', $p->multiple_reserve_original_id) . " class='more_btn btn'>詳細</a>";
       }
-    } else {
-      $multiples = MultipleReserve::with(
-        [
-          "pre_reservations.user",
-          "pre_reservations.unknown_user",
-          "pre_reservations.pre_enduser",
-          'pre_reservations.agent'
-        ]
-      )->orderBy('id', 'desc')->get();
-      $counter = 0;
+      $multiples[] = [
+        "<input type='checkbox' name='checkbox" . $p->multiple_reserve_original_id . "' value='" . $p->multiple_reserve_original_id . "' class='checkbox'>",
+        $p->multiple_reserve_id,
+        $p->created_at,
+        $p->pre_reservation_count,
+        $p->company,
+        $p->person_name,
+        $p->mobile,
+        $p->tel,
+        $p->unknown_user_company,
+        $p->agent_name,
+        $p->enduser,
+        $detail_link,
+      ];
     }
-    $multiples = $this->customSearchAndSort($multiples, $request);
-    $multiples = $this->customPaginate($multiples, 30, $request);
-    $agents = Agent::orderBy("id", "desc")->get();
+    $multiples = json_encode($multiples);
 
-    return view('admin.multiples.index', compact('multiples', "counter", "request", "agents"));
-  }
+    $counter = 0;
+    $agents = DB::table('agents')->select(DB::raw('id, name'))->orderByRaw('id desc')->pluck('name', 'id')->toArray();
 
-  public function customSearchAndSort($model, $request)
-  {
-    if ($request->sort_multiple_id) {
-      if ($request->sort_multiple_id == 1) {
-        return $model->sortByDesc("id");
-      } else {
-        return $model->sortBy("id");
-      }
-    } elseif ($request->sort_created_at) {
-      if ($request->sort_created_at == 1) {
-        return $model->sortByDesc("created_at");
-      } else {
-        return $model->sortBy("created_at");
-      }
-    } elseif ($request->sort_count) {
-      if ($request->sort_count == 1) {
-        return $model->sortByDesc("pre_reservations_count");
-      } else {
-        return $model->sortBy("pre_reservations_count");
-      }
-    }
-
-    return $model;
+    return view('admin.multiples.index', compact('multiples', "counter", "data", "agents"));
   }
 
   public function show($id)

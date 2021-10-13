@@ -171,35 +171,62 @@ class ReservationHelper
 
   public static function getPersonMobile($user_id)
   {
-    $user = User::find($user_id);
-    return $user->mobile;
+    if ((int)$user_id === 0 || empty($user_id)) {
+      return NULL;
+    } else {
+      $user = User::find($user_id);
+      return $user->mobile;
+    }
   }
 
   public static function getPersonTel($user_id)
   {
-    $user = User::find($user_id);
-    return $user->tel;
+    if ((int)$user_id === 0 || empty($user_id)) {
+      return NULL;
+    } else {
+      $user = User::find($user_id);
+      return $user->tel;
+    }
   }
+
   public static function getPersonCondition($user_id)
   {
-    $user = User::find($user_id);
-    return $user->condition;
+    if ((int)$user_id === 0 || empty($user_id)) {
+      return NULL;
+    } else {
+      $user = User::find($user_id);
+      return $user->condition;
+    }
   }
+
   public static function getPersonAttention($user_id)
   {
-    $user = User::find($user_id);
-    return $user->attention;
+    if ((int)$user_id === 0 || empty($user_id)) {
+      return NULL;
+    } else {
+      $user = User::find($user_id);
+      return $user->attention;
+    }
   }
 
   public static function getAgentPerson($agent_id)
   {
-    $agent = Agent::find($agent_id);
-    return $agent->person_firstname . $agent->person_lastname;
+    if ((int)$agent_id === 0 || empty($agent_id)) {
+      return NULL;
+    } else {
+      $agent = Agent::find($agent_id);
+      return $agent->person_firstname . $agent->person_lastname;
+    }
   }
+
   public static function getAgentPersonKANA($agent_id)
   {
-    $agent = Agent::find($agent_id);
-    return $agent->firstname_kana . $agent->lastname_kana;
+    if ((int)$agent_id === 0 || empty($agent_id)) {
+      return NULL;
+    } else {
+      $agent = Agent::find($agent_id);
+      return $agent->firstname_kana . $agent->lastname_kana;
+    }
   }
 
   public static function getAgentCompany($agent_id)

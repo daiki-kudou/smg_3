@@ -111,13 +111,13 @@
           </td>
           <td class="table-active" scope="row"><label for="">割引条件</label></td>
           <td>
-            {!!nl2br(e($multiple->pre_reservations->first()->user->condition))!!}
+            {!!nl2br(e(optional($multiple->pre_reservations->first()->user)->condition))!!}
           </td>
         </tr>
         <tr>
           <td class="table-active caution" scope="row"><label for="">注意事項</label></td>
           <td class="caution" colspan="3">
-            {!!nl2br(e($multiple->pre_reservations->first()->user->attention))!!}
+            {!!nl2br(e(optional($multiple->pre_reservations->first()->user)->attention))!!}
           </td>
         </tr>
       </tbody>
@@ -135,34 +135,34 @@
         <tr>
           <td class="table-active" width="25%"><label for="onedayCompany">会社・団体名(仮)</label></td>
           <td>
-            {{$multiple->pre_reservations->first()->unknown_user->unknown_user_company}}
+            {{optional($multiple->pre_reservations->first()->unknown_user)->unknown_user_company}}
           </td>
           <td class="table-active"><label for="onedayName">担当者名(仮)</label></td>
           <td>
-            {{$multiple->pre_reservations->first()->unknown_user->unknown_user_name}}
+            {{optional($multiple->pre_reservations->first()->unknown_user)->unknown_user_name}}
           </td>
         </tr>
         <tr>
           <td class="table-active" scope="row"><label for="onedayTel">固定電話</label></td>
           <td>
-            {{$multiple->pre_reservations->first()->unknown_user->unknown_user_tel}}
+            {{optional($multiple->pre_reservations->first()->unknown_user)->unknown_user_tel}}
           </td>
           <td class="table-active" scope="row"><label for="onedayMobile">携帯番号</label></td>
           <td>
-            {{$multiple->pre_reservations->first()->unknown_user->unknown_user_mobile}}
+            {{optional($multiple->pre_reservations->first()->unknown_user)->unknown_user_mobile}}
           </td>
         </tr>
         <tr>
           <td class="table-active" scope="row"><label for="onedayEmail">メールアドレス</label></td>
           <td>
-            {{$multiple->pre_reservations->first()->unknown_user->unknown_user_email}}
+            {{optional($multiple->pre_reservations->first()->unknown_user)->unknown_user_email}}
           </td>
         </tr>
       </tbody>
     </table>
     <hr class="my-5 border_color">
     <div class="mt-5">
-      <p class="text-right"><a href="{{url('admin/multiples/'.$multiple->id."/add_venue")}}"
+      <p class="text-right"><a href="{{url('admin/multiples/'.$multiple->id." /add_venue")}}"
           class="more_btn3">日程を追加する</a></p>
       <p class="mb-2">詳細を入力する場合は、会場ごとに編集をしてください。</p>
     </div>
