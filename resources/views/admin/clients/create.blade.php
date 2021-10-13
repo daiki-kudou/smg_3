@@ -158,7 +158,7 @@
           </tr>
           <tr>
             <td class="table-active">{{ Form::label('fax', 'FAX') }}</td>
-            <td colspan="2">{{ Form::text('fax', old('fax'), ['class' => 'form-control']) }}
+            <td colspan="2">{{ Form::text('fax', old('fax'), ['class' => 'form-control', 'placeholder' => '半角数字、ハイフンなしで入力してください']) }}
               <p class="is-error-fax" style="color: red"></p>
             </td>
           </tr>
