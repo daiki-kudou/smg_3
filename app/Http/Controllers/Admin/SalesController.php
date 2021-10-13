@@ -48,6 +48,11 @@ class SalesController extends Controller
       ->orderByRaw("予約中かキャンセルか,今日以降かどうか,今日以降日付,今日未満日付 desc")
       ->get();
 
+
+
+
+
+
     // // ※参照
     // // https://blog.hrendoh.com/laravel-6-download-csv-with-streamdownload/
 
@@ -81,7 +86,7 @@ class SalesController extends Controller
         stream_filter_prepend($stream, 'convert.iconv.utf-8/cp932//TRANSLIT'); // 文字コードをShift-JISに変換
         fputcsv($stream, $header);
         foreach ($result->chunk(1000) as $chunk) {
-          foreach ($chunk as $r) {
+          foreach ($chunk as $key => $r) {
             fputcsv($stream, [
               '="' . ($r->multiple_reserve_id) . '"',
               '="' . ($r->reservation_id) . '"',
@@ -105,6 +110,112 @@ class SalesController extends Controller
               $r->payment_limit,
               $r->alliance_flag,
             ]);
+            // 打ち消し用
+            if (count($chunk) !== ($key + 1)) {
+              if ($chunk[$key + 1]->original_reservation_id !== $r->original_reservation_id) {
+                if ($r->cxl_id > 0) {
+                  fputcsv($stream, [
+                    '="' . ($r->multiple_reserve_id) . '"',
+                    '="' . ($r->reservation_id) . '"',
+                    $r->reserve_date,
+                    $r->venue_name,
+                    '="' . $r->user_id . '"',
+                    $r->company_name,
+                    $r->user_name,
+                    $r->agent_name,
+                    $r->enduser_company,
+                    $r->sogaku,
+                    number_format((int)str_replace(',', '', $r->sogaku) * -1),
+                    '（売上原価）',
+                    '（粗利）',
+                    "打ち消し",
+                    "-",
+                    "-",
+                    "-",
+                    "-",
+                    "-",
+                    "-",
+                    $r->alliance_flag,
+                  ]);
+                  // 実際のキャンセル料
+                  fputcsv($stream, [
+                    '="' . ($r->multiple_reserve_id) . '"',
+                    '="' . ($r->reservation_id) . '"',
+                    $r->reserve_date,
+                    $r->venue_name,
+                    '="' . $r->user_id . '"',
+                    $r->company_name,
+                    $r->user_name,
+                    $r->agent_name,
+                    $r->enduser_company,
+                    $r->sogaku,
+                    $r->cxl_master_total,
+                    '（売上原価）',
+                    '（粗利）',
+                    "キャンセル料",
+                    $r->cxl_status,
+                    $r->cxl_pay_day,
+                    $r->cxl_paid,
+                    $r->cxl_pay_person,
+                    $r->attr,
+                    $r->payment_limit,
+                    $r->alliance_flag,
+                  ]);
+                }
+              }
+            }
+            // 打ち消し用（最後のループ）
+            if (count($chunk) === ($key + 1)) {
+              if ($r->cxl_id > 0) {
+                fputcsv($stream, [
+                  '="' . ($r->multiple_reserve_id) . '"',
+                  '="' . ($r->reservation_id) . '"',
+                  $r->reserve_date,
+                  $r->venue_name,
+                  '="' . $r->user_id . '"',
+                  $r->company_name,
+                  $r->user_name,
+                  $r->agent_name,
+                  $r->enduser_company,
+                  $r->sogaku,
+                  number_format((int)str_replace(',', '', $r->sogaku) * -1),
+                  '（売上原価）',
+                  '（粗利）',
+                  "打ち消し",
+                  "-",
+                  "-",
+                  "-",
+                  "-",
+                  "-",
+                  "-",
+                  $r->alliance_flag,
+                ]);
+                // 実際のキャンセル料
+                fputcsv($stream, [
+                  '="' . ($r->multiple_reserve_id) . '"',
+                  '="' . ($r->reservation_id) . '"',
+                  $r->reserve_date,
+                  $r->venue_name,
+                  '="' . $r->user_id . '"',
+                  $r->company_name,
+                  $r->user_name,
+                  $r->agent_name,
+                  $r->enduser_company,
+                  $r->sogaku,
+                  $r->cxl_master_total,
+                  '（売上原価）',
+                  '（粗利）',
+                  "キャンセル料",
+                  $r->cxl_status,
+                  $r->cxl_pay_day,
+                  $r->cxl_paid,
+                  $r->cxl_pay_person,
+                  $r->attr,
+                  $r->payment_limit,
+                  $r->alliance_flag,
+                ]);
+              }
+            }
           }
         }
         fclose($stream);

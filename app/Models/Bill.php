@@ -254,6 +254,7 @@ class Bill extends Model
       ->select(DB::raw(
         "
         LPAD(reservations.id, 6, 0) as reservation_id,
+        reservations.id as original_reservation_id,
         LPAD(reservations.multiple_reserve_id,6,0) as multiple_reserve_id,
         concat(date_format(reservations.reserve_date, '%Y/%m/%d'),
         case 
@@ -363,7 +364,35 @@ class Bill extends Model
         when DAYOFWEEK(bills.pay_day) = 6 then '(金)'
         when DAYOFWEEK(bills.pay_day) = 7 then '(土)'
         end
-        ) as pay_day
+        ) as pay_day,
+        cxls.id as cxl_id,
+        format(cxls.master_total,0) as cxl_master_total,
+        case 
+        when cxls.cxl_status = 0 then 'キャンセル申請中' 
+        when cxls.cxl_status = 1 then 'キャンセル承認待ち' 
+        when cxls.cxl_status = 2 then 'キャンセル' 
+        end as cxl_status,
+        cxls.pay_day as cxl_pay_day,
+        case
+        when cxls.paid = 0 then '未入金'
+        when cxls.paid = 1 then '入金済'
+        when cxls.paid = 2 then '遅延'
+        when cxls.paid = 3 then '入金不足'
+        when cxls.paid = 4 then '入金過多'
+        when cxls.paid = 5 then '次回繰越'
+        end as cxl_paid,
+        cxls.pay_person as cxl_pay_person,
+        concat(date_format(cxls.payment_limit, '%Y/%m/%d'),
+        case 
+        when DAYOFWEEK(cxls.payment_limit) = 1 then '(日)' 
+        when DAYOFWEEK(cxls.payment_limit) = 2 then '(月)'
+        when DAYOFWEEK(cxls.payment_limit) = 3 then '(火)'
+        when DAYOFWEEK(cxls.payment_limit) = 4 then '(水)'
+        when DAYOFWEEK(cxls.payment_limit) = 5 then '(木)'
+        when DAYOFWEEK(cxls.payment_limit) = 6 then '(金)'
+        when DAYOFWEEK(cxls.payment_limit) = 7 then '(土)'
+        end
+        ) as cxl_payment_limit
       "
       ))
       ->leftJoin('bills', 'reservations.id', '=', 'bills.reservation_id')
@@ -380,7 +409,8 @@ class Bill extends Model
       ->leftJoin(DB::raw('(select reservation_id, count(reservation_status) as status4 from bills where reservation_status = 4  group by reservation_id) as check_status4'), 'reservations.id', '=', 'check_status4.reservation_id')
       ->leftJoin(DB::raw('(select reservation_id, count(reservation_status) as status5 from bills where reservation_status = 5  group by reservation_id) as check_status5'), 'reservations.id', '=', 'check_status5.reservation_id')
       ->leftJoin(DB::raw('(select reservation_id, count(reservation_status) as status6 from bills where reservation_status = 6  group by reservation_id) as check_status6'), 'reservations.id', '=', 'check_status6.reservation_id')
-      ->leftJoin(DB::raw('(select reservation_id, sum(master_total) as sogaku from bills group by reservation_id) as sogaku_master'), 'reservations.id', '=', 'sogaku_master.reservation_id');
+      ->leftJoin(DB::raw('(select reservation_id, sum(master_total) as sogaku from bills group by reservation_id) as sogaku_master'), 'reservations.id', '=', 'sogaku_master.reservation_id')
+      ->leftJoin('cxls', 'reservations.id', "=", "cxls.reservation_id");
 
     return $searchTarget;
   }
