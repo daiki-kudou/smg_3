@@ -286,12 +286,8 @@ class BillsController extends Controller
   public function updatePaidInfo(Request $request)
   {
     $validatedData = $request->validate(
-      [
-        'paid' => 'required',
-      ],
-      [
-        'paid.required' => '[入金情報] ※入金状況は必須です',
-      ]
+      ['paid' => 'required',],
+      ['paid.required' => '[入金情報] ※入金状況は必須です',]
     );
     $bill = Bill::with('reservation.user')->find($request->bill_id);
     $bill->update(

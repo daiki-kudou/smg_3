@@ -7,8 +7,8 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\SerializesModels;
-use App\Mail\AdminCxlChck;
-use App\Mail\UserCxlChck;
+use App\Mail\AdminPaid;
+use App\Mail\UserPaid;
 use Mail;
 
 class MailForUserAfterCheckPaid implements ShouldQueue
@@ -40,13 +40,13 @@ class MailForUserAfterCheckPaid implements ShouldQueue
   {
     $admin = config('app.admin_email');
     Mail::to($admin)
-      ->send(new AdminCxlChck(
+      ->send(new AdminPaid(
         $this->user,
         $this->reservation,
         $this->venue
       ));
     Mail::to($this->user->email)
-      ->send(new UserCxlChck(
+      ->send(new UserPaid(
         $this->user,
         $this->reservation,
         $this->venue
