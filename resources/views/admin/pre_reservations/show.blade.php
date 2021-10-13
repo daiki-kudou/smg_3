@@ -170,7 +170,7 @@
             </thead>
             <tbody>
               <tr>
-                <td class="table-active">会社名・団体名</td>
+                <td class="table-active">サービス名称</td>
                 <td colspan="3">
                   <p class="company">
                     {{ReservationHelper::getAgentCompany($pre_reservation->agent_id)}}

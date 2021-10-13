@@ -77,7 +77,7 @@
           <tbody class="agent_info">
             <tr>
               <th class="table-active" width="25%">
-                <label for="company">会社名・団体名</label>
+                <label for="company">サービス名称</label>
               </th>
               <td>
                 {{ReservationHelper::getAgentCompany($multiple->pre_reservations()->first()->agent_id)}}
