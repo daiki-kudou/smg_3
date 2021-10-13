@@ -97,17 +97,17 @@
         <tr>
           <td class="table-active" scope="row"><label for="email">担当者メールアドレス</label></td>
           <td>
-            {{ReservationHelper::getPersonEmail($multiple->pre_reservations->first()->user_id)}}
+            {{($multiple->pre_reservations->first()->user->email)}}
           </td>
           <td class="table-active" scope="row"><label for="mobile">携帯番号</label></td>
           <td>
-            {{ReservationHelper::getPersonMobile($multiple->pre_reservations->first()->user_id)}}
+            {{($multiple->pre_reservations->first()->user->mobile)}}
           </td>
         </tr>
         <tr>
           <td class="table-active" scope="row"><label for="tel">固定電話</label></td>
           <td>
-            {{ReservationHelper::getPersonTel($multiple->pre_reservations->first()->user_id)}}
+            {{($multiple->pre_reservations->first()->user->tel)}}
           </td>
           <td class="table-active" scope="row"><label for="">割引条件</label></td>
           <td>

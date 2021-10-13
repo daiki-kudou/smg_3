@@ -134,7 +134,6 @@
 
     <!-- 検索　終わり------------------------------------------------ -->
     <div class="section-wrap">
-
       <ul class="d-flex reservation_list mb-2 justify-content-between">
         <li>
           {{-- 削除ボタン --}}
