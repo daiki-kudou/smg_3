@@ -98,15 +98,7 @@
             </td>
             <th class="search_item_name"><label for="agent">仲介会社</label></th>
             <td>
-              <select name="search_agent" id="search_agent" class="form-control">
-                <option value=""></option>
-                {{-- @foreach ($agents as $s_a)
-                <option value="{{$s_a->id}}" @if ($s_a->id==optional($data)['search_agent'])
-                  selected
-                  @endif
-                  >{{ReservationHelper::getAgentCompany($s_a->id)}}</option>
-                @endforeach --}}
-              </select>
+              {{Form::select('search_agent',$agents,optional($data)['search_agent'],['class'=>'form-control','placeholder'=>''])}}
             </td>
           </tr>
 

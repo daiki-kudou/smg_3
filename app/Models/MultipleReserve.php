@@ -857,7 +857,7 @@ class MultipleReserve extends Model implements PresentableInterface //プレゼ�
     $searchTarget = $this->MultipleSearchTarget();
 
     if (!empty($data['search_id']) && (int)$data['search_id'] > 0) {
-      $searchTarget->whereRaw('pre_reservations.id LIKE ? ',  ['%' . $data['search_id'] . '%']);
+      $searchTarget->whereRaw('multiple_reserve_id LIKE ? ',  ['%' . $data['search_id'] . '%']);
     }
 
     if (!empty($data['search_created_at'])) {
@@ -865,17 +865,6 @@ class MultipleReserve extends Model implements PresentableInterface //プレゼ�
       $targetData[0] = $targetData[0] . ' 00:00:00';
       $targetData[1] = $targetData[1] . ' 23:59:59';
       $searchTarget->whereRaw('pre_reservations.created_at between ? AND ? ',  $targetData);
-    }
-
-    if (!empty($data['search_date'])) {
-      $targetData = explode(" ~ ", $data['search_date']);
-      $targetData[0] = $targetData[0] . ' 00:00:00';
-      $targetData[1] = $targetData[1] . ' 23:59:59';
-      $searchTarget->whereRaw('pre_reservations.reserve_date between ? AND ? ',  $targetData);
-    }
-
-    if (!empty($data['search_venue']) && (int)$data['search_venue'] !== 0) {
-      $searchTarget->whereRaw('venues.id = ? ',  [(int)$data['search_venue']]);
     }
 
     if (!empty($data['search_company'])) {
