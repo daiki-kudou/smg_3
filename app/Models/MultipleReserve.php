@@ -897,4 +897,14 @@ class MultipleReserve extends Model implements PresentableInterface //プレゼ�
 
     return $searchTarget;
   }
+
+  protected static function boot()
+  {
+    parent::boot();
+    static::deleting(function ($model) {
+      foreach ($model->pre_reservations()->get() as $child) {
+        $child->delete();
+      }
+    });
+  }
 }

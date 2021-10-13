@@ -550,6 +550,9 @@ class PreReservation extends Model
       foreach ($model->unknown_user()->get() as $child2) {
         $child2->delete();
       }
+      foreach ($model->pre_enduser()->get() as $child3) {
+        $child3->delete();
+      }
     });
   }
 
