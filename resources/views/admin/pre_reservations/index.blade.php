@@ -147,7 +147,7 @@
         {{-- 削除ボタン --}}
         {{Form::open(['url' => 'admin/pre_reservations/destroy', 'method' => 'POST', 'id'=>''])}}
         @csrf
-        {{Form::text('delete_target','')}}
+        {{Form::hidden('delete_target','')}}
         {{ Form::submit('削除', ['class' => 'btn more_btn4','id'=>'confirm_destroy']) }}
         <span class="d-block">※メールアドレスが正しくないと削除されません。</span>
         {{ Form::close() }}
@@ -283,11 +283,10 @@
     var pre_reservations = $('#parent_pre_reservations_table').data('prereservations');
       $.extend( $.fn.dataTable.defaults, {
       // 日本語化
-      language: {
-      url: "http://cdn.datatables.net/plug-ins/9dcbecd42ad/i18n/Japanese.json"
-      }
-      });
-      
+        language: {
+        url: "https://cdn.datatables.net/plug-ins/9dcbecd42ad/i18n/Japanese.json"
+        }
+        });
       $("#pre_reservation_sort").DataTable({
       // data オプションでデータを定義する
       data: pre_reservations,
