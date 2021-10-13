@@ -120,7 +120,7 @@
         </tr>
       </tbody>
     </table>
-    <p class="text-left">
+    <p class="text-right">
       ※フリーワード検索は本画面表記の項目のみ対象となります<br>
       ※担当者氏名の検索時は、フルネーム時はスペース禁止
     </p>
