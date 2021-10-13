@@ -131,14 +131,14 @@ $(function () {
           minlength: "※最低桁数は10です",
         },
         enduser_tel: {
-          number: "※半角数字を入力してください",
+          number: "※半角数字、ハイフンなしで入力して下さい",
           minlength: "※最低桁数は10です",
         },
         enduser_mail: {
           email: "※メールアドレスの形式で入力してください",
         },
         enduser_mobile: {
-          number: "※半角数字を入力してください",
+          number: "※半角数字、ハイフンなしで入力して下さい",
           minlength: "※11桁で入力してください",
           maxlength: "※11桁で入力してください"
         },

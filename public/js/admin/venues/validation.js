@@ -153,7 +153,7 @@ $(function () {
         maxlength: "※7桁で入力してください",
         number: "※半角数字で入力してください",
       },
-      person_tel: { number: "※半角英数字で入力してください" },
+      person_tel: { number: "※半角数字、ハイフンなしで入力して下さい" },
       eat_in_flag: { required: "※必須項目です" },
       layout_prepare: {
         required: "レイアウト変更が【可】の場合、必須項目です",
