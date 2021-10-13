@@ -68,22 +68,22 @@
         <thead>
           <tr class="calender-head">
             <td class="field-title">会議室</td>
-            <td colspan="2">08:00</td>
-            <td colspan="2">09:00</td>
-            <td colspan="2">10:00</td>
-            <td colspan="2">11:00</td>
-            <td colspan="2">12:00</td>
-            <td colspan="2">13:00</td>
-            <td colspan="2">14:00</td>
-            <td colspan="2">15:00</td>
-            <td colspan="2">16:00</td>
-            <td colspan="2">17:00</td>
-            <td colspan="2">18:00</td>
-            <td colspan="2">19:00</td>
-            <td colspan="2">20:00</td>
-            <td colspan="2">21:00</td>
-            <td colspan="2">22:00</td>
-            <td colspan="2">23:00</td>
+            <td colspan="2"><span class="time">08:00</span></td>
+            <td colspan="2"><span class="time">09:00</span></td>
+            <td colspan="2"><span class="time">10:00</span></td>
+            <td colspan="2"><span class="time">11:00</span></td>
+            <td colspan="2"><span class="time">12:00</span></td>
+            <td colspan="2"><span class="time">13:00</span></td>
+            <td colspan="2"><span class="time">14:00</span></td>
+            <td colspan="2"><span class="time">15:00</span></td>
+            <td colspan="2"><span class="time">16:00</span></td>
+            <td colspan="2"><span class="time">17:00</span></td>
+            <td colspan="2"><span class="time">18:00</span></td>
+            <td colspan="2"><span class="time">19:00</span></td>
+            <td colspan="2"><span class="time">20:00</span></td>
+            <td colspan="2"><span class="time">21:00</span></td>
+            <td colspan="2"><span class="time">22:00</span></td>
+            <td colspan="2"><span class="time">23:00</span></td>
           </tr>
         </thead>
         <tbody>
