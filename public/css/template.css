@@ -1260,10 +1260,19 @@ h3 {
 }
 
 .calender-head td {
-    text-align: center;
+    /* text-align: center; */
+    text-align: left;
     font-size: 0.9rem;
     padding: 0.8em 0.3em;
     /* border-right: 2px solid #c5c5c5; */
+    position: relative;
+}
+
+.calender-head td .time-item {
+    position: absolute;
+    left: -16px;
+    top: 11px;
+
 }
 
 .calender-head .field-title {

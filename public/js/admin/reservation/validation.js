@@ -124,7 +124,7 @@ $(function () {
         in_charge: { required: "※必須項目です" },
         tel: {
           required: "※必須項目です",
-          number: "※半角数字を入力してください",
+          number: "※半角数字、ハイフンなしで入力して下さい",
           maxlength: "※11桁で入力してください",
           minlength: "※11桁で入力してください",
         },

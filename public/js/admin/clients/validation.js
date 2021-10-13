@@ -166,17 +166,17 @@ $(function () {
         },
         mobile: {
           required: "※必須項目です",
-          number: "※半角数字で入力してください",
+          number: "※半角数字、ハイフンなしで入力して下さい",
           minlength: "※10桁以上で入力してください",
           require_from_group: "携帯番号、電話番号のどちらか一方は必須です",
         },
         tel: {
-          number: "※半角数字で入力してください",
+          number: "※半角数字、ハイフンなしで入力して下さい",
           minlength: "※10桁以上で入力してください",
           require_from_group: "携帯番号、電話番号のどちらか一方は必須です",
         },
         fax: {
-          number: "※半角数字で入力してください",
+          number: "※半角数字、ハイフンなしで入力して下さい",
           minlength: "※10桁以上で入力してください",
         },
         email: {

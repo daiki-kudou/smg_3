@@ -78,51 +78,51 @@ $(function () {
 });
 
 //検索
-$(function () {
-  var target = ["#preserve_search", "#multiples_search"
-    , "#clients_search", "#reserve_search"];
-  $.each(target, function (index, value) {
-    $(value).validate({
-      rules: {
-        multiple_id: { number: true },
-        search_id: { number: true },
-        search_mobile: { number: true },
-        search_tel: { number: true },
-        search_email: { sign: true },
-        id: { number: true },
-        mobile: { number: true },
-        tel: { number: true },
-      },
-      messages: {
-        multiple_id: { number: "※半角数字を入力してください" },
-        search_id: { number: "※半角数字を入力してください" },
-        search_mobile: { number: "※半角数字を入力してください" },
-        search_tel: { number: "※半角数字を入力してください" },
-        search_email: { sign: "※半角英数字を入力してください" },
-        id: { number: "※半角数字を入力してください" },
-        mobile: { number: "※半角数字を入力してください" },
-        tel: { number: "※半角数字を入力してください" },
-      },
-      errorPlacement: function (error, element) {
-        var name = element.attr("name");
-        if (element.attr("name") === "category[]") {
-          error.appendTo($(".is-error-category"));
-        } else if (element.attr("name") === name) {
-          error.appendTo($(".is-error-" + name));
-        }
-      },
-      errorElement: "span",
-      errorClass: "is-error",
-      //送信前にLoadingを表示
-      submitHandler: function (form) {
-        $(".approval").addClass("hide");
-        $(".loading").removeClass("hide");
-        form.submit();
-      },
-    });
-    $("input").on("blur", function () {
-      $(this).valid();
-    });
-  });
-});
+// $(function () {
+//   var target = ["#preserve_search", "#multiples_search"
+//     , "#clients_search", "#reserve_search"];
+//   $.each(target, function (index, value) {
+//     $(value).validate({
+//       rules: {
+//         multiple_id: { number: true },
+//         search_id: { number: true },
+//         search_mobile: { number: true },
+//         search_tel: { number: true },
+//         search_email: { sign: true },
+//         id: { number: true },
+//         mobile: { number: true },
+//         tel: { number: true },
+//       },
+//       messages: {
+//         multiple_id: { number: "※半角数字を入力してください" },
+//         search_id: { number: "※半角数字を入力してください" },
+//         search_mobile: { number: "※半角数字を入力してください" },
+//         search_tel: { number: "※半角数字を入力してください" },
+//         search_email: { sign: "※半角英数字を入力してください" },
+//         id: { number: "※半角数字を入力してください" },
+//         mobile: { number: "※半角数字を入力してください" },
+//         tel: { number: "※半角数字を入力してください" },
+//       },
+//       errorPlacement: function (error, element) {
+//         var name = element.attr("name");
+//         if (element.attr("name") === "category[]") {
+//           error.appendTo($(".is-error-category"));
+//         } else if (element.attr("name") === name) {
+//           error.appendTo($(".is-error-" + name));
+//         }
+//       },
+//       errorElement: "span",
+//       errorClass: "is-error",
+//       //送信前にLoadingを表示
+//       submitHandler: function (form) {
+//         $(".approval").addClass("hide");
+//         $(".loading").removeClass("hide");
+//         form.submit();
+//       },
+//     });
+//     $("input").on("blur", function () {
+//       $(this).valid();
+//     });
+//   });
+// });
 

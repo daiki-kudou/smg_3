@@ -109,11 +109,11 @@ $(function () {
         },
         person_tel: {
           minlength: "最低桁数は10です",
-          number: "半角英数字で入力してください",
+          number: "※半角数字、ハイフンなしで入力して下さい",
         },
         fax: {
           minlength: "最低桁数は10です",
-          number: "半角英数字で入力してください",
+          number: "※半角数字、ハイフンなしで入力して下さい",
         },
         email: { email: "※Emailの形式で入力してください" },
         site_url: {
@@ -140,7 +140,7 @@ $(function () {
         lastname_kana: { katakana: "※全角カタカナで入力してください" },
         person_mobile: {
           minlength: "最低桁数は10です",
-          number: "半角英数字で入力してください",
+          number: "※半角数字、ハイフンなしで入力して下さい",
         },
       },
       errorPlacement: function (error, element) {
