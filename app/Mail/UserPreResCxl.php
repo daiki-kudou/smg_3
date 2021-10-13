@@ -16,10 +16,11 @@ class UserPreResCxl extends Mailable
    *
    * @return void
    */
-  public function __construct($pre_reservation, $user)
+  public function __construct($user, $reservation, $venue)
   {
-    $this->pre_reservation = $pre_reservation;
     $this->user = $user;
+    $this->reservation = $reservation;
+    $this->venue = $venue;
   }
 
   /**
@@ -32,8 +33,9 @@ class UserPreResCxl extends Mailable
     return $this->view('maileclipse::templates.userPreResCxl')
       ->subject('SMGアクセア貸し会議室 仮押さえ キャンセル')
       ->with([
-        'pre_reservation' => $this->pre_reservation,
         'user' => $this->user,
+        'reservation' => $this->reservation,
+        'venue' => $this->venue,
       ]);
   }
 }

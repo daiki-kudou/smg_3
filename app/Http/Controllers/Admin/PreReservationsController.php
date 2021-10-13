@@ -626,8 +626,42 @@ class PreReservationsController extends Controller
   public function destroy(Request $request)
   {
     $data = $request->all();
-    if (!empty($data['delete_target']) && $data['delete_target'] !== "[]") {
-      # code...
+    if (!empty($data['delete_target']) && $data['delete_target'] !== "[]") { //空配列は弾く
+      $delete_target_array = json_decode($data['delete_target']); //配列
+      DB::beginTransaction();
+      try {
+        foreach ($delete_target_array as $value) {
+          $preReservation = PreReservation::with(['user', 'venue'])->find($value);
+          if (is_null($preReservation)) { //削除対象がなければ
+            throw new \Exception("ID" . $value . "は存在しません");
+          }
+          if (($preReservation->user_id > 0)) {
+            if (!filter_var($preReservation->user->email, FILTER_VALIDATE_EMAIL)) { //対象がメールアドレスでなければ
+              throw new \Exception("ID" . $value . "のメールアドレス" . $preReservation->user->email . "は正しくありません");
+            }
+          }
+        }
+        // 上のforeachでメールアドレスチェックをし、全て通ったら再度foreachでメール送信処理
+        foreach ($delete_target_array as $v) {
+          $preReservation = PreReservation::with(['user', 'venue'])->find($v);
+          if ($preReservation->user_id > 0) {
+            $user = $preReservation->user;
+            $venue = $preReservation->venue;
+            $SendSMGEmail = new SendSMGEmail($user, "test", $preReservation->venue);
+            $SendSMGEmail->send("管理者が仮抑え一覧よりチェックボックスを選択し削除");
+          }
+        }
+        // 上のメール送信も問題なければ削除
+        foreach ($delete_target_array as $v) {
+          $preReservation = PreReservation::with(['user', 'venue'])->find($v);
+          $preReservation->delete();
+        }
+        DB::commit();
+      } catch (\Exception $e) {
+        DB::rollback();
+        return back()->withInput()->withErrors($e->getMessage());
+      }
+      return redirect()->route('admin.pre_reservations.index')->with('flash_message', '削除したよ');
     } else {
       return redirect()->route('admin.pre_reservations.index')->with('flash_message_error', '仮押えが選択されていません');
     }

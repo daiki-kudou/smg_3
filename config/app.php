@@ -132,7 +132,7 @@ return [
     */
 
   // 'admin_email' => env('ADMIN_EMAIL', 'error'),
-  'admin_email' => 'kudou@web-trickster.com,daikikudoh313@gmail.com',
+  'admin_email' => ['kudou@web-trickster.com', 'daikikudoh313@gmail.com'],
 
 
 

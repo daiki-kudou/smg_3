@@ -14,6 +14,7 @@ use App\Jobs\Reservation\MailForUserCxlAfterDblCheck;
 use App\Jobs\Reservation\MailForCxlAfterUserCheck;
 use App\Jobs\Reservation\MailForUserAfterCheckCxlPaid;
 use App\Jobs\Reservation\MailForConfirmReservation;
+use App\Jobs\Reservation\MailForDeletePreReservation;
 
 
 class SendSMGEmail
@@ -77,6 +78,10 @@ class SendSMGEmail
 
       case "キャンセル料入金確認完了":
         MailForUserAfterCheckCxlPaid::dispatch($this->user, $this->reservation, $this->venue);
+        break;
+
+      case "管理者が仮抑え一覧よりチェックボックスを選択し削除":
+        MailForDeletePreReservation::dispatch($this->user, $this->reservation, $this->venue);
         break;
 
       default:

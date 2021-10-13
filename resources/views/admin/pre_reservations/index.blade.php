@@ -49,6 +49,8 @@
       <hr>
     </div>
 
+    @include('layouts.admin.errors')
+
     <!-- 検索--------------------------------------- -->
     {{Form::open(['url' => 'admin/pre_reservations', 'method' => 'GET', 'id'=>'preserve_search'])}}
     @csrf
