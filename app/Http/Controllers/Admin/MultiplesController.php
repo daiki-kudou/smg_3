@@ -201,8 +201,6 @@ class MultiplesController extends Controller
 
   public function agent_calculate(PostRequest $request, $multiple_id, $venue_id)
   {
-
-
     $multiple = MultipleReserve::find($multiple_id);
     $agent = Agent::find($request->agent_id);
     $result = $agent->agentPriceCalculate($request->cp_master_end_user_charge);
@@ -318,13 +316,13 @@ class MultiplesController extends Controller
 
   public function agent_show($multiple_id)
   {
-    $multiple = MultipleReserve::with('pre_reservations.pre_bill')->find($multiple_id);
-    $venues = $multiple->pre_reservations->unique('venue_id');
-    $venue_count = $venues->count('venue_id');
-    $_venues = Venue::orderBy("id", "desc")->get();
+    $multiple = MultipleReserve::with(['pre_reservations.pre_bill', 'pre_reservations.venue'])->find($multiple_id);
+    // $venues = $multiple->pre_reservations->unique('venue_id');
+    // $venue_count = $venues->count('venue_id');
+    // $_venues = Venue::orderBy("id", "desc")->get();
     $checkEachBills = $multiple->checkEachBills();
 
-    return view('admin.multiples.agent_show', compact('multiple', 'venues', 'venue_count', '_venues', 'checkEachBills'));
+    return view('admin.multiples.agent_show', compact('multiple', 'checkEachBills'));
   }
 
   public function agentMoveToReservation(Request $request)

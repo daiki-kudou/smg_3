@@ -231,36 +231,52 @@ class ReservationHelper
 
   public static function getAgentCompany($agent_id)
   {
-    if (!empty($agent_id)) {
+    if ((int)$agent_id === 0 || empty($agent_id)) {
+      return NULL;
+    } else {
       $agent = Agent::find($agent_id);
       return $agent->name;
-    } else {
-      return NULL;
     }
   }
 
   public static function getAgentCompanyName($agent_id)
   {
-    $agent = Agent::find($agent_id);
-    return $agent->company;
+    if ((int)$agent_id === 0 || empty($agent_id)) {
+      return NULL;
+    } else {
+      $agent = Agent::find($agent_id);
+      return $agent->company;
+    }
   }
 
   public static function getAgentEmail($agent_id)
   {
-    $agent = Agent::find($agent_id);
-    return $agent->email;
+    if ((int)$agent_id === 0 || empty($agent_id)) {
+      return NULL;
+    } else {
+      $agent = Agent::find($agent_id);
+      return $agent->email;
+    }
   }
 
   public static function getAgentTel($agent_id)
   {
-    $agent = Agent::find($agent_id);
-    return $agent->person_tel;
+    if ((int)$agent_id === 0 || empty($agent_id)) {
+      return NULL;
+    } else {
+      $agent = Agent::find($agent_id);
+      return $agent->person_tel;
+    }
   }
 
   public static function getAgentMobile($agent_id)
   {
-    $agent = Agent::find($agent_id);
-    return $agent->person_mobile;
+    if ((int)$agent_id === 0 || empty($agent_id)) {
+      return NULL;
+    } else {
+      $agent = Agent::find($agent_id);
+      return $agent->person_mobile;
+    }
   }
 
   public static function getAttr($num)

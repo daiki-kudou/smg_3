@@ -166,7 +166,7 @@
     </table>
     <hr class="my-5 border_color">
     <div class="mt-5">
-      <p class="text-right"><a href="{{url('admin/multiples/agent/'.$multiple->id."/add_venue")}}"
+      <p class="text-right"><a href="{{url('admin/multiples/agent/'.$multiple->id." /add_venue")}}"
           class="more_btn3">日程を追加する</a></p>
       <p class="mb-2">詳細を入力する場合は、会場ごとに編集をしてください。</p>
     </div>
@@ -183,13 +183,63 @@
         </tr>
       </thead>
       <tbody>
+        <tr>
+          <td>{{$multiple->id}}</td>
+          <td>{{$multiple->created_at}}</td>
+          <td class="p-0">
+            <ul class="multi-column__list">
+              @foreach (array_unique($multiple->pre_reservations->pluck('venue_id')->toArray()) as $venue_id)
+              <li>
+                <div class="multi-column__item"><span
+                    class="payment-status">{{ReservationHelper::getVenue($venue_id)}}</span></div>
+              </li>
+              @endforeach
+            </ul>
+          </td>
+          <td>
+            {{$multiple->pre_reservations->count()}}
+          </td>
+          <td class="p-0">
+            <ul class="multi-column__list">
+              @foreach (array_unique($multiple->pre_reservations->pluck('venue_id')->toArray()) as $venue_id)
+              <li>
+                <div class="multi-column__item">
+                  <span class="payment-status">
+                    {{$multiple->pre_reservations->where('venue_id',$venue_id)->count()}}
+                  </span>
+                </div>
+              </li>
+              @endforeach
+            </ul>
+          </td>
+          <td class="p-0">
+            <ul class="multi-column__list">
+              @foreach (array_unique($multiple->pre_reservations->pluck('venue_id')->toArray()) as $venue_id)
+              <li>
+                <div class="multi-column__item">
+                  <span class="payment-status">
+                    <a href="{{url("/admin/multiples/agent/".$multiple->id."/edit/".$venue_id)}}" class="more_btn
+                      btn">編集</a>
+                  </span>
+                </div>
+              </li>
+              @endforeach
+            </ul>
+          </td>
+        </tr>
+      </tbody>
+      {{-- <tbody>
         @for ($i = 0; $i < $venue_count; $i++) @if ($i==0) <tr>
-          <td rowspan="{{$venue_count}}">{{$multiple->id}}</td> {{--一括ID--}}
-          <td rowspan="{{$venue_count}}">{{ReservationHelper::formatDate($multiple->created_at)}}</td>{{--作成日--}}
-          <td>{{ReservationHelper::getVenue($venues[$i]->venue_id)}}</td>{{--利用会場--}}
+          <td rowspan="{{$venue_count}}">{{$multiple->id}}</td>
+          <!--一括ID-->
+          <td rowspan="{{$venue_count}}">{{ReservationHelper::formatDate($multiple->created_at)}}</td>
+          <!--作成日-->
+          <td>{{ReservationHelper::getVenue($venues[$i]->venue_id)}}</td>
+          <!--利用会場-->
           <td class="text-center" rowspan="{{$venue_count}}">
             {{$multiple->pre_reservations->count()}}
-          </td>{{--総件数--}}
+          </td>
+          <!--総件数-->
           <td class="text-center">
             {{$multiple->pre_reservations->where('venue_id',$venues[$i]->venue_id)->count()}}
           </td>
@@ -211,7 +261,7 @@
           </tr>
           @endif
           @endfor
-      </tbody>
+      </tbody> --}}
     </table>
   </div>
 </section>
@@ -219,19 +269,6 @@
   <p class="text-center"><a class="more_btn_lg" href="{{url('admin/multiples')}}">一覧にもどる</a></p>
 </div>
 
-<script>
-  // $(function() {
-  //   $(".confirm_prereserve").on('click', function() {
-  //     if (!confirm('確定しますか？')) {
-  //       return false;
-  //     }
-  //   })
-  //   $("#for_destroy").on('click', function() {
-  //     if (!confirm('削除しますか？')) {
-  //       return false;
-  //     }
-  //   })
-  // })
-</script>
+
 
 @endsection
