@@ -609,7 +609,7 @@
       {{Form::open(['url' => 'admin/multiples/'.$multiple->id.'/sp_destroy/'.$venue->id, 'method' => 'post',
       'id'=>''])}}
       @csrf
-      {{ Form::text('delete_target', "") }}
+      {{ Form::hidden('delete_target', "") }}
       {{ Form::submit('削除', ['class' => 'btn more_btn4','id'=>'confirm_destroy']) }}
       {{ Form::close() }}
     </li>
