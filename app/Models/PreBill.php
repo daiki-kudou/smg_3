@@ -20,6 +20,7 @@ class PreBill extends Model
     'reservation_status',
     'approve_send_at',
     'category',
+    'end_user_charge',
   ];
 
   /*
@@ -56,6 +57,7 @@ class PreBill extends Model
       'reservation_status' => $reservation_status,
       'approve_send_at' => !empty($data['approve_send_at']) ? $data['approve_send_at'] : NULL,
       'category' => $category,
+      'end_user_charge' => $data['end_user_charge'],
     ]);
     return $result;
   }
@@ -75,6 +77,8 @@ class PreBill extends Model
         'master_total' => $request->master_total,
         'reservation_status' => 0,
         'category' => 0,
+        'end_user_charge' => $request->end_user_charge,
+
       ]);
     });
   }

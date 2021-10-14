@@ -33,7 +33,6 @@
       {{Form::hidden("destroy".$pre_reservation->id, $pre_reservation->id)}}
       {{ Form::submit('削除', ['class' => 'btn more_btn4','id'=>'confirm_destroy']) }}
       {{ Form::close() }}
-
     </div>
     <div class="col-12">
       <table class="table ttl_head mb-0">
@@ -46,13 +45,23 @@
             </td>
             <td>
               <div class="d-flex justify-content-end align-items-center">
-                {{ Form::open(['url' => 'admin/pre_reservations/switch_status',
-                'method'=>'POST','id'=>'confirm_prereserve']) }}
-                @csrf
+
                 @if ($pre_reservation->status==0)
+                @if ($pre_reservation->user_id>0)
+                {{ Form::open(['url' =>
+                'admin/pre_reservations/switch_status','method'=>'POST','id'=>'confirm_prereserve']) }}
+                @csrf
                 {{ Form::hidden('pre_reservation_id', $pre_reservation->id)}}
                 {{ Form::submit('予約の編集・承認権限を顧客に移行', ['class' => 'btn more_btn4']) }}
                 {{ Form::close() }}
+                @elseif($pre_reservation->agent_id>0)
+                {{ Form::open(['url' =>
+                'admin/pre_agent_reservations/switch_status','method'=>'POST']) }}
+                @csrf
+                {{ Form::hidden('pre_reservation_id', $pre_reservation->id)}}
+                {{ Form::submit('予約に移行する', ['class' => 'btn more_btn4']) }}
+                {{ Form::close() }}
+                @endif
                 @endif
               </div>
             </td>

@@ -197,7 +197,6 @@ class Reservation extends Model implements PresentableInterface
       'eat_in' => !empty($data['eat_in']) ? $data['eat_in'] : 0,
       'eat_in_prepare' => !empty($data['eat_in_prepare']) ? $data['eat_in_prepare'] : 0,
       'multiple_reserve_id' => !empty($data['multiple_reserve_id']) ? $data['multiple_reserve_id'] : 0,
-
     ]);
     return $result;
   }
@@ -238,7 +237,6 @@ class Reservation extends Model implements PresentableInterface
       'admin_details' => !empty($data['admin_details']) ? $data['admin_details'] : NULL,      'eat_in' => !empty($data['eat_in']) ? $data['eat_in'] : 0,
       'eat_in_prepare' => !empty($data['eat_in_prepare']) ? $data['eat_in_prepare'] :  0,
       'multiple_reserve_id' => !empty($data['multiple_reserve_id']) ? $data['multiple_reserve_id'] : 0,
-
     ]);
     return $this;
   }

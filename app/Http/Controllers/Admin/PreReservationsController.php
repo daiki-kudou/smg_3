@@ -333,11 +333,13 @@ class PreReservationsController extends Controller
     DB::beginTransaction();
     try {
       $result_pre_reservation = $pre_reservation->PreReservationStore($data);
+      $data['end_user_charge'] = 0; //顧客はエンドユーザーへの請求がないため0で固定
       $result_pre_bill = $pre_bill->PreBillStore($result_pre_reservation->id, $data);
       $result_breakdowns = $pre_breakdown->PreBreakdownStore($result_pre_bill->id, $data);
       DB::commit();
     } catch (\Exception $e) {
       DB::rollback();
+      // dd($e);
       return back()->withInput()->withErrors($e->getMessage());
     }
     $request->session()->regenerate();
@@ -472,6 +474,7 @@ class PreReservationsController extends Controller
         'reservation_status' => 0, //デフォで1、仮押えのデフォは0
         'category' => 1, //デフォで１。　新規以外だと　2:その他有料備品　3:レイアウト　4:その他
         'admin_judge' => 1, //管理者作成なら1 ユーザー作成なら2
+        'end_user_charge' => 0, //ユーザーからは0で固定
       ]);
       function toBreakDowns($num, $sub, $target, $type)
       {

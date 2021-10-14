@@ -274,13 +274,18 @@ Route::namespace('Admin')->prefix('admin')->name('admin.')->group(function () {
     //***仮抑え */
     //********************** */
     // 仮押え（削除は別で作成予定）
-    Route::resource('pre_reservations', 'PreReservationsController')->except(['destroy']);
+    Route::get('pre_reservations', 'PreReservationsController@index')->name('pre_reservations.index');
+    Route::get('pre_reservations/create', 'PreReservationsController@create')->name('pre_reservations.create');
+    Route::post('pre_reservations', 'PreReservationsController@store')->name('pre_reservations.store');
+    Route::PUT('pre_reservations/{pre_reservations}', 'PreReservationsController@update')->name('pre_reservations.update');
+    Route::get('pre_reservations/{pre_reservations}/edit', 'PreReservationsController@edit')->name('pre_reservations.edit');
+
     // 仮押え ajax 顧客情報取得
     Route::post('pre_reservations/getuser', 'PreReservationsController@getuser');
     // 仮押え　新規登録　確認
-    Route::post('pre_reservations/check', 'PreReservationsController@check')->name('pre_reservations.check');
+    Route::get('pre_reservations/check', 'PreReservationsController@check')->name('pre_reservations.check');
     // 仮押え　新規登録　計算
-    Route::post('pre_reservations/calculate', 'PreReservationsController@calculate')->name('pre_reservations.calculate');
+    Route::get('pre_reservations/calculate', 'PreReservationsController@calculate')->name('pre_reservations.calculate');
     // 仮押え　新規登録　再計算
     Route::post('pre_reservations/{pre_reservation}/re_calculate', 'PreReservationsController@re_calculate')->name('pre_reservations.re_calculate');
     // 仮押え　再計算後、中身が変更する場合の保存
@@ -293,6 +298,10 @@ Route::namespace('Admin')->prefix('admin')->name('admin.')->group(function () {
     Route::post('pre_reservations/reject_same_time', 'PreReservationsController@rejectSameTime')->name('pre_reservations.rejectSameTime');
     // 仮押え編集時にユーザー変更
     Route::post('pre_reservations/get_user', 'PreReservationsController@get_user');
+
+    Route::get('pre_reservations/{pre_reservations}', 'PreReservationsController@show')->name('pre_reservations.show');
+
+
     // 一括仮押え index
     Route::get('multiples', 'MultiplesController@index')->name('multiples.index');
     // 一括仮押え show
@@ -361,6 +370,10 @@ Route::namespace('Admin')->prefix('admin')->name('admin.')->group(function () {
     Route::post('pre_agent_reservations/{pre_reservation}/edit_calculate', 'PreAgentReservationsController@edit_calculate');
 
     Route::put('pre_agent_reservations/{pre_reservation}/update', 'PreAgentReservationsController@update');
+
+    // 仲介会社の仮抑えを予約へ移行
+    Route::post('pre_agent_reservations/switch_status', 'PreAgentReservationsController@switch_status');
+
 
     Route::get('cxl/multi_create', 'CxlController@multiCreate')->name('cxl.multi_create');
     Route::get('cxl/multi_calc', 'CxlController@multiCalc')->name('cxl.multi_calc');

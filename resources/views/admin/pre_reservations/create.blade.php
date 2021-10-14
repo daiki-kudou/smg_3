@@ -35,7 +35,7 @@
   </div>
 
 
-  {{Form::open(['url' => 'admin/pre_reservations/check', 'method' => 'POST', 'id'=>'pre_reservationCreateForm'])}}
+  {{Form::open(['url' => 'admin/pre_reservations/check', 'method' => 'get', 'id'=>'pre_reservationCreateForm'])}}
   @csrf
 
   <div class="date_selector pt-4">
@@ -201,7 +201,8 @@
           </td>
           <td class="table-active">携帯番号</td>
           <td>
-            {{ Form::text('unknown_user_mobile', '',['class'=>'form-control', 'placeholder' => '半角数字、ハイフンなしで入力してください'] ) }}
+            {{ Form::text('unknown_user_mobile', '',['class'=>'form-control', 'placeholder' => '半角数字、ハイフンなしで入力してください'] )
+            }}
             <p class="is-error-unknown_user_mobile" style="color: red"></p>
           </td>
         </tr>
