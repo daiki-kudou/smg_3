@@ -61,7 +61,8 @@
           <th class="align-middle">顧客情報</th>
           <td colspan="3">
             <div class="d-flex align-items-center">
-              <p class="w-25">顧客ID：{{ReservationHelper::fixId($PreReservation->user_id)}}</p>
+              <p class="w-25">顧客ID：<span
+                  class="selected_user_id">{{ReservationHelper::fixId($PreReservation->user_id)}}</span></p>
               <select name="user_id" id="user_id">
                 @foreach ($users as $user)
                 <option value="{{$user->id}}" @if ($PreReservation->user_id==$user->id)
@@ -1144,11 +1145,6 @@
     $(document).on("change", "#user_id", function() {
       var user_id = Number($('#user_id').val());
       if (user_id == 999) {
-        // $('input[name=unknown_user_company]').prop('readonly', false);
-        // $('input[name=unknown_user_name]').prop('readonly', false);
-        // $('input[name=unknown_user_email]').prop('readonly', false);
-        // $('input[name=unknown_user_mobile]').prop('readonly', false);
-        // $('input[name=unknown_user_tel]').prop('readonly', false);
         $('.company').text('');
         $('.person').text('');
         $('.email').text('');
@@ -1156,16 +1152,6 @@
         $('.tel').text('');
       } else {
         ajaxGetuser(user_id);
-        // $('input[name=unknown_user_company]').prop('readonly', true);
-        // $('input[name=unknown_user_name]').prop('readonly', true);
-        // $('input[name=unknown_user_email]').prop('readonly', true);
-        // $('input[name=unknown_user_mobile]').prop('readonly', true);
-        // $('input[name=unknown_user_tel]').prop('readonly', true);
-        // $('input[name=unknown_user_company]').val("");
-        // $('input[name=unknown_user_name]').val("");
-        // $('input[name=unknown_user_email]').val("");
-        // $('input[name=unknown_user_mobile]').val("");
-        // $('input[name=unknown_user_tel]').val("");
       }
     });
 
@@ -1195,6 +1181,7 @@
           $(".condition").text($user[7]);
           $(".attention").text($user[8]);
           $('input[name="user_id"]').val($user[6]);
+          $('.selected_user_id').text("").text(( '000000' + $user[6] ).slice( -6 ));
         })
         .fail(function($user) {
           $('#fullOverlay').css('display', 'none');
