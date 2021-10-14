@@ -44,7 +44,8 @@
             <tr>
               <td class="table-active w-25"><label for="smg_url" class="">会場SMG URL</label></td>
               <td>
-                {{ Form::text('smg_url', old('smg_url'), ['class' => 'form-control', 'placeholder'=>"https://osaka-conference.com/rental/t6-maronie/hall/"]) }}
+                {{ Form::text('smg_url', old('smg_url'), ['class' => 'form-control',
+                'placeholder'=>"https://osaka-conference.com/rental/t6-maronie/hall/"]) }}
                 <p class="is-error-smg_url" style="color: red"></p>
               </td>
             </tr>
@@ -84,7 +85,8 @@
             <tr>
               <td class="table-active"><label for="name_area" class="form_required">エリア名</label></td>
               <td>
-                {{ Form::text('name_area', old('name_area'), ['class' => 'form-control','required', 'placeholder'=>'四ツ橋']) }}
+                {{ Form::text('name_area', old('name_area'), ['class' => 'form-control','required',
+                'placeholder'=>'四ツ橋']) }}
                 <p class="is-error-name_area" style="color: red"></p>
               </td>
             </tr>
@@ -105,7 +107,8 @@
             <tr>
               <td class="table-active"><label for="size1" class="form_required">会場広さ（坪）</label></td>
               <td>
-                {{ Form::text('size1', old('size1'), ['placeholder' => '半角英数字で入力してください','class' => 'form-control input_number_only']) }}
+                {{ Form::text('size1', old('size1'), ['placeholder' => '半角英数字で入力してください','class' => 'form-control
+                input_number_only']) }}
                 <p class="is-error-size1" style="color: red"></p>
               </td>
             </tr>
@@ -119,7 +122,8 @@
             <tr>
               <td class="table-active"><label for="capacity" class="form_required">収容人数</label></td>
               <td>
-                {{ Form::textarea('capacity', old('capacity'), ['placeholder' => '','class' => 'form-control','rows'=>"2"]) }}
+                {{ Form::textarea('capacity', old('capacity'), ['placeholder' => '','class' =>
+                'form-control','rows'=>"2"]) }}
                 <p class="is-error-capacity" style="color: red"></p>
               </td>
             </tr>
@@ -127,20 +131,21 @@
               <td class="table-active"><label for="post_code" class="form_required">郵便番号</label><br>※コピー＆ペースト不可</td>
               <td>
                 {{ Form::text('post_code', old('post_code'), [
-                  'class' => 'form-control',
-                  'onKeyUp'=>"AjaxZip3.zip2addr(this,'','address1','address2');",
-                  'autocomplete'=>'off',
-                  'placeholder' => '半角英数字で入力してください',
-                  'onpaste'=>"return false",
-                  'oncontextmenu'=>"return false" 
-                  ]) }}
+                'class' => 'form-control',
+                'onKeyUp'=>"AjaxZip3.zip2addr(this,'','address1','address2');",
+                'autocomplete'=>'off',
+                'placeholder' => '半角英数字で入力してください',
+                'onpaste'=>"return false",
+                'oncontextmenu'=>"return false"
+                ]) }}
                 <p class="is-error-post_code" style="color: red"></p>
               </td>
             </tr>
             <tr>
               <td class="table-active"><label for="address1" class="form_required">住所（都道府県）</label></td>
               <td>
-                {{ Form::text('address1', old('address1'), ['placeholder' => '大阪府','class' => 'form-control search_address2']) }}
+                {{ Form::text('address1', old('address1'), ['placeholder' => '大阪府','class' => 'form-control
+                search_address2']) }}
 
                 <p class="is-error-address1" style="color: red"></p>
               </td>
@@ -148,28 +153,32 @@
             <tr>
               <td class="table-active"><label for="address2" class="form_required">住所（市町村番地）</label></td>
               <td>
-                {{ Form::text('address2', old('address2'), ['placeholder' => '大阪市北堀江1-23-1','class' => 'form-control search_address3']) }}
+                {{ Form::text('address2', old('address2'), ['placeholder' => '大阪市北堀江1-23-1','class' => 'form-control
+                search_address3']) }}
                 <p class="is-error-address2" style="color: red"></p>
               </td>
             </tr>
             <tr>
               <td class="table-active"><label for="address3" class="form_required">住所（建物名）</label></td>
               <td>
-                {{ Form::text('address3', old('address3'), ['placeholder' => '四ツ橋サンワールドビル','class' => 'form-control']) }}
+                {{ Form::text('address3', old('address3'), ['placeholder' => '四ツ橋サンワールドビル','class' => 'form-control'])
+                }}
                 <p class="is-error-address3" style="color: red"></p>
               </td>
             </tr>
             <tr>
               <td class="table-active"><label for="entrance_open_time">正面入口の開閉時間</label></td>
               <td>
-                {{ Form::textarea('entrance_open_time', old('entrance_open_time'), ['class' => 'form-control','rows'=>"2"]) }}
+                {{ Form::textarea('entrance_open_time', old('entrance_open_time'), ['class' =>
+                'form-control','rows'=>"2"]) }}
                 <p class="is-error-backyard_open_time" style="color: red"></p>
               </td>
             </tr>
             <tr>
               <td class="table-active"><label for="backyard_open_time">通用口の開閉時間</label></td>
               <td>
-                {{ Form::textarea('backyard_open_time', old('backyard_open_time'), ['class' => 'form-control','rows'=>"2"]) }}
+                {{ Form::textarea('backyard_open_time', old('backyard_open_time'), ['class' =>
+                'form-control','rows'=>"2"]) }}
                 <p class="is-error-entrance_open_time" style="color: red"></p>
               </td>
             </tr>
@@ -198,7 +207,8 @@
             <tr>
               <td class="table-active"><label for="luggage_flag" class="form_required">荷物預り</label></td>
               <td>
-                {{Form::select('luggage_flag', ['可', '不可'],"",['placeholder' => '選択してください','class'=>'custom-select mr-sm-2'])}}
+                {{Form::select('luggage_flag', ['可', '不可'],"",['placeholder' => '選択してください','class'=>'custom-select
+                mr-sm-2'])}}
                 <p class="is-error-luggage_flag" style="color: red"></p>
               </td>
             </tr>
@@ -206,46 +216,51 @@
               <td class="table-active"><label for="luggage_post_code">送付先郵便番号</label></td>
               <td>
                 {{ Form::text('luggage_post_code', old('luggage_post_code'), [
-                  'class' => 'form-control',
-                  'onKeyUp'=>"AjaxZip3.zip2addr(this,'','luggage_address1','luggage_address2');",
-                  'autocomplete'=>'off',
-                  'placeholder' => '半角英数字で入力してください'
-                  ]) }}
+                'class' => 'form-control',
+                'onKeyUp'=>"AjaxZip3.zip2addr(this,'','luggage_address1','luggage_address2');",
+                'autocomplete'=>'off',
+                'placeholder' => '半角英数字で入力してください'
+                ]) }}
                 <p class="is-error-luggage_post_code" style="color: red"></p>
               </td>
             </tr>
             <tr>
               <td class="table-active"><label for="luggage_address1">住所（都道府県）</label></td>
               <td>
-                {{ Form::text('luggage_address1', old('luggage_address1'), ['class' => 'form-control','placeholder' => '大阪府']) }}
+                {{ Form::text('luggage_address1', old('luggage_address1'), ['class' => 'form-control','placeholder' =>
+                '大阪府']) }}
                 <p class="is-error-luggage_address2" style="color: red"></p>
               </td>
             </tr>
             <tr>
               <td class="table-active"><label for="luggage_address2">住所（市町村番地）</label></td>
               <td>
-                {{ Form::text('luggage_address2', old('luggage_address2'), ['class' => 'form-control','placeholder' => '大阪市北堀江1-23-1']) }}
+                {{ Form::text('luggage_address2', old('luggage_address2'), ['class' => 'form-control','placeholder' =>
+                '大阪市北堀江1-23-1']) }}
                 <p class="is-error-luggage_address2" style="color: red"></p>
               </td>
             </tr>
             <tr>
               <td class="table-active"><label for="luggage_address3">住所（建物名）</label></td>
               <td>
-                {{ Form::text('luggage_address3', old('luggage_address3'), ['class' => 'form-control','placeholder' => '四ツ橋サンワールドビル']) }}
+                {{ Form::text('luggage_address3', old('luggage_address3'), ['class' => 'form-control','placeholder' =>
+                '四ツ橋サンワールドビル']) }}
                 <p class="is-error-luggage_address3" style="color: red"></p>
               </td>
             </tr>
             <tr>
               <td class="table-active"><label for="luggage_name">送付先名</label></td>
               <td>
-                {{ Form::text('luggage_name', old('luggage_name'), ['class' => 'form-control','placeholder' => '入力してください']) }}
+                {{ Form::text('luggage_name', old('luggage_name'), ['class' => 'form-control','placeholder' =>
+                '入力してください']) }}
                 <p class="is-error-luggage_name" style="color: red"></p>
               </td>
             </tr>
             <tr>
               <td class="table-active"><label for="luggage_tel">電話番号</label></td>
               <td>
-                {{ Form::textarea('luggage_tel', old('luggage_tel'), ['class' => 'form-control','placeholder' => '', 'rows'=>"2"]) }}
+                {{ Form::textarea('luggage_tel', old('luggage_tel'), ['class' => 'form-control','placeholder' => '',
+                'rows'=>"2"]) }}
                 <p class="is-error-luggage_tel" style="color: red"></p>
               </td>
             </tr>
@@ -274,14 +289,16 @@
             <tr>
               <td class="table-active"><label for="">TEL</label></td>
               <td colspan="2">
-                {{ Form::text('reserver_tel', old('reserver_tel'), ['class' => 'form-control','placeholder' => '半角数字、ハイフンなしで入力してください']) }}
+                {{ Form::text('reserver_tel', old('reserver_tel'), ['class' => 'form-control','placeholder' =>
+                '半角数字、ハイフンなしで入力してください']) }}
                 <p class="is-error-reserver_tel" style="color: red"></p>
               </td>
             </tr>
             <tr>
               <td class="table-active"><label for="">FAX</label></td>
               <td colspan="2">
-                {{ Form::text('reserver_fax', old('reserver_fax'), ['class' => 'form-control','placeholder' => '半角数字、ハイフンなしで入力してください']) }}
+                {{ Form::text('reserver_fax', old('reserver_fax'), ['class' => 'form-control','placeholder' =>
+                '半角数字、ハイフンなしで入力してください']) }}
               </td>
             </tr>
             <tr>
@@ -307,7 +324,8 @@
             <tr>
               <td class="table-active"><label for="person_tel">担当者TEL</label></td>
               <td colspan="2">
-                {{ Form::text('person_tel', old('person_tel'), ['class' => 'form-control', 'placeholder' => '半角数字、ハイフンなしで入力してください']) }}
+                {{ Form::text('person_tel', old('person_tel'), ['class' => 'form-control', 'placeholder' =>
+                '半角数字、ハイフンなしで入力してください']) }}
                 <p class="is-error-person_tel" style="color: red"></p>
               </td>
             </tr>
@@ -348,14 +366,16 @@
             <tr>
               <td class="table-active"><label for="mgmt_tel">電話番号</label></td>
               <td colspan="2">
-                {{ Form::text('mgmt_tel', old('mgmt_tel'), ['class' => 'form-control', 'maxlength'=>'13', 'placeholder' => '半角数字、ハイフンなしで入力してください',]) }}
+                {{ Form::text('mgmt_tel', old('mgmt_tel'), ['class' => 'form-control', 'maxlength'=>'13', 'placeholder'
+                => '半角数字、ハイフンなしで入力してください',]) }}
                 <p class="is-error-mgmt_tel" style="color: red"></p>
               </td>
             </tr>
             <tr>
               <td class="table-active"><label for="mgmt_emer_tel">夜間緊急連絡先</label></td>
               <td colspan="2">
-                {{ Form::text('mgmt_emer_tel', old('mgmt_emer_tel'), ['class' => 'form-control', 'maxlength'=>'13','placeholder' => '半角数字、ハイフンなしで入力してください']) }}
+                {{ Form::text('mgmt_emer_tel', old('mgmt_emer_tel'), ['class' => 'form-control',
+                'maxlength'=>'13','placeholder' => '半角数字、ハイフンなしで入力してください']) }}
                 <p class="is-error-mgmt_emer_tel" style="color: red"></p>
 
               </td>
@@ -373,7 +393,8 @@
             <tr>
               <td class="table-active"><label for="mgmt_person_tel">担当者電話番号</label></td>
               <td colspan="2">
-                {{ Form::text('mgmt_person_tel', old('mgmt_person_tel'), ['class' => 'form-control','placeholder' => '半角数字、ハイフンなしで入力してください']) }}
+                {{ Form::text('mgmt_person_tel', old('mgmt_person_tel'), ['class' => 'form-control','placeholder' =>
+                '半角数字、ハイフンなしで入力してください']) }}
                 <p class="is-error-mgmt_person_tel" style="color: red"></p>
               </td>
             </tr>
@@ -393,7 +414,8 @@
             <tr>
               <td class="table-active"><label for="mgmt_sec_tel">警備会社電話番号</label></td>
               <td colspan="2">
-                {{ Form::text('mgmt_sec_tel', old('mgmt_sec_tel'), ['class' => 'form-control', 'maxlength'=>'13','placeholder' => '半角数字、ハイフンなしで入力してください']) }}
+                {{ Form::text('mgmt_sec_tel', old('mgmt_sec_tel'), ['class' => 'form-control',
+                'maxlength'=>'13','placeholder' => '半角数字、ハイフンなしで入力してください']) }}
                 <p class="is-error-mgmt_sec_tel" style="color: red"></p>
               </td>
             </tr>
@@ -421,7 +443,8 @@
             <tr>
               <td class="table-active"><label for="eat_in_flag" class="form_required">室内飲食</label></td>
               <td>
-                {{{Form::select('eat_in_flag', ['不可', '可'],"",['placeholder' => '選択してください', 'class'=>'custom-select mr-sm-2'])}}}
+                {{{Form::select('eat_in_flag', ['不可', '可'],"",['placeholder' => '選択してください', 'class'=>'custom-select
+                mr-sm-2'])}}}
                 <p class="is-error-eat_in_flag" style="color: red"></p>
               </td>
             </tr>
@@ -443,7 +466,8 @@
             <tr>
               <td class="table-active"><label for="layout" class="form_required">レイアウト変更</label></td>
               <td>
-                {{{Form::select('layout', ['不可', '可'],"",['placeholder' => '選択してください', 'class'=>'custom-select mr-sm-2','id'=>'layout'])}}}
+                {{{Form::select('layout', ['不可', '可'],"",['placeholder' => '選択してください', 'class'=>'custom-select
+                mr-sm-2','id'=>'layout'])}}}
                 <p class="is-error-layout" style="color: red"></p>
               </td>
             </tr>
